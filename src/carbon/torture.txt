@@ -12,3 +12,4 @@ CARBON-PROTOCOL show-window         AboutBoxID
 CARBON-PROTOCOL close-window        AboutBoxID
 CARBON-PROTOCOL set-port            AboutBoxID
 CARBON-PROTOCOL get-port
+CARBON-PROTOCOL get-mouse
