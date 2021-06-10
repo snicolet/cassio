@@ -4,7 +4,7 @@ Merci Stéphane, moi ça va
 Enter some text below
 type \"quit\" to exit the Carbon-GUI server
 
-CARBON-PROTOCOL blah
+CARBON-PROTOCOL init
 CARBON-PROTOCOL get-mouse
 CARBON-PROTOCOL get-port
 CARBON-PROTOCOL new-window          WindowID
@@ -20,4 +20,4 @@ CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png"
 CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png" width=100
 CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png" height=100
 CARBON-PROTOCOL image-from-pixmap   ImageID PixmaxID
-
+CARBON-PROTOCOL quit
