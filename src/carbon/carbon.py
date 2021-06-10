@@ -96,13 +96,16 @@ def server_callback(line):
 
     global line_counter
     line_counter += 1
-    message = 'GUI [{:4d}] < {}'.format(line_counter, line.strip())
-    dispatch_message(message)
-    if line == "quit":
-        print("...quitting the Carbon-GUI server, bye...")
-        return "quit"
-    else:
-        return "OK"
+
+    line = line.strip()
+
+    if line != "":
+        dispatch_message('GUI [{:4d}] < {}'.format(line_counter, line))
+        if line == "quit":
+            print("...quitting the Carbon-GUI server, bye...")
+            return "quit"
+    
+    return "OK"
 
 
 def read_input_file(name):
@@ -173,27 +176,28 @@ def dispatch_message(message):
    Interprets the message with the Carbon Gui protocol.
 
    See the torture.txt file for some examples, or run the following command:
-     python3 carbon.py -echo -file torture.txt
+     python3 carbon.py -file torture.txt -echo -colored
    """
    lines = message.splitlines()
    for line in lines:
       line = line.strip()
-      occ = line.find(PROTOCOL_PREFIX)
+      if line != "":
+         occ = line.find(PROTOCOL_PREFIX)
 
-      if occ < 0:
-         if echo or echo_input:
-            if colored:
-               print(colors.FAIL + line + colors.RESET)
-            else:
-               print(line)
+         if occ < 0:
+            if echo or echo_input:
+               if colored:
+                  print(colors.FAIL + line + colors.RESET)
+               else:
+                  print(line)
 
-      if occ >= 0:
-         lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
-         if len(lexems) > 0:
+         if occ >= 0:
+            lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
+            if len(lexems) > 0:
          
-            command = lexems[0]
-            args    = lexems[1:]
-            execute_carbon_protocol(command, args)
+               command = lexems[0]
+               args    = lexems[1:]
+               execute_carbon_protocol(command, args)
 
 
 def csv_split(s):

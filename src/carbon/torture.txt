@@ -5,11 +5,19 @@ Enter some text below
 type \"quit\" to exit the Carbon-GUI server
 
 CARBON-PROTOCOL blah
-CARBON-PROTOCOL new-window          AboutBoxID
-CARBON-PROTOCOL set-window-title    AboutBoxID "About box"
-CARBON-PROTOCOL set-window-geometry AboutBoxID 100 100 250 250
-CARBON-PROTOCOL show-window         AboutBoxID
-CARBON-PROTOCOL close-window        AboutBoxID
-CARBON-PROTOCOL set-port            AboutBoxID
-CARBON-PROTOCOL get-port
 CARBON-PROTOCOL get-mouse
+CARBON-PROTOCOL get-port
+CARBON-PROTOCOL new-window          WindowID
+CARBON-PROTOCOL set-window-title    WindowID "About box"
+CARBON-PROTOCOL set-window-geometry WindowID 100 100 250 250
+CARBON-PROTOCOL show-window         WindowID
+CARBON-PROTOCOL close-window        WindowID
+CARBON-PROTOCOL set-port            WindowID
+CARBON-PROTOCOL draw-text           "Hello world"
+CARBON-PROTOCOL draw-text-at        "Hello world" 105 15
+CARBON-PROTOCOL move-at             105 15
+CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png"
+CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png" width=100
+CARBON-PROTOCOL create-pixmap       PixmaxID "images/world.png" height=100
+CARBON-PROTOCOL image-from-pixmap   ImageID PixmaxID
+
