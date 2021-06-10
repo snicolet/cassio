@@ -10,7 +10,7 @@ The current situation is that Cassio development is dead, because:
 
 1. **Compiler**: the GNU Pascal compiler is no longer maintained since 2005
 2. **Workflow**: CodeWarrior does not run on new Macs because Apple has dropped support for PowerPC emulation (Rosetta) in MacOS X 10.7 in 2010
-3. **Execution**: Cassio itself has stopped working on newer Mac in 2020 because Apple has decided that Quickdraw/Carbon programs could no longer be run in MacOS X 10.13(?).
+3. **Execution**: Cassio itself has stopped working on newer Mac in 2020 because Apple has decided that Quickdraw/Carbon programs could no longer be run in MacOS X 10.14.
 
 What follows is a tentative plan to port Cassio to newer technologies. 
 
