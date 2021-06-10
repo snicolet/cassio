@@ -31,5 +31,10 @@ Given this constraint, we address the points of the previous section like so:
 - The text protocol could be similar to the examples in [torture.txt](https://github.com/snicolet/cassio/blob/master/src/carbon/torture.txt), for instance. The protocol has the same flavor as [The Othello Engine Protocol](http://cassio.free.fr/engine-protocol.htm) already used in Cassio for Cassio<->engine communications. 
 - Cassio would have to be able to connect to the standard input/output in an efficient way, as there may be thousands of graphic primitives per second.
 
+## References
 
+Possible sources for inspiration (in no particular order)
+
+- Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my needs, probably, but still useful. https://twokinds.se/yh/transskel5/
+- Roland Chastain has written several chess programs (both chess engines and chess graphical user interfaces) in FreePascal. Quite active, and he speeks french! His Github is a good central place for Pascal chess-related stuff: https://github.com/rchastain 
 
