@@ -2,24 +2,44 @@ unit LauncherTask;
 
 interface
 
-type
-  Task = class
-    public
-      procedure run(processName : string);
-  end;
+uses 
+   Process;
+
+
+   
+      
+   function runTask(processName : string): boolean;
 
 
 implementation
 
 uses 
-   Classes, 
+   Classes,
    SysUtils;
+var
+  theProcess : TProcess;
 
-
-procedure Task.run(processName : string);
+function runTask(processName: string): boolean;
+  var 
+      output    : AnsiString;
+      error     : AnsiString;
+      status    : integer;
 begin
-	writeln('LauncherTask.run() : ' + processName);
+  writeln('begin runTask() : ' + processName);
+  
+  result := FALSE;
+  theProcess := TProcess.Create(nil);
+  theProcess.Options := [poUsePipes, poStdErrToOutput, poNoConsole];
+  theProcess.Executable := processName;
+  //theProcess.Execute();
+  
+  theProcess.RunCommandLoop(output, error, status);
+  result := TRUE;
+  
+  writeln('end runTask() : ' + processName);
 end;
+
+
 
 
 end.
