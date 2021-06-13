@@ -7,7 +7,7 @@ uses Process;
 
 type
    
-   Interpretor = procedure(line : ansistring);  { type for callback function }
+   Interpretor = procedure(var line : ansistring);  { type for callback function }
    
    Task = record
               process             : TProcess;
@@ -21,7 +21,7 @@ function CreateConnectedProcess(var theTask : Task; callBack : Interpretor) : bo
 procedure FreeConnectedProcess(var theTask : Task);
 procedure WriteProcessInput(var theTask : Task; const theStr: ansistring);
 function ReadProcessOutput(var theTask : Task) : ansistring;
-procedure InterpretProcessOutput(line : ansistring);
+procedure InterpretProcessOutput(var line : ansistring);
 
 implementation
 
@@ -48,7 +48,7 @@ begin
 end;
 
 
-procedure InterpretProcessOutput(line : ansistring);
+procedure InterpretProcessOutput(var line : ansistring);
 begin
   if (line <> '')
 	then writeln(line);

@@ -29,7 +29,7 @@ begin
 	
 	CreateConnectedProcess(carbon, @InterpretProcessOutput);
 	
-	//sleep(5000);
+	//sleep(200);
 	
 	counter := 0;
 	output := '';
@@ -50,6 +50,9 @@ begin
        // with sleep(1)  : Cassio uses about 2.4% of one processor
        // with sleep(10) : Cassio uses about 0.1% of one precessor
        sleep(1);
+       
+       
+       //sleep(30);
 	   
     until false;
 	//until output = 'quit';
