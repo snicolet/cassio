@@ -18,26 +18,24 @@ uses
 
 var
    carbon     : Task;
-   output     : ansistring;
    s          : ansistring;
    counter    : integer;
 
 begin
 	writeln('Bienvenue dans Cassio !');
-	
+
 	carbon.process := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
-	
-	CreateConnectedTask(carbon, @DummyTaskInterpretor);
-	
+
+	CreateConnectedTask(carbon, @DummyTaskInterpretor, nil);
+
 	//sleep(200);
-	
+
 	counter := 0;
-	output := '';
 	repeat
 	   counter := counter + 1;
 
-	   output := ReadTaskOutput(carbon);
+	   ReadTaskOutput(carbon);
 	
 	   if (counter >= 0) and (counter < 100) then
 	   begin
@@ -56,10 +54,9 @@ begin
 
     until false;
 	//until output = 'quit';
-	
+
 	FreeConnectedTask(carbon);
 
-	
 end.
 
 

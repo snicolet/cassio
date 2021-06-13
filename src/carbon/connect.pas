@@ -14,16 +14,17 @@ type
    Task = record
               process             : TProcess;
               lastStringReceived  : ansistring;
-              callBack            : Interpretor;
+              lineCallback        : Interpretor;
+              bufferCallback      : Interpretor;
            end;
 
    // Creation and destructions of a Task
-   function CreateConnectedTask(var theTask : Task; callBack : Interpretor) : boolean;
+   function CreateConnectedTask(var theTask : Task; lineCallback, bufferCallback : Interpretor) : boolean;
    procedure FreeConnectedTask(var theTask : Task);
 
    // Non-blocking read and write on the Task pipes
    procedure WriteTaskInput(var theTask : Task; const theStr: ansistring);
-   function ReadTaskOutput(var theTask : Task) : ansistring;
+   function ReadTaskOutput(var theTask : Task) : boolean;
 
    // An example of dummy callback function
    procedure DummyTaskInterpretor(var line : ansistring);
@@ -39,13 +40,16 @@ uses
 // the name and the arguments of the process to launch, and we must provide a callback
 // function that will be called for each line we read later on the task pipe.
 
-function CreateConnectedTask(var theTask : Task; callBack : Interpretor) : boolean;
+function CreateConnectedTask(var theTask    : Task; 
+                             lineCallback   : Interpretor;
+                             bufferCallback : Interpretor) : boolean;
 begin
-  result := FALSE;
+   result := FALSE;
    theTask.lastStringReceived := '';
-  theTask.callBack           := callBack;
+   theTask.lineCallback       := lineCallback;
+   theTask.bufferCallback     := bufferCallback;
    theTask.process.Options    := [poUsePipes, poStdErrToOutput, poNoConsole];
-  theTask.process.Execute;
+   theTask.process.Execute;
    result := TRUE;
 end;
 
@@ -76,9 +80,11 @@ end;
 // Note that the callback may be called several times for each ReadTaskOutput()
 // call, if several lines are found in the buffer.
 
-function ReadTaskOutput(var theTask : Task) : ansistring;
+function ReadTaskOutput(var theTask : Task) : boolean;
 var
-  NoMoreOutput: boolean;
+  NoMoreOutput : boolean;
+  accumulator  : ansistring;
+  total        : Longint;
 
   procedure DoStuffForTask(var theTask : Task);
   const
@@ -95,21 +101,27 @@ var
     begin
       BytesAvailable := theTask.process.Output.NumBytesAvailable;
       BytesRead      := 0;
-           while BytesAvailable > 0 do
+
+      while BytesAvailable > 0 do
       begin
-             bulkSize := BytesAvailable;
+        bulkSize := BytesAvailable;
         if (bulkSize > BUFFER_SIZE) then
            bulkSize := BUFFER_SIZE;
-               BytesRead := theTask.process.Output.Read(Buffer[0], bulkSize);
-               for i := 0 to BytesRead-1 do
+
+        BytesRead := theTask.process.Output.Read(Buffer[0], bulkSize);
+        total     := total + BytesRead;
+
+        for i := 0 to BytesRead-1 do
         begin
-           result := result + Buffer[i];
+           if theTask.bufferCallback <> nil then
+             accumulator := accumulator + Buffer[i];
+
            c := Buffer[i];
-           if (c = #10) then
+           if (c = #10) and (theTask.lineCallback <> nil) then
              begin
                 if theTask.lastStringReceived <> '' then
                   begin
-                    theTask.callback(theTask.lastStringReceived);
+                    theTask.lineCallback(theTask.lastStringReceived);
                     theTask.lastStringReceived := '';
                   end;
              end
@@ -119,17 +131,28 @@ var
                    then theTask.lastStringReceived := theTask.lastStringReceived + c;
              end
         end;
-               BytesAvailable := theTask.process.Output.NumBytesAvailable;
-        NoMoreOutput := FALSE;
+
+        BytesAvailable := theTask.process.Output.NumBytesAvailable;
+
+        NoMoreOutput := false;
       end;
+      
     end;
+    
+    if (theTask.bufferCallback <> nil) and (accumulator <> '') then
+       theTask.bufferCallback(accumulator);
   end;
- begin
-  result := '';
-  repeat
-    NoMoreOutput := TRUE;
-    DoStuffForTask(theTask);
-  until NoMoreOutput;
+
+begin
+   accumulator := '';
+   total       := 0;
+
+   repeat
+     NoMoreOutput := true;
+     DoStuffForTask(theTask);
+   until NoMoreOutput;
+
+   result := total > 0;
 end;
 
 
