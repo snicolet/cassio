@@ -4,50 +4,108 @@ interface
 
 uses Process;
 
-function CreateConnectedProcess(task : TProcess) : boolean;
-procedure FreeConnectedProcess(task : TProcess);
-function ReadProcessOutput(task : TProcess) : ansistring;
-procedure WriteProcessInput(task : TProcess; const AStr: ansistring);
+
+type
+   
+   Interpretor = procedure(line : ansistring);  { type for callback function }
+   
+   Task = record
+              process             : TProcess;
+              lastStringReceived  : ansistring;
+              callBack            : Interpretor;
+           end;
+           
+
+     
+function CreateConnectedProcess(var theTask : Task; callBack : Interpretor) : boolean;
+procedure FreeConnectedProcess(var theTask : Task);
+procedure WriteProcessInput(var theTask : Task; const theStr: ansistring);
+function ReadProcessOutput(var theTask : Task) : ansistring;
+procedure InterpretProcessOutput(line : ansistring);
 
 implementation
 
 uses
   SysUtils, Classes;
 
+function CreateConnectedProcess(var theTask : Task; callBack : Interpretor) : boolean;
+begin
+  result := FALSE;
+  
+  theTask.lastStringReceived := '';
+  theTask.callBack           := callBack;
+  
+  theTask.process.Options    := [poUsePipes, poStdErrToOutput, poNoConsole];
+  theTask.process.Execute;
+  
+  result := TRUE;
+end;
 
-function ReadProcessOutput(task : TProcess) : ansistring;
+procedure FreeConnectedProcess(var theTask : Task);
+begin
+  if theTask.process.Running then
+    theTask.process.Terminate(0);
+end;
+
+
+procedure InterpretProcessOutput(line : ansistring);
+begin
+  if (line <> '') 
+	then writeln(line);
+end;
+
+
+function ReadProcessOutput(var theTask : Task) : ansistring;
 var
   NoMoreOutput: boolean;
 
-  procedure DoStuffForProcess(AProcess: TProcess);
+  procedure DoStuffForProcess(var theTask : Task);
   const
-    BUFFER_SIZE = 1024 * 128;
+    BUFFER_SIZE = 1024 * 256;
   var
-    Buffer              : packed array[0 .. (BUFFER_SIZE + 100)] of char;
-    BytesAvailable      : DWord;
-    BytesRead           : LongInt;
-    numberOfBytesToRead : Longint;
-    i                   : longint;
+    Buffer         : packed array[0 .. (BUFFER_SIZE + 100)] of char;
+    BytesAvailable : DWord;
+    BytesRead      : LongInt;
+    bulkSize       : Longint;
+    c              : char;
+    i              : Longint;
   begin
-    if AProcess.Running then
+    if theTask.process.Running then
     begin
-      BytesAvailable := AProcess.Output.NumBytesAvailable;
+      BytesAvailable := theTask.process.Output.NumBytesAvailable;
       BytesRead      := 0;
       
       while BytesAvailable > 0 do
       begin
-        numberOfBytesToRead := BytesAvailable;
-        if (numberOfBytesToRead > BUFFER_SIZE) then
-           numberOfBytesToRead := BUFFER_SIZE;
+      
+        bulkSize := BytesAvailable;
+        if (bulkSize > BUFFER_SIZE) then
+           bulkSize := BUFFER_SIZE;
         
-        BytesRead := AProcess.Output.Read(Buffer[0], BytesAvailable);
+        BytesRead := theTask.process.Output.Read(Buffer[0], bulkSize);
         
-        Writeln('[DEBUG Cassio] < BytesRead = ', BytesRead);
+        // Writeln('[DEBUG Cassio] < BytesRead = ', BytesRead);
         
         for i := 0 to BytesRead-1 do
+        begin
            result := result + Buffer[i];
+           c := Buffer[i];
+           if (c = #10) then
+             begin
+                if theTask.lastStringReceived <> '' then
+                  begin
+                    theTask.callback(theTask.lastStringReceived);
+                    theTask.lastStringReceived := '';
+                  end;
+             end
+           else
+             begin
+                if c <> chr(0)
+                   then theTask.lastStringReceived := theTask.lastStringReceived + c;
+             end
+        end;
         
-        BytesAvailable := AProcess.Output.NumBytesAvailable;
+        BytesAvailable := theTask.process.Output.NumBytesAvailable;
         NoMoreOutput := FALSE;
       end;
     end;
@@ -57,32 +115,20 @@ begin
   result := '';
   repeat
     NoMoreOutput := TRUE;
-    DoStuffForProcess(task);
+    DoStuffForProcess(theTask);
   until NoMoreOutput;
 end;
 
-function CreateConnectedProcess(task : TProcess) : boolean;
-begin
-  result := FALSE;
-  task.Options := [poUsePipes, poStdErrToOutput, poNoConsole];
-  task.Execute;
-  result := TRUE;
-end;
 
-procedure FreeConnectedProcess(task : TProcess);
-begin
-  if task.Running then
-    task.Terminate(0);
-end;
 
-procedure WriteProcessInput(task : TProcess; const AStr: ansistring);
+procedure WriteProcessInput(var theTask : Task; const theStr : ansistring);
 var
-  s: ansistring;
+  s : ansistring;
 begin
-  if task.Running then
+  if theTask.process.Running then
   begin
-    s := AStr + #10;
-    task.Input.Write(s[1], Length(s));
+    s := theStr + #10;
+    theTask.process.Input.Write(s[1], Length(s));
   end;
 end;
 

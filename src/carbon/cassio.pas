@@ -16,7 +16,7 @@ uses
 
 
 var 
-   carbon     : TProcess;
+   carbon     : Task;
    output     : ansistring;
    s          : ansistring;
    counter    : integer;
@@ -24,12 +24,10 @@ var
 begin
 	writeln('Bienvenue dans Cassio !');
 	
-	carbon := TProcess.Create(nil);
+	carbon.process := TProcess.Create(nil);
+	carbon.process.executable := './carbon.sh';
 	
-	carbon.executable := './carbon.sh';
-	
-	
-	CreateConnectedProcess(carbon);
+	CreateConnectedProcess(carbon, @InterpretProcessOutput);
 	
 	//sleep(5000);
 	
@@ -39,8 +37,6 @@ begin
 	   counter := counter + 1;
 
 	   output := ReadProcessOutput(carbon);
-	   if (output <> '') 
-	      then writeln(output);
 	   
 	   if (counter >= 0) and (counter < 100) then
 	   begin
