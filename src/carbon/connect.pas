@@ -50,7 +50,7 @@ end;
 
 procedure InterpretProcessOutput(line : ansistring);
 begin
-  if (line <> '') 
+  if (line <> '')
 	then writeln(line);
 end;
 

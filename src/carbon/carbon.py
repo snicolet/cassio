@@ -144,16 +144,16 @@ def execute_carbon_protocol(command, args):
     # A lambda to tag a command as not implemented yet.
     def not_implemented() :
        if colored:
-           print(colors.OK + "GUI [exec] > NOT IMPLEMENTED: {}\n".format(command), colors.RESET, flush=True)
+           print(colors.OK + "GUI [exec] > NOT IMPLEMENTED: {}".format(command), colors.RESET, flush=True)
        else:
-           print("GUI [exec] > NOT IMPLEMENTED: {}\n".format(command), flush=True)
+           print("GUI [exec] > NOT IMPLEMENTED: {}".format(command), flush=True)
 
     # Should we echo each line?
     if echo or echo_output:
         if colored:
-           print(colors.OK + "GUI [exec] > {} {}".format(command, args), colors.RESET, flush=True)
+           print(colors.OK + "GUI [exec] ? {} {}".format(command, args), colors.RESET, flush=True)
         else:
-           print("GUI [exec] > {} {}".format(command, args), "\n", flush=True)
+           print("GUI [exec] ? {} {}".format(command, args), "\n", flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     # 
