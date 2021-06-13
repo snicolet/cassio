@@ -4,37 +4,63 @@ A nice but old Othello program, revisited?
 
 ## The current state of Cassio (June 2021)
 
-The source code for Cassio 8.4 is a huge set (~300.000 lines) of Pascal code, cross-compiling to x86-64 using GNU Pascal on the Macintosh, where GNU Pascal was running as a plug-in for Metrowerks CodeWarrior, which is a PowerPC binary. Cassio uses the Quickdraw/Carbon library by Apple for the user interface and other OS-related stuff.
+The source code for Cassio 8.4 is a huge set (~300.000 lines) of Pascal code,
+cross-compiling to x86-64 using GNU Pascal on the Macintosh, where GNU Pascal
+was running as a plug-in for Metrowerks CodeWarrior, which is a PowerPC binary.
+Cassio uses the Quickdraw/Carbon library by Apple for the user interface and
+other OS-related stuff.
 
 The current situation is that Cassio development is dead, because:
 
 1. **Compiler**: the GNU Pascal compiler is no longer maintained since 2005
-2. **Workflow**: CodeWarrior does not run on new Macs because Apple has dropped support for PowerPC emulation (Rosetta) in MacOS X 10.7 in 2010
-3. **Execution**: Cassio itself has stopped working on newer Mac in 2020 because Apple has decided that Quickdraw/Carbon programs could no longer be run in MacOS X 10.14.
+2. **Workflow**: CodeWarrior does not run on new Macs because Apple has dropped
+support for PowerPC emulation (Rosetta) in MacOS X 10.7 in 2010
+3. **Execution**: Cassio itself has stopped working on newer Mac in 2020 because
+Apple has decided that Quickdraw/Carbon programs could no longer be run in
+MacOS X 10.14.
 
-What follows is a tentative plan to port Cassio to newer technologies. 
+What follows is a tentative plan to port Cassio to newer technologies.
 
-It would be a nice bonus if Cassio became cross-platform at the same time (MacOS, Windows, Linux) :blush:
+It would be a nice bonus if Cassio became cross-platform at the same time (MacOS,
+Windows, Linux) :blush:
 
 ## Choosing the tools
 
-I would like to keep the Pascal codebase, because rewriting everything in C++ or in Python would take me another lifetime. 
-Given this constraint, we address the points of the previous section like so:
+I would like to keep the Pascal codebase, because rewriting everything in C++
+or in Python would take me another lifetime. Given this constraint, we address
+the points of the previous section like so:
 
-1. **Compiler**: the most active Pascal compiler at the moment is FreePascal ( http://https://www.freepascal.org )
-2. **Workflow**: no longer project IDE, everything from the command line + Github for versioning system + new code in Python for portability.
-3. **Graphic library**: I would like to define a pure text protocol, so that Cassio is able to use its standard input/output to talk to a minimal graphic library emulating the behavior of the simple Quickdraw graphic primitives of 1984 (windows, menus, mouse, dialogs, drawing text, drawing jpeg, sound, and that's about all I need).
+1. **Compiler**: the most active Pascal compiler at the moment is FreePascal
+( http://https://www.freepascal.org )
+2. **Workflow**: no longer project IDE, everything from the command line + Github
+for versioning system + new code in Python for portability.
+3. **Graphic library**: I would like to define a pure text protocol, so that Cassio
+is able to use its standard input/output to talk to a minimal graphic library emulating
+the behavior of the simple Quickdraw graphic primitives of 1984 (windows, menus, mouse,
+dialogs, drawing text, drawing jpeg, sound, and that's about all I need).
 
 ## Preliminary work: implementing an abstract graphical protocol
 
-- The minimal graphic library could be written in Python, using the PyQt bridge to Qt5. This is quite portable, as Python and Qt are available everywhere. See the [carbon.py file](https://github.com/snicolet/cassio/blob/master/src/carbon/carbon.py) for the current state of the library.
-- The text protocol could be similar to the examples in [torture.txt](https://github.com/snicolet/cassio/blob/master/src/carbon/torture.txt), for instance. The protocol has the same flavor as [The Othello Engine Protocol](http://cassio.free.fr/engine-protocol.htm) already used in Cassio for Cassio<->engine communications. 
-- Cassio would have to be able to connect to the standard input/output in an efficient way, as there may be thousands of graphic primitives per second.
+- The minimal graphic library could be written in Python, using the PyQt bridge
+to Qt5. This is quite portable, as Python and Qt are available everywhere. See
+the [carbon.py file](https://github.com/snicolet/cassio/blob/master/src/carbon/carbon.py)
+for the current state of the library.
+- The text protocol could be similar to the examples in
+[torture.txt](https://github.com/snicolet/cassio/blob/master/src/carbon/torture.txt),
+for instance. The protocol has the same flavor as
+[The Othello Engine Protocol](http://cassio.free.fr/engine-protocol.htm) already
+used in Cassio for Cassio<->engine communications.
+- Cassio would have to be able to connect to the standard input/output in an
+efficient way, as there may be thousands of graphic primitives per second.
 
 ## References
 
 Possible sources for inspiration (in no particular order)
 
-- Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my needs, probably, but still useful. https://twokinds.se/yh/transskel5/
-- Roland Chastain has written several chess programs (both chess engines and chess graphical user interfaces) in FreePascal. Quite active, and he speeks french! His Github is a good central place for Pascal chess-related stuff: https://github.com/rchastain 
+- Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete
+reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my
+needs, probably, but still useful. https://twokinds.se/yh/transskel5/
+- Roland Chastain has written several chess programs (both chess engines and chess
+graphical user interfaces) in FreePascal. Quite active, and he speeks french! His Github
+is a good central place for Pascal chess-related stuff: https://github.com/rchastain
 

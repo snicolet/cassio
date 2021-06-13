@@ -6,7 +6,7 @@
 #
 # Usage:
 #     python3 carbon.py
-#     python3 carbon.py [-file name] [-echo] [-echo_input] [-echo_output] [-colored] 
+#     python3 carbon.py [-file name] [-echo] [-echo_input] [-echo_output] [-colored]
 #
 
 
@@ -47,7 +47,8 @@ class colors:
     WARNING = '\033[93m'  # YELLOW
     FAIL    = '\033[91m'  # RED
     RESET   = '\033[0m'   # RESET COLOR
-    
+
+
 
 # Step 3. Let's program the server
 
@@ -104,7 +105,7 @@ def server_callback(line):
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
             return "quit"
-    
+
     return "OK"
 
 
@@ -137,10 +138,10 @@ def simulate_carbon_gui(line):
 
 def execute_carbon_protocol(command, args):
     """
-    This is the core of the library, which transforms the commands of the 
+    This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and calls
     """
-    
+
     # A lambda to tag a command as not implemented yet.
     def not_implemented() :
        if colored:
@@ -156,23 +157,20 @@ def execute_carbon_protocol(command, args):
            print("GUI [exec] ? {} {}".format(command, args), "\n", flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
-    # 
+    #
     # Note: most common commands should be near the top for better performance.
-    
-    if command == "get-mouse"    : 
-        not_implemented()
-    elif command == "new-window" : 
+    if command == "get-mouse"    :
        not_implemented()
-    elif command == "set-window-title"  : 
+    elif command == "new-window" :
        not_implemented()
-    elif command == "set-window-geometry"  : 
+    elif command == "set-window-title"  :
        not_implemented()
-    elif command == "show-window"  : 
+    elif command == "set-window-geometry"  :
+       not_implemented()
+    elif command == "show-window"  :
        not_implemented()
     else:
        not_implemented()
-    
-       
 
 
 def dispatch_message(message):
@@ -180,7 +178,7 @@ def dispatch_message(message):
    Interprets the message with the Carbon Gui protocol.
 
    See the torture.txt file for some examples, or run the following command:
-     python3 carbon.py -file torture.txt -echo -colored
+         python3 carbon.py -file torture.txt -echo -colored
    """
    lines = message.splitlines()
    for line in lines:
@@ -198,7 +196,7 @@ def dispatch_message(message):
          if occ >= 0:
             lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
             if len(lexems) > 0:
-         
+
                command = lexems[0]
                args    = lexems[1:]
                execute_carbon_protocol(command, args)
@@ -254,11 +252,11 @@ class HelloWorldWindow(QWidget):
       try:
          with open(image):
             pixmap = QPixmap(image).scaledToHeight(200, Qt.SmoothTransformation)
-            
+
             world_image = QLabel(self)
             world_image.setPixmap(pixmap)
             world_image.move(25, 40)
-            
+
       except FileNotFoundError:
          print("Image not found.", flush=True)
 
