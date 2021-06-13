@@ -102,7 +102,7 @@ def server_callback(line):
     if line != "":
         dispatch_message('GUI [{:4d}] < {}'.format(line_counter, line))
         if line == "quit":
-            print("...quitting the Carbon-GUI server, bye...")
+            print("...quitting the Carbon-GUI server, bye...", flush=True)
             return "quit"
     
     return "OK"
@@ -142,14 +142,18 @@ def execute_carbon_protocol(command, args):
     """
     
     # A lambda to tag a command as not implemented yet.
-    not_implemented = lambda : print("NOT IMPLEMENTED: {}".format(command))
+    def not_implemented() :
+       if colored:
+           print(colors.OK + "GUI [exec] > NOT IMPLEMENTED: {}\n".format(command), colors.RESET, flush=True)
+       else:
+           print("GUI [exec] > NOT IMPLEMENTED: {}\n".format(command), flush=True)
 
     # Should we echo each line?
     if echo or echo_output:
         if colored:
-           print(colors.OK + "GUI [exec] >", command, args, colors.RESET)
+           print(colors.OK + "GUI [exec] > {} {}".format(command, args), colors.RESET, flush=True)
         else:
-           print("GUI [exec] >", command, args)
+           print("GUI [exec] > {} {}".format(command, args), "\n", flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     # 
@@ -187,9 +191,9 @@ def dispatch_message(message):
          if occ < 0:
             if echo or echo_input:
                if colored:
-                  print(colors.FAIL + line + colors.RESET)
+                  print(colors.FAIL + line + colors.RESET, flush=True)
                else:
-                  print(line)
+                  print(line, flush=True)
 
          if occ >= 0:
             lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
@@ -256,7 +260,7 @@ class HelloWorldWindow(QWidget):
             world_image.move(25, 40)
             
       except FileNotFoundError:
-         print("Image not found.")
+         print("Image not found.", flush=True)
 
 
 
