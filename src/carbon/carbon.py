@@ -10,16 +10,26 @@
 #
 
 
+#   Note : qt4-mac has the following notes:
+#   Users experiencing graphics glitches on newer OS versions (10.13 and up) can
+#   experiment with different graphics drawing systems that can be set in the Interface
+#   tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster mode is the
+#   preferred mode but is not compatible with all non-standard widget styles. Keep an
+#   eye on the Fonts setting before saving!
+
+
 # Step 1. Import necessary modules
 
 import csv
 import sys
 import os
 import threading
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel
-from PyQt5.QtGui     import QPixmap
-from PyQt5.Qt        import Qt
 
+from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import QWidget
+from PyQt4.QtGui import QLabel
+from PyQt4.QtGui import QPixmap
+from PyQt4.Qt    import Qt
 
 
 # Step 2. Set global variables by analyzing the command line arguments
