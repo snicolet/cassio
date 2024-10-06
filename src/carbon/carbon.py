@@ -1,12 +1,36 @@
-#!/usr/bin/env python3
+#!/opt/local/bin/python3.9
+
+####   note : this file needs the PyQt4 module for python to be installed.
+####          However, updating Python may break PyQt4, and you may need to
+####          re-install PyQt4 for the new version of Python. Once you have
+####          a working version of the PyQt4 module for a good enough Python
+####          version, you may edit the first line of this file (shebang) to
+####          always launch carbon.py with the good Python version.
+####              
+####          To see all your Python installations, you can use:
+####
+####              ls -al /opt/local/bin/ 
+####          
+####          To check if a specific Python version has PyQt4, you can launch
+####          it and then try to open the PyQt4 module:
+####
+####                /opt/local/bin/python3.9
+####                import PyQt4.QtGui
+####
+####          Examples of shebang lines I have used in the past:
+####
+####                #!/usr/bin/env python3
+####                #!/opt/local/bin/python3.9
+
+
 
 # File carbon.py: a library to attack Qt using a text protocol,
 #                  using the standard input and output.
 #
 #
-# Usage:
-#     python3 carbon.py
-#     python3 carbon.py [-file name] [-echo] [-echo_input] [-echo_output] [-colored]
+# Usage :
+#     ./carbon.py
+#     ./carbon.py [-file name] [-echo] [-echo_input] [-echo_output] [-colored]
 #
 
 
@@ -39,8 +63,7 @@ echo              = "-echo"        in script_args  # flag to echo both input and
 echo_input        = "-echo_input"  in script_args  # flag to echo only input
 echo_output       = "-echo_output" in script_args  # flag to echo only output
 colored           = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
-
-input_file_name = ""                               # the name of the script to be played
+input_file_name   = ""                             # the name of the script to be played
 if "-file" in script_args:
    f = script_args.index("-file")
    if f >= 0:
