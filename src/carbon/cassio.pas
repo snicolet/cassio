@@ -13,21 +13,26 @@ uses
   Classes,
   SysUtils,
   Process,
-  Connect;
+  Connect,
+  QuickDraw;
 
 
 var
    carbon     : Task;
    s          : ansistring;
    counter    : integer;
+   tick       : qword;
 
 begin
 	writeln('Bienvenue dans Cassio !');
+	
+	tick := Tickcount();
+	writeln('Milliseconds is ' + IntToStr(Milliseconds()));
 
 	carbon.process := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
 
-	CreateConnectedTask(carbon, @DummyTaskInterpretor, nil);
+	CreateConnectedTask(carbon, @EchoTaskInterpretor, nil);
 
 	//sleep(200);
 
@@ -49,6 +54,13 @@ begin
        // with sleep(1)  : Cassio uses about 2.4% of one processor
        // with sleep(10) : Cassio uses about 0.1% of one precessor
        sleep(1);
+       
+
+       if (Tickcount() - tick >= 60) then
+       begin
+          tick := Tickcount();
+          writeln('Tickcount = ' + IntToStr(Tickcount()) + '  , Milliseconds = ' + IntToStr(Milliseconds()));
+       end;
 
        //sleep(30);
 

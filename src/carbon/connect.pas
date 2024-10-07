@@ -27,7 +27,7 @@ type
    function ReadTaskOutput(var theTask : Task) : boolean;
 
    // An example of dummy callback function
-   procedure DummyTaskInterpretor(var line : ansistring);
+   procedure EchoTaskInterpretor(var line : ansistring);
 
 
 implementation
@@ -63,10 +63,10 @@ begin
 end;
 
 
-// DummyTaskInterpretor() : an example of callback function for a task.
+// EchoTaskInterpretor() : an example of callback function for a task.
 // This one only writes the line on the console.
 
-procedure DummyTaskInterpretor(var line : ansistring);
+procedure EchoTaskInterpretor(var line : ansistring);
 begin
   if (line <> '')
 	then writeln(line);
