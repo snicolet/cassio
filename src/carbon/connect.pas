@@ -68,8 +68,8 @@ end;
 
 procedure EchoTaskInterpretor(var line : AnsiString);
 begin
-  if (line <> '')
-	then writeln(line);
+  if (line <> '') then
+	 writeln(line);
 end;
 
 

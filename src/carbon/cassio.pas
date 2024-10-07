@@ -22,12 +22,13 @@ var
    s          : ansistring;
    counter    : integer;
    tick       : qword;
+   loc        : Point;
 
 begin
-	writeln('Bienvenue dans Cassio !');
+	LogDebugInfo('Bienvenue dans Cassio !');
 	
 	tick := Tickcount();
-	writeln('Milliseconds is ' + IntToStr(Milliseconds()));
+	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
 	
 	InitQuickdraw(carbon);
 
@@ -41,9 +42,8 @@ begin
 	
 	   if (counter >= 0) and (counter < 100) then
 	   begin
-	      s := 'CARBON-PROTOCOL hola ' + IntToStr(counter) ;
-	      writeln('[DEBUG Cassio] > ' + s);
-          WriteTaskInput(carbon, s);
+	      s := 'hola ' + IntToStr(counter) ;
+          QuickDraw.SendCommand(s);
        end;
 
        // sleep(n) yields time to the operating system, where n is in milliseconds
@@ -56,7 +56,8 @@ begin
        if (Tickcount() - tick >= 60) then
        begin
           tick := Tickcount();
-          writeln('Tickcount = ' + IntToStr(Tickcount()) + '  , Milliseconds = ' + IntToStr(Milliseconds()));
+          LogDebugInfo('[Cassio]   > calling GetMouse() from main loop');
+          loc := GetMouse();
        end;
 
        //sleep(30);

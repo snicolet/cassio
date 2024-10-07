@@ -169,7 +169,7 @@ def simulate_carbon_gui(line):
 
 
 
-def execute_carbon_protocol(command, args):
+def execute_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and calls
@@ -178,16 +178,16 @@ def execute_carbon_protocol(command, args):
     # A lambda to tag a command as not implemented yet.
     def not_implemented() :
        if colored:
-           print(colors.OK + "GUI [exec] > NOT IMPLEMENTED: {}".format(command), colors.RESET, flush=True)
+           print(colors.OK + "GUI [exec] > {} NOT IMPLEMENTED: {}".format(id, command), colors.RESET, flush=True)
        else:
-           print("GUI [exec] > NOT IMPLEMENTED: {}".format(command), flush=True)
+           print("GUI [exec] > {} NOT IMPLEMENTED: {}".format(id, command), flush=True)
 
     # Should we echo each line?
     if echo or echo_output:
         if colored:
-           print(colors.OK + "GUI [exec] ? {} {}".format(command, args), colors.RESET, flush=True)
+           print(colors.OK + "GUI [exec] ? {} {} {}".format(id, command, args), colors.RESET, flush=True)
         else:
-           print("GUI [exec] ? {} {}".format(command, args), "\n", flush=True)
+           print("GUI [exec] ? {} {} {}".format(id, command, args), "\n", flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     #
@@ -230,9 +230,10 @@ def dispatch_message(message):
             lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
             if len(lexems) > 0:
 
-               command = lexems[0]
-               args    = lexems[1:]
-               execute_carbon_protocol(command, args)
+               id      = lexems[0]
+               command = lexems[1]
+               args    = lexems[2:]
+               execute_carbon_protocol(id, command, args)
 
 
 def csv_split(s):
