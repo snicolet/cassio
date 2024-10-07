@@ -23,6 +23,7 @@ var
    counter    : integer;
    tick       : qword;
    loc        : Point;
+   k          : integer;
 
 begin
 	LogDebugInfo('Bienvenue dans Cassio !');
@@ -34,11 +35,15 @@ begin
 
 	//sleep(200);
 
-	counter := 0;
+	counter := -1;
 	repeat
 	   counter := counter + 1;
 
 	   ReadTaskOutput(carbon);
+	   
+	   if (counter = 0) then
+	      for k := 1 to 100 do
+	         QuickDraw.SendCommand('hello ' + IntToStr(k));
 	
 	   if (counter >= 0) and (counter < 100) then
 	   begin
