@@ -28,11 +28,8 @@ begin
 	
 	tick := Tickcount();
 	writeln('Milliseconds is ' + IntToStr(Milliseconds()));
-
-	carbon.process := TProcess.Create(nil);
-	carbon.process.executable := './carbon.sh';
-
-	CreateConnectedTask(carbon, @EchoTaskInterpretor, nil);
+	
+	InitQuickdraw(carbon);
 
 	//sleep(200);
 
@@ -67,7 +64,7 @@ begin
     until false;
 	//until output = 'quit';
 
-	FreeConnectedTask(carbon);
+	ReleaseQuickDraw;
 
 end.
 

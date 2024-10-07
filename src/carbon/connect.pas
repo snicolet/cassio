@@ -8,12 +8,12 @@ uses Process;
 type
 
    // Type for callback function
-   Interpretor = procedure(var line : ansistring);
+   Interpretor = procedure(var line : AnsiString);
 
    // A task is a TProcess with some extra fields
    Task = record
               process             : TProcess;
-              lastStringReceived  : ansistring;
+              lastStringReceived  : AnsiString;
               lineCallback        : Interpretor;
               bufferCallback      : Interpretor;
            end;
@@ -23,11 +23,11 @@ type
    procedure FreeConnectedTask(var theTask : Task);
 
    // Non-blocking read and write on the Task pipes
-   procedure WriteTaskInput(var theTask : Task; const theStr: ansistring);
+   procedure WriteTaskInput(var theTask : Task; const theStr: AnsiString);
    function ReadTaskOutput(var theTask : Task) : boolean;
 
    // An example of dummy callback function
-   procedure EchoTaskInterpretor(var line : ansistring);
+   procedure EchoTaskInterpretor(var line : AnsiString);
 
 
 implementation
@@ -66,7 +66,7 @@ end;
 // EchoTaskInterpretor() : an example of callback function for a task.
 // This one only writes the line on the console.
 
-procedure EchoTaskInterpretor(var line : ansistring);
+procedure EchoTaskInterpretor(var line : AnsiString);
 begin
   if (line <> '')
 	then writeln(line);
@@ -83,7 +83,7 @@ end;
 function ReadTaskOutput(var theTask : Task) : boolean;
 var
   NoMoreOutput : boolean;
-  accumulator  : ansistring;
+  accumulator  : AnsiString;
   total        : Longint;
 
   procedure DoStuffForTask(var theTask : Task);
@@ -160,9 +160,9 @@ end;
 // This function send the given string to the remote process, followed
 // by a carriage return (#10) to separate a new line.
 
-procedure WriteTaskInput(var theTask : Task; const theStr : ansistring);
+procedure WriteTaskInput(var theTask : Task; const theStr : AnsiString);
 var
-  s : ansistring;
+  s : AnsiString;
 begin
   if theTask.process.Running then
   begin
