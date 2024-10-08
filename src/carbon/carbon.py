@@ -53,6 +53,7 @@ from PyQt4.QtGui import QApplication
 from PyQt4.QtGui import QWidget
 from PyQt4.QtGui import QLabel
 from PyQt4.QtGui import QPixmap
+from PyQt4.QtGui import QCursor
 from PyQt4.Qt    import Qt
 
 
@@ -169,6 +170,15 @@ def simulate_carbon_gui(line):
 
 
 
+def get_mouse(id, command, args):
+   """
+   Write the current mouse position on the standard output
+   """
+   where = QCursor.pos()
+   print("             {} {}= {} {}".format(id, command, where.x(), where.y()), flush=True)
+   
+   
+
 def execute_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
@@ -193,7 +203,7 @@ def execute_carbon_protocol(id, command, args):
     #
     # Note: most common commands should be near the top for better performance.
     if command == "get-mouse"    :
-       not_implemented()
+       get_mouse(id, command, args)
     elif command == "new-window" :
        not_implemented()
     elif command == "set-window-title"  :
