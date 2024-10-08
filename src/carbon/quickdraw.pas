@@ -72,8 +72,18 @@ end;
 // LogDebugInfo() : A logger with time stamp
 
 procedure LogDebugInfo(info : AnsiString);
+var stamp  : AnsiString;
+    m, e : QWord;
 begin
-  writeln(IntToStr(Milliseconds) + 'ms .. ' + info);
+  m := Milliseconds();
+  e := m mod 1000;
+  
+  stamp := IntToStr(m div 1000) + '.';
+  if (e < 10)  then stamp := stamp + '00' else
+  if (e < 100) then stamp := stamp + '0';
+  stamp := stamp + IntToStr(e);
+  
+  writeln(stamp + 's | ' + info);
 end;
 
 
