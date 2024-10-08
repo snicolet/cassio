@@ -136,7 +136,7 @@ end;
 
 begin
   start := GetTickCount64();
-  commandCounter := 0;
+  commandCounter :=  1000;
   mouseLoc.h     := -1000;
   mouseLoc.v     := -1000;
 end.

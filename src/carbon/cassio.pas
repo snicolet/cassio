@@ -42,7 +42,7 @@ begin
 	   ReadTaskOutput(carbon);
 	   
 	   if (counter = 0) then
-	      for k := 1 to 100 do
+	      for k := 1 to 99 do
 	         QuickDraw.SendCommand('hello ' + IntToStr(k));
 	
 	   if (counter >= 0) and (counter < 100) then
