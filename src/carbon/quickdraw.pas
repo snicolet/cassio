@@ -39,10 +39,10 @@ function GetMouse() : Point;
 
 implementation
 
-var start          : QWord;      // milliseconds at the start of the program
-    quickDrawTask  : Task;       // communication task
-    mouseLoc       : Point;      // mouse position
-    commandCounter : QWord;      // a strictly increasing counter
+var start          : QWord;                // milliseconds at the start of the program
+    quickDrawTask  : Task;                 // communication task
+    mouseLoc       : Point = (h:0; v:0);   // mouse position
+    commandCounter : QWord = 1000;         // a strictly increasing counter
 
 
 // InitQuickDraw() : Initialisation of the Quickdraw unit
@@ -146,9 +146,6 @@ end;
 
 begin
   start := GetTickCount64();
-  commandCounter :=  1000;
-  mouseLoc.h     := -1000;
-  mouseLoc.v     := -1000;
 end.
 
 
