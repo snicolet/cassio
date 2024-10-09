@@ -49,10 +49,11 @@ var start          : QWord;                // milliseconds at the start of the p
 
 procedure InitQuickDraw(var carbon : Task);
 begin
-    carbon.process := TProcess.Create(nil);
+    carbon.process            := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
 	CreateConnectedTask(carbon, @InterpretAnswer, nil);
-	quickDrawTask := carbon;
+	
+	quickDrawTask             := carbon;
 end;
 
 
