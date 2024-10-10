@@ -39,7 +39,6 @@ function GetMouse() : Point;
 
 implementation
 
-
 var start          : QWord;              // milliseconds at the start of the program
     quickDrawTask  : Task;               // communication task to connect to the GUI server
     mouseLoc       : Point = (h:0; v:0); // mouse position

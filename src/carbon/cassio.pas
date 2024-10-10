@@ -1,7 +1,8 @@
 program cassio;
 
-// compile with FreePascal using the commands:
+// usage : compile with FreePascal using the following command
 //    fpc -Mobjfpc -Sh -ocassio.exe cassio.pas
+//    fpc -Mobjfpc -Sh -ocassio.exe cassio.pas 2>&-        (to suppress link warnings)
 
 
 uses
