@@ -24,7 +24,7 @@ type
 procedure InitQuickDraw(var carbon : Task);
 procedure ReleaseQuickDraw;
 
-// Communications with the GUI task
+// Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
 procedure SendCommand(command : AnsiString);
 procedure InterpretAnswer(var line : AnsiString);
@@ -39,16 +39,45 @@ function GetMouse() : Point;
 
 implementation
 
-var start          : QWord;                // milliseconds at the start of the program
-    quickDrawTask  : Task;                 // communication task
-    mouseLoc       : Point = (h:0; v:0);   // mouse position
-    commandCounter : QWord = 1000;         // a strictly increasing counter
+
+var start          : QWord;              // milliseconds at the start of the program
+    quickDrawTask  : Task;               // communication task to connect to the GUI server
+    mouseLoc       : Point = (h:0; v:0); // mouse position
+    commandCounter : QWord = 1000;       // a strictly increasing counter
+
+// AnsweringMachine is an object to handle the textual answers from the GUI server
+
+type 
+  TAnsweringMachine = 
+    object
+       private 
+         const SIZE = 2048;
+         var lastIndexFound : Integer;
+       public 
+         constructor Init();
+         destructor  Done();
+    end;
+
+var answeringMachine : TAnsweringMachine;
+      
+constructor TAnsweringMachine.init();
+begin
+  lastIndexFound := 0;
+end;
+
+destructor TAnsweringMachine.Done();
+begin
+end;
+
+
 
 
 // InitQuickDraw() : Initialisation of the Quickdraw unit
 
 procedure InitQuickDraw(var carbon : Task);
 begin
+    answeringMachine.Init();
+    
     carbon.process            := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
 	CreateConnectedTask(carbon, @InterpretAnswer, nil);
@@ -63,6 +92,8 @@ end;
 procedure ReleaseQuickDraw;
 begin
     FreeConnectedTask(quickDrawTask);
+    
+    answeringMachine.Done();
 end;
 
 
