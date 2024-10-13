@@ -66,6 +66,7 @@ begin
           tick := Tickcount();
           LogDebugInfo('[Cassio]   > calling GetMouse() from main loop');
           loc := GetMouse();
+          writeln(loc.h, ' ' , loc.v);
        end;
 
     until false;

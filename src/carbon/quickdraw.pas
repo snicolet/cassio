@@ -33,8 +33,9 @@ procedure InterpretAnswer(var line : AnsiString);
 function Milliseconds() : QWord;
 function Tickcount() : QWord;
 
-// Mouse 
+// Mouse
 function GetMouse() : Point;
+
 
 
 implementation
@@ -42,7 +43,7 @@ implementation
 var start          : QWord;              // milliseconds at the start of the program
     quickDrawTask  : Task;               // communication task to connect to the GUI server
     mouseLoc       : Point = (h:0; v:0); // mouse position
-    commandCounter : QWord = 1000;       // a strictly increasing counter
+    commandCounter : longint = 1000;     // a strictly increasing counter
 
 // AnsweringMachine is an object to handle the textual answers from the GUI server
 
@@ -51,24 +52,73 @@ type
     object
        private 
          const SIZE = 2048;
-         var lastIndexFound : Integer;
+         var lastIndexFound : longint;
+             cells : array[0 .. SIZE-1] of
+                       record
+                          messageID : Longint;
+                          handler   : Interpretor;
+                       end;
        public 
          constructor Init();
          destructor  Done();
+         procedure Clear(index : longint);
+         function Find(whichMessageID : longint; var indexFound : longint) : boolean;
     end;
 
 var answeringMachine : TAnsweringMachine;
       
 constructor TAnsweringMachine.init();
+var k : integer;
 begin
-  lastIndexFound := 0;
+    lastIndexFound := 0;
+    for k := 0 to SIZE - 1 do
+       Clear(k);
 end;
 
 destructor TAnsweringMachine.Done();
 begin
 end;
 
+procedure TAnsweringMachine.Clear(index : longint);
+begin
+    cells[index].messageID  :=  -1;
+    cells[index].handler    :=  NIL;
+end;
 
+function TAnsweringMachine.Find(whichMessageID : longint; var indexFound : longint) : boolean;
+var k , t : longint;
+    found : boolean;
+begin
+    found := false;
+    indexFound := -1;
+    
+    for k := 0 to (SIZE div 2) do
+    begin
+        t := lastIndexFound + k;
+        if (t < 0)    then t := t + SIZE;
+        if (t > SIZE) then t := t - SIZE;
+        if (cells[t].messageID = whichMessageID) then
+           begin
+               found := true;
+               indexFound := t;
+               lastIndexFound := t;
+               break;
+           end;
+        
+        t := lastIndexFound - k;
+        if (t < 0)    then t := t + SIZE;
+        if (t > SIZE) then t := t - SIZE;
+        if (cells[t].messageID = whichMessageID) then
+           begin
+               found := true;
+               indexFound := t;
+               lastIndexFound := t;
+               break;
+           end;
+    end;
+    
+    result := found;
+end;
 
 
 // InitQuickDraw() : Initialisation of the Quickdraw unit
@@ -104,17 +154,17 @@ end;
 
 procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
-    m, e : QWord;
+    m, e : longint;
 begin
-  m := Milliseconds();
-  e := m mod 1000;
+    m := Milliseconds();
+    e := m mod 1000;
   
-  stamp := IntToStr(m div 1000) + '.';
-  if (e < 10)  then stamp := stamp + '00' else
-  if (e < 100) then stamp := stamp + '0';
-  stamp := stamp + IntToStr(e);
+    stamp := IntToStr(m div 1000) + '.';
+    if (e < 10)  then stamp := stamp + '00' else
+    if (e < 100) then stamp := stamp + '0';
+    stamp := stamp + IntToStr(e);
   
-  writeln(stamp + 's | ' + info);
+    writeln(stamp + 's | ' + info);
 end;
 
 
