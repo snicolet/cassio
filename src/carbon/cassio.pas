@@ -34,7 +34,7 @@ begin
 	
 	InitQuickdraw(carbon);
 
-	//sleep(200);
+	sleep(200);
 
 	counter := -1;
 	repeat
@@ -45,13 +45,13 @@ begin
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
 	      for k := 1 to 99 do
-	         QuickDraw.SendCommand('hello ' + IntToStr(k));
+	         QuickDraw.SendCommand('hello ' + IntToStr(k) , nil);
 	
 	   // test 2 : send a bunch of dummy "hola" commands, at 1ms intervals
 	   if (counter >= 0) and (counter < 100) then
 	   begin
 	      s := 'hola ' + IntToStr(counter) ;
-          QuickDraw.SendCommand(s);
+          QuickDraw.SendCommand(s, nil);
        end;
 
        // sleep(n) yields time to the operating system, where n is in milliseconds
@@ -61,12 +61,11 @@ begin
        sleep(1);
        
 
-       if (Tickcount() - tick >= 60) then
+       //if (Tickcount() - tick >= 30) then
        begin
           tick := Tickcount();
-          LogDebugInfo('[Cassio]   > calling GetMouse() from main loop');
           loc := GetMouse();
-          writeln(loc.h, ' ' , loc.v);
+          // writeln(loc.h, ' ' , loc.v);
        end;
 
     until false;

@@ -175,7 +175,7 @@ def get_mouse(id, command, args):
    Write the current mouse position on the standard output
    """
    where = QCursor.pos()
-   print("             {} {}= {} {}".format(id, command, where.x(), where.y()), flush=True)
+   print("{} {} => {} {}".format(id, command, where.x(), where.y()), flush=True)
    
    
 

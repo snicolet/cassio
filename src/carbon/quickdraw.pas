@@ -26,106 +26,66 @@ procedure ReleaseQuickDraw;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure SendCommand(command : AnsiString);
+procedure SendCommand(command : AnsiString ; handler : Interpretor);
 procedure InterpretAnswer(var line : AnsiString);
 
 // Time functions
-function Milliseconds() : QWord;
-function Tickcount() : QWord;
+function Milliseconds() : Int64;
+function Tickcount() : Int64;
 
 // Mouse
+procedure InterpretGetMouseAnswer(var line : AnsiString);
 function GetMouse() : Point;
 
 
 
 implementation
 
-var start          : QWord;              // milliseconds at the start of the program
-    quickDrawTask  : Task;               // communication task to connect to the GUI server
-    mouseLoc       : Point = (h:0; v:0); // mouse position
-    commandCounter : longint = 1000;     // a strictly increasing counter
 
-// AnsweringMachine is an object to handle the textual answers from the GUI server
+var start          : Int64;              // milliseconds at the start of the program
+    quickDrawTask  : Task;               // communication task to connect to the GUI server
+    commandCounter : Int64 = 1000;       // a strictly increasing counter
+    
+    getMouseData :
+        record
+           mouseLoc : Point ;            // mouse position
+           when     : Int64 ;            // date in milliseconds
+        end;
+    
+
+// TAnswers is an object to handle the textual answers from the GUI server
 
 type 
-  TAnsweringMachine = 
+  TAnswers = 
     object
-       private 
-         const SIZE = 2048;
-         var lastIndexFound : longint;
-             cells : array[0 .. SIZE-1] of
-                       record
-                          messageID : Longint;
-                          handler   : Interpretor;
-                       end;
        public 
          constructor Init();
          destructor  Done();
-         procedure Clear(index : longint);
-         function Find(whichMessageID : longint; var indexFound : longint) : boolean;
+         procedure Clear(index : Int64);
+         procedure AddHandler(messageID : Int64; handler : Interpretor);
+         function GetHandler(index : Int64) : Interpretor;
+         function FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
+         
+       private 
+         const SIZE = 2048;
+         var lastIndexFound : Int64;
+             cells : array[0 .. SIZE-1] of
+                       record
+                          messageID : Int64;
+                          handler   : Interpretor;
+                       end;
     end;
 
-var answeringMachine : TAnsweringMachine;
+var quickDrawAnswers : TAnswers;
       
-constructor TAnsweringMachine.init();
-var k : integer;
-begin
-    lastIndexFound := 0;
-    for k := 0 to SIZE - 1 do
-       Clear(k);
-end;
 
-destructor TAnsweringMachine.Done();
-begin
-end;
-
-procedure TAnsweringMachine.Clear(index : longint);
-begin
-    cells[index].messageID  :=  -1;
-    cells[index].handler    :=  NIL;
-end;
-
-function TAnsweringMachine.Find(whichMessageID : longint; var indexFound : longint) : boolean;
-var k , t : longint;
-    found : boolean;
-begin
-    found := false;
-    indexFound := -1;
-    
-    for k := 0 to (SIZE div 2) do
-    begin
-        t := lastIndexFound + k;
-        if (t < 0)    then t := t + SIZE;
-        if (t > SIZE) then t := t - SIZE;
-        if (cells[t].messageID = whichMessageID) then
-           begin
-               found := true;
-               indexFound := t;
-               lastIndexFound := t;
-               break;
-           end;
-        
-        t := lastIndexFound - k;
-        if (t < 0)    then t := t + SIZE;
-        if (t > SIZE) then t := t - SIZE;
-        if (cells[t].messageID = whichMessageID) then
-           begin
-               found := true;
-               indexFound := t;
-               lastIndexFound := t;
-               break;
-           end;
-    end;
-    
-    result := found;
-end;
 
 
 // InitQuickDraw() : Initialisation of the Quickdraw unit
 
 procedure InitQuickDraw(var carbon : Task);
 begin
-    answeringMachine.Init();
+    quickDrawAnswers.Init();
     
     carbon.process            := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
@@ -141,8 +101,7 @@ end;
 procedure ReleaseQuickDraw;
 begin
     FreeConnectedTask(quickDrawTask);
-    
-    answeringMachine.Done();
+    quickDrawAnswers.Done();
 end;
 
 
@@ -154,7 +113,7 @@ end;
 
 procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
-    m, e : longint;
+    m, e : Int64;
 begin
     m := Milliseconds();
     e := m mod 1000;
@@ -171,33 +130,63 @@ end;
 
 // SendCommand() : send a message to the GUI task
 
-procedure SendCommand(command : AnsiString);
+procedure SendCommand(command : AnsiString ; handler : Interpretor);
 var s : AnsiString;
 begin
-  commandCounter := commandCounter + 1;
-  s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
+    commandCounter := commandCounter + 1;
+    s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
   
-  LogDebugInfo('[Cassio]   > ' + s);
-  WriteTaskInput(quickDrawTask, s);
+    LogDebugInfo('[Cassio]   > ' + s);
+    quickDrawAnswers.AddHandler(commandCounter, handler);
+    WriteTaskInput(quickDrawTask, s);
 end;
 
 
 // InterpretAnswer() : callback function for our Quickdraw task
 
 procedure InterpretAnswer(var line : AnsiString);
+var parts: TStringArray;
+    index : int64;
+    messageID : AnsiString;
+    handler : interpretor;
 begin
-  if (line <> '') then
-  begin
-     LogDebugInfo(line);
-	 //writeln(line);
+    if (line <> '') then
+    begin
+	    // Parse the line to see if is a CARBON-PROTOCOL answer
+	    // Format of an answer is:
+	    //      {ID} command => value1 [value2] [value3]...
+	    
+	    parts := line.Split(' ', '"', '"', 3, TStringSplitOptions.ExcludeEmpty);
+	 
+	    if (length(parts) >= 3) and (parts[2] = '=>') then
+	    begin
+	        LogDebugInfo('[Cassio]   < ' + line);
+	        
+	        messageID := parts[0];
+	        
+	        if (length(messageID) >= 3) and 
+	           (messageID[1] = '{') and 
+	           (messageID[length(messageID)] = '}') then
+	           begin
+	           
+	              messageID := copy(messageID, 2, length(messageID) - 2);
+	              
+	              if (quickDrawAnswers.FindQuestion(strToInt64(messageID), index)) then
+	              begin
+	                  handler := quickDrawAnswers.GetHandler(index);
+	                  quickDrawAnswers.Clear(index);
+	                  if (handler <> nil) then
+	                      handler(line);
+	              end;
+	           end;
+	    end;
   end;
 end;
 
 
-
 // Milliseconds() : get the number of milliseconds since the start of the program
 
-function Milliseconds() : QWord;
+function Milliseconds() : Int64;
 begin
    result := GetTickCount64() - start;
 end;
@@ -206,27 +195,141 @@ end;
 
 // Tickcount() : get the number of ticks (1/60 of second) since the start of the program
 
-function Tickcount() : QWord;
+function Tickcount() : Int64;
 begin
    result := Milliseconds() * 60 div 1000;
+end;
+
+
+// Parsing the mouse position from the get-mouse answer
+
+procedure InterpretGetMouseAnswer(var line : AnsiString);
+var parts: TStringArray;
+begin
+    parts                   := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
+    getMouseData.mouseLoc.h := strToInt64(parts[3]);
+    getMouseData.mouseLoc.v := strToInt64(parts[4]);
 end;
 
 
 // GetMouse() : return the position of the mouse in global coordinates of the main screen
 
 function GetMouse() : Point;
-var s : AnsiString;
 begin
-   s := 'get-mouse';
-   SendCommand(s);
-   result := mouseLoc;
+    if (Milliseconds() - getMouseData.when >= 30) then
+    begin
+        getMouseData.when := Milliseconds();
+        SendCommand('get-mouse', @InterpretGetMouseAnswer);
+    end;
+
+   result := getMouseData.mouseLoc;
+end;
+
+
+// Constructor for the TAnswers object
+constructor TAnswers.Init();
+var k : integer;
+begin
+    lastIndexFound := 0;
+    for k := 0 to SIZE - 1 do
+       Clear(k);
+end;
+
+
+// Destructor for the TAnswers object
+destructor TAnswers.Done();
+begin
 end;
 
 
 
 
+// TAnswers.AddHandler() : find an empty cell in the answering machine,
+// and install the couple (messageID, messageHandler) in that cell.
+procedure TAnswers.AddHandler(messageID : Int64; handler : Interpretor);
+var k , t : Int64;
+begin
+    for k := 1 to SIZE do
+    begin
+        t := lastIndexFound + k;
+        if (t < 0)     then t := t + SIZE;
+        if (t >= SIZE) then t := t - SIZE;
+        
+        if (cells[t].messageID < 0) and (cells[t].handler = nil) then
+        begin
+           cells[t].messageID  :=  messageID;
+           cells[t].handler    :=  handler;
+           lastIndexFound      :=  t;
+           exit;
+        end;
+    end;
+end;
+
+
+// TAnswers.GetHandler() : return the handler at the specified cell in 
+// the answering machine.
+function TAnswers.GetHandler(index : Int64) : Interpretor;
+begin
+    result := nil;
+    if (index >= 0) and (index < SIZE) then
+       result := cells[index].handler;
+end;
+
+
+// TAnswers.Clear() : empty the cell at index in the answering machine
+procedure TAnswers.Clear(index : Int64);
+begin
+    cells[index].messageID  :=  -1;
+    cells[index].handler    :=  nil;
+end;
+
+
+// TAnswers.FindQuestion() : return true if we can find the cell with 
+// the specified messageID in the answering machine (and its index).
+function TAnswers.FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
+var k , t : Int64;
+    found : boolean;
+begin
+    found := false;
+    indexFound := -1;
+
+    for k := 0 to (SIZE div 2) do
+    begin
+        t := lastIndexFound + k;
+        if (t < 0)     then t := t + SIZE;
+        if (t >= SIZE) then t := t - SIZE;
+        if (cells[t].messageID = messageID) then
+           begin
+               found := true;
+               indexFound := t;
+               lastIndexFound := t;
+               break;
+           end;
+        
+        t := lastIndexFound - k;
+        if (t < 0)     then t := t + SIZE;
+        if (t >= SIZE) then t := t - SIZE;
+        if (cells[t].messageID = messageID) then
+           begin
+               found := true;
+               indexFound := t;
+               lastIndexFound := t;
+               break;
+           end;
+    end;
+    
+    result := found;
+end;
+
+
+// Initialization of the QuickDraw.pas unit
+
 begin
   start := GetTickCount64();
+  
+  getMouseData.mouseLoc.h := 0;
+  getMouseData.mouseLoc.v := 0;
+  getMouseData.when       := -1000;
 end.
 
 
