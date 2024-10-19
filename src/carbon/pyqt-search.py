@@ -13,7 +13,7 @@ import re
 
 tested = []
 
-def check_binaries(filename, remove_alias) :
+def check_binaries(filename, path, remove_alias) :
 
     with open(filename, "r") as input: 
         for line in input :
@@ -33,17 +33,11 @@ def check_binaries(filename, remove_alias) :
             # print("binary = ", binary)
             # print("line = ", line)
             
-            if (binary.find("/bin/") < 0) :
-                continue
-            
-            if (binary.find("/bin/python3") < 0) :
-                continue
-            
-            if not(os.path.exists(binary)) :
-                continue
-            
-            if binary in tested :
-                continue
+            if    (binary.find("/bin/python3") < 0)  \
+               or (not(os.path.exists(binary)))      \
+               or (binary in tested)                 :
+               continue
+
             else :
                 tested.append(binary)
             
@@ -59,25 +53,25 @@ def check_binaries(filename, remove_alias) :
 
 print()
 
+# Step 1
 # Get the list of the potential Python binaries on my system,
 # using some traditionnal locations
-paths = [ "/usr/local/lib/", "/opt/local/bin/" ]
-
+paths = [ "/usr/local/lib/" , "/opt/local/bin/" ]
 for path in paths :
     filename = "list-of-python-installations.txt"
     cmd = "ls -a " + path + " | grep python3 > " + filename
     value = os.system(cmd)
-    check_binaries(filename, True)
+    check_binaries(filename, path, True)
 
+# Step 2
 # Get the list of the potential Python binaries on my system,
 # using the locate function (if available)
 filename = "list-of-python-installations-locate.txt"
-path = ""
 value = os.system("which locate > " + filename)
 if (value == 0) :
     cmd = "locate python3 | grep /bin/ > " + filename
     value = os.system(cmd)
-    check_binaries(filename, False)
+    check_binaries(filename, "", False)
 
 
 print()
