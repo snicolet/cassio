@@ -65,7 +65,7 @@ begin
        begin
           tick := Tickcount();
           loc := GetMouse();
-          // writeln(loc.h, ' ' , loc.v);
+          //writeln(loc.h, ' ' , loc.v);
        end;
 
     until false;

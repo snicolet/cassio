@@ -20,6 +20,7 @@
 ####          Examples of shebang lines I have used in the past:
 ####
 ####                #!/usr/bin/env python3
+####                #!/opt/local/bin/python3
 ####                #!/opt/local/bin/python3.9
 
 
@@ -49,12 +50,20 @@ import sys
 import os
 import threading
 
-from PyQt4.QtGui import QApplication
-from PyQt4.QtGui import QWidget
-from PyQt4.QtGui import QLabel
-from PyQt4.QtGui import QPixmap
-from PyQt4.QtGui import QCursor
-from PyQt4.Qt    import Qt
+# from PyQt4.QtGui import QApplication
+# from PyQt4.QtGui import QWidget
+# from PyQt4.QtGui import QLabel
+# from PyQt4.QtGui import QPixmap
+# from PyQt4.QtGui import QCursor
+# from PyQt4.Qt    import Qt
+
+import PyQt5
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui     import QPixmap
+from PyQt5.QtGui     import QCursor
+from PyQt5.Qt        import Qt
 
 
 # Step 2. Set global variables by analyzing the command line arguments
@@ -317,10 +326,14 @@ if __name__ == "__main__":
     input_thread = StandardInputThread(server_callback)
 
     # read the (optional) input file
-    read_input_file(input_file_name)
+    # read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
+    # window = HelloWorldWindow()
+    
+    # print mouse position
+    print("mouse position")
+    get_mouse("12345", "get-mouse", [])
 
     # clean exit for the Qt app
     res = app.exec_()
