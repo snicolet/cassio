@@ -325,14 +325,10 @@ if __name__ == "__main__":
     input_thread = StandardInputThread(server_callback)
 
     # read the (optional) input file
-    # read_input_file(input_file_name)
+    read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
-    # window = HelloWorldWindow()
-    
-    # print mouse position
-    print("mouse position")
-    get_mouse("12345", "get-mouse", [])
+    window = HelloWorldWindow()
 
     # clean exit for the Qt app
     res = app.exec_()
