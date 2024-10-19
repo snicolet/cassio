@@ -57,7 +57,6 @@ import threading
 # from PyQt4.QtGui import QCursor
 # from PyQt4.Qt    import Qt
 
-import PyQt5
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QLabel
