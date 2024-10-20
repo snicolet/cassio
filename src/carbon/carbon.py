@@ -135,11 +135,12 @@ class colors:
 last_command_time = now()     # a global with the time of the last received command
 communication_dead = False    # a global to force quit the server, if necessary
 
-def print_time() :
+def check_alive() :
     s = "{"+str(line_counter)+"} "
     s = s + " now = "+ str(now())
     s = s + " , last_command_time = "+ str(last_command_time)
-    print(s , flush=True)
+    if (keep_alive) :
+        print(s , flush=True)
     
     global communication_dead
     if (keep_alive and (now() - last_command_time > 63)) :
@@ -166,7 +167,6 @@ class StandardInputThread(threading.Thread):
         
         global last_command_time
         last_command_time = now()
-        threading.Thread(target=lambda: every(5, print_time)).start()
         
         self.start()
 
@@ -203,7 +203,7 @@ def server_callback(line):
     
     global last_command_time
     last_command_time = now()
-    print_time()
+    check_alive()
 
     line = line.strip()
 
@@ -399,6 +399,9 @@ if __name__ == "__main__":
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
+    
+    # schedule a job every 5 seconds to check keep_alive
+    threading.Thread(target=lambda: every(5, check_alive)).start()
 
     # read the (optional) input file
     read_input_file(input_file_name)
