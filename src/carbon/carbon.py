@@ -43,15 +43,16 @@
 #   eye on the Fonts setting before saving!
 
 
-#######################################################
+######################################################################################
 # Section 1. Import necessary modules
-#######################################################
+######################################################################################
 
 import csv
 import sys
 import os
 import threading
 import time
+import traceback
 
 # from PyQt4.QtGui import QApplication
 # from PyQt4.QtGui import QWidget
@@ -72,32 +73,50 @@ from PyQt5.Qt        import Qt
 # Section 2. Define a couple of helpers to deal with time and scheduling repeated tasks
 #######################################################################################
 
-starting_time     = time.time()                    # a global to to store the the starting time of the library
+starting_time = time.time()  # a global to to store the the starting time of the library
 
-def when():
-    """
-    small function to estimate the number of seconds since the start of the server
-    """
-    return time.time() - starting_time
+def now():
+  """
+  number of seconds since the start of the server
+  """
+  return time.time() - starting_time
 
 
-#################################################################################
+def every(delay, job):
+  """
+  schedule a "job" function every "delay" seconds.
+  usage : threading.Thread(target=lambda: every(5, foo)).start()
+  """
+  next_time = now() + delay
+  while True:
+      time.sleep(max(0, next_time - now()))
+      try:
+          job()
+      except Exception:
+          # in production code you might want to have this instead of course:
+          # logger.exception("Problem while executing repetitive task.")
+          traceback.print_exc()
+
+      # skip tasks if we are behind schedule:
+      next_time += (now() - next_time) // delay * delay + delay
+
+
+#######################################################################################
 # Section 3. Set global variables, in particular analyzing command line arguments
-#################################################################################
+#######################################################################################
 
 script_args       = sys.argv[1:]                   # the list of arguments to the script
 echo              = "-echo"        in script_args  # flag to echo both input and output
 echo_input        = "-echo_input"  in script_args  # flag to echo only input
 echo_output       = "-echo_output" in script_args  # flag to echo only output
 colored           = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
+keep_alive        = "-keep_alive"  in script_args  # flag to close the server after one minute
+
 input_file_name   = ""                             # the name of the script to be played
 if "-file" in script_args:
    f = script_args.index("-file")
    if f >= 0:
       input_file_name = script_args[f+1]
-
-
-
 
 
 class colors:
@@ -109,9 +128,24 @@ class colors:
     RESET   = '\033[0m'   # RESET COLOR
 
 
-#####################################
+#######################################################################################
 # Section 4. Let's program the server
-#####################################
+#######################################################################################
+
+last_command_time = now()     # a global with the time of the last received command
+communication_dead = False    # a global to force quit the server, if necessary
+
+def print_time() :
+    s = "{"+str(line_counter)+"} "
+    s = s + " now = "+ str(now())
+    s = s + " , last_command_time = "+ str(last_command_time)
+    print(s , flush=True)
+    
+    global communication_dead
+    if (keep_alive and (now() - last_command_time > 63)) :
+        communication_dead = True;
+        os._exit(0)
+
 
 class StandardInputThread(threading.Thread):
     """
@@ -127,7 +161,13 @@ class StandardInputThread(threading.Thread):
         """
 
         self.callback = callback
+        
         super(StandardInputThread, self).__init__(name=name)
+        
+        global last_command_time
+        last_command_time = now()
+        threading.Thread(target=lambda: every(5, print_time)).start()
+        
         self.start()
 
 
@@ -142,7 +182,7 @@ class StandardInputThread(threading.Thread):
         while answer == "OK":
             answer = self.callback(input())
 
-        if answer == "quit":
+        if (answer == "quit") or communication_dead :
             # hard exit of the whole process without calling
             # cleanup handlers, flushing stdio buffers, etc.
             os._exit(0)
@@ -161,9 +201,9 @@ def server_callback(line):
     global line_counter
     line_counter += 1
     
-    global last_line_time
-    last_line_time = when()
-    print("{"+str(line_counter)+"} " + str(last_line_time), flush=True)
+    global last_command_time
+    last_command_time = now()
+    print_time()
 
     line = line.strip()
 
@@ -194,12 +234,12 @@ def simulate_server_line(message):
 
 
 
-##########################################
+#######################################################################################
 # Section 5. Implement the CARBON-PROTOCOL
-##########################################
+#######################################################################################
 
 
-PROTOCOL_PREFIX   = "CARBON-PROTOCOL "             # prefix for the protocol commands
+PROTOCOL_PREFIX = "CARBON-PROTOCOL "    # prefix for the protocol commands
 
 def simulate_carbon_gui(line):
    """
@@ -296,9 +336,9 @@ def dispatch_message(message):
                execute_carbon_protocol(id, command, args)
 
 
-##############################################################################
+#######################################################################################
 # Section 6. Program something in PyQT to learn the syntax of that library :-)
-##############################################################################
+#######################################################################################
 
 class HelloWorldWindow(QWidget):
     """
