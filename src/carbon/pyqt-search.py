@@ -26,7 +26,7 @@ def check_binaries(filename, path, remove_alias) :
                 if (pos > 0) :
                     line = line[0:pos]
 
-            binary = re.sub("[^a-z0-9-./@]+","", line, flags=re.IGNORECASE)
+            binary = re.sub("[^a-z0-9-./@\\:]+","", line, flags=re.IGNORECASE)
             
             binary = path + binary
             
