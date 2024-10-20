@@ -43,7 +43,9 @@
 #   eye on the Fonts setting before saving!
 
 
-# Step 1. Import necessary modules
+#######################################################
+# Section 1. Import necessary modules
+#######################################################
 
 import csv
 import sys
@@ -66,13 +68,22 @@ from PyQt5.QtGui     import QCursor
 from PyQt5.Qt        import Qt
 
 
+#######################################################################################
+# Section 2. Define a couple of helpers to deal with time and scheduling repeated tasks
+#######################################################################################
+
+starting_time     = time.time()                    # a global to to store the the starting time of the library
+
 def when():
     """
     small function to estimate the number of seconds since the start of the server
     """
     return time.time() - starting_time
 
-# Step 2. Set global variables by analyzing the command line arguments
+
+#################################################################################
+# Section 3. Set global variables, in particular analyzing command line arguments
+#################################################################################
 
 script_args       = sys.argv[1:]                   # the list of arguments to the script
 echo              = "-echo"        in script_args  # flag to echo both input and output
@@ -85,9 +96,8 @@ if "-file" in script_args:
    if f >= 0:
       input_file_name = script_args[f+1]
 
-line_counter      = 0                              # a global counter for the lines received by the GUI server
-starting_time     = time.time()                    # a global to to store the the starting time of the library
-PROTOCOL_PREFIX   = "CARBON-PROTOCOL "             # prefix for the protocol commands
+
+
 
 
 class colors:
@@ -99,8 +109,9 @@ class colors:
     RESET   = '\033[0m'   # RESET COLOR
 
 
-
-# Step 3. Let's program the server
+#####################################
+# Section 4. Let's program the server
+#####################################
 
 class StandardInputThread(threading.Thread):
     """
@@ -136,6 +147,8 @@ class StandardInputThread(threading.Thread):
             # cleanup handlers, flushing stdio buffers, etc.
             os._exit(0)
 
+
+line_counter = 0   # a global counter for the lines received by the GUI server
 
 
 def server_callback(line):
@@ -181,14 +194,20 @@ def simulate_server_line(message):
 
 
 
+##########################################
+# Section 5. Implement the CARBON-PROTOCOL
+##########################################
+
+
+PROTOCOL_PREFIX   = "CARBON-PROTOCOL "             # prefix for the protocol commands
+
 def simulate_carbon_gui(line):
    """
    Simulates the entry of a line on the standard input,
    with the "CARBON-PROTOCOL " prefix.
    """
    server_callback(PROTOCOL_PREFIX + line.strip())
-
-
+   
 
 def get_mouse(id, command, args):
    """
@@ -198,7 +217,6 @@ def get_mouse(id, command, args):
    print("{} {} => {} {}".format(id, command, where.x(), where.y()), flush=True)
    
    
-
 def execute_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
@@ -236,6 +254,18 @@ def execute_carbon_protocol(id, command, args):
        not_implemented()
 
 
+def csv_split(s):
+    """
+    Like split(), but preserving spaces in double-quoted strings
+
+    See explications in the following thread:
+    https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
+    """
+
+    lexems = list(csv.reader([s], delimiter=' '))[0]
+    return list(filter(lambda s: s != "", lexems))
+
+
 def dispatch_message(message):
    """
    Interprets the message with the Carbon Gui protocol.
@@ -266,21 +296,9 @@ def dispatch_message(message):
                execute_carbon_protocol(id, command, args)
 
 
-def csv_split(s):
-    """
-    Like split(), but preserving spaces in double-quoted strings
-
-    See explications in the following thread:
-    https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
-    """
-
-    lexems = list(csv.reader([s], delimiter=' '))[0]
-    return list(filter(lambda s: s != "", lexems))
-
-
-def when():
-    return time.time() - starting_time
-
+##############################################################################
+# Section 6. Program something in PyQT to learn the syntax of that library :-)
+##############################################################################
 
 class HelloWorldWindow(QWidget):
     """
@@ -330,7 +348,9 @@ class HelloWorldWindow(QWidget):
 
 
 
-# If run from the command line, the Python script will execute this code:
+##########################################################################################
+# Section 7. Main : if run from the command line, the Python script will execute this code
+##########################################################################################
 
 if __name__ == "__main__":
 
