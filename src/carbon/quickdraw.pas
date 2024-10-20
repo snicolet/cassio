@@ -152,6 +152,9 @@ var parts: TStringArray;
 begin
     if (line <> '') then
     begin
+        LogDebugInfo('[Cassio]   < ' + line);
+        
+        
 	    // Parse the line to see if is a CARBON-PROTOCOL answer
 	    // Format of an answer is:
 	    //      {ID} command => value1 [value2] [value3]...
@@ -160,7 +163,7 @@ begin
 	 
 	    if (length(parts) >= 3) and (parts[2] = '=>') then
 	    begin
-	        LogDebugInfo('[Cassio]   < ' + line);
+	        
 	        
 	        messageID := parts[0];
 	        

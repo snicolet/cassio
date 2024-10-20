@@ -49,6 +49,7 @@ import csv
 import sys
 import os
 import threading
+import time
 
 # from PyQt4.QtGui import QApplication
 # from PyQt4.QtGui import QWidget
@@ -65,6 +66,12 @@ from PyQt5.QtGui     import QCursor
 from PyQt5.Qt        import Qt
 
 
+def when():
+    """
+    small function to estimate the number of seconds since the start of the server
+    """
+    return time.time() - starting_time
+
 # Step 2. Set global variables by analyzing the command line arguments
 
 script_args       = sys.argv[1:]                   # the list of arguments to the script
@@ -79,6 +86,7 @@ if "-file" in script_args:
       input_file_name = script_args[f+1]
 
 line_counter      = 0                              # a global counter for the lines received by the GUI server
+starting_time     = time.time()                    # a global to to store the the starting time of the library
 PROTOCOL_PREFIX   = "CARBON-PROTOCOL "             # prefix for the protocol commands
 
 
@@ -139,6 +147,10 @@ def server_callback(line):
 
     global line_counter
     line_counter += 1
+    
+    global last_line_time
+    last_line_time = when()
+    print("{"+str(line_counter)+"} " + str(last_line_time), flush=True)
 
     line = line.strip()
 
@@ -264,6 +276,10 @@ def csv_split(s):
 
     lexems = list(csv.reader([s], delimiter=' '))[0]
     return list(filter(lambda s: s != "", lexems))
+
+
+def when():
+    return time.time() - starting_time
 
 
 class HelloWorldWindow(QWidget):
