@@ -134,7 +134,6 @@ class colors:
 #######################################################################################
 
 last_command_time = now()     # a global with the time of the last received command
-communication_dead = False    # a global to force quit the server, if necessary
 
 
 def check_alive() :
@@ -144,10 +143,8 @@ def check_alive() :
     s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
     if (keep_alive) :
         print(s , flush=True)
-    
-    global communication_dead
+
     if (keep_alive and (now() - last_command_time > 63)) :
-        communication_dead = True;
         #app.exit(0)
         os._exit(-1)
 
@@ -186,7 +183,7 @@ class StandardInputThread(threading.Thread):
         while answer == "OK":
             answer = self.callback(input())
 
-        if (answer == "quit") or communication_dead :
+        if answer == "quit" :
             # hard exit of the whole process without calling
             # cleanup handlers, flushing stdio buffers, etc.
             os._exit(0)
@@ -266,7 +263,7 @@ def quit(id, command, args):
    """
    Clean up the carbon.py process
    """
-   print("OK".format(id, command), flush=True)
+   print("OK", flush=True)
    simulate_server_line("quit")
    
    
