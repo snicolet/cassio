@@ -295,7 +295,7 @@ def execute_carbon_protocol(id, command, args):
     # Note: most common commands should be near the top for better performance.
     if command == "get-mouse"    :
        get_mouse(id, command, args)
-    if command == "quit"         :
+    elif command == "quit"       :
        quit(id, command, args)
     elif command == "new-window" :
        not_implemented()
@@ -425,7 +425,8 @@ if __name__ == "__main__":
         threading.Thread(target=lambda: every(5, check_alive)).start()
 
     # read the (optional) input file
-    read_input_file(input_file_name)
+    if (input_file_name != "") :
+        read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
     #window = HelloWorldWindow()
