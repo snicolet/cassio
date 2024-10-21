@@ -44,11 +44,11 @@ begin
 	   
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
-	      for k := 1 to 99 do
+	      for k := 1 to 9 do
 	         QuickDraw.SendCommand('hello ' + IntToStr(k) , nil);
 	
 	   // test 2 : send a bunch of dummy "hola" commands, at 1ms intervals
-	   if (counter >= 0) and (counter < 100) then
+	   if (counter >= 0) and (counter < 10) then
 	   begin
 	      s := 'hola ' + IntToStr(counter) ;
           QuickDraw.SendCommand(s, nil);
@@ -61,14 +61,14 @@ begin
        sleep(1);
        
 
-       if (Tickcount() - tick >= 60) then
+       //if (Tickcount() - tick >= 60) then
        begin
           tick := Tickcount();
-          //loc := GetMouse();
-          //writeln(loc.h, ' ' , loc.v);
+          loc := GetMouse();
+          // writeln(loc.h, ' ' , loc.v);
        end;
 
-    until false;
+    until false or (Milliseconds() > 10000);
 
 	ReleaseQuickDraw;
 

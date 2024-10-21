@@ -129,9 +129,6 @@ class colors:
     FAIL    = '\033[91m'  # RED
     RESET   = '\033[0m'   # RESET COLOR
 
-# main app from Qt
-app = QApplication(sys.argv)
-
 #######################################################################################
 # Section 4. Let's program the server
 #######################################################################################
@@ -151,7 +148,7 @@ def check_alive() :
     global communication_dead
     if (keep_alive and (now() - last_command_time > 13)) :
         communication_dead = True;
-        app.exit(0)
+        #app.exit(0)
         os._exit(-1)
 
 
@@ -405,6 +402,9 @@ class HelloWorldWindow(QWidget):
 ##########################################################################################
 
 if __name__ == "__main__":
+
+    # main app from Qt
+    app = QApplication(sys.argv)
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
