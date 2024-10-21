@@ -10,5 +10,9 @@ cd "$SCRIPTPATH"
 
 # launch carbon.py
 #./carbon.py -echo -file torture.txt
-./carbon.py -file torture.txt -echo -colored -keep_alive
+#./carbon.py -file torture.txt -echo -colored
+#./carbon.py -file torture.txt -echo -colored -keep_alive 
+
+./carbon.py -file torture.txt -echo -colored 
+
 

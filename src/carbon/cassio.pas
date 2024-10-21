@@ -61,10 +61,10 @@ begin
        sleep(1);
        
 
-       //if (Tickcount() - tick >= 30) then
+       if (Tickcount() - tick >= 60) then
        begin
           tick := Tickcount();
-          loc := GetMouse();
+          //loc := GetMouse();
           //writeln(loc.h, ' ' , loc.v);
        end;
 

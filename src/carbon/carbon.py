@@ -50,6 +50,7 @@
 import csv
 import sys
 import os
+import re
 import threading
 import time
 import traceback
@@ -67,6 +68,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui     import QPixmap
 from PyQt5.QtGui     import QCursor
 from PyQt5.Qt        import Qt
+from PyQt5.QtCore    import QCoreApplication
 
 
 #######################################################################################
@@ -127,6 +129,8 @@ class colors:
     FAIL    = '\033[91m'  # RED
     RESET   = '\033[0m'   # RESET COLOR
 
+# main app from Qt
+app = QApplication(sys.argv)
 
 #######################################################################################
 # Section 4. Let's program the server
@@ -135,17 +139,20 @@ class colors:
 last_command_time = now()     # a global with the time of the last received command
 communication_dead = False    # a global to force quit the server, if necessary
 
+
 def check_alive() :
+    """ check """
     s = "{"+str(line_counter)+"} "
-    s = s + " now = "+ str(now())
-    s = s + " , last_command_time = "+ str(last_command_time)
+    s = s + " now = "+ (str(now())[0:8])
+    s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
     if (keep_alive) :
         print(s , flush=True)
     
     global communication_dead
-    if (keep_alive and (now() - last_command_time > 63)) :
+    if (keep_alive and (now() - last_command_time > 13)) :
         communication_dead = True;
-        os._exit(0)
+        app.exit(0)
+        os._exit(-1)
 
 
 class StandardInputThread(threading.Thread):
@@ -294,16 +301,21 @@ def execute_carbon_protocol(id, command, args):
        not_implemented()
 
 
-def csv_split(s):
+
+def quoted_split(s):
     """
     Like split(), but preserving spaces in double-quoted strings
 
     See explications in the following thread:
     https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
     """
-
-    lexems = list(csv.reader([s], delimiter=' '))[0]
-    return list(filter(lambda s: s != "", lexems))
+    
+    def strip_quotes(s):
+        if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1]:
+            return s[1:-1]
+        return s
+    return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
+            for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
 
 def dispatch_message(message):
@@ -327,7 +339,7 @@ def dispatch_message(message):
                   print(line, flush=True)
 
          if occ >= 0:
-            lexems = csv_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
+            lexems = quoted_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
             if len(lexems) > 0:
 
                id      = lexems[0]
@@ -394,21 +406,19 @@ class HelloWorldWindow(QWidget):
 
 if __name__ == "__main__":
 
-    # main app from Qt
-    app = QApplication(sys.argv)
-
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
     
     # schedule a job every 5 seconds to check keep_alive
-    threading.Thread(target=lambda: every(5, check_alive)).start()
+    if (keep_alive) :
+        threading.Thread(target=lambda: every(5, check_alive)).start()
 
     # read the (optional) input file
     read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
-
+    #window = HelloWorldWindow()
+    
     # clean exit for the Qt app
     res = app.exec_()
     sys.exit(res)
