@@ -146,7 +146,7 @@ def check_alive() :
         print(s , flush=True)
     
     global communication_dead
-    if (keep_alive and (now() - last_command_time > 13)) :
+    if (keep_alive and (now() - last_command_time > 63)) :
         communication_dead = True;
         #app.exit(0)
         os._exit(-1)
