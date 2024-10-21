@@ -100,6 +100,8 @@ end;
 
 procedure ReleaseQuickDraw;
 begin
+    SendCommand('quit', NIL);
+    sleep(1000);
     FreeConnectedTask(quickDrawTask);
     quickDrawAnswers.Done();
 end;

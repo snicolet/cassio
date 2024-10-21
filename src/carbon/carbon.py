@@ -212,9 +212,10 @@ def server_callback(line):
     line = line.strip()
 
     if line != "":
-        dispatch_message('GUI [{:4d}] < {}'.format(line_counter, line))
+        parse_carbon_protocol('GUI [{:4d}] < {}'.format(line_counter, line))
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
+            os._exit(0)
             return "quit"
 
     return "OK"
@@ -259,6 +260,14 @@ def get_mouse(id, command, args):
    """
    where = QCursor.pos()
    print("{} {} => {} {}".format(id, command, where.x(), where.y()), flush=True)
+
+
+def quit(id, command, args):
+   """
+   Clean up the carbon.py process
+   """
+   print("OK".format(id, command), flush=True)
+   simulate_server_line("quit")
    
    
 def execute_carbon_protocol(id, command, args):
@@ -286,6 +295,8 @@ def execute_carbon_protocol(id, command, args):
     # Note: most common commands should be near the top for better performance.
     if command == "get-mouse"    :
        get_mouse(id, command, args)
+    if command == "quit"         :
+       quit(id, command, args)
     elif command == "new-window" :
        not_implemented()
     elif command == "set-window-title"  :
@@ -315,7 +326,7 @@ def quoted_split(s):
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
 
-def dispatch_message(message):
+def parse_carbon_protocol(message):
    """
    Interprets the message with the Carbon Gui protocol.
 
@@ -325,7 +336,7 @@ def dispatch_message(message):
    lines = message.splitlines()
    for line in lines:
       line = line.strip()
-      if line != "":
+      if (line != "") :
          occ = line.find(PROTOCOL_PREFIX)
 
          if occ < 0:
