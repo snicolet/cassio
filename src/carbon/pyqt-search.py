@@ -4,7 +4,7 @@
 #                       PyQt4 module or the PyQt5 module is installed (and usable).
 #
 # Usage :
-#     python pyqt-search.py
+#     python3 pyqt-search.py
 #
 #
 
@@ -48,20 +48,21 @@ def check_binaries(filename, path, remove_alias) :
             value = os.system(binary + " pyqt-check.py  -PyQt4 ")
             value = os.system(binary + " pyqt-check.py  -PyQt5 ")
             
-            if os.path.exists(filename):
-                 os.remove(filename)
+    if os.path.exists(filename):
+        os.remove(filename)
 
 print()
 
 # Step 1
 # Get the list of the potential Python binaries on my system,
 # using some traditionnal locations
-paths = [ "/usr/local/lib/" , "/opt/local/bin/" ]
+paths = [ "/usr/bin/" , "/usr/local/lib/" , "/opt/local/bin/" ]
 for path in paths :
-    filename = "list-of-python-installations.txt"
-    cmd = "ls -a " + path + " | grep python3 > " + filename
-    value = os.system(cmd)
-    check_binaries(filename, path, True)
+    if os.path.isdir(path) :
+        filename = "list-of-python-installations.txt"
+        cmd = "ls -a " + path + " | grep python3 > " + filename
+        value = os.system(cmd)
+        check_binaries(filename, path, True)
 
 # Step 2
 # Get the list of the potential Python binaries on my system,

@@ -2,7 +2,7 @@
 
 A nice but old [Othello program](http://cassio.free.fr), revisited?
 
-## The current state of Cassio (June 2021)
+## The current state of Cassio (October 2024)
 
 The source code for Cassio 8.4 is a huge set (~400.000 lines) of Pascal code,
 cross-compiling to x86-64 using GNU Pascal on the Macintosh, where GNU Pascal
