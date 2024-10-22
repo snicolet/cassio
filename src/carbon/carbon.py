@@ -6,11 +6,11 @@
 ####          a working version of the PyQt4 module for a good enough Python
 ####          version, you may edit the first line of this file (shebang) to
 ####          always launch carbon.py with the good Python version.
-####              
+####
 ####          To see all your Python installations, you can use:
 ####
-####              ls -al /opt/local/bin/ 
-####          
+####              ls -al /opt/local/bin/
+####
 ####          To check if a specific Python version has PyQt4, you can launch
 ####          it and then try to open the PyQt4 module:
 ####
@@ -54,6 +54,7 @@ import re
 import threading
 import time
 import traceback
+from   pathlib import Path
 
 # from PyQt4.QtGui import QApplication
 # from PyQt4.QtGui import QWidget
@@ -65,6 +66,7 @@ import traceback
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui     import QPixmap
 from PyQt5.QtGui     import QCursor
 from PyQt5.Qt        import Qt
@@ -129,11 +131,36 @@ class colors:
     FAIL    = '\033[91m'  # RED
     RESET   = '\033[0m'   # RESET COLOR
 
+class stats:
+    total                = 0
+    not_implemented      = 0
+    partialy_implemented = 0
+
+def print_stats():
+    total           = stats.total
+    not_implemented = stats.not_implemented
+    partial         = stats.partialy_implemented
+    implemented     = total - not_implemented - partial
+    
+    def pct(n) :
+        if total <= 0 : 
+            return ""
+        return "   (" + str(round(100 * n / total, 2)) + " %)"
+    
+    print("=====================================")
+    print("total                : ", total)
+    print("not implemented      : ", not_implemented, pct(not_implemented))
+    print("partialy implemented : ", partial,         pct(partial))
+    print("implemented          : ", implemented,     pct(implemented))
+    print("=====================================")
+
 #######################################################################################
 # Section 4. Let's program the server
 #######################################################################################
 
 last_command_time = now()     # a global with the time of the last received command
+
+
 
 
 def check_alive() :
@@ -163,12 +190,12 @@ class StandardInputThread(threading.Thread):
         """
 
         self.callback = callback
-        
+
         super(StandardInputThread, self).__init__(name=name)
-        
+
         global last_command_time
         last_command_time = now()
-        
+
         self.start()
 
 
@@ -201,7 +228,7 @@ def server_callback(line):
 
     global line_counter
     line_counter += 1
-    
+
     global last_command_time
     last_command_time = now()
     check_alive()
@@ -212,6 +239,7 @@ def server_callback(line):
         parse_carbon_protocol('GUI [{:4d}] < {}'.format(line_counter, line))
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
+            print_stats()
             os._exit(0)
             return "quit"
 
@@ -225,7 +253,8 @@ def read_input_file(name):
    if name != "":
       with open(name) as fp:
          for line in fp:
-            simulate_server_line(line)
+            if (len(line) > 0) and (line[0] != '#') :
+                simulate_server_line(line)
 
 
 def simulate_server_line(message):
@@ -240,6 +269,8 @@ def simulate_server_line(message):
 # Section 5. Implement the CARBON-PROTOCOL
 #######################################################################################
 
+# main app from Qt
+app = QApplication(sys.argv)
 
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "    # prefix for the protocol commands
 
@@ -249,7 +280,7 @@ def simulate_carbon_gui(line):
    with the "CARBON-PROTOCOL " prefix.
    """
    server_callback(PROTOCOL_PREFIX + line.strip())
-   
+
 
 def get_mouse(id, command, args):
    """
@@ -265,27 +296,52 @@ def quit(id, command, args):
    """
    print("OK", flush=True)
    simulate_server_line("quit")
-   
-   
+
+
+def open_file_dialog(id, command, args):
+    """
+    select a file with the usual system dialog
+    """
+    stats.partialy_implemented = stats.partialy_implemented + 1
+    
+    options = QFileDialog.Options()
+    #options |= QFileDialog.DontUseNativeDialog
+    filename, ok = QFileDialog.getOpenFileName(
+            None,
+            "Select a File",
+            "D:\\icons\\avatar\\",
+            #"(*.png *.jpg)",
+            options=options
+        )
+    path = ""
+    if filename :
+        path = Path(filename)
+    print("{} {} => \"{}\"".format(id, command, path), flush=True)
+
+
+def print_GUI_execution(s) :
+    s = "GUI [exec] " + s
+    if colored:
+        print(colors.OK + s + " " + colors.RESET, flush=True)
+    else:
+        print(s, flush=True)
+
 def execute_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and calls
     """
 
+    stats.total = stats.total + 1
+
     # A lambda to tag a command as not implemented yet.
     def not_implemented() :
-       if colored:
-           print(colors.OK + "GUI [exec] > {} NOT IMPLEMENTED: {}".format(id, command), colors.RESET, flush=True)
-       else:
-           print("GUI [exec] > {} NOT IMPLEMENTED: {}".format(id, command), flush=True)
+       stats.not_implemented = stats.not_implemented + 1
+       print_GUI_execution("> {} NOT IMPLEMENTED: {}".format(id, command))
 
     # Should we echo each line?
     if echo or echo_output:
-        if colored:
-           print(colors.OK + "GUI [exec] ? {} {} {}".format(id, command, args), colors.RESET, flush=True)
-        else:
-           print("GUI [exec] ? {} {} {}".format(id, command, args), "\n", flush=True)
+        print_GUI_execution("? {} {} {}".format(id, command, args))
 
     # A long switch for the various commands, implementing each command with Qt.
     #
@@ -294,14 +350,8 @@ def execute_carbon_protocol(id, command, args):
        get_mouse(id, command, args)
     elif command == "quit"       :
        quit(id, command, args)
-    elif command == "new-window" :
-       not_implemented()
-    elif command == "set-window-title"  :
-       not_implemented()
-    elif command == "set-window-geometry"  :
-       not_implemented()
-    elif command == "show-window"  :
-       not_implemented()
+    elif command == "open-file-dialog"       :
+       open_file_dialog(id, command, args)
     else:
        not_implemented()
 
@@ -314,7 +364,7 @@ def quoted_split(s):
     See explications in the following thread:
     https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
     """
-    
+
     def strip_quotes(s):
         if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1]:
             return s[1:-1]
@@ -411,12 +461,9 @@ class HelloWorldWindow(QWidget):
 
 if __name__ == "__main__":
 
-    # main app from Qt
-    app = QApplication(sys.argv)
-
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
-    
+
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
         threading.Thread(target=lambda: every(5, check_alive)).start()
@@ -427,7 +474,7 @@ if __name__ == "__main__":
 
     # open the about box (this is programmed in Qt)
     #window = HelloWorldWindow()
-    
+
     # clean exit for the Qt app
     res = app.exec_()
     sys.exit(res)

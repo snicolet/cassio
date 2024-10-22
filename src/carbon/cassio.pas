@@ -68,7 +68,7 @@ begin
           // writeln(loc.h, ' ' , loc.v);
        end;
 
-    until false or (Milliseconds() > 10000);
+    until false or (Milliseconds() > 100000);
 
 	ReleaseQuickDraw;
 
