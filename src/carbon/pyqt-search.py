@@ -48,8 +48,8 @@ def check_binaries(filename, path, remove_alias) :
             value = os.system(binary + " pyqt-check.py  -PyQt4 ")
             value = os.system(binary + " pyqt-check.py  -PyQt5 ")
             
-            if os.path.exists(filename):
-                 os.remove(filename)
+    if os.path.exists(filename):
+        os.remove(filename)
 
 print()
 
