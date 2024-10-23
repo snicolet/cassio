@@ -155,8 +155,9 @@ def print_stats():
     print("not implemented       : ", fmt(not_implemented), pct(not_implemented))
     print("===========================================")
 
+
 #######################################################################################
-# Section 4. Let's program the server
+# Section 4. Let's program the server !
 #######################################################################################
 
 last_command_time = now()  # a global with the time of the last received command
@@ -300,7 +301,8 @@ elif pyqt4 :
 # main app from Qt
 app = QApplication(sys.argv)
 
-PROTOCOL_PREFIX = "CARBON-PROTOCOL "    # prefix for the protocol commands
+# prefix for the protocol commands
+PROTOCOL_PREFIX = "CARBON-PROTOCOL "    
 
 def simulate_carbon_gui(line):
    """
