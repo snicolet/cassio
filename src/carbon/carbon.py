@@ -145,14 +145,16 @@ def print_stats():
     def pct(n) :
         if total <= 0 : 
             return ""
-        return "   (" + str(round(100 * n / total, 2)) + " %)"
+        return " (" + str(round(100 * n / total, 2)) + " %)"
     
-    print("=====================================")
-    print("total                : ", total)
-    print("not implemented      : ", not_implemented, pct(not_implemented))
-    print("partialy implemented : ", partial,         pct(partial))
-    print("implemented          : ", implemented,     pct(implemented))
-    print("=====================================")
+    fmt = lambda x: "{: 5d}".format(x)
+    
+    print("========================================")
+    print("total                : ", fmt(total))
+    print("not implemented      : ", fmt(not_implemented), pct(not_implemented))
+    print("partialy implemented : ", fmt(partial),         pct(partial))
+    print("implemented          : ", fmt(implemented),     pct(implemented))
+    print("========================================")
 
 #######################################################################################
 # Section 4. Let's program the server
