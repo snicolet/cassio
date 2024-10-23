@@ -288,22 +288,22 @@ def init(id, command, args):
    """
    Init the carbon.py process
    """
-   print("OK", flush=True)
+   return
 
 def get_mouse(id, command, args):
    """
    Write the current mouse position on the standard output
    """
    where = QCursor.pos()
-   print("{} {} => {} {}".format(id, command, where.x(), where.y()), flush=True)
+   return str(where.x()) + " " + str(where.y())
 
 
 def quit(id, command, args):
    """
    Clean up the carbon.py process
    """
-   print("OK", flush=True)
    simulate_server_line("quit")
+   return
 
 
 def open_file_dialog(id, command, args):
@@ -324,7 +324,7 @@ def open_file_dialog(id, command, args):
     path = ""
     if filename :
         path = Path(filename)
-    print("{} {} => \"{}\"".format(id, command, path), flush=True)
+    return ("\"{}\"".format(path))
 
 
 def print_GUI_execution(s) :
@@ -342,30 +342,42 @@ def execute_carbon_protocol(id, command, args):
 
     stats.total = stats.total + 1
 
-    # A lambda to tag a command as not implemented yet.
+    # function to tag a command as not implemented yet
     def not_implemented() :
        stats.not_implemented = stats.not_implemented + 1
        print_GUI_execution("> {} NOT IMPLEMENTED: {}".format(id, command))
+    
+    # function to use when a command is a function returning a result
+    def send_result(result) :
+       print("{} {} => {}".format(id, command, result), flush=True)
+    
+    # function to use when a command is a procedure returning no result
+    def acknowledge() :
+       print("OK", flush=True)
 
     # Should we echo each line?
     if echo or echo_output:
         print_GUI_execution("? {} {} {}".format(id, command, args))
 
     # A long switch for the various commands, implementing each command with Qt.
-    #
     # Note: most common commands should be near the top for better performance.
-    if command == "get-mouse"    :
-       get_mouse(id, command, args)
-    elif command == "quit"       :
-       quit(id, command, args)
-    elif command == "init"       :
-       init(id, command, args)
-    elif command == "open-file-dialog"       :
-       open_file_dialog(id, command, args)
-    else:
-       s = command + "(id, command, args)"
-       print(s)
+    
+    result = None 
+    unknown = False
+    if   command == "get-mouse"           :  result = get_mouse(id, command, args)
+    elif command == "quit"                :  quit(id, command, args)
+    elif command == "init"                :  init(id, command, args)
+    elif command == "open-file-dialog"    :  result = open_file_dialog(id, command, args)
+    else                                  :  unknown = True
+    
+    if result != None :
+       send_result(result)
+    elif unknown :
        not_implemented()
+    else :
+       acknowledge()
+      
+    
 
 
 
