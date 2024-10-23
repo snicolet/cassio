@@ -284,6 +284,12 @@ def simulate_carbon_gui(line):
    server_callback(PROTOCOL_PREFIX + line.strip())
 
 
+def init(id, command, args):
+   """
+   Init the carbon.py process
+   """
+   print("OK", flush=True)
+
 def get_mouse(id, command, args):
    """
    Write the current mouse position on the standard output
@@ -352,6 +358,8 @@ def execute_carbon_protocol(id, command, args):
        get_mouse(id, command, args)
     elif command == "quit"       :
        quit(id, command, args)
+    elif command == "init"       :
+       init(id, command, args)
     elif command == "open-file-dialog"       :
        open_file_dialog(id, command, args)
     else:
