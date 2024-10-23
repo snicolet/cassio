@@ -363,6 +363,8 @@ def execute_carbon_protocol(id, command, args):
     elif command == "open-file-dialog"       :
        open_file_dialog(id, command, args)
     else:
+       s = command + "(id, command, args)"
+       print(s)
        not_implemented()
 
 
