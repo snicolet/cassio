@@ -56,6 +56,7 @@ print()
 # Step 1
 # Get the list of the potential Python binaries on my system,
 # using some traditionnal locations
+
 paths = [ "/usr/bin/" , "/usr/local/lib/" , "/opt/local/bin/" ]
 for path in paths :
     if os.path.isdir(path) :
@@ -67,6 +68,7 @@ for path in paths :
 # Step 2
 # Get the list of the potential Python binaries on my system,
 # using the locate function (if available)
+
 filename = "list-of-python-installations-locate.txt"
 value = os.system("which locate > " + filename)
 if (value == 0) :

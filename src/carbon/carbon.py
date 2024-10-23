@@ -1,21 +1,16 @@
 #!/opt/local/bin/python3.9
 
-####   note : this file needs the PyQt4 module for python to be installed.
-####          However, updating Python may break PyQt4, and you may need to
-####          re-install PyQt4 for the new version of Python. Once you have
-####          a working version of the PyQt4 module for a good enough Python
-####          version, you may edit the first line of this file (shebang) to
-####          always launch carbon.py with the good Python version.
+####   Note : this librairy needs the PyQt4 or the PyQt5 module for python to be
+####          installed. However, updating Python on your system may break PyQt4 
+####          or PyQt5, and you may need to re-install PyQt4 or PyQt5 for the new
+####          distribution of Python. Once you have a working version of PyQt for
+####          a specific Python version, you may edit the first line of this file 
+####          (shebang) to always launch carbon.py with the good Python version.
 ####
-####          To see all your Python installations, you can use:
+####          To see all your Python installations and find out which ones have
+####          enough PyQt4 or PyQt5 support to use the carbon.py library, use:
 ####
-####              ls -al /opt/local/bin/
-####
-####          To check if a specific Python version has PyQt4, you can launch
-####          it and then try to open the PyQt4 module:
-####
-####                /opt/local/bin/python3.9
-####                import PyQt4.QtGui
+####                python3 pyqt-search.py
 ####
 ####          Examples of shebang lines I have used in the past:
 ####
