@@ -248,6 +248,13 @@ def server_callback(line):
     return "OK"
 
 
+def simulate_server_line(message):
+   """
+   Simulates the entry of a line on the standard input
+   """
+   server_callback(message.strip())
+
+
 def read_input_file(name):
    """
    Read the given file, and send it line by line to the server
@@ -256,14 +263,9 @@ def read_input_file(name):
       with open(name) as fp:
          for line in fp:
             if (len(line) > 0) and (line[0] != '#') :
+                if line[0] == '@' :
+                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
                 simulate_server_line(line)
-
-
-def simulate_server_line(message):
-   """
-   Simulates the entry of a line on the standard input
-   """
-   server_callback(message.strip())
 
 
 
@@ -333,6 +335,7 @@ def print_GUI_execution(s) :
         print(colors.OK + s + " " + colors.RESET, flush=True)
     else:
         print(s, flush=True)
+
 
 def execute_carbon_protocol(id, command, args):
     """
