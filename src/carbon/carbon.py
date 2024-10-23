@@ -117,6 +117,10 @@ echo_output       = "-echo_output" in script_args  # flag to echo only output
 colored           = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
 keep_alive        = "-keep_alive"  in script_args  # flag to close the server after one minute
 
+if echo :
+    echo_input = True
+    echo_output = True
+
 input_file_name   = ""                             # the name of the script to be played
 if "-file" in script_args:
    f = script_args.index("-file")
@@ -161,20 +165,25 @@ def print_stats():
 # Section 4. Let's program the server
 #######################################################################################
 
-last_command_time = now()     # a global with the time of the last received command
-
-
+last_command_time = now()  # a global with the time of the last received command
+KEEP_ALIVE_DELAY = 60      # if keep_alive option is on, delay before killing the server 
 
 
 def check_alive() :
-    """ check """
-    s = "{"+str(line_counter)+"} "
-    s = s + " now = "+ (str(now())[0:8])
-    s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
+    """ 
+    This function can be scheduled every 5 seconds (say) to send a beat to the
+    standard output, telling the outer world that our server is still alive.
+    Reciprocally, this function will also try to kill the server if the server
+    has not received any command during the last 60 seconds (KEEP_ALIVE_DELAY)
+    """
+    
     if (keep_alive) :
+        s = "{"+str(line_counter)+"} "
+        s = s + " now = "+ (str(now())[0:8])
+        s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
         print(s , flush=True)
 
-    if (keep_alive and (now() - last_command_time > 63)) :
+    if (keep_alive and (now() - last_command_time > KEEP_ALIVE_DELAY + 3)) :
         #app.exit(0)
         os._exit(-1)
 
@@ -287,21 +296,21 @@ def simulate_carbon_gui(line):
    server_callback(PROTOCOL_PREFIX + line.strip())
 
 
-def init(id, command, args):
+def init(args):
    """
    Init the carbon.py process
    """
    return
 
-def get_mouse(id, command, args):
+def get_mouse(args):
    """
-   Write the current mouse position on the standard output
+   Returns the current mouse position as a string
    """
    where = QCursor.pos()
    return str(where.x()) + " " + str(where.y())
 
 
-def quit(id, command, args):
+def quit(args):
    """
    Clean up the carbon.py process
    """
@@ -309,9 +318,11 @@ def quit(id, command, args):
    return
 
 
-def open_file_dialog(id, command, args):
+def open_file_dialog(args):
     """
-    select a file with the usual system dialog
+    This is a blocking call which opens the usual system dialog for file selection. 
+    The returned value is the complete path of the selected file, or the empty string
+    if the user has canceled the dialog.
     """
     stats.partialy_implemented = stats.partialy_implemented + 1
     
@@ -322,12 +333,12 @@ def open_file_dialog(id, command, args):
             "Select a File",
             "D:\\icons\\avatar\\",
             #"(*.png *.jpg)",
-            options=options
-        )
-    path = ""
+            options=options )
+    
+    result = ""
     if filename :
-        path = Path(filename)
-    return ("\"{}\"".format(path))
+        result = Path(filename)
+    return ("\"{}\"".format(result))
 
 
 def print_GUI_execution(s) :
@@ -360,7 +371,7 @@ def execute_carbon_protocol(id, command, args):
        print("OK", flush=True)
 
     # Should we echo each line?
-    if echo or echo_output:
+    if echo_output:
         print_GUI_execution("? {} {} {}".format(id, command, args))
 
     # A long switch for the various commands, implementing each command with Qt.
@@ -368,11 +379,13 @@ def execute_carbon_protocol(id, command, args):
     
     result = None 
     unknown = False
-    if   command == "get-mouse"           :  result = get_mouse(id, command, args)
-    elif command == "quit"                :  quit(id, command, args)
-    elif command == "init"                :  init(id, command, args)
-    elif command == "open-file-dialog"    :  result = open_file_dialog(id, command, args)
-    else                                  :  unknown = True
+    
+    if   command == "get-mouse"           :  result = get_mouse(args)
+    elif command == "open-file-dialog"    :  result = open_file_dialog(args)
+    elif command == "quit"                :  result = quit(args)
+    elif command == "init"                :  result = init(args)
+    else :
+       unknown = True
     
     if result != None :
        send_result(result)
@@ -413,7 +426,7 @@ def parse_carbon_protocol(message):
          occ = line.find(PROTOCOL_PREFIX)
 
          if occ < 0:
-            if echo or echo_input:
+            if echo_input:
                if colored:
                   print(colors.FAIL + line + colors.RESET, flush=True)
                else:
@@ -430,7 +443,7 @@ def parse_carbon_protocol(message):
 
 
 #######################################################################################
-# Section 6. Program something in PyQT to learn the syntax of that library :-)
+# Section 6. Program something in PyQT to learn the basic syntax of that library :-)
 #######################################################################################
 
 class HelloWorldWindow(QWidget):
@@ -468,10 +481,9 @@ class HelloWorldWindow(QWidget):
       
       # Create a text editor
       textEditor = QTextEdit(self)
-      textEditor.setText("Hello, world!")
-      textEditor.append("Appending some text…")
+      textEditor.setText("Bienvenue dans Cassio…")
+      textEditor.append("tapez du texte :-)")
       textEditor.show()
-
 
       # Check to see if image files exist, if yes show it, otherwise throw an exception
       image = "images/world.png"
@@ -506,10 +518,8 @@ if __name__ == "__main__":
         read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
-    window2 = HelloWorldWindow()
-    
-    
+    # window = HelloWorldWindow()
+
     # clean exit for the Qt app
     res = app.exec_()
     sys.exit(res)
