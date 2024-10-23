@@ -69,6 +69,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui     import QPixmap
 from PyQt5.QtGui     import QCursor
+from PyQt5.QtWidgets import QTextEdit
 from PyQt5.Qt        import Qt
 from PyQt5.QtCore    import QCoreApplication
 
@@ -464,6 +465,13 @@ class HelloWorldWindow(QWidget):
       text = QLabel(self)
       text.setText("Hello")
       text.move(105, 15)
+      
+      # Create a text editor
+      textEditor = QTextEdit(self)
+      textEditor.setText("Hello, world!")
+      textEditor.append("Appending some text…")
+      textEditor.show()
+
 
       # Check to see if image files exist, if yes show it, otherwise throw an exception
       image = "images/world.png"
@@ -500,7 +508,8 @@ if __name__ == "__main__":
     # open the about box (this is programmed in Qt)
     window = HelloWorldWindow()
     window2 = HelloWorldWindow()
-
+    
+    
     # clean exit for the Qt app
     res = app.exec_()
     sys.exit(res)
