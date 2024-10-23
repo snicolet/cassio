@@ -21,7 +21,7 @@ CARBON-PROTOCOL {13} create-pixmap       PixmaxID "images/world.png" width=100
 CARBON-PROTOCOL {14} create-pixmap       PixmaxID "images/world.png" height=100
 CARBON-PROTOCOL {15} image-from-pixmap   ImageID PixmaxID
 CARBON-PROTOCOL {17} keep-alive
-# CARBON-PROTOCOL {16} open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg)"
+CARBON-PROTOCOL {16} open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg)"
 
 
 Now using the @ shortcut in the torture.txt file...
