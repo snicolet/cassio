@@ -110,6 +110,7 @@ def every(delay, job):
 # Section 3. Set global variables, in particular analyzing command line arguments
 #######################################################################################
 
+# option arguments
 script_args       = sys.argv[1:]                   # the list of arguments to the script
 echo              = "-echo"        in script_args  # flag to echo both input and output
 echo_input        = "-echo_input"  in script_args  # flag to echo only input
@@ -117,11 +118,13 @@ echo_output       = "-echo_output" in script_args  # flag to echo only output
 colored           = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
 keep_alive        = "-keep_alive"  in script_args  # flag to close the server after one minute
 
+# -echo implies both -echo_input and -echo_output
 if echo :
     echo_input = True
     echo_output = True
 
-input_file_name   = ""                             # the name of the script to be played
+# name of the script to be played
+input_file_name   = ""                             # 
 if "-file" in script_args:
    f = script_args.index("-file")
    if f >= 0:
@@ -129,7 +132,9 @@ if "-file" in script_args:
 
 
 class colors:
-    """ A class to declare constants for colored ANSI Codes """
+    """ 
+    A class to declare constants for colored ANSI Codes 
+    """
 
     OK      = '\033[92m'  # GREEN
     WARNING = '\033[93m'  # YELLOW
@@ -137,6 +142,10 @@ class colors:
     RESET   = '\033[0m'   # RESET COLOR
 
 class stats:
+    """ 
+    a class to print some stats about the commands received, implemented, etc.
+    """
+    
     total                = 0
     not_implemented      = 0
     partialy_implemented = 0
@@ -329,11 +338,11 @@ def open_file_dialog(args):
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
     filename, ok = QFileDialog.getOpenFileName(
-            None,
-            "Select a File",
-            "D:\\icons\\avatar\\",
-            #"(*.png *.jpg)",
-            options=options )
+            parent    = None,
+            caption   = "Select a File",
+            directory = "D:\\icons\\avatar\\",
+            #filter   = "(*.png *.jpg)",
+            options   = options )
     
     result = ""
     if filename :
@@ -531,5 +540,3 @@ if __name__ == "__main__":
 
 
 
-
-    
