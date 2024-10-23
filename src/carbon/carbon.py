@@ -149,12 +149,12 @@ def print_stats():
     
     fmt = lambda x: "{: 5d}".format(x)
     
-    print("========================================")
-    print("total                : ", fmt(total))
-    print("not implemented      : ", fmt(not_implemented), pct(not_implemented))
-    print("partialy implemented : ", fmt(partial),         pct(partial))
-    print("implemented          : ", fmt(implemented),     pct(implemented))
-    print("========================================")
+    print("===========================================")
+    print("CARBON-PROTOCOL lines : ", fmt(total))
+    print("implemented           : ", fmt(implemented),     pct(implemented))
+    print("partialy implemented  : ", fmt(partial),         pct(partial))
+    print("not implemented       : ", fmt(not_implemented), pct(not_implemented))
+    print("===========================================")
 
 #######################################################################################
 # Section 4. Let's program the server
@@ -382,8 +382,6 @@ def execute_carbon_protocol(id, command, args):
       
     
 
-
-
 def quoted_split(s):
     """
     Like split(), but preserving spaces in double-quoted strings
@@ -500,7 +498,8 @@ if __name__ == "__main__":
         read_input_file(input_file_name)
 
     # open the about box (this is programmed in Qt)
-    #window = HelloWorldWindow()
+    window = HelloWorldWindow()
+    window2 = HelloWorldWindow()
 
     # clean exit for the Qt app
     res = app.exec_()
