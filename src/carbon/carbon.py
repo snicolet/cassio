@@ -556,7 +556,7 @@ if __name__ == "__main__":
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
-        threading.Thread(target=lambda: every(5, check_alive)).start()
+        threading.Thread(daemon=True, target=lambda: every(5, check_alive)).start()
 
     # read the (optional) input file
     if (input_file_name != "") :
