@@ -209,7 +209,7 @@ def check_alive() :
 
 class StandardInputThread(threading.Thread):
     """
-    A non-blocking class creating a thread to listen to the standard input.
+    A thread listening to the standard input in a non-blocking way.
     The user can provide a callback function to treat each line of the input.
     """
 
@@ -247,7 +247,7 @@ class StandardInputThread(threading.Thread):
             os._exit(0)
 
 
-line_counter = 0   # a global counter for the lines received by the GUI server
+line_counter = 0   # global counter for the lines received by the GUI server
 
 
 def server_callback(line):
@@ -449,9 +449,9 @@ def quoted_split(s):
     """
 
     def strip_quotes(s):
-        if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1]:
+        if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1] :
             return s[1:-1]
-        else
+        else :
             return s
 
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
