@@ -361,9 +361,9 @@ def quit(args):
 
 def open_file_dialog(args):
     """
-    This is a blocking call opening the usual system dialog for file selection.
-    The returned value is the complete path of the selected file, or the empty
-    string if the user has canceled the dialog.
+    Blocking call, showing the usual system dialog for file selection. The
+    returned value is the complete path of the file selected by the user, or
+    the empty string if the user has canceled the dialog.
     """
     stats.partialy_implemented = stats.partialy_implemented + 1
 
