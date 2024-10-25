@@ -101,7 +101,7 @@ Possible sources for inspiration (in no particular order)
 
 - The FreePascal website: https://www.freepascal.org
 - The Qt4 documentation: https://doc.qt.io/archives/qt-4.8/installation.html
-- A Qt4 tutorial: https://zetcode.com/gui/pyqt4/
+- A PyQt5 tutorial: https://www.pythonguis.com/pyqt5/
 - https://courspython.com
 - Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete
 reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my
