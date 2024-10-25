@@ -180,6 +180,7 @@ def print_stats():
     print("===========================================")
 
 
+
 ################################################################################
 # Section 4. Let's program the server !
 ################################################################################
@@ -368,12 +369,20 @@ def open_file_dialog(args):
 
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
+    
+    caption   = find_named_parameter("prompt", args)
+    directory = find_named_parameter("dir", args)
+    filter    = find_named_parameter("filter", args)
+    
+    if caption   is None : caption   = args[0]
+    if directory is None : directory = args[1]
+    if filter    is None : filter    = args[2]
 
     filename = QFileDialog.getOpenFileName(
             parent    = None,
-            caption   = "Select a File",
-            directory = "D:\\icons\\avatar\\",
-            #filter   = "(*.png *.jpg)",
+            caption   = caption,
+            directory = directory,
+            filter    = filter,
             options   = options )
 
     if (type(filename) is tuple) :   # pyqt5 returns a couple, pyqt4 not
@@ -440,6 +449,11 @@ def execute_carbon_protocol(id, command, args):
        acknowledge()
 
 
+def strip_quotes(s):
+    if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1] :
+        return s[1:-1]
+    else :
+        return s
 
 def quoted_split(s):
     """
@@ -447,16 +461,23 @@ def quoted_split(s):
     explications and examples in the following thread:
     https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
     """
-
-    def strip_quotes(s):
-        if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1] :
-            return s[1:-1]
-        else :
-            return s
-
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
+
+def find_named_parameter(name, args) :
+    """
+    Search a parameter called 'name' in the given list (syntax: 'name="value"').
+    If the name is found, the function removes the parameter from the list and
+    returns the value. If the name is not found, the function returns None.
+    """
+    for arg in args :
+       (param , sep , value) = arg.partition('=')
+       if (param == name) and (sep == '=') :
+           args.remove(arg)
+           return strip_quotes(value)
+    return None
+    
 
 def parse_carbon_protocol(message):
    """
