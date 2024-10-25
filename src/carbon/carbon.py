@@ -1,18 +1,18 @@
 #!/opt/local/bin/python3.9
 
-####   Note : this librairy needs the PyQt4 or the PyQt5 module for python to be
-####          installed. However, updating Python on your system may break PyQt4 
-####          or PyQt5, and you may need to re-install PyQt4 or PyQt5 for the new
-####          distribution of Python. Once you have a working version of PyQt for
-####          a specific Python version, you may edit the first line of this file 
-####          (shebang) to always launch carbon.py with the good Python version.
+####  Note : this librairy needs the PyQt4 or the PyQt5 module for python to be
+####         installed. However, updating Python on your system may break PyQt4
+####         or PyQt5, and you may need to re-install PyQt4 or PyQt5 for the new
+####         distribution of Python. Once you have a working version of PyQt for
+####         a specific Python version, you may edit the first line of this file
+####         (shebang) to always launch carbon.py with the good Python version.
 ####
-####          To see all your Python installations and find out which ones have
-####          enough PyQt4 or PyQt5 support to use the carbon.py library, use:
+####         To see all your Python installations and find out which ones have
+####         enough PyQt4 or PyQt5 support to use the carbon.py library, use:
 ####
 ####                python3 pyqt-search.py
 ####
-####          Examples of shebang lines I have used in the past:
+####         Examples of shebang lines I have used in the past:
 ####
 ####                #!/usr/bin/env python3
 ####                #!/opt/local/bin/python3
@@ -30,17 +30,17 @@
 #
 
 
-#   Note : qt4-mac has the following notes:
-#   Users experiencing graphics glitches on newer OS versions (10.13 and up) can
-#   experiment with different graphics drawing systems that can be set in the Interface
-#   tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster mode is the
-#   preferred mode but is not compatible with all non-standard widget styles. Keep an
-#   eye on the Fonts setting before saving!
+#  Note : qt4-mac has the following notes:
+#  Users experiencing graphics glitches on newer OS versions (10.13 and up) can
+#  experiment with different graphics drawing systems that can be set in the
+#  Interface tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster
+#  mode is the preferred mode but is not compatible with all non-standard widget
+#   styles. Keep an eye on the Fonts setting before saving!
 
 
-######################################################################################
+################################################################################
 # Section 1. Import necessary modules
-######################################################################################
+################################################################################
 
 import csv
 import sys
@@ -52,20 +52,20 @@ import traceback
 from pathlib import Path
 
 
-#######################################################################################
+################################################################################
 # Section 2. Analyzing command line arguments
-#######################################################################################
+################################################################################
 
 # Parse command line arguments
-script_args  = sys.argv[1:]                   # the list of arguments to the script
+script_args  = sys.argv[1:]                   # list of arguments to the script
 
-echo         = "-echo"        in script_args  # flag to echo both input and output
-echo_input   = "-echo_input"  in script_args  # flag to echo only input
-echo_output  = "-echo_output" in script_args  # flag to echo only output
-colored      = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
-keep_alive   = "-keep_alive"  in script_args  # flag to close the server after one minute
-pyqt5        = "-pyqt5"       in script_args  # flag to use PyQt5 (default)
-pyqt4        = "-pyqt4"       in script_args  # flag to use PyQt4
+echo         = "-echo"        in script_args  # echo both input and output
+echo_input   = "-echo_input"  in script_args  # echo only input
+echo_output  = "-echo_output" in script_args  # echo only output
+colored      = "-colored"     in script_args  # use colored echo in Terminal
+keep_alive   = "-keep_alive"  in script_args  # close server after one minute
+pyqt5        = "-pyqt5"       in script_args  # use PyQt5 (default)
+pyqt4        = "-pyqt4"       in script_args  # use PyQt4
 
 # -echo implies both -echo_input and -echo_output
 if echo :
@@ -73,7 +73,7 @@ if echo :
     echo_output = True
 
 # name of the script to be played
-input_file_name   = ""                             # 
+input_file_name   = ""                             #
 if "-file" in script_args:
     f = script_args.index("-file")
     if f >= 0:
@@ -84,11 +84,11 @@ if not(pyqt5) and not(pyqt4) :
     pyqt5 = True
 
 
-#######################################################################################
+################################################################################
 # Section 3. Define a couple of helpers (time, scheduling, encodings, stats...)
-#######################################################################################
+################################################################################
 
-starting_time = time.time()  # a global to to store the the starting time of the library
+starting_time = time.time()  # starting time of the library
 
 def now():
   """
@@ -118,15 +118,16 @@ def every(delay, job):
 
 def my_url_encode(s) :
     """
-    my_url_encode() encodes space, quotes and newline caracters in the given string
-    into their url-encoding equivalents. Useful when sending strings with our server,
-    since the protocol is a textual, line by line protocol.
+    my_url_encode() encodes space, quotes and newline caracters in the given
+    string into their url-encoding equivalents. Useful when sending strings
+    with our server, since the protocol is a textual, line by line protocol.
     """
     s = s.replace( ' '        , "%20" )
     s = s.replace( '"'        , "%22" )
     s = s.replace( "'"        , "%27" )
     s = s.replace( os.linesep , "%0A" )   # linefeed
     return s
+
 
 def my_url_decode(s) :
     """
@@ -138,9 +139,10 @@ def my_url_decode(s) :
     s = s.replace( "%20" ,        ' ' )
     return s
 
+
 class colors:
-    """ 
-    A class to declare constants for colored ANSI Codes 
+    """
+    A class to declare constants for colored ANSI Codes
     """
 
     OK      = '\033[92m'  # GREEN
@@ -149,10 +151,10 @@ class colors:
     RESET   = '\033[0m'   # RESET COLOR
 
 class stats:
-    """ 
+    """
     a class to print some stats about the commands received, implemented, etc.
     """
-    
+
     total                = 0
     not_implemented      = 0
     partialy_implemented = 0
@@ -162,14 +164,14 @@ def print_stats():
     not_implemented = stats.not_implemented
     partial         = stats.partialy_implemented
     implemented     = total - not_implemented - partial
-    
+
     def pct(n) :
-        if total <= 0 : 
+        if total <= 0 :
             return ""
         return " (" + str(round(100 * n / total, 2)) + " %)"
-    
+
     fmt = lambda x: "{: 5d}".format(x)
-    
+
     print("===========================================")
     print("CARBON-PROTOCOL lines : ", fmt(total))
     print("implemented           : ", fmt(implemented),     pct(implemented))
@@ -178,22 +180,22 @@ def print_stats():
     print("===========================================")
 
 
-#######################################################################################
+################################################################################
 # Section 4. Let's program the server !
-#######################################################################################
+################################################################################
 
-last_command_time = now()  # a global with the time of the last received command
-KEEP_ALIVE_DELAY = 60      # if keep_alive option is on, delay before killing the server 
+last_command_time = now()  # time of the last received command
+KEEP_ALIVE_DELAY = 60      # delay before killing the server (needs -keep_alive)
 
 
 def check_alive() :
-    """ 
+    """
     This function can be scheduled every 5 seconds (say) to send a beat to the
     standard output, telling the outer world that our server is still alive.
     Reciprocally, this function will also try to kill the server if the server
     has not received any command during the last 60 seconds (KEEP_ALIVE_DELAY)
     """
-    
+
     if (keep_alive) :
         s = "{"+str(line_counter)+"} "
         s = s + " now = "+ (str(now())[0:8])
@@ -207,15 +209,15 @@ def check_alive() :
 
 class StandardInputThread(threading.Thread):
     """
-    A class creating a thread to listen to the standard input in a non-blocking way.
-    The user can provide a callback function to treat each line of the input in turn.
+    A non-blocking class creating a thread to listen to the standard input.
+    The user can provide a callback function to treat each line of the input.
     """
 
     def __init__(self,
                  callback = None,
                  name='standard-input-thread'):
         """
-        Constructor for the server. The server will run in its own separate thread.
+        Constructor. The server will run in its own separate thread.
         """
 
         self.callback = callback
@@ -250,9 +252,9 @@ line_counter = 0   # a global counter for the lines received by the GUI server
 
 def server_callback(line):
     """
-    Evaluates the keyboard input. The convention is that the callback function should
-    return "OK" on normal lines. Returning anything else (for instance "quit") will
-    stop the line listening of the GUI server.
+    Evaluates the keyboard input. The convention is that the callback function
+    should return "OK" on normal lines. Returning anything else (for instance
+    "quit") will stop the line listening of the GUI server.
     """
 
     global line_counter
@@ -296,9 +298,9 @@ def read_input_file(name):
 
 
 
-#######################################################################################
+################################################################################
 # Section 5. Implement the CARBON-PROTOCOL
-#######################################################################################
+################################################################################
 
 if pyqt5 :
     from PyQt5.QtWidgets import QApplication
@@ -324,7 +326,7 @@ elif pyqt4 :
 app = QApplication(sys.argv)
 
 # prefix for the protocol commands
-PROTOCOL_PREFIX = "CARBON-PROTOCOL "    
+PROTOCOL_PREFIX = "CARBON-PROTOCOL "
 
 def simulate_carbon_gui(line):
    """
@@ -358,12 +360,12 @@ def quit(args):
 
 def open_file_dialog(args):
     """
-    This is a blocking call which opens the usual system dialog for file selection. 
-    The returned value is the complete path of the selected file, or the empty string
-    if the user has canceled the dialog.
+    This is a blocking call opening the usual system dialog for file selection.
+    The returned value is the complete path of the selected file, or the empty
+    string if the user has canceled the dialog.
     """
     stats.partialy_implemented = stats.partialy_implemented + 1
-    
+
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
 
@@ -373,10 +375,10 @@ def open_file_dialog(args):
             directory = "D:\\icons\\avatar\\",
             #filter   = "(*.png *.jpg)",
             options   = options )
-    
+
     if (type(filename) is tuple) :   # pyqt5 returns a couple, pyqt4 not
-        filename = filename[0]   
-    
+        filename = filename[0]
+
     result = ""
     if filename :
         result = my_url_encode(str(Path(filename)))
@@ -404,11 +406,11 @@ def execute_carbon_protocol(id, command, args):
     def not_implemented() :
        stats.not_implemented = stats.not_implemented + 1
        print_GUI_execution("> {} NOT IMPLEMENTED: {}".format(id, command))
-    
+
     # function to use when a command is a function returning a result
     def send_result(result) :
        print("{} {} => {}".format(id, command, result), flush=True)
-    
+
     # function to use when a command is a procedure returning no result
     def acknowledge() :
        print("OK", flush=True)
@@ -419,47 +421,47 @@ def execute_carbon_protocol(id, command, args):
 
     # A long switch for the various commands, implementing each command with Qt.
     # Note: most common commands should be near the top for better performance.
-    
-    result = None 
+
+    result = None
     unknown = False
-    
+
     if   command == "get-mouse"           :  result = get_mouse(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
     elif command == "quit"                :  result = quit(args)
     elif command == "init"                :  result = init(args)
     else :
        unknown = True
-    
+
     if result != None :
        send_result(result)
     elif unknown :
        not_implemented()
     else :
        acknowledge()
-      
-    
+
+
 
 def quoted_split(s):
     """
-    Like split(), but preserving spaces in double-quoted strings
-
-    See explications in the following thread:
+    Like split(), but preserving spaces in double-quoted strings. See
+    explications and examples in the following thread:
     https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
     """
 
     def strip_quotes(s):
         if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1]:
             return s[1:-1]
-        return s
+        else
+            return s
+
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
 
 def parse_carbon_protocol(message):
    """
-   Interprets the message with the Carbon Gui protocol.
-
-   See the torture.txt file for some examples, or run the following command:
+   Interprets the message with the Carbon Gui protocol. See the torture.txt
+   file for some examples, or run the following command:
          python3 carbon.py -file torture.txt -echo -colored
    """
    lines = message.splitlines()
@@ -485,9 +487,9 @@ def parse_carbon_protocol(message):
                execute_carbon_protocol(id, command, args)
 
 
-#######################################################################################
-# Section 6. Program something in PyQT to learn the basic syntax of that library :-)
-#######################################################################################
+################################################################################
+# Section 6. Program something in PyQT to get familiar with the library :-)
+################################################################################
 
 class HelloWorldWindow(QWidget):
     """
@@ -521,14 +523,14 @@ class HelloWorldWindow(QWidget):
       text = QLabel(self)
       text.setText("Hello")
       text.move(105, 15)
-      
+
       # Create a text editor
       textEditor = QTextEdit(self)
       textEditor.setText("Bienvenue dans Cassio…")
       textEditor.append("tapez du texte :-)")
       textEditor.show()
 
-      # Check to see if image files exist, if yes show it, otherwise throw an exception
+      # Check to see if image files exist and show it (can throw exception)
       image = "images/world.png"
       try:
          with open(image):
@@ -543,9 +545,9 @@ class HelloWorldWindow(QWidget):
 
 
 
-##########################################################################################
-# Section 7. Main : if run from the command line, the Python script will execute this code
-##########################################################################################
+################################################################################
+# Section 7. Main : if run from the command line, the script will start here
+################################################################################
 
 if __name__ == "__main__":
 
