@@ -53,7 +53,39 @@ from pathlib import Path
 
 
 #######################################################################################
-# Section 2. Define a couple of helpers to deal with time and scheduling repeated tasks
+# Section 2. Analyzing command line arguments
+#######################################################################################
+
+# Parse command line arguments
+script_args  = sys.argv[1:]                   # the list of arguments to the script
+
+echo         = "-echo"        in script_args  # flag to echo both input and output
+echo_input   = "-echo_input"  in script_args  # flag to echo only input
+echo_output  = "-echo_output" in script_args  # flag to echo only output
+colored      = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
+keep_alive   = "-keep_alive"  in script_args  # flag to close the server after one minute
+pyqt5        = "-pyqt5"       in script_args  # flag to use PyQt5 (default)
+pyqt4        = "-pyqt4"       in script_args  # flag to use PyQt4
+
+# -echo implies both -echo_input and -echo_output
+if echo :
+    echo_input = True
+    echo_output = True
+
+# name of the script to be played
+input_file_name   = ""                             # 
+if "-file" in script_args:
+    f = script_args.index("-file")
+    if f >= 0:
+       input_file_name = script_args[f+1]
+
+# default values
+if not(pyqt5) and not(pyqt4) :
+    pyqt5 = True
+
+
+#######################################################################################
+# Section 3. Define a couple of helpers (time, scheduling, encodings, stats...)
 #######################################################################################
 
 starting_time = time.time()  # a global to to store the the starting time of the library
@@ -105,39 +137,6 @@ def my_url_decode(s) :
     s = s.replace( "%22" ,        '"' )
     s = s.replace( "%20" ,        ' ' )
     return s
-
-
-#######################################################################################
-# Section 3. Set global variables, in particular analyzing command line arguments
-#######################################################################################
-
-# Parse command line arguments
-script_args  = sys.argv[1:]                   # the list of arguments to the script
-
-echo         = "-echo"        in script_args  # flag to echo both input and output
-echo_input   = "-echo_input"  in script_args  # flag to echo only input
-echo_output  = "-echo_output" in script_args  # flag to echo only output
-colored      = "-colored"     in script_args  # flag to use colored echo (need a Terminal with ANSI support)
-keep_alive   = "-keep_alive"  in script_args  # flag to close the server after one minute
-pyqt5        = "-pyqt5"       in script_args  # flag to use PyQt5 (default)
-pyqt4        = "-pyqt4"       in script_args  # flag to use PyQt4
-
-# -echo implies both -echo_input and -echo_output
-if echo :
-    echo_input = True
-    echo_output = True
-
-# name of the script to be played
-input_file_name   = ""                             # 
-if "-file" in script_args:
-    f = script_args.index("-file")
-    if f >= 0:
-       input_file_name = script_args[f+1]
-
-# default values
-if not(pyqt5) and not(pyqt4) :
-    pyqt5 = True
-    
 
 class colors:
     """ 
@@ -306,19 +305,19 @@ if pyqt5 :
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QtWidgets import QLabel
     from PyQt5.QtWidgets import QFileDialog
+    from PyQt5.QtWidgets import QTextEdit
     from PyQt5.QtGui     import QPixmap
     from PyQt5.QtGui     import QCursor
-    from PyQt5.QtWidgets import QTextEdit
     from PyQt5.Qt        import Qt
 elif pyqt4 :
-    from PyQt4.QtGui import QApplication
-    from PyQt4.QtGui import QWidget
-    from PyQt4.QtGui import QLabel
-    from PyQt4.QtGui import QFileDialog
-    from PyQt4.QtGui import QPixmap
-    from PyQt4.QtGui import QCursor
-    from PyQt4.QtGui import QTextEdit
-    from PyQt4.Qt    import Qt
+    from PyQt4.QtGui     import QApplication
+    from PyQt4.QtGui     import QWidget
+    from PyQt4.QtGui     import QLabel
+    from PyQt4.QtGui     import QFileDialog
+    from PyQt4.QtGui     import QTextEdit
+    from PyQt4.QtGui     import QPixmap
+    from PyQt4.QtGui     import QCursor
+    from PyQt4.Qt        import Qt
 
 
 # main app from Qt
