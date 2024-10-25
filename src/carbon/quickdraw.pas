@@ -38,7 +38,6 @@ procedure InterpretGetMouseAnswer(var line : AnsiString);
 function GetMouse() : Point;
 
 
-
 implementation
 
 
@@ -111,6 +110,32 @@ end;
 ////// Communications with the GUI task   /////
 
 
+// MyUrlEncode() : encode space, quotes and newline caracters in the given string
+// into their url-encoding equivalents. Useful when sending strings with our server,
+// since the protocol is a textual, line by line protocol.
+
+function MyUrlEncode(s : AnsiString) : AnsiString;
+begin
+    s := StringReplace( s , ' ' , '%20' , [rfReplaceAll] );
+    s := StringReplace( s , '"' , '%22' , [rfReplaceAll] );
+    s := StringReplace( s , '''', '%27' , [rfReplaceAll] );
+    s := StringReplace( s , #10 , '%0A' , [rfReplaceAll] );   // linefeed
+    result := s;
+end;
+
+
+// MyUrlDecode() : reverse of MyUrlEncode()
+
+function MyUrlDecode(s : AnsiString) : AnsiString;
+begin
+    s := StringReplace( s , '%0A' , #10  , [rfReplaceAll] );   // linefeed
+    s := StringReplace( s , '%27' , '''' , [rfReplaceAll] );
+    s := StringReplace( s , '%22' , '"'  , [rfReplaceAll] );
+    s := StringReplace( s , '%20' , ' '  , [rfReplaceAll] );
+    result := s;
+end;
+
+
 // LogDebugInfo() : A logger with time stamp
 
 procedure LogDebugInfo(info : AnsiString);
@@ -127,7 +152,6 @@ begin
   
     writeln(stamp + 's | ' + info);
 end;
-
 
 
 // SendCommand() : send a message to the GUI task
@@ -165,8 +189,6 @@ begin
 	 
 	    if (length(parts) >= 3) and (parts[2] = '=>') then
 	    begin
-	        
-	        
 	        messageID := parts[0];
 	        
 	        if (length(messageID) >= 3) and 

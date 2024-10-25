@@ -49,7 +49,7 @@ import re
 import threading
 import time
 import traceback
-from   pathlib import Path
+from pathlib import Path
 
 
 #######################################################################################
@@ -82,6 +82,29 @@ def every(delay, job):
 
       # skip tasks if we are behind schedule:
       next_time += (now() - next_time) // delay * delay + delay
+
+
+def my_url_encode(s) :
+    """
+    my_url_encode() encodes space, quotes and newline caracters in the given string
+    into their url-encoding equivalents. Useful when sending strings with our server,
+    since the protocol is a textual, line by line protocol.
+    """
+    s = s.replace( ' '        , "%20" )
+    s = s.replace( '"'        , "%22" )
+    s = s.replace( "'"        , "%27" )
+    s = s.replace( os.linesep , "%0A" )   # linefeed
+    return s
+
+def my_url_decode(s) :
+    """
+    my_url_decode() is the reverse of my_url_encode()
+    """
+    s = s.replace( "%0A" , os.linesep )   # linefeed
+    s = s.replace( "%27" ,        "'" )
+    s = s.replace( "%22" ,        '"' )
+    s = s.replace( "%20" ,        ' ' )
+    return s
 
 
 #######################################################################################
@@ -357,7 +380,8 @@ def open_file_dialog(args):
     
     result = ""
     if filename :
-        result = Path(filename)
+        result = my_url_encode(str(Path(filename)))
+
     return ("\"{}\"".format(result))
 
 
