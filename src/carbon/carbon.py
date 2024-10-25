@@ -35,7 +35,7 @@
 #  experiment with different graphics drawing systems that can be set in the
 #  Interface tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster
 #  mode is the preferred mode but is not compatible with all non-standard widget
-#   styles. Keep an eye on the Fonts setting before saving!
+#  styles. Keep an eye on the Fonts setting before saving!
 
 
 ################################################################################
@@ -369,11 +369,11 @@ def open_file_dialog(args):
 
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
-    
+
     caption   = find_named_parameter("prompt", args)
     directory = find_named_parameter("dir", args)
     filter    = find_named_parameter("filter", args)
-    
+
     if caption   is None : caption   = args[0]
     if directory is None : directory = args[1]
     if filter    is None : filter    = args[2]
@@ -406,7 +406,7 @@ def print_GUI_execution(s) :
 def execute_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
-    CARBON-PROTOCOL into real Qt objects and calls
+    CARBON-PROTOCOL into real Qt objects and calls.
     """
 
     stats.total = stats.total + 1
@@ -477,7 +477,7 @@ def find_named_parameter(name, args) :
            args.remove(arg)
            return strip_quotes(value)
     return None
-    
+
 
 def parse_carbon_protocol(message):
    """
