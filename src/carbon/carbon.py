@@ -45,12 +45,12 @@
 import csv
 import sys
 import os
+import queue
 import re
 import threading
 import time
 import traceback
 from pathlib import Path
-from queue   import Queue
 
 
 
@@ -88,6 +88,7 @@ if not(pyqt5) and not(pyqt4) :
 
 
 if pyqt5 :
+    from PyQt5.QtCore    import pyqtSignal, QThread
     from PyQt5.QtWidgets import QApplication
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QtWidgets import QLabel
@@ -96,8 +97,8 @@ if pyqt5 :
     from PyQt5.QtGui     import QPixmap
     from PyQt5.QtGui     import QCursor
     from PyQt5.Qt        import Qt
-    from PyQt5.QtCore    import pyqtSignal, QThread
 elif pyqt4 :
+    from PyQt4.QtCore    import QObject, pyqtSignal
     from PyQt4.QtGui     import QApplication
     from PyQt4.QtGui     import QWidget
     from PyQt4.QtGui     import QLabel
@@ -106,6 +107,7 @@ elif pyqt4 :
     from PyQt4.QtGui     import QPixmap
     from PyQt4.QtGui     import QCursor
     from PyQt4.Qt        import Qt
+
 
 ################################################################################
 # Section 3. Define a couple of helpers (time, scheduling, encodings, stats...)
@@ -137,6 +139,10 @@ def every(delay, job):
 
       # skip tasks if we are behind schedule:
       next_time += (now() - next_time) // delay * delay + delay
+
+
+def is_main_thread() :
+    return threading.current_thread() is threading.main_thread()
 
 
 def my_url_encode(s) :
@@ -237,19 +243,14 @@ class StandardInputThread(QThread):
     A thread listening to the standard input in a non-blocking way.
     The user can provide a callback function to treat each line of the input.
     """
-    
+
     protocolSignal = pyqtSignal(int)
 
     def __init__(self,
                  callback = None) :
-              #   ,
-              #   name='standard-input-thread')
-              #:
         """
         Constructor. The server will run in its own separate thread.
         """
-        
-        
 
         self.callback = callback
 
@@ -266,19 +267,14 @@ class StandardInputThread(QThread):
         """
         This is the main loop of the server thread
         """
-        
+
         answer = "ready"
-        
+
         self.protocolSignal.emit(0)
 
         # loop and wait to get input + Return
         while answer == "ready":
-            line = str(input())
-            print("line = ", line)
-            print("type of line = ",type(line))
-            print("now calling the callback function...")
-            answer = self.callback(line)
-            self.protocolSignal.emit(0)
+            answer = self.callback(input())
 
         if answer == "quit" :
             # hard exit of the whole process without calling
@@ -304,18 +300,16 @@ def server_callback(line):
     check_alive()
 
     line = line.strip()
-    
-    print("server_callback invoqued from main thread =", (threading.current_thread() is threading.main_thread()))
 
     if line != "":
         line2 = 'GUI [{:4d}] < {}'.format(line_counter, line)
-        #parse_carbon_protocol(line2)
-        
         tasks.put(line2)
-        
+        input_thread.protocolSignal.emit(0)
+
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
             print_stats()
+            app.exit(0)
             os._exit(0)
             return "quit"
 
@@ -328,8 +322,7 @@ def simulate_server_line(message):
    """
    line = message.strip()
    if line :
-       server_callback(message.strip())
-       input_thread.protocolSignal.emit(0)
+       server_callback(line)
 
 
 def read_input_file(name):
@@ -350,11 +343,6 @@ def read_input_file(name):
 # Section 5. Implement the CARBON-PROTOCOL
 ################################################################################
 
-
-
-
-# main app from Qt
-# app = QApplication(sys.argv)
 
 # prefix for the protocol commands
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
@@ -378,7 +366,6 @@ def get_mouse(args):
    Returns the current mouse position as a string
    """
    where = QCursor.pos()
-   print("get_mouse invoqued from main thread =", (threading.current_thread() is threading.main_thread()))
    return str(where.x()) + " " + str(where.y())
 
 
@@ -412,12 +399,6 @@ def open_file_dialog(args):
     caption   = my_url_decode(caption)
     directory = my_url_decode(directory)
     filter    = my_url_decode(filter)
-    
-    print(caption, flush=True)
-    print(directory, flush=True)
-    print(filter, flush=True)
-    
-    time.sleep(2.0)  # wait 2 seconds
 
     filename = QFileDialog.getOpenFileName(
             parent    = None,
@@ -452,7 +433,7 @@ def interpret_carbon_protocol(id, command, args):
     stats.total = stats.total + 1
 
     # function to tag a command as not implemented yet
-    def not_implemented() :
+    def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
        return GUI_execution_to_string("> {} NOT IMPLEMENTED: {}".format(id, command))
 
@@ -461,8 +442,8 @@ def interpret_carbon_protocol(id, command, args):
        return "{} {} => {}".format(id, command, result)
 
     # function to use when a command is a procedure returning no result
-    def acknowledge() :
-       return "OK"
+    def acknowledge(id, command) :
+       return "{} OK".format(id)
 
     # Should we echo each line?
     if echo_output:
@@ -475,12 +456,7 @@ def interpret_carbon_protocol(id, command, args):
     unknown = False
 
     if   command == "get-mouse"           :  result = get_mouse(args)
-    
-    
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
-    #elif command == "open-file-dialog"    :  result = window.open_file_dialog_in_thread(window,args)
-    
-    
     elif command == "quit"                :  result = quit(args)
     elif command == "init"                :  result = init(args)
     else :
@@ -489,12 +465,15 @@ def interpret_carbon_protocol(id, command, args):
     if result != None :
        return send_result(result)
     elif unknown :
-       return not_implemented()
+       return not_implemented(id, command)
     else :
-       return acknowledge()
+       return acknowledge(id, command)
 
 
 def strip_quotes(s):
+    """
+    Removes one pair of quotes around the string, if any
+    """
     if s and (s[0] == '"' or s[0] == "'") and s[0] == s[-1] :
         return s[1:-1]
     else :
@@ -550,10 +529,10 @@ def parse_carbon_protocol(message):
                id      = lexems[0]
                command = lexems[1]
                args    = lexems[2:]
-               
+
                answer = interpret_carbon_protocol(id, command, args)
                print(answer, flush=True)
-               
+
 
 
 ################################################################################
@@ -566,110 +545,66 @@ class HelloWorldWindow(QWidget):
     """
 
     def __init__(self, server=None):
-      """
+        """
         Constructor for the class
-      """
-      super().__init__()
-      self.initializeUI()
-      
-      server.protocolSignal.connect(self.execute_from_main_thread)
+        """
+        super().__init__()
+        self.initializeUI()
+
+        server.protocolSignal.connect(self.execute_from_main_thread)
 
     def initializeUI(self):
-      """
-         Set the size and title of the window, and shows it
-      """
-      self.setGeometry(100,100,250,250)
-      self.setWindowTitle('About box')
-      self.displayLabels()
-      self.show()
+        """
+        Set the size and title of the window, and shows it
+        """
+        self.setGeometry(100,100,250,250)
+        self.setWindowTitle('About box')
+        self.displayLabels()
+        self.show()
 
 
     def displayLabels(self):
-      """
-      Displays a small text and an image in the window.
-      """
+        """
+        Displays a small text and an image in the window.
+        """
 
-      # Creates and display the text
-      text = QLabel(self)
-      text.setText("Hello")
-      text.move(105, 15)
+        # Creates and display the text
+        text = QLabel(self)
+        text.setText("Hello")
+        text.move(105, 15)
 
-      # Create a text editor
-      textEditor = QTextEdit(self)
-      textEditor.setText("Bienvenue dans Cassio…")
-      textEditor.append("tapez du texte :-)")
-      textEditor.show()
+        # Create a text editor
+        textEditor = QTextEdit(self)
+        textEditor.setText("Bienvenue dans Cassio…")
+        textEditor.append("tapez du texte :-)")
+        textEditor.show()
 
-      # Check to see if image files exist and show it (can throw exception)
-      image = "images/world.png"
-      try:
-         with open(image):
-            pixmap = QPixmap(image).scaledToHeight(200, Qt.SmoothTransformation)
+        # Check to see if image files exist and show it (can throw exception)
+        image = "images/world.png"
+        try:
+            with open(image):
+                pixmap = QPixmap(image).scaledToHeight(200, Qt.SmoothTransformation)
+                world_image = QLabel(self)
+                world_image.setPixmap(pixmap)
+                world_image.move(25, 40)
 
-            world_image = QLabel(self)
-            world_image.setPixmap(pixmap)
-            world_image.move(25, 40)
+        except FileNotFoundError:
+            print("Image not found.", flush=True)
 
-      except FileNotFoundError:
-         print("Image not found.", flush=True)
-    
-    
+
     def execute_from_main_thread(self) :
-        print("entering execute_from_main_thread...")
-        next_task = tasks.get()
-        print("next_task = ", next_task)
-        result = parse_carbon_protocol(next_task)
-    
-    
-    
-    def HelloWordCallback(self, line) :
-        print("I write something on the standard output", flush=True)
-        return "this is a result"
-    
-    def open_file_dialog_in_thread(self, w, args):
-    	"""
-    	Blocking call, showing the usual system dialog for file selection. The
-    	returned value is the complete path of the file selected by the user, or
-    	the empty string if the user has canceled the dialog.
-    	"""
-    	stats.partialy_implemented = stats.partialy_implemented + 1
+        while True:
+            next_task = ""
+            try:
+                next_task = tasks.get(block=False)
+            except queue.Empty:
+                next_task== ""
 
-    	options = QFileDialog.Options()
-    	# options |= QFileDialog.DontUseNativeDialog
+            if next_task :
+                result = parse_carbon_protocol(next_task)
+            else :
+               break
 
-    	caption   = find_named_parameter("prompt", args)
-    	directory = find_named_parameter("dir", args)
-    	filter    = find_named_parameter("filter", args)
-
-    	if caption   is None : caption   = args[0]
-    	if directory is None : directory = args[1]
-    	if filter    is None : filter    = args[2]
-
-    	caption   = my_url_decode(caption)
-    	directory = my_url_decode(directory)
-    	filter    = my_url_decode(filter)
-    
-    	print(caption, flush=True)
-    	print(directory, flush=True)
-    	print(filter, flush=True)
-    
-    	time.sleep(2.0)  # wait 2 seconds
-
-    	filename = QFileDialog.getOpenFileName(
-            parent    = None,
-            caption   = caption,
-            directory = directory,
-            filter    = filter,
-            options   = options )
-
-    	if (type(filename) is tuple) :   # pyqt5 returns a couple, pyqt4 not
-        	filename = filename[0]
-
-    	result = ""
-    	if filename :
-        	result = my_url_encode(str(Path(filename)))
-
-    	return ("\"{}\"".format(result))
 
 
 ################################################################################
@@ -680,17 +615,13 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     
-    tasks = Queue()
+    tasks = queue.Queue()
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
-    # input_thread = StandardInputThread(server_callback2)
-    #input_thread = StandardInputThread(window.HelloWordCallback)
     
     # open the about box (this is programmed in Qt)
     window = HelloWorldWindow(server=input_thread)
-    
-    
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
@@ -702,7 +633,7 @@ if __name__ == "__main__":
 
     # clean exit for the Qt app
     res = app.exec_()
-    # sys.exit(res)
+    sys.exit(res)
 
 
 
