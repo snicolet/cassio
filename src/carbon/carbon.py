@@ -244,7 +244,7 @@ class StandardInputThread(QThread):
     The user can provide a callback function to treat each line of the input.
     """
 
-    protocolSignal = pyqtSignal(int)
+    jobsReady = pyqtSignal(int)
 
     def __init__(self,
                  callback = None) :
@@ -270,7 +270,7 @@ class StandardInputThread(QThread):
 
         answer = "ready"
 
-        self.protocolSignal.emit(0)
+        self.jobsReady.emit(1)
 
         # loop and wait to get input + Return
         while answer == "ready":
@@ -303,8 +303,8 @@ def server_callback(line):
 
     if line != "":
         line2 = 'GUI [{:4d}] < {}'.format(line_counter, line)
-        tasks.put(line2)
-        input_thread.protocolSignal.emit(0)
+        jobs.put(line2)
+        input_thread.jobsReady.emit(1)
 
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
@@ -424,7 +424,7 @@ def GUI_execution_to_string(s) :
     return s
 
 
-def interpret_carbon_protocol(id, command, args):
+def call(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and calls.
@@ -503,10 +503,10 @@ def find_named_parameter(name, args) :
     return None
 
 
-def parse_carbon_protocol(message):
+def execute_carbon_protocol(message):
    """
-   Interprets the message with the Carbon Gui protocol. See the torture.txt
-   file for some examples, or run the following command:
+   Parses and executes the message with the Carbon Gui protocol.
+   See the torture.txt file for some examples, or run the following command:
          python3 carbon.py -file torture.txt -echo -colored
    """
    lines = message.splitlines()
@@ -530,7 +530,7 @@ def parse_carbon_protocol(message):
                command = lexems[1]
                args    = lexems[2:]
 
-               answer = interpret_carbon_protocol(id, command, args)
+               answer = call(id, command, args)
                print(answer, flush=True)
 
 
@@ -538,6 +538,7 @@ def parse_carbon_protocol(message):
 ################################################################################
 # Section 6. Program something in PyQT to get familiar with the library :-)
 ################################################################################
+
 
 class HelloWorldWindow(QWidget):
     """
@@ -551,7 +552,7 @@ class HelloWorldWindow(QWidget):
         super().__init__()
         self.initializeUI()
 
-        server.protocolSignal.connect(self.execute_from_main_thread)
+        server.jobsReady.connect(self.execute_from_main_thread)
 
     def initializeUI(self):
         """
@@ -594,14 +595,14 @@ class HelloWorldWindow(QWidget):
 
     def execute_from_main_thread(self) :
         while True:
-            next_task = ""
+            line = ""
             try:
-                next_task = tasks.get(block=False)
+                line = jobs.get(block=False)
             except queue.Empty:
-                next_task== ""
+                line== ""
 
-            if next_task :
-                result = parse_carbon_protocol(next_task)
+            if line :
+                result = execute_carbon_protocol(line)
             else :
                break
 
@@ -615,7 +616,7 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     
-    tasks = queue.Queue()
+    jobs = queue.Queue()
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)

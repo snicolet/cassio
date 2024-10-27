@@ -1,7 +1,7 @@
-unit quickdraw;
+UNIT quickdraw;
 
 
-interface
+INTERFACE
 
 uses
 {$IFDEF UNIX}
@@ -40,7 +40,9 @@ function GetMouse() : Point;
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 
-implementation
+
+
+IMPLEMENTATION
 
 
 var start          : Int64;              // milliseconds at the start of the program

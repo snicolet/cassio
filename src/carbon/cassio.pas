@@ -68,7 +68,7 @@ begin
           // writeln(loc.h, ' ' , loc.v);
        end;
        
-       if (Milliseconds() = 10500) then
+       if (Tickcount() = 630) then
        begin
           s := OpenFileDialog('Choisissez un fichier', '', 'Images (*.png *.jpg *.jpeg)');
           writeln(s);
