@@ -268,8 +268,6 @@ class StandardInputThread(QThread):
 
         answer = "ready"
 
-        self.jobsReady.emit(1)
-
         # loop and wait to get input + Return
         while answer == "ready":
             answer = self.callback(input())
@@ -613,16 +611,14 @@ class HelloWorldWindow(QWidget):
         the main thread, hence the queue to communicate between the two threads.
         """
         while True:
-            line = ""
             try:
+                line = ""
                 line = jobs.get(block=False)
-            except queue.Empty:
-                line== ""
+            except queue.Empty :
+                break
 
             if line :
                 execute_carbon_protocol(line)
-            else :
-               break
 
 
 
