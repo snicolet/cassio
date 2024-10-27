@@ -427,7 +427,7 @@ def call(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and graphic calls, while also
-    giving a string to be written by the server on the standard output.
+    returning the answer to be written by the server on the standard output.
 
     The answer string can have the following format:
 
