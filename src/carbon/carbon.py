@@ -237,7 +237,6 @@ def check_alive() :
         os._exit(-1)
 
 
-#class StandardInputThread(threading.Thread):
 class StandardInputThread(QThread):
     """
     A thread listening to the standard input in a non-blocking way.
@@ -254,7 +253,6 @@ class StandardInputThread(QThread):
 
         self.callback = callback
 
-        #super(StandardInputThread, self).__init__(name=name)
         super().__init__()
 
         global last_command_time
