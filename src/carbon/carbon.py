@@ -98,7 +98,7 @@ if pyqt5 :
     from PyQt5.QtGui     import QCursor
     from PyQt5.Qt        import Qt
 elif pyqt4 :
-    from PyQt4.QtCore    import QObject, pyqtSignal
+    from PyQt4.QtCore    import pyqtSignal, QThread
     from PyQt4.QtGui     import QApplication
     from PyQt4.QtGui     import QWidget
     from PyQt4.QtGui     import QLabel
