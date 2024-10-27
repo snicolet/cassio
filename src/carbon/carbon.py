@@ -302,8 +302,9 @@ def server_callback(line):
     line = line.strip()
 
     if line != "":
-        line2 = 'GUI [{:4d}] < {}'.format(line_counter, line)
-        jobs.put(line2)
+
+        job = 'GUI [{:4d}] < {}'.format(line_counter, line)
+        jobs.put(job)
         input_thread.jobsReady.emit(1)
 
         if line == "quit":
