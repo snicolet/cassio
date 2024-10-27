@@ -67,6 +67,12 @@ begin
           loc := GetMouse();
           // writeln(loc.h, ' ' , loc.v);
        end;
+       
+       if (Milliseconds() = 10500) then
+       begin
+          s := OpenFileDialog('Choisissez un fichier', '', 'Images (*.png *.jpg *.jpeg)');
+          writeln(s);
+       end;
 
     until false or (Milliseconds() > 100000);
 

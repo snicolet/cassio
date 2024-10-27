@@ -37,6 +37,8 @@ function Tickcount() : Int64;
 procedure InterpretGetMouseAnswer(var line : AnsiString);
 function GetMouse() : Point;
 
+// File dialogs
+function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 
 implementation
 
@@ -51,6 +53,10 @@ var start          : Int64;              // milliseconds at the start of the pro
            when     : Int64 ;            // date in milliseconds
         end;
     
+    getOpenFileDialogData :
+        record
+           filePath : AnsiString;
+        end;
 
 // TAnswers is an object to handle the textual answers from the GUI server
 
@@ -243,6 +249,8 @@ end;
 
 function GetMouse() : Point;
 begin
+
+
     if (Milliseconds() - getMouseData.when >= 30) then
     begin
         getMouseData.when := Milliseconds();
@@ -251,6 +259,46 @@ begin
 
    result := getMouseData.mouseLoc;
 end;
+
+
+
+// Parsing the file path from the open-file-dialog answer
+
+procedure InterpretOpenFileDialog(var line : AnsiString);
+var parts: TStringArray;
+begin
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
+    getOpenFileDialogData.filePath := parts[3];
+end;
+
+
+// OpenFileDialog() : opens the system "Open file" dialog, and wait for the
+// user to select a file (so this is a blocking call). The function returns 
+// the path of the file selected by the user, or the empty string if the user
+// has canceled the dialog.
+
+function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
+const NONE = 'None Filename $•&%';
+var command : AnsiString;
+begin
+   getOpenFileDialogData.filePath := NONE;
+
+   command := 'open-file-dialog';
+   command := command + ' prompt="' + MyUrlEncode(prompt) + '"';
+   command := command + ' dir="'    + MyUrlEncode(directory) + '"';
+   command := command + ' filter="' + MyUrlEncode(filter) + '"';
+
+   SendCommand(command, @InterpretOpenFileDialog);
+   
+   while (getOpenFileDialogData.filePath = NONE) do
+   begin
+      ReadTaskOutput(quickDrawTask);
+      sleep(1);
+   end;
+
+   result := MyUrlDecode(getOpenFileDialogData.filePath);
+end;
+
 
 
 // Constructor for the TAnswers object

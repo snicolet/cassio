@@ -236,11 +236,15 @@ class StandardInputThread(threading.Thread):
         This is the main loop of the server thread
         """
 
-        answer = "OK"
+        answer = "ready"
 
         # loop and wait to get input + Return
-        while answer == "OK":
-            answer = self.callback(input())
+        while answer == "ready":
+            line = str(input())
+            print("line = ", line)
+            print("type of line = ",type(line))
+            print("now calling the callback function...")
+            answer = self.callback(line)
 
         if answer == "quit" :
             # hard exit of the whole process without calling
@@ -254,8 +258,8 @@ line_counter = 0   # global counter for the lines received by the GUI server
 def server_callback(line):
     """
     Evaluates the keyboard input. The convention is that the callback function
-    should return "OK" on normal lines. Returning anything else (for instance
-    "quit") will stop the line listening of the GUI server.
+    should return "ready" on normal lines, while returning anything else (for
+    instance "quit") will stop the line listening of the GUI server.
     """
 
     global line_counter
@@ -275,7 +279,14 @@ def server_callback(line):
             os._exit(0)
             return "quit"
 
-    return "OK"
+    return "ready"
+
+def server_callback2(line):
+    foo = window.HelloWordCallback
+    print("type of foo = ",type(foo))
+    result = foo("blah")
+    print("result = ", result)
+    return "ready"
 
 
 def simulate_server_line(message):
@@ -368,7 +379,7 @@ def open_file_dialog(args):
     stats.partialy_implemented = stats.partialy_implemented + 1
 
     options = QFileDialog.Options()
-    #options |= QFileDialog.DontUseNativeDialog
+    options |= QFileDialog.DontUseNativeDialog
 
     caption   = find_named_parameter("prompt", args)
     directory = find_named_parameter("dir", args)
@@ -377,6 +388,16 @@ def open_file_dialog(args):
     if caption   is None : caption   = args[0]
     if directory is None : directory = args[1]
     if filter    is None : filter    = args[2]
+
+    caption   = my_url_decode(caption)
+    directory = my_url_decode(directory)
+    filter    = my_url_decode(filter)
+    
+    print(caption, flush=True)
+    print(directory, flush=True)
+    print(filter, flush=True)
+    
+    time.sleep(2.0)  # wait 2 seconds
 
     filename = QFileDialog.getOpenFileName(
             parent    = None,
@@ -564,6 +585,10 @@ class HelloWorldWindow(QWidget):
       except FileNotFoundError:
          print("Image not found.", flush=True)
 
+    
+    def HelloWordCallback(self, line) :
+        print("I write something on the standard output", flush=True)
+        return "this is a result"
 
 
 ################################################################################
@@ -572,19 +597,23 @@ class HelloWorldWindow(QWidget):
 
 if __name__ == "__main__":
 
+    # open the about box (this is programmed in Qt)
+    window = HelloWorldWindow()
+
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
+    # input_thread = StandardInputThread(server_callback2)
+    #input_thread = StandardInputThread(window.HelloWordCallback)
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
         threading.Thread(daemon=True, target=lambda: every(5, check_alive)).start()
+        
+    
 
     # read the (optional) input file
     if (input_file_name != "") :
         read_input_file(input_file_name)
-
-    # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
 
     # clean exit for the Qt app
     res = app.exec_()
