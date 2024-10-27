@@ -417,7 +417,7 @@ def open_file_dialog(args):
     return ("\"{}\"".format(result))
 
 
-def GUI_execution_to_string(s) :
+def GUI_exec_to_str(s) :
     s = "GUI [exec] " + s
     if colored:
         s = colors.OK + s + " " + colors.RESET
@@ -427,7 +427,15 @@ def GUI_execution_to_string(s) :
 def call(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
-    CARBON-PROTOCOL into real Qt objects and calls.
+    CARBON-PROTOCOL into real Qt objects and graphic calls, while also
+    giving a string to be written by the server on the standard output.
+
+    The answer string can have the following format:
+
+       {id} command-name => value              : the command returned a value
+       {id} OK                                 : the command returned nothing
+       {id} NOT IMPLEMENTED (command-name)     : the command is not implemented
+
     """
 
     stats.total = stats.total + 1
@@ -435,10 +443,10 @@ def call(id, command, args):
     # function to tag a command as not implemented yet
     def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
-       return GUI_execution_to_string("> {} NOT IMPLEMENTED: {}".format(id, command))
+       return GUI_exec_to_str("> {} NOT IMPLEMENTED ({})".format(id, command))
 
     # function to use when a command is a function returning a result
-    def send_result(result) :
+    def format_result(result) :
        return "{} {} => {}".format(id, command, result)
 
     # function to use when a command is a procedure returning no result
@@ -447,7 +455,7 @@ def call(id, command, args):
 
     # Should we echo each line?
     if echo_output:
-        print(GUI_execution_to_string("? {} {} {}".format(id, command, args)), flush=True)
+        print(GUI_exec_to_str("? {} {} {}".format(id, command, args)), flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     # Note: most common commands should be near the top for better performance.
@@ -463,11 +471,13 @@ def call(id, command, args):
        unknown = True
 
     if result != None :
-       return send_result(result)
+       answer = format_result(result)
     elif unknown :
-       return not_implemented(id, command)
+       answer = not_implemented(id, command)
     else :
-       return acknowledge(id, command)
+       answer = acknowledge(id, command)
+
+    return answer
 
 
 def strip_quotes(s):
@@ -530,7 +540,10 @@ def execute_carbon_protocol(message):
                command = lexems[1]
                args    = lexems[2:]
 
+               # call the graphical functions in Qt
                answer = call(id, command, args)
+
+               # report result to the standard output stream
                print(answer, flush=True)
 
 
@@ -594,6 +607,12 @@ class HelloWorldWindow(QWidget):
 
 
     def execute_from_main_thread(self) :
+        """
+        This function eats the commands put previously in the 'jobs' queue
+        by the server thread, which triggers the jobsReady signal when so.
+        It is important for all the graphic manipulations to be done by Qt in
+        the main thread, hence the queue to communicate between the two threads.
+        """
         while True:
             line = ""
             try:
@@ -602,9 +621,9 @@ class HelloWorldWindow(QWidget):
                 line== ""
 
             if line :
-                result = execute_carbon_protocol(line)
+                execute_carbon_protocol(line)
             else :
-               break
+               return
 
 
 
@@ -615,12 +634,12 @@ class HelloWorldWindow(QWidget):
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
-    
+
     jobs = queue.Queue()
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
-    
+
     # open the about box (this is programmed in Qt)
     window = HelloWorldWindow(server=input_thread)
 
