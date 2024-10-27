@@ -50,6 +50,9 @@ import threading
 import time
 import traceback
 from pathlib import Path
+from queue   import Queue
+
+
 
 
 ################################################################################
@@ -83,6 +86,26 @@ if "-file" in script_args:
 if not(pyqt5) and not(pyqt4) :
     pyqt5 = True
 
+
+if pyqt5 :
+    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QLabel
+    from PyQt5.QtWidgets import QFileDialog
+    from PyQt5.QtWidgets import QTextEdit
+    from PyQt5.QtGui     import QPixmap
+    from PyQt5.QtGui     import QCursor
+    from PyQt5.Qt        import Qt
+    from PyQt5.QtCore    import pyqtSignal, QThread
+elif pyqt4 :
+    from PyQt4.QtGui     import QApplication
+    from PyQt4.QtGui     import QWidget
+    from PyQt4.QtGui     import QLabel
+    from PyQt4.QtGui     import QFileDialog
+    from PyQt4.QtGui     import QTextEdit
+    from PyQt4.QtGui     import QPixmap
+    from PyQt4.QtGui     import QCursor
+    from PyQt4.Qt        import Qt
 
 ################################################################################
 # Section 3. Define a couple of helpers (time, scheduling, encodings, stats...)
@@ -208,22 +231,30 @@ def check_alive() :
         os._exit(-1)
 
 
-class StandardInputThread(threading.Thread):
+#class StandardInputThread(threading.Thread):
+class StandardInputThread(QThread):
     """
     A thread listening to the standard input in a non-blocking way.
     The user can provide a callback function to treat each line of the input.
     """
+    
+    protocolSignal = pyqtSignal(int)
 
     def __init__(self,
-                 callback = None,
-                 name='standard-input-thread'):
+                 callback = None) :
+              #   ,
+              #   name='standard-input-thread')
+              #:
         """
         Constructor. The server will run in its own separate thread.
         """
+        
+        
 
         self.callback = callback
 
-        super(StandardInputThread, self).__init__(name=name)
+        #super(StandardInputThread, self).__init__(name=name)
+        super().__init__()
 
         global last_command_time
         last_command_time = now()
@@ -236,9 +267,9 @@ class StandardInputThread(threading.Thread):
         This is the main loop of the server thread
         """
         
-        
-
         answer = "ready"
+        
+        self.protocolSignal.emit(0)
 
         # loop and wait to get input + Return
         while answer == "ready":
@@ -247,6 +278,7 @@ class StandardInputThread(threading.Thread):
             print("type of line = ",type(line))
             print("now calling the callback function...")
             answer = self.callback(line)
+            self.protocolSignal.emit(0)
 
         if answer == "quit" :
             # hard exit of the whole process without calling
@@ -272,10 +304,15 @@ def server_callback(line):
     check_alive()
 
     line = line.strip()
+    
+    print("server_callback invoqued from main thread =", (threading.current_thread() is threading.main_thread()))
 
     if line != "":
         line2 = 'GUI [{:4d}] < {}'.format(line_counter, line)
-        parse_carbon_protocol(line2)
+        #parse_carbon_protocol(line2)
+        
+        tasks.put(line2)
+        
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
             print_stats()
@@ -284,18 +321,15 @@ def server_callback(line):
 
     return "ready"
 
-def server_callback2(line):
-    print("type of window.HelloWordCallback = ",type(window.HelloWordCallback))
-    result = window.HelloWordCallback("blah")
-    print("result = ", result)
-    return "ready"
-
 
 def simulate_server_line(message):
    """
    Simulates the entry of a line on the standard input
    """
-   server_callback(message.strip())
+   line = message.strip()
+   if line :
+       server_callback(message.strip())
+       input_thread.protocolSignal.emit(0)
 
 
 def read_input_file(name):
@@ -316,24 +350,7 @@ def read_input_file(name):
 # Section 5. Implement the CARBON-PROTOCOL
 ################################################################################
 
-if pyqt5 :
-    from PyQt5.QtWidgets import QApplication
-    from PyQt5.QtWidgets import QWidget
-    from PyQt5.QtWidgets import QLabel
-    from PyQt5.QtWidgets import QFileDialog
-    from PyQt5.QtWidgets import QTextEdit
-    from PyQt5.QtGui     import QPixmap
-    from PyQt5.QtGui     import QCursor
-    from PyQt5.Qt        import Qt
-elif pyqt4 :
-    from PyQt4.QtGui     import QApplication
-    from PyQt4.QtGui     import QWidget
-    from PyQt4.QtGui     import QLabel
-    from PyQt4.QtGui     import QFileDialog
-    from PyQt4.QtGui     import QTextEdit
-    from PyQt4.QtGui     import QPixmap
-    from PyQt4.QtGui     import QCursor
-    from PyQt4.Qt        import Qt
+
 
 
 # main app from Qt
@@ -361,6 +378,7 @@ def get_mouse(args):
    Returns the current mouse position as a string
    """
    where = QCursor.pos()
+   print("get_mouse invoqued from main thread =", (threading.current_thread() is threading.main_thread()))
    return str(where.x()) + " " + str(where.y())
 
 
@@ -547,13 +565,14 @@ class HelloWorldWindow(QWidget):
     A class (in Qt) to demonstrate the creation of an "About box" window
     """
 
-    def __init__(self):
+    def __init__(self, server=None):
       """
         Constructor for the class
       """
       super().__init__()
       self.initializeUI()
-
+      
+      server.protocolSignal.connect(self.execute_from_main_thread)
 
     def initializeUI(self):
       """
@@ -593,7 +612,15 @@ class HelloWorldWindow(QWidget):
 
       except FileNotFoundError:
          print("Image not found.", flush=True)
-
+    
+    
+    def execute_from_main_thread(self) :
+        print("entering execute_from_main_thread...")
+        next_task = tasks.get()
+        print("next_task = ", next_task)
+        result = parse_carbon_protocol(next_task)
+    
+    
     
     def HelloWordCallback(self, line) :
         print("I write something on the standard output", flush=True)
@@ -652,6 +679,8 @@ class HelloWorldWindow(QWidget):
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
+    
+    tasks = Queue()
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
@@ -659,7 +688,9 @@ if __name__ == "__main__":
     #input_thread = StandardInputThread(window.HelloWordCallback)
     
     # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
+    window = HelloWorldWindow(server=input_thread)
+    
+    
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
