@@ -235,6 +235,8 @@ class StandardInputThread(threading.Thread):
         """
         This is the main loop of the server thread
         """
+        
+        
 
         answer = "ready"
 
@@ -272,7 +274,8 @@ def server_callback(line):
     line = line.strip()
 
     if line != "":
-        parse_carbon_protocol('GUI [{:4d}] < {}'.format(line_counter, line))
+        line2 = 'GUI [{:4d}] < {}'.format(line_counter, line)
+        parse_carbon_protocol(line2)
         if line == "quit":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
             print_stats()
@@ -282,9 +285,8 @@ def server_callback(line):
     return "ready"
 
 def server_callback2(line):
-    foo = window.HelloWordCallback
-    print("type of foo = ",type(foo))
-    result = foo("blah")
+    print("type of window.HelloWordCallback = ",type(window.HelloWordCallback))
+    result = window.HelloWordCallback("blah")
     print("result = ", result)
     return "ready"
 
@@ -335,7 +337,7 @@ elif pyqt4 :
 
 
 # main app from Qt
-app = QApplication(sys.argv)
+# app = QApplication(sys.argv)
 
 # prefix for the protocol commands
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
@@ -379,7 +381,7 @@ def open_file_dialog(args):
     stats.partialy_implemented = stats.partialy_implemented + 1
 
     options = QFileDialog.Options()
-    options |= QFileDialog.DontUseNativeDialog
+    # options |= QFileDialog.DontUseNativeDialog
 
     caption   = find_named_parameter("prompt", args)
     directory = find_named_parameter("dir", args)
@@ -416,15 +418,14 @@ def open_file_dialog(args):
     return ("\"{}\"".format(result))
 
 
-def print_GUI_execution(s) :
+def GUI_execution_to_string(s) :
     s = "GUI [exec] " + s
     if colored:
-        print(colors.OK + s + " " + colors.RESET, flush=True)
-    else:
-        print(s, flush=True)
+        s = colors.OK + s + " " + colors.RESET
+    return s
 
 
-def execute_carbon_protocol(id, command, args):
+def interpret_carbon_protocol(id, command, args):
     """
     This is the core of the library, which transforms the commands of the
     CARBON-PROTOCOL into real Qt objects and calls.
@@ -435,19 +436,19 @@ def execute_carbon_protocol(id, command, args):
     # function to tag a command as not implemented yet
     def not_implemented() :
        stats.not_implemented = stats.not_implemented + 1
-       print_GUI_execution("> {} NOT IMPLEMENTED: {}".format(id, command))
+       return GUI_execution_to_string("> {} NOT IMPLEMENTED: {}".format(id, command))
 
     # function to use when a command is a function returning a result
     def send_result(result) :
-       print("{} {} => {}".format(id, command, result), flush=True)
+       return "{} {} => {}".format(id, command, result)
 
     # function to use when a command is a procedure returning no result
     def acknowledge() :
-       print("OK", flush=True)
+       return "OK"
 
     # Should we echo each line?
     if echo_output:
-        print_GUI_execution("? {} {} {}".format(id, command, args))
+        print(GUI_execution_to_string("? {} {} {}".format(id, command, args)), flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     # Note: most common commands should be near the top for better performance.
@@ -456,18 +457,23 @@ def execute_carbon_protocol(id, command, args):
     unknown = False
 
     if   command == "get-mouse"           :  result = get_mouse(args)
+    
+    
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
+    #elif command == "open-file-dialog"    :  result = window.open_file_dialog_in_thread(window,args)
+    
+    
     elif command == "quit"                :  result = quit(args)
     elif command == "init"                :  result = init(args)
     else :
        unknown = True
 
     if result != None :
-       send_result(result)
+       return send_result(result)
     elif unknown :
-       not_implemented()
+       return not_implemented()
     else :
-       acknowledge()
+       return acknowledge()
 
 
 def strip_quotes(s):
@@ -526,7 +532,10 @@ def parse_carbon_protocol(message):
                id      = lexems[0]
                command = lexems[1]
                args    = lexems[2:]
-               execute_carbon_protocol(id, command, args)
+               
+               answer = interpret_carbon_protocol(id, command, args)
+               print(answer, flush=True)
+               
 
 
 ################################################################################
@@ -589,6 +598,51 @@ class HelloWorldWindow(QWidget):
     def HelloWordCallback(self, line) :
         print("I write something on the standard output", flush=True)
         return "this is a result"
+    
+    def open_file_dialog_in_thread(self, w, args):
+    	"""
+    	Blocking call, showing the usual system dialog for file selection. The
+    	returned value is the complete path of the file selected by the user, or
+    	the empty string if the user has canceled the dialog.
+    	"""
+    	stats.partialy_implemented = stats.partialy_implemented + 1
+
+    	options = QFileDialog.Options()
+    	# options |= QFileDialog.DontUseNativeDialog
+
+    	caption   = find_named_parameter("prompt", args)
+    	directory = find_named_parameter("dir", args)
+    	filter    = find_named_parameter("filter", args)
+
+    	if caption   is None : caption   = args[0]
+    	if directory is None : directory = args[1]
+    	if filter    is None : filter    = args[2]
+
+    	caption   = my_url_decode(caption)
+    	directory = my_url_decode(directory)
+    	filter    = my_url_decode(filter)
+    
+    	print(caption, flush=True)
+    	print(directory, flush=True)
+    	print(filter, flush=True)
+    
+    	time.sleep(2.0)  # wait 2 seconds
+
+    	filename = QFileDialog.getOpenFileName(
+            parent    = None,
+            caption   = caption,
+            directory = directory,
+            filter    = filter,
+            options   = options )
+
+    	if (type(filename) is tuple) :   # pyqt5 returns a couple, pyqt4 not
+        	filename = filename[0]
+
+    	result = ""
+    	if filename :
+        	result = my_url_encode(str(Path(filename)))
+
+    	return ("\"{}\"".format(result))
 
 
 ################################################################################
@@ -597,19 +651,19 @@ class HelloWorldWindow(QWidget):
 
 if __name__ == "__main__":
 
-    # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow()
+    app = QApplication(sys.argv)
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
     # input_thread = StandardInputThread(server_callback2)
     #input_thread = StandardInputThread(window.HelloWordCallback)
+    
+    # open the about box (this is programmed in Qt)
+    window = HelloWorldWindow()
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
         threading.Thread(daemon=True, target=lambda: every(5, check_alive)).start()
-        
-    
 
     # read the (optional) input file
     if (input_file_name != "") :
@@ -617,7 +671,7 @@ if __name__ == "__main__":
 
     # clean exit for the Qt app
     res = app.exec_()
-    sys.exit(res)
+    # sys.exit(res)
 
 
 
