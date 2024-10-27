@@ -623,7 +623,7 @@ class HelloWorldWindow(QWidget):
             if line :
                 execute_carbon_protocol(line)
             else :
-               return
+               break
 
 
 
