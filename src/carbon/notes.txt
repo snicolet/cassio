@@ -32,3 +32,9 @@ experiment with different graphics drawing systems that can be set in the
 Interface tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster
 mode is the preferred mode but is not compatible with all non-standard widget
 styles. Keep an eye on the Fonts setting before saving!
+
+
+Interesting documentation links
+-------------------------------
+
+https://doc.qt.io/qtforpython-5/overviews/qtwidgets-mainwindows-dockwidgets-example.html#dock-widgets-example
