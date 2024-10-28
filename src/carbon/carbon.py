@@ -1,41 +1,14 @@
 #!/opt/local/bin/python3.9
 
-####  Note : this librairy needs the PyQt4 or the PyQt5 module for python to be
-####         installed. However, updating Python on your system may break PyQt4
-####         or PyQt5, and you may need to re-install PyQt4 or PyQt5 for the new
-####         distribution of Python. Once you have a working version of PyQt for
-####         a specific Python version, you may edit the first line of this file
-####         (shebang) to always launch carbon.py with the good Python version.
-####
-####         To see all your Python installations and find out which ones have
-####         enough PyQt4 or PyQt5 support to use the carbon.py library, use:
-####
-####                python3 pyqt-search.py
-####
-####         Examples of shebang lines I have used in the past:
-####
-####                #!/usr/bin/env python3
-####                #!/opt/local/bin/python3
-####                #!/opt/local/bin/python3.9
-
-
-
 # File carbon.py: a library to attack Qt using a text protocol,
 #                  using the standard input and output.
 #
+# Usage:     ./carbon.py
 #
-# Usage :
-#     ./carbon.py
-#     ./carbon.py [-file name] [-echo] [-echo_input] [-echo_output] [-colored]
-#
-
-
-#  Note : qt4-mac has the following notes:
-#  Users experiencing graphics glitches on newer OS versions (10.13 and up) can
-#  experiment with different graphics drawing systems that can be set in the
-#  Interface tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster
-#  mode is the preferred mode but is not compatible with all non-standard widget
-#  styles. Keep an eye on the Fonts setting before saving!
+#            ./carbon.py [-file filename] 
+#                        [-echo] [-echo_input] [-echo_output] [-colored]
+#                        [-pyqt5] [-pyqt4]
+#                        [-keep_alive]
 
 
 ################################################################################
@@ -51,8 +24,6 @@ import threading
 import time
 import traceback
 from pathlib import Path
-
-
 
 
 ################################################################################
@@ -87,26 +58,7 @@ if not(pyqt5) and not(pyqt4) :
     pyqt5 = True
 
 
-if pyqt5 :
-    from PyQt5.QtCore    import pyqtSignal, QThread
-    from PyQt5.QtWidgets import QApplication
-    from PyQt5.QtWidgets import QWidget
-    from PyQt5.QtWidgets import QLabel
-    from PyQt5.QtWidgets import QFileDialog
-    from PyQt5.QtWidgets import QTextEdit
-    from PyQt5.QtGui     import QPixmap
-    from PyQt5.QtGui     import QCursor
-    from PyQt5.Qt        import Qt
-elif pyqt4 :
-    from PyQt4.QtCore    import pyqtSignal, QThread
-    from PyQt4.QtGui     import QApplication
-    from PyQt4.QtGui     import QWidget
-    from PyQt4.QtGui     import QLabel
-    from PyQt4.QtGui     import QFileDialog
-    from PyQt4.QtGui     import QTextEdit
-    from PyQt4.QtGui     import QPixmap
-    from PyQt4.QtGui     import QCursor
-    from PyQt4.Qt        import Qt
+
 
 
 ################################################################################
@@ -209,140 +161,34 @@ def print_stats():
     print("===========================================")
 
 
-
 ################################################################################
-# Section 4. Let's program the server !
-################################################################################
-
-last_command_time = now()  # time of the last received command
-KEEP_ALIVE_DELAY = 60      # delay before killing the server (needs -keep_alive)
-
-
-def check_alive() :
-    """
-    This function can be scheduled every 5 seconds (say) to send a beat to the
-    standard output, telling the outer world that our server is still alive.
-    Reciprocally, this function will also try to kill the server if the server
-    has not received any command during the last 60 seconds (KEEP_ALIVE_DELAY)
-    """
-
-    if (keep_alive) :
-        s = "{"+str(line_counter)+"} "
-        s = s + " now = "+ (str(now())[0:8])
-        s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
-        print(s , flush=True)
-
-    if (keep_alive and (now() - last_command_time > KEEP_ALIVE_DELAY + 3)) :
-        #app.exit(0)
-        os._exit(-1)
-
-
-class StandardInputThread(QThread):
-    """
-    A thread listening to the standard input in a non-blocking way.
-    The user can provide a callback function to treat each line of the input.
-    """
-
-    jobsReady = pyqtSignal(int)
-
-    def __init__(self,
-                 callback = None) :
-        """
-        Constructor. The server will run in its own separate thread.
-        """
-
-        self.callback = callback
-
-        super().__init__()
-
-        global last_command_time
-        last_command_time = now()
-
-        self.start()
-
-
-    def run(self):
-        """
-        This is the main loop of the server thread
-        """
-
-        answer = "ready"
-
-        # loop and wait to get input + Return
-        while answer == "ready":
-            answer = self.callback(input())
-
-        if answer == "quit" :
-            # hard exit of the whole process without calling
-            # cleanup handlers, flushing stdio buffers, etc.
-            os._exit(0)
-
-
-line_counter = 0   # global counter for the lines received by the GUI server
-
-
-def server_callback(line):
-    """
-    Evaluates the keyboard input. The convention is that the callback function
-    should return "ready" on normal lines, while returning anything else (for
-    instance "quit") will stop the line listening of the GUI server.
-    """
-
-    global line_counter
-    line_counter += 1
-
-    global last_command_time
-    last_command_time = now()
-    check_alive()
-
-    line = line.strip()
-
-    if line != "":
-
-        job = 'GUI [{:4d}] < {}'.format(line_counter, line)
-        jobs.put(job)
-        input_thread.jobsReady.emit(1)
-
-        if line == "quit":
-            print("...quitting the Carbon-GUI server, bye...", flush=True)
-            print_stats()
-            app.exit(0)
-            os._exit(0)
-            return "quit"
-
-    return "ready"
-
-
-def simulate_server_line(message):
-   """
-   Simulates the entry of a line on the standard input
-   """
-   line = message.strip()
-   if line :
-       server_callback(line)
-
-
-def read_input_file(name):
-   """
-   Read the given file, and send it line by line to the server
-   """
-   if name != "":
-      with open(name) as fp:
-         for line in fp:
-            if (len(line) > 0) and (line[0] != '#') :
-                if line[0] == '@' :
-                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
-                simulate_server_line(line)
-
-
-
-################################################################################
-# Section 5. Implement the CARBON-PROTOCOL
+# Section 4. Implement the CARBON-PROTOCOL
 ################################################################################
 
+if pyqt5 :
+    from PyQt5.QtCore    import pyqtSignal, QThread
+    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QLabel
+    from PyQt5.QtWidgets import QFileDialog
+    from PyQt5.QtWidgets import QTextEdit
+    from PyQt5.QtGui     import QPixmap
+    from PyQt5.QtGui     import QCursor
+    from PyQt5.Qt        import Qt
+elif pyqt4 :
+    from PyQt4.QtCore    import pyqtSignal, QThread
+    from PyQt4.QtGui     import QApplication
+    from PyQt4.QtGui     import QWidget
+    from PyQt4.QtGui     import QLabel
+    from PyQt4.QtGui     import QFileDialog
+    from PyQt4.QtGui     import QTextEdit
+    from PyQt4.QtGui     import QPixmap
+    from PyQt4.QtGui     import QCursor
+    from PyQt4.Qt        import Qt
 
 # prefix for the protocol commands
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
+
 
 def simulate_carbon_gui(line):
    """
@@ -512,7 +358,7 @@ def find_named_parameter(name, args) :
 
 def execute_carbon_protocol(message):
    """
-   Parses and executes the message with the Carbon Gui protocol.
+   This function parses and executes a message with the Carbon GUI protocol.
    See the torture.txt file for some examples, or run the following command:
          python3 carbon.py -file torture.txt -echo -colored
    """
@@ -544,6 +390,171 @@ def execute_carbon_protocol(message):
                print(answer, flush=True)
 
 
+class GUI(QWidget):
+    """
+    This class is a GUI context in Qt (in the main thread)
+    """
+
+    def __init__(self, server=None):
+        """
+        Constructor for the class
+        """
+        super().__init__()
+        server.jobsReady.connect(self.execute_from_main_thread)
+        
+        # dummy invisible window to keep Qt happy
+        self.setGeometry(100,100,0,0)
+        self.show()
+    
+    def execute_from_main_thread(self) :
+        """
+        This function execute the commands in the 'jobs' queue. 
+
+        The flow of control is as follow:
+          1) the server listens to the standart input
+          2) the server puts each line in the 'jobs' queue
+          3) the server signals on 'jobsReady' after each line
+          4) the GUI context (this class) listen the 'jobsReady' signal
+          5) on receiving 'jobsReady', the GUI context eats each available 
+             line in the 'jobs' queue, execute it and sends the answer on
+             the standard output.
+
+        It is important for all the graphic manipulations to be done by Qt
+        in the main thread, hence the communication between the two threads.
+        """
+        
+        while True:
+            try:
+                line = ""
+                line = jobs.get(block=False)
+            except queue.Empty :
+                break
+
+            if line :
+                execute_carbon_protocol(line)
+
+
+################################################################################
+# Section 5. Let's program the text server !
+################################################################################
+
+last_command_time = now()  # time of the last received command
+KEEP_ALIVE_DELAY  = 60     # delay before kill of the server (needs -keep_alive)
+READY            = "ready" # constant string
+
+def check_alive() :
+    """
+    This function can be scheduled every 5 seconds (say) to send a beat to the
+    standard output, telling the outer world that our server is still alive.
+    Reciprocally, this function will also try to kill the server if the server
+    has not received any command during the last 60 seconds (KEEP_ALIVE_DELAY)
+    """
+
+    if (keep_alive) :
+        s = "{"+str(line_counter)+"} "
+        s = s + " now = "+ (str(now())[0:8])
+        s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
+        print(s , flush=True)
+
+    if (keep_alive and (now() - last_command_time > KEEP_ALIVE_DELAY + 3)) :
+        #app.exit(0)
+        os._exit(-1)
+
+
+class StandardInputThread(QThread):
+    """
+    A thread listening to the standard input in a non-blocking way.
+    The user can provide a callback function to treat each line of the input.
+    """
+
+    jobsReady = pyqtSignal(int)
+
+    def __init__(self, callback = None) :
+        """
+        Constructor. The server will run in its own separate thread.
+        """
+
+        self.callback = callback
+        super().__init__()
+        global last_command_time
+        last_command_time = now()
+
+        self.start()
+
+
+    def run(self):
+        """
+        This is the main loop of the server thread
+        """
+
+        answer = READY
+
+        # loop and wait to get input + Return
+        while answer == READY:
+            answer = self.callback(input())
+
+        if answer == "quit" :
+            # hard exit of the whole process without calling
+            # cleanup handlers, flushing stdio buffers, etc.
+            os._exit(0)
+
+
+line_counter = 0   # global counter for the lines received by the server
+
+
+def server_callback(line):
+    """
+    Evaluates the keyboard input. The convention is that the callback function
+    should return "ready" on normal lines, while returning anything else (for
+    instance "quit") will stop the line listening of the server.
+    """
+
+    global line_counter
+    line_counter += 1
+
+    global last_command_time
+    last_command_time = now()
+    check_alive()
+
+    line = line.strip()
+
+    if line :
+
+        job = 'GUI [{:4d}] < {}'.format(line_counter, line)
+        jobs.put(job)
+        input_thread.jobsReady.emit(1)
+
+        if line == "quit":
+            print("...quitting the Carbon-GUI server, bye...", flush=True)
+            print_stats()
+            app.exit(0)
+            os._exit(0)
+            return "quit"
+
+    return READY
+
+
+def simulate_server_line(message):
+   """
+   Simulates the entry of a line on the standard input
+   """
+   line = message.strip()
+   if line :
+       server_callback(line)
+
+
+def read_input_file(name):
+   """
+   Read the given file, and send it line by line to the server
+   """
+   if name != "":
+      with open(name) as fp:
+         for line in fp:
+            if (len(line) > 0) and (line[0] != '#') :
+                if line[0] == '@' :
+                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
+                simulate_server_line(line)
+
 
 ################################################################################
 # Section 6. Program something in PyQT to get familiar with the library :-)
@@ -555,14 +566,12 @@ class HelloWorldWindow(QWidget):
     A class (in Qt) to demonstrate the creation of an "About box" window
     """
 
-    def __init__(self, server=None):
+    def __init__(self):
         """
         Constructor for the class
         """
         super().__init__()
         self.initializeUI()
-
-        server.jobsReady.connect(self.execute_from_main_thread)
 
     def initializeUI(self):
         """
@@ -603,24 +612,6 @@ class HelloWorldWindow(QWidget):
             print("Image not found.", flush=True)
 
 
-    def execute_from_main_thread(self) :
-        """
-        This function eats the commands put previously in the 'jobs' queue
-        by the server thread, which triggers the jobsReady signal when so.
-        It is important for all the graphic manipulations to be done by Qt in
-        the main thread, hence the queue to communicate between the two threads.
-        """
-        while True:
-            try:
-                line = ""
-                line = jobs.get(block=False)
-            except queue.Empty :
-                break
-
-            if line :
-                execute_carbon_protocol(line)
-
-
 
 ################################################################################
 # Section 7. Main : if run from the command line, the script will start here
@@ -629,18 +620,20 @@ class HelloWorldWindow(QWidget):
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
-
     jobs = queue.Queue()
 
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
 
-    # open the about box (this is programmed in Qt)
-    window = HelloWorldWindow(server=input_thread)
-
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
         threading.Thread(daemon=True, target=lambda: every(5, check_alive)).start()
+
+    # create the GUI context in the main thread
+    gui = GUI(server=input_thread)
+
+    # open the about box (this is programmed in Qt)
+    # window = HelloWorldWindow()
 
     # read the (optional) input file
     if (input_file_name != "") :
@@ -648,6 +641,8 @@ if __name__ == "__main__":
 
     # clean exit for the Qt app
     res = app.exec_()
+    
+    print("clean exit with value",res);
     sys.exit(res)
 
 

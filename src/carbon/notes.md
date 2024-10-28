@@ -1,0 +1,34 @@
+
+Finding PyQt4 or PyQt5 on your system
+-------------------------------------
+
+To work, the 'carbon.py' librairy needs to access the PyQt4 or the PyQt5 
+module from Python. To see all your Python installations and find out 
+which ones have enough PyQt4 or PyQt5 support to use the carbon.py 
+library, you can use:
+
+       python3 pyqt-search.py
+
+Once you have a working version of PyQt for a specific Python version,
+you must edit the first line of the file 'carbon.py' (the shebang) to
+always launch carbon.py with the right Python version.
+
+Doing so avoid the problem where updating Python on your system breaks
+PyQt4 or PyQt5, because PyQt4 or PyQt5 are not by default in the new
+distribution of Python. If you get lost, run 'python3 pyqt-search.py' again.
+
+Examples of shebang lines I have used in the past:
+
+       #!/usr/bin/env python3
+       #!/opt/local/bin/python3
+       #!/opt/local/bin/python3.9
+
+
+Glitches on Mac OS 10.3 with qt4-mac
+------------------------------------
+
+Users experiencing graphics glitches on newer OS versions (10.13 and up) can
+experiment with different graphics drawing systems that can be set in the
+Interface tab of the /Applications/MacPorts/Qt4/qtconfig.app utility. Raster
+mode is the preferred mode but is not compatible with all non-standard widget
+styles. Keep an eye on the Fonts setting before saving!
