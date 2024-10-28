@@ -170,7 +170,7 @@ begin
     commandCounter := commandCounter + 1;
     s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
   
-    LogDebugInfo('[Cassio]   > ' + s);
+    LogDebugInfo('[Cassio] >> ' + s);
     quickDrawAnswers.AddHandler(commandCounter, handler);
     WriteTaskInput(quickDrawTask, s);
 end;
@@ -186,13 +186,15 @@ var parts: TStringArray;
 begin
     if (line <> '') then
     begin
-        LogDebugInfo('[Cassio]   < ' + line);
-        
+        if pos('[server] ', line) > 0
+        then
+            LogDebugInfo(line)
+        else
+            LogDebugInfo('[Cassio] << ' + line);
         
 	    // Parse the line to see if is a CARBON-PROTOCOL answer
 	    // Format of an answer is:
 	    //      {ID} command => value1 [value2] [value3]...
-	    
 	    parts := line.Split(' ', '"', '"', 3, TStringSplitOptions.ExcludeEmpty);
 	 
 	    if (length(parts) >= 3) and (parts[2] = '=>') then

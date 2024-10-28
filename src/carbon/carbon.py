@@ -261,7 +261,7 @@ def open_file_dialog(args):
 
 
 def GUI_exec_to_str(s) :
-    s = "GUI [exec] " + s
+    s = "[server] " + s
     if colored:
         s = colors.OK + s + " " + colors.RESET
     return s
@@ -286,7 +286,7 @@ def call(id, command, args):
     # function to tag a command as not implemented yet
     def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
-       return GUI_exec_to_str("> {} NOT IMPLEMENTED ({})".format(id, command))
+       return GUI_exec_to_str("!! {} NOT IMPLEMENTED ({})".format(id, command))
 
     # function to use when a command is a function returning a result
     def format_result(result) :
@@ -298,7 +298,7 @@ def call(id, command, args):
 
     # Should we echo each line?
     if echo_output:
-        print(GUI_exec_to_str("? {} {} {}".format(id, command, args)), flush=True)
+        print(GUI_exec_to_str("?? {} {} {}".format(id, command, args)), flush=True)
 
     # A long switch for the various commands, implementing each command with Qt.
     # Note: most common commands should be near the top for better performance.
@@ -520,7 +520,7 @@ def server_callback(line):
 
     if line :
 
-        job = 'GUI [{:4d}] < {}'.format(line_counter, line)
+        job = '[stdi][line{:4d}] < {}'.format(line_counter, line)
         jobs.put(job)
         input_thread.jobsReady.emit(1)
 
@@ -632,7 +632,7 @@ if __name__ == "__main__":
     # create the GUI context in the main thread
     gui = GUI(server=input_thread)
 
-    # open the about box (this is programmed in Qt)
+    # open the Hello World window (programmed in pure Qt)
     # window = HelloWorldWindow()
 
     # read the (optional) input file
