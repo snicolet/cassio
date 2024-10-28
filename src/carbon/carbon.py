@@ -488,8 +488,8 @@ def strip_quotes(s):
 
 def quoted_split(s):
     """
-    Like split(), but preserving spaces in double-quoted strings. See
-    explications and examples in the following thread:
+    Like split(), but preserving spaces in double-quoted strings.
+    See explications and examples in the following thread:
     https://stackoverflow.com/questions/79968/split-a-string-by-spaces-preserving-quoted-substrings-in-python
     """
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
