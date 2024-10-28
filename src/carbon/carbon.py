@@ -162,6 +162,7 @@ def print_stats():
 # Section 4. Implement the CARBON-PROTOCOL
 ################################################################################
 
+
 if pyqt5 :
     from PyQt5.QtCore    import pyqtSignal, QThread
     from PyQt5.QtWidgets import QApplication
@@ -183,16 +184,9 @@ elif pyqt4 :
     from PyQt4.QtGui     import QCursor
     from PyQt4.Qt        import Qt
 
+
 # prefix for the protocol commands
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
-
-
-def simulate_carbon_gui(line):
-   """
-   Simulates the entry of a line on the standard input,
-   with the "CARBON-PROTOCOL " prefix.
-   """
-   server_callback(PROTOCOL_PREFIX + line.strip())
 
 
 def init(args):
@@ -539,6 +533,15 @@ def simulate_server_line(message):
    line = message.strip()
    if line :
        server_callback(line)
+
+
+def simulate_carbon_gui(message):
+   """
+   Simulates the entry of a line but with the "CARBON-PROTOCOL " prefix
+   """
+   line = message.strip()
+   if line :
+      server_callback(PROTOCOL_PREFIX + line)
 
 
 def read_input_file(name):
