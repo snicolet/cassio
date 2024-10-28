@@ -58,9 +58,6 @@ if not(pyqt5) and not(pyqt4) :
     pyqt5 = True
 
 
-
-
-
 ################################################################################
 # Section 3. Define a couple of helpers (time, scheduling, encodings, stats...)
 ################################################################################
@@ -422,13 +419,14 @@ class GUI(QWidget):
         It is important for all the graphic manipulations to be done by Qt
         in the main thread, hence the communication between the two threads.
         """
-        
-        while True:
+
+        loop = True
+        while loop:
             try:
-                line = ""
                 line = jobs.get(block=False)
             except queue.Empty :
-                break
+                line = ""
+                loop = False
 
             if line :
                 execute_carbon_protocol(line)
