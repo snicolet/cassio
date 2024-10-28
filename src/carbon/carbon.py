@@ -188,6 +188,120 @@ elif pyqt4 :
 # prefix for the protocol commands
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
 
+class CarbonWindow(QWidget):
+    def __init__(self, reference):
+        super().__init__()
+        self.reference = reference
+
+windows = {}           # dictionary of existent windows
+current_port = None    # the current active grafport for drawing
+
+
+def get_port(args):
+   """
+   Returns the reference of the current grafport
+   """
+   
+   global current_port
+   try :
+      ref = current_port.reference
+   except Exception :
+      ref = None
+
+   return str(ref)
+
+
+def set_port(args):
+   """
+   Returns the reference of the current grafport
+   """
+   
+   global current_port
+   try :
+      ref = current_port.reference
+   except Exception :
+      ref = None
+
+   return str(ref)
+
+
+def new_window(args):
+   """
+   Create a new window, and make it the current port
+   """
+   global windows, current_port
+
+   reference = find_named_parameter("reference", args, 0)
+
+   if reference :
+   
+       if reference in windows :
+           error = "ERROR (new-window) : window with reference '{}' already exists".format(reference)
+           return error
+
+       # create new window
+       window = CarbonWindow(reference)
+       windows[reference] = window
+       current_port = window
+   return
+
+
+def set_window_title(args):
+
+   global windows
+   reference = find_named_parameter("reference", args, 0)
+   title     = find_named_parameter("title", args, 1)
+
+   if reference and title :
+       if reference in windows :
+           window = windows[reference]
+           window.setWindowTitle(title)
+
+   return
+
+
+def set_window_geometry(args):
+
+   global windows, current_port
+   reference = find_named_parameter("reference", args, 0)
+   left      = find_named_parameter("left", args, 1)
+   top       = find_named_parameter("top", args, 2)
+   width     = find_named_parameter("width", args, 3)
+   height    = find_named_parameter("height", args, 4)
+
+   if reference and left and top and width and height :
+       if reference in windows :
+           window = windows[reference]
+           window.setGeometry(int(left), int(top), int(width), int(height))
+
+   return
+
+def show_window(args):
+
+   global windows
+   reference = find_named_parameter("reference", args, 0)
+
+   if reference :
+       if reference in windows :
+           window = windows[reference]
+           window.show()
+
+   return
+
+def close_window(args):
+
+   global windows, current_port
+   reference = find_named_parameter("reference", args, 0)
+
+   if reference :
+       if reference in windows :
+           window = windows[reference]
+           window.close()
+           windows.pop(reference)
+           if current_port.reference == reference :
+               current_port = None
+
+   return
 
 def init(args):
    """
@@ -298,7 +412,14 @@ def call(id, command, args):
     unknown = False
 
     if   command == "get-mouse"           :  result = get_mouse(args)
+    elif command == "get-port"            :  result = get_port(args)
+    elif command == "set-port"            :  result = set_port(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
+    elif command == "new-window"          :  result = new_window(args)
+    elif command == "set-window-title"    :  result = set_window_title(args)
+    elif command == "set-window-geometry" :  result = set_window_geometry(args)
+    elif command == "show-window"         :  result = show_window(args)
+    elif command == "close-window"        :  result = close_window(args)
     elif command == "quit"                :  result = quit(args)
     elif command == "init"                :  result = init(args)
     else :
@@ -333,7 +454,7 @@ def quoted_split(s):
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
 
-def find_named_parameter(name, args) :
+def find_named_parameter(name, args, index=-1) :
     """
     Search a parameter called 'name' in the given list (syntax: 'name="value"').
     If the name is found, the function removes the parameter from the list and
@@ -344,6 +465,10 @@ def find_named_parameter(name, args) :
        if (param == name) and (sep == '=') :
            args.remove(arg)
            return strip_quotes(value)
+
+    if (len(args) > 0) and (index >= 0) :
+        return args[index]
+
     return None
 
 
@@ -512,7 +637,11 @@ def server_callback(line):
 
     if line :
 
+        if line[0] == '@' and line[1] == ' ' :
+           line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
+
         job = '[stdi][line{:4d}] < {}'.format(line_counter, line)
+
         jobs.put(job)
         input_thread.jobsReady.emit(1)
 
@@ -551,8 +680,8 @@ def read_input_file(name):
    if name != "":
       with open(name) as fp:
          for line in fp:
-            if (len(line) > 0) and (line[0] != '#') :
-                if line[0] == '@' :
+            if (len(line) > 2) and (line[0] != '#') :
+                if line[0] == '@' and line[1] == ' ' :
                     line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
                 simulate_server_line(line)
 
