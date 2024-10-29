@@ -30,11 +30,13 @@ Now using the @ shortcut in the torture.txt file...
 @  get-mouse
 @  get-port
 @  new-window          Window-2
+@  get-port
 @  set-window-title    Window-2 "About box - 2"
 @  set-window-geometry Window-2 550 150 250 250
 @  show-window         Window-2
 # @  close-window        Window-2
 @  set-port            Window-2
+@  get-port
 @  draw-text           "Hello world"
 @  draw-text-at        "Hello world" 105 15
 @  move-at             105 15

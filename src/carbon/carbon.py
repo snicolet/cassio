@@ -5,7 +5,7 @@
 #
 # Usage:     ./carbon.py
 #
-#            ./carbon.py [-file filename] 
+#            ./carbon.py [-file filename]
 #                        [-echo] [-echo_input] [-echo_output] [-colored]
 #                        [-pyqt5] [-pyqt4]
 #                        [-keep_alive]
@@ -201,7 +201,7 @@ def get_port(args):
    """
    Returns the reference of the current grafport
    """
-   
+
    global current_port
    try :
       ref = current_port.reference
@@ -236,7 +236,7 @@ def new_window(args):
    reference = find_named_parameter("reference", args, 0)
 
    if reference :
-   
+
        if reference in windows :
            error = "ERROR (new-window) : window with reference '{}' already exists".format(reference)
            return error
@@ -519,21 +519,21 @@ class GUI(QWidget):
         """
         super().__init__()
         server.jobsReady.connect(self.execute_from_main_thread)
-        
+
         # dummy invisible window to keep Qt happy
         self.setGeometry(100,100,0,0)
         self.show()
-    
+
     def execute_from_main_thread(self) :
         """
-        This function execute the commands in the 'jobs' queue. 
+        This function execute the commands in the 'jobs' queue.
 
         The flow of control is as follow:
           1) the server listens to the standart input
           2) the server puts each line in the 'jobs' queue
           3) the server signals on 'jobsReady' after each line
           4) the GUI context (this class) listen the 'jobsReady' signal
-          5) on receiving 'jobsReady', the GUI context eats each available 
+          5) on receiving 'jobsReady', the GUI context eats each available
              line in the 'jobs' queue, execute it and sends the answer on
              the standard output.
 
@@ -642,7 +642,7 @@ def server_callback(line):
         if line[0] == '@' and line[1] == ' ' :
            line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
 
-        job = '[stdi][line{:4d}] < {}'.format(line_counter, line)
+        job = '[stdi]   << {}'.format(line)
 
         jobs.put(job)
         input_thread.jobsReady.emit(1)
@@ -773,7 +773,7 @@ if __name__ == "__main__":
 
     # clean exit for the Qt app
     res = app.exec_()
-    
+
     print("clean exit with value",res);
     sys.exit(res)
 
