@@ -29,6 +29,7 @@ Now using the @ shortcut in the torture.txt file...
 @  init
 @  get-mouse
 @  get-port
+@  dump
 @  new-window          Window-2
 @  get-port
 @  set-window-title    Window-2 "About box - 2"
@@ -49,7 +50,7 @@ Now using the @ shortcut in the torture.txt file...
 #@ open-file-dialog    prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
 #@ open-file-dialog    "Select a File"   ""    "Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-
+@ dump
 
 Type \"quit\" to exit the Carbon-GUI server
 

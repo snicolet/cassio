@@ -189,9 +189,11 @@ elif pyqt4 :
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "
 
 class CarbonWindow(QWidget):
-    def __init__(self, reference):
+    def __init__(self, name):
         super().__init__()
-        self.reference = reference
+        self.name = name
+        self.setObjectName(name)
+
 
 windows = {}           # dictionary of existent windows
 current_port = None    # the current active grafport for drawing
@@ -199,12 +201,12 @@ current_port = None    # the current active grafport for drawing
 
 def get_port(args):
    """
-   Returns the reference of the current grafport
+   Returns the name of the current grafport
    """
 
    global current_port
    try :
-      ref = current_port.reference
+      ref = current_port.name
    except Exception :
       ref = None
 
@@ -218,11 +220,11 @@ def set_port(args):
 
    global current_port
 
-   reference = find_named_parameter("reference", args, 0)
+   name = find_named_parameter("name", args, 0)
 
-   if reference :
-       if reference in windows :
-           current_port = windows[reference]
+   if name :
+       if name in windows :
+           current_port = windows[name]
 
    return
 
@@ -233,17 +235,18 @@ def new_window(args):
    """
    global windows, current_port
 
-   reference = find_named_parameter("reference", args, 0)
+   name = find_named_parameter("name", args, 0)
 
-   if reference :
+   if name :
 
-       if reference in windows :
-           error = "ERROR (new-window) : window with reference '{}' already exists".format(reference)
+       if name in windows :
+           error = "ERROR (new-window) : window with name '{}' already exists".format(name)
            return error
 
        # create new window
-       window = CarbonWindow(reference)
-       windows[reference] = window
+       window = CarbonWindow(name)
+
+       windows[name] = window
        current_port = window
    return
 
@@ -251,12 +254,12 @@ def new_window(args):
 def set_window_title(args):
 
    global windows
-   reference = find_named_parameter("reference", args, 0)
-   title     = find_named_parameter("title", args, 1)
+   name  = find_named_parameter("name", args, 0)
+   title = find_named_parameter("title", args, 1)
 
-   if reference and title :
-       if reference in windows :
-           window = windows[reference]
+   if name and title :
+       if name in windows :
+           window = windows[name]
            window.setWindowTitle(title)
 
    return
@@ -265,15 +268,15 @@ def set_window_title(args):
 def set_window_geometry(args):
 
    global windows, current_port
-   reference = find_named_parameter("reference", args, 0)
+   name      = find_named_parameter("name", args, 0)
    left      = find_named_parameter("left", args, 1)
    top       = find_named_parameter("top", args, 2)
    width     = find_named_parameter("width", args, 3)
    height    = find_named_parameter("height", args, 4)
 
-   if reference and left and top and width and height :
-       if reference in windows :
-           window = windows[reference]
+   if name and left and top and width and height :
+       if name in windows :
+           window = windows[name]
            window.setGeometry(int(left), int(top), int(width), int(height))
 
    return
@@ -281,11 +284,11 @@ def set_window_geometry(args):
 def show_window(args):
 
    global windows
-   reference = find_named_parameter("reference", args, 0)
+   name = find_named_parameter("name", args, 0)
 
-   if reference :
-       if reference in windows :
-           window = windows[reference]
+   if name :
+       if name in windows :
+           window = windows[name]
            window.show()
 
    return
@@ -293,14 +296,14 @@ def show_window(args):
 def close_window(args):
 
    global windows, current_port
-   reference = find_named_parameter("reference", args, 0)
+   name = find_named_parameter("name", args, 0)
 
-   if reference :
-       if reference in windows :
-           window = windows[reference]
+   if name :
+       if name in windows :
+           window = windows[name]
            window.close()
-           windows.pop(reference)
-           if current_port.reference == reference :
+           windows.pop(name)
+           if current_port.name == name :
                current_port = None
 
    return
@@ -367,6 +370,20 @@ def open_file_dialog(args):
     return ("\"{}\"".format(result))
 
 
+def dump(args):
+    """
+    Dump the content of the global variables
+    """
+
+    global windows, current_port
+
+    s = ""
+    s = s + "\n" + "windows = "      + str(windows)
+    s = s + "\n" + "current_port = " + str(current_port)
+
+    return s
+
+
 def GUI_exec_to_str(s) :
     s = "[server] " + s
     if colored:
@@ -422,8 +439,9 @@ def call(id, command, args):
     elif command == "set-window-geometry" :  result = set_window_geometry(args)
     elif command == "show-window"         :  result = show_window(args)
     elif command == "close-window"        :  result = close_window(args)
-    elif command == "quit"                :  result = quit(args)
     elif command == "init"                :  result = init(args)
+    elif command == "dump"                :  result = dump(args)
+    elif command == "quit"                :  result = quit(args)
     else :
        unknown = True
 
@@ -610,7 +628,11 @@ class StandardInputThread(QThread):
 
         # loop and wait to get input + Return
         while answer == READY:
-            answer = self.callback(input())
+            try :
+                line = input()
+            except EOFError :
+                line = ""
+            answer = self.callback(line)
 
         if answer == "quit" :
             # hard exit of the whole process without calling
@@ -759,7 +781,8 @@ if __name__ == "__main__":
 
     # schedule a job every 5 seconds to check keep_alive
     if (keep_alive) :
-        threading.Thread(daemon=True, target=lambda: every(5, check_alive)).start()
+        daemon = threading.Thread(daemon=True, target=lambda: every(5, check_alive))
+        daemon.start()
 
     # create the GUI context in the main thread
     gui = GUI(server=input_thread)
@@ -773,8 +796,10 @@ if __name__ == "__main__":
 
     # clean exit for the Qt app
     res = app.exec_()
+    print("clean exit from Qt app with value :", res);
 
-    print("clean exit with value",res);
+    simulate_server_line("quit")
+
     sys.exit(res)
 
 
