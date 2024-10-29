@@ -395,7 +395,7 @@ def call(id, command, args):
        stats.not_implemented = stats.not_implemented + 1
        return GUI_exec_to_str("!! {} NOT IMPLEMENTED ({})".format(id, command))
 
-    # function to use when a command is a function returning a result
+    # function to use when a command returns a result
     def format_result(result) :
        return "{} {} => {}".format(id, command, result)
 

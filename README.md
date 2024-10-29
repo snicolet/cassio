@@ -65,7 +65,7 @@ provides the necessary interfaces to use Qt4 from Python 3.
 
 ##### Installing Python 3 (short version)
 
-Follow the instructions on https://www.python.org/downloads/
+Follow the instructions on https://docs.python-guide.org/ or https://www.python.org/downloads/
 
 ##### Installing the FreePascal compiler for MacOS (short version)
 
@@ -103,6 +103,7 @@ Possible sources for inspiration (in no particular order)
 - The Qt4 documentation: https://doc.qt.io/archives/qt-4.8/installation.html
 - A PyQt5 tutorial: https://www.pythonguis.com/pyqt5/
 - https://courspython.com
+- The hitchhiker's guide to Python: https://docs.python-guide.org/
 - The venerable "Inside Mac" series of books: https://preterhuman.net/macstuff/insidemac/index.html
 - Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete
 reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my
