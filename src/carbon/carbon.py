@@ -213,16 +213,18 @@ def get_port(args):
 
 def set_port(args):
    """
-   Returns the reference of the current grafport
+   Set the current grafport
    """
-   
-   global current_port
-   try :
-      ref = current_port.reference
-   except Exception :
-      ref = None
 
-   return str(ref)
+   global current_port
+
+   reference = find_named_parameter("reference", args, 0)
+
+   if reference :
+       if reference in windows :
+           current_port = windows[reference]
+
+   return
 
 
 def new_window(args):
