@@ -187,17 +187,19 @@ elif pyqt4 :
     from PyQt4.Qt        import Qt
 
 
-# prefix for the protocol commands
-PROTOCOL_PREFIX = "CARBON-PROTOCOL "
+
+PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
+windows = {}                          # dictionary of existent windows
+current_port = None                   # the current active grafport for drawing
+
 
 class CarbonWindow(QWidget):
+    """ 
+    CarbonWindow is just a normal Qt window with a name
+    """
     def __init__(self, name):
         super().__init__()
         self.setObjectName(name)
-
-
-windows = {}           # dictionary of existent windows
-current_port = None    # the current active grafport for drawing
 
 
 def find_window(name) :
