@@ -10,6 +10,7 @@ CARBON-PROTOCOL {1}  get-mouse
 
 CARBON-PROTOCOL {2}  get-port
 CARBON-PROTOCOL {3}  new-window          WindowID
+CARBON-PROTOCOL {3}  new-window          WindowID
 CARBON-PROTOCOL {4}  set-window-title    WindowID "About box"
 CARBON-PROTOCOL {5}  set-window-geometry WindowID 100 100 250 250
 CARBON-PROTOCOL {6}  show-window         WindowID

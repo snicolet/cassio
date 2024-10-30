@@ -150,12 +150,14 @@ def print_stats():
 
     fmt = lambda x: "{: 5d}".format(x)
 
-    print("===========================================")
-    print("CARBON-PROTOCOL lines : ", fmt(total))
-    print("implemented           : ", fmt(implemented),     pct(implemented))
-    print("partialy implemented  : ", fmt(partial),         pct(partial))
-    print("not implemented       : ", fmt(not_implemented), pct(not_implemented))
-    print("===========================================")
+    s = ""
+    s = s + "\n==========================================="
+    s = s + "\nCARBON-PROTOCOL lines : " + fmt(total)
+    s = s + "\nimplemented           : " + fmt(implemented)     + pct(implemented)
+    s = s + "\npartialy implemented  : " + fmt(partial)         + pct(partial)
+    s = s + "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
+    s = s + "\n===========================================\n"
+    print(s, flush=True)
 
 
 ################################################################################
@@ -191,12 +193,23 @@ PROTOCOL_PREFIX = "CARBON-PROTOCOL "
 class CarbonWindow(QWidget):
     def __init__(self, name):
         super().__init__()
-        self.name = name
         self.setObjectName(name)
 
 
 windows = {}           # dictionary of existent windows
 current_port = None    # the current active grafport for drawing
+
+
+def find_window(name) :
+    """
+    Find window by name in our list of open windows.
+    The function returns the window if found, or None if not found.
+    """
+    global windows
+    if name and (name in windows) :
+        return windows[name]
+    else :
+        return None
 
 
 def get_port(args):
@@ -206,7 +219,7 @@ def get_port(args):
 
    global current_port
    try :
-      ref = current_port.name
+      ref = current_port.objectName()
    except Exception :
       ref = None
 
@@ -219,12 +232,10 @@ def set_port(args):
    """
 
    global current_port
-
    name = find_named_parameter("name", args, 0)
-
-   if name :
-       if name in windows :
-           current_port = windows[name]
+   window = find_window(name)
+   if window :
+      current_port = window
 
    return
 
@@ -233,80 +244,90 @@ def new_window(args):
    """
    Create a new window, and make it the current port
    """
-   global windows, current_port
-
    name = find_named_parameter("name", args, 0)
 
-   if name :
-
-       if name in windows :
-           error = "ERROR (new-window) : window with name '{}' already exists".format(name)
-           return error
-
-       # create new window
+   if find_window(name) :
+       error = "ERROR (new-window) : window with name '{}' already exists".format(name)
+       return error
+   else :
+       # create a new window
        window = CarbonWindow(name)
 
+       # add the window to the 'windows' directory, and set the current port
+       global windows, current_port
        windows[name] = window
        current_port = window
+
    return
 
 
 def set_window_title(args):
+   """
+   Set the title of a window
+   """
 
-   global windows
    name  = find_named_parameter("name", args, 0)
    title = find_named_parameter("title", args, 1)
 
-   if name and title :
-       if name in windows :
-           window = windows[name]
-           window.setWindowTitle(title)
+   window = find_window(name)
+   if window and title:
+       window.setWindowTitle(title)
 
    return
 
 
 def set_window_geometry(args):
+   """
+   Set the geometry of a window
+   """
 
-   global windows, current_port
-   name      = find_named_parameter("name", args, 0)
-   left      = find_named_parameter("left", args, 1)
-   top       = find_named_parameter("top", args, 2)
-   width     = find_named_parameter("width", args, 3)
+   name      = find_named_parameter("name",   args, 0)
+   left      = find_named_parameter("left",   args, 1)
+   top       = find_named_parameter("top",    args, 2)
+   width     = find_named_parameter("width",  args, 3)
    height    = find_named_parameter("height", args, 4)
 
-   if name and left and top and width and height :
-       if name in windows :
-           window = windows[name]
-           window.setGeometry(int(left), int(top), int(width), int(height))
+   window = find_window(name)
+   if window and left and top and width and height :
+       window.setGeometry(int(left), int(top), int(width), int(height))
 
    return
+
 
 def show_window(args):
+   """
+   Show a window on the screen
+   """
 
-   global windows
    name = find_named_parameter("name", args, 0)
 
-   if name :
-       if name in windows :
-           window = windows[name]
-           window.show()
+   window = find_window(name)
+   if window :
+       window.show()
 
    return
+
 
 def close_window(args):
+   """
+   Close a window (and all the widgets inside the window)
+   """
 
-   global windows, current_port
+   global current_port
    name = find_named_parameter("name", args, 0)
 
-   if name :
-       if name in windows :
-           window = windows[name]
-           window.close()
-           windows.pop(name)
-           if current_port.name == name :
-               current_port = None
+   window = find_window(name)
+   if window :
+       # close window
+       window.close()
+
+       # remove window from the "windows" directory
+       windows.pop(name)
+       if current_port.objectName() == name :
+           current_port = None
 
    return
+
 
 def init(args):
    """
