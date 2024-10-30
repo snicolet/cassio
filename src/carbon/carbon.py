@@ -151,12 +151,12 @@ def print_stats():
     fmt = lambda x: "{: 5d}".format(x)
 
     s = ""
-    s = s + "\n==========================================="
-    s = s + "\nCARBON-PROTOCOL lines : " + fmt(total)
-    s = s + "\nimplemented           : " + fmt(implemented)     + pct(implemented)
-    s = s + "\npartialy implemented  : " + fmt(partial)         + pct(partial)
-    s = s + "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
-    s = s + "\n===========================================\n"
+    s += "\n==========================================="
+    s += "\nCARBON-PROTOCOL lines : " + fmt(total)
+    s += "\nimplemented           : " + fmt(implemented)     + pct(implemented)
+    s += "\npartialy implemented  : " + fmt(partial)         + pct(partial)
+    s += "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
+    s += "\n===========================================\n"
     print(s, flush=True)
 
 
