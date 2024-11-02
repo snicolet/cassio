@@ -166,7 +166,7 @@ def print_stats():
 
 
 if pyqt5 :
-    from PyQt5.QtCore    import pyqtSignal, QThread
+    from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
     from PyQt5.QtWidgets import QApplication
     from PyQt5.QtWidgets import QWidget
     from PyQt5.QtWidgets import QLabel
@@ -174,6 +174,7 @@ if pyqt5 :
     from PyQt5.QtWidgets import QTextEdit
     from PyQt5.QtGui     import QPixmap
     from PyQt5.QtGui     import QCursor
+    from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
     from PyQt5.Qt        import Qt
 elif pyqt4 :
     from PyQt4.QtCore    import pyqtSignal, QThread
@@ -200,7 +201,41 @@ class CarbonWindow(QWidget):
     def __init__(self, name):
         super().__init__()
         self.setObjectName(name)
+        self.modified = True
+        self.currentPixmap = QPixmap()
+        self.localPainter = None;
+        self.localPixmap = None;
+    
+    def startPainter(self) :
+        self.localPixmap = QPixmap(self.size())
+        self.localPixmap.fill(Qt.white)
+        self.localPainter = QPainter(self.localPixmap)
+        self.localPainter.drawPixmap(0, 0, self.currentPixmap)
+        return self.localPainter
+    
+    def endPainter(self) :
+        self.currentPixmap = self.localPixmap
+        self.update()
 
+    def paintEvent(self, event):
+
+        print("inside paintEvent()")
+        
+        text = "Don't look behind you"
+        h = 105
+        v = 50
+        
+        painter = QPainter()
+        painter.begin(self)
+        
+        painter.drawPixmap(0, 0, self.currentPixmap)
+        
+        pen = QPen(QColor("#E00C0C"))
+        painter.setFont(QFont("Helvetica", 15))
+        painter.setPen(pen)
+        painter.drawText(int(h), int(v), text)
+        
+        painter.end()
 
 def find_window(name) :
     """
@@ -295,6 +330,32 @@ def set_window_geometry(args):
 
    return
 
+
+def draw_text_at(args):
+   """
+   draw text at the given position
+   """
+
+   text = find_named_parameter("text", args, 0)
+   h    = find_named_parameter("h", args, 1)
+   v    = find_named_parameter("v", args, 2)
+
+   window = current_port
+   
+   if window and text and h and v :
+
+       painter = window.startPainter()
+
+       pen = QPen(QColor("#000000"))
+       painter.setFont(QFont("Helvetica", 15))
+       painter.setPen(pen)
+
+       painter.drawText(int(h), int(v), text)
+       
+       window.endPainter()
+
+   return
+   
 
 def show_window(args):
    """
@@ -454,6 +515,7 @@ def call(id, command, args):
     unknown = False
 
     if   command == "get-mouse"           :  result = get_mouse(args)
+    elif command == "draw-text-at"        :  result = draw_text_at(args)
     elif command == "get-port"            :  result = get_port(args)
     elif command == "set-port"            :  result = set_port(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
