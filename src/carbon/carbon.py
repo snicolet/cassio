@@ -8,7 +8,7 @@
 #            ./carbon.py [-file filename]
 #                        [-echo] [-echo_input] [-echo_output] [-colored]
 #                        [-pyqt5] [-pyqt4]
-#                        [-keep_alive]
+#                        [-check_alive]
 
 
 ################################################################################
@@ -37,7 +37,7 @@ echo         = "-echo"        in script_args  # echo both input and output
 echo_input   = "-echo_input"  in script_args  # echo only input
 echo_output  = "-echo_output" in script_args  # echo only output
 colored      = "-colored"     in script_args  # use colored echo in Terminal
-keep_alive   = "-keep_alive"  in script_args  # close server after one minute
+check_alive  = "-check_alive" in script_args  # close server after one minute
 pyqt5        = "-pyqt5"       in script_args  # use PyQt5 (default)
 pyqt4        = "-pyqt4"       in script_args  # use PyQt4
 
@@ -190,8 +190,10 @@ elif pyqt4 :
 
 
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
-windows = {}                          # dictionary of existent windows
+
 current_port = None                   # the current active window for drawing
+windows = {}                          # dictionary of existent windows
+pixmaps = {}                          # dictionary of existent pixmaps
 
 
 class CarbonWindow(QWidget):
@@ -201,14 +203,14 @@ class CarbonWindow(QWidget):
     def __init__(self, name):
         super().__init__()
         self.setObjectName(name)
-        self.texts = {}      # dictionary of all the strings shown in the window
+        self.texts = {}    # dictionary of all the strings shown in the window
 
     def scroll_texts(self, dx, dy) :
         """
         Change the positions of the strings in the 'texts' dictionary
         """
 
-        scrolled = {}  # will contain the new positions of each string
+        scrolled = {}  # new positions of the strings
         for job in self.texts.values() :
             text = job[0]
             h    = job[1] + dx
@@ -222,6 +224,12 @@ class CarbonWindow(QWidget):
 
         self.texts.clear()
         self.texts = scrolled
+
+    def add_image(self, pixmap) :
+        image = QLabel(self)
+        image.setPixmap(pixmap)
+        image.move(25, 40)
+        return image
 
     def paintEvent(self, event):
         """
@@ -251,11 +259,23 @@ class CarbonWindow(QWidget):
 def find_window(name) :
     """
     Find window by name in our list of open windows.
-    The function returns the window if found, or None if not found.
+    We return the window if found, or None if not found.
     """
     global windows
     if name and (name in windows) :
         return windows[name]
+    else :
+        return None
+
+
+def find_pixmap(name) :
+    """
+    Find pixmap by name in our list of pixmaps.
+    We return the pixmap if found, or None if not found.
+    """
+    global pixmaps
+    if name and (name in pixmaps) :
+        return pixmaps[name]
     else :
         return None
 
@@ -443,7 +463,31 @@ def new_pixmap(args):
     """
     Create a new pixmap in memory, and stores it in the pixmaps dictonary
     """
-    return
+
+    name   = find_named_parameter("name"  , args, 0)
+    image  = find_named_parameter("image" , args, 1)
+    width  = find_named_parameter("width" , args, -1, INTEGER)
+    height = find_named_parameter("height", args, -1, INTEGER)
+
+    if not(name) or not(image) :
+        return None 
+
+    try:
+        with open(image):
+
+            pixmap = QPixmap(image)
+            if height is not None :
+                pixmap = pixmap.scaledToHeight(height, Qt.SmoothTransformation)
+            if width is not None :
+                pixmap = pixmap.scaledToWidth(width, Qt.SmoothTransformation)
+
+            global pixmaps
+            pixmaps[name] = pixmap
+
+    except FileNotFoundError:
+        return "ERROR (new_pixmap) Image not found:" + image
+        
+    return None
 
 
 def open_file_dialog(args):
@@ -455,7 +499,7 @@ def open_file_dialog(args):
     stats.partialy_implemented = stats.partialy_implemented + 1
 
     options = QFileDialog.Options()
-    # options |= QFileDialog.DontUseNativeDialog
+    #options |= QFileDialog.DontUseNativeDialog
 
     caption   = find_named_parameter("prompt", args)
     directory = find_named_parameter("dir", args)
@@ -486,16 +530,24 @@ def open_file_dialog(args):
     return ("\"{}\"".format(result))
 
 
+def keep_alive(args) :
+    """
+    Returns a "KEEP_ALIVE_OK" message
+    """
+    return "KEEP_ALIVE_OK"
+
+
 def dump(args):
     """
     Dump the content of the global variables
     """
 
-    global windows, current_port
+    global windows, current_port, pixmaps
 
     s = ""
-    s = s + "\n" + "windows = "      + str(windows)
     s = s + "\n" + "current_port = " + str(current_port)
+    s = s + "\n" + "windows = "      + str(windows)
+    s = s + "\n" + "pixmaps = "      + str(pixmaps)
 
     return s
 
@@ -556,6 +608,7 @@ def call(id, command, args):
     elif command == "scroll-window"       :  result = scroll_window(args)
     elif command == "get-port"            :  result = get_port(args)
     elif command == "set-port"            :  result = set_port(args)
+    elif command == "keep-alive"          :  result = keep_alive(args)
     elif command == "new-pixmap"          :  result = new_pixmap(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
     elif command == "new-window"          :  result = new_window(args)
@@ -590,6 +643,7 @@ def strip_quotes(s):
     else :
         return s
 
+
 def quoted_split(s):
     """
     Like split(), but preserving spaces in double-quoted strings.
@@ -599,7 +653,8 @@ def quoted_split(s):
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
-# type decoration for find_named_parameter()
+
+# type decoration
 INTEGER  = "integer"
 FLOAT    = "float"
 STRING   = "string"
@@ -718,10 +773,10 @@ class GUI(QWidget):
 ################################################################################
 
 last_command_time = now()   # time of the last received command
-KEEP_ALIVE_DELAY  = 60      # delay before kill of the server (needs -keep_alive)
+KEEP_ALIVE_DELAY  = 60      # delay before kill of the server (needs -check_alive)
 READY            = "ready"  # constant string
 
-def check_alive() :
+def do_check_alive() :
     """
     This function can be scheduled every 5 seconds (say) to send a beat to the
     standard output, telling the outer world that our server is still alive.
@@ -729,13 +784,13 @@ def check_alive() :
     has not received any command during the last 60 seconds (KEEP_ALIVE_DELAY)
     """
 
-    if (keep_alive) :
+    if (check_alive) :
         s = "{"+str(line_counter)+"} "
         s = s + " now = "+ (str(now())[0:8])
         s = s + " , last_command_time = "+ (str(last_command_time)[0:8])
         print(s , flush=True)
 
-    if (keep_alive and (now() - last_command_time > KEEP_ALIVE_DELAY + 3)) :
+    if (check_alive and (now() - last_command_time > KEEP_ALIVE_DELAY + 3)) :
         #app.exit(0)
         os._exit(-1)
 
@@ -797,7 +852,7 @@ def server_callback(line):
 
     global last_command_time
     last_command_time = now()
-    check_alive()
+    do_check_alive()
 
     line = line.strip()
 
@@ -921,9 +976,10 @@ if __name__ == "__main__":
     # start the standard input thread
     input_thread = StandardInputThread(server_callback)
 
-    # schedule a job every 5 seconds to check keep_alive
-    if (keep_alive) :
-        daemon = threading.Thread(daemon=True, target=lambda: every(5, check_alive))
+    # schedule a job every 5 seconds to call check_alive
+    if (check_alive) :
+        job = lambda: every(5, do_check_alive)
+        daemon = threading.Thread(daemon=True, target=job)
         daemon.start()
 
     # create the GUI context in the main thread

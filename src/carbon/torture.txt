@@ -16,10 +16,12 @@ CARBON-PROTOCOL {2}  get-port
 CARBON-PROTOCOL {8}  set-port            WindowID
 CARBON-PROTOCOL {10} draw-text-at        "Hello world" 105 15
 CARBON-PROTOCOL {7}  close-window        WindowID
-CARBON-PROTOCOL {12} new-pixmap          name-1 "images/world.png"
-CARBON-PROTOCOL {13} new-pixmap          name-2 "images/world.png" width=100
-CARBON-PROTOCOL {14} new-pixmap          name-3 "images/world.png" height=100
+CARBON-PROTOCOL {12} new-pixmap          pixmap-1 "images/world.png"
+CARBON-PROTOCOL {13} new-pixmap          pixmap-2 "images/world.png" width=100
+CARBON-PROTOCOL {14} new-pixmap          pixmap-3 "images/world.png" height=100
 CARBON-PROTOCOL {15} image-from-pixmap   ImageID PixmaxID
+CARBON-PROTOCOL {15} image-from-pixmap   image-1 pixmap-1
+CARBON-PROTOCOL {16} set-image-position  image-1 25 40
 CARBON-PROTOCOL {17} keep-alive
 CARBON-PROTOCOL {10} draw-text-at        "Hello world" 105 15
 
@@ -51,10 +53,12 @@ Now using the @ shortcut in the torture.txt file...
 @  draw-text-at        "Bienvenue dans Cassio" -40 130
 @  scroll-window       10 20
 # @  close-window      Window-2
-@  new-pixmap          name-4 "images/world.png"
-@  new-pixmap          name-5 "images/world.png" width=100
-@  new-pixmap          name-6 "images/world.png" height=100
+@  new-pixmap          pixmap-4 "images/world.png"
+@  new-pixmap          pixmap-5 "images/world.png" width=100
+@  new-pixmap          pixmap-6 "images/world.png" height=100
 @  image-from-pixmap   ImageID PixmaxID
+@  image-from-pixmap   image-2 pixmap-4
+@  set-image-position  image-2 25 40
 @  keep-alive
 #@ open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog    prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'

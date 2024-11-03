@@ -13,7 +13,7 @@ cd "$SCRIPTPATH"
 #./carbon.py -file torture.txt -echo -colored
 #./carbon.py -file torture.txt -echo -colored -pyqt4
 #./carbon.py -file torture.txt -echo -colored -pyqt5
-#./carbon.py -file torture.txt -echo -colored -keep_alive 
+#./carbon.py -file torture.txt -echo -colored -check_alive 
 
 ./carbon.py -file torture.txt -echo -colored
 
