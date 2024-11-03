@@ -214,7 +214,7 @@ class CarbonWindow(QWidget):
             font = job[4]
 
             key = str(h) + ";" + str(v)
-            job = (text, int(h), int(v), pen, font)
+            job = (text, h, v, pen, font)
             scrolled[key] = job
 
         self.texts.clear()
@@ -324,14 +324,14 @@ def set_window_geometry(args):
    """
 
    name      = find_named_parameter("name",   args, 0)
-   left      = find_named_parameter("left",   args, 1)
-   top       = find_named_parameter("top",    args, 2)
-   width     = find_named_parameter("width",  args, 3)
-   height    = find_named_parameter("height", args, 4)
+   left      = find_named_parameter("left",   args, 1, INTEGER)
+   top       = find_named_parameter("top",    args, 2, INTEGER)
+   width     = find_named_parameter("width",  args, 3, INTEGER)
+   height    = find_named_parameter("height", args, 4, INTEGER)
 
    window = find_window(name)
    if window and left and top and width and height :
-       window.setGeometry(int(left), int(top), int(width), int(height))
+       window.setGeometry(left, top, width, height)
 
    return
 
@@ -342,8 +342,8 @@ def draw_text_at(args):
    """
 
    text   = find_named_parameter("text", args, 0)
-   h      = find_named_parameter("h", args, 1)
-   v      = find_named_parameter("v", args, 2)
+   h      = find_named_parameter("h", args, 1, INTEGER)
+   v      = find_named_parameter("v", args, 2, INTEGER)
    window = current_port
 
    if window and text and h and v :
@@ -353,7 +353,7 @@ def draw_text_at(args):
 
        # insert the description of the text in the "texts" dictionary
        key = str(h) + ";" + str(v)
-       job = (text, int(h), int(v), pen, font)
+       job = (text, h, v, pen, font)
        window.texts[key] = job
 
        window.update()
@@ -366,12 +366,12 @@ def scroll_window(args):
     scroll the current window content by (dx, dy)
     """
 
-    dx     = find_named_parameter("dx", args, 0)
-    dy     = find_named_parameter("dy", args, 1)
+    dx     = find_named_parameter("dx", args, 0, INTEGER)
+    dy     = find_named_parameter("dy", args, 1, INTEGER)
     window = current_port
 
     if window and dx and dy :
-        window.scrollTexts(int(dx), int(dy))
+        window.scrollTexts(dx, dy)
         window.update()
 
 def show_window(args):
@@ -576,23 +576,35 @@ def quoted_split(s):
     return [strip_quotes(p).replace('\\"', '"').replace("\\'", "'") \
             for p in re.findall(r'(?:[^"\s]*"(?:\\.|[^"])*"[^"\s]*)+|(?:[^\'\s]*\'(?:\\.|[^\'])*\'[^\'\s]*)+|[^\s]+', s)]
 
+# type decoration for find_named_parameter()
+INTEGER  = "integer"
+STRING   = "string"
 
-def find_named_parameter(name, args, index=-1) :
+def find_named_parameter(name, args, index=-1, type=STRING) :
     """
     Search a parameter called 'name' in the given list (syntax: 'name="value"').
     If the name is found, the function removes the parameter from the list and
     returns the value. If the name is not found, the function returns None.
     """
+    value = None
+
     for arg in args :
        (param , sep , value) = arg.partition('=')
        if (param == name) and (sep == '=') :
            args.remove(arg)
-           return strip_quotes(value)
+           value = strip_quotes(value)
+           break
 
-    if (len(args) > 0) and (index >= 0) :
-        return args[index]
+    if not(value) and (len(args) > 0) and (index >= 0) :
+        value = args[index]
 
-    return None
+    if value == None :
+        return None
+
+    if type == INTEGER :
+        return int(value)
+
+    return value
 
 
 def execute_carbon_protocol(message):
@@ -678,9 +690,9 @@ class GUI(QWidget):
 # Section 5. Let's program the text server !
 ################################################################################
 
-last_command_time = now()  # time of the last received command
-KEEP_ALIVE_DELAY  = 60     # delay before kill of the server (needs -keep_alive)
-READY            = "ready" # constant string
+last_command_time = now()   # time of the last received command
+KEEP_ALIVE_DELAY  = 60      # delay before kill of the server (needs -keep_alive)
+READY            = "ready"  # constant string
 
 def check_alive() :
     """

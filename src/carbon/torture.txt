@@ -37,11 +37,10 @@ Now using the @ shortcut in the torture.txt file...
 @  set-port            Window-2
 @  get-port
 @  draw-text-at        "Hello world" 105 15
+@  draw-text-at        text="Bienvenue dans Cassio" h=105 v=70
 @  draw-text-at        "Bienvenue dans Cassio" 105 55
-@  draw-text-at        "Bienvenue dans Cassio" 105 70
 @  draw-text-at        "Bienvenue dans Cassio" 105 85
 @  draw-text-at        "Bienvenue dans Cassio" 105 100
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
 @  draw-text-at        "Bienvenue dans Cassio" 105 115
 @  draw-text-at        "Bienvenue dans Cassio" 105 115
 @  draw-text-at        "Bienvenue dans Cassio" 105 115
