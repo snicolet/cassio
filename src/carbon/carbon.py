@@ -559,9 +559,9 @@ def call(id, command, args):
     else :
        unknown = True
 
-    if result != None and result.startswith("ERROR"):
+    if (result is not None) and result.startswith("ERROR"):
        answer = error(result)
-    elif result != None :
+    elif (result is not None) :
        answer = format_result(result)
     elif unknown :
        answer = not_implemented(id, command)
@@ -609,10 +609,10 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
            value = strip_quotes(val)
            break
 
-    if value == None and (len(args) > 0) and (index >= 0) :
+    if (value is None) and (len(args) > 0) and (index >= 0) :
         value = args[index]
 
-    if value == None :
+    if (value is None) :
         return None
 
     if type == INTEGER :
