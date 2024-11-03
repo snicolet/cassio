@@ -609,7 +609,7 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
            value = strip_quotes(val)
            break
 
-    if (value is None) and (len(args) > 0) and (index >= 0) :
+    if (value is None) and args and (index >= 0) :
         value = args[index]
 
     if (value is None) :
@@ -645,7 +645,7 @@ def execute_carbon_protocol(message):
 
          if occ >= 0:
             lexems = quoted_split(line[occ+len(PROTOCOL_PREFIX):len(line)])
-            if len(lexems) > 0:
+            if lexems :
 
                id      = lexems[0]
                command = lexems[1]
