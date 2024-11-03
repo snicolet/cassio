@@ -514,18 +514,23 @@ def call(id, command, args):
 
     stats.total = stats.total + 1
 
-    # function to tag a command as not implemented yet
+    # format when a command returns a result
+    def format_result(result) :
+       return "{} {} => {}".format(id, command, result)
+
+    # format when a command returns an error
+    def error(result) :
+       return "{} {}".format(id, result)
+
+    # format when a command is a procedure returning no result
+    def acknowledge(id, command) :
+       return "{} OK".format(id)
+
+    # format to tag a command as not implemented yet
     def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
        return GUI_exec_to_str("!! {} NOT IMPLEMENTED ({})".format(id, command))
 
-    # function to use when a command returns a result
-    def format_result(result) :
-       return "{} {} => {}".format(id, command, result)
-
-    # function to use when a command is a procedure returning no result
-    def acknowledge(id, command) :
-       return "{} OK".format(id)
 
     # Should we echo each line?
     if echo_output:
@@ -554,7 +559,9 @@ def call(id, command, args):
     else :
        unknown = True
 
-    if result != None :
+    if result != None and result.startswith("ERROR"):
+       answer = error(result)
+    elif result != None :
        answer = format_result(result)
     elif unknown :
        answer = not_implemented(id, command)
@@ -858,11 +865,11 @@ class HelloWorldWindow(QWidget):
         """
         self.setGeometry(100,100,250,250)
         self.setWindowTitle('About box')
-        self.displayLabels()
+        self.displayElements()
         self.show()
 
 
-    def displayLabels(self):
+    def displayElements(self):
         """
         Displays a small text and an image in the window.
         """
