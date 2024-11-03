@@ -342,8 +342,8 @@ def draw_text_at(args):
    """
 
    text   = find_named_parameter("text", args, 0)
-   h      = find_named_parameter("h", args, 1, INTEGER)
-   v      = find_named_parameter("v", args, 2, INTEGER)
+   h      = find_named_parameter("h",    args, 1, INTEGER)
+   v      = find_named_parameter("v",    args, 2, INTEGER)
    window = current_port
 
    if window and text and h and v :
@@ -578,6 +578,7 @@ def quoted_split(s):
 
 # type decoration for find_named_parameter()
 INTEGER  = "integer"
+FLOAT    = "float"
 STRING   = "string"
 
 def find_named_parameter(name, args, index=-1, type=STRING) :
@@ -603,7 +604,10 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
 
     if type == INTEGER :
         return int(value)
+    if type == FLOAT :
+        return float(value)
 
+    # defaults to returning a string
     return value
 
 
@@ -749,7 +753,7 @@ class StandardInputThread(QThread):
                 line = ""
             answer = self.callback(line)
 
-        if answer == "quit" :
+        if answer == "quit" or answer == "quit()":
             # hard exit of the whole process without calling
             # cleanup handlers, flushing stdio buffers, etc.
             os._exit(0)
@@ -784,7 +788,7 @@ def server_callback(line):
         jobs.put(job)
         input_thread.jobsReady.emit(1)
 
-        if line == "quit":
+        if line == "quit" or line == "quit()":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
             print_stats()
             app.exit(0)
