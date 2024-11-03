@@ -735,8 +735,8 @@ def server_callback(line):
 
     if line :
 
-        if line[0] == '@' and line[1] == ' ' :
-           line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
+        if line[0] == '@' :
+           line = PROTOCOL_PREFIX + "{" + str(line_counter) + "} " + line[1:]
 
         job = '[stdi]   << {}'.format(line)
 
@@ -779,8 +779,8 @@ def read_input_file(name):
       with open(name) as fp:
          for line in fp:
             if (len(line) > 2) and (line[0] != '#') :
-                if line[0] == '@' and line[1] == ' ' :
-                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "}" + line[1:]
+                if line[0] == '@' :
+                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "} " + line[1:]
                 simulate_server_line(line)
 
 
