@@ -6,14 +6,13 @@ Enter some text below
 
 CARBON-PROTOCOL {0}  init
 CARBON-PROTOCOL {1}  get-mouse
-
-
 CARBON-PROTOCOL {2}  get-port
 CARBON-PROTOCOL {3}  new-window          WindowID
 CARBON-PROTOCOL {3}  new-window          WindowID
 CARBON-PROTOCOL {4}  set-window-title    WindowID "About box"
 CARBON-PROTOCOL {5}  set-window-geometry WindowID 100 100 250 250
 CARBON-PROTOCOL {6}  show-window         WindowID
+CARBON-PROTOCOL {2}  get-port
 CARBON-PROTOCOL {8}  set-port            WindowID
 CARBON-PROTOCOL {10} draw-text-at        "Hello world" 105 15
 CARBON-PROTOCOL {7}  close-window        WindowID
@@ -33,7 +32,7 @@ Now using the @ shortcut in the torture.txt file...
 @  new-window          Window-2
 @  get-port
 @  set-window-title    Window-2 "About box - 2"
-@  set-window-geometry Window-2 550 150 250 250
+@  set-window-geometry Window-2 550 150 250 280
 @  show-window         Window-2
 @  set-port            Window-2
 @  get-port
@@ -43,7 +42,15 @@ Now using the @ shortcut in the torture.txt file...
 @  draw-text-at        "Bienvenue dans Cassio" 105 85
 @  draw-text-at        "Bienvenue dans Cassio" 105 100
 @  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" -10 130
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" -40 130
+@  scroll-window       10 20
 # @  close-window        Window-2
 @  create-pixmap       PixmaxID "images/world.png"
 @  create-pixmap       PixmaxID "images/world.png" width=100

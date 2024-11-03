@@ -203,6 +203,23 @@ class CarbonWindow(QWidget):
         self.setObjectName(name)
         self.texts = {}      # dictionary of all the strings shown in the window
 
+    def scrollTexts(self, dx, dy) :
+        scrolled = {}
+
+        for job in self.texts.values() :
+            text = job[0]
+            h    = job[1] + dx
+            v    = job[2] + dy
+            pen  = job[3]
+            font = job[4]
+
+            key = str(h) + ";" + str(v)
+            job = (text, int(h), int(v), pen, font)
+            scrolled[key] = job
+
+        self.texts.clear()
+        self.texts = scrolled
+
     def paintEvent(self, event):
 
         painter = QPainter()
@@ -210,8 +227,7 @@ class CarbonWindow(QWidget):
 
         s = "inside paintEvent() : printing " + str(len(self.texts)) + " strings"
         #print(s)
-        d = self.texts
-        for key, job in d.items() :
+        for key, job in self.texts.items() :
            if job :
                text = job[0]
                h    = job[1]
@@ -325,10 +341,9 @@ def draw_text_at(args):
    draw text at the given position
    """
 
-   text = find_named_parameter("text", args, 0)
-   h    = find_named_parameter("h", args, 1)
-   v    = find_named_parameter("v", args, 2)
-
+   text   = find_named_parameter("text", args, 0)
+   h      = find_named_parameter("h", args, 1)
+   v      = find_named_parameter("v", args, 2)
    window = current_port
 
    if window and text and h and v :
@@ -345,6 +360,19 @@ def draw_text_at(args):
 
    return
 
+
+def scroll_window(args):
+    """
+    scroll the current window content by (dx, dy)
+    """
+
+    dx     = find_named_parameter("dx", args, 0)
+    dy     = find_named_parameter("dy", args, 1)
+    window = current_port
+
+    if window and dx and dy :
+        window.scrollTexts(int(dx), int(dy))
+        window.update()
 
 def show_window(args):
    """
@@ -505,6 +533,7 @@ def call(id, command, args):
 
     if   command == "get-mouse"           :  result = get_mouse(args)
     elif command == "draw-text-at"        :  result = draw_text_at(args)
+    elif command == "scroll-window"       :  result = scroll_window(args)
     elif command == "get-port"            :  result = get_port(args)
     elif command == "set-port"            :  result = set_port(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
