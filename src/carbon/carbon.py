@@ -203,9 +203,12 @@ class CarbonWindow(QWidget):
         self.setObjectName(name)
         self.texts = {}      # dictionary of all the strings shown in the window
 
-    def scrollTexts(self, dx, dy) :
-        scrolled = {}
+    def scroll_texts(self, dx, dy) :
+        """
+        change the positions of the strings in the 'texts' dictionary
+        """
 
+        scrolled = {}  # will contain the new positions of each string
         for job in self.texts.values() :
             text = job[0]
             h    = job[1] + dx
@@ -221,6 +224,9 @@ class CarbonWindow(QWidget):
         self.texts = scrolled
 
     def paintEvent(self, event):
+        """
+        this function handles the paintEvent for our CarbonWindow class
+        """
 
         painter = QPainter()
         painter.begin(self)
@@ -353,8 +359,8 @@ def draw_text_at(args):
 
        # insert the description of the text in the "texts" dictionary
        key = str(h) + ";" + str(v)
-       job = (text, h, v, pen, font)
-       window.texts[key] = job
+       description = (text, h, v, pen, font)
+       window.texts[key] = description
 
        window.update()
 
@@ -371,7 +377,7 @@ def scroll_window(args):
     window = current_port
 
     if window and dx and dy :
-        window.scrollTexts(dx, dy)
+        window.scroll_texts(dx, dy)
         window.update()
 
 def show_window(args):
