@@ -221,19 +221,16 @@ class CarbonWindow(QWidget):
 
         print("inside paintEvent()")
         
-        text = "Don't look behind you"
-        h = 105
-        v = 50
         
         painter = QPainter()
         painter.begin(self)
         
         painter.drawPixmap(0, 0, self.currentPixmap)
         
-        pen = QPen(QColor("#E00C0C"))
-        painter.setFont(QFont("Helvetica", 15))
-        painter.setPen(pen)
-        painter.drawText(int(h), int(v), text)
+        #pen = QPen(QColor("#E00C0C"))
+        #painter.setFont(QFont("Helvetica", 15))
+        #painter.setPen(pen)
+        #painter.drawText(int(h), int(v), text)
         
         painter.end()
 
@@ -349,10 +346,27 @@ def draw_text_at(args):
        pen = QPen(QColor("#000000"))
        painter.setFont(QFont("Helvetica", 15))
        painter.setPen(pen)
-
+       painter.setRenderHint(QPainter.SmoothPixmapTransform, True);
+       painter.drawText(int(h), int(v), text)
+       
+       
+       text = "Don't look behind you"
+       h = 105
+       v = 35
+        
+       pen = QPen(QColor("#E00C0C"))
+       painter.setFont(QFont("Helvetica", 15))
+       painter.setPen(pen)
+       painter.setRenderHint(QPainter.SmoothPixmapTransform, True);
        painter.drawText(int(h), int(v), text)
        
        window.endPainter()
+       
+       #label = QLabel(current_port)
+       #label.setText(text)
+       #label.move(int(h), int(v))
+       
+       #current_port.show()
 
    return
    
