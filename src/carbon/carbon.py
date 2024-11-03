@@ -66,14 +66,14 @@ starting_time = time.time()  # starting time of the library
 
 def now():
   """
-  number of seconds since the start of the server
+  Number of seconds since the start of the server
   """
   return time.time() - starting_time
 
 
 def every(delay, job):
   """
-  schedule a "job" function every "delay" seconds.
+  Schedule a "job" function every "delay" seconds.
   usage : threading.Thread(target=lambda: every(5, foo)).start()
   """
   next_time = now() + delay
@@ -130,7 +130,7 @@ class colors:
 
 class stats:
     """
-    a class to print some stats about the commands received, implemented, etc.
+    A class to print some stats about the commands received, implemented, etc.
     """
 
     total                = 0
@@ -205,7 +205,7 @@ class CarbonWindow(QWidget):
 
     def scroll_texts(self, dx, dy) :
         """
-        change the positions of the strings in the 'texts' dictionary
+        Change the positions of the strings in the 'texts' dictionary
         """
 
         scrolled = {}  # will contain the new positions of each string
@@ -225,7 +225,7 @@ class CarbonWindow(QWidget):
 
     def paintEvent(self, event):
         """
-        this function handles the paintEvent for our CarbonWindow class
+        This function handles the paintEvent for our CarbonWindow class
         """
 
         painter = QPainter()
@@ -344,7 +344,7 @@ def set_window_geometry(args):
 
 def draw_text_at(args):
    """
-   draw text at the given position
+   Draw text at the given position
    """
 
    text   = find_named_parameter("text", args, 0)
@@ -369,7 +369,7 @@ def draw_text_at(args):
 
 def scroll_window(args):
     """
-    scroll the current window content by (dx, dy)
+    Scroll the current window content by (dx, dy)
     """
 
     dx     = find_named_parameter("dx", args, 0, INTEGER)
@@ -379,6 +379,7 @@ def scroll_window(args):
     if window and dx and dy :
         window.scroll_texts(dx, dy)
         window.update()
+
 
 def show_window(args):
    """
@@ -421,6 +422,7 @@ def init(args):
    """
    return
 
+
 def get_mouse(args):
    """
    Returns the current mouse position as a string
@@ -435,6 +437,13 @@ def quit(args):
    """
    simulate_server_line("quit")
    return
+
+
+def new_pixmap(args):
+    """
+    Create a new pixmap in memory, and stores it in the pixmaps dictonary
+    """
+    return
 
 
 def open_file_dialog(args):
@@ -547,6 +556,7 @@ def call(id, command, args):
     elif command == "scroll-window"       :  result = scroll_window(args)
     elif command == "get-port"            :  result = get_port(args)
     elif command == "set-port"            :  result = set_port(args)
+    elif command == "new-pixmap"          :  result = new_pixmap(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
     elif command == "new-window"          :  result = new_window(args)
     elif command == "set-window-title"    :  result = set_window_title(args)
