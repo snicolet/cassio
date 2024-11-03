@@ -586,25 +586,25 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
     If the name is found, the function removes the parameter from the list and
     returns the value. If the name is not found, the function returns None.
     """
-    value = None
+    result = None
 
     for arg in args :
        (param , sep , value) = arg.partition('=')
        if (param == name) and (sep == '=') :
            args.remove(arg)
-           value = strip_quotes(value)
+           result = strip_quotes(value)
            break
 
-    if not(value) and (len(args) > 0) and (index >= 0) :
-        value = args[index]
+    if result == None and (len(args) > 0) and (index >= 0) :
+        result = args[index]
 
-    if value == None :
+    if result == None :
         return None
 
     if type == INTEGER :
-        return int(value)
+        return int(result)
 
-    return value
+    return result
 
 
 def execute_carbon_protocol(message):
