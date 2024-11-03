@@ -191,48 +191,40 @@ elif pyqt4 :
 
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
 windows = {}                          # dictionary of existent windows
-current_port = None                   # the current active grafport for drawing
+current_port = None                   # the current active window for drawing
 
 
 class CarbonWindow(QWidget):
-    """ 
+    """
     CarbonWindow is just a normal Qt window with a name
     """
     def __init__(self, name):
         super().__init__()
         self.setObjectName(name)
-        self.modified = True
-        self.currentPixmap = QPixmap()
-        self.localPainter = None;
-        self.localPixmap = None;
-    
-    def startPainter(self) :
-        self.localPixmap = QPixmap(self.size())
-        self.localPixmap.fill(Qt.white)
-        self.localPainter = QPainter(self.localPixmap)
-        self.localPainter.drawPixmap(0, 0, self.currentPixmap)
-        return self.localPainter
-    
-    def endPainter(self) :
-        self.currentPixmap = self.localPixmap
-        self.update()
+        self.texts = {}      # dictionary of all the strings shown in the window
 
     def paintEvent(self, event):
 
-        print("inside paintEvent()")
-        
-        
         painter = QPainter()
         painter.begin(self)
-        
-        painter.drawPixmap(0, 0, self.currentPixmap)
-        
-        #pen = QPen(QColor("#E00C0C"))
-        #painter.setFont(QFont("Helvetica", 15))
-        #painter.setPen(pen)
-        #painter.drawText(int(h), int(v), text)
-        
+
+        s = "inside paintEvent() : printing " + str(len(self.texts)) + " strings"
+        #print(s)
+        d = self.texts
+        for key, job in d.items() :
+           if job :
+               text = job[0]
+               h    = job[1]
+               v    = job[2]
+               pen  = job[3]
+               font = job[4]
+
+               painter.setFont(font)
+               painter.setPen(pen)
+               painter.drawText(h, v, text)
+
         painter.end()
+
 
 def find_window(name) :
     """
@@ -338,38 +330,21 @@ def draw_text_at(args):
    v    = find_named_parameter("v", args, 2)
 
    window = current_port
-   
+
    if window and text and h and v :
 
-       painter = window.startPainter()
-
        pen = QPen(QColor("#000000"))
-       painter.setFont(QFont("Helvetica", 15))
-       painter.setPen(pen)
-       painter.setRenderHint(QPainter.SmoothPixmapTransform, True);
-       painter.drawText(int(h), int(v), text)
-       
-       
-       text = "Don't look behind you"
-       h = 105
-       v = 35
-        
-       pen = QPen(QColor("#E00C0C"))
-       painter.setFont(QFont("Helvetica", 15))
-       painter.setPen(pen)
-       painter.setRenderHint(QPainter.SmoothPixmapTransform, True);
-       painter.drawText(int(h), int(v), text)
-       
-       window.endPainter()
-       
-       #label = QLabel(current_port)
-       #label.setText(text)
-       #label.move(int(h), int(v))
-       
-       #current_port.show()
+       font = QFont("Helvetica", 15)
+
+       # insert the description of the text in the "texts" dictionary
+       key = str(h) + ";" + str(v)
+       job = (text, int(h), int(v), pen, font)
+       window.texts[key] = job
+
+       window.update()
 
    return
-   
+
 
 def show_window(args):
    """

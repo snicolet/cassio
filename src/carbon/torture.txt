@@ -22,7 +22,6 @@ CARBON-PROTOCOL {13} create-pixmap       PixmaxID "images/world.png" width=100
 CARBON-PROTOCOL {14} create-pixmap       PixmaxID "images/world.png" height=100
 CARBON-PROTOCOL {15} image-from-pixmap   ImageID PixmaxID
 CARBON-PROTOCOL {17} keep-alive
-
 CARBON-PROTOCOL {10} draw-text-at        "Hello world" 105 15
 
 Now using the @ shortcut in the torture.txt file...
@@ -39,9 +38,12 @@ Now using the @ shortcut in the torture.txt file...
 @  set-port            Window-2
 @  get-port
 @  draw-text-at        "Hello world" 105 15
-
 @  draw-text-at        "Bienvenue dans Cassio" 105 55
-
+@  draw-text-at        "Bienvenue dans Cassio" 105 70
+@  draw-text-at        "Bienvenue dans Cassio" 105 85
+@  draw-text-at        "Bienvenue dans Cassio" 105 100
+@  draw-text-at        "Bienvenue dans Cassio" 105 115
+@  draw-text-at        "Bienvenue dans Cassio" -10 130
 # @  close-window        Window-2
 @  create-pixmap       PixmaxID "images/world.png"
 @  create-pixmap       PixmaxID "images/world.png" width=100
