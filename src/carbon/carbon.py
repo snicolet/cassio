@@ -1048,7 +1048,7 @@ class HelloWorldWindow(QWidget):
         textEditor.append("tapez du texte :-)")
         textEditor.show()
 
-        # Check to see if image files exist and show it (can throw exception)
+        # Check to see if image file exists and show it (can throw exception)
         image = "images/world.png"
         try:
             with open(image):
