@@ -73,13 +73,25 @@ CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
 @  set-image-pixmap       image2 small-world
 @  draw-image             image2
 @  keep-alive
-#@ open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
-#@ open-file-dialog    prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
-#@ open-file-dialog    "Select a File"   ""    "Images (*.png *.jpg *.jpeg)"
-#@ open-file-dialog prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+#@ open-file-dialog       prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
+#@ open-file-dialog       prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
+#@ open-file-dialog       "Select a File"   ""    "Images (*.png *.jpg *.jpeg)"
+#@ open-file-dialog       prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 @ dump
 
 =================================================================
 =>   Type any @command, or "quit" to exit the Carbon-GUI server      
 =================================================================
+
+
+
+
+
+
+
+
+
+
+
+
 
