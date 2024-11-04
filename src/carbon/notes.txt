@@ -24,6 +24,20 @@ Examples of shebang lines I have used in the past:
        #!/opt/local/bin/python3.9
 
 
+Aliases for compiling cassio and running carbon.py
+--------------------------------------------------
+
+I have the following aliases in my .tcshrc file (they are using the tcsh
+syntax because this is the default shell on my macs -- they probably need 
+translating to the bash alias syntax). Then I can type "carbon" and "cassio"
+to test the carbon library and running cassio, respectively.
+
+    alias ccd       "cd ~/Programmation/cassio/src/carbon"
+    alias carbon    "./carbon.sh"
+    alias ccassio   'fpc -Mobjfpc -Sh -k"-macosx_version_min 10.13" -ocassio.exe cassio.pas'
+    alias cassio    "ccassio && ./cassio.exe"
+
+
 Glitches on Mac OS 10.3 with qt4-mac
 ------------------------------------
 

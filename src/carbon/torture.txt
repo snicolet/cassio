@@ -44,17 +44,18 @@ CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
 @  set-port               Window-2
 @  get-port
 @  draw-text-at           "Hello world (2)" 105 15
-@  draw-text-at           text="Bienvenue dans Cassio" h=105 v=70
-@  draw-text-at           "Bienvenue dans Cassio" 105 55
-@  draw-text-at           "Bienvenue dans Cassio" 105 85
-@  draw-text-at           "Bienvenue dans Cassio" 105 100
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
-@  draw-text-at           "Bienvenue dans Cassio" 105 115
+
+@  draw-text-at           text="Bienvenue dans Cassio" h=120 v=40
+@  draw-text-at           "Bienvenue dans Cassio" 100 55
+@  draw-text-at           "Bienvenue dans Cassio" 80 70
+@  draw-text-at           "Bienvenue dans Cassio" 60 85
+@  draw-text-at           "Bienvenue dans Cassio" 40 100
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" -40 130
 @  scroll-window          10 20
 #@  close-window          Window-2

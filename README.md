@@ -105,9 +105,17 @@ Possible sources for inspiration (in no particular order)
 - https://courspython.com
 - The hitchhiker's guide to Python: https://docs.python-guide.org/
 - The venerable "Inside Mac" series of books: https://preterhuman.net/macstuff/insidemac/index.html
-- Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a complete
-reference for the obsolete QuickDraw API from Apple. Probably a bit overkill for my
-needs, probably, but still useful. https://twokinds.se/yh/transskel5/
-- Roland Chastain has written several chess programs (both chess engines and chess
-graphical user interfaces) in FreePascal. Quite active, and he speeks french! His Github
-is a good central place for Pascal chess-related stuff: https://github.com/rchastain
+- Ingemar Ragnemalm in Trabskell 5 has the file QDCG.pas, which is quite a
+complete reference for the obsolete QuickDraw API from Apple. Probably a 
+bit overkill for my needs, probably, but still useful. https://twokinds.se/yh/transskel5/
+- Roland Chastain has written several chess programs (both chess engines 
+and chess graphical user interfaces) in FreePascal. Quite active, and he
+speeks french! His Githubis a good central place for Pascal chess-related stuff: https://github.com/rchastain
+
+
+
+
+
+
+
+
