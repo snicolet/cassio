@@ -17,8 +17,8 @@ CARBON-PROTOCOL {6}  set-window-geometry    WindowID 100 100 250 250
 CARBON-PROTOCOL {7}  show-window            WindowID
 CARBON-PROTOCOL {8}  get-port
 CARBON-PROTOCOL {9}  set-port               WindowID
-CARBON-PROTOCOL {10} draw-text-at           "Hello world" 105 15
-CARBON-PROTOCOL {11} close-window           WindowID
+CARBON-PROTOCOL {10} draw-text-at           "Hello world" 15 15
+#CARBON-PROTOCOL {11} close-window          WindowID
 CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
 CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
 CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
@@ -26,8 +26,14 @@ CARBON-PROTOCOL {15} new-image-from-pixmap  ImageID PixmaxID
 CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
 CARBON-PROTOCOL {17} set-image-position     image-1 25 40
 CARBON-PROTOCOL {18} keep-alive
-CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
-CARBON-PROTOCOL {20} dump
+CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {20} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {22} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {24} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {25} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {26} dump
 
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
@@ -38,7 +44,7 @@ CARBON-PROTOCOL {20} dump
 @  get-port
 @  new-window             Window-2
 @  get-port
-@  set-window-title       Window-2 "About box - 2"
+@  set-window-title       Window-2 "Cassio"
 @  set-window-geometry    Window-2 550 150 250 280
 @  show-window            Window-2
 @  set-port               Window-2
