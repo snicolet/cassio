@@ -27,6 +27,7 @@ CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
 CARBON-PROTOCOL {17} set-image-position     image-1 25 40
 CARBON-PROTOCOL {18} keep-alive
 CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
+CARBON-PROTOCOL {20} dump
 
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
@@ -35,7 +36,6 @@ CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
 @  init
 @  get-mouse
 @  get-port
-@  dump
 @  new-window             Window-2
 @  get-port
 @  set-window-title       Window-2 "About box - 2"

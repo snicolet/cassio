@@ -696,7 +696,7 @@ def call(id, command, args):
     # Note: most common commands should be near the top for better performance.
 
     result = None
-    unknown = False
+    implemented = True
 
     if   command == "get-mouse"             :  result = get_mouse(args)
     elif command == "draw-text-at"          :  result = draw_text_at(args)
@@ -719,16 +719,16 @@ def call(id, command, args):
     elif command == "dump"                  :  result = dump(args)
     elif command == "quit"                  :  result = quit(args)
     else :
-       unknown = True
+       implemented = False
 
     if (result is not None) and result.startswith("ERROR"):
-       answer = error(result)
+        answer = error(result)
     elif (result is not None) :
-       answer = normal_result(result)
-    elif unknown :
-       answer = not_implemented(id, command)
+        answer = normal_result(result)
+    elif implemented :
+        answer = acknowledge(id, command)
     else :
-       answer = acknowledge(id, command)
+        answer = not_implemented(id, command)
 
     return answer
 
