@@ -231,7 +231,7 @@ class CarbonWindow(QWidget):
         self.image = QLabel(self)
         self.image.setPixmap(pixmap)
         self.image.move(25, 40)
-        
+
         return self.image
 
     def paintEvent(self, event):
@@ -494,7 +494,7 @@ def new_pixmap(args):
 
     except FileNotFoundError:
         return "ERROR (new_pixmap) Image not found:" + image
-        
+
     return None
 
 
@@ -558,9 +558,9 @@ def open_file_dialog(args):
 
 def keep_alive(args) :
     """
-    Returns a "KEEP_ALIVE_OK" message
+    A dummy function :-)
     """
-    return "KEEP_ALIVE_OK"
+    return
 
 
 def dump(args):
@@ -606,8 +606,8 @@ def call(id, command, args):
        return "{} {} => {}".format(id, command, result)
 
     # format when a command returns an error
-    def error(result) :
-       return "{} {}".format(id, result)
+    def error(message) :
+       return "{} {} => {}".format(id, command, message)
 
     # format when a command is a procedure returning no result
     def acknowledge(id, command) :
