@@ -130,25 +130,35 @@ class ansi:
 
 class stats:
     """
-    A class to print some stats about the commands received, implemented, etc.
+    A class to emit some stats about the commands received, implemented, etc.
     """
-
     total                = 0
     not_implemented      = 0
     partialy_implemented = 0
+    implemented          = 0
 
-def print_stats():
-    total           = stats.total
-    not_implemented = stats.not_implemented
-    partial         = stats.partialy_implemented
-    implemented     = total - not_implemented - partial
+    @classmethod
+    def report(cls) :
+        cls.implemented = cls.total - cls.not_implemented - cls.partialy_implemented
+        return (cls.total, 
+                cls.implemented, 
+                cls.partialy_implemented, 
+                cls.not_implemented)
+
+def stat_box():
+    """
+    Returns a box with stats and pourcentages
+    """
 
     def pct(n) :
         if total <= 0 :
             return ""
         return " (" + str(round(100 * n / total, 2)) + " %)"
 
-    fmt = lambda x: "{: 5d}".format(x)
+    def fmt(x) :
+        return "{: 5d}".format(x)
+
+    (total, implemented, partial, not_implemented) = stats.report()
 
     s = ""
     s += "\n==========================================="
@@ -157,7 +167,9 @@ def print_stats():
     s += "\npartialy implemented  : " + fmt(partial)         + pct(partial)
     s += "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
     s += "\n===========================================\n"
-    print(s, flush=True)
+
+    return s
+
 
 
 ################################################################################
@@ -489,7 +501,7 @@ def new_pixmap(args):
     return None
 
 
-def image_from_pixmap(args) :
+def new_image_from_pixmap(args) :
     """
     Create a new image from a given pixmap (in the current window)
     """
@@ -954,7 +966,7 @@ def server_callback(line):
 
         if line == "quit" or line == "quit()":
             print("...quitting the Carbon-GUI server, bye...", flush=True)
-            print_stats()
+            print(stat_box(), flush=True)
             app.exit(0)
             os._exit(0)
             return "quit"
