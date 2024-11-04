@@ -118,14 +118,14 @@ def my_url_decode(s) :
     return s
 
 
-class colors:
+class ansi:
     """
     A class to declare constants for colored ANSI Codes
     """
 
-    OK      = '\033[92m'  # GREEN
-    WARNING = '\033[93m'  # YELLOW
-    FAIL    = '\033[91m'  # RED
+    GREEN   = '\033[92m'  # GREEN
+    YELLOW  = '\033[93m'  # YELLOW
+    RED     = '\033[91m'  # RED
     RESET   = '\033[0m'   # RESET COLOR
 
 class stats:
@@ -581,9 +581,11 @@ def dump(args):
 
 
 def GUI_exec_to_str(s) :
+    if colored and (s.find("NOT IMPLEMENTED") >= 0) :
+        s = ansi.RED + s + " " + ansi.RESET
     s = "[server] " + s
     if colored:
-        s = colors.OK + s + " " + colors.RESET
+        s = ansi.GREEN + s + " " + ansi.RESET
     return s
 
 
@@ -733,7 +735,7 @@ def execute_carbon_protocol(message):
          if occ < 0:
             if echo_input:
                if colored:
-                  print(colors.FAIL + line + colors.RESET, flush=True)
+                  print(ansi.RED + line + ansi.RESET, flush=True)
                else:
                   print(line, flush=True)
 
