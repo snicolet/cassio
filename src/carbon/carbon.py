@@ -82,11 +82,11 @@ def every(delay, job):
       try:
           job()
       except Exception:
-          # in production code you might want to have this instead of course:
+          # In production code you might want to have this instead of course:
           # logger.exception("Problem while executing repetitive task.")
           traceback.print_exc()
 
-      # skip tasks if we are behind schedule:
+      # skip tasks if we are behind schedule
       next_time += (now() - next_time) // delay * delay + delay
 
 
@@ -120,7 +120,7 @@ def my_url_decode(s) :
 
 class ansi:
     """
-    A class to declare constants for colored ANSI Codes
+    A class to declare constants for colored ANSI codes in Terminal
     """
 
     GREEN   = '\033[92m'  # GREEN
