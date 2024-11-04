@@ -189,7 +189,7 @@ if pyqt5 :
     from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
     from PyQt5.Qt        import Qt
 elif pyqt4 :
-    from PyQt4.QtCore    import pyqtSignal, QThread
+    from PyQt4.QtCore    import pyqtSignal, QThread, QPoint, QRect
     from PyQt4.QtGui     import QApplication
     from PyQt4.QtGui     import QWidget
     from PyQt4.QtGui     import QLabel
@@ -197,6 +197,7 @@ elif pyqt4 :
     from PyQt4.QtGui     import QTextEdit
     from PyQt4.QtGui     import QPixmap
     from PyQt4.QtGui     import QCursor
+    from PyQt4.QtGui     import QPainter, QColor, QPen, QFont
     from PyQt4.Qt        import Qt
 
 
@@ -335,6 +336,7 @@ def new_window(args):
        global windows, current_port
        window = CarbonWindow(name)
        windows[name] = window
+       window.show()
        current_port = window
 
        return name
@@ -835,8 +837,9 @@ class GUI(QWidget):
         server.jobsReady.connect(self.execute_from_main_thread)
 
         # dummy invisible window to keep Qt happy
-        self.setGeometry(100,100,0,0)
-        self.show()
+        if pyqt5 :
+            self.setGeometry(100,100,0,0)
+            self.show()
 
     def execute_from_main_thread(self) :
         """
