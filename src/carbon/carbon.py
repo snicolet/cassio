@@ -216,9 +216,9 @@ class CarbonWindow(QWidget):
     CarbonWindow is just a normal Qt window with a name
     """
     def __init__(self, name):
-        super().__init__()
+        super().__init__(parent=None)
         self.setObjectName(name)
-        self.setParent(None)
+        self.setWindowFlags(Qt.Window)
         self.texts = {}    # dictionary of all the strings shown in the window
         self.images = {}   # dictionary of all the images shown in the window
 
@@ -827,7 +827,7 @@ def execute_carbon_protocol(message):
                print(answer, flush=True)
 
 
-class GUI(QDialog):
+class GUI(QWidget):
     """
     This class is a GUI context in Qt (in the main thread)
     """
@@ -1033,8 +1033,8 @@ class HelloWorldWindow(QWidget):
         """
         Set the size and title of the window, and shows it
         """
-        self.setGeometry(100,100,250,250)
-        self.setWindowTitle('About box')
+        self.setGeometry(120,400,250,250)
+        self.setWindowTitle('About box (in Qt)')
         self.displayElements()
         self.show()
 
@@ -1091,7 +1091,7 @@ if __name__ == "__main__":
     gui = GUI(server=input_thread)
 
     # open the Hello World window (programmed in pure Qt)
-    # window = HelloWorldWindow()
+    window = HelloWorldWindow()
 
     # read the (optional) input file
     if (input_file_name != "") :
