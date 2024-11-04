@@ -536,6 +536,23 @@ def set_image_position(args) :
     return
 
 
+def set_image_pixmap(args) :
+    """
+    Set the pixmap of the given image (in the current window)
+    """
+
+    name       = find_named_parameter("name"   , args, 0)
+    pixmapname = find_named_parameter("pixmap" , args, 1)
+    pixmap     = find_pixmap(pixmapname)
+    window     = current_port
+
+    if window and name and pixmap and (name in window.images) :
+        image = window.images[name]
+        image.setPixmap(pixmap)
+
+    return
+
+
 def draw_image(args) :
     """
     Draw the given image (in the current window)
@@ -641,7 +658,7 @@ def call(id, command, args):
     stats.total = stats.total + 1
 
     # format when a command returns a result
-    def format_result(result) :
+    def normal_result(result) :
        return "{} {} => {}".format(id, command, result)
 
     # format when a command returns an error
@@ -668,32 +685,33 @@ def call(id, command, args):
     result = None
     unknown = False
 
-    if   command == "get-mouse"           :  result = get_mouse(args)
-    elif command == "draw-text-at"        :  result = draw_text_at(args)
-    elif command == "scroll-window"       :  result = scroll_window(args)
-    elif command == "get-port"            :  result = get_port(args)
-    elif command == "set-port"            :  result = set_port(args)
-    elif command == "keep-alive"          :  result = keep_alive(args)
-    elif command == "new-pixmap"          :  result = new_pixmap(args)
-    elif command == "image-from-pixmap"   :  result = image_from_pixmap(args)
-    elif command == "set-image-position"  :  result = set_image_position(args)
-    elif command == "draw-image"          :  result = draw_image(args)
-    elif command == "open-file-dialog"    :  result = open_file_dialog(args)
-    elif command == "new-window"          :  result = new_window(args)
-    elif command == "set-window-title"    :  result = set_window_title(args)
-    elif command == "set-window-geometry" :  result = set_window_geometry(args)
-    elif command == "show-window"         :  result = show_window(args)
-    elif command == "close-window"        :  result = close_window(args)
-    elif command == "init"                :  result = init(args)
-    elif command == "dump"                :  result = dump(args)
-    elif command == "quit"                :  result = quit(args)
+    if   command == "get-mouse"             :  result = get_mouse(args)
+    elif command == "draw-text-at"          :  result = draw_text_at(args)
+    elif command == "scroll-window"         :  result = scroll_window(args)
+    elif command == "get-port"              :  result = get_port(args)
+    elif command == "set-port"              :  result = set_port(args)
+    elif command == "keep-alive"            :  result = keep_alive(args)
+    elif command == "new-pixmap"            :  result = new_pixmap(args)
+    elif command == "new-image-from-pixmap" :  result = new_image_from_pixmap(args)
+    elif command == "set-image-position"    :  result = set_image_position(args)
+    elif command == "set-image-pixmap"      :  result = set_image_pixmap(args)
+    elif command == "draw-image"            :  result = draw_image(args)
+    elif command == "open-file-dialog"      :  result = open_file_dialog(args)
+    elif command == "new-window"            :  result = new_window(args)
+    elif command == "set-window-title"      :  result = set_window_title(args)
+    elif command == "set-window-geometry"   :  result = set_window_geometry(args)
+    elif command == "show-window"           :  result = show_window(args)
+    elif command == "close-window"          :  result = close_window(args)
+    elif command == "init"                  :  result = init(args)
+    elif command == "dump"                  :  result = dump(args)
+    elif command == "quit"                  :  result = quit(args)
     else :
        unknown = True
 
     if (result is not None) and result.startswith("ERROR"):
        answer = error(result)
     elif (result is not None) :
-       answer = format_result(result)
+       answer = normal_result(result)
     elif unknown :
        answer = not_implemented(id, command)
     else :

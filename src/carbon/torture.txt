@@ -10,23 +10,23 @@ Enter some text below
 CARBON-PROTOCOL {0}  init
 CARBON-PROTOCOL {1}  get-mouse
 CARBON-PROTOCOL {2}  get-port
-CARBON-PROTOCOL {3}  new-window          WindowID
-CARBON-PROTOCOL {4}  new-window          WindowID
-CARBON-PROTOCOL {5}  set-window-title    WindowID "About box"
-CARBON-PROTOCOL {6}  set-window-geometry WindowID 100 100 250 250
-CARBON-PROTOCOL {7}  show-window         WindowID
+CARBON-PROTOCOL {3}  new-window             WindowID
+CARBON-PROTOCOL {4}  new-window             WindowID
+CARBON-PROTOCOL {5}  set-window-title       WindowID "About box"
+CARBON-PROTOCOL {6}  set-window-geometry    WindowID 100 100 250 250
+CARBON-PROTOCOL {7}  show-window            WindowID
 CARBON-PROTOCOL {8}  get-port
-CARBON-PROTOCOL {9}  set-port            WindowID
-CARBON-PROTOCOL {10} draw-text-at        "Hello world" 105 15
-CARBON-PROTOCOL {11} close-window        WindowID
-CARBON-PROTOCOL {12} new-pixmap          pixmap-1 "images/world.png"
-CARBON-PROTOCOL {13} new-pixmap          pixmap-2 "images/world.png" width=100
-CARBON-PROTOCOL {14} new-pixmap          pixmap-3 "images/world.png" height=100
-CARBON-PROTOCOL {15} image-from-pixmap   ImageID PixmaxID
-CARBON-PROTOCOL {16} image-from-pixmap   image-1 pixmap-1
-CARBON-PROTOCOL {17} set-image-position  image-1 25 40
+CARBON-PROTOCOL {9}  set-port               WindowID
+CARBON-PROTOCOL {10} draw-text-at           "Hello world" 105 15
+CARBON-PROTOCOL {11} close-window           WindowID
+CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
+CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
+CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
+CARBON-PROTOCOL {15} new-image-from-pixmap  ImageID PixmaxID
+CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
+CARBON-PROTOCOL {17} set-image-position     image-1 25 40
 CARBON-PROTOCOL {18} keep-alive
-CARBON-PROTOCOL {19} draw-text-at        "Hello world (1)" 105 15
+CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 105 15
 
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
@@ -36,42 +36,42 @@ CARBON-PROTOCOL {19} draw-text-at        "Hello world (1)" 105 15
 @  get-mouse
 @  get-port
 @  dump
-@  new-window          Window-2
+@  new-window             Window-2
 @  get-port
-@  set-window-title    Window-2 "About box - 2"
-@  set-window-geometry Window-2 550 150 250 280
-@  show-window         Window-2
-@  set-port            Window-2
+@  set-window-title       Window-2 "About box - 2"
+@  set-window-geometry    Window-2 550 150 250 280
+@  show-window            Window-2
+@  set-port               Window-2
 @  get-port
-@  draw-text-at        "Hello world (2)" 105 15
-@  draw-text-at        text="Bienvenue dans Cassio" h=105 v=70
-@  draw-text-at        "Bienvenue dans Cassio" 105 55
-@  draw-text-at        "Bienvenue dans Cassio" 105 85
-@  draw-text-at        "Bienvenue dans Cassio" 105 100
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" 105 115
-@  draw-text-at        "Bienvenue dans Cassio" -40 130
-@  scroll-window       10 20
-# @  close-window      Window-2
-@  new-pixmap          big-4   "images/world.png"
-@  new-pixmap          small-4 "images/world.png" width=100
-@  new-pixmap          dragon  "images/dragon.jpg" height=100
-
-@  image-from-pixmap   ImageID PixmaxID
-
-@  image-from-pixmap   image-2 dragon
-@  set-image-position  image-2 25 40
-@  draw-image          image-2
-@  draw-image          blah-blah-blah
-
-@  image-from-pixmap   image-2 small-4
-@  draw-image          image-2
-
+@  draw-text-at           "Hello world (2)" 105 15
+@  draw-text-at           text="Bienvenue dans Cassio" h=105 v=70
+@  draw-text-at           "Bienvenue dans Cassio" 105 55
+@  draw-text-at           "Bienvenue dans Cassio" 105 85
+@  draw-text-at           "Bienvenue dans Cassio" 105 100
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" 105 115
+@  draw-text-at           "Bienvenue dans Cassio" -40 130
+@  scroll-window          10 20
+#@  close-window          Window-2
+@  new-pixmap             big-world   "images/world.png"
+@  new-pixmap             small-world "images/world.png"  width=100
+@  new-pixmap             dragon      "images/dragon.jpg" height=100
+@  new-image-from-pixmap  ImageID PixmaxID
+@  new-image-from-pixmap  image1 small-world
+@  set-image-pixmap       image1 dragon
+@  set-image-position     image1 25 40
+@  draw-image             image1
+@  draw-image             blah-blah-blah
+@  new-image-from-pixmap  image2 dragon
+@  set-image-pixmap       image2 small-world
+@  set-image-pixmap       image2 big-world
+@  set-image-pixmap       image2 small-world
+@  draw-image             image2
 @  keep-alive
 #@ open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog    prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
@@ -79,7 +79,7 @@ CARBON-PROTOCOL {19} draw-text-at        "Hello world (1)" 105 15
 #@ open-file-dialog prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 @ dump
 
-====================================================
-=>   Type \"quit\" to exit the Carbon-GUI server      
-====================================================
+=================================================================
+=>   Type any @command, or "quit" to exit the Carbon-GUI server      
+=================================================================
 
