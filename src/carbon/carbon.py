@@ -181,6 +181,7 @@ if pyqt5 :
     from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
     from PyQt5.QtWidgets import QApplication
     from PyQt5.QtWidgets import QWidget
+    from PyQt5.QtWidgets import QDialog
     from PyQt5.QtWidgets import QLabel
     from PyQt5.QtWidgets import QFileDialog
     from PyQt5.QtWidgets import QTextEdit
@@ -192,6 +193,7 @@ elif pyqt4 :
     from PyQt4.QtCore    import pyqtSignal, QThread, QPoint, QRect
     from PyQt4.QtGui     import QApplication
     from PyQt4.QtGui     import QWidget
+    from PyQt4.QtGui     import QDialog
     from PyQt4.QtGui     import QLabel
     from PyQt4.QtGui     import QFileDialog
     from PyQt4.QtGui     import QTextEdit
@@ -216,6 +218,7 @@ class CarbonWindow(QWidget):
     def __init__(self, name):
         super().__init__()
         self.setObjectName(name)
+        self.setParent(None)
         self.texts = {}    # dictionary of all the strings shown in the window
         self.images = {}   # dictionary of all the images shown in the window
 
@@ -824,7 +827,7 @@ def execute_carbon_protocol(message):
                print(answer, flush=True)
 
 
-class GUI(QWidget):
+class GUI(QDialog):
     """
     This class is a GUI context in Qt (in the main thread)
     """

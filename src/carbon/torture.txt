@@ -42,6 +42,17 @@ CARBON-PROTOCOL {26} dump
 @  init
 @  get-mouse
 @  get-port
+
+@  new-window             Window-3
+@  new-window             Window-3
+@  set-window-title       Window-3 "About box - 3"
+@  set-window-geometry    Window-3 100 400 250 250
+@  show-window            Window-3
+@  get-port
+@  set-port               Window-3
+@  draw-text-at           "Hello world (3)" 15 15
+@  close-window           Window-3
+
 @  new-window             Window-2
 @  get-port
 @  set-window-title       Window-2 "Cassio"
@@ -50,7 +61,6 @@ CARBON-PROTOCOL {26} dump
 @  set-port               Window-2
 @  get-port
 @  draw-text-at           "Hello world (2)" 105 15
-
 @  draw-text-at           text="Bienvenue dans Cassio" h=120 v=40
 @  draw-text-at           "Bienvenue dans Cassio" 100 55
 @  draw-text-at           "Bienvenue dans Cassio" 80 70
