@@ -472,18 +472,18 @@ def new_pixmap(args):
     Create a new pixmap in memory, and stores it in the pixmaps dictonary
     """
 
-    name   = find_named_parameter("name"  , args, 0)
-    image  = find_named_parameter("image" , args, 1)
-    width  = find_named_parameter("width" , args, -1, INTEGER)
-    height = find_named_parameter("height", args, -1, INTEGER)
+    name         = find_named_parameter("name"      , args, 0)
+    imagefile    = find_named_parameter("imagefile" , args, 1)
+    width        = find_named_parameter("width"     , args, -1, INTEGER)
+    height       = find_named_parameter("height"    , args, -1, INTEGER)
 
-    if not(name) or not(image) :
+    if not(name) or not(imagefile) :
         return None 
 
     try:
-        with open(image):
+        with open(imagefile):
 
-            pixmap = QPixmap(image)
+            pixmap = QPixmap(imagefile)
             if height is not None :
                 pixmap = pixmap.scaledToHeight(height, Qt.SmoothTransformation)
             if width is not None :
@@ -493,25 +493,25 @@ def new_pixmap(args):
             pixmaps[name] = pixmap
 
     except FileNotFoundError:
-        return "ERROR (new_pixmap) Image not found:" + image
+        return "ERROR (new_pixmap) Image not found:" + imagefile
 
     return None
 
 
 def image_from_pixmap(args) :
 
-    name   = find_named_parameter("name"  , args, 0)
-    pixmap = find_named_parameter("pixmap", args, 1)
-    data   = find_pixmap(pixmap)
-    window = current_port
+    imagename = find_named_parameter("imagename", args, 0)
+    pixmap    = find_named_parameter("pixmap"   , args, 1)
+    data      = find_pixmap(pixmap)
+    window    = current_port
 
-    if name and pixmap and data and window :
+    if imagename and pixmap and data and window :
 
         label = window.add_image(data)
-        label.setObjectName(name)
+        label.setObjectName(imagename)
         label.show()
 
-        return name
+        return imagename
 
     return None
 
