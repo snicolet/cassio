@@ -558,7 +558,7 @@ def open_file_dialog(args):
 
 def keep_alive(args) :
     """
-    A dummy function :-)
+    A dummy function, as simply answering OK proves the server is still up :-) 
     """
     return
 
@@ -570,10 +570,12 @@ def dump(args):
 
     global windows, current_port, pixmaps
 
+    current = "None" if current_port is None else current_port.objectName()
+
     s = ""
-    s = s + "\n" + "current_port = " + str(current_port)
-    s = s + "\n" + "windows = "      + str(windows)
-    s = s + "\n" + "pixmaps = "      + str(pixmaps)
+    s = s + "\n" + "current_port = " + str(current)
+    s = s + "\n" + "windows = "      + str(windows.keys())
+    s = s + "\n" + "pixmaps = "      + str(pixmaps.keys())
 
     return s
 
