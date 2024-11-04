@@ -204,13 +204,12 @@ class CarbonWindow(QWidget):
         super().__init__()
         self.setObjectName(name)
         self.texts = {}    # dictionary of all the strings shown in the window
-        self.image = None
+        self.images = {}   # dictionary of all the images shown in the window
 
     def scroll_texts(self, dx, dy) :
         """
         Change the positions of the strings in the 'texts' dictionary
         """
-
         scrolled = {}  # new positions of the strings
         for job in self.texts.values() :
             text = job[0]
@@ -225,14 +224,6 @@ class CarbonWindow(QWidget):
 
         self.texts.clear()
         self.texts = scrolled
-
-    def add_image(self, pixmap) :
-
-        self.image = QLabel(self)
-        self.image.setPixmap(pixmap)
-        self.image.move(25, 40)
-
-        return self.image
 
     def paintEvent(self, event):
         """
@@ -469,7 +460,7 @@ def quit(args):
 
 def new_pixmap(args):
     """
-    Create a new pixmap in memory, and stores it in the pixmaps dictonary
+    Create a new pixmap in memory, stores it in the global pixmaps dictonary
     """
 
     name         = find_named_parameter("name"      , args, 0)
@@ -478,7 +469,7 @@ def new_pixmap(args):
     height       = find_named_parameter("height"    , args, -1, INTEGER)
 
     if not(name) or not(imagefile) :
-        return None 
+        return None
 
     try:
         with open(imagefile):
@@ -499,21 +490,65 @@ def new_pixmap(args):
 
 
 def image_from_pixmap(args) :
+    """
+    Create a new image from a given pixmap (in the current window)
+    """
 
-    imagename = find_named_parameter("imagename", args, 0)
-    pixmap    = find_named_parameter("pixmap"   , args, 1)
-    data      = find_pixmap(pixmap)
-    window    = current_port
+    name       = find_named_parameter("name"    , args, 0)
+    pixmapname = find_named_parameter("pixmap"  , args, 1)
+    pixmap     = find_pixmap(pixmapname)
+    window     = current_port
 
-    if imagename and pixmap and data and window :
+    if window and name and pixmap :
 
-        label = window.add_image(data)
-        label.setObjectName(imagename)
-        label.show()
+        image = QLabel(window)
+        image.setObjectName(name)
+        image.setPixmap(pixmap)
 
-        return imagename
+        # delete any old image with the same name in the window
+        if (name in window.images) :
+            old_image = window.images[name]
+            old_image.close()
+            window.images.pop(name)
+
+        # insert the new image in the "images" dictionary of the window
+        window.images[name] = image
+
+        return name
 
     return None
+
+
+def set_image_position(args) :
+    """
+    Set the position of the given image (in the current window)
+    """
+
+    name = find_named_parameter("name", args, 0)
+    h    = find_named_parameter("h"   , args, 1, INTEGER)
+    v    = find_named_parameter("v"   , args, 2, INTEGER)
+    window = current_port
+
+    if window and name and h and v and (name in window.images) :
+        image = window.images[name]
+        image.move(h, v)
+
+    return
+
+
+def draw_image(args) :
+    """
+    Draw the given image (in the current window)
+    """
+
+    name = find_named_parameter("name", args, 0)
+    window = current_port
+
+    if window and name and (name in window.images) :
+        image = window.images[name]
+        image.show()
+
+    return
 
 
 def open_file_dialog(args):
@@ -558,7 +593,7 @@ def open_file_dialog(args):
 
 def keep_alive(args) :
     """
-    A dummy function, as simply answering OK proves the server is still up :-) 
+    A dummy function, as simply answering OK proves the server is still up :-)
     """
     return
 
@@ -641,6 +676,8 @@ def call(id, command, args):
     elif command == "keep-alive"          :  result = keep_alive(args)
     elif command == "new-pixmap"          :  result = new_pixmap(args)
     elif command == "image-from-pixmap"   :  result = image_from_pixmap(args)
+    elif command == "set-image-position"  :  result = set_image_position(args)
+    elif command == "draw-image"          :  result = draw_image(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
     elif command == "new-window"          :  result = new_window(args)
     elif command == "set-window-title"    :  result = set_window_title(args)
