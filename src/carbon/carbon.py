@@ -575,6 +575,7 @@ def draw_image(args) :
 
     if window and name and (name in window.images) :
         image = window.images[name]
+        image.lower()
         image.show()
 
     return
