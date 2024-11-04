@@ -204,6 +204,7 @@ class CarbonWindow(QWidget):
         super().__init__()
         self.setObjectName(name)
         self.texts = {}    # dictionary of all the strings shown in the window
+        self.image = None
 
     def scroll_texts(self, dx, dy) :
         """
@@ -226,10 +227,12 @@ class CarbonWindow(QWidget):
         self.texts = scrolled
 
     def add_image(self, pixmap) :
-        image = QLabel(self)
-        image.setPixmap(pixmap)
-        image.move(25, 40)
-        return image
+
+        self.image = QLabel(self)
+        self.image.setPixmap(pixmap)
+        self.image.move(25, 40)
+        
+        return self.image
 
     def paintEvent(self, event):
         """
@@ -317,16 +320,21 @@ def new_window(args):
    if find_window(name) :
        error = "ERROR (new-window) : window with name '{}' already exists".format(name)
        return error
-   else :
-       # create a new window
-       window = CarbonWindow(name)
 
-       # add the window to the 'windows' directory, and set the current port
+   if not(name) :
+       return None
+
+   else :
+       # 1. create a new window
+       # 2. add the window to the 'windows' directory
+       # 3. set the current port to the window
+
        global windows, current_port
+       window = CarbonWindow(name)
        windows[name] = window
        current_port = window
 
-   return
+       return name
 
 
 def set_window_title(args):
@@ -358,31 +366,6 @@ def set_window_geometry(args):
    window = find_window(name)
    if window and left and top and width and height :
        window.setGeometry(left, top, width, height)
-
-   return
-
-
-def draw_text_at(args):
-   """
-   Draw text at the given position
-   """
-
-   text   = find_named_parameter("text", args, 0)
-   h      = find_named_parameter("h",    args, 1, INTEGER)
-   v      = find_named_parameter("v",    args, 2, INTEGER)
-   window = current_port
-
-   if window and text and h and v :
-
-       pen = QPen(QColor("#000000"))
-       font = QFont("Helvetica", 15)
-
-       # insert the description of the text in the "texts" dictionary
-       key = str(h) + ";" + str(v)
-       description = (text, h, v, pen, font)
-       window.texts[key] = description
-
-       window.update()
 
    return
 
@@ -432,6 +415,31 @@ def close_window(args):
        windows.pop(name)
        if current_port.objectName() == name :
            current_port = None
+
+   return
+
+
+def draw_text_at(args):
+   """
+   Draw text at the given position
+   """
+
+   text   = find_named_parameter("text", args, 0)
+   h      = find_named_parameter("h",    args, 1, INTEGER)
+   v      = find_named_parameter("v",    args, 2, INTEGER)
+   window = current_port
+
+   if window and text and h and v :
+
+       pen = QPen(QColor("#000000"))
+       font = QFont("Helvetica", 15)
+
+       # insert the description of the text in the "texts" dictionary
+       key = str(h) + ";" + str(v)
+       description = (text, h, v, pen, font)
+       window.texts[key] = description
+
+       window.update()
 
    return
 
@@ -487,6 +495,24 @@ def new_pixmap(args):
     except FileNotFoundError:
         return "ERROR (new_pixmap) Image not found:" + image
         
+    return None
+
+
+def image_from_pixmap(args) :
+
+    name   = find_named_parameter("name"  , args, 0)
+    pixmap = find_named_parameter("pixmap", args, 1)
+    data   = find_pixmap(pixmap)
+    window = current_port
+
+    if name and pixmap and data and window :
+
+        label = window.add_image(data)
+        label.setObjectName(name)
+        label.show()
+
+        return name
+
     return None
 
 
@@ -610,6 +636,7 @@ def call(id, command, args):
     elif command == "set-port"            :  result = set_port(args)
     elif command == "keep-alive"          :  result = keep_alive(args)
     elif command == "new-pixmap"          :  result = new_pixmap(args)
+    elif command == "image-from-pixmap"   :  result = image_from_pixmap(args)
     elif command == "open-file-dialog"    :  result = open_file_dialog(args)
     elif command == "new-window"          :  result = new_window(args)
     elif command == "set-window-title"    :  result = set_window_title(args)

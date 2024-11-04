@@ -56,9 +56,15 @@ Now using the @ shortcut in the torture.txt file...
 @  new-pixmap          pixmap-4 "images/world.png"
 @  new-pixmap          pixmap-5 "images/world.png" width=100
 @  new-pixmap          pixmap-6 "images/world.png" height=100
+
 @  image-from-pixmap   ImageID PixmaxID
+
 @  image-from-pixmap   image-2 pixmap-4
 @  set-image-position  image-2 25 40
+@  show-image          image-2
+
+@  image-from-pixmap   image-2 pixmap-2
+
 @  keep-alive
 #@ open-file-dialog    prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog    prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
