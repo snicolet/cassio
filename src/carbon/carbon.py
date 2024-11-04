@@ -723,7 +723,7 @@ def call(id, command, args):
 
     if (result is None) and implemented :
         answer = acknowledge(id, command)
-    if (result is not None) and result.startswith("ERROR"):
+    elif (result is not None) and result.startswith("ERROR"):
         answer = error(result)
     elif (result is not None) :
         answer = normal_result(result)
