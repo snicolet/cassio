@@ -227,14 +227,15 @@ class CarbonWindow(QWidget):
         Change the positions of the strings in the 'texts' dictionary
         """
         scrolled = {}  # new positions of the strings
-        for job in self.texts.values() :
+        for key, job in self.texts.items() :
             text = job[0]
             h    = job[1] + dx
             v    = job[2] + dy
             pen  = job[3]
             font = job[4]
 
-            key = str(h) + ";" + str(v)
+            if not(key.startswith("name=")) :
+                key = str(h) + ";" + str(v)
             job = (text, h, v, pen, font)
             scrolled[key] = job
 
@@ -435,6 +436,7 @@ def draw_text_at(args):
    text   = find_named_parameter("text", args, 0)
    h      = find_named_parameter("h",    args, 1, INTEGER)
    v      = find_named_parameter("v",    args, 2, INTEGER)
+   name   = find_named_parameter("v",    args, -1)
    window = current_port
 
    if window and text and h and v :
@@ -443,8 +445,11 @@ def draw_text_at(args):
        font = QFont("Helvetica", 15)
 
        # insert the description of the text in the "texts" dictionary
-       key = str(h) + ";" + str(v)
        description = (text, h, v, pen, font)
+       if name is not None :
+           key = "name=" + name
+       else :
+           key = str(h) + ";" + str(v)
        window.texts[key] = description
 
        window.update()
