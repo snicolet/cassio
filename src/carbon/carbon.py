@@ -219,28 +219,42 @@ class CarbonWindow(QWidget):
         super().__init__(parent=None)
         self.setObjectName(name)
         self.setWindowFlags(Qt.Window)
-        self.texts = {}    # dictionary of all the strings shown in the window
-        self.images = {}   # dictionary of all the images shown in the window
+        self.graphics = {}  # dictionary of all the graphic items in the window
+        self.images = {}    # dictionary of all the images shown in the window
+
 
     def scroll_texts(self, dx, dy) :
         """
-        Change the positions of the strings in the 'texts' dictionary
+        Change the positions of the strings in the 'graphics' dictionary
         """
-        scrolled = {}  # new positions of the strings
-        for key, job in self.texts.items() :
-            text = job[0]
-            h    = job[1] + dx
-            v    = job[2] + dy
-            pen  = job[3]
-            font = job[4]
 
-            if not(key.startswith("name=")) :
-                key = str(h) + ";" + str(v)
-            job = (text, h, v, pen, font)
-            scrolled[key] = job
+        # calculate new positions of the strings
+        scrolled = {}    
+        for key, item in list(self.graphics.items()) :
+             if item :
+                 type   = item["type"]
 
-        self.texts.clear()
-        self.texts = scrolled
+                 if type == "TEXT" :
+                     name   = item["name"]
+                     text   = item["text"]
+                     h      = item["point1"].x() + dx
+                     v      = item["point1"].y() + dy
+                     where  = QPoint(h,v)
+                     pen    = item["pen"]
+                     font   = item["font"]
+
+                     if key.startswith("TEXT:name=") :
+                         new_key = key
+                     else :
+                         new_key = "TEXT:" + str(h) + ";" + str(v)
+
+                     new_item = make_item(type, name, text, where, None, pen, font, None, 0)
+                     scrolled[new_key] = new_item
+
+                     self.graphics.pop(key)
+
+        self.graphics.update(scrolled)
+
 
     def paintEvent(self, event):
         """
@@ -265,19 +279,24 @@ class CarbonWindow(QWidget):
             # painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, pixmap)
             k += 1
 
-        s = "\ninside paintEvent() : printing " + str(len(self.texts)) + " strings"
+        s = "\ninside paintEvent() : printing " + str(len(self.graphics)) + " strings"
         #print(s)
-        for key, job in self.texts.items() :
-           if job :
-               text = job[0]
-               h    = job[1]
-               v    = job[2]
-               pen  = job[3]
-               font = job[4]
+        for key, item in self.graphics.items() :
+            if item :
+                type   = item["type"]
+                if type == "TEXT" :
+                    name   = item["name"]
+                    text   = item["text"]
+                    h      = item["point1"].x()
+                    v      = item["point1"].y()
+                    where  = QPoint(h,v)
+                    pen    = item["pen"]
+                    font   = item["font"]
 
-               painter.setFont(font)
-               painter.setPen(pen)
-               painter.drawText(h, v, text)
+                    painter.setFont(font)
+                    painter.setPen(pen)
+                    painter.drawText(h, v, text)
+
 
         painter.end()
 
@@ -311,6 +330,29 @@ def find_pixmap(name) :
     else :
         return None
 
+
+def make_item(type, name, text, point1, point2, pen, font, pixmap, zindex) :
+    item = {
+            "type"   : type, 
+            "name"   : name,
+            "text"   : text, 
+            "point1" : point1, 
+            "point2" : point2,
+            "pen"    : pen,
+            "font"   : font,
+            "pixmap" : pixmap,
+            "zindex" : zindex
+           }
+    return item
+
+
+def find_image(window, image_name) :
+    if window and image_name :
+        key = "IMG:name=" + image_name
+        if (key in window.graphics) :
+            return window.graphics[key]
+
+    return None
 
 def get_port(args):
    """
@@ -464,14 +506,17 @@ def draw_text_at(args):
 
        pen = QPen(QColor("#000000"))
        font = QFont("Helvetica", 15)
+       where = QPoint(h, v)
 
-       # insert the description of the text in the "texts" dictionary
-       description = (text, h, v, pen, font)
+       # insert the description of the text in the "graphics" dictionary
+
+       description = make_item("TEXT", name, text, where, None, pen, font, None, 0)
+
        if name is not None :
-           key = "name=" + name
+           key = "TEXT:name=" + name
        else :
-           key = str(h) + ";" + str(v)
-       window.texts[key] = description
+           key = "TEXT:"+str(h) + ";" + str(v)
+       window.graphics[key] = description
 
        window.update()
 
