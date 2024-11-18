@@ -246,9 +246,17 @@ class CarbonWindow(QWidget):
         """
         This function handles the paintEvent for our CarbonWindow class
         """
+        
+        print("inside paintEvent()")
 
         painter = QPainter()
         painter.begin(self)
+
+        print(self.images)
+        k = 0
+        for px in pixmaps.values() :
+            painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, px)
+            k += 1
 
         s = "inside paintEvent() : printing " + str(len(self.texts)) + " strings"
         #print(s)
@@ -265,6 +273,12 @@ class CarbonWindow(QWidget):
                painter.drawText(h, v, text)
 
         painter.end()
+
+    def render(self, painter):
+        print("inside render()")
+    
+    def resizeEvent(self, resizeEvent):
+        print("inside resizeEvent()")
 
 
 def find_window(name) :
@@ -373,7 +387,7 @@ def set_window_geometry(args):
    height    = find_named_parameter("height", args, 4, INTEGER)
 
    window = find_window(name)
-   if window and left and top and width and height :
+   if window and (left is not None) and (top is not None) and width and height :
        window.setGeometry(left, top, width, height)
 
    return
@@ -439,7 +453,7 @@ def draw_text_at(args):
    name   = find_named_parameter("v",    args, -1)
    window = current_port
 
-   if window and text and h and v :
+   if window and text and (h is not None) and (v is not None) :
 
        pen = QPen(QColor("#000000"))
        font = QFont("Helvetica", 15)
@@ -550,8 +564,15 @@ def set_image_position(args) :
     h    = find_named_parameter("h"   , args, 1, INTEGER)
     v    = find_named_parameter("v"   , args, 2, INTEGER)
     window = current_port
+    
+    
+    print(f'{name = }')
+    print(f'{h = }')
+    print(f'{v = }')
+    print(window.images)
+    print((name in window.images))
 
-    if window and name and h and v and (name in window.images) :
+    if window and name and (h is not None) and (v is not None) and (name in window.images) :
         image = window.images[name]
         image.move(h, v)
 
