@@ -266,7 +266,8 @@ class CarbonWindow(QWidget):
         painter = QPainter()
         painter.begin(self)
 
-        print("images =",self.images)
+        print("graphics = ", self.graphics)
+        print("images = ", self.images)
         for image in self.images.values() :
             pixmap = image.pixmap()
             print(f"{image.objectName() = }")
@@ -510,15 +511,13 @@ def draw_text_at(args):
 
        # insert the description of the text in the "graphics" dictionary
 
-       description = make_item("TEXT", name, text, where, None, pen, font, None, 0)
+       item = make_item("TEXT", name, text, where, None, pen, font, None, 0)
 
        if name is not None :
            key = "TEXT:name=" + name
        else :
            key = "TEXT:" + str(h) + ";" + str(v)
-       window.graphics[key] = description
-
-       window.update()
+       window.graphics[key] = item
 
    return
 
@@ -601,6 +600,11 @@ def new_image_from_pixmap(args) :
 
         # insert the new image in the "images" dictionary of the window
         window.images[name] = image
+
+        # insert the description of the image in the "graphics" dictionary
+        key = "IMG:name=" + name
+        item = make_item("IMG", name, None, None, None, None, None, image, 0)
+        window.graphics[key] = item
 
         return name
 
