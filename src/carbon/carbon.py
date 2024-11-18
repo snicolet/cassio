@@ -253,6 +253,7 @@ class CarbonWindow(QWidget):
         painter.begin(self)
 
         print(self.images)
+        
         k = 0
         for px in pixmaps.values() :
             painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, px)
@@ -564,8 +565,7 @@ def set_image_position(args) :
     h    = find_named_parameter("h"   , args, 1, INTEGER)
     v    = find_named_parameter("v"   , args, 2, INTEGER)
     window = current_port
-    
-    
+
     print(f'{name = }')
     print(f'{h = }')
     print(f'{v = }')
