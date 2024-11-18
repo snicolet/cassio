@@ -331,7 +331,7 @@ def find_pixmap(name) :
         return None
 
 
-def make_item(type, name, text, point1, point2, pen, font, pixmap, zindex) :
+def make_item(type, name, text, point1, point2, pen, font, image, zindex) :
     item = {
             "type"   : type, 
             "name"   : name,
@@ -340,7 +340,7 @@ def make_item(type, name, text, point1, point2, pen, font, pixmap, zindex) :
             "point2" : point2,
             "pen"    : pen,
             "font"   : font,
-            "pixmap" : pixmap,
+            "image"  : image,
             "zindex" : zindex
            }
     return item
@@ -515,7 +515,7 @@ def draw_text_at(args):
        if name is not None :
            key = "TEXT:name=" + name
        else :
-           key = "TEXT:"+str(h) + ";" + str(v)
+           key = "TEXT:" + str(h) + ";" + str(v)
        window.graphics[key] = description
 
        window.update()
