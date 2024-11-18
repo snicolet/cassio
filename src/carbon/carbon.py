@@ -247,19 +247,25 @@ class CarbonWindow(QWidget):
         This function handles the paintEvent for our CarbonWindow class
         """
         
-        print("inside paintEvent()")
+        print("\ninside paintEvent() for window : ", self.objectName())
 
         painter = QPainter()
         painter.begin(self)
 
-        print(self.images)
+        print("images =",self.images)
+        for image in self.images.values() :
+            pixmap = image.pixmap()
+            print(f"{image.objectName() = }")
+            print(f"{image.pos() = }")
+            print(f"{pixmap.size() = }")
+            painter.drawPixmap(image.pos(), pixmap)
         
         k = 0
-        for px in pixmaps.values() :
-            painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, px)
+        for pixmap in pixmaps.values() :
+            # painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, pixmap)
             k += 1
 
-        s = "inside paintEvent() : printing " + str(len(self.texts)) + " strings"
+        s = "\ninside paintEvent() : printing " + str(len(self.texts)) + " strings"
         #print(s)
         for key, job in self.texts.items() :
            if job :
@@ -276,10 +282,10 @@ class CarbonWindow(QWidget):
         painter.end()
 
     def render(self, painter):
-        print("inside render()")
+        print("\ninside render() for window : ", self.objectName())
     
     def resizeEvent(self, resizeEvent):
-        print("inside resizeEvent()")
+        print("\ninside resizeEvent() for window : ", self.objectName())
 
 
 def find_window(name) :
@@ -569,10 +575,12 @@ def set_image_position(args) :
     print(f'{name = }')
     print(f'{h = }')
     print(f'{v = }')
-    print(window.images)
-    print((name in window.images))
 
     if window and name and (h is not None) and (v is not None) and (name in window.images) :
+
+        print((name in window.images))
+        print(window.images)
+
         image = window.images[name]
         image.move(h, v)
 
@@ -607,7 +615,7 @@ def draw_image(args) :
     if window and name and (name in window.images) :
         image = window.images[name]
         image.lower()
-        image.show()
+        #image.show()
 
     return
 

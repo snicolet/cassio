@@ -18,7 +18,7 @@ CARBON-PROTOCOL {7}  show-window            WindowID
 CARBON-PROTOCOL {8}  get-port
 CARBON-PROTOCOL {9}  set-port               WindowID
 CARBON-PROTOCOL {10} draw-text-at           "Hello world" 15 15
-#CARBON-PROTOCOL {11} close-window          WindowID
+CARBON-PROTOCOL {11} close-window           WindowID
 CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
 CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
 CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
@@ -56,7 +56,7 @@ CARBON-PROTOCOL {26} dump
 @  new-window             Window-2
 @  get-port
 @  set-window-title       Window-2 "Cassio"
-@  set-window-geometry    Window-2 550 150 250 280
+@  set-window-geometry    Window-2 550 150 700 380
 @  show-window            Window-2
 @  set-port               Window-2
 @  get-port
@@ -77,7 +77,7 @@ CARBON-PROTOCOL {26} dump
 #@  close-window          Window-2
 @  new-pixmap             big-world   "images/world.png"
 @  new-pixmap             small-world "images/world.png"  width=100
-@  new-pixmap             dragon      "images/dragon.jpg" height=100
+@  new-pixmap             dragon      "images/dragon.jpg" height=130
 @  new-image-from-pixmap  ImageID PixmaxID
 @  new-image-from-pixmap  image2 dragon
 @  set-image-pixmap       image2 small-world
