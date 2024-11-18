@@ -140,9 +140,9 @@ class stats:
     @classmethod
     def report(cls) :
         cls.implemented = cls.total - cls.not_implemented - cls.partialy_implemented
-        return (cls.total, 
-                cls.implemented, 
-                cls.partialy_implemented, 
+        return (cls.total,
+                cls.implemented,
+                cls.partialy_implemented,
                 cls.not_implemented)
 
 def stat_box():
@@ -246,7 +246,7 @@ class CarbonWindow(QWidget):
         """
         This function handles the paintEvent for our CarbonWindow class
         """
-        
+
         print("\ninside paintEvent() for window : ", self.objectName())
 
         painter = QPainter()
@@ -259,7 +259,7 @@ class CarbonWindow(QWidget):
             print(f"{image.pos() = }")
             print(f"{pixmap.size() = }")
             painter.drawPixmap(image.pos(), pixmap)
-        
+
         k = 0
         for pixmap in pixmaps.values() :
             # painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, pixmap)
@@ -283,7 +283,7 @@ class CarbonWindow(QWidget):
 
     def render(self, painter):
         print("\ninside render() for window : ", self.objectName())
-    
+
     def resizeEvent(self, resizeEvent):
         print("\ninside resizeEvent() for window : ", self.objectName())
 
@@ -616,6 +616,7 @@ def draw_image(args) :
         image = window.images[name]
         image.lower()
         #image.show()
+        # TODO : insert in the graphical items list of the window
 
     return
 
