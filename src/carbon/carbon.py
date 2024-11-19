@@ -266,8 +266,9 @@ class CarbonWindow(QWidget):
         painter = QPainter()
         painter.begin(self)
 
-        print("graphics = ", self.graphics)
-        print("images = ", self.images)
+        print("graphics = ", self.graphics.keys())
+        print("images = ", self.images.keys())
+        
         for image in self.images.values() :
             pixmap = image.pixmap()
             print(f"{image.objectName() = }")
