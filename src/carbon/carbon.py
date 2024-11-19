@@ -228,8 +228,9 @@ class CarbonWindow(QWidget):
         Change the positions of the strings in the 'graphics' dictionary
         """
 
-        # calculate new positions of the strings
-        scrolled = {}    
+        # calculate the new positions of the strings
+        # in the "scrolled" temporary dictionary
+        scrolled = {}
         for key, item in list(self.graphics.items()) :
              if item :
                  type   = item["type"]
@@ -237,24 +238,30 @@ class CarbonWindow(QWidget):
                  if type == "TEXT" :
                      name   = item["name"]
                      text   = item["text"]
-                     h      = item["point1"].x() + dx
-                     v      = item["point1"].y() + dy
-                     where  = QPoint(h,v)
+                     h      = item["h"] + dx
+                     v      = item["v"] + dy
+                     a      = item["a"]
+                     b      = item["b"]
                      pen    = item["pen"]
                      font   = item["font"]
+                     image  = item["image"]
+                     zindex = item["zindex"]
 
                      if key.startswith("TEXT:name=") :
                          new_key = key
                      else :
                          new_key = "TEXT:" + str(h) + ";" + str(v)
 
-                     new_item = make_item(type, name, text, where, None, pen, font, None, 0)
+                     new_item = make_item(type, name, text, h, v, a, b, pen, font, image, zindex)
                      scrolled[new_key] = new_item
 
+                     # remove old item
                      self.graphics.pop(key)
 
+        # merge the "scrolled" dictionary to the original one
         self.graphics.update(scrolled)
 
+        return
 
     def paintEvent(self, event):
         """
@@ -268,7 +275,7 @@ class CarbonWindow(QWidget):
 
         print("graphics = ", self.graphics.keys())
         print("images = ", self.images.keys())
-        
+
         for image in self.images.values() :
             pixmap = image.pixmap()
             print(f"{image.objectName() = }")
@@ -289,9 +296,8 @@ class CarbonWindow(QWidget):
                 if type == "TEXT" :
                     name   = item["name"]
                     text   = item["text"]
-                    h      = item["point1"].x()
-                    v      = item["point1"].y()
-                    where  = QPoint(h,v)
+                    h      = item["h"]
+                    v      = item["v"]
                     pen    = item["pen"]
                     font   = item["font"]
 
@@ -333,17 +339,19 @@ def find_pixmap(name) :
         return None
 
 
-def make_item(type, name, text, point1, point2, pen, font, image, zindex) :
+def make_item(type, name, text, h, v, a, b, pen, font, image, zindex) :
     """
     Create a description of a graphic item in our windows
     """
 
     item = {
-            "type"   : type, 
+            "type"   : type,
             "name"   : name,
-            "text"   : text, 
-            "point1" : point1, 
-            "point2" : point2,
+            "text"   : text,
+            "h"      : h,
+            "v"      : v,
+            "a"      : a,
+            "b"      : b,
             "pen"    : pen,
             "font"   : font,
             "image"  : image,
@@ -520,12 +528,14 @@ def draw_text_at(args):
 
        pen = QPen(QColor("#000000"))
        font = QFont("Helvetica", 15)
-       where = QPoint(h, v)
+       a = 0
+       b = 0
+       image = None
+       zindex = 0
+
+       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex)
 
        # insert the description of the text in the "graphics" dictionary
-
-       item = make_item("TEXT", name, text, where, None, pen, font, None, 0)
-
        if name is not None :
            key = "TEXT:name=" + name
        else :
@@ -614,9 +624,19 @@ def new_image_from_pixmap(args) :
         # insert the new image in the "images" dictionary of the window
         window.images[name] = image
 
+        text = None
+        h = 0
+        v = 0
+        a = 0
+        b = 0
+        pen = None
+        font = None
+        zindex = 0
+
+        item = make_item("IMG", name, text, h, v, a, b, pen, font, image, zindex)
+
         # insert the description of the image in the "graphics" dictionary
         key = "IMG:name=" + name
-        item = make_item("IMG", name, None, None, None, None, None, image, 0)
         window.graphics[key] = item
 
         return name
