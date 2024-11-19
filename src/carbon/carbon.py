@@ -282,8 +282,7 @@ class CarbonWindow(QWidget):
         #s = "\ninside paintEvent() : printing the strings"
         #print(s)
         for item in self.graphics.values() :
-            if item["type"] == "TEXT" :
-                name   = item["name"]
+            if (item["type"] == "TEXT") and item["visible"] :
                 text   = item["text"]
                 h      = item["h"]
                 v      = item["v"]
