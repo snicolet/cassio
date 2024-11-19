@@ -384,7 +384,7 @@ def set_port(args):
    """
 
    global current_port
-   name = find_named_parameter("name", args, 0)
+   name = find_named_parameter("name", args, 0, STRING)
    window = find_window(name)
    if window :
       current_port = window
@@ -397,7 +397,7 @@ def new_window(args):
    Create a new window, make it the current port, and return its name.
    """
 
-   name = find_named_parameter("name", args, 0)
+   name = find_named_parameter("name", args, 0, STRING)
 
    if find_window(name) :
        error = "ERROR (new-window) : window with name '{}' already exists".format(name)
@@ -425,8 +425,8 @@ def set_window_title(args):
    Set the title of a window
    """
 
-   name  = find_named_parameter("name", args, 0)
-   title = find_named_parameter("title", args, 1)
+   name  = find_named_parameter("name" , args, 0, STRING)
+   title = find_named_parameter("title", args, 1, STRING)
 
    window = find_window(name)
    if window and title:
@@ -440,7 +440,7 @@ def set_window_geometry(args):
    Set the geometry of a window
    """
 
-   name      = find_named_parameter("name",   args, 0)
+   name      = find_named_parameter("name",   args, 0, STRING)
    left      = find_named_parameter("left",   args, 1, INTEGER)
    top       = find_named_parameter("top",    args, 2, INTEGER)
    width     = find_named_parameter("width",  args, 3, INTEGER)
@@ -474,7 +474,7 @@ def show_window(args):
    Show a window on the screen
    """
 
-   name = find_named_parameter("name", args, 0)
+   name = find_named_parameter("name", args, 0, STRING)
 
    window = find_window(name)
    if window :
@@ -489,7 +489,7 @@ def close_window(args):
    """
 
    global current_port
-   name = find_named_parameter("name", args, 0)
+   name = find_named_parameter("name", args, 0, STRING)
 
    window = find_window(name)
    if window :
@@ -509,10 +509,10 @@ def draw_text_at(args):
    Draw text at the given position
    """
 
-   text   = find_named_parameter("text", args, 0)
-   h      = find_named_parameter("h",    args, 1, INTEGER)
-   v      = find_named_parameter("v",    args, 2, INTEGER)
-   name   = find_named_parameter("name", args, -1)
+   text   = find_named_parameter("text", args,  0, STRING)
+   h      = find_named_parameter("h",    args,  1, INTEGER)
+   v      = find_named_parameter("v",    args,  2, INTEGER)
+   name   = find_named_parameter("name", args, -1, STRING)
    window = current_port
 
    if window and text and (h is not None) and (v is not None) :
@@ -562,8 +562,8 @@ def new_pixmap(args):
     Create a new pixmap in memory, stores it in the global pixmaps dictonary
     """
 
-    name         = find_named_parameter("name"      , args, 0)
-    imagefile    = find_named_parameter("imagefile" , args, 1)
+    name         = find_named_parameter("name"      , args,  0, STRING)
+    imagefile    = find_named_parameter("imagefile" , args,  1, STRING)
     width        = find_named_parameter("width"     , args, -1, INTEGER)
     height       = find_named_parameter("height"    , args, -1, INTEGER)
 
@@ -593,8 +593,8 @@ def new_image_from_pixmap(args) :
     Create a new image from a given pixmap (in the current window)
     """
 
-    name       = find_named_parameter("name"    , args, 0)
-    pixmapname = find_named_parameter("pixmap"  , args, 1)
+    name       = find_named_parameter("name"    , args, 0, STRING)
+    pixmapname = find_named_parameter("pixmap"  , args, 1, STRING)
     pixmap     = find_pixmap(pixmapname)
     window     = current_port
 
@@ -628,7 +628,7 @@ def set_image_position(args) :
     Set the position of the given image (in the current window)
     """
 
-    name = find_named_parameter("name", args, 0)
+    name = find_named_parameter("name", args, 0, STRING)
     h    = find_named_parameter("h"   , args, 1, INTEGER)
     v    = find_named_parameter("v"   , args, 2, INTEGER)
     window = current_port
@@ -653,8 +653,8 @@ def set_image_pixmap(args) :
     Set the pixmap of the given image (in the current window)
     """
 
-    name       = find_named_parameter("name"   , args, 0)
-    pixmapname = find_named_parameter("pixmap" , args, 1)
+    name       = find_named_parameter("name"   , args, 0, STRING)
+    pixmapname = find_named_parameter("pixmap" , args, 1, STRING)
     pixmap     = find_pixmap(pixmapname)
     window     = current_port
 
@@ -670,7 +670,7 @@ def draw_image(args) :
     Draw the given image (in the current window)
     """
 
-    name = find_named_parameter("name", args, 0)
+    name = find_named_parameter("name", args, 0, STRING)
     window = current_port
 
     if window and name and (name in window.images) :
@@ -693,9 +693,9 @@ def open_file_dialog(args):
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
 
-    caption   = find_named_parameter("prompt", args)
-    directory = find_named_parameter("dir", args)
-    filter    = find_named_parameter("filter", args)
+    caption   = find_named_parameter("prompt", args, -1, STRING)
+    directory = find_named_parameter("dir"   , args, -1, STRING)
+    filter    = find_named_parameter("filter", args, -1, STRING)
 
     if caption   is None : caption   = args[0]
     if directory is None : directory = args[1]
@@ -859,11 +859,20 @@ INTEGER  = "integer"
 FLOAT    = "float"
 STRING   = "string"
 
+
 def find_named_parameter(name, args, index=-1, type=STRING) :
     """
     Search a parameter called 'name' in the given list (syntax: 'name="value"').
-    If the name is found, the function removes the parameter from the list and
-    returns the value. If the name is not found, the function returns None.
+
+    - If the name is found, the function removes the parameter
+      from the list and returns the parameter value;
+    - If the name is not found and index is >= 0, the function
+      returns uses the index to get the parameter from the list
+      as positional argument (without removing it from the list)
+      and returns the parameter value;
+    - If the name is not found and index is < 0, the function
+      returns None.
+
     """
     value = None
 
@@ -880,12 +889,13 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
     if (value is None) :
         return None
 
+    # try to return a typed value, if type is given
     if type == INTEGER :
         return int(value)
     if type == FLOAT :
         return float(value)
 
-    # defaults to returning a string
+    # defaults to returning the value as a string
     return value
 
 
