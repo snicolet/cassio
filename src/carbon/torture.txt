@@ -84,11 +84,11 @@ CARBON-PROTOCOL {26} dump
 @  set-image-pixmap       image2 big-world
 @  set-image-pixmap       image2 small-world
 @  set-image-position     image2 160 0
-#@  draw-image             image2
+@  draw-image             image2
 @  new-image-from-pixmap  image1 small-world
 @  set-image-pixmap       image1 dragon
 @  set-image-position     image1 350 40
-#@  draw-image             image1
+@  draw-image             image1
 @  draw-image             blah-blah-blah
 @  keep-alive
 #@ open-file-dialog       prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"

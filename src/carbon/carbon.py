@@ -220,7 +220,6 @@ class CarbonWindow(QWidget):
         self.setObjectName(name)
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
-        self.images = {}    # dictionary of all the images shown in the window
 
 
     def scroll_texts(self, dx, dy) :
@@ -232,81 +231,74 @@ class CarbonWindow(QWidget):
         # in the "scrolled" temporary dictionary
         scrolled = {}
         for key, item in list(self.graphics.items()) :
-             if item :
-                 type   = item["type"]
+            if item["type"] == "TEXT" :
+                name   = item["name"]
+                text   = item["text"]
+                h      = item["h"] + dx
+                v      = item["v"] + dy
+                a      = item["a"]
+                b      = item["b"]
+                pen    = item["pen"]
+                font   = item["font"]
+                image  = item["image"]
+                zindex = item["zindex"]
+                visible = item["visible"]
 
-                 if type == "TEXT" :
-                     name   = item["name"]
-                     text   = item["text"]
-                     h      = item["h"] + dx
-                     v      = item["v"] + dy
-                     a      = item["a"]
-                     b      = item["b"]
-                     pen    = item["pen"]
-                     font   = item["font"]
-                     image  = item["image"]
-                     zindex = item["zindex"]
+                if key.startswith("TEXT:name=") :
+                    new_key = key
+                else :
+                    new_key = "TEXT:" + str(h) + ";" + str(v)
 
-                     if key.startswith("TEXT:name=") :
-                         new_key = key
-                     else :
-                         new_key = "TEXT:" + str(h) + ";" + str(v)
+                new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible)
+                scrolled[new_key] = new_item
 
-                     new_item = make_item(type, name, text, h, v, a, b, pen, font, image, zindex)
-                     scrolled[new_key] = new_item
-
-                     # remove old item
-                     self.graphics.pop(key)
+                # remove old item
+                self.graphics.pop(key)
 
         # merge the "scrolled" dictionary to the original one
         self.graphics.update(scrolled)
 
         return
 
+
     def paintEvent(self, event):
         """
         This function handles the paintEvent for our CarbonWindow class
         """
 
-        print("\ninside paintEvent() for window : ", self.objectName())
+        #print("\ninside paintEvent() for window : ", self.objectName())
 
         painter = QPainter()
         painter.begin(self)
 
-        print("graphics = ", self.graphics.keys())
-        print("images = ", self.images.keys())
+        #print("graphics = ", self.graphics.keys())
 
-        for image in self.images.values() :
-            pixmap = image.pixmap()
-            print(f"{image.objectName() = }")
-            print(f"{image.pos() = }")
-            print(f"{pixmap.size() = }")
-            painter.drawPixmap(image.pos(), pixmap)
+        for item in self.graphics.values() :
+            if (item["type"] == "IMG") and item["visible"]:
+                image = item["image"]
+                pixmap = image.pixmap()
+                painter.drawPixmap(image.pos(), pixmap)
 
-        k = 0
-        for pixmap in pixmaps.values() :
-            # painter.drawPixmap(20 * k, 20 + 20 * k, 100, 100, pixmap)
-            k += 1
-
-        s = "\ninside paintEvent() : printing " + str(len(self.graphics)) + " strings"
+        #s = "\ninside paintEvent() : printing the strings"
         #print(s)
-        for key, item in self.graphics.items() :
-            if item :
-                type   = item["type"]
-                if type == "TEXT" :
-                    name   = item["name"]
-                    text   = item["text"]
-                    h      = item["h"]
-                    v      = item["v"]
-                    pen    = item["pen"]
-                    font   = item["font"]
+        for item in self.graphics.values() :
+            if item["type"] == "TEXT" :
+                name   = item["name"]
+                text   = item["text"]
+                h      = item["h"]
+                v      = item["v"]
+                pen    = item["pen"]
+                font   = item["font"]
 
-                    painter.setFont(font)
-                    painter.setPen(pen)
-                    painter.drawText(h, v, text)
-
+                painter.setFont(font)
+                painter.setPen(pen)
+                painter.drawText(h, v, text)
 
         painter.end()
+
+        return
+
+
 
     def render(self, painter):
         print("\ninside render() for window : ", self.objectName())
@@ -339,7 +331,7 @@ def find_pixmap(name) :
         return None
 
 
-def make_item(type, name, text, h, v, a, b, pen, font, image, zindex) :
+def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible) :
     """
     Create a description of a graphic item in our windows
     """
@@ -355,20 +347,35 @@ def make_item(type, name, text, h, v, a, b, pen, font, image, zindex) :
             "pen"    : pen,
             "font"   : font,
             "image"  : image,
-            "zindex" : zindex
+            "zindex" : zindex,
+            "visible": visible
            }
     return item
 
 
 def find_image(window, image_name) :
     """
-    Find image by name in the given window. Returns a description.
+    Find image by name in the given window. Returns an item, or None.
     """
 
     if window and image_name :
         key = "IMG:name=" + image_name
         if (key in window.graphics) :
-            return window.graphics[key]
+            item = window.graphics[key]
+            return item["image"]
+
+    return None
+
+
+def get_image_key(window, image_name) :
+    """
+    Returns the key if the image exists in the window, None otherwise.
+    """
+
+    if window and image_name :
+        key = "IMG:name=" + image_name
+        if (key in window.graphics) :
+            return key
 
     return None
 
@@ -532,8 +539,9 @@ def draw_text_at(args):
        b = 0
        image = None
        zindex = 0
+       visible = True
 
-       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex)
+       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible)
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
@@ -615,14 +623,13 @@ def new_image_from_pixmap(args) :
         image.setObjectName(name)
         image.setPixmap(pixmap)
 
-        # delete any old image with the same name in the window
-        if (name in window.images) :
-            old_image = window.images[name]
-            old_image.close()
-            window.images.pop(name)
+        key = "IMG:name=" + name
 
-        # insert the new image in the "images" dictionary of the window
-        window.images[name] = image
+        # delete any old image with the same name in the window
+        old_image = find_image(window, name)
+        if old_image :
+            old_image.close()
+            window.graphics.pop(key)
 
         text = None
         h = 0
@@ -632,11 +639,11 @@ def new_image_from_pixmap(args) :
         pen = None
         font = None
         zindex = 0
+        visible = False
 
-        item = make_item("IMG", name, text, h, v, a, b, pen, font, image, zindex)
+        item = make_item("IMG", name, text, h, v, a, b, pen, font, image, zindex, visible)
 
         # insert the description of the image in the "graphics" dictionary
-        key = "IMG:name=" + name
         window.graphics[key] = item
 
         return name
@@ -654,17 +661,10 @@ def set_image_position(args) :
     v    = find_named_parameter("v"   , args, 2, INTEGER)
     window = current_port
 
-    print(f'{name = }')
-    print(f'{h = }')
-    print(f'{v = }')
-
-    if window and name and (h is not None) and (v is not None) and (name in window.images) :
-
-        print((name in window.images))
-        print(window.images)
-
-        image = window.images[name]
-        image.move(h, v)
+    if window and name and (h is not None) and (v is not None) :
+        image = find_image(window, name)
+        if image :
+            image.move(h, v)
 
     return
 
@@ -679,9 +679,10 @@ def set_image_pixmap(args) :
     pixmap     = find_pixmap(pixmapname)
     window     = current_port
 
-    if window and name and pixmap and (name in window.images) :
-        image = window.images[name]
-        image.setPixmap(pixmap)
+    if window and name and pixmap :
+        image = find_image(window, name)
+        if image :
+            image.setPixmap(pixmap)
 
     return
 
@@ -694,11 +695,11 @@ def draw_image(args) :
     name = find_named_parameter("name", args, 0, STRING)
     window = current_port
 
-    if window and name and (name in window.images) :
-        image = window.images[name]
-        image.lower()
-        #image.show()
-        # TODO : insert in the graphical items list of the window
+    if window and name :
+        key = get_image_key(window, name)
+        if key :
+            window.graphics[key]["visible"] = True
+            window.repaint()
 
     return
 
