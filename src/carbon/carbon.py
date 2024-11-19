@@ -700,7 +700,7 @@ def draw_image(args) :
         key = get_image_key(window, name)
         if key :
             window.graphics[key]["visible"] = True
-            window.repaint()
+            window.update()
 
     return
 
