@@ -333,6 +333,10 @@ def find_pixmap(name) :
 
 
 def make_item(type, name, text, point1, point2, pen, font, image, zindex) :
+    """
+    Create a description of a graphic item in our windows
+    """
+
     item = {
             "type"   : type, 
             "name"   : name,
@@ -348,6 +352,10 @@ def make_item(type, name, text, point1, point2, pen, font, image, zindex) :
 
 
 def find_image(window, image_name) :
+    """
+    Find image by name in the given window. Returns a description.
+    """
+
     if window and image_name :
         key = "IMG:name=" + image_name
         if (key in window.graphics) :
@@ -355,18 +363,19 @@ def find_image(window, image_name) :
 
     return None
 
+
 def get_port(args):
    """
-   Returns the name of the current grafport
+   Returns the name of the current grafport, or the string "None"
    """
 
    global current_port
    try :
-      ref = current_port.objectName()
+      reference = current_port.objectName()
    except Exception :
-      ref = None
+      reference = None
 
-   return str(ref)
+   return str(reference)
 
 
 def set_port(args):
@@ -385,8 +394,9 @@ def set_port(args):
 
 def new_window(args):
    """
-   Create a new window, and make it the current port
+   Create a new window, make it the current port, and return its name.
    """
+
    name = find_named_parameter("name", args, 0)
 
    if find_window(name) :
@@ -455,6 +465,8 @@ def scroll_window(args):
     if window and dx and dy :
         window.scroll_texts(dx, dy)
         window.update()
+
+    return
 
 
 def show_window(args):
