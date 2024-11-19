@@ -512,7 +512,7 @@ def draw_text_at(args):
    text   = find_named_parameter("text", args, 0)
    h      = find_named_parameter("h",    args, 1, INTEGER)
    v      = find_named_parameter("v",    args, 2, INTEGER)
-   name   = find_named_parameter("v",    args, -1)
+   name   = find_named_parameter("name", args, -1)
    window = current_port
 
    if window and text and (h is not None) and (v is not None) :
