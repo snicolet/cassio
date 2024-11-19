@@ -300,10 +300,12 @@ class CarbonWindow(QWidget):
 
 
     def render(self, painter):
-        print("\ninside render() for window : ", self.objectName())
+        #print("\ninside render() for window : ", self.objectName())
+        pass
 
     def resizeEvent(self, resizeEvent):
-        print("\ninside resizeEvent() for window : ", self.objectName())
+        #print("\ninside resizeEvent() for window : ", self.objectName())
+        pass
 
 
 def find_window(name) :
