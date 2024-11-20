@@ -999,7 +999,10 @@ class GUI(QWidget):
                 loop = False
 
             if line :
-                execute_carbon_protocol(line)
+                try :
+                    execute_carbon_protocol(line)
+                except Exception :
+                    print(traceback.format_exc())
 
 
 ################################################################################
