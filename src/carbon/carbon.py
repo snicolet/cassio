@@ -84,7 +84,7 @@ def every(delay, job):
       except Exception:
           # In production code you might want to have this instead of course:
           # logger.exception("Problem while executing repetitive task.")
-          traceback.print_exc()
+          print(traceback.format_exc())
 
       # skip tasks if we are behind schedule
       next_time += (now() - next_time) // delay * delay + delay
