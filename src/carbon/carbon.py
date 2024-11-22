@@ -479,7 +479,7 @@ def scroll_window(args):
     dy     = find_named_parameter("dy", args, 1, INTEGER)
     window = current_port
 
-    if window and dx and dy :
+    if window and (dx is not None) and (dy is not None) :
         window.scroll_texts(dx, dy)
         window.update()
 
