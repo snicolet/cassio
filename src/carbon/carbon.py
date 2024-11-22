@@ -356,7 +356,7 @@ def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible) :
 
 def find_image(window, image_name) :
     """
-    Find image by name in the given window. Returns an item, or None.
+    Find image by name in the given window. Returns an image, or None.
     """
 
     if window and image_name :

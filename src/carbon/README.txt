@@ -7,7 +7,7 @@ module from Python. To see all your Python installations and find out
 which ones have enough PyQt4 or PyQt5 support to use the carbon.py 
 library, you can use:
 
-       python3 pyqt-search.py
+       python3 ./tools/pyqt-search.py
 
 Once you have a working version of PyQt for a specific Python version,
 you must edit the first line of the file 'carbon.py' (the shebang) to
