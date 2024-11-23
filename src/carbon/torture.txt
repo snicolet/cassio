@@ -42,7 +42,7 @@ CARBON-PROTOCOL {11} close-window           name=WindowID
 =>    Section: text
 ==========================================================
 
-CARBON-PROTOCOL {10} draw-text-at           text="Hello world" h=15 v=15 name=WindowID
+CARBON-PROTOCOL {10} draw-text-at           text="Hello world" h=15 v=15 name=label-1
 CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {20} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
