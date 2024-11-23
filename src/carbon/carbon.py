@@ -809,7 +809,8 @@ def call(id, command, args):
     # format to tag a command as not implemented yet
     def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
-       return GUI_exec_to_str("!! {} NOT IMPLEMENTED ({})".format(id, command))
+       result = "!! {} NOT IMPLEMENTED ({})".format(id, command)
+       return result
 
 
     # Should we echo each line?
@@ -881,6 +882,7 @@ def quoted_split(s):
 INTEGER  = "integer"
 FLOAT    = "float"
 STRING   = "string"
+BOOLEAN  = "boolean"
 
 
 def find_named_parameter(name, args, index=-1, type=STRING) :
@@ -917,6 +919,12 @@ def find_named_parameter(name, args, index=-1, type=STRING) :
         return int(value)
     if type == FLOAT :
         return float(value)
+    if type == BOOLEAN :
+        if value == "1" or value.lower() == "true" or value.lower() == "yes" :
+            return True
+        if value == "0" or value.lower() == "false" or value.lower() == "no" :
+            return False
+        raise ValueError('invalid value for boolean : ' + value)
 
     # defaults to returning the value as a string
     return value

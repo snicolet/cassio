@@ -8,24 +8,41 @@ Merci Stéphane, moi ça va
 Enter some text below
 
 CARBON-PROTOCOL {0}  init
-CARBON-PROTOCOL {1}  get-mouse
-CARBON-PROTOCOL {2}  get-port
-CARBON-PROTOCOL {3}  new-window             WindowID
-CARBON-PROTOCOL {4}  new-window             WindowID
-CARBON-PROTOCOL {5}  set-window-title       WindowID "About box (in CARBON-PROTOCOL)"
-CARBON-PROTOCOL {6}  set-window-geometry    WindowID 100 100 350 250
-CARBON-PROTOCOL {7}  show-window            WindowID
-CARBON-PROTOCOL {8}  get-port
-CARBON-PROTOCOL {9}  set-port               WindowID
-CARBON-PROTOCOL {10} draw-text-at           "Hello world" 15 15
-CARBON-PROTOCOL {11} close-window           WindowID
-CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
-CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
-CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
-CARBON-PROTOCOL {15} new-image-from-pixmap  ImageID PixmaxID
-CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
-CARBON-PROTOCOL {17} set-image-position     image-1 25 40
+
+==========================================================
+=>    Section: general 
+==========================================================
+
 CARBON-PROTOCOL {18} keep-alive
+CARBON-PROTOCOL {26} dump
+
+==========================================================
+=>    Section: mouse
+==========================================================
+
+CARBON-PROTOCOL {1}  get-mouse
+
+==========================================================
+=>    Section: windows
+==========================================================
+
+CARBON-PROTOCOL {2}  get-port
+CARBON-PROTOCOL {3}  new-window             name=WindowID
+CARBON-PROTOCOL {4}  new-window             name=WindowID
+CARBON-PROTOCOL {5}  set-window-title       name=WindowID title="About box (in CARBON-PROTOCOL)"
+CARBON-PROTOCOL {6}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
+CARBON-PROTOCOL {6}  set-window-visibility  name=WindowID visible=True
+CARBON-PROTOCOL {6}  set-window-visibility  name=WindowID visible=False
+CARBON-PROTOCOL {7}  show-window            name=WindowID
+CARBON-PROTOCOL {8}  get-port
+CARBON-PROTOCOL {9}  set-port               name=WindowID
+CARBON-PROTOCOL {11} close-window           name=WindowID
+
+==========================================================
+=>    Section: text
+==========================================================
+
+CARBON-PROTOCOL {10} draw-text-at           text="Hello world" h=15 v=15 name=WindowID
 CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {20} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
@@ -33,7 +50,72 @@ CARBON-PROTOCOL {22} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {24} draw-text-at           "Hello world (1)" 15 15
 CARBON-PROTOCOL {25} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {26} dump
+
+==========================================================
+=>    Section: pixmap and image
+==========================================================
+
+CARBON-PROTOCOL {12} new-pixmap             name=pixmap-1 imagefile="images/world.png"
+CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
+CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
+CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
+CARBON-PROTOCOL {15} new-image-from-pixmap  name=ImageID pixmap=PixmaxID
+CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
+CARBON-PROTOCOL {17} set-image-position     name=image-1 h=25 v=40
+
+==========================================================
+=>    Section: dialogs
+==========================================================
+
+CARBON-PROTOCOL {100} new-alert             name=DialogID message=text
+CARBON-PROTOCOL {101} new-dialog            name=DialogID 
+CARBON-PROTOCOL {102} set-dialog-item       name=DialogID item=itemName
+CARBON-PROTOCOL {103} find-dialog-item      name=DialogID h=50 v=70
+CARBON-PROTOCOL {104} get-dialog-item-text  name=DialogID item=itemName
+CARBON-PROTOCOL {105} set-dialog-item-text  name=DialogID item=itemName text="blah blah"
+CARBON-PROTOCOL {106} select-dialog-item-text name=DialogID item=itemName start=4 end=13
+CARBON-PROTOCOL {107} dialog-cut            name=DialogID
+CARBON-PROTOCOL {108} dialog-copy           name=DialogID
+CARBON-PROTOCOL {109} dialog-paste          name=DialogID
+CARBON-PROTOCOL {110} dialog-delete         name=DialogID
+
+==========================================================
+=>    Section: files
+==========================================================
+
+CARBON-PROTOCOL {150} save-file-dialog    prompt="text" dir="myDir" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {151} open-file-dialog  prompt="text" dir="mydir" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+
+==========================================================
+=>    Section: sound
+==========================================================
+
+==========================================================
+=>    Section: geometrical shapes
+==========================================================
+
+==========================================================
+=>    Section: pen
+==========================================================
+
+==========================================================
+=>    Section: font
+==========================================================
+
+==========================================================
+=>    Section: menus
+==========================================================
+
+==========================================================
+=>    Section: events
+==========================================================
+
+==========================================================
+=>    Section: clipboard
+==========================================================
+
+
+
 
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
@@ -56,7 +138,7 @@ CARBON-PROTOCOL {26} dump
 @  new-window             Window-2
 @  get-port
 @  set-window-title       Window-2 "Cassio"
-@  set-window-geometry    Window-2 550 150 700 380
+@  set-window-geometry    Window-2 350 150 700 380
 @  show-window            Window-2
 @  set-port               Window-2
 @  get-port
