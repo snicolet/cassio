@@ -83,8 +83,8 @@ CARBON-PROTOCOL {110} dialog-delete         name=DialogID
 =>    Section: files
 ==========================================================
 
-CARBON-PROTOCOL {150} save-file-dialog    prompt="text" dir="myDir" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-# CARBON-PROTOCOL {151} open-file-dialog  prompt="text" dir="mydir" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+CARBON-PROTOCOL {150} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {151} open-file-dialog  prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 
 ==========================================================
 =>    Section: sound

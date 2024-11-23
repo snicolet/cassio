@@ -132,17 +132,17 @@ class stats:
     """
     A class to emit some stats about the commands received, implemented, etc.
     """
-    total                = 0
-    not_implemented      = 0
-    partialy_implemented = 0
-    implemented          = 0
+    total                 = 0
+    not_implemented       = 0
+    partially_implemented = 0
+    implemented           = 0
 
     @classmethod
     def report(cls) :
-        cls.implemented = cls.total - cls.not_implemented - cls.partialy_implemented
+        cls.implemented = cls.total - cls.not_implemented - cls.partially_implemented
         return (cls.total,
                 cls.implemented,
-                cls.partialy_implemented,
+                cls.partially_implemented,
                 cls.not_implemented)
 
 def stat_box():
@@ -161,12 +161,12 @@ def stat_box():
     (total, implemented, partial, not_implemented) = stats.report()
 
     s = ""
-    s += "\n==========================================="
+    s += "\n============================================"
     s += "\nCARBON-PROTOCOL lines : " + fmt(total)
     s += "\nimplemented           : " + fmt(implemented)     + pct(implemented)
-    s += "\npartialy implemented  : " + fmt(partial)         + pct(partial)
+    s += "\npartially implemented : " + fmt(partial)         + pct(partial)
     s += "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
-    s += "\n===========================================\n"
+    s += "\n============================================\n"
 
     return s
 
@@ -526,6 +526,8 @@ def draw_text_at(args):
    Draw text at the given position
    """
 
+   stats.partially_implemented = stats.partially_implemented + 1
+
    text   = find_named_parameter("text", args,  0, STRING)
    h      = find_named_parameter("h",    args,  1, INTEGER)
    v      = find_named_parameter("v",    args,  2, INTEGER)
@@ -711,7 +713,6 @@ def open_file_dialog(args):
     returned value is the complete path of the file selected by the user, or
     the empty string if the user has canceled the dialog.
     """
-    stats.partialy_implemented = stats.partialy_implemented + 1
 
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
@@ -729,6 +730,45 @@ def open_file_dialog(args):
     filter    = my_url_decode(filter)
 
     filename = QFileDialog.getOpenFileName(
+            parent    = None,
+            caption   = caption,
+            directory = directory,
+            filter    = filter,
+            options   = options )
+
+    if (type(filename) is tuple) :   # pyqt5 returns a couple, pyqt4 not
+        filename = filename[0]
+
+    result = ""
+    if filename :
+        result = my_url_encode(str(Path(filename)))
+
+    return ("\"{}\"".format(result))
+
+
+def save_file_dialog(args):
+    """
+    Blocking call, showing the usual system dialog for saving a file. The
+    returned value is the complete path of the file name chosen by the user,
+    or the empty string if the user has canceled the dialog.
+    """
+
+    options = QFileDialog.Options()
+    #options |= QFileDialog.DontUseNativeDialog
+
+    caption   = find_named_parameter("prompt", args, -1, STRING)
+    directory = find_named_parameter("dir"   , args, -1, STRING)
+    filter    = find_named_parameter("filter", args, -1, STRING)
+
+    if caption   is None : caption   = args[0]
+    if directory is None : directory = args[1]
+    if filter    is None : filter    = args[2]
+
+    caption   = my_url_decode(caption)
+    directory = my_url_decode(directory)
+    filter    = my_url_decode(filter)
+
+    filename = QFileDialog.getSaveFileName(
             parent    = None,
             caption   = caption,
             directory = directory,
@@ -835,6 +875,7 @@ def call(id, command, args):
     elif command == "set-image-pixmap"      :  result = set_image_pixmap(args)
     elif command == "draw-image"            :  result = draw_image(args)
     elif command == "open-file-dialog"      :  result = open_file_dialog(args)
+    elif command == "save-file-dialog"      :  result = save_file_dialog(args)
     elif command == "new-window"            :  result = new_window(args)
     elif command == "set-window-title"      :  result = set_window_title(args)
     elif command == "set-window-geometry"   :  result = set_window_geometry(args)
