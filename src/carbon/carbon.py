@@ -1002,7 +1002,9 @@ class GUI(QWidget):
                 try :
                     execute_carbon_protocol(line)
                 except Exception :
-                    print(traceback.format_exc())
+                    print("=" * 40 + "\n", flush=True)
+                    print(traceback.format_exc(), flush=True)
+                    print("=" * 40, flush=True)
 
 
 ################################################################################
