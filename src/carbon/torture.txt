@@ -108,7 +108,9 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 =>    Section: text
 ==========================================================
 
-CARBON-PROTOCOL {20} draw-text-at           text="Hello world" h=15 v=15 name=label-1
+CARBON-PROTOCOL {20} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
+CARBON-PROTOCOL {20} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
+CARBON-PROTOCOL {20} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
 CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 
 ==========================================================
@@ -190,10 +192,10 @@ CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 @  set-image-pixmap       image2 big-world
 @  set-image-pixmap       image2 small-world
 @  set-image-position     image2 160 0
-@  draw-image             image2
+@  draw-image             image2 zindex=1000
 @  new-image-from-pixmap  image1 small-world
 @  set-image-pixmap       image1 dragon
-@  set-image-position     image1 350 40
+@  set-image-position     image1 100 125
 @  draw-image             image1
 @  draw-image             blah-blah-blah
 @  keep-alive

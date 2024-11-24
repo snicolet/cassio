@@ -232,24 +232,25 @@ class CarbonWindow(QWidget):
         scrolled = {}
         for key, item in list(self.graphics.items()) :
             if item["type"] == "TEXT" :
-                name   = item["name"]
-                text   = item["text"]
-                h      = item["h"] + dx
-                v      = item["v"] + dy
-                a      = item["a"]
-                b      = item["b"]
-                pen    = item["pen"]
-                font   = item["font"]
-                image  = item["image"]
-                zindex = item["zindex"]
+                name    = item["name"]
+                text    = item["text"]
+                h       = item["h"] + dx
+                v       = item["v"] + dy
+                a       = item["a"]
+                b       = item["b"]
+                pen     = item["pen"]
+                font    = item["font"]
+                image   = item["image"]
+                zindex  = item["zindex"]
                 visible = item["visible"]
+                align   = item["align"]
 
                 if key.startswith("TEXT:name=") :
                     new_key = key
                 else :
                     new_key = "TEXT:" + str(h) + ";" + str(v)
 
-                new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible)
+                new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
                 scrolled[new_key] = new_item
 
                 # remove old item
@@ -332,7 +333,7 @@ def find_pixmap(name) :
         return None
 
 
-def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible) :
+def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible, align) :
     """
     Create a description of a graphic item in our windows
     """
@@ -349,7 +350,8 @@ def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible) :
             "font"   : font,
             "image"  : image,
             "zindex" : zindex,
-            "visible": visible
+            "visible": visible,
+            "align"  : align
            }
     return item
 
@@ -528,23 +530,27 @@ def draw_text_at(args):
 
    stats.partially_implemented = stats.partially_implemented + 1
 
-   text   = find_named_parameter("text", args,  0, STRING)
-   h      = find_named_parameter("h",    args,  1, INTEGER)
-   v      = find_named_parameter("v",    args,  2, INTEGER)
-   name   = find_named_parameter("name", args, -1, STRING)
+   text   = find_named_parameter("text",  args,  0, STRING)
+   h      = find_named_parameter("h",     args,  1, INTEGER)
+   v      = find_named_parameter("v",     args,  2, INTEGER)
+   name   = find_named_parameter("name",  args, -1, STRING)
+   width  = find_named_parameter("width", args, -1, INTEGER)
+   height = find_named_parameter("height",args, -1, INTEGER)
+   zindex = find_named_parameter("zindex",args, -1, INTEGER)
+   align  = find_named_parameter("align", args, -1, STRING)
    window = current_port
 
    if window and text and (h is not None) and (v is not None) :
 
        pen = QPen(QColor("#000000"))
        font = QFont("Helvetica", 15)
-       a = 0
-       b = 0
+       a = width if width else 0
+       b = height if height else 0
+       zindex = zindex if zindex else 0
        image = None
-       zindex = 0
        visible = True
 
-       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible)
+       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
@@ -615,8 +621,9 @@ def new_image_from_pixmap(args) :
     Create a new image from a given pixmap (in the current window)
     """
 
-    name       = find_named_parameter("name"    , args, 0, STRING)
-    pixmapname = find_named_parameter("pixmap"  , args, 1, STRING)
+    name       = find_named_parameter("name"    , args,  0, STRING)
+    pixmapname = find_named_parameter("pixmap"  , args,  1, STRING)
+    zindex     = find_named_parameter("zindex"  , args, -1, INTEGER)
     pixmap     = find_pixmap(pixmapname)
     window     = current_port
 
@@ -641,10 +648,11 @@ def new_image_from_pixmap(args) :
         b = 0
         pen = None
         font = None
-        zindex = 0
+        zindex = zindex if zindex else 0
         visible = False
+        align = None
 
-        item = make_item("IMG", name, text, h, v, a, b, pen, font, image, zindex, visible)
+        item = make_item("IMG", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
 
         # insert the description of the image in the "graphics" dictionary
         window.graphics[key] = item
@@ -695,13 +703,15 @@ def draw_image(args) :
     Draw the given image (in the current window)
     """
 
-    name = find_named_parameter("name", args, 0, STRING)
+    name   = find_named_parameter("name"  , args,  0, STRING)
+    zindex = find_named_parameter("zindex", args, -1, INTEGER)
     window = current_port
 
     if window and name :
         key = get_image_key(window, name)
         if key :
             window.graphics[key]["visible"] = True
+            window.graphics[key]["zindex"] = zindex if zindex else 0
             window.update()
 
     return
