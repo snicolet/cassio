@@ -44,12 +44,6 @@ CARBON-PROTOCOL {11} close-window           name=WindowID
 
 CARBON-PROTOCOL {10} draw-text-at           text="Hello world" h=15 v=15 name=label-1
 CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {20} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {22} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {24} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {25} draw-text-at           "Hello world (1)" 15 15
 
 ==========================================================
 =>    Section: pixmap and image
@@ -67,40 +61,50 @@ CARBON-PROTOCOL {17} set-image-position     name=image-1 h=25 v=40
 =>    Section: dialogs
 ==========================================================
 
-CARBON-PROTOCOL {100} new-alert             name=DialogID message=text
-CARBON-PROTOCOL {101} new-dialog            name=DialogID 
-CARBON-PROTOCOL {102} set-dialog-item       name=DialogID item=itemName
-CARBON-PROTOCOL {103} find-dialog-item      name=DialogID h=50 v=70
-CARBON-PROTOCOL {104} get-dialog-item-text  name=DialogID item=itemName
-CARBON-PROTOCOL {105} set-dialog-item-text  name=DialogID item=itemName text="blah blah"
+CARBON-PROTOCOL {100} new-alert               name=DialogID message=text
+CARBON-PROTOCOL {101} new-dialog              name=DialogID 
+CARBON-PROTOCOL {102} set-dialog-item         name=DialogID item=itemName
+CARBON-PROTOCOL {103} find-dialog-item        name=DialogID h=50 v=70
+CARBON-PROTOCOL {104} get-dialog-item-text    name=DialogID item=itemName
+CARBON-PROTOCOL {105} set-dialog-item-text    name=DialogID item=itemName text="blah blah"
 CARBON-PROTOCOL {106} select-dialog-item-text name=DialogID item=itemName start=4 end=13
-CARBON-PROTOCOL {107} dialog-cut            name=DialogID
-CARBON-PROTOCOL {108} dialog-copy           name=DialogID
-CARBON-PROTOCOL {109} dialog-paste          name=DialogID
-CARBON-PROTOCOL {110} dialog-delete         name=DialogID
+CARBON-PROTOCOL {107} dialog-cut              name=DialogID
+CARBON-PROTOCOL {108} dialog-copy             name=DialogID
+CARBON-PROTOCOL {109} dialog-paste            name=DialogID
+CARBON-PROTOCOL {110} dialog-delete           name=DialogID
 
 ==========================================================
 =>    Section: files
 ==========================================================
 
-CARBON-PROTOCOL {150} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-# CARBON-PROTOCOL {151} open-file-dialog  prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {200} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {201} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 
 ==========================================================
 =>    Section: sound
 ==========================================================
 
 ==========================================================
-=>    Section: geometrical shapes
+=>    Section: textEdit
+==========================================================
+
+==========================================================
+=>    Section: drawing shapes
 ==========================================================
 
 ==========================================================
 =>    Section: pen
 ==========================================================
 
+CARBON-PROTOCOL {600} set-pen-width         width=1.2
+CARBON-PROTOCOL {601} set-pen-color         color=#000000
+
 ==========================================================
 =>    Section: font
 ==========================================================
+
+CARBON-PROTOCOL {700} set-font-name        name=Helvetica
+CARBON-PROTOCOL {701} set-font-size        size=15
 
 ==========================================================
 =>    Section: menus
