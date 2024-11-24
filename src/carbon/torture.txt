@@ -31,31 +31,27 @@ CARBON-PROTOCOL {3}  new-window             name=WindowID
 CARBON-PROTOCOL {4}  new-window             name=WindowID
 CARBON-PROTOCOL {5}  set-window-title       name=WindowID title="About box (in CARBON-PROTOCOL)"
 CARBON-PROTOCOL {6}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
-CARBON-PROTOCOL {6}  set-window-visibility  name=WindowID visible=True
-CARBON-PROTOCOL {6}  set-window-visibility  name=WindowID visible=False
-CARBON-PROTOCOL {7}  show-window            name=WindowID
-CARBON-PROTOCOL {8}  get-port
-CARBON-PROTOCOL {9}  set-port               name=WindowID
-CARBON-PROTOCOL {11} close-window           name=WindowID
-
-==========================================================
-=>    Section: text
-==========================================================
-
-CARBON-PROTOCOL {10} draw-text-at           text="Hello world" h=15 v=15 name=label-1
-CARBON-PROTOCOL {19} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {7}  set-window-visibility  name=WindowID visible=True
+CARBON-PROTOCOL {8}  set-window-visibility  name=WindowID visible=False
+CARBON-PROTOCOL {9}  show-window            name=WindowID
+CARBON-PROTOCOL {10} get-port
+CARBON-PROTOCOL {11} set-port               name=WindowID
+CARBON-PROTOCOL {12} close-window           name=WindowID
+CARBON-PROTOCOL {13} global-to-local        x=20 y=13 window=windowID
+CARBON-PROTOCOL {14} local-to-global        x=20 y=13 window=windowID
 
 ==========================================================
 =>    Section: pixmap and image
 ==========================================================
 
-CARBON-PROTOCOL {12} new-pixmap             name=pixmap-1 imagefile="images/world.png"
-CARBON-PROTOCOL {12} new-pixmap             pixmap-1 "images/world.png"
-CARBON-PROTOCOL {13} new-pixmap             pixmap-2 "images/world.png" width=100
-CARBON-PROTOCOL {14} new-pixmap             pixmap-3 "images/world.png" height=100
-CARBON-PROTOCOL {15} new-image-from-pixmap  name=ImageID pixmap=PixmaxID
-CARBON-PROTOCOL {16} new-image-from-pixmap  image-1 pixmap-1
-CARBON-PROTOCOL {17} set-image-position     name=image-1 h=25 v=40
+CARBON-PROTOCOL {30} new-pixmap             name=pixmap-1 imagefile="images/world.png"
+CARBON-PROTOCOL {31} new-pixmap             pixmap-1 "images/world.png"
+CARBON-PROTOCOL {32} new-pixmap             pixmap-2 "images/world.png" width=100
+CARBON-PROTOCOL {33} new-pixmap             pixmap-3 "images/world.png" height=100
+CARBON-PROTOCOL {34} new-image-from-pixmap  name=ImageID pixmap=PixmaxID
+CARBON-PROTOCOL {35} set-image-pixmap       name=ImageID pixmap=PixmaxID
+CARBON-PROTOCOL {36} set-image-position     name=ImageID h=25 v=40
+CARBON-PROTOCOL {37} draw-image             name=ImageID
 
 ==========================================================
 =>    Section: dialogs
@@ -81,30 +77,46 @@ CARBON-PROTOCOL {110} dialog-delete           name=DialogID
 # CARBON-PROTOCOL {201} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 
 ==========================================================
-=>    Section: sound
+=>    Section: pen
 ==========================================================
+
+CARBON-PROTOCOL {200} set-pen-width         width=1.2
+CARBON-PROTOCOL {201} set-pen-color         color=#000000
+
+==========================================================
+=>    Section: drawing
+==========================================================
+
+CARBON-PROTOCOL {300} scroll-window         dx=10 dy=20
+CARBON-PROTOCOL {301} scroll-rect           left=20 top=50 width=200 height=100 dx=0 dy=-20
+CARBON-PROTOCOL {302} set-fore-color        color=#FFFFFF
+CARBON-PROTOCOL {303} set-background-color  color=#000000
+
+==========================================================
+=>    Section: font
+==========================================================
+
+CARBON-PROTOCOL {700} load-font             filename="/fonts/komika_font.ttf"
+CARBON-PROTOCOL {701} set-font-family       name=Helvetica
+CARBON-PROTOCOL {702} set-font-style        style=italic
+CARBON-PROTOCOL {703} set-font-weight       style=bold
+CARBON-PROTOCOL {704} set-font-variant      style=small-caps
+CARBON-PROTOCOL {705} set-font-size         size=15
+
+==========================================================
+=>    Section: text
+==========================================================
+
+CARBON-PROTOCOL {20} draw-text-at           text="Hello world" h=15 v=15 name=label-1
+CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 
 ==========================================================
 =>    Section: textEdit
 ==========================================================
 
 ==========================================================
-=>    Section: drawing shapes
+=>    Section: controls
 ==========================================================
-
-==========================================================
-=>    Section: pen
-==========================================================
-
-CARBON-PROTOCOL {600} set-pen-width         width=1.2
-CARBON-PROTOCOL {601} set-pen-color         color=#000000
-
-==========================================================
-=>    Section: font
-==========================================================
-
-CARBON-PROTOCOL {700} set-font-name        name=Helvetica
-CARBON-PROTOCOL {701} set-font-size        size=15
 
 ==========================================================
 =>    Section: menus
@@ -118,10 +130,16 @@ CARBON-PROTOCOL {701} set-font-size        size=15
 =>    Section: clipboard
 ==========================================================
 
+==========================================================
+=>    Section: sound
+==========================================================
+
+==========================================================
+=>    Section: cursor
+==========================================================
 
 
-
-END_OF_FILE
+quit()
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
 ==========================================================
