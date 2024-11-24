@@ -36,6 +36,7 @@ CARBON-PROTOCOL {8}  set-window-visibility  name=WindowID visible=False
 CARBON-PROTOCOL {9}  show-window            name=WindowID
 CARBON-PROTOCOL {10} get-port
 CARBON-PROTOCOL {11} set-port               name=WindowID
+CARBON-PROTOCOL {12} clear-window           name=WindowID
 CARBON-PROTOCOL {12} close-window           name=WindowID
 CARBON-PROTOCOL {13} global-to-local        x=20 y=13 window=windowID
 CARBON-PROTOCOL {14} local-to-global        x=20 y=13 window=windowID
@@ -89,7 +90,7 @@ CARBON-PROTOCOL {201} set-pen-color         color=#000000
 
 CARBON-PROTOCOL {300} scroll-window         dx=10 dy=20
 CARBON-PROTOCOL {301} scroll-rect           left=20 top=50 width=200 height=100 dx=0 dy=-20
-CARBON-PROTOCOL {302} set-fore-color        color=#FFFFFF
+CARBON-PROTOCOL {302} set-foreground-color  color=#FFFFFF
 CARBON-PROTOCOL {303} set-background-color  color=#000000
 
 ==========================================================
@@ -139,7 +140,7 @@ CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 ==========================================================
 
 
-quit()
+
 ==========================================================
 =>   Now using the @ shortcut in the torture.txt file...    
 ==========================================================
