@@ -7,20 +7,15 @@ Comment ça va ?
 Merci Stéphane, moi ça va
 Enter some text below
 
-CARBON-PROTOCOL {0}  init
+
 
 ==========================================================
 =>    Section: general 
 ==========================================================
 
-CARBON-PROTOCOL {18} keep-alive
+CARBON-PROTOCOL {0}  init
+CARBON-PROTOCOL {1} keep-alive
 CARBON-PROTOCOL {26} dump
-
-==========================================================
-=>    Section: mouse
-==========================================================
-
-CARBON-PROTOCOL {1}  get-mouse
 
 ==========================================================
 =>    Section: windows
@@ -55,6 +50,19 @@ CARBON-PROTOCOL {36} set-image-position     name=ImageID h=25 v=40
 CARBON-PROTOCOL {37} draw-image             name=ImageID
 
 ==========================================================
+=>    Section: mouse
+==========================================================
+
+CARBON-PROTOCOL {40}  get-mouse
+
+==========================================================
+=>    Section: files
+==========================================================
+
+# CARBON-PROTOCOL {50} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {51} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+
+==========================================================
 =>    Section: dialogs
 ==========================================================
 
@@ -69,13 +77,6 @@ CARBON-PROTOCOL {107} dialog-cut              name=DialogID
 CARBON-PROTOCOL {108} dialog-copy             name=DialogID
 CARBON-PROTOCOL {109} dialog-paste            name=DialogID
 CARBON-PROTOCOL {110} dialog-delete           name=DialogID
-
-==========================================================
-=>    Section: files
-==========================================================
-
-# CARBON-PROTOCOL {50} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-# CARBON-PROTOCOL {51} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 
 ==========================================================
 =>    Section: pen
@@ -140,8 +141,6 @@ CARBON-PROTOCOL {410} new-menu-bar         name=barID
 CARBON-PROTOCOL {411} insert-menu          name=barID menu=menuID before=menuID-2
 CARBON-PROTOCOL {412} delete-menu          name=barID menu=menuID
 CARBON-PROTOCOL {413} clear-menu-bar       name=barID
-
-
 
 ==========================================================
 =>    Section: events

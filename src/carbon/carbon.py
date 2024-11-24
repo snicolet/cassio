@@ -163,9 +163,9 @@ def stat_box():
     s = ""
     s += "\n============================================"
     s += "\nCARBON-PROTOCOL lines : " + fmt(total)
-    s += "\nimplemented           : " + fmt(implemented)     + pct(implemented)
-    s += "\npartially implemented : " + fmt(partial)         + pct(partial)
     s += "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
+    s += "\npartially implemented : " + fmt(partial)         + pct(partial)
+    s += "\nimplemented           : " + fmt(implemented)     + pct(implemented)
     s += "\n============================================\n"
 
     return s
@@ -859,7 +859,7 @@ def call(id, command, args):
     # format to tag a command as not implemented yet
     def not_implemented(id, command) :
        stats.not_implemented = stats.not_implemented + 1
-       result = "!! {} NOT IMPLEMENTED ({})".format(id, command)
+       result = GUI_exec_to_str("!! {} NOT IMPLEMENTED ({})".format(id, command))
        return result
 
 
@@ -1008,6 +1008,9 @@ def execute_carbon_protocol(message):
                command = lexems[1]
                args    = lexems[2:]
 
+               global highest_id
+               highest_id = max(highest_id, int(id[1:-1]))
+
                # call the graphical functions in Qt
                answer = call(id, command, args)
 
@@ -1136,6 +1139,7 @@ class StandardInputThread(QThread):
 
 
 line_counter = 0   # global counter for the lines received by the server
+highest_id   = 0   # global with the highest message ID received by the server
 
 
 def server_callback(line):
@@ -1157,7 +1161,7 @@ def server_callback(line):
     if line :
 
         if line[0] == '@' :
-           line = PROTOCOL_PREFIX + "{" + str(line_counter) + "} " + line[1:]
+           line = PROTOCOL_PREFIX + "{" + str(highest_id + 1) + "} " + line[1:]
 
         job = '[stdi]   << {}'.format(line)
 
@@ -1202,8 +1206,6 @@ def read_input_file(name):
             if line.startswith("END_OF_FILE") :
                 break
             if (len(line) > 2) and (line[0] != '#') :
-                if line[0] == '@' :
-                    line = PROTOCOL_PREFIX + "{" + str(line_counter) + "} " + line[1:]
                 simulate_server_line(line)
 
 
