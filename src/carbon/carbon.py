@@ -1189,6 +1189,8 @@ def read_input_file(name):
    if name != "":
       with open(name) as fp:
          for line in fp:
+            if line.startswith("END_OF_FILE") :
+                break
             if (len(line) > 2) and (line[0] != '#') :
                 if line[0] == '@' :
                     line = PROTOCOL_PREFIX + "{" + str(line_counter) + "} " + line[1:]
