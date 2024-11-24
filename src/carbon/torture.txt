@@ -168,10 +168,10 @@ CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 @  show-window            Window-2
 @  set-port               Window-2
 @  get-port
-@  draw-text-at           "Hello world (2)" 105 15
-@  draw-text-at           text="Bienvenue dans Cassio" h=120 v=40
+@  draw-text-at           "Hello world (2)" 90 15
+@  draw-text-at           text="Bienvenue dans Cassio" h=120 v=40  zindex=20000
 @  draw-text-at           "Bienvenue dans Cassio" 100 55
-@  draw-text-at           "Bienvenue dans Cassio" 80 70
+@  draw-text-at           "Bienvenue dans Cassio" 80 70  
 @  draw-text-at           "Bienvenue dans Cassio" 60 85
 @  draw-text-at           "Bienvenue dans Cassio" 40 100
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
@@ -179,7 +179,7 @@ CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
-@  draw-text-at           "Bienvenue dans Cassio" 20 115
+@  draw-text-at           "Bienvenue dans Cassio" 20 115    zindex=-20000
 @  draw-text-at           "Bienvenue dans Cassio" -40 130
 @  scroll-window          10 20
 #@  close-window          Window-2
@@ -195,8 +195,8 @@ CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 @  draw-image             image2 zindex=1000
 @  new-image-from-pixmap  image1 small-world
 @  set-image-pixmap       image1 dragon
-@  set-image-position     image1 100 125
-@  draw-image             image1
+@  set-image-position     image1 100 131
+@  draw-image             image1  zindex=-1000
 @  draw-image             blah-blah-blah
 @  keep-alive
 #@ open-file-dialog       prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"

@@ -268,21 +268,21 @@ class CarbonWindow(QWidget):
         """
 
         #print("\ninside paintEvent() for window : ", self.objectName())
+        #print("graphics = ", self.graphics.keys())
 
         painter = QPainter()
         painter.begin(self)
 
-        #print("graphics = ", self.graphics.keys())
+        order = lambda item : item["zindex"]
+        items = sorted(self.graphics.values(), key=order)
 
-        for item in self.graphics.values() :
+        for item in items :
+
             if (item["type"] == "IMG") and item["visible"]:
                 image = item["image"]
                 pixmap = image.pixmap()
                 painter.drawPixmap(image.pos(), pixmap)
 
-        #s = "\ninside paintEvent() : printing the strings"
-        #print(s)
-        for item in self.graphics.values() :
             if (item["type"] == "TEXT") and item["visible"] :
                 text   = item["text"]
                 h      = item["h"]
