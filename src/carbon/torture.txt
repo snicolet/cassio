@@ -38,6 +38,15 @@ CARBON-PROTOCOL {13} global-to-local        x=20 y=13 window=windowID
 CARBON-PROTOCOL {14} local-to-global        x=20 y=13 window=windowID
 
 ==========================================================
+=>    Section: text
+==========================================================
+
+CARBON-PROTOCOL {20} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
+CARBON-PROTOCOL {21} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
+CARBON-PROTOCOL {22} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
+CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
+
+==========================================================
 =>    Section: pixmap and image
 ==========================================================
 
@@ -105,15 +114,6 @@ CARBON-PROTOCOL {702} set-font-style        style=italic
 CARBON-PROTOCOL {703} set-font-weight       style=bold
 CARBON-PROTOCOL {704} set-font-variant      style=small-caps
 CARBON-PROTOCOL {705} set-font-size         size=15
-
-==========================================================
-=>    Section: text
-==========================================================
-
-CARBON-PROTOCOL {20} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
-CARBON-PROTOCOL {20} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
-CARBON-PROTOCOL {20} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
-CARBON-PROTOCOL {21} draw-text-at           "Hello world (1)" 15 15
 
 ==========================================================
 =>    Section: textEdit

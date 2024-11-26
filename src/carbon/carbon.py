@@ -47,7 +47,7 @@ if echo :
     echo_output = True
 
 # name of the script to be played
-input_file_name   = ""                             #
+input_file_name   = ""
 if "-file" in script_args:
     f = script_args.index("-file")
     if f >= 0:
