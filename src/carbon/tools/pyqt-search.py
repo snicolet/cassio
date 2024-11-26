@@ -57,10 +57,11 @@ print()
 # Get the list of the potential Python binaries on my system,
 # using some traditionnal locations
 
-paths = [ "/usr/bin/"       , 
+paths = [ "/usr/local/bin/" ,
+          "/usr/bin/"       , 
           "/usr/local/lib/" , 
-          "/opt/local/bin/" , 
-          "/usr/local/bin/" ]
+          "/opt/local/bin/" 
+           ]
 
 for path in paths :
     if os.path.isdir(path) :
