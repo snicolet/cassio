@@ -1,7 +1,7 @@
 
 # File pyqt-search.py : this script lists all your Python installations in your 
-#                       system, then for each Python binary found, it checks if the 
-#                       PyQt4 module or the PyQt5 module is installed (and usable).
+#                       system, then for each Python binary found, it checks if
+#                       the PyQt4 or PyQt5 module is installed (and usable).
 #
 # Usage :
 #     python3 pyqt-search.py
@@ -57,7 +57,11 @@ print()
 # Get the list of the potential Python binaries on my system,
 # using some traditionnal locations
 
-paths = [ "/usr/bin/" , "/usr/local/lib/" , "/opt/local/bin/" ]
+paths = [ "/usr/bin/"       , 
+          "/usr/local/lib/" , 
+          "/opt/local/bin/" , 
+          "/usr/local/bin/" ]
+
 for path in paths :
     if os.path.isdir(path) :
         filename = "list-of-python-installations.txt"
