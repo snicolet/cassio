@@ -1,4 +1,4 @@
-#!/opt/local/bin/python3.9
+#!/usr/local/bin/python3
 
 # File carbon.py: a library to attack Qt using a text protocol,
 #                  using the standard input and output.

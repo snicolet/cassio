@@ -22,6 +22,14 @@ Examples of shebang lines I have used in the past:
        #!/usr/bin/env python3
        #!/opt/local/bin/python3
        #!/opt/local/bin/python3.9
+       #!/usr/local/bin/python3
+
+It is always possible to create a Unix symbolic link in one of these locations
+to point to another, working Python installation. For instance the following
+command will install a symbolic link in /usr/local/bin/python3 pointing to
+/opt/local/bin/python3.9 :
+
+    ln -s /opt/local/bin/python3.9 /usr/local/bin/python3
 
 
 Aliases for compiling cassio and running carbon.py

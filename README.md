@@ -42,7 +42,7 @@ dialogs, drawing text, drawing jpeg, sound, and that's about all I need).
 ## Preliminary work: implementing an abstract graphical protocol
 
 - The minimal graphic library could be written in Python, using the PyQt bridge
-to Qt4. This is quite portable, as Python and Qt are available everywhere. See
+to Qt5. This is quite portable, as Python and Qt are available everywhere. See
 the [carbon.py file](https://github.com/snicolet/cassio/blob/master/src/carbon/carbon.py)
 for the current state of the library.
 - The text protocol could be similar to the examples in [torture.txt](https://github.com/snicolet/cassio/blob/master/src/carbon/torture.txt),
@@ -54,14 +54,15 @@ efficient way, as there may be thousands of graphic primitives per second.
 ## Installing the necessary compilers and librairies
 
 To build Cassio, you will need a recent version of the FreePascal compiler
-and a working Python 3 environment with the PyQt4 module. The PyQt4 module
-provides the necessary interfaces to use Qt4 from Python 3.
+and a working Python 3 environment with the PyQt5 module. The PyQt5 module
+provides the necessary interfaces to use Qt5 from Python 3.
 
 ##### General instructions for installation:
 
 - **FreePascal**: see the instructions on the [FreePascal wiki](https://wiki.freepascal.org/Installing_the_Free_Pascal_Compiler)
 - **Python 3**: see https://www.python.org/downloads/
 - **PyQt4**: see https://doc.qt.io/archives/qt-4.8/installation.html
+- **PyQt5**: see https://doc.qt.io/qt-5/gettingstarted.html
 
 ##### Installing Python 3 (short version)
 
@@ -76,22 +77,22 @@ with one of the following commands:
 brew install fpc   (for Homebrew)
 port install fpc   (for Macports)
 ```
-##### Installing PyQt4 for MacOS (short version)
+##### Installing PyQt5 for MacOS (short version)
 
 - Make sure that you already have XCode downloaded from the App Store
-- Download PyQt4, for instance with one of the following commands:
+- Download PyQt5, for instance with one of the following commands:
 ```
-pip3 install pyqt4 pyqt4-tools     (for pip3)
-brew install pyqt4                 (for Homebrew)
-port install py39-qtpy4            (for MacPorts)
+pip3 install pyqt5 pyqt5-tools     (for pip3)
+brew install pyqt5                 (for Homebrew)
+port install py39-qtpy5            (for MacPorts)
 ```
 - Check that PyQt downloaded properly by opening up the Python3 interpreter
 and typing the following command:
 ```
-import PyQt4.QtGui
+from PyQt5.QtWidgets import QApplication
 ```
 _TODO: suggestions welcome for short instructions on how to install FreePascal+
-Python3+PyQt4 on Windows or Linux_
+Python3+PyQt5 on Windows or Linux_
 
 
 
@@ -101,6 +102,7 @@ Possible sources for inspiration (in no particular order)
 
 - The FreePascal website: https://www.freepascal.org
 - The Qt4 documentation: https://doc.qt.io/archives/qt-4.8/installation.html
+- The Qt5 documentation: https://doc.qt.io/qt-5/gettingstarted.html
 - A PyQt5 tutorial: https://www.pythonguis.com/pyqt5/
 - https://courspython.com
 - The hitchhiker's guide to Python: https://docs.python-guide.org/
