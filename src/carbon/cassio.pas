@@ -61,7 +61,7 @@ begin
        sleep(1);
        
 
-       if (Tickcount() - tick >= 60) then
+       if (Tickcount() - tick >= 5) then
        begin
           tick := Tickcount();
           loc := GetMouse();
