@@ -558,6 +558,7 @@ def draw_text_at(args):
        else :
            key = "TEXT:" + str(h) + ";" + str(v)
        window.graphics[key] = item
+       window.update()
 
    return
 
