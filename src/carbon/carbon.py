@@ -248,7 +248,7 @@ class CarbonWindow(QWidget):
                 if key.startswith("TEXT:name=") :
                     new_key = key
                 else :
-                    new_key = "TEXT:" + str(h) + ";" + str(v)
+                    new_key = "TEXT:" + str(h) + ";" + str(v) + " "
 
                 new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
                 scrolled[new_key] = new_item
@@ -502,6 +502,22 @@ def show_window(args):
    return
 
 
+def set_window_visible(args):
+   """
+   Show/Hide a window, obeying the visible flag
+   """
+
+   name = find_named_parameter("name", args, 0, STRING)
+   visible = find_named_parameter("visible", args, 1, BOOLEAN)
+
+   window = find_window(name)
+   if window :
+       window.setVisible(visible)
+
+   return
+
+
+
 def close_window(args):
    """
    Close a window (and all the widgets inside the window)
@@ -519,6 +535,36 @@ def close_window(args):
        windows.pop(name)
        if current_port.objectName() == name :
            current_port = None
+
+   return
+
+
+def clear_window(args):
+   """
+   Clear the content of a window. If the filter parameter is given, only the
+   graphic items whose key starts with filter will be removed.
+
+   Examples :
+       clear-window WindowID                              (clear window)
+       clear-window WindowID filter="IMG:"                (clear images)
+       clear-window WindowID filter="TEXT:name=foo"       (clear text named "foo")
+       clear-window WindowID filter="TEXT:20;30 "         (clear text at pos (20,30))
+   """
+
+   global current_port
+   name = find_named_parameter("name", args, 0, STRING)
+   filter = find_named_parameter("filter", args, -1, STRING)
+
+   window = find_window(name)
+   if window :
+       if filter :
+           for key, item in list(window.graphics.items()) :
+               if key.startswith(filter) :
+                    window.graphics.pop(key)
+       else :
+           window.graphics.clear()
+
+       window.update()
 
    return
 
@@ -556,7 +602,7 @@ def draw_text_at(args):
        if name is not None :
            key = "TEXT:name=" + name
        else :
-           key = "TEXT:" + str(h) + ";" + str(v)
+           key = "TEXT:" + str(h) + ";" + str(v) + " "
        window.graphics[key] = item
        window.update()
 
@@ -892,6 +938,8 @@ def call(id, command, args):
     elif command == "set-window-geometry"   :  result = set_window_geometry(args)
     elif command == "show-window"           :  result = show_window(args)
     elif command == "close-window"          :  result = close_window(args)
+    elif command == "clear-window"          :  result = clear_window(args)
+    elif command == "set-window-visible"    :  result = set_window_visible(args)
     elif command == "init"                  :  result = init(args)
     elif command == "dump"                  :  result = dump(args)
     elif command == "quit"                  :  result = quit(args)

@@ -26,8 +26,8 @@ CARBON-PROTOCOL {3}  new-window             name=WindowID
 CARBON-PROTOCOL {4}  new-window             name=WindowID
 CARBON-PROTOCOL {5}  set-window-title       name=WindowID title="About box (in CARBON-PROTOCOL)"
 CARBON-PROTOCOL {6}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
-CARBON-PROTOCOL {7}  set-window-visibility  name=WindowID visible=True
-CARBON-PROTOCOL {8}  set-window-visibility  name=WindowID visible=False
+CARBON-PROTOCOL {7}  set-window-visible     name=WindowID visible=True
+CARBON-PROTOCOL {8}  set-window-visible     name=WindowID visible=False
 CARBON-PROTOCOL {9}  show-window            name=WindowID
 CARBON-PROTOCOL {10} get-port
 CARBON-PROTOCOL {11} set-port               name=WindowID
@@ -142,6 +142,8 @@ CARBON-PROTOCOL {410} new-menu-bar         name=barID
 CARBON-PROTOCOL {411} insert-menu          name=barID menu=menuID before=menuID-2
 CARBON-PROTOCOL {412} delete-menu          name=barID menu=menuID
 CARBON-PROTOCOL {413} clear-menu-bar       name=barID
+
+CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 
 ==========================================================
 =>    Section: events
