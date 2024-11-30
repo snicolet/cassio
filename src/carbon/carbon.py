@@ -248,7 +248,7 @@ class CarbonWindow(QWidget):
                 if key.startswith("TEXT:name=") :
                     new_key = key
                 else :
-                    new_key = "TEXT:" + str(h) + ";" + str(v) + " "
+                    new_key = "TEXT:pos=" + str(h) + ";" + str(v) + " "
 
                 new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
                 scrolled[new_key] = new_item
@@ -362,7 +362,7 @@ def find_image(window, image_name) :
     """
 
     if window and image_name :
-        key = "IMG:name=" + image_name
+        key = "IMG:name=" + image_name + " "
         if (key in window.graphics) :
             item = window.graphics[key]
             return item["image"]
@@ -376,7 +376,7 @@ def get_image_key(window, image_name) :
     """
 
     if window and image_name :
-        key = "IMG:name=" + image_name
+        key = "IMG:name=" + image_name + " "
         if (key in window.graphics) :
             return key
 
@@ -541,25 +541,26 @@ def close_window(args):
 
 def clear_window(args):
    """
-   Clear the content of a window. If the filter parameter is given, only the
-   graphic items whose key starts with filter will be removed.
+   Clear the content of a window.
+   If the filter parameter (a string) is given, only the graphic items
+   whose key contains filter will be removed.
 
    Examples :
        clear-window WindowID                              (clear window)
        clear-window WindowID filter="IMG:"                (clear images)
-       clear-window WindowID filter="TEXT:name=foo"       (clear text named "foo")
-       clear-window WindowID filter="TEXT:20;30 "         (clear text at pos (20,30))
+       clear-window WindowID filter="TEXT:name=foo "      (clear text named "foo")
+       clear-window WindowID filter="TEXT:pos=20;30 "     (clear text at pos (20,30))
    """
 
    global current_port
-   name = find_named_parameter("name", args, 0, STRING)
+   name   = find_named_parameter("name",   args,  0, STRING)
    filter = find_named_parameter("filter", args, -1, STRING)
 
    window = find_window(name)
    if window :
        if filter :
            for key, item in list(window.graphics.items()) :
-               if key.startswith(filter) :
+               if (filter in key) :
                     window.graphics.pop(key)
        else :
            window.graphics.clear()
@@ -600,9 +601,9 @@ def draw_text_at(args):
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
-           key = "TEXT:name=" + name
+           key = "TEXT:name=" + name + " "
        else :
-           key = "TEXT:" + str(h) + ";" + str(v) + " "
+           key = "TEXT:pos=" + str(h) + ";" + str(v) + " "
        window.graphics[key] = item
        window.update()
 
@@ -680,7 +681,7 @@ def new_image_from_pixmap(args) :
         image.setObjectName(name)
         image.setPixmap(pixmap)
 
-        key = "IMG:name=" + name
+        key = "IMG:name=" + name + " "
 
         # delete any old image with the same name in the window
         old_image = find_image(window, name)
@@ -867,7 +868,7 @@ def dump(args):
 
 
 def GUI_exec_to_str(s) :
-    if colored and (s.find("NOT IMPLEMENTED") >= 0) :
+    if colored and ("NOT IMPLEMENTED" in s) :
         s = ansi.RED + s + " " + ansi.RESET
     s = "[server] " + s
     if colored:
