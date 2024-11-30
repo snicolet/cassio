@@ -248,7 +248,7 @@ class CarbonWindow(QWidget):
                 if key.startswith("TEXT:name=") :
                     new_key = key
                 else :
-                    new_key = "TEXT:pos=" + str(h) + ";" + str(v) + " "
+                    new_key = make_key("TEXT", pos=(h,v))
 
                 new_item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
                 scrolled[new_key] = new_item
@@ -335,7 +335,7 @@ def find_pixmap(name) :
 
 def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible, align) :
     """
-    Create a description of a graphic item in our windows
+    Create a description of a graphic item in our window.graphics dictionary
     """
 
     item = {
@@ -356,13 +356,29 @@ def make_item(type, name, text, h, v, a, b, pen, font, image, zindex, visible, a
     return item
 
 
+def make_key(type, name=None, pos=None) :
+    """
+    Create the key for a graphic item in our window.graphics dictionary.
+    At least one of the name or pos parameter must be set.
+    """
+
+    key = type + ":"
+
+    if name :
+        return key + "name=" + name + " "
+    if pos :
+        return key + "pos=" + str(pos[0]) + ";" + str(pos[1]) + " "
+
+    return key
+
+
 def find_image(window, image_name) :
     """
     Find image by name in the given window. Returns an image, or None.
     """
 
     if window and image_name :
-        key = "IMG:name=" + image_name + " "
+        key = make_key("IMG", name=image_name)
         if (key in window.graphics) :
             item = window.graphics[key]
             return item["image"]
@@ -376,7 +392,7 @@ def get_image_key(window, image_name) :
     """
 
     if window and image_name :
-        key = "IMG:name=" + image_name + " "
+        key = make_key("IMG", name=image_name)
         if (key in window.graphics) :
             return key
 
@@ -601,9 +617,9 @@ def draw_text_at(args):
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
-           key = "TEXT:name=" + name + " "
+           key = make_key("TEXT", name=name)
        else :
-           key = "TEXT:pos=" + str(h) + ";" + str(v) + " "
+           key = make_key("TEXT", pos=(h,v))
        window.graphics[key] = item
        window.update()
 
@@ -681,7 +697,7 @@ def new_image_from_pixmap(args) :
         image.setObjectName(name)
         image.setPixmap(pixmap)
 
-        key = "IMG:name=" + name + " "
+        key = make_key("IMG", name=name)
 
         # delete any old image with the same name in the window
         old_image = find_image(window, name)
@@ -988,7 +1004,7 @@ BOOLEAN  = "boolean"
 
 def find_named_parameter(name, args, index=-1, type=STRING) :
     """
-    Search a parameter called 'name' in the given list (syntax: 'name="value"').
+    Search a parameter called name in the given list (syntax: 'name="value"').
 
     - If the name is found, the function removes the parameter
       from the list and returns the parameter value;
