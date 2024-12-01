@@ -15,6 +15,7 @@
 # Section 1. Import necessary modules
 ################################################################################
 
+import copy
 import csv
 import sys
 import os
@@ -220,6 +221,7 @@ class CarbonWindow(QWidget):
         self.setObjectName(name)
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
+        self.font = QFont("Helvetica", 12)
 
 
     def scroll_texts(self, dx, dy) :
@@ -586,6 +588,21 @@ def clear_window(args):
    return
 
 
+def set_font_family(args):
+   """
+   Set the family (eg "Helevetica") of the font in the current port
+   """
+
+   name = find_named_parameter("name",  args, 0, STRING)
+   window = current_port
+
+   if window and name :
+       print("changing font to : ", name)
+       window.font.setFamily(name)
+
+   return
+
+
 def draw_text_at(args):
    """
    Draw text at the given position
@@ -606,7 +623,12 @@ def draw_text_at(args):
    if window and text and (h is not None) and (v is not None) :
 
        pen = QPen(QColor("#000000"))
-       font = QFont("Helvetica", 15)
+       # font = copy.deepcopy(window.font)
+       font = window.font
+       
+       
+       print(font.toString())
+       
        a = width if width else 0
        b = height if height else 0
        zindex = zindex if zindex else 0
@@ -939,6 +961,7 @@ def call(id, command, args):
 
     if   command == "get-mouse"             :  result = get_mouse(args)
     elif command == "draw-text-at"          :  result = draw_text_at(args)
+    elif command == "set-font-family"       :  result = set_font_family(args)
     elif command == "scroll-window"         :  result = scroll_window(args)
     elif command == "get-port"              :  result = get_port(args)
     elif command == "set-port"              :  result = set_port(args)

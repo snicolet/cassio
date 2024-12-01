@@ -188,12 +188,18 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  show-window            Window-2
 @  set-port               Window-2
 @  get-port
+@  set-font-family        Times
 @  draw-text-at           "Hello world (2)" 90 15
+@  set-font-family        Helvetica
 @  draw-text-at           text="Bienvenue dans Cassio" h=120 v=40  zindex=20000
+@  set-font-family        Times
 @  draw-text-at           "Bienvenue dans Cassio" 100 55
+@  set-font-family        Helvetica
 @  draw-text-at           "Bienvenue dans Cassio" 80 70  
 @  draw-text-at           "Bienvenue dans Cassio" 60 85
-@  draw-text-at           "Bienvenue dans Cassio" 40 100
+@  draw-text-at           "Les longs sanglots de l'automne" 60 85  
+@  draw-text-at           "Bienvenue dans Cassio" 40 100 name="content:poeme"
+@  draw-text-at           "Bercent mon cœur d'une langueur monotone" 40 100 name="content:poeme"
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
