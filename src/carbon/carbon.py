@@ -241,6 +241,31 @@ class CachedFont() :
             return font
 
 
+class CachedPen() :
+    """
+    A class to create a QPen from color, width, etc.
+    We keep a cache of the created QPen to speed up things.
+    """
+    def __init__(self, color, width):
+        self.color = color
+        self.width = width
+
+    def __repr__(self) :
+        result = "{},{},{},{}".format(self.color, self.width)
+        return result
+
+    def key(self) :
+        return self.__repr__()
+
+    def QPen(self) :
+        key = self.key()
+        if (key in pens) :        # already in cache
+            return pens[key]
+        else :                    # add to cache
+            pen = QPen(self.color, self.width)
+            pens[key] = pen
+            return pen
+
 
 class CarbonWindow(QWidget):
     """
@@ -252,6 +277,7 @@ class CarbonWindow(QWidget):
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
         self.font = CachedFont("Helvetica", 15)
+        self.pen = CachedPen("#FF0000", 1.2)
 
 
     def scroll_texts(self, dx, dy) :
