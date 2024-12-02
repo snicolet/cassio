@@ -210,6 +210,35 @@ PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
 current_port = None                   # the current active window for drawing
 windows = {}                          # dictionary of existent windows
 pixmaps = {}                          # dictionary of existent pixmaps
+fonts   = {}                          # dictionary (cache) of fonts
+
+
+class CarbonFont() :
+    """
+    """
+    def __init__(self, family, size):
+        self.family = family
+        self.size = size
+    
+    def __repr__(self) :
+        result = "{},{}".format(self.family, self.size)
+        return result
+    
+    def key(self) :
+        return self.__repr__()
+    
+    def toQFont(self) :
+        key = self.key()
+        if (key in fonts) :
+            message = "font with key = '{}' found in cache".format(key)
+            print(message)
+            return fonts[key]
+        else :
+            message = "adding font with key = '{}' in cache".format(key)
+            print(message)
+            font = QFont(self.family, self.size)
+            fonts[key] = font
+            return font
 
 
 class CarbonWindow(QWidget):
@@ -222,6 +251,7 @@ class CarbonWindow(QWidget):
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
         self.font = QFont("Helvetica", 12)
+        self.carbonfont = CarbonFont("Helvetica", 12)
 
 
     def scroll_texts(self, dx, dy) :
@@ -268,9 +298,6 @@ class CarbonWindow(QWidget):
         """
         This function handles the paintEvent for our CarbonWindow class
         """
-
-        #print("\ninside paintEvent() for window : ", self.objectName())
-        #print("graphics = ", self.graphics.keys())
 
         painter = QPainter()
         painter.begin(self)
@@ -599,6 +626,7 @@ def set_font_family(args):
    if window and name :
        print("changing font to : ", name)
        window.font.setFamily(name)
+       window.carbonfont.family = name
 
    return
 
@@ -623,11 +651,14 @@ def draw_text_at(args):
    if window and text and (h is not None) and (v is not None) :
 
        pen = QPen(QColor("#000000"))
-       # font = copy.deepcopy(window.font)
        font = window.font
-       
-       
+       carbonfont = copy.copy(window.carbonfont)
+
        print(font.toString())
+       print(window.carbonfont.key())
+       
+       font2 = window.carbonfont.toQFont()
+       print(font2.toString())
        
        a = width if width else 0
        b = height if height else 0
@@ -635,7 +666,7 @@ def draw_text_at(args):
        image = None
        visible = True
 
-       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
+       item = make_item("TEXT", name, text, h, v, a, b, pen, font2, image, zindex, visible, align)
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
