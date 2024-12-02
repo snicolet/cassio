@@ -105,25 +105,6 @@ CARBON-PROTOCOL {302} set-foreground-color  color=#FFFFFF
 CARBON-PROTOCOL {303} set-background-color  color=#000000
 
 ==========================================================
-=>    Section: font
-==========================================================
-
-CARBON-PROTOCOL {700} load-font             filename="/fonts/komika_font.ttf"
-CARBON-PROTOCOL {701} set-font-family       name=Helvetica
-CARBON-PROTOCOL {702} set-font-style        italic=True
-CARBON-PROTOCOL {703} set-font-weight       weight=bold
-CARBON-PROTOCOL {704} set-font-variant      variant=small-caps
-CARBON-PROTOCOL {705} set-font-size         size=15
-
-==========================================================
-=>    Section: textEdit
-==========================================================
-
-==========================================================
-=>    Section: controls
-==========================================================
-
-==========================================================
 =>    Section: menus
 ==========================================================
 
@@ -144,6 +125,36 @@ CARBON-PROTOCOL {412} delete-menu          name=barID menu=menuID
 CARBON-PROTOCOL {413} clear-menu-bar       name=barID
 
 CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
+
+==========================================================
+=>    Section: textEdit
+==========================================================
+
+CARBON-PROTOCOL {500} new-text-edit       name=editID
+CARBON-PROTOCOL {501} close-text-edit     name=editID
+CARBON-PROTOCOL {502} text-edit-insert    name=editID text="Blah blah"
+CARBON-PROTOCOL {503} text-edit-key       name=editID key="Z"
+CARBON-PROTOCOL {504} text-edit-cut       name=editID
+CARBON-PROTOCOL {505} text-edit-copy      name=editID
+CARBON-PROTOCOL {506} text-edit-paste     name=editID
+CARBON-PROTOCOL {507} text-edit-select    name=editID start=62 end=500
+
+
+==========================================================
+=>    Section: font
+==========================================================
+
+CARBON-PROTOCOL {700} load-font             filename="/fonts/komika_font.ttf"
+CARBON-PROTOCOL {701} set-font-family       name=Helvetica
+CARBON-PROTOCOL {702} set-font-style        italic=True
+CARBON-PROTOCOL {703} set-font-weight       weight=bold
+CARBON-PROTOCOL {704} set-font-variant      variant=small-caps
+CARBON-PROTOCOL {705} set-font-size         size=15
+
+
+==========================================================
+=>    Section: controls
+==========================================================
 
 ==========================================================
 =>    Section: events
