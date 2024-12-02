@@ -212,6 +212,7 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  set-font-weight        normal
 @  draw-text-at           "Bienvenue dans Cassio" 20 255    zindex=20000
 
+@  set-font-family        "Arial Black"
 @  set-font-style         italic=true
 @  draw-text-at           "Bienvenue dans Cassio" 20 270
 @  set-font-style         italic=false
