@@ -39,8 +39,6 @@ echo_input   = "-echo_input"  in script_args  # echo only input
 echo_output  = "-echo_output" in script_args  # echo only output
 colored      = "-colored"     in script_args  # use colored echo in Terminal
 check_alive  = "-check_alive" in script_args  # close server after one minute
-pyqt5        = "-pyqt5"       in script_args  # use PyQt5 (default)
-pyqt4        = "-pyqt4"       in script_args  # use PyQt4
 
 # -echo implies both -echo_input and -echo_output
 if echo :
@@ -53,10 +51,6 @@ if "-file" in script_args:
     f = script_args.index("-file")
     if f >= 0:
        input_file_name = script_args[f+1]
-
-# default values
-if not(pyqt5) and not(pyqt4) :
-    pyqt5 = True
 
 
 ################################################################################
@@ -178,30 +172,17 @@ def stat_box():
 ################################################################################
 
 
-if pyqt5 :
-    from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
-    from PyQt5.QtWidgets import QApplication
-    from PyQt5.QtWidgets import QWidget
-    from PyQt5.QtWidgets import QDialog
-    from PyQt5.QtWidgets import QLabel
-    from PyQt5.QtWidgets import QFileDialog
-    from PyQt5.QtWidgets import QTextEdit
-    from PyQt5.QtGui     import QPixmap
-    from PyQt5.QtGui     import QCursor
-    from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
-    from PyQt5.Qt        import Qt
-elif pyqt4 :
-    from PyQt4.QtCore    import pyqtSignal, QThread, QPoint, QRect
-    from PyQt4.QtGui     import QApplication
-    from PyQt4.QtGui     import QWidget
-    from PyQt4.QtGui     import QDialog
-    from PyQt4.QtGui     import QLabel
-    from PyQt4.QtGui     import QFileDialog
-    from PyQt4.QtGui     import QTextEdit
-    from PyQt4.QtGui     import QPixmap
-    from PyQt4.QtGui     import QCursor
-    from PyQt4.QtGui     import QPainter, QColor, QPen, QFont
-    from PyQt4.Qt        import Qt
+from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QTextEdit
+from PyQt5.QtGui     import QPixmap
+from PyQt5.QtGui     import QCursor
+from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
+from PyQt5.Qt        import Qt
 
 
 
@@ -1247,9 +1228,8 @@ class GUI(QWidget):
         server.jobsReady.connect(self.execute_from_main_thread)
 
         # dummy invisible window to keep Qt happy
-        if pyqt5 :
-            self.setGeometry(100,100,0,0)
-            self.show()
+        self.setGeometry(100,100,0,0)
+        self.show()
 
     def execute_from_main_thread(self) :
         """
