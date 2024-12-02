@@ -14,7 +14,7 @@ Enter some text below
 ==========================================================
 
 CARBON-PROTOCOL {0}  init
-CARBON-PROTOCOL {1} keep-alive
+CARBON-PROTOCOL {1}  keep-alive
 CARBON-PROTOCOL {26} dump
 
 ==========================================================
@@ -170,7 +170,6 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  init
 @  get-mouse
 @  get-port
-
 @  new-window             Window-3
 @  new-window             Window-3
 @  set-window-title       Window-3 "About box - 3"
@@ -180,7 +179,6 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  set-port               Window-3
 @  draw-text-at           "Hello world (3)" 15 15
 @  close-window           Window-3
-
 @  new-window             Window-2
 @  get-port
 @  set-window-title       Window-2 "Cassio"
@@ -211,12 +209,16 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  draw-text-at           "Bienvenue dans Cassio" 20 240    zindex=20000
 @  set-font-weight        normal
 @  draw-text-at           "Bienvenue dans Cassio" 20 255    zindex=20000
-
 @  set-font-family        "Arial Black"
 @  set-font-style         italic=true
 @  draw-text-at           "Bienvenue dans Cassio" 20 270
 @  set-font-style         italic=false
 @  draw-text-at           "Bienvenue dans Cassio" 20 285
+@  set-font-family        Helvetica
+@  set-font-size          50
+@  draw-text-at           "BIG" 500 270
+@  set-font-size          9
+@  draw-text-at           "small" 500 285
 @  scroll-window          10 20
 #@  close-window          Window-2
 @  new-pixmap             big-world   "images/world.png"

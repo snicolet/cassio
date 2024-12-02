@@ -223,23 +223,19 @@ class CachedFont() :
         self.size = size
         self.weight = QFont.Normal
         self.italic = False
-    
+
     def __repr__(self) :
         result = "{},{},{},{}".format(self.family, self.size, self.weight, self.italic)
         return result
-    
+
     def key(self) :
         return self.__repr__()
-    
+
     def QFont(self) :
         key = self.key()
-        if (key in fonts) :
-            message = "font with key = '{}' found in cache".format(key)
-            print(message)
+        if (key in fonts) :       # already in cache
             return fonts[key]
-        else :
-            message = "adding font with key = '{}' in cache".format(key)
-            print(message)
+        else :                    # add to cache
             font = QFont(self.family, self.size, self.weight, self.italic)
             fonts[key] = font
             return font
@@ -633,6 +629,20 @@ def set_font_family(args):
    return
 
 
+def set_font_size(args):
+   """
+   Set the size in points of the font in the current port
+   """
+
+   size = find_named_parameter("size",  args, 0, INTEGER)
+   window = current_port
+
+   if window and size :
+       window.font.size = size
+
+   return
+
+
 def set_font_weight(args):
    """
    Set the weight (eg "bold") of the font in the current port
@@ -1019,18 +1029,19 @@ def call(id, command, args):
 
     if   command == "get-mouse"             :  result = get_mouse(args)
     elif command == "draw-text-at"          :  result = draw_text_at(args)
+    elif command == "draw-image"            :  result = draw_image(args)
+    elif command == "get-port"              :  result = get_port(args)
+    elif command == "set-port"              :  result = set_port(args)
+    elif command == "set-font-size"         :  result = set_font_size(args)
     elif command == "set-font-family"       :  result = set_font_family(args)
     elif command == "set-font-weight"       :  result = set_font_weight(args)
     elif command == "set-font-style"        :  result = set_font_style(args)
     elif command == "scroll-window"         :  result = scroll_window(args)
-    elif command == "get-port"              :  result = get_port(args)
-    elif command == "set-port"              :  result = set_port(args)
     elif command == "keep-alive"            :  result = keep_alive(args)
     elif command == "new-pixmap"            :  result = new_pixmap(args)
     elif command == "new-image-from-pixmap" :  result = new_image_from_pixmap(args)
     elif command == "set-image-position"    :  result = set_image_position(args)
     elif command == "set-image-pixmap"      :  result = set_image_pixmap(args)
-    elif command == "draw-image"            :  result = draw_image(args)
     elif command == "open-file-dialog"      :  result = open_file_dialog(args)
     elif command == "save-file-dialog"      :  result = save_file_dialog(args)
     elif command == "new-window"            :  result = new_window(args)
