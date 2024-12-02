@@ -211,6 +211,7 @@ current_port = None                   # the current active window for drawing
 windows = {}                          # dictionary of existent windows
 pixmaps = {}                          # dictionary of existent pixmaps
 fonts   = {}                          # dictionary (cache) of fonts
+pens    = {}                          # dictionary (cache) of pens
 
 
 class CachedFont() :
@@ -251,7 +252,7 @@ class CachedPen() :
         self.width = width
 
     def __repr__(self) :
-        result = "{},{},{},{}".format(self.color, self.width)
+        result = "{},{}".format(self.color, self.width)
         return result
 
     def key(self) :
@@ -262,7 +263,7 @@ class CachedPen() :
         if (key in pens) :        # already in cache
             return pens[key]
         else :                    # add to cache
-            pen = QPen(self.color, self.width)
+            pen = QPen(QColor(self.color), self.width)
             pens[key] = pen
             return pen
 
@@ -277,7 +278,7 @@ class CarbonWindow(QWidget):
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
         self.font = CachedFont("Helvetica", 15)
-        self.pen = CachedPen("#FF0000", 1.2)
+        self.pen = CachedPen("#000000", 1.2)
 
 
     def scroll_texts(self, dx, dy) :
@@ -719,7 +720,7 @@ def draw_text_at(args):
 
    if window and text and (h is not None) and (v is not None) :
 
-       pen = QPen(QColor("#000000"))
+       pen = window.pen.QPen()
        font = window.font.QFont()
 
        a = width if width else 0
