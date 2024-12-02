@@ -110,9 +110,9 @@ CARBON-PROTOCOL {303} set-background-color  color=#000000
 
 CARBON-PROTOCOL {700} load-font             filename="/fonts/komika_font.ttf"
 CARBON-PROTOCOL {701} set-font-family       name=Helvetica
-CARBON-PROTOCOL {702} set-font-style        style=italic
-CARBON-PROTOCOL {703} set-font-weight       style=bold
-CARBON-PROTOCOL {704} set-font-variant      style=small-caps
+CARBON-PROTOCOL {702} set-font-style        italic=True
+CARBON-PROTOCOL {703} set-font-weight       weight=bold
+CARBON-PROTOCOL {704} set-font-variant      variant=small-caps
 CARBON-PROTOCOL {705} set-font-size         size=15
 
 ==========================================================
@@ -207,6 +207,15 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115    zindex=-20000
 @  draw-text-at           "Bienvenue dans Cassio" -40 130
+@  set-font-weight        bold
+@  draw-text-at           "Bienvenue dans Cassio" 20 240    zindex=20000
+@  set-font-weight        normal
+@  draw-text-at           "Bienvenue dans Cassio" 20 255    zindex=20000
+
+@  set-font-style         italic=true
+@  draw-text-at           "Bienvenue dans Cassio" 20 270
+@  set-font-style         italic=false
+@  draw-text-at           "Bienvenue dans Cassio" 20 285
 @  scroll-window          10 20
 #@  close-window          Window-2
 @  new-pixmap             big-world   "images/world.png"

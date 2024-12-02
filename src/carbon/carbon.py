@@ -213,21 +213,25 @@ pixmaps = {}                          # dictionary of existent pixmaps
 fonts   = {}                          # dictionary (cache) of fonts
 
 
-class CarbonFont() :
+class CachedFont() :
     """
+    A class to create a QFont from family, size, etc.
+    We keep a cache of the created QFont to speed up things.
     """
     def __init__(self, family, size):
         self.family = family
         self.size = size
+        self.weight = QFont.Normal
+        self.italic = False
     
     def __repr__(self) :
-        result = "{},{}".format(self.family, self.size)
+        result = "{},{},{},{}".format(self.family, self.size, self.weight, self.italic)
         return result
     
     def key(self) :
         return self.__repr__()
     
-    def toQFont(self) :
+    def QFont(self) :
         key = self.key()
         if (key in fonts) :
             message = "font with key = '{}' found in cache".format(key)
@@ -236,9 +240,10 @@ class CarbonFont() :
         else :
             message = "adding font with key = '{}' in cache".format(key)
             print(message)
-            font = QFont(self.family, self.size)
+            font = QFont(self.family, self.size, self.weight, self.italic)
             fonts[key] = font
             return font
+
 
 
 class CarbonWindow(QWidget):
@@ -250,8 +255,7 @@ class CarbonWindow(QWidget):
         self.setObjectName(name)
         self.setWindowFlags(Qt.Window)
         self.graphics = {}  # dictionary of all the graphic items in the window
-        self.font = QFont("Helvetica", 12)
-        self.carbonfont = CarbonFont("Helvetica", 12)
+        self.font = CachedFont("Helvetica", 15)
 
 
     def scroll_texts(self, dx, dy) :
@@ -624,9 +628,38 @@ def set_font_family(args):
    window = current_port
 
    if window and name :
-       print("changing font to : ", name)
-       window.font.setFamily(name)
-       window.carbonfont.family = name
+       window.font.family = name
+
+   return
+
+
+def set_font_weight(args):
+   """
+   Set the weight (eg "bold") of the font in the current port
+   """
+
+   weight = find_named_parameter("weight",  args, 0, STRING)
+   window = current_port
+
+   if window and weight :
+       if (weight == "bold") :
+           window.font.weight = QFont.Bold
+       else :
+           window.font.weight = QFont.Normal
+
+   return
+
+
+def set_font_style(args):
+   """
+   Set the style (eg "italic") of the font in the current port
+   """
+
+   italic = find_named_parameter("italic",  args, 0, BOOLEAN)
+   window = current_port
+
+   if window and (italic is not None) :
+       window.font.italic = italic
 
    return
 
@@ -651,22 +684,15 @@ def draw_text_at(args):
    if window and text and (h is not None) and (v is not None) :
 
        pen = QPen(QColor("#000000"))
-       font = window.font
-       carbonfont = copy.copy(window.carbonfont)
+       font = window.font.QFont()
 
-       print(font.toString())
-       print(window.carbonfont.key())
-       
-       font2 = window.carbonfont.toQFont()
-       print(font2.toString())
-       
        a = width if width else 0
        b = height if height else 0
        zindex = zindex if zindex else 0
        image = None
        visible = True
 
-       item = make_item("TEXT", name, text, h, v, a, b, pen, font2, image, zindex, visible, align)
+       item = make_item("TEXT", name, text, h, v, a, b, pen, font, image, zindex, visible, align)
 
        # insert the description of the text in the "graphics" dictionary
        if name is not None :
@@ -932,6 +958,7 @@ def dump(args):
     s = s + "\n" + "current_port = " + str(current)
     s = s + "\n" + "windows = "      + str(windows.keys())
     s = s + "\n" + "pixmaps = "      + str(pixmaps.keys())
+    s = s + "\n" + "fonts = "        + str(fonts.keys())
 
     return s
 
@@ -993,6 +1020,8 @@ def call(id, command, args):
     if   command == "get-mouse"             :  result = get_mouse(args)
     elif command == "draw-text-at"          :  result = draw_text_at(args)
     elif command == "set-font-family"       :  result = set_font_family(args)
+    elif command == "set-font-weight"       :  result = set_font_weight(args)
+    elif command == "set-font-style"        :  result = set_font_style(args)
     elif command == "scroll-window"         :  result = scroll_window(args)
     elif command == "get-port"              :  result = get_port(args)
     elif command == "set-port"              :  result = set_port(args)
