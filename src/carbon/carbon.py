@@ -701,12 +701,38 @@ def set_font_style(args):
    return
 
 
+def set_pen_width(args):
+   """
+   Set the pen width (which is a float) of the current port
+   """
+
+   width = find_named_parameter("width",  args, 0, FLOAT)
+   window = current_port
+
+   if window and (width is not None) :
+       window.pen.width = width
+
+   return
+
+
+def set_pen_color(args):
+   """
+   Set the pen color (for instance "#FF0000") of the current port
+   """
+
+   color = find_named_parameter("color",  args, 0, STRING)
+   window = current_port
+
+   if window and color :
+       window.pen.color = color
+
+   return
+
+
 def draw_text_at(args):
    """
    Draw text at the given position
    """
-
-   stats.partially_implemented = stats.partially_implemented + 1
 
    text   = find_named_parameter("text",  args,  0, STRING)
    h      = find_named_parameter("h",     args,  1, INTEGER)
@@ -996,6 +1022,7 @@ def dump(args):
     s = s + "\n" + "windows = "      + str(windows.keys())
     s = s + "\n" + "pixmaps = "      + str(pixmaps.keys())
     s = s + "\n" + "fonts = "        + str(fonts.keys())
+    s = s + "\n" + "pens = "         + str(pens.keys())
 
     return s
 
@@ -1063,6 +1090,8 @@ def call(id, command, args):
     elif command == "set-font-family"       :  result = set_font_family(args)
     elif command == "set-font-weight"       :  result = set_font_weight(args)
     elif command == "set-font-style"        :  result = set_font_style(args)
+    elif command == "set-pen-width"         :  result = set_pen_width(args)
+    elif command == "set-pen-color"         :  result = set_pen_color(args)
     elif command == "scroll-window"         :  result = scroll_window(args)
     elif command == "keep-alive"            :  result = keep_alive(args)
     elif command == "new-pixmap"            :  result = new_pixmap(args)

@@ -195,9 +195,12 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  set-font-family        Helvetica
 @  draw-text-at           "Bienvenue dans Cassio" 80 70  
 @  draw-text-at           "Bienvenue dans Cassio" 60 85
-@  draw-text-at           "Les longs sanglots de l'automne" 60 85  
+@  set-pen-color          #FF0000
+@  draw-text-at           "Les longs sanglots de l'automne" 60 85
 @  draw-text-at           "Bienvenue dans Cassio" 40 100 name="content:poeme"
+@  set-pen-color          #00FF00
 @  draw-text-at           "Bercent mon cœur d'une langueur monotone" 40 100 name="content:poeme"
+@  set-pen-color          #000000
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
@@ -209,16 +212,20 @@ CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
 @  draw-text-at           "Bienvenue dans Cassio" 20 240    zindex=20000
 @  set-font-weight        normal
 @  draw-text-at           "Bienvenue dans Cassio" 20 255    zindex=20000
+
 @  set-font-family        "Arial Black"
 @  set-font-style         italic=true
 @  draw-text-at           "Bienvenue dans Cassio" 20 270
+
 @  set-font-style         italic=false
 @  draw-text-at           "Bienvenue dans Cassio" 20 285
+@  set-pen-color          #0000FF
 @  set-font-family        Helvetica
 @  set-font-size          50
 @  draw-text-at           "BIG" 500 270
 @  set-font-size          9
 @  draw-text-at           "small" 500 285
+@  set-pen-color          #000000
 @  scroll-window          10 20
 #@  close-window          Window-2
 @  new-pixmap             big-world   "images/world.png"
