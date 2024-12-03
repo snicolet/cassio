@@ -26,6 +26,18 @@ import time
 import traceback
 from pathlib import Path
 
+from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QTextEdit
+from PyQt5.QtGui     import QPixmap
+from PyQt5.QtGui     import QCursor
+from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
+from PyQt5.Qt        import Qt
+
 
 ################################################################################
 # Section 2. Analyzing command line arguments
@@ -170,21 +182,6 @@ def stat_box():
 ################################################################################
 # Section 4. Implement the CARBON-PROTOCOL
 ################################################################################
-
-
-from PyQt5.QtCore    import pyqtSignal, QThread, QPoint, QRect
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtWidgets import QTextEdit
-from PyQt5.QtGui     import QPixmap
-from PyQt5.QtGui     import QCursor
-from PyQt5.QtGui     import QPainter, QColor, QPen, QFont
-from PyQt5.Qt        import Qt
-
-
 
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
 
