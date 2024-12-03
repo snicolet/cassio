@@ -143,6 +143,7 @@ class stats:
     not_implemented       = 0
     partially_implemented = 0
     implemented           = 0
+    exceptions            = 0
 
     @classmethod
     def report(cls) :
@@ -150,7 +151,8 @@ class stats:
         return (cls.total,
                 cls.implemented,
                 cls.partially_implemented,
-                cls.not_implemented)
+                cls.not_implemented,
+                cls.exceptions)
 
 def stat_box():
     """
@@ -165,14 +167,15 @@ def stat_box():
     def fmt(x) :
         return "{: 5d}".format(x)
 
-    (total, implemented, partial, not_implemented) = stats.report()
+    (total, implemented, partial, not_implemented, exceptions) = stats.report()
 
     s = ""
     s += "\n============================================"
-    s += "\nCARBON-PROTOCOL lines : " + fmt(total)
-    s += "\nnot implemented       : " + fmt(not_implemented) + pct(not_implemented)
-    s += "\npartially implemented : " + fmt(partial)         + pct(partial)
-    s += "\nimplemented           : " + fmt(implemented)     + pct(implemented)
+    s += "\nexceptions raised        : " + fmt(exceptions)
+    s += "\nCARBON-PROTOCOL lines    : " + fmt(total)
+    s += "\n   not implemented       : " + fmt(not_implemented) + pct(not_implemented)
+    s += "\n   partially implemented : " + fmt(partial)         + pct(partial)
+    s += "\n   implemented           : " + fmt(implemented)     + pct(implemented)
     s += "\n============================================\n"
 
     return s
@@ -1257,6 +1260,7 @@ class GUI(QWidget):
                 try :
                     execute_carbon_protocol(line)
                 except Exception :
+                    stats.exceptions = stats.exceptions + 1
                     print("=" * 40 + "\n", flush=True)
                     print(traceback.format_exc(), flush=True)
                     print("=" * 40, flush=True)
