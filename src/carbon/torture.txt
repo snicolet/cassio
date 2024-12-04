@@ -45,6 +45,7 @@ CARBON-PROTOCOL {20} draw-text-at           text="Hello world"   h=15 v=15 name=
 CARBON-PROTOCOL {21} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
 CARBON-PROTOCOL {22} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
 CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {24} string-width           text="This is a string"
 
 ==========================================================
 =>    Section: pixmap and image
