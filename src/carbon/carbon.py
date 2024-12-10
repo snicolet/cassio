@@ -7,7 +7,6 @@
 #
 #            ./carbon.py [-file filename]
 #                        [-echo] [-echo_input] [-echo_output] [-colored]
-#                        [-pyqt5] [-pyqt4]
 #                        [-check_alive]
 
 
