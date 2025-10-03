@@ -1,0 +1,138 @@
+
+#ifdef __GPC__
+
+
+{$I MacrosCassio.inc}
+
+
+(************************************************************************)
+
+{Backward compatibility.}
+{$DEFINEC SystemSevenOrLater TRUE}
+
+
+{$IFC not defined TARGET_API_MAC_CARBON }
+{$DEFINEC TARGET_API_MAC_CARBON  TRUE}
+{$ENDC}
+
+{$IFC not defined OLDROUTINENAMES }
+{$DEFINEC OLDROUTINENAMES  FALSE}
+{$ENDC}
+
+{$DEFINEC OLDROUTINELOCATIONS  FALSE}
+{$DEFINEC PROCTYPE  TRUE}
+
+{$ifc not defined CARBONISATION_DE_CASSIO }
+{$definec CARBONISATION_DE_CASSIO TRUE}
+{$endc}
+
+
+(*********************************************************************)
+
+
+{$maximum-field-alignment=32}
+{$W no-cast-align }
+{$R-}
+
+
+{$DEFINEC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL TRUE}
+
+
+(***************  MACROS DE COMPATIBILITE CODEWARRIOR <-> GNU PASCAL  *****************)
+
+
+{$DEFINEC  do_debug   true }
+{$DEFINEC  universal  }
+{$DEFINEC EXTERNAL_NAME(s)  external name s }
+{$DEFINEC ATTRIBUTE_NAME(s)  attribute (name = s); }
+{$DEFINEC MAXINT_16BITS  32767  }
+
+{$definec MY_FOUR_CHAR_CODE(s) ((Ord(Copy(s,1,1)[1]) shl 24) or (Ord(Copy(s,2,1)[1]) shl 16) or (Ord(Copy(s,3,1)[1]) shl 8) or Ord(Copy(s,4,1)[1]))}
+
+
+
+
+{ Des macros pour fabriquer et defaire des pointeurs : ce n'est pas la meme
+  methode dans CodeWarrior et GNU Pascal }
+
+{$DEFINEC MAKE_MEMORY_POINTER(p)  Pointer((p)) }
+{$DEFINEC POINTER_VALUE(p)  PtrInt((p)) }
+{$DEFINEC POINTER_ADD(p,increment) MAKE_MEMORY_POINTER(POINTER_VALUE((p)) + (increment)) }
+
+
+
+
+{$definec string_accessors_are_macros 1}
+
+{$ifc string_accessors_are_macros }
+{$definec LENGTH_OF_STRING(s) (Length(s)) }
+{$definec SET_LENGTH_OF_STRING(s,len)  MySetStringLength((s),(len)) }
+{$definec StringOf(c) c }
+{$definec MyStringWidth StringWidthPourGNUPascal}
+{$definec MyDrawString DrawStringPourGNUPascal}
+{$endc}
+
+
+{$DEFINEC  BAnd(i,j)  ((i) and (j))  }
+{$DEFINEC  BOr(i,j)   ((i) or (j)) }
+{$DEFINEC  BXOr(i,j)  ((i) xor (j)) }
+{$DEFINEC  BSr(i,n)   ((i) shr (n)) }
+{$DEFINEC  BSl(i,n)   ((i) shl (n)) }
+{$DEFINEC  BTST(i,n)  ((((i) shr (n)) and 1)=1) }
+{$DEFINEC  BSet(i,n)  i:=(i) or (1 shl (n)) }
+{$DEFINEC  BClr(i,n)  i:=(i) and not (1 shl (n)) }
+{$DEFINEC  BNot(i)    (not((i))) }
+
+
+{$DEFINEC COUNT_LEADING_ZEROS(n)  ( CountLeadingZerosForGNUPascal((n))) }
+{$DEFINEC SAFE_COUNT_LEADING_ZEROS(n, result) begin result := COUNT_LEADING_ZEROS((n)) end }
+{$DEFINEC OLD_SAFE_COUNT_LEADING_ZEROS(n, result) begin if ((n) and $FFFF8000) <> 0 then result := COUNT_LEADING_ZEROS((n) shr 15) - 15 else result := COUNT_LEADING_ZEROS((n)) end }
+
+
+
+// Instead of {$unused()} use Discard
+
+{$definec Discard2(a,b) begin Discard(a);Discard(b); end}
+{$definec Discard3(a,b,c) begin Discard(a);Discard(b);Discard(c); end}
+{$definec Discard4(a,b,c,d) begin Discard(a);Discard(b);Discard(c);Discard(d); end}
+{$definec Discard5(a,b,c,d,e) begin Discard(a);Discard(b);Discard(c);Discard(d);Discard(e); end}
+{$definec Discard6(a,b,c,d,e,f) begin Discard(a);Discard(b);Discard(c);Discard(d);Discard(e);Discard(f); end}
+{$definec Discard7(a,b,c,d,e,f,g) begin Discard(a);Discard(b);Discard(c);Discard(d);Discard(e);Discard(f);Discard(g); end}
+
+
+#else
+
+// #define __APPLE_CC__
+  
+ #define pascal /* */
+ 
+ #define true 1
+ 
+ #define false 0
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

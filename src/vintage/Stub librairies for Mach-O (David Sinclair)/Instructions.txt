@@ -1,0 +1,59 @@
+Instructions for making the LateImports stub libraries:
+
+1. Create the .exp file, using the existing ones as examples.  Just need the const symbols and the function names.  (See also below.)
+
+2. Duplicate the file and give it a .wke extension.
+
+3. Launch the MPW shell.
+
+4. Enter "MakeStub…" (with ellipsis) and hit Enter.  A dialog will appear.
+
+5. Select the .exp file as the input.
+
+6. Choose the location and name of the output.
+
+7. Tick the weak checkbox.
+
+8. Hit MakeStub.
+
+9. Add all three files to the project.
+
+10. Make the stub library weak imported.
+
+
+To create the .exp file, use the Interfaces2stubLib MPW worksheet (instructions from Gale Paeper):
+
+To keep it simple, I assumed you would set up a folder for creating a
+custom CFM stub library and that copies of the Pascal Interfaces that
+you want to cover with that stub library are placed in the folder.
+
+With desired Pascal interfce files in the folder, to make a custom stub library:
+
+1.  Make sure the MPW default directory is set to the folder (Show
+Directory/Set Directory items under the Directory menu)
+
+2.  Change the name in the '' part of the "set LibName
+'MachOTestingLateImports'" line to the name you want to use for the stub library
+
+3.  Depending upon the Pascal interfaces file set you copied from, you
+may need to change the ".pas" extension part of the "set
+InterfaceFileList "`files Å.pas`"" command.  As I noted in the comments,
+.pas is used for GPC interfaces and .p is used for CodeWarrior Pascal
+and FPC.  As long as you have the correct extension for the command, it
+doesn't make any diffence what interface file set you use to make the
+custom stub library with.
+
+4.  Select all the lines (select all) and then hit the Enter key.
+
+That should be all it takes.  You'll end with a CFM stub library with
+the name you set in step 2.  You'll also get three windows openned named
+DataScratch, CodeScratch, and ExportScratch.exp.  The first two are,
+respectively, lists of data (i.e., external var) and code (i.e.,
+procedure and function) identifiers extracted from the Pascal interface
+files.  The last one, ExportScratch.exp, is just a properly formatted
+merger of the first two files and is the input for the MakeStub command
+call.  I left the three windows open so you have the option of save the
+contents using different file names if you want to save the assembled
+lists.  If you save the ExportScratch.exp window with the stub library
+name and a .wke extension, it will work as the library matching .wke
+file for your CodeWarrior project.

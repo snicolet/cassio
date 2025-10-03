@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>org.ffo.cassio</string>
+
+    <key>CFBundleName</key>
+    <string>Cassio</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleSignature</key>
+    <string>SNX4</string>
+
+    <key>CFBundleDevelopmentRegion</key>
+    <string>France</string>
+
+    <key>CFBundleLocalizations</key>
+        <array>
+               <string>fr</string>
+        </array>
+
+    <key>LSPrefersCarbon</key>
+    <true/>
+
+    <key>CFBundleVersion</key>
+    <string>7.0</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>7.0</string>
+
+    <key>CFBundleLongVersionString</key>
+    <string>7.0, Copyleft 2008 Stephane Nicolet</string>
+
+    <key>CFBundleIconFile</key>
+    <string>128</string>
+
+    <key>NSAppleScriptEnabled</key>
+    <string>No</string>
+
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyleft (c) 2008 Stephane Nicolet</string>
+
+    <key>CFBundleDocumentTypes</key>
+    <array>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TSNX</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Partie de Cassio</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>FSNX</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>130</string>
+            <key>CFBundleTypeName</key>
+            <string>Base d'Othello</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>BIBL</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>132</string>
+            <key>CFBundleTypeName</key>
+            <string>Bibliotheque</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>SOLT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>133</string>
+            <key>CFBundleTypeName</key>
+            <string>Solitaires</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>PREF</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>131</string>
+            <key>CFBundleTypeName</key>
+            <string>Fichier preferences</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>BASE</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>134</string>
+            <key>CFBundleTypeName</key>
+            <string>Base Thor</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>dba</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>sgma</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>136</string>
+            <key>CFBundleTypeName</key>
+            <string>Fichier de groupes</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>INDX</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>135</string>
+            <key>CFBundleTypeName</key>
+            <string>Text document</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>index</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>QWTB</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>137</string>
+            <key>CFBundleTypeName</key>
+            <string>Base d'Othello</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>wtb</string>
+                <string>WTB</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>138</string>
+            <key>CFBundleTypeName</key>
+            <string>Arbre de jeu d'Othello</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>sof</string>
+                <string>SOF</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>138</string>
+            <key>CFBundleTypeName</key>
+            <string>Arbre de jeu d'Othello</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Partie du serveur GGS</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>ggf</string>
+                <string>GGF</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Partie de WZebra</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>wzg</string>
+                <string>WZG</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Games archive</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>pgn</string>
+                <string>PGN</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>Fichier texte</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>text</string>
+                <string>txt</string>
+                <string>TXT</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>Fichier HTML</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>htm</string>
+                <string>HTM</string>
+                <string>html</string>
+                <string>HTML</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeName</key>
+            <string>Fichier texte</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>EVAL</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>139</string>
+            <key>CFBundleTypeName</key>
+            <string>Coefficients d'evaluation</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>GRAP</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>132</string>
+            <key>CFBundleTypeName</key>
+            <string>Graphe d'ouvertures</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>PZZL</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>140</string>
+            <key>CFBundleTypeName</key>
+            <string>Base de solitaires d'Othello</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>pzz</string>
+                <string>PZZ</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+
+    </array>
+</dict>
+</plist>

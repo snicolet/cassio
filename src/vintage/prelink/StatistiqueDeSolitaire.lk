@@ -1,0 +1,9 @@
+	function Min (a, b: SInt32) : SInt32;                                                                                                                                              EXTERNAL_NAME('Min');
+	function Max (a, b: SInt32) : SInt32;                                                                                                                                              EXTERNAL_NAME('Max');
+function AllocateMemoryPtr(whichSize : SInt32) : Ptr;                                                                                                                               EXTERNAL_NAME('AllocateMemoryPtr');
+procedure DisposeMemoryPtr(var whichPtr : Ptr);                                                                                                                                     EXTERNAL_NAME('DisposeMemoryPtr');
+function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;                                                                                                     EXTERNAL_NAME('WritelnDansFichierTexte');
+	function ReadStringFromRessource(stringListID, index : SInt16) : String255;                                                                                                        EXTERNAL_NAME('ReadStringFromRessource');
+	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;                                                                                                                      EXTERNAL_NAME('ParamStr');
+  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;                                                                              EXTERNAL_NAME('ReelEnStringAvecDecimales');
+  function NumEnString(num : SInt32) : String255;                                                                                                                                   EXTERNAL_NAME('NumEnString');

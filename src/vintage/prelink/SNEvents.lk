@@ -1,0 +1,1 @@
+procedure LanceInterruptionSimple(const fonctionAppelante : String255);                                                                                                             EXTERNAL_NAME('LanceInterruptionSimple');

@@ -1,0 +1,592 @@
+UNIT  UnitRapportUtils;
+
+
+INTERFACE
+
+
+ USES UnitDefCassio , Events, Scrap;
+
+
+function CreateRapport : boolean;                                                                                                                                                   ATTRIBUTE_NAME('CreateRapport')
+function DetruitRapport : boolean;                                                                                                                                                  ATTRIBUTE_NAME('DetruitRapport')
+
+
+procedure ClicInRapport(evt : eventRecord);                                                                                                                                         ATTRIBUTE_NAME('ClicInRapport')
+procedure EcritKeyDownEventDansRapport(evt : eventRecord);                                                                                                                          ATTRIBUTE_NAME('EcritKeyDownEventDansRapport')
+
+
+
+{quelques fonction d'acces}
+function CollerDansRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CollerDansRapport')
+function CopierFromRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CopierFromRapport')
+function CouperFromRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CouperFromRapport')
+function EffacerDansRapport : boolean;                                                                                                                                              ATTRIBUTE_NAME('EffacerDansRapport')
+function SelectionneToutDansRapport : boolean;                                                                                                                                      ATTRIBUTE_NAME('SelectionneToutDansRapport')
+
+
+
+
+
+procedure AnnonceScoreFinalDansRapport;                                                                                                                                             ATTRIBUTE_NAME('AnnonceScoreFinalDansRapport')
+procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);                                                                                                        ATTRIBUTE_NAME('AnnonceOuvertureFichierEnRougeDansRapport')
+procedure AnnonceSupposeSuitConseilMac(numeroCoup,conseil : SInt16);                                                                                                                ATTRIBUTE_NAME('AnnonceSupposeSuitConseilMac')
+
+
+
+function SelectionRapportEstUnePartieLegale(var partieAlpha : String255) : boolean;                                                                                                 ATTRIBUTE_NAME('SelectionRapportEstUnePartieLegale')
+
+
+procedure EcritBienvenueDansRapport;                                                                                                                                                ATTRIBUTE_NAME('EcritBienvenueDansRapport')
+
+
+
+IMPLEMENTATION
+
+
+{BEGIN_USE_CLAUSE}
+
+
+{$DEFINEC USE_PRELINK true}
+
+USES
+    UnitRapportTypes, ControlDefinitions, MacWindows, QuickdrawText
+{$IFC NOT(USE_PRELINK)}
+    , MyQuickDraw, UnitRapportImplementation, UnitJaponais, UnitRapport, UnitJeu
+    , UnitModes, MyFonts, MyStrings, UnitCarbonisation, UnitDialog, SNEvents, UnitRetrograde, UnitSetUp
+    , UnitPressePapier, UnitScannerUtils, UnitFenetres, UnitServicesDialogs, UnitScannerOthellistique, UnitModes, UnitServicesRapport ;
+{$ELSEC}
+    ;
+    {$I prelink/RapportUtils.lk}
+{$ENDC}
+
+
+{END_USE_CLAUSE}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function MyFenetreFictiveAvantPlan : WindowPtr;
+begin
+  MyFenetreFictiveAvantPlan := MAKE_MEMORY_POINTER(-1);
+end;
+
+
+
+function CreateRapport : boolean;
+var r : Rect;
+    titre : String255;
+    err : OSErr;
+    theTSMDoc : TSMDocumentID;
+begin
+  CreateRapport := false;
+  rapport.theWindow := NIL;
+  rapport.prochaineAlerteRemplissage := maxTextEditSize-2000;
+  with rapport do
+    begin
+      titre := ReadStringFromRessource(TitresFenetresTextID,5);
+      theWindow := MyNewCWindow(NIL, FntrRapportRect, titre, False, zoomDocProc, MyFenetreFictiveAvantPlan, True, 1);
+      if theWindow <> NIL then
+        begin
+          SetPortByWindow(theWindow);
+          TextFont(gCassioApplicationFont);
+
+          if gIsRunningUnderMacOSX
+            then TextSize(12)
+            else TextSize(9);
+          {TextSize(GetDefFontSize);}
+
+          r := GetWindowPortRect(rapport.theWindow);
+          InsetRect(r, TEdecalage, TEdecalage);
+          theText := TEStyleNew(r, r);
+          if theText <> NIL then
+            begin
+              { Adaptation de la taille standard de la fenêtre de telle façon que }
+              { les lignes du texte ne soient jamais coupées en bas par l'ascenseur. }
+              r := GetWindowPortRect(rapport.theWindow);
+              while ((r.bottom - 15) - (r.top + TEdecalage)) MOD vUnit <> 0 do
+                 dec(r.bottom);
+              while ((r.right - 15) - (r.left + TEdecalage)) MOD hUnit <> 0 do
+                 dec(r.right);
+              SizeWindow(theWindow, r.right - r.left, r.bottom - r.top, False);
+              CalculateViewAndDestRapport;
+              SetDeroulementAutomatiqueDuRapport(true);
+
+
+
+              { Création des deux ascenseurs }
+              r := GetWindowPortRect(rapport.theWindow);
+              InsetRect(r, -1, -1);
+              r.top := r.bottom - 16;
+              r.right := r.right - 15;
+              hScroller := NewControl(theWindow, r, StringToStr255(''), True, 1, 1, 210, scrollBarProc, 0);
+              r := GetWindowPortRect(rapport.theWindow);
+              InsetRect(r, -1, -1);
+              r.left := r.right - 16;
+              r.bottom := r.bottom - 15;
+              vScroller := NewControl(theWindow, r, StringToStr255(''), True, 1, 1, 1, scrollBarProc, 0);
+
+              TextNormalDansRapport;
+
+              theTSMDoc := GetTSMDocOfRapport;
+
+              err := AddTSMTESupport(theWindow,theText,theTSMDoc,docTSMTERecHandle);
+
+              SwitchToRomanScript;
+
+              changed := False;
+              fileName := '';
+              CreateRapport := true;
+            end;
+        end;
+   end;
+end;
+
+
+function DetruitRapport : boolean;
+begin
+    DetruitRapport := True;
+    with rapport do
+       begin
+         RemoveTSMTESupport(docTSMDoc);
+         if (theText <> NIL) then
+           begin
+             TEDispose(theText);
+             theText := NIL;
+           end;
+         if (theWindow <> NIL) then
+           begin
+             DisposeWindow(theWindow);
+             theWindow := NIL;
+           end;
+         windowRapportOpen := false;
+       end;
+end;
+
+
+
+procedure EcritBienvenueDansRapport;
+var oldscript : SInt32;
+    oldEcritureDansRapportLog : boolean;
+    policeMise : boolean;
+    niceJapaneseFont : SInt16;
+    niceRomanFont : SInt16;
+    s : String255;
+begin
+  oldEcritureDansRapportLog := GetEcritToutDansRapportLogDansImplementation;
+  SetEcritToutDansRapportLogDansImplementation(false);
+  GetCurrentScript(oldScript);
+  DisableKeyboardScriptSwitch;
+  FinRapport;
+  TextNormalDansRapport;
+  WritelnDansRapport('');
+  EnableKeyboardScriptSwitch;
+  FinRapport;
+  ChangeFontColorDansRapport(VertCmd);
+  ChangeFontFaceDansRapport(bold);
+  ChangeFontSizeDansRapport(24);
+  policeMise := false;
+  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+    begin
+      niceRomanFont := MyGetFontNum('Bookman');
+      if niceRomanFont > 0 then
+        begin
+          ChangeFontDansRapport(niceRomanFont);
+          policeMise := true;
+        end;
+    end;
+  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+    begin
+      niceRomanFont := MyGetFontNum('Comic Sans MS');
+      if niceRomanFont > 0 then
+        begin
+          ChangeFontDansRapport(niceRomanFont);
+          policeMise := true;
+        end;
+    end;
+  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+    begin
+      niceRomanFont := MyGetFontNum('Times');
+      if niceRomanFont > 0 then
+        begin
+          ChangeFontDansRapport(niceRomanFont);
+          policeMise := true;
+        end;
+    end;
+  if gVersionJaponaiseDeCassio & not(policeMise) then
+    begin
+      niceJapaneseFont := MyGetFontNum('ñ{ñæí©Å|Çl');
+      if niceJapaneseFont > 0 then
+        begin
+          ChangeFontDansRapport(niceJapaneseFont);
+          policeMise := true;
+        end;
+    end;
+  if gVersionJaponaiseDeCassio & not(policeMise) then
+    begin
+      niceJapaneseFont := MyGetFontNum('ä€ÉSÉVÉbÉNÅ|Çl');
+      if niceJapaneseFont > 0 then
+        begin
+          ChangeFontDansRapport(niceJapaneseFont);
+          policeMise := true;
+        end;
+    end;
+  if not(policeMise) then ChangeFontDansRapport(gCassioApplicationFont);
+  s := ReadStringFromRessource(TextesRapportID,1);
+  SetLongueurMessageBienvenueDansCassio(LENGTH_OF_STRING(s));
+  WritelnDansRapport(s);  {'Bienvenue…'}
+
+  SelectionnerTexteDansRapport(0,1);
+  ChangeFontSizeDansRapport(9);
+
+  FinRapport;
+  TextNormalDansRapport;
+  ChangeFontSizeDansRapport(9);
+  WritelnDansRapport('');
+  WritelnDansRapport('');
+  TextNormalDansRapport;
+  EnableKeyboardScriptSwitch;
+  SetCurrentScript(oldScript);
+  SwitchToRomanScript;
+  SetEcritToutDansRapportLogDansImplementation(oldEcritureDansRapportLog);
+end;
+
+
+
+
+procedure ClicInRapport(evt : eventRecord);
+var ch: ControlHandle;
+    trackScrollingRapportUPP  : ControlActionUPP;
+    part : SInt16;
+    oldport : grafPtr;
+   {oldValue : SInt16}
+    oldScript,posMilieuMot : SInt32;
+    modifiers : SInt16;
+    where : Point;
+    partieLegale : String255;
+begin
+  modifiers := evt.modifiers;
+  where := evt.where;
+
+  GetPort(oldport);
+  with rapport do
+    if (theWindow <> NIL) & (theText <> NIL) then
+     begin
+        SetPortByWindow(theWindow);
+        GlobalToLocal(where);
+        part := FindControl(where, theWindow, ch);
+        case part OF
+        kControlDownButtonPart, kControlPageDownPart, kControlUpButtonPart, kControlPageUpPart:
+          begin
+            if GetControlMaximum(ch) > 1 then
+              begin
+                trackScrollingRapportUPP := NewControlActionUPP(TrackScrollingRapport);
+                if TrackControl(ch, where, trackScrollingRapportUPP) = part then DoNothing;
+                MyDisposeControlActionUPP(trackScrollingRapportUPP);
+              end;
+          end;
+        kControlIndicatorPart:
+            begin
+              if MyTrackControlIndicatorPartRapport(ch) = kControlIndicatorPart then DoNothing;
+
+           {
+           oldValue := GetControlValue(ch);
+           if TrackControl(ch, where, NIL) = kControlIndicatorPart then
+             begin
+                    if ch = vScroller then TEScroll(0, (oldValue - GetControlValue(ch)) * vUnit, theText) else
+                    if ch = hScroller then TEScroll((oldValue - GetControlValue(ch)) * hUnit, 0, theText);
+             end;
+           }
+             end;
+          otherwise
+            begin
+             if (where.h < GetWindowPortRect(rapport.theWindow).right-15) &
+                (where.v < GetWindowPortRect(rapport.theWindow).bottom-15)
+               then
+                 begin
+                   GetCurrentScript(oldScript);
+                   DisableKeyboardScriptSwitch;
+                   TEClick(where, BAnd(modifiers, shiftKey) <> 0, rapport.theText);
+
+                   posMilieuMot := GetMilieuSelectionRapport;
+
+                   if EstUnDoubleClic(evt,false) &
+                      EstDansBanniereAnalyseRetrograde(posMilieuMot)
+                     then SelectionneAnalyseRetrograde(posMilieuMot);
+
+                   if EstUnDoubleClic(evt,false) &
+                      FenetreRapportEstOuverte &
+		                  SelectionRapportNonVide &
+		                  (BAnd(theEvent.modifiers,optionKey) <> 0) &
+		                  SelectionRapportEstUnePartieLegale(partieLegale) &
+		                  PeutArreterAnalyseRetrograde
+		                 then PlaquerPartieLegale(partieLegale,kRejouerLesCoupsEnDirect);
+
+                   EnableKeyboardScriptSwitch;
+                   SetCurrentScript(oldScript);
+                   SwitchToRomanScript;
+                 end;
+            end;
+         end; {case}
+        UpdateScrollersRapport;
+     end;
+  SetPort(oldport);
+end;
+
+
+
+
+procedure AnnonceScoreFinalDansRapport;
+var s,s1 : String255;
+    oldScript : SInt32;
+begin
+  if gameOver & not(HumCtreHum) & not(enTournoi) then
+    if not(CassioEstEnModeSolitaire) then
+      begin
+        s := NumEnString(nbreDePions[pionNoir]);
+        s1 := NumEnString(nbreDePions[pionBlanc]);
+        s1 := s+StringOf('-')+s1;
+        s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
+        if not(HumCtreHum) & not(CassioEstEnModeAnalyse) then
+          if ((nbreDePions[pionNoir] > 32) & (couleurMacintosh = pionBlanc)) |
+             ((nbreDePions[pionBlanc] > 32) & (couleurMacintosh = pionNoir))
+             then s := s + '. ' + ReadStringFromRessource(TextesRapportID,8)    {'Félicitations !'}
+             else s := s + '. ' + ReadStringFromRessource(TextesRapportID,9);   {'Voulez-vous en faire une autre ?'}
+
+
+        if ((s+chr(13)) <> LastStringEcriteDansRapport) then
+          begin
+            GetCurrentScript(oldScript);
+            DisableKeyboardScriptSwitch;
+            FinRapport;
+            TextNormalDansRapport;
+            WritelnDansRapport('');
+
+            ChangeFontSizeDansRapport(gCassioRapportBoldSize);
+            ChangeFontDansRapport(gCassioRapportBoldFont);
+
+            ChangeFontFaceDansRapport(bold);
+            ChangeFontColorDansRapport(VertCmd);
+            WritelnDansRapport(s);
+            WritelnDansRapport('');
+            EnableKeyboardScriptSwitch;
+            SetCurrentScript(oldScript);
+            SwitchToRomanScript;
+            TextNormalDansRapport;
+          end;
+      end;
+end;
+
+procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);
+begin
+  if not(EstUnNomDeFichierTemporaireDePressePapier(nomFichier)) then
+    begin
+		  FinRapport;
+		  TextNormalDansRapport;
+
+      ChangeFontSizeDansRapport(gCassioRapportBoldSize);
+      ChangeFontDansRapport(gCassioRapportBoldFont);
+
+		  ChangeFontFaceDansRapport(bold);
+		  ChangeFontColorDansRapport(VertSapinCmd);
+		  WritelnDansRapportSync('',false);
+		  WritelnDansRapportSync('### '+nomfichier+' ###',false);
+		  WritelnDansRapportSync('',false);
+		  TextNormalDansRapport;
+		end;
+end;
+
+
+procedure AnnonceSupposeSuitConseilMac(numeroCoup,conseil : SInt16);
+var s,s1 : String255;
+    oldScript : SInt32;
+begin
+  if not(CassioEstEnModeSolitaire) & not(jeuInstantane) then
+    begin
+      s1 := NumEnString(numeroCoup);
+      s := ReadStringFromRessource(TextesRapportID,10);   {'conseil'}
+      s := '   '+ParamStr(s,s1+StringOf('.')+CoupEnString(conseil,CassioUtiliseDesMajuscules),'','','');
+      {FrappeClavierDansRapport(chr(RetourArriereKey));}
+      GetCurrentScript(oldScript);
+      DisableKeyboardScriptSwitch;
+      FinRapport;
+      TextNormalDansRapport;
+      WritelnDansRapport(s);
+      TextNormalDansRapport;
+      EnableKeyboardScriptSwitch;
+      SetCurrentScript(oldScript);
+      SwitchToRomanScript;
+    end;
+end;
+
+
+
+
+procedure EcritKeyDownEventDansRapport(evt : eventRecord);
+var ch,ch2 : char;
+    option,command,shift,control,verouillage : boolean;
+    keyCode : SInt16;
+    s : String255;
+begin
+  shift := BAnd(evt.modifiers,shiftKey) <> 0;
+  verouillage := BAnd(evt.modifiers,alphaLock) <> 0;
+  command := BAnd(evt.modifiers,cmdKey) <> 0;
+  option := BAnd(evt.modifiers,optionKey) <> 0;
+  control := BAnd(evt.modifiers,controlKey) <> 0;
+
+  ch := chr(BAnd(evt.message,charCodemask));
+  keyCode := BSr(BAnd(theEvent.message,keyCodeMask),8);
+
+  s := '';
+  if theEvent.what = keyDown then s := s + 'keyDown';
+  if theEvent.what = autoKey then s := s + 'autoKey';
+
+  s := s + ' caractère="'+ch+'"';
+  s := s + ' ord = '+NumEnString(ord(ch));
+  s := s + '  keycode = '+NumEnString(keycode);
+  if shift        then s := s + '  shift = true'        else s := s + '  shift = false';
+  if command      then s := s + '  command = true'      else s := s + '  command = false';
+  if option       then s := s + '  option = true'       else s := s + '  option = false';
+  if control      then s := s + '  control = true'      else s := s + '  control = false';
+  if verouillage  then s := s + '  verrouillage = true' else s := s + '  verrouillage = false';
+  WritelnDansRapport('');
+  WritelnDansRapport(s);
+
+  if control then
+    begin
+      ch2 := QuelCaractereDeControle(ch,shift|verouillage);
+      s := 'touche controle appuyée,  ';
+      s := s + 'caractère =  ^'+ch2;
+      WritelnDansRapport(s);
+    end;
+end;
+
+function CollerDansRapport : boolean;
+begin
+  collerDansRapport := false;
+  with rapport do
+  if windowRapportOpen & (theText <> NIL) then
+   if (theWindow = FrontWindowSaufPalette) & (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) > 0)
+    then
+     begin
+       // Le presse-Papier contient du TEXT, mais le rapport
+       // a-t-il assez de place libre pour le recevoir ?
+       if TEGetScrapLength < (maxTextEditSize - GetTailleRapport)
+         then
+           begin
+             TEStylePaste(theText);
+             UpdateScrollersRapport;
+             collerDansRapport := true;
+           end
+         else
+           begin
+             AlerteSimple(ReadStringFromRessource(TextesRapportID,27));
+           end;
+     end;
+end;
+
+function CouperFromRapport : boolean;
+begin
+  couperFromRapport := false;
+  with rapport do
+  if windowRapportOpen & (theText <> NIL) then
+    if SelectionRapportNonVide  then
+      if theWindow = FrontWindowSaufPalette then
+        begin
+         TECut(theText);
+         UpdateScrollersRapport;
+         {if (ZeroScrap = noErr) then
+           if (TEToScrap = noErr) then DoNothing;}
+         couperFromRapport := true;
+        end;
+end;
+
+function CopierFromRapport : boolean;
+begin
+  copierFromRapport := false;
+  with rapport do
+  if windowRapportOpen & (theText <> NIL) then
+    if SelectionRapportNonVide  then
+      if theWindow = FrontWindowSaufPalette then
+        begin
+          TECopy(theText);
+         {if (ZeroScrap = noErr) then
+          if (TEToScrap = noErr) then DoNothing;}
+         copierFromRapport := true;
+       end;
+end;
+
+
+
+
+function EffacerDansRapport : boolean;
+begin
+  effacerDansRapport := false;
+  with rapport do
+  if windowRapportOpen & (theText <> NIL) then
+    if SelectionRapportNonVide  then
+      if theWindow = FrontWindowSaufPalette then
+        begin
+          TEDelete(theText);
+          UpdateScrollersRapport;
+          effacerDansRapport := true;
+          if GetTailleRapport < maxTextEditSize      then prochaineAlerteRemplissage := maxTextEditSize;
+          if GetTailleRapport < maxTextEditSize-1000 then prochaineAlerteRemplissage := maxTextEditSize-1000;
+          if GetTailleRapport < maxTextEditSize-2000 then prochaineAlerteRemplissage := maxTextEditSize-2000;
+          if GetTailleRapport <= 1 then EcritBienvenueDansRapport;
+        end;
+end;
+
+function SelectionneToutDansRapport : boolean;
+begin
+  SelectionneToutDansRapport := false;
+  with rapport do
+    if windowRapportOpen & (theText <> NIL) then
+      if theWindow = FrontWindowSaufPalette then
+        begin
+          TESetSelect(0,2000000000-1,theText);   {2000000000 was MawLongint}
+          UpdateScrollersRapport;
+          SelectionneToutDansRapport := true;
+        end;
+end;
+
+
+function SelectionRapportEstUnePartieLegale(var partieAlpha : String255) : boolean;
+var s : String255;
+    longueur : SInt32;
+    loc : SInt16;
+begin
+  SelectionRapportEstUnePartieLegale := false;
+  partieAlpha := '';
+
+  if SelectionRapportNonVide then
+    begin
+      longueur := LongueurSelectionRapport;
+
+      if (longueur < 2) | (longueur > 250)
+        then exit(SelectionRapportEstUnePartieLegale);
+
+      s := SelectionRapportEnString(longueur);
+      EnleveEspacesDeDroiteSurPlace(s);
+      EnleveEspacesDeGaucheSurPlace(s);
+
+      if (ScannerStringPourTrouverCoup(1,s,loc) > 0) & EstUnePartieOthello(s,true) then
+        begin
+          partieAlpha := s;
+		      SelectionRapportEstUnePartieLegale := true;
+		    end;
+    end;
+end;
+
+
+END.

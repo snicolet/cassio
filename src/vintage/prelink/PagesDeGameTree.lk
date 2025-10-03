@@ -1,0 +1,4 @@
+function CassioEnEnvironnementMemoireLimite : boolean;                                                                                                                              EXTERNAL_NAME('CassioEnEnvironnementMemoireLimite');
+procedure DisposeMemoryPtr(var whichPtr : Ptr);                                                                                                                                     EXTERNAL_NAME('DisposeMemoryPtr');
+procedure AlerteSimple(texte : String255);                                                                                                                                          EXTERNAL_NAME('AlerteSimple');
+function AllocateMemoryPtr(whichSize : SInt32) : Ptr;                                                                                                                               EXTERNAL_NAME('AllocateMemoryPtr');

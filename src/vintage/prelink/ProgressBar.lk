@@ -1,0 +1,2 @@
+procedure SetPortByWindow(window : WindowPtr);                                                                                                                                      EXTERNAL_NAME('SetPortByWindow');
+procedure FlushWindow(theWindow : WindowRef);                                                                                                                                       EXTERNAL_NAME('FlushWindow');

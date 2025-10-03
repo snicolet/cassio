@@ -1,0 +1,47 @@
+UNIT UnitDefAffichageReflexion;
+
+
+INTERFACE
+
+
+USES UnitOth0,UnitDefPositionEtTrait;
+
+
+type
+    ReflexRec = record
+                 class : ListOfMoveRecords;
+                 prof,compteur,longClass : SInt16;
+                 typeDonnees,NumeroduCoup,couleur : SInt16;
+                 IndexCoupEnCours : SInt32;
+                 nbLignesScoresCompletsCetteProf : SInt16;
+                 nbLignesScoresCompletsProfPrecedente : SInt16;
+                 coupAnalyseRetrograde : SInt32;
+                 scoreAnalyseRetrograde : SInt32;
+                 empties : SInt32;
+                 positionDeLaReflexion : PositionEtTraitRec;
+               end;
+     ReflexRecPtr =  ^ReflexRec;
+
+var
+   ReflexData : ReflexRecPtr;
+
+
+
+IMPLEMENTATION
+
+
+{BEGIN_USE_CLAUSE}
+
+
+
+{END_USE_CLAUSE}
+
+
+
+
+
+
+
+
+
+END.
