@@ -12,7 +12,8 @@ uses
   Classes,
   SysUtils,
   Process,
-  Connect;
+  Connect,
+  BasicTypes;
   
 type
   Point = record
