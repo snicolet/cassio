@@ -1,0 +1,24 @@
+// This files contains snippets of code and notes written
+// during my discovery of FreePascal for Cassio
+
+
+// 1. operator overloading
+
+type 
+   typeA = record name : ansistring; end;
+
+operator = (x,y : typeA) b : boolean;  
+begin  
+  b := (x.name = y.name)
+end; 
+
+var a, b : typeA;
+
+    a.name := 'blah';
+    b.name := 'bonjour';
+
+    if (a = b) 
+       then LogDebugInfo('a and b are equal')
+       else LogDebugInfo('a and b are different');
+    
+    sleep(20000);

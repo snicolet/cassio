@@ -3,6 +3,7 @@ program cassio;
 // usage : compile with FreePascal using the following command
 //    fpc -Mobjfpc -Sh -ocassio.exe cassio.pas
 //    fpc -Mobjfpc -Sh -ocassio.exe cassio.pas 2>&-        (to suppress link warnings)
+//    fpc -Mobjfpc -Sh -k"-macosx_version_min 10.13" -ocassio.exe cassio.pas
 
 
 uses
