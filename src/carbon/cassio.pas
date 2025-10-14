@@ -28,7 +28,10 @@ var
    k          : integer;
 
 begin
-	LogDebugInfo('Bienvenue dans Cassio !');
+
+    sleep(200000);
+
+    LogDebugInfo('Bienvenue dans Cassio !');
 	
 	tick := Tickcount();
 	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
@@ -66,7 +69,8 @@ begin
        begin
           tick := Tickcount();
           loc := GetMouse();
-          // writeln(loc.h, ' ' , loc.v);
+          if (abs(loc.h) < 0) then
+             writeln(loc.h, ' ' , loc.v);
        end;
        
        if (Tickcount() = 630) then

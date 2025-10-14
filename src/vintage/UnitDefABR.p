@@ -8,8 +8,8 @@ USES MacTypes;
 
 
 TYPE
-    ABRKey = SInt32;
-    ABRData = SInt32;
+    ABRKey = SInt32;   // warning : should be able to be a pointer, so 64 bits
+    ABRData = SInt32;  // warning : should be able to be a pointer, so 64 bits
     ABR = ^ABRRec;
     ABRRec = record
                 cle : ABRKey;

@@ -7,7 +7,7 @@ avec du hachage puis des arbres binaires de recherche}
 INTERFACE
 
 
-
+// warning : all data should be able to be a pointer, so 64 bits
 
 
 
@@ -66,7 +66,7 @@ USES
 
 
 
-
+// warning : all data should be able to be a pointer, so 64 bits
 
 
 
