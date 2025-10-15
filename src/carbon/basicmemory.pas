@@ -30,7 +30,7 @@ procedure MemoryFillChar(bufferPtr : Pointer; byteCount: SInt32; caractere : Cha
 procedure MoveMemory(sourcePtr, destPtr: Pointer; byteCount: SInt32);
 
 {Egalite de deux blocs memoire}
-function EgalitePolymorphe(ptr1, ptr2 : Pointer; tailleDonnees : SInt32) : boolean;
+function EgalitePolymorphe(ptr1, ptr2 : Pointer; byteCount : SInt32) : boolean;
 
 {Fabriquer et defaire des pointeurs}
 function MAKE_MEMORY_POINTER(v : SInt64) : Pointer;
