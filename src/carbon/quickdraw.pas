@@ -14,7 +14,8 @@ uses
   Process,
   Connect,
   BasicTypes,
-  BasicMemory;
+  BasicMemory,
+  BasicString;
   
 type
   Point = record

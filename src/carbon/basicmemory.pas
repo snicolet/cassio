@@ -205,7 +205,7 @@ end;
 
 
 begin
-   testBasicMemory();
+   // testBasicMemory();
 end.
 
 

@@ -350,6 +350,8 @@ begin
 					aux := QuelCaractereDeControle(ch, shift | verouillage);
 					if option & (((aux >= 'a') & (aux <= 'z')) | ((aux >= 'A') & (aux <= 'Z'))) then
 						aux := CreerCaractereAvecOption(aux);
+						
+				    FIXME : COMMENT TRAITER LES CARACTERES UNICODES EN FREE PASCAL ?
 
 					myEvent.message := BitAnd(myEvent.message, BitNot(charCodeMask));
 					myEvent.message := BitOr(myEvent.message, ord(aux));
