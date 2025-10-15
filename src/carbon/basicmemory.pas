@@ -95,7 +95,8 @@ end;
 procedure DisposeMemoryHdl(var whichHandle : Handle);
 begin
   Freemem(whichHandle^);
-  Dispose(whichHandle);
+  whichHandle^ := NIL;
+  dispose(whichHandle);
   whichHandle := NIL;
 end;
 
