@@ -13,7 +13,8 @@ uses
   SysUtils,
   Process,
   Connect,
-  BasicTypes;
+  BasicTypes,
+  BasicMemory;
   
 type
   Point = record

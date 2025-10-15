@@ -112,7 +112,8 @@ complete reference for the obsolete QuickDraw API from Apple. Probably a
 bit overkill for my needs, probably, but still useful. https://twokinds.se/yh/transskel5/
 - Roland Chastain has written several chess programs (both chess engines 
 and chess graphical user interfaces) in FreePascal. Quite active, and he
-speeks french! His Githubis a good central place for Pascal chess-related stuff: https://github.com/rchastain
+speeks french! His Github is a good central place for Pascal chess-related 
+stuff: https://github.com/rchastain
 
 
 

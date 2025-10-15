@@ -8,8 +8,8 @@ uses
   cthreads,
   cwstring,
 {$ENDIF}
-  Classes,
   SysUtils;
+  
   
   // common types
   type 
@@ -34,10 +34,10 @@ uses
     short = SInt16;
     long = SInt32;
 
+    Ptr = Pointer;
     Handle = ^Pointer;
     UnivPtr = Pointer;
     UnivHandle = Handle;
-    ptrInt = SInt32;  // integer type to cast pointers to do pointer arithmetics, should be 64 bits
 
     LongintArray = array[0..0] of SInt32;
     LongintArrayPtr = ^LongintArray;
@@ -46,6 +46,9 @@ uses
     IntegerArray = array[0..0] of SInt16;
     IntegerArrayPtr = ^IntegerArray;
     IntegerArrayHdl = ^IntegerArrayPtr;
+    
+    PackedArrayOfByte = packed array[0..0] of byte;
+    PackedArrayOfBytePtr = ^PackedArrayOfByte;
 
     PackedArrayOfChar = packed array[0..0] of char;
     PackedArrayOfCharPtr = ^PackedArrayOfChar;
@@ -129,7 +132,10 @@ begin
     Writeln('sizeof(TwoBytesArray) = ', sizeof(TwoBytesArray));
     Writeln('sizeof(FourBytesArray) = ', sizeof(FourBytesArray));
     Writeln('sizeof(Pointer) = ', sizeof(Pointer));
+    Writeln('sizeof(Pointer^) = ', sizeof(Pointer^));
     Writeln('sizeof(Handle) = ', sizeof(Handle));
+    Writeln('sizeof(Handle^) = ', sizeof(Handle^));
+    Writeln('sizeof(Handle^^) = ', sizeof(Handle^^));
 end.
 
 
