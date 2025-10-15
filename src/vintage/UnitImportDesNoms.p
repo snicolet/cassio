@@ -14,20 +14,20 @@ procedure LibereMemoireImportDesNoms;                                           
 
 
 { recherche d'un numero de joueur ou de tournoi dans la base WThor }
-function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt32; genreRecherche : SInt32) : boolean;                                                ATTRIBUTE_NAME('TrouveNumeroDuJoueur')
-function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt32; fromIndex : SInt32) : boolean;                                                             ATTRIBUTE_NAME('TrouveNumeroDuTournoi')
-function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;                                                   ATTRIBUTE_NAME('TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor')
-function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;                                                   ATTRIBUTE_NAME('TrouveLexemesDeCeNomDeJoueurDansLaBaseThor')
-function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;                                                    ATTRIBUTE_NAME('TrouveNumeroDeCeNomDeJoueurDansLaBaseThor')
-function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;                                                ATTRIBUTE_NAME('TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor')
+function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;                                                ATTRIBUTE_NAME('TrouveNumeroDuJoueur')
+function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt64; fromIndex : SInt64) : boolean;                                                             ATTRIBUTE_NAME('TrouveNumeroDuTournoi')
+function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                   ATTRIBUTE_NAME('TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor')
+function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                   ATTRIBUTE_NAME('TrouveLexemesDeCeNomDeJoueurDansLaBaseThor')
+function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                    ATTRIBUTE_NAME('TrouveNumeroDeCeNomDeJoueurDansLaBaseThor')
+function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                ATTRIBUTE_NAME('TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor')
 
 
 { imports des noms }
 function PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos,pseudoPGN : String255) : String255;                                                                                   ATTRIBUTE_NAME('PseudoPGNEnNomDansBaseThor')
-function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt32) : boolean;        ATTRIBUTE_NAME('PeutImporterNomJoueurFormatPGN')
-function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt32) : boolean;                         ATTRIBUTE_NAME('PeutImporterNomTournoiFormatPGN')
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double_t) : boolean;             ATTRIBUTE_NAME('TrouverNomsDesJoueursDansNomDeFichier')
-function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt32; nomDictionnaireDesPseudos : String255) : boolean;                                          ATTRIBUTE_NAME('TrouverNomDeTournoiDansPath')
+function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;        ATTRIBUTE_NAME('PeutImporterNomJoueurFormatPGN')
+function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;                         ATTRIBUTE_NAME('PeutImporterNomTournoiFormatPGN')
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;             ATTRIBUTE_NAME('TrouverNomsDesJoueursDansNomDeFichier')
+function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt64; nomDictionnaireDesPseudos : String255) : boolean;                                          ATTRIBUTE_NAME('TrouverNomDeTournoiDansPath')
 
 
 { gestion des erreurs}
@@ -63,7 +63,7 @@ procedure RegenererLesNomsMetaphoneDeLaBase;                                    
 
 { Fichier de torture }
 function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSErr;                                                                                                  ATTRIBUTE_NAME('OuvrirFichierTortureImportDesNoms')
-procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt32);                                                                           ATTRIBUTE_NAME('ReadLineInTortureFile')
+procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);                                                                           ATTRIBUTE_NAME('ReadLineInTortureFile')
 procedure FabriqueFichierDeTorture;                                                                                                                                                 ATTRIBUTE_NAME('FabriqueFichierDeTorture')
 
 
@@ -107,7 +107,7 @@ const gUsingMetaphone : boolean = true;
 
 function EstUnPseudoDontLeDictionaireConfirmeQuOnNeConnaitPasLeNomReel(const pseudo : String255) : boolean;
 var inconnu : boolean;
-    numero : SInt32;
+    numero : SInt64;
 begin
   if StringSetEstVide(gImportDesNoms.pseudosSansNomReel)
     then inconnu := false
@@ -134,10 +134,10 @@ var ligne,s,s1,s2,reste : String255;
     nom_dictionnaire : String255;
     erreurES : OSErr;
     trouve : boolean;
-    t,numero,posEgal : SInt32;
+    t,numero,posEgal : SInt64;
 
     procedure NormaliserPseudo(var pseudo : String255);
-    var i,k,longueur : SInt32;
+    var i,k,longueur : SInt64;
         c : char;
     begin
 
@@ -360,7 +360,7 @@ end;
 
 
 procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);
-  var aux,i : SInt32;
+  var aux,i : SInt64;
       pseudoUTF8 : String255;
   begin
     if not(MemberOfStringSet(pseudo,aux,gImportDesNoms.pseudosInconnus)) then
@@ -386,7 +386,7 @@ procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);
 
 
 procedure AnnonceNomAAjouterDansThor(const pseudo,nom : String255);
-  var aux : SInt32;
+  var aux : SInt64;
   begin
     if (nom <> '???') & (nom <> '') &
        not(MemberOfStringSet(nom,aux,gImportDesNoms.nomsReelsARajouterDansBase)) then
@@ -397,11 +397,11 @@ procedure AnnonceNomAAjouterDansThor(const pseudo,nom : String255);
   end;
 
 
-function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos, pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt32) : boolean;
-var nouveauNumero : SInt32;
+function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos, pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
+var nouveauNumero : SInt64;
     pseudoArrivee, pseudoLong, nom, prenom : String255;
     inverserNomEtPrenom, pseudoContientDesEspaces : boolean;
-    confiance, nouvelleConfiance : SInt32;
+    confiance, nouvelleConfiance : SInt64;
 
     procedure SortirSurEchec;
     begin
@@ -598,8 +598,8 @@ begin
 end;
 
 
-function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt32) : boolean;
-var numeroDirect : SInt32;
+function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
+var numeroDirect : SInt64;
 begin
   PeutImporterNomTournoiFormatPGN := false;
   nomDansThor := '';
@@ -632,10 +632,10 @@ begin
 end;
 
 
-function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt32; nomDictionnaireDesPseudos : String255) : boolean;
+function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt64; nomDictionnaireDesPseudos : String255) : boolean;
 var oldParsingSet : SetOfChar;
     s,reste : String255;
-    numero,essaiAnnee : SInt32;
+    numero,essaiAnnee : SInt64;
     nomDansThor : String255;
     currentDate : DateTimeRec;
 begin
@@ -682,37 +682,37 @@ begin
 end;
 
 
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double_t) : boolean;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;
 const kNbMaxChaines = 30;
       kSegmentNonCherche = -2;
       nomDictionnaireDesPseudos = 'name_mapping_VOG_to_WThor.txt';
-var nbJoueursTrouves : SInt32;
-    nbSousChaines : SInt32;
-    chunkNumber : SInt32;
-    longueurBestSolution : SInt32;
-    distanceBestSolution : SInt32;
-    longueurTotale : SInt32;
+var nbJoueursTrouves : SInt64;
+    nbSousChaines : SInt64;
+    chunkNumber : SInt64;
+    longueurBestSolution : SInt64;
+    distanceBestSolution : SInt64;
+    longueurTotale : SInt64;
     oldQuoteProtection : boolean;
     oldParsingSet : SetOfChar;
     chaines : array[1..kNbMaxChaines] of String255;
-    chunk : array[1..kNbMaxChaines] of SInt32;
+    chunk : array[1..kNbMaxChaines] of SInt64;
     reste,separateurs,tempo : String255;
     partieDigeree,partieNonDigeree : String255;
-    positionUtile : SInt32;
+    positionUtile : SInt64;
     nomNoir,nomBlanc : String255;
-    numeroNoir,numeroBlanc : SInt32;
+    numeroNoir,numeroBlanc : SInt64;
     termine,bidon : boolean;
-    memoisation : array[0..kNbMaxChaines,0..kNbMaxChaines] of SInt32;
+    memoisation : array[0..kNbMaxChaines,0..kNbMaxChaines] of SInt64;
     theParsingCaracters : SetOfChar;
     confiance : double_t;
-    numeroNoirBestSolution : SInt32;
-    numeroBlancBestSolution : SInt32;
+    numeroNoirBestSolution : SInt64;
+    numeroBlancBestSolution : SInt64;
 
 
   procedure PublishSolution(pseudoNoir,pseudoBlanc : String255);
-  var longueurDeCetteSolution : SInt32;
+  var longueurDeCetteSolution : SInt64;
       nomThorNoir, nomThorBlanc : String255;
-      distanceDeCetteSolution : SInt32;
+      distanceDeCetteSolution : SInt64;
   begin
     longueurDeCetteSolution := LENGTH_OF_STRING(pseudoNoir) + LENGTH_OF_STRING(pseudoBlanc);
 
@@ -748,7 +748,7 @@ var nbJoueursTrouves : SInt32;
       end;
   end;
 
-  function PeutTrouverNomDeJoueurDansWThor(var pseudo : String255; var numero : SInt32) : boolean;
+  function PeutTrouverNomDeJoueurDansWThor(var pseudo : String255; var numero : SInt64) : boolean;
   var nom : String255;
   begin
     EnleveEspacesDeGaucheSurPlace(pseudo);
@@ -782,9 +782,9 @@ var nbJoueursTrouves : SInt32;
   end;
 
 
-  function MakePseudo(imin,imax : SInt32; coupurePrenoms : SInt16) : String255;
+  function MakePseudo(imin,imax : SInt64; coupurePrenoms : SInt16) : String255;
     var result : String255;
-        t : SInt32;
+        t : SInt64;
     begin
       result := '';
 
@@ -798,10 +798,10 @@ var nbJoueursTrouves : SInt32;
     end;
 
 
-  function TrouvePseudoEtNumeroJoueurDansMorceau(imin,imax : SInt32; var numero : SInt32; var nom : String255) : boolean;
+  function TrouvePseudoEtNumeroJoueurDansMorceau(imin,imax : SInt64; var numero : SInt64; var nom : String255) : boolean;
   var permutation : String255;
-      coupurePrenom : SInt32;
-      chunkCherche,n : SInt32;
+      coupurePrenom : SInt64;
+      chunkCherche,n : SInt64;
   begin
 
 
@@ -877,12 +877,12 @@ var nbJoueursTrouves : SInt32;
 
 
 
-  procedure SplitTableByThree(i,j,k : SInt32);
+  procedure SplitTableByThree(i,j,k : SInt64);
   var nom1,nom2,nom3 : String255;
-      numero1,numero2,numero3 : SInt32;
-      imin1,imin2,imin3 : SInt32;
-      imax1,imax2,imax3 : SInt32;
-      nbMorceauxImpossibles : SInt32;
+      numero1,numero2,numero3 : SInt64;
+      imin1,imin2,imin3 : SInt64;
+      imax1,imax2,imax3 : SInt64;
+      nbMorceauxImpossibles : SInt64;
       trouve1,trouve2,trouve3 : boolean;
   begin
 
@@ -932,7 +932,7 @@ var nbJoueursTrouves : SInt32;
 
 
   function TrouverNomsAvecCeParsingSet(parsingCaracters : SetOfChar; var confiance : double_t) : boolean;
-  var i,j,k : SInt32;
+  var i,j,k : SInt64;
       aux : String255;
   begin
 
@@ -1092,7 +1092,7 @@ var nbJoueursTrouves : SInt32;
   end;
 
 
-  procedure ComparerCetteSolutionALaMeilleure(confianceCetteSolution : double_t; nroNoirCetteSolution,nroBlancCetteSolution : SInt32);
+  procedure ComparerCetteSolutionALaMeilleure(confianceCetteSolution : double_t; nroNoirCetteSolution,nroBlancCetteSolution : SInt64);
   begin
     if (confianceCetteSolution > qualiteSolution) then
       begin
@@ -1184,7 +1184,7 @@ end;
 
 procedure TraduitNomTournoiEnMac(ancNom : String255; var nouveauNom : String255);
 var c,premierCaractere : char;
-    i : SInt32;
+    i : SInt64;
     MoisEnChiffre : String255;
     MoisEnLettres : String255;
 begin
@@ -1253,7 +1253,7 @@ end;
 
 procedure TraduitNomJoueurEnMac(ancNom : String255; var nouveauNom : String255);
 var c,premierCaractere : char;
-    i : SInt32;
+    i : SInt64;
 begin
   nouveauNom := '';
   for i := 1 to LENGTH_OF_STRING(ancNom) do
@@ -1389,7 +1389,7 @@ end;
 
 
 procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);
-var i,longueur : SInt32;
+var i,longueur : SInt64;
     c : char;
 begin
   nomSansPrenom := '';
@@ -1493,7 +1493,7 @@ end;
 
 
 procedure MyFabriqueNomJoueurPourBaseWThorOfficielle(var nom : String255; var result : t_JoueurRecNouveauFormat);
-var k : SInt32;
+var k : SInt64;
 begin
   for k := 1 to TailleJoueurRecNouveauFormat do
     result[k] := 0;
@@ -1510,7 +1510,7 @@ end;
 
 
 procedure MyFabriqueNomTournoiPourBaseWThorOfficielle(var nom : String255; var result : t_TournoiRecNouveauFormat);
-var k : SInt32;
+var k : SInt64;
 begin
   for k := 1 to TailleTournoiRecNouveauFormat do
     result[k] := 0;
@@ -1528,7 +1528,7 @@ end;
 
 function JoueurRecNouveauFormatToString(whichPlayer : t_JoueurRecNouveauFormat) : String255;
 var result : String255;
-    k : SInt32;
+    k : SInt64;
 begin
   result := '';
   for k := 1 to TailleJoueurRecNouveauFormat do
@@ -1539,7 +1539,7 @@ end;
 
 function TournoiRecNouveauFormatToString(whichTourney : t_TournoiRecNouveauFormat) : String255;
 var result : String255;
-    k : SInt32;
+    k : SInt64;
 begin
   result := '';
   for k := 1 to TailleTournoiRecNouveauFormat do
@@ -1550,7 +1550,7 @@ end;
 
 
 function NomCourtDuTournoi(const nomOrigine : String255) : String255;
-var longueur : SInt32;
+var longueur : SInt64;
     s : String255;
 begin
   NomCourtDuTournoi := '';
@@ -1711,15 +1711,15 @@ end;
 
 
 
-function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt32; genreRecherche : SInt32) : boolean;
-var i,positionMetaphone,positionDuNom : SInt32;
+function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;
+var i,positionMetaphone,positionDuNom : SInt64;
     metaphoneCherche : String255;
     nomChercheEnMajuscules : String255;
     nomBaseEnMajuscules : String255;
     nomJoueurSansUTF8 : String255;
     nomBase : String255;
-    indexMax, len : SInt32;
-    qualiteSolutionCourante,nouvelleQualite : SInt32;
+    indexMax, len : SInt64;
+    qualiteSolutionCourante,nouvelleQualite : SInt64;
     debug, trouve : boolean;
 label sortie;
 begin
@@ -1865,14 +1865,14 @@ begin
 end;
   
 
-function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;
+function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 var formeAlternative : String255;
     nomJoueurEnMajuscules : String255;
-    position : SInt32;
+    position : SInt64;
     trouve : boolean;
 
      procedure TesterFormeAlternative(const pattern, remplacement : String255);
-     var newNumero,newConfiance : SInt32;
+     var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
        if not(trouve & (confiance >= 100)) then
@@ -1936,16 +1936,16 @@ end;
 
 
 { Cette routine est un peu lente :-(  }
-function TrouvePrefixeDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32; genreRecherche : SInt32) : boolean;
+function TrouvePrefixeDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;
 const kParfaite    = 3;
       kMoyenne     = 2;
       kMauvaise    = 1;
       kInexistante = 0;
-var i,positionSousChaine : SInt32;
+var i,positionSousChaine : SInt64;
     nomChercheEnMajuscules : String255;
     nomBaseEnMajuscules : String255;
-    indexMax : SInt32;
-    qualiteSolution,nouvelleQualite : SInt32;
+    indexMax : SInt64;
+    qualiteSolution,nouvelleQualite : SInt64;
     tempoMetaphone : boolean;
 label sortie;
 begin
@@ -2032,14 +2032,14 @@ end;
 
 
 
-function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;
+function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 var formeAlternative : String255;
     nomJoueurEnMajuscules : String255;
     trouve : boolean;
-    position : SInt32;
+    position : SInt64;
 
      procedure TesterFormeAlternative(const pattern, remplacement : String255);
-     var newNumero,newConfiance : SInt32;
+     var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
        if not(trouve & (confiance >= 100)) then
@@ -2101,18 +2101,18 @@ begin { TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor }
 end;
 
 
-function TrouveSousChaineDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32; genreRecherche : SInt32) : boolean;
+function TrouveSousChaineDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;
 const kParfaite    = 3;
       kMoyenne     = 2;
       kMauvaise    = 1;
       kInexistante = 0;
-var i, len, positionSousChaine : SInt32;
-    nbJoueursCompatibles : SInt32;
+var i, len, positionSousChaine : SInt64;
+    nbJoueursCompatibles : SInt64;
     nomChercheEnMajuscules : String255;
     nomChercheEnMajusculesArrivee : String255;
     nomBaseEnMajuscules : String255;
-    indexMax : SInt32;
-    qualiteSolution,nouvelleQualite : SInt32;
+    indexMax : SInt64;
+    qualiteSolution,nouvelleQualite : SInt64;
 label sortie;
 begin
 
@@ -2214,14 +2214,14 @@ end;
 
 
 
-function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;
+function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 var formeAlternative : String255;
     nomJoueurEnMajuscules : String255;
     trouve : boolean;
-    position : SInt32;
+    position : SInt64;
 
      procedure TesterFormeAlternative(const pattern, remplacement : String255);
-     var newNumero,newConfiance : SInt32;
+     var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
        if not(trouve & (confiance >= 100)) then
@@ -2283,21 +2283,21 @@ begin { TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor }
 end;
 
 
-function TrouveLexemesDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32; genreRecherche : SInt32) : boolean;
-var i,j,k : SInt32;
+function TrouveLexemesDansLaBaseWthor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;
+var i,j,k : SInt64;
     metaphoneChercheAvecEspaces : String255;
     nomChercheEnMajusculesAvecEspaces : String255;
     nomJoueurSansUTF8 : String255;
     nomBase : String255;
     nomBaseEnMajusculesAvecEspaces : String255;
-    indexMax: SInt32;
-    qualiteSolutionCourante,nouvelleQualite : SInt32;
+    indexMax: SInt64;
+    qualiteSolutionCourante,nouvelleQualite : SInt64;
     debug, trouve : boolean;
-    nbLexemesCherches, nbLexemesBase : SInt32;
-    nbLexemesCherchesAux, nbLexemesBaseAux : SInt32;
-    lexemesCherches : array[0..200] of SInt32;
-    lexemesBase : array[0..200] of SInt32;
-    lexemesCherchesAux : array[0..200] of SInt32;
+    nbLexemesCherches, nbLexemesBase : SInt64;
+    nbLexemesCherchesAux, nbLexemesBaseAux : SInt64;
+    lexemesCherches : array[0..200] of SInt64;
+    lexemesBase : array[0..200] of SInt64;
+    lexemesCherchesAux : array[0..200] of SInt64;
     
 label sortie;
 begin
@@ -2403,14 +2403,14 @@ end;
 
 
 
-function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt32) : boolean;
+function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 var formeAlternative : String255;
     nomJoueurEnMajuscules : String255;
     trouve : boolean;
-    position : SInt32;
+    position : SInt64;
 
      procedure TesterFormeAlternative(const pattern, remplacement : String255);
-     var newNumero,newConfiance : SInt32;
+     var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
        if not(trouve & (confiance >= 100)) then
@@ -2484,8 +2484,8 @@ end;
 
 
 
-function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt32; fromIndex : SInt32) : boolean;
-var i,positionSousChaine : SInt32;
+function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt64; fromIndex : SInt64) : boolean;
+var i,positionSousChaine : SInt64;
     nomCherche,nomCourant : String255;
 begin
   numeroTournoi := -1;
@@ -2526,7 +2526,7 @@ end;
 
 function FabriqueNomEnMajusculesSansEspaceSansMetaphone(s : String255) : String255;
 var result : String255;
-    k : SInt32;
+    k : SInt64;
     c : char;
 begin
 
@@ -2544,7 +2544,7 @@ end;
 
 function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;
 var result : String255;
-    k : SInt32;
+    k : SInt64;
     c : char;
 begin
 
@@ -2581,7 +2581,7 @@ end;
 
 
 procedure RegenererLesNomsMetaphoneDeLaBase;
-var k : SInt32;
+var k : SInt64;
     nom : String255;
 begin
 
@@ -2632,10 +2632,10 @@ const gLigneDeTestForTorture : String255 = 'blah-blah';
 
 
 
-procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt32);
+procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
 var s, s1, s2, s3, s4, s5, reste : String255;
     expected1, expected2 : String255;
-    nroNoir, nroBlanc : SInt32;
+    nroNoir, nroBlanc : SInt64;
     confiance : double_t;
     reussi : boolean;
     foo : boolean;
@@ -2731,7 +2731,7 @@ end;
 
 
 procedure FabriqueFichierDeTorture;
-var k : SInt32;
+var k : SInt64;
     s, s1 : String255;
 begin
   for k := 1 to NombreJoueursDansBaseOfficielle - 1 do
@@ -2753,8 +2753,8 @@ function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSEr
 const kTortureFileName = 'import-des-noms.torture.txt';
 var fic : FichierTEXT;
     err : OSErr;
-    note,nbDeTests,nbDeTestsReussis : SInt32;
-    tick : SInt32;
+    note,nbDeTests,nbDeTestsReussis : SInt64;
+    tick : SInt64;
 begin
   err := -1;
 

@@ -23,38 +23,38 @@ function EnTrainDeRejouerUnePartie : boolean;                                   
 
 { fonctions pour plaquer une partie et/ou une position }
 procedure RejouePartieOthello(s : String255; coupMax : SInt16; positionDepartStandart : boolean; platImpose : plateauOthello; traitImpose : SInt16; var gameNodeLePlusProfondGenere : GameTree; peutDetruireArbreDeJeu : boolean; avecNomsOuvertureDansArbre : boolean);      ATTRIBUTE_NAME('RejouePartieOthello')
-procedure RejouePartieOthelloFictive(s : String255; coupMax : SInt16; positionDepartStandart : boolean; platImpose : plateauOthello; traitImpose : SInt16; var gameNodeLePlusProfondGenere : GameTree; flags : SInt32);                                                       ATTRIBUTE_NAME('RejouePartieOthelloFictive')
-procedure PlaquerPosition(plat : plateauOthello; trait : SInt16; flags : SInt32);                                                                                                   ATTRIBUTE_NAME('PlaquerPosition')
-procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt32);                                                                 ATTRIBUTE_NAME('PlaquerPositionEtPartie')
-procedure PlaquerPartieLegale(partieAlphaCompactee : String255; flags : SInt32);                                                                                                    ATTRIBUTE_NAME('PlaquerPartieLegale')
-function PlaquerPositionEtPartieFictive(initialPosition, moves : String255; nbreCoupsRepris : SInt32) : OSErr;                                                                      ATTRIBUTE_NAME('PlaquerPositionEtPartieFictive')
+procedure RejouePartieOthelloFictive(s : String255; coupMax : SInt16; positionDepartStandart : boolean; platImpose : plateauOthello; traitImpose : SInt16; var gameNodeLePlusProfondGenere : GameTree; flags : SInt64);                                                       ATTRIBUTE_NAME('RejouePartieOthelloFictive')
+procedure PlaquerPosition(plat : plateauOthello; trait : SInt16; flags : SInt64);                                                                                                   ATTRIBUTE_NAME('PlaquerPosition')
+procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt64);                                                                 ATTRIBUTE_NAME('PlaquerPositionEtPartie')
+procedure PlaquerPartieLegale(partieAlphaCompactee : String255; flags : SInt64);                                                                                                    ATTRIBUTE_NAME('PlaquerPartieLegale')
+function PlaquerPositionEtPartieFictive(initialPosition, moves : String255; nbreCoupsRepris : SInt64) : OSErr;                                                                      ATTRIBUTE_NAME('PlaquerPositionEtPartieFictive')
 
 { fonctions pour jouer un coup en modifiant la position courante }
 function JoueEn(a : SInt16; const position : PositionEtTraitRec; var couplegal : boolean; avecNomOuverture : boolean; prendreMainVariationFromArbre : boolean; fonctionAppelante : String255) : boolean;                                                                      ATTRIBUTE_NAME('JoueEn')
 function JoueEnFictif(a,couleur : SInt16; JeuCourantFictif : plateauOthello; EmplJouableFictif : plBool; FrontiereCouranteFictive : InfoFront; nbBlancFictif,nbNoirFictif : SInt16; nbreCoupFictif : SInt16; doitAvancerDansArbreDeJeu : boolean; prendreMainVariationFromArbre : boolean; const fonctionAppelante : String255) : OSErr;                                ATTRIBUTE_NAME('JoueEnFictif')
 procedure DealWithEssai(whichSquare : SInt16; const position : PositionEtTraitRec; const fonctionAppelante : String255);                                                            ATTRIBUTE_NAME('DealWithEssai')
 procedure Jouer(whichSquare : SInt16; const fonctionAppelante : String255);                                                                                                         ATTRIBUTE_NAME('Jouer')
-procedure TraiteCoupImprevu(caseX : SInt32);                                                                                                                                        ATTRIBUTE_NAME('TraiteCoupImprevu')
+procedure TraiteCoupImprevu(caseX : SInt64);                                                                                                                                        ATTRIBUTE_NAME('TraiteCoupImprevu')
 procedure DoJouerMeilleurCoupConnuMaintenant;                                                                                                                                       ATTRIBUTE_NAME('DoJouerMeilleurCoupConnuMaintenant')
-procedure JoueCoupPartieSelectionnee(nroHilite : SInt32);                                                                                                                           ATTRIBUTE_NAME('JoueCoupPartieSelectionnee')
+procedure JoueCoupPartieSelectionnee(nroHilite : SInt64);                                                                                                                           ATTRIBUTE_NAME('JoueCoupPartieSelectionnee')
 procedure JoueCoupMajoritaireStat;                                                                                                                                                  ATTRIBUTE_NAME('JoueCoupMajoritaireStat')
 procedure JoueCoupQueMacAttendait;                                                                                                                                                  ATTRIBUTE_NAME('JoueCoupQueMacAttendait')
 
 { reflexion de Cassio }
-procedure ChoixMac(var ChoixX,whichNote,meiDef : SInt32; coulChoix,niveau,nbblanc,nbNoir : SInt32; plat : plateauOthello; var jouable : plBool; var fro : InfoFront; const fonctionAppelante : String255);                                                                    ATTRIBUTE_NAME('ChoixMac')
+procedure ChoixMac(var ChoixX,whichNote,meiDef : SInt64; coulChoix,niveau,nbblanc,nbNoir : SInt64; plat : plateauOthello; var jouable : plBool; var fro : InfoFront; const fonctionAppelante : String255);                                                                    ATTRIBUTE_NAME('ChoixMac')
 procedure PremierCoupMac;                                                                                                                                                           ATTRIBUTE_NAME('PremierCoupMac')
-procedure DeuxiemeCoupMac(var x,note : SInt32);                                                                                                                                     ATTRIBUTE_NAME('DeuxiemeCoupMac')
-function ReponseInstantanee(var bestDef : SInt32; niveauJeuIntantaneVoulu : SInt16) : SInt32;                                                                                       ATTRIBUTE_NAME('ReponseInstantanee')
-function ReponseInstantaneeTore(var bestDef : SInt32) : SInt32;                                                                                                                     ATTRIBUTE_NAME('ReponseInstantaneeTore')
-procedure JeuMac(niveau : SInt32; const fonctionAppelante : String255);                                                                                                             ATTRIBUTE_NAME('JeuMac')
-procedure ChoixMacStandard(var ChoixX,note,MeilleurDef : SInt32; coulChoix,niveau : SInt16; const fonctionAppelante : String255);                                                   ATTRIBUTE_NAME('ChoixMacStandard')
+procedure DeuxiemeCoupMac(var x,note : SInt64);                                                                                                                                     ATTRIBUTE_NAME('DeuxiemeCoupMac')
+function ReponseInstantanee(var bestDef : SInt64; niveauJeuIntantaneVoulu : SInt16) : SInt64;                                                                                       ATTRIBUTE_NAME('ReponseInstantanee')
+function ReponseInstantaneeTore(var bestDef : SInt64) : SInt64;                                                                                                                     ATTRIBUTE_NAME('ReponseInstantaneeTore')
+procedure JeuMac(niveau : SInt64; const fonctionAppelante : String255);                                                                                                             ATTRIBUTE_NAME('JeuMac')
+procedure ChoixMacStandard(var ChoixX,note,MeilleurDef : SInt64; coulChoix,niveau : SInt16; const fonctionAppelante : String255);                                                   ATTRIBUTE_NAME('ChoixMacStandard')
 procedure DoForcerMacAJouerMaintenant;                                                                                                                                              ATTRIBUTE_NAME('DoForcerMacAJouerMaintenant')
 
 { parfois le bon coup est connu par ailleurs }
-function GetMeilleurCoupConnuMaintenant : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetMeilleurCoupConnuMaintenant')
-function LaBibliothequeEstCapableDeFournirUnCoup(var the_best_move,the_best_defense : SInt32) : boolean;                                                                            ATTRIBUTE_NAME('LaBibliothequeEstCapableDeFournirUnCoup')
-function  ConnaitSuiteParfaite(var ChoixX,MeilleurDef : SInt32; autorisationTemporisation : boolean) : boolean;                                                                     ATTRIBUTE_NAME('ConnaitSuiteParfaite')
-function ConnaitSuiteParfaiteParArbreDeJeu(var ChoixX,MeilleurDef : SInt32; autorisationTemporisation : boolean) : boolean;                                                         ATTRIBUTE_NAME('ConnaitSuiteParfaiteParArbreDeJeu')
+function GetMeilleurCoupConnuMaintenant : SInt64;                                                                                                                                   ATTRIBUTE_NAME('GetMeilleurCoupConnuMaintenant')
+function LaBibliothequeEstCapableDeFournirUnCoup(var the_best_move,the_best_defense : SInt64) : boolean;                                                                            ATTRIBUTE_NAME('LaBibliothequeEstCapableDeFournirUnCoup')
+function  ConnaitSuiteParfaite(var ChoixX,MeilleurDef : SInt64; autorisationTemporisation : boolean) : boolean;                                                                     ATTRIBUTE_NAME('ConnaitSuiteParfaite')
+function ConnaitSuiteParfaiteParArbreDeJeu(var ChoixX,MeilleurDef : SInt64; autorisationTemporisation : boolean) : boolean;                                                         ATTRIBUTE_NAME('ConnaitSuiteParfaiteParArbreDeJeu')
 
 { ouvertures equilibrees }
 procedure GenereOuvertureAleatoireEquilibree(nbDeCoupsDemandes,borneMin,borneMax : SInt16; casesInterdites : SquareSet; var s : PackedThorGame; var ouverturesInterdites : StringSet);                                                                                        ATTRIBUTE_NAME('GenereOuvertureAleatoireEquilibree')
@@ -68,8 +68,8 @@ procedure JoueSonPourGameOver;                                                  
 
 { fonctions internes }
 procedure SupprimeDansHeuris(coup : SInt16);                                                                                                                                        ATTRIBUTE_NAME('SupprimeDansHeuris')
-procedure MiseAJourDeLaPartie(s : String255; jeuDepart : plateauOthello; jouableDepart : plBool; frontiereDepart : InfoFront; nbBlancsDepart,nbNoirsDepart : SInt32; traitDepart : SInt16; nbreCoupDepart : SInt16; depuisPositionInitiale : boolean; coupFinal : SInt16; var gameNodeLePlusProfondGenere : GameTree; fonctionAppelante : String255);                   ATTRIBUTE_NAME('MiseAJourDeLaPartie')
-procedure UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteintMAJ : SInt16; jeuMAJ : plateauOthello; jouableMAJ : plBool; frontMAJ : InfoFront; nbBlancsMAJ,nbNoirsMAJ : SInt32; traitMAJ,nbreCoupMAJ : SInt16; fonctionAppelante : String255);                        ATTRIBUTE_NAME('UpdateGameByMainBranchFromCurrentNode')
+procedure MiseAJourDeLaPartie(s : String255; jeuDepart : plateauOthello; jouableDepart : plBool; frontiereDepart : InfoFront; nbBlancsDepart,nbNoirsDepart : SInt64; traitDepart : SInt16; nbreCoupDepart : SInt16; depuisPositionInitiale : boolean; coupFinal : SInt16; var gameNodeLePlusProfondGenere : GameTree; fonctionAppelante : String255);                   ATTRIBUTE_NAME('MiseAJourDeLaPartie')
+procedure UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteintMAJ : SInt16; jeuMAJ : plateauOthello; jouableMAJ : plBool; frontMAJ : InfoFront; nbBlancsMAJ,nbNoirsMAJ : SInt64; traitMAJ,nbreCoupMAJ : SInt16; fonctionAppelante : String255);                        ATTRIBUTE_NAME('UpdateGameByMainBranchFromCurrentNode')
 function ResynchronisePartieEtCurrentNode(ApresQuelCoup : SInt16) : OSErr;                                                                                                          ATTRIBUTE_NAME('ResynchronisePartieEtCurrentNode')
 
 
@@ -113,11 +113,11 @@ USES
 
 
 var gEnTrainDeRejouerUnePartie : boolean;
-    dernierSonAleatoireVictoireHumaine : SInt32;
-    dernierSonAleatoireVictoireOrdi : SInt32;
+    dernierSonAleatoireVictoireHumaine : SInt64;
+    dernierSonAleatoireVictoireOrdi : SInt64;
 
 procedure InitUnitJeu;
-var i : SInt32;
+var i : SInt64;
 begin
   InvalidateAnalyseDeFinale;
   SetDelaiDeRetournementDesPions(10);
@@ -178,7 +178,7 @@ end;
 
 procedure AjustementAutomatiqueDuNiveauDeJeuInstantane;
 var s : String255;
-    oldScript : SInt32;
+    oldScript : SInt64;
 
   procedure SwitchToRed;
     begin
@@ -340,8 +340,8 @@ const AnnonceVictoireHumID = 10001;
       GameOverManID = 1412;
       WhatAreWeGottoDoNowID = 1414;
       ThisIsNothingSeriousID = 1002;
-var scoreFinalPourNoir : SInt32;
-    sonAleatoire : SInt32;
+var scoreFinalPourNoir : SInt64;
+    sonAleatoire : SInt64;
 begin
   if not(CassioEstEnModeSolitaire) then
     if avecSon & avecSonPourGameOver & not(HumCtreHum) & not(CassioEstEnModeAnalyse) & not(enTournoi) then
@@ -421,10 +421,10 @@ var x,dx,i,t : SInt16;
     pionEnnemi,compteur,compteurPrise : SInt16;
     bidon,nouvellevariante : boolean;
     correctionsTemp : boolean;
-    nbBlaDummy,nbNoiDummy : SInt32;
+    nbBlaDummy,nbNoiDummy : SInt64;
     erreurES : OSErr;
-    couleurDeCeCoup : SInt32;
-    mobilite : SInt32;
+    couleurDeCeCoup : SInt64;
+    mobilite : SInt64;
     oldCheckDangerousEvents : boolean;
     positionEnEntree : PositionEtTraitRec;
     current : PositionEtTraitRec;
@@ -672,7 +672,7 @@ function JoueEnFictif(a,couleur : SInt16;
 var x,dx,i,t : SInt16;
     pionEnnemi,compteur,compteurPrise : SInt16;
     bidon,nouvellevariante : boolean;
-    nbBlaDummy,nbNoiDummy : SInt32;
+    nbBlaDummy,nbNoiDummy : SInt64;
     erreurES : OSErr;
     nbreDePionsFictif : array[pionNoir..pionBlanc] of SInt16;
     result : OSErr;
@@ -821,18 +821,18 @@ end;
 
 procedure GenereOuvertureAleatoireEquilibree(nbDeCoupsDemandes,borneMin,borneMax : SInt16; casesInterdites : SquareSet; var s : PackedThorGame; var ouverturesInterdites : StringSet);
 var coup,i,nbEssai,ecart : SInt16;
-    nbBlancsTest,nbNoirsTest : SInt32;
+    nbBlancsTest,nbNoirsTest : SInt64;
     EvalTest : SInt16;
     meilleurePartie,partieTestee : PackedThorGame;
     meilleure255 : String255;
     platTest : PositionEtTraitRec;
     jouableTest : plBool;
     FrontTest : InfoFront;
-    bestDef : SInt32;
+    bestDef : SInt64;
     oldInterruption : SInt16;
     legal : boolean;
     autreCoupQuatreDiag : boolean;
-    data : SInt32;
+    data : SInt64;
 begin
 
   FILL_PACKED_GAME_WITH_ZEROS(s);
@@ -929,19 +929,19 @@ end;
 
 procedure GenerePartieAleatoireDesquilibree(nbDeCoupsDemandes, goodForWhichColor : SInt16; casesInterdites : SquareSet; var s : PackedThorGame; var ouverturesInterdites : StringSet);
 var coup,i,nbEssai,ecart : SInt16;
-    nbBlancsTest,nbNoirsTest : SInt32;
+    nbBlancsTest,nbNoirsTest : SInt64;
     EvalTest : SInt16;
     meilleurePartie,partieTestee : PackedThorGame;
     meilleure255 : String255;
     platTest : PositionEtTraitRec;
     jouableTest : plBool;
     FrontTest : InfoFront;
-    bestDef : SInt32;
+    bestDef : SInt64;
     oldInterruption : SInt16;
     legal : boolean;
     autreCoupQuatreDiag : boolean;
-    data : SInt32;
-    trait : SInt32;
+    data : SInt64;
+    trait : SInt64;
 begin
 
   FILL_PACKED_GAME_WITH_ZEROS(s);
@@ -1038,7 +1038,7 @@ begin
 end;
 
 
-procedure DeuxiemeCoupMac(var x,note : SInt32);
+procedure DeuxiemeCoupMac(var x,note : SInt64);
 var a,b,i,j : SInt16;
     test : boolean;
 begin
@@ -1076,25 +1076,25 @@ begin
 end;
 
 
-function ReponseInstantanee(var bestDef : SInt32; NiveauJeuIntantaneVoulu : SInt16) : SInt32;
+function ReponseInstantanee(var bestDef : SInt64; NiveauJeuIntantaneVoulu : SInt16) : SInt64;
 var platInst : plateauOthello;
     JouablInst : plBool;
     frontInst : InfoFront;
     VincenzChoice : VincenzMoveRec;
     coupPossible : plBool;
-    mobiliteCourante : SInt32;
-    nbNoirInst,nbBlancInst : SInt32;
-    bestSuite : SInt32;
-    yaffiche,iCourant,i : SInt32;
-    eval,maxCourant,infini : SInt32;
+    mobiliteCourante : SInt64;
+    nbNoirInst,nbBlancInst : SInt64;
+    bestSuite : SInt64;
+    yaffiche,iCourant,i : SInt64;
+    eval,maxCourant,infini : SInt64;
     bidonBool : boolean;
-    nbEvalsRecursives : SInt32;
-    meilleurChoix : SInt32;
-    noteCourante : SInt32;
+    nbEvalsRecursives : SInt64;
+    meilleurChoix : SInt64;
+    noteCourante : SInt64;
     oldInterruption : SInt16;
     tempoDiscretisation : boolean;
     current : PositionEtTraitRec;
-    chrono : SInt32;
+    chrono : SInt64;
 begin
 
   chrono := TickCount;
@@ -1272,14 +1272,14 @@ begin
 end;
 
 
-function ReponseInstantaneeTore(var bestDef : SInt32) : SInt32;
+function ReponseInstantaneeTore(var bestDef : SInt64) : SInt64;
 var platInst : plateauOthello;
-    nbNoirInst,nbBlancInst : SInt32;
+    nbNoirInst,nbBlancInst : SInt64;
     platEssai : plateauOthello;
-    nbNrEssai,nbBlcEssai : SInt32;
+    nbNrEssai,nbBlcEssai : SInt64;
     coupPossible : plBool;
     yaffiche : SInt16;
-    mob : SInt32;
+    mob : SInt64;
     i,iCourant,icourantEssai,meilDefEssai : SInt16;
     eval,maxCourant,noteCourante,maxPourBestDef,infini : SInt16;
     bidonBool : boolean;
@@ -1356,9 +1356,9 @@ begin
 end;
 
 
-procedure ChoixMac(var ChoixX,whichNote,meiDef : SInt32; coulChoix,niveau,nbblanc,nbNoir : SInt32; plat : plateauOthello; var jouable : plBool; var fro : InfoFront; const fonctionAppelante : String255);
+procedure ChoixMac(var ChoixX,whichNote,meiDef : SInt64; coulChoix,niveau,nbblanc,nbNoir : SInt64; plat : plateauOthello; var jouable : plBool; var fro : InfoFront; const fonctionAppelante : String255);
 var prof,typeFinaleDemande : SInt16;
-    numberCoup,nbremeilleur,causerejet : SInt32;
+    numberCoup,nbremeilleur,causerejet : SInt64;
     scoreaatteindre : SInt16;
     s255 : String255;
     ToujoursRamenerLaSuite,annonceDansRapport : boolean;
@@ -1572,7 +1572,7 @@ begin
 
 end;
 
-function ConnaitSuiteParfaite(var ChoixX,MeilleurDef : SInt32; autorisationTemporisation : boolean) : boolean;
+function ConnaitSuiteParfaite(var ChoixX,MeilleurDef : SInt64; autorisationTemporisation : boolean) : boolean;
 var i,coup,aux : SInt16;
     ok : boolean;
     temp : boolean;
@@ -1636,10 +1636,10 @@ begin
 end;
 
 
-function ConnaitSuiteParfaiteParArbreDeJeu(var ChoixX,MeilleurDef : SInt32; autorisationTemporisation : boolean) : boolean;
+function ConnaitSuiteParfaiteParArbreDeJeu(var ChoixX,MeilleurDef : SInt64; autorisationTemporisation : boolean) : boolean;
 var coup,aux : SInt16;
     ok : boolean;
-    vMin,vMax : SInt32;
+    vMin,vMax : SInt64;
     listeDesCoups : PropertyList;
 begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
@@ -1716,17 +1716,17 @@ end;
 
 
 
-procedure ChoixMacStandard(var choixX,note,meilleurDef : SInt32; coulChoix,niveau : SInt16; const fonctionAppelante : String255);
+procedure ChoixMacStandard(var choixX,note,meilleurDef : SInt64; coulChoix,niveau : SInt16; const fonctionAppelante : String255);
 const
   kGrapheDonneCoupIllegalID = 23;
   kBibliothequeDonneCoupIllegalID = 28;
   kConnaitSuiteParfaiteDonneCoupIllegalID = 29;
   kReponseInstantaneeDonneCoupIllegalID = 30;
   kChoixMacDonneCoupIllegalID = 31;
-var nbBlanc,nbNoir : SInt32;
+var nbBlanc,nbNoir : SInt64;
     doitRechercherEnProf : boolean;
     doitChercherDansBibl : boolean;
-    the_best_move,the_best_defense : SInt32;
+    the_best_move,the_best_defense : SInt64;
     current : PositionEtTraitRec;
 
   procedure ValiderLegaliteDuCoupCalcule(coupPropose,defenseProposee : SInt16; messageErreurID : SInt16);
@@ -1879,9 +1879,9 @@ begin
 end;
 
 
-function LaBibliothequeEstCapableDeFournirUnCoup(var the_best_move,the_best_defense : SInt32) : boolean;
+function LaBibliothequeEstCapableDeFournirUnCoup(var the_best_move,the_best_defense : SInt64) : boolean;
 var doitChercherDansBibl : boolean;
-    nbReponsesEnBibliotheque : SInt32;
+    nbReponsesEnBibliotheque : SInt64;
     resultatBiblOK : boolean;
 begin
   resultatBiblOK := false;
@@ -1947,7 +1947,7 @@ end;
 
 
 procedure DealWithEssai(whichSquare : SInt16; const position : PositionEtTraitRec; const fonctionAppelante : String255);
-var mobilite,tempoAquiDeJouer : SInt32;
+var mobilite,tempoAquiDeJouer : SInt64;
     oldport : grafPtr;
     coupEstLegal : boolean;
     current : PositionEtTraitRec;
@@ -2076,8 +2076,8 @@ end;
 
 
 procedure Jouer(whichSquare : SInt16; const fonctionAppelante : String255);
-var caseCritiqueTurbulence,a : SInt32;
-    {Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32;}
+var caseCritiqueTurbulence,a : SInt64;
+    {Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt64;}
 begin
 
  if (whichSquare < 11) | (whichSquare > 88) then
@@ -2282,9 +2282,9 @@ begin
 end;
 
 
-procedure ReflexionInitialeDuMacintoshDansJeuMac(var coupMac : SInt32; niveau : SInt32; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
+procedure ReflexionInitialeDuMacintoshDansJeuMac(var coupMac : SInt64; niveau : SInt64; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
 var oldInterruption : SInt16;
-    note : SInt32;
+    note : SInt64;
 begin
   EcritStructureDesCalculsDansJeuMac('entrŽe dans ReflexionInitialeDuMacintoshDansJeuMac');
 
@@ -2378,7 +2378,7 @@ begin
 end;
 
 
-procedure AfficheInfosDebugage2DansJeuMac(coupMac,auxCoupHum : SInt32);
+procedure AfficheInfosDebugage2DansJeuMac(coupMac,auxCoupHum : SInt64);
 begin
   if debuggage.gestionDuTemps then
     begin
@@ -2393,10 +2393,10 @@ begin
 end;
 
 
-procedure JouerUnCoupDuMacintoshDansJeuMac(var coupMac : SInt32; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec; const fonctionAppelante : String255);
+procedure JouerUnCoupDuMacintoshDansJeuMac(var coupMac : SInt64; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec; const fonctionAppelante : String255);
 var conditionsCorrectesPourJouerLeCoup : boolean;
-    tickPourJouerLeCoup : SInt32;
-    dateDuDernierCoup : SInt32;
+    tickPourJouerLeCoup : SInt64;
+    dateDuDernierCoup : SInt64;
 begin
   EcritStructureDesCalculsDansJeuMac('entrŽe dans JouerUnCoupDuMacintoshDansJeuMac');
 
@@ -2437,7 +2437,7 @@ begin
 end;
 
 
-procedure EssaieJouerCoupCalculePourLOrdinateurDansJeuMac(var coupMac : SInt32; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
+procedure EssaieJouerCoupCalculePourLOrdinateurDansJeuMac(var coupMac : SInt64; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
 begin
   EcritStructureDesCalculsDansJeuMac('entrŽe dans EssaieJouerCoupCalculePourLOrdinateurDansJeuMac');
 
@@ -2471,10 +2471,10 @@ end;
 
 
 
-procedure ContinuerAJouerTantQueLHumainPasseDansJeuMac(var coupMac : SInt32; niveau : SInt32; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
+procedure ContinuerAJouerTantQueLHumainPasseDansJeuMac(var coupMac : SInt64; niveau : SInt64; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
 var oldInterruption : SInt16;
-    compteurIterationsBoucle : SInt32;
-    note : SInt32;
+    compteurIterationsBoucle : SInt64;
+    note : SInt64;
 begin
   EcritStructureDesCalculsDansJeuMac('entrŽe ContinuerAJouerTantQueLHumainPasseDansJeuMac');
 
@@ -2540,11 +2540,11 @@ end;
 
 procedure CalculerBonneReponsePourLeJoueurHumainDansJeuMac;
 var oldInterruption : SInt16;
-    auxCoupHum : SInt32;
-    auxColorMac : SInt32;
+    auxCoupHum : SInt64;
+    auxColorMac : SInt64;
     tempoProfImposee : boolean;
-    note : SInt32;
-    uneDefense : SInt32;
+    note : SInt64;
+    uneDefense : SInt64;
 begin
 
   EcritStructureDesCalculsDansJeuMac('entrŽe dans CalculerBonneReponsePourLeJoueurHumainDansJeuMac');
@@ -2617,18 +2617,18 @@ begin
 end;
 
 
-procedure LanceReflexionSurLeTempsAdverseDansJeuMac(var coupMac : SInt32; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
+procedure LanceReflexionSurLeTempsAdverseDansJeuMac(var coupMac : SInt64; var positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec);
 var oldInterruption : SInt16;
     platSup : plateauOthello;
     jouablesup : plBool;
-    nbblancsup : SInt32;
-    nbNoirsup : SInt32;
+    nbblancsup : SInt64;
+    nbNoirsup : SInt64;
     frontsup : InfoFront;
-    auxColorMac : SInt32;
+    auxColorMac : SInt64;
     coupLegal : boolean;
     tempoProfImposee : boolean;
-    auxCoupHum : SInt32;
-    auxNote : SInt32;
+    auxCoupHum : SInt64;
+    auxNote : SInt64;
 begin
 
   EcritStructureDesCalculsDansJeuMac('entrŽe dans LanceReflexionSurLeTempsAdverseDansJeuMac');
@@ -2704,9 +2704,9 @@ begin
 end;
 
 
-procedure JeuMac(niveau : SInt32; const fonctionAppelante : String255);
-var coupMac : SInt32;
-    compteurIterationsBoucle : SInt32;
+procedure JeuMac(niveau : SInt64; const fonctionAppelante : String255);
+var coupMac : SInt64;
+    compteurIterationsBoucle : SInt64;
     positionEtTraitDeLAppelReflexionDeMac : PositionEtTraitRec;
 begin
   if not(Quitter) then
@@ -2786,8 +2786,8 @@ begin
 end;
 
 
-function GetPremierCoupAleatoire : SInt32;
-var a,b : SInt32;
+function GetPremierCoupAleatoire : SInt64;
+var a,b : SInt64;
 begin
   a := 0;
   if not(positionFeerique) then
@@ -2843,8 +2843,8 @@ procedure DoForcerMacAJouerMaintenant;
   end;
 
 
-function GetMeilleurCoupConnuMaintenant : SInt32;
-var result,coup,def : SInt32;
+function GetMeilleurCoupConnuMaintenant : SInt64;
+var result,coup,def : SInt64;
     positionFenetreReflexion : PositionEtTraitRec;
     ecritExplications : boolean;
     tempoAvecBibl,tempoVarierCoups,biblFournitUnCoup : boolean;
@@ -2967,7 +2967,7 @@ end;
 
 
 procedure DoJouerMeilleurCoupConnuMaintenant;
-var coup : SInt32;
+var coup : SInt64;
     tempoSon : boolean;
 begin
 
@@ -2998,13 +2998,13 @@ begin
 end;
 
 
-procedure TraiteCoupImprevu(caseX : SInt32);
-var caseY : SInt32;
+procedure TraiteCoupImprevu(caseX : SInt64);
+var caseY : SInt64;
     CassioReflechissaitSurLeTempsHumain : boolean;
     coupDejaTrouveDansBibl : boolean;
     couplegal : boolean;
     laBibliothequeEstCapableDeFournirUnCoup : boolean;
-    nbReponsesEnBibliotheque : SInt32;
+    nbReponsesEnBibliotheque : SInt64;
     config : ConfigurationCassioRec;
 begin
 
@@ -3196,14 +3196,14 @@ begin
 end;
 
 
-procedure JoueCoupPartieSelectionnee(nroHilite : SInt32);
-var nroreference : SInt32;
-    premierNumero,dernierNumero : SInt32;
+procedure JoueCoupPartieSelectionnee(nroHilite : SInt64);
+var nroreference : SInt64;
+    premierNumero,dernierNumero : SInt64;
     autreCoupQuatreDansPartie : boolean;
     ouvertureDiagonale : boolean;
     CaseX,premierCoup : SInt16;
     temposon : boolean;
-    coupEnByte : SInt32;
+    coupEnByte : SInt64;
     theGame : PackedThorGame;
     s60 : String255;
     partieEnClair : String255;
@@ -3355,10 +3355,10 @@ end;
 procedure JoueCoupQueMacAttendait;
 var oldPort : grafPtr;
     joueCoupQueMacAttendaitOK : boolean;
-    reponseOrdi,note : SInt32;
+    reponseOrdi,note : SInt64;
 
 
-  function DessineOuJoueCoupQueMacAttendait(theMove : SInt32) : boolean;
+  function DessineOuJoueCoupQueMacAttendait(theMove : SInt64) : boolean;
   var coupTraite : boolean;
   begin
     coupTraite := false;
@@ -3439,7 +3439,7 @@ procedure MiseAJourDeLaPartie(s : String255;
                               jeuDepart : plateauOthello;
                               jouableDepart : plBool;
                               frontiereDepart : InfoFront;
-                              nbBlancsDepart,nbNoirsDepart : SInt32;
+                              nbBlancsDepart,nbNoirsDepart : SInt64;
                               traitDepart : SInt16;
                               nbreCoupDepart : SInt16;
                               depuisPositionInitiale : boolean;
@@ -3452,14 +3452,14 @@ procedure MiseAJourDeLaPartie(s : String255;
 var jeu : plateauOthello;
     jouable : plBool;
     front : InfoFront;
-    numFirst,nbBlanc,nbNoir : SInt32;
+    numFirst,nbBlanc,nbNoir : SInt64;
     i,len,index,x,coul,nbreCoupsDejaEffectues : SInt16;
     encorePossible,bidbool : boolean;
     GameNodeAAtteindre : GameTree;
     positionInitiale : plateauOthello;
-    numeroPremierCoupJoue,traitInitial : SInt32;
-    nbBlancsInitial,nbNoirsInitial : SInt32;
-    numeroDuPlusGrandCoupLegal : SInt32;
+    numeroPremierCoupJoue,traitInitial : SInt64;
+    nbBlancsInitial,nbNoirsInitial : SInt64;
+    numeroDuPlusGrandCoupLegal : SInt64;
     transcriptAccepteLesDonneesTemp : boolean;
     usingZebraBookArrivee : boolean;
     partieEnAlphaDepart : String255;
@@ -3685,17 +3685,17 @@ procedure UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteintMAJ : SInt1
 																								jeuMAJ : plateauOthello;
 																								jouableMAJ : plBool;
 																								frontMAJ : InfoFront;
-																								nbBlancsMAJ,nbNoirsMAJ : SInt32;
+																								nbBlancsMAJ,nbNoirsMAJ : SInt64;
 																								traitMAJ,nbreCoupMAJ : SInt16;
 																								fonctionAppelante : String255);
 var noeudActuel,GameNodeTerminal : GameTree;
     partieCompleteVoulue : String255;
     lignePrincipaleFromNow : String255;
     PartieJusquAPresent : String255;
-    numeroCoupAAtteindre,numeroPremierCoupJoue : SInt32;
+    numeroCoupAAtteindre,numeroPremierCoupJoue : SInt64;
     positionInitiale : plateauOthello;
-    nbBlancsInitial,nbNoirsInitial : SInt32;
-    traitInitial : SInt32;
+    nbBlancsInitial,nbNoirsInitial : SInt64;
+    traitInitial : SInt64;
     transcriptAccepteLesDonneesTemp : boolean;
     bidbool : boolean;
     oldCheckDangerousEvents : boolean;
@@ -3755,7 +3755,7 @@ end;
 
 
 procedure TachesUsuellesPourAffichageCourant;
-var square : SInt32;
+var square : SInt64;
 begin
   if afficheNumeroCoup & (nbreCoup > 0) then
     begin
@@ -3797,7 +3797,7 @@ procedure RejouePartieOthello(s : String255; coupMax : SInt16;
                               var gameNodeLePlusProfondGenere : GameTree;
                               peutDetruireArbreDeJeu : boolean;
                               avecNomsOuvertureDansArbre : boolean);
-var i,x,t,mobilite,aux,trait : SInt32;
+var i,x,t,mobilite,aux,trait : SInt64;
     oldPort : grafPtr;
     temposon,tempoAfficheBibl : boolean;
     tempoCalculsActives : boolean;
@@ -4065,12 +4065,12 @@ procedure RejouePartieOthelloFictive(s : String255; coupMax : SInt16;
                                      positionDepartStandart : boolean;
                                      platImpose : plateauOthello; traitImpose : SInt16;
                                      var gameNodeLePlusProfondGenere : GameTree;
-                                     flags : SInt32);
+                                     flags : SInt64);
 var jeu : plateauOthello;
     jouable : plBool;
     front : InfoFront;
-    nbBlanc,nbNoir,coul : SInt32;
-    i,x,t,mobilite,aux : SInt32;
+    nbBlanc,nbNoir,coul : SInt64;
+    i,x,t,mobilite,aux : SInt64;
     nbreCoupsRepris : SInt16;
     oldPositionFeerique : boolean;
     doitDetruireAncienArbreDeJeu : boolean;
@@ -4266,7 +4266,7 @@ end;
 function ResynchronisePartieEtCurrentNode(ApresQuelCoup : SInt16) : OSErr;
 var position : plateauOthello;
     OldCurrentNode : GameTree;
-    trait,coup,numeroPremierCoup,nbBlancs,nbNoirs,i,nbFilsDetruits,TraitCourant : SInt32;
+    trait,coup,numeroPremierCoup,nbBlancs,nbNoirs,i,nbFilsDetruits,TraitCourant : SInt64;
     erreurES : OSErr;
     ok : boolean;
 begin
@@ -4334,9 +4334,9 @@ end;
 
 
 
-procedure PlaquerPosition(plat : plateauOthello; trait : SInt16; flags : SInt32);
+procedure PlaquerPosition(plat : plateauOthello; trait : SInt16; flags : SInt64);
 var t,i : SInt16;
-    mobilite : SInt32;
+    mobilite : SInt64;
 begin
     ViderNotesSurCases(kNotesDeCassioEtZebra,true,othellierToutEntier);
     InvalidateDessinEnTraceDeRayon(DerniereCaseJouee);
@@ -4437,7 +4437,7 @@ begin
 end;
 
 
-procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt32);
+procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt64);
 var i : SInt16;
     gameNodeLePlusProfond : GameTree;
     oldCheckDangerousEvents : boolean;
@@ -4474,7 +4474,7 @@ end;
 
 
 
-procedure PlaquerPartieLegale(partieAlphaCompactee : String255; flags : SInt32);
+procedure PlaquerPartieLegale(partieAlphaCompactee : String255; flags : SInt64);
 var gameNodeLePlusProfond : GameTree;
     tempoAfficheDernierCoup : boolean;
     oldCheckDangerousEvents : boolean;
@@ -4514,7 +4514,7 @@ begin
 end;
 
 
-function PlaquerPositionEtPartieFictive(initialPosition, moves : String255; nbreCoupsRepris : SInt32) : OSErr;
+function PlaquerPositionEtPartieFictive(initialPosition, moves : String255; nbreCoupsRepris : SInt64) : OSErr;
 var whichPos : PositionEtTraitRec;
     noeud : GameTree;
 begin

@@ -17,12 +17,12 @@ procedure TestEngineUnit;                                                       
 
 
 { Les fonctions principales de cette unite : elles le lien avec les modules de finale ou de milieu }
-function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur,  alpha, beta, precision, dernierCoup : SInt32; var note, bestMove : SInt32; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeFinale')
-function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt32; var note, bestMove : SInt32; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeMilieu')
+function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur,  alpha, beta, precision, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeFinale')
+function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeMilieu')
 
 
 { fonctions de tests pour savoir si l'engine est present, vivant, sa vitesse, etc. }
-function CassioIsUsingAnEngine(var numero : SInt32) : boolean;                                                                                                                      ATTRIBUTE_NAME('CassioIsUsingAnEngine')
+function CassioIsUsingAnEngine(var numero : SInt64) : boolean;                                                                                                                      ATTRIBUTE_NAME('CassioIsUsingAnEngine')
 function CanStartEngine(pathMac, arguments : String255) : boolean;                                                                                                                  ATTRIBUTE_NAME('CanStartEngine')
 procedure KillAndRestartCurrentEngine;                                                                                                                                              ATTRIBUTE_NAME('KillAndRestartCurrentEngine')
 procedure KillCurrentEngine;                                                                                                                                                        ATTRIBUTE_NAME('KillCurrentEngine')
@@ -31,14 +31,14 @@ procedure SuspendCurrentEngine;                                                 
 procedure ResumeCurrentEngine;                                                                                                                                                      ATTRIBUTE_NAME('ResumeCurrentEngine')
 function CassioIsWaitingAnEngineResult : boolean;                                                                                                                                   ATTRIBUTE_NAME('CassioIsWaitingAnEngineResult')
 function EngineIsDead : boolean;                                                                                                                                                    ATTRIBUTE_NAME('EngineIsDead')
-procedure SetEngineState(state : SInt32);                                                                                                                                           ATTRIBUTE_NAME('SetEngineState')
+procedure SetEngineState(state : SInt64);                                                                                                                                           ATTRIBUTE_NAME('SetEngineState')
 function GetEngineState : String255;                                                                                                                                                ATTRIBUTE_NAME('GetEngineState')
 function GetSpeedOfEngine : double_t;                                                                                                                                               ATTRIBUTE_NAME('GetSpeedOfEngine')
 procedure CalculateSpeedOfEngine(const result : EngineResultRec);                                                                                                                   ATTRIBUTE_NAME('CalculateSpeedOfEngine')
 procedure CheckIncreaseOfNodesInAnswerFromEngine(const result : EngineResultRec);                                                                                                   ATTRIBUTE_NAME('CheckIncreaseOfNodesInAnswerFromEngine')
 function DurationOfLastResultReceivedByEngine : double_t;                                                                                                                           ATTRIBUTE_NAME('DurationOfLastResultReceivedByEngine')
-function DateOfLastActivityByEngine : SInt32;                                                                                                                                       ATTRIBUTE_NAME('DateOfLastActivityByEngine')
-function DateOfLastStartOfEngine : SInt32;                                                                                                                                          ATTRIBUTE_NAME('DateOfLastStartOfEngine')
+function DateOfLastActivityByEngine : SInt64;                                                                                                                                       ATTRIBUTE_NAME('DateOfLastActivityByEngine')
+function DateOfLastStartOfEngine : SInt64;                                                                                                                                          ATTRIBUTE_NAME('DateOfLastStartOfEngine')
 procedure PingEngine;                                                                                                                                                               ATTRIBUTE_NAME('PingEngine')
 procedure RelancerDerniereRechercheEngine;                                                                                                                                          ATTRIBUTE_NAME('RelancerDerniereRechercheEngine')
 
@@ -71,17 +71,17 @@ procedure PosterUnResultatVenantDeLEngine(const line : LongString);             
 
 
 { Fonctions utilitaires pour passer des degres mu de Cassio aux precisions @95%, @100% des moteurs (Zebra, Edax, Roxane, etc) }
-function PrecisionEngineEnMuString(precision : SInt32) : String255;                                                                                                                 ATTRIBUTE_NAME('PrecisionEngineEnMuString')
-function MuStringEnPrecisionEngine(mu : String255) : SInt32;                                                                                                                        ATTRIBUTE_NAME('MuStringEnPrecisionEngine')
-function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt32) : SInt32;                                                                                                     ATTRIBUTE_NAME('IndexDeltaFinaleEnPrecisionEngine')
-function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt32) : SInt32;                                                                                            ATTRIBUTE_NAME('ProfondeurMilieuEnPrecisionFinaleEngine')
-function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt32) : SInt32;                                                                                             ATTRIBUTE_NAME('PrecisionFinaleEngineEnProfondeurMilieu')
+function PrecisionEngineEnMuString(precision : SInt64) : String255;                                                                                                                 ATTRIBUTE_NAME('PrecisionEngineEnMuString')
+function MuStringEnPrecisionEngine(mu : String255) : SInt64;                                                                                                                        ATTRIBUTE_NAME('MuStringEnPrecisionEngine')
+function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt64) : SInt64;                                                                                                     ATTRIBUTE_NAME('IndexDeltaFinaleEnPrecisionEngine')
+function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt64) : SInt64;                                                                                            ATTRIBUTE_NAME('ProfondeurMilieuEnPrecisionFinaleEngine')
+function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt64) : SInt64;                                                                                             ATTRIBUTE_NAME('PrecisionFinaleEngineEnProfondeurMilieu')
 
 
 { La boucle d'attente d'un resultat de l'engine }
 function WaitEngineResult(const search : EngineSearchRec; var result : EngineResultRec) : boolean;                                                                                  ATTRIBUTE_NAME('WaitEngineResult')
 procedure AmeliorerResultatGlobalParResultatPartiel(search : EngineSearchRec; var resultGlobal : EngineResultRec; resultPartiel : EngineResultRec);                                 ATTRIBUTE_NAME('AmeliorerResultatGlobalParResultatPartiel')
-procedure AnalyserLeResultatGlobal(couleur : SInt32; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt32; var meilleureSuite : t_meilleureSuite);                                                                          ATTRIBUTE_NAME('AnalyserLeResultatGlobal')
+procedure AnalyserLeResultatGlobal(couleur : SInt64; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt64; var meilleureSuite : t_meilleureSuite);                                                                          ATTRIBUTE_NAME('AnalyserLeResultatGlobal')
 procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRec; result : EngineResultRec; var meilleureSuite : t_meilleureSuite);                                ATTRIBUTE_NAME('MettreLeResultatGlobalDansLesVariablesDeCassio')
 
 
@@ -89,7 +89,7 @@ procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRe
 procedure EngineInit;                                                                                                                                                               ATTRIBUTE_NAME('EngineInit')
 procedure EngineEmptyHash;                                                                                                                                                          ATTRIBUTE_NAME('EngineEmptyHash')
 procedure EngineBeginFeedHashSequence;                                                                                                                                              ATTRIBUTE_NAME('EngineBeginFeedHashSequence')
-procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt32);                                                                  ATTRIBUTE_NAME('EngineFeedHashValues')
+procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt64);                                                                  ATTRIBUTE_NAME('EngineFeedHashValues')
 procedure EngineEndFeedHashSequence;                                                                                                                                                ATTRIBUTE_NAME('EngineEndFeedHashSequence')
 procedure EngineViderFeedHashHistory;                                                                                                                                               ATTRIBUTE_NAME('EngineViderFeedHashHistory')
 
@@ -102,14 +102,14 @@ function GetEngineBundleName : String255;                                       
 
 
 { Liste des moteurs disponibles }
-function NumberOfEngines : SInt32;                                                                                                                                                  ATTRIBUTE_NAME('NumberOfEngines')
-function GetNumeroOfEngine(nomEngine : String255) : SInt32;                                                                                                                         ATTRIBUTE_NAME('GetNumeroOfEngine')
-function GetEngineName(numeroEngine : SInt32) : String255;                                                                                                                          ATTRIBUTE_NAME('GetEngineName')
-function GetEnginePath(numeroEngine : SInt32; nomEngine : String255) : String255;                                                                                                   ATTRIBUTE_NAME('GetEnginePath')
-function GetEngineVersion(numeroEngine : SInt32) : String255;                                                                                                                       ATTRIBUTE_NAME('GetEngineVersion')
+function NumberOfEngines : SInt64;                                                                                                                                                  ATTRIBUTE_NAME('NumberOfEngines')
+function GetNumeroOfEngine(nomEngine : String255) : SInt64;                                                                                                                         ATTRIBUTE_NAME('GetNumeroOfEngine')
+function GetEngineName(numeroEngine : SInt64) : String255;                                                                                                                          ATTRIBUTE_NAME('GetEngineName')
+function GetEnginePath(numeroEngine : SInt64; nomEngine : String255) : String255;                                                                                                   ATTRIBUTE_NAME('GetEnginePath')
+function GetEngineVersion(numeroEngine : SInt64) : String255;                                                                                                                       ATTRIBUTE_NAME('GetEngineVersion')
 function EngineExists(nomEngine : String255) : boolean;                                                                                                                             ATTRIBUTE_NAME('EngineExists')
 procedure AddEngine(nomEngine, pathEngine : String255);                                                                                                                             ATTRIBUTE_NAME('AddEngine')
-procedure SetEngineVersion(numeroEngine : SInt32; version : String255);                                                                                                             ATTRIBUTE_NAME('SetEngineVersion')
+procedure SetEngineVersion(numeroEngine : SInt64; version : String255);                                                                                                             ATTRIBUTE_NAME('SetEngineVersion')
 
 
 { Fonctions d'affichage dans le rapport }
@@ -155,12 +155,12 @@ const kTailleBufferStandardInput = 1024 * 128;
 const kValeurMutexPrintColoredStringInRapport  = -1;
 
 var debugEngine : boolean;
-    mutex_engine_print_colored_string_in_rapport : SInt32;
-    lastTickOfEngineErrorInRapport : SInt32;
+    mutex_engine_print_colored_string_in_rapport : SInt64;
+    lastTickOfEngineErrorInRapport : SInt64;
     lastSpeedResultReceived : EngineResultRec;
 
     listOfEngines : record
-                      cardinal : SInt32;
+                      cardinal : SInt64;
                       engines : array[1..nbreMaxEngines] of
                                   record
                                     name    : String255;
@@ -170,7 +170,7 @@ var debugEngine : boolean;
                     end;
 
     gVitessesInstantaneesEngine : record
-                                    compteur : SInt32;  {nbre de vitesses enregistrees }
+                                    compteur : SInt64;  {nbre de vitesses enregistrees }
                                     data : array[1..5] of record
                                                             kilonodes : double_t;
                                                             time      : double_t;
@@ -183,9 +183,9 @@ var debugEngine : boolean;
     FeedHashInfos : record
                       chaineCourante   : String255;
                       positionCourante : PositionEtTraitRec;
-                      depthCourante    : SInt32;
-                      vMinCourant      : SInt32;
-                      vMaxCourant      : SInt32;
+                      depthCourante    : SInt64;
+                      vMinCourant      : SInt64;
+                      vMaxCourant      : SInt64;
                     end;
 
 
@@ -198,7 +198,7 @@ var debugEngine : boolean;
  *******************************************************************************
  *)
 procedure InitUnitEngine;
-var k : SInt32;
+var k : SInt64;
 begin
   myStartEnginePtr          := NIL;
   mySuspendEnginePtr        := NIL;
@@ -277,7 +277,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function NumberOfEngines : SInt32;
+function NumberOfEngines : SInt64;
 begin
   NumberOfEngines := listOfEngines.cardinal;
 end;
@@ -290,7 +290,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function GetEngineName(numeroEngine : SInt32) : String255;
+function GetEngineName(numeroEngine : SInt64) : String255;
 begin
   GetEngineName := '';
 
@@ -306,8 +306,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function GetNumeroOfEngine(nomEngine : String255) : SInt32;
-var k : SInt32;
+function GetNumeroOfEngine(nomEngine : String255) : SInt64;
+var k : SInt64;
     s : String255;
 begin
 
@@ -334,8 +334,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function GetEnginePath(numeroEngine : SInt32; nomEngine : String255) : String255;
-var k : SInt32;
+function GetEnginePath(numeroEngine : SInt64; nomEngine : String255) : String255;
+var k : SInt64;
     s : String255;
 begin
 
@@ -369,7 +369,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function GetEngineVersion(numeroEngine : SInt32) : String255;
+function GetEngineVersion(numeroEngine : SInt64) : String255;
 begin
   GetEngineVersion := '';
 
@@ -386,7 +386,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-procedure SetEngineVersion(numeroEngine : SInt32; version : String255);
+procedure SetEngineVersion(numeroEngine : SInt64; version : String255);
 begin
   version := ReplaceStringByStringInString('[[0]] version : ','',version);
   version := ReplaceStringByStringInString('[[1]] version : ','',version);
@@ -508,7 +508,7 @@ end;
  *******************************************************************************
  *)
 function TraiteFichierEngineEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
-var p : SInt32;
+var p : SInt64;
     s, foo : String255;
     pathEngine, nomEngine : String255;
     pathUnix : String255;
@@ -553,7 +553,7 @@ end;
  *******************************************************************************
  *)
 procedure PingEngine;
-var t : SInt32;
+var t : SInt64;
 begin
   t := Tickcount;
   if (t - engine.lastDateOfActivity > 70) &
@@ -606,7 +606,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-procedure SetEngineState(state : SInt32);
+procedure SetEngineState(state : SInt64);
 begin
   engine.state := state;
   
@@ -818,8 +818,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function PrecisionEngineEnMuString(precision : SInt32) : String255;
-var dist,distMin, i : SInt32;
+function PrecisionEngineEnMuString(precision : SInt64) : String255;
+var dist,distMin, i : SInt64;
     mu : String255;
 begin
 
@@ -853,9 +853,9 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function MuStringEnPrecisionEngine(mu : String255) : SInt32;
+function MuStringEnPrecisionEngine(mu : String255) : SInt64;
 var left, right, cut : String255;
-    muMax, dist, distMin, i: SInt32;
+    muMax, dist, distMin, i: SInt64;
 begin
   SplitByStr(mu, ',', left, right);
 
@@ -895,7 +895,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt32) : SInt32;
+function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt64) : SInt64;
 begin
 
   IndexDeltaFinaleEnPrecisionEngine := MuStringEnPrecisionEngine('0,'+NumEnString(deltaSuccessifs[indexDeltaFinale].valeurDeMu));
@@ -912,8 +912,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt32) : SInt32;
-var precision : SInt32;
+function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt64) : SInt64;
+var precision : SInt64;
 begin
   precision := Min(100, 72 + 2*(profondeur - empties));
   ProfondeurMilieuEnPrecisionFinaleEngine := precision;
@@ -927,8 +927,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt32) : SInt32;
-var profondeur : SInt32;
+function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt64) : SInt64;
+var profondeur : SInt64;
 begin
   profondeur := Max(empties, empties + ((precision - 72) div 2));
   PrecisionFinaleEngineEnProfondeurMilieu := profondeur;
@@ -967,7 +967,7 @@ end;
  *******************************************************************************
  *)
 procedure PatcherLesResultatsFlottantsDesRequetesDeFinale(search : EngineSearchRec; var result : EngineResultRec);
-var v : SInt32;
+var v : SInt64;
 begin
   if (CassioIsWaitingAnEngineResult)
      & (search.typeDeRecherche = ReflParfait)
@@ -1053,7 +1053,7 @@ var oldParsingSet : SetOfChar;
     s1,s2,s3,s4,s5,s6,s7,s8,reste : String255;
     c1,c2,c3,c4,c5 : String255;
     aux : EngineResultRec;
-    temp : SInt32;
+    temp : SInt64;
 
 
   (* fonction locale *)
@@ -1435,7 +1435,7 @@ procedure InterpretEngineCommand(line : LongString);
 var theResult : EngineResultRec;
     s : String255;
     stringIsPoint, stringIsReady, stringIsOk, stringIsStarted : boolean;
-    canal, moteur : SInt32;
+    canal, moteur : SInt64;
 begin
 
   s := line.debutLigne;
@@ -1573,7 +1573,7 @@ end;
 procedure ReceiveEngineData(theCString : Ptr);
 type buffer    = packed array[0 .. kTailleBufferStandardInput - 1] of char;
      bufferPtr = ^buffer;
-var i : SInt32;
+var i : SInt64;
     myBuffer : bufferPtr;
     c : char;
 begin
@@ -1725,7 +1725,7 @@ function CanStartEngine(pathMac, arguments : String255) : boolean;
 var pathUnix, foo : String255;
     CFpath, CFarguments : CFStringRef;
     fic : FichierTEXT;
-    i, ok : SInt32;
+    i, ok : SInt64;
     bundleName : String255;
     pathIsAnUnixBinary : boolean;
 begin
@@ -1842,7 +1842,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function CassioIsUsingAnEngine(var numero : SInt32) : boolean;
+function CassioIsUsingAnEngine(var numero : SInt64) : boolean;
 begin
   if (numeroEngineEnCours <> 0)
     then
@@ -1866,7 +1866,7 @@ end;
  *)
 function FabriquerChaineRequestPourEngine(var search : EngineSearchRec) : String255;
 var s,s1,s2 : String255;
-    i : SInt32;
+    i : SInt64;
 begin
   s := '';
 
@@ -2028,7 +2028,7 @@ end;
  *******************************************************************************
  *)
 procedure EmitFeedHashString(const s : String255);
-var foo : SInt32;
+var foo : SInt64;
 begin
   if (s <> '') & not(MemberOfStringSet(s,foo,lignesEnvoyeesParHashFeed)) then
     begin
@@ -2047,9 +2047,9 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-procedure AccumulateFeedHashSequenceForEngine(const s : String255; position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt32);
+procedure AccumulateFeedHashSequenceForEngine(const s : String255; position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt64);
 var continuerSequence : boolean;
-    trait : SInt32;
+    trait : SInt64;
 begin
 
   with FeedHashInfos do
@@ -2106,9 +2106,9 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt32);
+procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt64);
 var s,s1 : String255;
-    i, foo : SInt32;
+    i, foo : SInt64;
 begin
 
   if (depth >= 15) & (engine.state <> ENGINE_KILLED) then
@@ -2245,7 +2245,7 @@ end;
  *******************************************************************************
  *)
 procedure AmeliorerResultatGlobalParResultatPartiel(search : EngineSearchRec; var resultGlobal : EngineResultRec; resultPartiel : EngineResultRec);
-var v : SInt32;
+var v : SInt64;
 begin
 
   (*
@@ -2326,7 +2326,7 @@ end;
  *******************************************************************************
  *)
 procedure CalculateSpeedOfEngine(const result : EngineResultRec);
-var i : SInt32;
+var i : SInt64;
     totalKiloNoeuds, totalTime, v, vitesseMax : double_t;
 begin
 
@@ -2414,7 +2414,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function DateOfLastActivityByEngine : SInt32;
+function DateOfLastActivityByEngine : SInt64;
 begin
   DateOfLastActivityByEngine := engine.lastDateOfActivity;
 end;
@@ -2429,7 +2429,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function DateOfLastStartOfEngine : SInt32;
+function DateOfLastStartOfEngine : SInt64;
 begin
   DateOfLastStartOfEngine := engine.lastDateOfStarting;
 end;
@@ -2457,8 +2457,8 @@ var terminee : boolean;
     interrompue : boolean;
     line : LongString;
     resultatPartiel : EngineResultRec;
-    nbreResultatsPartiels : SInt32;
-    nbreReadyRecus : SInt32;
+    nbreResultatsPartiels : SInt64;
+    nbreReadyRecus : SInt64;
 begin
 
   InitResult(result);
@@ -2572,7 +2572,7 @@ end;
  *******************************************************************************
  *)
 procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRec; result : EngineResultRec; var meilleureSuite : t_meilleureSuite);
-var vMin, vMax, deltaFinale : SInt32;
+var vMin, vMax, deltaFinale : SInt64;
 begin
   if (result.depth <> search.depth) then
     exit(MettreLeResultatGlobalDansLesVariablesDeCassio);
@@ -2613,7 +2613,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-procedure AnalyserLeResultatGlobal(couleur : SInt32; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt32; var meilleureSuite : t_meilleureSuite);
+procedure AnalyserLeResultatGlobal(couleur : SInt64; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt64; var meilleureSuite : t_meilleureSuite);
 begin
 
   note := -noteMax;
@@ -2679,13 +2679,13 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function EnginePeutFaireCeCalcul(var plateau : plateauOthello; typeCalcul, typeUtilisation, profondeur, couleur, alpha, beta, precision, dernierCoup : SInt32; var note, bestMove : SInt32; var meilleureSuite : t_meilleureSuite) : boolean;
+function EnginePeutFaireCeCalcul(var plateau : plateauOthello; typeCalcul, typeUtilisation, profondeur, couleur, alpha, beta, precision, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;
 var search    : EngineSearchRec;
-    traitReel : SInt32;
+    traitReel : SInt64;
     demande : String255;
     rechercheTerminee : boolean;
     result : EngineResultRec;
-    nNoirs, nBlancs : SInt32;
+    nNoirs, nBlancs : SInt64;
 begin
 
   EnginePeutFaireCeCalcul := false;
@@ -2810,8 +2810,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur, alpha, beta, precision, dernierCoup : SInt32; var note, bestMove : SInt32; var meilleureSuite : t_meilleureSuite) : boolean;
-var empties : SInt32;
+function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur, alpha, beta, precision, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;
+var empties : SInt64;
 begin
 
   if (alpha < -64) & (beta >= -63) then alpha := -64;
@@ -2842,8 +2842,8 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt32; var note, bestMove : SInt32; var meilleureSuite : t_meilleureSuite) : boolean;
-var empties, precision : SInt32;
+function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;
+var empties, precision : SInt64;
 begin
 
   if (alpha < -6400) then alpha := -6400;
@@ -2906,8 +2906,8 @@ procedure TestEngineUnit;
 var pathMac, arguments : String255;
     positionToSolve : PositionEtTraitRec;
     test : boolean;
-    tick : SInt32;
-    note, bestDef : SInt32;
+    tick : SInt64;
+    note, bestDef : SInt64;
     foo : meilleureSuitePtr;
 begin
 

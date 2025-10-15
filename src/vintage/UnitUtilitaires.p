@@ -27,10 +27,10 @@ procedure LibereMemoireUnitUtilitaires;                                         
 
 function MyFiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('MyFiltreClassique')
 
-function ComplementeJoueur(prefixe : String255; typeVoulu : SInt32; useMenuHistory : boolean; var found : boolean) : String255;                                                     ATTRIBUTE_NAME('ComplementeJoueur')
-function ComplementeTournoi(prefixe : String255; typeVoulu : SInt32; useMenuHistory : boolean; var found : boolean) : String255;                                                    ATTRIBUTE_NAME('ComplementeTournoi')
-function Complemente(typeVoulu : SInt32; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;                         ATTRIBUTE_NAME('Complemente')
-procedure CoupJoueDansRapport(numeroCoup,coup : SInt32);                                                                                                                            ATTRIBUTE_NAME('CoupJoueDansRapport')
+function ComplementeJoueur(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;                                                     ATTRIBUTE_NAME('ComplementeJoueur')
+function ComplementeTournoi(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;                                                    ATTRIBUTE_NAME('ComplementeTournoi')
+function Complemente(typeVoulu : SInt64; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;                         ATTRIBUTE_NAME('Complemente')
+procedure CoupJoueDansRapport(numeroCoup,coup : SInt64);                                                                                                                            ATTRIBUTE_NAME('CoupJoueDansRapport')
 procedure DoListerLesGroupes;                                                                                                                                                       ATTRIBUTE_NAME('DoListerLesGroupes')
 procedure DoAjouterGroupe;                                                                                                                                                          ATTRIBUTE_NAME('DoAjouterGroupe')
 
@@ -38,7 +38,7 @@ procedure DoAjouterGroupe;                                                      
 function StringMayHaveUTF8Accents(const s : String255) : boolean;                                                                                                                   ATTRIBUTE_NAME('StringMayHaveUTF8Accents')
 function UTF8ToAscii(const s : String255) : String255;                                                                                                                              ATTRIBUTE_NAME('UTF8ToAscii')
 procedure ReadUnicodeAccentsFromDisc;                                                                                                                                               ATTRIBUTE_NAME('ReadUnicodeAccentsFromDisc')
-procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt32);                                                                      ATTRIBUTE_NAME('ReadLineWithUnicodeAccents')
+procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);                                                                      ATTRIBUTE_NAME('ReadLineWithUnicodeAccents')
 procedure InspectUnicodeAccent(const accent, remplacement : String255);                                                                                                             ATTRIBUTE_NAME('InspectUnicodeAccent')
 procedure AddUnicodeRemplacement(const accent, remplacement : String255);                                                                                                           ATTRIBUTE_NAME('AddUnicodeRemplacement')
 procedure InitUnicodeTable;                                                                                                                                                         ATTRIBUTE_NAME('InitUnicodeTable')
@@ -46,7 +46,7 @@ procedure DisposeUnicodeTable;                                                  
 
 
 function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;                                                                                                                    ATTRIBUTE_NAME('ScoreFinalEnChaine')
-procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt32; var titre : String255);                                         ATTRIBUTE_NAME('ConstruitTitrePartie')
+procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt64; var titre : String255);                                         ATTRIBUTE_NAME('ConstruitTitrePartie')
 function EnleveAnneeADroiteDansChaine(var s : String255; var firstYear,lastYear : SInt16) : boolean;                                                                                ATTRIBUTE_NAME('EnleveAnneeADroiteDansChaine')
 procedure EchangeSurnoms(var nom : String255);                                                                                                                                      ATTRIBUTE_NAME('EchangeSurnoms')
 procedure EpureNomJoueur(var unNomDeJoueur : String255);                                                                                                                            ATTRIBUTE_NAME('EpureNomJoueur')
@@ -59,9 +59,9 @@ function FiltreCoeffDialog(dlog : DialogPtr; var evt : eventRecord; var item : S
 function ClicSurCurseurCoeff(mouseLoc : Point; var hauteurExacte,nroCoeff : SInt16) : boolean;                                                                                      ATTRIBUTE_NAME('ClicSurCurseurCoeff')
 procedure CalculEtAfficheCoeff(dp : DialogPtr; mouseX,item,hauteurExacte : SInt16);                                                                                                 ATTRIBUTE_NAME('CalculEtAfficheCoeff')
 procedure DessineEchellesCoeffs(dp : DialogPtr);                                                                                                                                    ATTRIBUTE_NAME('DessineEchellesCoeffs')
-procedure DessineBord(xdeb,y : SInt32; indexBord : SInt32);                                                                                                                         ATTRIBUTE_NAME('DessineBord')
-procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt32; coeff : double_t);                                                                                          ATTRIBUTE_NAME('DessineEchelleEtCurseur')
-procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt32; y : SInt32);                                                                                            ATTRIBUTE_NAME('EcritParametre')
+procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);                                                                                                                         ATTRIBUTE_NAME('DessineBord')
+procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);                                                                                          ATTRIBUTE_NAME('DessineEchelleEtCurseur')
+procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt64; y : SInt64);                                                                                            ATTRIBUTE_NAME('EcritParametre')
 procedure EcritParametres(dp : DialogPtr; quelParametre : SInt16);                                                                                                                  ATTRIBUTE_NAME('EcritParametres')
 procedure EcritEtDessineBords;                                                                                                                                                      ATTRIBUTE_NAME('EcritEtDessineBords')
 procedure EcritValeursTablesPositionnelles(dp : DialogPtr);                                                                                                                         ATTRIBUTE_NAME('EcritValeursTablesPositionnelles')
@@ -74,23 +74,23 @@ procedure DoInsererMarque;                                                      
 function PeutCompleterPartieAvecSelectionRapport(var partieAlpha : String255) : boolean;                                                                                            ATTRIBUTE_NAME('PeutCompleterPartieAvecSelectionRapport')
 
 
-procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt32);                                                                                               ATTRIBUTE_NAME('SetCoupDansSuite')
-function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt32) : SInt32;                                                                                             ATTRIBUTE_NAME('GetCoupDansSuite')
-procedure SetCoupDansMeilleureSuite(index, coup : SInt32);                                                                                                                          ATTRIBUTE_NAME('SetCoupDansMeilleureSuite')
-function GetCoupDansMeilleureSuite(index : SInt32) : SInt32;                                                                                                                        ATTRIBUTE_NAME('GetCoupDansMeilleureSuite')
-procedure FabriqueMeilleureSuiteInfos(premierCoup : SInt16; suiteJouee : t_suiteJouee; meilleureSuite : meilleureSuitePtr; coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt32; message : SInt32);                                                                       ATTRIBUTE_NAME('FabriqueMeilleureSuiteInfos')
+procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt64);                                                                                               ATTRIBUTE_NAME('SetCoupDansSuite')
+function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt64) : SInt64;                                                                                             ATTRIBUTE_NAME('GetCoupDansSuite')
+procedure SetCoupDansMeilleureSuite(index, coup : SInt64);                                                                                                                          ATTRIBUTE_NAME('SetCoupDansMeilleureSuite')
+function GetCoupDansMeilleureSuite(index : SInt64) : SInt64;                                                                                                                        ATTRIBUTE_NAME('GetCoupDansMeilleureSuite')
+procedure FabriqueMeilleureSuiteInfos(premierCoup : SInt16; suiteJouee : t_suiteJouee; meilleureSuite : meilleureSuitePtr; coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt64; message : SInt64);                                                                       ATTRIBUTE_NAME('FabriqueMeilleureSuiteInfos')
 
 
-procedure SauvegardeLigneOptimale(coul : SInt32);                                                                                                                                   ATTRIBUTE_NAME('SauvegardeLigneOptimale')
-procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt32);                                                                                                                        ATTRIBUTE_NAME('MetCoupEnTeteDansKiller')
-procedure MeilleureSuiteDansKiller(profKiller : SInt32);                                                                                                                            ATTRIBUTE_NAME('MeilleureSuiteDansKiller')
+procedure SauvegardeLigneOptimale(coul : SInt64);                                                                                                                                   ATTRIBUTE_NAME('SauvegardeLigneOptimale')
+procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);                                                                                                                        ATTRIBUTE_NAME('MetCoupEnTeteDansKiller')
+procedure MeilleureSuiteDansKiller(profKiller : SInt64);                                                                                                                            ATTRIBUTE_NAME('MeilleureSuiteDansKiller')
 function SquareSetToPlatBool(theSet : SquareSet) : plBool;                                                                                                                          ATTRIBUTE_NAME('SquareSetToPlatBool')
-procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt32);                                                                                                          ATTRIBUTE_NAME('SetNbrePionsPerduParVariation')
+procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt64);                                                                                                          ATTRIBUTE_NAME('SetNbrePionsPerduParVariation')
 function PrefixeFichierProfiler : String255;                                                                                                                                        ATTRIBUTE_NAME('PrefixeFichierProfiler')
 procedure SetEffetSpecial(flag : boolean);                                                                                                                                          ATTRIBUTE_NAME('SetEffetSpecial')
 function  GetEffetSpecial : boolean;                                                                                                                                                ATTRIBUTE_NAME('GetEffetSpecial')
-function SetClefHashageGlobale(whichValue : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SetClefHashageGlobale')
-procedure TesterClefHashage(valeurCorrecte : SInt32; nomFonction : String255);                                                                                                      ATTRIBUTE_NAME('TesterClefHashage')
+function SetClefHashageGlobale(whichValue : SInt64) : SInt64;                                                                                                                       ATTRIBUTE_NAME('SetClefHashageGlobale')
+procedure TesterClefHashage(valeurCorrecte : SInt64; nomFonction : String255);                                                                                                      ATTRIBUTE_NAME('TesterClefHashage')
 
 
 procedure Planetes;                                                                                                                                                                 ATTRIBUTE_NAME('Planetes')
@@ -142,7 +142,7 @@ var gJoueursComplementes  : StringSet;
 
 const kTailleUnicodeTable = 160;
 var gUnicode : record
-                 cardinal : SInt32;
+                 cardinal : SInt64;
                  table : array[0..kTailleUnicodeTable] of
                            record
                              theAccent : String255Ptr;
@@ -164,15 +164,15 @@ end;
 
 (*
 procedure apprendCoeffsPartiesDeLaListeAlaBill;
-var i,j,n,nroReference : SInt32;
+var i,j,n,nroReference : SInt64;
     s60 : PackedThorGame;
-    trait : SInt32;
+    trait : SInt64;
     GainTheorique,GainReel : String255;
     ScoreReel : SInt16;
     ok : boolean;
     platBill : plateauOthello;
     jouableBill : plBool;
-    nbBlancBill,nbNoirBill : SInt32;
+    nbBlancBill,nbNoirBill : SInt64;
     frontBill : InfoFront;
     traitDansPartie : Tableau60Longint;
     uneMatrice : MatriceCovariance;
@@ -419,17 +419,17 @@ end;
 
 (*
 procedure apprendCoeffsLignesPartiesDeLaListe;
-var i,n,nroReference,Nbmin,Nbmax,longueur : SInt32;
+var i,n,nroReference,Nbmin,Nbmax,longueur : SInt64;
     s60 : PackedThorGame;
     plat : plateauOthello;
-    trait : SInt32;
+    trait : SInt64;
     GainTheorique,GainReel : String255;
     scoreReel : SInt16;
     ok : boolean;
     code : t_codage;
     s : String255;
     fmin,fmax,fnote : double_t;
-    nbVides,nbAmis,nbEnnemis : SInt32;
+    nbVides,nbAmis,nbEnnemis : SInt64;
     traitDansPartie : Tableau60Longint;
 
 begin
@@ -600,17 +600,17 @@ end;
 
 (*
 procedure apprendBlocsDeCoinPartiesDeLaListe;
-var i,n,nroReference,Nbmin,Nbmax : SInt32;
+var i,n,nroReference,Nbmin,Nbmax : SInt64;
     s60 : PackedThorGame;
     plat : plateauOthello;
-    trait : SInt32;
+    trait : SInt64;
     GainTheorique,GainReel : String255;
     scoreReel : SInt16;
     ok : boolean;
     code : t_codage;
     s : String255;
     fmin,fmax,fnote : double_t;
-    nbVides,nbAmis,nbEnnemis : SInt32;
+    nbVides,nbAmis,nbEnnemis : SInt64;
     traitDansPartie : Tableau60Longint;
 
 begin
@@ -743,8 +743,8 @@ end;
 *)
 
 
-function ComplementeJoueur(prefixe : String255; typeVoulu : SInt32; useMenuHistory : boolean; var found : boolean) : String255;
-var i,n,idepart,numeroDansSet : SInt32;
+function ComplementeJoueur(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;
+var i,n,idepart,numeroDansSet : SInt64;
     joueurBase,prefixeMajus,derniereChaineMajus : String255;
 begin
 
@@ -864,8 +864,8 @@ end;
 
 
 
-function ComplementeTournoi(prefixe : String255; typeVoulu : SInt32; useMenuHistory : boolean; var found : boolean) : String255;
-var i,n,idepart,numeroDansSet : SInt32;
+function ComplementeTournoi(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;
+var i,n,idepart,numeroDansSet : SInt64;
     tournoi,prefixeMaj,derniereChaineMaj : String255;
 begin
   ComplementeTournoi := prefixe;
@@ -946,7 +946,7 @@ begin
 end;
 
 
-function Complemente(typeVoulu : SInt32; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;
+function Complemente(typeVoulu : SInt64; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;
 begin
   Complemente := prefixe;
   found := false;
@@ -962,10 +962,10 @@ begin
 end;
 
 
-procedure CoupJoueDansRapport(numeroCoup,coup : SInt32);
+procedure CoupJoueDansRapport(numeroCoup,coup : SInt64);
 var s{,s1} : String255;
     nomOuverture : String255;
-    {oldScript : SInt32;}
+    {oldScript : SInt64;}
     nomOuvertureProp : Property;
     s60 : PackedThorGame;
     autreCoupQuatreDiagDansPartie : boolean;
@@ -1017,9 +1017,9 @@ end;
 
 
 procedure DoListerLesGroupes;
-var i : SInt32;
+var i : SInt64;
     s : String255;
-    oldScript : SInt32;
+    oldScript : SInt64;
 begin
   GetCurrentScript(oldScript);
   if not(FenetreRapportEstOuverte)
@@ -1047,11 +1047,11 @@ end;
 procedure DoAjouterGroupe;
 const OuiBouton = 1;
       DialogueSyntaxeGroupesID = 1134;
-var i : SInt32;
+var i : SInt64;
     ok,groupeUtilise : boolean;
     newGroupe,groupeExistant,nomDuGroupe,s : String255;
     caracteres : CharArrayHandle;
-    posSigma,posEgal,posAcoladeOuvrante,posAcoladeFermante : SInt32;
+    posSigma,posEgal,posAcoladeOuvrante,posAcoladeFermante : SInt64;
     syntaxeCorrecte,groupeVide : boolean;
 
 
@@ -1217,7 +1217,7 @@ begin
 end;
 
 
-procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt32; var titre : String255);
+procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt64; var titre : String255);
 var s,s2 : String255;
     nom : String255;
 begin
@@ -1258,7 +1258,7 @@ end;
 function EnleveAnneeADroiteDansChaine(var s : String255; var firstYear,lastYear : SInt16) : boolean;
 var k,annee : SInt16;
     s1 : String255;
-    aux : SInt32;
+    aux : SInt64;
     trouve,diminish : boolean;
 begin
 	trouve := false;
@@ -1381,7 +1381,7 @@ end;
 
 procedure TraiteJoueurEnMinuscules(nomBrut : String255; var nomJoueur : String255);
 var c : char;
-    longueur,i : SInt32;
+    longueur,i : SInt64;
 begin
   longueur := LENGTH_OF_STRING(nomBrut);
   if longueur > 19 then longueur := 19;
@@ -1400,7 +1400,7 @@ end;
 
 
 function StringMayHaveUTF8Accents(const s : String255) : boolean;
-var k : SInt32;
+var k : SInt64;
 begin
   for k := 1 to LENGTH_OF_STRING(s) do
     if caracterIsUsedForUTF8[ord(s[k])] then
@@ -1413,7 +1413,7 @@ end;
 
 
 function UTF8ToAscii(const s : String255) : String255;
-var k, compteur, len : SInt32;
+var k, compteur, len : SInt64;
     aux : String255;
 begin
   if not(StringMayHaveUTF8Accents(s))
@@ -1439,7 +1439,7 @@ end;
 
 
 procedure InspectUnicodeAccent(const accent, remplacement : String255);
-var k : SInt32;
+var k : SInt64;
 begin
   Discard(remplacement);
   for k := 1 to LENGTH_OF_STRING(accent) do
@@ -1450,7 +1450,7 @@ end;
 
 
 
-procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt32);
+procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
 var s, remplacement : String255;
 begin
   Discard(theFic);
@@ -1474,7 +1474,7 @@ procedure ReadUnicodeAccentsFromDisc;
 const kUnicodeAccentsFileName = 'accents-utf8.txt';
 var fic : FichierTEXT;
     err : OSErr;
-    k, compteur : SInt32;
+    k, compteur : SInt64;
 begin
   for k := 0 to 255 do
     caracterIsUsedForUTF8[k] := false;
@@ -1516,7 +1516,7 @@ begin
 end;
 
 procedure DisposeUnicodeTable;
-var k : SInt32;
+var k : SInt64;
 begin
   with gUnicode do
     begin
@@ -1541,7 +1541,7 @@ end;
 
 
 procedure InitUnicodeTable;
-var k : SInt32;
+var k : SInt64;
 begin
   for k := 0 to 255 do
     caracterIsUsedForUTF8[k] := false;
@@ -1717,7 +1717,7 @@ end;
 
 
 procedure TraiteTournoiEnMinuscules(nom : String255; var nomTournoi : String255);
-var i,longueur : SInt32;
+var i,longueur : SInt64;
     c : char;
 begin
   longueur := LENGTH_OF_STRING(nom);
@@ -1884,7 +1884,7 @@ end;
 
 
 procedure DessineEchellesCoeffs(dp : DialogPtr);
-var y : SInt32;
+var y : SInt64;
 begin
     y := yCurseurPremierParametre;
     DessineEchelleEtCurseur(dp,xminSlider,xmaxSlider,y,Coefffrontiere);
@@ -1920,9 +1920,9 @@ end;
 
 
 
-procedure DessineBord(xdeb,y : SInt32; indexBord : SInt32);
+procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);
   const taille = 12;
-  var i,x,dx : SInt32;
+  var i,x,dx : SInt64;
       unRect : rect;
   begin
     PenSize(1,1);
@@ -1951,11 +1951,11 @@ procedure DessineBord(xdeb,y : SInt32; indexBord : SInt32);
       END;
   end;
 
-procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt32; coeff : double_t);
+procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);
 const ln4 = 1.386294;
 var s : String255;
-    aux : SInt32;
-    mil : SInt32;
+    aux : SInt64;
+    mil : SInt64;
     err : OSStatus;
     sliderRect : rect;
     theSlider : ControlHandle;
@@ -2014,7 +2014,7 @@ begin
   MyDrawString(s);
 end;
 
-procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt32; y : SInt32);
+procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt64; y : SInt64);
 var oldPort : grafPtr;
 begin
   GetPort(oldPort);
@@ -2036,7 +2036,7 @@ begin
 end;
 
 procedure EcritParametres(dp : DialogPtr; quelParametre : SInt16);
-var y : SInt32;
+var y : SInt64;
     s : String255;
     oldPort : grafPtr;
 begin
@@ -2119,7 +2119,7 @@ begin
 end;
 
 procedure EcritEtDessineBords;
-var y : SInt32;
+var y : SInt64;
     s : String255;
 begin
 
@@ -2160,7 +2160,7 @@ end;
 const TablesPositionnellesBox = 4;
 
 procedure EcritValeursTablesPositionnelles(dp : DialogPtr);
-var y : SInt32;
+var y : SInt64;
     unRect : rect;
     jeu : plateauOthello;
 begin
@@ -2179,7 +2179,7 @@ end;
 
 procedure EffaceValeursTablesPositionnelles(dp : DialogPtr);
 var unRect : rect;
-    y : SInt32;
+    y : SInt64;
 begin
   GetDialogItemRect(dp,TablesPositionnellesBox,unRect);
   y := unRect.bottom-4;
@@ -2191,7 +2191,7 @@ end;
 
 
 procedure DoInsererMarque;
-var i : SInt32;
+var i : SInt64;
     peutMettreNouvelleMarque : boolean;
 begin
   if (nbreCoup > 0) & not(gameOver) then
@@ -2211,7 +2211,7 @@ end;
 
 function PeutCompleterPartieAvecSelectionRapport(var partieAlpha : String255) : boolean;
 var s,s1 : String255;
-    longueur : SInt32;
+    longueur : SInt64;
     loc : SInt16;
 begin
   PeutCompleterPartieAvecSelectionRapport := false;
@@ -2250,12 +2250,12 @@ end;
 procedure FabriqueMeilleureSuiteInfos(premierCoup : SInt16;
                                    suiteJouee : t_suiteJouee;
                                    meilleureSuite : meilleureSuitePtr;
-                                   coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt32;
-                                   message : SInt32);
-var i,j,coup : SInt32;
-    p : SInt32;
-    eval : SInt32;
-    aQui : SInt32;
+                                   coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt64;
+                                   message : SInt64);
+var i,j,coup : SInt64;
+    p : SInt64;
+    eval : SInt64;
+    aQui : SInt64;
     coupPossible : boolean;
     positionEtTrait : PositionEtTraitRec;
 begin
@@ -2364,8 +2364,8 @@ end;
 
 
 
-procedure SauvegardeLigneOptimale(coul : SInt32);
-var i,coup : SInt32;
+procedure SauvegardeLigneOptimale(coul : SInt64);
+var i,coup : SInt64;
     ok : boolean;
     debugMeilleureSuite : boolean;
 begin
@@ -2443,7 +2443,7 @@ begin
          end;
 end;
 
-procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt32);
+procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt64);
 begin
   if (index < profondeurMax) | (index > kNbMaxNiveaux) then
     begin
@@ -2454,7 +2454,7 @@ begin
   suite.coupsDanslLigne[index] := coup;
 end;
 
-function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt32) : SInt32;
+function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt64) : SInt64;
 begin
   if (index < profondeurMax) | (index > kNbMaxNiveaux) then
     begin
@@ -2466,18 +2466,18 @@ begin
   GetCoupDansSuite := suite.coupsDanslLigne[index];
 end;
 
-procedure SetCoupDansMeilleureSuite(index, coup : SInt32);
+procedure SetCoupDansMeilleureSuite(index, coup : SInt64);
 begin
   SetCoupDansSuite(meilleureSuiteInfos, index, coup);
 end;
 
-function GetCoupDansMeilleureSuite(index : SInt32) : SInt32;
+function GetCoupDansMeilleureSuite(index : SInt64) : SInt64;
 begin
   GetCoupDansMeilleureSuite := GetCoupDansSuite(meilleureSuiteInfos, index);
 end;
 
-procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt32);
-  var k,kcoup : SInt32;
+procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);
+  var k,kcoup : SInt64;
   begin
     if (killerProf >= profondeurMax) & (killerProf <= kNbMaxNiveaux) then
       if (coup >= 11) & (coup <= 88) then
@@ -2505,8 +2505,8 @@ procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt32);
   end;
 
 
-procedure MeilleureSuiteDansKiller(profKiller : SInt32);
-  var p,i,coup : SInt32;
+procedure MeilleureSuiteDansKiller(profKiller : SInt64);
+  var p,i,coup : SInt64;
   begin
     for i := 1 to kNbMaxNiveaux do
       begin
@@ -2532,7 +2532,7 @@ end;
 
 
 
-procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt32);
+procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt64);
 var i,somme : SInt16;
 begin
   if (numeroDuCoup >= 0) & (numeroDuCoup <= 64) then
@@ -2570,13 +2570,13 @@ begin
   GetEffetSpecial := effetspecial;
 end;
 
-function SetClefHashageGlobale(whichValue : SInt32) : SInt32;
+function SetClefHashageGlobale(whichValue : SInt64) : SInt64;
 begin
   gClefHashage := whichValue;
   SetClefHashageGlobale := whichValue;
 end;
 
-procedure TesterClefHashage(valeurCorrecte : SInt32; nomFonction : String255);
+procedure TesterClefHashage(valeurCorrecte : SInt64; nomFonction : String255);
 begin
   if (gClefHashage <> valeurCorrecte) then
     begin
@@ -2612,8 +2612,8 @@ end;
 (* Etant donne un nombre k compris entre 1 et (length !) ,
    cette procedure genere la k-ieme permutation de longueur
    length et la place dans perm *)
-procedure GeneratePermutation(length : SInt32; k : SInt32; var perm : LongintArrayPtr);
-var i,j,a,b : SInt32;
+procedure GeneratePermutation(length : SInt64; k : SInt64; var perm : LongintArrayPtr);
+var i,j,a,b : SInt64;
 begin
 
   for j := 1 to length do
@@ -2640,15 +2640,15 @@ procedure Planetes;
 const k_TAILLE_Grille = 8;
       k_NBRE_PLANETES = 8;
 var planete : array[1..k_NBRE_PLANETES] of String255;
-    lettres : array['A'..'Z'] of SInt32;
+    lettres : array['A'..'Z'] of SInt64;
     mot : String255;
     Grille : array[0..k_TAILLE_Grille] of char;
-    voisin : array[1..k_TAILLE_Grille,1..6] of SInt32;
-    permutationBuffer : array[0..k_TAILLE_Grille] of SInt32;
+    voisin : array[1..k_TAILLE_Grille,1..6] of SInt64;
+    permutationBuffer : array[0..k_TAILLE_Grille] of SInt64;
     permutation : LongintArrayPtr;
-    a,b,i,j,k : SInt32;
-    top_solution : SInt32;
-    factorielle : SInt32;
+    a,b,i,j,k : SInt64;
+    top_solution : SInt64;
+    factorielle : SInt64;
 
 
   procedure WritelnGrillePlanetesDansRapport;
@@ -2661,7 +2661,7 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
 
   function CeMotEstDansLeGrille(s : String255) : boolean;
   var c : char;
-      z,x,y,n : SInt32;
+      z,x,y,n : SInt64;
   begin
 
     CeMotEstDansLeGrille := false;  // jusqu'a preuve du contraire
@@ -2695,8 +2695,8 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
   end;
 
 
-  procedure EssayerCetteGrille(i, j, k : SInt32; const permutation : LongintArrayPtr);
-  var t, longueur : SInt32;
+  procedure EssayerCetteGrille(i, j, k : SInt64; const permutation : LongintArrayPtr);
+  var t, longueur : SInt64;
   begin
 
     (*
@@ -2736,8 +2736,8 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
   end;
 
 
-  procedure EssayerCesPlanetes(i,j,k : SInt32);
-  var t,s : SInt32;
+  procedure EssayerCesPlanetes(i,j,k : SInt64);
+  var t,s : SInt64;
       c : char;
   begin
 

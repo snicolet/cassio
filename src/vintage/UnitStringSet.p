@@ -18,16 +18,16 @@ INTERFACE
 
 {Creation et destruction}
 function MakeEmptyStringSet : StringSet;                                                                                                                                            ATTRIBUTE_NAME('MakeEmptyStringSet')
-function MakeOneElementStringSet(const theString : String255; data : SInt32) : StringSet;                                                                                           ATTRIBUTE_NAME('MakeOneElementStringSet')
+function MakeOneElementStringSet(const theString : String255; data : SInt64) : StringSet;                                                                                           ATTRIBUTE_NAME('MakeOneElementStringSet')
 procedure DisposeStringSet(var S : StringSet);                                                                                                                                      ATTRIBUTE_NAME('DisposeStringSet')
 
 {Fonctions de test}
 function StringSetEstVide(S : StringSet) : boolean;                                                                                                                                 ATTRIBUTE_NAME('StringSetEstVide')
-function CardinalOfStringSet(S : StringSet) : SInt32;                                                                                                                               ATTRIBUTE_NAME('CardinalOfStringSet')
-function MemberOfStringSet(const theString : String255; var data : SInt32; S : StringSet) : boolean;                                                                                ATTRIBUTE_NAME('MemberOfStringSet')
+function CardinalOfStringSet(S : StringSet) : SInt64;                                                                                                                               ATTRIBUTE_NAME('CardinalOfStringSet')
+function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;                                                                                ATTRIBUTE_NAME('MemberOfStringSet')
 
 {Ajout et retrait destructifs}
-procedure AddStringToSet(const theString : String255; data : SInt32; var S : StringSet);                                                                                            ATTRIBUTE_NAME('AddStringToSet')
+procedure AddStringToSet(const theString : String255; data : SInt64; var S : StringSet);                                                                                            ATTRIBUTE_NAME('AddStringToSet')
 procedure RemoveStringFromSet(const theString : String255; var S : StringSet);                                                                                                      ATTRIBUTE_NAME('RemoveStringFromSet')
 procedure ViderStringSet(var S : StringSet);                                                                                                                                        ATTRIBUTE_NAME('ViderStringSet')
 
@@ -78,13 +78,13 @@ begin
   MakeEmptyStringSet := result;
 end;
 
-function MakeOneElementStringSet(const theString : String255; data : SInt32) : StringSet;
-var hash : SInt32;
+function MakeOneElementStringSet(const theString : String255; data : SInt64) : StringSet;
+var hash : SInt64;
     result : StringSet;
 begin
   hash := HashString(theString);
   result.cardinal := 1;
-  result.arbre := MakeOneElementABR(hash,data);
+  result.arbre := MakeOneElementABR(hash, data);
   MakeOneElementStringSet := result;
 end;
 
@@ -113,14 +113,14 @@ begin
 end;
 
 
-function CardinalOfStringSet(S : StringSet) : SInt32;
+function CardinalOfStringSet(S : StringSet) : SInt64;
 begin
   CardinalOfStringSet := S.cardinal;
 end;
 
 
-function MemberOfStringSet(const theString : String255; var data : SInt32; S : StringSet) : boolean;
-var hash : SInt32;
+function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;
+var hash : SInt64;
     elementTrouve : ABR;
 begin
   if StringSetEstVide(S)
@@ -144,9 +144,9 @@ begin
 end;
 
 
-procedure AddStringToSet(const theString : String255; data : SInt32; var S : StringSet);
+procedure AddStringToSet(const theString : String255; data : SInt64; var S : StringSet);
 var element : ABR;
-    hash : SInt32;
+    hash : SInt64;
 begin
   if StringSetEstVide(S)
     then S := MakeOneElementStringSet(theString,data)
@@ -168,7 +168,7 @@ end;
 
 procedure RemoveStringFromSet(const theString : String255; var S : StringSet);
 var element : ABR;
-    hash : SInt32;
+    hash : SInt64;
 begin
   if not(StringSetEstVide(S)) then
     begin
@@ -202,7 +202,7 @@ end;
 
 
 procedure WritelnStringDansRapportSansRepetition(theString : String255; var stringPool : StringSet);
-var data : SInt32;
+var data : SInt64;
 begin
   if not(MemberOfStringSet(theString,data,stringPool)) then
     begin
@@ -215,7 +215,7 @@ end;
 procedure TestStringSet;
 var S : StringSet;
     theString : String255;
-    data : SInt32;
+    data : SInt64;
 begin
   S := MakeOneElementStringSet('',0);
   WritelnStringSetDansRapport('initial ',S,true);

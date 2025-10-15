@@ -18,10 +18,10 @@ procedure AjouterModule(const name : String255; var nouveauModule : Module);    
 
 
 {acces aux modules}
-function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt32; var theModule : Module) : boolean;                                                              ATTRIBUTE_NAME('ModuleEstChargeEnMemoire')
+function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt64; var theModule : Module) : boolean;                                                              ATTRIBUTE_NAME('ModuleEstChargeEnMemoire')
 function GetModule(const name : String255) : Module;                                                                                                                                ATTRIBUTE_NAME('GetModule')
-function GetModuleByNumero(numero : SInt32) : Module;                                                                                                                               ATTRIBUTE_NAME('GetModuleByNumero')
-function GetNumeroOfModule(whichModule : Module) : SInt32;                                                                                                                          ATTRIBUTE_NAME('GetNumeroOfModule')
+function GetModuleByNumero(numero : SInt64) : Module;                                                                                                                               ATTRIBUTE_NAME('GetModuleByNumero')
+function GetNumeroOfModule(whichModule : Module) : SInt64;                                                                                                                          ATTRIBUTE_NAME('GetNumeroOfModule')
 function GetNameOfModule(whichModule : Module) : String255;                                                                                                                         ATTRIBUTE_NAME('GetNameOfModule')
 
 
@@ -38,7 +38,7 @@ function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT)
 
 
 {verification des sources}
-procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt32);                                                                                ATTRIBUTE_NAME('VerifierLongueurDeLaLigneDansLesSources')
+procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt64);                                                                                ATTRIBUTE_NAME('VerifierLongueurDeLaLigneDansLesSources')
 procedure VerifierCeFichierSource(const whichFile : FSSpec);                                                                                                                        ATTRIBUTE_NAME('VerifierCeFichierSource')
 function VerifierCeFichierSourceEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;                                                  ATTRIBUTE_NAME('VerifierCeFichierSourceEtRecursion')
 procedure VerifierLesSourcesDeCassio;                                                                                                                                               ATTRIBUTE_NAME('VerifierLesSourcesDeCassio')
@@ -79,7 +79,7 @@ CONST
 
 TYPE
   ListeDeModules =   record
-                       cardinal  : SInt32;
+                       cardinal  : SInt64;
                        pointeurs : array[1..kNombreMaxModules] of Module;
                      end;
 
@@ -109,9 +109,9 @@ TYPE
   LectureModuleRec =
     record
       action                             : actions_de_compilation;
-      nombreErreurs                      : SInt32;
-      nombreLignesTropLongues            : SInt32;
-      nombreDeclarationsIndues           : SInt32;
+      nombreErreurs                      : SInt64;
+      nombreLignesTropLongues            : SInt64;
+      nombreDeclarationsIndues           : SInt64;
       enCoursDeLecture                   : parties_de_modules;
       doitEtrePrelinke                   : boolean;
       doitEtreAccelere                   : boolean;
@@ -133,7 +133,7 @@ TYPE
 
 
 procedure InitUnitCompilation;
-var k : SInt32;
+var k : SInt64;
 begin
 
   gTableDesModules.cardinal := 0;
@@ -153,7 +153,7 @@ begin
 end;
 
 
-function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt32; var theModule : Module) : boolean;
+function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt64; var theModule : Module) : boolean;
 begin
   numeroModule := -1;
   theModule := NIL;
@@ -168,7 +168,7 @@ end;
 
 
 function SymboleEstChargeEnMemoire(const nom : String255; var theSymbole : Symbole) : boolean;
-var adresseSymbole : SInt32;
+var adresseSymbole : SInt64;
 begin
   theSymbole := NIL;
   SymboleEstChargeEnMemoire := false;
@@ -192,7 +192,7 @@ end;
 
 function GetModule(const name : String255) : Module;
 var result : Module;
-    numero : SInt32;
+    numero : SInt64;
 begin
   if ModuleEstChargeEnMemoire(name, numero, result)
     then GetModule := result
@@ -200,7 +200,7 @@ begin
 end;
 
 
-function GetModuleByNumero(numero : SInt32) : Module;
+function GetModuleByNumero(numero : SInt64) : Module;
 begin
   if (numero >= 1) & (numero <= gTableDesModules.cardinal)
     then GetModuleByNumero := gTableDesModules.pointeurs[numero]
@@ -208,8 +208,8 @@ begin
 end;
 
 
-function GetNumeroOfModule(whichModule : Module) : SInt32;
-var numero : SInt32;
+function GetNumeroOfModule(whichModule : Module) : SInt64;
+var numero : SInt64;
     moduleVerif : Module;
 begin
   if ModuleEstChargeEnMemoire(GetNameOfModule(whichModule), numero, moduleVerif)
@@ -530,7 +530,7 @@ function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : FichierTEXT) 
 var symbolName : String255;
     err : OSErr;
     espaces : String255;
-    len : SInt32;
+    len : SInt64;
 begin
   err := -1;
 
@@ -575,7 +575,7 @@ function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT)
 var symbolName : String255;
     err : OSErr;
     espaces : String255;
-    len : SInt32;
+    len : SInt64;
 begin
   err := -1;
 
@@ -736,7 +736,7 @@ var fun_or_proc : String255;
     reste : String255;
     oldParsingSet : SetOfChar;
     nouveauSymbole : Symbole;
-    position : SInt32;
+    position : SInt64;
     definition : LongString;
 begin
 
@@ -888,7 +888,7 @@ begin
 
       InsererDansATR(myATR,theSymbole^.nom);
 
-      AddStringToSet(theSymbole^.nom,SInt32(theSymbole),myStringSet);
+      AddStringToSet(theSymbole^.nom,SInt64(theSymbole),myStringSet);
 
     end;
 
@@ -898,7 +898,7 @@ end;
 
 
 
-procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt32);
+procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt64);
 var lecture : LectureModulePtr;
 begin
 
@@ -920,8 +920,8 @@ begin
 end;
 
 
-function NombreDeModulesDevantEtrePrelinkeDansClause(const usesClause : ListeDeModules) : SInt32;
-var compteur,k : SInt32;
+function NombreDeModulesDevantEtrePrelinkeDansClause(const usesClause : ListeDeModules) : SInt64;
+var compteur,k : SInt64;
 begin
   compteur := 0;
   for k := 1 to usesClause.cardinal do
@@ -932,7 +932,7 @@ end;
 
 
 function UsesClauseADesModulesDevantEtrePrelinke(const usesClause : ListeDeModules) : boolean;
-var k : SInt32;
+var k : SInt64;
 begin
   UsesClauseADesModulesDevantEtrePrelinke := false;
 
@@ -993,7 +993,7 @@ begin
 end;
 
 function UsesClauseContientDesDefinitionsDeDassio(const usesClause : ListeDeModules) : boolean;
-var k : SInt32;
+var k : SInt64;
     nom : String255;
 begin
   UsesClauseContientDesDefinitionsDeDassio := false;
@@ -1014,7 +1014,7 @@ end;
 
 
 
-procedure VerifierCetteLigneDansLesSources(var ligne : LongString; var theFic : FichierTEXT; var lectureAddr : SInt32);
+procedure VerifierCetteLigneDansLesSources(var ligne : LongString; var theFic : FichierTEXT; var lectureAddr : SInt64);
 var lecture : LectureModulePtr;
     err : OSErr;
     doitDupliquerLigneCourante : boolean;
@@ -1022,8 +1022,8 @@ var lecture : LectureModulePtr;
   procedure AjouterLesFonctionsObligatoires(listeDeFonctions : String255);
   var s,reste : String255;
       theSymbole : Symbole;
-      symboleAddr : SInt32;
-      aux : SInt32;
+      symboleAddr : SInt64;
+      aux : SInt64;
       err : OSErr;
   begin
     with lecture^ do
@@ -1075,8 +1075,8 @@ var lecture : LectureModulePtr;
   var s,reste : String255;
       oldParsingSet : SetOfChar;
       theSymbole : Symbole;
-      symboleAddr : SInt32;
-      aux : SInt32;
+      symboleAddr : SInt64;
+      aux : SInt64;
       err : OSErr;
   begin
     with lecture^ do
@@ -1156,7 +1156,7 @@ var lecture : LectureModulePtr;
   var s,reste : String255;
       result : String255;
       {nomModule : String255;}
-      i : SInt32;
+      i : SInt64;
   begin
     with lecture^ do
       begin
@@ -1266,8 +1266,8 @@ var lecture : LectureModulePtr;
   end;
 
 
-  procedure EcritModulesNormaux(var liste : ListeDeModules; var nombreModulesEcrit : SInt32);
-  var k : SInt32;
+  procedure EcritModulesNormaux(var liste : ListeDeModules; var nombreModulesEcrit : SInt64);
+  var k : SInt64;
       moduleName, fileName : String255;
   begin
     with lecture^ do
@@ -1314,8 +1314,8 @@ var lecture : LectureModulePtr;
 
 
 
-  procedure EcritModulesPrelinkes(var liste : ListeDeModules; var nombreModulesEcrit : SInt32);
-  var k : SInt32;
+  procedure EcritModulesPrelinkes(var liste : ListeDeModules; var nombreModulesEcrit : SInt64);
+  var k : SInt64;
       moduleName, fileName : String255;
   begin
     with lecture^ do
@@ -1340,8 +1340,8 @@ var lecture : LectureModulePtr;
 
 
   procedure TraiteFinInterfaceUses;
-  var nombreModulesEcrit : SInt32;
-      k : SInt32;
+  var nombreModulesEcrit : SInt64;
+      k : SInt64;
       filename : String255;
       moduleName : String255;
       defCassio : boolean;
@@ -1431,7 +1431,7 @@ var lecture : LectureModulePtr;
 
 
   procedure TraiteFinImplementationUses;
-  var nombreModulesEcrit : SInt32;
+  var nombreModulesEcrit : SInt64;
       {filename : String255;
       moduleName : String255;}
       err : OSErr;
@@ -1505,7 +1505,7 @@ var lecture : LectureModulePtr;
   var theSymbole : Symbole;
       err : OSErr;
       s : String255;
-      compteur,i : SInt32;
+      compteur,i : SInt64;
       wasExternal : boolean;
   begin
     with lecture^ do
@@ -1958,11 +1958,11 @@ var gActionDeCompilationDemandee : actions_de_compilation;
 procedure VerifierCeFichierSource(const whichFile : FSSpec);
 var lectureRec : LectureModuleRec;
     lecture : LectureModulePtr;
-    lectureAddr : SInt32;
+    lectureAddr : SInt64;
     fileName : String255;
     moduleName : String255;
     err : OSErr;
-    k : SInt32;
+    k : SInt64;
 begin
 
   fileName := GetNameOfFSSpec(whichFile);
@@ -2041,7 +2041,7 @@ begin
 
 
 
-      lectureAddr := SInt32(lecture);
+      lectureAddr := SInt64(lecture);
 
       ForEachLineInFileDo(whichFile,VerifierCetteLigneDansLesSources,lectureAddr);
 

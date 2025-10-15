@@ -17,9 +17,9 @@ procedure InitUnitMoulinette;                                                   
 
 
 { Utilitaires pour parser des proprietes (entre guillemets) de fichiers PGN ou XOF }
-procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt32);                                                                                      ATTRIBUTE_NAME('ParserScoreTheoriqueDansFichierPGN')
-procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt32);                 ATTRIBUTE_NAME('ParserJoueurDansFichierPNG')
-procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt32; var pseudo,nomDansThor : String255; var numero : SInt32); ATTRIBUTE_NAME('ParserTournoiDansFichierPNG')
+procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt64);                                                                                      ATTRIBUTE_NAME('ParserScoreTheoriqueDansFichierPGN')
+procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt64);                 ATTRIBUTE_NAME('ParserJoueurDansFichierPNG')
+procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt64; var pseudo,nomDansThor : String255; var numero : SInt64); ATTRIBUTE_NAME('ParserTournoiDansFichierPNG')
 
 
 { Moulinettes d'import }
@@ -33,17 +33,17 @@ procedure BaseLogKittyEnFormatThor(nomBaseLogKitty,NomBaseFormatThor : String255
 
 
 { Moulinettes d'export }
-procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt32);                                                                                  ATTRIBUTE_NAME('ExportListeAuFormatTexte')
+procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt64);                                                                                  ATTRIBUTE_NAME('ExportListeAuFormatTexte')
 procedure ExportListeAuFormatPGN;                                                                                                                                                   ATTRIBUTE_NAME('ExportListeAuFormatPGN')
 procedure ExportListeAuFormatHTML;                                                                                                                                                  ATTRIBUTE_NAME('ExportListeAuFormatHTML')
 procedure ExportListeAuFormatXOF;                                                                                                                                                   ATTRIBUTE_NAME('ExportListeAuFormatXOF')
 
 
 { Export d'une partie individuelle }
-procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);                                                             ATTRIBUTE_NAME('ExporterPartieDansFichierHTML')
-procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);                                                            ATTRIBUTE_NAME('ExporterPartieDansFichierTexte')
-procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierPGN')
-procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierXOF')
+procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                             ATTRIBUTE_NAME('ExporterPartieDansFichierHTML')
+procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                            ATTRIBUTE_NAME('ExporterPartieDansFichierTexte')
+procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierPGN')
+procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierXOF')
 
 
 { Fonction d'ecriture d'une partie illegale dans le rapport }
@@ -108,7 +108,7 @@ end;
 
 
 
-procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt32);
+procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt64);
 var oldParsingProtection : boolean;
     s1,reste : String255;
 begin
@@ -130,7 +130,7 @@ begin
 end;
 
 
-procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt32; var pseudo,nomDansThor : String255; var numero : SInt32);
+procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt64; var pseudo,nomDansThor : String255; var numero : SInt64);
 var oldParsingProtection : boolean;
     s1,reste : String255;
 begin
@@ -151,7 +151,7 @@ begin
 end;
 
 
-procedure ParserDateDansFichierPGN(const ligne : String255; var annee,mois,jour : SInt32);
+procedure ParserDateDansFichierPGN(const ligne : String255; var annee,mois,jour : SInt64);
 var date,f1,f2,f3,s1,reste : String255;
     oldParsingSet : SetOfChar;
     oldParsingProtection : boolean;
@@ -177,10 +177,10 @@ begin
 end;
 
 
-procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt32);
+procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt64);
 var score,scoreNoir,scoreBlanc : String255;
     oldParsingProtection : boolean;
-    theoriqueNoir,theoriqueBlanc : SInt32;
+    theoriqueNoir,theoriqueBlanc : SInt64;
 begin
   oldParsingProtection := GetParsingProtectionWithQuotes;
   SetParsingProtectionWithQuotes(true);
@@ -202,10 +202,10 @@ begin
 end;
 
 
-procedure EssayerInterpreterJoueursPGNCommeNomDeFichier(pseudoNoir,pseudoBlanc : String255; var numeroNoir,numeroBlanc : SInt32; var confiance : double_t);
+procedure EssayerInterpreterJoueursPGNCommeNomDeFichier(pseudoNoir,pseudoBlanc : String255; var numeroNoir,numeroBlanc : SInt64; var confiance : double_t);
 var chaineJoueurs : String255;
     partieJoueursImprobables : String255;
-    aux : SInt32;
+    aux : SInt64;
 begin
 
   (* on crée un nom de fichier fictif le plus ressemblant possible *)
@@ -236,7 +236,7 @@ end;
 
 
 procedure WritelnPartieIllegaleDansRapport(partieIllegaleEnAlpha : String255);
-var i,longueur,nbCoupsLegaux : SInt32;
+var i,longueur,nbCoupsLegaux : SInt64;
     debutLegal,essaiDebut : String255;
     finNonLegale : String255;
 begin
@@ -282,26 +282,26 @@ end;
 
 function AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;
 var ligne,s,coupsPotentiels : String255;
-    nroReferencePartieAjoutee : SInt32;
+    nroReferencePartieAjoutee : SInt64;
     partieEnAlpha : String255;
     partieLegale : boolean;
     partieDoublon : boolean;
-    nbPartiesDansFichierPGN : SInt32;
-    nbPartiesImportees : SInt32;
-    lastNbPartiesImporteesDansRapport  : SInt32;
-    lastNbPartiesFichierPGNDansRapport : SInt32;
+    nbPartiesDansFichierPGN : SInt64;
+    nbPartiesImportees : SInt64;
+    lastNbPartiesImporteesDansRapport  : SInt64;
+    lastNbPartiesFichierPGNDansRapport : SInt64;
     erreurES : OSErr;
     partieNF : t_PartieRecNouveauFormat;
     myDate : DateTimeRec;
-    numeroTournoiParDefaut : SInt32;
+    numeroTournoiParDefaut : SInt64;
     nbCoupsRecus : SInt16;
-    nbPionsNoirs,nbPionsBlancs : SInt32;
-    numeroNoir,numeroBlanc,numeroTournoi : SInt32;
+    nbPionsNoirs,nbPionsBlancs : SInt64;
+    numeroNoir,numeroBlanc,numeroTournoi : SInt64;
     pseudoNoir,pseudoBlanc,pseudoTournoi : String255;
-    annee,tickDepart : SInt32;
-    anneeDansRecord,moisDansRecord,jourDansRecord : SInt32;
+    annee,tickDepart : SInt64;
+    anneeDansRecord,moisDansRecord,jourDansRecord : SInt64;
     nomNoir,nomBlanc,nomTournoi : String255;
-    compteurDoublons,aux : SInt32;
+    compteurDoublons,aux : SInt64;
     nomFichierPGN : String255;
     nomLongDuFichier : String255;
     tableDoublons : StringSet;
@@ -311,13 +311,13 @@ var ligne,s,coupsPotentiels : String255;
     partieComplete : boolean;
     partieInternet : boolean;
     utilisateurVeutSortir : boolean;
-    theorique : SInt32;
+    theorique : SInt64;
     partieEstDouteuse : boolean;
     doitSauterLesPartiesInternetSansJoueurConnu : boolean;
-    tailleFichierPGN : SInt32;
+    tailleFichierPGN : SInt64;
     // ligneNomNoir : String255;
     // ligneNomBlanc : String255;
-    lastTickEscapeDansQueue : SInt32;
+    lastTickEscapeDansQueue : SInt64;
     positionArrivee : PositionEtTraitRec;
     
 label sauter_cette_partie;
@@ -700,21 +700,21 @@ end;
 
 
 function AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;
-var nroReferencePartieAjoutee : SInt32;
+var nroReferencePartieAjoutee : SInt64;
     partieEnAlpha : String255;
     chaineJoueurs : String255;
     nomsDesJoueursParDefaut : String255;
     partieLegale : boolean;
-    nbPartiesDansFic : SInt32;
-    nbPartiesIllegales : SInt32;
+    nbPartiesDansFic : SInt64;
+    nbPartiesIllegales : SInt64;
     erreurES : OSErr;
     partieNF : t_PartieRecNouveauFormat;
     myDate : DateTimeRec;
     nbCoupsRecus : SInt16;
-    nbPionsNoirs,nbPionsBlancs : SInt32;
-    numeroNoir,numeroBlanc,numeroTournoi : SInt32;
-    annee,tickDepart : SInt32;
-    compteurDoublons,aux : SInt32;
+    nbPionsNoirs,nbPionsBlancs : SInt64;
+    numeroNoir,numeroBlanc,numeroTournoi : SInt64;
+    annee,tickDepart : SInt64;
+    compteurDoublons,aux : SInt64;
     nomFic : String255;
     nomLongDuFichier : String255;
     tableDoublons : StringSet;
@@ -724,9 +724,9 @@ var nroReferencePartieAjoutee : SInt32;
     partieDoublon : boolean;
     joueursTrouves : boolean;
     utilisateurVeutSortir : boolean;
-    theorique : SInt32;
+    theorique : SInt64;
     derniereLigneLue : String255;
-    nombreDeLignesLues : SInt32;
+    nombreDeLignesLues : SInt64;
     confianceDansLesJoueurs : double_t;
     bidReal : double_t;
     partieEstDouteuse : boolean;
@@ -762,7 +762,7 @@ var nroReferencePartieAjoutee : SInt32;
   var s,result : String255;
       partieComplete : boolean;
       partieIllegale : boolean;
-      nbCoups,dernierNbCoups : SInt32;
+      nbCoups,dernierNbCoups : SInt64;
       positionDuCoupDansChaine : SInt16;
       square : SInt16;
   begin
@@ -837,7 +837,7 @@ var nroReferencePartieAjoutee : SInt32;
   procedure LitProchaineLigneAvecJoueursEtPartie(var chaineJoueurs,partieEnAlpha : String255; var confianceDansLesJoueurs : double_t);
   var s,moves : String255;
       partieTrouvee : boolean;
-      nbPionsNoirs,nbPionsBlancs : SInt32;
+      nbPionsNoirs,nbPionsBlancs : SInt64;
   begin
     partieTrouvee := false;
     s := '';
@@ -1188,7 +1188,7 @@ var ligne,s,partieEnAlpha,scoreEnChaine,numeroLigneEnChaine,reste : String255;
     partieEnThor : PackedThorGame;
     partie120 : String255;
     autreCoupQuatreDiag : boolean;
-    score,nbPartiesDansBaseLogKitty,i : SInt32;
+    score,nbPartiesDansBaseLogKitty,i : SInt64;
     erreurES : OSErr;
     inputBaseLogKitty,outputBaseThor : FichierTEXT;
     enteteFichierPartie : t_EnTeteNouveauFormat;
@@ -1346,7 +1346,7 @@ end;
 
 
 
-procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);
+procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 var erreurES : OSErr;
     partieEnAlpha : String255;
     ligne : String255;
@@ -1433,10 +1433,10 @@ begin
 end;
 
 
-procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);
+procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 var erreurES : OSErr;
     s,s1,s2,ligne : String255;
-    k : SInt32;
+    k : SInt64;
 begin
   with gOptionsExportBase do
     begin
@@ -1498,7 +1498,7 @@ begin
 end;
 
 
-procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);
+procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 var erreurES : OSErr;
     moves,ligne : String255;
 begin
@@ -1579,13 +1579,13 @@ end;
 
 
 
-procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt32);
+procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt64);
 var reply : SFReply;
     prompt : String255;
     whichSpec : FSSpec;
     erreurES : OSErr;
     exportTexte : FichierTEXT;
-    compteur : SInt32;
+    compteur : SInt64;
 begin
 
   nbPartiesExportees := 0;
@@ -1632,7 +1632,7 @@ var reply : SFReply;
     whichSpec : FSSpec;
     erreurES : OSErr;
     exportFichier : FichierTEXT;
-    compteur,nbPartiesExportees : SInt32;
+    compteur,nbPartiesExportees : SInt64;
 begin
 
   nbPartiesExportees := 0;
@@ -1679,7 +1679,7 @@ var reply : SFReply;
     whichSpec : FSSpec;
     erreurES : OSErr;
     exportFichier : FichierTEXT;
-    compteur,nbPartiesExportees : SInt32;
+    compteur,nbPartiesExportees : SInt64;
     myDate : DateTimeRec;
 begin
 
@@ -1758,15 +1758,15 @@ begin
 end;
 
 
-procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);
+procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 var erreurES : OSErr;
     s,ligne,ligneSansEspace : String255;
     nom1,nom2 : String255;
     nomFichierOutput : String255;
     fichierHTMLOutput : FichierTEXT;
     fichierModeleHTML : FichierTEXT;
-    compteurLignes,data : SInt32;
-    numero: SInt32;
+    compteurLignes,data : SInt64;
+    numero: SInt64;
 begin
 
   if PartieEstActiveEtSelectionnee(numeroReference) then
@@ -1866,15 +1866,15 @@ begin
   end;
 end;
 
-procedure ExporterPartieDansFichierSOF(var theGame : PackedThorGame; numeroReference : SInt32; var compteur : SInt32);
+procedure ExporterPartieDansFichierSOF(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 var erreurES : OSErr;
     s : String255;
     nom1,nom2,nomPourURL : String255;
     nomFichierOutput : String255;
     fichierSOFOutput : FichierTEXT;
     fichierModeleHTML : FichierTEXT;
-    nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32;
-    data, t, trait, coup : SInt32;
+    nbPionsFinalNoirs,nbPionsFinalBlancs : SInt64;
+    data, t, trait, coup : SInt64;
     myDate : DateTimeRec;
     partieTerminee, ok : boolean;
     positionEtTrait : PositionEtTraitRec;
@@ -2038,7 +2038,7 @@ end;
 procedure ExportListeAuFormatHTML;
 var erreurES : OSErr;
     modeleHTML : FichierTEXT;
-    compteur : SInt32;
+    compteur : SInt64;
     prompt : String255;
 begin
 
@@ -2109,12 +2109,12 @@ end;
 
 
 
-procedure ImporterLigneNulleBougeard(var myLongString : LongString; var theFic : FichierTEXT; var compteur : SInt32);
+procedure ImporterLigneNulleBougeard(var myLongString : LongString; var theFic : FichierTEXT; var compteur : SInt64);
 var gameNodeLePlusProfond : GameTree;
     partieRec : t_PartieRecNouveauFormat;
     partieEnThor : PackedThorGame;
-    nroReferencePartieAjoutee : SInt32;
-    i : SInt32;
+    nroReferencePartieAjoutee : SInt64;
+    i : SInt64;
     ligne : String255;
     oldCheckDangerousEvents : boolean;
 begin {$unused theFic}
@@ -2178,7 +2178,7 @@ end;
 
 
 procedure ImportBaseAllDrawLinesDeBougeard;
-var compteurParties : SInt32;
+var compteurParties : SInt64;
     erreurES : OSErr;
     fichierBougeard : FichierTEXT;
 begin
@@ -2212,16 +2212,16 @@ function ImporterFichierPartieDansListe(var fs : FSSpec; isFolder : boolean; pat
 var err : OSErr;
     fic : FichierTEXT;
     nomComplet : String255;
-    numeroNoir,numeroBlanc : SInt32;
-    numeroTournoi,anneeTournoi : SInt32;
+    numeroNoir,numeroBlanc : SInt64;
+    numeroTournoi,anneeTournoi : SInt64;
     infos : FormatFichierRec;
     partieEnAlpha : String255;
     nomLongDuFichier : String255;
     partieRec : t_PartieRecNouveauFormat;
-    nroReferencePartieAjoutee : SInt32;
+    nroReferencePartieAjoutee : SInt64;
     myDate : DateTimeRec;
     partieLegale,partieComplete : boolean;
-    nbNoirs,nbBlancs : SInt32;
+    nbNoirs,nbBlancs : SInt64;
     confianceDansLesJoueurs : double_t;
     nomLongDuFichierDejaEcrit : boolean;
     recognized : boolean;
@@ -2249,7 +2249,7 @@ begin
   				  WritelnDansRapport('');
 
   				  {
-  				  WritelnNumDansRapport('infos.format = ',SInt32(infos.format));
+  				  WritelnNumDansRapport('infos.format = ',SInt64(infos.format));
   				  WritelnNumDansRapport('infos.tailleOthellier = ',infos.tailleOthellier);
   				  WritelnStringDansRapport('infos.positionEtPartie = '+infos.positionEtPartie);
   				  }
@@ -2378,7 +2378,7 @@ procedure ImporterToutesPartiesRepertoire;
 var prompt : String255;
     whichDirectory : FSSpec;
     erreurES : OSErr;
-    tick : SInt32;
+    tick : SInt64;
 begin
   prompt := ReadStringFromRessource(TextesDiversID,10); {'Choisissez un répertoire avec des parties'}
   if ChooseFolder(prompt,whichDirectory) then

@@ -27,38 +27,38 @@ procedure PreouvrirGraphesUsuels;                                               
 procedure FermerGraphesUsuels;                                                                                                                                                      ATTRIBUTE_NAME('FermerGraphesUsuels')
 
 {Acces aux infos d'un graphe}
-function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt32;                                                                                                       ATTRIBUTE_NAME('NbrePositionsDansGrapheApprentissage')
+function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt64;                                                                                                       ATTRIBUTE_NAME('NbrePositionsDansGrapheApprentissage')
 procedure RecalculerNbrePositionsDansGrapheApprentissage(var fichier : Graphe);                                                                                                     ATTRIBUTE_NAME('RecalculerNbrePositionsDansGrapheApprentissage')
 procedure VideGrapheApprentissage(var fichier : Graphe);                                                                                                                            ATTRIBUTE_NAME('VideGrapheApprentissage')
-procedure LitCellule(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);                                                                                          ATTRIBUTE_NAME('LitCellule')
-procedure EcritCellule(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);                                                                                        ATTRIBUTE_NAME('EcritCellule')
-procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt32; var cellule : CelluleRec);                                                                                  ATTRIBUTE_NAME('AfficheCelluleDansRapport')
-procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt32);                                                                                                         ATTRIBUTE_NAME('InitialiseCellule')
-procedure IsoleCellule(var fichier : Graphe; numCellule : SInt32);                                                                                                                  ATTRIBUTE_NAME('IsoleCellule')
+procedure LitCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);                                                                                          ATTRIBUTE_NAME('LitCellule')
+procedure EcritCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);                                                                                        ATTRIBUTE_NAME('EcritCellule')
+procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt64; var cellule : CelluleRec);                                                                                  ATTRIBUTE_NAME('AfficheCelluleDansRapport')
+procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt64);                                                                                                         ATTRIBUTE_NAME('InitialiseCellule')
+procedure IsoleCellule(var fichier : Graphe; numCellule : SInt64);                                                                                                                  ATTRIBUTE_NAME('IsoleCellule')
 
-function GetNbreEcrituresDansGraphe : SInt32;                                                                                                                                       ATTRIBUTE_NAME('GetNbreEcrituresDansGraphe')
-function GetNbreLecturesDansGraphe : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetNbreLecturesDansGraphe')
+function GetNbreEcrituresDansGraphe : SInt64;                                                                                                                                       ATTRIBUTE_NAME('GetNbreEcrituresDansGraphe')
+function GetNbreLecturesDansGraphe : SInt64;                                                                                                                                        ATTRIBUTE_NAME('GetNbreLecturesDansGraphe')
 
 {Acces et modification des champs des cellules du graphe d'apprentissage}
-function GetPere(var cellule : CelluleRec) : SInt32;                                                                                                                                ATTRIBUTE_NAME('GetPere')
-function GetFils(var cellule : CelluleRec) : SInt32;                                                                                                                                ATTRIBUTE_NAME('GetFils')
-function GetFrere(var cellule : CelluleRec) : SInt32;                                                                                                                               ATTRIBUTE_NAME('GetFrere')
-function GetMemePosition(var cellule : CelluleRec) : SInt32;                                                                                                                        ATTRIBUTE_NAME('GetMemePosition')
+function GetPere(var cellule : CelluleRec) : SInt64;                                                                                                                                ATTRIBUTE_NAME('GetPere')
+function GetFils(var cellule : CelluleRec) : SInt64;                                                                                                                                ATTRIBUTE_NAME('GetFils')
+function GetFrere(var cellule : CelluleRec) : SInt64;                                                                                                                               ATTRIBUTE_NAME('GetFrere')
+function GetMemePosition(var cellule : CelluleRec) : SInt64;                                                                                                                        ATTRIBUTE_NAME('GetMemePosition')
 function GetCoup(var cellule : CelluleRec) : SInt16;                                                                                                                                ATTRIBUTE_NAME('GetCoup')
 function GetCouleur(var cellule : CelluleRec) : SInt16;                                                                                                                             ATTRIBUTE_NAME('GetCouleur')
 function GetTrait(var cellule : CelluleRec) : SInt16;                                                                                                                               ATTRIBUTE_NAME('GetTrait')
 function GetNumeroCoup(var cellule : CelluleRec) : SInt16;                                                                                                                          ATTRIBUTE_NAME('GetNumeroCoup')
 
-procedure SetPere(thePere : SInt32; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetPere')
-procedure SetFils(theFils : SInt32; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetFils')
-procedure SetFrere(theFrere : SInt32; var cellule : CelluleRec);                                                                                                                    ATTRIBUTE_NAME('SetFrere')
-procedure SetMemePosition(theMemePosition : SInt32; var cellule : CelluleRec);                                                                                                      ATTRIBUTE_NAME('SetMemePosition')
+procedure SetPere(thePere : SInt64; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetPere')
+procedure SetFils(theFils : SInt64; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetFils')
+procedure SetFrere(theFrere : SInt64; var cellule : CelluleRec);                                                                                                                    ATTRIBUTE_NAME('SetFrere')
+procedure SetMemePosition(theMemePosition : SInt64; var cellule : CelluleRec);                                                                                                      ATTRIBUTE_NAME('SetMemePosition')
 procedure SetCoup(coup : SInt16; var cellule : CelluleRec);                                                                                                                         ATTRIBUTE_NAME('SetCoup')
 procedure SetCouleur(couleur : SInt16; var cellule : CelluleRec);                                                                                                                   ATTRIBUTE_NAME('SetCouleur')
 procedure SetTrait(trait : SInt16; var cellule : CelluleRec);                                                                                                                       ATTRIBUTE_NAME('SetTrait')
 procedure SetNumeroCoup(numero : SInt16; var cellule : CelluleRec);                                                                                                                 ATTRIBUTE_NAME('SetNumeroCoup')
 
-function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt32) : SInt16;                                                                                             ATTRIBUTE_NAME('GetCoupOfCelluleNumero')
+function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt64) : SInt16;                                                                                             ATTRIBUTE_NAME('GetCoupOfCelluleNumero')
 function GetNiemeCoupDansListe(var fichier : Graphe; var L : ListeDeCellules; n : SInt16) : SInt16;                                                                                 ATTRIBUTE_NAME('GetNiemeCoupDansListe')
 
 {Les flags}
@@ -115,7 +115,7 @@ function IsPublic(var cellule : CelluleRec) : boolean;                          
 function IsPrivate(var cellule : CelluleRec) : boolean;                                                                                                                             ATTRIBUTE_NAME('IsPrivate')
 function EstDansT(var cellule : CelluleRec) : boolean;                                                                                                                              ATTRIBUTE_NAME('EstDansT')
 function EstUnePropositionHeuristique(var cellule : CelluleRec) : boolean;                                                                                                          ATTRIBUTE_NAME('EstUnePropositionHeuristique')
-function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt32) : boolean;                                                                                                        ATTRIBUTE_NAME('AuMoinsUnFils')
+function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt64) : boolean;                                                                                                        ATTRIBUTE_NAME('AuMoinsUnFils')
 function HasPere(var cellule : CelluleRec) : boolean;                                                                                                                               ATTRIBUTE_NAME('HasPere')
 function HasFrere(var cellule : CelluleRec) : boolean;                                                                                                                              ATTRIBUTE_NAME('HasFrere')
 function HasFils(var cellule : CelluleRec) : boolean;                                                                                                                               ATTRIBUTE_NAME('HasFils')
@@ -129,7 +129,7 @@ procedure RaiseError(message : String255);                                      
 function LongueurPartieDuGraphe(const whichGame : typePartiePourGraphe) : SInt16;                                                                                                   ATTRIBUTE_NAME('LongueurPartieDuGraphe')
 function NiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;                                                                                  ATTRIBUTE_NAME('NiemeCoupDansPartieDuGraphe')
 function CouleurDuNiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;                                                                         ATTRIBUTE_NAME('CouleurDuNiemeCoupDansPartieDuGraphe')
-function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt32;                                                                                                             ATTRIBUTE_NAME('NumeroDerniereCellule')
+function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt64;                                                                                                             ATTRIBUTE_NAME('NumeroDerniereCellule')
 
 
 
@@ -174,12 +174,12 @@ var bufferCellules :
       record
         indexDerniereCelluleAjoutee : SInt16;
         indexDerniereCelluleTrouvee : SInt16;
-        RefFichier : array[0..tailleBufferCellules] of SInt32;
-        LesNumCellules : array[0..tailleBufferCellules] of SInt32;
+        RefFichier : array[0..tailleBufferCellules] of SInt64;
+        LesNumCellules : array[0..tailleBufferCellules] of SInt64;
         LesCellules : array[0..tailleBufferCellules] of CelluleRec;
       end;
-    nbreEcrituresDansGraphe : SInt32;
-    nbreLecturesDansGraphe : SInt32;
+    nbreEcrituresDansGraphe : SInt64;
+    nbreLecturesDansGraphe : SInt64;
 
 
 const tailleBufferGraphesOuverts = 5;
@@ -210,7 +210,7 @@ begin
 end;
 
 procedure InitUnitAccesGrapheApprentissage;
-var i : SInt32;
+var i : SInt64;
 begin
   VideBufferGrapheApprentissage;
   nbreLecturesDansGraphe := 0;
@@ -239,7 +239,7 @@ begin
   GetCelluleDansBuffer := bufferCellules.LesCellules[numeroDansBuffer];
 end;
 
-procedure PutCelluleDansBuffer(numeroDansBuffer : SInt16; var fichier : Graphe; numeroDansFichier : SInt32; var cellule : CelluleRec);
+procedure PutCelluleDansBuffer(numeroDansBuffer : SInt16; var fichier : Graphe; numeroDansFichier : SInt64; var cellule : CelluleRec);
 begin
   with bufferCellules do
   if (numeroDansBuffer >= 0) & (numeroDansBuffer <= tailleBufferCellules) then
@@ -250,8 +250,8 @@ begin
     end;
 end;
 
-function CelluleEstDansBuffer(var fichier : Graphe; numCellule : SInt32; var numeroDansBuffer : SInt16) : boolean;
-var uniqueIDDuFichier : SInt32;
+function CelluleEstDansBuffer(var fichier : Graphe; numCellule : SInt64; var numeroDansBuffer : SInt16) : boolean;
+var uniqueIDDuFichier : SInt64;
     i,k : SInt16;
 begin
   uniqueIDDuFichier := GetUniqueIDFichierTexte(fichier^.fic);
@@ -289,7 +289,7 @@ begin
   CelluleEstDansBuffer := false;
 end;
 
-procedure AddCelluleDansBuffer(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);
+procedure AddCelluleDansBuffer(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);
 begin
   with bufferCellules do
     begin
@@ -308,8 +308,8 @@ begin
 end;
 
 
-function NbreSlotsDisponiblesDansBufferGraphesOuverts(var unSlotVide : SInt32) : SInt32;
-var sum,k : SInt32;
+function NbreSlotsDisponiblesDansBufferGraphesOuverts(var unSlotVide : SInt64) : SInt64;
+var sum,k : SInt64;
 begin
   sum := 0;
   unSlotVide := -1;
@@ -327,7 +327,7 @@ begin
 end;
 
 procedure AddGrapheDansBufferGraphesOuverts(fichier : Graphe);
-var slot,numeroSlotVide : SInt32;
+var slot,numeroSlotVide : SInt64;
 begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
@@ -364,7 +364,7 @@ begin
 end;
 
 procedure EnleverGrapheDuBufferGraphesOuverts(fichier : Graphe);
-var slot : SInt32;
+var slot : SInt64;
 begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
@@ -381,7 +381,7 @@ begin
 end;
 
 function TrouveGrapheDansBufferGraphesOuverts(nomDuGraphe : String255; var fichier : Graphe) : boolean;
-var slot : SInt32;
+var slot : SInt64;
 begin
   if MemberOfStringSet(nomDuGraphe,slot,bufferGraphesOuverts.noms) &
      (slot >= 1) & (slot <= tailleBufferGraphesOuverts) &
@@ -437,7 +437,7 @@ end;
 
 function GrapheApprentissageExiste(var nomDuGraphe : String255; var fichier : Graphe; var grapheEtaitDejaOuvert : boolean) : boolean;
 var erreurES : OSErr;
-    numeroSlotVide,bidLong : SInt32;
+    numeroSlotVide,bidLong : SInt64;
 begin
   erreurES := -1;
   grapheEtaitDejaOuvert := false;
@@ -551,8 +551,8 @@ begin
   fichier^.nbCellules := -1;
 end;
 
-function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt32;
-var longueur,erreurES : SInt32;
+function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt64;
+var longueur,erreurES : SInt64;
 begin
   with fichier^ do
     begin
@@ -571,14 +571,14 @@ begin
 end;
 
 procedure RecalculerNbrePositionsDansGrapheApprentissage(var fichier : Graphe);
-var nbrePositions : SInt32;
+var nbrePositions : SInt64;
 begin
   fichier^.nbCellules := -1;  {pour forcer le recalcul lors de l'appel a NbrePositionsDansGrapheApprentissage}
   nbrePositions := NbrePositionsDansGrapheApprentissage(fichier);
 end;
 
 procedure VideGrapheApprentissage(var fichier : Graphe);
-var erreurES : SInt32;
+var erreurES : SInt64;
 begin
   erreurES := SetEOFFichierTexte(fichier^.fic,TailleHeaderGraphe);
   fichier^.nbCellules := 0;
@@ -612,8 +612,8 @@ begin
 end;
 
 
-procedure LitCellule(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);
-var position,count : SInt32;
+procedure LitCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);
+var position,count : SInt64;
     erreurES : OSErr;
     EmplacementDansBuffer : SInt16;
 begin
@@ -659,8 +659,8 @@ begin
     end;
 end;
 
-procedure EcritCellule(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);
-var position,count,nbCellulesDansGraphe : SInt32;
+procedure EcritCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);
+var position,count,nbCellulesDansGraphe : SInt64;
     erreurES : OSErr;
     EmplacementDansBuffer : SInt16;
     dejaDansBuffer,nouvelleCellule : boolean;
@@ -724,7 +724,7 @@ begin
 end;
 
 
-procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt32; var cellule : CelluleRec);
+procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt64; var cellule : CelluleRec);
 var couleur,trait : SInt16;
     celluleAux : CelluleRec;
 begin
@@ -822,7 +822,7 @@ begin
     end;
 end;
 
-procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt32);
+procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt64);
 begin
   with cellule do
     begin
@@ -849,7 +849,7 @@ begin
     end;
 end;
 
-procedure IsoleCellule(var fichier : Graphe; numCellule : SInt32);
+procedure IsoleCellule(var fichier : Graphe; numCellule : SInt64);
 var cellule : CelluleRec;
 begin
   LitCellule(fichier,numCellule,cellule);
@@ -865,17 +865,17 @@ begin
 end;
 
 
-function GetNbreEcrituresDansGraphe : SInt32;
+function GetNbreEcrituresDansGraphe : SInt64;
 begin
   GetNbreEcrituresDansGraphe := nbreEcrituresDansGraphe;
 end;
 
-function GetNbreLecturesDansGraphe : SInt32;
+function GetNbreLecturesDansGraphe : SInt64;
 begin
   GetNbreLecturesDansGraphe := nbreLecturesDansGraphe;
 end;
 
-function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt32) : SInt16;
+function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt64) : SInt16;
 var CellAux : CelluleRec;
 begin
   LitCellule(fichier,numeroCellule,CellAux);
@@ -887,42 +887,42 @@ begin
   GetNiemeCoupDansListe := GetCoupOfCelluleNumero(fichier,L.liste[n].numeroCellule);
 end;
 
-function GetPere(var cellule : CelluleRec) : SInt32;
+function GetPere(var cellule : CelluleRec) : SInt64;
 begin
   GetPere := cellule.pere;
 end;
 
-function GetFils(var cellule : CelluleRec) : SInt32;
+function GetFils(var cellule : CelluleRec) : SInt64;
 begin
   GetFils := cellule.fils;
 end;
 
-function GetFrere(var cellule : CelluleRec) : SInt32;
+function GetFrere(var cellule : CelluleRec) : SInt64;
 begin
   GetFrere := cellule.frere;
 end;
 
-function GetMemePosition(var cellule : CelluleRec) : SInt32;
+function GetMemePosition(var cellule : CelluleRec) : SInt64;
 begin
   GetMemePosition := cellule.memePosition;
 end;
 
-procedure SetPere(thePere : SInt32; var cellule : CelluleRec);
+procedure SetPere(thePere : SInt64; var cellule : CelluleRec);
 begin
   cellule.pere := thePere;
 end;
 
-procedure SetFils(theFils : SInt32; var cellule : CelluleRec);
+procedure SetFils(theFils : SInt64; var cellule : CelluleRec);
 begin
   cellule.fils := theFils;
 end;
 
-procedure SetFrere(theFrere : SInt32; var cellule : CelluleRec);
+procedure SetFrere(theFrere : SInt64; var cellule : CelluleRec);
 begin
   cellule.frere := theFrere;
 end;
 
-procedure SetMemePosition(theMemePosition : SInt32; var cellule : CelluleRec);
+procedure SetMemePosition(theMemePosition : SInt64; var cellule : CelluleRec);
 begin
   cellule.memePosition := theMemePosition;
 end;
@@ -1294,7 +1294,7 @@ begin
   EstUnePropositionHeuristique := (cellule.valeurMinimax = kPropositionHeuristique);
 end;
 
-function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt32) : boolean;
+function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt64) : boolean;
 var cellule : CelluleRec;
 begin
   LitCellule(fichier,numCellule,cellule);
@@ -1363,7 +1363,7 @@ begin
 end;
 
 
-function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt32;
+function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt64;
 begin
   if (maListe.cardinal < 1) | (maListe.cardinal > TaileMaxListeDeCoups)
     then

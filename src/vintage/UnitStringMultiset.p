@@ -14,18 +14,18 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyStringMultiset(charSize, stringSize : SInt32) : StringMultiset;                                                                                                   ATTRIBUTE_NAME('MakeEmptyStringMultiset')
+function MakeEmptyStringMultiset(charSize, stringSize : SInt64) : StringMultiset;                                                                                                   ATTRIBUTE_NAME('MakeEmptyStringMultiset')
 function MakeOneElementStringMultiset(const theString : String255) : StringMultiset;                                                                                                ATTRIBUTE_NAME('MakeOneElementStringMultiset')
 procedure DisposeStringMultiset(var S : StringMultiset);                                                                                                                            ATTRIBUTE_NAME('DisposeStringMultiset')
 
 {Fonctions de test}
 function StringMultisetEstVide(S : StringMultiset) : boolean;                                                                                                                       ATTRIBUTE_NAME('StringMultisetEstVide')
-function CardinalOfStringMultiset(S : StringMultiset) : SInt32;                                                                                                                     ATTRIBUTE_NAME('CardinalOfStringMultiset')
-function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt32; S : StringMultiset) : boolean;                                                              ATTRIBUTE_NAME('MemberOfStringMultiset')
+function CardinalOfStringMultiset(S : StringMultiset) : SInt64;                                                                                                                     ATTRIBUTE_NAME('CardinalOfStringMultiset')
+function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt64; S : StringMultiset) : boolean;                                                              ATTRIBUTE_NAME('MemberOfStringMultiset')
 
 {Ajout et retrait destructifs}
 function AddStringToMultiset(const theString : String255; var S : StringMultiset) : boolean;                                                                                        ATTRIBUTE_NAME('AddStringToMultiset')
-procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt32; var S : StringMultiset);                                                            ATTRIBUTE_NAME('RemoveMultipleOccurencesOfStringFromMultiset')
+procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt64; var S : StringMultiset);                                                            ATTRIBUTE_NAME('RemoveMultipleOccurencesOfStringFromMultiset')
 procedure RemoveStringFromMultiset(const theString : String255; var S : StringMultiset);                                                                                            ATTRIBUTE_NAME('RemoveStringFromMultiset')
 
 
@@ -65,9 +65,9 @@ const kDeletedFromStringMultiSet = -1;
 
 
 
-function MakeEmptyStringMultiset(charSize, stringSize : SInt32) : StringMultiset;
+function MakeEmptyStringMultiset(charSize, stringSize : SInt64) : StringMultiset;
 var result : StringMultiset;
-    taille : SInt32;
+    taille : SInt64;
 begin
 
   result.theSet                  := MakeEmptyStringSet;
@@ -83,7 +83,7 @@ begin
     then
       begin
 
-        taille := (stringSize + 10) * Sizeof(SInt32);
+        taille := (stringSize + 10) * Sizeof(SInt64);
 
         result.theChars                := PackedArrayOfCharPtr(AllocateMemoryPtr(charSize + 10));
         result.fin                     := LongintArrayPtr(AllocateMemoryPtrClear(taille));
@@ -119,7 +119,7 @@ begin
 end;
 
 
-function CardinalOfStringMultiset(S : StringMultiset) : SInt32;
+function CardinalOfStringMultiset(S : StringMultiset) : SInt64;
 begin
   CardinalOfStringMultiset := S.theSet.cardinal;
 end;
@@ -132,8 +132,8 @@ end;
 
 
 
-function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt32; S : StringMultiset) : boolean;
-var index : SInt32;
+function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt64; S : StringMultiset) : boolean;
+var index : SInt64;
 begin
   MemberOfStringMultiset := false;
   nbOccurences := 0;
@@ -146,8 +146,8 @@ begin
 end;
 
 
-function TrouveIndexVideDansStringMultiset(var S : StringMultiset; var index : SInt32) : boolean;
-var i : SInt32;
+function TrouveIndexVideDansStringMultiset(var S : StringMultiset; var index : SInt64) : boolean;
+var i : SInt64;
 begin
 
   i := S.derniereCaseVideTrouvee + 1;
@@ -166,8 +166,8 @@ end;
 
 
 function AddStringToMultiset(const theString : String255; var S : StringMultiset) : boolean;
-var index : SInt32;
-    longueur, i : SInt32;
+var index : SInt64;
+    longueur, i : SInt64;
     isMemberOfStheSet : boolean;
 begin
 
@@ -236,9 +236,9 @@ end;
 
 
 
-procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt32; var S : StringMultiset);
-var index : SInt32;
-    temp : SInt32;
+procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt64; var S : StringMultiset);
+var index : SInt64;
+    temp : SInt64;
 begin
 
 
@@ -289,7 +289,7 @@ end;
 
 
 procedure WritelnStringDansRapportSansRepetition(theString : String255; var stringPool : StringMultiset);
-var data : SInt32;
+var data : SInt64;
 begin
   if not(MemberOfStringMultiset(theString,data,stringPool)) then
     begin
@@ -302,7 +302,7 @@ end;
 procedure TestStringMultiset;
 var S : StringMultiset;
     theString : String255;
-    data : SInt32;
+    data : SInt64;
 begin
   S := MakeOneElementStringMultiset('');
   WritelnStringMultisetDansRapport('initial ',S,true);
