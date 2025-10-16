@@ -48,12 +48,16 @@ begin
 end;
 
 
-// transforming a char into a string
+// StringOf() : transforming a char into a string. The advantage of using this 
+// function is to catch differences for some characters which are 1 byte long 
+// in  GNUPascal and 3 bytes in FreePascal, for instance StringOf('√') and
+// StringOf('◊') do not compile.
 
 function StringOf(c : char) : String255;
 begin
   StringOf := c;
 end;
+
 
 // Access the length of a string
 
@@ -80,6 +84,8 @@ begin
    SetLength(s, len);
 end;
 
+
+// testBasicString() : testing various functions of the BasiString unit
 
 procedure testBasicString();
 var  s : string255;
