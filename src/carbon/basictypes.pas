@@ -9,8 +9,8 @@ uses
   cwstring,
 {$ENDIF}
   SysUtils;
-  
-  
+
+
   // common types
   type 
     SInt64 = Int64;    // signed integer, 64 bits
@@ -56,6 +56,10 @@ uses
     TwoBytesArray = packed array[0..1] of UInt8;
     FourBytesArray = packed array[0..3] of UInt8;
     buf255 = packed array[0..255] of char;
+
+  // capacity constants
+  const 
+    MAXINT_16BITS = 32767;   // upper bound of SInt16 integers
 
   // function types
   type

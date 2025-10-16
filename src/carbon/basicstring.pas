@@ -8,11 +8,24 @@ uses
   cthreads,
   cwstring,
 {$ENDIF}
-  SysUtils;
+  SysUtils,
+  basictypes,
+  basicmemory;
   
+  
+// Basic string types
   type
-     String255 = ShortString;
-     str255 = ShortString;
+     String255     =  ShortString;
+     str255        =  ShortString;
+     String255Ptr  =  ^String255;
+     String255Hdl  =  ^String255Ptr;
+     SetOfChar     =  set of char;
+     
+// function types for strings
+  type
+     StringProc                 = procedure(var s : String255; var result : SInt32);
+     MessageDisplayerProc       = procedure(msg : String255);
+     MessageAndNumDisplayerProc = procedure(msg : String255; num : SInt32);
 
 // Copy string from str255 to String255, and reverse
 function MyStr255ToString( const s : Str255 ) : String255;
@@ -20,12 +33,15 @@ function Str255ToString( const s : Str255 ) : String255;
 function StringToStr255( const s : String255 ) : Str255;
 
 // Access the length of a string
-function LENGTH_OF_STRING(s : String255)  : Int64;
-function LENGTH_OF_STRING(s : ansistring) : Int64;
+function LENGTH_OF_STRING(s : String255)  : SInt64;
+function LENGTH_OF_STRING(s : ansistring) : SInt64;
 
 // Set the length of a string
-procedure SET_LENGTH_OF_STRING(var s : String255 ; len : Int64);
-procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : Int64);
+procedure SET_LENGTH_OF_STRING(var s : String255 ; len : SInt64);
+procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : SInt64);
+
+// Extracting substrings
+function TPCopy(source : String255; start, count : SInt32) : String255;
 
 implementation
 
@@ -59,38 +75,69 @@ begin
 end;
 
 
-// Access the length of a string
+// LENGTH_OF_STRING : access the length of a string
 
-function LENGTH_OF_STRING(s : String255) : Int64;
+function LENGTH_OF_STRING(s : String255) : SInt64;
 begin
    LENGTH_OF_STRING := Length(s);
 end;
 
-function LENGTH_OF_STRING(s : ansistring) : Int64;
+function LENGTH_OF_STRING(s : ansistring) : SInt64;
 begin
    LENGTH_OF_STRING := Length(s);
 end;
 
 
-// Set the length of a string
+// SET_LENGTH_OF_STRING() : set the length of a string
 
-procedure SET_LENGTH_OF_STRING(var s : String255 ; len : Int64);
+procedure SET_LENGTH_OF_STRING(var s : String255 ; len : SInt64);
 begin
    SetLength(s, len);
 end;
 
-procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : Int64);
+procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : SInt64);
 begin
    SetLength(s, len);
 end;
+
+
+// TPCopy() : copy substring from a string. This function, which we used
+// in GNU Pascal, gives the same result than FreePascal copy(), except for
+// start <= 0. Once we have inspected our code to ensure than we always call 
+// TPCopy() with start >= 1, we should use copy() instead.
+
+function TPCopy(source : String255; start, count : SInt32) : String255;
+var res : String255;
+begin
+
+  if (start < 1) then 
+    begin
+      // writeln('WARNING : TPCopy called with start = ', start);
+      count := count - (1 - start);
+      start := 1;
+    end;
+    
+  if start + count > LENGTH_OF_STRING(source) then 
+    count := LENGTH_OF_STRING(source) - start + 1;
+    
+  if count < 0 then 
+    count := 0;
+
+  SET_LENGTH_OF_STRING(res, count);
+  if (count > 0) then
+     MoveMemory(@source[start], @res[1], count);
+
+  TPCopy := res;
+end;
+
 
 
 // testBasicString() : testing various functions of the BasiString unit
 
 procedure testBasicString();
-var  s : string255;
+var  s, a, b : string255;
      c : char;
-     k : int64;
+     i, j, k : SInt64;
 begin
    s := 'hello';
    
@@ -112,16 +159,40 @@ begin
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '≠';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
    
    s := '◊';
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '1234567';
+   writeln(copy(s, -1, 2));
+   writeln(copy(s, 0, 2));
+   writeln(copy(s, 1, 2));
+   writeln(copy(s, 4, 2));
+   writeln(copy(s, 4, 5));
+   writeln(copy(s, 4, 8));
+   
+   for i := -10 to 300 do
+     for j := -10 to 300 do
+       begin
+         a := copy(s, i, j);
+         b := TPcopy(s, i, j);
+         
+         if (a <> b) then
+            writeln('copy(s,', i,',', j,') = ', a, '   TPcopy(s,', i,',', j,') = ', b); 
+       end;
+   
 end;
 
 
 begin
-   testBasicString
+   testBasicString;
 end.
 
 
