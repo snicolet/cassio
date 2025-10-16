@@ -16,7 +16,7 @@ uses
 // Basic string types
   type
      String255     =  ShortString;
-     str255        =  ShortString;
+     Str255        =  ShortString;
      String255Ptr  =  ^String255;
      String255Hdl  =  ^String255Ptr;
      SetOfChar     =  set of char;
@@ -132,13 +132,16 @@ end;
 
 
 
-// testBasicString() : testing various functions of the BasiString unit
+// testBasicString() : testing various functions of the BasicString unit
+
 
 procedure testBasicString();
 var  s, a, b : string255;
      c : char;
      i, j, k : SInt64;
+     w : window;
 begin
+
    s := 'hello';
    
    writeln(s, LENGTH_OF_STRING(s));
