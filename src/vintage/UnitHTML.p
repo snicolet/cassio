@@ -116,7 +116,7 @@ begin
         'Ç' : result := result + '&laquo;';
         'È' : result := result + '&raquo;';
         '¡' : result := result + '&deg;';
-        otherwise result := result + StringOf(c);
+        otherwise result := result + CharToString(c);
       end;
     end;
   StringEnHTML := result;
@@ -176,7 +176,7 @@ begin
         'Ç' : err := WriteDansFichierAbstrait(theFile,'&laquo;');
         'È' : err := WriteDansFichierAbstrait(theFile,'&raquo;');
         '¡' : err := WriteDansFichierAbstrait(theFile,'&deg;');
-        otherwise err := WriteDansFichierAbstrait(theFile,StringOf(c));
+        otherwise err := WriteDansFichierAbstrait(theFile,CharToString(c));
       end;
     end;
   err := WritelnDansFichierAbstrait(theFile,'');

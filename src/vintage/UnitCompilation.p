@@ -1539,9 +1539,9 @@ var lecture : LectureModulePtr;
                           definition.debutLigne := ReplaceStringByStringInString('  ',' ',definition.debutLigne);
 
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString(StringOf(tab),' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringByStringInString(CharToString(tab),' ',definition.debutLigne);
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString(StringOf(tab),' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringByStringInString(CharToString(tab),' ',definition.debutLigne);
 
                       compteur := 0;
 
@@ -1566,9 +1566,9 @@ var lecture : LectureModulePtr;
                           s := ReplaceStringByStringInString('  ',' ',s);
 
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString(StringOf(tab),' ',s);
+                          s := ReplaceStringByStringInString(CharToString(tab),' ',s);
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString(StringOf(tab),' ',s);
+                          s := ReplaceStringByStringInString(CharToString(tab),' ',s);
 
                         AppendToLongString(definition,' '+s);
                         inc(compteur);

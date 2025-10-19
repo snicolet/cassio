@@ -393,7 +393,7 @@ begin
 
       {le tournoi et l'annee}
       s30 := GetNomTournoi(nroTournoi + DecalageTournoisSolitaires);
-      commentaire := commentaire + s30 + StringOf(' ') + NumEnString(annee);
+      commentaire := commentaire + s30 + CharToString(' ') + NumEnString(annee);
       ParamDiagPartieFFORUM.TitreFFORUM^^ := ParamDiagPartieFFORUM.TitreFFORUM^^ + ' ' + NumEnString(annee);
 
       {le numéro du coup}

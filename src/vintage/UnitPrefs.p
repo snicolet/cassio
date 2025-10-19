@@ -117,7 +117,7 @@ begin
       s1 := '';
       longueur := 0;
     end;
-  for i := 1 to formatage-longueur do s1 := StringOf('0')+s1;
+  for i := 1 to formatage-longueur do s1 := CharToString('0')+s1;
   s := Concat(s,s1);
 end;
 
@@ -149,7 +149,7 @@ var s1 : String255;
     oldPort : grafPtr;
 begin
   s1 := '';
-  if ouverte then s1 := s1 + StringOf('Y') else s1 := s1 + StringOf('N');
+  if ouverte then s1 := s1 + CharToString('Y') else s1 := s1 + CharToString('N');
   if ouverte and (theWindow <> NIL) then   {si la fenetre est ouverte,mettre ˆ jour son rectangle }
     begin
       GetPort(oldPort);
@@ -2126,7 +2126,7 @@ begin
           if s[longueur] <> '}' then
             if longueur = 255
               then s[longueur] := '}'
-              else s := s + StringOf('}');
+              else s := s + CharToString('}');
           nbGroupes := nbGroupes+1;
           if nbGroupes <= nbMaxGroupes then
             groupes^^[nbGroupes] := s;

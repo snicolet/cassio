@@ -891,7 +891,7 @@ begin
                         if not(ok) then
                           begin
                             AnnonceProblemeDansRapport;
-                            WritelnDansRapport(StringOf('#')+NumEnString(numeroCellule)+' : frres mais pas mme preÉ');
+                            WritelnDansRapport(CharToString('#')+NumEnString(numeroCellule)+' : frres mais pas mme preÉ');
                             {AttendFrappeClavier;}
                             for k := 1 to Min(10,Ensemble.cardinal) do
                               begin
@@ -1268,7 +1268,7 @@ begin
 	            if (numeroDuCoup >= 0) & (numeroDuCoup <= 60) then
 	              inc(nbPartiesAChaqueCoup[numeroDuCoup]);
 	          if (i mod 1000) = 0 then
-	            WritelnDansRapport(StringOf('#')+NumEnString(i)+' : '+NumEnString(nbPartiesAChaqueCoup[35])+' parties');
+	            WritelnDansRapport(CharToString('#')+NumEnString(i)+' : '+NumEnString(nbPartiesAChaqueCoup[35])+' parties');
 
 	          if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
 	          i := i+1;
@@ -1432,7 +1432,7 @@ begin
                       kPropositionHeuristique   : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>proposition heuristique');
                       otherwise                   WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>?? ');
                     end;
-                    WritelnDansRapport(' (#'+NumEnString(FilsAffiches.liste[i].numeroCellule)+StringOf(')'));
+                    WritelnDansRapport(' (#'+NumEnString(FilsAffiches.liste[i].numeroCellule)+CharToString(')'));
                   end;
              end;
           end

@@ -5402,7 +5402,7 @@ begin
 
            s := BigNumEnString(nbreToursNoeudsGeneresFinale,nbreNoeudsGeneresFinale);
            s := SeparerLesChiffresParTrois(s);
-           s := ReadStringFromRessource(TextesRapportID,12)+StringOf(' ')+s;
+           s := ReadStringFromRessource(TextesRapportID,12)+CharToString(' ')+s;
            WritelnDansRapport('  '+s);
 
            if (nbreToursNoeudsGeneresFinale = 0)
@@ -5806,7 +5806,7 @@ begin
 
                         s := NumEnString(nBlaCompl);
                         s1 := NumEnString(nNoiCompl);
-                        s := '(nBlaCompl = '+s+'  et nNoiCompl = '+s1+StringOf(')');
+                        s := '(nBlaCompl = '+s+'  et nNoiCompl = '+s1+CharToString(')');
                         WritelnDansRapport(s);
                         if (pere >= 11) & (pere <= 88)
                           then s := CoupEnString(pere,true)
@@ -5814,10 +5814,10 @@ begin
                         if GetTraitOfPosition(platCompl) = pionNoir  then s1 := 'Noir' else
                         if GetTraitOfPosition(platCompl) = pionBlanc then s1 := 'Blanc' else
                           s1 := NumEnString(GetTraitOfPosition(platCompl));
-                        s := '(pere = '+s+'  et AquiCompl = '+s1+StringOf(')');
+                        s := '(pere = '+s+'  et AquiCompl = '+s1+CharToString(')');
                         WritelnDansRapport(s);
                         s := NumEnString(p);
-                        s := '(prof = '+s+StringOf(')');
+                        s := '(prof = '+s+CharToString(')');
                         WritelnDansRapport(s);
                         WritelnPositionEtTraitDansRapport(platComplEndgame,GetTraitOfPosition(platCompl));
                       end;

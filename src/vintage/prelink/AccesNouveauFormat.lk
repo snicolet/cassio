@@ -30,5 +30,5 @@ procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String2
   function EnleveEspacesDeDroite(const s : String255) : String255;                                                                                                                  EXTERNAL_NAME('EnleveEspacesDeDroite');
 	function TPCopy (source : String255; start, count: SInt32) : String255;                                                                                                            EXTERNAL_NAME('TPCopy');
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);                                                                                                                       EXTERNAL_NAME('EnleveEspacesDeDroiteSurPlace');
-  function MyStripDiacritics(const s : String255) : String255;                                                                                                                      EXTERNAL_NAME('MyStripDiacritics');
+  function StripDiacritics(const s : String255) : String255;                                                                                                                      EXTERNAL_NAME('StripDiacritics');
 	function RightOfString (const s : String255; len : SInt16) : String255;                                                                                                            EXTERNAL_NAME('RightOfString');

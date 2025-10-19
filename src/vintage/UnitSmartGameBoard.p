@@ -1259,7 +1259,7 @@ begin
 		         otherwise
 		           begin
 		             (* attention ! A cause d'un bug dans la library Pascal de CodeWarrior,
-		                l'affectation s := StringOf(c)  ne marche pas si "c" est le
+		                l'affectation s := CharToString(c)  ne marche pas si "c" est le
 		                caractere nul, il faut donc fabriquer la chaine a la main   *)
 
 		             SET_LENGTH_OF_STRING(s,1);

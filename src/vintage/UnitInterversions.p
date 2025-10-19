@@ -162,7 +162,7 @@ begin
   if MakeFileName(reply,'Nom du fichier d''interversions ?',mySpec) then
       begin
 
-        nomfichier := GetNameOfSFReply(reply)+StringOf('1');
+        nomfichier := GetNameOfSFReply(reply)+CharToString('1');
         erreurES := FichierTexteExisteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
         if erreurES = fnfErr then erreurES := CreeFichierTexteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
@@ -195,7 +195,7 @@ begin
         SetFileTypeFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('TEXT'));
 
 
-        nomfichier := GetNameOfSFReply(reply)+StringOf('2');
+        nomfichier := GetNameOfSFReply(reply)+CharToString('2');
         erreurES := FichierTexteExisteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
         if erreurES = fnfErr then erreurES := CreeFichierTexteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
@@ -414,8 +414,8 @@ begin
               repeat
                 inc(t);
               until (t >= longueur) | (canonique120[2*t-1] <> variante120[2*t-1]) | (canonique120[2*t] <> variante120[2*t]);
-              canoniqueAff := TPCopy(canonique120,1,2*t-2)+StringOf('-')+TPCopy(canonique120,2*t-1,2*longueur-2*t+2);
-              varianteAff := TPCopy(variante120,1,2*t-2)+StringOf('-')+TPCopy(variante120,2*t-1,2*longueur-2*t+2);
+              canoniqueAff := TPCopy(canonique120,1,2*t-2)+CharToString('-')+TPCopy(canonique120,2*t-1,2*longueur-2*t+2);
+              varianteAff := TPCopy(variante120,1,2*t-2)+CharToString('-')+TPCopy(variante120,2*t-1,2*longueur-2*t+2);
 
 		          if not(PendantLectureFormatSmartGameBoard) & not(EnModeEntreeTranscript) then
 		            begin

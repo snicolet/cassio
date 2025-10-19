@@ -548,7 +548,7 @@ end;
 procedure WriteStringAt(s : String255; h,v : SInt32);
 var lignerect : rect;
 begin
-  s := s + StringOf(' ');
+  s := s + CharToString(' ');
   SetRect(lignerect,h,v-9,h+MyStringWidth(s),v+2);
   MyEraseRect(lignerect);
   MyEraseRectWithColor(ligneRect,MarineCmd,blackPattern,'');
@@ -560,7 +560,7 @@ end;
 procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);
   var lignerect : rect;
   begin
-    s := s + StringOf(' ');
+    s := s + CharToString(' ');
     SetRect(lignerect,h,v-9,h+MyStringWidth(s),v+2);
     Moveto(h,v);
     MyDrawString(s);

@@ -929,21 +929,21 @@ var s : String255;
           for i := JoueurNoir1 to JoueurNoir6 do
             begin
               GetItemTextInDialog(criteresdp,i,s1);
-              s := s + s1+StringOf('Ã');
+              s := s + s1+CharToString('Ã');
             end;
           CriteresSuplementaires^^.CriteresNoir := s;
           s := '';
           for i := JoueurBlanc1 to JoueurBlanc6 do
             begin
               GetItemTextInDialog(criteresdp,i,s1);
-              s := s + s1+StringOf('Ã');
+              s := s + s1+CharToString('Ã');
             end;
           CriteresSuplementaires^^.CriteresBlanc := s;
           s := '';
           for i := tournoi1 to Tournoi4 do
             begin
               GetItemTextInDialog(criteresdp,i,s1);
-              s := s + s1+StringOf('Ã');
+              s := s + s1+CharToString('Ã');
             end;
           CriteresSuplementaires^^.CriteresTournoi := s;
         end;

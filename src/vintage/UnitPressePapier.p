@@ -562,7 +562,7 @@ begin
            if enMajuscules
              then s := s + CHR(64+coup mod 10) + chr(48+coup div 10)
              else s := s + CHR(96+coup mod 10) + chr(48+coup div 10);
-           if avecEspaceEntreCoups then s := s + StringOf(' ');
+           if avecEspaceEntreCoups then s := s + CharToString(' ');
          end;
      end;
     PartiePourPressePapier := s;
@@ -581,10 +581,10 @@ begin
       begin
         x := plat[10*i+j];
         if x = pionBlanc
-          then s := s + StringOf('o')
+          then s := s + CharToString('o')
           else if x = pionNoir
-                 then s := s + StringOf('x')
-                 else s := s + StringOf('.');
+                 then s := s + CharToString('x')
+                 else s := s + CharToString('.');
       end;
     PositionInitialeEnLignePourPressePapier := s;
 end;
@@ -691,7 +691,7 @@ begin
         begin
           s1 := NumEnString(nbreDePions[pionNoir]);
           s2 := NumEnString(nbreDePions[pionBlanc]);
-          s1 := s1 + StringOf('-')+s2;
+          s1 := s1 + CharToString('-')+s2;
         end;
   for t := 1 to ((25-LENGTH_OF_STRING(s1)) div 2) do s1 := Concat(' ',s1);  {pour centrer}
   s := s + s1 + chr(13);

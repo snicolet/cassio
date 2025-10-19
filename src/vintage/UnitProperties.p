@@ -686,7 +686,7 @@ begin
   WriteNumDansRapport('signe = ',whichSign);
   WriteNumDansRapport(', int = ',whichIntegerValue);
   WriteNumDansRapport(', cent = ',centiemes);
-  WritelnDansRapport('  => '+ StringOf(c)+s1+s2);
+  WritelnDansRapport('  => '+ CharToString(c)+s1+s2);
   }
 
   s1 := s1 + s2;

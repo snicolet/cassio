@@ -545,7 +545,7 @@ begin
             n2 := BibliothequeReponses^^[index,i].bornesup;
             whichSquare := BibliothequeReponses^^[index,i].x;
             s := s + '  '+CoupEnStringEnMajuscules(whichSquare);
-            s := s + StringOf('(')+PourcentageEntierEnString(n2-n1+1)+StringOf(')');
+            s := s + CharToString('(')+PourcentageEntierEnString(n2-n1+1)+CharToString(')');
           end;
 
         s := s + ' .'+unCommentaire;
@@ -1033,7 +1033,7 @@ begin
             n2 := BibliothequeReponses^^[index,i].bornesup;
             whichSquare := BibliothequeReponses^^[index,i].x;
             result := result+' '+CoupEnStringEnMajuscules(whichSquare);
-            result := result+StringOf('(')+PourcentageEntierEnString(n2-n1+1)+StringOf(')');
+            result := result+CharToString('(')+PourcentageEntierEnString(n2-n1+1)+CharToString(')');
           end;
 
         indexCommentaireDeb := indexCommentaireBibl^^[index-1]+1;

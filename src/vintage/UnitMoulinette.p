@@ -1377,19 +1377,19 @@ begin
       ligne := ReplaceVariableByStringInString(       '$CASSIO_GAME'           ,partieEnAlpha                                                                  ,ligne);
 
       (* Les tournois *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_SHORT'    ,MyStripDiacritics(GetNomCourtTournoiParNroRefPartie(numeroReference))          ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_SHORT'    ,StripDiacritics(GetNomCourtTournoiParNroRefPartie(numeroReference))          ,ligne);
       if EstUnePartieAvecTournoiJaponais(numeroReference)
         then ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,GetNomJaponaisDuTournoiParNroRefPartie(numeroReference)                        ,ligne)
-        else ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,MyStripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
+        else ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
       ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_NUMBER'   ,NumEnString(GetNroTournoiParNroRefPartie(numeroReference))                     ,ligne);
 
       { bien penser a mettre toutes les variables qui commencent par $CASSIO_TOURN avant la ligne suivante }
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN'          ,MyStripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN'          ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
 
       (* les joueurs *)
       
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_SHORT'    ,MyStripDiacritics(GetNomJoueurNoirSansPrenomParNroRefPartie(numeroReference))  ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_SHORT'    ,MyStripDiacritics(GetNomJoueurBlancSansPrenomParNroRefPartie(numeroReference)) ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_SHORT'    ,StripDiacritics(GetNomJoueurNoirSansPrenomParNroRefPartie(numeroReference))  ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_SHORT'    ,StripDiacritics(GetNomJoueurBlancSansPrenomParNroRefPartie(numeroReference)) ,ligne);
       if EstUnePartieAvecJoueurNoirJaponais(numeroReference)
         then ligne := ReplaceVariableByStringInString('$CASSIO_BLACK_JAPANESE' ,GetNomJaponaisDuJoueurNoirParNroRefPartie(numeroReference)                     ,ligne)
         else ligne := ReplaceVariableByStringInString('$CASSIO_BLACK_JAPANESE' ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference)                  ,ligne);
@@ -1441,7 +1441,7 @@ begin
   with gOptionsExportBase do
     begin
 
-      ligne := '[Event "'+MyStripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"]';
+      ligne := '[Event "'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       ligne := '[Date "'+NumEnString(GetAnneePartieParNroRefPartie(numeroReference))+'.01.01"]';
@@ -1450,13 +1450,13 @@ begin
       ligne := '[Round "-"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[Database "'+MyStripDiacritics(GetNomDistributionParNroRefPartie(numeroReference))+'"]';
+      ligne := '[Database "'+StripDiacritics(GetNomDistributionParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[Black "'+MyStripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"]';
+      ligne := '[Black "'+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[White "'+MyStripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"]';
+      ligne := '[White "'+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       ligne := '[Result "'+NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
@@ -1511,7 +1511,7 @@ begin
 
       ligne :=  '   <event'+
                 ' date="'+NumEnString(GetAnneePartieParNroRefPartie(numeroReference))+'"' +
-                ' name="'+MyStripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"' +
+                ' name="'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"' +
                 ' />';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
@@ -1550,13 +1550,13 @@ begin
 
       ligne :=  '   <player'+
                 ' color="black"' +
-                ' name="'+MyStripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"' +
+                ' name="'+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"' +
                 ' />';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       ligne :=  '   <player'+
                 ' color="white"' +
-                ' name="'+MyStripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"' +
+                ' name="'+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"' +
                 ' />';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
@@ -1965,15 +1965,15 @@ begin
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Black player *)
-          s := 'PB['+MyStripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+']';
+          s := 'PB['+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+']';
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* White player *)
-          s := 'PW['+MyStripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+']';
+          s := 'PW['+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+']';
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Event *)
-          s := 'EV['+MyStripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+']';
+          s := 'EV['+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+']';
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Year *)

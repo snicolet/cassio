@@ -3970,7 +3970,7 @@ begin
       if (GetTailleCaseCourante < 28) then TextFont(CourierID);
       TextSize(9);
       TextMode(1);
-      s := PourcentageEntierEnString(n)+StringOf('%');
+      s := PourcentageEntierEnString(n)+CharToString('%');
       larg := MyStringWidth(s);
       if CassioEstEn3D
        then

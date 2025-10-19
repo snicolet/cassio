@@ -1077,7 +1077,7 @@ begin
         scoreOptimalEnChaine := TPCopy(s2,LENGTH_OF_STRING(s2)-4,5);
         EnleveEspacesDeGaucheSurPlace(s2);
         if (interruptionReflexion = pasdinterruption)
-          then s2 := s1+StringOf('.')+s2
+          then s2 := s1+CharToString('.')+s2
           else s2 := '?????';
         s1 := NumEnString(nbreCoup);
         s := ReadStringFromRessource(TextesRetrogradeID,3);
@@ -1099,7 +1099,7 @@ begin
         s1 := NumEnString(nbreDePions[pionNoir]);
         s2 := NumEnString(nbreDePions[pionBlanc]);
         s := ReadStringFromRessource(TextesRetrogradeID,4);
-        s := ParamStr(s,s1+StringOf('-')+s2,'','','');
+        s := ParamStr(s,s1+CharToString('-')+s2,'','','');
         WritelnDansRapportSync(s,false);
         s := ReadStringFromRessource(TextesRetrogradeID,1);  {###################################}
         WritelnDansRapportSync(s,false);
@@ -1108,7 +1108,7 @@ begin
           else if nbreDePions[pionNoir] < nbreDePions[pionBlanc]
                  then scoreOptimalPourNoir := (2*nbreDePions[pionNoir]-64)
                  else scoreOptimalPourNoir := (64-2*nbreDePions[pionBlanc]);
-        scoreOptimalEnChaine := s1+StringOf('-')+s2;
+        scoreOptimalEnChaine := s1+CharToString('-')+s2;
         SetCurrentScript(oldScript);
         SwitchToRomanScript;
         analyseRetrograde.genreDerniereAmeliorationCherchee := PasAnalyseRetrograde;
@@ -1235,7 +1235,7 @@ begin
   ChangeFontSizeDansRapport(gCassioRapportNormalSize);
 
   s := NumEnString(numeroCoupVerifie);
-  s := s + StringOf('.')+CoupEnString(coupVerifie,CassioUtiliseDesMajuscules);
+  s := s + CharToString('.')+CoupEnString(coupVerifie,CassioUtiliseDesMajuscules);
   coupVerifieString := s;
 
   InsereStringlnDansRapport(coupVerifieString);
@@ -1372,7 +1372,7 @@ begin
               if scorePourNoir = 0
                 then s := ReadStringFromRessource(TextesRetrogradeID,22) {'^0 faisait nulle'}
                 else s := ReadStringFromRessource(TextesRetrogradeID,23);{'^0 faisait ^1'}
-              s := ParamStr(s,s2+StringOf('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),scoreOptimalEnChaine,'','') + ' ';
+              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),scoreOptimalEnChaine,'','') + ' ';
               TextNormalDansRapport;
               ChangeFontSizeDansRapport(gCassioRapportNormalSize);
               InsereStringDansRapport(', '+s);
@@ -1388,7 +1388,7 @@ begin
                   if (nbPionsPerdus > 1)
                     then s := ReadStringFromRessource(TextesRetrogradeID,39) {'^0 faisait ^1 pions de plus et ^2'}
                     else s := ReadStringFromRessource(TextesRetrogradeID,38);{'^0 faisait un pion de plus et ^2'}
-              s := ParamStr(s,s2+StringOf('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
+              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
               TextNormalDansRapport;
               if AQuiDeJouer = pionNoir
                 then ChangeFontColorDansRapport(MarineCmd)
@@ -1403,14 +1403,14 @@ begin
         s := NumEnString(numeroCoupVerifie);
         PositionnePointDinsertion(positionInsertionLocale);
         ChangeFontSizeDansRapport(gCassioRapportSmallSize);
-        InsereStringlnDansRapport('     '+s+StringOf('.')+chaineMeilleureSuite);
+        InsereStringlnDansRapport('     '+s+CharToString('.')+chaineMeilleureSuite);
       end;
     ReflRetrogradeGagnant :
       begin
         if scorePourNoir = 0
           then s := ReadStringFromRessource(TextesRetrogradeID,22)  {'^0 faisait nulle'}
           else s := ReadStringFromRessource(TextesRetrogradeID,24); {'^0 Žtait gagnant'}
-        s := ParamStr(s,s2+StringOf('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),'','','');
+        s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),'','','');
         TextNormalDansRapport;
         ChangeFontSizeDansRapport(gCassioRapportNormalSize);
           
@@ -1426,7 +1426,7 @@ begin
               if (nbPionsPerdus > 1)
                 then s := ReadStringFromRessource(TextesRetrogradeID,37)  {'^0 faisait ^1 pions de plus et annulait'}
                 else s := ReadStringFromRessource(TextesRetrogradeID,36); {'^0 faisait un pion de plus et annulait'}
-              s := ParamStr(s,s2+StringOf('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
+              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
               
               if AQuiDeJouer = pionNoir
                 then ChangeFontColorDansRapport(MarineCmd)
@@ -1450,7 +1450,7 @@ begin
     ReflRetrogradeMilieu  :
       begin
         s := ReadStringFromRessource(TextesRetrogradeID,35); {'^0 Žtait meilleur'}
-        s := ParamStr(s,s2+StringOf('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),'','','');
+        s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),'','','');
         TextNormalDansRapport;
         ChangeFontSizeDansRapport(gCassioRapportNormalSize);
         InsereStringDansRapport(', '+s);

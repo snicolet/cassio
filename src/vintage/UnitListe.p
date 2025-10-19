@@ -2396,7 +2396,7 @@ begin
 
   s := NumEnString(score);
   s1 := NumEnString(64-score);
-  s := s + StringOf('-')+s1;
+  s := s + CharToString('-')+s1;
   Moveto(positionScoreReel,yposition);MyDrawString(s);
 
   ForeColor(BlackColor);

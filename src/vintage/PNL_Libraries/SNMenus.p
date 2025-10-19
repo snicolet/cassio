@@ -181,7 +181,7 @@ begin
         MyGetMenuItemText(theMenu,i,s);
         s := EnleveEspacesDeDroite(s);
         for n := 1 to nbEspaces do
-          s := Concat(s,StringOf(' '));
+          s := Concat(s,CharToString(' '));
         MySetMenuItemText(theMenu,i,s);
       end;
 end;

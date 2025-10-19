@@ -1539,7 +1539,7 @@ var s1,s2 : String255;
 begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
-  s2 := MyStripDiacritics(s2);
+  s2 := StripDiacritics(s2);
   GetNomJoueurCommeDansPapp := MyUpperString(s1,false) + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 
@@ -1549,7 +1549,7 @@ var s1,s2 : String255;
 begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
-  s2 := MyStripDiacritics(s2);
+  s2 := StripDiacritics(s2);
   GetNomJoueurCommeDansFichierFFODesJoueurs := MyUpperString(s1,false) + ',' + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 

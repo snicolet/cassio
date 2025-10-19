@@ -64,14 +64,14 @@ begin
 end;
 
 
-// StringOf() : transforming a char into a string. The advantage of using this 
+// CharToString() : transforming a char into a string. The advantage of using this 
 // function is to catch differences for some characters which are 1 byte long 
-// in  GNUPascal and 3 bytes in FreePascal, for instance StringOf('√') and
-// StringOf('◊') do not compile.
+// in  GNUPascal and 3 bytes in FreePascal, for instance CharToString('√') and
+// CharToString('◊') do not compile.
 
-function StringOf(c : char) : String255;
+function CharToString(c : char) : String255;
 begin
-  StringOf := c;
+  CharToString := c;
 end;
 
 
@@ -132,6 +132,40 @@ end;
 
 
 
+function StripDiacritics(const source: String255) : String255;
+var
+  K, L : TBytes;
+  theAnsiString : ansistring;
+  theUnicodeString : UnicodeString;
+  c : char;
+  i, len : SInt64;
+begin
+  theAnsiString := source;
+  theUnicodeString := UTF8Decode(theAnsiString);
+  
+  Result := '';
+  for i := 1 to length(theUnicodeString) do
+    begin      
+       K := TEncoding.Unicode.GetBytes(theUnicodeString[i]);
+       L := TEncoding.Convert(TEncoding.Unicode, TEncoding.ASCII, K);
+       len := length(L);
+       if len = 2
+         then
+           Result := Result + char(L[1])
+         else
+           begin
+             c := char(L[0]);
+             if c <> '?'
+                then Result := Result + c
+                else Result := Result + theUnicodeString[i];
+           end;
+           
+       // writeln(i, '   ', theUnicodeString[i], '  ',length(K), '  ', length(L) , '  ', c , '   ', result);
+    end;
+
+end;
+
+
 // testBasicString() : testing various functions of the BasicString unit
 
 
@@ -139,7 +173,6 @@ procedure testBasicString();
 var  s, a, b : string255;
      c : char;
      i, j, k : SInt64;
-     w : window;
 begin
 
    s := 'hello';
@@ -152,7 +185,7 @@ begin
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
    
    c := 'a';
-   s := s + StringOf(c);
+   s := s + CharToString(c);
    
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
@@ -173,6 +206,27 @@ begin
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
 
+   s := '…';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '∑';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '—';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '-';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+   
+
    s := '1234567';
    writeln(copy(s, -1, 2));
    writeln(copy(s, 0, 2));
@@ -181,6 +235,7 @@ begin
    writeln(copy(s, 4, 5));
    writeln(copy(s, 4, 8));
    
+   {
    for i := -10 to 300 do
      for j := -10 to 300 do
        begin
@@ -190,6 +245,23 @@ begin
          if (a <> b) then
             writeln('copy(s,', i,',', j,') = ', a, '   TPcopy(s,', i,',', j,') = ', b); 
        end;
+    }
+    
+   a := 'Stéphane NICOLET';
+   b := AnsiUpperCase(a);
+   writeln('example of upper string with keeping diacritics : ', a, '  ==>  ', b);
+   
+   a := 'çéèàùÒ∑√';
+   b := AnsiUpperCase(a);
+   writeln('example of upper string with keeping diacritics : ', a, '  ==>  ', b);
+   
+   a := 'Stéphane NICOLET';
+   b := UpperCase(StripDiacritics(a));
+   writeln('example of upper string without diacritics : ', a, '  ==>  ', b);
+   
+   a := 'çéèàùÒ∑√';
+   b := UpperCase(StripDiacritics(a));
+   writeln('example of upper string without diacritics : ', a, '  ==>  ', b);
    
 end;
 

@@ -52,14 +52,14 @@ USES
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;
 begin
   if (coup >= 11) & (coup <= 88)
-    then CoupEnStringEnMajuscules := StringOf(chr(64+platMod10[coup]))+StringOf(chr(48+platDiv10[coup]))
+    then CoupEnStringEnMajuscules := CharToString(chr(64+platMod10[coup]))+CharToString(chr(48+platDiv10[coup]))
     else CoupEnStringEnMajuscules := '';
 end;
 
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;
 begin
   if (coup >= 11) & (coup <= 88)
-    then CoupEnStringEnMinuscules := StringOf(chr(96+platMod10[coup]))+StringOf(chr(48+platDiv10[coup]))
+    then CoupEnStringEnMinuscules := CharToString(chr(96+platMod10[coup]))+CharToString(chr(48+platDiv10[coup]))
     else CoupEnStringEnMinuscules := '';
 end;
 

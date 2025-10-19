@@ -112,7 +112,7 @@ INTERFACE
 
   function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;                                                                                                ATTRIBUTE_NAME('MyUpperString')
   function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;                                                                                                ATTRIBUTE_NAME('MyLowerString')
-  function MyStripDiacritics(const s : String255) : String255;                                                                                                                      ATTRIBUTE_NAME('MyStripDiacritics')
+  function StripDiacritics(const s : String255) : String255;                                                                                                                      ATTRIBUTE_NAME('StripDiacritics')
   procedure StripHTMLAccents(var s : String255);                                                                                                                                    ATTRIBUTE_NAME('StripHTMLAccents')
 
 
@@ -430,7 +430,7 @@ begin
   unreel := Abs(unreel);
   unreel := unreel+0.00499;
   s1 := NumEnString(MyTrunc(unreel));
-  s := s + s1+StringOf('.');
+  s := s + s1+CharToString('.');
   unreel := 10.0*(unreel-MyTrunc(unreel));
   s1 := NumEnString(MyTrunc(unreel));
   s := s + s1;
@@ -522,7 +522,7 @@ begin
   if (nbChiffresSignificatifs < 1) then nbChiffresSignificatifs := 1;
   if (nbChiffresSignificatifs > 20) then nbChiffresSignificatifs := 20;
   if (nbChiffresSignificatifs > longueur)
-    then s := s + s1+StringOf('.')
+    then s := s + s1+CharToString('.')
     else s := s + s1;
   for i := 1 to nbChiffresSignificatifs - longueur do
     begin
@@ -1526,18 +1526,18 @@ function MyLowerString(const s : String255; keepDiacritics : boolean) : String25
 var result : String255;
 begin
   if not(keepDiacritics)
-    then result := MyStripDiacritics(s)
+    then result := StripDiacritics(s)
     else result := s;
   MyLowerString := LowerCaseStr(result);
 end;
 
 
-function MyStripDiacritics(const s : String255) : String255;
+function StripDiacritics(const s : String255) : String255;
 var result : String255;
 begin
   result := s;
-  StripDiacritics(@result[1],LENGTH_OF_STRING(result),smSystemScript);
-  MyStripDiacritics := result;
+  MacOSScriptDiacritics(@result[1],LENGTH_OF_STRING(result),smSystemScript);
+  StripDiacritics := result;
 end;
 
 
@@ -1715,7 +1715,7 @@ function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
 const separateur = ':';
 var lastPosDeuxPoints : SInt16;
 begin
-  if RightOfString(chemin,1) = StringOf(separateur)
+  if RightOfString(chemin,1) = CharToString(separateur)
     then LeftP(chemin,LENGTH_OF_STRING(chemin)-1);
   lastPosDeuxPoints := LastPos(separateur,chemin);
   ExtraitNomDirectoryOuFichier := RightOfString(chemin,LENGTH_OF_STRING(chemin)-lastPosDeuxPoints);
@@ -2425,7 +2425,7 @@ function EnleveChiffresApresCeCaractereEnFinDeLigne(delim : char; const s : Stri
 var position : SInt32;
     s1 : String255;
 begin
-  position := LastPos(StringOf(delim),s);
+  position := LastPos(CharToString(delim),s);
   if (position > 0) then
     begin
       s1 := TPCopy(s,position+1,LENGTH_OF_STRING(s)-position);
@@ -2486,7 +2486,7 @@ function EnleveCesCaracteresApresCeCaractereEnFinDeLigne(whichChars : SetOfChar;
 var position : SInt32;
     s1 : String255;
 begin
-  position := LastPos(StringOf(delim),s);
+  position := LastPos(CharToString(delim),s);
   if (position > 0) then
     begin
       s1 := TPCopy(s,position+1,LENGTH_OF_STRING(s)-position);
@@ -2518,7 +2518,7 @@ begin
         i := len;
 			  while i > 3 do
 			    begin
-			      result := StringOf(' ') + s[i-2] + s[i-1] + s[i] + result;
+			      result := CharToString(' ') + s[i-2] + s[i-1] + s[i] + result;
 			      i := i - 3;
 			    end;
 			  if i >= 3

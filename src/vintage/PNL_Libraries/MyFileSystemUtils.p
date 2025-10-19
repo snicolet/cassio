@@ -1671,7 +1671,7 @@ var erreurES : OSErr;
     dirID : UInt32;
 begin
 
-  if RightOfString(directoryPath,1) <> StringOf(separateur) then
+  if RightOfString(directoryPath,1) <> CharToString(separateur) then
      directoryPath := directoryPath + separateur;
 
   erreurES := MyFSMakeFSSpec(0,0,directoryPath,directoryDepot);
@@ -1698,7 +1698,7 @@ var erreurES : OSErr;
 
 begin
 
-  if RightOfString(directoryName,1) <> StringOf(separateur) then
+  if RightOfString(directoryName,1) <> CharToString(separateur) then
     directoryName := directoryName + separateur;
 
   erreurES := FSSpecToFullPath(whichFile,path);

@@ -208,7 +208,7 @@ var fichierBlocsDeCoin:TEXT;
      var s : String255;
      begin
        NumEnString(k,s);
-       nomKiemeprocedure := nom+StringOf('_')+s;
+       nomKiemeprocedure := nom+CharToString('_')+s;
      end;
 
      procedure OuvreNouvelleprocedure(nom : String255);
@@ -217,8 +217,8 @@ var fichierBlocsDeCoin:TEXT;
        compteurProc := compteurProc+1;
        Writeln(fichierBlocsDeCoin,'');
        NumEnString(compteurProc,s);
-       Writeln(fichierBlocsDeCoin,'{$s '+nomDesSegments+s+StringOf('}'));
-       Writeln(fichierBlocsDeCoin,'procedure '+nomKiemeprocedure(nom,compteurProc)+StringOf(';'));
+       Writeln(fichierBlocsDeCoin,'{$s '+nomDesSegments+s+CharToString('}'));
+       Writeln(fichierBlocsDeCoin,'procedure '+nomKiemeprocedure(nom,compteurProc)+CharToString(';'));
        Writeln(fichierBlocsDeCoin,'begin');
      end;
 
@@ -261,8 +261,8 @@ begin
             Write(fichierBlocsDeCoin,'] := ');
             NumEnString(valeurBlocsDeCoin^[i],s);
             if (i mod 3) = 0
-              then Writeln(fichierBlocsDeCoin,s+StringOf(';'))
-              else Write(fichierBlocsDeCoin,s+StringOf(';'));
+              then Writeln(fichierBlocsDeCoin,s+CharToString(';'))
+              else Write(fichierBlocsDeCoin,s+CharToString(';'));
             if (i mod 3) = 0 then
               begin
                 compteurLignes := compteurLignes+1;
@@ -278,13 +278,13 @@ begin
           Fermeprocedure;
 
           Writeln(fichierBlocsDeCoin,'');
-          Writeln(fichierBlocsDeCoin,'{$s '+nomDesSegments+StringOf('}'));
+          Writeln(fichierBlocsDeCoin,'{$s '+nomDesSegments+CharToString('}'));
 
           Writeln(fichierBlocsDeCoin,'');
-          Writeln(fichierBlocsDeCoin,'procedure '+nomfichier+StringOf(';'));
+          Writeln(fichierBlocsDeCoin,'procedure '+nomfichier+CharToString(';'));
           Writeln(fichierBlocsDeCoin,'begin');
           for i := 1 to compteurProc do
-            Writeln(fichierBlocsDeCoin,'  '+nomKiemeprocedure(nomfichier,i)+StringOf(';'));
+            Writeln(fichierBlocsDeCoin,'  '+nomKiemeprocedure(nomfichier,i)+CharToString(';'));
 
           for i := 1 to compteurProc do
             Writeln(fichierBlocsDeCoin,'  UnloadSeg(@'+nomKiemeprocedure(nomfichier,i)+');');
@@ -381,7 +381,7 @@ begin
               NumEnString(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -397,7 +397,7 @@ begin
               NumEnString(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -413,7 +413,7 @@ begin
               NumEnString(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -429,7 +429,7 @@ begin
               NumEnString(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -445,7 +445,7 @@ begin
               NumEnString(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -461,7 +461,7 @@ begin
               NumEnString(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -477,7 +477,7 @@ begin
               NumEnString(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');
@@ -493,7 +493,7 @@ begin
               NumEnString(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
-                then Write(fichierBlocs,'pl['+s2+StringOf(']'))
+                then Write(fichierBlocs,'pl['+s2+CharToString(']'))
                 else Write(fichierBlocs,'coul'+s1+'[pl['+s2+']]');
               if k = 4 then Writeln(fichierBlocs,'');
               if k = 4 then Write(fichierBlocs,'       ');

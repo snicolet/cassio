@@ -672,8 +672,8 @@ begin
 		              begin
 		                SET_NTH_MOVE_OF_PACKED_GAME(anciennePartie, i, GetNiemeCoupPartieCourante(i));
 		                if GetCouleurNiemeCoupPartieCourante(i) = pionNoir
-		                  then couleurs := couleurs+StringOf('N')
-		                  else couleurs := couleurs+StringOf('B');
+		                  then couleurs := couleurs+CharToString('N')
+		                  else couleurs := couleurs+CharToString('B');
 		              end;
 		            SET_LENGTH_OF_PACKED_GAME(anciennePartie,longueur);
 
@@ -955,8 +955,8 @@ begin
 		              begin
 		                SET_NTH_MOVE_OF_PACKED_GAME(anciennePartie, i, GetNiemeCoupPartieCourante(i));
 		                if GetCouleurNiemeCoupPartieCourante(i) = pionNoir
-		                  then couleurs := couleurs+StringOf('N')
-		                  else couleurs := couleurs+StringOf('B');
+		                  then couleurs := couleurs+CharToString('N')
+		                  else couleurs := couleurs+CharToString('B');
 		              end;
 		            SET_LENGTH_OF_PACKED_GAME(anciennePartie,longueur);
 

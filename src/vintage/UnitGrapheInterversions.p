@@ -374,7 +374,7 @@ begin
       ligne1 := ligne1_255;
       ligne2 := ligne2_255;
       AjouteInterversionDansGraphe(fichier,ligne1,ligne2,changed);
-      if (t mod 20) = 0 then WritelnDansRapport(NumEnString(t)+StringOf('…'));
+      if (t mod 20) = 0 then WritelnDansRapport(NumEnString(t)+CharToString('…'));
     end;
 end;
 
@@ -393,7 +393,7 @@ begin
         begin
           WritelnDansRapport('');
           WritelnDansRapport('Création d''une interversion dans le fichier « '+nomGrapheInterversions+' » :');
-          WritelnDansRapport(Concat(ligne1,StringOf('='),ligne2));
+          WritelnDansRapport(Concat(ligne1,CharToString('='),ligne2));
         end;
       if not(grapheDejaOuvertALArrivee) then
         if FermeGrapheApprentissage(fichier) then DoNothing;
@@ -411,7 +411,7 @@ begin
         begin
           WritelnDansRapport('');
           WritelnDansRapport('Apprentissage d''une interversion dans le fichier « '+nomGrapheApprentissage+' » :');
-          WritelnDansRapport(Concat(ligne1,StringOf('='),ligne2));
+          WritelnDansRapport(Concat(ligne1,CharToString('='),ligne2));
         end;
       if not(grapheDejaOuvertALArrivee) then
         if FermeGrapheApprentissage(fichier) then DoNothing;

@@ -67,7 +67,7 @@
 {$ifc string_accessors_are_macros }
 {$definec LENGTH_OF_STRING(s) (Length(s)) }
 {$definec SET_LENGTH_OF_STRING(s,len)  MySetStringLength((s),(len)) }
-{$definec StringOf(c) c }
+{$definec CharToString(c) c }
 {$definec MyStringWidth StringWidthPourGNUPascal}
 {$definec MyDrawString DrawStringPourGNUPascal}
 {$endc}

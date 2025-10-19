@@ -748,7 +748,7 @@ begin
 		        repeat
 			        repeat
 			          err := GetNextCharFichier_NxN(c);
-			          {WriteDansRapport(StringOf(c));}
+			          {WriteDansRapport(CharToString(c));}
 			        until (err <> NoErr) |
 
 			              {coup blanc}

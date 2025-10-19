@@ -200,7 +200,7 @@ begin
   longueur := 0;
   while (err = NoErr) & IsDigit(c) & (longueur <= 10) do
     begin
-      s := s + StringOf(c);
+      s := s + CharToString(c);
       inc(longueur);
       err := GetNextCharFichier(false,c);
     end;
@@ -1498,7 +1498,7 @@ begin
   repeat
     inc(compteur);
     err := GetNextCharFichier(true,c);
-    WritelnNumDansRapport(NumEnString(compteur-compteur) + ' : '+StringOf(c)+'=',ord(c));
+    WritelnNumDansRapport(NumEnString(compteur-compteur) + ' : '+CharToString(c)+'=',ord(c));
   until EscapeDansQueue | (compteur >= nbDeCaracteres);
 end;
 

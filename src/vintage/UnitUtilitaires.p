@@ -237,7 +237,7 @@ begin
                                                   nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+StringOf('É'));
+      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('É'));
 
       {
       if (n mod 100) = 0 then EcritCoeffsMoyensBillDansRapport(35);
@@ -298,7 +298,7 @@ begin
                                                       nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+StringOf('É'));
+      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('É'));
 
       {
       if (n mod 100) = 0 then
@@ -473,7 +473,7 @@ begin
           if ok then apprendLignesPosition(plat,GainTheorique);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+StringOf('É'));
+      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('É'));
       if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
       n := n+1;
     end;
@@ -537,7 +537,7 @@ begin
         begin
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
-          WriteDansRapport('  i = '+NumEnString(i)+StringOf(' '));
+          WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
           WriteDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
           WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
@@ -644,7 +644,7 @@ begin
           if ok then apprendBlocsDeCoinPosition(plat,GainTheorique);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+StringOf('É'));
+      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('É'));
       if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
       n := n+1;
     end;
@@ -666,7 +666,7 @@ begin
                 WritelnDansRapport('');
                 WritelnDansRapport(TPCopy(code,1,4));
                 WriteDansRapport(TPCopy(code,5,4));
-                WriteDansRapport('  i = '+NumEnString(i)+StringOf(' '));
+                WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
                 WriteDansRapport('  fnote = '+ReelEnString(fnote));
                 WritelnDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
               end;
@@ -732,7 +732,7 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
-          WriteDansRapport('  i = '+NumEnString(i)+StringOf(' '));
+          WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
           WriteDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
           WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
@@ -981,8 +981,8 @@ begin {$UNUSED numeroCoup,coup,s,s1,oldScript}
 		      {
 		      GetCurrentScript(oldScript);
 		      NumEnString(numeroCoup,s1);
-		      s := '× '+s1+StringOf('.')+CoupEnString(coup,CassioUtiliseDesMajuscules)+' ×';
-		      s := s + '   Ç'+nomOuverture+StringOf('È');
+		      s := '× '+s1+CharToString('.')+CoupEnString(coup,CassioUtiliseDesMajuscules)+' ×';
+		      s := s + '   Ç'+nomOuverture+CharToString('È');
 		      DisableKeyboardScriptSwitch;
 		      FinRapport;
 		      TextNormalDansRapport;
@@ -1213,7 +1213,7 @@ begin
     if aux < 0 then dec(aux);
   s1 := NumEnString(32+(aux div 2));
   s2 := NumEnString(32-(aux div 2));
-  ScoreFinalEnChaine := s1+StringOf('-')+s2;
+  ScoreFinalEnChaine := s1+CharToString('-')+s2;
 end;
 
 
@@ -1234,10 +1234,10 @@ begin
 
   s2 := NumEnString(scoreNoir);
   if nom[LENGTH_OF_STRING(nom)] = ' '
-    then s := s + s2+StringOf('-')
-    else s := s + StringOf(' ')+s2+StringOf('-');
+    then s := s + s2+CharToString('-')
+    else s := s + CharToString(' ')+s2+CharToString('-');
   s2 := NumEnString(64-scoreNoir);
-  s := s + s2+StringOf(' ');
+  s := s + s2+CharToString(' ');
 
   if enleverLesPrenoms & (nomBlanc[LENGTH_OF_STRING(nomBlanc)] <> '.')
     then EnlevePrenom(nomBlanc,nom)

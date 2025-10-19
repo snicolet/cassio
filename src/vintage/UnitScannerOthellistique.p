@@ -202,7 +202,7 @@ begin
    begin
      aux := PositionDansStringAlphaEnCoup(s,2*i-1);
      if (aux >= 11) & (aux <= 88) then
-       chaine := chaine + StringOf(chr(aux));
+       chaine := chaine + CharToString(chr(aux));
    end;
 
  FILL_PACKED_GAME_WITH_ZEROS(result);

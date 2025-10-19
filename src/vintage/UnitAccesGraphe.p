@@ -731,7 +731,7 @@ begin
   with cellule do
     begin
       WritelnDansRapport('-------------- #'+NumEnString(num)+'# -----------------');
-      WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellule))+StringOf('.')+CoupEnStringEnMajuscules(GetCoup(cellule)));
+      WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellule))+CharToString('.')+CoupEnStringEnMajuscules(GetCoup(cellule)));
       couleur := GetCouleur(cellule);
       case couleur of
         Noir :WriteDansRapport('    couleur = Noir');
@@ -750,7 +750,7 @@ begin
       if (pere <> 0) & (pere <> PasDePere) then
         begin
           LitCellule(fichier,pere,celluleAux);
-          WriteDansRapport('               ('+NumEnString(GetNumeroCoup(celluleAux))+StringOf('.')+
+          WriteDansRapport('               ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
@@ -760,7 +760,7 @@ begin
       if (frere <> 0) & (frere <> num) then
         begin
           LitCellule(fichier,frere,celluleAux);
-          WriteDansRapport('             ('+NumEnString(GetNumeroCoup(celluleAux))+StringOf('.')+
+          WriteDansRapport('             ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
@@ -770,7 +770,7 @@ begin
       if (fils <> 0) & (fils <> PasDeFils) then
         begin
           LitCellule(fichier,fils,celluleAux);
-          WriteDansRapport('                 ('+NumEnString(GetNumeroCoup(celluleAux))+StringOf('.')+
+          WriteDansRapport('                 ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
@@ -780,7 +780,7 @@ begin
       if (memePosition <> 0) & (memePosition <> num) then
         begin
           LitCellule(fichier,memePosition,celluleAux);
-          WriteDansRapport('     ('+NumEnString(GetNumeroCoup(celluleAux))+StringOf('.')+
+          WriteDansRapport('     ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');

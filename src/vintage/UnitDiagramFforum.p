@@ -550,7 +550,7 @@ begin
     legende := ReadStringFromRessource(TextesDiversID,2);   {'sans titre'}
     
     
-  legende := MyStripDiacritics(Trim(UTF8ToAscii(legende)));
+  legende := StripDiacritics(Trim(UTF8ToAscii(legende)));
   
 
   // pour les diagrammes de partie, on enleve les scores et les initiales de prenoms
@@ -668,29 +668,29 @@ begin
 	for t := 1 to 64 do
 		case positionInitiale[othellier[t]] of
 			pionNoir:
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('X'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('X'));
 			pionBlanc:
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('O'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('O'));
 			otherwise
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('.'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('.'));
 		end;
 
 	for t := 1 to nbreCoup do
 		begin
 			case GetCouleurNiemeCoupPartieCourante(t) of
 				pionNoir:
-					positionEtCoupStr := Concat(positionEtCoupStr, StringOf('N'));
+					positionEtCoupStr := Concat(positionEtCoupStr, CharToString('N'));
 				pionBlanc:
-					positionEtCoupStr := Concat(positionEtCoupStr, StringOf('B'));
+					positionEtCoupStr := Concat(positionEtCoupStr, CharToString('B'));
 				otherwise
-					positionEtCoupStr := Concat(positionEtCoupStr, StringOf(' '));
+					positionEtCoupStr := Concat(positionEtCoupStr, CharToString(' '));
 			end;
 			positionEtCoupStr := Concat(positionEtCoupStr, chr(GetNiemeCoupPartieCourante(t)));
 		end;
 	for t := nbreCoup + 1 to 60 do
 		begin
-			positionEtCoupStr := Concat(positionEtCoupStr, StringOf(' '));
-			positionEtCoupStr := Concat(positionEtCoupStr, StringOf(' '));
+			positionEtCoupStr := Concat(positionEtCoupStr, CharToString(' '));
+			positionEtCoupStr := Concat(positionEtCoupStr, CharToString(' '));
 		end;
 end;
 
@@ -705,16 +705,16 @@ begin
 	for t := 1 to 64 do
 		case positionInitiale[othellier[t]] of
 			pionNoir:
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('X'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('X'));
 			pionBlanc:
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('O'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('O'));
 			otherwise
-				positionEtCoupStr := Concat(positionEtCoupStr, StringOf('.'));
+				positionEtCoupStr := Concat(positionEtCoupStr, CharToString('.'));
 		end;
 	for t := 1 to 60 do
 		begin
-			positionEtCoupStr := Concat(positionEtCoupStr, StringOf(' '));
-			positionEtCoupStr := Concat(positionEtCoupStr, StringOf(' '));
+			positionEtCoupStr := Concat(positionEtCoupStr, CharToString(' '));
+			positionEtCoupStr := Concat(positionEtCoupStr, CharToString(' '));
 		end;
 end;
 
@@ -741,9 +741,9 @@ begin
     for j := 1 to 8 do
       begin
         case plat[10*i+j] of
-          pionNoir  : chainePositionInitiale := Concat(chainePositionInitiale, StringOf('X'));
-          pionBlanc : chainePositionInitiale := Concat(chainePositionInitiale, StringOf('O'));
-          otherwise   chainePositionInitiale := Concat(chainePositionInitiale, StringOf('.'));
+          pionNoir  : chainePositionInitiale := Concat(chainePositionInitiale, CharToString('X'));
+          pionBlanc : chainePositionInitiale := Concat(chainePositionInitiale, CharToString('O'));
+          otherwise   chainePositionInitiale := Concat(chainePositionInitiale, CharToString('.'));
         end;
       end;
 
@@ -809,9 +809,9 @@ begin
   for i := 1 to 8 do
     for j := 1 to 8 do
       case plat[i*10+j] of
-        pionNoir  : result := Concat(result, StringOf('X'));
-        pionBlanc : result := Concat(result, StringOf('O'));
-        otherwise   result := Concat(result, StringOf('.'));
+        pionNoir  : result := Concat(result, CharToString('X'));
+        pionBlanc : result := Concat(result, CharToString('O'));
+        otherwise   result := Concat(result, CharToString('.'));
       end; {case}
   ConstruitChainePosition8x8 := result;
 end;
@@ -948,7 +948,7 @@ begin
 				if DerniereCaseJouee <> coupInconnu then
 					begin
 						str := NumEnString(nbreCoup);
-						str := 'After ' + str + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]) + StringOf('.');
+						str := 'After ' + str + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]) + CharToString('.');
 						CommentPositionFFORUM^^ := str;
 					end;
 			EcritNomTournoiFFORUM := true;
@@ -1599,7 +1599,7 @@ begin
 									str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
 									str := ParamStr(str, '', '', '', '');
 									str1 := NumEnString(nbreCoupConstruction);
-									str1 := str1 + StringOf('.') + CHR(96 + (platMod10[aux-1]+1)) + CHR(48 + (platDiv10[aux-1]+1));
+									str1 := str1 + CharToString('.') + CHR(96 + (platMod10[aux-1]+1)) + CHR(48 + (platDiv10[aux-1]+1));
 								end;
 					  end;
 				end
@@ -2772,7 +2772,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 									GetItemTextInDialog(dp, ExempleStaticText, s);
 									s1 := NumEnString(nbreDePions[pionNoir]);
 									s2 := NumEnString(nbreDePions[pionBlanc]);
-									s1 := s1 + StringOf('-') + s2;
+									s1 := s1 + CharToString('-') + s2;
 									s2 := ReadStringFromRessource(TextesRapportID, 7);   {'score final ^0'}
 									s := s + ' ** ' + ParamStr(s2, s1, '', '', '') + ' **';
 									SetItemTextInDialog(dp, ExempleStaticText, s);

@@ -522,7 +522,7 @@ begin
 	Moveto(10, 50);
 	ForeColor(greenColor);
 
-	MyDrawString(StringOf(FPS));
+	MyDrawString(CharToString(FPS));
 	Delay(90, finalTicks);
 	*)
 

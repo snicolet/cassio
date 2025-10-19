@@ -1501,7 +1501,7 @@ begin
   (* understand version information sent by the engines *)
   if ((s[1] = '[') & ((Pos('version: ',s) >= 1) | (Pos('version : ',s) >= 1))) then
     begin
-      canal := ChaineEnLongint(StringOf(s[3]));
+      canal := ChaineEnLongint(CharToString(s[3]));
       moteur := NumeroDuMoteurParlantDansCeCanal(canal);
       if moteur > 0
         then SetEngineVersion(moteur,s)

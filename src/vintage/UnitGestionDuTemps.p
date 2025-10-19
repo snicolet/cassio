@@ -1481,7 +1481,7 @@ var aux,seco : SInt32;
           s2 := NumEnString(nbheures);
           nbmin := nbmin mod 60;
           chaine := NumEnString(nbmin);
-          if nbmin < 10 then chaine := StringOf('0')+chaine;
+          if nbmin < 10 then chaine := CharToString('0')+chaine;
           chaine := s2+': '+chaine;
         end
       else
@@ -1520,8 +1520,8 @@ begin
               begin
                 TraduitMinEnFormat_hhmm(minimum-cadenceMin,s1);
                 s2 := NumEnString(sec);
-                if sec < 10 then s2 := StringOf('0')+s2;
-                s := StringOf('-')+s1+': '+s2;
+                if sec < 10 then s2 := CharToString('0')+s2;
+                s := CharToString('-')+s1+': '+s2;
               end
               else
               if sec = 0
@@ -1534,7 +1534,7 @@ begin
                   begin
                     TraduitMinEnFormat_hhmm(cadenceMin-minimum-1,s1);
                     s2 := NumEnString(60-sec);
-                    if 60-sec < 10 then s2 := StringOf('0')+s2;
+                    if 60-sec < 10 then s2 := CharToString('0')+s2;
                     s := s1+': '+s2;
                   end;
             end
@@ -1542,7 +1542,7 @@ begin
             begin
               TraduitMinEnFormat_hhmm(minimum,s1);
               s2 := NumEnString(sec);
-              if sec < 10 then s2 := StringOf('0')+s2;
+              if sec < 10 then s2 := CharToString('0')+s2;
               s := s1+': '+s2;
             end;
         end;

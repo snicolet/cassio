@@ -206,7 +206,7 @@ begin
               ApprendPartie(fichier,s120,GainTheorique,CoupDuCalculOptimalDansThor);
             end;
 
-          if (i mod 40) = 0 then WritelnDansRapport(NumEnString(i)+StringOf('É'));
+          if (i mod 40) = 0 then WritelnDansRapport(NumEnString(i)+CharToString('É'));
 
 
           if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;

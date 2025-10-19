@@ -1166,7 +1166,7 @@ begin
       compteurFautes := compteurFautes+1;
       SysBeep(0);
       Moveto({-55+}(compteurFautes mod 8)*57,40+(compteurFautes div 8)*13);
-      MyDrawString(code+StringOf(' '));
+      MyDrawString(code+CharToString(' '));
       dejaProblemepourcebord := true;
       probleme := true;
     end;
@@ -1178,7 +1178,7 @@ begin
         begin
           compteurFautes := compteurFautes+1;
           Moveto(10+(compteurFautes mod 8)*50,40+(compteurFautes div 8)*13);
-          MyDrawString(code+StringOf(' '));
+          MyDrawString(code+CharToString(' '));
         end;
       probleme := true;
     end;
@@ -3546,7 +3546,7 @@ begin
             CoderBord(i,uncode,nbtrous,nbamis,nbennemis);
             compteurFautes := compteurFautes+1;
             Moveto(10,compteurFautes*10);
-            MyDrawString(uncode+StringOf(' => ')+NumEnString(aux));
+            MyDrawString(uncode+CharToString(' => ')+NumEnString(aux));
             CoderBord(-i,uncode,nbtrous,nbamis,nbennemis);
             autreCode := ChaineMirroir(uncode);
             aux := DecoderBord(autrecode);

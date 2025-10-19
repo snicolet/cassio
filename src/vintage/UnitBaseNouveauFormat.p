@@ -1670,7 +1670,7 @@ begin
 
    chaine := chaine + nomjoueur;
    s := NumEnString(Partiebuff.scoreReel);
-   chaine := chaine + StringOf(' ')+s+'  ';
+   chaine := chaine + CharToString(' ')+s+'  ';
    nomJoueur := GetNomJoueur(Partiebuff.nroJoueurBlanc);
    nomJoueur := DeleteSpacesBefore(nomJoueur,LENGTH_OF_STRING(nomJoueur));
    {while nomjoueur[LENGTH_OF_STRING(nomjoueur)] = ' ' do
@@ -1678,7 +1678,7 @@ begin
 
    chaine := chaine + nomjoueur;
    s := NumEnString(64-Partiebuff.scoreReel);
-   chaine := chaine + StringOf(' ')+s+'   ';
+   chaine := chaine + CharToString(' ')+s+'   ';
 
    nomTournoi := GetNomTournoi(Partiebuff.nroTournoi);
    TraduitNomTournoiEnMac(nomtournoi,nomtournoi);
@@ -2214,7 +2214,7 @@ begin  {ChargerLaBase}
       InitCursor;
       TextFont(gCassioApplicationFont);
       TextSize(gCassioSmallFontSize);
-      s := ReadStringFromRessource(TextesBaseID,10)+StringOf(' ');  {'lecture :'}
+      s := ReadStringFromRessource(TextesBaseID,10)+CharToString(' ');  {'lecture :'}
       larg := MyStringWidth(s)+20;
       EcritMessageLectureBase(s,20,kYpositionMessageBase);
       SetRect(pourcentageRect,larg,kYpositionMessageBase-7,larg+100,kYpositionMessageBase+1);

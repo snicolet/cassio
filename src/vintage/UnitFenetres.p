@@ -1753,14 +1753,14 @@ begin
       if gameOver
         then
           begin
-            s := NumEnString(nbreDePions[pionNoir])+StringOf('-')+NumEnString(nbreDePions[pionBlanc]);
+            s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
             
             if EnModeEntreeTranscript then
               begin
                 if (nbreDePions[pionNoir] < nbreDePions[pionBlanc]) 
-                  then s := NumEnString(nbreDePions[pionNoir])+StringOf('-')+NumEnString(64 - nbreDePions[pionNoir]);
+                  then s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(64 - nbreDePions[pionNoir]);
                 if (nbreDePions[pionNoir] > nbreDePions[pionBlanc]) 
-                  then s := NumEnString(64 - nbreDePions[pionBlanc])+StringOf('-')+NumEnString(nbreDePions[pionBlanc]);
+                  then s := NumEnString(64 - nbreDePions[pionBlanc])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
                 if (nbreDePions[pionNoir] = nbreDePions[pionBlanc]) 
                   then s := '32-32';
               end;
@@ -1785,7 +1785,7 @@ begin
 		                WritelnNumDansRapport('largEspace = ',largEspace);
 		                }
 		                if (largEspace > 0) then
-		                  for i := 1 to (n div largEspace) - 8 do s := s + StringOf('Ê');
+		                  for i := 1 to (n div largEspace) - 8 do s := s + CharToString('Ê');
 
                     SetPort(oldPort);
                   end;

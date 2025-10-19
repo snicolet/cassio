@@ -182,7 +182,7 @@ begin
         TextSize(gCassioSmallFontSize);
         s := NumEnString(nbreDePions[pionNoir]);
         s1 := NumEnString(nbreDePions[pionBlanc]);
-        s1 := s+StringOf('-')+s1;
+        s1 := s+CharToString('-')+s1;
         s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
         Moveto(3,myRect.bottom - 3);
         MyDrawString(s);
@@ -1357,7 +1357,7 @@ begin
                        if (j <= nbCoupsEnTete) then s2 := NoteEnString(class[j].note,false,1,2) else
                        if (j <= nbLignesScoresCompletsProfPrecedente) then s2 := NoteEnString(class[j].note,false,1,2) else
                        if (class[j].note = class[j-1].note) | ((j = IndexCoupEnCours + 1) & ((j = longClass) | (class[j].note = class[j + 1].note)))
-                         then s2 := StringOf(' ')+ReadStringFromRessource(TextesReflexionID,16)          {pas mieux}
+                         then s2 := CharToString(' ')+ReadStringFromRessource(TextesReflexionID,16)          {pas mieux}
                          else s2 := NoteEnString(class[j].note,false,1,2);
                      end;
 
@@ -1745,7 +1745,7 @@ begin
            begin
               espaces := '';
               for i := 1 to nbEspacesEntreCoups do
-                espaces := espaces + stringOf(' ');
+                espaces := espaces + CharToString(' ');
 
 
               if debuggage.calculFinaleOptimaleParOptimalite then
@@ -1828,7 +1828,7 @@ begin
                       begin
                         s := ReadStringFromRessource(TextesPlateauID,10);  {si}
                         s1 := NumEnString(numeroCoup-1);
-                        chaineMeilleureSuite := s + stringOf(' ') + s1 + stringOf('.');
+                        chaineMeilleureSuite := s + CharToString(' ') + s1 + CharToString('.');
                       end;
                   end;
                 if PossibleMove[coup] then
@@ -1841,7 +1841,7 @@ begin
                         begin
                           s := ReadStringFromRessource(TextesPlateauID,10);  {si}
                           s1 := NumEnString(numeroCoup-1);
-                          chaineMeilleureSuite := s + StringOf(' ') + s1 + StringOf('.') + s2 + ', ';
+                          chaineMeilleureSuite := s + CharToString(' ') + s1 + CharToString('.') + s2 + ', ';
                         end
                       else chaineMeilleureSuite := chaineMeilleureSuite + s2 + espaces;
                   end;
@@ -1884,7 +1884,7 @@ begin
                        not((Statut = NeSaitPas) & (phaseDeLaPartie >= phaseFinale)) then
                       begin
                         s1 := NumEnString(numeroCoup);
-                        chaineMeilleureSuite := chaineMeilleureSuite + s1 + stringOf('.');
+                        chaineMeilleureSuite := chaineMeilleureSuite + s1 + CharToString('.');
                       end;
 
                     coup := GetCoupDansMeilleureSuite(0);
@@ -1919,7 +1919,7 @@ begin
 			                            begin
 			                              s := NumEnString(score.noir);
 			                              s1 := NumEnString(score.blanc);
-			                              s := StringOf(' ') + s + stringOf('-') + s1;
+			                              s := CharToString(' ') + s + CharToString('-') + s1;
 			                              chaineMeilleureSuite := chaineMeilleureSuite + s;
 			                            end;
 				                    end;
@@ -1941,7 +1941,7 @@ begin
 		                           chaineMeilleureSuite := chaineMeilleureSuite + s;
 
 
-		                           s := NumEnString(numeroCoup) + StringOf('.') + SuiteDesCoups(0,kNbMaxNiveaux);
+		                           s := NumEnString(numeroCoup) + CharToString('.') + SuiteDesCoups(0,kNbMaxNiveaux);
 		                           if remplacerScoreIncompletParEtc
 		                             then s := ' (' + s + 'etc.)'
 		                             else s := ' (' + s + ')';
@@ -1985,7 +1985,7 @@ begin
         s := s + s1+'.';
         note := note - (aux*100);
         s1 := NumEnString(note);
-        if note < 10 then s1 := StringOf('0') + s1;
+        if note < 10 then s1 := CharToString('0') + s1;
       end
     else s1 := NumEnString(note);
   MeilleureSuiteEtNoteEnChaine := s + s1;

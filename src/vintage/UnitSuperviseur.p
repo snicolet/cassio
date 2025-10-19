@@ -1085,9 +1085,9 @@ begin
        x := casebord[t]-dx;
        for i := 1 to 8 do
         BEGIN
-          if plat[x] = pionVide then s[t] := s[t]+StringOf('0')
-          else if plat[x] = couleur then s[t] := s[t]+StringOf('1')
-          else s[t] := s[t]+StringOf('2');
+          if plat[x] = pionVide then s[t] := s[t]+CharToString('0')
+          else if plat[x] = couleur then s[t] := s[t]+CharToString('1')
+          else s[t] := s[t]+CharToString('2');
           x := x+dx;
          END;
        xX := PlusProcheCaseX(casebord[t]-dx);
