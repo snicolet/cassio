@@ -43,6 +43,10 @@ procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : SInt64);
 // Extracting substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
 
+// Transforming strings
+function StripDiacritics(const source : String255) : String255;
+
+
 implementation
 
 
@@ -131,8 +135,9 @@ begin
 end;
 
 
+// StripDiacritics() : remove accents and diacritics from a string
 
-function StripDiacritics(const source: String255) : String255;
+function StripDiacritics(const source : String255) : String255;
 var
   K, L : TBytes;
   theAnsiString : ansistring;
