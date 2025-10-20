@@ -122,8 +122,8 @@ end;
 
 
 // MyUrlEncode() : encode space, quotes and newline caracters in the given string
-// into their url-encoding equivalents. Useful when sending strings with our server,
-// since the protocol is a textual, line by line protocol.
+// into their url-encoding equivalents. Sometimes useful when exchanging strings
+// with our server since the protocol is a textual, line by line protocol.
 
 function MyUrlEncode(s : AnsiString) : AnsiString;
 begin
