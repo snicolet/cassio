@@ -34,16 +34,17 @@ function StringToStr255( const s : String255 ) : Str255;
 
 // Access the length of a string
 function LENGTH_OF_STRING(s : String255)  : SInt64;
-function LENGTH_OF_STRING(s : ansistring) : SInt64;
+function LENGTH_OF_STRING(s : AnsiString) : SInt64;
 
 // Set the length of a string
 procedure SET_LENGTH_OF_STRING(var s : String255 ; len : SInt64);
-procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : SInt64);
+procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 
 // Extracting substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
 
 // Transforming strings
+function StripDiacritics(const source : AnsiString) : AnsiString;
 function StripDiacritics(const source : String255) : String255;
 
 
@@ -86,7 +87,7 @@ begin
    LENGTH_OF_STRING := Length(s);
 end;
 
-function LENGTH_OF_STRING(s : ansistring) : SInt64;
+function LENGTH_OF_STRING(s : AnsiString) : SInt64;
 begin
    LENGTH_OF_STRING := Length(s);
 end;
@@ -99,7 +100,7 @@ begin
    SetLength(s, len);
 end;
 
-procedure SET_LENGTH_OF_STRING(var s : ansistring ; len : SInt64);
+procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 begin
    SetLength(s, len);
 end;
@@ -137,18 +138,17 @@ end;
 
 // StripDiacritics() : remove accents and diacritics from a string
 
-function StripDiacritics(const source : String255) : String255;
+function StripDiacritics(const source : AnsiString) : AnsiString;
 var
   K, L : TBytes;
-  theAnsiString : ansistring;
   theUnicodeString : UnicodeString;
   c : char;
   i, len : SInt64;
+  res : AnsiString;
 begin
-  theAnsiString := source;
-  theUnicodeString := UTF8Decode(theAnsiString);
-  
-  Result := '';
+  res := '';
+
+  theUnicodeString := UTF8Decode(source);
   for i := 1 to length(theUnicodeString) do
     begin      
        K := TEncoding.Unicode.GetBytes(theUnicodeString[i]);
@@ -156,20 +156,28 @@ begin
        len := length(L);
        if len = 2
          then
-           Result := Result + char(L[1])
+           res := res + char(L[1])
          else
            begin
              c := char(L[0]);
              if c <> '?'
-                then Result := Result + c
-                else Result := Result + theUnicodeString[i];
+                then res := res + c
+                else res := res + AnsiString(theUnicodeString[i]);
            end;
            
        // writeln(i, '   ', theUnicodeString[i], '  ',length(K), '  ', length(L) , '  ', c , '   ', result);
     end;
 
+  Result := res;
 end;
 
+
+function StripDiacritics(const source : String255) : String255;
+var s : AnsiString;
+begin
+  s := source;
+  Result := StripDiacritics(s);
+end;
 
 // testBasicString() : testing various functions of the BasicString unit
 
