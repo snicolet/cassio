@@ -93,8 +93,8 @@ USES
 
 
 
-procedure InvalidateDessinEnTraceDeRayon(square : SInt16);                                  EXTERNAL_NAME('InvalidateDessinEnTraceDeRayon');
-function GetValeurDessinEnTraceDeRayon(square : SInt16) : SInt16;                           EXTERNAL_NAME('GetValeurDessinEnTraceDeRayon');
+procedure InvalidateDessinEnTraceDeRayon(square : SInt16);     external;
+function GetValeurDessinEnTraceDeRayon(square : SInt16) : SInt16;     external;
 
 
 

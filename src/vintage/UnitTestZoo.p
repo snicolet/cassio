@@ -454,9 +454,9 @@ begin
 end;
 
 
-function MakeEmptyPositionEtTraitSet : PositionEtTraitSet;                                                                                                                          EXTERNAL_NAME('MakeEmptyPositionEtTraitSet');
-function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;                                                        EXTERNAL_NAME('MemberOfPositionEtTraitSet');
-procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);                                                                    EXTERNAL_NAME('AddPositionEtTraitToSet');
+function MakeEmptyPositionEtTraitSet : PositionEtTraitSet;     external;
+function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;     external;
+procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);     external;
 
 
 procedure TesterUnitZoo(whichPosition : PositionEtTraitRec);

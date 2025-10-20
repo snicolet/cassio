@@ -77,8 +77,8 @@ USES
 
 
 
-procedure DoDemandeChangerHumCtreHum; EXTERNAL_NAME('DoDemandeChangerHumCtreHum');
-procedure AlerteDoitInterompreReflexionPourFaireScript; EXTERNAL_NAME('AlerteDoitInterompreReflexionPourFaireScript');
+procedure DoDemandeChangerHumCtreHum;     external;
+procedure AlerteDoitInterompreReflexionPourFaireScript;     external;
 
 
 const kNbTotalDeQuiz = 100;

@@ -39,7 +39,7 @@ USES CodeFragments,Finder,Dialogs,LowMem,Processes,AEInteraction,MacMemory,MacEr
 
 
 
-procedure WritelnNumDansRapport(s : String255; num : SInt32);  EXTERNAL_NAME('WritelnNumDansRapport');
+procedure WritelnNumDansRapport(s : String255; num : SInt32);     external;
 
 
 
@@ -53,7 +53,7 @@ end;
 // Callback to handle events that occur while navigation dialogs are up but really should be handled by the application
 //
 
-procedure HandleEvent(var whichEvent : eventRecord); EXTERNAL_NAME('HandleEvent');
+procedure HandleEvent(var whichEvent : eventRecord);     external;
 
 
 procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage;

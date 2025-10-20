@@ -21,7 +21,7 @@ function BitboardToDiffPions(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high
 
 
 
-function bitboard_mobility_with_zebra_mmx( my_bits_low, my_bits_high, opp_bits_low, opp_bits_high : UInt32) : SInt32;                                                               EXTERNAL_NAME('bitboard_mobility_with_zebra_mmx');
+function bitboard_mobility_with_zebra_mmx( my_bits_low, my_bits_high, opp_bits_low, opp_bits_high : UInt32) : SInt32;     external;
 
 
 IMPLEMENTATION

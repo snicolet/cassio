@@ -17,7 +17,7 @@ INTERFACE
 
 (* initialisation de l'unite *)
 procedure InitUnitUtilitairesFinale;
-procedure calculate_neighborhood_mask;                                                                                                                                              EXTERNAL_NAME('calculate_neighborhood_mask');
+procedure calculate_neighborhood_mask;     external;
 procedure InitValeursDeltasSuccessifsFinale;
 procedure InitValeursDesBonusDeParite;
 procedure InitValeursRestrictionsLargeurSousArbres(profondeurMinimalePourRestriction : SInt32);

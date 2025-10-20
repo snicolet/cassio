@@ -70,7 +70,7 @@ IMPLEMENTATION
 
 USES MyFonts,MacWindows,UnitCarbonisation,MyStrings,UnitOth0,UnitRapport,MyMathUtils;
 
-function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;  EXTERNAL_NAME('CouleurCmdToRGBColor');
+function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;     external;
 
 
 

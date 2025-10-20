@@ -1,2 +1,2 @@
-	procedure MySetStringLength (var s : String255; len : SInt16);                                                                                                                     EXTERNAL_NAME('MySetStringLength');
-procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);                                                                                       EXTERNAL_NAME('MemoryFillChar');
+	procedure MySetStringLength (var s : String255; len : SInt16);     external;
+procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;

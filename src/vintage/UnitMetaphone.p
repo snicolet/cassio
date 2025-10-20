@@ -52,7 +52,7 @@ var primaryBuffer   : packed array[0..255] of char;
 
 
 { Traduction en Pascal des typages des fonctions C de double_metaphone.c }
-procedure DoubleMetaphone(str : charP; var codes : arrayOfArrayOfChar);              EXTERNAL_NAME('DoubleMetaphone');
+procedure DoubleMetaphone(str : charP; var codes : arrayOfArrayOfChar);     external;
 
 
 

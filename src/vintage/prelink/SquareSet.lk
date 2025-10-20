@@ -1,1 +1,1 @@
-function CoupEnStringEnMinuscules(coup : SInt16) : String255;                                                                                                                       EXTERNAL_NAME('CoupEnStringEnMinuscules');
+function CoupEnStringEnMinuscules(coup : SInt16) : String255;     external;

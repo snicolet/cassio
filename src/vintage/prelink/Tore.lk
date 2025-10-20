@@ -1,1 +1,1 @@
-procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);                                                                                       EXTERNAL_NAME('MemoryFillChar');
+procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;

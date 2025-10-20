@@ -1,5 +1,5 @@
-	function Min (a, b: SInt32) : SInt32;                                                                                                                                              EXTERNAL_NAME('Min');
-	function Max (a, b: SInt32) : SInt32;                                                                                                                                              EXTERNAL_NAME('Max');
-	procedure RandomizeTimer;                                                                                                                                                          EXTERNAL_NAME('RandomizeTimer');
-  function RandomLongint : SInt32;                                                                                                                                                  EXTERNAL_NAME('RandomLongint');
-  procedure Parser (s : String255; var tete,reste : String255);                                                                                                                     EXTERNAL_NAME('Parser');
+	function Min (a, b: SInt32) : SInt32;     external;
+	function Max (a, b: SInt32) : SInt32;     external;
+	procedure RandomizeTimer;     external;
+  function RandomLongint : SInt32;     external;
+  procedure Parser (s : String255; var tete,reste : String255);     external;

@@ -1,2 +1,2 @@
-procedure SetPortByWindow(window : WindowPtr);                                                                                                                                      EXTERNAL_NAME('SetPortByWindow');
-procedure FlushWindow(theWindow : WindowRef);                                                                                                                                       EXTERNAL_NAME('FlushWindow');
+procedure SetPortByWindow(window : WindowPtr);     external;
+procedure FlushWindow(theWindow : WindowRef);     external;

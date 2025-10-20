@@ -23,7 +23,7 @@ function DeuxCasesVidesBitboardFast(my_bits_low,my_bits_high,opp_bits_low,opp_bi
  avec exactement deux cases vides}
 
 
- function solve_two_empty( my_bits, opp_bits : demi_bitboard; sq1, sq2, alpha, beta, disc_diff, pass_legal : SInt32) : SInt32;                                                      EXTERNAL_NAME('solve_two_empty');
+ function solve_two_empty( my_bits, opp_bits : demi_bitboard; sq1, sq2, alpha, beta, disc_diff, pass_legal : SInt32) : SInt32;     external;
 
 
 

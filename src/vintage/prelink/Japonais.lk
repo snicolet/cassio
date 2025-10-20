@@ -1,4 +1,4 @@
-	function ReadStringFromRessource(stringListID, index : SInt16) : String255;                                                                                                        EXTERNAL_NAME('ReadStringFromRessource');
-function CassioIsInBackground : boolean;                                                                                                                                            EXTERNAL_NAME('CassioIsInBackground');
-function UnDialogueEstAffiche : boolean;                                                                                                                                            EXTERNAL_NAME('UnDialogueEstAffiche');
-function AuMoinsUneZoneDeTexteEnModeEntree : boolean;                                                                                                                               EXTERNAL_NAME('AuMoinsUneZoneDeTexteEnModeEntree');
+	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
+function CassioIsInBackground : boolean;     external;
+function UnDialogueEstAffiche : boolean;     external;
+function AuMoinsUneZoneDeTexteEnModeEntree : boolean;     external;

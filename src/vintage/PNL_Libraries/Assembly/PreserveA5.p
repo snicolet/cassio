@@ -66,8 +66,8 @@ IMPLEMENTATION
 	
 {$ELSEC}
 
-	procedure PreCompletion; external;
-	procedure SetupPreserveA5; external;
+	procedure PreCompletion;     external;
+	procedure SetupPreserveA5;     external;
 	
 {$ENDC}
 

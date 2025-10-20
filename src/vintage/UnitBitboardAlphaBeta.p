@@ -34,7 +34,7 @@ function ABFinBitboardParallele(nroThread : SInt32; var position : bitboard; ESp
 
 
 // function QuatreCasesVidesBitboardFast(var position : bitboard; alpha_4,beta_4,diffPions_4,vecteurParite_4 : SInt32; listeBitboard : UInt32{; debugageUnrolled : boolean}) : SInt32;
-function solve_four_empty( my_bits, opp_bits : demi_bitboard; sq1, sq2, sq3, sq4, alpha, beta, disc_diff, pass_legal : SInt32) : SInt32;                                            EXTERNAL_NAME('solve_four_empty');
+function solve_four_empty( my_bits, opp_bits : demi_bitboard; sq1, sq2, sq3, sq4, alpha, beta, disc_diff, pass_legal : SInt32) : SInt32;     external;
 
 
 

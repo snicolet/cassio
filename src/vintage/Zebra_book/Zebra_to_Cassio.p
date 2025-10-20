@@ -16,11 +16,11 @@ procedure LibereMemoireUnitZebraBook;
 
 
 { Traduction en Pascal des typages des fonctions C de Zebra}
-procedure prepare_zebra_hash;                                                                                                                                                       EXTERNAL_NAME('prepare_zebra_hash');
-procedure extraire_vals_from_zebra_book(indexVal : SInt32; var node : ZebraBookNode; Score_Noir,Score_Blanc,Alternative_Move,Alternative_Score : integerP; Flags : integerP);       EXTERNAL_NAME('extraire_vals_from_zebra_book');
-function trouver_position_in_zebra_book(Pos : longintP; var node : ZebraBookNode; orientation : longintP; file_name : charP; probableIndex : SInt32) : SInt32;                      EXTERNAL_NAME('trouver_position_in_zebra_book');
-function symetrise_coup_for_zebra_book(orientation : SInt32; move : SInt32) : SInt32;                                                                                               EXTERNAL_NAME('symetrise_coup_for_zebra_book');
-function number_of_positions_in_zebra_book : SInt32;                                                                                                                                EXTERNAL_NAME('number_of_positions_in_zebra_book');
+procedure prepare_zebra_hash;     external;
+procedure extraire_vals_from_zebra_book(indexVal : SInt32; var node : ZebraBookNode; Score_Noir,Score_Blanc,Alternative_Move,Alternative_Score : integerP; Flags : integerP);     external;
+function trouver_position_in_zebra_book(Pos : longintP; var node : ZebraBookNode; orientation : longintP; file_name : charP; probableIndex : SInt32) : SInt32;     external;
+function symetrise_coup_for_zebra_book(orientation : SInt32; move : SInt32) : SInt32;     external;
+function number_of_positions_in_zebra_book : SInt32;     external;
 
 
 

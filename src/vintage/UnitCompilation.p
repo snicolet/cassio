@@ -558,7 +558,7 @@ begin
               espaces := espaces + ' ';
             end;
 
-          symbolName := espaces + 'EXTERNAL_NAME(''' + sym^.nom + ''');' + chr(10);  {chr(10) = LF , add a UNIX linefeed !}
+          symbolName := espaces + 'external;  {chr(10) = LF , add a UNIX linefeed !}
 
           err := WriteDansFichierTexte(fic, symbolName);
         end;

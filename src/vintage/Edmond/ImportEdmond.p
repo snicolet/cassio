@@ -14,41 +14,41 @@ INTERFACE
 { Traduction en Pascal des typages des fonctions C de Edmond}
 
 function GetEdmondCoefficientsFileName : String255;
-procedure edmond_load_coefficients(filename : charP);                                                                                                                               EXTERNAL_NAME('edmond_load_coefficients');
-procedure edmond_release_coefficients;                                                                                                                                              EXTERNAL_NAME('edmond_release_coefficients');
+procedure edmond_load_coefficients(filename : charP);     external;
+procedure edmond_release_coefficients;     external;
 
 
 { Utilitaires de traduction C <--> Pascal }
 
-function size_of_float_in_c : SInt32;                                                                                                                                               EXTERNAL_NAME('size_of_float_in_c');
-function size_of_int_in_c : SInt32;                                                                                                                                                 EXTERNAL_NAME('size_of_int_in_c');
+function size_of_float_in_c : SInt32;     external;
+function size_of_int_in_c : SInt32;     external;
 
 
 
 { Import dans Cassio des pointeurs C de Edmond }
 
-function edmond_get_black_diag_5_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_black_diag_5_pointer');
-function edmond_get_white_diag_5_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_white_diag_5_pointer');
-function edmond_get_black_diag_6_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_black_diag_6_pointer');
-function edmond_get_white_diag_6_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_white_diag_6_pointer');
-function edmond_get_black_diag_7_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_black_diag_7_pointer');
-function edmond_get_white_diag_7_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_white_diag_7_pointer');
-function edmond_get_black_diag_8_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_black_diag_8_pointer');
-function edmond_get_white_diag_8_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                         EXTERNAL_NAME('edmond_get_white_diag_8_pointer');
-function edmond_get_black_hv_4_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_black_hv_4_pointer');
-function edmond_get_white_hv_4_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_white_hv_4_pointer');
-function edmond_get_black_hv_3_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_black_hv_3_pointer');
-function edmond_get_white_hv_3_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_white_hv_3_pointer');
-function edmond_get_black_hv_2_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_black_hv_2_pointer');
-function edmond_get_white_hv_2_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                           EXTERNAL_NAME('edmond_get_white_hv_2_pointer');
-function edmond_get_black_edge_6_4_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_black_edge_6_4_pointer');
-function edmond_get_white_edge_6_4_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_white_edge_6_4_pointer');
-function edmond_get_black_corner_2x5_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                     EXTERNAL_NAME('edmond_get_black_corner_2x5_pointer');
-function edmond_get_white_corner_2x5_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                     EXTERNAL_NAME('edmond_get_white_corner_2x5_pointer');
-function edmond_get_black_corner_11_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                      EXTERNAL_NAME('edmond_get_black_corner_11_pointer');
-function edmond_get_white_corner_11_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                      EXTERNAL_NAME('edmond_get_white_corner_11_pointer');
-function edmond_get_black_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_black_edge_2XC_pointer');
-function edmond_get_white_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_white_edge_2XC_pointer');
+function edmond_get_black_diag_5_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_diag_5_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_diag_6_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_diag_6_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_diag_7_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_diag_7_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_diag_8_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_diag_8_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_hv_4_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_hv_4_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_hv_3_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_hv_3_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_hv_2_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_hv_2_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_edge_6_4_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_edge_6_4_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_corner_2x5_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_corner_2x5_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_corner_11_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_corner_11_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_black_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;     external;
+function edmond_get_white_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;     external;
 
 procedure ImporterLesPointeursCDeEdmond;
 

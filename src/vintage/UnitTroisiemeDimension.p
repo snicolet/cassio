@@ -112,8 +112,8 @@ var Y3D,x3Dbas,x3DHaut,x3DGauche,x3DDroite : array[0..8] of SInt32;
 
 
 
-procedure SetPositionsTextesWindowPlateau;  EXTERNAL_NAME('SetPositionsTextesWindowPlateau');
-procedure SetOthellierEstSale(square : SInt16; flag : boolean);   EXTERNAL_NAME('SetOthellierEstSale');
+procedure SetPositionsTextesWindowPlateau;     external;
+procedure SetOthellierEstSale(square : SInt16; flag : boolean);     external;
 
 
 procedure InitUnitTroisiemeDimension;

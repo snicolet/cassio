@@ -123,7 +123,7 @@ USES
 
 
 { Traduction en Pascal des typages des fonctions C de EngineProtocol.h}
-procedure EngineProtocolMainLoop;          EXTERNAL_NAME('EngineProtocolMainLoop');
+procedure EngineProtocolMainLoop;     external;
 
 
 

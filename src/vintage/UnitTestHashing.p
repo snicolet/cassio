@@ -364,9 +364,9 @@ begin
 end;
 
 
-function UTF8ToAscii(const s : String255) : String255;     EXTERNAL_NAME('UTF8ToAscii');
-  procedure ReplaceCharByCharInString(var s : String255; old, new : char);      EXTERNAL_NAME('ReplaceCharByCharInString');
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;          EXTERNAL_NAME('ReplaceStringByStringInString');
+function UTF8ToAscii(const s : String255) : String255;     external;
+  procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
+  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
 
 
 procedure LireEnigmePetitPoucet(nomFichier : String255);
@@ -946,8 +946,8 @@ end;
 
 
 
-procedure AttendFrappeClavier;         EXTERNAL_NAME('AttendFrappeClavier');
-procedure SetEcritToutDansRapportLog(flag : boolean);    EXTERNAL_NAME('SetEcritToutDansRapportLog');
+procedure AttendFrappeClavier;     external;
+procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 
 
 const kNbMotCroises = 10;

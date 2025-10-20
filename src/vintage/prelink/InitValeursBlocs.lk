@@ -1,1 +1,1 @@
-procedure InitMaterielBlocsDeCoins;                                                                                                                                                 EXTERNAL_NAME('InitMaterielBlocsDeCoins');
+procedure InitMaterielBlocsDeCoins;     external;

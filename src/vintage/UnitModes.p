@@ -44,7 +44,7 @@ USES
 
 
 
-procedure DoDemandeChangeCouleur;  EXTERNAL_NAME('DoDemandeChangeCouleur');
+procedure DoDemandeChangeCouleur;     external;
 
 
 

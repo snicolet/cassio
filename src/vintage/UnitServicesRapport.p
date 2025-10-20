@@ -119,7 +119,7 @@ var FichierRapportLog : FichierTEXT;
 
 
 
-procedure EcritBienvenueDansRapport;  EXTERNAL_NAME('EcritBienvenueDansRapport');
+procedure EcritBienvenueDansRapport;     external;
 
 
 

@@ -30,7 +30,7 @@ uses SNEvents,UnitDefFichiersTEXT,MyTypes,MyStrings,Sound,UnitFichiersTEXT;
 
 
 
-function GetApplicationName(default : String255) : String255;       EXTERNAL_NAME('GetApplicationName');
+function GetApplicationName(default : String255) : String255;     external;
 
 
 

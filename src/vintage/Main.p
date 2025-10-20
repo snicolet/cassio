@@ -18,7 +18,7 @@ IMPLEMENTATION
 
 
 { la (vraie) fonction main est definie dans Cassio.p }
-procedure MainDeCassio;               EXTERNAL_NAME('MainDeCassio');
+procedure MainDeCassio;     external;
 
 
 

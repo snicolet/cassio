@@ -72,7 +72,7 @@ USES
 
 
 
-procedure EssaieUpdateEventsWindowPlateau;  EXTERNAL_NAME('EssaieUpdateEventsWindowPlateau');
+procedure EssaieUpdateEventsWindowPlateau;     external;
 
 
 

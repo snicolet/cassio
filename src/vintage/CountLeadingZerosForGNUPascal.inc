@@ -6,7 +6,7 @@
 
 
 // Tell the linker the name of the function
-function FindLastBitForGNUPascal_in_C(word : UInt32) : UInt32;        EXTERNAL_NAME('FindLastBitForGNUPascal_in_C');
+function FindLastBitForGNUPascal_in_C(word : UInt32) : UInt32;     external;
 
 
 // Compile the C file
