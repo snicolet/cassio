@@ -11,39 +11,39 @@ INTERFACE
 
 
 { Initialisation de l'unite }
-procedure InitUnitEdmond;                                                                                                                                                           ATTRIBUTE_NAME('InitUnitEdmond')
-procedure LibereMemoireUnitEdmond;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitEdmond')
+procedure InitUnitEdmond;
+procedure LibereMemoireUnitEdmond;
 
 
 { La fonction d'evaluation ! }
-function EvaluationEdmond(var position : plateauOthello; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32) : SInt32;                                                        ATTRIBUTE_NAME('EvaluationEdmond')
-function EvaluationMixteCassioEdmond(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoirs,nbBlancs,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;                                                                                         ATTRIBUTE_NAME('EvaluationMixteCassioEdmond')
+function EvaluationEdmond(var position : plateauOthello; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32) : SInt32;
+function EvaluationMixteCassioEdmond(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoirs,nbBlancs,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;
 
 
 { Disponibilite de l'eval pour le reste du programme ? }
-procedure SetEvaluationEdmondEstDisponible(flag : boolean);                                                                                                                         ATTRIBUTE_NAME('SetEvaluationEdmondEstDisponible')
-function EvaluationEdmondEstDisponible : boolean;                                                                                                                                   ATTRIBUTE_NAME('EvaluationEdmondEstDisponible')
+procedure SetEvaluationEdmondEstDisponible(flag : boolean);
+function EvaluationEdmondEstDisponible : boolean;
 
 
 { Gestion de la memoire pour l'eval d'Edmond }
-procedure AnnihilePointersPourEvalEdmondDansCassio;               { initialisation ˆ NIL des tables }                                                                               ATTRIBUTE_NAME('AnnihilePointersPourEvalEdmondDansCassio')
-function AllocatePointersPourEvalEdmondDansCassio : OSErr;        { allocation des tables }                                                                                         ATTRIBUTE_NAME('AllocatePointersPourEvalEdmondDansCassio')
-function TousLesPointeursDeLEvalEdmondSontBons : boolean;         { verification de la validite des pointeurs }                                                                     ATTRIBUTE_NAME('TousLesPointeursDeLEvalEdmondSontBons')
-procedure DeallocatePointersPourEvalEdmondDansCassio;             { liberation des tables }                                                                                         ATTRIBUTE_NAME('DeallocatePointersPourEvalEdmondDansCassio')
+procedure AnnihilePointersPourEvalEdmondDansCassio;               { initialisation ˆ NIL des tables }
+function AllocatePointersPourEvalEdmondDansCassio : OSErr;        { allocation des tables }
+function TousLesPointeursDeLEvalEdmondSontBons : boolean;         { verification de la validite des pointeurs }
+procedure DeallocatePointersPourEvalEdmondDansCassio;             { liberation des tables }
 
 
 { Fonctions diverses de manipulation des patterns }
-function TailleDUnPatternDeTantDeCases(nbreCases : SInt32) : SInt32;                                                                                                                ATTRIBUTE_NAME('TailleDUnPatternDeTantDeCases')
-function AllocatePointerPourUnPatternDeTantDeCases(nbreCases : SInt32) : IntegerArrayPtr;                                                                                           ATTRIBUTE_NAME('AllocatePointerPourUnPatternDeTantDeCases')
-function PointeurVersLeMilieuDUnPatternDeTantDeCases(nbreCases : SInt32; patternArray : IntegerArrayPtr) : IntegerArrayPtr;                                                         ATTRIBUTE_NAME('PointeurVersLeMilieuDUnPatternDeTantDeCases')
+function TailleDUnPatternDeTantDeCases(nbreCases : SInt32) : SInt32;
+function AllocatePointerPourUnPatternDeTantDeCases(nbreCases : SInt32) : IntegerArrayPtr;
+function PointeurVersLeMilieuDUnPatternDeTantDeCases(nbreCases : SInt32; patternArray : IntegerArrayPtr) : IntegerArrayPtr;
 
 
 { Fonctions de lecture/ecriture sur le disque du fichier d'eval }
-function LireFichierEvalEdmondSurLeDisque : OSErr;                                                                                                                                  ATTRIBUTE_NAME('LireFichierEvalEdmondSurLeDisque')
-function EcrireFichierEvalEdmondSurLeDisque : OSErr;                                                                                                                                ATTRIBUTE_NAME('EcrireFichierEvalEdmondSurLeDisque')
-function LectureEdmondEvalInterrompueParEvenement : boolean;                                                                                                                        ATTRIBUTE_NAME('LectureEdmondEvalInterrompueParEvenement')
-function LireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;                                                    ATTRIBUTE_NAME('LireUnTableauEvalEdmondSurLeDisque')
-function EcrireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;                                                  ATTRIBUTE_NAME('EcrireUnTableauEvalEdmondSurLeDisque')
+function LireFichierEvalEdmondSurLeDisque : OSErr;
+function EcrireFichierEvalEdmondSurLeDisque : OSErr;
+function LectureEdmondEvalInterrompueParEvenement : boolean;
+function LireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
+function EcrireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
 
 
 
@@ -592,7 +592,7 @@ begin
 end;
 
 
-function EvaluationMixteCassioEdmond(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoirs,nbBlancs,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;       
+function EvaluationMixteCassioEdmond(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoirs,nbBlancs,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;
 var evalPartielleCassio : SInt32;
     evalPartielleEdmond : SInt32;
     evalPartielle : SInt32;

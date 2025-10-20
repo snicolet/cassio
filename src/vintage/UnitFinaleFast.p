@@ -19,7 +19,7 @@ INTERFACE
 
 
 
-function MakeEndgameSearch(var paramMakeEndgameSearch : MakeEndgameSearchParamRec ) : boolean;                                                                                      ATTRIBUTE_NAME('MakeEndgameSearch')
+function MakeEndgameSearch(var paramMakeEndgameSearch : MakeEndgameSearchParamRec ) : boolean;
 
 
 
@@ -554,7 +554,7 @@ begin
                            WritelnDansRapport('');
                          end;
                        }
-                       
+
                        (*
                        if (k = nbreDeltaSuccessifs) & (valMin[k] >= valMax[k]) then
                          begin
@@ -596,13 +596,13 @@ begin
 		                                   goto sortie;
 
 		                                 end;
-		                                 
+		
 		                               (* WritelnDansRapport('Faudrait peut-etre faire quelque chose ?'); *)
 
                                  end
                                else
                                  begin
-                                 
+
                                    AmeliorerFenetreParHashTableExacte := true;
                                    note := valMin[k];
                                    meilleureSuite[ESprof,ESprof] := meiDef;
@@ -2678,7 +2678,7 @@ begin  {ABFin}
   						                       {$ENDC}
 
                                      if (k = nbreDeltaSuccessifs) &    // 100%
-                                        (coupDeCetteValMin[k] = 0) & 
+                                        (coupDeCetteValMin[k] = 0) &
                                         (alphaInitial = betaInitial - 1) &
                                         (valMin[k] >= betaInitial) &
                                         odd(alphaInitial) &
@@ -2692,7 +2692,7 @@ begin  {ABFin}
                                          NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k] + nbArbresCoupesValMax[k];
                                          exit(ABFin);
                                        end;
-                                     
+
 
                                    end
                                  else
@@ -3787,9 +3787,9 @@ begin
       if couleur = pionNoir
         then myDiffPions := nbNoirs-nbBlancs
         else myDiffPions := nbBlancs-nbNoirs;
-        
-      
-      
+
+
+
       alphaLanceur := alpha;
       betaLanceur := beta;
       coupuresHeuristiques := 0;
@@ -3798,10 +3798,10 @@ begin
          & AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, kDeltaFinaleInfini, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
          & not(passeEhancedTranspositionCutOffEstEnCours)
          & (not(bestMode) | ((alphaLanceur >= betaLanceur - 1) & (alphaLanceur < 63)) | (deltaFinaleCourant < kDeltaFinaleInfini))
-         & (alphaLanceur >= betaLanceur) 
+         & (alphaLanceur >= betaLanceur)
          & ((alphaLanceur >= beta) | ((alpha = -64) & (beta = 64)))
          & (coupuresHeuristiques = 0)
-        then 
+        then
           begin
             valeurTrouveeDansLaTableDeHachage := true;
             (* WritelnDansRapport('BINGO ! (cas 0)');
@@ -3809,7 +3809,7 @@ begin
             WritelnNumDansRapport('dans ABFin, betaLanceur = ',betaLanceur);
             *)
           end;
-      
+
 
 
       alphaLanceur := alpha;
@@ -3820,9 +3820,9 @@ begin
          & not(seMefierDesScoresDeLArbre)
          & SuiteParfaiteEstConnueDansGameTree
          & AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, deltaFinaleCourant, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
-         & (alphaLanceur >= betaLanceur) 
+         & (alphaLanceur >= betaLanceur)
          & (coupuresHeuristiques = 0)
-        then 
+        then
           begin
             valeurTrouveeDansLaTableDeHachage := true;
             (* WritelnDansRapport('BINGO ! (cas 1)');
@@ -3831,7 +3831,7 @@ begin
             *)
           end;
 
-       
+
       if CassioIsUsingAnEngine(numeroEngine) & (ESprof >= 22) & not(passeEhancedTranspositionCutOffEstEnCours) & not(valeurTrouveeDansLaTableDeHachage) then
         begin
            precision := IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinaleCourant);
@@ -3842,11 +3842,11 @@ begin
            // est inutile d'appeler les moteurs dans ce cas
            if (precision < 100) & not(seMefierDesScoresDeLArbre) & not(CassioEstEnTrainDeCalculerPourLeZoo) then
              begin
-               alphaLanceur := -64; 
+               alphaLanceur := -64;
                betaLanceur := 64;
                coupuresHeuristiques := 0;
                if AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, kDeltaFinaleInfini, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
-                  & (alphaLanceur >= betaLanceur) 
+                  & (alphaLanceur >= betaLanceur)
                   & (coupuresHeuristiques = 0)
                   then valeurTrouveeDansLaTableDeHachage := true;
              end;
@@ -3872,16 +3872,16 @@ begin
                   DisposePropertyList(suiteOptimale);
                 end;
 
-             
+
            // WritelnNumDansRapport('estimationPositionDApresMilieu = ',estimationPositionDApresMilieu);
-             
+
            essayerUtiliserLeMoteur := ((precision >= 80) |                                                // pour forcer l'utilisation du moteur dans les hautes precisions
                                       ((precision >= 70) & (ESprof > 30))) |                              // idem
                                       ((precision >= 25) & (abs(estimationPositionDApresMilieu) >= 50));  // pour forcer l'utilisation du moteur dans les positions desequilibrees
-             
-           essayerUtiliserLeMoteur := essayerUtiliserLeMoteur 
+
+           essayerUtiliserLeMoteur := essayerUtiliserLeMoteur
                                       & not(valeurTrouveeDansLaTableDeHachage) & (alpha < beta);
-           
+
            if essayerUtiliserLeMoteur then
              valeurCalculeeParLeMoteurExterne := EnginePeutFaireCalculDeFinale(plat,couleur,alpha,beta,precision,pere,valeur,meiDef,contexteMakeEndgameSearch.meilleureSuite);
         end;
@@ -3891,10 +3891,10 @@ begin
         begin
           tempoAvecRecursiviteDansEval := avecRecursiviteDansEval;
           avecRecursiviteDansEval := false;
-                                    
+
           valeur := ABFin(contexteMakeEndgameSearch, platEndgame,meiDef,pere,couleur,ESprof,alpha,beta,myDiffPions,IndiceHashTableExacte,false,
                       InfosMilieuDePartie,nbCoupuresHeuristiquesCettePasse,true,passeEhancedTranspositionCutOffEstEnCours);
-                      
+
           avecRecursiviteDansEval := tempoAvecRecursiviteDansEval;
         end;
 
@@ -4986,7 +4986,7 @@ begin  {ABPreordre}
               if iCourant > 88 then AlerteSimple('Debugger : iCourant = '+NumEnString(iCourant)+' dans ABPreordre') else
               if platEssai[iCourant] <> pionVide then AlerteSimple('Debugger : platEssai['+NumEnString(iCourant)+'] <> 0 dans ABPreordre');
               }
-              
+
               //WritelnNumDansRapport('ABPreordre, coup = ',iCourant);
 
               with InfosMilieuEssai do
@@ -5736,14 +5736,14 @@ begin
                           then s := s + ' coup impossible à profondeur '+NumEnString(p)
                           else s := s + ' coup introuvable à profondeur '+NumEnString(p);
                         WritelnDansRapport(s);
-                        
+
                         if CassioEstEnTrainDeCalculerPourLeZoo then
                           begin
                             WritelnDansRapport('J''étais en train de calculer ce job pour le zoo : ');
                             theJob := GetCalculCourantDeCassioPourLeZoo;
                             WritelnLongStringDansRapport(theJob);
                           end;
-                          
+
                         if not(enTournoi | CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
                       end;
                     pere := meilleuresuite[minimaxprof,p+1];
@@ -5794,7 +5794,7 @@ begin
                         s := ReadStringFromRessource(TextesRapportID,22);  {"problème dans mon algorithme !! scoreSuite et scorePourVerif"}
                         s := ParamStr(s,s1,s2,'','');
                         WritelnDansRapport(s);
-                        
+
                         if CassioEstEnTrainDeCalculerPourLeZoo then
                           begin
                             WritelnDansRapport('J''étais en train de calculer ce job pour le zoo :');
@@ -6282,9 +6282,9 @@ begin
              nbBlancClass := inNbreBlancsFinale;
              nbNoirClass := inNbreNoirsFinale;
              frontClass := frontiereFinale;
-             
+
              //WritelnNumDansRapport('PassePreordonnancementDesCoups, coup = ',iCourant);
-             
+
              coupLegal := ModifPlatLongint(iCourant,coulPourMeilleurFin,platClass,jouableClass,
                                            nbBlancClass,nbNoirClass,frontClass);
 
@@ -8213,9 +8213,9 @@ begin
       nbBlancMod := nbBla;
       nbNoirMod := nbNoi;
       frontMod := frontiereMinimax;
-      
+
       //WritelnNumDansRapport('GererJouerLeCoupAvantLaRecherche, coup = ',XCourant);
-      
+
       coupLegal := ModifPlatLongint(XCourant,couleur,platMod,jouableMod,nbBlancMod,nbNoirMod,frontMod);
       with InfosMod do
         begin
@@ -9041,12 +9041,12 @@ begin
   with paramMakeEndgameSearch, paramMakeEndgameSearch.outResult do
     begin
       done := false;
-      if CassioIsUsingAnEngine(numeroEngine) 
-         & (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur) 
+      if CassioIsUsingAnEngine(numeroEngine)
+         & (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur)
          & (inAlphaFinale < inBetaFinale) then
         begin
           line := meilleureSuitePtr(AllocateMemoryPtrClear(sizeof(t_meilleureSuite)));
-          
+
           if (line <> NIL) then
             if EnginePeutFaireCalculDeFinale(inPositionPourFinale,inCouleurFinale,inAlphaFinale,inBetaFinale,inPrecisionFinale,44,note,bestMove,line^) then
               if (note >= -64) & (note <= 64) & (interruptionReflexion = pasdinterruption) then
@@ -9063,7 +9063,7 @@ begin
                  end;
 
          if not(done) then inTypeCalculFinale := ReflParfait;
-         
+
          if line <> NIL then DisposeMemoryPtr(Ptr(line));
        end;
       CalculDirectParLeMoteur := done;

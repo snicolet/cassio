@@ -17,63 +17,63 @@ INTERFACE
 
 
 { Orientation d'un coup ou d'une suite de coups suivant le coup 1 courant}
-procedure TransposeCoupPourOrientation(var whichSquare : SInt16; autreCoupQuatreDiagonal : boolean);                                                                                ATTRIBUTE_NAME('TransposeCoupPourOrientation')
-procedure TransposePartiePourOrientation(var partie60 : PackedThorGame; autreCoupQuatreDiagonal : boolean; minCoupTranspose,maxCoupTranspose : SInt32);                             ATTRIBUTE_NAME('TransposePartiePourOrientation')
+procedure TransposeCoupPourOrientation(var whichSquare : SInt16; autreCoupQuatreDiagonal : boolean);
+procedure TransposePartiePourOrientation(var partie60 : PackedThorGame; autreCoupQuatreDiagonal : boolean; minCoupTranspose,maxCoupTranspose : SInt32);
 
 
 { Normalisations diverses, en particulier pour la base WThor }
-function PartieNormalisee(var autreCoupQuatreDiag : boolean; interversions : boolean) : String255;                                                                                  ATTRIBUTE_NAME('PartieNormalisee')
-procedure Normalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean; interversions : boolean);                                                                     ATTRIBUTE_NAME('Normalisation')
-function NormaliserLaPartiePourInclusionDansLaBaseWThor(const partieEnAlpha : String255) : String255;                                                                               ATTRIBUTE_NAME('NormaliserLaPartiePourInclusionDansLaBaseWThor')
-procedure ExtraitPremierCoup(var premierCoup : SInt16; var autreCoupQuatreDiag : boolean);                                                                                          ATTRIBUTE_NAME('ExtraitPremierCoup')
-function PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6 : boolean;                                                                                                               ATTRIBUTE_NAME('PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6')
+function PartieNormalisee(var autreCoupQuatreDiag : boolean; interversions : boolean) : String255;
+procedure Normalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean; interversions : boolean);
+function NormaliserLaPartiePourInclusionDansLaBaseWThor(const partieEnAlpha : String255) : String255;
+procedure ExtraitPremierCoup(var premierCoup : SInt16; var autreCoupQuatreDiag : boolean);
+function PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6 : boolean;
 
 
 { Gestion du premier coup affiche dans la liste de parties }
-function GetPremierCoupParDefaut : SInt32;                                                                                                                                          ATTRIBUTE_NAME('GetPremierCoupParDefaut')
-procedure SetPremierCoupParDefaut(coup : SInt32);                                                                                                                                   ATTRIBUTE_NAME('SetPremierCoupParDefaut')
+function GetPremierCoupParDefaut : SInt32;
+procedure SetPremierCoupParDefaut(coup : SInt32);
 
 
 { Fonctions de symetries }
-procedure EffectueSymetrieAxeNW_SE(var plat : plateauOthello);                                                                                                                      ATTRIBUTE_NAME('EffectueSymetrieAxeNW_SE')
-procedure EffectueSymetrieAxeNE_SW(var plat : plateauOthello);                                                                                                                      ATTRIBUTE_NAME('EffectueSymetrieAxeNE_SW')
-function CaseSymetrique(whichSquare : SInt16; axeSymetrie : SInt32) : SInt16;                                                                                                       ATTRIBUTE_NAME('CaseSymetrique')
-procedure SymetriserPartieFormatThor(var s60 : PackedThorGame; axeSymetrie : SInt32; debut,fin : SInt32);                                                                           ATTRIBUTE_NAME('SymetriserPartieFormatThor')
-procedure SymetriserPartieFormatAlphanumerique(var s : String255; axeSymetrie : SInt32; debut,fin : SInt32);                                                                        ATTRIBUTE_NAME('SymetriserPartieFormatAlphanumerique')
-procedure EffectueSymetrieOnSquare(var whichSquare : SInt16; var axeSymetrie : SInt32; var continuer : boolean);                                                                    ATTRIBUTE_NAME('EffectueSymetrieOnSquare')
-function TrouveSymetrieEgalisante(whichPos : plateauOthello; numeroCoup : SInt16; var s60 : PackedThorGame; var axe : SInt16) : boolean;                                            ATTRIBUTE_NAME('TrouveSymetrieEgalisante')
+procedure EffectueSymetrieAxeNW_SE(var plat : plateauOthello);
+procedure EffectueSymetrieAxeNE_SW(var plat : plateauOthello);
+function CaseSymetrique(whichSquare : SInt16; axeSymetrie : SInt32) : SInt16;
+procedure SymetriserPartieFormatThor(var s60 : PackedThorGame; axeSymetrie : SInt32; debut,fin : SInt32);
+procedure SymetriserPartieFormatAlphanumerique(var s : String255; axeSymetrie : SInt32; debut,fin : SInt32);
+procedure EffectueSymetrieOnSquare(var whichSquare : SInt16; var axeSymetrie : SInt32; var continuer : boolean);
+function TrouveSymetrieEgalisante(whichPos : plateauOthello; numeroCoup : SInt16; var s60 : PackedThorGame; var axe : SInt16) : boolean;
 
 
 { Une petite gestion de numeros d'ouvertures (tres basique) }
-function NroOuverture(var s : packed7) : SInt32;                                                                                                                                    ATTRIBUTE_NAME('NroOuverture')
-procedure IntervalleOuverture_6(var s : packed7; var minimum,maximum : SInt32);                                                                                                      ATTRIBUTE_NAME('IntervalleOuverture_6')
-procedure IntervalleOuverture_5(var s : packed7; var minimum,maximum : SInt32);                                                                                                      ATTRIBUTE_NAME('IntervalleOuverture_5')
-procedure IntervalleOuverture_4(var s : packed7; var minimum,maximum : SInt32);                                                                                                      ATTRIBUTE_NAME('IntervalleOuverture_4')
-procedure IntervalleOuverture_3(var s : packed7; var minimum,maximum : SInt32);                                                                                                      ATTRIBUTE_NAME('IntervalleOuverture_3')
-procedure IntervalleOuverture_2(var s : packed7; var minimum,maximum : SInt32);                                                                                                      ATTRIBUTE_NAME('IntervalleOuverture_2')
-procedure DetermineIntervalleOuverture(var ouv : packed7; longueur : SInt16; var minimum,maximum : SInt32);                                                                          ATTRIBUTE_NAME('DetermineIntervalleOuverture')
-function EstDansTableOuverture(nom : String255; var nroDansTable : SInt16) : boolean;                                                                                               ATTRIBUTE_NAME('EstDansTableOuverture')
+function NroOuverture(var s : packed7) : SInt32;
+procedure IntervalleOuverture_6(var s : packed7; var minimum,maximum : SInt32);
+procedure IntervalleOuverture_5(var s : packed7; var minimum,maximum : SInt32);
+procedure IntervalleOuverture_4(var s : packed7; var minimum,maximum : SInt32);
+procedure IntervalleOuverture_3(var s : packed7; var minimum,maximum : SInt32);
+procedure IntervalleOuverture_2(var s : packed7; var minimum,maximum : SInt32);
+procedure DetermineIntervalleOuverture(var ouv : packed7; longueur : SInt16; var minimum,maximum : SInt32);
+function EstDansTableOuverture(nom : String255; var nroDansTable : SInt16) : boolean;
 
 
 { Acces aux coups de la parties courante }
-function GetNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;                                                                                                                ATTRIBUTE_NAME('GetNiemeCoupPartieCourante')
-function DerniereCaseJouee : SInt32;                                                                                                                                                ATTRIBUTE_NAME('DerniereCaseJouee')
-procedure SetNiemeCoup(numeroDuCoup : SInt32; square : SInt32);                                                                                                                     ATTRIBUTE_NAME('SetNiemeCoup')
-function TrouveCoupDansPartieCourante(whichSquare : SInt16; var numeroDuCoup : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('TrouveCoupDansPartieCourante')
-function DernierCoupEnString(enMajuscules : boolean) : String255;                                                                                                                   ATTRIBUTE_NAME('DernierCoupEnString')
-function GetDernierCoup : SInt16;                                                                                                                                                   ATTRIBUTE_NAME('GetDernierCoup')
-function GetCouleurNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;                                                                                                         ATTRIBUTE_NAME('GetCouleurNiemeCoupPartieCourante')
-function GetCouleurDernierCoup : SInt32;                                                                                                                                            ATTRIBUTE_NAME('GetCouleurDernierCoup')
-function UnJoueurVientDePasser : boolean;                                                                                                                                           ATTRIBUTE_NAME('UnJoueurVientDePasser')
-function GetPositionInitialePartieEnCours : PositionEtTraitRec;                                                                                                                     ATTRIBUTE_NAME('GetPositionInitialePartieEnCours')
-function GetPositionEtTraitPartieCouranteApresCeCoup(numeroCoup : SInt16; var typeErreur : SInt32) : PositionEtTraitRec;                                                            ATTRIBUTE_NAME('GetPositionEtTraitPartieCouranteApresCeCoup')
-function EstLaPositionInitialeDeLaPartieEnCours(var whichPos : PositionEtTraitRec) : boolean;                                                                                       ATTRIBUTE_NAME('EstLaPositionInitialeDeLaPartieEnCours')
+function GetNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;
+function DerniereCaseJouee : SInt32;
+procedure SetNiemeCoup(numeroDuCoup : SInt32; square : SInt32);
+function TrouveCoupDansPartieCourante(whichSquare : SInt16; var numeroDuCoup : SInt16) : boolean;
+function DernierCoupEnString(enMajuscules : boolean) : String255;
+function GetDernierCoup : SInt16;
+function GetCouleurNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;
+function GetCouleurDernierCoup : SInt32;
+function UnJoueurVientDePasser : boolean;
+function GetPositionInitialePartieEnCours : PositionEtTraitRec;
+function GetPositionEtTraitPartieCouranteApresCeCoup(numeroCoup : SInt16; var typeErreur : SInt32) : PositionEtTraitRec;
+function EstLaPositionInitialeDeLaPartieEnCours(var whichPos : PositionEtTraitRec) : boolean;
 
 
 { Des utilitaires sur les positions }
-function PositionsSontEgales(const pos1,pos2 : plateauOthello) : boolean;                                                                                                           ATTRIBUTE_NAME('PositionsSontEgales')
-function CalculePositionApres(numero : SInt16; partie60 : PackedThorGame) : plateauOthello;                                                                                         ATTRIBUTE_NAME('CalculePositionApres')
-function CalculePositionEtTraitApres(var partie60 : PackedThorGame; numeroCoup : SInt16; var position : plateauOthello; var trait,nbBlanc,nbNoir : SInt32) : boolean;               ATTRIBUTE_NAME('CalculePositionEtTraitApres')
+function PositionsSontEgales(const pos1,pos2 : plateauOthello) : boolean;
+function CalculePositionApres(numero : SInt16; partie60 : PackedThorGame) : plateauOthello;
+function CalculePositionEtTraitApres(var partie60 : PackedThorGame; numeroCoup : SInt16; var position : plateauOthello; var trait,nbBlanc,nbNoir : SInt32) : boolean;
 
 
 

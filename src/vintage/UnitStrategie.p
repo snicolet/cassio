@@ -23,103 +23,103 @@ INTERFACE
 
 
 
-function PeutJouerIci(couleur,a : SInt32; const plat : plateauOthello) : boolean;                                                                                                   ATTRIBUTE_NAME('PeutJouerIci')
-function DoitPasser(coul : SInt32; const plat : plateauOthello; var jouable : plBool) : boolean;                                                                                    ATTRIBUTE_NAME('DoitPasser')
-function DoitPasserPlatSeulement(couleur : SInt32; var plat : plateauOthello) : boolean;                                                                                            ATTRIBUTE_NAME('DoitPasserPlatSeulement')
-function ModifPlatSeulement(a : SInt32; var jeu : plateauOthello; coul : SInt32) : boolean;                                                                                         ATTRIBUTE_NAME('ModifPlatSeulement')
-function ModifPlatPrise(a : SInt32; var jeu : plateauOthello; coul : SInt32; var nbPionsRetournes : SInt32) : boolean;                                                              ATTRIBUTE_NAME('ModifPlatPrise')
+function PeutJouerIci(couleur,a : SInt32; const plat : plateauOthello) : boolean;
+function DoitPasser(coul : SInt32; const plat : plateauOthello; var jouable : plBool) : boolean;
+function DoitPasserPlatSeulement(couleur : SInt32; var plat : plateauOthello) : boolean;
+function ModifPlatSeulement(a : SInt32; var jeu : plateauOthello; coul : SInt32) : boolean;
+function ModifPlatPrise(a : SInt32; var jeu : plateauOthello; coul : SInt32; var nbPionsRetournes : SInt32) : boolean;
 { attention a l'ordre des derniers parametres  }
-function ModifPlatFin(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;                                                                                 ATTRIBUTE_NAME('ModifPlatFin')
+function ModifPlatFin(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;
 { attention a l'ordre des derniers parametres  }
-function ModifPlatFast(a,coul : SInt32; var jeu : plateauOthello; var nbPionsCoul,nbPionsAdv : SInt32) : boolean;                                                                   ATTRIBUTE_NAME('ModifPlatFast')
-function ModifPlatFinDiff(a,coul : SInt32; var jeu : plateauOthello; var diffPions : SInt32) : boolean;                                                                             ATTRIBUTE_NAME('ModifPlatFinDiff')
-function ModifPlatFinDiffFast(a,couleur,couleurEnnemie : SInt32; var jeu : plateauOthello; var diffPions : SInt32) : boolean;                                                       ATTRIBUTE_NAME('ModifPlatFinDiffFast')
-function ModifPlatSeulementLongint(a,couleur,couleurEnnemie : SInt32; var jeu : plOthEndgame) : boolean;                                                                            ATTRIBUTE_NAME('ModifPlatSeulementLongint')
-function ModifPlatLongint(a,coul : SInt32; var jeu : plateauOthello; var jouable : plBool; var nbbl,nbno : SInt32; var front : InfoFront) : boolean;                                ATTRIBUTE_NAME('ModifPlatLongint')
-procedure OthellierEtPionsDeDepart(var plat : plateauOthello; var nBla,nNoi : SInt32);                                                                                              ATTRIBUTE_NAME('OthellierEtPionsDeDepart')
-procedure OthellierDeDepart(var plat : plateauOthello);                                                                                                                             ATTRIBUTE_NAME('OthellierDeDepart')
-procedure VideOthellier(var plat : plateauOthello);                                                                                                                                 ATTRIBUTE_NAME('VideOthellier')
-function MakeOthellierVide : plateauOthello;                                                                                                                                        ATTRIBUTE_NAME('MakeOthellierVide')
-function EstLaPositionStandardDeDepart(const plat : plateauOthello) : boolean;                                                                                                      ATTRIBUTE_NAME('EstLaPositionStandardDeDepart')
-procedure CarteMove(coul : SInt32; const plat : plateauOthello; var carte : plBool; var mobilite : SInt32);                                                                         ATTRIBUTE_NAME('CarteMove')
-function NbreDirectionsJouables(couleur,a : SInt32; var plat : plateauOthello) : SInt32;                                                                                            ATTRIBUTE_NAME('NbreDirectionsJouables')
-function PeutJouerIciUnidirectionnel(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var deltaFrontiere : SInt32) : SInt32;                               ATTRIBUTE_NAME('PeutJouerIciUnidirectionnel')
-function PeutJouerIciBonCoup(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var coupTranquille : boolean) : boolean;                                     ATTRIBUTE_NAME('PeutJouerIciBonCoup')
-function ValeurUnidirectionnelleDuCoup(couleur,a : SInt32; var plat : plateauOthello) : SInt32;                                                                                     ATTRIBUTE_NAME('ValeurUnidirectionnelleDuCoup')
-function ValeurSemiTranquilleDuCoup(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var coupTranquille : boolean; var deltaFrontiere : SInt32) : SInt32;  ATTRIBUTE_NAME('ValeurSemiTranquilleDuCoup')
-function mobiliteUnidirectionnelle(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;                                             ATTRIBUTE_NAME('mobiliteUnidirectionnelle')
-function mobiliteUnidirectionnelleMinimisante(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;                                                             ATTRIBUTE_NAME('mobiliteUnidirectionnelleMinimisante')
-function mobiliteUnidirectionnelleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;                                   ATTRIBUTE_NAME('mobiliteUnidirectionnelleAvecCasesC')
-function mobiliteUnidirectionnelleMinimisanteAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;                        ATTRIBUTE_NAME('mobiliteUnidirectionnelleMinimisanteAvecCasesC')
-function mobiliteBonsCoups(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var nbCoupsTranquilles : SInt32) : SInt32;                    ATTRIBUTE_NAME('mobiliteBonsCoups')
-function MobiliteSemiTranquilleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var ListeDesCoupsTranquilles : ListeDeCases; seuil_coupure : SInt32) : SInt32;                                                           ATTRIBUTE_NAME('MobiliteSemiTranquilleAvecCasesC')
-function Influence(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;                                                                                        ATTRIBUTE_NAME('Influence')
-function CoupAleatoire(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;                                                                         ATTRIBUTE_NAME('CoupAleatoire')
-function CoupAleatoireDonnantPleinDeMobilite(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;                                                   ATTRIBUTE_NAME('CoupAleatoireDonnantPleinDeMobilite')
-function CoupAleatoireDonnantPeuDeMobilite(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;                                                     ATTRIBUTE_NAME('CoupAleatoireDonnantPeuDeMobilite')
-function TrouverUneCaseRemplie(const plat : plateauOthello) : SInt32;                                                                                                               ATTRIBUTE_NAME('TrouverUneCaseRemplie')
-function CalculeMobilite(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;                                                                                  ATTRIBUTE_NAME('CalculeMobilite')
-function CalculeMobilitePlatSeulement(const plat : plateauOthello; coul : SInt32) : SInt32;                                                                                         ATTRIBUTE_NAME('CalculeMobilitePlatSeulement')
-function NbCoinsPrenables(coul : SInt32; var plat : plateauOthello) : SInt32;                                                                                                       ATTRIBUTE_NAME('NbCoinsPrenables')
-function PeutPrendreUnCoin(coul : SInt32; var plat : plateauOthello) : boolean;                                                                                                     ATTRIBUTE_NAME('PeutPrendreUnCoin')
-function NbCoins(coul : SInt32; var plat : plateauOthello) : SInt32;                                                                                                                ATTRIBUTE_NAME('NbCoins')
-function NbLibertes(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;                                                                                       ATTRIBUTE_NAME('NbLibertes')
-function MobiliteEffective(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;                                                                                ATTRIBUTE_NAME('MobiliteEffective')
-function ComptePrise(var a,couleur : SInt32; var plat : plateauOthello; var coupPossible : boolean) : SInt32;                                                                       ATTRIBUTE_NAME('ComptePrise')
-procedure CarteJouable(const plat : plateauOthello; var carte : plBool);                                                                                                            ATTRIBUTE_NAME('CarteJouable')
-procedure CarteVide(const plat : plateauOthello; var carte : plateauOthello);                                                                                                       ATTRIBUTE_NAME('CarteVide')
-procedure CarteFrontiere(const plat : plateauOthello; var front : InfoFront);                                                                                                       ATTRIBUTE_NAME('CarteFrontiere')
-function ModifScoreFin(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;                                                                                ATTRIBUTE_NAME('ModifScoreFin')
-function CaseXSacrifiee(var plat : plateauOthello) : boolean;                                                                                                                       ATTRIBUTE_NAME('CaseXSacrifiee')
-function PasDeBordDeCinqAttaque(couleur : SInt32; var front : InfoFront; const plat : plateauOthello) : boolean;                                                                    ATTRIBUTE_NAME('PasDeBordDeCinqAttaque')
-function BordDeCinqUrgent(var plat : plateauOthello; var front : InfoFront) : boolean;                                                                                              ATTRIBUTE_NAME('BordDeCinqUrgent')
-function EstTurbulent(const pl : plateauOthello; couleur,nbBlancs,nbNoirs : SInt32; var front : InfoFront; var caseCritiqueTurbulence : SInt32) : boolean;                          ATTRIBUTE_NAME('EstTurbulent')
-function VerificationConnexiteOK(jeu : plateauOthello) : boolean;                                                                                                                   ATTRIBUTE_NAME('VerificationConnexiteOK')
-function VerificationNbreMinimalDePions(jeu : plateauOthello; nbreMinimalDePions : SInt32) : boolean;                                                                               ATTRIBUTE_NAME('VerificationNbreMinimalDePions')
-function PositionsEgales(var plat1,plat2 : plateauOthello) : boolean;                                                                                                               ATTRIBUTE_NAME('PositionsEgales')
-procedure CalculePositionFinale(const ligne : String255; var plat : plateauOthello; var ligneLegale : boolean; var nbCoupsLegaux : SInt32);                                         ATTRIBUTE_NAME('CalculePositionFinale')
-procedure CoupAuHazard(CouleurChoix : SInt32; jeu : plateauOthello; empl : plBool; var ChoixX,valeur : SInt32);                                                                     ATTRIBUTE_NAME('CoupAuHazard')
-function ModifPlat(a,coul : SInt32; var jeu : plateauOthello; var jouable : plBool; var nbbl,nbno : SInt32; var front : InfoFront) : boolean;                                       ATTRIBUTE_NAME('ModifPlat')
-function nbBordDeCinqTransformablesPourBlanc(const plat : plateauOthello; var front : InfoFront) : SInt32;                                                                          ATTRIBUTE_NAME('nbBordDeCinqTransformablesPourBlanc')
-function BonsBordsDeCinqNoirs(var plat : plateauOthello; var front : InfoFront) : SInt32;                                                                                           ATTRIBUTE_NAME('BonsBordsDeCinqNoirs')
-function BonsBordsDeCinqBlancs(var plat : plateauOthello; var front : InfoFront) : SInt32;                                                                                          ATTRIBUTE_NAME('BonsBordsDeCinqBlancs')
-function TrousDeTroisBlancsHorribles(const plat : plateauOthello) : SInt32;                                                                                                         ATTRIBUTE_NAME('TrousDeTroisBlancsHorribles')
-function TrousDeTroisNoirsHorribles(const plat : plateauOthello) : SInt32;                                                                                                          ATTRIBUTE_NAME('TrousDeTroisNoirsHorribles')
-function TrousBlancsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;                                                                                                      ATTRIBUTE_NAME('TrousBlancsDeDeuxPerdantLaParite')
-function TrousNoirsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;                                                                                                       ATTRIBUTE_NAME('TrousNoirsDeDeuxPerdantLaParite')
-function LibertesNoiresSurCasesA(const plat : plateauOthello; var front : InfoFront) : SInt32;                                                                                      ATTRIBUTE_NAME('LibertesNoiresSurCasesA')
-function LibertesBlanchesSurCasesA(const plat : plateauOthello; var front : InfoFront) : SInt32;                                                                                    ATTRIBUTE_NAME('LibertesBlanchesSurCasesA')
-function LibertesNoiresSurCasesB(var plat : plateauOthello) : SInt32;                                                                                                               ATTRIBUTE_NAME('LibertesNoiresSurCasesB')
-function LibertesBlanchesSurCasesB(var plat : plateauOthello) : SInt32;                                                                                                             ATTRIBUTE_NAME('LibertesBlanchesSurCasesB')
-function PasDeCoinEnPrise(var plat : plateauOthello; var jouable : plBool) : boolean;                                                                                               ATTRIBUTE_NAME('PasDeCoinEnPrise')
-function ArnaqueSurBordDeCinqBlanc(const pl : plateauOthello; var front : InfoFront) : SInt32;                                                                                      ATTRIBUTE_NAME('ArnaqueSurBordDeCinqBlanc')
-function ArnaqueSurBordDeCinqNoir(const pl : plateauOthello; var front : InfoFront) : SInt32;                                                                                       ATTRIBUTE_NAME('ArnaqueSurBordDeCinqNoir')
-function NotationBordsOpposesPourNoir(var pl : plateauOthello) : SInt32;                                                                                                            ATTRIBUTE_NAME('NotationBordsOpposesPourNoir')
-function BordDeSixNoirAvecPrebordHomogene(var pl : plateauOthello; var front : InfoFront) : SInt32;                                                                                 ATTRIBUTE_NAME('BordDeSixNoirAvecPrebordHomogene')
-function BordDeSixBlancAvecPrebordHomogene(var pl : plateauOthello; var front : InfoFront) : SInt32;                                                                                ATTRIBUTE_NAME('BordDeSixBlancAvecPrebordHomogene')
-function PionsIsolesNoirsSurCasesThill(var pl : plateauOthello) : SInt32;                                                                                                           ATTRIBUTE_NAME('PionsIsolesNoirsSurCasesThill')
-function PionsIsolesBlancsSurCasesThill(var pl : plateauOthello) : SInt32;                                                                                                          ATTRIBUTE_NAME('PionsIsolesBlancsSurCasesThill')
-function NoteCasesCoinsCarreCentralPourNoir(var pl : plateauOthello) : SInt32;                                                                                                      ATTRIBUTE_NAME('NoteCasesCoinsCarreCentralPourNoir')
-function NoteJeuCasesXPourNoir(var pl : plateauOthello; nbNoirs,nbBlancs : SInt32) : SInt32;                                                                                        ATTRIBUTE_NAME('NoteJeuCasesXPourNoir')
-function NoteJeuCasesXPourBlanc(var pl : plateauOthello; nbNoirs,nbBlancs : SInt32) : SInt32;                                                                                       ATTRIBUTE_NAME('NoteJeuCasesXPourBlanc')
-function PasDeControleDeDiagonaleEnCours(couleur : SInt32; var pl : plateauOthello) : boolean;                                                                                      ATTRIBUTE_NAME('PasDeControleDeDiagonaleEnCours')
-function NbPionsDefinitifsSurLesBords(couleur : SInt32; var plat : plateauOthello) : SInt32;                                                                                        ATTRIBUTE_NAME('NbPionsDefinitifsSurLesBords')
-function NbPionsDefinitifs(couleur : SInt32; var plat : plateauOthello) : SInt32;                                                                                                   ATTRIBUTE_NAME('NbPionsDefinitifs')
-function NbPionsDefinitifsAvecInterieurs(couleur : SInt32; var p : plateauOthello) : SInt32;                                                                                        ATTRIBUTE_NAME('NbPionsDefinitifsAvecInterieurs')
-function NbPionsDefinitifsSurLesBordsEndgame(couleur : SInt32; var plat : plOthEndgame) : SInt32;                                                                                   ATTRIBUTE_NAME('NbPionsDefinitifsSurLesBordsEndgame')
-function NbPionsDefinitifsEndgame(couleur : SInt32; var plat : plOthEndgame) : SInt32;                                                                                              ATTRIBUTE_NAME('NbPionsDefinitifsEndgame')
-function NbPionsDefinitifsAvecInterieursEndgame(couleur : SInt32; var p : plOthEndgame) : SInt32;                                                                                   ATTRIBUTE_NAME('NbPionsDefinitifsAvecInterieursEndgame')
-function CoinPlusProche(a : SInt32) : SInt32;                                                                                                                                       ATTRIBUTE_NAME('CoinPlusProche')
-function CoinPlusProcheVide(a : SInt32; var jeu : plateauOthello) : boolean;                                                                                                        ATTRIBUTE_NAME('CoinPlusProcheVide')
-function PlusProcheCaseA(a : SInt32) : SInt32;                                                                                                                                      ATTRIBUTE_NAME('PlusProcheCaseA')
-function PlusProcheCaseX(a : SInt32) : SInt32;                                                                                                                                      ATTRIBUTE_NAME('PlusProcheCaseX')
-function EstUneCaseBordNord(a : SInt32) : boolean;                                                                                                                                  ATTRIBUTE_NAME('EstUneCaseBordNord')
-function EstUneCaseBordSud(a : SInt32) : boolean;                                                                                                                                   ATTRIBUTE_NAME('EstUneCaseBordSud')
-function EstUneCaseBordOuest(a : SInt32) : boolean;                                                                                                                                 ATTRIBUTE_NAME('EstUneCaseBordOuest')
-function EstUneCaseBordEst(a : SInt32) : boolean;                                                                                                                                   ATTRIBUTE_NAME('EstUneCaseBordEst')
-function estUneCaseX(a : SInt32) : boolean;                                                                                                                                         ATTRIBUTE_NAME('estUneCaseX')
-function estUneCasePetitCoin(a : SInt32) : boolean;                                                                                                                                 ATTRIBUTE_NAME('estUneCasePetitCoin')
-function GenreDeReflexionInSet(genre : SInt16; whichSet : ReflexionTypesSet) : boolean;                                                                                             ATTRIBUTE_NAME('GenreDeReflexionInSet')
+function ModifPlatFast(a,coul : SInt32; var jeu : plateauOthello; var nbPionsCoul,nbPionsAdv : SInt32) : boolean;
+function ModifPlatFinDiff(a,coul : SInt32; var jeu : plateauOthello; var diffPions : SInt32) : boolean;
+function ModifPlatFinDiffFast(a,couleur,couleurEnnemie : SInt32; var jeu : plateauOthello; var diffPions : SInt32) : boolean;
+function ModifPlatSeulementLongint(a,couleur,couleurEnnemie : SInt32; var jeu : plOthEndgame) : boolean;
+function ModifPlatLongint(a,coul : SInt32; var jeu : plateauOthello; var jouable : plBool; var nbbl,nbno : SInt32; var front : InfoFront) : boolean;
+procedure OthellierEtPionsDeDepart(var plat : plateauOthello; var nBla,nNoi : SInt32);
+procedure OthellierDeDepart(var plat : plateauOthello);
+procedure VideOthellier(var plat : plateauOthello);
+function MakeOthellierVide : plateauOthello;
+function EstLaPositionStandardDeDepart(const plat : plateauOthello) : boolean;
+procedure CarteMove(coul : SInt32; const plat : plateauOthello; var carte : plBool; var mobilite : SInt32);
+function NbreDirectionsJouables(couleur,a : SInt32; var plat : plateauOthello) : SInt32;
+function PeutJouerIciUnidirectionnel(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var deltaFrontiere : SInt32) : SInt32;
+function PeutJouerIciBonCoup(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var coupTranquille : boolean) : boolean;
+function ValeurUnidirectionnelleDuCoup(couleur,a : SInt32; var plat : plateauOthello) : SInt32;
+function ValeurSemiTranquilleDuCoup(couleur,a : SInt32; var plat : plateauOthello; var frontiere : InfoFront; var coupTranquille : boolean; var deltaFrontiere : SInt32) : SInt32;
+function mobiliteUnidirectionnelle(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;
+function mobiliteUnidirectionnelleMinimisante(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;
+function mobiliteUnidirectionnelleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;
+function mobiliteUnidirectionnelleMinimisanteAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront) : SInt32;
+function mobiliteBonsCoups(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var nbCoupsTranquilles : SInt32) : SInt32;
+function MobiliteSemiTranquilleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var ListeDesCoupsTranquilles : ListeDeCases; seuil_coupure : SInt32) : SInt32;
+function Influence(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;
+function CoupAleatoire(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;
+function CoupAleatoireDonnantPleinDeMobilite(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;
+function CoupAleatoireDonnantPeuDeMobilite(coul : SInt32; var plat : plateauOthello; var casesInterdites : SquareSet) : SInt32;
+function TrouverUneCaseRemplie(const plat : plateauOthello) : SInt32;
+function CalculeMobilite(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;
+function CalculeMobilitePlatSeulement(const plat : plateauOthello; coul : SInt32) : SInt32;
+function NbCoinsPrenables(coul : SInt32; var plat : plateauOthello) : SInt32;
+function PeutPrendreUnCoin(coul : SInt32; var plat : plateauOthello) : boolean;
+function NbCoins(coul : SInt32; var plat : plateauOthello) : SInt32;
+function NbLibertes(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;
+function MobiliteEffective(coul : SInt32; var plat : plateauOthello; var jouable : plBool) : SInt32;
+function ComptePrise(var a,couleur : SInt32; var plat : plateauOthello; var coupPossible : boolean) : SInt32;
+procedure CarteJouable(const plat : plateauOthello; var carte : plBool);
+procedure CarteVide(const plat : plateauOthello; var carte : plateauOthello);
+procedure CarteFrontiere(const plat : plateauOthello; var front : InfoFront);
+function ModifScoreFin(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;
+function CaseXSacrifiee(var plat : plateauOthello) : boolean;
+function PasDeBordDeCinqAttaque(couleur : SInt32; var front : InfoFront; const plat : plateauOthello) : boolean;
+function BordDeCinqUrgent(var plat : plateauOthello; var front : InfoFront) : boolean;
+function EstTurbulent(const pl : plateauOthello; couleur,nbBlancs,nbNoirs : SInt32; var front : InfoFront; var caseCritiqueTurbulence : SInt32) : boolean;
+function VerificationConnexiteOK(jeu : plateauOthello) : boolean;
+function VerificationNbreMinimalDePions(jeu : plateauOthello; nbreMinimalDePions : SInt32) : boolean;
+function PositionsEgales(var plat1,plat2 : plateauOthello) : boolean;
+procedure CalculePositionFinale(const ligne : String255; var plat : plateauOthello; var ligneLegale : boolean; var nbCoupsLegaux : SInt32);
+procedure CoupAuHazard(CouleurChoix : SInt32; jeu : plateauOthello; empl : plBool; var ChoixX,valeur : SInt32);
+function ModifPlat(a,coul : SInt32; var jeu : plateauOthello; var jouable : plBool; var nbbl,nbno : SInt32; var front : InfoFront) : boolean;
+function nbBordDeCinqTransformablesPourBlanc(const plat : plateauOthello; var front : InfoFront) : SInt32;
+function BonsBordsDeCinqNoirs(var plat : plateauOthello; var front : InfoFront) : SInt32;
+function BonsBordsDeCinqBlancs(var plat : plateauOthello; var front : InfoFront) : SInt32;
+function TrousDeTroisBlancsHorribles(const plat : plateauOthello) : SInt32;
+function TrousDeTroisNoirsHorribles(const plat : plateauOthello) : SInt32;
+function TrousBlancsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;
+function TrousNoirsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;
+function LibertesNoiresSurCasesA(const plat : plateauOthello; var front : InfoFront) : SInt32;
+function LibertesBlanchesSurCasesA(const plat : plateauOthello; var front : InfoFront) : SInt32;
+function LibertesNoiresSurCasesB(var plat : plateauOthello) : SInt32;
+function LibertesBlanchesSurCasesB(var plat : plateauOthello) : SInt32;
+function PasDeCoinEnPrise(var plat : plateauOthello; var jouable : plBool) : boolean;
+function ArnaqueSurBordDeCinqBlanc(const pl : plateauOthello; var front : InfoFront) : SInt32;
+function ArnaqueSurBordDeCinqNoir(const pl : plateauOthello; var front : InfoFront) : SInt32;
+function NotationBordsOpposesPourNoir(var pl : plateauOthello) : SInt32;
+function BordDeSixNoirAvecPrebordHomogene(var pl : plateauOthello; var front : InfoFront) : SInt32;
+function BordDeSixBlancAvecPrebordHomogene(var pl : plateauOthello; var front : InfoFront) : SInt32;
+function PionsIsolesNoirsSurCasesThill(var pl : plateauOthello) : SInt32;
+function PionsIsolesBlancsSurCasesThill(var pl : plateauOthello) : SInt32;
+function NoteCasesCoinsCarreCentralPourNoir(var pl : plateauOthello) : SInt32;
+function NoteJeuCasesXPourNoir(var pl : plateauOthello; nbNoirs,nbBlancs : SInt32) : SInt32;
+function NoteJeuCasesXPourBlanc(var pl : plateauOthello; nbNoirs,nbBlancs : SInt32) : SInt32;
+function PasDeControleDeDiagonaleEnCours(couleur : SInt32; var pl : plateauOthello) : boolean;
+function NbPionsDefinitifsSurLesBords(couleur : SInt32; var plat : plateauOthello) : SInt32;
+function NbPionsDefinitifs(couleur : SInt32; var plat : plateauOthello) : SInt32;
+function NbPionsDefinitifsAvecInterieurs(couleur : SInt32; var p : plateauOthello) : SInt32;
+function NbPionsDefinitifsSurLesBordsEndgame(couleur : SInt32; var plat : plOthEndgame) : SInt32;
+function NbPionsDefinitifsEndgame(couleur : SInt32; var plat : plOthEndgame) : SInt32;
+function NbPionsDefinitifsAvecInterieursEndgame(couleur : SInt32; var p : plOthEndgame) : SInt32;
+function CoinPlusProche(a : SInt32) : SInt32;
+function CoinPlusProcheVide(a : SInt32; var jeu : plateauOthello) : boolean;
+function PlusProcheCaseA(a : SInt32) : SInt32;
+function PlusProcheCaseX(a : SInt32) : SInt32;
+function EstUneCaseBordNord(a : SInt32) : boolean;
+function EstUneCaseBordSud(a : SInt32) : boolean;
+function EstUneCaseBordOuest(a : SInt32) : boolean;
+function EstUneCaseBordEst(a : SInt32) : boolean;
+function estUneCaseX(a : SInt32) : boolean;
+function estUneCasePetitCoin(a : SInt32) : boolean;
+function GenreDeReflexionInSet(genre : SInt16; whichSet : ReflexionTypesSet) : boolean;
 
 
 IMPLEMENTATION
@@ -703,7 +703,7 @@ begin
    if (a < 11) then AlerteSimple('Debugger : a = '+NumEnString(a)+' dans ModifPlatLongint') else
    if (a > 88) then AlerteSimple('Debugger : a = '+NumEnString(a)+' dans ModifPlatLongint') else
    if (jeu[a] <> pionVide) then AlerteSimple('Debugger : jeu['+NumEnString(a)+'] <> 0 dans ModifPlatLongint');
-   
+
 
    modifie := false; nbprise := 0;
    pionEnnemi := -coul;
@@ -938,37 +938,37 @@ begin
        CoupAleatoireDonnantPleinDeMobilite := 0;
        exit(CoupAleatoireDonnantPleinDeMobilite);
      end;
-     
+
    mobilite := 0;
    mobAdverseMax := -1000;
    platAux := plat;
-   
+
    for t := 1 to 64 do
    begin
      x := othellier[t];
      if plat[x] = pionVide then
        if ModifPlatSeulement(x,platAux,coul) then
          begin
-         
+
            CarteMove(-coul,platAux,carte,mobAdverse);
-           
+
            if (mobAdverse = mobAdverseMax) then
              begin
                inc(mobilite);
                listeCoups[mobilite] := x;
              end;
-             
+
            if (mobAdverse > mobAdverseMax) then
              begin
                mobilite := 1;
                listeCoups[mobilite] := x;
                mobAdverseMax := mobAdverse;
              end;
-           
+
            platAux := plat;
          end;
    end;
-   
+
    if (mobilite <= 0)
      then CoupAleatoireDonnantPleinDeMobilite := CoupAleatoire(coul,plat,casesInterdites)
      else
@@ -998,37 +998,37 @@ begin
        CoupAleatoireDonnantPeuDeMobilite := 0;
        exit(CoupAleatoireDonnantPeuDeMobilite);
      end;
-     
+
    mobilite := 0;
    mobAdverseMin := 1000;
    platAux := plat;
-   
+
    for t := 1 to 64 do
    begin
      x := othellier[t];
      if plat[x] = pionVide then
        if ModifPlatSeulement(x,platAux,coul) then
          begin
-           
+
            CarteMove(-coul,platAux,carte,mobAdverse);
-           
+
            if (mobAdverse = mobAdverseMin) then
              begin
                inc(mobilite);
                listeCoups[mobilite] := x;
              end;
-             
+
            if (mobAdverse < mobAdverseMin) then
              begin
                mobilite := 1;
                listeCoups[mobilite] := x;
                mobAdverseMin := mobAdverse;
              end;
-           
+
            platAux := plat;
          end;
    end;
-   
+
    if (mobilite <= 0)
      then CoupAleatoireDonnantPeuDeMobilite := CoupAleatoire(coul,plat,casesInterdites)
      else

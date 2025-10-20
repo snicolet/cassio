@@ -14,19 +14,19 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyStringMultiset(charSize, stringSize : SInt64) : StringMultiset;                                                                                                   ATTRIBUTE_NAME('MakeEmptyStringMultiset')
-function MakeOneElementStringMultiset(const theString : String255) : StringMultiset;                                                                                                ATTRIBUTE_NAME('MakeOneElementStringMultiset')
-procedure DisposeStringMultiset(var S : StringMultiset);                                                                                                                            ATTRIBUTE_NAME('DisposeStringMultiset')
+function MakeEmptyStringMultiset(charSize, stringSize : SInt64) : StringMultiset;
+function MakeOneElementStringMultiset(const theString : String255) : StringMultiset;
+procedure DisposeStringMultiset(var S : StringMultiset);
 
 {Fonctions de test}
-function StringMultisetEstVide(S : StringMultiset) : boolean;                                                                                                                       ATTRIBUTE_NAME('StringMultisetEstVide')
-function CardinalOfStringMultiset(S : StringMultiset) : SInt64;                                                                                                                     ATTRIBUTE_NAME('CardinalOfStringMultiset')
-function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt64; S : StringMultiset) : boolean;                                                              ATTRIBUTE_NAME('MemberOfStringMultiset')
+function StringMultisetEstVide(S : StringMultiset) : boolean;
+function CardinalOfStringMultiset(S : StringMultiset) : SInt64;
+function MemberOfStringMultiset(const theString : String255; var nbOccurences : SInt64; S : StringMultiset) : boolean;
 
 {Ajout et retrait destructifs}
-function AddStringToMultiset(const theString : String255; var S : StringMultiset) : boolean;                                                                                        ATTRIBUTE_NAME('AddStringToMultiset')
-procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt64; var S : StringMultiset);                                                            ATTRIBUTE_NAME('RemoveMultipleOccurencesOfStringFromMultiset')
-procedure RemoveStringFromMultiset(const theString : String255; var S : StringMultiset);                                                                                            ATTRIBUTE_NAME('RemoveStringFromMultiset')
+function AddStringToMultiset(const theString : String255; var S : StringMultiset) : boolean;
+procedure RemoveMultipleOccurencesOfStringFromMultiset(const theString : String255; N : SInt64; var S : StringMultiset);
+procedure RemoveStringFromMultiset(const theString : String255; var S : StringMultiset);
 
 
 

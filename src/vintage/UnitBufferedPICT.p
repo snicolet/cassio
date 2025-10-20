@@ -21,34 +21,34 @@ INTERFACE
 
 
 
-procedure InitUnitBufferedPICT;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitBufferedPICT')
-procedure LibereMemoireUnitBufferedPICT;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitBufferedPICT')
-procedure InvalidateAllOffScreenPICTs;                                                                                                                                              ATTRIBUTE_NAME('InvalidateAllOffScreenPICTs')
+procedure InitUnitBufferedPICT;
+procedure LibereMemoireUnitBufferedPICT;
+procedure InvalidateAllOffScreenPICTs;
 
 
 {affichage des pions textures}
-function NroPremierePictDeLaSerie(CouleurDemandeeParUtilisateur : SInt16) : SInt16;                                                                                                 ATTRIBUTE_NAME('NroPremierePictDeLaSerie')
-procedure DrawBufferedColorPict(thePictID : SInt16; inrect : rect; var whichTexture : CouleurOthellierRec);                                                                         ATTRIBUTE_NAME('DrawBufferedColorPict')
+function NroPremierePictDeLaSerie(CouleurDemandeeParUtilisateur : SInt16) : SInt16;
+procedure DrawBufferedColorPict(thePictID : SInt16; inrect : rect; var whichTexture : CouleurOthellierRec);
 
 
 {affichage de la bordure texturee de l'othellier}
-function FichierBordureEstIntrouvable : boolean;                                                                                                                                    ATTRIBUTE_NAME('FichierBordureEstIntrouvable')
-function BordureOthellierEstUneTexture : boolean;                                                                                                                                   ATTRIBUTE_NAME('BordureOthellierEstUneTexture')
-function DrawBordureColorPict(quellesBordures : SInt32) : OSErr;                                                                                                                    ATTRIBUTE_NAME('DrawBordureColorPict')
-function DrawBordureRectDansFenetre(whichRect : rect; whichWindow : WindowPtr) : OSErr;                                                                                             ATTRIBUTE_NAME('DrawBordureRectDansFenetre')
+function FichierBordureEstIntrouvable : boolean;
+function BordureOthellierEstUneTexture : boolean;
+function DrawBordureColorPict(quellesBordures : SInt32) : OSErr;
+function DrawBordureRectDansFenetre(whichRect : rect; whichWindow : WindowPtr) : OSErr;
 
 
 {fonctions de gestion pour l'affichage des bitmap sur les cases}
-procedure SetValeurDessinEnTraceDeRayon(square,valeur : SInt16);                                                                                                                    ATTRIBUTE_NAME('SetValeurDessinEnTraceDeRayon')
-function GetValeurDessinEnTraceDeRayon(square : SInt16) : SInt16;                                                                                                                   ATTRIBUTE_NAME('GetValeurDessinEnTraceDeRayon')
-procedure InvalidateDessinEnTraceDeRayon(square : SInt16);                                                                                                                          ATTRIBUTE_NAME('InvalidateDessinEnTraceDeRayon')
-procedure InvalidateAllCasesDessinEnTraceDeRayon;                                                                                                                                   ATTRIBUTE_NAME('InvalidateAllCasesDessinEnTraceDeRayon')
+procedure SetValeurDessinEnTraceDeRayon(square,valeur : SInt16);
+function GetValeurDessinEnTraceDeRayon(square : SInt16) : SInt16;
+procedure InvalidateDessinEnTraceDeRayon(square : SInt16);
+procedure InvalidateAllCasesDessinEnTraceDeRayon;
 
 
 {fonction de gestion des tailles des images}
-function GetCurrentSizeOfBufferedPicts : SInt32;                                                                                                                                    ATTRIBUTE_NAME('GetCurrentSizeOfBufferedPicts')
-function GetCurrentTailleOfBordurePicts : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetCurrentTailleOfBordurePicts')
-procedure SetCurrentTailleOfBordurePicts(taille : SInt32);                                                                                                                          ATTRIBUTE_NAME('SetCurrentTailleOfBordurePicts')
+function GetCurrentSizeOfBufferedPicts : SInt32;
+function GetCurrentTailleOfBordurePicts : SInt32;
+procedure SetCurrentTailleOfBordurePicts(taille : SInt32);
 
 
 IMPLEMENTATION
@@ -554,7 +554,7 @@ begin
         begin
 
           doitFermerFichierPhotos := false;
-          
+
           {on prend les PICT dans le fichier de "picture" qui va bien }
           if whichTexture.estUneImage &
             (GetTypeOfTexture(whichTexture.nomFichierTexture) <> kFichierPictureHappyEnd) &
@@ -601,10 +601,10 @@ begin
 
       SerieDePictCouramentAffichee.whichMenuID   := whichTexture.menuID;
       SerieDePictCouramentAffichee.whichMenuItem := whichTexture.menuCmd;
-      
-      
+
+
       if not(gPendantLesInitialisationsDeCassio) then RemettreLeCurseurNormalDeCassio;
-      
+
       SetPort(OldPort);
     end;
 

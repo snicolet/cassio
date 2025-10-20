@@ -15,7 +15,7 @@ INTERFACE
 
 
 
-procedure InitUnitCalculsApprentissage;                                                                                                                                             ATTRIBUTE_NAME('InitUnitCalculsApprentissage')
+procedure InitUnitCalculsApprentissage;
 
 
 {Calculs des valeurs dans UNE cellule du graphe}
@@ -24,7 +24,7 @@ procedure InitUnitCalculsApprentissage;                                         
 {procedure CalculeProofNumber(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var valeurChangee : boolean); }
 {procedure CalculeDisproofNumber(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var valeurChangee : boolean); }
 {procedure CalculeEsperanceDeGain(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var valeurChangee : boolean); }
-procedure CalculeToutesLesValeursDuGraphe(var fichier : Graphe; numCellule : SInt32; var valeurChangees : boolean);                                                                 ATTRIBUTE_NAME('CalculeToutesLesValeursDuGraphe')
+procedure CalculeToutesLesValeursDuGraphe(var fichier : Graphe; numCellule : SInt32; var valeurChangees : boolean);
 
 {Calculs des valeurs dans une orbite du graphe}
 {procedure CalculeValeurMinimaxDeLOrbite(var fichier : Graphe; numCellule : SInt32; var AuMoinsUnChange : boolean); }
@@ -32,7 +32,7 @@ procedure CalculeToutesLesValeursDuGraphe(var fichier : Graphe; numCellule : SIn
 {procedure CalculeProofNumberDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean); }
 {procedure CalculeDisproofNumberDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean); }
 {procedure CalculeEsperanceDeGainDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean); }
-procedure CalculeToutesLesValeursDeLOrbite(var fichier : Graphe; numCellule : SInt32; var AuMoinsUnChange : boolean);                                                               ATTRIBUTE_NAME('CalculeToutesLesValeursDeLOrbite')
+procedure CalculeToutesLesValeursDeLOrbite(var fichier : Graphe; numCellule : SInt32; var AuMoinsUnChange : boolean);
 
 {Propagation des valeurs dans le graphe}
 {procedure PropageValeurMinimaxDansT(var fichier : Graphe; numCellule : SInt32); }
@@ -40,35 +40,35 @@ procedure CalculeToutesLesValeursDeLOrbite(var fichier : Graphe; numCellule : SI
 {procedure PropageProofNumber(var fichier : Graphe; couleur : SInt16; numCellule : SInt32); }
 {procedure PropageDisproofNumber(var fichier : Graphe; couleur : SInt16; numCellule : SInt32); }
 {procedure PropageEsperanceDeGain(var fichier : Graphe; couleur : SInt16; numCellule : SInt32); }
-procedure PropageToutesLesValeursDansLeGraphe(var fichier : Graphe; numCellule : SInt32);                                                                                           ATTRIBUTE_NAME('PropageToutesLesValeursDansLeGraphe')
+procedure PropageToutesLesValeursDansLeGraphe(var fichier : Graphe; numCellule : SInt32);
 
 
 
-function PasseApresCeCoup(var fichier : Graphe; numCellule : SInt32) : boolean;                                                                                                     ATTRIBUTE_NAME('PasseApresCeCoup')
-procedure UnionListes(var liste1,liste2 : ListeDeCellules; var result : ListeDeCellules);                                                                                           ATTRIBUTE_NAME('UnionListes')
-procedure SelectionneDansListe(var fichier : Graphe; var uneListe : ListeDeCellules; typesCherches : EnsembleDeTypes; var result : ListeDeCellules);                                ATTRIBUTE_NAME('SelectionneDansListe')
-function CelluleEstDansListe(num : SInt32; var liste : ListeDeCellules) : boolean;                                                                                                  ATTRIBUTE_NAME('CelluleEstDansListe')
+function PasseApresCeCoup(var fichier : Graphe; numCellule : SInt32) : boolean;
+procedure UnionListes(var liste1,liste2 : ListeDeCellules; var result : ListeDeCellules);
+procedure SelectionneDansListe(var fichier : Graphe; var uneListe : ListeDeCellules; typesCherches : EnsembleDeTypes; var result : ListeDeCellules);
+function CelluleEstDansListe(num : SInt32; var liste : ListeDeCellules) : boolean;
 
 
-function CoupEstDansListe(var fichier : Graphe; coupCherche : SInt16; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;                                              ATTRIBUTE_NAME('CoupEstDansListe')
-function CoupEstDansListeDeCellulesEtDeCoups(coupCherche : SInt16; var liste : ListeDeCellulesEtDeCoups; var numCellule : SInt32) : boolean;                                        ATTRIBUTE_NAME('CoupEstDansListeDeCellulesEtDeCoups')
-function TrouveValMinimaxDansListe(var fichier : Graphe; valeursCherchees : EnsembleDeTypes; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;                       ATTRIBUTE_NAME('TrouveValMinimaxDansListe')
-function TrouveValDevianteDansListe(var fichier : Graphe; couleur,valeurCherchee : SInt16; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;                         ATTRIBUTE_NAME('TrouveValDevianteDansListe')
+function CoupEstDansListe(var fichier : Graphe; coupCherche : SInt16; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;
+function CoupEstDansListeDeCellulesEtDeCoups(coupCherche : SInt16; var liste : ListeDeCellulesEtDeCoups; var numCellule : SInt32) : boolean;
+function TrouveValMinimaxDansListe(var fichier : Graphe; valeursCherchees : EnsembleDeTypes; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;
+function TrouveValDevianteDansListe(var fichier : Graphe; couleur,valeurCherchee : SInt16; var liste : ListeDeCellules; var numCellule : SInt32) : boolean;
 
-function MaxValeurDevianteDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                ATTRIBUTE_NAME('MaxValeurDevianteDansListe')
-function MinValeurDevianteDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                ATTRIBUTE_NAME('MinValeurDevianteDansListe')
-function MaxProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                   ATTRIBUTE_NAME('MaxProofNumberDansListe')
-function MinProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                   ATTRIBUTE_NAME('MinProofNumberDansListe')
-function MaxDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                ATTRIBUTE_NAME('MaxDisproofNumberDansListe')
-function MinDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;                                                                ATTRIBUTE_NAME('MinDisproofNumberDansListe')
-function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;                                                             ATTRIBUTE_NAME('MaxEsperanceDeGainDansListe')
-function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;                                                             ATTRIBUTE_NAME('MinEsperanceDeGainDansListe')
+function MaxValeurDevianteDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MinValeurDevianteDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MaxProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MinProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MaxDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MinDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
+function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
+function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
 
 
-function NbFilsDeviants(var fichier : Graphe; numCellule : SInt32; var lesFilsDeviants : ListeDeCellules) : SInt16;                                                                 ATTRIBUTE_NAME('NbFilsDeviants')
-procedure CopieListeAvecProbasUniformes(var fichier : Graphe; var liste : ListeDeCellules; var result :listeDeProbas);                                                              ATTRIBUTE_NAME('CopieListeAvecProbasUniformes')
-function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double_t;                                                                                       ATTRIBUTE_NAME('PourcentageDeGainParmilesFils')
-procedure CalculeProbabilitesOptimalesDeReponse(whichGame : typePartiePourGraphe; var conseils : ListeDeProbas);                                                                    ATTRIBUTE_NAME('CalculeProbabilitesOptimalesDeReponse')
+function NbFilsDeviants(var fichier : Graphe; numCellule : SInt32; var lesFilsDeviants : ListeDeCellules) : SInt16;
+procedure CopieListeAvecProbasUniformes(var fichier : Graphe; var liste : ListeDeCellules; var result :listeDeProbas);
+function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double_t;
+procedure CalculeProbabilitesOptimalesDeReponse(whichGame : typePartiePourGraphe; var conseils : ListeDeProbas);
 
 
 

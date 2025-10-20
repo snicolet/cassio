@@ -15,78 +15,78 @@ INTERFACE
 
 
 { Ouverture des fenetres }
-procedure OuvreFntrGestion(avecAnimationZoom : boolean);                                                                                                                            ATTRIBUTE_NAME('OuvreFntrGestion')
-procedure OuvreFntrNuage(avecAnimationZoom : boolean);                                                                                                                              ATTRIBUTE_NAME('OuvreFntrNuage')
-procedure OuvreFntrReflex(avecAnimationZoom : boolean);                                                                                                                             ATTRIBUTE_NAME('OuvreFntrReflex')
-procedure OuvreFntrListe(avecAnimationZoom : boolean);                                                                                                                              ATTRIBUTE_NAME('OuvreFntrListe')
-procedure OuvreFntrStat(avecAnimationZoom : boolean);                                                                                                                               ATTRIBUTE_NAME('OuvreFntrStat')
-procedure OuvreFntrCommentaires(avecAnimationZoom : boolean);                                                                                                                       ATTRIBUTE_NAME('OuvreFntrCommentaires')
-procedure OuvreFntrPalette;                                                                                                                                                         ATTRIBUTE_NAME('OuvreFntrPalette')
-procedure OuvreFntrCourbe(avecAnimationZoom : boolean);                                                                                                                             ATTRIBUTE_NAME('OuvreFntrCourbe')
-procedure OuvreFntrAide;                                                                                                                                                            ATTRIBUTE_NAME('OuvreFntrAide')
-procedure OuvreFntrPlateau(avecAnimationZoom : boolean);                                                                                                                            ATTRIBUTE_NAME('OuvreFntrPlateau')
-procedure OuvrirLesFenetresDansLOrdre;                                                                                                                                              ATTRIBUTE_NAME('OuvrirLesFenetresDansLOrdre')
+procedure OuvreFntrGestion(avecAnimationZoom : boolean);
+procedure OuvreFntrNuage(avecAnimationZoom : boolean);
+procedure OuvreFntrReflex(avecAnimationZoom : boolean);
+procedure OuvreFntrListe(avecAnimationZoom : boolean);
+procedure OuvreFntrStat(avecAnimationZoom : boolean);
+procedure OuvreFntrCommentaires(avecAnimationZoom : boolean);
+procedure OuvreFntrPalette;
+procedure OuvreFntrCourbe(avecAnimationZoom : boolean);
+procedure OuvreFntrAide;
+procedure OuvreFntrPlateau(avecAnimationZoom : boolean);
+procedure OuvrirLesFenetresDansLOrdre;
 
 
 { Fermeture des fenetres }
-procedure CloseProgramWindow;                                                                                                                                                       ATTRIBUTE_NAME('CloseProgramWindow')
-procedure CloseCourbeWindow;                                                                                                                                                        ATTRIBUTE_NAME('CloseCourbeWindow')
-procedure CloseAideWindow;                                                                                                                                                          ATTRIBUTE_NAME('CloseAideWindow')
-procedure CloseGestionWindow;                                                                                                                                                       ATTRIBUTE_NAME('CloseGestionWindow')
-procedure CloseNuageWindow;                                                                                                                                                         ATTRIBUTE_NAME('CloseNuageWindow')
-procedure CloseReflexWindow;                                                                                                                                                        ATTRIBUTE_NAME('CloseReflexWindow')
-procedure CloseListeWindow;                                                                                                                                                         ATTRIBUTE_NAME('CloseListeWindow')
-procedure CloseStatWindow;                                                                                                                                                          ATTRIBUTE_NAME('CloseStatWindow')
-procedure CloseCommentairesWindow;                                                                                                                                                  ATTRIBUTE_NAME('CloseCommentairesWindow')
-procedure ClosePaletteWindow;                                                                                                                                                       ATTRIBUTE_NAME('ClosePaletteWindow')
-procedure MasquerToutesLesFenetres;                                                                                                                                                 ATTRIBUTE_NAME('MasquerToutesLesFenetres')
-function VeutVraimentFermerFenetre : boolean;                                                                                                                                       ATTRIBUTE_NAME('VeutVraimentFermerFenetre')
+procedure CloseProgramWindow;
+procedure CloseCourbeWindow;
+procedure CloseAideWindow;
+procedure CloseGestionWindow;
+procedure CloseNuageWindow;
+procedure CloseReflexWindow;
+procedure CloseListeWindow;
+procedure CloseStatWindow;
+procedure CloseCommentairesWindow;
+procedure ClosePaletteWindow;
+procedure MasquerToutesLesFenetres;
+function VeutVraimentFermerFenetre : boolean;
 
 
 { Empilement des fenetres }
-procedure EmpileFenetresSousPalette;                                                                                                                                                ATTRIBUTE_NAME('EmpileFenetresSousPalette')
-procedure EmpileFenetres;                                                                                                                                                           ATTRIBUTE_NAME('EmpileFenetres')
-function FenetreFictiveAvantPlan : WindowPtr;                                                                                                                                       ATTRIBUTE_NAME('FenetreFictiveAvantPlan')
+procedure EmpileFenetresSousPalette;
+procedure EmpileFenetres;
+function FenetreFictiveAvantPlan : WindowPtr;
 
 
 { Acces aux fenetres }
-function WindowDeCassio(whichWindow : WindowPtr) : boolean;                                                                                                                         ATTRIBUTE_NAME('WindowDeCassio')
-function WindowPlateauSousDAutresFenetres : boolean;                                                                                                                                ATTRIBUTE_NAME('WindowPlateauSousDAutresFenetres')
-function FrontWindowSaufPalette : WindowPtr;                                                                                                                                        ATTRIBUTE_NAME('FrontWindowSaufPalette')
-function OrdreFenetre(whichWindow : WindowPtr) : SInt16;                                                                                                                            ATTRIBUTE_NAME('OrdreFenetre')
-function GetArbreDeJeuWindow : WindowPtr;                                                                                                                                           ATTRIBUTE_NAME('GetArbreDeJeuWindow')
-function PaletteEstSurCeDialogue(dp : DialogPtr) : boolean;                                                                                                                         ATTRIBUTE_NAME('PaletteEstSurCeDialogue')
-function GetOrdreEmpilementDesFenetresEnChaine : String255;                                                                                                                         ATTRIBUTE_NAME('GetOrdreEmpilementDesFenetresEnChaine')
+function WindowDeCassio(whichWindow : WindowPtr) : boolean;
+function WindowPlateauSousDAutresFenetres : boolean;
+function FrontWindowSaufPalette : WindowPtr;
+function OrdreFenetre(whichWindow : WindowPtr) : SInt16;
+function GetArbreDeJeuWindow : WindowPtr;
+function PaletteEstSurCeDialogue(dp : DialogPtr) : boolean;
+function GetOrdreEmpilementDesFenetresEnChaine : String255;
 
 
 { Activation/Desactivation d'une fenetre }
-procedure SelectWindowSousPalette(whichWindow : WindowPtr);                                                                                                                         ATTRIBUTE_NAME('SelectWindowSousPalette')
-procedure DeactivateFrontWindowSaufPalette;                                                                                                                                         ATTRIBUTE_NAME('DeactivateFrontWindowSaufPalette')
-procedure DoActivateWindow(whichWindow : WindowPtr; activation : boolean);                                                                                                          ATTRIBUTE_NAME('DoActivateWindow')
-procedure CyclerDansLEmpilementDesFenetres;                                                                                                                                         ATTRIBUTE_NAME('CyclerDansLEmpilementDesFenetres')
+procedure SelectWindowSousPalette(whichWindow : WindowPtr);
+procedure DeactivateFrontWindowSaufPalette;
+procedure DoActivateWindow(whichWindow : WindowPtr; activation : boolean);
+procedure CyclerDansLEmpilementDesFenetres;
 
 
 { Procedure de dessin dans des fenetres }
-procedure EssaieSetPortWindowPlateau;                                                                                                                                               ATTRIBUTE_NAME('EssaieSetPortWindowPlateau')
-procedure MetTitreFenetrePlateau;                                                                                                                                                   ATTRIBUTE_NAME('MetTitreFenetrePlateau')
-procedure DessineBoiteDeTaille(whichWindow : WindowPtr);                                                                                                                            ATTRIBUTE_NAME('DessineBoiteDeTaille')
-procedure DessineBoiteAscenseurDroite(whichWindow : WindowPtr);                                                                                                                     ATTRIBUTE_NAME('DessineBoiteAscenseurDroite')
-procedure DrawScrollBars(whichWindow : WindowPtr);                                                                                                                                  ATTRIBUTE_NAME('DrawScrollBars')
-procedure InvalidateAllWindows;                                                                                                                                                     ATTRIBUTE_NAME('InvalidateAllWindows')
+procedure EssaieSetPortWindowPlateau;
+procedure MetTitreFenetrePlateau;
+procedure DessineBoiteDeTaille(whichWindow : WindowPtr);
+procedure DessineBoiteAscenseurDroite(whichWindow : WindowPtr);
+procedure DrawScrollBars(whichWindow : WindowPtr);
+procedure InvalidateAllWindows;
 
 
 { Redimensionnement des fenetres }
-procedure DoGrowWindow(thisWindow : WindowPtr; event : eventRecord);                                                                                                                ATTRIBUTE_NAME('DoGrowWindow')
-procedure MyZoomInOut(window : WindowPtr; partcode : SInt16);                                                                                                                       ATTRIBUTE_NAME('MyZoomInOut')
+procedure DoGrowWindow(thisWindow : WindowPtr; event : eventRecord);
+procedure MyZoomInOut(window : WindowPtr; partcode : SInt16);
 
 
 { Mise a jour des contenus des fenetres }
-procedure DrawContentsRapide(whichWindow : WindowPtr);                                                                                                                              ATTRIBUTE_NAME('DrawContentsRapide')
-procedure DoUpdateWindowRapide(whichWindow : WindowPtr);                                                                                                                            ATTRIBUTE_NAME('DoUpdateWindowRapide')
-procedure NoUpdateThisWindow(whichWindow : WindowPtr);                                                                                                                              ATTRIBUTE_NAME('NoUpdateThisWindow')
-procedure NoUpdateWindowPlateau;                                                                                                                                                    ATTRIBUTE_NAME('NoUpdateWindowPlateau')
-procedure NoUpdateWindowListe;                                                                                                                                                      ATTRIBUTE_NAME('NoUpdateWindowListe')
-procedure DoGlobalRefresh;                                                                                                                                                          ATTRIBUTE_NAME('DoGlobalRefresh')
+procedure DrawContentsRapide(whichWindow : WindowPtr);
+procedure DoUpdateWindowRapide(whichWindow : WindowPtr);
+procedure NoUpdateThisWindow(whichWindow : WindowPtr);
+procedure NoUpdateWindowPlateau;
+procedure NoUpdateWindowListe;
+procedure DoGlobalRefresh;
 
 
 IMPLEMENTATION
@@ -220,7 +220,7 @@ begin {$unused avecAnimationZoom}
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wReflexPtr := MyNewCWindow(NIL,FntrReflexRect,titre,false,documentProc,behind,true,0);
-   
+
    windowReflexOpen := ( wReflexPtr <> NIL );
    if windowReflexOpen then
      begin
@@ -1176,10 +1176,10 @@ begin
           ValidRect(unRect);
           InvalRect(unRect);
         end;
-        
+
       if (thisWindow = wCourbePtr) & (wCourbePtr <> NIL) then
         CreerImageDeFondPourCourbeSiNecessaire;
-        
+
     end;
 
   SetPort(oldport);
@@ -1754,17 +1754,17 @@ begin
         then
           begin
             s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
-            
+
             if EnModeEntreeTranscript then
               begin
-                if (nbreDePions[pionNoir] < nbreDePions[pionBlanc]) 
+                if (nbreDePions[pionNoir] < nbreDePions[pionBlanc])
                   then s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(64 - nbreDePions[pionNoir]);
-                if (nbreDePions[pionNoir] > nbreDePions[pionBlanc]) 
+                if (nbreDePions[pionNoir] > nbreDePions[pionBlanc])
                   then s := NumEnString(64 - nbreDePions[pionBlanc])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
-                if (nbreDePions[pionNoir] = nbreDePions[pionBlanc]) 
+                if (nbreDePions[pionNoir] = nbreDePions[pionBlanc])
                   then s := '32-32';
               end;
-            
+
             if not(IsWindowHilited(wPlateauPtr)) then
               if (windowListeOpen | windowStatOpen | windowRapportOpen | windowAideOpen |
                   windowGestionOpen | windowCourbeOpen | windowReflexOpen | windowNuageOpen) then

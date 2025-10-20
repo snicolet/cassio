@@ -15,29 +15,29 @@ INTERFACE
 
 
 {fonction de traduction}
-function PackSquareSet(whichSet : SquareSet) : PackedSquareSet;                                                                                                                     ATTRIBUTE_NAME('PackSquareSet')
-function UnpackSquareSet(whichSet : PackedSquareSet) : SquareSet;                                                                                                                   ATTRIBUTE_NAME('UnpackSquareSet')
+function PackSquareSet(whichSet : SquareSet) : PackedSquareSet;
+function UnpackSquareSet(whichSet : PackedSquareSet) : SquareSet;
 
 {fonctions d'ecriture en String255}
-function SquareSetEnString(ensemble : SquareSet) : String255;                                                                                                                       ATTRIBUTE_NAME('SquareSetEnString')
-function PackedSquareSetEnString(ensemble : PackedSquareSet) : String255;                                                                                                           ATTRIBUTE_NAME('PackedSquareSetEnString')
+function SquareSetEnString(ensemble : SquareSet) : String255;
+function PackedSquareSetEnString(ensemble : PackedSquareSet) : String255;
 
 {iterateurs}
-procedure ForEachSquareInSetDo(ensemble : SquareSet ; DoWhat : SquareSetIteratorProc);                                                                                              ATTRIBUTE_NAME('ForEachSquareInSetDo')
-procedure ForEachSquareInPackedSetDo(ensemble : PackedSquareSet ; DoWhat : SquareSetIteratorProc);                                                                                  ATTRIBUTE_NAME('ForEachSquareInPackedSetDo')
-procedure ForEachSquareInSetDoAvecResult(ensemble : SquareSet ; DoWhat : SquareSetIteratorProcAvecResult; var result : SInt32);                                                     ATTRIBUTE_NAME('ForEachSquareInSetDoAvecResult')
-procedure ForEachSquareInPackedSetDoAvecResult(ensemble : PackedSquareSet ; DoWhat : SquareSetIteratorProcAvecResult; var result : SInt32);                                         ATTRIBUTE_NAME('ForEachSquareInPackedSetDoAvecResult')
-function MapOnSquareSet(ensemble : SquareSet; f : SquareGivesSquareFunc) : SquareSet;                                                                                               ATTRIBUTE_NAME('MapOnSquareSet')
-function MapOnSquareSetAvecParam(ensemble : SquareSet; f : SquareGivesSquareFuncAvecParam; parametre : SInt32) : SquareSet;                                                         ATTRIBUTE_NAME('MapOnSquareSetAvecParam')
+procedure ForEachSquareInSetDo(ensemble : SquareSet ; DoWhat : SquareSetIteratorProc);
+procedure ForEachSquareInPackedSetDo(ensemble : PackedSquareSet ; DoWhat : SquareSetIteratorProc);
+procedure ForEachSquareInSetDoAvecResult(ensemble : SquareSet ; DoWhat : SquareSetIteratorProcAvecResult; var result : SInt32);
+procedure ForEachSquareInPackedSetDoAvecResult(ensemble : PackedSquareSet ; DoWhat : SquareSetIteratorProcAvecResult; var result : SInt32);
+function MapOnSquareSet(ensemble : SquareSet; f : SquareGivesSquareFunc) : SquareSet;
+function MapOnSquareSetAvecParam(ensemble : SquareSet; f : SquareGivesSquareFuncAvecParam; parametre : SInt32) : SquareSet;
 
 {fonctions de calcul sur les PackedSquareSet}
-function SquareInPackedSquareSet(whichSquare : SInt16; whichSet : PackedSquareSet) : boolean;                                                                                       ATTRIBUTE_NAME('SquareInPackedSquareSet')
-function UnionOfPackedSquareSet(S1,S2 : PackedSquareSet) : PackedSquareSet;                                                                                                         ATTRIBUTE_NAME('UnionOfPackedSquareSet')
-function DiffOfPackedSquareSet(S1,S2 : PackedSquareSet) : PackedSquareSet;                                                                                                          ATTRIBUTE_NAME('DiffOfPackedSquareSet')
+function SquareInPackedSquareSet(whichSquare : SInt16; whichSet : PackedSquareSet) : boolean;
+function UnionOfPackedSquareSet(S1,S2 : PackedSquareSet) : PackedSquareSet;
+function DiffOfPackedSquareSet(S1,S2 : PackedSquareSet) : PackedSquareSet;
 
 {fonction d'acces}
-function CoupsLegauxEnSquareSet : SquareSet;                                                                                                                                        ATTRIBUTE_NAME('CoupsLegauxEnSquareSet')
-function SquareInSquareSet(whichSquare : SInt16; whichSet : SquareSet) : boolean;                                                                                                   ATTRIBUTE_NAME('SquareInSquareSet')
+function CoupsLegauxEnSquareSet : SquareSet;
+function SquareInSquareSet(whichSquare : SInt16; whichSet : SquareSet) : boolean;
 
 
 IMPLEMENTATION

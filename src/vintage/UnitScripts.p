@@ -15,30 +15,30 @@ INTERFACE
 
 
 {Initialisation et libération de l'unité}
-procedure InitUnitScripts;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitScripts')
-procedure LibereMemoireUnitScripts;                                                                                                                                                 ATTRIBUTE_NAME('LibereMemoireUnitScripts')
+procedure InitUnitScripts;
+procedure LibereMemoireUnitScripts;
 
 
 {Gestion des fichiers au format Othello script}
-function EstUnScriptDeFinales(nomFichier : String255 ; vRefNum : SInt16) : boolean;                                                                                                 ATTRIBUTE_NAME('EstUnScriptDeFinales')
-function CreateEndgameScript(nomDeLaBase : String255) : OSErr;                                                                                                                      ATTRIBUTE_NAME('CreateEndgameScript')
-function OuvrirEndgameScript(nomScript : String255) : OSErr;                                                                                                                        ATTRIBUTE_NAME('OuvrirEndgameScript')
-function ScriptDeFinaleEnCours : boolean;                                                                                                                                           ATTRIBUTE_NAME('ScriptDeFinaleEnCours')
-function GetProchainScriptDeFinaleAOuvrir : String255;                                                                                                                              ATTRIBUTE_NAME('GetProchainScriptDeFinaleAOuvrir')
-procedure LancerInterruptionPourOuvrirScriptDeFinale(nomScript : String255);                                                                                                        ATTRIBUTE_NAME('LancerInterruptionPourOuvrirScriptDeFinale')
+function EstUnScriptDeFinales(nomFichier : String255 ; vRefNum : SInt16) : boolean;
+function CreateEndgameScript(nomDeLaBase : String255) : OSErr;
+function OuvrirEndgameScript(nomScript : String255) : OSErr;
+function ScriptDeFinaleEnCours : boolean;
+function GetProchainScriptDeFinaleAOuvrir : String255;
+procedure LancerInterruptionPourOuvrirScriptDeFinale(nomScript : String255);
 
 
 {Quelques utilitaires}
-function ExtraitPositionEtTraitDeLaListeEnString(numeroReference : SInt32; apresQuelCoup : SInt32; var typeErreur : SInt32) : String255;                                            ATTRIBUTE_NAME('ExtraitPositionEtTraitDeLaListeEnString')
-function CreateResultStringForScript(score : SInt32; var positionEtTrait : PositionEtTraitRec; endgameSolveFlags : SInt32) : String255;                                             ATTRIBUTE_NAME('CreateResultStringForScript')
+function ExtraitPositionEtTraitDeLaListeEnString(numeroReference : SInt32; apresQuelCoup : SInt32; var typeErreur : SInt32) : String255;
+function CreateResultStringForScript(score : SInt32; var positionEtTrait : PositionEtTraitRec; endgameSolveFlags : SInt32) : String255;
 
 
 {Problemes de Stepanov}
-procedure GenererCycleDesProblemesDeStepanov;                                                                                                                                       ATTRIBUTE_NAME('GenererCycleDesProblemesDeStepanov')
-function ProcessProblemesStepanov(nomScript : String255; quelProbleme : SInt32) : OSErr;                                                                                            ATTRIBUTE_NAME('ProcessProblemesStepanov')
-procedure AfficheProchainProblemeStepanov;                                                                                                                                          ATTRIBUTE_NAME('AfficheProchainProblemeStepanov')
-procedure CreerQuizEnPHP(nomQuizGenerique : String255; numeroQuiz : SInt32; positionQuiz : PositionEtTraitRec; coupSolution : SInt32; commentaire : String255);                     ATTRIBUTE_NAME('CreerQuizEnPHP')
-procedure CreerPositionQuizzEnJPEG(nomJPEG : String255; positionQuiz : PositionEtTraitRec);                                                                                         ATTRIBUTE_NAME('CreerPositionQuizzEnJPEG')
+procedure GenererCycleDesProblemesDeStepanov;
+function ProcessProblemesStepanov(nomScript : String255; quelProbleme : SInt32) : OSErr;
+procedure AfficheProchainProblemeStepanov;
+procedure CreerQuizEnPHP(nomQuizGenerique : String255; numeroQuiz : SInt32; positionQuiz : PositionEtTraitRec; coupSolution : SInt32; commentaire : String255);
+procedure CreerPositionQuizzEnJPEG(nomJPEG : String255; positionQuiz : PositionEtTraitRec);
 
 
 

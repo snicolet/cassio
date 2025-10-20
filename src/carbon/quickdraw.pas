@@ -16,7 +16,7 @@ uses
   BasicTypes,
   BasicMemory,
   BasicString;
-  
+
 type
   Point = record
             h : Integer;
@@ -51,13 +51,13 @@ IMPLEMENTATION
 var start          : Int64;              // milliseconds at the start of the program
     quickDrawTask  : Task;               // communication task to connect to the GUI server
     commandCounter : Int64 = 1000;       // a strictly increasing counter
-    
+
     getMouseData :
         record
            mouseLoc : Point ;            // mouse position
            when     : Int64 ;            // date in milliseconds
         end;
-    
+
     getOpenFileDialogData :
         record
            filePath : AnsiString;
@@ -65,18 +65,18 @@ var start          : Int64;              // milliseconds at the start of the pro
 
 // TAnswers is an object to handle the textual answers from the GUI server
 
-type 
-  TAnswers = 
+type
+  TAnswers =
     object
-       public 
+       public
          constructor Init();
          destructor  Done();
          procedure Clear(index : Int64);
          procedure AddHandler(messageID : Int64; handler : Interpretor);
          function GetHandler(index : Int64) : Interpretor;
          function FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
-         
-       private 
+
+       private
          const SIZE = 2048;
          var lastIndexFound : Int64;
              cells : array[0 .. SIZE-1] of
@@ -87,7 +87,7 @@ type
     end;
 
 var quickDrawAnswers : TAnswers;
-      
+
 
 
 
@@ -96,7 +96,7 @@ var quickDrawAnswers : TAnswers;
 procedure InitQuickDraw(var carbon : Task);
 begin
     quickDrawAnswers.Init();
-    
+
     carbon.process            := TProcess.Create(nil);
 	carbon.process.executable := './carbon.sh';
 	CreateConnectedTask(carbon, @InterpretAnswer, nil);
@@ -155,12 +155,12 @@ var stamp  : AnsiString;
 begin
     m := Milliseconds();
     e := m mod 1000;
-  
+
     stamp := IntToStr(m div 1000) + '.';
     if (e < 10)  then stamp := stamp + '00' else
     if (e < 100) then stamp := stamp + '0';
     stamp := stamp + IntToStr(e);
-  
+
     writeln(stamp + 's | ' + info);
 end;
 
@@ -172,7 +172,7 @@ var s : AnsiString;
 begin
     commandCounter := commandCounter + 1;
     s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
-  
+
     LogDebugInfo('[Cassio] >> ' + s);
     quickDrawAnswers.AddHandler(commandCounter, handler);
     WriteTaskInput(quickDrawTask, s);
@@ -194,23 +194,23 @@ begin
             LogDebugInfo(line)
         else
             LogDebugInfo('[Cassio] << ' + line);
-        
+
 	    // Parse the line to see if is a CARBON-PROTOCOL answer
 	    // Format of an answer is:
 	    //      {ID} command => value1 [value2] [value3]...
 	    parts := line.Split(' ', '"', '"', 3, TStringSplitOptions.ExcludeEmpty);
-	 
+	
 	    if (length(parts) >= 3) and (parts[2] = '=>') then
 	    begin
 	        messageID := parts[0];
-	        
-	        if (length(messageID) >= 3) and 
-	           (messageID[1] = '{') and 
+	
+	        if (length(messageID) >= 3) and
+	           (messageID[1] = '{') and
 	           (messageID[length(messageID)] = '}') then
 	           begin
-	           
+	
 	              messageID := copy(messageID, 2, length(messageID) - 2);
-	              
+	
 	              if (quickDrawAnswers.FindQuestion(strToInt64(messageID), index)) then
 	              begin
 	                  handler := quickDrawAnswers.GetHandler(index);
@@ -280,7 +280,7 @@ end;
 
 
 // OpenFileDialog() : opens the system "Open file" dialog, and wait for the
-// user to select a file (so this is a blocking call). The function returns 
+// user to select a file (so this is a blocking call). The function returns
 // the path of the file selected by the user, or the empty string if the user
 // has canceled the dialog.
 
@@ -296,7 +296,7 @@ begin
    command := command + ' filter="' + MyUrlEncode(filter) + '"';
 
    SendCommand(command, @InterpretOpenFileDialog);
-   
+
    while (getOpenFileDialogData.filePath = NONE) do
    begin
       ReadTaskOutput(quickDrawTask);
@@ -336,7 +336,7 @@ begin
         t := lastIndexFound + k;
         if (t < 0)     then t := t + SIZE;
         if (t >= SIZE) then t := t - SIZE;
-        
+
         if (cells[t].messageID < 0) and (cells[t].handler = nil) then
         begin
            cells[t].messageID  :=  messageID;
@@ -348,7 +348,7 @@ begin
 end;
 
 
-// TAnswers.GetHandler() : return the handler at the specified cell in 
+// TAnswers.GetHandler() : return the handler at the specified cell in
 // the answering machine.
 function TAnswers.GetHandler(index : Int64) : Interpretor;
 begin
@@ -366,7 +366,7 @@ begin
 end;
 
 
-// TAnswers.FindQuestion() : return true if we can find the cell with 
+// TAnswers.FindQuestion() : return true if we can find the cell with
 // the specified messageID in the answering machine (and its index).
 function TAnswers.FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
 var k , t : Int64;
@@ -387,7 +387,7 @@ begin
                lastIndexFound := t;
                break;
            end;
-        
+
         t := lastIndexFound - k;
         if (t < 0)     then t := t + SIZE;
         if (t >= SIZE) then t := t - SIZE;
@@ -399,7 +399,7 @@ begin
                break;
            end;
     end;
-    
+
     result := found;
 end;
 
@@ -408,7 +408,7 @@ end;
 
 begin
   start := GetTickCount64();
-  
+
   getMouseData.mouseLoc.h := 0;
   getMouseData.mouseLoc.v := 0;
   getMouseData.when       := -1000;

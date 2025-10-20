@@ -17,25 +17,25 @@ INTERFACE
 
 
 
-procedure InitUnitMiniProfiler;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitMiniProfiler')
-procedure LibereMemoireUnitMiniProfiler;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitMiniProfiler')
+procedure InitUnitMiniProfiler;
+procedure LibereMemoireUnitMiniProfiler;
 
 
 CONST kpourcentage  = 1;
       ktempsMoyen   = 2;
       kTempsRelatif = 4;
 
-procedure InitMiniProfiler;                                                                                                                                                         ATTRIBUTE_NAME('InitMiniProfiler')
-procedure AfficheMiniProfilerDansRapport(affichage : SInt32);                                                                                                                       ATTRIBUTE_NAME('AfficheMiniProfilerDansRapport')
-procedure AjouterTempsDansMiniProfiler(nbVides,prof : SInt32; microsecondesUtilisees : UInt32; affichage : SInt32);                                                                 ATTRIBUTE_NAME('AjouterTempsDansMiniProfiler')
+procedure InitMiniProfiler;
+procedure AfficheMiniProfilerDansRapport(affichage : SInt32);
+procedure AjouterTempsDansMiniProfiler(nbVides,prof : SInt32; microsecondesUtilisees : UInt32; affichage : SInt32);
 
-procedure BeginChronometreMiniprofiler(nbVides,prof : SInt32);                                                                                                                      ATTRIBUTE_NAME('BeginChronometreMiniprofiler')
-procedure StopChronometreMiniProfiler(nbVides,prof : SInt32);                                                                                                                       ATTRIBUTE_NAME('StopChronometreMiniProfiler')
+procedure BeginChronometreMiniprofiler(nbVides,prof : SInt32);
+procedure StopChronometreMiniProfiler(nbVides,prof : SInt32);
 
 
-procedure BeginChronometreRelatif(num : SInt32);                                                                                                                                    ATTRIBUTE_NAME('BeginChronometreRelatif')
-procedure TempsIntermediaireChronometreRelatif(num : SInt32);                                                                                                                       ATTRIBUTE_NAME('TempsIntermediaireChronometreRelatif')
-procedure StopChronometreRelatif(num : SInt32);                                                                                                                                     ATTRIBUTE_NAME('StopChronometreRelatif')
+procedure BeginChronometreRelatif(num : SInt32);
+procedure TempsIntermediaireChronometreRelatif(num : SInt32);
+procedure StopChronometreRelatif(num : SInt32);
 
 
 

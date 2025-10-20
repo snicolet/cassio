@@ -11,7 +11,7 @@ INTERFACE
 
 
 
-procedure TesterProperties;                                                                                                                                                         ATTRIBUTE_NAME('TesterProperties')
+procedure TesterProperties;
 
 
 IMPLEMENTATION

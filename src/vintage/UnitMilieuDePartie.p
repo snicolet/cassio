@@ -20,18 +20,18 @@ INTERFACE
 
 
 { Les fonctions de base, qui permettent de calculer le meilleur coup de milieu sur une position }
-function LanceurAlphaBetaMilieu(var plateau : plateauOthello; var joua : plBool; var bstDef : SInt32; pere,coul,prof,distPV,couleurDeCassio,alpha,beta : SInt32; var fr : InfoFront; var conseilTurbulence : SInt32) : SInt32;      ATTRIBUTE_NAME('LanceurAlphaBetaMilieu')
-function LanceurAlphaBetaMilieuWithSearchParams(var params : MakeEndgameSearchParamRec) : SInt32;                                                                                                                                   ATTRIBUTE_NAME('LanceurAlphaBetaMilieuWithSearchParams')
+function LanceurAlphaBetaMilieu(var plateau : plateauOthello; var joua : plBool; var bstDef : SInt32; pere,coul,prof,distPV,couleurDeCassio,alpha,beta : SInt32; var fr : InfoFront; var conseilTurbulence : SInt32) : SInt32;
+function LanceurAlphaBetaMilieuWithSearchParams(var params : MakeEndgameSearchParamRec) : SInt32;
 
 
 { La fonction terminale, qui fait de l'approfondissement iteratif, de l'affichage dans les fenetres de Cassio, etc.}
-procedure CalculeClassementMilieuDePartie(var classement : ListOfMoveRecords; var indexDuCoupConseille : SInt32; MC_coul,MC_prof,MC_nbBl,MC_nbNo : SInt32; var MC_jeu : plateauOthello; var MC_empl : plBool; var MC_frontiere : InfoFront; calculerMemeSiUnSeulCoupLegal : boolean; casesExclues : SquareSet);       ATTRIBUTE_NAME('CalculeClassementMilieuDePartie')
-function CalculeMeilleurCoupMilieuDePartie(const jeu : plateauOthello; var emplBool : plBool; var frontiere : InfoFront; couleur,profondeur,nbBlancs,nbNoirs : SInt32) : MoveRecord;   ATTRIBUTE_NAME('CalculeMeilleurCoupMilieuDePartie')
+procedure CalculeClassementMilieuDePartie(var classement : ListOfMoveRecords; var indexDuCoupConseille : SInt32; MC_coul,MC_prof,MC_nbBl,MC_nbNo : SInt32; var MC_jeu : plateauOthello; var MC_empl : plBool; var MC_frontiere : InfoFront; calculerMemeSiUnSeulCoupLegal : boolean; casesExclues : SquareSet);
+function CalculeMeilleurCoupMilieuDePartie(const jeu : plateauOthello; var emplBool : plBool; var frontiere : InfoFront; couleur,profondeur,nbBlancs,nbNoirs : SInt32) : MoveRecord;
 
 
-{ Fonctions auxiliaires } 
-procedure SetProfImposee(flag : boolean; const fonctionAppelante : String255);                                                                                                         ATTRIBUTE_NAME('SetProfImposee')
-function ProfondeurMilieuEstImposee : boolean;                                                                                                                                         ATTRIBUTE_NAME('ProfondeurMilieuEstImposee')
+{ Fonctions auxiliaires }
+procedure SetProfImposee(flag : boolean; const fonctionAppelante : String255);
+function ProfondeurMilieuEstImposee : boolean;
 
 
 
@@ -1278,7 +1278,7 @@ begin          {CalculeClassementMilieuDePartie}
   MemoryFillChar(suiteJoueeGlb,sizeof(suiteJoueeGlb^),chr(0));
   MemoryFillChar(meilleureSuiteGlb,sizeof(meilleureSuiteGlb^),chr(0));
   MemoryFillChar(@StatistiquesSurLesCoups,sizeof(StatistiquesSurLesCoups),chr(0));
-  
+
 
   positionArrivee := MakePositionEtTrait(MC_jeu,MC_coul);
   if EstLaPositionCourante(positionArrivee) then
@@ -1290,7 +1290,7 @@ begin          {CalculeClassementMilieuDePartie}
 
   ViderHashTablePourMilieuDePartie(true);
 
-  
+
 
 
   MFniv := MC_prof-1;
@@ -1491,7 +1491,7 @@ begin          {CalculeClassementMilieuDePartie}
 									       else sortieBoucleProfIterative := (doitSeDepecher & not(RefleSurTempsJoueur & (AQuiDeJouer <> couleurMacintosh)));
 
 									     sortieBoucleProfIterative := sortieBoucleProfIterative |
-									                                  (profondeurDemandee >= kNbMaxNiveaux - 3) |  
+									                                  (profondeurDemandee >= kNbMaxNiveaux - 3) |
 									                                  (profondeurDemandee >= nbCasesVidesMilieu + PlusGrandeProfondeurAvecProbCut) |
 									                                  (interruptionReflexion <> pasdinterruption);
 
@@ -1718,7 +1718,7 @@ var copieDeClefHashage : SInt32;
 begin
   {WritelnDansRapport('Appel de PrepareToutPourRechercheDeMilieu pour la position suivante : ');
   WritelnPositionEtTraitDansRapport(whichPlat,pionNoir);}
-  
+
   MemoryFillChar(meilleureSuiteGlb,sizeof(meilleureSuiteGlb^),chr(0));
   MemoryFillChar(KillerGlb,sizeof(KillerGlb^),chr(0));
   MemoryFillChar(nbKillerGlb,sizeof(nbKillerGlb^),chr(0));
@@ -1728,7 +1728,7 @@ begin
   InitialiseDirectionsJouables;
   Calcule_Valeurs_Tactiques(whichPlat,true);
   Initialise_table_heuristique(whichPlat,false);
-  
+
   SelectivitePourCetteRecherche := -6;
   profMinimalePourTriDesCoups   := 3;
 
@@ -1760,17 +1760,17 @@ begin
 
   valeurCalculeeParLeMoteurExterne := false;
 
-  
+
   if CassioIsUsingAnEngine(numeroEngine) & (prof > 8)
     then valeurCalculeeParLeMoteurExterne := EnginePeutFaireCalculDeMilieu(plateau,prof,coul,alpha,beta,pere,valeur,bstDef,meilleureSuiteGlb^);
-  
+
 
   if not(valeurCalculeeParLeMoteurExterne) & not(Quitter) then
     begin
 
       nbBlancs := NbPionsDeCetteCouleurDansPosition(pionBlanc,plateau);
       nbNoirs  := NbPionsDeCetteCouleurDansPosition(pionNoir,plateau);
-        
+
 
       valeur := ABScout(plateau,joua,bstDef,pere,coul,
                         prof,prof,0,0,distPV,couleurDeCassio,
@@ -1801,14 +1801,14 @@ begin
 
   with params do
     begin
-    
+
       // dans un MakeEndgameSearchParamRec, les bornes sont données en pions entiers.
       // on les convertit donc en bornes pour le milieu de partie.
       couleur := inCouleurFinale;
       alpha   := inAlphaFinale * 100;
       beta    := inBetaFinale * 100;
       prof    := Max(inProfondeurFinale,0);
-      
+
       // Verification de coherence
       if (couleur <> pionNoir) & (couleur <> pionBlanc) then
         begin
@@ -1816,7 +1816,7 @@ begin
           LanceurAlphaBetaMilieuWithSearchParams := -noteMax;
           exit(LanceurAlphaBetaMilieuWithSearchParams);
         end;
-      
+
       // Quelques initialisations
       ticks := TickCount;
       doitChercher := true;
@@ -1829,11 +1829,11 @@ begin
       PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
       AjusteSleep;
       PrepareToutPourRechercheDeMilieu(inPositionPourFinale,prof);
-	    
+	
       // Vider les resultats
       ViderSearchResults(outResult);
-      
-      
+
+
       // Inversion du trait necessaire ?
       inversionDuTrait := false;
       if DoitPasser(couleur,inPositionPourFinale,casesJouables) then
@@ -1856,14 +1856,14 @@ begin
                 then score :=  100 * scorePourNoir
                 else score := -100 * scorePourNoir;
             end;
-            
-         
-      // ABSCout s'attend un peu a avoir des très grandes fenetres      
+
+
+      // ABSCout s'attend un peu a avoir des très grandes fenetres
       if (alpha = -6400) then alpha := -20000;
       if (beta  =  6400) then beta  :=  20000;
-  
-      
-  
+
+
+
       // Recherche !
       if doitChercher then score := LanceurAlphaBetaMilieu(inPositionPourFinale,
                                                            casesJouables,
@@ -1877,58 +1877,58 @@ begin
                                                            beta,
                                                            frontiere,
                                                            conseilTurbulence);
-      
+
       if inversionDuTrait then score := -score;
-      
-      
+
+
       // On remet les flags
       SetCassioEstEnTrainDeReflechir(tempoCassioEnTrainDeReflechir,NIL);
     	SetGenreDerniereReflexionDeCassio(ReflMilieu,(inNbreBlancsFinale + inNbreNoirsFinale) - 4 +1);
-      
-      
+
+
       // Lecture des resultats
       if (interruptionReflexion = pasdinterruption) & (score > -6500) & (score < 6500)
         then
           begin
-          
+
             ticks := TickCount - ticks;
             if ticks <= 0 then ticks := 1; // au moins un soixantieme de seconde
-            
+
             with outResult do
               begin
-                
+
                 //WritelnNumDansRapport('dans LanceurAlphaBetaMilieuWithSearchParams, score = ',score);
-              
+
                 outScoreFinale         := score div 100;  // convertir le score de milieu [-6400..6400] vers un score de finale [-64..64]
                 outTimeTakenFinale     := ticks / 60.0;
                 outBestMoveFinale      := meilleurCoup;
                 outLineFinale          := StructureMeilleureSuiteToString(meilleureSuiteGlb^, inProfondeurFinale);
-                
+
                 if (LENGTH_OF_STRING(outLineFinale) <= 0) & (meilleurCoup >= 11) & (meilleurCoup <= 88) & (inPositionPourFinale[meilleurCoup] = pionVide)
                   then outLineFinale := CoupEnStringEnMajuscules(meilleurCoup);
-                
+
                 if (LENGTH_OF_STRING(outLineFinale) >= 2)
                   then outBestMoveFinale  := ScannerStringPourTrouverCoup(1,outLineFinale,foo)
                   else outBestMoveFinale  := 44;
-                  
+
                 if (LENGTH_OF_STRING(outLineFinale) >= 4)
                   then outBestDefenseFinale  := ScannerStringPourTrouverCoup(3,outLineFinale,foo)
                   else outBestDefenseFinale  := 44;
-           
+
                 LanceurAlphaBetaMilieuWithSearchParams := outScoreFinale;
               end;
-            
+
           end
         else
           begin
-          
+
             outResult.outScoreFinale  := -noteMax;
-          
+
             LanceurAlphaBetaMilieuWithSearchParams := -noteMax;
-            
+
           end;
      end;
-   
+
    LanceInterruption(oldInterruption,'LanceurAlphaBetaMilieuWithSearchParams');
 end;
 

@@ -12,58 +12,58 @@ INTERFACE
 
 
 {Initialisation de l'unite}
-procedure InitUnitInterversions;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitInterversions')
-procedure LibereMemoireUnitInterversion;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitInterversion')
-procedure TestUnitInterversions;                                                                                                                                                    ATTRIBUTE_NAME('TestUnitInterversions')
+procedure InitUnitInterversions;
+procedure LibereMemoireUnitInterversion;
+procedure TestUnitInterversions;
 
-procedure EcritInterversionsSurDisque;                                                                                                                                              ATTRIBUTE_NAME('EcritInterversionsSurDisque')
-procedure Initialise_interversions;                                                                                                                                                 ATTRIBUTE_NAME('Initialise_interversions')
-procedure AjouteInterversions_5_14;                                                                                                                                                 ATTRIBUTE_NAME('AjouteInterversions_5_14')
-procedure AjouteInterversions_15_33;                                                                                                                                                ATTRIBUTE_NAME('AjouteInterversions_15_33')
+procedure EcritInterversionsSurDisque;
+procedure Initialise_interversions;
+procedure AjouteInterversions_5_14;
+procedure AjouteInterversions_15_33;
 
 
 {ajout des interversions a la volee}
-procedure AjouterInterversionAlaVolee(InterVarianteAlaVolee,InterCanonAlaVolee : PackedThorGame; longueur : SInt16; whichNode : GameTree);                                          ATTRIBUTE_NAME('AjouterInterversionAlaVolee')
-procedure RaccourcirInterversion(var variante60,canonique60 : PackedThorGame; var longueurUtile : SInt16; var estInterversion : boolean);                                           ATTRIBUTE_NAME('RaccourcirInterversion')
-procedure EssaieAjouterInterversionPotentielle(alpha1,alpha2 : String255; whichNode : GameTree);                                                                                    ATTRIBUTE_NAME('EssaieAjouterInterversionPotentielle')
+procedure AjouterInterversionAlaVolee(InterVarianteAlaVolee,InterCanonAlaVolee : PackedThorGame; longueur : SInt16; whichNode : GameTree);
+procedure RaccourcirInterversion(var variante60,canonique60 : PackedThorGame; var longueurUtile : SInt16; var estInterversion : boolean);
+procedure EssaieAjouterInterversionPotentielle(alpha1,alpha2 : String255; whichNode : GameTree);
 
 
 {trouver tous les chemins}
-function ChercheToutesInterversionsPositionEtTrait(var goal : PositionEtTraitRec; coupUn,refGoal : SInt32; whichGame : String255Ptr; metDansGraphe,dansRapport,sousIntervertions : boolean) : SInt32;                                                                         ATTRIBUTE_NAME('ChercheToutesInterversionsPositionEtTrait')
-procedure ChercheToutesInterversionsPartie(var partieAlpha : String255; coupUn,refPartie : SInt32; metDansGraphe,sousIntervertions : boolean; var nbInter : SInt32);                ATTRIBUTE_NAME('ChercheToutesInterversionsPartie')
+function ChercheToutesInterversionsPositionEtTrait(var goal : PositionEtTraitRec; coupUn,refGoal : SInt32; whichGame : String255Ptr; metDansGraphe,dansRapport,sousIntervertions : boolean) : SInt32;
+procedure ChercheToutesInterversionsPartie(var partieAlpha : String255; coupUn,refPartie : SInt32; metDansGraphe,sousIntervertions : boolean; var nbInter : SInt32);
 
 
 {memoisation}
-procedure VideMemoisationInterversions;                                                                                                                                             ATTRIBUTE_NAME('VideMemoisationInterversions')
-function NbPositionsMemoizees : SInt32;                                                                                                                                             ATTRIBUTE_NAME('NbPositionsMemoizees')
+procedure VideMemoisationInterversions;
+function NbPositionsMemoizees : SInt32;
 
 
 {fonctions de gestion des interversions}
-procedure GererInterversionDeCeNoeud(G : GameTree; var position : PositionEtTraitRec);                                                                                              ATTRIBUTE_NAME('GererInterversionDeCeNoeud')
-procedure AjouterInterversionsOfGameTreeDansTable(G : GameTree; var table : TableParties60Ptr);                                                                                     ATTRIBUTE_NAME('AjouterInterversionsOfGameTreeDansTable')
+procedure GererInterversionDeCeNoeud(G : GameTree; var position : PositionEtTraitRec);
+procedure AjouterInterversionsOfGameTreeDansTable(G : GameTree; var table : TableParties60Ptr);
 
 
 {Reponse aux clics souris dans la fenetre d'arbre de jeu}
-procedure CyclerDansOrbiteInterversionDuGraphe(whichNode : GameTree; avancerDansOrbite : boolean);                                                                                  ATTRIBUTE_NAME('CyclerDansOrbiteInterversionDuGraphe')
-procedure EcrireInterversionsDuGrapheCeNoeudDansRapport(whichNode : GameTree);                                                                                                      ATTRIBUTE_NAME('EcrireInterversionsDuGrapheCeNoeudDansRapport')
-procedure SetEnTrainDeRejouerUneInterversion(flag : boolean);                                                                                                                       ATTRIBUTE_NAME('SetEnTrainDeRejouerUneInterversion')
-function EstEnTrainDeRejouerUneInterversion : boolean;                                                                                                                              ATTRIBUTE_NAME('EstEnTrainDeRejouerUneInterversion')
-procedure SetLongueurInterversionEnTrainDEtreRejouee(longueur : SInt32);                                                                                                            ATTRIBUTE_NAME('SetLongueurInterversionEnTrainDEtreRejouee')
-function LongueurInterversionEnTrainDEtreRejouee : SInt32;                                                                                                                          ATTRIBUTE_NAME('LongueurInterversionEnTrainDEtreRejouee')
+procedure CyclerDansOrbiteInterversionDuGraphe(whichNode : GameTree; avancerDansOrbite : boolean);
+procedure EcrireInterversionsDuGrapheCeNoeudDansRapport(whichNode : GameTree);
+procedure SetEnTrainDeRejouerUneInterversion(flag : boolean);
+function EstEnTrainDeRejouerUneInterversion : boolean;
+procedure SetLongueurInterversionEnTrainDEtreRejouee(longueur : SInt32);
+function LongueurInterversionEnTrainDEtreRejouee : SInt32;
 
 
 {Drapeau pour gerer l'ecriture des interversions trouvees dans leur graphe}
-function ToujoursAjouterInterversionDansGrapheInterversions : boolean;                                                                                                              ATTRIBUTE_NAME('ToujoursAjouterInterversionDansGrapheInterversions')
-procedure SetToujoursAjouterInterversionDansGrapheInterversions(flag : boolean);                                                                                                    ATTRIBUTE_NAME('SetToujoursAjouterInterversionDansGrapheInterversions')
+function ToujoursAjouterInterversionDansGrapheInterversions : boolean;
+procedure SetToujoursAjouterInterversionDansGrapheInterversions(flag : boolean);
 
 
 {Diverses}
-procedure TraiteInterversionFormatThorCompile(var whichGame : PackedThorGame);                                                                                                      ATTRIBUTE_NAME('TraiteInterversionFormatThorCompile')
-procedure TraiteInterversionFormatThor(var whichGame : PackedThorGame; longueur : SInt16);                                                                                          ATTRIBUTE_NAME('TraiteInterversionFormatThor')
-procedure PrecompileInterversions(var whichGame : PackedThorGame; longueur : SInt16);                                                                                               ATTRIBUTE_NAME('PrecompileInterversions')
-procedure TraiteIntervertionsCoups(var s : String255);                                                                                                                              ATTRIBUTE_NAME('TraiteIntervertionsCoups')
-procedure InterversionPuisNormalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean);                                                                              ATTRIBUTE_NAME('InterversionPuisNormalisation')
-procedure AjouterInterversion(variante,canonique : String255);                                                                                                                      ATTRIBUTE_NAME('AjouterInterversion')
+procedure TraiteInterversionFormatThorCompile(var whichGame : PackedThorGame);
+procedure TraiteInterversionFormatThor(var whichGame : PackedThorGame; longueur : SInt16);
+procedure PrecompileInterversions(var whichGame : PackedThorGame; longueur : SInt16);
+procedure TraiteIntervertionsCoups(var s : String255);
+procedure InterversionPuisNormalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean);
+procedure AjouterInterversion(variante,canonique : String255);
 
 
 
@@ -360,7 +360,7 @@ begin
       SET_NTH_MOVE_OF_PACKED_GAME(InterCanonAlaVolee, 1, 56);     (** on remet F5 **)
 
       RaccourcirInterversion(InterVarianteAlaVolee,InterCanonAlaVolee,longueur,estUneInterversion);
-      
+
       if not(estUneInterversion) | (longueur < 5) then
         begin
           WritelnDansRapport('## BIZARRE : not(estUneInterversion) | (longueur < 5) dans AjouterInterversionAlaVolee');
@@ -571,9 +571,9 @@ var couleurPionsForces : platValeur;
       nbSousInterversionsCetteInter : SInt32;
       goalHash,nbLigneAffichee : SInt32;
   begin {$UNUSED t,nbSousInterversionsCetteInter,goalHash}
-  
+
     posAux := posCourante;
-    
+
     if UpdatePositionEtTrait(posAux,coup) then
       begin
         inc(nbAppelsJouerCoup);

@@ -8,12 +8,12 @@ INTERFACE
 
 
 {fonctions de tests}
-function EstLaFenetreDuRapport(whichWindow : WindowPtr) : boolean;                                                                                                                  ATTRIBUTE_NAME('EstLaFenetreDuRapport')
-function FenetreRapportEstAuPremierPlan : boolean;                                                                                                                                  ATTRIBUTE_NAME('FenetreRapportEstAuPremierPlan')
+function EstLaFenetreDuRapport(whichWindow : WindowPtr) : boolean;
+function FenetreRapportEstAuPremierPlan : boolean;
 
 
-procedure OuvreFntrRapport(avecAnimationZoom,forceSelectWindow : boolean);                                                                                                          ATTRIBUTE_NAME('OuvreFntrRapport')
-procedure CloseRapportWindow;                                                                                                                                                       ATTRIBUTE_NAME('CloseRapportWindow')
+procedure OuvreFntrRapport(avecAnimationZoom,forceSelectWindow : boolean);
+procedure CloseRapportWindow;
 
 
 

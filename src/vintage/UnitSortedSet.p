@@ -17,29 +17,29 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptySortedSet : SortedSet;                                                                                                                                            ATTRIBUTE_NAME('MakeEmptySortedSet')
-function MakeOneElementSortedSet(element : SInt32) : SortedSet;                                                                                                                     ATTRIBUTE_NAME('MakeOneElementSortedSet')
-procedure DisposeSortedSet(var S : SortedSet);                                                                                                                                      ATTRIBUTE_NAME('DisposeSortedSet')
+function MakeEmptySortedSet : SortedSet;
+function MakeOneElementSortedSet(element : SInt32) : SortedSet;
+procedure DisposeSortedSet(var S : SortedSet);
 
 {Fonctions de test}
-function SortedSetEstVide(S : SortedSet) : boolean;                                                                                                                                 ATTRIBUTE_NAME('SortedSetEstVide')
-function CardinalOfSortedSet(S : SortedSet) : SInt32;                                                                                                                               ATTRIBUTE_NAME('CardinalOfSortedSet')
+function SortedSetEstVide(S : SortedSet) : boolean;
+function CardinalOfSortedSet(S : SortedSet) : SInt32;
 
 {Union et Intersection}
-function DuplicateSortedSet(S : SortedSet) : SortedSet;                                                                                                                             ATTRIBUTE_NAME('DuplicateSortedSet')
-function UnionSortedSet(S1,S2 : SortedSet) : SortedSet;                                                                                                                             ATTRIBUTE_NAME('UnionSortedSet')
-function IntersectionSortedSet(S1,S2 : SortedSet) : SortedSet;                                                                                                                      ATTRIBUTE_NAME('IntersectionSortedSet')
+function DuplicateSortedSet(S : SortedSet) : SortedSet;
+function UnionSortedSet(S1,S2 : SortedSet) : SortedSet;
+function IntersectionSortedSet(S1,S2 : SortedSet) : SortedSet;
 
 {Union destructive}
-procedure AddElementToSortedSet(element : SInt32; var S : SortedSet);                                                                                                               ATTRIBUTE_NAME('AddElementToSortedSet')
+procedure AddElementToSortedSet(element : SInt32; var S : SortedSet);
 
 
 {Ecriture dans le rapport}
-procedure WriteSortedSetDansRapport(const nom : String255; S : SortedSet; avecCardinal : boolean);                                                                                  ATTRIBUTE_NAME('WriteSortedSetDansRapport')
-procedure WritelnSortedSetDansRapport(const nom : String255; S : SortedSet; avecCardinal : boolean);                                                                                ATTRIBUTE_NAME('WritelnSortedSetDansRapport')
+procedure WriteSortedSetDansRapport(const nom : String255; S : SortedSet; avecCardinal : boolean);
+procedure WritelnSortedSetDansRapport(const nom : String255; S : SortedSet; avecCardinal : boolean);
 
 {Verification de l'unite}
-procedure TestSortedSet;                                                                                                                                                            ATTRIBUTE_NAME('TestSortedSet')
+procedure TestSortedSet;
 
 
 

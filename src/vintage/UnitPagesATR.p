@@ -16,17 +16,17 @@ INTERFACE
 
 
 
-procedure InitUnitPagesDeATR;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitPagesDeATR')
-procedure DisposeToutesLesPagesDeATR;                                                                                                                                               ATTRIBUTE_NAME('DisposeToutesLesPagesDeATR')
+procedure InitUnitPagesDeATR;
+procedure DisposeToutesLesPagesDeATR;
 
 
-function PeutCreerNouvellePageATR : boolean;                                                                                                                                        ATTRIBUTE_NAME('PeutCreerNouvellePageATR')
-function TrouvePlaceDansPageDeATR(var nroPage,nroIndex : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('TrouvePlaceDansPageDeATR')
-procedure LocaliserATRDansSaPage(G : ATR; var nroDePage,nroIndex : SInt32);                                                                                                         ATTRIBUTE_NAME('LocaliserATRDansSaPage')
+function PeutCreerNouvellePageATR : boolean;
+function TrouvePlaceDansPageDeATR(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserATRDansSaPage(G : ATR; var nroDePage,nroIndex : SInt32);
 
 
-function NewATRPaginee : ATR;                                                                                                                                                       ATTRIBUTE_NAME('NewATRPaginee')
-procedure DisposeATRPaginee(x : ATR);                                                                                                                                               ATTRIBUTE_NAME('DisposeATRPaginee')
+function NewATRPaginee : ATR;
+procedure DisposeATRPaginee(x : ATR);
 
 
 

@@ -9,11 +9,11 @@ INTERFACE
 
 
 
-  procedure EnableQuartzAntiAliasing(useQuartzMetrics : boolean);                                                                                                                   ATTRIBUTE_NAME('EnableQuartzAntiAliasing')
-  procedure EnableQuartzAntiAliasingThisPort(port : CGrafPtr; useQuartzMetrics : boolean);                                                                                          ATTRIBUTE_NAME('EnableQuartzAntiAliasingThisPort')
-  procedure DisableQuartzAntiAliasing;                                                                                                                                              ATTRIBUTE_NAME('DisableQuartzAntiAliasing')
-  procedure DisableQuartzAntiAliasingThisPort(port : CGrafPtr);                                                                                                                     ATTRIBUTE_NAME('DisableQuartzAntiAliasingThisPort')
-  function InitialiseQuartzAntiAliasing : OSErr;                                                                                                                                    ATTRIBUTE_NAME('InitialiseQuartzAntiAliasing')
+  procedure EnableQuartzAntiAliasing(useQuartzMetrics : boolean);
+  procedure EnableQuartzAntiAliasingThisPort(port : CGrafPtr; useQuartzMetrics : boolean);
+  procedure DisableQuartzAntiAliasing;
+  procedure DisableQuartzAntiAliasingThisPort(port : CGrafPtr);
+  function InitialiseQuartzAntiAliasing : OSErr;
 
 
 

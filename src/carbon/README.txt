@@ -2,9 +2,9 @@
 Finding PyQt4 or PyQt5 on your system
 -------------------------------------
 
-To work, the 'carbon.py' librairy needs to access the PyQt4 or the PyQt5 
-module from Python. To see all your Python installations and find out 
-which ones have enough PyQt4 or PyQt5 support to use the carbon.py 
+To work, the 'carbon.py' librairy needs to access the PyQt4 or the PyQt5
+module from Python. To see all your Python installations and find out
+which ones have enough PyQt4 or PyQt5 support to use the carbon.py
 library, you can use:
 
        python3 ./tools/pyqt-search.py
@@ -36,7 +36,7 @@ Aliases for compiling cassio and running carbon.py
 --------------------------------------------------
 
 I have the following aliases in my .tcshrc file (they are using the tcsh
-syntax because this is the default shell on my macs -- they probably need 
+syntax because this is the default shell on my macs -- they probably need
 translating to the bash alias syntax). Then I can type "carbon" and "cassio"
 to test the carbon library and running cassio, respectively.
 

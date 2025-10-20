@@ -22,9 +22,9 @@ INTERFACE
 
 
 {Gestion du fichier "Cassio.trace.log"}
-procedure SetTracingLog(flag : boolean);                                                                                                                                            ATTRIBUTE_NAME('SetTracingLog')
-function GetTraceLogState : boolean;                                                                                                                                                ATTRIBUTE_NAME('GetTraceLogState')
-procedure WriteInTraceLog(s : String255);                                                                                                                                           ATTRIBUTE_NAME('WriteInTraceLog')
+procedure SetTracingLog(flag : boolean);
+function GetTraceLogState : boolean;
+procedure WriteInTraceLog(s : String255);
 
 
 

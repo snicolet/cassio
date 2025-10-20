@@ -16,43 +16,43 @@ INTERFACE
 
 
 {initialisation}
-procedure InitUnitNotesSurCases;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitNotesSurCases')
-procedure LibereMemoireUnitNotesSurCases;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnitNotesSurCases')
+procedure InitUnitNotesSurCases;
+procedure LibereMemoireUnitNotesSurCases;
 
 {activation/desactivation}
-procedure SetAvecAffichageNotesSurCases(origine : SInt32; flag : boolean);                                                                                                          ATTRIBUTE_NAME('SetAvecAffichageNotesSurCases')
-procedure SetPoliceNameNotesSurCases(origine : SInt32; whichPoliceName : String255);                                                                                                ATTRIBUTE_NAME('SetPoliceNameNotesSurCases')
-procedure SetAlternativePoliceNameNotesSurCases(origine : SInt32; whichPoliceName : String255);                                                                                     ATTRIBUTE_NAME('SetAlternativePoliceNameNotesSurCases')
-procedure SetTailleNotesSurCases(origine : SInt32; whichTaille : SInt16);                                                                                                           ATTRIBUTE_NAME('SetTailleNotesSurCases')
-procedure SetAlternativeTailleNotesSurCases(origine : SInt32; whichTaille : SInt16);                                                                                                ATTRIBUTE_NAME('SetAlternativeTailleNotesSurCases')
-function GetAvecAffichageNotesSurCases(origine : SInt32) : boolean;                                                                                                                 ATTRIBUTE_NAME('GetAvecAffichageNotesSurCases')
-function GetPoliceNameNotesSurCases(origine : SInt32) : String255;                                                                                                                  ATTRIBUTE_NAME('GetPoliceNameNotesSurCases')
-function GetPoliceIDNotesSurCases(origine : SInt32) : SInt16;                                                                                                                       ATTRIBUTE_NAME('GetPoliceIDNotesSurCases')
-function GetTailleNotesSurCases(origine : SInt32) : SInt16;                                                                                                                         ATTRIBUTE_NAME('GetTailleNotesSurCases')
+procedure SetAvecAffichageNotesSurCases(origine : SInt32; flag : boolean);
+procedure SetPoliceNameNotesSurCases(origine : SInt32; whichPoliceName : String255);
+procedure SetAlternativePoliceNameNotesSurCases(origine : SInt32; whichPoliceName : String255);
+procedure SetTailleNotesSurCases(origine : SInt32; whichTaille : SInt16);
+procedure SetAlternativeTailleNotesSurCases(origine : SInt32; whichTaille : SInt16);
+function GetAvecAffichageNotesSurCases(origine : SInt32) : boolean;
+function GetPoliceNameNotesSurCases(origine : SInt32) : String255;
+function GetPoliceIDNotesSurCases(origine : SInt32) : SInt16;
+function GetTailleNotesSurCases(origine : SInt32) : SInt16;
 
 {procedures d'ecriture}
-procedure ViderNotesSurCases(origine : SInt32; effacer : boolean; surQuellesCases : SquareSet);                                                                                     ATTRIBUTE_NAME('ViderNotesSurCases')
-procedure SetNoteSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);                                                                                               ATTRIBUTE_NAME('SetNoteSurCase')
-procedure SetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);                                                                                         ATTRIBUTE_NAME('SetFlagsNoteSurCase')
-procedure AjouterFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);                                                                                     ATTRIBUTE_NAME('AjouterFlagsNoteSurCase')
-procedure RetirerFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);                                                                                     ATTRIBUTE_NAME('RetirerFlagsNoteSurCase')
-procedure SetNoteMilieuSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);                                                                                         ATTRIBUTE_NAME('SetNoteMilieuSurCase')
-procedure SetMeilleureNoteSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);                                                                                      ATTRIBUTE_NAME('SetMeilleureNoteSurCase')
-procedure SetMeilleureNoteMilieuSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);                                                                                ATTRIBUTE_NAME('SetMeilleureNoteMilieuSurCase')
+procedure ViderNotesSurCases(origine : SInt32; effacer : boolean; surQuellesCases : SquareSet);
+procedure SetNoteSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);
+procedure SetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);
+procedure AjouterFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);
+procedure RetirerFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);
+procedure SetNoteMilieuSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);
+procedure SetMeilleureNoteSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);
+procedure SetMeilleureNoteMilieuSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);
 
 {procedures de lecture}
-function GetNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;                                                                                                           ATTRIBUTE_NAME('GetNoteSurCase')
-function GetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;                                                                                                      ATTRIBUTE_NAME('GetFlagsNoteSurCase')
-function GetSquareOfMeilleureNoteSurCase(origine : SInt32; var whichSquare : SInt16; var whichNote : SInt32) : boolean;                                                             ATTRIBUTE_NAME('GetSquareOfMeilleureNoteSurCase')
-function EstLaMeilleureCaseDesNotesSurCase(origine : SInt32; whichSquare : SInt16) : boolean;                                                                                       ATTRIBUTE_NAME('EstLaMeilleureCaseDesNotesSurCase')
-function CaseALaMeilleureDesNotes(origine : SInt32; whichSquare : SInt16) : boolean;                                                                                                ATTRIBUTE_NAME('CaseALaMeilleureDesNotes')
-function EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra(whichNote : SInt32) : boolean;                                                                                         ATTRIBUTE_NAME('EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra')
-function AuMoinsUneNoteSurCasesEstAffichee(origine : SInt32) : boolean;                                                                                                             ATTRIBUTE_NAME('AuMoinsUneNoteSurCasesEstAffichee')
+function GetNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;
+function GetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;
+function GetSquareOfMeilleureNoteSurCase(origine : SInt32; var whichSquare : SInt16; var whichNote : SInt32) : boolean;
+function EstLaMeilleureCaseDesNotesSurCase(origine : SInt32; whichSquare : SInt16) : boolean;
+function CaseALaMeilleureDesNotes(origine : SInt32; whichSquare : SInt16) : boolean;
+function EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra(whichNote : SInt32) : boolean;
+function AuMoinsUneNoteSurCasesEstAffichee(origine : SInt32) : boolean;
 
 {procedures de dessin}
-procedure EffaceNoteSurCases(origine : SInt32; surQuellesCases : SquareSet);                                                                                                        ATTRIBUTE_NAME('EffaceNoteSurCases')
-procedure DessineNoteSurCases(origine : SInt32; surQuellesCases : SquareSet);                                                                                                       ATTRIBUTE_NAME('DessineNoteSurCases')
-function GetRectAffichageCouleurZebra(whichSquare : SInt32) : rect;                                                                                                                 ATTRIBUTE_NAME('GetRectAffichageCouleurZebra')
+procedure EffaceNoteSurCases(origine : SInt32; surQuellesCases : SquareSet);
+procedure DessineNoteSurCases(origine : SInt32; surQuellesCases : SquareSet);
+function GetRectAffichageCouleurZebra(whichSquare : SInt32) : rect;
 
 
 IMPLEMENTATION
@@ -744,9 +744,9 @@ begin
       if CassioEstEn3D & noteSurLePionDore & (BitAnd(justification,kJusticationCentreHori) <> 0)
         then myRect := GetRect3DDessus(whichSquare)
         else myRect := GetBoundingRectOfSquare(whichSquare);
-        
+
       if (myRect.bottom - myRect.top) >= 32 then InSetRect(myRect,0,1);
-      
+
       if CassioEstEn3D
         then InSetRect(myRect,4,0)
         else InSetRect(myRect,1,0);

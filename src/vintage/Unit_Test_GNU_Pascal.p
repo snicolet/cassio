@@ -7,7 +7,7 @@ INTERFACE
 
 
 
-procedure Test_GNU_Pascal;                                                                                                                                                          ATTRIBUTE_NAME('Test_GNU_Pascal')
+procedure Test_GNU_Pascal;
 
 
 

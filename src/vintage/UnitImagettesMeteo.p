@@ -16,9 +16,9 @@ INTERFACE
 
 
 
-function GetCheminAccesImagette(quelleImage : typeImagette; var CheminAccesImagette : String255; var numeroDuFichierImage : SInt16) : boolean;                                      ATTRIBUTE_NAME('GetCheminAccesImagette')
-procedure DrawImagetteMeteo(quelleImage : typeImagette; whichWindow : WindowPtr; whichBounds : rect; fonctionAppelante : String255);                                                ATTRIBUTE_NAME('DrawImagetteMeteo')
-procedure DrawImagetteMeteoOnSquare(quelleImage : typeImagette; quelleCase : SInt16);                                                                                               ATTRIBUTE_NAME('DrawImagetteMeteoOnSquare')
+function GetCheminAccesImagette(quelleImage : typeImagette; var CheminAccesImagette : String255; var numeroDuFichierImage : SInt16) : boolean;
+procedure DrawImagetteMeteo(quelleImage : typeImagette; whichWindow : WindowPtr; whichBounds : rect; fonctionAppelante : String255);
+procedure DrawImagetteMeteoOnSquare(quelleImage : typeImagette; quelleCase : SInt16);
 
 
 

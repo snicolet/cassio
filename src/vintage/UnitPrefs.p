@@ -19,41 +19,41 @@ USES UnitDefCassio , QuickDraw, UnitDefParallelisme;
 
 
 
-procedure NumEnStringFormatee(num : SInt32; formatage : SInt16; var s : String255);                                                                                                 ATTRIBUTE_NAME('NumEnStringFormatee')
-function StringFormateeEnNumFromPos(formatage : SInt16; s : String255; index : SInt16) : SInt32;                                                                                    ATTRIBUTE_NAME('StringFormateeEnNumFromPos')
-function StringFormateeEnNum(formatage : SInt16; var s : String255) : SInt32;                                                                                                       ATTRIBUTE_NAME('StringFormateeEnNum')
-function FenetreEnChaine(ouverte : boolean; theWindow : WindowPtr;unRect : rect) : String255;                                                                                       ATTRIBUTE_NAME('FenetreEnChaine')
-procedure ChaineEnFenetre(s : String255; var ouverte : boolean; var RectangleFenetre : rect);                                                                                       ATTRIBUTE_NAME('ChaineEnFenetre')
-procedure ChaineEnRect(s : String255; var UnBool : boolean; var Rectangle : rect);                                                                                                  ATTRIBUTE_NAME('ChaineEnRect')
+procedure NumEnStringFormatee(num : SInt32; formatage : SInt16; var s : String255);
+function StringFormateeEnNumFromPos(formatage : SInt16; s : String255; index : SInt16) : SInt32;
+function StringFormateeEnNum(formatage : SInt16; var s : String255) : SInt32;
+function FenetreEnChaine(ouverte : boolean; theWindow : WindowPtr;unRect : rect) : String255;
+procedure ChaineEnFenetre(s : String255; var ouverte : boolean; var RectangleFenetre : rect);
+procedure ChaineEnRect(s : String255; var UnBool : boolean; var Rectangle : rect);
 
 
-procedure CreeFichierPreferences;                                                                                                                                                   ATTRIBUTE_NAME('CreeFichierPreferences')
-procedure LitFichierPreferences;                                                                                                                                                    ATTRIBUTE_NAME('LitFichierPreferences')
-procedure GetPartiesAReouvrirFromPrefsFile;                                                                                                                                         ATTRIBUTE_NAME('GetPartiesAReouvrirFromPrefsFile')
-procedure GereSauvegardePreferences;                                                                                                                                                ATTRIBUTE_NAME('GereSauvegardePreferences')
+procedure CreeFichierPreferences;
+procedure LitFichierPreferences;
+procedure GetPartiesAReouvrirFromPrefsFile;
+procedure GereSauvegardePreferences;
 
 
-function NameOfPrefsFile : String255;                                                                                                                                               ATTRIBUTE_NAME('NameOfPrefsFile')
-procedure SauvegarderListeOfPrefsFiles;                                                                                                                                             ATTRIBUTE_NAME('SauvegarderListeOfPrefsFiles')
-procedure LireListeOfPrefsFiles;                                                                                                                                                    ATTRIBUTE_NAME('LireListeOfPrefsFiles')
-procedure AjouterNomDansListOfPrefsFiles(whichName : String255);                                                                                                                    ATTRIBUTE_NAME('AjouterNomDansListOfPrefsFiles')
+function NameOfPrefsFile : String255;
+procedure SauvegarderListeOfPrefsFiles;
+procedure LireListeOfPrefsFiles;
+procedure AjouterNomDansListOfPrefsFiles(whichName : String255);
 
 
-procedure DoDialoguePreferences;                                                                                                                                                    ATTRIBUTE_NAME('DoDialoguePreferences')
-procedure DoDialoguePreferencesAffichage;                                                                                                                                           ATTRIBUTE_NAME('DoDialoguePreferencesAffichage')
-procedure DoDialoguePreferencesSpeciales;                                                                                                                                           ATTRIBUTE_NAME('DoDialoguePreferencesSpeciales')
+procedure DoDialoguePreferences;
+procedure DoDialoguePreferencesAffichage;
+procedure DoDialoguePreferencesSpeciales;
 
-procedure CreeFichierGroupes;                                                                                                                                                       ATTRIBUTE_NAME('CreeFichierGroupes')
-procedure LitFichierGroupes;                                                                                                                                                        ATTRIBUTE_NAME('LitFichierGroupes')
-
-
-procedure InstallerFichierCronjob(nomFichierCronjob : String255);                                                                                                                   ATTRIBUTE_NAME('InstallerFichierCronjob')
+procedure CreeFichierGroupes;
+procedure LitFichierGroupes;
 
 
-function OpenPrefsFileForSequentialReading : OSErr;                                                                                                                                 ATTRIBUTE_NAME('OpenPrefsFileForSequentialReading')
-function GetNextLineInPrefsFile(var s : String255) : OSErr;                                                                                                                         ATTRIBUTE_NAME('GetNextLineInPrefsFile')
-function EOFInPrefsFile : boolean;                                                                                                                                                  ATTRIBUTE_NAME('EOFInPrefsFile')
-function ClosePrefsFile : OSErr;                                                                                                                                                    ATTRIBUTE_NAME('ClosePrefsFile')
+procedure InstallerFichierCronjob(nomFichierCronjob : String255);
+
+
+function OpenPrefsFileForSequentialReading : OSErr;
+function GetNextLineInPrefsFile(var s : String255) : OSErr;
+function EOFInPrefsFile : boolean;
+function ClosePrefsFile : OSErr;
 
 
 IMPLEMENTATION
@@ -176,13 +176,13 @@ begin
   unRect.top := StringFormateeEnNumFromPos(4,s,6);
   unRect.right := StringFormateeEnNumFromPos(4,s,10);
   unRect.bottom := StringFormateeEnNumFromPos(4,s,14);
-  
+
   if unRect.bottom > GetScreenBounds.bottom - 2 then unRect.bottom := GetScreenBounds.bottom - 2;
   if unRect.right  > GetScreenBounds.right  - 2 then unRect.right  := GetScreenBounds.right  - 2;
-  
+
   if unRect.right < unRect.left then unRect.right := unRect.left + 40;
   if unRect.bottom < unRect.top then unRect.bottom := unRect.top + 40;
-  
+
   {if debuggage.general then
    with unRect do
     begin
@@ -1266,9 +1266,9 @@ begin
         AjouterZebraBookOption(kAfficherNotesZebraDansArbre);
         AjouterZebraBookOption(kAfficherCouleursZebraDansArbre);
       end;
-    
+
     if GetZebraBookOptions <> 0 then SetUsingZebraBook(true);
-    
+
    end;
  erreurES := FermeFichierTexte(fichierPref);
 
@@ -1899,14 +1899,14 @@ procedure DoDialoguePreferencesAffichage;
     tempoZebraOptions := GetZebraBookOptions;
 
     if GetCheckBoxValue(dp,AfficheNotesZebraSurOthellierBox) <> ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)
-      then 
+      then
         begin
           if GetCheckBoxValue(dp,AfficheNotesZebraSurOthellierBox) then SetUsingZebraBook(true);
           ToggleZebraOption(kAfficherNotesZebraSurOthellier);
         end;
 
     if GetCheckBoxValue(dp,AfficheCouleursZebraSurOthellierBox) <> ZebraBookACetteOption(kAfficherCouleursZebraSurOthellier)
-      then 
+      then
         begin
           if GetCheckBoxValue(dp,AfficheCouleursZebraSurOthellierBox) then SetUsingZebraBook(true);
           ToggleZebraOption(kAfficherCouleursZebraSurOthellier);
@@ -2190,44 +2190,44 @@ begin
   if CassioEstUnBundleApplicatif then
     begin
       WritelnDansRapport('Updating file ' + nomFichierCronjob + ' ...');
-      
-      
+
+
       nomSource := pathCassioFolder + 'Cassio.app:Contents:Cronjobs:' + nomFichierCronjob;
       nomDest   := pathCassioFolder + nomFichierCronjob;
-      
+
       (*
       WritelnDansRapport('nomSource = ' + nomSource);
       WritelnDansRapport('nomDest = ' + nomDest);
       *)
-      
+
       if (FichierTexteExiste(nomSource,0,source) = NoErr) &
          (FichierTexteExiste(nomDest,0,dest) = NoErr) then
          begin
            err := OuvreFichierTexte(source);
-           
+
            WritelnNumDansRapport('[1]  err = ',err);
-         
+
            if (err = NoErr) then
              begin
                err := OuvreFichierTexte(dest);
                err := VideFichierTexte(dest);
                err := FermeFichierTexte(dest);
-               
+
                WritelnNumDansRapport('[2]  err = ',err);
-               
+
                err := InsererFichierTexteDansFichierTexte(source, dest);
-               
+
                WritelnNumDansRapport('[3]  err = ',err);
-               
+
              end;
-             
-           
+
+
            err := FermeFichierTexte(source);
-           
+
            WritelnNumDansRapport('[4]  err = ',err);
          end;
-      
-      
+
+
     end;
 end;
 

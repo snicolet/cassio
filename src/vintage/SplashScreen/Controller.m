@@ -1,6 +1,6 @@
 /*
 	File:		Controller.m
-                       
+
 
 	Disclaimer:	IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc.
 				("Apple") in consideration of your agreement to the following terms, and your
@@ -47,7 +47,7 @@
 static Controller *sharedController;
 
 @implementation Controller
- 
+
 + (Controller *)sharedController {
     return sharedController;
 }
@@ -86,8 +86,8 @@ static Controller *sharedController;
 OSStatus SplashScreenInitializeCocoa(OSStatus (*callBack)(int)) {
     Controller *controller;
     NSAutoreleasePool *localPool;
-    
-    localPool = [[NSAutoreleasePool alloc] init];        
+
+    localPool = [[NSAutoreleasePool alloc] init];
     controller = [[Controller alloc] init];
     [controller setCallBack:callBack];
     [localPool release];
@@ -96,8 +96,8 @@ OSStatus SplashScreenInitializeCocoa(OSStatus (*callBack)(int)) {
 
 OSStatus SplashScreenOrderWindowFront(void) {
     NSAutoreleasePool *localPool;
-        
-    localPool = [[NSAutoreleasePool alloc] init];        
+
+    localPool = [[NSAutoreleasePool alloc] init];
     [[Controller sharedController] showWindow];
     [localPool release];
     return noErr;
@@ -105,8 +105,8 @@ OSStatus SplashScreenOrderWindowFront(void) {
 
 OSStatus SplashScreenChangeText(CFStringRef message) {
     NSAutoreleasePool *localPool;
-        
-    localPool = [[NSAutoreleasePool alloc] init];        
+
+    localPool = [[NSAutoreleasePool alloc] init];
     [[Controller sharedController] changeText:(NSString *)message];
     [localPool release];
     return noErr;

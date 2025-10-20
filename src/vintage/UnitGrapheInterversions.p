@@ -13,20 +13,20 @@ INTERFACE
 
 
 {Initialisation et terminaison de l'unite}
-procedure InitUnitApprentissageInterversion;                                                                                                                                        ATTRIBUTE_NAME('InitUnitApprentissageInterversion')
-procedure LibereMemoireUnitApprentissageInterversion;                                                                                                                               ATTRIBUTE_NAME('LibereMemoireUnitApprentissageInterversion')
+procedure InitUnitApprentissageInterversion;
+procedure LibereMemoireUnitApprentissageInterversion;
 
 
 {Ajout d'interversions dans les graphes}
-procedure AjouteInterversionDansGraphe(var fichier : Graphe; ligne1,ligne2 : String255; var estNouvelle : boolean);                                                                 ATTRIBUTE_NAME('AjouteInterversionDansGraphe')
-procedure EnleveFausseInterversion(var fichier : Graphe; ligne1,ligne2 : String255);                                                                                                ATTRIBUTE_NAME('EnleveFausseInterversion')
-procedure AjouterToutesLesInterversionsConnues(var fichier : Graphe);                                                                                                               ATTRIBUTE_NAME('AjouterToutesLesInterversionsConnues')
-procedure ApprendInterversionAlaVoleeDansGraphe(const ligne1,ligne2 : typePartiePourGraphe; annonceDansRapport : boolean);                                                          ATTRIBUTE_NAME('ApprendInterversionAlaVoleeDansGraphe')
+procedure AjouteInterversionDansGraphe(var fichier : Graphe; ligne1,ligne2 : String255; var estNouvelle : boolean);
+procedure EnleveFausseInterversion(var fichier : Graphe; ligne1,ligne2 : String255);
+procedure AjouterToutesLesInterversionsConnues(var fichier : Graphe);
+procedure ApprendInterversionAlaVoleeDansGraphe(const ligne1,ligne2 : typePartiePourGraphe; annonceDansRapport : boolean);
 
 {Statistques et affichage des interversions dans les graphes}
-function NbInterversionsDeCettePartieDansGraphe(var fichier : Graphe; const whichGame : String255; dansRapport : boolean; tableLignes : TableParties60Ptr) : SInt32;                ATTRIBUTE_NAME('NbInterversionsDeCettePartieDansGraphe')
-function InterversionDansLeGrapheApprentissage(const whichGame : String255; listerInterDansRapport : boolean; tableLignes : TableParties60Ptr) : boolean;                           ATTRIBUTE_NAME('InterversionDansLeGrapheApprentissage')
-function NbFaconsArriverACetteCelluleDansGraphe(var fichier : Graphe; numCellule : SInt32; ecritVariantes : boolean; const partieEnAlpha : String255) : SInt32;                     ATTRIBUTE_NAME('NbFaconsArriverACetteCelluleDansGraphe')
+function NbInterversionsDeCettePartieDansGraphe(var fichier : Graphe; const whichGame : String255; dansRapport : boolean; tableLignes : TableParties60Ptr) : SInt32;
+function InterversionDansLeGrapheApprentissage(const whichGame : String255; listerInterDansRapport : boolean; tableLignes : TableParties60Ptr) : boolean;
+function NbFaconsArriverACetteCelluleDansGraphe(var fichier : Graphe; numCellule : SInt32; ecritVariantes : boolean; const partieEnAlpha : String255) : SInt32;
 
 
 

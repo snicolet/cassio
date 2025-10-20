@@ -14,12 +14,12 @@ INTERFACE
 
 
 
-procedure InitUnitAppleEventsCassio;                                                                                                                                                ATTRIBUTE_NAME('InitUnitAppleEventsCassio')
-procedure CheckAppleEvents;                                                                                                                                                         ATTRIBUTE_NAME('CheckAppleEvents')
-function GotRequiredParameters(var theAppleEvent : AppleEvent) : OSErr;                                                                                                             ATTRIBUTE_NAME('GotRequiredParameters')
-function HandleOpenApplicationAppleEvent(var theAppleEvent, reply : AppleEvent; refCon: SInt32) : OSErr;                                                                            ATTRIBUTE_NAME('HandleOpenApplicationAppleEvent')
-function HandleDocumentAppleEvent(var theAppleEvent,reply : AppleEvent; refCon : SInt32) : OSErr;                                                                                   ATTRIBUTE_NAME('HandleDocumentAppleEvent')
-function HandleQuitApplicationAppleEvent (var theAppleEvent, reply : AppleEvent; refCon: SInt32) : OSErr;                                                                           ATTRIBUTE_NAME('HandleQuitApplicationAppleEvent')
+procedure InitUnitAppleEventsCassio;
+procedure CheckAppleEvents;
+function GotRequiredParameters(var theAppleEvent : AppleEvent) : OSErr;
+function HandleOpenApplicationAppleEvent(var theAppleEvent, reply : AppleEvent; refCon: SInt32) : OSErr;
+function HandleDocumentAppleEvent(var theAppleEvent,reply : AppleEvent; refCon : SInt32) : OSErr;
+function HandleQuitApplicationAppleEvent (var theAppleEvent, reply : AppleEvent; refCon: SInt32) : OSErr;
 
 
 

@@ -20,7 +20,7 @@ class RXBBPatterns {
 
 	friend class RXRoxane;
 	friend class RXEngine;
-							  
+							
 	void set_BLACK(const int pos);
 	void set_WHITE(const int pos);
 															

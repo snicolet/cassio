@@ -5,10 +5,10 @@
  *
  *  Created by Stephane Nicolet on 03/10/09.
  *
- *  Most of the code below in taken from Robert Hyatt's chess 
- *  program "crafty" (thanks). See http://www.craftychess.com/ 
+ *  Most of the code below in taken from Robert Hyatt's chess
+ *  program "crafty" (thanks). See http://www.craftychess.com/
  *  for the crafty source code.
- *  
+ *
  *
  */
 
@@ -37,7 +37,7 @@ static int standard_input_unit_initialized = 0;
 void Print(char *fmt, ...) {
   va_list ap;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 			SetReadStream(stdin);
 	
   va_start(ap, fmt);
@@ -78,7 +78,7 @@ void SetReadStream(FILE *stream) {
  */
 void ReadClear() {
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 		SetReadStream(stdin);
 	
   cmd_buffer[0] = 0;
@@ -96,7 +96,7 @@ int ReadInput(void) {
   char buffer[STDIN_BUFFER_SIZE], *end;
   int bytes;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 			SetReadStream(stdin);
 	
   do
@@ -131,7 +131,7 @@ int ReadInput(void) {
 int Read(int wait, char *buffer) {
   char *eol, *ret, readdata;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 		SetReadStream(stdin);
 	
   *buffer = 0;
@@ -167,7 +167,7 @@ int Read(int wait, char *buffer) {
 	 hang by doing a ReadInput() and continue doing so until we get
 	 a N/L character in the buffer.  Then we parse and return.
 	 */
-  else 
+  else
     while (!strchr(cmd_buffer, '\n')) {
       readdata = ReadInput();
       if (!readdata)
@@ -199,7 +199,7 @@ int ReadParse(char *buffer, char *args[], char *delims) {
   char *next, tbuffer[STDIN_BUFFER_SIZE];
   int nargs;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 		SetReadStream(stdin);
 	
   strcpy(tbuffer, buffer);
@@ -241,7 +241,7 @@ int CheckKeyboardInput(void) {
   static HANDLE inh;
   DWORD dw;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 		SetReadStream(stdin);
 	
   if (strchr(cmd_buffer, '\n'))
@@ -275,14 +275,14 @@ int CheckKeyboardInput(void) {
   return (i);
 }
 #endif
-#if defined(__GNUC__) || defined(UNIX) 
+#if defined(__GNUC__) || defined(UNIX)
 /* Simple UNIX approach using select with a zero timeout value */
 int CheckKeyboardInput(void) {
   fd_set readfds;
   struct timeval tv;
   int data;
 	
-	if (!standard_input_unit_initialized) 
+	if (!standard_input_unit_initialized)
 		SetReadStream(stdin);
 	
   if (strchr(cmd_buffer, '\n'))
@@ -315,7 +315,7 @@ int CheckKeyboardInput(void) {
  *******************************************************************************
  */
 unsigned int ReadClock(void) {
-#if defined(__GNUC__) || defined(AMIGA) || defined(UNIX) 
+#if defined(__GNUC__) || defined(AMIGA) || defined(UNIX)
   struct timeval timeval;
 #endif
 #if defined(NT_i386)

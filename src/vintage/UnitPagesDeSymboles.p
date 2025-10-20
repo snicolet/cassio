@@ -13,17 +13,17 @@ INTERFACE
 
 
 
-procedure InitUnitPagesDeSymbole;                                                                                                                                                   ATTRIBUTE_NAME('InitUnitPagesDeSymbole')
-procedure DisposeToutesLesPagesDeSymbole;                                                                                                                                           ATTRIBUTE_NAME('DisposeToutesLesPagesDeSymbole')
+procedure InitUnitPagesDeSymbole;
+procedure DisposeToutesLesPagesDeSymbole;
 
 
-function PeutCreerNouvellePageSymbole : boolean;                                                                                                                                    ATTRIBUTE_NAME('PeutCreerNouvellePageSymbole')
-function TrouvePlaceDansPageDeSymbole(var nroPage,nroIndex : SInt32) : boolean;                                                                                                     ATTRIBUTE_NAME('TrouvePlaceDansPageDeSymbole')
-procedure LocaliserSymboleDansSaPage(Sym : Symbole; var nroDePage,nroIndex : SInt32);                                                                                               ATTRIBUTE_NAME('LocaliserSymboleDansSaPage')
+function PeutCreerNouvellePageSymbole : boolean;
+function TrouvePlaceDansPageDeSymbole(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserSymboleDansSaPage(Sym : Symbole; var nroDePage,nroIndex : SInt32);
 
 
-function NewSymbolePaginee : Symbole;                                                                                                                                               ATTRIBUTE_NAME('NewSymbolePaginee')
-procedure DisposeSymbolePaginee(Sym : Symbole);                                                                                                                                     ATTRIBUTE_NAME('DisposeSymbolePaginee')
+function NewSymbolePaginee : Symbole;
+procedure DisposeSymbolePaginee(Sym : Symbole);
 
 
 

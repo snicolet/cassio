@@ -16,76 +16,76 @@ INTERFACE
 
 
 {fonctions d'initialisation et de fin de programme}
-procedure InitUnitPropertyList;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitPropertyList')
-procedure LibereMemoireUnitPropertyList;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitPropertyList')
+procedure InitUnitPropertyList;
+procedure LibereMemoireUnitPropertyList;
 
 {creation et destruction de PropertyList}
-function NewPropertyList : PropertyList;                                                                                                                                            ATTRIBUTE_NAME('NewPropertyList')
-procedure DisposePropertyList(var L : PropertyList);                                                                                                                                ATTRIBUTE_NAME('DisposePropertyList')
-procedure CompacterPropertyList(var L : PropertyList);                                                                                                                              ATTRIBUTE_NAME('CompacterPropertyList')
-function DuplicatePropertyList(var L : PropertyList) : PropertyList;                                                                                                                ATTRIBUTE_NAME('DuplicatePropertyList')
-function ReverseOfPropertyList(var L : PropertyList) : PropertyList;                                                                                                                ATTRIBUTE_NAME('ReverseOfPropertyList')
+function NewPropertyList : PropertyList;
+procedure DisposePropertyList(var L : PropertyList);
+procedure CompacterPropertyList(var L : PropertyList);
+function DuplicatePropertyList(var L : PropertyList) : PropertyList;
+function ReverseOfPropertyList(var L : PropertyList) : PropertyList;
 
 
 {fonctions d'acces ˆ une PropertyList}
-function HeadOfPropertyList(L : PropertyList) : PropertyPtr;                                                                                                                        ATTRIBUTE_NAME('HeadOfPropertyList')
-function TailOfPropertyList(L : PropertyList) : PropertyList;                                                                                                                       ATTRIBUTE_NAME('TailOfPropertyList')
-function CalculatePropertyTypes(L : PropertyList) : SetOfPropertyTypes;                                                                                                             ATTRIBUTE_NAME('CalculatePropertyTypes')
-function ExtractPropertiesOfTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : PropertyList;                                                                                ATTRIBUTE_NAME('ExtractPropertiesOfTypes')
+function HeadOfPropertyList(L : PropertyList) : PropertyPtr;
+function TailOfPropertyList(L : PropertyList) : PropertyList;
+function CalculatePropertyTypes(L : PropertyList) : SetOfPropertyTypes;
+function ExtractPropertiesOfTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : PropertyList;
 
 
 {Ajout et retrait d'un ou de plusieurs element(s) ˆ une PropertyList}
-function CreateOneElementPropertyList(prop : Property) : PropertyList;                                                                                                              ATTRIBUTE_NAME('CreateOneElementPropertyList')
-procedure AddPropertyToList(prop : Property; var L : PropertyList);                                                                                                                 ATTRIBUTE_NAME('AddPropertyToList')
-procedure AddPropertyToListSansDuplication(prop : Property; var L : PropertyList);                                                                                                  ATTRIBUTE_NAME('AddPropertyToListSansDuplication')
-procedure AddScorePropertyToListSansDuplication(prop : Property; var L : PropertyList);                                                                                             ATTRIBUTE_NAME('AddScorePropertyToListSansDuplication')
-procedure AddPropertyInFrontOfList(prop : Property; var L : PropertyList);                                                                                                          ATTRIBUTE_NAME('AddPropertyInFrontOfList')
-procedure AddPropertyInFrontOfListSansDuplication(prop : Property; var L : PropertyList);                                                                                           ATTRIBUTE_NAME('AddPropertyInFrontOfListSansDuplication')
-procedure InsertPropInListAfter(prop : Property; var L : PropertyList; afterWhat : PropertyPtr);                                                                                    ATTRIBUTE_NAME('InsertPropInListAfter')
-procedure OverWritePropertyToList(prop : Property; var L : PropertyList; var changed : boolean);                                                                                    ATTRIBUTE_NAME('OverWritePropertyToList')
-procedure DeletePropertyFromList(prop : Property; var L : PropertyList);                                                                                                            ATTRIBUTE_NAME('DeletePropertyFromList')
-procedure DeletePropertiesOfThisTypeInList(whichType : SInt16; var L : PropertyList);                                                                                               ATTRIBUTE_NAME('DeletePropertiesOfThisTypeInList')
-procedure DeletePropertiesOfTheseTypesInList(whichTypes : SetOfPropertyTypes; var L : PropertyList);                                                                                ATTRIBUTE_NAME('DeletePropertiesOfTheseTypesInList')
-procedure ReplaceHeadOfPropertyList(prop : Property; var L : PropertyList);                                                                                                         ATTRIBUTE_NAME('ReplaceHeadOfPropertyList')
-procedure ConcatPropertyLists(var L1 : PropertyList; L2 : PropertyList; override,nePasDupliquer : SetOfPropertyTypes);                                                              ATTRIBUTE_NAME('ConcatPropertyLists')
+function CreateOneElementPropertyList(prop : Property) : PropertyList;
+procedure AddPropertyToList(prop : Property; var L : PropertyList);
+procedure AddPropertyToListSansDuplication(prop : Property; var L : PropertyList);
+procedure AddScorePropertyToListSansDuplication(prop : Property; var L : PropertyList);
+procedure AddPropertyInFrontOfList(prop : Property; var L : PropertyList);
+procedure AddPropertyInFrontOfListSansDuplication(prop : Property; var L : PropertyList);
+procedure InsertPropInListAfter(prop : Property; var L : PropertyList; afterWhat : PropertyPtr);
+procedure OverWritePropertyToList(prop : Property; var L : PropertyList; var changed : boolean);
+procedure DeletePropertyFromList(prop : Property; var L : PropertyList);
+procedure DeletePropertiesOfThisTypeInList(whichType : SInt16; var L : PropertyList);
+procedure DeletePropertiesOfTheseTypesInList(whichTypes : SetOfPropertyTypes; var L : PropertyList);
+procedure ReplaceHeadOfPropertyList(prop : Property; var L : PropertyList);
+procedure ConcatPropertyLists(var L1 : PropertyList; L2 : PropertyList; override,nePasDupliquer : SetOfPropertyTypes);
 
 
 {iterateurs sur les PropertyList}
-function MapPropertyList(L : PropertyList; f : PropertyToPropertyFunc) : PropertyList;                                                                                              ATTRIBUTE_NAME('MapPropertyList')
-procedure ForEachPropertyOfTheseTypesDo(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);                                                                 ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesDo')
-procedure ForEachPropertyOfTheseTypesDoAvecResult(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecResult; var result : SInt32);                        ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesDoAvecResult')
-procedure ForEachPropertyOfTheseTypesDoAvecPropEtResult(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecPropEtResult; var prop : Property; var result : SInt32);                                                                                 ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesDoAvecPropEtResult')
-procedure ForEachPropertyInListDo(L : PropertyList ; DoWhat : PropertyProc);                                                                                                        ATTRIBUTE_NAME('ForEachPropertyInListDo')
-procedure ForEachPropertyInListDoAvecResult(L : PropertyList ; DoWhat : PropertyProcAvecResult; var result : SInt32);                                                               ATTRIBUTE_NAME('ForEachPropertyInListDoAvecResult')
-procedure ForEachPropertyInListDoAvecPropEtResult(L : PropertyList ; DoWhat : PropertyProcAvecPropEtResult; var prop : Property; var result : SInt32);                              ATTRIBUTE_NAME('ForEachPropertyInListDoAvecPropEtResult')
+function MapPropertyList(L : PropertyList; f : PropertyToPropertyFunc) : PropertyList;
+procedure ForEachPropertyOfTheseTypesDo(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);
+procedure ForEachPropertyOfTheseTypesDoAvecResult(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecResult; var result : SInt32);
+procedure ForEachPropertyOfTheseTypesDoAvecPropEtResult(L : PropertyList; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecPropEtResult; var prop : Property; var result : SInt32);
+procedure ForEachPropertyInListDo(L : PropertyList ; DoWhat : PropertyProc);
+procedure ForEachPropertyInListDoAvecResult(L : PropertyList ; DoWhat : PropertyProcAvecResult; var result : SInt32);
+procedure ForEachPropertyInListDoAvecPropEtResult(L : PropertyList ; DoWhat : PropertyProcAvecPropEtResult; var prop : Property; var result : SInt32);
 
 
 {fonctions de recherche dans une PropertyList}
-function PropertyListEstVide(L : PropertyList) : boolean;                                                                                                                           ATTRIBUTE_NAME('PropertyListEstVide')
-function PropertyListLength(L : PropertyList) : SInt32;                                                                                                                             ATTRIBUTE_NAME('PropertyListLength')
-function ExistsInPropertyList(prop : Property; L : PropertyList) : boolean;                                                                                                         ATTRIBUTE_NAME('ExistsInPropertyList')
-function NbOccurencesInPropertyList(prop : Property; L : PropertyList) : SInt16;                                                                                                    ATTRIBUTE_NAME('NbOccurencesInPropertyList')
-function TypePresentDansPropertyList(whichTypes : SetOfPropertyTypes; L : PropertyList) : boolean;                                                                                  ATTRIBUTE_NAME('TypePresentDansPropertyList')
-function PropertyListHasNoMoreThanTheseTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : boolean;                                                                          ATTRIBUTE_NAME('PropertyListHasNoMoreThanTheseTypes')
-function GetTypesOfPropertyOnthatSquare(whichSquare : SInt16; L : PropertyList) : SetOfPropertyTypes;                                                                               ATTRIBUTE_NAME('GetTypesOfPropertyOnthatSquare')
-function ExtractListOfPropertyOnThatSquare(whichSquare : SInt16; L : PropertyList) : PropertyList;                                                                                  ATTRIBUTE_NAME('ExtractListOfPropertyOnThatSquare')
+function PropertyListEstVide(L : PropertyList) : boolean;
+function PropertyListLength(L : PropertyList) : SInt32;
+function ExistsInPropertyList(prop : Property; L : PropertyList) : boolean;
+function NbOccurencesInPropertyList(prop : Property; L : PropertyList) : SInt16;
+function TypePresentDansPropertyList(whichTypes : SetOfPropertyTypes; L : PropertyList) : boolean;
+function PropertyListHasNoMoreThanTheseTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : boolean;
+function GetTypesOfPropertyOnthatSquare(whichSquare : SInt16; L : PropertyList) : SetOfPropertyTypes;
+function ExtractListOfPropertyOnThatSquare(whichSquare : SInt16; L : PropertyList) : PropertyList;
 
 
 {fonctions de selection}
-function SelectFirstPropertyOfTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : PropertyPtr;                                                                               ATTRIBUTE_NAME('SelectFirstPropertyOfTypes')
-function SelectInPropertList(L : PropertyList; choice : PropertyPredicate; var result : SInt32) : PropertyPtr;                                                                      ATTRIBUTE_NAME('SelectInPropertList')
+function SelectFirstPropertyOfTypes(whichTypes : SetOfPropertyTypes; L : PropertyList) : PropertyPtr;
+function SelectInPropertList(L : PropertyList; choice : PropertyPredicate; var result : SInt32) : PropertyPtr;
 
 
 {fonctions d'ecriture de PropertyList dans le rapport}
-procedure WritePropertyListDansRapport(var L : PropertyList);                                                                                                                       ATTRIBUTE_NAME('WritePropertyListDansRapport')
-procedure WritelnPropertyListDansRapport(var L : PropertyList);                                                                                                                     ATTRIBUTE_NAME('WritelnPropertyListDansRapport')
-procedure WriteStringAndPropertyListDansRapport(s : String255; L : PropertyList);                                                                                                   ATTRIBUTE_NAME('WriteStringAndPropertyListDansRapport')
-procedure WritelnStringAndPropertyListDansRapport(s : String255; L : PropertyList);                                                                                                 ATTRIBUTE_NAME('WritelnStringAndPropertyListDansRapport')
+procedure WritePropertyListDansRapport(var L : PropertyList);
+procedure WritelnPropertyListDansRapport(var L : PropertyList);
+procedure WriteStringAndPropertyListDansRapport(s : String255; L : PropertyList);
+procedure WritelnStringAndPropertyListDansRapport(s : String255; L : PropertyList);
 
 
 {fonctions d'affichage ˆ l'ecran}
-procedure EcritLettresSurOthellierDesCasesDeLaListe(L : PropertyList);                                                                                                              ATTRIBUTE_NAME('EcritLettresSurOthellierDesCasesDeLaListe')
-procedure EffaceCasesDeLaListe(L : PropertyList);                                                                                                                                   ATTRIBUTE_NAME('EffaceCasesDeLaListe')
+procedure EcritLettresSurOthellierDesCasesDeLaListe(L : PropertyList);
+procedure EffaceCasesDeLaListe(L : PropertyList);
 
 
 

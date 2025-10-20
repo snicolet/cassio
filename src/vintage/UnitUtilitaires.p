@@ -21,79 +21,79 @@ INTERFACE
 
 
 
-procedure InitUnitUtilitaires;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitUtilitaires')
-procedure LibereMemoireUnitUtilitaires;                                                                                                                                             ATTRIBUTE_NAME('LibereMemoireUnitUtilitaires')
+procedure InitUnitUtilitaires;
+procedure LibereMemoireUnitUtilitaires;
 
 
-function MyFiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('MyFiltreClassique')
+function MyFiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
 
-function ComplementeJoueur(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;                                                     ATTRIBUTE_NAME('ComplementeJoueur')
-function ComplementeTournoi(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;                                                    ATTRIBUTE_NAME('ComplementeTournoi')
-function Complemente(typeVoulu : SInt64; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;                         ATTRIBUTE_NAME('Complemente')
-procedure CoupJoueDansRapport(numeroCoup,coup : SInt64);                                                                                                                            ATTRIBUTE_NAME('CoupJoueDansRapport')
-procedure DoListerLesGroupes;                                                                                                                                                       ATTRIBUTE_NAME('DoListerLesGroupes')
-procedure DoAjouterGroupe;                                                                                                                                                          ATTRIBUTE_NAME('DoAjouterGroupe')
-
-
-function StringMayHaveUTF8Accents(const s : String255) : boolean;                                                                                                                   ATTRIBUTE_NAME('StringMayHaveUTF8Accents')
-function UTF8ToAscii(const s : String255) : String255;                                                                                                                              ATTRIBUTE_NAME('UTF8ToAscii')
-procedure ReadUnicodeAccentsFromDisc;                                                                                                                                               ATTRIBUTE_NAME('ReadUnicodeAccentsFromDisc')
-procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);                                                                      ATTRIBUTE_NAME('ReadLineWithUnicodeAccents')
-procedure InspectUnicodeAccent(const accent, remplacement : String255);                                                                                                             ATTRIBUTE_NAME('InspectUnicodeAccent')
-procedure AddUnicodeRemplacement(const accent, remplacement : String255);                                                                                                           ATTRIBUTE_NAME('AddUnicodeRemplacement')
-procedure InitUnicodeTable;                                                                                                                                                         ATTRIBUTE_NAME('InitUnicodeTable')
-procedure DisposeUnicodeTable;                                                                                                                                                      ATTRIBUTE_NAME('DisposeUnicodeTable')
+function ComplementeJoueur(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;
+function ComplementeTournoi(prefixe : String255; typeVoulu : SInt64; useMenuHistory : boolean; var found : boolean) : String255;
+function Complemente(typeVoulu : SInt64; useMenuHistory : boolean; var prefixe : String255; var longueurPrefixe : SInt16; var found : boolean) : String255;
+procedure CoupJoueDansRapport(numeroCoup,coup : SInt64);
+procedure DoListerLesGroupes;
+procedure DoAjouterGroupe;
 
 
-function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;                                                                                                                    ATTRIBUTE_NAME('ScoreFinalEnChaine')
-procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt64; var titre : String255);                                         ATTRIBUTE_NAME('ConstruitTitrePartie')
-function EnleveAnneeADroiteDansChaine(var s : String255; var firstYear,lastYear : SInt16) : boolean;                                                                                ATTRIBUTE_NAME('EnleveAnneeADroiteDansChaine')
-procedure EchangeSurnoms(var nom : String255);                                                                                                                                      ATTRIBUTE_NAME('EchangeSurnoms')
-procedure EpureNomJoueur(var unNomDeJoueur : String255);                                                                                                                            ATTRIBUTE_NAME('EpureNomJoueur')
-procedure TraiteJoueurEnMinuscules(nomBrut : String255; var nomJoueur : String255);                                                                                                 ATTRIBUTE_NAME('TraiteJoueurEnMinuscules')
-procedure TraiteTournoiEnMinuscules(nom : String255; var nomTournoi : String255);                                                                                                   ATTRIBUTE_NAME('TraiteTournoiEnMinuscules')
-procedure TournoiEnMinuscules(var nomBrut : String255);                                                                                                                             ATTRIBUTE_NAME('TournoiEnMinuscules')
+function StringMayHaveUTF8Accents(const s : String255) : boolean;
+function UTF8ToAscii(const s : String255) : String255;
+procedure ReadUnicodeAccentsFromDisc;
+procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure InspectUnicodeAccent(const accent, remplacement : String255);
+procedure AddUnicodeRemplacement(const accent, remplacement : String255);
+procedure InitUnicodeTable;
+procedure DisposeUnicodeTable;
 
 
-function FiltreCoeffDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('FiltreCoeffDialog')
-function ClicSurCurseurCoeff(mouseLoc : Point; var hauteurExacte,nroCoeff : SInt16) : boolean;                                                                                      ATTRIBUTE_NAME('ClicSurCurseurCoeff')
-procedure CalculEtAfficheCoeff(dp : DialogPtr; mouseX,item,hauteurExacte : SInt16);                                                                                                 ATTRIBUTE_NAME('CalculEtAfficheCoeff')
-procedure DessineEchellesCoeffs(dp : DialogPtr);                                                                                                                                    ATTRIBUTE_NAME('DessineEchellesCoeffs')
-procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);                                                                                                                         ATTRIBUTE_NAME('DessineBord')
-procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);                                                                                          ATTRIBUTE_NAME('DessineEchelleEtCurseur')
-procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt64; y : SInt64);                                                                                            ATTRIBUTE_NAME('EcritParametre')
-procedure EcritParametres(dp : DialogPtr; quelParametre : SInt16);                                                                                                                  ATTRIBUTE_NAME('EcritParametres')
-procedure EcritEtDessineBords;                                                                                                                                                      ATTRIBUTE_NAME('EcritEtDessineBords')
-procedure EcritValeursTablesPositionnelles(dp : DialogPtr);                                                                                                                         ATTRIBUTE_NAME('EcritValeursTablesPositionnelles')
-procedure EffaceValeursTablesPositionnelles(dp : DialogPtr);                                                                                                                        ATTRIBUTE_NAME('EffaceValeursTablesPositionnelles')
+function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;
+procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt64; var titre : String255);
+function EnleveAnneeADroiteDansChaine(var s : String255; var firstYear,lastYear : SInt16) : boolean;
+procedure EchangeSurnoms(var nom : String255);
+procedure EpureNomJoueur(var unNomDeJoueur : String255);
+procedure TraiteJoueurEnMinuscules(nomBrut : String255; var nomJoueur : String255);
+procedure TraiteTournoiEnMinuscules(nom : String255; var nomTournoi : String255);
+procedure TournoiEnMinuscules(var nomBrut : String255);
 
 
-procedure DoInsererMarque;                                                                                                                                                          ATTRIBUTE_NAME('DoInsererMarque')
+function FiltreCoeffDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+function ClicSurCurseurCoeff(mouseLoc : Point; var hauteurExacte,nroCoeff : SInt16) : boolean;
+procedure CalculEtAfficheCoeff(dp : DialogPtr; mouseX,item,hauteurExacte : SInt16);
+procedure DessineEchellesCoeffs(dp : DialogPtr);
+procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);
+procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);
+procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt64; y : SInt64);
+procedure EcritParametres(dp : DialogPtr; quelParametre : SInt16);
+procedure EcritEtDessineBords;
+procedure EcritValeursTablesPositionnelles(dp : DialogPtr);
+procedure EffaceValeursTablesPositionnelles(dp : DialogPtr);
 
 
-function PeutCompleterPartieAvecSelectionRapport(var partieAlpha : String255) : boolean;                                                                                            ATTRIBUTE_NAME('PeutCompleterPartieAvecSelectionRapport')
+procedure DoInsererMarque;
 
 
-procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt64);                                                                                               ATTRIBUTE_NAME('SetCoupDansSuite')
-function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt64) : SInt64;                                                                                             ATTRIBUTE_NAME('GetCoupDansSuite')
-procedure SetCoupDansMeilleureSuite(index, coup : SInt64);                                                                                                                          ATTRIBUTE_NAME('SetCoupDansMeilleureSuite')
-function GetCoupDansMeilleureSuite(index : SInt64) : SInt64;                                                                                                                        ATTRIBUTE_NAME('GetCoupDansMeilleureSuite')
-procedure FabriqueMeilleureSuiteInfos(premierCoup : SInt16; suiteJouee : t_suiteJouee; meilleureSuite : meilleureSuitePtr; coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt64; message : SInt64);                                                                       ATTRIBUTE_NAME('FabriqueMeilleureSuiteInfos')
+function PeutCompleterPartieAvecSelectionRapport(var partieAlpha : String255) : boolean;
 
 
-procedure SauvegardeLigneOptimale(coul : SInt64);                                                                                                                                   ATTRIBUTE_NAME('SauvegardeLigneOptimale')
-procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);                                                                                                                        ATTRIBUTE_NAME('MetCoupEnTeteDansKiller')
-procedure MeilleureSuiteDansKiller(profKiller : SInt64);                                                                                                                            ATTRIBUTE_NAME('MeilleureSuiteDansKiller')
-function SquareSetToPlatBool(theSet : SquareSet) : plBool;                                                                                                                          ATTRIBUTE_NAME('SquareSetToPlatBool')
-procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt64);                                                                                                          ATTRIBUTE_NAME('SetNbrePionsPerduParVariation')
-function PrefixeFichierProfiler : String255;                                                                                                                                        ATTRIBUTE_NAME('PrefixeFichierProfiler')
-procedure SetEffetSpecial(flag : boolean);                                                                                                                                          ATTRIBUTE_NAME('SetEffetSpecial')
-function  GetEffetSpecial : boolean;                                                                                                                                                ATTRIBUTE_NAME('GetEffetSpecial')
-function SetClefHashageGlobale(whichValue : SInt64) : SInt64;                                                                                                                       ATTRIBUTE_NAME('SetClefHashageGlobale')
-procedure TesterClefHashage(valeurCorrecte : SInt64; nomFonction : String255);                                                                                                      ATTRIBUTE_NAME('TesterClefHashage')
+procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt64);
+function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt64) : SInt64;
+procedure SetCoupDansMeilleureSuite(index, coup : SInt64);
+function GetCoupDansMeilleureSuite(index : SInt64) : SInt64;
+procedure FabriqueMeilleureSuiteInfos(premierCoup : SInt16; suiteJouee : t_suiteJouee; meilleureSuite : meilleureSuitePtr; coul : SInt16; plat : plateauOthello; nBla,nNoi : SInt64; message : SInt64);
 
 
-procedure Planetes;                                                                                                                                                                 ATTRIBUTE_NAME('Planetes')
+procedure SauvegardeLigneOptimale(coul : SInt64);
+procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);
+procedure MeilleureSuiteDansKiller(profKiller : SInt64);
+function SquareSetToPlatBool(theSet : SquareSet) : plBool;
+procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt64);
+function PrefixeFichierProfiler : String255;
+procedure SetEffetSpecial(flag : boolean);
+function  GetEffetSpecial : boolean;
+function SetClefHashageGlobale(whichValue : SInt64) : SInt64;
+procedure TesterClefHashage(valeurCorrecte : SInt64; nomFonction : String255);
+
+
+procedure Planetes;
 
 
 
@@ -859,7 +859,7 @@ begin
   if found
     then derniereChaineComplementation^^ := TPCopy(joueurBase,1,LENGTH_OF_STRING(prefixe))
     else derniereChaineComplementation^^ := prefixe;
-  
+
 end;
 
 
@@ -950,14 +950,14 @@ function Complemente(typeVoulu : SInt64; useMenuHistory : boolean; var prefixe :
 begin
   Complemente := prefixe;
   found := false;
-  
+
   if joueursEtTournoisEnMemoire then
     case typeVoulu of
       complementationJoueurNoir  : Complemente := ComplementeJoueur(prefixe , typeVoulu, useMenuHistory, found);
       complementationJoueurBlanc : Complemente := ComplementeJoueur(prefixe , typeVoulu, useMenuHistory, found);
       complementationTournoi     : Complemente := ComplementeTournoi(prefixe, typeVoulu, useMenuHistory, found);
     end;
-    
+
   longueurPrefixe := LENGTH_OF_STRING(prefixe);
 end;
 
@@ -1423,7 +1423,7 @@ begin
       with gUnicode do
         begin
           aux := s;
-          for k := 1 to cardinal do 
+          for k := 1 to cardinal do
             begin
               compteur := 0;
               repeat
@@ -2450,7 +2450,7 @@ begin
       WritelnNumDansRapport('WARNING, index out of bound dans SetCoupDansSuite :  index = ',index);
       exit(SetCoupDansSuite);
     end;
-    
+
   suite.coupsDanslLigne[index] := coup;
 end;
 
@@ -2462,7 +2462,7 @@ begin
       GetCoupDansSuite := -1;
       exit(GetCoupDansSuite);
     end;
-    
+
   GetCoupDansSuite := suite.coupsDanslLigne[index];
 end;
 

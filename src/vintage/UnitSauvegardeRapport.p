@@ -11,8 +11,8 @@ INTERFACE
 
  USES UnitDefCassio;
 
-procedure SauverStyleDuRapport(var fichier : FichierTEXT);                                                                                                                          ATTRIBUTE_NAME('SauverStyleDuRapport')
-procedure AppliquerStyleDuFichierAuRapport(var fichier : FichierTEXT; debutSelection,finSelection : SInt32);                                                                        ATTRIBUTE_NAME('AppliquerStyleDuFichierAuRapport')
+procedure SauverStyleDuRapport(var fichier : FichierTEXT);
+procedure AppliquerStyleDuFichierAuRapport(var fichier : FichierTEXT; debutSelection,finSelection : SInt32);
 
 
 IMPLEMENTATION

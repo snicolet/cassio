@@ -15,7 +15,7 @@ pascal static void compute_zebra_line_patterns( int * ) ;
 /*   -- VIDE = 0, NOIR = 1, BLANC = 2                                   */
 /* Le dernier parametre est l'orientation de la position dans la table  */
 /* Cela indique la symetrie a effectuer pour retomber sur nos pattes    */
-/* 0 =  b1 -> b1 (Pas de symetrie)                                      */      
+/* 0 =  b1 -> b1 (Pas de symetrie)                                      */
 /* 1 =  g1 -> b1 (symetrie axe vertical)                                */
 /* 2 =  g8 -> b1 (symetrie centrale)                                    */
 /* 3 =  b8 -> b1 (symetrie axe horizontal)                              */

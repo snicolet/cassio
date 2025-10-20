@@ -17,48 +17,48 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyABR : ABR;                                                                                                                                                        ATTRIBUTE_NAME('MakeEmptyABR')
-function MakeOneElementABR(whichKey : ABRKey; whichData : ABRData) : ABR;                                                                                                           ATTRIBUTE_NAME('MakeOneElementABR')
-procedure DisposeABR(var theABR : ABR);                                                                                                                                             ATTRIBUTE_NAME('DisposeABR')
+function MakeEmptyABR : ABR;
+function MakeOneElementABR(whichKey : ABRKey; whichData : ABRData) : ABR;
+procedure DisposeABR(var theABR : ABR);
 
 {Les fonctions du polymorphisme}
-function ABRCompareClefs(a,b : ABRKey) : SInt32;                                                                                                                                    ATTRIBUTE_NAME('ABRCompareClefs')
-procedure ABRCopierData(var source,dest : ABR);                                                                                                                                     ATTRIBUTE_NAME('ABRCopierData')
-procedure ABRCopierCle(var source,dest : ABR);                                                                                                                                      ATTRIBUTE_NAME('ABRCopierCle')
+function ABRCompareClefs(a,b : ABRKey) : SInt32;
+procedure ABRCopierData(var source,dest : ABR);
+procedure ABRCopierCle(var source,dest : ABR);
 
 {fonction d'insertion et de suppression dans un ABR}
-procedure InsererCleEtDataDansABR(var arbre : ABR; cle : ABRKey; data : ABRData);                                                                                                   ATTRIBUTE_NAME('InsererCleEtDataDansABR')
-procedure SupprimerDansABR(var arbre : ABR; var element : ABR);                                                                                                                     ATTRIBUTE_NAME('SupprimerDansABR')
+procedure InsererCleEtDataDansABR(var arbre : ABR; cle : ABRKey; data : ABRData);
+procedure SupprimerDansABR(var arbre : ABR; var element : ABR);
 
 {Affichages}
-procedure AfficherABRNodeDansRapport(var x : ABR);                                                                                                                                  ATTRIBUTE_NAME('AfficherABRNodeDansRapport')
-procedure ABRAffichageInfixe(nomABR : String255; x : ABR);                                                                                                                          ATTRIBUTE_NAME('ABRAffichageInfixe')
-procedure ABRAffichagePrefixe(nomABR : String255; x : ABR);                                                                                                                         ATTRIBUTE_NAME('ABRAffichagePrefixe')
-procedure ABRAffichageSuffixe(nomABR : String255; x : ABR);                                                                                                                         ATTRIBUTE_NAME('ABRAffichageSuffixe')
+procedure AfficherABRNodeDansRapport(var x : ABR);
+procedure ABRAffichageInfixe(nomABR : String255; x : ABR);
+procedure ABRAffichagePrefixe(nomABR : String255; x : ABR);
+procedure ABRAffichageSuffixe(nomABR : String255; x : ABR);
 
 {Iterateurs}
-procedure ABRParcoursInfixe(x : ABR; DoWhat : ABRProc);                                                                                                                             ATTRIBUTE_NAME('ABRParcoursInfixe')
-procedure ABRParcoursPrefixe(x : ABR; DoWhat : ABRProc);                                                                                                                            ATTRIBUTE_NAME('ABRParcoursPrefixe')
-procedure ABRParcoursSuffixe(x : ABR; DoWhat : ABRProc);                                                                                                                            ATTRIBUTE_NAME('ABRParcoursSuffixe')
+procedure ABRParcoursInfixe(x : ABR; DoWhat : ABRProc);
+procedure ABRParcoursPrefixe(x : ABR; DoWhat : ABRProc);
+procedure ABRParcoursSuffixe(x : ABR; DoWhat : ABRProc);
 
 
 {Acces et tests sur les ABR}
-function ABRGetRacine(x : ABR) : ABR;                                                                                                                                               ATTRIBUTE_NAME('ABRGetRacine')
-function ABRSearch(x : ABR; whichKey : ABRKey) : ABR;                                                                                                                               ATTRIBUTE_NAME('ABRSearch')
-function ABRMinimum(x : ABR) : ABR;                                                                                                                                                 ATTRIBUTE_NAME('ABRMinimum')
-function ABRMaximum(x : ABR) : ABR;                                                                                                                                                 ATTRIBUTE_NAME('ABRMaximum')
-function ABRSuccesseur(x : ABR) : ABR;                                                                                                                                              ATTRIBUTE_NAME('ABRSuccesseur')
-function ABRPredecesseur(x : ABR) : ABR;                                                                                                                                            ATTRIBUTE_NAME('ABRPredecesseur')
-function ABRIsRacine(x : ABR) : boolean;                                                                                                                                            ATTRIBUTE_NAME('ABRIsRacine')
-function ABRIsEmpty(x : ABR) : boolean;                                                                                                                                             ATTRIBUTE_NAME('ABRIsEmpty')
-function ABRHauteur(x : ABR) : SInt32;                                                                                                                                              ATTRIBUTE_NAME('ABRHauteur')
+function ABRGetRacine(x : ABR) : ABR;
+function ABRSearch(x : ABR; whichKey : ABRKey) : ABR;
+function ABRMinimum(x : ABR) : ABR;
+function ABRMaximum(x : ABR) : ABR;
+function ABRSuccesseur(x : ABR) : ABR;
+function ABRPredecesseur(x : ABR) : ABR;
+function ABRIsRacine(x : ABR) : boolean;
+function ABRIsEmpty(x : ABR) : boolean;
+function ABRHauteur(x : ABR) : SInt32;
 
 {fonctions auxiliaires}
-procedure ABRInserer(var arbre : ABR; var element : ABR);                                                                                                                           ATTRIBUTE_NAME('ABRInserer')
-function ABRSupprimer(var arbre : ABR; var element : ABR) : ABR;                                                                                                                    ATTRIBUTE_NAME('ABRSupprimer')
+procedure ABRInserer(var arbre : ABR; var element : ABR);
+function ABRSupprimer(var arbre : ABR; var element : ABR) : ABR;
 
 {Test de l'unite}
-procedure TestUnitABR;                                                                                                                                                              ATTRIBUTE_NAME('TestUnitABR')
+procedure TestUnitABR;
 
 IMPLEMENTATION
 
@@ -151,7 +151,7 @@ begin
       DoWhat(x);
       ABRParcoursInfixe(x^.droit,DoWhat);
     end;
-end; 
+end;
 
 procedure ABRParcoursPrefixe(x : ABR ; DoWhat : ABRProc);
 begin

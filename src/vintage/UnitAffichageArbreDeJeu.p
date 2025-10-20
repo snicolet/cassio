@@ -17,78 +17,78 @@ INTERFACE
 
 
 {initialisation et destruction de l'unité}
-procedure InitUnitAfficheArbreJeuCourant;                                                                                                                                           ATTRIBUTE_NAME('InitUnitAfficheArbreJeuCourant')
-procedure LibereMemoireUnitAfficheArbreJeuCourant;                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitAfficheArbreJeuCourant')
+procedure InitUnitAfficheArbreJeuCourant;
+procedure LibereMemoireUnitAfficheArbreJeuCourant;
 
 
 {fonctions d'affichage des infos courantes à l'ecran}
-procedure SetAffichageProprietesOfCurrentNode(flags : UInt32);                                                                                                                      ATTRIBUTE_NAME('SetAffichageProprietesOfCurrentNode')
-procedure SetEffacageProprietesOfCurrentNode(flags : UInt32);                                                                                                                       ATTRIBUTE_NAME('SetEffacageProprietesOfCurrentNode')
-function GetAffichageProprietesOfCurrentNode : UInt32;                                                                                                                              ATTRIBUTE_NAME('GetAffichageProprietesOfCurrentNode')
-function GetEffacageProprietesOfCurrentNode : UInt32;                                                                                                                               ATTRIBUTE_NAME('GetEffacageProprietesOfCurrentNode')
-procedure SetPhaseCalculListePositionsProperties(flag : boolean);                                                                                                                   ATTRIBUTE_NAME('SetPhaseCalculListePositionsProperties')
-procedure VideListePositionsProperties;                                                                                                                                             ATTRIBUTE_NAME('VideListePositionsProperties')
-procedure AfficheProprietesOfCurrentNode(dessinerAideDebutantSiNecessaire : boolean; surQuellesCases : SquareSet; const fonctionAppelante : String255);                             ATTRIBUTE_NAME('AfficheProprietesOfCurrentNode')
-procedure EffaceProprietesOfCurrentNode;                                                                                                                                            ATTRIBUTE_NAME('EffaceProprietesOfCurrentNode')
-procedure AfficheProprietes(G : GameTree; surQuellesCases : SquareSet);                                                                                                             ATTRIBUTE_NAME('AfficheProprietes')
-procedure EffaceProprietes(G : GameTree);                                                                                                                                           ATTRIBUTE_NAME('EffaceProprietes')
-procedure EcritCommentaires(G : GameTree);                                                                                                                                          ATTRIBUTE_NAME('EcritCommentaires')
-procedure EcritCommentairesOfCurrentNode;                                                                                                                                           ATTRIBUTE_NAME('EcritCommentairesOfCurrentNode')
-procedure SetTexteFenetreArbreDeJeuFromArbreDeJeu(G : GameTree; redessineCommentaires : boolean; var commentaireChange : boolean);                                                  ATTRIBUTE_NAME('SetTexteFenetreArbreDeJeuFromArbreDeJeu')
-function EstVisibleDansFenetreArbreDeJeu(G : GameTree) : boolean;                                                                                                                   ATTRIBUTE_NAME('EstVisibleDansFenetreArbreDeJeu')
-function GetSignesDiacritiques(G : GameTree) : String255;                                                                                                                           ATTRIBUTE_NAME('GetSignesDiacritiques')
+procedure SetAffichageProprietesOfCurrentNode(flags : UInt32);
+procedure SetEffacageProprietesOfCurrentNode(flags : UInt32);
+function GetAffichageProprietesOfCurrentNode : UInt32;
+function GetEffacageProprietesOfCurrentNode : UInt32;
+procedure SetPhaseCalculListePositionsProperties(flag : boolean);
+procedure VideListePositionsProperties;
+procedure AfficheProprietesOfCurrentNode(dessinerAideDebutantSiNecessaire : boolean; surQuellesCases : SquareSet; const fonctionAppelante : String255);
+procedure EffaceProprietesOfCurrentNode;
+procedure AfficheProprietes(G : GameTree; surQuellesCases : SquareSet);
+procedure EffaceProprietes(G : GameTree);
+procedure EcritCommentaires(G : GameTree);
+procedure EcritCommentairesOfCurrentNode;
+procedure SetTexteFenetreArbreDeJeuFromArbreDeJeu(G : GameTree; redessineCommentaires : boolean; var commentaireChange : boolean);
+function EstVisibleDansFenetreArbreDeJeu(G : GameTree) : boolean;
+function GetSignesDiacritiques(G : GameTree) : String255;
 
 
 {gestion des coups etiquetes 'a', 'b', 'c', ... sur l'othellier }
-procedure EcritProchainsCoupsSurOthellier(G : GameTree; trait : SInt16; avecSignesDiacritiques : boolean; surQuellesCases : SquareSet);                                             ATTRIBUTE_NAME('EcritProchainsCoupsSurOthellier')
-procedure EffaceProchainsCoupsSurOthellier(G : GameTree; trait : SInt16);                                                                                                           ATTRIBUTE_NAME('EffaceProchainsCoupsSurOthellier')
-procedure ViderEtiquetesDesCasesSurLOthellier(surQuellesCases : SquareSet);                                                                                                         ATTRIBUTE_NAME('ViderEtiquetesDesCasesSurLOthellier')
-function GetEtiqueteOnThisSquare(square : SInt32) : char;                                                                                                                           ATTRIBUTE_NAME('GetEtiqueteOnThisSquare')
-procedure SetEtiquetteOnThisSquare(square : SInt32; etiquette : char);                                                                                                              ATTRIBUTE_NAME('SetEtiquetteOnThisSquare')
-function FindSquareWithThisEtiquette(etiquette : char; var square : SInt32) : boolean;                                                                                              ATTRIBUTE_NAME('FindSquareWithThisEtiquette')
+procedure EcritProchainsCoupsSurOthellier(G : GameTree; trait : SInt16; avecSignesDiacritiques : boolean; surQuellesCases : SquareSet);
+procedure EffaceProchainsCoupsSurOthellier(G : GameTree; trait : SInt16);
+procedure ViderEtiquetesDesCasesSurLOthellier(surQuellesCases : SquareSet);
+function GetEtiqueteOnThisSquare(square : SInt32) : char;
+procedure SetEtiquetteOnThisSquare(square : SInt32; etiquette : char);
+function FindSquareWithThisEtiquette(etiquette : char; var square : SInt32) : boolean;
 
 
 {fonctions d'affichage dans la fenetre « arbre de jeu »}
-procedure DessineCoupDansFenetreArbreDeJeu(L : PropertyList; numeroDuCoup : SInt16; var positionHorizontale : SInt32);                                                              ATTRIBUTE_NAME('DessineCoupDansFenetreArbreDeJeu')
-procedure EcritNoeudDansFenetreArbreDeJeu(G : GameTree; avecEcritureDesFils : boolean);                                                                                             ATTRIBUTE_NAME('EcritNoeudDansFenetreArbreDeJeu')
-procedure EcritCurrentNodeDansFenetreArbreDeJeu(avecEcritureDesFils, doitEffacerPremiereLigneDeLaFenetre : boolean);                                                                ATTRIBUTE_NAME('EcritCurrentNodeDansFenetreArbreDeJeu')
-procedure EffaceNoeudDansFenetreArbreDeJeu;                                                                                                                                         ATTRIBUTE_NAME('EffaceNoeudDansFenetreArbreDeJeu')
-procedure EffacePremiereLigneFenetreArbreDeJeu;                                                                                                                                     ATTRIBUTE_NAME('EffacePremiereLigneFenetreArbreDeJeu')
-procedure ValideZoneCommentaireDansFenetreArbreDeJeu;                                                                                                                               ATTRIBUTE_NAME('ValideZoneCommentaireDansFenetreArbreDeJeu')
-procedure InverserLeNiemeFilsDansFenetreArbreDeJeu(N : SInt16);                                                                                                                     ATTRIBUTE_NAME('InverserLeNiemeFilsDansFenetreArbreDeJeu')
-procedure EcritProprietesDeCeNoeudHorizontalement(var G : GameTree; var positionVerticale : SInt32; var continuer : boolean);                                                       ATTRIBUTE_NAME('EcritProprietesDeCeNoeudHorizontalement')
-procedure EcritProprietesDeCeFilsHorizontalement(var G : GameTree; var positionVerticale : SInt32; var continuer : boolean);                                                        ATTRIBUTE_NAME('EcritProprietesDeCeFilsHorizontalement')
-procedure SetDisplayColorOfNodeInFenetreArbreDeJeu(color : SInt32);                                                                                                                 ATTRIBUTE_NAME('SetDisplayColorOfNodeInFenetreArbreDeJeu')
-function GetDisplayColorOfNodeInFenetreArbreDeJeu : SInt32;                                                                                                                         ATTRIBUTE_NAME('GetDisplayColorOfNodeInFenetreArbreDeJeu')
+procedure DessineCoupDansFenetreArbreDeJeu(L : PropertyList; numeroDuCoup : SInt16; var positionHorizontale : SInt32);
+procedure EcritNoeudDansFenetreArbreDeJeu(G : GameTree; avecEcritureDesFils : boolean);
+procedure EcritCurrentNodeDansFenetreArbreDeJeu(avecEcritureDesFils, doitEffacerPremiereLigneDeLaFenetre : boolean);
+procedure EffaceNoeudDansFenetreArbreDeJeu;
+procedure EffacePremiereLigneFenetreArbreDeJeu;
+procedure ValideZoneCommentaireDansFenetreArbreDeJeu;
+procedure InverserLeNiemeFilsDansFenetreArbreDeJeu(N : SInt16);
+procedure EcritProprietesDeCeNoeudHorizontalement(var G : GameTree; var positionVerticale : SInt32; var continuer : boolean);
+procedure EcritProprietesDeCeFilsHorizontalement(var G : GameTree; var positionVerticale : SInt32; var continuer : boolean);
+procedure SetDisplayColorOfNodeInFenetreArbreDeJeu(color : SInt32);
+function GetDisplayColorOfNodeInFenetreArbreDeJeu : SInt32;
 
 
 {fonction de dessin des icones des proprietes}
-function InterligneArbreFenetreArbreDeJeu : SInt16;                                                                                                                                 ATTRIBUTE_NAME('InterligneArbreFenetreArbreDeJeu')
-procedure DessinePetiteIconeFenetreArbreDeJeu(IconeID : SInt32; where : Point; var dimension : Point);                                                                              ATTRIBUTE_NAME('DessinePetiteIconeFenetreArbreDeJeu')
-procedure DessineImagetteFenetreArbreDeJeu(quelleImage : typeImagette; where : Point; var dimension : Point);                                                                       ATTRIBUTE_NAME('DessineImagetteFenetreArbreDeJeu')
-function DessineIconeProperty(prop : Property; where : Point; var dimension : Point) : boolean;                                                                                     ATTRIBUTE_NAME('DessineIconeProperty')
-procedure EcritChaineOfProperty(const s : String255; var largeur : SInt16);                                                                                                         ATTRIBUTE_NAME('EcritChaineOfProperty')
-procedure EcritIconesDeStructureDeLArbre(var G : GameTree; traiteEmbranchement,traiteFeuille : boolean; var positionHorizontale : SInt32);                                          ATTRIBUTE_NAME('EcritIconesDeStructureDeLArbre')
+function InterligneArbreFenetreArbreDeJeu : SInt16;
+procedure DessinePetiteIconeFenetreArbreDeJeu(IconeID : SInt32; where : Point; var dimension : Point);
+procedure DessineImagetteFenetreArbreDeJeu(quelleImage : typeImagette; where : Point; var dimension : Point);
+function DessineIconeProperty(prop : Property; where : Point; var dimension : Point) : boolean;
+procedure EcritChaineOfProperty(const s : String255; var largeur : SInt16);
+procedure EcritIconesDeStructureDeLArbre(var G : GameTree; traiteEmbranchement,traiteFeuille : boolean; var positionHorizontale : SInt32);
 
 
 {fonction de destruction}
-procedure DetruireCeFilsOfCurrentNode(var whichSon : GameTree);                                                                                                                     ATTRIBUTE_NAME('DetruireCeFilsOfCurrentNode')
+procedure DetruireCeFilsOfCurrentNode(var whichSon : GameTree);
 
 
 {fonction de test de souris}
-function PropertyPointeeParSouris : PropertyPtr;                                                                                                                                    ATTRIBUTE_NAME('PropertyPointeeParSouris')
-function SurIconeInterversion(whichPoint : Point; var noeudCorrespondant : GameTree) : boolean;                                                                                     ATTRIBUTE_NAME('SurIconeInterversion')
-procedure AddTranspositionPropertyToCurrentNode(var texte : String255);                                                                                                             ATTRIBUTE_NAME('AddTranspositionPropertyToCurrentNode')
+function PropertyPointeeParSouris : PropertyPtr;
+function SurIconeInterversion(whichPoint : Point; var noeudCorrespondant : GameTree) : boolean;
+procedure AddTranspositionPropertyToCurrentNode(var texte : String255);
 
 
 {fonction d'affichage du commentaire dans le rapport}
-procedure AfficheCommentaireOfNodeDansRapport(var G : GameTree; var numeroDuCoup : SInt32; var commentaireVide : boolean);                                                          ATTRIBUTE_NAME('AfficheCommentaireOfNodeDansRapport')
-procedure AfficheCommentairePartieDansRapport;                                                                                                                                      ATTRIBUTE_NAME('AfficheCommentairePartieDansRapport')
+procedure AfficheCommentaireOfNodeDansRapport(var G : GameTree; var numeroDuCoup : SInt32; var commentaireVide : boolean);
+procedure AfficheCommentairePartieDansRapport;
 
 
 {fonction d'affichage de l'arbre courant dans le rapport}
-procedure WritelnRacineDeLaPartieDansRapport;                                                                                                                                       ATTRIBUTE_NAME('WritelnRacineDeLaPartieDansRapport')
-procedure WritelnGameTreeCourantDansRapport;                                                                                                                                        ATTRIBUTE_NAME('WritelnGameTreeCourantDansRapport')
+procedure WritelnRacineDeLaPartieDansRapport;
+procedure WritelnGameTreeCourantDansRapport;
 
 
 IMPLEMENTATION
@@ -125,7 +125,7 @@ var DernierNoeudDontOnAAfficheLesCommentaires : GameTree;
     etiquetteSurCase : platValeur;
     gDisplayColorOfNodeInFenetreArbreDeJeu : SInt32;
 
-    gPileAppelsRecursifsAfficheProprietesCurrentNode :  
+    gPileAppelsRecursifsAfficheProprietesCurrentNode :
      record
         nbAppelsRecursifs : SInt32;
         cardinalPile      : SInt32;
@@ -144,10 +144,10 @@ begin
   gCouleurDuCoupDeCetteLigne := pionVide;
   for k := 0 to 99 do
     etiquetteSurCase[k] := -1;
-  
+
   gPileAppelsRecursifsAfficheProprietesCurrentNode.cardinalPile      := 0;
   gPileAppelsRecursifsAfficheProprietesCurrentNode.nbAppelsRecursifs := 0;
-  
+
   for k := 0 to 100 do
     gPileAppelsRecursifsAfficheProprietesCurrentNode.pileParametres[k] := -1;
 
@@ -471,7 +471,7 @@ begin
   p.affichage    := gAffichageProprietesOfCurrentNode;
   p.nrocoup      := nbreCoup;
   p.cases        := surQuellesCases;
-  
+
   GetHashOfParametres := GenericHash(@p, SizeOf(params));
 end;
 
@@ -480,14 +480,14 @@ function GetNombreAppelsRecursifsAfficheProprietesOfCurrentNode(params : SInt32)
 var k, compteur : SInt32;
 begin
   compteur := 0;
-  
+
   with gPileAppelsRecursifsAfficheProprietesCurrentNode do
     begin
       for k := 1 to cardinalPile do
         if (pileParametres[k] = params)
           then inc(compteur);
     end;
-  
+
   GetNombreAppelsRecursifsAfficheProprietesOfCurrentNode := compteur;
 end;
 
@@ -496,18 +496,18 @@ function AddDansPileParametresRecursifsAfficheProprietesOfCurrentNode(params : S
 var index : SInt32;
 begin
   index := -1;
-  
+
   with gPileAppelsRecursifsAfficheProprietesCurrentNode do
     begin
       if (cardinalPile < 100) then
         begin
           inc(cardinalPile);
           index := cardinalPile;
-          
+
           pileParametres[cardinalPile]  := params;
         end;
     end;
-  
+
   AddDansPileParametresRecursifsAfficheProprietesOfCurrentNode := index;
 end;
 
@@ -515,12 +515,12 @@ end;
 procedure RemoveDansPileParametresRecursifsAfficheProprietesOfCurrentNode(index : SInt32; params : SInt32);
 begin
   Discard(params);
-  
+
   if (index >= 1) & (index <= 100) then
     with gPileAppelsRecursifsAfficheProprietesCurrentNode do
       begin
         pileParametres[index] := -1;
-        
+
         if (index = cardinalPile) & (cardinalPile >= 1)
           then dec(cardinalPile)
           else WritelnDansRapport('ASSERT : pile des appels recursifs fausse dans RemoveDansPileParametresRecursifsAfficheProprietesOfCurrentNode !!');
@@ -539,21 +539,21 @@ begin  {$UNUSED fonctionAppelante, t}
 
   if (gAffichageProprietesOfCurrentNode <> kAucunePropriete) then
     begin
-      
+
       inc(gPileAppelsRecursifsAfficheProprietesCurrentNode.nbAppelsRecursifs);
-      
-      
+
+
       niveau := gPileAppelsRecursifsAfficheProprietesCurrentNode.nbAppelsRecursifs;
       params := GetHashOfParametres(dessinerAideDebutantSiNecessaire, surQuellesCases);
-      
-      
+
+
       nbAppelsRecursifs := GetNombreAppelsRecursifsAfficheProprietesOfCurrentNode(params);
-      
+
       if (nbAppelsRecursifs <= 0) then
-        begin 
-      
+        begin
+
           index  := AddDansPileParametresRecursifsAfficheProprietesOfCurrentNode(params);
-          
+
           (*
           for t := 1 to niveau - 1 do
             WriteDansRapport('  ');
@@ -578,8 +578,8 @@ begin  {$UNUSED fonctionAppelante, t}
     		        G := GetCurrentNode;
     		        AfficheProprietes(G, surQuellesCases);
     		      end;
-    		  
-    		  
+    		
+    		
     		  (*
     		  for t := 1 to niveau - 1 do
             WriteDansRapport('  ');
@@ -591,15 +591,15 @@ begin  {$UNUSED fonctionAppelante, t}
     		  WriteNumDansRapport('  level = ',niveau);
           WritelnNumDansRapport('  recur = ',nbAppelsRecursifs);
           *)
-          
-          
+
+
           RemoveDansPileParametresRecursifsAfficheProprietesOfCurrentNode(index, params);
-          
+
         end;
-      
-      
+
+
       dec(gPileAppelsRecursifsAfficheProprietesCurrentNode.nbAppelsRecursifs);
-		  
+		
 		end;
 end;
 

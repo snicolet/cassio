@@ -12,57 +12,57 @@ INTERFACE
 
 
 
-  procedure InitUnitMacExtras(debugageUnit : boolean);                                                                                                                              ATTRIBUTE_NAME('InitUnitMacExtras')
-	procedure InitMacintoshManagers;                                                                                                                                                   ATTRIBUTE_NAME('InitMacintoshManagers')
+  procedure InitUnitMacExtras(debugageUnit : boolean);
+	procedure InitMacintoshManagers;
 
-	function MyNewCWindow( wStorage: UnivPtr; const boundsRect : Rect; const title: String255; visible: Boolean; procID: SInt16; behind: WindowRef; goAwayFlag: Boolean; refCon: SInt32 ): WindowRef;                                                                            ATTRIBUTE_NAME('MyNewCWindow')
-	function GetWindowSize(window : WindowPtr) : Point;                                                                                                                                ATTRIBUTE_NAME('GetWindowSize')
-	function WindowsHaveThickBorders(var epaisseurBorduresFenetres : SInt16) : boolean;                                                                                                ATTRIBUTE_NAME('WindowsHaveThickBorders')
+	function MyNewCWindow( wStorage: UnivPtr; const boundsRect : Rect; const title: String255; visible: Boolean; procID: SInt16; behind: WindowRef; goAwayFlag: Boolean; refCon: SInt32 ): WindowRef;
+	function GetWindowSize(window : WindowPtr) : Point;
+	function WindowsHaveThickBorders(var epaisseurBorduresFenetres : SInt16) : boolean;
 	{procedure ClipWindowStructFromWMPort(window : WindowPtr);}
 
 
 
-  procedure SafeSetCursor(myCursor : CursHandle);                                                                                                                                   ATTRIBUTE_NAME('SafeSetCursor')
-  function RegionEstVide(whichRegion : RgnHandle) : boolean;                                                                                                                        ATTRIBUTE_NAME('RegionEstVide')
-  function SameRect(rect1,rect2 : rect) : boolean;                                                                                                                                  ATTRIBUTE_NAME('SameRect')
-	procedure InvalidateWindow(whichWindow : WindowPtr);                                                                                                                              ATTRIBUTE_NAME('InvalidateWindow')
-	procedure GetPortSize(var width, height : SInt16);                                                                                                                                ATTRIBUTE_NAME('GetPortSize')
+  procedure SafeSetCursor(myCursor : CursHandle);
+  function RegionEstVide(whichRegion : RgnHandle) : boolean;
+  function SameRect(rect1,rect2 : rect) : boolean;
+	procedure InvalidateWindow(whichWindow : WindowPtr);
+	procedure GetPortSize(var width, height : SInt16);
 
 
-	procedure CalculateControlRects(whichWindow : WindowPtr; var hbarrect, vbarrect, gbrect : rect);                                                                                   ATTRIBUTE_NAME('CalculateControlRects')
-	function TextHeight(wptr : WindowPtr) : SInt16;                                                                                                                                    ATTRIBUTE_NAME('TextHeight')
-	procedure CenterString(h, v, w : SInt16; s : String255);                                                                                                                           ATTRIBUTE_NAME('CenterString')
+	procedure CalculateControlRects(whichWindow : WindowPtr; var hbarrect, vbarrect, gbrect : rect);
+	function TextHeight(wptr : WindowPtr) : SInt16;
+	procedure CenterString(h, v, w : SInt16; s : String255);
 
-	procedure DrawStringPourGNUPascal(const s : String255);                                                                                                                            ATTRIBUTE_NAME('DrawStringPourGNUPascal')
-	function StringWidthPourGNUPascal(const s : String255): SInt16;                                                                                                                    ATTRIBUTE_NAME('StringWidthPourGNUPascal')
+	procedure DrawStringPourGNUPascal(const s : String255);
+	function StringWidthPourGNUPascal(const s : String255): SInt16;
 
 
-  procedure MyEraseRect(const (*var*) r : Rect);                                                                                                                                    ATTRIBUTE_NAME('MyEraseRect')
-  procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);                                               ATTRIBUTE_NAME('MyEraseRectWithColor')
-  procedure MyEraseRectWithRGBColor(const (*var*) r : Rect; couleur : RGBColor);                                                                                                    ATTRIBUTE_NAME('MyEraseRectWithRGBColor')
+  procedure MyEraseRect(const (*var*) r : Rect);
+  procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);
+  procedure MyEraseRectWithRGBColor(const (*var*) r : Rect; couleur : RGBColor);
 
 
 (* 	procedure PlotSmallIcon(r : Rect; hdl : Handle; index : SInt16); *)
 (* procedure Plot16ColorSmallIcon(r : rect; h : UnivHandle); *)
 
 
-	function ProfondeurMainDevice : SInt16;                                                                                                                                            ATTRIBUTE_NAME('ProfondeurMainDevice')
-	function EstUnAscenseurAvecDoubleScroll(theScroller : ControlHandle; var contourAscenseurRect, regionGriseeRect : rect; var estHorizontal : boolean) : boolean;                    ATTRIBUTE_NAME('EstUnAscenseurAvecDoubleScroll')
-	function SmartScrollEstInstalle(theScroller : ControlHandle; var proportion : fixed) : boolean;                                                                                    ATTRIBUTE_NAME('SmartScrollEstInstalle')
+	function ProfondeurMainDevice : SInt16;
+	function EstUnAscenseurAvecDoubleScroll(theScroller : ControlHandle; var contourAscenseurRect, regionGriseeRect : rect; var estHorizontal : boolean) : boolean;
+	function SmartScrollEstInstalle(theScroller : ControlHandle; var proportion : fixed) : boolean;
 
 
-  procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);                                                                                                                  ATTRIBUTE_NAME('WriteNumAt')
-  procedure WriteStringAndNumEnSeparantLesMilliersAt(s : String255; num : SInt32; h,v : SInt32);                                                                                    ATTRIBUTE_NAME('WriteStringAndNumEnSeparantLesMilliersAt')
-  procedure WriteStringAndBigNumEnSeparantLesMilliersAt(s : String255; milliards,num : SInt32; h,v : SInt32);                                                                       ATTRIBUTE_NAME('WriteStringAndBigNumEnSeparantLesMilliersAt')
-  procedure WriteStringAt(s : String255; h,v : SInt32);                                                                                                                             ATTRIBUTE_NAME('WriteStringAt')
-  procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);                                                                                                                 ATTRIBUTE_NAME('WriteStringAtWithoutErase')
-  procedure WriteReelAt(unreel : double_t; h,v : SInt32);                                                                                                                           ATTRIBUTE_NAME('WriteReelAt')
-  procedure WriteStringAndReelAt(s : String255; unreel : double_t; h,v : SInt32);                                                                                                   ATTRIBUTE_NAME('WriteStringAndReelAt')
-  procedure WriteStringAndBoolAt(s : String255; bool : boolean; h,v : SInt32);                                                                                                      ATTRIBUTE_NAME('WriteStringAndBoolAt')
+  procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);
+  procedure WriteStringAndNumEnSeparantLesMilliersAt(s : String255; num : SInt32; h,v : SInt32);
+  procedure WriteStringAndBigNumEnSeparantLesMilliersAt(s : String255; milliards,num : SInt32; h,v : SInt32);
+  procedure WriteStringAt(s : String255; h,v : SInt32);
+  procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);
+  procedure WriteReelAt(unreel : double_t; h,v : SInt32);
+  procedure WriteStringAndReelAt(s : String255; unreel : double_t; h,v : SInt32);
+  procedure WriteStringAndBoolAt(s : String255; bool : boolean; h,v : SInt32);
 
 
-  function MyGetPicture(picID: SInt16) : PicHandle;                                                                                                                                 ATTRIBUTE_NAME('MyGetPicture')
-  function GetPicFrameOfPicture(thePict : PicHandle) : Rect;                                                                                                                        ATTRIBUTE_NAME('GetPicFrameOfPicture')
+  function MyGetPicture(picID: SInt16) : PicHandle;
+  function GetPicFrameOfPicture(thePict : PicHandle) : Rect;
 
 
 IMPLEMENTATION
@@ -178,7 +178,7 @@ begin
       begin
         cursorData := myCursor^^;
         SetCursor(cursorData);
-        
+
         if (@myCursor = @watch) then
           begin
           end;
@@ -193,7 +193,7 @@ begin
 end;
 
 
-function SameRect(rect1,rect2 : rect) : boolean;  
+function SameRect(rect1,rect2 : rect) : boolean;
 begin
   SameRect := (rect1.left   = rect2.left) &
               (rect1.right  = rect2.right) &
@@ -330,7 +330,7 @@ begin
   RGBForeColor(gPurNoir);
   RGBBackColor(gPurBlanc);
   *)
-  
+
 
 end;
 

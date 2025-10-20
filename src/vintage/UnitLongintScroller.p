@@ -16,17 +16,17 @@ INTERFACE
 
 
 
-procedure GetNumerosPremiereEtDernierePartiesAffichees(var premierNumero,derniernumero : SInt32);                                                                                   ATTRIBUTE_NAME('GetNumerosPremiereEtDernierePartiesAffichees')
-function GetNumeroPremierePartieAffichee : SInt32;                                                                                                                                  ATTRIBUTE_NAME('GetNumeroPremierePartieAffichee')
-function GetNumeroDernierePartieAffichee : SInt32;                                                                                                                                  ATTRIBUTE_NAME('GetNumeroDernierePartieAffichee')
-procedure SetValeurAscenseurListe(var value : SInt32);                                                                                                                              ATTRIBUTE_NAME('SetValeurAscenseurListe')
-procedure InterpolationPremierePartieAffichee(ControlValue : SInt32);                                                                                                               ATTRIBUTE_NAME('InterpolationPremierePartieAffichee')
-procedure CalculeControlLongintMaximum(nbreLignesVisiblesDansFenetre : SInt32);                                                                                                     ATTRIBUTE_NAME('CalculeControlLongintMaximum')
-procedure SetControlLongintMaximum(maximum : SInt32);                                                                                                                               ATTRIBUTE_NAME('SetControlLongintMaximum')
-procedure SetControlLongintMinimum(minimum : SInt32);                                                                                                                               ATTRIBUTE_NAME('SetControlLongintMinimum')
-function GetControlLongintMaximum : SInt32;                                                                                                                                         ATTRIBUTE_NAME('GetControlLongintMaximum')
-function GetControlLongintMinimum : SInt32;                                                                                                                                         ATTRIBUTE_NAME('GetControlLongintMinimum')
-procedure ActivateAscenseurListe;                                                                                                                                                   ATTRIBUTE_NAME('ActivateAscenseurListe')
+procedure GetNumerosPremiereEtDernierePartiesAffichees(var premierNumero,derniernumero : SInt32);
+function GetNumeroPremierePartieAffichee : SInt32;
+function GetNumeroDernierePartieAffichee : SInt32;
+procedure SetValeurAscenseurListe(var value : SInt32);
+procedure InterpolationPremierePartieAffichee(ControlValue : SInt32);
+procedure CalculeControlLongintMaximum(nbreLignesVisiblesDansFenetre : SInt32);
+procedure SetControlLongintMaximum(maximum : SInt32);
+procedure SetControlLongintMinimum(minimum : SInt32);
+function GetControlLongintMaximum : SInt32;
+function GetControlLongintMinimum : SInt32;
+procedure ActivateAscenseurListe;
 
 
 IMPLEMENTATION

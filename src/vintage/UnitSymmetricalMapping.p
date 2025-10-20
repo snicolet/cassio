@@ -12,19 +12,19 @@ INTERFACE
 
 
 
-procedure InitUnitSymmetricalMapping;                                                                                                                                               ATTRIBUTE_NAME('InitUnitSymmetricalMapping')
-procedure AlloueMemoireSymmetricalMapping;                                                                                                                                          ATTRIBUTE_NAME('AlloueMemoireSymmetricalMapping')
+procedure InitUnitSymmetricalMapping;
+procedure AlloueMemoireSymmetricalMapping;
 
-function SymmetricalMappingLongSquaresLine(n,length : SInt32) : SInt32;                                                                                                             ATTRIBUTE_NAME('SymmetricalMappingLongSquaresLine')
-function SymmetricalMapping8SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping8SquaresLine')
-function SymmetricalMapping7SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping7SquaresLine')
-function SymmetricalMapping6SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping6SquaresLine')
-function SymmetricalMapping5SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping5SquaresLine')
-function SymmetricalMapping4SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping4SquaresLine')
-function SymmetricalMapping3SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping3SquaresLine')
-function SymmetricalMapping2SquaresLine(n : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('SymmetricalMapping2SquaresLine')
-function SymmetricalMappingEdge2X(n : SInt32) : SInt32;                                                                                                                             ATTRIBUTE_NAME('SymmetricalMappingEdge2X')
-function SymmetricalMapping13SquaresCorner(n : SInt32) : SInt32;                                                                                                                    ATTRIBUTE_NAME('SymmetricalMapping13SquaresCorner')
+function SymmetricalMappingLongSquaresLine(n,length : SInt32) : SInt32;
+function SymmetricalMapping8SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping7SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping6SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping5SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping4SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping3SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMapping2SquaresLine(n : SInt32) : SInt32;
+function SymmetricalMappingEdge2X(n : SInt32) : SInt32;
+function SymmetricalMapping13SquaresCorner(n : SInt32) : SInt32;
 
 
 IMPLEMENTATION

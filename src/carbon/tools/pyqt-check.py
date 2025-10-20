@@ -4,9 +4,9 @@
 #                      python environments installed on your system.
 #
 # Usage :
-#     PYTHON-BINARY pyqt-check.py -PyQt4    
+#     PYTHON-BINARY pyqt-check.py -PyQt4
 #     PYTHON-BINARY pyqt-check.py -PyQt5    (default)
-#       
+#
 
 import sys
 args  = sys.argv[1:]                   # the list of arguments to the script

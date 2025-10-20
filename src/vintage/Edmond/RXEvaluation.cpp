@@ -232,7 +232,7 @@ void RXEvaluation::load() {
 				 for(int id2 = 0, id2Neg = 0; id2<3; id2Neg = 3-(++id2)) {
 				
 					 for(int id3 = 0, id3Neg = 0; id3<3; id3Neg = 3 - (++id3)) {
-					 
+					
 						//4 squares = Diag4
 						int pattern4 = id0 + 3*(id1 + 3*(id2 + 3*id3));
 						int sym4 = id3 + 3*(id2 + 3*(id1 + 3*id0));
@@ -240,7 +240,7 @@ void RXEvaluation::load() {
 						int symNeg4 = id3Neg + 3*(id2Neg + 3*(id1Neg + 3*id0Neg));
 						
 						 for(int id4 = 0, id4Neg = 0; id4<3; id4Neg = 3 - (++id4)) {
-						 
+						
 							//5 squares = Diag5
 							int pattern5 = pattern4 + 81*id4;
 							int sym5 = id4 + 3*sym4 ;
@@ -378,7 +378,7 @@ void RXEvaluation::load() {
 										
 										
 										 for(int id8 = 0, id8Neg = 0; id8<3; id8Neg = 3-(++id8 )) {
-										 
+										
 
 											//9 squares
 											int pattern9 = pattern8 + 6561*id8;
@@ -387,7 +387,7 @@ void RXEvaluation::load() {
 											int symNeg9 = id8Neg + 3*symNeg8;
 
 											 for(int id9 = 0, id9Neg = 0; id9<3; id9Neg = 3-(++id9)) {
-											 
+											
 												//10 squares
 												int pattern10 = pattern9 + 19683*id9;
 												int sym10 = id9 + 3*sym9 ;

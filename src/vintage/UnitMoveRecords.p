@@ -14,38 +14,38 @@ INTERFACE
 
 
 
-procedure InitUnitMoveRecords;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitMoveRecords')
-procedure LibereMemoireUnitMoveRecords;                                                                                                                                             ATTRIBUTE_NAME('LibereMemoireUnitMoveRecords')
+procedure InitUnitMoveRecords;
+procedure LibereMemoireUnitMoveRecords;
 
 
 {procedures de manipulation de MoveRecord}
-procedure ViderMoveRecord(var whichMoveRecord : MoveRecord);                                                                                                                        ATTRIBUTE_NAME('ViderMoveRecord')
+procedure ViderMoveRecord(var whichMoveRecord : MoveRecord);
 
 
 {procedures de creation et de copies de ListOfMoveRecords}
-function AllocateListOfMoveRecordsHandle(var liste : ListOfMoveRecordsHdl) : boolean;                                                                                               ATTRIBUTE_NAME('AllocateListOfMoveRecordsHandle')
-procedure CopyListOMoveRecords(var source,dest : ListOfMoveRecords);                                                                                                                ATTRIBUTE_NAME('CopyListOMoveRecords')
-procedure DisposeListOfMoveRecordsHandle(var liste : ListOfMoveRecordsHdl);                                                                                                         ATTRIBUTE_NAME('DisposeListOfMoveRecordsHandle')
-procedure ViderListOfMoveRecords(var liste : ListOfMoveRecords);                                                                                                                    ATTRIBUTE_NAME('ViderListOfMoveRecords')
-procedure MetLesCoupsDansLeMemeOrdre(maitres : ListOfMoveRecords; var esclaves : ListOfMoveRecords; longueurClassement : SInt32);                                                   ATTRIBUTE_NAME('MetLesCoupsDansLeMemeOrdre')
-function LesCoupsSontDansLeMemeOrdre(var liste1,liste2 : ListOfMoveRecords; longueurClassement : SInt32) : boolean;                                                                 ATTRIBUTE_NAME('LesCoupsSontDansLeMemeOrdre')
+function AllocateListOfMoveRecordsHandle(var liste : ListOfMoveRecordsHdl) : boolean;
+procedure CopyListOMoveRecords(var source,dest : ListOfMoveRecords);
+procedure DisposeListOfMoveRecordsHandle(var liste : ListOfMoveRecordsHdl);
+procedure ViderListOfMoveRecords(var liste : ListOfMoveRecords);
+procedure MetLesCoupsDansLeMemeOrdre(maitres : ListOfMoveRecords; var esclaves : ListOfMoveRecords; longueurClassement : SInt32);
+function LesCoupsSontDansLeMemeOrdre(var liste1,liste2 : ListOfMoveRecords; longueurClassement : SInt32) : boolean;
 
 
 {procedure d'acces ˆ la liste des coups de la fenetre "Reflexion"}
-procedure SetValReflex(var classAux : ListOfMoveRecords; profondeur,compt,longueurclass,genre,numero,IndexEnCours,couleur : SInt16);                                                ATTRIBUTE_NAME('SetValReflex')
-procedure SetValReflexFinale(var classAux : ListOfMoveRecords; profondeur,compt,longueurclass,genre,numero,IndexEnCours,couleur : SInt16);                                          ATTRIBUTE_NAME('SetValReflexFinale')
-procedure SetNroLigneEnCoursDAnalyseDansReflex(nroLigne : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetNroLigneEnCoursDAnalyseDansReflex')
-procedure SetCoupEtScoreAnalyseRetrogradeDansReflex(coup,score : SInt32);                                                                                                           ATTRIBUTE_NAME('SetCoupEtScoreAnalyseRetrogradeDansReflex')
-function EstLaListeDesCoupsDeFenetreReflexion(var whichList : ListOfMoveRecords) : boolean;                                                                                         ATTRIBUTE_NAME('EstLaListeDesCoupsDeFenetreReflexion')
+procedure SetValReflex(var classAux : ListOfMoveRecords; profondeur,compt,longueurclass,genre,numero,IndexEnCours,couleur : SInt16);
+procedure SetValReflexFinale(var classAux : ListOfMoveRecords; profondeur,compt,longueurclass,genre,numero,IndexEnCours,couleur : SInt16);
+procedure SetNroLigneEnCoursDAnalyseDansReflex(nroLigne : SInt32);
+procedure SetCoupEtScoreAnalyseRetrogradeDansReflex(coup,score : SInt32);
+function EstLaListeDesCoupsDeFenetreReflexion(var whichList : ListOfMoveRecords) : boolean;
 
 
 {procedure d'acces et d'ecriture dans la tableOfMoveRecordsLists}
-procedure CopyClassementDansTableOfMoveRecordsLists(var classement : ListOfMoveRecords; quelleProf,longClass : SInt16);                                                             ATTRIBUTE_NAME('CopyClassementDansTableOfMoveRecordsLists')
-procedure EcritClassementDansRapport(whichClassement : ListOfMoveRecords; prompt : String255; longueurClassement : SInt32);                                                         ATTRIBUTE_NAME('EcritClassementDansRapport')
-procedure InvalidateCetteProfDansTableOfMoveRecordsLists(quelleProf : SInt16);                                                                                                      ATTRIBUTE_NAME('InvalidateCetteProfDansTableOfMoveRecordsLists')
-procedure InvalidateAllProfsDansDansTableOfMoveRecordsLists;                                                                                                                        ATTRIBUTE_NAME('InvalidateAllProfsDansDansTableOfMoveRecordsLists')
-procedure HLockAllProfsDansDansTableOfMoveRecordsLists;                                                                                                                             ATTRIBUTE_NAME('HLockAllProfsDansDansTableOfMoveRecordsLists')
-procedure HUnlockAllProfsDansDansTableOfMoveRecordsLists;                                                                                                                           ATTRIBUTE_NAME('HUnlockAllProfsDansDansTableOfMoveRecordsLists')
+procedure CopyClassementDansTableOfMoveRecordsLists(var classement : ListOfMoveRecords; quelleProf,longClass : SInt16);
+procedure EcritClassementDansRapport(whichClassement : ListOfMoveRecords; prompt : String255; longueurClassement : SInt32);
+procedure InvalidateCetteProfDansTableOfMoveRecordsLists(quelleProf : SInt16);
+procedure InvalidateAllProfsDansDansTableOfMoveRecordsLists;
+procedure HLockAllProfsDansDansTableOfMoveRecordsLists;
+procedure HUnlockAllProfsDansDansTableOfMoveRecordsLists;
 
 
 

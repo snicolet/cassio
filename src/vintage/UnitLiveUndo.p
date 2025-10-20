@@ -11,19 +11,19 @@ INTERFACE
 
 
 { Initialisation et destruction de l'unité }
-procedure InitUnitLiveUndo;                                                                                                                                                         ATTRIBUTE_NAME('InitUnitLiveUndo')
-procedure LibereMemoireUnitLiveUndo;                                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitLiveUndo')
+procedure InitUnitLiveUndo;
+procedure LibereMemoireUnitLiveUndo;
 
 
 { Fonctions d'acces }
-function LiveUndoEnCours : boolean;                                                                                                                                                 ATTRIBUTE_NAME('LiveUndoEnCours')
-function LiveUndoVaRejouerImmediatementUnAutreCoup : boolean;                                                                                                                       ATTRIBUTE_NAME('LiveUndoVaRejouerImmediatementUnAutreCoup')
+function LiveUndoEnCours : boolean;
+function LiveUndoVaRejouerImmediatementUnAutreCoup : boolean;
 
 
 { Fonction de gestion du live undo }
-procedure BeginLiveUndo(coupsProteges : SquareSet; nbreDeTicksDeDelai : SInt32);                                                                                                    ATTRIBUTE_NAME('BeginLiveUndo')
-procedure EndLiveUndo;                                                                                                                                                              ATTRIBUTE_NAME('EndLiveUndo')
-procedure GererLiveUndo;                                                                                                                                                            ATTRIBUTE_NAME('GererLiveUndo')
+procedure BeginLiveUndo(coupsProteges : SquareSet; nbreDeTicksDeDelai : SInt32);
+procedure EndLiveUndo;
+procedure GererLiveUndo;
 
 
 

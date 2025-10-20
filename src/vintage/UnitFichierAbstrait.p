@@ -19,48 +19,48 @@ INTERFACE
 
 
 {fonctions de creation et de destruction}
-function NewEmptyFichierAbstrait : FichierAbstrait;                                                                                                                                         ATTRIBUTE_NAME('NewEmptyFichierAbstrait')
-function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;                                                                                           ATTRIBUTE_NAME('MakeFichierAbstraitFichier')
-function MakeFichierAbstraitEnMemoire(taille : SInt32) : FichierAbstrait;                                                                                                                   ATTRIBUTE_NAME('MakeFichierAbstraitEnMemoire')
-function MakeFichierAbstraitFromString(s : String255) : FichierAbstrait;                                                                                                                    ATTRIBUTE_NAME('MakeFichierAbstraitFromString')
-function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;                                                                                                              ATTRIBUTE_NAME('FichierAbstraitEstCorrect')
-procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);                                                                                                                            ATTRIBUTE_NAME('DisposeFichierAbstrait')
+function NewEmptyFichierAbstrait : FichierAbstrait;
+function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;
+function MakeFichierAbstraitEnMemoire(taille : SInt32) : FichierAbstrait;
+function MakeFichierAbstraitFromString(s : String255) : FichierAbstrait;
+function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;
+procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);
 
 
 {fonctions d'ecriture}
 {note : passer une valeur négative dans fromPos pour écrire à la fin du fichier abstrait}
-function EcrireFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32; text : Ptr; var nbOctets : SInt32) : OSErr;                                                                 ATTRIBUTE_NAME('EcrireFichierAbstrait')
-function WriteDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;                                                                                                    ATTRIBUTE_NAME('WriteDansFichierAbstrait')
-function WritelnDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;                                                                                                  ATTRIBUTE_NAME('WritelnDansFichierAbstrait')
-function ViderFichierAbstrait(var theFile : FichierAbstrait) : OSErr;                                                                                                                       ATTRIBUTE_NAME('ViderFichierAbstrait')
+function EcrireFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32; text : Ptr; var nbOctets : SInt32) : OSErr;
+function WriteDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;
+function WritelnDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;
+function ViderFichierAbstrait(var theFile : FichierAbstrait) : OSErr;
 
 
 {fonctions de lecture}
 {note : passer fromPos < 0 pour lire après les derniers octets lus/écrits}
-function ReadFromFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32; var count : SInt32; buffer : Ptr) : OSErr;                                                                ATTRIBUTE_NAME('ReadFromFichierAbstrait')
-function GetNextCharOfFichierAbstrait(var theFile : FichierAbstrait; var c : char) : OSErr;                                                                                                 ATTRIBUTE_NAME('GetNextCharOfFichierAbstrait')
-function ReadlnDansFichierAbstrait(var theFile : FichierAbstrait; var s : String255) : OSErr;                                                                                               ATTRIBUTE_NAME('ReadlnDansFichierAbstrait')
-function ReadlnLongStringDansFichierAbstrait(var theFile : FichierAbstrait; var s : LongString; ignoreLeadingSpaces : boolean) : OSErr;                                                     ATTRIBUTE_NAME('ReadlnLongStringDansFichierAbstrait')
-function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr) : boolean;                                                                                                 ATTRIBUTE_NAME('EOFFichierAbstrait')
+function ReadFromFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32; var count : SInt32; buffer : Ptr) : OSErr;
+function GetNextCharOfFichierAbstrait(var theFile : FichierAbstrait; var c : char) : OSErr;
+function ReadlnDansFichierAbstrait(var theFile : FichierAbstrait; var s : String255) : OSErr;
+function ReadlnLongStringDansFichierAbstrait(var theFile : FichierAbstrait; var s : LongString; ignoreLeadingSpaces : boolean) : OSErr;
+function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr) : boolean;
 
 
 {gestion du marqueur}
-function GetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait) : SInt32;                                                                                                        ATTRIBUTE_NAME('GetPositionMarqueurFichierAbstrait')
-function SetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait; whichPosition : SInt32) : OSErr;                                                                                 ATTRIBUTE_NAME('SetPositionMarqueurFichierAbstrait')
-function RevientEnArriereDansFichierAbstrait(var theFile : FichierAbstrait; nbOctets : SInt32) : OSErr;                                                                                     ATTRIBUTE_NAME('RevientEnArriereDansFichierAbstrait')
+function GetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait) : SInt32;
+function SetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait; whichPosition : SInt32) : OSErr;
+function RevientEnArriereDansFichierAbstrait(var theFile : FichierAbstrait; nbOctets : SInt32) : OSErr;
 
 
 {gestion du type et du createur}
-function GetAbstractFileType(var theFile : FichierAbstrait) : OSType;                                                                                                                       ATTRIBUTE_NAME('GetAbstractFileType')
-function GetAbstractFileCreator(var theFile : FichierAbstrait) : OSType;                                                                                                                    ATTRIBUTE_NAME('GetAbstractFileCreator')
-procedure SetAbstractFileType(var theFile : FichierAbstrait; whichType : OSType);                                                                                                           ATTRIBUTE_NAME('SetAbstractFileType')
-procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : OSType);                                                                                                     ATTRIBUTE_NAME('SetAbstractFileCreator')
+function GetAbstractFileType(var theFile : FichierAbstrait) : OSType;
+function GetAbstractFileCreator(var theFile : FichierAbstrait) : OSType;
+procedure SetAbstractFileType(var theFile : FichierAbstrait; whichType : OSType);
+procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : OSType);
 
 
 {gestion d'acces au fichier disque, si le fichier abstrait est un fichier disque}
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;                                                                        ATTRIBUTE_NAME('GetFichierTEXTOfFichierAbstraitPtr')
-procedure FermerFichierEtFabriquerFichierAbstrait(var fic : FichierTEXT; var theFile : FichierAbstrait);                                                                                    ATTRIBUTE_NAME('FermerFichierEtFabriquerFichierAbstrait')
-procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : FichierTEXT; var theFile : FichierAbstrait);                                                                                      ATTRIBUTE_NAME('DisposeFichierAbstraitEtOuvrirFichier')
+function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;
+procedure FermerFichierEtFabriquerFichierAbstrait(var fic : FichierTEXT; var theFile : FichierAbstrait);
+procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : FichierTEXT; var theFile : FichierAbstrait);
 
 
 
@@ -664,7 +664,7 @@ var err : OSErr;
     buffer : packed array [0..1023] of char;
 begin
   InitLongString(s);
-  
+
   oldPosition := theFile.position;
 
   n := kTailleMaxOfLongString;
@@ -708,19 +708,19 @@ begin
         len := i;                      {on a lus n caracteres sans rencontrer de CR ni de LF}
         newPosition := oldPosition + len;
       end;
-      
-      
+
+
   first := 1;
-  
+
   if ignoreLeadingSpaces then
     while (len > 0) & (buffer[first] = ' ') do
       begin
         inc(first);
         dec(len);
       end;
-      
+
   if (len > 0) then
-    BufferToLongString(@buffer[first], len, s);   
+    BufferToLongString(@buffer[first], len, s);
 
   err := MySetPositionMarqueurFichierAbstrait(theFile , newPosition);
   ReadlnLongStringDansFichierAbstrait := err;

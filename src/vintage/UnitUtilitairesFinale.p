@@ -16,47 +16,47 @@ INTERFACE
 
 
 (* initialisation de l'unite *)
-procedure InitUnitUtilitairesFinale;                                                                                                                                                ATTRIBUTE_NAME('InitUnitUtilitairesFinale')
+procedure InitUnitUtilitairesFinale;
 procedure calculate_neighborhood_mask;                                                                                                                                              EXTERNAL_NAME('calculate_neighborhood_mask');
-procedure InitValeursDeltasSuccessifsFinale;                                                                                                                                        ATTRIBUTE_NAME('InitValeursDeltasSuccessifsFinale')
-procedure InitValeursDesBonusDeParite;                                                                                                                                              ATTRIBUTE_NAME('InitValeursDesBonusDeParite')
-procedure InitValeursRestrictionsLargeurSousArbres(profondeurMinimalePourRestriction : SInt32);                                                                                     ATTRIBUTE_NAME('InitValeursRestrictionsLargeurSousArbres')
-procedure InitValeursStandardAlgoFinale;                                                                                                                                            ATTRIBUTE_NAME('InitValeursStandardAlgoFinale')
-function VerifieAssertionsDeFinale : boolean;                                                                                                                                       ATTRIBUTE_NAME('VerifieAssertionsDeFinale')
+procedure InitValeursDeltasSuccessifsFinale;
+procedure InitValeursDesBonusDeParite;
+procedure InitValeursRestrictionsLargeurSousArbres(profondeurMinimalePourRestriction : SInt32);
+procedure InitValeursStandardAlgoFinale;
+function VerifieAssertionsDeFinale : boolean;
 
 
 
 (* utilitaire pour retrouver la ligne parfaite si elle est stockee en memoire *)
-function PeutCalculerFinaleOptimaleParOptimalite(var PlatAcomparer : plateauOthello; nbNoirCompare,nbBlancCompare : SInt32; var ChoixX,MeilleurDef,scorePourNoir : SInt32) : boolean;                                                                                         ATTRIBUTE_NAME('PeutCalculerFinaleOptimaleParOptimalite')
+function PeutCalculerFinaleOptimaleParOptimalite(var PlatAcomparer : plateauOthello; nbNoirCompare,nbBlancCompare : SInt32; var ChoixX,MeilleurDef,scorePourNoir : SInt32) : boolean;
 
 
 (* affichages *)
-procedure EcritRefutationsDansRapport(longClass : SInt32; var classAux : ListOfMoveRecords);                                                                                        ATTRIBUTE_NAME('EcritRefutationsDansRapport')
-procedure EcritAnnonceFinaleDansMeilleureSuite(typeCalculFinale,nroCoup,deltaFinale : SInt32);                                                                                      ATTRIBUTE_NAME('EcritAnnonceFinaleDansMeilleureSuite')
-procedure SetDerniereAnnonceFinaleDansMeilleureSuite(s : String255);                                                                                                                ATTRIBUTE_NAME('SetDerniereAnnonceFinaleDansMeilleureSuite')
-function GetDerniereAnnonceFinaleDansMeilleureSuite : String255;                                                                                                                    ATTRIBUTE_NAME('GetDerniereAnnonceFinaleDansMeilleureSuite')
+procedure EcritRefutationsDansRapport(longClass : SInt32; var classAux : ListOfMoveRecords);
+procedure EcritAnnonceFinaleDansMeilleureSuite(typeCalculFinale,nroCoup,deltaFinale : SInt32);
+procedure SetDerniereAnnonceFinaleDansMeilleureSuite(s : String255);
+function GetDerniereAnnonceFinaleDansMeilleureSuite : String255;
 
 
 (* conversions *)
-procedure CopyEnPlOthEndgame(var source : plateauOthello; var dest : plOthEndgame);                                                                                                 ATTRIBUTE_NAME('CopyEnPlOthEndgame')
-function EtablitListeCasesVides(var plat : plateauOthello; var listeCasesVides : listeVides) : SInt32;                                                                              ATTRIBUTE_NAME('EtablitListeCasesVides')
-function StructureMeilleureSuiteToString(const meilleureSuite : t_meilleureSuite; prof : SInt32) : String255;                                                                       ATTRIBUTE_NAME('StructureMeilleureSuiteToString')
+procedure CopyEnPlOthEndgame(var source : plateauOthello; var dest : plOthEndgame);
+function EtablitListeCasesVides(var plat : plateauOthello; var listeCasesVides : listeVides) : SInt32;
+function StructureMeilleureSuiteToString(const meilleureSuite : t_meilleureSuite; prof : SInt32) : String255;
 
 
 (* idee de base de Fastest First *)
-function TrierSelonDivergenceSansMilieu(var plat : plateauOthello; couleur,nbCasesVides : SInt32; var source,dest : listeVides) : SInt32;                                           ATTRIBUTE_NAME('TrierSelonDivergenceSansMilieu')
-function TrierSelonDivergenceAvecMilieu(var plat : plateauOthello; couleur,nbCasesVides,conseilHash : SInt32; var source,dest : listeVides; var InfosMilieuDePartie : InfosMilieuRec; alpha,beta : SInt32; var coupureAlphaProbable,coupureBetaProbable : boolean; utiliserMilieu : boolean; var evalCouleur : SInt32) : SInt32;                                        ATTRIBUTE_NAME('TrierSelonDivergenceAvecMilieu')
+function TrierSelonDivergenceSansMilieu(var plat : plateauOthello; couleur,nbCasesVides : SInt32; var source,dest : listeVides) : SInt32;
+function TrierSelonDivergenceAvecMilieu(var plat : plateauOthello; couleur,nbCasesVides,conseilHash : SInt32; var source,dest : listeVides; var InfosMilieuDePartie : InfosMilieuRec; alpha,beta : SInt32; var coupureAlphaProbable,coupureBetaProbable : boolean; utiliserMilieu : boolean; var evalCouleur : SInt32) : SInt32;
 
 
 (* tri stable selon les valeurs min de la table de hashage *)
-procedure TrierSelonHashTableExacte(platDepart : PositionEtTraitRec; var classement : ListOfMoveRecords; longClass, clefHashage : SInt32);                                          ATTRIBUTE_NAME('TrierSelonHashTableExacte')
+procedure TrierSelonHashTableExacte(platDepart : PositionEtTraitRec; var classement : ListOfMoveRecords; longClass, clefHashage : SInt32);
 
 
 (* divers *)
-procedure SetNombreDeCoupsEvaluesParMinimaxDansCettePasse(nombre : SInt32);                                                                                                         ATTRIBUTE_NAME('SetNombreDeCoupsEvaluesParMinimaxDansCettePasse')
-function GetNombreDeCoupsEvaluesParMinimaxDansCettePasse : SInt32;                                                                                                                  ATTRIBUTE_NAME('GetNombreDeCoupsEvaluesParMinimaxDansCettePasse')
-function MinimaxAEvalueAUMoinsUnCoupDansCettePasse : boolean;                                                                                                                       ATTRIBUTE_NAME('MinimaxAEvalueAUMoinsUnCoupDansCettePasse')
-function MinimaxAEvalueTousLesCoupsDansCettePasse(longClass : SInt32) : boolean;                                                                                                    ATTRIBUTE_NAME('MinimaxAEvalueTousLesCoupsDansCettePasse')
+procedure SetNombreDeCoupsEvaluesParMinimaxDansCettePasse(nombre : SInt32);
+function GetNombreDeCoupsEvaluesParMinimaxDansCettePasse : SInt32;
+function MinimaxAEvalueAUMoinsUnCoupDansCettePasse : boolean;
+function MinimaxAEvalueTousLesCoupsDansCettePasse(longClass : SInt32) : boolean;
 
 
 
@@ -667,7 +667,7 @@ var s : String255;
     debugage : boolean;
 begin
   s := '';
-  
+
   if (prof >= -2) then
     begin
       for k := prof downto 1 do
@@ -678,9 +678,9 @@ begin
             s := s + CoupEnString(coup , true);
         end;
     end;
-  
+
   debugage := false;
-  
+
   if debugage then
     begin
       WritelnDansRapport('');
@@ -882,14 +882,14 @@ begin  {$UNUSED conseilHash}
 	     coupTest := source[i];
 
 	     // on joue chacun de nos coups
-	     
+	
 	     //if utiliserMilieu then WritelnNumDansRapport('TrierSelonDivergenceAvecMilieu, coup = ',coupTest);
-	     
+	
 	     {exeptionnellement, pour le debugage seulement !}
        if (coupTest < 11) then AlerteSimple('Debugger : coupTest = '+NumEnString(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
        if (coupTest > 88) then AlerteSimple('Debugger : coupTest = '+NumEnString(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
        if (platDiv[coupTest] <> pionVide) then AlerteSimple('Debugger : platDiv['+NumEnString(coupTest)+'] <> 0 dans TrierSelonDivergenceAvecMilieu');
-   
+
 
 	     if utiliserMilieu
 	       then with InfosMilieuDiv do

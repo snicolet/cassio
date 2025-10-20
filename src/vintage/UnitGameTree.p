@@ -17,256 +17,256 @@ USES UnitDefCassio;
 
 
 {fonctions d'initialisation et de fin de programme}
-procedure InitUnitGameTree;                                                                                                                                                         ATTRIBUTE_NAME('InitUnitGameTree')
-procedure LibereMemoireUnitGameTree;                                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitGameTree')
+procedure InitUnitGameTree;
+procedure LibereMemoireUnitGameTree;
 
 
 {creation et destruction de GameTree}
-function NewGameTree : GameTree;                                                                                                                                                    ATTRIBUTE_NAME('NewGameTree')
-procedure DisposeGameTree(var G : GameTree);                                                                                                                                        ATTRIBUTE_NAME('DisposeGameTree')
-procedure CompacterGameTree(var G : GameTree);                                                                                                                                      ATTRIBUTE_NAME('CompacterGameTree')
-procedure CopyGameTree(source : GameTree; var dest : GameTree); {attention : seulement copie de pointeurs, n'alloue pas de memoire}                                                 ATTRIBUTE_NAME('CopyGameTree')
-function DuplicateGameTree(var G : GameTree) : GameTree;       {utiliser celle-ci pour allouer une nouvelle memoire}                                                                ATTRIBUTE_NAME('DuplicateGameTree')
-function GameTreePtrEstValide(G : GameTree) : boolean;                                                                                                                              ATTRIBUTE_NAME('GameTreePtrEstValide')
+function NewGameTree : GameTree;
+procedure DisposeGameTree(var G : GameTree);
+procedure CompacterGameTree(var G : GameTree);
+procedure CopyGameTree(source : GameTree; var dest : GameTree); {attention : seulement copie de pointeurs, n'alloue pas de memoire}
+function DuplicateGameTree(var G : GameTree) : GameTree;       {utiliser celle-ci pour allouer une nouvelle memoire}
+function GameTreePtrEstValide(G : GameTree) : boolean;
 
 
 {creation d'un GameTree à partir de properties}
-function MakeGameTreeFromPropertyList(L : PropertyList) : GameTree;                                                                                                                 ATTRIBUTE_NAME('MakeGameTreeFromPropertyList')
-function MakeGameTreeFromPropertyListSansDupliquer(L : PropertyList) : GameTree;                                                                                                    ATTRIBUTE_NAME('MakeGameTreeFromPropertyListSansDupliquer')
-function MakeGameTreeFromProperty(prop : Property) : GameTree;                                                                                                                      ATTRIBUTE_NAME('MakeGameTreeFromProperty')
+function MakeGameTreeFromPropertyList(L : PropertyList) : GameTree;
+function MakeGameTreeFromPropertyListSansDupliquer(L : PropertyList) : GameTree;
+function MakeGameTreeFromProperty(prop : Property) : GameTree;
 
 
 {fonctions d'acces à un GameTree}
-function GetFather(G : GameTree) : GameTree;                                                                                                                                        ATTRIBUTE_NAME('GetFather')
-function GameTreeEstVide(G : GameTree) : boolean;                                                                                                                                   ATTRIBUTE_NAME('GameTreeEstVide')
-function IsLeaf(G : GameTree) : boolean;                                                                                                                                            ATTRIBUTE_NAME('IsLeaf')
-function IsInternalNode(G : GameTree) : boolean;                                                                                                                                    ATTRIBUTE_NAME('IsInternalNode')
-function HasSons(G : GameTree) : boolean;                                                                                                                                           ATTRIBUTE_NAME('HasSons')
-function GetSons(G : GameTree) : GameTreeList;                                                                                                                                      ATTRIBUTE_NAME('GetSons')
-function NumberOfSons(G : GameTree) : SInt16;                                                                                                                                       ATTRIBUTE_NAME('NumberOfSons')
-function NumberOfVirtualSons(G : GameTree) : SInt16;                                                                                                                                ATTRIBUTE_NAME('NumberOfVirtualSons')
-function NumberOfRealSons(G : GameTree) : SInt16;                                                                                                                                   ATTRIBUTE_NAME('NumberOfRealSons')
-function NumberOfVirtualNodesUsedForZebraBookDisplay(G : GameTree) : SInt16;                                                                                                        ATTRIBUTE_NAME('NumberOfVirtualNodesUsedForZebraBookDisplay')
-function HasBrothers(G : GameTree) : boolean;                                                                                                                                       ATTRIBUTE_NAME('HasBrothers')
-function GetBrothers(G : GameTree) : GameTreeList;                                                                                                                                  ATTRIBUTE_NAME('GetBrothers')
-function GetOlderBrother(G : GameTree) : GameTree;                                                                                                                                  ATTRIBUTE_NAME('GetOlderBrother')
-function GetNextBrother(G : GameTree) : GameTree;                                                                                                                                   ATTRIBUTE_NAME('GetNextBrother')
-function GetOlderSon(G : GameTree) : GameTree;                                                                                                                                      ATTRIBUTE_NAME('GetOlderSon')
-function GetGameNodeMagicCookie(G : GameTree) : SInt32;                                                                                                                             ATTRIBUTE_NAME('GetGameNodeMagicCookie')
-function GetPropertyList(G : GameTree) : PropertyList;                                                                                                                              ATTRIBUTE_NAME('GetPropertyList')
-function GetCouleurOfMoveInNode(G : GameTree) : SInt32;                                                                                                                             ATTRIBUTE_NAME('GetCouleurOfMoveInNode')
-function GetSquareOfMoveInNode(G : GameTree; var square : SInt32) : boolean;                                                                                                        ATTRIBUTE_NAME('GetSquareOfMoveInNode')
-function MakeListOfThesePropertiesOfSons(whichTypes : SetOfPropertyTypes; var G : GameTree) : PropertyList;                                                                         ATTRIBUTE_NAME('MakeListOfThesePropertiesOfSons')
-function MakeListOfMovePropertyOfSons(couleur : SInt16; var G : GameTree) : PropertyList;                                                                                           ATTRIBUTE_NAME('MakeListOfMovePropertyOfSons')
-function GetEnsembleDesCasesDesFilsAvecCesProprietes(whichTypes : SetOfPropertyTypes; G : GameTree) : SquareSet;                                                                    ATTRIBUTE_NAME('GetEnsembleDesCasesDesFilsAvecCesProprietes')
-function GetEnsembleDesCoupsDesFils(couleur : SInt16; G : GameTree) : SquareSet;                                                                                                    ATTRIBUTE_NAME('GetEnsembleDesCoupsDesFils')
-function GetEnsembleDesCoupsDesFilsReels(G : GameTree) : SquareSet;                                                                                                                 ATTRIBUTE_NAME('GetEnsembleDesCoupsDesFilsReels')
-function GetEnsembleDesCoupsDesFreres(G : GameTree) : SquareSet;                                                                                                                    ATTRIBUTE_NAME('GetEnsembleDesCoupsDesFreres')
-function GetEnsembleDesCoupsDesFreresReels(G : GameTree) : SquareSet;                                                                                                               ATTRIBUTE_NAME('GetEnsembleDesCoupsDesFreresReels')
-function GameNodeHasTooManySons(var G : GameTree; var nbreMinDeFils : SInt32) : boolean;                                                                                            ATTRIBUTE_NAME('GameNodeHasTooManySons')
+function GetFather(G : GameTree) : GameTree;
+function GameTreeEstVide(G : GameTree) : boolean;
+function IsLeaf(G : GameTree) : boolean;
+function IsInternalNode(G : GameTree) : boolean;
+function HasSons(G : GameTree) : boolean;
+function GetSons(G : GameTree) : GameTreeList;
+function NumberOfSons(G : GameTree) : SInt16;
+function NumberOfVirtualSons(G : GameTree) : SInt16;
+function NumberOfRealSons(G : GameTree) : SInt16;
+function NumberOfVirtualNodesUsedForZebraBookDisplay(G : GameTree) : SInt16;
+function HasBrothers(G : GameTree) : boolean;
+function GetBrothers(G : GameTree) : GameTreeList;
+function GetOlderBrother(G : GameTree) : GameTree;
+function GetNextBrother(G : GameTree) : GameTree;
+function GetOlderSon(G : GameTree) : GameTree;
+function GetGameNodeMagicCookie(G : GameTree) : SInt32;
+function GetPropertyList(G : GameTree) : PropertyList;
+function GetCouleurOfMoveInNode(G : GameTree) : SInt32;
+function GetSquareOfMoveInNode(G : GameTree; var square : SInt32) : boolean;
+function MakeListOfThesePropertiesOfSons(whichTypes : SetOfPropertyTypes; var G : GameTree) : PropertyList;
+function MakeListOfMovePropertyOfSons(couleur : SInt16; var G : GameTree) : PropertyList;
+function GetEnsembleDesCasesDesFilsAvecCesProprietes(whichTypes : SetOfPropertyTypes; G : GameTree) : SquareSet;
+function GetEnsembleDesCoupsDesFils(couleur : SInt16; G : GameTree) : SquareSet;
+function GetEnsembleDesCoupsDesFilsReels(G : GameTree) : SquareSet;
+function GetEnsembleDesCoupsDesFreres(G : GameTree) : SquareSet;
+function GetEnsembleDesCoupsDesFreresReels(G : GameTree) : SquareSet;
+function GameNodeHasTooManySons(var G : GameTree; var nbreMinDeFils : SInt32) : boolean;
 
 
 {Ajout et retrait de properties à un GameTree}
-procedure AddPropertyToGameTree(prop : Property; var G : GameTree);                                                                                                                 ATTRIBUTE_NAME('AddPropertyToGameTree')
-procedure AddPropertyToGameTreeSansDuplication(prop : Property; var G : GameTree);                                                                                                  ATTRIBUTE_NAME('AddPropertyToGameTreeSansDuplication')
-procedure AddTranspositionPropertyToGameTree(var texte : String255; var G : GameTree);                                                                                              ATTRIBUTE_NAME('AddTranspositionPropertyToGameTree')
-procedure DeletePropertyFromGameNode(prop : Property; var G : GameTree);                                                                                                            ATTRIBUTE_NAME('DeletePropertyFromGameNode')
-procedure DeletePropertiesOfTheseTypeFromGameNode(whichType : SInt16; var G : GameTree);                                                                                            ATTRIBUTE_NAME('DeletePropertiesOfTheseTypeFromGameNode')
-procedure DeletePropertiesOfTheseTypesFromGameNode(whichTypes : SetOfPropertyTypes; var G : GameTree);                                                                              ATTRIBUTE_NAME('DeletePropertiesOfTheseTypesFromGameNode')
-procedure OverWritePropertyToGameTree(prop : Property; var G : GameTree; var changed : boolean);                                                                                    ATTRIBUTE_NAME('OverWritePropertyToGameTree')
+procedure AddPropertyToGameTree(prop : Property; var G : GameTree);
+procedure AddPropertyToGameTreeSansDuplication(prop : Property; var G : GameTree);
+procedure AddTranspositionPropertyToGameTree(var texte : String255; var G : GameTree);
+procedure DeletePropertyFromGameNode(prop : Property; var G : GameTree);
+procedure DeletePropertiesOfTheseTypeFromGameNode(whichType : SInt16; var G : GameTree);
+procedure DeletePropertiesOfTheseTypesFromGameNode(whichTypes : SetOfPropertyTypes; var G : GameTree);
+procedure OverWritePropertyToGameTree(prop : Property; var G : GameTree; var changed : boolean);
 
 
 {Ajout et retrait des fils}
-procedure AddSonToGameTree(fils,G : GameTree);                                                                                                                                      ATTRIBUTE_NAME('AddSonToGameTree')
-procedure AddSonToGameTreeSansDupliquer(fils,G : GameTree);                                                                                                                         ATTRIBUTE_NAME('AddSonToGameTreeSansDupliquer')
-procedure SetBrothers(var G : GameTree; brothers : GameTreeList);                                                                                                                   ATTRIBUTE_NAME('SetBrothers')
-procedure DeleteAllSons(var G : GameTree);                                                                                                                                          ATTRIBUTE_NAME('DeleteAllSons')
-procedure DeleteThisSon(var G : GameTree; var whichSon : GameTree);                                                                                                                 ATTRIBUTE_NAME('DeleteThisSon')
-function  DeleteSonsOfThatColor(var G : GameTree; couleur : SInt16) : SInt16;                                                                                                       ATTRIBUTE_NAME('DeleteSonsOfThatColor')
-procedure SetSons(var G : GameTree; whichSons : GameTreeList);                                                                                                                      ATTRIBUTE_NAME('SetSons')
+procedure AddSonToGameTree(fils,G : GameTree);
+procedure AddSonToGameTreeSansDupliquer(fils,G : GameTree);
+procedure SetBrothers(var G : GameTree; brothers : GameTreeList);
+procedure DeleteAllSons(var G : GameTree);
+procedure DeleteThisSon(var G : GameTree; var whichSon : GameTree);
+function  DeleteSonsOfThatColor(var G : GameTree; couleur : SInt16) : SInt16;
+procedure SetSons(var G : GameTree; whichSons : GameTreeList);
 
 
 {gestion des interversions}
-function EstSeulDansSonOrbiteDInterversions(G : GameTree) : boolean;                                                                                                                ATTRIBUTE_NAME('EstSeulDansSonOrbiteDInterversions')
-function GetOrbiteInterversions(G : GameTree) : GameTreeList;                                                                                                                       ATTRIBUTE_NAME('GetOrbiteInterversions')
-procedure DetacheDeSonOrbiteDInterversions(var G : GameTree);                                                                                                                       ATTRIBUTE_NAME('DetacheDeSonOrbiteDInterversions')
-procedure FusionOrbitesInterversions(var G1,G2 : GameTree);                                                                                                                         ATTRIBUTE_NAME('FusionOrbitesInterversions')
+function EstSeulDansSonOrbiteDInterversions(G : GameTree) : boolean;
+function GetOrbiteInterversions(G : GameTree) : GameTreeList;
+procedure DetacheDeSonOrbiteDInterversions(var G : GameTree);
+procedure FusionOrbitesInterversions(var G1,G2 : GameTree);
 
 
 {creation et destruction de GameTreeList}
-function NewGameTreeList : GameTreeList;                                                                                                                                            ATTRIBUTE_NAME('NewGameTreeList')
-procedure DisposeGameTreeList(var L : GameTreeList);                                                                                                                                ATTRIBUTE_NAME('DisposeGameTreeList')
-procedure CompacterGameTreeList(var L : GameTreeList);                                                                                                                              ATTRIBUTE_NAME('CompacterGameTreeList')
-function DuplicateGameTreeList(var L : GameTreeList) : GameTreeList;                                                                                                                ATTRIBUTE_NAME('DuplicateGameTreeList')
+function NewGameTreeList : GameTreeList;
+procedure DisposeGameTreeList(var L : GameTreeList);
+procedure CompacterGameTreeList(var L : GameTreeList);
+function DuplicateGameTreeList(var L : GameTreeList) : GameTreeList;
 
 
 {fonctions d'acces à une GameTreeList}
-function HeadOfGameTreeList(L : GameTreeList) : GameTree;                                                                                                                           ATTRIBUTE_NAME('HeadOfGameTreeList')
-function TailOfGameTreeList(L : GameTreeList) : GameTreeList;                                                                                                                       ATTRIBUTE_NAME('TailOfGameTreeList')
-function GameTreeListLength(L : GameTreeList) : SInt32;                                                                                                                             ATTRIBUTE_NAME('GameTreeListLength')
+function HeadOfGameTreeList(L : GameTreeList) : GameTree;
+function TailOfGameTreeList(L : GameTreeList) : GameTreeList;
+function GameTreeListLength(L : GameTreeList) : SInt32;
 
 
 {Ajout et retrait d'element à une GameTreeList}
-procedure ReplaceHeadOfGameTreeList(tree : GameTree; var L : GameTreeList);                                                                                                         ATTRIBUTE_NAME('ReplaceHeadOfGameTreeList')
-function CreateOneElementGameTreeList(tree : GameTree) : GameTreeList;                                                                                                              ATTRIBUTE_NAME('CreateOneElementGameTreeList')
-procedure AddGameTreeToList(tree : GameTree; var L : GameTreeList);                                                                                                                 ATTRIBUTE_NAME('AddGameTreeToList')
-procedure AddGameTreeToListSansDupliquer(tree : GameTree; var L : GameTreeList);                                                                                                    ATTRIBUTE_NAME('AddGameTreeToListSansDupliquer')
-procedure DeleteThisGameTreeInList(var whichTree : GameTree; var L : GameTreeList);                                                                                                 ATTRIBUTE_NAME('DeleteThisGameTreeInList')
+procedure ReplaceHeadOfGameTreeList(tree : GameTree; var L : GameTreeList);
+function CreateOneElementGameTreeList(tree : GameTree) : GameTreeList;
+procedure AddGameTreeToList(tree : GameTree; var L : GameTreeList);
+procedure AddGameTreeToListSansDupliquer(tree : GameTree; var L : GameTreeList);
+procedure DeleteThisGameTreeInList(var whichTree : GameTree; var L : GameTreeList);
 
 
 {permutations de l'arbre}
-procedure BringToFrontInGameTreeList(whichTree : GameTree; var L : GameTreeList);                                                                                                   ATTRIBUTE_NAME('BringToFrontInGameTreeList')
-procedure BringToPositionNInGameTreeList(whichTree : GameTree; N : SInt16; var L : GameTreeList);                                                                                   ATTRIBUTE_NAME('BringToPositionNInGameTreeList')
-procedure PromeutParmiSesFreres(G : GameTree);                                                                                                                                      ATTRIBUTE_NAME('PromeutParmiSesFreres')
-procedure MakeMainLineInGameTree(var G : GameTree);                                                                                                                                 ATTRIBUTE_NAME('MakeMainLineInGameTree')
-procedure TrierLesFilsDeCeNoeud(G : GameTree; critereDeTri : SInt32; var changed : boolean);                                                                                        ATTRIBUTE_NAME('TrierLesFilsDeCeNoeud')
+procedure BringToFrontInGameTreeList(whichTree : GameTree; var L : GameTreeList);
+procedure BringToPositionNInGameTreeList(whichTree : GameTree; N : SInt16; var L : GameTreeList);
+procedure PromeutParmiSesFreres(G : GameTree);
+procedure MakeMainLineInGameTree(var G : GameTree);
+procedure TrierLesFilsDeCeNoeud(G : GameTree; critereDeTri : SInt32; var changed : boolean);
 
 
 
 {iterateurs sur les GameTree et les GameTreeList}
-function MapGameTreeList(L : GameTreeList; f : GameTreeToGameTreeFunc) : GameTreeList;                                                                                              ATTRIBUTE_NAME('MapGameTreeList')
-procedure ForEachGameTreeInListDo(L : GameTreeList ; DoWhat : GameTreeProc);                                                                                                        ATTRIBUTE_NAME('ForEachGameTreeInListDo')
-procedure ForEachGameTreeInListDoAvecResult(L : GameTreeList ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                               ATTRIBUTE_NAME('ForEachGameTreeInListDoAvecResult')
-procedure ForEachGameTreeInListDoAvecGameTree(L : GameTreeList ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);                                                           ATTRIBUTE_NAME('ForEachGameTreeInListDoAvecGameTree')
-procedure ForEachGameTreeInListDoAvecGameTreeEtResult(L : GameTreeList ; DoWhat : GameTreeProcAvecGameTreeEtResult; var Tree : GameTree; var result : SInt32);                      ATTRIBUTE_NAME('ForEachGameTreeInListDoAvecGameTreeEtResult')
-procedure ForEachNodeInGameTreeDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                                   ATTRIBUTE_NAME('ForEachNodeInGameTreeDoAvecResult')
-procedure ForEachNodeInGameTreeListDoAvecResult(L : GameTreeList ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                           ATTRIBUTE_NAME('ForEachNodeInGameTreeListDoAvecResult')
-procedure ForEachPropertyInGameTreeDoAvecResult(G : GameTree ; DoWhat : PropertyProcAvecResult; var result : SInt32);                                                               ATTRIBUTE_NAME('ForEachPropertyInGameTreeDoAvecResult')
-procedure ForEachPropertyInGameTreeListDoAvecResult(L : GameTreeList ; DoWhat : PropertyProcAvecResult; var result : SInt32);                                                       ATTRIBUTE_NAME('ForEachPropertyInGameTreeListDoAvecResult')
-procedure ForEachPropertyOfTheseTypesInNodeDo(G : GameTree; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);                                                               ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesInNodeDo')
-procedure ForEachPropertyOfTheseTypesInNodeDoAvecResult(G : GameTree; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecResult; var result : SInt32);                      ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesInNodeDoAvecResult')
+function MapGameTreeList(L : GameTreeList; f : GameTreeToGameTreeFunc) : GameTreeList;
+procedure ForEachGameTreeInListDo(L : GameTreeList ; DoWhat : GameTreeProc);
+procedure ForEachGameTreeInListDoAvecResult(L : GameTreeList ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ForEachGameTreeInListDoAvecGameTree(L : GameTreeList ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);
+procedure ForEachGameTreeInListDoAvecGameTreeEtResult(L : GameTreeList ; DoWhat : GameTreeProcAvecGameTreeEtResult; var Tree : GameTree; var result : SInt32);
+procedure ForEachNodeInGameTreeDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ForEachNodeInGameTreeListDoAvecResult(L : GameTreeList ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ForEachPropertyInGameTreeDoAvecResult(G : GameTree ; DoWhat : PropertyProcAvecResult; var result : SInt32);
+procedure ForEachPropertyInGameTreeListDoAvecResult(L : GameTreeList ; DoWhat : PropertyProcAvecResult; var result : SInt32);
+procedure ForEachPropertyOfTheseTypesInNodeDo(G : GameTree; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);
+procedure ForEachPropertyOfTheseTypesInNodeDoAvecResult(G : GameTree; whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProcAvecResult; var result : SInt32);
 
 
 {fonction de recherche dans un GameTree ou une GameTreeList}
-function NodeHasTheseProperties(G : GameTree; L : PropertyList) : boolean;                                                                                                          ATTRIBUTE_NAME('NodeHasTheseProperties')
-function NodeHasThesePropertyTypes(G : GameTree; whichTypes : SetOfPropertyTypes) : boolean;                                                                                        ATTRIBUTE_NAME('NodeHasThesePropertyTypes')
-function NodeHasNoMoreThanThesePropertyTypes(G : GameTree; whichTypes : SetOfPropertyTypes) : boolean;                                                                              ATTRIBUTE_NAME('NodeHasNoMoreThanThesePropertyTypes')
-function GameTreeListEstVide(L : GameTreeList) : boolean;                                                                                                                           ATTRIBUTE_NAME('GameTreeListEstVide')
-function ExistsInGameTreeList(G : GameTree; L : GameTreeList) : boolean;                                                                                                            ATTRIBUTE_NAME('ExistsInGameTreeList')
+function NodeHasTheseProperties(G : GameTree; L : PropertyList) : boolean;
+function NodeHasThesePropertyTypes(G : GameTree; whichTypes : SetOfPropertyTypes) : boolean;
+function NodeHasNoMoreThanThesePropertyTypes(G : GameTree; whichTypes : SetOfPropertyTypes) : boolean;
+function GameTreeListEstVide(L : GameTreeList) : boolean;
+function ExistsInGameTreeList(G : GameTree; L : GameTreeList) : boolean;
 
 
 {fonctions de selection}
-function SelectFirstGameTreeWithThisPropertyInList(prop : Property; L : GameTreeList) : GameTree;                                                                                   ATTRIBUTE_NAME('SelectFirstGameTreeWithThisPropertyInList')
-function SelectFirstSubtreeWithThisProperty(prop : Property; G : GameTree) : GameTree;                                                                                              ATTRIBUTE_NAME('SelectFirstSubtreeWithThisProperty')
-function SelectFirstPropertyOfTypesInGameTree(whichTypes : SetOfPropertyTypes; G : GameTree) : PropertyPtr;                                                                         ATTRIBUTE_NAME('SelectFirstPropertyOfTypesInGameTree')
-function SelectNthGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;                                                                                                          ATTRIBUTE_NAME('SelectNthGameTreeInList')
-function SelectNthRealGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;                                                                                                      ATTRIBUTE_NAME('SelectNthRealGameTreeInList')
-function SelectNthSon(n : SInt16; G : GameTree) : GameTree;                                                                                                                         ATTRIBUTE_NAME('SelectNthSon')
-function SelectNthRealSon(n : SInt16; G : GameTree) : GameTree;                                                                                                                     ATTRIBUTE_NAME('SelectNthRealSon')
-function SelectTheSonAfterThisMove(G : GameTree; square,couleur : SInt16) : GameTree;                                                                                               ATTRIBUTE_NAME('SelectTheSonAfterThisMove')
+function SelectFirstGameTreeWithThisPropertyInList(prop : Property; L : GameTreeList) : GameTree;
+function SelectFirstSubtreeWithThisProperty(prop : Property; G : GameTree) : GameTree;
+function SelectFirstPropertyOfTypesInGameTree(whichTypes : SetOfPropertyTypes; G : GameTree) : PropertyPtr;
+function SelectNthGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;
+function SelectNthRealGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;
+function SelectNthSon(n : SInt16; G : GameTree) : GameTree;
+function SelectNthRealSon(n : SInt16; G : GameTree) : GameTree;
+function SelectTheSonAfterThisMove(G : GameTree; square,couleur : SInt16) : GameTree;
 
 
 {iterateurs sur les fils}
-procedure ForEachSonDo(G : GameTree ; DoWhat : GameTreeProc);                                                                                                                       ATTRIBUTE_NAME('ForEachSonDo')
-procedure ForEachSonDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                                              ATTRIBUTE_NAME('ForEachSonDoAvecResult')
-procedure ForEachSonDoAvecGameTree(G : GameTree ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);                                                                          ATTRIBUTE_NAME('ForEachSonDoAvecGameTree')
+procedure ForEachSonDo(G : GameTree ; DoWhat : GameTreeProc);
+procedure ForEachSonDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ForEachSonDoAvecGameTree(G : GameTree ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);
 
 
 {iterateurs sur les freres}
-procedure ForEachBrotherDo(G : GameTree ; DoWhat : GameTreeProc);                                                                                                                   ATTRIBUTE_NAME('ForEachBrotherDo')
-procedure ForEachBrotherDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                                          ATTRIBUTE_NAME('ForEachBrotherDoAvecResult')
-procedure ForEachBrotherDoAvecGameTree(G : GameTree ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);                                                                      ATTRIBUTE_NAME('ForEachBrotherDoAvecGameTree')
+procedure ForEachBrotherDo(G : GameTree ; DoWhat : GameTreeProc);
+procedure ForEachBrotherDoAvecResult(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ForEachBrotherDoAvecGameTree(G : GameTree ; DoWhat : GameTreeProcAvecGameTree; var Tree : GameTree);
 
 
 {parcours de l'arbre}
-function NextNodePourParcoursEnProfondeurArbre(G : GameTree) : GameTree;                                                                                                            ATTRIBUTE_NAME('NextNodePourParcoursEnProfondeurArbre')
-procedure ParcourirGameTree(noeudDepart,noeudArret : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                              ATTRIBUTE_NAME('ParcourirGameTree')
-procedure LancerNouveauParcoursOfGameTree(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                                     ATTRIBUTE_NAME('LancerNouveauParcoursOfGameTree')
-procedure ContinuerParcoursOfGameTree(DoWhat : GameTreeProcAvecResult; var result : SInt32);                                                                                        ATTRIBUTE_NAME('ContinuerParcoursOfGameTree')
+function NextNodePourParcoursEnProfondeurArbre(G : GameTree) : GameTree;
+procedure ParcourirGameTree(noeudDepart,noeudArret : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure LancerNouveauParcoursOfGameTree(G : GameTree ; DoWhat : GameTreeProcAvecResult; var result : SInt32);
+procedure ContinuerParcoursOfGameTree(DoWhat : GameTreeProcAvecResult; var result : SInt32);
 
 
 {recherche générale dans l'arbre}
-function SearchFromGameTree(noeudDepart,noeudArret : GameTree; whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;                                              ATTRIBUTE_NAME('SearchFromGameTree')
-function FindNodeInGameTree(G : GameTree; whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;                                                                   ATTRIBUTE_NAME('FindNodeInGameTree')
-function FindNextNodeInGameTree(whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;                                                                             ATTRIBUTE_NAME('FindNextNodeInGameTree')
-function FindNodeAvecCesPropertiesDansGameTree(G : GameTree; L : PropertyList) : GameTree;                                                                                          ATTRIBUTE_NAME('FindNodeAvecCesPropertiesDansGameTree')
-function FindNextNodeAvecCesPropertiesDansGameTree(L : PropertyList) : GameTree;                                                                                                    ATTRIBUTE_NAME('FindNextNodeAvecCesPropertiesDansGameTree')
+function SearchFromGameTree(noeudDepart,noeudArret : GameTree; whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;
+function FindNodeInGameTree(G : GameTree; whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;
+function FindNextNodeInGameTree(whichPredicate : GameTreePredicate; var parametre : SInt32) : GameTree;
+function FindNodeAvecCesPropertiesDansGameTree(G : GameTree; L : PropertyList) : GameTree;
+function FindNextNodeAvecCesPropertiesDansGameTree(L : PropertyList) : GameTree;
 
 
 {recherche d'une chaine de caracteres dans l'arbre}
-function FindStringInNode(var G : GameTree; var whichStringPtr : SInt32) : boolean;                                                                                                 ATTRIBUTE_NAME('FindStringInNode')
-function FindUpperStringWithoutDiacriticsInNode(var G : GameTree; var whichStringPtr : SInt32) : boolean;                                                                           ATTRIBUTE_NAME('FindUpperStringWithoutDiacriticsInNode')
-procedure SetLastStringSearchedInGameTree(s : String255);                                                                                                                           ATTRIBUTE_NAME('SetLastStringSearchedInGameTree')
-function GetLastStringSearchedInGameTree : String255;                                                                                                                               ATTRIBUTE_NAME('GetLastStringSearchedInGameTree')
+function FindStringInNode(var G : GameTree; var whichStringPtr : SInt32) : boolean;
+function FindUpperStringWithoutDiacriticsInNode(var G : GameTree; var whichStringPtr : SInt32) : boolean;
+procedure SetLastStringSearchedInGameTree(s : String255);
+function GetLastStringSearchedInGameTree : String255;
 
 
 {fonction d'ecriture de GameTree dans le rapport}
-procedure WriteGameTreeDansRapport(var G : GameTree);                                                                                                                               ATTRIBUTE_NAME('WriteGameTreeDansRapport')
-procedure WritelnGameTreeDansRapport(var G : GameTree);                                                                                                                             ATTRIBUTE_NAME('WritelnGameTreeDansRapport')
-procedure WriteStringAndGameTreeDansRapport(s : String255; G : GameTree);                                                                                                           ATTRIBUTE_NAME('WriteStringAndGameTreeDansRapport')
-procedure WritelnStringAndGameTreeDansRapport(s : String255; G : GameTree);                                                                                                         ATTRIBUTE_NAME('WritelnStringAndGameTreeDansRapport')
-procedure WriteGameNodeDansRapport(var G : GameTree);                                                                                                                               ATTRIBUTE_NAME('WriteGameNodeDansRapport')
-procedure WritelnGameNodeDansRapport(var G : GameTree);                                                                                                                             ATTRIBUTE_NAME('WritelnGameNodeDansRapport')
-procedure WriteStringAndGameNodeDansRapport(s : String255; G : GameTree);                                                                                                           ATTRIBUTE_NAME('WriteStringAndGameNodeDansRapport')
-procedure WritelnStringAndGameNodeDansRapport(s : String255; G : GameTree);                                                                                                         ATTRIBUTE_NAME('WritelnStringAndGameNodeDansRapport')
+procedure WriteGameTreeDansRapport(var G : GameTree);
+procedure WritelnGameTreeDansRapport(var G : GameTree);
+procedure WriteStringAndGameTreeDansRapport(s : String255; G : GameTree);
+procedure WritelnStringAndGameTreeDansRapport(s : String255; G : GameTree);
+procedure WriteGameNodeDansRapport(var G : GameTree);
+procedure WritelnGameNodeDansRapport(var G : GameTree);
+procedure WriteStringAndGameNodeDansRapport(s : String255; G : GameTree);
+procedure WritelnStringAndGameNodeDansRapport(s : String255; G : GameTree);
 
 
 {fonction de symetrie}
-procedure EffectueSymetrieOnGameTree(G : GameTree; axeSymetrie : SInt32);                                                                                                           ATTRIBUTE_NAME('EffectueSymetrieOnGameTree')
+procedure EffectueSymetrieOnGameTree(G : GameTree; axeSymetrie : SInt32);
 
 
 {fonction de traduction des chemins en String255}
-function CoupOfGameNodeEnString(G : GameTree) : String255;                                                                                                                          ATTRIBUTE_NAME('CoupOfGameNodeEnString')
-function CoupsDuCheminAuDessusEnString(G : GameTree) : String255;                                                                                                                   ATTRIBUTE_NAME('CoupsDuCheminAuDessusEnString')
-function CoupsDuCheminJusquauNoeudEnString(G : GameTree) : String255;                                                                                                               ATTRIBUTE_NAME('CoupsDuCheminJusquauNoeudEnString')
-function CoupsOfMainLineInGameTreeEnString(G : GameTree) : String255;                                                                                                               ATTRIBUTE_NAME('CoupsOfMainLineInGameTreeEnString')
-function CoupsOfMainLineIncludingThisNodeEnString(G : GameTree) : String255;                                                                                                        ATTRIBUTE_NAME('CoupsOfMainLineIncludingThisNodeEnString')
+function CoupOfGameNodeEnString(G : GameTree) : String255;
+function CoupsDuCheminAuDessusEnString(G : GameTree) : String255;
+function CoupsDuCheminJusquauNoeudEnString(G : GameTree) : String255;
+function CoupsOfMainLineInGameTreeEnString(G : GameTree) : String255;
+function CoupsOfMainLineIncludingThisNodeEnString(G : GameTree) : String255;
 
 
 {gestion des interversions}
-procedure CreeTableHachageInterversions;                                                                                                                                            ATTRIBUTE_NAME('CreeTableHachageInterversions')
-procedure DisposeTableHachageInterversions;                                                                                                                                         ATTRIBUTE_NAME('DisposeTableHachageInterversions')
-procedure VideTableHashageInterversions;                                                                                                                                            ATTRIBUTE_NAME('VideTableHashageInterversions')
-procedure GarbageCollectionDansTableHashageInterversions;                                                                                                                           ATTRIBUTE_NAME('GarbageCollectionDansTableHashageInterversions')
-procedure MetDansHashTableInterversions(G : GameTree; var positionEtTrait : PositionEtTraitRec; hashIndex : InterversionHashIndexRec);                                              ATTRIBUTE_NAME('MetDansHashTableInterversions')
-procedure SetDansHashTableInterversion(index : SInt32; G : GameTree; stamp : SInt32);                                                                                               ATTRIBUTE_NAME('SetDansHashTableInterversion')
-procedure SetNbCollisionsInterversions(n : SInt32);                                                                                                                                 ATTRIBUTE_NAME('SetNbCollisionsInterversions')
-function GetDansHashTableInversion(index : SInt32; var stamp : SInt32) : GameTree;                                                                                                  ATTRIBUTE_NAME('GetDansHashTableInversion')
-function CalculeIndexHashTableInterversions(var positionEtTrait : PositionEtTraitRec) : SInt32;                                                                                     ATTRIBUTE_NAME('CalculeIndexHashTableInterversions')
-function ExisteDansHashTableInterversions(var positionEtTrait : PositionEtTraitRec; var GameTreeInterversion : GameTree; var hashIndex : InterversionHashIndexRec) : boolean;       ATTRIBUTE_NAME('ExisteDansHashTableInterversions')
-function GetNbCollisionsInterversions : SInt32;                                                                                                                                     ATTRIBUTE_NAME('GetNbCollisionsInterversions')
+procedure CreeTableHachageInterversions;
+procedure DisposeTableHachageInterversions;
+procedure VideTableHashageInterversions;
+procedure GarbageCollectionDansTableHashageInterversions;
+procedure MetDansHashTableInterversions(G : GameTree; var positionEtTrait : PositionEtTraitRec; hashIndex : InterversionHashIndexRec);
+procedure SetDansHashTableInterversion(index : SInt32; G : GameTree; stamp : SInt32);
+procedure SetNbCollisionsInterversions(n : SInt32);
+function GetDansHashTableInversion(index : SInt32; var stamp : SInt32) : GameTree;
+function CalculeIndexHashTableInterversions(var positionEtTrait : PositionEtTraitRec) : SInt32;
+function ExisteDansHashTableInterversions(var positionEtTrait : PositionEtTraitRec; var GameTreeInterversion : GameTree; var hashIndex : InterversionHashIndexRec) : boolean;
+function GetNbCollisionsInterversions : SInt32;
 
 
 {gestion des noeuds virtuels}
-function IsAVirtualNode(G : GameTree) : boolean;                                                                                                                                    ATTRIBUTE_NAME('IsAVirtualNode')
-function IsARealNode(G : GameTree) : boolean;                                                                                                                                       ATTRIBUTE_NAME('IsARealNode')
-function IsAVirtualNodeUsedForZebraBookDisplay(G : GameTree) : boolean;                                                                                                             ATTRIBUTE_NAME('IsAVirtualNodeUsedForZebraBookDisplay')
-function IsAVirtualSon(G : GameTree; square,couleur : SInt16) : boolean;                                                                                                            ATTRIBUTE_NAME('IsAVirtualSon')
-function IsARealSon(G : GameTree; square,couleur : SInt16) : boolean;                                                                                                               ATTRIBUTE_NAME('IsARealSon')
-function IsAVirtualSonUsedForZebraBookDisplay(G : GameTree; square,couleur : SInt16) : boolean;                                                                                     ATTRIBUTE_NAME('IsAVirtualSonUsedForZebraBookDisplay')
-procedure MarquerCeNoeudCommeVirtuel(G : GameTree);                                                                                                                                 ATTRIBUTE_NAME('MarquerCeNoeudCommeVirtuel')
-procedure MarquerCeNoeudCommeReel(G : GameTree);                                                                                                                                    ATTRIBUTE_NAME('MarquerCeNoeudCommeReel')
-procedure DetruitLesFilsVirtuelsInutilesDeCeNoeud(var G : GameTree);                                                                                                                ATTRIBUTE_NAME('DetruitLesFilsVirtuelsInutilesDeCeNoeud')
-procedure DetruitLesFilsZebraBookInutilesDeCeNoeud(var G : GameTree);                                                                                                               ATTRIBUTE_NAME('DetruitLesFilsZebraBookInutilesDeCeNoeud')
+function IsAVirtualNode(G : GameTree) : boolean;
+function IsARealNode(G : GameTree) : boolean;
+function IsAVirtualNodeUsedForZebraBookDisplay(G : GameTree) : boolean;
+function IsAVirtualSon(G : GameTree; square,couleur : SInt16) : boolean;
+function IsARealSon(G : GameTree; square,couleur : SInt16) : boolean;
+function IsAVirtualSonUsedForZebraBookDisplay(G : GameTree; square,couleur : SInt16) : boolean;
+procedure MarquerCeNoeudCommeVirtuel(G : GameTree);
+procedure MarquerCeNoeudCommeReel(G : GameTree);
+procedure DetruitLesFilsVirtuelsInutilesDeCeNoeud(var G : GameTree);
+procedure DetruitLesFilsZebraBookInutilesDeCeNoeud(var G : GameTree);
 
 
 {gestion des scores }
-function SelectScorePropertyOfNode(G : GameTree) : PropertyPtr;                                                                                                                     ATTRIBUTE_NAME('SelectScorePropertyOfNode')
-function SelectMovePropertyOfNode(G : GameTree) : PropertyPtr;                                                                                                                      ATTRIBUTE_NAME('SelectMovePropertyOfNode')
-procedure AddScorePropertyToGameTreeSansDuplication(prop : Property; var G : GameTree);                                                                                             ATTRIBUTE_NAME('AddScorePropertyToGameTreeSansDuplication')
-procedure AjoutePropertyValeurDeCoupDansGameTree(quelGenreDeReflexion,scorePourNoir : SInt32; G : GameTree);                                                                        ATTRIBUTE_NAME('AjoutePropertyValeurDeCoupDansGameTree')
-procedure AjoutePropertyScoreExactPourCetteCouleurDansGameTree(quelGenreDeReflexion,score,couleur : SInt32; G : GameTree);                                                          ATTRIBUTE_NAME('AjoutePropertyScoreExactPourCetteCouleurDansGameTree')
-procedure RemettreScorePropertyDansCeNoeud(var G : GameTree);                                                                                                                       ATTRIBUTE_NAME('RemettreScorePropertyDansCeNoeud')
-procedure RetropropagerScoreDesFilsDansGameTree(G : GameTree);                                                                                                                      ATTRIBUTE_NAME('RetropropagerScoreDesFilsDansGameTree')
-function GetEndgameScoreDeCetteCouleurDansGameNode(G : GameTree; couleur : SInt32; var scoreMinPourCouleur,scoreMaxPourCouleur : SInt32) : boolean;                                 ATTRIBUTE_NAME('GetEndgameScoreDeCetteCouleurDansGameNode')
-function NodeHasAPerfectScoreInformation(G : GameTree) : boolean;                                                                                                                   ATTRIBUTE_NAME('NodeHasAPerfectScoreInformation')
-function NbreDeFilsAyantUnScoreParfait(G : GameTree) : SInt32;                                                                                                                      ATTRIBUTE_NAME('NbreDeFilsAyantUnScoreParfait')
-function IsAWinningNode(G : GameTree) : boolean;                                                                                                                                    ATTRIBUTE_NAME('IsAWinningNode')
-function IsALosingNode(G : GameTree) : boolean;                                                                                                                                     ATTRIBUTE_NAME('IsALosingNode')
-function IsADrawNode(G : GameTree) : boolean;                                                                                                                                       ATTRIBUTE_NAME('IsADrawNode')
-function GetValeurMinimumOfNode(G : GameTree; deltaFinale : SInt32) : SInt32;                                                                                                       ATTRIBUTE_NAME('GetValeurMinimumOfNode')
-function GetValeurMaximumOfNode(G : GameTree; deltaFinale : SInt32) : SInt32;                                                                                                       ATTRIBUTE_NAME('GetValeurMaximumOfNode')
-function ConnaitValeurDuNoeud(G : GameTree; deltaFinale : SInt32; var vmin,vmax : SInt32) : boolean;                                                                                ATTRIBUTE_NAME('ConnaitValeurDuNoeud')
-function GetZebraBookEvalForThisNode(G : GameTree; forWhichColor : SInt32) : SInt32;                                                                                                ATTRIBUTE_NAME('GetZebraBookEvalForThisNode')
+function SelectScorePropertyOfNode(G : GameTree) : PropertyPtr;
+function SelectMovePropertyOfNode(G : GameTree) : PropertyPtr;
+procedure AddScorePropertyToGameTreeSansDuplication(prop : Property; var G : GameTree);
+procedure AjoutePropertyValeurDeCoupDansGameTree(quelGenreDeReflexion,scorePourNoir : SInt32; G : GameTree);
+procedure AjoutePropertyScoreExactPourCetteCouleurDansGameTree(quelGenreDeReflexion,score,couleur : SInt32; G : GameTree);
+procedure RemettreScorePropertyDansCeNoeud(var G : GameTree);
+procedure RetropropagerScoreDesFilsDansGameTree(G : GameTree);
+function GetEndgameScoreDeCetteCouleurDansGameNode(G : GameTree; couleur : SInt32; var scoreMinPourCouleur,scoreMaxPourCouleur : SInt32) : boolean;
+function NodeHasAPerfectScoreInformation(G : GameTree) : boolean;
+function NbreDeFilsAyantUnScoreParfait(G : GameTree) : SInt32;
+function IsAWinningNode(G : GameTree) : boolean;
+function IsALosingNode(G : GameTree) : boolean;
+function IsADrawNode(G : GameTree) : boolean;
+function GetValeurMinimumOfNode(G : GameTree; deltaFinale : SInt32) : SInt32;
+function GetValeurMaximumOfNode(G : GameTree; deltaFinale : SInt32) : SInt32;
+function ConnaitValeurDuNoeud(G : GameTree; deltaFinale : SInt32; var vmin,vmax : SInt32) : boolean;
+function GetZebraBookEvalForThisNode(G : GameTree; forWhichColor : SInt32) : SInt32;
 
 
 {extraction d'une suite parfaite d'un GameTree}
-function PeutCompleterSuiteParfaiteParGameTree(G : GameTree; position : PositionEtTraitRec; var vmin,vmax : SInt32; var listeDesCoups : PropertyList) : boolean;                    ATTRIBUTE_NAME('PeutCompleterSuiteParfaiteParGameTree')
-function PeutCalculerFinaleDansGameTree(G : GameTree; position : PositionEtTraitRec; var listeDesCoups : PropertyList; var vmin,vmax : SInt32) : boolean;                           ATTRIBUTE_NAME('PeutCalculerFinaleDansGameTree')
+function PeutCompleterSuiteParfaiteParGameTree(G : GameTree; position : PositionEtTraitRec; var vmin,vmax : SInt32; var listeDesCoups : PropertyList) : boolean;
+function PeutCalculerFinaleDansGameTree(G : GameTree; position : PositionEtTraitRec; var listeDesCoups : PropertyList; var vmin,vmax : SInt32) : boolean;
 
 
 {une fonction de debuggage}
-function IsCriticalOrCrashingTree(G : GameTree) : boolean;                                                                                                                          ATTRIBUTE_NAME('IsCriticalOrCrashingTree')
+function IsCriticalOrCrashingTree(G : GameTree) : boolean;
 
 
 
@@ -829,9 +829,9 @@ begin
               begin
                 if IsAVirtualNodeUsedForZebraBookDisplay(L^.head)
                   then table[compteur].note := GetZebraBookEvalForThisNode(L^.head, -couleur)
-                  else 
-                    if not(HasSons(L^.head)) & 
-                       IsAVirtualNode(L^.head) & 
+                  else
+                    if not(HasSons(L^.head)) &
+                       IsAVirtualNode(L^.head) &
                        GetEndgameScoreDeCetteCouleurDansGameNode(L^.head, GetCouleurOfMoveInNode(L^.head), vmin, vmax)
                         then table[compteur].note := vmin
                         else table[compteur].note := 10000000; // pour que les vrais noeuds de l'arbre restent en tete
@@ -877,7 +877,7 @@ begin
    for t := 1 to compteur do
       WritelnNumDansRapport('',table[t].note);
   *)
-  
+
 
   { phase 3 : mettre les fils dans l'ordre dans l'arbre }
   for t := compteur downto 1 do

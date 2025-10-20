@@ -13,27 +13,27 @@ INTERFACE
  USES UnitDefCassio;
 
 { Phases de la partie : phaseDebut, phaseMilieu, phaseFinale, phaseFinaleParfaite}
-function CalculePhasePartie(numeroCoup : SInt16) : SInt16;                                                                                                                          ATTRIBUTE_NAME('CalculePhasePartie')
-function GenreReflexionToPhasePartie(genre : SInt32) : SInt32;                                                                                                                      ATTRIBUTE_NAME('GenreReflexionToPhasePartie')
-procedure InterruptionCarPhasePartieChange;                                                                                                                                         ATTRIBUTE_NAME('InterruptionCarPhasePartieChange')
+function CalculePhasePartie(numeroCoup : SInt16) : SInt16;
+function GenreReflexionToPhasePartie(genre : SInt32) : SInt32;
+procedure InterruptionCarPhasePartieChange;
 
 { Changements de phases }
-procedure DetermineMomentFinDePartie;                                                                                                                                               ATTRIBUTE_NAME('DetermineMomentFinDePartie')
-procedure DoChangeHumCtreHum;                                                                                                                                                       ATTRIBUTE_NAME('DoChangeHumCtreHum')
-procedure DoChangeCouleur;                                                                                                                                                          ATTRIBUTE_NAME('DoChangeCouleur')
-procedure DoFinaleGagnante(selectedByMenu : boolean);                                                                                                                               ATTRIBUTE_NAME('DoFinaleGagnante')
-procedure DoFinaleOptimale(selectedByMenu : boolean);                                                                                                                               ATTRIBUTE_NAME('DoFinaleOptimale')
-procedure DoChangeEvaluationTotale(selectedByMenu : boolean);                                                                                                                       ATTRIBUTE_NAME('DoChangeEvaluationTotale')
-procedure DoMilieuDeJeu(selectedByMenu : boolean);                                                                                                                                  ATTRIBUTE_NAME('DoMilieuDeJeu')
-procedure DoMilieuDeJeuNormal(combienDeCoups : SInt16; selectedByMenu : boolean);                                                                                                   ATTRIBUTE_NAME('DoMilieuDeJeuNormal')
-procedure DoMilieuDeJeuAnalyse(selectedByMenu : boolean);                                                                                                                           ATTRIBUTE_NAME('DoMilieuDeJeuAnalyse')
-procedure SetGameMode(typeDeJeuDemande : SInt16);                                                                                                                                   ATTRIBUTE_NAME('SetGameMode')
+procedure DetermineMomentFinDePartie;
+procedure DoChangeHumCtreHum;
+procedure DoChangeCouleur;
+procedure DoFinaleGagnante(selectedByMenu : boolean);
+procedure DoFinaleOptimale(selectedByMenu : boolean);
+procedure DoChangeEvaluationTotale(selectedByMenu : boolean);
+procedure DoMilieuDeJeu(selectedByMenu : boolean);
+procedure DoMilieuDeJeuNormal(combienDeCoups : SInt16; selectedByMenu : boolean);
+procedure DoMilieuDeJeuAnalyse(selectedByMenu : boolean);
+procedure SetGameMode(typeDeJeuDemande : SInt16);
 
 { Derniere reflexion effectuee par Cassio : ReflGagnant, ReflParfait, ReflMilieu, etc}
-procedure SetGenreDerniereReflexionDeCassio(typeReflexion,numeroCoup : SInt32);                                                                                                     ATTRIBUTE_NAME('SetGenreDerniereReflexionDeCassio')
-function GenreDerniereReflexion : SInt32;                                                                                                                                           ATTRIBUTE_NAME('GenreDerniereReflexion')
-function NumeroDuCoupDerniereReflexion : SInt32;                                                                                                                                    ATTRIBUTE_NAME('NumeroDuCoupDerniereReflexion')
-function PhasePartieDerniereReflexion : SInt32;                                                                                                                                     ATTRIBUTE_NAME('PhasePartieDerniereReflexion')
+procedure SetGenreDerniereReflexionDeCassio(typeReflexion,numeroCoup : SInt32);
+function GenreDerniereReflexion : SInt32;
+function NumeroDuCoupDerniereReflexion : SInt32;
+function PhasePartieDerniereReflexion : SInt32;
 
 
 

@@ -15,24 +15,24 @@ INTERFACE
 
 
 {Initialisation de l'unite}
-procedure InitUnitSelectionRapideListe;                                                                                                                                             ATTRIBUTE_NAME('InitUnitSelectionRapideListe')
-procedure LibereMemoireUnitSelectionRapideListe;                                                                                                                                    ATTRIBUTE_NAME('LibereMemoireUnitSelectionRapideListe')
+procedure InitUnitSelectionRapideListe;
+procedure LibereMemoireUnitSelectionRapideListe;
 
 
 {gestion de l'historique des evenements de clavier}
-procedure EnregisterToucheClavier(c : char; when : SInt32);                                                                                                                         ATTRIBUTE_NAME('EnregisterToucheClavier')
-function EstEnAttenteSelectionRapideDeListe : boolean;                                                                                                                              ATTRIBUTE_NAME('EstEnAttenteSelectionRapideDeListe')
+procedure EnregisterToucheClavier(c : char; when : SInt32);
+function EstEnAttenteSelectionRapideDeListe : boolean;
 
 
 {acces aux demandes de selection rapide trouvees}
-function GetDerniereChaineSelectionRapide : String255;                                                                                                                              ATTRIBUTE_NAME('GetDerniereChaineSelectionRapide')
-function GetDernierGenreSelectionRapide : typeSelectionRapide;                                                                                                                      ATTRIBUTE_NAME('GetDernierGenreSelectionRapide')
-procedure SetDerniereChaineSelectionRapide(s : String255);                                                                                                                          ATTRIBUTE_NAME('SetDerniereChaineSelectionRapide')
-procedure SetDernierGenreSelectionRapide(genre : typeSelectionRapide);                                                                                                              ATTRIBUTE_NAME('SetDernierGenreSelectionRapide')
+function GetDerniereChaineSelectionRapide : String255;
+function GetDernierGenreSelectionRapide : typeSelectionRapide;
+procedure SetDerniereChaineSelectionRapide(s : String255);
+procedure SetDernierGenreSelectionRapide(genre : typeSelectionRapide);
 
 
 {gestion des demandes de selection rapide}
-procedure TraiteSelectionRapideDeListe(genre : typeSelectionRapide; chaineCherchee : String255);                                                                                    ATTRIBUTE_NAME('TraiteSelectionRapideDeListe')
+procedure TraiteSelectionRapideDeListe(genre : typeSelectionRapide; chaineCherchee : String255);
 
 
 
@@ -255,7 +255,7 @@ begin
 		        kSelRapideTournoi:
 		          begin
 		            sousCritereMustBeAPerfectMatch[TournoiRubanBox] := false;
-		            
+		
 							  TournoiCompatible     := NewTableTournoiCompatiblePtr;
 		            if (chaineCherchee[LENGTH_OF_STRING(chaineCherchee)] = '=') then
 		              begin
@@ -282,7 +282,7 @@ begin
 		        kSelRapideNoir:
 		          begin
 		            sousCritereMustBeAPerfectMatch[JoueurNoirRubanBox] := false;
-		            
+		
 							  JoueurNoirCompatible  := NewTableJoueurCompatiblePtr;
 		            if (chaineCherchee[LENGTH_OF_STRING(chaineCherchee)] = '=') then
 		              begin
@@ -309,7 +309,7 @@ begin
 		        kSelRapideBlanc:
 		          begin
 		            sousCritereMustBeAPerfectMatch[JoueurBlancRubanBox] := false;
-		            
+		
 		            JoueurBlancCompatible := NewTableJoueurCompatiblePtr;
 		            if (chaineCherchee[LENGTH_OF_STRING(chaineCherchee)] = '=') then
 		              begin

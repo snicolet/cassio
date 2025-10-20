@@ -11,8 +11,8 @@ uses
   SysUtils,
   basictypes,
   basicmemory;
-  
-  
+
+
 // Basic string types
   type
      String255     =  ShortString;
@@ -20,7 +20,7 @@ uses
      String255Ptr  =  ^String255;
      String255Hdl  =  ^String255Ptr;
      SetOfChar     =  set of char;
-     
+
 // function types for strings
   type
      StringProc                 = procedure(var s : String255; var result : SInt32);
@@ -69,8 +69,8 @@ begin
 end;
 
 
-// CharToString() : transforming a char into a string. The advantage of using this 
-// function is to catch differences for some characters which are 1 byte long 
+// CharToString() : transforming a char into a string. The advantage of using this
+// function is to catch differences for some characters which are 1 byte long
 // in  GNUPascal and 3 bytes in FreePascal, for instance CharToString('√') and
 // CharToString('◊') do not compile.
 
@@ -108,24 +108,24 @@ end;
 
 // TPCopy() : copy substring from a string. This function, which we used
 // in GNU Pascal, gives the same result than FreePascal copy(), except for
-// start <= 0. Once we have inspected our code to ensure than we always call 
+// start <= 0. Once we have inspected our code to ensure than we always call
 // TPCopy() with start >= 1, we should use copy() instead.
 
 function TPCopy(source : String255; start, count : SInt32) : String255;
 var res : String255;
 begin
 
-  if (start < 1) then 
+  if (start < 1) then
     begin
       // writeln('WARNING : TPCopy called with start = ', start);
       count := count - (1 - start);
       start := 1;
     end;
-    
-  if start + count > LENGTH_OF_STRING(source) then 
+
+  if start + count > LENGTH_OF_STRING(source) then
     count := LENGTH_OF_STRING(source) - start + 1;
-    
-  if count < 0 then 
+
+  if count < 0 then
     count := 0;
 
   SET_LENGTH_OF_STRING(res, count);
@@ -150,7 +150,7 @@ begin
 
   theUnicodeString := UTF8Decode(source);
   for i := 1 to length(theUnicodeString) do
-    begin      
+    begin
        K := TEncoding.Unicode.GetBytes(theUnicodeString[i]);
        L := TEncoding.Convert(TEncoding.Unicode, TEncoding.ASCII, K);
        len := length(L);
@@ -164,7 +164,7 @@ begin
                 then res := res + c
                 else res := res + AnsiString(theUnicodeString[i]);
            end;
-           
+
        // writeln(i, '   ', theUnicodeString[i], '  ',length(K), '  ', length(L) , '  ', c , '   ', result);
     end;
 
@@ -189,17 +189,27 @@ var  s, a, b : string255;
 begin
 
    s := 'hello';
-   
+
    writeln(s, LENGTH_OF_STRING(s));
    SET_LENGTH_OF_STRING(s, 20);
    writeln(s, LENGTH_OF_STRING(s));
-   
+
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
-   
+
    c := 'a';
    s := s + CharToString(c);
-   
+
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '≥';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '»';
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
@@ -213,7 +223,7 @@ begin
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
-   
+
    s := '◊';
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
@@ -238,7 +248,7 @@ begin
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
-   
+
 
    s := '1234567';
    writeln(copy(s, -1, 2));
@@ -247,29 +257,31 @@ begin
    writeln(copy(s, 4, 2));
    writeln(copy(s, 4, 5));
    writeln(copy(s, 4, 8));
-   
+
    {
    for i := -10 to 300 do
      for j := -10 to 300 do
        begin
          a := copy(s, i, j);
          b := TPcopy(s, i, j);
-         
+
          if (a <> b) then
-            writeln('copy(s,', i,',', j,') = ', a, '   TPcopy(s,', i,',', j,') = ', b); 
+            writeln('copy(s,', i,',', j,') = ', a, '   TPcopy(s,', i,',', j,') = ', b);
        end;
     }
-    
-   a := 'Stéphane NICOLET æœÂê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈©◊ß~∞…÷≠çéèàùÒ∑√∆———ß';
-   writeln('original string              : ', a);
+
+   a := 'Stéphane NICOLET æœ´„”’[å»ÛÁØ]ë“‘{¶«¡Çø}Âê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈◊ß~∞…÷≠çéèàùÒ∑√∆————–ß';
+
+   b := a;
+   writeln('original string              : ', b);
    b := AnsiUpperCase(a);
    writeln('AnsiUpperCase()              : ', b);
    b := StripDiacritics(a);
    writeln('StripDiacritics()            : ', b);
    b := UpperCase(StripDiacritics(a));
    writeln('UpperCase(StripDiacritics()) : ', b);
-   
-   
+
+
 end;
 
 

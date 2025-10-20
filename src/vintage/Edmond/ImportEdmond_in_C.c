@@ -299,7 +299,7 @@ pascal void edmond_load_coefficients( char *file_name ) {
 				 for( id2 = 0, id2Neg = 0; id2 < 3; id2Neg = 3-(++id2)) {
 				
 					 for( id3 = 0, id3Neg = 0; id3 < 3; id3Neg = 3 - (++id3)) {
-					 
+					
 						//4 squares = Diag4
 						int pattern4 = id0 + 3*(id1 + 3*(id2 + 3*id3));
 						int sym4 = id3 + 3*(id2 + 3*(id1 + 3*id0));
@@ -307,7 +307,7 @@ pascal void edmond_load_coefficients( char *file_name ) {
 						int symNeg4 = id3Neg + 3*(id2Neg + 3*(id1Neg + 3*id0Neg));
 						
 						 for( id4 = 0, id4Neg = 0; id4 < 3; id4Neg = 3 - (++id4)) {
-						 
+						
 							//5 squares = Diag5
 							int pattern5 = pattern4 + 81*id4;
 							int sym5 = id4 + 3*sym4 ;
@@ -445,7 +445,7 @@ pascal void edmond_load_coefficients( char *file_name ) {
 										
 										
 										 for( id8 = 0, id8Neg = 0; id8 < 3; id8Neg = 3-(++id8 )) {
-										 
+										
 
 											//9 squares
 											int pattern9 = pattern8 + 6561*id8;
@@ -454,7 +454,7 @@ pascal void edmond_load_coefficients( char *file_name ) {
 											int symNeg9 = id8Neg + 3*symNeg8;
 
 											 for( id9 = 0, id9Neg = 0; id9 < 3; id9Neg = 3-(++id9)) {
-											 
+											
 												//10 squares
 												int pattern10 = pattern9 + 19683*id9;
 												int sym10 = id9 + 3*sym9 ;
@@ -569,7 +569,7 @@ pascal void edmond_load_coefficients( char *file_name ) {
 
 
 pascal void edmond_release_coefficients() {
-  
+
   int iStage;
 
 
@@ -605,7 +605,7 @@ pascal void edmond_release_coefficients() {
 
   // effacement des alias de pointeurs
   for( iStage = 0; iStage < 64; iStage++) {
-  
+
       BLACK_DIAG_5[iStage] = NULL;
 			BLACK_DIAG_6[iStage] = NULL;
 			BLACK_DIAG_7[iStage] = NULL;
@@ -631,68 +631,68 @@ pascal void edmond_release_coefficients() {
 			WHITE_EDGE_2XC[iStage] = NULL;
 			
     }
-  
+
 }
 
 
 /* verification que la taille des types correspond en Pascal et en C */
-  
+
 pascal int size_of_float_in_c()  { return (sizeof(float)); }
 pascal int size_of_int_in_c()   { return (sizeof(int)); }
-  
-  
+
+
 /* export des pointeurs des tables pour pouvoir les utiliser dans Cassio */
 
 pascal int* edmond_get_black_diag_5_pointer(int stage) { return (BLACK_DIAG_5[stage]); }
 pascal int* edmond_get_white_diag_5_pointer(int stage) { return (WHITE_DIAG_5[stage]); }
-  
+
 pascal int* edmond_get_black_diag_6_pointer(int stage) { return (BLACK_DIAG_6[stage]); }
 pascal int* edmond_get_white_diag_6_pointer(int stage) { return (WHITE_DIAG_6[stage]); }
-  
+
 pascal int* edmond_get_black_diag_7_pointer(int stage) { return (BLACK_DIAG_7[stage]); }
 pascal int* edmond_get_white_diag_7_pointer(int stage) { return (WHITE_DIAG_7[stage]); }
-  
+
 pascal int* edmond_get_black_diag_8_pointer(int stage) { return (BLACK_DIAG_8[stage]); }
 pascal int* edmond_get_white_diag_8_pointer(int stage) { return (WHITE_DIAG_8[stage]); }
-  
+
 pascal int* edmond_get_black_hv_4_pointer(int stage) { return (BLACK_HV_4[stage]); }
 pascal int* edmond_get_white_hv_4_pointer(int stage) { return (WHITE_HV_4[stage]); }
-  
+
 pascal int* edmond_get_black_hv_3_pointer(int stage) { return (BLACK_HV_3[stage]); }
 pascal int* edmond_get_white_hv_3_pointer(int stage) { return (WHITE_HV_3[stage]); }
-  
+
 pascal int* edmond_get_black_hv_2_pointer(int stage) { return (BLACK_HV_2[stage]); }
 pascal int* edmond_get_white_hv_2_pointer(int stage) { return (WHITE_HV_2[stage]); }
-  
+
 pascal int* edmond_get_black_edge_6_4_pointer(int stage) { return (BLACK_EDGE_6_4[stage]); }
 pascal int* edmond_get_white_edge_6_4_pointer(int stage) { return (WHITE_EDGE_6_4[stage]); }
-  
+
 pascal int* edmond_get_black_corner_2x5_pointer(int stage) { return (BLACK_CORNER_2x5[stage]); }
 pascal int* edmond_get_white_corner_2x5_pointer(int stage) { return (WHITE_CORNER_2x5[stage]); }
-  
+
 pascal int* edmond_get_black_corner_11_pointer(int stage) { return (BLACK_CORNER_11[stage]); }
 pascal int* edmond_get_white_corner_11_pointer(int stage) { return (WHITE_CORNER_11[stage]); }
-  
+
 pascal int* edmond_get_black_edge_2XC_pointer(int stage) { return (BLACK_EDGE_2XC[stage]); }
 pascal int* edmond_get_white_edge_2XC_pointer(int stage) { return (WHITE_EDGE_2XC[stage]); }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -16,54 +16,54 @@ INTERFACE
 
 
 
-procedure InitUnitOth2;                                                                                                                                                             ATTRIBUTE_NAME('InitUnitOth2')
-procedure LibereMemoireUnitOth2;                                                                                                                                                    ATTRIBUTE_NAME('LibereMemoireUnitOth2')
+procedure InitUnitOth2;
+procedure LibereMemoireUnitOth2;
 
 
-procedure BeginRetournementSpecial(positionAAtteindre : PositionEtTraitRec);                                                                                                        ATTRIBUTE_NAME('BeginRetournementSpecial')
-procedure EndRetournementSpecial;                                                                                                                                                   ATTRIBUTE_NAME('EndRetournementSpecial')
-function RetournementSpecialEnCours : boolean;                                                                                                                                      ATTRIBUTE_NAME('RetournementSpecialEnCours')
-function ValeurFutureDeCetteCaseDansRetournementSpecial(whichSquare : SInt32) : SInt32;                                                                                             ATTRIBUTE_NAME('ValeurFutureDeCetteCaseDansRetournementSpecial')
+procedure BeginRetournementSpecial(positionAAtteindre : PositionEtTraitRec);
+procedure EndRetournementSpecial;
+function RetournementSpecialEnCours : boolean;
+function ValeurFutureDeCetteCaseDansRetournementSpecial(whichSquare : SInt32) : SInt32;
 
 
 
 
 
-procedure AffichePourDebugage(chaine : String255);                                                                                                                                  ATTRIBUTE_NAME('AffichePourDebugage')
-procedure StoppeEtAffichePourDebugage(chaine : String255);                                                                                                                          ATTRIBUTE_NAME('StoppeEtAffichePourDebugage')
-procedure StoppeEtAfficheAireDeJeuPourDebugage(chaine : String255);                                                                                                                 ATTRIBUTE_NAME('StoppeEtAfficheAireDeJeuPourDebugage')
+procedure AffichePourDebugage(chaine : String255);
+procedure StoppeEtAffichePourDebugage(chaine : String255);
+procedure StoppeEtAfficheAireDeJeuPourDebugage(chaine : String255);
 
 
-function PeutReculerUnCoup : boolean;                                                                                                                                               ATTRIBUTE_NAME('PeutReculerUnCoup')
-function PeutReculerDeuxCoups : boolean;                                                                                                                                            ATTRIBUTE_NAME('PeutReculerDeuxCoups')
-function PeutAvancerUnCoup : boolean;                                                                                                                                               ATTRIBUTE_NAME('PeutAvancerUnCoup')
-function PeutAvancerDeuxCoups : boolean;                                                                                                                                            ATTRIBUTE_NAME('PeutAvancerDeuxCoups')
-function PeutAvancerPartieSelectionnee : boolean;                                                                                                                                   ATTRIBUTE_NAME('PeutAvancerPartieSelectionnee')
-function PeutReculerUnCoupPuisJouerSurCetteCase(whichSquare : SInt32; var positionResultante : PositionEtTraitRec) : boolean;                                                       ATTRIBUTE_NAME('PeutReculerUnCoupPuisJouerSurCetteCase')
-procedure Bip(duree : SInt16);                                                                                                                                                      ATTRIBUTE_NAME('Bip')
+function PeutReculerUnCoup : boolean;
+function PeutReculerDeuxCoups : boolean;
+function PeutAvancerUnCoup : boolean;
+function PeutAvancerDeuxCoups : boolean;
+function PeutAvancerPartieSelectionnee : boolean;
+function PeutReculerUnCoupPuisJouerSurCetteCase(whichSquare : SInt32; var positionResultante : PositionEtTraitRec) : boolean;
+procedure Bip(duree : SInt16);
 
-procedure DialogueVousPassez;                                                                                                                                                       ATTRIBUTE_NAME('DialogueVousPassez')
-procedure AlerteMicMacIndex(nbrePartiesIndex,nbrePartiesBase : SInt32);                                                                                                             ATTRIBUTE_NAME('AlerteMicMacIndex')
-function ConfirmationQuitter : boolean;                                                                                                                                             ATTRIBUTE_NAME('ConfirmationQuitter')
-procedure EcritPositionAt(var plat : plateauOthello; hpos,vpos : SInt16);                                                                                                           ATTRIBUTE_NAME('EcritPositionAt')
-procedure EcritPlatBoolAt(var plat : plBool; hpos,vpos : SInt16);                                                                                                                   ATTRIBUTE_NAME('EcritPlatBoolAt')
-procedure StoppeEtAfficheMessageAt(message : String255; x,y : SInt16);                                                                                                              ATTRIBUTE_NAME('StoppeEtAfficheMessageAt')
-procedure DessineRetour(ClipRegion : RgnHandle; fonctionAppelante : String255);                                                                                                     ATTRIBUTE_NAME('DessineRetour')
+procedure DialogueVousPassez;
+procedure AlerteMicMacIndex(nbrePartiesIndex,nbrePartiesBase : SInt32);
+function ConfirmationQuitter : boolean;
+procedure EcritPositionAt(var plat : plateauOthello; hpos,vpos : SInt16);
+procedure EcritPlatBoolAt(var plat : plBool; hpos,vpos : SInt16);
+procedure StoppeEtAfficheMessageAt(message : String255; x,y : SInt16);
+procedure DessineRetour(ClipRegion : RgnHandle; fonctionAppelante : String255);
 
-procedure EcritEspaceDansPile;                                                                                                                                                      ATTRIBUTE_NAME('EcritEspaceDansPile')
-procedure DialogueMemoireBase;                                                                                                                                                      ATTRIBUTE_NAME('DialogueMemoireBase')
-procedure DialoguePartieFeeriqueAvantChargementBase;                                                                                                                                ATTRIBUTE_NAME('DialoguePartieFeeriqueAvantChargementBase')
-procedure AlerteErreurCollagePartie;                                                                                                                                                ATTRIBUTE_NAME('AlerteErreurCollagePartie')
-procedure AlerteFormatNonReconnuFichierPartie(nomFichier : String255);                                                                                                              ATTRIBUTE_NAME('AlerteFormatNonReconnuFichierPartie')
-procedure AlerteDoitInterompreReflexionPourFaireScript;                                                                                                                             ATTRIBUTE_NAME('AlerteDoitInterompreReflexionPourFaireScript')
+procedure EcritEspaceDansPile;
+procedure DialogueMemoireBase;
+procedure DialoguePartieFeeriqueAvantChargementBase;
+procedure AlerteErreurCollagePartie;
+procedure AlerteFormatNonReconnuFichierPartie(nomFichier : String255);
+procedure AlerteDoitInterompreReflexionPourFaireScript;
 
-function MyFiltreClassiqueRapide(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                             ATTRIBUTE_NAME('MyFiltreClassiqueRapide')
-procedure AjoutePion(x,coul : SInt16; var platJeu : plateauOthello; var jouable : plBool);                                                                                          ATTRIBUTE_NAME('AjoutePion')
-procedure PosePion(x,couleur : SInt16);                                                                                                                                             ATTRIBUTE_NAME('PosePion')
+function MyFiltreClassiqueRapide(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+procedure AjoutePion(x,coul : SInt16; var platJeu : plateauOthello; var jouable : plBool);
+procedure PosePion(x,couleur : SInt16);
 
 
-procedure SetAfficheInfosApprentissage(flag : boolean);                                                                                                                             ATTRIBUTE_NAME('SetAfficheInfosApprentissage')
-function GetAfficheInfosApprentissage : boolean;                                                                                                                                    ATTRIBUTE_NAME('GetAfficheInfosApprentissage')
+procedure SetAfficheInfosApprentissage(flag : boolean);
+function GetAfficheInfosApprentissage : boolean;
 
 
 IMPLEMENTATION

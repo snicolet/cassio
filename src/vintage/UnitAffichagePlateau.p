@@ -10,117 +10,117 @@ INTERFACE
 
 
 
-procedure InitUnitOth1;                                                                                                                                                             ATTRIBUTE_NAME('InitUnitOth1')
-procedure InstalleEssaieUpdateEventsWindowPlateauProc(aRoutine : ProcedureType);                                                                                                    ATTRIBUTE_NAME('InstalleEssaieUpdateEventsWindowPlateauProc')
+procedure InitUnitOth1;
+procedure InstalleEssaieUpdateEventsWindowPlateauProc(aRoutine : ProcedureType);
 
 
-procedure EcritCommentaireOuverture(commentaire : String255);                                                                                                                       ATTRIBUTE_NAME('EcritCommentaireOuverture')
-procedure EffaceCommentaireOuverture;                                                                                                                                               ATTRIBUTE_NAME('EffaceCommentaireOuverture')
+procedure EcritCommentaireOuverture(commentaire : String255);
+procedure EffaceCommentaireOuverture;
 
-function EpaisseurBordureOthellier : SInt32;                                                                                                                                        ATTRIBUTE_NAME('EpaisseurBordureOthellier')
+function EpaisseurBordureOthellier : SInt32;
 
-procedure PrepareTexteStatePourTranscript;                                                                                                                                          ATTRIBUTE_NAME('PrepareTexteStatePourTranscript')
-procedure PrepareTexteStatePourHeure;                                                                                                                                               ATTRIBUTE_NAME('PrepareTexteStatePourHeure')
-procedure PrepareTexteStatePourMeilleureSuite;                                                                                                                                      ATTRIBUTE_NAME('PrepareTexteStatePourMeilleureSuite')
-procedure PrepareTexteStatePourDemandeCoup;                                                                                                                                         ATTRIBUTE_NAME('PrepareTexteStatePourDemandeCoup')
-procedure PrepareTexteStatePourCommentaireSolitaire;                                                                                                                                ATTRIBUTE_NAME('PrepareTexteStatePourCommentaireSolitaire')
-procedure PrepareTexteStatePourSystemeCoordonnees;                                                                                                                                  ATTRIBUTE_NAME('PrepareTexteStatePourSystemeCoordonnees')
-procedure PrepareTexteStatePourCommentaireOuverture;                                                                                                                                ATTRIBUTE_NAME('PrepareTexteStatePourCommentaireOuverture')
-procedure PrepareTexteStatePourEcritCoupsBibl;                                                                                                                                      ATTRIBUTE_NAME('PrepareTexteStatePourEcritCoupsBibl')
-procedure SetPositionScore;                                                                                                                                                         ATTRIBUTE_NAME('SetPositionScore')
-procedure SetPositionDemandeCoup(fonctionAppelante : String255);                                                                                                                    ATTRIBUTE_NAME('SetPositionDemandeCoup')
-procedure SetPositionMeilleureSuite;                                                                                                                                                ATTRIBUTE_NAME('SetPositionMeilleureSuite')
-procedure SetAffichageVertical;                                                                                                                                                     ATTRIBUTE_NAME('SetAffichageVertical')
-procedure SetPositionsTextesWindowPlateau;                                                                                                                                          ATTRIBUTE_NAME('SetPositionsTextesWindowPlateau')
-procedure DessineAffichageVertical;                                                                                                                                                 ATTRIBUTE_NAME('DessineAffichageVertical')
-function GetTailleCaseCourante : SInt32;                                                                                                                                            ATTRIBUTE_NAME('GetTailleCaseCourante')
-procedure SetTailleCaseCourante(taille : SInt32);                                                                                                                                   ATTRIBUTE_NAME('SetTailleCaseCourante')
-function TailleCaseIdeale : SInt16;                                                                                                                                                 ATTRIBUTE_NAME('TailleCaseIdeale')
-procedure AjusteTailleFenetrePlateauPourLa3D;                                                                                                                                       ATTRIBUTE_NAME('AjusteTailleFenetrePlateauPourLa3D')
-procedure AjusteAffichageFenetrePlat(tailleCaseForcee : SInt16; var tailleCaseChange,positionscorechange : boolean);                                                                ATTRIBUTE_NAME('AjusteAffichageFenetrePlat')
-procedure AjusteAffichageFenetrePlatRapide;                                                                                                                                         ATTRIBUTE_NAME('AjusteAffichageFenetrePlatRapide')
-procedure AfficheScore;                                                                                                                                                             ATTRIBUTE_NAME('AfficheScore')
-procedure AfficheDemandeCoup;                                                                                                                                                       ATTRIBUTE_NAME('AfficheDemandeCoup')
-procedure EcritJeReflechis(coulChoix : SInt16);                                                                                                                                     ATTRIBUTE_NAME('EcritJeReflechis')
-procedure EcritPromptFenetreReflexion;                                                                                                                                              ATTRIBUTE_NAME('EcritPromptFenetreReflexion')
-procedure EffacePromptFenetreReflexion;                                                                                                                                             ATTRIBUTE_NAME('EffacePromptFenetreReflexion')
-function GetRectOfSquare2DDansAireDeJeu(whichSquare,QuelGenreDeMarque : SInt16) : rect;                                                                                             ATTRIBUTE_NAME('GetRectOfSquare2DDansAireDeJeu')
-function GetBoundingRectOfSquare(whichSquare : SInt16) : rect;                                                                                                                      ATTRIBUTE_NAME('GetBoundingRectOfSquare')
-function GetOthellier2DVistaBuffer : rect;                                                                                                                                          ATTRIBUTE_NAME('GetOthellier2DVistaBuffer')
-function GetOthellierVistaBuffer : rect;                                                                                                                                            ATTRIBUTE_NAME('GetOthellierVistaBuffer')
-procedure RetrecirRectOfSquarePourTexturesAlveolees(var theRect : rect);                                                                                                            ATTRIBUTE_NAME('RetrecirRectOfSquarePourTexturesAlveolees')
-procedure ChangeRectOfSquarePourPicture(var theRect : rect);                                                                                                                        ATTRIBUTE_NAME('ChangeRectOfSquarePourPicture')
-procedure DessinePion2D(square,valeurPion : SInt16);                                                                                                                                ATTRIBUTE_NAME('DessinePion2D')
-procedure DessinePion(square,valeurPion : SInt16);                                                                                                                                  ATTRIBUTE_NAME('DessinePion')
-procedure ApprendPolygonePionDelta(r : rect);                                                                                                                                       ATTRIBUTE_NAME('ApprendPolygonePionDelta')
-procedure ApprendPolygonePionLosange(r : rect);                                                                                                                                     ATTRIBUTE_NAME('ApprendPolygonePionLosange')
-procedure ApprendPolygonePionCarre(r : rect);                                                                                                                                       ATTRIBUTE_NAME('ApprendPolygonePionCarre')
-procedure DessinePionSpecial(rectangle2D,dest : rect; quelleCase,valeurPion : SInt16; texte : String255; use3D : boolean);                                                          ATTRIBUTE_NAME('DessinePionSpecial')
-procedure DrawJustifiedStringInRectWithRGBColor(whichRect : rect; var s : String255; justification : SInt32; whichSquare : SInt16; color : RGBColor);                               ATTRIBUTE_NAME('DrawJustifiedStringInRectWithRGBColor')
-procedure DrawJustifiedStringInRect(whichRect : rect; couleurDesLettres : SInt16; var s : String255; justification : SInt32; whichSquare : SInt16);                                 ATTRIBUTE_NAME('DrawJustifiedStringInRect')
-procedure DrawClockBoundingRect(clockRect : rect; radius : SInt32);                                                                                                                 ATTRIBUTE_NAME('DrawClockBoundingRect')
-procedure DrawInvertedClockBoundingRect(clockRect : rect; radius : SInt32);                                                                                                         ATTRIBUTE_NAME('DrawInvertedClockBoundingRect')
-procedure DessineStringInRect(whichRect : rect; couleurDesLettres : SInt16; var s : String255; whichSquare : SInt16);                                                               ATTRIBUTE_NAME('DessineStringInRect')
-procedure DessineStringOnSquare(whichSquare,couleurDesLettres : SInt16; var s : String255; var continuer : boolean);                                                                ATTRIBUTE_NAME('DessineStringOnSquare')
-procedure DessineLettreBlancheOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);                                                        ATTRIBUTE_NAME('DessineLettreBlancheOnSquare')
-procedure DessineLettreNoireOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);                                                          ATTRIBUTE_NAME('DessineLettreNoireOnSquare')
-procedure DessineLettreOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);                                                               ATTRIBUTE_NAME('DessineLettreOnSquare')
-procedure DessineAnglesCarreCentral;                                                                                                                                                ATTRIBUTE_NAME('DessineAnglesCarreCentral')
-procedure DessineSystemeCoordonnees;                                                                                                                                                ATTRIBUTE_NAME('DessineSystemeCoordonnees')
-procedure EffacerSquare(var whichSquare : SInt16; var continuer : boolean);                                                                                                         ATTRIBUTE_NAME('EffacerSquare')
-procedure RedessinerRectDansSquare(whichSquare : SInt16; whichRect : rect);                                                                                                         ATTRIBUTE_NAME('RedessinerRectDansSquare')
-procedure SetPositionPlateau2D(nbrecases,tailleCase : SInt16; HG_h,HG_v : SInt16; fonctionAppelante : String255);                                                                   ATTRIBUTE_NAME('SetPositionPlateau2D')
-procedure DessinePlateau(avecDessinFondNoir : boolean);                                                                                                                             ATTRIBUTE_NAME('DessinePlateau')
-procedure DessinePlateau2D(cases,tailleCase : SInt16; HG_h,HG_v : SInt16; avecDessinFondNoir : boolean);                                                                            ATTRIBUTE_NAME('DessinePlateau2D')
-procedure DessinePosition(const position : plateauOthello);                                                                                                                         ATTRIBUTE_NAME('DessinePosition')
-procedure DessineDiagramme(tailleCaseDiagramme : SInt16; clipRegion : RgnHandle; fonctionAppelante : String255);                                                                    ATTRIBUTE_NAME('DessineDiagramme')
-procedure DessineNumerosDeCoupsSurTousLesPionsSurDiagramme(jusquaQuelCoup : SInt16);                                                                                                ATTRIBUTE_NAME('DessineNumerosDeCoupsSurTousLesPionsSurDiagramme')
-procedure Faitcalculs2DParDefaut;                                                                                                                                                   ATTRIBUTE_NAME('Faitcalculs2DParDefaut')
-procedure DessineBordureDuPlateau2D(quellesBordures : SInt32);                                                                                                                      ATTRIBUTE_NAME('DessineBordureDuPlateau2D')
+procedure PrepareTexteStatePourTranscript;
+procedure PrepareTexteStatePourHeure;
+procedure PrepareTexteStatePourMeilleureSuite;
+procedure PrepareTexteStatePourDemandeCoup;
+procedure PrepareTexteStatePourCommentaireSolitaire;
+procedure PrepareTexteStatePourSystemeCoordonnees;
+procedure PrepareTexteStatePourCommentaireOuverture;
+procedure PrepareTexteStatePourEcritCoupsBibl;
+procedure SetPositionScore;
+procedure SetPositionDemandeCoup(fonctionAppelante : String255);
+procedure SetPositionMeilleureSuite;
+procedure SetAffichageVertical;
+procedure SetPositionsTextesWindowPlateau;
+procedure DessineAffichageVertical;
+function GetTailleCaseCourante : SInt32;
+procedure SetTailleCaseCourante(taille : SInt32);
+function TailleCaseIdeale : SInt16;
+procedure AjusteTailleFenetrePlateauPourLa3D;
+procedure AjusteAffichageFenetrePlat(tailleCaseForcee : SInt16; var tailleCaseChange,positionscorechange : boolean);
+procedure AjusteAffichageFenetrePlatRapide;
+procedure AfficheScore;
+procedure AfficheDemandeCoup;
+procedure EcritJeReflechis(coulChoix : SInt16);
+procedure EcritPromptFenetreReflexion;
+procedure EffacePromptFenetreReflexion;
+function GetRectOfSquare2DDansAireDeJeu(whichSquare,QuelGenreDeMarque : SInt16) : rect;
+function GetBoundingRectOfSquare(whichSquare : SInt16) : rect;
+function GetOthellier2DVistaBuffer : rect;
+function GetOthellierVistaBuffer : rect;
+procedure RetrecirRectOfSquarePourTexturesAlveolees(var theRect : rect);
+procedure ChangeRectOfSquarePourPicture(var theRect : rect);
+procedure DessinePion2D(square,valeurPion : SInt16);
+procedure DessinePion(square,valeurPion : SInt16);
+procedure ApprendPolygonePionDelta(r : rect);
+procedure ApprendPolygonePionLosange(r : rect);
+procedure ApprendPolygonePionCarre(r : rect);
+procedure DessinePionSpecial(rectangle2D,dest : rect; quelleCase,valeurPion : SInt16; texte : String255; use3D : boolean);
+procedure DrawJustifiedStringInRectWithRGBColor(whichRect : rect; var s : String255; justification : SInt32; whichSquare : SInt16; color : RGBColor);
+procedure DrawJustifiedStringInRect(whichRect : rect; couleurDesLettres : SInt16; var s : String255; justification : SInt32; whichSquare : SInt16);
+procedure DrawClockBoundingRect(clockRect : rect; radius : SInt32);
+procedure DrawInvertedClockBoundingRect(clockRect : rect; radius : SInt32);
+procedure DessineStringInRect(whichRect : rect; couleurDesLettres : SInt16; var s : String255; whichSquare : SInt16);
+procedure DessineStringOnSquare(whichSquare,couleurDesLettres : SInt16; var s : String255; var continuer : boolean);
+procedure DessineLettreBlancheOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);
+procedure DessineLettreNoireOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);
+procedure DessineLettreOnSquare(var whichSquare : SInt16; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);
+procedure DessineAnglesCarreCentral;
+procedure DessineSystemeCoordonnees;
+procedure EffacerSquare(var whichSquare : SInt16; var continuer : boolean);
+procedure RedessinerRectDansSquare(whichSquare : SInt16; whichRect : rect);
+procedure SetPositionPlateau2D(nbrecases,tailleCase : SInt16; HG_h,HG_v : SInt16; fonctionAppelante : String255);
+procedure DessinePlateau(avecDessinFondNoir : boolean);
+procedure DessinePlateau2D(cases,tailleCase : SInt16; HG_h,HG_v : SInt16; avecDessinFondNoir : boolean);
+procedure DessinePosition(const position : plateauOthello);
+procedure DessineDiagramme(tailleCaseDiagramme : SInt16; clipRegion : RgnHandle; fonctionAppelante : String255);
+procedure DessineNumerosDeCoupsSurTousLesPionsSurDiagramme(jusquaQuelCoup : SInt16);
+procedure Faitcalculs2DParDefaut;
+procedure DessineBordureDuPlateau2D(quellesBordures : SInt32);
 
-procedure DessineNumeroCoup(square,n,couleurDesChiffres : SInt16; whichNode : GameTree);                                                                                            ATTRIBUTE_NAME('DessineNumeroCoup')
-procedure DessineNumeroDernierCoupSurOthellier(surQuellesCases : SquareSet; whichNode : GameTree);                                                                                  ATTRIBUTE_NAME('DessineNumeroDernierCoupSurOthellier')
-procedure EffaceNumeroCoup(square,n : SInt16; whichNode : GameTree);                                                                                                                ATTRIBUTE_NAME('EffaceNumeroCoup')
-
-
-
-procedure EcritCommentaireSolitaire;                                                                                                                                                ATTRIBUTE_NAME('EcritCommentaireSolitaire')
-procedure DessineGarnitureAutourOthellierPourEcranStandard;                                                                                                                         ATTRIBUTE_NAME('DessineGarnitureAutourOthellierPourEcranStandard')
-procedure EcranStandard(clipRegion : RgnHandle; forcedErase : boolean);                                                                                                             ATTRIBUTE_NAME('EcranStandard')
-procedure DessineAutresInfosSurCasesAideDebutant(surQuellesCases : SquareSet; fonctionAppelante : String255);                                                                       ATTRIBUTE_NAME('DessineAutresInfosSurCasesAideDebutant')
-procedure DessineAideDebutant(avecDessinAutresInfosSurLesCases : boolean; surQuellesCases : SquareSet);                                                                             ATTRIBUTE_NAME('DessineAideDebutant')
-procedure EffaceAideDebutant(avecDessinAutresInfosSurLesCases,effacageLarge : boolean; surQuellesCases : SquareSet; fonctionAppelante : String255);                                 ATTRIBUTE_NAME('EffaceAideDebutant')
-procedure EffaceSuggestionDeCassio;                                                                                                                                                 ATTRIBUTE_NAME('EffaceSuggestionDeCassio')
-procedure ActiverSuggestionDeCassio(whichPos : PositionEtTraitRec; bestMove,bestDef : SInt32; fonctionAppelante : String255);                                                       ATTRIBUTE_NAME('ActiverSuggestionDeCassio')
-function GetBestSuggestionDeCassio : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetBestSuggestionDeCassio')
-function CaseContientUnPionDore(whichSquare : SInt32) : boolean;                                                                                                                    ATTRIBUTE_NAME('CaseContientUnPionDore')
-procedure EraseRectDansWindowPlateau(whichRect : rect);                                                                                                                             ATTRIBUTE_NAME('EraseRectDansWindowPlateau')
-procedure EffaceZoneADroiteDeLOthellier;                                                                                                                                            ATTRIBUTE_NAME('EffaceZoneADroiteDeLOthellier')
-procedure EffaceZoneAuDessousDeLOthellier;                                                                                                                                          ATTRIBUTE_NAME('EffaceZoneAuDessousDeLOthellier')
-procedure EffaceZoneAGaucheDeLOthellier;                                                                                                                                            ATTRIBUTE_NAME('EffaceZoneAGaucheDeLOthellier')
-procedure EffaceZoneAuDessusDeLOthellier;                                                                                                                                           ATTRIBUTE_NAME('EffaceZoneAuDessusDeLOthellier')
-procedure EffaceTouteLaFenetreSaufLOthellier;                                                                                                                                       ATTRIBUTE_NAME('EffaceTouteLaFenetreSaufLOthellier')
-function  CalculateBordureRect(quelleBordure : SInt32; quelleTexture : CouleurOthellierRec) : rect;                                                                                 ATTRIBUTE_NAME('CalculateBordureRect')
-function  PtInPlateau2D(loc : Point; var caseCliquee : SInt16) : boolean;                                                                                                           ATTRIBUTE_NAME('PtInPlateau2D')
-function  PtInPlateau(loc : Point; var caseCliquee : SInt16) : boolean;                                                                                                             ATTRIBUTE_NAME('PtInPlateau')
-procedure EffaceAnnonceFinaleSiNecessaire;                                                                                                                                          ATTRIBUTE_NAME('EffaceAnnonceFinaleSiNecessaire')
+procedure DessineNumeroCoup(square,n,couleurDesChiffres : SInt16; whichNode : GameTree);
+procedure DessineNumeroDernierCoupSurOthellier(surQuellesCases : SquareSet; whichNode : GameTree);
+procedure EffaceNumeroCoup(square,n : SInt16; whichNode : GameTree);
 
 
 
-procedure SetOthellierEstSale(square : SInt16; flag : boolean);                                                                                                                     ATTRIBUTE_NAME('SetOthellierEstSale')
-function GetOthellierEstSale(square : SInt16) : boolean;                                                                                                                            ATTRIBUTE_NAME('GetOthellierEstSale')
-procedure SetOthellierToutEntierEstSale;                                                                                                                                            ATTRIBUTE_NAME('SetOthellierToutEntierEstSale')
+procedure EcritCommentaireSolitaire;
+procedure DessineGarnitureAutourOthellierPourEcranStandard;
+procedure EcranStandard(clipRegion : RgnHandle; forcedErase : boolean);
+procedure DessineAutresInfosSurCasesAideDebutant(surQuellesCases : SquareSet; fonctionAppelante : String255);
+procedure DessineAideDebutant(avecDessinAutresInfosSurLesCases : boolean; surQuellesCases : SquareSet);
+procedure EffaceAideDebutant(avecDessinAutresInfosSurLesCases,effacageLarge : boolean; surQuellesCases : SquareSet; fonctionAppelante : String255);
+procedure EffaceSuggestionDeCassio;
+procedure ActiverSuggestionDeCassio(whichPos : PositionEtTraitRec; bestMove,bestDef : SInt32; fonctionAppelante : String255);
+function GetBestSuggestionDeCassio : SInt32;
+function CaseContientUnPionDore(whichSquare : SInt32) : boolean;
+procedure EraseRectDansWindowPlateau(whichRect : rect);
+procedure EffaceZoneADroiteDeLOthellier;
+procedure EffaceZoneAuDessousDeLOthellier;
+procedure EffaceZoneAGaucheDeLOthellier;
+procedure EffaceZoneAuDessusDeLOthellier;
+procedure EffaceTouteLaFenetreSaufLOthellier;
+function  CalculateBordureRect(quelleBordure : SInt32; quelleTexture : CouleurOthellierRec) : rect;
+function  PtInPlateau2D(loc : Point; var caseCliquee : SInt16) : boolean;
+function  PtInPlateau(loc : Point; var caseCliquee : SInt16) : boolean;
+procedure EffaceAnnonceFinaleSiNecessaire;
 
-function CalculeTailleCaseParPlateauRect(thePlateauRect : rect) : SInt16;                                                                                                           ATTRIBUTE_NAME('CalculeTailleCaseParPlateauRect')
-procedure SetAffichageResserre(forceUpdate : boolean);                                                                                                                              ATTRIBUTE_NAME('SetAffichageResserre')
-
-function UpdateRgnTouchePlateau : boolean;                                                                                                                                          ATTRIBUTE_NAME('UpdateRgnTouchePlateau')
-procedure DessinePourcentage(square,n : SInt16);                                                                                                                                    ATTRIBUTE_NAME('DessinePourcentage')
-procedure DessinePionMontreCoupLegal(x : SInt16);                                                                                                                                   ATTRIBUTE_NAME('DessinePionMontreCoupLegal')
-procedure EffacePionMontreCoupLegal(x : SInt16);                                                                                                                                    ATTRIBUTE_NAME('EffacePionMontreCoupLegal')
 
 
-procedure SetCoupEntete(square : SInt16);                                                                                                                                           ATTRIBUTE_NAME('SetCoupEntete')
+procedure SetOthellierEstSale(square : SInt16; flag : boolean);
+function GetOthellierEstSale(square : SInt16) : boolean;
+procedure SetOthellierToutEntierEstSale;
+
+function CalculeTailleCaseParPlateauRect(thePlateauRect : rect) : SInt16;
+procedure SetAffichageResserre(forceUpdate : boolean);
+
+function UpdateRgnTouchePlateau : boolean;
+procedure DessinePourcentage(square,n : SInt16);
+procedure DessinePionMontreCoupLegal(x : SInt16);
+procedure EffacePionMontreCoupLegal(x : SInt16);
+
+
+procedure SetCoupEntete(square : SInt16);
 
 
 
@@ -169,8 +169,8 @@ var gTailleCase : record
                                                                                      end;
                                                 nbAppelsRecursifs : SInt32;
                                               end;
-      
-      
+
+
 procedure BidProc;
 begin
 end;
@@ -193,10 +193,10 @@ begin
   gHorlogeRectGlobal := MakeRect(0,0,0,0);
 
   gNiveauDeRecursionDansDrawJustifiedStringInRect := 0;
-  
+
   gPileDesRectanglesRecursifsARedessiner.cardinal          := 0;
   gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs := 0;
-  
+
   for i := 0 to 100 do
     begin
       gPileDesRectanglesRecursifsARedessiner.pile[i].square := -1;
@@ -1989,10 +1989,10 @@ begin
 
   SetRect(EchelleRect,-11000,-11500,11000,10500);
   SetPt(p1,    0, -10500);   { p1 := (   0.0 ,  1.0 ) , et le signe est change a cause de QuickDraw}
-  SetPt(p2, 6660,   8000);  
-  SetPt(p3,-9600,  -3500);  
-  SetPt(p4, 9600,  -3500);  
-  SetPt(p5,-6660,   8000);   
+  SetPt(p2, 6660,   8000);
+  SetPt(p3,-9600,  -3500);
+  SetPt(p4, 9600,  -3500);
+  SetPt(p5,-6660,   8000);
 
   InsetRect(r,1,1);
   with r do
@@ -2104,7 +2104,7 @@ begin
   PenNormal;
   PenSize(1,1);
   if use3D then ClipToViewArea(quelleCase);
-  
+
   square := ' ' + CoupEnStringEnMajuscules(quelleCase) + ' ';
 
   case valeurPion of
@@ -2192,23 +2192,23 @@ begin
           TextFace(bold);
           TextMode(3);
           if GetCouleurOfSquareDansJeuCourant(quelleCase) = pionNoir
-            then 
+            then
               begin
                 PrintForEPSFile(square + 'white_star');
                 FillPoly(myPoly,whitePattern);
                 FramePoly(myPoly);
                 // DessineStringInRect(myRect,pionBlanc,s,quelleCase);
               end
-            else 
+            else
               begin
                 if GetCouleurOfSquareDansJeuCourant(quelleCase) = pionBlanc
-                  then 
+                  then
                     begin
                       PrintForEPSFile(square + 'solid_star');
                       FillPoly(myPoly,blackPattern);
                       FramePoly(myPoly);
                     end
-                  else 
+                  else
                     begin
                       PrintForEPSFile(square + 'hollow_star');
                       FillPoly(myPoly,whitePattern);
@@ -2228,20 +2228,20 @@ begin
           TextFace(bold);
           TextMode(3);
           if GetCouleurOfSquareDansJeuCourant(quelleCase) = pionNoir
-            then 
+            then
               begin
                 PrintForEPSFile( ' (' + texte + ') ' + square + 'black_move');
                 DessineStringInRect(myRect,pionBlanc,texte,quelleCase);
               end
-            else 
+            else
               begin
                 if GetCouleurOfSquareDansJeuCourant(quelleCase) = pionBlanc
-                  then 
+                  then
                     begin
                       PrintForEPSFile( ' (' + texte + ') ' + square + 'white_move');
                       DessineStringInRect(myRect,pionNoir,texte,quelleCase);
                     end
-                  else 
+                  else
                     begin
                       PrintForEPSFile( ' (' + texte + ') ' + square + 'move_number');
                       DessineStringInRect(myRect,pionNoir,texte,quelleCase);
@@ -2367,7 +2367,7 @@ begin
        if ((justification and kJusticationCentreHori) <> 0) and IsDigit(s[1])
          then inc(a);
 
-       smallRect := MakeRect(a, b - haut -1, a + largeur, b); 
+       smallRect := MakeRect(a, b - haut -1, a + largeur, b);
 
       // WritelnNumDansRapport('smallRect.bottom = ',smallRect.bottom);
 
@@ -2601,14 +2601,14 @@ function GetNombreAppelsRecursifsRedessinerRectDansSquare(whichSquare : SInt16; 
 var k, compteur : SInt32;
 begin
   compteur := 0;
-  
+
   with gPileDesRectanglesRecursifsARedessiner do
     begin
       for k := 1 to cardinal do
-        if (pile[k].square = whichSquare) & (SameRect(pile[k].theRect, whichRect)) 
+        if (pile[k].square = whichSquare) & (SameRect(pile[k].theRect, whichRect))
           then inc(compteur);
     end;
-  
+
   GetNombreAppelsRecursifsRedessinerRectDansSquare := compteur;
 end;
 
@@ -2617,19 +2617,19 @@ function AddDansPileParametresRecursifsRectDansSquare(whichSquare : SInt16; whic
 var index : SInt32;
 begin
   index := -1;
-  
+
   with gPileDesRectanglesRecursifsARedessiner do
     begin
       if (cardinal < 100) then
         begin
           inc(cardinal);
           index := cardinal;
-          
+
           pile[cardinal].square  := whichSquare;
           pile[cardinal].theRect := whichRect;
         end;
     end;
-  
+
   AddDansPileParametresRecursifsRectDansSquare := index;
 end;
 
@@ -2637,7 +2637,7 @@ end;
 procedure RemoveDansPileParametresRecursifsRectDansSquare(index : SInt32; whichSquare : SInt16; whichRect : rect);
 begin
   Discard2(whichSquare, whichRect);
-  
+
   if (index >= 1) & (index <= 100) then
     with gPileDesRectanglesRecursifsARedessiner do
       begin
@@ -2646,7 +2646,7 @@ begin
             square := -1;
             theRect := MakeRect(-1,-1,-1,-1);
           end;
-        
+
         if (index = cardinal) & (cardinal >= 1)
           then dec(cardinal)
           else WritelnDansRapport('ASSERT : pile des appels recursifs fausse dans RemoveDansPileParametresRecursifsRectDansSquare !!');
@@ -2666,31 +2666,31 @@ var valeurCase : SInt16;
     nbAppelsRecursifs, index : SInt32;
 begin
   index := -1;
-  
-  if (whichSquare >= 11) & (whichSquare <= 88) & 
+
+  if (whichSquare >= 11) & (whichSquare <= 88) &
      (gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs < 150) & not(quitter) then
     begin
-      
+
       (*
       WritelnNumDansRapport('entree dans RedessinerRectDansSquare : ',gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs);
       WritelnNumDansRapport('  square : ',whichSquare);
       Wait(0.05);
       *)
-    
+
       inc(gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs);
-      
-      
+
+
       nbAppelsRecursifs := GetNombreAppelsRecursifsRedessinerRectDansSquare(whichSquare, whichRect);
-      
+
       (* WritelnNumDansRapport('  recur : ',nbAppelsRecursifs); *)
-      
+
       if (nbAppelsRecursifs <= 0) then
         begin
-      
+
           index := AddDansPileParametresRecursifsRectDansSquare(whichSquare, whichRect);
-          
+
           (* WritelnNumDansRapport('  index : ',index); *)
-          
+
     		  GetPort(oldPort);
     		  SetPortByWindow(wPlateauPtr);
 
@@ -2745,17 +2745,17 @@ begin
     		  TextFace(StyleParameter(oldTextFace));
 
     		  SetPort(oldPort);
-    		  
-    		  
-    		  
+    		
+    		
+    		
     		  RemoveDansPileParametresRecursifsRectDansSquare(index, whichSquare, whichRect);
     		
     		end;
-		  
-		  
+		
+		
 		  dec(gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs);
-		  
-		  
+		
+		
 		  (*
 		  WritelnDansRapport('sortie de RedessinerRectDansSquare');
 		  Wait(0.05);

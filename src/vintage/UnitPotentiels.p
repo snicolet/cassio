@@ -16,17 +16,17 @@ INTERFACE
 
 
 
-procedure InitUnitPotentiels;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitPotentiels')
-procedure SetPotentielsOptimums(position : PositionEtTraitRec);                                                                                                                     ATTRIBUTE_NAME('SetPotentielsOptimums')
-procedure AffichePotentiels;                                                                                                                                                        ATTRIBUTE_NAME('AffichePotentiels')
+procedure InitUnitPotentiels;
+procedure SetPotentielsOptimums(position : PositionEtTraitRec);
+procedure AffichePotentiels;
 
-procedure UpdatePotentiels(whichPlat : plateauOthello; whichColor : SInt16);                                                                                                        ATTRIBUTE_NAME('UpdatePotentiels')
+procedure UpdatePotentiels(whichPlat : plateauOthello; whichColor : SInt16);
 
-function VincenzPenseQueCEstUnTresMauvaisCoup(whichSquare : SInt16; whichPos : PositionEtTraitRec) : boolean;                                                                       ATTRIBUTE_NAME('VincenzPenseQueCEstUnTresMauvaisCoup')
-function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double_t;                                               ATTRIBUTE_NAME('EffectueMoveEtCalculePotentielVincenz')
+function VincenzPenseQueCEstUnTresMauvaisCoup(whichSquare : SInt16; whichPos : PositionEtTraitRec) : boolean;
+function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double_t;
 
 {simulation du program Perl "Vincenz" de Jakub Tesinsky}
-function ChoixDeVincenz(positionEtTrait : PositionEtTraitRec; degreMinimisation : SInt16; doitChercherDefense : boolean) : VincenzMoveRec;                                          ATTRIBUTE_NAME('ChoixDeVincenz')
+function ChoixDeVincenz(positionEtTrait : PositionEtTraitRec; degreMinimisation : SInt16; doitChercherDefense : boolean) : VincenzMoveRec;
 
 
 IMPLEMENTATION

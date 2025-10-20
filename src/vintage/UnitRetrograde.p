@@ -12,16 +12,16 @@ INTERFACE
 USES UnitDefCassio;
 
 
-procedure InitUnitRetrograde;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitRetrograde')
-procedure DoAnalyseRetrograde(limiteAnalyseRetro : SInt32);                                                                                                                         ATTRIBUTE_NAME('DoAnalyseRetrograde')
-function DoDialogueRetrograde(seulementParametrage : boolean) : boolean;                                                                                                            ATTRIBUTE_NAME('DoDialogueRetrograde')
+procedure InitUnitRetrograde;
+procedure DoAnalyseRetrograde(limiteAnalyseRetro : SInt32);
+function DoDialogueRetrograde(seulementParametrage : boolean) : boolean;
 
-function EstDansBanniereAnalyseRetrograde(positionClic : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('EstDansBanniereAnalyseRetrograde')
-procedure SelectionneAnalyseRetrograde(positionClic : SInt32);                                                                                                                      ATTRIBUTE_NAME('SelectionneAnalyseRetrograde')
+function EstDansBanniereAnalyseRetrograde(positionClic : SInt32) : boolean;
+procedure SelectionneAnalyseRetrograde(positionClic : SInt32);
 
 
-function AnalyseRetrogradeEnCours : boolean;                                                                                                                                        ATTRIBUTE_NAME('AnalyseRetrogradeEnCours')
-function PeutArreterAnalyseRetrograde : boolean;                                                                                                                                    ATTRIBUTE_NAME('PeutArreterAnalyseRetrograde')
+function AnalyseRetrogradeEnCours : boolean;
+function PeutArreterAnalyseRetrograde : boolean;
 
 
 
@@ -939,7 +939,7 @@ begin
 			      WritelnNumDansRapport('scoreABattre = ',scoreABattre);
 			      WritelnDansRapport('');
 			    end;
-			    
+			
 			  (* if faitConfiance *)
 
 			  if ((analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) & (scoreABattre = 64)) |
@@ -1275,18 +1275,18 @@ begin
 
   if ((scorePourTrait < 0) & (nouveauscore >= 0)) |
      ((scorePourTrait = 0) & (nouveauscore > 0))
-    then 
+    then
       begin
         s := ' ' + ReadStringFromRessource(TextesRetrogradeID,9);  {??}
         if (nbPionsPerdus >= 5) then s := s + '?';
       end
-    else 
+    else
       begin
         s := ' ' + ReadStringFromRessource(TextesRetrogradeID,8); {?}
         if (nbPionsPerdus >= 5) then s := s + '?';
       end;
   s := s + '  ';
-  
+
   nbDePionsPerdusDejaAnnonce := false;
 
   case analyseRetrograde.genreAnalyseEnCours of
@@ -1380,11 +1380,11 @@ begin
           else
             begin
               if scorePourNoir = 0
-                then 
+                then
                   if (nbPionsPerdus > 1)
                     then s := ReadStringFromRessource(TextesRetrogradeID,37) {'^0 faisait ^1 pions de plus et annulait'}
                     else s := ReadStringFromRessource(TextesRetrogradeID,36) {'^0 faisait un pion de plus et annulait'}
-                else 
+                else
                   if (nbPionsPerdus > 1)
                     then s := ReadStringFromRessource(TextesRetrogradeID,39) {'^0 faisait ^1 pions de plus et ^2'}
                     else s := ReadStringFromRessource(TextesRetrogradeID,38);{'^0 faisait un pion de plus et ^2'}
@@ -1396,7 +1396,7 @@ begin
               ChangeFontSizeDansRapport(gCassioRapportNormalSize);
               InsereStringDansRapport(', '+s);
             end;
-        
+
         positionInsertionLocale := GetPositionPointDinsertion+1;
         chaineMeilleureSuite := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,false,0);
         EnleveEspacesDeGaucheSurPlace(chaineMeilleureSuite);
@@ -1413,8 +1413,8 @@ begin
         s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),'','','');
         TextNormalDansRapport;
         ChangeFontSizeDansRapport(gCassioRapportNormalSize);
-          
-          
+
+
         with analyseRetrograde do
           if (scorePourNoir = 0) & (nbreCoup + 2 <= 60) & (nbreCoup + 1 >= 0)
              & (demande[nbreCoup + 2, numeroPasse].genre = ReflRetrogradeParfait)
@@ -1422,17 +1422,17 @@ begin
             begin
               (* cas o on a une nulle en gagnant/perdant au coup n, mais un score perdant au coup n+1 :
                  en fait on connait le nombre exact de pions perdus dans ce cas... *)
-              
+
               if (nbPionsPerdus > 1)
                 then s := ReadStringFromRessource(TextesRetrogradeID,37)  {'^0 faisait ^1 pions de plus et annulait'}
                 else s := ReadStringFromRessource(TextesRetrogradeID,36); {'^0 faisait un pion de plus et annulait'}
               s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
-              
+
               if AQuiDeJouer = pionNoir
                 then ChangeFontColorDansRapport(MarineCmd)
                 else ChangeFontColorDansRapport(RougeCmd);
             end;
-        
+
         InsereStringDansRapport(', '+s);
         positionInsertionLocale := GetPositionPointDinsertion+1;
         {InsereStringlnDansRapport('');}

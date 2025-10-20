@@ -7,12 +7,12 @@ INTERFACE
  USES UnitDefCassio;
 
 
-function EmptyBitboard : bitboard;                                                                                                                                                  ATTRIBUTE_NAME('EmptyBitboard')
-function MakeBitboard(my_low,my_high,opp_low,opp_hi : UInt32) : bitboard;                                                                                                           ATTRIBUTE_NAME('MakeBitboard')
+function EmptyBitboard : bitboard;
+function MakeBitboard(my_low,my_high,opp_low,opp_hi : UInt32) : bitboard;
 
 
-procedure EcritBitboardDansRapport(s : String255; position : bitboard);                                                                                                             ATTRIBUTE_NAME('EcritBitboardDansRapport')
-procedure EcritBitboardState(s : String255; position : bitboard; ESprof,alpha,beta,diffPions : SInt32);                                                                             ATTRIBUTE_NAME('EcritBitboardState')
+procedure EcritBitboardDansRapport(s : String255; position : bitboard);
+procedure EcritBitboardState(s : String255; position : bitboard; ESprof,alpha,beta,diffPions : SInt32);
 
 
 IMPLEMENTATION

@@ -12,8 +12,8 @@ INTERFACE
 
 
 
-procedure InitUnitCreateBitboardCode;                                                                                                                                               ATTRIBUTE_NAME('InitUnitCreateBitboardCode')
-procedure CreateJansEndgameCode(C_language : boolean);                                                                                                                              ATTRIBUTE_NAME('CreateJansEndgameCode')
+procedure InitUnitCreateBitboardCode;
+procedure CreateJansEndgameCode(C_language : boolean);
 
 IMPLEMENTATION
 

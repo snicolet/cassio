@@ -16,7 +16,7 @@ INTERFACE
 
 {$IFC (USING_QUATRECASESVIDESBITBOARDFAST) }
 
-function QuatreCasesVidesBitboardFast(var position : bitboard; alpha_4,beta_4,diffPions_4,vecteurParite_4 : SInt32; listeBitboard : UInt32{; debugageUnrolled : boolean}) : SInt32; ATTRIBUTE_NAME('QuatreCasesVidesBitboardFast')
+function QuatreCasesVidesBitboardFast(var position : bitboard; alpha_4,beta_4,diffPions_4,vecteurParite_4 : SInt32; listeBitboard : UInt32{; debugageUnrolled : boolean}) : SInt32;
 
 
 {attention : toujours appeler QuatreCasesVidesBitboardFast

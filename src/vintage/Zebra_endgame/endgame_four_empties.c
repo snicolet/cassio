@@ -48,7 +48,7 @@ TestFlips_wrapper( int sq,
 }
 
 
-  
+
 pascal int
 solve_two_empty( BitBoard my_bits,
 		 BitBoard opp_bits,
@@ -344,7 +344,7 @@ pascal void calculate_neighborhood_mask( void )
   0,   0,   0,   0,   0,   0,   0,   0,   0,   0
 };
 
-  
+
   for ( i = 1; i <= 8; i++ )
     for ( j = 1; j <= 8; j++ ) {
       /* Create the neighborhood mask for the square POS */

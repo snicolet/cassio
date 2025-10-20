@@ -22,7 +22,7 @@ IMPLEMENTATION
 		
 	procedure CopyC2P (c: Ptr; var s : Str255);
 		var
-			i,len : SInt16; 
+			i,len : SInt16;
 			p,q : Ptr;
 	begin
 		len := 0;
@@ -48,7 +48,7 @@ IMPLEMENTATION
 	
 	procedure CopyP2Cvar (var s : String255; c: Ptr);
 		var
-			len : SInt16; 
+			len : SInt16;
 	begin
 		len := LENGTH_OF_STRING(s);
 		BlockMoveData(@s[1],c,len);
@@ -63,7 +63,7 @@ IMPLEMENTATION
 	
 	procedure P2C(p : Ptr);
 		var
-			len : SInt16; 
+			len : SInt16;
 	begin
 		len := BAnd(p^,$00FF);
 		BlockMoveData(Ptr(SInt32(p)+1),p,len);

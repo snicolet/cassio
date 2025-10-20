@@ -8,50 +8,50 @@ INTERFACE
 
 
 
-  function MyGetMenu(resourceID : SInt16) : MenuRef;                                                                                                                                ATTRIBUTE_NAME('MyGetMenu')
-	procedure MyLockMenu(theMenu : MenuRef);                                                                                                                                           ATTRIBUTE_NAME('MyLockMenu')
-  procedure MyUnlockMenu(theMenu : MenuRef);                                                                                                                                        ATTRIBUTE_NAME('MyUnlockMenu')
-	procedure TerminateMenu(var theMenu : MenuRef; provientDUneResource : boolean);                                                                                                    ATTRIBUTE_NAME('TerminateMenu')
+  function MyGetMenu(resourceID : SInt16) : MenuRef;
+	procedure MyLockMenu(theMenu : MenuRef);
+  procedure MyUnlockMenu(theMenu : MenuRef);
+	procedure TerminateMenu(var theMenu : MenuRef; provientDUneResource : boolean);
 
-	procedure MyGetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; var itemString : String255 );                                                                                ATTRIBUTE_NAME('MyGetMenuItemText')
-  procedure MySetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; const itemString : String255 );                                                                             ATTRIBUTE_NAME('MySetMenuItemText')
-  procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );                                                                            ATTRIBUTE_NAME('MyInsertMenuItem')
+	procedure MyGetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; var itemString : String255 );
+  procedure MySetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; const itemString : String255 );
+  procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );
 
-  procedure MyAppendMenu( menu: MenuRef; const data: String255 );                                                                                                                   ATTRIBUTE_NAME('MyAppendMenu')
+  procedure MyAppendMenu( menu: MenuRef; const data: String255 );
 
-	function InMenuCmdSet(item : SInt16; commands : menuCmdSet) : boolean;                                                                                                             ATTRIBUTE_NAME('InMenuCmdSet')
-	procedure EnableMenu(mh : MenuRef; commands : menuCmdSet);                                                                                                                         ATTRIBUTE_NAME('EnableMenu')
-	procedure DisableMenu(mh : MenuRef; commands : menuCmdSet);                                                                                                                        ATTRIBUTE_NAME('DisableMenu')
-	procedure FixEditMenu(enablecommands : boolean);                                                                                                                                   ATTRIBUTE_NAME('FixEditMenu')
-	procedure CloseDAwindow;                                                                                                                                                           ATTRIBUTE_NAME('CloseDAwindow')
-	function GetAppleMenu : MenuRef;                                                                                                                                                   ATTRIBUTE_NAME('GetAppleMenu')
-	function GetFileMenu : MenuRef;                                                                                                                                                    ATTRIBUTE_NAME('GetFileMenu')
-	function GetEditMenu : MenuRef;                                                                                                                                                    ATTRIBUTE_NAME('GetEditMenu')
-	procedure SetAppleMenu(whichMenu : MenuRef);                                                                                                                                       ATTRIBUTE_NAME('SetAppleMenu')
-  procedure SetFileMenu(whichMenu : MenuRef);                                                                                                                                       ATTRIBUTE_NAME('SetFileMenu')
-  procedure SetEditMenu(whichMenu : MenuRef);                                                                                                                                       ATTRIBUTE_NAME('SetEditMenu')
+	function InMenuCmdSet(item : SInt16; commands : menuCmdSet) : boolean;
+	procedure EnableMenu(mh : MenuRef; commands : menuCmdSet);
+	procedure DisableMenu(mh : MenuRef; commands : menuCmdSet);
+	procedure FixEditMenu(enablecommands : boolean);
+	procedure CloseDAwindow;
+	function GetAppleMenu : MenuRef;
+	function GetFileMenu : MenuRef;
+	function GetEditMenu : MenuRef;
+	procedure SetAppleMenu(whichMenu : MenuRef);
+  procedure SetFileMenu(whichMenu : MenuRef);
+  procedure SetEditMenu(whichMenu : MenuRef);
 
-  procedure DoAppleMenuCommands(cmdnumber : SInt16);                                                                                                                                ATTRIBUTE_NAME('DoAppleMenuCommands')
-	procedure AjouteEspacesItemsMenu(theMenu : MenuRef; nbEspaces : SInt16);                                                                                                           ATTRIBUTE_NAME('AjouteEspacesItemsMenu')
-  procedure EnleveEspacesDeDroiteItemsMenu(theMenu : MenuRef);                                                                                                                      ATTRIBUTE_NAME('EnleveEspacesDeDroiteItemsMenu')
-	function EventPopUpItem(theMenu : MenuRef; var numItem : SInt16; menuRect : Rect; drawChoice, checkChoice : Boolean) : boolean;                                                    ATTRIBUTE_NAME('EventPopUpItem')
-	function EventPopUpItemInDialog(dp : DialogPtr; menuTitleItem : SInt16; theMenu : MenuRef; var numItem : SInt16; menuRect : Rect; drawChoice, checkChoice : Boolean) : boolean;    ATTRIBUTE_NAME('EventPopUpItemInDialog')
-	procedure DrawPUItem(theMenu : MenuRef; item : SInt16; loc : Rect; drawMark : boolean);                                                                                            ATTRIBUTE_NAME('DrawPUItem')
-	function NewMenuFlottant(whichID : SInt32; whichrect : Rect; whichItem : SInt16) : MenuFlottantRec;                                                                                ATTRIBUTE_NAME('NewMenuFlottant')
-	procedure SetItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; whichItem : SInt16; var change : boolean);                                                                  ATTRIBUTE_NAME('SetItemMenuFlottant')
-  procedure SetFontMenuFlottant(var whichMenuFlottant : MenuFlottantRec; fontID : SInt16; fontSize : UInt16);                                                                       ATTRIBUTE_NAME('SetFontMenuFlottant')
-  procedure CheckOnlyThisItem(var whichMenuFlottant : MenuFlottantRec; whichItem : SInt16);                                                                                         ATTRIBUTE_NAME('CheckOnlyThisItem')
-  procedure EffaceMenuFlottant(var whichMenuFlottant : MenuFlottantRec);                                                                                                            ATTRIBUTE_NAME('EffaceMenuFlottant')
-  procedure CalculateMenuFlottantSize(var whichMenuFlottant : MenuFlottantRec);                                                                                                     ATTRIBUTE_NAME('CalculateMenuFlottantSize')
-  procedure DrawPUItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; drawMark : boolean);                                                                                    ATTRIBUTE_NAME('DrawPUItemMenuFlottant')
-  procedure CalculateMenuFlottantControl(var whichMenuFlottant : MenuFlottantRec; whichWindow : WindowPtr);                                                                         ATTRIBUTE_NAME('CalculateMenuFlottantControl')
-	procedure InstalleMenuFlottant(var whichMenuFlottant : MenuFlottantRec; whichWindow : WindowPtr);                                                                                  ATTRIBUTE_NAME('InstalleMenuFlottant')
-	procedure DesinstalleMenuFlottant(var whichMenuFlottant : MenuFlottantRec);                                                                                                        ATTRIBUTE_NAME('DesinstalleMenuFlottant')
-	function EventPopUpItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; drawChoice, checkChoiceBefore,checkChoiceAfter : Boolean) : boolean;                                  ATTRIBUTE_NAME('EventPopUpItemMenuFlottant')
+  procedure DoAppleMenuCommands(cmdnumber : SInt16);
+	procedure AjouteEspacesItemsMenu(theMenu : MenuRef; nbEspaces : SInt16);
+  procedure EnleveEspacesDeDroiteItemsMenu(theMenu : MenuRef);
+	function EventPopUpItem(theMenu : MenuRef; var numItem : SInt16; menuRect : Rect; drawChoice, checkChoice : Boolean) : boolean;
+	function EventPopUpItemInDialog(dp : DialogPtr; menuTitleItem : SInt16; theMenu : MenuRef; var numItem : SInt16; menuRect : Rect; drawChoice, checkChoice : Boolean) : boolean;
+	procedure DrawPUItem(theMenu : MenuRef; item : SInt16; loc : Rect; drawMark : boolean);
+	function NewMenuFlottant(whichID : SInt32; whichrect : Rect; whichItem : SInt16) : MenuFlottantRec;
+	procedure SetItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; whichItem : SInt16; var change : boolean);
+  procedure SetFontMenuFlottant(var whichMenuFlottant : MenuFlottantRec; fontID : SInt16; fontSize : UInt16);
+  procedure CheckOnlyThisItem(var whichMenuFlottant : MenuFlottantRec; whichItem : SInt16);
+  procedure EffaceMenuFlottant(var whichMenuFlottant : MenuFlottantRec);
+  procedure CalculateMenuFlottantSize(var whichMenuFlottant : MenuFlottantRec);
+  procedure DrawPUItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; drawMark : boolean);
+  procedure CalculateMenuFlottantControl(var whichMenuFlottant : MenuFlottantRec; whichWindow : WindowPtr);
+	procedure InstalleMenuFlottant(var whichMenuFlottant : MenuFlottantRec; whichWindow : WindowPtr);
+	procedure DesinstalleMenuFlottant(var whichMenuFlottant : MenuFlottantRec);
+	function EventPopUpItemMenuFlottant(var whichMenuFlottant : MenuFlottantRec; drawChoice, checkChoiceBefore,checkChoiceAfter : Boolean) : boolean;
 
-	procedure EnableAppleMenuForDialog(nombreItemsAGriser : SInt16);                                                                                                                   ATTRIBUTE_NAME('EnableAppleMenuForDialog')
+	procedure EnableAppleMenuForDialog(nombreItemsAGriser : SInt16);
 
-	procedure DisplayAboutBox;                                                                                                                                                         ATTRIBUTE_NAME('DisplayAboutBox')
+	procedure DisplayAboutBox;
 
 
 

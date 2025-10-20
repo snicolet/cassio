@@ -15,9 +15,9 @@ INTERFACE
 
 
 
-procedure DoRegressionLineaireCoeffsCassio(ApresQuelCoup : SInt16);                                                                                                                 ATTRIBUTE_NAME('DoRegressionLineaireCoeffsCassio')
-procedure WritelnVecteurEvaluationDansRapport(nom : String255; vecteurEvals : VecteurReels; nbChiffres : SInt16);                                                                   ATTRIBUTE_NAME('WritelnVecteurEvaluationDansRapport')
-procedure CalculeValeursEvaluationPartieNumero(nroRefPartie : SInt32; ApresQuelCoup : SInt16; var scoreParfaitPourNoir : SInt16; var vecteurEvaluationPourNoir : EvaluationCassioRec; var ok : boolean; var position : plateauOthello);                                       ATTRIBUTE_NAME('CalculeValeursEvaluationPartieNumero')
+procedure DoRegressionLineaireCoeffsCassio(ApresQuelCoup : SInt16);
+procedure WritelnVecteurEvaluationDansRapport(nom : String255; vecteurEvals : VecteurReels; nbChiffres : SInt16);
+procedure CalculeValeursEvaluationPartieNumero(nroRefPartie : SInt32; ApresQuelCoup : SInt16; var scoreParfaitPourNoir : SInt16; var vecteurEvaluationPourNoir : EvaluationCassioRec; var ok : boolean; var position : plateauOthello);
 
 
 

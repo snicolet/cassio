@@ -14,15 +14,15 @@ INTERFACE
 
 
 
-function OuvreFichierSolitaireNouveauFormat(nbreCasesVides : SInt16) : OSErr;                                                                                                       ATTRIBUTE_NAME('OuvreFichierSolitaireNouveauFormat')
-function FermeFichierSolitaireNouveauFormat(nbreCasesVides : SInt16) : OSErr;                                                                                                       ATTRIBUTE_NAME('FermeFichierSolitaireNouveauFormat')
+function OuvreFichierSolitaireNouveauFormat(nbreCasesVides : SInt16) : OSErr;
+function FermeFichierSolitaireNouveauFormat(nbreCasesVides : SInt16) : OSErr;
 
 
-function GetNumeroFichierSolitaireNouveauFormat(nbreCasesVides : SInt16; var numeroFichier : SInt16) : boolean;                                                                     ATTRIBUTE_NAME('GetNumeroFichierSolitaireNouveauFormat')
-function CreerFichierSolitaireVideNouveauFormat(nbreCasesVides : SInt16) : OSErr;                                                                                                   ATTRIBUTE_NAME('CreerFichierSolitaireVideNouveauFormat')
+function GetNumeroFichierSolitaireNouveauFormat(nbreCasesVides : SInt16; var numeroFichier : SInt16) : boolean;
+function CreerFichierSolitaireVideNouveauFormat(nbreCasesVides : SInt16) : OSErr;
 
 
-function AjouterSolitaireNouveauFormatSurDisque(nbreCasesVides : SInt16; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;                                                       ATTRIBUTE_NAME('AjouterSolitaireNouveauFormatSurDisque')
+function AjouterSolitaireNouveauFormatSurDisque(nbreCasesVides : SInt16; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
 
 
 

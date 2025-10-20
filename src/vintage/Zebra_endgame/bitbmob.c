@@ -78,7 +78,7 @@ init_mmx( void ) {
 	
 	useMMX = 1;
 	
-  
+
 #endif
 }
 
@@ -561,18 +561,18 @@ weighted_mobility( const BitBoard my_bits,
 
 
 pascal int
-bitboard_mobility_with_zebra_mmx( unsigned int my_bits_low, 
-                                  unsigned int my_bits_high, 
-                                  unsigned int opp_bits_low, 
+bitboard_mobility_with_zebra_mmx( unsigned int my_bits_low,
+                                  unsigned int my_bits_high,
+                                  unsigned int opp_bits_low,
                                   unsigned int opp_bits_high)
 {
   BitBoard my_bits, opp_bits;
-  
+
   my_bits.low  = my_bits_low;
   my_bits.high  = my_bits_high;
   opp_bits.low  = opp_bits_low;
   opp_bits.low  = opp_bits_low;
-  
+
   #ifdef USE_PENTIUM_ASM
     return bitboard_mobility(my_bits, opp_bits);
   #else

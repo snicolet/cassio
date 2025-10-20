@@ -15,138 +15,138 @@ INTERFACE
 
 
 {Initialisation de l'unite}
-procedure InitUnitGestionDuTemps;                                                                                                                                                   ATTRIBUTE_NAME('InitUnitGestionDuTemps')
-procedure LibereMemoireGestionDuTemps;                                                                                                                                              ATTRIBUTE_NAME('LibereMemoireGestionDuTemps')
+procedure InitUnitGestionDuTemps;
+procedure LibereMemoireGestionDuTemps;
 
 
 { Temps alloue pour un coup, en fonction du temps restant a la pendule}
-function TempsRestantPendule(couleur : SInt16) : SInt32;                                                                                                                            ATTRIBUTE_NAME('TempsRestantPendule')
-function TempsPourCeCoup(n,couleur : SInt16) : SInt32;                                                                                                                              ATTRIBUTE_NAME('TempsPourCeCoup')
-function CalculeTempsAlloueEnFinale(CoulPourMeilleurFin : SInt16) : SInt32;                                                                                                         ATTRIBUTE_NAME('CalculeTempsAlloueEnFinale')
-procedure TestDepassementTemps;                                                                                                                                                     ATTRIBUTE_NAME('TestDepassementTemps')
-procedure EcritOopsMaPenduleDansRapport;                                                                                                                                            ATTRIBUTE_NAME('EcritOopsMaPenduleDansRapport')
-procedure DerniereHeure(couleur : SInt32);                                                                                                                                          ATTRIBUTE_NAME('DerniereHeure')
-procedure SetDateEnTickDuCoupNumero(numero,date : SInt32);                                                                                                                          ATTRIBUTE_NAME('SetDateEnTickDuCoupNumero')
-function GetDateEnTickDuCoupNumero(numero : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('GetDateEnTickDuCoupNumero')
+function TempsRestantPendule(couleur : SInt16) : SInt32;
+function TempsPourCeCoup(n,couleur : SInt16) : SInt32;
+function CalculeTempsAlloueEnFinale(CoulPourMeilleurFin : SInt16) : SInt32;
+procedure TestDepassementTemps;
+procedure EcritOopsMaPenduleDansRapport;
+procedure DerniereHeure(couleur : SInt32);
+procedure SetDateEnTickDuCoupNumero(numero,date : SInt32);
+function GetDateEnTickDuCoupNumero(numero : SInt32) : SInt32;
 
 
 { Cadence de la partie}
-procedure SetCadence(cadence : SInt32);                                                                                                                                             ATTRIBUTE_NAME('SetCadence')
-function GetCadence : SInt32;                                                                                                                                                       ATTRIBUTE_NAME('GetCadence')
-procedure AjusteCadenceMin(cadence : SInt32);                                                                                                                                       ATTRIBUTE_NAME('AjusteCadenceMin')
-procedure Heure(couleur : SInt16);                                                                                                                                                  ATTRIBUTE_NAME('Heure')
-procedure SetCadenceAutreQueAnalyse(cadenceAutreQueAnalyse : SInt32; avecJeuInstantane : boolean);                                                                                  ATTRIBUTE_NAME('SetCadenceAutreQueAnalyse')
-function GetCadenceAutreQueAnalyse : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetCadenceAutreQueAnalyse')
-function GetJeuInstantaneAutreQueAnalyse : boolean;                                                                                                                                 ATTRIBUTE_NAME('GetJeuInstantaneAutreQueAnalyse')
+procedure SetCadence(cadence : SInt32);
+function GetCadence : SInt32;
+procedure AjusteCadenceMin(cadence : SInt32);
+procedure Heure(couleur : SInt16);
+procedure SetCadenceAutreQueAnalyse(cadenceAutreQueAnalyse : SInt32; avecJeuInstantane : boolean);
+function GetCadenceAutreQueAnalyse : SInt32;
+function GetJeuInstantaneAutreQueAnalyse : boolean;
 
 
 { Changements d'etats }
-procedure InvalidateAnalyseDeFinale;                                                                                                                                                ATTRIBUTE_NAME('InvalidateAnalyseDeFinale')
-procedure InvalidateAnalyseDeFinaleSiNecessaire(mode : InvalidateMode);                                                                                                             ATTRIBUTE_NAME('InvalidateAnalyseDeFinaleSiNecessaire')
-procedure ActiverAttenteAnalyseDeFinale(whichPos : PositionEtTraitRec; bestMove,bestDef : SInt32; dessinee : boolean);                                                              ATTRIBUTE_NAME('ActiverAttenteAnalyseDeFinale')
-procedure SetSuggestionDeFinaleEstDessinee(flag : boolean);                                                                                                                         ATTRIBUTE_NAME('SetSuggestionDeFinaleEstDessinee')
-procedure AjusteEtatGeneralDeCassioApresChangementDeCadence;                                                                                                                        ATTRIBUTE_NAME('AjusteEtatGeneralDeCassioApresChangementDeCadence')
+procedure InvalidateAnalyseDeFinale;
+procedure InvalidateAnalyseDeFinaleSiNecessaire(mode : InvalidateMode);
+procedure ActiverAttenteAnalyseDeFinale(whichPos : PositionEtTraitRec; bestMove,bestDef : SInt32; dessinee : boolean);
+procedure SetSuggestionDeFinaleEstDessinee(flag : boolean);
+procedure AjusteEtatGeneralDeCassioApresChangementDeCadence;
 
 
 
 { Pour savoir si Cassio a terminé l'analyse de la position }
-function AttenteAnalyseDeFinaleDansPositionCourante : boolean;                                                                                                                      ATTRIBUTE_NAME('AttenteAnalyseDeFinaleDansPositionCourante')
-function AttenteAnalyseDeFinaleEstActive : boolean;                                                                                                                                 ATTRIBUTE_NAME('AttenteAnalyseDeFinaleEstActive')
-function SuggestionAnalyseDeFinaleEstDessinee : boolean;                                                                                                                            ATTRIBUTE_NAME('SuggestionAnalyseDeFinaleEstDessinee')
-function GetBestMoveAttenteAnalyseDeFinale : SInt32;                                                                                                                                ATTRIBUTE_NAME('GetBestMoveAttenteAnalyseDeFinale')
-function GetBestDefenseAttenteAnalyseDeFinale : SInt32;                                                                                                                             ATTRIBUTE_NAME('GetBestDefenseAttenteAnalyseDeFinale')
-function EstLeCoupParfaitAfficheCommeSuggestionDeFinale(whichMove : SInt32) : boolean;                                                                                              ATTRIBUTE_NAME('EstLeCoupParfaitAfficheCommeSuggestionDeFinale')
+function AttenteAnalyseDeFinaleDansPositionCourante : boolean;
+function AttenteAnalyseDeFinaleEstActive : boolean;
+function SuggestionAnalyseDeFinaleEstDessinee : boolean;
+function GetBestMoveAttenteAnalyseDeFinale : SInt32;
+function GetBestDefenseAttenteAnalyseDeFinale : SInt32;
+function EstLeCoupParfaitAfficheCommeSuggestionDeFinale(whichMove : SInt32) : boolean;
 
 
 
 { Un drapeau simple que Cassio levera quand il sera en train de calculer }
-procedure SetCassioEstEnTrainDeReflechir(newvalue : boolean; oldValue : BooleanPtr);                                                                                                ATTRIBUTE_NAME('SetCassioEstEnTrainDeReflechir')
-function CassioEstEnTrainDeReflechir : boolean;                                                                                                                                     ATTRIBUTE_NAME('CassioEstEnTrainDeReflechir')
-function CassioDoitReflechirSurLeTempsAdverse : boolean;                                                                                                                            ATTRIBUTE_NAME('CassioDoitReflechirSurLeTempsAdverse')
-function CassioDoitReflechirSurLeTempsAdverseDansCetteConfiguration(var config : ConfigurationCassioRec) : boolean;                                                                 ATTRIBUTE_NAME('CassioDoitReflechirSurLeTempsAdverseDansCetteConfiguration')
-function CassioDoitReflechirSurLeTempsAdverseDansConfigurationCourante : boolean;                                                                                                   ATTRIBUTE_NAME('CassioDoitReflechirSurLeTempsAdverseDansConfigurationCourante')
-procedure SetReveillerRegulierementLeMac(flag : boolean);                                                                                                                           ATTRIBUTE_NAME('SetReveillerRegulierementLeMac')
-function GetReveillerRegulierementLeMac : boolean;                                                                                                                                  ATTRIBUTE_NAME('GetReveillerRegulierementLeMac')
+procedure SetCassioEstEnTrainDeReflechir(newvalue : boolean; oldValue : BooleanPtr);
+function CassioEstEnTrainDeReflechir : boolean;
+function CassioDoitReflechirSurLeTempsAdverse : boolean;
+function CassioDoitReflechirSurLeTempsAdverseDansCetteConfiguration(var config : ConfigurationCassioRec) : boolean;
+function CassioDoitReflechirSurLeTempsAdverseDansConfigurationCourante : boolean;
+procedure SetReveillerRegulierementLeMac(flag : boolean);
+function GetReveillerRegulierementLeMac : boolean;
 
 
 { Temps donné au système d'exploitation }
-procedure AjusteSleep;                                                                                                                                                              ATTRIBUTE_NAME('AjusteSleep')
-function CassioVaJouerInstantanement : boolean;                                                                                                                                     ATTRIBUTE_NAME('CassioVaJouerInstantanement')
-procedure SetDelaiAvantDoSystemTask(newValue : SInt32; fonctionAppelante : String255);                                                                                              ATTRIBUTE_NAME('SetDelaiAvantDoSystemTask')
-procedure DiminueLatenceEntreDeuxDoSystemTask;                                                                                                                                      ATTRIBUTE_NAME('DiminueLatenceEntreDeuxDoSystemTask')
-procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);                                                                                                                        ATTRIBUTE_NAME('AccelereProchainDoSystemTask')
-procedure DoSystemTask(couleur : SInt32);                                                                                                                                           ATTRIBUTE_NAME('DoSystemTask')
-procedure PartagerLeTempsMachineAvecLesAutresProcess(WNESleep : SInt32);                                                                                                            ATTRIBUTE_NAME('PartagerLeTempsMachineAvecLesAutresProcess')
-procedure Wait(secondes : double_t);                                                                                                                                                ATTRIBUTE_NAME('Wait')
+procedure AjusteSleep;
+function CassioVaJouerInstantanement : boolean;
+procedure SetDelaiAvantDoSystemTask(newValue : SInt32; fonctionAppelante : String255);
+procedure DiminueLatenceEntreDeuxDoSystemTask;
+procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);
+procedure DoSystemTask(couleur : SInt32);
+procedure PartagerLeTempsMachineAvecLesAutresProcess(WNESleep : SInt32);
+procedure Wait(secondes : double_t);
 
 
 { Temporisations avant de jouer }
-function DoitTemporiserPourRetournerLesPions : boolean;                                                                                                                             ATTRIBUTE_NAME('DoitTemporiserPourRetournerLesPions')
-procedure SetDelaiDeRetournementDesPions(nouveauDelai : SInt32);                                                                                                                    ATTRIBUTE_NAME('SetDelaiDeRetournementDesPions')
-function GetDelaiDeRetournementDesPions : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetDelaiDeRetournementDesPions')
-procedure TemporisationSolitaire;                                                                                                                                                   ATTRIBUTE_NAME('TemporisationSolitaire')
-procedure TemporisationArnaqueFinale;                                                                                                                                               ATTRIBUTE_NAME('TemporisationArnaqueFinale')
-procedure TemporisationRetournementDesPions;                                                                                                                                        ATTRIBUTE_NAME('TemporisationRetournementDesPions')
+function DoitTemporiserPourRetournerLesPions : boolean;
+procedure SetDelaiDeRetournementDesPions(nouveauDelai : SInt32);
+function GetDelaiDeRetournementDesPions : SInt32;
+procedure TemporisationSolitaire;
+procedure TemporisationArnaqueFinale;
+procedure TemporisationRetournementDesPions;
 
 
 { Gestion des interruptions }
-procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);                                                                                        ATTRIBUTE_NAME('LanceInterruption')
-procedure LanceInterruptionSimple(const fonctionAppelante : String255);                                                                                                             ATTRIBUTE_NAME('LanceInterruptionSimple')
-procedure LanceInterruptionConditionnelle(typeInterruption : SInt16; const message : String255; value : SInt32; const fonctionAppelante : String255);                               ATTRIBUTE_NAME('LanceInterruptionConditionnelle')
-procedure LanceInterruptionSimpleConditionnelle(const fonctionAppelante : String255);                                                                                               ATTRIBUTE_NAME('LanceInterruptionSimpleConditionnelle')
-procedure EnleveCetteInterruption(typeInterruption : SInt16);                                                                                                                       ATTRIBUTE_NAME('EnleveCetteInterruption')
-function GetCurrentInterruption : SInt16;                                                                                                                                           ATTRIBUTE_NAME('GetCurrentInterruption')
-procedure EffectueTacheInterrompante(var interruptionEnCours : SInt16);                                                                                                             ATTRIBUTE_NAME('EffectueTacheInterrompante')
-procedure LanceDemandeDeChangementDeConfig(typeInterruption : SInt16; value : SInt32; const fonctionAppelante : String255);                                                         ATTRIBUTE_NAME('LanceDemandeDeChangementDeConfig')
-procedure GererDemandesChangementDeConfig;                                                                                                                                          ATTRIBUTE_NAME('GererDemandesChangementDeConfig')
+procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);
+procedure LanceInterruptionSimple(const fonctionAppelante : String255);
+procedure LanceInterruptionConditionnelle(typeInterruption : SInt16; const message : String255; value : SInt32; const fonctionAppelante : String255);
+procedure LanceInterruptionSimpleConditionnelle(const fonctionAppelante : String255);
+procedure EnleveCetteInterruption(typeInterruption : SInt16);
+function GetCurrentInterruption : SInt16;
+procedure EffectueTacheInterrompante(var interruptionEnCours : SInt16);
+procedure LanceDemandeDeChangementDeConfig(typeInterruption : SInt16; value : SInt32; const fonctionAppelante : String255);
+procedure GererDemandesChangementDeConfig;
 
 
 
 { Les 'interruptions brutales' permettent de s'assurer que Cassio ne renvoie pas un coup legal à la fin d'un calcul }
-procedure LanceDemandeInterruptionBrutale;                                                                                                                                          ATTRIBUTE_NAME('LanceDemandeInterruptionBrutale')
-function DemandeInterruptionBrutaleEnCours : boolean;                                                                                                                               ATTRIBUTE_NAME('DemandeInterruptionBrutaleEnCours')
-procedure SetDemandeInterruptionBrutaleEnCours(flag : boolean);                                                                                                                     ATTRIBUTE_NAME('SetDemandeInterruptionBrutaleEnCours')
-procedure GererDemandeInterruptionBrutaleEnCours;                                                                                                                                   ATTRIBUTE_NAME('GererDemandeInterruptionBrutaleEnCours')
-procedure TraiteInterruptionBrutale(var coup,reponse : SInt32; fonctionAppelante : String255);                                                                                      ATTRIBUTE_NAME('TraiteInterruptionBrutale')
+procedure LanceDemandeInterruptionBrutale;
+function DemandeInterruptionBrutaleEnCours : boolean;
+procedure SetDemandeInterruptionBrutaleEnCours(flag : boolean);
+procedure GererDemandeInterruptionBrutaleEnCours;
+procedure TraiteInterruptionBrutale(var coup,reponse : SInt32; fonctionAppelante : String255);
 
 
 { Cassio doit-il tester tous les evenements classiques ? }
-procedure SetCassioChecksEvents(flag : boolean);                                                                                                                                    ATTRIBUTE_NAME('SetCassioChecksEvents')
-function GetCassioChecksEvents : boolean;                                                                                                                                           ATTRIBUTE_NAME('GetCassioChecksEvents')
+procedure SetCassioChecksEvents(flag : boolean);
+function GetCassioChecksEvents : boolean;
 
 
 { Etalonnage de la vitesse du Mac }
-function CalculVitesseMac(afficherDansRapport : boolean) : SInt32;                                                                                                                  ATTRIBUTE_NAME('CalculVitesseMac')
-procedure EtalonnageVitesseMac(afficherDansRapport : boolean);                                                                                                                      ATTRIBUTE_NAME('EtalonnageVitesseMac')
+function CalculVitesseMac(afficherDansRapport : boolean) : SInt32;
+procedure EtalonnageVitesseMac(afficherDansRapport : boolean);
 
 
 { Dialogue du choix de la cadence pour la partie }
-function FiltreCadenceDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                 ATTRIBUTE_NAME('FiltreCadenceDialog')
-procedure DoCadence;                                                                                                                                                                ATTRIBUTE_NAME('DoCadence')
+function FiltreCadenceDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+procedure DoCadence;
 
 
 { Fenetre de gestion du temps }
-procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double_t; prof,suivante : SInt16);                                                                    ATTRIBUTE_NAME('SetValeursGestionTemps')
-procedure SetValeurTempsAlloueDansGestionTemps(alloue : SInt32);                                                                                                                    ATTRIBUTE_NAME('SetValeurTempsAlloueDansGestionTemps')
-procedure EcritGestionTemps;                                                                                                                                                        ATTRIBUTE_NAME('EcritGestionTemps')
-procedure LanceChronoCetteProf;                                                                                                                                                     ATTRIBUTE_NAME('LanceChronoCetteProf')
-procedure LanceChrono;                                                                                                                                                              ATTRIBUTE_NAME('LanceChrono')
-procedure LanceDecompteDesNoeuds;                                                                                                                                                   ATTRIBUTE_NAME('LanceDecompteDesNoeuds')
-procedure AffichageNbreNoeuds;                                                                                                                                                      ATTRIBUTE_NAME('AffichageNbreNoeuds')
+procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double_t; prof,suivante : SInt16);
+procedure SetValeurTempsAlloueDansGestionTemps(alloue : SInt32);
+procedure EcritGestionTemps;
+procedure LanceChronoCetteProf;
+procedure LanceChrono;
+procedure LanceDecompteDesNoeuds;
+procedure AffichageNbreNoeuds;
 
 
 { Etat du reseau dans la fenetre de gestion du temps }
-procedure AfficheEtatDuReseau(message : String255);                                                                                                                                 ATTRIBUTE_NAME('AfficheEtatDuReseau')
-function GetLastEtatDuReseauAffiche : String255;                                                                                                                                    ATTRIBUTE_NAME('GetLastEtatDuReseauAffiche')
-procedure SetDateDernierEnvoiRequeteSurReseau(date : SInt32);                                                                                                                           ATTRIBUTE_NAME('SetDateDernierEnvoiRequeteSurReseau')
-function GetDateDerniereRequeteSurReseau : SInt32;                                                                                                                                  ATTRIBUTE_NAME('GetDateDerniereRequeteSurReseau')
-procedure SetMessageEtatDuReseau(message : String255);                                                                                                                              ATTRIBUTE_NAME('SetMessageEtatDuReseau')
-procedure SetReseauEstVivant(vivant : boolean);                                                                                                                                     ATTRIBUTE_NAME('SetReseauEstVivant')
-procedure BouclerUnPeuAvantDeQuitterEnSurveillantLeReseau(nbreDeTicks : SInt32);                                                                                                    ATTRIBUTE_NAME('BouclerUnPeuAvantDeQuitterEnSurveillantLeReseau')
+procedure AfficheEtatDuReseau(message : String255);
+function GetLastEtatDuReseauAffiche : String255;
+procedure SetDateDernierEnvoiRequeteSurReseau(date : SInt32);
+function GetDateDerniereRequeteSurReseau : SInt32;
+procedure SetMessageEtatDuReseau(message : String255);
+procedure SetReseauEstVivant(vivant : boolean);
+procedure BouclerUnPeuAvantDeQuitterEnSurveillantLeReseau(nbreDeTicks : SInt32);
 
 
 { Reveil régulier du mac }
-procedure DoReveilDuMac;                                                                                                                                                            ATTRIBUTE_NAME('DoReveilDuMac')
+procedure DoReveilDuMac;
 
 
 
@@ -225,7 +225,7 @@ var gEtatDuReseau : record
                       dateDerniereRequeteZoo    : SInt32;
                       nbreRequetesSansReponse   : SInt32;
                       dateDernierAffichageEtat  : SInt32;
-                      
+
                       statsZoo : record
                                    dateDernierAffichageStats : SInt32;
                                    nbrePositionsPrefetched : SInt32;
@@ -456,7 +456,7 @@ begin
           then TraiteDemandeAffichageZebraBook;
 
   end;
-  
+
   VerifierLeStatutDeCassioPourLeZoo;
 
   VerifierUtiliteCalculPourLeZoo(true);
@@ -552,8 +552,8 @@ begin
      (((deltaRes <= 100) & (deltaJob <= 100)) | (deltaPing <= 200)) &
      CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo
      then kWNESleep := 2;
-       
-  
+
+
   if (kWNESleep > 0) & (deltaRes <= 2) &
      CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo &
      (NumberOfPrefetch > 0)
@@ -573,7 +573,7 @@ begin
       WritelnNumDansRapport('kWNESleep = ',kWNESleep);
     end;
   *)
-  
+
 end;
 
 
@@ -817,7 +817,7 @@ begin
 end;
 
 
- 
+
 procedure SetCassioChecksEvents(flag : boolean);
 begin
   gCassioChecksEvents := flag;
@@ -1242,7 +1242,7 @@ begin
       EcritTypeInterruptionDansRapport(typeInterruption);
     end;
   *)
-  
+
 end;
 
 
@@ -1301,10 +1301,10 @@ begin
             ChangeConfiguration(config, message, value);
             typedeCalculALancer := TypeDeCalculLanceParCassioDansCetteConfiguration(config);
 
-            if (typedeCalculALancer <> k_AUCUN_CALCUL) 
+            if (typedeCalculALancer <> k_AUCUN_CALCUL)
               then
                 begin
-                  if (typeInterruption = interruptionSimple) & 
+                  if (typeInterruption = interruptionSimple) &
                      (jeuInstantane & (NiveauJeuInstantane < NiveauGrandMaitres) & (nbreCoup <= 40))
                      then
                        begin
@@ -1967,10 +1967,10 @@ var compteurBoucle : SInt16;
     err : OSErr;
 begin
   compteurBoucle := 0;
-  
+
   repeat
     inc(compteurBoucle);
-    
+
     {EcritTypeInterruptionDansRapport(interruptionEnCours);}
 
     GererDemandeInterruptionBrutaleEnCours;
@@ -2248,7 +2248,7 @@ end;
 procedure VerifierSiLeReseauEstMort(nbreRequetesSansReponse, nbreDeSecondesSansReponseDuReseau : SInt32);
 begin
   // WritelnNumDansRapport('Dans VerifierSiLeReseauEstMort : nbreDeSecondeSansResultat = ',nbreDeSecondeSansResultat);
-  
+
   if (nbreRequetesSansReponse > 5) | (nbreDeSecondesSansReponseDuReseau > 5) then
     begin
       SetZooStatus('DEAD');
@@ -2266,7 +2266,7 @@ begin
 
       if (nbreRequetesSansReponse <= 1)
         then dateDerniereRequeteZoo := date;
-        
+
       VerifierSiLeReseauEstMort(nbreRequetesSansReponse, 0);
 
       {WritelnNumDansRapport('dans SetDateDernierEnvoiRequeteSurReseau, nbreRequetesSansReponse = ',nbreRequetesSansReponse);}
@@ -2294,22 +2294,22 @@ begin
     begin
 
       SetReseauEstVivant(true);
-      
+
       if (Pos('KEEP_ALIVE : OK',message) > 0) then
         begin
-          if (CalculateZooStatusPourCetEtatDeCassio = 'SEEKING_JOB') 
+          if (CalculateZooStatusPourCetEtatDeCassio = 'SEEKING_JOB')
             then message := 'NO JOB !'
             else exit(SetMessageEtatDuReseau);
         end;
-      
+
 
       if (Pos('STOP_ALL : OK',message) > 0) |
          (Pos('STILL USEFUL',message) > 0)
         then exit(SetMessageEtatDuReseau);
-         
+
       if (Pos('SEND_SCORE : OK', message) > 0) & CassioEstEnTrainDeCalculerPourLeZoo
         then exit(SetMessageEtatDuReseau);
-         
+
 
       if (Pos('STOPPED ',message) = 1) |
          (Pos('COULD_NOT_STOP ',message) = 1) |
@@ -2338,13 +2338,13 @@ var mytick : SInt32;
 begin
   if Quitter & not(gEnTrainDeBouclerPourSurveillerLeReseau) then
     begin
-      
+
       mytick := TickCount;
       gEnTrainDeBouclerPourSurveillerLeReseau := true;
 
-      while ((TickCount - mytick) < nbreDeTicks ) do 
+      while ((TickCount - mytick) < nbreDeTicks ) do
         DoSystemTask(AQuiDeJouer);
-      
+
       gEnTrainDeBouclerPourSurveillerLeReseau := false;
     end;
 end;
@@ -2493,7 +2493,7 @@ begin
                begin
                  s2 := GetEngineVersion(numeroEngine);
                  if (s2 = '') then s2 := GetEngineName(numeroEngine);
-                 
+
                  s2[1] := UpCase(s2[1]);
                  s := s + s2;
                end
@@ -2501,7 +2501,7 @@ begin
                if (typeEvalEnCours = EVAL_EDMOND)
                    then s := s + 'Edmond'
                    else s := s + 'Cassio';
-                   
+
            if usingAnEngine & (GetEngineState = 'ENGINE_KILLED') & (Tickcount > DateOfLastStartOfEngine + 120)
              then
                s := s + ' (KILLED)'
@@ -2695,8 +2695,8 @@ begin
     end;
 end;
 
-                   
-                    
+
+
 procedure AfficheEtatDuReseau(message : String255);
 var oldPort: grafPtr;
     nbreSecondes, idleTime : SInt32;
@@ -2709,7 +2709,7 @@ var oldPort: grafPtr;
     nbrePositionsAux, nbrePositionsTrivialesAux,nbrePositionsMilieuAux : SInt32;
     nbrePositionsEnAttenteAux : SInt32;
     limiteDroiteFenetre,limiteBasseFenetre : SInt32;
-    
+
     procedure AfficheStatReseau(const ligne : String255);
     begin
       posV := posV + 12;
@@ -2722,7 +2722,7 @@ var oldPort: grafPtr;
           MyDrawString(ligne);
         end;
     end;
-    
+
 begin
 
   with gEtatDuReseau do
@@ -2733,16 +2733,16 @@ begin
 
       if messageAffiche <> message then dateMessageAffiche := TickCount;
       messageAffiche := message;
-      
-      
-      if TickCount <= dateDernierAffichageEtat + 5 
+
+
+      if TickCount <= dateDernierAffichageEtat + 5
         then exit(AfficheEtatDuReseau);
-      
-      
-      
+
+
+
       if (message = '') & (TickCount - dateMessageAffiche > 300) then
         VerifierSiLeReseauEstMort(nbreRequetesSansReponse, (TickCount - dateMessageAffiche) div 60);
-        
+
 
       if windowGestionOpen & (wGestionPtr <> NIL) then
         begin
@@ -2768,7 +2768,7 @@ begin
 
                if not(CassioDoitRentrerEnContactAvecLeZoo)
                  then s := 'Etat sur le zoo : NOT CONNECTED'
-                 else 
+                 else
                    if (nbreSecondes <= 60)
                      then s := 'Etat sur le zoo : ' + message +  '  (depuis ' + NumEnString(nbreSecondes) + ' sec.)'
                      else s := 'Etat sur le zoo : ' + message +  '  (depuis ' + SecondesEnJoursHeuresSecondes(nbreSecondes) + ')';
@@ -2807,14 +2807,14 @@ begin
                nbrePositionsTrivialesAux       := NombreDeJobsEndgameTriviauxCalculesPourLeZoo;
                nbrePositionsMilieuAux          := NombreDeJobsMidgameCalculesPourLeZoo;
                nbrePositionsEnAttenteAux       := NombreDeResultatsEnAttenteSurLeZoo;
-               
+
                GetOccupationDuCacheDesPrefetch(nbrePositionsPrefetchedAux,profMinAux,profMaxAux);
                if CassioEstEnTrainDeCalculerPourLeZoo then inc(nbrePositionsPrefetchedAux);
-               
-               
+
+
                with gEtatDuReseau.statsZoo do
                  begin
-                 
+
                    if (TickCount >= dateDernierAffichageStats + 60) |
                       (nbrePositionsPrefetched <> nbrePositionsPrefetchedAux) |
                       (profMin                 <> profMinAux) |
@@ -2828,7 +2828,7 @@ begin
                       (nbrePositionsMilieu     <> nbrePositionsMilieuAux) |
                       (nbrePositionsEnAttente  <> nbrePositionsEnAttenteAux) then
                      begin
-                     
+
                        dateDernierAffichageStats := TickCount;
                        nbrePositionsPrefetched   := nbrePositionsPrefetchedAux;
                        profMin                   := profMinAux;
@@ -2841,13 +2841,13 @@ begin
                        nbrePositionsTriviales    := nbrePositionsTrivialesAux;
                        nbrePositionsMilieu       := nbrePositionsMilieuAux;
                        nbrePositionsEnAttente    := nbrePositionsEnAttenteAux;
-                       
+
 
                        if nbrePositionsEnAttente >= 2
                          then s := '  Nombre de positions demandées au zoo : '+NumEnString(nbrePositionsEnAttente)
                          else s := '  Nombre de positions demandées au zoo : '+NumEnString(nbrePositionsEnAttente);
                        AfficheStatReseau(s);
-                       
+
                        if CassioEstEnTrainDeCalculerPourLeZoo then
                          begin
                            inc(nbrePositionsPrefetched);
@@ -2860,57 +2860,57 @@ begin
                        if (profMax >= 0)
                          then s := s + ' (de prof. max ' + NumEnString(profMax) + ')';
                        AfficheStatReseau(s);
-                       
-                       
+
+
                        s := '  Temps CPU utile consacré au zoo : ' + ReelEnString(tempsUtile) + ' sec.';
                        AfficheStatReseau(s);
-                       
+
                        if (nbrePositions <> 0) then
                          begin
                            s := '  Pour '+ NumEnString(nbrePositions) + ' positions, soit un temps moyen de ' +  ReelEnString(tempsTotal / nbrePositions) + ' sec.';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        if (abs(nbrePositions - nbrePositionsMilieu) >= 2) then
                          begin
                            s := '  Temps moyen des positions de finale : ' +  ReelEnString((tempsTotal - tempsDeMidgame) / (nbrePositions - nbrePositionsMilieu)) + ' sec.';
                            AfficheStatReseau(s);
                          end;
-                         
+
                        if (tempsTotal <> 0.0) then
                          begin
                            s := '  Temps CPU total consacré au zoo : ' + ReelEnString(tempsTotal + tempsPositionCourante) + ' sec.';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        if (tempsTotal <> 0.0) & (tempsUtile <> tempsTotal) then
                          begin
                            s := '  Pertes dues aux annulations : ' + ReelEnString(100.0 * (tempsTotal - tempsUtile) / tempsTotal) + ' %';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        if (nbrePositions <> 0) & (nbrePositionsTriviales <> 0) then
                          begin
                            s := '  Pourcentage des positions de finale triviales (t < 0.05 sec.) : ' +  ReelEnString(100.0 * (nbrePositionsTriviales / nbrePositions)) + ' %';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        if (nbrePositions <> 0) & (nbrePositionsMilieu <> 0) then
                          begin
                            s := '  Pourcentage du nombre de positions de milieu : ' +  NumEnString(nbrePositionsMilieu) + ' positions = ' + ReelEnString(100.0 * (nbrePositionsMilieu / nbrePositions)) + ' %';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        if (tempsTotal <> 0.0) & (tempsDeMidgame <> 0.0) then
                          begin
                            s := '  Pourcentage du temps pour les positions de milieu : ' + ReelEnString(tempsDeMidgame) + ' sec. = ' + ReelEnString(100.0 * (tempsDeMidgame / tempsTotal)) + ' %';
                            AfficheStatReseau(s);
                          end;
-                       
+
                        AfficheStatReseau('');
-                       
+
                      end;
-                 
+
                  end; {with gEtatDuReseau.statsZoo}
 
             end;  {with gestionRec}

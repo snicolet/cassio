@@ -12,42 +12,42 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnit3DPovRayPict;                                                                                                                                                     ATTRIBUTE_NAME('InitUnit3DPovRayPict')
-procedure LibereMemoireUnit2DPovRayPicts;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnit2DPovRayPicts')
+procedure InitUnit3DPovRayPict;
+procedure LibereMemoireUnit2DPovRayPicts;
 
 
 
-function CreatePovOffScreenWorld(var quelleTexture : CouleurOthellierRec) : OSErr;                                                                                                  ATTRIBUTE_NAME('CreatePovOffScreenWorld')
-procedure KillPovOffScreenWorld;                                                                                                                                                    ATTRIBUTE_NAME('KillPovOffScreenWorld')
+function CreatePovOffScreenWorld(var quelleTexture : CouleurOthellierRec) : OSErr;
+procedure KillPovOffScreenWorld;
 
-procedure SetTailleImagesPovRay(taille : Point);                                                                                                                                    ATTRIBUTE_NAME('SetTailleImagesPovRay')
-procedure SetPositionScorePovRay3D(color : SInt16; loc : Point);                                                                                                                    ATTRIBUTE_NAME('SetPositionScorePovRay3D')
-procedure SetPositionDemandeCoupPovRay3D(loc : Point);                                                                                                                              ATTRIBUTE_NAME('SetPositionDemandeCoupPovRay3D')
-procedure SetPositionMeilleureSuitePovRay3D(loc : Point);                                                                                                                           ATTRIBUTE_NAME('SetPositionMeilleureSuitePovRay3D')
-function GetTailleImagesPovRay : Point;                                                                                                                                             ATTRIBUTE_NAME('GetTailleImagesPovRay')
-function GetPositionScorePovRay3D(color : SInt16) : Point;                                                                                                                          ATTRIBUTE_NAME('GetPositionScorePovRay3D')
-function GetPositionDemandeCoupPovRay3D : Point;                                                                                                                                    ATTRIBUTE_NAME('GetPositionDemandeCoupPovRay3D')
-function GetPositionMeilleureSuitePovRay3D : Point;                                                                                                                                 ATTRIBUTE_NAME('GetPositionMeilleureSuitePovRay3D')
-
-
-procedure DessinePionAvecPovRay3D(whichSquare : SInt16; couleur : SInt16);                                                                                                          ATTRIBUTE_NAME('DessinePionAvecPovRay3D')
-procedure DessinePionAvecPovRay3DDeplacement(whichSquare : SInt16; couleur : SInt16; offset : Point);                                                                               ATTRIBUTE_NAME('DessinePionAvecPovRay3DDeplacement')
-procedure DessinePositionAvecPovRay3D(position : plateauOthello);                                                                                                                   ATTRIBUTE_NAME('DessinePositionAvecPovRay3D')
-
-procedure EraseRectPovRay3D(myRect : rect);                                                                                                                                         ATTRIBUTE_NAME('EraseRectPovRay3D')
+procedure SetTailleImagesPovRay(taille : Point);
+procedure SetPositionScorePovRay3D(color : SInt16; loc : Point);
+procedure SetPositionDemandeCoupPovRay3D(loc : Point);
+procedure SetPositionMeilleureSuitePovRay3D(loc : Point);
+function GetTailleImagesPovRay : Point;
+function GetPositionScorePovRay3D(color : SInt16) : Point;
+function GetPositionDemandeCoupPovRay3D : Point;
+function GetPositionMeilleureSuitePovRay3D : Point;
 
 
-procedure SetDebugBoundingRects3DPovRay(flag : boolean);                                                                                                                            ATTRIBUTE_NAME('SetDebugBoundingRects3DPovRay')
-procedure SetDebugLegalMovesRects3DPovRay(flag : boolean);                                                                                                                          ATTRIBUTE_NAME('SetDebugLegalMovesRects3DPovRay')
-procedure SetDebugUpSideFacesRects3DPovRay(flag : boolean);                                                                                                                         ATTRIBUTE_NAME('SetDebugUpSideFacesRects3DPovRay')
-function GetDebugBoundingRects3DPovRay : boolean;                                                                                                                                   ATTRIBUTE_NAME('GetDebugBoundingRects3DPovRay')
-function GetDebugLegalMovesRects3DPovRay : boolean;                                                                                                                                 ATTRIBUTE_NAME('GetDebugLegalMovesRects3DPovRay')
-function GetDebugUpSideFacesRects3DPovRay : boolean;                                                                                                                                ATTRIBUTE_NAME('GetDebugUpSideFacesRects3DPovRay')
+procedure DessinePionAvecPovRay3D(whichSquare : SInt16; couleur : SInt16);
+procedure DessinePionAvecPovRay3DDeplacement(whichSquare : SInt16; couleur : SInt16; offset : Point);
+procedure DessinePositionAvecPovRay3D(position : plateauOthello);
+
+procedure EraseRectPovRay3D(myRect : rect);
 
 
-procedure DebugBoundingRects3DPovRay;                                                                                                                                               ATTRIBUTE_NAME('DebugBoundingRects3DPovRay')
-procedure DebugLegalMovesRects3DPovRay;                                                                                                                                             ATTRIBUTE_NAME('DebugLegalMovesRects3DPovRay')
-procedure DebugUpSideFacesRects3DPovRay;                                                                                                                                            ATTRIBUTE_NAME('DebugUpSideFacesRects3DPovRay')
+procedure SetDebugBoundingRects3DPovRay(flag : boolean);
+procedure SetDebugLegalMovesRects3DPovRay(flag : boolean);
+procedure SetDebugUpSideFacesRects3DPovRay(flag : boolean);
+function GetDebugBoundingRects3DPovRay : boolean;
+function GetDebugLegalMovesRects3DPovRay : boolean;
+function GetDebugUpSideFacesRects3DPovRay : boolean;
+
+
+procedure DebugBoundingRects3DPovRay;
+procedure DebugLegalMovesRects3DPovRay;
+procedure DebugUpSideFacesRects3DPovRay;
 
 IMPLEMENTATION
 

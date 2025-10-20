@@ -12,49 +12,49 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitTroisiemeDimension;                                                                                                                                               ATTRIBUTE_NAME('InitUnitTroisiemeDimension')
-procedure LibereMemoireUnitTroisiemeDimension;                                                                                                                                      ATTRIBUTE_NAME('LibereMemoireUnitTroisiemeDimension')
+procedure InitUnitTroisiemeDimension;
+procedure LibereMemoireUnitTroisiemeDimension;
 
 
-function EnVieille3D : boolean;                                                                                                                                                     ATTRIBUTE_NAME('EnVieille3D')
-function EnJolie3D : boolean;                                                                                                                                                       ATTRIBUTE_NAME('EnJolie3D')
-function CassioEstEn3D : boolean;                                                                                                                                                   ATTRIBUTE_NAME('CassioEstEn3D')
-procedure SetEnVieille3D(flag : boolean);                                                                                                                                           ATTRIBUTE_NAME('SetEnVieille3D')
-function Calculs3DMocheSontFaits : boolean;                                                                                                                                         ATTRIBUTE_NAME('Calculs3DMocheSontFaits')
-procedure SetCalculs3DMocheSontFaits(flag : boolean);                                                                                                                               ATTRIBUTE_NAME('SetCalculs3DMocheSontFaits')
-function NomTexture3D : String255;                                                                                                                                                  ATTRIBUTE_NAME('NomTexture3D')
+function EnVieille3D : boolean;
+function EnJolie3D : boolean;
+function CassioEstEn3D : boolean;
+procedure SetEnVieille3D(flag : boolean);
+function Calculs3DMocheSontFaits : boolean;
+procedure SetCalculs3DMocheSontFaits(flag : boolean);
+function NomTexture3D : String255;
 
 
-function GetBoundingRect3D(whichSquare : SInt16) : rect;                                                                                                                            ATTRIBUTE_NAME('GetBoundingRect3D')
-function GetRect3DDessus(whichSquare : SInt16) : rect;                                                                                                                              ATTRIBUTE_NAME('GetRect3DDessus')
-function GetRect3DDessous(whichSquare : SInt16) : rect;                                                                                                                             ATTRIBUTE_NAME('GetRect3DDessous')
-function GetOthellier3DVistaBuffer : rect;                                                                                                                                          ATTRIBUTE_NAME('GetOthellier3DVistaBuffer')
-function GetRectEscargot : rect;                                                                                                                                                    ATTRIBUTE_NAME('GetRectEscargot')
-function GetRectEscargotGlobal : rect;                                                                                                                                              ATTRIBUTE_NAME('GetRectEscargotGlobal')
+function GetBoundingRect3D(whichSquare : SInt16) : rect;
+function GetRect3DDessus(whichSquare : SInt16) : rect;
+function GetRect3DDessous(whichSquare : SInt16) : rect;
+function GetOthellier3DVistaBuffer : rect;
+function GetRectEscargot : rect;
+function GetRectEscargotGlobal : rect;
 
-procedure SetBoundingRect3D(whichSquare : SInt16; whichRect : rect);                                                                                                                ATTRIBUTE_NAME('SetBoundingRect3D')
-procedure SetRect3DDessus(whichSquare : SInt16; whichRect : rect);                                                                                                                  ATTRIBUTE_NAME('SetRect3DDessus')
-procedure SetRect3DDessous(whichSquare : SInt16; whichRect : rect);                                                                                                                 ATTRIBUTE_NAME('SetRect3DDessous')
-procedure SetOthellier3DVistaBuffer(whichRect : rect);                                                                                                                              ATTRIBUTE_NAME('SetOthellier3DVistaBuffer')
-procedure SetRectEscargot(whichRect : rect);                                                                                                                                        ATTRIBUTE_NAME('SetRectEscargot')
+procedure SetBoundingRect3D(whichSquare : SInt16; whichRect : rect);
+procedure SetRect3DDessus(whichSquare : SInt16; whichRect : rect);
+procedure SetRect3DDessous(whichSquare : SInt16; whichRect : rect);
+procedure SetOthellier3DVistaBuffer(whichRect : rect);
+procedure SetRectEscargot(whichRect : rect);
 
-procedure CalculerRect3D(square : SInt16);                                                                                                                                          ATTRIBUTE_NAME('CalculerRect3D')
-function GetRectAreteVisiblePion3DPourPionDelta(x,QuelGenreDeMarque : SInt16) : rect;                                                                                               ATTRIBUTE_NAME('GetRectAreteVisiblePion3DPourPionDelta')
-function GetRectPionDessous3DPourPionDelta(x,QuelGenreDeMarque : SInt16) : rect;                                                                                                    ATTRIBUTE_NAME('GetRectPionDessous3DPourPionDelta')
-procedure CalculateRectEscargotGlobal;                                                                                                                                              ATTRIBUTE_NAME('CalculateRectEscargotGlobal')
+procedure CalculerRect3D(square : SInt16);
+function GetRectAreteVisiblePion3DPourPionDelta(x,QuelGenreDeMarque : SInt16) : rect;
+function GetRectPionDessous3DPourPionDelta(x,QuelGenreDeMarque : SInt16) : rect;
+procedure CalculateRectEscargotGlobal;
 
-procedure DessinePlateau3D(avecDessinFondNoir : boolean);                                                                                                                           ATTRIBUTE_NAME('DessinePlateau3D')
-procedure DessineDessusPion3D(x,coul : SInt16);                                                                                                                                     ATTRIBUTE_NAME('DessineDessusPion3D')
-procedure DessinePion3D(x,coul : SInt16);                                                                                                                                           ATTRIBUTE_NAME('DessinePion3D')
-procedure Dessine3D(const position : plateauOthello; avecBruitage : boolean);                                                                                                       ATTRIBUTE_NAME('Dessine3D')
-procedure DetermineParRecoupement(i,j,k : SInt16);                                                                                                                                  ATTRIBUTE_NAME('DetermineParRecoupement')
+procedure DessinePlateau3D(avecDessinFondNoir : boolean);
+procedure DessineDessusPion3D(x,coul : SInt16);
+procedure DessinePion3D(x,coul : SInt16);
+procedure Dessine3D(const position : plateauOthello; avecBruitage : boolean);
+procedure DetermineParRecoupement(i,j,k : SInt16);
 
-procedure SetPositionDemandeCoup3D;                                                                                                                                                 ATTRIBUTE_NAME('SetPositionDemandeCoup3D')
-procedure SetPositionScore3D;                                                                                                                                                       ATTRIBUTE_NAME('SetPositionScore3D')
-procedure SetPositionMeilleureSuite3D;                                                                                                                                              ATTRIBUTE_NAME('SetPositionMeilleureSuite3D')
-procedure GetPositionCorrecteNumeroDuCoup3D(square : SInt16; var result : Point);                                                                                                   ATTRIBUTE_NAME('GetPositionCorrecteNumeroDuCoup3D')
+procedure SetPositionDemandeCoup3D;
+procedure SetPositionScore3D;
+procedure SetPositionMeilleureSuite3D;
+procedure GetPositionCorrecteNumeroDuCoup3D(square : SInt16; var result : Point);
 
-function  PtInPlateau3D(loc : Point; var caseCliquee : SInt16) : boolean;                                                                                                           ATTRIBUTE_NAME('PtInPlateau3D')
+function  PtInPlateau3D(loc : Point; var caseCliquee : SInt16) : boolean;
 
 
 IMPLEMENTATION

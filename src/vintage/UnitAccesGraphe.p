@@ -14,122 +14,122 @@ USES UnitDefCassio;
 
 
 {Initialisation de l'unité}
-procedure InitUnitAccesGrapheApprentissage;                                                                                                                                         ATTRIBUTE_NAME('InitUnitAccesGrapheApprentissage')
-procedure LibereMemoireUnitAccesGrapheApprentissage;                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitAccesGrapheApprentissage')
-procedure VideBufferGrapheApprentissage;                                                                                                                                            ATTRIBUTE_NAME('VideBufferGrapheApprentissage')
+procedure InitUnitAccesGrapheApprentissage;
+procedure LibereMemoireUnitAccesGrapheApprentissage;
+procedure VideBufferGrapheApprentissage;
 
 {Lecture et ecriture sur le disque}
-function GrapheApprentissageExiste(var nomDuGraphe : String255; var fichier : Graphe; var grapheEtaitDejaOuvert : boolean) : boolean;                                               ATTRIBUTE_NAME('GrapheApprentissageExiste')
-procedure CreeGrapheApprentissage(var nomDuGraphe : String255; var fichier : Graphe);                                                                                               ATTRIBUTE_NAME('CreeGrapheApprentissage')
-function OuvreGrapheApprentissage(var fichier : Graphe) : boolean;                                                                                                                  ATTRIBUTE_NAME('OuvreGrapheApprentissage')
-function FermeGrapheApprentissage(var fichier : Graphe) : boolean;                                                                                                                  ATTRIBUTE_NAME('FermeGrapheApprentissage')
-procedure PreouvrirGraphesUsuels;                                                                                                                                                   ATTRIBUTE_NAME('PreouvrirGraphesUsuels')
-procedure FermerGraphesUsuels;                                                                                                                                                      ATTRIBUTE_NAME('FermerGraphesUsuels')
+function GrapheApprentissageExiste(var nomDuGraphe : String255; var fichier : Graphe; var grapheEtaitDejaOuvert : boolean) : boolean;
+procedure CreeGrapheApprentissage(var nomDuGraphe : String255; var fichier : Graphe);
+function OuvreGrapheApprentissage(var fichier : Graphe) : boolean;
+function FermeGrapheApprentissage(var fichier : Graphe) : boolean;
+procedure PreouvrirGraphesUsuels;
+procedure FermerGraphesUsuels;
 
 {Acces aux infos d'un graphe}
-function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt64;                                                                                                       ATTRIBUTE_NAME('NbrePositionsDansGrapheApprentissage')
-procedure RecalculerNbrePositionsDansGrapheApprentissage(var fichier : Graphe);                                                                                                     ATTRIBUTE_NAME('RecalculerNbrePositionsDansGrapheApprentissage')
-procedure VideGrapheApprentissage(var fichier : Graphe);                                                                                                                            ATTRIBUTE_NAME('VideGrapheApprentissage')
-procedure LitCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);                                                                                          ATTRIBUTE_NAME('LitCellule')
-procedure EcritCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);                                                                                        ATTRIBUTE_NAME('EcritCellule')
-procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt64; var cellule : CelluleRec);                                                                                  ATTRIBUTE_NAME('AfficheCelluleDansRapport')
-procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt64);                                                                                                         ATTRIBUTE_NAME('InitialiseCellule')
-procedure IsoleCellule(var fichier : Graphe; numCellule : SInt64);                                                                                                                  ATTRIBUTE_NAME('IsoleCellule')
+function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt64;
+procedure RecalculerNbrePositionsDansGrapheApprentissage(var fichier : Graphe);
+procedure VideGrapheApprentissage(var fichier : Graphe);
+procedure LitCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);
+procedure EcritCellule(var fichier : Graphe; numCellule : SInt64; var cellule : CelluleRec);
+procedure AfficheCelluleDansRapport(var fichier : Graphe; num : SInt64; var cellule : CelluleRec);
+procedure InitialiseCellule(var cellule : CelluleRec; numCellule : SInt64);
+procedure IsoleCellule(var fichier : Graphe; numCellule : SInt64);
 
-function GetNbreEcrituresDansGraphe : SInt64;                                                                                                                                       ATTRIBUTE_NAME('GetNbreEcrituresDansGraphe')
-function GetNbreLecturesDansGraphe : SInt64;                                                                                                                                        ATTRIBUTE_NAME('GetNbreLecturesDansGraphe')
+function GetNbreEcrituresDansGraphe : SInt64;
+function GetNbreLecturesDansGraphe : SInt64;
 
 {Acces et modification des champs des cellules du graphe d'apprentissage}
-function GetPere(var cellule : CelluleRec) : SInt64;                                                                                                                                ATTRIBUTE_NAME('GetPere')
-function GetFils(var cellule : CelluleRec) : SInt64;                                                                                                                                ATTRIBUTE_NAME('GetFils')
-function GetFrere(var cellule : CelluleRec) : SInt64;                                                                                                                               ATTRIBUTE_NAME('GetFrere')
-function GetMemePosition(var cellule : CelluleRec) : SInt64;                                                                                                                        ATTRIBUTE_NAME('GetMemePosition')
-function GetCoup(var cellule : CelluleRec) : SInt16;                                                                                                                                ATTRIBUTE_NAME('GetCoup')
-function GetCouleur(var cellule : CelluleRec) : SInt16;                                                                                                                             ATTRIBUTE_NAME('GetCouleur')
-function GetTrait(var cellule : CelluleRec) : SInt16;                                                                                                                               ATTRIBUTE_NAME('GetTrait')
-function GetNumeroCoup(var cellule : CelluleRec) : SInt16;                                                                                                                          ATTRIBUTE_NAME('GetNumeroCoup')
+function GetPere(var cellule : CelluleRec) : SInt64;
+function GetFils(var cellule : CelluleRec) : SInt64;
+function GetFrere(var cellule : CelluleRec) : SInt64;
+function GetMemePosition(var cellule : CelluleRec) : SInt64;
+function GetCoup(var cellule : CelluleRec) : SInt16;
+function GetCouleur(var cellule : CelluleRec) : SInt16;
+function GetTrait(var cellule : CelluleRec) : SInt16;
+function GetNumeroCoup(var cellule : CelluleRec) : SInt16;
 
-procedure SetPere(thePere : SInt64; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetPere')
-procedure SetFils(theFils : SInt64; var cellule : CelluleRec);                                                                                                                      ATTRIBUTE_NAME('SetFils')
-procedure SetFrere(theFrere : SInt64; var cellule : CelluleRec);                                                                                                                    ATTRIBUTE_NAME('SetFrere')
-procedure SetMemePosition(theMemePosition : SInt64; var cellule : CelluleRec);                                                                                                      ATTRIBUTE_NAME('SetMemePosition')
-procedure SetCoup(coup : SInt16; var cellule : CelluleRec);                                                                                                                         ATTRIBUTE_NAME('SetCoup')
-procedure SetCouleur(couleur : SInt16; var cellule : CelluleRec);                                                                                                                   ATTRIBUTE_NAME('SetCouleur')
-procedure SetTrait(trait : SInt16; var cellule : CelluleRec);                                                                                                                       ATTRIBUTE_NAME('SetTrait')
-procedure SetNumeroCoup(numero : SInt16; var cellule : CelluleRec);                                                                                                                 ATTRIBUTE_NAME('SetNumeroCoup')
+procedure SetPere(thePere : SInt64; var cellule : CelluleRec);
+procedure SetFils(theFils : SInt64; var cellule : CelluleRec);
+procedure SetFrere(theFrere : SInt64; var cellule : CelluleRec);
+procedure SetMemePosition(theMemePosition : SInt64; var cellule : CelluleRec);
+procedure SetCoup(coup : SInt16; var cellule : CelluleRec);
+procedure SetCouleur(couleur : SInt16; var cellule : CelluleRec);
+procedure SetTrait(trait : SInt16; var cellule : CelluleRec);
+procedure SetNumeroCoup(numero : SInt16; var cellule : CelluleRec);
 
-function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt64) : SInt16;                                                                                             ATTRIBUTE_NAME('GetCoupOfCelluleNumero')
-function GetNiemeCoupDansListe(var fichier : Graphe; var L : ListeDeCellules; n : SInt16) : SInt16;                                                                                 ATTRIBUTE_NAME('GetNiemeCoupDansListe')
+function GetCoupOfCelluleNumero(var fichier : Graphe; numeroCellule : SInt64) : SInt16;
+function GetNiemeCoupDansListe(var fichier : Graphe; var L : ListeDeCellules; n : SInt16) : SInt16;
 
 {Les flags}
-function GetFlags(var cellule : CelluleRec) : SInt16;                                                                                                                               ATTRIBUTE_NAME('GetFlags')
-function HasFlagAttribute(var cellule : CelluleRec; flagMask : SInt16) : boolean;                                                                                                   ATTRIBUTE_NAME('HasFlagAttribute')
-procedure SetFlags(var cellule : CelluleRec; theFlags : SInt16);                                                                                                                    ATTRIBUTE_NAME('SetFlags')
-procedure AddFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);                                                                                                            ATTRIBUTE_NAME('AddFlagAttribute')
-procedure RemoveFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);                                                                                                         ATTRIBUTE_NAME('RemoveFlagAttribute')
+function GetFlags(var cellule : CelluleRec) : SInt16;
+function HasFlagAttribute(var cellule : CelluleRec; flagMask : SInt16) : boolean;
+procedure SetFlags(var cellule : CelluleRec; theFlags : SInt16);
+procedure AddFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);
+procedure RemoveFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);
 
 
 
 {Set}
-procedure SetValeurMinimax(var cellule : CelluleRec; val : SInt16);                                                                                                                 ATTRIBUTE_NAME('SetValeurMinimax')
-procedure SetValeurDeviantePourNoir(var cellule : CelluleRec; val : SInt16);                                                                                                        ATTRIBUTE_NAME('SetValeurDeviantePourNoir')
-procedure SetValeurDeviantePourBlanc(var cellule : CelluleRec; val : SInt16);                                                                                                       ATTRIBUTE_NAME('SetValeurDeviantePourBlanc')
-procedure SetProofNumberPourNoir(var cellule : CelluleRec; val : SInt16);                                                                                                           ATTRIBUTE_NAME('SetProofNumberPourNoir')
-procedure SetProofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);                                                                                                          ATTRIBUTE_NAME('SetProofNumberPourBlanc')
-procedure SetDisproofNumberPourNoir(var cellule : CelluleRec; val : SInt16);                                                                                                        ATTRIBUTE_NAME('SetDisproofNumberPourNoir')
-procedure SetDisproofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);                                                                                                       ATTRIBUTE_NAME('SetDisproofNumberPourBlanc')
-procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double_t);                                                                                                     ATTRIBUTE_NAME('SetEsperanceDeGainPourNoir')
-procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double_t);                                                                                                    ATTRIBUTE_NAME('SetEsperanceDeGainPourBlanc')
-procedure SetValeurHeuristiquePourNoir(var cellule : CelluleRec; val : SInt16);                                                                                                     ATTRIBUTE_NAME('SetValeurHeuristiquePourNoir')
-procedure SetProfondeur(prof : SInt16; var cellule : CelluleRec);                                                                                                                   ATTRIBUTE_NAME('SetProfondeur')
-procedure SetVersion(version : SInt16; var cellule : CelluleRec);                                                                                                                   ATTRIBUTE_NAME('SetVersion')
+procedure SetValeurMinimax(var cellule : CelluleRec; val : SInt16);
+procedure SetValeurDeviantePourNoir(var cellule : CelluleRec; val : SInt16);
+procedure SetValeurDeviantePourBlanc(var cellule : CelluleRec; val : SInt16);
+procedure SetProofNumberPourNoir(var cellule : CelluleRec; val : SInt16);
+procedure SetProofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);
+procedure SetDisproofNumberPourNoir(var cellule : CelluleRec; val : SInt16);
+procedure SetDisproofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);
+procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double_t);
+procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double_t);
+procedure SetValeurHeuristiquePourNoir(var cellule : CelluleRec; val : SInt16);
+procedure SetProfondeur(prof : SInt16; var cellule : CelluleRec);
+procedure SetVersion(version : SInt16; var cellule : CelluleRec);
 { …les memes, avec un selecteur de couleur}
-procedure SetProofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);                                                                                                 ATTRIBUTE_NAME('SetProofNumber')
-procedure SetDisproofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);                                                                                              ATTRIBUTE_NAME('SetDisproofNumber')
-procedure SetValeurDeviante(var cellule : CelluleRec; couleur : SInt16; val : SInt16);                                                                                              ATTRIBUTE_NAME('SetValeurDeviante')
-procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double_t);                                                                                           ATTRIBUTE_NAME('SetEsperanceDeGain')
+procedure SetProofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
+procedure SetDisproofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
+procedure SetValeurDeviante(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
+procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double_t);
 
 {Get}
-function GetValeurMinimax(var cellule : CelluleRec) : SInt16;                                                                                                                       ATTRIBUTE_NAME('GetValeurMinimax')
-function GetValeurDeviantePourNoir(var cellule : CelluleRec) : SInt16;                                                                                                              ATTRIBUTE_NAME('GetValeurDeviantePourNoir')
-function GetValeurDeviantePourBlanc(var cellule : CelluleRec) : SInt16;                                                                                                             ATTRIBUTE_NAME('GetValeurDeviantePourBlanc')
-function GetProofNumberPourNoir(var cellule : CelluleRec) : SInt16;                                                                                                                 ATTRIBUTE_NAME('GetProofNumberPourNoir')
-function GetProofNumberPourBlanc(var cellule : CelluleRec) : SInt16;                                                                                                                ATTRIBUTE_NAME('GetProofNumberPourBlanc')
-function GetDisproofNumberPourNoir(var cellule : CelluleRec) : SInt16;                                                                                                              ATTRIBUTE_NAME('GetDisproofNumberPourNoir')
-function GetDisproofNumberPourBlanc(var cellule : CelluleRec) : SInt16;                                                                                                             ATTRIBUTE_NAME('GetDisproofNumberPourBlanc')
-function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double_t;                                                                                                           ATTRIBUTE_NAME('GetEsperanceDeGainPourNoir')
-function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double_t;                                                                                                          ATTRIBUTE_NAME('GetEsperanceDeGainPourBlanc')
-function GetValeurHeuristiquePourNoir(var cellule : CelluleRec) : SInt16;                                                                                                           ATTRIBUTE_NAME('GetValeurHeuristiquePourNoir')
-function GetProfondeur(var cellule : CelluleRec) : SInt16;                                                                                                                          ATTRIBUTE_NAME('GetProfondeur')
-function GetVersion(var cellule : CelluleRec) : SInt16;                                                                                                                             ATTRIBUTE_NAME('GetVersion')
+function GetValeurMinimax(var cellule : CelluleRec) : SInt16;
+function GetValeurDeviantePourNoir(var cellule : CelluleRec) : SInt16;
+function GetValeurDeviantePourBlanc(var cellule : CelluleRec) : SInt16;
+function GetProofNumberPourNoir(var cellule : CelluleRec) : SInt16;
+function GetProofNumberPourBlanc(var cellule : CelluleRec) : SInt16;
+function GetDisproofNumberPourNoir(var cellule : CelluleRec) : SInt16;
+function GetDisproofNumberPourBlanc(var cellule : CelluleRec) : SInt16;
+function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double_t;
+function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double_t;
+function GetValeurHeuristiquePourNoir(var cellule : CelluleRec) : SInt16;
+function GetProfondeur(var cellule : CelluleRec) : SInt16;
+function GetVersion(var cellule : CelluleRec) : SInt16;
 { …les memes, avec un selecteur de couleur}
-function GetProofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;                                                                                                       ATTRIBUTE_NAME('GetProofNumber')
-function GetDisproofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;                                                                                                    ATTRIBUTE_NAME('GetDisproofNumber')
-function GetValeurDeviante(var cellule : CelluleRec; couleur : SInt16) : SInt16;                                                                                                    ATTRIBUTE_NAME('GetValeurDeviante')
-function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double_t;                                                                                                 ATTRIBUTE_NAME('GetEsperanceDeGain')
+function GetProofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;
+function GetDisproofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;
+function GetValeurDeviante(var cellule : CelluleRec; couleur : SInt16) : SInt16;
+function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double_t;
 
 
 {Tests divers}
-function MemesCellules(const cellule1,cellule2 : CelluleRec) : boolean;                                                                                                             ATTRIBUTE_NAME('MemesCellules')
-function IsPublic(var cellule : CelluleRec) : boolean;                                                                                                                              ATTRIBUTE_NAME('IsPublic')
-function IsPrivate(var cellule : CelluleRec) : boolean;                                                                                                                             ATTRIBUTE_NAME('IsPrivate')
-function EstDansT(var cellule : CelluleRec) : boolean;                                                                                                                              ATTRIBUTE_NAME('EstDansT')
-function EstUnePropositionHeuristique(var cellule : CelluleRec) : boolean;                                                                                                          ATTRIBUTE_NAME('EstUnePropositionHeuristique')
-function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt64) : boolean;                                                                                                        ATTRIBUTE_NAME('AuMoinsUnFils')
-function HasPere(var cellule : CelluleRec) : boolean;                                                                                                                               ATTRIBUTE_NAME('HasPere')
-function HasFrere(var cellule : CelluleRec) : boolean;                                                                                                                              ATTRIBUTE_NAME('HasFrere')
-function HasFils(var cellule : CelluleRec) : boolean;                                                                                                                               ATTRIBUTE_NAME('HasFils')
+function MemesCellules(const cellule1,cellule2 : CelluleRec) : boolean;
+function IsPublic(var cellule : CelluleRec) : boolean;
+function IsPrivate(var cellule : CelluleRec) : boolean;
+function EstDansT(var cellule : CelluleRec) : boolean;
+function EstUnePropositionHeuristique(var cellule : CelluleRec) : boolean;
+function AuMoinsUnFils(var fichier : Graphe; numCellule : SInt64) : boolean;
+function HasPere(var cellule : CelluleRec) : boolean;
+function HasFrere(var cellule : CelluleRec) : boolean;
+function HasFils(var cellule : CelluleRec) : boolean;
 
 {Gestion de l'arbre d'ouvertures}
-procedure SetPublic(var cellule : CelluleRec);                                                                                                                                      ATTRIBUTE_NAME('SetPublic')
-procedure SetPrivate(var cellule : CelluleRec);                                                                                                                                     ATTRIBUTE_NAME('SetPrivate')
+procedure SetPublic(var cellule : CelluleRec);
+procedure SetPrivate(var cellule : CelluleRec);
 
 {Utilitaires divers}
-procedure RaiseError(message : String255);                                                                                                                                          ATTRIBUTE_NAME('RaiseError')
-function LongueurPartieDuGraphe(const whichGame : typePartiePourGraphe) : SInt16;                                                                                                   ATTRIBUTE_NAME('LongueurPartieDuGraphe')
-function NiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;                                                                                  ATTRIBUTE_NAME('NiemeCoupDansPartieDuGraphe')
-function CouleurDuNiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;                                                                         ATTRIBUTE_NAME('CouleurDuNiemeCoupDansPartieDuGraphe')
-function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt64;                                                                                                             ATTRIBUTE_NAME('NumeroDerniereCellule')
+procedure RaiseError(message : String255);
+function LongueurPartieDuGraphe(const whichGame : typePartiePourGraphe) : SInt16;
+function NiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;
+function CouleurDuNiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;
+function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt64;
 
 
 

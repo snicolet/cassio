@@ -9,72 +9,72 @@ USES UnitDefCassio;
 
 
 { initialisation de l'unite }
-procedure InitUnitZooInterfaceAvecArbre;                                                                                                                                         ATTRIBUTE_NAME('InitUnitZooInterfaceAvecArbre')
-procedure LibereMemoireUnitZooInterfaceAvecArbre;                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitZooInterfaceAvecArbre')
-procedure SetValeurStandardLiaisonArbreZoo;                                                                                                                                      ATTRIBUTE_NAME('SetValeurStandardLiaisonArbreZoo')
+procedure InitUnitZooInterfaceAvecArbre;
+procedure LibereMemoireUnitZooInterfaceAvecArbre;
+procedure SetValeurStandardLiaisonArbreZoo;
 
 
 { flag indiquant si Cassio doit utiliser le zoo }
-procedure SetCassioUtiliseLeZoo(newValue : boolean; oldValue : BooleanPtr);                                                                                                      ATTRIBUTE_NAME('SetCassioUtiliseLeZoo')
-function CassioUtiliseLeZoo : boolean;                                                                                                                                           ATTRIBUTE_NAME('CassioUtiliseLeZoo')
+procedure SetCassioUtiliseLeZoo(newValue : boolean; oldValue : BooleanPtr);
+function CassioUtiliseLeZoo : boolean;
 
 
 { reception des calculs effectues par le zoo }
-procedure RecevoirUnResultatDuZoo(ligne : LongString);                                                                                                                           ATTRIBUTE_NAME('RecevoirUnResultatDuZoo')
+procedure RecevoirUnResultatDuZoo(ligne : LongString);
 
 
 { liste des calculs que nous avons demandés au zoo }
-function NombreDeResultatsEnAttenteSurLeZoo : SInt32;                                                                                                                            ATTRIBUTE_NAME('NombreDeResultatsEnAttenteSurLeZoo')
-function AjouterDansLaListeDesRequetesDuZoo(var searchParams : MakeEndgameSearchParamRec) : boolean;                                                                             ATTRIBUTE_NAME('AjouterDansLaListeDesRequetesDuZoo')
-procedure MarquerLaRequeteDuZooCommeEtantCalculee(const searchParam : MakeEndgameSearchParamRec; const whichSuite : String255);                                                  ATTRIBUTE_NAME('MarquerLaRequeteDuZooCommeEtantCalculee')
-procedure MarquerLaRequeteDuZooCommeEtantEnCharge(const searchParam : MakeEndgameSearchParamRec);                                                                                ATTRIBUTE_NAME('MarquerLaRequeteDuZooCommeEtantEnCharge')
-procedure MarquerLaRequeteDuZooCommeNEtantPlusEnCharge(const searchParam : MakeEndgameSearchParamRec);                                                                           ATTRIBUTE_NAME('MarquerLaRequeteDuZooCommeNEtantPlusEnCharge')
-procedure RetirerDeLaListeDesRequetesDuZoo(whichHash : UInt64);                                                                                                                  ATTRIBUTE_NAME('RetirerDeLaListeDesRequetesDuZoo')
+function NombreDeResultatsEnAttenteSurLeZoo : SInt32;
+function AjouterDansLaListeDesRequetesDuZoo(var searchParams : MakeEndgameSearchParamRec) : boolean;
+procedure MarquerLaRequeteDuZooCommeEtantCalculee(const searchParam : MakeEndgameSearchParamRec; const whichSuite : String255);
+procedure MarquerLaRequeteDuZooCommeEtantEnCharge(const searchParam : MakeEndgameSearchParamRec);
+procedure MarquerLaRequeteDuZooCommeNEtantPlusEnCharge(const searchParam : MakeEndgameSearchParamRec);
+procedure RetirerDeLaListeDesRequetesDuZoo(whichHash : UInt64);
 
 
 { fonctions d'acces à la liste }
-function FindSlotLibreDansListeDesRequetesDuZoo(var index : SInt32) : boolean;                                                                                                   ATTRIBUTE_NAME('FindSlotLibreDansListeDesRequetesDuZoo')
-function FindHashDansListeDesRequetesDuZoo(whichHash : UInt64; var index : SInt32) : boolean;                                                                                    ATTRIBUTE_NAME('FindHashDansListeDesRequetesDuZoo')
-function GetScoreOfRequeteDuZoo(whichHash : UInt64) : SInt32;                                                                                                                    ATTRIBUTE_NAME('GetScoreOfRequeteDuZoo')
-function GetStatutOfRequeteDuZoo(whichHash : UInt64) : SInt32;                                                                                                                   ATTRIBUTE_NAME('GetStatutOfRequeteDuZoo')
-function GetProfOfRequeteDuZoo(whichHash : UInt64) : SInt32;                                                                                                                     ATTRIBUTE_NAME('GetProfOfRequeteDuZoo')
-function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double_t;                                                                                                              ATTRIBUTE_NAME('GetTimeTakenOfRequeteDuZoo')
+function FindSlotLibreDansListeDesRequetesDuZoo(var index : SInt32) : boolean;
+function FindHashDansListeDesRequetesDuZoo(whichHash : UInt64; var index : SInt32) : boolean;
+function GetScoreOfRequeteDuZoo(whichHash : UInt64) : SInt32;
+function GetStatutOfRequeteDuZoo(whichHash : UInt64) : SInt32;
+function GetProfOfRequeteDuZoo(whichHash : UInt64) : SInt32;
+function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double_t;
 
 
 { date (timestamp unix du serveur free) du dernier resultat calculé par le zoo }
-function GetLastTimestampOfResultSurLeZoo : String255;                                                                                                                           ATTRIBUTE_NAME('GetLastTimestampOfResultSurLeZoo')
-procedure SetLastTimestampOfResultSurLeZoo(timeStamp : String255);                                                                                                               ATTRIBUTE_NAME('SetLastTimestampOfResultSurLeZoo')
-procedure UpdateTimestampOfLastResultDuZoo(timeStamp : String255);                                                                                                               ATTRIBUTE_NAME('UpdateTimestampOfLastResultDuZoo')
+function GetLastTimestampOfResultSurLeZoo : String255;
+procedure SetLastTimestampOfResultSurLeZoo(timeStamp : String255);
+procedure UpdateTimestampOfLastResultDuZoo(timeStamp : String255);
 
 
 { Liaison alpha-beta <--> Zoo }
-procedure CopierListeDesCoupsPourLeZoo(prof,nbCoups,couleur,hashCassio : SInt32; const liste : listeVides; const position : plateauOthello; alpha, beta : SInt32);               ATTRIBUTE_NAME('CopierListeDesCoupsPourLeZoo')
-procedure DetruireListeDesCoupsPourLeZoo(prof : SInt32);                                                                                                                         ATTRIBUTE_NAME('DetruireListeDesCoupsPourLeZoo')
-procedure EnvoyerCeFilsAuZoo(prof,whichMove,alpha,beta,deltaFinal : SInt32);                                                                                                     ATTRIBUTE_NAME('EnvoyerCeFilsAuZoo')
-procedure RetirerCeFilsDuZoo(prof,whichMove : SInt32);                                                                                                                           ATTRIBUTE_NAME('RetirerCeFilsDuZoo')
-procedure CassioPrendEnChargeLuiMemeCeFilsDuZoo(prof,whichMove : SInt32);                                                                                                        ATTRIBUTE_NAME('CassioPrendEnChargeLuiMemeCeFilsDuZoo')
-procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double_t);                                                                              ATTRIBUTE_NAME('SetValeurZooDeCeFils')
-function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double_t) : SInt32;                                                               ATTRIBUTE_NAME('GetValeurZooDeCeFils')
-function GetNombreDeFilsParallelisesPourCetteProf(prof : SInt32) : SInt32;                                                                                                       ATTRIBUTE_NAME('GetNombreDeFilsParallelisesPourCetteProf')
-function FindFilsAvecCeHash(prof : SInt32; hash : UInt64; var numeroFils : SInt32) : boolean;                                                                                    ATTRIBUTE_NAME('FindFilsAvecCeHash')
-function PasseApresCeFilsDuZoo(const paramsDuFils : MakeEndgameSearchParamRec) : boolean;                                                                                        ATTRIBUTE_NAME('PasseApresCeFilsDuZoo')
-function MakeSearchParamsPourCeFilsDuZoo(prof,alpha,beta,deltaFinal : SInt32; var thePos : PositionEtTraitRec; var params : MakeEndgameSearchParamRec) : boolean;                ATTRIBUTE_NAME('MakeSearchParamsPourCeFilsDuZoo')
-function GetPositionApresCeFilsDuZoo(prof,whichMove : SInt32; var posResultante : PositionEtTraitRec) : boolean;                                                                 ATTRIBUTE_NAME('GetPositionApresCeFilsDuZoo')
-procedure NettoyerInfosDuZooPourCetteProf(prof : SInt32);                                                                                                                        ATTRIBUTE_NAME('NettoyerInfosDuZooPourCetteProf')
+procedure CopierListeDesCoupsPourLeZoo(prof,nbCoups,couleur,hashCassio : SInt32; const liste : listeVides; const position : plateauOthello; alpha, beta : SInt32);
+procedure DetruireListeDesCoupsPourLeZoo(prof : SInt32);
+procedure EnvoyerCeFilsAuZoo(prof,whichMove,alpha,beta,deltaFinal : SInt32);
+procedure RetirerCeFilsDuZoo(prof,whichMove : SInt32);
+procedure CassioPrendEnChargeLuiMemeCeFilsDuZoo(prof,whichMove : SInt32);
+procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double_t);
+function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double_t) : SInt32;
+function GetNombreDeFilsParallelisesPourCetteProf(prof : SInt32) : SInt32;
+function FindFilsAvecCeHash(prof : SInt32; hash : UInt64; var numeroFils : SInt32) : boolean;
+function PasseApresCeFilsDuZoo(const paramsDuFils : MakeEndgameSearchParamRec) : boolean;
+function MakeSearchParamsPourCeFilsDuZoo(prof,alpha,beta,deltaFinal : SInt32; var thePos : PositionEtTraitRec; var params : MakeEndgameSearchParamRec) : boolean;
+function GetPositionApresCeFilsDuZoo(prof,whichMove : SInt32; var posResultante : PositionEtTraitRec) : boolean;
+procedure NettoyerInfosDuZooPourCetteProf(prof : SInt32);
 
 
 { Trace d'execution de l'algo de finale }
-procedure ResetTraceExecutionFinale;                                                                                                                                             ATTRIBUTE_NAME('ResetTraceExecutionFinale')
-procedure RecordTraceExecutionFinale(prof, hashCassio, coup : SInt32);                                                                                                           ATTRIBUTE_NAME('RecordTraceExecutionFinale')
-procedure EffacerTraceExecutionFinale(prof : SInt32);                                                                                                                            ATTRIBUTE_NAME('EffacerTraceExecutionFinale')
-function PositionEstDansLaTraceExecutionFinale(prof, hashCassio : SInt32) : boolean;                                                                                             ATTRIBUTE_NAME('PositionEstDansLaTraceExecutionFinale')
-function CeFilsEstDansLaTraceExecutionFinale(profPere, hashCassioDuPere, coupFils : SInt32) : boolean;                                                                           ATTRIBUTE_NAME('CeFilsEstDansLaTraceExecutionFinale')
-procedure AjouterDansLaListeDesTracesExecutionAStopper(prof : SInt32);                                                                                                           ATTRIBUTE_NAME('AjouterDansLaListeDesTracesExecutionAStopper')
-procedure RetirerDeLaListeDesTracesExecutionAStopper(hashFils : SInt32);                                                                                                         ATTRIBUTE_NAME('RetirerDeLaListeDesTracesExecutionAStopper')
-procedure RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret(numeroArret : SInt32);                                                                                        ATTRIBUTE_NAME('RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret')
-function DoitStopperExecutionDeCeSousArbre(prof : SInt32) : boolean;                                                                                                             ATTRIBUTE_NAME('DoitStopperExecutionDeCeSousArbre')
-function OnVientDeStoperExecutionDeCeFils(profPere,coupFils : SInt32; var numeroArret : SInt32) : boolean;                                                                       ATTRIBUTE_NAME('OnVientDeStoperExecutionDeCeFils')
-function HashCassioEstDansLesTracesExecutionAStopper(whichHash : SInt32; var whichProf : SInt32) : boolean;                                                                      ATTRIBUTE_NAME('HashCassioEstDansLesTracesExecutionAStopper')
+procedure ResetTraceExecutionFinale;
+procedure RecordTraceExecutionFinale(prof, hashCassio, coup : SInt32);
+procedure EffacerTraceExecutionFinale(prof : SInt32);
+function PositionEstDansLaTraceExecutionFinale(prof, hashCassio : SInt32) : boolean;
+function CeFilsEstDansLaTraceExecutionFinale(profPere, hashCassioDuPere, coupFils : SInt32) : boolean;
+procedure AjouterDansLaListeDesTracesExecutionAStopper(prof : SInt32);
+procedure RetirerDeLaListeDesTracesExecutionAStopper(hashFils : SInt32);
+procedure RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret(numeroArret : SInt32);
+function DoitStopperExecutionDeCeSousArbre(prof : SInt32) : boolean;
+function OnVientDeStoperExecutionDeCeFils(profPere,coupFils : SInt32; var numeroArret : SInt32) : boolean;
+function HashCassioEstDansLesTracesExecutionAStopper(whichHash : SInt32; var whichProf : SInt32) : boolean;
 
 
 { Les "grosses" requetes (celles de priorite > 100) }
@@ -857,7 +857,7 @@ begin
 
   // EnleveEspacesDeGaucheSurPlace(ligne);  // FIXEME : TEST THIS !!
 
-  if LongStringIsEmpty(ligne) | LongStringBeginsWith('NO NEW RESULT', ligne) 
+  if LongStringIsEmpty(ligne) | LongStringBeginsWith('NO NEW RESULT', ligne)
     then exit(RecevoirUnResultatDuZoo);
 
   if PeutParserUnResultatDuZoo(ligne,params,action,suite,timestamp)

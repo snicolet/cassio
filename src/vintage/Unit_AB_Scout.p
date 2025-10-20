@@ -11,16 +11,16 @@ INTERFACE
  USES UnitDefCassio;
 
 { Initialisation de l'unitŽ }
-procedure InitUnit_AB_Scout;                                                                                                                                                        ATTRIBUTE_NAME('InitUnit_AB_Scout')
-procedure LibereMemoireUnit_AB_SCout;                                                                                                                                               ATTRIBUTE_NAME('LibereMemoireUnit_AB_SCout')
+procedure InitUnit_AB_Scout;
+procedure LibereMemoireUnit_AB_SCout;
 
 
 { La fonction principale de l'unite, qui lance une rechreche alpha-beta }
-function ABScout(var pl : plateauOthello; var joua : plBool; var bstDef : SInt32; pere,coul,prof,profMaximum,horizon,longPath,distPV,couleurDeCassio,alpha,beta,nbBlancs,nbNoirs : SInt32; var fr : InfoFront; var conseilTurbulence : SInt32; canDoProbCut : boolean) : SInt32;       ATTRIBUTE_NAME('ABScout')
+function ABScout(var pl : plateauOthello; var joua : plBool; var bstDef : SInt32; pere,coul,prof,profMaximum,horizon,longPath,distPV,couleurDeCassio,alpha,beta,nbBlancs,nbNoirs : SInt32; var fr : InfoFront; var conseilTurbulence : SInt32; canDoProbCut : boolean) : SInt32;
 
 
 { Fonction utilitaire }
-function PlusGrandeProfondeurAvecProbCut : SInt32;                                                                                                                                  ATTRIBUTE_NAME('PlusGrandeProfondeurAvecProbCut')
+function PlusGrandeProfondeurAvecProbCut : SInt32;
 
 
 
@@ -1103,7 +1103,7 @@ label sortie;
        SetTracingLog(true);
        WriteInTraceLog(message);
        SetTracingLog(oldTraceLog);
-       
+
        WritelnDansRapport(message);
        AttendFrappeClavier;
      end;
@@ -1138,9 +1138,9 @@ begin   {ABScout}
                    doit se faire en deux etapes, comme ci-dessous !!! *)
    nbCasesVidesRestantes := 62 - nbNoirs - nbBlancs;
    nbCasesVidesRestantes := nbCasesVidesRestantes + 2;
-   
-   
-   
+
+
+
    if debugABScout then
      begin
        debugPosition := MakePositionEtTrait(pl,coul);
@@ -1361,7 +1361,7 @@ begin   {ABScout}
 
 
    // la ligne suivante pour simuler des inetrruptions (pour le debuggage seulement !)
-   // if ((Tickcount mod 15) = 0) then LanceInterruption(interruptionSimple,'Attention : interruption ajoutee dans ABScout'); 
+   // if ((Tickcount mod 15) = 0) then LanceInterruption(interruptionSimple,'Attention : interruption ajoutee dans ABScout');
 
 
    {PrintTraceDebugageABScout('Avant test du coup conseilTurbulence dans ABSCout');}
@@ -1922,15 +1922,15 @@ begin   {ABScout}
                  end;        {  if ModifPlat  }
              end;            {  if joua[iCourant]  }
          end;                {  for ii := 1 to nbKillerGlb^[prof]  }
-         
-         
+
+
 
       if coul = pionNoir then
         begin
          {PrintTraceDebugageABScout('coul = '+NumEnString(coul));
          PrintTraceDebugageABScout('Avant tableHeurisBlanc[pere,0] dans ABSCout, avec pere = '+NumEnString(pere));
          PrintTraceDebugageABScout('tableHeurisBlanc[pere,0] = '+NumEnString(tableHeurisBlanc[pere,0]));}
-         
+
          for ii := 1 to tableHeurisBlanc[pere,0] do
           begin
            iCourant := tableHeurisBlanc[pere,ii];
@@ -2066,11 +2066,11 @@ begin   {ABScout}
        end                   {  if coul = pionNoir  }
         else
          begin
-           
+
            {PrintTraceDebugageABScout('coul = '+NumEnString(coul));
            PrintTraceDebugageABScout('Avant tableHeurisNoir[pere,0] dans ABSCout, avec pere = '+NumEnString(pere));
            PrintTraceDebugageABScout('tableHeurisNoir[pere,0] = '+NumEnString(tableHeurisNoir[pere,0]));}
-           
+
            for ii := 1 to tableHeurisNoir[pere,0] do
            begin
            iCourant := tableHeurisNoir[pere,ii];
@@ -2211,11 +2211,11 @@ begin   {ABScout}
        END;  { ELSE de prof >= profMinimalePourTriDesCoups }
 
   {PrintTraceDebugageABScout('Fin de la boucle dans ABSCout');}
-  
-  
- sortie : 
-  
-  if (interruptionReflexion <> pasdinterruption) 
+
+
+ sortie :
+
+  if (interruptionReflexion <> pasdinterruption)
     then
       begin
         if utilise_hash_table then gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
@@ -2230,7 +2230,7 @@ begin   {ABScout}
               if utilise_hash_table then
                 begin
                   gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
-                  
+
                   if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
 
                   if utilise_hash_table_exacte then

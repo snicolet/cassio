@@ -13,17 +13,17 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitPagesDePropertyList;                                                                                                                                              ATTRIBUTE_NAME('InitUnitPagesDePropertyList')
-procedure DisposeToutesLesPagesDePropertyList;                                                                                                                                      ATTRIBUTE_NAME('DisposeToutesLesPagesDePropertyList')
+procedure InitUnitPagesDePropertyList;
+procedure DisposeToutesLesPagesDePropertyList;
 
 
-function PeutCreerNouvellePagePropertyList : boolean;                                                                                                                               ATTRIBUTE_NAME('PeutCreerNouvellePagePropertyList')
-function TrouvePlaceDansPageDePropertyList(var nroPage,nroIndex : SInt32) : boolean;                                                                                                ATTRIBUTE_NAME('TrouvePlaceDansPageDePropertyList')
-procedure LocaliserPropertyListDansSaPage(L : PropertyList; var nroDePage,nroIndex : SInt32);                                                                                       ATTRIBUTE_NAME('LocaliserPropertyListDansSaPage')
+function PeutCreerNouvellePagePropertyList : boolean;
+function TrouvePlaceDansPageDePropertyList(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserPropertyListDansSaPage(L : PropertyList; var nroDePage,nroIndex : SInt32);
 
 
-function NewPropertyListPaginee : PropertyList;                                                                                                                                     ATTRIBUTE_NAME('NewPropertyListPaginee')
-procedure DisposePropertyListPaginee(L : PropertyList);                                                                                                                             ATTRIBUTE_NAME('DisposePropertyListPaginee')
+function NewPropertyListPaginee : PropertyList;
+procedure DisposePropertyListPaginee(L : PropertyList);
 
 
 

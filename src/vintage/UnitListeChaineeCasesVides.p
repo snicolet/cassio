@@ -15,16 +15,16 @@ INTERFACE
 
 
 
-procedure InitUnitListeChaineeCasesVides;                                                                                                                                           ATTRIBUTE_NAME('InitUnitListeChaineeCasesVides')
-function ListeChaineeDesCasesVidesEstDisponible : boolean;                                                                                                                          ATTRIBUTE_NAME('ListeChaineeDesCasesVidesEstDisponible')
-procedure SetListeChaineeDesCasesVidesEstDisponible(flag : boolean);                                                                                                                ATTRIBUTE_NAME('SetListeChaineeDesCasesVidesEstDisponible')
+procedure InitUnitListeChaineeCasesVides;
+function ListeChaineeDesCasesVidesEstDisponible : boolean;
+procedure SetListeChaineeDesCasesVidesEstDisponible(flag : boolean);
 
-procedure CreeListeCasesVidesDeCettePosition(jeu : plateauOthello; listeChaineeUtiliseOrdreOptmisiseDesCases : boolean);                                                            ATTRIBUTE_NAME('CreeListeCasesVidesDeCettePosition')
-procedure CreerListeChaineeDesCasesVides( nbVides : SInt32; var tete : celluleCaseVideDansListeChainee; var buffer : t_bufferCellulesListeChainee; var whichTablePointeurs : tableDePointeurs; fonctionAppelante : String255);                                                ATTRIBUTE_NAME('CreerListeChaineeDesCasesVides')
-procedure EnleverDeLaListeChaineeDesCasesVides(whichSquare : SInt32);                                                                                                               ATTRIBUTE_NAME('EnleverDeLaListeChaineeDesCasesVides')
-procedure RemettreDansLaListeChaineeDesCasesVides(whichSquare : SInt32);                                                                                                            ATTRIBUTE_NAME('RemettreDansLaListeChaineeDesCasesVides')
-procedure EcrireListeChaineeDesCasesVidesDansRapport(theList : celluleCaseVideDansListeChaineePtr);                                                                                 ATTRIBUTE_NAME('EcrireListeChaineeDesCasesVidesDansRapport')
-procedure EcrireDeuxListesChaineesDesCasesVidesDansRapport(liste1,liste2 : celluleCaseVideDansListeChaineePtr);                                                                     ATTRIBUTE_NAME('EcrireDeuxListesChaineesDesCasesVidesDansRapport')
+procedure CreeListeCasesVidesDeCettePosition(jeu : plateauOthello; listeChaineeUtiliseOrdreOptmisiseDesCases : boolean);
+procedure CreerListeChaineeDesCasesVides( nbVides : SInt32; var tete : celluleCaseVideDansListeChainee; var buffer : t_bufferCellulesListeChainee; var whichTablePointeurs : tableDePointeurs; fonctionAppelante : String255);
+procedure EnleverDeLaListeChaineeDesCasesVides(whichSquare : SInt32);
+procedure RemettreDansLaListeChaineeDesCasesVides(whichSquare : SInt32);
+procedure EcrireListeChaineeDesCasesVidesDansRapport(theList : celluleCaseVideDansListeChaineePtr);
+procedure EcrireDeuxListesChaineesDesCasesVidesDansRapport(liste1,liste2 : celluleCaseVideDansListeChaineePtr);
 
 
 

@@ -120,17 +120,17 @@ type
 
 
 
-procedure InitUnitPostscript;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitPostscript')
-procedure BeginPostScript;                                                                                                                                                          ATTRIBUTE_NAME('BeginPostScript')
-procedure EndPostScript;                                                                                                                                                            ATTRIBUTE_NAME('EndPostScript')
-procedure MyFlushGrafPortState;                                                                                                                                                     ATTRIBUTE_NAME('MyFlushGrafPortState')
-procedure MyFlushPostScriptState;                                                                                                                                                   ATTRIBUTE_NAME('MyFlushPostScriptState')
-procedure SendPostscript(s : String255);                                                                                                                                            ATTRIBUTE_NAME('SendPostscript')
-procedure DoPostScriptLine(s : String255);                                                                                                                                          ATTRIBUTE_NAME('DoPostScriptLine')
-procedure SetLineWidthPostscript(numerateur,denominateur : SInt16);                                                                                                                 ATTRIBUTE_NAME('SetLineWidthPostscript')
-procedure MySetNewLineWidth(oldWidth,newWidth: TLineWidth);                                                                                                                         ATTRIBUTE_NAME('MySetNewLineWidth')
-procedure MyDrawXString(s : String255; ctr : Point; just, flip : SInt16; rot: Fixed);                                                                                               ATTRIBUTE_NAME('MyDrawXString')
-procedure DrawTranslatedString(s : String255; decX,decY : double_t);                                                                                                                ATTRIBUTE_NAME('DrawTranslatedString')
+procedure InitUnitPostscript;
+procedure BeginPostScript;
+procedure EndPostScript;
+procedure MyFlushGrafPortState;
+procedure MyFlushPostScriptState;
+procedure SendPostscript(s : String255);
+procedure DoPostScriptLine(s : String255);
+procedure SetLineWidthPostscript(numerateur,denominateur : SInt16);
+procedure MySetNewLineWidth(oldWidth,newWidth: TLineWidth);
+procedure MyDrawXString(s : String255; ctr : Point; just, flip : SInt16; rot: Fixed);
+procedure DrawTranslatedString(s : String255; decX,decY : double_t);
 
 
 
@@ -455,13 +455,13 @@ begin
          DrawTranslatedPostScriptString(s,decX-10,decY);
 
         {... et la version quickdraw, que l'on cache a PostScript}
-         
-         
+
+
          BeginPostScript;
          Move(RoundToL(decX),RoundToL(decY));
          MyDrawString(s);
          EndPostScript;
-         
+
       end;
 end;
 

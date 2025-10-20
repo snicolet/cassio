@@ -8,22 +8,22 @@ INTERFACE
  USES UnitDefCassio;
 
 {fonctions general de manipulation du curseur de Cassio}
-procedure AjusteCurseur;                                                                                                                                                            ATTRIBUTE_NAME('AjusteCurseur')
-procedure RemettreLeCurseurNormalDeCassio;                                                                                                                                          ATTRIBUTE_NAME('RemettreLeCurseurNormalDeCassio')
-procedure BeginCurseurSpecial(whichCursor : CursHandle);                                                                                                                            ATTRIBUTE_NAME('BeginCurseurSpecial')
-procedure EndCurseurSpecial;                                                                                                                                                        ATTRIBUTE_NAME('EndCurseurSpecial')
+procedure AjusteCurseur;
+procedure RemettreLeCurseurNormalDeCassio;
+procedure BeginCurseurSpecial(whichCursor : CursHandle);
+procedure EndCurseurSpecial;
 
 
 {fonctions de gestion du curseur Tete-de-Mort}
-function CurseurEstEnTeteDeMort : boolean;                                                                                                                                          ATTRIBUTE_NAME('CurseurEstEnTeteDeMort')
-procedure DecrementeNiveauCurseurTeteDeMort;                                                                                                                                        ATTRIBUTE_NAME('DecrementeNiveauCurseurTeteDeMort')
-procedure SetNiveauTeteDeMort(niveau : SInt16);                                                                                                                                     ATTRIBUTE_NAME('SetNiveauTeteDeMort')
+function CurseurEstEnTeteDeMort : boolean;
+procedure DecrementeNiveauCurseurTeteDeMort;
+procedure SetNiveauTeteDeMort(niveau : SInt16);
 
 
 {fonctions speciales permettant d'inverser les couleurs du curseur}
-function CurseurPourLaCouleurActive : CursHandle;                                                                                                                                   ATTRIBUTE_NAME('CurseurPourLaCouleurActive')
-function InverserLesCouleursDuCurseur : boolean;                                                                                                                                    ATTRIBUTE_NAME('InverserLesCouleursDuCurseur')
-procedure SetInverserLesCouleursDuCurseur(flag : boolean);                                                                                                                          ATTRIBUTE_NAME('SetInverserLesCouleursDuCurseur')
+function CurseurPourLaCouleurActive : CursHandle;
+function InverserLesCouleursDuCurseur : boolean;
+procedure SetInverserLesCouleursDuCurseur(flag : boolean);
 
 
 

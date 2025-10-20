@@ -23,141 +23,141 @@ INTERFACE
 
 
 {Initialisation et destruction de l'unité}
-procedure InitUnitArbreDeJeuCourant;                                                                                                                                                ATTRIBUTE_NAME('InitUnitArbreDeJeuCourant')
-procedure LibereMemoireUnitArbreDeJeuCourant;                                                                                                                                       ATTRIBUTE_NAME('LibereMemoireUnitArbreDeJeuCourant')
+procedure InitUnitArbreDeJeuCourant;
+procedure LibereMemoireUnitArbreDeJeuCourant;
 
 
 {fonctions d'acces de l'arbre et du noeud courant}
-function GetCurrentNode : GameTree;                                                                                                                                                 ATTRIBUTE_NAME('GetCurrentNode')
-function GetRacineDeLaPartie : GameTree;                                                                                                                                            ATTRIBUTE_NAME('GetRacineDeLaPartie')
-function EstLaRacineDeLaPartie(G : GameTree) : boolean;                                                                                                                             ATTRIBUTE_NAME('EstLaRacineDeLaPartie')
-function NbDeFilsOfCurrentNode : SInt16;                                                                                                                                            ATTRIBUTE_NAME('NbDeFilsOfCurrentNode')
-function GetCurrentSons : GameTreeList;                                                                                                                                             ATTRIBUTE_NAME('GetCurrentSons')
+function GetCurrentNode : GameTree;
+function GetRacineDeLaPartie : GameTree;
+function EstLaRacineDeLaPartie(G : GameTree) : boolean;
+function NbDeFilsOfCurrentNode : SInt16;
+function GetCurrentSons : GameTreeList;
 
 
 {fonction d'initialisation de l'arbre de jeu courant}
-procedure ReInitialiseGameRootGlobalDeLaPartie;                                                                                                                                     ATTRIBUTE_NAME('ReInitialiseGameRootGlobalDeLaPartie')
-procedure SetCurrentNodeToGameRoot;                                                                                                                                                 ATTRIBUTE_NAME('SetCurrentNodeToGameRoot')
+procedure ReInitialiseGameRootGlobalDeLaPartie;
+procedure SetCurrentNodeToGameRoot;
 
 
 {fonctions de modification de l'arbre de jeu courant}
-procedure SetSonsOfCurrentNode(theSons : GameTreeList);                                                                                                                             ATTRIBUTE_NAME('SetSonsOfCurrentNode')
-procedure DeleteSonOfCurrentNode(var whichSon : GameTree);                                                                                                                          ATTRIBUTE_NAME('DeleteSonOfCurrentNode')
-procedure DeleteAllSonsOfCurrentNode;                                                                                                                                               ATTRIBUTE_NAME('DeleteAllSonsOfCurrentNode')
-procedure BringSonOfCurrentNodeToFront(whichSon : GameTree);                                                                                                                        ATTRIBUTE_NAME('BringSonOfCurrentNodeToFront')
-procedure BringSonOfCurrentNodeInPositionN(whichSon : GameTree;N : SInt16);                                                                                                         ATTRIBUTE_NAME('BringSonOfCurrentNodeInPositionN')
-function DeleteSonsOfThatColorInCurrentNode(couleur : SInt16) : SInt16;                                                                                                             ATTRIBUTE_NAME('DeleteSonsOfThatColorInCurrentNode')
-procedure JumpToPosition(var G : GameTree);                                                                                                                                         ATTRIBUTE_NAME('JumpToPosition')
+procedure SetSonsOfCurrentNode(theSons : GameTreeList);
+procedure DeleteSonOfCurrentNode(var whichSon : GameTree);
+procedure DeleteAllSonsOfCurrentNode;
+procedure BringSonOfCurrentNodeToFront(whichSon : GameTree);
+procedure BringSonOfCurrentNodeInPositionN(whichSon : GameTree;N : SInt16);
+function DeleteSonsOfThatColorInCurrentNode(couleur : SInt16) : SInt16;
+procedure JumpToPosition(var G : GameTree);
 
 
 {utilitaires sur les PositionsEtTraitRec}
-function PlayMoveProperty(prop : Property; var positionEtTrait : PositionEtTraitRec) : boolean;                                                                                     ATTRIBUTE_NAME('PlayMoveProperty')
+function PlayMoveProperty(prop : Property; var positionEtTrait : PositionEtTraitRec) : boolean;
 
 
 {fonctions de gestion des proprietes l'arbre de jeu}
-procedure GetPropertyListOfCurrentNode(var L : PropertyList);                                                                                                                       ATTRIBUTE_NAME('GetPropertyListOfCurrentNode')
-procedure SetPropertyListOfCurrentNode(L : PropertyList);                                                                                                                           ATTRIBUTE_NAME('SetPropertyListOfCurrentNode')
-procedure AddPropertyToCurrentNode(prop : Property);                                                                                                                                ATTRIBUTE_NAME('AddPropertyToCurrentNode')
-procedure AddPropertyToCurrentNodeSansDuplication(prop : Property);                                                                                                                 ATTRIBUTE_NAME('AddPropertyToCurrentNodeSansDuplication')
-procedure AddScorePropertyToCurrentNodeSansDuplication(prop : Property);                                                                                                            ATTRIBUTE_NAME('AddScorePropertyToCurrentNodeSansDuplication')
-procedure DeletePropertyFromCurrentNode(prop : Property);                                                                                                                           ATTRIBUTE_NAME('DeletePropertyFromCurrentNode')
-procedure DeletePropertiesOfTheseTypeFromCurrentNode(whichType : SInt16);                                                                                                           ATTRIBUTE_NAME('DeletePropertiesOfTheseTypeFromCurrentNode')
-procedure DeletePropertiesOfTheseTypesFromCurrentNode(whichTypes : SetOfPropertyTypes);                                                                                             ATTRIBUTE_NAME('DeletePropertiesOfTheseTypesFromCurrentNode')
-function SelectFirstPropertyOfTypesInCurrentNode(whichTypes : SetOfPropertyTypes) : PropertyPtr;                                                                                    ATTRIBUTE_NAME('SelectFirstPropertyOfTypesInCurrentNode')
-function SelectPropertyInCurrentNode(choice : PropertyPredicate; var result : SInt32) : PropertyPtr;                                                                                ATTRIBUTE_NAME('SelectPropertyInCurrentNode')
+procedure GetPropertyListOfCurrentNode(var L : PropertyList);
+procedure SetPropertyListOfCurrentNode(L : PropertyList);
+procedure AddPropertyToCurrentNode(prop : Property);
+procedure AddPropertyToCurrentNodeSansDuplication(prop : Property);
+procedure AddScorePropertyToCurrentNodeSansDuplication(prop : Property);
+procedure DeletePropertyFromCurrentNode(prop : Property);
+procedure DeletePropertiesOfTheseTypeFromCurrentNode(whichType : SInt16);
+procedure DeletePropertiesOfTheseTypesFromCurrentNode(whichTypes : SetOfPropertyTypes);
+function SelectFirstPropertyOfTypesInCurrentNode(whichTypes : SetOfPropertyTypes) : PropertyPtr;
+function SelectPropertyInCurrentNode(choice : PropertyPredicate; var result : SInt32) : PropertyPtr;
 
 
 {iterateur sur les proprietes d'un noeud ou du noeud courant}
-procedure ForEachPropertyOfTheseTypesInCurrentNodeDo(whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);                                                                      ATTRIBUTE_NAME('ForEachPropertyOfTheseTypesInCurrentNodeDo')
-procedure ForEachPositionOnPathToGameNodeDo(G : GameTree ; DoWhat : GameTreeProcAvecResult);                                                                                        ATTRIBUTE_NAME('ForEachPositionOnPathToGameNodeDo')
-procedure ForEachPositionOnPathToCurrentNodeDo(DoWhat : GameTreeProcAvecResult);                                                                                                    ATTRIBUTE_NAME('ForEachPositionOnPathToCurrentNodeDo')
+procedure ForEachPropertyOfTheseTypesInCurrentNodeDo(whichTypes : SetOfPropertyTypes ; DoWhat : PropertyProc);
+procedure ForEachPositionOnPathToGameNodeDo(G : GameTree ; DoWhat : GameTreeProcAvecResult);
+procedure ForEachPositionOnPathToCurrentNodeDo(DoWhat : GameTreeProcAvecResult);
 
 
 {fonction de navigation dans l'arbre de jeu courant}
-function ChangeCurrentNodeAfterThisMove(square,couleur : SInt16; const fonctionAppelante : String255; var isNew : boolean) : OSErr;                                                 ATTRIBUTE_NAME('ChangeCurrentNodeAfterThisMove')
-function ChangeCurrentNodeAfterNewMove(square,couleur : SInt16; const fonctionAppelante : String255) : OSErr;                                                                       ATTRIBUTE_NAME('ChangeCurrentNodeAfterNewMove')
-procedure ChangeCurrentNodeForBackMove;                                                                                                                                             ATTRIBUTE_NAME('ChangeCurrentNodeForBackMove')
-procedure DoChangeCurrentNodeBackwardUntil(G : GameTree);                                                                                                                           ATTRIBUTE_NAME('DoChangeCurrentNodeBackwardUntil')
-procedure SetCurrentNode(G : GameTree; const fonctionAppelante : String255);                                                                                                        ATTRIBUTE_NAME('SetCurrentNode')
+function ChangeCurrentNodeAfterThisMove(square,couleur : SInt16; const fonctionAppelante : String255; var isNew : boolean) : OSErr;
+function ChangeCurrentNodeAfterNewMove(square,couleur : SInt16; const fonctionAppelante : String255) : OSErr;
+procedure ChangeCurrentNodeForBackMove;
+procedure DoChangeCurrentNodeBackwardUntil(G : GameTree);
+procedure SetCurrentNode(G : GameTree; const fonctionAppelante : String255);
 
 
 {fonction de symetrie}
-procedure EffectueSymetrieArbreDeJeuGlobal(axeSymetrie : SInt32);                                                                                                                   ATTRIBUTE_NAME('EffectueSymetrieArbreDeJeuGlobal')
+procedure EffectueSymetrieArbreDeJeuGlobal(axeSymetrie : SInt32);
 
 
 {fonctions de gestion des positions initiales}
-procedure SetPositionInitialeOfGameTree(position : plateauOthello; trait,nbBlancs,nbNoirs : SInt16);                                                                                ATTRIBUTE_NAME('SetPositionInitialeOfGameTree')
-procedure SetPositionInitialeStandardDansGameTree;                                                                                                                                  ATTRIBUTE_NAME('SetPositionInitialeStandardDansGameTree')
-procedure GetPositionInitialeOfGameTree(var position : plateauOthello; var numeroPremierCoup,trait,nbBlancs,nbNoirs : SInt32);                                                      ATTRIBUTE_NAME('GetPositionInitialeOfGameTree')
-function GetPositionEtTraitInitiauxOfGameTree : PositionEtTraitRec;                                                                                                                 ATTRIBUTE_NAME('GetPositionEtTraitInitiauxOfGameTree')
-function PositionIsTheInitialPositionOfGameTree(var whichPos : PositionEtTraitRec) : boolean;                                                                                       ATTRIBUTE_NAME('PositionIsTheInitialPositionOfGameTree')
-function GameTreeHasStandardInitialPosition : boolean;                                                                                                                              ATTRIBUTE_NAME('GameTreeHasStandardInitialPosition')
-function GameTreeHasStandardInitialPositionInversed : boolean;                                                                                                                      ATTRIBUTE_NAME('GameTreeHasStandardInitialPositionInversed')
-procedure CalculePositionInitialeFromThisRoot(whichRoot : GameTree);                                                                                                                ATTRIBUTE_NAME('CalculePositionInitialeFromThisRoot')
-function CalculeNouvellePositionInitialeFromThisList(L : PropertyList; var jeu : plateauOthello; var numeroPremierCoup,trait,nbBlancs,nbNoirs : SInt32) : boolean;                  ATTRIBUTE_NAME('CalculeNouvellePositionInitialeFromThisList')
-procedure AjouteDescriptionPositionEtTraitACeNoeud(description : PositionEtTraitRec; G : GameTree);                                                                                 ATTRIBUTE_NAME('AjouteDescriptionPositionEtTraitACeNoeud')
-procedure DeleteDescriptionPositionEtTraitDeCeNoeud(G : GameTree);                                                                                                                  ATTRIBUTE_NAME('DeleteDescriptionPositionEtTraitDeCeNoeud')
+procedure SetPositionInitialeOfGameTree(position : plateauOthello; trait,nbBlancs,nbNoirs : SInt16);
+procedure SetPositionInitialeStandardDansGameTree;
+procedure GetPositionInitialeOfGameTree(var position : plateauOthello; var numeroPremierCoup,trait,nbBlancs,nbNoirs : SInt32);
+function GetPositionEtTraitInitiauxOfGameTree : PositionEtTraitRec;
+function PositionIsTheInitialPositionOfGameTree(var whichPos : PositionEtTraitRec) : boolean;
+function GameTreeHasStandardInitialPosition : boolean;
+function GameTreeHasStandardInitialPositionInversed : boolean;
+procedure CalculePositionInitialeFromThisRoot(whichRoot : GameTree);
+function CalculeNouvellePositionInitialeFromThisList(L : PropertyList; var jeu : plateauOthello; var numeroPremierCoup,trait,nbBlancs,nbNoirs : SInt32) : boolean;
+procedure AjouteDescriptionPositionEtTraitACeNoeud(description : PositionEtTraitRec; G : GameTree);
+procedure DeleteDescriptionPositionEtTraitDeCeNoeud(G : GameTree);
 
 
 {fonctions de gestions des infos standard dans les fichiers SGF}
-procedure AddInfosStandardsFormatSGFDansArbre;                                                                                                                                      ATTRIBUTE_NAME('AddInfosStandardsFormatSGFDansArbre')
-function GetApplicationNameDansArbre(var name : String255; var version : String255) : boolean;                                                                                      ATTRIBUTE_NAME('GetApplicationNameDansArbre')
+procedure AddInfosStandardsFormatSGFDansArbre;
+function GetApplicationNameDansArbre(var name : String255; var version : String255) : boolean;
 
 
 {fonctions d'ajout de properties dans la racine de l'arbre }
-procedure OverWritePropertyToRoot(prop : Property; var changed : boolean);                                                                                                          ATTRIBUTE_NAME('OverWritePropertyToRoot')
-procedure AddPropertyToRoot(prop : Property);                                                                                                                                       ATTRIBUTE_NAME('AddPropertyToRoot')
+procedure OverWritePropertyToRoot(prop : Property; var changed : boolean);
+procedure AddPropertyToRoot(prop : Property);
 
 
 {fonctions d'ajout de properties dans un noeud de l'arbre }
-function AddPropertyAsStringDansCeNoeud(var G : GameTree; propertyDescription : String255) : boolean;                                                                               ATTRIBUTE_NAME('AddPropertyAsStringDansCeNoeud')
-function DeletePropertyAsStringDansCeNoeud(var G : GameTree; propertyDescription : String255) : boolean;                                                                            ATTRIBUTE_NAME('DeletePropertyAsStringDansCeNoeud')
-function AddPropertyListAsStringDansCeNoeud(var G : GameTree; propertyListDescription : String255) : boolean;                                                                       ATTRIBUTE_NAME('AddPropertyListAsStringDansCeNoeud')
-function AddPropertyListAsStringDansCurrentNode(propertyListDescription : String255) : boolean;                                                                                     ATTRIBUTE_NAME('AddPropertyListAsStringDansCurrentNode')
+function AddPropertyAsStringDansCeNoeud(var G : GameTree; propertyDescription : String255) : boolean;
+function DeletePropertyAsStringDansCeNoeud(var G : GameTree; propertyDescription : String255) : boolean;
+function AddPropertyListAsStringDansCeNoeud(var G : GameTree; propertyListDescription : String255) : boolean;
+function AddPropertyListAsStringDansCurrentNode(propertyListDescription : String255) : boolean;
 
 
 {gestions des commentaires}
-function NoeudHasCommentaire(G : GameTree) : boolean;                                                                                                                               ATTRIBUTE_NAME('NoeudHasCommentaire')
-procedure DeleteCommentaireDeCeNoeud(var G : GameTree);                                                                                                                             ATTRIBUTE_NAME('DeleteCommentaireDeCeNoeud')
-procedure GetCommentaireDeCeNoeud(G : GameTree; var texte : Ptr; var longueur : SInt32);                                                                                            ATTRIBUTE_NAME('GetCommentaireDeCeNoeud')
-procedure SetCommentaireDeCeNoeud(var G : GameTree; texte : Ptr; longueur : SInt32);                                                                                                ATTRIBUTE_NAME('SetCommentaireDeCeNoeud')
-procedure SetCommentaireDeCeNoeudFromString(var G : GameTree; s : String255);                                                                                                       ATTRIBUTE_NAME('SetCommentaireDeCeNoeudFromString')
-function CurrentNodeHasCommentaire : boolean;                                                                                                                                       ATTRIBUTE_NAME('CurrentNodeHasCommentaire')
-procedure DeleteCommentaireCurrentNode;                                                                                                                                             ATTRIBUTE_NAME('DeleteCommentaireCurrentNode')
-procedure GetCommentaireCurrentNode(var texte : Ptr; var longueur : SInt32);                                                                                                        ATTRIBUTE_NAME('GetCommentaireCurrentNode')
-procedure SetCommentaireCurrentNode(texte : Ptr; longueur : SInt32);                                                                                                                ATTRIBUTE_NAME('SetCommentaireCurrentNode')
-procedure SetCommentaireCurrentNodeFromString(s : String255);                                                                                                                       ATTRIBUTE_NAME('SetCommentaireCurrentNodeFromString')
-procedure SetCommentairesCurrentNodeFromFenetreArbreDeJeu;                                                                                                                          ATTRIBUTE_NAME('SetCommentairesCurrentNodeFromFenetreArbreDeJeu')
+function NoeudHasCommentaire(G : GameTree) : boolean;
+procedure DeleteCommentaireDeCeNoeud(var G : GameTree);
+procedure GetCommentaireDeCeNoeud(G : GameTree; var texte : Ptr; var longueur : SInt32);
+procedure SetCommentaireDeCeNoeud(var G : GameTree; texte : Ptr; longueur : SInt32);
+procedure SetCommentaireDeCeNoeudFromString(var G : GameTree; s : String255);
+function CurrentNodeHasCommentaire : boolean;
+procedure DeleteCommentaireCurrentNode;
+procedure GetCommentaireCurrentNode(var texte : Ptr; var longueur : SInt32);
+procedure SetCommentaireCurrentNode(texte : Ptr; longueur : SInt32);
+procedure SetCommentaireCurrentNodeFromString(s : String255);
+procedure SetCommentairesCurrentNodeFromFenetreArbreDeJeu;
 
 
 {commandes textuelles pour l'arbre de jeu}
-function TrouveCommandeDansCommentaireDansFenetreArbreDeJeu(var commande,argument : String255) : boolean;                                                                           ATTRIBUTE_NAME('TrouveCommandeDansCommentaireDansFenetreArbreDeJeu')
-procedure ExecuteCommandeArbreDeJeu(G : GameTree; commande,argument : String255);                                                                                                   ATTRIBUTE_NAME('ExecuteCommandeArbreDeJeu')
+function TrouveCommandeDansCommentaireDansFenetreArbreDeJeu(var commande,argument : String255) : boolean;
+procedure ExecuteCommandeArbreDeJeu(G : GameTree; commande,argument : String255);
 
 
 {fonctions calculant une position dans l'arbre, le trait ou les pions retournes}
-function CreateListeDesCoupsJusqua(G : GameTree) : PropertyList;                                                                                                                    ATTRIBUTE_NAME('CreateListeDesCoupsJusqua')
-function CreatePartieEnAlphaJusqua(G : GameTree; var partieAlpha : String255; var positionTerminale : PositionEtTraitRec) : boolean;                                                ATTRIBUTE_NAME('CreatePartieEnAlphaJusqua')
-function GetPositionEtTraitACeNoeud(G : GameTree; var position : PositionEtTraitRec; const fonctionAppelante : String255) : boolean;                                                ATTRIBUTE_NAME('GetPositionEtTraitACeNoeud')
-function GetCouleurOfCurrentNode : SInt32;                                                                                                                                          ATTRIBUTE_NAME('GetCouleurOfCurrentNode')
-function VerifieHomogeneiteDesCouleurs(G : GameTree; problemePourLesCoupsVides : boolean) : SInt16;                                                                                 ATTRIBUTE_NAME('VerifieHomogeneiteDesCouleurs')
+function CreateListeDesCoupsJusqua(G : GameTree) : PropertyList;
+function CreatePartieEnAlphaJusqua(G : GameTree; var partieAlpha : String255; var positionTerminale : PositionEtTraitRec) : boolean;
+function GetPositionEtTraitACeNoeud(G : GameTree; var position : PositionEtTraitRec; const fonctionAppelante : String255) : boolean;
+function GetCouleurOfCurrentNode : SInt32;
+function VerifieHomogeneiteDesCouleurs(G : GameTree; problemePourLesCoupsVides : boolean) : SInt16;
 (*function GetFlippedDiscsAtThisNode(G : GameTree) : SquareSet;*)
 
 
 {fonctions pour rajouter/lire un score ou une ligne parfaite dans l'arbre courant}
-procedure AjoutePropertyValeurDeCoupDansCurrentNode(quelGenreDeReflexion,scorePourNoir : SInt32);                                                                                   ATTRIBUTE_NAME('AjoutePropertyValeurDeCoupDansCurrentNode')
-function SelectScorePropertyOfCurrentNode : PropertyPtr;                                                                                                                            ATTRIBUTE_NAME('SelectScorePropertyOfCurrentNode')
-procedure AjouteMeilleureSuiteDansGameTree(genreReflexion : SInt32; meilleureSuite : String255; scoreDeNoir : SInt32; G : GameTree; exclamation : boolean; virtualite : SInt16);    ATTRIBUTE_NAME('AjouteMeilleureSuiteDansGameTree')
-procedure AjouteMeilleureSuiteDansArbreDeJeuCourant(genreReflexion : SInt32; meilleureSuite : String255; scoreDeLaLignePourNoir : SInt32);                                          ATTRIBUTE_NAME('AjouteMeilleureSuiteDansArbreDeJeuCourant')
-procedure MarquerCurrentNodeCommeVirtuel;                                                                                                                                           ATTRIBUTE_NAME('MarquerCurrentNodeCommeVirtuel')
-procedure MarquerCurrentNodeCommeReel(const fonctionAppelante : String255);                                                                                                         ATTRIBUTE_NAME('MarquerCurrentNodeCommeReel')
-function PeutCalculerFinaleParfaiteParArbreDeJeuCourant(var listeDesCoups : PropertyList; var valeurCouranteMin,valeurCouranteMax : SInt32) : boolean;                              ATTRIBUTE_NAME('PeutCalculerFinaleParfaiteParArbreDeJeuCourant')
+procedure AjoutePropertyValeurDeCoupDansCurrentNode(quelGenreDeReflexion,scorePourNoir : SInt32);
+function SelectScorePropertyOfCurrentNode : PropertyPtr;
+procedure AjouteMeilleureSuiteDansGameTree(genreReflexion : SInt32; meilleureSuite : String255; scoreDeNoir : SInt32; G : GameTree; exclamation : boolean; virtualite : SInt16);
+procedure AjouteMeilleureSuiteDansArbreDeJeuCourant(genreReflexion : SInt32; meilleureSuite : String255; scoreDeLaLignePourNoir : SInt32);
+procedure MarquerCurrentNodeCommeVirtuel;
+procedure MarquerCurrentNodeCommeReel(const fonctionAppelante : String255);
+function PeutCalculerFinaleParfaiteParArbreDeJeuCourant(var listeDesCoups : PropertyList; var valeurCouranteMin,valeurCouranteMax : SInt32) : boolean;
 
 
 
 {recherche dans l'arbre de jeu}
-procedure FindStringDansArbreDeJeuCourant(const s : String255; ignoreCase : boolean);                                                                                               ATTRIBUTE_NAME('FindStringDansArbreDeJeuCourant')
-procedure ChercherLeProchainNoeudAvecBeaucoupDeFils(nbreDeFils : SInt32);                                                                                                           ATTRIBUTE_NAME('ChercherLeProchainNoeudAvecBeaucoupDeFils')
+procedure FindStringDansArbreDeJeuCourant(const s : String255; ignoreCase : boolean);
+procedure ChercherLeProchainNoeudAvecBeaucoupDeFils(nbreDeFils : SInt32);
 
 
 
@@ -1254,31 +1254,31 @@ begin
 
   if (G <> NIL) & (propertyListDescription <> '') then
     begin
-    
+
       changed := false;
-      
+
       repeat
         theProperty := '';
-        
+
         repeat
           boucle :
-        
+
           SplitBy(propertyListDescription, ']', left, right);
-        
+
           theProperty := theProperty + left + ']';
           propertyListDescription := right;
-          
+
           if ((LENGTH_OF_STRING(right) >= 1) & (right[1] = '[')) then goto boucle;
-          
-        until (propertyListDescription = '') | 
+
+        until (propertyListDescription = '') |
               ((LENGTH_OF_STRING(theProperty) >= 2) & (theProperty[LENGTH_OF_STRING(theProperty) - 1] <> '\'));
-        
+
         changed := AddPropertyAsStringDansCeNoeud(G, theProperty) | changed;
-        
+
       until (propertyListDescription = '');
-      
+
     end;
-  
+
   AddPropertyListAsStringDansCeNoeud := changed;
 end;
 
@@ -1499,7 +1499,7 @@ begin
 
               s := BufferToPascalString(buffer, position, len - 1);
               s := ReplaceStringByStringInString(':',' : ',s);
-              
+
               Parser2(s, commande, aux, argument);
 
               SetCommentaireCurrentNode(buffer, position - 1);
@@ -1530,7 +1530,7 @@ begin
 
       (*
       message := 'Vous avez modifié à la main l''arbre de jeu !';
-      warranty := 'IN NO EVENT SHALL CASSIO OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE EDITION OF THE GAME TREE OR ITS SUBSEQUENT USE.'; 
+      warranty := 'IN NO EVENT SHALL CASSIO OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE EDITION OF THE GAME TREE OR ITS SUBSEQUENT USE.';
       *)
 
       AlerteDouble(message,warranty);
@@ -1566,10 +1566,10 @@ begin
       gameTreeChanged := false;
 
       SetDoitEcrireMessageDeTransfoArbreDansRapport(true);
-      
+
       if (commande = 'ADD')                            then gameTreeChanged := AddPropertyAsStringDansCeNoeud(G,argument) else
       if (commande = 'DELETE') | (commande = 'REMOVE') then gameTreeChanged := DeletePropertyAsStringDansCeNoeud(G,argument);
-      
+
       SetDoitEcrireMessageDeTransfoArbreDansRapport(false);
 
       if gameTreeChanged then

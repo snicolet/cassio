@@ -17,38 +17,38 @@ INTERFACE
 
 
 {initialisation de l'unité}
-procedure InitUnitSmartGameBoard;                                                                                                                                                   ATTRIBUTE_NAME('InitUnitSmartGameBoard')
-procedure LibereMemoireUnitSmartGameBoard;                                                                                                                                          ATTRIBUTE_NAME('LibereMemoireUnitSmartGameBoard')
+procedure InitUnitSmartGameBoard;
+procedure LibereMemoireUnitSmartGameBoard;
 
 
 {lecture et ecriture du format Smart Game Board (SGF)}
-procedure LitFormatSmartGameBoard(G : GameTree; whichFichierAbstrait : FichierAbstrait);                                                                                                    ATTRIBUTE_NAME('LitFormatSmartGameBoard')
-procedure EcritFormatSmartGameBoard(G : GameTree; var whichFichierAbstrait : FichierAbstrait);                                                                                              ATTRIBUTE_NAME('EcritFormatSmartGameBoard')
+procedure LitFormatSmartGameBoard(G : GameTree; whichFichierAbstrait : FichierAbstrait);
+procedure EcritFormatSmartGameBoard(G : GameTree; var whichFichierAbstrait : FichierAbstrait);
 
 
 {tests de reconnaissance format SGF}
-function EstUneFichierAbstraitAuFormatSmartGameBoard(whichFichierAbstrait : FichierAbstrait) : boolean;                                                                                         ATTRIBUTE_NAME('EstUneFichierAbstraitAuFormatSmartGameBoard')
-function EstUnFichierAuFormatSmartGameBoard(nomFichier : String255 ; vRefNum : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('EstUnFichierAuFormatSmartGameBoard')
+function EstUneFichierAbstraitAuFormatSmartGameBoard(whichFichierAbstrait : FichierAbstrait) : boolean;
+function EstUnFichierAuFormatSmartGameBoard(nomFichier : String255 ; vRefNum : SInt16) : boolean;
 
 
 {lecture simplifiee : position initiale et ligne principale}
-function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : FichierTEXT; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;                          ATTRIBUTE_NAME('GetPositionInitialeEtPartieDansFichierSmartGameBoard')
+function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : FichierTEXT; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 
 
 {fonctions de bas niveau }
-function LectureSmartGameBoardEnCours : boolean;                                                                                                                                    ATTRIBUTE_NAME('LectureSmartGameBoardEnCours')
-procedure BeginLectureSmartGameBoard(whichFichierAbstrait : FichierAbstrait);                                                                                                               ATTRIBUTE_NAME('BeginLectureSmartGameBoard')
-function LitProperty : Property;                                                                                                                                                    ATTRIBUTE_NAME('LitProperty')
-function LitPropertyList : PropertyList;                                                                                                                                            ATTRIBUTE_NAME('LitPropertyList')
-procedure LitEtAjoutePropertyListACeNoeud(var G : GameTree);                                                                                                                        ATTRIBUTE_NAME('LitEtAjoutePropertyListACeNoeud')
-procedure EndLectureSmartGameBoard;                                                                                                                                                 ATTRIBUTE_NAME('EndLectureSmartGameBoard')
+function LectureSmartGameBoardEnCours : boolean;
+procedure BeginLectureSmartGameBoard(whichFichierAbstrait : FichierAbstrait);
+function LitProperty : Property;
+function LitPropertyList : PropertyList;
+procedure LitEtAjoutePropertyListACeNoeud(var G : GameTree);
+procedure EndLectureSmartGameBoard;
 
 
 {on gere une petite base de donnees des derniers fichiers SGF lus/ecrits}
-procedure SauvegarderDatabaseOfRecentSGFFiles;                                                                                                                                      ATTRIBUTE_NAME('SauvegarderDatabaseOfRecentSGFFiles')
-procedure LireDatabaseOfRecentSGFFiles;                                                                                                                                             ATTRIBUTE_NAME('LireDatabaseOfRecentSGFFiles')
-procedure AjouterNomDansDatabaseOfRecentSGFFiles(const whichDate,whichName : String255);                                                                                            ATTRIBUTE_NAME('AjouterNomDansDatabaseOfRecentSGFFiles')
-function FichierExisteDansDatabaseOfRecentSGFFiles(whichName : String255; var modificationDate : String255) : boolean;                                                              ATTRIBUTE_NAME('FichierExisteDansDatabaseOfRecentSGFFiles')
+procedure SauvegarderDatabaseOfRecentSGFFiles;
+procedure LireDatabaseOfRecentSGFFiles;
+procedure AjouterNomDansDatabaseOfRecentSGFFiles(const whichDate,whichName : String255);
+function FichierExisteDansDatabaseOfRecentSGFFiles(whichName : String255; var modificationDate : String255) : boolean;
 
 
 IMPLEMENTATION

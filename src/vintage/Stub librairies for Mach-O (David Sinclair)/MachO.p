@@ -29,8 +29,8 @@ INTERFACE
 	
 //		MWMacOSAll;
     MacTypes, Files, CFBase, CFString, CFBundle;  // DJS change
-    
-    
+
+
 	{$endc}
 {_______________________________________________________________________________________________}
 
@@ -108,7 +108,7 @@ IMPLEMENTATION
 uses
   MacErrors, MacMemory, OSUtils, Folders, CFURL;  // DJS change
 {$endc}
-  
+
 {_______________________________________________________________________________________________}
 
  function MachOLoadBundle

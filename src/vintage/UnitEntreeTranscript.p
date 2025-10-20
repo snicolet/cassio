@@ -15,191 +15,191 @@ INTERFACE
 
 
 { Initialisation et liberation de l'unité }
-procedure InitUnitEntreeTranscript;                                                                                                                                                 ATTRIBUTE_NAME('InitUnitEntreeTranscript')
-procedure LibereMemoireUnitEntreeTranscript;                                                                                                                                        ATTRIBUTE_NAME('LibereMemoireUnitEntreeTranscript')
+procedure InitUnitEntreeTranscript;
+procedure LibereMemoireUnitEntreeTranscript;
 
 { Passage en mode d'edition de transcript }
-procedure SauvegardeReglagesAvantEditionTranscript;                                                                                                                                 ATTRIBUTE_NAME('SauvegardeReglagesAvantEditionTranscript')
-procedure RestoreReglagesApresEditionTranscript;                                                                                                                                    ATTRIBUTE_NAME('RestoreReglagesApresEditionTranscript')
-procedure PrepareCassioPourEditionTranscript;                                                                                                                                       ATTRIBUTE_NAME('PrepareCassioPourEditionTranscript')
-procedure DoChangeEnModeEntreeTranscript;                                                                                                                                           ATTRIBUTE_NAME('DoChangeEnModeEntreeTranscript')
+procedure SauvegardeReglagesAvantEditionTranscript;
+procedure RestoreReglagesApresEditionTranscript;
+procedure PrepareCassioPourEditionTranscript;
+procedure DoChangeEnModeEntreeTranscript;
 
 { Drapeaux globaux de communication avec le reste de Cassio}
-function EnModeEntreeTranscript : boolean;                                                                                                                                          ATTRIBUTE_NAME('EnModeEntreeTranscript')
-function CassioEstEnTrainDeCorrigerUnTranscript : boolean;                                                                                                                          ATTRIBUTE_NAME('CassioEstEnTrainDeCorrigerUnTranscript')
-function DoitAfficherLaPlusLonguePartiePossible : boolean;                                                                                                                          ATTRIBUTE_NAME('DoitAfficherLaPlusLonguePartiePossible')
-function TranscriptAccepteLesDonnees : boolean;                                                                                                                                     ATTRIBUTE_NAME('TranscriptAccepteLesDonnees')
-function TranscriptDoitChercherDesCorrections : boolean;                                                                                                                            ATTRIBUTE_NAME('TranscriptDoitChercherDesCorrections')
-procedure SetAffichageDeLaPlusLonguePartiePossible(flag : boolean);                                                                                                                 ATTRIBUTE_NAME('SetAffichageDeLaPlusLonguePartiePossible')
-procedure SetTranscriptAccepteLesDonnees(newFlag : boolean; var oldFlag : boolean);                                                                                                 ATTRIBUTE_NAME('SetTranscriptAccepteLesDonnees')
-procedure SetTranscriptChercheDesCorrections(newFlag : boolean; var oldFlag : boolean);                                                                                             ATTRIBUTE_NAME('SetTranscriptChercheDesCorrections')
+function EnModeEntreeTranscript : boolean;
+function CassioEstEnTrainDeCorrigerUnTranscript : boolean;
+function DoitAfficherLaPlusLonguePartiePossible : boolean;
+function TranscriptAccepteLesDonnees : boolean;
+function TranscriptDoitChercherDesCorrections : boolean;
+procedure SetAffichageDeLaPlusLonguePartiePossible(flag : boolean);
+procedure SetTranscriptAccepteLesDonnees(newFlag : boolean; var oldFlag : boolean);
+procedure SetTranscriptChercheDesCorrections(newFlag : boolean; var oldFlag : boolean);
 
 { Gestion des erreurs }
-procedure ResetTranscriptErrors(var analyse : AnalyseDeTranscript);                                                                                                                 ATTRIBUTE_NAME('ResetTranscriptErrors')
-procedure RaiseTranscriptError(whichError : SInt64; square : SInt16; var analyse : AnalyseDeTranscript);                                                                            ATTRIBUTE_NAME('RaiseTranscriptError')
-function TranscriptError(const analyse : AnalyseDeTranscript) : SInt64;                                                                                                             ATTRIBUTE_NAME('TranscriptError')
-function HasTranscriptErrorMask(whichErrors : SInt64; const analyse : AnalyseDeTranscript) : boolean;                                                                               ATTRIBUTE_NAME('HasTranscriptErrorMask')
-function HasTheseErrorsForThisMove(whichErrors : SInt64; const analyse : AnalyseDeTranscript; numeroCoup : SInt64) : boolean;                                                       ATTRIBUTE_NAME('HasTheseErrorsForThisMove')
-function CurrentTranscriptHasThisErrors(whichErrors : SInt64) : boolean;                                                                                                            ATTRIBUTE_NAME('CurrentTranscriptHasThisErrors')
+procedure ResetTranscriptErrors(var analyse : AnalyseDeTranscript);
+procedure RaiseTranscriptError(whichError : SInt64; square : SInt16; var analyse : AnalyseDeTranscript);
+function TranscriptError(const analyse : AnalyseDeTranscript) : SInt64;
+function HasTranscriptErrorMask(whichErrors : SInt64; const analyse : AnalyseDeTranscript) : boolean;
+function HasTheseErrorsForThisMove(whichErrors : SInt64; const analyse : AnalyseDeTranscript; numeroCoup : SInt64) : boolean;
+function CurrentTranscriptHasThisErrors(whichErrors : SInt64) : boolean;
 
 { Fonctions d'acces au type de donnees "Transcript" }
-function NumeroDeCetteCaseDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                           ATTRIBUTE_NAME('NumeroDeCetteCaseDansTranscript')
-function NombreCasesRempliesDansTranscript(const myTranscript : Transcript) : SInt16;                                                                                               ATTRIBUTE_NAME('NombreCasesRempliesDansTranscript')
-function TranscriptALaPositionDeDepartInversee(const whichTranscript : Transcript) : boolean;                                                                                       ATTRIBUTE_NAME('TranscriptALaPositionDeDepartInversee')
-function SameTranscript(const t1,t2 : Transcript) : boolean;                                                                                                                        ATTRIBUTE_NAME('SameTranscript')
-function NombreCasesDifferentesDansTranscripts(const t1,t2 : Transcript) : SInt64;                                                                                                  ATTRIBUTE_NAME('NombreCasesDifferentesDansTranscripts')
-function DistanceTranscripts(var t1,t2 : Transcript) : SInt64;                                                                                                                      ATTRIBUTE_NAME('DistanceTranscripts')
+function NumeroDeCetteCaseDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+function NombreCasesRempliesDansTranscript(const myTranscript : Transcript) : SInt16;
+function TranscriptALaPositionDeDepartInversee(const whichTranscript : Transcript) : boolean;
+function SameTranscript(const t1,t2 : Transcript) : boolean;
+function NombreCasesDifferentesDansTranscripts(const t1,t2 : Transcript) : SInt64;
+function DistanceTranscripts(var t1,t2 : Transcript) : SInt64;
 
 { Les cases vides (sans pions) }
-function EstUneCaseVideDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;                                                                             ATTRIBUTE_NAME('EstUneCaseVideDansTranscript')
-function CaseVidePrecedenteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                          ATTRIBUTE_NAME('CaseVidePrecedenteDansTranscript')
-function CaseVideSuivanteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                            ATTRIBUTE_NAME('CaseVideSuivanteDansTranscript')
-function PremiereCaseVideDansTranscript(const myTranscript : Transcript) : SInt16;                                                                                                  ATTRIBUTE_NAME('PremiereCaseVideDansTranscript')
-function DerniereCaseVideDansTranscript(const myTranscript : Transcript) : SInt16;                                                                                                  ATTRIBUTE_NAME('DerniereCaseVideDansTranscript')
+function EstUneCaseVideDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;
+function CaseVidePrecedenteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+function CaseVideSuivanteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+function PremiereCaseVideDansTranscript(const myTranscript : Transcript) : SInt16;
+function DerniereCaseVideDansTranscript(const myTranscript : Transcript) : SInt16;
 
 { Les cases vides (sans chiffres ni pions) }
-function EstUneCaseSansChiffreDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;                                                                      ATTRIBUTE_NAME('EstUneCaseSansChiffreDansTranscript')
-function CaseSansChiffrePrecedenteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                   ATTRIBUTE_NAME('CaseSansChiffrePrecedenteDansTranscript')
-function CaseSansChiffreSuivanteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                     ATTRIBUTE_NAME('CaseSansChiffreSuivanteDansTranscript')
-function PremiereCaseSansChiffreDansTranscript(const myTranscript : Transcript) : SInt16;                                                                                           ATTRIBUTE_NAME('PremiereCaseSansChiffreDansTranscript')
-function DerniereCaseSansChiffreDansTranscript(const myTranscript : Transcript) : SInt16;                                                                                           ATTRIBUTE_NAME('DerniereCaseSansChiffreDansTranscript')
+function EstUneCaseSansChiffreDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;
+function CaseSansChiffrePrecedenteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+function CaseSansChiffreSuivanteDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+function PremiereCaseSansChiffreDansTranscript(const myTranscript : Transcript) : SInt16;
+function DerniereCaseSansChiffreDansTranscript(const myTranscript : Transcript) : SInt16;
 
 { Couleur des pions centraux }
-function CouleurDeCetteCaseDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;                                                                          ATTRIBUTE_NAME('CouleurDeCetteCaseDansTranscript')
-procedure SetCouleurDeCePionDansTranscript(whichSquare,color : SInt16; var myTranscript : Transcript);                                                                              ATTRIBUTE_NAME('SetCouleurDeCePionDansTranscript')
-procedure InverserCouleurDesPionsDuTranscript(var myTranscript : Transcript);                                                                                                       ATTRIBUTE_NAME('InverserCouleurDesPionsDuTranscript')
+function CouleurDeCetteCaseDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : SInt16;
+procedure SetCouleurDeCePionDansTranscript(whichSquare,color : SInt16; var myTranscript : Transcript);
+procedure InverserCouleurDesPionsDuTranscript(var myTranscript : Transcript);
 
 { Gestion du transcript courant }
-procedure ViderTranscriptCourant;                                                                                                                                                   ATTRIBUTE_NAME('ViderTranscriptCourant')
-function CurrentTranscript : Transcript;                                                                                                                                            ATTRIBUTE_NAME('CurrentTranscript')
-function GetCurrentSquareOfCurseur : SInt16;                                                                                                                                        ATTRIBUTE_NAME('GetCurrentSquareOfCurseur')
-function GetCurrentLateralisationOfCurseur : SInt16;                                                                                                                                ATTRIBUTE_NAME('GetCurrentLateralisationOfCurseur')
-function GetCurrentNumeroOfCurseur : SInt16;                                                                                                                                        ATTRIBUTE_NAME('GetCurrentNumeroOfCurseur')
-function GetCurrentChiffreSousLeCurseur : SInt16;                                                                                                                                   ATTRIBUTE_NAME('GetCurrentChiffreSousLeCurseur')
-function CaseAyantLePlusPetitNumeroAuDela(numeroMinimum : SInt16) : SInt16;                                                                                                         ATTRIBUTE_NAME('CaseAyantLePlusPetitNumeroAuDela')
-function PositionEtTraitInitiauxDuTranscriptCourant : PositionEtTraitRec;                                                                                                           ATTRIBUTE_NAME('PositionEtTraitInitiauxDuTranscriptCourant')
-function PositionEtTraitInitiauxDuTranscript(const whichTranscript : Transcript) : PositionEtTraitRec;                                                                              ATTRIBUTE_NAME('PositionEtTraitInitiauxDuTranscript')
+procedure ViderTranscriptCourant;
+function CurrentTranscript : Transcript;
+function GetCurrentSquareOfCurseur : SInt16;
+function GetCurrentLateralisationOfCurseur : SInt16;
+function GetCurrentNumeroOfCurseur : SInt16;
+function GetCurrentChiffreSousLeCurseur : SInt16;
+function CaseAyantLePlusPetitNumeroAuDela(numeroMinimum : SInt16) : SInt16;
+function PositionEtTraitInitiauxDuTranscriptCourant : PositionEtTraitRec;
+function PositionEtTraitInitiauxDuTranscript(const whichTranscript : Transcript) : PositionEtTraitRec;
 
 { Changement d'un ou de plusieurs chiffres dans un transcript }
-function IncrementerToutesLesCases(numeroMinimum,increment : SInt16; myTranscript : Transcript) : Transcript;                                                                       ATTRIBUTE_NAME('IncrementerToutesLesCases')
-function IncrementerToutesLesCasesAndSetValueDansSquare(numeroMinimum,increment : SInt16; square,value : SInt16; myTranscript : Transcript) : Transcript;                           ATTRIBUTE_NAME('IncrementerToutesLesCasesAndSetValueDansSquare')
-function DecrementerToutesLesCases(numeroMinimum,increment : SInt16; myTranscript : Transcript; var prochainNumeroActif,square : SInt16) : Transcript;                              ATTRIBUTE_NAME('DecrementerToutesLesCases')
-function IncrementerCetteCase(square,increment : SInt16; myTranscript : Transcript) : Transcript;                                                                                   ATTRIBUTE_NAME('IncrementerCetteCase')
-function EchangerCasesDansTranscript(square1,square2 : SInt16; myTranscript : Transcript) : Transcript;                                                                             ATTRIBUTE_NAME('EchangerCasesDansTranscript')
-procedure DecalerTousLesChiffresDansTranscript(caseDebut,lateralisationDebut,dansQuelSens : SInt16);                                                                                ATTRIBUTE_NAME('DecalerTousLesChiffresDansTranscript')
-procedure TraiteDeleteKeyDansTranscript(var myTranscript : Transcript);                                                                                                             ATTRIBUTE_NAME('TraiteDeleteKeyDansTranscript')
-procedure TaperChiffreDansTranscript(ch : char);                                                                                                                                    ATTRIBUTE_NAME('TaperChiffreDansTranscript')
-procedure SetNumeroDeCetteCaseDansTranscript(whichSquare,numero : SInt16; var myTranscript : Transcript);                                                                           ATTRIBUTE_NAME('SetNumeroDeCetteCaseDansTranscript')
+function IncrementerToutesLesCases(numeroMinimum,increment : SInt16; myTranscript : Transcript) : Transcript;
+function IncrementerToutesLesCasesAndSetValueDansSquare(numeroMinimum,increment : SInt16; square,value : SInt16; myTranscript : Transcript) : Transcript;
+function DecrementerToutesLesCases(numeroMinimum,increment : SInt16; myTranscript : Transcript; var prochainNumeroActif,square : SInt16) : Transcript;
+function IncrementerCetteCase(square,increment : SInt16; myTranscript : Transcript) : Transcript;
+function EchangerCasesDansTranscript(square1,square2 : SInt16; myTranscript : Transcript) : Transcript;
+procedure DecalerTousLesChiffresDansTranscript(caseDebut,lateralisationDebut,dansQuelSens : SInt16);
+procedure TraiteDeleteKeyDansTranscript(var myTranscript : Transcript);
+procedure TaperChiffreDansTranscript(ch : char);
+procedure SetNumeroDeCetteCaseDansTranscript(whichSquare,numero : SInt16; var myTranscript : Transcript);
 
 { Deplacements du curseur }
-function CurseurEstToutEnHautAGauche(var myTranscript : Transcript) : boolean;                                                                                                      ATTRIBUTE_NAME('CurseurEstToutEnHautAGauche')
-function CurseurEstToutEnBasADroite(var myTranscript : Transcript) : boolean;                                                                                                       ATTRIBUTE_NAME('CurseurEstToutEnBasADroite')
-function GetLateralisationOfCurseur(const myTranscript : Transcript) : SInt16;                                                                                                      ATTRIBUTE_NAME('GetLateralisationOfCurseur')
-function GetSquareOfCurseur(const myTranscript : Transcript) : SInt16;                                                                                                              ATTRIBUTE_NAME('GetSquareOfCurseur')
-function ChiffreSousLeCurseur(const myTranscript : Transcript) : SInt16;                                                                                                            ATTRIBUTE_NAME('ChiffreSousLeCurseur')
-procedure MonterCurseur(var myTranscript : Transcript);                                                                                                                             ATTRIBUTE_NAME('MonterCurseur')
-procedure DescendreCurseur(var myTranscript : Transcript);                                                                                                                          ATTRIBUTE_NAME('DescendreCurseur')
-procedure BougerCurseurAGauche(var myTranscript : Transcript);                                                                                                                      ATTRIBUTE_NAME('BougerCurseurAGauche')
-procedure BougerCurseurADroite(var myTranscript : Transcript);                                                                                                                      ATTRIBUTE_NAME('BougerCurseurADroite')
-procedure BougerCurseurCaseSuivante(var myTranscript : Transcript);                                                                                                                 ATTRIBUTE_NAME('BougerCurseurCaseSuivante')
-procedure BougerCurseurCasePrecedente(var myTranscript : Transcript);                                                                                                               ATTRIBUTE_NAME('BougerCurseurCasePrecedente')
-procedure BougerCurseurDebutDeLigne(var myTranscript : Transcript);                                                                                                                 ATTRIBUTE_NAME('BougerCurseurDebutDeLigne')
-procedure BougerCurseurFinDeLigne(var myTranscript : Transcript);                                                                                                                   ATTRIBUTE_NAME('BougerCurseurFinDeLigne')
-procedure SetPositionCurseur(square,lateralisation : SInt16; var myTranscript : Transcript);                                                                                        ATTRIBUTE_NAME('SetPositionCurseur')
+function CurseurEstToutEnHautAGauche(var myTranscript : Transcript) : boolean;
+function CurseurEstToutEnBasADroite(var myTranscript : Transcript) : boolean;
+function GetLateralisationOfCurseur(const myTranscript : Transcript) : SInt16;
+function GetSquareOfCurseur(const myTranscript : Transcript) : SInt16;
+function ChiffreSousLeCurseur(const myTranscript : Transcript) : SInt16;
+procedure MonterCurseur(var myTranscript : Transcript);
+procedure DescendreCurseur(var myTranscript : Transcript);
+procedure BougerCurseurAGauche(var myTranscript : Transcript);
+procedure BougerCurseurADroite(var myTranscript : Transcript);
+procedure BougerCurseurCaseSuivante(var myTranscript : Transcript);
+procedure BougerCurseurCasePrecedente(var myTranscript : Transcript);
+procedure BougerCurseurDebutDeLigne(var myTranscript : Transcript);
+procedure BougerCurseurFinDeLigne(var myTranscript : Transcript);
+procedure SetPositionCurseur(square,lateralisation : SInt16; var myTranscript : Transcript);
 
 { Creation d'un transcript }
-function MakeTranscript(positionEtTrait : PositionEtTraitRec) : Transcript;                                                                                                         ATTRIBUTE_NAME('MakeTranscript')
-function TranscriptVide : Transcript;                                                                                                                                               ATTRIBUTE_NAME('TranscriptVide')
-function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;                                                                                                         ATTRIBUTE_NAME('MakeTranscriptFromPlateauOthello')
-procedure EntrerPartieDansTranscript(jusqueQuelCoup : SInt16; var myTranscript : Transcript);                                                                                       ATTRIBUTE_NAME('EntrerPartieDansTranscript')
-procedure EntrerPartieDansCurrentTranscript(jusqueQuelCoup : SInt16);                                                                                                               ATTRIBUTE_NAME('EntrerPartieDansCurrentTranscript')
+function MakeTranscript(positionEtTrait : PositionEtTraitRec) : Transcript;
+function TranscriptVide : Transcript;
+function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;
+procedure EntrerPartieDansTranscript(jusqueQuelCoup : SInt16; var myTranscript : Transcript);
+procedure EntrerPartieDansCurrentTranscript(jusqueQuelCoup : SInt16);
 
 { Gestion des erreurs, des numeros dupliques, etc. }
-procedure ChercherLesErreursDansCeTranscript(var myTranscript : Transcript; var analyse : AnalyseDeTranscript);                                                                     ATTRIBUTE_NAME('ChercherLesErreursDansCeTranscript')
-procedure ChercherLesErreursDansLeTranscriptCourant;                                                                                                                                ATTRIBUTE_NAME('ChercherLesErreursDansLeTranscriptCourant')
-procedure SetDerniereCaseTapeeDansTranscript(whichSquare : SInt16);                                                                                                                 ATTRIBUTE_NAME('SetDerniereCaseTapeeDansTranscript')
-function DerniereCaseTapee : SInt16;                                                                                                                                                ATTRIBUTE_NAME('DerniereCaseTapee')
-function DerniereCaseTapeeEstUnCoupIllegal : boolean;                                                                                                                               ATTRIBUTE_NAME('DerniereCaseTapeeEstUnCoupIllegal')
-function ProchaineCaseAvecUneErreurDansTranscript(whichSquare,sens : SInt16) : SInt16;                                                                                              ATTRIBUTE_NAME('ProchaineCaseAvecUneErreurDansTranscript')
-function CeNumeroDeCoupAUneErreur(numero : SInt16; const analyse : AnalyseDeTranscript) : boolean;                                                                                  ATTRIBUTE_NAME('CeNumeroDeCoupAUneErreur')
-function TypeErreurDeCeNumeroDansTranscript(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt64;                                                                         ATTRIBUTE_NAME('TypeErreurDeCeNumeroDansTranscript')
-function TypeErreurDeCetteCaseDansTranscript(whichSquare : SInt16; const analyse : AnalyseDeTranscript) : SInt64;                                                                   ATTRIBUTE_NAME('TypeErreurDeCetteCaseDansTranscript')
-function NombreCasesAvecCeNumero(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;                                                                                    ATTRIBUTE_NAME('NombreCasesAvecCeNumero')
-function NombreDoublons(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                              ATTRIBUTE_NAME('NombreDoublons')
-function NombreDoublonsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;                                                                                  ATTRIBUTE_NAME('NombreDoublonsApresCeCoup')
-function NombreDoublonsAvantCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;                                                                                  ATTRIBUTE_NAME('NombreDoublonsAvantCeCoup')
-function NombreDoublonsConsecutifsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;                                                                       ATTRIBUTE_NAME('NombreDoublonsConsecutifsApresCeCoup')
-function NombreErreurs(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                               ATTRIBUTE_NAME('NombreErreurs')
-function NombreCoupsIsoles(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                           ATTRIBUTE_NAME('NombreCoupsIsoles')
-function NombreCoupsManquants(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                        ATTRIBUTE_NAME('NombreCoupsManquants')
-function NombreCoupsManquantsConsecutifsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;                                                                 ATTRIBUTE_NAME('NombreCoupsManquantsConsecutifsApresCeCoup')
-function PremierCoupManquant(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                         ATTRIBUTE_NAME('PremierCoupManquant')
-function PremierCoupIllegal(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                          ATTRIBUTE_NAME('PremierCoupIllegal')
-function PremierDoublon(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                              ATTRIBUTE_NAME('PremierDoublon')
-function PremierCoupIsole(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                            ATTRIBUTE_NAME('PremierCoupIsole')
-function DernierCoupPresent(const analyse : AnalyseDeTranscript) : SInt16;                                                                                                          ATTRIBUTE_NAME('DernierCoupPresent')
-function NombreCoupsCorrectsDansTranscript(const whichTranscript : Transcript; var analyse : AnalyseDeTranscript; var positionEtPartie : String255) : SInt16;                       ATTRIBUTE_NAME('NombreCoupsCorrectsDansTranscript')
-function NombreCasesVidesTranscriptCourant : SInt64;                                                                                                                                ATTRIBUTE_NAME('NombreCasesVidesTranscriptCourant')
-function EstUnePartieLegaleEtComplete(const analyse : AnalyseDeTranscript) : boolean;                                                                                               ATTRIBUTE_NAME('EstUnePartieLegaleEtComplete')
-function TranscriptCourantEstUnePartieLegaleEtComplete : boolean;                                                                                                                   ATTRIBUTE_NAME('TranscriptCourantEstUnePartieLegaleEtComplete')
-function PlusLonguePartieLegaleDuTranscriptEstDansOthellierDeGauche : boolean;                                                                                                      ATTRIBUTE_NAME('PlusLonguePartieLegaleDuTranscriptEstDansOthellierDeGauche')
+procedure ChercherLesErreursDansCeTranscript(var myTranscript : Transcript; var analyse : AnalyseDeTranscript);
+procedure ChercherLesErreursDansLeTranscriptCourant;
+procedure SetDerniereCaseTapeeDansTranscript(whichSquare : SInt16);
+function DerniereCaseTapee : SInt16;
+function DerniereCaseTapeeEstUnCoupIllegal : boolean;
+function ProchaineCaseAvecUneErreurDansTranscript(whichSquare,sens : SInt16) : SInt16;
+function CeNumeroDeCoupAUneErreur(numero : SInt16; const analyse : AnalyseDeTranscript) : boolean;
+function TypeErreurDeCeNumeroDansTranscript(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt64;
+function TypeErreurDeCetteCaseDansTranscript(whichSquare : SInt16; const analyse : AnalyseDeTranscript) : SInt64;
+function NombreCasesAvecCeNumero(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
+function NombreDoublons(const analyse : AnalyseDeTranscript) : SInt16;
+function NombreDoublonsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
+function NombreDoublonsAvantCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
+function NombreDoublonsConsecutifsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
+function NombreErreurs(const analyse : AnalyseDeTranscript) : SInt16;
+function NombreCoupsIsoles(const analyse : AnalyseDeTranscript) : SInt16;
+function NombreCoupsManquants(const analyse : AnalyseDeTranscript) : SInt16;
+function NombreCoupsManquantsConsecutifsApresCeCoup(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
+function PremierCoupManquant(const analyse : AnalyseDeTranscript) : SInt16;
+function PremierCoupIllegal(const analyse : AnalyseDeTranscript) : SInt16;
+function PremierDoublon(const analyse : AnalyseDeTranscript) : SInt16;
+function PremierCoupIsole(const analyse : AnalyseDeTranscript) : SInt16;
+function DernierCoupPresent(const analyse : AnalyseDeTranscript) : SInt16;
+function NombreCoupsCorrectsDansTranscript(const whichTranscript : Transcript; var analyse : AnalyseDeTranscript; var positionEtPartie : String255) : SInt16;
+function NombreCasesVidesTranscriptCourant : SInt64;
+function EstUnePartieLegaleEtComplete(const analyse : AnalyseDeTranscript) : boolean;
+function TranscriptCourantEstUnePartieLegaleEtComplete : boolean;
+function PlusLonguePartieLegaleDuTranscriptEstDansOthellierDeGauche : boolean;
 
 { Gestion de la pile des transcripts, pour pouvoir annuler }
-procedure EmpileTranscript(const myTranscript : Transcript);                                                                                                                        ATTRIBUTE_NAME('EmpileTranscript')
-function DepileTranscriptVersLaGauche : Transcript;                                                                                                                                 ATTRIBUTE_NAME('DepileTranscriptVersLaGauche')
-function DepileTranscriptVersLaDroite : Transcript;                                                                                                                                 ATTRIBUTE_NAME('DepileTranscriptVersLaDroite')
-procedure InitialisePileTranscripts;                                                                                                                                                ATTRIBUTE_NAME('InitialisePileTranscripts')
+procedure EmpileTranscript(const myTranscript : Transcript);
+function DepileTranscriptVersLaGauche : Transcript;
+function DepileTranscriptVersLaDroite : Transcript;
+procedure InitialisePileTranscripts;
 
 { Fonctions de dessin }
-function GetCouleurDesChiffresDuTranscript : RGBColor;                                                                                                                              ATTRIBUTE_NAME('GetCouleurDesChiffresDuTranscript')
-procedure DessineChiffre2DTranscript(square,lateralisation : SInt64);                                                                                                               ATTRIBUTE_NAME('DessineChiffre2DTranscript')
-procedure DessineCaseTranscript(square : SInt64);                                                                                                                                   ATTRIBUTE_NAME('DessineCaseTranscript')
-procedure DessineTranscriptCourant;                                                                                                                                                 ATTRIBUTE_NAME('DessineTranscriptCourant')
-procedure DessineErreursTranscript(whichErrors : SInt64);                                                                                                                           ATTRIBUTE_NAME('DessineErreursTranscript')
-procedure EntourerUneCaseDansTranscript(square : SInt64; color : RGBColor);                                                                                                         ATTRIBUTE_NAME('EntourerUneCaseDansTranscript')
-procedure EcranStandardTranscript;                                                                                                                                                  ATTRIBUTE_NAME('EcranStandardTranscript')
-procedure AfficherPartieDuTranscriptDansOthellierDeGauche(jusqueQuelCoup : SInt16);                                                                                                 ATTRIBUTE_NAME('AfficherPartieDuTranscriptDansOthellierDeGauche')
-procedure EcritMessageSousTranscript(message : String255);                                                                                                                          ATTRIBUTE_NAME('EcritMessageSousTranscript')
-function DecalageHorizontalOthellierDuTranscript : SInt16;                                                                                                                          ATTRIBUTE_NAME('DecalageHorizontalOthellierDuTranscript')
-function DecalageVerticalOthellierDuTranscript : SInt16;                                                                                                                            ATTRIBUTE_NAME('DecalageVerticalOthellierDuTranscript')
-procedure BeginDrawingForTranscript;                                                                                                                                                ATTRIBUTE_NAME('BeginDrawingForTranscript')
-procedure EndDrawingForTranscript;                                                                                                                                                  ATTRIBUTE_NAME('EndDrawingForTranscript')
-function ErreursAAfficherDansTranscriptCourant : SInt64;                                                                                                                            ATTRIBUTE_NAME('ErreursAAfficherDansTranscriptCourant')
-function NombreSuggestionsAffichees : SInt64;                                                                                                                                       ATTRIBUTE_NAME('NombreSuggestionsAffichees')
-procedure DessineNiemeSuggestionDeCorrection(n : SInt16);                                                                                                                           ATTRIBUTE_NAME('DessineNiemeSuggestionDeCorrection')
-procedure DessineSuggestionsDeCorrection;                                                                                                                                           ATTRIBUTE_NAME('DessineSuggestionsDeCorrection')
+function GetCouleurDesChiffresDuTranscript : RGBColor;
+procedure DessineChiffre2DTranscript(square,lateralisation : SInt64);
+procedure DessineCaseTranscript(square : SInt64);
+procedure DessineTranscriptCourant;
+procedure DessineErreursTranscript(whichErrors : SInt64);
+procedure EntourerUneCaseDansTranscript(square : SInt64; color : RGBColor);
+procedure EcranStandardTranscript;
+procedure AfficherPartieDuTranscriptDansOthellierDeGauche(jusqueQuelCoup : SInt16);
+procedure EcritMessageSousTranscript(message : String255);
+function DecalageHorizontalOthellierDuTranscript : SInt16;
+function DecalageVerticalOthellierDuTranscript : SInt16;
+procedure BeginDrawingForTranscript;
+procedure EndDrawingForTranscript;
+function ErreursAAfficherDansTranscriptCourant : SInt64;
+function NombreSuggestionsAffichees : SInt64;
+procedure DessineNiemeSuggestionDeCorrection(n : SInt16);
+procedure DessineSuggestionsDeCorrection;
 
 { Gestion des evenements }
-function TraiteKeyboardEventDansTranscript(ch : char; var peutRepeter : boolean) : boolean;                                                                                         ATTRIBUTE_NAME('TraiteKeyboardEventDansTranscript')
-function TraiteMouseEventDansTranscript(evt : eventRecord) : boolean;                                                                                                               ATTRIBUTE_NAME('TraiteMouseEventDansTranscript')
-procedure ImposerUnCoupDansTranscript(whichSquare,numero : SInt16; var myTranscript : Transcript);                                                                                  ATTRIBUTE_NAME('ImposerUnCoupDansTranscript')
-procedure ImposerEmpilerCurrentTranscript(const myTranscript : Transcript);                                                                                                         ATTRIBUTE_NAME('ImposerEmpilerCurrentTranscript')
+function TraiteKeyboardEventDansTranscript(ch : char; var peutRepeter : boolean) : boolean;
+function TraiteMouseEventDansTranscript(evt : eventRecord) : boolean;
+procedure ImposerUnCoupDansTranscript(whichSquare,numero : SInt16; var myTranscript : Transcript);
+procedure ImposerEmpilerCurrentTranscript(const myTranscript : Transcript);
 
 {Creation pour la base}
-procedure EssayerEnregistrerLeTranscriptDansLaBase;                                                                                                                                 ATTRIBUTE_NAME('EssayerEnregistrerLeTranscriptDansLaBase')
-procedure PlaquerPositionEtPartieLegaleDansOthellierDeGauche(position : PositionEtTraitRec; partiePlaquee : String255);                                                             ATTRIBUTE_NAME('PlaquerPositionEtPartieLegaleDansOthellierDeGauche')
+procedure EssayerEnregistrerLeTranscriptDansLaBase;
+procedure PlaquerPositionEtPartieLegaleDansOthellierDeGauche(position : PositionEtTraitRec; partiePlaquee : String255);
 
 {Gestion du type de donnees TranscriptSet }
-function MakeEmptyTranscriptSet : TranscriptSet;                                                                                                                                    ATTRIBUTE_NAME('MakeEmptyTranscriptSet')
-function MakeOneElementTranscriptSet(const theTranscript : Transcript; data : SInt64) : TranscriptSet;                                                                              ATTRIBUTE_NAME('MakeOneElementTranscriptSet')
-procedure DisposeTranscriptSet(var S : TranscriptSet);                                                                                                                              ATTRIBUTE_NAME('DisposeTranscriptSet')
-function TranscriptSetEstVide(S : TranscriptSet) : boolean;                                                                                                                         ATTRIBUTE_NAME('TranscriptSetEstVide')
-function CardinalOfTranscriptSet(S : TranscriptSet) : SInt64;                                                                                                                       ATTRIBUTE_NAME('CardinalOfTranscriptSet')
-function MemberOfTranscriptSet(const theTranscript : Transcript; var data : SInt64; S : TranscriptSet) : boolean;                                                                   ATTRIBUTE_NAME('MemberOfTranscriptSet')
-procedure AddTranscriptToSet(const theTranscript : Transcript; data : SInt64; var S : TranscriptSet);                                                                               ATTRIBUTE_NAME('AddTranscriptToSet')
-procedure RemoveTranscriptFromSet(const theTranscript : Transcript; var S : TranscriptSet);                                                                                         ATTRIBUTE_NAME('RemoveTranscriptFromSet')
-function HashTranscript(const t : Transcript) : SInt64;                                                                                                                             ATTRIBUTE_NAME('HashTranscript')
+function MakeEmptyTranscriptSet : TranscriptSet;
+function MakeOneElementTranscriptSet(const theTranscript : Transcript; data : SInt64) : TranscriptSet;
+procedure DisposeTranscriptSet(var S : TranscriptSet);
+function TranscriptSetEstVide(S : TranscriptSet) : boolean;
+function CardinalOfTranscriptSet(S : TranscriptSet) : SInt64;
+function MemberOfTranscriptSet(const theTranscript : Transcript; var data : SInt64; S : TranscriptSet) : boolean;
+procedure AddTranscriptToSet(const theTranscript : Transcript; data : SInt64; var S : TranscriptSet);
+procedure RemoveTranscriptFromSet(const theTranscript : Transcript; var S : TranscriptSet);
+function HashTranscript(const t : Transcript) : SInt64;
 
 {Actions élémentaires de correction}
-function MakeActionDeCorrection(genre : GenreCorrection; square1,square2 : SInt64; arg1,arg2 : SInt64) : ActionDeCorrection;                                                        ATTRIBUTE_NAME('MakeActionDeCorrection')
-function ActionDeCorrectionEnString(whichAction : ActionDeCorrection) : String255;                                                                                                  ATTRIBUTE_NAME('ActionDeCorrectionEnString')
-procedure EcrireUneCorrectionDansRapport(profondeur : SInt16; whichAction : ActionDeCorrection);                                                                                    ATTRIBUTE_NAME('EcrireUneCorrectionDansRapport')
+function MakeActionDeCorrection(genre : GenreCorrection; square1,square2 : SInt64; arg1,arg2 : SInt64) : ActionDeCorrection;
+function ActionDeCorrectionEnString(whichAction : ActionDeCorrection) : String255;
+procedure EcrireUneCorrectionDansRapport(profondeur : SInt16; whichAction : ActionDeCorrection);
 
 {Correction automatique de transcripts}
-procedure BeginTranscriptSearch;                                                                                                                                                    ATTRIBUTE_NAME('BeginTranscriptSearch')
-procedure EndTranscriptSearch;                                                                                                                                                      ATTRIBUTE_NAME('EndTranscriptSearch')
-procedure ViderSuggestionsDeCorrection;                                                                                                                                             ATTRIBUTE_NAME('ViderSuggestionsDeCorrection')
-procedure CorrectionAutomatiqueDuTranscript(whichTranscript : Transcript);                                                                                                          ATTRIBUTE_NAME('CorrectionAutomatiqueDuTranscript')
+procedure BeginTranscriptSearch;
+procedure EndTranscriptSearch;
+procedure ViderSuggestionsDeCorrection;
+procedure CorrectionAutomatiqueDuTranscript(whichTranscript : Transcript);
 
 
 
@@ -214,7 +214,7 @@ IMPLEMENTATION
 
 USES
     ToolUtils, OSUtils, QuickDraw, MacWindows, fp, Fonts, QuickdrawText, Sound
-    
+
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitGeometrie, UnitScannerUtils, UnitRapport, MyStrings, UnitArbreDeJeuCourant, UnitCarbonisation, UnitNormalisation
     , UnitNotesSurCases, UnitFenetres, UnitUtilitaires, MyUtils, UnitHashing, UnitTroisiemeDimension, UnitPhasesPartie, UnitJeu
@@ -1348,9 +1348,9 @@ begin
   with myTranscript do
     begin
       min := 999;
-      
+
       result := PremiereCaseVideDansTranscript(myTranscript);
-      
+
       (* Chercher la case ayant le plus petit numero au dela de numeroMinimum *)
       for t := 11 to 88 do
         if EstUneCaseVideDansTranscript(t,myTranscript) then
@@ -1362,9 +1362,9 @@ begin
                 result := t;
               end;
           end;
-      
+
       (* not found ? Chercher la case ayant le plus petit numero absolument pour recommencer au coup 1 ... *)
-      if (min = 999) then  
+      if (min = 999) then
         for t := 11 to 88 do
           if EstUneCaseVideDansTranscript(t,myTranscript) then
             begin
@@ -1930,7 +1930,7 @@ begin
   doitEffacerSousLesTextesSurOthellier := temp;
 
   EndDrawingForTranscript;
-  
+
   MetTitreFenetrePlateau;
 end;
 
@@ -1952,7 +1952,7 @@ begin
         SetOthellierEstSale(t,true);
       end;
   InvalidateAllCasesDessinEnTraceDeRayon;
-  
+
   if EstUnePartieLegaleEtComplete(gAnalyseDuTranscript) then
     begin
       DessineScoreFinalDuTranscript;
@@ -2186,7 +2186,7 @@ begin
            begin
              if (TranscriptALaPositionDeDepartInversee(myTranscript) & SquareInSquareSet(derniereCaseTapee,[34,43,56,65])) |
                 (not(TranscriptALaPositionDeDepartInversee(myTranscript)) & SquareInSquareSet(derniereCaseTapee,[35,46,53,64]))
-               then 
+               then
                  InverserCouleurDesPionsDuTranscript(myTranscript);
            end;
 
@@ -2199,7 +2199,7 @@ begin
             if (GetSquareOfCurseur(myTranscript) <> square) then
               if (TranscriptALaPositionDeDepartInversee(myTranscript) & SquareInSquareSet(square,[34,43,56,65])) |
                  (not(TranscriptALaPositionDeDepartInversee(myTranscript)) & SquareInSquareSet(square,[35,46,53,64]))
-                then 
+                then
                   InverserCouleurDesPionsDuTranscript(myTranscript);
           end;
 
@@ -2528,7 +2528,7 @@ begin
       compteur := 0;
 
       position := PositionEtTraitInitiauxDuTranscript(whichTranscript);
-      
+
       n := 1;
       bloquage := false;
       while (n <= 100) & not(bloquage) do
@@ -2728,8 +2728,8 @@ begin
 
           end;
 
-      if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) & 
-          CurrentTranscriptHasThisErrors(kTranscriptCoupManquant) & 
+      if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) &
+          CurrentTranscriptHasThisErrors(kTranscriptCoupManquant) &
           not(TranscriptCourantEstUnePartieLegaleEtComplete)
         then EcritMessageSousTranscript(messageCoupsManquants);
 
@@ -2970,14 +2970,14 @@ begin
                              if shift
                                then BougerCurseurCasePrecedente(gPileTranscripts.pile[gPileTranscripts.current])
                                else BougerCurseurAGauche(gPileTranscripts.pile[gPileTranscripts.current]);
-        FlecheDroiteKey    : if option 
+        FlecheDroiteKey    : if option
                                then DecalerTousLesChiffresDansTranscript(GetCurrentSquareOfCurseur,GetCurrentLateralisationOfCurseur,kDroite) else
                              if command
                                then BougerCurseurFinDeLigne(gPileTranscripts.pile[gPileTranscripts.current]) else
                              if shift
                                then BougerCurseurCaseSuivante(gPileTranscripts.pile[gPileTranscripts.current])
                                else BougerCurseurADroite(gPileTranscripts.pile[gPileTranscripts.current]);
-        TabulationKey      : if option 
+        TabulationKey      : if option
                                then SetPositionCurseur(CaseAyantLePlusPetitNumeroAuDela(GetCurrentNumeroOfCurseur + 1),kGauche,gPileTranscripts.pile[gPileTranscripts.current]) else
                              if shift
                                then SetPositionCurseur(ProchaineCaseAvecUneErreurDansTranscript(GetCurrentSquareOfCurseur,-1),kGauche,gPileTranscripts.pile[gPileTranscripts.current])
@@ -3017,7 +3017,7 @@ begin
                 n := GetCurrentNumeroOfCurseur;
                 if (gAnalyseDuTranscript.cases[n+1].cardinal = 0)
                   then myTranscript := IncrementerCetteCase(GetCurrentSquareOfCurseur, +1, CurrentTranscript)
-                  else 
+                  else
                   if (gAnalyseDuTranscript.cases[n+2].cardinal = 0)
                     then myTranscript := IncrementerCetteCase(GetCurrentSquareOfCurseur, +2, CurrentTranscript)
                     else
@@ -3154,7 +3154,7 @@ begin
           peutRepeter := false;
         end;
     end;
-   
+
   AccelereProchainDoSystemTask(2);
 
   if (TranscriptError(gAnalyseDuTranscript) <> 0) then
@@ -3169,7 +3169,7 @@ begin
       if CurrentTranscriptHasThisErrors(mask)
         then DessineErreursTranscript(mask);
     end;
-  
+
   AccelereProchainDoSystemTask(2);
 
   CorrectionAutomatiqueDuTranscript(gPileTranscripts.pile[gPileTranscripts.current]);
@@ -3311,7 +3311,7 @@ var i : SInt64;
 begin
   with gTranscriptSearch do
     begin
-      
+
       if (niveauRecursion > 0) then
         begin
           DisposeMemoryPtr(Ptr(compareAnalyse1));
@@ -3322,7 +3322,7 @@ begin
           DisposeTranscriptSet(searchHistory);
           DisposeStringSet(solutionSet);
         end;
-        
+
       compareAnalyse1            := AnalyseDeTranscriptPtr(AllocateMemoryPtrClear(SizeOf(AnalyseDeTranscript)));
       compareAnalyse2            := AnalyseDeTranscriptPtr(AllocateMemoryPtrClear(SizeOf(AnalyseDeTranscript)));
       analyseDepart              := AnalyseDeTranscriptPtr(AllocateMemoryPtrClear(SizeOf(AnalyseDeTranscript)));
@@ -3330,14 +3330,14 @@ begin
         analyseStack[i]          := AnalyseDeTranscriptPtr(AllocateMemoryPtrClear(SizeOf(AnalyseDeTranscript)));
       searchHistory              := MakeEmptyTranscriptSet;
       solutionSet                := MakeEmptyStringSet;
-      
+
       inc(niveauRecursion);
       nbreNoeudsVisites          := 0;
       nbreEchangesCoupsAutorises := 1;
       nbreSuggestions            := 0;
-      
+
       SetNewMagicCookieForTranscriptSearch;
-      
+
       (* WritelnNumDansRapport('BeginTranscriptSearch, niveauRecursion = ', niveauRecursion);  *)
     end;
 end;
@@ -3348,9 +3348,9 @@ begin
   with gTranscriptSearch do
     begin
       (* WritelnNumDansRapport('EndTranscriptSearch, niveauRecursion = ', niveauRecursion); *)
-      
+
       dec(niveauRecursion);
-      
+
       if (niveauRecursion = 0) then
         begin
           DisposeMemoryPtr(Ptr(compareAnalyse1));
@@ -3362,9 +3362,9 @@ begin
           DisposeStringSet(solutionSet);
         end;
       nbreNoeudsVisites := 0;
-      
+
       SetNewMagicCookieForTranscriptSearch;
-      
+
     end;
 end;
 
@@ -3405,14 +3405,14 @@ begin
         IncrementAndSet  :
           begin
             decalage := arg2;
-            if decalage > 0 
+            if decalage > 0
               then
                 begin
                   n1 := NumeroDeCetteCaseDansTranscript(square1, CurrentTranscript);
                   n2 := NumeroDeCetteCaseDansTranscript(square2, CurrentTranscript);
-                  
+
                   if (decalage = 1) & (n2 = n1 + 1)
-                    then 
+                    then
                       begin
                         s := s + NumEnString(n1) + '.' + CoupEnString(square1,CassioUtiliseDesMajuscules) + '+';
                       end
@@ -3535,10 +3535,10 @@ label sortie;
    begin
      with gTranscriptSearch do
        begin
-         if (magicCookie <> oldMagicCookie) then 
+         if (magicCookie <> oldMagicCookie) then
            goto sortie;
-         
-         if (lastTickForEvents <> TickCount) then 
+
+         if (lastTickForEvents <> TickCount) then
            begin
              lastTickForEvents := TickCount;
              if HasGotEvent(everyEvent,theEvent,0,NIL) then
@@ -3549,13 +3549,13 @@ label sortie;
         		    end;
              lastTickForEvents := TickCount;
            end;
-           
-         if (magicCookie <> oldMagicCookie) then 
+
+         if (magicCookie <> oldMagicCookie) then
            goto sortie;
        end;
    end;
-   
-   
+
+
 begin {$UNUSED mask}
 
   with gTranscriptSearch do
@@ -3565,7 +3565,7 @@ begin {$UNUSED mask}
        (nbreNoeudsVisites      < kTailleMaxAppelsCorrectionAutomatique) then
       begin
         oldMagicCookie := magicCookie;
-      
+
         inc(nbreNoeudsVisites);
 
         profondeurRestante := profondeurArret - distanceRacine;
@@ -3578,13 +3578,13 @@ begin {$UNUSED mask}
 
         { on met le transcript courant dans l'ensemble decrivant l'histoire de la recherche }
         AddTranscriptToSet(myTranscript,profondeurRestante,searchHistory);
-        
+
         TesterEvenementPendantRechercheRecursive;
 
         { on est parti : d'abord, chercher si on est arrivé à une solution...}
         analyse := analyseStack[distanceRacine];
         ChercherLesErreursDansCeTranscript(myTranscript,analyse^);
-        
+
         TesterEvenementPendantRechercheRecursive;
 
         if EstUnePartieLegaleEtComplete(analyse^)
@@ -3634,17 +3634,17 @@ begin {$UNUSED mask}
                             TesterEvenementPendantRechercheRecursive;
                           end;
                     end;
-                  
+
                   (* coups manquants : on essaye de leur affecter un doublon plausible *)
                   if HasTranscriptErrorMask(kTranscriptCoupManquant,analyse^) &
                      HasTranscriptErrorMask(kTranscriptCoupsDupliques,analyse^) then
                     begin
                       n := PremierCoupManquant(analyse^);
-                      
+
                       for square1 := 11 to 88 do
                         begin
                           n1 := NumeroDeCetteCaseDansTranscript(square1, myTranscript);
-                          
+
                           if (NombreCasesAvecCeNumero(n1, analyse^) >= 2) &
                              ((n mod 10 = n1 mod 10) | (n div 10 = n1 div 10) | (abs(n - n1) <= 3)) then
                             begin
@@ -3679,7 +3679,7 @@ begin {$UNUSED mask}
                                     for c2 := 1 to cases[n2].cardinal do
                                     begin
                                       TesterEvenementPendantRechercheRecursive;
-                                      
+
                                       square1 := cases[n1].liste[c1];
                                       square2 := cases[n2].liste[c2];
 
@@ -3711,7 +3711,7 @@ begin {$UNUSED mask}
                                       TesterEvenementPendantRechercheRecursive;
                                       inc(nbreEchangesCoupsAutorises);
                                     end;
-                              
+
                               { transposition des coups n-1 et n+1 ? }
                               n1 := n-1;
                               n2 := n+1;
@@ -3779,7 +3779,7 @@ begin {$UNUSED mask}
                     end;
 
                   (* doublons : on essaie (a) de renvoyer les coups en double vers des coups manquants
-                                          (b) ou d'inserer de la place pour les coups en double 
+                                          (b) ou d'inserer de la place pour les coups en double
                    *)
                   if HasTranscriptErrorMask(kTranscriptCoupsDupliques,analyse^) then
                     begin
@@ -3811,11 +3811,11 @@ begin {$UNUSED mask}
 
                       { on essaie d'inserer de l'espace pour les coups doublons }
                       doublons := NombreDoublonsConsecutifsApresCeCoup(n,analyse^);
-                      
+
                       if doublons <= 1
                         then decalageMax := doublons + 1
                         else decalageMax := doublons;
-                      
+
                       for decalage := 1 to decalageMax do
                         begin
                           placeDisponible := NombreCoupsManquantsConsecutifsApresCeCoup(n+decalage,analyse^);
@@ -3867,9 +3867,9 @@ begin {$UNUSED mask}
 
                 end;
       end;
-   
+
    sortie:
-   
+
 end;
 
 
@@ -3888,7 +3888,7 @@ begin
             begin
               ticks := TickCount;
               BeginTranscriptSearch;
-              
+
               oldMagicCookie := magicCookie;
 
               if (analyseDepart <> NIL) then
@@ -3915,12 +3915,12 @@ begin
 
               (* WritelnNumDansRapport('searchHistory.cardinal = ',searchHistory.cardinal);
                  WritelnNumDansRapport('gTranscriptSearch.nbreNoeudsVisites = ',gTranscriptSearch.nbreNoeudsVisites);
-                 WritelnNumDansRapport('temps = ',TickCount - ticks); 
+                 WritelnNumDansRapport('temps = ',TickCount - ticks);
               *)
 
               EndTranscriptSearch;
             end;
-          
+
           DessineSuggestionsDeCorrection;
         end;
     end;

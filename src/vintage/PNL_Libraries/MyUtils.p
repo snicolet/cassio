@@ -9,54 +9,54 @@ INTERFACE
 
 
 
-	procedure GetIndFont( resid: SInt16; index: SInt16; var font, size : SInt16);                                                                                                      ATTRIBUTE_NAME('GetIndFont')
-	procedure GetMyFonts(ft : MyFontType; var font, size : SInt16);                                                                                                                    ATTRIBUTE_NAME('GetMyFonts')
-	procedure SetMyFont(ft : MyFontType);                                                                                                                                              ATTRIBUTE_NAME('SetMyFont')
-	function MyNumToString (n : SInt32) : String255;                                                                                                                                   ATTRIBUTE_NAME('MyNumToString')
-	function NumToK(n : SInt32; extra : boolean) : String255;                                                                                                                          ATTRIBUTE_NAME('NumToK')
-	function NumToStr (n : SInt32) : String255;                                                                                                                                        ATTRIBUTE_NAME('NumToStr')
-	function UNumToStr( n : SInt32 ) : String255;                                                                                                                                      ATTRIBUTE_NAME('UNumToStr')
-	function NN (n : SInt32; len : SInt16) : String255;                                                                                                                                ATTRIBUTE_NAME('NN')
-	function N2 (n : SInt32) : String255;                                                                                                                                              ATTRIBUTE_NAME('N2')
+	procedure GetIndFont( resid: SInt16; index: SInt16; var font, size : SInt16);
+	procedure GetMyFonts(ft : MyFontType; var font, size : SInt16);
+	procedure SetMyFont(ft : MyFontType);
+	function MyNumToString (n : SInt32) : String255;
+	function NumToK(n : SInt32; extra : boolean) : String255;
+	function NumToStr (n : SInt32) : String255;
+	function UNumToStr( n : SInt32 ) : String255;
+	function NN (n : SInt32; len : SInt16) : String255;
+	function N2 (n : SInt32) : String255;
 
 
-	function StrToNum (s : String255) : SInt32;                                                                                                                                        ATTRIBUTE_NAME('StrToNum')
-	procedure DotDotDot (var s : String255; var width: SInt16);                                                                                                                        ATTRIBUTE_NAME('DotDotDot')
-	function CountSICN( typ : OSType; id : SInt16 ) : SInt16;                                                                                                                          ATTRIBUTE_NAME('CountSICN')
+	function StrToNum (s : String255) : SInt32;
+	procedure DotDotDot (var s : String255; var width: SInt16);
+	function CountSICN( typ : OSType; id : SInt16 ) : SInt16;
 	(* procedure PlotSICN (typ : OSType; id, index, v, h: SInt16); *)
-	function LookupStrH (id : SInt16; match: String255) : String255;                                                                                                                   ATTRIBUTE_NAME('LookupStrH')
-	function LookupStrhNumber (id : SInt16; n : SInt32) : String255;                                                                                                                   ATTRIBUTE_NAME('LookupStrhNumber')
-	function SendCharToIsDialogEvent (const er : EventRecord; cs : CharSet) : boolean;                                                                                                 ATTRIBUTE_NAME('SendCharToIsDialogEvent')
-	function GetVersionFromResFile: SInt32;                                                                                                                                            ATTRIBUTE_NAME('GetVersionFromResFile')
+	function LookupStrH (id : SInt16; match: String255) : String255;
+	function LookupStrhNumber (id : SInt16; n : SInt32) : String255;
+	function SendCharToIsDialogEvent (const er : EventRecord; cs : CharSet) : boolean;
+	function GetVersionFromResFile: SInt32;
 
 
-	procedure SafeDeviceLoop (drawingRgn : RgnHandle; drawingProc: DeviceLoopDrawingUPP; userData: SInt32; flags: DeviceLoopFlags);                                                     ATTRIBUTE_NAME('SafeDeviceLoop')
-	procedure SafeDeviceLoopRect (drawingRect : Rect; drawingProc: DeviceLoopDrawingUPP; userData: SInt32; flags: DeviceLoopFlags);                                                     ATTRIBUTE_NAME('SafeDeviceLoopRect')
+	procedure SafeDeviceLoop (drawingRgn : RgnHandle; drawingProc: DeviceLoopDrawingUPP; userData: SInt32; flags: DeviceLoopFlags);
+	procedure SafeDeviceLoopRect (drawingRect : Rect; drawingProc: DeviceLoopDrawingUPP; userData: SInt32; flags: DeviceLoopFlags);
 { procedure drawingProc (depth: SInt16; deviceFlags: SInt16; targetDevice: GDHandle; item: SInt32); }
-	procedure MakeRGBColor (red, green, blue: UInt16; var col : RGBColor);                                                                                                             ATTRIBUTE_NAME('MakeRGBColor')
-	function IsExtension (const name, ext: String255) : boolean;                                                                                                                       ATTRIBUTE_NAME('IsExtension')
-	function IsPrefix (const name, prefix: String255) : boolean;                                                                                                                       ATTRIBUTE_NAME('IsPrefix')
+	procedure MakeRGBColor (red, green, blue: UInt16; var col : RGBColor);
+	function IsExtension (const name, ext: String255) : boolean;
+	function IsPrefix (const name, prefix: String255) : boolean;
 {	function TPbtst(value : SInt32; bit : SInt16) : boolean;}
-	procedure SetInvertHiliteMode;                                                                                                                                                     ATTRIBUTE_NAME('SetInvertHiliteMode')
-	procedure HiliteInvertRect (r : Rect);                                                                                                                                             ATTRIBUTE_NAME('HiliteInvertRect')
-	procedure HiliteInvertRgn (r : RgnHandle);                                                                                                                                         ATTRIBUTE_NAME('HiliteInvertRgn')
+	procedure SetInvertHiliteMode;
+	procedure HiliteInvertRect (r : Rect);
+	procedure HiliteInvertRgn (r : RgnHandle);
 
-	procedure HaveResources;                                                                                                                                                           ATTRIBUTE_NAME('HaveResources')
-	function MapErr( err : OSStatus ) : OSErr;                                                                                                                                         ATTRIBUTE_NAME('MapErr')
+	procedure HaveResources;
+	function MapErr( err : OSStatus ) : OSErr;
 
-	procedure AddOSErr( var err : OSErr; err2 : OSErr );                                                                                                                               ATTRIBUTE_NAME('AddOSErr')
-	procedure AddOSStatus( var err : OSStatus; err2 : OSStatus );                                                                                                                      ATTRIBUTE_NAME('AddOSStatus')
+	procedure AddOSErr( var err : OSErr; err2 : OSErr );
+	procedure AddOSStatus( var err : OSStatus; err2 : OSStatus );
 
 
-	function DateCouranteEnString : String255;                                                                                                                                         ATTRIBUTE_NAME('DateCouranteEnString')
-	function DateEnString(const whichDate : DateTimeRec) : String255;                                                                                                                  ATTRIBUTE_NAME('DateEnString')
+	function DateCouranteEnString : String255;
+	function DateEnString(const whichDate : DateTimeRec) : String255;
 
-  function BooleanXor(b1, b2 : boolean) : boolean;                                                                                                                                  ATTRIBUTE_NAME('BooleanXor')
+  function BooleanXor(b1, b2 : boolean) : boolean;
 
-	procedure IdentiteSurN(var N : SInt32);                                                                                                                                            ATTRIBUTE_NAME('IdentiteSurN')
-	function FonctionTrue : boolean;                                                                                                                                                   ATTRIBUTE_NAME('FonctionTrue')
-	function FonctionFalse : boolean;                                                                                                                                                  ATTRIBUTE_NAME('FonctionFalse')
-	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;                                                                                                            ATTRIBUTE_NAME('MicrosecondesToSecondes')
+	procedure IdentiteSurN(var N : SInt32);
+	function FonctionTrue : boolean;
+	function FonctionFalse : boolean;
+	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;
 
 
 IMPLEMENTATION

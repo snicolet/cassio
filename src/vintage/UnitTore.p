@@ -10,11 +10,11 @@ INTERFACE
 
  USES UnitDefCassio;
 
-function PeutJouerIciTore(couleur,a : SInt32; var plat : plateauOthello) : boolean;                                                                                                 ATTRIBUTE_NAME('PeutJouerIciTore')
-function DoitPasserTore(coul : SInt32; var plat : plateauOthello) : boolean;                                                                                                        ATTRIBUTE_NAME('DoitPasserTore')
-procedure CarteMoveTore(coul : SInt32; const plat : plateauOthello; var carte : plBool; var mobilite : SInt32);                                                                     ATTRIBUTE_NAME('CarteMoveTore')
-function ModifPlatTore(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;                                                                                ATTRIBUTE_NAME('ModifPlatTore')
-function EvaluationTore({var plat : plateauOthello;}coul,nbBlc,nbNr : SInt32) : SInt32;                                                                                             ATTRIBUTE_NAME('EvaluationTore')
+function PeutJouerIciTore(couleur,a : SInt32; var plat : plateauOthello) : boolean;
+function DoitPasserTore(coul : SInt32; var plat : plateauOthello) : boolean;
+procedure CarteMoveTore(coul : SInt32; const plat : plateauOthello; var carte : plBool; var mobilite : SInt32);
+function ModifPlatTore(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;
+function EvaluationTore({var plat : plateauOthello;}coul,nbBlc,nbNr : SInt32) : SInt32;
 
 
 IMPLEMENTATION

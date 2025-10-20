@@ -17,29 +17,29 @@ INTERFACE
 
 
 
-function NbSolitairesDansFichierSolitairesNouveauFormat(numeroFichier : SInt16) : SInt32;                                                                                           ATTRIBUTE_NAME('NbSolitairesDansFichierSolitairesNouveauFormat')
-function NbCasesVidesDeCeFichierSolitairesNouveauFormat(numeroFichier : SInt16) : SInt16;                                                                                           ATTRIBUTE_NAME('NbCasesVidesDeCeFichierSolitairesNouveauFormat')
-function NumeroDistributionSolitaires : SInt16;                                                                                                                                     ATTRIBUTE_NAME('NumeroDistributionSolitaires')
-function DecalageJoueursSolitaires : SInt32;                                                                                                                                        ATTRIBUTE_NAME('DecalageJoueursSolitaires')
-function DecalageTournoisSolitaires : SInt32;                                                                                                                                       ATTRIBUTE_NAME('DecalageTournoisSolitaires')
+function NbSolitairesDansFichierSolitairesNouveauFormat(numeroFichier : SInt16) : SInt32;
+function NbCasesVidesDeCeFichierSolitairesNouveauFormat(numeroFichier : SInt16) : SInt16;
+function NumeroDistributionSolitaires : SInt16;
+function DecalageJoueursSolitaires : SInt32;
+function DecalageTournoisSolitaires : SInt32;
 
-procedure GetNbSolitairesEtNbCasesVidesFromEntete(entete : t_EnTeteNouveauFormat; var nbSolitaires : SInt32; var nbCasesVides : SInt16);                                            ATTRIBUTE_NAME('GetNbSolitairesEtNbCasesVidesFromEntete')
-procedure SetNbSolitairesEtNbCasesVidesDansEntete(var entete : t_EnTeteNouveauFormat; nbSolitaires : SInt32; nbCasesVides : SInt16);                                                ATTRIBUTE_NAME('SetNbSolitairesEtNbCasesVidesDansEntete')
+procedure GetNbSolitairesEtNbCasesVidesFromEntete(entete : t_EnTeteNouveauFormat; var nbSolitaires : SInt32; var nbCasesVides : SInt16);
+procedure SetNbSolitairesEtNbCasesVidesDansEntete(var entete : t_EnTeteNouveauFormat; nbSolitaires : SInt32; nbCasesVides : SInt16);
 
-function LitEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; var entete : t_EnteteSuplementaireSolitaires) : OSErr;                                                ATTRIBUTE_NAME('LitEnteteSuplementaireFichierSolitaireNouveauFormat')
-function LitSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;                                                 ATTRIBUTE_NAME('LitSolitaireNouveauFormat')
-function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; entete : t_EnteteSuplementaireSolitaires) : OSErr;                                                  ATTRIBUTE_NAME('EcritEnteteSuplementaireFichierSolitaireNouveauFormat')
-function EcritSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;                                                   ATTRIBUTE_NAME('EcritSolitaireNouveauFormat')
-procedure ReparerFichiersSolitaires;                                                                                                                                                ATTRIBUTE_NAME('ReparerFichiersSolitaires')
+function LitEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; var entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function LitSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function EcritSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+procedure ReparerFichiersSolitaires;
 
-function MakeSolitaireRecNouveauFormat(annee : SInt16; nroTournoi : SInt16; nroJoueurNoir : SInt32; nroJoueurBlanc : SInt32; plat : plateauOthello; trait : SInt16; {pionNoir,pionBlanc} score : SInt16; coupSolution : SInt16; scoreReelDeLaPartie : SInt16; coup25dansLaBase : SInt16) : t_SolitaireRecNouveauFormat;                                                 ATTRIBUTE_NAME('MakeSolitaireRecNouveauFormat')
+function MakeSolitaireRecNouveauFormat(annee : SInt16; nroTournoi : SInt16; nroJoueurNoir : SInt32; nroJoueurBlanc : SInt32; plat : plateauOthello; trait : SInt16; {pionNoir,pionBlanc} score : SInt16; coupSolution : SInt16; scoreReelDeLaPartie : SInt16; coup25dansLaBase : SInt16) : t_SolitaireRecNouveauFormat;
 
 
-function FabriqueCommentaireSolitaireNouveauFormat(whichSolitaire : t_SolitaireRecNouveauFormat) : String255;                                                                       ATTRIBUTE_NAME('FabriqueCommentaireSolitaireNouveauFormat')
-function FabriqueChainePositionSolitaireNouveauFormat(whichSolitaire : t_SolitaireRecNouveauFormat) : String255;                                                                    ATTRIBUTE_NAME('FabriqueChainePositionSolitaireNouveauFormat')
+function FabriqueCommentaireSolitaireNouveauFormat(whichSolitaire : t_SolitaireRecNouveauFormat) : String255;
+function FabriqueChainePositionSolitaireNouveauFormat(whichSolitaire : t_SolitaireRecNouveauFormat) : String255;
 
-function NbSolitairesDansCetteIntervalleDeCasesVides(nbCasesMin,nbCasesMax : SInt16) : SInt32;                                                                                      ATTRIBUTE_NAME('NbSolitairesDansCetteIntervalleDeCasesVides')
-procedure DoJoueAuxSolitairesNouveauFormat(nbCasesMin,nbCasesMax : SInt16);                                                                                                         ATTRIBUTE_NAME('DoJoueAuxSolitairesNouveauFormat')
+function NbSolitairesDansCetteIntervalleDeCasesVides(nbCasesMin,nbCasesMax : SInt16) : SInt32;
+procedure DoJoueAuxSolitairesNouveauFormat(nbCasesMin,nbCasesMax : SInt16);
 
 
 IMPLEMENTATION

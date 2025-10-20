@@ -14,10 +14,10 @@ INTERFACE
 
 
 
-procedure TestMobiliteBitbooard(var whichPosition : PositionEtTraitRec);                                                                                                            ATTRIBUTE_NAME('TestMobiliteBitbooard')
-function CalculeMobiliteBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32) : SInt32;                                                                            ATTRIBUTE_NAME('CalculeMobiliteBitboard')
-function PositionEtTraitToBitboard(var whichPosition : PositionEtTraitRec) : bitboard;                                                                                              ATTRIBUTE_NAME('PositionEtTraitToBitboard')
-function BitboardToDiffPions(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32) : SInt32;                                                                                ATTRIBUTE_NAME('BitboardToDiffPions')
+procedure TestMobiliteBitbooard(var whichPosition : PositionEtTraitRec);
+function CalculeMobiliteBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32) : SInt32;
+function PositionEtTraitToBitboard(var whichPosition : PositionEtTraitRec) : bitboard;
+function BitboardToDiffPions(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32) : SInt32;
 
 
 

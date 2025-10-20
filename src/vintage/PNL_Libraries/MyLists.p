@@ -25,66 +25,66 @@ INTERFACE
 	var
 		listError: boolean;
 
-	procedure CreateList (var l: listHead);                                                                                                                                            ATTRIBUTE_NAME('CreateList')
-	procedure DestroyList (var l: listHead; dispose: boolean);                                                                                                                         ATTRIBUTE_NAME('DestroyList')
+	procedure CreateList (var l: listHead);
+	procedure DestroyList (var l: listHead; dispose: boolean);
 
-	procedure ReturnHead (lh: listHead; var l: listItem);                                                                                                                              ATTRIBUTE_NAME('ReturnHead')
+	procedure ReturnHead (lh: listHead; var l: listItem);
     (* <a> b c / <a> b c / <a> b c / <a> / <a> / <> *)
-	procedure ReturnTail (lh: listHead; var l: listItem);                                                                                                                              ATTRIBUTE_NAME('ReturnTail')
+	procedure ReturnTail (lh: listHead; var l: listItem);
     (* a b c <> / a b c <> / a b c <> / a b c <> / a <> / a <> / <> *)
 
-	procedure MoveToHead (var l: listItem);                                                                                                                                            ATTRIBUTE_NAME('MoveToHead')
+	procedure MoveToHead (var l: listItem);
     (* <a> b c / <a> b c / <a> b c / <a> b c / <a> / <a> / <> *)
-	procedure MoveToTail (var l: listItem);                                                                                                                                            ATTRIBUTE_NAME('MoveToTail')
+	procedure MoveToTail (var l: listItem);
     (* a b c <> / a b c <> / a b c <> / a b c <> / a <> / a <> / <> *)
-	procedure MoveToNext (var l: listItem);                                                                                                                                            ATTRIBUTE_NAME('MoveToNext')
+	procedure MoveToNext (var l: listItem);
     (* a <b> c / a b <c> / a b c <> / error / a <> / error / error *)
-	procedure MoveToPrev (var l: listItem);                                                                                                                                            ATTRIBUTE_NAME('MoveToPrev')
+	procedure MoveToPrev (var l: listItem);
     (* error / <a> b c / a <b> c / a b <c> / error / <a> / error *)
 
-	function FindItem (lh: listHead; it: Handle; var l: listItem) : boolean;                                                                                                           ATTRIBUTE_NAME('FindItem')
+	function FindItem (lh: listHead; it: Handle; var l: listItem) : boolean;
 
-	procedure AddHead (l: listHead; it: Handle);                                                                                                                                       ATTRIBUTE_NAME('AddHead')
+	procedure AddHead (l: listHead; it: Handle);
     (* x <a> b c / x a <b> c / x a b <c> / x a b c <> / x <a> / x a <> / x <>*)
-	procedure AddTail (l: listHead; it: Handle);                                                                                                                                       ATTRIBUTE_NAME('AddTail')
+	procedure AddTail (l: listHead; it: Handle);
     (* <a> b c x / a <b> c x / a b <c> x / a b c x <> / <a> x / a x <> / x <>*)
-	procedure AddBefore (l: listItem; it: Handle);                                                                                                                                     ATTRIBUTE_NAME('AddBefore')
+	procedure AddBefore (l: listItem; it: Handle);
     (* x <a> b c / a x <b> c / a b x <c> / a b c x <> / x <a> / a x <> / x <>*)
-	procedure AddAfter (l: listItem; it: Handle);                                                                                                                                      ATTRIBUTE_NAME('AddAfter')
+	procedure AddAfter (l: listItem; it: Handle);
     (* <a> x b c / a <b> x c / a b <c> x / error / <a> x / error / error *)
 
-	procedure DeleteHead (l: listHead; var it: Handle);                                                                                                                                ATTRIBUTE_NAME('DeleteHead')
+	procedure DeleteHead (l: listHead; var it: Handle);
     (* <?> b c / <b> c / b <c> / b c <> / <?> / <> / error *)
-	procedure DeleteTail (l: listHead; var it: Handle);                                                                                                                                ATTRIBUTE_NAME('DeleteTail')
+	procedure DeleteTail (l: listHead; var it: Handle);
     (* <a> b / a <b> / a b <?> / a b <> / <?> / <> / error *)
-	procedure DeletePrev (l: listItem; var it: Handle);                                                                                                                                ATTRIBUTE_NAME('DeletePrev')
+	procedure DeletePrev (l: listItem; var it: Handle);
     (* error / <b> c / a <c> / a b <> / error / <> / error *)
-	procedure DeleteNext (l: listItem; var it: Handle);                                                                                                                                ATTRIBUTE_NAME('DeleteNext')
+	procedure DeleteNext (l: listItem; var it: Handle);
     (* <a> c / a <b> / error / error / error / error / error *)
-	procedure DeleteItem (var l: listItem; var it: Handle);                                                                                                                            ATTRIBUTE_NAME('DeleteItem')
+	procedure DeleteItem (var l: listItem; var it: Handle);
     (* <b> c / a <c> / a b <> / error / <> / error / error *)
 
-	procedure FetchHead (l: listHead; var it: Handle);                                                                                                                                 ATTRIBUTE_NAME('FetchHead')
+	procedure FetchHead (l: listHead; var it: Handle);
     (* a / a / a / a / a / a / error  *)
-	procedure FetchTail (l: listHead; var it: Handle);                                                                                                                                 ATTRIBUTE_NAME('FetchTail')
+	procedure FetchTail (l: listHead; var it: Handle);
     (* c / c / c / c / a / a / error  *)
-	procedure FetchNext (l: listItem; var it: Handle);                                                                                                                                 ATTRIBUTE_NAME('FetchNext')
+	procedure FetchNext (l: listItem; var it: Handle);
     (* b / c / error / error / error / error / error *)
-	procedure FetchPrev (l: listItem; var it: Handle);                                                                                                                                 ATTRIBUTE_NAME('FetchPrev')
+	procedure FetchPrev (l: listItem; var it: Handle);
     (* error / a / b / c / error / a / error *)
-	procedure Fetch (l: listItem; var it: Handle);                                                                                                                                     ATTRIBUTE_NAME('Fetch')
+	procedure Fetch (l: listItem; var it: Handle);
     (* a / b / c / error / a / error / error *)
 
-	function IsHead (l: listItem) : boolean;                                                                                                                                           ATTRIBUTE_NAME('IsHead')
+	function IsHead (l: listItem) : boolean;
     (* T / F / F / F / T / F / T *)
-	function IsTail (l: listItem) : boolean;                                                                                                                                           ATTRIBUTE_NAME('IsTail')
+	function IsTail (l: listItem) : boolean;
     (* F / F / F / T / F / T / T *)
-	function IsEmpty (l: listHead) : boolean;                                                                                                                                          ATTRIBUTE_NAME('IsEmpty')
+	function IsEmpty (l: listHead) : boolean;
     (* F / F / F / F / F / F / T *)
 
-	procedure DisplayList (lh: listHead);                                                                                                                                              ATTRIBUTE_NAME('DisplayList')
+	procedure DisplayList (lh: listHead);
    (* To the Text Screen *)
-	procedure ValidateList (lh: listHead; maxlen: SInt32);                                                                                                                             ATTRIBUTE_NAME('ValidateList')
+	procedure ValidateList (lh: listHead; maxlen: SInt32);
 	(* Check the list for validity, maxlen is the maximum valid length *)
 
 IMPLEMENTATION

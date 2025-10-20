@@ -103,11 +103,11 @@
 #else
 
 // #define __APPLE_CC__
-  
+
  #define pascal /* */
- 
+
  #define true 1
- 
+
  #define false 0
 
 #endif

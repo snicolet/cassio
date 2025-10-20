@@ -19,8 +19,8 @@ INTERFACE
 
 
 
-procedure InitUnitProbCutValues;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitProbCutValues')
-procedure LibereMemoireUnitProbCutValues;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnitProbCutValues')
+procedure InitUnitProbCutValues;
+procedure LibereMemoireUnitProbCutValues;
 
 
 IMPLEMENTATION

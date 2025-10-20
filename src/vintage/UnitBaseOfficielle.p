@@ -10,47 +10,47 @@ INTERFACE
 
 
 {Interface de commande}
-function DoActionGestionBaseOfficielle(commande : String255) : OSErr;                                                                                                               ATTRIBUTE_NAME('DoActionGestionBaseOfficielle')
-procedure CreerOuRenommerMachinDansLaBaseOfficielle;                                                                                                                                ATTRIBUTE_NAME('CreerOuRenommerMachinDansLaBaseOfficielle')
-procedure CreerPlusieursJoueursDansBaseOfficielle;                                                                                                                                  ATTRIBUTE_NAME('CreerPlusieursJoueursDansBaseOfficielle')
-procedure CreerPlusieursTournoisDansBaseOfficielle;                                                                                                                                 ATTRIBUTE_NAME('CreerPlusieursTournoisDansBaseOfficielle')
+function DoActionGestionBaseOfficielle(commande : String255) : OSErr;
+procedure CreerOuRenommerMachinDansLaBaseOfficielle;
+procedure CreerPlusieursJoueursDansBaseOfficielle;
+procedure CreerPlusieursTournoisDansBaseOfficielle;
 
 
 {Fonction d'acces en lecture aux listes de joueurs et de tournois}
-function FindPlayerDansBaseOfficielle(joueur : String255) : OSErr;                                                                                                                  ATTRIBUTE_NAME('FindPlayerDansBaseOfficielle')
-function FindTournamentDansBaseOfficielle(tournoi : String255) : OSErr;                                                                                                             ATTRIBUTE_NAME('FindTournamentDansBaseOfficielle')
-function ListerDerniersJoueursBaseOfficielleDansRapport(nbreJoueurs : SInt32) : OSErr;                                                                                              ATTRIBUTE_NAME('ListerDerniersJoueursBaseOfficielleDansRapport')
-function ListerDerniersTournoisBaseOfficielleDansRapport(nbreTournois : SInt32) : OSErr;                                                                                            ATTRIBUTE_NAME('ListerDerniersTournoisBaseOfficielleDansRapport')
-function JoueurEstDonneParSonNumero(joueur : String255; var outNumber : SInt32) : boolean;                                                                                          ATTRIBUTE_NAME('JoueurEstDonneParSonNumero')
-function TournoiEstDonneParSonNumero(tournoi : String255; var outNumber : SInt32) : boolean;                                                                                        ATTRIBUTE_NAME('TournoiEstDonneParSonNumero')
+function FindPlayerDansBaseOfficielle(joueur : String255) : OSErr;
+function FindTournamentDansBaseOfficielle(tournoi : String255) : OSErr;
+function ListerDerniersJoueursBaseOfficielleDansRapport(nbreJoueurs : SInt32) : OSErr;
+function ListerDerniersTournoisBaseOfficielleDansRapport(nbreTournois : SInt32) : OSErr;
+function JoueurEstDonneParSonNumero(joueur : String255; var outNumber : SInt32) : boolean;
+function TournoiEstDonneParSonNumero(tournoi : String255; var outNumber : SInt32) : boolean;
 
 
 {Les actions de creation/renommage de joueurs et de tournois}
-function RenommerJoueurDansFichierWThorOfficiel(oldName,newName : String255) : OSErr;                                                                                               ATTRIBUTE_NAME('RenommerJoueurDansFichierWThorOfficiel')
-function RenommerTournoiDansFichierWThorOfficiel(oldName,newName : String255) : OSErr;                                                                                              ATTRIBUTE_NAME('RenommerTournoiDansFichierWThorOfficiel')
-procedure ChangeBlackPlayer(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroNoir : SInt32);                                                                ATTRIBUTE_NAME('ChangeBlackPlayer')
-procedure ChangeWhitePlayer(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroBlanc : SInt32);                                                               ATTRIBUTE_NAME('ChangeWhitePlayer')
-procedure ChangeTournament(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroTournoi : SInt32);                                                              ATTRIBUTE_NAME('ChangeTournament')
-procedure ChangeYear(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var anneePartie : SInt32);                                                                      ATTRIBUTE_NAME('ChangeYear')
+function RenommerJoueurDansFichierWThorOfficiel(oldName,newName : String255) : OSErr;
+function RenommerTournoiDansFichierWThorOfficiel(oldName,newName : String255) : OSErr;
+procedure ChangeBlackPlayer(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroNoir : SInt32);
+procedure ChangeWhitePlayer(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroBlanc : SInt32);
+procedure ChangeTournament(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var numeroTournoi : SInt32);
+procedure ChangeYear(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var anneePartie : SInt32);
 
 
 {Calcul des scores theoriques}
-procedure LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe;                                                                                                           ATTRIBUTE_NAME('LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe')
-procedure CalculeScoreTheorique(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var scoreTheoriquePourNoir : SInt32);                                                ATTRIBUTE_NAME('CalculeScoreTheorique')
-function CalculDesScoresTheoriquesDeLaBaseEnCours : boolean;                                                                                                                        ATTRIBUTE_NAME('CalculDesScoresTheoriquesDeLaBaseEnCours')
-procedure SetCalculDesScoresTheoriquesDeLaBaseEnCours(newValue : boolean; oldValue : booleanPtr);                                                                                   ATTRIBUTE_NAME('SetCalculDesScoresTheoriquesDeLaBaseEnCours')
+procedure LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe;
+procedure CalculeScoreTheorique(var partie60 : PackedThorGame; numeroReferencePartie : SInt32; var scoreTheoriquePourNoir : SInt32);
+function CalculDesScoresTheoriquesDeLaBaseEnCours : boolean;
+procedure SetCalculDesScoresTheoriquesDeLaBaseEnCours(newValue : boolean; oldValue : booleanPtr);
 
 
 {Modifications des infos dans les parties de la liste}
-function ChangeNumerosJoueursEtTournoisDansListe(noir,blanc,tournoi : String255; surQuellesParties : FiltreNumRefProc) : OSErr;                                                     ATTRIBUTE_NAME('ChangeNumerosJoueursEtTournoisDansListe')
-function ChangeAnneeDansListe(annee : SInt32; surQuellesParties : FiltreNumRefProc) : OSErr;                                                                                        ATTRIBUTE_NAME('ChangeAnneeDansListe')
-function CalculerScoresTheoriquesPartiesDansListe(apresQuelCoup : SInt32; endgameSolveFlags : SInt32; surQuellesParties : FiltreNumRefProc) : OSErr;                                ATTRIBUTE_NAME('CalculerScoresTheoriquesPartiesDansListe')
+function ChangeNumerosJoueursEtTournoisDansListe(noir,blanc,tournoi : String255; surQuellesParties : FiltreNumRefProc) : OSErr;
+function ChangeAnneeDansListe(annee : SInt32; surQuellesParties : FiltreNumRefProc) : OSErr;
+function CalculerScoresTheoriquesPartiesDansListe(apresQuelCoup : SInt32; endgameSolveFlags : SInt32; surQuellesParties : FiltreNumRefProc) : OSErr;
 
 
 {Gestion du fichier "Database/Gestion base Wthor/WThor.log"}
-function OuvreFichierTraceWThor : OSErr;                                                                                                                                            ATTRIBUTE_NAME('OuvreFichierTraceWThor')
-function FermeFichierTraceWThor : OSErr;                                                                                                                                            ATTRIBUTE_NAME('FermeFichierTraceWThor')
-procedure WriteInTraceWThorLog(s : String255);                                                                                                                                      ATTRIBUTE_NAME('WriteInTraceWThorLog')
+function OuvreFichierTraceWThor : OSErr;
+function FermeFichierTraceWThor : OSErr;
+procedure WriteInTraceWThorLog(s : String255);
 
 
 IMPLEMENTATION
@@ -238,7 +238,7 @@ begin
                        begin
                          WriteInTraceWThorLog('');
                          WriteInTraceWThorLog('## WARNING ## : Player "'+oldname+'" not found');
-                         
+
                          SetCassioIsUsingMetaphone(tempoMetaphone);
                          err := -2;
                          goto sortie;
@@ -270,12 +270,12 @@ begin
                    message := 'Player "'+newName+'" added (#'+NumEnString(numeroJoueur)+')';
                  end;
            end;
-       
+
        MettreDateDuJourDansEnteteFichierNouveauFormat(entete);
 
        // WritelnDansRapport('dans RenommerJoueurDansFichierWThorOfficiel {2}');
        // AttendFrappeClavier;
-       
+
 
 			 (* Ecriture du joueur dans le fichier WTHOR.JOU officiel *)
 
@@ -374,9 +374,9 @@ begin
                    message := 'Tourney "'+newName+'" added (#'+NumEnString(numeroTournoi)+')';
                  end;
            end;
-       
+
        MettreDateDuJourDansEnteteFichierNouveauFormat(entete);
-       
+
 
 			 (* Ecriture du tournoi dans le fichier WTHOR.TRN officiel *)
 
@@ -416,32 +416,32 @@ var err : OSErr;
 begin
 
   err := 0;
-  
+
   if (GetNiemeCaractereDuRapport(GetTailleRapport-1) <> cr)
     then WritelnDansRapport('');
 
   (* normalisation du nom *)
-  
+
   MyFabriqueNomJoueurPourBaseWThorOfficielle(joueur,playerRec);
   joueur := JoueurRecNouveauFormatToString(playerRec);
-  
-  
+
+
   (* si le nom du joueur est vide, c'est une erreur *)
-  
-  if (joueur = '') then 
+
+  if (joueur = '') then
     begin
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog('## WARNING (BEGIN) ## : empty player name in AddPlayerDansBaseOfficielle');
       err := -2;
       goto sortie;
     end;
-    
-  
+
+
   (* si le joueur est deja dans la base, c'est sans doute une erreur *)
-  
+
   tempoMetaphone := CassioIsUsingMetaphone;
   SetCassioIsUsingMetaphone(false);
-  
+
   if (JoueurEstDonneParSonNumero(joueur,numeroJoueur) | TrouveNumeroDuJoueur(joueur,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
      (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur)) then
     begin
@@ -453,25 +453,25 @@ begin
       WriteInTraceWThorLog('     rename player "My name is nobody" to "' + joueur + '"');
       err := -3;
     end;
-    
+
   SetCassioIsUsingMetaphone(tempoMetaphone);
-  
-  
+
+
   (* tout va bien : on essaye de fabriquer le joueur, hein ! *)
-  
+
   if (err = 0) then
     err := RenommerJoueurDansFichierWThorOfficiel('',joueur);
-    
-    
+
+
   (* sortie *)
-  
-sortie :  
+
+sortie :
   if (err <> NoErr) then
     begin
       WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddPlayerDansBaseOfficielle, err = '+NumENString(err));
       WriteInTraceWThorLog('');
     end;
-    
+
   AddPlayerDansBaseOfficielle := err;
 end;
 
@@ -485,28 +485,28 @@ var err : OSErr;
 begin
 
   err := 0;
-  
+
   if (GetNiemeCaractereDuRapport(GetTailleRapport-1) <> cr)
     then WritelnDansRapport('');
 
   (* normalisation du nom *)
-  
+
   MyFabriqueNomTournoiPourBaseWThorOfficielle(tournoi,tournamentRec);
   tournoi := TournoiRecNouveauFormatToString(tournamentRec);
-  
+
   (* si le nom du tournoi est vide, c'est une erreur *)
-  
-  if (tournoi = '') then 
+
+  if (tournoi = '') then
     begin
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog('## WARNING (BEGIN) ## : empty tounament name in AddTournamentDansBaseOfficielle');
       err := -2;
       goto sortie;
     end;
-    
-  
+
+
   (* si le tournoi est deja dans la base, c'est sans doute une erreur *)
-  
+
   if (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) | TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) &
      (numeroTournoi = GetNroTournoiDansSonFichier(numeroTournoi)) then
     begin
@@ -518,24 +518,24 @@ begin
       WriteInTraceWThorLog('     rename tourney "My tournament is nowhere" to "' + tournoi + '"');
       err := -3;
     end;
-  
-  
+
+
   (* tout va bien : on essaye de fabriquer le tournoi, hein ! *)
-  
+
   if (err = 0) then
     err := RenommerTournoiDansFichierWThorOfficiel('',tournoi);
-    
-    
+
+
   (* sortie *)
-  
-sortie :  
+
+sortie :
   if (err <> NoErr) then
     begin
       WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddTournamentDansBaseOfficielle, err = '+NumENString(err));
       WriteInTraceWThorLog('');
     end;
-  
-  
+
+
   AddTournamentDansBaseOfficielle := err;
 end;
 
@@ -771,26 +771,26 @@ begin
                   WritelnPositionEtTraitDansRapport(position.position,GetTraitOfPosition(position));
                 end;
 
-              
-              
+
+
               if GetTraitOfPosition(position) = pionVide
                 then
                   begin  {la partie est terminŽe, on calcule le score final en comptant les pions }
-                    
+
                     nbNoirs  := NbPionsDeCetteCouleurDansPosition(pionNoir,position.position);
                     nbBlancs := NbPionsDeCetteCouleurDansPosition(pionBlanc,position.position);
                     nbVides  := NbCasesVidesDansPosition(position.position);
-                    
+
                     if nbNoirs > nbBlancs then nbNoirs  := nbNoirs  + nbVides else
                     if nbNoirs < nbBlancs then nbBlancs := nbBlancs + nbVides;
-                    
+
                     score := (nbNoirs - nbBlancs);  // on affecte arbitrairement le score ˆ Noir...
                   end
                 else
                   begin   {on essaye de calculer la finale de cette partie de la liste }
                     score := DoPlaquerPositionAndMakeEndgameSolve(position,endgameSolveFlags,solveResults);
                   end;
-                  
+
 
               if (interruptionReflexion = pasdinterruption) &
                  (score >= -64) & (score <= 64) then
@@ -826,7 +826,7 @@ begin
                        end;
 
                    {calcul du score theorique (pour les noirs) }
-                   if GetTraitOfPosition(position) = pionNoir  then scoreTheoriquePourNoir := 32 + (score div 2) else 
+                   if GetTraitOfPosition(position) = pionNoir  then scoreTheoriquePourNoir := 32 + (score div 2) else
                    if GetTraitOfPosition(position) = pionBlanc then scoreTheoriquePourNoir := 32 - (score div 2) else
                    if GetTraitOfPosition(position) = pionVide  then scoreTheoriquePourNoir := 32 + (score div 2)
                      else WritelnDansRapport('ERROR : trait inconnu dans CalculeScoreTheorique !!');
@@ -846,11 +846,11 @@ begin
                        tempsMoyenParPartieCalculee := ((TickCount - tickDepart + 30.0) / 60.0) / nbPartiesCalculees;
                        nbPartiesRestantes          := nbCalculsAFaire - (nbPartiesCalculees + nbPartiesImpossibles);
                        tempsRestantEstime          := tempsMoyenParPartie * nbPartiesRestantes;
-                       
+
                        if (tempsMoyenParPartieCalculee < 100.0)
                          then s := ReelEnStringAvecDecimales(tempsMoyenParPartieCalculee,2) + ' sec.'
                          else s := ReplaceStringByStringInString(' sec.',' sec.',SecondesEnJoursHeuresSecondes(MyTrunc(tempsMoyenParPartieCalculee)));
-          
+
                        WritelnDansRapport('temps moyen par partie ('+NumEnString(nbPartiesCalculees)+' parties) : ' + s);
                        WritelnDansRapport('temps restant estimŽ pour les '+NumEnString(nbPartiesRestantes)+' dernires parties : '+SecondesEnJoursHeuresSecondes(MyTrunc(tempsRestantEstime)));
                      end;
@@ -877,11 +877,11 @@ begin
 
   if (nbPartiesActives <= 0) then
     exit(LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe);
-    
+
   if not(CassioEstEnTrainDeReflechir) | CassioEstEnTrainDeCalculerPourLeZoo
     then LanceInterruption(kHumainVeutCalculerScoresTheoriquesWThor,'LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe')
     else WritelnDansRapport('ERREUR : (CassioEstEnTrainDeReflechir = true)  dans LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe !!')
-    
+
 end;
 
 
@@ -903,7 +903,7 @@ begin
   gInfosCalculScoresTheoriques.positionsDejaCherchees       := MakeEmptyPositionEtTraitSet;
   SetCalculDesScoresTheoriquesDeLaBaseEnCours(true, @tempEnCours);
 
-  if (interruptionReflexion <> pasdinterruption) 
+  if (interruptionReflexion <> pasdinterruption)
     then
       begin
         WritelnDansRapport('ERREUR : (interruptionReflexion <> pasdinterruption)  dans CalculerScoresTheoriquesPartiesDansListe !!');

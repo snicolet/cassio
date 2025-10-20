@@ -14,54 +14,54 @@ INTERFACE
 
 
 { Fenetre de reflexion }
-procedure EffaceReflexion(effacerAussiLeRuban : boolean);                                                                                                                           ATTRIBUTE_NAME('EffaceReflexion')
-procedure ReinitilaliseInfosAffichageReflexion;                                                                                                                                     ATTRIBUTE_NAME('ReinitilaliseInfosAffichageReflexion')
-procedure SetNbLignesScoresCompletsCetteProf(var reflexionInfos : ReflexRec; nbLignes : SInt16);                                                                                    ATTRIBUTE_NAME('SetNbLignesScoresCompletsCetteProf')
-procedure SetNbLignesScoresCompletsProfPrecedente(var reflexionInfos : ReflexRec; nbLignes : SInt16);                                                                               ATTRIBUTE_NAME('SetNbLignesScoresCompletsProfPrecedente')
-function GetNbLignesScoresCompletsCetteProf(var reflexionInfos : ReflexRec) : SInt16;                                                                                               ATTRIBUTE_NAME('GetNbLignesScoresCompletsCetteProf')
-function GetNbLignesScoresCompletsProfPrecedente(var reflexionInfos : ReflexRec) : SInt16;                                                                                          ATTRIBUTE_NAME('GetNbLignesScoresCompletsProfPrecedente')
-function GetCoupEnTeteDansReflexionInfos(var reflexionInfos : ReflexRec) : SInt32;                                                                                                  ATTRIBUTE_NAME('GetCoupEnTeteDansReflexionInfos')
-function GetCoupEnTeteDansFenetreReflexion : SInt32;                                                                                                                                ATTRIBUTE_NAME('GetCoupEnTeteDansFenetreReflexion')
-function DeltaFinaleEnChaine(delta : SInt32) : String255;                                                                                                                           ATTRIBUTE_NAME('DeltaFinaleEnChaine')
-procedure EcritReflexion(const fonctionAppelante : String255);                                                                                                                      ATTRIBUTE_NAME('EcritReflexion')
-procedure DumpReflexionDansRapport(const fonctionAppelante : String255);                                                                                                            ATTRIBUTE_NAME('DumpReflexionDansRapport')
-procedure LanceDemandeAffichageReflexion(forcerAffichageImmediat : boolean; const fonctionAppelante : String255);                                                                   ATTRIBUTE_NAME('LanceDemandeAffichageReflexion')
-procedure SetDemandeAffichageReflexionEnSuspens(flag : boolean);                                                                                                                    ATTRIBUTE_NAME('SetDemandeAffichageReflexionEnSuspens')
-procedure SetRedirigerContenuFntreReflexionDansRapport(flag : boolean);                                                                                                             ATTRIBUTE_NAME('SetRedirigerContenuFntreReflexionDansRapport')
-function  DoitRedirigerContenuFntreReflexionDansRapport : boolean;                                                                                                                  ATTRIBUTE_NAME('DoitRedirigerContenuFntreReflexionDansRapport')
-procedure SetPositionDansFntreReflexion(var reflexionInfos : ReflexRec; position : PositionEtTraitRec);                                                                             ATTRIBUTE_NAME('SetPositionDansFntreReflexion')
-function GetPositionDansFntreReflexion(var reflexionInfos : ReflexRec) : PositionEtTraitRec;                                                                                        ATTRIBUTE_NAME('GetPositionDansFntreReflexion')
+procedure EffaceReflexion(effacerAussiLeRuban : boolean);
+procedure ReinitilaliseInfosAffichageReflexion;
+procedure SetNbLignesScoresCompletsCetteProf(var reflexionInfos : ReflexRec; nbLignes : SInt16);
+procedure SetNbLignesScoresCompletsProfPrecedente(var reflexionInfos : ReflexRec; nbLignes : SInt16);
+function GetNbLignesScoresCompletsCetteProf(var reflexionInfos : ReflexRec) : SInt16;
+function GetNbLignesScoresCompletsProfPrecedente(var reflexionInfos : ReflexRec) : SInt16;
+function GetCoupEnTeteDansReflexionInfos(var reflexionInfos : ReflexRec) : SInt32;
+function GetCoupEnTeteDansFenetreReflexion : SInt32;
+function DeltaFinaleEnChaine(delta : SInt32) : String255;
+procedure EcritReflexion(const fonctionAppelante : String255);
+procedure DumpReflexionDansRapport(const fonctionAppelante : String255);
+procedure LanceDemandeAffichageReflexion(forcerAffichageImmediat : boolean; const fonctionAppelante : String255);
+procedure SetDemandeAffichageReflexionEnSuspens(flag : boolean);
+procedure SetRedirigerContenuFntreReflexionDansRapport(flag : boolean);
+function  DoitRedirigerContenuFntreReflexionDansRapport : boolean;
+procedure SetPositionDansFntreReflexion(var reflexionInfos : ReflexRec; position : PositionEtTraitRec);
+function GetPositionDansFntreReflexion(var reflexionInfos : ReflexRec) : PositionEtTraitRec;
 
 
 
 
 
 { Meilleure suite en dessous de l'othellier }
-procedure SauvegardeMeilleureSuiteParOptimalite(var bonPourAfficher,ligneOptimaleJusquaLaFin : boolean);                                                                            ATTRIBUTE_NAME('SauvegardeMeilleureSuiteParOptimalite')
-procedure SauvegardeMeilleureSuiteParfaiteParArbreDeJeu(suiteParfaite : PropertyList);                                                                                              ATTRIBUTE_NAME('SauvegardeMeilleureSuiteParfaiteParArbreDeJeu')
-procedure EffaceMeilleureSuite;                                                                                                                                                     ATTRIBUTE_NAME('EffaceMeilleureSuite')
-procedure EffaceMeilleureSuiteSiNecessaire;                                                                                                                                         ATTRIBUTE_NAME('EffaceMeilleureSuiteSiNecessaire')
-procedure VideMeilleureSuiteInfos;                                                                                                                                                  ATTRIBUTE_NAME('VideMeilleureSuiteInfos')
-procedure GetMeilleureSuiteInfos(var infos : meilleureSuiteInfosRec);                                                                                                               ATTRIBUTE_NAME('GetMeilleureSuiteInfos')
-procedure SetMeilleureSuiteInfos(var infos : meilleureSuiteInfosRec);                                                                                                               ATTRIBUTE_NAME('SetMeilleureSuiteInfos')
-function GetMeilleureSuite : String255;                                                                                                                                             ATTRIBUTE_NAME('GetMeilleureSuite')
-procedure SetMeilleureSuite(s : String255);                                                                                                                                         ATTRIBUTE_NAME('SetMeilleureSuite')
-procedure DetruitMeilleureSuite;                                                                                                                                                    ATTRIBUTE_NAME('DetruitMeilleureSuite')
-function NoteEnString(note : SInt32; avecSignePlus : boolean; nbEspacesDevant,nbDecimales : SInt16) : String255;                                                                    ATTRIBUTE_NAME('NoteEnString')
-function MeilleureSuiteInfosEnChaine(nbEspacesEntreCoups : SInt16; avecScore,avecNumeroPremierCoup,enMajuscules,remplacerScoreIncompletParEtc : boolean; whichScore : SInt16) : String255;                                                                                    ATTRIBUTE_NAME('MeilleureSuiteInfosEnChaine')
-function MeilleureSuiteEtNoteEnChaine(coul,note,profondeur : SInt16) : String255;                                                                                                   ATTRIBUTE_NAME('MeilleureSuiteEtNoteEnChaine')
-function LongueurMeilleureSuite : SInt32;                                                                                                                                           ATTRIBUTE_NAME('LongueurMeilleureSuite')
-procedure EcritMeilleureSuite;                                                                                                                                                      ATTRIBUTE_NAME('EcritMeilleureSuite')
-procedure EcritMeilleureSuiteParOptimalite;                                                                                                                                         ATTRIBUTE_NAME('EcritMeilleureSuiteParOptimalite')
-procedure EcritMeilleureSuiteParArbreDeJeu(suiteParfaite : PropertyList);                                                                                                           ATTRIBUTE_NAME('EcritMeilleureSuiteParArbreDeJeu')
-procedure EssayeAfficherMeilleureSuiteParArbreDeJeu;                                                                                                                                ATTRIBUTE_NAME('EssayeAfficherMeilleureSuiteParArbreDeJeu')
-function GetStatutMeilleureSuite : SInt32;                                                                                                                                          ATTRIBUTE_NAME('GetStatutMeilleureSuite')
-procedure SetStatutMeilleureSuite(leStatut : SInt32);                                                                                                                               ATTRIBUTE_NAME('SetStatutMeilleureSuite')
-function GetMeilleureSuiteRect : rect;                                                                                                                                              ATTRIBUTE_NAME('GetMeilleureSuiteRect')
-function GetMeilleureSuiteRectGlobal : rect;                                                                                                                                        ATTRIBUTE_NAME('GetMeilleureSuiteRectGlobal')
-procedure SetMeilleureSuiteRect(theRect : rect);                                                                                                                                    ATTRIBUTE_NAME('SetMeilleureSuiteRect')
-procedure CalculateMeilleureSuiteWidth;                                                                                                                                             ATTRIBUTE_NAME('CalculateMeilleureSuiteWidth')
-procedure CalculateMeilleureSuiteRectGlobal;                                                                                                                                        ATTRIBUTE_NAME('CalculateMeilleureSuiteRectGlobal')
+procedure SauvegardeMeilleureSuiteParOptimalite(var bonPourAfficher,ligneOptimaleJusquaLaFin : boolean);
+procedure SauvegardeMeilleureSuiteParfaiteParArbreDeJeu(suiteParfaite : PropertyList);
+procedure EffaceMeilleureSuite;
+procedure EffaceMeilleureSuiteSiNecessaire;
+procedure VideMeilleureSuiteInfos;
+procedure GetMeilleureSuiteInfos(var infos : meilleureSuiteInfosRec);
+procedure SetMeilleureSuiteInfos(var infos : meilleureSuiteInfosRec);
+function GetMeilleureSuite : String255;
+procedure SetMeilleureSuite(s : String255);
+procedure DetruitMeilleureSuite;
+function NoteEnString(note : SInt32; avecSignePlus : boolean; nbEspacesDevant,nbDecimales : SInt16) : String255;
+function MeilleureSuiteInfosEnChaine(nbEspacesEntreCoups : SInt16; avecScore,avecNumeroPremierCoup,enMajuscules,remplacerScoreIncompletParEtc : boolean; whichScore : SInt16) : String255;
+function MeilleureSuiteEtNoteEnChaine(coul,note,profondeur : SInt16) : String255;
+function LongueurMeilleureSuite : SInt32;
+procedure EcritMeilleureSuite;
+procedure EcritMeilleureSuiteParOptimalite;
+procedure EcritMeilleureSuiteParArbreDeJeu(suiteParfaite : PropertyList);
+procedure EssayeAfficherMeilleureSuiteParArbreDeJeu;
+function GetStatutMeilleureSuite : SInt32;
+procedure SetStatutMeilleureSuite(leStatut : SInt32);
+function GetMeilleureSuiteRect : rect;
+function GetMeilleureSuiteRectGlobal : rect;
+procedure SetMeilleureSuiteRect(theRect : rect);
+procedure CalculateMeilleureSuiteWidth;
+procedure CalculateMeilleureSuiteRectGlobal;
 
 
 
@@ -143,14 +143,14 @@ begin
   begin
     GetPort(oldport);
     SetPortByWindow(wReflexPtr);
-    
+
     myRect := QDGetPortBound;
     myRect.bottom := myRect.top + kHauteurRubanReflexion;
-    
+
     RGBForeColor(gPurNoir);
     RGBBackColor(gPurBlanc);
-    
-    
+
+
     { effacer le ruban si necessaire }
     if effacerAussiLeRuban | (nbreCoup <= 0) | (nbreCoup >= 60) | gameOver |
        (abs(ReflexData^.empties - (60 - nbreCoup)) > 10) then
@@ -158,21 +158,21 @@ begin
         MyEraseRect(myRect);
         err := DrawThemeWindowListViewHeader(myRect, kThemeStateActive);
       end;
-      
+
     { tracer la ligne sous le ruban }
     RGBForeColor(EclaircirCouleurDeCetteQuantite(gPurNoir,45000));
     Moveto(0 , kHauteurRubanReflexion);
     Lineto(QDGetPortBound.right , kHauteurRubanReflexion);
-    
+
     { effacer la zone d'affichage des coups et des scores }
     RGBBackColor(EclaircirCouleurDeCetteQuantite(gPurGris,31000));
     myRect := QDGetPortBound;
     myRect.top := kHauteurRubanReflexion + 1;
     MyEraseRect(myRect);
     MyEraseRectWithColor(myRect,VertPaleCmd,blackPattern,'');
-    
+
     RGBForeColor(gPurGris);
-    
+
     { si la partie est finie, afficher le score }
     if (nbreCoup >= 60) | gameOver then
       begin
@@ -187,11 +187,11 @@ begin
         Moveto(3,myRect.bottom - 3);
         MyDrawString(s);
       end;
-    
+
     RGBForeColor(gPurNoir);
-    
+
     DessineBoiteDeTaille(wReflexPtr);
-    
+
     SetPort(oldport);
     SetDemandeAffichageReflexionEnSuspens(false);
 
@@ -331,7 +331,7 @@ begin
   if onEstAuCoup59
     then decalageH := -20
     else decalageH := 0;
-  
+
   coup := TPCopy(s, 1, 2);
   SplitByStr(s, '¥', foo, defense);
   defense := TPCopy(defense, 1, 2);
@@ -340,13 +340,13 @@ begin
 
   Moveto(a , b);
   MyDrawString(coup);
-  
+
   Moveto(a + 18 , b);
   MyDrawString(defense);
-  
+
   Moveto(a + 38 + decalageH, b);
   MyDrawString('=>');
-  
+
   Moveto(a + 56 + decalageH, b);
   MyDrawString(result);
 end;
@@ -378,7 +378,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 
     a := xposition;
     b := ypositionDebutListe + (numligne)*12;
-    
+
     typeDeFleche              := kFlecheLarge;
     afficheeCommeNoteDeMilieu := false;
     peutAfficherLeTemps       := true;
@@ -623,10 +623,10 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 				      end;
         if (delta >= 0) & (delta < kDeltaFinaleInfini) & (Pos('?',infoStr) = 0)
           then infoStr := infoStr + pointInterrogation;
-          
+
         if not(afficheeCommeNoteDeMilieu | (delta = kDeltaFinaleInfini) | (delta = kTypeMilieuDePartie))
           then strAux := strAux + ' [' + DeltaFinaleEnChaine(delta) + ']';
-          
+
         if afficheGestionTemps & peutAfficherLeTemps then
           begin
 		        if (certitude <= 0) | (certitude >= 100)
@@ -651,7 +651,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
         kFlecheLarge           : flecheStr := flecheLargeStr;
         otherwise                flecheStr := '';
     end; {case}
-    
+
     SetRect(lignerect,a, b - 10 , QDGetPortBound.right, b + 2);
     if redirectionVersRapport
       then WritelnDansRapport(coupStr + flecheStr + infoStr + strAux)
@@ -1154,7 +1154,7 @@ begin
                MyEraseRectWithColor(lignerect,BleuPaleCmd,blackPattern,'');
                RGBForeColor(EclaircirCouleurDeCetteQuantite(gPurNoir,35000));
                if DrawThemeWindowListViewHeader(ligneRect, kThemeStateActive) = NoErr then DoNothing;
-               
+
                RGBForeColor(EclaircirCouleurDeCetteQuantite(gPurNoir,45000));
 		           Moveto(0,yposition + kHauteurRubanReflexion);
 		           Lineto(QDGetPortBound.right - 1,yposition+kHauteurRubanReflexion);
@@ -1222,8 +1222,8 @@ begin
            then WritelnDansRapport(s)
            else MyDrawString(s);
          ypositionDebutListe := yposition + 28;
-         
-         
+
+
          RGBForeColor(gPurNoir);
 
          if (typeDonnees = ReflTriGagnant) |

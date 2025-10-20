@@ -16,29 +16,29 @@ INTERFACE
 
 
 
-procedure InitialiseConstantesCodagePosition;                                                                                                                                       ATTRIBUTE_NAME('InitialiseConstantesCodagePosition')
-procedure InitialiseDirectionsJouables;                                                                                                                                             ATTRIBUTE_NAME('InitialiseDirectionsJouables')
-procedure Initialise_othellier;                                                                                                                                                     ATTRIBUTE_NAME('Initialise_othellier')
-procedure Initialise_IndexInfoDejaCalculees;                                                                                                                                        ATTRIBUTE_NAME('Initialise_IndexInfoDejaCalculees')
-procedure Initialise_valeurs_tactiques;                                                                                                                                             ATTRIBUTE_NAME('Initialise_valeurs_tactiques')
-procedure Initialise_TableCalculAdressesPatterns;                                                                                                                                   ATTRIBUTE_NAME('Initialise_TableCalculAdressesPatterns')
+procedure InitialiseConstantesCodagePosition;
+procedure InitialiseDirectionsJouables;
+procedure Initialise_othellier;
+procedure Initialise_IndexInfoDejaCalculees;
+procedure Initialise_valeurs_tactiques;
+procedure Initialise_TableCalculAdressesPatterns;
 
 
-procedure InitialiseEndgameSquareOrder(whichOrder : SquareOrderType);                                                                                                               ATTRIBUTE_NAME('InitialiseEndgameSquareOrder')
-procedure RajouteWorst2Best(i1,i2,i3,i4 : SInt16);                                                                                                                                  ATTRIBUTE_NAME('RajouteWorst2Best')
+procedure InitialiseEndgameSquareOrder(whichOrder : SquareOrderType);
+procedure RajouteWorst2Best(i1,i2,i3,i4 : SInt16);
 
 
-procedure Calcul_position_centre(plat : plateauOthello);                                                                                                                            ATTRIBUTE_NAME('Calcul_position_centre')
-procedure Calcule_Valeurs_Tactiques(plat : plateauOthello; avecCalculCentre : boolean);                                                                                             ATTRIBUTE_NAME('Calcule_Valeurs_Tactiques')
-procedure Initialise_table_heuristique(jeu : plateauOthello; debug : boolean);                                                                                                                       ATTRIBUTE_NAME('Initialise_table_heuristique')
-function Elagage_a_priori(couleur,nbBla,nbNoi : SInt16; jeu : plateauOthello; var class : ListOfMoveRecords; longClass : SInt16) : SInt16;                                          ATTRIBUTE_NAME('Elagage_a_priori')
-procedure CoefficientsStandard;                                                                                                                                                     ATTRIBUTE_NAME('CoefficientsStandard')
-procedure MultiplicationParCoeff;                                                                                                                                                   ATTRIBUTE_NAME('MultiplicationParCoeff')
-procedure AppliqueCoeffsBienChoisis;                                                                                                                                                ATTRIBUTE_NAME('AppliqueCoeffsBienChoisis')
-procedure Superviseur(n : SInt16);                                                                                                                                                  ATTRIBUTE_NAME('Superviseur')
-procedure SetLargeurFenetreProbCut;                                                                                                                                                 ATTRIBUTE_NAME('SetLargeurFenetreProbCut')
+procedure Calcul_position_centre(plat : plateauOthello);
+procedure Calcule_Valeurs_Tactiques(plat : plateauOthello; avecCalculCentre : boolean);
+procedure Initialise_table_heuristique(jeu : plateauOthello; debug : boolean);
+function Elagage_a_priori(couleur,nbBla,nbNoi : SInt16; jeu : plateauOthello; var class : ListOfMoveRecords; longClass : SInt16) : SInt16;
+procedure CoefficientsStandard;
+procedure MultiplicationParCoeff;
+procedure AppliqueCoeffsBienChoisis;
+procedure Superviseur(n : SInt16);
+procedure SetLargeurFenetreProbCut;
 
-procedure InitUnitSuperviseur;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitSuperviseur')
+procedure InitUnitSuperviseur;
 
 
 
@@ -1246,25 +1246,25 @@ var i,j,dist,x,compt,m,t,oldDisc : SInt16;
     nbOccupes : array[1..14] of SInt16;
 begin
   MemoryFillChar(@heuris,sizeof(heuris),chr(0));
-  
+
   if debug then
     begin
       WritelnDansRapport('Entree dans init_heuristique');
       WritelnPositionEtTraitDansRapport(jeu,pionNoir);
       AttendFrappeClavier;
     end;
-  
+
   for t := 1 to 64 do
   begin
     x := othellier[t];
-    
+
     oldDisc := jeu[x];
-  
+
     jeu[x] := PionInterdit;  { pour avoir j <> x dans la suite }
-    
+
     MemoryFillChar(@tableDeTri,sizeof(tableDeTri),chr(0));
     MemoryFillChar(@nbOccupes,sizeof(nbOccupes),chr(0));
-    
+
     for i := 5 to 48 do
       begin
         j := othellier[i];
@@ -1293,7 +1293,7 @@ begin
            heuris[x,compt] := j;
          end;
        end;
-       
+
      for i := 1 to 4 do
       begin
        j := othellier[i];
@@ -1306,7 +1306,7 @@ begin
 
      heuris[x,0] := compt;
      jeu[x] := oldDisc;
-     
+
   end;
 end;
 

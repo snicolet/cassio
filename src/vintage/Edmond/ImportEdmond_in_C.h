@@ -50,49 +50,49 @@
 	
   pascal void edmond_load_coefficients( char *file_name );
   pascal void edmond_release_coefficients();
-  
+
   pascal int* edmond_get_black_diag_5_pointer(int stage);
   pascal int* edmond_get_white_diag_5_pointer(int stage);
-  
+
   pascal int* edmond_get_black_diag_6_pointer(int stage);
   pascal int* edmond_get_white_diag_6_pointer(int stage);
-  
+
   pascal int* edmond_get_black_diag_7_pointer(int stage);
   pascal int* edmond_get_white_diag_7_pointer(int stage);
-  
+
   pascal int* edmond_get_black_diag_8_pointer(int stage);
   pascal int* edmond_get_white_diag_8_pointer(int stage);
-  
+
   pascal int* edmond_get_black_hv_4_pointer(int stage);
   pascal int* edmond_get_white_hv_4_pointer(int stage);
-  
+
   pascal int* edmond_get_black_hv_3_pointer(int stage);
   pascal int* edmond_get_white_hv_3_pointer(int stage);
-  
+
   pascal int* edmond_get_black_hv_2_pointer(int stage);
   pascal int* edmond_get_white_hv_2_pointer(int stage);
-  
+
   pascal int* edmond_get_black_edge_6_4_pointer(int stage);
   pascal int* edmond_get_white_edge_6_4_pointer(int stage);
-  
+
   pascal int* edmond_get_black_corner_2x5_pointer(int stage);
   pascal int* edmond_get_white_corner_2x5_pointer(int stage);
-  
+
   pascal int* edmond_get_black_corner_11_pointer(int stage);
   pascal int* edmond_get_white_corner_11_pointer(int stage);
-  
+
   pascal int* edmond_get_black_edge_2XC_pointer(int stage);
   pascal int* edmond_get_white_edge_2XC_pointer(int stage);
 
-  
-  
-  
+
+
+
   /* interface avec Cassio */
-  
+
   pascal int size_of_float_in_c();
   pascal int size_of_int_in_c();
-  
-  
+
+
 
 
 

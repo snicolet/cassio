@@ -15,20 +15,20 @@ INTERFACE
 
  USES UnitDefCassio;
 
-procedure ConstruitStatistiques(withCheckEvent : boolean);                                                                                                                          ATTRIBUTE_NAME('ConstruitStatistiques')
-procedure DessineStatistiques(avecEffacement : boolean; decH,decV : SInt32; withCheckEvent : boolean);                                                                              ATTRIBUTE_NAME('DessineStatistiques')
-procedure EcritStatistiques(withCheckEvent : boolean);                                                                                                                              ATTRIBUTE_NAME('EcritStatistiques')
-procedure CheckEventPendantCalculsBase;                                                                                                                                             ATTRIBUTE_NAME('CheckEventPendantCalculsBase')
+procedure ConstruitStatistiques(withCheckEvent : boolean);
+procedure DessineStatistiques(avecEffacement : boolean; decH,decV : SInt32; withCheckEvent : boolean);
+procedure EcritStatistiques(withCheckEvent : boolean);
+procedure CheckEventPendantCalculsBase;
 
 
-function StatistiquesSontEcritesDansLaFenetreNormale : boolean;                                                                                                                     ATTRIBUTE_NAME('StatistiquesSontEcritesDansLaFenetreNormale')
-procedure SetStatistiquesSontEcritesDansLaFenetreNormale(flag : boolean);                                                                                                           ATTRIBUTE_NAME('SetStatistiquesSontEcritesDansLaFenetreNormale')
+function StatistiquesSontEcritesDansLaFenetreNormale : boolean;
+procedure SetStatistiquesSontEcritesDansLaFenetreNormale(flag : boolean);
 
-function StatistiquesCalculsFaitsAuMoinsUneFois : boolean;                                                                                                                          ATTRIBUTE_NAME('StatistiquesCalculsFaitsAuMoinsUneFois')
-procedure SetStatistiquesCalculsFaitsAuMoinsUneFois(flag : boolean);                                                                                                                ATTRIBUTE_NAME('SetStatistiquesCalculsFaitsAuMoinsUneFois')
+function StatistiquesCalculsFaitsAuMoinsUneFois : boolean;
+procedure SetStatistiquesCalculsFaitsAuMoinsUneFois(flag : boolean);
 
-procedure DessineRubanStatistiques(decH,decV : SInt16);                                                                                                                             ATTRIBUTE_NAME('DessineRubanStatistiques')
-procedure EcritRubanStatistiques;                                                                                                                                                   ATTRIBUTE_NAME('EcritRubanStatistiques')
+procedure DessineRubanStatistiques(decH,decV : SInt16);
+procedure EcritRubanStatistiques;
 
 
 

@@ -14,7 +14,7 @@ INTERFACE
 
 
 
-procedure DoCampFire;                                                                                                                                                               ATTRIBUTE_NAME('DoCampFire')
+procedure DoCampFire;
 
 
 
@@ -237,7 +237,7 @@ end; {CleanUp}
 			for i := 0 to Resx - 1 do
 				CampFireBase^[CampFireRowByte * j + i] := 3;
 
-     
+
 
 
 	end; {Init}

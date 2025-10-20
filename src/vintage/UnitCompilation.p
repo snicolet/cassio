@@ -8,40 +8,40 @@ INTERFACE
 
 
 {initialisation de l'unite}
-procedure InitUnitCompilation;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitCompilation')
-procedure LibereMemoireUnitCompilation;                                                                                                                                             ATTRIBUTE_NAME('LibereMemoireUnitCompilation')
+procedure InitUnitCompilation;
+procedure LibereMemoireUnitCompilation;
 
 
 {ajout d'un module}
-function MakeEmptyModule(const name : String255) : Module;                                                                                                                          ATTRIBUTE_NAME('MakeEmptyModule')
-procedure AjouterModule(const name : String255; var nouveauModule : Module);                                                                                                        ATTRIBUTE_NAME('AjouterModule')
+function MakeEmptyModule(const name : String255) : Module;
+procedure AjouterModule(const name : String255; var nouveauModule : Module);
 
 
 {acces aux modules}
-function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt64; var theModule : Module) : boolean;                                                              ATTRIBUTE_NAME('ModuleEstChargeEnMemoire')
-function GetModule(const name : String255) : Module;                                                                                                                                ATTRIBUTE_NAME('GetModule')
-function GetModuleByNumero(numero : SInt64) : Module;                                                                                                                               ATTRIBUTE_NAME('GetModuleByNumero')
-function GetNumeroOfModule(whichModule : Module) : SInt64;                                                                                                                          ATTRIBUTE_NAME('GetNumeroOfModule')
-function GetNameOfModule(whichModule : Module) : String255;                                                                                                                         ATTRIBUTE_NAME('GetNameOfModule')
+function ModuleEstChargeEnMemoire(const nom : String255; var numeroModule : SInt64; var theModule : Module) : boolean;
+function GetModule(const name : String255) : Module;
+function GetModuleByNumero(numero : SInt64) : Module;
+function GetNumeroOfModule(whichModule : Module) : SInt64;
+function GetNameOfModule(whichModule : Module) : String255;
 
 
 {liaison nom d'unite  < -> module}
-function ModuleDoitEtreAccelere(const name : String255) : boolean;                                                                                                                  ATTRIBUTE_NAME('ModuleDoitEtreAccelere')
-function ModuleDoitEtrePrelinke(const name : String255) : boolean;                                                                                                                  ATTRIBUTE_NAME('ModuleDoitEtrePrelinke')
-function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : FichierTEXT) : boolean;                                                                            ATTRIBUTE_NAME('TrouverFichierDansSourcesDeCassio')
+function ModuleDoitEtreAccelere(const name : String255) : boolean;
+function ModuleDoitEtrePrelinke(const name : String255) : boolean;
+function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : FichierTEXT) : boolean;
 
 
 
 {ecritures des symboles}
-function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;                                                                                            ATTRIBUTE_NAME('EcrireSymboleExternalDansFichier')
-function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;                                                                                           ATTRIBUTE_NAME('EcrireSymboleAttributeDansFichier')
+function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
+function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
 
 
 {verification des sources}
-procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt64);                                                                                ATTRIBUTE_NAME('VerifierLongueurDeLaLigneDansLesSources')
-procedure VerifierCeFichierSource(const whichFile : FSSpec);                                                                                                                        ATTRIBUTE_NAME('VerifierCeFichierSource')
-function VerifierCeFichierSourceEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;                                                  ATTRIBUTE_NAME('VerifierCeFichierSourceEtRecursion')
-procedure VerifierLesSourcesDeCassio;                                                                                                                                               ATTRIBUTE_NAME('VerifierLesSourcesDeCassio')
+procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt64);
+procedure VerifierCeFichierSource(const whichFile : FSSpec);
+function VerifierCeFichierSourceEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+procedure VerifierLesSourcesDeCassio;
 
 
 
@@ -605,7 +605,7 @@ begin
             end;
 
 
-          symbolName := espaces +'ATTRIBUTE_NAME(''' + sym^.nom + ''')' + chr(10);  {chr(10) = LF , add a UNIX linefeed !}
+          symbolName := espaces +'' + chr(10);  {chr(10) = LF , add a UNIX linefeed !}
 
           err := WriteDansFichierTexte(fic, symbolName);
         end;

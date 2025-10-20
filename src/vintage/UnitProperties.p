@@ -15,130 +15,130 @@ INTERFACE
 
 
 {initialisation et destruction de l'unitŽ}
-procedure InitUnitProperties;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitProperties')
-procedure LibereMemoireUnitProperties;                                                                                                                                              ATTRIBUTE_NAME('LibereMemoireUnitProperties')
+procedure InitUnitProperties;
+procedure LibereMemoireUnitProperties;
 
 
 {fonction de Creation et de Destruction de proprietes}
-function NewPropertyPtr : PropertyPtr;                                                                                                                                              ATTRIBUTE_NAME('NewPropertyPtr')
-procedure DisposePropertyStuff(var p : Property);                                                                                                                                   ATTRIBUTE_NAME('DisposePropertyStuff')
-procedure DisposePropertyPtr(var p : PropertyPtr);                                                                                                                                  ATTRIBUTE_NAME('DisposePropertyPtr')
-function SameProperties(prop1,prop2 : Property) : boolean;                                                                                                                          ATTRIBUTE_NAME('SameProperties')
-function PropertyEstVide(prop : Property) : boolean;                                                                                                                                ATTRIBUTE_NAME('PropertyEstVide')
-function PropertyEstValide(prop : Property) : boolean;                                                                                                                              ATTRIBUTE_NAME('PropertyEstValide')
-procedure ViderProperty(var prop : Property);                                                                                                                                       ATTRIBUTE_NAME('ViderProperty')
-function DuplicateProperty(prop : Property) : Property;                                                                                                                             ATTRIBUTE_NAME('DuplicateProperty')
-procedure CopyProperty(source : Property; var dest : Property);                                                                                                                     ATTRIBUTE_NAME('CopyProperty')
-function TypeCastingPourCeStockage(stockage : SInt16) : boolean;                                                                                                                    ATTRIBUTE_NAME('TypeCastingPourCeStockage')
+function NewPropertyPtr : PropertyPtr;
+procedure DisposePropertyStuff(var p : Property);
+procedure DisposePropertyPtr(var p : PropertyPtr);
+function SameProperties(prop1,prop2 : Property) : boolean;
+function PropertyEstVide(prop : Property) : boolean;
+function PropertyEstValide(prop : Property) : boolean;
+procedure ViderProperty(var prop : Property);
+function DuplicateProperty(prop : Property) : Property;
+procedure CopyProperty(source : Property; var dest : Property);
+function TypeCastingPourCeStockage(stockage : SInt16) : boolean;
 
 
 {fonctions de fabrication de proprietes sur les types de base}
-function MakeEmptyProperty : Property;                                                                                                                                              ATTRIBUTE_NAME('MakeEmptyProperty')
-function MakeProperty(QuelGenre : SInt16; QuelleTaille : Size; quellesInfos : Ptr; quelStockage : SInt16) : Property;                                                               ATTRIBUTE_NAME('MakeProperty')
-function MakeLongintProperty(whichType : SInt16; whichLong : SInt32) : Property;                                                                                                    ATTRIBUTE_NAME('MakeLongintProperty')
-function MakeRealProperty(whichType : SInt16; whichReal : double_t) : Property;                                                                                                     ATTRIBUTE_NAME('MakeRealProperty')
-function MakeStringProperty(whichType : SInt16; whichString : String255) : Property;                                                                                                ATTRIBUTE_NAME('MakeStringProperty')
-function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;                                                                                            ATTRIBUTE_NAME('MakeOthelloSquareProperty')
-function MakeOthelloSquareAlphaProperty(whichType : SInt16; whichSquare : SInt16) : Property;                                                                                       ATTRIBUTE_NAME('MakeOthelloSquareAlphaProperty')
-function MakeSquareSetProperty(whichType : SInt16; whichSet : SquareSet) : Property;                                                                                                ATTRIBUTE_NAME('MakeSquareSetProperty')
-function MakeSeptCaracteresProperty(whichType : SInt16; whichSquare : SInt16; whichCaracteres : String255) : Property;                                                              ATTRIBUTE_NAME('MakeSeptCaracteresProperty')
-function MakeTripleProperty(whichType : SInt16; whichTriple : Triple) : Property;                                                                                                   ATTRIBUTE_NAME('MakeTripleProperty')
-function MakeBooleanProperty(whichType : SInt16; whichBoolean : boolean) : Property;                                                                                                ATTRIBUTE_NAME('MakeBooleanProperty')
-function MakeCharProperty(whichType : SInt16; whichChar : char) : Property;                                                                                                         ATTRIBUTE_NAME('MakeCharProperty')
-function MakeArgumentVideProperty(whichType : SInt16) : Property;                                                                                                                   ATTRIBUTE_NAME('MakeArgumentVideProperty')
-function MakeValeurOthelloProperty(whichType : SInt16; whichColor,whichSign : SInt16; whichIntegerValue,centiemes : SInt16) : Property;                                             ATTRIBUTE_NAME('MakeValeurOthelloProperty')
-function MakeTexteProperty(whichType : SInt16; texte : Ptr; longueur : SInt32) : Property;                                                                                          ATTRIBUTE_NAME('MakeTexteProperty')
-function MakeCoupleLongintProperty(whichType : SInt16; whichLongint1,whichLongint2 : SInt32) : Property;                                                                            ATTRIBUTE_NAME('MakeCoupleLongintProperty')
-function MakePointeurPropertyProperty(whichType : SInt16; node : GameTree; adresse : PropertyPtr; affRect : rect) : Property;                                                       ATTRIBUTE_NAME('MakePointeurPropertyProperty')
-function MakeSquareCoupleProperty(whichType : SInt16; whichSquare1,whichSquare2 : SInt16) : Property;                                                                               ATTRIBUTE_NAME('MakeSquareCoupleProperty')
-function MakeScoringProperty(quelGenreDeReflexion,scorePourNoir : SInt32) : Property;                                                                                               ATTRIBUTE_NAME('MakeScoringProperty')
-function MakeQuintupletProperty(whichType : SInt16; whichLong : SInt32; b0,b1,b2,b3 : SInt8) : Property;                                                                            ATTRIBUTE_NAME('MakeQuintupletProperty')
+function MakeEmptyProperty : Property;
+function MakeProperty(QuelGenre : SInt16; QuelleTaille : Size; quellesInfos : Ptr; quelStockage : SInt16) : Property;
+function MakeLongintProperty(whichType : SInt16; whichLong : SInt32) : Property;
+function MakeRealProperty(whichType : SInt16; whichReal : double_t) : Property;
+function MakeStringProperty(whichType : SInt16; whichString : String255) : Property;
+function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;
+function MakeOthelloSquareAlphaProperty(whichType : SInt16; whichSquare : SInt16) : Property;
+function MakeSquareSetProperty(whichType : SInt16; whichSet : SquareSet) : Property;
+function MakeSeptCaracteresProperty(whichType : SInt16; whichSquare : SInt16; whichCaracteres : String255) : Property;
+function MakeTripleProperty(whichType : SInt16; whichTriple : Triple) : Property;
+function MakeBooleanProperty(whichType : SInt16; whichBoolean : boolean) : Property;
+function MakeCharProperty(whichType : SInt16; whichChar : char) : Property;
+function MakeArgumentVideProperty(whichType : SInt16) : Property;
+function MakeValeurOthelloProperty(whichType : SInt16; whichColor,whichSign : SInt16; whichIntegerValue,centiemes : SInt16) : Property;
+function MakeTexteProperty(whichType : SInt16; texte : Ptr; longueur : SInt32) : Property;
+function MakeCoupleLongintProperty(whichType : SInt16; whichLongint1,whichLongint2 : SInt32) : Property;
+function MakePointeurPropertyProperty(whichType : SInt16; node : GameTree; adresse : PropertyPtr; affRect : rect) : Property;
+function MakeSquareCoupleProperty(whichType : SInt16; whichSquare1,whichSquare2 : SInt16) : Property;
+function MakeScoringProperty(quelGenreDeReflexion,scorePourNoir : SInt32) : Property;
+function MakeQuintupletProperty(whichType : SInt16; whichLong : SInt32; b0,b1,b2,b3 : SInt8) : Property;
 
 
 {fonctions d'acces aux infos des proprietes sur les types de base}
-function GetLongintInfoOfProperty(prop : Property) : SInt32;                                                                                                                        ATTRIBUTE_NAME('GetLongintInfoOfProperty')
-function GetRealInfoOfProperty(prop : Property) : double_t;                                                                                                                         ATTRIBUTE_NAME('GetRealInfoOfProperty')
-function GetStringInfoOfProperty(prop : Property) : String255;                                                                                                                      ATTRIBUTE_NAME('GetStringInfoOfProperty')
-function GetOthelloSquareOfProperty(prop : Property) : SInt16;                                                                                                                      ATTRIBUTE_NAME('GetOthelloSquareOfProperty')
-function GetOthelloSquareOfPropertyAlpha(prop : Property) : SInt16;                                                                                                                 ATTRIBUTE_NAME('GetOthelloSquareOfPropertyAlpha')
-function GetSquareSetOfProperty(prop : Property) : SquareSet;                                                                                                                       ATTRIBUTE_NAME('GetSquareSetOfProperty')
-function GetPackedSquareSetOfProperty(prop : Property) : PackedSquareSet;                                                                                                           ATTRIBUTE_NAME('GetPackedSquareSetOfProperty')
-procedure GetSquareAndSeptCaracteresOfProperty(prop : Property; var square : SInt16; var septChar : String255);                                                                     ATTRIBUTE_NAME('GetSquareAndSeptCaracteresOfProperty')
-function GetTripleOfProperty(prop : Property) : Triple;                                                                                                                             ATTRIBUTE_NAME('GetTripleOfProperty')
-function GetBooleanOfProperty(prop : Property) : boolean;                                                                                                                           ATTRIBUTE_NAME('GetBooleanOfProperty')
-function GetCharOfProperty(prop : Property) : char;                                                                                                                                 ATTRIBUTE_NAME('GetCharOfProperty')
-procedure GetOthelloValueOfProperty(prop : Property; var whichColor,whichSign,whichIntegerValue,centiemes : SInt16);                                                                ATTRIBUTE_NAME('GetOthelloValueOfProperty')
-function CetteCouleurAAuMoinsUnGainDansProperty(couleur : SInt16; prop : Property) : boolean;                                                                                       ATTRIBUTE_NAME('CetteCouleurAAuMoinsUnGainDansProperty')
-procedure GetTexteOfProperty(prop : Property; var texte : Ptr; var longueur : SInt32);                                                                                              ATTRIBUTE_NAME('GetTexteOfProperty')
-function GetCouleurOfMoveProperty(prop : Property) : SInt32;                                                                                                                        ATTRIBUTE_NAME('GetCouleurOfMoveProperty')
-procedure GetCoupleLongintOfProperty(prop : Property; var longint1,longint2 : SInt32);                                                                                              ATTRIBUTE_NAME('GetCoupleLongintOfProperty')
-procedure GetPointeurPropertyOfProperty(prop : Property; var node : GameTree; var adresse : PropertyPtr; var affRect : rect);                                                       ATTRIBUTE_NAME('GetPointeurPropertyOfProperty')
-function GetPossesseurOfPointeurPropertyProperty(prop : Property) : GameTree;                                                                                                       ATTRIBUTE_NAME('GetPossesseurOfPointeurPropertyProperty')
-function GetPropertyPtrOfProperty(prop : Property) : PropertyPtr;                                                                                                                   ATTRIBUTE_NAME('GetPropertyPtrOfProperty')
-function GetRectangleAffichageOfProperty(prop : Property) : rect;                                                                                                                   ATTRIBUTE_NAME('GetRectangleAffichageOfProperty')
-procedure GetSquareCoupleOfProperty(prop : Property; var square1,square2 : SInt16);                                                                                                 ATTRIBUTE_NAME('GetSquareCoupleOfProperty')
-procedure GetQuintupletOfProperty(prop : Property; var theLong : SInt32; var b0,b1,b2,b3 : SInt8);                                                                                  ATTRIBUTE_NAME('GetQuintupletOfProperty')
+function GetLongintInfoOfProperty(prop : Property) : SInt32;
+function GetRealInfoOfProperty(prop : Property) : double_t;
+function GetStringInfoOfProperty(prop : Property) : String255;
+function GetOthelloSquareOfProperty(prop : Property) : SInt16;
+function GetOthelloSquareOfPropertyAlpha(prop : Property) : SInt16;
+function GetSquareSetOfProperty(prop : Property) : SquareSet;
+function GetPackedSquareSetOfProperty(prop : Property) : PackedSquareSet;
+procedure GetSquareAndSeptCaracteresOfProperty(prop : Property; var square : SInt16; var septChar : String255);
+function GetTripleOfProperty(prop : Property) : Triple;
+function GetBooleanOfProperty(prop : Property) : boolean;
+function GetCharOfProperty(prop : Property) : char;
+procedure GetOthelloValueOfProperty(prop : Property; var whichColor,whichSign,whichIntegerValue,centiemes : SInt16);
+function CetteCouleurAAuMoinsUnGainDansProperty(couleur : SInt16; prop : Property) : boolean;
+procedure GetTexteOfProperty(prop : Property; var texte : Ptr; var longueur : SInt32);
+function GetCouleurOfMoveProperty(prop : Property) : SInt32;
+procedure GetCoupleLongintOfProperty(prop : Property; var longint1,longint2 : SInt32);
+procedure GetPointeurPropertyOfProperty(prop : Property; var node : GameTree; var adresse : PropertyPtr; var affRect : rect);
+function GetPossesseurOfPointeurPropertyProperty(prop : Property) : GameTree;
+function GetPropertyPtrOfProperty(prop : Property) : PropertyPtr;
+function GetRectangleAffichageOfProperty(prop : Property) : rect;
+procedure GetSquareCoupleOfProperty(prop : Property; var square1,square2 : SInt16);
+procedure GetQuintupletOfProperty(prop : Property; var theLong : SInt32; var b0,b1,b2,b3 : SInt8);
 
 
 {fonctions de changement de l'info d'une propriete}
-procedure SetLongintInfoOfProperty(var prop : Property; n : SInt32);                                                                                                                ATTRIBUTE_NAME('SetLongintInfoOfProperty')
-procedure SetRealInfoOfProperty(var prop : Property; r : double_t);                                                                                                                 ATTRIBUTE_NAME('SetRealInfoOfProperty')
-procedure SetStringInfoOfProperty(var prop : Property; s : String255);                                                                                                              ATTRIBUTE_NAME('SetStringInfoOfProperty')
-procedure SetOthelloSquareOfProperty(var prop : Property; coup : SInt16);                                                                                                           ATTRIBUTE_NAME('SetOthelloSquareOfProperty')
-procedure SetOthelloSquareOfPropertyAlpha(var prop : Property; coup : SInt16);                                                                                                      ATTRIBUTE_NAME('SetOthelloSquareOfPropertyAlpha')
-procedure SetSquareSetOfProperty(var prop : Property; ensemble : SquareSet);                                                                                                        ATTRIBUTE_NAME('SetSquareSetOfProperty')
-procedure SetPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);                                                                                            ATTRIBUTE_NAME('SetPackedSquareSetOfProperty')
-procedure AddSquareToSquareSetOfProperty(var prop : Property; square : SInt16);                                                                                                     ATTRIBUTE_NAME('AddSquareToSquareSetOfProperty')
-procedure UnionSquareSetOfProperty(var prop : Property; ensemble : SquareSet);                                                                                                      ATTRIBUTE_NAME('UnionSquareSetOfProperty')
-procedure DiffSquareSetOfProperty(var prop : Property; ensemble : SquareSet);                                                                                                       ATTRIBUTE_NAME('DiffSquareSetOfProperty')
-procedure AddSquareToPackedSquareSetOfProperty(var prop : Property; square : SInt16);                                                                                               ATTRIBUTE_NAME('AddSquareToPackedSquareSetOfProperty')
-procedure UnionPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);                                                                                          ATTRIBUTE_NAME('UnionPackedSquareSetOfProperty')
-procedure DiffPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);                                                                                           ATTRIBUTE_NAME('DiffPackedSquareSetOfProperty')
-procedure SetSquareAndSeptCaracteresOfProperty(var prop : Property; whichSquare : SInt16; whichCaracteres : String255);                                                             ATTRIBUTE_NAME('SetSquareAndSeptCaracteresOfProperty')
-procedure SetTripleOfProperty(var prop : Property; t : Triple);                                                                                                                     ATTRIBUTE_NAME('SetTripleOfProperty')
-procedure SetBooleanOfProperty(var prop : Property; whichBoolean : boolean);                                                                                                        ATTRIBUTE_NAME('SetBooleanOfProperty')
-procedure SetCharOfProperty(var prop : Property; whichChar : char);                                                                                                                 ATTRIBUTE_NAME('SetCharOfProperty')
-procedure SetOthelloValueOfProperty(var prop : Property; whichColor,whichSign : SInt16; whichIntegerValue,centiemes : SInt16);                                                      ATTRIBUTE_NAME('SetOthelloValueOfProperty')
-procedure SetTexteOfProperty(var prop : Property; texte : Ptr; longueur : SInt32);                                                                                                  ATTRIBUTE_NAME('SetTexteOfProperty')
-procedure AddTexteToProperty(var prop : Property; texte : Ptr; longueur : SInt32);                                                                                                  ATTRIBUTE_NAME('AddTexteToProperty')
-procedure AddStringToTexteProperty(var prop : Property; s : String255);                                                                                                             ATTRIBUTE_NAME('AddStringToTexteProperty')
-procedure SetPossesseurOfPointeurPropertyProperty(var prop : Property; noeud : GameTree);                                                                                           ATTRIBUTE_NAME('SetPossesseurOfPointeurPropertyProperty')
-procedure SetPropertyPtrOfProperty(var prop : Property; adresse : PropertyPtr);                                                                                                     ATTRIBUTE_NAME('SetPropertyPtrOfProperty')
-procedure SetRectangleAffichageOfProperty(var prop : Property; whichRect : rect);                                                                                                   ATTRIBUTE_NAME('SetRectangleAffichageOfProperty')
-procedure SetCoupleLongintInfoOfProperty(var prop : Property; whichLongint1,whichLongint2 : SInt32);                                                                                ATTRIBUTE_NAME('SetCoupleLongintInfoOfProperty')
-procedure SetSquareCoupleOfProperty(var prop : Property; square1,square2 : SInt16);                                                                                                 ATTRIBUTE_NAME('SetSquareCoupleOfProperty')
-procedure SetQuintupletOfProperty(var prop : Property; whichLong : SInt32; b0,b1,b2,b3 : SInt8);                                                                                    ATTRIBUTE_NAME('SetQuintupletOfProperty')
+procedure SetLongintInfoOfProperty(var prop : Property; n : SInt32);
+procedure SetRealInfoOfProperty(var prop : Property; r : double_t);
+procedure SetStringInfoOfProperty(var prop : Property; s : String255);
+procedure SetOthelloSquareOfProperty(var prop : Property; coup : SInt16);
+procedure SetOthelloSquareOfPropertyAlpha(var prop : Property; coup : SInt16);
+procedure SetSquareSetOfProperty(var prop : Property; ensemble : SquareSet);
+procedure SetPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);
+procedure AddSquareToSquareSetOfProperty(var prop : Property; square : SInt16);
+procedure UnionSquareSetOfProperty(var prop : Property; ensemble : SquareSet);
+procedure DiffSquareSetOfProperty(var prop : Property; ensemble : SquareSet);
+procedure AddSquareToPackedSquareSetOfProperty(var prop : Property; square : SInt16);
+procedure UnionPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);
+procedure DiffPackedSquareSetOfProperty(var prop : Property; ensemble : PackedSquareSet);
+procedure SetSquareAndSeptCaracteresOfProperty(var prop : Property; whichSquare : SInt16; whichCaracteres : String255);
+procedure SetTripleOfProperty(var prop : Property; t : Triple);
+procedure SetBooleanOfProperty(var prop : Property; whichBoolean : boolean);
+procedure SetCharOfProperty(var prop : Property; whichChar : char);
+procedure SetOthelloValueOfProperty(var prop : Property; whichColor,whichSign : SInt16; whichIntegerValue,centiemes : SInt16);
+procedure SetTexteOfProperty(var prop : Property; texte : Ptr; longueur : SInt32);
+procedure AddTexteToProperty(var prop : Property; texte : Ptr; longueur : SInt32);
+procedure AddStringToTexteProperty(var prop : Property; s : String255);
+procedure SetPossesseurOfPointeurPropertyProperty(var prop : Property; noeud : GameTree);
+procedure SetPropertyPtrOfProperty(var prop : Property; adresse : PropertyPtr);
+procedure SetRectangleAffichageOfProperty(var prop : Property; whichRect : rect);
+procedure SetCoupleLongintInfoOfProperty(var prop : Property; whichLongint1,whichLongint2 : SInt32);
+procedure SetSquareCoupleOfProperty(var prop : Property; square1,square2 : SInt16);
+procedure SetQuintupletOfProperty(var prop : Property; whichLong : SInt32; b0,b1,b2,b3 : SInt8);
 
 
 {fonction d'ecriture de proprietes dans le rapport}
-procedure WritePropertyDansRapport(var prop : Property);                                                                                                                            ATTRIBUTE_NAME('WritePropertyDansRapport')
-procedure WritelnPropertyDansRapport(var prop : Property);                                                                                                                          ATTRIBUTE_NAME('WritelnPropertyDansRapport')
-procedure WriteStringAndPropertyDansRapport(s : String255; var prop : Property);                                                                                                    ATTRIBUTE_NAME('WriteStringAndPropertyDansRapport')
-procedure WritelnStringAndPropertyDansRapport(s : String255; var prop : Property);                                                                                                  ATTRIBUTE_NAME('WritelnStringAndPropertyDansRapport')
-procedure WritelnSoldesCreationsPropertiesDansRapport(prefixe : String255);                                                                                                         ATTRIBUTE_NAME('WritelnSoldesCreationsPropertiesDansRapport')
+procedure WritePropertyDansRapport(var prop : Property);
+procedure WritelnPropertyDansRapport(var prop : Property);
+procedure WriteStringAndPropertyDansRapport(s : String255; var prop : Property);
+procedure WritelnStringAndPropertyDansRapport(s : String255; var prop : Property);
+procedure WritelnSoldesCreationsPropertiesDansRapport(prefixe : String255);
 
 
 {fonctions de traductions}
-function PropertyTypeToString(whichType : SInt16) : String255;                                                                                                                      ATTRIBUTE_NAME('PropertyTypeToString')
-function PropertyValueToString(prop : Property) : String255;                                                                                                                        ATTRIBUTE_NAME('PropertyValueToString')
-function PropertyToString(prop : Property) : String255;                                                                                                                             ATTRIBUTE_NAME('PropertyToString')
-function MakePropertyFromString(s : String255) : Property;                                                                                                                          ATTRIBUTE_NAME('MakePropertyFromString')
-function StringToPropertyGenre(s : String255) : SInt16;                                                                                                                             ATTRIBUTE_NAME('StringToPropertyGenre')
-function MakeTriple(n : SInt32) : Triple;                                                                                                                                           ATTRIBUTE_NAME('MakeTriple')
+function PropertyTypeToString(whichType : SInt16) : String255;
+function PropertyValueToString(prop : Property) : String255;
+function PropertyToString(prop : Property) : String255;
+function MakePropertyFromString(s : String255) : Property;
+function StringToPropertyGenre(s : String255) : SInt16;
+function MakeTriple(n : SInt32) : Triple;
 
 
 {fonctions d'affichage ˆ l'ecran}
-procedure DessineLettreOnPropertySquare(var prop : Property; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);                                                            ATTRIBUTE_NAME('DessineLettreOnPropertySquare')
-procedure EffacerPropertySquare(var prop : Property);                                                                                                                               ATTRIBUTE_NAME('EffacerPropertySquare')
+procedure DessineLettreOnPropertySquare(var prop : Property; var codeAsciiDeLaLettre : SInt32; var continuer : boolean);
+procedure EffacerPropertySquare(var prop : Property);
 
 
 {fonction de symetrie/rotation}
-procedure EffectueSymetrieOnProperty(var prop : Property; var axeSymetrie : SInt32; var continuer : boolean);                                                                       ATTRIBUTE_NAME('EffectueSymetrieOnProperty')
+procedure EffectueSymetrieOnProperty(var prop : Property; var axeSymetrie : SInt32; var continuer : boolean);
 
 
 {fonctions diverses}
-function AllPropertyTypes : SetOfPropertyTypes;                                                                                                                                     ATTRIBUTE_NAME('AllPropertyTypes')
-function InPropertyTypes(whichGenre : SInt16; whichSet : SetOfPropertyTypes) : boolean;                                                                                             ATTRIBUTE_NAME('InPropertyTypes')
+function AllPropertyTypes : SetOfPropertyTypes;
+function InPropertyTypes(whichGenre : SInt16; whichSet : SetOfPropertyTypes) : boolean;
 
 
 
@@ -1227,12 +1227,12 @@ var oldText, newText : String255;
     k : SInt32;
 begin
   oldText := GetStringInfoOfProperty(prop);
-  
+
   k := Pos(':',oldText);
   if (k > 0)
     then newText := CoupEnStringEnMinuscules(coup) + ':' + TPCopy(oldText, k + 1, 255)
     else newText := CoupEnStringEnMinuscules(coup) + ':' + oldText;
-  
+
   SetStringInfoOfProperty(prop,newText);
 end;
 

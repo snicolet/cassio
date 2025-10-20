@@ -10,40 +10,40 @@ USES UnitDefHugeString;
 
 
 { Creation et/ou initialisation d'une HugeString }
-function NewHugeString : HugeString;                                                                                                                                                ATTRIBUTE_NAME('NewHugeString')
-function MakeHugeString(const s : String255) : HugeString;                                                                                                                          ATTRIBUTE_NAME('MakeHugeString')
-function HugeStringIsUsable(const ligne : HugeString) : boolean;                                                                                                                    ATTRIBUTE_NAME('HugeStringIsUsable')
-procedure CopyHugeString(var source, dest : HugeString);                                                                                                                            ATTRIBUTE_NAME('CopyHugeString')
+function NewHugeString : HugeString;
+function MakeHugeString(const s : String255) : HugeString;
+function HugeStringIsUsable(const ligne : HugeString) : boolean;
+procedure CopyHugeString(var source, dest : HugeString);
 
 
 { Acces ˆ une HugeString : recherche, comparaison, extraction d'une sous-chaine, etc... }
-function LengthOfHugeString(const ligne : HugeString) : SInt32;                                                                                                                     ATTRIBUTE_NAME('LengthOfHugeString')
-function GetBufferOfHugeString(const ligne : HugeString) : CharArrayPtr;                                                                                                            ATTRIBUTE_NAME('GetBufferOfHugeString')
-function GetMaximumCapacityOfHugeString : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetMaximumCapacityOfHugeString')
-function HugeStringIsEmpty(const ligne : HugeString) : boolean;                                                                                                                     ATTRIBUTE_NAME('HugeStringIsEmpty')
-function SameHugeString(const ligne1, ligne2 : HugeString) : boolean;                                                                                                               ATTRIBUTE_NAME('SameHugeString')
+function LengthOfHugeString(const ligne : HugeString) : SInt32;
+function GetBufferOfHugeString(const ligne : HugeString) : CharArrayPtr;
+function GetMaximumCapacityOfHugeString : SInt32;
+function HugeStringIsEmpty(const ligne : HugeString) : boolean;
+function SameHugeString(const ligne1, ligne2 : HugeString) : boolean;
 
 { Manipulations de HugeString }
-function HugeStringBeginsWith(const s : String255; const ligne : HugeString) : boolean;                                                                                             ATTRIBUTE_NAME('HugeStringBeginsWith')
-function FindStringInHugeString(const s : String255; const ligne : HugeString) : SInt32;                                                                                            ATTRIBUTE_NAME('FindStringInHugeString')
-procedure TruncateHugeString(var ligne : HugeString; len : SInt32);                                                                                                                 ATTRIBUTE_NAME('TruncateHugeString')
-procedure SetLengthOfHugeString(var ligne : HugeString; len : SInt32);                                                                                                              ATTRIBUTE_NAME('SetLengthOfHugeString')
+function HugeStringBeginsWith(const s : String255; const ligne : HugeString) : boolean;
+function FindStringInHugeString(const s : String255; const ligne : HugeString) : SInt32;
+procedure TruncateHugeString(var ligne : HugeString; len : SInt32);
+procedure SetLengthOfHugeString(var ligne : HugeString; len : SInt32);
 
 
 { Concatenation sur une HugeString }
-procedure AppendToHugeString(var ligne : HugeString; const s : String255);                                                                                                          ATTRIBUTE_NAME('AppendToHugeString')
-procedure AppendCharToHugeString(var ligne : HugeString; c : char);                                                                                                                 ATTRIBUTE_NAME('AppendCharToHugeString')
-procedure AppendToLeftOfHugeString(const s : String255; var ligne : HugeString);                                                                                                    ATTRIBUTE_NAME('AppendToLeftOfHugeString')
+procedure AppendToHugeString(var ligne : HugeString; const s : String255);
+procedure AppendCharToHugeString(var ligne : HugeString; c : char);
+procedure AppendToLeftOfHugeString(const s : String255; var ligne : HugeString);
 
 
 { Conversion de HugeString }
-procedure HugeStringToBuffer(var ligne : HugeString; buffer : PackedArrayOfCharPtr; var nbOctets : SInt32);                                                                         ATTRIBUTE_NAME('HugeStringToBuffer')
-procedure BufferToHugeString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; var ligne : HugeString);                                                                             ATTRIBUTE_NAME('BufferToHugeString')
+procedure HugeStringToBuffer(var ligne : HugeString; buffer : PackedArrayOfCharPtr; var nbOctets : SInt32);
+procedure BufferToHugeString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; var ligne : HugeString);
 
 
 { Ecriture d'une HugeString dans le rapport }
-procedure WriteHugeStringDansRapport(const ligne : HugeString);                                                                                                                     ATTRIBUTE_NAME('WriteHugeStringDansRapport')
-procedure WritelnHugeStringDansRapport(const ligne : HugeString);                                                                                                                   ATTRIBUTE_NAME('WritelnHugeStringDansRapport')
+procedure WriteHugeStringDansRapport(const ligne : HugeString);
+procedure WritelnHugeStringDansRapport(const ligne : HugeString);
 
 
 { Voir aussi ReadlnHugeStringDansFichierTexte() et WritelnHugeStringDansFichierTexte() dans UnitFichiersTEXT.p }
@@ -127,10 +127,10 @@ function MakeHugeString(const s : String255) : HugeString;
 var result : HugeString;
 begin
   result := NewHugeString;
-  
+
   if HugeStringIsUsable(result) then
     AppendToHugeString(result, s);
-    
+
   MakeHugeString := result;
 end;
 
@@ -181,17 +181,17 @@ var k : SInt32;
 begin
 
   SameHugeString := false;
-  
+
   if not(HugeStringIsUsable(ligne1)) | not(HugeStringIsUsable(ligne2)) then
     exit(SameHugeString);
-     
-  if (ligne1.longueur <> ligne2.longueur) then 
+
+  if (ligne1.longueur <> ligne2.longueur) then
     exit(SameHugeString);
-  
+
   for k := 1 to ligne1.longueur do
     if (ligne1.theChars^[k] <> ligne2.theChars^[k]) then
     exit(SameHugeString);
-    
+
   SameHugeString := true;
 end;
 
@@ -267,14 +267,14 @@ end;
 function FindStringInHugeString(const s : String255; const ligne : HugeString) : SInt32;
 var k,j,len : SInt32;
 begin
-  
+
   if HugeStringIsUsable(ligne) then
     with ligne do
       begin
-      
+
         len := LENGTH_OF_STRING(s);
-        
-        if (len > 0) 
+
+        if (len > 0)
           then
             begin
               for k := 1 to (LengthOfHugeString(ligne) - len + 1) do
@@ -282,12 +282,12 @@ begin
                   j := 1;
                   while (j <= len) & (theChars^[k + j - 1] = s[j]) do
                     inc(j);
-                    
+
                   if (j > len) then  // found in position k
                     begin
                       FindStringInHugeString := k;
                       exit(FindStringInHugeString);
-                    end;  
+                    end;
                 end;
             end
           else
@@ -313,15 +313,15 @@ end;
  *)
 function HugeStringBeginsWith(const s : String255; const ligne : HugeString) : boolean;
 begin
-  if (s = '') | 
-     (LengthOfHugeString(ligne) <= 0) | 
-     not(HugeStringIsUsable(ligne))   | 
+  if (s = '') |
+     (LengthOfHugeString(ligne) <= 0) |
+     not(HugeStringIsUsable(ligne))   |
      (ligne.theChars^[1] <> s[1]) then
     begin
       HugeStringBeginsWith := false;
       exit(HugeStringBeginsWith);
     end;
-  
+
   HugeStringBeginsWith := (FindStringInHugeString(s, ligne) = 1);
 end;
 
@@ -383,20 +383,20 @@ begin
   if HugeStringIsUsable(ligne) then
     begin
       b := LENGTH_OF_STRING(s);
-      
+
       if (b > 0) then
         with ligne do
           begin
-            
+
             for k := 1 to longueur do
               if ((k + b) <= k_HUGE_STRING_BUFFER_SIZE) then
                 theChars^[k + b] := theChars^[k];
-              
+
             longueur := Min(longueur + b, k_HUGE_STRING_BUFFER_SIZE);
-              
+
             for k := 1 to b do
               theChars^[k] := s[k];
-              
+
           end;
    end;
 end;
@@ -424,7 +424,7 @@ begin
     with ligne do
       begin
         nbOctets := longueur;
-         
+
         for k := 1 to nbOctets do
           buffer^[k - 1] := theChars^[k];
       end;
@@ -448,20 +448,20 @@ begin
   if HugeStringIsUsable(ligne) & (buffer <> NIL) & (nbOctets >= 0) then
       with ligne do
         begin
-        
+
           longueur := Min(nbOctets , k_HUGE_STRING_BUFFER_SIZE);
-      
-          if (nbOctets > k_HUGE_STRING_BUFFER_SIZE) 
+
+          if (nbOctets > k_HUGE_STRING_BUFFER_SIZE)
             then
               begin
                 WritelnDansRapport('ASSERT : (nbOctets > k_HUGE_STRING_BUFFER_SIZE) dans BufferToHugeString !!');
               end
             else
               begin
-                
+
                 for k := 1 to longueur do
                   theChars^[k] := buffer^[k - 1];
-                
+
               end;
         end;
 end;
@@ -491,11 +491,11 @@ end;
  *)
 procedure SetLengthOfHugeString(var ligne : HugeString; len : SInt32);
 begin
-  if (len < 0) 
+  if (len < 0)
     then len := 0;
-  if (len > k_HUGE_STRING_BUFFER_SIZE) 
+  if (len > k_HUGE_STRING_BUFFER_SIZE)
     then len := k_HUGE_STRING_BUFFER_SIZE;
-  
+
   ligne.longueur := len;
 end;
 
@@ -510,10 +510,10 @@ end;
  *)
 procedure WriteHugeStringDansRapport(const ligne : HugeString);
 begin
-  
+
   if HugeStringIsUsable(ligne) & (ligne.longueur > 0) then
     InsereTexteDansRapport(Ptr(ligne.theChars), ligne.longueur);
-  
+
 end;
 
 
@@ -521,7 +521,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   WritelnHugeStringDansRapport() ecrit une chaine dans le rapport en        *
- *   ajoutant un retour chariot a la fin.                                      *   
+ *   ajoutant un retour chariot a la fin.                                      *
  *                                                                             *
  *******************************************************************************
  *)

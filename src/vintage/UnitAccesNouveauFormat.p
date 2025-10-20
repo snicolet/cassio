@@ -11,124 +11,124 @@ INTERFACE
 
 
 
-procedure MetPartieDansTableStockageParties(nroReference : SInt32; var partieStr : PackedThorGame);                                                                                 ATTRIBUTE_NAME('MetPartieDansTableStockageParties')
-procedure ExtraitPartieTableStockageParties(nroReference : SInt32; var partieStr : PackedThorGame);                                                                                 ATTRIBUTE_NAME('ExtraitPartieTableStockageParties')
-procedure ExtraitCoupTableStockagePartie(nroReference, nroCoup : SInt32; var coup : SInt32);                                                                                        ATTRIBUTE_NAME('ExtraitCoupTableStockagePartie')
-function GetPartieTableStockageParties(nroReference : SInt32) : PackedThorGame;                                                                                                     ATTRIBUTE_NAME('GetPartieTableStockageParties')
-function GetNroJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                           ATTRIBUTE_NAME('GetNroJoueurNoirParNroRefPartie')
-function GetNroJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                          ATTRIBUTE_NAME('GetNroJoueurBlancParNroRefPartie')
-function GetNroFFOJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                        ATTRIBUTE_NAME('GetNroFFOJoueurNoirParNroRefPartie')
-function GetNroFFOJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                       ATTRIBUTE_NAME('GetNroFFOJoueurBlancParNroRefPartie')
-function GetNroTournoiParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('GetNroTournoiParNroRefPartie')
-function GetNomJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;                                                                                                        ATTRIBUTE_NAME('GetNomJoueurNoirParNroRefPartie')
-function GetNomJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;                                                                                                       ATTRIBUTE_NAME('GetNomJoueurBlancParNroRefPartie')
-function GetNomJoueurNoirSansPrenomParNroRefPartie(nroReference : SInt32) : String255;                                                                                              ATTRIBUTE_NAME('GetNomJoueurNoirSansPrenomParNroRefPartie')
-function GetNomJoueurBlancSansPrenomParNroRefPartie(nroReference : SInt32) : String255;                                                                                             ATTRIBUTE_NAME('GetNomJoueurBlancSansPrenomParNroRefPartie')
-function GetNomJoueurNoirCommeDansPappParNroRefPartie(nroReference : SInt32) : String255;                                                                                           ATTRIBUTE_NAME('GetNomJoueurNoirCommeDansPappParNroRefPartie')
-function GetNomJoueurBlancCommeDansPappParNroRefPartie(nroReference : SInt32) : String255;                                                                                          ATTRIBUTE_NAME('GetNomJoueurBlancCommeDansPappParNroRefPartie')
-function GetNumeroOrdreAlphabetiqueJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                       ATTRIBUTE_NAME('GetNumeroOrdreAlphabetiqueJoueurNoirParNroRefPartie')
-function GetNumeroOrdreAlphabetiqueJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                      ATTRIBUTE_NAME('GetNumeroOrdreAlphabetiqueJoueurBlancParNroRefPartie')
-function GetNomTournoiParNroRefPartie(nroReference : SInt32) : String255;                                                                                                           ATTRIBUTE_NAME('GetNomTournoiParNroRefPartie')
-function GetNomCourtTournoiParNroRefPartie(nroReference : SInt32) : String255;                                                                                                      ATTRIBUTE_NAME('GetNomCourtTournoiParNroRefPartie')
-function GetNumeroOrdreAlphabetiqueTournoiParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                          ATTRIBUTE_NAME('GetNumeroOrdreAlphabetiqueTournoiParNroRefPartie')
-function GetNumeroJoueurNoirDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                             ATTRIBUTE_NAME('GetNumeroJoueurNoirDansFichierParNroRefPartie')
-function GetNumeroJoueurBlancDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                            ATTRIBUTE_NAME('GetNumeroJoueurBlancDansFichierParNroRefPartie')
-function GetNumeroTournoiDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                ATTRIBUTE_NAME('GetNumeroTournoiDansFichierParNroRefPartie')
-function GetAnneePartieParNroRefPartie(nroReference : SInt32) : SInt16;                                                                                                             ATTRIBUTE_NAME('GetAnneePartieParNroRefPartie')
-function GetNomTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;                                                                   ATTRIBUTE_NAME('GetNomTournoiAvecAnneeParNroRefPartie')
-function GetNomCourtTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;                                                              ATTRIBUTE_NAME('GetNomCourtTournoiAvecAnneeParNroRefPartie')
-function GetScoreReelParNroRefPartie(nroReference : SInt32) : SInt16;                                                                                                               ATTRIBUTE_NAME('GetScoreReelParNroRefPartie')
-function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;                                                                                                          ATTRIBUTE_NAME('GetScoreTheoriqueParNroRefPartie')
-procedure GetScoresTheoriqueEtReelParNroRefPartie(nroReference : SInt32; var theorique,reel : SInt16);                                                                              ATTRIBUTE_NAME('GetScoresTheoriqueEtReelParNroRefPartie')
-function GetGainTheoriqueParNroRefPartie(nroReference : SInt32) : String255;                                                                                                        ATTRIBUTE_NAME('GetGainTheoriqueParNroRefPartie')
-procedure GetGainsTheoriqueEtReelParNroRefPartie(nroReference : SInt32; var gainNoirTheorique,gainNoirReel : SInt32);                                                               ATTRIBUTE_NAME('GetGainsTheoriqueEtReelParNroRefPartie')
-function GetPartieRecordParNroRefPartie(nroReference : SInt32) : t_PartieRecNouveauFormat;                                                                                          ATTRIBUTE_NAME('GetPartieRecordParNroRefPartie')
-function GetNroDistributionParNroRefPartie(nroReference : SInt32) : SInt32;                                                                                                         ATTRIBUTE_NAME('GetNroDistributionParNroRefPartie')
-function GetNomDistributionParNroRefPartie(nroReference : SInt32) : String255;                                                                                                      ATTRIBUTE_NAME('GetNomDistributionParNroRefPartie')
-function HashPartieDansListeParNroRefPartie(numeroRefPartie : SInt32) : SInt32;                                                                                                     ATTRIBUTE_NAME('HashPartieDansListeParNroRefPartie')
+procedure MetPartieDansTableStockageParties(nroReference : SInt32; var partieStr : PackedThorGame);
+procedure ExtraitPartieTableStockageParties(nroReference : SInt32; var partieStr : PackedThorGame);
+procedure ExtraitCoupTableStockagePartie(nroReference, nroCoup : SInt32; var coup : SInt32);
+function GetPartieTableStockageParties(nroReference : SInt32) : PackedThorGame;
+function GetNroJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNroJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNroFFOJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNroFFOJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNroTournoiParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNomJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJoueurNoirSansPrenomParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJoueurBlancSansPrenomParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJoueurNoirCommeDansPappParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJoueurBlancCommeDansPappParNroRefPartie(nroReference : SInt32) : String255;
+function GetNumeroOrdreAlphabetiqueJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNumeroOrdreAlphabetiqueJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNomTournoiParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomCourtTournoiParNroRefPartie(nroReference : SInt32) : String255;
+function GetNumeroOrdreAlphabetiqueTournoiParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNumeroJoueurNoirDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNumeroJoueurBlancDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNumeroTournoiDansFichierParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetAnneePartieParNroRefPartie(nroReference : SInt32) : SInt16;
+function GetNomTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;
+function GetNomCourtTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;
+function GetScoreReelParNroRefPartie(nroReference : SInt32) : SInt16;
+function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;
+procedure GetScoresTheoriqueEtReelParNroRefPartie(nroReference : SInt32; var theorique,reel : SInt16);
+function GetGainTheoriqueParNroRefPartie(nroReference : SInt32) : String255;
+procedure GetGainsTheoriqueEtReelParNroRefPartie(nroReference : SInt32; var gainNoirTheorique,gainNoirReel : SInt32);
+function GetPartieRecordParNroRefPartie(nroReference : SInt32) : t_PartieRecNouveauFormat;
+function GetNroDistributionParNroRefPartie(nroReference : SInt32) : SInt32;
+function GetNomDistributionParNroRefPartie(nroReference : SInt32) : String255;
+function HashPartieDansListeParNroRefPartie(numeroRefPartie : SInt32) : SInt32;
 
 
-procedure SetNroJoueurNoirParNroRefPartie(nroReference : SInt32; nroJoueur : SInt32);                                                                                               ATTRIBUTE_NAME('SetNroJoueurNoirParNroRefPartie')
-procedure SetNroJoueurBlancParNroRefPartie(nroReference : SInt32; nroJoueur : SInt32);                                                                                              ATTRIBUTE_NAME('SetNroJoueurBlancParNroRefPartie')
-procedure SetNroTournoiParNroRefPartie(nroReference : SInt32; nroTournoi : SInt32);                                                                                                 ATTRIBUTE_NAME('SetNroTournoiParNroRefPartie')
-procedure SetAnneePartieParNroRefPartie(nroReference : SInt32; annee : SInt16);                                                                                                     ATTRIBUTE_NAME('SetAnneePartieParNroRefPartie')
-procedure SetScoreReelParNroRefPartie(nroReference : SInt32; scoreReel : SInt16);                                                                                                   ATTRIBUTE_NAME('SetScoreReelParNroRefPartie')
-procedure SetScoreTheoriqueParNroRefPartie(nroReference : SInt32; scoreTheorique : SInt16);                                                                                         ATTRIBUTE_NAME('SetScoreTheoriqueParNroRefPartie')
-procedure SetPartieRecordParNroRefPartie(nroReference : SInt32; var GameRecord : t_PartieRecNouveauFormat);                                                                         ATTRIBUTE_NAME('SetPartieRecordParNroRefPartie')
-procedure SetNroDistributionParNroRefPartie(nroReference : SInt32; nroDistribution : SInt32);                                                                                       ATTRIBUTE_NAME('SetNroDistributionParNroRefPartie')
+procedure SetNroJoueurNoirParNroRefPartie(nroReference : SInt32; nroJoueur : SInt32);
+procedure SetNroJoueurBlancParNroRefPartie(nroReference : SInt32; nroJoueur : SInt32);
+procedure SetNroTournoiParNroRefPartie(nroReference : SInt32; nroTournoi : SInt32);
+procedure SetAnneePartieParNroRefPartie(nroReference : SInt32; annee : SInt16);
+procedure SetScoreReelParNroRefPartie(nroReference : SInt32; scoreReel : SInt16);
+procedure SetScoreTheoriqueParNroRefPartie(nroReference : SInt32; scoreTheorique : SInt16);
+procedure SetPartieRecordParNroRefPartie(nroReference : SInt32; var GameRecord : t_PartieRecNouveauFormat);
+procedure SetNroDistributionParNroRefPartie(nroReference : SInt32; nroDistribution : SInt32);
 
 
-function GetNomJoueur(nroJoueur : SInt32) : String255;                                                                                                                              ATTRIBUTE_NAME('GetNomJoueur')
-function GetNomJoueurEnMajusculesSansEspace(nroJoueur : SInt32) : String255;                                                                                                        ATTRIBUTE_NAME('GetNomJoueurEnMajusculesSansEspace')
-function GetNomJoueurEnMetaphoneSansEspace(nroJoueur : SInt32) : String255;                                                                                                         ATTRIBUTE_NAME('GetNomJoueurEnMetaphoneSansEspace')
-function GetNomJoueurEnMetaphoneAvecEspaces(nroJoueur : SInt32) : String255;                                                                                                        ATTRIBUTE_NAME('GetNomJoueurEnMetaphoneAvecEspaces')
-function GetNomJoueurSansPrenom(nroJoueur : SInt32) : String255;                                                                                                                    ATTRIBUTE_NAME('GetNomJoueurSansPrenom')
-function GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur : SInt32) : String255;                                                                                                 ATTRIBUTE_NAME('GetNomDeFamilleSansDifferencierLesPrenoms')
-function GetNomJoueurCommeDansPapp(nroJoueur : SInt32) : String255;                                                                                                                 ATTRIBUTE_NAME('GetNomJoueurCommeDansPapp')
-function GetNomJoueurCommeDansFichierFFODesJoueurs(nroJoueur : SInt32) : String255;                                                                                                 ATTRIBUTE_NAME('GetNomJoueurCommeDansFichierFFODesJoueurs')
-function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;                                                                                                                ATTRIBUTE_NAME('GetNroOrdreAlphabetiqueJoueur')
-function GetNroFFODuJoueur(nroJoueur : SInt32) : SInt32;                                                                                                                            ATTRIBUTE_NAME('GetNroFFODuJoueur')
-function GetNroJoueurDansSonFichier(nroJoueur : SInt32) : SInt32;                                                                                                                   ATTRIBUTE_NAME('GetNroJoueurDansSonFichier')
-function GetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32) : SInt32;                                                                                                             ATTRIBUTE_NAME('GetAnneePremierePartieDeCeJoueur')
-function GetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32) : SInt32;                                                                                                             ATTRIBUTE_NAME('GetAnneeDernierePartieDeCeJoueur')
-function GetNbreAnneesActiviteDeCeJoueur(nroJoueur : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('GetNbreAnneesActiviteDeCeJoueur')
-function GetDonneesClassementDeCeJoueur(nroJoueur : SInt32) : SInt32;                                                                                                               ATTRIBUTE_NAME('GetDonneesClassementDeCeJoueur')
-function GetJoueurEstUnOrdinateur(nroJoueur : SInt32) : boolean;                                                                                                                    ATTRIBUTE_NAME('GetJoueurEstUnOrdinateur')
+function GetNomJoueur(nroJoueur : SInt32) : String255;
+function GetNomJoueurEnMajusculesSansEspace(nroJoueur : SInt32) : String255;
+function GetNomJoueurEnMetaphoneSansEspace(nroJoueur : SInt32) : String255;
+function GetNomJoueurEnMetaphoneAvecEspaces(nroJoueur : SInt32) : String255;
+function GetNomJoueurSansPrenom(nroJoueur : SInt32) : String255;
+function GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur : SInt32) : String255;
+function GetNomJoueurCommeDansPapp(nroJoueur : SInt32) : String255;
+function GetNomJoueurCommeDansFichierFFODesJoueurs(nroJoueur : SInt32) : String255;
+function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;
+function GetNroFFODuJoueur(nroJoueur : SInt32) : SInt32;
+function GetNroJoueurDansSonFichier(nroJoueur : SInt32) : SInt32;
+function GetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32) : SInt32;
+function GetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32) : SInt32;
+function GetNbreAnneesActiviteDeCeJoueur(nroJoueur : SInt32) : SInt32;
+function GetDonneesClassementDeCeJoueur(nroJoueur : SInt32) : SInt32;
+function GetJoueurEstUnOrdinateur(nroJoueur : SInt32) : boolean;
 
 
-procedure SetNomJoueur(nroJoueur : SInt32; joueur : String255);                                                                                                                     ATTRIBUTE_NAME('SetNomJoueur')
-procedure SetNomCourtJoueur(nroJoueur : SInt32; joueur : String255);                                                                                                                ATTRIBUTE_NAME('SetNomCourtJoueur')
-procedure SetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32; nroDansOrdreAlphabetique : SInt32);                                                                                     ATTRIBUTE_NAME('SetNroOrdreAlphabetiqueJoueur')
-procedure SetNroFFODuJoueur(nroJoueur : SInt32; whichNumeroFFO : SInt32);                                                                                                           ATTRIBUTE_NAME('SetNroFFODuJoueur')
-procedure SetNroDansFichierJoueur(nroJoueur : SInt32; nroDansSonFichier : SInt32);                                                                                                  ATTRIBUTE_NAME('SetNroDansFichierJoueur')
-procedure SetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);                                                                                                     ATTRIBUTE_NAME('SetAnneePremierePartieDeCeJoueur')
-procedure SetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);                                                                                                     ATTRIBUTE_NAME('SetAnneeDernierePartieDeCeJoueur')
-procedure SetDonneesClassementDeCeJoueur(nroJoueur : SInt32; data : SInt32);                                                                                                        ATTRIBUTE_NAME('SetDonneesClassementDeCeJoueur')
-procedure SetJoueurEstUnOrdinateur(nroJoueur : SInt32; flag : boolean);                                                                                                             ATTRIBUTE_NAME('SetJoueurEstUnOrdinateur')
+procedure SetNomJoueur(nroJoueur : SInt32; joueur : String255);
+procedure SetNomCourtJoueur(nroJoueur : SInt32; joueur : String255);
+procedure SetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32; nroDansOrdreAlphabetique : SInt32);
+procedure SetNroFFODuJoueur(nroJoueur : SInt32; whichNumeroFFO : SInt32);
+procedure SetNroDansFichierJoueur(nroJoueur : SInt32; nroDansSonFichier : SInt32);
+procedure SetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);
+procedure SetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);
+procedure SetDonneesClassementDeCeJoueur(nroJoueur : SInt32; data : SInt32);
+procedure SetJoueurEstUnOrdinateur(nroJoueur : SInt32; flag : boolean);
 
 
-function GetNomTournoi(nroTournoi : SInt32) : String255;                                                                                                                            ATTRIBUTE_NAME('GetNomTournoi')
-function GetNomCourtTournoi(nroTournoi : SInt32) : String255;                                                                                                                       ATTRIBUTE_NAME('GetNomCourtTournoi')
-function GetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('GetNroOrdreAlphabetiqueTournoi')
-function GetNroTournoiDansSonFichier(nroTournoi : SInt32) : SInt32;                                                                                                                 ATTRIBUTE_NAME('GetNroTournoiDansSonFichier')
-procedure SetNomTournoi(nroTournoi : SInt32; tournoi : String255);                                                                                                                  ATTRIBUTE_NAME('SetNomTournoi')
-procedure SetNomCourtTournoi(nroTournoi : SInt32; tournoi : String255);                                                                                                             ATTRIBUTE_NAME('SetNomCourtTournoi')
-procedure SetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32; nroDansOrdreAlphabetique : SInt32);                                                                                   ATTRIBUTE_NAME('SetNroOrdreAlphabetiqueTournoi')
-procedure SetNroDansFichierTournoi(nroTournoi : SInt32; nroDansSonFichier : SInt32);                                                                                                ATTRIBUTE_NAME('SetNroDansFichierTournoi')
+function GetNomTournoi(nroTournoi : SInt32) : String255;
+function GetNomCourtTournoi(nroTournoi : SInt32) : String255;
+function GetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32) : SInt32;
+function GetNroTournoiDansSonFichier(nroTournoi : SInt32) : SInt32;
+procedure SetNomTournoi(nroTournoi : SInt32; tournoi : String255);
+procedure SetNomCourtTournoi(nroTournoi : SInt32; tournoi : String255);
+procedure SetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32; nroDansOrdreAlphabetique : SInt32);
+procedure SetNroDansFichierTournoi(nroTournoi : SInt32; nroDansSonFichier : SInt32);
 
 
-function JoueurAUnNomJaponais(nroJoueur : SInt32) : boolean;                                                                                                                        ATTRIBUTE_NAME('JoueurAUnNomJaponais')
-function TournoiAUnNomJaponais(nroTournoi : SInt32) : boolean;                                                                                                                      ATTRIBUTE_NAME('TournoiAUnNomJaponais')
-function EstUnePartieAvecTournoiJaponais(nroReferencePartie : SInt32) : boolean;                                                                                                    ATTRIBUTE_NAME('EstUnePartieAvecTournoiJaponais')
-function EstUnePartieAvecJoueurNoirJaponais(nroReferencePartie : SInt32) : boolean;                                                                                                 ATTRIBUTE_NAME('EstUnePartieAvecJoueurNoirJaponais')
-function EstUnePartieAvecJoueurBlancJaponais(nroReferencePartie : SInt32) : boolean;                                                                                                ATTRIBUTE_NAME('EstUnePartieAvecJoueurBlancJaponais')
+function JoueurAUnNomJaponais(nroJoueur : SInt32) : boolean;
+function TournoiAUnNomJaponais(nroTournoi : SInt32) : boolean;
+function EstUnePartieAvecTournoiJaponais(nroReferencePartie : SInt32) : boolean;
+function EstUnePartieAvecJoueurNoirJaponais(nroReferencePartie : SInt32) : boolean;
+function EstUnePartieAvecJoueurBlancJaponais(nroReferencePartie : SInt32) : boolean;
 
 
-function GetNomJaponaisDuJoueur(nroJoueur : SInt32) : String255;                                                                                                                    ATTRIBUTE_NAME('GetNomJaponaisDuJoueur')
-function GetNomJaponaisDuJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;                                                                                              ATTRIBUTE_NAME('GetNomJaponaisDuJoueurNoirParNroRefPartie')
-function GetNomJaponaisDuJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;                                                                                             ATTRIBUTE_NAME('GetNomJaponaisDuJoueurBlancParNroRefPartie')
-function GetNomJaponaisDuTournoi(nroTournoi : SInt32) : String255;                                                                                                                  ATTRIBUTE_NAME('GetNomJaponaisDuTournoi')
-function GetNomJaponaisDuTournoiParNroRefPartie(nroReference : SInt32) : String255;                                                                                                 ATTRIBUTE_NAME('GetNomJaponaisDuTournoiParNroRefPartie')
-function GetNomJaponaisDuTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;                                                         ATTRIBUTE_NAME('GetNomJaponaisDuTournoiAvecAnneeParNroRefPartie')
-procedure SetNomJaponaisDuJoueur(nroJoueur : SInt32; nomJaponais : String255);                                                                                                      ATTRIBUTE_NAME('SetNomJaponaisDuJoueur')
-procedure SetNomJaponaisDuTournoi(nroTournoi : SInt32; nomJaponais : String255);                                                                                                    ATTRIBUTE_NAME('SetNomJaponaisDuTournoi')
+function GetNomJaponaisDuJoueur(nroJoueur : SInt32) : String255;
+function GetNomJaponaisDuJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJaponaisDuJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJaponaisDuTournoi(nroTournoi : SInt32) : String255;
+function GetNomJaponaisDuTournoiParNroRefPartie(nroReference : SInt32) : String255;
+function GetNomJaponaisDuTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;
+procedure SetNomJaponaisDuJoueur(nroJoueur : SInt32; nomJaponais : String255);
+procedure SetNomJaponaisDuTournoi(nroTournoi : SInt32; nomJaponais : String255);
 
 
-function LongueurPlusLongNomDeJoueurDansBase : SInt32;                                                                                                                              ATTRIBUTE_NAME('LongueurPlusLongNomDeJoueurDansBase')
-function NombreJoueursDansBaseOfficielle : SInt32;                                                                                                                                  ATTRIBUTE_NAME('NombreJoueursDansBaseOfficielle')
-procedure SetNombreJoueursDansBaseOfficielle(combien : SInt32);                                                                                                                     ATTRIBUTE_NAME('SetNombreJoueursDansBaseOfficielle')
-function NombreTournoisDansBaseOfficielle : SInt32;                                                                                                                                 ATTRIBUTE_NAME('NombreTournoisDansBaseOfficielle')
-procedure SetNombreTournoisDansBaseOfficielle(combien : SInt32);                                                                                                                    ATTRIBUTE_NAME('SetNombreTournoisDansBaseOfficielle')
+function LongueurPlusLongNomDeJoueurDansBase : SInt32;
+function NombreJoueursDansBaseOfficielle : SInt32;
+procedure SetNombreJoueursDansBaseOfficielle(combien : SInt32);
+function NombreTournoisDansBaseOfficielle : SInt32;
+procedure SetNombreTournoisDansBaseOfficielle(combien : SInt32);
 
 
-function FindStringDansMetaphoneSansEspaceDeCeJoueur(var s : String255; nroJoueur : SInt32) : SInt32;                                                                               ATTRIBUTE_NAME('FindStringDansMetaphoneSansEspaceDeCeJoueur')
-function FindStringDansNomEnMajusculesSansEspaceDeCeJoueur(var s : String255; nroJoueur : SInt32) : SInt32;                                                                         ATTRIBUTE_NAME('FindStringDansNomEnMajusculesSansEspaceDeCeJoueur')
-function GetHashLexemesDeCeJoueur(nroJoueur : SInt32; lexemes : LongintArrayPtr) : SInt32;                                                                                          ATTRIBUTE_NAME('GetHashLexemesDeCeJoueur')
-function CalculateHashLexemesDeCeJoueur(nroJoueur : SInt32; lexemes : LongintArrayPtr) : SInt32;                                                                                    ATTRIBUTE_NAME('CalculateHashLexemesDeCeJoueur')
+function FindStringDansMetaphoneSansEspaceDeCeJoueur(var s : String255; nroJoueur : SInt32) : SInt32;
+function FindStringDansNomEnMajusculesSansEspaceDeCeJoueur(var s : String255; nroJoueur : SInt32) : SInt32;
+function GetHashLexemesDeCeJoueur(nroJoueur : SInt32; lexemes : LongintArrayPtr) : SInt32;
+function CalculateHashLexemesDeCeJoueur(nroJoueur : SInt32; lexemes : LongintArrayPtr) : SInt32;
 
-function GetNomUsuelDistribution(nroDistribution : SInt32) : String255;                                                                                                             ATTRIBUTE_NAME('GetNomUsuelDistribution')
-function GetNameOfDistribution(nroDistribution : SInt32) : String255;                                                                                                               ATTRIBUTE_NAME('GetNameOfDistribution')
-function GetPathOfDistribution(nroDistribution : SInt32) : String255;                                                                                                               ATTRIBUTE_NAME('GetPathOfDistribution')
+function GetNomUsuelDistribution(nroDistribution : SInt32) : String255;
+function GetNameOfDistribution(nroDistribution : SInt32) : String255;
+function GetPathOfDistribution(nroDistribution : SInt32) : String255;
 
 
 
@@ -404,7 +404,7 @@ end;
 
 procedure SetNroDistributionParNroRefPartie(nroReference : SInt32; nroDistribution : SInt32);
 begin
-  tableDistributionDeLaPartie^[nroReference] := nroDistribution; 
+  tableDistributionDeLaPartie^[nroReference] := nroDistribution;
 end;
 
 function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;
@@ -554,7 +554,7 @@ end;
 function GetNomJoueurEnMetaphoneSansEspace(nroJoueur : SInt32) : String255;
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
-  
+
   with JoueursNouveauFormat do
   if (nbJoueursNouveauFormat > 0) &
      (nroJoueur >= 0) &
@@ -567,7 +567,7 @@ begin
          end
        else
          GetNomJoueurEnMetaphoneSansEspace := '******';
-  
+
 end;
 
 
@@ -578,7 +578,7 @@ label next_char;
 begin
 
   len  := LENGTH_OF_STRING(s);
-  
+
   with JoueursNouveauFormat do
   if (len > 0) &
      (nbJoueursNouveauFormat > 0) &
@@ -588,30 +588,30 @@ begin
        then
          begin
            JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
-           
+
            with JoueurArrow^ do
              begin
-               
+
                len2 := LENGTH_OF_STRING(nomMetaphoneSansEspace);  // metaphone sans espace
-               
+
                for i := 0 to (len2 - len) do
                  begin
                    for k := 1 to len do
                      if s[k] <> nomMetaphoneSansEspace[i + k] then goto next_char;
-                     
-                   // On a trouvŽ la chaine s en position (i + 1) dans le nomMetaphoneSansEspace du joueur 
+
+                   // On a trouvŽ la chaine s en position (i + 1) dans le nomMetaphoneSansEspace du joueur
                    FindStringDansMetaphoneSansEspaceDeCeJoueur := i + 1;
                    exit(FindStringDansMetaphoneSansEspaceDeCeJoueur);
-                   
+
                    // au moins un mismatch : on passe au caractere suivant dans le nomMetaphoneSansEspace du joueur
                    next_char :
-                   
+
                  end;
              end;
          end;
-  
+
   FindStringDansMetaphoneSansEspaceDeCeJoueur := 0;
-  
+
 end;
 
 
@@ -622,7 +622,7 @@ label next_char;
 begin
 
   len  := LENGTH_OF_STRING(s);
-  
+
   with JoueursNouveauFormat do
   if (len > 0) &
      (nbJoueursNouveauFormat > 0) &
@@ -632,30 +632,30 @@ begin
        then
          begin
            JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
-           
+
            with JoueurArrow^ do
              begin
-               
+
                len2 := LENGTH_OF_STRING(nomEnMajusculesSansEspace);  // nom en majuscules sans espaces
-               
+
                for i := 0 to (len2 - len) do
                  begin
                    for k := 1 to len do
                      if s[k] <> nomEnMajusculesSansEspace[i + k] then goto next_char;
-                     
-                   // On a trouvŽ la chaine s en position (i + 1) dans le nomEnMajusculesSansEspace du joueur 
+
+                   // On a trouvŽ la chaine s en position (i + 1) dans le nomEnMajusculesSansEspace du joueur
                    FindStringDansNomEnMajusculesSansEspaceDeCeJoueur := i + 1;
                    exit(FindStringDansNomEnMajusculesSansEspaceDeCeJoueur);
-                   
+
                    // au moins un mismatch : on passe au caractere suivant dans le nomEnMajusculesSansEspace du joueur
                    next_char :
-                   
+
                  end;
              end;
          end;
-  
+
   FindStringDansNomEnMajusculesSansEspaceDeCeJoueur := 0;
-  
+
 end;
 
 
@@ -681,7 +681,7 @@ begin
   if CassioIsUsingMetaphone
     then CalculateHashLexemesDeCeJoueur := HashLexemes( metaphoneBaseAvecEspaces ,       lexemes)
     else CalculateHashLexemesDeCeJoueur := HashLexemes( nomBaseEnMajusculesAvecEspaces , lexemes);
- 
+
 end;
 
 
@@ -692,7 +692,7 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
 
   JoueurArrow := NIL;
-  
+
   usingMetaphone := CassioIsUsingMetaphone;
 
   // check if the lexemes for this player have already been calculated and cached
@@ -704,54 +704,54 @@ begin
        then
          begin
            JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
-           
+
            with JoueurArrow^ do
              begin
-             
-               // number of cached lexemes 
+
+               // number of cached lexemes
                nbLexemes := hashDesLexemes[0];
-               
+
                // convention : lexemes without metaphones have a negative count in the cache
-               if ((nbLexemes > 0) & usingMetaphone) | 
+               if ((nbLexemes > 0) & usingMetaphone) |
                   ((nbLexemes < 0) & not(usingMetaphone)) then
                     begin
-                      for k := 1 to 5 do 
+                      for k := 1 to 5 do
                         lexemes^[k] := hashDesLexemes[k];
-                      
+
                       if (nbLexemes > 0)
                         then GetHashLexemesDeCeJoueur :=  nbLexemes
                         else GetHashLexemesDeCeJoueur := -nbLexemes;
-                      
+
                       exit(GetHashLexemesDeCeJoueur);
                     end;
              end;
-           
+
          end;
-         
+
   // the lexemes were not cached, so we have to recalculate them
   nbLexemes := CalculateHashLexemesDeCeJoueur(nroJoueur , lexemes);
-  
-  
+
+
   // store the lexemes in the cache, if possible
   if (JoueurArrow <> NIL) & (nbLexemes >= 1) & (nbLexemes <= 5) then
     with JoueurArrow^ do
       begin
-      
+
         // the lexemes themselves...
         for k := 1 to nbLexemes do
           hashDesLexemes[k] := lexemes^[k];
         for k := (nbLexemes + 1) to 5 do
           hashDesLexemes[k] := 0;
-        
+
         // ...and the number of lexemes also
         if usingMetaphone
           then hashDesLexemes[0] :=  nbLexemes
           else hashDesLexemes[0] := -nbLexemes;
       end;
-  
-      
+
+
   GetHashLexemesDeCeJoueur := nbLexemes;
- 
+
 end;
 
 
@@ -845,7 +845,7 @@ begin
          if (joueur = '???') | (joueur = '')
            then JoueurArrow^.nomMetaphoneAvecEspaces   := nomMajAvecEspace
            else JoueurArrow^.nomMetaphoneAvecEspaces   := FabriqueMetaphoneDesLexemes(nomMajAvecEspace);
-         
+
          (* calculer le metaphone en supprimant les espaces *)
          aux := JoueurArrow^.nomMetaphoneAvecEspaces;
          resultat := '';
@@ -853,7 +853,7 @@ begin
            if aux[k] <> ' ' then
              resultat := resultat + aux[k];
          JoueurArrow^.nomMetaphoneSansEspace := resultat;
-         
+
          (* reintialiser les hash des lexemes du nom *)
          for k := 0 to 5 do
            JoueurArrow^.hashDesLexemes[k] := 0;

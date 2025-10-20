@@ -18,7 +18,7 @@ INTERFACE
 
 {$IFC (USING_DEUXCASESVIDESBITBOARDFAST) }
 
-function DeuxCasesVidesBitboardFast(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; alpha,beta,diffPions : SInt32; listeBitboard : UInt32) : SInt32;                  ATTRIBUTE_NAME('DeuxCasesVidesBitboardFast')
+function DeuxCasesVidesBitboardFast(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; alpha,beta,diffPions : SInt32; listeBitboard : UInt32) : SInt32;
 {attention : toujours appeler DeuxCasesVidesBitboardFast
  avec exactement deux cases vides}
 

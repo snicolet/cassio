@@ -9,20 +9,20 @@ INTERFACE
 
 
 
-  function EstUnDoubleClic(myEvent : eventRecord; attendClicSuivant : boolean) : boolean;                                                                                           ATTRIBUTE_NAME('EstUnDoubleClic')
-  procedure ShareTimeWithOtherProcesses(quantity : SInt32);                                                                                                                         ATTRIBUTE_NAME('ShareTimeWithOtherProcesses')
+  function EstUnDoubleClic(myEvent : eventRecord; attendClicSuivant : boolean) : boolean;
+  procedure ShareTimeWithOtherProcesses(quantity : SInt32);
 
-	procedure AttendFrappeClavier;                                                                                                                                                     ATTRIBUTE_NAME('AttendFrappeClavier')
-	procedure AttendFrappeClavierOuSouris(var isKeyEvent : boolean);                                                                                                                   ATTRIBUTE_NAME('AttendFrappeClavierOuSouris')
-	function EscapeDansQueue : boolean;                                                                                                                                                ATTRIBUTE_NAME('EscapeDansQueue')
+	procedure AttendFrappeClavier;
+	procedure AttendFrappeClavierOuSouris(var isKeyEvent : boolean);
+	function EscapeDansQueue : boolean;
 
-  function CreerCaractereAvecOption(c : char) : char;   {si c = T, CreerCaractereAvecOption(c) = option-T = ª   etc.}                                                               ATTRIBUTE_NAME('CreerCaractereAvecOption')
-	function QuelCaractereDeControle(c : char; enMajuscule : boolean) : char;                                                                                                          ATTRIBUTE_NAME('QuelCaractereDeControle')
-	procedure EmuleToucheCommandeParControleDansEvent(var myEvent : eventRecord);                                                                                                      ATTRIBUTE_NAME('EmuleToucheCommandeParControleDansEvent')
-	function DirtyKey (ch : char) : boolean;                                                                                                                                           ATTRIBUTE_NAME('DirtyKey')
+  function CreerCaractereAvecOption(c : char) : char;   {si c = T, CreerCaractereAvecOption(c) = option-T = ª   etc.}
+	function QuelCaractereDeControle(c : char; enMajuscule : boolean) : char;
+	procedure EmuleToucheCommandeParControleDansEvent(var myEvent : eventRecord);
+	function DirtyKey (ch : char) : boolean;
 
 
-	procedure Pause;                                                                                                                                                                   ATTRIBUTE_NAME('Pause')
+	procedure Pause;
 
 
 

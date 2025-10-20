@@ -6,7 +6,7 @@ INTERFACE
 
 
 
-procedure TestNouvelleEval;                                                                                                                                                         ATTRIBUTE_NAME('TestNouvelleEval')
+procedure TestNouvelleEval;
 
 
 

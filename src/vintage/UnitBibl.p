@@ -17,23 +17,23 @@ INTERFACE
 
 
 
-procedure FormatageBibl(const chaine : String255; var PartieFormatBibl : stringBibl);                                                                                               ATTRIBUTE_NAME('FormatageBibl')
-function PeutTrouverNomEnBibl(s : stringBibl; var nomOuverture : String255; var nbreCoupOuv : SInt32; PrecompilationNecessaire : boolean) : boolean;                                ATTRIBUTE_NAME('PeutTrouverNomEnBibl')
-function EnBibliotheque(s : stringBibl; var index : SInt32) : boolean;                                                                                                              ATTRIBUTE_NAME('EnBibliotheque')
-function TrouveCoupEnBibliotheque(const s : String255; var coup,defense : SInt32; refuseQuelquesFois : boolean; var nbReponsesEnBibliotheque : SInt32) : boolean;                   ATTRIBUTE_NAME('TrouveCoupEnBibliotheque')
-function PeutChoisirEnBibl(var whichSquare,defense : SInt32; refuseQuelquesFois : boolean; var nbReponsesEnBibliotheque : SInt32) : boolean;                                        ATTRIBUTE_NAME('PeutChoisirEnBibl')
-procedure EcritCoupsBibliotheque(surQuellesCases : SquareSet);                                                                                                                      ATTRIBUTE_NAME('EcritCoupsBibliotheque')
-procedure EffaceCoupsBibliotheque;                                                                                                                                                  ATTRIBUTE_NAME('EffaceCoupsBibliotheque')
-function PositionCouranteEstDansLaBibliotheque : boolean;                                                                                                                           ATTRIBUTE_NAME('PositionCouranteEstDansLaBibliotheque')
-function DoitAfficherBibliotheque : boolean;                                                                                                                                        ATTRIBUTE_NAME('DoitAfficherBibliotheque')
-procedure DessineBibliotheque(ligneDebut,ligneFin,decH,decV : SInt32);                                                                                                              ATTRIBUTE_NAME('DessineBibliotheque')
-procedure BibliothequeDansRapport;                                                                                                                                                  ATTRIBUTE_NAME('BibliothequeDansRapport')
-procedure RejoueToutesLignesBibliothequeAvecCommentaire;                                                                                                                            ATTRIBUTE_NAME('RejoueToutesLignesBibliothequeAvecCommentaire')
-function LitBibliotheque(nomBibl : String255; verifierLegaliteLignes : boolean) : OSErr;                                                                                            ATTRIBUTE_NAME('LitBibliotheque')
-function NomOuvertureChange(var nomOuverture : String255) : boolean;                                                                                                                ATTRIBUTE_NAME('NomOuvertureChange')
-function GetLigneDeJeuOfBibliotheque(index : SInt32) : String255;                                                                                                                   ATTRIBUTE_NAME('GetLigneDeJeuOfBibliotheque')
-function GetCommentaireOfBibliotheque(index : SInt32) : String255;                                                                                                                  ATTRIBUTE_NAME('GetCommentaireOfBibliotheque')
-function LigneBibliothequeEnChaine(index : SInt32) : String255;                                                                                                                     ATTRIBUTE_NAME('LigneBibliothequeEnChaine')
+procedure FormatageBibl(const chaine : String255; var PartieFormatBibl : stringBibl);
+function PeutTrouverNomEnBibl(s : stringBibl; var nomOuverture : String255; var nbreCoupOuv : SInt32; PrecompilationNecessaire : boolean) : boolean;
+function EnBibliotheque(s : stringBibl; var index : SInt32) : boolean;
+function TrouveCoupEnBibliotheque(const s : String255; var coup,defense : SInt32; refuseQuelquesFois : boolean; var nbReponsesEnBibliotheque : SInt32) : boolean;
+function PeutChoisirEnBibl(var whichSquare,defense : SInt32; refuseQuelquesFois : boolean; var nbReponsesEnBibliotheque : SInt32) : boolean;
+procedure EcritCoupsBibliotheque(surQuellesCases : SquareSet);
+procedure EffaceCoupsBibliotheque;
+function PositionCouranteEstDansLaBibliotheque : boolean;
+function DoitAfficherBibliotheque : boolean;
+procedure DessineBibliotheque(ligneDebut,ligneFin,decH,decV : SInt32);
+procedure BibliothequeDansRapport;
+procedure RejoueToutesLignesBibliothequeAvecCommentaire;
+function LitBibliotheque(nomBibl : String255; verifierLegaliteLignes : boolean) : OSErr;
+function NomOuvertureChange(var nomOuverture : String255) : boolean;
+function GetLigneDeJeuOfBibliotheque(index : SInt32) : String255;
+function GetCommentaireOfBibliotheque(index : SInt32) : String255;
+function LigneBibliothequeEnChaine(index : SInt32) : String255;
 
 
 

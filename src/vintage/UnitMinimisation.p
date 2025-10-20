@@ -10,23 +10,23 @@ INTERFACE
 
 
 
-function DeriveeNumerique(f : FonctionReelle; x : TypeReel) : TypeReel;                                                                                                             ATTRIBUTE_NAME('DeriveeNumerique')
-procedure CalculeGradientNumerique(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; var fonctionEnP : TypeReel; var GradientEnP : PointMultidimensionnel);          ATTRIBUTE_NAME('CalculeGradientNumerique')
-function bidDiff(x : TypeReel; var dfx : TypeReel) : TypeReel;  {une differentielle bidon !!}                                                                                       ATTRIBUTE_NAME('bidDiff')
+function DeriveeNumerique(f : FonctionReelle; x : TypeReel) : TypeReel;
+procedure CalculeGradientNumerique(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; var fonctionEnP : TypeReel; var GradientEnP : PointMultidimensionnel);
+function bidDiff(x : TypeReel; var dfx : TypeReel) : TypeReel;  {une differentielle bidon !!}
 
 {minimisation en une dimension}
-procedure MinimumBracketting(f : FonctionReelle; var ax,bx,cx,fa,fb,fc : TypeReel);                                                                                                 ATTRIBUTE_NAME('MinimumBracketting')
-function MinimisationParBrent(f : FonctionReelle; ax,bx,cx,tol : TypeReel; var xmin : TypeReel) : TypeReel;                                                                         ATTRIBUTE_NAME('MinimisationParBrent')
-function MinimisationParBrentAvecDerivee(derivationNumerique : boolean; f : FonctionReelle; {calcul de f} diff : DifferentielleReelle; {calcul simultané de f et de f' : passer bidDiff si l'on veut utiliser la derivation numériqe} ax,bx,cx,tol : TypeReel; var xmin : TypeReel) : TypeReel;                                                                         ATTRIBUTE_NAME('MinimisationParBrentAvecDerivee')
+procedure MinimumBracketting(f : FonctionReelle; var ax,bx,cx,fa,fb,fc : TypeReel);
+function MinimisationParBrent(f : FonctionReelle; ax,bx,cx,tol : TypeReel; var xmin : TypeReel) : TypeReel;
+function MinimisationParBrentAvecDerivee(derivationNumerique : boolean; f : FonctionReelle; {calcul de f} diff : DifferentielleReelle; {calcul simultané de f et de f' : passer bidDiff si l'on veut utiliser la derivation numériqe} ax,bx,cx,tol : TypeReel; var xmin : TypeReel) : TypeReel;
 
 {minimisation suivant la droite P+lambda*xi dans un espace multidimensionnel}
-procedure LineMinimisation(f : FonctionMultidimensionnelle; var p,xi : PointMultidimensionnel; var fret : TypeReel);                                                                ATTRIBUTE_NAME('LineMinimisation')
+procedure LineMinimisation(f : FonctionMultidimensionnelle; var p,xi : PointMultidimensionnel; var fret : TypeReel);
 
 
 
 {minimisation multidimensionnelle}
-procedure MinimisationMultidimensionnelleParConjugateGradient(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; ftol : TypeReel; var iter : SInt32; var fret : TypeReel);                                                                                      ATTRIBUTE_NAME('MinimisationMultidimensionnelleParConjugateGradient')
-procedure MinimisationMultidimensionnelleSimple(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; var iter : SInt32; var fret : TypeReel);                           ATTRIBUTE_NAME('MinimisationMultidimensionnelleSimple')
+procedure MinimisationMultidimensionnelleParConjugateGradient(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; ftol : TypeReel; var iter : SInt32; var fret : TypeReel);
+procedure MinimisationMultidimensionnelleSimple(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; var iter : SInt32; var fret : TypeReel);
 
 
 

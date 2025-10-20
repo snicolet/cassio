@@ -21,21 +21,21 @@ INTERFACE
 
 // Initialisations de l'unite
 
-procedure InitUnitParallelisme;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitParallelisme')
-procedure LibereMemoireUnitParallelisme;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitParallelisme')
-procedure AllocateMemoryForAlphaBetaTasks;                                                                                                                                          ATTRIBUTE_NAME('AllocateMemoryForAlphaBetaTasks')
-procedure LibereMemoireForAlphaBetaTasks;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireForAlphaBetaTasks')
+procedure InitUnitParallelisme;
+procedure LibereMemoireUnitParallelisme;
+procedure AllocateMemoryForAlphaBetaTasks;
+procedure LibereMemoireForAlphaBetaTasks;
 
 
 // Fonctions generales sur le multiprocessing
 
-function MPLibraryIsLoaded : boolean;                                                                                                                                               ATTRIBUTE_NAME('MPLibraryIsLoaded')
-procedure SetNombreDeProcesseursActifs(nombre : SInt32);                                                                                                                            ATTRIBUTE_NAME('SetNombreDeProcesseursActifs')
-function Reflector(parameter : UnivPtr) : OSStatus;                                                                                                                                 ATTRIBUTE_NAME('Reflector')
-procedure CalculateIntertaskSignalingTime;                                                                                                                                          ATTRIBUTE_NAME('CalculateIntertaskSignalingTime')
-function OrdinateurMultiprocesseurSimuleSurUnMonoprocesseur : boolean;                                                                                                              ATTRIBUTE_NAME('OrdinateurMultiprocesseurSimuleSurUnMonoprocesseur')
-procedure BouclerUnPetitPeu(nbreTours : SInt32);                                                                                                                                    ATTRIBUTE_NAME('BouclerUnPetitPeu')
-procedure CalculerLeNombreDeToursPourUnDelaiUneMicroseconde;                                                                                                                        ATTRIBUTE_NAME('CalculerLeNombreDeToursPourUnDelaiUneMicroseconde')
+function MPLibraryIsLoaded : boolean;
+procedure SetNombreDeProcesseursActifs(nombre : SInt32);
+function Reflector(parameter : UnivPtr) : OSStatus;
+procedure CalculateIntertaskSignalingTime;
+function OrdinateurMultiprocesseurSimuleSurUnMonoprocesseur : boolean;
+procedure BouclerUnPetitPeu(nbreTours : SInt32);
+procedure CalculerLeNombreDeToursPourUnDelaiUneMicroseconde;
 
 
 
@@ -46,111 +46,111 @@ procedure CalculerLeNombreDeToursPourUnDelaiUneMicroseconde;                    
 
 // Fonction d'interface avec l'alpha-beta sequentiel
 
-function CalculerCoupsEnParallele(inNroThreadDuPere : SInt32; inNroThreadFilsDisponible : SInt32; inPosition : bitboard; inNbreVides : SInt32; inAlpha,inBeta : SInt32; inDiffPions : SInt32; inVecteurParite : SInt32; inListeBitboard : UInt32; var inListeDesCoupsLegaux : listeVides; indexPremierFils,indexDernierFils : SInt32; var outMeilleureDefense : UInt32; var outNroDuDernierFilsEvalue : SInt32) : SInt32;                                         ATTRIBUTE_NAME('CalculerCoupsEnParallele')
+function CalculerCoupsEnParallele(inNroThreadDuPere : SInt32; inNroThreadFilsDisponible : SInt32; inPosition : bitboard; inNbreVides : SInt32; inAlpha,inBeta : SInt32; inDiffPions : SInt32; inVecteurParite : SInt32; inListeBitboard : UInt32; var inListeDesCoupsLegaux : listeVides; indexPremierFils,indexDernierFils : SInt32; var outMeilleureDefense : UInt32; var outNroDuDernierFilsEvalue : SInt32) : SInt32;
 
 
 // Interruption generale d'une thread à partir d'un certain niveau
 
-procedure InterrompreUneThread(nroThreadAInterrompre, nbreCasesVides, hashStampAInterrompre : SInt32; nroThreadAgissante : SInt32);                                                 ATTRIBUTE_NAME('InterrompreUneThread')
-procedure EnleverLInterruptionPourCetteThread(nroThreadARelacher, nbreCasesVides, nroThreadAgissante : SInt32);                                                                     ATTRIBUTE_NAME('EnleverLInterruptionPourCetteThread')
-function ThreadEstInterrompue(nroThread, nbreCasesVides : SInt32) : boolean;                                                                                                        ATTRIBUTE_NAME('ThreadEstInterrompue')
-function ThreadEstInterrompuePourCeHashStamp(nroThread, hashStamp : SInt32; action : SInt32) : boolean;                                                                             ATTRIBUTE_NAME('ThreadEstInterrompuePourCeHashStamp')
-procedure ReinitialiserInterruptionsParHashStampsDesThreads(nroThreadAgissante : SInt32);                                                                                           ATTRIBUTE_NAME('ReinitialiserInterruptionsParHashStampsDesThreads')
+procedure InterrompreUneThread(nroThreadAInterrompre, nbreCasesVides, hashStampAInterrompre : SInt32; nroThreadAgissante : SInt32);
+procedure EnleverLInterruptionPourCetteThread(nroThreadARelacher, nbreCasesVides, nroThreadAgissante : SInt32);
+function ThreadEstInterrompue(nroThread, nbreCasesVides : SInt32) : boolean;
+function ThreadEstInterrompuePourCeHashStamp(nroThread, hashStamp : SInt32; action : SInt32) : boolean;
+procedure ReinitialiserInterruptionsParHashStampsDesThreads(nroThreadAgissante : SInt32);
 
 
 // Proposition de travail et reservation des threads
 
 
-function EssayerDEmettreUnePropositionDeTravail(nroThread : SInt32; profondeur : SInt32; const hashStamps : TableauDeQuatreHashStamps) : boolean;                                   ATTRIBUTE_NAME('EssayerDEmettreUnePropositionDeTravail')
-function CetteThreadAEmisUnePropositionDeTravail(nroThread : SInt32; var profDeLaProposition : SInt32) : boolean;                                                                   ATTRIBUTE_NAME('CetteThreadAEmisUnePropositionDeTravail')
-procedure EmettreUnePropositionDeTravail(nroThread : SInt32; profondeur : SInt32; const hashStamps : TableauDeQuatreHashStamps; fonctionAppelante : String255);                     ATTRIBUTE_NAME('EmettreUnePropositionDeTravail')
-procedure EnleverPropositionDeTravailDeCetteThread(nroThread : SInt32);                                                                                                             ATTRIBUTE_NAME('EnleverPropositionDeTravailDeCetteThread')
-procedure EmettreUnePropositionDeTravailRecursivePourAiderSesFils(var node : NoeudDeParallelisme);                                                                                  ATTRIBUTE_NAME('EmettreUnePropositionDeTravailRecursivePourAiderSesFils')
-procedure EnleverPropositionDeTravailRecursivePourAiderSesFils(nroThread : SInt32);                                                                                                 ATTRIBUTE_NAME('EnleverPropositionDeTravailRecursivePourAiderSesFils')
-function PrendrePropositionDeTravailDeCetteThread(nroThread : SInt32; nbreCasesVides, hashStamp : SInt32) : boolean;                                                                ATTRIBUTE_NAME('PrendrePropositionDeTravailDeCetteThread')
-function PeutTrouverUneThreadDisponible(nroThreadMaitre, nbreCasesVides, hashStamp : SInt32; var nroThreadEsclave : SInt32) : boolean;                                              ATTRIBUTE_NAME('PeutTrouverUneThreadDisponible')
+function EssayerDEmettreUnePropositionDeTravail(nroThread : SInt32; profondeur : SInt32; const hashStamps : TableauDeQuatreHashStamps) : boolean;
+function CetteThreadAEmisUnePropositionDeTravail(nroThread : SInt32; var profDeLaProposition : SInt32) : boolean;
+procedure EmettreUnePropositionDeTravail(nroThread : SInt32; profondeur : SInt32; const hashStamps : TableauDeQuatreHashStamps; fonctionAppelante : String255);
+procedure EnleverPropositionDeTravailDeCetteThread(nroThread : SInt32);
+procedure EmettreUnePropositionDeTravailRecursivePourAiderSesFils(var node : NoeudDeParallelisme);
+procedure EnleverPropositionDeTravailRecursivePourAiderSesFils(nroThread : SInt32);
+function PrendrePropositionDeTravailDeCetteThread(nroThread : SInt32; nbreCasesVides, hashStamp : SInt32) : boolean;
+function PeutTrouverUneThreadDisponible(nroThreadMaitre, nbreCasesVides, hashStamp : SInt32; var nroThreadEsclave : SInt32) : boolean;
 
 
 // Gestion d'un noeud de parallelisme
 
-procedure GererNoeudDeParallelisme(var node : NoeudDeParallelisme; action : SInt32; var whichResult : ResultParallelismeRec);                                                       ATTRIBUTE_NAME('GererNoeudDeParallelisme')
-function NomActionDeParallelisme(action : SInt32) : String255;                                                                                                                      ATTRIBUTE_NAME('NomActionDeParallelisme')
+procedure GererNoeudDeParallelisme(var node : NoeudDeParallelisme; action : SInt32; var whichResult : ResultParallelismeRec);
+function NomActionDeParallelisme(action : SInt32) : String255;
 
 
 // Preparation et lancement des fils dans un noeud de parallelisme
 
-function PeutTrouverUneThreadEsclave(var node : NoeudDeParallelisme; action : SInt32; var nroThreadFilsAuChomage : SInt32) : boolean;                                               ATTRIBUTE_NAME('PeutTrouverUneThreadEsclave')
-procedure PreparerUnTravailPourLaThreadAuChomage(var node: NoeudDeParallelisme; nroThreadFilsAuChomage : SInt32);                                                                   ATTRIBUTE_NAME('PreparerUnTravailPourLaThreadAuChomage')
-procedure LancerUnFils(var node : NoeudDeParallelisme; indexDuFils : SInt32; fonctionAppelante : String255);                                                                        ATTRIBUTE_NAME('LancerUnFils')
-procedure AnnulerUnFilsEnAttenteDeLancement(var node : NoeudDeParallelisme; indexDuFils : SInt32);                                                                                  ATTRIBUTE_NAME('AnnulerUnFilsEnAttenteDeLancement')
-procedure InterrompreUnFils(var node : NoeudDeParallelisme; indexDuFils : SInt32);                                                                                                  ATTRIBUTE_NAME('InterrompreUnFils')
-function MeLancerMoiMemeRecursivementSurUnFils(var node : NoeudDeParallelisme; var coupDuFils : SInt32) : SInt32;                                                                   ATTRIBUTE_NAME('MeLancerMoiMemeRecursivementSurUnFils')
+function PeutTrouverUneThreadEsclave(var node : NoeudDeParallelisme; action : SInt32; var nroThreadFilsAuChomage : SInt32) : boolean;
+procedure PreparerUnTravailPourLaThreadAuChomage(var node: NoeudDeParallelisme; nroThreadFilsAuChomage : SInt32);
+procedure LancerUnFils(var node : NoeudDeParallelisme; indexDuFils : SInt32; fonctionAppelante : String255);
+procedure AnnulerUnFilsEnAttenteDeLancement(var node : NoeudDeParallelisme; indexDuFils : SInt32);
+procedure InterrompreUnFils(var node : NoeudDeParallelisme; indexDuFils : SInt32);
+function MeLancerMoiMemeRecursivementSurUnFils(var node : NoeudDeParallelisme; var coupDuFils : SInt32) : SInt32;
 
 
 // Gestion de l'interruption d'un noeud de parallelisme
 
-function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) : boolean;                                                                                           ATTRIBUTE_NAME('InterruptionDansCeNoeudDeParallelisme')
-procedure InterrompreLesFilsEnActiviteDansCeNoeud(var node : NoeudDeParallelisme);                                                                                                  ATTRIBUTE_NAME('InterrompreLesFilsEnActiviteDansCeNoeud')
+function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) : boolean;
+procedure InterrompreLesFilsEnActiviteDansCeNoeud(var node : NoeudDeParallelisme);
 
 
 // Attente active des resultats des autres fils dans un noeud de parallelisme
 
-procedure AttendreDesResultatsEnProposantSesServices(var node : NoeudDeParallelisme);                                                                                               ATTRIBUTE_NAME('AttendreDesResultatsEnProposantSesServices')
-procedure TrouverQuatreHashStampDeFilsEnActivite(var node : NoeudDeParallelisme; var hashStampsFils : TableauDeQuatreHashStamps);                                                   ATTRIBUTE_NAME('TrouverQuatreHashStampDeFilsEnActivite')
+procedure AttendreDesResultatsEnProposantSesServices(var node : NoeudDeParallelisme);
+procedure TrouverQuatreHashStampDeFilsEnActivite(var node : NoeudDeParallelisme; var hashStampsFils : TableauDeQuatreHashStamps);
 
 
 // Calcul d'un sous-arbre par une thread
 
-function MySubTreeValue(plat : bitboard; whichHashStamp, nbreVides, alpha, beta, diffPions, vecteurParite, nroThread, nroThreadPere : SInt32; listeBitboard : UInt32) : SInt32;     ATTRIBUTE_NAME('MySubTreeValue')
+function MySubTreeValue(plat : bitboard; whichHashStamp, nbreVides, alpha, beta, diffPions, vecteurParite, nroThread, nroThreadPere : SInt32; listeBitboard : UInt32) : SInt32;
 
 
 
 // Transmission des resultats entre les threads
 
-function GetAnyResultForThisThread(nroThread : SInt32; var whichResult : ResultParallelismeRec) : boolean;                                                                          ATTRIBUTE_NAME('GetAnyResultForThisThread')
-function GetAResultAtThisSpecificDepth(nroThread, profondeurSouhaitee : SInt32; var whichResult : ResultParallelismeRec) : boolean;                                                 ATTRIBUTE_NAME('GetAResultAtThisSpecificDepth')
-procedure PosterUnResultatAUneThread(nroThreadDuPere, nroThreadDuFils, note, whichMove, hashStampDuPere, numeroPosDuPere, nbCasesVidesDuPere : SInt32);                             ATTRIBUTE_NAME('PosterUnResultatAUneThread')
-procedure EcouterLesResultatsDansCetteThread(nroThread : SInt32);                                                                                                                   ATTRIBUTE_NAME('EcouterLesResultatsDansCetteThread')
+function GetAnyResultForThisThread(nroThread : SInt32; var whichResult : ResultParallelismeRec) : boolean;
+function GetAResultAtThisSpecificDepth(nroThread, profondeurSouhaitee : SInt32; var whichResult : ResultParallelismeRec) : boolean;
+procedure PosterUnResultatAUneThread(nroThreadDuPere, nroThreadDuFils, note, whichMove, hashStampDuPere, numeroPosDuPere, nbCasesVidesDuPere : SInt32);
+procedure EcouterLesResultatsDansCetteThread(nroThread : SInt32);
 
 
 
 // Gestion des semaphores pour les jobs prets
 
-function GetSemaphoreDeJobAndLock(nroThread : SInt32) : boolean;                                                                                                                    ATTRIBUTE_NAME('GetSemaphoreDeJobAndLock')
-procedure UnlockSemaphoreDeJob(nroThread : SInt32);                                                                                                                                 ATTRIBUTE_NAME('UnlockSemaphoreDeJob')
-procedure RelockSemaphoreDeJob(nroThread : SInt32);                                                                                                                                 ATTRIBUTE_NAME('RelockSemaphoreDeJob')
-function JAiTraiteUnJobEnAttente(nroThread : SInt32; profondeurPropositionDeTravail : SInt32; const hashStamps : TableauDeQuatreHashStamps) : boolean;                              ATTRIBUTE_NAME('JAiTraiteUnJobEnAttente')
+function GetSemaphoreDeJobAndLock(nroThread : SInt32) : boolean;
+procedure UnlockSemaphoreDeJob(nroThread : SInt32);
+procedure RelockSemaphoreDeJob(nroThread : SInt32);
+function JAiTraiteUnJobEnAttente(nroThread : SInt32; profondeurPropositionDeTravail : SInt32; const hashStamps : TableauDeQuatreHashStamps) : boolean;
 
 
 // Les threads elles-meme
 
-function CreateAlphaBetaTasks : OSStatus;                                                                                                                                           ATTRIBUTE_NAME('CreateAlphaBetaTasks')
-function StopAlphaBetaTasks : OSStatus;                                                                                                                                             ATTRIBUTE_NAME('StopAlphaBetaTasks')
-function MyAlphaBetaTask( parameter : UnivPtr) : OSStatus;                                                                                                                          ATTRIBUTE_NAME('MyAlphaBetaTask')
-function CetteThreadEstTuee(nroThread : SInt32) : boolean;                                                                                                                          ATTRIBUTE_NAME('CetteThreadEstTuee')
+function CreateAlphaBetaTasks : OSStatus;
+function StopAlphaBetaTasks : OSStatus;
+function MyAlphaBetaTask( parameter : UnivPtr) : OSStatus;
+function CetteThreadEstTuee(nroThread : SInt32) : boolean;
 
 
 //  Mesure de parallelisme, par exemple à quatre cases vides
 
-procedure PointDeMesureDeParallelisme;                                                                                                                                              ATTRIBUTE_NAME('PointDeMesureDeParallelisme')
-function TauxDeParallelisme : double_t;                                                                                                                                             ATTRIBUTE_NAME('TauxDeParallelisme')
-function FraisDeSynchro : double_t;                                                                                                                                                 ATTRIBUTE_NAME('FraisDeSynchro')
-function ParallelismeUtile : double_t;                                                                                                                                              ATTRIBUTE_NAME('ParallelismeUtile')
-procedure EcrireMesureDeParallelismeDansRapport;                                                                                                                                    ATTRIBUTE_NAME('EcrireMesureDeParallelismeDansRapport')
-procedure EcrireFraisDeSynchronisationDansRapport;                                                                                                                                  ATTRIBUTE_NAME('EcrireFraisDeSynchronisationDansRapport')
-procedure EcrireParallelismeUtileDansRapport;                                                                                                                                       ATTRIBUTE_NAME('EcrireParallelismeUtileDansRapport')
-procedure AfficherLesSpinlocksDuParallelisme;                                                                                                                                       ATTRIBUTE_NAME('AfficherLesSpinlocksDuParallelisme')
+procedure PointDeMesureDeParallelisme;
+function TauxDeParallelisme : double_t;
+function FraisDeSynchro : double_t;
+function ParallelismeUtile : double_t;
+procedure EcrireMesureDeParallelismeDansRapport;
+procedure EcrireFraisDeSynchronisationDansRapport;
+procedure EcrireParallelismeUtileDansRapport;
+procedure AfficherLesSpinlocksDuParallelisme;
 
 
 // Des utilitaires de debugage
 
 {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
-function BoucleInfinie(s : String255; tickDepart : SInt32) : boolean;                                                                                                               ATTRIBUTE_NAME('BoucleInfinie')
+function BoucleInfinie(s : String255; tickDepart : SInt32) : boolean;
 {$ENDC}
 
-procedure AttendreFrappeClavierParallelisme(attenteTouche : boolean);                                                                                                               ATTRIBUTE_NAME('AttendreFrappeClavierParallelisme')
-function DoitDebugguerParallelismeDansRapport : boolean;                                                                                                                            ATTRIBUTE_NAME('DoitDebugguerParallelismeDansRapport')
-procedure TesterLaFileDesResultatsDuParallelisme;                                                                                                                                   ATTRIBUTE_NAME('TesterLaFileDesResultatsDuParallelisme')
+procedure AttendreFrappeClavierParallelisme(attenteTouche : boolean);
+function DoitDebugguerParallelismeDansRapport : boolean;
+procedure TesterLaFileDesResultatsDuParallelisme;
 
 
 
@@ -165,7 +165,7 @@ IMPLEMENTATION
 
 USES
     CodeFragments, OSAtomic_glue, Sound, OSUtils, MacErrors, MacMemory, MacWindows, Timer
-    
+
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitServicesMemoire, UnitRapport, UnitMiniProfiler, MyStrings, UnitScannerUtils, MyMathUtils, UnitBitboardAlphaBeta
     , UnitConstrListeBitboard, UnitBitboardMobilite, UnitBitboardModifPlat, UnitBitboardHash, UnitCarbonisation, SNEvents, UnitBitboardUtils ;
@@ -962,7 +962,7 @@ begin
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                       WritelnDansRapport('');
-                      WritelnDansRapport(' La thread '+NumEnString(node.nroThreadDuPere)+' dit : en fait, je n''ai pas interrompu, dans InterrompreUnFils, la thread '+NumEnString(nroThreadAInterrompre)+' à la profondeur '+NumEnString(node.nbreVides - 1)+' parce qu''elle avait emis une proposition de travail'); 
+                      WritelnDansRapport(' La thread '+NumEnString(node.nroThreadDuPere)+' dit : en fait, je n''ai pas interrompu, dans InterrompreUnFils, la thread '+NumEnString(nroThreadAInterrompre)+' à la profondeur '+NumEnString(node.nbreVides - 1)+' parce qu''elle avait emis une proposition de travail');
                       WritelnDansRapport('');
                       AttendreFrappeClavierParallelisme(true);
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1511,7 +1511,7 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport('/////////////////////////////////////////////////////////////////////////////////');
           WritelnDansRapport('');
-          EcritBitboardState('Entree dans CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = (thread '+NumEnString(nroThreadDuPere)+',thread '+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);         
+          EcritBitboardState('Entree dans CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = (thread '+NumEnString(nroThreadDuPere)+',thread '+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
           WritelnNumDansRapport('vecteurParite = ',vecteurParite);
           WriteDansRapport('Liste des fils à étudier : ');
           for i := filsDebut to filsFin do
@@ -1619,7 +1619,7 @@ begin
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
           WritelnDansRapport('');
-          EcritBitboardState('Sortie de CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = ('+NumEnString(nroThreadDuPere)+','+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);         
+          EcritBitboardState('Sortie de CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = ('+NumEnString(nroThreadDuPere)+','+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
           WritelnDansRapport('  -> resultat à la prof '+NumEnString(inNbreVides)+' : (bestDef,dernierFilsEvalue,max) = ('+CoupEnString(bestDef,true)+','+NumEnString(nroDuDernierFilsEvalue)+','+NumEnString(maximum)+')');
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           WritelnDansRapport('Etat des interruptions : ');
@@ -1757,7 +1757,7 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
             if DoitDebugguerParallelismeDansRapport then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' est interrompue et sort de InterruptionDansCeNoeudDeParallelisme en renvoyant kValeurSpecialeInterruptionCalculParallele : ',kValeurSpecialeInterruptionCalculParallele);         
+                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' est interrompue et sort de InterruptionDansCeNoeudDeParallelisme en renvoyant kValeurSpecialeInterruptionCalculParallele : ',kValeurSpecialeInterruptionCalculParallele);
                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                 WritelnDansRapport('');
                 AttendreFrappeClavierParallelisme(true);
@@ -2472,7 +2472,7 @@ begin
       if ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible); 
+          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2528,7 +2528,7 @@ begin
             if ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]); 
+                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
                 Sysbeep(0);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
@@ -2853,7 +2853,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' vient de recevoir un résultat : (prof, coupDuFils, result, stamp) = ('+NumEnString(nbreVides)+','+CoupEnStringEnMajuscules(coupDuFils)+','+NumEnString(-resultatDuFils)+','+NumEnString(resultStamp)+')'); 
+          WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' vient de recevoir un résultat : (prof, coupDuFils, result, stamp) = ('+NumEnString(nbreVides)+','+CoupEnStringEnMajuscules(coupDuFils)+','+NumEnString(-resultatDuFils)+','+NumEnString(resultStamp)+')');
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
@@ -3024,7 +3024,7 @@ begin
                       if DoitDebugguerParallelismeDansRapport then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WritelnDansRapport('Sortie par beta-coupure de la thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')'); 
+                          WritelnDansRapport('Sortie par beta-coupure de la thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
                           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                           AttendreFrappeClavierParallelisme(true);
                           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3175,7 +3175,7 @@ SORTIE :
     if DoitDebugguerParallelismeDansRapport then
       begin
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' sort normalement à la profondeur '+NumEnString(nbreVides)+' de GererNoeudDeParallelisme : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')'); 
+        WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' sort normalement à la profondeur '+NumEnString(nbreVides)+' de GererNoeudDeParallelisme : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
         WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
         WritelnDansRapport('');
         AttendreFrappeClavierParallelisme(true);
@@ -3241,7 +3241,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
      (* if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT : Bizarre ! La thread '+NumEnString(nroThread)+' est interrompue à profondeur '+NumEnString(nbreVides)+' dans MySubTreeValue avant meme d''avoir commencé son calcul...  gAlphaBetaInterrompu[nroThread].prof = ',gAlphaBetaInterrompu[nroThread].profInterruption); 
+          WritelnNumDansRapport('ASSERT : Bizarre ! La thread '+NumEnString(nroThread)+' est interrompue à profondeur '+NumEnString(nbreVides)+' dans MySubTreeValue avant meme d''avoir commencé son calcul...  gAlphaBetaInterrompu[nroThread].prof = ',gAlphaBetaInterrompu[nroThread].profInterruption);
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           WritelnDansRapport('');
           AttendreFrappeClavierParallelisme(true);

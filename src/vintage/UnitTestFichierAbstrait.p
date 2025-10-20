@@ -11,10 +11,10 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure WritelnFichierAbstraitDansRapport(theFile : FichierAbstrait);                                                                                                                     ATTRIBUTE_NAME('WritelnFichierAbstraitDansRapport')
-procedure WritelnStringAndFichierAbstraitDansRapport(s : String255; theFile : FichierAbstrait);                                                                                             ATTRIBUTE_NAME('WritelnStringAndFichierAbstraitDansRapport')
+procedure WritelnFichierAbstraitDansRapport(theFile : FichierAbstrait);
+procedure WritelnStringAndFichierAbstraitDansRapport(s : String255; theFile : FichierAbstrait);
 
-procedure TesteFichierAbstrait;                                                                                                                                                         ATTRIBUTE_NAME('TesteFichierAbstrait')
+procedure TesteFichierAbstrait;
 
 
 

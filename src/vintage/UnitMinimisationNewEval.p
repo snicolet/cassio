@@ -12,8 +12,8 @@ INTERFACE
 
 
 
-procedure LineMinimisationChi2(var p,xi : VectNewEval; valeurChi2PourP : TypeReel; var fret : TypeReel);                                                                            ATTRIBUTE_NAME('LineMinimisationChi2')
-procedure ConjugateGradientChi2(var whichEval : VectNewEval; ftol : TypeReel; var iter : SInt32; var fret : TypeReel; avecRabotagePatternsRares : boolean);                         ATTRIBUTE_NAME('ConjugateGradientChi2')
+procedure LineMinimisationChi2(var p,xi : VectNewEval; valeurChi2PourP : TypeReel; var fret : TypeReel);
+procedure ConjugateGradientChi2(var whichEval : VectNewEval; ftol : TypeReel; var iter : SInt32; var fret : TypeReel; avecRabotagePatternsRares : boolean);
 
 
 

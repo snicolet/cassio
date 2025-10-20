@@ -18,83 +18,83 @@ INTERFACE
 
 
 
-function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;                                                                                     ATTRIBUTE_NAME('FichierTexteExiste')
-function FichierTexteExisteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;                                                                                                     ATTRIBUTE_NAME('FichierTexteExisteFSp')
-function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;                                                                                       ATTRIBUTE_NAME('CreeFichierTexte')
-function CreeFichierTexteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;                                                                                                       ATTRIBUTE_NAME('CreeFichierTexteFSp')
+function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;
+function FichierTexteExisteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
+function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;
+function CreeFichierTexteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
 
 
 
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;                                                                                                ATTRIBUTE_NAME('FichierTexteDeCassioExiste')
-function CreeFichierTexteDeCassio(nom : String255; var fic : FichierTEXT) : OSErr;                                                                                                  ATTRIBUTE_NAME('CreeFichierTexteDeCassio')
+function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;
+function CreeFichierTexteDeCassio(nom : String255; var fic : FichierTEXT) : OSErr;
 
 
-function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                                          ATTRIBUTE_NAME('OuvreFichierTexte')
-function FermeFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                                          ATTRIBUTE_NAME('FermeFichierTexte')
-function DetruitFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                                        ATTRIBUTE_NAME('DetruitFichierTexte')
-function FichierTexteEstOuvert(var fic : FichierTEXT) : boolean;                                                                                                                    ATTRIBUTE_NAME('FichierTexteEstOuvert')
-function GetUniqueIDFichierTexte(var fic : FichierTEXT) : SInt32;                                                                                                                   ATTRIBUTE_NAME('GetUniqueIDFichierTexte')
-function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;                                                                                                 ATTRIBUTE_NAME('GetTailleFichierTexte')
-function SetPositionTeteLectureFichierTexte(var fic : FichierTEXT; position : SInt32) : OSErr;                                                                                      ATTRIBUTE_NAME('SetPositionTeteLectureFichierTexte')
-function SetPositionTeteLectureFinFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                      ATTRIBUTE_NAME('SetPositionTeteLectureFinFichierTexte')
-function GetPositionTeteLectureFichierTexte(var fic : FichierTEXT; var position : SInt32) : OSErr;                                                                                  ATTRIBUTE_NAME('GetPositionTeteLectureFichierTexte')
-function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;                                                                                                    ATTRIBUTE_NAME('EOFFichierTexte')
-function SetEOFFichierTexte(var fic : FichierTEXT; posEOF : SInt32) : OSErr;                                                                                                        ATTRIBUTE_NAME('SetEOFFichierTexte')
-function VideFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                                           ATTRIBUTE_NAME('VideFichierTexte')
+function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;
+function FermeFichierTexte(var fic : FichierTEXT) : OSErr;
+function DetruitFichierTexte(var fic : FichierTEXT) : OSErr;
+function FichierTexteEstOuvert(var fic : FichierTEXT) : boolean;
+function GetUniqueIDFichierTexte(var fic : FichierTEXT) : SInt32;
+function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;
+function SetPositionTeteLectureFichierTexte(var fic : FichierTEXT; position : SInt32) : OSErr;
+function SetPositionTeteLectureFinFichierTexte(var fic : FichierTEXT) : OSErr;
+function GetPositionTeteLectureFichierTexte(var fic : FichierTEXT; var position : SInt32) : OSErr;
+function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;
+function SetEOFFichierTexte(var fic : FichierTEXT; posEOF : SInt32) : OSErr;
+function VideFichierTexte(var fic : FichierTEXT) : OSErr;
 
 
-function WriteDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;                                                                                                       ATTRIBUTE_NAME('WriteDansFichierTexte')
-function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;                                                                                                     ATTRIBUTE_NAME('WritelnDansFichierTexte')
-function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;                                                                             ATTRIBUTE_NAME('WriteBufferDansFichierTexte')
-function WriteFichierAbstraitDansFichierTexte(var fic : FichierTEXT; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;                                  ATTRIBUTE_NAME('WriteFichierAbstraitDansFichierTexte')
-function WriteLongintDansFichierTexte(var fic : FichierTEXT; value : SInt32) : OSErr;                                                                                               ATTRIBUTE_NAME('WriteLongintDansFichierTexte')
-function WriteHugeStringDansFichierTexte(var fic : FichierTEXT; const s : HugeString) : OSErr;                                                                                      ATTRIBUTE_NAME('WriteHugeStringDansFichierTexte')
-function WritelnHugeStringDansFichierTexte(var fic : FichierTEXT; const s : HugeString) : OSErr;                                                                                    ATTRIBUTE_NAME('WritelnHugeStringDansFichierTexte')
+function WriteDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;
+function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;
+function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;
+function WriteFichierAbstraitDansFichierTexte(var fic : FichierTEXT; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;
+function WriteLongintDansFichierTexte(var fic : FichierTEXT; value : SInt32) : OSErr;
+function WriteHugeStringDansFichierTexte(var fic : FichierTEXT; const s : HugeString) : OSErr;
+function WritelnHugeStringDansFichierTexte(var fic : FichierTEXT; const s : HugeString) : OSErr;
 
 
 
-function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;                                                                              ATTRIBUTE_NAME('ReadBufferDansFichierTexte')
-function ReadDansFichierTexte(var fic : FichierTEXT; nbOctets : SInt16; var s : String255) : OSErr;                                                                                 ATTRIBUTE_NAME('ReadDansFichierTexte')
-function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;                                                                                                  ATTRIBUTE_NAME('ReadlnDansFichierTexte')
-function ReadlnLongStringDansFichierTexte(var fic : FichierTEXT; var s : LongString) : OSErr;                                                                                       ATTRIBUTE_NAME('ReadlnLongStringDansFichierTexte')
-function ReadlnHugeStringDansFichierTexte(var fic : FichierTEXT; var s : HugeString) : OSErr;                                                                                       ATTRIBUTE_NAME('ReadlnHugeStringDansFichierTexte')
-function ReadlnBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;                                                                            ATTRIBUTE_NAME('ReadlnBufferDansFichierTexte')
-function ReadLongintDansFichierTexte(var fic : FichierTEXT; var value : SInt32) : OSErr;                                                                                            ATTRIBUTE_NAME('ReadLongintDansFichierTexte')
+function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;
+function ReadDansFichierTexte(var fic : FichierTEXT; nbOctets : SInt16; var s : String255) : OSErr;
+function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;
+function ReadlnLongStringDansFichierTexte(var fic : FichierTEXT; var s : LongString) : OSErr;
+function ReadlnHugeStringDansFichierTexte(var fic : FichierTEXT; var s : HugeString) : OSErr;
+function ReadlnBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;
+function ReadLongintDansFichierTexte(var fic : FichierTEXT; var value : SInt32) : OSErr;
 
 
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);                                                                                   ATTRIBUTE_NAME('ForEachLineInFileDo')
-function InsererFichierDansFichierTexte(var fic : FichierTEXT; pathFichierAInserer : String255) : OSErr;                                                                            ATTRIBUTE_NAME('InsererFichierDansFichierTexte')
-function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT) : OSErr;                                                                                          ATTRIBUTE_NAME('InsererFichierTexteDansFichierTexte')
+procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);
+function InsererFichierDansFichierTexte(var fic : FichierTEXT; pathFichierAInserer : String255) : OSErr;
+function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT) : OSErr;
 
 
-procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);                                                                                                     ATTRIBUTE_NAME('SetFileCreatorFichierTexte')
-procedure SetFileTypeFichierTexte(var fic : FichierTEXT; quelType : OSType);                                                                                                        ATTRIBUTE_NAME('SetFileTypeFichierTexte')
-function GetFileCreatorFichierTexte(var fic : FichierTEXT) : OSType;                                                                                                                ATTRIBUTE_NAME('GetFileCreatorFichierTexte')
-function GetFileTypeFichierTexte(var fic : FichierTEXT) : OSType;                                                                                                                   ATTRIBUTE_NAME('GetFileTypeFichierTexte')
+procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);
+procedure SetFileTypeFichierTexte(var fic : FichierTEXT; quelType : OSType);
+function GetFileCreatorFichierTexte(var fic : FichierTEXT) : OSType;
+function GetFileTypeFichierTexte(var fic : FichierTEXT) : OSType;
 
 
-function GetCreationDateFichierTexte(var fic : FichierTEXT; var theDate : DateTimeRec) : OSErr;                                                                                     ATTRIBUTE_NAME('GetCreationDateFichierTexte')
-function SetCreationDateFichierTexte(var fic : FichierTEXT; const theDate : DateTimeRec) : OSErr;                                                                                   ATTRIBUTE_NAME('SetCreationDateFichierTexte')
-function GetModificationDateFichierTexte(var fic : FichierTEXT; var theDate : DateTimeRec) : OSErr;                                                                                 ATTRIBUTE_NAME('GetModificationDateFichierTexte')
-function SetModificationDateFichierTexte(var fic : FichierTEXT; const theDate : DateTimeRec) : OSErr;                                                                               ATTRIBUTE_NAME('SetModificationDateFichierTexte')
+function GetCreationDateFichierTexte(var fic : FichierTEXT; var theDate : DateTimeRec) : OSErr;
+function SetCreationDateFichierTexte(var fic : FichierTEXT; const theDate : DateTimeRec) : OSErr;
+function GetModificationDateFichierTexte(var fic : FichierTEXT; var theDate : DateTimeRec) : OSErr;
+function SetModificationDateFichierTexte(var fic : FichierTEXT; const theDate : DateTimeRec) : OSErr;
 
 
-function CreerRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;                                                                                                              ATTRIBUTE_NAME('CreerRessourceForkFichierTEXT')
-function OuvreRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;                                                                                                              ATTRIBUTE_NAME('OuvreRessourceForkFichierTEXT')
-function FermeRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;                                                                                                              ATTRIBUTE_NAME('FermeRessourceForkFichierTEXT')
-function UseRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;                                                                                                                ATTRIBUTE_NAME('UseRessourceForkFichierTEXT')
+function CreerRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;
+function OuvreRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;
+function FermeRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;
+function UseRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;
 
 
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);                                                                                                                            ATTRIBUTE_NAME('SetDebuggageUnitFichiersTexte')
-function  GetDebuggageUnitFichiersTexte : boolean;                                                                                                                                  ATTRIBUTE_NAME('GetDebuggageUnitFichiersTexte')
+procedure SetDebuggageUnitFichiersTexte(flag : boolean);
+function  GetDebuggageUnitFichiersTexte : boolean;
 
 
-function CreeSortieStandardEnFichierTexte(var fic : FichierTEXT) : OSErr;                                                                                                           ATTRIBUTE_NAME('CreeSortieStandardEnFichierTexte')
-function FSSpecToLongName(whichFile : FSSpec; var theLongName : String255) : OSErr;                                                                                                 ATTRIBUTE_NAME('FSSpecToLongName')
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;                                                                                              ATTRIBUTE_NAME('PathCompletToLongName')
+function CreeSortieStandardEnFichierTexte(var fic : FichierTEXT) : OSErr;
+function FSSpecToLongName(whichFile : FSSpec; var theLongName : String255) : OSErr;
+function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 
 
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);                                                                                                      ATTRIBUTE_NAME('AlerteSimpleFichierTexte')
+procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
 
 
 
@@ -104,14 +104,14 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);  
   (* juste apres l'appel a InitUnitFichierTexte                   *)
 
 
-procedure InitUnitFichierTexte;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitFichierTexte')
-procedure InstalleMessageDisplayerFichierTexte(theProc : MessageDisplayerProc);                                                                                                     ATTRIBUTE_NAME('InstalleMessageDisplayerFichierTexte')
-procedure InstalleMessageAndNumDisplayerFichierTexte(theProc : MessageAndNumDisplayerProc);                                                                                         ATTRIBUTE_NAME('InstalleMessageAndNumDisplayerFichierTexte')
-procedure InstalleAlerteFichierTexte(theProc : MessageAndNumDisplayerProc);                                                                                                         ATTRIBUTE_NAME('InstalleAlerteFichierTexte')
+procedure InitUnitFichierTexte;
+procedure InstalleMessageDisplayerFichierTexte(theProc : MessageDisplayerProc);
+procedure InstalleMessageAndNumDisplayerFichierTexte(theProc : MessageAndNumDisplayerProc);
+procedure InstalleAlerteFichierTexte(theProc : MessageAndNumDisplayerProc);
 
-procedure DisplayMessageInConsole(s : String255);                                                                                                                                   ATTRIBUTE_NAME('DisplayMessageInConsole')
-procedure DisplayMessageWithNumInConsole(s : String255; num : SInt32);                                                                                                              ATTRIBUTE_NAME('DisplayMessageWithNumInConsole')
-procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);                                                                                                               ATTRIBUTE_NAME('DisplayAlerteWithNumInConsole')
+procedure DisplayMessageInConsole(s : String255);
+procedure DisplayMessageWithNumInConsole(s : String255; num : SInt32);
+procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
 
 
 
@@ -877,7 +877,7 @@ begin
       exit(DetruitFichierTexte);
     end;
 
-  
+
   if avecDebuggageUnitFichiersTexte then
     begin
       DisplayMessageInConsole('');
@@ -887,7 +887,7 @@ begin
 
   if not(FichierTexteEstOuvert(fic)) then
     err := OuvreFichierTexte(fic);
-    
+
   err := FermeFichierTexte(fic);
 
   if avecDebuggageUnitFichiersTexte then
@@ -896,7 +896,7 @@ begin
       DisplayMessageInConsole(' apres OuvreFichierTexte/FermeFichierTexte dans DetruitFichierTexte :');
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
-  
+
 
   err := -1;
   (*
@@ -1179,24 +1179,24 @@ var err : OSErr;
     count : SInt32;
     buffer : CharArrayPtr;
 begin
-  
+
   if FichierTexteEstLeRapport(fic) then
     begin
       WriteHugeStringDansRapport(s);
       WriteHugeStringDansFichierTexte := NoErr;
       exit(WriteHugeStringDansFichierTexte);
     end;
-    
+
   err := -1;
-  
+
   if HugeStringIsUsable(s) then
     begin
       count   := LengthOfHugeString(s);
       buffer  := GetBufferOfHugeString(s);
-      
+
       err     := MyFSWrite(fic.refNum, count, @buffer^[1]);
     end;
-    
+
   WriteHugeStringDansFichierTexte := err;
 end;
 
@@ -1204,19 +1204,19 @@ end;
 function WritelnHugeStringDansFichierTexte(var fic : FichierTEXT; const s : HugeString) : OSErr;
 var err : OSErr;
 begin
-  
+
   if FichierTexteEstLeRapport(fic) then
     begin
       WritelnHugeStringDansRapport(s);
       WritelnHugeStringDansFichierTexte := NoErr;
       exit(WritelnHugeStringDansFichierTexte);
     end;
-    
+
   err := WriteHugeStringDansFichierTexte(fic, s);
-  
-  if (err = NoErr) then 
+
+  if (err = NoErr) then
     err := WritelnDansFichierTexte(fic, '');
-    
+
   WritelnHugeStringDansFichierTexte := err;
 end;
 
@@ -1277,10 +1277,10 @@ var err : OSErr;
     buffer : Ptr;
 begin
   err := -1;
-  
+
   if (count <= 0) then
     exit(WriteFichierAbstraitDansFichierTexte);
-  
+
   buffer := AllocateMemoryPtr(count + 100);
   if (buffer <> NIL) then
     begin
@@ -1616,7 +1616,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   ReadlnHugeStringDansFichierTexte()  : lit un fichier jusqu'au premier     *
- *   retour chariot et met le resultat dans une HugeString. Cette fonction     *       
+ *   retour chariot et met le resultat dans une HugeString. Cette fonction     *
  *   n'alloue pas la HugeString, elle doit avoir ete creee auparavant par un   *
  *   appel a NewHugeString() ou MakeHugeString().                              *
  *                                                                             *
@@ -1629,19 +1629,19 @@ var buffer : CharArrayPtr;
 begin
 
   err := -1;
-  
+
   if HugeStringIsUsable(s) then
     begin
       count  := GetMaximumCapacityOfHugeString;
       buffer := GetBufferOfHugeString(s);
-      
+
       err    := ReadlnBufferDansFichierTexte(fic, @buffer^[1], count);
-      
-      if (err = NoErr) 
+
+      if (err = NoErr)
         then SetLengthOfHugeString(s, count);
-      
+
     end;
-    
+
   ReadlnHugeStringDansFichierTexte := err;
 end;
 
@@ -1651,7 +1651,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   ReadlnBufferDansFichierTexte()  : lit un fichier jusqu'au premier retour  *
- *   chariot et met le resultat dans buffer. Cette fonction n'alloue pas le    *       
+ *   chariot et met le resultat dans buffer. Cette fonction n'alloue pas le    *
  *   buffer, il doit avoir ete cree a la bonne taille auparavant.              *
  *      -> En entree, count est la taille du buffer                            *
  *      -> En sortie, count contient le nombre de caracteres jusqu'au premier  *

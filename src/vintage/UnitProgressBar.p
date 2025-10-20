@@ -13,13 +13,13 @@ INTERFACE
 
 
 
-procedure InitUnitProgressBar;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitProgressBar')
-procedure InitProgressIndicator(whichWindow : WindowRef; r : rect; maximum : SInt32; PourKaleidoscope : boolean);                                                                   ATTRIBUTE_NAME('InitProgressIndicator')
-procedure SetProgress(absoluteAmount : SInt32);                                                                                                                                     ATTRIBUTE_NAME('SetProgress')
-procedure DrawProgressBar;                                                                                                                                                          ATTRIBUTE_NAME('DrawProgressBar')
-function SetProgressDelta(delta : SInt32) : boolean;                                                                                                                                ATTRIBUTE_NAME('SetProgressDelta')
-procedure UpdateProgressBar;                                                                                                                                                        ATTRIBUTE_NAME('UpdateProgressBar')
-procedure DrawEmptyProgressBar;                                                                                                                                                     ATTRIBUTE_NAME('DrawEmptyProgressBar')
+procedure InitUnitProgressBar;
+procedure InitProgressIndicator(whichWindow : WindowRef; r : rect; maximum : SInt32; PourKaleidoscope : boolean);
+procedure SetProgress(absoluteAmount : SInt32);
+procedure DrawProgressBar;
+function SetProgressDelta(delta : SInt32) : boolean;
+procedure UpdateProgressBar;
+procedure DrawEmptyProgressBar;
 
 
 

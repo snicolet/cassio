@@ -14,45 +14,45 @@ INTERFACE
 
 
 {Initialisation de l'unite}
-function AlloueMemoireImpression : OSErr;                                                                                                                                           ATTRIBUTE_NAME('AlloueMemoireImpression')
-function ImpressionEstPossible : boolean;                                                                                                                                           ATTRIBUTE_NAME('ImpressionEstPossible')
-procedure LibereMemoireUnitPrint;                                                                                                                                                   ATTRIBUTE_NAME('LibereMemoireUnitPrint')
+function AlloueMemoireImpression : OSErr;
+function ImpressionEstPossible : boolean;
+procedure LibereMemoireUnitPrint;
 
 {session}
-function OuvreSessionImpression : boolean;                                                                                                                                          ATTRIBUTE_NAME('OuvreSessionImpression')
-procedure FermeSessionImpression;                                                                                                                                                   ATTRIBUTE_NAME('FermeSessionImpression')
-procedure ValiderEnregistrementImpression;                                                                                                                                          ATTRIBUTE_NAME('ValiderEnregistrementImpression')
-function UtilisateurAccepteDialogueImpression(jobTitle: String255) : boolean;                                                                                                       ATTRIBUTE_NAME('UtilisateurAccepteDialogueImpression')
+function OuvreSessionImpression : boolean;
+procedure FermeSessionImpression;
+procedure ValiderEnregistrementImpression;
+function UtilisateurAccepteDialogueImpression(jobTitle: String255) : boolean;
 
 {document}
-procedure OuvrirDocumentDansSessionImpression;                                                                                                                                      ATTRIBUTE_NAME('OuvrirDocumentDansSessionImpression')
-procedure FermerDocumentDansSessionImpression;                                                                                                                                      ATTRIBUTE_NAME('FermerDocumentDansSessionImpression')
-procedure OuvrirPageDansSessionImpression;                                                                                                                                          ATTRIBUTE_NAME('OuvrirPageDansSessionImpression')
-procedure FermerPageDansSessionImpression;                                                                                                                                          ATTRIBUTE_NAME('FermerPageDansSessionImpression')
+procedure OuvrirDocumentDansSessionImpression;
+procedure FermerDocumentDansSessionImpression;
+procedure OuvrirPageDansSessionImpression;
+procedure FermerPageDansSessionImpression;
 
 {fonction d'acces}
-function GetPrintingPageRect : rect;                                                                                                                                                ATTRIBUTE_NAME('GetPrintingPageRect')
-function GetPrintingPaperRect : rect;                                                                                                                                               ATTRIBUTE_NAME('GetPrintingPaperRect')
-function GetPrintingFirstPage : SInt32;                                                                                                                                             ATTRIBUTE_NAME('GetPrintingFirstPage')
-function GetPrintingLastPage : SInt32;                                                                                                                                              ATTRIBUTE_NAME('GetPrintingLastPage')
-function GetPrintingCopyNumber : SInt32;                                                                                                                                            ATTRIBUTE_NAME('GetPrintingCopyNumber')
-function MethodeDImpressionEstDifferee : boolean;                                                                                                                                   ATTRIBUTE_NAME('MethodeDImpressionEstDifferee')
-function ErreurImpression : OSStatus;                                                                                                                                               ATTRIBUTE_NAME('ErreurImpression')
+function GetPrintingPageRect : rect;
+function GetPrintingPaperRect : rect;
+function GetPrintingFirstPage : SInt32;
+function GetPrintingLastPage : SInt32;
+function GetPrintingCopyNumber : SInt32;
+function MethodeDImpressionEstDifferee : boolean;
+function ErreurImpression : OSStatus;
 
 {fonctions externes}
-function DoDialogueImpression : boolean;                                                                                                                                            ATTRIBUTE_NAME('DoDialogueImpression')
-function FiltreApercuAvantImpression(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                         ATTRIBUTE_NAME('FiltreApercuAvantImpression')
-procedure DoDialogueFormatImpression;                                                                                                                                               ATTRIBUTE_NAME('DoDialogueFormatImpression')
-procedure DoDialogueApercuAvantImpression;                                                                                                                                          ATTRIBUTE_NAME('DoDialogueApercuAvantImpression')
-procedure DoProcessPrinting(usePrintDialog: boolean);                                                                                                                               ATTRIBUTE_NAME('DoProcessPrinting')
+function DoDialogueImpression : boolean;
+function FiltreApercuAvantImpression(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+procedure DoDialogueFormatImpression;
+procedure DoDialogueApercuAvantImpression;
+procedure DoProcessPrinting(usePrintDialog: boolean);
 
 
 {fonction de Cassio}
-procedure DrawTitre(pageNum : SInt32);                                                                                                                                              ATTRIBUTE_NAME('DrawTitre')
-procedure EffaceTitre(pageNum : SInt32);                                                                                                                                            ATTRIBUTE_NAME('EffaceTitre')
-procedure DrawPage(pageNum : SInt32; impressionEcran : boolean; pageEcranPtr : Ptr {RectPtr});                                                                                      ATTRIBUTE_NAME('DrawPage')
-function CountPages: SInt32;                                                                                                                                                        ATTRIBUTE_NAME('CountPages')
-function TitreDocImpression : String255;                                                                                                                                            ATTRIBUTE_NAME('TitreDocImpression')
+procedure DrawTitre(pageNum : SInt32);
+procedure EffaceTitre(pageNum : SInt32);
+procedure DrawPage(pageNum : SInt32; impressionEcran : boolean; pageEcranPtr : Ptr {RectPtr});
+function CountPages: SInt32;
+function TitreDocImpression : String255;
 
 
 IMPLEMENTATION
@@ -65,7 +65,7 @@ IMPLEMENTATION
 
 USES
     PMCore, Printing, MyCarbonPrinting, fp, MacWindows, MacMemory, QuickdrawText, Fonts
-    
+
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitBibl, UnitUtilitaires, UnitCurseur, UnitJaponais, UnitStatistiques, UnitMenus, UnitDialog
     , MyStrings, UnitRapport, UnitCouleur, UnitFenetres, MyMathUtils, UnitGeometrie, SNMenus, SNEvents

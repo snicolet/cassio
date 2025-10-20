@@ -19,213 +19,213 @@ INTERFACE
 
 
 {initialisation et destruction de l'unite}
-procedure InitUnitListe;                                                                                                                                                            ATTRIBUTE_NAME('InitUnitListe')
-procedure LibereMemoireUnitListe;                                                                                                                                                   ATTRIBUTE_NAME('LibereMemoireUnitListe')
-procedure ResetListeDeParties;                                                                                                                                                      ATTRIBUTE_NAME('ResetListeDeParties')
+procedure InitUnitListe;
+procedure LibereMemoireUnitListe;
+procedure ResetListeDeParties;
 
 
 {fonctions pour desactiver temporairement les calculs sur la liste de parties}
-procedure SetAutorisationCalculsLongsSurListe(flag : boolean);                                                                                                                      ATTRIBUTE_NAME('SetAutorisationCalculsLongsSurListe')
-function AutorisationCalculsLongsSurListe : boolean;                                                                                                                                ATTRIBUTE_NAME('AutorisationCalculsLongsSurListe')
+procedure SetAutorisationCalculsLongsSurListe(flag : boolean);
+function AutorisationCalculsLongsSurListe : boolean;
 
 
 {iterateurs sur les parties de la liste}
-procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);                                                                     ATTRIBUTE_NAME('ForEachPositionInGameDo')
-procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);                                          ATTRIBUTE_NAME('ForEachGameInListDo')
-procedure ForEachGameInSortedListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);                                    ATTRIBUTE_NAME('ForEachGameInSortedListDo')
-function NumberOfGamesWithThisReferenceFilter(FiltreNumRef : FiltreNumRefProc; var result : SInt32) : SInt32;                                                                       ATTRIBUTE_NAME('NumberOfGamesWithThisReferenceFilter')
+procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);
+procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);
+procedure ForEachGameInSortedListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);
+function NumberOfGamesWithThisReferenceFilter(FiltreNumRef : FiltreNumRefProc; var result : SInt32) : SInt32;
 
 
 {filtres a utiliser pour les iterateurs ci-dessus}
-function bidFiltreNumRefProc(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;                                                                            ATTRIBUTE_NAME('bidFiltreNumRefProc')
-function bidFiltreGameProc(var partie60 : PackedThorGame; numeroRefPartie : SInt32; var result : SInt32) : boolean;                                                                 ATTRIBUTE_NAME('bidFiltreGameProc')
+function bidFiltreNumRefProc(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;
+function bidFiltreGameProc(var partie60 : PackedThorGame; numeroRefPartie : SInt32; var result : SInt32) : boolean;
 
 
 {dessin de la liste}
-function  CalculeNbreLignesVisiblesFntreListe : SInt32;                                                                                                                             ATTRIBUTE_NAME('CalculeNbreLignesVisiblesFntreListe')
-function GetHauteurChaqueLigneDansListe : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetHauteurChaqueLigneDansListe')
-procedure EcritPartieDansFenetreListe(nroPartie : SInt32; autreCoupQuatreDansPartie : boolean; yposition : SInt32);                                                                 ATTRIBUTE_NAME('EcritPartieDansFenetreListe')
-procedure EcritListeParties(withCheckEvent : boolean; fonctionAppelante : String255);                                                                                               ATTRIBUTE_NAME('EcritListeParties')
-procedure EcritPourquoiPasDePartieDansListe;                                                                                                                                        ATTRIBUTE_NAME('EcritPourquoiPasDePartieDansListe')
-procedure EffacerRectanglePartieDansListe(whichRect : rect; nroRefPartie : SInt32);                                                                                                 ATTRIBUTE_NAME('EffacerRectanglePartieDansListe')
-function  RisqueDeScrollIncorrect(toutDescend : boolean) : boolean;                                                                                                                 ATTRIBUTE_NAME('RisqueDeScrollIncorrect')
-procedure ScrollEtEcritPartieVisibleListe(toutDescend,withCheckEvent : boolean);                                                                                                    ATTRIBUTE_NAME('ScrollEtEcritPartieVisibleListe')
-function LargeurNormaleFenetreListe(nbreDeColonnes : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('LargeurNormaleFenetreListe')
+function  CalculeNbreLignesVisiblesFntreListe : SInt32;
+function GetHauteurChaqueLigneDansListe : SInt32;
+procedure EcritPartieDansFenetreListe(nroPartie : SInt32; autreCoupQuatreDansPartie : boolean; yposition : SInt32);
+procedure EcritListeParties(withCheckEvent : boolean; fonctionAppelante : String255);
+procedure EcritPourquoiPasDePartieDansListe;
+procedure EffacerRectanglePartieDansListe(whichRect : rect; nroRefPartie : SInt32);
+function  RisqueDeScrollIncorrect(toutDescend : boolean) : boolean;
+procedure ScrollEtEcritPartieVisibleListe(toutDescend,withCheckEvent : boolean);
+function LargeurNormaleFenetreListe(nbreDeColonnes : SInt32) : SInt32;
 
 
 {ruban de la liste}
-procedure EcritRubanListe(avecDessinDesCriteres : boolean);                                                                                                                         ATTRIBUTE_NAME('EcritRubanListe')
-procedure DoChangeEcritTournoi(nouveauNombreDeColonnes : SInt16);                                                                                                                   ATTRIBUTE_NAME('DoChangeEcritTournoi')
-procedure SetValeursStandardRubanListe(nbColonnes : SInt16);                                                                                                                        ATTRIBUTE_NAME('SetValeursStandardRubanListe')
-procedure MetCriteresDansRuban;                                                                                                                                                     ATTRIBUTE_NAME('MetCriteresDansRuban')
-procedure CalculEmplacementCriteresListe;                                                                                                                                           ATTRIBUTE_NAME('CalculEmplacementCriteresListe')
+procedure EcritRubanListe(avecDessinDesCriteres : boolean);
+procedure DoChangeEcritTournoi(nouveauNombreDeColonnes : SInt16);
+procedure SetValeursStandardRubanListe(nbColonnes : SInt16);
+procedure MetCriteresDansRuban;
+procedure CalculEmplacementCriteresListe;
 
 
 {ouverture/fermeture des controles de la fenetre}
-procedure OuvreControlesListe;                                                                                                                                                      ATTRIBUTE_NAME('OuvreControlesListe')
-procedure CloseControlesListe;                                                                                                                                                      ATTRIBUTE_NAME('CloseControlesListe')
-procedure DoActivateFenetreListe(activation : boolean);                                                                                                                             ATTRIBUTE_NAME('DoActivateFenetreListe')
+procedure OuvreControlesListe;
+procedure CloseControlesListe;
+procedure DoActivateFenetreListe(activation : boolean);
 
 
 {gestion de l'ascenseur}
-procedure MontrerAscenseurListe;                                                                                                                                                    ATTRIBUTE_NAME('MontrerAscenseurListe')
-procedure CacherAscenseurListe;                                                                                                                                                     ATTRIBUTE_NAME('CacherAscenseurListe')
-procedure AjustePositionAscenseurListe;                                                                                                                                             ATTRIBUTE_NAME('AjustePositionAscenseurListe')
-procedure AjustePouceAscenseurListe(avecDessinDeLAscensseur : boolean);                                                                                                             ATTRIBUTE_NAME('AjustePouceAscenseurListe')
-procedure FiltreAscenseurListe(theControl : ControlHandle; partCode : SInt16);                                                                                                      ATTRIBUTE_NAME('FiltreAscenseurListe')
-function  MyTrackControlIndicatorPartListe(TheControl : ControlHandle) : SInt16;                                                                                                    ATTRIBUTE_NAME('MyTrackControlIndicatorPartListe')
-procedure DessineBoiteTailleEtAscenseurDroite(whichWindow : WindowPtr);                                                                                                             ATTRIBUTE_NAME('DessineBoiteTailleEtAscenseurDroite')
+procedure MontrerAscenseurListe;
+procedure CacherAscenseurListe;
+procedure AjustePositionAscenseurListe;
+procedure AjustePouceAscenseurListe(avecDessinDeLAscensseur : boolean);
+procedure FiltreAscenseurListe(theControl : ControlHandle; partCode : SInt16);
+function  MyTrackControlIndicatorPartListe(TheControl : ControlHandle) : SInt16;
+procedure DessineBoiteTailleEtAscenseurDroite(whichWindow : WindowPtr);
 
 
 {partie hilitee}
-procedure MontePartieHilitee(revenirAuDebut : boolean);                                                                                                                             ATTRIBUTE_NAME('MontePartieHilitee')
-procedure DescendPartieHilitee(allerALaFin : boolean);                                                                                                                              ATTRIBUTE_NAME('DescendPartieHilitee')
-function  CoupSuivantPartieSelectionnee(nroHilite : SInt32) : SInt16;                                                                                                               ATTRIBUTE_NAME('CoupSuivantPartieSelectionnee')
-procedure ChangePartieHilitee(nouvellePartieHilitee,anciennePartieHilitee : SInt32);                                                                                                ATTRIBUTE_NAME('ChangePartieHilitee')
-procedure SetPartieHilitee(numero : SInt32);                                                                                                                                        ATTRIBUTE_NAME('SetPartieHilitee')
-procedure SetPartieHiliteeEtAjusteAscenseurListe(numero : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetPartieHiliteeEtAjusteAscenseurListe')
-procedure NroHilite2NroReference(nroHilite : SInt32; var nroReference : SInt32);                                                                                                    ATTRIBUTE_NAME('NroHilite2NroReference')
-procedure NroReference2NroHilite(nroReference : SInt32; var nroHilite : SInt32);                                                                                                    ATTRIBUTE_NAME('NroReference2NroHilite')
-function NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre : SInt32;                                                                                                                    ATTRIBUTE_NAME('NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre')
+procedure MontePartieHilitee(revenirAuDebut : boolean);
+procedure DescendPartieHilitee(allerALaFin : boolean);
+function  CoupSuivantPartieSelectionnee(nroHilite : SInt32) : SInt16;
+procedure ChangePartieHilitee(nouvellePartieHilitee,anciennePartieHilitee : SInt32);
+procedure SetPartieHilitee(numero : SInt32);
+procedure SetPartieHiliteeEtAjusteAscenseurListe(numero : SInt32);
+procedure NroHilite2NroReference(nroHilite : SInt32; var nroReference : SInt32);
+procedure NroReference2NroHilite(nroReference : SInt32; var nroHilite : SInt32);
+function NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre : SInt32;
 
 
 {calcul des parties actives}
-function CassioEstEnTrainDeCalculerLaListe : boolean;                                                                                                                               ATTRIBUTE_NAME('CassioEstEnTrainDeCalculerLaListe')
-procedure CalculsEtAffichagePourBase(infosDejaCalculees : boolean; withCheckEvent : boolean);                                                                                       ATTRIBUTE_NAME('CalculsEtAffichagePourBase')
-procedure TraiteDemandeCalculsPourBase(fonctionAppelante : String255);                                                                                                              ATTRIBUTE_NAME('TraiteDemandeCalculsPourBase')
-procedure LanceNouvelleDemandeCalculsPourBase(infosDejaCalculees, withCheckEvent : boolean);                                                                                        ATTRIBUTE_NAME('LanceNouvelleDemandeCalculsPourBase')
-procedure LanceCalculsRapidesPourBaseOuNouvelleDemande(infosDejaCalculees,withCheckEvent : boolean);                                                                                ATTRIBUTE_NAME('LanceCalculsRapidesPourBaseOuNouvelleDemande')
-procedure ConstruitTablePartiesActivesSansInter(partie60 : PackedThorGame; withCheckEvent : boolean);                                                                               ATTRIBUTE_NAME('ConstruitTablePartiesActivesSansInter')
-procedure ConstruitTablePartiesActivesAvecInter(partie60 : PackedThorGame; withCheckEvent : boolean);                                                                               ATTRIBUTE_NAME('ConstruitTablePartiesActivesAvecInter')
-procedure ConstruitTablePartiesActivesAvecToutesInter(partie60 : PackedThorGame; withCheckEvent : boolean);                                                                         ATTRIBUTE_NAME('ConstruitTablePartiesActivesAvecToutesInter')
-procedure ConstruitTablePartiesActives(infosDejaCalculees : boolean; withCheckEvent : boolean);                                                                                     ATTRIBUTE_NAME('ConstruitTablePartiesActives')
-procedure RecopierPartiesCompatiblesCommePartiesActives;                                                                                                                            ATTRIBUTE_NAME('RecopierPartiesCompatiblesCommePartiesActives')
-procedure IncrementeMagicCookieDemandeCalculsBase;                                                                                                                                  ATTRIBUTE_NAME('IncrementeMagicCookieDemandeCalculsBase')
+function CassioEstEnTrainDeCalculerLaListe : boolean;
+procedure CalculsEtAffichagePourBase(infosDejaCalculees : boolean; withCheckEvent : boolean);
+procedure TraiteDemandeCalculsPourBase(fonctionAppelante : String255);
+procedure LanceNouvelleDemandeCalculsPourBase(infosDejaCalculees, withCheckEvent : boolean);
+procedure LanceCalculsRapidesPourBaseOuNouvelleDemande(infosDejaCalculees,withCheckEvent : boolean);
+procedure ConstruitTablePartiesActivesSansInter(partie60 : PackedThorGame; withCheckEvent : boolean);
+procedure ConstruitTablePartiesActivesAvecInter(partie60 : PackedThorGame; withCheckEvent : boolean);
+procedure ConstruitTablePartiesActivesAvecToutesInter(partie60 : PackedThorGame; withCheckEvent : boolean);
+procedure ConstruitTablePartiesActives(infosDejaCalculees : boolean; withCheckEvent : boolean);
+procedure RecopierPartiesCompatiblesCommePartiesActives;
+procedure IncrementeMagicCookieDemandeCalculsBase;
 
 
 {cache des parties actives}
-function GetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup : SInt32) : SInt32;                                                                                            ATTRIBUTE_NAME('GetNombreDePartiesActivesDansLeCachePourCeCoup')
-procedure SetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup, nbrePartiesActives : SInt32);                                                                                ATTRIBUTE_NAME('SetNombreDePartiesActivesDansLeCachePourCeCoup')
-procedure InvalidateNombrePartiesActivesDansLeCache(quelNroCoup : SInt16);                                                                                                          ATTRIBUTE_NAME('InvalidateNombrePartiesActivesDansLeCache')
-procedure InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;                                                                                                               ATTRIBUTE_NAME('InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie')
-function ListePartiesEstGardeeDansLeCache(quelCoup,nombrePartiesCompatibles : SInt32) : boolean;                                                                                    ATTRIBUTE_NAME('ListePartiesEstGardeeDansLeCache')
+function GetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup : SInt32) : SInt32;
+procedure SetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup, nbrePartiesActives : SInt32);
+procedure InvalidateNombrePartiesActivesDansLeCache(quelNroCoup : SInt16);
+procedure InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
+function ListePartiesEstGardeeDansLeCache(quelCoup,nombrePartiesCompatibles : SInt32) : boolean;
 
 
 {pied de page}
-procedure DessinePiedDePageFenetreListe;                                                                                                                                            ATTRIBUTE_NAME('DessinePiedDePageFenetreListe')
-procedure DessineCheckBoxInclurePartiesAvecOrdinateurs;                                                                                                                             ATTRIBUTE_NAME('DessineCheckBoxInclurePartiesAvecOrdinateurs')
-procedure SetInclurePartiesAvecOrdinateursDansListe(flag : boolean);                                                                                                                ATTRIBUTE_NAME('SetInclurePartiesAvecOrdinateursDansListe')
-function InclurePartiesAvecOrdinateursDansListe : boolean;                                                                                                                          ATTRIBUTE_NAME('InclurePartiesAvecOrdinateursDansListe')
+procedure DessinePiedDePageFenetreListe;
+procedure DessineCheckBoxInclurePartiesAvecOrdinateurs;
+procedure SetInclurePartiesAvecOrdinateursDansListe(flag : boolean);
+function InclurePartiesAvecOrdinateursDansListe : boolean;
 
 
 {haut de page : gestion des boites dans le ruban}
-function  FenetreListeEstEnModeEntree : boolean;                                                                                                                                    ATTRIBUTE_NAME('FenetreListeEstEnModeEntree')
-procedure PasseListeEnModeEntree(boxActivee : SInt16);                                                                                                                              ATTRIBUTE_NAME('PasseListeEnModeEntree')
+function  FenetreListeEstEnModeEntree : boolean;
+procedure PasseListeEnModeEntree(boxActivee : SInt16);
 
 
 {titre d'une partie, avec les joueurs, le tournoi, le numero du coup, etc. }
-procedure EssayerConstruireTitrePartie;                                                                                                                                             ATTRIBUTE_NAME('EssayerConstruireTitrePartie')
-procedure EssayerConstruireTitreDapresListe(nroPartie : SInt32);                                                                                                                    ATTRIBUTE_NAME('EssayerConstruireTitreDapresListe')
-function ConstruireTitreDapresListeParNroRefPartie(nroReference : SInt32) : String255;                                                                                              ATTRIBUTE_NAME('ConstruireTitreDapresListeParNroRefPartie')
-function ConstruireChaineReferencesPartie(nroNoir,nroBlanc,nroTournoi,annee,scoreNoir : SInt32; avecScores : boolean; numeroProchainCoup : SInt32) : String255;                     ATTRIBUTE_NAME('ConstruireChaineReferencesPartie')
-function ConstruireChaineReferencesPartieParNroRefPartie(nroReference : SInt32; avecScores : boolean; numeroProchainCoup : SInt32) : String255;                                     ATTRIBUTE_NAME('ConstruireChaineReferencesPartieParNroRefPartie')
-function ConstruireChaineReferencesPartieParNumeroReference(nroReference : SInt32; descriptionComplete : boolean) : String255;                                                      ATTRIBUTE_NAME('ConstruireChaineReferencesPartieParNumeroReference')
-function ConstruireChaineReferencesPartieDapresListe(nroPartie : SInt32; descriptionComplete : boolean) : String255;                                                                ATTRIBUTE_NAME('ConstruireChaineReferencesPartieDapresListe')
+procedure EssayerConstruireTitrePartie;
+procedure EssayerConstruireTitreDapresListe(nroPartie : SInt32);
+function ConstruireTitreDapresListeParNroRefPartie(nroReference : SInt32) : String255;
+function ConstruireChaineReferencesPartie(nroNoir,nroBlanc,nroTournoi,annee,scoreNoir : SInt32; avecScores : boolean; numeroProchainCoup : SInt32) : String255;
+function ConstruireChaineReferencesPartieParNroRefPartie(nroReference : SInt32; avecScores : boolean; numeroProchainCoup : SInt32) : String255;
+function ConstruireChaineReferencesPartieParNumeroReference(nroReference : SInt32; descriptionComplete : boolean) : String255;
+function ConstruireChaineReferencesPartieDapresListe(nroPartie : SInt32; descriptionComplete : boolean) : String255;
 
 
 {fonctions diverses}
-procedure TraiteSourisListe(evt : eventRecord);                                                                                                                                     ATTRIBUTE_NAME('TraiteSourisListe')
-procedure DoChangerOrdreListe;                                                                                                                                                      ATTRIBUTE_NAME('DoChangerOrdreListe')
-procedure ConstruitPositionEtCoupDapresListe(nroPartie : SInt32; var positionEtCoupStr : String255);                                                                                ATTRIBUTE_NAME('ConstruitPositionEtCoupDapresListe')
-function GetPartieEnAlphaDapresListe(nroReference,jusquaQuelCoup : SInt32) : String255;                                                                                             ATTRIBUTE_NAME('GetPartieEnAlphaDapresListe')
-function DernierePartieCompatibleEnMemoire(var numeroCoup,nroReference : SInt32) : String255;                                                                                       ATTRIBUTE_NAME('DernierePartieCompatibleEnMemoire')
-procedure InitInfosFermetureListePartie(var infos : InfosFermetureFenetreListeRec);                                                                                                 ATTRIBUTE_NAME('InitInfosFermetureListePartie')
-procedure SaveInfosFermetureListePartie(source : ListePartiesRec; var dest : InfosFermetureFenetreListeRec);                                                                        ATTRIBUTE_NAME('SaveInfosFermetureListePartie')
-procedure ConstruitTableNumeroReference(infosDejaCalculees,withCheckEvent : boolean);                                                                                               ATTRIBUTE_NAME('ConstruitTableNumeroReference')
-procedure EcritTableCompatible;                                                                                                                                                     ATTRIBUTE_NAME('EcritTableCompatible')
-procedure InvalidateJustificationPasDePartieDansListe;                                                                                                                              ATTRIBUTE_NAME('InvalidateJustificationPasDePartieDansListe')
-function GetAutorisationChargerLaBaseSansPasserParLeDialogue : boolean;                                                                                                             ATTRIBUTE_NAME('GetAutorisationChargerLaBaseSansPasserParLeDialogue')
-procedure SetAutorisationChargerLaBaseSansPasserParLeDialogue(flag : boolean);                                                                                                      ATTRIBUTE_NAME('SetAutorisationChargerLaBaseSansPasserParLeDialogue')
+procedure TraiteSourisListe(evt : eventRecord);
+procedure DoChangerOrdreListe;
+procedure ConstruitPositionEtCoupDapresListe(nroPartie : SInt32; var positionEtCoupStr : String255);
+function GetPartieEnAlphaDapresListe(nroReference,jusquaQuelCoup : SInt32) : String255;
+function DernierePartieCompatibleEnMemoire(var numeroCoup,nroReference : SInt32) : String255;
+procedure InitInfosFermetureListePartie(var infos : InfosFermetureFenetreListeRec);
+procedure SaveInfosFermetureListePartie(source : ListePartiesRec; var dest : InfosFermetureFenetreListeRec);
+procedure ConstruitTableNumeroReference(infosDejaCalculees,withCheckEvent : boolean);
+procedure EcritTableCompatible;
+procedure InvalidateJustificationPasDePartieDansListe;
+function GetAutorisationChargerLaBaseSansPasserParLeDialogue : boolean;
+procedure SetAutorisationChargerLaBaseSansPasserParLeDialogue(flag : boolean);
 
 
 {gestion des caracteristiques des parties de la liste}
 
 {partie hilitee}
-function GetNumeroReferencePartieHilitee : SInt32;                                                                                                                                  ATTRIBUTE_NAME('GetNumeroReferencePartieHilitee')
-function EstLaPartieHilitee(nroReferencePartie : SInt32) : boolean;                                                                                                                 ATTRIBUTE_NAME('EstLaPartieHilitee')
+function GetNumeroReferencePartieHilitee : SInt32;
+function EstLaPartieHilitee(nroReferencePartie : SInt32) : boolean;
 
 
 {parties actives}
-procedure SetPartieActive(nroReferencePartie : SInt32; flag : boolean);                                                                                                             ATTRIBUTE_NAME('SetPartieActive')
-function PartieEstActive(nroReferencePartie : SInt32) : boolean;                                                                                                                    ATTRIBUTE_NAME('PartieEstActive')
-procedure DesactiverToutesLesParties;                                                                                                                                               ATTRIBUTE_NAME('DesactiverToutesLesParties')
+procedure SetPartieActive(nroReferencePartie : SInt32; flag : boolean);
+function PartieEstActive(nroReferencePartie : SInt32) : boolean;
+procedure DesactiverToutesLesParties;
 
 
 {parties detruites}
-procedure DoSupprimerPartiesDansListe;                                                                                                                                              ATTRIBUTE_NAME('DoSupprimerPartiesDansListe')
-procedure SetPartieDetruite(nroReferencePartie : SInt32; flag : boolean);                                                                                                           ATTRIBUTE_NAME('SetPartieDetruite')
-procedure DetruirePartieDeLaListe(nroReferencePartie : SInt32);                                                                                                                     ATTRIBUTE_NAME('DetruirePartieDeLaListe')
-function PartieDeLaListeEstDetruite(nroReferencePartie : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('PartieDeLaListeEstDetruite')
-procedure SetAucunePartieDetruiteDansLaListe;                                                                                                                                       ATTRIBUTE_NAME('SetAucunePartieDetruiteDansLaListe')
-function NbrePartiesDetruitesDansLaListe : SInt32;                                                                                                                                  ATTRIBUTE_NAME('NbrePartiesDetruitesDansLaListe')
+procedure DoSupprimerPartiesDansListe;
+procedure SetPartieDetruite(nroReferencePartie : SInt32; flag : boolean);
+procedure DetruirePartieDeLaListe(nroReferencePartie : SInt32);
+function PartieDeLaListeEstDetruite(nroReferencePartie : SInt32) : boolean;
+procedure SetAucunePartieDetruiteDansLaListe;
+function NbrePartiesDetruitesDansLaListe : SInt32;
 
 
 {parties selectionnees}
-procedure SelectionnerPartieDeLaListe(nroReferencePartie : SInt32);                                                                                                                 ATTRIBUTE_NAME('SelectionnerPartieDeLaListe')
-procedure DeselectionnerPartieDeLaListe(nroReferencePartie : SInt32);                                                                                                               ATTRIBUTE_NAME('DeselectionnerPartieDeLaListe')
-function PartieEstDansLaSelection(nroReferencePartie : SInt32) : boolean;                                                                                                           ATTRIBUTE_NAME('PartieEstDansLaSelection')
-function PartieEstActiveEtSelectionnee(nroReferencePartie : SInt32) : boolean;                                                                                                      ATTRIBUTE_NAME('PartieEstActiveEtSelectionnee')
-procedure DeselectionnerToutesLesPartiesDansLaListe;                                                                                                                                ATTRIBUTE_NAME('DeselectionnerToutesLesPartiesDansLaListe')
-procedure SelectionnerToutesLesPartiesActivesDansLaListe;                                                                                                                           ATTRIBUTE_NAME('SelectionnerToutesLesPartiesActivesDansLaListe')
-procedure SelectionnerToutesLesPartiesDansLaListe;                                                                                                                                  ATTRIBUTE_NAME('SelectionnerToutesLesPartiesDansLaListe')
-procedure SelectionnerToutesLesPartiesVerifiantCePredicat(whichPredicate : FiltreNumRefProc);                                                                                       ATTRIBUTE_NAME('SelectionnerToutesLesPartiesVerifiantCePredicat')
-function NbPartiesDansLaSelectionDeLaListe : SInt32;                                                                                                                                ATTRIBUTE_NAME('NbPartiesDansLaSelectionDeLaListe')
-function NbPartiesActivesDansLaSelectionDeLaListe : SInt32;                                                                                                                         ATTRIBUTE_NAME('NbPartiesActivesDansLaSelectionDeLaListe')
-function PremierePartieDeLaSelection(var nroReference : SInt32) : SInt32;                                                                                                           ATTRIBUTE_NAME('PremierePartieDeLaSelection')
-procedure InitSelectionDeLaListe;                                                                                                                                                   ATTRIBUTE_NAME('InitSelectionDeLaListe')
+procedure SelectionnerPartieDeLaListe(nroReferencePartie : SInt32);
+procedure DeselectionnerPartieDeLaListe(nroReferencePartie : SInt32);
+function PartieEstDansLaSelection(nroReferencePartie : SInt32) : boolean;
+function PartieEstActiveEtSelectionnee(nroReferencePartie : SInt32) : boolean;
+procedure DeselectionnerToutesLesPartiesDansLaListe;
+procedure SelectionnerToutesLesPartiesActivesDansLaListe;
+procedure SelectionnerToutesLesPartiesDansLaListe;
+procedure SelectionnerToutesLesPartiesVerifiantCePredicat(whichPredicate : FiltreNumRefProc);
+function NbPartiesDansLaSelectionDeLaListe : SInt32;
+function NbPartiesActivesDansLaSelectionDeLaListe : SInt32;
+function PremierePartieDeLaSelection(var nroReference : SInt32) : SInt32;
+procedure InitSelectionDeLaListe;
 
 
 {parties compatibles selon les sous-criteres}
-procedure SetPartieCompatibleParCriteres(nroReferencePartie : SInt32; flag : boolean);                                                                                              ATTRIBUTE_NAME('SetPartieCompatibleParCriteres')
-function PartieEstCompatibleParCriteres(nroReferencePartie : SInt32) : boolean;                                                                                                     ATTRIBUTE_NAME('PartieEstCompatibleParCriteres')
-procedure LaveTableCriteres;                                                                                                                                                        ATTRIBUTE_NAME('LaveTableCriteres')
+procedure SetPartieCompatibleParCriteres(nroReferencePartie : SInt32; flag : boolean);
+function PartieEstCompatibleParCriteres(nroReferencePartie : SInt32) : boolean;
+procedure LaveTableCriteres;
 
 
 {parties dans lesquelles aucun des joueurs n'est un ordinateur}
-procedure SetPartieEstSansOrdinateur(nroReferencePartie : SInt32; flag : boolean);                                                                                                  ATTRIBUTE_NAME('SetPartieEstSansOrdinateur')
-function PartieEstSansOrdinateur(nroReferencePartie : SInt32) : boolean;                                                                                                            ATTRIBUTE_NAME('PartieEstSansOrdinateur')
+procedure SetPartieEstSansOrdinateur(nroReferencePartie : SInt32; flag : boolean);
+function PartieEstSansOrdinateur(nroReferencePartie : SInt32) : boolean;
 
 
 {parties utilisees pour le calcul du classement}
-procedure SetParticipationPartieAuClassement(nroReferencePartie : SInt32; flag : boolean);                                                                                          ATTRIBUTE_NAME('SetParticipationPartieAuClassement')
-function PartieParticipeAuClassement(nroReferencePartie : SInt32) : boolean;                                                                                                        ATTRIBUTE_NAME('PartieParticipeAuClassement')
-procedure SetAucunePartieDeLaListeNeParticipeAuClassement;                                                                                                                          ATTRIBUTE_NAME('SetAucunePartieDeLaListeNeParticipeAuClassement')
+procedure SetParticipationPartieAuClassement(nroReferencePartie : SInt32; flag : boolean);
+function PartieParticipeAuClassement(nroReferencePartie : SInt32) : boolean;
+procedure SetAucunePartieDeLaListeNeParticipeAuClassement;
 
 
 {parties de la liste non sauvegardees}
-procedure SetPartieDansListeDoitEtreSauvegardee(nroReferencePartie : SInt32; flag : boolean);                                                                                       ATTRIBUTE_NAME('SetPartieDansListeDoitEtreSauvegardee')
-function PartieDansListeDoitEtreSauvegardee(nroReferencePartie : SInt32) : boolean;                                                                                                 ATTRIBUTE_NAME('PartieDansListeDoitEtreSauvegardee')
-function NbPartiesDevantEtreSaugardeesDansLaListe : SInt32;                                                                                                                         ATTRIBUTE_NAME('NbPartiesDevantEtreSaugardeesDansLaListe')
-function NbPartiesActivesDevantEtreSauvegardeesDansLaListe : SInt32;                                                                                                                ATTRIBUTE_NAME('NbPartiesActivesDevantEtreSauvegardeesDansLaListe')
-procedure RecalculateNbPartiesASauvegarderDansLaListe;                                                                                                                              ATTRIBUTE_NAME('RecalculateNbPartiesASauvegarderDansLaListe')
-procedure SetAucunePartieDeLaListeNeDoitEtreSauvegardee;                                                                                                                            ATTRIBUTE_NAME('SetAucunePartieDeLaListeNeDoitEtreSauvegardee')
+procedure SetPartieDansListeDoitEtreSauvegardee(nroReferencePartie : SInt32; flag : boolean);
+function PartieDansListeDoitEtreSauvegardee(nroReferencePartie : SInt32) : boolean;
+function NbPartiesDevantEtreSaugardeesDansLaListe : SInt32;
+function NbPartiesActivesDevantEtreSauvegardeesDansLaListe : SInt32;
+procedure RecalculateNbPartiesASauvegarderDansLaListe;
+procedure SetAucunePartieDeLaListeNeDoitEtreSauvegardee;
 
 
 {parties douteuses lors de l'import}
-procedure SetPartieDansListeEstDouteuse(nroReferencePartie : SInt32; flag : boolean);                                                                                               ATTRIBUTE_NAME('SetPartieDansListeEstDouteuse')
-function PartieDansListeEstDouteuse(nroReferencePartie : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('PartieDansListeEstDouteuse')
-function NbPartiesDouteusesDansLaListe : SInt32;                                                                                                                                    ATTRIBUTE_NAME('NbPartiesDouteusesDansLaListe')
-procedure RecalculateNbPartiesDouteusesDansLaListe;                                                                                                                                 ATTRIBUTE_NAME('RecalculateNbPartiesDouteusesDansLaListe')
-procedure SetAucunePartieDeLaListeNEstDouteuse;                                                                                                                                     ATTRIBUTE_NAME('SetAucunePartieDeLaListeNEstDouteuse')
+procedure SetPartieDansListeEstDouteuse(nroReferencePartie : SInt32; flag : boolean);
+function PartieDansListeEstDouteuse(nroReferencePartie : SInt32) : boolean;
+function NbPartiesDouteusesDansLaListe : SInt32;
+procedure RecalculateNbPartiesDouteusesDansLaListe;
+procedure SetAucunePartieDeLaListeNEstDouteuse;
 
 
 {parties dont le score doit sans doute etre recalculŽ}
-procedure SelectionnerPartiesOuScoreTheoriqueEgalScoreReel;                                                                                                                         ATTRIBUTE_NAME('SelectionnerPartiesOuScoreTheoriqueEgalScoreReel')
-function PartieAvecScoresTheoriqueEtReelEgaux(numeroDansLaListe,numeroReference : SInt32; var score : SInt32) : boolean;                                                            ATTRIBUTE_NAME('PartieAvecScoresTheoriqueEtReelEgaux')
+procedure SelectionnerPartiesOuScoreTheoriqueEgalScoreReel;
+function PartieAvecScoresTheoriqueEtReelEgaux(numeroDansLaListe,numeroReference : SInt32; var score : SInt32) : boolean;
 
 
 {parties qui viennent de rejoindre la liste par interversion}
-function PartieDansLaListeIdentiqueAPartieCourante(nroReferencePartie, numeroDuCoup : SInt32; autreCoupQuatreDiagonal : boolean) : boolean;                                         ATTRIBUTE_NAME('PartieDansLaListeIdentiqueAPartieCourante')
+function PartieDansLaListeIdentiqueAPartieCourante(nroReferencePartie, numeroDuCoup : SInt32; autreCoupQuatreDiagonal : boolean) : boolean;
 
 
 
@@ -263,7 +263,7 @@ const kPetiteCheckBoxID = 187;
       kPetiteCheckBoxRemplieID = 186;
 
       hauteurPiedDePageListe = 15;
-      
+
       gAutorisationChargerLaBaseSansPasserParLeDialogue : boolean = true;
 
 var gAutorisationCalculsLongsSurListe : boolean;
@@ -299,11 +299,11 @@ begin
   SetAucunePartieDeLaListeNeParticipeAuClassement;
   DeselectionnerToutesLesPartiesDansLaListe;
   InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
-  
+
   nbPartiesActives := 0;
   nbPartiesChargees := 0;
   nbreCoupsApresLecture := 0;
-  
+
   with infosListeParties do
     begin
       partieHilitee := 1;
@@ -311,11 +311,11 @@ begin
       clicHilite := 0;
       justificationPasDePartie := -1;
     end;
-      
+
   IncrementeMagicCookieDemandeCalculsBase;
   ConstruitTableNumeroReference(false,false);
   SetPartieHiliteeEtAjusteAscenseurListe(1);
-  
+
   EcritListeParties(false,'ResetListeDeParties');
   EcritStatistiques(false);
 end;
@@ -385,23 +385,23 @@ begin
   {dessin de la boite ˆ cocher pour les ordinateurs}
   DessineCheckBoxInclurePartiesAvecOrdinateurs;
 
-  
+
   if (nbPartiesActives > 0) then
     begin
-    
+
       {ecriture du nombre de parties actives dans la liste}
-      
+
       if (nbPartiesActives >= 2)
         then s := ReadStringFromRessource(TextesListeID,17)    {  ^0 parties  }
         else s := ReadStringFromRessource(TextesListeID,18);   {  ^0 partie   }
-      
+
 
       nombre := NumEnString(nbPartiesActives);
       s := ParamStr(s,SeparerLesChiffresParTrois(nombre),'','','');
-      
-      
+
+
       {ecriture eventuelle du nombre de parties non sauvegardees}
-      
+
       if (NbPartiesDevantEtreSaugardeesDansLaListe > 0) then
         begin
           s2 := ReadStringFromRessource(TextesListeID,19);    {  ^0 non sauvegardees  }
@@ -412,7 +412,7 @@ begin
               s := s + ' ' + ParamStr(s2,SeparerLesChiffresParTrois(nombre),'','','');
             end;
         end;
-        
+
 
       TextFace(normal);
       Moveto(piedDePageRect.right - MyStringWidth(s) - 3,piedDePageRect.bottom - 4);
@@ -4004,9 +4004,9 @@ begin
       RecalculateNbPartiesASauvegarderDansLaListe;
       InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
       CalculsEtAffichagePourBase(false,true);
-            
+
       {est-ce un vidage complet de la liste ?}
-      if (nbPartiesActives <= 0) & (nbPartiesChargees > 0) & (NbrePartiesDetruitesDansLaListe >= nbPartiesChargees) 
+      if (nbPartiesActives <= 0) & (nbPartiesChargees > 0) & (NbrePartiesDetruitesDansLaListe >= nbPartiesChargees)
         then ResetListeDeParties;
     end;
 end;
@@ -4379,7 +4379,7 @@ begin
     end;
 
   {methode lente :-( }
-  
+
   compteur := 0;
   if not(problemeMemoireBase) then
 	  for k := 1 to nbPartiesChargees do

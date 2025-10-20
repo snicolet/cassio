@@ -4,9 +4,9 @@ UNIT Cassio;
 
 INTERFACE
 
-procedure MainDeCassio;                                                                                                                                                             ATTRIBUTE_NAME('MainDeCassio')
+procedure MainDeCassio;
 
-procedure Crash_with_stack_alignment;                                                                                                                                               ATTRIBUTE_NAME('Crash_with_stack_alignment')
+procedure Crash_with_stack_alignment;
 
 
 IMPLEMENTATION
@@ -41,7 +41,7 @@ USES
     , UnitZoo, UnitCurseur, UnitOth2, UnitModes, UnitCompilation, UnitFichiersTEXT, UnitPagesATR, UnitPagesABR, UnitLongString
     , UnitPagesDeModules, UnitZooAvecArbre, UnitPagesDeSymboles, UnitVecteursEvalInteger, UnitProperties, UnitGameTree, UnitPropertyList, UnitPhasesPartie
     , UnitListe, UnitServicesMemoire, UnitSuperviseur, UnitMilieuDePartie, UnitAffichagePlateau, UnitListeChaineeCasesVides, UnitPositionEtTrait, UnitEstimationCharge
-    , UnitEngine, UnitMetaphone, UnitUnixTask ; 
+    , UnitEngine, UnitMetaphone, UnitUnixTask ;
 {$ELSEC}
     ;
     {$I prelink/Cassio.lk}
@@ -85,8 +85,8 @@ USES
   c) Si on change les ic™nes, penser ˆ reconstruire la base de donnees de
      LaunchServices pour faire apparaitre les ic™nes, en utilisant la
      commande suivante dans le Terminal :
-    
-    
+
+
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 
@@ -109,10 +109,10 @@ USES
 
   f) pour regarder les sockets UNIX : netstat -an | grep tcp4
      avec les noms DNS              : netstat -a  | grep tcp4
-     
+
   g) pour ajouter/retirer des labels sur les cases, il faut taper les commandes suivantes
      dans la fenetre arbre de jeu puis appuyer sur Entree (espaces facultatives) :
-     
+
      add : LB[a1:toto]
      delete : LB[a1:toto]
 
@@ -701,88 +701,88 @@ begin
 
 
 
-  
+
   SetHashValueDuZoo(my_u64,0);
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   SetHashValueDuZoo(my_u64,k_ZOO_NOT_INITIALIZED_VALUE);
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   SetHashValueDuZoo(my_u64,-k_ZOO_NOT_INITIALIZED_VALUE);
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   SetHashValueDuZoo(my_u64,-1);
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   SetHashValueDuZoo(my_u64,1);
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   my_u64 := HashString63Bits('toto est grand');
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   my_u64 := HashString63Bits('toto est fort');
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   my_u64 := HashString63Bits('toto est bleu');
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   my_u64 := HashString63Bits('toto est rouge');
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
-  
+
   my_u64 := HashString63Bits('toto est vert');
   WritelnDansRapport(UInt64ToHexa(my_u64));
   WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
-  
+
   s := '2241920287009';
   my_double := StringSimpleEnReel(s);
   WritelnDansRapport('');
   WritelnDansRapport('s est la chaine : ' + s);
   WritelnStringAndReelDansRapport('s traduit en reel vaut ', my_double, 20);
-  
+
   s := '.512345678901';
   my_double := StringSimpleEnReel(s);
   WritelnDansRapport('');
   WritelnDansRapport('s est la chaine : ' + s);
   WritelnStringAndReelDansRapport('s traduit en reel vaut ', my_double, 14);
-  
+
   s := '12';
   my_double := StringSimpleEnReel(s);
   WritelnDansRapport('');
@@ -917,7 +917,7 @@ begin
   UneSeuleBase := true;
   inBackGround := false;
 
-  
+
 
   SetCassioChecksEvents(true);
   SetNiveauTeteDeMort(0);
@@ -984,7 +984,7 @@ begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
 
 
-  
+
 
   if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  initialisation : avant DetermineVolumeApplication');
 
@@ -1628,22 +1628,22 @@ begin
   LoadZebraBook(true);
 
   if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('apres LoadZebraBook');
-  
-  
+
+
   (*
-  if FichierTexteDeCassioExiste('Fonts:Virginie.ttf', fontFic) = NoErr 
-    then 
+  if FichierTexteDeCassioExiste('Fonts:Virginie.ttf', fontFic) = NoErr
+    then
       begin
         WritelnDansRapport('police Virginie trouvee');
         LoadFont(fontFic.theFSSpec);
       end;
   *)
-  
-  
+
+
   // This will force Cassio to copy its private fonts to ~/Library/Fonts/
   // myFontID := GetCassioFontNum('aaaaaaa-$&@%$!¤');
-  
-    
+
+
 
 end;  {Initialisation}
 
@@ -1702,7 +1702,7 @@ begin
       if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
         then TraiteEvenements
         else TraiteNullEvent(theEvent);
-        
+
     VerifierLeStatutDeCassioPourLeZoo;
 
     if not(Quitter) then UnLoadTousSegments;
@@ -1722,7 +1722,7 @@ begin
     GetConfigurationCouranteDeCassio(config);
 
     typedeCalculALancer := TypeDeCalculLanceParCassioDansCetteConfiguration(config);
-    
+
     VerifierLeStatutDeCassioPourLeZoo;
 
     if (typedeCalculALancer = k_PREMIER_COUP_MAC) | (typedeCalculALancer = k_JEU_MAC)  then
@@ -1941,8 +1941,8 @@ var i_main, gestalt_aux, i_main2 : SInt32;
 begin
 
   Discard7(i_main,i_main2, confiance, s, s1, s_main, long_s);
-  
- 
+
+
 
   SetTracingLog(false);
 
@@ -1968,7 +1968,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant InitMacintoshManagers');
 
   InitMacintoshManagers;
-  GetClassicalFontsID; 
+  GetClassicalFontsID;
   OSStatus_main := RegisterAppearanceClient;
 
   MicroSeconds(microTime);
@@ -1977,7 +1977,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   gIdentificateurUniqueDeCetteSessionDeCassio := microTime.hi xor microTime.lo xor RandomLongint;
   if gIdentificateurUniqueDeCetteSessionDeCassio < 0
     then gIdentificateurUniqueDeCetteSessionDeCassio := -gIdentificateurUniqueDeCetteSessionDeCassio;
-  if gIdentificateurUniqueDeCetteSessionDeCassio = 0 
+  if gIdentificateurUniqueDeCetteSessionDeCassio = 0
     then gIdentificateurUniqueDeCetteSessionDeCassio := abs(RandomLongint);
 
 if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant WaitNextEvent');
@@ -2116,7 +2116,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   InitUnitUnixTask;
   InitUnitMoulinette;
   InitUnitFFO;
-  
+
 
   UnLoadTousSegments;
 
@@ -2212,8 +2212,8 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
  (********************* initialisation est ici **************)
   Initialisation;
  (********************* initialisation est ici **************)
- 
- 
+
+
  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant OuvrirConnectionPermanenteAuZoo');
   OuvrirConnectionPermanenteAuZoo;
 
@@ -2266,9 +2266,9 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   EnableKeyboardScriptSwitch;
 
   UnLoadTousSegments;
-  
-  
-  
+
+
+
 
   if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant EssayerLireFichiersEvaluationDeCassio');
 
@@ -2517,9 +2517,9 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
     end;
   {$ENDC}
 
-  
+
   {ParserNumerosFFODesJoueurs;}
-  
+
 
 
   {AlignerTestsFinales(61,78,ReflGagnant,ReflGagnant);}
@@ -2550,11 +2550,11 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   WritelnNumDansRapport('sizeof(float_t) = ',Sizeof(float_t));
   WritelnNumDansRapport('size_of_float_in_c = ',size_of_float_in_c);
   }
-  
 
-  
-  
-  
+
+
+
+
 
   (* TestUnitDoubleMetaphone; *)
   (*
@@ -2565,7 +2565,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 
 
   { DecrypterGrilleDuRallye2011; }
-  
+
   (* Cryptographie; *)
   (* WritelnNumDansRapport('temps des initialisations = ',TickCount - tickDebutInitialisations); *)
   (* OptimiserLaFermeDuRallye; *)
@@ -2579,23 +2579,23 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   if TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor('De Camargo Lucas C.', i_main)
     then WritelnNumDansRapport(' de graf trouvŽ, numero = ',i_main);
   *)
-  
-  
+
+
   {if LaunchUNIXProcess('/usr/bin/pstopdf','/Users/stephane/Jeux/Othello/Cassio/Fichiers-auxiliaires/tiger_edax.eps') = NoErr then;}
-  
-  
+
+
   (*
-  
+
   if ParserFENEnPositionEtTrait('[FEN 8/2p5/1P1p4/1Pppp3/1P1Ppp2/3P4/8/8 b - - 0 1]' , thePos) then
     WritelnPositionEtTraitDansRapport(thePos.position, GetTraitOfPosition(thePos));
-    
-  
+
+
   if ParserFENEnPositionEtTrait('FEN 8/2p5/1P1p4/1Pppp3/1P1Ppp2/3m4/8/8 b - - 0 1' , thePos) then
     WritelnPositionEtTraitDansRapport(thePos.position, GetTraitOfPosition(thePos));
-  
+
   if ParserFENEnPositionEtTrait('FEN "8/2p5/1P1p4/1Pppp3/1P1Pppp2/3P4/8/8 b - - 0 1"' , thePos) then
     WritelnPositionEtTraitDansRapport(thePos.position, GetTraitOfPosition(thePos));
-  
+
   if ParserFENEnPositionEtTrait('FEN "8/2p5/1P1p4/1Pppp3/1P1Ppp2/3P4/8/8    b - - 0 1"' , thePos) then
     WritelnPositionEtTraitDansRapport(thePos.position, GetTraitOfPosition(thePos));
   *)
@@ -2609,9 +2609,9 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 (************************************************************)
 (************************************************************)
 
-  
+
   DisposeTournoisNouveauFormat;
-  
+
 
   Quitter := true;
 
@@ -2706,7 +2706,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   FlushEvents(everyEvent-DiskEvt,0);
   SwitchToScript(gLastScriptUsedOutsideCassio);
 
-  
+
 
   ExitToShell;
 end;

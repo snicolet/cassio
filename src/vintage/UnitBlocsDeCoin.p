@@ -16,14 +16,14 @@ INTERFACE
 
 
 
-procedure InitMaterielBlocsDeCoins;                                                                                                                                                 ATTRIBUTE_NAME('InitMaterielBlocsDeCoins')
-function ValeurBlocsDeCoinPourNoir(var pl : plateauOthello) : SInt16;                                                                                                               ATTRIBUTE_NAME('ValeurBlocsDeCoinPourNoir')
-function ValeurBlocsDeCoinPourBlanc(var pl : plateauOthello) : SInt16;                                                                                                              ATTRIBUTE_NAME('ValeurBlocsDeCoinPourBlanc')
+procedure InitMaterielBlocsDeCoins;
+function ValeurBlocsDeCoinPourNoir(var pl : plateauOthello) : SInt16;
+function ValeurBlocsDeCoinPourBlanc(var pl : plateauOthello) : SInt16;
 (*
-procedure EcritCalculBlocsDeCoinSurDisque;                                                                                                                                          ATTRIBUTE_NAME('EcritCalculBlocsDeCoinSurDisque')
-procedure EcritTablesBlocsDeCoinSurDisque(nomDesSegments : String255);                                                                                                              ATTRIBUTE_NAME('EcritTablesBlocsDeCoinSurDisque')
-procedure apprendBlocDeCoin(bloc : SInt16; gain : char);                                                                                                                            ATTRIBUTE_NAME('apprendBlocDeCoin')
-procedure apprendBlocsDeCoinPosition(var pl : plateauOthello; gain : char);                                                                                                         ATTRIBUTE_NAME('apprendBlocsDeCoinPosition')
+procedure EcritCalculBlocsDeCoinSurDisque;
+procedure EcritTablesBlocsDeCoinSurDisque(nomDesSegments : String255);
+procedure apprendBlocDeCoin(bloc : SInt16; gain : char);
+procedure apprendBlocsDeCoinPosition(var pl : plateauOthello; gain : char);
 *)
 
 

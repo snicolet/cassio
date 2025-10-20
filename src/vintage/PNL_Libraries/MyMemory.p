@@ -25,27 +25,27 @@ INTERFACE
 {$definec MTrashHandle(h) MFill(h^,GetHandleSize(h),trash_byte)}
 {$endc}
 
-	function MNewPtr ( var p : UnivPtr; size: SInt32 ) : OSErr;                                                                                                                        ATTRIBUTE_NAME('MNewPtr')
-	function MNewHandle ( var data : UnivHandle; size: SInt32 ) : OSErr;                                                                                                               ATTRIBUTE_NAME('MNewHandle')
-	function MSetPtrSize ( p : UnivPtr; size: SInt32 ) : OSErr;                                                                                                                        ATTRIBUTE_NAME('MSetPtrSize')
-	function MSetHandleSize ( data : UnivHandle; size: SInt32 ) : OSErr;                                                                                                               ATTRIBUTE_NAME('MSetHandleSize')
-	function MGrowHandleSize ( data : UnivHandle; size: SInt32 ) : OSErr;                                                                                                              ATTRIBUTE_NAME('MGrowHandleSize')
-	procedure MShrinkHandleSize( data : UnivHandle; size: SInt32 );                                                                                                                    ATTRIBUTE_NAME('MShrinkHandleSize')
-	procedure MDisposePtr ( var p : UnivPtr );                                                                                                                                         ATTRIBUTE_NAME('MDisposePtr')
-	procedure MDisposeHandle ( var data : UnivHandle );                                                                                                                                ATTRIBUTE_NAME('MDisposeHandle')
-	function MMungerInsert( data : Handle; offset: SInt32; ptr2: UnivPtr; len2: SInt32 ) : OSErr;                                                                                      ATTRIBUTE_NAME('MMungerInsert')
-	procedure MMungerDelete( data : Handle; offset: SInt32; len1: SInt32 );                                                                                                            ATTRIBUTE_NAME('MMungerDelete')
-	procedure MZero ( p : UnivPtr; size: SInt32 );                                                                                                                                     ATTRIBUTE_NAME('MZero')
-	procedure MFill ( p : UnivPtr; size: SInt32; val : SInt16 );                                                                                                                       ATTRIBUTE_NAME('MFill')
-	procedure MFillLong ( p : UnivPtr; size: SInt32; val : SInt32 );                                                                                                                   ATTRIBUTE_NAME('MFillLong')
+	function MNewPtr ( var p : UnivPtr; size: SInt32 ) : OSErr;
+	function MNewHandle ( var data : UnivHandle; size: SInt32 ) : OSErr;
+	function MSetPtrSize ( p : UnivPtr; size: SInt32 ) : OSErr;
+	function MSetHandleSize ( data : UnivHandle; size: SInt32 ) : OSErr;
+	function MGrowHandleSize ( data : UnivHandle; size: SInt32 ) : OSErr;
+	procedure MShrinkHandleSize( data : UnivHandle; size: SInt32 );
+	procedure MDisposePtr ( var p : UnivPtr );
+	procedure MDisposeHandle ( var data : UnivHandle );
+	function MMungerInsert( data : Handle; offset: SInt32; ptr2: UnivPtr; len2: SInt32 ) : OSErr;
+	procedure MMungerDelete( data : Handle; offset: SInt32; len1: SInt32 );
+	procedure MZero ( p : UnivPtr; size: SInt32 );
+	procedure MFill ( p : UnivPtr; size: SInt32; val : SInt16 );
+	procedure MFillLong ( p : UnivPtr; size: SInt32; val : SInt32 );
 { Ptr and size must be long alligned }
-	procedure LockHigh ( data : UnivHandle );                                                                                                                                          ATTRIBUTE_NAME('LockHigh')
-	procedure HLockState ( data : Handle; var state: SInt8 );                                                                                                                          ATTRIBUTE_NAME('HLockState')
-	procedure HUnlockState ( data : Handle; var state: SInt8 );                                                                                                                        ATTRIBUTE_NAME('HUnlockState')
+	procedure LockHigh ( data : UnivHandle );
+	procedure HLockState ( data : Handle; var state: SInt8 );
+	procedure HUnlockState ( data : Handle; var state: SInt8 );
 
-	function CheckPointer ( p : Ptr ) : boolean;                                                                                                                                       ATTRIBUTE_NAME('CheckPointer')
-	function CheckPtr ( p : Ptr ) : boolean;                                                                                                                                           ATTRIBUTE_NAME('CheckPtr')
-	function CheckHandle ( data : Handle ) : boolean;                                                                                                                                  ATTRIBUTE_NAME('CheckHandle')
+	function CheckPointer ( p : Ptr ) : boolean;
+	function CheckPtr ( p : Ptr ) : boolean;
+	function CheckHandle ( data : Handle ) : boolean;
 
 IMPLEMENTATION
 

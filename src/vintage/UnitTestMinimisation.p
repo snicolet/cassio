@@ -10,10 +10,10 @@ INTERFACE
 
 
 
-procedure TestMinimisation;                                                                                                                                                         ATTRIBUTE_NAME('TestMinimisation')
-procedure TestStraightLineFitting;                                                                                                                                                  ATTRIBUTE_NAME('TestStraightLineFitting')
+procedure TestMinimisation;
+procedure TestStraightLineFitting;
 
-procedure OptimiserLaFermeDuRallye;                                                                                                                                                 ATTRIBUTE_NAME('OptimiserLaFermeDuRallye')
+procedure OptimiserLaFermeDuRallye;
 
 
 

@@ -13,13 +13,13 @@ INTERFACE
 
 
 {fonctions de conversion}
-function PlOthToPackedOthelloPosition(const position : plateauOthello) : PackedOthelloPosition;                                                                                     ATTRIBUTE_NAME('PlOthToPackedOthelloPosition')
-function PackedOthelloPositionToPlOth(const packedBoard : PackedOthelloPosition) : plateauOthello;                                                                                  ATTRIBUTE_NAME('PackedOthelloPositionToPlOth')
+function PlOthToPackedOthelloPosition(const position : plateauOthello) : PackedOthelloPosition;
+function PackedOthelloPositionToPlOth(const packedBoard : PackedOthelloPosition) : plateauOthello;
 
 
 {compile et decompile une position dans une chaine de 16 caracteres}
-procedure CompilerPosition(plat : plateauOthello; var chaineCompilee : String255);                                                                                                  ATTRIBUTE_NAME('CompilerPosition')
-procedure DecompilerPosition(chaineCompilee : String255; var plat : plateauOthello);                                                                                                ATTRIBUTE_NAME('DecompilerPosition')
+procedure CompilerPosition(plat : plateauOthello; var chaineCompilee : String255);
+procedure DecompilerPosition(chaineCompilee : String255; var plat : plateauOthello);
 
 
 

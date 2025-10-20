@@ -8,40 +8,40 @@ INTERFACE
 
 
   //clear
-     procedure ClearEdmondPatterns;                                                                                                                                                 ATTRIBUTE_NAME('ClearEdmondPatterns')
+     procedure ClearEdmondPatterns;
 
 	//set Black disc on a square
-		 procedure Edmond_set_BLACK_A1;  procedure Edmond_set_BLACK_B1;  procedure Edmond_set_BLACK_C1;  procedure Edmond_set_BLACK_D1;  procedure Edmond_set_BLACK_E1;  procedure Edmond_set_BLACK_F1;  procedure Edmond_set_BLACK_G1;  procedure Edmond_set_BLACK_H1;             ATTRIBUTE_NAME('Edmond_set_BLACK_A1')
-		 procedure Edmond_set_BLACK_A2;  procedure Edmond_set_BLACK_B2;  procedure Edmond_set_BLACK_C2;  procedure Edmond_set_BLACK_D2;  procedure Edmond_set_BLACK_E2;  procedure Edmond_set_BLACK_F2;  procedure Edmond_set_BLACK_G2;  procedure Edmond_set_BLACK_H2;             ATTRIBUTE_NAME('Edmond_set_BLACK_A2')
-		 procedure Edmond_set_BLACK_A3;  procedure Edmond_set_BLACK_B3;  procedure Edmond_set_BLACK_C3;  procedure Edmond_set_BLACK_D3;  procedure Edmond_set_BLACK_E3;  procedure Edmond_set_BLACK_F3;  procedure Edmond_set_BLACK_G3;  procedure Edmond_set_BLACK_H3;             ATTRIBUTE_NAME('Edmond_set_BLACK_A3')
-		 procedure Edmond_set_BLACK_A4;  procedure Edmond_set_BLACK_B4;  procedure Edmond_set_BLACK_C4;  procedure Edmond_set_BLACK_D4;  procedure Edmond_set_BLACK_E4;  procedure Edmond_set_BLACK_F4;  procedure Edmond_set_BLACK_G4;  procedure Edmond_set_BLACK_H4;             ATTRIBUTE_NAME('Edmond_set_BLACK_A4')
-		 procedure Edmond_set_BLACK_A5;  procedure Edmond_set_BLACK_B5;  procedure Edmond_set_BLACK_C5;  procedure Edmond_set_BLACK_D5;  procedure Edmond_set_BLACK_E5;  procedure Edmond_set_BLACK_F5;  procedure Edmond_set_BLACK_G5;  procedure Edmond_set_BLACK_H5;             ATTRIBUTE_NAME('Edmond_set_BLACK_A5')
-		 procedure Edmond_set_BLACK_A6;  procedure Edmond_set_BLACK_B6;  procedure Edmond_set_BLACK_C6;  procedure Edmond_set_BLACK_D6;  procedure Edmond_set_BLACK_E6;  procedure Edmond_set_BLACK_F6;  procedure Edmond_set_BLACK_G6;  procedure Edmond_set_BLACK_H6;             ATTRIBUTE_NAME('Edmond_set_BLACK_A6')
-		 procedure Edmond_set_BLACK_A7;  procedure Edmond_set_BLACK_B7;  procedure Edmond_set_BLACK_C7;  procedure Edmond_set_BLACK_D7;  procedure Edmond_set_BLACK_E7;  procedure Edmond_set_BLACK_F7;  procedure Edmond_set_BLACK_G7;  procedure Edmond_set_BLACK_H7;             ATTRIBUTE_NAME('Edmond_set_BLACK_A7')
-		 procedure Edmond_set_BLACK_A8;  procedure Edmond_set_BLACK_B8;  procedure Edmond_set_BLACK_C8;  procedure Edmond_set_BLACK_D8;  procedure Edmond_set_BLACK_E8;  procedure Edmond_set_BLACK_F8;  procedure Edmond_set_BLACK_G8;  procedure Edmond_set_BLACK_H8;             ATTRIBUTE_NAME('Edmond_set_BLACK_A8')
+		 procedure Edmond_set_BLACK_A1;  procedure Edmond_set_BLACK_B1;  procedure Edmond_set_BLACK_C1;  procedure Edmond_set_BLACK_D1;  procedure Edmond_set_BLACK_E1;  procedure Edmond_set_BLACK_F1;  procedure Edmond_set_BLACK_G1;  procedure Edmond_set_BLACK_H1;
+		 procedure Edmond_set_BLACK_A2;  procedure Edmond_set_BLACK_B2;  procedure Edmond_set_BLACK_C2;  procedure Edmond_set_BLACK_D2;  procedure Edmond_set_BLACK_E2;  procedure Edmond_set_BLACK_F2;  procedure Edmond_set_BLACK_G2;  procedure Edmond_set_BLACK_H2;
+		 procedure Edmond_set_BLACK_A3;  procedure Edmond_set_BLACK_B3;  procedure Edmond_set_BLACK_C3;  procedure Edmond_set_BLACK_D3;  procedure Edmond_set_BLACK_E3;  procedure Edmond_set_BLACK_F3;  procedure Edmond_set_BLACK_G3;  procedure Edmond_set_BLACK_H3;
+		 procedure Edmond_set_BLACK_A4;  procedure Edmond_set_BLACK_B4;  procedure Edmond_set_BLACK_C4;  procedure Edmond_set_BLACK_D4;  procedure Edmond_set_BLACK_E4;  procedure Edmond_set_BLACK_F4;  procedure Edmond_set_BLACK_G4;  procedure Edmond_set_BLACK_H4;
+		 procedure Edmond_set_BLACK_A5;  procedure Edmond_set_BLACK_B5;  procedure Edmond_set_BLACK_C5;  procedure Edmond_set_BLACK_D5;  procedure Edmond_set_BLACK_E5;  procedure Edmond_set_BLACK_F5;  procedure Edmond_set_BLACK_G5;  procedure Edmond_set_BLACK_H5;
+		 procedure Edmond_set_BLACK_A6;  procedure Edmond_set_BLACK_B6;  procedure Edmond_set_BLACK_C6;  procedure Edmond_set_BLACK_D6;  procedure Edmond_set_BLACK_E6;  procedure Edmond_set_BLACK_F6;  procedure Edmond_set_BLACK_G6;  procedure Edmond_set_BLACK_H6;
+		 procedure Edmond_set_BLACK_A7;  procedure Edmond_set_BLACK_B7;  procedure Edmond_set_BLACK_C7;  procedure Edmond_set_BLACK_D7;  procedure Edmond_set_BLACK_E7;  procedure Edmond_set_BLACK_F7;  procedure Edmond_set_BLACK_G7;  procedure Edmond_set_BLACK_H7;
+		 procedure Edmond_set_BLACK_A8;  procedure Edmond_set_BLACK_B8;  procedure Edmond_set_BLACK_C8;  procedure Edmond_set_BLACK_D8;  procedure Edmond_set_BLACK_E8;  procedure Edmond_set_BLACK_F8;  procedure Edmond_set_BLACK_G8;  procedure Edmond_set_BLACK_H8;
 
 	//set White disc on a square
-		 procedure Edmond_set_WHITE_A1;  procedure Edmond_set_WHITE_B1;  procedure Edmond_set_WHITE_C1;  procedure Edmond_set_WHITE_D1;  procedure Edmond_set_WHITE_E1;  procedure Edmond_set_WHITE_F1;  procedure Edmond_set_WHITE_G1;  procedure Edmond_set_WHITE_H1;             ATTRIBUTE_NAME('Edmond_set_WHITE_A1')
-		 procedure Edmond_set_WHITE_A2;  procedure Edmond_set_WHITE_B2;  procedure Edmond_set_WHITE_C2;  procedure Edmond_set_WHITE_D2;  procedure Edmond_set_WHITE_E2;  procedure Edmond_set_WHITE_F2;  procedure Edmond_set_WHITE_G2;  procedure Edmond_set_WHITE_H2;             ATTRIBUTE_NAME('Edmond_set_WHITE_A2')
-		 procedure Edmond_set_WHITE_A3;  procedure Edmond_set_WHITE_B3;  procedure Edmond_set_WHITE_C3;  procedure Edmond_set_WHITE_D3;  procedure Edmond_set_WHITE_E3;  procedure Edmond_set_WHITE_F3;  procedure Edmond_set_WHITE_G3;  procedure Edmond_set_WHITE_H3;             ATTRIBUTE_NAME('Edmond_set_WHITE_A3')
-		 procedure Edmond_set_WHITE_A4;  procedure Edmond_set_WHITE_B4;  procedure Edmond_set_WHITE_C4;  procedure Edmond_set_WHITE_D4;  procedure Edmond_set_WHITE_E4;  procedure Edmond_set_WHITE_F4;  procedure Edmond_set_WHITE_G4;  procedure Edmond_set_WHITE_H4;             ATTRIBUTE_NAME('Edmond_set_WHITE_A4')
-		 procedure Edmond_set_WHITE_A5;  procedure Edmond_set_WHITE_B5;  procedure Edmond_set_WHITE_C5;  procedure Edmond_set_WHITE_D5;  procedure Edmond_set_WHITE_E5;  procedure Edmond_set_WHITE_F5;  procedure Edmond_set_WHITE_G5;  procedure Edmond_set_WHITE_H5;             ATTRIBUTE_NAME('Edmond_set_WHITE_A5')
-		 procedure Edmond_set_WHITE_A6;  procedure Edmond_set_WHITE_B6;  procedure Edmond_set_WHITE_C6;  procedure Edmond_set_WHITE_D6;  procedure Edmond_set_WHITE_E6;  procedure Edmond_set_WHITE_F6;  procedure Edmond_set_WHITE_G6;  procedure Edmond_set_WHITE_H6;             ATTRIBUTE_NAME('Edmond_set_WHITE_A6')
-		 procedure Edmond_set_WHITE_A7;  procedure Edmond_set_WHITE_B7;  procedure Edmond_set_WHITE_C7;  procedure Edmond_set_WHITE_D7;  procedure Edmond_set_WHITE_E7;  procedure Edmond_set_WHITE_F7;  procedure Edmond_set_WHITE_G7;  procedure Edmond_set_WHITE_H7;             ATTRIBUTE_NAME('Edmond_set_WHITE_A7')
-		 procedure Edmond_set_WHITE_A8;  procedure Edmond_set_WHITE_B8;  procedure Edmond_set_WHITE_C8;  procedure Edmond_set_WHITE_D8;  procedure Edmond_set_WHITE_E8;  procedure Edmond_set_WHITE_F8;  procedure Edmond_set_WHITE_G8;  procedure Edmond_set_WHITE_H8;             ATTRIBUTE_NAME('Edmond_set_WHITE_A8')
+		 procedure Edmond_set_WHITE_A1;  procedure Edmond_set_WHITE_B1;  procedure Edmond_set_WHITE_C1;  procedure Edmond_set_WHITE_D1;  procedure Edmond_set_WHITE_E1;  procedure Edmond_set_WHITE_F1;  procedure Edmond_set_WHITE_G1;  procedure Edmond_set_WHITE_H1;
+		 procedure Edmond_set_WHITE_A2;  procedure Edmond_set_WHITE_B2;  procedure Edmond_set_WHITE_C2;  procedure Edmond_set_WHITE_D2;  procedure Edmond_set_WHITE_E2;  procedure Edmond_set_WHITE_F2;  procedure Edmond_set_WHITE_G2;  procedure Edmond_set_WHITE_H2;
+		 procedure Edmond_set_WHITE_A3;  procedure Edmond_set_WHITE_B3;  procedure Edmond_set_WHITE_C3;  procedure Edmond_set_WHITE_D3;  procedure Edmond_set_WHITE_E3;  procedure Edmond_set_WHITE_F3;  procedure Edmond_set_WHITE_G3;  procedure Edmond_set_WHITE_H3;
+		 procedure Edmond_set_WHITE_A4;  procedure Edmond_set_WHITE_B4;  procedure Edmond_set_WHITE_C4;  procedure Edmond_set_WHITE_D4;  procedure Edmond_set_WHITE_E4;  procedure Edmond_set_WHITE_F4;  procedure Edmond_set_WHITE_G4;  procedure Edmond_set_WHITE_H4;
+		 procedure Edmond_set_WHITE_A5;  procedure Edmond_set_WHITE_B5;  procedure Edmond_set_WHITE_C5;  procedure Edmond_set_WHITE_D5;  procedure Edmond_set_WHITE_E5;  procedure Edmond_set_WHITE_F5;  procedure Edmond_set_WHITE_G5;  procedure Edmond_set_WHITE_H5;
+		 procedure Edmond_set_WHITE_A6;  procedure Edmond_set_WHITE_B6;  procedure Edmond_set_WHITE_C6;  procedure Edmond_set_WHITE_D6;  procedure Edmond_set_WHITE_E6;  procedure Edmond_set_WHITE_F6;  procedure Edmond_set_WHITE_G6;  procedure Edmond_set_WHITE_H6;
+		 procedure Edmond_set_WHITE_A7;  procedure Edmond_set_WHITE_B7;  procedure Edmond_set_WHITE_C7;  procedure Edmond_set_WHITE_D7;  procedure Edmond_set_WHITE_E7;  procedure Edmond_set_WHITE_F7;  procedure Edmond_set_WHITE_G7;  procedure Edmond_set_WHITE_H7;
+		 procedure Edmond_set_WHITE_A8;  procedure Edmond_set_WHITE_B8;  procedure Edmond_set_WHITE_C8;  procedure Edmond_set_WHITE_D8;  procedure Edmond_set_WHITE_E8;  procedure Edmond_set_WHITE_F8;  procedure Edmond_set_WHITE_G8;  procedure Edmond_set_WHITE_H8;
 
   //set BLACK and WHITE discs
-     procedure Edmond_set_BLACK( square : SInt32 );                                                                                                                                 ATTRIBUTE_NAME('Edmond_set_BLACK')
-     procedure Edmond_set_WHITE( square : SInt32 );                                                                                                                                 ATTRIBUTE_NAME('Edmond_set_WHITE')
+     procedure Edmond_set_BLACK( square : SInt32 );
+     procedure Edmond_set_WHITE( square : SInt32 );
 
 
   //calculate Edmond patterns
-     procedure EdmondCalculatePatterns(var position : plateauOthello);                                                                                                              ATTRIBUTE_NAME('EdmondCalculatePatterns')
+     procedure EdmondCalculatePatterns(var position : plateauOthello);
 
 
   //check the correspondance between Cassio and Edmond patterns
-     procedure CheckPatternCorrespondance(indexCassio ,  indexBruno ,  nbreCasesDuPattern : SInt32; const nomDuPattern : String255);                                                ATTRIBUTE_NAME('CheckPatternCorrespondance')
-     procedure CheckCassioEdmondPatterns(var position : plateauOthello; var frontiere : InfoFront);                                                                                 ATTRIBUTE_NAME('CheckCassioEdmondPatterns')
+     procedure CheckPatternCorrespondance(indexCassio ,  indexBruno ,  nbreCasesDuPattern : SInt32; const nomDuPattern : String255);
+     procedure CheckCassioEdmondPatterns(var position : plateauOthello; var frontiere : InfoFront);
 
 
 

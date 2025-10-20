@@ -19,7 +19,7 @@ static	int	BIDir[100] = {	0,0,0,0,0,0,0,0,0,0,
 							0,6,6,4,4,4,4,4,4,0,
 							0,6,6,4,4,4,4,4,4,0,
 							0,0,0,0,0,0,0,0,0,0} ;
-							 
+							
 static	int	BSDir[100] = {	7, 7, 7,7,7,7,7,7,7,7,
 							7, 2, 2,4,4,4,4,4,4,7,
 							7, 2, 2,4,4,4,4,4,4,7,
@@ -76,7 +76,7 @@ short othellier_manu_lazard_coup_est_legal(int move, int coul)
 				index += offset ;
 			}
 			while (Board[index] == oppon) ;
-			if (Board[index] == tmp) 
+			if (Board[index] == tmp)
 				compte += cptLigne;
 		}
 	}
@@ -124,7 +124,7 @@ short othellier_manu_lazard_joue_coup(int move, int coul)
 	ListeCoups[numProchainCoup-1] = move ;
 	numProchainCoup++;
 	toMove = ADVERSAIRE (toMove) ;
-	if (othellier_manu_lazard_check_pass(toMove)) 
+	if (othellier_manu_lazard_check_pass(toMove))
 	{
 		toMove = ADVERSAIRE (toMove) ;
 		if (othellier_manu_lazard_check_pass(toMove)) toMove = PASS ;

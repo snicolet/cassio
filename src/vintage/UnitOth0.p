@@ -529,7 +529,7 @@ type
      partieHdl =  ^partiePtr;
 
      listeVides = array[0..64] of SInt32;
-     
+
      listeUInt64 = array[0..64] of UInt64;
 
      listeVidesAvecValeur = array[0..64] of
@@ -2029,7 +2029,7 @@ const
       k_ZOO_VALUE_IS_CALCULATED           = -1001;
       k_ZOO_EN_ATTENTE_DE_RESULTAT        = -1002;
       k_ZOO_POSITION_PRISE_EN_CHARGE      = -1003;
-      
+
 // k_ZOO_NOT_INITIALIZED_HASH : UInt64 = record lo = 0, hi = 0 end;
 
 

@@ -13,24 +13,24 @@ INTERFACE
 
 
 
-   procedure OpenChannel(var theChannel : SndChannelPtr);                                                                                                                           ATTRIBUTE_NAME('OpenChannel')
-   procedure CloseChannel(var theChannel : SndChannelPtr);                                                                                                                          ATTRIBUTE_NAME('CloseChannel')
-   procedure FlushChannel(var theChannel : SndChannelPtr);                                                                                                                          ATTRIBUTE_NAME('FlushChannel')
-   procedure QuietChannel(var theChannel : SndChannelPtr);                                                                                                                          ATTRIBUTE_NAME('QuietChannel')
-   procedure HUnlockSoundRessource(SoundID : SInt16);                                                                                                                               ATTRIBUTE_NAME('HUnlockSoundRessource')
+   procedure OpenChannel(var theChannel : SndChannelPtr);
+   procedure CloseChannel(var theChannel : SndChannelPtr);
+   procedure FlushChannel(var theChannel : SndChannelPtr);
+   procedure QuietChannel(var theChannel : SndChannelPtr);
+   procedure HUnlockSoundRessource(SoundID : SInt16);
 
-   procedure PlaySoundSynchrone(soundID, volume : SInt16);                                                                                                                          ATTRIBUTE_NAME('PlaySoundSynchrone')
-   procedure PlaySoundAsynchrone(soundID, volume : SInt16; theChannel : SndChannelPtr);                                                                                             ATTRIBUTE_NAME('PlaySoundAsynchrone')
+   procedure PlaySoundSynchrone(soundID, volume : SInt16);
+   procedure PlaySoundAsynchrone(soundID, volume : SInt16; theChannel : SndChannelPtr);
 
-   procedure SetSoundVolumeOfChannel(theChannel : SndChannelPtr; volume : SInt32);                                                                                                  ATTRIBUTE_NAME('SetSoundVolumeOfChannel')
+   procedure SetSoundVolumeOfChannel(theChannel : SndChannelPtr; volume : SInt32);
 
 {
 
-  procedure SetSoundVol (level : SInt16);                                                                                                                                           ATTRIBUTE_NAME('SetSoundVol')
-  procedure GetSoundVol (var level : SInt16);                                                                                                                                       ATTRIBUTE_NAME('GetSoundVol')
-  procedure StartSound (synthRec: Ptr; numBytes: SInt32; completionRtn: ProcPtr);                                                                                                   ATTRIBUTE_NAME('StartSound')
-  procedure StopSound;                                                                                                                                                              ATTRIBUTE_NAME('StopSound')
-  function SoundDone: BOOLEAN;                                                                                                                                                      ATTRIBUTE_NAME('SoundDone')
+  procedure SetSoundVol (level : SInt16);
+  procedure GetSoundVol (var level : SInt16);
+  procedure StartSound (synthRec: Ptr; numBytes: SInt32; completionRtn: ProcPtr);
+  procedure StopSound;
+  function SoundDone: BOOLEAN;
 }
 
 

@@ -17,25 +17,25 @@ INTERFACE
 
 
 {Allocation de Ptr et de Handle}
-function AllocateMemoryPtr(whichSize : SInt32) : Ptr;                                                                                                                               ATTRIBUTE_NAME('AllocateMemoryPtr')
-function AllocateMemoryHdl(whichSize : SInt32) : handle;                                                                                                                            ATTRIBUTE_NAME('AllocateMemoryHdl')
+function AllocateMemoryPtr(whichSize : SInt32) : Ptr;
+function AllocateMemoryHdl(whichSize : SInt32) : handle;
 
 {Allocation de Ptr et de Handle, les blocs memoires sont remplis de zeros}
-function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;                                                                                                                          ATTRIBUTE_NAME('AllocateMemoryPtrClear')
-function AllocateMemoryHdlClear(whichSize : SInt32) : handle;                                                                                                                       ATTRIBUTE_NAME('AllocateMemoryHdlClear')
+function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;
+function AllocateMemoryHdlClear(whichSize : SInt32) : handle;
 
 {Liberation des blocs memoire; les pointeurs sont remis a NIL ensuite}
-procedure DisposeMemoryPtr(var whichPtr : Ptr);                                                                                                                                     ATTRIBUTE_NAME('DisposeMemoryPtr')
-procedure DisposeMemoryHdl(var whichHandle : handle);                                                                                                                               ATTRIBUTE_NAME('DisposeMemoryHdl')
+procedure DisposeMemoryPtr(var whichPtr : Ptr);
+procedure DisposeMemoryHdl(var whichHandle : handle);
 
 {Remplissage d'un bloc de memoire par un caractere donné}
-procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);                                                                                       ATTRIBUTE_NAME('MemoryFillChar')
+procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);
 
 {Deplacement d'un bloc de memoire}
-procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);                                                                                                                    ATTRIBUTE_NAME('MoveMemory')
+procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);
 
 {Egalite de deux blocs memoire}
-function EgalitePolymorphe(ptr1, ptr2 : Ptr{univ PackedArrayOfCharPtr}; tailleDonnees : SInt32) : boolean;                                                                          ATTRIBUTE_NAME('EgalitePolymorphe')
+function EgalitePolymorphe(ptr1, ptr2 : Ptr{univ PackedArrayOfCharPtr}; tailleDonnees : SInt32) : boolean;
 
 
 IMPLEMENTATION

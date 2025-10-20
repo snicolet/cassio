@@ -14,26 +14,26 @@ INTERFACE
 
 
 
-procedure InitUnitSaisiePartie;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitSaisiePartie')
-procedure LibereMemoireUnitSaisiePartie;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitSaisiePartie')
+procedure InitUnitSaisiePartie;
+procedure LibereMemoireUnitSaisiePartie;
 
-procedure AjouteNouveauJoueurTableSaisiePartie(nroJoueur : SInt32);                                                                                                                 ATTRIBUTE_NAME('AjouteNouveauJoueurTableSaisiePartie')
-procedure AjouteNouveauTournoiTableSaisiePartie(nroTournoi : SInt32);                                                                                                               ATTRIBUTE_NAME('AjouteNouveauTournoiTableSaisiePartie')
-procedure SetNiemeJoueurTableSaisiePartie(N,nroJoueur : SInt32);                                                                                                                    ATTRIBUTE_NAME('SetNiemeJoueurTableSaisiePartie')
-function GetNiemeJoueurTableSaisiePartie(N : SInt32) : SInt32;                                                                                                                      ATTRIBUTE_NAME('GetNiemeJoueurTableSaisiePartie')
-procedure SetNiemeTournoiTableSaisiePartie(N,nroTournoi : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetNiemeTournoiTableSaisiePartie')
-function GetNiemeTournoiTableSaisiePartie(N : SInt32) : SInt32;                                                                                                                     ATTRIBUTE_NAME('GetNiemeTournoiTableSaisiePartie')
+procedure AjouteNouveauJoueurTableSaisiePartie(nroJoueur : SInt32);
+procedure AjouteNouveauTournoiTableSaisiePartie(nroTournoi : SInt32);
+procedure SetNiemeJoueurTableSaisiePartie(N,nroJoueur : SInt32);
+function GetNiemeJoueurTableSaisiePartie(N : SInt32) : SInt32;
+procedure SetNiemeTournoiTableSaisiePartie(N,nroTournoi : SInt32);
+function GetNiemeTournoiTableSaisiePartie(N : SInt32) : SInt32;
 
-procedure CreatePopUpMenuJoueurs;                                                                                                                                                   ATTRIBUTE_NAME('CreatePopUpMenuJoueurs')
-procedure MetLesNomsDansPopUpMenuJoueurs;                                                                                                                                           ATTRIBUTE_NAME('MetLesNomsDansPopUpMenuJoueurs')
-procedure KillPopUpMenuJoueurs;                                                                                                                                                     ATTRIBUTE_NAME('KillPopUpMenuJoueurs')
-procedure CreatePopUpMenuTournois;                                                                                                                                                  ATTRIBUTE_NAME('CreatePopUpMenuTournois')
-procedure MetLesNomsDansPopUpMenuTournois;                                                                                                                                          ATTRIBUTE_NAME('MetLesNomsDansPopUpMenuTournois')
-procedure KillPopUpMenuTournois;                                                                                                                                                    ATTRIBUTE_NAME('KillPopUpMenuTournois')
-procedure CreatePopUpMenuBases;                                                                                                                                                     ATTRIBUTE_NAME('CreatePopUpMenuBases')
-procedure KillPopUpMenuBases;                                                                                                                                                       ATTRIBUTE_NAME('KillPopUpMenuBases')
+procedure CreatePopUpMenuJoueurs;
+procedure MetLesNomsDansPopUpMenuJoueurs;
+procedure KillPopUpMenuJoueurs;
+procedure CreatePopUpMenuTournois;
+procedure MetLesNomsDansPopUpMenuTournois;
+procedure KillPopUpMenuTournois;
+procedure CreatePopUpMenuBases;
+procedure KillPopUpMenuBases;
 
-procedure DialogueSaisieNomsJoueursPartie(revenirACeNumeroDeCoup : SInt32);                                                                                                         ATTRIBUTE_NAME('DialogueSaisieNomsJoueursPartie')
+procedure DialogueSaisieNomsJoueursPartie(revenirACeNumeroDeCoup : SInt32);
 
 
 IMPLEMENTATION
@@ -677,7 +677,7 @@ begin
         AjouteNouveauJoueurTableSaisiePartie(gInfosSaisiePartie.dernierJoueurBlanc);
       if oldFocus = TournoiEditableText then
         AjouteNouveauTournoiTableSaisiePartie(gInfosSaisiePartie.dernierTournoi);
-        
+
 			MetLesNomsDansPopUpMenuJoueurs;
 			MetLesNomsDansPopUpMenuTournois;
     end;
@@ -741,14 +741,14 @@ begin
   	      SetItemTextInDialog(dialogueSaisie,BlancEditableText,GetNomJoueur(dernierJoueurBlanc));
   	      SetItemTextInDialog(dialogueSaisie,TournoiEditableText,GetNomTournoi(dernierTournoi));
   	      SetItemTextInDialog(dialogueSaisie,AnneeEditableText,NumEnString(derniereAnnee));
-  	      
+  	
   	      with popUpBasesSaisie do
   	        begin
   	          itemCourantMenuBases := Max(NroDistribToItemNumber(popUpBasesSaisie,derniereDistribution), nbreItemsAvantListeDesBases + 1);
   	          derniereDistribution := ItemNumberToNroDistrib(popUpBasesSaisie,itemCourantMenuBases);
   	          SetItemMark(menuFlottantBases,itemCourantMenuBases,chr(checkMark));
   	        end;
-  	        
+  	
   	      SetBoolCheckBox(dialogueSaisie,AjouterAutomatiquementCheckBox,enregistrementAutomatique);
   	      SelectDialogItemText(dialogueSaisie,NoirEditableText,0,MAXINT_16BITS);
 	    end;
@@ -910,7 +910,7 @@ begin
               case itemHit of
                 NoirEditableText :
                   begin
-                  
+
                     if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
@@ -920,7 +920,7 @@ begin
                         end
                       else
                         s := Complemente(complementationJoueurNoir,true,s,i,found);
-                        
+
                     if EnleveEspacesDeDroite(s) = EnleveEspacesDeDroite(GetNomJoueur(numeroDerniereComplementationDansTable)) then
                       begin
                         numero := GetNroJoueurDansSonFichier(numeroDerniereComplementationDansTable);
@@ -937,7 +937,7 @@ begin
                   end;
                 BlancEditableText:
                   begin
-                  
+
                     if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
@@ -947,7 +947,7 @@ begin
                         end
                       else
                         s := Complemente(complementationJoueurBlanc,true,s,i,found);
-                        
+
                     if EnleveEspacesDeDroite(s) = EnleveEspacesDeDroite(GetNomJoueur(numeroDerniereComplementationDansTable)) then
                       begin
                         numero := GetNroJoueurDansSonFichier(numeroDerniereComplementationDansTable);
@@ -964,7 +964,7 @@ begin
                   end;
                 TournoiEditableText :
                   begin
-                  
+
                     if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
@@ -974,7 +974,7 @@ begin
                         end
                       else
                         s := Complemente(complementationTournoi,true,s,i,found);
-                        
+
                     if EnleveEspacesDeDroite(s) = EnleveEspacesDeDroite(GetNomTournoi(numeroDerniereComplementationDansTable)) then
                       begin
                         numero := GetNroTournoiDansSonFichier(numeroDerniereComplementationDansTable);
@@ -1160,7 +1160,7 @@ begin
         if (DernierePartieCompatibleEnMemoire(nbCoupsIdentiques,numeroReferencePartie) <> '') & (nbCoupsIdentiques >= 30)
           then
             begin
-            
+
               if not(gameOver)
                 then
                   nbPionsNoirPourDialogueConfirmation := nbreDePions[pionNoir]
@@ -1170,8 +1170,8 @@ begin
               		  if nbreDePions[pionNoir] = nbreDePions[pionBlanc] then nbPionsNoirPourDialogueConfirmation := 32 else
               		  if nbreDePions[pionNoir] < nbreDePions[pionBlanc] then nbPionsNoirPourDialogueConfirmation := nbreDePions[pionNoir];
                   end;
-            
-            
+
+
               s := ConstruireChaineReferencesPartie(dernierJoueurNoir,dernierJoueurBlanc,dernierTournoi,derniereAnnee,nbPionsNoirPourDialogueConfirmation,true,-1);
               action := ConfirmationEcraserPartie(numeroReferencePartie,nbCoupsIdentiques,s);
             end;

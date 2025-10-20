@@ -15,97 +15,97 @@ INTERFACE
 
 
 { Initialisation de l'unite }
-procedure InitUnitCourbe;                                                                                                                                                           ATTRIBUTE_NAME('InitUnitCourbe')
-procedure LibereMemoireUnitCourbe;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitCourbe')
+procedure InitUnitCourbe;
+procedure LibereMemoireUnitCourbe;
 
 
 { fonctions elementaires de dessin pour la courbe }
-procedure BeginDrawingCourbe(const fonctionAppelante : String255);                                                                                                                  ATTRIBUTE_NAME('BeginDrawingCourbe')
-procedure EndDrawingCourbe(const fonctionAppelante : String255);                                                                                                                    ATTRIBUTE_NAME('EndDrawingCourbe')
-procedure DetermineRectanglesActifsFenetreCourbe(whichDrawingRect : rect);                                                                                                          ATTRIBUTE_NAME('DetermineRectanglesActifsFenetreCourbe')
-function FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen : boolean;                                                                                                         ATTRIBUTE_NAME('FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen')
-function HauteurCourbe : SInt32;                                                                                                                                                    ATTRIBUTE_NAME('HauteurCourbe')
-function LargeurCourbe : SInt32;                                                                                                                                                    ATTRIBUTE_NAME('LargeurCourbe')
-procedure EraseRectFenetreCourbe(myRect : rect);                                                                                                                                    ATTRIBUTE_NAME('EraseRectFenetreCourbe')
-procedure EraseRectDansZoneGriseDeLaCourbe(myRect : rect);                                                                                                                          ATTRIBUTE_NAME('EraseRectDansZoneGriseDeLaCourbe')
-procedure EraseZoneGriseDansCourbe;                                                                                                                                                 ATTRIBUTE_NAME('EraseZoneGriseDansCourbe')
-procedure DessineTrapezeCouleurDansCourbe(x1,x2 : Point; mil : SInt32; coloration : typeColorationCourbe);                                                                          ATTRIBUTE_NAME('DessineTrapezeCouleurDansCourbe')
+procedure BeginDrawingCourbe(const fonctionAppelante : String255);
+procedure EndDrawingCourbe(const fonctionAppelante : String255);
+procedure DetermineRectanglesActifsFenetreCourbe(whichDrawingRect : rect);
+function FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen : boolean;
+function HauteurCourbe : SInt32;
+function LargeurCourbe : SInt32;
+procedure EraseRectFenetreCourbe(myRect : rect);
+procedure EraseRectDansZoneGriseDeLaCourbe(myRect : rect);
+procedure EraseZoneGriseDansCourbe;
+procedure DessineTrapezeCouleurDansCourbe(x1,x2 : Point; mil : SInt32; coloration : typeColorationCourbe);
 
 
 {Le repere}
-procedure DessineRepereCourbe(fonctionAppelante : String255);                                                                                                                       ATTRIBUTE_NAME('DessineRepereCourbe')
-procedure DessineLignesDeHauteurDuRepereDansCourbe(coupDepart,coupArrivee : SInt32; const fonctionAppelante : String255);                                                           ATTRIBUTE_NAME('DessineLignesDeHauteurDuRepereDansCourbe')
+procedure DessineRepereCourbe(fonctionAppelante : String255);
+procedure DessineLignesDeHauteurDuRepereDansCourbe(coupDepart,coupArrivee : SInt32; const fonctionAppelante : String255);
 
 
 { Effacage de la courbe }
-procedure EffaceCourbe(n,nfin : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255);                                                                          ATTRIBUTE_NAME('EffaceCourbe')
-procedure EffacerTouteLaCourbe(fonctionAppelante : String255);                                                                                                                      ATTRIBUTE_NAME('EffacerTouteLaCourbe')
+procedure EffaceCourbe(n,nfin : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255);
+procedure EffacerTouteLaCourbe(fonctionAppelante : String255);
 
 
 { Dessin de la courbe }
-procedure TraceSegmentCourbeSansDessinerLeRepere(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255; var regionEffacee : rect);                ATTRIBUTE_NAME('TraceSegmentCourbeSansDessinerLeRepere')
-procedure TraceSegmentCourbe(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255);                                                              ATTRIBUTE_NAME('TraceSegmentCourbe')
-procedure DessineCourbe(coloration : typeColorationCourbe; fonctionAppelante : String255);                                                                                          ATTRIBUTE_NAME('DessineCourbe')
+procedure TraceSegmentCourbeSansDessinerLeRepere(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255; var regionEffacee : rect);
+procedure TraceSegmentCourbe(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255);
+procedure DessineCourbe(coloration : typeColorationCourbe; fonctionAppelante : String255);
 
 
 { procedures de gestion des valeurs de la courbe }
-procedure ViderValeursDeLaCourbe;                                                                                                                                                   ATTRIBUTE_NAME('ViderValeursDeLaCourbe')
-procedure InvalidateEvaluationPourCourbe(nroCoupMin,nroCoupMax : SInt32);                                                                                                           ATTRIBUTE_NAME('InvalidateEvaluationPourCourbe')
-procedure SetEvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32; flag : boolean);                                                                                            ATTRIBUTE_NAME('SetEvaluationPourCourbeProvientDeLaFinale')
-procedure SetEvaluationPourCourbeDejaConnue(nroDuCoup : SInt32; flag : boolean);                                                                                                    ATTRIBUTE_NAME('SetEvaluationPourCourbeDejaConnue')
-procedure SetEvaluationPourNoirDansCourbe(nroDuCoup,evaluationPourNoir : SInt32; origine : typeGenreDeReflexion);                                                                   ATTRIBUTE_NAME('SetEvaluationPourNoirDansCourbe')
-procedure SetCourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite; flag : boolean);                                                               ATTRIBUTE_NAME('SetCourbeEstContinueEnCePoint')
-procedure SetCourbeDoitEtreEffacee(nroDuCoup : SInt32; flag : boolean);                                                                                                             ATTRIBUTE_NAME('SetCourbeDoitEtreEffacee')
-procedure MetScorePrevuParFinaleDansCourbe(nroCoupDeb,nroCoupFin : SInt32; origine : typeGenreDeReflexion; scorePourNoir : SInt32);                                                 ATTRIBUTE_NAME('MetScorePrevuParFinaleDansCourbe')
-procedure EssaieMettreEvaluationDeMilieuDansCourbe(square,couleur,numeroDuCoup : SInt32; const position : plateauOthello; nbreBlancs,nbreNoirs : SInt32; var jouables : plBool; var frontiere : InfoFront);                                                                   ATTRIBUTE_NAME('EssaieMettreEvaluationDeMilieuDansCourbe')
-function PeutCopierEndgameScoreFromGameTreeDansCourbe(G : GameTree; nroDuCoup : SInt32; origineCherchees : SetOfGenreDeReflexion) : boolean;                                        ATTRIBUTE_NAME('PeutCopierEndgameScoreFromGameTreeDansCourbe')
+procedure ViderValeursDeLaCourbe;
+procedure InvalidateEvaluationPourCourbe(nroCoupMin,nroCoupMax : SInt32);
+procedure SetEvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32; flag : boolean);
+procedure SetEvaluationPourCourbeDejaConnue(nroDuCoup : SInt32; flag : boolean);
+procedure SetEvaluationPourNoirDansCourbe(nroDuCoup,evaluationPourNoir : SInt32; origine : typeGenreDeReflexion);
+procedure SetCourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite; flag : boolean);
+procedure SetCourbeDoitEtreEffacee(nroDuCoup : SInt32; flag : boolean);
+procedure MetScorePrevuParFinaleDansCourbe(nroCoupDeb,nroCoupFin : SInt32; origine : typeGenreDeReflexion; scorePourNoir : SInt32);
+procedure EssaieMettreEvaluationDeMilieuDansCourbe(square,couleur,numeroDuCoup : SInt32; const position : plateauOthello; nbreBlancs,nbreNoirs : SInt32; var jouables : plBool; var frontiere : InfoFront);
+function PeutCopierEndgameScoreFromGameTreeDansCourbe(G : GameTree; nroDuCoup : SInt32; origineCherchees : SetOfGenreDeReflexion) : boolean;
 
 
 { Fonctions d'acces aux valeurs de la courbe }
-function GetEvaluationPourNoirDansCourbe(nroDuCoup : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('GetEvaluationPourNoirDansCourbe')
-function GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup(nroDuCoup : SInt32) : SInt32;                                                                                   ATTRIBUTE_NAME('GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup')
-function EvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32) : boolean;                                                                                                      ATTRIBUTE_NAME('EvaluationPourCourbeProvientDeLaFinale')
-function EvaluationPourCourbeDejaConnue(nroDuCoup : SInt32) : boolean;                                                                                                              ATTRIBUTE_NAME('EvaluationPourCourbeDejaConnue')
-function GetOrigineEvaluationDansCourbe(nroDuCoup : SInt32) : typeGenreDeReflexion;                                                                                                 ATTRIBUTE_NAME('GetOrigineEvaluationDansCourbe')
-function CourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite) : boolean;                                                                         ATTRIBUTE_NAME('CourbeEstContinueEnCePoint')
-function CourbeDoitEtreEffacee(nroDuCoup : SInt32) : boolean;                                                                                                                       ATTRIBUTE_NAME('CourbeDoitEtreEffacee')
+function GetEvaluationPourNoirDansCourbe(nroDuCoup : SInt32) : SInt32;
+function GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup(nroDuCoup : SInt32) : SInt32;
+function EvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32) : boolean;
+function EvaluationPourCourbeDejaConnue(nroDuCoup : SInt32) : boolean;
+function GetOrigineEvaluationDansCourbe(nroDuCoup : SInt32) : typeGenreDeReflexion;
+function CourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite) : boolean;
+function CourbeDoitEtreEffacee(nroDuCoup : SInt32) : boolean;
 
 
 { Gestion des evenements dans la fenetre de la courbe }
-procedure TraiteSourisCourbe(evt : eventRecord);                                                                                                                                    ATTRIBUTE_NAME('TraiteSourisCourbe')
-procedure TraiteClicSurSliderCourbe(mouseLoc : Point);                                                                                                                              ATTRIBUTE_NAME('TraiteClicSurSliderCourbe')
-function TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe(mouseGlobalLoc : Point) : boolean;                                                                                          ATTRIBUTE_NAME('TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe')
-function EstUnClicSurSliderCourbe(mouseLoc : Point) : boolean;                                                                                                                      ATTRIBUTE_NAME('EstUnClicSurSliderCourbe')
-procedure InvalidatePositionSourisFntreCourbe;                                                                                                                                      ATTRIBUTE_NAME('InvalidatePositionSourisFntreCourbe')
+procedure TraiteSourisCourbe(evt : eventRecord);
+procedure TraiteClicSurSliderCourbe(mouseLoc : Point);
+function TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe(mouseGlobalLoc : Point) : boolean;
+function EstUnClicSurSliderCourbe(mouseLoc : Point) : boolean;
+procedure InvalidatePositionSourisFntreCourbe;
 
 
 { Gestion de la barre horizontale }
-procedure DessineSliderFenetreCourbe;                                                                                                                                               ATTRIBUTE_NAME('DessineSliderFenetreCourbe')
-function NroDeCoupEnPositionSurCourbe(nro : SInt32) : SInt32;                                                                                                                       ATTRIBUTE_NAME('NroDeCoupEnPositionSurCourbe')
-function NroDeCoupEnPositionDeSliderCourbe(nro : SInt32) : SInt32;                                                                                                                  ATTRIBUTE_NAME('NroDeCoupEnPositionDeSliderCourbe')
-function PositionSourisEnNumeroDeCoupSurCourbe(positionX : SInt32) : SInt32;                                                                                                        ATTRIBUTE_NAME('PositionSourisEnNumeroDeCoupSurCourbe')
-function PositionSourisEnNumeroDeCoupSurSlider(positionX : SInt32) : SInt32;                                                                                                        ATTRIBUTE_NAME('PositionSourisEnNumeroDeCoupSurSlider')
+procedure DessineSliderFenetreCourbe;
+function NroDeCoupEnPositionSurCourbe(nro : SInt32) : SInt32;
+function NroDeCoupEnPositionDeSliderCourbe(nro : SInt32) : SInt32;
+function PositionSourisEnNumeroDeCoupSurCourbe(positionX : SInt32) : SInt32;
+function PositionSourisEnNumeroDeCoupSurSlider(positionX : SInt32) : SInt32;
 
 
 { Gestion des commentaires sur la premiere ligne }
-procedure EffaceCommentaireCourbe;                                                                                                                                                  ATTRIBUTE_NAME('EffaceCommentaireCourbe')
-procedure EcritCommentaireCourbe(nroCoup : SInt32);                                                                                                                                 ATTRIBUTE_NAME('EcritCommentaireCourbe')
-procedure SetDoitEcrireCommentaireCourbe(flag : boolean);                                                                                                                           ATTRIBUTE_NAME('SetDoitEcrireCommentaireCourbe')
-function DoitEcrireCommentaireCourbe : boolean;                                                                                                                                     ATTRIBUTE_NAME('DoitEcrireCommentaireCourbe')
+procedure EffaceCommentaireCourbe;
+procedure EcritCommentaireCourbe(nroCoup : SInt32);
+procedure SetDoitEcrireCommentaireCourbe(flag : boolean);
+function DoitEcrireCommentaireCourbe : boolean;
 
 
 { Gestion du buffer pour fabriquer une courbe plus jolie }
-procedure SetUseOffscreenCourbe(flag : boolean);                                                                                                                                    ATTRIBUTE_NAME('SetUseOffscreenCourbe')
-function GetUseOffscreenCourbe : boolean;                                                                                                                                           ATTRIBUTE_NAME('GetUseOffscreenCourbe')
+procedure SetUseOffscreenCourbe(flag : boolean);
+function GetUseOffscreenCourbe : boolean;
 
 
 { Gestion de l'image en arriere plan }
-function  CassioIsUtiliseImageDeFondPourLaCourbe : boolean;                                                                                                                         ATTRIBUTE_NAME('CassioIsUtiliseImageDeFondPourLaCourbe')
-procedure CreerImageDeFondPourCourbeSiNecessaire;                                                                                                                                   ATTRIBUTE_NAME('CreerImageDeFondPourCourbeSiNecessaire')
-procedure CreerFichierCacheImageDeFondPourCourbe;                                                                                                                                   ATTRIBUTE_NAME('CreerFichierCacheImageDeFondPourCourbe')
-function PeutChargerImageDeFondPourCourbeDepuisLeDisque : boolean;                                                                                                                  ATTRIBUTE_NAME('PeutChargerImageDeFondPourCourbeDepuisLeDisque')
-function PeutChargerImageDeFondPourCourbeDepuisLeCache : boolean;                                                                                                                   ATTRIBUTE_NAME('PeutChargerImageDeFondPourCourbeDepuisLeCache')
-function NomDuFichierCachePourImageDeFondCourbe : String255;                                                                                                                        ATTRIBUTE_NAME('NomDuFichierCachePourImageDeFondCourbe')
+function  CassioIsUtiliseImageDeFondPourLaCourbe : boolean;
+procedure CreerImageDeFondPourCourbeSiNecessaire;
+procedure CreerFichierCacheImageDeFondPourCourbe;
+function PeutChargerImageDeFondPourCourbeDepuisLeDisque : boolean;
+function PeutChargerImageDeFondPourCourbeDepuisLeCache : boolean;
+function NomDuFichierCachePourImageDeFondCourbe : String255;
 
 
 
@@ -178,7 +178,7 @@ var gCourbeData : CourbeDataRec;
     gOffScreenCourbeRect : rect;
     gOffScreenZoneGrise : rect;
     gUseOffScreenCourbe : boolean;
-    
+
     gCourbeBackground : record
                           useImageForBackground     : boolean;
                           courbeWindowRectLastCheck : Rect;
@@ -186,7 +186,7 @@ var gCourbeData : CourbeDataRec;
                           offScreenWorld            : GWorldPtr;
                           couleurRepere             : RGBColor;
                         end;
-    
+
 
 CONST
   kMargeDeplacementZoneGriseCourbe = 20;
@@ -232,14 +232,14 @@ begin
       lockPixResult   := LockPixels(GWorldPixMapHdl);
     end;
   {gUseOffScreenCourbe := false;}
-  
-  
+
+
   gCourbeBackground.useImageForBackground     := true;
   gCourbeBackground.offScreenRect             := MakeRect(0,0,0,0);
   gCourbeBackground.courbeWindowRectLastCheck := MakeRect(0,0,0,0);
   gCourbeBackground.offScreenWorld            := NIL;
   SetRGBColor(gCourbeBackground.couleurRepere,18000,15500,24700);
-    
+
 end;
 
 
@@ -515,7 +515,7 @@ begin
 
       PenSize(1,1);
       PenPat(blackPattern);
-      
+
       if CassioIsUtiliseImageDeFondPourLaCourbe
         then
           begin
@@ -561,7 +561,7 @@ procedure DessineRepereCourbeSansSetPort;
 var x,largeur,haut,mil : SInt32;
     marge,i,n : SInt32;
     s : String255;
-begin 
+begin
   if windowCourbeOpen then
     with gCourbeData do
     begin
@@ -572,12 +572,12 @@ begin
       largeur := LargeurCourbe - marge;
       PenSize(1,1);
       PenPat(blackPattern);
-      
+
       if CassioIsUtiliseImageDeFondPourLaCourbe
         then RGBForeColor(gPurGris)
         else RGBForeColor(gPurGrisFonce);
-        
-      
+
+
       { dessin de l'axe horizontal et de la fleche de droite}
       Moveto(margeZoneGrise + marge, mil);
       Lineto(margeZoneGrise + largeur + marge, mil);
@@ -587,7 +587,7 @@ begin
 
       { dessin de l'axe vertical et des deux fleches }
       if CassioIsUtiliseImageDeFondPourLaCourbe then RGBForeColor(gPurGrisClair);
-      
+
       Moveto(margeZoneGrise + marge-3,margeZoneGrise + haut-5);
       Lineto(margeZoneGrise + marge,margeZoneGrise + haut-2);
       Moveto(margeZoneGrise + marge+3,margeZoneGrise + haut-5);
@@ -774,19 +774,19 @@ begin
         else
          begin
            marge := kPetiteMargeDansZoneGrise;
-           
+
            haut := HauteurCourbe;
            mil := margeZoneGrise + haut div 2 - 1;
            largeur := LargeurCourbe - marge;
-           
+
            SetRect(unRect,margeZoneGrise + marge + ((n*largeur) div 60) + 1,
                           margeZoneGrise,
                           margeZoneGrise + marge + ((Min(60,nfin)*largeur) div 60) + 1,
                           margeZoneGrise + haut);
-                          
-                          
-                          
-                          
+
+
+
+
            {if (nfin >= 60) then inc(unRect.right);}
            EraseRectDansZoneGriseDeLaCourbe(unRect);
            {ClipRect(unRect);}
@@ -890,20 +890,20 @@ begin
 
           		      SetPt(x0,x1.h,mil);
           		      SetPt(x3,x2.h,mil);
-          		      
+          		
           		      (*if (coloration = kCourbePastel)
-          		        then note := 0 
+          		        then note := 0
           		        else *)
           		          begin
                 		      echelle := (1.0*(mil-margeZoneGrise)/4000.0)/4.5;
                 		      note := Abs(x1.v - mil) + Abs(x2.v - mil);
                 		      note := MyTrunc(note/echelle) div kCoeffMultiplicateurPourCourbeEnFinale;
                 		    end;
-          		      
+          		
           		      isGoodForWhite := (x2.v > mil) | ((x2.v = mil) & (x1.v > mil));
 
-                    if (coloration = kCourbePastel) 
-                      then 
+                    if (coloration = kCourbePastel)
+                      then
                         begin
                           if isGoodForWhite
               		          then myRGBColor := EclaircirCouleurDeCetteQuantite(gPurGrisClair, 2000 + 10*note)
@@ -914,7 +914,7 @@ begin
                 		      if isGoodForWhite
                 		        then myRGBColor := GetCouleurAffichageValeurCourbe(pionBlanc,note)
                 		        else myRGBColor := GetCouleurAffichageValeurCourbe(pionNoir,note);
-                		      
+                		
                 		      (*
                 		      if (coloration = kCourbePastel)
           		              then myRGBColor := EclaircirCouleurDeCetteQuantite(myRGBColor,40000);
@@ -1014,11 +1014,11 @@ begin
 
 
         EraseRectDansZoneGriseDeLaCourbe(unRect);
-        
+
         DessineLignesDeHauteurDuRepereDansCourbe(n-1, n, 'TraceQuelquesSegmentsDeLaCourbe');
 
         {ClipRect(unRect);}
-        
+
         PenSize(1,1);
 
         if (n <= nbreCoup)
@@ -1050,7 +1050,7 @@ begin
             if (n > nbreCoup)
               then RGBForeColor(gPurGrisFonce)
               else RGBForeColor(gPurNoir);
-        
+
         PenPat(blackPattern);
         Moveto(x1.h,x1.v);
         Lineto(x2.h,x2.v);
@@ -1071,7 +1071,7 @@ begin
   if windowCourbeOpen & (numeroDuCoup >= 1) & (numeroDuCoup <= 60) & (numeroDuCoup <= nroDernierCoupAtteint) then
     begin
       regionEffacee := MakeRect(0,0,0,0);
-      
+
       TraceQuelquesSegmentsDeLaCourbe(numeroDuCoup,coloration,regionEffacee);
 
       DessineRepereCourbe(fonctionAppelante+'->TraceSegmentCourbe->');
@@ -1138,20 +1138,20 @@ begin
 
 
             PenSize(1,1);
-            
+
             if (i <= nbreCoup)
               then DessineTrapezeCouleurDansCourbe(x1,x2,mil,coloration)
               else DessineTrapezeCouleurDansCourbe(x1,x2,mil,kCourbePastel);
 
             PenSize(2,2);
-            
+
             if CassioIsUtiliseImageDeFondPourLaCourbe
               then RGBForeColor(gPurBlanc)
               else
                 if ((i - 1) > nbreCoup)
                   then RGBForeColor(gPurGrisFonce)
                   else RGBForeColor(gPurNoir);
-            
+
 
             Moveto(oldx1.h , oldx1.v );
             Lineto(x1.h , x1.v );
@@ -1335,7 +1335,7 @@ begin
   with gCourbeData do
     if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
       begin
-      
+
         oldEvaluation := listeEvaluations[nroDuCoup].evalNoir;
         oldOrigine    := listeEvaluations[nroDuCoup].origineEval;
 
@@ -1550,13 +1550,13 @@ begin
           end
         else
           begin
-          
+
             if not(EvaluationEdmondEstDisponible | GetNouvelleEvalDejaChargee) then
               begin
                 exit(EssaieMettreEvaluationDeMilieuDansCourbe);
               end;
-          
-          
+
+
             if ((numeroDuCoup mod 8) = 0) | ((numeroDuCoup mod 8) = 1) then Superviseur(numeroDuCoup);
 
             plat := position;
@@ -1566,7 +1566,7 @@ begin
                                                          -30000,30000,nbEvalRecursives);
 
             if numeroDuCoup <= 4 then uneNote := uneNote div 2;
-            
+
             if couleur = pionBlanc
               then SetEvaluationPourNoirDansCourbe(numeroDuCoup , -uneNote, kMilieuDePartie)
               else SetEvaluationPourNoirDansCourbe(numeroDuCoup ,  uneNote, kMilieuDePartie);
@@ -2134,7 +2134,7 @@ end;
 
 
 
-function  CassioIsUtiliseImageDeFondPourLaCourbe : boolean; 
+function  CassioIsUtiliseImageDeFondPourLaCourbe : boolean;
 begin
   CassioIsUtiliseImageDeFondPourLaCourbe := gCourbeBackground.useImageForBackground;
 end;
@@ -2143,8 +2143,8 @@ end;
 function NomDuFichierCachePourImageDeFondCourbe : String255;
 begin
   with gCourbeBackground do
-    NomDuFichierCachePourImageDeFondCourbe := 
-                        pathDossierOthelliersCassio 
+    NomDuFichierCachePourImageDeFondCourbe :=
+                        pathDossierOthelliersCassio
                         + ':cache:courbe'
                         + NumEnString(offScreenRect.right)
                         + 'x'
@@ -2160,24 +2160,24 @@ var nomFichier : String255;
     oldPort : grafPtr;
 begin
   PeutChargerImageDeFondPourCourbeDepuisLeDisque := false;
-  
-  with gCourbeBackground do 
+
+  with gCourbeBackground do
     begin
-      
+
       nomFichier := pathDossierOthelliersCassio + ':graph:courbe.jpg';
-      
+
       WriteDebugageCourbe('');
       WriteDebugageCourbe('entree dans PeutChargerImageDeFondPourCourbeDepuisLeDisque...');
       WriteDebugageCourbe('nomFichier = '+nomFichier);
-      
-      
+
+
       erreurES := FichierTexteDeCassioExiste(nomFichier,fic);
-      
+
       if (erreurES = NoErr) then
         WriteDebugageCourbe('fichier existe : OK');
-        
-        
-        
+
+
+
       GetPort(oldPort);
       if gUseOffScreenCourbe &
          FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
@@ -2185,7 +2185,7 @@ begin
            begin
               SetGWorld(gOffScreenCourbeWorld, NIL);
               DetermineRectanglesActifsFenetreCourbe(gOffScreenCourbeRect);
-              
+
               if (erreurES = NoErr) then
                 erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.theFSSpec);
            end
@@ -2193,13 +2193,13 @@ begin
            begin
               SetPortByWindow(wCourbePtr);
               DetermineRectanglesActifsFenetreCourbe(QDGetPortBound);
-              
+
               if (erreurES = NoErr) then
                 erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.theFSSpec);
            end;
       SetPort(oldPort);
-      
-        
+
+
       if (erreurES = NoErr) then
         WriteDebugageCourbe('LOADING PICTURE FROM DISK : OK');
 
@@ -2216,13 +2216,13 @@ var nomFichier : String255;
 begin
   PeutChargerImageDeFondPourCourbeDepuisLeCache := false;
 
-  
+
   if CassioIsUtiliseImageDeFondPourLaCourbe then
     with gCourbeBackground do
       begin
 
         nomFichier := NomDuFichierCachePourImageDeFondCourbe;
-        
+
         WriteDebugageCourbe('');
         WriteDebugageCourbe('entree dans PeutChargerImageDeFondPourCourbeDepuisLeCache...');
         WriteDebugageCourbe('nomFichier = '+nomFichier);
@@ -2236,7 +2236,7 @@ begin
 
         if (erreurES = NoErr) then
           WriteDebugageCourbe('LOADING PICTURE FROM CACHE : OK');
-        
+
 
         PeutChargerImageDeFondPourCourbeDepuisLeCache := (erreurES = NoErr);
 
@@ -2257,7 +2257,7 @@ begin
   if CassioIsUtiliseImageDeFondPourLaCourbe then
     with gCourbeBackground do
       begin
-      
+
         GetPort(oldPort);
         SetPort(GrafPtr(offScreenWorld));
 
@@ -2266,7 +2266,7 @@ begin
         WriteDebugageCourbe('');
         WriteDebugageCourbe('entree dans CreerFichierCacheImageDeFondPourCourbe...');
         WriteDebugageCourbe(nomFichier);
-        
+
 
         erreurES := CreateDirectoryWithThisPath(ExtraitCheminDAcces(nomFichier));
 
@@ -2278,7 +2278,7 @@ begin
         ClosePicture;
         ExportPictureToFile(myPicture, nomFichier);
         KillPicture(myPicture);
-        
+
         SetPort(oldPort);
       end;
 end;
@@ -2291,16 +2291,16 @@ begin
 
   WriteDebugageCourbe('');
   WriteDebugageCourbe('Entree dans CreateBackgroundOffScreenSiNecessaire...');
-  
+
   if windowCourbeOpen & CassioIsUtiliseImageDeFondPourLaCourbe then
     with gCourbeBackground do
       begin
-        
+
         courbeWindowRect := GetWindowContentRect(wCourbePtr);
-        
+
         a := courbeWindowRect.left;
         b := courbeWindowRect.top;
-        
+
         with courbeWindowRect do
           begin
             left   := left   - a;
@@ -2308,46 +2308,46 @@ begin
             top    := top    - b;
             bottom := bottom - b;
           end;
-        
+
         if (courbeWindowRect.right <> courbeWindowRectLastCheck.right) |
            (courbeWindowRect.bottom <> courbeWindowRectLastCheck.bottom) then
           begin
             courbeWindowRectLastCheck := courbeWindowRect;
-            
+
             KillTempOffscreenWorld(offScreenWorld);
-            
-            
+
+
             if gUseOffScreenCourbe &
                FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
                then offScreenRect := gOffScreenCourbeRect
-               else offScreenRect := courbeWindowRect; 
-            
+               else offScreenRect := courbeWindowRect;
+
             WriteDebugageCourbe('offScreenRect.left = ' + NumEnString(offScreenRect.left));
             WriteDebugageCourbe('offScreenRect.right = ' + NumEnString(offScreenRect.right));
             WriteDebugageCourbe('offScreenRect.top = ' + NumEnString(offScreenRect.top));
             WriteDebugageCourbe('offScreenRect.bottom = ' + NumEnString(offScreenRect.bottom));
-            
+
             useImageForBackground := (CreateTempOffScreenWorld(offScreenRect,offScreenWorld) = NoErr);
-            
+
             if not(useImageForBackground)
               then WriteDebugageCourbe('ERROR : Failed to create offscreen')
               else
                 begin
                   WriteDebugageCourbe('CREATE OFFSCREEN : OK');
-                  
+
                   if not(PeutChargerImageDeFondPourCourbeDepuisLeCache) then
                     begin
                       if PeutChargerImageDeFondPourCourbeDepuisLeDisque
                         then CreerFichierCacheImageDeFondPourCourbe
-                        else 
+                        else
                           begin
                             useImageForBackground := false;
                             KillTempOffscreenWorld(offScreenWorld);
                           end;
                     end;
-                  
+
                 end;
-            
+
           end;
       end;
 end;

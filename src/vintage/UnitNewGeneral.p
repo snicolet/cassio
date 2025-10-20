@@ -21,36 +21,36 @@ INTERFACE
 
 
 {inititialisation et destruction de l'unite}
-procedure InitUnitNewGeneral;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitNewGeneral')
-procedure LibereMemoireUnitNewGeneral;                                                                                                                                              ATTRIBUTE_NAME('LibereMemoireUnitNewGeneral')
+procedure InitUnitNewGeneral;
+procedure LibereMemoireUnitNewGeneral;
 
 {teste de la memoire}
-function CassioEnEnvironnementMemoireLimite : boolean;                                                                                                                              ATTRIBUTE_NAME('CassioEnEnvironnementMemoireLimite')
-procedure EcritEtatMemoire;                                                                                                                                                         ATTRIBUTE_NAME('EcritEtatMemoire')
-function GetEspaceDisponibleLancementCassio : SInt32;                                                                                                                               ATTRIBUTE_NAME('GetEspaceDisponibleLancementCassio')
+function CassioEnEnvironnementMemoireLimite : boolean;
+procedure EcritEtatMemoire;
+function GetEspaceDisponibleLancementCassio : SInt32;
 
 {memoire pour la base}
-procedure DisposeTousHandlesBase;                                                                                                                                                   ATTRIBUTE_NAME('DisposeTousHandlesBase')
-function AllocateTousHandlesBase(nbParties : SInt32) : OSErr;                                                                                                                       ATTRIBUTE_NAME('AllocateTousHandlesBase')
-procedure ChangeNbPartiesChargeablesPourBase(nouveauNbPartiesChargeables : SInt32);                                                                                                 ATTRIBUTE_NAME('ChangeNbPartiesChargeablesPourBase')
+procedure DisposeTousHandlesBase;
+function AllocateTousHandlesBase(nbParties : SInt32) : OSErr;
+procedure ChangeNbPartiesChargeablesPourBase(nouveauNbPartiesChargeables : SInt32);
 
 
-procedure VerificationNewGeneral;                                                                                                                                                   ATTRIBUTE_NAME('VerificationNewGeneral')
-procedure VerificationAllocationMemoireBase;                                                                                                                                        ATTRIBUTE_NAME('VerificationAllocationMemoireBase')
-procedure InitialisePartieHdlAuToutDebut;                                                                                                                                           ATTRIBUTE_NAME('InitialisePartieHdlAuToutDebut')
-procedure ReInitialisePartieHdlPourNouvellePartie(DetruitArbreDeJeu : boolean);                                                                                                     ATTRIBUTE_NAME('ReInitialisePartieHdlPourNouvellePartie')
-function CalculeNbrePartiesOptimum(tailleDisponiblePourLaBase : SInt32) : SInt32;                                                                                                   ATTRIBUTE_NAME('CalculeNbrePartiesOptimum')
-procedure GetParamDiag(var paramDiag : ParamDiagRec);                                                                                                                               ATTRIBUTE_NAME('GetParamDiag')
-procedure SetParamDiag(var paramDiag : ParamDiagRec);                                                                                                                               ATTRIBUTE_NAME('SetParamDiag')
-procedure CopyCommentParamDiag(var source,dest : ParamDiagRec);                                                                                                                     ATTRIBUTE_NAME('CopyCommentParamDiag')
-procedure NewParamDiag(var paramDiag : ParamDiagRec);                                                                                                                               ATTRIBUTE_NAME('NewParamDiag')
-procedure DisposeParamDiag(var paramDiag : ParamDiagRec);                                                                                                                           ATTRIBUTE_NAME('DisposeParamDiag')
-procedure NewGeneral;                                                                                                                                                               ATTRIBUTE_NAME('NewGeneral')
-procedure DisposeGeneral;                                                                                                                                                           ATTRIBUTE_NAME('DisposeGeneral')
+procedure VerificationNewGeneral;
+procedure VerificationAllocationMemoireBase;
+procedure InitialisePartieHdlAuToutDebut;
+procedure ReInitialisePartieHdlPourNouvellePartie(DetruitArbreDeJeu : boolean);
+function CalculeNbrePartiesOptimum(tailleDisponiblePourLaBase : SInt32) : SInt32;
+procedure GetParamDiag(var paramDiag : ParamDiagRec);
+procedure SetParamDiag(var paramDiag : ParamDiagRec);
+procedure CopyCommentParamDiag(var source,dest : ParamDiagRec);
+procedure NewParamDiag(var paramDiag : ParamDiagRec);
+procedure DisposeParamDiag(var paramDiag : ParamDiagRec);
+procedure NewGeneral;
+procedure DisposeGeneral;
 
 
 
-function GetTailleReserveePourLesSegments : SInt32;                                                                                                                                 ATTRIBUTE_NAME('GetTailleReserveePourLesSegments')
+function GetTailleReserveePourLesSegments : SInt32;
 
 
 
@@ -183,7 +183,7 @@ begin
   Unetaille := nbParties+1;
   UnetailleInteger := 2*uneTaille;           { sizeof(SInt16) = 2 octets }
   UneTailleLongint := 4*uneTaille;
-  
+
   tableDistributionDeLaPartie := tableBaseBytePtr(AllocateMemoryPtrClear(Unetaille));
   if tableDistributionDeLaPartie = NIL
     then RapporteErreurEtQuitte('tableDistributionDeLaPartie',10,40);

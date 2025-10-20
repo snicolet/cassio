@@ -11,71 +11,71 @@ INTERFACE
  uses
      UnitDefCassio , fp;
 
-	function Min (a, b: SInt32) : SInt32;                                                                                                                                              ATTRIBUTE_NAME('Min')
-	function Max (a, b: SInt32) : SInt32;                                                                                                                                              ATTRIBUTE_NAME('Max')
-	function Choose (cond: boolean; a, b: SInt32) : SInt32;                                                                                                                            ATTRIBUTE_NAME('Choose')
-  function InRange(n, minimum, maximum : SInt32) : boolean;                                                                                                                         ATTRIBUTE_NAME('InRange')
+	function Min (a, b: SInt32) : SInt32;
+	function Max (a, b: SInt32) : SInt32;
+	function Choose (cond: boolean; a, b: SInt32) : SInt32;
+  function InRange(n, minimum, maximum : SInt32) : boolean;
 
 
 
 
-	function RectWidth( const r : Rect ) : SInt32;                                                                                                                                     ATTRIBUTE_NAME('RectWidth')
-	function RectHeight( const r : Rect ) : SInt32;                                                                                                                                    ATTRIBUTE_NAME('RectHeight')
+	function RectWidth( const r : Rect ) : SInt32;
+	function RectHeight( const r : Rect ) : SInt32;
 
 
-	function MyTrunc(x : double_t) : SInt32;                                                                                                                                           ATTRIBUTE_NAME('MyTrunc')
-  function RealToLongint(r : double_t) : SInt32;                                                                                                                                    ATTRIBUTE_NAME('RealToLongint')
+	function MyTrunc(x : double_t) : SInt32;
+  function RealToLongint(r : double_t) : SInt32;
 
-  function Signe(n : SInt32) : SInt32;                                                                                                                                              ATTRIBUTE_NAME('Signe')
-  function InterpolationLineaire(x, x1, y1, x2, y2 : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('InterpolationLineaire')
-  function SafeAdd(x,y,bornesuperieure : SInt32) : SInt32;                                                                                                                          ATTRIBUTE_NAME('SafeAdd')
-	function ProchainMultipleDeN(a, N : SInt32) : SInt32;                                                                                                                              ATTRIBUTE_NAME('ProchainMultipleDeN')
-  function PrecedentMultipleDeN(a, N : SInt32) : SInt32;                                                                                                                            ATTRIBUTE_NAME('PrecedentMultipleDeN')
-
-
-	procedure RandomizeTimer;                                                                                                                                                          ATTRIBUTE_NAME('RandomizeTimer')
-  function RandomLongint : SInt32;                                                                                                                                                  ATTRIBUTE_NAME('RandomLongint')
-  function RandomEntreBornes(a, b : SInt16) : SInt16;                                                                                                                               ATTRIBUTE_NAME('RandomEntreBornes')
-  function RandomLongintEntreBornes(a, b : SInt32) : SInt32;                                                                                                                        ATTRIBUTE_NAME('RandomLongintEntreBornes')
-	function RandBelow( n : SInt32 ) : SInt32;                                                                                                                                         ATTRIBUTE_NAME('RandBelow')
-	function RandBetween( a, b: SInt32 ) : SInt32;                                                                                                                                     ATTRIBUTE_NAME('RandBetween')
-  function UneChanceSur(N : SInt32) : boolean;                                                                                                                                      ATTRIBUTE_NAME('UneChanceSur')
-  function PChancesSurN(P,N : SInt32) : boolean;                                                                                                                                    ATTRIBUTE_NAME('PChancesSurN')
+  function Signe(n : SInt32) : SInt32;
+  function InterpolationLineaire(x, x1, y1, x2, y2 : SInt32) : SInt32;
+  function SafeAdd(x,y,bornesuperieure : SInt32) : SInt32;
+	function ProchainMultipleDeN(a, N : SInt32) : SInt32;
+  function PrecedentMultipleDeN(a, N : SInt32) : SInt32;
 
 
-  function PuissanceReelle(x,exposant : double_t) : double_t;                                                                                                                       ATTRIBUTE_NAME('PuissanceReelle')
-	function Puissance(r : double_t; n : SInt32) : double_t;                                                                                                                           ATTRIBUTE_NAME('Puissance')
+	procedure RandomizeTimer;
+  function RandomLongint : SInt32;
+  function RandomEntreBornes(a, b : SInt16) : SInt16;
+  function RandomLongintEntreBornes(a, b : SInt32) : SInt32;
+	function RandBelow( n : SInt32 ) : SInt32;
+	function RandBetween( a, b: SInt32 ) : SInt32;
+  function UneChanceSur(N : SInt32) : boolean;
+  function PChancesSurN(P,N : SInt32) : boolean;
 
 
-
-	function NewMagicCookie : SInt32;                                                                                                                                                 ATTRIBUTE_NAME('NewMagicCookie')
-
-  procedure MY_SWAP_INTEGER( arg : UInt16Ptr );                                                                                                                                     ATTRIBUTE_NAME('MY_SWAP_INTEGER')
-  procedure MY_SWAP_LONGINT( arg : UInt32Ptr );                                                                                                                                     ATTRIBUTE_NAME('MY_SWAP_LONGINT')
-
-  function MySwapInteger(num : SInt16) : SInt16;                                                                                                                                    ATTRIBUTE_NAME('MySwapInteger')
-  function MySwapLongint(num : SInt32) : SInt32;                                                                                                                                    ATTRIBUTE_NAME('MySwapLongint')
-
-  procedure MySwapIntegerArray(theArray : UnivPtr; indexMin, indexMax : SInt32);                                                                                                    ATTRIBUTE_NAME('MySwapIntegerArray')
-  procedure MySwapLongintArray(theArray : UnivPtr; indexMin, indexMax : SInt32);                                                                                                    ATTRIBUTE_NAME('MySwapLongintArray')
+  function PuissanceReelle(x,exposant : double_t) : double_t;
+	function Puissance(r : double_t; n : SInt32) : double_t;
 
 
 
-  function Hexa(num : SInt32) : String255;                                                                                                                                           ATTRIBUTE_NAME('Hexa')
-  function HexaWithoutDollar(num : UInt32) : String255;                                                                                                                              ATTRIBUTE_NAME('HexaWithoutDollar')
-	function HexN (n : SInt32) : char;                                                                                                                                                 ATTRIBUTE_NAME('HexN')
-	function HexN2 (n : SInt32) : String255;                                                                                                                                           ATTRIBUTE_NAME('HexN2')
-	function HexNN (n : SInt32; len : SInt16) : String255;                                                                                                                             ATTRIBUTE_NAME('HexNN')
-	function HexToNum (s : String255) : SInt32;                                                                                                                                        ATTRIBUTE_NAME('HexToNum')
+	function NewMagicCookie : SInt32;
+
+  procedure MY_SWAP_INTEGER( arg : UInt16Ptr );
+  procedure MY_SWAP_LONGINT( arg : UInt32Ptr );
+
+  function MySwapInteger(num : SInt16) : SInt16;
+  function MySwapLongint(num : SInt32) : SInt32;
+
+  procedure MySwapIntegerArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
+  procedure MySwapLongintArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
+
+
+
+  function Hexa(num : SInt32) : String255;
+  function HexaWithoutDollar(num : UInt32) : String255;
+	function HexN (n : SInt32) : char;
+	function HexN2 (n : SInt32) : String255;
+	function HexNN (n : SInt32; len : SInt16) : String255;
+	function HexToNum (s : String255) : SInt32;
 	
-  function UInt64ToHexa(num : UInt64) : String255;                                                                                                                                   ATTRIBUTE_NAME('UInt64ToHexa')
-  function UInt64ToHexaWithDollar(num : UInt64) : String255;                                                                                                                         ATTRIBUTE_NAME('UInt64ToHexaWithDollar')	
-  function HexToUInt64(const s : String255) : UInt64;                                                                                                                                ATTRIBUTE_NAME('HexToUInt64')
+  function UInt64ToHexa(num : UInt64) : String255;
+  function UInt64ToHexaWithDollar(num : UInt64) : String255;                                                                                                                         	
+  function HexToUInt64(const s : String255) : UInt64;
 
 
 
 
-  function Same64Bits(a , b : UInt64) : boolean;                                                                                                                                    ATTRIBUTE_NAME('Same64Bits')
+  function Same64Bits(a , b : UInt64) : boolean;
 
 
 
@@ -136,10 +136,10 @@ begin
   alea := alea + NewMagicCookie;
   MicroSeconds(time);
   alea := alea + time.lo + TickCount;
-  
+
   if (GetCurrentProcess(processNumber) = NoErr) then
     alea := alea xor processNumber.highLongOfPSN xor processNumber.lowLongOfPSN;
-  
+
   SetQDGlobalsRandomSeed(alea);
 end;
 
@@ -565,14 +565,14 @@ var i, numDigits, v : UInt32;
     result : UInt64;
 begin
   result := 0;
-      
+
   numDigits := 0;
-  
+
   i := LENGTH_OF_STRING(s);
-  
+
   while (i > 0) do
     begin
-      
+
       case s[i] of
         'A'..'Z':
 					v := ord(s[i]) - 55;
@@ -581,14 +581,14 @@ begin
 				'0'..'9':
 					v := ord(s[i]) - 48;
 		  end;
-		  
+		
 		  if (numDigits <= 15) then result := result + BSl(v, 4*numDigits);
-		  
+		
 		  inc(numDigits);
 		  dec(i);
-      
+
     end;
-    
+
   HexToUInt64 := result;
 end;
 
@@ -620,14 +620,14 @@ begin
     begin
       lo  := 0;
       hi := 0;
-      
+
       numDigits := 0;
-      
+
       i :=  LENGTH_OF_STRING(s);
-      
+
       while (i > 0) do
         begin
-          
+
           case s[i] of
             'A'..'Z':
     					v := ord(s[i]) - 55;
@@ -636,13 +636,13 @@ begin
     				'0'..'9':
     					v := ord(s[i]) - 48;
     		  end;
-    		  
+    		
     		  if (numDigits <= 7)  then lo := lo + BSl(v, 4*numDigits) else
     		  if (numDigits <= 15) then hi := hi + BSl(v, 4*(numDigits - 8));
-    		  
+    		
     		  inc(numDigits);
     		  dec(i);
-          
+
         end;
     end;
   HexToUInt64 := result;
@@ -682,7 +682,7 @@ end;
 
 function Same64Bits(a , b : UInt64) : boolean;
 begin
-  Same64Bits := (b.lo = a.lo) & 
+  Same64Bits := (b.lo = a.lo) &
                 (b.hi = a.hi);
 end;
 

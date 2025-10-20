@@ -16,7 +16,7 @@ const UNIX_TASK_STARTING    = 1;
       UNIX_TASK_RUNNING     = 2;
       UNIX_TASK_STOPPED     = 3;
       UNIX_TASK_KILLED      = 4;
-      
+
 
 { commnunication avec le pont vers les moteurs externes : traduction en Pascal des types de fonction C }
 type GetUnixTaskBackOutputCallBackType           = procedure (theCString : Ptr);

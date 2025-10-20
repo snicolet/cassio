@@ -9,18 +9,18 @@ begin
 
   with node do
     begin
-    
+
       MicroSeconds(microSecondesDepart);
-      
-      if ThreadEstInterrompue(nroThreadDuPere,nbreVides) 
+
+      if ThreadEstInterrompue(nroThreadDuPere,nbreVides)
         then
           begin
             InterrompreUnFils(node,nroThreadDuFils);
-            
+
             // le fils dont on vient de recevoir le resultat ne nous servira plus
             ATOMIC_DECREMENT_32(gNbreProcesseursCalculant);
-            
-            
+
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -33,18 +33,18 @@ begin
               end;
             {$ENDC}
           end
-          
-          
+
+
         else
-      if (nroDuFilsCourant >= filsFin) 
-        then 
+      if (nroDuFilsCourant >= filsFin)
+        then
           begin
             EnleverLaReservationDUneThread(node,nroThreadDuFils);
-            
+
             // on a fini de lancer tous les fils, donc le fils dont on vient de recevoir le resultat ne nous servira plus
             ATOMIC_DECREMENT_32(gNbreProcesseursCalculant);
-            
-            
+
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -57,21 +57,21 @@ begin
               end;
             {$ENDC}
           end
-          
-          
-        else 
+
+
+        else
           begin
             // on va sans doute reutiliser immediatement la thread du fils dont on vient de recevoir le resultat
-            
+
             if (gNbreProcesseursCalculant <= numProcessors)
               then
                 begin
-                
-                
+
+
                   if ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,gAlphaBetaTasksData^[nroThreadDuFils].etat) <> 0
                     then
                       begin
-                        
+
                         {$IFC AVEC_DEBUG_PARALLELISME}
                         if DoitDebugguerParallelismeDansRapport then
                           begin
@@ -83,17 +83,17 @@ begin
                             err := MPExitCriticalRegion(gRapportCriticalRegionID);
                           end;
                         {$ENDC}
-                  
+
                         PreparerUnTravailPourLaThreadAuChomage(node,nroThreadDuFils);
-                        
+
                         if gCheckingResultsHasHighPriority then
                           begin
-                              
+
                             // Ecouter eventuellement d'autres resultats
                             if (nbreResultatsEnAttente > 0) then
                               begin
-                              
-                                if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides) 
+
+                                if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides)
                                   then
                                     begin
                                       MicroSeconds(microSecondesFin);
@@ -101,32 +101,32 @@ begin
 
                                       FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kRECEVOIR_UN_NOUVEAU_RESULTAT;
                                       exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
-                                    end; 
-                              
+                                    end;
+
                               end;
                           end;
-                  
+
                         MicroSeconds(microSecondesFin);
                         gProfilerParallelisme[8] := gProfilerParallelisme[8] + (microSecondesFin.lo-microSecondesDepart.lo);
-                  
+
                         FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
                         exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
                       end
                     else
-                    
+
                   if ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadDuFils].etat) = 0
                     then
                       begin
-                      
+
                         etatDuFils := gAlphaBetaTasksData^[nroThreadDuFils].etat;
-                      
+
                         InterrompreUnFils(node,nroThreadDuFils);
-                      
+
                         if PeutTrouverUneThreadDisponible(nroThreadDuPere,nroThreadFilsDisponible) then
                           begin
                             ATOMIC_DECREMENT_32(gNbreProcesseursCalculant);
-                            
-                            
+
+
                             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                             if gUseSpinLocks then
                               begin
@@ -140,16 +140,16 @@ begin
                                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
                               end;
                             {$ENDC}
-                  
+
                             PreparerUnTravailPourLaThreadAuChomage(node,nroThreadFilsDisponible);
-                            
+
                             if gCheckingResultsHasHighPriority then
                               begin
-                                  
+
                                 // Ecouter eventuellement d'autres resultats
                                 if (nbreResultatsEnAttente > 0) then
                                   begin
-                                    if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides) 
+                                    if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides)
                                       then
                                         begin
                                           MicroSeconds(microSecondesFin);
@@ -157,13 +157,13 @@ begin
 
                                           FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kRECEVOIR_UN_NOUVEAU_RESULTAT;
                                           exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
-                                        end; 
+                                        end;
                                   end;
                               end;
-                              
+
                             MicroSeconds(microSecondesFin);
                             gProfilerParallelisme[10] := gProfilerParallelisme[10] + (microSecondesFin.lo-microSecondesDepart.lo);
-                  
+
                             FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
                             exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
                           end;
@@ -174,10 +174,10 @@ begin
                   if ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadDuFils].etat) = 0 then
                     begin
                       InterrompreUnFils(node,nroThreadDuFils);
-                      
+
                       ATOMIC_DECREMENT_32(gNbreProcesseursCalculant);
-                      
-                      
+
+
                       {$IFC AVEC_DEBUG_PARALLELISME}
                       if DoitDebugguerParallelismeDansRapport then
                         begin
@@ -189,13 +189,13 @@ begin
                           err := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                       {$ENDC}
-                
+
                     end;
                 end;
         end;
-        
+
     end;  {with node do}
-    
+
     FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kCONTINUER_NORMALEMENT;
 end;
 
@@ -207,9 +207,9 @@ end;
 
 LANCER_UNE_PROPOSITION_DE_TRAVAIL :
 
-          
-          
-        
+
+
+
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
             begin
@@ -220,14 +220,14 @@ LANCER_UNE_PROPOSITION_DE_TRAVAIL :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-        
-          
+
+
+
 
 ATTENDRE_SUR_LE_SEMAPHORE :
 
-          
-          
+
+
 
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
@@ -239,24 +239,24 @@ ATTENDRE_SUR_LE_SEMAPHORE :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
           compteur := 0;
           if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) do 
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) do
                   begin
                   end;
-          
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
 ATTENDRE_LA_PREPARATION_D_UN_JOB :
 
 
@@ -270,38 +270,38 @@ ATTENDRE_LA_PREPARATION_D_UN_JOB :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
-          
-          
+
+
+
+
           compteur := 0;
-          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) then 
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) do 
+          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) then
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) do
                  begin
                  end;
 
-          
-          
+
+
           if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
             begin
               message := kPleaseGoSleeping;
               goto LANCER_UNE_PROPOSITION_DE_TRAVAIL;
             end;
-            
-          
-EXPLORER_UN_SOUS_ARBRE :          
 
-          
-          
+
+EXPLORER_UN_SOUS_ARBRE :
+
+
+
           if (message = kPleaseExploreThisSubtree) & (ATOMIC_COMPARE_AND_SWAP_32(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0)
             then
               begin
-              
+
                 // Chouette, on a du boulot !
-                
+
                 EnleverLInterruptionPourCetteThread(nroThread, profondeurSubTree);
-                
-                
+
+
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 if DoitDebugguerParallelismeDansRapport then
                   begin
@@ -312,13 +312,13 @@ EXPLORER_UN_SOUS_ARBRE :
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
-                
-                
+
+
                 // Lancer le calcul du sous-arbre
                 valeur := MySubTreeValue( positionSubTree, profondeurSubTree, alphaSubTree, betaSubTree, diffPionsSubTree, vecteurPariteSubTree, nroThread, threadDuPere, listeBitboardSubTree);
-                
-                
-                
+
+
+
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 if DoitDebugguerParallelismeDansRapport then
                   begin
@@ -329,68 +329,68 @@ EXPLORER_UN_SOUS_ARBRE :
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
-    
 
-PUBLIER_LE_RESULTAT :                 
-                
-                
-                
-                
+
+PUBLIER_LE_RESULTAT :
+
+
+
+
                 // Si on n'a pas ete interrompu, donner le resultat du calcul au lanceur
-                
-                
-                
-                if not(ThreadEstInterrompue(nroThread, profondeurSubTree)) & 
+
+
+
+                if not(ThreadEstInterrompue(nroThread, profondeurSubTree)) &
                    (valeur <> kValeurSpecialeInterruptionCalculParallele) &
                    (valeur <> -kValeurSpecialeInterruptionCalculParallele)
                    then
                   begin
-                
-                
-                  
+
+
+
                     if gUseSpinLocks
                       then
                         begin
                           // indiquer a la thread qu'elle devra rentrer dans le futur spinlock quand elle aura fini
-                          
+
                           if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseExploreThisSubtree,kPleaseDoSpinLock,etat) <> 0) then
-                              
+
                              begin
-                             
+
                                PosterUnResultatAUneThread(threadDuPere, valeur, coupSubTree, hashDuPere, profondeurSubTree + 1);
-                               
+
                              end;
                         end
                       else
                         begin
                           // indiquer a la thread qu'elle devra lancer une proposition de travail puis se bloquer quand elle aura fini
-                          
+
                           if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseExploreThisSubtree,kPleaseGoSleeping,etat) <> 0) then
-                             
+
                              begin
-                               
+
                                PosterUnResultatAUneThread(threadDuPere, valeur, coupSubTree, hashDuPere, profondeurSubTree + 1);
-                               
+
                              end;
                         end;
-                        
-                 
-                    
+
+
+
                   end;
-                  
-                  
-                
+
+
+
                 // Si la thread a été interrompue, elle vient de sortir de sa recherche et donc
                 // l'interruption a fait son office : on peut l'enlever
                 EnleverLInterruptionPourCetteThread(nroThread, profondeurSubTree);
-                
+
               end;
-          
-          
+
+
 ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
-            
-            
-          
+
+
+
 
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
@@ -402,30 +402,30 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
+
+
           // Il se peut que la thread ait ete interrompue
           if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
             begin
               message := kPleaseGoSleeping;
-              
-              
-              
+
+
+
               goto LANCER_UNE_PROPOSITION_DE_TRAVAIL;
             end;
-          
-          
-          
-          
+
+
+
+
           // LE SPIN LOCK D'ATTENTE ACTIVE !!
-          
-          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) then 
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) do 
+
+          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) then
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) do
                  begin
                     {if gSpinLocksYieldTimeToCPU then MPYield;}
                  end;
-          
-          
+
+
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -434,13 +434,13 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
-            
-          
-          
-          
-          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0) & (message = kPleaseExploreThisSubtree) then 
+
+
+
+
+          if (ATOMIC_COMPARE_AND_SWAP_32(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0) & (message = kPleaseExploreThisSubtree) then
             begin
-             
+
               if DoitDebugguerParallelismeDansRapport then
                 begin
                   err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -449,13 +449,13 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
                   AttendreFrappeClavierParallelisme(true);
                   err := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
-            
-              
+
+
               goto EXPLORER_UN_SOUS_ARBRE;
-            
+
             end;
-          
-          
+
+
           goto LANCER_UNE_PROPOSITION_DE_TRAVAIL;
 
 

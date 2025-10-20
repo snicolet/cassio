@@ -13,7 +13,7 @@ INTERFACE
 
 
 
-function DernierCoupBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; diffPions,iCourant : SInt32) : SInt32;                                                   ATTRIBUTE_NAME('DernierCoupBitboard')
+function DernierCoupBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; diffPions,iCourant : SInt32) : SInt32;
 {attention : toujours appeler DernierCoupBitboard avec exactement une case vide}
 
 

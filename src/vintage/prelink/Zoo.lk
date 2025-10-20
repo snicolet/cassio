@@ -114,6 +114,6 @@ procedure ChangeFontColorRGBDansRapport(whichColor : RGBColor);                 
 function CouleurDesPetitsOthelliers : RGBColor;                                                                                                                                     EXTERNAL_NAME('CouleurDesPetitsOthelliers');
 function NoircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;                                                                                          EXTERNAL_NAME('NoircirCouleurDeCetteQuantite');
 
-  
-  
-  
+
+
+

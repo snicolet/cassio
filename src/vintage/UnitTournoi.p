@@ -10,62 +10,62 @@ USES UnitDefCassio, UnitDefParallelisme, UnitDefTournoi;
 
 
 { initialisation de l'unite }
-procedure InitUnitTournoi;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitTournoi')
-procedure LibereMemoireUnitTournoi;                                                                                                                                                 ATTRIBUTE_NAME('LibereMemoireUnitTournoi')
+procedure InitUnitTournoi;
+procedure LibereMemoireUnitTournoi;
 
 
 { quelques fonctions de test pour savoir si on est en tournoi }
-function CassioEstEnModeTournoi : boolean;                                                                                                                                          ATTRIBUTE_NAME('CassioEstEnModeTournoi')
-procedure SetCassioEstEnModeTournoi(flag : boolean);                                                                                                                                ATTRIBUTE_NAME('SetCassioEstEnModeTournoi')
+function CassioEstEnModeTournoi : boolean;
+procedure SetCassioEstEnModeTournoi(flag : boolean);
 
 
 { pour tester les algos de finale de Cassio }
-procedure AlignerTestsFinales(NumeroDeb,numeroFin : SInt16; typeFinaleAlgoReference,typeFinaleAlgoFast : SInt16);                                                                   ATTRIBUTE_NAME('AlignerTestsFinales')
+procedure AlignerTestsFinales(NumeroDeb,numeroFin : SInt16; typeFinaleAlgoReference,typeFinaleAlgoFast : SInt16);
 
 
 { organisation d'un tournoi entre moteurs }
-function OuvrirFichierTournoiEntreEngines(nomCompletFichier : String255) : OSErr;                                                                                                   ATTRIBUTE_NAME('OuvrirFichierTournoiEntreEngines')
-function PeutLireParametresTournoisEntreEnginesDansFichier(path : String255; var tournoi : ToutesRondesRec) : boolean;                                                              ATTRIBUTE_NAME('PeutLireParametresTournoisEntreEnginesDansFichier')
-procedure FaireUnTournoiToutesRondesEntreEngines(var tournoi : ToutesRondesRec);                                                                                                    ATTRIBUTE_NAME('FaireUnTournoiToutesRondesEntreEngines')
-procedure CreerTournoiToutesRondes(var tournoi : ToutesRondesRec);                                                                                                                  ATTRIBUTE_NAME('CreerTournoiToutesRondes')
-procedure FaireTournerParticipantsTournoiToutesRondes(nroRonde : SInt32; var tournoi : ToutesRondesRec);                                                                            ATTRIBUTE_NAME('FaireTournerParticipantsTournoiToutesRondes')
-procedure SauvegarderEtatGlobalDeCassioAvantLeTournoi;                                                                                                                              ATTRIBUTE_NAME('SauvegarderEtatGlobalDeCassioAvantLeTournoi')
-procedure RemettreEtatGlobalDeCassioApresLeTournoi;                                                                                                                                 ATTRIBUTE_NAME('RemettreEtatGlobalDeCassioApresLeTournoi')
+function OuvrirFichierTournoiEntreEngines(nomCompletFichier : String255) : OSErr;
+function PeutLireParametresTournoisEntreEnginesDansFichier(path : String255; var tournoi : ToutesRondesRec) : boolean;
+procedure FaireUnTournoiToutesRondesEntreEngines(var tournoi : ToutesRondesRec);
+procedure CreerTournoiToutesRondes(var tournoi : ToutesRondesRec);
+procedure FaireTournerParticipantsTournoiToutesRondes(nroRonde : SInt32; var tournoi : ToutesRondesRec);
+procedure SauvegarderEtatGlobalDeCassioAvantLeTournoi;
+procedure RemettreEtatGlobalDeCassioApresLeTournoi;
 
 
 { un match dans un tournoi }
-function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double_t;                                                                                ATTRIBUTE_NAME('FaireUnMatch')
-procedure ResetStatistiquesDuMatch(var theMatch : MatchTournoiRec);                                                                                                                 ATTRIBUTE_NAME('ResetStatistiquesDuMatch')
-procedure ChoisirUneOuvertureEquilibree(var ouverture : OuvertureRec; var ouverturesInterdites : StringSet);                                                                        ATTRIBUTE_NAME('ChoisirUneOuvertureEquilibree')
+function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double_t;
+procedure ResetStatistiquesDuMatch(var theMatch : MatchTournoiRec);
+procedure ChoisirUneOuvertureEquilibree(var ouverture : OuvertureRec; var ouverturesInterdites : StringSet);
 
 
 { gestion des moteurs pour une partie }
-procedure ArreterLesAnciensMoteurs;                                                                                                                                                 ATTRIBUTE_NAME('ArreterLesAnciensMoteurs')
-procedure LancerLesMoteursPourCettePartie(joueur1, joueur2 : SInt32);                                                                                                               ATTRIBUTE_NAME('LancerLesMoteursPourCettePartie')
-function NomDeLEngineDansLeMatch(match : MatchTournoiRec; nroJoueur : SInt32) : String255;                                                                                          ATTRIBUTE_NAME('NomDeLEngineDansLeMatch')
-function NumeroDuMoteurParlantDansCeCanal(nroCanal : SInt32) : SInt32;                                                                                                              ATTRIBUTE_NAME('NumeroDuMoteurParlantDansCeCanal')
+procedure ArreterLesAnciensMoteurs;
+procedure LancerLesMoteursPourCettePartie(joueur1, joueur2 : SInt32);
+function NomDeLEngineDansLeMatch(match : MatchTournoiRec; nroJoueur : SInt32) : String255;
+function NumeroDuMoteurParlantDansCeCanal(nroCanal : SInt32) : SInt32;
 
 
 { affichage des scores a l'ecran ou dans le rapport }
-procedure EcrireDeuxPartiesDuMatchDansRapport(match : MatchTournoiRec);                                                                                                             ATTRIBUTE_NAME('EcrireDeuxPartiesDuMatchDansRapport')
-procedure EcrireClassementTournoiDansRapport(var tournoi : ToutesRondesRec; nroDuCeTour : SInt32);                                                                                  ATTRIBUTE_NAME('EcrireClassementTournoiDansRapport')
-procedure EcritScoreMatch(match : MatchTournoiRec; ScoreUnAGauche : boolean);                                                                                                       ATTRIBUTE_NAME('EcritScoreMatch')
-procedure EcrireAnnonceTournoiDansRapport(var tournoi : ToutesRondesRec; var match : MatchTournoiRec);                                                                              ATTRIBUTE_NAME('EcrireAnnonceTournoiDansRapport')
-procedure EcrireConclusionDuTournoiDansRapport(var tournoi : ToutesRondesRec);                                                                                                      ATTRIBUTE_NAME('EcrireConclusionDuTournoiDansRapport')
-procedure EcrireAnnonceDeLaRondeDansRapport(var tournoi : ToutesRondesRec; tours : SInt32);                                                                                         ATTRIBUTE_NAME('EcrireAnnonceDeLaRondeDansRapport')
-procedure EcrireAnnonceDuMatchDansRapport(var tournoi : ToutesRondesRec; var match : MatchTournoiRec);                                                                              ATTRIBUTE_NAME('EcrireAnnonceDuMatchDansRapport')
-procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double_t);                                                                             ATTRIBUTE_NAME('EcrireConclusionDuMatchDansRapport')
-procedure BeginInfosTournoiDansRapport;                                                                                                                                             ATTRIBUTE_NAME('BeginInfosTournoiDansRapport')
-procedure EndInfosTournoisDansRapport;                                                                                                                                              ATTRIBUTE_NAME('EndInfosTournoisDansRapport')
+procedure EcrireDeuxPartiesDuMatchDansRapport(match : MatchTournoiRec);
+procedure EcrireClassementTournoiDansRapport(var tournoi : ToutesRondesRec; nroDuCeTour : SInt32);
+procedure EcritScoreMatch(match : MatchTournoiRec; ScoreUnAGauche : boolean);
+procedure EcrireAnnonceTournoiDansRapport(var tournoi : ToutesRondesRec; var match : MatchTournoiRec);
+procedure EcrireConclusionDuTournoiDansRapport(var tournoi : ToutesRondesRec);
+procedure EcrireAnnonceDeLaRondeDansRapport(var tournoi : ToutesRondesRec; tours : SInt32);
+procedure EcrireAnnonceDuMatchDansRapport(var tournoi : ToutesRondesRec; var match : MatchTournoiRec);
+procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double_t);
+procedure BeginInfosTournoiDansRapport;
+procedure EndInfosTournoisDansRapport;
 
 
 { calcul des variations Elo }
-function CalculateEloErrorBar(numberOfGames : SInt32) : double_t;                                                                                                                   ATTRIBUTE_NAME('CalculateEloErrorBar')
-function CalculateEloIncrease(p : double_t) : double_t;                                                                                                                             ATTRIBUTE_NAME('CalculateEloIncrease')
+function CalculateEloErrorBar(numberOfGames : SInt32) : double_t;
+function CalculateEloIncrease(p : double_t) : double_t;
 
 
 { tournoi entre deviations de Cassio }
-procedure DoDemo(niveau1,niveau2 : SInt32; avecAttente,avecSauvegardePartieDansListe : boolean);                                                                                    ATTRIBUTE_NAME('DoDemo')
+procedure DoDemo(niveau1,niveau2 : SInt32; avecAttente,avecSauvegardePartieDansListe : boolean);
 
 
 

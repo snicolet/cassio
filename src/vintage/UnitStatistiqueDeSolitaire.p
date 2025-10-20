@@ -12,12 +12,12 @@ INTERFACE
 
  USES UnitDefCassio;
 
-procedure InitStatistiquesDeDifficultePourFforum;                                                                                                                                   ATTRIBUTE_NAME('InitStatistiquesDeDifficultePourFforum')
-procedure LibereMemoireStatistiquesDeDifficultePourFforum;                                                                                                                          ATTRIBUTE_NAME('LibereMemoireStatistiquesDeDifficultePourFforum')
-procedure ViderStatistiquesDeDifficultePourFforum;                                                                                                                                  ATTRIBUTE_NAME('ViderStatistiquesDeDifficultePourFforum')
-procedure EcritureStatistiquesDeDifficultePourFforum(var fic : FichierTEXT);                                                                                                        ATTRIBUTE_NAME('EcritureStatistiquesDeDifficultePourFforum')
-procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);                                                                                                       ATTRIBUTE_NAME('AjouterStatistiquesDeDifficultePourFforum')
-function DifficulteDuSolitaire : double_t;                                                                                                                                          ATTRIBUTE_NAME('DifficulteDuSolitaire')
+procedure InitStatistiquesDeDifficultePourFforum;
+procedure LibereMemoireStatistiquesDeDifficultePourFforum;
+procedure ViderStatistiquesDeDifficultePourFforum;
+procedure EcritureStatistiquesDeDifficultePourFforum(var fic : FichierTEXT);
+procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);
+function DifficulteDuSolitaire : double_t;
 
 IMPLEMENTATION
 

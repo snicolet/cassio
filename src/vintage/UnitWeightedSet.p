@@ -12,30 +12,30 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyWeightedSet : WeightedSet;                                                                                                                                        ATTRIBUTE_NAME('MakeEmptyWeightedSet')
-function MakeOneElementWeightedSet(element,poids : SInt32) : WeightedSet;                                                                                                           ATTRIBUTE_NAME('MakeOneElementWeightedSet')
-procedure DisposeWeightedSet(var S : WeightedSet);                                                                                                                                  ATTRIBUTE_NAME('DisposeWeightedSet')
+function MakeEmptyWeightedSet : WeightedSet;
+function MakeOneElementWeightedSet(element,poids : SInt32) : WeightedSet;
+procedure DisposeWeightedSet(var S : WeightedSet);
 
 {Fonctions de test}
-function WeightedSetEstVide(S : WeightedSet) : boolean;                                                                                                                             ATTRIBUTE_NAME('WeightedSetEstVide')
-function CardinalOfWeightedSet(S : WeightedSet) : SInt32;                                                                                                                           ATTRIBUTE_NAME('CardinalOfWeightedSet')
-function SommeOfWeightedSet(S : WeightedSet) : SInt32;                                                                                                                              ATTRIBUTE_NAME('SommeOfWeightedSet')
+function WeightedSetEstVide(S : WeightedSet) : boolean;
+function CardinalOfWeightedSet(S : WeightedSet) : SInt32;
+function SommeOfWeightedSet(S : WeightedSet) : SInt32;
 
 {Union et Intersection}
-function DuplicateWeightedSet(S : WeightedSet) : WeightedSet;                                                                                                                       ATTRIBUTE_NAME('DuplicateWeightedSet')
-function UnionWeightedSet(S1,S2 : WeightedSet) : WeightedSet;                                                                                                                       ATTRIBUTE_NAME('UnionWeightedSet')
-function IntersectionWeightedSet(S1,S2 : WeightedSet) : WeightedSet;                                                                                                                ATTRIBUTE_NAME('IntersectionWeightedSet')
+function DuplicateWeightedSet(S : WeightedSet) : WeightedSet;
+function UnionWeightedSet(S1,S2 : WeightedSet) : WeightedSet;
+function IntersectionWeightedSet(S1,S2 : WeightedSet) : WeightedSet;
 
 {Union destructive}
-procedure AddElementToWeightedSet(element,poids : SInt32; var S : WeightedSet);                                                                                                     ATTRIBUTE_NAME('AddElementToWeightedSet')
+procedure AddElementToWeightedSet(element,poids : SInt32; var S : WeightedSet);
 
 
 {Ecriture dans le rapport}
-procedure WriteWeightedSetDansRapport(const nom : String255; S : WeightedSet; avecCardinal : boolean);                                                                              ATTRIBUTE_NAME('WriteWeightedSetDansRapport')
-procedure WritelnWeightedSetDansRapport(const nom : String255; S : WeightedSet; avecCardinal : boolean);                                                                            ATTRIBUTE_NAME('WritelnWeightedSetDansRapport')
+procedure WriteWeightedSetDansRapport(const nom : String255; S : WeightedSet; avecCardinal : boolean);
+procedure WritelnWeightedSetDansRapport(const nom : String255; S : WeightedSet; avecCardinal : boolean);
 
 {Verification de l'unite}
-procedure TestWeightedSet;                                                                                                                                                          ATTRIBUTE_NAME('TestWeightedSet')
+procedure TestWeightedSet;
 
 
 

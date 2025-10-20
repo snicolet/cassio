@@ -17,36 +17,36 @@ USES UnitDefCassio , UnitDefATR;
 
 
 {Creation et destruction}
-function MakeEmptyATR : ATR;                                                                                                                                                        ATTRIBUTE_NAME('MakeEmptyATR')
-procedure DisposeATR(var theATR : ATR);                                                                                                                                             ATTRIBUTE_NAME('DisposeATR')
+function MakeEmptyATR : ATR;
+procedure DisposeATR(var theATR : ATR);
 
 {fonction d'insertion dans un ATR}
-procedure InsererDansATR(var arbre : ATR; const chaine : String255);                                                                                                                ATTRIBUTE_NAME('InsererDansATR')
+procedure InsererDansATR(var arbre : ATR; const chaine : String255);
 
 {Affichages}
-procedure AfficherATRNodeDansRapport(var x : ATR);                                                                                                                                  ATTRIBUTE_NAME('AfficherATRNodeDansRapport')
-procedure ATRAffichageInfixe(nomATR : String255; x : ATR);                                                                                                                          ATTRIBUTE_NAME('ATRAffichageInfixe')
+procedure AfficherATRNodeDansRapport(var x : ATR);
+procedure ATRAffichageInfixe(nomATR : String255; x : ATR);
 
 {Iterateurs}
-procedure ATRParcoursInfixe(x : ATR ; DoWhatBefore,DoWhatAfter : ATRProc);                                                                                                          ATTRIBUTE_NAME('ATRParcoursInfixe')
+procedure ATRParcoursInfixe(x : ATR ; DoWhatBefore,DoWhatAfter : ATRProc);
 
 
 {Acces et tests sur les ATR}
-function TrouveATRDansChaine(x : ATR; const chaine : String255; var position : SInt32) : boolean;                                                                                   ATTRIBUTE_NAME('TrouveATRDansChaine')
-function TrouveATRDansBuffer(x : ATR; buffer : Ptr; longueur : SInt32; var position : SInt32) : boolean;                                                                            ATTRIBUTE_NAME('TrouveATRDansBuffer')
-function TrouveSuffixeDeChaineDansATR(x : ATR; const chaine : String255; var position : SInt32) : boolean;                                                                          ATTRIBUTE_NAME('TrouveSuffixeDeChaineDansATR')
-function TrouveSuffixeDeChaineCommePrefixeDansATR(x : ATR; const chaine : String255; var position : SInt32) : boolean;                                                              ATTRIBUTE_NAME('TrouveSuffixeDeChaineCommePrefixeDansATR')
+function TrouveATRDansChaine(x : ATR; const chaine : String255; var position : SInt32) : boolean;
+function TrouveATRDansBuffer(x : ATR; buffer : Ptr; longueur : SInt32; var position : SInt32) : boolean;
+function TrouveSuffixeDeChaineDansATR(x : ATR; const chaine : String255; var position : SInt32) : boolean;
+function TrouveSuffixeDeChaineCommePrefixeDansATR(x : ATR; const chaine : String255; var position : SInt32) : boolean;
 
-function TrouveChaineDansATR(x : ATR; const chaine : String255) : boolean;                                                                                                          ATTRIBUTE_NAME('TrouveChaineDansATR')
-function ChaineEstPrefixeDansATR(x : ATR; const chaine : String255) : boolean;                                                                                                      ATTRIBUTE_NAME('ChaineEstPrefixeDansATR')
-function ATREstPrefixeDeChaine(x : ATR; const chaine : String255) : boolean;                                                                                                        ATTRIBUTE_NAME('ATREstPrefixeDeChaine')
+function TrouveChaineDansATR(x : ATR; const chaine : String255) : boolean;
+function ChaineEstPrefixeDansATR(x : ATR; const chaine : String255) : boolean;
+function ATREstPrefixeDeChaine(x : ATR; const chaine : String255) : boolean;
 
 
-function ATRIsEmpty(x : ATR) : boolean;                                                                                                                                             ATTRIBUTE_NAME('ATRIsEmpty')
-function ATRHauteur(x : ATR) : SInt32;                                                                                                                                              ATTRIBUTE_NAME('ATRHauteur')
+function ATRIsEmpty(x : ATR) : boolean;
+function ATRHauteur(x : ATR) : SInt32;
 
 {Test de l'unite}
-procedure TestUnitATR;                                                                                                                                                              ATTRIBUTE_NAME('TestUnitATR')
+procedure TestUnitATR;
 
 IMPLEMENTATION
 
@@ -191,7 +191,7 @@ end;
 
 {renvoie true si l'une des chaines stockees dans l'ATR "x"
  est sous-mot, a partir de "indexDepart", de la chaine "chaine".
- Le parametre "longueur" doit etre la longueur totale de la 
+ Le parametre "longueur" doit etre la longueur totale de la
  chaine "chaine".}
 function ATREstSousMotDeChaine(x : ATR; const chaine : String255; indexDepart,longueur : SInt32) : boolean;
 var index : SInt32;
@@ -414,7 +414,7 @@ var longueur,index : SInt32;
 		                  index := succ(index);
 		                  ATRInsererRecursivement(filsEgal);
 		                end;
-		          end 
+		          end
 		        else
 		          with x^ do
 			          begin

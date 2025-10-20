@@ -4,21 +4,21 @@
 
 // 1. operator overloading
 
-type 
+type
    typeA = record name : ansistring; end;
 
-operator = (x,y : typeA) b : boolean;  
-begin  
+operator = (x,y : typeA) b : boolean;
+begin
   b := (x.name = y.name)
-end; 
+end;
 
 var a, b : typeA;
 
     a.name := 'blah';
     b.name := 'bonjour';
 
-    if (a = b) 
+    if (a = b)
        then LogDebugInfo('a and b are equal')
        else LogDebugInfo('a and b are different');
-    
+
     sleep(20000);

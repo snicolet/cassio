@@ -15,65 +15,65 @@ USES
    UnitDefCassio;
 
 
-procedure InitUnitDiagrammesFFORUM;                                                                                                                                                ATTRIBUTE_NAME('InitUnitDiagrammesFFORUM')
+procedure InitUnitDiagrammesFFORUM;
 
-function DoDiagrammeFFORUM(ParametreTexte: String255; const chainePositionInitiale,chainePosition,chaineCoups : String255) : boolean;                                              ATTRIBUTE_NAME('DoDiagrammeFFORUM')
+function DoDiagrammeFFORUM(ParametreTexte: String255; const chainePositionInitiale,chainePosition,chaineCoups : String255) : boolean;
 
-function LargeurDiagrammeFFORUM : SInt16;                                                                                                                                          ATTRIBUTE_NAME('LargeurDiagrammeFFORUM')
-function HauteurDiagrammeFFORUM : SInt16;                                                                                                                                          ATTRIBUTE_NAME('HauteurDiagrammeFFORUM')
-function LargeurTexteSousDiagrammeFFORUM : SInt16;                                                                                                                                 ATTRIBUTE_NAME('LargeurTexteSousDiagrammeFFORUM')
-function HauteurTexteDansDiagrammeFFORUM : SInt16;                                                                                                                                 ATTRIBUTE_NAME('HauteurTexteDansDiagrammeFFORUM')
-function BlancAGaucheDiagrammeFFORUM : SInt16;                                                                                                                                     ATTRIBUTE_NAME('BlancAGaucheDiagrammeFFORUM')
-function BlancADroiteDiagrammeFFORUM : SInt16;                                                                                                                                     ATTRIBUTE_NAME('BlancADroiteDiagrammeFFORUM')
+function LargeurDiagrammeFFORUM : SInt16;
+function HauteurDiagrammeFFORUM : SInt16;
+function LargeurTexteSousDiagrammeFFORUM : SInt16;
+function HauteurTexteDansDiagrammeFFORUM : SInt16;
+function BlancAGaucheDiagrammeFFORUM : SInt16;
+function BlancADroiteDiagrammeFFORUM : SInt16;
 
-function QuickdrawColorToDiagramFforumColor(qdColor : SInt16) : SInt16;                                                                                                            ATTRIBUTE_NAME('QuickdrawColorToDiagramFforumColor')
-function DiagramFforumColorToRGBColor(diagramForumColor : SInt16) : RGBColor;                                                                                                      ATTRIBUTE_NAME('DiagramFforumColorToRGBColor')
-function QuickDrawColorToRGBColor(qdColor : SInt16) : RGBColor;                                                                                                                    ATTRIBUTE_NAME('QuickDrawColorToRGBColor')
-function DoitGenererPostScriptCompatibleXPress : boolean;                                                                                                                          ATTRIBUTE_NAME('DoitGenererPostScriptCompatibleXPress')
+function QuickdrawColorToDiagramFforumColor(qdColor : SInt16) : SInt16;
+function DiagramFforumColorToRGBColor(diagramForumColor : SInt16) : RGBColor;
+function QuickDrawColorToRGBColor(qdColor : SInt16) : RGBColor;
+function DoitGenererPostScriptCompatibleXPress : boolean;
 
-procedure SetValeursParDefautDiagFFORUM(var paramDiag: ParamDiagRec; typeDiagramme : SInt16);                                                                                      ATTRIBUTE_NAME('SetValeursParDefautDiagFFORUM')
-procedure SetValeursRevueAnglaise(var paramDiag: ParamDiagRec; typeDiagramme : SInt16);                                                                                            ATTRIBUTE_NAME('SetValeursRevueAnglaise')
-procedure SetNomFichierDansTitreDiagrammeFFORUM(nomFichier : String255);                                                                                                           ATTRIBUTE_NAME('SetNomFichierDansTitreDiagrammeFFORUM')
+procedure SetValeursParDefautDiagFFORUM(var paramDiag: ParamDiagRec; typeDiagramme : SInt16);
+procedure SetValeursRevueAnglaise(var paramDiag: ParamDiagRec; typeDiagramme : SInt16);
+procedure SetNomFichierDansTitreDiagrammeFFORUM(nomFichier : String255);
 
-procedure ConstruitOthellierPicture;                                                                                                                                               ATTRIBUTE_NAME('ConstruitOthellierPicture')
-procedure ConstruitPositionPicture(chainePosition,chaineCoups : String255);                                                                                                        ATTRIBUTE_NAME('ConstruitPositionPicture')
-procedure ConstruitDiagrammePicture(chainePositionInitiale,chaineCoups : String255);                                                                                               ATTRIBUTE_NAME('ConstruitDiagrammePicture')
-procedure ConstruitPicturePionsDeltaCourants;                                                                                                                                      ATTRIBUTE_NAME('ConstruitPicturePionsDeltaCourants')
+procedure ConstruitOthellierPicture;
+procedure ConstruitPositionPicture(chainePosition,chaineCoups : String255);
+procedure ConstruitDiagrammePicture(chainePositionInitiale,chaineCoups : String255);
+procedure ConstruitPicturePionsDeltaCourants;
 
-procedure CopierEnMacDraw;                                                                                                                                                         ATTRIBUTE_NAME('CopierEnMacDraw')
-function CopierPICTDansPressePapier(myPicture : PicHandle) : OSErr;                                                                                                                ATTRIBUTE_NAME('CopierPICTDansPressePapier')
-procedure CopierPucesNumerotees;                                                                                                                                                   ATTRIBUTE_NAME('CopierPucesNumerotees')
-procedure ConstruitPositionEtCoupDapresPartie(var positionEtCoupStr : String255);                                                                                                  ATTRIBUTE_NAME('ConstruitPositionEtCoupDapresPartie')
-procedure ConstruitPositionEtCoupPositionInitiale(var positionEtCoupStr : String255);                                                                                              ATTRIBUTE_NAME('ConstruitPositionEtCoupPositionInitiale')
+procedure CopierEnMacDraw;
+function CopierPICTDansPressePapier(myPicture : PicHandle) : OSErr;
+procedure CopierPucesNumerotees;
+procedure ConstruitPositionEtCoupDapresPartie(var positionEtCoupStr : String255);
+procedure ConstruitPositionEtCoupPositionInitiale(var positionEtCoupStr : String255);
 
-procedure ParserPositionEtCoupsOthello8x8(positionEtCoupStr : String255; var chainePositionInitiale,chaineCoups : String255);                                                      ATTRIBUTE_NAME('ParserPositionEtCoupsOthello8x8')
-function NbreCoupsDansChaineCoups(chaineCoups : String255) : SInt16;                                                                                                               ATTRIBUTE_NAME('NbreCoupsDansChaineCoups')
-function ConstruitChainePosition8x8(plat : plateauOthello) : String255;                                                                                                            ATTRIBUTE_NAME('ConstruitChainePosition8x8')
+procedure ParserPositionEtCoupsOthello8x8(positionEtCoupStr : String255; var chainePositionInitiale,chaineCoups : String255);
+function NbreCoupsDansChaineCoups(chaineCoups : String255) : SInt16;
+function ConstruitChainePosition8x8(plat : plateauOthello) : String255;
 
-procedure SetTailleOthelloPourDiagrammeFForum(nbCasesH,nbCasesV : SInt16);                                                                                                         ATTRIBUTE_NAME('SetTailleOthelloPourDiagrammeFForum')
-procedure GetTailleOthelloPourDiagrammeFforum(var nbCasesH,nbCasesV : SInt16);                                                                                                     ATTRIBUTE_NAME('GetTailleOthelloPourDiagrammeFforum')
+procedure SetTailleOthelloPourDiagrammeFForum(nbCasesH,nbCasesV : SInt16);
+procedure GetTailleOthelloPourDiagrammeFforum(var nbCasesH,nbCasesV : SInt16);
 
-function GetLegendeSousLeDiagrammeCourant : String255;                                                                                                                             ATTRIBUTE_NAME('GetLegendeSousLeDiagramme')
+function GetLegendeSousLeDiagrammeCourant : String255;
 
 
 { gestion des fichiers EPS construits pour le presse-papier }
 
-function PeutOuvrirFichierEPSPourPressePapier(var fic : FichierTEXT) : OSErr;                                                                                                      ATTRIBUTE_NAME('PeutOuvrirFichierEPSPourPressePapier')
-procedure FermerFichierEPSPourPressePapier;                                                                                                                                        ATTRIBUTE_NAME('FermerFichierEPSPourPressePapier')
+function PeutOuvrirFichierEPSPourPressePapier(var fic : FichierTEXT) : OSErr;
+procedure FermerFichierEPSPourPressePapier;
 
-function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double_t;                                                                                                   ATTRIBUTE_NAME('CalculateScaleFactorForEPSDiagram')
-function CalculateScaleFactorForDiscsInEPSDiagram : double_t;                                                                                                                      ATTRIBUTE_NAME('CalculateScaleFactorForDiscsInEPSDiagram')
+function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double_t;
+function CalculateScaleFactorForDiscsInEPSDiagram : double_t;
 
-procedure SetFichierPourDiagrammeEPS(const fichierEPS : FichierTEXT);                                                                                                              ATTRIBUTE_NAME('SetFichierPourDiagrammeEPS')
-procedure SetNomsFichiersPostscriptPressePapier(EPSfilename, PDFfilename : String255);                                                                                             ATTRIBUTE_NAME('SetNomsFichiersPostscriptPressePapier')
-procedure SetDiagrammeDoitCreerVersionEPS(flag : boolean);                                                                                                                         ATTRIBUTE_NAME('SetDiagrammeDoitCreerVersionEPS')
-function DiagrammeDoitCreerVersionEPS : boolean;                                                                                                                                   ATTRIBUTE_NAME('DiagrammeDoitCreerVersionEPS')
-function GetNewCounterDiagramEPS : SInt32;                                                                                                                                         ATTRIBUTE_NAME('GetNewCounterDiagramEPS')
+procedure SetFichierPourDiagrammeEPS(const fichierEPS : FichierTEXT);
+procedure SetNomsFichiersPostscriptPressePapier(EPSfilename, PDFfilename : String255);
+procedure SetDiagrammeDoitCreerVersionEPS(flag : boolean);
+function DiagrammeDoitCreerVersionEPS : boolean;
+function GetNewCounterDiagramEPS : SInt32;
 
-procedure PrintForEPSFile(s : String255);                                                                                                                                          ATTRIBUTE_NAME('PrintForEPSFile')
-procedure PrintEpilogueForEPSFile;                                                                                                                                                 ATTRIBUTE_NAME('PrintEpilogueForEPSFile')
-procedure PrintFontsForEPSDiagram;                                                                                                                                                 ATTRIBUTE_NAME('PrintFontsForEPSDiagram')
-procedure PrintLegendeDiagrammeForEPSFile(str, str1 : String255);                                                                                                                  ATTRIBUTE_NAME('PrintLegendeDiagrammeForEPSFile')
+procedure PrintForEPSFile(s : String255);
+procedure PrintEpilogueForEPSFile;
+procedure PrintFontsForEPSDiagram;
+procedure PrintLegendeDiagrammeForEPSFile(str, str1 : String255);
 
 
 
@@ -87,7 +87,7 @@ IMPLEMENTATION
 
 USES
   fp, Scrap, Sound, MacWindows, Fonts, QuickdrawText, MacMemory, Appearance, CFString
-  
+
 {$IFC NOT(USE_PRELINK)}
   , UnitCouleur, MyQuickDraw, UnitPressePapier, UnitCarbonisation, UnitArbreDeJeuCourant, UnitOth2, UnitPierresDelta, UnitPostScript
   , UnitJaponais, MyStrings, UnitDialog, UnitProblemeDePriseDeCoin, MyAntialiasing, UnitSquareSet, UnitFenetres, UnitJeu
@@ -150,7 +150,7 @@ end;
 function MakeBufferPourDiagrammeEPS : OSErr;
 begin
   gInfosDiagrammeFforumEPS.buffer := MakeFichierAbstraitEnMemoire(128 * 1024);
-  
+
   if FichierAbstraitEstCorrect(gInfosDiagrammeFforumEPS.buffer)
     then MakeBufferPourDiagrammeEPS := NoErr
     else MakeBufferPourDiagrammeEPS := -3;
@@ -175,15 +175,15 @@ begin
   if DiagrammeDoitCreerVersionEPS then
     begin
       {WritelnDansRapport(s);}
-      
+
       err := WritelnDansFichierAbstrait(gInfosDiagrammeFforumEPS.buffer, s);
-      
+
       if (err <> NoErr) then
         begin
           WritelnNumDansRapport('WARNING, dans PrintForEPSFile, err = ',err);
           SetDiagrammeDoitCreerVersionEPS(false);
         end;
-      
+
     end;
 end;
 
@@ -210,20 +210,20 @@ begin
 
   if DiagrammeDoitCreerVersionEPS then
     begin
-      
+
       fontID := ParamDiagCourant.PoliceFForumID;
-      
+
       if (str = '') & (str1 = '') & (fontID <> GetCassioFontNum('New Century Schoolbook Roman')) then
         exit(PrintLegendeDiagrammeForEPSFile);
-      
-      if (fontID = GetCassioFontNum('Baskerville')) | (fontID = GetCassioFontNum('Fontin Regular')) then 
+
+      if (fontID = GetCassioFontNum('Baskerville')) | (fontID = GetCassioFontNum('Fontin Regular')) then
         begin
           ReplaceCharByCharInString(str,'-',' ');
           ReplaceCharByCharInString(str1,'-',' ');
         end;
-      
+
       str := ReplaceStringByStringInString('\', '\\', str);
-        
+
       str := ReplaceStringByStringInString('(',  'ππ', str);
     	str := ReplaceStringByStringInString('(',  '\(', str);
     	str := ReplaceStringByStringInString('ππ', '\(', str);
@@ -248,7 +248,7 @@ begin
                       ' (' + ConvertEncodingOfString(str1 , kCFStringEncodingMacRoman , kCFStringEncodingISOLatin1) + ')'+
                       ' center_text');
       PrintForEPSFile(' ');
-      
+
       if (fontID = GetCassioFontNum('New Century Schoolbook Roman')) then
         begin
           PrintForEPSFile(' % bugfix for the New Century Schoolbook Roman font (it''s a Windows font...)');
@@ -260,7 +260,7 @@ begin
           PrintForEPSFile(' ');
         end;
     end;
-  
+
 end;
 
 
@@ -269,103 +269,103 @@ var fontID : SInt32;
 begin
   if DiagrammeDoitCreerVersionEPS then
     begin
-      
+
       fontID := ParamDiagCourant.PoliceFForumID;
-    
+
       // WritelnNumDansRapport('PoliceFForumID = ',fontID);
-      
-      if (fontID = GetCassioFontNum('Times')) then 
+
+      if (fontID = GetCassioFontNum('Times')) then
         begin
           PrintForEPSFile(' /regularfont /Times-Roman       def');
           PrintForEPSFile(' /boldfont    /Times-Bold        def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Times New Roman')) then 
+      else if (fontID = GetCassioFontNum('Times New Roman')) then
         begin
           PrintForEPSFile(' /regularfont /TimesNewRomanPSMT      def');
           PrintForEPSFile(' /boldfont    /TimesNewRomanPS-BoldMT def');
           PrintForEPSFile(' /movenumberscale { 1.1 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Georgia')) then 
+      else if (fontID = GetCassioFontNum('Georgia')) then
         begin
           PrintForEPSFile(' /regularfont /Georgia      def');
           PrintForEPSFile(' /boldfont    /Georgia-Bold def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 1.4 } def');
         end
-      else if (fontID = GetCassioFontNum('Baskerville')) then 
+      else if (fontID = GetCassioFontNum('Baskerville')) then
         begin
           PrintForEPSFile(' /regularfont /Baskerville          def');
           PrintForEPSFile(' /boldfont    /Baskerville-SemiBold def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.25 } def');
         end
-      else if (fontID = GetCassioFontNum('Gentium')) then 
+      else if (fontID = GetCassioFontNum('Gentium')) then
         begin
           PrintForEPSFile(' /regularfont /Gentium           def');
           PrintForEPSFile(' /boldfont    /GentiumBasic-Bold def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.5 } def');
         end
-      else if (fontID = GetCassioFontNum('Palatino')) then 
+      else if (fontID = GetCassioFontNum('Palatino')) then
         begin
           PrintForEPSFile(' /regularfont /Palatino-Roman    def');
           PrintForEPSFile(' /boldfont    /Palatino-Bold     def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Optima')) then 
+      else if (fontID = GetCassioFontNum('Optima')) then
         begin
           PrintForEPSFile(' /regularfont /Optima-Regular    def');
           PrintForEPSFile(' /boldfont    /Optima-Bold       def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Cochin')) then 
+      else if (fontID = GetCassioFontNum('Cochin')) then
         begin
           PrintForEPSFile(' /regularfont /Cochin            def');
           PrintForEPSFile(' /boldfont    /Cochin-Bold       def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Helvetica')) then 
+      else if (fontID = GetCassioFontNum('Helvetica')) then
         begin
           PrintForEPSFile(' /regularfont /Helvetica         def');
           PrintForEPSFile(' /boldfont    /Helvetica-Bold    def');
           PrintForEPSFile(' /movenumberscale { 0.9 } def');
           PrintForEPSFile(' /moveverticaloffset { -0.1 } def');
         end
-      else if (fontID = GetCassioFontNum('Fontin Regular')) then 
+      else if (fontID = GetCassioFontNum('Fontin Regular')) then
         begin
           PrintForEPSFile(' /regularfont /Fontin-Regular  def');
           PrintForEPSFile(' /boldfont    /Fontin-Bold     def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.5 } def');
         end
-      else if (fontID = GetCassioFontNum('Arial Rounded MT Bold')) then 
+      else if (fontID = GetCassioFontNum('Arial Rounded MT Bold')) then
         begin
           PrintForEPSFile(' /regularfont /ArialRoundedMTBold  def');
           PrintForEPSFile(' /boldfont    /ArialRoundedMTBold  def');
           PrintForEPSFile(' /movenumberscale { 0.9 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Trebuchet MS')) then 
+      else if (fontID = GetCassioFontNum('Trebuchet MS')) then
         begin
           PrintForEPSFile(' /regularfont /TrebuchetMS       def');
           PrintForEPSFile(' /boldfont    /TrebuchetMS-Bold  def');
           PrintForEPSFile(' /movenumberscale { 0.9 } def');
           PrintForEPSFile(' /moveverticaloffset { -0.4 } def');
         end
-      else if (fontID = GetCassioFontNum('New Century Schoolbook Roman')) then 
+      else if (fontID = GetCassioFontNum('New Century Schoolbook Roman')) then
         begin
           PrintForEPSFile(' /regularfont /NewCenturySchlbk-Roman  def');
           PrintForEPSFile(' /boldfont    /NewCenturySchlbk-Bold  def');
           PrintForEPSFile(' /movenumberscale { 1.0 } def');
           PrintForEPSFile(' /moveverticaloffset { 0.0 } def');
         end
-      else if (fontID = GetCassioFontNum('Virginie')) then 
+      else if (fontID = GetCassioFontNum('Virginie')) then
         begin
           PrintForEPSFile(' /regularfont /Virginie          def');
           PrintForEPSFile(' /boldfont    /Virginie          def');
@@ -383,8 +383,8 @@ var ll, ur : Point;
     scale_x, scale_y, scale : double_t;
     arrondi_h, arrondi_v : double_t;
 begin
-  
-  
+
+
   if ParamDiagCourant.CoordonneesFFORUM
     then
       begin
@@ -396,12 +396,12 @@ begin
         ll := MakePoint(20,-10);   // lower left
         ur := MakePoint(200,179);  // upper right   // rem : MakePoint(196,179)
       end;
-  
-  
-  if (GetLegendeSousLeDiagrammeCourant = '') 
+
+
+  if (GetLegendeSousLeDiagrammeCourant = '')
     then ll.v := 5;
-    
-  
+
+
   if (ParamDiagCourant.epaisseurCadreFFORUM <= 0.01) then
     begin
       ll.h := ll.h + 4;
@@ -409,46 +409,46 @@ begin
       ur.v := ur.v - 3;
       ur.h := ur.h - 3;
     end;
-  
+
   largeurPostscript := ur.h - ll.h;
   hauteurPostscript := ur.v - ll.v;
-  
-  
+
+
   scale_x := LargeurDiagrammeFFORUM / largeurPostscript;
   scale_y := HauteurDiagrammeFFORUM / hauteurPostscript;
-  
+
   // WritelnNumDansRapport('larg diag EPS = ',MyTrunc(largeurPostscript + 0.5));
   // WritelnNumDansRapport('haut diag EPS = ',MyTrunc(hauteurPostscript + 0.5));
   // WritelnNumDansRapport('larg diag FFORUM = ',LargeurDiagrammeFFORUM);
   // WritelnNumDansRapport('haut diag FFORUM = ',HauteurDiagrammeFFORUM);
   // WriteStringAndReelDansRapport('scale_x = ',scale_x, 7);WritelnDansRapport('');
   // WriteStringAndReelDansRapport('scale_y = ',scale_y, 7);WritelnDansRapport('');
-  
+
   scale := scale_x;
   if scale_y > scale then scale := scale_y;
   scale := scale * 1.3663 / 1.34;
-  
+
   scale := (MyTrunc(scale * 500.0 + 5) - (MyTrunc(scale * 500.0 + 5) mod 10)) / 500.0;
-  
-  
+
+
   // WriteStringAndReelDansRapport('scale = ',scale, 7);
   // WritelnDansRapport('');
   // WritelnDansRapport('');
-  
-  
+
+
   if ll.h >= 0 then arrondi_h := 0.0 else arrondi_h := -0.999999;
   if ll.v >= 0 then arrondi_v := 0.0 else arrondi_v := -0.999999;
-  ll := MakePoint( MyTrunc(ll.h * scale + arrondi_h) , 
+  ll := MakePoint( MyTrunc(ll.h * scale + arrondi_h) ,
                    MyTrunc(ll.v * scale + arrondi_v) );
-  
+
   if ur.h >= 0 then arrondi_h := 0.999999 else arrondi_h := 0.0;
   if ur.v >= 0 then arrondi_v := 0.999999 else arrondi_v := 0.0;
-  ur := MakePoint( MyTrunc(ur.h * scale + arrondi_h) , 
+  ur := MakePoint( MyTrunc(ur.h * scale + arrondi_h) ,
                    MyTrunc(ur.v * scale + arrondi_v) );
-  
-  
+
+
   EPSBoudingBox := MakeRect(ll.h, ll.v, ur.h, ur.v);
-  
+
   CalculateScaleFactorForEPSDiagram := scale;
 end;
 
@@ -458,9 +458,9 @@ var scale : double_t;
     rapportDesCases, retrecissementAEchelle : double_t;
 begin
   scale := 1.0000;
-  
+
   with ParamDiagCourant do
-    if not(PionsEnDedansFFORUM) 
+    if not(PionsEnDedansFFORUM)
       then scale := 1.07
       else
         begin
@@ -468,7 +468,7 @@ begin
           retrecissementAEchelle := nbPixelDedansFFORUM / rapportDesCases;
           scale := (28 - retrecissementAEchelle) / 26.0;
         end;
-  
+
   CalculateScaleFactorForDiscsInEPSDiagram := scale;
 end;
 
@@ -476,9 +476,9 @@ end;
 function LaverNomFichierEPSPourPressePapier(oldname : String255) : String255;
 var result : String255;
 begin
-  
+
   result := oldname;
-  
+
   result := ReplaceStringByStringInString('\b','',result);
   result := ReplaceStringByStringInString('  ',' ',result);
   result := ReplaceStringByStringInString('  ',' ',result);
@@ -520,14 +520,14 @@ begin
   result := ReplaceStringByStringInString('--','-',result);
   while (result[1] = '-') do
      result := ReplaceStringByStringInString('-','',result);
-  
+
   result := LeftOfString(result, 27) + '.';
-  
+
   result := ReplaceStringByStringInString('..','.',result);
   result := ReplaceStringByStringInString('-.','.',result);
-  
+
   result := result + 'eps';
-  
+
   LaverNomFichierEPSPourPressePapier := result;
 end;
 
@@ -541,21 +541,21 @@ var legende, nomFichierEPS, nomFichierPDF : String255;
 label sortie;
 begin
   err := -1;
-  
-  
+
+
   if not(DiagrammeDoitCreerVersionEPS) then goto sortie;
-  
+
   legende := GetLegendeSousLeDiagrammeCourant;
-  if (legende = '') then 
+  if (legende = '') then
     legende := ReadStringFromRessource(TextesDiversID,2);   {'sans titre'}
-    
-    
+
+
   legende := StripDiacritics(Trim(UTF8ToAscii(legende)));
-  
+
 
   // pour les diagrammes de partie, on enleve les scores et les initiales de prenoms
-  if (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePartie) | 
-     (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePourListe) then 
+  if (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePartie) |
+     (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePourListe) then
     begin
       legende := EnleverTousLesChiffres(legende);                                    // pour enlever les scores
       legende := legende + '.∂';
@@ -565,54 +565,54 @@ begin
       legende := ReplaceStringByStringInString(' .',' ',legende);
       legende := ReplaceStringByStringInString(' .',' ',legende);
     end;
-  
+
   pathDossierEPS := pathDossierFichiersAuxiliaires + ':eps:';
-  
+
   err := CreateDirectoryWithThisPath(pathDossierEPS);
   if (err <> NoErr) then goto sortie;
-  
+
   // on essaye de fabriquer un nom sans ajouter de numero
   nomFichierEPS := LaverNomFichierEPSPourPressePapier(legende);
-  
-  
+
+
   // si le fichier existe, il faut rajouter un numero, tant pis
   if FichierTexteExiste(pathDossierEPS + nomFichierEPS, 0, fic) = NoErr
     then nomFichierEPS := LaverNomFichierEPSPourPressePapier(legende + '-' + NumEnString(Abs(GetNewCounterDiagramEPS)));
-  
-  
-  
+
+
+
   nomFichierEPS := pathDossierEPS + nomFichierEPS;
   nomFichierPDF := ReplaceStringByStringInString('.eps', '.pdf', nomFichierEPS);
-  
-  
+
+
   (*
   WritelnDansRapport('nomFichierEPS = ' + nomFichierEPS);
   WritelnDansRapport('nomFichierPDF = ' + nomFichierPDF);
   *)
-  
-  
+
+
   err := FichierTexteExiste(nomFichierEPS, 0, fic);
   if (err = -43) {fnfErr => fichier non trouvé, on le crée}
     then err := CreeFichierTexte(nomFichierEPS, 0, fic);
   if (err <> NoErr) then goto sortie;
-    
+
   err := OuvreFichierTexte(fic);
   if (err <> NoErr) then goto sortie;
-  
+
   err := VideFichierTexte(fic);
   if (err <> NoErr) then goto sortie;
-    
-  
+
+
 sortie :
-  
-  if (err = NoErr) 
+
+  if (err = NoErr)
     then
       begin
         SetNomsFichiersPostscriptPressePapier(nomFichierEPS, nomFichierPDF);
-        
+
         if FichierTexteExiste(nomFichierPDF, 0, ficPDF) = NoErr
           then foo := DetruitFichierTexte(ficPDF);
-          
+
       end
     else
       begin
@@ -620,9 +620,9 @@ sortie :
           WritelnNumDansRapport('WARNING : sortie de PeutOuvrirFichierEPSPourPressePapier, err = ', err);
         SetNomsFichiersPostscriptPressePapier('', '');
       end;
-  
+
   PeutOuvrirFichierEPSPourPressePapier := err;
-    
+
 end;
 
 
@@ -632,13 +632,13 @@ var err : OSErr;
 begin
   with gInfosDiagrammeFforumEPS do
     begin
-    
+
       if DiagrammeDoitCreerVersionEPS then
         begin
           // copier le buffer dans le fichier EPS
           taille := GetPositionMarqueurFichierAbstrait(buffer);
           err := WriteFichierAbstraitDansFichierTexte(ficEPS, buffer, 0, taille);
-          
+
           // fermer le fichier EPS
           err := FermeFichierTexte(ficEPS);
           if (err <> NoErr) then
@@ -647,11 +647,11 @@ begin
               SetDiagrammeDoitCreerVersionEPS(false);
             end;
         end;
-      
+
       // fermer le buffer
       if FichierAbstraitEstCorrect(buffer)
         then DisposeFichierAbstrait(buffer);
-        
+
     end;
 end;
 
@@ -765,7 +765,7 @@ begin
 end;
 
 
-function GetLegendeSousLeDiagrammeCourant : String255; 
+function GetLegendeSousLeDiagrammeCourant : String255;
 var str : String255;
 begin
   str := '';
@@ -776,7 +776,7 @@ begin
 					str := titreFForum^^;
 				DiagrammePosition:
 					begin
-					  if EcritApres37c7FFORUM 
+					  if EcritApres37c7FFORUM
 					  then
 							begin
 							  if (nbreCoup >= 1) & (DerniereCaseJouee <> coupInconnu) then
@@ -970,7 +970,7 @@ begin
 
   while Pos(':',nomFichier) <> 0 do
     nomFichier := TPCopy(nomFichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
-    
+
   nomFichier := ReplaceStringByStringInString('.sof', '', nomFichier);
   nomFichier := ReplaceStringByStringInString('.sgf', '', nomFichier);
   nomFichier := ReplaceStringByStringInString('.ggf', '', nomFichier);
@@ -984,7 +984,7 @@ begin
 
   ParamDiagCourant.titreFFORUM^^ := '';
   ParamDiagCourant.commentPositionFFORUM^^ := '';
-  
+
   ParamDiagPositionFFORUM.titreFFORUM^^ := '';
   if (Pos('lipboard',nomFichier) <= 0) then
     begin
@@ -1031,7 +1031,7 @@ begin
 		begin
 		
 		  decalagePourLeCadre := RoundToL(epaisseurCadreFFORUM) + distanceCadreFFORUM;
-		  
+		
 			decalageH := decalagePourLeCadre + BlancAGaucheDiagrammeFFORUM;
 			if typeDiagrammeFFORUM = DiagrammePourListe then
 				decalageH := decalageH + 9;
@@ -1103,7 +1103,7 @@ begin
 		
 		  if (GetLegendeSousLeDiagrammeCourant <> '')
 		    then blancSousLeDiagramme := 0.85    {hauteur de la ligne sous le diagramme : environ 85% d'une case}
-		    else blancSousLeDiagramme := 0.18;  
+		    else blancSousLeDiagramme := 0.18;
 		
 		  HauteurDiagrammeFFORUM := RoundToL(TaillecaseFFORUM * (1.0*tailleVersionOthello.v + blancSousLeDiagramme)) + decalageV + RoundToL(epaisseurCadreFFORUM) + distanceCadreFFORUM + 1;
 		end;
@@ -1218,9 +1218,9 @@ begin
 		  // EPS ?
 		  if DiagrammeDoitCreerVersionEPS then
 		    begin
-  			  
+  			
   			  err := WritePrologueEPSDansFichier(gInfosDiagrammeFforumEPS.buffer, gInfosDiagrammeFforumEPS.nomFichierEPS);
-  			  
+  			
   			  PrintForEPSFile(' ');
   			  PrintForEPSFile('% do the drawing');
   			  PrintForEPSFile(' ');
@@ -1232,9 +1232,9 @@ begin
   			 	
   			 	scaleForEPS   := CalculateScaleFactorForEPSDiagram(fooRect);
   			  scaleForDiscs := CalculateScaleFactorForDiscsInEPSDiagram;
-  			  
+  			
   			  PrintForEPSFile(' ' + ReelEnStringAvecDecimales(scaleForEPS + 0.0000099, 5) + ' ' + ReelEnStringAvecDecimales(scaleForEPS + 0.0000099, 5) + ' scale                     %% change the bounding box if you change this');
-  			 	PrintForEPSFile(' ');  			  
+  			 	PrintForEPSFile(' ');  			
    			  PrintForEPSFile(' /discscalefactor { ' + ReelEnStringAvecDecimales(scaleForDiscs + 0.0000099, 5) + ' } def');
   			 	
   			  if TraitsFinsFFORUM
@@ -1246,9 +1246,9 @@ begin
   			  PrintForEPSFile(' ');
   			  PrintForEPSFile(' % set the fonts');
   			  PrintForEPSFile(' ');
-          
+
           PrintFontsForEPSDiagram;
-  			  
+  			
   			  PrintForEPSFile(' ');
   			  PrintForEPSFile(' ');
   			 	PrintForEPSFile(' % draw an empty board');
@@ -1373,7 +1373,7 @@ begin
 
 
       PrintForEPSFile(' board_grid');
-      if (epaisseurCadreFFORUM > 0.01) 
+      if (epaisseurCadreFFORUM > 0.01)
         then PrintForEPSFile(' board_frame');
 
 			PenSize(1, 1);
@@ -1410,8 +1410,8 @@ begin
 			if CoordonneesFFORUM then
 				begin
 				  PrintForEPSFile(' board_coord');
-				  
-				  
+				
+				
 				  {TextMode(srcXor);}
 				  RGBForeColor(gPurGris);
 				  for i := 1 to tailleVersionOthello.h do
@@ -1730,7 +1730,7 @@ begin
 			PrintForEPSFile(' ');
 			PrintForEPSFile(' % draw the moves');
 			PrintForEPSFile(' ');
-			if numerosSeulementFFORUM then 
+			if numerosSeulementFFORUM then
 			  PrintForEPSFile(' /discscalefactor { 1.05 } def');
 			PrintForEPSFile(' regularfont findfont 12 scalemovenumber setfont');
 			
@@ -1753,7 +1753,7 @@ begin
 										
 										
 										PrintForEPSFile(' (' + NumEnString(t) +') '
-											                  + CoupEnStringEnMajuscules(10 * j + i) 
+											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' move_number');
 										
 										TextMode(1);
@@ -1816,15 +1816,15 @@ begin
 
 										if chaineCoups[2*t - 1] = 'N' then  {pions noirs, avec le numero du coup en blanc}
 											begin
-											  
+											
 											  PrintForEPSFile(' (' + NumEnString(t) +') '
-											                  + CoupEnStringEnMajuscules(10 * j + i) 
+											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' black_move');
-											  
-											  
+											
+											
 												DessinePionNoirDiagrammeFforum(unRect);
                         DisableQuartzAntiAliasing;
-                        
+
 												TextMode(3);
 												if (PoliceFForumID = 0) & (haut >= 12) then
 													TextFace(normal)        {Chicago est deja assez large}
@@ -1876,10 +1876,10 @@ begin
 											begin
 											
 											  PrintForEPSFile(' (' + NumEnString(t) +') '
-											                  + CoupEnStringEnMajuscules(10 * j + i) 
+											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' white_move');
-											  
-											  
+											
+											
 												DessinePionBlancDiagrammeFforum(unRect);
 												DisableQuartzAntiAliasing;
 												
@@ -2129,7 +2129,7 @@ begin
 		      texte := GetStringInfoOfProperty(prop);
 		      SplitBy(texte, ':', foo, texte);
 		    end;
-		  
+		
 			case stockage of
 				StockageEnEnsembleDeCases:
 					begin
@@ -2214,20 +2214,20 @@ begin
     begin
       eps  := gInfosDiagrammeFforumEPS.nomFichierEPS;
       pdf  := gInfosDiagrammeFforumEPS.nomFichierPDF;
-      
+
       (*
       WritelnDansRapport('eps = ' + eps);
       WritelnDansRapport('pdf = ' + pdf);
       WritelnDansRapport('eps = ' + MacPathToUNIXPath(eps));
       WritelnDansRapport('pdf = ' + MacPathToUNIXPath(pdf));
       *)
-      
+
       if (eps <> '') then
         begin
           UnixPath := MacPathToUNIXPath(eps);
           err      := LaunchUNIXProcess('/usr/bin/pstopdf', '"' + UnixPath + '"' );
         end;
-      
+
     end;
 end;
 
@@ -2246,14 +2246,14 @@ var numeroProbleme : SInt32;
 begin
 	if not(enSetUp) then
 		begin
-		  
+		
 			if enRetour then
 				ParamDiagCourant.TypeDiagrammeFFORUM := DiagrammePartie
 			else
 				ParamDiagCourant.TypeDiagrammeFFORUM := DiagrammePosition;
 				
 		  SetDiagrammeDoitCreerVersionEPS(true);
-		  
+		
 		  if (MakeBufferPourDiagrammeEPS = NoErr) & (PeutOuvrirFichierEPSPourPressePapier(fichierEPS) = NoErr)
 		    then SetFichierPourDiagrammeEPS(fichierEPS)
 		    else SetDiagrammeDoitCreerVersionEPS(false);
@@ -2300,12 +2300,12 @@ begin
 				
 		  PrintEpilogueForEPSFile;
 		  FermerFichierEPSPourPressePapier;
-		  
+		
 		  TextMode(srcOr);
       TextFace(normal);
       ForeColor(BlackColor);
       BackColor(WhiteColor);
-          
+
 			ClosePicture;
 			SetClip(oldclipRgn);
 			DisposeRgn(oldclipRgn);
@@ -2319,7 +2319,7 @@ begin
 			if DiagrammeDoitCreerVersionEPS then
 			  begin
 			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierEPS , MY_FOUR_CHAR_CODE('EPS '));
-			    
+			
 			    {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
 			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierPDF , MY_FOUR_CHAR_CODE('PDF '));
 			    {$ENDC}
@@ -2511,9 +2511,9 @@ begin
 	end;
 	if ParamDiagCourant.DessinePierresDeltaFFORUM then
 		ConstruitPicturePionsDeltaCourants;
-  
+
   PrintEpilogueForEPSFile;
-  
+
 	ClosePicture;
 	SetClip(oldclipRgn);
 	DisposeRgn(oldclipRgn);
@@ -2953,8 +2953,8 @@ function MenuPoliceItemToPoliceID(item : SInt16) : SInt16;
 		s := MenuPoliceItemToFontName(item);
 		MenuPoliceItemToPoliceID := GetCassioFontNum(s);
 		
-		// MenuPoliceItemToPoliceID := 2;   
-		//   avant on aurait pu utiliser New York (ID = 2), 
+		// MenuPoliceItemToPoliceID := 2;
+		//   avant on aurait pu utiliser New York (ID = 2),
 		//   mais Apple l'a retirée en arretant l'environement Classic...
 	end;
 
@@ -3006,7 +3006,7 @@ begin
 	
 	// This will force Cassio to copy its private fonts to ~/Library/Fonts/
   myFontID := GetCassioFontNum('aaaaaaaaaaaaabbbbbbb');
-      
+
 	with ParamDiagCourant do
 		begin
 			BeginDialog;

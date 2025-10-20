@@ -18,67 +18,67 @@ INTERFACE
 
 
 {Fonctions de manipulation de la fenetre du rapport}
-function FenetreRapportEstOuverte : boolean;                                                                                                                                        ATTRIBUTE_NAME('FenetreRapportEstOuverte')
+function FenetreRapportEstOuverte : boolean;
 
 
 {Diverses fonctions d'acces les caracteres du texte du rapport}
-function GetRapportTextHandle : CharArrayHandle;                                                                                                                                    ATTRIBUTE_NAME('GetRapportTextHandle')
-function GetTailleRapport : SInt32;                                                                                                                                                 ATTRIBUTE_NAME('GetTailleRapport')
-function GetNiemeCaractereDuRapport(n : SInt32) : char;                                                                                                                             ATTRIBUTE_NAME('GetNiemeCaractereDuRapport')
-function GetDebutLigneDuRapport(fromWhere : SInt32) : String255;                                                                                                                    ATTRIBUTE_NAME('GetDebutLigneDuRapport')
-function GetLignePrecedenteDuRapport(fromWhere : SInt32) : String255;                                                                                                               ATTRIBUTE_NAME('GetLignePrecedenteDuRapport')
-function GetAvantDerniereLigneCouranteDuRapport : String255;                                                                                                                        ATTRIBUTE_NAME('GetAvantDerniereLigneCouranteDuRapport')
-function GetLigneCouranteDuRapport : String255;                                                                                                                                     ATTRIBUTE_NAME('GetLigneCouranteDuRapport')
-function GetDerniereLigneDuRapport : String255;                                                                                                                                     ATTRIBUTE_NAME('GetDerniereLigneDuRapport')
-function GetAvantDerniereLigneDuRapport : String255;                                                                                                                                ATTRIBUTE_NAME('GetAvantDerniereLigneDuRapport')
+function GetRapportTextHandle : CharArrayHandle;
+function GetTailleRapport : SInt32;
+function GetNiemeCaractereDuRapport(n : SInt32) : char;
+function GetDebutLigneDuRapport(fromWhere : SInt32) : String255;
+function GetLignePrecedenteDuRapport(fromWhere : SInt32) : String255;
+function GetAvantDerniereLigneCouranteDuRapport : String255;
+function GetLigneCouranteDuRapport : String255;
+function GetDerniereLigneDuRapport : String255;
+function GetAvantDerniereLigneDuRapport : String255;
 
 
 {Fonctions de gestion de la selection du rapport}
-function GetDebutSelectionRapport : SInt32;                                                                                                                                         ATTRIBUTE_NAME('GetDebutSelectionRapport')
-function GetFinSelectionRapport : SInt32;                                                                                                                                           ATTRIBUTE_NAME('GetFinSelectionRapport')
-function GetMilieuSelectionRapport : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetMilieuSelectionRapport')
-function SelectionRapportNonVide : boolean;                                                                                                                                         ATTRIBUTE_NAME('SelectionRapportNonVide')
-function SelectionRapportEstVide : boolean;                                                                                                                                         ATTRIBUTE_NAME('SelectionRapportEstVide')
-function LongueurSelectionRapport : SInt32;                                                                                                                                         ATTRIBUTE_NAME('LongueurSelectionRapport')
-function SelectionRapportEnString(var count : SInt32) : String255;                                                                                                                  ATTRIBUTE_NAME('SelectionRapportEnString')
-procedure SelectionnerTexteDansRapport(posDebut,posFin : SInt32);                                                                                                                   ATTRIBUTE_NAME('SelectionnerTexteDansRapport')
+function GetDebutSelectionRapport : SInt32;
+function GetFinSelectionRapport : SInt32;
+function GetMilieuSelectionRapport : SInt32;
+function SelectionRapportNonVide : boolean;
+function SelectionRapportEstVide : boolean;
+function LongueurSelectionRapport : SInt32;
+function SelectionRapportEnString(var count : SInt32) : String255;
+procedure SelectionnerTexteDansRapport(posDebut,posFin : SInt32);
 
 
 {Fonction d'acces a la selection du rapport ligne par ligne}
-function NombreDeLignesDansSelectionRapport : SInt32;                                                                                                                               ATTRIBUTE_NAME('NombreDeLignesDansSelectionRapport')
-procedure ForEachLineSelectedInRapportDo(doWhat : StringProc; var result : SInt32);                                                                                                 ATTRIBUTE_NAME('ForEachLineSelectedInRapportDo')
+function NombreDeLignesDansSelectionRapport : SInt32;
+procedure ForEachLineSelectedInRapportDo(doWhat : StringProc; var result : SInt32);
 
 
 {Fonction d'insertion d'un texte dans le rapport}
 {si scrollerSynchronisation est vrai, on demande que les}
 {eventuels ascenseurs du rapport soient mis a jours automatiquement}
-procedure InsereTexteDansRapportSync(text : Ptr; length : SInt32; scrollerSynchronisation : boolean);                                                                               ATTRIBUTE_NAME('InsereTexteDansRapportSync')
+procedure InsereTexteDansRapportSync(text : Ptr; length : SInt32; scrollerSynchronisation : boolean);
 
 
 {remplacement des caracteres de l'intervalle positionDebut..positionFin par la chaine newString}
-procedure RemplacerTexteDansRapport(positionDebut,positionFin : SInt32; newString : String255; scrollerSynchronisation : boolean);                                                  ATTRIBUTE_NAME('RemplacerTexteDansRapport')
+procedure RemplacerTexteDansRapport(positionDebut,positionFin : SInt32; newString : String255; scrollerSynchronisation : boolean);
 
 {gestion de la place disponible dans le rapport}
-procedure FaireDeLaPlaceAuDebutDuRapport(placeVoulue : SInt32);                                                                                                                     ATTRIBUTE_NAME('FaireDeLaPlaceAuDebutDuRapport')
-function GetPlaceDisponibleDansRapport : SInt32;                                                                                                                                    ATTRIBUTE_NAME('GetPlaceDisponibleDansRapport')
+procedure FaireDeLaPlaceAuDebutDuRapport(placeVoulue : SInt32);
+function GetPlaceDisponibleDansRapport : SInt32;
 
 {effacement des caracteres de l'intervalle positionDebut..positionFin}
-procedure DetruireTexteDansRapport(posDebut,posFin : SInt32; scrollerSynchronisation : boolean);                                                                                    ATTRIBUTE_NAME('DetruireTexteDansRapport')
+procedure DetruireTexteDansRapport(posDebut,posFin : SInt32; scrollerSynchronisation : boolean);
 
 
 
 {Autovidage : si le rapport devient trop gros pour la memoire
  de la machine, on autorise la machine a le vider sans interrompre
  l'utilisateur avec une alerte}
-procedure SetAutoVidageDuRapport(flag : boolean);                                                                                                                                   ATTRIBUTE_NAME('SetAutoVidageDuRapport')
-function GetAutoVidageDuRapport : boolean;                                                                                                                                          ATTRIBUTE_NAME('GetAutoVidageDuRapport')
+procedure SetAutoVidageDuRapport(flag : boolean);
+function GetAutoVidageDuRapport : boolean;
 
 
 {Gestion du fichier "Rapport.log"}
-procedure SetEcritToutDansRapportLog(flag : boolean);                                                                                                                               ATTRIBUTE_NAME('SetEcritToutDansRapportLog')
-function GetEcritToutDansRapportLog : boolean;                                                                                                                                      ATTRIBUTE_NAME('GetEcritToutDansRapportLog')
-procedure WriteTexteDansFichierLog(text : Ptr; length : SInt32);                                                                                                                    ATTRIBUTE_NAME('WriteTexteDansFichierLog')
-procedure WritelnDansFichierLog(s : String255);                                                                                                                                     ATTRIBUTE_NAME('WritelnDansFichierLog')
+procedure SetEcritToutDansRapportLog(flag : boolean);
+function GetEcritToutDansRapportLog : boolean;
+procedure WriteTexteDansFichierLog(text : Ptr; length : SInt32);
+procedure WritelnDansFichierLog(s : String255);
 
 
 

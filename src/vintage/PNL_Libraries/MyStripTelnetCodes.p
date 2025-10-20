@@ -27,7 +27,7 @@ IMPLEMENTATION
 
 	procedure StripTelnetCodes (var s : String255);
 		var
-			i : SInt16; 
+			i : SInt16;
 	begin
 		i := 1;
 		while i < LENGTH_OF_STRING(s) do begin
@@ -49,7 +49,7 @@ IMPLEMENTATION
 							Delete(s, i, 2);
 					end;
 				end;
-				nul: 
+				nul:
 					Delete(s, i, 1);
 				otherwise
 					i := i + 1;

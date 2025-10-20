@@ -18,25 +18,25 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyPositionEtTraitSet : PositionEtTraitSet;                                                                                                                          ATTRIBUTE_NAME('MakeEmptyPositionEtTraitSet')
-function MakeOneElementPositionEtTraitSet(var position : PositionEtTraitRec; data : SInt32) : PositionEtTraitSet;                                                                   ATTRIBUTE_NAME('MakeOneElementPositionEtTraitSet')
-procedure DisposePositionEtTraitSet(var S : PositionEtTraitSet);                                                                                                                    ATTRIBUTE_NAME('DisposePositionEtTraitSet')
+function MakeEmptyPositionEtTraitSet : PositionEtTraitSet;
+function MakeOneElementPositionEtTraitSet(var position : PositionEtTraitRec; data : SInt32) : PositionEtTraitSet;
+procedure DisposePositionEtTraitSet(var S : PositionEtTraitSet);
 
 {Fonctions de test}
-function PositionEtTraitSetEstVide(S : PositionEtTraitSet) : boolean;                                                                                                               ATTRIBUTE_NAME('PositionEtTraitSetEstVide')
-function CardinalOfPositionEtTraitSet(S : PositionEtTraitSet) : SInt32;                                                                                                             ATTRIBUTE_NAME('CardinalOfPositionEtTraitSet')
-function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;                                                        ATTRIBUTE_NAME('MemberOfPositionEtTraitSet')
+function PositionEtTraitSetEstVide(S : PositionEtTraitSet) : boolean;
+function CardinalOfPositionEtTraitSet(S : PositionEtTraitSet) : SInt32;
+function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;
 
 {Ajout et retrait destructifs}
-procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);                                                                    ATTRIBUTE_NAME('AddPositionEtTraitToSet')
-procedure RemovePositionEtTraitFromSet(var position : PositionEtTraitRec; var S : PositionEtTraitSet);                                                                              ATTRIBUTE_NAME('RemovePositionEtTraitFromSet')
+procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);
+procedure RemovePositionEtTraitFromSet(var position : PositionEtTraitRec; var S : PositionEtTraitSet);
 
 {Ecriture dans le rapport}
-procedure WritePositionEtTraitSetDansRapport(const nom : String255; S : PositionEtTraitSet; avecCardinal : boolean);                                                                ATTRIBUTE_NAME('WritePositionEtTraitSetDansRapport')
-procedure WritelnPositionEtTraitSetDansRapport(const nom : String255; S : PositionEtTraitSet; avecCardinal : boolean);                                                              ATTRIBUTE_NAME('WritelnPositionEtTraitSetDansRapport')
+procedure WritePositionEtTraitSetDansRapport(const nom : String255; S : PositionEtTraitSet; avecCardinal : boolean);
+procedure WritelnPositionEtTraitSetDansRapport(const nom : String255; S : PositionEtTraitSet; avecCardinal : boolean);
 
 {Verification de l'unite}
-procedure TestPositionEtTraitSet;                                                                                                                                                   ATTRIBUTE_NAME('TestPositionEtTraitSet')
+procedure TestPositionEtTraitSet;
 
 
 

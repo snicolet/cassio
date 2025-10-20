@@ -27,7 +27,7 @@ void* engine;
  *                                                                             *
  *******************************************************************************
  */
-pascal void EngineProtocolMainLoop(void) 
+pascal void EngineProtocolMainLoop(void)
 { int readstatus, nargs;
   int quit;
 
@@ -64,8 +64,8 @@ pascal void EngineProtocolMainLoop(void)
  *   puisse l'interrompre.                                                     *
  *   Cette fonction est non bloquante, et fait seulement deux choses :         *
  *      1) elle repond "ok." sur la sortie standard si elle recoit une         *
- *         commande vide (ligne vide). Ceci permet a Cassio de tester pendant  * 
- *         la recherche si le moteur est toujours vivant;                      * 
+ *         commande vide (ligne vide). Ceci permet a Cassio de tester pendant  *
+ *         la recherche si le moteur est toujours vivant;                      *
  *      2) elle verifie si elle doit executer une des deux commandes "stop" ou *
  *         "quit", en appelant respectivement les fonctions engine_stop() ou   *
  *         engine_free() du moteur.                                            *
@@ -82,7 +82,7 @@ pascal void EngineProtocolCheckEvents(void)
 			Print("ok.\n");
 		}
 		else {
-			if (strstr(args[0], "ENGINE-PROTOCOL") && 
+			if (strstr(args[0], "ENGINE-PROTOCOL") &&
 				 (strstr(args[1], "stop") || strstr(args[1], "quit")))
 				EngineProtocolInterpretCommand(nargs, args);
 			else
@@ -100,7 +100,7 @@ pascal void EngineProtocolCheckEvents(void)
  *******************************************************************************
  */
 pascal void EngineProtocolInterpretCommand(int nargs, char *args[])
-{ 
+{
 	if (strstr(args[1], "init"))
 		engine = engine_init();
 	

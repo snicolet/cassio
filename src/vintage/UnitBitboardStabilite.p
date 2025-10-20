@@ -14,8 +14,8 @@ INTERFACE
 
 
 
-procedure TestStabiliteBitboard;                                                                                                                                                    ATTRIBUTE_NAME('TestStabiliteBitboard')
-function CalculePionsStablesBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; nbPionsStablesSuffisant : SInt32) : SInt32;                                      ATTRIBUTE_NAME('CalculePionsStablesBitboard')
+procedure TestStabiliteBitboard;
+function CalculePionsStablesBitboard(my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; nbPionsStablesSuffisant : SInt32) : SInt32;
 
 
 

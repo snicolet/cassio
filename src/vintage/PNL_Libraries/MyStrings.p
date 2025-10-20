@@ -11,200 +11,200 @@ INTERFACE
  USES
      UnitDefCassio;
 
-	procedure LeftP (var s : String255; len : SInt16);                                                                                                                                 ATTRIBUTE_NAME('LeftP')
-	function LeftOfString (var s : String255; len : SInt16) : String255;                                                                                                               ATTRIBUTE_NAME('LeftOfString')
-	procedure LeftAssignP (var s : String255; len : SInt16; var rhs : String255);                                                                                                      ATTRIBUTE_NAME('LeftAssignP')
-	function LeftAssign (var s : String255; len : SInt16; var rhs : String255) : String255;                                                                                            ATTRIBUTE_NAME('LeftAssign')
-	procedure RightP (var s : String255; len : SInt16);                                                                                                                                ATTRIBUTE_NAME('RightP')
-	function RightOfString (const s : String255; len : SInt16) : String255;                                                                                                            ATTRIBUTE_NAME('RightOfString')
-	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);                                                                                                     ATTRIBUTE_NAME('RightAssignP')
-	function RightAssign (var s : String255; len : SInt16; var rhs : String255) : String255;                                                                                           ATTRIBUTE_NAME('RightAssign')
-	procedure MidP (var s : String255; p, len : SInt16);                                                                                                                               ATTRIBUTE_NAME('MidP')
-	function Mid (var s : String255; p, len : SInt16) : String255;                                                                                                                     ATTRIBUTE_NAME('Mid')
-	procedure MidAssignP (var s : String255; p, len : SInt16; const rhs : String255);                                                                                                  ATTRIBUTE_NAME('MidAssignP')
-	function MidAssign (const s : String255; p, len : SInt16; const rhs : String255) : String255;                                                                                      ATTRIBUTE_NAME('MidAssign')
-	procedure HandleToString (hhhh : UnivHandle; var s : String255);                                                                                                                   ATTRIBUTE_NAME('HandleToString')
-	function HandleToStr (hhhh : UnivHandle) : String255;                                                                                                                              ATTRIBUTE_NAME('HandleToStr')
-	procedure StringToHandle (const s : String255; hhhh : UnivHandle);                                                                                                                 ATTRIBUTE_NAME('StringToHandle')
-	function Trim (s : String255) : String255;                                                                                                                                         ATTRIBUTE_NAME('Trim')
-	function LowerCase( ch : char ) : char;                                                                                                                                            ATTRIBUTE_NAME('LowerCase')
-	function UpCase (ch : char) : char;                                                                                                                                                ATTRIBUTE_NAME('UpCase')
-	function IsDigit(ch : char) : boolean;                                                                                                                                             ATTRIBUTE_NAME('IsDigit')
-	function IsLower(ch : char) : boolean;                                                                                                                                             ATTRIBUTE_NAME('IsLower')
-	function IsUpper(ch : char) : boolean;                                                                                                                                             ATTRIBUTE_NAME('IsUpper')
-	function IsAlpha(ch : char) : boolean;                                                                                                                                             ATTRIBUTE_NAME('IsAlpha')
+	procedure LeftP (var s : String255; len : SInt16);
+	function LeftOfString (var s : String255; len : SInt16) : String255;
+	procedure LeftAssignP (var s : String255; len : SInt16; var rhs : String255);
+	function LeftAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
+	procedure RightP (var s : String255; len : SInt16);
+	function RightOfString (const s : String255; len : SInt16) : String255;
+	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);
+	function RightAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
+	procedure MidP (var s : String255; p, len : SInt16);
+	function Mid (var s : String255; p, len : SInt16) : String255;
+	procedure MidAssignP (var s : String255; p, len : SInt16; const rhs : String255);
+	function MidAssign (const s : String255; p, len : SInt16; const rhs : String255) : String255;
+	procedure HandleToString (hhhh : UnivHandle; var s : String255);
+	function HandleToStr (hhhh : UnivHandle) : String255;
+	procedure StringToHandle (const s : String255; hhhh : UnivHandle);
+	function Trim (s : String255) : String255;
+	function LowerCase( ch : char ) : char;
+	function UpCase (ch : char) : char;
+	function IsDigit(ch : char) : boolean;
+	function IsLower(ch : char) : boolean;
+	function IsUpper(ch : char) : boolean;
+	function IsAlpha(ch : char) : boolean;
 
-	procedure UpCaseString (var s : String255);                                                                                                                                        ATTRIBUTE_NAME('UpCaseString')
-	function UpCaseStr (s : String255) : String255;                                                                                                                                    ATTRIBUTE_NAME('UpCaseStr')
-	procedure LowerCaseString (var s : String255);                                                                                                                                     ATTRIBUTE_NAME('LowerCaseString')
-	function LowerCaseStr (s : String255) : String255;                                                                                                                                 ATTRIBUTE_NAME('LowerCaseStr')
+	procedure UpCaseString (var s : String255);
+	function UpCaseStr (s : String255) : String255;
+	procedure LowerCaseString (var s : String255);
+	function LowerCaseStr (s : String255) : String255;
 
-	function NoCaseEquals( s1, s2 : String255 ) : boolean;                                                                                                                             ATTRIBUTE_NAME('NoCaseEquals')
-	function NoCasePos( s1, s2 : String255 ) : SInt16;                                                                                                                                 ATTRIBUTE_NAME('NoCasePos')
+	function NoCaseEquals( s1, s2 : String255 ) : boolean;
+	function NoCasePos( s1, s2 : String255 ) : SInt16;
 
-	procedure SPrintS5 (var dst: String255; const src, s1, s2, s3, s4, s5 : String255);                                                                                                ATTRIBUTE_NAME('SPrintS5')
-	procedure SPrintS3 (var dst: String255; const src, s1, s2, s3:  String255);                                                                                                        ATTRIBUTE_NAME('SPrintS3')
+	procedure SPrintS5 (var dst: String255; const src, s1, s2, s3, s4, s5 : String255);
+	procedure SPrintS3 (var dst: String255; const src, s1, s2, s3:  String255);
 
-	function PosRight (sub : char; const s : String255) : SInt16;                                                                                                                      ATTRIBUTE_NAME('PosRight')
-	function PosRightStr (const sub, s : String255) : SInt16;                                                                                                                          ATTRIBUTE_NAME('PosRightStr')
-	function Contains( sub : char; const s : String255 ) : boolean;                                                                                                                    ATTRIBUTE_NAME('Contains')
-	function ContainsStr( const sub, s : String255 ) : boolean;                                                                                                                        ATTRIBUTE_NAME('ContainsStr')
-	procedure SplitBy (s : String255; sub : char; var left, right: String255);                                                                                                         ATTRIBUTE_NAME('SplitBy')
-	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);                                                                                                    ATTRIBUTE_NAME('SplitRightBy')
-	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);                                                                                           ATTRIBUTE_NAME('SplitByStr')
-	procedure SplitRightByStr (s : String255; const sub : String255; var left, right: String255);                                                                                      ATTRIBUTE_NAME('SplitRightByStr')
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;                                                                                                    ATTRIBUTE_NAME('SplitAt')
-	function SplitRightAt(s : String255; sub : char; var s1, s2 : String255) : boolean;                                                                                                ATTRIBUTE_NAME('SplitRightAt')
-	function SplitAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;                                                                                      ATTRIBUTE_NAME('SplitAtStr')
-	function SplitRightAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;                                                                                 ATTRIBUTE_NAME('SplitRightAtStr')
+	function PosRight (sub : char; const s : String255) : SInt16;
+	function PosRightStr (const sub, s : String255) : SInt16;
+	function Contains( sub : char; const s : String255 ) : boolean;
+	function ContainsStr( const sub, s : String255 ) : boolean;
+	procedure SplitBy (s : String255; sub : char; var left, right: String255);
+	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);
+	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);
+	procedure SplitRightByStr (s : String255; const sub : String255; var left, right: String255);
+	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function SplitRightAt(s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function SplitAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitRightAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 
-	function FirstPos(const sub, str : String255) : SInt32;                                                                                                                            ATTRIBUTE_NAME('FirstPos')
-  function LastPos (sub, str : String255) : SInt16;                                                                                                                                  ATTRIBUTE_NAME('LastPos')
-	function TPCopy (source : String255; start, count: SInt32) : String255;                                                                                                            ATTRIBUTE_NAME('TPCopy')
-
-
-	function Match (pattern, name: String255) : boolean;                                                                                                                               ATTRIBUTE_NAME('Match')
-  function StringBeginsWith(const s, pattern : String255) : boolean;                                                                                                                 ATTRIBUTE_NAME('StringBeginsWith')
-  function EndsWith(const s : String255; const sub : String255) : boolean;                                                                                                           ATTRIBUTE_NAME('EndsWith')
-	function EndsWithDeuxPoints(var s : String255) : boolean;                                                                                                                          ATTRIBUTE_NAME('EndsWithDeuxPoints')
+	function FirstPos(const sub, str : String255) : SInt32;
+  function LastPos (sub, str : String255) : SInt16;
+	function TPCopy (source : String255; start, count: SInt32) : String255;
 
 
-	procedure LimitStringLength (var s : String255; len : SInt16; delimiter : char);                                                                                                   ATTRIBUTE_NAME('LimitStringLength')
-	procedure MySetStringLength (var s : String255; len : SInt16);                                                                                                                     ATTRIBUTE_NAME('MySetStringLength')
-  function MyStr255ToString( const s : Str255 ) : String255;                                                                                                                         ATTRIBUTE_NAME('MyStr255ToString')
-
-	function StringToOSType (const s : String255) : OSType;                                                                                                                            ATTRIBUTE_NAME('StringToOSType')
-	function OSTypeToString (t : OSType) : String255;                                                                                                                                  ATTRIBUTE_NAME('OSTypeToString')
-	function FindCharacter(p : Ptr; len : SInt32; ch : char; var pos : SInt32) : boolean;                                                                                              ATTRIBUTE_NAME('FindCharacter')
-	function CharInSet(ch : char; mySet : CharSet) : boolean;                                                                                                                          ATTRIBUTE_NAME('CharInSet')
-
-	function ReadStringFromRessource(stringListID, index : SInt16) : String255;                                                                                                        ATTRIBUTE_NAME('ReadStringFromRessource')
-
-	function ReelEnString(unreel : double_t) : String255;                                                                                                                              ATTRIBUTE_NAME('ReelEnString')
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;                                                                              ATTRIBUTE_NAME('ReelEnStringAvecDecimales')
-  function PourcentageReelEnString(x : double_t) : String255;                                                                                                                       ATTRIBUTE_NAME('PourcentageReelEnString')
-  function ReelEnStringRapide(unreel : double_t) : String255;                                                                                                                       ATTRIBUTE_NAME('ReelEnStringRapide')
-  function StringSimpleEnReel(alpha : String255) : double_t;                                                                                                                        ATTRIBUTE_NAME('StringSimpleEnReel')
-  function PourcentageEntierEnString(num : SInt32) : String255;                                                                                                                     ATTRIBUTE_NAME('PourcentageEntierEnString')
-  function ChaineEnInteger(const s : String255) : SInt16;                                                                                                                           ATTRIBUTE_NAME('ChaineEnInteger')
-  function ChaineEnLongint(const s : String255) : SInt32;                                                                                                                           ATTRIBUTE_NAME('ChaineEnLongint')
-  procedure ChaineToInteger(const s : String255; var theInteger : SInt16);                                                                                                          ATTRIBUTE_NAME('ChaineToInteger')
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);                                                                                                          ATTRIBUTE_NAME('ChaineToLongint')
-  
+	function Match (pattern, name: String255) : boolean;
+  function StringBeginsWith(const s, pattern : String255) : boolean;
+  function EndsWith(const s : String255; const sub : String255) : boolean;
+	function EndsWithDeuxPoints(var s : String255) : boolean;
 
 
-  function EstUnReel(alpha : String255) : boolean;                                                                                                                                  ATTRIBUTE_NAME('EstUnReel')
-  function NumEnString(num : SInt32) : String255;                                                                                                                                   ATTRIBUTE_NAME('NumEnString')
-  function BigNumEnString(milliards,num : SInt32) : String255;                                                                                                                      ATTRIBUTE_NAME('BigNumEnString')
+	procedure LimitStringLength (var s : String255; len : SInt16; delimiter : char);
+	procedure MySetStringLength (var s : String255; len : SInt16);
+  function MyStr255ToString( const s : Str255 ) : String255;
+
+	function StringToOSType (const s : String255) : OSType;
+	function OSTypeToString (t : OSType) : String255;
+	function FindCharacter(p : Ptr; len : SInt32; ch : char; var pos : SInt32) : boolean;
+	function CharInSet(ch : char; mySet : CharSet) : boolean;
+
+	function ReadStringFromRessource(stringListID, index : SInt16) : String255;
+
+	function ReelEnString(unreel : double_t) : String255;
+  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;
+  function PourcentageReelEnString(x : double_t) : String255;
+  function ReelEnStringRapide(unreel : double_t) : String255;
+  function StringSimpleEnReel(alpha : String255) : double_t;
+  function PourcentageEntierEnString(num : SInt32) : String255;
+  function ChaineEnInteger(const s : String255) : SInt16;
+  function ChaineEnLongint(const s : String255) : SInt32;
+  procedure ChaineToInteger(const s : String255; var theInteger : SInt16);
+  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);
 
 
-  function EnleveEspacesDeGauche(const s : String255) : String255;                                                                                                                  ATTRIBUTE_NAME('EnleveEspacesDeGauche')
-  function EnleveEspacesDeDroite(const s : String255) : String255;                                                                                                                  ATTRIBUTE_NAME('EnleveEspacesDeDroite')
-  procedure EnleveEspacesDeGaucheSurPlace(var s : String255);                                                                                                                       ATTRIBUTE_NAME('EnleveEspacesDeGaucheSurPlace')
-  procedure EnleveEspacesDeDroiteSurPlace(var s : String255);                                                                                                                       ATTRIBUTE_NAME('EnleveEspacesDeDroiteSurPlace')
-  procedure EnleveEtCompteEspacesDeGauche(var s : String255; var nbEspacesEnleves : SInt16);                                                                                        ATTRIBUTE_NAME('EnleveEtCompteEspacesDeGauche')
-  procedure EnleveEtCompteEspacesDeDroite(var s : String255; var nbEspacesEnleves : SInt16);                                                                                        ATTRIBUTE_NAME('EnleveEtCompteEspacesDeDroite')
-  procedure EnleveEtCompteCeCaractereAGauche(var s : String255; ch : char; var nbCaracteresEnleves : SInt16);                                                                       ATTRIBUTE_NAME('EnleveEtCompteCeCaractereAGauche')
-  procedure EnleveEtCompteCeCaractereADroite(var s : String255; ch : char; var nbCaracteresEnleves : SInt16);                                                                       ATTRIBUTE_NAME('EnleveEtCompteCeCaractereADroite')
-  procedure EnleveEtCompteCeCaractereAGaucheDansBuffer(buffer : Ptr; var tailleBuffer : SInt32; ch : char; var nbCaracteresEnleves : SInt32);                                       ATTRIBUTE_NAME('EnleveEtCompteCeCaractereAGaucheDansBuffer')
-  function CompterOccurencesDeSousChaine(const subString, s : String255) : SInt32;                                                                                                   ATTRIBUTE_NAME('CompterOccurencesDeSousChaine')
+
+  function EstUnReel(alpha : String255) : boolean;
+  function NumEnString(num : SInt32) : String255;
+  function BigNumEnString(milliards,num : SInt32) : String255;
 
 
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;                                                                                                ATTRIBUTE_NAME('MyUpperString')
-  function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;                                                                                                ATTRIBUTE_NAME('MyLowerString')
-  function StripDiacritics(const s : String255) : String255;                                                                                                                      ATTRIBUTE_NAME('StripDiacritics')
-  procedure StripHTMLAccents(var s : String255);                                                                                                                                    ATTRIBUTE_NAME('StripHTMLAccents')
+  function EnleveEspacesDeGauche(const s : String255) : String255;
+  function EnleveEspacesDeDroite(const s : String255) : String255;
+  procedure EnleveEspacesDeGaucheSurPlace(var s : String255);
+  procedure EnleveEspacesDeDroiteSurPlace(var s : String255);
+  procedure EnleveEtCompteEspacesDeGauche(var s : String255; var nbEspacesEnleves : SInt16);
+  procedure EnleveEtCompteEspacesDeDroite(var s : String255; var nbEspacesEnleves : SInt16);
+  procedure EnleveEtCompteCeCaractereAGauche(var s : String255; ch : char; var nbCaracteresEnleves : SInt16);
+  procedure EnleveEtCompteCeCaractereADroite(var s : String255; ch : char; var nbCaracteresEnleves : SInt16);
+  procedure EnleveEtCompteCeCaractereAGaucheDansBuffer(buffer : Ptr; var tailleBuffer : SInt32; ch : char; var nbCaracteresEnleves : SInt32);
+  function CompterOccurencesDeSousChaine(const subString, s : String255) : SInt32;
+
+
+  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;
+  function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;
+  function StripDiacritics(const s : String255) : String255;
+  procedure StripHTMLAccents(var s : String255);
 
 
 {$ifc not string_accessors_are_macros}
-  function MY_LENGTH_OF_STRING(const s : String255) : SInt32;                                                                                                                       ATTRIBUTE_NAME('MY_LENGTH_OF_STRING')
-  procedure MY_SET_LENGTH_OF_STRING(var s : String255; len : SInt32);                                                                                                               ATTRIBUTE_NAME('MY_SET_LENGTH_OF_STRING')
+  function MY_LENGTH_OF_STRING(const s : String255) : SInt32;
+  procedure MY_SET_LENGTH_OF_STRING(var s : String255; len : SInt32);
 {$endc}
 
-  procedure InitUnitMyStrings;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitMyStrings')
+  procedure InitUnitMyStrings;
 
-	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;                                                                                                             ATTRIBUTE_NAME('ExtraitNomDirectoryOuFichier')
-	function ExtraitCheminDAcces(nomComplet : String255) : String255;                                                                                                                  ATTRIBUTE_NAME('ExtraitCheminDAcces')
-	function ExtraitNomDeVolume(nomComplet : String255) : String255;                                                                                                                   ATTRIBUTE_NAME('ExtraitNomDeVolume')
-	function EstUnNomDeFichierTronquePourPanther(const nomFichier : String255) : boolean;                                                                                              ATTRIBUTE_NAME('EstUnNomDeFichierTronquePourPanther')
+	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
+	function ExtraitCheminDAcces(nomComplet : String255) : String255;
+	function ExtraitNomDeVolume(nomComplet : String255) : String255;
+	function EstUnNomDeFichierTronquePourPanther(const nomFichier : String255) : boolean;
 
-	function ChaineMirroir(const s : String255) : String255;                                                                                                                           ATTRIBUTE_NAME('ChaineMirroir')
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;                                                                                      ATTRIBUTE_NAME('ReplaceStringByStringInString')
-  function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;                                                                                    ATTRIBUTE_NAME('ReplaceVariableByStringInString')
-  function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;                                                                                                         ATTRIBUTE_NAME('DeleteSpacesBefore')
-  function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;                                                                                                          ATTRIBUTE_NAME('DeleteSpacesAfter')
-  procedure ReplaceCharByCharInString(var s : String255; old, new : char);                                                                                                          ATTRIBUTE_NAME('ReplaceCharByCharInString')
-  procedure TripleRemplacementDeCaractereDansString(var s : String255; old1, new1, old2, new2, old3, new3 : char);                                                                  ATTRIBUTE_NAME('TripleRemplacementDeCaractereDansString')
+	function ChaineMirroir(const s : String255) : String255;
+  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;
+  function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
+  function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
+  function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
+  procedure ReplaceCharByCharInString(var s : String255; old, new : char);
+  procedure TripleRemplacementDeCaractereDansString(var s : String255; old1, new1, old2, new2, old3, new3 : char);
 
 
 
   {le premier argument n'est pas un const ni un var pour pouvoir passer s dans tete ou dans reste}
-  procedure Parser (s : String255; var tete,reste : String255);                                                                                                                     ATTRIBUTE_NAME('Parser')
-  procedure Parser2(s : String255; var s1,s2,reste : String255);                                                                                                                    ATTRIBUTE_NAME('Parser2')
-  procedure Parser3(s : String255; var s1,s2,s3,reste : String255);                                                                                                                 ATTRIBUTE_NAME('Parser3')
-  procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);                                                                                                              ATTRIBUTE_NAME('Parser4')
-  procedure Parser5(s : String255; var s1,s2,s3,s4,s5,reste : String255);                                                                                                           ATTRIBUTE_NAME('Parser5')
-  procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);                                                                                                        ATTRIBUTE_NAME('Parser6')
-  procedure ParserWithQuoteProtection(s : String255; var tete,reste : String255);                                                                                                   ATTRIBUTE_NAME('ParserWithQuoteProtection')
+  procedure Parser (s : String255; var tete,reste : String255);
+  procedure Parser2(s : String255; var s1,s2,reste : String255);
+  procedure Parser3(s : String255; var s1,s2,s3,reste : String255);
+  procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);
+  procedure Parser5(s : String255; var s1,s2,s3,s4,s5,reste : String255);
+  procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);
+  procedure ParserWithQuoteProtection(s : String255; var tete,reste : String255);
 
-  procedure SetParsingProtectionWithQuotes(flag : boolean);                                                                                                                         ATTRIBUTE_NAME('SetParsingProtectionWithQuotes')
-  function  GetParsingProtectionWithQuotes : boolean;                                                                                                                               ATTRIBUTE_NAME('GetParsingProtectionWithQuotes')
-  procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);                                                                                                                    ATTRIBUTE_NAME('SetParsingCaracterSet')
-  function  GetParsingCaracterSet : SetOfChar;                                                                                                                                      ATTRIBUTE_NAME('GetParsingCaracterSet')
-
-
-
-	function BoolEnString(myBool : boolean) : String255;                                                                                                                               ATTRIBUTE_NAME('BoolEnString')
-  function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;                                                                                         ATTRIBUTE_NAME('NumEnStringAvecFormat')
-  function RemoveLeadingZeros(const s : String255) : String255;                                                                                                                     ATTRIBUTE_NAME('RemoveLeadingZeros')
-
-  function CharInRange(ch : char; min,max : char) : boolean;                                                                                                                        ATTRIBUTE_NAME('CharInRange')
-  function ContientUneLettre(const s : String255) : boolean;                                                                                                                        ATTRIBUTE_NAME('ContientUneLettre')
-  function IsAnArrowKey(ch : char) : boolean;                                                                                                                                       ATTRIBUTE_NAME('IsAnArrowKey')
-  function EstUnChiffreHexa(ch : char) : boolean;                                                                                                                                   ATTRIBUTE_NAME('EstUnChiffreHexa')
-
-  
-  function GarderSeulementLesChiffres(var s : String255) : String255;                                                                                                               ATTRIBUTE_NAME('GarderSeulementLesChiffres')
-	function GarderSeulementLesChiffresOuLesPoints(var s : String255) : String255;                                                                                                     ATTRIBUTE_NAME('GarderSeulementLesChiffresOuLesPoints')
-  function EnleverTousLesChiffres(var s : String255) : String255;                                                                                                                   ATTRIBUTE_NAME('EnleverTousLesChiffres')
-  function EnleverLesCaracteresMajusculesEntreCesCaracteres(gauche, droite : char; var s : String255) : String255;                                                                  ATTRIBUTE_NAME('EnleverLesCaracteresMajusculesEntreCesCaracteres')
-
-	function ChaineNeContientQueDesChiffres(const s : String255) : boolean;                                                                                                            ATTRIBUTE_NAME('ChaineNeContientQueDesChiffres')
-	function ChaineNeContientQueCesCaracteres(const s : String255; whichChars : SetOfChar) : boolean;                                                                                  ATTRIBUTE_NAME('ChaineNeContientQueCesCaracteres')
-  function ASeulementCeCaractere(c : char; var s : String255) : boolean;                                                                                                            ATTRIBUTE_NAME('ASeulementCeCaractere')
-
-
-	function EnMinuscule(var s : String255) : String255;                                                                                                                               ATTRIBUTE_NAME('EnMinuscule')
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;                                                                                                                      ATTRIBUTE_NAME('ParamStr')
-
-
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);                                                                                                   ATTRIBUTE_NAME('DeleteString')
-
-  function DeleteSubstringBeforeThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;                                                                   ATTRIBUTE_NAME('DeleteSubstringBeforeThisChar')
-  function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;                                                                    ATTRIBUTE_NAME('DeleteSubstringAfterThisChar')
-
-  function EnleveChiffresEntreCesCaracteres(delim1,delim2 : char; const s : String255; keepDelimitors : boolean) : String255;                                                       ATTRIBUTE_NAME('EnleveChiffresEntreCesCaracteres')
-  function EnleveChiffresAvantCeCaractereEnDebutDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;                                                    ATTRIBUTE_NAME('EnleveChiffresAvantCeCaractereEnDebutDeLigne')
-  function EnleveChiffresApresCeCaractereEnFinDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;                                                      ATTRIBUTE_NAME('EnleveChiffresApresCeCaractereEnFinDeLigne')
-
-  function EnleveCesCaracteresEntreCesCaracteres(whichChars : SetOfChar; delim1,delim2 : char; const s : String255; keepDelimitors : boolean) : String255;                          ATTRIBUTE_NAME('EnleveCesCaracteresEntreCesCaracteres')
-  function EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne(whichChars : SetOfChar; delim : char; const s : String255; keepDelimitor : boolean) : String255;                       ATTRIBUTE_NAME('EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne')
-  function EnleveCesCaracteresApresCeCaractereEnFinDeLigne(whichChars : SetOfChar; delim : char; const s : String255; keepDelimitor : boolean) : String255;                         ATTRIBUTE_NAME('EnleveCesCaracteresApresCeCaractereEnFinDeLigne')
+  procedure SetParsingProtectionWithQuotes(flag : boolean);
+  function  GetParsingProtectionWithQuotes : boolean;
+  procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);
+  function  GetParsingCaracterSet : SetOfChar;
 
 
 
+	function BoolEnString(myBool : boolean) : String255;
+  function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;
+  function RemoveLeadingZeros(const s : String255) : String255;
+
+  function CharInRange(ch : char; min,max : char) : boolean;
+  function ContientUneLettre(const s : String255) : boolean;
+  function IsAnArrowKey(ch : char) : boolean;
+  function EstUnChiffreHexa(ch : char) : boolean;
 
 
-  function SeparerLesChiffresParTrois(var s : String255) : String255;                                                                                                               ATTRIBUTE_NAME('SeparerLesChiffresParTrois')
-  function SecondesEnJoursHeuresSecondes(secondes : SInt32) : String255;                                                                                                            ATTRIBUTE_NAME('SecondesEnJoursHeuresSecondes')
+  function GarderSeulementLesChiffres(var s : String255) : String255;
+	function GarderSeulementLesChiffresOuLesPoints(var s : String255) : String255;
+  function EnleverTousLesChiffres(var s : String255) : String255;
+  function EnleverLesCaracteresMajusculesEntreCesCaracteres(gauche, droite : char; var s : String255) : String255;
+
+	function ChaineNeContientQueDesChiffres(const s : String255) : boolean;
+	function ChaineNeContientQueCesCaracteres(const s : String255; whichChars : SetOfChar) : boolean;
+  function ASeulementCeCaractere(c : char; var s : String255) : boolean;
 
 
-  function BufferToPascalString(buffer : Ptr; indexDepart,indexFin : SInt32) : String255;                                                                                           ATTRIBUTE_NAME('BufferToPascalString')
-  function FindStringInBuffer(const s : String255; buffer : Ptr; bufferLength,from,direction : SInt32; var positionTrouvee : SInt32) : boolean;                                     ATTRIBUTE_NAME('FindStringInBuffer')
-  function ParserBuffer(buffer : Ptr; bufferLength, from : SInt32; var indexDernierCaractereLu : SInt32) : String255;                                                               ATTRIBUTE_NAME('ParserBuffer')
+	function EnMinuscule(var s : String255) : String255;
+	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
 
-  function PseudoDistanceDeHamming(const s1, s2 : String255) : SInt32;                                                                                                              ATTRIBUTE_NAME('PseudoDistanceDeHamming')
+  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
+
+  function DeleteSubstringBeforeThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
+  function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
+
+  function EnleveChiffresEntreCesCaracteres(delim1,delim2 : char; const s : String255; keepDelimitors : boolean) : String255;
+  function EnleveChiffresAvantCeCaractereEnDebutDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;
+  function EnleveChiffresApresCeCaractereEnFinDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;
+
+  function EnleveCesCaracteresEntreCesCaracteres(whichChars : SetOfChar; delim1,delim2 : char; const s : String255; keepDelimitors : boolean) : String255;
+  function EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne(whichChars : SetOfChar; delim : char; const s : String255; keepDelimitor : boolean) : String255;
+  function EnleveCesCaracteresApresCeCaractereEnFinDeLigne(whichChars : SetOfChar; delim : char; const s : String255; keepDelimitor : boolean) : String255;
+
+
+
+
+
+  function SeparerLesChiffresParTrois(var s : String255) : String255;
+  function SecondesEnJoursHeuresSecondes(secondes : SInt32) : String255;
+
+
+  function BufferToPascalString(buffer : Ptr; indexDepart,indexFin : SInt32) : String255;
+  function FindStringInBuffer(const s : String255; buffer : Ptr; bufferLength,from,direction : SInt32; var positionTrouvee : SInt32) : boolean;
+  function ParserBuffer(buffer : Ptr; bufferLength, from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
+
+
+  function PseudoDistanceDeHamming(const s1, s2 : String255) : SInt32;
 
 
 
@@ -373,15 +373,15 @@ begin
             alpha := alpha + '.0';
             i := Pos('.',alpha);
           end;
-            
-            
+
+
         ChainePartieEntiere := TPCopy(alpha,1,i - 1);
 
         ChainePartieDecimale := TPCopy(alpha,i + 1,LENGTH_OF_STRING(alpha) - i);
         for i := LENGTH_OF_STRING(ChainePartieDecimale) + 1 to 7 do
           ChainePartieDecimale := ChainePartieDecimale + '0';
-          
-        
+
+
         partieEntiere := 0.0;
         mult := 1.0;
         for i := LENGTH_OF_STRING(ChainePartieEntiere) downto 1 do
@@ -390,7 +390,7 @@ begin
             partieEntiere := partieEntiere + mult*aux2;
             mult := mult * 10.0;
           end;
-        
+
 
         partieDecimale := 0.0;
         mult := 0.1;
@@ -402,7 +402,7 @@ begin
           end;
 
         StringSimpleEnReel := signe * (partieEntiere + partieDecimale);
-        
+
       end
     else
       StringSimpleEnReel := 0.0;
@@ -830,7 +830,7 @@ end;
 		{ autre version : }
 		(*
 		SET_LENGTH_OF_STRING(result,count);
-		for k := 1 to count do 
+		for k := 1 to count do
 		  result[k] := source[start + k - 1];
 		TPCopy := result;
 		*)
@@ -873,54 +873,54 @@ var i, k, len_sub, len_str : SInt32;
     c : char;
 label  next_char;
 begin
-  
+
   len_sub := LENGTH_OF_STRING(sub);
-   
-  if (len_sub = 0) 
-    then 
+
+  if (len_sub = 0)
+    then
       FirstPos := 1
-    else 
+    else
       begin
         len_str := LENGTH_OF_STRING(str);
-        
+
         if (len_str = 0)
-          then 
+          then
             FirstPos := 0
-          else 
+          else
             begin
               if (len_sub = 1)
                 then
                   begin
                     i := 1;
                     c := sub[1];
-                    while (i <= len_str) & (str[i] <> c) do 
+                    while (i <= len_str) & (str[i] <> c) do
                       inc(i);
-                      
+
                     if (i > len_str)
-                      then FirstPos := 0 
+                      then FirstPos := 0
                       else FirstPos := i;
                   end
                 else
                   begin
-                  
+
                     c := sub[1];
-                    
+
                     for i := 1 to (len_str - len_sub + 1) do
                       begin
                         if (str[i] = c) then
                           begin
                             for k := 2 to len_sub do
                               if (sub[k] <> str[i + k - 1]) then goto next_char;
-                            
+
                             FirstPos := i;
                             exit(FirstPos);
                           end;
-                          
+
                         next_char :
                       end;
-                    
+
                     FirstPos := 0;
-                  
+
                   end;
              end;
       end;
@@ -1180,20 +1180,20 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
        StringBeginsWith := false;
        exit(StringBeginsWith);
      end;
-   
+
    if (s[1] <> pattern[1]) then
      begin
        StringBeginsWith := false;
        exit(StringBeginsWith);
      end;
-   
+
    // on sait que les deux chaines ont le meme premier caractere
-   
+
    StringBeginsWith := (Pos(pattern, s) = 1);
-   
+
  end;
-	 
-	 
+	
+	
 
 	procedure LimitStringLength (var s : String255; len : SInt16; delimiter : char);
 		var
@@ -1550,51 +1550,51 @@ begin
 
   while (Pos('&', s ) > 0) & (Pos( ';', s ) > 0) do
     begin
-    
-    
+
+
       //WritelnDansRapport(s);
-    
+
       changed := false;
-      
+
       if Pos('&nbsp;',   s) > 0 then begin s := ReplaceStringByStringInString( '&nbsp;'   , ' ' , s); changed := true; end;
-      
+
       if Pos('&aelig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&aelig;'  , 'ae', s); changed := true; end;
       if Pos('&AElig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&AElig;'  , 'AE', s); changed := true; end;
       if Pos('&oelig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&oelig;'  , 'oe', s); changed := true; end;
       if Pos('&OElig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&OElig;'  , 'OE', s); changed := true; end;
-      
+
       if Pos('&Agrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Agrave;' , 'A' , s); changed := true; end;
       if Pos('&Auml;' ,  s) > 0 then begin s := ReplaceStringByStringInString( '&Auml;'   , 'A' , s); changed := true; end;
       if Pos('&Acirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Acirc;'  , 'A' , s); changed := true; end;
       if Pos('&Aacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Aacute;' , 'A' , s); changed := true; end;
-      
+
       if Pos('&Egrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Egrave;' , 'E' , s); changed := true; end;
       if Pos('&Euml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Euml;'   , 'E' , s); changed := true; end;
       if Pos('&Ecirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ecirc;'  , 'E' , s); changed := true; end;
       if Pos('&Eacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Eacute;' , 'E' , s); changed := true; end;
-      
+
       if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Icirc;'  , 'I' , s); changed := true; end;
       if Pos('&Igrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Igrave;' , 'I' , s); changed := true; end;
       if Pos('&Iacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Iacute;' , 'I' , s); changed := true; end;
       if Pos('&Iulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Iulm;'   , 'I' , s); changed := true; end;
-      
+
       if Pos('&Ocirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ocirc;'  , 'O' , s); changed := true; end;
       if Pos('&Ograve;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ograve;' , 'O' , s); changed := true; end;
       if Pos('&Oacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Oacute;' , 'O' , s); changed := true; end;
       if Pos('&Oulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Oulm;'   , 'O' , s); changed := true; end;
-      
+
       if Pos('&Ucirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ucirc;'  , 'U' , s); changed := true; end;
       if Pos('&Ugrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ugrave;' , 'U' , s); changed := true; end;
       if Pos('&Uacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Uacute;' , 'U' , s); changed := true; end;
       if Pos('&Uulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Uulm;'   , 'U' , s); changed := true; end;
-      
+
       if Pos('&Ycirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ycirc;'  , 'Y' , s); changed := true; end;
       if Pos('&Ygrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ygrave;' , 'Y' , s); changed := true; end;
       if Pos('&Yacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Yacute;' , 'Y' , s); changed := true; end;
       if Pos('&Yulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Yulm;'   , 'Y' , s); changed := true; end;
-      
+
       if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Icirc;'  , 'I' , s); changed := true; end;
-      
+
       if Pos('&Ntilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ntilde;' , 'N' , s); changed := true; end;
       if Pos('&ntilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&ntilde;' , 'n' , s); changed := true; end;
       if Pos('&Atilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Atilde;' , 'A' , s); changed := true; end;
@@ -1609,55 +1609,55 @@ begin
       if Pos('&utilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&utilde;' , 'u' , s); changed := true; end;
       if Pos('&Ytilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ytilde;' , 'Y' , s); changed := true; end;
       if Pos('&ytilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&ytilde;' , 'y' , s); changed := true; end;
-      
+
       if Pos('&copy;',   s) > 0 then begin s := ReplaceStringByStringInString( '&copy;'   , ''  , s); changed := true; end;
       if Pos('&reg;',    s) > 0 then begin s := ReplaceStringByStringInString( '&reg;'    , ''  , s); changed := true; end;
-      
+
       if Pos('&agrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&agrave;' , 'a' , s); changed := true; end;
       if Pos('&aacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&aacute;' , 'a' , s); changed := true; end;
       if Pos('&acirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&acirc;'  , 'a' , s); changed := true; end;
       if Pos('&auml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&auml;'   , 'a' , s); changed := true; end;
-      
+
       if Pos('&egrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&egrave;' , 'e' , s); changed := true; end;
       if Pos('&eacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&eacute;' , 'e' , s); changed := true; end;
       if Pos('&ecirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ecirc;'  , 'e' , s); changed := true; end;
       if Pos('&euml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&euml;'   , 'e' , s); changed := true; end;
-      
+
       if Pos('&iuml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&iuml;'   , 'i' , s); changed := true; end;
       if Pos('&icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&icirc;'  , 'i' , s); changed := true; end;
       if Pos('&igrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&igrave;' , 'i' , s); changed := true; end;
       if Pos('&iacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&iacute;' , 'i' , s); changed := true; end;
-      
+
       if Pos('&ocirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ocirc;'  , 'o' , s); changed := true; end;
       if Pos('&ograve;', s) > 0 then begin s := ReplaceStringByStringInString( '&ograve;' , 'o' , s); changed := true; end;
       if Pos('&oacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&oacute;' , 'o' , s); changed := true; end;
       if Pos('&oulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&oulm;'   , 'o' , s); changed := true; end;
-      
+
       if Pos('&ugrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&ugrave;' , 'u' , s); changed := true; end;
       if Pos('&uacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&uacute;' , 'u' , s); changed := true; end;
       if Pos('&uuml;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&uuml;'   , 'u' , s); changed := true; end;
       if Pos('&ucirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ucirc;'  , 'u' , s); changed := true; end;
-      
+
       if Pos('&ycirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ycirc;'  , 'y' , s); changed := true; end;
       if Pos('&ygrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&ygrave;' , 'y' , s); changed := true; end;
       if Pos('&yacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&yacute;' , 'y' , s); changed := true; end;
       if Pos('&yulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&yulm;'   , 'y' , s); changed := true; end;
-      
+
       if Pos('&ccedil;', s) > 0 then begin s := ReplaceStringByStringInString( '&ccedil;' , 'c' , s); changed := true; end;
       if Pos('&Ccedil;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ccedil;' , 'C' , s); changed := true; end;
       if Pos('&szlig;' , s) > 0 then begin s := ReplaceStringByStringInString( '&szlig;'  , 'ss', s); changed := true; end;
-      
+
       if Pos('&Oslash;', s) > 0 then begin s := ReplaceStringByStringInString( '&Oslash;' , 'O' , s); changed := true; end;
       if Pos('&oslash;', s) > 0 then begin s := ReplaceStringByStringInString( '&oslash;' , 'o' , s); changed := true; end;
-      
+
       if Pos('&Aring;' , s) > 0 then begin s := ReplaceStringByStringInString( '&Aring;'  , 'A' , s); changed := true; end;
       if Pos('&aring;' , s) > 0 then begin s := ReplaceStringByStringInString( '&aring;'  , 'a' , s); changed := true; end;
-      
+
       if Pos('&#321;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&#321;'   , 'L' , s); changed := true; end;  { pour le polonais }
       if Pos('&#322;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&#322;'   , 'l' , s); changed := true; end;  { pour le polonais }
-      
+
       // WritelnDansRapport(s);
-      
+
       if not(changed) then exit(StripHTMLAccents);
     end;
 end;
@@ -1825,7 +1825,7 @@ var positionSubstring,posDeuxPoint : SInt32;
 begin
 
   positionSubstring := Pos(pattern,s);
-  
+
   if (positionSubstring > 0)
      then
        begin
@@ -2223,7 +2223,7 @@ begin
 end;
 
 
-function EnleverTousLesChiffres(var s : String255) : String255; 
+function EnleverTousLesChiffres(var s : String255) : String255;
 	var
 		i : SInt16;
 		result : String255;
@@ -2548,11 +2548,11 @@ begin
             aux := secondes div 86400;
             secondes := secondes - aux*86400;
             if EstLaVersionFrancaiseDeCassio
-              then 
+              then
                 if aux <= 1
                   then s := s + NumEnString(aux) + ' jour '
                   else s := s + NumEnString(aux) + ' jours '
-              else 
+              else
                 if aux <= 1
                   then s := s + NumEnString(aux) + ' day '
                   else s := s + NumEnString(aux) + ' days ';
@@ -2665,7 +2665,7 @@ begin
 		  if (from > bufferLength - 1) then from := bufferLength - 1;
 
 		  n := from;
-		  
+		
       while (n < bufferLength) & (parsing_set_as_booleans[ord(texte^[n])]) do n := n + 1;  {on saute les espaces en tete }
       if (n < bufferLength) then
         begin
@@ -2722,11 +2722,11 @@ function RemoveLeadingZeros(const s : String255) : String255;
 var k,len : SInt32;
 begin
   len := LENGTH_OF_STRING(s);
-  if (len >= 2) & (s[1] = '0') 
+  if (len >= 2) & (s[1] = '0')
     then
       begin
         k := 2;
-        while (k < len) & (s[k] = '0') do 
+        while (k < len) & (s[k] = '0') do
           inc(k);
         RemoveLeadingZeros := TPCopy(s, k, len - k + 1);
       end

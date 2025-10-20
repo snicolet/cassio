@@ -21,73 +21,73 @@ INTERFACE
 
 
 {Menus}
-procedure MyCheckItem(theMenu : MenuRef; item: SInt16; checked: BOOLEAN);                                                                                                           ATTRIBUTE_NAME('MyCheckItem')
-procedure MyDisableItem(theMenu : MenuRef; item: MenuItemIndex);                                                                                                                    ATTRIBUTE_NAME('MyDisableItem')
-procedure MyEnableItem(theMenu : MenuRef; item: MenuItemIndex);                                                                                                                     ATTRIBUTE_NAME('MyEnableItem')
-function  MyCountMenuItems(theMenu : MenuRef) : UInt16;                                                                                                                             ATTRIBUTE_NAME('MyCountMenuItems')
+procedure MyCheckItem(theMenu : MenuRef; item: SInt16; checked: BOOLEAN);
+procedure MyDisableItem(theMenu : MenuRef; item: MenuItemIndex);
+procedure MyEnableItem(theMenu : MenuRef; item: MenuItemIndex);
+function  MyCountMenuItems(theMenu : MenuRef) : UInt16;
 
 {Scrap}
-function GetScrapFlavors(var count : UInt32; var flavors : String255) : OSStatus;                                                                                                   ATTRIBUTE_NAME('GetScrapFlavors')
-function GetScrapSize(flavor : ScrapFlavorType) : SInt32;                                                                                                                           ATTRIBUTE_NAME('GetScrapSize')
-function MyGetScrap(destination: Handle; flavorType : ScrapFlavorType; VAR offset : SInt32) : SInt32;                                                                               ATTRIBUTE_NAME('MyGetScrap')
-function MyZeroScrap : OSStatus;                                                                                                                                                    ATTRIBUTE_NAME('MyZeroScrap')
-function MyPutScrap(sourceBufferByteCount : SInt32; flavorType: ScrapFlavorType; sourceBuffer: UnivPtr) : OSStatus;                                                                 ATTRIBUTE_NAME('MyPutScrap')
+function GetScrapFlavors(var count : UInt32; var flavors : String255) : OSStatus;
+function GetScrapSize(flavor : ScrapFlavorType) : SInt32;
+function MyGetScrap(destination: Handle; flavorType : ScrapFlavorType; VAR offset : SInt32) : SInt32;
+function MyZeroScrap : OSStatus;
+function MyPutScrap(sourceBufferByteCount : SInt32; flavorType: ScrapFlavorType; sourceBuffer: UnivPtr) : OSStatus;
 
 
 {Some of the following stuff comes from the "CarbonStuff.p" unit
  on Pascal Central. Many thanks to the (unkown) author! }
 
 
-function HiWord(x : SInt32) : SInt16;                                                                                                                                               ATTRIBUTE_NAME('HiWord')
-function LoWord(x : SInt32) : SInt16;                                                                                                                                               ATTRIBUTE_NAME('LoWord')
+function HiWord(x : SInt32) : SInt16;
+function LoWord(x : SInt32) : SInt16;
 
 
 
 
-procedure InvalRect(r : rect);                                                                                                                                                      ATTRIBUTE_NAME('InvalRect')
-procedure InvalRgn(r : RgnHandle);                                                                                                                                                  ATTRIBUTE_NAME('InvalRgn')
-procedure ValidRect(r : rect);                                                                                                                                                      ATTRIBUTE_NAME('ValidRect')
-procedure ValidRgn(r : RgnHandle);                                                                                                                                                  ATTRIBUTE_NAME('ValidRgn')
+procedure InvalRect(r : rect);
+procedure InvalRgn(r : RgnHandle);
+procedure ValidRect(r : rect);
+procedure ValidRgn(r : RgnHandle);
 
 
 
 
-function qdThePort : CGrafPtr;                                                                                                                                                      ATTRIBUTE_NAME('qdThePort')
-procedure FlushWindow(theWindow : WindowRef);                                                                                                                                       ATTRIBUTE_NAME('FlushWindow')
+function qdThePort : CGrafPtr;
+procedure FlushWindow(theWindow : WindowRef);
 
 
 
 
 
-function MyIsControlVisible(inControl : ControlRef) : BOOLEAN;                                                                                                                      ATTRIBUTE_NAME('MyIsControlVisible')
-function MyValidWindowRect(window : WindowRef; {CONST}VAR bounds: Rect) : OSStatus;                                                                                                 ATTRIBUTE_NAME('MyValidWindowRect')
-function MyGetRegionRect(theRegion : RgnHandle) : rect;                                                                                                                             ATTRIBUTE_NAME('MyGetRegionRect')
-function MyGetNextWindow(theWindow : WindowRef) : WindowRef;                                                                                                                        ATTRIBUTE_NAME('MyGetNextWindow')
-function MyGetRootControl(theWindow : WindowRef) : ControlRef;                                                                                                                      ATTRIBUTE_NAME('MyGetRootControl')
-function GetWindowStructRect(theWindow : WindowRef) : rect;                                                                                                                         ATTRIBUTE_NAME('GetWindowStructRect')
-function GetWindowContentRect(theWindow : WindowRef) : rect;                                                                                                                        ATTRIBUTE_NAME('GetWindowContentRect')
-function GetWindowVisibleRegion(theWindow : WindowRef; visible : RgnHandle) : RgnHandle;                                                                                            ATTRIBUTE_NAME('GetWindowVisibleRegion')
+function MyIsControlVisible(inControl : ControlRef) : BOOLEAN;
+function MyValidWindowRect(window : WindowRef; {CONST}VAR bounds: Rect) : OSStatus;
+function MyGetRegionRect(theRegion : RgnHandle) : rect;
+function MyGetNextWindow(theWindow : WindowRef) : WindowRef;
+function MyGetRootControl(theWindow : WindowRef) : ControlRef;
+function GetWindowStructRect(theWindow : WindowRef) : rect;
+function GetWindowContentRect(theWindow : WindowRef) : rect;
+function GetWindowVisibleRegion(theWindow : WindowRef; visible : RgnHandle) : RgnHandle;
 
-procedure GetDialogTextSelection(dlg : DialogPtr; var selStart,selEnd : SInt16);                                                                                                    ATTRIBUTE_NAME('GetDialogTextSelection')
-function MyGetPortBounds(port: CGrafPtr) : Rect;                                                                                                                                    ATTRIBUTE_NAME('MyGetPortBounds')
-function QDGetPortBound : rect;                                                                                                                                                     ATTRIBUTE_NAME('QDGetPortBound')
+procedure GetDialogTextSelection(dlg : DialogPtr; var selStart,selEnd : SInt16);
+function MyGetPortBounds(port: CGrafPtr) : Rect;
+function QDGetPortBound : rect;
 
-function GetScreenBounds : rect;                                                                                                                                                    ATTRIBUTE_NAME('GetScreenBounds')
-function GetWindowPortRect(window : WindowPtr) : rect;                                                                                                                              ATTRIBUTE_NAME('GetWindowPortRect')
-function GetDialogPortRect(dialog : DialogPtr) : rect;                                                                                                                              ATTRIBUTE_NAME('GetDialogPortRect')
-procedure SetPortByWindow(window : WindowPtr);                                                                                                                                      ATTRIBUTE_NAME('SetPortByWindow')
-procedure SetPortByDialog(dialog : DialogPtr);                                                                                                                                      ATTRIBUTE_NAME('SetPortByDialog')
+function GetScreenBounds : rect;
+function GetWindowPortRect(window : WindowPtr) : rect;
+function GetDialogPortRect(dialog : DialogPtr) : rect;
+procedure SetPortByWindow(window : WindowPtr);
+procedure SetPortByDialog(dialog : DialogPtr);
 
 {TextEdit protection}
-function TEGetTextLength(text : TEHandle) : SInt32;                                                                                                                                 ATTRIBUTE_NAME('TEGetTextLength')
-function TEGetViewRect(text : TEHandle) : rect;                                                                                                                                     ATTRIBUTE_NAME('TEGetViewRect')
-function TEGetDestRect(text : TEHandle) : rect;                                                                                                                                     ATTRIBUTE_NAME('TEGetDestRect')
-procedure TESetViewRect(text : TEHandle; theRect : rect);                                                                                                                           ATTRIBUTE_NAME('TESetViewRect')
-procedure TESetDestRect(text : TEHandle; theRect : rect);                                                                                                                           ATTRIBUTE_NAME('TESetDestRect')
+function TEGetTextLength(text : TEHandle) : SInt32;
+function TEGetViewRect(text : TEHandle) : rect;
+function TEGetDestRect(text : TEHandle) : rect;
+procedure TESetViewRect(text : TEHandle; theRect : rect);
+procedure TESetDestRect(text : TEHandle; theRect : rect);
 
 
 
-procedure IUDatePString(dateTime: SInt32; longFlag: ByteParameter; VAR result : Str255; intlHandle : Handle);                                                                       ATTRIBUTE_NAME('IUDatePString')
+procedure IUDatePString(dateTime: SInt32; longFlag: ByteParameter; VAR result : Str255; intlHandle : Handle);
 
 
 
@@ -148,7 +148,7 @@ function FourCharCodeToString(code : FourCharCode) : String255;
 var result : String255;
 begin
   result := '';
-  
+
   result := Char(code and 255) + result;
   code := code shr 8;
   result := Char(code and 255) + result;
@@ -157,7 +157,7 @@ begin
   code := code shr 8;
   result :=  Char(code and 255) + result;
   code := code shr 8;
-  
+
   FourCharCodeToString := result;
 end;
 
@@ -170,7 +170,7 @@ var scrap : ScrapRef;
 begin
   flavors := '';
   count := 0;
-  
+
   err := GetCurrentScrap(scrap);
   if err = NoErr then
     begin
@@ -184,13 +184,13 @@ begin
               for i := 0 to count - 1 do
                 begin
                   if (i > 0) then flavors := flavors + ',';
-                  
+
                   flavors := flavors + FourCharCodeToString(flavorsArray[i].flavorType);
                 end;
             end;
         end;
     end;
-  
+
   GetScrapFlavors := err;
 end;
 

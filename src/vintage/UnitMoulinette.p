@@ -12,42 +12,42 @@ USES UnitDefCassio;
 
 
 { Initialisation de l'unite }
-procedure InitUnitMoulinette;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitMoulinette')
+procedure InitUnitMoulinette;
 
 
 
 { Utilitaires pour parser des proprietes (entre guillemets) de fichiers PGN ou XOF }
-procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt64);                                                                                      ATTRIBUTE_NAME('ParserScoreTheoriqueDansFichierPGN')
-procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt64);                 ATTRIBUTE_NAME('ParserJoueurDansFichierPNG')
-procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt64; var pseudo,nomDansThor : String255; var numero : SInt64); ATTRIBUTE_NAME('ParserTournoiDansFichierPNG')
+procedure ParserScoreTheoriqueDansFichierPGN(const ligne : String255; var theorique : SInt64);
+procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; strict : boolean; var pseudo,nomDansThor : String255; var numero : SInt64);
+procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : String255; numeroTournoiParDefaut : SInt64; var pseudo,nomDansThor : String255; var numero : SInt64);
 
 
 { Moulinettes d'import }
-function  AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;                                                               ATTRIBUTE_NAME('AjouterPartiesFichierPGNDansListe')
-function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;                                                                        ATTRIBUTE_NAME('AjouterPartiesFichierDestructureDansListe')
-procedure ImportBaseAllDrawLinesDeBougeard;                                                                                                                                         ATTRIBUTE_NAME('ImportBaseAllDrawLinesDeBougeard')
-function  ImporterFichierPartieDansListe(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;                                                     ATTRIBUTE_NAME('ImporterFichierPartieDansListe')
-procedure ImporterToutesPartiesRepertoire;                                                                                                                                          ATTRIBUTE_NAME('ImporterToutesPartiesRepertoire')
-procedure BaseLogKittyEnFormatThor(nomBaseLogKitty,NomBaseFormatThor : String255);                                                                                                  ATTRIBUTE_NAME('BaseLogKittyEnFormatThor')
+function  AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;
+function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;
+procedure ImportBaseAllDrawLinesDeBougeard;
+function  ImporterFichierPartieDansListe(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+procedure ImporterToutesPartiesRepertoire;
+procedure BaseLogKittyEnFormatThor(nomBaseLogKitty,NomBaseFormatThor : String255);
 
 
 
 { Moulinettes d'export }
-procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt64);                                                                                  ATTRIBUTE_NAME('ExportListeAuFormatTexte')
-procedure ExportListeAuFormatPGN;                                                                                                                                                   ATTRIBUTE_NAME('ExportListeAuFormatPGN')
-procedure ExportListeAuFormatHTML;                                                                                                                                                  ATTRIBUTE_NAME('ExportListeAuFormatHTML')
-procedure ExportListeAuFormatXOF;                                                                                                                                                   ATTRIBUTE_NAME('ExportListeAuFormatXOF')
+procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt64);
+procedure ExportListeAuFormatPGN;
+procedure ExportListeAuFormatHTML;
+procedure ExportListeAuFormatXOF;
 
 
 { Export d'une partie individuelle }
-procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                             ATTRIBUTE_NAME('ExporterPartieDansFichierHTML')
-procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                            ATTRIBUTE_NAME('ExporterPartieDansFichierTexte')
-procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierPGN')
-procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);                                                              ATTRIBUTE_NAME('ExporterPartieDansFichierXOF')
+procedure ExporterPartieDansFichierHTML(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
+procedure ExporterPartieDansFichierTexte(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
+procedure ExporterPartieDansFichierPGN(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
+procedure ExporterPartieDansFichierXOF(var theGame : PackedThorGame; numeroReference : SInt64; var compteur : SInt64);
 
 
 { Fonction d'ecriture d'une partie illegale dans le rapport }
-procedure WritelnPartieIllegaleDansRapport(partieIllegaleEnAlpha : String255);                                                                                                      ATTRIBUTE_NAME('WritelnPartieIllegaleDansRapport')
+procedure WritelnPartieIllegaleDansRapport(partieIllegaleEnAlpha : String255);
 
 
 
@@ -95,8 +95,8 @@ var gOptionsExportBase : record
                            nomsFichiersUtilises : StringSet;
                          end;
     gTablePartiesJoueursImprobables : StringSet;
-    
-    
+
+
 
 
 procedure InitUnitMoulinette;
@@ -123,7 +123,7 @@ begin
 
   if not(PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo,strict,nomDansThor,numero)) then
     begin
-      if not(strict) then 
+      if not(strict) then
         AjoutePseudoInconnu(ReadStringFromRessource(TextesErreursID,7),pseudo,nomDansThor);  {'pseudo inconnu : '}
     end;
 
@@ -319,7 +319,7 @@ var ligne,s,coupsPotentiels : String255;
     // ligneNomBlanc : String255;
     lastTickEscapeDansQueue : SInt64;
     positionArrivee : PositionEtTraitRec;
-    
+
 label sauter_cette_partie;
 
 
@@ -368,7 +368,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       AjouterPartiesFichierPGNDansListe := erreurES;
       exit(AjouterPartiesFichierPGNDansListe);
     end;
-    
+
   erreurES := GetTailleFichierTexte(fichierPGN, tailleFichierPGN);
   // WritelnNumDansRapport('tailleFichierPGN = ',tailleFichierPGN);
 
@@ -378,16 +378,16 @@ begin {AjouterPartiesFichierPGNDansListe}
   nbPartiesImportees                          := 0;
   lastNbPartiesImporteesDansRapport           := 0;
   lastNbPartiesFichierPGNDansRapport          := 0;
-  
+
   erreurES                                    := NoErr;
   utilisateurVeutSortir                       := false;
   ligne                                       := '';
   tableDoublons                               := MakeEmptyStringSet;
   gTablePartiesJoueursImprobables             := MakeEmptyStringSet;
-  
-  
+
+
   doitSauterLesPartiesInternetSansJoueurConnu := (tailleFichierPGN >= 1000000);
-  
+
 
   (* on efface les caches des pseudos car l'utilisateur peut avoir changé le
      dictionnaire "name_mapping_VOG_to_WThor.txt" depuis la derniere fois   *)
@@ -455,15 +455,15 @@ begin {AjouterPartiesFichierPGNDansListe}
       			      {WritelnDansRapport(ligne);}
       			      {Sysbeep(0);
       			      AttendFrappeClavier;}
-      			      
-      			      
+      			
+      			
 
       			      if (Pos('[White ',ligne) > 0) | (Pos('[White"',ligne) > 0)
-      			        then 
+      			        then
       			          begin
       			            // ligneNomBlanc := ligne;
-      			            if partieInternet 
-      			              then 
+      			            if partieInternet
+      			              then
       			                begin
       			                  withMetaphone := CassioIsUsingMetaphone;
       			                  SetCassioIsUsingMetaphone(false);
@@ -474,15 +474,15 @@ begin {AjouterPartiesFichierPGNDansListe}
       			                begin
       			                  ParserJoueurDansFichierPNG(nomDictionnaireDesPseudos,ligne,false,pseudoBlanc,nomBlanc,numeroBlanc);
       			                end;
-      			          end 
+      			          end
       			        else
 
       			      if (Pos('[Black ',ligne) > 0) | (Pos('[Black"',ligne) > 0)
       			        then
       			          begin
       			            // ligneNomNoir := ligne;
-      			            if partieInternet 
-      			              then 
+      			            if partieInternet
+      			              then
       			                begin
       			                  withMetaphone := CassioIsUsingMetaphone;
       			                  SetCassioIsUsingMetaphone(false);
@@ -544,7 +544,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                 WritelnDansRapport(pseudoNoir);
                 WritelnDansRapport(pseudoBlanc);
                 *)
-                
+
                 (*
                 if (Pos('Caspard',nomNoir) > 0) | (Pos('Caspard',nomBlanc) > 0) then
                   begin
@@ -565,13 +565,13 @@ begin {AjouterPartiesFichierPGNDansListe}
                      WritelnDansRapport(ReadStringFromRessource(TextesErreursID,9) + LeftOfString(partieEnAlpha,60));  {'doublon : '}
                      compteurDoublons := compteurDoublons + 1;
                    end;
-                   
-                inc(nbPartiesDansFichierPGN);
-                
-                
 
-                if partieLegale 
-                   & not(partieDoublon) 
+                inc(nbPartiesDansFichierPGN);
+
+
+
+                if partieLegale
+                   & not(partieDoublon)
                    & not(doitSauterLesPartiesInternetSansJoueurConnu & partieInternet & (numeroNoir = 0) & (numeroBlanc = 0)) then
                   begin
 
@@ -603,7 +603,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                           else
                             begin
                               if partieInternet then goto sauter_cette_partie;
-                              
+
                               WritelnNumDansRapport('nbCoupsRecus = ',nbCoupsRecus);
                               ChangeFontColorDansRapport(VertCmd);
                               WritelnDansRapport(ReadStringFromRessource(TextesErreursID,11)+LeftOfString(partieEnAlpha,60));  // 'incomplete : '
@@ -625,13 +625,13 @@ begin {AjouterPartiesFichierPGNDansListe}
 
 
                   sauter_cette_partie:
-                    
+
                   end;
-                  
-                  
-                  
-                  
-                
+
+
+
+
+
                 if ((nbPartiesDansFichierPGN mod 2000 = 0) & (lastNbPartiesFichierPGNDansRapport <> nbPartiesDansFichierPGN)) |
                    ((nbPartiesImportees mod 200 = 0) & (lastNbPartiesImporteesDansRapport <> nbPartiesImportees))
                   then
@@ -643,8 +643,8 @@ begin {AjouterPartiesFichierPGNDansListe}
                       TrierListePartie(gGenreDeTriListe,AlgoDeTriOptimum(gGenreDeTriListe));
                       CalculsEtAffichagePourBase(false,false);
                     end;
-                    
-                    
+
+
                 PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
                 if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
 
@@ -658,13 +658,13 @@ begin {AjouterPartiesFichierPGNDansListe}
   DisposeStringSet(gTablePartiesJoueursImprobables);
 
   erreurES := FermeFichierTexte(fichierPGN);
-  
-  
-  if utilisateurVeutSortir 
+
+
+  if utilisateurVeutSortir
     then WritelnDansRapport('Lecture du fichier interrompue par l''utilisateur...');
-    
+
   WritelnDansRapport('temps de lecture = ' + SecondesEnJoursHeuresSecondes((TickCount - tickDepart + 30) div 60));
-    
+
   WritelnDansRapport('');
   if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichierPGN.theFSSpec))
     then
@@ -676,12 +676,12 @@ begin {AjouterPartiesFichierPGNDansListe}
         then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),NumEnString(nbPartiesImportees),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
         else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),NumEnString(nbPartiesImportees),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
   WritelnDansRapport('');
-  
-  
+
+
   RemettreLeCurseurNormalDeCassio;
 
   SetAutorisationCalculsLongsSurListe(true);
-  
+
   if not(EstLaPositionCourante(positionArrivee)) then DoNouvellePartie(true);
 
   ForceDoubleTriApresUnAjoutDeParties(gGenreDeTriListe);
@@ -1387,7 +1387,7 @@ begin
       ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN'          ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
 
       (* les joueurs *)
-      
+
       ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_SHORT'    ,StripDiacritics(GetNomJoueurNoirSansPrenomParNroRefPartie(numeroReference))  ,ligne);
       ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_SHORT'    ,StripDiacritics(GetNomJoueurBlancSansPrenomParNroRefPartie(numeroReference)) ,ligne);
       if EstUnePartieAvecJoueurNoirJaponais(numeroReference)
@@ -1786,11 +1786,11 @@ begin
 
           nom1 := GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference);
           nom2 := GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference);
-          
+
           numero := 0;
           repeat
              numero := numero + 1;
-             
+
              if (numero = 1)
                then
                  begin
@@ -1799,7 +1799,7 @@ begin
                                        LeftOfString(nom1,kLongueurNomsDansURL) + '-' +
                                        LeftOfString(nom2,kLongueurNomsDansURL) +
                                        '.htm';
-                                       
+
                  end
                else
                  begin
@@ -1811,7 +1811,7 @@ begin
                                        '.htm';
                  end;
           until not(MemberOfStringSet(nomFichierOutput,data,gOptionsExportBase.nomsFichiersUtilises));
-          
+
           WritelnDansRapport(nomFichierOutput+'...');
 
           erreurES := FichierTexteExiste(nomFichierOutput,0,fichierHTMLOutput);
@@ -2287,9 +2287,9 @@ begin
                       err := FSSpecToLongName(fic.theFSSpec, nomLongDuFichier);
 
                       partieLegale := EstUnePartieOthelloAvecMiroir(partieEnAlpha); {on sait qu'elle est legale, c'est juste pour compacter et reorienter la partie}
-                      
+
                       if not(partieLegale) then WritelnDansRapport('warning : this game is illegal, or not starting from the official position...');
-                      
+
                       partieComplete := EstUnePartieOthelloTerminee(partieEnAlpha,false,nbNoirs,nbBlancs);
 
                       GetTime(myDate);

@@ -13,12 +13,12 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitCassioSounds;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitCassioSounds')
-procedure LibereMemoireUnitCassioSounds;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitCassioSounds')
+procedure InitUnitCassioSounds;
+procedure LibereMemoireUnitCassioSounds;
 
-procedure PlayZamfirSound(const fonctionAppelante : String255);                                                                                                                     ATTRIBUTE_NAME('PlayZamfirSound')
-procedure PlayPosePionSound;                                                                                                                                                        ATTRIBUTE_NAME('PlayPosePionSound')
-procedure PlayRetournementDePionSound;                                                                                                                                              ATTRIBUTE_NAME('PlayRetournementDePionSound')
+procedure PlayZamfirSound(const fonctionAppelante : String255);
+procedure PlayPosePionSound;
+procedure PlayRetournementDePionSound;
 
 
 IMPLEMENTATION

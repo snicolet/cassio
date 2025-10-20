@@ -8,22 +8,22 @@ INTERFACE
 
 
 (* Initialisation de l'unité *)
-procedure InitUnitTriListe;                                                                                                                                                         ATTRIBUTE_NAME('InitUnitTriListe')
-procedure LibereMemoireUnitTriListe;                                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitTriListe')
+procedure InitUnitTriListe;
+procedure LibereMemoireUnitTriListe;
 
 
 (* Tri de la liste des parties *)
-procedure TrierListePartie(critereDeTri,algorithmeDeTri : SInt32);                                                                                                                  ATTRIBUTE_NAME('TrierListePartie')
-procedure DoTrierListe(critereDeTri,algorithmeDeTri : SInt32);                                                                                                                      ATTRIBUTE_NAME('DoTrierListe')
-function AlgoDeTriOptimum(critereDeTri : SInt32) : SInt32;                                                                                                                          ATTRIBUTE_NAME('AlgoDeTriOptimum')
-procedure InverserOrdreDeLaListeDansChaqueTournoi;                                                                                                                                  ATTRIBUTE_NAME('InverserOrdreDeLaListeDansChaqueTournoi')
+procedure TrierListePartie(critereDeTri,algorithmeDeTri : SInt32);
+procedure DoTrierListe(critereDeTri,algorithmeDeTri : SInt32);
+function AlgoDeTriOptimum(critereDeTri : SInt32) : SInt32;
+procedure InverserOrdreDeLaListeDansChaqueTournoi;
 
 
 (* Tri des parties selectionnees de la liste suivant un classement dans le rapport *)
-function TrierListeSuivantUnClassement : boolean;                                                                                                                                   ATTRIBUTE_NAME('TrierListeSuivantUnClassement')
-procedure SetDoitExpliquerTrierListeSuivantUnClassement(flag : boolean);                                                                                                            ATTRIBUTE_NAME('SetDoitExpliquerTrierListeSuivantUnClassement')
-function DoitExpliquerTrierListeSuivantUnClassement : boolean;                                                                                                                      ATTRIBUTE_NAME('DoitExpliquerTrierListeSuivantUnClassement')
-procedure ForceDoubleTriApresUnAjoutDeParties(whichGenreDeTri : SInt32);                                                                                                            ATTRIBUTE_NAME('ForceDoubleTriApresUnAjoutDeParties')
+function TrierListeSuivantUnClassement : boolean;
+procedure SetDoitExpliquerTrierListeSuivantUnClassement(flag : boolean);
+function DoitExpliquerTrierListeSuivantUnClassement : boolean;
+procedure ForceDoubleTriApresUnAjoutDeParties(whichGenreDeTri : SInt32);
 
 
 IMPLEMENTATION

@@ -8,40 +8,40 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure CalculTableCriteres;                                                                                                                                                      ATTRIBUTE_NAME('CalculTableCriteres')
-procedure DoCriteres;                                                                                                                                                               ATTRIBUTE_NAME('DoCriteres')
-procedure DoChangeSousSelectionActive;                                                                                                                                              ATTRIBUTE_NAME('DoChangeSousSelectionActive')
-procedure ValiderSousCritereRuban;                                                                                                                                                  ATTRIBUTE_NAME('ValiderSousCritereRuban')
-procedure AnnulerSousCriteresRuban;                                                                                                                                                 ATTRIBUTE_NAME('AnnulerSousCriteresRuban')
-procedure DoSwaperLesSousCriteres;                                                                                                                                                  ATTRIBUTE_NAME('DoSwaperLesSousCriteres')
-procedure DoNegationnerLesSousCriteres;                                                                                                                                             ATTRIBUTE_NAME('DoNegationnerLesSousCriteres')
-function SousCriteresVides : boolean;                                                                                                                                               ATTRIBUTE_NAME('SousCriteresVides')
+procedure CalculTableCriteres;
+procedure DoCriteres;
+procedure DoChangeSousSelectionActive;
+procedure ValiderSousCritereRuban;
+procedure AnnulerSousCriteresRuban;
+procedure DoSwaperLesSousCriteres;
+procedure DoNegationnerLesSousCriteres;
+function SousCriteresVides : boolean;
 
-procedure SetSousCriteresJoueursNoirs(s : String255);                                                                                                                               ATTRIBUTE_NAME('SetSousCriteresJoueursNoirs')
-procedure SetSousCriteresJoueursBlancs(s : String255);                                                                                                                              ATTRIBUTE_NAME('SetSousCriteresJoueursBlancs')
-procedure SetSousCriteresTournois(s : String255);                                                                                                                                   ATTRIBUTE_NAME('SetSousCriteresTournois')
-procedure SetSousCriteresDistributions(s : String255);                                                                                                                              ATTRIBUTE_NAME('SetSousCriteresDistributions')
+procedure SetSousCriteresJoueursNoirs(s : String255);
+procedure SetSousCriteresJoueursBlancs(s : String255);
+procedure SetSousCriteresTournois(s : String255);
+procedure SetSousCriteresDistributions(s : String255);
 
-procedure RemplitTableCompatibleJoueurAvecCeBooleen(var table : t_JoueurCompatible; whichBoolean : boolean);                                                                        ATTRIBUTE_NAME('RemplitTableCompatibleJoueurAvecCeBooleen')
-procedure RemplitTableCompatibleTournoiAvecCeBooleen(var table : t_TournoiCompatible; whichBoolean : boolean);                                                                      ATTRIBUTE_NAME('RemplitTableCompatibleTournoiAvecCeBooleen')
-procedure RemplitTableCompatibleScoreAvecCeBooleen(var table : t_ScoreCompatible; whichBoolean : boolean);                                                                          ATTRIBUTE_NAME('RemplitTableCompatibleScoreAvecCeBooleen')
-procedure RemplitTableCompatibleDistributionAvecCeBooleen(var table : t_DistributionCompatible; whichBoolean : boolean);                                                            ATTRIBUTE_NAME('RemplitTableCompatibleDistributionAvecCeBooleen')
+procedure RemplitTableCompatibleJoueurAvecCeBooleen(var table : t_JoueurCompatible; whichBoolean : boolean);
+procedure RemplitTableCompatibleTournoiAvecCeBooleen(var table : t_TournoiCompatible; whichBoolean : boolean);
+procedure RemplitTableCompatibleScoreAvecCeBooleen(var table : t_ScoreCompatible; whichBoolean : boolean);
+procedure RemplitTableCompatibleDistributionAvecCeBooleen(var table : t_DistributionCompatible; whichBoolean : boolean);
 
-procedure CalculeTableJoueursCompatibles(nomJoueur : String255; var compatible : t_JoueurCompatible; niveauxRecurence : SInt32);                                                    ATTRIBUTE_NAME('CalculeTableJoueursCompatibles')
-procedure CalculeTableTournoisCompatibles(nomTournoi : String255; var compatible : t_TournoiCompatible; niveauxRecurence : SInt32);                                                 ATTRIBUTE_NAME('CalculeTableTournoisCompatibles')
-procedure CalculeTableDistributionsCompatibles(nomDistribution : String255; var compatible : t_DistributionCompatible);                                                             ATTRIBUTE_NAME('CalculeTableDistributionsCompatibles')
+procedure CalculeTableJoueursCompatibles(nomJoueur : String255; var compatible : t_JoueurCompatible; niveauxRecurence : SInt32);
+procedure CalculeTableTournoisCompatibles(nomTournoi : String255; var compatible : t_TournoiCompatible; niveauxRecurence : SInt32);
+procedure CalculeTableDistributionsCompatibles(nomDistribution : String255; var compatible : t_DistributionCompatible);
 
-function NewTableJoueurCompatiblePtr : t_JoueurCompatible;                                                                                                                          ATTRIBUTE_NAME('NewTableJoueurCompatiblePtr')
-function NewTableTournoiCompatiblePtr : t_TournoiCompatible;                                                                                                                        ATTRIBUTE_NAME('NewTableTournoiCompatiblePtr')
-function NewTableScoreCompatiblePtr : t_ScoreCompatible;                                                                                                                            ATTRIBUTE_NAME('NewTableScoreCompatiblePtr')
-function NewTableDistributionsCompatiblesPtr : t_DistributionCompatible;                                                                                                            ATTRIBUTE_NAME('NewTableDistributionsCompatiblesPtr')
+function NewTableJoueurCompatiblePtr : t_JoueurCompatible;
+function NewTableTournoiCompatiblePtr : t_TournoiCompatible;
+function NewTableScoreCompatiblePtr : t_ScoreCompatible;
+function NewTableDistributionsCompatiblesPtr : t_DistributionCompatible;
 
-procedure DisposeTableJoueurCompatible(var table : t_JoueurCompatible);                                                                                                             ATTRIBUTE_NAME('DisposeTableJoueurCompatible')
-procedure DisposeTableTournoiCompatible(var table : t_TournoiCompatible);                                                                                                           ATTRIBUTE_NAME('DisposeTableTournoiCompatible')
-procedure DisposeTableScoreCompatible(var table : t_ScoreCompatible);                                                                                                               ATTRIBUTE_NAME('DisposeTableScoreCompatible')
-procedure DisposeTableDistributionCompatible(var table : t_DistributionCompatible);                                                                                                 ATTRIBUTE_NAME('DisposeTableDistributionCompatible')
+procedure DisposeTableJoueurCompatible(var table : t_JoueurCompatible);
+procedure DisposeTableTournoiCompatible(var table : t_TournoiCompatible);
+procedure DisposeTableScoreCompatible(var table : t_ScoreCompatible);
+procedure DisposeTableDistributionCompatible(var table : t_DistributionCompatible);
 
-function TransformePourPerfectMatch(s : String255) : String255;                                                                                                                     ATTRIBUTE_NAME('TransformePourPerfectMatch')
+function TransformePourPerfectMatch(s : String255) : String255;
 
 
 
@@ -310,15 +310,15 @@ var nombase : String255;
     marqueurFinSyntaxeGrep : boolean;
 begin
 
-  (* nomJoueur : changer les guillemets pour utiliser la syntaxe de grep 
+  (* nomJoueur : changer les guillemets pour utiliser la syntaxe de grep
                  pour le debut et la fin de mot *)
-  
-  if (nomJoueur[1] = '"') 
+
+  if (nomJoueur[1] = '"')
     then nomJoueur[1] := '^';
-    
-  if (nomJoueur[LENGTH_OF_STRING(nomJoueur)] = '"') 
+
+  if (nomJoueur[LENGTH_OF_STRING(nomJoueur)] = '"')
     then nomJoueur[LENGTH_OF_STRING(nomJoueur)] := '$';
-    
+
   if (nomJoueur = '^') | (nomJoueur = '$') | (nomJoueur = '^$')
     then nomJoueur := '';
 
@@ -326,10 +326,10 @@ begin
 
   if (nomjoueur <> '') then
     begin
-    
+
       marqueurDebutSyntaxeGrep := (nomJoueur[1] = '^');
       marqueurFinSyntaxeGrep   := (nomJoueur[LENGTH_OF_STRING(nomJoueur)] = '$');
-    
+
       arbrePositif := MakeEmptyATR;
       arbreNegatif := MakeEmptyATR;
       FabriquerRecursivementArbreDesJoueurs(arbrePositif,arbreNegatif,nomJoueur,niveauxRecurence,true);
@@ -338,10 +338,10 @@ begin
         begin
           nomBase := GetNomJoueur(k);
           nomBase := MyUpperString(nomBase,false);
-          
+
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
-          
+
           if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
              (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
@@ -353,10 +353,10 @@ begin
 	          begin
 	            nomBaseJaponais := GetNomJaponaisDuJoueur(k);
 	            nomBaseJaponais := MyUpperString(nomBaseJaponais,false);
-	            
+	
 	            if marqueurDebutSyntaxeGrep then nomBaseJaponais := '^' + nomBaseJaponais;
               if marqueurFinSyntaxeGrep   then nomBaseJaponais := nomBaseJaponais + '$';
-	            
+	
 	            if TrouveATRDansChaine(arbrePositif,nomBaseJaponais,position) then
 	              compatible^[k] := true;
 	          end;
@@ -379,27 +379,27 @@ var nombase : String255;
     marqueurFinSyntaxeGrep : boolean;
 begin
 
-  (* nomTournoi : changer les guillemets pour utiliser la syntaxe de grep 
+  (* nomTournoi : changer les guillemets pour utiliser la syntaxe de grep
                   pour le debut et la fin de mot *)
 
-  if (nomTournoi[1] = '"') 
+  if (nomTournoi[1] = '"')
     then nomTournoi[1] := '^';
-    
-  if (nomTournoi[LENGTH_OF_STRING(nomTournoi)] = '"') 
+
+  if (nomTournoi[LENGTH_OF_STRING(nomTournoi)] = '"')
     then nomTournoi[LENGTH_OF_STRING(nomTournoi)] := '$';
-  
+
   if (nomTournoi = '^') | (nomTournoi = '$') | (nomTournoi = '^$')
     then nomTournoi := '';
-  
-  
+
+
   (* lancer le calcul des tournois compatibles *)
-    
+
   if (nomTournoi <> '') then
     begin
-    
+
       marqueurDebutSyntaxeGrep := (nomTournoi[1] = '^');
       marqueurFinSyntaxeGrep   := (nomTournoi[LENGTH_OF_STRING(nomTournoi)] = '$');
-      
+
       arbrePositif := MakeEmptyATR;
       arbreNegatif := MakeEmptyATR;
       FabriquerRecursivementArbreDesTournois(arbrePositif,arbreNegatif,nomTournoi,niveauxRecurence,true);
@@ -408,10 +408,10 @@ begin
         begin
           nomBase := GetNomTournoi(k);
           TournoiEnMinuscules(nomBase);
-          
+
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
-          
+
           if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
              (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
@@ -421,10 +421,10 @@ begin
         begin
           nomBase := GetNomCourtTournoi(k);
           TournoiEnMinuscules(nomBase);
-          
+
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
-          
+
           if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
              (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
@@ -436,10 +436,10 @@ begin
 	          begin
 	            nomBaseJaponais := GetNomJaponaisDuTournoi(k);
 	            nomBaseJaponais := MyUpperString(nomBaseJaponais,false);
-	            
+	
 	            if marqueurDebutSyntaxeGrep then nomBaseJaponais := '^' + nomBaseJaponais;
               if marqueurFinSyntaxeGrep   then nomBaseJaponais := nomBaseJaponais + '$';
-              
+
 	            if TrouveATRDansChaine(arbrePositif,nomBaseJaponais,position) then
 	              compatible^[k] := true;
 	          end;
@@ -456,35 +456,35 @@ var k : SInt32;
     marqueurFinSyntaxeGrep : boolean;
 begin
 
-  (* nomDistribution : changer les guillemets pour utiliser la syntaxe de grep 
+  (* nomDistribution : changer les guillemets pour utiliser la syntaxe de grep
                        pour le debut et la fin de mot *)
 
-  if (nomDistribution[1] = '"') 
+  if (nomDistribution[1] = '"')
     then nomDistribution[1] := '^';
-    
-  if (nomDistribution[LENGTH_OF_STRING(nomDistribution)] = '"') 
+
+  if (nomDistribution[LENGTH_OF_STRING(nomDistribution)] = '"')
     then nomDistribution[LENGTH_OF_STRING(nomDistribution)] := '$';
-  
+
   if (nomDistribution = '^') | (nomDistribution = '$') | (nomDistribution = '^$')
     then nomDistribution := '';
-    
-  
+
+
   (* lancer le calcul des distributions compatibles *)
-    
+
   UpCaseString(nomDistribution);
   if (nomDistribution <> '') then
     begin
-      
+
       marqueurDebutSyntaxeGrep := (nomDistribution[1] = '^');
       marqueurFinSyntaxeGrep   := (nomDistribution[LENGTH_OF_STRING(nomDistribution)] = '$');
-      
+
       for k := 1 to DistributionsNouveauFormat.nbDistributions do
         begin
           nomDistributionSurDisque := UpCaseStr(GetNomUsuelDistribution(k));
-          
+
           if marqueurDebutSyntaxeGrep then nomDistributionSurDisque := '^' + nomDistributionSurDisque;
           if marqueurFinSyntaxeGrep   then nomDistributionSurDisque := nomDistributionSurDisque + '$';
-              
+
           if (Pos(nomDistribution,nomDistributionSurDisque) > 0)
              then compatible^[k] := true;
         end;
@@ -601,7 +601,7 @@ var TournoiCompatible : t_TournoiCompatible;
                    critere := NomBlancCrit[k];
                    if (critere <> '') then
                      begin
-                       if (sousCritereMustBeAPerfectMatch[JoueurBlancRubanBox]) 
+                       if (sousCritereMustBeAPerfectMatch[JoueurBlancRubanBox])
                          then critere := TransformePourPerfectMatch(critere);
                        CalculeTableJoueursCompatibles(critere,JoueurBlancCompatible,0);
                      end;
@@ -632,7 +632,7 @@ var TournoiCompatible : t_TournoiCompatible;
                    critere := NomNoirCrit[k];
                    if (critere <> '') then
                      begin
-                       if (sousCritereMustBeAPerfectMatch[JoueurNoirRubanBox]) 
+                       if (sousCritereMustBeAPerfectMatch[JoueurNoirRubanBox])
                          then critere := TransformePourPerfectMatch(critere);
                        CalculeTableJoueursCompatibles(critere,JoueurNoirCompatible,0);
                      end;
@@ -672,8 +672,8 @@ var TournoiCompatible : t_TournoiCompatible;
                         if critere <> '' then
                           begin
                             tousLesTournoisSontVides := false;
-                            
-                            if (sousCritereMustBeAPerfectMatch[TournoiRubanBox]) 
+
+                            if (sousCritereMustBeAPerfectMatch[TournoiRubanBox])
                               then critere := TransformePourPerfectMatch(critere);
                             CalculeTableTournoisCompatibles(critere,TournoiCompatible,0);
                           end;
@@ -828,7 +828,7 @@ begin  {CalculTableCriteres}
                     else compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] |
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)];
                   compatibiliteDistribution   := DistributionCompatible^[GetNroDistributionParNroRefPartie(nroPartie)];
-                  
+
                   SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi & compatibiliteJoueurs & compatibiliteDistribution);
                 end;
             end
@@ -847,7 +847,7 @@ begin  {CalculTableCriteres}
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)];
                   compatibiliteDistribution   := DistributionCompatible^[GetNroDistributionParNroRefPartie(nroPartie)];
                   compatibiliteOrdinateurs    := PartieEstSansOrdinateur(nroPartie);
-                  
+
                   SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi & compatibiliteJoueurs & compatibiliteDistribution & compatibiliteOrdinateurs);
                 end;
             end;
@@ -1205,7 +1205,7 @@ begin
 	  if (CriteresSuplementaires^^.CriteresNoir <> CriteresSuplementaires^^.CriteresBlanc) then
 	    begin
 	      InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
-	      
+	
 	      stringAux := CriteresSuplementaires^^.CriteresNoir;
 	      CriteresSuplementaires^^.CriteresNoir := CriteresSuplementaires^^.CriteresBlanc;
 	      CriteresSuplementaires^^.CriteresBlanc := stringAux;
@@ -1338,24 +1338,24 @@ function TransformePourPerfectMatch(s : String255) : String255;
 var result : String255;
 begin
   result := s;
-  
+
   if (s <> '') then
     begin
-  
-      if (result[1] = '"') 
+
+      if (result[1] = '"')
         then result[1] := '^';
-        
-      if (result[LENGTH_OF_STRING(result)] = '"') 
+
+      if (result[LENGTH_OF_STRING(result)] = '"')
         then result[LENGTH_OF_STRING(result)] := '$';
-      
+
       if (result[1] <> '^')
         then result := '^' + result;
-        
+
       if (result[LENGTH_OF_STRING(result)] <> '$')
         then result := result + '$';
-        
+
     end;
-  
+
   TransformePourPerfectMatch := result;
 end;
 

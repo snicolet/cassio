@@ -11,12 +11,12 @@ INTERFACE
  USES UnitDefCassio;
 
 
-function AB_simple(var pl : plateauOthello; var joua : plBool; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32; var fr : InfoFront; canDoProbCut : boolean) : SInt32;  ATTRIBUTE_NAME('AB_simple')
-function AB_tore(var pl : plateauOthello; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32) : SInt32;                                                                   ATTRIBUTE_NAME('AB_tore')
+function AB_simple(var pl : plateauOthello; var joua : plBool; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32; var fr : InfoFront; canDoProbCut : boolean) : SInt32;
+function AB_tore(var pl : plateauOthello; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32) : SInt32;
 
-function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double_t) : double_t;                                                                                      ATTRIBUTE_NAME('ProofNumberMapping')
-function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides) : double_t;               ATTRIBUTE_NAME('ProofNumber')
-function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double_t;                                                          ATTRIBUTE_NAME('ProofNumberMilieu')
+function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double_t) : double_t;
+function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides) : double_t;
+function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double_t;
 
 
 
@@ -45,7 +45,7 @@ USES
 
 
 
- 
+
 
 
 
@@ -484,7 +484,7 @@ begin
               for j := 1 to nbCasesVides do
                 begin
                   coup := casesVides[j];
-                  
+
                   //WritelnNumDansRapport('ProofNumberMilieu, coup = ',coup);
 
                   if platProof[coup] = pionVide then
@@ -527,9 +527,9 @@ begin
               for j := 1 to nbCasesVides do
                 begin
                   coup := casesVides[j];
-                  
+
                   //WritelnNumDansRapport('ProofNumberMilieu, coup = ',coup);
-                  
+
                   if platProof[coup] = pionVide then
                     with infosProof do
                     if ModifPlatLongint(coup,trait,platProof,jouable,nbBlancs,nbNoirs,frontiere) then

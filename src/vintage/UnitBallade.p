@@ -6,24 +6,24 @@ INTERFACE
 
  USES UnitDefCassio;
 
-procedure DoAvanceMove;                                                                                                                                                             ATTRIBUTE_NAME('DoAvanceMove')
-procedure DoDoubleAvanceMove;                                                                                                                                                       ATTRIBUTE_NAME('DoDoubleAvanceMove')
-procedure DoBackMove;                                                                                                                                                               ATTRIBUTE_NAME('DoBackMove')
-procedure DoDoubleBackMove;                                                                                                                                                         ATTRIBUTE_NAME('DoDoubleBackMove')
-procedure DoBackMovePartieSelectionnee(nroHilite : SInt32);                                                                                                                         ATTRIBUTE_NAME('DoBackMovePartieSelectionnee')
-procedure DoDoubleBackMovePartieSelectionnee(nroHilite : SInt32);                                                                                                                   ATTRIBUTE_NAME('DoDoubleBackMovePartieSelectionnee')
-procedure DoDoubleAvanceMovePartieSelectionnee(nroHilite : SInt32);                                                                                                                 ATTRIBUTE_NAME('DoDoubleAvanceMovePartieSelectionnee')
-procedure DoRetourAuCoupNro(numeroCoup : SInt32; NeDessinerQueLesNouveauxPions,ForceHumCtreHum : boolean);                                                                          ATTRIBUTE_NAME('DoRetourAuCoupNro')
-procedure DoAvanceAuCoupNro(numeroCoup : SInt16; NeDessinerQueLesNouveauxPions : boolean);                                                                                          ATTRIBUTE_NAME('DoAvanceAuCoupNro')
-procedure DoRetourDerniereMarque;                                                                                                                                                   ATTRIBUTE_NAME('DoRetourDerniereMarque')
-procedure DoAvanceProchaineMarque;                                                                                                                                                  ATTRIBUTE_NAME('DoAvanceProchaineMarque')
-procedure DoRetourDernierEmbranchement;                                                                                                                                             ATTRIBUTE_NAME('DoRetourDernierEmbranchement')
-procedure DoAvanceProchainEmbranchement;                                                                                                                                            ATTRIBUTE_NAME('DoAvanceProchainEmbranchement')
-procedure SeDeplacerDansLaPartieDeTantDeCoups(deplacement : SInt32; useLiveUndo : boolean);                                                                                         ATTRIBUTE_NAME('SeDeplacerDansLaPartieDeTantDeCoups')
+procedure DoAvanceMove;
+procedure DoDoubleAvanceMove;
+procedure DoBackMove;
+procedure DoDoubleBackMove;
+procedure DoBackMovePartieSelectionnee(nroHilite : SInt32);
+procedure DoDoubleBackMovePartieSelectionnee(nroHilite : SInt32);
+procedure DoDoubleAvanceMovePartieSelectionnee(nroHilite : SInt32);
+procedure DoRetourAuCoupNro(numeroCoup : SInt32; NeDessinerQueLesNouveauxPions,ForceHumCtreHum : boolean);
+procedure DoAvanceAuCoupNro(numeroCoup : SInt16; NeDessinerQueLesNouveauxPions : boolean);
+procedure DoRetourDerniereMarque;
+procedure DoAvanceProchaineMarque;
+procedure DoRetourDernierEmbranchement;
+procedure DoAvanceProchainEmbranchement;
+procedure SeDeplacerDansLaPartieDeTantDeCoups(deplacement : SInt32; useLiveUndo : boolean);
 
 
-procedure BeginFonctionModifiantNbreCoup(fonctionAppelante : String255);                                                                                                            ATTRIBUTE_NAME('BeginFonctionModifiantNbreCoup')
-procedure EndFonctionModifiantNbreCoup(fonctionAppelante : String255);                                                                                                              ATTRIBUTE_NAME('EndFonctionModifiantNbreCoup')
+procedure BeginFonctionModifiantNbreCoup(fonctionAppelante : String255);
+procedure EndFonctionModifiantNbreCoup(fonctionAppelante : String255);
 
 
 IMPLEMENTATION

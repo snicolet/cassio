@@ -49,7 +49,7 @@
 
 /* La structure d'un element de la table des positions dans la fichier  */
 /* Attention : bien penser ˆ changer aussi la dŽfinition en Pascal dans */
-/*             Zebra_to_Cassio.p si le format change !                  */ 
+/*             Zebra_to_Cassio.p si le format change !                  */
 typedef struct {
   int hash1;
   int hash2;
@@ -88,8 +88,8 @@ pascal int read_binary_database( char * ) ;
 /* La fonction va appeler "prepare_hash()" pour preparer les valeurs  */
 /* des tableaux de hash.                                              */
 /* Renvoie le nombre de positions dans le fichier.                    */
- 
- 
+
+
 pascal int trouver_position_in_zebra_book( int *, BookNode *, int *, char *, int) ;
 /* Renvoie l'index de la position dans la table                 */
 /* Ainsi que son orientation (cf. HashPattern.h)                */
@@ -107,7 +107,7 @@ pascal void extraire_vals_from_zebra_book(int , BookNode *, short *, short *, sh
 pascal int symetrise_coup_for_zebra_book( int orient, int move) ;
 /* Symetrise un coup en fonction d'une orientation                       */
 /* Celle-ci indique la symetrie a effectuer pour retomber sur nos pattes */
-/* 0 =  b1 -> b1 (Pas de symetrie)                                       */      
+/* 0 =  b1 -> b1 (Pas de symetrie)                                       */
 /* 1 =  g1 -> b1 (symetrie axe vertical)                                 */
 /* 2 =  g8 -> b1 (symetrie centrale)                                     */
 /* 3 =  b8 -> b1 (symetrie axe horizontal)                               */

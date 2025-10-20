@@ -7,36 +7,36 @@ INTERFACE
  USES UnitDefCassio , Events, Scrap;
 
 
-function CreateRapport : boolean;                                                                                                                                                   ATTRIBUTE_NAME('CreateRapport')
-function DetruitRapport : boolean;                                                                                                                                                  ATTRIBUTE_NAME('DetruitRapport')
+function CreateRapport : boolean;
+function DetruitRapport : boolean;
 
 
-procedure ClicInRapport(evt : eventRecord);                                                                                                                                         ATTRIBUTE_NAME('ClicInRapport')
-procedure EcritKeyDownEventDansRapport(evt : eventRecord);                                                                                                                          ATTRIBUTE_NAME('EcritKeyDownEventDansRapport')
+procedure ClicInRapport(evt : eventRecord);
+procedure EcritKeyDownEventDansRapport(evt : eventRecord);
 
 
 
 {quelques fonction d'acces}
-function CollerDansRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CollerDansRapport')
-function CopierFromRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CopierFromRapport')
-function CouperFromRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('CouperFromRapport')
-function EffacerDansRapport : boolean;                                                                                                                                              ATTRIBUTE_NAME('EffacerDansRapport')
-function SelectionneToutDansRapport : boolean;                                                                                                                                      ATTRIBUTE_NAME('SelectionneToutDansRapport')
+function CollerDansRapport : boolean;
+function CopierFromRapport : boolean;
+function CouperFromRapport : boolean;
+function EffacerDansRapport : boolean;
+function SelectionneToutDansRapport : boolean;
 
 
 
 
 
-procedure AnnonceScoreFinalDansRapport;                                                                                                                                             ATTRIBUTE_NAME('AnnonceScoreFinalDansRapport')
-procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);                                                                                                        ATTRIBUTE_NAME('AnnonceOuvertureFichierEnRougeDansRapport')
-procedure AnnonceSupposeSuitConseilMac(numeroCoup,conseil : SInt16);                                                                                                                ATTRIBUTE_NAME('AnnonceSupposeSuitConseilMac')
+procedure AnnonceScoreFinalDansRapport;
+procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);
+procedure AnnonceSupposeSuitConseilMac(numeroCoup,conseil : SInt16);
 
 
 
-function SelectionRapportEstUnePartieLegale(var partieAlpha : String255) : boolean;                                                                                                 ATTRIBUTE_NAME('SelectionRapportEstUnePartieLegale')
+function SelectionRapportEstUnePartieLegale(var partieAlpha : String255) : boolean;
 
 
-procedure EcritBienvenueDansRapport;                                                                                                                                                ATTRIBUTE_NAME('EcritBienvenueDansRapport')
+procedure EcritBienvenueDansRapport;
 
 
 

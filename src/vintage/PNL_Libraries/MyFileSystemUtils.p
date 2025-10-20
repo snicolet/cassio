@@ -12,101 +12,101 @@ INTERFACE
      UnitDefCassio , Files , CFURL , CFString , CFBase , CFBundle;
 
 
-	procedure MyResolveAliasFile (var fs : FSSpec);                                                                                                                                    ATTRIBUTE_NAME('MyResolveAliasFile')
-	function MyGetCatInfo (vrn : SInt16; dirID : SInt32; nameAdr : StringPtr; index: SInt16; var pb : CInfoPBRec) : OSErr;                                                             ATTRIBUTE_NAME('MyGetCatInfo')
-	function FSpGetCatInfo (const fs : FSSpec; var pb : CInfoPBRec) : OSErr;                                                                                                           ATTRIBUTE_NAME('FSpGetCatInfo')
-	function FSpGetIndCatInfo (var fs : FSSpec; index: SInt16; var pb : CInfoPBRec) : OSErr;                                                                                           ATTRIBUTE_NAME('FSpGetIndCatInfo')
-	function FSpSetCatInfo (const spec : FSSpec; var pb : CInfoPBRec) : OSErr;                                                                                                         ATTRIBUTE_NAME('FSpSetCatInfo')
-	function FSpGetParID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;                                                                                                           ATTRIBUTE_NAME('FSpGetParID')
-	function FSpGetDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;                                                                                                           ATTRIBUTE_NAME('FSpGetDirID')
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : FSSpec) : OSErr;                                                                                 ATTRIBUTE_NAME('MyFSMakeFSSpec')
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : FSSpec;                                                                                                    ATTRIBUTE_NAME('MyMakeFSSpec')
-	procedure MyGetModDate (const spec : FSSpec; var moddate : SInt32);                                                                                                                ATTRIBUTE_NAME('MyGetModDate')
-	function DuplicateFile ({const} org, new : FSSpec) : OSErr;                                                                                                                        ATTRIBUTE_NAME('DuplicateFile')
-	function CopyData (src, dst: SInt16; len : SInt32) : OSErr;                                                                                                                        ATTRIBUTE_NAME('CopyData')
-	function TouchDir (fs : FSSpec) : OSErr;                                                                                                                                           ATTRIBUTE_NAME('TouchDir')
-	function TouchFolder (vrn : SInt16; dirID : SInt32) : OSErr;                                                                                                                       ATTRIBUTE_NAME('TouchFolder')
-	function CreateUniqueFile (var fs : FSSpec; creator, ftype : OSType) : OSErr;                                                                                                      ATTRIBUTE_NAME('CreateUniqueFile')
-	function CreateUniqueFolder (var fs : FSSpec; var dirID : UInt32 ) : OSErr;                                                                                                        ATTRIBUTE_NAME('CreateUniqueFolder')
-	function CreateSubDirectoryNearThisFile(const whichFile : FSSpec; var directoryName : String255) : OSErr;                                                                          ATTRIBUTE_NAME('CreateSubDirectoryNearThisFile')
-  function CreateDirectoryWithThisPath(directoryPath : String255) : OSErr;                                                                                                          ATTRIBUTE_NAME('CreateDirectoryWithThisPath')
-  function FolderExists (var folder : FSSpec; var err : OSErr) : boolean;                                                                                                           ATTRIBUTE_NAME('FolderExists')
+	procedure MyResolveAliasFile (var fs : FSSpec);
+	function MyGetCatInfo (vrn : SInt16; dirID : SInt32; nameAdr : StringPtr; index: SInt16; var pb : CInfoPBRec) : OSErr;
+	function FSpGetCatInfo (const fs : FSSpec; var pb : CInfoPBRec) : OSErr;
+	function FSpGetIndCatInfo (var fs : FSSpec; index: SInt16; var pb : CInfoPBRec) : OSErr;
+	function FSpSetCatInfo (const spec : FSSpec; var pb : CInfoPBRec) : OSErr;
+	function FSpGetParID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function FSpGetDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : FSSpec) : OSErr;
+	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : FSSpec;
+	procedure MyGetModDate (const spec : FSSpec; var moddate : SInt32);
+	function DuplicateFile ({const} org, new : FSSpec) : OSErr;
+	function CopyData (src, dst: SInt16; len : SInt32) : OSErr;
+	function TouchDir (fs : FSSpec) : OSErr;
+	function TouchFolder (vrn : SInt16; dirID : SInt32) : OSErr;
+	function CreateUniqueFile (var fs : FSSpec; creator, ftype : OSType) : OSErr;
+	function CreateUniqueFolder (var fs : FSSpec; var dirID : UInt32 ) : OSErr;
+	function CreateSubDirectoryNearThisFile(const whichFile : FSSpec; var directoryName : String255) : OSErr;
+  function CreateDirectoryWithThisPath(directoryPath : String255) : OSErr;
+  function FolderExists (var folder : FSSpec; var err : OSErr) : boolean;
 
-	function MyFSReadLineEOL (refnum : SInt16; ch : char; var s : String255) : OSErr;                                                                                                  ATTRIBUTE_NAME('MyFSReadLineEOL')
-	function MyFSReadLine (refnum : SInt16; var s : String255) : OSErr;                                                                                                                ATTRIBUTE_NAME('MyFSReadLine')
-	function MyFSReadLineAt (refnum : SInt16; pos : SInt32; var s : String255) : OSErr;                                                                                                ATTRIBUTE_NAME('MyFSReadLineAt')
-	function MyFSRead(refnum : SInt16; len : SInt32; p : Ptr) : OSErr;                                                                                                                 ATTRIBUTE_NAME('MyFSRead')
-	function MyFSWriteString( refnum : SInt16; const s : String255 ) : OSErr;                                                                                                          ATTRIBUTE_NAME('MyFSWriteString')
-	function MyFSWrite (refnum : SInt16; len : SInt32; p : Ptr) : OSErr;                                                                                                               ATTRIBUTE_NAME('MyFSWrite')
-	function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr) : OSErr;                                                                                         ATTRIBUTE_NAME('MyFSWriteAt')
-	function MyFSReadAt (refnum : SInt16; pos, len : SInt32; p : Ptr) : OSErr;                                                                                                         ATTRIBUTE_NAME('MyFSReadAt')
-	function MyFSReadFile( {const} spec : FSSpec; var data: Handle ) : OSErr;                                                                                                          ATTRIBUTE_NAME('MyFSReadFile')
-
-
-	procedure SetNameOfFSSpec(var fs : FSSpec; const name : String255);                                                                                                                ATTRIBUTE_NAME('SetNameOfFSSpec')
-	function GetNameOfFSSpec(fs : FSSpec) : String255;                                                                                                                                 ATTRIBUTE_NAME('GetNameOfFSSpec')
+	function MyFSReadLineEOL (refnum : SInt16; ch : char; var s : String255) : OSErr;
+	function MyFSReadLine (refnum : SInt16; var s : String255) : OSErr;
+	function MyFSReadLineAt (refnum : SInt16; pos : SInt32; var s : String255) : OSErr;
+	function MyFSRead(refnum : SInt16; len : SInt32; p : Ptr) : OSErr;
+	function MyFSWriteString( refnum : SInt16; const s : String255 ) : OSErr;
+	function MyFSWrite (refnum : SInt16; len : SInt32; p : Ptr) : OSErr;
+	function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr) : OSErr;
+	function MyFSReadAt (refnum : SInt16; pos, len : SInt32; p : Ptr) : OSErr;
+	function MyFSReadFile( {const} spec : FSSpec; var data: Handle ) : OSErr;
 
 
-	function GetNameOfSFReply(const reply : SFReply) : String255;                                                                                                                      ATTRIBUTE_NAME('GetNameOfSFReply')
-  procedure SetNameOfSFReply(var reply : SFReply; const name : String255);                                                                                                          ATTRIBUTE_NAME('SetNameOfSFReply')
+	procedure SetNameOfFSSpec(var fs : FSSpec; const name : String255);
+	function GetNameOfFSSpec(fs : FSSpec) : String255;
 
 
-	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;                                                                                                             ATTRIBUTE_NAME('FSSpecToFullPath')
-	function GetFullPathOfFSSpec(fs : FSSpec) : String255;                                                                                                                             ATTRIBUTE_NAME('GetFullPathOfFSSpec')
+	function GetNameOfSFReply(const reply : SFReply) : String255;
+  procedure SetNameOfSFReply(var reply : SFReply; const name : String255);
+
+
+	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;
+	function GetFullPathOfFSSpec(fs : FSSpec) : String255;
 	{function DiskFreeSpace (vrn : SInt16) : SInt32;} { result in k }
-	function DiskSize (vrn : SInt16) : SInt32; { result in k }                                                                                                                         ATTRIBUTE_NAME('DiskSize')
-	function BlessSystemFolder (vrn : SInt16; dirID : SInt32) : OSErr;                                                                                                                 ATTRIBUTE_NAME('BlessSystemFolder')
-	function SameFSSpec (const fs1, fs2: FSSpec) : boolean;                                                                                                                            ATTRIBUTE_NAME('SameFSSpec')
+	function DiskSize (vrn : SInt16) : SInt32; { result in k }
+	function BlessSystemFolder (vrn : SInt16; dirID : SInt32) : OSErr;
+	function SameFSSpec (const fs1, fs2: FSSpec) : boolean;
 	{procedure GetSFLocation (var vrn : SInt16; var dirID : SInt32);}
 	{procedure SetSFLocation (vrn : SInt16; dirID : SInt32);}
-	procedure SafeFindFolder (vRefNum : SInt16; folderType : OSType; var foundvRefNum : SInt16; var foundDirID : UInt32);                                                              ATTRIBUTE_NAME('SafeFindFolder')
-	function CreateTemporaryFile (var fs : FSSpec) : OSErr;                                                                                                                            ATTRIBUTE_NAME('CreateTemporaryFile')
-  function GetPathOfApplicationSupportFolder(var applicationFolderPath : String255) : OSErr;                                                                                        ATTRIBUTE_NAME('GetPathOfApplicationSupportFolder')
+	procedure SafeFindFolder (vRefNum : SInt16; folderType : OSType; var foundvRefNum : SInt16; var foundDirID : UInt32);
+	function CreateTemporaryFile (var fs : FSSpec) : OSErr;
+  function GetPathOfApplicationSupportFolder(var applicationFolderPath : String255) : OSErr;
 
 
 
-	function FSpGetFolderDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;                                                                                                     ATTRIBUTE_NAME('FSpGetFolderDirID')
+	function FSpGetFolderDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
 (*	function GetVolInfo (var name : Str63; var vrn : SInt16; index: SInt16; var CrDate : SInt32) : OSErr; *)
 (*  function GetVolumeAddrBlock(vrn : SInt16; index: SInt16; var addr : AddrBlock) : OSErr;  *)
-	function ScanDirectory (fs : FSSpec; doit : ScanProc) : OSErr;                                                                                                                     ATTRIBUTE_NAME('ScanDirectory')
-	function SetPathOfScannedDirectory(var folder : FSSpec) : OSErr;                                                                                                                   ATTRIBUTE_NAME('SetPathOfScannedDirectory')
-	function GetPathOfScannedDirectory : String255;                                                                                                                                    ATTRIBUTE_NAME('GetPathOfScannedDirectory')
-	function RemoveResourceFork( {const} spec : FSSpec ) : OSErr;                                                                                                                      ATTRIBUTE_NAME('RemoveResourceFork')
-  function MacPathToUNIXPath( oldMacPath : String255 ) : String255;                                                                                                                  ATTRIBUTE_NAME('MacPathToUNIXPath')
-  function EscapeSpacesInUnixPath( oldPath : String255 ) : String255;                                                                                                                ATTRIBUTE_NAME('EscapeSpacesInUnixPath')
-  
+	function ScanDirectory (fs : FSSpec; doit : ScanProc) : OSErr;
+	function SetPathOfScannedDirectory(var folder : FSSpec) : OSErr;
+	function GetPathOfScannedDirectory : String255;
+	function RemoveResourceFork( {const} spec : FSSpec ) : OSErr;
+  function MacPathToUNIXPath( oldMacPath : String255 ) : String255;
+  function EscapeSpacesInUnixPath( oldPath : String255 ) : String255;
+
 
  { some string manipulations }
-	function MakeCFSTR(s : String255) : CFStringRef;                                                                                                                                   ATTRIBUTE_NAME('MakeCFSTR')
-  function ConvertEncodingOfString(s : String255; oldEncoding, newEncoding : CFStringEncoding) : String255;                                                                          ATTRIBUTE_NAME('ConvertEncodingOfString')
-  
-  
+	function MakeCFSTR(s : String255) : CFStringRef;
+  function ConvertEncodingOfString(s : String255; oldEncoding, newEncoding : CFStringEncoding) : String255;
+
+
  { mise en memoire des frameworks du systeme ou prives (internes a l'application) }
-  function MyLoadFrameworkBundle(inFrameworkName : CFStringRef; var outBundleRef : CFBundleRef) : OSStatus;                                                                         ATTRIBUTE_NAME('MyLoadFrameworkBundle')
-  function MyLoadPrivateFrameworkBundle(inFrameworkName : CFStringRef; var outBundleRef : CFBundleRef) : OSStatus;                                                                  ATTRIBUTE_NAME('MyLoadPrivateFrameworkBundle')
+  function MyLoadFrameworkBundle(inFrameworkName : CFStringRef; var outBundleRef : CFBundleRef) : OSStatus;
+  function MyLoadPrivateFrameworkBundle(inFrameworkName : CFStringRef; var outBundleRef : CFBundleRef) : OSStatus;
 
 
  { chargement des pointeurs de fonctions dans les framework du systeme ou prives }
-  function GetFunctionPointerFromBundle(const whichBundle,functionName : String255) : Ptr;                                                                                          ATTRIBUTE_NAME('GetFunctionPointerFromBundle')
-  function GetFunctionPointerFromPrivateBundle(const whichBundle,functionName : String255) : Ptr;                                                                                   ATTRIBUTE_NAME('GetFunctionPointerFromPrivateBundle')
+  function GetFunctionPointerFromBundle(const whichBundle,functionName : String255) : Ptr;
+  function GetFunctionPointerFromPrivateBundle(const whichBundle,functionName : String255) : Ptr;
 
 
 
 
-  procedure MySFPutFile(where : Point; prompt : ConstStringPtr; origName : String255; dlgHook : DlgHookUPP; VAR reply : SFReply);                                                   ATTRIBUTE_NAME('MySFPutFile')
-  procedure MySFGetFile(where : Point; prompt : String255; fileFilter : FileFilterUPP; numTypes : SInt16; typeList : ConstSFTypeListPtr; dlgHook : DlgHookUPP; var reply : SFReply);                                                                                          ATTRIBUTE_NAME('MySFGetFile')
+  procedure MySFPutFile(where : Point; prompt : ConstStringPtr; origName : String255; dlgHook : DlgHookUPP; VAR reply : SFReply);
+  procedure MySFGetFile(where : Point; prompt : String255; fileFilter : FileFilterUPP; numTypes : SInt16; typeList : ConstSFTypeListPtr; dlgHook : DlgHookUPP; var reply : SFReply);
 
 
-	procedure SetFileCreator(fichier : FSSpec; QuelType : OSType);                                                                                                                     ATTRIBUTE_NAME('SetFileCreator')
-	procedure SetFileType(fichier : FSSpec; QuelType : OSType);                                                                                                                        ATTRIBUTE_NAME('SetFileType')
+	procedure SetFileCreator(fichier : FSSpec; QuelType : OSType);
+	procedure SetFileType(fichier : FSSpec; QuelType : OSType);
 
 
-	function GetWDName(WDRefNum : SInt16) : String255;                                                                                                                                 ATTRIBUTE_NAME('GetWDName')
-	function ChangeDir(pathName : String255) : OSErr;                                                                                                                                  ATTRIBUTE_NAME('ChangeDir')
+	function GetWDName(WDRefNum : SInt16) : String255;
+	function ChangeDir(pathName : String255) : OSErr;
 
 
   { Dialogue de sauvegarde dans un fichier texte}
-  function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : FichierTEXT) : OSErr;                                                    ATTRIBUTE_NAME('GetFichierTexte')
+  function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : FichierTEXT) : OSErr;
 
 
 
@@ -1174,12 +1174,12 @@ begin
       MacPathToUNIXPath := oldMacPath;
       exit(MacPathToUNIXPath);
     end;
-    
-    
+
+
   ReplaceCharByCharInString(oldMacPath,'/',':');   // separateurs a la mode Mac
-  if (oldMacPath[1] = ':') 
+  if (oldMacPath[1] = ':')
     then pathUnix := oldMacPath
-    else 
+    else
       begin
         SplitBy(oldMacPath,':',foo, pathUnix);    // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
@@ -1197,14 +1197,14 @@ var result : String255;
 begin
 
   result := oldPath;
-  
+
   ReplaceCharByCharInString(result, ' ','¥' );
-  
+
   while (Pos('¥', result) > 0) do
     result := ReplaceStringByStringInString('¥', '\ ', result);
-      
+
   EscapeSpacesInUnixPath := result;
-      
+
 end;
 
 
@@ -1343,18 +1343,18 @@ begin
     end;
 
   theCFString := CFStringCreateWithPascalString(NIL, StringToStr255(s), oldEncoding);
-  
+
   if (theCFString = NIL) then
     begin
       CFRelease(CFTypeRef(theCFString));
       ConvertEncodingOfString := s;
       exit(ConvertEncodingOfString);
     end;
-  
+
   if CFStringGetPascalString(theCFString, @buffer, 256, newEncoding)
     then ConvertEncodingOfString := Str255ToString(buffer)
     else ConvertEncodingOfString := s;
-  
+
   CFRelease(CFTypeRef(theCFString));
 end;
 

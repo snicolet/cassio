@@ -14,26 +14,26 @@ INTERFACE
 
 
 { fonctions de base }
-procedure AlerteSimple(texte : String255);                                                                                                                                          ATTRIBUTE_NAME('AlerteSimple')
-procedure AlerteDouble(texte,explication : String255);                                                                                                                              ATTRIBUTE_NAME('AlerteDouble')
-function AlerteDoubleOuiNon(texte,explication : String255) : SInt16;                                                                                                                ATTRIBUTE_NAME('AlerteDoubleOuiNon')
+procedure AlerteSimple(texte : String255);
+procedure AlerteDouble(texte,explication : String255);
+function AlerteDoubleOuiNon(texte,explication : String255) : SInt16;
 
 
 { fonctions pour reconditionner des dialogues faits avec Resedit }
-procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, buttonID : SInt16);                                                                                 ATTRIBUTE_NAME('AlertOneButtonFromRessource')
-function AlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;                                                        ATTRIBUTE_NAME('AlertTwoButtonsFromRessource')
-procedure CautionAlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, buttonID : SInt16);                                                                          ATTRIBUTE_NAME('CautionAlertOneButtonFromRessource')
-function CautionAlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;                                                 ATTRIBUTE_NAME('CautionAlertTwoButtonsFromRessource')
-procedure TypedAlertOneButtonFromRessource(alertType : AlertType; dialogID, texteItemID, explicationItemID, buttonID : SInt16);                                                     ATTRIBUTE_NAME('TypedAlertOneButtonFromRessource')
-function TypedAlertTwoButtonsFromRessource(alertType : AlertType; dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;                            ATTRIBUTE_NAME('TypedAlertTwoButtonsFromRessource')
+procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, buttonID : SInt16);
+function AlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;
+procedure CautionAlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, buttonID : SInt16);
+function CautionAlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;
+procedure TypedAlertOneButtonFromRessource(alertType : AlertType; dialogID, texteItemID, explicationItemID, buttonID : SInt16);
+function TypedAlertTwoButtonsFromRessource(alertType : AlertType; dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;
 
 
 { fonctions utilitaires }
-procedure DialogueSimple(dialogueID : SInt16{; s1,s2,s3,s4 : String255});                                                                                                           ATTRIBUTE_NAME('DialogueSimple')
-function MySimpleLegacyAlert(alertID : SInt16; s : String255) : SInt16;                                                                                                             ATTRIBUTE_NAME('MySimpleLegacyAlert')
-function MyLegacyAlert(alertID : SInt16; filterProc : ModalFilterUPP; acceptationSet : SetOfItemNumber) : SInt16;                                                                   ATTRIBUTE_NAME('MyLegacyAlert')
-procedure MyParamText( const (*var*) param0: String255; const (*var*) param1: String255; const (*var*) param2: String255; const (*var*) param3: String255 );                        ATTRIBUTE_NAME('MyParamText')
-function IsADuplicateRecentDialog(texte : String255) : boolean;                                                                                                                     ATTRIBUTE_NAME('IsADuplicateRecentDialog')
+procedure DialogueSimple(dialogueID : SInt16{; s1,s2,s3,s4 : String255});
+function MySimpleLegacyAlert(alertID : SInt16; s : String255) : SInt16;
+function MyLegacyAlert(alertID : SInt16; filterProc : ModalFilterUPP; acceptationSet : SetOfItemNumber) : SInt16;
+procedure MyParamText( const (*var*) param0: String255; const (*var*) param1: String255; const (*var*) param2: String255; const (*var*) param3: String255 );
+function IsADuplicateRecentDialog(texte : String255) : boolean;
 
 
 
@@ -156,7 +156,7 @@ begin
   texte := ReplaceStringByStringInString(', prévenez Stephane','',texte);
   texte := ReplaceStringByStringInString('(prévenez Stephane)','',texte);
   texte := ReplaceStringByStringInString('Merci de prévenir Stephane','',texte);
-  
+
   texte := ReplaceStringByStringInString('Prevenez Stéphane, SVP !','',texte);
   texte := ReplaceStringByStringInString('Prevenez Stéphane','',texte);
   texte := ReplaceStringByStringInString('Prevénez Stéphane','',texte);

@@ -17,36 +17,36 @@ INTERFACE
 
 
 
-function MyMenuKey(ch : char) : SInt32;                                                                                                                                             ATTRIBUTE_NAME('MyMenuKey')
+function MyMenuKey(ch : char) : SInt32;
 
-procedure EnableItemPourCassio(whichMenu : MenuRef; whichItem : SInt16);                                                                                                            ATTRIBUTE_NAME('EnableItemPourCassio')
-procedure EssaieDisableForceCmd;                                                                                                                                                    ATTRIBUTE_NAME('EssaieDisableForceCmd')
-procedure FixeMarqueSurMenuMode(n : SInt16);                                                                                                                                        ATTRIBUTE_NAME('FixeMarqueSurMenuMode')
-procedure FixeMarqueSurMenuBase;                                                                                                                                                    ATTRIBUTE_NAME('FixeMarqueSurMenuBase')
-procedure DisableItemTousMenus;                                                                                                                                                     ATTRIBUTE_NAME('DisableItemTousMenus')
-procedure EnableItemTousMenus;                                                                                                                                                      ATTRIBUTE_NAME('EnableItemTousMenus')
-procedure FixeMarquesSurMenus;                                                                                                                                                      ATTRIBUTE_NAME('FixeMarquesSurMenus')
+procedure EnableItemPourCassio(whichMenu : MenuRef; whichItem : SInt16);
+procedure EssaieDisableForceCmd;
+procedure FixeMarqueSurMenuMode(n : SInt16);
+procedure FixeMarqueSurMenuBase;
+procedure DisableItemTousMenus;
+procedure EnableItemTousMenus;
+procedure FixeMarquesSurMenus;
 
 
 (* menu des documents recents *)
-function NomLongDejaCalculeDansMenuReouvrir(path : String255; var theLongName : String255) : boolean;                                                                               ATTRIBUTE_NAME('NomLongDejaCalculeDansMenuReouvrir')
-procedure SetReouvrirItem(pathFichier : String255; numeroItem : SInt16);                                                                                                            ATTRIBUTE_NAME('SetReouvrirItem')
-function GetNomCompletFichierDansMenuReouvrir(numeroItem : SInt16) : String255;                                                                                                     ATTRIBUTE_NAME('GetNomCompletFichierDansMenuReouvrir')
-procedure AjoutePartieDansMenuReouvrir(CheminEtNomFichier : String255);                                                                                                             ATTRIBUTE_NAME('AjoutePartieDansMenuReouvrir')
-function NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir(numeroItem : SInt16) : SInt16;                                                                                        ATTRIBUTE_NAME('NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir')
-procedure CleanReouvrirMenu;                                                                                                                                                        ATTRIBUTE_NAME('CleanReouvrirMenu')
-function SousMenuReouvrirEstVide : boolean;                                                                                                                                         ATTRIBUTE_NAME('SousMenuReouvrirEstVide')
-procedure AssignerLesRaccourcisClaviersMenuReouvrir;                                                                                                                                ATTRIBUTE_NAME('AssignerLesRaccourcisClaviersMenuReouvrir')
+function NomLongDejaCalculeDansMenuReouvrir(path : String255; var theLongName : String255) : boolean;
+procedure SetReouvrirItem(pathFichier : String255; numeroItem : SInt16);
+function GetNomCompletFichierDansMenuReouvrir(numeroItem : SInt16) : String255;
+procedure AjoutePartieDansMenuReouvrir(CheminEtNomFichier : String255);
+function NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir(numeroItem : SInt16) : SInt16;
+procedure CleanReouvrirMenu;
+function SousMenuReouvrirEstVide : boolean;
+procedure AssignerLesRaccourcisClaviersMenuReouvrir;
 
 
 (* menus changeants *)
-procedure SetMenusChangeant(modifiers : SInt16);                                                                                                                                    ATTRIBUTE_NAME('SetMenusChangeant')
-procedure DisableTitlesOfMenusForRetour;                                                                                                                                            ATTRIBUTE_NAME('DisableTitlesOfMenusForRetour')
-procedure EnableAllTitlesOfMenus;                                                                                                                                                   ATTRIBUTE_NAME('EnableAllTitlesOfMenus')
+procedure SetMenusChangeant(modifiers : SInt16);
+procedure DisableTitlesOfMenusForRetour;
+procedure EnableAllTitlesOfMenus;
 
 (* flash des menus *)
-procedure BeginHiliteMenu(menuID : SInt16);                                                                                                                                         ATTRIBUTE_NAME('BeginHiliteMenu')
-procedure EndHiliteMenu(tickDepart : SInt32; delai : SInt32; sansAttente : boolean);                                                                                                ATTRIBUTE_NAME('EndHiliteMenu')
+procedure BeginHiliteMenu(menuID : SInt16);
+procedure EndHiliteMenu(tickDepart : SInt32; delai : SInt32; sansAttente : boolean);
 
 
 
@@ -235,11 +235,11 @@ begin
       begin
         MyDisableItem(PartieMenu,ForwardCmd);
       end;
-      
+
   if ((nbreCoup+1) < nroDernierCoupAtteint) & not(enSetUp) & not(enRetour)
     then EnableItemPourCassio(PartieMenu,DoubleForwardCmd)
     else MyDisableItem(PartieMenu,DoubleForwardCmd);
-    
+
   if (nbreCoup > 0) & not(iconisationDeCassio.encours)
     then MyEnableItem(EditionMenu,AnnulerCmd)
     else MyDisableItem(EditionMenu,AnnulerCmd);
@@ -259,14 +259,14 @@ begin
    if (nbreCoup > 1) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
      then MyEnableItem(PartieMenu,DoubleBackCmd)
      else MyDisableItem(PartieMenu,DoubleBackCmd);
-     
+
    if (nroDernierCoupAtteint > 0) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
      then MyEnableItem(PartieMenu,DeleteMoveCmd)
      else MyDisableItem(PartieMenu,DeleteMoveCmd);
-    
+
 
    if ((60-n) <= 30) & not(enSetUp) & not(enRetour)
-    then EnableItemPourCassio(SolitairesMenu,EstSolitaireCmd) 
+    then EnableItemPourCassio(SolitairesMenu,EstSolitaireCmd)
     else MyDisableItem(SolitairesMenu,EstSolitaireCmd);
 
    if CassioEstEnModeSolitaire & not(enSetUp) & not(enRetour)
@@ -643,11 +643,11 @@ var coupUn,i : SInt16;
     SetItemCmd(BaseMenu, NuageDeRegressionCmd, 'N');
     err := ChangeMenuItemAttributes(BaseMenu, NuageDeRegressionCmd, kMenuItemAttrUseVirtualKey, kMenuItemAttrIncludeInCmdKeyMatching);
     err := SetMenuItemModifiers(BaseMenu, NuageDeRegressionCmd, kMenuNoCommandModifier);
-    
+
     SetItemCmd(SolitairesMenu, EstProblemeDeCoinCmd, 'K');
     err := ChangeMenuItemAttributes(SolitairesMenu, EstProblemeDeCoinCmd, kMenuItemAttrUseVirtualKey, kMenuItemAttrIncludeInCmdKeyMatching);
     err := SetMenuItemModifiers(SolitairesMenu, EstProblemeDeCoinCmd, kMenuOptionModifier + kMenuNoCommandModifier);
-    
+
     SetItemCmd(AffichageMenu, CourbeCmd, 'K');
     err := ChangeMenuItemAttributes(AffichageMenu, CourbeCmd, kMenuItemAttrUseVirtualKey, kMenuItemAttrIncludeInCmdKeyMatching);
     err := SetMenuItemModifiers(AffichageMenu, CourbeCmd, kMenuNoCommandModifier);

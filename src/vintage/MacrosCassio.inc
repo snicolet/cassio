@@ -9,7 +9,7 @@
 {$DEFINEC ATOMIC_DECREMENT_32_BARRIER( theValue )       begin foo_bar_atomic_register := OSAtomicAdd32BarrierPtr( -1, theValue ); end }
 {$DEFINEC ATOMIC_COMPARE_AND_SWAP_32( oldValue, newValue, theValue )         (OSAtomicCompareAndSwap32Ptr( oldValue , newValue ,  theValue )) }
 {$DEFINEC ATOMIC_COMPARE_AND_SWAP_32_BARRIER( oldValue, newValue, theValue ) (OSAtomicCompareAndSwap32BarrierPtr( oldValue ,  newValue ,  theValue )) }
-{$DEFINEC OS_MEMORY_BARRIER   OSMemoryBarrierPtr }                
+{$DEFINEC OS_MEMORY_BARRIER   OSMemoryBarrierPtr }
 
 *)
 
@@ -23,17 +23,17 @@
 {$DEFINEC ATOMIC_DECREMENT_32_BARRIER( theValue )       begin foo_bar_atomic_register := OSAtomicAdd32Ptr( -1, theValue ); end }
 {$DEFINEC ATOMIC_COMPARE_AND_SWAP_32( oldValue, newValue, theValue )         (OSAtomicCompareAndSwap32Ptr( oldValue , newValue ,  theValue )) }
 {$DEFINEC ATOMIC_COMPARE_AND_SWAP_32_BARRIER( oldValue, newValue, theValue ) (OSAtomicCompareAndSwap32Ptr( oldValue , newValue ,  theValue )) }
-{$DEFINEC OS_MEMORY_BARRIER   begin end }                
+{$DEFINEC OS_MEMORY_BARRIER   begin end }
 
 
 
 
 {$DEFINEC ALLOUER_VARIABLES_LISTE_CASES_VIDES(iterateur,square,bit_case_vide,leading_zeros) iterateur : UInt32; square : UInt32 ; bit_case_vide : UInt32 ; leading_zeros : UInt32}
 {$DEFINEC REPEAT_ITERER_LISTE_CASES_VIDES(listeArrivee,iterateur)  begin iterateur := (listeArrivee); repeat }
-{$DEFINEC GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,square,leadingZeros)  begin   bitCaseVide := iterateur and (not(iterateur - 1)); SAFE_COUNT_LEADING_ZEROS(bitCaseVide, leadingZeros); square := gTableBitListeBitboardToSquare[leadingZeros]; iterateur := iterateur - bitCaseVide; end } 
+{$DEFINEC GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,square,leadingZeros)  begin   bitCaseVide := iterateur and (not(iterateur - 1)); SAFE_COUNT_LEADING_ZEROS(bitCaseVide, leadingZeros); square := gTableBitListeBitboardToSquare[leadingZeros]; iterateur := iterateur - bitCaseVide; end }
 {$DEFINEC GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE(listeBitboard,square1,square2)  begin  bitCaseVide := listeBitboard and (not(listeBitboard - 1)); SAFE_COUNT_LEADING_ZEROS(bitCaseVide, leadingZeros); square1 := gTableBitListeBitboardToSquare[leadingZeros]; SAFE_COUNT_LEADING_ZEROS(listeBitboard, leadingZeros2); square2 := gTableBitListeBitboardToSquare[leadingZeros2];  end }
 
-{$DEFINEC OLD_GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,square,leadingZeros)  begin   bitCaseVide := iterateur and (not(iterateur - 1));  if (bitCaseVide and $FFFF8000) <> 0 then leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide shr 15) - 15 else leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide); square := gTableBitListeBitboardToSquare[leadingZeros]; iterateur := iterateur - bitCaseVide; end } 
+{$DEFINEC OLD_GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,square,leadingZeros)  begin   bitCaseVide := iterateur and (not(iterateur - 1));  if (bitCaseVide and $FFFF8000) <> 0 then leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide shr 15) - 15 else leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide); square := gTableBitListeBitboardToSquare[leadingZeros]; iterateur := iterateur - bitCaseVide; end }
 {$DEFINEC OLD_GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE(listeBitboard,square1,square2)  begin  bitCaseVide := listeBitboard and (not(listeBitboard - 1)); if (bitCaseVide and $FFFF8000) <> 0 then leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide shr 15) - 15 else leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide); square1 := gTableBitListeBitboardToSquare[leadingZeros]; if (listeBitboard and $FFFF8000) <> 0 then leadingZeros2 := COUNT_LEADING_ZEROS(listeBitboard shr 15) - 15 else leadingZeros2 := COUNT_LEADING_ZEROS(listeBitboard); square2 := gTableBitListeBitboardToSquare[leadingZeros2];  end }
 
 
@@ -111,7 +111,7 @@
 {$ELSEC }
 {$DEFINEC TraceLog(s) WriteInTraceLog(s) }
 {$ENDC }
- 
+
 
 {$DEFINEC DoNothing  begin end }
 

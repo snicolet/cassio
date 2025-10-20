@@ -27,10 +27,10 @@ int Zebra_col_patt_symD[8];  /* b1 -> h7 */
 int Zebra_row_patt_symD[8];  /* b1 -> g8 */
 
 
-/* 
+/*
    PREPARE_HASH
    Compute the position hash codes.
-*/   
+*/
 pascal void prepare_zebra_hash( void ) {
 	int i, j, k;
 
@@ -70,7 +70,7 @@ pascal void get_zebra_hash( int *board, int *val0, int *val1, int *orientation )
 		for ( j = 0; j < 2; j++ )
 			out[i][j] = 0;
 	for ( i = 0; i < 8; i++ ) {
-    	/* b1 -> b1 */      
+    	/* b1 -> b1 */
 		out[0][0] ^=  Zebra_line_hash[0][i][Zebra_row_patt[i]]; /* Calcul hash_val1 */
 		out[0][1] ^=  Zebra_line_hash[1][i][Zebra_row_patt[i]]; /* Calcul hash_val2 */
     	
@@ -111,7 +111,7 @@ pascal void get_zebra_hash( int *board, int *val0, int *val1, int *orientation )
 	min_hash0 = out[0][0];
 	min_hash1 = out[0][1];
 	for ( i = 1; i < 8; i++)
-		if ( (out[i][0] < min_hash0) || 
+		if ( (out[i][0] < min_hash0) ||
 		     ((out[i][0] == min_hash0) && (out[i][1] < min_hash1)) ) {
 			min_map = i;
 			min_hash0 = out[i][0];

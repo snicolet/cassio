@@ -39,117 +39,117 @@ const k_REGRESSION_QUALITE_EDMOND         = 1;
 
 
 { initialisation et liberation de l'unite }
-procedure InitUnitRegressionLineaire;                                                                                                                                               ATTRIBUTE_NAME('InitUnitRegressionLineaire')
-procedure LibereMemoireUnitRegressionLineaire;                                                                                                                                      ATTRIBUTE_NAME('LibereMemoireUnitRegressionLineaire')
-procedure AllocateMemoryForCloud(numberOfPoints : SInt32);                                                                                                                          ATTRIBUTE_NAME('AllocateMemoryForCloud')
-procedure DisposeMemoryForCloud;                                                                                                                                                    ATTRIBUTE_NAME('DisposeMemoryForCloud')
+procedure InitUnitRegressionLineaire;
+procedure LibereMemoireUnitRegressionLineaire;
+procedure AllocateMemoryForCloud(numberOfPoints : SInt32);
+procedure DisposeMemoryForCloud;
 
 
 { deux fonction utilitaires }
-function CassioEstEnTrainDeTracerLeNuage : boolean;                                                                                                                                 ATTRIBUTE_NAME('CassioEstEnTrainDeTracerLeNuage')
-procedure SetCassioEstEnTrainDeTracerLeNuage(flag : boolean; oldValue : BooleanPtr);                                                                                                ATTRIBUTE_NAME('SetCassioEstEnTrainDeTracerLeNuage')
-function UtilisateurEstEnTrainDeSurvolerLeNuage : boolean;                                                                                                                          ATTRIBUTE_NAME('UtilisateurEstEnTrainDeSurvolerLeNuage')
+function CassioEstEnTrainDeTracerLeNuage : boolean;
+procedure SetCassioEstEnTrainDeTracerLeNuage(flag : boolean; oldValue : BooleanPtr);
+function UtilisateurEstEnTrainDeSurvolerLeNuage : boolean;
 
 
 { acces aux donnees du nuage de point }
-procedure ViderCloud;                                                                                                                                                               ATTRIBUTE_NAME('ViderCloud')
-procedure AjouterPointDansCloud(x_loc,y_loc : SInt16; evaluation,numeroRefPartie : SInt32);                                                                                         ATTRIBUTE_NAME('AjouterPointDansCloud')
-function TrouverNouveauPointPlusProcheParAlgoEnSpirale(mouseLoc : Point; var numeroPoint : SInt32) : boolean;                                                                       ATTRIBUTE_NAME('TrouverNouveauPointPlusProcheParAlgoEnSpirale')
-function TrouverNouveauPointProcheDeLaSourisDansCloud(mouseLoc : Point; var numeroPoint : SInt32) : boolean;                                                                        ATTRIBUTE_NAME('TrouverNouveauPointProcheDeLaSourisDansCloud')
-function GetScoreAxeVerticalParNroRefPartie(numeroReference : SInt32) : SInt32;                                                                                                     ATTRIBUTE_NAME('GetScoreAxeVerticalParNroRefPartie')
+procedure ViderCloud;
+procedure AjouterPointDansCloud(x_loc,y_loc : SInt16; evaluation,numeroRefPartie : SInt32);
+function TrouverNouveauPointPlusProcheParAlgoEnSpirale(mouseLoc : Point; var numeroPoint : SInt32) : boolean;
+function TrouverNouveauPointProcheDeLaSourisDansCloud(mouseLoc : Point; var numeroPoint : SInt32) : boolean;
+function GetScoreAxeVerticalParNroRefPartie(numeroReference : SInt32) : SInt32;
 
 
 { fonctions de dessin }
-procedure DessineNuageDePointsRegression;                                                                                                                                           ATTRIBUTE_NAME('DessineNuageDePointsRegression')
-procedure DessineNuage(fonctionAppelante : String255);                                                                                                                              ATTRIBUTE_NAME('DessineNuage')
-procedure PlotRepereRegression;                                                                                                                                                     ATTRIBUTE_NAME('PlotRepereRegression')
-procedure PlotRepereCourbesDistribution;                                                                                                                                            ATTRIBUTE_NAME('PlotRepereCourbesDistribution')
-procedure PlotPointRegression(scoreTheorique,valeur,nroReferencePartie : SInt32);                                                                                                   ATTRIBUTE_NAME('PlotPointRegression')
-procedure DessineCarreBlancCeScoreTheorique(scoreTheorique,valeur : SInt32);                                                                                                        ATTRIBUTE_NAME('DessineCarreBlancCeScoreTheorique')
-procedure EffaceCourbesDistribution;                                                                                                                                                ATTRIBUTE_NAME('EffaceCourbesDistribution')
-procedure DessineCourbeDistribution(quelScoreTheorique : SInt16; var c : TableDistributionPtr; typeLissage : SInt32);                                                               ATTRIBUTE_NAME('DessineCourbeDistribution')
-procedure DessinePointsRegressionCeScoreTheorique(quelScoreTheorique : SInt16; var mediane : SInt32; avecDessinCourbeDistribution : boolean);                                       ATTRIBUTE_NAME('DessinePointsRegressionCeScoreTheorique')
-procedure DessineMedianeCeScoreTheorique(quelScoreTheorique,mediane : SInt32);                                                                                                      ATTRIBUTE_NAME('DessineMedianeCeScoreTheorique')
-procedure RedrawFastApproximateCloud;                                                                                                                                               ATTRIBUTE_NAME('RedrawFastApproximateCloud')
-procedure RedrawFastApproximateCurve(scoreTheoriqueATracer : SInt32);                                                                                                               ATTRIBUTE_NAME('RedrawFastApproximateCurve')
+procedure DessineNuageDePointsRegression;
+procedure DessineNuage(fonctionAppelante : String255);
+procedure PlotRepereRegression;
+procedure PlotRepereCourbesDistribution;
+procedure PlotPointRegression(scoreTheorique,valeur,nroReferencePartie : SInt32);
+procedure DessineCarreBlancCeScoreTheorique(scoreTheorique,valeur : SInt32);
+procedure EffaceCourbesDistribution;
+procedure DessineCourbeDistribution(quelScoreTheorique : SInt16; var c : TableDistributionPtr; typeLissage : SInt32);
+procedure DessinePointsRegressionCeScoreTheorique(quelScoreTheorique : SInt16; var mediane : SInt32; avecDessinCourbeDistribution : boolean);
+procedure DessineMedianeCeScoreTheorique(quelScoreTheorique,mediane : SInt32);
+procedure RedrawFastApproximateCloud;
+procedure RedrawFastApproximateCurve(scoreTheoriqueATracer : SInt32);
 
 
 
 { fonctions de calcul }
-function  NoteCassioEnScoreFinal(note : SInt32) : SInt32;                                                                                                                           ATTRIBUTE_NAME('NoteCassioEnScoreFinal')
-function ValeurEvaluationDeCassioPourNoirDeLaPartie(nroRefPartie : SInt32; typeRegression : SInt32; var ok : boolean; var positionEtTrait : PositionEtTraitRec) : SInt32;           ATTRIBUTE_NAME('ValeurEvaluationDeCassioPourNoirDeLaPartie')
-function MoyenneDesEvaluationsDesPartiesAScoreTheorique(quelScoreTheorique : SInt16; var nbPartiesFoireuses,nbPartiesOK : SInt32; var valMin,valMax : SInt32; var positionMin,positionMax : PositionEtTraitRec; var nroRefMin,nroRefMax : SInt32; var SommeDesEcarts,SommeDesCarres : SInt32; var mediane : SInt32) : SInt32;                                           ATTRIBUTE_NAME('MoyenneDesEvaluationsDesPartiesAScoreTheorique')
-procedure GetCentreRepereRegression(var X_centre,Y_centre : SInt32);                                                                                                                ATTRIBUTE_NAME('GetCentreRepereRegression')
-procedure GetScoreTheoriqueThisPointOnScreen(x_loc,y_loc : SInt32; var theorique : SInt32);                                                                                         ATTRIBUTE_NAME('GetScoreTheoriqueThisPointOnScreen')
-function GetScreenPointForTheseValues(scoreTheorique, estimation : SInt32) : Point;                                                                                                 ATTRIBUTE_NAME('GetScreenPointForTheseValues')
-procedure RedimensionnerLeNuage(oldWindowRect,newWindowRect : rect);                                                                                                                ATTRIBUTE_NAME('RedimensionnerLeNuage')
+function  NoteCassioEnScoreFinal(note : SInt32) : SInt32;
+function ValeurEvaluationDeCassioPourNoirDeLaPartie(nroRefPartie : SInt32; typeRegression : SInt32; var ok : boolean; var positionEtTrait : PositionEtTraitRec) : SInt32;
+function MoyenneDesEvaluationsDesPartiesAScoreTheorique(quelScoreTheorique : SInt16; var nbPartiesFoireuses,nbPartiesOK : SInt32; var valMin,valMax : SInt32; var positionMin,positionMax : PositionEtTraitRec; var nroRefMin,nroRefMax : SInt32; var SommeDesEcarts,SommeDesCarres : SInt32; var mediane : SInt32) : SInt32;
+procedure GetCentreRepereRegression(var X_centre,Y_centre : SInt32);
+procedure GetScoreTheoriqueThisPointOnScreen(x_loc,y_loc : SInt32; var theorique : SInt32);
+function GetScreenPointForTheseValues(scoreTheorique, estimation : SInt32) : Point;
+procedure RedimensionnerLeNuage(oldWindowRect,newWindowRect : rect);
 
 
 { fonctions diverses}
-procedure TestRegressionLineaire;                                                                                                                                                   ATTRIBUTE_NAME('TestRegressionLineaire')
-procedure InitialiseModeleLineaireValeursPotables;                                                                                                                                  ATTRIBUTE_NAME('InitialiseModeleLineaireValeursPotables')
-procedure AjusteModeleLineaireFinaleAvecStat(var TotalNbPartiesOK,TotalSommeDesEcarts : SInt32);                                                                                    ATTRIBUTE_NAME('AjusteModeleLineaireFinaleAvecStat')
-procedure AjusteModeleLineaireFinale;                                                                                                                                               ATTRIBUTE_NAME('AjusteModeleLineaireFinale')
-procedure MetTitreFenetreNuage;                                                                                                                                                     ATTRIBUTE_NAME('MetTitreFenetreNuage')
-procedure DeterminerLaMeilleureEchelleVerticaleDuNuage;                                                                                                                             ATTRIBUTE_NAME('DeterminerLaMeilleureEchelleVerticaleDuNuage')
-function EstUnScoreTheoriqueDontOnDoitTracerLaCourbe(score : SInt32) : boolean;                                                                                                     ATTRIBUTE_NAME('EstUnScoreTheoriqueDontOnDoitTracerLaCourbe')
+procedure TestRegressionLineaire;
+procedure InitialiseModeleLineaireValeursPotables;
+procedure AjusteModeleLineaireFinaleAvecStat(var TotalNbPartiesOK,TotalSommeDesEcarts : SInt32);
+procedure AjusteModeleLineaireFinale;
+procedure MetTitreFenetreNuage;
+procedure DeterminerLaMeilleureEchelleVerticaleDuNuage;
+function EstUnScoreTheoriqueDontOnDoitTracerLaCourbe(score : SInt32) : boolean;
 
 
 { gestion de l'affichage des parties du nuage }
-procedure OuvrirPartieDeLaListeCorrespondantACePoint(numeroDuPoint : SInt32);                                                                                                       ATTRIBUTE_NAME('OuvrirPartieDeLaListeCorrespondantACePoint')
-procedure LanceDemandeDeVisiteDeLaPartieDeCePointDuNuage(numeroDuPoint : SInt32);                                                                                                   ATTRIBUTE_NAME('LanceDemandeDeVisiteDeLaPartieDeCePointDuNuage')
-procedure TraiterDemandesDeVisiteDesPartiesDuNuage;                                                                                                                                 ATTRIBUTE_NAME('TraiterDemandesDeVisiteDesPartiesDuNuage')
+procedure OuvrirPartieDeLaListeCorrespondantACePoint(numeroDuPoint : SInt32);
+procedure LanceDemandeDeVisiteDeLaPartieDeCePointDuNuage(numeroDuPoint : SInt32);
+procedure TraiterDemandesDeVisiteDesPartiesDuNuage;
 
 
 { gestion de la souris dans la fenetre du nuage }
-function TraiteCurseurSeBalladantSurLaFenetreDuNuage(mouseLocGlobal : Point) : boolean;                                                                                             ATTRIBUTE_NAME('TraiteCurseurSeBalladantSurLaFenetreDuNuage')
-procedure ToggleTooltipWindowsInCloudSuiventLeCurseur;                                                                                                                              ATTRIBUTE_NAME('ToggleTooltipWindowsInCloudSuiventLeCurseur')
-procedure TraiteSourisNuage(whichEvent : eventRecord);                                                                                                                              ATTRIBUTE_NAME('TraiteSourisNuage')
+function TraiteCurseurSeBalladantSurLaFenetreDuNuage(mouseLocGlobal : Point) : boolean;
+procedure ToggleTooltipWindowsInCloudSuiventLeCurseur;
+procedure TraiteSourisNuage(whichEvent : eventRecord);
 
 
 
 { affichage dans le rapport }
-procedure EcrireCloudDansRapport;                                                                                                                                                   ATTRIBUTE_NAME('EcrireCloudDansRapport')
-procedure EcrireReferencesDeCePointDansRapport(numeroDuPoint : SInt32);                                                                                                             ATTRIBUTE_NAME('EcrireReferencesDeCePointDansRapport')
-procedure HistogrammeDesMoyennesParScoreTheoriqueDansRapport;                                                                                                                       ATTRIBUTE_NAME('HistogrammeDesMoyennesParScoreTheoriqueDansRapport')
-procedure MoyenneDeTelScoreTheoriqueDansRapport(quelScoreTheorique : SInt32; positionsExtremesDansRapport : boolean);                                                               ATTRIBUTE_NAME('MoyenneDeTelScoreTheoriqueDansRapport')
-procedure HistogrammeValeursTheoriquesDansRapport;                                                                                                                                  ATTRIBUTE_NAME('HistogrammeValeursTheoriquesDansRapport')
-function ScoreEnChaineInformative(score : SInt32) : String255;                                                                                                                      ATTRIBUTE_NAME('ScoreEnChaineInformative')
+procedure EcrireCloudDansRapport;
+procedure EcrireReferencesDeCePointDansRapport(numeroDuPoint : SInt32);
+procedure HistogrammeDesMoyennesParScoreTheoriqueDansRapport;
+procedure MoyenneDeTelScoreTheoriqueDansRapport(quelScoreTheorique : SInt32; positionsExtremesDansRapport : boolean);
+procedure HistogrammeValeursTheoriquesDansRapport;
+function ScoreEnChaineInformative(score : SInt32) : String255;
 
 
 
 { petits tooltips}
-procedure CreateTooltipWindowInCloud(numeroDuPoint : SInt32; commandState : boolean);                                                                                               ATTRIBUTE_NAME('CreateTooltipWindowInCloud')
-procedure CloseTooltipWindowInCloud;                                                                                                                                                ATTRIBUTE_NAME('CloseTooltipWindowInCloud')
-procedure ShowTooltipWindowInCloud;                                                                                                                                                 ATTRIBUTE_NAME('ShowTooltipWindowInCloud')
-procedure HideTooltipWindowInCloud;                                                                                                                                                 ATTRIBUTE_NAME('HideTooltipWindowInCloud')
-function GetTooltipWindowInCloud : WindowPtr;                                                                                                                                       ATTRIBUTE_NAME('GetTooltipWindowInCloud')
-function TooltipWindowInCloudOpened : boolean;                                                                                                                                      ATTRIBUTE_NAME('TooltipWindowInCloudOpened')
-function FabriqueTexteDeuxiemeLigneDuTooltip(scoreAxeVertical, scoreAxeHorizontal : SInt32) : String255;                                                                            ATTRIBUTE_NAME('FabriqueTexteDeuxiemeLigneDuTooltip')
+procedure CreateTooltipWindowInCloud(numeroDuPoint : SInt32; commandState : boolean);
+procedure CloseTooltipWindowInCloud;
+procedure ShowTooltipWindowInCloud;
+procedure HideTooltipWindowInCloud;
+function GetTooltipWindowInCloud : WindowPtr;
+function TooltipWindowInCloudOpened : boolean;
+function FabriqueTexteDeuxiemeLigneDuTooltip(scoreAxeVertical, scoreAxeHorizontal : SInt32) : String255;
 
 
 
 
 { gestion de la grille pour traverser rapidement le nuage }
-procedure InitGrid;                                                                                                                                                                 ATTRIBUTE_NAME('InitGrid')
-function GetGridSquareOfPoint(x,y : SInt32; var grid_x, grid_y : SInt32) : boolean;                                                                                                 ATTRIBUTE_NAME('GetGridSquareOfPoint')
-function GetBoundingRectOfGridSquare(grid_x,grid_y : SInt32) : Rect;                                                                                                                ATTRIBUTE_NAME('GetBoundingRectOfGridSquare')
-procedure TrierLesPointsSelonLaGrille;                                                                                                                                              ATTRIBUTE_NAME('TrierLesPointsSelonLaGrille')
-procedure SortGrid(lo,up : SInt32);                                                                                                                                                 ATTRIBUTE_NAME('SortGrid')
-function CetteCaseDansLaGrilleContientDesPoints(grid_x, grid_y : SInt32; var indexMin, indexMax : SInt32) : boolean;                                                                ATTRIBUTE_NAME('CetteCaseDansLaGrilleContientDesPoints')
-function DistanceMinEntreCePointEtCetteCaseDeLaGrille(x,y : SInt32; x_grid, y_grid : SInt32) : SInt32;                                                                              ATTRIBUTE_NAME('DistanceMinEntreCePointEtCetteCaseDeLaGrille')
+procedure InitGrid;
+function GetGridSquareOfPoint(x,y : SInt32; var grid_x, grid_y : SInt32) : boolean;
+function GetBoundingRectOfGridSquare(grid_x,grid_y : SInt32) : Rect;
+procedure TrierLesPointsSelonLaGrille;
+procedure SortGrid(lo,up : SInt32);
+function CetteCaseDansLaGrilleContientDesPoints(grid_x, grid_y : SInt32; var indexMin, indexMax : SInt32) : boolean;
+function DistanceMinEntreCePointEtCetteCaseDeLaGrille(x,y : SInt32; x_grid, y_grid : SInt32) : SInt32;
 
 
 { gestion du menu flottant permettant de selectionner le type de nuage }
-procedure LoadMenuFlottantNuage;                                                                                                                                                    ATTRIBUTE_NAME('LoadMenuFlottantNuage')
-procedure DrawMenuFlottantNuage;                                                                                                                                                    ATTRIBUTE_NAME('DrawMenuFlottantNuage')
-procedure GererClicMenuFlottantNuage;                                                                                                                                               ATTRIBUTE_NAME('GererClicMenuFlottantNuage')
+procedure LoadMenuFlottantNuage;
+procedure DrawMenuFlottantNuage;
+procedure GererClicMenuFlottantNuage;
 
 
 { cas particulier d'Edax : on n'a pas l'eval exacte, seulement le fichier "eval-edax-correlations.csv" }
-procedure LireFichierCSVEvalEdaxCorrelations;                                                                                                                                       ATTRIBUTE_NAME('LireFichierCSVEvalEdaxCorrelations')
-procedure AllocateMemoryForEdaxMatrix;                                                                                                                                              ATTRIBUTE_NAME('AllocateMemoryForEdaxMatrix')
-procedure DisposeMemoryForEdaxMatrix;                                                                                                                                               ATTRIBUTE_NAME('DisposeMemoryForEdaxMatrix')
+procedure LireFichierCSVEvalEdaxCorrelations;
+procedure AllocateMemoryForEdaxMatrix;
+procedure DisposeMemoryForEdaxMatrix;
 
 
 
@@ -164,7 +164,7 @@ IMPLEMENTATION
 
 USES
     QuickDraw, fp, MacWindows, MacHelp, OSUtils, GestaltEqu, Sound, QuickdrawText
-    
+
 {$IFC NOT(USE_PRELINK)}
     , MyFileSystemUtils, MyQuickDraw, UnitEvenement, UnitJeu, MyUtils, MyAntialiasing, UnitModes, SNMenus
     , UnitActions, UnitPositionEtTrait, UnitEvaluation, UnitAccesNouveauFormat, UnitUtilitaires, UnitNouvelleEval, Unit_AB_simple, SNEvents
@@ -2362,8 +2362,8 @@ begin
               TraductionThorEnAlphanumerique(s60, partieEnAlpha);
 
               positionDeLaListe := PositionEtTraitAfterMoveNumberAlpha(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor,erreur);
-              
-              
+
+
               partieDansLaListe := LeftOfString(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2);
               partieCourante    := PartiePourPressePapier(true,false,nbreCoup);
 
@@ -2379,8 +2379,8 @@ begin
 
                    if not(EstLaPositionCourante(positionDeLaListe)) then
                      begin
-                     
-                        if (erreur = kPartieTropCourte) & EstLaPositionInitialeStandard(positionDeLaListe) & 
+
+                        if (erreur = kPartieTropCourte) & EstLaPositionInitialeStandard(positionDeLaListe) &
                            ((LENGTH_OF_STRING(partieEnAlpha) div 2) < kNumeroCoupCalculScoreTheoriqueDansWThor) & (AQuiDeJouer = pionVide)
                          then
                            positionDeLaListe := PositionEtTraitCourant
@@ -2394,7 +2394,7 @@ begin
 
                              WritelnDansRapport('positionDeLaListe = ');
                              WritelnPositionEtTraitDansRapport(positionDeLaListe.position,GetTraitOfPosition(positionDeLaListe));
-                             
+
                              WritelnNumDansRapport('erreur = ',erreur);
                              WritelnDansRapport('partieEnAlpha = '+partieEnAlpha);
                            end;

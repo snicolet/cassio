@@ -15,31 +15,31 @@ INTERFACE
 
 
 
-procedure InitUnitCouleur;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitCouleur')
-procedure SetRGBColor (var theColor: RGBColor; redValue, greenValue, blueValue: SInt32);                                                                                            ATTRIBUTE_NAME('SetRGBColor')
-function IsSameRGBColor(c1,c2 : RGBColor) : boolean;                                                                                                                                ATTRIBUTE_NAME('IsSameRGBColor')
+procedure InitUnitCouleur;
+procedure SetRGBColor (var theColor: RGBColor; redValue, greenValue, blueValue: SInt32);
+function IsSameRGBColor(c1,c2 : RGBColor) : boolean;
 
-function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;                                                                                                                      ATTRIBUTE_NAME('CouleurCmdToRGBColor')
-procedure DetermineFrontAndBackColor(CouleurDemandeeParUtilisateur : SInt16; var couleurFront,couleurBack : SInt16);                                                                ATTRIBUTE_NAME('DetermineFrontAndBackColor')
+function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;
+procedure DetermineFrontAndBackColor(CouleurDemandeeParUtilisateur : SInt16; var couleurFront,couleurBack : SInt16);
 
-function RGBColorEstClaire(color : RGBColor; seuilLuminosite : SInt32) : boolean;                                                                                                   ATTRIBUTE_NAME('RGBColorEstClaire')
-function RGBColorEstFoncee(color : RGBColor; seuilLuminosite : SInt32) : boolean;                                                                                                   ATTRIBUTE_NAME('RGBColorEstFoncee')
-function EstUneCouleurTresClaire(whichCouleurCmd : SInt16) : boolean;                                                                                                               ATTRIBUTE_NAME('EstUneCouleurTresClaire')
-function EstUneCouleurClaire(whichCouleurCmd : SInt16) : boolean;                                                                                                                   ATTRIBUTE_NAME('EstUneCouleurClaire')
-function EstUneCouleurComposee(whichCouleurCmd : SInt16) : boolean;                                                                                                                 ATTRIBUTE_NAME('EstUneCouleurComposee')
-function DistanceDesCouleurs(c1,c2 : RGBColor) : SInt32;                                                                                                                            ATTRIBUTE_NAME('DistanceDesCouleurs')
-function CalculePlusProcheCouleurDeBase(couleurOthellier : SInt16; BlancCompris : boolean) : SInt16;                                                                                ATTRIBUTE_NAME('CalculePlusProcheCouleurDeBase')
-function GetCouleurAffichageValeurZebraBook(trait : SInt32; whichNote : SInt32) : RGBColor;                                                                                         ATTRIBUTE_NAME('GetCouleurAffichageValeurZebraBook')
-function GetCouleurAffichageValeurCourbe(trait : SInt32; whichNote : SInt32) : RGBColor;                                                                                            ATTRIBUTE_NAME('GetCouleurAffichageValeurCourbe')
-procedure DessineCouleurDeZebraBookDansRect(whichRect : rect; trait,valeur : SInt32; encadrement : boolean);                                                                        ATTRIBUTE_NAME('DessineCouleurDeZebraBookDansRect')
+function RGBColorEstClaire(color : RGBColor; seuilLuminosite : SInt32) : boolean;
+function RGBColorEstFoncee(color : RGBColor; seuilLuminosite : SInt32) : boolean;
+function EstUneCouleurTresClaire(whichCouleurCmd : SInt16) : boolean;
+function EstUneCouleurClaire(whichCouleurCmd : SInt16) : boolean;
+function EstUneCouleurComposee(whichCouleurCmd : SInt16) : boolean;
+function DistanceDesCouleurs(c1,c2 : RGBColor) : SInt32;
+function CalculePlusProcheCouleurDeBase(couleurOthellier : SInt16; BlancCompris : boolean) : SInt16;
+function GetCouleurAffichageValeurZebraBook(trait : SInt32; whichNote : SInt32) : RGBColor;
+function GetCouleurAffichageValeurCourbe(trait : SInt32; whichNote : SInt32) : RGBColor;
+procedure DessineCouleurDeZebraBookDansRect(whichRect : rect; trait,valeur : SInt32; encadrement : boolean);
 
-function EclaircirCouleur(theColor : RGBColor) : RGBColor;                                                                                                                          ATTRIBUTE_NAME('EclaircirCouleur')
-function NoircirCouleur(theColor : RGBColor) : RGBColor;                                                                                                                            ATTRIBUTE_NAME('NoircirCouleur')
-function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;                                                                                        ATTRIBUTE_NAME('EclaircirCouleurDeCetteQuantite')
-function NoircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;                                                                                          ATTRIBUTE_NAME('NoircirCouleurDeCetteQuantite')
+function EclaircirCouleur(theColor : RGBColor) : RGBColor;
+function NoircirCouleur(theColor : RGBColor) : RGBColor;
+function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;
+function NoircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;
 
 
-procedure DessineOmbreRoundRect(theRect : rect; ovalWidth,ovalHeight : SInt16; targetColor : RGBColor; tailleOmbre,forceDuGradient,ombrageMinimum,typeOmbrage : SInt32);            ATTRIBUTE_NAME('DessineOmbreRoundRect')
+procedure DessineOmbreRoundRect(theRect : rect; ovalWidth,ovalHeight : SInt16; targetColor : RGBColor; tailleOmbre,forceDuGradient,ombrageMinimum,typeOmbrage : SInt32);
 
 
 
@@ -439,7 +439,7 @@ begin
                   rapiditeNoircissement := 60;
                 end;
   end;
-  
+
   if (whichNote = 0)
     then
       begin
@@ -451,10 +451,10 @@ begin
         if (interet > 600) then interet := 600;
         if (interet < -700) then interet := -700;
         noircissement := interet * rapiditeNoircissement;
-        
+
         GetCouleurAffichageValeurZebraBook := NoircirCouleurDeCetteQuantite(theColor,noircissement);
       end;
-      
+
 end;
 
 
@@ -485,10 +485,10 @@ begin
         if (interet > 600) then interet := 600;
         if (interet < -700) then interet := -700;
         noircissement := interet * rapiditeNoircissement;
-        
+
         GetCouleurAffichageValeurCourbe := NoircirCouleurDeCetteQuantite(theColor,noircissement);
       end;
-      
+
 end;
 
 procedure DessineCouleurDeZebraBookDansRect(whichRect : rect; trait,valeur : SInt32; encadrement : boolean);

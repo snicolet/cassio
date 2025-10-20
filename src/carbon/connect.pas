@@ -40,7 +40,7 @@ uses
 // the name and the arguments of the process to launch, and we must provide a callback
 // function that will be called for each line we read later on the task pipe.
 
-function CreateConnectedTask(var theTask    : Task; 
+function CreateConnectedTask(var theTask    : Task;
                              lineCallback   : Interpretor;
                              bufferCallback : Interpretor) : boolean;
 begin
@@ -136,9 +136,9 @@ var
 
         NoMoreOutput := false;
       end;
-      
+
     end;
-    
+
     if (theTask.bufferCallback <> nil) and (accumulator <> '') then
        theTask.bufferCallback(accumulator);
   end;

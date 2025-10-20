@@ -12,83 +12,83 @@ INTERFACE
  USES UnitDefCassio, UnitDefParallelisme;
 
 {la dernière chaine de caracteres ecrite dans le rapport}
-function LastStringEcriteDansRapport : String255;                                                                                                                                   ATTRIBUTE_NAME('LastStringEcriteDansRapport')
+function LastStringEcriteDansRapport : String255;
 
 {insertion de texte dans le rapport}
 {procedure InsereTexteDansRapportSync(text : Ptr; length : SInt32; scrollerSynchronisation : boolean);}
-procedure InsereStringDansRapportSync(s : String255; scrollerSynchronisation : boolean);                                                                                            ATTRIBUTE_NAME('InsereStringDansRapportSync')
-procedure InsereStringlnDansRapportSync(s : String255; scrollerSynchronisation : boolean);                                                                                          ATTRIBUTE_NAME('InsereStringlnDansRapportSync')
-procedure WriteDansRapportSync(s : String255; scrollerSynchronisation : boolean);                                                                                                   ATTRIBUTE_NAME('WriteDansRapportSync')
-procedure WritelnDansRapportSync(s : String255; scrollerSynchronisation : boolean);                                                                                                 ATTRIBUTE_NAME('WritelnDansRapportSync')
-procedure InsereTexteDansRapport(text : Ptr; length : SInt32);                                                                                                                      ATTRIBUTE_NAME('InsereTexteDansRapport')
-procedure InsereStringDansRapport(s : String255);                                                                                                                                   ATTRIBUTE_NAME('InsereStringDansRapport')
-procedure InsereStringlnDansRapport(s : String255);                                                                                                                                 ATTRIBUTE_NAME('InsereStringlnDansRapport')
-procedure WriteDansRapport(s : String255);                                                                                                                                          ATTRIBUTE_NAME('WriteDansRapport')
-procedure WritelnDansRapport(s : String255);                                                                                                                                        ATTRIBUTE_NAME('WritelnDansRapport')
-procedure WritelnDansRapportSansRepeter(s : String255);                                                                                                                             ATTRIBUTE_NAME('WritelnDansRapportSansRepeter')
-procedure WritelnDansRapportThreadSafe(s : String255);                                                                                                                              ATTRIBUTE_NAME('WritelnDansRapportThreadSafe')
-procedure WritelnDansRapportEtAttendFrappeClavier(s : String255; bip : boolean);                                                                                                    ATTRIBUTE_NAME('WritelnDansRapportEtAttendFrappeClavier')
+procedure InsereStringDansRapportSync(s : String255; scrollerSynchronisation : boolean);
+procedure InsereStringlnDansRapportSync(s : String255; scrollerSynchronisation : boolean);
+procedure WriteDansRapportSync(s : String255; scrollerSynchronisation : boolean);
+procedure WritelnDansRapportSync(s : String255; scrollerSynchronisation : boolean);
+procedure InsereTexteDansRapport(text : Ptr; length : SInt32);
+procedure InsereStringDansRapport(s : String255);
+procedure InsereStringlnDansRapport(s : String255);
+procedure WriteDansRapport(s : String255);
+procedure WritelnDansRapport(s : String255);
+procedure WritelnDansRapportSansRepeter(s : String255);
+procedure WritelnDansRapportThreadSafe(s : String255);
+procedure WritelnDansRapportEtAttendFrappeClavier(s : String255; bip : boolean);
 
 {des synonymes de fonctions declarees plus haut…}
-procedure WriteStringDansRapport(s : String255);                                                                                                                                    ATTRIBUTE_NAME('WriteStringDansRapport')
-procedure WritelnStringDansRapport(s : String255);                                                                                                                                  ATTRIBUTE_NAME('WritelnStringDansRapport')
-procedure WritelnInterruptionDansRapport(uneInterruption : SInt16);                                                                                                                 ATTRIBUTE_NAME('WritelnInterruptionDansRapport')
-procedure EcritTypeInterruptionDansRapport(uneinterruption : SInt16);                                                                                                               ATTRIBUTE_NAME('EcritTypeInterruptionDansRapport')
+procedure WriteStringDansRapport(s : String255);
+procedure WritelnStringDansRapport(s : String255);
+procedure WritelnInterruptionDansRapport(uneInterruption : SInt16);
+procedure EcritTypeInterruptionDansRapport(uneinterruption : SInt16);
 
 {ecriture des numeriques dans le rapport}
-procedure WriteNumDansRapport(s : String255; num : SInt32);                                                                                                                         ATTRIBUTE_NAME('WriteNumDansRapport')
-procedure WritelnNumDansRapport(s : String255; num : SInt32);                                                                                                                       ATTRIBUTE_NAME('WritelnNumDansRapport')
+procedure WriteNumDansRapport(s : String255; num : SInt32);
+procedure WritelnNumDansRapport(s : String255; num : SInt32);
 
 {ecriture des numeriques dans le rapport, en separant les chiffres par groupe de trois}
-procedure WriteNumEnSeparantLesMilliersDansRapport(num : SInt32);                                                                                                                   ATTRIBUTE_NAME('WriteNumEnSeparantLesMilliersDansRapport')
-procedure WritelnNumEnSeparantLesMilliersDansRapport(num : SInt32);                                                                                                                 ATTRIBUTE_NAME('WritelnNumEnSeparantLesMilliersDansRapport')
-procedure WriteStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);                                                                                           ATTRIBUTE_NAME('WriteStringAndNumEnSeparantLesMilliersDansRapport')
-procedure WritelnStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);                                                                                         ATTRIBUTE_NAME('WritelnStringAndNumEnSeparantLesMilliersDansRapport')
+procedure WriteNumEnSeparantLesMilliersDansRapport(num : SInt32);
+procedure WritelnNumEnSeparantLesMilliersDansRapport(num : SInt32);
+procedure WriteStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);
+procedure WritelnStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);
 
 {ecriture des reels dans le rapport}
-procedure WriteReelDansRapport(x : double_t; nbDecimales : SInt16);                                                                                                                 ATTRIBUTE_NAME('WriteReelDansRapport')
-procedure WritelnReelDansRapport(x : double_t; nbDecimales : SInt16);                                                                                                               ATTRIBUTE_NAME('WritelnReelDansRapport')
-procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);                                                                                         ATTRIBUTE_NAME('WriteStringAndReelDansRapport')
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);                                                                                       ATTRIBUTE_NAME('WritelnStringAndReelDansRapport')
+procedure WriteReelDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WritelnReelDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
 
 {ecriture des reels dans le rapport, en separant les chiffres par groupe de trois}
-procedure WriteReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);                                                                                            ATTRIBUTE_NAME('WriteReelEnSeparantLesMilliersDansRapport')
-procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);                                                                                          ATTRIBUTE_NAME('WritelnReelEnSeparantLesMilliersDansRapport')
-procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);                                                                    ATTRIBUTE_NAME('WriteStringAndReelEnSeparantLesMilliersDansRapport')
-procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);                                                                  ATTRIBUTE_NAME('WritelnStringAndReelEnSeparantLesMilliersDansRapport')
+procedure WriteReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
 
 {ecriture des positions dans le rapport}
-procedure WritelnPositionDansRapport(var position : plateauOthello);                                                                                                                ATTRIBUTE_NAME('WritelnPositionDansRapport')
-procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);                                                                                       ATTRIBUTE_NAME('WritelnPositionEtTraitDansRapport')
-procedure WritelnPlatValeurDansRapport(var plateau : platValeur);                                                                                                                   ATTRIBUTE_NAME('WritelnPlatValeurDansRapport')
-procedure WritelnBigOthelloDansRapport(var position : BigOthelloRec);                                                                                                               ATTRIBUTE_NAME('WritelnBigOthelloDansRapport')
+procedure WritelnPositionDansRapport(var position : plateauOthello);
+procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);
+procedure WritelnPlatValeurDansRapport(var plateau : platValeur);
+procedure WritelnBigOthelloDansRapport(var position : BigOthelloRec);
 
 {ecriture des coups dans le rapport}
-procedure WriteCoupDansRapport(square : SInt16);                                                                                                                                    ATTRIBUTE_NAME('WriteCoupDansRapport')
-procedure WritelnCoupDansRapport(square : SInt16);                                                                                                                                  ATTRIBUTE_NAME('WritelnCoupDansRapport')
-procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);                                                                                                            ATTRIBUTE_NAME('WriteStringAndCoupDansRapport')
-procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);                                                                                                          ATTRIBUTE_NAME('WritelnStringAndCoupDansRapport')
-procedure WriteCoupAndNumDansRapport(square : SInt32; num : SInt32);                                                                                                                ATTRIBUTE_NAME('WriteCoupAndNumDansRapport')
-procedure WritelnCoupAndNumDansRapport(square : SInt32; num : SInt32);                                                                                                              ATTRIBUTE_NAME('WritelnCoupAndNumDansRapport')
+procedure WriteCoupDansRapport(square : SInt16);
+procedure WritelnCoupDansRapport(square : SInt16);
+procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);
+procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);
+procedure WriteCoupAndNumDansRapport(square : SInt32; num : SInt32);
+procedure WritelnCoupAndNumDansRapport(square : SInt32; num : SInt32);
 
 {ecriture des booleens dans le rapport}
-procedure WriteBooleenDansRapport(b : boolean);                                                                                                                                     ATTRIBUTE_NAME('WriteBooleenDansRapport')
-procedure WritelnBooleenDansRapport(b : boolean);                                                                                                                                   ATTRIBUTE_NAME('WritelnBooleenDansRapport')
-procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);                                                                                                             ATTRIBUTE_NAME('WriteStringAndBooleenDansRapport')
-procedure WritelnStringAndBooleenDansRapport(s : String255; b : boolean);                                                                                                           ATTRIBUTE_NAME('WritelnStringAndBooleenDansRapport')
+procedure WriteBooleenDansRapport(b : boolean);
+procedure WritelnBooleenDansRapport(b : boolean);
+procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);
+procedure WritelnStringAndBooleenDansRapport(s : String255; b : boolean);
 {des synonymes…}
-procedure WriteBooleanDansRapport(b : boolean);                                                                                                                                     ATTRIBUTE_NAME('WriteBooleanDansRapport')
-procedure WritelnBooleanDansRapport(b : boolean);                                                                                                                                   ATTRIBUTE_NAME('WritelnBooleanDansRapport')
-procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);                                                                                                             ATTRIBUTE_NAME('WriteStringAndBooleanDansRapport')
-procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);                                                                                                           ATTRIBUTE_NAME('WritelnStringAndBooleanDansRapport')
-procedure WriteBoolDansRapport(b : boolean);                                                                                                                                        ATTRIBUTE_NAME('WriteBoolDansRapport')
-procedure WritelnBoolDansRapport(b : boolean);                                                                                                                                      ATTRIBUTE_NAME('WritelnBoolDansRapport')
-procedure WriteStringAndBoolDansRapport(s : String255; b : boolean);                                                                                                                ATTRIBUTE_NAME('WriteStringAndBoolDansRapport')
-procedure WritelnStringAndBoolDansRapport(s : String255; b : boolean);                                                                                                              ATTRIBUTE_NAME('WritelnStringAndBoolDansRapport')
+procedure WriteBooleanDansRapport(b : boolean);
+procedure WritelnBooleanDansRapport(b : boolean);
+procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);
+procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);
+procedure WriteBoolDansRapport(b : boolean);
+procedure WritelnBoolDansRapport(b : boolean);
+procedure WriteStringAndBoolDansRapport(s : String255; b : boolean);
+procedure WritelnStringAndBoolDansRapport(s : String255; b : boolean);
 
 {ecriture dans le rapport, mais seulement s'il est ouvert}
-procedure WritelnDansRapportOuvert(s : String255);                                                                                                                                  ATTRIBUTE_NAME('WritelnDansRapportOuvert')
-procedure WritelnNumDansRapportOuvert(s : String255; num : SInt32);                                                                                                                 ATTRIBUTE_NAME('WritelnNumDansRapportOuvert')
+procedure WritelnDansRapportOuvert(s : String255);
+procedure WritelnNumDansRapportOuvert(s : String255; num : SInt32);
 
 
 

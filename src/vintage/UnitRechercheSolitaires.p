@@ -14,9 +14,9 @@ INTERFACE
  uses UnitDefCassio;
 
 
-procedure LancerInterruptionPourRechercherSolitairesDansListe;                                                                                                                      ATTRIBUTE_NAME('LancerInterruptionPourRechercherSolitairesDansListe')
-procedure ChercheSolitairesDansListe(nroPartiemin,nroPartiemax : SInt32; premierCoup,dernierCoup : SInt16);                                                                         ATTRIBUTE_NAME('ChercheSolitairesDansListe')
-procedure ProcessEachSolitaireOnDisc(debut,fin : SInt32);                                                                                                                           ATTRIBUTE_NAME('ProcessEachSolitaireOnDisc')
+procedure LancerInterruptionPourRechercherSolitairesDansListe;
+procedure ChercheSolitairesDansListe(nroPartiemin,nroPartiemax : SInt32; premierCoup,dernierCoup : SInt16);
+procedure ProcessEachSolitaireOnDisc(debut,fin : SInt32);
 
 
 
@@ -60,7 +60,7 @@ begin  {$UNUSED numeroPartie,result}
   DoitChercherCelleLa := (interruptionReflexion = pasdinterruption) &
                          (numeroDansLaListe >= gNroPartieMinRechercheSol) &
                          (numeroDansLaListe <= gNroPartieMaxRechercheSol);
-  
+
 end;
 
 function DoitChercherCeCoupLa(numeroCoup : SInt16) : boolean;
@@ -122,7 +122,7 @@ begin
           WritelnDansRapport(FabriqueCommentaireSolitaireNouveauFormat(theSolitaire));
 
           erreurES := AjouterSolitaireNouveauFormatSurDisque(profondeur,theSolitaire);
-          
+
           if erreurES <> NoErr
             then
 	            begin
@@ -250,7 +250,7 @@ begin
 		      WritelnDansRapport('Calcul des solitaires à '+NumEnString(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides…');
 		      ForEachGameInListDo(DoitChercherCelleLa,bidFiltreGameProc,ChercherSolitaires,tickDepartRechercheSolitaires);
 		    end;
-		    
+		
     end;
 
   WritelnDansRapport('Terminé !');
@@ -263,7 +263,7 @@ begin
      else ProfilerSetStatus(0);
    ProfilerTerm;
   {$ENDC}
-  
+
   if (tempoHumCtreHum <> HumCtreHum)             then DoChangeHumCtreHum;
   if (tempoCouleurMacintosh <> couleurMacintosh) then DoChangeCouleur;
 

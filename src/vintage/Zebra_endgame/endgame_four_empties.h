@@ -67,9 +67,9 @@ typedef struct {
 #define CLEAR( a ) { \
   a.high = 0; \
   a.low = 0; \
-} 
+}
 
-// prototypes 
+// prototypes
 pascal void calculate_neighborhood_mask( void );
 
 pascal int
@@ -79,9 +79,9 @@ solve_two_empty( BitBoard my_bits,
 		 int sq2,
 		 int alpha,
 		 int beta,
-		 int disc_diff,  
+		 int disc_diff,
 		 int pass_legal );
-		 
+		
 pascal int
 solve_four_empty( BitBoard my_bits,
 		  BitBoard opp_bits,

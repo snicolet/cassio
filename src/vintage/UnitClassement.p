@@ -13,7 +13,7 @@ INTERFACE
 
 
 
-procedure EpoquesDesJoueursDeLaListe;                                                                                                                                               ATTRIBUTE_NAME('EpoquesDesJoueursDeLaListe')
+procedure EpoquesDesJoueursDeLaListe;
 
 
 IMPLEMENTATION

@@ -19,23 +19,23 @@ INTERFACE
 
 
 
-procedure InitUnitBitboardHash;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitBitboardHash')
-procedure LibereMemoireUnitBitboardHash;                                                                                                                                            ATTRIBUTE_NAME('LibereMemoireUnitBitboardHash')
-function BITBOARD_HASH_TABLE_OK(hash_table : BitboardHashTable) : boolean;                                                                                                          ATTRIBUTE_NAME('BITBOARD_HASH_TABLE_OK')
+procedure InitUnitBitboardHash;
+procedure LibereMemoireUnitBitboardHash;
+function BITBOARD_HASH_TABLE_OK(hash_table : BitboardHashTable) : boolean;
 
-procedure AllocateAllBitboardHashTables;                                                                                                                                            ATTRIBUTE_NAME('AllocateAllBitboardHashTables')
-procedure BitboardHashAllocate(var hash_table : BitboardHashTable; n_bits : SInt32);                                                                                                ATTRIBUTE_NAME('BitboardHashAllocate')
-procedure BitboardHashClear(hash_table : BitboardHashTable);                                                                                                                        ATTRIBUTE_NAME('BitboardHashClear')
-procedure BitboardHashDispose(var hash_table : BitboardHashTable);                                                                                                                  ATTRIBUTE_NAME('BitboardHashDispose')
+procedure AllocateAllBitboardHashTables;
+procedure BitboardHashAllocate(var hash_table : BitboardHashTable; n_bits : SInt32);
+procedure BitboardHashClear(hash_table : BitboardHashTable);
+procedure BitboardHashDispose(var hash_table : BitboardHashTable);
 
-procedure BitboardHashUpdate(hash_table : BitboardHashTable; hash_index : UInt32; pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; board_empties : SInt32; alpha,beta,score,move : SInt32);                                                      ATTRIBUTE_NAME('BitboardHashUpdate')
-function BitboardHashGet(hash_table : BitboardHashTable; pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; var hash_index : UInt32; var hash_info : loweruppermoveemptiesRec) : BitboardHash;                                                     ATTRIBUTE_NAME('BitboardHashGet')
-function GetEndgameValuesInBitboardHashTableForThisPosition(hash_table : BitboardHashTable; theBitboard : bitboard; trait : SInt32; var valMinPourNoir,valMaxPourNoir,bestMove : SInt32) : boolean;                                                                           ATTRIBUTE_NAME('GetEndgameValuesInBitboardHashTableForThisPosition')
-function GetEndgameValuesInAllBitboardHashTables(var plat : PositionEtTraitRec; var valMinPourNoir,valMaxPourNoir,bestMove : SInt32) : boolean;                                     ATTRIBUTE_NAME('GetEndgameValuesInAllBitboardHashTables')
+procedure BitboardHashUpdate(hash_table : BitboardHashTable; hash_index : UInt32; pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; board_empties : SInt32; alpha,beta,score,move : SInt32);
+function BitboardHashGet(hash_table : BitboardHashTable; pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; var hash_index : UInt32; var hash_info : loweruppermoveemptiesRec) : BitboardHash;
+function GetEndgameValuesInBitboardHashTableForThisPosition(hash_table : BitboardHashTable; theBitboard : bitboard; trait : SInt32; var valMinPourNoir,valMaxPourNoir,bestMove : SInt32) : boolean;
+function GetEndgameValuesInAllBitboardHashTables(var plat : PositionEtTraitRec; var valMinPourNoir,valMaxPourNoir,bestMove : SInt32) : boolean;
 
 
-function NumberOfBitHashMutexLocksInUse : SInt32;                                                                                                                                   ATTRIBUTE_NAME('NumberOfBitHashMutexLocksInUse')
-procedure ChangeHashRandomization;                                                                                                                                                  ATTRIBUTE_NAME('ChangeHashRandomization')
+function NumberOfBitHashMutexLocksInUse : SInt32;
+procedure ChangeHashRandomization;
 
 
 

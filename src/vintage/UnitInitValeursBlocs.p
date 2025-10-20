@@ -11,13 +11,13 @@ INTERFACE
 
 Uses UnitOth0;
 
-procedure InitValeursBlocsDeCoin;                                                                                                                                                   ATTRIBUTE_NAME('InitValeursBlocsDeCoin')
+procedure InitValeursBlocsDeCoin;
 {procedures auxiliaires appelées par la précédente}
-procedure  InitValeursBlocsDeCoin_1;                                                                                                                                                ATTRIBUTE_NAME('InitValeursBlocsDeCoin_1')
-procedure  InitValeursBlocsDeCoin_2;                                                                                                                                                ATTRIBUTE_NAME('InitValeursBlocsDeCoin_2')
-procedure  InitValeursBlocsDeCoin_3;                                                                                                                                                ATTRIBUTE_NAME('InitValeursBlocsDeCoin_3')
-procedure  InitValeursBlocsDeCoin_4;                                                                                                                                                ATTRIBUTE_NAME('InitValeursBlocsDeCoin_4')
-procedure  InitValeursBlocsDeCoin_5;                                                                                                                                                ATTRIBUTE_NAME('InitValeursBlocsDeCoin_5')
+procedure  InitValeursBlocsDeCoin_1;
+procedure  InitValeursBlocsDeCoin_2;
+procedure  InitValeursBlocsDeCoin_3;
+procedure  InitValeursBlocsDeCoin_4;
+procedure  InitValeursBlocsDeCoin_5;
 
 
 IMPLEMENTATION

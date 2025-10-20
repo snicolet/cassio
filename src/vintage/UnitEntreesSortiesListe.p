@@ -16,31 +16,31 @@ INTERFACE
 
 
 {modification d'une partie en memoire}
-function ChangerPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee : SInt32; infosDansRapport : boolean; var partieRec : t_PartieRecNouveauFormat; nroReferencePartieChangee : SInt32) : boolean;                                                                    ATTRIBUTE_NAME('ChangerPartieCouranteDansListe')
-function ChangerPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; nroReferencePartieChangee : SInt32) : boolean;                                                     ATTRIBUTE_NAME('ChangerPartieAlphaDansLaListe')
-function ChangerPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; anneePartie : SInt16; nroReferencePartieChangee : SInt32) : boolean;                                   ATTRIBUTE_NAME('ChangerPartieRecDansListe')
-function ConfirmationEcraserPartie(nroReference,nbCoupsIdentiques : SInt32; chaineRefNouvellePartie : String255) : ActionEcraserPartie;                                             ATTRIBUTE_NAME('ConfirmationEcraserPartie')
+function ChangerPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee : SInt32; infosDansRapport : boolean; var partieRec : t_PartieRecNouveauFormat; nroReferencePartieChangee : SInt32) : boolean;
+function ChangerPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; nroReferencePartieChangee : SInt32) : boolean;
+function ChangerPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; anneePartie : SInt16; nroReferencePartieChangee : SInt32) : boolean;
+function ConfirmationEcraserPartie(nroReference,nbCoupsIdentiques : SInt32; chaineRefNouvellePartie : String255) : ActionEcraserPartie;
 
 
 {ajout d'une partie en memoire}
-function AjouterPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee : SInt32; infosDansRapport : boolean; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;                                                                ATTRIBUTE_NAME('AjouterPartieCouranteDansListe')
-function AjouterPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;                                                 ATTRIBUTE_NAME('AjouterPartieAlphaDansLaListe')
-function AjouterPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; anneePartie : SInt16; var nroReferencePartieAjoutee : SInt32) : boolean;                               ATTRIBUTE_NAME('AjouterPartieRecDansListe')
-function AjouterPartieDansCetteDistribution(partieRec : t_PartieRecNouveauFormat; nroDistrib : SInt32; anneePartie : SInt32) : OSErr;                                               ATTRIBUTE_NAME('AjouterPartieDansCetteDistribution')
+function AjouterPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee : SInt32; infosDansRapport : boolean; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;
+function AjouterPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;
+function AjouterPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; anneePartie : SInt16; var nroReferencePartieAjoutee : SInt32) : boolean;
+function AjouterPartieDansCetteDistribution(partieRec : t_PartieRecNouveauFormat; nroDistrib : SInt32; anneePartie : SInt32) : OSErr;
 
 
 {un filtre de selection sur la liste}
-function FiltrePartieEstActiveEtSelectionnee(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;                                                            ATTRIBUTE_NAME('FiltrePartieEstActiveEtSelectionnee')
+function FiltrePartieEstActiveEtSelectionnee(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;
 
 
 {export au format WTB}
-function ConfirmationEcraserBase : boolean;                                                                                                                                         ATTRIBUTE_NAME('ConfirmationEcraserBase')
-function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : FSSpec; var doitEcraserBase : boolean) : OSErr;                                                                           ATTRIBUTE_NAME('SauvegardeCesPartiesDeLaListe')
-function SauvegardeListeCouranteAuNouveauFormat(filtreDesParties : FiltreNumRefProc) : OSErr;                                                                                       ATTRIBUTE_NAME('SauvegardeListeCouranteAuNouveauFormat')
+function ConfirmationEcraserBase : boolean;
+function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : FSSpec; var doitEcraserBase : boolean) : OSErr;
+function SauvegardeListeCouranteAuNouveauFormat(filtreDesParties : FiltreNumRefProc) : OSErr;
 
 
 {export au format TEXT}
-procedure DoExporterListeDePartiesEnTexte;                                                                                                                                          ATTRIBUTE_NAME('DoExporterListeDePartiesEnTexte')
+procedure DoExporterListeDePartiesEnTexte;
 
 
 
@@ -705,7 +705,7 @@ begin
       begin
         inc(nbPartiesChargees);
         nroReferencePartieAjoutee   := nbPartiesChargees;
-        
+
         if ChangerPartieRecDansListe(partieRec,anneePartie,nroReferencePartieAjoutee)
           then AjouterPartieRecDansListe := true
           else dec(nbPartiesChargees);
@@ -730,7 +730,7 @@ begin
       begin
         inc(nbPartiesChargees);
         nroReferencePartieAjoutee      := nbPartiesChargees;
-        
+
         if ChangerPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee,infosDansRapport,partieRec,nroReferencePartieAjoutee)
           then AjouterPartieCouranteDansListe := true
           else dec(nbPartiesChargees);
@@ -746,7 +746,7 @@ end;
 function AjouterPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;
 begin
   AjouterPartieAlphaDansLaListe := false;
-  
+
   if (nbPartiesChargees >= nbrePartiesEnMemoire) & (nbPartiesChargees > 0) & (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
     then ResetListeDeParties;
 
@@ -755,7 +755,7 @@ begin
       begin
         inc(nbPartiesChargees);
         nroReferencePartieAjoutee      := nbPartiesChargees;
-        
+
         if ChangerPartieAlphaDansLaListe(partieEnAlpha,theorique,numeroNoir,numeroBlanc,numeroTournoi,annee,partieRec,nroReferencePartieAjoutee)
           then AjouterPartieAlphaDansLaListe := true
           else dec(nbPartiesChargees);

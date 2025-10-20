@@ -14,27 +14,27 @@ USES UnitDefCassio;
 
 
 
-function EstUneMatriceCarree(var A : MatriceReels) : boolean;                                                                                                                       ATTRIBUTE_NAME('EstUneMatriceCarree')
-procedure AnnuleMatrice(var M : MatriceReels);                                                                                                                                      ATTRIBUTE_NAME('AnnuleMatrice')
-procedure AnnuleVecteur(var V : VecteurReels);                                                                                                                                      ATTRIBUTE_NAME('AnnuleVecteur')
-procedure SetMatriceCarreeNulle(n : SInt32; var M : MatriceReels);                                                                                                                  ATTRIBUTE_NAME('SetMatriceCarreeNulle')
-procedure SetMatriceIdentite(n : SInt32; var M : MatriceReels);                                                                                                                     ATTRIBUTE_NAME('SetMatriceIdentite')
-procedure SetVecteurNul(n : SInt32; var V : VecteurReels);                                                                                                                          ATTRIBUTE_NAME('SetVecteurNul')
-procedure CopierMatrice(var source,dest : MatriceReels);                                                                                                                            ATTRIBUTE_NAME('CopierMatrice')
-procedure CopierVecteur(var source,dest : VecteurReels);                                                                                                                            ATTRIBUTE_NAME('CopierVecteur')
+function EstUneMatriceCarree(var A : MatriceReels) : boolean;
+procedure AnnuleMatrice(var M : MatriceReels);
+procedure AnnuleVecteur(var V : VecteurReels);
+procedure SetMatriceCarreeNulle(n : SInt32; var M : MatriceReels);
+procedure SetMatriceIdentite(n : SInt32; var M : MatriceReels);
+procedure SetVecteurNul(n : SInt32; var V : VecteurReels);
+procedure CopierMatrice(var source,dest : MatriceReels);
+procedure CopierVecteur(var source,dest : VecteurReels);
 
-function ProduitScalaireVecteurs(var v1,v2 : VecteurReels) : RealType;                                                                                                              ATTRIBUTE_NAME('ProduitScalaireVecteurs')
-procedure AppliqueMatrice(var M : MatriceReels; var x : VecteurReels; var result : VecteurReels);                                                                                   ATTRIBUTE_NAME('AppliqueMatrice')
-procedure MultMatriceParReel(var M : MatriceReels; r : RealType; var result : MatriceReels);                                                                                        ATTRIBUTE_NAME('MultMatriceParReel')
-procedure SommeMatrices(var M1,M2 : MatriceReels; var result : MatriceReels);                                                                                                       ATTRIBUTE_NAME('SommeMatrices')
+function ProduitScalaireVecteurs(var v1,v2 : VecteurReels) : RealType;
+procedure AppliqueMatrice(var M : MatriceReels; var x : VecteurReels; var result : VecteurReels);
+procedure MultMatriceParReel(var M : MatriceReels; r : RealType; var result : MatriceReels);
+procedure SommeMatrices(var M1,M2 : MatriceReels; var result : MatriceReels);
 
-procedure WritelnMatriceReelsDansRapport(var M : MatriceReels; nbChiffres : SInt16);                                                                                                ATTRIBUTE_NAME('WritelnMatriceReelsDansRapport')
-procedure WritelnVecteurReelsDansRapport(var v : VecteurReels; nbChiffres : SInt16);                                                                                                ATTRIBUTE_NAME('WritelnVecteurReelsDansRapport')
+procedure WritelnMatriceReelsDansRapport(var M : MatriceReels; nbChiffres : SInt16);
+procedure WritelnVecteurReelsDansRapport(var v : VecteurReels; nbChiffres : SInt16);
 
-procedure LUDecompose(var A : MatriceReels; var index : VecteurLongint; var d : RealType);                                                                                          ATTRIBUTE_NAME('LUDecompose')
-procedure LUBackSubsitute(var A : MatriceReels; var index : VecteurLongint; var b : VecteurReels);                                                                                  ATTRIBUTE_NAME('LUBackSubsitute')
+procedure LUDecompose(var A : MatriceReels; var index : VecteurLongint; var d : RealType);
+procedure LUBackSubsitute(var A : MatriceReels; var index : VecteurLongint; var b : VecteurReels);
 
-function ResoudSystemeEquationsCarre(A : MatriceReels; b : VecteurReels; var Inverse : MatriceReels; var x : VecteurReels) : boolean;                                               ATTRIBUTE_NAME('ResoudSystemeEquationsCarre')
+function ResoudSystemeEquationsCarre(A : MatriceReels; b : VecteurReels; var Inverse : MatriceReels; var x : VecteurReels) : boolean;
 
 
 IMPLEMENTATION

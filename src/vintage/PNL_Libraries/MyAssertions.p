@@ -33,13 +33,13 @@ INTERFACE
 {$endc}
 
 
-  procedure Assert(b : boolean);                                                                                                                                                    ATTRIBUTE_NAME('Assert')
-	procedure AssertCode (b : boolean);                                                                                                                                                ATTRIBUTE_NAME('AssertCode')
-	procedure AssertValidPtr (p : UnivPtr);                                                                                                                                            ATTRIBUTE_NAME('AssertValidPtr')
-	procedure AssertValidPtrNil (p : UnivPtr);                                                                                                                                         ATTRIBUTE_NAME('AssertValidPtrNil')
-	procedure AssertValidHandle (hhhh : UnivHandle);                                                                                                                                   ATTRIBUTE_NAME('AssertValidHandle')
-	procedure AssertValidHandleNil (hhhh : UnivHandle);                                                                                                                                ATTRIBUTE_NAME('AssertValidHandleNil')
-  procedure MyDebugStr(const s : String255);                                                                                                                                        ATTRIBUTE_NAME('MyDebugStr')
+  procedure Assert(b : boolean);
+	procedure AssertCode (b : boolean);
+	procedure AssertValidPtr (p : UnivPtr);
+	procedure AssertValidPtrNil (p : UnivPtr);
+	procedure AssertValidHandle (hhhh : UnivHandle);
+	procedure AssertValidHandleNil (hhhh : UnivHandle);
+  procedure MyDebugStr(const s : String255);
 
 
 IMPLEMENTATION

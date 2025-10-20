@@ -15,7 +15,7 @@ function FindLastBitForGNUPascal_in_C(word : UInt32) : UInt32;        EXTERNAL_N
 
 
 (*
-function CountLeadingZerosForGNUPascal(word : UInt32) : UInt32;  
+function CountLeadingZerosForGNUPascal(word : UInt32) : UInt32;
 begin
   CountLeadingZerosForGNUPascal :=  32 - FindLastBitForGNUPascal_in_C(word);
 end;
@@ -28,12 +28,12 @@ end;
 
 procedure GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE_POUR_INTEL(listeBitboard : UInt32; var square1,square2 : SInt32);
 var leadingZeros, leadingZeros2 : UInt32;
- begin 
- 
+ begin
+
    asm("bsf %0,%1 ; bsr %0,%2" : "=r" (leadingZeros), "=r" (leadingZeros2) : "r" (listeBitboard));
-   
-   square1 := gTableBitListeBitboardToSquare[31 - leadingZeros]; 
-   square2 := gTableBitListeBitboardToSquare[31 - leadingZeros2];  
+
+   square1 := gTableBitListeBitboardToSquare[31 - leadingZeros];
+   square2 := gTableBitListeBitboardToSquare[31 - leadingZeros2];
  end;
 
 

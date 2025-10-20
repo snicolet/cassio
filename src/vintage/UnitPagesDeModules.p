@@ -11,17 +11,17 @@ INTERFACE
 
 
 
-procedure InitUnitPagesDeModule;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitPagesDeModule')
-procedure DisposeToutesLesPagesDeModule;                                                                                                                                            ATTRIBUTE_NAME('DisposeToutesLesPagesDeModule')
+procedure InitUnitPagesDeModule;
+procedure DisposeToutesLesPagesDeModule;
 
 
-function PeutCreerNouvellePageModule : boolean;                                                                                                                                     ATTRIBUTE_NAME('PeutCreerNouvellePageModule')
-function TrouvePlaceDansPageDeModule(var nroPage,nroIndex : SInt32) : boolean;                                                                                                      ATTRIBUTE_NAME('TrouvePlaceDansPageDeModule')
-procedure LocaliserModuleDansSaPage(theModule : Module; var nroDePage,nroIndex : SInt32);                                                                                           ATTRIBUTE_NAME('LocaliserModuleDansSaPage')
+function PeutCreerNouvellePageModule : boolean;
+function TrouvePlaceDansPageDeModule(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserModuleDansSaPage(theModule : Module; var nroDePage,nroIndex : SInt32);
 
 
-function NewModulePaginee : Module;                                                                                                                                                 ATTRIBUTE_NAME('NewModulePaginee')
-procedure DisposeModulePaginee(theModule : Module);                                                                                                                                 ATTRIBUTE_NAME('DisposeModulePaginee')
+function NewModulePaginee : Module;
+procedure DisposeModulePaginee(theModule : Module);
 
 
 

@@ -13,26 +13,26 @@ INTERFACE
 
 
 
-procedure InitUnitVecteurEvalInteger;                                                                                                                                               ATTRIBUTE_NAME('InitUnitVecteurEvalInteger')
-procedure AlloueVecteurEvalInteger(var vecteur : VectNewEvalInteger);                                                                                                               ATTRIBUTE_NAME('AlloueVecteurEvalInteger')
-procedure DisposeVecteurEvalInteger(var vecteur : VectNewEvalInteger);                                                                                                              ATTRIBUTE_NAME('DisposeVecteurEvalInteger')
+procedure InitUnitVecteurEvalInteger;
+procedure AlloueVecteurEvalInteger(var vecteur : VectNewEvalInteger);
+procedure DisposeVecteurEvalInteger(var vecteur : VectNewEvalInteger);
 
-function VecteurEvalIntegerEstVide(var vecteur : VectNewEvalInteger) : boolean;                                                                                                     ATTRIBUTE_NAME('VecteurEvalIntegerEstVide')
-procedure AnnihileVecteurEvalInteger(var vecteur : VectNewEvalInteger);                                                                                                             ATTRIBUTE_NAME('AnnihileVecteurEvalInteger')
-procedure CopierPointeursVecteursEvalInteger(var source,dest : VectNewEvalInteger);                                                                                                 ATTRIBUTE_NAME('CopierPointeursVecteursEvalInteger')
-procedure AnnuleVecteurEvalInteger(var vecteur : VectNewEvalInteger);                                                                                                               ATTRIBUTE_NAME('AnnuleVecteurEvalInteger')
-
-
-
-function EcritEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;                                                                               ATTRIBUTE_NAME('EcritEvalIntegerDansFichierTexte')
-function LitEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;                                                                                 ATTRIBUTE_NAME('LitEvalIntegerDansFichierTexte')
-function EcritVecteurEvaluationIntegerSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEvalInteger) : OSErr;                                           ATTRIBUTE_NAME('EcritVecteurEvaluationIntegerSurLeDisque')
-function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;                                                                ATTRIBUTE_NAME('LitVecteurEvaluationIntegerSurLeDisque')
+function VecteurEvalIntegerEstVide(var vecteur : VectNewEvalInteger) : boolean;
+procedure AnnihileVecteurEvalInteger(var vecteur : VectNewEvalInteger);
+procedure CopierPointeursVecteursEvalInteger(var source,dest : VectNewEvalInteger);
+procedure AnnuleVecteurEvalInteger(var vecteur : VectNewEvalInteger);
 
 
 
-procedure VecteurEvalToVecteurEvalInteger(var source : VectNewEval; var dest : VectNewEvalInteger);                                                                                 ATTRIBUTE_NAME('VecteurEvalToVecteurEvalInteger')
-procedure VecteurEvalIntegerToVecteurEval(var source : VectNewEvalInteger; var dest : VectNewEval);                                                                                 ATTRIBUTE_NAME('VecteurEvalIntegerToVecteurEval')
+function EcritEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
+function LitEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
+function EcritVecteurEvaluationIntegerSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEvalInteger) : OSErr;
+function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;
+
+
+
+procedure VecteurEvalToVecteurEvalInteger(var source : VectNewEval; var dest : VectNewEvalInteger);
+procedure VecteurEvalIntegerToVecteurEval(var source : VectNewEvalInteger; var dest : VectNewEval);
 
 
 

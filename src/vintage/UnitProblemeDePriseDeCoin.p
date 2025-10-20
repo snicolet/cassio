@@ -15,49 +15,49 @@ INTERFACE
 
 
 { Initialisation de l'unitŽ }
-procedure InitUnitProblemeDePriseDeCoin;                                                                                                                                            ATTRIBUTE_NAME('InitUnitProblemeDePriseDeCoin')
-procedure LibereMemoireUnitProblemeDePriseDeCoin;                                                                                                                                   ATTRIBUTE_NAME('LibereMemoireUnitProblemeDePriseDeCoin')
+procedure InitUnitProblemeDePriseDeCoin;
+procedure LibereMemoireUnitProblemeDePriseDeCoin;
 
 
 { On peut parametrer un peu le type de problemes a chercher }
-procedure SetIntervalleDeDifficultePourProblemeDePriseDeCoin(difficulteMin,difficulteMax : SInt32);                                                                                  ATTRIBUTE_NAME('SetIntervalleDeDifficultePourProblemeDePriseDeCoin')
-procedure GetIntervalleDeDifficultePourProblemeDePriseDeCoin(var difficulteMin,difficulteMax : SInt32);                                                                              ATTRIBUTE_NAME('GetIntervalleDeDifficultePourProblemeDePriseDeCoin')
-procedure SetRefuserDeDefensesTrivialesDeCoin(flag : boolean);                                                                                                                      ATTRIBUTE_NAME('SetRefuserDeDefensesTrivialesDeCoin')
-function DoitRefuserDefensesTrivialesDeCoin : boolean;                                                                                                                              ATTRIBUTE_NAME('DoitRefuserDefensesTrivialesDeCoin')
+procedure SetIntervalleDeDifficultePourProblemeDePriseDeCoin(difficulteMin,difficulteMax : SInt32);
+procedure GetIntervalleDeDifficultePourProblemeDePriseDeCoin(var difficulteMin,difficulteMax : SInt32);
+procedure SetRefuserDeDefensesTrivialesDeCoin(flag : boolean);
+function DoitRefuserDefensesTrivialesDeCoin : boolean;
 
 
 { Fonction de recherche de problemes de coins }
-function RechercheDeProblemeDePriseDeCoinEnCours : boolean;                                                                                                                         ATTRIBUTE_NAME('RechercheDeProblemeDePriseDeCoinEnCours')
-procedure ChercherUnProblemeDePriseDeCoinDansListe(premierCoup,dernierCoup : SInt32);                                                                                               ATTRIBUTE_NAME('ChercherUnProblemeDePriseDeCoinDansListe')
-procedure ChercherUnProblemeDePriseDeCoinDansPositionCourante;                                                                                                                      ATTRIBUTE_NAME('ChercherUnProblemeDePriseDeCoinDansPositionCourante')
-procedure ChercherUnProblemeDePriseDeCoinAleatoire(premierCoup,dernierCoup : SInt32);                                                                                               ATTRIBUTE_NAME('ChercherUnProblemeDePriseDeCoinAleatoire')
+function RechercheDeProblemeDePriseDeCoinEnCours : boolean;
+procedure ChercherUnProblemeDePriseDeCoinDansListe(premierCoup,dernierCoup : SInt32);
+procedure ChercherUnProblemeDePriseDeCoinDansPositionCourante;
+procedure ChercherUnProblemeDePriseDeCoinAleatoire(premierCoup,dernierCoup : SInt32);
 
 
 { Fonctions d'interface utilisateur }
-procedure RevenirAuProblemeDePriseDeCoinPrecedent;                                                                                                                                  ATTRIBUTE_NAME('RevenirAuProblemeDePriseDeCoinPrecedent')
-procedure EcrireEnonceProblemePriseDeCoinDansRapport(var enonce : ProblemePriseDeCoin);                                                                                             ATTRIBUTE_NAME('EcrireEnonceProblemePriseDeCoinDansRapport')
-procedure EcrireCauseRejetPbDeCoinDansRapport(var enonce : ProblemePriseDeCoin);                                                                                                    ATTRIBUTE_NAME('EcrireCauseRejetPbDeCoinDansRapport')
-procedure PlaquerProblemeDePriseDeCoin(enonce : ProblemePriseDeCoin);                                                                                                               ATTRIBUTE_NAME('PlaquerProblemeDePriseDeCoin')
+procedure RevenirAuProblemeDePriseDeCoinPrecedent;
+procedure EcrireEnonceProblemePriseDeCoinDansRapport(var enonce : ProblemePriseDeCoin);
+procedure EcrireCauseRejetPbDeCoinDansRapport(var enonce : ProblemePriseDeCoin);
+procedure PlaquerProblemeDePriseDeCoin(enonce : ProblemePriseDeCoin);
 
 
 { Fonctions pour crŽer automatiquement les lŽgendes des diagrammes pour le presse-papier }
-procedure SetDoitNumeroterProblemesDePriseDeCoin(flag : boolean);                                                                                                                   ATTRIBUTE_NAME('SetDoitNumeroterProblemesDePriseDeCoin')
-function DoitNumeroterProblemesDePriseDeCoin : boolean;                                                                                                                             ATTRIBUTE_NAME('DoitNumeroterProblemesDePriseDeCoin')
-function EstUnEnonceNumeroteDeProblemeDeCoin(const s : String255; var numero : SInt32) : boolean;                                                                                   ATTRIBUTE_NAME('EstUnEnonceNumeroteDeProblemeDeCoin')
-procedure SetNumeroProblemeDePriseDeCoin(numero : SInt32);                                                                                                                          ATTRIBUTE_NAME('SetNumeroProblemeDePriseDeCoin')
-procedure SetPeutIncrementerNumerotationDiagrammeDePriseDeCoin(flag : boolean);                                                                                                     ATTRIBUTE_NAME('SetPeutIncrementerNumerotationDiagrammeDePriseDeCoin')
-function PeutIncrementerNumerotationDiagrammeDePriseDeCoin : boolean;                                                                                                               ATTRIBUTE_NAME('PeutIncrementerNumerotationDiagrammeDePriseDeCoin')
-function GetNumeroDuProblemeDePriseDeCoinDansCetEnonce(const chaineEnonce : String255) : SInt32;                                                                                    ATTRIBUTE_NAME('GetNumeroDuProblemeDePriseDeCoinDansCetEnonce')
-function GetEnonceProblemeDePriseDeCoinEnChaine(var enonce : ProblemePriseDeCoin) : String255;                                                                                      ATTRIBUTE_NAME('GetEnonceProblemeDePriseDeCoinEnChaine')
-function GetEnonceCourtProblemeDePriseDeCoinEnChaine(var enonce : ProblemePriseDeCoin) : String255;                                                                                 ATTRIBUTE_NAME('GetEnonceCourtProblemeDePriseDeCoinEnChaine')
-function GetEnonceNumeroteProblemeDePriseDeCoin(var enonce : ProblemePriseDeCoin) : String255;                                                                                      ATTRIBUTE_NAME('GetEnonceNumeroteProblemeDePriseDeCoin')
+procedure SetDoitNumeroterProblemesDePriseDeCoin(flag : boolean);
+function DoitNumeroterProblemesDePriseDeCoin : boolean;
+function EstUnEnonceNumeroteDeProblemeDeCoin(const s : String255; var numero : SInt32) : boolean;
+procedure SetNumeroProblemeDePriseDeCoin(numero : SInt32);
+procedure SetPeutIncrementerNumerotationDiagrammeDePriseDeCoin(flag : boolean);
+function PeutIncrementerNumerotationDiagrammeDePriseDeCoin : boolean;
+function GetNumeroDuProblemeDePriseDeCoinDansCetEnonce(const chaineEnonce : String255) : SInt32;
+function GetEnonceProblemeDePriseDeCoinEnChaine(var enonce : ProblemePriseDeCoin) : String255;
+function GetEnonceCourtProblemeDePriseDeCoinEnChaine(var enonce : ProblemePriseDeCoin) : String255;
+function GetEnonceNumeroteProblemeDePriseDeCoin(var enonce : ProblemePriseDeCoin) : String255;
 
 
 { Procedures internes }
-function DoMoveProblemePriseDeCoin(var probleme : ProblemePriseDeCoin; whichMove : SInt32) : boolean;                                                                               ATTRIBUTE_NAME('DoMoveProblemePriseDeCoin')
-function TerminaisonDansAlgoProblemePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32; var valeurDuCoup : SInt32) : boolean;                                      ATTRIBUTE_NAME('TerminaisonDansAlgoProblemePriseDeCoin')
-procedure UndoMoveProblemePriseDeCoin(var probleme : ProblemePriseDeCoin);                                                                                                          ATTRIBUTE_NAME('UndoMoveProblemePriseDeCoin')
-function FiltreRechercheProblemeDePriseDeCoin(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;                                                           ATTRIBUTE_NAME('FiltreRechercheProblemeDePriseDeCoin')
+function DoMoveProblemePriseDeCoin(var probleme : ProblemePriseDeCoin; whichMove : SInt32) : boolean;
+function TerminaisonDansAlgoProblemePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32; var valeurDuCoup : SInt32) : boolean;
+procedure UndoMoveProblemePriseDeCoin(var probleme : ProblemePriseDeCoin);
+function FiltreRechercheProblemeDePriseDeCoin(numeroDansLaListe,numeroReference : SInt32; var result : SInt32) : boolean;
 
 
 { Les fonctions mutuellement recursives de recherche d'une solution }
@@ -67,8 +67,8 @@ function FiltreRechercheProblemeDePriseDeCoin(numeroDansLaListe,numeroReference 
      beta  = on a deja prouve que "defenseur" avait une defense de beta coups au moins
   Evidemment, il faut lancer la recherche avec une fenetre [alpha,beta] = [infini,0]
 }
-function DefensePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32) : SInt32;                                                                                      ATTRIBUTE_NAME('DefensePriseDeCoin')
-function AttaquePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32) : SInt32;                                                                                      ATTRIBUTE_NAME('AttaquePriseDeCoin')
+function DefensePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32) : SInt32;
+function AttaquePriseDeCoin(var probleme : ProblemePriseDeCoin; alpha,beta : SInt32) : SInt32;
 
 
 
@@ -262,9 +262,9 @@ begin
 
   with probleme do
     if (solution.nbCoupsSolutions = 1) &
-       (solution.coup[1] in [22,27,72,77]) 
+       (solution.coup[1] in [22,27,72,77])
         then SolutionEstUneCaseX := true;
-        
+
 end;
 
 
@@ -581,7 +581,7 @@ begin
           (* A-t-on trouve une solution valable ? *)
           if (valeur >= gRechercheProblemesDePriseDeCoin.difficulteMin) &
              (valeur <= gRechercheProblemesDePriseDeCoin.difficulteMax) &
-             (solution.nbCoupsSolutions = 1) {& 
+             (solution.nbCoupsSolutions = 1) {&
              SolutionEstUneCaseX(outEnonce)}
             then
               begin
@@ -790,7 +790,7 @@ begin
 
       kPasDeRejet :
         WritelnDansRapport('WARNING : pas de rejet dans EcrireCauseRejetPbDeCoinDansRapport !');
-        
+
       otherwise WritelnDansRapport('ERROR !! cause rejet inconnue dans EcrireCauseRejetPbDeCoinDansRapport !');
     end;
 end;

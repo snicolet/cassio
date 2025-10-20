@@ -13,7 +13,7 @@ INTERFACE
 
 { Traduction en Pascal des typages des fonctions C de Edmond}
 
-function GetEdmondCoefficientsFileName : String255;                                                                                                                                 ATTRIBUTE_NAME('GetEdmondCoefficientsFileName')
+function GetEdmondCoefficientsFileName : String255;
 procedure edmond_load_coefficients(filename : charP);                                                                                                                               EXTERNAL_NAME('edmond_load_coefficients');
 procedure edmond_release_coefficients;                                                                                                                                              EXTERNAL_NAME('edmond_release_coefficients');
 
@@ -50,15 +50,15 @@ function edmond_get_white_corner_11_pointer(stage : SInt32) : LongintArrayPtr;  
 function edmond_get_black_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_black_edge_2XC_pointer');
 function edmond_get_white_edge_2XC_pointer(stage : SInt32) : LongintArrayPtr;                                                                                                       EXTERNAL_NAME('edmond_get_white_edge_2XC_pointer');
 
-procedure ImporterLesPointeursCDeEdmond;                                                                                                                                            ATTRIBUTE_NAME('ImporterLesPointeursCDeEdmond')
+procedure ImporterLesPointeursCDeEdmond;
 
 
 { Copie des valeurs des tables C de Edmond (sur 4 octets) vers
   les tables Pascal de Cassio (sur 2 octets)         }
 
-procedure CopierEdmondCoefficientsDansCassio;                                                                                                                                       ATTRIBUTE_NAME('CopierEdmondCoefficientsDansCassio')
-function TransformePatternCassioVersBruno(adresseCassio : SInt32; nbreCasesDansPattern : SInt32) : SInt32;                                                                          ATTRIBUTE_NAME('TransformePatternCassioVersBruno')
-procedure CopierValeurPatternEdmondDansCassio(indexBruno,indexCassio : SInt32; tableEdmond : LongintArrayPtr; tableCassio : IntegerArrayPtr; const nomTable : String255);           ATTRIBUTE_NAME('CopierValeurPatternEdmondDansCassio')
+procedure CopierEdmondCoefficientsDansCassio;
+function TransformePatternCassioVersBruno(adresseCassio : SInt32; nbreCasesDansPattern : SInt32) : SInt32;
+procedure CopierValeurPatternEdmondDansCassio(indexBruno,indexCassio : SInt32; tableEdmond : LongintArrayPtr; tableCassio : IntegerArrayPtr; const nomTable : String255);
 
 
 

@@ -15,31 +15,31 @@ INTERFACE
 
 
 { des fonctions de calcul qui ne changent pas l'othellier de Cassio }
-function NbCoupsGagnantsOuNuls(whichPosition : PositionEtTraitRec; var valeurOptimale : SInt32; borneNbCoupsGagnants : SInt32) : SInt32;                                            ATTRIBUTE_NAME('NbCoupsGagnantsOuNuls')
-function ScoreWLDPositionEtTrait(whichPosition : PositionEtTraitRec; var solveResults : MakeEndgameSearchResultRec) : SInt32;                                                       ATTRIBUTE_NAME('ScoreWLDPositionEtTrait')
-function ScoreParfaitFinalePositionEtTrait(whichPosition : PositionEtTraitRec; endgameSolveFlags : SInt32; var solveResults : MakeEndgameSearchResultRec) : SInt32;                 ATTRIBUTE_NAME('ScoreParfaitFinalePositionEtTrait')
-function ScoreParfaitFinaleWithSearchParams(var params : MakeEndgameSearchParamRec; endgameSolveFlags : SInt32) : SInt32;                                                           ATTRIBUTE_NAME('ScoreParfaitFinaleWithSearchParams')
+function NbCoupsGagnantsOuNuls(whichPosition : PositionEtTraitRec; var valeurOptimale : SInt32; borneNbCoupsGagnants : SInt32) : SInt32;
+function ScoreWLDPositionEtTrait(whichPosition : PositionEtTraitRec; var solveResults : MakeEndgameSearchResultRec) : SInt32;
+function ScoreParfaitFinalePositionEtTrait(whichPosition : PositionEtTraitRec; endgameSolveFlags : SInt32; var solveResults : MakeEndgameSearchResultRec) : SInt32;
+function ScoreParfaitFinaleWithSearchParams(var params : MakeEndgameSearchParamRec; endgameSolveFlags : SInt32) : SInt32;
 
 
 { des fonctions de calcul qui changent l'othellier }
-function DoPlaquerPositionAndMakeEndgameSolve(var positionEtTrait : PositionEtTraitRec; endgameSolveFlags : SInt32; var solveResults : MakeEndgameSearchResultRec) : SInt32;        ATTRIBUTE_NAME('DoPlaquerPositionAndMakeEndgameSolve')
-function CalculeLigneOptimalePositionEtTrait(whichPosition : PositionEtTraitRec; endgameSolveFlags : SInt32; var score : SInt32) : String255;                                       ATTRIBUTE_NAME('CalculeLigneOptimalePositionEtTrait')
+function DoPlaquerPositionAndMakeEndgameSolve(var positionEtTrait : PositionEtTraitRec; endgameSolveFlags : SInt32; var solveResults : MakeEndgameSearchResultRec) : SInt32;
+function CalculeLigneOptimalePositionEtTrait(whichPosition : PositionEtTraitRec; endgameSolveFlags : SInt32; var score : SInt32) : String255;
 
 
 { calcul de la ligne optimale permettant de completer une partie; pour l'instant, cette implementation change l'othellier }
-function PeutCompleterPartieAvecLigneOptimale(var partieEnAlpha : String255) : boolean;                                                                                             ATTRIBUTE_NAME('PeutCompleterPartieAvecLigneOptimale')
+function PeutCompleterPartieAvecLigneOptimale(var partieEnAlpha : String255) : boolean;
 
 
 { manipulations de SearchParamRec et des MakeEndgameSearchResultRec }
-procedure ViderSearchParams(var params : MakeEndgameSearchParamRec);                                                                                                                ATTRIBUTE_NAME('ViderSearchParams')
-procedure CopySearchParams(const source : MakeEndgameSearchParamRec; var dest : MakeEndgameSearchParamRec);                                                                         ATTRIBUTE_NAME('CopySearchParams')
-function CheckEndgameSearchParams(var params : MakeEndgameSearchParamRec) : boolean;                                                                                                ATTRIBUTE_NAME('CheckEndgameSearchParams')
-procedure ViderSearchResults(var results : MakeEndgameSearchResultRec);                                                                                                             ATTRIBUTE_NAME('ViderSearchResults')
-procedure CopySearchResults(const source : MakeEndgameSearchResultRec; var dest : MakeEndgameSearchResultRec);                                                                      ATTRIBUTE_NAME('CopySearchResults')
+procedure ViderSearchParams(var params : MakeEndgameSearchParamRec);
+procedure CopySearchParams(const source : MakeEndgameSearchParamRec; var dest : MakeEndgameSearchParamRec);
+function CheckEndgameSearchParams(var params : MakeEndgameSearchParamRec) : boolean;
+procedure ViderSearchResults(var results : MakeEndgameSearchResultRec);
+procedure CopySearchResults(const source : MakeEndgameSearchResultRec; var dest : MakeEndgameSearchResultRec);
 
 
 { ecriture d'un MakeEndgameSearchResultRec dans le rapport }
-procedure WritelnEndgameSearchParamsDansRapport(var params : MakeEndgameSearchParamRec);                                                                                            ATTRIBUTE_NAME('WritelnEndgameSearchParamsDansRapport')
+procedure WritelnEndgameSearchParamsDansRapport(var params : MakeEndgameSearchParamRec);
 
 
 IMPLEMENTATION
@@ -357,7 +357,7 @@ begin
                   inDoitAbsolumentRamenerLaSuiteFinale := toujoursRamenerLaSuite;
                   inDoitAbsolumentRamenerUnScoreFinale := true;
                 end;
-                
+
 
               // On lance le calcul par Cassio !
               gagnant := MakeEndgameSearch(localParams);
@@ -367,7 +367,7 @@ begin
 
               with solveResults do
                 begin
-                
+
                   score := outScoreFinale;
 
                   if (interruptionReflexion = pasdinterruption) then
@@ -378,20 +378,20 @@ begin
                   if (interruptionReflexion <> pasdinterruption) then score := -1000;
 
                   outScoreFinale := score;
-                  
+
                   if (LENGTH_OF_STRING(outLineFinale) <= 0) & (outBestMoveFinale >= 11) & (outBestMoveFinale <= 88) & (whichPosition.position[outBestMoveFinale] = pionVide)
                     then outLineFinale := CoupEnStringEnMajuscules(outBestMoveFinale);
-                  
+
                   if (LENGTH_OF_STRING(outLineFinale) >= 2)
                     then outBestMoveFinale  := ScannerStringPourTrouverCoup(1,outLineFinale,foo)
                     else outBestMoveFinale  := 44;
-                            
+
                   if (LENGTH_OF_STRING(outLineFinale) >= 4)
                     then outBestDefenseFinale  := ScannerStringPourTrouverCoup(3,outLineFinale,foo)
                     else outBestDefenseFinale  := 44;
-                
+
                 end;
-                
+
 
               CopySearchResults(solveResults, params.outResult);
 
@@ -656,10 +656,10 @@ begin
       end
     else
       begin
-      
+
         oldInterruption := GetCurrentInterruption;
         EnleveCetteInterruption(oldInterruption);
-        
+
 
         { On force le calcul en mode finale parfaite }
         if BitAnd(endgameSolveFlags,kEndgameSolveOnlyWLD) <> 0 then
@@ -675,8 +675,8 @@ begin
             score := valeurDeLaPosition;
             ligneOptimale := MeilleureSuiteInfosEnChaine(0,false,false,true,false,0);
           end;
-          
-          
+
+
         LanceInterruption(oldInterruption,'CalculeLigneOptimalePositionEtTrait');
 
       end;
@@ -715,7 +715,7 @@ begin
           positionACompleter := PositionEtTraitAfterMoveNumberAlpha(theGame,longueurPartie,erreur);
           if (erreur = kPasErreur) then
             begin
-              
+
               oldInterruption := GetCurrentInterruption;
               EnleveCetteInterruption(oldInterruption);
 
@@ -733,9 +733,9 @@ begin
                       partieEnAlpha := theGame;
                     end;
                 end;
-              
+
               LanceInterruption(oldInterruption,'PeutCompleterPartieAvecLigneOptimale');
-              
+
             end;
         end;
     end;

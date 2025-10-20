@@ -9,35 +9,35 @@ USES UnitDefLongString;
 
 
 { Creation et/ou initialisation d'une LongString }
-procedure InitLongString(var ligne : LongString);                                                                                                                                   ATTRIBUTE_NAME('InitLongString')
-function MakeLongString(const s : String255) : LongString;                                                                                                                          ATTRIBUTE_NAME('MakeLongString')
-function CopyLongString(const ligne : LongString) : LongString;                                                                                                                     ATTRIBUTE_NAME('CopyLongString')
-procedure NormaliserLongString(var ligne : LongString);                                                                                                                             ATTRIBUTE_NAME('NormaliserLongString')
+procedure InitLongString(var ligne : LongString);
+function MakeLongString(const s : String255) : LongString;
+function CopyLongString(const ligne : LongString) : LongString;
+procedure NormaliserLongString(var ligne : LongString);
 
 
 { Acces ˆ une LongString : recherche, comparaison, extraction d'une sous-chaine, etc... }
-function LengthOfLongString(const ligne : LongString) : SInt32;                                                                                                                     ATTRIBUTE_NAME('LengthOfLongString')
-function LongStringIsEmpty(const ligne : LongString) : boolean;                                                                                                                     ATTRIBUTE_NAME('LongStringIsEmpty')
-function SameLongString(const ligne1, ligne2 : LongString) : boolean;                                                                                                               ATTRIBUTE_NAME('SameLongString')
-function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;                                                                                             ATTRIBUTE_NAME('LongStringBeginsWith')
-function FindStringInLongString(const s : String255; const ligne : LongString) : SInt32;                                                                                            ATTRIBUTE_NAME('FindStringInLongString')
-function LeftOfLongString(const ligne : LongString; len : SInt32) : LongString;                                                                                                     ATTRIBUTE_NAME('LeftOfLongString')
+function LengthOfLongString(const ligne : LongString) : SInt32;
+function LongStringIsEmpty(const ligne : LongString) : boolean;
+function SameLongString(const ligne1, ligne2 : LongString) : boolean;
+function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;
+function FindStringInLongString(const s : String255; const ligne : LongString) : SInt32;
+function LeftOfLongString(const ligne : LongString; len : SInt32) : LongString;
 
 
 { Concatenation sur une LongString }
-procedure AppendToLongString(var ligne : LongString; const s : String255);                                                                                                          ATTRIBUTE_NAME('AppendToLongString')
-procedure AppendCharToLongString(var ligne : LongString; c : char);                                                                                                                 ATTRIBUTE_NAME('AppendCharToLongString')
-procedure AppendToLeftOfLongString(const s : String255; var ligne : LongString);                                                                                                    ATTRIBUTE_NAME('AppendToLeftOfLongString')
+procedure AppendToLongString(var ligne : LongString; const s : String255);
+procedure AppendCharToLongString(var ligne : LongString; c : char);
+procedure AppendToLeftOfLongString(const s : String255; var ligne : LongString);
 
 
 { Conversion de LongString }
-procedure LongStringToBuffer(var ligne : LongString; buffer : PackedArrayOfCharPtr; var nbOctets : SInt32);                                                                         ATTRIBUTE_NAME('LongStringToBuffer')
-procedure BufferToLongString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; var ligne : LongString);                                                                             ATTRIBUTE_NAME('BufferToLongString')
+procedure LongStringToBuffer(var ligne : LongString; buffer : PackedArrayOfCharPtr; var nbOctets : SInt32);
+procedure BufferToLongString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; var ligne : LongString);
 
 
 { Ecriture d'une LongString dans le rapport }
-procedure WriteLongStringDansRapport(const ligne : LongString);                                                                                                                     ATTRIBUTE_NAME('WriteLongStringDansRapport')
-procedure WritelnLongStringDansRapport(const ligne : LongString);                                                                                                                   ATTRIBUTE_NAME('WritelnLongStringDansRapport')
+procedure WriteLongStringDansRapport(const ligne : LongString);
+procedure WritelnLongStringDansRapport(const ligne : LongString);
 
 
 { Voir aussi ReadlnLongStringDansFichierTexte() dans UnitFichiersTEXT.p }
@@ -223,7 +223,7 @@ begin
       LongStringBeginsWith := false;
       exit(LongStringBeginsWith);
     end;
-  
+
   LongStringBeginsWith := (Pos(s, ligne.debutLigne) = 1);
 end;
 
@@ -246,19 +246,19 @@ var len1, len2, nbOctetsDeplaces : SInt32;
 begin
   with ligne do
     begin
-    
+
       len1 := LENGTH_OF_STRING(debutLigne);
       len2 := LENGTH_OF_STRING(finLigne);
-  
+
       if (len1 < 255) & (len2 > 0) then
         begin
           nbOctetsDeplaces := Min(len2, 255 - len1);
-          
+
           debutLigne := debutLigne + LeftOfString(finLigne, nbOctetsDeplaces);
           finLigne   := RightOfString(finLigne, len2 - nbOctetsDeplaces);
         end;
-        
-        
+
+
       if (LengthOfLongString(ligne) <> len1 + len2) |
          ((LENGTH_OF_STRING(ligne.debutLigne) < 255) & (LENGTH_OF_STRING(ligne.finLigne) > 0)) then
         begin
@@ -284,7 +284,7 @@ begin
 
   with ligne do
     begin
-      if (LENGTH_OF_STRING(debutLigne) < 255) & (LENGTH_OF_STRING(finLigne) > 0) 
+      if (LENGTH_OF_STRING(debutLigne) < 255) & (LENGTH_OF_STRING(finLigne) > 0)
         then NormaliserLongString(ligne);
 
 
@@ -299,9 +299,9 @@ begin
               then
                 begin
                   len2 := LENGTH_OF_STRING(s);
-                  
+
                   if (len + len2 <= 255)
-                    then 
+                    then
                       begin
                         debutLigne := debutLigne + s;
                       end
@@ -323,7 +323,7 @@ begin
               else
                 finLigne := finLigne + s;
          end;
-     
+
    end; {with}
 end;
 
@@ -340,7 +340,7 @@ procedure AppendCharToLongString(var ligne : LongString; c : char);
 var len : SInt32;
 begin
 
-  if (LENGTH_OF_STRING(ligne.debutLigne) < 255) & (LENGTH_OF_STRING(ligne.finLigne) > 0) 
+  if (LENGTH_OF_STRING(ligne.debutLigne) < 255) & (LENGTH_OF_STRING(ligne.finLigne) > 0)
     then NormaliserLongString(ligne);
 
   len := LENGTH_OF_STRING(ligne.debutLigne);
@@ -422,11 +422,11 @@ begin
 
   with ligne do
     begin
-    
+
       len1 := 0;
       len2 := 0;
-  
-      if (nbOctets > kTailleMaxOfLongString) 
+
+      if (nbOctets > kTailleMaxOfLongString)
         then
           begin
             WritelnDansRapport('ASSERT : (nbOctets > kTailleMaxOfLongString) dans BufferToLongString !!');
@@ -435,20 +435,20 @@ begin
           begin
             len1 := Min(nbOctets, 255);
             len2 := nbOctets - len1;
-            
+
             for k := 1 to len1 do
               debutLigne[k] := buffer^[k - 1];
-              
+
             for k := 1 to len2 do
               finLigne[k] := buffer^[len1 + k - 1]
-            
+
           end;
-  
+
       SET_LENGTH_OF_STRING(debutLigne , len1);
       SET_LENGTH_OF_STRING(finLigne   , len2);
-      
+
     end;
-  
+
 end;
 
 
@@ -510,7 +510,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   WritelnLongStringDansRapport() ecrit une chaine dans le rapport en        *
- *   ajoutant un retour chariot a la fin.                                      *   
+ *   ajoutant un retour chariot a la fin.                                      *
  *                                                                             *
  *******************************************************************************
  *)

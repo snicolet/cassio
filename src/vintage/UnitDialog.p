@@ -13,84 +13,84 @@ INTERFACE
  USES UnitDefCassio , Navigation , Appearance , Files;
 
 
-procedure InitDialogUnit;                                                                                                                                                           ATTRIBUTE_NAME('InitDialogUnit')
-procedure LibereMemoireDialogUnit;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireDialogUnit')
+procedure InitDialogUnit;
+procedure LibereMemoireDialogUnit;
 
-procedure ToggleCheck(ch : handle);                                                                                                                                                 ATTRIBUTE_NAME('ToggleCheck')
-function CheckOn(ch : handle) : boolean;                                                                                                                                            ATTRIBUTE_NAME('CheckOn')
-procedure OutlineOK(dp : DialogPtr);                                                                                                                                                ATTRIBUTE_NAME('OutlineOK')
-function IsCheckBoxOn(dp : DialogPtr; itemNumber : SInt16) : boolean;                                                                                                               ATTRIBUTE_NAME('IsCheckBoxOn')
+procedure ToggleCheck(ch : handle);
+function CheckOn(ch : handle) : boolean;
+procedure OutlineOK(dp : DialogPtr);
+function IsCheckBoxOn(dp : DialogPtr; itemNumber : SInt16) : boolean;
 
-procedure GetIntegerEditableText(dp : DialogPtr; itemNumber : SInt16; var result : SInt16);                                                                                         ATTRIBUTE_NAME('GetIntegerEditableText')
-procedure SetIntegerEditableText(dp : DialogPtr; itemNumber : SInt16; value : SInt16);                                                                                              ATTRIBUTE_NAME('SetIntegerEditableText')
-procedure GetLongintEditableText(dp : DialogPtr; itemNumber : SInt16; var result : SInt32);                                                                                         ATTRIBUTE_NAME('GetLongintEditableText')
-procedure SetLongintEditableText(dp : DialogPtr; itemNumber : SInt16; value : SInt32);                                                                                              ATTRIBUTE_NAME('SetLongintEditableText')
-procedure GetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; var s : String255);                                                                                              ATTRIBUTE_NAME('GetItemTextInDialog')
-procedure SetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; s : String255);                                                                                                  ATTRIBUTE_NAME('SetItemTextInDialog')
-procedure GetBoolCheckBox(dp : DialogPtr; itemNumber : SInt16; var result : boolean);                                                                                               ATTRIBUTE_NAME('GetBoolCheckBox')
-procedure SetBoolCheckBox(dp : DialogPtr; itemNumber : SInt16; value : boolean);                                                                                                    ATTRIBUTE_NAME('SetBoolCheckBox')
-function GetCheckBoxValue(dp : DialogPtr; itemNumber : SInt16) : boolean;                                                                                                           ATTRIBUTE_NAME('GetCheckBoxValue')
-procedure GetBoolRadio(dp : DialogPtr; itemNumber : SInt16; var result : boolean);                                                                                                  ATTRIBUTE_NAME('GetBoolRadio')
-procedure SetBoolRadio(dp : DialogPtr; itemNumber : SInt16; value : boolean);                                                                                                       ATTRIBUTE_NAME('SetBoolRadio')
-procedure ToggleCheckBox(dp : DialogPtr; itemNumber : SInt16);                                                                                                                      ATTRIBUTE_NAME('ToggleCheckBox')
-procedure HiliteControlInDialog(dp : DialogPtr; itemNumber,hiliteState : SInt16);                                                                                                   ATTRIBUTE_NAME('HiliteControlInDialog')
-procedure GetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; var itemRect : rect);                                                                                              ATTRIBUTE_NAME('GetDialogItemRect')
-procedure SetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; itemRect : rect);                                                                                                  ATTRIBUTE_NAME('SetDialogItemRect')
-procedure GetControlTitleInDialog(dp : DialogPtr; itemNumber : SInt16; var title : String255);                                                                                      ATTRIBUTE_NAME('GetControlTitleInDialog')
-procedure SetControlTitleInDialog(dp : DialogPtr; itemNumber : SInt16; var title : String255);                                                                                      ATTRIBUTE_NAME('SetControlTitleInDialog')
-
-
-procedure CenterTextInDialog(dp : DialogPtr; s : String255; itemNumber : SInt16);                                                                                                   ATTRIBUTE_NAME('CenterTextInDialog')
-procedure FiltrerChiffreInEditText(dp : DialogPtr; itemNumber : SInt16);                                                                                                            ATTRIBUTE_NAME('FiltrerChiffreInEditText')
-procedure SetWhiteColorForEditText(dp : DialogPtr; itemNumber : SInt16);                                                                                                            ATTRIBUTE_NAME('SetWhiteColorForEditText')
+procedure GetIntegerEditableText(dp : DialogPtr; itemNumber : SInt16; var result : SInt16);
+procedure SetIntegerEditableText(dp : DialogPtr; itemNumber : SInt16; value : SInt16);
+procedure GetLongintEditableText(dp : DialogPtr; itemNumber : SInt16; var result : SInt32);
+procedure SetLongintEditableText(dp : DialogPtr; itemNumber : SInt16; value : SInt32);
+procedure GetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; var s : String255);
+procedure SetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; s : String255);
+procedure GetBoolCheckBox(dp : DialogPtr; itemNumber : SInt16; var result : boolean);
+procedure SetBoolCheckBox(dp : DialogPtr; itemNumber : SInt16; value : boolean);
+function GetCheckBoxValue(dp : DialogPtr; itemNumber : SInt16) : boolean;
+procedure GetBoolRadio(dp : DialogPtr; itemNumber : SInt16; var result : boolean);
+procedure SetBoolRadio(dp : DialogPtr; itemNumber : SInt16; value : boolean);
+procedure ToggleCheckBox(dp : DialogPtr; itemNumber : SInt16);
+procedure HiliteControlInDialog(dp : DialogPtr; itemNumber,hiliteState : SInt16);
+procedure GetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; var itemRect : rect);
+procedure SetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; itemRect : rect);
+procedure GetControlTitleInDialog(dp : DialogPtr; itemNumber : SInt16; var title : String255);
+procedure SetControlTitleInDialog(dp : DialogPtr; itemNumber : SInt16; var title : String255);
 
 
-function Hcenter(width : SInt16) : SInt16;                                                                                                                                          ATTRIBUTE_NAME('Hcenter')
-function Vcenter(height : SInt16) : SInt16;                                                                                                                                         ATTRIBUTE_NAME('Vcenter')
-
-procedure FlashItem(dlog : DialogPtr; itemNumber : SInt16);                                                                                                                         ATTRIBUTE_NAME('FlashItem')
-procedure MyInvertRoundRect(theRect : rect; radius : SInt32);                                                                                                                       ATTRIBUTE_NAME('MyInvertRoundRect')
-procedure DessineBouton(window : WindowRef; left,top,bottom : SInt16; s : String255; var boutonRect : rect);                                                                        ATTRIBUTE_NAME('DessineBouton')
-function AppuieBouton(boutonRect : rect; rayonCoin : SInt16; mouseLoc : Point; drawDownState,drawUpState : BoutonDrawingProc) : boolean;                                            ATTRIBUTE_NAME('AppuieBouton')
-function GetBoutonRectParControlManager(left,top,bottom,marge : SInt16; title : String255) : rect;                                                                                  ATTRIBUTE_NAME('GetBoutonRectParControlManager')
-procedure DessineBoutonParControlManager(buttonState : ThemeDrawState; left,top,bottom,marge : SInt16; title : String255; var boutonRect : rect);                                   ATTRIBUTE_NAME('DessineBoutonParControlManager')
-function AppuieBoutonParControlManager(titre : String255; boutonRect : rect; marge : SInt16; mouseLoc : Point) : boolean;                                                           ATTRIBUTE_NAME('AppuieBoutonParControlManager')
-procedure DessineBoutonPicture(window : WindowRef; pictureID : SInt32; position : Point; var boutonRect : rect);                                                                    ATTRIBUTE_NAME('DessineBoutonPicture')
-function AppuieBoutonPicture(window : WindowRef; boutonNormalPictID,boutonEnfoncePictID : SInt32; boutonRect : rect; mouseLoc : Point) : boolean;                                   ATTRIBUTE_NAME('AppuieBoutonPicture')
+procedure CenterTextInDialog(dp : DialogPtr; s : String255; itemNumber : SInt16);
+procedure FiltrerChiffreInEditText(dp : DialogPtr; itemNumber : SInt16);
+procedure SetWhiteColorForEditText(dp : DialogPtr; itemNumber : SInt16);
 
 
-function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : FSSpec) : boolean;                                                                                   ATTRIBUTE_NAME('MakeFileName')
-function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;                                  ATTRIBUTE_NAME('GetFileName')
-function ChooseFolder(prompt : String255; var whichSpec : FSSpec) : boolean;                                                                                                        ATTRIBUTE_NAME('ChooseFolder')
+function Hcenter(width : SInt16) : SInt16;
+function Vcenter(height : SInt16) : SInt16;
 
-function NewRadios(PremierBouton,DernierBouton,BoutonSelectione : SInt16) : RadioRec;                                                                                               ATTRIBUTE_NAME('NewRadios')
-procedure PushRadio(dp : DialogPtr; var Radios : RadioRec; itemHit : SInt16);                                                                                                       ATTRIBUTE_NAME('PushRadio')
-procedure InitRadios(dp : DialogPtr; var Radios : RadioRec);                                                                                                                        ATTRIBUTE_NAME('InitRadios')
+procedure FlashItem(dlog : DialogPtr; itemNumber : SInt16);
+procedure MyInvertRoundRect(theRect : rect; radius : SInt32);
+procedure DessineBouton(window : WindowRef; left,top,bottom : SInt16; s : String255; var boutonRect : rect);
+function AppuieBouton(boutonRect : rect; rayonCoin : SInt16; mouseLoc : Point; drawDownState,drawUpState : BoutonDrawingProc) : boolean;
+function GetBoutonRectParControlManager(left,top,bottom,marge : SInt16; title : String255) : rect;
+procedure DessineBoutonParControlManager(buttonState : ThemeDrawState; left,top,bottom,marge : SInt16; title : String255; var boutonRect : rect);
+function AppuieBoutonParControlManager(titre : String255; boutonRect : rect; marge : SInt16; mouseLoc : Point) : boolean;
+procedure DessineBoutonPicture(window : WindowRef; pictureID : SInt32; position : Point; var boutonRect : rect);
+function AppuieBoutonPicture(window : WindowRef; boutonNormalPictID,boutonEnfoncePictID : SInt32; boutonRect : rect; mouseLoc : Point) : boolean;
 
-procedure CheckBox(dp : DialogPtr; var checks : ChecksRecord; itemHit : SInt16);                                                                                                    ATTRIBUTE_NAME('CheckBox')
-procedure InitChecks(dp : DialogPtr; var checks : ChecksRecord);                                                                                                                    ATTRIBUTE_NAME('InitChecks')
+
+function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : FSSpec) : boolean;
+function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;
+function ChooseFolder(prompt : String255; var whichSpec : FSSpec) : boolean;
+
+function NewRadios(PremierBouton,DernierBouton,BoutonSelectione : SInt16) : RadioRec;
+procedure PushRadio(dp : DialogPtr; var Radios : RadioRec; itemHit : SInt16);
+procedure InitRadios(dp : DialogPtr; var Radios : RadioRec);
+
+procedure CheckBox(dp : DialogPtr; var checks : ChecksRecord; itemHit : SInt16);
+procedure InitChecks(dp : DialogPtr; var checks : ChecksRecord);
 
 
-function FiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                     ATTRIBUTE_NAME('FiltreClassique')
-function FiltreClassiqueAlerte(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                               ATTRIBUTE_NAME('FiltreClassiqueAlerte')
-function EvenementDuDialogue(dlog : DialogPtr; var evt : eventRecord) : boolean;                                                                                                    ATTRIBUTE_NAME('EvenementDuDialogue')
+function FiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+function FiltreClassiqueAlerte(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+function EvenementDuDialogue(dlog : DialogPtr; var evt : eventRecord) : boolean;
 {procedure MyDisposeRoutineDescriptor(var theProcPtr:UniversalProcPtr);}
-procedure MyDisposeModalFilterUPP(var userUPP : ModalFilterUPP);                                                                                                                    ATTRIBUTE_NAME('MyDisposeModalFilterUPP')
-procedure MyDisposeControlActionUPP(var userUPP : ControlActionUPP);                                                                                                                ATTRIBUTE_NAME('MyDisposeControlActionUPP')
-procedure InstalleEventHandler(aRoutine : ProcedureType);                                                                                                                           ATTRIBUTE_NAME('InstalleEventHandler')
+procedure MyDisposeModalFilterUPP(var userUPP : ModalFilterUPP);
+procedure MyDisposeControlActionUPP(var userUPP : ControlActionUPP);
+procedure InstalleEventHandler(aRoutine : ProcedureType);
 
-procedure IncrementeCompteurDeMouseEvents;                                                                                                                                          ATTRIBUTE_NAME('IncrementeCompteurDeMouseEvents')
-function GetCompteurDeMouseEvents : SInt32;                                                                                                                                         ATTRIBUTE_NAME('GetCompteurDeMouseEvents')
+procedure IncrementeCompteurDeMouseEvents;
+function GetCompteurDeMouseEvents : SInt32;
 
-procedure MyDrawDialog(dp : DialogPtr);                                                                                                                                             ATTRIBUTE_NAME('MyDrawDialog')
+procedure MyDrawDialog(dp : DialogPtr);
 
 
-function MyGetNewDialog(dialogID : SInt16) : DialogPtr;                                                                                                                             ATTRIBUTE_NAME('MyGetNewDialog')
-procedure MyDisposeDialog(var dlog : DialogPtr);                                                                                                                                    ATTRIBUTE_NAME('MyDisposeDialog')
+function MyGetNewDialog(dialogID : SInt16) : DialogPtr;
+procedure MyDisposeDialog(var dlog : DialogPtr);
 
-procedure BeginDialog;                                                                                                                                                              ATTRIBUTE_NAME('BeginDialog')
-procedure EndDialog;                                                                                                                                                                ATTRIBUTE_NAME('EndDialog')
-function UnDialogueEstAffiche : boolean;                                                                                                                                            ATTRIBUTE_NAME('UnDialogueEstAffiche')
+procedure BeginDialog;
+procedure EndDialog;
+function UnDialogueEstAffiche : boolean;
 
 
 IMPLEMENTATION
@@ -371,8 +371,8 @@ var itemType : SInt16;
     itemText : str255;
 begin
   exit(CenterTextInDialog);
-  
-  
+
+
   GetPort(oldport);
   SetPortByDialog(dp);
   GetDialogItem(dp,itemNumber,itemType,itemHandle,itemrect);
@@ -384,10 +384,10 @@ begin
       end
     else
       SetDialogItemText(itemHandle,StringToStr255(''));
-      
+
   with QDGetPortBound do
     larg := itemrect.left-((left+right-MyStringWidth(s)) div 2);
-    
+
   MyEraseRect(itemRect);
   MyEraseRectWithColor(itemRect,OrangeCmd,blackPattern,'');
   OffsetRect(itemrect,-larg,0);

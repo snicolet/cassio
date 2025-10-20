@@ -1,5 +1,5 @@
 =========================================================
-=>    This is the torture.txt file                         
+=>    This is the torture.txt file
 =========================================================
 
 Hello
@@ -10,7 +10,7 @@ Enter some text below
 
 
 ==========================================================
-=>    Section: general 
+=>    Section: general
 ==========================================================
 
 CARBON-PROTOCOL {0}  init
@@ -78,7 +78,7 @@ CARBON-PROTOCOL {40}  get-mouse
 ==========================================================
 
 CARBON-PROTOCOL {100} new-alert               name=DialogID message=text
-CARBON-PROTOCOL {101} new-dialog              name=DialogID 
+CARBON-PROTOCOL {101} new-dialog              name=DialogID
 CARBON-PROTOCOL {102} set-dialog-item         name=DialogID item=itemName
 CARBON-PROTOCOL {103} find-dialog-item        name=DialogID h=50 v=70
 CARBON-PROTOCOL {104} get-dialog-item-text    name=DialogID item=itemName
@@ -176,7 +176,7 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 
 
 ==========================================================
-=>   Now using the @ shortcut in the torture.txt file...    
+=>   Now using the @ shortcut in the torture.txt file...
 ==========================================================
 
 @  init
@@ -205,7 +205,7 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 @  set-font-family        Times
 @  draw-text-at           "Bienvenue dans Cassio" 100 55
 @  set-font-family        Helvetica
-@  draw-text-at           "Bienvenue dans Cassio" 80 70  
+@  draw-text-at           "Bienvenue dans Cassio" 80 70
 @  draw-text-at           "Bienvenue dans Cassio" 60 85
 @  set-pen-color          #FF0000
 @  draw-text-at           "Les longs sanglots de l'automne" 60 85
@@ -263,7 +263,7 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 @ dump
 
 =================================================================
-=>   Type any @command, or "quit" to exit the Carbon-GUI server      
+=>   Type any @command, or "quit" to exit the Carbon-GUI server
 =================================================================
 
 

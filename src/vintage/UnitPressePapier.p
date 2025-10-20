@@ -8,31 +8,31 @@ INTERFACE
  USES UnitDefCassio , Scrap;
 
 
-function PeutCollerPartie(var positionStandard : boolean; var partieEnAlpha : String255) : boolean;                                                                                 ATTRIBUTE_NAME('PeutCollerPartie')
+function PeutCollerPartie(var positionStandard : boolean; var partieEnAlpha : String255) : boolean;
 
 
-function DumpPressePapierToFile(var fic : FichierTEXT; flavorType : ScrapFlavorType) : OSErr;                                                                                       ATTRIBUTE_NAME('DumpPressePapierToFile')
-function DumpFileToPressePapier(fileName : String255; flavorType : ScrapFlavorType) : OSErr;                                                                                        ATTRIBUTE_NAME('DumpFileToPressePapier')
-function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;                                                                                                ATTRIBUTE_NAME('EstUnNomDeFichierTemporaireDePressePapier')
+function DumpPressePapierToFile(var fic : FichierTEXT; flavorType : ScrapFlavorType) : OSErr;
+function DumpFileToPressePapier(fileName : String255; flavorType : ScrapFlavorType) : OSErr;
+function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;
 
 
-procedure CopierPartieEnTEXT(enMajuscule,avecEspacesEntreCoups : boolean);                                                                                                          ATTRIBUTE_NAME('CopierPartieEnTEXT')
-procedure CopierDiagrammePositionEnTEXT;                                                                                                                                            ATTRIBUTE_NAME('CopierDiagrammePositionEnTEXT')
-procedure CopierDiagrammePartieEnTEXT;                                                                                                                                              ATTRIBUTE_NAME('CopierDiagrammePartieEnTEXT')
-procedure CopierPositionPourEndgameScriptEnTEXT;                                                                                                                                    ATTRIBUTE_NAME('CopierPositionPourEndgameScriptEnTEXT')
-procedure CopierDiagrammePositionEnHTML;                                                                                                                                            ATTRIBUTE_NAME('CopierDiagrammePositionEnHTML')
-procedure GenereInfosIOSDansPressePapier(numeroDuCoup,couleur,coup : SInt32; tickPourCalculTemps : SInt32);                                                                         ATTRIBUTE_NAME('GenereInfosIOSDansPressePapier')
+procedure CopierPartieEnTEXT(enMajuscule,avecEspacesEntreCoups : boolean);
+procedure CopierDiagrammePositionEnTEXT;
+procedure CopierDiagrammePartieEnTEXT;
+procedure CopierPositionPourEndgameScriptEnTEXT;
+procedure CopierDiagrammePositionEnHTML;
+procedure GenereInfosIOSDansPressePapier(numeroDuCoup,couleur,coup : SInt32; tickPourCalculTemps : SInt32);
 
 
-function LongueurPressePapier(flavor : ScrapFlavorType) : SInt32;                                                                                                                   ATTRIBUTE_NAME('LongueurPressePapier')
-procedure TransfererLePressePapierGlobalDansTextEdit;                                                                                                                               ATTRIBUTE_NAME('TransfererLePressePapierGlobalDansTextEdit')
+function LongueurPressePapier(flavor : ScrapFlavorType) : SInt32;
+procedure TransfererLePressePapierGlobalDansTextEdit;
 
 
 { Extractions pour le presse-papier }
-function PartiePourPressePapier(enMajuscules,avecEspaceEntreCoups : boolean; nbreCoupsAExporter : SInt16) : String255;                                                              ATTRIBUTE_NAME('PartiePourPressePapier')
-function PositionInitialeEnLignePourPressePapier : String255;                                                                                                                       ATTRIBUTE_NAME('PositionInitialeEnLignePourPressePapier')
-function PositionCouranteEnDiagrammeTEXTPourPressePapier : String255;                                                                                                               ATTRIBUTE_NAME('PositionCouranteEnDiagrammeTEXTPourPressePapier')
-function DiagrammePartieEnTEXTPourPressePapier(avecCoordonnees : boolean; delimiteurVertical,SeparateurDeCoups : String255) : String255;                                            ATTRIBUTE_NAME('DiagrammePartieEnTEXTPourPressePapier')
+function PartiePourPressePapier(enMajuscules,avecEspaceEntreCoups : boolean; nbreCoupsAExporter : SInt16) : String255;
+function PositionInitialeEnLignePourPressePapier : String255;
+function PositionCouranteEnDiagrammeTEXTPourPressePapier : String255;
+function DiagrammePartieEnTEXTPourPressePapier(avecCoordonnees : boolean; delimiteurVertical,SeparateurDeCoups : String255) : String255;
 
 
 
@@ -203,12 +203,12 @@ begin
 
 
             if (longueurDuTexteDansLePressePapier <= 0)
-              then 
+              then
                 CollerPartieOK := true
               else
                 begin
 			            err := -1;
-			            
+			
 			            // WritelnDansRapport('partieRecue = '+partieRecue);
 			            // WritelnDansRapport('texteBrut = '+texteBrut);
 
@@ -233,13 +233,13 @@ begin
     			            if (err <> 0) & (longueurMaximale = longueur3) then err := InterpreterPartie(partieRecue);
     			            if (err <> 0) & (longueurMaximale = longueur4) then err := InterpreterPartie(PartiePourPressePapier(false,false,nbreCoup)+partieRecue);
 			              end;
-			            
+			
 			            // WritelnNumDansRapport('err = ',err);
 
 			            CollerPartieOK := (err = 0) & (longueurMaximale >= 3);
-			            
+			
 			            // WritelnStringAndBoolDansRapport('CollerPartieOK = ',CollerPartieOK);
-			            
+			
 			          end;
 
           end;
@@ -267,7 +267,7 @@ begin
 
   (*
   myError := GetScrapFlavors(flavorsCount, flavors);
-  
+
   WritelnNumDansRapport('flavorsCount = ',flavorsCount);
   WritelnDansRapport('flavors = '+flavors);
   *)
@@ -275,7 +275,7 @@ begin
   taille := LongueurPressePapier(flavorType);
   if (taille > 0) then
     begin
-    
+
       (* WritelnDansRapport('Dans le corps de DumpPressePapierToFile'); *)
 
       {fabriquer un nom de fichier nouveau}
@@ -332,7 +332,7 @@ var taille : SInt32;
     t, boucle : SInt32;
 begin
 
-  if (filename = '') then 
+  if (filename = '') then
      begin
        DumpFileToPressePapier := -1;
        exit(DumpFileToPressePapier);
@@ -342,7 +342,7 @@ begin
   WritelnDansRapport('Le fichier a mettre dans le presse-papier est ' + filename);}
 
   myError := FichierTexteDeCassioExiste(fileName, fic);
-  
+
   boucle := 0;
   if (myError = -43) then {fnfErr => file not found}
     begin   // on essaye d'attendre 2 secondes que le fichier arrive :-)
@@ -353,10 +353,10 @@ begin
         inc(boucle);
       until (myError <> -43) | ((TickCount - t) > 120);
     end;
-  
+
   { WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , myError = ',myError);
     WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , boucle = ',boucle); }
-  
+
   if (myError = NoErr) then myError := OuvreFichierTexte(fic);
   if (myError = NoErr) then myError := GetTailleFichierTexte(fic,taille);
   if (myError = NoErr) & (taille > 0) then
@@ -369,9 +369,9 @@ begin
           DisposeMemoryPtr(dataPtr);
         end;
     end;
-  
+
   if (myError = NoErr) then myError := FermeFichierTexte(fic);
-  
+
   DumpFileToPressePapier := myError;
 end;
 

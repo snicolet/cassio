@@ -11,115 +11,115 @@ INTERFACE
 
 
 { fonctions d'initialisation et de fin de module }
-procedure InitUnitEngine;                                                                                                                                                           ATTRIBUTE_NAME('InitUnitEngine')
-procedure LibereMemoireUnitEngine;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitEngine')
-procedure TestEngineUnit;                                                                                                                                                           ATTRIBUTE_NAME('TestEngineUnit')
+procedure InitUnitEngine;
+procedure LibereMemoireUnitEngine;
+procedure TestEngineUnit;
 
 
 { Les fonctions principales de cette unite : elles le lien avec les modules de finale ou de milieu }
-function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur,  alpha, beta, precision, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeFinale')
-function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;                                                                     ATTRIBUTE_NAME('EnginePeutFaireCalculDeMilieu')
+function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur,  alpha, beta, precision, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;
+function EnginePeutFaireCalculDeMilieu(var plateau : plateauOthello; profondeur, couleur, alpha, beta, dernierCoup : SInt64; var note, bestMove : SInt64; var meilleureSuite : t_meilleureSuite) : boolean;
 
 
 { fonctions de tests pour savoir si l'engine est present, vivant, sa vitesse, etc. }
-function CassioIsUsingAnEngine(var numero : SInt64) : boolean;                                                                                                                      ATTRIBUTE_NAME('CassioIsUsingAnEngine')
-function CanStartEngine(pathMac, arguments : String255) : boolean;                                                                                                                  ATTRIBUTE_NAME('CanStartEngine')
-procedure KillAndRestartCurrentEngine;                                                                                                                                              ATTRIBUTE_NAME('KillAndRestartCurrentEngine')
-procedure KillCurrentEngine;                                                                                                                                                        ATTRIBUTE_NAME('KillCurrentEngine')
-procedure StopCurrentEngine;                                                                                                                                                        ATTRIBUTE_NAME('StopCurrentEngine')
-procedure SuspendCurrentEngine;                                                                                                                                                     ATTRIBUTE_NAME('SuspendCurrentEngine')
-procedure ResumeCurrentEngine;                                                                                                                                                      ATTRIBUTE_NAME('ResumeCurrentEngine')
-function CassioIsWaitingAnEngineResult : boolean;                                                                                                                                   ATTRIBUTE_NAME('CassioIsWaitingAnEngineResult')
-function EngineIsDead : boolean;                                                                                                                                                    ATTRIBUTE_NAME('EngineIsDead')
-procedure SetEngineState(state : SInt64);                                                                                                                                           ATTRIBUTE_NAME('SetEngineState')
-function GetEngineState : String255;                                                                                                                                                ATTRIBUTE_NAME('GetEngineState')
-function GetSpeedOfEngine : double_t;                                                                                                                                               ATTRIBUTE_NAME('GetSpeedOfEngine')
-procedure CalculateSpeedOfEngine(const result : EngineResultRec);                                                                                                                   ATTRIBUTE_NAME('CalculateSpeedOfEngine')
-procedure CheckIncreaseOfNodesInAnswerFromEngine(const result : EngineResultRec);                                                                                                   ATTRIBUTE_NAME('CheckIncreaseOfNodesInAnswerFromEngine')
-function DurationOfLastResultReceivedByEngine : double_t;                                                                                                                           ATTRIBUTE_NAME('DurationOfLastResultReceivedByEngine')
-function DateOfLastActivityByEngine : SInt64;                                                                                                                                       ATTRIBUTE_NAME('DateOfLastActivityByEngine')
-function DateOfLastStartOfEngine : SInt64;                                                                                                                                          ATTRIBUTE_NAME('DateOfLastStartOfEngine')
-procedure PingEngine;                                                                                                                                                               ATTRIBUTE_NAME('PingEngine')
-procedure RelancerDerniereRechercheEngine;                                                                                                                                          ATTRIBUTE_NAME('RelancerDerniereRechercheEngine')
+function CassioIsUsingAnEngine(var numero : SInt64) : boolean;
+function CanStartEngine(pathMac, arguments : String255) : boolean;
+procedure KillAndRestartCurrentEngine;
+procedure KillCurrentEngine;
+procedure StopCurrentEngine;
+procedure SuspendCurrentEngine;
+procedure ResumeCurrentEngine;
+function CassioIsWaitingAnEngineResult : boolean;
+function EngineIsDead : boolean;
+procedure SetEngineState(state : SInt64);
+function GetEngineState : String255;
+function GetSpeedOfEngine : double_t;
+procedure CalculateSpeedOfEngine(const result : EngineResultRec);
+procedure CheckIncreaseOfNodesInAnswerFromEngine(const result : EngineResultRec);
+function DurationOfLastResultReceivedByEngine : double_t;
+function DateOfLastActivityByEngine : SInt64;
+function DateOfLastStartOfEngine : SInt64;
+procedure PingEngine;
+procedure RelancerDerniereRechercheEngine;
 
 
 { Fonctions d'interface texte avec le bundle "EngineBundle.bundle" }
-procedure ReceiveEngineData(theCString : Ptr);                                                                                                                                      ATTRIBUTE_NAME('ReceiveEngineData')
-procedure SendStringToEngine(s : String255);                                                                                                                                        ATTRIBUTE_NAME('SendStringToEngine')
-procedure InterpretEngineCommand(line : LongString);                                                                                                                                ATTRIBUTE_NAME('InterpretEngineCommand')
-procedure SwitchToEngine(whichChannel : SInt16);                                                                                                                                    ATTRIBUTE_NAME('SwitchToEngine')
+procedure ReceiveEngineData(theCString : Ptr);
+procedure SendStringToEngine(s : String255);
+procedure InterpretEngineCommand(line : LongString);
+procedure SwitchToEngine(whichChannel : SInt16);
 
 
 { Lancement d'une recherche pour l'engine }
-function FabriquerChaineRequestPourEngine(var search : EngineSearchRec) : String255;                                                                                                ATTRIBUTE_NAME('FabriquerChaineRequestPourEngine')
-procedure StartEngineSearch(var demande : String255; var search : EngineSearchRec);                                                                                                 ATTRIBUTE_NAME('StartEngineSearch')
-procedure EngineNewPosition;                                                                                                                                                        ATTRIBUTE_NAME('EngineNewPosition')
+function FabriquerChaineRequestPourEngine(var search : EngineSearchRec) : String255;
+procedure StartEngineSearch(var demande : String255; var search : EngineSearchRec);
+procedure EngineNewPosition;
 
 
 { Traduction et manipulation des EngineResultRec }
-procedure InitResult(var result : EngineResultRec);                                                                                                                                 ATTRIBUTE_NAME('InitResult')
-function ParserResultLine(const line : LongString; var result : EngineResultRec) : boolean;                                                                                         ATTRIBUTE_NAME('ParserResultLine')
-function ParseSpeedResult(const line : LongString; var result : EngineResultRec) : boolean;                                                                                         ATTRIBUTE_NAME('ParseSpeedResult')
-procedure PatcherLesResultatsEntiersDesRequetesDeMilieu(search : EngineSearchRec; var result : EngineResultRec);                                                                    ATTRIBUTE_NAME('PatcherLesResultatsEntiersDesRequetesDeMilieu')
-procedure PatcherLesResultatsFlottantsDesRequetesDeFinale(search : EngineSearchRec; var result : EngineResultRec);                                                                  ATTRIBUTE_NAME('PatcherLesResultatsFlottantsDesRequetesDeFinale')
-procedure EcrireEngineResultDansRapport(var result : EngineResultRec);                                                                                                              ATTRIBUTE_NAME('EcrireEngineResultDansRapport')
+procedure InitResult(var result : EngineResultRec);
+function ParserResultLine(const line : LongString; var result : EngineResultRec) : boolean;
+function ParseSpeedResult(const line : LongString; var result : EngineResultRec) : boolean;
+procedure PatcherLesResultatsEntiersDesRequetesDeMilieu(search : EngineSearchRec; var result : EngineResultRec);
+procedure PatcherLesResultatsFlottantsDesRequetesDeFinale(search : EngineSearchRec; var result : EngineResultRec);
+procedure EcrireEngineResultDansRapport(var result : EngineResultRec);
 
 
 { Gestion d'une file locale des lignes recues en provenance l'engine }
-function GetNextResultFromEngine(var line : LongString) : boolean;                                                                                                                  ATTRIBUTE_NAME('GetNextResultFromEngine')
-procedure PosterUnResultatVenantDeLEngine(const line : LongString);                                                                                                                 ATTRIBUTE_NAME('PosterUnResultatVenantDeLEngine')
+function GetNextResultFromEngine(var line : LongString) : boolean;
+procedure PosterUnResultatVenantDeLEngine(const line : LongString);
 
 
 { Fonctions utilitaires pour passer des degres mu de Cassio aux precisions @95%, @100% des moteurs (Zebra, Edax, Roxane, etc) }
-function PrecisionEngineEnMuString(precision : SInt64) : String255;                                                                                                                 ATTRIBUTE_NAME('PrecisionEngineEnMuString')
-function MuStringEnPrecisionEngine(mu : String255) : SInt64;                                                                                                                        ATTRIBUTE_NAME('MuStringEnPrecisionEngine')
-function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt64) : SInt64;                                                                                                     ATTRIBUTE_NAME('IndexDeltaFinaleEnPrecisionEngine')
-function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt64) : SInt64;                                                                                            ATTRIBUTE_NAME('ProfondeurMilieuEnPrecisionFinaleEngine')
-function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt64) : SInt64;                                                                                             ATTRIBUTE_NAME('PrecisionFinaleEngineEnProfondeurMilieu')
+function PrecisionEngineEnMuString(precision : SInt64) : String255;
+function MuStringEnPrecisionEngine(mu : String255) : SInt64;
+function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt64) : SInt64;
+function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt64) : SInt64;
+function PrecisionFinaleEngineEnProfondeurMilieu(precision, empties : SInt64) : SInt64;
 
 
 { La boucle d'attente d'un resultat de l'engine }
-function WaitEngineResult(const search : EngineSearchRec; var result : EngineResultRec) : boolean;                                                                                  ATTRIBUTE_NAME('WaitEngineResult')
-procedure AmeliorerResultatGlobalParResultatPartiel(search : EngineSearchRec; var resultGlobal : EngineResultRec; resultPartiel : EngineResultRec);                                 ATTRIBUTE_NAME('AmeliorerResultatGlobalParResultatPartiel')
-procedure AnalyserLeResultatGlobal(couleur : SInt64; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt64; var meilleureSuite : t_meilleureSuite);                                                                          ATTRIBUTE_NAME('AnalyserLeResultatGlobal')
-procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRec; result : EngineResultRec; var meilleureSuite : t_meilleureSuite);                                ATTRIBUTE_NAME('MettreLeResultatGlobalDansLesVariablesDeCassio')
+function WaitEngineResult(const search : EngineSearchRec; var result : EngineResultRec) : boolean;
+procedure AmeliorerResultatGlobalParResultatPartiel(search : EngineSearchRec; var resultGlobal : EngineResultRec; resultPartiel : EngineResultRec);
+procedure AnalyserLeResultatGlobal(couleur : SInt64; search : EngineSearchRec; result : EngineResultRec; var rechercheTerminee : boolean; var note : SInt64; var meilleureSuite : t_meilleureSuite);
+procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRec; result : EngineResultRec; var meilleureSuite : t_meilleureSuite);
 
 
 { Fonctions pour manipuler la hash table de l'engine }
-procedure EngineInit;                                                                                                                                                               ATTRIBUTE_NAME('EngineInit')
-procedure EngineEmptyHash;                                                                                                                                                          ATTRIBUTE_NAME('EngineEmptyHash')
-procedure EngineBeginFeedHashSequence;                                                                                                                                              ATTRIBUTE_NAME('EngineBeginFeedHashSequence')
-procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt64);                                                                  ATTRIBUTE_NAME('EngineFeedHashValues')
-procedure EngineEndFeedHashSequence;                                                                                                                                                ATTRIBUTE_NAME('EngineEndFeedHashSequence')
-procedure EngineViderFeedHashHistory;                                                                                                                                               ATTRIBUTE_NAME('EngineViderFeedHashHistory')
+procedure EngineInit;
+procedure EngineEmptyHash;
+procedure EngineBeginFeedHashSequence;
+procedure EngineFeedHashValues(var position : PositionEtTraitRec; depth, valeurMin, valeurMax, bestMove : SInt64);
+procedure EngineEndFeedHashSequence;
+procedure EngineViderFeedHashHistory;
 
 
 { Decouverte des moteurs places par l'utilisateur dans le dossier 'Engines' }
-function TraiteFichierEngineEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;                                                      ATTRIBUTE_NAME('TraiteFichierEngineEtRecursion')
-procedure ChercheEnginesDansDossier(pathDuDossier : String255; var dossierTrouve : boolean);                                                                                        ATTRIBUTE_NAME('ChercheEnginesDansDossier')
-procedure LecturePreparatoireDossierEngines(pathDuDossierPere : String255 );                                                                                                        ATTRIBUTE_NAME('LecturePreparatoireDossierEngines')
-function GetEngineBundleName : String255;                                                                                                                                           ATTRIBUTE_NAME('GetEngineBundleName')
+function TraiteFichierEngineEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+procedure ChercheEnginesDansDossier(pathDuDossier : String255; var dossierTrouve : boolean);
+procedure LecturePreparatoireDossierEngines(pathDuDossierPere : String255 );
+function GetEngineBundleName : String255;
 
 
 { Liste des moteurs disponibles }
-function NumberOfEngines : SInt64;                                                                                                                                                  ATTRIBUTE_NAME('NumberOfEngines')
-function GetNumeroOfEngine(nomEngine : String255) : SInt64;                                                                                                                         ATTRIBUTE_NAME('GetNumeroOfEngine')
-function GetEngineName(numeroEngine : SInt64) : String255;                                                                                                                          ATTRIBUTE_NAME('GetEngineName')
-function GetEnginePath(numeroEngine : SInt64; nomEngine : String255) : String255;                                                                                                   ATTRIBUTE_NAME('GetEnginePath')
-function GetEngineVersion(numeroEngine : SInt64) : String255;                                                                                                                       ATTRIBUTE_NAME('GetEngineVersion')
-function EngineExists(nomEngine : String255) : boolean;                                                                                                                             ATTRIBUTE_NAME('EngineExists')
-procedure AddEngine(nomEngine, pathEngine : String255);                                                                                                                             ATTRIBUTE_NAME('AddEngine')
-procedure SetEngineVersion(numeroEngine : SInt64; version : String255);                                                                                                             ATTRIBUTE_NAME('SetEngineVersion')
+function NumberOfEngines : SInt64;
+function GetNumeroOfEngine(nomEngine : String255) : SInt64;
+function GetEngineName(numeroEngine : SInt64) : String255;
+function GetEnginePath(numeroEngine : SInt64; nomEngine : String255) : String255;
+function GetEngineVersion(numeroEngine : SInt64) : String255;
+function EngineExists(nomEngine : String255) : boolean;
+procedure AddEngine(nomEngine, pathEngine : String255);
+procedure SetEngineVersion(numeroEngine : SInt64; version : String255);
 
 
 { Fonctions d'affichage dans le rapport }
-procedure EnginePrint(const s : String255);                                                                                                                                         ATTRIBUTE_NAME('EnginePrint')
-procedure EnginePrintDebug(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('EnginePrintDebug')
-procedure EnginePrintWarning(const s : String255);                                                                                                                                  ATTRIBUTE_NAME('EnginePrintWarning')
-procedure EnginePrintInput(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('EnginePrintInput')
-procedure EnginePrintOutput(const s : String255);                                                                                                                                   ATTRIBUTE_NAME('EnginePrintOutput')
-procedure EnginePrintError(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('EnginePrintError')
-procedure EnginePrintColoredStringInRapport(const s : String255; whichColor : SInt16; whichStyle : StyleParameter);                                                                 ATTRIBUTE_NAME('EnginePrintColoredStringInRapport')
+procedure EnginePrint(const s : String255);
+procedure EnginePrintDebug(const s : String255);
+procedure EnginePrintWarning(const s : String255);
+procedure EnginePrintInput(const s : String255);
+procedure EnginePrintOutput(const s : String255);
+procedure EnginePrintError(const s : String255);
+procedure EnginePrintColoredStringInRapport(const s : String255; whichColor : SInt16; whichStyle : StyleParameter);
 
 
 
@@ -229,7 +229,7 @@ begin
   engine.mutex_reception_data   := 0;
   engine.lastDateOfStarting     := TickCount + 360000;
   SetEngineState(ENGINE_KILLED);
-  
+
   lignesEnvoyeesParHashFeed     := MakeEmptyStringSet;
   lignesTraiteesParHashFeed     := MakeEmptyStringSet;
 
@@ -609,11 +609,11 @@ end;
 procedure SetEngineState(state : SInt64);
 begin
   engine.state := state;
-  
+
   if (state = ENGINE_KILLED)
     then mySendDataToEnginePtr     := NIL;
-  
-  if (state = ENGINE_KILLED) | 
+
+  if (state = ENGINE_KILLED) |
      ((state = ENGINE_STOPPED) & (interruptionReflexion <> interruptionPositionADisparuDuZoo))
     then EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo('SetEngineState');
 end;
@@ -681,7 +681,7 @@ begin
   engine.state := ENGINE_RUNNING;
   KillCurrentEngine;
   Wait(0.25);
-  
+
   // relancer le meme
   if (numeroEngineEnCours > 0) & CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
     then Wait(1.0);
@@ -1515,19 +1515,19 @@ begin
      (s[1] <> 'O') &
      (s[1] <> '-') &
      ((Pos('Killed', s) > 0)
-      | (Pos('Segmentation fault', s) > 0) 
-      | (Pos('Bus error', s) > 0) 
+      | (Pos('Segmentation fault', s) > 0)
+      | (Pos('Bus error', s) > 0)
       | ((Pos('Engine terminated', s) > 0))
       ) then
     begin
-      if (Pos('Killed', s) > 0) 
+      if (Pos('Killed', s) > 0)
         then EnginePrint('The engine seems to have been killed by the Unix kernel') else
-        
+
       if (Pos('Segmentation fault', s) > 0) | (Pos('Bus error', s) > 0)
         then EnginePrint('The engine seems to have had a problem, as Apollo 13 said');
-        
-      if Pos('Engine terminated', s) <= 0 
-        then 
+
+      if Pos('Engine terminated', s) <= 0
+        then
           SetEngineState(ENGINE_KILLED)
         else
           begin
@@ -1535,7 +1535,7 @@ begin
             if (engine.nbQuitCommandsSent < 0) then
               SetEngineState(ENGINE_KILLED);
           end;
-          
+
       EcritGestionTemps;
       exit(InterpretEngineCommand);
     end;
@@ -1740,10 +1740,10 @@ begin
 
   if (pathMac = '') then
     exit(CanStartEngine);
-  
-  
+
+
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
-  if (pathMac[1] = ':') 
+  if (pathMac[1] = ':')
     then pathUnix := pathMac
     else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
@@ -1788,7 +1788,7 @@ begin
               inc(engine.nbStartsOfEngine);
               InitLongString(engine.lastStringReceived);
               EngineViderFeedHashHistory;
-              
+
 
               with gVitessesInstantaneesEngine do
                 begin
@@ -2358,7 +2358,7 @@ begin
 
         engine.speed                := vitesseMax;  { en kilonodes par seconde }
         engine.durationOfLastResult := result.time; { en secondes }
-        
+
       end;
 end;
 
@@ -2377,14 +2377,14 @@ begin
 
   if (result.time <> 0.0) & (result.kilonodes <> 0.0) then
       begin
-        
-        if (result.kilonodes = lastSpeedResultReceived.kilonodes) & 
+
+        if (result.kilonodes = lastSpeedResultReceived.kilonodes) &
            (result.time      > lastSpeedResultReceived.time) &
            (debugEngine | debuggage.engineInput) then
           begin
             EnginePrintColoredStringInRapport('WARNING : node count didn''t change, engine is probably stuck', RougeCmd, normal);
           end;
-        
+
         lastSpeedResultReceived.kilonodes := result.kilonodes;
         lastSpeedResultReceived.time      := result.time;
       end;
@@ -2551,7 +2551,7 @@ begin
     then SetEngineState(ENGINE_RUNNING);
 
   AjusteSleep;
-  
+
 
 end;
 
@@ -2665,7 +2665,7 @@ begin
 
 
   // remplir la ligne principale de Cassio
-  
+
   if rechercheTerminee & (result.depth >= search.depth)
     then MettreLeResultatGlobalDansLesVariablesDeCassio(search, result, meilleureSuite);
 
@@ -2872,7 +2872,7 @@ begin
     then
       begin
         // on va utiliser une recherche de finale par le moteur la place de notre recherche de milieu
-        
+
         alpha := (PrecedentMultipleDeN(alpha, 100) div 100);
         beta  := (ProchainMultipleDeN(beta, 100) div 100);
 
@@ -2886,7 +2886,7 @@ begin
     else
       begin
         // on va utiliser une vraie recherche de milieu par le moteur
-      
+
         precision := 90;  //   90 %
         EnginePeutFaireCalculDeMilieu := EnginePeutFaireCeCalcul(plateau,ReflMilieu,ReflMilieu,profondeur,couleur,alpha,beta,precision,dernierCoup,note,bestMove,meilleureSuite);
       end;
@@ -2944,12 +2944,12 @@ begin
           EnginePrint('');
 
           {test := EnginePeutFaireCalculDeFinale(positionToSolve.position, GetTraitOfPosition(positionToSolve), -1, 0, 100, 0, note, bestDef, foo^);}
-          
+
           foo := meilleureSuitePtr(AllocateMemoryPtrClear(sizeof(t_meilleureSuite)));
 
           if (foo <> NIL) then
             test := EnginePeutFaireCalculDeFinale(positionToSolve.position, GetTraitOfPosition(positionToSolve), -64, 64, 91, 0, note, bestDef, foo^);
-            
+
           if foo <> NIL then DisposeMemoryPtr(Ptr(foo));
 
 
@@ -3097,7 +3097,7 @@ begin
     begin
       EnginePrintColoredStringInRapport('current engine = ' + GetEngineName(numeroEngineEnCours), RougeCmd, bold);
       EnginePrintColoredStringInRapport('last command = ' + engine.lastCommandSent, RougeCmd, bold);
-      
+
       if CassioEstEnTrainDeCalculerPourLeZoo then
         begin
           theJob := GetCalculCourantDeCassioPourLeZoo;
@@ -3106,7 +3106,7 @@ begin
           EnginePrintColoredStringInRapport('Last command sent to the engine = ', RougeCmd, bold);
           EnginePrintColoredStringInRapport(engine.lastCommandSent, RougeCmd, bold);
         end;
-      
+
     end;
 
   EnginePrintColoredStringInRapport(s, RougeCmd, bold);

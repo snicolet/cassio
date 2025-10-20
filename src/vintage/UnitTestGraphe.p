@@ -7,7 +7,7 @@ INTERFACE
 
 
 
-procedure TestApprentissage;                                                                                                                                                        ATTRIBUTE_NAME('TestApprentissage')
+procedure TestApprentissage;
 
 
 IMPLEMENTATION
@@ -28,7 +28,7 @@ USES
     {$I prelink/TestGraphe.lk}
 {$ENDC}
 
- 
+
 {END_USE_CLAUSE}
 
 

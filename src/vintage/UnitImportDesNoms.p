@@ -9,62 +9,62 @@ INTERFACE
 
 
 { Initialisation et liberation de l'unité}
-procedure InitUnitImportDesNoms;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitImportDesNoms')
-procedure LibereMemoireImportDesNoms;                                                                                                                                               ATTRIBUTE_NAME('LibereMemoireImportDesNoms')
+procedure InitUnitImportDesNoms;
+procedure LibereMemoireImportDesNoms;
 
 
 { recherche d'un numero de joueur ou de tournoi dans la base WThor }
-function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;                                                ATTRIBUTE_NAME('TrouveNumeroDuJoueur')
-function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt64; fromIndex : SInt64) : boolean;                                                             ATTRIBUTE_NAME('TrouveNumeroDuTournoi')
-function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                   ATTRIBUTE_NAME('TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor')
-function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                   ATTRIBUTE_NAME('TrouveLexemesDeCeNomDeJoueurDansLaBaseThor')
-function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                    ATTRIBUTE_NAME('TrouveNumeroDeCeNomDeJoueurDansLaBaseThor')
-function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;                                                ATTRIBUTE_NAME('TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor')
+function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, confiance : SInt64; genreRecherche : SInt64) : boolean;
+function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt64; fromIndex : SInt64) : boolean;
+function TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
+function TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
+function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
+function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 
 
 { imports des noms }
-function PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos,pseudoPGN : String255) : String255;                                                                                   ATTRIBUTE_NAME('PseudoPGNEnNomDansBaseThor')
-function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;        ATTRIBUTE_NAME('PeutImporterNomJoueurFormatPGN')
-function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;                         ATTRIBUTE_NAME('PeutImporterNomTournoiFormatPGN')
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;             ATTRIBUTE_NAME('TrouverNomsDesJoueursDansNomDeFichier')
-function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt64; nomDictionnaireDesPseudos : String255) : boolean;                                          ATTRIBUTE_NAME('TrouverNomDeTournoiDansPath')
+function PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos,pseudoPGN : String255) : String255;
+function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
+function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;
+function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt64; nomDictionnaireDesPseudos : String255) : boolean;
 
 
 { gestion des erreurs}
-procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);                                                                                                         ATTRIBUTE_NAME('AjoutePseudoInconnu')
-procedure AnnonceNomAAjouterDansThor(const pseudo,nom : String255);                                                                                                                 ATTRIBUTE_NAME('AnnonceNomAAjouterDansThor')
+procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);
+procedure AnnonceNomAAjouterDansThor(const pseudo,nom : String255);
 
 
 { manipulation des noms }
-procedure TraduitNomTournoiEnMac(ancNom : String255; var nouveauNom : String255);                                                                                                   ATTRIBUTE_NAME('TraduitNomTournoiEnMac')
-procedure TraduitNomJoueurEnMac(ancNom : String255; var nouveauNom : String255);                                                                                                    ATTRIBUTE_NAME('TraduitNomJoueurEnMac')
-procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);                                                                                                ATTRIBUTE_NAME('EnlevePrenom')
-function NomCourtDuTournoi(const nomOrigine : String255) : String255;                                                                                                               ATTRIBUTE_NAME('NomCourtDuTournoi')
-function EstUnNomChinoisDeDeuxLettresOuMoins(const nomJoueur : String255) : boolean;                                                                                                ATTRIBUTE_NAME('EstUnNomChinoisDeDeuxLettresOuMoins')
-function EstUnPseudoDontLeDictionaireConfirmeQuOnNeConnaitPasLeNomReel(const pseudo : String255) : boolean;                                                                         ATTRIBUTE_NAME('EstUnPseudoDontLeDictionaireConfirmeQuOnNeConnaitPasLeNomReel')
+procedure TraduitNomTournoiEnMac(ancNom : String255; var nouveauNom : String255);
+procedure TraduitNomJoueurEnMac(ancNom : String255; var nouveauNom : String255);
+procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);
+function NomCourtDuTournoi(const nomOrigine : String255) : String255;
+function EstUnNomChinoisDeDeuxLettresOuMoins(const nomJoueur : String255) : boolean;
+function EstUnPseudoDontLeDictionaireConfirmeQuOnNeConnaitPasLeNomReel(const pseudo : String255) : boolean;
 
 
 { acces aux noms public de la base WThor }
-procedure MyFabriqueNomJoueurPourBaseWThorOfficielle(var nom : String255; var result : t_JoueurRecNouveauFormat);                                                                   ATTRIBUTE_NAME('MyFabriqueNomJoueurPourBaseWThorOfficielle')
-procedure MyFabriqueNomTournoiPourBaseWThorOfficielle(var nom : String255; var result : t_TournoiRecNouveauFormat);                                                                 ATTRIBUTE_NAME('MyFabriqueNomTournoiPourBaseWThorOfficielle')
-function JoueurRecNouveauFormatToString(whichPlayer : t_JoueurRecNouveauFormat) : String255;                                                                                        ATTRIBUTE_NAME('JoueurRecNouveauFormatToString')
-function TournoiRecNouveauFormatToString(whichTourney : t_TournoiRecNouveauFormat) : String255;                                                                                     ATTRIBUTE_NAME('TournoiRecNouveauFormatToString')
+procedure MyFabriqueNomJoueurPourBaseWThorOfficielle(var nom : String255; var result : t_JoueurRecNouveauFormat);
+procedure MyFabriqueNomTournoiPourBaseWThorOfficielle(var nom : String255; var result : t_TournoiRecNouveauFormat);
+function JoueurRecNouveauFormatToString(whichPlayer : t_JoueurRecNouveauFormat) : String255;
+function TournoiRecNouveauFormatToString(whichTourney : t_TournoiRecNouveauFormat) : String255;
 
 
 { Reconnaisance des noms par Metaphone ? }
-function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;                                                                                                       ATTRIBUTE_NAME('FabriqueNomEnMajusculesAvecEspaces')
-function FabriqueNomEnMajusculesSansEspaceSansMetaphone(s : String255) : String255;                                                                                                 ATTRIBUTE_NAME('FabriqueNomEnMajusculesSansEspaceSansMetaphone')
-function FabriqueNomEnMajusculesSansEspaceAvecMetaphone(s : String255) : String255;                                                                                                 ATTRIBUTE_NAME('FabriqueNomEnMajusculesSansEspaceAvecMetaphone')
-function FabriqueNomEnMajusculesSansEspaceDunNomWThor(nom : String255) : String255;                                                                                                 ATTRIBUTE_NAME('FabriqueNomEnMajusculesSansEspaceDunNomWThor')
-function CassioIsUsingMetaphone : boolean;                                                                                                                                          ATTRIBUTE_NAME('CassioIsUsingMetaphone')
-procedure SetCassioIsUsingMetaphone(flag : boolean);                                                                                                                                ATTRIBUTE_NAME('SetCassioIsUsingMetaphone')
-procedure RegenererLesNomsMetaphoneDeLaBase;                                                                                                                                        ATTRIBUTE_NAME('RegenererLesNomsMetaphoneDeLaBase')
+function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;
+function FabriqueNomEnMajusculesSansEspaceSansMetaphone(s : String255) : String255;
+function FabriqueNomEnMajusculesSansEspaceAvecMetaphone(s : String255) : String255;
+function FabriqueNomEnMajusculesSansEspaceDunNomWThor(nom : String255) : String255;
+function CassioIsUsingMetaphone : boolean;
+procedure SetCassioIsUsingMetaphone(flag : boolean);
+procedure RegenererLesNomsMetaphoneDeLaBase;
 
 
 { Fichier de torture }
-function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSErr;                                                                                                  ATTRIBUTE_NAME('OuvrirFichierTortureImportDesNoms')
-procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);                                                                           ATTRIBUTE_NAME('ReadLineInTortureFile')
-procedure FabriqueFichierDeTorture;                                                                                                                                                 ATTRIBUTE_NAME('FabriqueFichierDeTorture')
+function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSErr;
+procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure FabriqueFichierDeTorture;
 
 
 
@@ -162,43 +162,43 @@ var ligne,s,s1,s2,reste : String255;
 
 begin
   PseudoPGNEnNomDansBaseThor := '???';
-  
+
   eraseDigitsInPseudos := true;
 
   (* on normalise le pseudo cherché en retirant les traits
      de soulignement (parce que Kurnik a fait ça)
    *)
- 
+
   NormaliserPseudo(pseudoPGN);
-  
+
   (* on calcule deux versions du pseudo en enlevant
      les chiffres terminaux (parce que sur Internet
      les gens rajoutent souvent des chiffres à leur
      pseudo).
    *)
-  
+
   pseudoPGNAvecLesChiffresTerminaux := pseudoPGN;
-   
+
   t := LENGTH_OF_STRING(pseudoPGN);
   pseudoPGNSeTermineParDesChiffres := (t > 1) & IsDigit(pseudoPGN[t]);
   while (t > 1) & IsDigit(pseudoPGN[t]) & eraseDigitsInPseudos do
     dec(t);
   SET_LENGTH_OF_STRING(pseudoPGN,t);
-  
+
   pseudoPGNSansLesChiffresTerminaux := pseudoPGN;
-  
+
   (* en cas de pseudo PGN se terminant par des chiffres,
      on recherche d'abord la version avec les chiffres,
      puis on fera une seconde recherche (implementee par
-     un appel recursif à la fin de la fonction) pour la 
+     un appel recursif à la fin de la fonction) pour la
      version du pseudo sans les chiffres.
   *)
-  
+
   if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux)
     then pseudoPGN := pseudoPGNAvecLesChiffresTerminaux
     else pseudoPGN := pseudoPGNSansLesChiffresTerminaux;
-  
-  
+
+
   pseudoPGN[1] := LowerCase(pseudoPGN[1]);
 
   // WritelnDansRapport('pseudoPGN = '+pseudoPGN);
@@ -213,16 +213,16 @@ begin
     else
       begin
         doitMettreAJourLesPseudosAyantUnNomReel := false;
-        
+
         // On cherche dans le cache si le pseudo PGN cherche est bien dans le fichier dictionnaire...
         // Ceci permet d'aller très vite pour eliminer les pseudos PGN qui ne sont PAS dans le dictionnaire !
-        
+
         if not(MemberOfStringSet(LowerCaseStr(pseudoPGN),numero,gImportDesNoms.pseudosAyantUnNomReel)) then
           begin
-            if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux) & 
+            if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux) &
                (pseudoPGN = pseudoPGNAvecLesChiffresTerminaux) &
                (pseudoPGNSansLesChiffresTerminaux <> '')
-              then 
+              then
                 begin
                   // WritelnDansRapport('appel recursif {1}');
                   PseudoPGNEnNomDansBaseThor := PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos, pseudoPGNSansLesChiffresTerminaux);
@@ -235,9 +235,9 @@ begin
                 end;
           end;
       end;
-      
-  
-  // methode un peu lente : on va ouvrir le fichier dictionnaire et le parcourir ligne a ligne...    
+
+
+  // methode un peu lente : on va ouvrir le fichier dictionnaire et le parcourir ligne a ligne...
 
   if (nomDictionnaireDesPseudos <> '') then
     begin
@@ -296,18 +296,18 @@ begin
 
                     // desormais "s1" est le pseudo avant le "=" dans le fichier dictionnaire
                     // et "reste" est le nom reel du joueur apres le "=" dans le fichier dictionnaire
-                    
+
                     if not(NoCaseEquals(s1,reste)) then
                       begin
                         s1[1] := LowerCase(s1[1]);
 
                         if doitMettreAJourLesPseudosAyantUnNomReel & (s1 <> '') then
                           begin
-                          
+
                             // on ajoute dans le cache des pseudos ayant un nom reel le pseudo du
                             // fichier dictionnaire avec ses chiffres terminaux
                             AddStringToSet(LowerCaseStr(s1),-1,gImportDesNoms.pseudosAyantUnNomReel);
-                          
+
                             pseudoAvecUnNomReel := s1;
                             t := LENGTH_OF_STRING(pseudoAvecUnNomReel);
                             while (t > 1) & IsDigit(pseudoAvecUnNomReel[t]) do
@@ -342,12 +342,12 @@ begin
          on préfere donc l'effacer  *)
       if doitMettreAJourLesPseudosAyantUnNomReel & trouve
         then DisposeStringSet(gImportDesNoms.pseudosAyantUnNomReel);
-      
-      
-     if not(trouve) 
+
+
+     if not(trouve)
         & (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux)
         & (pseudoPGNSansLesChiffresTerminaux <> '')
-       then 
+       then
          begin
            // WritelnDansRapport('appel recursif {2}');
            PseudoPGNEnNomDansBaseThor := PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos, pseudoPGNSansLesChiffresTerminaux);
@@ -432,7 +432,7 @@ begin
   confiance := 0;
 
   StripHTMLAccents(pseudo);
-  
+
 
   {WritelnDansRapport('Entree dans PeutImporterNomJoueurFormatPGN, pseudo = ' + pseudo); }
 
@@ -440,18 +440,18 @@ begin
     begin
 
       pseudoArrivee := UTF8ToAscii(pseudo);
-      
+
       (*
       testHTML := pseudoArrivee;
       StripHTMLAccents(pseudoArrivee);
-      
+
       if (testHTML <> pseudoArrivee) then
         begin
           WRitelnDansRapport('HTML STRIP : pseudoArrivee = ' + pseudoArrivee);
         end;
       *)
-      
-      
+
+
       // StripHTMLAccents(pseudoArrivee);
 
       if (LENGTH_OF_STRING(pseudoArrivee) <= 2) & not(EstUnNomChinoisDeDeuxLettresOuMoins(pseudoArrivee))
@@ -481,8 +481,8 @@ begin
             then pseudo := LeftOfString(pseudo, LongueurPlusLongNomDeJoueurDansBase);
 
           //WritelnDansRapport('après troncature, pseudo = ' + pseudo);
-            
-          
+
+
           { on utilise le dictionnaire des pseudos "name_mapping_VOG_to_WThor.txt" pour
             transformer si necessaire un pseudo Internet en nom dans la base WThor }
           nomDansThor := PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos, pseudo);
@@ -511,7 +511,7 @@ begin
 
 
 
-          
+
 
           { à tout hasard, on essaie de voir si le pseudo ne serait pas
             directement un nom de joueur dans la base WThor :-)        }
@@ -572,10 +572,10 @@ begin
                     numeroDansThor := nouveauNumero;
                   end;
              end;
-           
+
 
       AddStringToSet(pseudoArrivee,numeroDansThor,gImportDesNoms.pseudosNomsDejaVus);
-      
+
       (*
       if (numeroDansThor > 0) then
         begin
@@ -591,8 +591,8 @@ begin
   if (numeroDansThor > kNroJoueurInconnu)
     then nomDansThor := GetNomJoueur(numeroDansThor)
     else nomDansThor := GetNomJoueur(kNroJoueurInconnu);
-    
-  
+
+
 
   PeutImporterNomJoueurFormatPGN := (numeroDansThor > kNroJoueurInconnu);
 end;
@@ -656,7 +656,7 @@ begin
 	if (reste <> '') then
 	  begin
 	    Parser(reste,s,reste);
-	    
+	
 	    { essayer recursivement sur le reste : ceci permet de commencer par la fin }
 	    if TrouverNomDeTournoiDansPath(reste, numero, annee, nomDictionnaireDesPseudos) then
 	      begin
@@ -665,10 +665,10 @@ begin
 	        SetParsingCaracterSet(oldParsingSet);
 	        exit(TrouverNomDeTournoiDansPath);
 	      end;
-	    
+	
 	    EnleveEspacesDeGaucheSurPlace(s);
 	    EnleveEspacesDeDroiteSurPlace(s);
-	    
+	
 	    if PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,s,nomDansThor,numero) then
 	      begin
 	        numeroTournoi := numero;
@@ -718,26 +718,26 @@ var nbJoueursTrouves : SInt64;
 
     nomThorNoir  := GetNomJoueurEnMajusculesSansEspace(numeroNoir);
     nomThorBlanc := GetNomJoueurEnMajusculesSansEspace(numeroBlanc);
-    
+
     pseudoNoir  := FabriqueNomEnMajusculesSansEspaceSansMetaphone(pseudoNoir);
     pseudoBlanc := FabriqueNomEnMajusculesSansEspaceSansMetaphone(pseudoBlanc);
-     
-    distanceDeCetteSolution :=   PseudoDistanceDeHamming(pseudoNoir  , nomThorNoir) 
-                               + PseudoDistanceDeHamming(pseudoBlanc , nomThorBlanc) 
+
+    distanceDeCetteSolution :=   PseudoDistanceDeHamming(pseudoNoir  , nomThorNoir)
+                               + PseudoDistanceDeHamming(pseudoBlanc , nomThorBlanc)
                                - (LENGTH_OF_STRING(pseudoNoir) - 1) * 2
                                - (LENGTH_OF_STRING(pseudoBlanc) - 1) * 2 ;
-    
-    
-    if (Pos(pseudoNoir, nomThorNoir) = 1) & (Pos(pseudoBlanc, nomThorBlanc) = 1) 
+
+
+    if (Pos(pseudoNoir, nomThorNoir) = 1) & (Pos(pseudoBlanc, nomThorBlanc) = 1)
       then distanceDeCetteSolution := distanceDeCetteSolution - 5;
-    
+
     (*
     WriteDansRapport('PublishSolution :   ' + pseudoNoir+ ' , ' + pseudoBlanc);
     WriteDansRapport('                             ' + nomThorNoir+ ' , ' + nomThorBlanc);
     WritelnNumDansRapport('  dist = ',distanceDeCetteSolution);
     *)
-    
-    
+
+
     if (distanceDeCetteSolution < distanceBestSolution) |
        ((distanceDeCetteSolution = distanceBestSolution) & (longueurDeCetteSolution > longueurBestSolution)) then
       begin
@@ -835,16 +835,16 @@ var nbJoueursTrouves : SInt64;
       for coupurePrenom := 0 to (imax - imin) do
         begin
           permutation := MakePseudo(imin,imax,coupurePrenom);
-          
+
           // WritelnDansRapport('permutation = '+permutation);
 
           if PeutTrouverNomDeJoueurDansWThor(permutation,numero) then
             begin
               nom := permutation;
               TrouvePseudoEtNumeroJoueurDansMorceau := true;
-              
+
               // WritelnDansRapport('permutation trouvee = '+GetNomJoueur(numero));
-              
+
               exit(TrouvePseudoEtNumeroJoueurDansMorceau);
             end;
 
@@ -898,13 +898,13 @@ var nbJoueursTrouves : SInt64;
     numero3 := memoisation[imin3,imax3];
 
     nbMorceauxImpossibles := 0;
-    
+
     if (numero1 = kNroJoueurInconnu) then inc(nbMorceauxImpossibles);
     if (numero2 = kNroJoueurInconnu) then inc(nbMorceauxImpossibles);
     if (numero3 = kNroJoueurInconnu) then inc(nbMorceauxImpossibles);
     if (nbMorceauxImpossibles >= 2) then
       exit(SplitTableByThree);
-      
+
 
     trouve1 := TrouvePseudoEtNumeroJoueurDansMorceau(imin1,imax1,numero1,nom1);
     trouve2 := TrouvePseudoEtNumeroJoueurDansMorceau(imin2,imax2,numero2,nom2);
@@ -1028,7 +1028,7 @@ var nbJoueursTrouves : SInt64;
                 inc(chunkNumber);
               end;
 
-      	    chaines[i] := MyStripDiacritics(chaines[i]);
+      	    chaines[i] := StripDiacritics(chaines[i]);
       	    chunk[i]   := chunkNumber;
 
 
@@ -1049,10 +1049,10 @@ var nbJoueursTrouves : SInt64;
       	       ((chaines[i] = 'round') & (i = 1)) |
       	       ((chaines[i] = 'Round') & (i = 1))
       	      then dec(i);
-      	    
+      	
       	    aux := chaines[i];
       	    chaines[i] := ReplaceStringByStringInString('ZEROZEROSEPT','007',aux);
-      	    
+      	
       	  end;
       	nbSousChaines := i;
 
@@ -1108,7 +1108,7 @@ begin  {TrouverNomsDesJoueursDansNomDeFichier}
 
   s := UTF8ToAscii(s);
   StripHTMLAccents(s);
-  
+
   tempo := ReplaceStringByStringInString('007','ZEROZEROSEPT',s);
   s     := ReplaceStringByStringInString('007','ZEROZEROSEPT',tempo);
 
@@ -1149,8 +1149,8 @@ begin
       pseudosAyantUnNomReel      := MakeEmptyStringSet;
       pseudosSansNomReel         := MakeEmptyStringSet;
       nomsReelsARajouterDansBase := MakeEmptyStringSet;
-      
-      (* Attention : les chaines ci-dessous doivent etre celles que 
+
+      (* Attention : les chaines ci-dessous doivent etre celles que
          l'on veut tester dans les fonctions TesterFormesALternatives()    *)
       formesPossiblesDesVanDen   := MakeEmptyATR;
       InsererDansATR(formesPossiblesDesVanDen, FabriqueNomEnMajusculesAvecEspaces('van den '));
@@ -1164,7 +1164,7 @@ begin
       InsererDansATR(formesPossiblesDesVanDen, FabriqueNomEnMajusculesAvecEspaces('v/d '));
     end;
 end;
-        
+
 procedure LibereMemoireImportDesNoms;
 begin
   with gImportDesNoms do
@@ -1498,7 +1498,7 @@ begin
   for k := 1 to TailleJoueurRecNouveauFormat do
     result[k] := 0;
 
-  nom := MyStripDiacritics(nom);
+  nom := StripDiacritics(nom);
   EnleveEspacesDeDroiteSurPlace(nom);
   EnleveEspacesDeGaucheSurPlace(nom);
   nom := LeftOfString(nom,TailleJoueurRecNouveauFormat-1);
@@ -1515,7 +1515,7 @@ begin
   for k := 1 to TailleTournoiRecNouveauFormat do
     result[k] := 0;
 
-  nom := MyStripDiacritics(nom);
+  nom := StripDiacritics(nom);
   EnleveEspacesDeDroiteSurPlace(nom);
   EnleveEspacesDeGaucheSurPlace(nom);
   nom := LeftOfString(nom,TailleTournoiRecNouveauFormat-1);
@@ -1769,18 +1769,18 @@ begin
 
       // position du metaphone du joueur par rapport au metaphone de la base ?
       positionMetaphone := FindStringDansMetaphoneSansEspaceDeCeJoueur(metaphoneCherche, i);
-      
+
       // position du nom du joueur dans le nom de la base ?
       positionDuNom := FindStringDansNomEnMajusculesSansEspaceDeCeJoueur(nomChercheEnMajuscules, i);
-      
+
 
       if (positionMetaphone > 0) | (positionDuNom > 0) then
 	      begin
-	      
+	
 	        trouve := true;
-	        
+	
 	        nomBaseEnMajuscules := GetNomJoueurEnMajusculesSansEspace(i);
-	        
+	
 
 	        // on a trouve le metaphone du joueur :
 	        // bonus d'autant plus grand qu'il est au début du mot
@@ -1809,9 +1809,9 @@ begin
   	            if (positionDuNom = 1) then
                   begin
                     nouvelleQualite := 90;  // excellent si le nom du joueur est un prefixe du nom de la base
-                    
+
                     nomBase := GetNomJoueur(i);
-                    
+
                     (*
                     if debug then
                       begin
@@ -1863,7 +1863,7 @@ begin
 
 
 end;
-  
+
 
 function TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String255; var numeroJoueur, confiance : SInt64) : boolean;
 var formeAlternative : String255;
@@ -1893,7 +1893,7 @@ var formeAlternative : String255;
              end;
          end;
      end;
-     
+
 
 begin { TrouveNumeroDeCeNomDeJoueurDansLaBaseThor }
 
@@ -1901,7 +1901,7 @@ begin { TrouveNumeroDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveNumeroDuJoueur(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position) 
+  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2067,7 +2067,7 @@ begin { TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouvePrefixeDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position) 
+  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2249,7 +2249,7 @@ begin { TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveSousChaineDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position) 
+  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2298,7 +2298,7 @@ var i,j,k : SInt64;
     lexemesCherches : array[0..200] of SInt64;
     lexemesBase : array[0..200] of SInt64;
     lexemesCherchesAux : array[0..200] of SInt64;
-    
+
 label sortie;
 begin
 
@@ -2339,7 +2339,7 @@ begin
 
   for i := 1 to indexMax do
     begin
-      
+
       nbLexemesBase := GetHashLexemesDeCeJoueur(i, @lexemesBase);
 
       // copier les nombres de lexemes
@@ -2363,12 +2363,12 @@ begin
 
       if (nbLexemesBaseAux <= 0) | (nbLexemesCherchesAux <= 0) then
         begin
-        
+
           trouve := true;
-        
+
           nomBase := GetNomJoueur(i);
           nomBaseEnMajusculesAvecEspaces := FabriqueNomEnMajusculesAvecEspaces(nomBase);
-          
+
           nouvelleQualite := 85 - PseudoDistanceDeHamming(nomChercheEnMajusculesAvecEspaces, nomBaseEnMajusculesAvecEspaces);
 
           if (nouvelleQualite > qualiteSolutionCourante) then
@@ -2447,7 +2447,7 @@ begin { TrouveLexemesDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveLexemesDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position) 
+  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2688,8 +2688,8 @@ begin
 
                 end;
 
-            reussi := NoCaseEquals(MyStripDiacritics(UTF8ToAscii(s1)), MyStripDiacritics(UTF8ToAscii(expected1))) &
-                      NoCaseEquals(MyStripDiacritics(UTF8ToAscii(s2)), MyStripDiacritics(UTF8ToAscii(expected2)));
+            reussi := NoCaseEquals(StripDiacritics(UTF8ToAscii(s1)), StripDiacritics(UTF8ToAscii(expected1))) &
+                      NoCaseEquals(StripDiacritics(UTF8ToAscii(s2)), StripDiacritics(UTF8ToAscii(expected2)));
 
 
              if not(reussi) then
@@ -2705,7 +2705,7 @@ begin
                   begin
                     WriteDansRapport('           GOT :  ');
                     WriteDansRapport(s1);
-                    if (expected2 <> '') then 
+                    if (expected2 <> '') then
                       begin
                         WriteDansRapport('  VERSUS  ' + s2);
                         //WriteNumDansRapport('               (n,b) = (',nroNoir);
@@ -2767,7 +2767,7 @@ begin
       WritelnDansRapport('');
       DoLectureJoueursEtTournoi(false);
     end;
-  
+
   {ATRAffichageInfixe('formesPossiblesDesVanDen = ',gImportDesNoms.formesPossiblesDesVanDen);}
 
   WritelnDansRapport('----------------------------------------------------------------------------------');

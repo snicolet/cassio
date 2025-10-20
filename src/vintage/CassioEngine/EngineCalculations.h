@@ -1,6 +1,6 @@
 /*
  *  EngineCalculations.h
- *  
+ *
  *
  *  Created by Stephane Nicolet on 03/10/09.
  *

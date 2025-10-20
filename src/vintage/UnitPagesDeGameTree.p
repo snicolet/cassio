@@ -13,17 +13,17 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitPagesDeGameTree;                                                                                                                                                  ATTRIBUTE_NAME('InitUnitPagesDeGameTree')
-procedure DisposeToutesLesPagesDeGameTree;                                                                                                                                          ATTRIBUTE_NAME('DisposeToutesLesPagesDeGameTree')
+procedure InitUnitPagesDeGameTree;
+procedure DisposeToutesLesPagesDeGameTree;
 
 
-function PeutCreerNouvellePageGameTree : boolean;                                                                                                                                   ATTRIBUTE_NAME('PeutCreerNouvellePageGameTree')
-function TrouvePlaceDansPageDeGameTree(var nroPage,nroIndex : SInt32) : boolean;                                                                                                    ATTRIBUTE_NAME('TrouvePlaceDansPageDeGameTree')
-procedure LocaliserGameTreeDansSaPage(G : GameTree; var nroDePage,nroIndex : SInt32);                                                                                               ATTRIBUTE_NAME('LocaliserGameTreeDansSaPage')
+function PeutCreerNouvellePageGameTree : boolean;
+function TrouvePlaceDansPageDeGameTree(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserGameTreeDansSaPage(G : GameTree; var nroDePage,nroIndex : SInt32);
 
 
-function NewGameTreePaginee : GameTree;                                                                                                                                             ATTRIBUTE_NAME('NewGameTreePaginee')
-procedure DisposeGameTreePaginee(G : GameTree);                                                                                                                                     ATTRIBUTE_NAME('DisposeGameTreePaginee')
+function NewGameTreePaginee : GameTree;
+procedure DisposeGameTreePaginee(G : GameTree);
 
 
 

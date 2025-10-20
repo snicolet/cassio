@@ -15,12 +15,12 @@ INTERFACE
 
 
 
-procedure InitUnitFormatsFichiers;                                                                                                                                                  ATTRIBUTE_NAME('InitUnitFormatsFichiers')
-procedure LibereMemoireFormatsFichiers;                                                                                                                                             ATTRIBUTE_NAME('LibereMemoireFormatsFichiers')
+procedure InitUnitFormatsFichiers;
+procedure LibereMemoireFormatsFichiers;
 
 
 { « fic » doit etre un fichier fermé, il est rendu fermé}
-function TypeDeFichierEstConnu(const fic : FichierTEXT; var infos : FormatFichierRec; var err : OSErr) : boolean;                                                                   ATTRIBUTE_NAME('TypeDeFichierEstConnu')
+function TypeDeFichierEstConnu(const fic : FichierTEXT; var infos : FormatFichierRec; var err : OSErr) : boolean;
 
 
 
@@ -91,7 +91,7 @@ begin
                         kTypeFichierTortureImportDesNoms,
                         kTypeFichierCronjob
                       ];
-  
+
 end;
 
 procedure LibereMemoireFormatsFichiers;
@@ -542,7 +542,7 @@ var eventTagFound    : boolean;
 begin
 
   {WritelnDansRapport('recherche des caracteristiques du format PGN special genere par XBoard (Alien edition)…');}
-  
+
   eventTagFound   := false;
   reversiTagFound := false;
   FENTagFound     := false;
@@ -555,98 +555,98 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s);
     EnleveEspacesDeGaucheSurPlace(s);
-    
+
     if Pos('[Event',s) > 0             then eventTagFound   := true;
     if Pos('[Variant "reversi"',s) > 0 then reversiTagFound := true;
-    if Pos('[FEN ',s) > 0              then 
+    if Pos('[FEN ',s) > 0              then
       begin
         FENTagFound := true;
         FENString   := s;
       end;
-    
+
   until (compteurLignes > 15) | (err <> NoErr) | (eventTagFound & reversiTagFound & fenTagFound);
 
 
   if eventTagFound & reversiTagFound & fenTagFound then
     begin
-    
+
       if ParserFENEnPositionEtTrait(FENString, thePosition) then
         begin
-        
+
           oldParsingSet := GetParsingCaracterSet;
-          SetParsingCaracterSet([' ',tab,cr,lf]); 
-        
-          
+          SetParsingCaracterSet([' ',tab,cr,lf]);
+
+
           indexDansFichier := GetPositionMarqueurFichierAbstrait(gLectureFichier.whichFichierAbstrait);
           tailleFichier    := gLectureFichier.whichFichierAbstrait.nbOctetsOccupes;
           err              := NoErr;
           bufferSize       := Min( 32000, tailleFichier - indexDansFichier + 1);
           buffer           := AllocateMemoryPtrClear(bufferSize);
-          
-          
+
+
           repeat
-          
+
             // on lit le buffer dans le fichier
             count    := bufferSize;
             err := ReadFromFichierAbstrait(gLectureFichier.whichFichierAbstrait,indexDansFichier,count,buffer);
-            
+
             indexDansFichier := indexDansFichier + count;
-            
-            
+
+
             // eclater le buffer en tokens
             indexDansBuffer := 0;
             repeat
               token := ParserBuffer(Ptr(buffer), bufferSize, indexDansBuffer, lastRead);
-              
+
               (*
               WriteNumDansRapport('i = ',indexDansBuffer);
               WriteDansRapport('  =>  token = '+token);
               WriteNumDansRapport('  , last = ',lastRead);
               WritelnDansRapport('');
               *)
-              
+
               indexDansBuffer := lastRead + 1;
-              
+
               if (LENGTH_OF_STRING(token) >= 4) then
                 begin
-                
+
                   // les tokens qui nous interessent sont ceux qui contiennent "P@" ou "p@"
                   // ils indiquent la pose d'un pion dans le format XBoard (Alien edition)
                   s := token;
                   repeat
                     k1 := Pos('P@' , s);
                     k2 := Pos('p@' , s);
-                    
+
                     k := 0;
                     if (k1 > 0) & (k2 > 0) then k := Min(k1,k2) else
                     if (k1 > 0)            then k := k1 else
                     if (k2 > 0)            then k := k2;
-                      
-                    if (k > 0) then 
+
+                    if (k > 0) then
                       begin
                         square := StringEnCoup(TPCopy(s, k + 2, 2));
                         coups := coups + CoupEnStringEnMajuscules(CaseSymetrique(square,axeHorizontal));
                         s := TPCopy(s, k + 4, 255);
                       end;
                   until (k <= 0);
-                  
+
                 end;
             until (token = '') | (indexDansBuffer >= bufferSize);
-            
+
           until (err <> NoErr) | (LENGTH_OF_STRING(coups) >= (2 * 64)) | (indexDansFichier >= tailleFichier);
-          
+
 
           DisposeMemoryPtr(Ptr(buffer));
           SetParsingCaracterSet(oldParsingSet);
-          
-          
+
+
           infos.tailleOthellier  := 8;
           infos.positionEtPartie := PositionEtTraitEnString(thePosition) + '  ' + coups;
           infos.format           := kTypeFichierXBoardAlien;
-          
+
         end;
     end;
-    
+
 end;
 
 
@@ -1235,8 +1235,8 @@ begin
               begin
 
                 theTranscript := MakeTranscriptFromPlateauOthello(coupsPourLeTranscript);
-                ChercherLesErreursDansCeTranscript(theTranscript,analyse^); 
-                
+                ChercherLesErreursDansCeTranscript(theTranscript,analyse^);
+
                 (*
                 WritelnDansRapport('appel de ChercherLesErreursDansCeTranscript');
                 WritelnNumDansRapport('nbDoublons = ',analyse^.nbDoublons);
@@ -1251,7 +1251,7 @@ begin
                 WritelnNumDansRapport('nombreCasesRemplies = ',analyse^.nombreCasesRemplies);
                 WritelnDansRapport('===============================');
                 *)
-                
+
                 if analyse^.tousLesCoupsSontLegaux then
                   begin
                     s := analyse^.plusLonguePartieLegale;
@@ -1315,21 +1315,21 @@ begin
     begin
       caracteresDeControle := [];
       SetCaracteresASauter(caracteresDeControle);
-    
+
       ResetLectureFichier;
 
       compteurLignes := 2;
-    
+
       err := GetNextLineDansFichier(ligne1);
       err := GetNextLineDansFichier(ligne2);
-      
-      if (err = NoErr) & 
+
+      if (err = NoErr) &
          (Pos('%!PS-Adobe-3.0 EPSF-3.0', ligne1) = 1) &
          (Pos('%%Creator: Cassio',       ligne2) = 1) then
         begin
           infos.format := kTypeFichierEPS;
           infos.tailleOthellier  := 8;
-          
+
           posDebut := PositionEtTraitInitiauxStandardEnString;
           moves := '';
           repeat
@@ -1343,7 +1343,7 @@ begin
                   Parser(ligne, foo, moves);
               end;
           until (compteurLignes > 20) | (err <> NoErr) | (Pos('%%BeginProlog',ligne) > 0) | (Pos('%%EndComments',ligne) > 0);
-          
+
           infos.positionEtPartie := posDebut + ' ' + moves;
         end;
     end;
@@ -1355,7 +1355,7 @@ var c : char;
     compteurLignes : SInt32;
     ligne,s,s1,s2 : String255;
 begin
-  
+
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
     if (ord(c) <= 32) | (c = ' ') then
@@ -1369,20 +1369,20 @@ begin
   repeat
     inc(compteurLignes);
     err := GetNextLineDansFichier(ligne);
-    
+
     if SplitAt(ligne,'%',s1,s2)
       then s := s1
       else s := ligne;
     EnleveEspacesDeGaucheSurPlace(s);
-    
+
     if (Pos('JOB ',s) = 1) | (Pos('PREFETCH ',s) = 1) then
       begin
         infos.format := kTypeFichierScriptZoo;
         exit(EssaieReconnaitreFormatScriptZoo);
       end;
-    
+
   until (compteurLignes > 25) | (err <> NoErr);
-  
+
 end;
 
 
@@ -1544,15 +1544,15 @@ begin  { TypeDeFichierEstConnu }
             {
             WritelnDansRapport('OK, FichierAbstraitEstCorrect(whichFichierAbstrait) dans TypeDeFichierEstConnu');
             }
-            
+
             {on cherche à savoir si c'est un fichier EPS créé par Cassio}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatEPS;
-            
-            
+
+
             {on cherche à savoir si c'est un fichier PGN spécial créé par XBoard Alien (cf plus bas pour les vrais PGN}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatXBoardAlien;
-            
-            
+
+
             {on cherche à savoir si c'est un fichier cronjob}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatCronjob;
 
@@ -1591,8 +1591,8 @@ begin  { TypeDeFichierEstConnu }
 
             {on cherche à savoir si c'est un fichier de torture pour la reconnaissance des noms}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatFichierTortureImportDesNoms;
-            
-            
+
+
             {on cherche à savoir si c'est un fichier de jobs du zoo}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatScriptZoo;
 
@@ -1631,7 +1631,7 @@ begin  { TypeDeFichierEstConnu }
 
             {on cherche s'il s'agit d'une position isolee au format script de finale}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatScriptFinalesDansPressePapier;
-            
+
 
 
             { TODO : je devrais faire de reverse engeneering et essayer de comprendre le format .wzg pour les positions…

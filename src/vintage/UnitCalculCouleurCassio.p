@@ -14,16 +14,16 @@ INTERFACE
 
 
 
-function ChoisirCouleurOthellierAvecPicker(var theColor : RGBColor) : boolean;                                                                                                      ATTRIBUTE_NAME('ChoisirCouleurOthellierAvecPicker')
+function ChoisirCouleurOthellierAvecPicker(var theColor : RGBColor) : boolean;
 
-function CalculeCouleurRecord(whichMenuID,whichMenuCmd : SInt16) : CouleurOthellierRec;                                                                                             ATTRIBUTE_NAME('CalculeCouleurRecord')
-procedure CheckScreenDepth;                                                                                                                                                         ATTRIBUTE_NAME('CheckScreenDepth')
-procedure CheckValidityOfCouleurRecord(var whichColor : CouleurOthellierRec; var colorChanged : boolean);                                                                           ATTRIBUTE_NAME('CheckValidityOfCouleurRecord')
+function CalculeCouleurRecord(whichMenuID,whichMenuCmd : SInt16) : CouleurOthellierRec;
+procedure CheckScreenDepth;
+procedure CheckValidityOfCouleurRecord(var whichColor : CouleurOthellierRec; var colorChanged : boolean);
 
-function PlusProcheCouleurRGBOfTexture(var whichColor : CouleurOthellierRec; var textureInconnue : boolean) : RGBColor;                                                             ATTRIBUTE_NAME('PlusProcheCouleurRGBOfTexture')
-procedure DetermineOthellierPatSelonCouleur(CouleurDemandeeParUtilisateur : SInt16; var othellierPat : pattern);                                                                    ATTRIBUTE_NAME('DetermineOthellierPatSelonCouleur')
+function PlusProcheCouleurRGBOfTexture(var whichColor : CouleurOthellierRec; var textureInconnue : boolean) : RGBColor;
+procedure DetermineOthellierPatSelonCouleur(CouleurDemandeeParUtilisateur : SInt16; var othellierPat : pattern);
 
-function GetTypeOfTexture(const nomTexture : String255) : SInt32;                                                                                                                   ATTRIBUTE_NAME('GetTypeOfTexture')
+function GetTypeOfTexture(const nomTexture : String255) : SInt32;
 
 
 IMPLEMENTATION

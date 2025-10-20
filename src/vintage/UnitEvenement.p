@@ -9,30 +9,30 @@ INTERFACE
 
 (*********************** Event handlers ***************************)
 
-procedure TraiteOneEvenement;                                                                                                                                                       ATTRIBUTE_NAME('TraiteOneEvenement')
-procedure TraiteEvenements;                                                                                                                                                         ATTRIBUTE_NAME('TraiteEvenements')
-procedure TraiteNullEvent(var whichEvent : eventRecord);                                                                                                                            ATTRIBUTE_NAME('TraiteNullEvent')
+procedure TraiteOneEvenement;
+procedure TraiteEvenements;
+procedure TraiteNullEvent(var whichEvent : eventRecord); 
 
-function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;                                                        ATTRIBUTE_NAME('HasGotEvent')
-procedure HandleEvent(var whichEvent : eventRecord);                                                                                                                                ATTRIBUTE_NAME('HandleEvent')
+function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;
+procedure HandleEvent(var whichEvent : eventRecord);
 
 
 
 (*********************** Key down and up utilities *****************)
 
-procedure StoreKeyDownEvent(var whichEvent : eventRecord);                                                                                                                          ATTRIBUTE_NAME('StoreKeyDownEvent')
-procedure SetRepetitionDeToucheEnCours(flag : boolean);                                                                                                                             ATTRIBUTE_NAME('SetRepetitionDeToucheEnCours')
-function RepetitionDeToucheEnCours : boolean;                                                                                                                                       ATTRIBUTE_NAME('RepetitionDeToucheEnCours')
-function DateOfLastKeyDownEvent : SInt32;                                                                                                                                           ATTRIBUTE_NAME('DateOfLastKeyDownEvent')
-function DateOfLastKeyboardOperation : SInt32;                                                                                                                                      ATTRIBUTE_NAME('DateOfLastKeyboardOperation')
-function NoDelayAfterKeyboardOperation : boolean;                                                                                                                                   ATTRIBUTE_NAME('NoDelayAfterKeyboardOperation')
-procedure RemoveDelayAfterKeyboardOperation;                                                                                                                                        ATTRIBUTE_NAME('RemoveDelayAfterKeyboardOperation')
-procedure SimulateNumericKeyPad(var whichChar : char);                                                                                                                              ATTRIBUTE_NAME('SimulateNumericKeyPad')
+procedure StoreKeyDownEvent(var whichEvent : eventRecord); 
+procedure SetRepetitionDeToucheEnCours(flag : boolean);
+function RepetitionDeToucheEnCours : boolean;
+function DateOfLastKeyDownEvent : SInt32;
+function DateOfLastKeyboardOperation : SInt32; 
+function NoDelayAfterKeyboardOperation : boolean;
+procedure RemoveDelayAfterKeyboardOperation; 
+procedure SimulateNumericKeyPad(var whichChar : char); 
 
 
 (******************** Tell Cassio to suspend checking "dangerous" event (which can change the move number) *******************)
-procedure SetCassioMustCheckDangerousEvents(newvalue : boolean; oldValue : BooleanPtr);                                                                                             ATTRIBUTE_NAME('SetCassioMustCheckDangerousEvents')
-function CassioCanCheckForDangerousEvents : boolean;                                                                                                                                ATTRIBUTE_NAME('CassioCanCheckForDangerousEvents')
+procedure SetCassioMustCheckDangerousEvents(newvalue : boolean; oldValue : BooleanPtr);
+function CassioCanCheckForDangerousEvents : boolean;
 
 
 
@@ -346,10 +346,10 @@ begin
 
   if EnModeEntreeTranscript then
     begin
-      
+
       if FenetreListeEstEnModeEntree then
         exit(SimulateNumericKeyPad);
-    
+
       if EnTraitementDeTexte & FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan then
         exit(SimulateNumericKeyPad);
 

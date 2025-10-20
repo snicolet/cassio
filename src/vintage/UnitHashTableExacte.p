@@ -18,83 +18,83 @@ INTERFACE
 
 
 {initialisation et destruction de l'unite}
-procedure InitUnitHashTableExacte;                                                                                                                                                  ATTRIBUTE_NAME('InitUnitHashTableExacte')
-procedure LibereMemoireUnitHashTableExacte;                                                                                                                                         ATTRIBUTE_NAME('LibereMemoireUnitHashTableExacte')
+procedure InitUnitHashTableExacte;
+procedure LibereMemoireUnitHashTableExacte;
 
 
 {vidage}
-procedure VideHashTableExacte(whichHashTableExacte : HashTableExactePtr);                                                                                                           ATTRIBUTE_NAME('VideHashTableExacte')
-procedure VideHashTableCoupsLegaux(whichHashTableCoupsLegaux : CoupsLegauxHashPtr);                                                                                                 ATTRIBUTE_NAME('VideHashTableCoupsLegaux')
-procedure VideToutesLesHashTablesExactes;                                                                                                                                           ATTRIBUTE_NAME('VideToutesLesHashTablesExactes')
-procedure VideToutesLesHashTablesCoupsLegaux;                                                                                                                                       ATTRIBUTE_NAME('VideToutesLesHashTablesCoupsLegaux')
-procedure ViderHashTablePourMilieuDePartie(withCheckEvents : boolean);                                                                                                              ATTRIBUTE_NAME('ViderHashTablePourMilieuDePartie')
+procedure VideHashTableExacte(whichHashTableExacte : HashTableExactePtr);
+procedure VideHashTableCoupsLegaux(whichHashTableCoupsLegaux : CoupsLegauxHashPtr);
+procedure VideToutesLesHashTablesExactes;
+procedure VideToutesLesHashTablesCoupsLegaux;
+procedure ViderHashTablePourMilieuDePartie(withCheckEvents : boolean);
 {procedure DetruitEntreesIncorrectesHashTableCoupsLegaux;}
 
 
 {fonctions d'acces a la table de hachage exacte}
-procedure SetTraitDansHashExacte(trait : SInt32; var cellule : HashTableExacteElement);                                                                                             ATTRIBUTE_NAME('SetTraitDansHashExacte')
-procedure SetBestDefenseDansHashExacte(bestDefense : SInt32; var cellule : HashTableExacteElement);                                                                                 ATTRIBUTE_NAME('SetBestDefenseDansHashExacte')
-function GetTraitDansHashExacte(var cellule : HashTableExacteElement) : SInt32;                                                                                                     ATTRIBUTE_NAME('GetTraitDansHashExacte')
-function GetBestDefenseDansHashExacte(var cellule : HashTableExacteElement) : SInt32;                                                                                               ATTRIBUTE_NAME('GetBestDefenseDansHashExacte')
-procedure GetEndgameValuesInHashTableElement(var cellule : HashTableExacteElement; whichDeltaFinal : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32);                           ATTRIBUTE_NAME('GetEndgameValuesInHashTableElement')
+procedure SetTraitDansHashExacte(trait : SInt32; var cellule : HashTableExacteElement);
+procedure SetBestDefenseDansHashExacte(bestDefense : SInt32; var cellule : HashTableExacteElement);
+function GetTraitDansHashExacte(var cellule : HashTableExacteElement) : SInt32;
+function GetBestDefenseDansHashExacte(var cellule : HashTableExacteElement) : SInt32;
+procedure GetEndgameValuesInHashTableElement(var cellule : HashTableExacteElement; whichDeltaFinal : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32);
 
 
 {utilisation en milieu de partie}
-procedure SetValMinEtMaxDeMilieu(whichValeurMin,whichValeurMax : SInt16; var cellule : HashTableExacteElement);                                                                     ATTRIBUTE_NAME('SetValMinEtMaxDeMilieu')
-procedure GetValMinEtMaxDeMilieu(var whichValeurMin,whichValeurMax : SInt16; var cellule : HashTableExacteElement);                                                                 ATTRIBUTE_NAME('GetValMinEtMaxDeMilieu')
-procedure LigneMilieuToMeilleureSuiteInfos(couleur, prof, lastMove : SInt32; startingPosition : PositionEtTraitRec; ligne : String255; var meilleureSuite : t_meilleureSuite);      ATTRIBUTE_NAME('LigneMilieuToMeilleureSuiteInfos')
+procedure SetValMinEtMaxDeMilieu(whichValeurMin,whichValeurMax : SInt16; var cellule : HashTableExacteElement);
+procedure GetValMinEtMaxDeMilieu(var whichValeurMin,whichValeurMax : SInt16; var cellule : HashTableExacteElement);
+procedure LigneMilieuToMeilleureSuiteInfos(couleur, prof, lastMove : SInt32; startingPosition : PositionEtTraitRec; ligne : String255; var meilleureSuite : t_meilleureSuite);
 
 
 
 {utilisation en finale}
-procedure CreeCodagePosition(var plat : plOthEndgame; couleur,prof : SInt32; var codagePosition : codePositionRec);                                                                 ATTRIBUTE_NAME('CreeCodagePosition')
-procedure WritelnCodagePositionDansRapport(codagePosition : codePositionRec);                                                                                                       ATTRIBUTE_NAME('WritelnCodagePositionDansRapport')
-procedure ExpandHashTableExacte(var whichElement : HashTableExacteElement; var whichLegalMoves : CoupsLegauxHashPtr; var codagePosition : codePositionRec; clefHashExacte : SInt32);                                                                                          ATTRIBUTE_NAME('ExpandHashTableExacte')
-function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; var quelleHashTableExacte : HashTableExactePtr; clefHashage : SInt32; var whichClefExacte : SInt32) : boolean;                                                                                  ATTRIBUTE_NAME('InfoTrouveeDansHashTableExacte')
-function MeilleurCoupEstStockeDansLesBornes(const bornes : DecompressionHashExacteRec; var meilleurCoup,valeurDeLaPosition : SInt32) : boolean;                                     ATTRIBUTE_NAME('MeilleurCoupEstStockeDansLesBornes')
+procedure CreeCodagePosition(var plat : plOthEndgame; couleur,prof : SInt32; var codagePosition : codePositionRec);
+procedure WritelnCodagePositionDansRapport(codagePosition : codePositionRec);
+procedure ExpandHashTableExacte(var whichElement : HashTableExacteElement; var whichLegalMoves : CoupsLegauxHashPtr; var codagePosition : codePositionRec; clefHashExacte : SInt32);
+function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; var quelleHashTableExacte : HashTableExactePtr; clefHashage : SInt32; var whichClefExacte : SInt32) : boolean;
+function MeilleurCoupEstStockeDansLesBornes(const bornes : DecompressionHashExacteRec; var meilleurCoup,valeurDeLaPosition : SInt32) : boolean;
 
 
 {bornes, majorant, minorant, etc}
-procedure AugmentationMinorant(newValeurMin,newDeltaMin,coup,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello; fonctionAppelante : String255);  ATTRIBUTE_NAME('AugmentationMinorant')
-procedure DiminutionMajorant(newValeurMax,newDeltaMax,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello; fonctionAppelante : String255);         ATTRIBUTE_NAME('DiminutionMajorant')
-procedure EnleverBornesMinPeuSuresDesAutresCoups(whichLegalMoves : CoupsLegauxHashPtr; clefHashExacte,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello);                                                                                  ATTRIBUTE_NAME('EnleverBornesMinPeuSuresDesAutresCoups')
-procedure DecompresserBornesHashTableExacte(var whichElement : HashTableExacteElement; var bornes : DecompressionHashExacteRec);                                                    ATTRIBUTE_NAME('DecompresserBornesHashTableExacte')
-procedure CompresserBornesDansHashTableExacte(var whichElement : HashTableExacteElement; var bornes : DecompressionHashExacteRec);                                                  ATTRIBUTE_NAME('CompresserBornesDansHashTableExacte')
-procedure WritelnBornesDansRapport(var bornes : DecompressionHashExacteRec);                                                                                                        ATTRIBUTE_NAME('WritelnBornesDansRapport')
-procedure SetEndgameValuesInHashExacte(clefHash,nbVides : SInt32; jeu : PositionEtTraitRec; valMin,valMax,meilleurCoup,deltaFinale : SInt32);                                       ATTRIBUTE_NAME('SetEndgameValuesInHashExacte')
-procedure MetValeursDansHashExacte(clefHash,nbVides : SInt32; jeu : PositionEtTraitRec; valMin,valMax,meilleurCoup,deltaFinale,recursion : SInt32; const fonctionAppelante : String255);                                                                                      ATTRIBUTE_NAME('MetValeursDansHashExacte')
+procedure AugmentationMinorant(newValeurMin,newDeltaMin,coup,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello; fonctionAppelante : String255);
+procedure DiminutionMajorant(newValeurMax,newDeltaMax,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello; fonctionAppelante : String255);
+procedure EnleverBornesMinPeuSuresDesAutresCoups(whichLegalMoves : CoupsLegauxHashPtr; clefHashExacte,couleur : SInt32; var bornes : DecompressionHashExacteRec; var plat : plateauOthello);
+procedure DecompresserBornesHashTableExacte(var whichElement : HashTableExacteElement; var bornes : DecompressionHashExacteRec);
+procedure CompresserBornesDansHashTableExacte(var whichElement : HashTableExacteElement; var bornes : DecompressionHashExacteRec);
+procedure WritelnBornesDansRapport(var bornes : DecompressionHashExacteRec);
+procedure SetEndgameValuesInHashExacte(clefHash,nbVides : SInt32; jeu : PositionEtTraitRec; valMin,valMax,meilleurCoup,deltaFinale : SInt32);
+procedure MetValeursDansHashExacte(clefHash,nbVides : SInt32; jeu : PositionEtTraitRec; valMin,valMax,meilleurCoup,deltaFinale,recursion : SInt32; const fonctionAppelante : String255);
 
 
 {fonctions de haut niveau, ne necessitant que le hashKey de Cassio de la position (et eventuellement un fils) }
-function GetEndgameValuesInHashTableAtThisHashKey(plat : PositionEtTraitRec; hashKey,deltaFinale : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32) : boolean;                   ATTRIBUTE_NAME('GetEndgameValuesInHashTableAtThisHashKey')
-function GetEndgameValuesInHashTableFromThisNode(plat : PositionEtTraitRec; G : GameTree; deltaFinale : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32) : boolean;              ATTRIBUTE_NAME('GetEndgameValuesInHashTableFromThisNode')
-function GetEndgameBornesInHashTableAtThisHashKey(plat : PositionEtTraitRec; hashKey : SInt32; var bornes : DecompressionHashExacteRec) : boolean;                                  ATTRIBUTE_NAME('GetEndgameBornesInHashTableAtThisHashKey')
-function GetEndgameBornesDansHashExacteAfterThisSon(whichSon : SInt32; platDepart : PositionEtTraitRec; clefHashage : SInt32; var bornes : DecompressionHashExacteRec) : boolean;   ATTRIBUTE_NAME('GetEndgameBornesDansHashExacteAfterThisSon')
-function GetEndgameScoreDansHashExacteAfterThisSon(whichSon : SInt32; platDepart : PositionEtTraitRec; clefHashage : SInt32; var score : SInt32) : boolean;                         ATTRIBUTE_NAME('GetEndgameScoreDansHashExacteAfterThisSon')
-function ScoreFinalEstConfirmeParValeursHashExacte(genreReflexion,scoreDeNoir,vMinPourNoir,vMaxPourNoir : SInt32) : boolean;                                                        ATTRIBUTE_NAME('ScoreFinalEstConfirmeParValeursHashExacte')
-function ScoreFinalEstFaiblementConfirmeParValeursHashExacte(genreReflexion,scoreDeNoir,vMinPourNoir,vMaxPourNoir : SInt32) : boolean;                                              ATTRIBUTE_NAME('ScoreFinalEstFaiblementConfirmeParValeursHashExacte')
+function GetEndgameValuesInHashTableAtThisHashKey(plat : PositionEtTraitRec; hashKey,deltaFinale : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32) : boolean;
+function GetEndgameValuesInHashTableFromThisNode(plat : PositionEtTraitRec; G : GameTree; deltaFinale : SInt32; var valMinPourNoir,valMaxPourNoir : SInt32) : boolean;
+function GetEndgameBornesInHashTableAtThisHashKey(plat : PositionEtTraitRec; hashKey : SInt32; var bornes : DecompressionHashExacteRec) : boolean;
+function GetEndgameBornesDansHashExacteAfterThisSon(whichSon : SInt32; platDepart : PositionEtTraitRec; clefHashage : SInt32; var bornes : DecompressionHashExacteRec) : boolean;
+function GetEndgameScoreDansHashExacteAfterThisSon(whichSon : SInt32; platDepart : PositionEtTraitRec; clefHashage : SInt32; var score : SInt32) : boolean;
+function ScoreFinalEstConfirmeParValeursHashExacte(genreReflexion,scoreDeNoir,vMinPourNoir,vMaxPourNoir : SInt32) : boolean;
+function ScoreFinalEstFaiblementConfirmeParValeursHashExacte(genreReflexion,scoreDeNoir,vMinPourNoir,vMaxPourNoir : SInt32) : boolean;
 
 
 (* fonction calculant la clef de hashage initiale pour la finale *)
-function CalculateHashIndexFromThisNode(var positionCherchee : PositionEtTraitRec; whichNode : GameTree; var dernierCoup : SInt32) : SInt32;                                        ATTRIBUTE_NAME('CalculateHashIndexFromThisNode')
+function CalculateHashIndexFromThisNode(var positionCherchee : PositionEtTraitRec; whichNode : GameTree; var dernierCoup : SInt32) : SInt32;
 
 
 (* Transfert des infos de l'arbre Smart Game Board dans les hash table, ou d'une ligne parfaite dans les hash table *)
-procedure MetSousArbreDansHashTableExacte(G : GameTree; nbVidesMinimum : SInt32);                                                                                                   ATTRIBUTE_NAME('MetSousArbreDansHashTableExacte')
-procedure MetSousArbreRecursivementDansHashTable(G : GameTree; plat : PositionEtTraitRec; hashValue, nbVides, nbVidesMinimum : SInt32);                                             ATTRIBUTE_NAME('MetSousArbreRecursivementDansHashTable')
-procedure LigneFinaleToHashTable(couleur, prof, lastMove, vMin, vMax, deltaFinale : SInt32; startingPosition : PositionEtTraitRec; ligne : String255; var meilleureSuite : t_meilleureSuite);                                                                                 ATTRIBUTE_NAME('LigneFinaleToHashTable')
+procedure MetSousArbreDansHashTableExacte(G : GameTree; nbVidesMinimum : SInt32);
+procedure MetSousArbreRecursivementDansHashTable(G : GameTree; plat : PositionEtTraitRec; hashValue, nbVides, nbVidesMinimum : SInt32);
+procedure LigneFinaleToHashTable(couleur, prof, lastMove, vMin, vMax, deltaFinale : SInt32; startingPosition : PositionEtTraitRec; ligne : String255; var meilleureSuite : t_meilleureSuite);
 
 
 {statistiques}
-function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double_t;                                                                                 ATTRIBUTE_NAME('TauxDeRemplissageHashExacte')
-procedure VideHashTable(whichHashTable : HashTableHdl);                                                                                                                             ATTRIBUTE_NAME('VideHashTable')
-procedure EcritStatistiquesCollisionsHashTableDansRapport;                                                                                                                          ATTRIBUTE_NAME('EcritStatistiquesCollisionsHashTableDansRapport')
-procedure AfficheHashTable(minimum,maximum : SInt32);                                                                                                                               ATTRIBUTE_NAME('AfficheHashTable')
+function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double_t;
+procedure VideHashTable(whichHashTable : HashTableHdl);
+procedure EcritStatistiquesCollisionsHashTableDansRapport;
+procedure AfficheHashTable(minimum,maximum : SInt32);
 
 
 
 {$IFC USE_DEBUG_STEP_BY_STEP}
-procedure AjouterPositionsDevantEtreDebugueesPasAPas(var positionsCherchees : PositionEtTraitSet);                                                                                  ATTRIBUTE_NAME('AjouterPositionsDevantEtreDebugueesPasAPas')
+procedure AjouterPositionsDevantEtreDebugueesPasAPas(var positionsCherchees : PositionEtTraitSet);
 {$ENDC}
 
 
@@ -204,11 +204,11 @@ end;
 procedure ViderHashTablePourMilieuDePartie(withCheckEvents : boolean);
 var i : SInt32;
 begin
-  
+
   VideHashTable(HashTable);
-  
+
   if withCheckEvents & ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
-  
+
   for i := 0 to nbTablesHashExactes-1 do
     if (interruptionReflexion = pasdinterruption) then
 	   begin
@@ -217,7 +217,7 @@ begin
 	     if withCheckEvents & ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
        if (interruptionReflexion = pasdinterruption) then VideHashTableCoupsLegaux(CoupsLegauxHash[i]);
 	   end;
-	   
+	
 	nbCollisionsHashTableExactes := 0;
 	nbNouvellesEntreesHashTableExactes := 0;
 	nbPositionsRetrouveesHashTableExactes := 0;
@@ -1832,7 +1832,7 @@ begin
             WritelnDansRapport('');
           end;
       end;
-      
+
 
     gClefHashage := copieDeClefHashage;
     TesterClefHashage(copieDeClefHashage,'LigneMilieuToMeilleureSuiteInfos');

@@ -16,13 +16,13 @@ INTERFACE
    current gDevice.  If the allocation fails (low memory, etc.) we quit to Finder. *)
 
 
-procedure CreateOffScreenPixMap(var theRect : rect; var offScreenGWorld : CGrafPtr);                                                                                                ATTRIBUTE_NAME('CreateOffScreenPixMap')
-procedure KillOffscreenPixMap(var wasPort : CGrafPtr; killColorTable : boolean);                                                                                                    ATTRIBUTE_NAME('KillOffscreenPixMap')
+procedure CreateOffScreenPixMap(var theRect : rect; var offScreenGWorld : CGrafPtr);
+procedure KillOffscreenPixMap(var wasPort : CGrafPtr; killColorTable : boolean);
 
-function CreateTempOffScreenWorld(var theRect : rect; var offScreenGWorld : GWorldPtr) : OSErr;                                                                                     ATTRIBUTE_NAME('CreateTempOffScreenWorld')
-procedure KillTempOffscreenWorld(var offScreenGWorld : GWorldPtr);                                                                                                                  ATTRIBUTE_NAME('KillTempOffscreenWorld')
+function CreateTempOffScreenWorld(var theRect : rect; var offScreenGWorld : GWorldPtr) : OSErr;
+procedure KillTempOffscreenWorld(var offScreenGWorld : GWorldPtr);
 
-procedure DumpWorkToScreen(sourceRect,targetRect : rect; offScreenWork,targetWindow : CGrafPtr);                                                                                    ATTRIBUTE_NAME('DumpWorkToScreen')
+procedure DumpWorkToScreen(sourceRect,targetRect : rect; offScreenWork,targetWindow : CGrafPtr);
 
 
 IMPLEMENTATION

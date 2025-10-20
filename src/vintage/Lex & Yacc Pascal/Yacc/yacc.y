@@ -30,7 +30,7 @@
    (see Schreiner/Friedman, "Introduction to compiler construction with
    UNIX," 1985).
 
-*/ 
+*/
 
 %{
 (*
@@ -66,7 +66,7 @@ Last changes:
     updates)
 
 $History: YACC.PAS $
- * 
+ *
  * *****************  Version 2  *****************
  * User: Berend       Date: 96-10-10   Time: 21:16
  * Updated in $/Lex and Yacc/tply
@@ -158,29 +158,29 @@ uses
 
 %}
 
-/* Lexical part of the Yacc language: */ 
+/* Lexical part of the Yacc language: */
 
 %token
-  ID        /* identifiers: {letter}{letter_or_digit}* */ 
-  C_ID        /* identifier which forms left side of rule, i.e. is followed by a colon */ 
-  LITERAL       /* single character literal */ 
-  LITID         /* multiple character literal */ 
-  NUMBER  /* nonnegative integers: {digit}+ */ 
+  ID        /* identifiers: {letter}{letter_or_digit}* */
+  C_ID        /* identifier which forms left side of rule, i.e. is followed by a colon */
+  LITERAL       /* single character literal */
+  LITID         /* multiple character literal */
+  NUMBER  /* nonnegative integers: {digit}+ */
   PTOKEN PLEFT PRIGHT PNONASSOC PTYPE PSTART PPREC
-          /* reserved words: PTOKEN=%token, etc. */ 
-  PP        /* source sections separator %% */ 
-  LCURL        /* curly braces: %{ and %} */ 
+          /* reserved words: PTOKEN=%token, etc. */
+  PP        /* source sections separator %% */
+  LCURL        /* curly braces: %{ and %} */
   RCURL
   ',' ':' ';' '|' '{' '}' '<' '>' '='
-        /* literals */ 
-  ILLEGAL  /* illegal input character */ 
+        /* literals */
+  ILLEGAL  /* illegal input character */
 
 %start grammar
 
 %%
 
 /* Lexical entities, those that may give rise to syntax errors are augmented
-   with error productions, and important symbols call yyerrok. */ 
+   with error productions, and important symbols call yyerrok. */
 
 id        : ID
 c_id        : C_ID
@@ -210,7 +210,7 @@ rangle        : '>'
         | error         { error(rangle_expected); }
 eq        : '='
 
-/* Syntax and semantic routines: */ 
+/* Syntax and semantic routines: */
 
 grammar        : defs pp
                   { sort_types;
@@ -223,14 +223,14 @@ grammar        : defs pp
           aux_procs
         ;
 
-aux_procs  : /* empty: aux_procs is optional */ 
+aux_procs  : /* empty: aux_procs is optional */
 
         | pp { copy_rest_of_file; }
 
         ;
 
 
-defs        : /* empty */ 
+defs        : /* empty */
         | defs def  { yyerrok; }
         | defs error  { error(error_in_def); }
         ;
@@ -263,7 +263,7 @@ def        : pstart id
 
         ;
 
-tag        : /* empty: type tag is optional */ 
+tag        : /* empty: type tag is optional */
                 { act_type := 0; }
         | langle id rangle
                 { act_type := $2; add_type($2); }
@@ -341,7 +341,7 @@ rules        :         { next_section; }
           rule1
                     /* rules section may be prefixed
                        with `local' Turbo Pascal
-                       declarations */ 
+                       declarations */
         | rules rule
                 { yyerrok; }
         | error
@@ -366,7 +366,7 @@ rule        : rule1
                 { end_body; }
         ;
 
-body        : /* empty */ 
+body        : /* empty */
 
         | body literal
                 { add_symbol($2); yyerrok; }
@@ -384,10 +384,10 @@ action        : lbrace { copy_action; } rbrace
 
         | eq { copy_single_action; }
                         /* old language feature; code must be
-                   single statement ending with `;' */ 
+                   single statement ending with `;' */
         ;
 
-prec        : /* empty */ 
+prec        : /* empty */
 
         | pprec literal
                 { add_rule_prec($2); }
@@ -405,7 +405,7 @@ prec        : /* empty */
 
         ;
 
-opt_action  : /* empty */ 
+opt_action  : /* empty */
 
         | action
                 { add_action; }

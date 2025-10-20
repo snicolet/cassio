@@ -14,14 +14,14 @@ INTERFACE
 
 
 
-procedure InitUnitChi2NouvelleEval;                                                                                                                                                 ATTRIBUTE_NAME('InitUnitChi2NouvelleEval')
+procedure InitUnitChi2NouvelleEval;
 
-procedure SetPrefixeCalculeChi2(s : String255);  {pour affichage dans rapport}                                                                                                      ATTRIBUTE_NAME('SetPrefixeCalculeChi2')
-procedure SetPrefixeCalculeChi2EtGradient(s : String255);  {pour affichage dans rapport}                                                                                            ATTRIBUTE_NAME('SetPrefixeCalculeChi2EtGradient')
+procedure SetPrefixeCalculeChi2(s : String255);  {pour affichage dans rapport}
+procedure SetPrefixeCalculeChi2EtGradient(s : String255);  {pour affichage dans rapport}
 
-procedure SetBornePourCalculGradientChi2(borne : TypeReel);                                                                                                                         ATTRIBUTE_NAME('SetBornePourCalculGradientChi2')
-function CalculeChi2(var v : VectNewEval) : TypeReel;                                                                                                                               ATTRIBUTE_NAME('CalculeChi2')
-function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;                                                                                                            ATTRIBUTE_NAME('CalculeChi2EtGradient')
+procedure SetBornePourCalculGradientChi2(borne : TypeReel);
+function CalculeChi2(var v : VectNewEval) : TypeReel;
+function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;
 
 
 IMPLEMENTATION

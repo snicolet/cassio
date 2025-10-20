@@ -14,14 +14,14 @@
 
 /************/
 
- 
+
 pascal int afficher_zebra_book(char *file_name) {
  	int C, index ;
  	char s[15] ;
  	int Pos[100] ;
  	short Score_Noir, Score_Blanc, Alt_Move, Alt_Score;
  	unsigned short Flags ;
- 	int orientation ; 
+ 	int orientation ;
  	BookNode node;
  	
  	C = read_binary_database( file_name ) ;

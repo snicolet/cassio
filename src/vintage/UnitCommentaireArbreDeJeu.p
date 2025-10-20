@@ -7,14 +7,14 @@ INTERFACE
  USES UnitDefCassio , QuickDraw;
 
 
-procedure DessineRubanDuCommentaireDansFenetreArbreDeJeu(forceModeEdition : boolean);                                                                                               ATTRIBUTE_NAME('DessineRubanDuCommentaireDansFenetreArbreDeJeu')
-procedure DessineZoneDeTexteDansFenetreArbreDeJeu(forceModeEdition : boolean);                                                                                                      ATTRIBUTE_NAME('DessineZoneDeTexteDansFenetreArbreDeJeu')
-procedure CalculeEditionRectFenetreArbreDeJeu;                                                                                                                                      ATTRIBUTE_NAME('CalculeEditionRectFenetreArbreDeJeu')
-procedure ChangeDelimitationEditionRectFenetreArbreDeJeu(positionDelimitation : SInt16);                                                                                            ATTRIBUTE_NAME('ChangeDelimitationEditionRectFenetreArbreDeJeu')
-procedure ActiverModeEditionFenetreArbreDeJeu;                                                                                                                                      ATTRIBUTE_NAME('ActiverModeEditionFenetreArbreDeJeu')
-procedure DeactiverModeEditionFenetreArbreDeJeu;                                                                                                                                    ATTRIBUTE_NAME('DeactiverModeEditionFenetreArbreDeJeu')
-procedure FaireClignoterFenetreArbreDeJeu;                                                                                                                                          ATTRIBUTE_NAME('FaireClignoterFenetreArbreDeJeu')
-procedure ClicDansTexteCommentaires(pt : Point; extend : boolean);                                                                                                                  ATTRIBUTE_NAME('ClicDansTexteCommentaires')
+procedure DessineRubanDuCommentaireDansFenetreArbreDeJeu(forceModeEdition : boolean);
+procedure DessineZoneDeTexteDansFenetreArbreDeJeu(forceModeEdition : boolean);
+procedure CalculeEditionRectFenetreArbreDeJeu;
+procedure ChangeDelimitationEditionRectFenetreArbreDeJeu(positionDelimitation : SInt16);
+procedure ActiverModeEditionFenetreArbreDeJeu;
+procedure DeactiverModeEditionFenetreArbreDeJeu;
+procedure FaireClignoterFenetreArbreDeJeu;
+procedure ClicDansTexteCommentaires(pt : Point; extend : boolean);
 
 
 

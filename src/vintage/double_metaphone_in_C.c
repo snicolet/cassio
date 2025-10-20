@@ -6,14 +6,14 @@
 #include <assert.h>
 
 
- 
+
 #define META_MALLOC(v,n,t) \
           (v = (t*)malloc(((n)*sizeof(t))))
 #define META_REALLOC(v,n,t) \
 	                  (v = (t*)realloc((v),((n)*sizeof(t))))
 #define META_FREE(x) free((x))
 
-#define META_LENGTH  20 
+#define META_LENGTH  20
 
 
 typedef struct
@@ -23,12 +23,12 @@ typedef struct
     int bufsize;
     int free_string_on_destroy;
 }
-metastring;      
+metastring;
 
 
 /* prototypes */
 
-pascal void DoubleMetaphone(char *str, char **codes);  
+pascal void DoubleMetaphone(char *str, char **codes);
 
 
 metastring * NewMetaString(char *init_str);
@@ -64,7 +64,7 @@ NewMetaString(char *init_str)
 
     META_MALLOC(s->str, s->bufsize, char);
     assert( s->str != NULL );
-    
+
     strncpy(s->str, init_str, s->length + 1);
     s->free_string_on_destroy = 1;
 
@@ -115,7 +115,7 @@ IsVowel(metastring * s, int pos)
 	return 0;
 
     c = *(s->str + pos);
-    if ((c == 'A') || (c == 'E') || (c == 'I') || (c  == 'O') || 
+    if ((c == 'A') || (c == 'E') || (c == 'I') || (c  == 'O') ||
         (c  == 'U')  || (c == 'Y'))
 	return 1;
 
@@ -166,7 +166,7 @@ SetAt(metastring * s, int pos, char c)
 }
 
 
-/* 
+/*
    Caveats: the START value is 0 based
 */
 int
@@ -227,8 +227,8 @@ DoubleMetaphone(char *str, char **codes)
 
     current = 0;
     /* we need the real length and last prior to padding */
-    length  = strlen(str); 
-    last    = length - 1; 
+    length  = strlen(str);
+    last    = length - 1;
     original = NewMetaString(str);
     /* Pad original so we can index beyond end */
     MetaphAdd(original, "     ");
@@ -253,7 +253,7 @@ DoubleMetaphone(char *str, char **codes)
       }
 
     /* main loop */
-    while ((primary->length < META_LENGTH) || (secondary->length < META_LENGTH))  
+    while ((primary->length < META_LENGTH) || (secondary->length < META_LENGTH))
       {
 	  if (current >= length)
 	      break;
@@ -362,7 +362,7 @@ DoubleMetaphone(char *str, char **codes)
 				      "ARCHIT", "ORCHID", "")
 			  || StringAt(original, (current + 2), 1, "T", "S",
 				      "")
-			  || ((StringAt(original, (current - 1), 1, "A", "O", "U", "E", "") 
+			  || ((StringAt(original, (current - 1), 1, "A", "O", "U", "E", "")
                           || (current == 0))
 			   /* e.g., 'wachtler', 'wechsler', but not 'tichner' */
 			  && StringAt(original, (current + 2), 1, "L", "R",
@@ -770,7 +770,7 @@ DoubleMetaphone(char *str, char **codes)
 				  if (!StringAt(original, (current + 1), 1, "L", "T",
 				                "K", "S", "N", "M", "B", "Z", "")
 				      && !StringAt(original, (current - 1), 1,
-						   "S", "K", "L", "")) 
+						   "S", "K", "L", ""))
                                     {
 				      MetaphAdd(primary, "J");
 				      MetaphAdd(secondary, "J");
@@ -950,7 +950,7 @@ DoubleMetaphone(char *str, char **codes)
 		      break;
 		  }
 
-		/* german & anglicisations, e.g. 'smith' match 'schmidt', 'snider' match 'schneider' 
+		/* german & anglicisations, e.g. 'smith' match 'schmidt', 'snider' match 'schneider'
 		   also, -sz- in slavic language altho in hungarian it is pronounced 's' */
 		if (((current == 0)
 		     && StringAt(original, (current + 1), 1, "M", "N", "L", "W", ""))
@@ -1153,7 +1153,7 @@ DoubleMetaphone(char *str, char **codes)
 		      MetaphAdd(primary, "KS");
 		      MetaphAdd(secondary, "KS");
                   }
-                  
+
 
 		if (StringAt(original, (current + 1), 1, "C", "X", ""))
 		    current += 2;
@@ -1198,7 +1198,7 @@ DoubleMetaphone(char *str, char **codes)
       }
 
 
-  
+
     if (primary->length > META_LENGTH)
 	SetAt(primary, META_LENGTH, '\0');
 

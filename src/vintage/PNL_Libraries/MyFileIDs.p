@@ -11,8 +11,8 @@ INTERFACE
  uses
      UnitDefCassio , Files;
 
-	function CreateFileID(var spec : FSSpec; var id : SInt32) : OSErr;                                                                                                                 ATTRIBUTE_NAME('CreateFileID')
-	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : FSSpec) : OSErr;                                                                                                       ATTRIBUTE_NAME('ResolveFileID')
+	function CreateFileID(var spec : FSSpec; var id : SInt32) : OSErr;
+	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : FSSpec) : OSErr;
 
 IMPLEMENTATION
 

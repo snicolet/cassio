@@ -18,11 +18,11 @@ INTERFACE
 
 
 {la meilleure fonction}
-function TrierFastestFirstBitboardStabilite(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; var listeCoupsLegaux : listeVides; coupAMettreEnTete : SInt32; listeBitboard : UInt32) : SInt32;                                                    ATTRIBUTE_NAME('TrierFastestFirstBitboardStabilite')
+function TrierFastestFirstBitboardStabilite(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high : UInt32; var listeCoupsLegaux : listeVides; coupAMettreEnTete : SInt32; listeBitboard : UInt32) : SInt32;
 
 
 {fonction de generation de transformation de la liste bitboard en liste des cases vides}
-function GenererListeDesCasesVidesFromListeBitboard(var listeCoupsLegaux : listeVides; coupAMettreEnTete : SInt32; listeBitboard : UInt32) : SInt32;                                ATTRIBUTE_NAME('GenererListeDesCasesVidesFromListeBitboard')
+function GenererListeDesCasesVidesFromListeBitboard(var listeCoupsLegaux : listeVides; coupAMettreEnTete : SInt32; listeBitboard : UInt32) : SInt32;
 
 
 

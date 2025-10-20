@@ -17,173 +17,173 @@ INTERFACE
 
 
 
-procedure InitUnitActions;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitActions')
-procedure LibereMemoireUnitActions;                                                                                                                                                 ATTRIBUTE_NAME('LibereMemoireUnitActions')
+procedure InitUnitActions;
+procedure LibereMemoireUnitActions;
 
-function ComprendPositionEtPartieDuFichier(nomFichier : String255; positionEtpartie : String255; mergeWithCurrentTree : boolean) : OSErr;                                           ATTRIBUTE_NAME('ComprendPositionEtPartieDuFichier')
-function OuvrirFichierPartieFormatCassio(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;                                                                           ATTRIBUTE_NAME('OuvrirFichierPartieFormatCassio')
-function OuvrirFichierPartieFormatGGF(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;                                                                              ATTRIBUTE_NAME('OuvrirFichierPartieFormatGGF')
-function OuvrirFichierPartieFormatSmartGameBoard(nomCompletFichier : String255; mergeWithCurrentTree : boolean) : OSErr;                                                            ATTRIBUTE_NAME('OuvrirFichierPartieFormatSmartGameBoard')
-function OuvrirFichierFormatEPS(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;                                                                                    ATTRIBUTE_NAME('OuvrirFichierFormatEPS')
-function OuvrirFichierPartieFSp(fichier : FSSpec; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;                                                        ATTRIBUTE_NAME('OuvrirFichierPartieFSp')
-procedure DoOuvrir;                                                                                                                                                                 ATTRIBUTE_NAME('DoOuvrir')
-procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);                                                                                                                        ATTRIBUTE_NAME('DoEnregistrerSousFormatCassio')
-procedure DoEnregistrerSousFormatSmartGameBoard;                                                                                                                                    ATTRIBUTE_NAME('DoEnregistrerSousFormatSmartGameBoard')
-procedure DoEnregistrerSous(useSmartGameBoardFormat : boolean);                                                                                                                     ATTRIBUTE_NAME('DoEnregistrerSous')
-procedure DoOuvrirBibliotheque;                                                                                                                                                     ATTRIBUTE_NAME('DoOuvrirBibliotheque')
-procedure DoEcritureSolutionSolitaire;                                                                                                                                              ATTRIBUTE_NAME('DoEcritureSolutionSolitaire')
-procedure PrepareNouvellePartie(ForceHumCtreHum : boolean);                                                                                                                         ATTRIBUTE_NAME('PrepareNouvellePartie')
-procedure DoChangeAlerteInterversion;                                                                                                                                               ATTRIBUTE_NAME('DoChangeAlerteInterversion')
+function ComprendPositionEtPartieDuFichier(nomFichier : String255; positionEtpartie : String255; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFormatCassio(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFormatGGF(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFormatSmartGameBoard(nomCompletFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierFormatEPS(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFSp(fichier : FSSpec; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
+procedure DoOuvrir;
+procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);
+procedure DoEnregistrerSousFormatSmartGameBoard;
+procedure DoEnregistrerSous(useSmartGameBoardFormat : boolean);
+procedure DoOuvrirBibliotheque;
+procedure DoEcritureSolutionSolitaire;
+procedure PrepareNouvellePartie(ForceHumCtreHum : boolean);
+procedure DoChangeAlerteInterversion;
 {procedure DoChangeEvaluationAleatoire;}
-procedure DoChangeEvaluationTablesDeCoins;                                                                                                                                          ATTRIBUTE_NAME('DoChangeEvaluationTablesDeCoins')
-procedure DoChangeEvaluationDeFisher;                                                                                                                                               ATTRIBUTE_NAME('DoChangeEvaluationDeFisher')
-procedure DoChangeRefutationsDansRapport;                                                                                                                                           ATTRIBUTE_NAME('DoChangeRefutationsDansRapport')
+procedure DoChangeEvaluationTablesDeCoins;
+procedure DoChangeEvaluationDeFisher;
+procedure DoChangeRefutationsDansRapport;
 {procedure DoChangePionClignotant;}
 {procedure DoChangeTorique;}
-procedure DoNouvellePartie(ForceHumCtreHum : boolean);                                                                                                                              ATTRIBUTE_NAME('DoNouvellePartie')
-procedure DoClose(whichWindow : WindowPtr; avecAnimationZoom : boolean);                                                                                                            ATTRIBUTE_NAME('DoClose')
-procedure DoAjouteTemps(aQui : SInt16);                                                                                                                                             ATTRIBUTE_NAME('DoAjouteTemps')
-procedure DoSon;                                                                                                                                                                    ATTRIBUTE_NAME('DoSon')
-procedure DoDemandeChangeCouleur;                                                                                                                                                   ATTRIBUTE_NAME('DoDemandeChangeCouleur')
-procedure DoDemandeJouerSolitaires;                                                                                                                                                 ATTRIBUTE_NAME('DoDemandeJouerSolitaires')
-procedure DoDemandeChangerHumCtreHum;                                                                                                                                               ATTRIBUTE_NAME('DoDemandeChangerHumCtreHum')
-procedure DoDemandeChangerHumCtreHumEtCouleur;                                                                                                                                      ATTRIBUTE_NAME('DoDemandeChangerHumCtreHumEtCouleur')
-procedure DoDemandeCassioPrendLesBlancs;                                                                                                                                            ATTRIBUTE_NAME('DoDemandeCassioPrendLesBlancs')
-procedure DoDemandeCassioPrendLesNoirs;                                                                                                                                             ATTRIBUTE_NAME('DoDemandeCassioPrendLesNoirs')
-procedure DoDemandeCassioAnalyseLesDeuxCouleurs;                                                                                                                                    ATTRIBUTE_NAME('DoDemandeCassioAnalyseLesDeuxCouleurs')
-procedure DetruitSousArbreCourantEtBackMove;                                                                                                                                        ATTRIBUTE_NAME('DetruitSousArbreCourantEtBackMove')
-procedure DoDialogueDetruitSousArbreCourant;                                                                                                                                        ATTRIBUTE_NAME('DoDialogueDetruitSousArbreCourant')
-procedure DoTraiteBaseDeDonnee(actionDemandee : SInt16);                                                                                                                            ATTRIBUTE_NAME('DoTraiteBaseDeDonnee')
-procedure DoChargerLaBase;                                                                                                                                                          ATTRIBUTE_NAME('DoChargerLaBase')
-function AutorisationDeChargerLaBaseSansInterventionUtilisateur : boolean;                                                                                                          ATTRIBUTE_NAME('AutorisationDeChargerLaBaseSansInterventionUtilisateur')
-procedure DoChargerLaBaseSansInterventionUtilisateur;                                                                                                                               ATTRIBUTE_NAME('DoChargerLaBaseSansInterventionUtilisateur')
-procedure DoDemandeAnalyseRetrograde(sansDialogueRetrograde : boolean);                                                                                                             ATTRIBUTE_NAME('DoDemandeAnalyseRetrograde')
-procedure DoParametrerAnalyseRetrograde;                                                                                                                                            ATTRIBUTE_NAME('DoParametrerAnalyseRetrograde')
-procedure ToggleAideDebutant;                                                                                                                                                       ATTRIBUTE_NAME('ToggleAideDebutant')
-procedure DoTraiteClicEscargot;                                                                                                                                                     ATTRIBUTE_NAME('DoTraiteClicEscargot')
-procedure DoTracerNuage;                                                                                                                                                            ATTRIBUTE_NAME('DoTracerNuage')
-procedure DoChangeAfficheDernierCoup;                                                                                                                                               ATTRIBUTE_NAME('DoChangeAfficheDernierCoup')
-procedure DoChangeAfficheReflexion;                                                                                                                                                 ATTRIBUTE_NAME('DoChangeAfficheReflexion')
-procedure DoChangeAfficheBibliotheque;                                                                                                                                              ATTRIBUTE_NAME('DoChangeAfficheBibliotheque')
-procedure DoChangeAfficheGestionTemps;                                                                                                                                              ATTRIBUTE_NAME('DoChangeAfficheGestionTemps')
-procedure DoChangeAfficheNuage;                                                                                                                                                     ATTRIBUTE_NAME('DoChangeAfficheNuage')
-procedure DoChangeAfficheSuggestionDeCassio;                                                                                                                                        ATTRIBUTE_NAME('DoChangeAfficheSuggestionDeCassio')
-procedure DoChangeAfficheMeilleureSuite;                                                                                                                                            ATTRIBUTE_NAME('DoChangeAfficheMeilleureSuite')
-procedure DoChangeAffichePierresDelta;                                                                                                                                              ATTRIBUTE_NAME('DoChangeAffichePierresDelta')
-procedure DoChangeAfficheProchainsCoups;                                                                                                                                            ATTRIBUTE_NAME('DoChangeAfficheProchainsCoups')
-procedure DoChangeAfficheSignesDiacritiques;                                                                                                                                        ATTRIBUTE_NAME('DoChangeAfficheSignesDiacritiques')
-procedure DoChangeAfficheNotesSurCases(origine : SInt32);                                                                                                                           ATTRIBUTE_NAME('DoChangeAfficheNotesSurCases')
-procedure DoChangeEn3D(avecAlerte : boolean);                                                                                                                                       ATTRIBUTE_NAME('DoChangeEn3D')
-procedure DoRevenir;                                                                                                                                                                ATTRIBUTE_NAME('DoRevenir')
-procedure DoDebut(ForceHumCtreHum : boolean);                                                                                                                                       ATTRIBUTE_NAME('DoDebut')
-procedure DoCoefficientsEvaluation;                                                                                                                                                 ATTRIBUTE_NAME('DoCoefficientsEvaluation')
-procedure DoMakeMainBranch;                                                                                                                                                         ATTRIBUTE_NAME('DoMakeMainBranch')
-procedure DoCourbe;                                                                                                                                                                 ATTRIBUTE_NAME('DoCourbe')
-procedure DoRapport;                                                                                                                                                                ATTRIBUTE_NAME('DoRapport')
+procedure DoNouvellePartie(ForceHumCtreHum : boolean);
+procedure DoClose(whichWindow : WindowPtr; avecAnimationZoom : boolean);
+procedure DoAjouteTemps(aQui : SInt16);
+procedure DoSon;
+procedure DoDemandeChangeCouleur;
+procedure DoDemandeJouerSolitaires;
+procedure DoDemandeChangerHumCtreHum;
+procedure DoDemandeChangerHumCtreHumEtCouleur;
+procedure DoDemandeCassioPrendLesBlancs;
+procedure DoDemandeCassioPrendLesNoirs;
+procedure DoDemandeCassioAnalyseLesDeuxCouleurs;
+procedure DetruitSousArbreCourantEtBackMove;
+procedure DoDialogueDetruitSousArbreCourant;
+procedure DoTraiteBaseDeDonnee(actionDemandee : SInt16);
+procedure DoChargerLaBase;
+function AutorisationDeChargerLaBaseSansInterventionUtilisateur : boolean;
+procedure DoChargerLaBaseSansInterventionUtilisateur;
+procedure DoDemandeAnalyseRetrograde(sansDialogueRetrograde : boolean);
+procedure DoParametrerAnalyseRetrograde;
+procedure ToggleAideDebutant;
+procedure DoTraiteClicEscargot;
+procedure DoTracerNuage;
+procedure DoChangeAfficheDernierCoup;
+procedure DoChangeAfficheReflexion;
+procedure DoChangeAfficheBibliotheque;
+procedure DoChangeAfficheGestionTemps;
+procedure DoChangeAfficheNuage;
+procedure DoChangeAfficheSuggestionDeCassio;
+procedure DoChangeAfficheMeilleureSuite;
+procedure DoChangeAffichePierresDelta;
+procedure DoChangeAfficheProchainsCoups;
+procedure DoChangeAfficheSignesDiacritiques;
+procedure DoChangeAfficheNotesSurCases(origine : SInt32);
+procedure DoChangeEn3D(avecAlerte : boolean);
+procedure DoRevenir;
+procedure DoDebut(ForceHumCtreHum : boolean);
+procedure DoCoefficientsEvaluation;
+procedure DoMakeMainBranch;
+procedure DoCourbe;
+procedure DoRapport;
 {procedure DoChangeSensLargeSolitaire;}
-procedure DoChangeReferencesCompletes;                                                                                                                                              ATTRIBUTE_NAME('DoChangeReferencesCompletes')
+procedure DoChangeReferencesCompletes;
 {procedure DoChangeFinaleEnSolitaire;}
-procedure DoChangePalette;                                                                                                                                                          ATTRIBUTE_NAME('DoChangePalette')
-procedure DoStatistiques;                                                                                                                                                           ATTRIBUTE_NAME('DoStatistiques')
-procedure DoListeDeParties;                                                                                                                                                         ATTRIBUTE_NAME('DoListeDeParties')
-procedure DoChangeDessineAide;                                                                                                                                                      ATTRIBUTE_NAME('DoChangeDessineAide')
-procedure DoChangeAfficheInfosApprentissage;                                                                                                                                        ATTRIBUTE_NAME('DoChangeAfficheInfosApprentissage')
-procedure DoChangeUtiliseGrapheApprentissage;                                                                                                                                       ATTRIBUTE_NAME('DoChangeUtiliseGrapheApprentissage')
-procedure DoChangeLaDemoApprend;                                                                                                                                                    ATTRIBUTE_NAME('DoChangeLaDemoApprend')
-procedure DoChangeEffetSpecial1;                                                                                                                                                    ATTRIBUTE_NAME('DoChangeEffetSpecial1')
-procedure DoChangeEffetSpecial2;                                                                                                                                                    ATTRIBUTE_NAME('DoChangeEffetSpecial2')
-procedure DoChangeEffetSpecial3;                                                                                                                                                    ATTRIBUTE_NAME('DoChangeEffetSpecial3')
+procedure DoChangePalette;
+procedure DoStatistiques;
+procedure DoListeDeParties;
+procedure DoChangeDessineAide;
+procedure DoChangeAfficheInfosApprentissage;
+procedure DoChangeUtiliseGrapheApprentissage;
+procedure DoChangeLaDemoApprend;
+procedure DoChangeEffetSpecial1;
+procedure DoChangeEffetSpecial2;
+procedure DoChangeEffetSpecial3;
 {procedure DoChangeEffetSpecial4;}
 {procedure DoChangeEffetSpecial5;}
 {procedure DoChangeEffetSpecial6;}
 {procedure DoChangeSelectivite;}
-procedure DoChangeNomOuverture;                                                                                                                                                     ATTRIBUTE_NAME('DoChangeNomOuverture')
+procedure DoChangeNomOuverture;
 {procedure DoChangeEcran512;}
 {procedure DoChangeToujoursIndexer;}
-procedure DoChangeAvecSystemeCoordonnees;                                                                                                                                           ATTRIBUTE_NAME('DoChangeAvecSystemeCoordonnees')
-procedure DoChangeGarderPartieNoireADroiteOthellier;                                                                                                                                ATTRIBUTE_NAME('DoChangeGarderPartieNoireADroiteOthellier')
-procedure DoChangeAvecReflexionTempsAdverse;                                                                                                                                        ATTRIBUTE_NAME('DoChangeAvecReflexionTempsAdverse')
-procedure DoChangeAvecBibl;                                                                                                                                                         ATTRIBUTE_NAME('DoChangeAvecBibl')
-procedure DoChangeVarierOuvertures;                                                                                                                                                 ATTRIBUTE_NAME('DoChangeVarierOuvertures')
-procedure DoChangeJoueBonsCoupsBibl;                                                                                                                                                ATTRIBUTE_NAME('DoChangeJoueBonsCoupsBibl')
-procedure DoChangeEnModeIOS;                                                                                                                                                        ATTRIBUTE_NAME('DoChangeEnModeIOS')
-procedure DoChangeSousEmulatorSousPC;                                                                                                                                               ATTRIBUTE_NAME('DoChangeSousEmulatorSousPC')
-procedure DoChangeInfosTechniques;                                                                                                                                                  ATTRIBUTE_NAME('DoChangeInfosTechniques')
-procedure DoChangeEcrireDansRapportLog;                                                                                                                                             ATTRIBUTE_NAME('DoChangeEcrireDansRapportLog')
-procedure DoChangeUtilisationNouvelleEval;                                                                                                                                          ATTRIBUTE_NAME('DoChangeUtilisationNouvelleEval')
-procedure DoChangeUtiliserMetaphone;                                                                                                                                                ATTRIBUTE_NAME('DoChangeUtiliserMetaphone')
-procedure DoChangeEnTraitementDeTexte;                                                                                                                                              ATTRIBUTE_NAME('DoChangeEnTraitementDeTexte')
-procedure DoChangePostscriptCompatibleXPress;                                                                                                                                       ATTRIBUTE_NAME('DoChangePostscriptCompatibleXPress')
-procedure DoChangeArrondirEvaluations;                                                                                                                                              ATTRIBUTE_NAME('DoChangeArrondirEvaluations')
-procedure DoChangeFaireConfianceScoresArbre;                                                                                                                                        ATTRIBUTE_NAME('DoChangeFaireConfianceScoresArbre')
+procedure DoChangeAvecSystemeCoordonnees;
+procedure DoChangeGarderPartieNoireADroiteOthellier;
+procedure DoChangeAvecReflexionTempsAdverse;
+procedure DoChangeAvecBibl;
+procedure DoChangeVarierOuvertures;
+procedure DoChangeJoueBonsCoupsBibl;
+procedure DoChangeEnModeIOS;
+procedure DoChangeSousEmulatorSousPC;
+procedure DoChangeInfosTechniques;
+procedure DoChangeEcrireDansRapportLog;
+procedure DoChangeUtilisationNouvelleEval;
+procedure DoChangeUtiliserMetaphone;
+procedure DoChangeEnTraitementDeTexte;
+procedure DoChangePostscriptCompatibleXPress;
+procedure DoChangeArrondirEvaluations;
+procedure DoChangeFaireConfianceScoresArbre;
 (*procedure DoChangeAfficheCoupTete;*)
-procedure DoChangeInterversions;                                                                                                                                                    ATTRIBUTE_NAME('DoChangeInterversions')
-procedure DoChoisitDemo;                                                                                                                                                            ATTRIBUTE_NAME('DoChoisitDemo')
+procedure DoChangeInterversions;
+procedure DoChoisitDemo;
 {procedure DoChangeAnalyse;}
-procedure DoChangeProfImposee;                                                                                                                                                      ATTRIBUTE_NAME('DoChangeProfImposee')
-procedure DoSetUp;                                                                                                                                                                  ATTRIBUTE_NAME('DoSetUp')
-procedure FermeToutEtQuitte;                                                                                                                                                        ATTRIBUTE_NAME('FermeToutEtQuitte')
-procedure FermeToutesLesFenetresAuxiliaires;                                                                                                                                        ATTRIBUTE_NAME('FermeToutesLesFenetresAuxiliaires')
-procedure DoCloseCmd(modifiers : SInt16);                                                                                                                                           ATTRIBUTE_NAME('DoCloseCmd')
-procedure DoQuit;                                                                                                                                                                   ATTRIBUTE_NAME('DoQuit')
-procedure DoMaster;                                                                                                                                                                 ATTRIBUTE_NAME('DoMaster')
-procedure DoSymetrie(axe : SInt32);                                                                                                                                                 ATTRIBUTE_NAME('DoSymetrie')
-procedure OuvrePartieSelectionnee(nroHilite : SInt32);                                                                                                                              ATTRIBUTE_NAME('OuvrePartieSelectionnee')
-procedure DoProgrammation;                                                                                                                                                          ATTRIBUTE_NAME('DoProgrammation')
-procedure DoPommeMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                       ATTRIBUTE_NAME('DoPommeMenuCommands')
-procedure DoFileMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                        ATTRIBUTE_NAME('DoFileMenuCommands')
-procedure DoEditionMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                     ATTRIBUTE_NAME('DoEditionMenuCommands')
-procedure DoCopierSpecialMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                               ATTRIBUTE_NAME('DoCopierSpecialMenuCommands')
-procedure DoNMeilleursCoupsMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                             ATTRIBUTE_NAME('DoNMeilleursCoupsMenuCommands')
-procedure DoPartieMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                      ATTRIBUTE_NAME('DoPartieMenuCommands')
-procedure DoModeMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                        ATTRIBUTE_NAME('DoModeMenuCommands')
-procedure DoJoueursMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                     ATTRIBUTE_NAME('DoJoueursMenuCommands')
-procedure DoAffichageMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                   ATTRIBUTE_NAME('DoAffichageMenuCommands')
-procedure DoSolitairesMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                  ATTRIBUTE_NAME('DoSolitairesMenuCommands')
-procedure DoBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                        ATTRIBUTE_NAME('DoBaseMenuCommands')
-procedure DoProgrammationMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                               ATTRIBUTE_NAME('DoProgrammationMenuCommands')
-procedure DoCouleurMenuCommands(menuID,cmdNumber : SInt16; var peutRepeter : boolean);                                                                                              ATTRIBUTE_NAME('DoCouleurMenuCommands')
-procedure DoPicture2DMenuCommands(menuID,cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);                                                                      ATTRIBUTE_NAME('DoPicture2DMenuCommands')
-procedure DoPicture3DMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);                                                                             ATTRIBUTE_NAME('DoPicture3DMenuCommands')
-procedure DoTriMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                         ATTRIBUTE_NAME('DoTriMenuCommands')
-procedure DoFormatBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                  ATTRIBUTE_NAME('DoFormatBaseMenuCommands')
-procedure DoReouvrirMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                                    ATTRIBUTE_NAME('DoReouvrirMenuCommands')
-procedure DoGestionBaseWThorMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);                                                                                            ATTRIBUTE_NAME('DoGestionBaseWThorMenuCommands')
-procedure DoMenuCommand(command : SInt32; var peutRepeter : boolean);                                                                                                               ATTRIBUTE_NAME('DoMenuCommand')
-procedure DoKeyPress(ch : char; var peutRepeter : boolean);                                                                                                                         ATTRIBUTE_NAME('DoKeyPress')
-function ToucheCommandeInterceptee(ch : char; evt : eventRecord; var peutRepeter : boolean) : boolean;                                                                              ATTRIBUTE_NAME('ToucheCommandeInterceptee')
-function EvenementTraiteParFenetreArbreDeJeu(evt : eventRecord) : boolean;                                                                                                          ATTRIBUTE_NAME('EvenementTraiteParFenetreArbreDeJeu')
-procedure MetFlagsModifiersDernierEvenement(var whichEvent : eventRecord; var modifiersChanged : boolean);                                                                          ATTRIBUTE_NAME('MetFlagsModifiersDernierEvenement')
-procedure TesterAffichageNomsDesGagnantsEnGras(modifiers : SInt16);                                                                                                                 ATTRIBUTE_NAME('TesterAffichageNomsDesGagnantsEnGras')
-procedure TesterAffichageNomsJaponaisEnRoman(modifiers : SInt16);                                                                                                                   ATTRIBUTE_NAME('TesterAffichageNomsJaponaisEnRoman')
-procedure TraiteSourisStandard(mouseLoc : Point; modifiers : SInt16);                                                                                                               ATTRIBUTE_NAME('TraiteSourisStandard')
-procedure TraiteSourisRetour(mouseLoc : Point; modifiers : SInt16);                                                                                                                 ATTRIBUTE_NAME('TraiteSourisRetour')
-procedure TraiteSourisFntrPlateau(evt : eventRecord);                                                                                                                               ATTRIBUTE_NAME('TraiteSourisFntrPlateau')
-procedure TraiteSourisPalette(evt : eventRecord);                                                                                                                                   ATTRIBUTE_NAME('TraiteSourisPalette')
-procedure TraiteSourisAide(evt : eventRecord);                                                                                                                                      ATTRIBUTE_NAME('TraiteSourisAide')
-procedure TraiteSourisStatistiques(evt : eventRecord);                                                                                                                              ATTRIBUTE_NAME('TraiteSourisStatistiques')
-procedure TraiteSourisCommentaires(evt : eventRecord; fenetreActiveeParCeClic : boolean);                                                                                           ATTRIBUTE_NAME('TraiteSourisCommentaires')
+procedure DoChangeProfImposee;
+procedure DoSetUp;
+procedure FermeToutEtQuitte;
+procedure FermeToutesLesFenetresAuxiliaires;
+procedure DoCloseCmd(modifiers : SInt16);
+procedure DoQuit;
+procedure DoMaster;
+procedure DoSymetrie(axe : SInt32);
+procedure OuvrePartieSelectionnee(nroHilite : SInt32);
+procedure DoProgrammation;
+procedure DoPommeMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoFileMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoEditionMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoCopierSpecialMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoNMeilleursCoupsMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoPartieMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoModeMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoJoueursMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoAffichageMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoSolitairesMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoProgrammationMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoCouleurMenuCommands(menuID,cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoPicture2DMenuCommands(menuID,cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);
+procedure DoPicture3DMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);
+procedure DoTriMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoFormatBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoReouvrirMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoGestionBaseWThorMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
+procedure DoMenuCommand(command : SInt32; var peutRepeter : boolean);
+procedure DoKeyPress(ch : char; var peutRepeter : boolean);
+function ToucheCommandeInterceptee(ch : char; evt : eventRecord; var peutRepeter : boolean) : boolean;
+function EvenementTraiteParFenetreArbreDeJeu(evt : eventRecord) : boolean;
+procedure MetFlagsModifiersDernierEvenement(var whichEvent : eventRecord; var modifiersChanged : boolean);
+procedure TesterAffichageNomsDesGagnantsEnGras(modifiers : SInt16);
+procedure TesterAffichageNomsJaponaisEnRoman(modifiers : SInt16);
+procedure TraiteSourisStandard(mouseLoc : Point; modifiers : SInt16);
+procedure TraiteSourisRetour(mouseLoc : Point; modifiers : SInt16);
+procedure TraiteSourisFntrPlateau(evt : eventRecord);
+procedure TraiteSourisPalette(evt : eventRecord);
+procedure TraiteSourisAide(evt : eventRecord);
+procedure TraiteSourisStatistiques(evt : eventRecord);
+procedure TraiteSourisCommentaires(evt : eventRecord; fenetreActiveeParCeClic : boolean);
 {procedure TraiteSourisGestion(evt : eventRecord);}
-procedure TraiteSourisRapport(evt : eventRecord);                                                                                                                                   ATTRIBUTE_NAME('TraiteSourisRapport')
+procedure TraiteSourisRapport(evt : eventRecord);
 
 (*********************** displayHandlers ***************************)
 
-procedure DrawContents(whichWindow : WindowPtr);                                                                                                                                    ATTRIBUTE_NAME('DrawContents')
-procedure DoUpdateWindow(whichWindow : WindowPtr);                                                                                                                                  ATTRIBUTE_NAME('DoUpdateWindow')
-procedure EssaieUpdateEventsWindowPlateau;                                                                                                                                          ATTRIBUTE_NAME('EssaieUpdateEventsWindowPlateau')
+procedure DrawContents(whichWindow : WindowPtr);
+procedure DoUpdateWindow(whichWindow : WindowPtr);
+procedure EssaieUpdateEventsWindowPlateau;
 
 
 
 (*********************** event handlers ****************************)
 
-procedure KeyUpEvents;                                                                                                                                                              ATTRIBUTE_NAME('KeyUpEvents')
-procedure KeyDownEvents;                                                                                                                                                            ATTRIBUTE_NAME('KeyDownEvents')
-procedure MouseDownEvents;                                                                                                                                                          ATTRIBUTE_NAME('MouseDownEvents')
-procedure MouseUpEvents;                                                                                                                                                            ATTRIBUTE_NAME('MouseUpEvents')
-procedure UpdateEvents;                                                                                                                                                             ATTRIBUTE_NAME('UpdateEvents')
-procedure MultiFinderEvents;                                                                                                                                                        ATTRIBUTE_NAME('MultiFinderEvents')
-procedure ActivateEvents;                                                                                                                                                           ATTRIBUTE_NAME('ActivateEvents')
-procedure DoAppleEvents;                                                                                                                                                            ATTRIBUTE_NAME('DoAppleEvents')
+procedure KeyUpEvents;
+procedure KeyDownEvents;
+procedure MouseDownEvents;
+procedure MouseUpEvents;
+procedure UpdateEvents;
+procedure MultiFinderEvents;
+procedure ActivateEvents;
+procedure DoAppleEvents;
 
 
 IMPLEMENTATION
@@ -275,14 +275,14 @@ var platAux : plateauOthello;
 begin
   err := 0;
 
- 
+
   if LENGTH_OF_STRING(positionEtpartie) < 64 then
     begin
       AlerteFormatNonReconnuFichierPartie(nomFichier);
       ComprendPositionEtPartieDuFichier := -1;  {on rapporte l'erreur}
       exit(ComprendPositionEtPartieDuFichier);
     end;
-    
+
   BeginUseZebraNodes('ComprendPositionEtPartieDuFichier');
   usingZebraBookArrivee := GetUsingZebraBook;
   SetUsingZebraBook(false);
@@ -317,19 +317,19 @@ begin
   DessineSliderFenetreCourbe;
   if not(windowPlateauOpen) then OuvreFntrPlateau(false);
 
-  
+
   plateauEnString := TPCopy(positionEtpartie,1,64);
-  
+
   { 'plateauEnString' contient dŽsormais une description de l'othellier }
-  
+
   DeleteString(positionEtpartie,1,64);
   EnleveEspacesDeGaucheSurPlace(positionEtpartie);
-  
+
   { 'positionEtpartie' contient dŽsormais :
       - (optionel) un caractere dŽcrivant le trait + une espace
         attention : espace obligatoire si le trait est present
       - suivis d'une liste de coups
-      
+
     exemples :
       positionEtpartie = 'X F5D6C3D3C4'
       positionEtpartie = 'F5D6C3D3C4'
@@ -608,21 +608,21 @@ begin
       OuvrirFichierPartieFormatCassio := erreurES;
       exit(OuvrirFichierPartieFormatCassio);
     end;
-    
+
   erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
-  
+
   SetNomFichierDansTitreDiagrammeFFORUM(nomLongDuFichier);
   titrePartie^^ := nomLongDuFichier;
   CommentaireSolitaire^^ := '';
   SetMeilleureSuite('');
   finaleEnModeSolitaire := false;
-  
+
 
   while Pos(':',nomFichier) <> 0 do
      nomFichier := TPCopy(nomFichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
-     
+
 
   erreurES := ComprendPositionEtPartieDuFichier(nomFichier,chainePositionEtPartie,mergeWithCurrentTree);
 
@@ -710,9 +710,9 @@ var erreurES : OSErr;
     whichPosition : PositionEtTraitRec;
     changed : boolean;
 begin
-  
+
   OuvrirFichierFormatEPS := -1;
-  
+
   if nomFichier = '' then
     begin
       AlerteSimpleFichierTexte(nomFichier,0);
@@ -726,7 +726,7 @@ begin
       OuvrirFichierFormatEPS := erreurES;
       exit(OuvrirFichierFormatEPS);
     end;
-  
+
   erreurES := OuvreFichierTexte(ficPartie);
   if erreurES <> NoErr then
     begin
@@ -734,47 +734,47 @@ begin
       OuvrirFichierFormatEPS := erreurES;
       exit(OuvrirFichierFormatEPS);
     end;
-  
-  
+
+
   infosFichier.initialPosition := PositionEtTraitInitiauxStandardEnString;
   infosFichier.moves           := '';
   infosFichier.moveNumber      := '';
   infosFichier.SGFAnnotations  := '';
   infosFichier.diagramComment  := '';
   infosFichier.diagramTitle    := '';
-  
-  
+
+
   compteurLignes := 0;
-  
+
   repeat
     inc(compteurLignes);
     erreurES := ReadlnDansFichierTexte(ficPartie,ligne);
     if (ligne <> '') then
       begin
         (* WritelnDansRapport(ligne); *)
-        
+
         if (Pos('%%Othello-initial-position: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.initialPosition);
-          
+
         if (Pos('%%Othello-moves: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.moves);
-        
+
         if (Pos('%%Othello-current-move-number: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.moveNumber);
-        
+
         if (Pos('%%Othello-SGF-annotations: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.SGFAnnotations);
-        
+
         if (Pos('%%Othello-diagram-comment: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.diagramComment);
-          
+
         if (Pos('%%Othello-diagram-title: ', ligne) = 1) then
           Parser(ligne, foo, infosFichier.diagramTitle);
-        
+
       end;
   until (compteurLignes > 20) | (erreurES <> NoErr) | EOFFichierTexte(ficPartie,erreurES) | (Pos('%%BeginProlog',ligne) = 1);
-  
-  
+
+
   erreurES := FermeFichierTexte(ficPartie);
   if erreurES <> NoErr then
     begin
@@ -782,8 +782,8 @@ begin
       OuvrirFichierFormatEPS := erreurES;
       exit(OuvrirFichierFormatEPS);
     end;
-  
-  
+
+
   whichPosition                := GetPositionEtTraitInitiauxOfGameTree;
   infosReelles.initialPosition := PositionEtTraitEnString(whichPosition);
   infosReelles.moves           := PartiePourPressePapier(true,false,60);
@@ -791,7 +791,7 @@ begin
   infosReelles.SGFAnnotations  := GetPierresDeltaCourantesEnString;
   infosReelles.diagramComment  := ParamDiagPositionFFORUM.commentPositionFFORUM^^;
   infosReelles.diagramTitle    := ParamDiagPartieFFORUM.titreFFORUM^^;
-  
+
   (*
   WritelnDansRapport('infos reelles : ');
   WritelnDansRapport('initialPosition = ' + infosReelles.initialPosition);
@@ -799,7 +799,7 @@ begin
   WritelnDansRapport('moveNumber = '      + infosReelles.moveNumber);
   WritelnDansRapport('SGFAnnotations = '  + infosReelles.SGFAnnotations);
   *)
-    
+
   if (infosFichier.initialPosition = infosReelles.initialPosition) &
      (infosFichier.moves           = infosReelles.moves)           &
      (infosFichier.moveNumber      = infosReelles.moveNumber)      &
@@ -811,11 +811,11 @@ begin
        OuvrirFichierFormatEPS := NoErr;
        exit(OuvrirFichierFormatEPS);
      end;
-  
-  
+
+
   if not(PeutArreterAnalyseRetrograde) then
     exit(OuvrirFichierFormatEPS);
-  
+
   (*
   WritelnDansRapport('infos fichier : ');
   WritelnDansRapport('initialPosition = ' + infosFichier.initialPosition);
@@ -823,31 +823,31 @@ begin
   WritelnDansRapport('moveNumber = '      + infosFichier.moveNumber);
   WritelnDansRapport('SGFAnnotations = '  + infosFichier.SGFAnnotations);
   *)
-  
+
   with infosFichier do
     begin
       if not(mergeWithCurrentTree) then DoNouvellePartie(false);
-      
-      erreurES := PlaquerPositionEtPartieFictive(initialPosition, moves, 60);                 
-      
+
+      erreurES := PlaquerPositionEtPartieFictive(initialPosition, moves, 60);
+
       if erreurES = NoErr then
         begin
           if (SGFAnnotations <> '') | (not((moveNumber = '0') & (LENGTH_OF_STRING(moves) = 120)))
             then DoRetourAuCoupNro(ChaineEnLongint(moveNumber), true, false);
-           
+
           if (SGFAnnotations <> '') then
              begin
                affichePierresDelta := true;
                changed := AddPropertyListAsStringDansCurrentNode(SGFAnnotations);
                AfficheProprietesOfCurrentNode(true,othellierToutEntier,'OuvrirFichierFormatEPS');
              end;
-          
+
           if (diagramComment <> '') then ParamDiagPositionFFORUM.commentPositionFFORUM^^ := diagramComment;
-          
+
           if (diagramTitle <> '')   then ParamDiagPartieFFORUM.titreFFORUM^^ := diagramTitle;
         end;
     end;
-  
+
   OuvrirFichierFormatEPS := erreurES;
 end;
 
@@ -1006,16 +1006,16 @@ begin
 
       EffaceProprietesOfCurrentNode;
       AfficheProprietesOfCurrentNode(false,othellierToutEntier,'OuvrirFichierPartieFormatSmartGameBoard');
-      
+
 
       if not(CassioEstEnModeAnalyse) & not(HumCtreHum)
         then DoChangeHumCtreHum;
 
       if not(afficheProchainsCoups) then DoChangeAfficheProchainsCoups;
-      
+
       ToggleAideDebutant;
       ToggleAideDebutant;
-      
+
       if positionFeerique | (NbDeFilsOfCurrentNode <= 0)
         then SetNomFichierDansTitreDiagrammeFFORUM(nomLongDuFichier);
     end;
@@ -1111,7 +1111,7 @@ begin
               InstallerFichierCronjob(nomCompletFichier);
               err := NoErr;
             end;
-					 
+					
 
 					if (kTypeFichierTournoiEntreEngines in formats_a_ouvrir) &
 				     (infos.format = kTypeFichierTournoiEntreEngines) then
@@ -1180,7 +1180,7 @@ begin
 					if (kTypeFichierEPS in formats_a_ouvrir) &
 				     (infos.format = kTypeFichierEPS) & (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierFormatEPS(nomCompletFichier,mergeWithCurrentTree);
-					  
+					
 					if (kTypeFichierScriptZoo in formats_a_ouvrir) &
 				     (infos.format = kTypeFichierScriptZoo) then
 					  err := OuvrirFichierScriptZoo(nomCompletFichier);
@@ -1244,22 +1244,22 @@ var fic : FichierTEXT;
 begin
   erreurOuvertureEnFormatTEXT := -1;
   erreurOuvertureEnFormatEPS  := -1;
-  
+
   (* WritelnDansRapport('Entree dans OuvrirPartieDansFichierPressePapier'); *)
-  
+
   myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('TEXT'));
   if (myError = NoErr) then
     begin
       erreurOuvertureEnFormatTEXT := OuvrirFichierPartieFSp(fic.theFSSpec, whichFormats, true);
       myError := DetruitFichierTexte(fic);
     end;
-    
+
   if erreurOuvertureEnFormatTEXT = NoErr then
     begin
       OuvrirPartieDansFichierPressePapier := NoErr;
       exit(OuvrirPartieDansFichierPressePapier);
     end;
-    
+
   myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('EPS '));
   if (myError = NoErr) then
     begin
@@ -1267,8 +1267,8 @@ begin
       myError := DetruitFichierTexte(fic);
       myError := erreurOuvertureEnFormatEPS;
     end;
-    
-    
+
+
   OuvrirPartieDansFichierPressePapier := myError;
 end;
 
@@ -1795,7 +1795,7 @@ begin  {$unused avecAnimationZoom}
   if (FrontWindow = NIL) | (enSetUp | enRetour)
       then MyDisableItem(GetFileMenu,CloseCmd)
       else EnableItemPourCassio(GetFileMenu,CloseCmd);
-      
+
   FixeMarqueSurMenuBase;
 end;
 
@@ -2739,14 +2739,14 @@ begin
   AjusteSleep;
   DisableItemTousMenus;
   DisableTitlesOfMenusForRetour;
-  
+
   SetIntervalleVerificationDuStatutDeCassioPourLeZoo(-1000, @oldIntervalle);
   VerifierLeStatutDeCassioPourLeZoo;
   SetIntervalleVerificationDuStatutDeCassioPourLeZoo(oldIntervalle, NIL);
 
   mustSuspendEngine := CassioIsWaitingAnEngineResult;
   if mustSuspendEngine then SuspendCurrentEngine;
-  
+
   nextTick := tickCount + 60;
   repeat  // loop
     if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
@@ -2790,7 +2790,7 @@ begin
 	AjusteSleep;
   EnableItemTousMenus;
   EnableAllTitlesOfMenus;
-  
+
   SetIntervalleVerificationDuStatutDeCassioPourLeZoo(-1000, @oldIntervalle);
   VerifierLeStatutDeCassioPourLeZoo;
   SetIntervalleVerificationDuStatutDeCassioPourLeZoo(oldIntervalle, NIL);
@@ -3099,7 +3099,7 @@ procedure DoListeDeParties;
             else
               begin
                 if (wListePtr <> FrontWindowSaufPalette) then SelectWindowSousPalette(wListePtr);
-                
+
                 if AutorisationDeChargerLaBaseSansInterventionUtilisateur & not(DernierEvenement.option)
                   then DoChargerLaBaseSansInterventionUtilisateur;
               end;
@@ -3287,7 +3287,7 @@ end;
 procedure DoChangeAvecReflexionTempsAdverse;
   begin
     sansReflexionSurTempsAdverse := not(sansReflexionSurTempsAdverse);
-    
+
     if sansReflexionSurTempsAdverse & not(HumCtreHum) & (AQuiDeJouer = -couleurMacintosh) then
        LanceInterruptionSimpleConditionnelle('DoChangeAvecReflexionTempsAdverse');
   end;
@@ -3951,7 +3951,7 @@ begin
                                   end;
                             end;
                       end;
-    EffacerCmd     : if windowListeOpen 
+    EffacerCmd     : if windowListeOpen
                         & ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) | (LongueurSelectionRapport <= 0))
                         & not(FenetreListeEstEnModeEntree)
                         & (nbPartiesActives > 0)
@@ -4250,9 +4250,9 @@ procedure DoProgrammationMenuCommands(cmdNumber : SInt16; var peutRepeter : bool
                                  {EpoquesDesJoueursDeLaListe;}
                                  {AjusteModeleLineaireFinale;}
                                  AfficherLesJoueursWthorSansNumeroFFO;
-                                 
+
      ChercherSolitairesListeCmd  : LancerInterruptionPourRechercherSolitairesDansListe;
-                                   
+
                                  {TestNouvelleEval;}
                                  {ApprendToutesLesPartiesActives;}
                                  {ApprendCoeffsLignesPartiesDeLaListe;}
@@ -4775,11 +4775,11 @@ begin
                   TEKey(ch,SousCriteresRuban[BoiteDeSousCritereActive]);
                   CriteresRubanModifies := true;
                   sousCritereMustBeAPerfectMatch[BoiteDeSousCritereActive] := false;
-                  
+
                   longueur := TEGetTextLength(SousCriteresRuban[BoiteDeSousCritereActive]);
                   if longueur > 245 then longueur := 245;
                   caract := TEGetText(SousCriteresRuban[BoiteDeSousCritereActive]);
-                  
+
                   s := '';
                   for i := 1 to longueur do s := s + caract^^[i-1];
                   if s[longueur] = '=' then
@@ -4996,7 +4996,7 @@ begin
 				                        {if windowPaletteOpen then FlashCasePalette(PaletteListe);}
 				                        DoListeDeParties;
 				                      end;
-				              
+				
 				              'Â','|':begin  {option-l, option-L}
 				                        SetAutorisationChargerLaBaseSansPasserParLeDialogue(false);
 				                        DoListeDeParties;
@@ -5354,7 +5354,7 @@ begin
                     RevenirAuProblemeDePriseDeCoinPrecedent;
                     EndHiliteMenu(evt.when,8,false);
                     ToucheCommandeInterceptee := true;
-                  end; 
+                  end;
               end;
             'l','L':   {pomme-L}
               begin
@@ -5538,7 +5538,7 @@ begin
         		  end;
 	          if windowListeOpen
 	            & ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) | (LongueurSelectionRapport <= 0))
-	            & not(FenetreListeEstEnModeEntree) 
+	            & not(FenetreListeEstEnModeEntree)
 	            & (nbPartiesActives > 0)
 	            then
   	            begin
@@ -5566,7 +5566,7 @@ procedure ToggleAideDebutant;
 	      if aideDebutant
 	        then DessineAideDebutant(true,othellierToutEntier)
           else EffaceAideDebutant(true,true,othellierToutEntier,'ToggleAideDebutant');
-          
+
 	    end;
   end;
 
@@ -7156,12 +7156,12 @@ begin
 	       if (ord(ch) = EntreeKey) then
 	         begin
 	           if TrouveCommandeDansCommentaireDansFenetreArbreDeJeu(texteCommande,argument)
-	            then 
+	            then
 	              begin
 	                ExecuteCommandeArbreDeJeu(GetCurrentNode,texteCommande,argument);
 	                DrawContents(wPlateauPtr);
 	              end
-	            else 
+	            else
 	              AfficheCommentairePartieDansRapport;
 	         end;
 

@@ -14,18 +14,18 @@ USES UnitDefCassio;
 
 
 { Initialisation de l'unite }
-procedure InitUnitFFO;                                                                                                                                                              ATTRIBUTE_NAME('InitUnitFFO')
+procedure InitUnitFFO;
 
 
 { telechargement du fichier FFO "joueurs.txt" }
-function DoitTelechargerFichierFFODesJoueurs : boolean;                                                                                                                             ATTRIBUTE_NAME('DoitTelechargerFichierFFODesJoueurs')
+function DoitTelechargerFichierFFODesJoueurs : boolean;
 
 
 { Fonctions de lecture du fichier FFO des joueurs }
-procedure ParserNumerosFFODesJoueurs;                                                                                                                                               ATTRIBUTE_NAME('ParserNumerosFFODesJoueurs')
-function PeutTrouverNumeroFFODuJoueur(whichWThorNumber : SInt32; var whichNumeroFFO : SInt32) : boolean;                                                                            ATTRIBUTE_NAME('PeutTrouverNumeroFFODuJoueur')
-procedure EffacerTousLesNumerosFFODesJoueurs;                                                                                                                                       ATTRIBUTE_NAME('EffacerTousLesNumerosFFODesJoueurs')
-procedure AfficherLesJoueursWthorSansNumeroFFO;                                                                                                                                     ATTRIBUTE_NAME('AfficherLesJoueursWthorSansNumeroFFO')
+procedure ParserNumerosFFODesJoueurs;
+function PeutTrouverNumeroFFODuJoueur(whichWThorNumber : SInt32; var whichNumeroFFO : SInt32) : boolean;
+procedure EffacerTousLesNumerosFFODesJoueurs;
+procedure AfficherLesJoueursWthorSansNumeroFFO;
 
 
 
@@ -85,14 +85,14 @@ var fic : FichierTEXT;
     trouve : boolean;
 begin
   trouve := (FichierTexteDeCassioExiste(kNomDuFichierJoueursFFODansCassio, fic) = NoErr);
-  
+
   if not(trouve) then
     begin
       DoitTelechargerFichierFFODesJoueurs := false;
       exit(DoitTelechargerFichierFFODesJoueurs);
     end;
-  
-  
+
+
   DoitTelechargerFichierFFODesJoueurs := true;
 end;
 
@@ -121,94 +121,94 @@ begin
   if (nbPartiesActives > 0)
     then
       begin
-      
+
         joueursSansNumeroFFO := MakeEmptyIntegerSet;
-        
+
         dernierTournoiAffiche := -10;
-      
+
         for k := 1 to nbPartiesChargees do
           begin
             nroRefPartie := tableTriListe^^[k];
             if PartieEstActive(nroRefPartie) then
               begin
-              
+
                 // On commence par le joueur Noir
                 numWThor := GetNumeroJoueurNoirDansFichierParNroRefPartie(nroRefPartie);
-                
+
                 if (GetNroFFODuJoueur(numWThor) <= 0) then
                   begin
-                  
+
                     // on a un joueur sans numero FFO
                     // on va tester si on l'a deja enregistre comme tel
                     if not(MemberOfIntegerSet(numWThor, foo, joueursSansNumeroFFO)) then
                       begin
                         // c'est un nouveau jouer sans numero FFO
                         AddIntegerToSet(numWThor, -1, joueursSansNumeroFFO);
-                        
+
                         // on calcule son nom avec le format du fichier FFO "joueurs.txt"
                         nom := GetNomJoueur(numWThor);
                         if (Pos('(', nom) <= 0) then // ce n'est pas un ordi
                           nom := GetNomJoueurCommeDansFichierFFODesJoueurs(numWThor);
-                        
+
                         // on l'affiche
-                         
+
                         if (dernierTournoiAffiche <> GetNroTournoiParNroRefPartie(nroRefPartie)) then
                           begin
                             WritelnDansRapport('');
                             WritelnDansRapport('Dans ' + GetNomTournoiAvecAnneeParNroRefPartie(nroRefPartie, 28) + ' :');
                             WritelnDansRapport('');
-                            
+
                             dernierTournoiAffiche := GetNroTournoiParNroRefPartie(nroRefPartie);
                           end;
-                          
+
                         WritelnDansRapport('ADD   ' + nom);
                       end;
-                    
+
                   end;
-                
+
                 // Et puis ensuite meme combat pour le joueur Blanc
                 numWThor := GetNumeroJoueurBlancDansFichierParNroRefPartie(nroRefPartie);
-                
+
                 if (GetNroFFODuJoueur(numWThor) <= 0) then
                   begin
-                  
+
                     // on a un joueur sans numero FFO
                     // on va tester si on l'a deja enregistre comme tel
                     if not(MemberOfIntegerSet(numWThor, foo, joueursSansNumeroFFO)) then
                       begin
                         // c'est un nouveau jouer sans numero FFO
                         AddIntegerToSet(numWThor, -1, joueursSansNumeroFFO);
-                        
+
                         // on calcule son nom avec le format du fichier FFO "joueurs.txt"
                         nom := GetNomJoueur(numWThor);
                         if (Pos('(', nom) <= 0) then // ce n'est pas un ordi
                           nom := GetNomJoueurCommeDansFichierFFODesJoueurs(numWThor);
-                        
+
                         // on l'affiche
-                        
+
                         if (dernierTournoiAffiche <> GetNroTournoiParNroRefPartie(nroRefPartie)) then
                           begin
                             WritelnDansRapport('');
                             WritelnDansRapport('Dans ' + GetNomTournoiAvecAnneeParNroRefPartie(nroRefPartie, 28) + ' :');
                             WritelnDansRapport('');
-                            
+
                             dernierTournoiAffiche := GetNroTournoiParNroRefPartie(nroRefPartie);
                           end;
-                          
+
                         WritelnDansRapport('ADD   ' + nom);
                       end;
-                    
+
                   end;
-                
+
               end;
           end;
-        
-        
+
+
         DisposeIntegerSet(joueursSansNumeroFFO);
       end
     else
       begin
-      
+
         // on utilise l'ordre des joueurs du fichier WTHOR.JOU
         // le désavantage est que l'on ne peut pas deviner le pays d'un joueur
 
@@ -216,11 +216,11 @@ begin
         for k := 1 to JoueursNouveauFormat.nbJoueursNouveauFormat do
           begin
             numWthor := GetNroJoueurDansSonFichier(k);
-            
+
             if (k = numWThor) then
               begin
                 numFFO := GetNroFFODuJoueur(numWthor);
-                if (numFFO <= 0) 
+                if (numFFO <= 0)
                   then
                     begin
                       nom := GetNomJoueur(numWthor);
@@ -230,9 +230,9 @@ begin
                     end;
               end;
           end;
-          
+
       end;
-      
+
 end;
 
 
@@ -249,98 +249,98 @@ begin
 
   Discard(theFic);
   Discard(result);
-  
+
   afficherLesJoueursDuFichierFFO := false;
   afficherLesDoublons            := false;
 
   s := ligne.debutLigne;
-  
+
   EnleveEspacesDeGaucheSurPlace(s);
-  
-  
-  if (afficherLesJoueursDuFichierFFO |afficherLesDoublons) 
+
+
+  if (afficherLesJoueursDuFichierFFO |afficherLesDoublons)
      & StringBeginsWith(s, 'pays ') then
     begin
       WritelnDansRapport(s);
       WritelnDansRapport('');
     end;
-  
+
   if (s <> '') & (s[1] <> '%') & not(StringBeginsWith(s, 'pays ')) then
     begin
-    
+
       SplitBy(s, '%', infosFFO, s2);
-    
+
       Parser(infosFFO, chaineNumero, nomFFO);
-      
+
       EnleveEspacesDeGaucheSurPlace(nomFFO);
       EnleveEspacesDeDroiteSurPlace(nomFFO);
-      
-      
-      
+
+
+
       if (chaineNumero <> '') & (nomFFO <> '') & (nomFFO <> ',') then
         begin
-        
+
           inc(nombreJoueursDansFichierFFO);
-          
-          
+
+
           positionVirgule := Pos(',',nomFFO);
           if (positionVirgule <= 0) then positionVirgule := 8; // sans doute un ordinateur
-          
-          
+
+
           nomFFO    := ReplaceStringByStringInString(',','',nomFFO);
           numeroFFO := ChaineEnLongint(chaineNumero);
-          
-          
+
+
           if afficherLesDoublons then
             begin
               if (TPCopy(nomFFO, 1, positionVirgule + 3) = TPCopy(gLastFFONameRead, 1, positionVirgule + 3)) then
                 begin
                   // WritelnDansRapport('Doublon ?');
-                  
+
                   WritelnDansRapport(gLastFFOLineRead);
                   WritelnDansRapport(ligne.debutLigne);
-                  
+
                   (*
-                  
+
                   WriteDansRapport(NumEnStringAvecFormat(gLastFFONumberRead, 10, ' ') + '   ');
                   WritelnDansRapport(TPCopy(gLastFFONameRead,1,positionVirgule-1) + ',' + TPCopy(gLastFFONameRead,positionVirgule, 255));
-                  
+
                   WriteDansRapport(NumEnStringAvecFormat(numeroFFO, 10, ' ') + '   ');
                   WritelnDansRapport(TPCopy(nomFFO,1,positionVirgule-1) + ',' + TPCopy(nomFFO,positionVirgule, 255));
-                  
+
                   *)
-                   
+
                   WritelnDansRapport('');
                 end;
             end;
-          
-          
+
+
           gLastFFONameRead   := nomFFO;
           gLastFFONumberRead := numeroFFO;
           gLastFFOLineRead   := ligne.debutLigne;
-          
-          
+
+
           if PeutImporterNomJoueurFormatPGN('', nomFFO, false, nomDansWThor, numeroWThor) & (numeroFFO > 0) & (numeroWThor > 0)
             then
               begin
-              
+
                 // Tout a l'air bon, hein... On ajoute le numero FFO de ce joueur en memoire !
                 SetNroFFODuJoueur(GetNroJoueurDansSonFichier(numeroWThor), numeroFFO);
-              
-                
+
+
                 if afficherLesJoueursDuFichierFFO & (nombreJoueursDansFichierFFO <= 100) then
                   WritelnDansRapport('OK : ' + nomFFO + ' = ' + nomDansWThor + ' = ' + NumEnString(numeroWThor));
-                  
+
               end
             else
               begin
-              
+
                 // Il s'agit d'un joueur FFO que l'on n'a pas trouvé dans la base WThor
-                
+
                 if afficherLesJoueursDuFichierFFO & (nombreJoueursDansFichierFFO <= 100) then
                   WritelnDansRapport('FAIL : ' + nomFFO);
               end;
-            
+
         end;
     end;
 end;
@@ -361,29 +361,29 @@ begin
 
   if not(JoueursEtTournoisEnMemoire) then
      err := MetJoueursEtTournoisEnMemoire(false);
-  
-  
-  
+
+
+
   if (FichierTexteDeCassioExiste(kNomDuFichierJoueursFFODansCassio,fic) = NoErr) then
     begin
-      
-      
+
+
       WritelnDansRapport('fichier ' + kNomDuFichierJoueursFFODansCassio + ' trouve : OK');
-      
+
       EffacerTousLesNumerosFFODesJoueurs;
-      
-      
+
+
       nombreJoueursDansFichierFFO := 0;
-      
+
       err := OuvreFichierTexte(fic);
       ForEachLineInFileDo(fic.theFSSpec, AjouterNumeroFFOPourCeJoueur,result);
       err := FermeFichierTexte(fic);
-      
+
       WritelnNumDansRapport('nombre de joueurs lus dans le fichier FFO = ',nombreJoueursDansFichierFFO);
-      
-      
+
+
     end;
-   
+
 end;
 
 
@@ -391,16 +391,16 @@ function PeutTrouverNumeroFFODuJoueur(whichWThorNumber : SInt32; var whichNumero
 begin
   PeutTrouverNumeroFFODuJoueur := false;
   whichNumeroFFO := -1;
-  
+
   with JoueursNouveauFormat do
   if (nbJoueursNouveauFormat > 0) &
      (whichWThorNumber >= 0) &
      (whichWThorNumber < nbJoueursNouveauFormat) &
      (listeJoueurs <> NIL) then
         begin
-        
+
           whichNumeroFFO := GetNroFFODuJoueur(whichWThorNumber);
-          
+
           if (whichNumeroFFO > 0) then
             begin
               PeutTrouverNumeroFFODuJoueur := true;

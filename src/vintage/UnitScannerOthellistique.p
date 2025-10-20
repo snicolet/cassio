@@ -12,31 +12,31 @@ INTERFACE
 
 
 { Fonctions de traductions }
-procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : String255);                                                                                         ATTRIBUTE_NAME('TraductionThorEnAlphanumerique')
-procedure TraductionAlphanumeriqueEnThor(const s : String255; var result : PackedThorGame);                                                                                         ATTRIBUTE_NAME('TraductionAlphanumeriqueEnThor')
-procedure TraductionThorEnSuedois(const s : PackedThorGame; var result : String255);                                                                                                ATTRIBUTE_NAME('TraductionThorEnSuedois')
-procedure CompacterPartieAlphanumerique(var s : String255; modification : SInt16);                                                                                                  ATTRIBUTE_NAME('CompacterPartieAlphanumerique')
-procedure ComparerFormatThorEtFormatSuedois(const s1,s2 : PackedThorGame);                                                                                                          ATTRIBUTE_NAME('ComparerFormatThorEtFormatSuedois')
+procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : String255);
+procedure TraductionAlphanumeriqueEnThor(const s : String255; var result : PackedThorGame);
+procedure TraductionThorEnSuedois(const s : PackedThorGame; var result : String255);
+procedure CompacterPartieAlphanumerique(var s : String255; modification : SInt16);
+procedure ComparerFormatThorEtFormatSuedois(const s1,s2 : PackedThorGame);
 
 
 { Calculs des nombres de pions }
-function NbPionsDeCetteCouleurApresCeCoup(var game : PackedThorGame; couleur,numeroCoup : SInt16; var typeErreur : SInt32) : SInt16;                                                ATTRIBUTE_NAME('NbPionsDeCetteCouleurApresCeCoup')
-function PeutCalculerScoreFinalDeCettePartie(var game : PackedThorGame; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32; var partieTerminee : boolean) : boolean;                 ATTRIBUTE_NAME('PeutCalculerScoreFinalDeCettePartie')
+function NbPionsDeCetteCouleurApresCeCoup(var game : PackedThorGame; couleur,numeroCoup : SInt16; var typeErreur : SInt32) : SInt16;
+function PeutCalculerScoreFinalDeCettePartie(var game : PackedThorGame; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32; var partieTerminee : boolean) : boolean;
 
 
 { Calculs des traits }
-procedure CalculeLesTraitsDeCettePartie(var s : PackedThorGame; var traitDansPartie : Tableau60Longint);                                                                            ATTRIBUTE_NAME('CalculeLesTraitsDeCettePartie')
-function CalculeLeTraitApresTelCoup(n : SInt16; s : String255; platDebut : plateauOthello; traitDebut : SInt16) : SInt16;                                                           ATTRIBUTE_NAME('CalculeLeTraitApresTelCoup')
+procedure CalculeLesTraitsDeCettePartie(var s : PackedThorGame; var traitDansPartie : Tableau60Longint);
+function CalculeLeTraitApresTelCoup(n : SInt16; s : String255; platDebut : plateauOthello; traitDebut : SInt16) : SInt16;
 
 
 { Fonctions de reconnaissance d'une partie d'othello dans une chaine }
-function EstUnePartieOthello(var s : String255; compacterPartie : boolean) : boolean;                                                                                               ATTRIBUTE_NAME('EstUnePartieOthello')
-function EstUnePartieOthelloAvecMiroir(var s : String255) : boolean;                                                                                                                ATTRIBUTE_NAME('EstUnePartieOthelloAvecMiroir')
-function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolean; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32) : boolean;                                    ATTRIBUTE_NAME('EstUnePartieOthelloTerminee')
+function EstUnePartieOthello(var s : String255; compacterPartie : boolean) : boolean;
+function EstUnePartieOthelloAvecMiroir(var s : String255) : boolean;
+function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolean; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32) : boolean;
 
 
 { Fonction cherchant simultanement une partie et des joueurs dans une chaine }
-function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;   ATTRIBUTE_NAME('TrouverPartieEtJoueursDansChaine')
+function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;
 
 
 

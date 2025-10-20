@@ -11,21 +11,21 @@ INTERFACE
  uses
      Events , UnitDefCassio;
 
-	function EventHasOptionKey( const er : EventRecord ) : Boolean;                                                                                                                    ATTRIBUTE_NAME('EventHasOptionKey')
-	function EventHasCommandKey( const er : EventRecord ) : Boolean;                                                                                                                   ATTRIBUTE_NAME('EventHasCommandKey')
-	function EventHasControlKey( const er : EventRecord ) : Boolean;                                                                                                                   ATTRIBUTE_NAME('EventHasControlKey')
-	function EventHasShiftKey( const er : EventRecord ) : Boolean;                                                                                                                     ATTRIBUTE_NAME('EventHasShiftKey')
-	function EventChar( const er : EventRecord ) : char;                                                                                                                               ATTRIBUTE_NAME('EventChar')
-	function EventCharCode( const er : EventRecord ) : SInt16;                                                                                                                         ATTRIBUTE_NAME('EventCharCode')
-	function EventKeyCode( const er : EventRecord ) : SInt16;                                                                                                                          ATTRIBUTE_NAME('EventKeyCode')
-	function EventIsSuspendResume( const er : EventRecord ) : Boolean;                                                                                                                 ATTRIBUTE_NAME('EventIsSuspendResume')
-	function EventHasResume( const er : EventRecord ) : Boolean;                                                                                                                       ATTRIBUTE_NAME('EventHasResume')
-	function EventIsMouseMoved( const er : EventRecord ) : Boolean;                                                                                                                    ATTRIBUTE_NAME('EventIsMouseMoved')
-	function EventHasActivate( const er : EventRecord ) : Boolean;                                                                                                                     ATTRIBUTE_NAME('EventHasActivate')
-	function EventIsKeyDown( const er : EventRecord ) : Boolean;                                                                                                                       ATTRIBUTE_NAME('EventIsKeyDown')
-	function EventHasOK( const er : EventRecord ) : Boolean;                                                                                                                           ATTRIBUTE_NAME('EventHasOK')
-	function EventHasCancel( const er : EventRecord ) : Boolean;                                                                                                                       ATTRIBUTE_NAME('EventHasCancel')
-	function EventHasDiscard( const er : EventRecord ) : Boolean;                                                                                                                      ATTRIBUTE_NAME('EventHasDiscard')
+	function EventHasOptionKey( const er : EventRecord ) : Boolean;
+	function EventHasCommandKey( const er : EventRecord ) : Boolean;
+	function EventHasControlKey( const er : EventRecord ) : Boolean;
+	function EventHasShiftKey( const er : EventRecord ) : Boolean;
+	function EventChar( const er : EventRecord ) : char;
+	function EventCharCode( const er : EventRecord ) : SInt16;
+	function EventKeyCode( const er : EventRecord ) : SInt16;
+	function EventIsSuspendResume( const er : EventRecord ) : Boolean;
+	function EventHasResume( const er : EventRecord ) : Boolean;
+	function EventIsMouseMoved( const er : EventRecord ) : Boolean;
+	function EventHasActivate( const er : EventRecord ) : Boolean;
+	function EventIsKeyDown( const er : EventRecord ) : Boolean;
+	function EventHasOK( const er : EventRecord ) : Boolean;
+	function EventHasCancel( const er : EventRecord ) : Boolean;
+	function EventHasDiscard( const er : EventRecord ) : Boolean;
 
 IMPLEMENTATION
 

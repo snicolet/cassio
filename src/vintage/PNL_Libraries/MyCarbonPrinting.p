@@ -40,12 +40,12 @@ IMPLEMENTATION
 
 
 
-USES UnitCarbonisation,CFBase,CFString,PMCore, PMApplication, 
+USES UnitCarbonisation,CFBase,CFString,PMCore, PMApplication,
 	Events, MacWindows, Dialogs, Fonts, QuickDraw,
-	Devices, TextEdit,    MacMemory,  Scrap, ToolUtils, 
-	OSUtils,   Menus,  Lists, Processes,  
-	Resources, TextUtils, Controls,  Files, 
-	Script, Sound, Icons, ColorPicker, Folders, 
+	Devices, TextEdit,    MacMemory,  Scrap, ToolUtils,
+	OSUtils,   Menus,  Lists, Processes,
+	Resources, TextUtils, Controls,  Files,
+	Script, Sound, Icons, ColorPicker, Folders,
 	ControlDefinitions, GestaltEqu, MyTypes;
 
 
@@ -62,7 +62,7 @@ begin
   iErr := PMCreatePrintSettings(g_PrintSettings);
   if (iErr = noErr)
     then iErr := PMSessionDefaultPrintSettings(g_PrintSession,g_PrintSettings);
-    
+
 	InitializePrintingSupport := iErr;
 end;  { InitializePrintingSupport }
 
@@ -129,7 +129,7 @@ begin
 
   SetPort(GrafPtr(printingContext));
   pageRect := MyGetPortBounds(CGrafPtr(printingContext));
-  
+
   ReadyPrinting := pageRect;
 end;  { ReadyPrinting }
 

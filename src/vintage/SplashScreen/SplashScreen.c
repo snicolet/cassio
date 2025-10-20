@@ -48,7 +48,7 @@ enum
     kOpenCocoaWindow = 'COCO'
 };
 
-static OSStatus 
+static OSStatus
 SplashScreenHandleCommand(int commandID) {
     OSStatus osStatus = noErr;
     if (commandID == kSplashScreenEventButtonPressed) {
@@ -66,20 +66,20 @@ SplashScreenCommandHandler(EventHandlerCallRef inCallRef, EventRef inEvent, void
     HICommand command;
     OSStatus err = eventNotHandledErr;
 
-    
+
     if (GetEventKind(inEvent) == kEventCommandProcess) {
         GetEventParameter( inEvent, kEventParamDirectObject, typeHICommand, NULL, sizeof(HICommand), NULL, &command );
         switch ( command.commandID ) {
             case kOpenCocoaWindow:
-                               
+
                 // call function to initialize Cocoa
                 err = SplashScreenInitializeCocoa(SplashScreenHandleCommand);
                 require_noerr(err, CantInitializeCocoa);
-                
+
                 // call function to show window
                 err = SplashScreenOrderWindowFront();
                 require_noerr(err, CantCallFunction);
-                
+
 CantCallFunction:
 CantInitializeCocoa:
                 break;
@@ -107,28 +107,28 @@ pascal void DisplaySplashScreen()
     // CreateNibReference only searches into the application bundle.
     err = CreateNibReference(CFSTR("main"), &nibRef);
     require_noerr( err, CantGetNibRef );
-    
+
     // Once the nib reference is created, set the menu bar. "MainMenu" is the name of the menu bar
     // object. This name is set in InterfaceBuilder when the nib is created.
     err = SetMenuBarFromNib(nibRef, CFSTR("MenuBar"));
     require_noerr( err, CantSetMenuBar );
-    
-    // Then create a window. "MainWindow" is the name of the window object. This name is set in 
+
+    // Then create a window. "MainWindow" is the name of the window object. This name is set in
     // InterfaceBuilder when the nib is created.
     err = CreateWindowFromNib(nibRef, CFSTR("MainWindow"), &window);
     require_noerr( err, CantCreateWindow );
 
     // We don't need the nib reference anymore.
     DisposeNibReference(nibRef);
-    
+
     // The window was created hidden so show it.
     ShowWindow( window );
-    
+
     MyInstallApplicationEventHandler(NewEventHandlerUPP(SplashScreenCommandHandler), GetEventTypeCount(cmdEvent), &cmdEvent, 0, NULL);
 
     // Call the event loop
     RunApplicationEventLoop();
-    
+
 CantCreateWindow:
 CantSetMenuBar:
 CantGetNibRef:

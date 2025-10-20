@@ -15,9 +15,9 @@ INTERFACE
 {fonctions pour ouvrir et afficher des fichiers au format ".pict" }
 
 
-function ReadPictFile(picFile : FichierTEXT; var error : OSErr) : PicHandle;                                                                                                        ATTRIBUTE_NAME('ReadPictFile')
-function DisplayPictFile(picFile : FichierTEXT; displayWindow : WindowPtr) : OSErr;                                                                                                 ATTRIBUTE_NAME('DisplayPictFile')
-function DrawPictFile(picFile : FichierTEXT; inRect : rect) : OSErr;                                                                                                                ATTRIBUTE_NAME('DrawPictFile')
+function ReadPictFile(picFile : FichierTEXT; var error : OSErr) : PicHandle;
+function DisplayPictFile(picFile : FichierTEXT; displayWindow : WindowPtr) : OSErr;
+function DrawPictFile(picFile : FichierTEXT; inRect : rect) : OSErr;
 
 
 IMPLEMENTATION

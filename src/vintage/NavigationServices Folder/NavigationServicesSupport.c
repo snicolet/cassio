@@ -14,10 +14,10 @@
 
 #define dontSaveChanges	3
 
- 
 
 
- 
+
+
 pascal OSStatus OpenFileDialog(OSType applicationSignature, short numTypes, OSType typeList[]);
 // Displays the NavGet dialog and opens the selected files with AppleEvents.
 // To enable multiple document opening through AppleEvents pass NULL as the fileSpec anf fileType.
@@ -26,12 +26,12 @@ pascal OSStatus OpenFileDialog(OSType applicationSignature, short numTypes, OSTy
 pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, OSType typeList[], FSSpec* fileSpec);
 // Displays the NavGet dialog and returns (in "fileSpec") the first selected file.
 
- 
+
 pascal short ConfirmSaveDialog(StringPtr documentName, Boolean quitting);
 // Displays the save confirmation dialog anmd returns {ok, cancel, dontSaveChanges}
- 
- 
- 
+
+
+
 pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator,  FSSpec* fileSpec, Boolean* stationery, Boolean* replacing, NavReplyRecord* reply);
 // Displays the NavPut dialog and returns the selected file location and replacing info.
 
@@ -44,10 +44,10 @@ pascal Boolean MyNavServicesAvailable();
 // Call this routine after saving a document passing back the fileSpec and reply returned by SaveFileDialog
 // This call performs any file tranlation needed and disposes the reply
 
- 
- 
-pascal void MyNavEventProc(const NavEventCallbackMessage callBackSelector, 
-						NavCBRecPtr callBackParms, 
+
+
+pascal void MyNavEventProc(const NavEventCallbackMessage callBackSelector,
+						NavCBRecPtr callBackParms,
 						NavCallBackUserData callBackUD);
 // Callback to handle event passing between the navigation dialogs and the application
 
@@ -221,7 +221,7 @@ pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, O
 	  long   count;
 	
 	  theErr = AECountItems(&theReply.selection, &count);
-	  
+	
 	  if (count >= 1)
 	  {
 	    // User selection
@@ -237,7 +237,7 @@ pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, O
 			AEGetDescData(&resultDesc, fileSpec, sizeof(FSSpec));
 #endif
       }
-	  
+	
 		NavDisposeReply(&theReply);
 	}
 	
@@ -251,7 +251,7 @@ pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, O
 }
 
 
- 
+
 pascal short ConfirmSaveDialog(StringPtr documentName, Boolean quitting)
 {
 	OSStatus				theStatusErr 	= noErr;
@@ -295,11 +295,11 @@ pascal short ConfirmSaveDialog(StringPtr documentName, Boolean quitting)
 	
 	return result;
 }
- 
- 
- 
-pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator, 
-						 FSSpec* fileSpec, 
+
+
+
+pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator,
+						 FSSpec* fileSpec,
 						Boolean* stationery, Boolean* replacing, NavReplyRecord* reply)
 {
 	NavDialogOptions	dialogOptions;
@@ -379,9 +379,9 @@ pascal OSStatus CompleteSave(const FSSpec* fileSpec, NavReplyRecord* reply)
 
 pascal extern void HandleEvent(EventRecord* pEvent);
 
- 
-pascal void MyNavEventProc(const NavEventCallbackMessage callBackSelector, 
-						NavCBRecPtr callBackParms, 
+
+pascal void MyNavEventProc(const NavEventCallbackMessage callBackSelector,
+						NavCBRecPtr callBackParms,
 						NavCallBackUserData callBackUD)
 // Callback to handle event passing between the navigation dialogs and the application
 {

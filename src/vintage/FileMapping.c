@@ -52,13 +52,13 @@ pascal int MapFile( char * inPathName, void ** outDataPtr, size_t * outDataLengt
 
 
   // Return safe values on error.
-  
+
   outError = 0;
   *outDataPtr = NULL;
   *outDataLength = 0;
-  
+
   // Open the file.
-  
+
   fileDescriptor = open( inPathName, O_RDONLY, 0 );
   if( fileDescriptor < 0 )
     {
@@ -66,38 +66,38 @@ pascal int MapFile( char * inPathName, void ** outDataPtr, size_t * outDataLengt
     }
   else
     {
-    
+
     // We now know the file exists. Retrieve the file size.
-    
+
     if( fstat( fileDescriptor, &statInfo ) != 0 )
       {
       outError = errno;
       }
     else
       {
-      
+
       // Map the file into a read-only memory region.
-      
+
       *outDataPtr = mmap(NULL, statInfo.st_size, PROT_READ, 0, fileDescriptor, 0);
-      
+
       if( *outDataPtr == MAP_FAILED )
         {
         outError = errno;
         }
       else
         {
-        
+
         // On success, return the size of the mapped file.
-        
+
         *outDataLength = statInfo.st_size;
         }
       }
-      
+
     // Now close the file. The kernel doesnÕt use our file descriptor.
 
     close( fileDescriptor );
     }
-    
+
   return outError;
 }
 

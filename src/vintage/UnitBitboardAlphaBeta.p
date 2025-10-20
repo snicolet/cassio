@@ -18,18 +18,18 @@ INTERFACE
 
 
 
-function LanceurBitboardAlphaBeta(var plat : plOthEndgame; couleur,ESprof,alpha,beta,diffPions,numFirtSonToParallelize : SInt32) : SInt32;                                          ATTRIBUTE_NAME('LanceurBitboardAlphaBeta')
-function PeutFaireFinaleBitboardCettePosition(var plat : plateauOthello; couleur,alphaMilieu,betaMilieu,nbNoirs,nbBlancs : SInt32; var note : SInt32) : boolean;                    ATTRIBUTE_NAME('PeutFaireFinaleBitboardCettePosition')
+function LanceurBitboardAlphaBeta(var plat : plOthEndgame; couleur,ESprof,alpha,beta,diffPions,numFirtSonToParallelize : SInt32) : SInt32;
+function PeutFaireFinaleBitboardCettePosition(var plat : plateauOthello; couleur,alphaMilieu,betaMilieu,nbNoirs,nbBlancs : SInt32; var note : SInt32) : boolean;
 
 
-function ABFinBitboardQuatreCasesVides(var position : bitboard; alpha_4,beta_4,diffPions_4,vecteurParite_4 : SInt32; listeBitboard : UInt32{; debugageUnrolled : boolean}) : SInt32;                                                                                          ATTRIBUTE_NAME('ABFinBitboardQuatreCasesVides')
-function ABFinBitboardPariteSansStabilite(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32) : SInt32;                            ATTRIBUTE_NAME('ABFinBitboardPariteSansStabilite')
-function ABFinBitboardParite(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32) : SInt32;                                         ATTRIBUTE_NAME('ABFinBitboardParite')
-function ABFinBitboardPariteHachage(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;  ATTRIBUTE_NAME('ABFinBitboardPariteHachage')
-function ABFinBitboardFastestFirst(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;                                                                         ATTRIBUTE_NAME('ABFinBitboardFastestFirst')
-function ABFinBitboardFastestFirstKnuth(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite,typeKnuth : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;                                                          ATTRIBUTE_NAME('ABFinBitboardFastestFirstKnuth')
-function ABFinBitboardFastestFirstAvecETC(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;                                                                  ATTRIBUTE_NAME('ABFinBitboardFastestFirstAvecETC')
-function ABFinBitboardParallele(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite,numFirtSonToParallelize : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;                                                    ATTRIBUTE_NAME('ABFinBitboardParallele')
+function ABFinBitboardQuatreCasesVides(var position : bitboard; alpha_4,beta_4,diffPions_4,vecteurParite_4 : SInt32; listeBitboard : UInt32{; debugageUnrolled : boolean}) : SInt32;
+function ABFinBitboardPariteSansStabilite(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32) : SInt32;
+function ABFinBitboardParite(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32) : SInt32;
+function ABFinBitboardPariteHachage(var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;
+function ABFinBitboardFastestFirst(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;
+function ABFinBitboardFastestFirstKnuth(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite,typeKnuth : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;
+function ABFinBitboardFastestFirstAvecETC(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;
+function ABFinBitboardParallele(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite,numFirtSonToParallelize : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;
 
 
 
@@ -42,13 +42,13 @@ function solve_four_empty( my_bits, opp_bits : demi_bitboard; sq1, sq2, sq3, sq4
 
 
 {$IFC COLLECTER_STATISTIQUES_ORDRE_OPTIMUM_DES_CASES}
-procedure ResetStatistiquesOrdreOptimumDesCases;                                                                                                                                    ATTRIBUTE_NAME('ResetStatistiquesOrdreOptimumDesCases')
-procedure EcritStatistiquesOrdreOptimumDesCasesDansRapport;                                                                                                                         ATTRIBUTE_NAME('EcritStatistiquesOrdreOptimumDesCasesDansRapport')
+procedure ResetStatistiquesOrdreOptimumDesCases;
+procedure EcritStatistiquesOrdreOptimumDesCasesDansRapport;
 {$ENDC}
 
 {$IFC COLLECTER_STATISTIQUES_STATUT_KNUTH_DES_NOEUDS}
-procedure ResetStatistiquesStatutKnuthDesNoeuds;                                                                                                                                    ATTRIBUTE_NAME('ResetStatistiquesStatutKnuthDesNoeuds')
-procedure EcritStatistiquesStatutKnuthDesNoeudsDansRapport;                                                                                                                         ATTRIBUTE_NAME('EcritStatistiquesStatutKnuthDesNoeudsDansRapport')
+procedure ResetStatistiquesStatutKnuthDesNoeuds;
+procedure EcritStatistiquesStatutKnuthDesNoeudsDansRapport;
 {$ENDC}
 
 

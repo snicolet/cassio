@@ -2,7 +2,7 @@ unit basicmemory;
 
 interface
 
-uses 
+uses
 {$IFDEF UNIX}
   cmem,
   cthreads,
@@ -171,7 +171,7 @@ var S1, S2 : string[30];
     p , q : Pointer;
 begin
    theSize := sizeof(S1);
-   
+
    Writeln();
    writeln('theSize = ', theSize);
    S1 := 'Hello World ! ';
@@ -180,11 +180,11 @@ begin
    MoveMemory(@S1, @S2, theSize);
    Writeln('S2 = ', S2);
    Writeln();
-    
+
    m := AllocateMemoryPtrClear(theSize);
    for k := 0 to theSize - 1 do
       Writeln(m^[k]);
-   
+
    MoveMemory(@S2, m, ord(S2[0]));
    for k := 0 to theSize - 1 do
       begin

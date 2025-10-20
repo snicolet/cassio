@@ -9,25 +9,25 @@ INTERFACE
 
 
 // Initialisation de l'unite
-procedure InitUnitConstructionListeBitboard;                                                                                                                                        ATTRIBUTE_NAME('InitUnitConstructionListeBitboard')
-procedure LibereMemoireUnitConstructionListeBitboard;                                                                                                                               ATTRIBUTE_NAME('LibereMemoireUnitConstructionListeBitboard')
+procedure InitUnitConstructionListeBitboard;
+procedure LibereMemoireUnitConstructionListeBitboard;
 
 
 // Demande de la reconstruction de la liste bitboard
-procedure SetDoitReconstruireLaListeBitboard(flag : boolean);                                                                                                                       ATTRIBUTE_NAME('SetDoitReconstruireLaListeBitboard')
-function DoitReconstruireLaListeBitboard : boolean;                                                                                                                                 ATTRIBUTE_NAME('DoitReconstruireLaListeBitboard')
+procedure SetDoitReconstruireLaListeBitboard(flag : boolean);
+function DoitReconstruireLaListeBitboard : boolean;
 
 
 
 // La reconstruction proprement dite
-procedure ConstruireTableListeBitboardToSquare(theList : celluleCaseVideDansListeChaineePtr);                                                                                       ATTRIBUTE_NAME('ConstruireTableListeBitboardToSquare')
-function ListeChaineeDesCasesVidesEnListeBitboard(theList : celluleCaseVideDansListeChaineePtr; nbCasesVides : SInt32) : UInt32;                                                    ATTRIBUTE_NAME('ListeChaineeDesCasesVidesEnListeBitboard')
-procedure ReconstruireLaTableListeBitboardToSquareSiNecessaire(nbCasesVides : SInt32; listeChainee : celluleCaseVideDansListeChaineePtr);                                           ATTRIBUTE_NAME('ReconstruireLaTableListeBitboardToSquareSiNecessaire')
+procedure ConstruireTableListeBitboardToSquare(theList : celluleCaseVideDansListeChaineePtr);
+function ListeChaineeDesCasesVidesEnListeBitboard(theList : celluleCaseVideDansListeChaineePtr; nbCasesVides : SInt32) : UInt32;
+procedure ReconstruireLaTableListeBitboardToSquareSiNecessaire(nbCasesVides : SInt32; listeChainee : celluleCaseVideDansListeChaineePtr);
 
 
 // Test de l'unite
-procedure WritelnListeBitboardDansRapport(s : String255; listeBitboard : UInt32; nbCasesVides : SInt32);                                                                            ATTRIBUTE_NAME('WritelnListeBitboardDansRapport')
-procedure TesterListeCasesVidesBitboard(listeBitboard : UInt32; nbCasesVides : SInt32);                                                                                             ATTRIBUTE_NAME('TesterListeCasesVidesBitboard')
+procedure WritelnListeBitboardDansRapport(s : String255; listeBitboard : UInt32; nbCasesVides : SInt32);
+procedure TesterListeCasesVidesBitboard(listeBitboard : UInt32; nbCasesVides : SInt32);
 
 
 

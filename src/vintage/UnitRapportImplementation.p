@@ -16,84 +16,84 @@ INTERFACE
 
 
 
-procedure InitUnitRapport;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitRapport')
-procedure LibereMemoireUnitRapport;                                                                                                                                                 ATTRIBUTE_NAME('LibereMemoireUnitRapport')
+procedure InitUnitRapport;
+procedure LibereMemoireUnitRapport;
 
 
 {fonctions d'acces aux champs du RapportRec}
-function GetWindowRapportOpen : boolean;                                                                                                                                            ATTRIBUTE_NAME('GetWindowRapportOpen')
-function GetRapportWindow : WindowPtr;                                                                                                                                              ATTRIBUTE_NAME('GetRapportWindow')
-function GetTextEditRecordOfRapport : TEHandle;                                                                                                                                     ATTRIBUTE_NAME('GetTextEditRecordOfRapport')
-function GetTSMDocOfRapport : TSMDocumentID;                                                                                                                                        ATTRIBUTE_NAME('GetTSMDocOfRapport')
-function GetTSMTERecHandleOfRapport : TSMTERecHandle;                                                                                                                               ATTRIBUTE_NAME('GetTSMTERecHandleOfRapport')
-function GetVerticalScrollerOfRapport : ControlHandle;                                                                                                                              ATTRIBUTE_NAME('GetVerticalScrollerOfRapport')
-function GetHorizontalScrollerOfRapport : ControlHandle;                                                                                                                            ATTRIBUTE_NAME('GetHorizontalScrollerOfRapport')
-function GetTailleMaximumOfRapport : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetTailleMaximumOfRapport')
-function GetProchaineAlerteRemplissageRapport : SInt32;                                                                                                                             ATTRIBUTE_NAME('GetProchaineAlerteRemplissageRapport')
-procedure SetProchaineAlerteRemplissageRapport(tailleCritique : SInt32);                                                                                                            ATTRIBUTE_NAME('SetProchaineAlerteRemplissageRapport')
+function GetWindowRapportOpen : boolean;
+function GetRapportWindow : WindowPtr;
+function GetTextEditRecordOfRapport : TEHandle;
+function GetTSMDocOfRapport : TSMDocumentID;
+function GetTSMTERecHandleOfRapport : TSMTERecHandle;
+function GetVerticalScrollerOfRapport : ControlHandle;
+function GetHorizontalScrollerOfRapport : ControlHandle;
+function GetTailleMaximumOfRapport : SInt32;
+function GetProchaineAlerteRemplissageRapport : SInt32;
+procedure SetProchaineAlerteRemplissageRapport(tailleCritique : SInt32);
 
 
 
-procedure ChangeFontDansRapport(whichFont : SInt16);                                                                                                                                ATTRIBUTE_NAME('ChangeFontDansRapport')
-procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);                                                                                                                   ATTRIBUTE_NAME('ChangeFontFaceDansRapport')
-procedure ChangeFontSizeDansRapport(whichSize : SInt16);                                                                                                                            ATTRIBUTE_NAME('ChangeFontSizeDansRapport')
-procedure ChangeFontColorDansRapport(whichColor : SInt16);                                                                                                                          ATTRIBUTE_NAME('ChangeFontColorDansRapport')
-procedure ChangeFontColorRGBDansRapport(whichColor : RGBColor);                                                                                                                     ATTRIBUTE_NAME('ChangeFontColorRGBDansRapport')
-procedure TextNormalDansRapport;                                                                                                                                                    ATTRIBUTE_NAME('TextNormalDansRapport')
+procedure ChangeFontDansRapport(whichFont : SInt16);
+procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);
+procedure ChangeFontSizeDansRapport(whichSize : SInt16);
+procedure ChangeFontColorDansRapport(whichColor : SInt16);
+procedure ChangeFontColorRGBDansRapport(whichColor : RGBColor);
+procedure TextNormalDansRapport;
 
 
 
-procedure UpdateScrollersRapport;                                                                                                                                                   ATTRIBUTE_NAME('UpdateScrollersRapport')
-procedure InvalScrollersRapport;                                                                                                                                                    ATTRIBUTE_NAME('InvalScrollersRapport')
-procedure CalculateViewAndDestRapport;                                                                                                                                              ATTRIBUTE_NAME('CalculateViewAndDestRapport')
-procedure TrackScrollingRapport(ch: ControlHandle; part: SInt16);                                                                                                                   ATTRIBUTE_NAME('TrackScrollingRapport')
-function MyTrackControlIndicatorPartRapport(theControl : ControlHandle) : SInt16;                                                                                                   ATTRIBUTE_NAME('MyTrackControlIndicatorPartRapport')
-function MyClikLoopRapport : boolean;                                                                                                                                               ATTRIBUTE_NAME('MyClikLoopRapport')
-procedure ChangeWindowRapportSize(hSize,vSize : SInt16);                                                                                                                            ATTRIBUTE_NAME('ChangeWindowRapportSize')
-procedure DoUpdateRapport;                                                                                                                                                          ATTRIBUTE_NAME('DoUpdateRapport')
-procedure DoActivateRapport;                                                                                                                                                        ATTRIBUTE_NAME('DoActivateRapport')
-procedure DoDeactivateRapport;                                                                                                                                                      ATTRIBUTE_NAME('DoDeactivateRapport')
-procedure RedrawFenetreRapport;                                                                                                                                                     ATTRIBUTE_NAME('RedrawFenetreRapport')
-function GetLongueurMessageBienvenueDansCassio : SInt16;                                                                                                                            ATTRIBUTE_NAME('GetLongueurMessageBienvenueDansCassio')
-procedure SetLongueurMessageBienvenueDansCassio(longueur : SInt16);                                                                                                                 ATTRIBUTE_NAME('SetLongueurMessageBienvenueDansCassio')
-procedure DetruireSelectionDansRapport;                                                                                                                                             ATTRIBUTE_NAME('DetruireSelectionDansRapport')
-procedure SetDebutSelectionRapport(debut : SInt32);                                                                                                                                 ATTRIBUTE_NAME('SetDebutSelectionRapport')
-procedure SetFinSelectionRapport(fin : SInt32);                                                                                                                                     ATTRIBUTE_NAME('SetFinSelectionRapport')
-procedure FrappeClavierDansRapport(whichChar : char);                                                                                                                               ATTRIBUTE_NAME('FrappeClavierDansRapport')
+procedure UpdateScrollersRapport;
+procedure InvalScrollersRapport;
+procedure CalculateViewAndDestRapport;
+procedure TrackScrollingRapport(ch: ControlHandle; part: SInt16);
+function MyTrackControlIndicatorPartRapport(theControl : ControlHandle) : SInt16;
+function MyClikLoopRapport : boolean;
+procedure ChangeWindowRapportSize(hSize,vSize : SInt16);
+procedure DoUpdateRapport;
+procedure DoActivateRapport;
+procedure DoDeactivateRapport;
+procedure RedrawFenetreRapport;
+function GetLongueurMessageBienvenueDansCassio : SInt16;
+procedure SetLongueurMessageBienvenueDansCassio(longueur : SInt16);
+procedure DetruireSelectionDansRapport;
+procedure SetDebutSelectionRapport(debut : SInt32);
+procedure SetFinSelectionRapport(fin : SInt32);
+procedure FrappeClavierDansRapport(whichChar : char);
 
 
 
 {quelques fonction d'acces}
-procedure EffaceDernierCaractereDuRapportSync(scrollerSynchronisation : boolean);                                                                                                   ATTRIBUTE_NAME('EffaceDernierCaractereDuRapportSync')
-procedure EffaceDernierCaractereDuRapport;                                                                                                                                          ATTRIBUTE_NAME('EffaceDernierCaractereDuRapport')
-procedure PositionnePointDinsertion(index : SInt32);                                                                                                                                ATTRIBUTE_NAME('PositionnePointDinsertion')
-function GetPositionPointDinsertion : SInt32;                                                                                                                                       ATTRIBUTE_NAME('GetPositionPointDinsertion')
-procedure SetDeroulementAutomatiqueDuRapport(flag : boolean);                                                                                                                       ATTRIBUTE_NAME('SetDeroulementAutomatiqueDuRapport')
-function GetDeroulementAutomatiqueDuRapport : boolean;                                                                                                                              ATTRIBUTE_NAME('GetDeroulementAutomatiqueDuRapport')
-function FindStringInRapport(s : String255; from,direction : SInt32; var positionTrouvee : SInt32) : boolean;                                                                       ATTRIBUTE_NAME('FindStringInRapport')
+procedure EffaceDernierCaractereDuRapportSync(scrollerSynchronisation : boolean);
+procedure EffaceDernierCaractereDuRapport;
+procedure PositionnePointDinsertion(index : SInt32);
+function GetPositionPointDinsertion : SInt32;
+procedure SetDeroulementAutomatiqueDuRapport(flag : boolean);
+function GetDeroulementAutomatiqueDuRapport : boolean;
+function FindStringInRapport(s : String255; from,direction : SInt32; var positionTrouvee : SInt32) : boolean;
 
-procedure FinRapport;                                                                                                                                                               ATTRIBUTE_NAME('FinRapport')
-procedure VoirLeDebutDuRapport;                                                                                                                                                     ATTRIBUTE_NAME('VoirLeDebutDuRapport')
-procedure VoirLaFinDuRapport;                                                                                                                                                       ATTRIBUTE_NAME('VoirLaFinDuRapport')
-procedure ViewRectAGaucheRapport;                                                                                                                                                   ATTRIBUTE_NAME('ViewRectAGaucheRapport')
-function NbLignesVisiblesDansRapport : SInt16;                                                                                                                                      ATTRIBUTE_NAME('NbLignesVisiblesDansRapport')
-function NbColonnesVisiblesDansRapport : SInt16;                                                                                                                                    ATTRIBUTE_NAME('NbColonnesVisiblesDansRapport')
+procedure FinRapport;
+procedure VoirLeDebutDuRapport;
+procedure VoirLaFinDuRapport;
+procedure ViewRectAGaucheRapport;
+function NbLignesVisiblesDansRapport : SInt16;
+function NbColonnesVisiblesDansRapport : SInt16;
 
 
 
 {Autovidage}
-procedure SetAutoVidageDuRapportDansImplementation(flag : boolean);                                                                                                                 ATTRIBUTE_NAME('SetAutoVidageDuRapportDansImplementation')
-function GetAutoVidageDuRapportDansImplementation : boolean;                                                                                                                        ATTRIBUTE_NAME('GetAutoVidageDuRapportDansImplementation')
+procedure SetAutoVidageDuRapportDansImplementation(flag : boolean);
+function GetAutoVidageDuRapportDansImplementation : boolean;
 
 {Gestion du fichier "Rapport.log"}
-procedure SetEcritToutDansRapportLogDansImplementation(flag : boolean);                                                                                                             ATTRIBUTE_NAME('SetEcritToutDansRapportLogDansImplementation')
-function GetEcritToutDansRapportLogDansImplementation : boolean;                                                                                                                    ATTRIBUTE_NAME('GetEcritToutDansRapportLogDansImplementation')
+procedure SetEcritToutDansRapportLogDansImplementation(flag : boolean);
+function GetEcritToutDansRapportLogDansImplementation : boolean;
 
 
 {Gestion du rapport thread safe}
-procedure AjouterStringDansListePourRapportThreadSafe(s : String255);                                                                                                               ATTRIBUTE_NAME('AjouterStringDansListePourRapportThreadSafe')
-procedure EnleverStringDansListePourRapportThreadSafe(s : String255);                                                                                                               ATTRIBUTE_NAME('EnleverStringDansListePourRapportThreadSafe')
-procedure GererRapportSafe;                                                                                                                                                         ATTRIBUTE_NAME('GererRapportSafe')
+procedure AjouterStringDansListePourRapportThreadSafe(s : String255);
+procedure EnleverStringDansListePourRapportThreadSafe(s : String255);
+procedure GererRapportSafe;
 
 
 IMPLEMENTATION

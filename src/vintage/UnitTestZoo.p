@@ -8,30 +8,30 @@ USES UnitDefCassio;
 
 
 { flag indiquant si Cassio est en train de faire un benchmark de milieu }
-function CassioEstEnBenchmarkDeMilieu : boolean;                                                                                                                                    ATTRIBUTE_NAME('CassioEstEnBenchmarkDeMilieu')
-procedure SetCassioEstEnBenchmarkDeMilieu(flag : boolean);                                                                                                                          ATTRIBUTE_NAME('SetCassioEstEnBenchmarkDeMilieu')
+function CassioEstEnBenchmarkDeMilieu : boolean;
+procedure SetCassioEstEnBenchmarkDeMilieu(flag : boolean);
 
 
 { fonctions elementaires pour tester le zoo }
-procedure TesterUnitZoo(whichPosition : PositionEtTraitRec);                                                                                                                        ATTRIBUTE_NAME('TesterUnitZoo')
-procedure TesterUnJobDuZooEnLocal(s : String255);                                                                                                                                   ATTRIBUTE_NAME('TesterUnJobDuZooEnLocal')
-procedure TesterUnCalculDeFinale(var params : MakeEndgameSearchParamRec);                                                                                                           ATTRIBUTE_NAME('TesterUnCalculDeFinale')
-procedure TesterUnCalculDeMilieu(var params : MakeEndgameSearchParamRec);                                                                                                           ATTRIBUTE_NAME('TesterUnCalculDeMilieu')
-procedure TesterDesRequetesAuZoo(var searchParams : MakeEndgameSearchParamRec);                                                                                                     ATTRIBUTE_NAME('TesterDesRequetesAuZoo')
-procedure TesterNoteDeCettePositionDeMilieu(var position : plateauOthello; var jou : plBool; var fr : InfoFront; nbNoir,nbBlanc,trait : SInt16; var nbPosEvaluees : SInt32);        ATTRIBUTE_NAME('TesterNoteDeCettePositionDeMilieu')
+procedure TesterUnitZoo(whichPosition : PositionEtTraitRec);
+procedure TesterUnJobDuZooEnLocal(s : String255);
+procedure TesterUnCalculDeFinale(var params : MakeEndgameSearchParamRec);
+procedure TesterUnCalculDeMilieu(var params : MakeEndgameSearchParamRec);
+procedure TesterDesRequetesAuZoo(var searchParams : MakeEndgameSearchParamRec);
+procedure TesterNoteDeCettePositionDeMilieu(var position : plateauOthello; var jou : plBool; var fr : InfoFront; nbNoir,nbBlanc,trait : SInt16; var nbPosEvaluees : SInt32);
 
 
 { benchamrk de milieu dans le menu Programmation }
-procedure StressTestMilieuPourLeZoo;                                                                                                                                                ATTRIBUTE_NAME('StressTestMilieuPourLeZoo')
+procedure StressTestMilieuPourLeZoo;
 
 
 { Test avec la souris}
-procedure DemarrerLeTestDuZooAvecLaSouris;                                                                                                                                          ATTRIBUTE_NAME('DemarrerLeTestDuZooAvecLaSouris')
-procedure EssayerEnvoyerPositionCouranteAuZooPourLeTester;                                                                                                                          ATTRIBUTE_NAME('EssayerEnvoyerPositionCouranteAuZooPourLeTester')
+procedure DemarrerLeTestDuZooAvecLaSouris;
+procedure EssayerEnvoyerPositionCouranteAuZooPourLeTester;
 
 
 { script de zoo }
-function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;                                                                                                             ATTRIBUTE_NAME('OuvrirFichierScriptZoo')
+function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;
 
 
 
@@ -79,24 +79,24 @@ var lesCasesInterdites : SquareSet;
     vitesse : double_t;
 begin
 
-  if CassioEstEnBenchmarkDeMilieu 
+  if CassioEstEnBenchmarkDeMilieu
     then exit(StressTestMilieuPourLeZoo);
-    
+
   SetCassioEstEnBenchmarkDeMilieu(true);
-  
-  
+
+
   WritelnDansRapport('Lancement du benchmark de milieu...');
 
   RandomizeTimer;
-  
+
   nbCoupsDemandes := 35;
   lesCasesInterdites := [];
   ouverturesDejaGenerees := MakeEmptyStringSet;
-  
+
   compteur := 0;
   nbPosEvaluees := 0;
   ticks := TickCount;
-  
+
   repeat
     PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
 
@@ -108,16 +108,16 @@ begin
           else GenerePartieAleatoireDesquilibree(nbCoupsDemandes,pionBlanc,lesCasesInterdites,partie60,ouverturesDejaGenerees);
 
     DisposeStringSet(ouverturesDejaGenerees);
-    
+
     ForEachPositionInGameDo(partie60,TesterNoteDeCettePositionDeMilieu,nbPosEvaluees);
 
     inc(compteur);
-    
-    if (compteur mod 5) = 0  then 
+
+    if (compteur mod 5) = 0  then
       begin
         WriteNumDansRapport('parties, evals = ',compteur);
         WriteNumDansRapport(', ',nbPosEvaluees);
-        
+
         temps := TickCount - ticks;
         if temps <> 0
           then vitesse := 60.0 * nbPosEvaluees / temps
@@ -126,22 +126,22 @@ begin
       end;
 
   until EscapeDansQueue | Quitter;
-  
+
   if Quitter then Quitter := false;
-  
+
   WriteNumDansRapport('parties, evals = ',compteur);
   WriteNumDansRapport(', ',nbPosEvaluees);
-  
+
   temps := TickCount - ticks;
   if temps <> 0
     then vitesse := 60.0 * nbPosEvaluees / temps
     else vitesse := 0.0;
   WritelnStringAndReelDansRapport('    =>  nbre positions par sec. = ',vitesse,6);
-  
+
   WritelnDansRapport('Fin du benchmark de milieu.');
-  
+
   SetCassioEstEnBenchmarkDeMilieu(false);
-        
+
 end;
 
 
@@ -153,7 +153,7 @@ var score : SInt32;
 begin
 
   affichage := false;
-  
+
   if affichage then
     begin
       WritelnDansRapport('');
@@ -191,7 +191,7 @@ begin
 
   affichage := false;
   // affichage := true;
-  
+
   if affichage then
     begin
       WritelnDansRapport('');
@@ -205,8 +205,8 @@ begin
     end;
 
   score := LanceurAlphaBetaMilieuWithSearchParams(params);
-  
-  
+
+
   // Quitter := false;
 
   if affichage then
@@ -227,14 +227,14 @@ procedure TesterNoteDeCettePositionDeMilieu(var position : plateauOthello; var j
 var searchParams : MakeEndgameSearchParamRec;
 begin
   Discard2(jou,fr);
-  
+
   if EscapeDansQueue | Quitter then exit(TesterNoteDeCettePositionDeMilieu);
 
   with searchParams do
     begin
        inTypeCalculFinale                   := ReflMilieu;
        inCouleurFinale                      := trait;
-       inProfondeurFinale                   := 10;  
+       inProfondeurFinale                   := 10;
        inNbreBlancsFinale                   := nbBlanc;
        inNbreNoirsFinale                    := nbNoir;
        inAlphaFinale                        := -64;
@@ -254,33 +254,33 @@ begin
        inDoitAbsolumentRamenerUnScoreFinale := true;
        ViderSearchResults(outResult);
     end;
-    
+
   if (nbBlanc + nbNoir) > 20 then
     begin
-    
+
       // tester avec le trait normal
       if not(EscapeDansQueue) then
         TesterUnCalculDeMilieu(searchParams);
-        
+
       // et aussi avec le trait inverse (pour la robustesse du passe)
       searchParams.inCouleurFinale := -searchParams.inCouleurFinale;
-      
+
       if not(EscapeDansQueue) then
         TesterUnCalculDeMilieu(searchParams);
-        
-        
+
+
       (*
       // et aussi avec le trait nul (pour la robustesse du passe)
       searchParams.inCouleurFinale := pionVide;
-      
+
       if not(EscapeDansQueue) then
         TesterUnCalculDeMilieu(searchParams);
       *)
-        
+
       nbPosEvaluees := nbPosEvaluees + 2;
-    
+
     end;
-  
+
 end;
 
 
@@ -396,9 +396,9 @@ procedure TesterUnJobDuZooEnLocal(s : String255);
 var jobString : LongString;
 begin
   SetCassioEstEnTrainDeDebugguerLeZooEnLocal(true);
-  
+
   WritelnDansRapport(s);
-  
+
   jobString := MakeLongString(s);
   PrefetchJobDuZoo(jobString);
 end;
@@ -421,18 +421,18 @@ begin
           gEOFPourZooFile := true;
           exit(ReadLineInScriptZoo);
         end;
-        
+
       if (Pos('JOB ', s) = 1) | (Pos('PREFETCH ', s) = 1) then
         begin
           TesterUnJobDuZooEnLocal(s);
         end;
-        
+
     end;
 end;
 
 
 
-function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr; 
+function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;
 var fic : FichierTEXT;
     err : OSErr;
     foo: SInt32;
@@ -473,61 +473,61 @@ begin
 
   (* quelques requetes de job critiques, qui font bugger ? *)
   (* WritelnDansRapport('test des requetes de milieu...'); *)
-  (* TesterUnJobDuZooEnLocal('JOB pos=-----------X------XX------OXXO---OXXXX-----O--------------------O window=-64,64 cut=72 depth=10 hash=12345'); 
+  (* TesterUnJobDuZooEnLocal('JOB pos=-----------X------XX------OXXO---OXXXX-----O--------------------O window=-64,64 cut=72 depth=10 hash=12345');
      TesterUnJobDuZooEnLocal('JOB pos=-----------XO-------XXOO-OOOOOXX-OOXOXXXOOOOOXXX--OOOOXX-OOOOO-XX window=-64,64 cut=72 depth=24 hash=1782520643');
      TesterUnJobDuZooEnLocal('JOB pos=---------------------------OOO-----XXO------XO------------------X window=-64,64 cut=72 depth=56 hash=10000000');
   *)
    {exit(TesterUnitZoo);}
-   
+
 
   if not(CassioDoitRentrerEnContactAvecLeZoo) | Quitter
     then exit(TesterUnitZoo);
-  
-  
+
+
   envoyerSeulementLaPositionActuelleCommeFinale := false;
-  
-  
+
+
   trait := GetTraitOfPosition(whichPosition);
-  
-  
+
+
   nbFilsTrouves := 0;
-  
+
   positionsDejaEnvoyees := MakeEmptyPositionEtTraitSet();
-      
+
   position := whichPosition;
-  
+
   // On envoie tous les petits-fils de la whichPosition dans le zoo
-  
+
   if envoyerSeulementLaPositionActuelleCommeFinale
     then max_iterateur := 1    // car on prendra seulement la position actuelle
     else max_iterateur := 64;  // car on veut generer tous les fils et tous les petits fils
-    
-      
+
+
   for t := 1 to max_iterateur do
     for s := 1 to max_iterateur do
      begin
-      
+
       position := whichPosition;
-      
+
       // Pour envoyer les petits fils de la position courante
-      // positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale 
+      // positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale
       //                           | (UpdatePositionEtTrait(position, othellier[t]) & UpdatePositionEtTrait(position, othellier[s]));
-      
+
       // Pour envoyer seulement les fils de la position courante
-      positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale 
+      positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale
                                  | (UpdatePositionEtTrait(position, othellier[t]));
-      
+
       positionDoitEtreEnvoyee := positionDoitEtreEnvoyee & not(MemberOfPositionEtTraitSet(position,foo,positionsDejaEnvoyees));
-      
+
       if positionDoitEtreEnvoyee then
         begin
           inc(nbFilsTrouves);
-          
+
           endgameDepth := NbCasesVidesDansPosition(position.position);
-          
-          midgameDepth := Min( 30 , endgameDepth - 12 );  
-          
-          
+
+          midgameDepth := Min( 30 , endgameDepth - 12 );
+
+
           if (endgameDepth <= 25) | envoyerSeulementLaPositionActuelleCommeFinale
             then
               begin
@@ -537,18 +537,18 @@ begin
             else
               begin
                 depthPourLeTest      := midgameDepth;
-                
+
                 //depthPourLeTest      := endgameDepth;  // FIXME FIXME
-                
+
                 typeCalculPourLeTest := ReflMilieu;
               end;
-              
-          
+
+
           with searchParams do
             begin
                inTypeCalculFinale                   := typeCalculPourLeTest;
                inCouleurFinale                      := GetTraitOfPosition(position);
-               inProfondeurFinale                   := depthPourLeTest; 
+               inProfondeurFinale                   := depthPourLeTest;
                inNbreBlancsFinale                   := NbPionsDeCetteCouleurDansPosition(pionBlanc, position.position);
                inNbreNoirsFinale                    := NbPionsDeCetteCouleurDansPosition(pionNoir, position.position);
                inAlphaFinale                        := -64;
@@ -567,20 +567,20 @@ begin
                inDoitAbsolumentRamenerUnScoreFinale := true;
                ViderSearchResults(outResult);
             end;
-          
+
           TesterDesRequetesAuZoo(searchParams);
-          
+
           AddPositionEtTraitToSet(position, 0, positionsDejaEnvoyees);
 
           position := whichPosition;
         end;
     end;
-    
+
   if (nbFilsTrouves > 0) then
     WritelnDansRapport(NumEnString(NombreDeResultatsEnAttenteSurLeZoo) + ' positions currently on the zoo');
 end;
- 
- 
+
+
 
 procedure DemarrerLeTestDuZooAvecLaSouris;
 begin
@@ -591,9 +591,9 @@ end;
 
 procedure EssayerEnvoyerPositionCouranteAuZooPourLeTester;
 begin
-  // si on est moins de 30 secondes apres le alt-maj-Q, alors  
+  // si on est moins de 30 secondes apres le alt-maj-Q, alors
   // on envoie la position au zoo pour tester le zoo
-  if ((TickCount - gDateDebutDuTestDuZooAvecLaSouris) < 30 * 60) 
+  if ((TickCount - gDateDebutDuTestDuZooAvecLaSouris) < 30 * 60)
     then TesterUnitZoo(PositionEtTraitCourant);
 end;
 

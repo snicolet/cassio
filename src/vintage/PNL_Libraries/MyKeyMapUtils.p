@@ -6,9 +6,9 @@ INTERFACE
 
  USES UnitDefCassio;
 
-	procedure MyGetKeys(var theKeys : myKeyMap);                                                                                                                                       ATTRIBUTE_NAME('MyGetKeys')
-	function ToucheAppuyee(KeyCode : SInt16) : boolean;                                                                                                                                ATTRIBUTE_NAME('ToucheAppuyee')
-	function MemesTouchesAppuyees(var keyMap1, keyMap2 : myKeyMap) : boolean;                                                                                                          ATTRIBUTE_NAME('MemesTouchesAppuyees')
+	procedure MyGetKeys(var theKeys : myKeyMap);
+	function ToucheAppuyee(KeyCode : SInt16) : boolean;
+	function MemesTouchesAppuyees(var keyMap1, keyMap2 : myKeyMap) : boolean;
 
 
 IMPLEMENTATION

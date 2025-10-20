@@ -10,25 +10,25 @@ interface
 
 // Displays the NavGet dialog and opens the selected files with AppleEvents.
 // To enable multiple document opening through AppleEvents pass NULL as the fileSpec anf fileType.
-function OpenFileDialog(applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr) : OSStatus;                                                                ATTRIBUTE_NAME('OpenFileDialog')
+function OpenFileDialog(applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr) : OSStatus;
 
 
 // Displays the NavGet dialog and returns (in "fileSpec") the first selected file.
-function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : FSSpec) : OSStatus;                  ATTRIBUTE_NAME('OpenOneFileDialog')
+function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : FSSpec) : OSStatus;
 
 
 // Displays the NavPut dialog and returns the selected file location and replacing info.
-function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : FSSpec; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;                                                                         ATTRIBUTE_NAME('SaveFileDialog')
+function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : FSSpec; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;
 
 
 // Displays the save confirmation dialog anmd returns {ok, cancel, dontSaveChanges}
-function ConfirmSaveDialog(documentName : stringPtr; quitting : boolean) : SInt16;                                                                                                  ATTRIBUTE_NAME('ConfirmSaveDialog')
+function ConfirmSaveDialog(documentName : stringPtr; quitting : boolean) : SInt16;
 
 
-function MyNavServicesAvailable : boolean;                                                                                                                                          ATTRIBUTE_NAME('MyNavServicesAvailable')
+function MyNavServicesAvailable : boolean;
 
 // Callback to handle event passing between the navigation dialogs and the application
-procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage; callBackParms : NavCBRecPtr ; callBackUD: UnivPtr);                                                            ATTRIBUTE_NAME('MyNavEventProc')
+procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage; callBackParms : NavCBRecPtr ; callBackUD: UnivPtr);
 
 
 

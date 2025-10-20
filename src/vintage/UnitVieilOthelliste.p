@@ -12,11 +12,11 @@ INTERFACE
 
 
 
-procedure InitUnitVieilOthelliste;                                                                                                                                                  ATTRIBUTE_NAME('InitUnitVieilOthelliste')
-procedure LibereMemoireVieilOthelliste;                                                                                                                                             ATTRIBUTE_NAME('LibereMemoireVieilOthelliste')
+procedure InitUnitVieilOthelliste;
+procedure LibereMemoireVieilOthelliste;
 
-procedure DerouleMaster;                                                                                                                                                            ATTRIBUTE_NAME('DerouleMaster')
-procedure DisplayCassioAboutBox;                                                                                                                                                    ATTRIBUTE_NAME('DisplayCassioAboutBox')
+procedure DerouleMaster;
+procedure DisplayCassioAboutBox;
 { necessite une ressource de type STR$ ˆ 6 items , d'ID 10014 :
      STR$ 1 = nom du programe
      STR$ 2 = auteur
@@ -29,9 +29,9 @@ procedure DisplayCassioAboutBox;                                                
   et une ressource de son d'ID 20000 (par exemple la valse hongroise)
 }
 
-procedure DessineAide(quellePage : PagesAide);                                                                                                                                      ATTRIBUTE_NAME('DessineAide')
-function NextPageDansAide(current : PagesAide) : PagesAide;                                                                                                                         ATTRIBUTE_NAME('NextPageDansAide')
-function PreviousPageDansAide(current : PagesAide) : PagesAide;                                                                                                                     ATTRIBUTE_NAME('PreviousPageDansAide')
+procedure DessineAide(quellePage : PagesAide);
+function NextPageDansAide(current : PagesAide) : PagesAide;
+function PreviousPageDansAide(current : PagesAide) : PagesAide;
 
 
 IMPLEMENTATION
@@ -218,11 +218,11 @@ begin
   ChaineFFO := ReadStringFromRessource(TextesFederationID,2);
   ChaineTelephone := ReadStringFromRessource(TextesFederationID,3);
   ChaineAdresse := ReadStringFromRessource(TextesFederationID,4);
-  
+
   ChaineNicolet := ReadStringFromRessource(TextesFederationID,6);
   if (Pos('^0',ChaineNicolet) > 0)
      then ChaineNicolet := ParamStr(ChaineNicolet,VersionDeCassioEnString(),"","","");
-  
+
   ChaineQuin := ReadStringFromRessource(TextesFederationID,7);
   ChainePenloup := ReadStringFromRessource(TextesFederationID,8);
 
@@ -610,7 +610,7 @@ begin
     else WritelnDansRapport('myStartAnimatedAboutBoxPtr = NIL');
 
 end;
- 
+
 
 
 procedure DisplayCassioAboutBox;
@@ -624,19 +624,19 @@ begin
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
    err := Gestalt(gestaltSystemVersion, response);
-   animationEstPresente :=   (err = noErr) 
-                           & (response >= $00001050) 
-                           & (response <= $00001070) 
+   animationEstPresente :=   (err = noErr)
+                           & (response >= $00001050)
+                           & (response <= $00001070)
                            & CassioEstUnBundleApplicatif;
   {$ELSEC}
    Discard2(err,response);
    animationEstPresente := false;
   {$ENDC}
-   
+
    if animationEstPresente
      then DisplayCassioAboutBoxAvecCoreAnimation
      else DisplayCassioAboutBoxPourVieuxMacs;
-   
+
 
 end;
 

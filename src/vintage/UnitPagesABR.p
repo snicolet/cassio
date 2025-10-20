@@ -16,17 +16,17 @@ INTERFACE
 
 
 
-procedure InitUnitPagesDeABR;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitPagesDeABR')
-procedure DisposeToutesLesPagesDeABR;                                                                                                                                               ATTRIBUTE_NAME('DisposeToutesLesPagesDeABR')
+procedure InitUnitPagesDeABR;
+procedure DisposeToutesLesPagesDeABR;
 
 
-function PeutCreerNouvellePageABR : boolean;                                                                                                                                        ATTRIBUTE_NAME('PeutCreerNouvellePageABR')
-function TrouvePlaceDansPageDeABR(var nroPage,nroIndex : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('TrouvePlaceDansPageDeABR')
-procedure LocaliserABRDansSaPage(G : ABR; var nroDePage,nroIndex : SInt32);                                                                                                         ATTRIBUTE_NAME('LocaliserABRDansSaPage')
+function PeutCreerNouvellePageABR : boolean;
+function TrouvePlaceDansPageDeABR(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserABRDansSaPage(G : ABR; var nroDePage,nroIndex : SInt32);
 
 
-function NewABRPaginee : ABR;                                                                                                                                                       ATTRIBUTE_NAME('NewABRPaginee')
-procedure DisposeABRPaginee(x : ABR);                                                                                                                                               ATTRIBUTE_NAME('DisposeABRPaginee')
+function NewABRPaginee : ABR;
+procedure DisposeABRPaginee(x : ABR);
 
 
 

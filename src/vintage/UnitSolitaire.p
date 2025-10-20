@@ -16,20 +16,20 @@ INTERFACE
 
 
 
-function EstUnSolitaire(var meilleurX,bstdef : SInt32; couleur,MFprof,nbBl,nbNo : SInt32; const jeu : plateauOthello; var empl : plBool; var frontiere : InfoFront; var score,nbreMeilleurs : SInt32; pourVraimentJouer : boolean; var causeRejet : SInt32; traitement,scoreaatteindre : SInt32) : boolean;                                                             ATTRIBUTE_NAME('EstUnSolitaire')
-procedure PlaquerSolitaire(PositionEtCommentaire : String255);                                                                                                                      ATTRIBUTE_NAME('PlaquerSolitaire')
-function CassioEstEnRechercheSolitaire : boolean;                                                                                                                                   ATTRIBUTE_NAME('CassioEstEnRechercheSolitaire')
+function EstUnSolitaire(var meilleurX,bstdef : SInt32; couleur,MFprof,nbBl,nbNo : SInt32; const jeu : plateauOthello; var empl : plBool; var frontiere : InfoFront; var score,nbreMeilleurs : SInt32; pourVraimentJouer : boolean; var causeRejet : SInt32; traitement,scoreaatteindre : SInt32) : boolean;
+procedure PlaquerSolitaire(PositionEtCommentaire : String255);
+function CassioEstEnRechercheSolitaire : boolean;
 
 
 
-procedure ParserCommentaireSolitaire(commentaire : String255; var promptGras,resteDuCommentaire : String255);                                                                       ATTRIBUTE_NAME('ParserCommentaireSolitaire')
-function PeutParserReferencesSolitaire(references : String255; var noir,blanc,tournoi : String255) : boolean;                                                                       ATTRIBUTE_NAME('PeutParserReferencesSolitaire')
+procedure ParserCommentaireSolitaire(commentaire : String255; var promptGras,resteDuCommentaire : String255);
+function PeutParserReferencesSolitaire(references : String255; var noir,blanc,tournoi : String255) : boolean;
 
 
-procedure DoDialogueConfigurationSolitaires;                                                                                                                                        ATTRIBUTE_NAME('DoDialogueConfigurationSolitaires')
-procedure DoEstUnSolitaire;                                                                                                                                                         ATTRIBUTE_NAME('DoEstUnSolitaire')
-procedure DoAfficheFelicitations;                                                                                                                                                   ATTRIBUTE_NAME('DoAfficheFelicitations')
-procedure EssaieAfficherFelicitation;                                                                                                                                               ATTRIBUTE_NAME('EssaieAfficherFelicitation')
+procedure DoDialogueConfigurationSolitaires;
+procedure DoEstUnSolitaire;
+procedure DoAfficheFelicitations;
+procedure EssaieAfficherFelicitation;
 
 
 
@@ -1069,7 +1069,7 @@ if (interruptionReflexion = pasdinterruption) then
    for i := 1 to nbCoupsPourCoul do
 	   BEGIN
 	     iCourant := listeCasesVides[i];
-	     
+	
 	     //WritelnNumDansRapport('AlphaBetaSolitaireFast, coup = ',iCourant);
 
 
@@ -1616,7 +1616,7 @@ begin
   if killer         <> NIL then DisposeMemoryPtr(Ptr(killer));
   if killing        <> NIL then DisposeMemoryPtr(Ptr(killing));
   if meilleureSuite <> NIL then DisposeMemoryPtr(Ptr(meilleureSuite));
-  
+
   killer         := NIL;
   killing        := NIL;
   meilleureSuite := NIL;
@@ -1959,14 +1959,14 @@ begin
                 if nroChoixHumain >= 2 then
                    for k := 1 to posEcriture do
                      erreurES := WriteDansFichierTexte(fichierSolution,' ');
-                erreurES := WriteDansFichierTexte(fichierSolution,StringOf(' ')+CoupEnStringEnMajuscules(coupHumain));
+                erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(coupHumain));
                 platEssai := plat;
                 JouerUnCoupDuSolitaire(coupHumain,couleurHumain,platEssai);
                 if OrdiPeutJouer(platEssai)
                   then
                     begin
                       CalculerMeilleurReponseOrdi(platEssai,reponseOrdi);
-                      erreurES := WriteDansFichierTexte(fichierSolution,StringOf(' ')+CoupEnStringEnMajuscules(reponseOrdi));
+                      erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
                       JouerUnCoupDuSolitaire(reponseOrdi,couleurOrdi,platEssai);
                       EcritureRecursive(platEssai);
                     end
@@ -1976,7 +1976,7 @@ begin
                         then
                           begin
                             s := ReadStringFromRessource(TextesSolitairesID,7);
-                            erreurES := WriteDansFichierTexte(fichierSolution,StringOf(' ')+s);
+                            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+s);
                             EcritureRecursive(platEssai);
                           end
                         else
@@ -1993,9 +1993,9 @@ begin
          then
           begin
             s := ReadStringFromRessource(TextesSolitairesID,8);
-            erreurES := WriteDansFichierTexte(fichierSolution,StringOf(' ')+s);
+            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+s);
             CalculerMeilleurReponseOrdi(plat,reponseOrdi);
-            erreurES := WriteDansFichierTexte(fichierSolution,StringOf(' ')+CoupEnStringEnMajuscules(reponseOrdi));
+            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
             JouerUnCoupDuSolitaire(reponseOrdi,couleurOrdi,plat);
             EcritureRecursive(plat);
           end
@@ -2125,8 +2125,8 @@ begin    {EstUnSolitaire}
 
   gEnRechercheSolitaire := true;
   SetCassioEstEnTrainDeReflechir(true,@oldCassioEstEnTrainDeReflechir);
-  
-  
+
+
 
   if (InitMaterielSolitaire = NoErr) then
     case traitement of
@@ -2715,7 +2715,7 @@ begin
   if referencescompletes then
     begin
       NumEnString(64-Partiebuff^.ScoreEtTheorik[0],s);
-      comment := Concat(comment,s,StringOf(' '),nom);
+      comment := Concat(comment,s,CharToString(' '),nom);
     end
     else
     comment := Concat(comment,nom);
@@ -2745,7 +2745,7 @@ begin
   {if referencesCompletes then
    begin
      NumEnString(nroPart,s);
-     comment := Concat(comment,'  (N¡ ',s,StringOf(')'));
+     comment := Concat(comment,'  (N¡ ',s,CharToString(')'));
    end;}
 
   {
@@ -2792,7 +2792,7 @@ begin
       CompilerPosition(platSol,s);
       PositionEtCommentaire := s+commentaire;
       NumEnString(nroDeCeSolitaire,s);
-      if LENGTH_OF_STRING(s) < 5 then for i := 1 to (5-LENGTH_OF_STRING(s)) do s := Concat(s,StringOf(' '));
+      if LENGTH_OF_STRING(s) < 5 then for i := 1 to (5-LENGTH_OF_STRING(s)) do s := Concat(s,CharToString(' '));
       PositionEtCommentaire := s+PositionEtCommentaire;
     end;
 end;

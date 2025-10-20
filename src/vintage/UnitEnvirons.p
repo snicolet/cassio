@@ -11,41 +11,41 @@ INTERFACE
 
 
 { Version de Cassio, par exemple "7.5" }
-function VersionDeCassioEnString : String255;                                                                                                                                       ATTRIBUTE_NAME('VersionDeCassioEnString')
+function VersionDeCassioEnString : String255;
 
 { Paths complets vers les dossiers de Cassio }
-function DetermineVolumeApplication : String255;                                                                                                                                    ATTRIBUTE_NAME('DetermineVolumeApplication')
-function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;                                                                                     ATTRIBUTE_NAME('DeterminePathDossierFichiersAuxiliaires')
-function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) : String255;                                                                                        ATTRIBUTE_NAME('DeterminePathDossierOthelliersCassio')
+function DetermineVolumeApplication : String255;
+function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;
+function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) : String255;
 
 { Noms de l'utilisateur et de l'executable }
-function GetUserName : String255;                                                                                                                                                   ATTRIBUTE_NAME('GetUserName')
-function GetApplicationName(default : String255) : String255;                                                                                                                       ATTRIBUTE_NAME('GetApplicationName')
-function GetApplicationBundleName : String255;                                                                                                                                      ATTRIBUTE_NAME('GetApplicationBundleName')
+function GetUserName : String255;
+function GetApplicationName(default : String255) : String255;
+function GetApplicationBundleName : String255;
 
 { Polices de caracteres }
-procedure SelectCassioFonts(theme : SInt32);                                                                                                                                        ATTRIBUTE_NAME('SelectCassioFonts')
-function GetCassioFontNum(nomPolice : String255) : SInt32;                                                                                                                          ATTRIBUTE_NAME('GetCassioFontNum')
-procedure ChargerLesPolicesPriveesDeCassio;                                                                                                                                         ATTRIBUTE_NAME('ChargerLesPolicesPriveesDeCassio')
+procedure SelectCassioFonts(theme : SInt32);
+function GetCassioFontNum(nomPolice : String255) : SInt32;
+procedure ChargerLesPolicesPriveesDeCassio;
 
 { Divers }
-procedure ForconsLePlantageDeCassio;                                                                                                                                                ATTRIBUTE_NAME('ForconsLePlantageDeCassio')
-function HasGestaltAttr(itsAttr : OStype; itsBit : SInt16) : boolean;                                                                                                               ATTRIBUTE_NAME('HasGestaltAttr')
-function CassioEstUnBundleApplicatif : boolean;                                                                                                                                     ATTRIBUTE_NAME('CassioEstUnBundleApplicatif')
-function CassioSansDouteLanceDepuisUneImageDisque : boolean;                                                                                                                        ATTRIBUTE_NAME('CassioSansDouteLanceDepuisUneImageDisque')
+procedure ForconsLePlantageDeCassio;
+function HasGestaltAttr(itsAttr : OStype; itsBit : SInt16) : boolean;
+function CassioEstUnBundleApplicatif : boolean;
+function CassioSansDouteLanceDepuisUneImageDisque : boolean;
 
 { Test pour les langues des localisations de Cassio }
-function EstLaVersionFrancaiseDeCassio : boolean;                                                                                                                                   ATTRIBUTE_NAME('EstLaVersionFrancaiseDeCassio')
-function EstLaVersionJaponaiseDeCassio : boolean;                                                                                                                                   ATTRIBUTE_NAME('EstLaVersionJaponaiseDeCassio')
-function EstLaVersionAnglaiseDeCassio : boolean;                                                                                                                                    ATTRIBUTE_NAME('EstLaVersionAnglaiseDeCassio')
+function EstLaVersionFrancaiseDeCassio : boolean;
+function EstLaVersionJaponaiseDeCassio : boolean;
+function EstLaVersionAnglaiseDeCassio : boolean;
 
 { Gestion de la memorisation du path du dossier de Cassio }
-procedure InitListeOfValidCassioFolders;                                                                                                                                            ATTRIBUTE_NAME('InitListeOfValidCassioFolders')
-procedure SauvegarderListeOfCassioFolderPaths;                                                                                                                                      ATTRIBUTE_NAME('SauvegarderListeOfCassioFolderPaths')
-procedure LireListeOfCassioFolderPaths;                                                                                                                                             ATTRIBUTE_NAME('LireListeOfCassioFolderPaths')
-procedure AddValidCassioFolderPath(whichPath : String255);                                                                                                                          ATTRIBUTE_NAME('AddValidCassioFolderPath')
-function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;                                                                                                 ATTRIBUTE_NAME('BeginIterationOnCassioFolderPaths')
-function TryNextCassioFolderPath : String255;                                                                                                                                       ATTRIBUTE_NAME('TryNextCassioFolderPath')
+procedure InitListeOfValidCassioFolders;
+procedure SauvegarderListeOfCassioFolderPaths;
+procedure LireListeOfCassioFolderPaths;
+procedure AddValidCassioFolderPath(whichPath : String255);
+function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;
+function TryNextCassioFolderPath : String255;
 
 
 
@@ -60,7 +60,7 @@ IMPLEMENTATION
 
 USES
     Script, Fonts, MacWindows, GestaltEqu, Processes, CFBase, CFString, OSUtils
-    
+
 {$IFC NOT(USE_PRELINK)}
     , MyStrings, UnitServicesMemoire, MyFileSystemUtils, MyFonts, MyAntialiasing, UnitFichiersTEXT, MyMathUtils, UnitCarbonisation
     , UnitRapport, UnitEngine, UnitGestionDuTemps, UnitTournoi ;
@@ -350,7 +350,7 @@ begin
 	            gCassioApplicationFont := HiWord(aux);
 	            gCassioNormalFontSize := LoWord(aux);
 	          end;
-	        
+	
 	        gCassioApplicationFont := MyGetFontNum('Osaka');
 
           gCassioRapportNormalFont := gCassioApplicationFont;
@@ -534,41 +534,41 @@ var nomFichier : String255;
     command, arguments : String255;
 begin
  {$UNUSED pb,path}
- 
+
  LoadPolicePriveeDeCassio := false;
 
  if not(isFolder) then
    begin
      nomFichier := GetNameOfFSSpec(fs);
-     
-     if (nomFichier = '') | (nomFichier[1] = '.') then 
+
+     if (nomFichier = '') | (nomFichier[1] = '.') then
        exit(LoadPolicePriveeDeCassio);
-     
+
      // WritelnDansRapport('Searching font ' + nomFichier + ' ...');
-     
+
      err := FichierTexteDeCassioExiste(pathDossierFichiersAuxiliaires+':Fonts:' + nomFichier, fontFile);
-     
+
      if err = NoErr
-       then 
+       then
          begin
-           
+
            source := EscapeSpacesInUnixPath(MacPathToUNIXPath(pathDossierFichiersAuxiliaires+':Fonts:' + nomFichier)) ;
            dest := EscapeSpacesInUnixPath('~/Library/Fonts/' + nomFichier )  ;
-           
+
            command := '/bin/cp';
            arguments :=  ' -n ' + source + '    ' + dest;
-           
+
            // WritelnDansRapport(command + arguments);
-           
+
            if CanStartUnixTask(command, arguments) then DoNothing;
-           
+
            // WritelnDansRapport('Loading font ' + nomFichier + ' ...');
            err := LoadFont(fontFile.theFSSpec);
-           
+
          end;
-     
+
      // WritelnNumDansRapport('err = ',err);
-     
+
    end;
 
   LoadPolicePriveeDeCassio := false; {ne pas chercher recursivement, sinon mettre := isFolder}
@@ -582,26 +582,26 @@ var fontDirectory : FSSpec;
     err : OSErr;
 begin
 
-  if (gNbLecturesDossierPolicesDeCassio > 0) 
+  if (gNbLecturesDossierPolicesDeCassio > 0)
     then exit(ChargerLesPolicesPriveesDeCassio);
 
   // WritelnDansRapport('Entree dans ChargerLesPolicesPriveesDeCassio');
-    
+
   if FichierTexteDeCassioExiste(pathDossierFichiersAuxiliaires+':Fonts:GenBasI.ttf', fic) = NoErr then
     begin
       path := pathDossierFichiersAuxiliaires+':Fonts:';
-      
+
       // WritelnDansRapport('dans ChargerLesPolicesPriveesDeCassio, path = ' + path);
-      
+
       err := MyFSMakeFSSpec(0,0,path,fontDirectory);
       if (err = 0) then err := SetPathOfScannedDirectory(fontDirectory);
       if (err = 0) then err := ScanDirectory(fontDirectory,LoadPolicePriveeDeCassio);
-      
+
     end;
-  
+
   inc(gNbLecturesDossierPolicesDeCassio);
   if (gNbLecturesDossierPolicesDeCassio < 0) then gNbLecturesDossierPolicesDeCassio := 1;
-  
+
   // WritelnNumDansRapport('dans ChargerLesPolicesPriveesDeCassio,  gNbLecturesDossierPolicesDeCassio = ',gNbLecturesDossierPolicesDeCassio);
 end;
 
@@ -617,20 +617,20 @@ begin
     end;
 
   policeID := MyGetFontNum(nomPolice);
-  
+
   if (policeID = 0) & (nomPolice = 'Fontin')                 then policeID := GetCassioFontNum('Fontin Regular');
   if (policeID = 0) & (nomPolice = 'New Century Schoolbook') then policeID := GetCassioFontNum('New Century Schoolbook Roman');
   if (policeID = 0) & (nomPolice = 'Gentium')                then policeID := GetCassioFontNum('Gentium Basic');
-  
+
   // WritelnNumDansRapport(nomPolice + '  =>  policeID = ',policeID);
-  
+
   if (policeID = 0) & (gNbLecturesDossierPolicesDeCassio <= 0) then
     begin
        ChargerLesPolicesPriveesDeCassio;
        policeID := GetCassioFontNum(nomPolice);
     end;
-  
-  
+
+
   GetCassioFontNum := policeID;
 end;
 

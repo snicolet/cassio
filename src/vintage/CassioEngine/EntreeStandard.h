@@ -21,7 +21,7 @@
 
 
 
-#define STDIN_BUFFER_SIZE  (1024 * 128) 
+#define STDIN_BUFFER_SIZE  (1024 * 128)
 
 extern FILE *input_stream;
 extern char cmd_buffer[STDIN_BUFFER_SIZE];

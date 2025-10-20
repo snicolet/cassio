@@ -14,25 +14,25 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyIntegerSet : IntegerSet;                                                                                                                                          ATTRIBUTE_NAME('MakeEmptyIntegerSet')
-function MakeOneElementIntegerSet(theKey : SInt32; data : SInt32) : IntegerSet;                                                                                                     ATTRIBUTE_NAME('MakeOneElementIntegerSet')
-procedure DisposeIntegerSet(var S : IntegerSet);                                                                                                                                    ATTRIBUTE_NAME('DisposeIntegerSet')
+function MakeEmptyIntegerSet : IntegerSet;
+function MakeOneElementIntegerSet(theKey : SInt32; data : SInt32) : IntegerSet;
+procedure DisposeIntegerSet(var S : IntegerSet);
 
 {Fonctions de test}
-function IntegerSetEstVide(S : IntegerSet) : boolean;                                                                                                                               ATTRIBUTE_NAME('IntegerSetEstVide')
-function CardinalOfIntegerSet(S : IntegerSet) : SInt32;                                                                                                                             ATTRIBUTE_NAME('CardinalOfIntegerSet')
-function MemberOfIntegerSet(theKey: SInt32; var data : SInt32; S : IntegerSet) : boolean;                                                                                           ATTRIBUTE_NAME('MemberOfIntegerSet')
+function IntegerSetEstVide(S : IntegerSet) : boolean;
+function CardinalOfIntegerSet(S : IntegerSet) : SInt32;
+function MemberOfIntegerSet(theKey: SInt32; var data : SInt32; S : IntegerSet) : boolean;
 
 {Ajout et retrait destructifs}
-procedure AddIntegerToSet(theKey : SInt32; data : SInt32; var S : IntegerSet);                                                                                                      ATTRIBUTE_NAME('AddIntegerToSet')
-procedure RemoveIntegerFromSet(theKey : SInt32; var S : IntegerSet);                                                                                                                ATTRIBUTE_NAME('RemoveIntegerFromSet')
+procedure AddIntegerToSet(theKey : SInt32; data : SInt32; var S : IntegerSet);
+procedure RemoveIntegerFromSet(theKey : SInt32; var S : IntegerSet);
 
 {Ecriture dans le rapport}
-procedure WriteIntegerSetDansRapport(const nom : String255; S : IntegerSet; avecCardinal : boolean);                                                                                ATTRIBUTE_NAME('WriteIntegerSetDansRapport')
-procedure WritelnIntegerSetDansRapport(const nom : String255; S : IntegerSet; avecCardinal : boolean);                                                                              ATTRIBUTE_NAME('WritelnIntegerSetDansRapport')
+procedure WriteIntegerSetDansRapport(const nom : String255; S : IntegerSet; avecCardinal : boolean);
+procedure WritelnIntegerSetDansRapport(const nom : String255; S : IntegerSet; avecCardinal : boolean);
 
 {Verification de l'unite}
-procedure TestIntegerSet;                                                                                                                                                           ATTRIBUTE_NAME('TestIntegerSet')
+procedure TestIntegerSet;
 
 
 IMPLEMENTATION

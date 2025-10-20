@@ -1,6 +1,6 @@
 /*
  *  EngineCalculations.c
- * 
+ *
  *  Implementation d'un faux programme d'othello (FakeOthelloEngine)...
  *  Edax ou Roxanne doivent implementer les memes fonctions correctement :-)
  *
@@ -139,7 +139,7 @@ pascal void engine_fake_search(const int duration)
 	
 	while (ReadClock() <= (start + duration)) {
 		
-		if (engine_must_stop_search || engine_must_quit) 
+		if (engine_must_stop_search || engine_must_quit)
 			break;
 		
 		EngineProtocolCheckEvents();

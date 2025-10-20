@@ -8,16 +8,16 @@ USES MacTypes, UnitOth0;
 
 
 // dans l'eval d'Edmond, stage = numero du dernier coup joue
-const 
+const
     Edmond_stage_MIN = 16;
     Edmond_stage_MAX = 56;
-    
+
 
 
 // tables de Cassio : il y en a deux fois moins (car on ne distingue pas BLACK/WHITE)
-//                    et elles sont un peu moins precises (valeurs sur 16 bits au lieu 
-//                    de 32 bits) que celles de Edmond  
-var 
+//                    et elles sont un peu moins precises (valeurs sur 16 bits au lieu
+//                    de 32 bits) que celles de Edmond
+var
     Edmond_DIAG_5_stub : array[0..64] of IntegerArrayPtr;
     Edmond_DIAG_6_stub : array[0..64] of IntegerArrayPtr;
     Edmond_DIAG_7_stub : array[0..64] of IntegerArrayPtr;
@@ -29,7 +29,7 @@ var
     Edmond_CORNER_2x5_stub : array[0..64] of IntegerArrayPtr;
     Edmond_CORNER_11_stub : array[0..64] of IntegerArrayPtr;
     Edmond_EDGE_2XC_stub : array[0..64] of IntegerArrayPtr;
-    
+
     Edmond_DIAG_5 : array[0..64] of IntegerArrayPtr;
     Edmond_DIAG_6 : array[0..64] of IntegerArrayPtr;
     Edmond_DIAG_7 : array[0..64] of IntegerArrayPtr;
@@ -37,11 +37,11 @@ var
     Edmond_HV_4 : array[0..64] of IntegerArrayPtr;
     Edmond_HV_3 : array[0..64] of IntegerArrayPtr;
     Edmond_HV_2 : array[0..64] of IntegerArrayPtr;
-    Edmond_EDGE_6_4 : array[0..64] of IntegerArrayPtr; 
+    Edmond_EDGE_6_4 : array[0..64] of IntegerArrayPtr;
     Edmond_CORNER_2x5 : array[0..64] of IntegerArrayPtr;
     Edmond_CORNER_11 : array[0..64] of IntegerArrayPtr;
     Edmond_EDGE_2XC : array[0..64] of IntegerArrayPtr;
-    
+
 
 var diag_5a : SInt32;
 		diag_5b : SInt32;

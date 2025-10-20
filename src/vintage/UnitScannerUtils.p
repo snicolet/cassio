@@ -10,12 +10,12 @@ INTERFACE
 
 
 { Fonctions pour transformer un coup en chaine, ou trouver un coup dans une chaine }
-function CoupEnStringEnMajuscules(coup : SInt16) : String255;                                                                                                                       ATTRIBUTE_NAME('CoupEnStringEnMajuscules')
-function CoupEnStringEnMinuscules(coup : SInt16) : String255;                                                                                                                       ATTRIBUTE_NAME('CoupEnStringEnMinuscules')
-function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;                                                                                                           ATTRIBUTE_NAME('CoupEnString')
-function StringEnCoup(const s : String255) : SInt16;                                                                                                                                ATTRIBUTE_NAME('StringEnCoup')
-function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;                                                     ATTRIBUTE_NAME('ScannerStringPourTrouverCoup')
-function PositionDansStringAlphaEnCoup(const s : String255; positionDansChaine : SInt16) : SInt16;                                                                                  ATTRIBUTE_NAME('PositionDansStringAlphaEnCoup')
+function CoupEnStringEnMajuscules(coup : SInt16) : String255;
+function CoupEnStringEnMinuscules(coup : SInt16) : String255;
+function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;
+function StringEnCoup(const s : String255) : SInt16;
+function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;
+function PositionDansStringAlphaEnCoup(const s : String255; positionDansChaine : SInt16) : SInt16;
 
 
 

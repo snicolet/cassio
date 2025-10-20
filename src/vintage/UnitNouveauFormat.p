@@ -16,127 +16,127 @@ INTERFACE
 
 
 {Initialisation et destruction}
-procedure InitUnitNouveauFormat;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitNouveauFormat')
-procedure LibereMemoireUnitNouveauFormat;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnitNouveauFormat')
-function PathDuDossierDatabase : String255;                                                                                                                                         ATTRIBUTE_NAME('PathDuDossierDatabase')
+procedure InitUnitNouveauFormat;
+procedure LibereMemoireUnitNouveauFormat;
+function PathDuDossierDatabase : String255;
 
 {Lecture des donnees sur le disque}
-function OuvreFichierNouveauFormat(numFichier : SInt16) : OSErr;                                                                                                                    ATTRIBUTE_NAME('OuvreFichierNouveauFormat')
-function LitPartieNouveauFormat(numFichier : SInt16; nroPartie : SInt64; enAvancant : boolean; var theGame : t_PartieRecNouveauFormat) : OSErr;                                     ATTRIBUTE_NAME('LitPartieNouveauFormat')
-function LitJoueurNouveauFormat(numFichier : SInt16; nroJoueur : SInt64; var joueur : String255) : OSErr;                                                                           ATTRIBUTE_NAME('LitJoueurNouveauFormat')
-function LitTournoiNouveauFormat(numFichier : SInt16; nroTournoi : SInt64; var tournoi : String255) : OSErr;                                                                        ATTRIBUTE_NAME('LitTournoiNouveauFormat')
-function LitEnteteNouveauFormat(refnum : SInt16; var entete : t_EnTeteNouveauFormat) : OSErr;                                                                                       ATTRIBUTE_NAME('LitEnteteNouveauFormat')
-function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;                                                                                                                    ATTRIBUTE_NAME('FermeFichierNouveauFormat')
+function OuvreFichierNouveauFormat(numFichier : SInt16) : OSErr;
+function LitPartieNouveauFormat(numFichier : SInt16; nroPartie : SInt64; enAvancant : boolean; var theGame : t_PartieRecNouveauFormat) : OSErr;
+function LitJoueurNouveauFormat(numFichier : SInt16; nroJoueur : SInt64; var joueur : String255) : OSErr;
+function LitTournoiNouveauFormat(numFichier : SInt16; nroTournoi : SInt64; var tournoi : String255) : OSErr;
+function LitEnteteNouveauFormat(refnum : SInt16; var entete : t_EnTeteNouveauFormat) : OSErr;
+function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;
 
 {Ecriture des donnees sur disque}
-procedure MettreDateDuJourDansEnteteFichierNouveauFormat(var entete : t_EnTeteNouveauFormat);                                                                                       ATTRIBUTE_NAME('MettreDateDuJourDansEnteteFichierNouveauFormat')
-function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;                                                                                         ATTRIBUTE_NAME('EcritEnteteNouveauFormat')
-function EcritPartieNouveauFormat(refnum : SInt16; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;                                                                 ATTRIBUTE_NAME('EcritPartieNouveauFormat')
-function EcritJoueurNouveauFormat(refnum : SInt16; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;                                                               ATTRIBUTE_NAME('EcritJoueurNouveauFormat')
-function EcritTournoiNouveauFormat(refnum : SInt16; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;                                                           ATTRIBUTE_NAME('EcritTournoiNouveauFormat')
+procedure MettreDateDuJourDansEnteteFichierNouveauFormat(var entete : t_EnTeteNouveauFormat);
+function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;
+function EcritPartieNouveauFormat(refnum : SInt16; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;
+function EcritJoueurNouveauFormat(refnum : SInt16; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;
+function EcritTournoiNouveauFormat(refnum : SInt16; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;
 
 {Gestion de la memoire}
-function AllocateMemoireIndexNouveauFormat(var nbParties : SInt64) : OSErr;                                                                                                         ATTRIBUTE_NAME('AllocateMemoireIndexNouveauFormat')
-function AllocateMemoireListePartieNouveauFormat(var nbParties : SInt64) : OSErr;                                                                                                   ATTRIBUTE_NAME('AllocateMemoireListePartieNouveauFormat')
-function AllocateMemoireJoueursNouveauFormat(var nbJoueurs : SInt64) : OSErr;                                                                                                       ATTRIBUTE_NAME('AllocateMemoireJoueursNouveauFormat')
-function AllocateMemoireTournoisNouveauFormat(var nbTournois : SInt64) : OSErr;                                                                                                     ATTRIBUTE_NAME('AllocateMemoireTournoisNouveauFormat')
-procedure DisposeIndexNouveauFormat;                                                                                                                                                ATTRIBUTE_NAME('DisposeIndexNouveauFormat')
-procedure DisposeListePartiesNouveauFormat;                                                                                                                                         ATTRIBUTE_NAME('DisposeListePartiesNouveauFormat')
-procedure DisposeJoueursNouveauFormat;                                                                                                                                              ATTRIBUTE_NAME('DisposeJoueursNouveauFormat')
-procedure DisposeTournoisNouveauFormat;                                                                                                                                             ATTRIBUTE_NAME('DisposeTournoisNouveauFormat')
+function AllocateMemoireIndexNouveauFormat(var nbParties : SInt64) : OSErr;
+function AllocateMemoireListePartieNouveauFormat(var nbParties : SInt64) : OSErr;
+function AllocateMemoireJoueursNouveauFormat(var nbJoueurs : SInt64) : OSErr;
+function AllocateMemoireTournoisNouveauFormat(var nbTournois : SInt64) : OSErr;
+procedure DisposeIndexNouveauFormat;
+procedure DisposeListePartiesNouveauFormat;
+procedure DisposeJoueursNouveauFormat;
+procedure DisposeTournoisNouveauFormat;
 
 
 {Fonctions de comptage}
-function NbPartiesFichierNouveauFormat(numFichier : SInt16) : SInt64;                                                                                                               ATTRIBUTE_NAME('NbPartiesFichierNouveauFormat')
-function AnneePartiesFichierNouveauFormat(numFichier : SInt16) : SInt16;                                                                                                            ATTRIBUTE_NAME('AnneePartiesFichierNouveauFormat')
-function NbJoueursDansFichierJoueursNouveauFormat(numFichier : SInt16) : SInt64;                                                                                                    ATTRIBUTE_NAME('NbJoueursDansFichierJoueursNouveauFormat')
-function NbTotalDeJoueursDansFichiersNouveauFormat(typeVoulu : SInt16; var nbFichiersJoueurs,placeMemoireNecessaire : SInt64) : SInt64;                                             ATTRIBUTE_NAME('NbTotalDeJoueursDansFichiersNouveauFormat')
-function NbTournoisDansFichierTournoisNouveauFormat(numFichier : SInt16) : SInt64;                                                                                                  ATTRIBUTE_NAME('NbTournoisDansFichierTournoisNouveauFormat')
-function NbTotalDeTournoisDansFichiersNouveauFormat(typeVoulu : SInt16; var nbFichiersTournois,placeMemoireNecessaire : SInt64) : SInt64;                                           ATTRIBUTE_NAME('NbTotalDeTournoisDansFichiersNouveauFormat')
-function NbTotalPartiesDansDistributionSet(ensemble : DistributionSet) : SInt64;                                                                                                    ATTRIBUTE_NAME('NbTotalPartiesDansDistributionSet')
-function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt64;                                                                                                     ATTRIBUTE_NAME('TailleTheoriqueDeCeFichierNouveauFormat')
+function NbPartiesFichierNouveauFormat(numFichier : SInt16) : SInt64;
+function AnneePartiesFichierNouveauFormat(numFichier : SInt16) : SInt16;
+function NbJoueursDansFichierJoueursNouveauFormat(numFichier : SInt16) : SInt64;
+function NbTotalDeJoueursDansFichiersNouveauFormat(typeVoulu : SInt16; var nbFichiersJoueurs,placeMemoireNecessaire : SInt64) : SInt64;
+function NbTournoisDansFichierTournoisNouveauFormat(numFichier : SInt16) : SInt64;
+function NbTotalDeTournoisDansFichiersNouveauFormat(typeVoulu : SInt16; var nbFichiersTournois,placeMemoireNecessaire : SInt64) : SInt64;
+function NbTotalPartiesDansDistributionSet(ensemble : DistributionSet) : SInt64;
+function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt64;
 
 
 {Fonctions de lecture recursive du dossier Database}
-procedure LecturePreparatoireDossierDatabase(pathDossierEnglobant : String255; fonctionAppelante : String255);                                                                      ATTRIBUTE_NAME('LecturePreparatoireDossierDatabase')
-procedure ChercheFichiersNouveauFormatDansDossier(vRefNum : SInt16; NomDossier : String255; var dossierTrouve : boolean);                                                           ATTRIBUTE_NAME('ChercheFichiersNouveauFormatDansDossier')
-function CalculePathFichierNouveauFormat(nroFichier : SInt16) : String255;                                                                                                          ATTRIBUTE_NAME('CalculePathFichierNouveauFormat')
-function CalculeNomFichierNouveauFormat(nroFichier : SInt16) : String255;                                                                                                           ATTRIBUTE_NAME('CalculeNomFichierNouveauFormat')
-function GetNroPremierFichierAvecCeTypeDeDonnees(CeTypeDeDonnees : SInt16) : SInt16;                                                                                                ATTRIBUTE_NAME('GetNroPremierFichierAvecCeTypeDeDonnees')
-function GetNroPremierFichierAvecCeNom(nom : String255) : SInt16;                                                                                                                   ATTRIBUTE_NAME('GetNroPremierFichierAvecCeNom')
-function GetNroPremierFichierAvecCetteDistribution(distribution : String255) : SInt16;                                                                                              ATTRIBUTE_NAME('GetNroPremierFichierAvecCetteDistribution')
-function GetNroDUnFichierDansLaMemeDistribution(nomFichier : String255) : SInt16;                                                                                                   ATTRIBUTE_NAME('GetNroDUnFichierDansLaMemeDistribution')
-function FichierWTHORJOUDejaTrouve : boolean;                                                                                                                                       ATTRIBUTE_NAME('FichierWTHORJOUDejaTrouve')
+procedure LecturePreparatoireDossierDatabase(pathDossierEnglobant : String255; fonctionAppelante : String255);
+procedure ChercheFichiersNouveauFormatDansDossier(vRefNum : SInt16; NomDossier : String255; var dossierTrouve : boolean);
+function CalculePathFichierNouveauFormat(nroFichier : SInt16) : String255;
+function CalculeNomFichierNouveauFormat(nroFichier : SInt16) : String255;
+function GetNroPremierFichierAvecCeTypeDeDonnees(CeTypeDeDonnees : SInt16) : SInt16;
+function GetNroPremierFichierAvecCeNom(nom : String255) : SInt16;
+function GetNroPremierFichierAvecCetteDistribution(distribution : String255) : SInt16;
+function GetNroDUnFichierDansLaMemeDistribution(nomFichier : String255) : SInt16;
+function FichierWTHORJOUDejaTrouve : boolean;
 
 
 { fonctions d'ajout d'un fichier dans le dossier database }
-function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : FichierTEXT) : OSErr;                                                                    ATTRIBUTE_NAME('AjouterFichierDansLeDossierDatabase')
-function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;                                                      ATTRIBUTE_NAME('RemplacerFichierDansLeDossierDatabaseParFichier')
-function AjouterFichierNouveauFormat(fic : FSSpec; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;                               ATTRIBUTE_NAME('AjouterFichierNouveauFormat')
+function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : FichierTEXT) : OSErr;
+function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;
+function AjouterFichierNouveauFormat(fic : FSSpec; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
 
 
 {Fonctions de test}
-function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;                                                           ATTRIBUTE_NAME('EstUnFichierNouveauFormat')
-function EntetesEgauxNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;                                                                                              ATTRIBUTE_NAME('EntetesEgauxNouveauFormat')
-function EntetePlusRecentNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;                                                                                          ATTRIBUTE_NAME('EntetePlusRecentNouveauFormat')
+function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;
+function EntetesEgauxNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;
+function EntetePlusRecentNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;
 
 
 {Gestion des distributions}
-function EstUneDistributionConnue(nomTest,pathTest : String255; var nroDistrib : SInt16) : boolean;                                                                                 ATTRIBUTE_NAME('EstUneDistributionConnue')
-function NomDistributionAssocieeNouveauFormat(ficName : String255; var anneeDansDistrib : SInt16) : String255;                                                                      ATTRIBUTE_NAME('NomDistributionAssocieeNouveauFormat')
-function TrouveDistributionsLesPlusProchesDeCeFichierNouveauFormat(nroFichier : SInt16) : DistributionSet;                                                                          ATTRIBUTE_NAME('TrouveDistributionsLesPlusProchesDeCeFichierNouveauFormat')
-procedure AjouterDistributionNouveauFormat(nomDistr,pathDistr : String255; typeDistribution : SInt16);                                                                              ATTRIBUTE_NAME('AjouterDistributionNouveauFormat')
-function EcourteNomDistributionNouveauFormat(nomLong : String255) : String255;                                                                                                      ATTRIBUTE_NAME('EcourteNomDistributionNouveauFormat')
-procedure SetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16; decalage : SInt64);                                                                                             ATTRIBUTE_NAME('SetDecalageNrosJoueursOfDistribution')
-function  GetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16) : SInt64;                                                                                                       ATTRIBUTE_NAME('GetDecalageNrosJoueursOfDistribution')
-procedure SetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16; decalage : SInt64);                                                                                            ATTRIBUTE_NAME('SetDecalageNrosTournoisOfDistribution')
-function  GetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16) : SInt64;                                                                                                      ATTRIBUTE_NAME('GetDecalageNrosTournoisOfDistribution')
+function EstUneDistributionConnue(nomTest,pathTest : String255; var nroDistrib : SInt16) : boolean;
+function NomDistributionAssocieeNouveauFormat(ficName : String255; var anneeDansDistrib : SInt16) : String255;
+function TrouveDistributionsLesPlusProchesDeCeFichierNouveauFormat(nroFichier : SInt16) : DistributionSet;
+procedure AjouterDistributionNouveauFormat(nomDistr,pathDistr : String255; typeDistribution : SInt16);
+function EcourteNomDistributionNouveauFormat(nomLong : String255) : String255;
+procedure SetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16; decalage : SInt64);
+function  GetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16) : SInt64;
+procedure SetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16; decalage : SInt64);
+function  GetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16) : SInt64;
 
 
 {types des distributions}
-procedure SetTypeDonneesDistribution(nroDistrib,typeDonnees : SInt16);                                                                                                              ATTRIBUTE_NAME('SetTypeDonneesDistribution')
-function GetTypeDonneesDistribution(nroDistrib : SInt16) : SInt16;                                                                                                                  ATTRIBUTE_NAME('GetTypeDonneesDistribution')
-function EstUneDistributionDeParties(nroDistrib : SInt16) : boolean;                                                                                                                ATTRIBUTE_NAME('EstUneDistributionDeParties')
-function EstUneDistributionDeSolitaires(nroDistrib : SInt16) : boolean;                                                                                                             ATTRIBUTE_NAME('EstUneDistributionDeSolitaires')
+procedure SetTypeDonneesDistribution(nroDistrib,typeDonnees : SInt16);
+function GetTypeDonneesDistribution(nroDistrib : SInt16) : SInt16;
+function EstUneDistributionDeParties(nroDistrib : SInt16) : boolean;
+function EstUneDistributionDeSolitaires(nroDistrib : SInt16) : boolean;
 
 
 {Tris divers}
-procedure TrierListeFichiersNouveauFormat;                                                                                                                                          ATTRIBUTE_NAME('TrierListeFichiersNouveauFormat')
-procedure TrierAlphabetiquementJoueursNouveauFormat;                                                                                                                                ATTRIBUTE_NAME('TrierAlphabetiquementJoueursNouveauFormat')
-procedure TrierAlphabetiquementTournoisNouveauFormat;                                                                                                                               ATTRIBUTE_NAME('TrierAlphabetiquementTournoisNouveauFormat')
+procedure TrierListeFichiersNouveauFormat;
+procedure TrierAlphabetiquementJoueursNouveauFormat;
+procedure TrierAlphabetiquementTournoisNouveauFormat;
 
 
 {Ajout d'un nom de joueur ou de tournoi dans la liste en memoire}
-procedure AjouterJoueurEnMemoire(joueur : String255; numeroEnMemoire,numeroDansSonFichier : SInt64);                                                                                ATTRIBUTE_NAME('AjouterJoueurEnMemoire')
-procedure AjouterTournoiEnMemoire(tournoi : String255; numeroEnMemoire,numeroDansSonFichier : SInt64);                                                                              ATTRIBUTE_NAME('AjouterTournoiEnMemoire')
+procedure AjouterJoueurEnMemoire(joueur : String255; numeroEnMemoire,numeroDansSonFichier : SInt64);
+procedure AjouterTournoiEnMemoire(tournoi : String255; numeroEnMemoire,numeroDansSonFichier : SInt64);
 
 
 {Lecture et gestion des fichiers de joueurs}
-function MetJoueursNouveauFormatEnMemoire(nomsAbreges : boolean) : OSErr;                                                                                                           ATTRIBUTE_NAME('MetJoueursNouveauFormatEnMemoire')
-function LitNomsDesJoueursEnJaponais : OSErr;                                                                                                                                       ATTRIBUTE_NAME('LitNomsDesJoueursEnJaponais')
-function CreeEnteteFichierIndexJoueursNouveauFormat(typeVoulu : SInt16) : t_EnTeteNouveauFormat;                                                                                    ATTRIBUTE_NAME('CreeEnteteFichierIndexJoueursNouveauFormat')
-function EcritFichierIndexDesJoueursTries(nomsAbreges : boolean) : OSErr;                                                                                                           ATTRIBUTE_NAME('EcritFichierIndexDesJoueursTries')
-function LitFichierIndexDesJoueursTries(nomsAbreges : boolean) : OSErr;                                                                                                             ATTRIBUTE_NAME('LitFichierIndexDesJoueursTries')
-procedure EffaceTousLesNomsCourtsDesJoueurs;                                                                                                                                        ATTRIBUTE_NAME('EffaceTousLesNomsCourtsDesJoueurs')
+function MetJoueursNouveauFormatEnMemoire(nomsAbreges : boolean) : OSErr;
+function LitNomsDesJoueursEnJaponais : OSErr;
+function CreeEnteteFichierIndexJoueursNouveauFormat(typeVoulu : SInt16) : t_EnTeteNouveauFormat;
+function EcritFichierIndexDesJoueursTries(nomsAbreges : boolean) : OSErr;
+function LitFichierIndexDesJoueursTries(nomsAbreges : boolean) : OSErr;
+procedure EffaceTousLesNomsCourtsDesJoueurs;
 
 
 {Lecture et gestion des fichiers de tournois}
-function MetJoueursEtTournoisEnMemoire(nomsAbreges : boolean) : OSErr;                                                                                                              ATTRIBUTE_NAME('MetJoueursEtTournoisEnMemoire')
-function MetTournoisNouveauFormatEnMemoire(nomsAbreges : boolean) : OSErr;                                                                                                          ATTRIBUTE_NAME('MetTournoisNouveauFormatEnMemoire')
-function LitNomsDesTournoisEnJaponais : OSErr;                                                                                                                                      ATTRIBUTE_NAME('LitNomsDesTournoisEnJaponais')
-function CreeEnteteFichierIndexTournoisNouveauFormat(typeVoulu : SInt16) : t_EnTeteNouveauFormat;                                                                                   ATTRIBUTE_NAME('CreeEnteteFichierIndexTournoisNouveauFormat')
-function EcritFichierIndexDesTournoisTries(nomsAbreges : boolean) : OSErr;                                                                                                          ATTRIBUTE_NAME('EcritFichierIndexDesTournoisTries')
-function LitFichierIndexDesTournoisTries(nomsAbreges : boolean) : OSErr;                                                                                                            ATTRIBUTE_NAME('LitFichierIndexDesTournoisTries')
+function MetJoueursEtTournoisEnMemoire(nomsAbreges : boolean) : OSErr;
+function MetTournoisNouveauFormatEnMemoire(nomsAbreges : boolean) : OSErr;
+function LitNomsDesTournoisEnJaponais : OSErr;
+function CreeEnteteFichierIndexTournoisNouveauFormat(typeVoulu : SInt16) : t_EnTeteNouveauFormat;
+function EcritFichierIndexDesTournoisTries(nomsAbreges : boolean) : OSErr;
+function LitFichierIndexDesTournoisTries(nomsAbreges : boolean) : OSErr;
 
 
 
 {Fichiers d'index de parties}
-function IndexerFichierPartiesEnMemoireNouveauFormat(numFichierParties : SInt16) : OSErr;                                                                                           ATTRIBUTE_NAME('IndexerFichierPartiesEnMemoireNouveauFormat')
-function EcritFichierIndexNouveauFormat(numFichierParties : SInt16) : OSErr;                                                                                                        ATTRIBUTE_NAME('EcritFichierIndexNouveauFormat')
-function LitFichierIndexNouveauFormat(numFichierIndex : SInt16) : OSErr;                                                                                                            ATTRIBUTE_NAME('LitFichierIndexNouveauFormat')
-function NomFichierIndexAssocieNouveauFormat(ficName : String255) : String255;                                                                                                      ATTRIBUTE_NAME('NomFichierIndexAssocieNouveauFormat')
-procedure EtablitLiaisonEntrePartiesEtIndexNouveauFormat;                                                                                                                           ATTRIBUTE_NAME('EtablitLiaisonEntrePartiesEtIndexNouveauFormat')
-procedure IndexerLesFichiersNouveauFormat;                                                                                                                                          ATTRIBUTE_NAME('IndexerLesFichiersNouveauFormat')
+function IndexerFichierPartiesEnMemoireNouveauFormat(numFichierParties : SInt16) : OSErr;
+function EcritFichierIndexNouveauFormat(numFichierParties : SInt16) : OSErr;
+function LitFichierIndexNouveauFormat(numFichierIndex : SInt16) : OSErr;
+function NomFichierIndexAssocieNouveauFormat(ficName : String255) : String255;
+procedure EtablitLiaisonEntrePartiesEtIndexNouveauFormat;
+procedure IndexerLesFichiersNouveauFormat;
 
 
 
@@ -3276,25 +3276,25 @@ function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt64;
 var taille : SInt64;
 begin
   taille := 0;
-  
+
   with InfosFichiersNouveauFormat do
     if (numFichier > 0) & (numFichier <= nbFichiers) then
       with fichiers[numFichier] do
         begin
           case typeDonnees of
-          
-            kFicJoueursNouveauFormat, kFicJoueursCourtsNouveauFormat : 
+
+            kFicJoueursNouveauFormat, kFicJoueursCourtsNouveauFormat :
               taille := (TailleEnTeteNouveauFormat + entete.NombreEnregistrementsTournoisEtJoueurs * TailleJoueurRecNouveauFormat);
-            
+
             kFicTournoisNouveauFormat, kFicTournoisCourtsNouveauFormat :
               taille := (TailleEnTeteNouveauFormat + entete.NombreEnregistrementsTournoisEtJoueurs * TailleTournoiRecNouveauFormat);
-            
-            kFicPartiesNouveauFormat : 
+
+            kFicPartiesNouveauFormat :
               taille := (TailleEnTeteNouveauFormat + entete.NombreEnregistrementsParties * TaillePartieRecNouveauFormat);
-            
+
           end; {case}
         end;
-  
+
   TailleTheoriqueDeCeFichierNouveauFormat := taille;
 end;
 

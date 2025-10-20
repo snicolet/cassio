@@ -17,54 +17,54 @@ INTERFACE
 
 
 { Fonctions de creation }
-function MakePositionEtTrait(var plat : plateauOthello; trait : SInt32) : PositionEtTraitRec;                                                                                       ATTRIBUTE_NAME('MakePositionEtTrait')
-function MakeEmptyPositionEtTrait : PositionEtTraitRec;                                                                                                                             ATTRIBUTE_NAME('MakeEmptyPositionEtTrait')
-function PositionEtTraitInitiauxStandard : PositionEtTraitRec;                                                                                                                      ATTRIBUTE_NAME('PositionEtTraitInitiauxStandard')
-procedure SetTraitOfPosition(var position : PositionEtTraitRec; trait : SInt32);                                                                                                    ATTRIBUTE_NAME('SetTraitOfPosition')
+function MakePositionEtTrait(var plat : plateauOthello; trait : SInt32) : PositionEtTraitRec;
+function MakeEmptyPositionEtTrait : PositionEtTraitRec;
+function PositionEtTraitInitiauxStandard : PositionEtTraitRec;
+procedure SetTraitOfPosition(var position : PositionEtTraitRec; trait : SInt32);
 
 
 { Fonctions d'acces }
-function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;                                                                                                            ATTRIBUTE_NAME('GetTraitOfPosition')
-function SamePositionEtTrait(var pos1,pos2 : PositionEtTraitRec) : boolean;                                                                                                         ATTRIBUTE_NAME('SamePositionEtTrait')
-function EstLaPositionCourante(var position : PositionEtTraitRec) : boolean;                                                                                                        ATTRIBUTE_NAME('EstLaPositionCourante')
-function EstLaPositionInitialeStandard(var position : PositionEtTraitRec) : boolean;                                                                                                ATTRIBUTE_NAME('EstLaPositionInitialeStandard')
-function EstLaPositionInitialeStandardInversee(var position : PositionEtTraitRec) : boolean;                                                                                        ATTRIBUTE_NAME('EstLaPositionInitialeStandardInversee')
-function NbPionsDeCetteCouleurDansPosition(couleur : SInt32; var position : plateauOthello) : SInt32;                                                                               ATTRIBUTE_NAME('NbPionsDeCetteCouleurDansPosition')
-function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;                                                                                                          ATTRIBUTE_NAME('NbCasesVidesDansPosition')
-function NombresCasesOccupeesDifferentes(p1, p2 : PositionEtTraitRec) : SInt32;                                                                                                     ATTRIBUTE_NAME('NombresCasesOccupeesDifferentes')
-procedure AssertParamsOfPositionEtTrait(var position : PositionEtTraitRec; fonctionAppelante : String255);                                                                          ATTRIBUTE_NAME('AssertParamsOfPositionEtTrait')
-function PartieEstFinieApresCeCoupDansPositionEtTrait(const position : PositionEtTraitRec; square : SInt32) : boolean;                                                              ATTRIBUTE_NAME('PartieEstFinieApresCeCoupDansPositionEtTrait')
-function GetListeDesCoupsLegauxDansCettePosition(const whichPos : PositionEtTraitRec; var liste : ListOfMoveRecords) : SInt32;                                                      ATTRIBUTE_NAME('GetListeDesCoupsLegauxDansCettePosition')
+function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;
+function SamePositionEtTrait(var pos1,pos2 : PositionEtTraitRec) : boolean;
+function EstLaPositionCourante(var position : PositionEtTraitRec) : boolean;
+function EstLaPositionInitialeStandard(var position : PositionEtTraitRec) : boolean;
+function EstLaPositionInitialeStandardInversee(var position : PositionEtTraitRec) : boolean;
+function NbPionsDeCetteCouleurDansPosition(couleur : SInt32; var position : plateauOthello) : SInt32;
+function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;
+function NombresCasesOccupeesDifferentes(p1, p2 : PositionEtTraitRec) : SInt32;
+procedure AssertParamsOfPositionEtTrait(var position : PositionEtTraitRec; fonctionAppelante : String255);
+function PartieEstFinieApresCeCoupDansPositionEtTrait(const position : PositionEtTraitRec; square : SInt32) : boolean;
+function GetListeDesCoupsLegauxDansCettePosition(const whichPos : PositionEtTraitRec; var liste : ListOfMoveRecords) : SInt32;
 
 
 { La position courante de Cassio }
-procedure SetPositionInitialeStandardDansJeuCourant;                                                                                                                                ATTRIBUTE_NAME('SetPositionInitialeStandardDansJeuCourant')
-procedure SetJeuCourant(jeu : plateauOthello; trait : SInt32);                                                                                                                      ATTRIBUTE_NAME('SetJeuCourant')
-function UpdateJeuCourant(whichMove : SInt32) : boolean;                                                                                                                            ATTRIBUTE_NAME('UpdateJeuCourant')
-function PositionEtTraitCourant : PositionEtTraitRec;                                                                                                                               ATTRIBUTE_NAME('PositionEtTraitCourant')
-function GetCouleurOfSquareDansJeuCourant(whichSquare : SInt32) : SInt32;                                                                                                           ATTRIBUTE_NAME('GetCouleurOfSquareDansJeuCourant')
-function JeuCourant : plateauOthello;                                                                                                                                               ATTRIBUTE_NAME('JeuCourant')
-function AQuiDeJouer : SInt32;                                                                                                                                                      ATTRIBUTE_NAME('AQuiDeJouer')
+procedure SetPositionInitialeStandardDansJeuCourant;
+procedure SetJeuCourant(jeu : plateauOthello; trait : SInt32);
+function UpdateJeuCourant(whichMove : SInt32) : boolean;
+function PositionEtTraitCourant : PositionEtTraitRec;
+function GetCouleurOfSquareDansJeuCourant(whichSquare : SInt32) : SInt32;
+function JeuCourant : plateauOthello;
+function AQuiDeJouer : SInt32;
 
 
 { Modifications de PositionEtTraitRec }
-function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;                                                                             ATTRIBUTE_NAME('UpdatePositionEtTrait')
-function RetournePionsPositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : SInt32;                                                                       ATTRIBUTE_NAME('RetournePionsPositionEtTrait')
-function InverserCouleurPionsDansPositionEtTrait(const position : PositionEtTraitRec) : PositionEtTraitRec;                                                                         ATTRIBUTE_NAME('InverserCouleurPionsDansPositionEtTrait')
+function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;
+function RetournePionsPositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : SInt32;
+function InverserCouleurPionsDansPositionEtTrait(const position : PositionEtTraitRec) : PositionEtTraitRec;
 
 
 { Traductions chaines  < -> PositionEtTraitRec }
-function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;                                                                                             ATTRIBUTE_NAME('PositionEtTraitEnString')
-function PositionEtTraitInitiauxStandardEnString : String255;                                                                                                                       ATTRIBUTE_NAME('PositionEtTraitInitiauxStandardEnString')
-function ParsePositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;                                                                                   ATTRIBUTE_NAME('ParsePositionEtTrait')
-function ParserFENEnPositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;                                                                             ATTRIBUTE_NAME('ParserFENEnPositionEtTrait')
-function PositionRapportEnPositionEtTrait(s : String255; couleur : SInt32) : PositionEtTraitRec;                                                                                    ATTRIBUTE_NAME('PositionRapportEnPositionEtTrait')
+function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;
+function PositionEtTraitInitiauxStandardEnString : String255;
+function ParsePositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;
+function ParserFENEnPositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;
+function PositionRapportEnPositionEtTrait(s : String255; couleur : SInt32) : PositionEtTraitRec;
 
 
 { Jouer une partie pour obtenir un PositionEtTraitRec }
-function PositionEtTraitAfterMoveNumberAlpha(game : String255; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;                                                  ATTRIBUTE_NAME('PositionEtTraitAfterMoveNumberAlpha')
-function PositionEtTraitAfterMoveNumber(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;                                              ATTRIBUTE_NAME('PositionEtTraitAfterMoveNumber')
-function PositionEtTraitAfterMoveEnString(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : String255;                                                     ATTRIBUTE_NAME('PositionEtTraitAfterMoveEnString')
+function PositionEtTraitAfterMoveNumberAlpha(game : String255; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;
+function PositionEtTraitAfterMoveNumber(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;
+function PositionEtTraitAfterMoveEnString(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : String255;
 
 
 
@@ -596,64 +596,64 @@ end;
 
 
 
-function ParserFENEnPositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;                                                                          
+function ParserFENEnPositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;
 const k_CASE_NON_AFFECTEE = 93;
 var i,t, ligne, colonne : SInt32;
     s1,reste,accu, positionString, traitString  : String255;
     c : char;
-    
-  
+
+
   { ParseError() : pour indiquer une erreur }
   procedure ParseError(message : String255);
   begin
     WritelnDansRapport(message);
     exit(ParserFENEnPositionEtTrait);
   end;
-  
-    
+
+
   { Affecter() : pour affecter une valeur dans une case }
   procedure Affecter(x, y, valeurCase : SInt32);
   begin
-    if (x >= 1) & (x <= 8) & 
-       (y >= 1) & (y <= 8) 
+    if (x >= 1) & (x <= 8) &
+       (y >= 1) & (y <= 8)
       then positionEtTrait.position[y * 10 + x] := valeurCase
       else ParseError('parse error 0 in ParserFENEnPositionEtTrait : invalid square in line '+NumEnString(ligne) + ' !');
-    
+
     accu := '';
   end;
-  
+
   { AffecterCasesVides() : pour affecter des cases vides consecutives }
   procedure AffecterCasesVides;
   var n,j : SInt32;
   begin
-    
+
     n := ChaineEnLongint(accu);
     for j := 0 to (n - 1) do
       Affecter(colonne + j , ligne , pionVide);
-      
+
     colonne := colonne + n;
-    
+
     accu := '';
   end;
 
- 
-    
-    
+
+
+
 begin {ParserFENEnPositionEtTrait}
 
   ParserFENEnPositionEtTrait := false;
-  
+
   // initialisation des tokens
-  
+
   ReplaceCharByCharInString(s, '"', ' ');
   ReplaceCharByCharInString(s, '[', ' ');
   ReplaceCharByCharInString(s, ']', ' ');
 
   Parser(s,s1,reste);
-  if (s1 = 'FEN') 
+  if (s1 = 'FEN')
     then s := reste
     else s := s1 + reste;
-    
+
   Parser2(s, positionString, traitString, reste);
 
 
@@ -667,94 +667,94 @@ begin {ParserFENEnPositionEtTrait}
   }
 
 
-  // on initialise un plateau avec des valeurs "non affectees" 
-  
+  // on initialise un plateau avec des valeurs "non affectees"
+
   positionEtTrait := PositionEtTraitInitiauxStandard;
-  
+
   for t := 1 to 64 do
     positionEtTrait.position[othellier[t]] := k_CASE_NON_AFFECTEE;
-  
-  
-  
+
+
+
   // on essaye de parser la position du plateau
-  
-  if (LENGTH_OF_STRING(positionString) <= 15) then  
+
+  if (LENGTH_OF_STRING(positionString) <= 15) then
     ParseError('parse error 1 in ParserFENEnPositionEtTrait : description is too short !');
-  
-  ligne          := 1; 
+
+  ligne          := 1;
   colonne        := 1;
-  accu           := ''; 
+  accu           := '';
   i              := 0;
   positionString := positionString + 'Ã';    { sentinelle }
-  
+
   repeat
-    
+
     inc(i);
     c := positionString[i];
-    
+
     case c of
       'Ã' :
         begin
           AffecterCasesVides;
         end;
-        
+
       '/'  :
         begin
           AffecterCasesVides;
           inc(ligne);
           colonne := 1;
         end;
-      
-      'P','O','W' : 
+
+      'P','O','W' :
         begin
           AffecterCasesVides;
           Affecter(colonne, ligne, pionBlanc);
           inc(colonne);
         end;
-      
-      'p','x','*','b','#' : 
+
+      'p','x','*','b','#' :
         begin
           AffecterCasesVides;
           Affecter(colonne, ligne, pionNoir);
           inc(colonne);
         end;
-    
+
       '0','1','2','3','4','5','6','7','8','9' :
         begin
           accu := accu + c;
         end;
-        
+
       otherwise
         ParseError('parse error 2 in ParserFENEnPositionEtTrait : invalid character in line ' + NumEnString(ligne) + ' ('+c+') !');
     end; {case}
-    
+
   until (c = ' ') | (c = 'Ã') | (i >= LENGTH_OF_STRING(positionString)) | (ligne > 8);
-  
-  
-  
+
+
+
   // on verifie que toutes les cases de l'othellier ont ete couvertes
-  
+
   for t := 1 to 64 do
     begin
       if (positionEtTrait.position[othellier[t]] = k_CASE_NON_AFFECTEE) then
          ParseError('parse error 3 in ParserFENEnPositionEtTrait : not enough squares are filled !');
-         
+
       { i := othellier[t];
         WriteNumDansRapport('i = ',i);
         WritelnNumDansRapport('   position['+CoupEnStringEnMajuscules(i)+'] = ',positionEtTrait.position[i]);
       }
     end;
-  
-  
+
+
   // et maintenant on essaye de trouver le trait
 
   if LENGTH_OF_STRING(traitString) <= 0 then
     ParseError('parse error 4 in ParserFENEnPositionEtTrait : impossible to find the color of the player to move !');
-  
+
   positionEtTrait.lazyTrait.leTrait := kTraitNonEncoreCalcule;
-  
+
   // par defaut on met le trait de la parite
-  
+
   t := NbCasesVidesDansPosition(positionEtTrait.position);
   if t <= 0
     then positionEtTrait.lazyTrait.traitNaturel := pionVide
@@ -762,9 +762,9 @@ begin {ParserFENEnPositionEtTrait}
       if odd(t)
         then positionEtTrait.lazyTrait.traitNaturel := pionBlanc
         else positionEtTrait.lazyTrait.traitNaturel := pionNoir;
-  
+
   // et on regarde si il y a une indication de trait valide
-  
+
   case traitString[1] of
     'B','b','X','*','x','¥','#','p'   : positionEtTrait.lazyTrait.traitNaturel := pionNoir;
     'W','w','O','0','o','P'           : positionEtTrait.lazyTrait.traitNaturel := pionBlanc;
@@ -772,9 +772,9 @@ begin {ParserFENEnPositionEtTrait}
     otherwise
       ParseError('parse error 5 in ParserFENEnPositionEtTrait : invalid color to move !');
   end;
-  
-  
-  
+
+
+
   // tout a l'air bon, hein
 
   ParserFENEnPositionEtTrait := true;

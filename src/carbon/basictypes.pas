@@ -12,7 +12,7 @@ uses
 
 
   // common types
-  type 
+  type
     SInt64 = Int64;    // signed integer, 64 bits
     SInt32 = Longint;  // signed integer, 32 bits
     SInt16 = SmallInt; // signed integer, 16 bits
@@ -46,7 +46,7 @@ uses
     IntegerArray = array[0..0] of SInt16;
     IntegerArrayPtr = ^IntegerArray;
     IntegerArrayHdl = ^IntegerArrayPtr;
-    
+
     PackedArrayOfByte = packed array[0..0] of byte;
     PackedArrayOfBytePtr = ^PackedArrayOfByte;
 
@@ -58,7 +58,7 @@ uses
     buf255 = packed array[0..255] of char;
 
   // capacity constants
-  const 
+  const
     MAXINT_16BITS = 32767;   // upper bound of SInt16 integers
 
   // function types
@@ -106,7 +106,7 @@ uses
     downArrowChar = $1f;
     spaceChar = $20;
     delChar = $7f;
-    bulletChar = $a5; 
+    bulletChar = $a5;
     undoKey = $7a;
     cutKey = $78;
     copyKey = $63;

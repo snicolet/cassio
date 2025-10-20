@@ -15,22 +15,22 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitHashing;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitHashing')
+procedure InitUnitHashing;
 
 {La fonction polymorphe de hachage}
-function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;                                                                                                                     ATTRIBUTE_NAME('GenericHash')
+function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;
 
 {fonctions de hachage specialisees}
-function HashString(const s : String255) : SInt32;                                                                                                                                  ATTRIBUTE_NAME('HashString')
-function HashString2(const s : String255) : SInt32;                                                                                                                                 ATTRIBUTE_NAME('HashString2')
-function HashString63Bits(const s : String255) : UInt64;                                                                                                                            ATTRIBUTE_NAME('HashString63Bits')
+function HashString(const s : String255) : SInt32;
+function HashString2(const s : String255) : SInt32;
+function HashString63Bits(const s : String255) : UInt64;
 
 // La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
 // chaine et (facultativement) dans table, les hash des differents lexemes.
 // On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
 // S'il est non nul, le pointeur table doit pointer vers un tableau d'au
 // moins 200 entiers de 32 bits.
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;                                                                                                        ATTRIBUTE_NAME('HashLexemes')
+function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
 
 
 

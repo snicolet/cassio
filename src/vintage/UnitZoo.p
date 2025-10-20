@@ -12,157 +12,157 @@ USES UnitDefCassio, UnitDefCFNetworkHTTP;
 
 
 { initialisation de l'unite }
-procedure InitUnitZoo;                                                                                                                                                           ATTRIBUTE_NAME('InitUnitZoo')
-procedure LibereMemoireUnitZoo;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitZoo')
-function CassioDoitRentrerEnContactAvecLeZoo : boolean;                                                                                                                          ATTRIBUTE_NAME('CassioDoitRentrerEnContactAvecLeZoo')
-procedure SetCassioDoitRentrerEnContactAvecLeZoo(s : String255);                                                                                                                 ATTRIBUTE_NAME('SetCassioDoitRentrerEnContactAvecLeZoo')
+procedure InitUnitZoo;
+procedure LibereMemoireUnitZoo;
+function CassioDoitRentrerEnContactAvecLeZoo : boolean;
+procedure SetCassioDoitRentrerEnContactAvecLeZoo(s : String255);
 
 
 { flag indiquant si Cassio est en train de calculer pour le zoo }
-function CassioEstEnTrainDeCalculerPourLeZoo : boolean;                                                                                                                          ATTRIBUTE_NAME('CassioEstEnTrainDeCalculerPourLeZoo')
-procedure SetCassioEstEnTrainDeCalculerPourLeZoo(newValue : boolean; oldValue : BooleanPtr);                                                                                     ATTRIBUTE_NAME('SetCassioEstEnTrainDeCalculerPourLeZoo')
-function CassioEstEnTrainDeDebuguerLeZooEnLocal : boolean;                                                                                                                       ATTRIBUTE_NAME('CassioEstEnTrainDeDebuguerLeZooEnLocal')
-procedure SetCassioEstEnTrainDeDebugguerLeZooEnLocal(flag : boolean);                                                                                                            ATTRIBUTE_NAME('SetCassioEstEnTrainDeDebugguerLeZooEnLocal')
-function GetCalculCourantDeCassioPourLeZoo : LongString;                                                                                                                         ATTRIBUTE_NAME('GetCalculCourantDeCassioPourLeZoo')
-function HashDuCalculCourantDeCassioPourLeZoo : UInt64;                                                                                                                          ATTRIBUTE_NAME('HashDuCalculCourantDeCassioPourLeZoo')
-function ProfDuCalculCourantDeCassioPourLeZoo : SInt32;                                                                                                                          ATTRIBUTE_NAME('ProfDuCalculCourantDeCassioPourLeZoo')
+function CassioEstEnTrainDeCalculerPourLeZoo : boolean;
+procedure SetCassioEstEnTrainDeCalculerPourLeZoo(newValue : boolean; oldValue : BooleanPtr);
+function CassioEstEnTrainDeDebuguerLeZooEnLocal : boolean;
+procedure SetCassioEstEnTrainDeDebugguerLeZooEnLocal(flag : boolean);
+function GetCalculCourantDeCassioPourLeZoo : LongString;
+function HashDuCalculCourantDeCassioPourLeZoo : UInt64;
+function ProfDuCalculCourantDeCassioPourLeZoo : SInt32;
 
 
 { determinons si Cassio peut donner du temps CPU au zoo }
-function CassioPeutDonnerDuTempsAuZoo : boolean;                                                                                                                                 ATTRIBUTE_NAME('CassioPeutDonnerDuTempsAuZoo')
-procedure SetDateDerniereEcouteDeResultatsDuZoo(date : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetDateDerniereEcouteDeResultatsDuZoo')
-function DateDernierEnvoiDeResultatAuZoo : SInt32;                                                                                                                               ATTRIBUTE_NAME('DateDernierEnvoiDeResultatAuZoo')
-function DateDerniereDemandeDeJobAuZoo : SInt32;                                                                                                                                 ATTRIBUTE_NAME('DateDerniereDemandeDeJobAuZoo')
-function DateDernierPingAuZoo : SInt32;                                                                                                                                          ATTRIBUTE_NAME('DateDernierPingAuZoo')
-function DateDernierKeepAliveAuZoo : SInt32;                                                                                                                                     ATTRIBUTE_NAME('DateDernierKeepAliveAuZoo')
-function TempsTotalConsacreAuZoo : double_t;                                                                                                                                     ATTRIBUTE_NAME('TempsTotalConsacreAuZoo')
-function TempsUtileConsacreAuZoo : double_t;                                                                                                                                     ATTRIBUTE_NAME('TempsUtileConsacreAuZoo')
-function TempsDeMidgameConsacreAuZoo : double_t;                                                                                                                                 ATTRIBUTE_NAME('TempsDeMidgameConsacreAuZoo')
-function NombreTotalDeJobsCalculesPourLeZoo : SInt32;                                                                                                                            ATTRIBUTE_NAME('NombreTotalDeJobsCalculesPourLeZoo')
-function NombreDeJobsEndgameTriviauxCalculesPourLeZoo : SInt32;                                                                                                                  ATTRIBUTE_NAME('NombreDeJobsEndgameTriviauxCalculesPourLeZoo')
-function NombreDeJobsMidgameCalculesPourLeZoo : SInt32;                                                                                                                          ATTRIBUTE_NAME('NombreDeJobsMidgameCalculesPourLeZoo')
+function CassioPeutDonnerDuTempsAuZoo : boolean;
+procedure SetDateDerniereEcouteDeResultatsDuZoo(date : SInt32);
+function DateDernierEnvoiDeResultatAuZoo : SInt32;
+function DateDerniereDemandeDeJobAuZoo : SInt32;
+function DateDernierPingAuZoo : SInt32;
+function DateDernierKeepAliveAuZoo : SInt32;
+function TempsTotalConsacreAuZoo : double_t;
+function TempsUtileConsacreAuZoo : double_t;
+function TempsDeMidgameConsacreAuZoo : double_t;
+function NombreTotalDeJobsCalculesPourLeZoo : SInt32;
+function NombreDeJobsEndgameTriviauxCalculesPourLeZoo : SInt32;
+function NombreDeJobsMidgameCalculesPourLeZoo : SInt32;
 
 
 { statut de Cassio en tant qu'agent du zoo }
-function GetZooStatus : String255;                                                                                                                                               ATTRIBUTE_NAME('GetZooStatus')
-procedure SetZooStatus(const status : String255);                                                                                                                                ATTRIBUTE_NAME('SetZooStatus')
-function CalculateZooStatusPourCetEtatDeCassio : String255;                                                                                                                      ATTRIBUTE_NAME('CalculateZooStatusPourCetEtatDeCassio')
-procedure VerifierLeStatutDeCassioPourLeZoo;                                                                                                                                     ATTRIBUTE_NAME('VerifierLeStatutDeCassioPourLeZoo')
-procedure SetIntervalleVerificationDuStatutDeCassioPourLeZoo(ticks : SInt32; oldValue : SInt32Ptr);                                                                              ATTRIBUTE_NAME('SetIntervalleVerificationDuStatutDeCassioPourLeZoo')
+function GetZooStatus : String255;
+procedure SetZooStatus(const status : String255);
+function CalculateZooStatusPourCetEtatDeCassio : String255;
+procedure VerifierLeStatutDeCassioPourLeZoo;
+procedure SetIntervalleVerificationDuStatutDeCassioPourLeZoo(ticks : SInt32; oldValue : SInt32Ptr);
 
 
 { gestion de la connection permanente au serveur OthelloZoo }
-procedure OuvrirConnectionPermanenteAuZoo;                                                                                                                                       ATTRIBUTE_NAME('OuvrirConnectionPermanenteAuZoo')
-function SerialiserMessagesDuZoo(theFile : FichierAbstraitPtr; buffer : Ptr; from : SInt32; var lenBuffer : SInt32) : OSErr;                                                     ATTRIBUTE_NAME('SerialiserMessagesDuZoo')
-function LibererMemoireConnectionPermanenteAuZoo(whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;                                                          ATTRIBUTE_NAME('LibererMemoireConnectionPermanenteAuZoo')
+procedure OuvrirConnectionPermanenteAuZoo;
+function SerialiserMessagesDuZoo(theFile : FichierAbstraitPtr; buffer : Ptr; from : SInt32; var lenBuffer : SInt32) : OSErr;
+function LibererMemoireConnectionPermanenteAuZoo(whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;
 
 
 { envoi des requetes au serveur }
-function GetZooURL : String255;                                                                                                                                                  ATTRIBUTE_NAME('GetZooURL')
-procedure EnvoyerUneRequeteAuZoo(var requete : LongString);                                                                                                                      ATTRIBUTE_NAME('EnvoyerUneRequeteAuZoo')
-procedure EnvoyerUneRequeteAuZooParTelechargementHTML(var requete : LongString);                                                                                                 ATTRIBUTE_NAME('EnvoyerUneRequeteAuZooParTelechargementHTML')
-procedure RetryEnvoyerUneRequeteAuZoo(var requete : LongString);                                                                                                                 ATTRIBUTE_NAME('RetryEnvoyerUneRequeteAuZoo')
-function GetDerniereRequeteEnvoyeeAuZoo : LongString;                                                                                                                            ATTRIBUTE_NAME('GetDerniereRequeteEnvoyeeAuZoo')
-procedure SetDerniereRequeteEnvoyeeAuZoo(var s : LongString);                                                                                                                    ATTRIBUTE_NAME('SetDerniereRequeteEnvoyeeAuZoo')
-procedure EncoderSearchParamsPourURL(var searchParams : MakeEndgameSearchParamRec; var urlParams : String255; fonctionAppelante : String255);                                    ATTRIBUTE_NAME('EncoderSearchParamsPourURL')
-procedure CalculateHashOfSearchParams(var searchParams : MakeEndgameSearchParamRec);                                                                                             ATTRIBUTE_NAME('CalculateHashOfSearchParams')
-procedure DetruireLeZoo;                                                                                                                                                         ATTRIBUTE_NAME('DetruireLeZoo')
+function GetZooURL : String255;
+procedure EnvoyerUneRequeteAuZoo(var requete : LongString);
+procedure EnvoyerUneRequeteAuZooParTelechargementHTML(var requete : LongString);
+procedure RetryEnvoyerUneRequeteAuZoo(var requete : LongString);
+function GetDerniereRequeteEnvoyeeAuZoo : LongString;
+procedure SetDerniereRequeteEnvoyeeAuZoo(var s : LongString);
+procedure EncoderSearchParamsPourURL(var searchParams : MakeEndgameSearchParamRec; var urlParams : String255; fonctionAppelante : String255);
+procedure CalculateHashOfSearchParams(var searchParams : MakeEndgameSearchParamRec);
+procedure DetruireLeZoo;
 
 
 { requetes pour garder la connection ouverte sur le serveur }
-procedure VerifierLePoussageDesRequetesAuZoo;                                                                                                                                    ATTRIBUTE_NAME('VerifierLePoussageDesRequetesAuZoo')
-procedure EnvoyerUneRequeteDePoussageAuZoo;                                                                                                                                      ATTRIBUTE_NAME('EnvoyerUneRequeteDePoussageAuZoo')
-procedure EnvoyerUnPingSiNecessaire;                                                                                                                                             ATTRIBUTE_NAME('EnvoyerUnPingSiNecessaire')
-procedure EnvoyerUnKeepAliveSiNecessaire;                                                                                                                                        ATTRIBUTE_NAME('EnvoyerUnKeepAliveSiNecessaire')
+procedure VerifierLePoussageDesRequetesAuZoo;
+procedure EnvoyerUneRequeteDePoussageAuZoo;
+procedure EnvoyerUnPingSiNecessaire;
+procedure EnvoyerUnKeepAliveSiNecessaire;
 
 
 { reception des requetes du serveur }
-function AcknowledgementOfZooTransaction(whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;                                                                      ATTRIBUTE_NAME('AcknowledgementOfZooTransaction')
-procedure TraiterZooTransaction(ligne : LongString; var fic : FichierAbstrait; var mustResendRequest : boolean);                                                                    ATTRIBUTE_NAME('TraiterZooTransaction')
-function FindWordInTransaction(mot : String255; ligne : LongString; var fic : FichierAbstrait; afficherTouteLaRequete : boolean) : boolean;                                         ATTRIBUTE_NAME('FindWordInTransaction')
-function PeutParserDemandeDeJob(const ligne : LongString; var searchParams : MakeEndgameSearchParamRec) : boolean;                                                               ATTRIBUTE_NAME('PeutParserDemandeDeJob')
-function PeutParserUnResultatDuZoo(const ligne : LongString; var params : MakeEndgameSearchParamRec; var action,moves,timestamp : String255) : boolean;                          ATTRIBUTE_NAME('PeutParserUnResultatDuZoo')
-procedure ParserLesResultatsDuZoo(ligne : LongString; var fic : FichierAbstrait);                                                                                                   ATTRIBUTE_NAME('ParserLesResultatsDuZoo')
-procedure ParserLesPositionStoppeesDuZoo(ligne : LongString; var fic : FichierAbstrait);                                                                                            ATTRIBUTE_NAME('ParserLesPositionStoppeesDuZoo')
-procedure ParserLesPrefetchEncoreUtiles(ligne : LongString; var fic : FichierAbstrait);                                                                                             ATTRIBUTE_NAME('ParserLesPrefetchEncoreUtiles')
-procedure TraiterPositionInchargeDuZoo(const ligne : LongString);                                                                                                                ATTRIBUTE_NAME('TraiterPositionInchargeDuZoo')
-procedure EndgameSearchParamToZooJob(var searchParams : MakeEndgameSearchParamRec; var zooJob : ZooJobRec);                                                                      ATTRIBUTE_NAME('EndgameSearchParamToZooJob')
-procedure ViderZooJob(var zooJob : ZooJobRec);                                                                                                                                   ATTRIBUTE_NAME('ViderZooJob')
+function AcknowledgementOfZooTransaction(whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;
+procedure TraiterZooTransaction(ligne : LongString; var fic : FichierAbstrait; var mustResendRequest : boolean);
+function FindWordInTransaction(mot : String255; ligne : LongString; var fic : FichierAbstrait; afficherTouteLaRequete : boolean) : boolean;
+function PeutParserDemandeDeJob(const ligne : LongString; var searchParams : MakeEndgameSearchParamRec) : boolean;
+function PeutParserUnResultatDuZoo(const ligne : LongString; var params : MakeEndgameSearchParamRec; var action,moves,timestamp : String255) : boolean;
+procedure ParserLesResultatsDuZoo(ligne : LongString; var fic : FichierAbstrait);
+procedure ParserLesPositionStoppeesDuZoo(ligne : LongString; var fic : FichierAbstrait);
+procedure ParserLesPrefetchEncoreUtiles(ligne : LongString; var fic : FichierAbstrait);
+procedure TraiterPositionInchargeDuZoo(const ligne : LongString);
+procedure EndgameSearchParamToZooJob(var searchParams : MakeEndgameSearchParamRec; var zooJob : ZooJobRec);
+procedure ViderZooJob(var zooJob : ZooJobRec);
 
 
 { lancement d'un calcul local pour le zoo }
-procedure TraiterJobDuZoo(const s : LongString);                                                                                                                                 ATTRIBUTE_NAME('TraiterJobDuZoo')
-procedure PrefetchJobDuZoo(const s : LongString);                                                                                                                                ATTRIBUTE_NAME('PrefetchJobDuZoo')
-function DoitInterrompreCalculPourLeZoo(const s : LongString) : boolean;                                                                                                         ATTRIBUTE_NAME('DoitInterrompreCalculPourLeZoo')
-procedure VerifierUtiliteCalculPourLeZoo(alsoCheckPretch : boolean);                                                                                                             ATTRIBUTE_NAME('VerifierUtiliteCalculPourLeZoo')
-function LancerCalculCommeClientPourLeZoo(zooJob : ZooJobRec) : OSStatus;                                                                                                        ATTRIBUTE_NAME('LancerCalculCommeClientPourLeZoo')
-procedure LancerCalculDeMilieuCommeClientPourLeZoo(var zooJob : ZooJobRec);                                                                                                      ATTRIBUTE_NAME('LancerCalculDeMilieuCommeClientPourLeZoo')
-procedure LancerCalculDeFinaleCommeClientPourLeZoo(var zooJob : ZooJobRec);                                                                                                      ATTRIBUTE_NAME('LancerCalculDeFinaleCommeClientPourLeZoo')
+procedure TraiterJobDuZoo(const s : LongString);
+procedure PrefetchJobDuZoo(const s : LongString);
+function DoitInterrompreCalculPourLeZoo(const s : LongString) : boolean;
+procedure VerifierUtiliteCalculPourLeZoo(alsoCheckPretch : boolean);
+function LancerCalculCommeClientPourLeZoo(zooJob : ZooJobRec) : OSStatus;
+procedure LancerCalculDeMilieuCommeClientPourLeZoo(var zooJob : ZooJobRec);
+procedure LancerCalculDeFinaleCommeClientPourLeZoo(var zooJob : ZooJobRec);
 
 
 
 { reponse au zoo donnant le resultat d'un calcul }
-function EnvoyerResultatDuCalculAuZoo(var zooJob : ZooJobRec; score : SInt32) : OSStatus;                                                                                        ATTRIBUTE_NAME('EnvoyerResultatDuCalculAuZoo')
-function SExcuserAupresDuZoo(var zooJob : ZooJobRec; const reason : String255) : OSStatus;                                                                                       ATTRIBUTE_NAME('SExcuserAupresDuZoo')
-function SExcuserAupresDuZooPourLaPositionPrefetched(const reason : String255) : OSStatus;                                                                                       ATTRIBUTE_NAME('SExcuserAupresDuZooPourLaPositionPrefetched')
-function SExcuserAupresDuZooPourCetteHash(const whichHash : UInt64; const reason : String255) : OSStatus;                                                                        ATTRIBUTE_NAME('SExcuserAupresDuZooPourCetteHash')
-procedure AjouterHashDansCacheDesScoresEnvoyesAuZoo(const whichHash : UInt64);                                                                                                   ATTRIBUTE_NAME('AjouterHashDansCacheDesScoresEnvoyesAuZoo')
-function FindHashDansCacheDesScoresEnvoyesAuZoo(const whichHash : UInt64) : boolean;                                                                                             ATTRIBUTE_NAME('FindHashDansCacheDesScoresEnvoyesAuZoo')
+function EnvoyerResultatDuCalculAuZoo(var zooJob : ZooJobRec; score : SInt32) : OSStatus;
+function SExcuserAupresDuZoo(var zooJob : ZooJobRec; const reason : String255) : OSStatus;
+function SExcuserAupresDuZooPourLaPositionPrefetched(const reason : String255) : OSStatus;
+function SExcuserAupresDuZooPourCetteHash(const whichHash : UInt64; const reason : String255) : OSStatus;
+procedure AjouterHashDansCacheDesScoresEnvoyesAuZoo(const whichHash : UInt64);
+function FindHashDansCacheDesScoresEnvoyesAuZoo(const whichHash : UInt64) : boolean;
 
 
 { cache des positions prefetch par le zoo }
-function FindZooJobDansCacheDesPrefetch(whichHash : UInt64; var index : SInt32) : boolean;                                                                                       ATTRIBUTE_NAME('FindZooJobDansCacheDesPrefetch')
-function FindUnJobInutileDansCacheDesPrefetch(var index : SInt32) : boolean;                                                                                                     ATTRIBUTE_NAME('FindUnJobInutileDansCacheDesPrefetch')
-function GetPrefetchImportantPasEncoreCalcule : LongString;                                                                                                                      ATTRIBUTE_NAME('GetPrefetchImportantPasEncoreCalcule')
-procedure AjouterDansCacheDesPrefetch(const params : MakeEndgameSearchParamRec; const job : LongString);                                                                         ATTRIBUTE_NAME('AjouterDansCacheDesPrefetch')
-function GetJobDansCacheDesPrefetch(index : SInt32) : LongString;                                                                                                                ATTRIBUTE_NAME('GetJobDansCacheDesPrefetch')
-procedure VerifierLocalementLaFileDesPrefetchs;                                                                                                                                  ATTRIBUTE_NAME('VerifierLocalementLaFileDesPrefetchs')
-procedure EnvoyerUneRequetePourVerifierLeCacheDesPrefetch;                                                                                                                       ATTRIBUTE_NAME('EnvoyerUneRequetePourVerifierLeCacheDesPrefetch')
-procedure RetirerCeJobDuCacheDesPositionsPrefetchUtiles(whichHash : UInt64);                                                                                                     ATTRIBUTE_NAME('RetirerCeJobDuCacheDesPositionsPrefetchUtiles')
-procedure GetOccupationDuCacheDesPrefetch(var nbPositionDansCache,profMin,profMax : SInt32);                                                                                     ATTRIBUTE_NAME('GetOccupationDuCacheDesPrefetch')
-function NumberOfPrefetch : SInt32;                                                                                                                                              ATTRIBUTE_NAME('NumberOfPrefetch')
+function FindZooJobDansCacheDesPrefetch(whichHash : UInt64; var index : SInt32) : boolean;
+function FindUnJobInutileDansCacheDesPrefetch(var index : SInt32) : boolean;
+function GetPrefetchImportantPasEncoreCalcule : LongString;
+procedure AjouterDansCacheDesPrefetch(const params : MakeEndgameSearchParamRec; const job : LongString);
+function GetJobDansCacheDesPrefetch(index : SInt32) : LongString;
+procedure VerifierLocalementLaFileDesPrefetchs;
+procedure EnvoyerUneRequetePourVerifierLeCacheDesPrefetch;
+procedure RetirerCeJobDuCacheDesPositionsPrefetchUtiles(whichHash : UInt64);
+procedure GetOccupationDuCacheDesPrefetch(var nbPositionDansCache,profMin,profMax : SInt32);
+function NumberOfPrefetch : SInt32;
 
 
 
 { affichage des infos du zoo dans le rapport et la fenetre gestion du temps }
-procedure SetVerbosityOfZoo(value : SInt32);                                                                                                                                     ATTRIBUTE_NAME('SetVerbosityOfZoo')
-function VerbosityOfZoo : SInt32;                                                                                                                                                ATTRIBUTE_NAME('VerbosityOfZoo')
-procedure BeginRapportPourZoo;                                                                                                                                                   ATTRIBUTE_NAME('BeginRapportPourZoo')
-procedure EndRapportPourZoo;                                                                                                                                                     ATTRIBUTE_NAME('EndRapportPourZoo')
-procedure WriteTickOperationPourLeZooDansRapport;                                                                                                                                ATTRIBUTE_NAME('WriteTickOperationPourLeZooDansRapport')
-procedure MettreAJourLeTempsDeReponseDuZoo;                                                                                                                                      ATTRIBUTE_NAME('MettreAJourLeTempsDeReponseDuZoo')
-procedure WritelnFenetreAlphaBetaDansRapport(alpha,beta : SInt32);                                                                                                               ATTRIBUTE_NAME('WritelnFenetreAlphaBetaDansRapport')
-procedure AfficherEtatDuZooDansFenetreGestionDuTemps(s : String255);                                                                                                             ATTRIBUTE_NAME('AfficherEtatDuZooDansFenetreGestionDuTemps')
-procedure AfficherTouteLaTransactionDansRapport(var fic : FichierAbstrait);                                                                                                         ATTRIBUTE_NAME('AfficherTouteLaTransactionDansRapport')
+procedure SetVerbosityOfZoo(value : SInt32);
+function VerbosityOfZoo : SInt32;
+procedure BeginRapportPourZoo;
+procedure EndRapportPourZoo;
+procedure WriteTickOperationPourLeZooDansRapport;
+procedure MettreAJourLeTempsDeReponseDuZoo;
+procedure WritelnFenetreAlphaBetaDansRapport(alpha,beta : SInt32);
+procedure AfficherEtatDuZooDansFenetreGestionDuTemps(s : String255);
+procedure AfficherTouteLaTransactionDansRapport(var fic : FichierAbstrait);
 
 
 
 
 { interface avec le reste de Cassio }
-procedure EcouterLesResultatsDuZoo;                                                                                                                                              ATTRIBUTE_NAME('EcouterLesResultatsDuZoo')
-procedure ZooWantsToStartANewTest;                                                                                                                                               ATTRIBUTE_NAME('ZooWantsToStartANewTest')
-procedure DemanderUnJobAuZoo;                                                                                                                                                    ATTRIBUTE_NAME('DemanderUnJobAuZoo')
-procedure GererLeZoo;                                                                                                                                                            ATTRIBUTE_NAME('GererLeZoo')
-procedure BoucleDeLancementsDesCalculsLocauxPourLeZoo;                                                                                                                           ATTRIBUTE_NAME('BoucleDeLancementsDesCalculsLocauxPourLeZoo')
-function DemandeDeCalculPourLeZooDansLaFileLocale(var job : LongString) : boolean;                                                                                               ATTRIBUTE_NAME('DemandeDeCalculPourLeZooDansLaFileLocale')
-procedure TransfererPositionPrefetchedDuZooDansLaFileLocale;                                                                                                                     ATTRIBUTE_NAME('TransfererPositionPrefetchedDuZooDansLaFileLocale')
-procedure EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo(const fonctionAppelante : String255);                                                                              ATTRIBUTE_NAME('EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo')
-procedure EnvoyerUneRequetePourPrendreMoiMemeUnCalculDuZoo(const whichHashes : String255);                                                                                       ATTRIBUTE_NAME('EnvoyerUneRequetePourPrendreMoiMemeUnCalculDuZoo')
-procedure EnvoyerUneRequetePourArreterDesCalculsDuZoo(const whichHashes : String255);                                                                                            ATTRIBUTE_NAME('EnvoyerUneRequetePourArreterDesCalculsDuZoo')
-procedure EnvoyerUneRequetePourArreterUnCalculDuZoo(whichHash : UInt64);                                                                                                         ATTRIBUTE_NAME('EnvoyerUneRequetePourArreterUnCalculDuZoo')
-procedure EnvoyerUneRequetePourArreterTousMesCalculsDuZoo;                                                                                                                       ATTRIBUTE_NAME('EnvoyerUneRequetePourArreterTousMesCalculsDuZoo')
+procedure EcouterLesResultatsDuZoo;
+procedure ZooWantsToStartANewTest;
+procedure DemanderUnJobAuZoo;
+procedure GererLeZoo;
+procedure BoucleDeLancementsDesCalculsLocauxPourLeZoo;
+function DemandeDeCalculPourLeZooDansLaFileLocale(var job : LongString) : boolean;
+procedure TransfererPositionPrefetchedDuZooDansLaFileLocale;
+procedure EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo(const fonctionAppelante : String255);
+procedure EnvoyerUneRequetePourPrendreMoiMemeUnCalculDuZoo(const whichHashes : String255);
+procedure EnvoyerUneRequetePourArreterDesCalculsDuZoo(const whichHashes : String255);
+procedure EnvoyerUneRequetePourArreterUnCalculDuZoo(whichHash : UInt64);
+procedure EnvoyerUneRequetePourArreterTousMesCalculsDuZoo;
 
 
 
 { utilitaires pour parser/envoyer des résultats au zoo }
-function JobIsEmpty(const job : LongString) : boolean;                                                                                                                           ATTRIBUTE_NAME('JobIsEmpty')
-function SameJobs(const job1, job2 : LongString) : boolean;                                                                                                                      ATTRIBUTE_NAME('SameJobs')
-function ProbCutStringDuZooEnMuString(cut : String255) : String255;                                                                                                              ATTRIBUTE_NAME('ProbCutStringDuZooEnMuString')
-function MuStringEnProbCutStringDuZoo(mu : String255) : String255;                                                                                                               ATTRIBUTE_NAME('MuStringEnProbCutStringDuZoo')
-function GetParameterStringInResultatDuZoo(const parameterName : String255; buffer : PackedArrayOfCharPtr; bufferSize : SInt32) : String255;                                     ATTRIBUTE_NAME('GetParameterStringInResultatDuZoo')
-procedure SetHashValueDuZoo(var hash : UInt64; value : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetHashValueDuZoo')
-function HashValueDuZooEstNegative(const hash : UInt64) : boolean;                                                                                                               ATTRIBUTE_NAME('HashValueDuZooEstNegative')
-function HashValueDuZooEstCorrecte(const hash : UInt64) : boolean;                                                                                                               ATTRIBUTE_NAME('HashValueDuZooEstCorrecte')
+function JobIsEmpty(const job : LongString) : boolean;
+function SameJobs(const job1, job2 : LongString) : boolean;
+function ProbCutStringDuZooEnMuString(cut : String255) : String255;
+function MuStringEnProbCutStringDuZoo(mu : String255) : String255;
+function GetParameterStringInResultatDuZoo(const parameterName : String255; buffer : PackedArrayOfCharPtr; bufferSize : SInt32) : String255;
+procedure SetHashValueDuZoo(var hash : UInt64; value : SInt32);
+function HashValueDuZooEstNegative(const hash : UInt64) : boolean;
+function HashValueDuZooEstCorrecte(const hash : UInt64) : boolean;
 
 
 
@@ -347,7 +347,7 @@ begin
       requeteDePoussageNecessaire                       := false;
       doitRentrerEnContactAvecLeZoo                     := false;   // FIXME POUR UN MEILEUR DEFAUT !!!!
       enTrainDeDebuguerLeZooEnLocal                     := false;
-      
+
       verbosity                                         := 0;      // verbosity level
 
       ViderZooJob(rechercheEnCours);
@@ -384,14 +384,14 @@ end;
 function CassioDoitRentrerEnContactAvecLeZoo : boolean;
 begin
   CassioDoitRentrerEnContactAvecLeZoo := gZoo.doitRentrerEnContactAvecLeZoo;
-  
-  
+
+
   // Activer une des deux lignes ci-dessous pour faire des versions speciales
   // qui ne respectent par la préférence "doitRentrerEnContactAvecLeZoo".
   // Ceci peut etre utile pour les Mac de Dauphine, ou pour les versions
   // stables dans la distribution grand public de Cassio...
-  // CassioDoitRentrerEnContactAvecLeZoo := false; 
-  // CassioDoitRentrerEnContactAvecLeZoo := true;  
+  // CassioDoitRentrerEnContactAvecLeZoo := false;
+  // CassioDoitRentrerEnContactAvecLeZoo := true;
 end;
 
 
@@ -538,13 +538,13 @@ begin
 
   nombreDeSecondes := centiemesDeSeconde div 100;
   centiemesDeSeconde := centiemesDeSeconde mod 100;
-  
+
   s := '[tick = '+NumEnString(nombreDeSecondes mod 1000)+'.';
 
-  if centiemesDeSeconde < 10  
+  if centiemesDeSeconde < 10
     then s := s + '0' + NumEnString(centiemesDeSeconde) else
-  if centiemesDeSeconde < 100 
-    then s := s + NumEnString(centiemesDeSeconde) 
+  if centiemesDeSeconde < 100
+    then s := s + NumEnString(centiemesDeSeconde)
     else s := s + NumEnString(centiemesDeSeconde);
 
   s := s + 's ] ';
@@ -573,12 +573,12 @@ procedure ParserLesResultatsDuZoo(ligne : LongString; var fic : FichierAbstrait)
 var err : OSErr;
 begin
 
-  (* exemples de resultats a parser : 
-  
+  (* exemples de resultats a parser :
+
   CALCULATED pos=--------------------O-----XXO------XXO------XOO-----X-----------O window=-64,64 cut=100 depth=23 hash=6fa6f2a0fa9672d0 date=1300879529 score=0 time=0.5 moves=D8F3C5D3D6D7C6C7B5F4E8B4A3A5B3C3C8G5H5F7G4
   STOPPED 6fa6f2a0fa9672d0
   COULD_NOT_STOP 6fa6f2a0fa9672d0
-  
+
   *)
 
   err := NoErr;
@@ -615,14 +615,14 @@ var action, hash, presence, reste: String255;
     hashValue : UInt64;
 begin
 
-  (* exemples de resultats a parser : 
-  
+  (* exemples de resultats a parser :
+
   CALCULATED pos=--------------------O-----XXO------XXO------XOO-----X-----------O window=-64,64 cut=100 depth=23 hash=6fa6f2a0fa9672d0 date=1300879529 score=0 time=0.5 moves=D8F3C5D3D6D7C6C7B5F4E8B4A3A5B3C3C8G5H5F7G4
   INCHARGE pos=--O-------O-----OOOOXXXXOOOXOXX-OXOXOXX-OOOOXOO----OOX----XO----X window=-64,64 cut=0,100000 depth=28 hash=1102267451 score=-6 time=20.3 moves=G4B2 date=20080702001545
   STOPPED  d97fa4c64ecd9
   COULD_NOT_STOP  6fa6f2a0fa9672d0
   DELETED 420297083
-  
+
   *)
 
 
@@ -632,9 +632,9 @@ begin
 
       Parser3(ligne.debutLigne, action, hash, presence, reste);
 
-      if ((action = 'STOPPED') | (action = 'COULD_NOT_STOP')) & (hash <> '') 
+      if ((action = 'STOPPED') | (action = 'COULD_NOT_STOP')) & (hash <> '')
         then hashValue := HexToUInt64(hash);
-        
+
 
       if (action = 'CALCULATED '  ) |
          (action = 'INCHARGE '    ) |
@@ -657,7 +657,7 @@ var err : OSErr;
 begin
 
   (* Exemples de ligne a parser :
-  
+
        STILL USEFUL true 4168132959e9f8d2
        STILL USEFUL false 78b0caecadebe8be
   *)
@@ -672,7 +672,7 @@ begin
       if (action1 = 'STILL') & (action2 = 'USEFUL') & (valeur = 'false') & (hash <> '') then
         begin
           hashValue := HexToUInt64(hash);
-          
+
           // le serveur vient de nous prevenir que ce prefetch n'est plus utile
           RetirerCeJobDuCacheDesPositionsPrefetchUtiles(hashValue);
 
@@ -704,7 +704,7 @@ var action1, action2, valeur, hash, aux : String255;
 begin
 
   (* Exemple de ligne a parser (attention il y a hash= dans la chaine...) :
-  
+
        STILL INCHARGE true hash=1524be455ff
   *)
 
@@ -712,10 +712,10 @@ begin
   Parser4(ligne.debutLigne , action1, action2, valeur, hash, aux);
   if (action1 = 'STILL') & (action2 = 'INCHARGE') & (valeur = 'true') & (hash <> '') then
     begin
-    
+
       hash := TPCopy(hash,6,255);
       hashValue := HexToUInt64(hash);
-      
+
       // Si le serveur du zoo pense que nous sommes en train de calculer sur une position qui n'est
       // pas celle en cours, ou dont on ne vient pas d'envoyer le résultat au zoo, il y a un probleme
       // de croisement des messages sur Internet, et on previent le serveur...
@@ -726,8 +726,8 @@ begin
              reason := CalculateZooStatusPourCetEtatDeCassio;
              err := SExcuserAupresDuZooPourCetteHash(hashValue, reason);
            end;
-           
-    
+
+
       // WritelnDansRapport('Setting the online zoo status of Cassio to CALCULATING !');
       SetZooStatus('CALCULATING');
     end;
@@ -751,7 +751,7 @@ begin
     end;
 
   positionMarqueur := GetPositionMarqueurFichierAbstrait(fic);
-  
+
   compteurDelignes := 0;
 
   err := NoErr;
@@ -760,9 +760,9 @@ begin
       if afficherTouteLaRequete & not(LongStringIsEmpty(ligne)) then
         begin
           inc(compteurDelignes);
-          
+
           if (compteurDelignes >= 2) then WriteDansRapport('                             ');
-        
+
           WritelnLongStringDansRapport(ligne);
         end;
 
@@ -830,15 +830,15 @@ begin
         begin
           if DoitInterrompreCalculPourLeZoo(ligne)
             then EnvoyerUneRequetePourVerifierLeCacheDesPrefetch;
-        end 
+        end
       else
-    
+
     if (LongStringBeginsWith('STILL INCHARGE true', ligne))
       then TraiterPositionInchargeDuZoo(ligne) else
-      
+
     if (LongStringBeginsWith('NO JOB', ligne))
       then SetZooStatus('SEEKING_JOB') else
-      
+
     if (LongStringBeginsWith('JOB pos', ligne))
       then TraiterJobDuZoo(ligne) else
 
@@ -854,7 +854,7 @@ begin
 
     if (LongStringBeginsWith('START NEW TEST', ligne))
       then ZooWantsToStartANewTest else
-      
+
     if (LongStringBeginsWith('PING ANSWERED', ligne))
       then MettreAJourLeTempsDeReponseDuZoo else
 
@@ -887,13 +887,13 @@ begin
         PrefetchJobDuZoo(ligne);
         err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
       end;
-    
+
     if (err2 = NoErr) & (LongStringBeginsWith('PREFETCH pos',ligne)) then
       begin
         PrefetchJobDuZoo(ligne);
         err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
       end;
-    
+
     if (err2 = NoErr) & (LongStringBeginsWith('PREFETCH pos',ligne)) then
       begin
         PrefetchJobDuZoo(ligne);
@@ -912,7 +912,7 @@ begin
         (LongStringBeginsWith('PREFETCHED '          ,ligne))  |
         (LongStringBeginsWith('COULDNTSOLVE '        ,ligne))  |
         (LongStringBeginsWith('DELETED '             ,ligne))  |
-        (LongStringBeginsWith('ERROR_TIMED_OUT '     ,ligne))) 
+        (LongStringBeginsWith('ERROR_TIMED_OUT '     ,ligne)))
       then ParserLesResultatsDuZoo(ligne, fic);
 
     if (err2 = NoErr) &
@@ -924,14 +924,14 @@ begin
        (LongStringBeginsWith('STILL USEFUL ', ligne))
       then ParserLesPrefetchEncoreUtiles(ligne, fic);
 
-    if (err2 = NoErr) & 
+    if (err2 = NoErr) &
       (LongStringBeginsWith('NO JOB', ligne))
       then SetZooStatus('SEEKING_JOB');
-      
-    if (err2 = NoErr) & 
+
+    if (err2 = NoErr) &
       (LongStringBeginsWith('STILL INCHARGE true', ligne))
       then TraiterPositionInchargeDuZoo(ligne);
-      
+
     if (err2 = NoErr) &
        (LongStringBeginsWith('STILL INCHARGE false', ligne))
       then
@@ -939,7 +939,7 @@ begin
           if DoitInterrompreCalculPourLeZoo(ligne)
             then EnvoyerUneRequetePourVerifierLeCacheDesPrefetch;
         end;
-    
+
     if (err2 = NoErr) &
        (LongStringBeginsWith('PLEASE EMPTY CACHE', ligne))
       then
@@ -1175,7 +1175,7 @@ var fic : t_LocalFichierAbstraitPtr;
         if endOfMessageWasFoundDansFichierAbstrait then
           begin
 
-            // tronquer le fichier abstrait jusqu'au premier separateur de message (on 
+            // tronquer le fichier abstrait jusqu'au premier separateur de message (on
             // deplacera les octets negliges apres avoir traité le premier message, cf plus bas)
             oldZoneSize := fic^.nbOctetsOccupes;
             fic^.nbOctetsOccupes := posSeparateur;
@@ -1319,19 +1319,19 @@ var status : String255;
 begin
 
   status := 'RETIRED';
-          
-  if CassioEstEnTrainDeCalculerPourLeZoo | 
+
+  if CassioEstEnTrainDeCalculerPourLeZoo |
      (CassioPeutDonnerDuTempsAuZoo & DemandeDeCalculPourLeZooDansLaFileLocale(job))
     then status := 'CALCULATING';
-  
-  if Quitter | enRetour                                
+
+  if Quitter | enRetour
     then status := 'RETIRED';
-    
-  if CassioPeutDonnerDuTempsAuZoo       
+
+  if CassioPeutDonnerDuTempsAuZoo
     then status := 'SEEKING_JOB';
-    
+
   CalculateZooStatusPourCetEtatDeCassio := status;
-  
+
 end;
 
 
@@ -1342,49 +1342,49 @@ begin
 
   if (interruptionReflexion <> pasdinterruption) & not(Quitter)
     then exit(VerifierLeStatutDeCassioPourLeZoo);
-        
+
 
   with gZoo do
     if ((TickCount - dateDerniereVerificationDuStatutPourLeZoo) >= intervalleVerificationDuStatutPourLeZoo) then
       begin
-      
-        
+
+
         statusReelSurLeZoo         := GetZooStatus;
         statutVouluParEtatDeCassio := CalculateZooStatusPourCetEtatDeCassio;
-        
+
         // WritelnDansRapport('Dans VerifierLeStatutDeCassioPourLeZoo, statusReelSurLeZoo = ' + statusReelSurLeZoo);
-        
+
         if (statusReelSurLeZoo <> statutVouluParEtatDeCassio) then
           begin
-          
+
             // WritelnDansRapport('BINGO !!  statusReelSurLeZoo = ' + statusReelSurLeZoo + ' mais statutVouluParEtatDeCassio = '+statutVouluParEtatDeCassio);
-            
-            
+
+
             if (statutVouluParEtatDeCassio = 'RETIRED') then
               begin
                 EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo('AIE AIE dans VerifierLeStatutDeCassioPourLeZoo');
                 if Quitter then BouclerUnPeuAvantDeQuitterEnSurveillantLeReseau(30);
               end;
-            
+
             if (statutVouluParEtatDeCassio = 'SEEKING_JOB') then
               begin
                 // on accelère tant qu'on peut le relevé d'un nouveau job sur le zoo
                 gZoo.dateDernierReleveDeJobSurLeZoo := 0;
                 DemanderUnJobAuZoo;
               end;
-              
+
             if (statutVouluParEtatDeCassio = 'CALCULATING') then
               begin
                 // on accelere tant qu'on peut la verification de l'utilite des calculs sur le zoo
                 gZoo.dateDerniereVerificationUtiliteCalculPourLeZoo := TickCount - intervalleVerificationUtiliteCalculPourLeZoo - 10;
                 VerifierUtiliteCalculPourLeZoo(true);
               end;
-              
+
           end;
-        
+
         dateDerniereVerificationDuStatutPourLeZoo := TickCount;
       end;
-    
+
 end;
 
 
@@ -1392,7 +1392,7 @@ procedure SetIntervalleVerificationDuStatutDeCassioPourLeZoo(ticks : SInt32; old
 begin
   if oldValue <> NIL then
     oldValue^ := gZoo.intervalleVerificationDuStatutPourLeZoo;
-  
+
   gZoo.intervalleVerificationDuStatutPourLeZoo := ticks;
 end;
 
@@ -1436,7 +1436,7 @@ var result : UInt64;
 begin
   if CassioEstEnTrainDeCalculerPourLeZoo
     then HashDuCalculCourantDeCassioPourLeZoo := gZoo.rechercheEnCours.params.inHashValue
-    else 
+    else
       begin
         SetHashValueDuZoo(result, -1);
         HashDuCalculCourantDeCassioPourLeZoo := result;
@@ -1464,7 +1464,7 @@ begin
   { les raisons faciles de refuser du temps au zoo }
 
   CassioPeutDonnerDuTempsAuZoo := false;
-  
+
  // WritelnStringAndBoolDansRapport('CassioEstEnTrainDeReflechir = ',CassioEstEnTrainDeReflechir);
 
   if Quitter                                     then exit(CassioPeutDonnerDuTempsAuZoo);
@@ -1481,10 +1481,10 @@ begin
   if enRetour                                    then exit(CassioPeutDonnerDuTempsAuZoo);
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if not(CassioIsUsingAnEngine(numero))          then exit(CassioPeutDonnerDuTempsAuZoo);
-  if (GetEngineState = 'ENGINE_KILLED') & 
+  if (GetEngineState = 'ENGINE_KILLED') &
      (DateOfLastStartOfEngine < TickCount - 200) then exit(CassioPeutDonnerDuTempsAuZoo);
   {$ENDC}
-  
+
   {if not(CassioIsUsingAnEngine(numero))          then exit(CassioPeutDonnerDuTempsAuZoo);}  { peut-etre bien ? }
 
 
@@ -1554,7 +1554,7 @@ begin
 end;
 
 
-function TempsDeMidgameConsacreAuZoo : double_t; 
+function TempsDeMidgameConsacreAuZoo : double_t;
 begin
     TempsDeMidgameConsacreAuZoo := gZoo.tempsTotalDesJobsDeMilieuPourLeZoo;
 end;
@@ -1683,10 +1683,10 @@ begin
 
       SetDateDernierEnvoiRequeteSurReseau(TickCount);
       SetDerniereRequeteEnvoyeeAuZoo(requete);
-      
+
       if (Pos('GET_WORK',requete.debutLigne) > 0)
         then SetZooStatus('SEEKING_JOB');
-      
+
       if (Pos('STILL_INCHARGE',requete.debutLigne) > 0)
         then SetZooStatus('CALCULATING');
 
@@ -1696,9 +1696,9 @@ begin
         then
           begin
             OuvrirConnectionPermanenteAuZoo;
-            
+
             if (verbosity >= 2) then ZooPrintOutput(requete);
-            
+
             EnvoyerUneRequeteAuZooParTelechargementHTML(requete);
           end
         else
@@ -1708,11 +1708,11 @@ begin
 
             // on efface la partie 'http://82.230.184.124/' de l'url : le serveur marche
             // meme si on l'envoie, mais la requete reseau est plus petite si on l'enleve !
-            
-            
+
+
             s := ReplaceStringByStringInString(gZoo.urlDuZoo, '', action.debutLigne);
             action.debutLigne := s;
-            
+
 
             if (verbosity >= 2) then ZooPrintOutput(action);
 
@@ -1722,7 +1722,7 @@ begin
 
             canUsePermanentConnection := SendStringToPermanentConnection(action , numeroSlot);
             if not(canUsePermanentConnection) then EnvoyerUneRequeteAuZooParTelechargementHTML(requete);
-            
+
           end;
     end;
 end;
@@ -1775,10 +1775,10 @@ begin
           end;
 
       VerifierLePoussageDesRequetesAuZoo;
-      
-      
+
+
       // Demander un nouveau job dans une seconde...
-      dateDernierReleveDeJobSurLeZoo := Min(dateDernierReleveDeJobSurLeZoo, (TickCount + 60 - intervalleReleveDeJobSurLeZoo));  
+      dateDernierReleveDeJobSurLeZoo := Min(dateDernierReleveDeJobSurLeZoo, (TickCount + 60 - intervalleReleveDeJobSurLeZoo));
 
   end;
 
@@ -1816,17 +1816,17 @@ function FindHashDansCacheDesScoresEnvoyesAuZoo(const whichHash : UInt64) : bool
 var k,t : SInt32;
 begin
   FindHashDansCacheDesScoresEnvoyesAuZoo := false;
-  
+
   if not(HashValueDuZooEstCorrecte(whichHash)) then
     exit(FindHashDansCacheDesScoresEnvoyesAuZoo);
-  
+
   for t := 0 to kTailleCacheDesScoresEnvoyesAuZoo do
     begin
       k := gCompteurCacheDesScoresEnvoyesAuZoo - t;
-      
+
       if (k > kTailleCacheDesScoresEnvoyesAuZoo) then k := k - kTailleCacheDesScoresEnvoyesAuZoo;
       if (k < 1) then k := k + kTailleCacheDesScoresEnvoyesAuZoo;
-      
+
       if Same64Bits(whichHash, gCacheDesScoresEnvoyesAuZoo[k]) then
         begin
           FindHashDansCacheDesScoresEnvoyesAuZoo := true;
@@ -1870,7 +1870,7 @@ begin
                 begin
                   // WriteDansRapport('prefetched : ');
                   // WritelnLongStringDansRapport(gZoo.jobPrefetched);
-                  
+
                   AppendToLongString(requete, urlDuZoo + '?action=SEND_SCORE&' + urlParams);
 
                   // on accelère tant qu'on peut le relevé d'un nouveau job
@@ -1884,7 +1884,7 @@ begin
 
             if (outBestMoveFinale >= 11) &
                (outBestMoveFinale <= 88) &
-               (inPositionPourFinale[outBestMoveFinale] = pionVide) 
+               (inPositionPourFinale[outBestMoveFinale] = pionVide)
                then
                   begin
 
@@ -1910,17 +1910,17 @@ begin
                  end;
 
             AppendToLongString(requete, '&time=' + ReelEnString(outTimeTakenFinale));
-            
+
 
             if (NumberOfPrefetch >= 30) then
               AppendToLongString(requete, '&prefetch=NO');
-            
-            
+
+
             // On ecrit dans le rapport les requetes longues de plus de 10 secondes ?
             {if outTimeTakenFinale >= 10.0 then
               WritelnLongStringDansRapport(requete);}
-            
-            
+
+
             // on envoie la reponse !
             AjouterHashDansCacheDesScoresEnvoyesAuZoo(zooJob.params.inHashValue);
             EnvoyerUneRequeteAuZoo(requete);
@@ -1928,7 +1928,7 @@ begin
 
             dateDernierEnvoiDeResultatSurLeZoo := TickCount;
 
-            
+
           end
         else
           begin
@@ -1970,7 +1970,7 @@ begin
   requete := MakeLongString(gZoo.urlDuZoo + '?action=I_CANT_SOLVE&status=' + reason + '&' + urlParams);
 
   EnvoyerUneRequeteAuZoo(requete);
-  
+
   SetZooStatus(reason);
 
 
@@ -1987,15 +1987,15 @@ begin
                           SEEKING_JOB  (normalement, ne devrait jamais arriver...)
   *)
 
-  requete := MakeLongString(gZoo.urlDuZoo + '?action=I_CANT_SOLVE' 
+  requete := MakeLongString(gZoo.urlDuZoo + '?action=I_CANT_SOLVE'
                                           + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio)
                                           + '&hash=' + UInt64ToHexa(whichHash)
                                           + '&status=' + reason);
-                       
+
   // WritelnLongStringDansRapport(requete);
-             
+
   EnvoyerUneRequeteAuZoo(requete);
-  
+
   SExcuserAupresDuZooPourCetteHash := NoErr;
 end;
 
@@ -2008,16 +2008,16 @@ begin
   result := '';
 
   s := parameterName + '=';
-  
-  
+
+
   if FindStringInBuffer(s , Ptr(buffer) , bufferSize , 0 , +1 , loc) then
     begin
-    
+
       start := loc + LENGTH_OF_STRING(s);
-      
+
       result := ParserBuffer(Ptr(buffer) , bufferSize , start , lastRead );
     end;
-  
+
 
   if (result = 'null') then result := '';
 
@@ -2040,19 +2040,19 @@ begin
 
   empty1 := LongStringIsEmpty(job1);
   empty2 := LongStringIsEmpty(job2);
-  
+
   if (empty1 & empty2) then
     begin
       SameJobs := true;
       exit(SameJobs);
     end;
-  
+
   if (empty1 <> empty2) then
     begin
       SameJobs := false;
       exit(SameJobs);
     end;
-  
+
   // Maintenant on est sûr que (empty1 = false) et que (empty2 = false) !
 
 
@@ -2062,36 +2062,36 @@ begin
       SameJobs := SameLongString(job1, job2);
       exit(SameJobs);
     end;
-  
+
   // Les deux jobs sont-ils tous les deux un "JOB" ?   ==>  comparer les chaines ...
   if LongStringBeginsWith('JOB ', job1) & LongStringBeginsWith('JOB ', job2) then
     begin
       SameJobs := SameLongString(job1, job2);
       exit(SameJobs);
     end;
-    
-    
+
+
   //  Le cas le plus lent : un "JOB" et un "PREFETCH" : il faut remplacer PREFETCH par JOB et comparer les chaines...
   if ((LongStringBeginsWith('JOB ', job1) & LongStringBeginsWith('PREFETCH ', job2)) | (LongStringBeginsWith('PREFETCH ', job1) & LongStringBeginsWith('JOB ', job2))) then
     begin
-      
+
       aux1 := CopyLongString(job1);
       aux2 := CopyLongString(job2);
-      
+
       aux1.debutLigne := ReplaceStringByStringInString('PREFETCH ','JOB ',aux1.debutLigne);
       aux2.debutLigne := ReplaceStringByStringInString('PREFETCH ','JOB ',aux2.debutLigne);
-    
+
       NormaliserLongString(aux1);
       NormaliserLongString(aux2);
-    
+
       SameJobs := SameLongString(aux1 , aux2);
-      
+
       exit(SameJobs);
      end;
 
   // On a tout essayer, mais ça ne semble vraiment pas les memes jobs
   SameJobs := false;
-  
+
 end;
 
 
@@ -2190,7 +2190,7 @@ begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   HashValueDuZooEstCorrecte := (SInt64(hash) > 0);
   {$ELSEC}
-  HashValueDuZooEstCorrecte := ((hash.hi <> 0) | (hash.lo <> 0)) 
+  HashValueDuZooEstCorrecte := ((hash.hi <> 0) | (hash.lo <> 0))
                                & (BAnd(hash.hi,$80000000) = 0);
   {$ENDC}
 end;
@@ -2270,7 +2270,7 @@ begin
   WritelnDansRapport('Je dois parser cette demande : ');
   WritelnDansRapport(s.debutLigne);
   *)
-  
+
 
   (* des exemples a parser :
         JOB pos=----------X------OXX-----OXXXO---OXXXX---OOOO-------------------X window=-64,64 cut=100 depth=26 priority=0 hash=622f154deed2b1ad
@@ -2283,11 +2283,11 @@ begin
 
   *)
 
-  
+
   LongStringToBuffer(s, @buffer[0], len);
-  
+
   Parser(s.debutLigne, action, reste);
-  
+
   platString  := GetParameterStringInResultatDuZoo('pos',      @buffer[0], len);
   window      := GetParameterStringInResultatDuZoo('window',   @buffer[0], len);
   cut         := GetParameterStringInResultatDuZoo('cut',      @buffer[0], len);
@@ -2365,7 +2365,7 @@ begin
           // la precision
 
           inPrecisionFinale := MuStringEnPrecisionEngine(mu);
-          
+
           // la priorite
 
           inPrioriteFinale := ChaineEnLongint(priority);
@@ -2377,30 +2377,30 @@ begin
           // le hash
 
           inHashValue := HexToUInt64(hash);
-          
+
           // le type de calcul
-          
+
           if (inProfondeurFinale >= nbCasesVides - 8)
             then
-              begin  
+              begin
                 // c'est un job de finale
                 if (inAlphaFinale >= -1) & (inBetaFinale <= 1)
                   then inTypeCalculFinale := ReflGagnant
                   else inTypeCalculFinale := ReflParfait;
               end
             else
-              begin  
+              begin
                 // c'est un job de milieu de partie
                 inTypeCalculFinale := ReflMilieu;
               end;
 
 
-          ViderSearchResults(outResult); 
+          ViderSearchResults(outResult);
 
 
           correct := CheckEndgameSearchParams(searchParams) & HashValueDuZooEstCorrecte(inHashValue);
-                     
-                     
+
+
           (*
           WritelnPositionEtTraitDansRapport(inPositionPourFinale, inCouleurFinale);
           WritelnNumDansRapport('inNbreNoirsFinale = ',inNbreNoirsFinale);
@@ -2414,7 +2414,7 @@ begin
           WritelnNumDansRapport('inHashValue = ',inHashValue);
           WritelnStringAndBoolDansRapport('correct = ',correct);
           *)
-          
+
 
           PeutParserDemandeDeJob := correct;
 
@@ -2452,9 +2452,9 @@ begin
   *)
 
   LongStringToBuffer(s, @buffer[0], len);
-  
+
   Parser(s.debutLigne, action, reste);
-  
+
   platString  := GetParameterStringInResultatDuZoo('pos',    @buffer[0], len);
   window      := GetParameterStringInResultatDuZoo('window', @buffer[0], len);
   cut         := GetParameterStringInResultatDuZoo('cut',    @buffer[0], len);
@@ -2496,7 +2496,7 @@ begin
       WritelnDansRapport('moves = '+moves);
       WritelnDansRapport('timestamp = '+timestamp);
       *)
-      
+
 
       with params do
         begin
@@ -2598,14 +2598,14 @@ begin
 
           if (inProfondeurFinale >= nbCasesVides - 8)
             then
-              begin  
+              begin
                 // c'est un job de finale
                 if (inAlphaFinale >= -1) & (inBetaFinale <= 1)
                   then inTypeCalculFinale := ReflGagnant
                   else inTypeCalculFinale := ReflParfait;
               end
             else
-              begin  
+              begin
                 // c'est un job de milieu de partie
                 inTypeCalculFinale := ReflMilieu;
               end;
@@ -2651,7 +2651,7 @@ var params : MakeEndgameSearchParamRec;
     result : UInt64;
 begin
   if not(JobIsEmpty(gZoo.jobPrefetched))
-     & PeutParserDemandeDeJob(gZoo.jobPrefetched, params) 
+     & PeutParserDemandeDeJob(gZoo.jobPrefetched, params)
     then
       begin
         EndgameSearchParamToZooJob(params, myJob);
@@ -2755,9 +2755,9 @@ begin
 end;
 
 
-(* Quand on doit absolument ecraser un job dans le cache des prefetch, il faut essayer 
-   de supprimer celui qui semble le moins utile. 
-   La fonction FindUnJobInutileDansCacheDesPrefetch() implemente ce choix. 
+(* Quand on doit absolument ecraser un job dans le cache des prefetch, il faut essayer
+   de supprimer celui qui semble le moins utile.
+   La fonction FindUnJobInutileDansCacheDesPrefetch() implemente ce choix.
  *)
 function FindUnJobInutileDansCacheDesPrefetch(var index : SInt32) : boolean;
 var profMinMilieu, profMinEndgame : SInt32;
@@ -2768,16 +2768,16 @@ var profMinMilieu, profMinEndgame : SInt32;
 begin
 
   worstPriority := 5000000;
-  
+
   profMinMilieu  :=  500;
   profMinEndgame :=  500;
-  
+
   profMaxMilieu  := -500;
   profMaxEndgame := -500;
-  
+
   indexMinMilieu  := -1;
   indexMinEndgame := -1;
-  
+
   indexMaxMilieu  := -1;
   indexMaxEndgame := -1;
 
@@ -2785,76 +2785,76 @@ begin
     with gCacheDesPrefetch[k] do
     if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) & not(JobIsEmpty(s)) then
       begin
-      
+
         if (priority < worstPriority) then
           begin
             worstPriority := priority;
-          
+
             profMinMilieu  :=  500;
             profMinEndgame :=  500;
-            
+
             profMaxMilieu  := -500;
             profMaxEndgame := -500;
-            
+
             indexMinMilieu  := -1;
             indexMinEndgame := -1;
-            
+
             indexMaxMilieu  := -1;
             indexMaxEndgame := -1;
           end;
-          
+
         if (priority = worstPriority) then
           begin
-      
-            if (depth >= 24) 
+
+            if (depth >= 24)
               then
                 begin
                   // depth >= 24 : on pense que c'est une requete de finale...
-                  
+
                   // job de prof min de finale ?
                   if (depth < profMinEndgame) then
                     begin
                       profMinEndgame    := depth;
                       indexMinEndgame   := k;
                     end;
-                  
+
                   // job de prof max de finale ?
                   if (depth > profMaxEndgame) then
                     begin
                       profMaxEndgame    := depth;
                       indexMaxEndgame   := k;
                     end;
-                    
+
                 end
               else
                 begin
                   // depth < 23 : on pense que c'est une requete de milieu...
-                  
+
                   // job de prof min de milieu ?
                   if (depth < profMinMilieu) then
                     begin
                       profMinMilieu     := depth;
                       indexMinMilieu    := k;
-                    end; 
-                  
+                    end;
+
                   // job de prof max de milieu ?
                   if (depth > profMaxMilieu) then
                     begin
                       profMaxMilieu     := depth;
                       indexMaxMilieu    := k;
-                    end; 
+                    end;
                 end;
-            
+
           end;
       end;
-      
+
    if (indexMinEndgame <> -1) & (profMinEndgame <= 64) & (profMinEndgame >= 0) then
      begin
        index := indexMinEndgame;
        FindUnJobInutileDansCacheDesPrefetch := true;
        exit(FindUnJobInutileDansCacheDesPrefetch);
      end;
-   
+
    if (indexMinMilieu <> -1) & (profMinMilieu <= 64) & (profMinMilieu >= 0) then
      begin
        index := indexMinMilieu;
@@ -2868,9 +2868,9 @@ end;
 
 
 (* Quand ils doivent developper un nouveau noeud de l'arbre (un nouveau job du zoo)
-   les calculateurs doivent choisir, parmi les jobs qu'ils ont recus comme prefetch, 
-   celui qui semble le plus utile. 
-   La fonction GetPrefetchImportantPasEncoreCalcule() implemente ce choix dans Cassio. 
+   les calculateurs doivent choisir, parmi les jobs qu'ils ont recus comme prefetch,
+   celui qui semble le plus utile.
+   La fonction GetPrefetchImportantPasEncoreCalcule() implemente ce choix dans Cassio.
  *)
 function GetPrefetchImportantPasEncoreCalcule : LongString;
 var k,t,foo,alea : SInt32;
@@ -2884,13 +2884,13 @@ begin
 
   profMinMilieu  :=  50000;
   profMinEndgame :=  50000;
-  
+
   profMaxMilieu  := -50000;
   profMaxEndgame := -50000;
-  
+
   indexMinMilieu  := -1;
   indexMinEndgame := -1;
-  
+
   indexMaxMilieu  := -1;
   indexMaxEndgame := -1;
 
@@ -2909,104 +2909,104 @@ begin
            not(JobIsEmpty(s)) &  not(SameJobs(s, gZoo.jobEnCoursDeTraitement)) &
            not(FindZooJobDansCacheDesPositionsCalculees(hashValue,foo)) then
           begin
-          
+
             if (priority > bestPriority) then
               begin
                 bestPriority := priority;
-              
+
                 profMinMilieu  :=  50000;
                 profMinEndgame :=  50000;
-                
+
                 profMaxMilieu  := -50000;
                 profMaxEndgame := -50000;
-                
+
                 indexMinMilieu  := -1;
                 indexMinEndgame := -1;
-                
+
                 indexMaxMilieu  := -1;
                 indexMaxEndgame := -1;
               end;
-              
+
             if (priority = bestPriority) then
               begin
-          
+
                 if (depth >= 24)   // depth >= 24 : on pense que c'est une requete de finale...
                   then
                     begin
-                      
+
                       // job de prof min de finale ?
                       if (depth < profMinEndgame) then
                         begin
                           profMinEndgame    := depth;
                           indexMinEndgame   := k;
                         end;
-                      
+
                       // job de prof max de finale ?
                       if (depth > profMaxEndgame) then
                         begin
                           profMaxEndgame    := depth;
                           indexMaxEndgame   := k;
                         end;
-                        
+
                     end
                   else            // depth < 23 : on pense que c'est une requete de milieu...
                     begin
-                      
+
                       // job de prof min de milieu ?
                       if (depth < profMinMilieu) then
                         begin
                           profMinMilieu     := depth;
                           indexMinMilieu    := k;
-                        end; 
-                      
+                        end;
+
                       // job de prof max de milieu ?
                       if (depth > profMaxMilieu) then
                         begin
                           profMaxMilieu     := depth;
                           indexMaxMilieu    := k;
-                        end; 
+                        end;
                     end;
               end;
-              
+
           end;
     end;
 
 
-  // Notre stratégie de developpement des noeuds est la suivante : 
+  // Notre stratégie de developpement des noeuds est la suivante :
   // parmi les noeuds de priorite maximale, d'abord les noeuds de
   // finale de prof max, puis les noeuds de milieu de prof minimale
-  
 
-  
-  
+
+
+
   // FIXME min ou max pour le milieu ?
-    
-  
+
+
   if (indexMaxMilieu <> -1) & (profMaxMilieu >= 0) & (profMaxMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxMilieu].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
-  
+
   if (indexMinMilieu <> -1) & (profMinMilieu >= 0) & (profMinMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinMilieu].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
-    
-    
+
+
   if (indexMaxEndgame <> -1) & (profMaxEndgame >= 0) & (profMaxEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxEndgame].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
-  
+
   if (indexMinEndgame <> -1) & (profMinEndgame >= 0) & (profMinEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinEndgame].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
-    
+
 
   GetPrefetchImportantPasEncoreCalcule := MakeLongString('');
 end;
@@ -3043,7 +3043,7 @@ begin
   for k := 1 to kTailleCacheDesPrefetch do
     if (gCacheDesPrefetch[k].depth <> k_ZOO_NOT_INITIALIZED_VALUE) then
       inc(count);
-  
+
   NumberOfPrefetch := count;
 end;
 
@@ -3076,9 +3076,9 @@ begin
       if FindEmplacementVideDansCacheDesPrefetch(index)
         then
           begin
-          
+
             //WritelnDansRapport('nouveau prefetch');
-          
+
             gCacheDesPrefetch[index].hashValue := params.inHashValue;
             gCacheDesPrefetch[index].depth     := params.inProfondeurFinale;
             gCacheDesPrefetch[index].priority  := params.inPrioriteFinale;
@@ -3091,9 +3091,9 @@ begin
               then
                 begin
                   // On ecrase un prefetch qui semble un peu inutile
-                  
+
                   //WritelnDansRapport('ecrasement : profondeur minimale');
-                
+
                   gCacheDesPrefetch[index].hashValue := params.inHashValue;
                   gCacheDesPrefetch[index].depth     := params.inProfondeurFinale;
                   gCacheDesPrefetch[index].priority  := params.inPrioriteFinale;
@@ -3102,7 +3102,7 @@ begin
               else
                 begin
                   // on ecrase un prefetch au hasard
-                  
+
                   //WritelnDansRapport('ecrasement : au hasard');
 
                   gCacheDesPrefetch[gCompteurCacheDesPrefetch].hashValue := params.inHashValue;
@@ -3151,11 +3151,11 @@ begin
 
   with zooJob do
     begin
-    
+
       ticks := TickCount;
-  
+
       affichageDansRapport := false;
-      
+
       if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
@@ -3170,26 +3170,26 @@ begin
           WritelnDansRapport('');
           EndRapportPourZoo;
         end;
-      
+
 
       // on calcule ce job de milieu, hein !
       score := LanceurAlphaBetaMilieuWithSearchParams(params);
-      
-      
+
+
       // ajuster les statistiques du zoo
       tempsRequete := (1.0*(TickCount - ticks) / 60.0);
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete) 
+      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete)
         then tempsRequete := params.outResult.outTimeTakenFinale;
       gZoo.tempsTotalDeCalculPourLeZoo := gZoo.tempsTotalDeCalculPourLeZoo + tempsRequete;
-      
+
       if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) then
         begin
           gZoo.tempsTotalDesJobsUtilesPourLeZoo   := gZoo.tempsTotalDesJobsUtilesPourLeZoo   + params.outResult.outTimeTakenFinale;
           gZoo.tempsTotalDesJobsDeMilieuPourLeZoo := gZoo.tempsTotalDesJobsDeMilieuPourLeZoo + params.outResult.outTimeTakenFinale;
         end;
       inc(gZoo.nbJobsMidgame);
-                
-                
+
+
       if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
@@ -3210,9 +3210,9 @@ begin
           WritelnDansRapport('');
           EndRapportPourZoo;
         end;
-            
+
     end;
-            
+
 end;
 
 
@@ -3226,9 +3226,9 @@ begin
   with zooJob do
     begin
       ticks := TickCount;
-  
+
       affichageDansRapport := false;
-      
+
       if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
@@ -3242,7 +3242,7 @@ begin
           WritelnDansRapport('');
           EndRapportPourZoo;
         end;
-      
+
 
       // si un moteur est disponible, on demandera directement au moteur la valeur
       // sans trier les coups avec le milieu de Cassio, etc.
@@ -3251,23 +3251,23 @@ begin
 
       // on calcule ce job de finale, hein !
       score := ScoreParfaitFinaleWithSearchParams(params, endgameSolveFlags);
-      
-      
+
+
       // ajuster les statistiques du zoo
       tempsRequete := (1.0*(TickCount - ticks) / 60.0);
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete) 
+      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete)
         then tempsRequete := params.outResult.outTimeTakenFinale;
       gZoo.tempsTotalDeCalculPourLeZoo := gZoo.tempsTotalDeCalculPourLeZoo + tempsRequete;
-      
+
       if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) then
         begin
           gZoo.tempsTotalDesJobsUtilesPourLeZoo := gZoo.tempsTotalDesJobsUtilesPourLeZoo + params.outResult.outTimeTakenFinale;
           // nb de jobs de moins d'1/20 de seconde ?
-          if (params.outResult.outTimeTakenFinale <= 0.05)   
+          if (params.outResult.outTimeTakenFinale <= 0.05)
             then inc(gZoo.nbJobsEndgameTriviaux);
         end;
-                
-                
+
+
       if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
@@ -3287,9 +3287,9 @@ begin
           WritelnDansRapport('');
           EndRapportPourZoo;
         end;
-            
+
     end;
-            
+
 end;
 
 
@@ -3339,22 +3339,22 @@ begin
                   // de commencer à calculer ce job, et demander de nous interrompre s'il a disparu
                   gZoo.positionChercheeADisparuDuZoo                  := false;
                   gZoo.dateDerniereVerificationUtiliteCalculPourLeZoo := TickCount - gZoo.intervalleVerificationUtiliteCalculPourLeZoo - 10;
-                  
+
                   VerifierUtiliteCalculPourLeZoo(false);
-                  
-                  
+
+
                   // Go pour le calcul !
                   if (params.inTypeCalculFinale = ReflMilieu)
                     then LancerCalculDeMilieuCommeClientPourLeZoo(zooJob)   // midgame
                     else LancerCalculDeFinaleCommeClientPourLeZoo(zooJob);  // endgame
-                    
-                  
+
+
                   // Lire les resultats du calcul
                   score          := params.outResult.outScoreFinale;
                   meilleurCoup   := params.outResult.outBestMoveFinale;
                   meilleureDef   := params.outResult.outBestDefenseFinale;
                   meilleureSuite := params.outResult.outLineFinale;
-                    
+
                 end;
 
 
@@ -3369,7 +3369,7 @@ begin
                  RetirerCeJobDuCacheDesPositionsPrefetchUtiles(zooJob.params.inHashValue);
 
                  err := EnvoyerResultatDuCalculAuZoo(zooJob, score);
-                 
+
                  AjusteSleep;
                end
              else
@@ -3396,9 +3396,9 @@ begin
 
                        err := SExcuserAupresDuZoo(zooJob, 'RETIRED' );
                        err := SExcuserAupresDuZooPourLaPositionPrefetched( 'RETIRED' );
-                       
+
                        EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo('L''utilisateur a repris la main ?');
-                           
+
 
                        if Quitter then
                          begin
@@ -3512,23 +3512,23 @@ begin
       inc(nbreDePingsSurLeZoo);
 
       MicroSeconds(time);
-      
+
       WritelnNumDansRapport('PING reçu après (en seconds) : ',time.hi - gZoo.timerPourPing.hi);
       WritelnNumDansRapport('PING reçu après (en µsecondes) : ',time.lo - gZoo.timerPourPing.lo);
-      
+
 
       // on stock le temps de reponse (en ticks, c'est-a-dire en 1/60 de secondes }
 
       tempsDeReponse := (time.hi - gZoo.timerPourPing.hi) * 60 +
                         (time.lo - gZoo.timerPourPing.lo) div 16666;    (* car 1/60 de seconde = 16666 microsecondes *)
 
-      
+
       BeginRapportPourZoo;
       ChangeFontFaceDansRapport(normal);
       WriteNumDansRapport('   tempsDeReponse  = ',(time.hi - gZoo.timerPourPing.hi)*1000 + ((time.lo - gZoo.timerPourPing.lo) div 1000));
       WritelnDansRapport(' ms');
       EndRapportPourZoo;
-      
+
     end;
 end;
 
@@ -3537,12 +3537,12 @@ end;
 procedure ZooWantsToStartANewTest;
 var numero : SInt32;
 begin
-  
-  if CassioPeutDonnerDuTempsAuZoo 
-     & CassioIsUsingAnEngine(numero) 
+
+  if CassioPeutDonnerDuTempsAuZoo
+     & CassioIsUsingAnEngine(numero)
      & not(CassioIsWaitingAnEngineResult)
     then EngineEmptyHash;
-  
+
   if CassioPeutDonnerDuTempsAuZoo then
     begin
       LanceInterruptionSimple('ZooWantsToStartANewTest');
@@ -3550,7 +3550,7 @@ begin
       VideToutesLesHashTablesExactes;
       VideHashTable(HashTable);
     end;
-    
+
   EmptyCacheZooDesPositionsCalculees;
 end;
 
@@ -3571,7 +3571,7 @@ begin
 
       if not(FindZooJobDansCacheDesPositionsCalculees(theJob.params.inHashValue,foo)) then
         begin
-        
+
           AjouterDansCacheDesPrefetch(theJob.params, s);
 
           if JobIsEmpty(gZoo.jobPrefetched) then
@@ -3617,11 +3617,11 @@ begin
       end
   else
     begin
-    
+
       { si on était déjà en train de calculer pour le zoo sur une autre position,
         c'est que les messages se sont croisés sur l'internet : mais comme on ne peut
         pas faire deux recherches en meme temps, on s'excuse auprès du zoo...}
-        
+
       if not(JobIsEmpty(s)) & not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) &
          PeutParserDemandeDeJob(s, params) then
         begin
@@ -3663,7 +3663,7 @@ begin
   if CassioEstEnTrainDeCalculerPourLeZoo then
     with gZoo do
       begin
-      
+
         VerifierLocalementLaFileDesPrefetchs;
 
         hashCalculCourant := HashDuCalculCourantDeCassioPourLeZoo;
@@ -3675,17 +3675,17 @@ begin
         for k := 1 to kTailleCacheDesPrefetch do
           if (gCacheDesPrefetch[k].depth <> k_ZOO_NOT_INITIALIZED_VALUE) then
             begin
-            
+
               if (nbPrefetchedChecked <= 10) then  // la commande STILL_PREFETCHED du zoo attend au max 10 (ou à la rigueur 11) parametres...
                 begin
-            
+
                   inc(nbPrefetchedChecked);
                   if (nbPrefetchedChecked = 1)
                     then AppendToLongString(requete , '&hash='                                      + UInt64ToHexa(gCacheDesPrefetch[k].hashValue))
                     else AppendToLongString(requete , '&h' + NumEnString(nbPrefetchedChecked) + '=' + UInt64ToHexa(gCacheDesPrefetch[k].hashValue));
-                
+
                 end;
-                
+
               if not(HashValueDuZooEstCorrecte(gCacheDesPrefetch[k].hashValue)) then
                 WritelnDansRapport('ASSERT : hashValue incorecte dans STILL_PREFETCHED, gCacheDesPrefetch[k].hashValue = ' +  UInt64ToHexa(gCacheDesPrefetch[k].hashValue));
 
@@ -3705,19 +3705,19 @@ begin
                   then AppendToLongString(requete , '&hash='                                      + hashDuPrefetchActuel)
                   else AppendToLongString(requete , '&h' + NumEnString(nbPrefetchedChecked) + '=' + hashDuPrefetchActuel);
               end;
-              
+
             if not(HashValueDuZooEstCorrecte(GetHashValueOfPositionPrefetched)) then
               begin
                 WritelnDansRapport('ASSERT : hashValue incorecte dans STILL_PREFETCHED, GetHashValueOfPositionPrefetched = ' +  UInt64ToHexa(GetHashValueOfPositionPrefetched));
                 WriteDansRapport('gZoo.jobPrefetched = ');
                 WritelnLongStringDansRapport(gZoo.jobPrefetched);
               end;
-                  
+
 
             if Same64Bits(GetHashValueOfPositionPrefetched , hashCalculCourant) then
                 WritelnDansRapport('ASSERT dans STILL_PREFETCHED : hash = HashDuCalculCourantDeCassioPourLeZoo {2}');
           end;
-          
+
         // WritelnNumDansRapport('nbPrefetchedChecked = ',nbPrefetchedChecked);
 
         if (nbPrefetchedChecked > 0) then
@@ -3736,13 +3736,13 @@ begin
 
   with gZoo do
     begin
-    
+
       (* WritelnDansRapport(fonctionAppelante); *)
 
       requete := MakeLongString(urlDuZoo + '?action=I_QUIT&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
 
       EnvoyerUneRequeteAuZoo(requete);
-      
+
       SetZooStatus('RETIRED');
     end;
 end;
@@ -3844,7 +3844,7 @@ begin
          ((TickCount - GetDateDerniereRequeteSurReseau) <= 200) &
          SameLongString(derniereRequete, requete) then
         exit(EnvoyerUneRequetePourArreterTousMesCalculsDuZoo);
-        
+
       (*
       WritelnDansRapport('GetZooStatus = ' + GetZooStatus);
       WritelnDansRapport('GetLastEtatDuReseauAffiche = ' + GetLastEtatDuReseauAffiche);
@@ -3912,7 +3912,7 @@ begin
           DoitInterrompreCalculPourLeZoo := true;
           exit(DoitInterrompreCalculPourLeZoo);
         end;
-      
+
       if (action1 = 'STILL') &
          (action2 = 'INCHARGE') &
          (bool = 'false') &
@@ -3945,7 +3945,7 @@ begin
           gZoo.dateDernierEnvoiDePingSurLeZoo := TickCount;
 
           EnvoyerUneRequeteAuZoo(requete);
-          
+
         end;
     end;
 end;
@@ -3967,22 +3967,22 @@ begin
     begin
       if (TickCount > dateDernierEnvoiDeKeepAliveSurLeZoo + intervalleEnvoiDeKeepAliveSurLeZoo) then
         begin
-        
+
           status := CalculateZooStatusPourCetEtatDeCassio;
 
-          requete := MakeLongString(urlDuZoo + '?action=KEEP_ALIVE' 
+          requete := MakeLongString(urlDuZoo + '?action=KEEP_ALIVE'
                                              + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio)
                                              + '&status=' + status);
 
           gZoo.dateDernierEnvoiDeKeepAliveSurLeZoo := TickCount;
 
           EnvoyerUneRequeteAuZoo(requete);
-          
+
           SetZooStatus(status);
-          
+
           if (status = 'RETIRED') & (GetLastEtatDuReseauAffiche = 'NO JOB !')
             then AfficheEtatDuReseau(status);
-         
+
         end;
     end;
 end;
@@ -3995,7 +3995,7 @@ var requete : LongString;
    // s : String255;
 begin
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(VerifierUtiliteCalculPourLeZoo);
-  
+
   // s := 'Appel de VerifierUtiliteCalculPourLeZoo : done = NO';
 
   if CassioEstEnTrainDeCalculerPourLeZoo then
@@ -4008,7 +4008,7 @@ begin
           begin
 
             {WritelnDansRapport('looking if the position is still in the grid…');}
-            
+
             // s := 'Appel de VerifierUtiliteCalculPourLeZoo : done = YES';
 
             urlParams := '';
@@ -4027,22 +4027,22 @@ begin
                   requete := MakeLongString(urlDuZoo + '?action=STILL_INCHARGE&' + shortUrlParams);
                   dateDerniereVerificationUtiliteCalculPourLeZoo := TickCount;
                 end;
-                
-            
+
+
             if (NumberOfPrefetch >= 30) then
               AppendToLongString(requete, '&prefetch=NO');
-                
+
             // WritelnLongStringDansRapport(requete);
-            
+
             EnvoyerUneRequeteAuZoo(requete);
 
-            if alsoCheckPretch 
+            if alsoCheckPretch
               then EnvoyerUneRequetePourVerifierLeCacheDesPrefetch
               else VerifierLocalementLaFileDesPrefetchs;
 
           end;
       end;
-  
+
   // WritelnDansRapport(s);
 end;
 
@@ -4188,7 +4188,7 @@ begin
         not(Quitter) do
     with gZoo do
      begin
-                       
+
        if PeutParserDemandeDeJob(job, rechercheEnCours.params)
          then
            begin
@@ -4203,8 +4203,8 @@ begin
        InitLongString(gZoo.jobEnCoursDeTraitement);
 
        TransfererPositionPrefetchedDuZooDansLaFileLocale;
-       
-       
+
+
        if (interruptionReflexion = interruptionPositionADisparuDuZoo) then
          begin
            EnleveCetteInterruption(interruptionPositionADisparuDuZoo);
@@ -4218,13 +4218,13 @@ begin
               end;
            LanceInterruption(interruptionPositionADisparuDuZoo,'test dans BoucleDeLancementsDesCalculsLocauxPourLeZoo');
          end;
-       
-       
-       
-       
-       
+
+
+
+
+
      end;
-   
+
 end;
 
 

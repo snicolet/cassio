@@ -11,45 +11,45 @@ INTERFACE
 
 
 { fonctions d'initialisation et de fin de module }
-procedure InitUnitUnixTask;                                                                                                                                                           ATTRIBUTE_NAME('InitUnitUnixTask')
-procedure LibereMemoireUnitUnixTask;                                                                                                                                                  ATTRIBUTE_NAME('LibereMemoireUnitUnixTask')
-procedure TestUnixTaskUnit;                                                                                                                                                           ATTRIBUTE_NAME('TestUnixTaskUnit')
+procedure InitUnitUnixTask;
+procedure LibereMemoireUnitUnixTask;
+procedure TestUnixTaskUnit;
 
 
 { Lancement d'un process UNIX }
-function LaunchUNIXProcess(command, arguments : String255) : OSErr;                                                                                                                   ATTRIBUTE_NAME('LaunchUNIXProcess')
+function LaunchUNIXProcess(command, arguments : String255) : OSErr;
 
 
 { fonctions de bas niveau pour manipuler la tache unix }
-function CanStartUnixTask(pathMac, arguments : String255) : boolean;                                                                                                                  ATTRIBUTE_NAME('CanStartUnixTask')
-procedure KillCurrentUnixTask;                                                                                                                                                        ATTRIBUTE_NAME('KillCurrentUnixTask')
-procedure SuspendCurrentUnixTask;                                                                                                                                                     ATTRIBUTE_NAME('SuspendCurrentUnixTask')
-procedure ResumeCurrentUnixTask;                                                                                                                                                      ATTRIBUTE_NAME('ResumeCurrentUnixTask')
-procedure SetUnixTaskState(state : SInt32);                                                                                                                                           ATTRIBUTE_NAME('SetUnixTaskState')
-function GetUnixTaskState : String255;                                                                                                                                                ATTRIBUTE_NAME('GetUnixTaskState')
-function DateOfLastActivityByUnixTask : SInt32;                                                                                                                                       ATTRIBUTE_NAME('DateOfLastActivityByUnixTask')
-function DateOfLastStartOfUnixTask : SInt32;                                                                                                                                          ATTRIBUTE_NAME('DateOfLastStartOfUnixTask')
+function CanStartUnixTask(pathMac, arguments : String255) : boolean;
+procedure KillCurrentUnixTask;
+procedure SuspendCurrentUnixTask;
+procedure ResumeCurrentUnixTask;
+procedure SetUnixTaskState(state : SInt32);
+function GetUnixTaskState : String255;
+function DateOfLastActivityByUnixTask : SInt32;
+function DateOfLastStartOfUnixTask : SInt32;
 
 
 { Fonctions d'interface texte avec le bundle de communication }
-procedure ReceiveUnixTaskData(theCString : Ptr);                                                                                                                                      ATTRIBUTE_NAME('ReceiveUnixTaskData')
-procedure SendStringToUnixTask(s : String255);                                                                                                                                        ATTRIBUTE_NAME('SendStringToUnixTask')
-procedure InterpretUnixTaskCommand(line : LongString);                                                                                                                                ATTRIBUTE_NAME('InterpretUnixTaskCommand')
-procedure SwitchToUnixTask(whichChannel : SInt16);                                                                                                                                    ATTRIBUTE_NAME('SwitchToUnixTask')
+procedure ReceiveUnixTaskData(theCString : Ptr);
+procedure SendStringToUnixTask(s : String255);
+procedure InterpretUnixTaskCommand(line : LongString);
+procedure SwitchToUnixTask(whichChannel : SInt16);
 
 
 { Nom du bundle de communication avec Unix }
-function GetUnixTaskBundleName : String255;                                                                                                                                           ATTRIBUTE_NAME('GetUnixTaskBundleName')
+function GetUnixTaskBundleName : String255;
 
 
 { Fonctions d'affichage dans le rapport }
-procedure UnixTaskPrint(const s : String255);                                                                                                                                         ATTRIBUTE_NAME('UnixTaskPrint')
-procedure UnixTaskPrintDebug(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('UnixTaskPrintDebug')
-procedure UnixTaskPrintWarning(const s : String255);                                                                                                                                  ATTRIBUTE_NAME('UnixTaskPrintWarning')
-procedure UnixTaskPrintInput(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('UnixTaskPrintInput')
-procedure UnixTaskPrintOutput(const s : String255);                                                                                                                                   ATTRIBUTE_NAME('UnixTaskPrintOutput')
-procedure UnixTaskPrintError(const s : String255);                                                                                                                                    ATTRIBUTE_NAME('UnixTaskPrintError')
-procedure UnixTaskPrintColoredStringInRapport(const s : String255; whichColor : SInt16; whichStyle : StyleParameter);                                                                 ATTRIBUTE_NAME('UnixTaskPrintColoredStringInRapport')
+procedure UnixTaskPrint(const s : String255);
+procedure UnixTaskPrintDebug(const s : String255);
+procedure UnixTaskPrintWarning(const s : String255);
+procedure UnixTaskPrintInput(const s : String255);
+procedure UnixTaskPrintOutput(const s : String255);
+procedure UnixTaskPrintError(const s : String255);
+procedure UnixTaskPrintColoredStringInRapport(const s : String255; whichColor : SInt16; whichStyle : StyleParameter);
 
 
 
@@ -108,20 +108,20 @@ begin
   mySwitchToUnixTaskPtr       := NIL;
 
   mutex_UnixTask_print_colored_string_in_rapport := 0;
-  
+
 
   numeroUnixTaskEnCours           := 0;
-  
+
   unixTask.nbStartsOfUnixTask     := 0;
   unixTask.nbQuitCommandsSent     := 0;
   unixTask.suspendCount           := 0;
   unixTask.mutex_reception_data   := 0;
   unixTask.lastDateOfStarting     := TickCount + 360000;
-  
+
 
   debugUnixTask := false;
   lastTickOfUnixTaskErrorInRapport := 0;
-  
+
   SwitchToUnixTask(0);
 
 end;
@@ -166,10 +166,10 @@ end;
 procedure SetUnixTaskState(state : SInt32);
 begin
   unixTask.state := state;
-  
+
   if (state = UNIX_TASK_KILLED)
     then mySendDataToUnixTaskPtr     := NIL;
-  
+
 end;
 
 
@@ -225,7 +225,7 @@ procedure SuspendCurrentUnixTask;
 begin
 
   inc(unixTask.suspendCount);
-  
+
   if (unixTask.suspendCount > 0) & (mySuspendUnixTaskPtr <> NIL) then
     begin
       UnixTaskPrint('WARNING : Appel de mySuspendUnixTaskPtr dans Cassio');
@@ -246,13 +246,13 @@ procedure ResumeCurrentUnixTask;
 begin
 
   dec(unixTask.suspendCount);
-  
-  if (unixTask.suspendCount = 0) & (myResumeUnixTaskPtr <> NIL) then 
+
+  if (unixTask.suspendCount = 0) & (myResumeUnixTaskPtr <> NIL) then
     begin
       myResumeUnixTaskPtr;
       UnixTaskPrint('WARNING : Appel de myResumeUnixTaskPtr dans Cassio');
     end;
-    
+
 end;
 
 
@@ -317,19 +317,19 @@ begin
 
   (* check if the UnixTask crashed or has been killed by the Unix kernel *)
   if ((Pos('Killed', s) > 0)
-      | (Pos('Segmentation fault', s) > 0) 
-      | (Pos('Bus error', s) > 0) 
+      | (Pos('Segmentation fault', s) > 0)
+      | (Pos('Bus error', s) > 0)
       | ((Pos('Unix task terminated', s) > 0))
       ) then
     begin
-      if (Pos('Killed', s) > 0) 
+      if (Pos('Killed', s) > 0)
         then UnixTaskPrint('The unix task seems to have been killed by the Unix kernel') else
-        
+
       if (Pos('Segmentation fault', s) > 0) | (Pos('Bus error', s) > 0)
         then UnixTaskPrint('The unix task seems to have had a problem, as Apollo 13 said');
-        
-      if Pos('Unix task terminated', s) <= 0 
-        then 
+
+      if Pos('Unix task terminated', s) <= 0
+        then
           SetUnixTaskState(UNIX_TASK_KILLED)
         else
           begin
@@ -337,7 +337,7 @@ begin
             if (unixTask.nbQuitCommandsSent < 0) then
               SetUnixTaskState(UNIX_TASK_KILLED);
           end;
-          
+
       exit(InterpretUnixTaskCommand);
     end;
 
@@ -505,25 +505,25 @@ begin
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
   exit(LaunchUNIXProcess);
   {$ENDC}
-  
+
   { WritelnDansRapport('command = ' + command);
     WritelnDansRapport('arguments = ' + arguments); }
-  
+
   SwitchToUnixTask(0);
-  
+
   if CanStartUnixTask(command, arguments)
-    then 
+    then
       begin
         Wait(0.5);
         LaunchUNIXProcess := NoErr;
       end
-    else 
+    else
       begin
         WritelnDansRapport('WARNING : launching UNIX command "' + command + '" failed');
         LaunchUNIXProcess := -1;
       end;
-    
-  
+
+
   SwitchToUnixTask(0);
   Wait(0.5);
 end;
@@ -557,10 +557,10 @@ begin
 
   if (pathMac = '') then
     exit(CanStartUnixTask);
-  
-  
+
+
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
-  if (pathMac[1] = ':') 
+  if (pathMac[1] = ':')
     then pathUnix := pathMac
     else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
@@ -601,7 +601,7 @@ begin
               unixTask.lastDateOfStarting   := TickCount;
               inc(unixTask.nbStartsOfUnixTask);
               InitLongString(unixTask.lastStringReceived);
-              
+
 
               CFpath      := MakeCFSTR(pathUnix);
               CFarguments := MakeCFSTR(arguments);
@@ -716,7 +716,7 @@ begin
           UnixTaskPrint('');
 
           {test := UnixTaskPeutFaireCalculDeFinale(positionToSolve.position, GetTraitOfPosition(positionToSolve), -1, 0, 100, 0, note, bestDef, foo^);}
-          
+
 
 
           UnixTaskPrint('');
@@ -852,7 +852,7 @@ begin
   if ((TickCount - lastTickOfUnixTaskErrorInRapport) > 30) then
     begin
       UnixTaskPrintColoredStringInRapport('current unix task = ' + '???', RougeCmd, bold);
-      UnixTaskPrintColoredStringInRapport('last command = ' + UnixTask.lastCommandSent, RougeCmd, bold);      
+      UnixTaskPrintColoredStringInRapport('last command = ' + UnixTask.lastCommandSent, RougeCmd, bold);
     end;
 
   UnixTaskPrintColoredStringInRapport(s, RougeCmd, bold);

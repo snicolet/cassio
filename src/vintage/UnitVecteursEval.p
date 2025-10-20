@@ -16,48 +16,48 @@ INTERFACE
 
 
 
-procedure InitUnitVecteurEval;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitVecteurEval')
-procedure AlloueVecteurEval(var vecteur : VectNewEval);                                                                                                                             ATTRIBUTE_NAME('AlloueVecteurEval')
-procedure DisposeVecteurEval(var vecteur : VectNewEval);                                                                                                                            ATTRIBUTE_NAME('DisposeVecteurEval')
+procedure InitUnitVecteurEval;
+procedure AlloueVecteurEval(var vecteur : VectNewEval);
+procedure DisposeVecteurEval(var vecteur : VectNewEval);
 
-function VecteurEvalEstVide(var vecteur : VectNewEval) : boolean;                                                                                                                   ATTRIBUTE_NAME('VecteurEvalEstVide')
-procedure AnnihileVecteurEval(var vecteur : VectNewEval);                                                                                                                           ATTRIBUTE_NAME('AnnihileVecteurEval')
-procedure CopierPointeursVecteursEval(var source,dest : VectNewEval);                                                                                                               ATTRIBUTE_NAME('CopierPointeursVecteursEval')
-procedure AnnuleVecteurEval(var vecteur : VectNewEval);                                                                                                                             ATTRIBUTE_NAME('AnnuleVecteurEval')
-
-
-procedure SetValeurDansVecteurEval(var p : VectNewEval; valeur : TypeReel);                                                                                                         ATTRIBUTE_NAME('SetValeurDansVecteurEval')
-procedure IdentiteVecteurEval(var p : VectNewEval);                                                                                                                                 ATTRIBUTE_NAME('IdentiteVecteurEval')
-procedure HomothetieVecteurEval(var p,result : VectNewEval; scale : TypeReel);                                                                                                      ATTRIBUTE_NAME('HomothetieVecteurEval')
-procedure NegationVecteurEval(var p,result : VectNewEval);                                                                                                                          ATTRIBUTE_NAME('NegationVecteurEval')
-procedure ValeurAbsolueVecteurEval(var p,result : VectNewEval);                                                                                                                     ATTRIBUTE_NAME('ValeurAbsolueVecteurEval')
-procedure AddVecteurEval(var p1,p2,resultat : VectNewEval);                                                                                                                         ATTRIBUTE_NAME('AddVecteurEval')
-procedure DiffVecteurEval(var p1,p2,resultat : VectNewEval);                                                                                                                        ATTRIBUTE_NAME('DiffVecteurEval')
-procedure DivisionVecteurEval(var p1,p2,resultat : VectNewEval);                                                                                                                    ATTRIBUTE_NAME('DivisionVecteurEval')
-procedure DivisionBorneeVecteurEval(var p1,p2,resultat : VectNewEval; borne : TypeReel);                                                                                            ATTRIBUTE_NAME('DivisionBorneeVecteurEval')
-procedure CopierVecteurEval(var source,dest : VectNewEval);                                                                                                                         ATTRIBUTE_NAME('CopierVecteurEval')
-procedure CopierOpposeVecteurEval(var source,dest : VectNewEval);                                                                                                                   ATTRIBUTE_NAME('CopierOpposeVecteurEval')
-procedure CombinaisonLineaireVecteurEval(var p1,p2 : VectNewEval; lambda1,lambda2 : TypeReel; var resultat : VectNewEval);                                                          ATTRIBUTE_NAME('CombinaisonLineaireVecteurEval')
-function ProduitScalaireVecteurEval(var p1,p2 : VectNewEval) : TypeReel;                                                                                                            ATTRIBUTE_NAME('ProduitScalaireVecteurEval')
-function CombinaisonScalaireVecteurEval(var p1,p2,p3 : VectNewEval; lambda1,lambda2 : TypeReel) : TypeReel;                                                                         ATTRIBUTE_NAME('CombinaisonScalaireVecteurEval')
+function VecteurEvalEstVide(var vecteur : VectNewEval) : boolean;
+procedure AnnihileVecteurEval(var vecteur : VectNewEval);
+procedure CopierPointeursVecteursEval(var source,dest : VectNewEval);
+procedure AnnuleVecteurEval(var vecteur : VectNewEval);
 
 
+procedure SetValeurDansVecteurEval(var p : VectNewEval; valeur : TypeReel);
+procedure IdentiteVecteurEval(var p : VectNewEval);
+procedure HomothetieVecteurEval(var p,result : VectNewEval; scale : TypeReel);
+procedure NegationVecteurEval(var p,result : VectNewEval);
+procedure ValeurAbsolueVecteurEval(var p,result : VectNewEval);
+procedure AddVecteurEval(var p1,p2,resultat : VectNewEval);
+procedure DiffVecteurEval(var p1,p2,resultat : VectNewEval);
+procedure DivisionVecteurEval(var p1,p2,resultat : VectNewEval);
+procedure DivisionBorneeVecteurEval(var p1,p2,resultat : VectNewEval; borne : TypeReel);
+procedure CopierVecteurEval(var source,dest : VectNewEval);
+procedure CopierOpposeVecteurEval(var source,dest : VectNewEval);
+procedure CombinaisonLineaireVecteurEval(var p1,p2 : VectNewEval; lambda1,lambda2 : TypeReel; var resultat : VectNewEval);
+function ProduitScalaireVecteurEval(var p1,p2 : VectNewEval) : TypeReel;
+function CombinaisonScalaireVecteurEval(var p1,p2,p3 : VectNewEval; lambda1,lambda2 : TypeReel) : TypeReel;
 
-procedure MetCoeffsMobiliteEtFrontiereConstantsDansEvaluation(var whichEval : VectNewEval);                                                                                         ATTRIBUTE_NAME('MetCoeffsMobiliteEtFrontiereConstantsDansEvaluation')
-procedure SmoothThisEvaluation(var whichEval : VectNewEval; var whichOccurences : VectNewEval);                                                                                     ATTRIBUTE_NAME('SmoothThisEvaluation')
-procedure AbaisseEvalPatternsRares(var whichEval : VectNewEval; var whichOccurences : VectNewEval; valeurMaxPattern,RapportMaxValeurSurOccurence : TypeReel);                       ATTRIBUTE_NAME('AbaisseEvalPatternsRares')
-procedure AbaisseGradientPatternsRares(var whichEval,whichGradient,whichOccurences : VectNewEval; valeurMaxPattern,RapportMaxValeurSurOccurence : TypeReel);                        ATTRIBUTE_NAME('AbaisseGradientPatternsRares')
-procedure CalculeEvalPatternsInexistantParEchangeCouleur(var whichEval : VectNewEval; var whichOccurences : VectNewEval);                                                           ATTRIBUTE_NAME('CalculeEvalPatternsInexistantParEchangeCouleur')
+
+
+procedure MetCoeffsMobiliteEtFrontiereConstantsDansEvaluation(var whichEval : VectNewEval);
+procedure SmoothThisEvaluation(var whichEval : VectNewEval; var whichOccurences : VectNewEval);
+procedure AbaisseEvalPatternsRares(var whichEval : VectNewEval; var whichOccurences : VectNewEval; valeurMaxPattern,RapportMaxValeurSurOccurence : TypeReel);
+procedure AbaisseGradientPatternsRares(var whichEval,whichGradient,whichOccurences : VectNewEval; valeurMaxPattern,RapportMaxValeurSurOccurence : TypeReel);
+procedure CalculeEvalPatternsInexistantParEchangeCouleur(var whichEval : VectNewEval; var whichOccurences : VectNewEval);
 
 
 
 
 { ATTENTION : ces fonctions ne sont pas ENDIAN safe, contrairement a celles de UnitBigVectorsInteger.p }
 
-function EcritEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;                                                                                             ATTRIBUTE_NAME('EcritEvalDansFichierTexte')
-function LitEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;                                                                                               ATTRIBUTE_NAME('LitEvalDansFichierTexte')
-function EcritVecteurEvaluationSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEval) : OSErr;                                                         ATTRIBUTE_NAME('EcritVecteurEvaluationSurLeDisque')
-function LitVecteurEvaluationSurLeDisque(nomFichier : String255; var whichEval : VectNewEval) : OSErr;                                                                              ATTRIBUTE_NAME('LitVecteurEvaluationSurLeDisque')
+function EcritEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
+function LitEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
+function EcritVecteurEvaluationSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEval) : OSErr;
+function LitVecteurEvaluationSurLeDisque(nomFichier : String255; var whichEval : VectNewEval) : OSErr;
 
 
 

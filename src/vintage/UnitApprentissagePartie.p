@@ -13,9 +13,9 @@ INTERFACE
 {Création des cellules dans le graphe}
 
 {Accès depuis l'exterieur, pour effectivement apprendre des parties}
-procedure ApprendPartie(var fichier : Graphe; partieStr : String255; const couleurGagnante : String255; apresQuelCoup : SInt16);                                                    ATTRIBUTE_NAME('ApprendPartie')
-procedure ApprendPartieIsolee(partieStr : String255; const couleurGagnante : String255; apresQuelCoup : SInt16);                                                                    ATTRIBUTE_NAME('ApprendPartieIsolee')
-procedure ApprendToutesLesPartiesActives;                                                                                                                                           ATTRIBUTE_NAME('ApprendToutesLesPartiesActives')
+procedure ApprendPartie(var fichier : Graphe; partieStr : String255; const couleurGagnante : String255; apresQuelCoup : SInt16);
+procedure ApprendPartieIsolee(partieStr : String255; const couleurGagnante : String255; apresQuelCoup : SInt16);
+procedure ApprendToutesLesPartiesActives;
 
 
 

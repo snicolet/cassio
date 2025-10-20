@@ -21,38 +21,38 @@ INTERFACE
 
 
 {Creation/destruction}
-function AllocatePile(tailleDemandee : SInt32; var ok : boolean) : Pile;                                                                                                            ATTRIBUTE_NAME('AllocatePile')
-procedure DisposePile(var whichPile : Pile);                                                                                                                                        ATTRIBUTE_NAME('DisposePile')
-procedure ViderPile(var whichPile : Pile);                                                                                                                                          ATTRIBUTE_NAME('ViderPile')
-procedure ViderFile(var whichPile : Pile);                                                                                                                                          ATTRIBUTE_NAME('ViderFile')
+function AllocatePile(tailleDemandee : SInt32; var ok : boolean) : Pile;
+procedure DisposePile(var whichPile : Pile);
+procedure ViderPile(var whichPile : Pile);
+procedure ViderFile(var whichPile : Pile);
 
 {Tests}
-function PileEstVide(whichPile : Pile) : boolean;                                                                                                                                   ATTRIBUTE_NAME('PileEstVide')
-function FileEstVide(whichPile : Pile) : boolean;                                                                                                                                   ATTRIBUTE_NAME('FileEstVide')
-function PileEstPleine(whichPile : Pile) : boolean;                                                                                                                                 ATTRIBUTE_NAME('PileEstPleine')
-function FileEstPleine(whichPile : Pile) : boolean;                                                                                                                                 ATTRIBUTE_NAME('FileEstPleine')
-function EstDansPile(element : SInt32; whichPile : Pile) : boolean;                                                                                                                 ATTRIBUTE_NAME('EstDansPile')
-function EstDansFile(element : SInt32; whichPile : Pile) : boolean;                                                                                                                 ATTRIBUTE_NAME('EstDansFile')
-function NbElementsDansPile(whichPile : Pile) : SInt32;                                                                                                                             ATTRIBUTE_NAME('NbElementsDansPile')
-function NbElementsDansFile(whichPile : Pile) : SInt32;                                                                                                                             ATTRIBUTE_NAME('NbElementsDansFile')
+function PileEstVide(whichPile : Pile) : boolean;
+function FileEstVide(whichPile : Pile) : boolean;
+function PileEstPleine(whichPile : Pile) : boolean;
+function FileEstPleine(whichPile : Pile) : boolean;
+function EstDansPile(element : SInt32; whichPile : Pile) : boolean;
+function EstDansFile(element : SInt32; whichPile : Pile) : boolean;
+function NbElementsDansPile(whichPile : Pile) : SInt32;
+function NbElementsDansFile(whichPile : Pile) : SInt32;
 
 {Ajouts}
-procedure Empiler(var whichPile : Pile; element : SInt32; var ok : boolean);                                                                                                        ATTRIBUTE_NAME('Empiler')
-procedure Enfiler(var whichPile : Pile; element : SInt32; var ok : boolean);                                                                                                        ATTRIBUTE_NAME('Enfiler')
-procedure EmpilerSiPasDansPile(var whichPile : Pile; element : SInt32; var ok : boolean);                                                                                           ATTRIBUTE_NAME('EmpilerSiPasDansPile')
-procedure EnfilerSiPasDansFile(var whichPile : Pile; element : SInt32; var ok : boolean);                                                                                           ATTRIBUTE_NAME('EnfilerSiPasDansFile')
+procedure Empiler(var whichPile : Pile; element : SInt32; var ok : boolean);
+procedure Enfiler(var whichPile : Pile; element : SInt32; var ok : boolean);
+procedure EmpilerSiPasDansPile(var whichPile : Pile; element : SInt32; var ok : boolean);
+procedure EnfilerSiPasDansFile(var whichPile : Pile; element : SInt32; var ok : boolean);
 
 
 {Acces non destructifs}
-function GetElementDeQueue(whichPile : Pile) : SInt32;                                                                                                                              ATTRIBUTE_NAME('GetElementDeQueue')
-function GetElementDeTete(whichPile : Pile) : SInt32;                                                                                                                               ATTRIBUTE_NAME('GetElementDeTete')
+function GetElementDeQueue(whichPile : Pile) : SInt32;
+function GetElementDeTete(whichPile : Pile) : SInt32;
 
 {Acces destructifs}
-function Depiler(var whichPile : Pile; var ok : boolean) : SInt32;                                                                                                                  ATTRIBUTE_NAME('Depiler')
-function Defiler(var whichPile : Pile; var ok : boolean) : SInt32;                                                                                                                  ATTRIBUTE_NAME('Defiler')
+function Depiler(var whichPile : Pile; var ok : boolean) : SInt32;
+function Defiler(var whichPile : Pile; var ok : boolean) : SInt32;
 
 {Test de l'unité}
-procedure TestPilesEtFiles;                                                                                                                                                         ATTRIBUTE_NAME('TestPilesEtFiles')
+procedure TestPilesEtFiles;
 
 
 

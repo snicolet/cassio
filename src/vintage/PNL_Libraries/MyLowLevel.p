@@ -20,8 +20,8 @@ INTERFACE
 {$definec GetGlobalL(ad) LongIntPtr(ad)^}
 {$definec SetGlobalL(ad, n) LongIntPtr(ad)^ := n}
 
-	function GetGlobalS (ad:  SInt32) : String255;                                                                                                                                     ATTRIBUTE_NAME('GetGlobalS')
-	procedure SetGlobalS (ad:  SInt32; s : String255);  { only bashes len+1 chars }                                                                                                    ATTRIBUTE_NAME('SetGlobalS')
+	function GetGlobalS (ad:  SInt32) : String255;
+	procedure SetGlobalS (ad:  SInt32; s : String255);  { only bashes len+1 chars }
 
 {$definec AddPtrLong( p, offset ) Ptr(ord4(p) + offset)}
 {$definec OffsetPtr( p, offset ) Ptr(p) := Ptr(ord4(p) + (offset))}
@@ -33,8 +33,8 @@ INTERFACE
 {$definec CompHS( a1, a2 ) (UInt32(a1) >= UInt32(a2))}
 {$definec CompHI( a1, a2 ) (UInt32(a1) > UInt32(a2))}
 
-	procedure BSETW (var l: SInt16; num: SInt16);                                                                                                                                      ATTRIBUTE_NAME('BSETW')
-	procedure BCLRW (var l: SInt16; num: SInt16);                                                                                                                                      ATTRIBUTE_NAME('BCLRW')
+	procedure BSETW (var l: SInt16; num: SInt16);
+	procedure BCLRW (var l: SInt16; num: SInt16);
 
 
 

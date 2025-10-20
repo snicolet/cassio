@@ -8,19 +8,19 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitEstimationCharge;                                                                                                                                                 ATTRIBUTE_NAME('InitUnitEstimationCharge')
-function InitCoeffsEstimationCharge : boolean;                                                                                                                                      ATTRIBUTE_NAME('InitCoeffsEstimationCharge')
-procedure LibereMemoireUnitEstimationCharge;                                                                                                                                        ATTRIBUTE_NAME('LibereMemoireUnitEstimationCharge')
+procedure InitUnitEstimationCharge;
+function InitCoeffsEstimationCharge : boolean;
+procedure LibereMemoireUnitEstimationCharge;
 
 
-procedure AjouterDataEstimationCharge(prof,rang,mobilite,indexMu,alpha,beta: SInt32; eval,vraiTempsEnTicks : TypeReel);                                                             ATTRIBUTE_NAME('AjouterDataEstimationCharge')
+procedure AjouterDataEstimationCharge(prof,rang,mobilite,indexMu,alpha,beta: SInt32; eval,vraiTempsEnTicks : TypeReel);
 
 
 
-function TempsEstimeEnTicksPourResoudreCettePositionAvecCesCoeffs(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel; coeffs : PointMultidimensionnel) : TypeReel;     ATTRIBUTE_NAME('TempsEstimeEnTicksPourResoudreCettePositionAvecCesCoeffs')
+function TempsEstimeEnTicksPourResoudreCettePositionAvecCesCoeffs(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel; coeffs : PointMultidimensionnel) : TypeReel;
 
-function TempsEstimeEnTicksPourResoudreCettePosition(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel) : TypeReel;                                                   ATTRIBUTE_NAME('TempsEstimeEnTicksPourResoudreCettePosition')
-function TempsEstimeEnSecondesPourResoudreCettePosition(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel) : TypeReel;                                                ATTRIBUTE_NAME('TempsEstimeEnSecondesPourResoudreCettePosition')
+function TempsEstimeEnTicksPourResoudreCettePosition(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel) : TypeReel;
+function TempsEstimeEnSecondesPourResoudreCettePosition(prof,rang,mobilite,indexMu,alpha,beta : SInt32; eval : TypeReel) : TypeReel;
 
 
 

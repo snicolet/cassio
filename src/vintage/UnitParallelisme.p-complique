@@ -18,39 +18,39 @@ USES Multiprocessing,UnitBitboardTypes,UnitOth0,UnitBitboardModifPlat,UnitBitboa
 
 const kMPStackSize                               = 0;         // use default stack size
       kMPTaskOptions                             = 0;         // use no options
-       
-      
+
+
       kValeurSpecialeInterruptionCalculParallele = -763563;   // a negative magic number
       kNroThreadNotFound                         = -33;
       kPasDInterrumptionPourCetteThread          = -1;        // MUST be strictly negative
-      
-      
+
+
       kNombreMaxAlphaBetaTasks                   = 1;
       kNombreDeTableHachageBitboard              = 1;         // mettre 1 si toutes les threads partagent la meme table, sinon le nombre de threads plus un
       kNombreDeProfilersDuParallelisme           = 20;
-      
-      
+
+
       kPleaseGoSleeping                          = 0;
       kPleaseWaitForJobPreparation               = 1;
       kPleaseExploreThisSubtree                  = 2;
       kPleaseDoSpinLock                          = 3;
       kNoOrderReceived                           = 4;
       kAnyState                                  = 2000;
-      
-      
+
+
       kValeurMutexEcritureResultat               = -1;
       kValeurMutexLectureResultat                = -2;
-      
-      
-      
+
+
+
       kVerbosityLevelAlgoParallele               = 0;
       kNombreDeNoeudMinimalPourSuiviDansRapport  = 0;    // par exemple 126287514;
 
-      
+
       kNombreMutexAccesBitboard                  = 512;      // doit etre une puissance de deux
       kMutexAccesBitboardMask                    = kNombreMutexAccesBitboard - 1;
-      
-      
+
+
       kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE    = 1;
       kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE        = 2;
       kRECEVOIR_UN_NOUVEAU_RESULTAT              = 3;
@@ -95,10 +95,10 @@ type NoeudDeParallelisme = record
                               hashDuPere             : SInt32;
                               message                : SInt32;
                               etat                   : SInt32;
-                              semaphoreDeReveil      : MPSemaphoreID;  
+                              semaphoreDeReveil      : MPSemaphoreID;
                               taskID                 : MPTaskID;
                             end;
-                            
+
      ParallelAlphaBetaPtr = ^ParallelAlphaBetaRec;
      ParallelAlphaBetaRecArray = array[0..0] of ParallelAlphaBetaRec;
      ParallelAlphaBetaRecArrayPtr = ^ParallelAlphaBetaRecArray;
@@ -107,12 +107,12 @@ type NoeudDeParallelisme = record
 var gTerminaisonDesTaches                       : MPQueueID;
     gListeDesThreadsMortes                      : MPQueueID;
     gAlphaBetaTasksData                         : ParallelAlphaBetaRecArrayPtr;
-    
-    
+
+
     gNbreThreadsDisponibles                     : SInt32;
     numProcessors                               : SInt32;
     gNbreProcesseursCalculant                   : SInt32;
-    
+
     CassioUtiliseLeMultiprocessing              : boolean;
     gUseSpinLocks                               : boolean;
     gSpinLocksYieldTimeToCPU                    : boolean;
@@ -121,13 +121,13 @@ var gTerminaisonDesTaches                       : MPQueueID;
     gParallelismeSeulementPourLesFenetresNulles : boolean;
     gParallelismeSeulementPourCoupuresProbables : boolean;
     gAvecAttenteTouchePourDebuguerParallelisme  : boolean;
-    
+
     gRapportCriticalRegionID                    : MPCriticalRegionID;
     gMesureDeParallelsimeMutex                  : SInt32;
-    
+
     gAlphaBetaInterrompu                        : array[0..kNombreMaxAlphaBetaTasks] of SInt32;
     gMutexEcritureInterruptionThread            : array[0..kNombreMaxAlphaBetaTasks] of SInt32;
-    
+
     gFileDesResultats                           : array[0..kNombreMaxAlphaBetaTasks] of
                                                     record
                                                       nombreDeResultats  : SInt32;
@@ -136,44 +136,44 @@ var gTerminaisonDesTaches                       : MPQueueID;
                                                       hashPere           : SInt32;
                                                       profondeur         : SInt32;
                                                     end;
-    
+
     gNombreDeCoupuresBetaPresquesSures          : SInt32;
     gNombreDeCoupuresBetaReussies               : SInt32;
-    
+
     gNbreAppelsMesureDeParallelisme             : SInt32;
     gDegreDeParallelisme                        : SInt32;
     gNbreDeSplitNodes                           : SInt32;
     gNbreDeCoupuresBetaDansUnSplitNode          : SInt32;
     gFraisDeSynchronisation                     : SInt32;
-    
-    
+
+
     gYoungBrotherWaitElders                     : SInt32;
     gNbreEmptiesMinimalPourParallelisme         : SInt32;
     gExtensionDeParallelisme                    : SInt32;
     gExtensionDeCoupureBetaProbable             : SInt32;
-    
-    
-    
+
+
+
     gBitboardHashTable                          : array[0..kNombreDeTableHachageBitboard-1] of BitboardHashTable;
     gMutexAccesBitboardHash                     : array[0..kNombreMutexAccesBitboard-1] of SInt32;
-    
-    
+
+
     gProfilerParallelisme                       : array[0..kNombreDeProfilersDuParallelisme] of SInt32;
-    
+
 
     gNoeudsDeParallelisme                       : array[0..kNombreMaxAlphaBetaTasks, 0..64] of NoeudDeParallelisme;
 
 
 
-    
-    
-// Initialisations de l'unite 
+
+
+// Initialisations de l'unite
 
 procedure InitUnitParallelisme;
 procedure LibereMemoireUnitParallelisme;
 
 
-// Fonctions generales sur le multiprocessing 
+// Fonctions generales sur le multiprocessing
 
 function MPLibraryIsLoaded : boolean;
 function Reflector(parameter : univ Ptr) : OSStatus;
@@ -189,17 +189,17 @@ function OrdinateurMultiprocesseurSimuleSurUnMonoprocesseur : boolean;
 
 // Fonction d'interface avec l'alpha-beta sequentiel
 
-function CalculerCoupsEnParallele(inNroThreadDuPere                            : SInt32; 
-                                  inNroThreadFilsDisponible                    : SInt32; 
-                                  inPosition                                   : bitboard; 
-                                  inNbreVides                                  : SInt32; 
-                                  inAlpha,inBeta                               : SInt32; 
-                                  inDiffPions                                  : SInt32; 
-                                  inVecteurParite                              : SInt32; 
+function CalculerCoupsEnParallele(inNroThreadDuPere                            : SInt32;
+                                  inNroThreadFilsDisponible                    : SInt32;
+                                  inPosition                                   : bitboard;
+                                  inNbreVides                                  : SInt32;
+                                  inAlpha,inBeta                               : SInt32;
+                                  inDiffPions                                  : SInt32;
+                                  inVecteurParite                              : SInt32;
                                   inListeBitboard                              : UInt32;
-                                  var inListeDesCoupsLegaux                    : listeVides; 
-                                  indexPremierFils,indexDernierFils            : SInt32; 
-                                  var outMeilleureDefense                      : UInt32; 
+                                  var inListeDesCoupsLegaux                    : listeVides;
+                                  indexPremierFils,indexDernierFils            : SInt32;
+                                  var outMeilleureDefense                      : UInt32;
                                   var outNroDuDernierFilsEvalue                : SInt32)     : SInt32;
 
 
@@ -245,19 +245,19 @@ procedure AttendreDesResultatsEnProposantSesServices(var node : NoeudDeParalleli
 
 function MySubTreeValue( plat : bitboard; nbreVides, alpha, beta, diffPions, vecteurParite, nroThread, nroThreadPere : SInt32; listeBitboard : UInt32) : SInt32;
 
-                                  
-// Transmission des resultats entre  les threads            
-                      
+
+// Transmission des resultats entre  les threads
+
 function GetAResultForThisThreadAndLock(nroThread : SInt32; var profondeurNoeudDeParallelisme : SInt32) : boolean;
 function GetAResultAtThisDepthAndLock(nroThread, profondeurSouhaitee : SInt32) : boolean;
-procedure PosterUnResultatAUneThread(nroThreadDuPere, valeur, whichMove, hashStampDuPere, nbCasesVidesDuPere : SInt32);   
+procedure PosterUnResultatAUneThread(nroThreadDuPere, valeur, whichMove, hashStampDuPere, nbCasesVidesDuPere : SInt32);
 procedure EcouterLesResultatsDansCetteThread(nroThread : SInt32);
-                   
-                                  
-// Les threads elles-meme   
-      
+
+
+// Les threads elles-meme
+
 procedure CreateAlphaBetaTasks;
-procedure StopAlphaBetaTasks;               
+procedure StopAlphaBetaTasks;
 function MyAlphaBetaTask( parameter : univ Ptr) : OSStatus;
 
 
@@ -287,8 +287,8 @@ USES CodeFragments,UnitServicesMemoire,UnitRapport,UnitMiniProfiler,UnitMacExtra
      UnitOth1;
 
 
-      
-{$pragmac  optimization_level 0}   
+
+{$pragmac  optimization_level 0}
 
 
 
@@ -297,39 +297,39 @@ procedure InitUnitParallelisme;
 var i : SInt32;
 begin
   CassioUtiliseLeMultiprocessing              := false;
-  
+
   gUseSpinLocks                               := true;
   gSpinLocksYieldTimeToCPU                    := false;
   gCheckingResultsHasHighPriority             := true;
-  
+
   gParallelismeRecursif                       := false;
   gParallelismeSeulementPourLesFenetresNulles := false;
   gParallelismeSeulementPourCoupuresProbables := true;
-  
-          
-  
+
+
+
   gNbreAppelsMesureDeParallelisme             := 0;
   gDegreDeParallelisme                        := 0;
   gNbreDeSplitNodes                           := 0;
   gNbreDeCoupuresBetaDansUnSplitNode          := 0;
   gFraisDeSynchronisation                     := 0;
-  
-  
+
+
   gNombreDeCoupuresBetaPresquesSures          := 0;
   gNombreDeCoupuresBetaReussies               := 0;
-  
+
   gYoungBrotherWaitElders                     := 2;   // (number+1) of sons we want to have evaluated before starting parallelizing a node
   gNbreEmptiesMinimalPourParallelisme         := 15;  // on peut faire du parallelisme a ce nombre de cases vides ou plus
   gExtensionDeParallelisme                    := 2;   // on plonge en bitboard parallele à deux cases vides de plus que l'algo sequentiel
   gExtensionDeCoupureBetaProbable             := 1;   // si c'est une coupure beta probable, on plonge meme une case vide plus tot
-  
-  
+
+
   for i := 0 to kNombreMutexAccesBitboard-1 do
     gMutexAccesBitboardHash[i] := 0;
-  
+
   CreateAlphaBetaTasks;
-  
-  
+
+
   for i := 0 to kNombreDeProfilersDuParallelisme do
     gProfilerParallelisme[i] := 0;
 end;
@@ -344,20 +344,20 @@ end;
 
 function MPLibraryIsLoaded : boolean;
 begin
-  MPLibraryIsLoaded := ( ( UInt32(_MPIsFullyInitialized) <> UInt32(kUnresolvedCFragSymbolAddress) ) 
+  MPLibraryIsLoaded := ( ( UInt32(_MPIsFullyInitialized) <> UInt32(kUnresolvedCFragSymbolAddress) )
                        & ( _MPIsFullyInitialized ) );
 end;
-    
 
 
-procedure PosterUnResultatAUneThread(nroThreadDuPere, note, whichMove, hashStampDuPere, nbCasesVidesDuPere : SInt32);      
+
+procedure PosterUnResultatAUneThread(nroThreadDuPere, note, whichMove, hashStampDuPere, nbCasesVidesDuPere : SInt32);
 var err : OSErr;
 begin
 
   with gFileDesResultats[nroThreadDuPere] do
     begin
-    
-    
+
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -368,15 +368,15 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-    
+
       OS_MEMORY_BARRIER;
-      
+
       // spin tant que l'on ne peut pas ecrire :-(
       if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(0, kValeurMutexEcritureResultat, gFileDesResultats[nroThreadDuPere].nombreDeResultats) = 0 ) then
            while (ATOMIC_COMPARE_AND_SWAP_32(0, kValeurMutexEcritureResultat, gFileDesResultats[nroThreadDuPere].nombreDeResultats) = 0 ) do;
-    
+
       OS_MEMORY_BARRIER;
-    
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -387,22 +387,22 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-      
-      
-    
+
+
+
       // on a le mutex d'ecriture dans la file des resultats du pere !
-      
+
       valeurResultat    := note;
       coup              := whichMove;
       hashPere          := hashStampDuPere;
       profondeur        := nbCasesVidesDuPere;
-      
+
       // on indique au pere qu'il a un resultat dans sa file
       if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kValeurMutexEcritureResultat, 1, gFileDesResultats[nroThreadDuPere].nombreDeResultats) <> 0 then;
-      
+
       OS_MEMORY_BARRIER;
     end;
-    
+
 end;
 
 
@@ -416,20 +416,20 @@ begin
     begin
       if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(1, kValeurMutexLectureResultat, gFileDesResultats[nroThread].nombreDeResultats) <> 0 ) then
         begin
-        
+
           // on a le mutex de lecture dans la file des resultats !
-          
+
           // on indique la profondeur de destination du resultat
           profondeurNoeudDeParallelisme := profondeur;
-          
+
           GetAResultForThisThreadAndLock := true;
-          
+
           OS_MEMORY_BARRIER;
-          
+
           exit(GetAResultForThisThreadAndLock);
         end;
     end;
-    
+
   GetAResultForThisThreadAndLock := false;
 end;
 
@@ -451,10 +451,10 @@ begin
   {$ENDC}
 
 
-  if GetAResultForThisThreadAndLock(nroThread,profResult) 
+  if GetAResultForThisThreadAndLock(nroThread,profResult)
     then
       begin
-      
+
         {$IFC AVEC_DEBUG_PARALLELISME}
         if DoitDebugguerParallelismeDansRapport then
           begin
@@ -465,47 +465,47 @@ begin
             err := MPExitCriticalRegion(gRapportCriticalRegionID);
           end;
         {$ENDC}
-      
-      
+
+
         if profResult = profondeurSouhaitee
           then
             begin
-              
+
               // il y avait bien un resultat dans la queue, et en plus a la bonne profondeur
               // on garde le mutex de lecture
-              
+
               GetAResultAtThisDepthAndLock := true;
-              
+
               exit(GetAResultAtThisDepthAndLock);
-              
+
             end
           else
             begin
               // il y avait bien un resultat dans la queue, mais pas à la bonne profondeur
               // on relache le mutex de lecture tout en indiquant que le resultat reste dans la queue
-              
-              if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kValeurMutexLectureResultat, 1, gFileDesResultats[nroThread].nombreDeResultats) <> 0 
+
+              if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kValeurMutexLectureResultat, 1, gFileDesResultats[nroThread].nombreDeResultats) <> 0
                 then
                   begin
-                  
+
                     GetAResultAtThisDepthAndLock := false;
-                    
+
                     exit(GetAResultAtThisDepthAndLock);
-                    
+
                   end
                 else
                   begin
-                  
-                    // ASSERT : impossible de relacher le mutex dans GetAResultAtThisDepthAndLock !!! 
+
+                    // ASSERT : impossible de relacher le mutex dans GetAResultAtThisDepthAndLock !!!
                     err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                     WritelnDansRapport('ASSERT : impossible de relacher le mutex dans GetAResultAtThisDepthAndLock !!! ');
                     Sysbeep(0);
                     AttendreFrappeClavierParallelisme(true);
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
-                    
+
                   end;
-              
-              
+
+
             end;
       end
     else
@@ -522,11 +522,11 @@ begin
         {$ENDC}
 
       end;
-    
+
   // il n'y avait pas de resultat dans la queue
-  
+
   GetAResultAtThisDepthAndLock := false;
-  
+
 end;
 
 
@@ -557,12 +557,12 @@ begin
     end;
   {$ENDC}
 
-    
+
   gAlphaBetaTasksData^[nroThreadALiberer].message   := kPleaseGoSleeping;
-  
-  
-  
-  
+
+
+
+
   if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadALiberer].etat) = 0) &
      (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation, kPleaseGoSleeping, gAlphaBetaTasksData^[nroThreadALiberer].etat) = 0) then
     begin
@@ -578,7 +578,7 @@ begin
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
       {$ENDC}
     end;
-  
+
   OS_MEMORY_BARRIER;
 
 end;
@@ -604,36 +604,36 @@ begin
 
 
   MicroSeconds(microSecondesDepart);
-    
+
   gAlphaBetaTasksData^[nroThreadAInterrompre].message   := kPleaseGoSleeping;
-  
+
   OS_MEMORY_BARRIER;
-  
-  
+
+
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,gAlphaBetaTasksData^[nroThreadAInterrompre].etat) <> 0 then
     begin
       InterrompreUneThread(nroThreadAInterrompre, node.nbreVides - 1,kPleaseExploreThisSubtree);
     end;
-  
+
   OS_MEMORY_BARRIER;
-  
-  
+
+
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadAInterrompre].etat) = 0 then
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadAInterrompre].etat) = 0 then
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadAInterrompre].etat) = 0 then
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadAInterrompre].etat) = 0 then;
-  
+
   OS_MEMORY_BARRIER;
-  
-  
+
+
   MicroSeconds(microSecondesFin);
   gProfilerParallelisme[0] := gProfilerParallelisme[0] + (microSecondesFin.lo-microSecondesDepart.lo);
 end;
-  
-  
+
+
 function ThreadEstInterrompue(nroThread, nbreCasesVides : SInt32) : boolean;
 begin
-  ThreadEstInterrompue := (gAlphaBetaInterrompu[nroThread] >= nbreCasesVides); 
+  ThreadEstInterrompue := (gAlphaBetaInterrompu[nroThread] >= nbreCasesVides);
 end;
 
 
@@ -652,15 +652,15 @@ begin
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
+
   OS_MEMORY_BARRIER;
-  
+
   // Attendre de pouvoir prendre le mutex d'ecriture d'une interruption pour cette thread
   if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(0,1,gMutexEcritureInterruptionThread[nroThread]) = 0 ) then
        while (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexEcritureInterruptionThread[nroThread]) = 0 ) do;
-  
+
   OS_MEMORY_BARRIER;
-  
+
   {$IFC AVEC_DEBUG_PARALLELISME}
   if DoitDebugguerParallelismeDansRapport then
     begin
@@ -671,34 +671,34 @@ begin
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
+
+
   // On a le mutex  : faire notre magie d'interruption !
-  
+
   if (siElleEstDansCetEtat = kAnyState)
     then
       begin
-      
+
         // on interrompt la thread inconditionnnelement
-        if (gAlphaBetaInterrompu[nroThread] < nbreCasesVides) 
-          then gAlphaBetaInterrompu[nroThread] := nbreCasesVides; 
+        if (gAlphaBetaInterrompu[nroThread] < nbreCasesVides)
+          then gAlphaBetaInterrompu[nroThread] := nbreCasesVides;
       end
     else
       begin
-      
+
         // on n'imterrompt la thread que si elle est exactement dans l'etat "siElleEstDansCetEtat"
         if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(siElleEstDansCetEtat,siElleEstDansCetEtat,gAlphaBetaTasksData^[nroThread].etat) <> 0
           then
             begin
-              if (gAlphaBetaInterrompu[nroThread] < nbreCasesVides) 
-                then gAlphaBetaInterrompu[nroThread] := nbreCasesVides; 
+              if (gAlphaBetaInterrompu[nroThread] < nbreCasesVides)
+                then gAlphaBetaInterrompu[nroThread] := nbreCasesVides;
             end;
       end;
-        
+
   // Relacher le mutex
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(1,0,gMutexEcritureInterruptionThread[nroThread]) = 0 then;
-  
-  
+
+
   OS_MEMORY_BARRIER;
 end;
 
@@ -717,15 +717,15 @@ begin
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
+
   OS_MEMORY_BARRIER;
-    
+
   // Attendre de pouvoir prendre le mutex d'ecriture d'une interruption pour cette thread
   if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(0,1,gMutexEcritureInterruptionThread[nroThread]) = 0 ) then
        while (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexEcritureInterruptionThread[nroThread]) = 0 ) do;
-  
+
   OS_MEMORY_BARRIER;
-  
+
   {$IFC AVEC_DEBUG_PARALLELISME}
   if DoitDebugguerParallelismeDansRapport then
     begin
@@ -736,21 +736,21 @@ begin
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
+
   // On a le mutex  : faire notre magie d'interruption !
-  
-  if (gAlphaBetaInterrompu[nroThread] <= nbreCasesVides) 
-    then gAlphaBetaInterrompu[nroThread] := kPasDInterrumptionPourCetteThread; 
-    
+
+  if (gAlphaBetaInterrompu[nroThread] <= nbreCasesVides)
+    then gAlphaBetaInterrompu[nroThread] := kPasDInterrumptionPourCetteThread;
+
   // Relacher le mutex
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(1,0,gMutexEcritureInterruptionThread[nroThread]) = 0 then;
-  
-  
+
+
   OS_MEMORY_BARRIER;
-  
+
 end;
 
-  
+
 procedure LancerUnFils(nroThreadDuFils : SInt32);
 var err : OSStatus;
     microSecondesFin : UnsignedWide;
@@ -761,26 +761,26 @@ begin
 
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseExploreThisSubtree,gAlphaBetaTasksData^[nroThreadDuFils].etat) <> 0 then
     begin
-    
+
       MicroSeconds(microSecondesFin);
       gProfilerParallelisme[12] := gProfilerParallelisme[12] + (microSecondesFin.lo-microSecondesDepart.lo);
-    
+
       // c'est bon, on vient de sortir le fils de son spin lock
       exit(LancerUnFils);
     end;
-      
+
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation,kPleaseExploreThisSubtree,gAlphaBetaTasksData^[nroThreadDuFils].etat) <> 0 then
     begin
       // c'est bon, on peut lever le semaphore du fils
-      
-      
+
+
       MicroSeconds(microSecondesFin);
       gProfilerParallelisme[13] := gProfilerParallelisme[13] + (microSecondesFin.lo-microSecondesDepart.lo);
-  
+
       exit(LancerUnFils);
     end;
-  
-  
+
+
   // ASSERT : état inconnu dans LancerUnFils...
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -796,17 +796,17 @@ end;
 
 
 
-function CalculerCoupsEnParallele(inNroThreadDuPere                            : SInt32; 
-                                  inNroThreadFilsDisponible                    : SInt32; 
-                                  inPosition                                   : bitboard; 
-                                  inNbreVides                                  : SInt32; 
-                                  inAlpha,inBeta                               : SInt32; 
-                                  inDiffPions                                  : SInt32; 
-                                  inVecteurParite                              : SInt32; 
+function CalculerCoupsEnParallele(inNroThreadDuPere                            : SInt32;
+                                  inNroThreadFilsDisponible                    : SInt32;
+                                  inPosition                                   : bitboard;
+                                  inNbreVides                                  : SInt32;
+                                  inAlpha,inBeta                               : SInt32;
+                                  inDiffPions                                  : SInt32;
+                                  inVecteurParite                              : SInt32;
                                   inListeBitboard                              : UInt32;
-                                  var inListeDesCoupsLegaux                    : listeVides; 
-                                  indexPremierFils,indexDernierFils            : SInt32; 
-                                  var outMeilleureDefense                      : UInt32; 
+                                  var inListeDesCoupsLegaux                    : listeVides;
+                                  indexPremierFils,indexDernierFils            : SInt32;
+                                  var outMeilleureDefense                      : UInt32;
                                   var outNroDuDernierFilsEvalue                : SInt32)     : SInt32;
 var microSecondesDepart : UnsignedWide;
     microSecondesFin : UnsignedWide;
@@ -818,16 +818,16 @@ begin
   EcouterLesResultatsDansCetteThread(inNroThreadDuPere);
 
   MicroSeconds(microSecondesDepart);
- 
-  
+
+
   with gNoeudsDeParallelisme[inNroThreadDuPere, inNbreVides] do
     begin
-    
+
       ATOMIC_INCREMENT_32(gNbreDeSplitNodes);
-   
+
 
       // Initialisation des variables
-  
+
       nroThreadDuPere     := inNroThreadDuPere;
       nbreVides           := inNbreVides;
       alpha               := inAlpha;
@@ -839,7 +839,7 @@ begin
       filsFin             := indexDernierFils;
       listeDesCoupsLegaux := inListeDesCoupsLegaux;
       betaCoupureTrouvee  := false;
-      
+
       with inPosition do
         begin
           pos_my_bits_low   := g_my_bits_low;
@@ -847,17 +847,17 @@ begin
           pos_opp_bits_low  := g_opp_bits_low;
           pos_opp_bits_high := g_opp_bits_high;
         end;
-  
+
       maximum := -100000;
       nbreResultatsEnAttente := 0;
-  
-      
-      
+
+
+
       // On calcule une clef hash de la position pour valider les communications inter-process
       hashStamp := (pos_my_bits_low * pos_opp_bits_high) + (pos_my_bits_high + pos_opp_bits_low);
       (* WritelnNumDansRapport('Parallele : ',hashStamp); *)
-  
-  
+
+
      // Pour l'instant aucune thread ne travaille pour nous
      for i := filsDebut to filsFin do
        begin
@@ -868,12 +868,12 @@ begin
 
      MicroSeconds(microSecondesFin);
      gProfilerParallelisme[3] := gProfilerParallelisme[3] + (microSecondesFin.lo-microSecondesDepart.lo);
-     
-     
-     
-     
+
+
+
+
      // Commencer à repartir le travail des fils
-        
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -898,34 +898,34 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-      
-    
+
+
      // preparer le premier fils
-     
+
      nroDuFilsCourant := filsDebut - 1;
-     
+
      PreparerUnTravailPourLaThreadAuChomage(gNoeudsDeParallelisme[nroThreadDuPere, inNbreVides], inNroThreadFilsDisponible);
-     
-     
+
+
      // c'est parti !!
-     
+
      GererNoeudDeParallelisme(gNoeudsDeParallelisme[nroThreadDuPere, inNbreVides], kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE);
-     
+
      OS_MEMORY_BARRIER;
-     
+
      // renvoyer les resultats
-     
+
      outMeilleureDefense         := bestDef;
      outNroDuDernierFilsEvalue   := nroDuDernierFilsEvalue;
-     
+
      CalculerCoupsEnParallele    := maximum;
-     
-     
-     
-     
+
+
+
+
      // ASSERT : verification de la cohérence des resultats
-     
-     
+
+
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
      if (maximum < -64) | (maximum > 64) then
         begin
@@ -936,7 +936,7 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
      {$ENDC}
-     
+
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
      if (outNroDuDernierFilsEvalue < indexPremierFils) | (outNroDuDernierFilsEvalue > indexDernierFils) then
         begin
@@ -947,7 +947,7 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
      {$ENDC}
-     
+
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
      if (bestDef < 11) | (bestDef > 88) then
         begin
@@ -958,8 +958,8 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
      {$ENDC}
-     
-     
+
+
      {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -979,7 +979,7 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-     
+
     end;
 end;
 
@@ -991,19 +991,19 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
      microSecondesDepart : UnsignedWide;
      err : OSErr;
  begin
- 
+
    with node do
      begin
- 
+
        if ThreadEstInterrompue(nroThreadDuPere, nbreVides) then
           begin
-            
+
             MicroSeconds(microSecondesDepart);
-            
+
             // ASSERT : verification que l'on n'a aucun fils réservé mais non lancé
             {$IFC USE_ASSERTIONS_DE_PARALLELISME }
             for k := filsDebut to filsFin do
-              if filsEnAttenteDeLancement[k] then 
+              if filsEnAttenteDeLancement[k] then
                 begin
                   err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                   WritelnDansRapport('ASSERT : j''ai un fils réservé au moment d''une InterruptionDansCeNoeudDeParallelisme (peut-etre un probleme de coupure beta ?) !! ');
@@ -1012,24 +1012,24 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
                   err := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
             {$ENDC}
-          
+
             // Interrompre tous les fils precedents encore en activite
-            
+
             for k := filsDebut to filsFin do
               if (threadAffecteeACeFils[k] >= 0) &
-                 (gAlphaBetaTasksData^[threadAffecteeACeFils[k]].threadDuPere = nroThreadDuPere) then 
+                 (gAlphaBetaTasksData^[threadAffecteeACeFils[k]].threadDuPere = nroThreadDuPere) then
                 begin
-                
+
                   // on indique que ce ne sera pas la peine d'essayer de lancer ce fils, s'il était en instance de lancement
                   filsEnAttenteDeLancement[k] := false;
-                
+
                   // bye bye, cow-boy
                   InterrompreUnFils(node,threadAffecteeACeFils[k]);
-                  
+
                   // Le fils interrompu va liberer son processeur
                   ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                  
-                  
+
+
                   {$IFC AVEC_DEBUG_PARALLELISME}
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -1040,10 +1040,10 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-                  
-                  
-                  
-                  
+
+
+
+
                   {$IFC AVEC_DEBUG_PARALLELISME}
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -1055,16 +1055,16 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-            
-            
+
+
                 end;
-            
+
             // Sortir immediatement de la fonction en renvoyant une valeur speciale
-            
+
             nroDuDernierFilsEvalue := -1;
             maximum := kValeurSpecialeInterruptionCalculParallele;
-            
-            
+
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -1076,20 +1076,20 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
             {$ENDC}
-            
+
             MicroSeconds(microSecondesFin);
-            
+
             gProfilerParallelisme[1] := gProfilerParallelisme[1] + (microSecondesFin.lo-microSecondesDepart.lo);
-            
-            
+
+
             InterruptionDansCeNoeudDeParallelisme := true;
-            
-            
+
+
             OS_MEMORY_BARRIER;
           end;
-         
+
      end;
-   
+
    InterruptionDansCeNoeudDeParallelisme := false;
  end;
 
@@ -1104,13 +1104,13 @@ var diffEssai : SInt32;
     microSecondesDepart : UnsignedWide;
     err : OSErr;
 begin
- 
+
   with node do
     begin
- 
+
       MicroSeconds(microSecondesDepart);
-          
-   
+
+
       // ASSERT : verification que le numero de la thread qui prétend être disponible n'est pas débile
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
       if ( nroThreadFilsAuChomage < 0 ) | ( nroThreadFilsAuChomage > kNombreMaxAlphaBetaTasks ) then
@@ -1122,9 +1122,9 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-    
-   
-      
+
+
+
       // ASSERT : verification que la thread disponible est dans l'un des deux etats "kPleaseWaitForJobPreparation" ou "kPleaseDoSpinLock"
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
       if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,gAlphaBetaTasksData^[nroThreadFilsAuChomage].etat) = 0) &
@@ -1138,17 +1138,17 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-      
+
 
       inc(nroDuFilsCourant);
-      
+
       // Jouer le coup
-      
+
       iCourant := listeDesCoupsLegaux[nroDuFilsCourant];
       diffEssai := diffPions;
       nouvelleParite := ModifPlatBitboard(iCourant,vecteurParite,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,positionFils,diffEssai);
-      
-      
+
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1161,16 +1161,16 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-            
-      
+
+
       // On garde la trace que l'on va lancer telle thread sur tel fils,
       // pour pouvoir interrompre eventuellement les fils
-      
+
       threadAffecteeACeFils[nroDuFilsCourant]    := nroThreadFilsAuChomage;
       filsEnAttenteDeLancement[nroDuFilsCourant] := true;
-      
+
       // Fabriquer les donnees pour la thread qui accepte de travailler pour nous
-      
+
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].positionSubTree        := positionFils;
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].profondeurSubTree      := nbreVides - 1;
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].alphaSubTree           := -beta;
@@ -1183,15 +1183,15 @@ begin
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].message                := kPleaseExploreThisSubtree;
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].nroThread              := nroThreadFilsAuChomage;
       gAlphaBetaTasksData^[nroThreadFilsAuChomage].threadDuPere           := nroThreadDuPere;
-      
-      
-      
+
+
+
       MicroSeconds(microSecondesFin);
-          
+
       gProfilerParallelisme[2] := gProfilerParallelisme[2] + (microSecondesFin.lo-microSecondesDepart.lo);
 
    end;
-   
+
 end;
 
 
@@ -1205,17 +1205,17 @@ begin
   with node do
     begin
       inc(nroDuFilsCourant);
-      
-      
+
+
       // Jouer le coup
-      
+
       coupDuFils := listeDesCoupsLegaux[nroDuFilsCourant];
       diffEssai  := diffPions;
       nouvelleParite := ModifPlatBitboard(coupDuFils,vecteurParite,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,positionFils,diffEssai);
-      
-      
+
+
       threadAffecteeACeFils[nroDuFilsCourant]    := nroThreadDuPere;  // puisque l'on va prendre soi-meme en charge ce fils
-      
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1226,12 +1226,12 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-      
+
       // on enleve les interruptions avant de plonger
       EnleverLInterruptionPourCetteThread(nroThreadDuPere, nbreVides - 1);
-      
+
       valeur := MySubTreeValue( positionFils, nbreVides - 1, -beta, -alpha, -diffEssai, nouvelleParite, nroThreadDuPere, nroThreadDuPere, REMOVE_CASE_VIDE_FROM_LISTE(listeBitboard,coupDuFils));
-      
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1241,12 +1241,12 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-      
-      // Une eventuelle interruption de notre thread ayant fait son office dans le sous arbre, on peut 
+
+      // Une eventuelle interruption de notre thread ayant fait son office dans le sous arbre, on peut
       // desormais enlever les interruptions de ce meme sous-arbre
       EnleverLInterruptionPourCetteThread(nroThreadDuPere, nbreVides - 1);
-      
-      
+
+
       MeLancerMoiMemeRecursivementSurUnFils := valeur;
     end;
 end;
@@ -1263,18 +1263,18 @@ begin
 
   with node do
     begin
-    
+
       MicroSeconds(microSecondesDepart);
-      
-      if ThreadEstInterrompue(nroThreadDuPere,nbreVides) 
+
+      if ThreadEstInterrompue(nroThreadDuPere,nbreVides)
         then
           begin
             InterrompreUnFils(node,nroThreadDuFils);
-            
+
             // le fils dont on vient de recevoir le resultat ne nous servira plus
             ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-            
-            
+
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -1287,18 +1287,18 @@ begin
               end;
             {$ENDC}
           end
-          
-          
+
+
         else
-      if (nroDuFilsCourant >= filsFin) 
-        then 
+      if (nroDuFilsCourant >= filsFin)
+        then
           begin
             EnleverLaReservationDUneThread(node,nroThreadDuFils);
-            
+
             // on a fini de lancer tous les fils, donc le fils dont on vient de recevoir le resultat ne nous servira plus
             ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-            
-            
+
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -1311,21 +1311,21 @@ begin
               end;
             {$ENDC}
           end
-          
-          
-        else 
+
+
+        else
           begin
             // on va sans doute reutiliser immediatement la thread du fils dont on vient de recevoir le resultat
-            
+
             if (gNbreProcesseursCalculant <= numProcessors)
               then
                 begin
-                
-                
+
+
                   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseDoSpinLock,gAlphaBetaTasksData^[nroThreadDuFils].etat) <> 0
                     then
                       begin
-                        
+
                         {$IFC AVEC_DEBUG_PARALLELISME}
                         if DoitDebugguerParallelismeDansRapport then
                           begin
@@ -1337,17 +1337,17 @@ begin
                             err := MPExitCriticalRegion(gRapportCriticalRegionID);
                           end;
                         {$ENDC}
-                  
+
                         PreparerUnTravailPourLaThreadAuChomage(node,nroThreadDuFils);
-                        
+
                         if gCheckingResultsHasHighPriority then
                           begin
-                              
+
                             // Ecouter eventuellement d'autres resultats
                             if (nbreResultatsEnAttente > 0) then
                               begin
-                              
-                                if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides) 
+
+                                if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides)
                                   then
                                     begin
                                       MicroSeconds(microSecondesFin);
@@ -1355,32 +1355,32 @@ begin
 
                                       FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kRECEVOIR_UN_NOUVEAU_RESULTAT;
                                       exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
-                                    end; 
-                              
+                                    end;
+
                               end;
                           end;
-                  
+
                         MicroSeconds(microSecondesFin);
                         gProfilerParallelisme[8] := gProfilerParallelisme[8] + (microSecondesFin.lo-microSecondesDepart.lo);
-                  
+
                         FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
                         exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
                       end
                     else
-                    
+
                   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadDuFils].etat) = 0
                     then
                       begin
-                      
+
                         etatDuFils := gAlphaBetaTasksData^[nroThreadDuFils].etat;
-                      
+
                         InterrompreUnFils(node,nroThreadDuFils);
-                      
+
                         if PeutTrouverUneThreadDisponible(nroThreadDuPere,nroThreadFilsDisponible) then
                           begin
                             ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                            
-                            
+
+
                             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                             if gUseSpinLocks then
                               begin
@@ -1394,16 +1394,16 @@ begin
                                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
                               end;
                             {$ENDC}
-                  
+
                             PreparerUnTravailPourLaThreadAuChomage(node,nroThreadFilsDisponible);
-                            
+
                             if gCheckingResultsHasHighPriority then
                               begin
-                                  
+
                                 // Ecouter eventuellement d'autres resultats
                                 if (nbreResultatsEnAttente > 0) then
                                   begin
-                                    if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides) 
+                                    if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides)
                                       then
                                         begin
                                           MicroSeconds(microSecondesFin);
@@ -1411,13 +1411,13 @@ begin
 
                                           FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kRECEVOIR_UN_NOUVEAU_RESULTAT;
                                           exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
-                                        end; 
+                                        end;
                                   end;
                               end;
-                              
+
                             MicroSeconds(microSecondesFin);
                             gProfilerParallelisme[10] := gProfilerParallelisme[10] + (microSecondesFin.lo-microSecondesDepart.lo);
-                  
+
                             FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
                             exit(FaireQuelqueChoseDIntelligentAvecLaThreadDuFils);
                           end;
@@ -1428,10 +1428,10 @@ begin
                   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping,kPleaseGoSleeping,gAlphaBetaTasksData^[nroThreadDuFils].etat) = 0 then
                     begin
                       InterrompreUnFils(node,nroThreadDuFils);
-                      
+
                       ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                      
-                      
+
+
                       {$IFC AVEC_DEBUG_PARALLELISME}
                       if DoitDebugguerParallelismeDansRapport then
                         begin
@@ -1443,13 +1443,13 @@ begin
                           err := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                       {$ENDC}
-                
+
                     end;
                 end;
         end;
-        
+
     end;  {with node do}
-    
+
     FaireQuelqueChoseDIntelligentAvecLaThreadDuFils := kCONTINUER_NORMALEMENT;
 end;
 
@@ -1459,33 +1459,33 @@ end;
 
 function PeutTrouverUneThreadEsclave(var node : NoeudDeParallelisme; action : SInt32; var nroThreadFilsAuChomage : SInt32) : boolean;
 begin
-  
+
   with node do
     begin
-    
+
       OS_MEMORY_BARRIER;
-    
+
       if (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE)
         then
           begin
-          
+
             // Quand la procedure GererNoeudDeParallelisme est appelée avec l'action "kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE",
             // elle peut prendre en charge elle-meme, recursivement, le dernier fils à evaluer, ce qui explique le test
             // (nroDuFilsCourant < filsFin - 1)  ci-dessous : on ne cherche une thread esclave que pour les n-1 premiers fils...
-            
+
             if (nroDuFilsCourant < filsFin - 1) & not(betaCoupureTrouvee) & not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) &
                (gNbreProcesseursCalculant < numProcessors) & PeutTrouverUneThreadDisponible(nroThreadDuPere,nroThreadFilsAuChomage) then
               begin
                 PeutTrouverUneThreadEsclave := true;
                 exit(PeutTrouverUneThreadEsclave);
               end;
-              
+
           end
         else
           begin
-          
+
             // Chercher une thread esclave...
-          
+
             if (nroDuFilsCourant < filsFin) & not(betaCoupureTrouvee)  & not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) &
                (gNbreProcesseursCalculant < numProcessors) & PeutTrouverUneThreadDisponible(nroThreadDuPere,nroThreadFilsAuChomage) then
               begin
@@ -1494,12 +1494,12 @@ begin
               end;
 
           end;
-       
-       
+
+
       PeutTrouverUneThreadEsclave := false;
-    
+
     end;
-  
+
 end;
 
 
@@ -1509,7 +1509,7 @@ begin
 
   // FIXME : pour l'instant, cette procedure ne fait pas de proposition de service a ses fils
   // FIXME !!
-  
+
   with node do
     if GetAResultForThisThreadAndLock(nroThreadDuPere,profondeurDuNouveauResultat) then
       begin
@@ -1535,7 +1535,7 @@ var i : SInt32;
     foo_bar_atomic_register : SInt32;
     microSecondesFin : UnsignedWide;
     microSecondesDepart : UnsignedWide;
-    
+
 label ON_VIENT_DE_TROUVER_UNE_TACHE_AU_CHOMAGE;
 label ESSAYER_DE_TROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
 label LANCER_LES_NOUVEAUX_FILS;
@@ -1549,8 +1549,8 @@ begin
 
   with node do
     begin
-    
-    
+
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1561,16 +1561,16 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-    
+
       case action of
-      
+
         kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE       : goto ESSAYER_DE_TROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
-        
+
         kRECEVOIR_UN_NOUVEAU_RESULTAT                 : goto RECEVOIR_UN_NOUVEAU_RESULTAT;
-        
+
         kANALYSER_UN_RESULTAT                         : goto ON_VIENT_DE_TROUVER_UN_RESULTAT_A_ANALYSER;
-        
-        otherwise                              
+
+        otherwise
           begin
             // ASSERT : action non geree dans GererNoeudDeParallelisme
             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
@@ -1580,28 +1580,28 @@ begin
             AttendreFrappeClavierParallelisme(true);
             err := MPExitCriticalRegion(gRapportCriticalRegionID);
             {$ENDC}
-          end;  
-                               
+          end;
+
       end; {case}
-  
-  
+
+
   RECEVOIR_UN_NOUVEAU_RESULTAT :
-  
+
     begin
-    
+
       OS_MEMORY_BARRIER;
-    
+
       with gFileDesResultats[nroThreadDuPere] do
         begin
-        
+
           resultatDuFils         := valeurResultat;
           coupDuFils             := coup;
           resultStamp            := hashPere;
-          
+
           // Vider la file de resultats tout en enlevant le mutex
           // de maniere qu'un autre noeud puisse y ecrire
-          
-          if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kValeurMutexLectureResultat, 0, gFileDesResultats[nroThreadDuPere].nombreDeResultats) <> 0 
+
+          if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kValeurMutexLectureResultat, 0, gFileDesResultats[nroThreadDuPere].nombreDeResultats) <> 0
             then
               begin
                 // et on va analyser ce resultat
@@ -1609,7 +1609,7 @@ begin
               end
             else
               begin
-              
+
                 // ASSERT : impossible de remettre le mutex dans RECEVOIR_UN_NOUVEAU_RESULTAT
                 {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -1618,15 +1618,15 @@ begin
                 AttendreFrappeClavierParallelisme(true);
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
                 {$ENDC}
-          
+
               end;
-          
+
         end;
     end;
-        
-        
-  ON_VIENT_DE_TROUVER_UNE_TACHE_AU_CHOMAGE : 
-  
+
+
+  ON_VIENT_DE_TROUVER_UNE_TACHE_AU_CHOMAGE :
+
       // ASSERT : verification que le numero de la thread qui prétend être disponible en entree n'est pas débile
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
       if ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) then
@@ -1641,24 +1641,24 @@ begin
 
 
       PreparerUnTravailPourLaThreadAuChomage(node,nroThreadFilsDisponible);
-      
-      
-  ESSAYER_DE_TROUVER_D_AUTRES_TACHES_AU_CHOMAGE : 
-      
+
+
+  ESSAYER_DE_TROUVER_D_AUTRES_TACHES_AU_CHOMAGE :
+
       // Tant que l'on a des threads disponibles, on essaye de lancer des autres fils
-      
+
       if PeutTrouverUneThreadEsclave(node, action, nroThreadFilsDisponible) then
         goto ON_VIENT_DE_TROUVER_UNE_TACHE_AU_CHOMAGE;
-        
+
 
   LANCER_LES_NOUVEAUX_FILS :
 
 
       MicroSeconds(microSecondesDepart);
-      
+
       // Lancer les nouveaux fils
-      
-      
+
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1668,15 +1668,15 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-            
+
       OS_MEMORY_BARRIER;
-      
+
       for i := filsDebut to filsFin do
         if filsEnAttenteDeLancement[i] then
           begin
-          
-            
-            
+
+
+
             // ASSERT : verification que le numero de la thread affecte à ce fils n'est pas debile
             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
             if ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) then
@@ -1687,8 +1687,8 @@ begin
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
             {$ENDC}
-            
-            
+
+
             // ASSERT : verification que la thread que l'on va lancer n'est pas nous-meme...
             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
             if ( threadAffecteeACeFils[i] = nroThreadDuPere) then
@@ -1699,23 +1699,23 @@ begin
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
             {$ENDC}
-      
+
             if gAlphaBetaTasksData^[threadAffecteeACeFils[i]].threadDuPere = nroThreadDuPere
               then EnleverLInterruptionPourCetteThread(threadAffecteeACeFils[i], nbreVides - 1);
-            
-            
-            
+
+
+
             // Normalement, le message passé à un fils est "kPleaseExploreThisSubtree", mais si on s'apercoit
             // que l'on a été interrompu pendant la recherche des taches au chomage, on ne va pas lancer le fils,
-            // mais au contraire emettre le remettre dans son etat "kPleaseGoSleeping" pour indiquer qu'il est 
+            // mais au contraire emettre le remettre dans son etat "kPleaseGoSleeping" pour indiquer qu'il est
             // a nouveau disponible
-            
-            
+
+
             if betaCoupureTrouvee | ThreadEstInterrompue(nroThreadDuPere, nbreVides)
               then
                 begin
-                
-                
+
+
                   {$IFC AVEC_DEBUG_PARALLELISME}
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -1725,9 +1725,9 @@ begin
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-            
-                
-                  
+
+
+
                   // ASSERT : verification que l'on n'a pas plus de threads disponibles que de threads lancees
                   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                   if ( gNbreThreadsDisponibles > kNombreMaxAlphaBetaTasks ) then
@@ -1739,16 +1739,16 @@ begin
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-          
-                  
+
+
                   // Ce fils que l'on avait reservé est en fait disponible
                   EnleverLaReservationDUneThread(node,threadAffecteeACeFils[i]);
-                  
-                  
+
+
                   // On indique que le processeur que l'on avait reservé pour travailler est en fait libre
                   ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                  
-                  
+
+
                   {$IFC AVEC_DEBUG_PARALLELISME}
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -1759,17 +1759,17 @@ begin
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-                  
+
                   threadAffecteeACeFils[i] := -500;
                   filsEnAttenteDeLancement[i] := false;
-                  
+
                   OS_MEMORY_BARRIER;
-                  
+
                 end
               else
                 begin
-                
-                
+
+
                   {$IFC AVEC_DEBUG_PARALLELISME}
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -1779,45 +1779,45 @@ begin
                       err := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
                   {$ENDC}
-            
-                
+
+
                   inc(nbreResultatsEnAttente);
-                  
+
                   if gAlphaBetaTasksData^[threadAffecteeACeFils[i]].threadDuPere = nroThreadDuPere
                     then EnleverLInterruptionPourCetteThread(threadAffecteeACeFils[i], nbreVides - 1);
-                  
-                  
-                  
+
+
+
                   // LANCEMENT DU FILS, EN LEVANT LE SEMAPHORE OU EN ARRETANT LE SPIN-LOCK, SELON LE CAS
-                  
+
                   filsEnAttenteDeLancement[i] := false;
-                  
+
                   OS_MEMORY_BARRIER;
-                  
+
                   LancerUnFils(threadAffecteeACeFils[i]);
-                  
-                  
-                  
+
+
+
                 end;
-            
-            
+
+
           end;
-      
-      
+
+
     MicroSeconds(microSecondesFin);
     gProfilerParallelisme[5] := gProfilerParallelisme[5] + (microSecondesFin.lo-microSecondesDepart.lo);
-      
-   
-   
+
+
+
   ATTENDRE_LES_RESULTATS :
 
 
-      
-      
+
+
       // Est-on interrompu ?
       if InterruptionDansCeNoeudDeParallelisme(node) then
         begin
-          
+
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
             begin
@@ -1828,17 +1828,17 @@ begin
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
+
+
           exit(GererNoeudDeParallelisme);
         end;
-        
-        
-        
-      if (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) 
+
+
+
+      if (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE)
         then
           begin
-          
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -1849,30 +1849,30 @@ begin
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
             {$ENDC}
-          
+
             exit(GererNoeudDeParallelisme);
           end
         else
           begin
             if not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) & not(betaCoupureTrouvee) then
               begin
-                if (nroDuFilsCourant < filsFin) & not(betaCoupureTrouvee) 
+                if (nroDuFilsCourant < filsFin) & not(betaCoupureTrouvee)
                   then
                     begin
                       // PRENDRE MOI-MEME UN FILS A ANALYSER
-                      
+
                       OS_MEMORY_BARRIER;
-                      
+
                       resultatDuFils := MeLancerMoiMemeRecursivementSurUnFils(node, coupDuFils);
-                      
+
                       resultStamp := hashStamp;
-                      
+
                       goto ON_VIENT_DE_TROUVER_UN_RESULTAT_A_ANALYSER;
-                      
+
                     end
                   else
                     begin
-                    
+
                       {$IFC AVEC_DEBUG_PARALLELISME}
                       if DoitDebugguerParallelismeDansRapport then
                         begin
@@ -1885,27 +1885,27 @@ begin
                           err := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                       {$ENDC}
-                    
+
                       OS_MEMORY_BARRIER;
-                    
+
                       // BOUCLER POUR ATTENDRE LES RESULTATS DES FILS
-                      
+
                       while (node.nbreResultatsEnAttente > 0) & not(betaCoupureTrouvee) do
                         begin
-                          
+
                           // notre thread va se mettre en attente passive
                           ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
-          
+
                           // Attendre les resultats des fils que l'on a lancés
                           AttendreDesResultatsEnProposantSesServices(node);
-                          
+
                           // notre thread sort de son attente passive
                           ATOMIC_INCREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                          
+
                           // Est-on interrompu ?
                           if InterruptionDansCeNoeudDeParallelisme(node) then
                             begin
-                            
+
                               {$IFC AVEC_DEBUG_PARALLELISME}
                               if DoitDebugguerParallelismeDansRapport then
                                 begin
@@ -1916,15 +1916,15 @@ begin
                                   err := MPExitCriticalRegion(gRapportCriticalRegionID);
                                 end;
                               {$ENDC}
-            
+
                               exit(GererNoeudDeParallelisme);
                             end;
-                          
+
                         end;
-                      
+
                       OS_MEMORY_BARRIER;
-                      
-                      
+
+
                       {$IFC AVEC_DEBUG_PARALLELISME}
                       if DoitDebugguerParallelismeDansRapport then
                         begin
@@ -1937,40 +1937,40 @@ begin
                           err := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                       {$ENDC}
-                        
-                      
-                      
+
+
+
                       goto APRES_L_ANALYSE_D_UN_RESULTAT;
-                      
+
                     end;
               end;
-              
+
           end;
-      
-      
+
+
       if betaCoupureTrouvee then
         goto APRES_L_ANALYSE_D_UN_RESULTAT;
-      
-      
 
-      
+
+
+
   ON_VIENT_DE_TROUVER_UN_RESULTAT_A_ANALYSER :
-  
-      
+
+
       OS_MEMORY_BARRIER;
 
       MicroSeconds(microSecondesDepart);
 
-      
+
       // Un resultat vient d'apparaitre dans la queue, ou mon appel recursif vient de se terminer
-      
-      
+
+
       onVientDeRecevoirUnVraiResultat := false;
-      
-        
+
+
       // On a le resultat d'un noeud !
-      
-      
+
+
       {$IFC AVEC_DEBUG_PARALLELISME}
       if DoitDebugguerParallelismeDansRapport then
         begin
@@ -1980,12 +1980,12 @@ begin
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-        
-      
+
+
       // Chercher quelle thread gerait ce fils
-      
+
       nroThreadDuFils := kNroThreadNotFound;  {not found !}
-      
+
       for i := FilsDebut to FilsFin do
         if (listeDesCoupsLegaux[i] = coupDuFils) &                 // la bonne case ? (pourrait sans doute etre avantageusement remplace par un hash du fils
            (resultStamp = hashStamp) &                             // le bon hash du pere ?
@@ -1993,7 +1993,7 @@ begin
           begin
             nroThreadDuFils          := threadAffecteeACeFils[i];
             threadAffecteeACeFils[i] := -243;                      // on vient de recevoir le resultat de cette thread, hein...
-            
+
             {$IFC AVEC_DEBUG_PARALLELISME}
             if DoitDebugguerParallelismeDansRapport then
               begin
@@ -2003,20 +2003,20 @@ begin
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
             {$ENDC}
-      
+
           end;
-        
-        
-        
-      if (nroThreadDuFils <> kNroThreadNotFound) & 
-         (nroThreadDuFils >= 0) & 
-         (nroThreadDuFils <= kNombreMaxAlphaBetaTasks) & 
-         (resultatDuFils <> kValeurSpecialeInterruptionCalculParallele) & 
+
+
+
+      if (nroThreadDuFils <> kNroThreadNotFound) &
+         (nroThreadDuFils >= 0) &
+         (nroThreadDuFils <= kNombreMaxAlphaBetaTasks) &
+         (resultatDuFils <> kValeurSpecialeInterruptionCalculParallele) &
          (resultatDuFils <> -kValeurSpecialeInterruptionCalculParallele) &
          not(betaCoupureTrouvee) then
         begin
-        
-        
+
+
           // ASSERT : verification que l'on connait bien la thread qui a geré ce fils
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           if ( nroThreadDuFils = kNroThreadNotFound ) then
@@ -2030,7 +2030,7 @@ begin
             end;
           {$ENDC}
 
-          
+
           // ASSERT : verification que le resultat que nous venons de recevoir correspond bien
           //          à un job que nous avons donné (comparaison des hashs)
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
@@ -2043,9 +2043,9 @@ begin
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-  
-            
-        
+
+
+
           // ASSERT : verification que le numero de la thread qui a gere ce fils n'est pas débile
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           if ( nroThreadDuFils < 0 ) | ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) then
@@ -2059,15 +2059,15 @@ begin
             end;
           {$ENDC}
 
-      
+
           onVientDeRecevoirUnVraiResultat := true;
-          
+
           valeur := -resultatDuFils;
-          
-          if (nroThreadDuFils <> nroThreadDuPere) 
+
+          if (nroThreadDuFils <> nroThreadDuPere)
             then dec(nbreResultatsEnAttente);
-          
-          
+
+
           // ASSERT : verification que la valeur retournee n'est pas debile
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           if ( valeur < -64 ) | ( valeur > 64 ) then
@@ -2080,36 +2080,36 @@ begin
             end;
           {$ENDC}
 
-            
-          
+
+
           // Mettre a jour le meilleur score connu, eventuellement
-        
+
           if (valeur > maximum) & not(betaCoupureTrouvee) then
             begin
-              
+
               // Ce fils est le meilleur jusqu'a present
               maximum := valeur;
               bestDef := coupDuFils;
-              
+
               if (valeur > alpha) then
                 begin
                   alpha := valeur;  // amelioration de la fenetre
-                  
+
                   if (valeur >= beta) then  // Coupure beta !!
                     begin
-                    
+
                       betaCoupureTrouvee := true;
-                    
+
                       // Interrompre le spin-lock du fils qui a provoque la coupure beta
                       if (nroThreadDuFils <> nroThreadDuPere) then
                         EnleverLaReservationDUneThread(node,nroThreadDuFils);
-                      
-                      
+
+
                       // Mettre eventuellement a jour les statistiques d'overhead algorithmique
                       if (coupDuFils = listeDesCoupsLegaux[filsDebut]) then
                         ATOMIC_INCREMENT_32(gNbreDeCoupuresBetaDansUnSplitNode);
-                        
-                      
+
+
                       // On ne va pas relancer immediatement la thread du fils dont on vient de recevoir le resultat
                       // hein, puisque l'on doit quitter
                       if (nroThreadDuFils <> nroThreadDuPere)
@@ -2133,29 +2133,29 @@ begin
                             *)
                             {$ENDC}
                           end;
-                          
-                    
+
+
                       nbreResultatsEnAttente := -100;
-                       
-                      
+
+
                       for i := FilsDebut to FilsFin do
                         begin
-                        
+
                           // Interrompre les fils precedents
                           if (threadAffecteeACeFils[i] >= 0) &
-                             (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].threadDuPere = nroThreadDuPere) then 
+                             (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].threadDuPere = nroThreadDuPere) then
                             begin
-                            
+
                               // On indique, au cas ou, que ce ne sera certes plus la peine de lancer ce fils s'il etait en instance de lancement
                               filsEnAttenteDeLancement[i] := false;
-                              
+
                               // On n'aura plus besoin de toi, mon vieux
                               InterrompreUnFils(node,threadAffecteeACeFils[i]);
-                              
-                              
+
+
                               // Le fils interrompu va liberer son processeur
                               if threadAffecteeACeFils[i] <> nroThreadDuPere
-                                then 
+                                then
                                   begin
                                     ATOMIC_DECREMENT_32_BARRIER(gNbreProcesseursCalculant);
                                   end
@@ -2175,8 +2175,8 @@ begin
                                     *)
                                     {$ENDC}
                                   end;
-                                  
-                          
+
+
                               {$IFC AVEC_DEBUG_PARALLELISME}
                               if DoitDebugguerParallelismeDansRapport then
                                 begin
@@ -2188,23 +2188,23 @@ begin
                                   err := MPExitCriticalRegion(gRapportCriticalRegionID);
                                 end;
                               {$ENDC}
-        
-        
+
+
                             end;
-          
+
                         end;
-                        
-                      
+
+
                       // Sortir immediatement de la fonction en renvoyant la valeur qui a provoque la coupure
-                      
+
                       nroDuDernierFilsEvalue := nroDuFilsCourant;
                       maximum := valeur;
-                      
-                      
+
+
                       MicroSeconds(microSecondesFin);
                       gProfilerParallelisme[6] := gProfilerParallelisme[6] + (microSecondesFin.lo-microSecondesDepart.lo);
-                      
-                      
+
+
                       {$IFC AVEC_DEBUG_PARALLELISME}
                       if DoitDebugguerParallelismeDansRapport then
                         begin
@@ -2215,42 +2215,42 @@ begin
                           err := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                       {$ENDC}
-            
+
                       OS_MEMORY_BARRIER;
-                      
+
                       exit(GererNoeudDeParallelisme);
                     end;
                 end;
             end;
-            
+
           OS_MEMORY_BARRIER;
-            
+
           // si le resultat etait le fruit d'un appel recursif a moi-meme, continuer
-          
-          if (nroThreadDuFils = nroThreadDuPere) 
+
+          if (nroThreadDuFils = nroThreadDuPere)
             then goto APRES_L_ANALYSE_D_UN_RESULTAT;
-            
-            
+
+
           // sinon, essayer de faire quelque chose d'intelligent avec la thread qui vient de m'envoyer un resultat
-          
+
           actionSuivante := FaireQuelqueChoseDIntelligentAvecLaThreadDuFils(node,nroThreadDuFils,nroThreadFilsDisponible);
-          
+
           case actionSuivante of
             kTROUVER_D_AUTRES_TACHES_AU_CHOMAGE : goto ESSAYER_DE_TROUVER_D_AUTRES_TACHES_AU_CHOMAGE;
             kRECEVOIR_UN_NOUVEAU_RESULTAT       : goto RECEVOIR_UN_NOUVEAU_RESULTAT;
           end; {case}
-            
-          
+
+
         end;
-  
-  
+
+
     MicroSeconds(microSecondesFin);
     gProfilerParallelisme[11] := gProfilerParallelisme[11] + (microSecondesFin.lo-microSecondesDepart.lo);
-    
-    
+
+
     if (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) & not(onVientDeRecevoirUnVraiResultat) then
       begin
-      
+
         {$IFC AVEC_DEBUG_PARALLELISME}
         if DoitDebugguerParallelismeDansRapport then
           begin
@@ -2262,21 +2262,21 @@ begin
             err := MPExitCriticalRegion(gRapportCriticalRegionID);
           end;
         {$ENDC}
-      
+
         exit(GererNoeudDeParallelisme);
       end;
-          
-          
+
+
 APRES_L_ANALYSE_D_UN_RESULTAT :
 
 
     OS_MEMORY_BARRIER;
-      
-      
+
+
     // Est-on interrompu ?
     if InterruptionDansCeNoeudDeParallelisme(node) then
       begin
-        
+
         {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
             begin
@@ -2287,54 +2287,54 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
+
         exit(GererNoeudDeParallelisme);
       end;
-      
-      
+
+
     // Ecouter eventuellement d'autres resultats
     if (nbreResultatsEnAttente > 0) then
       begin
-      
-        if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides) 
+
+        if GetAResultAtThisDepthAndLock(nroThreadDuPere,nbreVides)
           then
             begin
               goto RECEVOIR_UN_NOUVEAU_RESULTAT;
-            end; 
-      
+            end;
+
       end;
-      
-     
-      
-    // On sait que l'on vient d'avoir une thread qui vient de se liberer, 
+
+
+
+    // On sait que l'on vient d'avoir une thread qui vient de se liberer,
     // on peut donc lancer un nouveau fils (s'il en reste a lancer) ou
     // continuer d'attendre les resultats des fils dejà lancés (si on a
     // lancé tous les fils)
-            
+
     if PeutTrouverUneThreadEsclave(node, action, nroThreadFilsDisponible)
       then goto ON_VIENT_DE_TROUVER_UNE_TACHE_AU_CHOMAGE;
-      
+
     // lancer eventuellement les nouveaux fils en attente
-    
+
     for i := filsDebut to filsFin do
-      if filsEnAttenteDeLancement[i] 
+      if filsEnAttenteDeLancement[i]
         then goto LANCER_LES_NOUVEAUX_FILS;
-      
-    
+
+
     // aller reecouter les resultats
-    
-    if (nbreResultatsEnAttente > 0) 
+
+    if (nbreResultatsEnAttente > 0)
       then goto ATTENDRE_LES_RESULTATS;
-           
-            
-    
-    // Sortie normale de GererNoeudDeParallelisme : on renvoie la meilleure note des 
-    // fils evalués en parallele dans la variable "maximum", et l'index du dernier 
+
+
+
+    // Sortie normale de GererNoeudDeParallelisme : on renvoie la meilleure note des
+    // fils evalués en parallele dans la variable "maximum", et l'index du dernier
     // fils evalué dans "nroDuDernierFilsEvalue".
-    
+
     nroDuDernierFilsEvalue := nroDuFilsCourant;
-    
-    
+
+
     {$IFC AVEC_DEBUG_PARALLELISME}
     if DoitDebugguerParallelismeDansRapport then
       begin
@@ -2346,11 +2346,11 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
         err := MPExitCriticalRegion(gRapportCriticalRegionID);
       end;
     {$ENDC}
-  
+
   end;
-  
+
   OS_MEMORY_BARRIER;
-  
+
 end;
 
 
@@ -2374,7 +2374,7 @@ begin {$unused delai, ticks, err, nroThreadPere }
       err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       WritelnDansRapport('');
       WriteDansRapport('Entree dans MySubTreeValue (nroThread, nroThreadPere) = ('+NumEnString(nroThread)+','+NumEnString(nroThreadPere)+') : ');
-      
+
       {
       EcritBitboardState('',plat,nbreVides,alpha,beta,diffPions);
       WritelnNumDansRapport('vecteurParite = ',vecteurParite);
@@ -2383,22 +2383,22 @@ begin {$unused delai, ticks, err, nroThreadPere }
       with plat do
         WritelnNumDansRapport('diffPions calculé = ',BitboardToDiffPions(g_my_bits_low,g_my_bits_high,g_opp_bits_low,g_opp_bits_high));
       }
-        
+
       WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
       WritelnDansRapport('');
       AttendreFrappeClavierParallelisme(true);
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
-  
+
+
+
   if ThreadEstInterrompue(nroThread, nbreVides) then
     begin
-    
-    
+
+
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-      if DoitDebugguerParallelismeDansRapport then 
+      if DoitDebugguerParallelismeDansRapport then
         begin
           err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
           WritelnNumDansRapport('ASSERT : Bizarre ! La thread '+NumEnString(nroThread)+' est interrompue dans MySubTreeValue avant meme d''avoir commencé son calcul...  gAlphaBetaInterrompu[nroThread] = ',gAlphaBetaInterrompu[nroThread]);
@@ -2410,25 +2410,25 @@ begin {$unused delai, ticks, err, nroThreadPere }
           err := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
       {$ENDC}
-  
-      
+
+
       MySubTreeValue := kValeurSpecialeInterruptionCalculParallele;
       exit(MySubTreeValue);
     end;
-  
-  
+
+
   // Debut de la recherche du sous-arbre...
-  
+
   Microseconds(microSecondesDepart);
-  
+
   hash_table := gBitboardHashTable[0];  // toutes les threads partagent la meme table de hachage (necessite les mutex d'acces aux cellules )
-  
-  
+
+
   if gParallelismeRecursif
     then valeur := ABFinBitboardParallele(nroThread,plat,nbreVides,alpha,beta,diffPions,vecteurParite,gYoungBrotherWaitElders,listeBitboard,hash_table)
     else valeur := ABFinBitboardFastestFirstAvecETC(nroThread,plat,nbreVides,alpha,beta,diffPions,vecteurParite,listeBitboard,hash_table);
-  
-  
+
+
   // ASSERT : verification que la valeur du calcule n'est pas débile
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   if (( valeur < -64 ) | ( valeur > 64 )) & (valeur <> kValeurSpecialeInterruptionCalculParallele) & (valeur <> -kValeurSpecialeInterruptionCalculParallele) then
@@ -2439,21 +2439,21 @@ begin {$unused delai, ticks, err, nroThreadPere }
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-              
-  
+
+
+
   Microseconds(microSecondesFin);
-  
-  
-  
+
+
+
   // Fin de la recherche du sous-arbre...
-  
+
   if ThreadEstInterrompue(nroThread, nbreVides)
     then MySubTreeValue := kValeurSpecialeInterruptionCalculParallele
     else MySubTreeValue := valeur;
 
-  
-  
+
+
   {$IFC AVEC_DEBUG_PARALLELISME}
   if DoitDebugguerParallelismeDansRapport then
     begin
@@ -2467,8 +2467,8 @@ begin {$unused delai, ticks, err, nroThreadPere }
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
+
+
 end;
 
 
@@ -2487,7 +2487,7 @@ var k : SInt32;
     foo_bar_atomic_register : SInt32;
     microSecondesDepart : UnsignedWide;
     microSecondesFin : UnsignedWide;
-    
+
 begin
 
   MicroSeconds(microSecondesDepart);
@@ -2501,21 +2501,21 @@ begin
       end
     else
       begin
-      
+
         // D'ABORD CHERCHER SI ON A UNE THREAD DEJA VIVANTE
-      
+
         for k := 1 to kNombreMaxAlphaBetaTasks do
           begin
             if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping, kPleaseWaitForJobPreparation, gAlphaBetaTasksData^[k].etat) <> 0 then
               begin
                 // on indique que l'on vient de reserver une thread : elle va tourner sur un processeur
                 ATOMIC_INCREMENT_32_BARRIER(gNbreProcesseursCalculant);
-                
-                
+
+
                 PeutTrouverUneThreadDisponible := true;
                 nroThreadEsclave := k;
-                
-                
+
+
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 if DoitDebugguerParallelismeDansRapport then
                   begin
@@ -2527,54 +2527,54 @@ begin
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
-                
-                
-                
+
+
+
                 MicroSeconds(microSecondesFin);
                 gProfilerParallelisme[4] := gProfilerParallelisme[4] + (microSecondesFin.lo-microSecondesDepart.lo);
-                
+
                 exit(PeutTrouverUneThreadDisponible);
               end;
           end;
-      
-      
+
+
         // SINON CHERCHER SI IL Y A UNE THREAD MORTE A REVEILLER
-        
-        
-        
+
+
+
         ecoute := kMPTimeoutErr;
-        
+
         ecoute := MPWaitOnQueue(gListeDesThreadsMortes,@numeroThreadMorte,NIL,NIL,kDurationImmediate);
-        
-        
-        
-        
+
+
+
+
         if (ecoute = NoErr)  then
           begin
-          
-          
-            
+
+
+
             if (numeroThreadMorte^ < 0) | (numeroThreadMorte^ > kNombreMaxAlphaBetaTasks) then
               begin
-              
+
                 // ASSERT : verification que le numero de la thread morte trouvee n'est pas debile !!!
                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                 WritelnNumDansRapport('ASSERT : (numeroThreadMorte < 0) | (numeroThreadMorte > kNombreMaxAlphaBetaTasks) PeutTrouverUneThreadDisponible !!!   numeroThreadMorte = ',numeroThreadMorte^);
                 Sysbeep(0);
                 AttendreFrappeClavierParallelisme(true);
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
-                
-                
+
+
                 PeutTrouverUneThreadDisponible := false;
                 nroThreadEsclave := -1000;
-                
+
                 exit(PeutTrouverUneThreadDisponible);
-        
+
               end;
-            
-            
-              
-          
+
+
+
+
             err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
             WritelnDansRapport('');
             WritelnDansRapport('La thread '+NumEnString(nroThreadMaitre)+' va essayer de réveiller la thread numéro '+NumEnString(numeroThreadMorte^)+', qui semble etre en sommeil...');
@@ -2582,14 +2582,14 @@ begin
             WritelnDansRapport('');
             AttendreFrappeClavierParallelisme(true);
             err := MPExitCriticalRegion(gRapportCriticalRegionID);
-            
-            
+
+
             if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kNoOrderReceived, kPleaseWaitForJobPreparation, gAlphaBetaTasksData^[numeroThreadMorte^].etat) <> 0 then
               begin
                 // on indique que l'on vient de reserver une thread : elle va tourner sur un processeur
                 ATOMIC_INCREMENT_32_BARRIER(gNbreProcesseursCalculant);
-              
-                
+
+
                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                 WritelnDansRapport('Cool, la thread '+NumEnString(nroThreadMaitre)+' a réussi à reserver la thread numéro '+NumEnString(numeroThreadMorte^)+' et incremente donc gNbreProcesseursCalculant');
                 WritelnNumDansRapport('       l''etat de la thread '+NumEnString(numeroThreadMorte^)+' est : ',gAlphaBetaTasksData^[numeroThreadMorte^].etat);
@@ -2598,50 +2598,50 @@ begin
                 WritelnDansRapport('');
                 AttendreFrappeClavierParallelisme(true);
                 err := MPExitCriticalRegion(gRapportCriticalRegionID);
-                
-                
-                
+
+
+
                 // on reveille effectivement la thread
-                ecoute := MPSignalSemaphore(gAlphaBetaTasksData^[numeroThreadMorte^].semaphoreDeReveil); 
-                
-                if (ecoute = NoErr) 
+                ecoute := MPSignalSemaphore(gAlphaBetaTasksData^[numeroThreadMorte^].semaphoreDeReveil);
+
+                if (ecoute = NoErr)
                   then
                     begin
-                    
+
                       PeutTrouverUneThreadDisponible := true;
                       nroThreadEsclave := numeroThreadMorte^;
-                      
+
                       MicroSeconds(microSecondesFin);
                       gProfilerParallelisme[14] := gProfilerParallelisme[14] + (microSecondesFin.lo-microSecondesDepart.lo);
-                      
+
                       exit(PeutTrouverUneThreadDisponible);
                     end;
-                
+
               end;
-              
-              
-            // ASSERT : impossible de changer l'etat de la thread morte dans PeutTrouverUneThreadDisponible !!! 
+
+
+            // ASSERT : impossible de changer l'etat de la thread morte dans PeutTrouverUneThreadDisponible !!!
             err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
             WritelnNumDansRapport('ASSERT : impossible de changer l''etat de la thread morte dans PeutTrouverUneThreadDisponible !!!   etat = ',gAlphaBetaTasksData^[numeroThreadMorte^].etat);
             Sysbeep(0);
             AttendreFrappeClavierParallelisme(true);
             err := MPExitCriticalRegion(gRapportCriticalRegionID);
-              
+
           end;
-          
-        
+
+
         // Il n'y vraiment rien, hein
-        
-       
+
+
         PeutTrouverUneThreadDisponible := false;
         nroThreadEsclave := -1000;
       end;
-    
-    
+
+
   MicroSeconds(microSecondesFin);
   gProfilerParallelisme[4] := gProfilerParallelisme[4] + (microSecondesFin.lo-microSecondesDepart.lo);
-  
-  
+
+
 end;
 
 
@@ -2668,61 +2668,61 @@ label ATTENDRE_LA_PREPARATION_D_UN_JOB;
 label ENDORMIR_LA_THREAD;
 
 
-  
+
 begin
 
   // Obtenir un pointeur sur les données de la tache
   p := ParallelAlphaBetaPtr(parameter);
-  
+
   with p^ do
     begin
-    
+
       taskKilled := false;
-      
-      
-ENDORMIR_LA_THREAD :      
+
+
+ENDORMIR_LA_THREAD :
 
       OS_MEMORY_BARRIER;
-      
-      
+
+
       // Indiquer que l'on est une thread morte en attente d'un reveil (en donnant son numero pour pouvoir etre reveillée)
       err := MPNotifyQueue(gListeDesThreadsMortes,Ptr(@nroThread),NIL,NIL);
-      
-      
+
+
       ATOMIC_INCREMENT_32_BARRIER(gNbreThreadsDisponibles);
-      
-      
+
+
       // Attendre sur le semaphore de reveil
-      err := MPWaitOnSemaphore(semaphoreDeReveil, kDurationForever); 
-      
-      
-      
+      err := MPWaitOnSemaphore(semaphoreDeReveil, kDurationForever);
+
+
+
       err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       WritelnDansRapport('');
       WritelnDansRapport('La thread '+NumEnString(nroThread)+' dit : « Coucou, je me reveille, what''s up ? »');
       WritelnDansRapport('');
       AttendreFrappeClavierParallelisme(true);
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
-      
-      
+
+
       ATOMIC_DECREMENT_32_BARRIER(gNbreThreadsDisponibles);
-      
-      
+
+
       goto ATTENDRE_LA_PREPARATION_D_UN_JOB;
-      
-      
-      
+
+
+
       // Tant que Cassio ne quitte pas...
       while not(taskKilled) do
         begin
-        
-        
+
+
 
 LANCER_UNE_PROPOSITION_DE_TRAVAIL :
 
           OS_MEMORY_BARRIER;
-          
-        
+
+
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
             begin
@@ -2733,10 +2733,10 @@ LANCER_UNE_PROPOSITION_DE_TRAVAIL :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
+
           ATOMIC_INCREMENT_32_BARRIER(gNbreThreadsDisponibles);
-        
-          
+
+
           // ASSERT : verification que l'on n'a pas plus de threads disponibles que de threads lancees
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           if ( gNbreThreadsDisponibles > kNombreMaxAlphaBetaTasks ) then
@@ -2748,12 +2748,12 @@ LANCER_UNE_PROPOSITION_DE_TRAVAIL :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
+
 
 ATTENDRE_SUR_LE_SEMAPHORE :
 
-          
-          
+
+
 
           {$IFC AVEC_DEBUG_PARALLELISME}
           if DoitDebugguerParallelismeDansRapport then
@@ -2765,15 +2765,15 @@ ATTENDRE_SUR_LE_SEMAPHORE :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
-          
-          
+
+
+
+
           OS_MEMORY_BARRIER;
-          
+
           compteur := 0;
           if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) do 
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) do
                   begin
                     (* inc(compteur);
                     if compteur >= 1000 then
@@ -2783,14 +2783,14 @@ ATTENDRE_SUR_LE_SEMAPHORE :
                       end;
                     *)
                   end;
-          
+
           OS_MEMORY_BARRIER;
-          
-          
+
+
           ATOMIC_DECREMENT_32_BARRIER(gNbreThreadsDisponibles);
-          
-          
-          
+
+
+
           // ASSERT : verification que l'on le nombre de threads disponibles n'est pas debile
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           if ( gNbreThreadsDisponibles < 0 ) then
@@ -2802,10 +2802,10 @@ ATTENDRE_SUR_LE_SEMAPHORE :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
-          
-          
+
+
+
+
 ATTENDRE_LA_PREPARATION_D_UN_JOB :
 
 
@@ -2819,13 +2819,13 @@ ATTENDRE_LA_PREPARATION_D_UN_JOB :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
+
+
           OS_MEMORY_BARRIER;
-          
+
           compteur := 0;
-          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) then 
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) do 
+          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) then
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseWaitForJobPreparation,kPleaseWaitForJobPreparation,etat) <> 0 ) do
                  begin
                    (*
                    inc(compteur);
@@ -2838,27 +2838,27 @@ ATTENDRE_LA_PREPARATION_D_UN_JOB :
                  end;
 
           OS_MEMORY_BARRIER;
-          
+
           if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
             begin
               message := kPleaseGoSleeping;
               goto LANCER_UNE_PROPOSITION_DE_TRAVAIL;
             end;
-            
-          
-EXPLORER_UN_SOUS_ARBRE :          
+
+
+EXPLORER_UN_SOUS_ARBRE :
 
           OS_MEMORY_BARRIER;
-          
+
           if (message = kPleaseExploreThisSubtree) & (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0)
             then
               begin
-              
+
                 // Chouette, on a du boulot !
-                
+
                 EnleverLInterruptionPourCetteThread(nroThread, profondeurSubTree);
-                
-                
+
+
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 if DoitDebugguerParallelismeDansRapport then
                   begin
@@ -2869,13 +2869,13 @@ EXPLORER_UN_SOUS_ARBRE :
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
-                
-                
+
+
                 // Lancer le calcul du sous-arbre
                 valeur := MySubTreeValue( positionSubTree, profondeurSubTree, alphaSubTree, betaSubTree, diffPionsSubTree, vecteurPariteSubTree, nroThread, threadDuPere, listeBitboardSubTree);
-                
-                
-                
+
+
+
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 if DoitDebugguerParallelismeDansRapport then
                   begin
@@ -2886,67 +2886,67 @@ EXPLORER_UN_SOUS_ARBRE :
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
-    
 
-PUBLIER_LE_RESULTAT :                 
-                
-                
+
+PUBLIER_LE_RESULTAT :
+
+
                 OS_MEMORY_BARRIER;
-                
+
                 // Si on n'a pas ete interrompu, donner le resultat du calcul au lanceur
-                
-                
+
+
                 (*
-                if not(ThreadEstInterrompue(nroThread, profondeurSubTree)) & 
+                if not(ThreadEstInterrompue(nroThread, profondeurSubTree)) &
                    (valeur <> kValeurSpecialeInterruptionCalculParallele) &
                    (valeur <> -kValeurSpecialeInterruptionCalculParallele)
                    then
                   begin
-                
+
                 *)
-                  
+
                     if gUseSpinLocks
                       then
                         begin
                           // indiquer a la thread qu'elle devra rentrer dans le futur spinlock quand elle aura fini
-                          
+
                           if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseDoSpinLock,etat) <> 0) then
-                              
+
                              begin
-                             
+
                                PosterUnResultatAUneThread(threadDuPere, valeur, coupSubTree, hashDuPere, profondeurSubTree + 1);
-                               
+
                              end;
                         end
                       else
                         begin
                           // indiquer a la thread qu'elle devra lancer une proposition de travail puis se bloquer quand elle aura fini
-                          
+
                           if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseGoSleeping,etat) <> 0) then
-                             
+
                              begin
-                               
+
                                PosterUnResultatAUneThread(threadDuPere, valeur, coupSubTree, hashDuPere, profondeurSubTree + 1);
-                               
+
                              end;
                         end;
-                        
+
                  (*
-                    
+
                   end;
-                  
+
                   *)
-                
+
                 // Si la thread a été interrompue, elle vient de sortir de sa recherche et donc
                 // l'interruption a fait son office : on peut l'enlever
                 EnleverLInterruptionPourCetteThread(nroThread, profondeurSubTree);
-                
+
               end;
-          
-          
+
+
 ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
-            
-            
+
+
           OS_MEMORY_BARRIER;
 
           {$IFC AVEC_DEBUG_PARALLELISME}
@@ -2959,30 +2959,30 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
-          
-          
+
+
           // Il se peut que la thread ait ete interrompue
           if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseGoSleeping,kPleaseGoSleeping,etat) <> 0 ) then
             begin
               message := kPleaseGoSleeping;
-              
+
               OS_MEMORY_BARRIER;
-              
+
               goto LANCER_UNE_PROPOSITION_DE_TRAVAIL;
             end;
-          
-          
+
+
           OS_MEMORY_BARRIER;
-          
+
           // LE SPIN LOCK D'ATTENTE ACTIVE !!
-          
-          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) then 
-               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) do 
+
+          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) then
+               while (ATOMIC_COMPARE_AND_SWAP_32(kPleaseDoSpinLock,kPleaseDoSpinLock,etat) <> 0 ) do
                  begin
                     {if gSpinLocksYieldTimeToCPU then MPYield;}
                  end;
-          
-          
+
+
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -2991,13 +2991,13 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
-            
-          
+
+
           OS_MEMORY_BARRIER;
-          
-          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0) & (message = kPleaseExploreThisSubtree) then 
+
+          if (ATOMIC_COMPARE_AND_SWAP_32_BARRIER(kPleaseExploreThisSubtree,kPleaseExploreThisSubtree,etat) <> 0) & (message = kPleaseExploreThisSubtree) then
             begin
-             
+
               if DoitDebugguerParallelismeDansRapport then
                 begin
                   err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
@@ -3006,17 +3006,17 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
                   AttendreFrappeClavierParallelisme(true);
                   err := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
-            
-              
+
+
               goto EXPLORER_UN_SOUS_ARBRE;
-            
+
             end;
-          
-          
-          
+
+
+
         end;
     end;
-  
+
   MyAlphaBetaTask := err;
 end;
 
@@ -3033,32 +3033,32 @@ begin
   // Initialise globals
   gAlphaBetaTasksData         := NIL;
   gNbreThreadsDisponibles     := 0;
-  
+
   gAvecAttenteTouchePourDebuguerParallelisme := false;
 
   // If the multiprocessing librairy is present then create the tasks
-  if CanInitializeOSAtomicUnit & 
-     MPLibraryIsLoaded & 
+  if CanInitializeOSAtomicUnit &
+     MPLibraryIsLoaded &
      (kNombreMaxAlphaBetaTasks > 0) then
     begin
-    
+
       CassioUtiliseLeMultiprocessing := true;
-      
+
       numProcessors := MPProcessorsScheduled;
-      
+
       // FIXME : on simule un ordinateur avec deux processeurs
-      
+
       numProcessors := 2;
-      
-      
+
+
       // FIXME : il doit y avoir un nombre de taches optimal pour N processeurs (peut-etre (N+1) ?)
-      
-      
+
+
       // creer l'emplacement memoire reservé aux tâches
       gAlphaBetaTasksData := ParallelAlphaBetaRecArrayPtr(AllocateMemoryPtrClear((kNombreMaxAlphaBetaTasks + 2) * SizeOf(ParallelAlphaBetaRec)));
       err := MemError;
-      
-      
+
+
       // initialisation des pointeurs
       if err = NoErr then
         begin
@@ -3066,12 +3066,12 @@ begin
             begin
               gAlphaBetaInterrompu[i]                   := kPasDInterrumptionPourCetteThread;
               gMutexEcritureInterruptionThread[i]       := 0;
-              gAlphaBetaTasksData^[i].semaphoreDeReveil := NIL; 
+              gAlphaBetaTasksData^[i].semaphoreDeReveil := NIL;
               gAlphaBetaTasksData^[i].taskID            := NIL;
               gAlphaBetaTasksData^[i].etat              := kNoOrderReceived;
-              
+
               with gFileDesResultats[i] do
-                begin                         
+                begin
                   nombreDeResultats  := 0;
                   valeurResultat     := kValeurSpecialeInterruptionCalculParallele;
                   coup               := 0;
@@ -3080,62 +3080,62 @@ begin
                 end;
             end;
         end;
-          
+
       OS_MEMORY_BARRIER;
-      
-      
+
+
       // creer la file de validation de destruction des taches
       if (err = noErr) then
          err := MPCreateQueue(gTerminaisonDesTaches);
-         
-         
-      // creer la file des threads initialement mortes  
+
+
+      // creer la file des threads initialement mortes
       if (err = noErr) then
          err := MPCreateQueue(gListeDesThreadsMortes);
-         
-      
+
+
       // creer la region critique d'ecriture dans le rapport pour le debugage
       if (err = noErr) then
          err := MPCreateCriticalRegion(gRapportCriticalRegionID);
-      
-      
+
+
       // creer le mutex d'affichage des valeurs de debugage du parallelisme
       gMesureDeParallelsimeMutex := 0;
-      
-      
+
+
       // lancement des taches esclaves, pour les processeurs 1 .. (nombreProcesseurs - 1)
       for i := 1 to kNombreMaxAlphaBetaTasks do
         if (err = noErr) then
             begin
-              
-            
+
+
               gAlphaBetaTasksData^[i].nroThread := i;
-            
-              if (err = noErr) then err := MPCreateSemaphore(1,0,gAlphaBetaTasksData^[i].semaphoreDeReveil); 
-              
+
+              if (err = noErr) then err := MPCreateSemaphore(1,0,gAlphaBetaTasksData^[i].semaphoreDeReveil);
+
               OS_MEMORY_BARRIER;
-              
-              if (err = noErr) then err := MPCreateTask(@MyAlphaBetaTask, 
-                                                        @gAlphaBetaTasksData^[i], 
+
+              if (err = noErr) then err := MPCreateTask(@MyAlphaBetaTask,
+                                                        @gAlphaBetaTasksData^[i],
                                                         kMPStackSize,
-                                                        gTerminaisonDesTaches, NIL, NIL, 
+                                                        gTerminaisonDesTaches, NIL, NIL,
                                                         kMPTaskOptions,
                                                         @gAlphaBetaTasksData^[i].taskID);
             end;
-      
-      
+
+
       // if something went wrong, just go back to single processor mode
-      
+
       if (err <> noErr) then
         begin
           StopAlphaBetaTasks;
           numProcessors := 1;
         end;
     end;
-  
+
   // only one processor is active at the moment, on which the normal, monothreaded Cassio is running
   gNbreProcesseursCalculant    := 1;
-  
+
 end;
 
 
@@ -3145,44 +3145,44 @@ var i : UInt32;
 begin
   if gAlphaBetaTasksData <> NIL then
     begin
-    
-    
+
+
       for i := 1 to kNombreMaxAlphaBetaTasks do
         with gAlphaBetaTasksData^[i] do
           begin
-            
+
             if taskID <> NIL then
               begin
                 err := MPTerminateTask(taskID, noErr);
                 err := MPWaitOnQueue(gTerminaisonDesTaches, NIL, NIL, NIL, kDurationForever);
               end;
-            
+
             if (semaphoreDeReveil <> NIL)
-              then err := MPDeleteSemaphore(semaphoreDeReveil); 
-          
+              then err := MPDeleteSemaphore(semaphoreDeReveil);
+
           end;
-      
-      
+
+
       if (gListeDesThreadsMortes <> NIL) then
         begin
           err := MPDeleteQueue(gListeDesThreadsMortes);
           gListeDesThreadsMortes := NIL;
         end;
-      
+
       if (gTerminaisonDesTaches <> NIL) then
         begin
           err := MPDeleteQueue(gTerminaisonDesTaches);
           gTerminaisonDesTaches := NIL;
         end;
-      
+
       if (gRapportCriticalRegionID <> NIL) then
         begin
           err := MPDeleteCriticalRegion(gRapportCriticalRegionID);
           gRapportCriticalRegionID := NIL;
         end;
-      
+
       DisposeMemoryPtr(Ptr(gAlphaBetaTasksData));
-            
+
     end;
 end;
 
@@ -3196,11 +3196,11 @@ begin  {$unused err}
 
   ATOMIC_INCREMENT_32(gNbreAppelsMesureDeParallelisme);
   ATOMIC_ADD_32(gNbreProcesseursCalculant,gDegreDeParallelisme);
-  
+
   if (gNbreProcesseursCalculant > numProcessors) then
     ATOMIC_INCREMENT_32(gFraisDeSynchronisation);
-  
-  
+
+
   // pas de blague d'overflow, hein...
   if (gDegreDeParallelisme < 0) | (gNbreAppelsMesureDeParallelisme < 0) | (gFraisDeSynchronisation < 0) then
     begin
@@ -3208,9 +3208,9 @@ begin  {$unused err}
       gDegreDeParallelisme := 0;
       gFraisDeSynchronisation := 0;
     end;
-  
-  
-  
+
+
+
   // ASSERT : verification que Cassio a au moins un processeur actif... pouf pouf
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   if (gNbreProcesseursCalculant < 0) then
@@ -3222,8 +3222,8 @@ begin  {$unused err}
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
+
+
   // ASSERT : verification que Cassio n'a pas lancé plus de taches que de processeurs physiques...
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   if (gNbreProcesseursCalculant > numProcessors) then
@@ -3235,14 +3235,14 @@ begin  {$unused err}
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
-    
+
+
+
   {
-  if (gNbreAppelsMesureDeParallelisme mod 1024) = 0 
+  if (gNbreAppelsMesureDeParallelisme mod 1024) = 0
     then EcrireMesureDeParallelismeDansRapport;
   }
-  
+
 end;
 
 
@@ -3270,7 +3270,7 @@ end;
 
 procedure EcrireMesureDeParallelismeDansRapport;
 begin
-  if (gNbreAppelsMesureDeParallelisme <> 0) 
+  if (gNbreAppelsMesureDeParallelisme <> 0)
     then WritelnStringAndReelDansRapport('// = ',TauxDeParallelisme, 8)
     else WritelnDansRapport(' non disponible');
 end;
@@ -3278,7 +3278,7 @@ end;
 
 procedure EcrireFraisDeSynchronisationDansRapport;
 begin
-  if (gNbreAppelsMesureDeParallelisme <> 0) 
+  if (gNbreAppelsMesureDeParallelisme <> 0)
     then WritelnStringAndReelDansRapport('∑ = ',FraisDeSynchro, 8)
     else WritelnDansRapport(' non disponible');
 end;
@@ -3286,7 +3286,7 @@ end;
 
 procedure EcrireParallelismeUtileDansRapport;
 begin
-  if (gNbreAppelsMesureDeParallelisme <> 0) 
+  if (gNbreAppelsMesureDeParallelisme <> 0)
     then WritelnStringAndReelDansRapport('',ParallelismeUtile, 8)
     else WritelnDansRapport(' non disponible');
 end;
@@ -3298,69 +3298,69 @@ var i : SInt32;
 begin
 
   (*
-  
+
   if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(0, 1, gMesureDeParallelsimeMutex) <> 0 then
     begin
-  
+
       if windowPlateauOpen then
         begin
 
           for i := 0 to kNombreMaxAlphaBetaTasks do
             begin
               s := 'etat de la thread '+NumEnString(i)+' = ';
-              
+
               WriteNumAt('                                                                                                                          ',0,365,300+i*10);
               WriteNumAt(s,gAlphaBetaTasksData^[i].etat,365,300+i*10);
             end;
-          
+
           s := 'nombre de mutex utilisés sur la table de hachage = ';
           WriteNumAt(s,NumberOfBitHashMutexLocksInUse,365,300+(kNombreMaxAlphaBetaTasks+2)*10);
-          
+
           s := 'nombre de processeurs calculants = ';
           WriteNumAt(s,gNbreProcesseursCalculant,365,300+(kNombreMaxAlphaBetaTasks+3)*10);
-          
+
           s := 'nombre de threads disponibles = ';
           WriteNumAt(s,NbreDeThreadsDisponibles,365,300+(kNombreMaxAlphaBetaTasks+4)*10);
-          
+
           for i := 0 to kNombreDeProfilersDuParallelisme do
             begin
               s := 'gProfilerParallelisme['+NumEnString(i)+'] = ';
-              
+
               WriteNumAt(s,gProfilerParallelisme[i],15,300+i*10);
             end;
-          
-          
+
+
           for i := 0 to kNombreMaxAlphaBetaTasks do
             begin
               s := 'gFileDesResultats['+NumEnString(i)+'] = ';
-              
+
               WriteNumAt(s,gFileDesResultats[i].nombreDeResultats,225,300+i*10);
             end;
-          
+
         end;
-        
-        
-    
+
+
+
       if ATOMIC_COMPARE_AND_SWAP_32_BARRIER(1, 0, gMesureDeParallelsimeMutex) <> 0 then;
     end;
-    
+
   *)
-  
+
 end;
 
 
 procedure AttendreFrappeClavierParallelisme(attenteTouche : boolean);
-var err : OSErr;  
+var err : OSErr;
 begin   {$unused attenteTouche}
 
 
   AfficherLesSpinlocksDuParallelisme;
   {if WaitNextEvent(0,fooEventParallelisme,2,NIL) then;}
-  
-  
+
+
   if (QDIsPortBuffered(GetWindowPort(wPlateauPtr))) then
-    QDFlushPortBuffer(GetWindowPort(wPlateauPtr), NIL); 
-  
+    QDFlushPortBuffer(GetWindowPort(wPlateauPtr), NIL);
+
   // ASSERT : verification que Cassio a au moins un processeur actif... pouf pouf
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   if (gNbreProcesseursCalculant < 0) then
@@ -3371,8 +3371,8 @@ begin   {$unused attenteTouche}
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
-  
+
+
   // ASSERT : verification que Cassio n'a pas lancé plus de taches que de processeurs physiques...
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
   if (gNbreProcesseursCalculant > numProcessors) then
@@ -3383,10 +3383,10 @@ begin   {$unused attenteTouche}
       err := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
   {$ENDC}
-  
+
   (*
   if attenteTouche & gAvecAttenteTouchePourDebuguerParallelisme
-    then 
+    then
       begin
         AttendFrappeClavier;
       end;
@@ -3404,7 +3404,7 @@ begin
     else
       begin
         DoitDebugguerParallelismeDansRapport := false;
-        
+
         // mais on affiche quand meme les spin-locks du parallelisme dans la fenetre de l'othellier
         AttendreFrappeClavierParallelisme(false);
       end;
@@ -3434,23 +3434,23 @@ var p1, p2, p3 : Ptr;
 begin {$UNUSED parameter}
   while (true) do
     begin
-    
-      case reflectOP of 
+
+      case reflectOP of
         aQueue :     err := MPWaitOnQueue(MPQueueID(waiterID),@p1,@p2,@p3,kDurationForever);
         aSemaphore : err := MPWaitOnSemaphore(MPSemaphoreID(waiterID),kDurationForever);
         anEvent :    err := MPWaitForEvent(MPEventID(waiterID), @events,kDurationForever);
         otherwise    return (-123);
       end; {case}
-      
-      case reflectOP of 
+
+      case reflectOP of
         aQueue :     err := MPNotifyQueue(MPQueueID(postID),p1,p2,p3);
         aSemaphore : err := MPSignalSemaphore(MPSemaphoreID(postID));
         anEvent :    err := MPSetEvent(MPEventID(postID), $01010101);
         otherwise    return (-123);
       end; {case}
-      
+
     end;
-  
+
   return (-123);
 end;
 
@@ -3470,45 +3470,45 @@ begin
 
   WritelnDansRapport('entrée dans CalculateIntertaskSignalingTime…');
   WritelnDansRapport('');
-  
+
   if not(MPLibraryIsLoaded) then
     begin
       WritelnDansRapport('The MP library did not load.');
       exit(CalculateIntertaskSignalingTime);
     end;
-    
+
     WritelnDansRapport('Librairie multiprocessing chargée...   OK');
-    
-    
+
+
     // QUEUES
-    
+
     WritelnDansRapport('');
     WritelnDansRapport('Essai de synchronisation par des QUEUES : ');
     WritelnDansRapport('');
-    
+
     reflectOP := aQueue;
     err := MPCreateQueue(MPQueueID(waiterID));
     err := MPCreateQueue(MPQueueID(postID));
-    
-    
+
+
     WritelnDansRapport('temps de création du process (peut varier significativement) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(1);
-    
+
     err := MPCreateTask(@Reflector,NIL,0,NIL,NIL,NIL,kNilOptions,@task);
-    
+
     StopChronometreRelatif(1);
-    
+
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
         exit(CalculateIntertaskSignalingTime);
       end;
-    
+
     WritelnDansRapport('temps de 100000 synchronisation (queues) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(2);
-    
+
     count := 100000;
     for i := 1 to count do
       begin
@@ -3517,40 +3517,40 @@ begin
           err := MPWaitOnQueue(MPQueueID(postID),@p1,@p2,@p3,kDurationImmediate);
         until (err <> kMPTimeoutErr);
       end;
-    
+
     StopChronometreRelatif(2);
-    
+
     err := MPTerminateTask(task, 123);
-    
-  
+
+
     // SEMAPHORE
-    
+
     WritelnDansRapport('');
     WritelnDansRapport('Essai de synchronisation par des SEMAPHORES : ');
     WritelnDansRapport('');
-    
+
     reflectOP := aSemaphore;
     err := MPCreateSemaphore(1,0,MPSemaphoreID(waiterID));
     err := MPCreateSemaphore(1,0,MPSemaphoreID(postID));
-    
+
     WritelnDansRapport('temps de création du process (peut varier significativement) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(3);
-    
+
     err := MPCreateTask(@Reflector,NIL,0,NIL,NIL,NIL,kNilOptions,@task);
-    
+
     StopChronometreRelatif(3);
-    
+
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
         exit(CalculateIntertaskSignalingTime);
       end;
-    
+
     WritelnDansRapport('temps de 100000 synchronisation (sémaphores) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(4);
-    
+
     count := 100000;
     for i := 1 to count do
       begin
@@ -3559,40 +3559,40 @@ begin
           err := MPWaitOnSemaphore(MPSemaphoreID(postID),kDurationImmediate);
         until (err <> kMPTimeoutErr);
       end;
-    
+
     StopChronometreRelatif(4);
-    
+
     err := MPTerminateTask(task, 123);
-    
-    
+
+
     // EVENT GROUP
-    
+
     WritelnDansRapport('');
     WritelnDansRapport('Essai de synchronisation par des EVENT GROUPS : ');
     WritelnDansRapport('');
-    
+
     reflectOP := anEvent;
     err := MPCreateEvent(MPEventID(waiterID));
     err := MPCreateEvent(MPEventID(postID));
-    
+
     WritelnDansRapport('temps de création du process (peut varier significativement) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(5);
-    
+
     err := MPCreateTask(@Reflector,NIL,0,NIL,NIL,NIL,kNilOptions,@task);
-    
+
     StopChronometreRelatif(5);
-    
+
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
         exit(CalculateIntertaskSignalingTime);
       end;
-    
+
     WritelnDansRapport('temps de 100000 synchronisation (event groups) : ');
     WritelnDansRapport('');
     BeginChronometreRelatif(6);
-    
+
     count := 100000;
     for i := 1 to count do
       begin
@@ -3601,18 +3601,18 @@ begin
           err := MPWaitForEvent(MPEventID(postID),@events,kDurationImmediate);
         until (err <> kMPTimeoutErr);
       end;
-    
+
     StopChronometreRelatif(6);
-    
+
     err := MPTerminateTask(task, 123);
-    
+
     WritelnDansRapport('');
     WritelnDansRapport('Sortie de CalculateIntertaskSignalingTime');
 end;
- 
 
 
-{$pragmac  optimization_level reset }  
+
+{$pragmac  optimization_level reset }
 
 
 

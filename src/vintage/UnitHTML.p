@@ -15,18 +15,18 @@ INTERFACE
 
 
 {fonctions pour generer du code HTML correspondant ˆ un diagramme}
-function StringEnHTML(s : String255) : String255;                                                                                                                                   ATTRIBUTE_NAME('StringEnHTML')
-function WritelnEnHTMLDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;                                                                                            ATTRIBUTE_NAME('WritelnEnHTMLDansFichierAbstrait')
-function WritePositionEtTraitPageWebFFODansFichierAbstrait(position : PositionEtTraitRec; legende : String255; var theFile : FichierAbstrait) : OSErr;                                      ATTRIBUTE_NAME('WritePositionEtTraitPageWebFFODansFichierAbstrait')
-function WritePositionEtTraitEnHTMLDansFichierAbstrait(position : PositionEtTraitRec; var theFile : FichierAbstrait; chainePrologue, chaineEpilogue, chainePionsNoirs, chainePionsBlancs, chaineCoupsLegauxBlancs, chaineCoupsLegauxNoirs, chaineAutresCasesVides, chaineTop, chaineBottom, chaineBordureGauche, chaineBordureDroite, chaineLegende : String255 ) : OSErr;      ATTRIBUTE_NAME('WritePositionEtTraitEnHTMLDansFichierAbstrait')
+function StringEnHTML(s : String255) : String255;
+function WritelnEnHTMLDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;
+function WritePositionEtTraitPageWebFFODansFichierAbstrait(position : PositionEtTraitRec; legende : String255; var theFile : FichierAbstrait) : OSErr;
+function WritePositionEtTraitEnHTMLDansFichierAbstrait(position : PositionEtTraitRec; var theFile : FichierAbstrait; chainePrologue, chaineEpilogue, chainePionsNoirs, chainePionsBlancs, chaineCoupsLegauxBlancs, chaineCoupsLegauxNoirs, chaineAutresCasesVides, chaineTop, chaineBottom, chaineBordureGauche, chaineBordureDroite, chaineLegende : String255 ) : OSErr;
 
 
 {quelques fonctions pour generer les images utilisees dans le code HTML}
-procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : FSSpec);                                                                                            ATTRIBUTE_NAME('ConvertPICTtoJPEGandExportToFile')
-procedure ExportPictureToFile(thePicHandle : PicHandle; nomFichier : String255);                                                                                                    ATTRIBUTE_NAME('ExportPictureToFile')
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : FSSpec) : OSErr;                                                                     ATTRIBUTE_NAME('QTGraph_ShowImageFromFile')
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);                               ATTRIBUTE_NAME('QTGraph_ShowImageWithTransparenceFromFile')
-procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : FSSpec);                                                                                              ATTRIBUTE_NAME('CreateJPEGImageOfPosition')
+procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : FSSpec);
+procedure ExportPictureToFile(thePicHandle : PicHandle; nomFichier : String255);
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : FSSpec) : OSErr;
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);
+procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : FSSpec);
 
 
 

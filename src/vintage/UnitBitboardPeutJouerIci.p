@@ -13,7 +13,7 @@ INTERFACE
 
 
 
-function PeutJouerIciBitboard(coup : SInt32; var position : bitboard) : boolean;                                                                                                    ATTRIBUTE_NAME('PeutJouerIciBitboard')
+function PeutJouerIciBitboard(coup : SInt32; var position : bitboard) : boolean;
 
 
 IMPLEMENTATION

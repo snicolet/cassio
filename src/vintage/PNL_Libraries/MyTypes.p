@@ -137,7 +137,7 @@ INTERFACE
 		downArrowChar = $1f;
 		spaceChar = $20;
 		delChar = $7f;
-		bulletChar = $a5; 
+		bulletChar = $a5;
 		undoKey = $7a;
 		cutKey = $78;
 		copyKey = $63;
@@ -176,42 +176,42 @@ INTERFACE
 		short = SInt16;
 		long = SInt32;
     ProcedureType = procedure;
-    
+
     bytePtr =  ^UInt8;
-     
-    
-    
+
+
+
     LongintArray = array[0..0] of SInt32;
     LongintArrayPtr = ^LongintArray;
     LongintArrayHdl = ^LongintArrayPtr;
-    
+
 
     IntegerArray = array[0..0] of SInt16;
     IntegerArrayPtr = ^IntegerArray;
     IntegerArrayHdl = ^IntegerArrayPtr;
-    
-    
+
+
     PackedArrayOfChar = packed array[0..0] of char;
 		PackedArrayOfCharPtr = ^PackedArrayOfChar;
 
 
-    
+
     CharArray = PACKED ARRAY [0..32001] OF CHAR;
     CharArrayPtr = ^CharArray;
     CharArrayHandle = ^CharArrayPtr;
-    
-    
+
+
     {TypeReel = float_t;}  {single precision (4 bytes) on PPC}
      TypeReel = double_t;  {double precision (8 bytes) on PPC}
-   
-   
+
+
     TypeReelArray = array[0..40] of TypeReel;
     TypeReelArrayPtr =  ^TypeReelArray;
-  
-    
+
+
     {
     str255 = string[255];
-    
+
     Byte = 0..255;
     SInt8 = -128..127;
     UInt8 = Byte;
@@ -221,14 +221,14 @@ INTERFACE
     UInt32 = longint;
     SInt32 = longint;
     UniChar = UInt16;
-    
+
     Ptr = ^SInt8;
     Handle = ^Ptr;
     }
-    
+
   (* on rajoute ces definitions, qui ne sont pas dans Carbon *)
-  
-  
+
+
   type  SFReplyPtr = ^SFReply;
         SFReply = RECORD
 		                good:				  	BOOLEAN;
@@ -268,14 +268,14 @@ INTERFACE
 				theMenuWidth : SInt32;
 				theMenuFontID : SInt16;
 				theMenuFontSize : UInt16;
-				theItem : SInt16; 
+				theItem : SInt16;
 				checkedItems : menuCmdSet;
 				provientDUneResource : boolean;
 				installe : boolean;
 			end;
 
 		ProcedureTypeWithLongint = procedure(var param : SInt32);
-    
+
 
 {$ifc defined __GPC__}
     UnivPtr = Pointer;
@@ -289,17 +289,17 @@ INTERFACE
 
   var
 
-		GenevaID : SInt16; 
-		CourierID : SInt16; 
-		MonacoID : SInt16; 
-		TimesID : SInt16; 
-		NewYorkID : SInt16; 
-		PalatinoID : SInt16; 
-		SymbolID : SInt16; 
-		TimesNewRomanID : SInt16; 
-		TrebuchetMSID : SInt16; 
-		EpsiSansID : SInt16; 
-		HelveticaID : SInt16; 
+		GenevaID : SInt16;
+		CourierID : SInt16;
+		MonacoID : SInt16;
+		TimesID : SInt16;
+		NewYorkID : SInt16;
+		PalatinoID : SInt16;
+		SymbolID : SInt16;
+		TimesNewRomanID : SInt16;
+		TrebuchetMSID : SInt16;
+		EpsiSansID : SInt16;
+		HelveticaID : SInt16;
 
 const
 		my_font_strh_id = 1900;
@@ -308,14 +308,14 @@ const
 		SavedWindowInfo = record
 				oldport: GrafPtr;
 				thisport: GrafPtr;
-				font: SInt16; 
-				size: SInt16; 
+				font: SInt16;
+				size: SInt16;
 				face: Style;
 			end;
 
 	type
 		MyFontType = (
-				MFT_Geneva0, MFT_Geneva9, MFT_Geneva12, 
+				MFT_Geneva0, MFT_Geneva9, MFT_Geneva12,
 				MFT_Courier0, MFT_Courier9, MFT_Courier12,
 				MFT_Chicago0, MFT_Chicago9, MFT_Chicago12,
 				MFT_System0, MFT_System9, MFT_System12,

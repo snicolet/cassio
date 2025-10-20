@@ -6,19 +6,19 @@ INTERFACE
 
 USES UnitDefCassio;
 
-function CassioIsInBackground : boolean;                                                                                                                                            ATTRIBUTE_NAME('CassioIsInBackground')
-function CassioEstEnModeSolitaire : boolean;                                                                                                                                        ATTRIBUTE_NAME('CassioEstEnModeSolitaire')
-function CassioEstEnModeAnalyse : boolean;                                                                                                                                          ATTRIBUTE_NAME('CassioEstEnModeAnalyse')
-function AuMoinsUneZoneDeTexteEnModeEntree : boolean;                                                                                                                               ATTRIBUTE_NAME('AuMoinsUneZoneDeTexteEnModeEntree')
-function CassioEstEnTrainDePlaquerUnSolitaire : boolean;                                                                                                                            ATTRIBUTE_NAME('CassioEstEnTrainDePlaquerUnSolitaire')
-procedure SetCassioEstEnTrainDePlaquerUnSolitaire(flag : boolean);                                                                                                                  ATTRIBUTE_NAME('SetCassioEstEnTrainDePlaquerUnSolitaire')
+function CassioIsInBackground : boolean;
+function CassioEstEnModeSolitaire : boolean;
+function CassioEstEnModeAnalyse : boolean;
+function AuMoinsUneZoneDeTexteEnModeEntree : boolean;
+function CassioEstEnTrainDePlaquerUnSolitaire : boolean;
+procedure SetCassioEstEnTrainDePlaquerUnSolitaire(flag : boolean);
 
 
 { des fonctions pour prendre des decisions sur le type de calcul a lancer, ou d'interrution a lancer, etc. }
-procedure GetConfigurationCouranteDeCassio(var config : ConfigurationCassioRec);                                                                                                    ATTRIBUTE_NAME('GetConfigurationCouranteDeCassio')
-procedure ChangeConfiguration(var config : ConfigurationCassioRec; const message : String255; value : SInt32);                                                                      ATTRIBUTE_NAME('ChangeConfiguration')
-function TypeDeCalculLanceParCassioDansCetteConfiguration(var config : ConfigurationCassioRec) : SInt32;                                                                            ATTRIBUTE_NAME('TypeDeCalculLanceParCassioDansCetteConfiguration')
-procedure UpdateConfigurationDeCassio;                                                                                                                                              ATTRIBUTE_NAME('UpdateConfigurationDeCassio')
+procedure GetConfigurationCouranteDeCassio(var config : ConfigurationCassioRec);
+procedure ChangeConfiguration(var config : ConfigurationCassioRec; const message : String255; value : SInt32);
+function TypeDeCalculLanceParCassioDansCetteConfiguration(var config : ConfigurationCassioRec) : SInt32;
+procedure UpdateConfigurationDeCassio;
 
 
 IMPLEMENTATION

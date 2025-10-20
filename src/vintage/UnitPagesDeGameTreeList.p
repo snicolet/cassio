@@ -13,17 +13,17 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure InitUnitPagesDeGameTreeList;                                                                                                                                              ATTRIBUTE_NAME('InitUnitPagesDeGameTreeList')
-procedure DisposeToutesLesPagesDeGameTreeList;                                                                                                                                      ATTRIBUTE_NAME('DisposeToutesLesPagesDeGameTreeList')
+procedure InitUnitPagesDeGameTreeList;
+procedure DisposeToutesLesPagesDeGameTreeList;
 
 
-function PeutCreerNouvellePageGameTreeList : boolean;                                                                                                                               ATTRIBUTE_NAME('PeutCreerNouvellePageGameTreeList')
-function TrouvePlaceDansPageDeGameTreeList(var nroPage,nroIndex : SInt32) : boolean;                                                                                                ATTRIBUTE_NAME('TrouvePlaceDansPageDeGameTreeList')
-procedure LocaliserGameTreeListDansSaPage(L : GameTreeList; var nroDePage,nroIndex : SInt32);                                                                                       ATTRIBUTE_NAME('LocaliserGameTreeListDansSaPage')
+function PeutCreerNouvellePageGameTreeList : boolean;
+function TrouvePlaceDansPageDeGameTreeList(var nroPage,nroIndex : SInt32) : boolean;
+procedure LocaliserGameTreeListDansSaPage(L : GameTreeList; var nroDePage,nroIndex : SInt32);
 
 
-function NewGameTreeListPaginee : GameTreeList;                                                                                                                                     ATTRIBUTE_NAME('NewGameTreeListPaginee')
-procedure DisposeGameTreeListPaginee(L : GameTreeList);                                                                                                                             ATTRIBUTE_NAME('DisposeGameTreeListPaginee')
+function NewGameTreeListPaginee : GameTreeList;
+procedure DisposeGameTreeListPaginee(L : GameTreeList);
 
 
 

@@ -13,43 +13,43 @@ INTERFACE
 
 
 { initialisation de l'unite }
-procedure InitUnitEvaluation;                                                                                                                                                       ATTRIBUTE_NAME('InitUnitEvaluation')
-procedure LibereMemoireUnitEvaluation;                                                                                                                                              ATTRIBUTE_NAME('LibereMemoireUnitEvaluation')
+procedure InitUnitEvaluation;
+procedure LibereMemoireUnitEvaluation;
 
 
 { Gestion des types d'evaluation disponibles dans Cassio }
-function TypeEvalEnChaine(whichEval : EvalsDisponibles) : String255;                                                                                                                ATTRIBUTE_NAME('TypeEvalEnChaine')
-procedure SetTypeEvaluationEnCours(laquelle : SInt32);                                                                                                                              ATTRIBUTE_NAME('SetTypeEvaluationEnCours')
-function TypeEvalEnCoursEnInteger : SInt32;                                                                                                                                         ATTRIBUTE_NAME('TypeEvalEnCoursEnInteger')
+function TypeEvalEnChaine(whichEval : EvalsDisponibles) : String255;
+procedure SetTypeEvaluationEnCours(laquelle : SInt32);
+function TypeEvalEnCoursEnInteger : SInt32;
 
 
 
 { L'evaluation elle-meme ! }
-function Evaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; alpha,beta : SInt32; var nbEvaluationsRecursives : SInt32) : SInt32;                                     ATTRIBUTE_NAME('Evaluation')
+function Evaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; alpha,beta : SInt32; var nbEvaluationsRecursives : SInt32) : SInt32;
 
 
 
 { ATTENTION : ces fonctions sont lentes car elle doivent recalculer
               tous les index des patterns, la frontiere, etc. alors
               que l'alpha-beta calcule normalement ceci incrementalement }
-function EvaluationHorsContexte(var whichPos : PositionEtTraitRec) : SInt32;                                                                                                        ATTRIBUTE_NAME('EvaluationHorsContexte')
-function EvaluationHorsContexteACetteProfondeur(var whichPos : PositionEtTraitRec; prof : SInt32; var meilleurCoup : SInt32; withCheckEvents : boolean) : SInt32;                   ATTRIBUTE_NAME('EvaluationHorsContexteACetteProfondeur')
-function GetListeTrieeDesCoupsACetteProfondeurHorsContexte(var whichPos : PositionEtTraitRec; prof : SInt32;  var liste : ListOfMoveRecords; withCheckEvents : boolean) : SInt32;   ATTRIBUTE_NAME('GetListeTrieeDesCoupsACetteProfondeurHorsContexte')
+function EvaluationHorsContexte(var whichPos : PositionEtTraitRec) : SInt32;
+function EvaluationHorsContexteACetteProfondeur(var whichPos : PositionEtTraitRec; prof : SInt32; var meilleurCoup : SInt32; withCheckEvents : boolean) : SInt32;
+function GetListeTrieeDesCoupsACetteProfondeurHorsContexte(var whichPos : PositionEtTraitRec; prof : SInt32;  var liste : ListOfMoveRecords; withCheckEvents : boolean) : SInt32;
 
 
 
 { Une petite fonction pour faire des statistiques sur les composantes de l'eval (obsolete) }
-function CreeEvaluationCassioRec(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront) : EvaluationCassioRec;       ATTRIBUTE_NAME('CreeEvaluationCassioRec')
+function CreeEvaluationCassioRec(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront) : EvaluationCassioRec;
 
 
 
 { Des evaluations pittoresques pour les niveaux faibles de Cassio }
-function EvaluationMaximisation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32) : SInt32;                                                                  ATTRIBUTE_NAME('EvaluationMaximisation')
-function EvaluationDesBords(var position : plateauOthello; coulEvaluation : SInt32; var front : InfoFront) : SInt32;                                                                ATTRIBUTE_NAME('EvaluationDesBords')
+function EvaluationMaximisation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32) : SInt32;
+function EvaluationDesBords(var position : plateauOthello; coulEvaluation : SInt32; var front : InfoFront) : SInt32;
 
 
 { Une fonction utile por le debugage }
-function EstLaPositionBizarreDansEvaluation(var position : plateauOthello; coulEvaluation : SInt32) : boolean;                                                                      ATTRIBUTE_NAME('EstLaPositionBizarreDansEvaluation')
+function EstLaPositionBizarreDansEvaluation(var position : plateauOthello; coulEvaluation : SInt32) : boolean;
 
 
 
@@ -325,7 +325,7 @@ begin
 end;
 
 
-function AlphaBetaCoupsTranquillesDansEvaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; var alpha,beta : SInt32; var listeDesCoupsTranquilles : ListeDeCases; var dejaEssayes : plBool) : SInt32;         
+function AlphaBetaCoupsTranquillesDansEvaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; var alpha,beta : SInt32; var listeDesCoupsTranquilles : ListeDeCases; var dejaEssayes : plBool) : SInt32;
 var platRecur : plateauOthello;
     jouableRecur : plBool;
     frontRecur : InfoFront;

@@ -11,13 +11,13 @@ USES MyTypes;
 
 
 
-procedure MakeDoubleMetaphone(original : String255; var primary,secondary : String255);                                                                                             ATTRIBUTE_NAME('MakeDoubleMetaphone')
-function FabriqueMetaphoneDesLexemes(original : String255) : String255;                                                                                                             ATTRIBUTE_NAME('FabriqueMetaphoneDesLexemes')
+procedure MakeDoubleMetaphone(original : String255; var primary,secondary : String255);
+function FabriqueMetaphoneDesLexemes(original : String255) : String255;
 
 
 
 
-procedure TestUnitDoubleMetaphone;                                                                                                                                                  ATTRIBUTE_NAME('TestUnitDoubleMetaphone')
+procedure TestUnitDoubleMetaphone;
 
 
 

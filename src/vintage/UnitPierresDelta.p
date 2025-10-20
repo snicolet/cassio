@@ -17,32 +17,32 @@ INTERFACE
 
 
 {fonctions de dessin sur l'othellier }
-procedure DessinerUnePierreDelta(const plat : plateauOthello; quelleCase, quelGenre : SInt16; GetRectForSquare2D : CalculeRect2DFunc; const texte : String255; use3D : boolean; GetRectDessusForSquare3D : CalculeRect3DFunc; {appelée si use3D = true} GetRectDessousForSquare3D : CalculeRect3DFunc); {appelée si use3D = true}                                            ATTRIBUTE_NAME('DessinerUnePierreDelta')
-procedure DessinerUnePierreDeltaDouble(const plat : plateauOthello; quelleCase1,quelleCase2,quelGenre : SInt16; GetRectForSquare2D : CalculeRect2DFunc; use3D : boolean; GetRectDessusForSquare3D : CalculeRect3DFunc; {appelée si use3D = true} GetRectDessousForSquare3D : CalculeRect3DFunc); {appelée si use3D = true}                                                   ATTRIBUTE_NAME('DessinerUnePierreDeltaDouble')
-procedure DesssinePierresDelta(G : GameTree; surQuellesCases : SquareSet);                                                                                                          ATTRIBUTE_NAME('DesssinePierresDelta')
-procedure DesssinePierresDeltaCourantes;                                                                                                                                            ATTRIBUTE_NAME('DesssinePierresDeltaCourantes')
-procedure SetRestrictedAreaDessinPierreDelta(const surQuellesCases : SquareSet);                                                                                                    ATTRIBUTE_NAME('SetRestrictedAreaDessinPierreDelta')
-function GetRestrictedAreaDessinPierreDelta : SquareSet;                                                                                                                            ATTRIBUTE_NAME('GetRestrictedAreaDessinPierreDelta')
+procedure DessinerUnePierreDelta(const plat : plateauOthello; quelleCase, quelGenre : SInt16; GetRectForSquare2D : CalculeRect2DFunc; const texte : String255; use3D : boolean; GetRectDessusForSquare3D : CalculeRect3DFunc; {appelée si use3D = true} GetRectDessousForSquare3D : CalculeRect3DFunc); {appelée si use3D = true}
+procedure DessinerUnePierreDeltaDouble(const plat : plateauOthello; quelleCase1,quelleCase2,quelGenre : SInt16; GetRectForSquare2D : CalculeRect2DFunc; use3D : boolean; GetRectDessusForSquare3D : CalculeRect3DFunc; {appelée si use3D = true} GetRectDessousForSquare3D : CalculeRect3DFunc); {appelée si use3D = true}
+procedure DesssinePierresDelta(G : GameTree; surQuellesCases : SquareSet);
+procedure DesssinePierresDeltaCourantes;
+procedure SetRestrictedAreaDessinPierreDelta(const surQuellesCases : SquareSet);
+function GetRestrictedAreaDessinPierreDelta : SquareSet;
 
 
 {iterateurs}
-procedure ItereSurPierresDelta(G : GameTree ; whichTypes : SetOfPropertyTypes; DoWhat : PropertyProc);                                                                              ATTRIBUTE_NAME('ItereSurPierresDelta')
-procedure ItereSurPierresDeltaCourantes(whichTypes : SetOfPropertyTypes; DoWhat : PropertyProc);                                                                                    ATTRIBUTE_NAME('ItereSurPierresDeltaCourantes')
-procedure ItereSurPierresDeltaAvecResult(G : GameTree ; whichTypes : SetOfPropertyTypes; DoWhat : PropertyProcAvecResult; var result : SInt32);                                     ATTRIBUTE_NAME('ItereSurPierresDeltaAvecResult')
-procedure ItereSurPierresDeltaCourantesAvecResult(whichTypes : SetOfPropertyTypes; DoWhat : PropertyProcAvecResult; var result : SInt32);                                           ATTRIBUTE_NAME('ItereSurPierresDeltaCourantesAvecResult')
+procedure ItereSurPierresDelta(G : GameTree ; whichTypes : SetOfPropertyTypes; DoWhat : PropertyProc);
+procedure ItereSurPierresDeltaCourantes(whichTypes : SetOfPropertyTypes; DoWhat : PropertyProc);
+procedure ItereSurPierresDeltaAvecResult(G : GameTree ; whichTypes : SetOfPropertyTypes; DoWhat : PropertyProcAvecResult; var result : SInt32);
+procedure ItereSurPierresDeltaCourantesAvecResult(whichTypes : SetOfPropertyTypes; DoWhat : PropertyProcAvecResult; var result : SInt32);
 
 
 {tranformation en string}
-function GetPierresDeltaEnString(G : GameTree) : String255;                                                                                                                         ATTRIBUTE_NAME('GetPierresDeltaEnString')
-function GetPierresDeltaCourantesEnString : String255;                                                                                                                              ATTRIBUTE_NAME('GetPierresDeltaCourantesEnString')
+function GetPierresDeltaEnString(G : GameTree) : String255;
+function GetPierresDeltaCourantesEnString : String255;
 
 
 {autres}
-procedure EffacePierresDelta(G : GameTree);                                                                                                                                         ATTRIBUTE_NAME('EffacePierresDelta')
-procedure EffacePierresDeltaCourantes;                                                                                                                                              ATTRIBUTE_NAME('EffacePierresDeltaCourantes')
-procedure AddRandomDeltaStoneToCurrentNode;                                                                                                                                         ATTRIBUTE_NAME('AddRandomDeltaStoneToCurrentNode')
-procedure ChangePierresDeltaApresCommandClicSurOthellier(mouseLoc : Point; jeu : plateauOthello; forceAfficheMarquesSpeciales : boolean);                                           ATTRIBUTE_NAME('ChangePierresDeltaApresCommandClicSurOthellier')
-function TypesPierresDelta : SetOfPropertyTypes;                                                                                                                                    ATTRIBUTE_NAME('TypesPierresDelta')
+procedure EffacePierresDelta(G : GameTree);
+procedure EffacePierresDeltaCourantes;
+procedure AddRandomDeltaStoneToCurrentNode;
+procedure ChangePierresDeltaApresCommandClicSurOthellier(mouseLoc : Point; jeu : plateauOthello; forceAfficheMarquesSpeciales : boolean);
+function TypesPierresDelta : SetOfPropertyTypes;
 
 
 
@@ -260,8 +260,8 @@ begin
 		      texte := GetStringInfoOfProperty(prop);
 		      SplitBy(texte, ':', foo, texte);
 		    end;
-      
-      
+
+
       case stockage of
         StockageEnEnsembleDeCases :
           begin
@@ -383,12 +383,12 @@ begin
     begin
       GetPort(oldPort);
       SetPortByWindow(wPlateauPtr);
-      
+
       flechesEtLignes := [ LineProp , ArrowProp ];
-      
+
       ItereSurPierresDeltaCourantes(TypesPierresDelta - flechesEtLignes, DessinerPierresDeltaOfProperty);
       ItereSurPierresDeltaCourantes(flechesEtLignes, DessinerPierresDeltaOfProperty);
-      
+
       SetPort(oldPort);
     end;
 end;
@@ -397,22 +397,22 @@ procedure DesssinePierresDelta(G : GameTree; surQuellesCases : SquareSet);
 var oldPort : grafPtr;
     oldRestrictedArea : SquareSet;
     flechesEtLignes : SetOfPropertyTypes;
-begin 
+begin
   if windowPlateauOpen then
     begin
       GetPort(oldPort);
       SetPortByWindow(wPlateauPtr);
-      
+
       oldRestrictedArea := GetRestrictedAreaDessinPierreDelta;
       SetRestrictedAreaDessinPierreDelta(surQuellesCases);
-      
+
       flechesEtLignes := [ LineProp , ArrowProp ];
-      
+
       ItereSurPierresDelta(G, TypesPierresDelta - flechesEtLignes , DessinerPierresDeltaOfProperty);
       ItereSurPierresDelta(G, flechesEtLignes , DessinerPierresDeltaOfProperty);
-      
+
       SetRestrictedAreaDessinPierreDelta(oldRestrictedArea);
-      
+
       SetPort(oldPort);
     end;
 end;
@@ -814,9 +814,9 @@ end;
 function GetPierresDeltaEnString(G : GameTree) : String255;
 begin
   gPierresDeltaStrAccumulator := '';
-  
+
   ItereSurPierresDelta(G, TypesPierresDelta, EcritStringRepresentationOfPropertyDansAccumulator);
-  
+
   GetPierresDeltaEnString := gPierresDeltaStrAccumulator;
 end;
 

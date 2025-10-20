@@ -23,60 +23,60 @@ USES UnitDefCassio , CFStream, UnitDefFichierAbstrait, UnitDefCFNetworkHTTP;
 
 
 { Initialize the unit }
-procedure InitUnitCFNetworkHTPP;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitCFNetworkHTPP')
-procedure LibereMemoireUnitCFNetworkHTPP;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnitCFNetworkHTPP')
-procedure InitReserveZonesTelechargement;                                                                                                                                           ATTRIBUTE_NAME('InitReserveZonesTelechargement')
+procedure InitUnitCFNetworkHTPP;
+procedure LibereMemoireUnitCFNetworkHTPP;
+procedure InitReserveZonesTelechargement;
 
 
 { gestion du pool des zones memoires utilisees pour les telechargements }
-function TrouverSlotLibreDansLaReservePourTelecharger(var numeroSlotLibre : SInt32) : boolean;                                                                                      ATTRIBUTE_NAME('TrouverSlotLibreDansLaReservePourTelecharger')
-function NombreDeSlotsLibresDansLaReservePourTelecharger : SInt32;                                                                                                                  ATTRIBUTE_NAME('NombreDeSlotsLibresDansLaReservePourTelecharger')
-procedure LibereSlotDansLaReservePourTelecharger(numeroSlot : SInt32);                                                                                                              ATTRIBUTE_NAME('LibereSlotDansLaReservePourTelecharger')
-function ThisSlotUsesAPermanentConnection(numeroSlot : SInt32) : boolean;                                                                                                           ATTRIBUTE_NAME('ThisSlotUsesAPermanentConnection')
+function TrouverSlotLibreDansLaReservePourTelecharger(var numeroSlotLibre : SInt32) : boolean;
+function NombreDeSlotsLibresDansLaReservePourTelecharger : SInt32;
+procedure LibereSlotDansLaReservePourTelecharger(numeroSlot : SInt32);
+function ThisSlotUsesAPermanentConnection(numeroSlot : SInt32) : boolean;
 
 
 {	DownloadURL : downloads the url in a FichierAbstrait }
-procedure DownloadURL(numeroSlot : SInt32; var url : LongString);                                                                                                                   ATTRIBUTE_NAME('DownloadURL')
-procedure DownloadURLToFichierAbstrait(numeroSlot : SInt32; var url : LongString; var whichFichierAbstrait : FichierAbstrait; terminationProc : FichierAbstraitLongintProc);                        ATTRIBUTE_NAME('DownloadURLToFichierAbstrait')
+procedure DownloadURL(numeroSlot : SInt32; var url : LongString);
+procedure DownloadURLToFichierAbstrait(numeroSlot : SInt32; var url : LongString; var whichFichierAbstrait : FichierAbstrait; terminationProc : FichierAbstraitLongintProc);
 
 
 { Modifier cette fonction pour utiliser le texte telecharge }
-procedure DoSomethingWithBuffer(stream : CFReadStreamRef; buffer : UnivPtr; longueurBuffer : SInt32);                                                                               ATTRIBUTE_NAME('DoSomethingWithBuffer')
+procedure DoSomethingWithBuffer(stream : CFReadStreamRef; buffer : UnivPtr; longueurBuffer : SInt32);
 
 
 {	We set up a one-shot timer to fire in 5 seconds which will terminate the download. }
 {	Every time we get some download activity in our notifier, we tickle the timer }
-procedure	ReadStreamClientCallBack(stream : CFReadStreamRef; event : CFStreamEventType ; clientCallBackInfo : UnivPtr);                                                             ATTRIBUTE_NAME('ReadStreamClientCallBack')
-procedure	NetworkTimeoutTimerProc(inTimer : EventLoopTimerRef ; inUserData : UnivPtr);                                                                                              ATTRIBUTE_NAME('NetworkTimeoutTimerProc')
-procedure CheckStreamEvents;                                                                                                                                                        ATTRIBUTE_NAME('CheckStreamEvents')
+procedure	ReadStreamClientCallBack(stream : CFReadStreamRef; event : CFStreamEventType ; clientCallBackInfo : UnivPtr);
+procedure	NetworkTimeoutTimerProc(inTimer : EventLoopTimerRef ; inUserData : UnivPtr);
+procedure CheckStreamEvents;
 
 
 { Utility function to terminate the download }
-procedure TerminateDownload( var stream : CFReadStreamRef; reason : CFStreamEventType ; nbrBytes : SInt32; error : CFStreamError; fonctionAppelante : String255);                   ATTRIBUTE_NAME('TerminateDownload')
+procedure TerminateDownload( var stream : CFReadStreamRef; reason : CFStreamEventType ; nbrBytes : SInt32; error : CFStreamError; fonctionAppelante : String255);
 
 
 { reporting network errors }
-procedure ReportNetworkError(whichError : CFStreamError);                                                                                                                           ATTRIBUTE_NAME('ReportNetworkError')
-procedure DumpCFNetwortConstantsToRapport;                                                                                                                                          ATTRIBUTE_NAME('DumpCFNetwortConstantsToRapport')
+procedure ReportNetworkError(whichError : CFStreamError);
+procedure DumpCFNetwortConstantsToRapport;
 
 
 {	Connection ˆ un hote, par un numero de port }
-function TryOpenPermanentConnection(host : String255; port : UInt16; serializator : EntreesSortieFichierAbstraitProc; termination : FichierAbstraitLongintProc; var numeroSlot : SInt32) : boolean;                                                                                   ATTRIBUTE_NAME('TryOpenPermanentConnection')
-function FindPermanentConnectionToHost( var host : String255; port : SInt32; var numeroSlot : SInt32) : boolean;                                                                    ATTRIBUTE_NAME('FindPermanentConnectionToHost')
-function SendBytesToPermanentConnection(buffer : Ptr; bufferLength, numeroSlot : SInt32) : boolean;                                                                                 ATTRIBUTE_NAME('SendBytesToPermanentConnection')
-function SendStringToPermanentConnection(var s : LongString; numeroSlot : SInt32) : boolean;                                                                                            ATTRIBUTE_NAME('SendStringToPermanentConnection')
+function TryOpenPermanentConnection(host : String255; port : UInt16; serializator : EntreesSortieFichierAbstraitProc; termination : FichierAbstraitLongintProc; var numeroSlot : SInt32) : boolean;
+function FindPermanentConnectionToHost( var host : String255; port : SInt32; var numeroSlot : SInt32) : boolean;
+function SendBytesToPermanentConnection(buffer : Ptr; bufferLength, numeroSlot : SInt32) : boolean;
+function SendStringToPermanentConnection(var s : LongString; numeroSlot : SInt32) : boolean;
 
 
 { Ouverture d'une URL dans le navigateur par defaut (Safari, Firefox, etc...) }
-procedure LSOpenURL (url: String255);                                                                                                                                               ATTRIBUTE_NAME('LSOpenURL')
+procedure LSOpenURL (url: String255);
 
 
 { gestion de bas niveau des slot de telechargement simultanes HTTP }
 (*
-function FindFichierAbstraitOfAsynchroneNetworkConnections( var stream : CFReadStreamRef; var numeroSlot : SInt32) : t_LocalFichierAbstraitPtr;                                                ATTRIBUTE_NAME('FindFichierAbstraitOfAsynchroneNetworkConnections')
-procedure InstallStreamOfAsynchroneNetworkConnections(numeroSlot : SInt32; rStream : CFReadStreamRef; wStream : CFWriteStreamRef; whichFichierAbstrait : t_LocalFichierAbstraitPtr; terminationProc : FichierAbstraitLongintProc);                                                                ATTRIBUTE_NAME('InstallStreamOfAsynchroneNetworkConnections')
-procedure InstallSerializatorForNetworkConnections(numeroSlot : SInt32; serializator : EntreesSortieFichierAbstraitProc);                                                                    ATTRIBUTE_NAME('InstallSerializatorForNetworkConnections')
-procedure RemoveStreamOfSimultaneaousNetworkConnections(stream : CFReadStreamRef; error : CFStreamError);                                                                                ATTRIBUTE_NAME('RemoveStreamOfSimultaneaousNetworkConnections')
+function FindFichierAbstraitOfAsynchroneNetworkConnections( var stream : CFReadStreamRef; var numeroSlot : SInt32) : t_LocalFichierAbstraitPtr;
+procedure InstallStreamOfAsynchroneNetworkConnections(numeroSlot : SInt32; rStream : CFReadStreamRef; wStream : CFWriteStreamRef; whichFichierAbstrait : t_LocalFichierAbstraitPtr; terminationProc : FichierAbstraitLongintProc);
+procedure InstallSerializatorForNetworkConnections(numeroSlot : SInt32; serializator : EntreesSortieFichierAbstraitProc);
+procedure RemoveStreamOfSimultaneaousNetworkConnections(stream : CFReadStreamRef; error : CFStreamError);
 *)
 
 
@@ -94,7 +94,7 @@ IMPLEMENTATION
 USES
     CarbonEventsCore, CFHTTPMessage, CFHTTPStream, CFNumber, CFBase, CFURL, CFString, CFHost
     , CFNetServices, CFFTPStream, CFSocketStream, Sound, OSUtils, CFNetworkglue, CFSocket, LaunchServices
-    
+
 {$IFC NOT(USE_PRELINK)}
     , UnitRapport, MyStrings, MyFileSystemUtils, UnitBaseNouveauFormat, SNEvents, UnitFichierAbstrait, UnitGestionDuTemps, UnitZoo
     , UnitLongString ;
@@ -144,7 +144,7 @@ var
 
 type t_LocalFichierAbstraitPtr = ^FichierAbstrait;
 
-     NetworkConnectionRec =    
+     NetworkConnectionRec =
                           record
                             theReadStream            : CFReadStreamRef;
                             theWriteStream           : CFWriteStreamRef;
@@ -1688,7 +1688,7 @@ begin
             begin
               LongStringToBuffer(s, @buffer[0], nbOctets);
               SendStringToPermanentConnection := SendBytesToPermanentConnection(@buffer[0], nbOctets, numeroSlot);
-              
+
               (*
               WritelnDansRapport('dans SendStringToPermanentConnection : ');
               WritelnNumDansRapport('      nbOctets = ',nbOctets);
@@ -1697,7 +1697,7 @@ begin
               WritelnLongStringDansRapport(s);
               WritelnDansRapport('');
               *)
-         
+
             end;
       end;
 end;

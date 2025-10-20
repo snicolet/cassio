@@ -15,21 +15,21 @@ INTERFACE
 
 
 {lecture et ecriture sur le disque}
-function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;                               ATTRIBUTE_NAME('EcritPartieFormatTHOR_PAR')
-function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32) : OSErr;                                                           ATTRIBUTE_NAME('EcritPartieVideDansFichierTHOR_PAR')
-function LitEnregistrementDansFichierThorPar(var fic : FichierTEXT; numero : SInt32; var enregistrement : ThorParRec) : OSErr;                                                      ATTRIBUTE_NAME('LitEnregistrementDansFichierThorPar')
+function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;
+function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32) : OSErr;
+function LitEnregistrementDansFichierThorPar(var fic : FichierTEXT; numero : SInt32; var enregistrement : ThorParRec) : OSErr;
 
 
 {fonctions de transfert avec la liste de parties}
-function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : FichierTEXT) : OSErr;                                                                                         ATTRIBUTE_NAME('AjouterPartiesFichierTHOR_PARDansListe')
-function SauvegardeListeCouranteEnTHOR_PAR : OSErr;                                                                                                                                 ATTRIBUTE_NAME('SauvegardeListeCouranteEnTHOR_PAR')
-function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : FichierTEXT) : OSErr;                     ATTRIBUTE_NAME('SauvegardeCesPartiesDeLaListeEnTHOR_PAR')
+function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : FichierTEXT) : OSErr;
+function SauvegardeListeCouranteEnTHOR_PAR : OSErr;
+function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : FichierTEXT) : OSErr;
 
 
 {fonction d'acces}
-function TailleDuFichierTHOR_PAR : SInt32;                                                                                                                                          ATTRIBUTE_NAME('TailleDuFichierTHOR_PAR')
-function GetCommentOfThorParRec(const enregistrement : ThorParRec) : String255;                                                                                                     ATTRIBUTE_NAME('GetCommentOfThorParRec')
-function GetPartieEnAlphaOfThorParRec(const enregistrement : ThorParRec) : String255;                                                                                               ATTRIBUTE_NAME('GetPartieEnAlphaOfThorParRec')
+function TailleDuFichierTHOR_PAR : SInt32;
+function GetCommentOfThorParRec(const enregistrement : ThorParRec) : String255;
+function GetPartieEnAlphaOfThorParRec(const enregistrement : ThorParRec) : String255;
 
 
 

@@ -13,14 +13,14 @@ INTERFACE
  USES UnitDefCassio;
 
 
-procedure TestNouveauFormat;                                                                                                                                                        ATTRIBUTE_NAME('TestNouveauFormat')
-procedure TestDisposeJoueursNouveauFormat;                                                                                                                                          ATTRIBUTE_NAME('TestDisposeJoueursNouveauFormat')
-procedure DebuguerNouveauFormat(fonctionAppelante : String255);                                                                                                                     ATTRIBUTE_NAME('DebuguerNouveauFormat')
-procedure EcritListeTournoisPourTraductionJaponais;                                                                                                                                 ATTRIBUTE_NAME('EcritListeTournoisPourTraductionJaponais')
-procedure EcritListeJoueursNoirsNonJaponaisPourTraduction;                                                                                                                          ATTRIBUTE_NAME('EcritListeJoueursNoirsNonJaponaisPourTraduction')
-procedure EcritListeJoueursBlancsNonJaponaisPourTraduction;                                                                                                                         ATTRIBUTE_NAME('EcritListeJoueursBlancsNonJaponaisPourTraduction')
+procedure TestNouveauFormat;
+procedure TestDisposeJoueursNouveauFormat;
+procedure DebuguerNouveauFormat(fonctionAppelante : String255);
+procedure EcritListeTournoisPourTraductionJaponais;
+procedure EcritListeJoueursNoirsNonJaponaisPourTraduction;
+procedure EcritListeJoueursBlancsNonJaponaisPourTraduction;
 
-procedure AfficheFichierNouveauFormatDansRapport(numFic : SInt16);                                                                                                                  ATTRIBUTE_NAME('AfficheFichierNouveauFormatDansRapport')
+procedure AfficheFichierNouveauFormatDansRapport(numFic : SInt16);
 
 
 IMPLEMENTATION

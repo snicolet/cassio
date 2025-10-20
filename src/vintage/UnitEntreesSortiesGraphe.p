@@ -13,40 +13,40 @@ INTERFACE
 
 
 {Creation de cellules}
-procedure CreeCelluleRacine(var fichier : Graphe);                                                                                                                                  ATTRIBUTE_NAME('CreeCelluleRacine')
-procedure LitEnsembleDesFils(var fichier : Graphe; numCellule : SInt32; var LesFils : ListeDeCellules);                                                                             ATTRIBUTE_NAME('LitEnsembleDesFils')
-procedure LitEnsembleDesPeres(var fichier : Graphe; numCellule : SInt32; var Peres : ListeDeCellules);                                                                              ATTRIBUTE_NAME('LitEnsembleDesPeres')
-procedure LitEnsembleDesFreres(var fichier : Graphe; numCellule : SInt32; var Freres : ListeDeCellules);                                                                            ATTRIBUTE_NAME('LitEnsembleDesFreres')
-procedure LitOrbite(var fichier : Graphe; numCellule : SInt32; var orbite : ListeDeCellules);                                                                                       ATTRIBUTE_NAME('LitOrbite')
-procedure CreeLiaisonPeresVersFils(var fichier : Graphe; numPere,numFils : SInt32);                                                                                                 ATTRIBUTE_NAME('CreeLiaisonPeresVersFils')
-procedure CreeLiaisonFreresVersPere(var fichier : Graphe; numCell,numPere : SInt32);                                                                                                ATTRIBUTE_NAME('CreeLiaisonFreresVersPere')
-procedure CreePartieDansGrapheApprentissage(var fichier : Graphe; partie60 : PackedThorGame; var suiteDesCellules : ListeDeCellules);                                               ATTRIBUTE_NAME('CreePartieDansGrapheApprentissage')
-procedure AjoutePartieDansGrapheApprentissage(var fichier : Graphe; partieStr : String255);                                                                                         ATTRIBUTE_NAME('AjoutePartieDansGrapheApprentissage')
+procedure CreeCelluleRacine(var fichier : Graphe);
+procedure LitEnsembleDesFils(var fichier : Graphe; numCellule : SInt32; var LesFils : ListeDeCellules);
+procedure LitEnsembleDesPeres(var fichier : Graphe; numCellule : SInt32; var Peres : ListeDeCellules);
+procedure LitEnsembleDesFreres(var fichier : Graphe; numCellule : SInt32; var Freres : ListeDeCellules);
+procedure LitOrbite(var fichier : Graphe; numCellule : SInt32; var orbite : ListeDeCellules);
+procedure CreeLiaisonPeresVersFils(var fichier : Graphe; numPere,numFils : SInt32);
+procedure CreeLiaisonFreresVersPere(var fichier : Graphe; numCell,numPere : SInt32);
+procedure CreePartieDansGrapheApprentissage(var fichier : Graphe; partie60 : PackedThorGame; var suiteDesCellules : ListeDeCellules);
+procedure AjoutePartieDansGrapheApprentissage(var fichier : Graphe; partieStr : String255);
 
 {Verifications et statistiques diverses}
 
-function RepareListeDesFreres(var fichier : Graphe; numCellule : SInt32; var listeDesFreresReparee : ListeDeCellules; const fonctionAppelante : String255) : OSErr;                 ATTRIBUTE_NAME('RepareListeDesFreres')
-function RepareOrbite(var fichier : Graphe; numCellule : SInt32; var orbiteReparee : ListeDeCellules; const fonctionAppelante : String255) : OSErr;                                 ATTRIBUTE_NAME('RepareOrbite')
-procedure VerifieIntegriteCellule(var fichier : Graphe; var cell : CelluleRec; numeroCellule : SInt32; const fonctionAppelante : String255);                                        ATTRIBUTE_NAME('VerifieIntegriteCellule')
-procedure VerifieIntegriteGraphe(var fichier : Graphe);                                                                                                                             ATTRIBUTE_NAME('VerifieIntegriteGraphe')
-procedure CompterLesPartiesDansGrapheApprentissage(AQuelCoup : SInt16; var nbrePartiesDansGrapheApprentissage : SInt32);                                                            ATTRIBUTE_NAME('CompterLesPartiesDansGrapheApprentissage')
-procedure NettoyerGrapheApprentissage(nomDuGraphe : String255);                                                                                                                     ATTRIBUTE_NAME('NettoyerGrapheApprentissage')
+function RepareListeDesFreres(var fichier : Graphe; numCellule : SInt32; var listeDesFreresReparee : ListeDeCellules; const fonctionAppelante : String255) : OSErr;
+function RepareOrbite(var fichier : Graphe; numCellule : SInt32; var orbiteReparee : ListeDeCellules; const fonctionAppelante : String255) : OSErr;
+procedure VerifieIntegriteCellule(var fichier : Graphe; var cell : CelluleRec; numeroCellule : SInt32; const fonctionAppelante : String255);
+procedure VerifieIntegriteGraphe(var fichier : Graphe);
+procedure CompterLesPartiesDansGrapheApprentissage(AQuelCoup : SInt16; var nbrePartiesDansGrapheApprentissage : SInt32);
+procedure NettoyerGrapheApprentissage(nomDuGraphe : String255);
 
 
 {Acces depuis l'exterieur, pour jouer}
-function PositionEstDansLeGraphe(var fichier : Graphe; chemin60 : PackedThorGame; var suiteDesCellules : ListeDeCellules) : boolean;                                                ATTRIBUTE_NAME('PositionEstDansLeGraphe')
-function PeutChoisirDansGrapheApprentissage(var coup,defense : SInt32) : boolean;                                                                                                   ATTRIBUTE_NAME('PeutChoisirDansGrapheApprentissage')
-function PositionCouranteEstDansGrapheApprentissage : boolean;                                                                                                                      ATTRIBUTE_NAME('PositionCouranteEstDansGrapheApprentissage')
-function TrouveCoupDansGrapheApprentissage(const partieStr : String255; var coup : SInt16) : boolean;                                                                               ATTRIBUTE_NAME('TrouveCoupDansGrapheApprentissage')
-procedure GetFilsDeLaPositionCouranteDansLeGraphe(typesVoulus : EnsembleDeTypes; tries : boolean; var FilsSelectionnes:listeDeCellulesEtDeCoups);                                   ATTRIBUTE_NAME('GetFilsDeLaPositionCouranteDansLeGraphe')
-procedure CheminDepuisRacineGrapheEnThor(var fichier : Graphe; numCellule : SInt32; var partie60 : PackedThorGame);                                                                 ATTRIBUTE_NAME('CheminDepuisRacineGrapheEnThor')
-function CheminDepuisRacineGrapheEnAlphanumerique(var fichier : Graphe; numCellule : SInt32) : String255;                                                                           ATTRIBUTE_NAME('CheminDepuisRacineGrapheEnAlphanumerique')
+function PositionEstDansLeGraphe(var fichier : Graphe; chemin60 : PackedThorGame; var suiteDesCellules : ListeDeCellules) : boolean;
+function PeutChoisirDansGrapheApprentissage(var coup,defense : SInt32) : boolean;
+function PositionCouranteEstDansGrapheApprentissage : boolean;
+function TrouveCoupDansGrapheApprentissage(const partieStr : String255; var coup : SInt16) : boolean;
+procedure GetFilsDeLaPositionCouranteDansLeGraphe(typesVoulus : EnsembleDeTypes; tries : boolean; var FilsSelectionnes:listeDeCellulesEtDeCoups);
+procedure CheminDepuisRacineGrapheEnThor(var fichier : Graphe; numCellule : SInt32; var partie60 : PackedThorGame);
+function CheminDepuisRacineGrapheEnAlphanumerique(var fichier : Graphe; numCellule : SInt32) : String255;
 
 
 {Visualisation du graphe}
-procedure ListerToutesLesCellulesDansRapport;                                                                                                                                       ATTRIBUTE_NAME('ListerToutesLesCellulesDansRapport')
-procedure VoirLesInfosDApprentissageDansRapport;                                                                                                                                    ATTRIBUTE_NAME('VoirLesInfosDApprentissageDansRapport')
-procedure EcritLesInfosDApprentissage;                                                                                                                                              ATTRIBUTE_NAME('EcritLesInfosDApprentissage')
+procedure ListerToutesLesCellulesDansRapport;
+procedure VoirLesInfosDApprentissageDansRapport;
+procedure EcritLesInfosDApprentissage;
 
 
 IMPLEMENTATION

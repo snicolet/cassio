@@ -17,34 +17,34 @@ INTERFACE
 
 
 {initialisation et destruction de l'unité}
-procedure InitUnitJaponais;                                                                                                                                                         ATTRIBUTE_NAME('InitUnitJaponais')
-procedure LibereMemoireUnitJaponais;                                                                                                                                                ATTRIBUTE_NAME('LibereMemoireUnitJaponais')
+procedure InitUnitJaponais;
+procedure LibereMemoireUnitJaponais;
 
 
 {test pour le Text Service Manager}
-procedure CheckForTextService;                                                                                                                                                      ATTRIBUTE_NAME('CheckForTextService')
+procedure CheckForTextService;
 
 
 {les pre et post-callback procedures}
-procedure MyTSMTEPreUpdateProc(textH : TEHandle; refCon : SInt32);                                                                                                                  ATTRIBUTE_NAME('MyTSMTEPreUpdateProc')
-procedure MyTSMTEPostUpdateProc(textH : TEHandle; fixLen,inputAreaStart,inputAreaEnd,pinStart,pinEnd,refCon : SInt32);                                                              ATTRIBUTE_NAME('MyTSMTEPostUpdateProc')
+procedure MyTSMTEPreUpdateProc(textH : TEHandle; refCon : SInt32);
+procedure MyTSMTEPostUpdateProc(textH : TEHandle; fixLen,inputAreaStart,inputAreaEnd,pinStart,pinEnd,refCon : SInt32);
 
 
 
 
 {fonctions gerant les changements de script}
-procedure SwitchToScript(whichScript : SInt32);                                                                                                                                     ATTRIBUTE_NAME('SwitchToScript')
-procedure SwitchToJapaneseScript;                                                                                                                                                   ATTRIBUTE_NAME('SwitchToJapaneseScript')
-procedure SwitchToRomanScript;                                                                                                                                                      ATTRIBUTE_NAME('SwitchToRomanScript')
-procedure DisableKeyboardScriptSwitch;                                                                                                                                              ATTRIBUTE_NAME('DisableKeyboardScriptSwitch')
-procedure EnableKeyboardScriptSwitch;                                                                                                                                               ATTRIBUTE_NAME('EnableKeyboardScriptSwitch')
-procedure GetCurrentScript(var currentScript : SInt32);                                                                                                                             ATTRIBUTE_NAME('GetCurrentScript')
-procedure SetCurrentScript(whichScript : SInt32);                                                                                                                                   ATTRIBUTE_NAME('SetCurrentScript')
+procedure SwitchToScript(whichScript : SInt32);
+procedure SwitchToJapaneseScript;
+procedure SwitchToRomanScript;
+procedure DisableKeyboardScriptSwitch;
+procedure EnableKeyboardScriptSwitch;
+procedure GetCurrentScript(var currentScript : SInt32);
+procedure SetCurrentScript(whichScript : SInt32);
 
 
 {pour lier un document TSMTE à un TEHandle}
-function AddTSMTESupport(whichWindow : WindowPtr; whichText : TEHandle; var theTSMDoc : TSMDocumentID; var theTSMHandle : TSMTERecHandle) : OSErr;                                  ATTRIBUTE_NAME('AddTSMTESupport')
-procedure RemoveTSMTESupport(var theTSMDoc : TSMDocumentID);                                                                                                                        ATTRIBUTE_NAME('RemoveTSMTESupport')
+function AddTSMTESupport(whichWindow : WindowPtr; whichText : TEHandle; var theTSMDoc : TSMDocumentID; var theTSMHandle : TSMTERecHandle) : OSErr;
+procedure RemoveTSMTESupport(var theTSMDoc : TSMDocumentID);
 
 
 

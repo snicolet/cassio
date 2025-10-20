@@ -15,33 +15,33 @@ INTERFACE
 
 
 
-function AllocatePointMultidimensionnelInteger(n : SInt32; var p : PointMultidimensionnelInteger) : boolean;                                                                        ATTRIBUTE_NAME('AllocatePointMultidimensionnelInteger')
-procedure DisposePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger);                                                                                              ATTRIBUTE_NAME('DisposePointMultidimensionnelInteger')
-function DimensionDuPointMultidimensionnelInteger(var p : PointMultidimensionnelInteger) : SInt32;                                                                                  ATTRIBUTE_NAME('DimensionDuPointMultidimensionnelInteger')
-function DuplicatePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger) : PointMultidimensionnelInteger;                                                             ATTRIBUTE_NAME('DuplicatePointMultidimensionnelInteger')
+function AllocatePointMultidimensionnelInteger(n : SInt32; var p : PointMultidimensionnelInteger) : boolean;
+procedure DisposePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger);
+function DimensionDuPointMultidimensionnelInteger(var p : PointMultidimensionnelInteger) : SInt32;
+function DuplicatePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger) : PointMultidimensionnelInteger;
 
-procedure AnnulePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger);                                                                                               ATTRIBUTE_NAME('AnnulePointMultidimensionnelInteger')
-procedure SetValeurDansPointMultidimensionnelInteger(var p : PointMultidimensionnelInteger; valeur : SInt16);                                                                       ATTRIBUTE_NAME('SetValeurDansPointMultidimensionnelInteger')
-procedure HomothetiePointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; scale : SInt16);                                                                    ATTRIBUTE_NAME('HomothetiePointMultidimensionnelInteger')
-procedure NegationPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger);                                                                                      ATTRIBUTE_NAME('NegationPointMultidimensionnelInteger')
-procedure ValeurAbsoluePointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger);                                                                                 ATTRIBUTE_NAME('ValeurAbsoluePointMultidimensionnelInteger')
-procedure MaxPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; valeur : SInt16);                                                                          ATTRIBUTE_NAME('MaxPointMultidimensionnelInteger')
-procedure MinPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; valeur : SInt16);                                                                          ATTRIBUTE_NAME('MinPointMultidimensionnelInteger')
-procedure AddPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);                                                                                     ATTRIBUTE_NAME('AddPointMultidimensionnelInteger')
-procedure DiffPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);                                                                                    ATTRIBUTE_NAME('DiffPointMultidimensionnelInteger')
-procedure DivisionPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);                                                                                ATTRIBUTE_NAME('DivisionPointMultidimensionnelInteger')
-procedure DivisionBorneePointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger; borne : SInt16);                                                          ATTRIBUTE_NAME('DivisionBorneePointMultidimensionnelInteger')
-procedure CopierPointMultidimensionnelInteger(var source,dest : PointMultidimensionnelInteger);                                                                                     ATTRIBUTE_NAME('CopierPointMultidimensionnelInteger')
-procedure CopierOpposePointMultidimensionnelInteger(var source,dest : PointMultidimensionnelInteger);                                                                               ATTRIBUTE_NAME('CopierOpposePointMultidimensionnelInteger')
-procedure CombinaisonLineairePointMultidimensionnelInteger(var p1,p2 : PointMultidimensionnelInteger; lambda1,lambda2 : SInt16; var resultat : PointMultidimensionnelInteger);      ATTRIBUTE_NAME('CombinaisonLineairePointMultidimensionnelInteger')
-function ProduitScalairePointMultidimensionnelInteger(var p1,p2 : PointMultidimensionnelInteger) : SInt16;                                                                          ATTRIBUTE_NAME('ProduitScalairePointMultidimensionnelInteger')
-function CombinaisonScalairePointMultidimensionnelInteger(var p1,p2,p3 : PointMultidimensionnelInteger; lambda1,lambda2 : SInt16) : SInt16;                                         ATTRIBUTE_NAME('CombinaisonScalairePointMultidimensionnelInteger')
-procedure HomothetieEtTruncaturePointMultidimensionnel(var p : PointMultidimensionnel; scale : TypeReel; var result : PointMultidimensionnelInteger);                               ATTRIBUTE_NAME('HomothetieEtTruncaturePointMultidimensionnel')
-procedure HomothetieEtPassageEnFloatPointMultidimensionnel(var p : PointMultidimensionnelInteger; scale : TypeReel; var result : PointMultidimensionnel);                           ATTRIBUTE_NAME('HomothetieEtPassageEnFloatPointMultidimensionnel')
+procedure AnnulePointMultidimensionnelInteger(var p : PointMultidimensionnelInteger);
+procedure SetValeurDansPointMultidimensionnelInteger(var p : PointMultidimensionnelInteger; valeur : SInt16);
+procedure HomothetiePointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; scale : SInt16);
+procedure NegationPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger);
+procedure ValeurAbsoluePointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger);
+procedure MaxPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; valeur : SInt16);
+procedure MinPointMultidimensionnelInteger(var p,result : PointMultidimensionnelInteger; valeur : SInt16);
+procedure AddPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);
+procedure DiffPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);
+procedure DivisionPointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger);
+procedure DivisionBorneePointMultidimensionnelInteger(var p1,p2,resultat : PointMultidimensionnelInteger; borne : SInt16);
+procedure CopierPointMultidimensionnelInteger(var source,dest : PointMultidimensionnelInteger);
+procedure CopierOpposePointMultidimensionnelInteger(var source,dest : PointMultidimensionnelInteger);
+procedure CombinaisonLineairePointMultidimensionnelInteger(var p1,p2 : PointMultidimensionnelInteger; lambda1,lambda2 : SInt16; var resultat : PointMultidimensionnelInteger);
+function ProduitScalairePointMultidimensionnelInteger(var p1,p2 : PointMultidimensionnelInteger) : SInt16;
+function CombinaisonScalairePointMultidimensionnelInteger(var p1,p2,p3 : PointMultidimensionnelInteger; lambda1,lambda2 : SInt16) : SInt16;
+procedure HomothetieEtTruncaturePointMultidimensionnel(var p : PointMultidimensionnel; scale : TypeReel; var result : PointMultidimensionnelInteger);
+procedure HomothetieEtPassageEnFloatPointMultidimensionnel(var p : PointMultidimensionnelInteger; scale : TypeReel; var result : PointMultidimensionnel);
 
 
-function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;                                                  ATTRIBUTE_NAME('EcritPointMultidimensionnelIntegerDansFichierTexte')
-function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;                                                    ATTRIBUTE_NAME('LitPointMultidimensionnelIntegerDansFichierTexte')
+function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
+function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
 
 
 

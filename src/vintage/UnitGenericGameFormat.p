@@ -16,49 +16,49 @@ INTERFACE
 
 { Initialisation de l'unité }
 
-procedure InitUnitGenericGameFormat;                                                                                                                                                ATTRIBUTE_NAME('InitUnitGenericGameFormat')
+procedure InitUnitGenericGameFormat;
 
 
 { Utilitaires sur les fichiers NxN }
 
-function GetPreviousCharFichier_NxN(negOffset : SInt16) : char;                                                                                                                     ATTRIBUTE_NAME('GetPreviousCharFichier_NxN')
-function GetNextCharFichier_NxN(var c : char) : OSErr;                                                                                                                              ATTRIBUTE_NAME('GetNextCharFichier_NxN')
-procedure ResetLecture_NxN;                                                                                                                                                         ATTRIBUTE_NAME('ResetLecture_NxN')
-procedure BeginLecture_NxN;                                                                                                                                                         ATTRIBUTE_NAME('BeginLecture_NxN')
-procedure EndLecture_NxN;                                                                                                                                                           ATTRIBUTE_NAME('EndLecture_NxN')
+function GetPreviousCharFichier_NxN(negOffset : SInt16) : char;
+function GetNextCharFichier_NxN(var c : char) : OSErr;
+procedure ResetLecture_NxN;
+procedure BeginLecture_NxN;
+procedure EndLecture_NxN;
 
 
 { Fonctions pour parser un fichier NxN }
 
-procedure BeginParserPartieNxN;                                                                                                                                                     ATTRIBUTE_NAME('BeginParserPartieNxN')
-procedure EndParserPartieNxN;                                                                                                                                                       ATTRIBUTE_NAME('EndParserPartieNxN')
-function StringSGFEnCoup(const s : String255; var square_x,square_y : SInt16) : boolean;                                                                                            ATTRIBUTE_NAME('StringSGFEnCoup')
+procedure BeginParserPartieNxN;
+procedure EndParserPartieNxN;
+function StringSGFEnCoup(const s : String255; var square_x,square_y : SInt16) : boolean;
 
-function ParserChainePositionInitialeNxN(var posInitiale : BigOthelloRec) : String255;                                                                                              ATTRIBUTE_NAME('ParserChainePositionInitialeNxN')
-function ParserChaineCoupsPourDiagrammeNxN : String255;                                                                                                                             ATTRIBUTE_NAME('ParserChaineCoupsPourDiagrammeNxN')
-procedure ParserPourTrouverTournoiEtJoueursNxN;                                                                                                                                     ATTRIBUTE_NAME('ParserPourTrouverTournoiEtJoueursNxN')
+function ParserChainePositionInitialeNxN(var posInitiale : BigOthelloRec) : String255;
+function ParserChaineCoupsPourDiagrammeNxN : String255;
+procedure ParserPourTrouverTournoiEtJoueursNxN;
 
 
 { Les fonctions suivantes doivent etre appelees apres avoir parser le fichier NxN avec les parsers precedents}
 
-function GetChainePositionCouranteNxN(const chainePositionInitiale : String255) : String255;                                                                                        ATTRIBUTE_NAME('GetChainePositionCouranteNxN')
-function GetChaineCoupsEnAlphaNxN : String255;                                                                                                                                      ATTRIBUTE_NAME('GetChaineCoupsEnAlphaNxN')
-function GetNomDesNoirsNxN : String255;                                                                                                                                             ATTRIBUTE_NAME('GetNomDesNoirsNxN')
-function GetNomDesBlancsNxN : String255;                                                                                                                                            ATTRIBUTE_NAME('GetNomDesBlancsNxN')
-function GetNomTournoiNxN : String255;                                                                                                                                              ATTRIBUTE_NAME('GetNomTournoiNxN')
+function GetChainePositionCouranteNxN(const chainePositionInitiale : String255) : String255;
+function GetChaineCoupsEnAlphaNxN : String255;
+function GetNomDesNoirsNxN : String255;
+function GetNomDesBlancsNxN : String255;
+function GetNomTournoiNxN : String255;
 
 
 { Gestion du presse-papier pour les diagrammes 10x10 }
 
-procedure CopierEnMacDraw10x10(N : SInt32; const chainePositionInitiale,chainePosition,chaineCoups : String255);                                                                    ATTRIBUTE_NAME('CopierEnMacDraw10x10')
-procedure DoDiagramme10x10;                                                                                                                                                         ATTRIBUTE_NAME('DoDiagramme10x10')
+procedure CopierEnMacDraw10x10(N : SInt32; const chainePositionInitiale,chainePosition,chaineCoups : String255);
+procedure DoDiagramme10x10;
 
 
 { Des utilitaires qui utilisent le parser des diagrammes GGF 10x10 pour comprendre la ligne principale d'un fichier SGF ou GGF 8x8}
 
-function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;                                  ATTRIBUTE_NAME('ReadEnregistrementDansFichierSGF_ou_GGF_8x8')
-function ReadEnregistrementDansFichierAbstraitSGF_ou_GGF(var theFile : FichierAbstrait; whichFormat : formats_connus; var result : PartieFormatGGFRec) : OSErr;                             ATTRIBUTE_NAME('ReadEnregistrementDansFichierAbstraitSGF_ou_GGF')
-function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;                                                                                      ATTRIBUTE_NAME('GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8')
+function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;
+function ReadEnregistrementDansFichierAbstraitSGF_ou_GGF(var theFile : FichierAbstrait; whichFormat : formats_connus; var result : PartieFormatGGFRec) : OSErr;
+function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 
 
 

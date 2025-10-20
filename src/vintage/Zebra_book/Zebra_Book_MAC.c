@@ -26,7 +26,7 @@ static int FileNodeCount     = 0;         /* Nombre de positions dans la table *
 #define ZEBRA_BOOK_READING_BLOCK         16384
 
 
-pascal 
+pascal
 int read_binary_database( char *file_name ) {
 	int i,k,size;
 	short magic1, magic2 ;
@@ -34,8 +34,8 @@ int read_binary_database( char *file_name ) {
 	int nodeCountStoredInFile;
 	int number_of_blocks;
 	size_t size_of_block_in_byte;
-    
-    
+
+
 	stream = fopen( file_name, "rb" );
 	if ( stream == NULL ) {
 		/* printf( "Could not open database file: %s\n", file_name ); */
@@ -62,27 +62,27 @@ int read_binary_database( char *file_name ) {
 	
 	
 	
-	if (nodesTable) 
+	if (nodesTable)
 	  free(nodesTable);
-	  
+	
 	size = nodeCountStoredInFile*sizeof(BookNode);
 	nodesTable = malloc(size) ;
 	
 	
-	if (nodesTable) { 
+	if (nodesTable) {
 	
 	    number_of_blocks      = nodeCountStoredInFile / ZEBRA_BOOK_READING_BLOCK;
 	    size_of_block_in_byte = sizeof(BookNode) * ZEBRA_BOOK_READING_BLOCK;
-	    
+	
 	    i = 0;  // number of records read
-	    
+	
 	    // Read the file by blocks of ZEBRA_BOOK_READING_BLOCK records
 	    for ( k = 1; k < number_of_blocks; k++ ) {
-	    
+	
 	      if (!fread( &nodesTable[i], size_of_block_in_byte, 1 , stream ))
     			 break ;
     	  i += ZEBRA_BOOK_READING_BLOCK;
-    	  
+    	
     	  // check events during the reading of the file (so that Cassio remains responsive)
     	  if (lecture_zebra_book_interrompue_par_evenement()) {
       	    FileNodeCount = 0;
@@ -104,14 +104,14 @@ int read_binary_database( char *file_name ) {
     	}
     	
   }
-  
+
 	fclose( stream );
 	prepare_zebra_hash() ; /* Preparation des valeurs des tables de hash */
 	
 	if (i != nodeCountStoredInFile) {
-		printf(" There was an error reading the Zebra-book.data file.\n") ; 
-		printf(" i = %d ,  nodeCountStoredInFile = %d \n", i, nodeCountStoredInFile) ; 
-		printf(" Or maybe allocating %d bytes failed....\n",size) ; 
+		printf(" There was an error reading the Zebra-book.data file.\n") ;
+		printf(" i = %d ,  nodeCountStoredInFile = %d \n", i, nodeCountStoredInFile) ;
+		printf(" Or maybe allocating %d bytes failed....\n",size) ;
 		return (-1);
 	}
 	
@@ -129,12 +129,12 @@ int read_binary_database( char *file_name ) {
 /* Renvoie nodeTable[index] dans la variable &node */
 pascal
 void get_zebra_node(int index, BookNode* node) {
-   
-   if (cassio_must_get_zebra_nodes_from_disk()) 
+
+   if (cassio_must_get_zebra_nodes_from_disk())
        {
           if (zebra_node_est_present_dans_le_cache(index, node))
              return;
-       
+
           get_zebra_node_from_disk(index, node);
           ajouter_zebra_node_dans_le_cache_des_presents(index, node);
        }
@@ -153,13 +153,13 @@ int interpolation_index(int low, int high, int pos_hash1, int pos_hash2, int low
   unsigned long long low_key;
   unsigned long long high_key;
   double alpha;
-  
+
   key       = pos_hash1 * (1ULL << 32)  + pos_hash2;
   low_key   = low_hash1 * (1ULL << 32)  + low_hash2;
   high_key  = high_hash1 * (1ULL << 32) + high_hash2;
 
   alpha = (87.5 / 100.0) * (1.0 * (key - low_key)) / (1.0 * (high_key - low_key));
-  
+
   return (low + alpha * (high - low));
 }
 
@@ -168,7 +168,7 @@ int interpolation_index(int low, int high, int pos_hash1, int pos_hash2, int low
 /* A partir d'une position, renvoie l'index dans la table des positions. */
 /* Ainsi que son orientation (cf. HashPattern.h)                         */
 /* Renvoie -1 si la position n'est pas dans la biblio                    */
-pascal 
+pascal
 int trouver_position_in_zebra_book( int *Pos, BookNode *node, int* orientation, char*  file_name, int probableIndex) {
 	int pos_hash1, pos_hash2, i, k ;
 	int low, high;
@@ -176,11 +176,11 @@ int trouver_position_in_zebra_book( int *Pos, BookNode *node, int* orientation, 
   int low_hash2, high_hash2;
   int searchtrace[110];
   int count = 0;
-  
-  
+
+
 	if (cassio_must_get_zebra_nodes_from_disk())
 	    {
-	        if (FileNodeCount <= 0) 
+	        if (FileNodeCount <= 0)
 	              FileNodeCount = number_of_positions_in_zebra_book();
 	    }
 	else
@@ -188,8 +188,8 @@ int trouver_position_in_zebra_book( int *Pos, BookNode *node, int* orientation, 
 	        if ((FileNodeCount <= 0) || !nodesTable)
 	              FileNodeCount = read_binary_database(file_name);
 	    }
-	     
-	   
+	
+	
 	if (FileNodeCount <= 0)
 	  return (-1);
 
@@ -199,8 +199,8 @@ int trouver_position_in_zebra_book( int *Pos, BookNode *node, int* orientation, 
   /* Intervalle de recherche */
   low = 0;
   high = FileNodeCount - 1;
-  
-  
+
+
   /* Si on a une proposition d'index, on l'essaye en premier ... */
   if ((probableIndex > low) && (probableIndex < high))
       {
@@ -208,93 +208,93 @@ int trouver_position_in_zebra_book( int *Pos, BookNode *node, int* orientation, 
           if ((node->hash1 == pos_hash1) && (node->hash2 == pos_hash2))
               return probableIndex ;     /* found  !!  */
       }
-  
+
   for (i = 0; i < 100; i++)
     searchtrace[i] = -2;
-  
+
   get_zebra_node(low, node);
   if ((node->hash1 == pos_hash1) && (node->hash2 == pos_hash2))
       return low ;     /* found  !!  */
-      
+
   low_hash1 = node->hash1;
   low_hash2 = node->hash2;
-  
-  
+
+
   get_zebra_node(high, node);
   if ((node->hash1 == pos_hash1) && (node->hash2 == pos_hash2))
       return high ;    /* found  !! */
-      
+
   high_hash1 = node->hash1;
   high_hash2 = node->hash2;
-  
-      
-      
+
+
+
   /* Verifions que l'index cherchŽ est bien dans l'intervalle [low ... high] ,  */
   /* c'est-a-dire que l'on sort tout de suite si ce n'est pas la cas.            */
-  
-  if ((low_hash1 > pos_hash1) || ((low_hash1 == pos_hash1) && (low_hash2 > pos_hash2)))    
+
+  if ((low_hash1 > pos_hash1) || ((low_hash1 == pos_hash1) && (low_hash2 > pos_hash2)))
       return (-1);    /* not found !! */
-      
-  if ((high_hash1 < pos_hash1) || ((high_hash1 == pos_hash1) && (high_hash2 < pos_hash2)))    
+
+  if ((high_hash1 < pos_hash1) || ((high_hash1 == pos_hash1) && (high_hash2 < pos_hash2)))
       return (-1);    /* not found !! */
-  
-  
+
+
   /* Debut de la recherche par interpolation dans la table ! */
- 
-  while ((high - low) > 1) { 
+
+  while ((high - low) > 1) {
 
       i = interpolation_index(low, high, pos_hash1, pos_hash2, low_hash1, low_hash2, high_hash1, high_hash2);
-     
-      
-      if (i <= low)  
+
+
+      if (i <= low)
          i = low + 1;
-      if (i >= high) 
+      if (i >= high)
          i = high - 1;
-      
-      if (count < 100) 
+
+      if (count < 100)
           searchtrace[count] = i;
       count++;
-      
-      
+
+
       get_zebra_node(i, node);
       if ((node->hash1 == pos_hash1) && (node->hash2 == pos_hash2))
            return i ;    /* found !! */
-      
-      if ((node->hash1 < pos_hash1) || 
-          ((node->hash1 == pos_hash1) && (node->hash2 <= pos_hash2)))    
+
+      if ((node->hash1 < pos_hash1) ||
+          ((node->hash1 == pos_hash1) && (node->hash2 <= pos_hash2)))
           {
            low = i ;
            low_hash1 = node->hash1;
            low_hash2 = node->hash2;
           }
-      else 
-          { 
+      else
+          {
            high = i ;
            high_hash1 = node->hash1;
            high_hash2 = node->hash2;
           }
   }
-      
-      
+
+
   /* pas trouvŽ : effacons la trace dans le cache des presents, puisque */
-  /* on a un cache plus efficace specialise dans les positions absentes */    
-  
-  
-  if (count >= 100)   count = 99; 
+  /* on a un cache plus efficace specialise dans les positions absentes */
+
+
+  if (count >= 100)   count = 99;
 
   if (count >= 1)
       for (k = 0; k < count; k++)
           enlever_zebra_node_dans_cache_des_presents(searchtrace[k]);
-       
-       
-      
-	return (-1) ; /* not found... */    
+
+
+
+	return (-1) ; /* not found... */
 }
 
 
 
 /* Extrait les valeurs d'un element de la table des noeuds */
-pascal 
+pascal
 void extraire_vals_from_zebra_book(int indexVal, BookNode *node, short *Score_Noir, short *Score_Blanc, short *Alternative_Move, short *Alternative_Score, unsigned short *Flags) {
 
 	*Score_Noir        = node->black_minimax_score ;
@@ -306,7 +306,7 @@ void extraire_vals_from_zebra_book(int indexVal, BookNode *node, short *Score_No
 }
 
 /* Renvoie le coup correspondant a move dans l'orientation consideree */
-pascal 
+pascal
 int symetrise_coup_for_zebra_book( int orientation, int move ) {
 	int c, l ;
 
@@ -327,15 +327,15 @@ int symetrise_coup_for_zebra_book( int orientation, int move ) {
 }
 
 
-pascal 
+pascal
 int number_of_positions_in_zebra_book()
 {
   if (cassio_must_get_zebra_nodes_from_disk())
      FileNodeCount = get_number_of_positions_in_zebra_book_from_disk();
-     
+
   if (FileNodeCount > 0)
      return FileNodeCount;
-  else 
+  else
      return 0;
 }
 

@@ -13,36 +13,36 @@ INTERFACE
 
 
 { must be a var parameter! }
-function GET_ADRESS_OF_FIRST_MOVE(var whichGame : PackedThorGame) : Ptr;                                                                                                            ATTRIBUTE_NAME('GET_ADRESS_OF_FIRST_MOVE')
-function GET_ADRESS_OF_NTH_MOVE(var whichGame : PackedThorGame; n : UInt8) : Ptr;                                                                                                   ATTRIBUTE_NAME('GET_ADRESS_OF_NTH_MOVE')
+function GET_ADRESS_OF_FIRST_MOVE(var whichGame : PackedThorGame) : Ptr;
+function GET_ADRESS_OF_NTH_MOVE(var whichGame : PackedThorGame; n : UInt8) : Ptr;
 
 {$ifc not packed_thor_accessors_are_macros}
-function ALT_GET_LENGTH_OF_PACKED_GAME(const whichGame : PackedThorGame) : UInt8;                                                                                                   ATTRIBUTE_NAME('ALT_GET_LENGTH_OF_PACKED_GAME')
+function ALT_GET_LENGTH_OF_PACKED_GAME(const whichGame : PackedThorGame) : UInt8;
 {$endc}
-procedure SET_LENGTH_OF_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);                                                                                           ATTRIBUTE_NAME('SET_LENGTH_OF_PACKED_GAME')
-procedure SHORTEN_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);                                                                                                 ATTRIBUTE_NAME('SHORTEN_PACKED_GAME')
+procedure SET_LENGTH_OF_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);
+procedure SHORTEN_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);
 
-procedure ADD_MOVE_TO_PACKED_GAME(var whichGame : PackedThorGame; whichSquare : UInt8);                                                                                             ATTRIBUTE_NAME('ADD_MOVE_TO_PACKED_GAME')
-procedure DESTROY_LAST_MOVE_OF_PACKED_GAME(var whichGame : PackedThorGame);                                                                                                         ATTRIBUTE_NAME('DESTROY_LAST_MOVE_OF_PACKED_GAME')
+procedure ADD_MOVE_TO_PACKED_GAME(var whichGame : PackedThorGame; whichSquare : UInt8);
+procedure DESTROY_LAST_MOVE_OF_PACKED_GAME(var whichGame : PackedThorGame);
 
 {$ifc not packed_thor_accessors_are_macros}
-function ALT_GET_NTH_MOVE_OF_PACKED_GAME(const whichGame : PackedThorGame; n : UInt8; fonctionAppelante : String255) : UInt8;                                                       ATTRIBUTE_NAME('ALT_GET_NTH_MOVE_OF_PACKED_GAME')
-procedure ALT_NTH_MOVE_OF_PACKED_GAME(var whichGame : PackedThorGame; n : UInt8; whichSquare : UInt8);                                                                              ATTRIBUTE_NAME('ALT_NTH_MOVE_OF_PACKED_GAME')
+function ALT_GET_NTH_MOVE_OF_PACKED_GAME(const whichGame : PackedThorGame; n : UInt8; fonctionAppelante : String255) : UInt8;
+procedure ALT_NTH_MOVE_OF_PACKED_GAME(var whichGame : PackedThorGame; n : UInt8; whichSquare : UInt8);
 {$endc}
 
-procedure COPY_PACKED_GAME_TO_PACKED_GAME(const source : PackedThorGame; whichLength : UInt8; var result : PackedThorGame);                                                         ATTRIBUTE_NAME('COPY_PACKED_GAME_TO_PACKED_GAME')
-procedure COPY_STR60_TO_PACKED_GAME(const s60 : String255; var result : PackedThorGame);                                                                                            ATTRIBUTE_NAME('COPY_STR60_TO_PACKED_GAME')
-procedure COPY_PACKED_GAME_TO_STR60(const game : PackedThorGame; var result60 : String255);                                                                                         ATTRIBUTE_NAME('COPY_PACKED_GAME_TO_STR60')
-procedure COPY_PACKED_GAME_TO_STR255(const game : PackedThorGame; var result : String255);                                                                                          ATTRIBUTE_NAME('COPY_PACKED_GAME_TO_STR255')
+procedure COPY_PACKED_GAME_TO_PACKED_GAME(const source : PackedThorGame; whichLength : UInt8; var result : PackedThorGame);
+procedure COPY_STR60_TO_PACKED_GAME(const s60 : String255; var result : PackedThorGame);
+procedure COPY_PACKED_GAME_TO_STR60(const game : PackedThorGame; var result60 : String255);
+procedure COPY_PACKED_GAME_TO_STR255(const game : PackedThorGame; var result : String255);
 
-procedure FILL_PACKED_GAME_WITH_ZEROS(var game : PackedThorGame);                                                                                                                   ATTRIBUTE_NAME('FILL_PACKED_GAME_WITH_ZEROS')
+procedure FILL_PACKED_GAME_WITH_ZEROS(var game : PackedThorGame);
 
-function SAME_PACKED_GAMES(const game1, game2 : PackedThorGame) : boolean;                                                                                                          ATTRIBUTE_NAME('SAME_PACKED_GAMES')
-function COMPARE_PACKED_GAMES(const game1, game2 : PackedThorGame) : SInt32;                                                                                                        ATTRIBUTE_NAME('COMPARE_PACKED_GAMES')
+function SAME_PACKED_GAMES(const game1, game2 : PackedThorGame) : boolean;
+function COMPARE_PACKED_GAMES(const game1, game2 : PackedThorGame) : SInt32;
 
-function PACKED_GAME_IS_A_DIAGONAL(const whichGame : PackedThorGame) : boolean;                                                                                                     ATTRIBUTE_NAME('PACKED_GAME_IS_A_DIAGONAL')
+function PACKED_GAME_IS_A_DIAGONAL(const whichGame : PackedThorGame) : boolean;
 
-procedure WRITELN_PACKED_GAME_DANS_RAPPORT(message : String255; whichGame : PackedThorGame);                                                                                        ATTRIBUTE_NAME('WRITELN_PACKED_GAME_DANS_RAPPORT')
+procedure WRITELN_PACKED_GAME_DANS_RAPPORT(message : String255; whichGame : PackedThorGame);
 
 
 IMPLEMENTATION

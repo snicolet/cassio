@@ -13,54 +13,54 @@ INTERFACE
 
 
 
-procedure InitUnitNouvelleEval;                                                                                                                                                     ATTRIBUTE_NAME('InitUnitNouvelleEval')
-procedure AlloueMemoireNouvelleEvaluation(allouerOccurences,allouerEvaluation,allouerEvaluationInteger,allouerConjugate,allouerLigne,allouerTriEval : boolean);                     ATTRIBUTE_NAME('AlloueMemoireNouvelleEvaluation')
-procedure LibereMemoireNouvelleEvaluation;                                                                                                                                          ATTRIBUTE_NAME('LibereMemoireNouvelleEvaluation')
-procedure SetPenalitesPourLeTrait(valeurAuCoup0,valeurAuCoup40,valeurEnFinale : SInt32);                                                                                            ATTRIBUTE_NAME('SetPenalitesPourLeTrait')
-procedure SetPenalitesPourLeTraitStandards;                                                                                                                                         ATTRIBUTE_NAME('SetPenalitesPourLeTraitStandards')
+procedure InitUnitNouvelleEval;
+procedure AlloueMemoireNouvelleEvaluation(allouerOccurences,allouerEvaluation,allouerEvaluationInteger,allouerConjugate,allouerLigne,allouerTriEval : boolean);
+procedure LibereMemoireNouvelleEvaluation;
+procedure SetPenalitesPourLeTrait(valeurAuCoup0,valeurAuCoup40,valeurEnFinale : SInt32);
+procedure SetPenalitesPourLeTraitStandards;
 
 
-procedure PrepareCoefficientsEvaluation;                                                                                                                                            ATTRIBUTE_NAME('PrepareCoefficientsEvaluation')
+procedure PrepareCoefficientsEvaluation;
 
 
-function FichierEvaluationDeCassioTrouvable(nom : String255) : boolean;                                                                                                             ATTRIBUTE_NAME('FichierEvaluationDeCassioTrouvable')
-procedure EssayerLireFichiersEvaluationDeCassio;                                                                                                                                    ATTRIBUTE_NAME('EssayerLireFichiersEvaluationDeCassio')
+function FichierEvaluationDeCassioTrouvable(nom : String255) : boolean;
+procedure EssayerLireFichiersEvaluationDeCassio;
 
 
-procedure SetUtilisationNouvelleEval(doitUtiliserNouvelleEval : boolean);                                                                                                           ATTRIBUTE_NAME('SetUtilisationNouvelleEval')
-procedure SetNouvelleEvalDejaChargee(dejaChargee : boolean);                                                                                                                        ATTRIBUTE_NAME('SetNouvelleEvalDejaChargee')
-function GetUtilisationNouvelleEval : boolean;                                                                                                                                      ATTRIBUTE_NAME('GetUtilisationNouvelleEval')
-function GetNouvelleEvalDejaChargee : boolean;                                                                                                                                      ATTRIBUTE_NAME('GetNouvelleEvalDejaChargee')
+procedure SetUtilisationNouvelleEval(doitUtiliserNouvelleEval : boolean);
+procedure SetNouvelleEvalDejaChargee(dejaChargee : boolean);
+function GetUtilisationNouvelleEval : boolean;
+function GetNouvelleEvalDejaChargee : boolean;
 
 
-function NewEval(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; minimisation : boolean) : TypeReel;                       ATTRIBUTE_NAME('NewEval')
-function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;            ATTRIBUTE_NAME('DeltaPourCettePosition')
-function NewEvalEnInteger(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval; var tranquillesNoirs,tranquillesBlancs : ListeDeCases) : SInt32;                                        ATTRIBUTE_NAME('NewEvalEnInteger')
-function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;             ATTRIBUTE_NAME('NewEvalDeCassio')
-procedure EcritNewEvalDansRapport(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval);      ATTRIBUTE_NAME('EcritNewEvalDansRapport')
-procedure EcritNewEvalIntegerDansRapport(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger);                                                                                  ATTRIBUTE_NAME('EcritNewEvalIntegerDansRapport')
+function NewEval(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; minimisation : boolean) : TypeReel;
+function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;
+function NewEvalEnInteger(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval; var tranquillesNoirs,tranquillesBlancs : ListeDeCases) : SInt32;
+function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;
+procedure EcritNewEvalDansRapport(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval);
+procedure EcritNewEvalIntegerDansRapport(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger);
 
 
-procedure IncrementeDeriveesPartiellesCettePosition(deltaEval : TypeReel; var jouable : plBool; var position : plateauOthello; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval);                                                        ATTRIBUTE_NAME('IncrementeDeriveesPartiellesCettePosition')
+procedure IncrementeDeriveesPartiellesCettePosition(deltaEval : TypeReel; var jouable : plBool; var position : plateauOthello; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval);
 
-function InverseNoirBlancDansAddressePattern(pattern,longueur : SInt32) : SInt32;                                                                                                   ATTRIBUTE_NAME('InverseNoirBlancDansAddressePattern')
-procedure CalculeIndexesEdges2X(var plat : plateauOthello; var frontiere : InfoFront; var edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32);                                     ATTRIBUTE_NAME('CalculeIndexesEdges2X')
-procedure IncrementeEdge2X(var v : VectNewEval; whichIndex,whichGameStage : SInt32; incr : TypeReel);                                                                               ATTRIBUTE_NAME('IncrementeEdge2X')
-procedure IncrementePattern(var v : VectNewEval; whichNroPattern,whichIndex,whichGameStage : SInt32; incr : TypeReel);                                                              ATTRIBUTE_NAME('IncrementePattern')
+function InverseNoirBlancDansAddressePattern(pattern,longueur : SInt32) : SInt32;
+procedure CalculeIndexesEdges2X(var plat : plateauOthello; var frontiere : InfoFront; var edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32);
+procedure IncrementeEdge2X(var v : VectNewEval; whichIndex,whichGameStage : SInt32; incr : TypeReel);
+procedure IncrementePattern(var v : VectNewEval; whichNroPattern,whichIndex,whichGameStage : SInt32; incr : TypeReel);
 
-procedure WritelnLinePatternAndStringDansRapport(pattern,length : SInt32; s : String255);                                                                                           ATTRIBUTE_NAME('WritelnLinePatternAndStringDansRapport')
-procedure Writeln13SquareCornerAndStringDansRapport(pattern : SInt32; s : String255);                                                                                               ATTRIBUTE_NAME('Writeln13SquareCornerAndStringDansRapport')
-procedure WritelnEdge2XAndStringDansRapport(pattern : SInt32; s : String255);                                                                                                       ATTRIBUTE_NAME('WritelnEdge2XAndStringDansRapport')
+procedure WritelnLinePatternAndStringDansRapport(pattern,length : SInt32; s : String255);
+procedure Writeln13SquareCornerAndStringDansRapport(pattern : SInt32; s : String255);
+procedure WritelnEdge2XAndStringDansRapport(pattern : SInt32; s : String255);
 
-function ParticipeAuChi2(numeroDansLaListe,numeroRefPartie : SInt32; var tickGroupe : SInt32) : boolean;                                                                            ATTRIBUTE_NAME('ParticipeAuChi2')
-procedure CollecteOccurenceCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt16; var bidon : SInt32);        ATTRIBUTE_NAME('CollecteOccurenceCettePosition')
-procedure CollecteOccurencesPatternDApresListe;                                                                                                                                     ATTRIBUTE_NAME('CollecteOccurencesPatternDApresListe')
+function ParticipeAuChi2(numeroDansLaListe,numeroRefPartie : SInt32; var tickGroupe : SInt32) : boolean;
+procedure CollecteOccurenceCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt16; var bidon : SInt32);
+procedure CollecteOccurencesPatternDApresListe;
 
-procedure EcritDeltaEvalCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt16; var nroRefPartie : SInt32);    ATTRIBUTE_NAME('EcritDeltaEvalCettePosition')
-procedure EcritsQuelquesPositionsDeCettePartie(nroRefPartie : SInt32);                                                                                                              ATTRIBUTE_NAME('EcritsQuelquesPositionsDeCettePartie')
-procedure EcritQuelsquesPositionsPartieAleatoireDansListe;                                                                                                                          ATTRIBUTE_NAME('EcritQuelsquesPositionsPartieAleatoireDansListe')
-procedure EcritVecteurMobiliteDansRapport(var whichEval : VectNewEval);                                                                                                             ATTRIBUTE_NAME('EcritVecteurMobiliteDansRapport')
-procedure TrieEvalEtEcritDansRapport(var whichVecteur : VectNewEval);                                                                                                               ATTRIBUTE_NAME('TrieEvalEtEcritDansRapport')
+procedure EcritDeltaEvalCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt16; var nroRefPartie : SInt32);
+procedure EcritsQuelquesPositionsDeCettePartie(nroRefPartie : SInt32);
+procedure EcritQuelsquesPositionsPartieAleatoireDansListe;
+procedure EcritVecteurMobiliteDansRapport(var whichEval : VectNewEval);
+procedure TrieEvalEtEcritDansRapport(var whichVecteur : VectNewEval);
 
 
 IMPLEMENTATION
@@ -801,7 +801,7 @@ begin
 end;
 
 
-function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;         
+function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;
 var deltaEval : TypeReel;
     scoreTheoriquePourNoir,scoreReelPourNoir,nbCoupsJoues : SInt16;
     tranquillesNoirs,tranquillesBlancs : ListeDeCases;
@@ -911,7 +911,7 @@ begin
 end;
 
 
-function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;          
+function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;
 var Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32;
     numeroDuCoup,theStage : SInt32;
     evalPartielle : SInt32;
@@ -1777,7 +1777,7 @@ begin
             aux := whichVecteur.Pattern[whichPattern,stage]^[patternOppose];
             occ := RoundToL(occurences.Pattern[whichPattern,stage]^[patternOppose]+0.25);
             valeur := vecteurEvaluation.Pattern[whichPattern,stage]^[patternOppose];
-            WritelnLinePatternAndStringDansRapport(patternOppose-decalagePourPattern[whichPattern],length,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10)); 
+            WritelnLinePatternAndStringDansRapport(patternOppose-decalagePourPattern[whichPattern],length,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
 
             WritelnDansRapport('');
           end;

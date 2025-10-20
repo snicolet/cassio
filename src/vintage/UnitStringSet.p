@@ -17,28 +17,28 @@ INTERFACE
 
 
 {Creation et destruction}
-function MakeEmptyStringSet : StringSet;                                                                                                                                            ATTRIBUTE_NAME('MakeEmptyStringSet')
-function MakeOneElementStringSet(const theString : String255; data : SInt64) : StringSet;                                                                                           ATTRIBUTE_NAME('MakeOneElementStringSet')
-procedure DisposeStringSet(var S : StringSet);                                                                                                                                      ATTRIBUTE_NAME('DisposeStringSet')
+function MakeEmptyStringSet : StringSet;
+function MakeOneElementStringSet(const theString : String255; data : SInt64) : StringSet;
+procedure DisposeStringSet(var S : StringSet);
 
 {Fonctions de test}
-function StringSetEstVide(S : StringSet) : boolean;                                                                                                                                 ATTRIBUTE_NAME('StringSetEstVide')
-function CardinalOfStringSet(S : StringSet) : SInt64;                                                                                                                               ATTRIBUTE_NAME('CardinalOfStringSet')
-function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;                                                                                ATTRIBUTE_NAME('MemberOfStringSet')
+function StringSetEstVide(S : StringSet) : boolean;
+function CardinalOfStringSet(S : StringSet) : SInt64;
+function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;
 
 {Ajout et retrait destructifs}
-procedure AddStringToSet(const theString : String255; data : SInt64; var S : StringSet);                                                                                            ATTRIBUTE_NAME('AddStringToSet')
-procedure RemoveStringFromSet(const theString : String255; var S : StringSet);                                                                                                      ATTRIBUTE_NAME('RemoveStringFromSet')
-procedure ViderStringSet(var S : StringSet);                                                                                                                                        ATTRIBUTE_NAME('ViderStringSet')
+procedure AddStringToSet(const theString : String255; data : SInt64; var S : StringSet);
+procedure RemoveStringFromSet(const theString : String255; var S : StringSet);
+procedure ViderStringSet(var S : StringSet);
 
 {Ecriture dans le rapport}
-procedure WriteStringSetDansRapport(const nom : String255; S : StringSet; avecCardinal : boolean);                                                                                  ATTRIBUTE_NAME('WriteStringSetDansRapport')
-procedure WritelnStringSetDansRapport(const nom : String255; S : StringSet; avecCardinal : boolean);                                                                                ATTRIBUTE_NAME('WritelnStringSetDansRapport')
-procedure WritelnStringDansRapportSansRepetition(theString : String255; var stringPool : StringSet);                                                                                ATTRIBUTE_NAME('WritelnStringDansRapportSansRepetition')
+procedure WriteStringSetDansRapport(const nom : String255; S : StringSet; avecCardinal : boolean);
+procedure WritelnStringSetDansRapport(const nom : String255; S : StringSet; avecCardinal : boolean);
+procedure WritelnStringDansRapportSansRepetition(theString : String255; var stringPool : StringSet);
 
 
 {Verification de l'unite}
-procedure TestStringSet;                                                                                                                                                            ATTRIBUTE_NAME('TestStringSet')
+procedure TestStringSet;
 
 
 IMPLEMENTATION

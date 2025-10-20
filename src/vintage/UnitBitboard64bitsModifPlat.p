@@ -10,7 +10,7 @@ INTERFACE
 
 
 
-procedure TestRapiditeBitboard64Bits;                                                                                                                                               ATTRIBUTE_NAME('TestRapiditeBitboard64Bits')
+procedure TestRapiditeBitboard64Bits;
 
 
 

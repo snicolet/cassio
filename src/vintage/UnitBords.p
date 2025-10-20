@@ -13,35 +13,35 @@ INTERFACE
 
 
   { initialisation de l'unité }
-  procedure InitUnitBords;                                                                                                                                                          ATTRIBUTE_NAME('InitUnitBords')
-  procedure LibereMemoireUnitBords;                                                                                                                                                 ATTRIBUTE_NAME('LibereMemoireUnitBords')
-	procedure Init_utilitaires_bords;                                                                                                                                                  ATTRIBUTE_NAME('Init_utilitaires_bords')
+  procedure InitUnitBords;
+  procedure LibereMemoireUnitBords;
+	procedure Init_utilitaires_bords;
 
 	{ Manipulations de patterns }
-	function DecoderBord(const chaine : t_code_pattern) : SInt32;                                                                                                                      ATTRIBUTE_NAME('DecoderBord')
-	function DecoderPattern(const chaine : t_code_pattern; tailleDuPattern : SInt32) : SInt32;                                                                                         ATTRIBUTE_NAME('DecoderPattern')
-	procedure CoderBord(adresse : SInt32; var chaine : t_code_pattern; var nbretrous,nbpionsamis,nbpionsennemis : SInt32);                                                             ATTRIBUTE_NAME('CoderBord')
-	procedure CoderPattern(adresse : SInt32; var chaine : t_code_pattern; tailleDuPattern : SInt32; var nbretrous,nbpionsamis,nbpionsennemis : SInt32);                                ATTRIBUTE_NAME('CoderPattern')
-	procedure AfficherPatternEtEvaluationDansRapport(commentaire : String255; indexPattern, longueurPattern, eval : SInt32);                                                           ATTRIBUTE_NAME('AfficherPatternEtEvaluationDansRapport')
+	function DecoderBord(const chaine : t_code_pattern) : SInt32;
+	function DecoderPattern(const chaine : t_code_pattern; tailleDuPattern : SInt32) : SInt32;
+	procedure CoderBord(adresse : SInt32; var chaine : t_code_pattern; var nbretrous,nbpionsamis,nbpionsennemis : SInt32);
+	procedure CoderPattern(adresse : SInt32; var chaine : t_code_pattern; tailleDuPattern : SInt32; var nbretrous,nbpionsamis,nbpionsennemis : SInt32);
+	procedure AfficherPatternEtEvaluationDansRapport(commentaire : String255; indexPattern, longueurPattern, eval : SInt32);
 
 
 	{ Gestion des bords turbulents (pour les extensions de recherche) }
-	procedure Initialise_turbulence_bords(priseDeBordsSontTurbulentes : boolean);                                                                                                      ATTRIBUTE_NAME('Initialise_turbulence_bords')
-	procedure SetTurbulenceBordsEstInitialisee(flag : boolean);                                                                                                                        ATTRIBUTE_NAME('SetTurbulenceBordsEstInitialisee')
-  function TurbulenceBordsEstInitialisee : boolean;                                                                                                                                 ATTRIBUTE_NAME('TurbulenceBordsEstInitialisee')
+	procedure Initialise_turbulence_bords(priseDeBordsSontTurbulentes : boolean);
+	procedure SetTurbulenceBordsEstInitialisee(flag : boolean);
+  function TurbulenceBordsEstInitialisee : boolean;
 
 
 
 	{ Une table de bords simpliste, codee à la main (obsolete) }
-	procedure Initialise_valeurs_bords(TendanceAuBeton : double_t);                                                                                                                    ATTRIBUTE_NAME('Initialise_valeurs_bords')
+	procedure Initialise_valeurs_bords(TendanceAuBeton : double_t);
 	  {  TendanceAuBeton = 0   : neutre  }
 	  {  TendanceAuBeton = 1.0 : Cassio bétonne  }
 	  {  TendanceAuBeton = -1.0 : Cassio refuse les bords  }
 
   { Des stastistiques ? (a voir) }
-  procedure VideStatistiquesDeBordsABLocal(var liste : t_liste_assoc_bord);                                                                                                         ATTRIBUTE_NAME('VideStatistiquesDeBordsABLocal')
-  procedure AjouteDansStatistiquesDeBordsABLocal(var liste : t_liste_assoc_bord; bord,indexdanstable : SInt32);                                                                     ATTRIBUTE_NAME('AjouteDansStatistiquesDeBordsABLocal')
-  procedure EcritStatistiquesDeBordsABLocal;                                                                                                                                        ATTRIBUTE_NAME('EcritStatistiquesDeBordsABLocal')
+  procedure VideStatistiquesDeBordsABLocal(var liste : t_liste_assoc_bord);
+  procedure AjouteDansStatistiquesDeBordsABLocal(var liste : t_liste_assoc_bord; bord,indexdanstable : SInt32);
+  procedure EcritStatistiquesDeBordsABLocal;
 
 
 

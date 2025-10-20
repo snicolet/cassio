@@ -10,74 +10,74 @@ INTERFACE
 
 
 { initialisation de l'unite }
-procedure InitUnitBaseNouveauFormat;                                                                                                                                                ATTRIBUTE_NAME('InitUnitBaseNouveauFormat')
-procedure LibereMemoireUnitBaseNouveauFormat;                                                                                                                                       ATTRIBUTE_NAME('LibereMemoireUnitBaseNouveauFormat')
+procedure InitUnitBaseNouveauFormat;
+procedure LibereMemoireUnitBaseNouveauFormat;
 
 { gestion du dialogue de chargement de la base }
-function ActionBaseDeDonnee(actionDemandee : SInt16; var partieEnChaine : String255) : boolean;                                                                                     ATTRIBUTE_NAME('ActionBaseDeDonnee')
-procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);                                                                                                                          ATTRIBUTE_NAME('DoLectureJoueursEtTournoi')
+function ActionBaseDeDonnee(actionDemandee : SInt16; var partieEnChaine : String255) : boolean;
+procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);
 
 
 { dessin du dialogue }
-procedure DessineOthellierLecture(whichWindow : WindowRef);                                                                                                                         ATTRIBUTE_NAME('DessineOthellierLecture')
-procedure DessineOthellierLectureHistorique(whichWindow : WindowRef);                                                                                                               ATTRIBUTE_NAME('DessineOthellierLectureHistorique')
-function CouleurDesPetitsOthelliers : RGBColor;                                                                                                                                     ATTRIBUTE_NAME('CouleurDesPetitsOthelliers')
-procedure AffichePositionLecture(position : plateauOthello; whichWindow : WindowRef);                                                                                               ATTRIBUTE_NAME('AffichePositionLecture')
-procedure AfficheHistoriqueLecture(position : plateauOthello; whichWindow : WindowRef);                                                                                             ATTRIBUTE_NAME('AfficheHistoriqueLecture')
-procedure EcritMessageLectureBase(s : String255; posH,posV : SInt16);                                                                                                               ATTRIBUTE_NAME('EcritMessageLectureBase')
-procedure SetDoitDessinerMessagesChargementBase(newValue : boolean; oldValue : booleanPtr);                                                                                         ATTRIBUTE_NAME('SetDoitDessinerMessagesChargementBase')
-function DoitDessinerMessagesChargementBase : boolean;                                                                                                                              ATTRIBUTE_NAME('DoitDessinerMessagesChargementBase')
+procedure DessineOthellierLecture(whichWindow : WindowRef);
+procedure DessineOthellierLectureHistorique(whichWindow : WindowRef);
+function CouleurDesPetitsOthelliers : RGBColor;
+procedure AffichePositionLecture(position : plateauOthello; whichWindow : WindowRef);
+procedure AfficheHistoriqueLecture(position : plateauOthello; whichWindow : WindowRef);
+procedure EcritMessageLectureBase(s : String255; posH,posV : SInt16);
+procedure SetDoitDessinerMessagesChargementBase(newValue : boolean; oldValue : booleanPtr);
+function DoitDessinerMessagesChargementBase : boolean;
 
 
 { les petits othelliers dans le dialogue }
-procedure InitialisePlateauLecture(whichWindow : WindowRef);                                                                                                                        ATTRIBUTE_NAME('InitialisePlateauLecture')
-procedure JoueOuverturePlateauLecture(ligne : PackedThorGame; whichWindow : WindowRef);                                                                                             ATTRIBUTE_NAME('JoueOuverturePlateauLecture')
-procedure DejoueUnCoupPlateauLecture(whichWindow : WindowRef);                                                                                                                      ATTRIBUTE_NAME('DejoueUnCoupPlateauLecture')
-procedure DejoueNCoupsPlateauLecture(coup : SInt16; whichWindow : WindowRef);                                                                                                       ATTRIBUTE_NAME('DejoueNCoupsPlateauLecture')
-function ClicDansOthellierLecture(mouseLoc : Point; whichWindow : WindowRef) : boolean;                                                                                             ATTRIBUTE_NAME('ClicDansOthellierLecture')
-procedure ClicDansHistoriqueLecture(mouseLoc : Point; whichWindow : WindowRef);                                                                                                     ATTRIBUTE_NAME('ClicDansHistoriqueLecture')
+procedure InitialisePlateauLecture(whichWindow : WindowRef);
+procedure JoueOuverturePlateauLecture(ligne : PackedThorGame; whichWindow : WindowRef);
+procedure DejoueUnCoupPlateauLecture(whichWindow : WindowRef);
+procedure DejoueNCoupsPlateauLecture(coup : SInt16; whichWindow : WindowRef);
+function ClicDansOthellierLecture(mouseLoc : Point; whichWindow : WindowRef) : boolean;
+procedure ClicDansHistoriqueLecture(mouseLoc : Point; whichWindow : WindowRef);
 
 
 { filtre d'evenement dans les dialogues de la base }
-function FiltreRechercheDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                               ATTRIBUTE_NAME('FiltreRechercheDialog')
-function FiltreLectureDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;                                                                                 ATTRIBUTE_NAME('FiltreLectureDialog')
+function FiltreRechercheDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
+function FiltreLectureDialog(dlog : DialogPtr; var evt : eventRecord; var item : SInt16) : boolean;
 
 
 { utilitaires sur les annees }
-function AnneeIsCompatible(anneeDeLaPartie,anneeDeRecherche,testInegalite : SInt16) : boolean;                                                                                      ATTRIBUTE_NAME('AnneeIsCompatible')
-function StringEnAnneeSansBugAn2000(s : String255) : SInt32;                                                                                                                        ATTRIBUTE_NAME('StringEnAnneeSansBugAn2000')
+function AnneeIsCompatible(anneeDeLaPartie,anneeDeRecherche,testInegalite : SInt16) : boolean;
+function StringEnAnneeSansBugAn2000(s : String255) : SInt32;
 
 
 { les menus pour choisir les bases utilisees dans le dialogue de chargement }
-procedure InstalleMenuFlottantBases(var popUpBases : menuFlottantBasesRec; whichMenuID : SInt16; filtre : filtreDistributionProc);                                                  ATTRIBUTE_NAME('InstalleMenuFlottantBases')
-procedure DesinstalleMenuFlottantBases(var popUpBases : menuFlottantBasesRec);                                                                                                      ATTRIBUTE_NAME('DesinstalleMenuFlottantBases')
-function NroDistribToItemNumber(popUpBases : menuFlottantBasesRec; nroDistribCherchee : SInt32) : SInt32;                                                                           ATTRIBUTE_NAME('NroDistribToItemNumber')
-function ItemNumberToNroDistrib(popUpBases : menuFlottantBasesRec; itemNumberCherche : SInt32) : SInt32;                                                                            ATTRIBUTE_NAME('ItemNumberToNroDistrib')
+procedure InstalleMenuFlottantBases(var popUpBases : menuFlottantBasesRec; whichMenuID : SInt16; filtre : filtreDistributionProc);
+procedure DesinstalleMenuFlottantBases(var popUpBases : menuFlottantBasesRec);
+function NroDistribToItemNumber(popUpBases : menuFlottantBasesRec; nroDistribCherchee : SInt32) : SInt32;
+function ItemNumberToNroDistrib(popUpBases : menuFlottantBasesRec; itemNumberCherche : SInt32) : SInt32;
 
 
 { gestion des telechargement automatiques de la base depuis othello.federation.free.fr }
-procedure MettreAJourLaBaseParTelechargement;                                                                                                                                       ATTRIBUTE_NAME('MettreAJourLaBaseParTelechargement')
+procedure MettreAJourLaBaseParTelechargement;
 
 
 { gestion du double local du listing du directory }
-procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);                                                             ATTRIBUTE_NAME('ParserLigneOfWTHORDirectoryOnInternet')
-procedure ComparerListingDuRepertoireDeLaBaseSurInternet(pathFichierTelecharge : String255);                                                                                        ATTRIBUTE_NAME('ComparerListingDuRepertoireDeLaBaseSurInternet')
+procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure ComparerListingDuRepertoireDeLaBaseSurInternet(pathFichierTelecharge : String255);
 
 
 { fonctions de reception d'un fichier telecharge }
-procedure GererTelechargementAutomatiqueDeLaBase(pathFichierTelecharge : String255; tailleFichier : SInt32);                                                                        ATTRIBUTE_NAME('GererTelechargementAutomatiqueDeLaBase')
-function TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase( whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;                                            ATTRIBUTE_NAME('TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase')
-procedure GererCompletionTelechargementFichierDeLaBase(pathFichierTelecharge : String255);                                                                                          ATTRIBUTE_NAME('GererCompletionTelechargementFichierDeLaBase')
-procedure TelechargerFichierDeLaBase(nomFichier : String255);                                                                                                                       ATTRIBUTE_NAME('TelechargerFichierDeLaBase')
-function LigneEstDansNotreListingWthorLocal(ligne : String255) : boolean;                                                                                                           ATTRIBUTE_NAME('LigneEstDansNotreListingWthorLocal')
-procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);                                                              ATTRIBUTE_NAME('VerifierPresenceFichierWThorChezNous')
+procedure GererTelechargementAutomatiqueDeLaBase(pathFichierTelecharge : String255; tailleFichier : SInt32);
+function TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase( whileFilePtr : FichierAbstraitPtr; var networkError : SInt32) : OSErr;
+procedure GererCompletionTelechargementFichierDeLaBase(pathFichierTelecharge : String255);
+procedure TelechargerFichierDeLaBase(nomFichier : String255);
+function LigneEstDansNotreListingWthorLocal(ligne : String255) : boolean;
+procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
 
 
 { petite liste locale des telechargements simultanes de la base }
-procedure AjouterUnFichierWThorDansListeATelecharger(nomFichier : String255);                                                                                                       ATTRIBUTE_NAME('AjouterUnFichierWThorDansListeATelecharger')
-procedure EnleverUnFichierWthorDansListeATelecharger(nomFichier : String255);                                                                                                       ATTRIBUTE_NAME('EnleverUnFichierWthorDansListeATelecharger')
-function NombreTelechargementsWthorEnCours : SInt32;                                                                                                                                ATTRIBUTE_NAME('NombreTelechargementsWthorEnCours')
-procedure GererTelechargementWThor;                                                                                                                                                 ATTRIBUTE_NAME('GererTelechargementWThor')
+procedure AjouterUnFichierWThorDansListeATelecharger(nomFichier : String255);
+procedure EnleverUnFichierWthorDansListeATelecharger(nomFichier : String255);
+function NombreTelechargementsWthorEnCours : SInt32;
+procedure GererTelechargementWThor;
 
 
 
@@ -91,7 +91,7 @@ IMPLEMENTATION
 
 USES
     UnitDebuggage, OSUtils, fp, Sound, QuickdrawText, Fonts, Script, MacWindows
-    
+
 {$IFC NOT(USE_PRELINK)}
     , UnitListe, UnitMenus, MyQuickDraw, SNMenus, UnitJaponais, UnitStrategie, UnitEvenement, UnitCriteres
     , UnitFichiersTEXT, UnitFichierAbstrait, UnitRapportImplementation, UnitCarbonisation, UnitUtilitaires, UnitProgressBar, UnitAccesNouveauFormat, UnitDiagramFforum
@@ -166,10 +166,10 @@ begin
 
   gDernierTempsDeChargementDeLaBase := 1000;  {en ticks}
   SetDoitDessinerMessagesChargementBase(true, NIL);
-  
+
   for k := LectureBouton to BasesUserItemPopUp do
     mustBeAPerfectMatch[k] := false;
-    
+
 end;
 
 
@@ -978,27 +978,27 @@ begin
                    SetItemTextInDialog(dlog,JoueurNoirText,s2);
                    SetItemTextInDialog(dlog,JoueurBlancText,s1);
                    SelectDialogItemText(dlog,JoueurNoirText,0,MAXINT_16BITS);
-                   
+
                    temp := mustBeAPerfectMatch[JoueurNoirText];
                    mustBeAPerfectMatch[JoueurNoirText]  := mustBeAPerfectMatch[JoueurBlancText];
                    mustBeAPerfectMatch[JoueurBlancText] := temp;
-                   
+
                    FiltreLectureDialog := true;
                    exit(FiltreLectureDialog);
                  end;
                FiltreLectureDialog := MyFiltreClassique(dlog,evt,item);
              end
-         else 
+         else
            begin
-           
+
              FiltreLectureDialog := MyFiltreClassique(dlog,evt,item);
              ch := chr(BAnd(evt.message,charCodemask));
-             
-             
+
+
              if (item = JoueurNoirText)  & (ch <> tab) then mustBeAPerfectMatch[JoueurNoirText]  := false;
              if (item = JoueurBlancText) & (ch <> tab) then mustBeAPerfectMatch[JoueurBlancText] := false;
              if (item = TournoiText)     & (ch <> tab) then mustBeAPerfectMatch[TournoiText]     := false;
-             
+
              (*
              WritelnDansRapport('dans FiltreLectureDialog (1) : ');
              WritelnNumDansRapport('item = ', item);
@@ -1006,14 +1006,14 @@ begin
              WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[JoueurBlancText] = ',mustBeAPerfectMatch[JoueurBlancText]);
              WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[TournoiText] = ',mustBeAPerfectMatch[TournoiText]);
              *)
-             
+
            end;
       updateEvt :
         begin
           item := VirtualUpdateItemInDialog;
           FiltreLectureDialog := true;
         end;
-      otherwise 
+      otherwise
         begin
           FiltreLectureDialog := MyFiltreClassique(dlog,evt,item);
         end;
@@ -1450,27 +1450,27 @@ procedure ChercheNumerosJoueursCompatibles(nomNoir,nomBlanc : String255);
 var traiteNoir,traiteBlanc : boolean;
 begin
 
-  (* nomNoir : changer les guillemets pour utiliser la syntaxe de grep 
+  (* nomNoir : changer les guillemets pour utiliser la syntaxe de grep
                pour le debut et la fin de mot *)
-               
-  if (nomNoir[1] = '"') 
+
+  if (nomNoir[1] = '"')
     then nomNoir[1] := '^';
-    
-  if (nomNoir[LENGTH_OF_STRING(nomNoir)] = '"') 
+
+  if (nomNoir[LENGTH_OF_STRING(nomNoir)] = '"')
     then nomNoir[LENGTH_OF_STRING(nomNoir)] := '$';
-    
+
   if (nomNoir = '^') | (nomNoir = '$') | (nomNoir = '^$')
     then nomNoir := '';
-   
-  (* nomBlanc : changer les guillemets pour utiliser la syntaxe de grep 
+
+  (* nomBlanc : changer les guillemets pour utiliser la syntaxe de grep
                 pour le debut et la fin de mot *)
-               
-  if (nomBlanc[1] = '"') 
+
+  if (nomBlanc[1] = '"')
     then nomBlanc[1] := '^';
-    
-  if (nomBlanc[LENGTH_OF_STRING(nomBlanc)] = '"') 
+
+  if (nomBlanc[LENGTH_OF_STRING(nomBlanc)] = '"')
     then nomBlanc[LENGTH_OF_STRING(nomBlanc)] := '$';
-    
+
   if (nomBlanc = '^') | (nomBlanc = '$') | (nomBlanc = '^$')
     then nomBlanc := '';
 
@@ -1478,7 +1478,7 @@ begin
 
   traiteNoir  := (nomNoir <> '');
   traiteBlanc := (nomBlanc <> '');
-  
+
   if traiteNoir | traiteBlanc then
     begin
       if traiteNoir then RemplitTableCompatibleJoueurAvecCeBooleen(JoueurNoirCompatible,false);
@@ -1746,10 +1746,10 @@ var NewNoir,NewBlanc,NewScoreNoir : String255;
     NewTournoi,NewAnnee,NewGenreTest : String255;
 begin
   ChaineNroPart := '';
-  
+
   if tientCompteDeNro
     then GetItemTextInDialog(dp,NroText,ChaineNroPart);
-    
+
   if (ChaineNroPart = '') | not(tientCompteDeNro) then
     begin
       GetItemTextInDialog(dp,ScoreNoirText,NewScoreNoir);
@@ -1866,10 +1866,10 @@ begin
   GetItemTextInDialog(dp,TournoiText,s);
   if (s <> '') then
     begin
-    
+
       DoLectureJoueursEtTournoi(false);
       if TrouveNumeroDuTournoi(s, numeroDuTournoi, 0) then exit(DeplaceAnneeDuTournoi);
-    
+
       i := LENGTH_OF_STRING(s);
       if i >= 5 then
         if IsDigit(s[i]) &
@@ -2108,7 +2108,7 @@ begin  {ChargerLaBase}
   ChaineAnnee := NewAnnee;
   ChaineScoreNoir := NewScoreNoir;
   ChaineGenreTest := NewGenreTest;
-  
+
 
   FILL_PACKED_GAME_WITH_ZEROS(ouvertureactive60);
   ouvertureactive120 := '';
@@ -2167,31 +2167,31 @@ begin  {ChargerLaBase}
     end;
   GetItemTextInDialog(dp,AnneeText,s);
   anneeRecherche := StringEnAnneeSansBugAn2000(s);
-  
-  
+
+
   GetItemTextInDialog(dp,JoueurNoirText,JoueurNoirRecherche);
   GetItemTextInDialog(dp,JoueurBlancText,JoueurBlancRecherche);
   ANDentreJoueurs := not(JoueurBlancRecherche = JoueurNoirRecherche);
   GetItemTextInDialog(dp,tournoiText,tournoiRecherche);
-  
+
   (*
   WritelnDansRapport('avant la recherche : ');
   WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[JoueurNoirText] = ',mustBeAPerfectMatch[JoueurNoirText]);
   WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[JoueurBlancText] = ',mustBeAPerfectMatch[JoueurBlancText]);
   WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[TournoiText] = ',mustBeAPerfectMatch[TournoiText]);
   *)
-  
+
   if mustBeAPerfectMatch[JoueurNoirText]  then JoueurNoirRecherche    := TransformePourPerfectMatch(JoueurNoirRecherche);
   if mustBeAPerfectMatch[JoueurBlancText] then JoueurBlancRecherche   := TransformePourPerfectMatch(JoueurBlancRecherche);
   if mustBeAPerfectMatch[TournoiText]     then tournoiRecherche       := TransformePourPerfectMatch(tournoiRecherche);
-  
+
   (*
   WritelnDansRapport('JoueurNoirRecherche = ' + JoueurNoirRecherche);
   WritelnDansRapport('JoueurBlancRecherche = '+ JoueurBlancRecherche);
   WritelnDansRapport('tournoiRecherche = '+ tournoiRecherche);
   *)
-  
-  
+
+
   if not(JoueursEtTournoisEnMemoire) then
     begin
       EcritMessageLectureBase(ReadStringFromRessource(TextesBaseID,3),20,kYpositionMessageBase);
@@ -2618,7 +2618,7 @@ begin
   IncrementeMagicCookieDemandeCalculsBase;
   ConstruitTableNumeroReference(false,false);
   SetPartieHiliteeEtAjusteAscenseurListe(1);
-  
+
   positionLectureModifiee := false;
   FILL_PACKED_GAME_WITH_ZEROS(ChainePartieLecture);
   if not(positionFeerique) then
@@ -2762,20 +2762,20 @@ begin
                     EcritMessageLectureBase('                                                             ',20,kYpositionMessageBase);
                   end;
                 s := TPCopy(s,1,LENGTH_OF_STRING(s)-1);
-                
+
                 case itemHit of
                   JoueurNoirText : s := Complemente(complementationJoueurNoir ,false,s,i,mustBeAPerfectMatch[JoueurNoirText]);
                   JoueurBlancText: s := Complemente(complementationJoueurBlanc,false,s,i,mustBeAPerfectMatch[JoueurBlancText]);
                   TournoiText    : s := Complemente(complementationTournoi    ,false,s,i,mustBeAPerfectMatch[TournoiText]);
                 end;
-                
+
                 (*
                 WritelnDansRapport('apres la complementation : ');
                 WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[JoueurNoirText] = ',mustBeAPerfectMatch[JoueurNoirText]);
                 WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[JoueurBlancText] = ',mustBeAPerfectMatch[JoueurBlancText]);
                 WritelnStringAndBooleanDansRapport('mustBeAPerfectMatch[TournoiText] = ',mustBeAPerfectMatch[TournoiText]);
                 *)
-                
+
                 SetItemTextInDialog(dp,itemHit,s);
                 SelectDialogItemText(dp,itemHit,i,MAXINT_16BITS);
               end;
@@ -3230,46 +3230,46 @@ begin  {$unused theFic, result}
   WritelnDansRapport('ligne = '+s);
   WritelnStringAndBooleenDansRapport('gFichierListingWThorEstVide = ',gFichierListingWThorEstVide);
   }
-  
+
   Parser4(s, nomFichier, date, heure, taille, reste);
-  
+
 
   if not(gFichierListingWThorEstVide)  then
     begin
-    
+
       doitTelechargerCeFichier := false;
-      
+
       if gMettreAJourParInternetTOUSLesFichiersWThor |   // tous les fichiers ?
          not(LigneEstDansNotreListingWthorLocal(s))      // fichier absent de la petite liste locale precedente ?
-        then 
-          doitTelechargerCeFichier := true 
+        then
+          doitTelechargerCeFichier := true
         else
           begin
-          
+
             // On cherche dans la base actuellement sur le disque si on a le fichier WTHOR correspondant
-            
+
             numeroFichier := GetNroPremierFichierAvecCeNom(nomFichier);
-            
-            if (numeroFichier = -1)  
-              then 
+
+            if (numeroFichier = -1)
+              then
                 doitTelechargerCeFichier := true  // not found ?
               else
                 begin
-                
+
                    (*
                     WritelnDansRapport('');
                     WritelnDansRapport('recherche locale de = '+s);
                     *)
-                
+
                   // on a trouvŽ une version locale d'un fichier WTHOR portant le meme nom
                   // il faut verifier si la taille locale est plus petite que la taille sur le reseau,
                   // auquelle cas on telechargera le nouveau fichier.
-                  
-  
+
+
                   tailleSurLeSiteFFO  := StringSimpleEnReel(GarderSeulementLesChiffresOuLesPoints(taille));
                   tailleVersionLocale := TailleTheoriqueDeCeFichierNouveauFormat(numeroFichier) / 1024.0 ;
-                  
-                  
+
+
                   (*
                   WritelnDansRapport('nomFichier = '+nomFichier);
                   WritelnDansRapport('date = '+date);
@@ -3278,16 +3278,16 @@ begin  {$unused theFic, result}
                   WritelnStringAndReelDansRapport('tailleSurLeSiteFFO = ', tailleSurLeSiteFFO, 9);
                   WritelnStringAndReelDansRapport('tailleVersionLocale = ', tailleVersionLocale, 9);
                   *)
-                  
-                  doitTelechargerCeFichier := (tailleSurLeSiteFFO >= tailleVersionLocale) & 
+
+                  doitTelechargerCeFichier := (tailleSurLeSiteFFO >= tailleVersionLocale) &
                                               ((tailleSurLeSiteFFO - tailleVersionLocale) > 0.5);
-                                              
-  
+
+
                 end;
           end;
-      
-      
-                                  
+
+
+
       if doitTelechargerCeFichier then
         begin
 

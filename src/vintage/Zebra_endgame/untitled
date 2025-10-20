@@ -7,7 +7,7 @@ INTERFACE
 USES UnitOth0,UnitDefPositionEtTrait;
 
 
-type      
+type
     ReflexRec = record
                  class : ListOfMoveRecords;
                  prof,compteur,longClass : SInt16;
@@ -21,7 +21,7 @@ type
                end;
      ReflexRecPtr =  ^ReflexRec;
 
-var 
+var
    ReflexData : ReflexRecPtr;
 
 

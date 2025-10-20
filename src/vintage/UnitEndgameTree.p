@@ -15,36 +15,36 @@ INTERFACE
 
 
 (* initialisation de l'unite *)
-procedure InitUnitEndgameTree;                                                                                                                                                      ATTRIBUTE_NAME('InitUnitEndgameTree')
+procedure InitUnitEndgameTree;
 
 
 (* fonction pour parcourir localement l'arbre en finale *)
-procedure SearchPositionFromThisNode(whichPosition : PositionEtTraitRec; whichNode : GameTree; var result : GameTree);                                                              ATTRIBUTE_NAME('SearchPositionFromThisNode')
-function AllocateNewEndgameTree(startingNode : GameTree; var numeroArbre : SInt32) : boolean;                                                                                       ATTRIBUTE_NAME('AllocateNewEndgameTree')
-procedure LibereEndgameTree(numeroArbre : SInt32);                                                                                                                                  ATTRIBUTE_NAME('LibereEndgameTree')
-procedure DoMoveEndgameTree(numeroArbre,coup,trait : SInt32);                                                                                                                       ATTRIBUTE_NAME('DoMoveEndgameTree')
-procedure UndoMoveEndgameTree(numeroArbre : SInt32);                                                                                                                                ATTRIBUTE_NAME('UndoMoveEndgameTree')
-function GetActiveNodeOfEndgameTree(numeroArbre : SInt32) : GameTree;                                                                                                               ATTRIBUTE_NAME('GetActiveNodeOfEndgameTree')
-function GetMagicCookieInitialEndgameTree(numeroArbre : SInt32) : SInt32;                                                                                                           ATTRIBUTE_NAME('GetMagicCookieInitialEndgameTree')
-function NbMaxEndgameTrees : SInt32;                                                                                                                                                ATTRIBUTE_NAME('NbMaxEndgameTrees')
-procedure EcritStatistiquesEndgameTrees;                                                                                                                                            ATTRIBUTE_NAME('EcritStatistiquesEndgameTrees')
+procedure SearchPositionFromThisNode(whichPosition : PositionEtTraitRec; whichNode : GameTree; var result : GameTree);
+function AllocateNewEndgameTree(startingNode : GameTree; var numeroArbre : SInt32) : boolean;
+procedure LibereEndgameTree(numeroArbre : SInt32);
+procedure DoMoveEndgameTree(numeroArbre,coup,trait : SInt32);
+procedure UndoMoveEndgameTree(numeroArbre : SInt32);
+function GetActiveNodeOfEndgameTree(numeroArbre : SInt32) : GameTree;
+function GetMagicCookieInitialEndgameTree(numeroArbre : SInt32) : SInt32;
+function NbMaxEndgameTrees : SInt32;
+procedure EcritStatistiquesEndgameTrees;
 
 (* fonction de minimax utilisant les GameTree *)
-function TrouveMeilleurFilsNoir(G : GameTree; var bestScoreNoir : SInt32) : GameTree;                                                                                               ATTRIBUTE_NAME('TrouveMeilleurFilsNoir')
-function TrouveMeilleurFilsBlanc(G : GameTree; var bestScoreBlanc : SInt32) : GameTree;                                                                                             ATTRIBUTE_NAME('TrouveMeilleurFilsBlanc')
-function SelectionneMeilleurCoupNoirDansListe(L : GameTreeList; var bestBlackScore : SInt32) : GameTree;                                                                            ATTRIBUTE_NAME('SelectionneMeilleurCoupNoirDansListe')
-function SelectionneMeilleurCoupBlancDansListe(L : GameTreeList; var bestWhiteScore : SInt32) : GameTree;                                                                           ATTRIBUTE_NAME('SelectionneMeilleurCoupBlancDansListe')
+function TrouveMeilleurFilsNoir(G : GameTree; var bestScoreNoir : SInt32) : GameTree;
+function TrouveMeilleurFilsBlanc(G : GameTree; var bestScoreBlanc : SInt32) : GameTree;
+function SelectionneMeilleurCoupNoirDansListe(L : GameTreeList; var bestBlackScore : SInt32) : GameTree;
+function SelectionneMeilleurCoupBlancDansListe(L : GameTreeList; var bestWhiteScore : SInt32) : GameTree;
 
 
 (* recherche des valeurs minimales et maximales stockees dans les EndgameTree *)
-function GetValeurMinimumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;                                                                                                 ATTRIBUTE_NAME('GetValeurMinimumParEndgameTree')
-function GetValeurMaximumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;                                                                                                 ATTRIBUTE_NAME('GetValeurMaximumParEndgameTree')
-function ConnaitValeurDuNoeudParEndgameTree(numeroArbre,deltaFinale : SInt32; var vmin,vmax : SInt32) : boolean;                                                                    ATTRIBUTE_NAME('ConnaitValeurDuNoeudParEndgameTree')
+function GetValeurMinimumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;
+function GetValeurMaximumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;
+function ConnaitValeurDuNoeudParEndgameTree(numeroArbre,deltaFinale : SInt32; var vmin,vmax : SInt32) : boolean;
 
 (* finale par l'arbre *)
-function PeutCalculerFinaleParEndgameTree(numeroArbre : SInt32; position : PositionEtTraitRec; var listeDesCoups : PropertyList; var meilleurScore : SInt32) : boolean;             ATTRIBUTE_NAME('PeutCalculerFinaleParEndgameTree')
-function SuiteParfaiteEstConnueDansGameTree : boolean;                                                                                                                              ATTRIBUTE_NAME('SuiteParfaiteEstConnueDansGameTree')
-procedure SetSuiteParfaiteEstConnueDansGameTree(flag : boolean);                                                                                                                    ATTRIBUTE_NAME('SetSuiteParfaiteEstConnueDansGameTree')
+function PeutCalculerFinaleParEndgameTree(numeroArbre : SInt32; position : PositionEtTraitRec; var listeDesCoups : PropertyList; var meilleurScore : SInt32) : boolean;
+function SuiteParfaiteEstConnueDansGameTree : boolean;
+procedure SetSuiteParfaiteEstConnueDansGameTree(flag : boolean);
 
 
 

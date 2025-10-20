@@ -9,9 +9,9 @@ INTERFACE
 
 
 
-function MyGetFontNum(nomPolice : String255) : SInt16;                                                                                                                              ATTRIBUTE_NAME('MyGetFontNum')
-procedure GetClassicalFontsID;                                                                                                                                                      ATTRIBUTE_NAME('GetClassicalFontsID')
-function LoadFont(fontFSSpec : FSSpec) : OSErr;                                                                                                                                            ATTRIBUTE_NAME('LoadFont')
+function MyGetFontNum(nomPolice : String255) : SInt16;
+procedure GetClassicalFontsID;
+function LoadFont(fontFSSpec : FSSpec) : OSErr;
 
 
 IMPLEMENTATION
@@ -85,12 +85,12 @@ begin
   if err = NoErr then
     begin
       err := FSGetCatalogInfo(fileRef, kFSCatInfoNone, NIL, NIL, @theFSSpec, NIL);
-      if (err = NoErr) then 
+      if (err = NoErr) then
         begin
           err := FMActivateFonts(theFSSpec, NIL, NIL, kFMGlobalActivationContext);
         end;
     end;
-    
+
   LoadFont := err;
 end;
 

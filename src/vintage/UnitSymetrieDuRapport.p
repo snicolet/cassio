@@ -13,7 +13,7 @@ INTERFACE
 
 
 {Symetrie sur le texte du rapport}
-procedure DoSymetrieSelectionDuRapport(axeSymetrie : SInt32);                                                                                                                       ATTRIBUTE_NAME('DoSymetrieSelectionDuRapport')
+procedure DoSymetrieSelectionDuRapport(axeSymetrie : SInt32);
 
 
 IMPLEMENTATION

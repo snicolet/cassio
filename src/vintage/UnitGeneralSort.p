@@ -12,8 +12,8 @@ INTERFACE
 
 
 
-procedure GeneralQuickSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);                                                         ATTRIBUTE_NAME('GeneralQuickSort')
-procedure GeneralShellSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);                                                         ATTRIBUTE_NAME('GeneralShellSort')
+procedure GeneralQuickSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);
+procedure GeneralShellSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);
 
 
 

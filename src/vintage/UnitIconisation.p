@@ -16,18 +16,18 @@ INTERFACE
 
 
 
-function InitUnitIconisationOK : boolean;                                                                                                                                           ATTRIBUTE_NAME('InitUnitIconisationOK')
-function LibereMemoireIconisation : boolean;                                                                                                                                        ATTRIBUTE_NAME('LibereMemoireIconisation')
+function InitUnitIconisationOK : boolean;
+function LibereMemoireIconisation : boolean;
 
-procedure CloseIconisationWindow;                                                                                                                                                   ATTRIBUTE_NAME('CloseIconisationWindow')
-procedure FabriquePictureIconisation;                                                                                                                                               ATTRIBUTE_NAME('FabriquePictureIconisation')
-procedure DessinePictureIconisation;                                                                                                                                                ATTRIBUTE_NAME('DessinePictureIconisation')
-procedure DetruitPictureIconisation;                                                                                                                                                ATTRIBUTE_NAME('DetruitPictureIconisation')
-procedure RefletePositionCouranteDansPictureIconisation;                                                                                                                            ATTRIBUTE_NAME('RefletePositionCouranteDansPictureIconisation')
-procedure DoUpdateIconisation;                                                                                                                                                      ATTRIBUTE_NAME('DoUpdateIconisation')
+procedure CloseIconisationWindow;
+procedure FabriquePictureIconisation;
+procedure DessinePictureIconisation;
+procedure DetruitPictureIconisation;
+procedure RefletePositionCouranteDansPictureIconisation;
+procedure DoUpdateIconisation;
 
-procedure IconiserCassio;                                                                                                                                                           ATTRIBUTE_NAME('IconiserCassio')
-procedure DeiconiserCassio;                                                                                                                                                         ATTRIBUTE_NAME('DeiconiserCassio')
+procedure IconiserCassio;
+procedure DeiconiserCassio;
 
 
 
@@ -223,7 +223,7 @@ begin
       ParserPositionEtCoupsOthello8x8(PositionEtCoupIconeStr,chainePositionInitiale,chaineCoups);
 
       if enRetour
-        then 
+        then
           ConstruitDiagrammePicture(chainePositionInitiale,chaineCoups)
         else
           begin
@@ -231,9 +231,9 @@ begin
             if ParametresIconeOthellier.DessinePierresDeltaFFORUM
               then ConstruitPicturePionsDeltaCourants;
           end;
-      
+
       PrintEpilogueForEPSFile;
-      
+
       ClosePicture;
       SetClip(oldclipRgn);
       DisposeRgn(oldclipRgn);

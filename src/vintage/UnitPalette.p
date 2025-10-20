@@ -14,13 +14,13 @@ const BWPalettePictID = 133;
 
       CPalettePictID = 138;
 
-procedure FlashCasePalette(nroaction : SInt16);                                                                                                                                     ATTRIBUTE_NAME('FlashCasePalette')
-procedure DessineCasePaletteCouleur(nroAction : SInt16; enfoncee : boolean);                                                                                                        ATTRIBUTE_NAME('DessineCasePaletteCouleur')
-procedure DessineIconesChangeantes;                                                                                                                                                 ATTRIBUTE_NAME('DessineIconesChangeantes')
-procedure DessinePalette;                                                                                                                                                           ATTRIBUTE_NAME('DessinePalette')
+procedure FlashCasePalette(nroaction : SInt16);
+procedure DessineCasePaletteCouleur(nroAction : SInt16; enfoncee : boolean);
+procedure DessineIconesChangeantes;
+procedure DessinePalette;
 
-procedure GetRectDansPalette(action : SInt16; var RectAction : rect);                                                                                                               ATTRIBUTE_NAME('GetRectDansPalette')
-procedure DrawColorPICT(pictID : SInt16; inRect : rect);                                                                                                                            ATTRIBUTE_NAME('DrawColorPICT')
+procedure GetRectDansPalette(action : SInt16; var RectAction : rect);
+procedure DrawColorPICT(pictID : SInt16; inRect : rect);
 
 
 

@@ -18,8 +18,8 @@ INTERFACE
 
 
 
-procedure SetUp;                                                                                                                                                                    ATTRIBUTE_NAME('SetUp')
-procedure EcranStandardSetUp;                                                                                                                                                       ATTRIBUTE_NAME('EcranStandardSetUp')
+procedure SetUp;
+procedure EcranStandardSetUp;
 
 
 

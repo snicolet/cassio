@@ -13,13 +13,13 @@ INTERFACE
  USES UnitDefCassio , fp;
 
 
-function gammp(a,x : TypeReel) : TypeReel;                                                                                                                                          ATTRIBUTE_NAME('gammp')
-function gammq(a,x : TypeReel) : TypeReel;                                                                                                                                          ATTRIBUTE_NAME('gammq')
+function gammp(a,x : TypeReel) : TypeReel;
+function gammq(a,x : TypeReel) : TypeReel;
 
 
-procedure MomentsOfPointMultidimensionnel(var data : PointMultidimensionnel; nData : SInt32; var moyenne, deviationAbsolueMoyenne, standardDeviation, variance, skewness, kurtosis : TypeReel);                                                                               ATTRIBUTE_NAME('MomentsOfPointMultidimensionnel')
+procedure MomentsOfPointMultidimensionnel(var data : PointMultidimensionnel; nData : SInt32; var moyenne, deviationAbsolueMoyenne, standardDeviation, variance, skewness, kurtosis : TypeReel);
 
-procedure StraightLineFitting(var x,y,sigma : PointMultidimensionnel; nData : SInt32; variancesIndividuellesConnues : boolean; var a,b,sigmaa,sigmab,chi2,q : TypeReel);            ATTRIBUTE_NAME('StraightLineFitting')
+procedure StraightLineFitting(var x,y,sigma : PointMultidimensionnel; nData : SInt32; variancesIndividuellesConnues : boolean; var a,b,sigmaa,sigmab,chi2,q : TypeReel);
 
 IMPLEMENTATION
 

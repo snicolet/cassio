@@ -15,47 +15,47 @@ INTERFACE
 
 
 
-function MakeSearchResultFromHeuristicValue(midgameValue : SInt32) : SearchResult;                                                                                                  ATTRIBUTE_NAME('MakeSearchResultFromHeuristicValue')
-function MakeSearchResultForSolvedPosition(endgameScore : SInt32) : SearchResult;                                                                                                   ATTRIBUTE_NAME('MakeSearchResultForSolvedPosition')
-function InitialiseSearchResult : SearchResult;                                                                                                                                     ATTRIBUTE_NAME('InitialiseSearchResult')
+function MakeSearchResultFromHeuristicValue(midgameValue : SInt32) : SearchResult;
+function MakeSearchResultForSolvedPosition(endgameScore : SInt32) : SearchResult;
+function InitialiseSearchResult : SearchResult;
 
 
-procedure SetMinimaxValueInResult(value : SInt32; var myResult : SearchResult);                                                                                                     ATTRIBUTE_NAME('SetMinimaxValueInResult')
-procedure SetProofNumberInResult(proof : double_t; var myResult : SearchResult);                                                                                                    ATTRIBUTE_NAME('SetProofNumberInResult')
-procedure SetDisproofNumberInResult(disproof : double_t; var myResult : SearchResult);                                                                                              ATTRIBUTE_NAME('SetDisproofNumberInResult')
-function GetMinimaxValueOfResult(const myResult : SearchResult) : SInt32;                                                                                                           ATTRIBUTE_NAME('GetMinimaxValueOfResult')
-function GetProofNumberOfResult(const myResult : SearchResult) : double_t;                                                                                                          ATTRIBUTE_NAME('GetProofNumberOfResult')
-function GetDisproofNumberOfResult(const myResult : SearchResult) : double_t;                                                                                                       ATTRIBUTE_NAME('GetDisproofNumberOfResult')
-procedure SetProofAndDisproofNumberFromHeuristicValue(midgameValue : SInt32; var result : SearchResult);                                                                            ATTRIBUTE_NAME('SetProofAndDisproofNumberFromHeuristicValue')
+procedure SetMinimaxValueInResult(value : SInt32; var myResult : SearchResult);
+procedure SetProofNumberInResult(proof : double_t; var myResult : SearchResult);
+procedure SetDisproofNumberInResult(disproof : double_t; var myResult : SearchResult);
+function GetMinimaxValueOfResult(const myResult : SearchResult) : SInt32;
+function GetProofNumberOfResult(const myResult : SearchResult) : double_t;
+function GetDisproofNumberOfResult(const myResult : SearchResult) : double_t;
+procedure SetProofAndDisproofNumberFromHeuristicValue(midgameValue : SInt32; var result : SearchResult);
 
 
-function SearchResultEnMidgameEval(const result : SearchResult) : SInt32;                                                                                                           ATTRIBUTE_NAME('SearchResultEnMidgameEval')
-function GetWindowAlphaEnMidgameEval(const window : SearchWindow) : SInt32;                                                                                                         ATTRIBUTE_NAME('GetWindowAlphaEnMidgameEval')
-function GetWindowBetaEnMidgameEval(const window : SearchWindow) : SInt32;                                                                                                          ATTRIBUTE_NAME('GetWindowBetaEnMidgameEval')
+function SearchResultEnMidgameEval(const result : SearchResult) : SInt32;
+function GetWindowAlphaEnMidgameEval(const window : SearchWindow) : SInt32;
+function GetWindowBetaEnMidgameEval(const window : SearchWindow) : SInt32;
 
 
-function DecalerSearchResult(const myResult : SearchResult; midgameDecalage : SInt32) : SearchResult;                                                                               ATTRIBUTE_NAME('DecalerSearchResult')
+function DecalerSearchResult(const myResult : SearchResult; midgameDecalage : SInt32) : SearchResult;
 
-function MakeSearchWindow(const alpha,beta : SearchResult) : SearchWindow;                                                                                                          ATTRIBUTE_NAME('MakeSearchWindow')
-function MakeNullWindow(const v : SearchResult) : SearchWindow;                                                                                                                     ATTRIBUTE_NAME('MakeNullWindow')
+function MakeSearchWindow(const alpha,beta : SearchResult) : SearchWindow;
+function MakeNullWindow(const v : SearchResult) : SearchWindow;
 
-function GetWindowAlphaValue(const window : SearchWindow) : SearchResult;                                                                                                           ATTRIBUTE_NAME('GetWindowAlphaValue')
-function GetWindowBetaValue(const window : SearchWindow) : SearchResult;                                                                                                            ATTRIBUTE_NAME('GetWindowBetaValue')
+function GetWindowAlphaValue(const window : SearchWindow) : SearchResult;
+function GetWindowBetaValue(const window : SearchWindow) : SearchResult;
 
 
 
-function FailSoltInWindow(const result : SearchResult; const window : SearchWindow) : boolean;                                                                                      ATTRIBUTE_NAME('FailSoltInWindow')
-function FailHighInWindow(const result : SearchResult; const window : SearchWindow) : boolean;                                                                                      ATTRIBUTE_NAME('FailHighInWindow')
-function ResultInsideWindow(const result : SearchResult; const window : SearchWindow) : boolean;                                                                                    ATTRIBUTE_NAME('ResultInsideWindow')
-function IsNullWindow(const window : SearchWindow) : boolean;                                                                                                                       ATTRIBUTE_NAME('IsNullWindow')
+function FailSoltInWindow(const result : SearchResult; const window : SearchWindow) : boolean;
+function FailHighInWindow(const result : SearchResult; const window : SearchWindow) : boolean;
+function ResultInsideWindow(const result : SearchResult; const window : SearchWindow) : boolean;
+function IsNullWindow(const window : SearchWindow) : boolean;
 
-function AlphaBetaCut(const window : SearchWindow) : boolean;                                                                                                                       ATTRIBUTE_NAME('AlphaBetaCut')
+function AlphaBetaCut(const window : SearchWindow) : boolean;
 
-function ReverseResult(const result : SearchResult) : SearchResult;                                                                                                                 ATTRIBUTE_NAME('ReverseResult')
-function ReverseWindow(const window : SearchWindow) : SearchWindow;                                                                                                                 ATTRIBUTE_NAME('ReverseWindow')
+function ReverseResult(const result : SearchResult) : SearchResult;
+function ReverseWindow(const window : SearchWindow) : SearchWindow;
 
-procedure UpdateSearchResult(var result : SearchResult; const valeurDuFils : SearchResult; var ameliorationMinimax,ameliorationProofNumber : boolean);                              ATTRIBUTE_NAME('UpdateSearchResult')
-function UpdateSearchWindow(const value : SearchResult; var window : SearchWindow) : boolean;                                                                                       ATTRIBUTE_NAME('UpdateSearchWindow')
+procedure UpdateSearchResult(var result : SearchResult; const valeurDuFils : SearchResult; var ameliorationMinimax,ameliorationProofNumber : boolean);
+function UpdateSearchWindow(const value : SearchResult; var window : SearchWindow) : boolean;
 
 
 IMPLEMENTATION

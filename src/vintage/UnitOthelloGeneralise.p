@@ -16,24 +16,24 @@ INTERFACE
 
 
 
-function MakeBigOthelloRec(theSize : Point; var plateau : BigOthellier; trait : SInt16) : BigOthelloRec;                                                                            ATTRIBUTE_NAME('MakeBigOthelloRec')
-function PositionInitialeBigOthello(sizeH,sizeV : SInt16) : BigOthelloRec;                                                                                                          ATTRIBUTE_NAME('PositionInitialeBigOthello')
-function PositionVideBigOthello(sizeH,sizeV : SInt16) : BigOthelloRec;                                                                                                              ATTRIBUTE_NAME('PositionVideBigOthello')
-function PositionCouranteEnBigOthello : BigOthelloRec;                                                                                                                              ATTRIBUTE_NAME('PositionCouranteEnBigOthello')
-function SameBigOthelloRec(const pos1,pos2 : BigOthelloRec) : boolean;                                                                                                              ATTRIBUTE_NAME('SameBigOthelloRec')
-function BigOthelloEstVide(const position : BigOthelloRec) : boolean;                                                                                                               ATTRIBUTE_NAME('BigOthelloEstVide')
+function MakeBigOthelloRec(theSize : Point; var plateau : BigOthellier; trait : SInt16) : BigOthelloRec;
+function PositionInitialeBigOthello(sizeH,sizeV : SInt16) : BigOthelloRec;
+function PositionVideBigOthello(sizeH,sizeV : SInt16) : BigOthelloRec;
+function PositionCouranteEnBigOthello : BigOthelloRec;
+function SameBigOthelloRec(const pos1,pos2 : BigOthelloRec) : boolean;
+function BigOthelloEstVide(const position : BigOthelloRec) : boolean;
 
-function NbPionsDeCetteCouleurCeBigOthello(couleur : SInt16; var position : BigOthelloRec) : SInt16;                                                                                ATTRIBUTE_NAME('NbPionsDeCetteCouleurCeBigOthello')
-function NbCasesVidesDansCeBigOthello(var position : BigOthelloRec) : SInt16;                                                                                                       ATTRIBUTE_NAME('NbCasesVidesDansCeBigOthello')
+function NbPionsDeCetteCouleurCeBigOthello(couleur : SInt16; var position : BigOthelloRec) : SInt16;
+function NbCasesVidesDansCeBigOthello(var position : BigOthelloRec) : SInt16;
 
-function PeutJouerIciBigOthello(var position : BigOthelloRec; squareX,squareY : SInt16) : boolean;                                                                                  ATTRIBUTE_NAME('PeutJouerIciBigOthello')
-function DoitPasserBigOthello(var position : BigOthelloRec) : boolean;                                                                                                              ATTRIBUTE_NAME('DoitPasserBigOthello')
-function UpdateBigOthello(var position : BigOthelloRec; whichMoveX,whichMoveY : SInt16) : boolean;                                                                                  ATTRIBUTE_NAME('UpdateBigOthello')
-function RetournePionsBigOthello(var position : BigOthelloRec; whichMoveX,whichMoveY : SInt16) : SInt16;                                                                            ATTRIBUTE_NAME('RetournePionsBigOthello')
+function PeutJouerIciBigOthello(var position : BigOthelloRec; squareX,squareY : SInt16) : boolean;
+function DoitPasserBigOthello(var position : BigOthelloRec) : boolean;
+function UpdateBigOthello(var position : BigOthelloRec; whichMoveX,whichMoveY : SInt16) : boolean;
+function RetournePionsBigOthello(var position : BigOthelloRec; whichMoveX,whichMoveY : SInt16) : SInt16;
 
 {conversions}
-function BigOthelloEnChaine(var position : BigOthelloRec) : String255;                                                                                                              ATTRIBUTE_NAME('BigOthelloEnChaine')
-function BigOthelloEnPositionEtTrait(var position : BigOthelloRec) : PositionEtTraitRec;                                                                                            ATTRIBUTE_NAME('BigOthelloEnPositionEtTrait')
+function BigOthelloEnChaine(var position : BigOthelloRec) : String255;
+function BigOthelloEnPositionEtTrait(var position : BigOthelloRec) : PositionEtTraitRec;
 
 
 IMPLEMENTATION

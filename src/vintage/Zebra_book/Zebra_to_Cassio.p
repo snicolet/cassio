@@ -10,8 +10,8 @@ INTERFACE
 
 
 { Initialisation de l'unité}
-procedure InitUnitZebraBook;                                                                                                                                                        ATTRIBUTE_NAME('InitUnitZebraBook')
-procedure LibereMemoireUnitZebraBook;                                                                                                                                               ATTRIBUTE_NAME('LibereMemoireUnitZebraBook')
+procedure InitUnitZebraBook;
+procedure LibereMemoireUnitZebraBook;
 
 
 
@@ -25,88 +25,88 @@ function number_of_positions_in_zebra_book : SInt32;                            
 
 
 { Lecture de la bibliotheque de Zebra }
-procedure LoadZebraBook(withCheckEvents : boolean);                                                                                                                                 ATTRIBUTE_NAME('LoadZebraBook')
-function ZebraBookEstIntrouvable : boolean;                                                                                                                                         ATTRIBUTE_NAME('ZebraBookEstIntrouvable')
-procedure SetZebraBookEstIntrouvable(flag : boolean);                                                                                                                               ATTRIBUTE_NAME('SetZebraBookEstIntrouvable')
+procedure LoadZebraBook(withCheckEvents : boolean);
+function ZebraBookEstIntrouvable : boolean;
+procedure SetZebraBookEstIntrouvable(flag : boolean);
 
 
 { Les fonctions d'interface avec Cassio}
-function GetZebraBookName : String255;                                                                                                                                              ATTRIBUTE_NAME('GetZebraBookName')
-function ReadZebraBookValuesFromDisc(const plat : plateauOthello; var Score_Noir,Score_Blanc,Alt_Move, Alt_Score : SInt16; var Flags : SInt16; indexProbable : SInt32) : SInt32;    ATTRIBUTE_NAME('ReadZebraBookValuesFromDisc')
-procedure LanceDemandeAffichageZebraBook(const fonctionAppelante : String255);                                                                                                      ATTRIBUTE_NAME('LanceDemandeAffichageZebraBook')
-procedure TraiteDemandeAffichageZebraBook;                                                                                                                                          ATTRIBUTE_NAME('TraiteDemandeAffichageZebraBook')
-procedure LireBibliothequeDeZebraPourCurrentNode(const fonctionAppelante : String255);                                                                                              ATTRIBUTE_NAME('LireBibliothequeDeZebraPourCurrentNode')
-procedure WritelnZebraValuesDansRapport(var pos : PositionEtTraitRec);                                                                                                              ATTRIBUTE_NAME('WritelnZebraValuesDansRapport')
-function BibliothequeDeZebraEstAfficheeSurOthellier : boolean;                                                                                                                      ATTRIBUTE_NAME('BibliothequeDeZebraEstAfficheeSurOthellier')
+function GetZebraBookName : String255;
+function ReadZebraBookValuesFromDisc(const plat : plateauOthello; var Score_Noir,Score_Blanc,Alt_Move, Alt_Score : SInt16; var Flags : SInt16; indexProbable : SInt32) : SInt32;
+procedure LanceDemandeAffichageZebraBook(const fonctionAppelante : String255);
+procedure TraiteDemandeAffichageZebraBook;
+procedure LireBibliothequeDeZebraPourCurrentNode(const fonctionAppelante : String255);
+procedure WritelnZebraValuesDansRapport(var pos : PositionEtTraitRec);
+function BibliothequeDeZebraEstAfficheeSurOthellier : boolean;
 
 
 { Selections des options}
-function GetZebraBookOptions : SInt32;                                                                                                                                              ATTRIBUTE_NAME('GetZebraBookOptions')
-procedure SetZebraBookOptions(options : SInt32);                                                                                                                                    ATTRIBUTE_NAME('SetZebraBookOptions')
-function ZebraBookACetteOption(mask : SInt32) : boolean;                                                                                                                            ATTRIBUTE_NAME('ZebraBookACetteOption')
-procedure AjouterZebraBookOption(mask : SInt32);                                                                                                                                    ATTRIBUTE_NAME('AjouterZebraBookOption')
-procedure RetirerZebraBookOption(mask : SInt32);                                                                                                                                    ATTRIBUTE_NAME('RetirerZebraBookOption')
-procedure ToggleZebraOption(mask : SInt32);                                                                                                                                         ATTRIBUTE_NAME('ToggleZebraOption')
-procedure SetUsingZebraBook(flag : boolean);                                                                                                                                        ATTRIBUTE_NAME('SetUsingZebraBook')
-function GetUsingZebraBook : boolean;                                                                                                                                               ATTRIBUTE_NAME('GetUsingZebraBook')
+function GetZebraBookOptions : SInt32;
+procedure SetZebraBookOptions(options : SInt32);
+function ZebraBookACetteOption(mask : SInt32) : boolean;
+procedure AjouterZebraBookOption(mask : SInt32);
+procedure RetirerZebraBookOption(mask : SInt32);
+procedure ToggleZebraOption(mask : SInt32);
+procedure SetUsingZebraBook(flag : boolean);
+function GetUsingZebraBook : boolean;
 
 
 { Gestion des evenements pendant la lecture du fichier bibliotheque de Zebra }
-function lecture_zebra_book_interrompue_par_evenement : SInt32;                                                                                                                     ATTRIBUTE_NAME('lecture_zebra_book_interrompue_par_evenement')
-function CassioEstEnTrainDeLireLaBibliothequeDeZebra : boolean;                                                                                                                     ATTRIBUTE_NAME('CassioEstEnTrainDeLireLaBibliothequeDeZebra')
-function ZebraBookDemandeAccelerationDesEvenements : boolean;                                                                                                                       ATTRIBUTE_NAME('ZebraBookDemandeAccelerationDesEvenements')
-procedure SetZebraBookDemandeAccelerationDesEvenements(newValue : boolean; var oldValue : boolean);                                                                                 ATTRIBUTE_NAME('SetZebraBookDemandeAccelerationDesEvenements')
+function lecture_zebra_book_interrompue_par_evenement : SInt32;
+function CassioEstEnTrainDeLireLaBibliothequeDeZebra : boolean;
+function ZebraBookDemandeAccelerationDesEvenements : boolean;
+procedure SetZebraBookDemandeAccelerationDesEvenements(newValue : boolean; var oldValue : boolean);
 
 
 { Lecture en acces direct du fichier de la bibliotheque de Zebra }
-function cassio_must_get_zebra_nodes_from_disk : SInt32;                                                                                                                            ATTRIBUTE_NAME('cassio_must_get_zebra_nodes_from_disk')
-procedure SetCassioMustGetZebraNodesFromDisk(flag : boolean);                                                                                                                       ATTRIBUTE_NAME('SetCassioMustGetZebraNodesFromDisk')
-function get_number_of_positions_in_zebra_book_from_disk : SInt32;                                                                                                                  ATTRIBUTE_NAME('get_number_of_positions_in_zebra_book_from_disk')
-procedure get_zebra_node_from_disk(index : SInt32; var node : ZebraBookNode);                                                                                                       ATTRIBUTE_NAME('get_zebra_node_from_disk')
-procedure swap_endianess_of_zebra_node( var node : ZebraBookNode);                                                                                                                  ATTRIBUTE_NAME('swap_endianess_of_zebra_node')
-procedure swap_endianess_of_short_for_zebra( n : SInt16Ptr) ;                                                                                                                       ATTRIBUTE_NAME('swap_endianess_of_short_for_zebra')
-procedure swap_endianess_of_int_for_zebra( n : SInt32Ptr) ;                                                                                                                         ATTRIBUTE_NAME('swap_endianess_of_int_for_zebra')
-procedure BeginUseZebraNodes(fonctionAppelante : String255);                                                                                                                        ATTRIBUTE_NAME('BeginUseZebraNodes')
-procedure EndUseZebraNodes(fonctionAppelante : String255);                                                                                                                          ATTRIBUTE_NAME('EndUseZebraNodes')
-procedure writeln_zebra_node_dans_rapport(index : SInt32; var node : ZebraBookNode);                                                                                                ATTRIBUTE_NAME('writeln_zebra_node_dans_rapport')
+function cassio_must_get_zebra_nodes_from_disk : SInt32;
+procedure SetCassioMustGetZebraNodesFromDisk(flag : boolean);
+function get_number_of_positions_in_zebra_book_from_disk : SInt32;
+procedure get_zebra_node_from_disk(index : SInt32; var node : ZebraBookNode);
+procedure swap_endianess_of_zebra_node( var node : ZebraBookNode);
+procedure swap_endianess_of_short_for_zebra( n : SInt16Ptr) ;
+procedure swap_endianess_of_int_for_zebra( n : SInt32Ptr) ;
+procedure BeginUseZebraNodes(fonctionAppelante : String255);
+procedure EndUseZebraNodes(fonctionAppelante : String255);
+procedure writeln_zebra_node_dans_rapport(index : SInt32; var node : ZebraBookNode);
 
 
 { Gestion des caches de la bibliotheque de Zebra }
-procedure ajouter_zebra_node_dans_le_cache_des_presents(theKey : SInt32; var node : ZebraBookNode);                                                                                 ATTRIBUTE_NAME('ajouter_zebra_node_dans_le_cache_des_presents')
-procedure enlever_zebra_node_dans_cache_des_presents(theKey : SInt32);                                                                                                              ATTRIBUTE_NAME('enlever_zebra_node_dans_cache_des_presents')
-function zebra_node_est_present_dans_le_cache(theKey : SInt32; var node : ZebraBookNode) : SInt32;                                                                                  ATTRIBUTE_NAME('zebra_node_est_present_dans_le_cache')
-procedure VerifierIntegriteDuCacheDesPresents;                                                                                                                                      ATTRIBUTE_NAME('VerifierIntegriteDuCacheDesPresents')
+procedure ajouter_zebra_node_dans_le_cache_des_presents(theKey : SInt32; var node : ZebraBookNode);
+procedure enlever_zebra_node_dans_cache_des_presents(theKey : SInt32);
+function zebra_node_est_present_dans_le_cache(theKey : SInt32; var node : ZebraBookNode) : SInt32;
+procedure VerifierIntegriteDuCacheDesPresents;
 
 
 { Prefect du cache de la bibliotheque de Zebra }
-procedure PrefetchZebraIndexOfThisPosition(var pos : PositionEtTraitRec; niveauRecursion : SInt32);                                                                                 ATTRIBUTE_NAME('PrefetchZebraIndexOfThisPosition')
-procedure PrefetchPartiePourRechercheDansZebraBook(var partieEnAlpha : String255; posDepart : PositionEtTraitRec; nbCoupsMin,nbCoupsMax,nbCoupsCourant: SInt32);                    ATTRIBUTE_NAME('PrefetchPartiePourRechercheDansZebraBook')
-procedure GerePrefetchingOfZebraBook;                                                                                                                                               ATTRIBUTE_NAME('GerePrefetchingOfZebraBook')
+procedure PrefetchZebraIndexOfThisPosition(var pos : PositionEtTraitRec; niveauRecursion : SInt32);
+procedure PrefetchPartiePourRechercheDansZebraBook(var partieEnAlpha : String255; posDepart : PositionEtTraitRec; nbCoupsMin,nbCoupsMax,nbCoupsCourant: SInt32);
+procedure GerePrefetchingOfZebraBook;
 
 
 { Magic number }
-procedure IncrementerMagicCookieOfZebraBook;                                                                                                                                        ATTRIBUTE_NAME('IncrementerMagicCookieOfZebraBook')
-function GetMagicCookieOfZebraBook : SInt32;                                                                                                                                        ATTRIBUTE_NAME('GetMagicCookieOfZebraBook')
+procedure IncrementerMagicCookieOfZebraBook;
+function GetMagicCookieOfZebraBook : SInt32;
 
 
 { Algo ruse d'affichage des valeurs de la bibliotheque (pour les mauvais coups) }
-function EvaluationHeuristiquePourAffichageBiblZebra(var whichPos : PositionEtTraitRec; valeurMilieuDeZebra : SInt32; var genreDeNote : SInt32) : SInt32;                           ATTRIBUTE_NAME('EvaluationHeuristiquePourAffichageBiblZebra')
-procedure SetZebraBookContemptWindowWidth(whichContempt : SInt32);                                                                                                                  ATTRIBUTE_NAME('SetZebraBookContemptWindowWidth')
-function GetZebraBookContemptWindowWidth : SInt32;                                                                                                                                  ATTRIBUTE_NAME('GetZebraBookContemptWindowWidth')
-function EstUneEvaluationDansLeBookDeZebra(genreDeNote : SInt32) : boolean;                                                                                                         ATTRIBUTE_NAME('EstUneEvaluationDansLeBookDeZebra')
-function RessembleAUneNoteDeFinale(note : SInt32) : boolean;                                                                                                                        ATTRIBUTE_NAME('RessembleAUneNoteDeFinale')
-procedure ResetMinEtMaxValuationDeZebraAffichee;                                                                                                                                    ATTRIBUTE_NAME('ResetMinEtMaxValuationDeZebraAffichee')
-function GetMaxValuationDeZebraAffichee : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetMaxValuationDeZebraAffichee')
-function GetMinValuationDeZebraAffichee : SInt32;                                                                                                                                   ATTRIBUTE_NAME('GetMinValuationDeZebraAffichee')
-procedure UpdateMaxValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);                                                                                                     ATTRIBUTE_NAME('UpdateMaxValuationDeZebraAffichee')
-procedure UpdateMinValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);                                                                                                     ATTRIBUTE_NAME('UpdateMinValuationDeZebraAffichee')
-procedure EffacerValeursDeZebraMiserablesSiNecessaire;                                                                                                                              ATTRIBUTE_NAME('EffacerValeursDeZebraMiserablesSiNecessaire')
+function EvaluationHeuristiquePourAffichageBiblZebra(var whichPos : PositionEtTraitRec; valeurMilieuDeZebra : SInt32; var genreDeNote : SInt32) : SInt32;
+procedure SetZebraBookContemptWindowWidth(whichContempt : SInt32);
+function GetZebraBookContemptWindowWidth : SInt32;
+function EstUneEvaluationDansLeBookDeZebra(genreDeNote : SInt32) : boolean;
+function RessembleAUneNoteDeFinale(note : SInt32) : boolean;
+procedure ResetMinEtMaxValuationDeZebraAffichee;
+function GetMaxValuationDeZebraAffichee : SInt32;
+function GetMinValuationDeZebraAffichee : SInt32;
+procedure UpdateMaxValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);
+procedure UpdateMinValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);
+procedure EffacerValeursDeZebraMiserablesSiNecessaire;
 
 
 { Gestion des affichages des noeuds virtuels de la bibliotheque dans l'arbre de jeu }
-procedure TrierLesFilsSelonLesNotesDeLaBibliothequeDeZebra(G : GameTree);                                                                                                           ATTRIBUTE_NAME('TrierLesFilsSelonLesNotesDeLaBibliothequeDeZebra')
-procedure NotifyThatThisGameTreeHasVirtualNodes(G : GameTree);                                                                                                                      ATTRIBUTE_NAME('NotifyThatThisGameTreeHasVirtualNodes')
-procedure ClearUselessVirtualZebraNodes;                                                                                                                                            ATTRIBUTE_NAME('ClearUselessVirtualZebraNodes')
+procedure TrierLesFilsSelonLesNotesDeLaBibliothequeDeZebra(G : GameTree);
+procedure NotifyThatThisGameTreeHasVirtualNodes(G : GameTree);
+procedure ClearUselessVirtualZebraNodes;
 
 
 
@@ -1081,10 +1081,10 @@ var positionArrivee : PositionEtTraitRec;
     whichNode : GameTree;
 begin
   Discard(fonctionAppelante);
-  
+
   (*
   WritelnDansRapport('Entree dans LireBibliothequeDeZebraPourCurrentNode, fonction appelante = ' + fonctionAppelante);
-  
+
   WritelnNumDansRapport('ZebraBookOptions = ',ZebraBookOptions);
   WritelnStringAndBoolDansRapport('ZebraBookACetteOption(kUtiliserZebraBook) = ',ZebraBookACetteOption(kUtiliserZebraBook));
   WritelnStringAndBoolDansRapport('ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) = ',ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook));
@@ -1100,7 +1100,7 @@ begin
 
     with ZebraInfosRec do
       begin
-        
+
         {WritelnDansRapport('dans le corps de LireBibliothequeDeZebraPourCurrentNode au coup ' + NumEnString(nbreCoup) + ', fonction appelante = ' + fonctionAppelante);}
 
 

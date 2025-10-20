@@ -45,7 +45,7 @@ begin
 	   counter := counter + 1;
 
 	   ReadTaskOutput(carbon);
-	   
+	
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
 	      for k := 1 to 9 do
@@ -63,7 +63,7 @@ begin
        // with sleep(1)  : Cassio uses about 2.4% of one processor
        // with sleep(10) : Cassio uses about 0.1% of one precessor
        sleep(1);
-       
+
 
        if (Tickcount() - tick >= 5) then
        begin
@@ -72,7 +72,7 @@ begin
           if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
        end;
-       
+
        if (Tickcount() = 630) then
        begin
           s := OpenFileDialog('Choisissez un fichier', '', 'Images (*.png *.jpg *.jpeg)');

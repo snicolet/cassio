@@ -32,7 +32,7 @@ short othellier_manu_lazard_check_pass(int) ;
 
 		 /* Pour les trois fonctions precedentes, si couleur=VIDE, on prend la */
 		 /* couleur de la variable toMove, mise ˆ jour a chaque coup joue. */
-		 
+		
 		 /* Renvoie 1 si la partie est finie. */
 short othellier_manu_lazard_partie_est_finie(void) ;
 

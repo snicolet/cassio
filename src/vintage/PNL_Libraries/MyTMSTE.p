@@ -21,10 +21,10 @@ type myTSMTERec = record
      myTSMTEPtr = ^myTSMTERec;
      myTSMTEHandle = ^myTSMTEPtr;
 
-function MyTSMTEGetText(TSMTE : myTSMTEHandle) : TEHandle;                                                                                                                          ATTRIBUTE_NAME('MyTSMTEGetText')
-function MyTSMTEGetWindow(TSMTE : myTSMTEHandle) : WindowPtr;                                                                                                                       ATTRIBUTE_NAME('MyTSMTEGetWindow')
-function MyTSMTEGetTSMDoc(TSMTE : myTSMTEHandle)  : TSMDocumentID;                                                                                                                  ATTRIBUTE_NAME('MyTSMTEGetTSMDoc')
-function MyTSMTEGetTSMHandle(TSMTE : myTSMTEHandle)  : TSMTERecHandle;                                                                                                              ATTRIBUTE_NAME('MyTSMTEGetTSMHandle')
+function MyTSMTEGetText(TSMTE : myTSMTEHandle) : TEHandle;
+function MyTSMTEGetWindow(TSMTE : myTSMTEHandle) : WindowPtr;
+function MyTSMTEGetTSMDoc(TSMTE : myTSMTEHandle)  : TSMDocumentID;
+function MyTSMTEGetTSMHandle(TSMTE : myTSMTEHandle)  : TSMTERecHandle;
 
 
 IMPLEMENTATION

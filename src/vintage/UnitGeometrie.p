@@ -11,26 +11,26 @@ INTERFACE
 
 
 
-  function  ADroite(x1,y1,x2,y2,xM,yM : SInt32) : boolean;                                                                                                                          ATTRIBUTE_NAME('ADroite')
-  procedure Intersection(xA1,yA1,xA2,yA2,XB1,yB1,xB2,YB2 : SInt32; var x,y : SInt32);                                                                                               ATTRIBUTE_NAME('Intersection')
-  function InterpolerRectangles(rectA,rectB : rect; n,k : SInt32) : rect;                                                                                                           ATTRIBUTE_NAME('InterpolerRectangles')
-  function SegmentIntersecteRect(M1,M2 : Point; theRect : rect) : boolean;                                                                                                          ATTRIBUTE_NAME('SegmentIntersecteRect')
+  function  ADroite(x1,y1,x2,y2,xM,yM : SInt32) : boolean;
+  procedure Intersection(xA1,yA1,xA2,yA2,XB1,yB1,xB2,YB2 : SInt32; var x,y : SInt32);
+  function InterpolerRectangles(rectA,rectB : rect; n,k : SInt32) : rect;
+  function SegmentIntersecteRect(M1,M2 : Point; theRect : rect) : boolean;
 
-	function MakeRect(left, top, right, bottom : SInt32) : Rect;                                                                                                                       ATTRIBUTE_NAME('MakeRect')
-	function MakePoint(h,v : SInt32) : Point;                                                                                                                                          ATTRIBUTE_NAME('MakePoint')
-	function CentreDuRectangle(theRect : rect) : Point;                                                                                                                                ATTRIBUTE_NAME('CentreDuRectangle')
-	procedure LocalToGlobalRect(var myrect : rect);                                                                                                                                    ATTRIBUTE_NAME('LocalToGlobalRect')
-	procedure GlobalToLocalRect(var myrect : rect);                                                                                                                                    ATTRIBUTE_NAME('GlobalToLocalRect')
+	function MakeRect(left, top, right, bottom : SInt32) : Rect;
+	function MakePoint(h,v : SInt32) : Point;
+	function CentreDuRectangle(theRect : rect) : Point;
+	procedure LocalToGlobalRect(var myrect : rect);
+	procedure GlobalToLocalRect(var myrect : rect);
 
-  function CenterRectInRect(original,bigRect : rect) : rect;                                                                                                                        ATTRIBUTE_NAME('CenterRectInRect')
-	procedure DragLine(whichWindow : WindowPtr; orientation : SInt16; UtiliseHiliteMode : boolean; minimum, maximum, step : SInt32; var positionSouris, index : SInt32; Action : ProcedureTypeWithLongint);                                                                      ATTRIBUTE_NAME('DragLine')
-	procedure DessineLigne(source,dest : Point);                                                                                                                                       ATTRIBUTE_NAME('DessineLigne')
-  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double_t);                                                                                                     ATTRIBUTE_NAME('DessineFleche')
+  function CenterRectInRect(original,bigRect : rect) : rect;
+	procedure DragLine(whichWindow : WindowPtr; orientation : SInt16; UtiliseHiliteMode : boolean; minimum, maximum, step : SInt32; var positionSouris, index : SInt32; Action : ProcedureTypeWithLongint);
+	procedure DessineLigne(source,dest : Point);
+  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double_t);
 
-	function BoutonAppuye(whichWindow : WindowPtr; Rectangle : rect) : boolean;                                                                                                        ATTRIBUTE_NAME('BoutonAppuye')
+	function BoutonAppuye(whichWindow : WindowPtr; Rectangle : rect) : boolean;
 
-	procedure HiliteRect(unRect : rect);                                                                                                                                               ATTRIBUTE_NAME('HiliteRect')
-	procedure PondreLaFenetreCommeUneGouttedEau(windowRect : rect; arriveeDeLaFenetre : boolean);                                                                                      ATTRIBUTE_NAME('PondreLaFenetreCommeUneGouttedEau')
+	procedure HiliteRect(unRect : rect);
+	procedure PondreLaFenetreCommeUneGouttedEau(windowRect : rect; arriveeDeLaFenetre : boolean);
 
 
 IMPLEMENTATION

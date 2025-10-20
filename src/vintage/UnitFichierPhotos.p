@@ -19,36 +19,36 @@ INTERFACE
 
 
 
-procedure InitUnitFichierPhotos;                                                                                                                                                    ATTRIBUTE_NAME('InitUnitFichierPhotos')
-procedure LibereMemoireUnitFichierPhotos;                                                                                                                                           ATTRIBUTE_NAME('LibereMemoireUnitFichierPhotos')
+procedure InitUnitFichierPhotos;
+procedure LibereMemoireUnitFichierPhotos;
 
-function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : FichierTEXT) : boolean;                                                                      ATTRIBUTE_NAME('FichierPhotosExisteSurLeDisque')
-function FichierPhotosExisteEnMemoire(pathComplet : String255; var numeroFic : SInt16) : boolean;                                                                                   ATTRIBUTE_NAME('FichierPhotosExisteEnMemoire')
-function FichierPhotosExisteDansMenu(nomFichierDansMenu : String255; var numeroFic : SInt16) : boolean;                                                                             ATTRIBUTE_NAME('FichierPhotosExisteDansMenu')
-function FichierPhotosHappyEndExistePourCesTextureEtCouleur(nomFichierDansMenu : String255; couleur : SInt16; var numeroFic : SInt16) : boolean;                                    ATTRIBUTE_NAME('FichierPhotosHappyEndExistePourCesTextureEtCouleur')
-
-
-
-function GetPathCompletFichierPionsPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;                                                                            ATTRIBUTE_NAME('GetPathCompletFichierPionsPourCetteTexture')
-function GetPathCompletFichierBordurePourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;                                                                          ATTRIBUTE_NAME('GetPathCompletFichierBordurePourCetteTexture')
-function GetNomDansMenuPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;                                                                                        ATTRIBUTE_NAME('GetNomDansMenuPourCetteTexture')
-function LitFichierCoordoneesImages3D(var quelleTexture : CouleurOthellierRec) : OSErr;                                                                                             ATTRIBUTE_NAME('LitFichierCoordoneesImages3D')
-
-function GetPathCompletDossierOthelliersDeCassio : String255;                                                                                                                       ATTRIBUTE_NAME('GetPathCompletDossierOthelliersDeCassio')
-function GetPathCompletFichierParNumero(numeroFic : SInt16) : String255;                                                                                                            ATTRIBUTE_NAME('GetPathCompletFichierParNumero')
-function GetNomDansMenuParNumero(numeroFic : SInt16) : String255;                                                                                                                   ATTRIBUTE_NAME('GetNomDansMenuParNumero')
+function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : FichierTEXT) : boolean;
+function FichierPhotosExisteEnMemoire(pathComplet : String255; var numeroFic : SInt16) : boolean;
+function FichierPhotosExisteDansMenu(nomFichierDansMenu : String255; var numeroFic : SInt16) : boolean;
+function FichierPhotosHappyEndExistePourCesTextureEtCouleur(nomFichierDansMenu : String255; couleur : SInt16; var numeroFic : SInt16) : boolean;
 
 
-function PathFichierPicture3DDeCetteFamille(nomFichierDansMenu : String255; coul : SInt16) : String255;                                                                             ATTRIBUTE_NAME('PathFichierPicture3DDeCetteFamille')
-function PathFichierPictureHappyEndDeCetteFamille(nomFichierDansMenu : String255; coul : SInt16) : String255;                                                                       ATTRIBUTE_NAME('PathFichierPictureHappyEndDeCetteFamille')
+
+function GetPathCompletFichierPionsPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;
+function GetPathCompletFichierBordurePourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;
+function GetNomDansMenuPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;
+function LitFichierCoordoneesImages3D(var quelleTexture : CouleurOthellierRec) : OSErr;
+
+function GetPathCompletDossierOthelliersDeCassio : String255;
+function GetPathCompletFichierParNumero(numeroFic : SInt16) : String255;
+function GetNomDansMenuParNumero(numeroFic : SInt16) : String255;
 
 
-procedure AlerteFichierPhotosNonTrouve(nomFichier : String255);                                                                                                                     ATTRIBUTE_NAME('AlerteFichierPhotosNonTrouve')
+function PathFichierPicture3DDeCetteFamille(nomFichierDansMenu : String255; coul : SInt16) : String255;
+function PathFichierPictureHappyEndDeCetteFamille(nomFichierDansMenu : String255; coul : SInt16) : String255;
 
-procedure AjouterFichierOthellierPicture(fs : FSSpec; typeFichierGraphique : SInt16);                                                                                               ATTRIBUTE_NAME('AjouterFichierOthellierPicture')
-procedure LecturePreparatoireDossierOthelliers(pathDuDossierPere : String255);                                                                                                      ATTRIBUTE_NAME('LecturePreparatoireDossierOthelliers')
 
-procedure TestUnitFichierPhotos;                                                                                                                                                    ATTRIBUTE_NAME('TestUnitFichierPhotos')
+procedure AlerteFichierPhotosNonTrouve(nomFichier : String255);
+
+procedure AjouterFichierOthellierPicture(fs : FSSpec; typeFichierGraphique : SInt16);
+procedure LecturePreparatoireDossierOthelliers(pathDuDossierPere : String255);
+
+procedure TestUnitFichierPhotos;
 
 
 
@@ -264,7 +264,7 @@ begin
 end;
 
 
-function GetPathCompletDossierOthelliersDeCassio : String255; 
+function GetPathCompletDossierOthelliersDeCassio : String255;
 begin
   GetPathCompletDossierOthelliersDeCassio := pathDossierOthelliersCassio;
 end;
@@ -647,7 +647,7 @@ begin
     codeErreur := ScanDirectory(directoryDepart,TraiteFichierPictureEtRecursion);
 
   dossierTrouve := (codeErreur = 0);
-  
+
 end;
 
 

@@ -14,35 +14,35 @@ INTERFACE
 
 
 
-function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionnel) : boolean;                                                                                      ATTRIBUTE_NAME('AllocatePointMultidimensionnel')
-procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);                                                                                                            ATTRIBUTE_NAME('DisposePointMultidimensionnel')
-function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;                                                                                                ATTRIBUTE_NAME('DimensionDuPointMultidimensionnel')
+function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionnel) : boolean;
+procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);
+function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;
 
 
-procedure AnnulePointMultidimensionnel(var p : PointMultidimensionnel);                                                                                                             ATTRIBUTE_NAME('AnnulePointMultidimensionnel')
-procedure SetValeurDansPointMultidimensionnel(var p : PointMultidimensionnel; valeur : TypeReel);                                                                                   ATTRIBUTE_NAME('SetValeurDansPointMultidimensionnel')
-procedure IdentitePointMultidimensionnel(var p : PointMultidimensionnel);                                                                                                           ATTRIBUTE_NAME('IdentitePointMultidimensionnel')
-procedure HomothetiePointMultidimensionnel(var p,result : PointMultidimensionnel; scale : TypeReel);                                                                                ATTRIBUTE_NAME('HomothetiePointMultidimensionnel')
-procedure NegationPointMultidimensionnel(var p,result : PointMultidimensionnel);                                                                                                    ATTRIBUTE_NAME('NegationPointMultidimensionnel')
-procedure ValeurAbsoluePointMultidimensionnel(var p,result : PointMultidimensionnel);                                                                                               ATTRIBUTE_NAME('ValeurAbsoluePointMultidimensionnel')
-procedure MaxPointMultidimensionnel(var p,result : PointMultidimensionnel; valeur : TypeReel);                                                                                      ATTRIBUTE_NAME('MaxPointMultidimensionnel')
-procedure MinPointMultidimensionnel(var p,result : PointMultidimensionnel; valeur : TypeReel);                                                                                      ATTRIBUTE_NAME('MinPointMultidimensionnel')
-procedure AddPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);                                                                                                   ATTRIBUTE_NAME('AddPointMultidimensionnel')
-procedure DiffPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);                                                                                                  ATTRIBUTE_NAME('DiffPointMultidimensionnel')
-procedure DivisionPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);                                                                                              ATTRIBUTE_NAME('DivisionPointMultidimensionnel')
-procedure DivisionBorneePointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel; borne : TypeReel);                                                                      ATTRIBUTE_NAME('DivisionBorneePointMultidimensionnel')
-procedure CopierPointMultidimensionnel(var source,dest : PointMultidimensionnel);                                                                                                   ATTRIBUTE_NAME('CopierPointMultidimensionnel')
-procedure CopierOpposePointMultidimensionnel(var source,dest : PointMultidimensionnel);                                                                                             ATTRIBUTE_NAME('CopierOpposePointMultidimensionnel')
-procedure CombinaisonLineairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel; lambda1,lambda2 : TypeReel; var resultat : PointMultidimensionnel);                         ATTRIBUTE_NAME('CombinaisonLineairePointMultidimensionnel')
-function ProduitScalairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel) : TypeReel;                                                                                      ATTRIBUTE_NAME('ProduitScalairePointMultidimensionnel')
-function CombinaisonScalairePointMultidimensionnel(var p1,p2,p3 : PointMultidimensionnel; lambda1,lambda2 : TypeReel) : TypeReel;                                                   ATTRIBUTE_NAME('CombinaisonScalairePointMultidimensionnel')
+procedure AnnulePointMultidimensionnel(var p : PointMultidimensionnel);
+procedure SetValeurDansPointMultidimensionnel(var p : PointMultidimensionnel; valeur : TypeReel);
+procedure IdentitePointMultidimensionnel(var p : PointMultidimensionnel);
+procedure HomothetiePointMultidimensionnel(var p,result : PointMultidimensionnel; scale : TypeReel);
+procedure NegationPointMultidimensionnel(var p,result : PointMultidimensionnel);
+procedure ValeurAbsoluePointMultidimensionnel(var p,result : PointMultidimensionnel);
+procedure MaxPointMultidimensionnel(var p,result : PointMultidimensionnel; valeur : TypeReel);
+procedure MinPointMultidimensionnel(var p,result : PointMultidimensionnel; valeur : TypeReel);
+procedure AddPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);
+procedure DiffPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);
+procedure DivisionPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);
+procedure DivisionBorneePointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel; borne : TypeReel);
+procedure CopierPointMultidimensionnel(var source,dest : PointMultidimensionnel);
+procedure CopierOpposePointMultidimensionnel(var source,dest : PointMultidimensionnel);
+procedure CombinaisonLineairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel; lambda1,lambda2 : TypeReel; var resultat : PointMultidimensionnel);
+function ProduitScalairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel) : TypeReel;
+function CombinaisonScalairePointMultidimensionnel(var p1,p2,p3 : PointMultidimensionnel; lambda1,lambda2 : TypeReel) : TypeReel;
 
 
-function EcritPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;                                                                ATTRIBUTE_NAME('EcritPointMultidimensionnelDansFichierTexte')
-function LitPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;                                                                  ATTRIBUTE_NAME('LitPointMultidimensionnelDansFichierTexte')
+function EcritPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
+function LitPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
 
 
-procedure TrierPointMultidiemnsionnel(var p : PointMultidimensionnel; var rankingTable : PointMultidimensionnel);                                                                   ATTRIBUTE_NAME('TrierPointMultidiemnsionnel')
+procedure TrierPointMultidiemnsionnel(var p : PointMultidimensionnel; var rankingTable : PointMultidimensionnel);
 
 
 
