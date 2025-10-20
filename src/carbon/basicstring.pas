@@ -186,7 +186,12 @@ procedure testBasicString();
 var  s, a, b : string255;
      c : char;
      i, j, k : SInt64;
+     theSet : SetOFChar;
 begin
+   c := 'z';
+   theSet := ['a', 'b'];
+
+   writeln( c in theSet);
 
    s := 'hello';
 
