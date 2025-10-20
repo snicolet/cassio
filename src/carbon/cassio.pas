@@ -79,7 +79,7 @@ begin
           writeln(s);
        end;
 
-    until false or (Milliseconds() > 100000);
+    until false or (Milliseconds() > 300000);
 
 	ReleaseQuickDraw;
 

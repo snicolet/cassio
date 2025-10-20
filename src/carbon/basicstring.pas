@@ -252,21 +252,15 @@ begin
        end;
     }
     
-   a := 'Stéphane NICOLET';
+   a := 'Stéphane NICOLET æœÂê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈©◊ß~∞…÷≠çéèàùÒ∑√∆———ß';
+   writeln('original string              : ', a);
    b := AnsiUpperCase(a);
-   writeln('example of upper string with keeping diacritics : ', a, '  ==>  ', b);
-   
-   a := 'çéèàùÒ∑√';
-   b := AnsiUpperCase(a);
-   writeln('example of upper string with keeping diacritics : ', a, '  ==>  ', b);
-   
-   a := 'Stéphane NICOLET';
+   writeln('AnsiUpperCase()              : ', b);
+   b := StripDiacritics(a);
+   writeln('StripDiacritics()            : ', b);
    b := UpperCase(StripDiacritics(a));
-   writeln('example of upper string without diacritics : ', a, '  ==>  ', b);
+   writeln('UpperCase(StripDiacritics()) : ', b);
    
-   a := 'çéèàùÒ∑√';
-   b := UpperCase(StripDiacritics(a));
-   writeln('example of upper string without diacritics : ', a, '  ==>  ', b);
    
 end;
 
