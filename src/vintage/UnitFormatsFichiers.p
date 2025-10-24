@@ -1577,15 +1577,15 @@ begin  { TypeDeFichierEstConnu }
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatCassio;
 
 
-					  {on cherche ˆ savoir si c'est un fichier THOR.PAR}
-					  if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatTHOR_PAR;
+			{on cherche ˆ savoir si c'est un fichier THOR.PAR}
+			if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatTHOR_PAR;
 
 
             {on cherche ˆ savoir si c'est un fichier de preferences de Cassio}
-					  if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatPreferencesCassio;
+			if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatPreferencesCassio;
 
 
-					  {on cherche ˆ savoir si c'est un fichier pour organiser un tournoi entre engines}
+			{on cherche ˆ savoir si c'est un fichier pour organiser un tournoi entre engines}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatTournoisEntreEngines;
 
 
@@ -1602,7 +1602,7 @@ begin  { TypeDeFichierEstConnu }
 
 
             {on cherche ˆ savoir si c'est un fichier de bibliotheque de Cassio}
-					  if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatBibliothequeCassio;
+			if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatBibliothequeCassio;
 
 
             {on cherche les caracteres caracteristiques du format GGF}
@@ -1613,7 +1613,7 @@ begin  { TypeDeFichierEstConnu }
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatSimplementDesCoups;
 
 
-						{on cherche les caracteres caracteristiques du format HTML avec applet OthelloBrowser ou OthelloViewer}
+			{on cherche les caracteres caracteristiques du format HTML avec applet OthelloBrowser ou OthelloViewer}
             if infos.format = kTypeFichierInconnu then EssaieReconnaitreFormatHTMLOthelloBrowser;
 
 

@@ -536,6 +536,7 @@ begin
   ParsePositionEtTrait := false;
 
   EnleveEspacesDeGaucheSurPlace(s);
+  s := StripDiacritics(s);
   Parser2(s,s1,s2,reste);
 
   if LENGTH_OF_STRING(s1) = 65 then
