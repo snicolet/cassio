@@ -1102,30 +1102,30 @@ begin
      xdeb := caseX[t,debut];
      xfin := caseX[t,fin];
 
-     if (c = '00222220')or(c = '00220020')or(c = '00200220') then valeurtact[xdeb] := 200
-     else if (c = '02222200')or(c = '02002200')or(c = '02200200') then valeurtact[xfin] := 200
+     if (c = '00222220') or (c = '00220020') or (c = '00200220') then valeurtact[xdeb] := 200
+     else if (c = '02222200') or (c = '02002200') or (c = '02200200') then valeurtact[xfin] := 200
 
-     else if (c = '00102220')or(c = '00120220')or(c = '00122020')or
-             (c = '00110220')or(c = '00111020')or(c = '00112020')or
-             (c = '00010220')or(c = '00011020')or(c = '00012020')or(c = '00002220')
+     else if (c = '00102220') or (c = '00120220') or (c = '00122020')or
+             (c = '00110220') or (c = '00111020') or (c = '00112020')or
+             (c = '00010220') or (c = '00011020') or (c = '00012020') or (c = '00002220')
      then valeurtact[xdeb] := 200
-     else if (c = '02220100')or(c = '02202100')or(c = '02022100')or
-             (c = '02201100')or(c = '02011100')or(c = '02021100')or
-             (c = '02201000')or(c = '02011000')or(c = '02021000')or(c = '02220000')
+     else if (c = '02220100') or (c = '02202100') or (c = '02022100')or
+             (c = '02201100') or (c = '02011100') or (c = '02021100')or
+             (c = '02201000') or (c = '02011000') or (c = '02021000') or (c = '02220000')
      then valeurtact[xfin] := 200
 
-     else if (c = '01022220')or(c = '01102220')or(c = '01110220')or(c = '01111020')then
+     else if (c = '01022220') or (c = '01102220') or (c = '01110220') or (c = '01111020')then
        begin
          valeurtact[xdeb] := 300;
          valeurtact[xfin] := valeurtact[xfin]-300;
        end
-     else if (c = '02222010')or(c = '02220110')or(c = '02201110')or(c = '02011110') then
+     else if (c = '02222010') or (c = '02220110') or (c = '02201110') or (c = '02011110') then
        begin
          valeurtact[xfin] := 300;
          valeurtact[xdeb] := valeurtact[xdeb]-300;
        end
 
-     else if (c = '01111110')or(c = '02222220')then
+     else if (c = '01111110') or (c = '02222220')then
        begin
          valeurtact[xdeb] := valeurtact[xdeb]-200;
          valeurtact[xfin] := valeurtact[xfin]-200;

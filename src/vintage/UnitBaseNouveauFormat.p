@@ -1213,7 +1213,7 @@ begin
   CalculeNbPartiesPotentiellementLues(anneeRecherche,genreDeTestPourAnnee);
   if {(NbPartiesPotentiellementLues = ChoixDistributions.NbTotalPartiesDansDistributionsALire) or}
      (anneeRechercheArrivee < 0) or (anneeRecherche > kFinDuMondeOthellistique) or (anneeRecherche < kDebutDuMondeOthellistique) or
-     ((NbPartiesPotentiellementLues = 0) and ((anneeRechercheArrivee = 19)or(anneeRechercheArrivee < 10)))
+     ((NbPartiesPotentiellementLues = 0) and ((anneeRechercheArrivee = 19) or (anneeRechercheArrivee < 10)))
     then
       begin
          EcritMessageLectureBase('                            ',25,kYpositionNbPartiesPotentiellementLues);

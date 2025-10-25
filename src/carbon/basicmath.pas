@@ -25,6 +25,8 @@ begin
    result := b;
 end;
 
+
+procedure TestBasicMath;
 var c1, c2 : boolean;
 begin
 
@@ -33,7 +35,11 @@ begin
    
    if (id(c1, 'c1') and id(c2, 'c2')) then
       writeln('| marche : OK');
+end;
 
+
+begin
+   // TestBasicMath;
 end.
 
 
