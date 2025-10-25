@@ -251,7 +251,7 @@ end;
 {renvoie true  sssi   alpha < result < beta}
 function ResultInsideWindow(const result : SearchResult; const window : SearchWindow) : boolean;
 begin
-  ResultInsideWindow := StriclyBetterSearchValue(result, window.alpha) &
+  ResultInsideWindow := StriclyBetterSearchValue(result, window.alpha) and
                         StriclyBetterSearchValue(window.beta, result);
 end;
 

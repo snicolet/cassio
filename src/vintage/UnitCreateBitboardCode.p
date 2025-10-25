@@ -109,7 +109,7 @@ begin
 	          end;
 	      col := i mod 10;
 	      row := i div 10;
-	      if (col >= 1) & (col <= 8) & (row  >= 1) & (row  <= 8)
+	      if (col >= 1) and (col <= 8) and (row  >= 1) and (row  <= 8)
 	        then constanteHexa := col_value[col]*row_value[row]
 	        else constanteHexa := 0;
 	    end;
@@ -154,7 +154,7 @@ var col,line : SInt16;
 begin
   col  := ord(s[1]) - ord('a');
   line := ord(s[2]) - ord('1');
-  if (line >= 0) & (line <= 7) & (col >= 0) & (col <= 7)
+  if (line >= 0) and (line <= 7) and (col >= 0) and (col <= 7)
     then StringToJanSquare := col + 8*line
     else SysBeep(0);
 end;
@@ -1016,7 +1016,7 @@ begin
         then
           begin
             mask_low  := mask_low  + othellierBitboardDescr[neighbour].constanteHexa;
-            WritelnDansFichierEndgame('((BAnd(opp_bits_low,'+Hexa(mask_low)+') = 0) & ');
+            WritelnDansFichierEndgame('((BAnd(opp_bits_low,'+Hexa(mask_low)+') = 0) and ');
           end
         else
           begin
@@ -1036,16 +1036,16 @@ begin
           aux := aux + dx;
         end;
 
-      if (mask_low = 0) & (mask_high = 0) then WritelnDansFichierEndgame('ERREUR !!');
-      if (mask_low <> 0) & (mask_high <> 0) then
-        WriteDansFichierEndgame(' ((BAnd(opp_bits_low,'+Hexa(mask_low)+') <> 0) | (BAnd(opp_bits_high,'+Hexa(mask_high)+') <> 0)))');
-      if (mask_low <> 0) & (mask_high = 0) then
+      if (mask_low = 0) and (mask_high = 0) then WritelnDansFichierEndgame('ERREUR !!');
+      if (mask_low <> 0) and (mask_high <> 0) then
+        WriteDansFichierEndgame(' ((BAnd(opp_bits_low,'+Hexa(mask_low)+') <> 0) or (BAnd(opp_bits_high,'+Hexa(mask_high)+') <> 0)))');
+      if (mask_low <> 0) and (mask_high = 0) then
         WriteDansFichierEndgame(' (BAnd(opp_bits_low,'+Hexa(mask_low)+') <> 0))');
-      if (mask_low = 0) & (mask_high <> 0) then
+      if (mask_low = 0) and (mask_high <> 0) then
         WriteDansFichierEndgame(' (BAnd(opp_bits_high,'+Hexa(mask_high)+') <> 0))');
 
       if t <> dirPriseFin[square]
-        then WritelnSansMargeDansFichierEndgame(' |')
+        then WritelnSansMargeDansFichierEndgame(' or')
         else WritelnSansMargeDansFichierEndgame(' ')
     end;
 

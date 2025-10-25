@@ -84,10 +84,10 @@ begin
       AttendFrappeClavier;
     end;
 
-  if (couleurGagnante = CaracterePourNoir)  |
-     (couleurGagnante = CaracterePourBlanc) |
+  if (couleurGagnante = CaracterePourNoir)  or
+     (couleurGagnante = CaracterePourBlanc) or
      (couleurGagnante = CaracterePourEgalite) then
-  if (ApresQuelCoup > 0) & (ApresQuelCoup <= path.cardinal) then
+  if (ApresQuelCoup > 0) and (ApresQuelCoup <= path.cardinal) then
     begin
       if debuggage.apprentissage then
         begin
@@ -109,11 +109,11 @@ begin
       {ici il faudrait mettre des kGainAbsolu, kNulleAbsolue, kPerteAbsolue É }
       if (couleurGagnante = CaracterePourEgalite) then
         SetValeurMinimax(cellule,kNulleDansT) else
-      if ((couleurGagnante = CaracterePourBlanc) & (GetCouleur(cellule) = Blanc)) |
-         ((couleurGagnante = CaracterePourNoir) & (GetCouleur(cellule) = Noir)) then
+      if ((couleurGagnante = CaracterePourBlanc) and (GetCouleur(cellule) = Blanc)) or
+         ((couleurGagnante = CaracterePourNoir) and (GetCouleur(cellule) = Noir)) then
         SetValeurMinimax(cellule,kGainDansT) else
-      if ((couleurGagnante = CaracterePourBlanc) & (GetCouleur(cellule) = Noir)) |
-         ((couleurGagnante = CaracterePourNoir) & (GetCouleur(cellule) = Blanc)) then
+      if ((couleurGagnante = CaracterePourBlanc) and (GetCouleur(cellule) = Noir)) or
+         ((couleurGagnante = CaracterePourNoir) and (GetCouleur(cellule) = Blanc)) then
         SetValeurMinimax(cellule,kPerteDansT);
 
       EcritCellule(fichier,path.liste[ApresQuelCoup].numeroCellule,cellule);
@@ -167,7 +167,7 @@ begin
       n2 := GetNbreLecturesDansGraphe;
 
       i := 1;
-      while (i <= nbPartiesActives) & not(Quitter) do
+      while (i <= nbPartiesActives) and not(Quitter) do
         begin
           nroReference := tableNumeroReference^^[i];
           GainTheorique := GetGainTheoriqueParNroRefPartie(nroReference);

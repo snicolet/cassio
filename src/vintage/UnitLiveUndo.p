@@ -114,7 +114,7 @@ end;
 
 function LiveUndoVaRejouerImmediatementUnAutreCoup : boolean;
 begin
-  LiveUndoVaRejouerImmediatementUnAutreCoup := LiveUndoEnCours & (gLiveUndoData.devraRejouerSurLaNouvelleCase);
+  LiveUndoVaRejouerImmediatementUnAutreCoup := LiveUndoEnCours and (gLiveUndoData.devraRejouerSurLaNouvelleCase);
 end;
 
 
@@ -144,11 +144,11 @@ end;
 procedure EssayerJouerNouveauCoupDansLiveUndo(caseDeLaSouris : SInt16);
 begin
   with gLiveUndoData do
-    if enCours & (numeroClicCommencement = GetCompteurDeMouseEvents) &
-       StillDown & (nbreCoup = numeroDuCoupAuCommencement - 1) & not(analyseRetrograde.enCours) &
-       (caseDeLaSouris >= 11) & (caseDeLaSouris <= 88) & possibleMove[caseDeLaSouris] &
-       EstLaPositionCourante(positionUnCoupAvantLeClic) &
-       (TickCount > tickDuClic + delai) &
+    if enCours and (numeroClicCommencement = GetCompteurDeMouseEvents) and
+       StillDown and (nbreCoup = numeroDuCoupAuCommencement - 1) and not(analyseRetrograde.enCours) and
+       (caseDeLaSouris >= 11) and (caseDeLaSouris <= 88) and possibleMove[caseDeLaSouris] and
+       EstLaPositionCourante(positionUnCoupAvantLeClic) and
+       (TickCount > tickDuClic + delai) and
        (interruptionReflexion = pasdinterruption)
        then
          begin
@@ -167,11 +167,11 @@ begin
            devraRejouerSurLaNouvelleCase := false;
 
            { on repasse eventuellement en mode Cassio contre Humain }
-           if changementTemporaireDeHumCtreHum & (HumCtreHum <> HumCtreHumEntreeLiveUndo) & (AQuiDeJouer <> couleurMacintosh)
+           if changementTemporaireDeHumCtreHum and (HumCtreHum <> HumCtreHumEntreeLiveUndo) and (AQuiDeJouer <> couleurMacintosh)
              then SwitchHumainContreHumainDansLiveUndo;
 
            { on affiche eventuellement le numero du coup }
-           if afficheNumeroCoupAuCommencement & not(afficheNumeroCoup) then
+           if afficheNumeroCoupAuCommencement and not(afficheNumeroCoup) then
              DoChangeAfficheDernierCoup;
 
 
@@ -187,12 +187,12 @@ var currentNodeEstUneFeuilleDeLArbre : boolean;
     positionResultante : PositionEtTraitRec;
 begin
   with gLiveUndoData do
-    if enCours & (numeroClicCommencement = GetCompteurDeMouseEvents) &
-       StillDown & (nbreCoup = numeroDuCoupAuCommencement) & not(analyseRetrograde.enCours) &
-       (caseDeLaSouris >= 11) & (caseDeLaSouris <= 88) & (caseDeLaSouris <> DerniereCaseJouee) &
-       GetPositionEtTraitACeNoeud(GetFather(GetCurrentNode), positionUnCoupAvant, 'EssayerAnnulerCoupDansLiveUndo') &
-       SamePositionEtTrait(positionUnCoupAvant,positionUnCoupAvantLeClic) &
-       (TickCount > tickDuClic + delai) &
+    if enCours and (numeroClicCommencement = GetCompteurDeMouseEvents) and
+       StillDown and (nbreCoup = numeroDuCoupAuCommencement) and not(analyseRetrograde.enCours) and
+       (caseDeLaSouris >= 11) and (caseDeLaSouris <= 88) and (caseDeLaSouris <> DerniereCaseJouee) and
+       GetPositionEtTraitACeNoeud(GetFather(GetCurrentNode), positionUnCoupAvant, 'EssayerAnnulerCoupDansLiveUndo') and
+       SamePositionEtTrait(positionUnCoupAvant,positionUnCoupAvantLeClic) and
+       (TickCount > tickDuClic + delai) and
        (interruptionReflexion = pasdinterruption)
        then
          begin
@@ -211,7 +211,7 @@ begin
            IncrementeMagicCookieDemandeCalculsBase;
 
            { on déjoue le dernier coup...}
-           if currentNodeEstUneFeuilleDeLArbre & not(DerniereCaseJouee in coupsAGarderDansLiveUndo)
+           if currentNodeEstUneFeuilleDeLArbre and not(DerniereCaseJouee in coupsAGarderDansLiveUndo)
              then DetruitSousArbreCourantEtBackMove
              else DoBackMove;
 
@@ -220,7 +220,7 @@ begin
            IncrementeMagicCookieDemandeCalculsBase;
 
            { on passe en Humain contre Humain pour eviter que Cassio ne rejoue immediatement }
-           if not(HumCtreHum) & not(CassioEstEnModeAnalyse) & (AQuiDeJouer = couleurMacintosh) & not(changementTemporaireDeHumCtreHum)
+           if not(HumCtreHum) and not(CassioEstEnModeAnalyse) and (AQuiDeJouer = couleurMacintosh) and not(changementTemporaireDeHumCtreHum)
              then SwitchHumainContreHumainDansLiveUndo;
 
            { ...et on rejoue éventuellement le nouveau coup immédiatement}
@@ -228,8 +228,8 @@ begin
               EssayerJouerNouveauCoupDansLiveUndo(caseDeLaSouris);
 
            {on rétablit l'affichage du numéro du dernier coup}
-           if tempoAfficheNumeroCoup & not(afficheNumeroCoup)
-              & not(devraRejouerSurLaNouvelleCase & (nbreCoup = numeroDuCoupAuCommencement - 1))
+           if tempoAfficheNumeroCoup and not(afficheNumeroCoup)
+              and not(devraRejouerSurLaNouvelleCase and (nbreCoup = numeroDuCoupAuCommencement - 1))
              then DoChangeAfficheDernierCoup;
 
            AccelereProchainDoSystemTask(2);
@@ -241,9 +241,9 @@ procedure GererLiveUndo;
 var whichSquare : SInt16;
 begin
   with gLiveUndoData do
-    if enCours &
-      (nbreNiveauxRecursion <= 2) & (TickCount <> dernierTickVerificationLiveUndo) &
-      (numeroClicCommencement = GetCompteurDeMouseEvents) & StillDown
+    if enCours and
+      (nbreNiveauxRecursion <= 2) and (TickCount <> dernierTickVerificationLiveUndo) and
+      (numeroClicCommencement = GetCompteurDeMouseEvents) and StillDown
       then
         begin
           inc(nbreNiveauxRecursion);
@@ -274,7 +274,7 @@ procedure BeginLiveUndo(coupsProteges : SquareSet; nbreDeTicksDeDelai : SInt32);
 var square : SInt32;
 begin
   Discard(square);
-  if PeutReculerUnCoup & not(analyseRetrograde.enCours) & StillDown then
+  if PeutReculerUnCoup and not(analyseRetrograde.enCours) and StillDown then
     begin
       with gLiveUndoData do
         begin

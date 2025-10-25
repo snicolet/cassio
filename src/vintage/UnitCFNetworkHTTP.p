@@ -388,7 +388,7 @@ end;
 
 procedure LibereSlotDansLaReservePourTelecharger(numeroSlot : SInt32);
 begin
-  if (numeroSlot >= 0) & (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
+  if (numeroSlot >= 0) and (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
     begin
       gReserveZonesPourTelecharger.table[numeroSlot].fic.genre       := BadFichierAbstrait;
       gReserveZonesPourTelecharger.table[numeroSlot].infoNetworkConnection := MakeLongString('');
@@ -401,9 +401,9 @@ function ThisSlotUsesAPermanentConnection(numeroSlot : SInt32) : boolean;
 begin
   ThisSlotUsesAPermanentConnection := false;
 
-  if (numeroSlot >= 0) & (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
+  if (numeroSlot >= 0) and (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
     with gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[numeroSlot] do
-      ThisSlotUsesAPermanentConnection := (theReadStream <> NIL) &
+      ThisSlotUsesAPermanentConnection := (theReadStream <> NIL) and
                                           (theWriteStream <> NIL);
 end;
 
@@ -602,7 +602,7 @@ begin
   with gListOfFichierAbstraitOfAsynchroneNetworkConnections do
     begin
 
-      if (numeroSlot < 0) | (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
+      if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
         begin
           WritelnNumDansRapport('ASSERT  !! numeroSlot impossibe dans InstallStreamOfAsynchroneNetworkConnections,  numeroSlot = ',numeroSlot);
           exit(InstallStreamOfAsynchroneNetworkConnections);
@@ -628,14 +628,14 @@ begin
         end;
 
 
-      if (table[numeroSlot].theReadStream <> NIL) &
+      if (table[numeroSlot].theReadStream <> NIL) and
          (table[numeroSlot].theReadStream <> rStream) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theReadStream) InstallStreamOfAsynchroneNetworkConnections ');
           exit(InstallStreamOfAsynchroneNetworkConnections);
         end;
 
-      if (table[numeroSlot].theWriteStream <> NIL) &
+      if (table[numeroSlot].theWriteStream <> NIL) and
          (table[numeroSlot].theWriteStream <> wStream) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theWriteStream) InstallStreamOfAsynchroneNetworkConnections ');
@@ -643,7 +643,7 @@ begin
         end;
 
 
-      if (table[numeroSlot].theFichierAbstrait <> NIL) &
+      if (table[numeroSlot].theFichierAbstrait <> NIL) and
          (table[numeroSlot].theFichierAbstrait <> whichFichierAbstrait) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theFichierAbstrait) InstallStreamOfAsynchroneNetworkConnections ');
@@ -651,16 +651,16 @@ begin
         end;
 
 
-      if (numeroSlot >= 0) & (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
+      if (numeroSlot >= 0) and (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
         begin
 
           lastUsedIndex := numeroSlot;
 
           with table[numeroSlot] do
             begin
-              if ((theReadStream = NIL) | (theReadStream = rStream)) &
-                 ((theWriteStream = NIL) | (theWriteStream = wStream)) &
-                 ((theFichierAbstrait = NIL) | (theFichierAbstrait = whichFichierAbstrait)) then
+              if ((theReadStream = NIL) or (theReadStream = rStream)) and
+                 ((theWriteStream = NIL) or (theWriteStream = wStream)) and
+                 ((theFichierAbstrait = NIL) or (theFichierAbstrait = whichFichierAbstrait)) then
                 begin
                   theReadStream     := rStream;
                   theWriteStream    := wStream;
@@ -694,7 +694,7 @@ end;
 procedure InstallSerializatorForNetworkConnections(numeroSlot : SInt32; serializator : EntreesSortieFichierAbstraitProc);
 begin
 
-  if (numeroSlot < 0) | (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
+  if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
     begin
       WritelnNumDansRapport('ASSERT  !! numeroSlot impossibe dans InstallSerializatorForNetworkConnections,  numeroSlot = ',numeroSlot);
       exit(InstallSerializatorForNetworkConnections);
@@ -719,8 +719,8 @@ begin
     end;
 
 
-  if (FindFichierAbstraitOfAsynchroneNetworkConnections(stream, index) <> NIL) &
-     (index >= 0) & (index <= kNumberOfAsynchroneNetworkConnections) then
+  if (FindFichierAbstraitOfAsynchroneNetworkConnections(stream, index) <> NIL) and
+     (index >= 0) and (index <= kNumberOfAsynchroneNetworkConnections) then
     begin
       with gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[index] do
         begin
@@ -739,7 +739,7 @@ begin
           WritelnNumDansRapport('Removing HTTP download from slot ', index);
           *)
 
-          if (myTerminaison <> NIL) & (myZone <> NIL) then
+          if (myTerminaison <> NIL) and (myZone <> NIL) then
             begin
               { WritelnDansRapport('J''appelle la fonction de termination');
               WritelnDansRapport(''); }
@@ -1056,7 +1056,7 @@ begin  {$UNUSED inTimer }
      else WritelnNumDansRapport('whichStream = ',SInt32(whichStream));
 
 
-  if (whichStream <> NIL) & CFReadStreamHasBytesAvailable(whichStream)
+  if (whichStream <> NIL) and CFReadStreamHasBytesAvailable(whichStream)
      then WritelnDansRapport('CFReadStreamHasBytesAvailable(whichStream) = TRUE')
      else WritelnDansRapport('CFReadStreamHasBytesAvailable(whichStream) = FALSE');
   *)
@@ -1073,14 +1073,14 @@ begin  {$UNUSED inTimer }
       end
     else
       begin
-        if (numeroSlot >= 0) & (numeroSlot <= kNumberOfAsynchroneNetworkConnections)
+        if (numeroSlot >= 0) and (numeroSlot <= kNumberOfAsynchroneNetworkConnections)
          then
            with gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[numeroSlot] do
              begin
                (*
                WritelnLongStringDansRapport(url255);
                *)
-               if (FindStringInLongString(GetZooURL, url255) > 0) & (FindStringInLongString('&retry=1', url255) <= 0)  then
+               if (FindStringInLongString(GetZooURL, url255) > 0) and (FindStringInLongString('&retry=1', url255) <= 0)  then
                  begin
                    // WritelnLongStringDansRapport(url255);
                    // WritelnDansRapport('HTTP timeout => retrying');
@@ -1109,7 +1109,7 @@ begin
 
 {$ifc compile_network_stuff }
 
-  if gUnitCFNetworkHTPPInitialisee & not(Quitter) then
+  if gUnitCFNetworkHTPPInitialisee and not(Quitter) then
     with gListOfFichierAbstraitOfAsynchroneNetworkConnections do
       begin
         if TickCount > lastTickOfCheckStreamEvents then
@@ -1121,18 +1121,18 @@ begin
               with table[numeroStream] do
                 begin
 
-                  if (theReadStream <> NIL) & (TickCount > lastTickOfCkecking) then
+                  if (theReadStream <> NIL) and (TickCount > lastTickOfCkecking) then
                     begin
 
                       { a-t-on des octets sur le flux de lecture ? }
-                      if (theReadStream <> NIL) & CFReadStreamHasBytesAvailable(theReadStream) then
+                      if (theReadStream <> NIL) and CFReadStreamHasBytesAvailable(theReadStream) then
                         ReadStreamClientCallBack(theReadStream, kCFStreamEventHasBytesAvailable, @url255);
 
 
-                      if (theReadStream <> NIL) & CFReadStreamHasBytesAvailable(theReadStream) then
+                      if (theReadStream <> NIL) and CFReadStreamHasBytesAvailable(theReadStream) then
                         ReadStreamClientCallBack(theReadStream, kCFStreamEventHasBytesAvailable, @url255);
 
-                      if (theReadStream <> NIL) & CFReadStreamHasBytesAvailable(theReadStream) then
+                      if (theReadStream <> NIL) and CFReadStreamHasBytesAvailable(theReadStream) then
                         ReadStreamClientCallBack(theReadStream, kCFStreamEventHasBytesAvailable, @url255);
 
 
@@ -1194,7 +1194,7 @@ begin
 {$ifc compile_network_stuff}
 
 
-  if (numeroSlot < 0) | (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
+  if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
     begin
       WritelnNumDansRapport('ASSERT dans DownloadURL :   numeroSlot = ',numeroSlot);
       exit(DownloadURL);
@@ -1330,7 +1330,7 @@ end;
 procedure DownloadURLToFichierAbstrait(numeroSlot : SInt32; var url : LongString; var whichFichierAbstrait : FichierAbstrait; terminationProc : FichierAbstraitLongintProc);
 begin
 
-  if (numeroSlot >= 0) & (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
+  if (numeroSlot >= 0) and (numeroSlot <= kNumberOfAsynchroneNetworkConnections) then
     begin
 
       with gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[numeroSlot] do
@@ -1402,7 +1402,7 @@ begin
     connectWorked := FALSE;
 
     // Kill the run loop if stream creation failed.
-    if (rStream = NIL) | (wStream = NIL) then
+    if (rStream = NIL) or (wStream = NIL) then
       begin
         goto bailOut;
       end;
@@ -1417,7 +1417,7 @@ begin
     foo := CFReadStreamSetProperty(rStream, my_kCFStreamPropertyShouldCloseNativeSocket, CFTypeRef(kCFBooleanTrue));
 
         // Try to open the streams.
-    if (CFReadStreamOpen(rStream) & CFWriteStreamOpen(wStream) & WaitForConnection(wStream)) then
+    if (CFReadStreamOpen(rStream) and CFWriteStreamOpen(wStream) and WaitForConnection(wStream)) then
       begin
 
 
@@ -1433,13 +1433,13 @@ begin
               rStatus := CFReadStreamGetStatus(rStream);
               wStatus := CFWriteStreamGetStatus(wStream);
 
-            until ((rStatus <> kCFStreamStatusOpening) & (wStatus <> kCFStreamStatusOpening));
+            until ((rStatus <> kCFStreamStatusOpening) and (wStatus <> kCFStreamStatusOpening));
 
 
 
-            if (((rStatus = kCFStreamStatusError)  | (wStatus = kCFStreamStatusError))  |
-                ((rStatus = kCFStreamStatusClosed) | (wStatus = kCFStreamStatusClosed)) |
-                ((rStatus = kCFStreamStatusAtEnd)  | (wStatus = kCFStreamStatusAtEnd))) then
+            if (((rStatus = kCFStreamStatusError)  or (wStatus = kCFStreamStatusError))  or
+                ((rStatus = kCFStreamStatusClosed) or (wStatus = kCFStreamStatusClosed)) or
+                ((rStatus = kCFStreamStatusAtEnd)  or (wStatus = kCFStreamStatusAtEnd))) then
               begin
                 WritelnDansRapport('Connection terminated.');
                 goto closeStreams;
@@ -1477,7 +1477,7 @@ begin
                 // Keep going.
                 inc(len);
 
-            UNTIL (buffer[len - 1] = ord('¥')) | (len >= lineLength);
+            UNTIL (buffer[len - 1] = ord('¥')) or (len >= lineLength);
 
 
             // Start off with nothing
@@ -1485,7 +1485,7 @@ begin
             rcvd := 0;
 
             // Keep trying to send the data
-            while (sent < len) & CFWriteStreamCanAcceptBytes(wStream) do
+            while (sent < len) and CFWriteStreamCanAcceptBytes(wStream) do
               begin
 
                 // Try to send
@@ -1499,7 +1499,7 @@ begin
               end;
 
             // Keep trying to receive the data
-            while (rcvd < len) & CFReadStreamHasBytesAvailable(rStream) do
+            while (rcvd < len) and CFReadStreamHasBytesAvailable(rStream) do
               begin
 
                 // Try to send
@@ -1586,7 +1586,7 @@ begin
                 foo := CFReadStreamSetProperty(rStream, my_kCFStreamPropertyShouldCloseNativeSocket, CFTypeRef(kCFBooleanTrue));
 
                 // Open the streams for sending and receiving data (this opens the socket)
-                if CFReadStreamOpen(rStream) & CFWriteStreamOpen(wStream)
+                if CFReadStreamOpen(rStream) and CFWriteStreamOpen(wStream)
                   then
                     begin
 
@@ -1620,9 +1620,9 @@ var wStream : CFWriteStreamRef;
     myCFErr : CFStreamError;
 begin
 
-  if (bufferLength <= 0) | (buffer = NIL) then
+  if (bufferLength <= 0) or (buffer = NIL) then
     begin
-      WritelnDansRapport('WARNING : (bufferLength <= 0) | (buffer = NIL) dans SendStringToPermanentConnection');
+      WritelnDansRapport('WARNING : (bufferLength <= 0) or (buffer = NIL) dans SendStringToPermanentConnection');
       SendBytesToPermanentConnection := true;
       exit(SendBytesToPermanentConnection);
     end;
@@ -1643,7 +1643,7 @@ begin
         sent := 0;
 
         // Keep trying to send the data
-        while (sent < bufferLength) & CFWriteStreamCanAcceptBytes(wStream) do
+        while (sent < bufferLength) and CFWriteStreamCanAcceptBytes(wStream) do
           begin
             bytesSent := 0;
 
@@ -1730,8 +1730,8 @@ begin
         if index > kNumberOfAsynchroneNetworkConnections then index := index - (kNumberOfAsynchroneNetworkConnections + 1);
         if index < 0                                  then index := index + (kNumberOfAsynchroneNetworkConnections + 1);
 
-        if (table[index].theReadStream <> NIL) &
-           (table[index].theWriteStream <> NIL) &
+        if (table[index].theReadStream <> NIL) and
+           (table[index].theWriteStream <> NIL) and
            SameLongString(gReserveZonesPourTelecharger.table[index].infoNetworkConnection , hostAndPort) then
           begin
 
@@ -1760,8 +1760,8 @@ begin
         if index > kNumberOfAsynchroneNetworkConnections then index := index - (kNumberOfAsynchroneNetworkConnections + 1);
         if index < 0                                  then index := index + (kNumberOfAsynchroneNetworkConnections + 1);
 
-        if (table[index].theReadStream <> NIL) &
-           (table[index].theWriteStream <> NIL) &
+        if (table[index].theReadStream <> NIL) and
+           (table[index].theWriteStream <> NIL) and
            SameLongString(gReserveZonesPourTelecharger.table[index].infoNetworkConnection , hostAndPort) then
           begin
 
@@ -1803,14 +1803,14 @@ begin
           // Create the streams from numberical host
 
           struct sockaddr_in sin;
-          memset(&sin, 0, sizeof(sin));
+          memset(andsin, 0, sizeof(sin));
 
           sin.sin_len =  sizeof(sin);
           sin.sin_family = AF_INET;
           sin.sin_addr.s_addr = addr;
           sin.sin_port = htons(port);
 
-          CFDataRef addressData = CFDataCreate(NULL, (UInt8 *)&sin, sizeof(sin));
+          CFDataRef addressData = CFDataCreate(NULL, (UInt8 *)andsin, sizeof(sin));
           sig = ( PF_INET, SOCK_STREAM, IPPROTO_TCP, addressData );
           CreateSocketOnSig(sig);
           CFRelease(addressData);

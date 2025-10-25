@@ -50,7 +50,7 @@ USES
 
 function EstLaFenetreDuRapport(whichWindow : WindowPtr) : boolean;
 begin
-  EstLaFenetreDuRapport := (whichWindow <> NIL) & (whichWindow = rapport.theWindow);
+  EstLaFenetreDuRapport := (whichWindow <> NIL) and (whichWindow = rapport.theWindow);
 end;
 
 
@@ -73,7 +73,7 @@ begin {$unused avecAnimationZoom}
   DoActivateRapport;
 
   windowRapportOpen := true;
-  if windowPaletteOpen & (wPalettePtr <> NIL)
+  if windowPaletteOpen and (wPalettePtr <> NIL)
     then
       begin
         SendBehind(Rapport.theWindow,wPalettePtr);

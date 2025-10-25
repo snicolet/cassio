@@ -104,18 +104,18 @@ var gJeuCourant : PositionEtTraitRec;
 
 procedure AssertParamsOfPositionEtTrait(var position : PositionEtTraitRec; fonctionAppelante : String255);
 begin
-  if (position.lazyTrait.traitNaturel <> pionNoir) &
-     (position.lazyTrait.traitNaturel <> pionVide) &
-     (position.lazyTrait.traitNaturel <> pionBlanc) &
+  if (position.lazyTrait.traitNaturel <> pionNoir) and
+     (position.lazyTrait.traitNaturel <> pionVide) and
+     (position.lazyTrait.traitNaturel <> pionBlanc) and
      (position.lazyTrait.traitNaturel <> kTraitNonEncoreCalcule) then
     begin
       WritelnDansRapport('ASSERT ! traitNaturel dans AssertParamsOfPositionEtTrait, fonction appelante = '+fonctionAppelante);
       WritelnPositionEtTraitDansRapport(position.position,position.lazyTrait.traitNaturel);
     end;
 
-  if (position.lazyTrait.leTrait <> pionNoir) &
-     (position.lazyTrait.leTrait <> pionVide) &
-     (position.lazyTrait.leTrait <> pionBlanc) &
+  if (position.lazyTrait.leTrait <> pionNoir) and
+     (position.lazyTrait.leTrait <> pionVide) and
+     (position.lazyTrait.leTrait <> pionBlanc) and
      (position.lazyTrait.leTrait <> kTraitNonEncoreCalcule) then
     begin
       WritelnDansRapport('ASSERT! leTrait dans AssertParamsOfPositionEtTrait, fonction appelante = '+fonctionAppelante);
@@ -377,8 +377,8 @@ var i,n : SInt32;
 begin
   n := 0;
   for i := 1 to 64 do
-    if ((p1.position[othellier[i]] = pionVide)  & (p2.position[othellier[i]] <> pionVide)) |
-       ((p1.position[othellier[i]] <> pionVide) & (p2.position[othellier[i]]  = pionVide))
+    if ((p1.position[othellier[i]] = pionVide)  and (p2.position[othellier[i]] <> pionVide)) or
+       ((p1.position[othellier[i]] <> pionVide) and (p2.position[othellier[i]]  = pionVide))
       then inc(n);
   NombresCasesOccupeesDifferentes := n;
 end;
@@ -407,7 +407,7 @@ end;
 function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;
 var coupLegal : boolean;
 begin
-  if (whichMove < 11) | (whichMove > 88) | (positionEtTrait.lazyTrait.leTrait = pionVide) then
+  if (whichMove < 11) or (whichMove > 88) or (positionEtTrait.lazyTrait.leTrait = pionVide) then
     begin
       UpdatePositionEtTrait := false;
       exit(UpdatePositionEtTrait);
@@ -463,7 +463,7 @@ var coupLegal : boolean;
 begin
   RetournePionsPositionEtTrait := 0;
 
-  if (whichMove < 11) | (whichMove > 88) then
+  if (whichMove < 11) or (whichMove > 88) then
     begin
       RetournePionsPositionEtTrait := 0;
       exit(RetournePionsPositionEtTrait);
@@ -474,7 +474,7 @@ begin
   if (positionEtTrait.lazyTrait.leTrait <> pionVide) then
     begin
 
-      coupLegal := (positionEtTrait.position[whichMove] = pionVide) &
+      coupLegal := (positionEtTrait.position[whichMove] = pionVide) and
                   ModifPlatPrise(whichMove,positionEtTrait.position,positionEtTrait.lazyTrait.leTrait,nbPionsRetournes);
 
       if not(coupLegal) then
@@ -615,8 +615,8 @@ var i,t, ligne, colonne : SInt32;
   { Affecter() : pour affecter une valeur dans une case }
   procedure Affecter(x, y, valeurCase : SInt32);
   begin
-    if (x >= 1) & (x <= 8) &
-       (y >= 1) & (y <= 8)
+    if (x >= 1) and (x <= 8) and
+       (y >= 1) and (y <= 8)
       then positionEtTrait.position[y * 10 + x] := valeurCase
       else ParseError('parse error 0 in ParserFENEnPositionEtTrait : invalid square in line '+NumEnString(ligne) + ' !');
 
@@ -729,7 +729,7 @@ begin {ParserFENEnPositionEtTrait}
         ParseError('parse error 2 in ParserFENEnPositionEtTrait : invalid character in line ' + NumEnString(ligne) + ' ('+c+') !');
     end; {case}
 
-  until (c = ' ') | (c = 'Ã') | (i >= LENGTH_OF_STRING(positionString)) | (ligne > 8);
+  until (c = ' ') or (c = 'Ã') or (i >= LENGTH_OF_STRING(positionString)) or (ligne > 8);
 
 
 
@@ -844,7 +844,7 @@ begin
     end;
 
 
-  if (compteur < 64) | (compteur > 64)
+  if (compteur < 64) or (compteur > 64)
     then
       begin
         result.lazyTrait.leTrait      := pionVide;

@@ -147,8 +147,8 @@ end;
 procedure DrawProgressBar;
 var border,rectWidth : SInt32;
 begin
-  if (ProgressWindow <> NIL) &
-     (ProgressLastCurrent <> ProgressCurrent) &
+  if (ProgressWindow <> NIL) and
+     (ProgressLastCurrent <> ProgressCurrent) and
      (ProgressCurrent <= ProgressMax) then
     begin
       ProgressLastCurrent := ProgressCurrent;

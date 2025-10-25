@@ -179,7 +179,7 @@ begin
   ReflexData^.numeroDuCoup := numero;
   ReflexData^.couleur := couleur;
   ReflexData^.IndexCoupEnCours := IndexEnCours;
-  if (IndexEnCours >= 1) & (IndexEnCours <= longueurclass) then
+  if (IndexEnCours >= 1) and (IndexEnCours <= longueurclass) then
     begin
       ReflexData^.class[IndexEnCours] := classAux[IndexEnCours];
       ReflexData^.class[IndexEnCours].note := ReflexData^.class[IndexEnCours].note+penaliteAjoutee;
@@ -200,7 +200,7 @@ begin
   ReflexData^.numeroDuCoup := numero;
   ReflexData^.couleur := couleur;
   ReflexData^.IndexCoupEnCours := IndexEnCours;
-  if (IndexEnCours >= 1) & (IndexEnCours <= longueurclass) then
+  if (IndexEnCours >= 1) and (IndexEnCours <= longueurclass) then
     ReflexData^.class[IndexEnCours] := classAux[IndexEnCours];
 end;
 
@@ -227,7 +227,7 @@ end;
 
 procedure SetNroLigneEnCoursDAnalyseDansReflex(nroLigne : SInt32);
 begin
-  if (nroLigne >= 1) & (nroLigne <= ReflexData^.longClass) then
+  if (nroLigne >= 1) and (nroLigne <= ReflexData^.longClass) then
     ReflexData^.IndexCoupEnCours := nroLigne;
 end;
 
@@ -245,11 +245,11 @@ begin
   WritelnNumDansRapport('dans CopyClassementDansTableOfMoveRecordsLists : longClass = ',longClass);
   }
 
-  if (quelleProf >= 0) & (quelleProf <= ProfMaxDansTableOfMoveRecordsLists) then
+  if (quelleProf >= 0) and (quelleProf <= ProfMaxDansTableOfMoveRecordsLists) then
     begin
       if tableOfMoveRecordsLists[quelleProf].list = NIL then
         begin
-          if AllocateListOfMoveRecordsHandle(tableOfMoveRecordsLists[quelleProf].list) &
+          if AllocateListOfMoveRecordsHandle(tableOfMoveRecordsLists[quelleProf].list) and
              (tableOfMoveRecordsLists[quelleProf].list <> NIL) then
             begin
               HLock(Handle(tableOfMoveRecordsLists[quelleProf].list));
@@ -258,7 +258,7 @@ begin
             end;
         end;
 
-      if (tableOfMoveRecordsLists[quelleProf].list <> NIL) & (longClass > 0)
+      if (tableOfMoveRecordsLists[quelleProf].list <> NIL) and (longClass > 0)
         then
 	      begin
 	        HLock(Handle(tableOfMoveRecordsLists[quelleProf].list));
@@ -292,7 +292,7 @@ end;
 
 procedure InvalidateCetteProfDansTableOfMoveRecordsLists(quelleProf : SInt16);
 begin
-  if (quelleProf >= 0) & (quelleProf <= ProfMaxDansTableOfMoveRecordsLists) then
+  if (quelleProf >= 0) and (quelleProf <= ProfMaxDansTableOfMoveRecordsLists) then
     begin
       tableOfMoveRecordsLists[quelleProf].utilisee := false;
 	  tableOfMoveRecordsLists[quelleProf].cardinal := 0;

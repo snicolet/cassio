@@ -210,8 +210,8 @@ label sortie;
 
 
   begin
-    trierLentement := ((prof >= profMaximum-1) & (profMaximum >= 6)) |
-                      ((prof >= 4) & (adversaire = -couleurDeCassio)) |
+    trierLentement := ((prof >= profMaximum-1) and (profMaximum >= 6)) or
+                      ((prof >= 4) and (adversaire = -couleurDeCassio)) or
                       ((prof >= 5));
 
     nbExtensions := 0;
@@ -233,7 +233,7 @@ label sortie;
       iCourantTri := othellier[indicePourGenerationCoups];
 
       (*** pour debugage seulement ***)
-      {if (iCourantTri < 11) | (icourantTri > 88) then debugger;}
+      {if (iCourantTri < 11) or (icourantTri > 88) then debugger;}
 
       if joua[iCourantTri] then
           if ModifPlat(iCourantTri,coul,platTri,jouablTri,nbBlcTri,nbNrTri,frontTri) then
@@ -246,7 +246,7 @@ label sortie;
                 then
                   begin
                     caseTurbulentePourFils := -1;
-                    if ((prof >= profMaximum-1) & (prof >= 9))
+                    if ((prof >= profMaximum-1) and (prof >= 9))
                       then
                         begin
                           tempoDebrancherRecursivite := peutDebrancherRecursiviteDansEval;
@@ -265,7 +265,7 @@ label sortie;
 			              { si on n'est pas sur la branche principale, on peut
 			                essayer de debrancher la recursivite dans l'eval.
 			                Note : desactivé dans Cassio 5.5 }
-			              if FALSE & peutDebrancherRecursiviteDansEval & not(canDoProbCut) then
+			              if FALSE and peutDebrancherRecursiviteDansEval and not(canDoProbCut) then
 			                avecRecursiviteDansEval := false;
 			              GenererCasTrois;
 			              avecRecursiviteDansEval := tempoEvalRecursives;
@@ -281,7 +281,7 @@ label sortie;
 
               {insertion dans la liste CoupsLegauxTries, classée par note décroissante}
               k := 1;
-              while (k < nbCoupsLegauxTriesRestantAEvaluer) & (clef <= CoupsLegauxTries[k].clefDeTri) do k := k+1;
+              while (k < nbCoupsLegauxTriesRestantAEvaluer) and (clef <= CoupsLegauxTries[k].clefDeTri) do k := k+1;
 
 
               for j := nbCoupsLegauxTriesRestantAEvaluer downto succ(k) do
@@ -297,7 +297,7 @@ label sortie;
               CoupsLegauxTries[k].coup := iCourantTri;
 
               (*** pour debugage seulement ***)
-              { if (iCourantTri < 11) | (icourantTri > 88) then debugger; }
+              { if (iCourantTri < 11) or (icourantTri > 88) then debugger; }
 
               (*
               {if (prof >= profMinimalePourTriDesCoupsParAlphaBeta)}
@@ -358,7 +358,7 @@ label sortie;
 
 
       seuil_sortie := 500;
-      sortieAccelereeDuTriCarSansDouteCoupureBeta := (nbCoupsLegauxTriesRestantAEvaluer >= 1) & (prof <= 5) &
+      sortieAccelereeDuTriCarSansDouteCoupureBeta := (nbCoupsLegauxTriesRestantAEvaluer >= 1) and (prof <= 5) and
                                                      (CoupsLegauxTries[1].note >= (beta + seuil_sortie));
 
 
@@ -371,7 +371,7 @@ label sortie;
 
 
       (*
-      if tousLesCoupsLegauxGeneres  | sortieAccelereeDuTriCarSansDouteCoupureBeta {| probleme} then
+      if tousLesCoupsLegauxGeneres  or sortieAccelereeDuTriCarSansDouteCoupureBeta {or probleme} then
        begin
          SysBeep(0);
          EssaieSetPortWindowPlateau;
@@ -411,12 +411,12 @@ label sortie;
        end;
      *)
 
-    until tousLesCoupsLegauxGeneres | sortieAccelereeDuTriCarSansDouteCoupureBeta;
+    until tousLesCoupsLegauxGeneres or sortieAccelereeDuTriCarSansDouteCoupureBeta;
 
 
 
     nroDuCoup := nbBlancs + nbNoirs - 4;
-    faireElagageAPriori := tousLesCoupsLegauxGeneres & (prof >= 3) & (nbCoupsLegauxTriesRestantAEvaluer > 1);
+    faireElagageAPriori := tousLesCoupsLegauxGeneres and (prof >= 3) and (nbCoupsLegauxTriesRestantAEvaluer > 1);
 
 
     if faireElagageAPriori then
@@ -439,10 +439,10 @@ label sortie;
               pour ne pas elaguer *a priori* des coups trop proches}
 
              nbExtensions := 0;
-             while ( nbCoupsApresElagage < nbCoupsLegauxTriesRestantAEvaluer ) &
-                   ( alpha_fenetre_tri <= clef) & ( clef <= beta_fenetre_tri) &
-                   ( alpha_fenetre_tri <= CoupsLegauxTries[nbCoupsApresElagage+1].clefDeTri) &
-                   ( CoupsLegauxTries[nbCoupsApresElagage+1].clefDeTri <= beta_fenetre_tri) &
+             while ( nbCoupsApresElagage < nbCoupsLegauxTriesRestantAEvaluer ) and
+                   ( alpha_fenetre_tri <= clef) and ( clef <= beta_fenetre_tri) and
+                   ( alpha_fenetre_tri <= CoupsLegauxTries[nbCoupsApresElagage+1].clefDeTri) and
+                   ( CoupsLegauxTries[nbCoupsApresElagage+1].clefDeTri <= beta_fenetre_tri) and
                    ( Abs(CoupsLegauxTries[nbCoupsApresElagage+1].clefDeTri - clef) <= 750)  do
                begin
                  inc(nbCoupsApresElagage);
@@ -454,7 +454,7 @@ label sortie;
              {effetspecial2 := ( CoupsLegauxTries[1].note +700 <= alpha);}
              {effetspecial2 := true;}
 
-             if effetspecial2 & (nbExtensions > 0) then
+             if effetspecial2 and (nbExtensions > 0) then
                begin
 	             EssaieSetPortWindowPlateau;
 	             EcritPositionAt(pl,10,10);
@@ -522,7 +522,7 @@ label sortie;
                 begin
                   InitialiseDirectionsJouables;
                   CarteJouable(pl,joua);
-                  if true | debuggage.general then
+                  if true or debuggage.general then
                     begin
                       SysBeep(0);
                       EssaieSetPortWindowPlateau;
@@ -913,7 +913,7 @@ label sortie;
 
     {$UNUSED profDepart}
 
-    if (alpha > -20000) & (beta < 20000)
+    if (alpha > -20000) and (beta < 20000)
       then eval := Evaluation(pl,coul,nbBlancs,nbNoirs,joua,fr,true,alpha,beta,compteurEvalRecursives)
       else eval := -100000;  {probCut alpha, puis beta}
 
@@ -922,8 +922,8 @@ label sortie;
 		centre_fenetre_bas  := alpha - kCentreFenetre*fenetre_probcut1;
 		centre_fenetre_haut := beta  + kCentreFenetre*fenetre_probcut1;
 
-    if (alpha <= -20000) | (beta >= 20000) |
-       ((eval <> -100000) & ((eval < centre_fenetre_bas) | (eval > centre_fenetre_haut)))
+    if (alpha <= -20000) or (beta >= 20000) or
+       ((eval <> -100000) and ((eval < centre_fenetre_bas) or (eval > centre_fenetre_haut)))
       then
         begin
 
@@ -931,26 +931,26 @@ label sortie;
 			      then
 			        begin  {on cherche une coupure probabiliste alpha, puis beta}
 			          TryAlphaProbCut(profReduite1,fenetre_probcut1);
-			          if not((eval <> -100000) & (eval < centre_fenetre_bas))
+			          if not((eval <> -100000) and (eval < centre_fenetre_bas))
 			            then TryBetaProbCut (profReduite1,fenetre_probcut1);
 
 			          if (profReduite2 > 0) then
 			            begin
 			              TryAlphaProbCut(profReduite2,fenetre_probcut2);
-			              if not((eval <> -100000) & (eval < centre_fenetre_bas))
+			              if not((eval <> -100000) and (eval < centre_fenetre_bas))
 			                then TryBetaProbCut (profReduite2,fenetre_probcut2);
 			            end;
 			        end
 			      else
 			        begin {on cherche une coupure probabiliste beta, puis alpha}
 			          TryBetaProbCut (profReduite1,fenetre_probcut1);
-			          if not((eval <> -100000) & (eval > centre_fenetre_haut))
+			          if not((eval <> -100000) and (eval > centre_fenetre_haut))
 			            then TryAlphaProbCut(profReduite1,fenetre_probcut1);
 
 			          if (profReduite2 > 0) then
 			            begin
 			              TryBetaProbCut (profReduite2,fenetre_probcut2);
-			              if not((eval <> -100000) & (eval > centre_fenetre_haut))
+			              if not((eval <> -100000) and (eval > centre_fenetre_haut))
 			                then TryAlphaProbCut(profReduite2,fenetre_probcut2);
 			            end;
 			        end;
@@ -971,7 +971,7 @@ label sortie;
 			         tombe au milieu de la fenetre : si on est au milieu, la proba-
 			         bilite d'avoir une coupure est tres faible}
 
-			        if not(((centre_fenetre_bas <= eval) & (eval <= centre_fenetre_haut))) then
+			        if not(((centre_fenetre_bas <= eval) and (eval <= centre_fenetre_haut))) then
 		            begin
 		              if Abs(alpha - eval) < Abs(beta - eval)
 							      then
@@ -1003,7 +1003,7 @@ label sortie;
           AttendFrappeClavierOuSouris(effetspecial2);
         end;}
 
-  (* if utilisationNouvelleEval & (prof >= 3)
+  (* if utilisationNouvelleEval and (prof >= 3)
        then DoProbCut(prof,0,Max(prof*100,600));  *)
 
 
@@ -1079,7 +1079,7 @@ label sortie;
   begin
     (* DetermineSiBitboardEstMieux := (nbreCasesVides > 67200); *)
 
-     if ((nbreCasesVides < 0) | (nbreCasesVides > 64))
+     if ((nbreCasesVides < 0) or (nbreCasesVides > 64))
       then
         begin
           DetermineSiBitboardEstMieux := false;
@@ -1116,7 +1116,7 @@ begin   {ABScout}
 
  {PrintTraceDebugageABScout('Entree dans ABScout');}
 
- if (interruptionReflexion = pasdinterruption) & not(Quitter) then
+ if (interruptionReflexion = pasdinterruption) and not(Quitter) then
  begin
 
    (*
@@ -1124,7 +1124,7 @@ begin   {ABScout}
    WriteInTraceLog('Entree dans ABSCout, magicCookie = '+NumEnString(magicCookieABSCout));
    *)
 
-   if (coul <> pionNoir) & (coul <> pionBlanc) then
+   if (coul <> pionNoir) and (coul <> pionBlanc) then
      begin
        WritelnNumDansRapport('ASSERT !! dans ABSCout, couleur = ',coul);
        ABScout := -noteMax;
@@ -1149,8 +1149,8 @@ begin   {ABScout}
      end;
 
    (* PV extension : est-on près de la fin, sur la ligne principale ? *)
-   if (nbCasesVidesRestantes <= kEMPTIES_FOR_PV_EXTENSION) & (nbCasesVidesRestantes >= 10)
-      & (beta > alpha+1) & canDoProbCut then
+   if (nbCasesVidesRestantes <= kEMPTIES_FOR_PV_EXTENSION) and (nbCasesVidesRestantes >= 10)
+      and (beta > alpha+1) and canDoProbCut then
      if PeutFaireFinaleBitboardCettePosition(pl,coul,-6400,6400,nbNoirs,nbBlancs,noteCourante) then
        begin
         nbreFeuillesMilieu := nbreFeuillesMilieu + nbNoeudsEstimes[nbCasesVidesRestantes];
@@ -1173,7 +1173,7 @@ begin   {ABScout}
       end;
 
    (* La finale en bitboard est-elle plus rapide que le milieu de partie ? *)
-   if (nbCasesVidesRestantes > 8) & DetermineSiBitboardEstMieux(nbCasesVidesRestantes) then
+   if (nbCasesVidesRestantes > 8) and DetermineSiBitboardEstMieux(nbCasesVidesRestantes) then
      if PeutFaireFinaleBitboardCettePosition(pl,coul,alpha,beta,nbNoirs,nbBlancs,noteCourante) then
       begin
         nbreFeuillesMilieu := nbreFeuillesMilieu + nbNoeudsEstimes[nbCasesVidesRestantes];
@@ -1191,7 +1191,7 @@ begin   {ABScout}
    conseilTurbulence := 0;
    bstDef            := 0;
 
-   if (effetspecial2 & (conseilTurbulence <> -1) & (conseilTurbulence <> 0)) then
+   if (effetspecial2 and (conseilTurbulence <> -1) and (conseilTurbulence <> 0)) then
      begin
        EssaieSetPortWindowPlateau;
        EcritPositionAt(pl,50,50);
@@ -1225,7 +1225,7 @@ begin   {ABScout}
 
 
 	 {attention : le test (beta <= alpha+1) est indispensable pour NegaScout}
-   if (canDoProbCut & (beta <= alpha+1)) then TryProbCut;
+   if (canDoProbCut and (beta <= alpha+1)) then TryProbCut;
 
 
    {EcritCoupEtProf;
@@ -1377,7 +1377,7 @@ begin   {ABScout}
 
    iCourant := conseilTurbulence;
    if maxPourBestDef < valeurExacteMax then
-   if (iCourant >= 11) & (iCourant <= 88) then
+   if (iCourant >= 11) and (iCourant <= 88) then
    if joua[iCourant] then
    if not(dejaEvalue[iCourant]) then
     begin
@@ -1403,9 +1403,9 @@ begin   {ABScout}
                  begin
                    {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                    evaluerMaintenant := true;
-                   if evaluerMaintenant & not(utilisationNouvelleEval) then
+                   if evaluerMaintenant and not(utilisationNouvelleEval) then
                      evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                   {if evaluerMaintenant & avecselectivite then
+                   {if evaluerMaintenant and avecselectivite then
                      evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                    {if evaluerMaintenant then
                        evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -1419,7 +1419,7 @@ begin   {ABScout}
              end
            else
              begin
-               if (nbEvalues = 0) | (beta <= alpha+1)
+               if (nbEvalues = 0) or (beta <= alpha+1)
                  then
                    noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                           profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
@@ -1429,7 +1429,7 @@ begin   {ABScout}
                      noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                             profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                             pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                     if (alpha < notecourante) & (notecourante < beta) then
+                     if (alpha < notecourante) and (notecourante < beta) then
                        begin
                          noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                 profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,
@@ -1515,7 +1515,7 @@ begin   {ABScout}
              {PrintTraceDebugageABScout('iCourant = '+CoupEnString(iCourant,true)+' '+NumEnString(iCourant)+' dans ABSCout');}
 
              if maxPourBestDef < valeurExacteMax then
-             if (iCourant >= 11) & (iCourant <= 88) then
+             if (iCourant >= 11) and (iCourant <= 88) then
              if not(dejaEvalue[iCourant]) then
               begin
                 dejaEvalue[iCourant] := true;
@@ -1580,9 +1580,9 @@ begin   {ABScout}
                            begin
                              {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                              evaluerMaintenant := true;
-                             if evaluerMaintenant & not(utilisationNouvelleEval) then
+                             if evaluerMaintenant and not(utilisationNouvelleEval) then
                                evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                             {if evaluerMaintenant & avecselectivite then
+                             {if evaluerMaintenant and avecselectivite then
                                evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                              {if evaluerMaintenant then
                                evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -1608,7 +1608,7 @@ begin   {ABScout}
                        end
                      else
                        begin
-                         if (nbEvalues = 0) | (beta <= alpha+1)
+                         if (nbEvalues = 0) or (beta <= alpha+1)
                            then
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                     profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
@@ -1618,7 +1618,7 @@ begin   {ABScout}
                                noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                       profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                                       pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                               if (alpha < notecourante) & (notecourante < beta) then
+                               if (alpha < notecourante) and (notecourante < beta) then
                                  begin
                                    noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                          profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,
@@ -1688,7 +1688,7 @@ begin   {ABScout}
          BEGIN
            iCourant := othellier[ii];
            if maxPourBestDef < valeurExacteMax then
-           if (iCourant >= 11) & (iCourant <= 88) then
+           if (iCourant >= 11) and (iCourant <= 88) then
            if joua[iCourant] then
            if not(dejaEvalue[iCourant]) then
             begin
@@ -1714,9 +1714,9 @@ begin   {ABScout}
                          begin
                            {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                            evaluerMaintenant := true;
-                           if evaluerMaintenant & not(utilisationNouvelleEval) then
+                           if evaluerMaintenant and not(utilisationNouvelleEval) then
                              evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                           {if evaluerMaintenant & avecselectivite then
+                           {if evaluerMaintenant and avecselectivite then
                              evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                            {if evaluerMaintenant then
                                  evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -1730,7 +1730,7 @@ begin   {ABScout}
                      end
                    else
                      begin
-                       if (nbEvalues = 0) | (beta <= alpha+1)
+                       if (nbEvalues = 0) or (beta <= alpha+1)
                          then
                            noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                   profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
@@ -1740,7 +1740,7 @@ begin   {ABScout}
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                     profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                                     pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                             if (alpha < notecourante) & (notecourante < beta) then
+                             if (alpha < notecourante) and (notecourante < beta) then
                                begin
                                  noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                         profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,
@@ -1805,7 +1805,7 @@ begin   {ABScout}
          BEGIN
            iCourant := KillerGlb^[prof,ii];
            if maxPourBestDef < valeurExacteMax then
-           if (iCourant >= 11) & (iCourant <= 88) then
+           if (iCourant >= 11) and (iCourant <= 88) then
            if joua[iCourant] then
             if not(dejaEvalue[iCourant]) then
             begin
@@ -1832,9 +1832,9 @@ begin   {ABScout}
                          begin
                            {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                            evaluerMaintenant := true;
-                           if evaluerMaintenant & not(utilisationNouvelleEval) then
+                           if evaluerMaintenant and not(utilisationNouvelleEval) then
                              evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                           {if evaluerMaintenant & avecselectivite then
+                           {if evaluerMaintenant and avecselectivite then
                              evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                            {if evaluerMaintenant then
                                  evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -1848,7 +1848,7 @@ begin   {ABScout}
                      end
                    else
                      begin
-                       if (nbEvalues = 0) | (beta <= alpha+1)
+                       if (nbEvalues = 0) or (beta <= alpha+1)
                          then
                            noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                   profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
@@ -1858,7 +1858,7 @@ begin   {ABScout}
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                     profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                                     pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                             if (alpha < notecourante) & (notecourante < beta) then
+                             if (alpha < notecourante) and (notecourante < beta) then
                                begin
                                  noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                         profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,
@@ -1935,7 +1935,7 @@ begin   {ABScout}
           begin
            iCourant := tableHeurisBlanc[pere,ii];
            if maxPourBestDef < valeurExacteMax then
-           if (iCourant >= 11) & (iCourant <= 88) then
+           if (iCourant >= 11) and (iCourant <= 88) then
            if joua[iCourant] then
            if not(dejaEvalue[iCourant]) then
              begin
@@ -1962,9 +1962,9 @@ begin   {ABScout}
                          begin
                            {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                            evaluerMaintenant := true;
-                           if evaluerMaintenant & not(utilisationNouvelleEval) then
+                           if evaluerMaintenant and not(utilisationNouvelleEval) then
                              evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                           {if evaluerMaintenant & avecselectivite then
+                           {if evaluerMaintenant and avecselectivite then
                              evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                            {if evaluerMaintenant then
                                  evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -1978,7 +1978,7 @@ begin   {ABScout}
                      end
                    else
                      begin
-                       if (nbEvalues = 0) | (beta <= alpha+1)
+                       if (nbEvalues = 0) or (beta <= alpha+1)
                          then
                            noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                   profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
@@ -1988,7 +1988,7 @@ begin   {ABScout}
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                     profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                                     pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                             if (alpha < notecourante) & (notecourante < beta) then
+                             if (alpha < notecourante) and (notecourante < beta) then
                                begin
                                  noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                         profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,
@@ -2075,7 +2075,7 @@ begin   {ABScout}
            begin
            iCourant := tableHeurisNoir[pere,ii];
            if maxPourBestDef < valeurExacteMax then
-           if (iCourant >= 11) & (iCourant <= 88) then
+           if (iCourant >= 11) and (iCourant <= 88) then
            if joua[iCourant] then
            if not(dejaEvalue[iCourant]) then
             begin
@@ -2102,9 +2102,9 @@ begin   {ABScout}
                          begin
                            {evaluerMaintenant := not(EstTurbulent(platEssai,adversaire,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils));}
                            evaluerMaintenant := true;
-                           if evaluerMaintenant & not(utilisationNouvelleEval) then
+                           if evaluerMaintenant and not(utilisationNouvelleEval) then
                              evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,frontessai,platessai);
-                           {if evaluerMaintenant & avecselectivite then
+                           {if evaluerMaintenant and avecselectivite then
                              evaluerMaintenant := not(BordDeCinqUrgent(platessai,frontessai));}
                            {if evaluerMaintenant then
                                  evaluerMaintenant := PasDeControleDeDiagonaleEnCours(adversaire,platEssai);}
@@ -2118,7 +2118,7 @@ begin   {ABScout}
                      end
                    else
                      begin
-                      if (nbEvalues = 0) | (beta <= alpha+1)
+                      if (nbEvalues = 0) or (beta <= alpha+1)
                          then
                            begin
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
@@ -2130,7 +2130,7 @@ begin   {ABScout}
                              noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                     profMoins1,profMaximum,horizon,longPathPlus1,distPV+nbEvalues,couleurDeCassio,
                                                     pred(-alpha),-alpha,nbBlcEssai,nbNrEssai,frontEssai,conseilTurbulencePourLeFils,canDoProbCut);
-                             if (alpha < notecourante) & (notecourante < beta) then
+                             if (alpha < notecourante) and (notecourante < beta) then
                                begin
                                  noteCourante := -ABScout(platEssai,jouablEssai,BestSuite,iCourant,adversaire,
                                                         profMoins1,profMaximum,horizon,longPathPlus1,0,couleurDeCassio,

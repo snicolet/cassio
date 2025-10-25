@@ -100,7 +100,7 @@ end;
 
 function WeightedSetEstVide(S : WeightedSet) : boolean;
 begin
-  WeightedSetEstVide := (S.cardinal = 0) | PropertyListEstVide(S.theSet);
+  WeightedSetEstVide := (S.cardinal = 0) or PropertyListEstVide(S.theSet);
 end;
 
 function CardinalOfWeightedSet(S : WeightedSet) : SInt32;
@@ -200,7 +200,7 @@ begin
 
       L1 := S1.theSet;
       L2 := S2.theSet;
-      while (L1 <> NIL) & (L2 <> NIL) do
+      while (L1 <> NIL) and (L2 <> NIL) do
         begin
           GetCoupleLongintOfProperty(L1^.head,element1,poids1);
           GetCoupleLongintOfProperty(L2^.head,element2,poids2);
@@ -220,12 +220,12 @@ begin
               AddToResult(L2^.head);
               L2 := L2^.tail;
             end;
-          if (L1 = NIL) & (L2 <> NIL) then
+          if (L1 = NIL) and (L2 <> NIL) then
             repeat
               AddToResult(L2^.head);
               L2 := L2^.tail;
             until (L2 = NIL);
-          if (L2 = NIL) & (L1 <> NIL) then
+          if (L2 = NIL) and (L1 <> NIL) then
             repeat
               AddToResult(L1^.head);
               L1 := L1^.tail;
@@ -263,7 +263,7 @@ var result : WeightedSet;
   end;
 
 begin
-  if WeightedSetEstVide(S1) | WeightedSetEstVide(S2) then
+  if WeightedSetEstVide(S1) or WeightedSetEstVide(S2) then
     begin
       IntersectionWeightedSet := MakeEmptyWeightedSet;
       exit(IntersectionWeightedSet);
@@ -278,7 +278,7 @@ begin
 
       L1 := S1.theSet;
       L2 := S2.theSet;
-      while (L1 <> NIL) & (L2 <> NIL) do
+      while (L1 <> NIL) and (L2 <> NIL) do
         begin
           GetCoupleLongintOfProperty(L1^.head,element1,poids1);
           GetCoupleLongintOfProperty(L2^.head,element2,poids2);
@@ -291,8 +291,8 @@ begin
           if element1 < element2 then L1 := L1^.tail;
           if element1 > element2 then L2 := L2^.tail;
 
-          if (L1 = NIL) & (L2 <> NIL) then L2 := NIL;
-          if (L2 = NIL) & (L1 <> NIL) then L1 := NIL;
+          if (L1 = NIL) and (L2 <> NIL) then L2 := NIL;
+          if (L2 = NIL) and (L1 <> NIL) then L1 := NIL;
         end;
     end;
   IntersectionWeightedSet := result;

@@ -172,7 +172,7 @@ function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;     external;
 procedure SafeSetCursor(myCursor : CursHandle);
 var cursorData : Cursor;
 begin
-  if (myCursor = NIL) | (myCursor^ = NIL)
+  if (myCursor = NIL) or (myCursor^ = NIL)
     then InitCursor
     else
       begin
@@ -195,9 +195,9 @@ end;
 
 function SameRect(rect1,rect2 : rect) : boolean;
 begin
-  SameRect := (rect1.left   = rect2.left) &
-              (rect1.right  = rect2.right) &
-              (rect1.top    = rect2.top) &
+  SameRect := (rect1.left   = rect2.left) and
+              (rect1.right  = rect2.right) and
+              (rect1.top    = rect2.top) and
               (rect1.bottom = rect2.bottom);
 end;
 
@@ -607,7 +607,7 @@ function GetPicFrameOfPicture(thePict : PicHandle) : Rect;
 var frame : Rect;
 begin
 
-  if (thePict = NIL) | (thePict^ = NIL)
+  if (thePict = NIL) or (thePict^ = NIL)
     then
       begin
         frame.left   := 0;
@@ -643,7 +643,7 @@ begin
 
   theHandle := GetPicture(picID);
 
-  if (theHandle <> NIL) & (theHandle^ <> NIL) then
+  if (theHandle <> NIL) and (theHandle^ <> NIL) then
     begin
 
       frame  := theHandle^^.picFrame;

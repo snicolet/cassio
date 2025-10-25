@@ -685,46 +685,46 @@ begin
   with v do
     begin
       {les blocs de 13 de coin}
-      if (err = NoErr) & (Pattern[kAdresseBlocCoinA1,0] <> NIL) then
+      if (err = NoErr) and (Pattern[kAdresseBlocCoinA1,0] <> NIL) then
         err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseBlocCoinA1,0]);
       {edge+2X}
       for stage := 0 to kNbMaxGameStage do
-        if (err = NoErr) & (Edges2X[stage] <> NIL) then
+        if (err = NoErr) and (Edges2X[stage] <> NIL) then
           err := EcritPointMultidimensionnelDansFichierTexte(fic,Edges2X[stage]);
       for stage := 0 to kNbMaxGameStage do
         begin
           {bords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne1,stage]);
           {prebords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne2,stage]);
           {lignes3}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne3,stage]);
           {lignes4}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne4,stage]);
           {diag. de 5}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA4E8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA4E8,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA4E8,stage]);
           {diag. de 6}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA3F8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA3F8,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA3F8,stage]);
           {diag. de 7}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA2G8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA2G8,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA2G8,stage]);
           {diag. de 8}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA1H8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA1H8,stage] <> NIL) then
             err := EcritPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA1H8,stage]);
         end;
-      if (err = NoErr) & (v.Mobilite <> NIL) then
+      if (err = NoErr) and (v.Mobilite <> NIL) then
         err := EcritPointMultidimensionnelDansFichierTexte(fic,v.Mobilite);
-      if (err = NoErr) & (v.FrontiereDiscs <> NIL) then
+      if (err = NoErr) and (v.FrontiereDiscs <> NIL) then
         err := EcritPointMultidimensionnelDansFichierTexte(fic,v.FrontiereDiscs);
-      if (err = NoErr) & (v.FrontiereSquares <> NIL) then
+      if (err = NoErr) and (v.FrontiereSquares <> NIL) then
         err := EcritPointMultidimensionnelDansFichierTexte(fic,v.FrontiereSquares);
-      if (err = NoErr) & (v.FrontiereNonLineaire <> NIL) then
+      if (err = NoErr) and (v.FrontiereNonLineaire <> NIL) then
         err := EcritPointMultidimensionnelDansFichierTexte(fic,v.FrontiereNonLineaire);
     end;
   EcritEvalDansFichierTexte := err;
@@ -745,42 +745,42 @@ begin
         err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseBlocCoinA1,0]);
       {edge+2X}
       for stage := 0 to kNbMaxGameStage do
-        if (err = NoErr) & (Edges2X[stage] <> NIL) then
+        if (err = NoErr) and (Edges2X[stage] <> NIL) then
           err := LitPointMultidimensionnelDansFichierTexte(fic,Edges2X[stage]);
       for stage := 0 to kNbMaxGameStage do
         begin
           {bords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne1,stage]);
           {prebords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne2,stage]);
           {lignes3}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne3,stage]);
           {lignes4}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseColonne4,stage]);
           {diag. de 5}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA4E8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA4E8,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA4E8,stage]);
           {diag. de 6}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA3F8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA3F8,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA3F8,stage]);
           {diag. de 7}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA2G8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA2G8,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA2G8,stage]);
           {diag. de 8}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA1H8,stage] <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA1H8,stage] <> NIL) then
             err := LitPointMultidimensionnelDansFichierTexte(fic,Pattern[kAdresseDiagonaleA1H8,stage]);
         end;
-      if (err = NoErr) & (v.Mobilite <> NIL) then
+      if (err = NoErr) and (v.Mobilite <> NIL) then
         err := LitPointMultidimensionnelDansFichierTexte(fic,v.Mobilite);
-      if (err = NoErr) & (v.FrontiereDiscs <> NIL) then
+      if (err = NoErr) and (v.FrontiereDiscs <> NIL) then
         err := LitPointMultidimensionnelDansFichierTexte(fic,v.FrontiereDiscs);
-      if (err = NoErr) & (v.FrontiereSquares <> NIL) then
+      if (err = NoErr) and (v.FrontiereSquares <> NIL) then
         err := LitPointMultidimensionnelDansFichierTexte(fic,v.FrontiereSquares);
-      if (err = NoErr) & (v.FrontiereNonLineaire <> NIL) then
+      if (err = NoErr) and (v.FrontiereNonLineaire <> NIL) then
         err := LitPointMultidimensionnelDansFichierTexte(fic,v.FrontiereNonLineaire);
     end;
   LitEvalDansFichierTexte := err;
@@ -1061,9 +1061,9 @@ begin
                 if valeur <= -valeurMaxPattern then valeur := -valeurMaxPattern;
                 if occ > 0 then
                   begin
-                    if (valeur > 0.0) & ((valeur/occ) >= RapportMaxValeurSurOccurence)
+                    if (valeur > 0.0) and ((valeur/occ) >= RapportMaxValeurSurOccurence)
                       then valeur := occ*RapportMaxValeurSurOccurence;
-                    if (valeur < 0.0) & ((-valeur/occ) >= RapportMaxValeurSurOccurence)
+                    if (valeur < 0.0) and ((-valeur/occ) >= RapportMaxValeurSurOccurence)
                       then valeur := -occ*RapportMaxValeurSurOccurence;
                   end;
 
@@ -1081,9 +1081,9 @@ begin
                 if valeur <= -valeurMaxPattern then valeur := -valeurMaxPattern;
                 if occ > 0 then
                   begin
-                    if (valeur > 0.0) & ((valeur/occ) >= RapportMaxValeurSurOccurence)
+                    if (valeur > 0.0) and ((valeur/occ) >= RapportMaxValeurSurOccurence)
                       then valeur := occ*RapportMaxValeurSurOccurence;
-                    if (valeur < 0.0) & ((-valeur/occ) >= RapportMaxValeurSurOccurence)
+                    if (valeur < 0.0) and ((-valeur/occ) >= RapportMaxValeurSurOccurence)
                       then valeur := -occ*RapportMaxValeurSurOccurence;
                   end;
 
@@ -1112,13 +1112,13 @@ begin
                 valeur := whichEval.Edges2X[stage]^[k];
                 valeurGradient := whichGradient.Edges2X[stage]^[k];
 
-                if (valeur >=  valeurMaxPattern) & (valeurGradient >= 0) then valeurGradient := 0.0;
-                if (valeur <= -valeurMaxPattern) & (valeurGradient <= 0) then valeurGradient := 0.0;
+                if (valeur >=  valeurMaxPattern) and (valeurGradient >= 0) then valeurGradient := 0.0;
+                if (valeur <= -valeurMaxPattern) and (valeurGradient <= 0) then valeurGradient := 0.0;
                 if occ > 0 then
                   begin
-                    if (valeur > 0.0) & ((valeur/occ) >= RapportMaxValeurSurOccurence) & (valeurGradient >= 0)
+                    if (valeur > 0.0) and ((valeur/occ) >= RapportMaxValeurSurOccurence) and (valeurGradient >= 0)
                       then valeurGradient := 0.0;
-                    if (valeur < 0.0) & ((-valeur/occ) >= RapportMaxValeurSurOccurence) & (valeurGradient <= 0)
+                    if (valeur < 0.0) and ((-valeur/occ) >= RapportMaxValeurSurOccurence) and (valeurGradient <= 0)
                       then valeurGradient := 0.0;
                   end;
 
@@ -1133,13 +1133,13 @@ begin
                 valeur := whichEval.Pattern[numeroPattern,stage]^[k];
                 valeurGradient := whichGradient.Pattern[numeroPattern,stage]^[k];
 
-                if (valeur >=  valeurMaxPattern) & (valeurGradient >= 0) then valeurGradient := 0.0;
-                if (valeur <= -valeurMaxPattern) & (valeurGradient <= 0) then valeurGradient := 0.0;
+                if (valeur >=  valeurMaxPattern) and (valeurGradient >= 0) then valeurGradient := 0.0;
+                if (valeur <= -valeurMaxPattern) and (valeurGradient <= 0) then valeurGradient := 0.0;
                 if occ > 0 then
                   begin
-                    if (valeur > 0.0) & ((valeur/occ) >= RapportMaxValeurSurOccurence) & (valeurGradient >= 0)
+                    if (valeur > 0.0) and ((valeur/occ) >= RapportMaxValeurSurOccurence) and (valeurGradient >= 0)
                       then valeurGradient := 0.0;
-                    if (valeur < 0.0) & ((-valeur/occ) >= RapportMaxValeurSurOccurence) & (valeurGradient <= 0)
+                    if (valeur < 0.0) and ((-valeur/occ) >= RapportMaxValeurSurOccurence) and (valeurGradient <= 0)
                       then valeurGradient := 0.0;
                   end;
 
@@ -1173,16 +1173,16 @@ begin
                     valeur := whichEval.Edges2X[stage]^[k];
                     valeurPatternOppose := whichEval.Edges2X[stage]^[patternOppose];
 
-                    if (valeur <> 0.0) & (valeurPatternOppose <> 0.0)
+                    if (valeur <> 0.0) and (valeurPatternOppose <> 0.0)
                       then whichEval.Edges2X[stage]^[k] := 0.5*(valeur-valeurPatternOppose);
 
-                    if (valeur = 0) & (valeurPatternOppose <> 0.0)
+                    if (valeur = 0) and (valeurPatternOppose <> 0.0)
                       then whichEval.Edges2X[stage]^[k] := -valeurPatternOppose;
 
-                    if (valeur <> 0.0) & (valeurPatternOppose = 0.0)
+                    if (valeur <> 0.0) and (valeurPatternOppose = 0.0)
                       then whichEval.Edges2X[stage]^[k] := valeur;
 
-                    if (valeur = 0.0) & (valeurPatternOppose = 0.0)
+                    if (valeur = 0.0) and (valeurPatternOppose = 0.0)
                       then whichEval.Edges2X[stage]^[k] := 0.0;
                   end;
 		           end;
@@ -1200,16 +1200,16 @@ begin
                     valeur := whichEval.Pattern[numeroPattern,stage]^[k];
                     valeurPatternOppose := whichEval.Pattern[numeroPattern,stage]^[patternOppose];
 
-                    if (valeur <> 0.0) & (valeurPatternOppose <> 0.0)
+                    if (valeur <> 0.0) and (valeurPatternOppose <> 0.0)
                       then whichEval.Pattern[numeroPattern,stage]^[k] := 0.5*(valeur-valeurPatternOppose);
 
-                    if (valeur = 0) & (valeurPatternOppose <> 0.0)
+                    if (valeur = 0) and (valeurPatternOppose <> 0.0)
                       then whichEval.Pattern[numeroPattern,stage]^[k] := -valeurPatternOppose;
 
-                    if (valeur <> 0.0) & (valeurPatternOppose = 0.0)
+                    if (valeur <> 0.0) and (valeurPatternOppose = 0.0)
                       then whichEval.Pattern[numeroPattern,stage]^[k] := valeur;
 
-                    if (valeur = 0.0) & (valeurPatternOppose = 0.0)
+                    if (valeur = 0.0) and (valeurPatternOppose = 0.0)
                       then whichEval.Pattern[numeroPattern,stage]^[k] := 0.0;
                   end;
 		           end;

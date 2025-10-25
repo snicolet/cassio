@@ -242,7 +242,7 @@ end;
 procedure PutCelluleDansBuffer(numeroDansBuffer : SInt16; var fichier : Graphe; numeroDansFichier : SInt64; var cellule : CelluleRec);
 begin
   with bufferCellules do
-  if (numeroDansBuffer >= 0) & (numeroDansBuffer <= tailleBufferCellules) then
+  if (numeroDansBuffer >= 0) and (numeroDansBuffer <= tailleBufferCellules) then
     begin
       RefFichier[numeroDansBuffer] := GetUniqueIDFichierTexte(fichier^.fic);
       LesNumCellules[numeroDansBuffer] := numeroDansFichier;
@@ -263,7 +263,7 @@ begin
       k := indexDerniereCelluleTrouvee-i;
       if k < 0 then k := k+(tailleBufferCellules+1) else
       if k > tailleBufferCellules then k := k-(tailleBufferCellules+1);
-      if (LesNumCellules[k] = numCellule) & (RefFichier[k] = uniqueIDDuFichier) then
+      if (LesNumCellules[k] = numCellule) and (RefFichier[k] = uniqueIDDuFichier) then
          begin
            indexDerniereCelluleTrouvee := k;
            numeroDansBuffer := k;
@@ -275,7 +275,7 @@ begin
       k := indexDerniereCelluleTrouvee+i;
       if k < 0 then k := k+(tailleBufferCellules+1) else
       if k > tailleBufferCellules then k := k-(tailleBufferCellules+1);
-      if (LesNumCellules[k] = numCellule) & (RefFichier[k] = uniqueIDDuFichier) then
+      if (LesNumCellules[k] = numCellule) and (RefFichier[k] = uniqueIDDuFichier) then
          begin
            indexDerniereCelluleTrouvee := k;
            numeroDansBuffer := k;
@@ -332,8 +332,8 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
     begin
-		  if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) &
-		     (slot >= 1) & (slot <= tailleBufferGraphesOuverts)
+		  if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) and
+		     (slot >= 1) and (slot <= tailleBufferGraphesOuverts)
 		    then
 		      begin
 		        graphes[slot]           := fichier^;
@@ -341,8 +341,8 @@ begin
 		      end
 		    else
 		      begin
-		        if (NbreSlotsDisponiblesDansBufferGraphesOuverts(numeroSlotVide) > 0) &
-		           (numeroSlotVide >= 1) & (numeroSlotVide <= tailleBufferGraphesOuverts) &
+		        if (NbreSlotsDisponiblesDansBufferGraphesOuverts(numeroSlotVide) > 0) and
+		           (numeroSlotVide >= 1) and (numeroSlotVide <= tailleBufferGraphesOuverts) and
 		           (slotEstDisponible[numeroSlotVide])
 		          then
 		            begin
@@ -369,8 +369,8 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
       begin
-        if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) &
-		       (slot >= 1) & (slot <= tailleBufferGraphesOuverts) then
+        if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) and
+		       (slot >= 1) and (slot <= tailleBufferGraphesOuverts) then
 		      begin
 		        RemoveStringFromSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),noms);
 		        {WritelnDansRapport('retrait de Ç'+GetNameOfFSSpec(fichier^.fic.theFSSpec)+'È de noms');}
@@ -383,8 +383,8 @@ end;
 function TrouveGrapheDansBufferGraphesOuverts(nomDuGraphe : String255; var fichier : Graphe) : boolean;
 var slot : SInt64;
 begin
-  if MemberOfStringSet(nomDuGraphe,slot,bufferGraphesOuverts.noms) &
-     (slot >= 1) & (slot <= tailleBufferGraphesOuverts) &
+  if MemberOfStringSet(nomDuGraphe,slot,bufferGraphesOuverts.noms) and
+     (slot >= 1) and (slot <= tailleBufferGraphesOuverts) and
      not(bufferGraphesOuverts.slotEstDisponible[slot])
     then
       begin
@@ -473,8 +473,8 @@ begin
       end
     else
       begin
-        if (NbreSlotsDisponiblesDansBufferGraphesOuverts(numeroSlotVide) > 0) &
-           (numeroSlotVide >= 1) & (numeroSlotVide <= tailleBufferGraphesOuverts)
+        if (NbreSlotsDisponiblesDansBufferGraphesOuverts(numeroSlotVide) > 0) and
+           (numeroSlotVide >= 1) and (numeroSlotVide <= tailleBufferGraphesOuverts)
           then
 	          begin
 	            fichier := @bufferGraphesOuverts.graphes[numeroSlotVide];
@@ -617,7 +617,7 @@ var position,count : SInt64;
     erreurES : OSErr;
     EmplacementDansBuffer : SInt16;
 begin
-  if (1 <= numCellule) & (numCellule <= NbrePositionsDansGrapheApprentissage(fichier)) then
+  if (1 <= numCellule) and (numCellule <= NbrePositionsDansGrapheApprentissage(fichier)) then
     begin
 
       if CelluleEstDansBuffer(fichier,numCellule,EmplacementDansBuffer)
@@ -666,12 +666,12 @@ var position,count,nbCellulesDansGraphe : SInt64;
     dejaDansBuffer,nouvelleCellule : boolean;
 begin
   nbCellulesDansGraphe := NbrePositionsDansGrapheApprentissage(fichier);
-  if (1 <= numCellule) & (numCellule <= nbCellulesDansGraphe+1) then
+  if (1 <= numCellule) and (numCellule <= nbCellulesDansGraphe+1) then
     begin
       nouvelleCellule := (numCellule = (nbCellulesDansGraphe+1));
-      dejaDansBuffer := not(nouvelleCellule) & CelluleEstDansBuffer(fichier,numCellule,EmplacementDansBuffer);
+      dejaDansBuffer := not(nouvelleCellule) and CelluleEstDansBuffer(fichier,numCellule,EmplacementDansBuffer);
 
-      if not(dejaDansBuffer) | not(MemesCellules(cellule,GetCelluleDansBuffer(EmplacementDansBuffer))) then
+      if not(dejaDansBuffer) or not(MemesCellules(cellule,GetCelluleDansBuffer(EmplacementDansBuffer))) then
         begin
           position := TailleHeaderGraphe+(numCellule-1)*sizeof(CelluleRec);
           erreurES := SetPositionTeteLectureFichierTexte(fichier^.fic,position);
@@ -747,7 +747,7 @@ begin
 
       {on affiche le pere}
       WriteDansRapport('   pere = '+NumEnString(pere));
-      if (pere <> 0) & (pere <> PasDePere) then
+      if (pere <> 0) and (pere <> PasDePere) then
         begin
           LitCellule(fichier,pere,celluleAux);
           WriteDansRapport('               ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
@@ -757,7 +757,7 @@ begin
 
       {on affiche le frere}
       WriteDansRapport('   frere = '+NumEnString(frere));
-      if (frere <> 0) & (frere <> num) then
+      if (frere <> 0) and (frere <> num) then
         begin
           LitCellule(fichier,frere,celluleAux);
           WriteDansRapport('             ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
@@ -767,7 +767,7 @@ begin
 
       {on affiche le fils}
       WriteDansRapport('   fils = '+NumEnString(fils));
-      if (fils <> 0) & (fils <> PasDeFils) then
+      if (fils <> 0) and (fils <> PasDeFils) then
         begin
           LitCellule(fichier,fils,celluleAux);
           WriteDansRapport('                 ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
@@ -777,7 +777,7 @@ begin
 
       {on affiche le memePosition}
       WriteDansRapport('   memePosition = '+NumEnString(memePosition));
-      if (memePosition <> 0) & (memePosition <> num) then
+      if (memePosition <> 0) and (memePosition <> num) then
         begin
           LitCellule(fichier,memePosition,celluleAux);
           WriteDansRapport('     ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
@@ -990,7 +990,7 @@ end;
 procedure SetProfondeur(prof : SInt16; var cellule : CelluleRec);
 var aux : SInt16;
 begin
-  if (prof >= 0) & (prof <= 31) then
+  if (prof >= 0) and (prof <= 31) then
     begin
       aux := BSl(prof,3);
       cellule.VersionEtProfondeur := aux + BAnd(cellule.VersionEtProfondeur,$07);
@@ -1006,7 +1006,7 @@ end;
 
 procedure SetVersion(version : SInt16; var cellule : CelluleRec);
 begin
-  if (version >= 0) & (version <= 7) then
+  if (version >= 0) and (version <= 7) then
     cellule.VersionEtProfondeur := version + BAnd(cellule.VersionEtProfondeur,$F8);
 end;
 
@@ -1248,23 +1248,23 @@ end;
 
 function MemesCellules(const cellule1,cellule2 : CelluleRec) : boolean;
 begin
-  MemesCellules := (cellule1.pere                      = cellule2.pere) &
-                  (cellule1.fils										  = cellule2.fils) &
-                  (cellule1.frere                     = cellule2.frere) &
-                  (cellule1.memePosition						  = cellule2.memePosition) &
-                  (cellule1.CoupEtCouleurs						 =  cellule2.CoupEtCouleurs) &
-                  (cellule1.valeurMinimax						  = cellule2.valeurMinimax) &
-                  (cellule1.numeroDuCoup						  = cellule2.numeroDuCoup) &
-                  (cellule1.VersionEtProfondeur			  = cellule2.VersionEtProfondeur) &
-                  (cellule1.ProofNumberPourNoir			  = cellule2.ProofNumberPourNoir) &
-                  (cellule1.DisproofNumberPourNoir    = cellule2.DisproofNumberPourNoir) &
-                  (cellule1.ProofNumberPourBlanc			 =  cellule2.ProofNumberPourBlanc) &
-                  (cellule1.DisProofNumberPourBlanc	  = cellule2.DisProofNumberPourBlanc) &
-                  (cellule1.ValeurDeviantePourNoir		 =  cellule2.ValeurDeviantePourNoir) &
-                  (cellule1.ValeurDeviantePourBlanc	  = cellule2.ValeurDeviantePourBlanc) &
-                  (cellule1.EsperanceDeGainPourNoir	  = cellule2.EsperanceDeGainPourNoir) &
-                  (cellule1.EsperanceDeGainPourBlanc	 =  cellule2.EsperanceDeGainPourBlanc) &
-                  (cellule1.ValeurHeuristiquePourNoir = cellule2.ValeurHeuristiquePourNoir) &
+  MemesCellules := (cellule1.pere                      = cellule2.pere) and
+                  (cellule1.fils										  = cellule2.fils) and
+                  (cellule1.frere                     = cellule2.frere) and
+                  (cellule1.memePosition						  = cellule2.memePosition) and
+                  (cellule1.CoupEtCouleurs						 =  cellule2.CoupEtCouleurs) and
+                  (cellule1.valeurMinimax						  = cellule2.valeurMinimax) and
+                  (cellule1.numeroDuCoup						  = cellule2.numeroDuCoup) and
+                  (cellule1.VersionEtProfondeur			  = cellule2.VersionEtProfondeur) and
+                  (cellule1.ProofNumberPourNoir			  = cellule2.ProofNumberPourNoir) and
+                  (cellule1.DisproofNumberPourNoir    = cellule2.DisproofNumberPourNoir) and
+                  (cellule1.ProofNumberPourBlanc			 =  cellule2.ProofNumberPourBlanc) and
+                  (cellule1.DisProofNumberPourBlanc	  = cellule2.DisProofNumberPourBlanc) and
+                  (cellule1.ValeurDeviantePourNoir		 =  cellule2.ValeurDeviantePourNoir) and
+                  (cellule1.ValeurDeviantePourBlanc	  = cellule2.ValeurDeviantePourBlanc) and
+                  (cellule1.EsperanceDeGainPourNoir	  = cellule2.EsperanceDeGainPourNoir) and
+                  (cellule1.EsperanceDeGainPourBlanc	 =  cellule2.EsperanceDeGainPourBlanc) and
+                  (cellule1.ValeurHeuristiquePourNoir = cellule2.ValeurHeuristiquePourNoir) and
                   (cellule1.flags										  = cellule2.flags);
 end;
 
@@ -1281,11 +1281,11 @@ end;
 
 function EstDansT(var cellule : CelluleRec) : boolean;
 begin
-  EstDansT := (cellule.valeurMinimax = kGainDansT)    |
-              (cellule.valeurMinimax = kGainAbsolu)   |
-              (cellule.valeurMinimax = kNulleDansT)   |
-              (cellule.valeurMinimax = kNulleAbsolue) |
-              (cellule.valeurMinimax = kPerteDansT)   |
+  EstDansT := (cellule.valeurMinimax = kGainDansT)    or
+              (cellule.valeurMinimax = kGainAbsolu)   or
+              (cellule.valeurMinimax = kNulleDansT)   or
+              (cellule.valeurMinimax = kNulleAbsolue) or
+              (cellule.valeurMinimax = kPerteDansT)   or
               (cellule.valeurMinimax = kPerteAbsolue);
 end;
 
@@ -1334,7 +1334,7 @@ end;
 
 function NiemeCoupDansPartieDuGraphe(const whichGame : typePartiePourGraphe; n : SInt16) : SInt16;
 begin
-  if (n > 0) & (n <= 60) & (n <= LongueurPartieDuGraphe(whichGame))
+  if (n > 0) and (n <= 60) and (n <= LongueurPartieDuGraphe(whichGame))
     then NiemeCoupDansPartieDuGraphe := ord(whichGame[n])
     else NiemeCoupDansPartieDuGraphe := 0;
 end;
@@ -1365,7 +1365,7 @@ end;
 
 function NumeroDerniereCellule(var maListe : ListeDeCellules) : SInt64;
 begin
-  if (maListe.cardinal < 1) | (maListe.cardinal > TaileMaxListeDeCoups)
+  if (maListe.cardinal < 1) or (maListe.cardinal > TaileMaxListeDeCoups)
     then
       begin
         NumeroDerniereCellule := -1;

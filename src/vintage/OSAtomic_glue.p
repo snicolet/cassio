@@ -158,7 +158,7 @@ function OSAtomicCompareAndSwap32Barrier(oldValue : SInt32; newValue : SInt32; v
 
 
 
-{* Test and set.  They return the original value of the bit, and operate on bit (0x80 >> (n&7))
+{* Test and set.  They return the original value of the bit, and operate on bit (0x80 >> (nand7))
  * in byte ((char*)theAddress + (n >> 3)).  They are layered on top of the compare-and-swap
  * operation.
  *}
@@ -219,7 +219,7 @@ begin
   OSMemoryBarrierPtr                 := NIL;
 
 
-  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) &
+  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
      (MacVersion >= $1040)  (* au moins Mac OS X 10.4 *)
     then
       begin
@@ -272,23 +272,23 @@ begin
       end;
 
 
-  CanInitializeOSAtomicUnit :=  ( OSAtomicAdd32Ptr                   <> NIL ) &
-                                ( OSAtomicAdd32BarrierPtr            <> NIL ) &
-                                ( OSAtomicOr32Ptr                    <> NIL ) &
-                                ( OSAtomicOr32BarrierPtr             <> NIL ) &
-                                ( OSAtomicAnd32Ptr                   <> NIL ) &
-                                ( OSAtomicAnd32BarrierPtr            <> NIL ) &
-                                ( OSAtomicXor32Ptr                   <> NIL ) &
-                                ( OSAtomicXor32BarrierPtr            <> NIL ) &
-                                ( OSAtomicCompareAndSwap32Ptr        <> NIL ) &
-                                ( OSAtomicCompareAndSwap32BarrierPtr <> NIL ) &
-                                ( OSAtomicTestAndSetPtr              <> NIL ) &
-                                ( OSAtomicTestAndSetBarrierPtr       <> NIL ) &
-                                ( OSAtomicTestAndClearPtr            <> NIL ) &
-                                ( OSAtomicTestAndClearBarrierPtr     <> NIL ) &
-                                ( OSSpinLockTryPtr                   <> NIL ) &
-                                ( OSSpinLockLockPtr                  <> NIL ) &
-                                ( OSSpinLockUnlockPtr                <> NIL ) &
+  CanInitializeOSAtomicUnit :=  ( OSAtomicAdd32Ptr                   <> NIL ) and
+                                ( OSAtomicAdd32BarrierPtr            <> NIL ) and
+                                ( OSAtomicOr32Ptr                    <> NIL ) and
+                                ( OSAtomicOr32BarrierPtr             <> NIL ) and
+                                ( OSAtomicAnd32Ptr                   <> NIL ) and
+                                ( OSAtomicAnd32BarrierPtr            <> NIL ) and
+                                ( OSAtomicXor32Ptr                   <> NIL ) and
+                                ( OSAtomicXor32BarrierPtr            <> NIL ) and
+                                ( OSAtomicCompareAndSwap32Ptr        <> NIL ) and
+                                ( OSAtomicCompareAndSwap32BarrierPtr <> NIL ) and
+                                ( OSAtomicTestAndSetPtr              <> NIL ) and
+                                ( OSAtomicTestAndSetBarrierPtr       <> NIL ) and
+                                ( OSAtomicTestAndClearPtr            <> NIL ) and
+                                ( OSAtomicTestAndClearBarrierPtr     <> NIL ) and
+                                ( OSSpinLockTryPtr                   <> NIL ) and
+                                ( OSSpinLockLockPtr                  <> NIL ) and
+                                ( OSSpinLockUnlockPtr                <> NIL ) and
                                 ( OSMemoryBarrierPtr                 <> NIL );
 
 end;
@@ -400,7 +400,7 @@ end;
 
 
 
-{* Test and set.  They return the original value of the bit, and operate on bit (0x80 >> (n&7))
+{* Test and set.  They return the original value of the bit, and operate on bit (0x80 >> (nand7))
  * in byte ((char*)theAddress + (n >> 3)).  They are layered on top of the compare-and-swap
  * operation.
  *}

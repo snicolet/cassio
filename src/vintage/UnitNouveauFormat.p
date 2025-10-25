@@ -310,7 +310,7 @@ begin
       indexBlanc    := indexArrayPtr(AllocateMemoryPtr(nbParties+20));
       indexOuverture := indexArrayPtr(AllocateMemoryPtr(nbParties+20));
       indexTournoi  := indexArrayPtr(AllocateMemoryPtr(nbParties+20));
-      if (indexNoir <> NIL) & (indexBlanc <> NIL) & (indexOuverture <> NIL) & (indexTournoi <> NIL)
+      if (indexNoir <> NIL) and (indexBlanc <> NIL) and (indexOuverture <> NIL) and (indexTournoi <> NIL)
         then tailleIndex := nbParties
         else
           begin
@@ -533,10 +533,10 @@ var s : String255;
 begin
   s := '';
   with InfosFichiersNouveauFormat,DistributionsNouveauFormat do
-    if (nroFichier > 0) & (nroFichier <= nbFichiers) then
+    if (nroFichier > 0) and (nroFichier <= nbFichiers) then
       begin
         with fichiers[nroFichier] do
-          if (typeDonnees = kFicPartiesNouveauFormat) |
+          if (typeDonnees = kFicPartiesNouveauFormat) or
              (typeDonnees = kFicIndexPartiesNouveauFormat)
             then
               begin
@@ -559,10 +559,10 @@ var posXXXX : SInt16;
 begin
   s := '';
   with InfosFichiersNouveauFormat,DistributionsNouveauFormat do
-    if (nroFichier > 0) & (nroFichier <= nbFichiers) then
+    if (nroFichier > 0) and (nroFichier <= nbFichiers) then
       begin
         with fichiers[nroFichier] do
-          if (typeDonnees = kFicPartiesNouveauFormat) |
+          if (typeDonnees = kFicPartiesNouveauFormat) or
              (typeDonnees = kFicIndexPartiesNouveauFormat)
             then
               begin
@@ -607,9 +607,9 @@ begin
 
       { Les lignes suivantes exhibent un BUG de CodeWarrior !!!! }
       {
-      if (nom[positionPoint-1] >= '0') & (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
-      if (nom[positionPoint-1] >= '0') & (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
-      if (nom[positionPoint-1] >= '0') & (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
+      if (nom[positionPoint-1] >= '0') and (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
+      if (nom[positionPoint-1] >= '0') and (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
+      if (nom[positionPoint-1] >= '0') and (nom[positionPoint-1] <= '9') then positionPoint := positionPoint-1;
       }
 
       c := nom[positionPoint-1];
@@ -625,10 +625,10 @@ begin
     end;
 
   positionPoint := Pos('.WTB',upCaseName);
-	if (positionPoint > 0)      &
-		 IsDigit(nom[positionPoint-4]) &
-     IsDigit(nom[positionPoint-3]) &
-     IsDigit(nom[positionPoint-2]) &
+	if (positionPoint > 0)      and
+		 IsDigit(nom[positionPoint-4]) and
+     IsDigit(nom[positionPoint-3]) and
+     IsDigit(nom[positionPoint-2]) and
      IsDigit(nom[positionPoint-1]) then
        begin
 		     ChaineToLongint(TPCopy(nom,positionPoint-4,4),anneeLong);
@@ -653,7 +653,7 @@ begin
   result := [];
 
   with InfosFichiersNouveauFormat , DistributionsNouveauFormat do
-    if (nroFichier >= 1) & (nroFichier <= nbFichiers) then
+    if (nroFichier >= 1) and (nroFichier <= nbFichiers) then
       begin
         if fichiers[nroFichier].nroDistribution > 0
           then TrouveDistributionsLesPlusProchesDeCeFichierNouveauFormat := [fichiers[nroFichier].nroDistribution]
@@ -667,18 +667,18 @@ begin
 
               {d'abord on cherche une distribution dont le nom correspondant exactement, dans le meme dossier}
               for numDistrib := 1 to nbDistributions do
-					      if (distribution[numDistrib].name <> NIL) & (Pos(nameOfFile,distribution[numDistrib].name^) > 0) &
-					         (distribution[numDistrib].path <> NIL) & (pathOfFile = distribution[numDistrib].path^) then
+					      if (distribution[numDistrib].name <> NIL) and (Pos(nameOfFile,distribution[numDistrib].name^) > 0) and
+					         (distribution[numDistrib].path <> NIL) and (pathOfFile = distribution[numDistrib].path^) then
 					        result := result+[numDistrib];
 
 					    {si pas trouve, on cherche une distribution dans le meme dossier}
 					    for numDistrib := 1 to nbDistributions do
-					      if (distribution[numDistrib].path <> NIL) & (pathOfFile = distribution[numDistrib].path^) then
+					      if (distribution[numDistrib].path <> NIL) and (pathOfFile = distribution[numDistrib].path^) then
 					        result := result+[numDistrib];
 
 					    {si toujours pas trouve, on cherche une distribution dont le nom est proche}
 					    for numDistrib := 1 to nbDistributions do
-					      if (distribution[numDistrib].name <> NIL) & (Pos(nameOfFile,distribution[numDistrib].name^) > 0) then
+					      if (distribution[numDistrib].name <> NIL) and (Pos(nameOfFile,distribution[numDistrib].name^) > 0) then
 					        result := result+[numDistrib];
 
 					    TrouveDistributionsLesPlusProchesDeCeFichierNouveauFormat := result;
@@ -787,7 +787,7 @@ begin
 
   with DistributionsNouveauFormat do
     for i := 1 to nbDistributions do
-      if (UpCaseStr(Distribution[i].name^) = nomTest) &
+      if (UpCaseStr(Distribution[i].name^) = nomTest) and
          (UpCaseStr(Distribution[i].path^) = pathTest) then
         begin
           EstUneDistributionConnue := true;
@@ -800,7 +800,7 @@ end;
 procedure SetTypeDonneesDistribution(nroDistrib,typeDonnees : SInt16);
 begin
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions) then
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions) then
       Distribution[nroDistrib].typeDonneesDansDistribution := typeDonnees;
 end;
 
@@ -808,7 +808,7 @@ function GetTypeDonneesDistribution(nroDistrib : SInt16) : SInt16;
 begin
   GetTypeDonneesDistribution := kUnknownDataNouveauFormat;
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions) then
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions) then
       GetTypeDonneesDistribution := Distribution[nroDistrib].typeDonneesDansDistribution;
 end;
 
@@ -829,8 +829,8 @@ begin
   for k := 1 to InfosFichiersNouveauFormat.nbFichiers do
     with InfosFichiersNouveauFormat.fichiers[k] do
       begin
-        if (typeDonnees = kFicJoueursNouveauFormat) &
-           (nomFichier <> NIL) & (UpCaseStr(nomFichier^) =  'WTHOR.JOU') then
+        if (typeDonnees = kFicJoueursNouveauFormat) and
+           (nomFichier <> NIL) and (UpCaseStr(nomFichier^) =  'WTHOR.JOU') then
            begin
              FichierWTHORJOUDejaTrouve := true;
              exit(FichierWTHORJOUDejaTrouve);
@@ -901,7 +901,7 @@ begin
 
   numFichier := GetNroPremierFichierAvecCeNom(nomAAjouter);
 
-  if (numFichier >= 1) & (numFichier <= InfosFichiersNouveauFormat.nbFichiers) then
+  if (numFichier >= 1) and (numFichier <= InfosFichiersNouveauFormat.nbFichiers) then
     begin
       // le fichier existe deja dans le dossier Database !! On l'ecrase par le nouveau
       err := RemplacerFichierDansLeDossierDatabaseParFichier(nomAAjouter, fic);
@@ -912,8 +912,8 @@ begin
       // on cherche un fichier dans le bon dossier de destination
       numFichier := GetNroDUnFichierDansLaMemeDistribution(nomAAjouter);
 
-      if (numFichier = -1) | // not found !
-         ((numFichier >= 1) & (numFichier <= InfosFichiersNouveauFormat.nbFichiers)) then
+      if (numFichier = -1) or // not found !
+         ((numFichier >= 1) and (numFichier <= InfosFichiersNouveauFormat.nbFichiers)) then
           begin
 
             // extraction du path
@@ -956,7 +956,7 @@ begin
             if err = NoErr then
               begin
                 // on verifie que tout s'est bien passe
-                if EstUnFichierNouveauFormat(fic.theFSSpec,typeDonneesDatabase, enteteDatabase) &
+                if EstUnFichierNouveauFormat(fic.theFSSpec,typeDonneesDatabase, enteteDatabase) and
                    AjouterFichierNouveauFormat(fic.theFSSpec, path, typeDonneesDatabase, enteteDatabase)
                   then
                     begin
@@ -994,7 +994,7 @@ begin
 
   numFichier := GetNroPremierFichierAvecCeNom(nomARemplacer);
 
-  if (numFichier >= 1) & (numFichier <= InfosFichiersNouveauFormat.nbFichiers) then
+  if (numFichier >= 1) and (numFichier <= InfosFichiersNouveauFormat.nbFichiers) then
     begin
 
       with InfosFichiersNouveauFormat.fichiers[numFichier] do
@@ -1101,7 +1101,7 @@ begin
           entete         := EnteteFichier;
           NroFichierDual := 0;
 
-          if (typeDonneesDuFichier = kFicPartiesNouveauFormat) |
+          if (typeDonneesDuFichier = kFicPartiesNouveauFormat) or
              (typeDonneesDuFichier = kFicIndexPartiesNouveauFormat)
             then
               begin
@@ -1171,11 +1171,11 @@ begin
   nomDuFichier := UpCaseStr(GetNameOfFSSpec(fic));
   with entete do
     begin
-      formatReconnu := (siecleCreation >= 19) & (siecleCreation <= 21) &
-                       (anneeCreation >= 0) & (anneeCreation <= 99) &
-                       (moisCreation >= 1) & (moisCreation <= 12) &
-                       (JourCreation >= 1) & (JourCreation <= 31) &
-                       ((NombreEnregistrementsParties > 0) | (NombreEnregistrementsTournoisEtJoueurs > 0));
+      formatReconnu := (siecleCreation >= 19) and (siecleCreation <= 21) and
+                       (anneeCreation >= 0) and (anneeCreation <= 99) and
+                       (moisCreation >= 1) and (moisCreation <= 12) and
+                       (JourCreation >= 1) and (JourCreation <= 31) and
+                       ((NombreEnregistrementsParties > 0) or (NombreEnregistrementsTournoisEtJoueurs > 0));
 
 
       (*
@@ -1200,39 +1200,39 @@ begin
       if formatReconnu
         then
           begin
-            if (Pos('WTHOR.TRN.INDEX',nomDuFichier) > 0) &
+            if (Pos('WTHOR.TRN.INDEX',nomDuFichier) > 0) and
                (PlaceMemoireIndex > 0) then
 					    typeDonnees := kFicIndexTournoisNouveauFormat else
 
-					  if (Pos('WTHOR.JOU.INDEX',nomDuFichier) > 0) &
+					  if (Pos('WTHOR.JOU.INDEX',nomDuFichier) > 0) and
 					     (PlaceMemoireIndex > 0) then
 					    typeDonnees := kFicIndexJoueursNouveauFormat else
 
-					  if (Pos('WTHOR.TRN(SHORT)',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.TRN(SHORT)') &
+					  if (Pos('WTHOR.TRN(SHORT)',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.TRN(SHORT)') and
 					     (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicTournoisCourtsNouveauFormat else
 
-					  if (Pos('WTHOR.JOU(SHORT)',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.JOU(SHORT)') &
+					  if (Pos('WTHOR.JOU(SHORT)',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.JOU(SHORT)') and
 					    (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicJoueursCourtsNouveauFormat else
 
-					  if (Pos('WTHOR.TRN',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.TRN') &
+					  if (Pos('WTHOR.TRN',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.TRN') and
 					     (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicTournoisNouveauFormat else
 
-					  if EndsWith(nomDuFichier,'.TRN') & (Pos('WTHOR.TRN',nomDuFichier) <= 0) &
+					  if EndsWith(nomDuFichier,'.TRN') and (Pos('WTHOR.TRN',nomDuFichier) <= 0) and
 					     (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicTournoisNouveauFormat else
 
-					  if (Pos('WTHOR.JOU',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.JOU') &
+					  if (Pos('WTHOR.JOU',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.JOU') and
 					     (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicJoueursNouveauFormat else
 
-					  if EndsWith(nomDuFichier,'.JOU') & (Pos('WTHOR.JOU',nomDuFichier) <= 0) &
+					  if EndsWith(nomDuFichier,'.JOU') and (Pos('WTHOR.JOU',nomDuFichier) <= 0) and
 					     (NombreEnregistrementsParties = 0) then
 					    typeDonnees := kFicJoueursNouveauFormat else
 
-					  if EndsWith(nomDuFichier,'.PZZ') &
+					  if EndsWith(nomDuFichier,'.PZZ') and
 					     (NombreEnregistrementsTournoisEtJoueurs > 0) then {surcharge de NombreEnregistrementsTournoisEtJoueurs pour stocker le nb de cases vides}
 					    begin
 					      typeDonnees := kFicSolitairesNouveauFormat;
@@ -1241,14 +1241,14 @@ begin
 					  if Pos('.INDEX',nomDuFichier) > 0 then
 					    begin
 					      nomDistribution := NomDistributionAssocieeNouveauFormat(nomDuFichier,anneeTitre);
-					      if (anneeTitre = entete.AnneeParties) & (Pos('XXXX.wtb',nomDistribution) > 0)
+					      if (anneeTitre = entete.AnneeParties) and (Pos('XXXX.wtb',nomDistribution) > 0)
 					       then typeDonnees := kFicIndexPartiesNouveauFormat;
 					    end;
 
-					  if (Pos('.WTB',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.WTB') then
+					  if (Pos('.WTB',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.WTB') then
 					    begin
 					      nomDistribution := NomDistributionAssocieeNouveauFormat(nomDuFichier,anneeTitre);
-					      if (anneeTitre = entete.AnneeParties) & (Pos('XXXX.wtb',nomDistribution) > 0)
+					      if (anneeTitre = entete.AnneeParties) and (Pos('XXXX.wtb',nomDistribution) > 0)
 					        then typeDonnees := kFicPartiesNouveauFormat
 					        else
 					          begin
@@ -1276,8 +1276,8 @@ begin
 		      end
 		    else
 		      begin
-		        if ((Pos('.WTB',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.WTB')) |
-		           ((Pos('.PZZ',nomDuFichier) > 0) & EndsWith(nomDuFichier,'.PZZ')) then
+		        if ((Pos('.WTB',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.WTB')) or
+		           ((Pos('.PZZ',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.PZZ')) then
 		          begin
 		            SysBeep(0);
 		            WritelnDansRapport('#### Erreur!! Le format interne du fichier «'+GetNameOfFSSpec(fic)+'» me parait douteux');
@@ -1299,7 +1299,7 @@ begin
 		          end;
 		      end;
 
-		   if formatReconnu & (typeDonnees = kFicPartiesNouveauFormat) then
+		   if formatReconnu and (typeDonnees = kFicPartiesNouveauFormat) then
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsParties * TaillePartieRecNouveauFormat)) then
 		         begin
@@ -1324,7 +1324,7 @@ begin
 		         end;
 		     end;
 
-		   if formatReconnu & (typeDonnees = kFicTournoisNouveauFormat) then
+		   if formatReconnu and (typeDonnees = kFicTournoisNouveauFormat) then
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsTournoisEtJoueurs * TailleTournoiRecNouveauFormat)) then
 		         begin
@@ -1349,7 +1349,7 @@ begin
 		         end;
 		     end;
 
-		   if formatReconnu & (typeDonnees = kFicJoueursNouveauFormat) then
+		   if formatReconnu and (typeDonnees = kFicJoueursNouveauFormat) then
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsTournoisEtJoueurs * TailleJoueurRecNouveauFormat)) then
 		         begin
@@ -1374,7 +1374,7 @@ begin
 		         end;
 		     end;
 
-		   if formatReconnu & (typeDonnees = kFicSolitairesNouveauFormat) then
+		   if formatReconnu and (typeDonnees = kFicSolitairesNouveauFormat) then
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + TailleEnteteSupplementaireSolitaires + NombreEnregistrementsParties*TailleSolitaireRecNouveauFormat)) then
 		         begin
@@ -1400,18 +1400,18 @@ begin
 		     end;
 
     end; {with}
-  EstUnFichierNouveauFormat := formatReconnu & (typeDonnees <> kUnknownDataNouveauFormat);
+  EstUnFichierNouveauFormat := formatReconnu and (typeDonnees <> kUnknownDataNouveauFormat);
 end;
 
 
 function EntetesEgauxNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;
 begin
   EntetesEgauxNouveauFormat  :=
-    (entete1.NombreEnregistrementsTournoisEtJoueurs = entete2.NombreEnregistrementsTournoisEtJoueurs) &
-    (entete1.NombreEnregistrementsParties           = entete2.NombreEnregistrementsParties) &
-    (entete1.AnneeCreation                          = entete2.AnneeCreation) &
-    (entete1.MoisCreation                           = entete2.MoisCreation) &
-    (entete1.JourCreation                           = entete2.JourCreation) &
+    (entete1.NombreEnregistrementsTournoisEtJoueurs = entete2.NombreEnregistrementsTournoisEtJoueurs) and
+    (entete1.NombreEnregistrementsParties           = entete2.NombreEnregistrementsParties) and
+    (entete1.AnneeCreation                          = entete2.AnneeCreation) and
+    (entete1.MoisCreation                           = entete2.MoisCreation) and
+    (entete1.JourCreation                           = entete2.JourCreation) and
     (entete1.AnneeParties                           = entete2.AnneeParties);
     {(entete1.reserved                               = entete2.reserved)}
 end;
@@ -1436,18 +1436,18 @@ begin
   OrdreSurFichiers := false;
 
   if f1.typeDonnees <> f2.typeDonnees then OrdreSurFichiers := (f1.typeDonnees > f2.typeDonnees) else
-  if (f1.typeDonnees = kFicJoueursNouveauFormat) &
-     (f1.nomFichier <> NIL) & (UpCaseStr(f1.nomFichier^) =  'WTHOR.JOU') &
-     (f2.nomFichier <> NIL) & (UpCaseStr(f2.nomFichier^) <> 'WTHOR.JOU') then OrdreSurFichiers := false else
-  if (f1.typeDonnees = kFicJoueursNouveauFormat) &
-     (f1.nomFichier <> NIL) & (UpCaseStr(f1.nomFichier^) <> 'WTHOR.JOU') &
-     (f2.nomFichier <> NIL) & (UpCaseStr(f2.nomFichier^) =  'WTHOR.JOU') then OrdreSurFichiers := true else
-  if (f1.typeDonnees = kFicTournoisNouveauFormat) &
-     (f1.nomFichier <> NIL) & (UpCaseStr(f1.nomFichier^) =  'WTHOR.TRN') &
-     (f2.nomFichier <> NIL) & (UpCaseStr(f2.nomFichier^) <> 'WTHOR.TRN') then OrdreSurFichiers := false else
-  if (f1.typeDonnees = kFicTournoisNouveauFormat) &
-     (f1.nomFichier <> NIL) & (UpCaseStr(f1.nomFichier^) <> 'WTHOR.TRN') &
-     (f2.nomFichier <> NIL) & (UpCaseStr(f2.nomFichier^) =  'WTHOR.TRN') then OrdreSurFichiers := true else
+  if (f1.typeDonnees = kFicJoueursNouveauFormat) and
+     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) =  'WTHOR.JOU') and
+     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) <> 'WTHOR.JOU') then OrdreSurFichiers := false else
+  if (f1.typeDonnees = kFicJoueursNouveauFormat) and
+     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) <> 'WTHOR.JOU') and
+     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) =  'WTHOR.JOU') then OrdreSurFichiers := true else
+  if (f1.typeDonnees = kFicTournoisNouveauFormat) and
+     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) =  'WTHOR.TRN') and
+     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) <> 'WTHOR.TRN') then OrdreSurFichiers := false else
+  if (f1.typeDonnees = kFicTournoisNouveauFormat) and
+     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) <> 'WTHOR.TRN') and
+     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) =  'WTHOR.TRN') then OrdreSurFichiers := true else
   if f1.annee <> f2.annee                                 then OrdreSurFichiers := (f1.annee                  > f2.annee) else
   if f1.entete.siecleCreation <> f2.entete.siecleCreation then OrdreSurFichiers := (f1.entete.siecleCreation  > f2.entete.siecleCreation) else
   if f1.entete.anneeCreation <> f2.entete.anneeCreation   then OrdreSurFichiers := (f1.entete.anneeCreation   > f2.entete.anneeCreation) else
@@ -1551,7 +1551,7 @@ begin
     begin
       numDistrib := InfosFichiersNouveauFormat.fichiers[k].nroDistribution;
 
-      if (DistributionsNouveauFormat.distribution[numDistrib].name <> NIL) &
+      if (DistributionsNouveauFormat.distribution[numDistrib].name <> NIL) and
          (DistributionsNouveauFormat.distribution[numDistrib].name^ = distribution) then
         begin
           GetNroPremierFichierAvecCetteDistribution := k;
@@ -1607,7 +1607,7 @@ var count : SInt64;
     codeErreur : OSErr;
 begin
 
-  if (numFichier < 1) | (numFichier > nbMaxFichiersNouveauFormat) then
+  if (numFichier < 1) or (numFichier > nbMaxFichiersNouveauFormat) then
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitPartieNouveauFormat : numFichier = ',numFichier);
       LitPartieNouveauFormat := -1;
@@ -1625,8 +1625,8 @@ begin
 		      exit(LitPartieNouveauFormat);
 		    end;
 
-		  if (numFichier = nroDernierFichierPartiesLuNF) &
-		     (nroPartie >= premierePartieDansBufferNF) &
+		  if (numFichier = nroDernierFichierPartiesLuNF) and
+		     (nroPartie >= premierePartieDansBufferNF) and
 		     (nroPartie <= dernierePartieDansBufferNF)
 		     then  {la partie est dans le buffer de lecture}
 		       begin
@@ -1674,7 +1674,7 @@ begin
 
 		       if (scoreReel < 0) then scoreReel := 0;
 		       if (ScoreReel > 64) then scoreReel := 64;
-		       if (scoreTheorique < 0) | (scoreTheorique > 64) then scoreTheorique := scoreReel;
+		       if (scoreTheorique < 0) or (scoreTheorique > 64) then scoreTheorique := scoreReel;
 		     end;
      end;
    LitPartieNouveauFormat := codeErreur;
@@ -1688,7 +1688,7 @@ var count : SInt64;
     k : SInt16;
 begin
 
-  if (numFichier < 1) | (numFichier > nbMaxFichiersNouveauFormat) then
+  if (numFichier < 1) or (numFichier > nbMaxFichiersNouveauFormat) then
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitJoueurNouveauFormat : numFichier = ',numFichier);
       LitJoueurNouveauFormat := -1;
@@ -1698,7 +1698,7 @@ begin
   codeErreur := NoErr;
   joueur := '';
   with InfosFichiersNouveauFormat.fichiers[numFichier] do
-    if (nroJoueur >= 1) & (nroJoueur <= entete.NombreEnregistrementsTournoisEtJoueurs) then
+    if (nroJoueur >= 1) and (nroJoueur <= entete.NombreEnregistrementsTournoisEtJoueurs) then
     begin
 		  if not(open) then codeErreur := OuvreFichierNouveauFormat(numFichier);
 		  if (codeErreur <> NoErr) then
@@ -1707,8 +1707,8 @@ begin
 		      exit(LitJoueurNouveauFormat);
 		    end;
 
-		  if (numFichier = nroDernierFichierJoueursLuNF) &
-		     (nroJoueur >= premierJoueurDansBufferNF) &
+		  if (numFichier = nroDernierFichierJoueursLuNF) and
+		     (nroJoueur >= premierJoueurDansBufferNF) and
 		     (nroJoueur <= dernierJoueurDansBufferNF)
 		     then
 		       begin
@@ -1754,7 +1754,7 @@ var count : SInt64;
     k : SInt16;
 begin
 
-  if (numFichier < 1) | (numFichier > nbMaxFichiersNouveauFormat) then
+  if (numFichier < 1) or (numFichier > nbMaxFichiersNouveauFormat) then
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitTournoiNouveauFormat : numFichier = ',numFichier);
       LitTournoiNouveauFormat := -1;
@@ -1764,7 +1764,7 @@ begin
   codeErreur := NoErr;
   Tournoi := '';
   with InfosFichiersNouveauFormat.fichiers[numFichier] do
-    if (nroTournoi >= 1) & (nroTournoi <= entete.NombreEnregistrementsTournoisEtJoueurs) then
+    if (nroTournoi >= 1) and (nroTournoi <= entete.NombreEnregistrementsTournoisEtJoueurs) then
     begin
 		  if not(open) then codeErreur := OuvreFichierNouveauFormat(numFichier);
 		  if (codeErreur <> NoErr) then
@@ -1773,8 +1773,8 @@ begin
 		      exit(LitTournoiNouveauFormat);
 		    end;
 
-		  if (numFichier = nroDernierFichierTournoisLuNF) &
-		     (nroTournoi >= premierTournoiDansBufferNF) &
+		  if (numFichier = nroDernierFichierTournoisLuNF) and
+		     (nroTournoi >= premierTournoiDansBufferNF) and
 		     (nroTournoi <= dernierTournoiDansBufferNF)
 		     then
 		       begin
@@ -1818,7 +1818,7 @@ var codeErreur : OSErr;
     nomFichierComplet : String255;
 begin
 
-  if (numFichier < 1) | (numFichier > nbMaxFichiersNouveauFormat) then
+  if (numFichier < 1) or (numFichier > nbMaxFichiersNouveauFormat) then
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans OuvreFichierNouveauFormat : numFichier = ',numFichier);
       OuvreFichierNouveauFormat := -1;
@@ -1860,7 +1860,7 @@ function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;
 var codeErreur : OSErr;
 begin
 
-  if (numFichier < 1) | (numFichier > nbMaxFichiersNouveauFormat) then
+  if (numFichier < 1) or (numFichier > nbMaxFichiersNouveauFormat) then
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans FermeFichierNouveauFormat : numFichier = ',numFichier);
       FermeFichierNouveauFormat := -1;
@@ -1913,7 +1913,7 @@ begin
 
   with JoueursNouveauFormat do
     begin
-      if (nbJoueursNouveauFormat <= 0) | not(dejaTriesAlphabetiquement) then
+      if (nbJoueursNouveauFormat <= 0) or not(dejaTriesAlphabetiquement) then
 		    begin
 		      LitNomsDesJoueursEnJaponais := -1;
 		      exit(LitNomsDesJoueursEnJaponais);
@@ -1925,10 +1925,10 @@ begin
 		      for k := 0 to nbJoueursNouveauFormat-1 do    {on inverse la permutation}
 		        permutation^[GetNroOrdreAlphabetiqueJoueur(k)] := k;
 
-          while (codeErreur = NoErr) & not(EOFFichierTexte(fic,codeErreur)) do
+          while (codeErreur = NoErr) and not(EOFFichierTexte(fic,codeErreur)) do
             begin
               codeErreur := ReadlnDansFichierTexte(fic,s);
-              if (codeErreur = NoErr) & (s[1] <> '%') & (s <> '') &
+              if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
                  SplitAt(s,'=',nomLatin,nomJaponais) then
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
@@ -1946,7 +1946,7 @@ begin
                   low := 0;
                   up := nbJoueursNouveauFormat-1;
                   found := false;
-                  while (low <= up) & not(found) do
+                  while (low <= up) and not(found) do
 		                begin
 			                middle := low + (up - low) div 2;
 			                nomDuMilieuDansListe := GetNomJoueur(permutation^[middle]);
@@ -1962,24 +1962,24 @@ begin
                       SetNomJaponaisDuJoueur(permutation^[middle],nomJaponais);
                       {on cherche aussi en arriere dans la liste des joueurs, pour les noms dupliques}
                       k := middle-1;
-                      if (k >= 0) & (k <= nbJoueursNouveauFormat-1) then
+                      if (k >= 0) and (k <= nbJoueursNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomJoueur(permutation^[k]);
                           nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuJoueur(permutation^[k],nomJaponais);
                           k := k-1;
-                        until not(memeNom) | (k < 0);
+                        until not(memeNom) or (k < 0);
                       {puis en avant}
                       k := middle+1;
-                      if (k >= 0) & (k <= nbJoueursNouveauFormat-1) then
+                      if (k >= 0) and (k <= nbJoueursNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomJoueur(permutation^[k]);
                           nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuJoueur(permutation^[k],nomJaponais);
                           k := k+1;
-                        until not(memeNom) | (k > nbJoueursNouveauFormat-1);
+                        until not(memeNom) or (k > nbJoueursNouveauFormat-1);
                     end;
 	              end;
             end;
@@ -2056,8 +2056,8 @@ begin
 
   for numFichier := 1 to InfosFichiersNouveauFormat.nbFichiers do
     with InfosFichiersNouveauFormat.fichiers[numFichier] , JoueursNouveauFormat do
-      if (nomsAbreges & (typeDonnees = kFicJoueursCourtsNouveauFormat)) |
-         (not(nomsAbreges) & (typeDonnees = kFicJoueursNouveauFormat)) then
+      if (nomsAbreges and (typeDonnees = kFicJoueursCourtsNouveauFormat)) or
+         (not(nomsAbreges) and (typeDonnees = kFicJoueursNouveauFormat)) then
         begin
 
 
@@ -2068,7 +2068,7 @@ begin
 		          decalageDansCeFichierDeJoueurs := decalageProchainFichier;
 		          decalageProchainFichier := decalageProchainFichier+(((nbJoueursDansCeFichier-1) div 256)+1)*256 + 512;
 
-		          if not(FichierWTHOR_JOUDejaTrouve) & (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU')
+		          if not(FichierWTHOR_JOUDejaTrouve) and (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU')
 		            then
 			            begin
 			              FichierWTHOR_JOUDejaTrouve := true;
@@ -2194,7 +2194,7 @@ begin
       erreurES := ReadlnDansFichierTexte(dictionnairePseudosWThor,s);
       ligne := s;
       EnleveEspacesDeGaucheSurPlace(ligne);
-      if (ligne = '') | (ligne[1] = '%')
+      if (ligne = '') or (ligne[1] = '%')
         then
           begin
             {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
@@ -2215,7 +2215,7 @@ begin
                 EnleveEspacesDeGaucheSurPlace(reste);
                 EnleveEspacesDeDroiteSurPlace(reste);
 
-                if (s1 <> '') & (s2 = '=') & (reste <> '') then
+                if (s1 <> '') and (s2 = '=') and (reste <> '') then
                   begin
                     inc(nbPseudos);
 
@@ -2233,7 +2233,7 @@ begin
     end;
   erreurES := FermeFichierTexte(dictionnairePseudosWThor);
 
-  if (nbPseudos > 0) & not(ATRIsEmpty(arbreDesPseudos)) then
+  if (nbPseudos > 0) and not(ATRIsEmpty(arbreDesPseudos)) then
     begin
 
       WritelnDansRapport('Trying to translate names using "'+nomDictionnaireDesPseudos+'"...');
@@ -2317,8 +2317,8 @@ begin
 
   for numFichier := 1 to InfosFichiersNouveauFormat.nbFichiers do
     with InfosFichiersNouveauFormat.fichiers[numFichier] , TournoisNouveauFormat do
-      if (nomsAbreges & (typeDonnees = kFicTournoisCourtsNouveauFormat)) |
-         (not(nomsAbreges) & (typeDonnees = kFicTournoisNouveauFormat)) then
+      if (nomsAbreges and (typeDonnees = kFicTournoisCourtsNouveauFormat)) or
+         (not(nomsAbreges) and (typeDonnees = kFicTournoisNouveauFormat)) then
         begin
 
 
@@ -2329,7 +2329,7 @@ begin
 		          decalageDansCeFichierDeTournois := decalageProchainFichier;
 		          decalageProchainFichier := decalageProchainFichier+(((nbTournoisDansCeFichier-1) div 256)+1)*256 + 512;
 
-		          if not(FichierWTHOR_TRNDejaTrouve) & (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN')
+		          if not(FichierWTHOR_TRNDejaTrouve) and (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN')
 		            then
 			            begin
 			              FichierWTHOR_TRNDejaTrouve := true;
@@ -2431,7 +2431,7 @@ begin
   if permutation = NIL then SysBeep(0);
   with TournoisNouveauFormat do
     begin
-      if (nbTournoisNouveauFormat <= 0) | not(dejaTriesAlphabetiquement) then
+      if (nbTournoisNouveauFormat <= 0) or not(dejaTriesAlphabetiquement) then
 		    begin
 		      LitNomsDesTournoisEnJaponais := -1;
 		      exit(LitNomsDesTournoisEnJaponais);
@@ -2443,10 +2443,10 @@ begin
 		      for k := 0 to nbTournoisNouveauFormat-1 do    {on inverse la permutation}
 		        permutation^[GetNroOrdreAlphabetiqueTournoi(k)] := k;
 
-          while (codeErreur = NoErr) & not(EOFFichierTexte(fic,codeErreur)) do
+          while (codeErreur = NoErr) and not(EOFFichierTexte(fic,codeErreur)) do
             begin
               codeErreur := ReadlnDansFichierTexte(fic,s);
-              if (codeErreur = NoErr) & (s[1] <> '%') & (s <> '') &
+              if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
                  SplitAt(s,'=',nomLatin,nomJaponais) then
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
@@ -2459,7 +2459,7 @@ begin
                   low := 0;
                   up := nbTournoisNouveauFormat-1;
                   found := false;
-                  while (low <= up) & not(found) do
+                  while (low <= up) and not(found) do
 		                begin
 			                middle := low + (up - low) div 2;
 			                nomDuMilieuDansListe := GetNomTournoi(permutation^[middle]);
@@ -2475,24 +2475,24 @@ begin
 	                    SetNomJaponaisDuTournoi(permutation^[middle],nomJaponais);
                       {on cherche aussi en arriere dans la liste des tournois, pour les noms dupliques}
                       k := middle-1;
-                      if (k >= 0) & (k <= nbTournoisNouveauFormat-1) then
+                      if (k >= 0) and (k <= nbTournoisNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomTournoi(permutation^[k]);
                           nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuTournoi(permutation^[k],nomJaponais);
                           k := k-1;
-                        until not(memeNom) | (k < 0);
+                        until not(memeNom) or (k < 0);
                       {puis en avant}
                       k := middle+1;
-                      if (k >= 0) & (k <= nbTournoisNouveauFormat-1) then
+                      if (k >= 0) and (k <= nbTournoisNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomTournoi(permutation^[k]);
                           nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuTournoi(permutation^[k],nomJaponais);
                           k := k+1;
-                        until not(memeNom) | (k > nbTournoisNouveauFormat-1);
+                        until not(memeNom) or (k > nbTournoisNouveauFormat-1);
                     end;
 	              end;
             end;
@@ -2522,13 +2522,13 @@ begin
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,JoueursNouveauFormat do
-    if (nbJoueursNouveauFormat > 0) & dejaTriesAlphabetiquement then
+    if (nbJoueursNouveauFormat > 0) and dejaTriesAlphabetiquement then
     begin
       if nomsAbreges
         then typeVoulu := kFicJoueursCourtsNouveauFormat
         else typeVoulu := kFicJoueursNouveauFormat;
       numeroFichierDesJoueurs := GetNroPremierFichierAvecCeTypeDeDonnees(typeVoulu);
-      if (numeroFichierDesJoueurs > 0) &
+      if (numeroFichierDesJoueurs > 0) and
          (numeroFichierDesJoueurs <= nbFichiers) then
          begin
            entete := CreeEnteteFichierIndexJoueursNouveauFormat(typeVoulu);
@@ -2604,15 +2604,15 @@ begin
 
       nbExactsDeJoueurs := NbTotalDeJoueursDansFichiersNouveauFormat(typeVoulu,nbFicJoueurs,placeMemoirePrise);
 
-      if (numeroFichierIndex > 0) & (numeroFichierIndex <= nbFichiers) &
-         (numeroFichierJoueurs > 0) & (numeroFichierJoueurs <= nbFichiers) then
+      if (numeroFichierIndex > 0) and (numeroFichierIndex <= nbFichiers) and
+         (numeroFichierJoueurs > 0) and (numeroFichierJoueurs <= nbFichiers) then
          begin
            enteteIndex := fichiers[numeroFichierIndex].entete;
            enteteDesJoueurs := CreeEnteteFichierIndexJoueursNouveauFormat(typeVoulu);
 
-           if EntetesEgauxNouveauFormat(enteteIndex,enteteDesJoueurs) &
-              (enteteIndex.NombreEnregistrementsParties = nbExactsDeJoueurs) &
-              (enteteIndex.PlaceMemoireIndex = placeMemoirePrise) &
+           if EntetesEgauxNouveauFormat(enteteIndex,enteteDesJoueurs) and
+              (enteteIndex.NombreEnregistrementsParties = nbExactsDeJoueurs) and
+              (enteteIndex.PlaceMemoireIndex = placeMemoirePrise) and
               (nbJoueursNouveauFormat = placeMemoirePrise) then
              begin
                buffer := LongintArrayPtr(AllocateMemoryPtr(4*nbJoueursNouveauFormat));
@@ -2633,7 +2633,7 @@ begin
 
 
 
-                   if (nbJoueursNouveauFormat <> enteteIndex.PlaceMemoireIndex) |
+                   if (nbJoueursNouveauFormat <> enteteIndex.PlaceMemoireIndex) or
 	                    (nbNomsDansFichierIndex <> nbJoueursNouveauFormat)
 	                    then exit(LitFichierIndexDesJoueursTries);
 
@@ -2671,13 +2671,13 @@ begin
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,TournoisNouveauFormat do
-    if (nbTournoisNouveauFormat > 0) & dejaTriesAlphabetiquement then
+    if (nbTournoisNouveauFormat > 0) and dejaTriesAlphabetiquement then
     begin
       if nomsAbreges
         then typeVoulu := kFicTournoisCourtsNouveauFormat
         else typeVoulu := kFicTournoisNouveauFormat;
       numeroFichierDesTournois := GetNroPremierFichierAvecCeTypeDeDonnees(typeVoulu);
-      if (numeroFichierDesTournois > 0) &
+      if (numeroFichierDesTournois > 0) and
          (numeroFichierDesTournois <= nbFichiers) then
          begin
            entete := CreeEnteteFichierIndexTournoisNouveauFormat(typeVoulu);
@@ -2753,15 +2753,15 @@ begin
 
       nbExactsDeTournois := NbTotalDeTournoisDansFichiersNouveauFormat(typeVoulu,nbFicTournois,placeMemoirePrise);
 
-      if (numeroFichierIndex > 0) & (numeroFichierIndex <= nbFichiers) &
-         (numeroFichierTournois > 0) & (numeroFichierTournois <= nbFichiers) then
+      if (numeroFichierIndex > 0) and (numeroFichierIndex <= nbFichiers) and
+         (numeroFichierTournois > 0) and (numeroFichierTournois <= nbFichiers) then
          begin
            enteteIndex := fichiers[numeroFichierIndex].entete;
            enteteDesTournois := CreeEnteteFichierIndexTournoisNouveauFormat(typeVoulu);
 
-           if EntetesEgauxNouveauFormat(enteteIndex,enteteDesTournois) &
-              (enteteIndex.NombreEnregistrementsParties = nbExactsDeTournois) &
-              (enteteIndex.PlaceMemoireIndex = placeMemoirePrise) &
+           if EntetesEgauxNouveauFormat(enteteIndex,enteteDesTournois) and
+              (enteteIndex.NombreEnregistrementsParties = nbExactsDeTournois) and
+              (enteteIndex.PlaceMemoireIndex = placeMemoirePrise) and
               (nbTournoisNouveauFormat = placeMemoirePrise) then
              begin
                buffer := LongintArrayPtr(AllocateMemoryPtr(4*nbTournoisNouveauFormat));
@@ -2780,7 +2780,7 @@ begin
                    codeErreur := MyFSRead(refnum,4,@nbNomsDansFichierIndex);
 	                 if codeErreur <> NoErr then exit(LitFichierIndexDesTournoisTries);
 
-                   if (nbTournoisNouveauFormat <> enteteIndex.PlaceMemoireIndex) |
+                   if (nbTournoisNouveauFormat <> enteteIndex.PlaceMemoireIndex) or
 	                    (nbNomsDansFichierIndex <> nbTournoisNouveauFormat)
 	                    then exit(LitFichierIndexDesTournoisTries);
 
@@ -2828,7 +2828,7 @@ begin
       AlerteSimple(ParamStr(s,NumEnString(codeErreur),'','',''));
       MetJoueursEtTournoisEnMemoire := codeErreur;
     end;
-  JoueursEtTournoisEnMemoire := joueursEnMemoire & tournoisEnMemoire;
+  JoueursEtTournoisEnMemoire := joueursEnMemoire and tournoisEnMemoire;
 end;
 
 
@@ -2839,7 +2839,7 @@ var n : SInt64;
 begin
   with JoueursNouveauFormat do
     begin
-      if (nbJoueursNouveauFormat > 0) & (listeJoueurs <> NIL) then
+      if (nbJoueursNouveauFormat > 0) and (listeJoueurs <> NIL) then
         begin
           for n := 0 to nbJoueursNouveauFormat-1 do
             begin
@@ -2859,7 +2859,7 @@ var n : SInt64;
 begin
   with TournoisNouveauFormat do
     begin
-      if (nbTournoisNouveauFormat > 0) & (listeTournois <> NIL) then
+      if (nbTournoisNouveauFormat > 0) and (listeTournois <> NIL) then
         begin
           for n := 0 to nbTournoisNouveauFormat-1 do
             begin
@@ -2887,8 +2887,8 @@ begin
       inc(nbAppelsShareTimeWithOtherProcesses);
     end;
 
-  if not(isFolder) & (Pos('Gestion Base WThor',path) <= 0) &
-     (GetNameOfFSSpec(fs)[1] <> '.') & EstUnFichierNouveauFormat(fs,typeDonnees,entete) then
+  if not(isFolder) and (Pos('Gestion Base WThor',path) <= 0) and
+     (GetNameOfFSSpec(fs)[1] <> '.') and EstUnFichierNouveauFormat(fs,typeDonnees,entete) then
     begin
       if (typeDonnees = kFicPartiesNouveauFormat) then
         begin
@@ -2909,9 +2909,9 @@ begin
           nomDistrib := NomDistributionAssocieeNouveauFormat(GetNameOfFSSpec(fs),bidint);
           AjouterDistributionNouveauFormat(nomDistrib,GetPathOfScannedDirectory+path,kFicSolitairesNouveauFormat);
         end;
-      if (typeDonnees = kFicJoueursNouveauFormat) |
-         (typeDonnees = kFicTournoisNouveauFormat) |
-         (typeDonnees = kFicJoueursCourtsNouveauFormat) |
+      if (typeDonnees = kFicJoueursNouveauFormat) or
+         (typeDonnees = kFicTournoisNouveauFormat) or
+         (typeDonnees = kFicJoueursCourtsNouveauFormat) or
          (typeDonnees = kFicTournoisCourtsNouveauFormat) then
         begin
           {SetFileCreator(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),MY_FOUR_CHAR_CODE('SNX4'));
@@ -2927,7 +2927,7 @@ begin
           SetFileType(fs,MY_FOUR_CHAR_CODE('PZZL'));
         end;
 
-      if (typeDonnees = kFicJoueursNouveauFormat) & (UpCaseStr(GetNameOfFSSpec(fs)) = 'SOLITAIRES.JOU') & FichierWTHORJOUDejaTrouve
+      if (typeDonnees = kFicJoueursNouveauFormat) and (UpCaseStr(GetNameOfFSSpec(fs)) = 'SOLITAIRES.JOU') and FichierWTHORJOUDejaTrouve
          then DoNothing
          else bidon := AjouterFichierNouveauFormat(fs,GetPathOfScannedDirectory+path,typeDonnees,entete);
 
@@ -2985,7 +2985,7 @@ begin
   somme := 0;
   with InfosFichiersNouveauFormat do
     for k := 1 to nbFichiers do
-      if (fichiers[k].typeDonnees = kFicPartiesNouveauFormat) &
+      if (fichiers[k].typeDonnees = kFicPartiesNouveauFormat) and
          (fichiers[k].nroDistribution in ensemble) then
         begin
           somme := somme + fichiers[k].entete.NombreEnregistrementsParties;
@@ -2996,7 +2996,7 @@ end;
 procedure SetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16; decalage : SInt64);
 begin
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions) then
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions) then
       Distribution[nroDistrib].decalageNrosJoueurs := decalage;
   {WritelnNumDansRapport('decalage distrib n°'+NumEnString(nroDistrib)+' = ',decalage);}
 end;
@@ -3004,7 +3004,7 @@ end;
 function  GetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16) : SInt64;
 begin
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions)
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions)
       then GetDecalageNrosJoueursOfDistribution := Distribution[nroDistrib].decalageNrosJoueurs
       else GetDecalageNrosJoueursOfDistribution := 0;
 end;
@@ -3012,14 +3012,14 @@ end;
 procedure SetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16; decalage : SInt64);
 begin
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions) then
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions) then
       Distribution[nroDistrib].decalageNrosTournois := decalage;
 end;
 
 function  GetDecalageNrosTournoisOfDistribution(nroDistrib : SInt16) : SInt64;
 begin
   with DistributionsNouveauFormat do
-    if (nroDistrib >= 1) & (nroDistrib <= nbDistributions)
+    if (nroDistrib >= 1) and (nroDistrib <= nbDistributions)
       then GetDecalageNrosTournoisOfDistribution := Distribution[nroDistrib].decalageNrosTournois
       else GetDecalageNrosTournoisOfDistribution := 0;
 end;
@@ -3034,7 +3034,7 @@ begin
   IndexerFichierPartiesEnMemoireNouveauFormat := -1;
   with InfosFichiersNouveauFormat,IndexNouveauFormat do
     begin
-      if (numFichierParties > 0) & (numFichierParties <= nbFichiers) &
+      if (numFichierParties > 0) and (numFichierParties <= nbFichiers) and
          (fichiers[numFichierParties].typeDonnees = kFicPartiesNouveauFormat) then
          begin
            nbParties := fichiers[numFichierParties].entete.NombreEnregistrementsParties;
@@ -3072,8 +3072,8 @@ var codeErreur : OSErr;
 begin
   EcritFichierIndexNouveauFormat := -1;
   with InfosFichiersNouveauFormat,IndexNouveauFormat do
-    if (numFichierParties > 0) & (numFichierParties <= nbFichiers) &
-       (fichiers[numFichierParties].typeDonnees = kFicPartiesNouveauFormat) &
+    if (numFichierParties > 0) and (numFichierParties <= nbFichiers) and
+       (fichiers[numFichierParties].typeDonnees = kFicPartiesNouveauFormat) and
        (fichiers[numFichierParties].entete.NombreEnregistrementsParties = tailleIndex) then
 	     begin
 	       {path := DistributionsNouveauFormat.Distribution[fichiers[numFichierParties].nroDistribution].path^;}
@@ -3131,7 +3131,7 @@ begin
   codeErreur := NoErr;
 
   with InfosFichiersNouveauFormat do
-    if (numFichierIndex > 0) & (numFichierIndex <= nbFichiers) &
+    if (numFichierIndex > 0) and (numFichierIndex <= nbFichiers) and
        (fichiers[numFichierIndex].typeDonnees = kFicIndexPartiesNouveauFormat) then
       with fichiers[numFichierIndex] do
 	      begin
@@ -3199,14 +3199,14 @@ begin
   numFichier := 1;
   with InfosFichiersNouveauFormat do
     repeat
-      if (numFichier <= nbFichiers) &
+      if (numFichier <= nbFichiers) and
          (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) then
         begin
           err := IndexerFichierPartiesEnMemoireNouveauFormat(numFichier);
           err := EcritFichierIndexNouveauFormat(numFichier);
         end;
       numFichier := succ(numFichier);
-    until (numFichier > nbFichiers) | EscapeDansQueue;
+    until (numFichier > nbFichiers) or EscapeDansQueue;
 end;
 
 
@@ -3214,7 +3214,7 @@ function NbPartiesFichierNouveauFormat(numFichier : SInt16) : SInt64;
 begin
   NbPartiesFichierNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numFichier > 0) & (numFichier <= nbFichiers) &
+  if (numFichier > 0) and (numFichier <= nbFichiers) and
      (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) then
        NbPartiesFichierNouveauFormat := fichiers[numFichier].entete.NombreEnregistrementsParties;
 end;
@@ -3223,7 +3223,7 @@ function AnneePartiesFichierNouveauFormat(numFichier : SInt16) : SInt16;
 begin
   AnneePartiesFichierNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numFichier > 0) & (numFichier <= nbFichiers) &
+  if (numFichier > 0) and (numFichier <= nbFichiers) and
      (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) then
        AnneePartiesFichierNouveauFormat := fichiers[numFichier].annee;
 end;
@@ -3232,8 +3232,8 @@ function NbJoueursDansFichierJoueursNouveauFormat(numFichier : SInt16) : SInt64;
 begin
   NbJoueursDansFichierJoueursNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numFichier > 0) & (numFichier <= nbFichiers) &
-     ((fichiers[numFichier].typeDonnees = kFicJoueursNouveauFormat) |
+  if (numFichier > 0) and (numFichier <= nbFichiers) and
+     ((fichiers[numFichier].typeDonnees = kFicJoueursNouveauFormat) or
       (fichiers[numFichier].typeDonnees = kFicJoueursCourtsNouveauFormat)) then
        NbJoueursDansFichierJoueursNouveauFormat := fichiers[numFichier].entete.NombreEnregistrementsTournoisEtJoueurs;
 end;
@@ -3242,8 +3242,8 @@ function NbTournoisDansFichierTournoisNouveauFormat(numFichier : SInt16) : SInt6
 begin
   NbTournoisDansFichierTournoisNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numFichier > 0) & (numFichier <= nbFichiers) &
-     ((fichiers[numFichier].typeDonnees = kFicTournoisNouveauFormat) |
+  if (numFichier > 0) and (numFichier <= nbFichiers) and
+     ((fichiers[numFichier].typeDonnees = kFicTournoisNouveauFormat) or
       (fichiers[numFichier].typeDonnees = kFicTournoisCourtsNouveauFormat)) then
        NbTournoisDansFichierTournoisNouveauFormat := fichiers[numFichier].entete.NombreEnregistrementsTournoisEtJoueurs;
 end;
@@ -3257,7 +3257,7 @@ begin
   somme := 0;
   with InfosFichiersNouveauFormat do
     for i := 1 to nbFichiers do
-      if ((fichiers[i].typeDonnees = kFicJoueursNouveauFormat) | (fichiers[i].typeDonnees = kFicJoueursCourtsNouveauFormat)) &
+      if ((fichiers[i].typeDonnees = kFicJoueursNouveauFormat) or (fichiers[i].typeDonnees = kFicJoueursCourtsNouveauFormat)) and
          (fichiers[i].typeDonnees = typeVoulu) then
         begin
           aux := NbJoueursDansFichierJoueursNouveauFormat(i);
@@ -3278,7 +3278,7 @@ begin
   taille := 0;
 
   with InfosFichiersNouveauFormat do
-    if (numFichier > 0) & (numFichier <= nbFichiers) then
+    if (numFichier > 0) and (numFichier <= nbFichiers) then
       with fichiers[numFichier] do
         begin
           case typeDonnees of
@@ -3322,7 +3322,7 @@ begin
 
   with InfosFichiersNouveauFormat do
     for i := 1 to nbFichiers do
-      if ((fichiers[i].typeDonnees = kFicJoueursNouveauFormat) | (fichiers[i].typeDonnees = kFicJoueursCourtsNouveauFormat)) &
+      if ((fichiers[i].typeDonnees = kFicJoueursNouveauFormat) or (fichiers[i].typeDonnees = kFicJoueursCourtsNouveauFormat)) and
          (fichiers[i].typeDonnees = typeVoulu) then
         begin
           aux := NbJoueursDansFichierJoueursNouveauFormat(i);
@@ -3357,7 +3357,7 @@ begin
   somme := 0;
   with InfosFichiersNouveauFormat do
     for i := 1 to nbFichiers do
-      if ((fichiers[i].typeDonnees = kFicTournoisNouveauFormat) | (fichiers[i].typeDonnees = kFicTournoisCourtsNouveauFormat)) &
+      if ((fichiers[i].typeDonnees = kFicTournoisNouveauFormat) or (fichiers[i].typeDonnees = kFicTournoisCourtsNouveauFormat)) and
          (fichiers[i].typeDonnees = typeVoulu) then
         begin
           aux := NbTournoisDansFichierTournoisNouveauFormat(i);
@@ -3394,7 +3394,7 @@ begin
 
   with InfosFichiersNouveauFormat do
     for i := 1 to nbFichiers do
-      if ((fichiers[i].typeDonnees = kFicTournoisNouveauFormat) | (fichiers[i].typeDonnees = kFicTournoisCourtsNouveauFormat)) &
+      if ((fichiers[i].typeDonnees = kFicTournoisNouveauFormat) or (fichiers[i].typeDonnees = kFicTournoisCourtsNouveauFormat)) and
          (fichiers[i].typeDonnees = typeVoulu) then
         begin
           aux := NbTournoisDansFichierTournoisNouveauFormat(i);
@@ -3431,11 +3431,11 @@ begin
           found := false;
           numFichier := 1;
           repeat
-            if (numFichier <= nbFichiers) & (numFichier <> k) &
-               (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) &
-               (fichiers[numFichier].parID       = fichiers[k].parID) &
-               (fichiers[numFichier].vRefNum     = fichiers[k].vRefNum) &
-               (fichiers[numFichier].annee       = fichiers[k].annee) &
+            if (numFichier <= nbFichiers) and (numFichier <> k) and
+               (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) and
+               (fichiers[numFichier].parID       = fichiers[k].parID) and
+               (fichiers[numFichier].vRefNum     = fichiers[k].vRefNum) and
+               (fichiers[numFichier].annee       = fichiers[k].annee) and
                (EntetesEgauxNouveauFormat(fichiers[k].entete,fichiers[numFichier].entete)) then
                  begin
 		               found := true;
@@ -3443,7 +3443,7 @@ begin
 		               fichiers[k         ].NroFichierDual := numFichier;
 		             end;
 		        numFichier := succ(numFichier);
-          until found | (numFichier > nbFichiers);
+          until found or (numFichier > nbFichiers);
         end;
 end;
 
@@ -3566,7 +3566,7 @@ begin
 	                begin
 	                  chainePref := ReplaceStringByStringInString('$CASSIO_FOLDER:',pathCassioFolder,chainePref);
 	                  for k := 1 to nbDistributions do
-	                    if (Distribution[k].path <> NIL) & (Distribution[k].name <> NIL) &
+	                    if (Distribution[k].path <> NIL) and (Distribution[k].name <> NIL) and
 	                       (chainePref = Distribution[k].path^+Distribution[k].name^) then
 	                       DistributionsALire := DistributionsALire+[k];
 	                  end;
@@ -3586,7 +3586,7 @@ begin
   Discard2(k,fonctionAppelante);
 
   // ne pas reentrer
-  if (InfosFichiersNouveauFormat.nbFichiers > 0) | pendantLecturePreparatoireDossierDatabase
+  if (InfosFichiersNouveauFormat.nbFichiers > 0) or pendantLecturePreparatoireDossierDatabase
     then exit(LecturePreparatoireDossierDatabase);
 
   temp := pendantLecturePreparatoireDossierDatabase;
@@ -3595,7 +3595,7 @@ begin
   ticks := TickCount;
   nbAppelsShareTimeWithOtherProcesses := 0;
 
-  if not(Quitter | gPendantLesInitialisationsDeCassio) then
+  if not(Quitter or gPendantLesInitialisationsDeCassio) then
     begin
       watch := GetCursor(watchcursor);
       SafeSetCursor(watch);
@@ -3613,7 +3613,7 @@ begin
       then AddValidCassioFolderPath(iterateurCassioFolderPaths)
       else iterateurCassioFolderPaths := TryNextCassioFolderPath;
 
-  until trouve | (iterateurCassioFolderPaths = '');
+  until trouve or (iterateurCassioFolderPaths = '');
 
 
 

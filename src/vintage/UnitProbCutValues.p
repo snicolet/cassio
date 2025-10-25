@@ -112,28 +112,28 @@ begin
   ok := false;
   nbValides := 0;
 
-  if (numeroCoup >= 0) & (numeroCoup <= 64) &
-     (prof1 >= 0) & (prof1 <= MAX_PROBCUT_HEIGHT) &
-     (prof2 >= 0) & (prof2 <= MAX_PROBCUT_HEIGHT) then
+  if (numeroCoup >= 0) and (numeroCoup <= 64) and
+     (prof1 >= 0) and (prof1 <= MAX_PROBCUT_HEIGHT) and
+     (prof2 >= 0) and (prof2 <= MAX_PROBCUT_HEIGHT) then
     begin
       dimp1 := DimensionDuPointMultidimensionnel(p1);
       dimp2 := DimensionDuPointMultidimensionnel(p2);
-      if (dimp1 > 0) & (dimp2 > 0) & (dimp1 = dimp2) then
-        if (ProbCutStat[numeroCoup].nbData > 0) & (ProbCutStat[numeroCoup].nbData <= dimp1) then
-	     	  if (ProbCutStat[numeroCoup].data[prof1] <> NIL) & (ProbCutStat[numeroCoup].data[prof2] <> NIL) then
+      if (dimp1 > 0) and (dimp2 > 0) and (dimp1 = dimp2) then
+        if (ProbCutStat[numeroCoup].nbData > 0) and (ProbCutStat[numeroCoup].nbData <= dimp1) then
+	     	  if (ProbCutStat[numeroCoup].data[prof1] <> NIL) and (ProbCutStat[numeroCoup].data[prof2] <> NIL) then
 			      begin
 			        dimProf1 := DimensionDuPointMultidimensionnel(ProbCutStat[numeroCoup].data[prof1]);
 		          dimProf2 := DimensionDuPointMultidimensionnel(ProbCutStat[numeroCoup].data[prof2]);
-		          if (dimProf1 = dimProf2) & (dimProf1 > 0) then
+		          if (dimProf1 = dimProf2) and (dimProf1 > 0) then
 		            begin
 			            nbValides := 0;
 			            for k := 1 to ProbCutStat[numeroCoup].nbData do
 			              begin
 			                x := ProbCutStat[numeroCoup].data[prof1]^[k];
 			                y := ProbCutStat[numeroCoup].data[prof2]^[k];
-			                if (nbValides < dimp1) &
-			                   (x >= -64.0) & (x <= 64.0) &
-			                   (y >= -64.0) & (y <= 64) then
+			                if (nbValides < dimp1) and
+			                   (x >= -64.0) and (x <= 64.0) and
+			                   (y >= -64.0) and (y <= 64) then
 			                   begin
 			                     inc(nbValides);
 			                     p1^[nbValides] := x;
@@ -170,17 +170,17 @@ begin
       exit(CalculePaireProbCut);
     end;
 
-  if (numeroCoup >= 0) & (numeroCoup <= 64) &
-     (prof1 >= 0) & (prof1 <= MAX_PROBCUT_HEIGHT) &
-     (prof2 >= 0) & (prof2 <= MAX_PROBCUT_HEIGHT) then
+  if (numeroCoup >= 0) and (numeroCoup <= 64) and
+     (prof1 >= 0) and (prof1 <= MAX_PROBCUT_HEIGHT) and
+     (prof2 >= 0) and (prof2 <= MAX_PROBCUT_HEIGHT) then
     begin
       x := NIL;
       y := NIL;
       dev := NIL;
       erreur := NIL;
-      if AllocatePointMultidimensionnel(nMaxPos,x) &
-         AllocatePointMultidimensionnel(nMaxPos,y) &
-         AllocatePointMultidimensionnel(nMaxPos,erreur) &
+      if AllocatePointMultidimensionnel(nMaxPos,x) and
+         AllocatePointMultidimensionnel(nMaxPos,y) and
+         AllocatePointMultidimensionnel(nMaxPos,erreur) and
          ExtractValidStatistics(numeroCoup,prof1,prof2,x,y,nPos) then
         begin
 
@@ -222,10 +222,10 @@ end;
 
 procedure SetValeurDansProbCutStat(valeur : TypeReel; numeroCoup,prof,positionDansData : SInt32);
 begin
-  if (numeroCoup >= 0) & (numeroCoup <= 64) &
-     (prof >= 0) & (prof <= MAX_PROBCUT_HEIGHT) &
-     (ProbCutStat[numeroCoup].data[prof] <> NIL) &
-     (positionDansData > 0) & (positionDansData <= ProbCutStat[numeroCoup].nbData) &
+  if (numeroCoup >= 0) and (numeroCoup <= 64) and
+     (prof >= 0) and (prof <= MAX_PROBCUT_HEIGHT) and
+     (ProbCutStat[numeroCoup].data[prof] <> NIL) and
+     (positionDansData > 0) and (positionDansData <= ProbCutStat[numeroCoup].nbData) and
      (positionDansData <= DimensionDuPointMultidimensionnel(ProbCutStat[numeroCoup].data[prof]))
     then ProbCutStat[numeroCoup].data[prof]^[positionDansData] := valeur
     else WritelnDansRapport('Affectation illegale dans SetValeurDansProbCutStat !!');
@@ -234,13 +234,13 @@ end;
 procedure InvalidateProbCutStat(numeroCoup,positionDansData : SInt32);
 var prof,dim : SInt32;
 begin
-  if (numeroCoup >= 0) & (numeroCoup <= 64) then
+  if (numeroCoup >= 0) and (numeroCoup <= 64) then
     begin
       for prof := 0 to MAX_PROBCUT_HEIGHT do
         if ProbCutStat[numeroCoup].data[prof] <> NIL then
           begin
             dim := DimensionDuPointMultidimensionnel(ProbCutStat[numeroCoup].data[prof]);
-            if (positionDansData >= 1) & (positionDansData <= dim) then
+            if (positionDansData >= 1) and (positionDansData <= dim) then
               begin
                 if positionDansData < ProbCutStat[numeroCoup].nbData then
                   begin
@@ -270,20 +270,20 @@ var i,k,coup,n,dataPos : SInt32;
     prof,profAux,profMax : SInt32;
     valeur : TypeReel;
 begin
-  if (numeroCoup >= 0) & (numeroCoup <= 64) then
+  if (numeroCoup >= 0) and (numeroCoup <= 64) then
     begin
       HLockAllProfsDansDansTableOfMoveRecordsLists;
       profMax := Min(ProfMaxDansTableOfMoveRecordsLists,MAX_PROBCUT_HEIGHT);
 
       n := DimensionDuPointMultidimensionnel(ProbCutStat[numeroCoup].data[1]);
-		  if (n > 0) & (ProbCutStat[numeroCoup].nbData < n) then
+		  if (n > 0) and (ProbCutStat[numeroCoup].nbData < n) then
 		    begin
 
 		      {on prend la note du meilleur coup de chaque profondeur}
 		      dataPos := NewProbCutCell(numeroCoup);
 		      for prof := 1 to profMax do
-		        if TableOfMoveRecordsLists[prof-1].utilisee &
-		           (TableOfMoveRecordsLists[prof-1].cardinal > 0) &
+		        if TableOfMoveRecordsLists[prof-1].utilisee and
+		           (TableOfMoveRecordsLists[prof-1].cardinal > 0) and
 		           (TableOfMoveRecordsLists[prof-1].list <> NIL) then
 		          begin
 		            valeur := 0.01*TableOfMoveRecordsLists[prof-1].list^^[1].note;
@@ -293,9 +293,9 @@ begin
 		      {Pour chaque coup, on regarde sa note a chaque profondeur}
 		      {find the first used depth}
 		      prof := 0;
-		      while (prof <= profMax) & not(TableOfMoveRecordsLists[prof].utilisee) do inc(prof);
+		      while (prof <= profMax) and not(TableOfMoveRecordsLists[prof].utilisee) do inc(prof);
 		      {for each move at depth "prof"}
-		      if (prof <= profMax) & (TableOfMoveRecordsLists[prof].utilisee) then
+		      if (prof <= profMax) and (TableOfMoveRecordsLists[prof].utilisee) then
 		        for k := 1 to TableOfMoveRecordsLists[prof].cardinal do
 			        begin
 			          dataPos := NewProbCutCell(numeroCoup);
@@ -344,7 +344,7 @@ begin
   LanceChrono;
   tempsPrevu := 10;
   tempsAlloue := minutes10000000;
-  if not(RefleSurTempsJoueur) & (AQuiDeJouer = couleurMacintosh) then
+  if not(RefleSurTempsJoueur) and (AQuiDeJouer = couleurMacintosh) then
     begin
       EcritJeReflechis(AQuiDeJouer);
     end;
@@ -407,7 +407,7 @@ begin
 				          exit(LitVecteursStatProbDansFichierTexte);
 				        end;
 
-              if (numeroCoup >= 0) & (numeroCoup <= 64) & (nbData > 0) then
+              if (numeroCoup >= 0) and (numeroCoup <= 64) and (nbData > 0) then
                 begin
                   ProbCutStat[numeroCoup].nbData := nbData;
                   CopierPointMultidimensionnel(p,ProbCutStat[numeroCoup].data[prof]);

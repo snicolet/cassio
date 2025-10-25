@@ -208,7 +208,7 @@ begin
   reste := fullName;
   err := 0;
 
-  while (reste <> '') & (err = 0) do
+  while (reste <> '') and (err = 0) do
     begin
       posDeuxPoints := Pos(':',reste);
       if posDeuxPoints > 0
@@ -229,7 +229,7 @@ begin
       err := FSSpecToFullPath(myFSSpec,resolvedDebut);
       if err = 0 then
         begin
-          if EndsWithDeuxPoints(debut) & not(EndsWithDeuxPoints(resolvedDebut))
+          if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
             then debut := resolvedDebut+':'
             else debut := resolvedDebut;
         end;
@@ -242,9 +242,9 @@ end;
 
 function FichierTexteEstLeRapport(var fic : FichierTEXT) : boolean;
 begin
-  FichierTexteEstLeRapport := (fic.vRefNum = 0) &
-                              (fic.parID = 0) &
-                              (fic.refNum = 0) &
+  FichierTexteEstLeRapport := (fic.vRefNum = 0) and
+                              (fic.parID = 0) and
+                              (fic.refNum = 0) and
                               (fic.nomFichier = nomSortieStandardDansRapport);
 end;
 
@@ -255,14 +255,14 @@ var nomDirectory : String255;
     err : OSErr;
 begin
 
-  if (Pos(':',nom) > 0) & (vRefNum <> 0)
+  if (Pos(':',nom) > 0) and (vRefNum <> 0)
     then
       begin
         nomDirectory := GetWDName(vRefNum);
         len := LENGTH_OF_STRING(nomDirectory);
-        if (len > 0) & (nomDirectory <> ':') & ((len+LENGTH_OF_STRING(nom)) <= 220) then
+        if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(nom)) <= 220) then
           begin
-            if (nom[1] = ':') & EndsWithDeuxPoints(nomDirectory)
+            if (nom[1] = ':') and EndsWithDeuxPoints(nomDirectory)
               then nom := TPCopy(nomDirectory,1,len-1)+nom
               else nom := nomDirectory+nom;
             err := ResolveAliasInFullName(nom);
@@ -347,7 +347,7 @@ begin
   err := -1;
   theLongName := GetNameOfFSSpec(whichFile);
 
-  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) &
+  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
      (MacVersion >= $1020)  (* au moins Mac OS X 10.2 *)
     then
       begin
@@ -990,7 +990,7 @@ begin
   if fic.bufferLecture.doitUtiliserBuffer then
     with fic.bufferLecture do
       begin
-        if (position >= debutDuBuffer) &
+        if (position >= debutDuBuffer) and
            (position < debutDuBuffer + tailleDuBuffer)
           then positionDansBuffer := (position - debutDuBuffer);
       end;
@@ -1429,8 +1429,8 @@ begin
           end;
 
 
-        if (tailleDuFichier > 0) &
-           (length > tailleDuFichier - (debutDuBuffer + positionDansBuffer)) &
+        if (tailleDuFichier > 0) and
+           (length > tailleDuFichier - (debutDuBuffer + positionDansBuffer)) and
            ((positionDansBuffer + length) > tailleDuBuffer)
            then length := tailleDuFichier - (debutDuBuffer + positionDansBuffer);
 
@@ -1446,7 +1446,7 @@ begin
             if (err = NoErr) then
               err := FSRead(fic.refnum, nbOctetsLusSurLeDisque, bufferLecture);
 
-            if (err = NoErr) & (nbOctetsLusSurLeDisque > 0)
+            if (err = NoErr) and (nbOctetsLusSurLeDisque > 0)
               then
                 begin
                   tailleDuBuffer     := nbOctetsLusSurLeDisque;
@@ -1458,7 +1458,7 @@ begin
                   if debug then WritelnNumDansRapport('FIXEME : erreur de lecture dans le fichier, err = ',err);
                   if debug then WritelnNumDansRapport('FIXEME : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
 
-                  if (err = -39) & (nbOctetsLusSurLeDisque > 0)
+                  if (err = -39) and (nbOctetsLusSurLeDisque > 0)
                     then
                       begin
                         tailleDuBuffer     := nbOctetsLusSurLeDisque;
@@ -1534,7 +1534,7 @@ begin
   longueurLigne := Min(255,len);
   gRetourCharriotTrouveDansReadlnFichierTEXT := false;
   for i := len downto 1 do
-    if (buffer[i] = cr) | (buffer[i] = lf) then
+    if (buffer[i] = cr) or (buffer[i] = lf) then
       begin
         longueurLigne := i-1;
         gRetourCharriotTrouveDansReadlnFichierTEXT := true;
@@ -1548,8 +1548,8 @@ begin
   {on gere les retours charriots DOS, UNIX, Mac, etc}
   if gRetourCharriotTrouveDansReadlnFichierTEXT then
     begin
-      if ((buffer[longueurLigne+1] = cr) & (buffer[longueurLigne+2] = lf)) |
-         ((buffer[longueurLigne+1] = lf) & (buffer[longueurLigne+2] = cr))
+      if ((buffer[longueurLigne+1] = cr) and (buffer[longueurLigne+2] = lf)) or
+         ((buffer[longueurLigne+1] = lf) and (buffer[longueurLigne+2] = cr))
          then inc(longueurLigne);
     end;
 
@@ -1592,8 +1592,8 @@ begin
       if (err = NoErr) then
         begin
           longueur := LENGTH_OF_STRING(debutLigne);
-          if (longueur < 255) |
-             ((longueur = 255) & gRetourCharriotTrouveDansReadlnFichierTEXT)
+          if (longueur < 255) or
+             ((longueur = 255) and gRetourCharriotTrouveDansReadlnFichierTEXT)
             then
               begin
                 ReadlnLongStringDansFichierTexte := err;
@@ -1683,7 +1683,7 @@ begin
   longueurLigne := Min(len,count);
   gRetourCharriotTrouveDansReadlnFichierTEXT := false;
   for i := count-1 downto 0 do
-    if (localBuffer^[i] = cr) | (localBuffer^[i] = lf) then
+    if (localBuffer^[i] = cr) or (localBuffer^[i] = lf) then
       begin
         longueurLigne := i;
         count := i;
@@ -1812,7 +1812,7 @@ begin
       err2 := SetPositionTeteLectureFinFichierTexte(receptacle);
     end;
 
-  if (err = NoErr) & (err2 = NoErr) then
+  if (err = NoErr) and (err2 = NoErr) then
     begin
       err := GetTailleFichierTexte(insere,longueurInsertion);
 
@@ -1823,7 +1823,7 @@ begin
         err  := ReadBufferDansFichierTexte(insere,@buffer[0],count);
         err2 := WriteBufferDansFichierTexte(receptacle,@buffer[0],count);
         nbOctetsCopies := nbOctetsCopies + count;
-      until (err <> NoErr) | (err2 <> NoErr) | (nbOctetsCopies >= longueurInsertion);
+      until (err <> NoErr) or (err2 <> NoErr) or (nbOctetsCopies >= longueurInsertion);
 
     end;
 
@@ -1997,7 +1997,7 @@ begin
   if err <> NoErr then
     begin
       err := FichierTexteExiste(nom,0,fic);
-      erreurEstFicNonTrouve := erreurEstFicNonTrouve | (err = fnfErr);
+      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
     end;
 
   posLastDeuxPoints := LastPos(':',nom);
@@ -2009,7 +2009,7 @@ begin
 		  if err <> NoErr then
 		    begin
 		      err := FichierTexteExiste(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve | (err = fnfErr);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
 
@@ -2020,7 +2020,7 @@ begin
 		  if (err <> NoErr) then
 		    begin
 		      err := FichierTexteExiste(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve | (err = fnfErr);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
 
@@ -2031,11 +2031,11 @@ begin
 		  if (err <> NoErr) then
 		    begin
 		      err := FichierTexteExiste(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve | (err = fnfErr);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
 
-  if (err <> 0) & erreurEstFicNonTrouve
+  if (err <> 0) and erreurEstFicNonTrouve
     then FichierTexteDeCassioExiste := fnfErr
     else FichierTexteDeCassioExiste := err;
 end;

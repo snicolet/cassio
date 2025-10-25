@@ -213,7 +213,7 @@ begin
 			        begin
 			          inc(index);
 			          p := filsEgal;
-			          if (p = NIL) | (p^.splitChar = kCaractereSentinelle) then
+			          if (p = NIL) or (p^.splitChar = kCaractereSentinelle) then
 			            begin
 			              ATREstSousMotDeChaine := true;
 			              exit(ATREstSousMotDeChaine);
@@ -240,7 +240,7 @@ var index : SInt32;
 begin
   p := x;
   index := indexDepart;
-  if (buffer <> NIL) & (indexDepart < longueur) then
+  if (buffer <> NIL) and (indexDepart < longueur) then
     begin
       localBuffer := PackedArrayOfCharPtr(buffer);
 		  while (p <> NIL) do
@@ -254,7 +254,7 @@ begin
 			        begin
 			          inc(index);
 			          p := filsEgal;
-			          if (p = NIL) | (p^.splitChar = kCaractereSentinelle) then
+			          if (p = NIL) or (p^.splitChar = kCaractereSentinelle) then
 			            begin
 			              ATREstSousMotDeBuffer := true;
 			              exit(ATREstSousMotDeBuffer);

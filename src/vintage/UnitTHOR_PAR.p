@@ -138,7 +138,7 @@ begin
           begin
             square := 10*j + i;
             numeroDansSquare := posEtCoups[i,j];
-            if (numeroDansSquare <> ord(kNoirTHOR_PAR)) & (numeroDansSquare <> ord(kBlancTHOR_PAR))
+            if (numeroDansSquare <> ord(kNoirTHOR_PAR)) and (numeroDansSquare <> ord(kBlancTHOR_PAR))
               then coupsPourLeTranscript[square] := numeroDansSquare;
           end;
 
@@ -255,7 +255,7 @@ var err : OSErr;
     typeErreurPartie,oldTrait : SInt32;
 begin
   err := -1;
-  if (numeroPartieDansFichier >= 0) &
+  if (numeroPartieDansFichier >= 0) and
      (numeroPartieDansFichier <= nbPlagesDansTHOR_PAR*nbPartiesParPlageDansTHOR_PAR-1) then
     begin
       s := '';
@@ -290,7 +290,7 @@ begin
       for k := 1 to 60 do
 		    begin
 		      aux := partieNF.listeCoups[k];
-		      if (aux >= 11) & (aux <= 88) then
+		      if (aux >= 11) and (aux <= 88) then
 		        begin
 		          inc(nbCoupsJoues);
 		          inc(nbCoupsJouesYComprisPasses);
@@ -299,7 +299,7 @@ begin
 		          ADD_MOVE_TO_PACKED_GAME(partie60, aux);
 
 		          oldTrait := GetTraitOfPosition(myPositionEtTrait);
-		          if UpdatePositionEtTrait(myPositionEtTrait,aux) & (GetTraitOfPosition(myPositionEtTrait) = oldTrait)
+		          if UpdatePositionEtTrait(myPositionEtTrait,aux) and (GetTraitOfPosition(myPositionEtTrait) = oldTrait)
 		            then inc(nbCoupsJouesYComprisPasses); {on vient de trouve un passe !}
 
 		        end;
@@ -359,7 +359,7 @@ var err : OSErr;
     myPositionEtTrait : PositionEtTraitRec;
 begin
   err := -1;
-  if (numeroPartieDansFichier >= 0) &
+  if (numeroPartieDansFichier >= 0) and
      (numeroPartieDansFichier <= nbPlagesDansTHOR_PAR*nbPartiesParPlageDansTHOR_PAR-1) then
     begin
       s := '';
@@ -493,13 +493,13 @@ var codeErreur : OSErr;
     anneeCourante,anneePartieSuivante : SInt16;
     nbPartiesEcrites,k : SInt32;
 begin
-  if not(windowListeOpen) | (nbPartiesActives <= 0) then
+  if not(windowListeOpen) or (nbPartiesActives <= 0) then
     begin
       SauvegardeListeCouranteEnTHOR_PAR := NoErr;
       exit(SauvegardeListeCouranteEnTHOR_PAR);
     end;
 
-  if windowListeOpen & (nbPartiesActives > 500) then
+  if windowListeOpen and (nbPartiesActives > 500) then
     begin
       prompt := ReadStringFromRessource(TextesNouveauFormatID,7); {'Impossible de sauvegarder plus de 500 parties dans un fichier THOR.PAR !'}
       AlerteSimple(prompt);
@@ -553,7 +553,7 @@ begin
           inc(nroPartieDansListe);
           anneePartieSuivante := GetAnneePartieParNroRefPartie(tableNumeroReference^^[nroPartieDansListe]);
         end;
-    until (anneeCourante <> anneePartieSuivante) | (nroPartieDansListe >= nbPartiesActives);
+    until (anneeCourante <> anneePartieSuivante) or (nroPartieDansListe >= nbPartiesActives);
     if nroPartieDansListe < nbPartiesActives
       then nroDernierePartieDeLAnnee := nroPartieDansListe-1
       else nroDernierePartieDeLAnnee := nroPartieDansListe;
@@ -562,7 +562,7 @@ begin
 
     codeErreur := SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPremierePartieDeLAnnee,nroDernierePartieDeLAnnee,nbPartiesEcrites,fichierTHOR_PAR);
 
-  until (nroPartieDansListe >= nbPartiesActives) | (codeErreur <> 0);
+  until (nroPartieDansListe >= nbPartiesActives) or (codeErreur <> 0);
 
   {on complete le fichier avec des enregistrements vides}
 

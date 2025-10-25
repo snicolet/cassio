@@ -194,7 +194,7 @@ begin
   theoriqueNoir  := ChaineEnLongint(scoreNoir);
   theoriqueBlanc := ChaineEnLongint(scoreBlanc);
 
-  if ((theoriqueNoir + theoriqueBlanc) >= 60) &
+  if ((theoriqueNoir + theoriqueBlanc) >= 60) and
      ((theoriqueNoir + theoriqueBlanc) <= 64)
     then theorique := theoriqueNoir;
 
@@ -210,7 +210,7 @@ begin
 
   (* on crée un nom de fichier fictif le plus ressemblant possible *)
 
-  if (numeroNoir <> kNroJoueurInconnu) &
+  if (numeroNoir <> kNroJoueurInconnu) and
     (numeroBlanc <> kNroJoueurInconnu)
     then chaineJoueurs := GetNomJoueur(numeroNoir) + ' 32 - 32 ' + GetNomJoueur(numeroBlanc) else
   if (numeroNoir <> kNroJoueurInconnu)
@@ -355,8 +355,8 @@ begin {AjouterPartiesFichierPGNDansListe}
     end;
 
   numeroTournoi := -1;
-  if (myDate.month <= 6) & TrouveNumeroDuTournoi('parties internet (1-6)',numeroTournoiParDefaut,0) then DoNothing;
-  if (myDate.month >  6) & TrouveNumeroDuTournoi('parties internet (7-12)',numeroTournoiParDefaut,0) then DoNothing;
+  if (myDate.month <= 6) and TrouveNumeroDuTournoi('parties internet (1-6)',numeroTournoiParDefaut,0) then DoNothing;
+  if (myDate.month >  6) and TrouveNumeroDuTournoi('parties internet (7-12)',numeroTournoiParDefaut,0) then DoNothing;
   if numeroTournoi < 0 then numeroTournoiParDefaut := kNroTournoiDiversesParties;
   annee := myDate.year;
 
@@ -401,7 +401,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       DisposeStringSet(pseudosSansNomReel);
     end;
 
-  while not(EOFFichierTexte(fichierPGN,erreurES)) & not(utilisateurVeutSortir) do
+  while not(EOFFichierTexte(fichierPGN,erreurES)) and not(utilisateurVeutSortir) do
     begin
 
 
@@ -417,7 +417,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       {WritelnDansRapport(ligne);}
 
       EnleveEspacesDeGaucheSurPlace(ligne);
-      if (ligne = '') | (ligne[1] = '%')
+      if (ligne = '') or (ligne[1] = '%')
         then
           begin
           end
@@ -458,7 +458,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       			
       			
 
-      			      if (Pos('[White ',ligne) > 0) | (Pos('[White"',ligne) > 0)
+      			      if (Pos('[White ',ligne) > 0) or (Pos('[White"',ligne) > 0)
       			        then
       			          begin
       			            // ligneNomBlanc := ligne;
@@ -477,7 +477,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       			          end
       			        else
 
-      			      if (Pos('[Black ',ligne) > 0) | (Pos('[Black"',ligne) > 0)
+      			      if (Pos('[Black ',ligne) > 0) or (Pos('[Black"',ligne) > 0)
       			        then
       			          begin
       			            // ligneNomNoir := ligne;
@@ -496,18 +496,18 @@ begin {AjouterPartiesFichierPGNDansListe}
       			          end
       			        else
 
-      			      if (Pos('[Site "kurnik',ligne) > 0) | (Pos('[Site "www.kurnik',ligne) > 0) |
-      			         (Pos('[Site "playok',ligne) > 0) | (Pos('[Site "www.playok',ligne) > 0) |
+      			      if (Pos('[Site "kurnik',ligne) > 0) or (Pos('[Site "www.kurnik',ligne) > 0) or
+      			         (Pos('[Site "playok',ligne) > 0) or (Pos('[Site "www.playok',ligne) > 0) or
       			         (Pos('[Site "VOG',ligne) > 0)
       			        then partieInternet := true else
 
       			      if (Pos('[Date "',ligne) > 0)
       			        then ParserDateDansFichierPGN(ligne,anneeDansRecord,moisDansRecord,jourDansRecord) else
 
-      			      if (Pos('[TheoricalScore "',ligne) > 0) | (Pos('[TheoreticalScore "',ligne) > 0)
+      			      if (Pos('[TheoricalScore "',ligne) > 0) or (Pos('[TheoreticalScore "',ligne) > 0)
       			        then ParserScoreTheoriqueDansFichierPGN(ligne,theorique) else
 
-      			      if (Pos('.',ligne) > 0) & (Pos('[',ligne) = 0) then
+      			      if (Pos('.',ligne) > 0) and (Pos('[',ligne) = 0) then
       			        begin  {coup(s)}
 
       			          coupsPotentiels := ligne;
@@ -522,19 +522,19 @@ begin {AjouterPartiesFichierPGNDansListe}
 
       			      partieComplete := EstUnePartieOthelloTerminee(partieEnAlpha,true,nbPionsNoirs,nbPionsBlancs);
 
-			            utilisateurVeutSortir := utilisateurVeutSortir | Quitter ;
+			            utilisateurVeutSortir := utilisateurVeutSortir or Quitter ;
 			            if ((TickCount - lastTickEscapeDansQueue) > 0) then
 			              begin
-			                utilisateurVeutSortir := utilisateurVeutSortir | EscapeDansQueue;
+			                utilisateurVeutSortir := utilisateurVeutSortir or EscapeDansQueue;
 			                lastTickEscapeDansQueue := TickCount;
 			              end;
 
-                until partieComplete |
-                      InRange(Pos('0-1',ligne),1,2) |
-                      InRange(Pos('1/2-1/2',ligne),1,2) |
-                      InRange(Pos('1-0',ligne),1,2) |
-                      (Pos('[Event',ligne) > 0) |
-                      EOFFichierTexte(fichierPGN,erreurES) |
+                until partieComplete or
+                      InRange(Pos('0-1',ligne),1,2) or
+                      InRange(Pos('1/2-1/2',ligne),1,2) or
+                      InRange(Pos('1-0',ligne),1,2) or
+                      (Pos('[Event',ligne) > 0) or
+                      EOFFichierTexte(fichierPGN,erreurES) or
                       utilisateurVeutSortir;
 
                 if Pos('[Event',ligne) = 0 then ligne := '';
@@ -546,7 +546,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                 *)
 
                 (*
-                if (Pos('Caspard',nomNoir) > 0) | (Pos('Caspard',nomBlanc) > 0) then
+                if (Pos('Caspard',nomNoir) > 0) or (Pos('Caspard',nomBlanc) > 0) then
                   begin
                     WritelnDansRapport(partieEnAlpha);
                     WritelnDansRapport(ligneNomNoir);
@@ -554,11 +554,11 @@ begin {AjouterPartiesFichierPGNDansListe}
                   end;
                 *)
 
-                partieLegale := (nbCoupsRecus > 10) & EstUnePartieOthelloAvecMiroir(partieEnAlpha);
+                partieLegale := (nbCoupsRecus > 10) and EstUnePartieOthelloAvecMiroir(partieEnAlpha);
 
                 {on cherche si on a deja mis la partie}
                 partieDoublon := false;
-                if MemberOfStringSet(partieEnAlpha,aux,tableDoublons) &
+                if MemberOfStringSet(partieEnAlpha,aux,tableDoublons) and
                    MemberOfStringSet(Concat(partieEnAlpha,' '),aux,tableDoublons) then
                    begin
                      partieDoublon := true;
@@ -571,8 +571,8 @@ begin {AjouterPartiesFichierPGNDansListe}
 
 
                 if partieLegale
-                   & not(partieDoublon)
-                   & not(doitSauterLesPartiesInternetSansJoueurConnu & partieInternet & (numeroNoir = 0) & (numeroBlanc = 0)) then
+                   and not(partieDoublon)
+                   and not(doitSauterLesPartiesInternetSansJoueurConnu and partieInternet and (numeroNoir = 0) and (numeroBlanc = 0)) then
                   begin
 
                     partieEstDouteuse := false;
@@ -582,17 +582,17 @@ begin {AjouterPartiesFichierPGNDansListe}
 
                     if (anneeDansRecord > 0) then annee := anneeDansRecord;
 
-                    if partieInternet & (numeroTournoi = numeroTournoiParDefaut) then
+                    if partieInternet and (numeroTournoi = numeroTournoiParDefaut) then
                       begin
-                        if (moisDansRecord >= 1) & (moisDansRecord <= 6)  then numeroTournoi := kNroTournoiPartiesInternet_1_6 else
-                        if (moisDansRecord >= 7) & (moisDansRecord <= 12) then numeroTournoi := kNroTournoiPartiesInternet_7_12
+                        if (moisDansRecord >= 1) and (moisDansRecord <= 6)  then numeroTournoi := kNroTournoiPartiesInternet_1_6 else
+                        if (moisDansRecord >= 7) and (moisDansRecord <= 12) then numeroTournoi := kNroTournoiPartiesInternet_7_12
                           else numeroTournoi := kNroTournoiPartiesInternet;
                       end;
 
 
                     if not(partieComplete) then
                       begin
-                        if partieInternet & (nbCoupsRecus >= 40) & PeutCompleterPartieAvecLigneOptimale(partieEnAlpha)
+                        if partieInternet and (nbCoupsRecus >= 40) and PeutCompleterPartieAvecLigneOptimale(partieEnAlpha)
                           then
                             begin
                               (*ChangeFontColorDansRapport(BleuCmd);
@@ -632,8 +632,8 @@ begin {AjouterPartiesFichierPGNDansListe}
 
 
 
-                if ((nbPartiesDansFichierPGN mod 2000 = 0) & (lastNbPartiesFichierPGNDansRapport <> nbPartiesDansFichierPGN)) |
-                   ((nbPartiesImportees mod 200 = 0) & (lastNbPartiesImporteesDansRapport <> nbPartiesImportees))
+                if ((nbPartiesDansFichierPGN mod 2000 = 0) and (lastNbPartiesFichierPGNDansRapport <> nbPartiesDansFichierPGN)) or
+                   ((nbPartiesImportees mod 200 = 0) and (lastNbPartiesImporteesDansRapport <> nbPartiesImportees))
                   then
                     begin
                       lastNbPartiesImporteesDansRapport := nbPartiesImportees;
@@ -747,11 +747,11 @@ var nroReferencePartieAjoutee : SInt64;
   begin
     result := derniereLigneLue;
 
-    while (result = '') & not(utilisateurVeutSortir) & (erreurES = NoErr) & not(EOFFichierAbstrait(myZone,erreurES)) do
+    while (result = '') and not(utilisateurVeutSortir) and (erreurES = NoErr) and not(EOFFichierAbstrait(myZone,erreurES)) do
       begin
         erreurES := GetNextLineDansFichierDestructure(s);
         result := result + s;
-        utilisateurVeutSortir := utilisateurVeutSortir | Quitter | EscapeDansQueue;
+        utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
       end;
 
     TrouveJoueurs := result;
@@ -789,7 +789,7 @@ var nroReferencePartieAjoutee : SInt64;
               if EstUnePartieOthelloAvecMiroir(result) then
                 partieComplete := EstUnePartieOthelloTerminee(result,false,nbPionsNoirs,nbPionsBlancs);
 
-              partieIllegale := (result = '') | not(EstUnePartieOthello(result,false));
+              partieIllegale := (result = '') or not(EstUnePartieOthello(result,false));
 
               {
               WritelnDansRapport('s = '+s);
@@ -803,12 +803,12 @@ var nroReferencePartieAjoutee : SInt64;
 
         end;
 
-      utilisateurVeutSortir := utilisateurVeutSortir | Quitter | EscapeDansQueue;
+      utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
 
-    until (nbCoups = dernierNbCoups) | partieComplete | partieIllegale | utilisateurVeutSortir | (erreurES <> NoErr) | EOFFichierAbstrait(myZone,erreurES);
+    until (nbCoups = dernierNbCoups) or partieComplete or partieIllegale or utilisateurVeutSortir or (erreurES <> NoErr) or EOFFichierAbstrait(myZone,erreurES);
 
     TrouvePartie := result;
-    if partieComplete | partieIllegale then derniereLigneLue := '';
+    if partieComplete or partieIllegale then derniereLigneLue := '';
   end;
 
 
@@ -823,15 +823,15 @@ var nroReferencePartieAjoutee : SInt64;
 
     partieEnAlpha := theGame.coupsEnAlpha;
 
-    if (theGame.joueurNoir = '') | (theGame.joueurBlanc = '')
+    if (theGame.joueurNoir = '') or (theGame.joueurBlanc = '')
       then chaineJoueurs := nomsDesJoueursParDefaut
       else
-        if EstUnePartieOthelloAvecMiroir(partieEnAlpha) &
+        if EstUnePartieOthelloAvecMiroir(partieEnAlpha) and
            EstUnePartieOthelloTerminee(partieEnAlpha,true,nbPionsNoirs,nbPionsBlancs)
           then chaineJoueurs := theGame.joueurNoir + ' '+ScoreFinalEnChaine(nbPionsNoirs-nbPionsBlancs)+' ' + theGame.joueurBlanc
           else chaineJoueurs := theGame.joueurNoir + ' 0-0 ' + theGame.joueurBlanc;
 
-    utilisateurVeutSortir := utilisateurVeutSortir | Quitter | EscapeDansQueue;
+    utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
   end;
 
   procedure LitProchaineLigneAvecJoueursEtPartie(var chaineJoueurs,partieEnAlpha : String255; var confianceDansLesJoueurs : double_t);
@@ -854,7 +854,7 @@ var nroReferencePartieAjoutee : SInt64;
           if partieTrouvee
             then
               begin {on symetrie la partie trouvee, eventuellement}
-                partieTrouvee := partieTrouvee & EstUnePartieOthelloAvecMiroir(moves);
+                partieTrouvee := partieTrouvee and EstUnePartieOthelloAvecMiroir(moves);
               end
             else
               begin {on n'a pas trouvee des joueurs, mais peut-etre y a-t-il au moins une partie ?}
@@ -869,9 +869,9 @@ var nroReferencePartieAjoutee : SInt64;
 
         end;
 
-      utilisateurVeutSortir := utilisateurVeutSortir | Quitter | EscapeDansQueue;
+      utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
 
-    until partieTrouvee | utilisateurVeutSortir | (erreurES <> NoErr) | EOFFichierAbstrait(myZone,erreurES);
+    until partieTrouvee or utilisateurVeutSortir or (erreurES <> NoErr) or EOFFichierAbstrait(myZone,erreurES);
 
     if partieTrouvee then
       begin
@@ -909,9 +909,9 @@ var nroReferencePartieAjoutee : SInt64;
 
         end;
 
-      utilisateurVeutSortir := utilisateurVeutSortir | Quitter | EscapeDansQueue;
+      utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
 
-    until partieTrouvee | utilisateurVeutSortir | (erreurES <> NoErr) | EOFFichierAbstrait(myZone,erreurES);
+    until partieTrouvee or utilisateurVeutSortir or (erreurES <> NoErr) or EOFFichierAbstrait(myZone,erreurES);
 
   end;
 
@@ -984,7 +984,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
       DisposeStringSet(pseudosSansNomReel);
     end;
 
-  while not(EOFFichierAbstrait(myZone,erreurES)) & not(utilisateurVeutSortir) & (erreurES = NoErr) do
+  while not(EOFFichierAbstrait(myZone,erreurES)) and not(utilisateurVeutSortir) and (erreurES = NoErr) do
     begin
 
 
@@ -1049,11 +1049,11 @@ begin {AjouterPartiesFichierDestructureDansListe}
 
 	    partieComplete := EstUnePartieOthelloTerminee(partieEnAlpha,true,nbPionsNoirs,nbPionsBlancs);
 
-      partieLegale := (nbCoupsRecus > 10) & EstUnePartieOthelloAvecMiroir(partieEnAlpha);
+      partieLegale := (nbCoupsRecus > 10) and EstUnePartieOthelloAvecMiroir(partieEnAlpha);
 
       {on cherche si on a deja mis la partie}
       partieDoublon := false;
-      if MemberOfStringSet(partieEnAlpha,aux,tableDoublons) &
+      if MemberOfStringSet(partieEnAlpha,aux,tableDoublons) and
          MemberOfStringSet(Concat(partieEnAlpha,' '),aux,tableDoublons) then
          begin
            partieDoublon := true;
@@ -1061,7 +1061,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
            compteurDoublons := compteurDoublons + 1;
          end;
 
-      if partieLegale & not(partieDoublon)
+      if partieLegale and not(partieDoublon)
         then
           begin
             inc(nbPartiesDansFic);
@@ -1086,7 +1086,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
               else
                 begin
                   ChangeFontColorDansRapport(RougeCmd);
-                  if not((format = kTypeFichierSimplementDesCoupsMultiple) & (chaineJoueurs = nomLongDuFichier)) then
+                  if not((format = kTypeFichierSimplementDesCoupsMultiple) and (chaineJoueurs = nomLongDuFichier)) then
                     begin
                       WritelnDansRapport(chaineJoueurs);
                       partieEstDouteuse := true;
@@ -1124,7 +1124,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
               end;
           end;
 
-      if not(partieLegale) & (partieEnAlpha <> '') then
+      if not(partieLegale) and (partieEnAlpha <> '') then
         begin
           inc(nbPartiesIllegales);
           TextNormalDansRapport;
@@ -1257,7 +1257,7 @@ begin
       erreurES := ReadlnDansFichierTexte(inputBaseLogKitty,s);
       ligne := s;
       EnleveEspacesDeGaucheSurPlace(ligne);
-      if (ligne = '') | (ligne[1] = '%')
+      if (ligne = '') or (ligne[1] = '%')
         then
           begin
             {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
@@ -1267,7 +1267,7 @@ begin
             Parser3(ligne,PartieEnAlpha,scoreEnChaine,numeroLigneEnChaine,reste);
 
 
-            if (PartieEnAlpha <> '') & (scoreEnChaine <> '') then
+            if (PartieEnAlpha <> '') and (scoreEnChaine <> '') then
               begin
                 inc(nbPartiesDansBaseLogKitty);
 
@@ -1277,7 +1277,7 @@ begin
                 partieEnAlpha := partie120;
 
                 TraductionAlphanumeriqueEnThor(PartieEnAlpha,partieEnThor);
-                if (GET_LENGTH_OF_PACKED_GAME(partieEnThor) <= 10) | (GET_LENGTH_OF_PACKED_GAME(partieEnThor) > 60) then
+                if (GET_LENGTH_OF_PACKED_GAME(partieEnThor) <= 10) or (GET_LENGTH_OF_PACKED_GAME(partieEnThor) > 60) then
                   begin
                     WritelnDansRapport(ReadStringFromRessource(TextesErreursID,12)+partieEnAlpha);   {'problème sur la longueur de la partie : '}
                     SysBeep(0);
@@ -1840,7 +1840,7 @@ begin
 
           if (erreurES = NoErr) then inc(compteur);
 
-          while (erreurES = NoErr) & not(EOFFichierTexte(fichierModeleHTML,erreurES)) do
+          while (erreurES = NoErr) and not(EOFFichierTexte(fichierModeleHTML,erreurES)) do
             begin
               erreurES := ReadlnDansFichierTexte(fichierModeleHTML,s);
               ligne := s;
@@ -1981,7 +1981,7 @@ begin
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Score *)
-          if PeutCalculerScoreFinalDeCettePartie(theGame,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) & partieTerminee then
+          if PeutCalculerScoreFinalDeCettePartie(theGame,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) and partieTerminee then
             begin
               if nbPionsFinalNoirs > nbPionsFinalBlancs then s := 'RE[B+'+NumEnString(nbPionsFinalNoirs - nbPionsFinalBlancs)+']' else
               if nbPionsFinalNoirs < nbPionsFinalBlancs then s := 'RE[B+'+NumEnString(nbPionsFinalBlancs - nbPionsFinalNoirs)+']' else
@@ -2002,7 +2002,7 @@ begin
         			   begin
         			     coup := GET_NTH_MOVE_OF_PACKED_GAME(theGame,t,'PeutCalculerScoreFinalDeCettePartie');
         			     trait := GetTraitOfPosition(positionEtTrait);
-        			     if ok & (coup <> 0) then
+        			     if ok and (coup <> 0) then
           			     begin
           			       ok := (UpdatePositionEtTrait(positionEtTrait, coup));
           			       if ok then
@@ -2123,7 +2123,7 @@ begin {$unused theFic}
 
   ligne := myLongString.debutLigne;
 
-  if (ligne <> '') & (ligne[1] <> '%') then
+  if (ligne <> '') and (ligne[1] <> '%') then
     begin
      if EstUnePartieOthello(ligne,true)
        then
@@ -2131,7 +2131,7 @@ begin {$unused theFic}
 
 
            TraductionAlphanumeriqueEnThor(ligne,partieEnThor);
-           if (GET_LENGTH_OF_PACKED_GAME(partieEnThor) <= 10) | (GET_LENGTH_OF_PACKED_GAME(partieEnThor) > 60)
+           if (GET_LENGTH_OF_PACKED_GAME(partieEnThor) <= 10) or (GET_LENGTH_OF_PACKED_GAME(partieEnThor) > 60)
              then
                begin
                 WritelnDansRapport(ReadStringFromRessource(TextesErreursID,12)+ligne);  {'problème sur la longueur de la partie : '}
@@ -2241,7 +2241,7 @@ begin
 
       recognized := false;
 
-      if (err = NoErr) & TypeDeFichierEstConnu(fic,infos,err)
+      if (err = NoErr) and TypeDeFichierEstConnu(fic,infos,err)
         then
   				begin
   				  recognized := true;
@@ -2258,27 +2258,27 @@ begin
   					  then err := AjouterPartiesFichierPGNDansListe('name_mapping_VOG_to_WThor.txt',fic)
 
   					else
-  					  if (infos.format = kTypeFichierSuiteDePartiePuisJoueurs) |
-  					     (infos.format = kTypeFichierSuiteDeJoueursPuisPartie) |
+  					  if (infos.format = kTypeFichierSuiteDePartiePuisJoueurs) or
+  					     (infos.format = kTypeFichierSuiteDeJoueursPuisPartie) or
   					     (infos.format = kTypeFichierGGFMultiple)
   					    then err := AjouterPartiesFichierDestructureDansListe(infos.format,fic)
 
   					else
-  					  if (infos.format = kTypeFichierTHOR_PAR) & (infos.tailleOthellier = 8)
+  					  if (infos.format = kTypeFichierTHOR_PAR) and (infos.tailleOthellier = 8)
 					      then err := AjouterPartiesFichierTHOR_PARDansListe(fic)
 
   					else
-  					  if ((infos.format = kTypeFichierCassio)                |
-  					      (infos.format = kTypeFichierSGF)                   |
-  					      (infos.format = kTypeFichierGGF)                   |
-                  (infos.format = kTypeFichierHTMLOthelloBrowser)    |
-                  (infos.format = kTypeFichierTranscript)            |
-                  (infos.format = kTypeFichierZebra)                 |
-                  (infos.format = kTypeFichierEPS)                   |
-                  (infos.format = kTypeFichierExportTexteDeZebra)    |
-                  (infos.format = kTypeFichierSimplementDesCoups)    |
+  					  if ((infos.format = kTypeFichierCassio)                or
+  					      (infos.format = kTypeFichierSGF)                   or
+  					      (infos.format = kTypeFichierGGF)                   or
+                  (infos.format = kTypeFichierHTMLOthelloBrowser)    or
+                  (infos.format = kTypeFichierTranscript)            or
+                  (infos.format = kTypeFichierZebra)                 or
+                  (infos.format = kTypeFichierEPS)                   or
+                  (infos.format = kTypeFichierExportTexteDeZebra)    or
+                  (infos.format = kTypeFichierSimplementDesCoups)    or
                   (infos.format = kTypeFichierLigneAvecJoueurEtPartie))
-                  & (infos.tailleOthellier = 8)
+                  and (infos.tailleOthellier = 8)
                   then
                     begin
                       partieEstDouteuse := false;
@@ -2363,7 +2363,7 @@ begin
   			  end;
 
 
-  		if not(recognized) & (GetNameOfFSSpec(fic.theFSSpec)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
+  		if not(recognized) and (GetNameOfFSSpec(fic.theFSSpec)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
   		  EcritNomFichierNonReconnuDansRapport(fic);
 
    end;
@@ -2386,7 +2386,7 @@ begin
       {WritelnDansRapport('*************  Entrée dans ImporterToutesPartiesRepertoire…  ******************');}
       tick := Tickcount;
 
-      if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire) then
+      if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire) then
         erreurES := MetJoueursEtTournoisEnMemoire(false);
 
       (* on efface les caches des pseudos car l'utilisateur peut avoir changé le
@@ -2612,7 +2612,7 @@ end;
 </td>
 <tr align="center">
  <td>
-<center>semi-finals & finals</center>
+<center>semi-finals and finals</center>
 </td>
 <td><a href="woc2008_round_final.htm?tag=1">1</a> out of 8 transcripts (13%)
 </td>
@@ -2662,7 +2662,7 @@ We plan to publish a photo of each transcript sheet of the WOC 2008 on Flickr.co
 			<a target="_blank" href="http://www.anjar.com/">
 			<img border="0" src="images/anjarlogo_sm.gif" width="99" height="34" alt="Anjar"></a>
 			 <br>
-			Othello &reg; is a registered<br> trademark of Anjar Co.
+			Othello andreg; is a registered<br> trademark of Anjar Co.
 		 </td><td align="center">
 			<a target="_blank" href="http://www.megahouse.co.jp/">
 			<img border="0" src="images/MegaHouse.jpg" width="90" height="117" alt="Megahouse"></a>

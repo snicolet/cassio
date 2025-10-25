@@ -169,7 +169,7 @@ end;
 function TrouvePlaceDansPageDeABR(var nroPage,nroIndex : SInt32) : boolean;
 var n,i,k : SInt32;
 begin
-  if (dernierePageABRCree <= 0) & not(PeutCreerNouvellePageABR) then
+  if (dernierePageABRCree <= 0) and not(PeutCreerNouvellePageABR) then
     begin
       TrouvePlaceDansPageDeABR := false;
       nroPage := -1;
@@ -201,7 +201,7 @@ begin
       if (n < 1) then n := n + dernierePageABRCree;
       if ReserveDeABR[n] <> NIL then
         with ReserveDeABR[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -218,7 +218,7 @@ begin
       if (n < 1) then n := n + dernierePageABRCree;
       if ReserveDeABR[n] <> NIL then
         with ReserveDeABR[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -272,7 +272,7 @@ begin
 	      with ReserveDeABR[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleABRBuffer-1)*sizeof(ABRRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleABRBuffer-1)*sizeof(ABRRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -290,7 +290,7 @@ begin
 	      with ReserveDeABR[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleABRBuffer-1)*sizeof(ABRRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleABRBuffer-1)*sizeof(ABRRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -332,11 +332,11 @@ begin
                   if IndexDansPage = premierEmplacementVide then
 			              repeat
 			                inc(premierEmplacementVide);
-			              until libre[premierEmplacementVide] | (premierEmplacementVide >= dernierEmplacementVide) | (premierEmplacementVide > TailleABRBuffer);
+			              until libre[premierEmplacementVide] or (premierEmplacementVide >= dernierEmplacementVide) or (premierEmplacementVide > TailleABRBuffer);
                   if IndexDansPage = dernierEmplacementVide then
 			              repeat
 			                dec(dernierEmplacementVide);
-			              until libre[dernierEmplacementVide] | (dernierEmplacementVide <= premierEmplacementVide) | (dernierEmplacementVide < 1);
+			              until libre[dernierEmplacementVide] or (dernierEmplacementVide <= premierEmplacementVide) or (dernierEmplacementVide < 1);
                 end;
           end
       end
@@ -357,8 +357,8 @@ begin
   LocaliserABRDansSaPage(x,nroDePage,nroIndex);
 
 
-  if (nroDePage >= 1) & (nroDePage <= nbPagesDeABR) &
-     (nroIndex  >= 1) & (nroIndex  <= TailleABRBuffer) &
+  if (nroDePage >= 1) and (nroDePage <= nbPagesDeABR) and
+     (nroIndex  >= 1) and (nroIndex  <= TailleABRBuffer) and
      (ReserveDeABR[nroDePage] <> NIL) then
     with ReserveDeABR[nroDePage]^ do
       begin

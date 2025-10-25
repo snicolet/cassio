@@ -241,14 +241,14 @@ begin
 	          err := GetEventParameter( whichEvent, kEventParamMouseWheelAxis, typeMouseWheelAxis, NIL, sizeof(axis), NIL, @axis );
 	          if (err = NoErr) then err := GetEventParameter( whichEvent, kEventParamMouseWheelDelta, typeLongInteger, NIL, sizeof(deltaLignes), NIL, @deltaLignes );
 
-	          if (err = NoErr) & (axis = kEventMouseWheelAxisY) then
+	          if (err = NoErr) and (axis = kEventMouseWheelAxisY) then
 	            deltaLignesToScroll := deltaLignes;
 
-	          (*if (err = NoErr) & (axis = kEventMouseWheelAxisY) then
+	          (*if (err = NoErr) and (axis = kEventMouseWheelAxisY) then
 	            WritelnNumDansRapport('deltaLignesToScroll {1} = ',deltaLignesToScroll); *)
 
 	          if false then
-	          if (err = NoErr) & (axis = kEventMouseWheelAxisX) then
+	          if (err = NoErr) and (axis = kEventMouseWheelAxisX) then
 	            begin
 
 
@@ -285,7 +285,7 @@ begin
     	                    // coups de roulette horizontal trop rapproches => on neglige
 
 
-    	                    if ((1.0*deplacementHorizontal/(deltaTemps+1)) >= vitesse) &
+    	                    if ((1.0*deplacementHorizontal/(deltaTemps+1)) >= vitesse) and
     	                       (deplacementHorizontal >= 40)
   	                        then
   	                          begin
@@ -313,9 +313,9 @@ begin
     	                else
     	                  begin
 
-  	                      if (deltaTemps <> 0) &
-  	                         ((1.0*deplacementHorizontal/deltaTemps) >= vitesse) &
-  	                         (deltaTemps <= 10) &
+  	                      if (deltaTemps <> 0) and
+  	                         ((1.0*deplacementHorizontal/deltaTemps) >= vitesse) and
+  	                         (deltaTemps <= 10) and
   	                         (deplacementHorizontal >= 40)
   	                        then
   	                          begin
@@ -394,7 +394,7 @@ begin
 
   if (deltaLignesToScroll <> 0) then
     begin
-      if windowListeOpen & (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
+      if windowListeOpen and (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
          with infosListeParties do
            begin
              ancPosPouce := positionPouceAscenseurListe;
@@ -403,7 +403,7 @@ begin
              if ancPosPouce <> positionPouceAscenseurListe then
                EcritListeParties(false,'MouseWeelHandler');
            end else
-       if FenetreRapportEstOuverte & (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
+       if FenetreRapportEstOuverte and (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
          begin
            if (deltaLignesToScroll < 0) then
              for i := 1 to Abs(deltaLignesToScroll) do

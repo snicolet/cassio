@@ -316,7 +316,7 @@ begin
 
   GererRapportSafe;
 
-  if not(gameOver) | CassioEstEnTrainDeCalculerPourLeZoo then
+  if not(gameOver) or CassioEstEnTrainDeCalculerPourLeZoo then
     begin
 
       {gotEvent := HasGotEvent(EveryEvent,theEvent,kWNESleep,gMouseRegionForWaitNextEvent);}
@@ -335,13 +335,13 @@ begin
           end;
 
       with reveilRegulierDuMac do
-        if necessaire & ((TickCount-tickDerniereFois) >= 3600) {plus d'une minute ?}
+        if necessaire and ((TickCount-tickDerniereFois) >= 3600) {plus d'une minute ?}
           then DoReveilDuMac;
 
-      if ((TickCount - dernierTick) >= 60) | ((TickCount - gEtatDuReseau.dateDernierAffichageEtat) >= 60)
+      if ((TickCount - dernierTick) >= 60) or ((TickCount - gEtatDuReseau.dateDernierAffichageEtat) >= 60)
         then AfficheEtatDuReseau(GetLastEtatDuReseauAffiche);
 
-      if ((nbreCoup >= 1) | CassioEstEnTrainDeTracerLeNuage | CassioEstEnTrainDeCalculerPourLeZoo) &
+      if ((nbreCoup >= 1) or CassioEstEnTrainDeTracerLeNuage or CassioEstEnTrainDeCalculerPourLeZoo) and
          ((TickCount-dernierTick) >= 60)
         then
     	    begin
@@ -362,13 +362,13 @@ begin
     	            else nbreNoeudsGeneresFinale := nbreNoeudsGeneresFinale + MyTrunc((1000 * GetSpeedOfEngine * temps));
     	        end;
 
-    	      if (nbreCoup >= 1) & not(enRetour) then
+    	      if (nbreCoup >= 1) and not(enRetour) then
     	        Heure(couleur);
 
-    	      if (gEnRechercheSolitaire |
-                gEnEntreeSortieLongueSurLeDisque |
-                CassioEstEnTrainDeTracerLeNuage |
-                CassioEstEnTrainDeReflechir |
+    	      if (gEnRechercheSolitaire or
+                gEnEntreeSortieLongueSurLeDisque or
+                CassioEstEnTrainDeTracerLeNuage or
+                CassioEstEnTrainDeReflechir or
                 CassioEstEnTrainDeCalculerPourLeZoo)
                 then dernierTick := TickCount;
 
@@ -398,26 +398,26 @@ begin
     	  else
     	    begin
 
-    	      if (nbreCoup <= 0) & (gEnRechercheSolitaire |
-    	                            gEnEntreeSortieLongueSurLeDisque |
-    	                            CassioEstEnTrainDeTracerLeNuage  |
-    	                            CassioEstEnTrainDeReflechir |
+    	      if (nbreCoup <= 0) and (gEnRechercheSolitaire or
+    	                            gEnEntreeSortieLongueSurLeDisque or
+    	                            CassioEstEnTrainDeTracerLeNuage  or
+    	                            CassioEstEnTrainDeReflechir or
     	                            CassioEstEnTrainDeCalculerPourLeZoo)
     	        then dernierTick := TickCount;
 
     	    end;
 
       with affichageReflexion do
-        if doitAfficher & demandeEnSuspend &
+        if doitAfficher and demandeEnSuspend and
            ((Tickcount - tickDernierAffichageReflexion) >= 25) {toutes les demi secondes environ}
            then EcritReflexion('DoSystemTask');
 
 
       if (TickCount - DateOfLastKeyDownEvent < 60)
-         & (HumCtreHum
-            | (not(analyseRetrograde.enCours)
-               & (windowListeOpen | windowStatOpen)
-               & ZebraBookACetteOption(kAfficherNotesZebraSurOthellier + kAfficherCouleursZebraSurOthellier + kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)))
+         and (HumCtreHum
+            or (not(analyseRetrograde.enCours)
+               and (windowListeOpen or windowStatOpen)
+               and ZebraBookACetteOption(kAfficherNotesZebraSurOthellier + kAfficherCouleursZebraSurOthellier + kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)))
         then SetDelaiAvantDoSystemTask(delaiAvantDoSystemTask + (latenceEntreDeuxDoSystemTask div 10), 'DoSystemTask {1}')
         else SetDelaiAvantDoSystemTask(delaiAvantDoSystemTask + latenceEntreDeuxDoSystemTask , 'DoSystemTask {2}');
 
@@ -425,7 +425,7 @@ begin
 
 
       (*
-      if CassioEstEnTrainDeCalculerPourLeZoo & (delaiAvantDoSystemTask > 15)
+      if CassioEstEnTrainDeCalculerPourLeZoo and (delaiAvantDoSystemTask > 15)
         then SetDelaiAvantDoSystemTask(15, 'DoSystemTask {3}');
       *)
 
@@ -438,9 +438,9 @@ begin
      deltaJob  := Tickcount - DateDerniereDemandeDeJobAuZoo;
      deltaPing := TickCount - DateDernierPingAuZoo;
 
-     if (delaiAvantDoSystemTask > 2) &
-        (((deltaRes <= 100) & (deltaJob <= 100)) | (deltaPing <= 200)) &
-        CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo
+     if (delaiAvantDoSystemTask > 2) and
+        (((deltaRes <= 100) and (deltaJob <= 100)) or (deltaPing <= 200)) and
+        CassioPeutDonnerDuTempsAuZoo and CassioDoitRentrerEnContactAvecLeZoo
         then
           begin
             {WritelnDansRapport('accel delai !');}
@@ -449,7 +449,7 @@ begin
 
       GererLiveUndo;
 
-      if (DemandeCalculsPourBase.EtatDesCalculs = kCalculsDemandes) & not(CassioVaJouerInstantanement)
+      if (DemandeCalculsPourBase.EtatDesCalculs = kCalculsDemandes) and not(CassioVaJouerInstantanement)
         then TraiteDemandeCalculsPourBase('DoSystemTask');
 
       if gDemandeAffichageZebraBook.enAttente
@@ -474,12 +474,12 @@ var CassioReflechitIntensement : boolean;
 begin
   oldkWNESleep := kWNESleep;
 
-  if CassioIsWaitingAnEngineResult & (interruptionReflexion = pasdinterruption) & not(Quitter)
+  if CassioIsWaitingAnEngineResult and (interruptionReflexion = pasdinterruption) and not(Quitter)
     then
       begin
         {WritelnDansRapport('0');}
         x := DurationOfLastResultReceivedByEngine;
-        if (x < 0.02) & (Tickcount - DateOfLastActivityByEngine <= 1)
+        if (x < 0.02) and (Tickcount - DateOfLastActivityByEngine <= 1)
           then kWNESleep := 1
           else
             if (x < 0.2)
@@ -488,11 +488,11 @@ begin
         exit(AjusteSleep);
       end;
 
-  if Quitter | humainVeutAnnuler | (interruptionReflexion <> pasdinterruption) | CassioEstEnTrainDeCalculerLaListe |
-     gEnRechercheSolitaire | gEnEntreeSortieLongueSurLeDisque | RechercheDeProblemeDePriseDeCoinEnCours |
-     CassioEstEnTrainDeLireLaBibliothequeDeZebra | ZebraBookDemandeAccelerationDesEvenements | CassioEstEnTrainDeTracerLeNuage |
-     UtilisateurEstEnTrainDeSurvolerLeNuage | enTournoi | CassioEstEnTrainDeCorrigerUnTranscript |
-     ((CassioEstEnTrainDeCalculerPourLeZoo | CassioEstEnTrainDeReflechir) & not(enRetour | enSetUp))
+  if Quitter or humainVeutAnnuler or (interruptionReflexion <> pasdinterruption) or CassioEstEnTrainDeCalculerLaListe or
+     gEnRechercheSolitaire or gEnEntreeSortieLongueSurLeDisque or RechercheDeProblemeDePriseDeCoinEnCours or
+     CassioEstEnTrainDeLireLaBibliothequeDeZebra or ZebraBookDemandeAccelerationDesEvenements or CassioEstEnTrainDeTracerLeNuage or
+     UtilisateurEstEnTrainDeSurvolerLeNuage or enTournoi or CassioEstEnTrainDeCorrigerUnTranscript or
+     ((CassioEstEnTrainDeCalculerPourLeZoo or CassioEstEnTrainDeReflechir) and not(enRetour or enSetUp))
     then
       begin
         kWNESleep := 0;   { Cassio gets 100% CPU }
@@ -500,7 +500,7 @@ begin
       end
     else
       begin
-        CassioReflechitIntensement := CassioEstEnTrainDeReflechir | CassioEstEnTrainDeCalculerPourLeZoo;
+        CassioReflechitIntensement := CassioEstEnTrainDeReflechir or CassioEstEnTrainDeCalculerPourLeZoo;
         if LiveUndoEnCours
           then
             begin
@@ -511,9 +511,9 @@ begin
             end
           else
             begin
-              if gameOver | enSetUp | enRetour | (nbreCoup <= 0) |
-                 ((AQuiDeJouer <> couleurMacintosh) & not(CassioDoitReflechirSurLeTempsAdverseDansConfigurationCourante) & not(CassioEstEnModeAnalyse) & not(CassioReflechitIntensement)) |
-                 (not(CassioReflechitIntensement) & AttenteAnalyseDeFinaleDansPositionCourante)
+              if gameOver or enSetUp or enRetour or (nbreCoup <= 0) or
+                 ((AQuiDeJouer <> couleurMacintosh) and not(CassioDoitReflechirSurLeTempsAdverseDansConfigurationCourante) and not(CassioEstEnModeAnalyse) and not(CassioReflechitIntensement)) or
+                 (not(CassioReflechitIntensement) and AttenteAnalyseDeFinaleDansPositionCourante)
                 then
                   begin
                     if (gEtatDuReseau.nbreRequetesSansReponse > 1)
@@ -522,8 +522,8 @@ begin
                     {WritelnDansRapport('3');}
                   end
                 else
-                  if HumCtreHum |
-                     ((AQuiDeJouer <> couleurMacintosh) & (reponsePrete | (nbreCoup <= 0)) & not(CassioReflechitIntensement))
+                  if HumCtreHum or
+                     ((AQuiDeJouer <> couleurMacintosh) and (reponsePrete or (nbreCoup <= 0)) and not(CassioReflechitIntensement))
                     then
                       begin
                         if (gEtatDuReseau.nbreRequetesSansReponse > 1)
@@ -548,14 +548,14 @@ begin
   deltaJob  := Tickcount - DateDerniereDemandeDeJobAuZoo;
   deltaPing := TickCount - DateDernierPingAuZoo;
 
-  if (kWNESleep > 2) &
-     (((deltaRes <= 100) & (deltaJob <= 100)) | (deltaPing <= 200)) &
-     CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo
+  if (kWNESleep > 2) and
+     (((deltaRes <= 100) and (deltaJob <= 100)) or (deltaPing <= 200)) and
+     CassioPeutDonnerDuTempsAuZoo and CassioDoitRentrerEnContactAvecLeZoo
      then kWNESleep := 2;
 
 
-  if (kWNESleep > 0) & (deltaRes <= 2) &
-     CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo &
+  if (kWNESleep > 0) and (deltaRes <= 2) and
+     CassioPeutDonnerDuTempsAuZoo and CassioDoitRentrerEnContactAvecLeZoo and
      (NumberOfPrefetch > 0)
      then
        begin
@@ -563,7 +563,7 @@ begin
          kWNESleep := 0;
        end;
 
-  if (kWNESleep > 2) & CassioPeutDonnerDuTempsAuZoo & CassioDoitRentrerEnContactAvecLeZoo
+  if (kWNESleep > 2) and CassioPeutDonnerDuTempsAuZoo and CassioDoitRentrerEnContactAvecLeZoo
     then kWNESleep := 2;
 
   (*
@@ -592,7 +592,7 @@ end;
 
 procedure SetCadenceAutreQueAnalyse(cadenceAutreQueAnalyse : SInt32; avecJeuInstantane : boolean);
 begin
-  if (cadenceAutreQueAnalyse <> minutes10000000) &
+  if (cadenceAutreQueAnalyse <> minutes10000000) and
      (cadenceAutreQueAnalyse >= minutes3) then
     begin
       gCadenceAutreQueModeAnalyse   := cadenceAutreQueAnalyse;
@@ -651,7 +651,7 @@ var nbCoupRestant : SInt32;
     tempsEcoule : SInt32;
     aux,foo : SInt32;
 begin
-  if analyseRetrograde.enCours & (n >= 0) & (n <= 60)
+  if analyseRetrograde.enCours and (n >= 0) and (n <= 60)
     then
       begin
         TempsPourCeCoup := analyseRetrograde.demande[n,analyseRetrograde.numeroPasse].tempsAlloueParCoup
@@ -669,7 +669,7 @@ begin
 						  if nbCoupRestant <> 0
 						    then aux := (GetCadence - tempsEcoule) div nbCoupRestant
 						    else aux := 10;
-						  if (aux <= 1) & enTournoi then aux := 2;
+						  if (aux <= 1) and enTournoi then aux := 2;
 						  if (aux <= 0) then aux := 5;
 						  TempsPourCeCoup := aux;
 						end;
@@ -721,10 +721,10 @@ begin
                  SI ON CHANGE QUELQUE CHOSE DANS CETTE ROUTINE  !!
   *)
 
-  if attenteAnalyseDeFinale.activee | (mode = kForceInvalidate) then
+  if attenteAnalyseDeFinale.activee or (mode = kForceInvalidate) then
     begin
-      if (mode = kForceInvalidate) | HumCtreHum | (AQuiDeJouer <> couleurMacintosh) |
-         not(CassioEstEnModeAnalyse) | not(AttenteAnalyseDeFinaleDansPositionCourante) then
+      if (mode = kForceInvalidate) or HumCtreHum or (AQuiDeJouer <> couleurMacintosh) or
+         not(CassioEstEnModeAnalyse) or not(AttenteAnalyseDeFinaleDansPositionCourante) then
         begin
           InvalidateAnalyseDeFinale;
           ReinitilaliseInfosAffichageReflexion;
@@ -748,9 +748,9 @@ end;
 
 function EstLeCoupParfaitAfficheCommeSuggestionDeFinale(whichMove : SInt32) : boolean;
 begin
-  if afficheSuggestionDeCassio &
-     SuggestionAnalyseDeFinaleEstDessinee &
-    (GetBestMoveAttenteAnalyseDeFinale = whichMove) &
+  if afficheSuggestionDeCassio and
+     SuggestionAnalyseDeFinaleEstDessinee and
+    (GetBestMoveAttenteAnalyseDeFinale = whichMove) and
      AttenteAnalyseDeFinaleDansPositionCourante
     then EstLeCoupParfaitAfficheCommeSuggestionDeFinale := true
     else EstLeCoupParfaitAfficheCommeSuggestionDeFinale := false;
@@ -760,7 +760,7 @@ end;
 function AttenteAnalyseDeFinaleDansPositionCourante : boolean;
 begin
   AttenteAnalyseDeFinaleDansPositionCourante  :=
-      attenteAnalyseDeFinale.activee &
+      attenteAnalyseDeFinale.activee and
       EstLaPositionCourante(attenteAnalyseDeFinale.position);
 end;
 
@@ -801,7 +801,7 @@ var doitReflechir : boolean;
 begin
   with config do
     begin
-      if jeuEstInstantane & (niveauDeJeuInstantane < NiveauGrandMaitres) & (nombreDeCoupsJoues <= 40)
+      if jeuEstInstantane and (niveauDeJeuInstantane < NiveauGrandMaitres) and (nombreDeCoupsJoues <= 40)
         then doitReflechir := false
         else doitReflechir := not(sansReflexionSurTempsAdversaire);
     end;
@@ -869,7 +869,7 @@ begin
         compteur := 0;
       end;
     (* code typique *)
-    if (compteur > b) | ((BAnd((compteur - 30) , 1023) <> 0))
+    if (compteur > b) or ((BAnd((compteur - 30) , 1023) <> 0))
        then a := 2*compteur;
 
     {autre code typique : gestion du temps }
@@ -884,7 +884,7 @@ begin
           end;
       end;
 
-  until ((TickCount-tickDepart) > 30) | (Abs(a-b) < 0);
+  until ((TickCount-tickDepart) > 30) or (Abs(a-b) < 0);
 
   resultat := 1000*nbToursCompteur + ((compteur + 500) div 1000);
 
@@ -976,7 +976,7 @@ begin
      finDePartieOptimaleVitesseMac := finDePartieOptimaleVitesseMac-1;
     end;
 
-  if debuggage.general & windowPlateauOpen then
+  if debuggage.general and windowPlateauOpen then
     begin
       SetPortByWindow(wPlateauPtr);
       WriteNumAt('EtalonnageVitesseMac :  indiceVitesseMac = ',vitesse,100,100);
@@ -1028,7 +1028,7 @@ begin
   if temporisation > 240  then temporisation := 240;  {4 sec.}
   if temporisation < 10   then temporisation := 10;    {1/6eme de sec}
 
-  if (nbreCoup >= 0) & (nbreCoup <= 60) & (partie <> NIL) then
+  if (nbreCoup >= 0) and (nbreCoup <= 60) and (partie <> NIL) then
     begin
       dateDuDernierCoup := partie^^[nbreCoup].tickDuCoup;
 
@@ -1071,8 +1071,8 @@ begin
   if not(avecDelaiDeRetournementDesPions)
     then enleverTemporisation := 1;
 
-  if (Abs(TickCount - DateOfLastKeyDownEvent) < 60) &
-     (HumCtreHum | (nbreCoup > 1)) then
+  if (Abs(TickCount - DateOfLastKeyDownEvent) < 60) and
+     (HumCtreHum or (nbreCoup > 1)) then
     begin
       enleverTemporisation := 2;
       (* WritelnNumDansRapport('DateOfLastKeyDownEvent = ',DateOfLastKeyDownEvent);
@@ -1147,24 +1147,24 @@ end;
 function CassioVaJouerInstantanement : boolean;
 var choice,bestDef : SInt32;
 begin
-  if not(HumCtreHum) & not(CassioEstEnModeAnalyse) &
-     (AQuiDeJouer = couleurMacintosh) & not(enTournoi) & not(Quitter) & not(gameOver) then
+  if not(HumCtreHum) and not(CassioEstEnModeAnalyse) and
+     (AQuiDeJouer = couleurMacintosh) and not(enTournoi) and not(Quitter) and not(gameOver) then
     begin
-      if reponsePrete & (phaseDeLaPartie >= phaseFinale) & not(CassioEstEnModeSolitaire) then
+      if reponsePrete and (phaseDeLaPartie >= phaseFinale) and not(CassioEstEnModeSolitaire) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car reponsePrete)');}
           CassioVaJouerInstantanement := true;
           exit(CassioVaJouerInstantanement);
         end;
 
-      if jeuInstantane & (phaseDeLaPartie <= phaseMilieu) then
+      if jeuInstantane and (phaseDeLaPartie <= phaseMilieu) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car jeuInstantane)');}
           CassioVaJouerInstantanement := true;
           exit(CassioVaJouerInstantanement);
         end;
 
-      if (nbreCoup >= 45) & (phaseDeLaPartie >= phaseFinale) & (phaseDeLaPartie < phaseFinale) then
+      if (nbreCoup >= 45) and (phaseDeLaPartie >= phaseFinale) and (phaseDeLaPartie < phaseFinale) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car nbreCoup >= 50)');}
           CassioVaJouerInstantanement := true;
@@ -1178,7 +1178,7 @@ begin
           exit(CassioVaJouerInstantanement);
         end;
 
-      if (phaseDeLaPartie >= phaseFinale) & ((interruptionReflexion = pasdinterruption) | vaDepasserTemps) &
+      if (phaseDeLaPartie >= phaseFinale) and ((interruptionReflexion = pasdinterruption) or vaDepasserTemps) and
          ConnaitSuiteParfaite(choice,bestDef,false) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car ConnaitSuiteParfaite)');}
@@ -1304,8 +1304,8 @@ begin
             if (typedeCalculALancer <> k_AUCUN_CALCUL)
               then
                 begin
-                  if (typeInterruption = interruptionSimple) &
-                     (jeuInstantane & (NiveauJeuInstantane < NiveauGrandMaitres) & (nbreCoup <= 40))
+                  if (typeInterruption = interruptionSimple) and
+                     (jeuInstantane and (NiveauJeuInstantane < NiveauGrandMaitres) and (nbreCoup <= 40))
                      then
                        begin
                          if typedeCalculALancer = k_PREMIER_COUP_MAC then PremierCoupMac;
@@ -1386,7 +1386,7 @@ var compteur : SInt32;
 begin
   compteur := 0;
 
-  while (compteur < 20) & (gDemandesChangementsDeConfig.flags <> 0) do
+  while (compteur < 20) and (gDemandesChangementsDeConfig.flags <> 0) do
     begin
       inc(compteur);
 
@@ -1427,7 +1427,7 @@ begin
 
 
   (*
-  if (newValue > 20) | (newValue = 2) then
+  if (newValue > 20) or (newValue = 2) then
     begin
       yAff := yAff + 10;
       if yAff > 800 then yAff := 10;
@@ -1473,7 +1473,7 @@ var aux,seco : SInt32;
   var nbheures : SInt32;
       s2 : String255;
   begin
-    if (nbmin >= 60) & not((GetCadence = minutes10000000) & decrementetemps)
+    if (nbmin >= 60) and not((GetCadence = minutes10000000) and decrementetemps)
       then
         begin
           heuresAffichees := true;
@@ -1492,7 +1492,7 @@ var aux,seco : SInt32;
   end;
 
 begin
-  if windowPlateauOpen & not(enRetour) then
+  if windowPlateauOpen and not(enRetour) then
     begin
       aux := TickCount-dernierTick;
       dernierTick := TickCount-(aux mod 60);
@@ -1548,7 +1548,7 @@ begin
         end;
 
 
-      if not(EnModeEntreeTranscript | enSetUp) then
+      if not(EnModeEntreeTranscript or enSetUp) then
         begin
           PrepareTexteStatePourHeure;
           case couleur of
@@ -1558,10 +1558,10 @@ begin
                     then SetRect(lignerect,posHblancs,posVblancs+1,posHblancs+67,posVblancs+10)
                     else SetRect(lignerect,posHblancs,posVblancs+1,posHblancs+67,posVblancs+12);
                   EraseRectDansWindowPlateau(lignerect);
-                  if (GetCadence <> minutes10000000) & not(heuresAffichees) then
+                  if (GetCadence <> minutes10000000) and not(heuresAffichees) then
                     OffsetRect(lignerect,5,0);
                   Moveto(lignerect.left,lignerect.bottom);
-                  if (GetCadence = minutes10000000) & decrementetemps
+                  if (GetCadence = minutes10000000) and decrementetemps
                     then
                       begin
                         TextFace(normal);
@@ -1579,10 +1579,10 @@ begin
                     then SetRect(lignerect,posHNoirs,posVNoirs+1,posHNoirs+67,posVNoirs+10)
                     else SetRect(lignerect,posHNoirs,posVNoirs+1,posHNoirs+67,posVNoirs+12);
                   EraseRectDansWindowPlateau(lignerect);
-                  if (GetCadence <> minutes10000000) & not(heuresAffichees) then
+                  if (GetCadence <> minutes10000000) and not(heuresAffichees) then
                     OffsetRect(lignerect,5,0);
                   Moveto(lignerect.left,lignerect.bottom);
-                  if (GetCadence = minutes10000000) & decrementetemps
+                  if (GetCadence = minutes10000000) and decrementetemps
                     then
                       begin
                         TextFace(normal);
@@ -1603,8 +1603,8 @@ begin
       with tempsDesJoueurs[couleur] do
         if sec = 0 then
           if cadenceMin-minimum = 0 then
-            if not(HumCtreHum) & (couleur = -couleurMacintosh) & avecSon then
-              if not(analyseRetrograde.enCours | enTournoi | gGongDejaSonneDansCettePartie) then
+            if not(HumCtreHum) and (couleur = -couleurMacintosh) and avecSon then
+              if not(analyseRetrograde.enCours or enTournoi or gGongDejaSonneDansCettePartie) then
               begin
                 PlaySoundSynchrone(kSonGongID, kVolumeSonDesCoups);
                 dernierTick := TickCount;
@@ -1717,15 +1717,15 @@ begin
 
 
   {si Cassio reflechissait sur son temps, peut-etre faut-il l'accélérer}
-  if not(HumCtreHum) & (AQuiDeJouer = couleurMacintosh) then
+  if not(HumCtreHum) and (AQuiDeJouer = couleurMacintosh) then
     begin
-      if (phaseDeLaPartie <= phaseMilieu) & (((tempsPrevu div 60) > tempsAlloue) | jeuInstantane) then
+      if (phaseDeLaPartie <= phaseMilieu) and (((tempsPrevu div 60) > tempsAlloue) or jeuInstantane) then
         if PeutArreterAnalyseRetrograde then
           DoForcerMacAJouerMaintenant;
     end;
 
   {si Cassio reflechissait sur le temps adverse et que l'on passe en analyse, on l'arrete}
-  if not(HumCtreHum) & (AQuiDeJouer <> couleurMacintosh) & (nbreCoup > 0) &
+  if not(HumCtreHum) and (AQuiDeJouer <> couleurMacintosh) and (nbreCoup > 0) and
      (GetCadence = minutes10000000) then
     begin
       if PeutArreterAnalyseRetrograde then
@@ -1858,26 +1858,26 @@ procedure DoCadence;
 
       repeat
         ModalDialog(FiltreCadenceDialogUPP,itemHit);
-        if (itemHit <> OK) & (itemHit <> Annuler) then
+        if (itemHit <> OK) and (itemHit <> Annuler) then
           begin
 
-            if (itemHit >= gCadencesRadios.firstButton) & (itemHit <= gCadencesRadios.lastButton)
+            if (itemHit >= gCadencesRadios.firstButton) and (itemHit <= gCadencesRadios.lastButton)
              then PushRadio(dp,gCadencesRadios,itemHit);
 
-            if (itemHit >= BoutonAutre) & (itemHit <= StaticMinutes) then
+            if (itemHit >= BoutonAutre) and (itemHit <= StaticMinutes) then
               begin
                 PushRadio(dp,gCadencesRadios,BoutonAutre);
-                if (itemHit = TextHeures) | (itemHit = TextMinutes) then
+                if (itemHit = TextHeures) or (itemHit = TextMinutes) then
                   begin
                     GetItemTextInDialog(dp,itemHit,s);
                     s1 := '';
                     for i := 1 to LENGTH_OF_STRING(s) do
-                      if (s[i] >= '0') & (s[i] <= '9') then s1 := s1 + s[i];
+                      if (s[i] >= '0') and (s[i] <= '9') then s1 := s1 + s[i];
                     if LENGTH_OF_STRING(s1) > 0 then
                       begin
                         ChaineToLongint(s1,unlong);
                         s1 := NumEnString(unlong);
-                        if (unlong = 0) & (LENGTH_OF_STRING(s1) = 0) then s1 := '';
+                        if (unlong = 0) and (LENGTH_OF_STRING(s1) = 0) then s1 := '';
                       end;
                     if LENGTH_OF_STRING(s1) > 4 then s1 := TPCopy(s1,1,4);
                     if itemHit = TextMinutes then
@@ -1900,7 +1900,7 @@ procedure DoCadence;
               ToggleCheckBox(dp,NeJamaisTomberBox);
 
           end;
-      until (itemHit = OK) | (itemHit = Annuler);
+      until (itemHit = OK) or (itemHit = Annuler);
 
       if itemHit = Annuler
         then
@@ -1920,7 +1920,7 @@ procedure DoCadence;
               end;
             if GetCadence < minutes10000000 then
               begin
-                nouveauJeuInstantane := (gCadencesRadios.selection >= BoutonDebutant) & (gCadencesRadios.selection <= BoutonChampion);
+                nouveauJeuInstantane := (gCadencesRadios.selection >= BoutonDebutant) and (gCadencesRadios.selection <= BoutonChampion);
                 SetCadenceAutreQueAnalyse(GetCadence,nouveauJeuInstantane);
               end;
           end;
@@ -1933,7 +1933,7 @@ procedure DoCadence;
       MyDisposeDialog(dp);
 
       AjusteCadenceMin(GetCadence);
-      jeuInstantane := (gCadencesRadios.selection >= BoutonDebutant) &
+      jeuInstantane := (gCadencesRadios.selection >= BoutonDebutant) and
                        (gCadencesRadios.selection <= BoutonChampion);
       if jeuInstantane then
         case gCadencesRadios.selection of
@@ -2043,7 +2043,7 @@ begin
       begin
         interruptionEnCours := BXOr(interruptionEnCours , interruptionPositionADisparuDuZoo);
       end;
-   until (interruptionEnCours = pasdinterruption) |
+   until (interruptionEnCours = pasdinterruption) or
          (compteurBoucle > 15);
 
    if (interruptionEnCours <> pasdinterruption) then
@@ -2084,7 +2084,7 @@ end;
 
 procedure TraiteInterruptionBrutale(var coup,reponse : SInt32; fonctionAppelante : String255);
 begin
-  if not((BAnd(interruptionReflexion,interruptionDepassementTemps) <> 0) & vaDepasserTemps) then
+  if not((BAnd(interruptionReflexion,interruptionDepassementTemps) <> 0) and vaDepasserTemps) then
     begin
       if debuggage.gestionDuTemps then
         WritelnDansRapport('dans TraiteInterruptionBrutale, fonctionAppelante = '+fonctionAppelante);
@@ -2100,13 +2100,13 @@ end;
 
 procedure TestDepassementTemps;
 begin
-  if CassioEstEnModeSolitaire |
-     ScriptDeFinaleEnCours |
+  if CassioEstEnModeSolitaire or
+     ScriptDeFinaleEnCours or
      CalculDesScoresTheoriquesDeLaBaseEnCours
     then exit(TestDepassementTemps);
 
-  if analyseRetrograde.enCours &
-     ((((tickCount-analyseRetrograde.tickDebutCeStageAnalyse) div 60) > analyseRetrograde.tempsMaximumCeStage) |
+  if analyseRetrograde.enCours and
+     ((((tickCount-analyseRetrograde.tickDebutCeStageAnalyse) div 60) > analyseRetrograde.tempsMaximumCeStage) or
       (((tickCount-analyseRetrograde.tickDebutCettePasseAnalyse) div 60) > analyseRetrograde.tempsMaximumCettePasse)) then
     begin
       if debuggage.gestionDuTemps then
@@ -2116,14 +2116,14 @@ begin
     end;
 
   if (interruptionReflexion = pasdinterruption) then
-  if not(HumCtreHum) & (AQuiDeJouer = couleurMacintosh) then
+  if not(HumCtreHum) and (AQuiDeJouer = couleurMacintosh) then
   if not(RefleSurTempsJoueur) then
   if not(ProfondeurMilieuEstImposee) then
     begin
       if (phaseDeLaPartie >= phaseFinale)
 	      then
 	        begin
-	          if (neJamaisTomber | analyseRetrograde.enCours)  then
+	          if (neJamaisTomber or analyseRetrograde.enCours)  then
   	          if (tempsReflexionMac div 60) >= (tempsAlloue-1) then
   	            begin
   	            	if debuggage.gestionDuTemps then
@@ -2136,7 +2136,7 @@ begin
 	        end
 	      else
 	        begin
-	          if ((tempsReflexionMac div 65) > tempsAlloue) &
+	          if ((tempsReflexionMac div 65) > tempsAlloue) and
 	              (tempsAlloue < kUnMoisDeTemps) then
 	            begin
 	            	if debuggage.gestionDuTemps then
@@ -2163,14 +2163,14 @@ end;
 
 procedure SetDateEnTickDuCoupNumero(numero,date : SInt32);
 begin
-  if (numero >= 0) & (numero <= 60) then
+  if (numero >= 0) and (numero <= 60) then
     gDateDesCoups[numero] := date;
 end;
 
 
 function GetDateEnTickDuCoupNumero(numero : SInt32) : SInt32;
 begin
-  if (numero >= 0) & (numero <= 60) then
+  if (numero >= 0) and (numero <= 60) then
     GetDateEnTickDuCoupNumero := gDateDesCoups[numero];
 end;
 
@@ -2249,7 +2249,7 @@ procedure VerifierSiLeReseauEstMort(nbreRequetesSansReponse, nbreDeSecondesSansR
 begin
   // WritelnNumDansRapport('Dans VerifierSiLeReseauEstMort : nbreDeSecondeSansResultat = ',nbreDeSecondeSansResultat);
 
-  if (nbreRequetesSansReponse > 5) | (nbreDeSecondesSansReponseDuReseau > 5) then
+  if (nbreRequetesSansReponse > 5) or (nbreDeSecondesSansReponseDuReseau > 5) then
     begin
       SetZooStatus('DEAD');
       SetIntervalleVerificationDuStatutDeCassioPourLeZoo(60, NIL); // toutes les secondes
@@ -2303,16 +2303,16 @@ begin
         end;
 
 
-      if (Pos('STOP_ALL : OK',message) > 0) |
+      if (Pos('STOP_ALL : OK',message) > 0) or
          (Pos('STILL USEFUL',message) > 0)
         then exit(SetMessageEtatDuReseau);
 
-      if (Pos('SEND_SCORE : OK', message) > 0) & CassioEstEnTrainDeCalculerPourLeZoo
+      if (Pos('SEND_SCORE : OK', message) > 0) and CassioEstEnTrainDeCalculerPourLeZoo
         then exit(SetMessageEtatDuReseau);
 
 
-      if (Pos('STOPPED ',message) = 1) |
-         (Pos('COULD_NOT_STOP ',message) = 1) |
+      if (Pos('STOPPED ',message) = 1) or
+         (Pos('COULD_NOT_STOP ',message) = 1) or
          (Pos('ASKER_TAKES_IT : OK',message) > 0) then
         message := 'NO NEW RESULT  ';
 
@@ -2336,7 +2336,7 @@ end;
 procedure BouclerUnPeuAvantDeQuitterEnSurveillantLeReseau(nbreDeTicks : SInt32);
 var mytick : SInt32;
 begin
-  if Quitter & not(gEnTrainDeBouclerPourSurveillerLeReseau) then
+  if Quitter and not(gEnTrainDeBouclerPourSurveillerLeReseau) then
     begin
 
       mytick := TickCount;
@@ -2417,12 +2417,12 @@ begin
 
            usingAnEngine := CassioIsUsingAnEngine(numeroEngine);
 
-           if (prof >= empties) & (prof > 0)
+           if (prof >= empties) and (prof > 0)
              then
                begin
                  s := ReadStringFromRessource(TextesGestionID,12);  {utilisé pour la finale à ^0 : ^1 sec.}
 
-                 if ((profsuivante <= 0) & (divergAffichee > 0.0)) | (empties <= 3)
+                 if ((profsuivante <= 0) and (divergAffichee > 0.0)) or (empties <= 3)
                    then
                      begin
                        s2 := PrecisionEngineEnMuString(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties));
@@ -2441,7 +2441,7 @@ begin
                begin
                  s := ReadStringFromRessource(TextesGestionID,2);  {utilisé pour la prof. ^0 : ^1 sec.}
                  s2 := NumEnString(prof);
-                 if (effectif >= 600) | (prof <= 0)
+                 if (effectif >= 600) or (prof <= 0)
                    then s := ParamStr(s,s2,NumEnString(effectif div 60),'','')
                    else s := ParamStr(s,s2,ReelEnStringRapide(effectif/60.0),'','');
                end;
@@ -2454,14 +2454,14 @@ begin
            (*
            if not(usingAnEngine) then
              begin
-               if ((profsuivante <= 0) & (divergAffichee > 0.0) & (prof > 0))
+               if ((profsuivante <= 0) and (divergAffichee > 0.0) and (prof > 0))
                  then
                    begin
                      s := ReadStringFromRessource(TextesGestionID,4);  { "divergence : "}
                      s := s + ReelEnStringAvecDecimales(divergAffichee, 3);
                    end
                  else
-                   if (profsuivante >= empties) & (profsuivante > 0)
+                   if (profsuivante >= empties) and (profsuivante > 0)
                      then
                        begin
                          s := ReadStringFromRessource(TextesGestionID,13);  {prevu pour la finale à ^0 : ^1 sec.}
@@ -2474,7 +2474,7 @@ begin
                        begin
                          s := ReadStringFromRessource(TextesGestionID,3);   {prevu pour la prof. ^0 : ^1 sec.}
                          s2 := NumEnString(profsuivante);
-                         if (prevu >= 600) | (prof <= 0)
+                         if (prevu >= 600) or (prof <= 0)
                            then s := ParamStr(s,s2,NumEnString(prevu div 60),'','')
                            else s := ParamStr(s,s2,ReelEnStringRapide(prevu/60.0),'','');
                        end;
@@ -2502,7 +2502,7 @@ begin
                    then s := s + 'Edmond'
                    else s := s + 'Cassio';
 
-           if usingAnEngine & (GetEngineState = 'ENGINE_KILLED') & (Tickcount > DateOfLastStartOfEngine + 120)
+           if usingAnEngine and (GetEngineState = 'ENGINE_KILLED') and (Tickcount > DateOfLastStartOfEngine + 120)
              then
                s := s + ' (KILLED)'
              else
@@ -2610,16 +2610,16 @@ begin
 
                 {faire deux sommations separees pour eviter les overflow dans NodeCounter}
                 for i := 0 to 9 do
-                  if (nbreNoeudsCetteSeconde[i] > 0) &
-                     (nbreTicksCetteSeconde[i] > 0) &
+                  if (nbreNoeudsCetteSeconde[i] > 0) and
+                     (nbreTicksCetteSeconde[i] > 0) and
                      (nbreTicksCetteSeconde[i] < 1000)
                     then TickCounter := TickCounter + nbreTicksCetteSeconde[i];
 
                 if TickCounter > 0 then
 	                begin
 	                  for i := 0 to 9 do
-		                  if (nbreNoeudsCetteSeconde[i] > 0) &
-		                     (nbreTicksCetteSeconde[i] > 0) &
+		                  if (nbreNoeudsCetteSeconde[i] > 0) and
+		                     (nbreTicksCetteSeconde[i] > 0) and
 		                     (nbreTicksCetteSeconde[i] < 1000)
 		                    then NodeCounter := NodeCounter + (nbreNoeudsCetteSeconde[i] div TickCounter);
 		                NodeCounter := NodeCounter * 60;
@@ -2627,8 +2627,8 @@ begin
 		                if (NodeCounter < 1200) then
 	                    begin
 			                  for i := 0 to 9 do
-				                  if (nbreNoeudsCetteSeconde[i] > 0) &
-				                     (nbreTicksCetteSeconde[i] > 0) &
+				                  if (nbreNoeudsCetteSeconde[i] > 0) and
+				                     (nbreTicksCetteSeconde[i] > 0) and
 				                     (nbreTicksCetteSeconde[i] < 1000)
 				                    then NodeCounter := NodeCounter + nbreNoeudsCetteSeconde[i];
 				                NodeCounter := (60*NodeCounter) div TickCounter;
@@ -2658,7 +2658,7 @@ begin
               else
                 aux := 0;
 
-            if (nbreNoeudsGeneresMilieu <> lastNbreNoeudsGeneres) & (aux > 0)
+            if (nbreNoeudsGeneresMilieu <> lastNbreNoeudsGeneres) and (aux > 0)
               then
                 begin
                   if CassioIsUsingAnEngine(numeroEngine)
@@ -2740,11 +2740,11 @@ begin
 
 
 
-      if (message = '') & (TickCount - dateMessageAffiche > 300) then
+      if (message = '') and (TickCount - dateMessageAffiche > 300) then
         VerifierSiLeReseauEstMort(nbreRequetesSansReponse, (TickCount - dateMessageAffiche) div 60);
 
 
-      if windowGestionOpen & (wGestionPtr <> NIL) then
+      if windowGestionOpen and (wGestionPtr <> NIL) then
         begin
 
           nbreSecondes := ((TickCount - dateMessageAffiche) + 25) div 60;
@@ -2773,7 +2773,7 @@ begin
                      then s := 'Etat sur le zoo : ' + message +  '  (depuis ' + NumEnString(nbreSecondes) + ' sec.)'
                      else s := 'Etat sur le zoo : ' + message +  '  (depuis ' + SecondesEnJoursHeuresSecondes(nbreSecondes) + ')';
 
-               if (Pos('NO JOB', message) <= 0) | (nbreSecondes >= 3) then
+               if (Pos('NO JOB', message) <= 0) or (nbreSecondes >= 3) then
                  begin
                    posV := 88;
                    AfficheStatReseau(s);
@@ -2815,17 +2815,17 @@ begin
                with gEtatDuReseau.statsZoo do
                  begin
 
-                   if (TickCount >= dateDernierAffichageStats + 60) |
-                      (nbrePositionsPrefetched <> nbrePositionsPrefetchedAux) |
-                      (profMin                 <> profMinAux) |
-                      (profMax                 <> profMaxAux) |
-                      (tempsTotal              <> tempsTotalAux) |
-                      (tempsDeMidgame          <> tempsDeMidgameAux) |
-                      (tempsUtile              <> tempsUtileAux) |
-                      (tempsPositionCourante   <> tempsPositionCouranteAux) |
-                      (nbrePositions           <> nbrePositionsAux) |
-                      (nbrePositionsTriviales  <> nbrePositionsTrivialesAux) |
-                      (nbrePositionsMilieu     <> nbrePositionsMilieuAux) |
+                   if (TickCount >= dateDernierAffichageStats + 60) or
+                      (nbrePositionsPrefetched <> nbrePositionsPrefetchedAux) or
+                      (profMin                 <> profMinAux) or
+                      (profMax                 <> profMaxAux) or
+                      (tempsTotal              <> tempsTotalAux) or
+                      (tempsDeMidgame          <> tempsDeMidgameAux) or
+                      (tempsUtile              <> tempsUtileAux) or
+                      (tempsPositionCourante   <> tempsPositionCouranteAux) or
+                      (nbrePositions           <> nbrePositionsAux) or
+                      (nbrePositionsTriviales  <> nbrePositionsTrivialesAux) or
+                      (nbrePositionsMilieu     <> nbrePositionsMilieuAux) or
                       (nbrePositionsEnAttente  <> nbrePositionsEnAttenteAux) then
                      begin
 
@@ -2883,25 +2883,25 @@ begin
                            AfficheStatReseau(s);
                          end;
 
-                       if (tempsTotal <> 0.0) & (tempsUtile <> tempsTotal) then
+                       if (tempsTotal <> 0.0) and (tempsUtile <> tempsTotal) then
                          begin
                            s := '  Pertes dues aux annulations : ' + ReelEnString(100.0 * (tempsTotal - tempsUtile) / tempsTotal) + ' %';
                            AfficheStatReseau(s);
                          end;
 
-                       if (nbrePositions <> 0) & (nbrePositionsTriviales <> 0) then
+                       if (nbrePositions <> 0) and (nbrePositionsTriviales <> 0) then
                          begin
                            s := '  Pourcentage des positions de finale triviales (t < 0.05 sec.) : ' +  ReelEnString(100.0 * (nbrePositionsTriviales / nbrePositions)) + ' %';
                            AfficheStatReseau(s);
                          end;
 
-                       if (nbrePositions <> 0) & (nbrePositionsMilieu <> 0) then
+                       if (nbrePositions <> 0) and (nbrePositionsMilieu <> 0) then
                          begin
                            s := '  Pourcentage du nombre de positions de milieu : ' +  NumEnString(nbrePositionsMilieu) + ' positions = ' + ReelEnString(100.0 * (nbrePositionsMilieu / nbrePositions)) + ' %';
                            AfficheStatReseau(s);
                          end;
 
-                       if (tempsTotal <> 0.0) & (tempsDeMidgame <> 0.0) then
+                       if (tempsTotal <> 0.0) and (tempsDeMidgame <> 0.0) then
                          begin
                            s := '  Pourcentage du temps pour les positions de milieu : ' + ReelEnString(tempsDeMidgame) + ' sec. = ' + ReelEnString(100.0 * (tempsDeMidgame / tempsTotal)) + ' %';
                            AfficheStatReseau(s);

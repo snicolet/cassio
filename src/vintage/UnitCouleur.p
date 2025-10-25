@@ -102,8 +102,8 @@ end;
 
 function IsSameRGBColor(c1,c2 : RGBColor) : boolean;
 begin
-  IsSameRGBColor := (c1.red   = c2.red) &
-                    (c1.green = c2.green) &
+  IsSameRGBColor := (c1.red   = c2.red) and
+                    (c1.green = c2.green) and
                     (c1.blue  = c2.blue);
 end;
 
@@ -220,10 +220,10 @@ function EstUneCouleurTresClaire(whichCouleurCmd : SInt16) : boolean;
 begin
   if whichCouleurCmd = AutreCouleurCmd
     then EstUneCouleurTresClaire := RGBColorEstClaire(gCouleurSupplementaire,40000)
-    else EstUneCouleurTresClaire := (whichCouleurCmd = BlancCmd)       |
-                                    (whichCouleurCmd = JauneCmd)       |
-                                    (whichCouleurCmd = JaunePaleCmd)   |
-                                    (whichCouleurCmd = VertKakiCmd)    |
+    else EstUneCouleurTresClaire := (whichCouleurCmd = BlancCmd)       or
+                                    (whichCouleurCmd = JauneCmd)       or
+                                    (whichCouleurCmd = JaunePaleCmd)   or
+                                    (whichCouleurCmd = VertKakiCmd)    or
                                     (whichCouleurCmd = BleuPaleCmd);
 end;
 
@@ -231,21 +231,21 @@ function EstUneCouleurClaire(whichCouleurCmd : SInt16) : boolean;
 begin
   if whichCouleurCmd = AutreCouleurCmd
     then EstUneCouleurClaire := RGBColorEstClaire(gCouleurSupplementaire,20000)
-    else EstUneCouleurClaire :=  (whichCouleurCmd = BlancCmd)       |
-                                 (whichCouleurCmd = JauneCmd)       |
-                                 (whichCouleurCmd = JaunePaleCmd)   |
-                                 (whichCouleurCmd = VertKakiCmd)    |
+    else EstUneCouleurClaire :=  (whichCouleurCmd = BlancCmd)       or
+                                 (whichCouleurCmd = JauneCmd)       or
+                                 (whichCouleurCmd = JaunePaleCmd)   or
+                                 (whichCouleurCmd = VertKakiCmd)    or
                                  (whichCouleurCmd = BleuPaleCmd);
 end;
 
 
 function EstUneCouleurComposee(whichCouleurCmd : SInt16) : boolean;
 begin
-  EstUneCouleurComposee := not((whichCouleurCmd = VertCmd)   |
-                               (whichCouleurCmd = BleuCmd)   |
-                               (whichCouleurCmd = JauneCmd)  |
-                               (whichCouleurCmd = MarineCmd) |
-                               (whichCouleurCmd = MagentaCmd)|
+  EstUneCouleurComposee := not((whichCouleurCmd = VertCmd)   or
+                               (whichCouleurCmd = BleuCmd)   or
+                               (whichCouleurCmd = JauneCmd)  or
+                               (whichCouleurCmd = MarineCmd) or
+                               (whichCouleurCmd = MagentaCmd)or
                                (whichCouleurCmd = BlancCmd));
 end;
 
@@ -313,8 +313,8 @@ begin
 	   BlancCmd               : CalculePlusProcheCouleurDeBase := whiteColor;
 	   AutreCouleurCmd        :
 	      begin
-		      if (gCouleurSupplementaire.green = gPurVert.green) &
-		         (gCouleurSupplementaire.red <> gPurRouge.red) &
+		      if (gCouleurSupplementaire.green = gPurVert.green) and
+		         (gCouleurSupplementaire.red <> gPurRouge.red) and
 		         (gCouleurSupplementaire.blue <> gPurBleu.blue)
 		        then
 		          CalculePlusProcheCouleurDeBase := greenColor

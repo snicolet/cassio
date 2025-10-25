@@ -182,7 +182,7 @@ begin
   x := NIL;
   y := NIL;
   sigma := NIL;
-  if AllocatePointMultidimensionnel(n,x) &
+  if AllocatePointMultidimensionnel(n,x) and
      AllocatePointMultidimensionnel(n,y) then
     begin
       RandomizeTimer;
@@ -283,7 +283,7 @@ begin
       temperature_j_x := 0;
       temperature_j_y := 0;
     end;
-  if (changer[3] = changer[2]) | (changer[3] = changer[1]) then
+  if (changer[3] = changer[2]) or (changer[3] = changer[1]) then
     begin
       temperature_k_x := 0;
       temperature_k_y := 0;
@@ -427,8 +427,8 @@ begin
   SetCassioEstEnTrainDeReflechir(true,@fooCalculateur);
 
 
-  if AllocatePointMultidimensionnel(16,animaux) &
-     AllocatePointMultidimensionnel(16,aux) &
+  if AllocatePointMultidimensionnel(16,animaux) and
+     AllocatePointMultidimensionnel(16,aux) and
      AllocatePointMultidimensionnel(16,best) then
     begin
       // position initiale

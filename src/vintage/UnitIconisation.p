@@ -71,7 +71,7 @@ begin
       DecalageHorFFORUM := 0;
       DecalageVertFFORUM := 0;
       tailleCaseFFORUM := 11 * iconisationDeCassio.scaleFactor;
-      if gWindowsHaveThickBorders | gIsRunningUnderMacOSX
+      if gWindowsHaveThickBorders or gIsRunningUnderMacOSX
         then  {Kaleidoscope s'occupe deja d'aŽrer le diagramme => pas de marge}
           begin
             epaisseurCadreFFORUM := 0.0;
@@ -82,7 +82,7 @@ begin
             epaisseurCadreFFORUM := 1.0;
             distanceCadreFFORUM := 1;
           end;
-      if (typeDiagramme = DiagrammePosition) | true
+      if (typeDiagramme = DiagrammePosition) or true
        then
          begin
            PionsEnDedansFFORUM := true;
@@ -281,13 +281,13 @@ begin
         ForeColor(BlackColor);
         BackColor(WhiteColor);
 
-        if CassioEstEn3D {& false}
+        if CassioEstEn3D {and false}
           then
               CopyBits(GetPortBitMapForCopyBits(GetWindowPort(wPlateauPtr))^ ,
                      GetPortBitMapForCopyBits(GetWindowPort(theWindow))^ ,
 		                 GetWindowPortRect(wPlateauPtr), QDGetPortBound, ditherCopy + srcCopy, NIL)
 		      else
-    		    if not(gCouleurOthellier.estUneImage) | CassioEstEn3D
+    		    if not(gCouleurOthellier.estUneImage) or CassioEstEn3D
     		      then
                   CopyBits(GetPortBitMapForCopyBits(offScreenIconisationWorld)^ ,
                           GetPortBitMapForCopyBits(GetWindowPort(theWindow))^ ,

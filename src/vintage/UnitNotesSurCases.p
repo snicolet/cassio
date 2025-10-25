@@ -214,7 +214,7 @@ end;
 function GetAvecAffichageNotesSurCases(origine : SInt32) : boolean;
 begin
   if (origine = kNotesDeCassioEtZebra)
-    then GetAvecAffichageNotesSurCases := GetAvecAffichageNotesSurCases(kNotesDeCassio) |
+    then GetAvecAffichageNotesSurCases := GetAvecAffichageNotesSurCases(kNotesDeCassio) or
                                           GetAvecAffichageNotesSurCases(kNotesDeZebra)
     else GetAvecAffichageNotesSurCases := gNotesSurCases[origine].doitAfficher;
 end;
@@ -247,8 +247,8 @@ begin
             for i := 11 to 88 do
               begin
 
-                if effacer & (i in surQuellesCases) &
-                   GetAvecAffichageNotesSurCases(origine) &
+                if effacer and (i in surQuellesCases) and
+                   GetAvecAffichageNotesSurCases(origine) and
                    (table_notes[i] <> kNoteSurCaseNonDisponible)
                   then accumulateur := accumulateur + [i];
 
@@ -269,12 +269,12 @@ var oldMeilleureCase : SInt16;
     old_note,oldMeilleureNote : SInt32;
 begin
   with gNotesSurCases[origine] do
-  if (whichSquare >= 11) & (whichSquare <= 88) &
-     ((whichNote = kNoteSurCaseNonDisponible) |
-      (whichNote = kNoteSpecialeSurCasePourPerte) |
-      (whichNote = kNoteSpecialeSurCasePourNulle) |
-      (whichNote = kNoteSpecialeSurCasePourGain) |
-      ((whichNote >= -6400) & (whichNote <= 6400)))
+  if (whichSquare >= 11) and (whichSquare <= 88) and
+     ((whichNote = kNoteSurCaseNonDisponible) or
+      (whichNote = kNoteSpecialeSurCasePourPerte) or
+      (whichNote = kNoteSpecialeSurCasePourNulle) or
+      (whichNote = kNoteSpecialeSurCasePourGain) or
+      ((whichNote >= -6400) and (whichNote <= 6400)))
     then
 	    begin
 
@@ -289,9 +289,9 @@ begin
 	      table_notes[whichSquare] := whichNote;
 
 
-	      if (origine = kNotesDeCassio) & (old_note = kNoteSurCaseNonDisponible) &
-	         (GetNoteSurCase(kNotesDeZebra,whichSquare) = whichNote) &
-	         (ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) &
+	      if (origine = kNotesDeCassio) and (old_note = kNoteSurCaseNonDisponible) and
+	         (GetNoteSurCase(kNotesDeZebra,whichSquare) = whichNote) and
+	         (ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) and
 	         (BAnd(GetAffichageProprietesOfCurrentNode, kNotesZebraSurLesCases) <> 0) then
 	        begin
 	          EffaceNoteSurCases(origine,[whichSquare]);
@@ -306,11 +306,11 @@ begin
 	          meilleureCase := whichSquare;
 
 	          if GetAvecAffichageNotesSurCases(origine) then
-	            if ((oldMeilleureNote <> kNoteSurCaseNonDisponible) |
-	               ((meilleureCase = oldMeilleureCase) & (meilleureNote <> kNoteSurCaseNonDisponible)))  then
+	            if ((oldMeilleureNote <> kNoteSurCaseNonDisponible) or
+	               ((meilleureCase = oldMeilleureCase) and (meilleureNote <> kNoteSurCaseNonDisponible)))  then
     	            begin
 
-    	              if (oldMeilleureNote <> meilleureNote) |
+    	              if (oldMeilleureNote <> meilleureNote) or
     	                 (oldMeilleureCase <> meilleureCase)
     	                then EffaceNoteSurCases(origine,[oldMeilleureCase]);
 
@@ -328,7 +328,7 @@ begin
 	          WritelnNumDansRapport('whichNote = ',whichNote);
 	          *)
 
-	          if (old_note <> kNoteSurCaseNonDisponible) &
+	          if (old_note <> kNoteSurCaseNonDisponible) and
 	             (old_note <> whichNote)
 	            then EffaceNoteSurCases(origine,[whichSquare]);
 
@@ -351,7 +351,7 @@ end;
 procedure SetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichFlags : SInt32);
 begin
   with gNotesSurCases[origine] do
-    if (whichSquare >= 11) & (whichSquare <= 88) then
+    if (whichSquare >= 11) and (whichSquare <= 88) then
       flags_notes[whichSquare] := whichFlags;
 end;
 
@@ -359,7 +359,7 @@ procedure AjouterFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichF
 var oldFlags : SInt32;
 begin
   with gNotesSurCases[origine] do
-    if (whichSquare >= 11) & (whichSquare <= 88) then
+    if (whichSquare >= 11) and (whichSquare <= 88) then
       begin
         oldFlags := flags_notes[whichSquare];
         SetFlagsNoteSurCase(origine, whichSquare, oldFlags or whichFlags);
@@ -370,7 +370,7 @@ procedure RetirerFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16; whichF
 var oldFlags : SInt32;
 begin
   with gNotesSurCases[origine] do
-    if (whichSquare >= 11) & (whichSquare <= 88) then
+    if (whichSquare >= 11) and (whichSquare <= 88) then
       begin
         oldFlags := flags_notes[whichSquare];
         SetFlagsNoteSurCase(origine, whichSquare, (oldFlags and not(whichFlags)));
@@ -404,7 +404,7 @@ function GetNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;
 begin
   with gNotesSurCases[origine] do
     begin
-		  if (whichSquare >= 11) & (whichSquare <= 88)
+		  if (whichSquare >= 11) and (whichSquare <= 88)
 		    then GetNoteSurCase := table_notes[whichSquare]
 		    else GetNoteSurCase := kNoteSurCaseNonDisponible;
 		end;
@@ -415,7 +415,7 @@ function GetFlagsNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;
 begin
   with gNotesSurCases[origine] do
     begin
-		  if (whichSquare >= 11) & (whichSquare <= 88)
+		  if (whichSquare >= 11) and (whichSquare <= 88)
 		    then GetFlagsNoteSurCase := flags_notes[whichSquare]
 		    else GetFlagsNoteSurCase := 0;
 		end;
@@ -425,7 +425,7 @@ end;
 function AuMoinsUneNoteSurCasesEstAffichee(origine : SInt32) : boolean;
 begin
   if (origine = kNotesDeCassioEtZebra)
-    then AuMoinsUneNoteSurCasesEstAffichee := AuMoinsUneNoteSurCasesEstAffichee(kNotesDeCassio) |
+    then AuMoinsUneNoteSurCasesEstAffichee := AuMoinsUneNoteSurCasesEstAffichee(kNotesDeCassio) or
                                               AuMoinsUneNoteSurCasesEstAffichee(kNotesDeZebra)
     else AuMoinsUneNoteSurCasesEstAffichee := (gNotesSurCases[origine].meilleureNote <> kNoteSurCaseNonDisponible);
 end;
@@ -440,12 +440,12 @@ begin
       oldMeilleureNote := meilleureNote;
       oldMeilleureCase := meilleureCase;
 
-		  if (whichSquare >= 11) & (whichSquare <= 88) &
-		     ((whichNote = kNoteSurCaseNonDisponible) |
-          (whichNote = kNoteSpecialeSurCasePourPerte) |
-          (whichNote = kNoteSpecialeSurCasePourNulle) |
-          (whichNote = kNoteSpecialeSurCasePourGain) |
-          ((whichNote >= -6400) & (whichNote <= 6400)))
+		  if (whichSquare >= 11) and (whichSquare <= 88) and
+		     ((whichNote = kNoteSurCaseNonDisponible) or
+          (whichNote = kNoteSpecialeSurCasePourPerte) or
+          (whichNote = kNoteSpecialeSurCasePourNulle) or
+          (whichNote = kNoteSpecialeSurCasePourGain) or
+          ((whichNote >= -6400) and (whichNote <= 6400)))
 		    then table_notes[whichSquare] := whichNote
 		    else whichNote := kNoteSurCaseNonDisponible;
 
@@ -455,11 +455,11 @@ begin
 		  if GetAvecAffichageNotesSurCases(origine) then
 		    begin
 
-    		  if (oldMeilleureNote <> meilleureNote) |
+    		  if (oldMeilleureNote <> meilleureNote) or
 	           (oldMeilleureCase <> meilleureCase)
 	          then EffaceNoteSurCases(origine,[oldMeilleureCase]);
 
-          if (meilleureCase <> oldMeilleureCase) &
+          if (meilleureCase <> oldMeilleureCase) and
              (GetNoteSurCase(origine,oldMeilleureCase) <> kNoteSurCaseNonDisponible)
             then DessineNoteSurCases(origine,[oldMeilleureCase]);
 
@@ -469,7 +469,7 @@ begin
 		  if GetAvecAffichageNotesSurCases(origine) then
 		    begin
 
-		      if (oldMeilleureNote <> meilleureNote) |
+		      if (oldMeilleureNote <> meilleureNote) or
 			       (oldMeilleureCase <> meilleureCase)
 			      then EffaceNoteSurCases(origine,[whichSquare]);
 
@@ -503,7 +503,7 @@ function GetSquareOfMeilleureNoteSurCase(origine : SInt32; var whichSquare : SIn
 begin
   with gNotesSurCases[origine] do
     begin
-      if (meilleureCase >= 11) & (meilleureCase <= 88)
+      if (meilleureCase >= 11) and (meilleureCase <= 88)
         then
           begin
             GetSquareOfMeilleureNoteSurCase := true;
@@ -524,7 +524,7 @@ function EstLaMeilleureCaseDesNotesSurCase(origine : SInt32; whichSquare : SInt1
 begin
   with gNotesSurCases[origine] do
     begin
-      if (meilleureCase >= 11) & (meilleureCase <= 88)
+      if (meilleureCase >= 11) and (meilleureCase <= 88)
         then EstLaMeilleureCaseDesNotesSurCase := (whichSquare = meilleureCase)
         else EstLaMeilleureCaseDesNotesSurCase := false;
     end;
@@ -535,7 +535,7 @@ function CaseALaMeilleureDesNotes(origine : SInt32; whichSquare : SInt16) : bool
 begin
   with gNotesSurCases[origine] do
     begin
-      if (meilleureCase >= 11) & (meilleureCase <= 88) & (meilleureNote <> kNoteSurCaseNonDisponible)
+      if (meilleureCase >= 11) and (meilleureCase <= 88) and (meilleureNote <> kNoteSurCaseNonDisponible)
         then CaseALaMeilleureDesNotes := (table_notes[whichSquare] = meilleureNote)
         else CaseALaMeilleureDesNotes := false;
     end;
@@ -575,7 +575,7 @@ begin
       accumulateur := [];
 
       for i := 11 to 88 do
-        if (i in surQuellesCases) & (GetCouleurOfSquareDansJeuCourant(i) = pionVide) & (GetOthellierEstSale(i)) then
+        if (i in surQuellesCases) and (GetCouleurOfSquareDansJeuCourant(i) = pionVide) and (GetOthellierEstSale(i)) then
           begin
             accumulateur := accumulateur + [i];
           end;
@@ -625,7 +625,7 @@ begin
               else
                 begin
                   s := NumEnString((Abs(valeur) + 49) div 100);
-                  if (valeur < 0) & (s <> '0') then
+                  if (valeur < 0) and (s <> '0') then
                     s := Concat('-',s);
                 end;
           end else
@@ -667,7 +667,7 @@ begin
           	          end;
 
 
-    	            if (valeur < 0) & (s <> '0.0') then
+    	            if (valeur < 0) and (s <> '0.0') then
     	               s := Concat('-',s);
     	          end;
           end;
@@ -704,11 +704,11 @@ begin
       noteZebra := GetNoteSurCase(kNotesDeZebra,whichSquare);
 
 
-      pasAfficherZebra  := (noteZebra = kNoteSurCaseNonDisponible) |
-                           not(ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) |
+      pasAfficherZebra  := (noteZebra = kNoteSurCaseNonDisponible) or
+                           not(ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) or
                            (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) = 0);
 
-      pasAfficherCassio := {(noteCassio = kNoteSurCaseNonDisponible) |}
+      pasAfficherCassio := {(noteCassio = kNoteSurCaseNonDisponible) or}
                            (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0);
 
 
@@ -718,10 +718,10 @@ begin
       }
 
 
-      if ((noteCassio = noteZebra) & not((noteCassio = 1) & (nbreCoup < finDePartie))) |
-         ((origine = kNotesDeCassio) & pasAfficherZebra) |
-         ((origine = kNotesDeZebra) & pasAfficherCassio ) |
-         ((origine = kNotesDeZebra) & (Pos('.',s) <= 0) & (noteCassio = kNoteSurCaseNonDisponible) & (nbreCoup >= finDePartie))
+      if ((noteCassio = noteZebra) and not((noteCassio = 1) and (nbreCoup < finDePartie))) or
+         ((origine = kNotesDeCassio) and pasAfficherZebra) or
+         ((origine = kNotesDeZebra) and pasAfficherCassio ) or
+         ((origine = kNotesDeZebra) and (Pos('.',s) <= 0) and (noteCassio = kNoteSurCaseNonDisponible) and (nbreCoup >= finDePartie))
         then
           begin
             justification := kJusticationCentreHori+kJusticationBas;
@@ -741,7 +741,7 @@ begin
 
       noteSurLePionDore := CaseContientUnPionDore(whichSquare);
 
-      if CassioEstEn3D & noteSurLePionDore & (BitAnd(justification,kJusticationCentreHori) <> 0)
+      if CassioEstEn3D and noteSurLePionDore and (BitAnd(justification,kJusticationCentreHori) <> 0)
         then myRect := GetRect3DDessus(whichSquare)
         else myRect := GetBoundingRectOfSquare(whichSquare);
 
@@ -754,7 +754,7 @@ begin
       if not(CassioEstEn3D) then
         RetrecirRectOfSquarePourTexturesAlveolees(myRect);
 
-      if noteSurLePionDore & not(CassioEstEn3D) then
+      if noteSurLePionDore and not(CassioEstEn3D) then
         if LENGTH_OF_STRING(s) >= 4
           then OffSetRect(myRect,0,-6)
           else OffSetRect(myRect,0,-4);
@@ -773,17 +773,17 @@ begin
 
       // DETERMINATION DE LA COULEUR DU TEXTE AFFICHANT LA NOTE
 
-      if EstLaMeilleureCaseDesNotesSurCase(origine,whichSquare) |
-         ((origine = kNotesDeZebra) & CaseALaMeilleureDesNotes(origine,whichSquare) & EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra(valeur))
+      if EstLaMeilleureCaseDesNotesSurCase(origine,whichSquare) or
+         ((origine = kNotesDeZebra) and CaseALaMeilleureDesNotes(origine,whichSquare) and EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra(valeur))
         then
           begin
-            if {not(noteSurLePionDore) & }
-               (CassioEstEn3D | gCouleurOthellier.estUneImage | RGBColorEstFoncee(gCouleurOthellier.RGB,20000) | (gCouleurOthellier.menuCmd = VertSapinCmd))
+            if {not(noteSurLePionDore) and }
+               (CassioEstEn3D or gCouleurOthellier.estUneImage or RGBColorEstFoncee(gCouleurOthellier.RGB,20000) or (gCouleurOthellier.menuCmd = VertSapinCmd))
               then
                 begin
                   ForeColor(cyanColor);  {pour les fonds foncŽs : note en bleu}
 
-                  if (Pos('Tsukuda magnetic',gCouleurOthellier.nomFichierTexture) > 0) |
+                  if (Pos('Tsukuda magnetic',gCouleurOthellier.nomFichierTexture) > 0) or
                      (Pos('Spear',gCouleurOthellier.nomFichierTexture) > 0)
                     then RGBForeColor(NoircirCouleurDeCetteQuantite(CouleurCmdToRGBColor(BleuPaleCmd),10000))
                     else
@@ -863,7 +863,7 @@ begin
       largeurMax := 45;
       largeurActuelle := right - left;
 
-      if (largeurActuelle > largeurMax) & (largeurActuelle > 0) then
+      if (largeurActuelle > largeurMax) and (largeurActuelle > 0) then
         begin
           facteurEchelle := 1.0*largeurMax/largeurActuelle;
 
@@ -925,7 +925,7 @@ begin
 
 
   with gNotesSurCases[origine] do
-    if windowPlateauOpen & (wPlateauPtr <> NIL) then
+    if windowPlateauOpen and (wPlateauPtr <> NIL) then
 	    begin
 	      if gCassioUseQuartzAntialiasing then
 	        begin
@@ -943,33 +943,33 @@ begin
 	      *)
 
 	      for square := 11 to 88 do
-	        if (square in surQuellesCases) & (GetCouleurOfSquareDansJeuCourant(square) = pionVide) then
+	        if (square in surQuellesCases) and (GetCouleurOfSquareDansJeuCourant(square) = pionVide) then
 	          begin
 	            valeur := GetNoteSurCase(origine,square);
 
 	            s := NoteSurCaseEnString(origine,valeur);
 
-	            if (valeur > 0) &
+	            if (valeur > 0) and
 	               ((GetFlagsNoteSurCase(origine,square) AND kFlagPositionEstSansDouteNonNulleSelonBiblZebra) <> 0)
 	              then s := s + '''';
 
 
-	            if (s = '') & GetOthellierEstSale(square)
+	            if (s = '') and GetOthellierEstSale(square)
 	              then
 	                accumulateur := accumulateur + [square]
 	              else
 		              begin
 				            SetOthellierEstSale(square,true);
 
-				            if (origine = kNotesDeZebra) &
+				            if (origine = kNotesDeZebra) and
     				           ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)
 				              then EcritNoteSurCase(origine,square,valeur,s);
 
 				            if (origine = kNotesDeCassio)
     				          then EcritNoteSurCase(origine,square,valeur,s);
 
-    				        if (origine = kNotesDeZebra) &
-    				           ZebraBookACetteOption(kAfficherCouleursZebraSurOthellier) &
+    				        if (origine = kNotesDeZebra) and
+    				           ZebraBookACetteOption(kAfficherCouleursZebraSurOthellier) and
     				           EstUneNoteCalculeeEnMilieuDePartieDansLeBookDeZebra(valeur) then
     				          begin
     				            casesColorees := casesColorees + [square];

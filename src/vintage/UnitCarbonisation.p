@@ -175,11 +175,11 @@ begin
   if err = NoErr then
     begin
       err := GetScrapFlavorCount(scrap, count);
-      if (err = NoErr) & (count > 0) then
+      if (err = NoErr) and (count > 0) then
         begin
           if (count > 100) then count := 100;
           err := GetScrapFlavorInfoList(scrap, count, @flavorsArray[0]);
-          if (err = NoErr) & (count > 0) then
+          if (err = NoErr) and (count > 0) then
             begin
               for i := 0 to count - 1 do
                 begin
@@ -241,7 +241,7 @@ begin {$UNUSED offset}
 		      {on recupere la taille}
 		      err := GetScrapFlavorSize(scrap,flavorType,byteCount);
 
-		      if (err = NoErr) & (byteCount > 0) then
+		      if (err = NoErr) and (byteCount > 0) then
 		        begin
 		          {peut-etre faut-il redimensionner le handle de destination}
 		          if (byteCount > GetHandleSize(destination)) then

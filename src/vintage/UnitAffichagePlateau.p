@@ -221,7 +221,7 @@ begin
 
   epaisseur := EpaisseurBordureOthellier;
 
-  if (quelleTexture.estUneImage) &
+  if (quelleTexture.estUneImage) and
      (quelleTexture.nomFichierTexture = 'Photographique')
     then begin dx :=  0; dy := +1 end
     else begin dx :=  0; dy := 0  end;
@@ -281,7 +281,7 @@ var oldPort : grafPtr;
 begin
   if windowPlateauOpen then
     begin
-      if CassioEstEn3D & EnJolie3D
+      if CassioEstEn3D and EnJolie3D
         then
           begin
             EraseRectPovRay3D(whichRect);
@@ -293,7 +293,7 @@ begin
 			      GetPort(oldPort);
 			      SetPortByWindow(wPlateauPtr);
 
-			      if garderPartieNoireADroiteOthellier | not(BordureOthellierEstUneTexture)
+			      if garderPartieNoireADroiteOthellier or not(BordureOthellierEstUneTexture)
 			        then
 			          begin
 			            MyEraseRect(whichRect);
@@ -317,7 +317,7 @@ begin
       exit(EffaceZoneADroiteDeLOthellier);
     end;
 
-  if not(CassioEstEn3D) & not(EnModeEntreeTranscript) {| enRetour} then
+  if not(CassioEstEn3D) and not(EnModeEntreeTranscript) {or enRetour} then
     with aireDeJeu do
     begin
 
@@ -337,7 +337,7 @@ procedure EffaceZoneAuDessousDeLOthellier;
 var unRect : rect;
     oldPort : grafPtr;
 begin
-  if not(CassioEstEn3D) {& not(EnModeEntreeTranscript)} {| enRetour} then
+  if not(CassioEstEn3D) {and not(EnModeEntreeTranscript)} {or enRetour} then
     with aireDeJeu do
     begin
       GetPort(oldPort);
@@ -364,7 +364,7 @@ end;
 procedure EffaceZoneAGaucheDeLOthellier;
 var unRect : rect;
 begin
-  if not(CassioEstEn3D) & not(EnModeEntreeTranscript) {| enRetour} then
+  if not(CassioEstEn3D) and not(EnModeEntreeTranscript) {or enRetour} then
     with aireDeJeu do
     begin
       SetRect(unRect,0,0,left,3000);
@@ -375,7 +375,7 @@ end;
 procedure EffaceZoneAuDessusDeLOthellier;
 var unRect : rect;
 begin
-  if not(CassioEstEn3D) & not(EnModeEntreeTranscript) {| enRetour} then
+  if not(CassioEstEn3D) and not(EnModeEntreeTranscript) {or enRetour} then
     with aireDeJeu do
     begin
       SetRect(unRect,0,0,3000,top);
@@ -398,7 +398,7 @@ procedure EcritCommentaireOuverture(commentaire : String255);
 var unRect : rect;
     oldport : grafPtr;
 begin
-  if windowPlateauOpen & not(EnModeEntreeTranscript) then
+  if windowPlateauOpen and not(EnModeEntreeTranscript) then
     begin
       GetPort(oldport);
       SetPortByWindow(wPlateauPtr);
@@ -414,7 +414,7 @@ procedure EffaceCommentaireOuverture;
 var unRect : rect;
     oldport : grafPtr;
 begin
-  if windowPlateauOpen & not(EnModeEntreeTranscript) then
+  if windowPlateauOpen and not(EnModeEntreeTranscript) then
     begin
       GetPort(oldport);
       SetPortByWindow(wPlateauPtr);
@@ -434,7 +434,7 @@ end;
 procedure PrepareTexteStatePourTranscript;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourTranscript');}
       GetPort(oldPort);
@@ -459,7 +459,7 @@ end;
 procedure PrepareTexteStatePourHeure;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourHeure');}
       GetPort(oldPort);
@@ -484,7 +484,7 @@ end;
 procedure PrepareTexteStatePourMeilleureSuite;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourMeilleureSuite');}
       GetPort(oldPort);
@@ -502,7 +502,7 @@ begin
           begin
             TextFace(normal);
             TextMode(srcBic);
-            if false & gCassioUseQuartzAntialiasing then
+            if false and gCassioUseQuartzAntialiasing then
               begin
                 if (SetAntiAliasedTextEnabled(true,9) = NoErr) then DoNothing;
 	              EnableQuartzAntiAliasingThisPort(GetWindowPort(wPlateauPtr),false);
@@ -525,14 +525,14 @@ end;
 procedure PrepareTexteStatePourDemandeCoup;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourDemandeCoup');}
       GetPort(oldPort);
       SetPortByWindow(wPlateauPtr);
       TextSize(gCassioSmallFontSize);
       TextMode(srcBic);
-      if NePasUtiliserLeGrasFenetreOthellier | EnJolie3D
+      if NePasUtiliserLeGrasFenetreOthellier or EnJolie3D
         then TextFace(normal)
         else TextFace(bold);
       TextFont(gCassioApplicationFont);
@@ -550,7 +550,7 @@ end;
 procedure PrepareTexteStatePourCommentaireSolitaire;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourCommentaireSolitaire');}
       GetPort(oldPort);
@@ -589,7 +589,7 @@ procedure PrepareTexteStatePourSystemeCoordonnees;
 var oldPort : grafPtr;
     couleurCoordonnees : RGBColor;
 begin  {$UNUSED couleurCoordonnees}
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourSystemeCoordonnees');}
       GetPort(oldPort);
@@ -602,7 +602,7 @@ begin  {$UNUSED couleurCoordonnees}
 	        DisableQuartzAntiAliasingThisPort(GetWindowPort(wPlateauPtr));
 	      end;
 
-      if BordureOthellierEstUneTexture & not(FichierBordureEstIntrouvable)
+      if BordureOthellierEstUneTexture and not(FichierBordureEstIntrouvable)
         then
           begin
             TextMode(srcOr);
@@ -629,7 +629,7 @@ begin  {$UNUSED couleurCoordonnees}
             couleurCoordonnees := CouleurCmdToRGBColor(BlancCmd);  {* Blanc *}
             RGBForeColor(couleurCoordonnees);
             RGBBackColor(couleurCoordonnees);
-            if false & gCassioUseQuartzAntialiasing then
+            if false and gCassioUseQuartzAntialiasing then
               EnableQuartzAntiAliasingThisPort(GetWindowPort(wPlateauPtr),true);
 
 
@@ -643,7 +643,7 @@ end;
 procedure PrepareTexteStatePourCommentaireOuverture;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourCommentaireOuverture');}
       GetPort(oldPort);
@@ -667,7 +667,7 @@ end;
 procedure PrepareTexteStatePourEcritCoupsBibl;
 var oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       {WritelnDansRapport('entree dans PrepareTexteStatePourCommentaireOuverture');}
       GetPort(oldPort);
@@ -709,7 +709,7 @@ begin
       begin
         positionNaturelleOfBoundingRect := posHNoirs-8;
 
-        if garderPartieNoireADroiteOthellier | not(BordureOthellierEstUneTexture)
+        if garderPartieNoireADroiteOthellier or not(BordureOthellierEstUneTexture)
           then limiteANePasDepasserVersLaGauche := aireDeJeu.right + EpaisseurBordureOthellier + 3
           else limiteANePasDepasserVersLaGauche := aireDeJeu.right;
 
@@ -727,22 +727,22 @@ var couleurDuBois : RGBColor;
     tailleOmbrageDuBouton : SInt32;
 begin
 
-  if not(CassioEstEn3D) & garderPartieNoireADroiteOthellier
+  if not(CassioEstEn3D) and garderPartieNoireADroiteOthellier
     then exit(DrawClockBoundingRect);
 
 
-  if not(EnModeEntreeTranscript | enRetour | enSetUp) then
+  if not(EnModeEntreeTranscript or enRetour or enSetUp) then
     begin
 
       if not(CassioEstEn3D)
         then SetRGBColor(couleurDuBois,30500,14000,2800)
         else
-          if (Pos('Table',NomTexture3D) > 0) |
+          if (Pos('Table',NomTexture3D) > 0) or
              (Pos('Escargot',NomTexture3D) > 0)
             then SetRGBColor(couleurDuBois,21120,15680,7280)
             else exit(DrawClockBoundingRect);
 
-      if CassioEstEn3D | (BordureOthellierEstUneTexture & not(garderPartieNoireADroiteOthellier))
+      if CassioEstEn3D or (BordureOthellierEstUneTexture and not(garderPartieNoireADroiteOthellier))
         then tailleOmbrageDuBouton := 5
         else tailleOmbrageDuBouton := 2;
 
@@ -758,20 +758,20 @@ var couleurDuBois : RGBColor;
     tailleOmbrageDuBouton : SInt32;
 begin
 
-  if not(CassioEstEn3D) & garderPartieNoireADroiteOthellier
+  if not(CassioEstEn3D) and garderPartieNoireADroiteOthellier
     then exit(DrawInvertedClockBoundingRect);
 
-  if not(EnModeEntreeTranscript | enRetour | enSetUp) then
+  if not(EnModeEntreeTranscript or enRetour or enSetUp) then
     begin
       if not(CassioEstEn3D)
         then SetRGBColor(couleurDuBois,30500,14000,2800)
         else
-          if (Pos('Table',NomTexture3D) > 0) |
+          if (Pos('Table',NomTexture3D) > 0) or
              (Pos('Escargot',NomTexture3D) > 0)
             then SetRGBColor(couleurDuBois,21120,15680,7280)
             else exit(DrawInvertedClockBoundingRect);
 
-      if CassioEstEn3D | BordureOthellierEstUneTexture & not(garderPartieNoireADroiteOthellier)
+      if CassioEstEn3D or BordureOthellierEstUneTexture and not(garderPartieNoireADroiteOthellier)
         then tailleOmbrageDuBouton := 5
         else tailleOmbrageDuBouton := 2;
 
@@ -787,7 +787,7 @@ var oldPort : grafPtr;
 begin
   RectangleDeFenetreCacheCeRectangleDansFenetrePlateau := false;
 
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     begin
       GetPort(oldPort);
       EssaieSetPortWindowPlateau;
@@ -819,14 +819,14 @@ begin
 
 
        decalageAuxiliaireVersLaDroite := 0;
-       if garderPartieNoireADroiteOthellier | not(BordureOthellierEstUneTexture) then
+       if garderPartieNoireADroiteOthellier or not(BordureOthellierEstUneTexture) then
         if avecSystemeCoordonnees
           then decalageAuxiliaireVersLaDroite := EpaisseurBordureOthellier + 4;
 
 
        posHNoirs := aireDeJeu.right+20;
        posVNoirs := 25;
-       if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre) |
+       if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre) or
           (limiteDroiteDeLaFenetre-aireDeJeu.right < 156 + EpaisseurBordureOthellier + decalageAuxiliaireVersLaDroite)
          then posHNoirs := aireDeJeu.right+3;
 
@@ -834,17 +834,17 @@ begin
 
        posHBlancs := posHNoirs+80;
        posVBlancs := 25;
-       if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre)  |
-          (genreAffichageTextesDansFenetrePlateau = kAffichageUnPeuSerre) |
+       if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre)  or
+          (genreAffichageTextesDansFenetrePlateau = kAffichageUnPeuSerre) or
           (limiteDroiteDeLaFenetre-aireDeJeu.right < 156 + EpaisseurBordureOthellier + decalageAuxiliaireVersLaDroite)
         then
           begin
-            if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre) |
+            if (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre) or
                (limiteDroiteDeLaFenetre-aireDeJeu.right < 80 + EpaisseurBordureOthellier + decalageAuxiliaireVersLaDroite)
               then posHNoirs := aireDeJeu.right+3
               else posHNoirs := aireDeJeu.right+20;
             posHBlancs := posHNoirs;
-            if gVersionJaponaiseDeCassio & gHasJapaneseScript
+            if gVersionJaponaiseDeCassio and gHasJapaneseScript
               then posVBlancs := posVNoirs+33  {on met un peu plus de blanc car affichage en 12 points}
               else posVBlancs := posVNoirs+30;
           end;
@@ -909,17 +909,17 @@ begin
         posHDemande := aireDeJeu.right+20;
 
 
-        if (limiteDroiteDeLaFenetre-aireDeJeu.right < 150 + EpaisseurBordureOthellier) |
+        if (limiteDroiteDeLaFenetre-aireDeJeu.right < 150 + EpaisseurBordureOthellier) or
            (genreAffichageTextesDansFenetrePlateau = kAffichageUnPeuSerre)
           then posHDemande := aireDeJeu.right+5;
 
 
-        if (limiteDroiteDeLaFenetre-aireDeJeu.right < 130 + EpaisseurBordureOthellier) |
+        if (limiteDroiteDeLaFenetre-aireDeJeu.right < 130 + EpaisseurBordureOthellier) or
            (genreAffichageTextesDansFenetrePlateau = kAffichageTresSerre)
           then posHDemande := aireDeJeu.right+1;
 
         {on decale eventuellement a cause de la bordure}
-        if garderPartieNoireADroiteOthellier | not(BordureOthellierEstUneTexture) then
+        if garderPartieNoireADroiteOthellier or not(BordureOthellierEstUneTexture) then
           if avecSystemeCoordonnees then
             posHDemande := posHDemande + EpaisseurBordureOthellier + 1;
 
@@ -982,11 +982,11 @@ var doitredessiner : boolean;
     tempoGenreAffichage : SInt32;
 begin
   doitredessiner := false;
-  if windowPlateauOpen & not(CassioEstEn3D) & (genreAffichageTextesDansFenetrePlateau <> kAffichageSousOthellier) then
+  if windowPlateauOpen and not(CassioEstEn3D) and (genreAffichageTextesDansFenetrePlateau <> kAffichageSousOthellier) then
     with VisibiliteInitiale do
       begin
-        if (windowListeOpen | windowStatOpen) |
-           (gPendantLesInitialisationsDeCassio & (tempowindowListeOpen | tempowindowStatOpen))
+        if (windowListeOpen or windowStatOpen) or
+           (gPendantLesInitialisationsDeCassio and (tempowindowListeOpen or tempowindowStatOpen))
           then
             begin
               tempoGenreAffichage := genreAffichageTextesDansFenetrePlateau;
@@ -997,7 +997,7 @@ begin
               SetPositionDemandeCoup('SetAffichageVertical {1}');
               SetPositionMeilleureSuite;
 
-              if RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wListePtr),gHorlogeRect) |
+              if RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wListePtr),gHorlogeRect) or
                  RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wStatPtr),gHorlogeRect) then
                 begin
                   { on essaie avec l'affichage un peu serre pres de l'othellier }
@@ -1006,7 +1006,7 @@ begin
                   SetPositionDemandeCoup('SetAffichageVertical {2}');
                   SetPositionMeilleureSuite;
 
-                  if RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wListePtr),gHorlogeRect) |
+                  if RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wListePtr),gHorlogeRect) or
                      RectangleDeFenetreCacheCeRectangleDansFenetrePlateau(GetWindowStructRect(wStatPtr),gHorlogeRect) then
                     begin
                       { on essaie avec l'affichage tres serre pres de l'othellier }
@@ -1049,13 +1049,13 @@ procedure DessineAffichageVertical;
 var unRect : rect;
     oldPort : grafPtr;
 begin
-  if windowPlateauOpen & not(CassioEstEn3D) &
-    (genreAffichageTextesDansFenetrePlateau <> kAffichageSousOthellier) &
+  if windowPlateauOpen and not(CassioEstEn3D) and
+    (genreAffichageTextesDansFenetrePlateau <> kAffichageSousOthellier) and
     not(EnModeEntreeTranscript) then
     begin
       GetPort(oldPort);
       SetPortByWindow(wPlateauPtr);
-      if not(enRetour | enSetUp) then
+      if not(enRetour or enSetUp) then
         begin
           DessineBordureDuPlateau2D(kBordureDeDroite);
           SetRect(unRect,aireDeJeu.right+EpaisseurBordureOthellier,0,GetWindowPortRect(wPlateauPtr).right,aireDeJeu.bottom);
@@ -1063,7 +1063,7 @@ begin
           PrepareTexteStatePourHeure;
           AfficheScore;
           EcritPromptFenetreReflexion;
-          if afficheMeilleureSuite & not(MeilleureSuiteEffacee) then EcritMeilleureSuite;
+          if afficheMeilleureSuite and not(MeilleureSuiteEffacee) then EcritMeilleureSuite;
           DessineBoiteDeTaille(wPlateauPtr);
           dernierTick := TickCount;
           Heure(pionNoir);
@@ -1150,10 +1150,10 @@ begin
     else SetPositionPlateau2D(8,GetTailleCaseCourante,PositionCoinSansCoordonnees,PositionCoinSansCoordonnees,'AjusteAffichageFenetrePlat');
   SetPositionsTextesWindowPlateau;
   tailleCaseChange := (GetTailleCaseCourante <> tailleCasePrec);
-  positionscorechange := (genreAffichagePrec <> genreAffichageTextesDansFenetrePlateau) |
-                      (posHBlancs <> posHblancprec) |
-                      (posHNoirs <> posHNoirprec) |
-                      (posVBlancs <> posVblancprec) |
+  positionscorechange := (genreAffichagePrec <> genreAffichageTextesDansFenetrePlateau) or
+                      (posHBlancs <> posHblancprec) or
+                      (posHNoirs <> posHNoirprec) or
+                      (posVBlancs <> posVblancprec) or
                       (posVNoirs <> posVnoirprec);
 end;
 
@@ -1169,12 +1169,12 @@ var tailleActuelle,tailleDesiree : Point;
     nouvelleTaille : Point;
     tailleCaseChange,infosChangent : boolean;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) & CassioEstEn3D then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) and CassioEstEn3D then
     begin
       tailleActuelle := GetWindowSize(wPlateauPtr);
       tailleDesiree := GetTailleImagesPovRay;
 
-      if (tailleActuelle.h <> tailleDesiree.h) | (tailleActuelle.v <> tailleDesiree.v) then
+      if (tailleActuelle.h <> tailleDesiree.h) or (tailleActuelle.v <> tailleDesiree.v) then
         begin
           nouvelleTaille := tailleDesiree;
 
@@ -1192,7 +1192,7 @@ var s1,s2 : String255;
     oldPort : grafPtr;
     ligneRect : rect;
 begin
- if windowPlateauOpen & not(EnModeEntreeTranscript) then
+ if windowPlateauOpen and not(EnModeEntreeTranscript) then
    begin
      GetPort(oldPort);
      SetPortByWindow(wPlateauPtr);
@@ -1204,7 +1204,7 @@ begin
 
 
      PrepareTexteStatePourHeure;
-     if gVersionJaponaiseDeCassio & gHasJapaneseScript
+     if gVersionJaponaiseDeCassio and gHasJapaneseScript
        then TextSize(gCassioNormalFontSize);
 
      Moveto(posHNoirs,posVNoirs);
@@ -1216,7 +1216,7 @@ begin
 
      EraseRectDansWindowPlateau(lignerect);
      MyDrawString(s2);
-     if gVersionJaponaiseDeCassio & gHasJapaneseScript
+     if gVersionJaponaiseDeCassio and gHasJapaneseScript
        then PrepareTexteStatePourHeure;
 
 	   if gCassioUseQuartzAntialiasing then
@@ -1239,28 +1239,28 @@ begin
   {bordure en haut}
   if (quellesBordures and kBordureDuHaut) <> 0 then
     begin
-      if not(BordureOthellierEstUneTexture) | (DrawBordureColorPict(kBordureDuHaut) <> NoErr) then
+      if not(BordureOthellierEstUneTexture) or (DrawBordureColorPict(kBordureDuHaut) <> NoErr) then
         FillRect(CalculateBordureRect(kBordureDuHaut,gCouleurOthellier),blackPattern);
     end;
 
   {bordure a gauche}
   if (quellesBordures and kBordureDeGauche) <> 0 then
     begin
-      if not(BordureOthellierEstUneTexture) | (DrawBordureColorPict(kBordureDeGauche) <> NoErr) then
+      if not(BordureOthellierEstUneTexture) or (DrawBordureColorPict(kBordureDeGauche) <> NoErr) then
         FillRect(CalculateBordureRect(kBordureDeGauche,gCouleurOthellier),blackPattern);
     end;
 
   {bordure en bas}
   if (quellesBordures and kBordureDuBas) <> 0 then
     begin
-      if not(BordureOthellierEstUneTexture) | (DrawBordureColorPict(kBordureDuBas) <> NoErr) then
+      if not(BordureOthellierEstUneTexture) or (DrawBordureColorPict(kBordureDuBas) <> NoErr) then
         FillRect(CalculateBordureRect(kBordureDuBas,gCouleurOthellier),blackPattern);
     end;
 
   {bordure a droite}
   if (quellesBordures and kBordureDeDroite) <> 0 then
     begin
-      if not(BordureOthellierEstUneTexture) | (DrawBordureColorPict(kBordureDeDroite) <> NoErr) then
+      if not(BordureOthellierEstUneTexture) or (DrawBordureColorPict(kBordureDeDroite) <> NoErr) then
         FillRect(CalculateBordureRect(kBordureDeDroite,gCouleurOthellier),blackPattern);
       DrawClockBoundingRect(gHorlogeRect,10);
     end;
@@ -1283,7 +1283,7 @@ procedure EffacePromptFenetreReflexion;
 var oldPort : grafPtr;
     ligneRect : rect;
 begin
-  if windowPlateauOpen & not(EnModeEntreeTranscript) then
+  if windowPlateauOpen and not(EnModeEntreeTranscript) then
 	  begin
 		  GetPort(oldPort);
 		  SetPortByWindow(wPlateauPtr);
@@ -1305,7 +1305,7 @@ begin
  if not(EnModeEntreeTranscript) then
    begin
      {WritelnDansRapport('Entree dans AfficheDemandeCoup');}
-     if CassioEstEnModeAnalyse & not(HumCtreHum) & (nbreCoup > 0)
+     if CassioEstEnModeAnalyse and not(HumCtreHum) and (nbreCoup > 0)
        then
          begin
            EcritJeReflechis(AQuiDeJouer);
@@ -1373,11 +1373,11 @@ begin
             s := '';
             case coulChoix of
                 pionNoir    :
-    			         if CassioEstEnModeAnalyse & not(analyseRetrograde.enCours) & not(CassioEstEnModeSolitaire)
+    			         if CassioEstEnModeAnalyse and not(analyseRetrograde.enCours) and not(CassioEstEnModeSolitaire)
     			           then s := ReadStringFromRessource(TextesPlateauID,19)  {Analyse pour Noir}
     			           else s := ReadStringFromRessource(TextesPlateauID,5);  {Je reflechis au choix des Noirs}
     		        pionBlanc   :
-    		           if CassioEstEnModeAnalyse & not(analyseRetrograde.enCours) & not(CassioEstEnModeSolitaire)
+    		           if CassioEstEnModeAnalyse and not(analyseRetrograde.enCours) and not(CassioEstEnModeSolitaire)
     		             then s := ReadStringFromRessource(TextesPlateauID,20)  {Analyse pour Blanc}
     		             else s := ReadStringFromRessource(TextesPlateauID,6);  {Je reflechis au choix des Blancs}
             end;
@@ -1408,7 +1408,7 @@ begin
             WritelnStringAndBoolDansRapport('  HumCtreHum  ->  ',HumCtreHum);
             WritelnStringAndBoolDansRapport('  (AQuiDeJouer = couleurMacintosh)  ->  ', (AQuiDeJouer = couleurMacintosh));
             *)
-      		  if not(HumCtreHum) & (AQuiDeJouer = couleurMacintosh) & not((nbreCoup <= 0) & CassioEstEnModeAnalyse)
+      		  if not(HumCtreHum) and (AQuiDeJouer = couleurMacintosh) and not((nbreCoup <= 0) and CassioEstEnModeAnalyse)
       		    then EcritJeReflechis(AQuiDeJouer)
       		    else AfficheDemandeCoup;
       		end;
@@ -1496,7 +1496,7 @@ procedure DessineContourDeCase2D(whichRect : rect; square : SInt32);
 var couleurOthellierClaire : RGBColor;
     couleurOthellierFoncee : RGBColor;
 begin
-  if retirerEffet3DSubtilOthellier2D & not(Pos('VOG',gCouleurOthellier.nomFichierTexture) > 0)
+  if retirerEffet3DSubtilOthellier2D and not(Pos('VOG',gCouleurOthellier.nomFichierTexture) > 0)
     then
       begin
         FrameRect(whichRect);
@@ -1524,13 +1524,13 @@ begin
 	           sur la colonne H et la ligne 8, et si la bordure est dessinee,
 	           il faut utiliser du noir a cause du cadre autour de l'othellier.
 	           Sinon on utilise la couleur de l'othellier, en plus fonc }
-	          if avecSystemeCoordonnees & (square div 10 = 8) & not(gCouleurOthellier.estUneImage)
+	          if avecSystemeCoordonnees and (square div 10 = 8) and not(gCouleurOthellier.estUneImage)
 	            then ForeColor(BlackColor)
 	            else RGBForeColor(couleurOthellierFoncee);
 	          Moveto(left+1,bottom-1);
 	          Lineto(right-1,bottom-1);
 
-	          if avecSystemeCoordonnees & (square mod 10 = 8) & not(gCouleurOthellier.estUneImage)
+	          if avecSystemeCoordonnees and (square mod 10 = 8) and not(gCouleurOthellier.estUneImage)
 	            then ForeColor(BlackColor)
 	            else RGBForeColor(couleurOthellierFoncee);
 	          Moveto(right-1,bottom-2);
@@ -1545,7 +1545,7 @@ end;
 
 procedure DessinerEventuellementContoursDesCasesTexturees(whichRect : rect; whichSquare : SInt16);
 begin
-  if ((Pos('VOG',gCouleurOthellier.nomFichierTexture) > 0) {| (Pos('Pions go',gCouleurOthellier.nomFichierTexture) > 0)})
+  if ((Pos('VOG',gCouleurOthellier.nomFichierTexture) > 0) {or (Pos('Pions go',gCouleurOthellier.nomFichierTexture) > 0)})
     then
     begin
       {if (Pos('Pions go',gCouleurOthellier.nomFichierTexture) > 0) then
@@ -1666,7 +1666,7 @@ begin
            ForeColor(gCouleurOthellier.couleurFront);
            BackColor(gCouleurOthellier.couleurBack);
            RGBForeColor(gCouleurOthellier.RGB);
-           if retirerEffet3DSubtilOthellier2D | enSetUp
+           if retirerEffet3DSubtilOthellier2D or enSetUp
              then
                begin
                  FillRect(rectangle,gCouleurOthellier.whichPattern);
@@ -1787,7 +1787,7 @@ begin
 		                 if gCouleurOthellier.estTresClaire
 			                 then BackColor(BlackColor)
 			                 else
-					               if (gCouleurOthellier.menuCmd = VertSapinCmd)     |
+					               if (gCouleurOthellier.menuCmd = VertSapinCmd)     or
 					                  (gCouleurOthellier.menuCmd = VertTurquoiseCmd)
 					                  then BackColor(WhiteColor)
 					                  else BackColor(gCouleurOthellier.couleurBack);}
@@ -1836,8 +1836,8 @@ begin
 	                if j = 0 then a := 4+i else
 	                if j = 1 then a := i;
 	                if a < 1 then a := 1;
-	                if (j = 0) & (a > 8) then a := 8;
-	                if (j = 1) & (a > 4) then a := 4;
+	                if (j = 0) and (a > 8) then a := 8;
+	                if (j = 1) and (a > 4) then a := 4;
 	                Moveto(left+j,top+a);
 	                Lineto(left+j,top+j);
 	                Lineto(left+a,top+j);
@@ -1886,8 +1886,8 @@ begin
 				                if j = 0 then a := 4+i else
 				                if j = 1 then a := i;
 				                if a < 1 then a := 1;
-				                if (j = 0) & (a > 8) then a := 8;
-				                if (j = 1) & (a > 4) then a := 4;
+				                if (j = 0) and (a > 8) then a := 8;
+				                if (j = 1) and (a > 4) then a := 4;
 				                Moveto(left+j,top+a);
 				                Lineto(left+j,top+j);
 				                Lineto(left+a,top+j);
@@ -2371,7 +2371,7 @@ begin
 
       // WritelnNumDansRapport('smallRect.bottom = ',smallRect.bottom);
 
-       if gCassioUseQuartzAntialiasing & doitEffacerSousLesTextesSurOthellier then
+       if gCassioUseQuartzAntialiasing and doitEffacerSousLesTextesSurOthellier then
          begin
            doitEffacerSousLesTextesSurOthellier := (gNiveauDeRecursionDansDrawJustifiedStringInRect < 10);
            RedessinerRectDansSquare(whichSquare,smallRect);
@@ -2473,11 +2473,11 @@ begin
 		            myRect := GetRectAreteVisiblePion3DPourPionDelta(whichSquare,0);
 		          end
 		        else
-		        if  (AttenteAnalyseDeFinaleDansPositionCourante & (whichSquare = GetBestMoveAttenteAnalyseDeFinale) &
-		            (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse | SuggestionAnalyseDeFinaleEstDessinee))
+		        if  (AttenteAnalyseDeFinaleDansPositionCourante and (whichSquare = GetBestMoveAttenteAnalyseDeFinale) and
+		            (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse or SuggestionAnalyseDeFinaleEstDessinee))
 
-		           | (not(AttenteAnalyseDeFinaleDansPositionCourante & (whichSquare <> GetBestMoveAttenteAnalyseDeFinale))
-		             & (gDoitJouerMeilleureReponse | afficheSuggestionDeCassio) & (whichSquare = meilleurCoupHum)) then
+		           or (not(AttenteAnalyseDeFinaleDansPositionCourante and (whichSquare <> GetBestMoveAttenteAnalyseDeFinale))
+		             and (gDoitJouerMeilleureReponse or afficheSuggestionDeCassio) and (whichSquare = meilleurCoupHum)) then
                 begin
 
                   // les pions dores font a peu pres une demi-epaiasseur, donc on fait
@@ -2589,7 +2589,7 @@ end;
 procedure EffacerSquare(var whichSquare : SInt16; var continuer : boolean);
 begin
   {$UNUSED continuer}
-  if CassioEstEn3D & not(enRetour)
+  if CassioEstEn3D and not(enRetour)
     then DessinePion3D(whichSquare,effaceCase)
     else DessinePion2D(whichSquare,pionVide);
   {WritelnStringAndCoupDansRapport('EffacerSquare : ',whichsquare);}
@@ -2605,7 +2605,7 @@ begin
   with gPileDesRectanglesRecursifsARedessiner do
     begin
       for k := 1 to cardinal do
-        if (pile[k].square = whichSquare) & (SameRect(pile[k].theRect, whichRect))
+        if (pile[k].square = whichSquare) and (SameRect(pile[k].theRect, whichRect))
           then inc(compteur);
     end;
 
@@ -2638,7 +2638,7 @@ procedure RemoveDansPileParametresRecursifsRectDansSquare(index : SInt32; whichS
 begin
   Discard2(whichSquare, whichRect);
 
-  if (index >= 1) & (index <= 100) then
+  if (index >= 1) and (index <= 100) then
     with gPileDesRectanglesRecursifsARedessiner do
       begin
         with pile[index] do
@@ -2647,7 +2647,7 @@ begin
             theRect := MakeRect(-1,-1,-1,-1);
           end;
 
-        if (index = cardinal) & (cardinal >= 1)
+        if (index = cardinal) and (cardinal >= 1)
           then dec(cardinal)
           else WritelnDansRapport('ASSERT : pile des appels recursifs fausse dans RemoveDansPileParametresRecursifsRectDansSquare !!');
       end;
@@ -2667,8 +2667,8 @@ var valeurCase : SInt16;
 begin
   index := -1;
 
-  if (whichSquare >= 11) & (whichSquare <= 88) &
-     (gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs < 150) & not(quitter) then
+  if (whichSquare >= 11) and (whichSquare <= 88) and
+     (gPileDesRectanglesRecursifsARedessiner.nbAppelsRecursifs < 150) and not(quitter) then
     begin
 
       (*
@@ -2774,7 +2774,7 @@ end;
 procedure DessineSystemeCoordonnees;
 var d,a,HG_h,HG_v,i : SInt16;
 begin
-  if enSetUp | not((genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) | CassioEstEn3D) then
+  if enSetUp or not((genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) or CassioEstEn3D) then
     begin
 
       DessineBordureDuPlateau2D(kBordureDeGauche + kBordureDeDroite + kBordureDuHaut + kBordureDuBas);
@@ -2951,7 +2951,7 @@ begin
   for t := 64 downto 1 do
     begin
      i := othellier[t];
-     if (position[i] <> pionVide) | gCouleurOthellier.estUneImage then DessinePion(i,position[i]);
+     if (position[i] <> pionVide) or gCouleurOthellier.estUneImage then DessinePion(i,position[i]);
     end;
 end;
 
@@ -2971,7 +2971,7 @@ procedure PrepareTextModeAndSizePourDessineDiagramme(couleurDesChiffres : SInt16
 var currentPort : grafPtr;
     couleurNumeroCoup : RGBColor;
 begin
-  if (GetTailleCaseCourante <= 20) & not(CassioEstEn3D)
+  if (GetTailleCaseCourante <= 20) and not(CassioEstEn3D)
    then
      begin
        hauteur := 9;
@@ -3001,7 +3001,7 @@ begin
        TextFace(gPoliceNumeroCoup.theStyle);
      end;
 
-  if not(gIsRunningUnderMacOSX) | ((GetTailleCaseCourante <= 20) & not(CassioEstEn3D))
+  if not(gIsRunningUnderMacOSX) or ((GetTailleCaseCourante <= 20) and not(CassioEstEn3D))
     then
 		  case couleurDesChiffres of
 		    pionNoir  : TextMode(srcOr);
@@ -3034,7 +3034,7 @@ begin
 	SetPt(result,aireDeJeu.left+GetTailleCaseCourante*(platMod10[square]-1)+GetTailleCaseCourante div 2+decalage.h,
 	             aireDeJeu.top+ GetTailleCaseCourante*(platDiv10[square]-1)+GetTailleCaseCourante div 2+decalage.v);
 
-	if not(retirerEffet3DSubtilOthellier2D | gCouleurOthellier.estUneImage) then
+	if not(retirerEffet3DSubtilOthellier2D or gCouleurOthellier.estUneImage) then
 	  begin
 	    inc(result.h);
 	    inc(result.v);
@@ -3105,7 +3105,7 @@ begin
      for i := 1 to jusquaQuelCoup do
 	     begin
 	       square := GetNiemeCoupPartieCourante(i);
-	       if (square <> coupInconnu) & (square >= 11) & (square <= 88) &
+	       if (square <> coupInconnu) and (square >= 11) and (square <= 88) and
 	          (GetCouleurNiemeCoupPartieCourante(i) = GetValeurDessinEnTraceDeRayon(square)) then
 				       begin
 				         if GetCouleurNiemeCoupPartieCourante(i) = pionNoir
@@ -3251,7 +3251,7 @@ begin
        begin
          s := NumEnString(n);
 
-         if afficheSignesDiacritiques & (whichNode <> NIL) then
+         if afficheSignesDiacritiques and (whichNode <> NIL) then
            s := s + GetSignesDiacritiques(whichNode);
 
          PrepareTextModeAndSizePourDessineDiagramme(couleurDesChiffres,haut,decalageHor,decalageVert);
@@ -3298,9 +3298,9 @@ begin
            else
              begin
 			         s := NumEnString(n);
-			         if afficheSignesDiacritiques & (whichNode <> NIL) then
+			         if afficheSignesDiacritiques and (whichNode <> NIL) then
 			           s := s + GetSignesDiacritiques(whichNode);
-			         if (GetTailleCaseCourante <= 20) & not(CassioEstEn3D)
+			         if (GetTailleCaseCourante <= 20) and not(CassioEstEn3D)
 			           then
 				           begin
 				             haut := 9;
@@ -3368,7 +3368,7 @@ begin
         else
           SetRect(lignerect,posHMeilleureSuite,posVMeilleureSuite-9,299,posVMeilleureSuite+2);
       if not(EnModeEntreeTranscript) then EraseRectDansWindowPlateau(lignerect);
-      if avecSystemeCoordonnees & not(CassioEstEn3D) then DessineBordureDuPlateau2D(kBordureDuBas);
+      if avecSystemeCoordonnees and not(CassioEstEn3D) then DessineBordureDuPlateau2D(kBordureDuBas);
 
       Moveto(lignerect.left+8,lignerect.bottom-2);
 
@@ -3399,7 +3399,7 @@ begin
   AjusteCurseur;
   AfficheScore;
   EcritPromptFenetreReflexion;
-  if afficheMeilleureSuite & not(MeilleureSuiteEffacee) then EcritMeilleureSuite;
+  if afficheMeilleureSuite and not(MeilleureSuiteEffacee) then EcritMeilleureSuite;
   if CassioEstEnModeSolitaire then EcritCommentaireSolitaire;
   SetPort(oldPort);
 end;
@@ -3408,13 +3408,13 @@ end;
 procedure DessineNumeroDernierCoupSurOthellier(surQuellesCases : SquareSet; whichNode : GameTree);
 var whichSquare, couleur : SInt32;
 begin
-  if (nbreCoup > 0) & (nbreCoup <= 64) then
+  if (nbreCoup > 0) and (nbreCoup <= 64) then
     begin
       whichSquare := DerniereCaseJouee;
-      if (whichSquare >= 11) & (whichSquare <= 88) then
+      if (whichSquare >= 11) and (whichSquare <= 88) then
         begin
           couleur := GetCouleurOfSquareDansJeuCourant(whichSquare);
-          if (whichSquare <> coupInconnu) & (couleur <> pionVide) & (whichSquare in surQuellesCases)
+          if (whichSquare <> coupInconnu) and (couleur <> pionVide) and (whichSquare in surQuellesCases)
             then DessineNumeroCoup(whichSquare,nbreCoup,-couleur,whichNode);
         end;
     end;
@@ -3455,7 +3455,7 @@ begin
      if not(CassioEstEn3D)
        then
          begin
-           if forcedErase | not(gCouleurOthellier.estUneImage)
+           if forcedErase or not(gCouleurOthellier.estUneImage)
              then EraseRectDansWindowPlateau(theClipRect)
              else EffaceTouteLaFenetreSaufLOthellier;
            unRect := aireDeJeu;
@@ -3504,8 +3504,8 @@ begin
                                  if SectRect(unRect,theClipRect,bidRect) then
                                    begin
                                      aux := GetValeurDessinEnTraceDeRayon(x);
-                                     if (GetCouleurOfSquareDansJeuCourant(x) = pionVide) & (clipRegion <> NIL) &
-                                        ((aux = pionSuggestionDeCassio) | (aux = pionMontreCoupLegal))
+                                     if (GetCouleurOfSquareDansJeuCourant(x) = pionVide) and (clipRegion <> NIL) and
+                                        ((aux = pionSuggestionDeCassio) or (aux = pionMontreCoupLegal))
                                           then
                                             begin  {pour ne pas couper le pion bariole ou les coups legaux}
                                               InvalidateDessinEnTraceDeRayon(x);
@@ -3524,7 +3524,7 @@ begin
 
           { SetPositionsTextesWindowPlateau; }
 
-          if positionEffacee & afficheNumeroCoup then DessineNumeroDernierCoupSurOthellier(othellierToutEntier,GetCurrentNode);
+          if positionEffacee and afficheNumeroCoup then DessineNumeroDernierCoupSurOthellier(othellierToutEntier,GetCurrentNode);
           DessineGarnitureAutourOthellierPourEcranStandard;
 
           if aideDebutant then DessineAideDebutant(false,othellierToutEntier);
@@ -3574,7 +3574,7 @@ begin
         SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNoeudDansFenetreArbreDeJeu);
 
 
-			if (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse) &
+			if (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse) and
 			   (BAnd(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) then
 		    begin
 		      if AttenteAnalyseDeFinaleDansPositionCourante
@@ -3582,8 +3582,8 @@ begin
 		        else coupSuggere := meilleurCoupHum;
 
 		      if (coupSuggere in surQuellesCases) then
-					  if (coupSuggere >= 11) & (coupSuggere <= 88) then
-					    if possiblemove[coupSuggere] {& not(inverseVideo[coupSuggere])} then
+					  if (coupSuggere >= 11) and (coupSuggere <= 88) then
+					    if possiblemove[coupSuggere] {and not(inverseVideo[coupSuggere])} then
 					      if CassioEstEn3D
 					        then DessinePion3D(coupSuggere,pionSuggestionDeCassio)
 					        else DessinePion2D(coupSuggere,pionSuggestionDeCassio);
@@ -3591,13 +3591,13 @@ begin
 
 		  AfficheProprietesOfCurrentNode(false,surQuellesCases,'DessineAutresInfosSurCasesAideDebutant');
 
-		  if GetAvecAffichageNotesSurCases(kNotesDeCassio) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+		  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
 		    then DessineNoteSurCases(kNotesDeCassio,surQuellesCases);
 
-		  if GetAvecAffichageNotesSurCases(kNotesDeZebra) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
+		  if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
 		    then DessineNoteSurCases(kNotesDeZebra,surQuellesCases);
 
-			if afficheInfosApprentissage & (BAnd(GetAffichageProprietesOfCurrentNode,kInfosApprentissage) <> 0)
+			if afficheInfosApprentissage and (BAnd(GetAffichageProprietesOfCurrentNode,kInfosApprentissage) <> 0)
 			  then EcritLesInfosDApprentissage;
 
 			if DoitAfficherBibliotheque then EcritCoupsBibliotheque(surQuellesCases);
@@ -3627,7 +3627,7 @@ begin
       MemoryFillChar(@inverseVideo,sizeof(inverseVideo),chr(0));
 
       coupSuggere := 0;
-      if (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse)  then
+      if (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse)  then
         if AttenteAnalyseDeFinaleDansPositionCourante
           then coupSuggere := GetBestMoveAttenteAnalyseDeFinale
           else coupSuggere := meilleurCoupHum;
@@ -3637,7 +3637,7 @@ begin
       for i := 1 to 64 do
         begin
           whichSquare := othellier[i];
-          if (whichSquare in surQuellesCases) & possibleMove[whichSquare] then
+          if (whichSquare in surQuellesCases) and possibleMove[whichSquare] then
 	          begin
 	            if (whichSquare <> CoupSuggere) then
 			          begin
@@ -3654,7 +3654,7 @@ begin
 	          end;
         end;
 
-      if avecDessinAutresInfosSurLesCases & (surQuellesCases <> [])
+      if avecDessinAutresInfosSurLesCases and (surQuellesCases <> [])
         then DessineAutresInfosSurCasesAideDebutant(surQuellesCases, 'DessineAideDebutant');
 
       if (BAnd(GetAffichageProprietesOfCurrentNode,kAnglesCarreCentral) <> 0)
@@ -3682,8 +3682,8 @@ begin
      WritelnDansRapport(SquareSetEnString(surQuellesCases));
      *)
 
-     effacageLarge := effacageLarge & (GetTailleCaseCourante < 25) & afficheBibl &
-                    (phaseDeLaPartie <= phaseMilieu) & (nbreCoup <= LongMaxBibl);
+     effacageLarge := effacageLarge and (GetTailleCaseCourante < 25) and afficheBibl and
+                    (phaseDeLaPartie <= phaseMilieu) and (nbreCoup <= LongMaxBibl);
      if CassioEstEn3D
       then pionDeffacement := effaceCase
       else if effacageLarge
@@ -3692,7 +3692,7 @@ begin
 
 
      coupSuggere := 0;
-     if (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse) then
+     if (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse) then
        if AttenteAnalyseDeFinaleDansPositionCourante
          then coupSuggere := GetBestMoveAttenteAnalyseDeFinale
          else coupSuggere := meilleurCoupHum;
@@ -3702,11 +3702,11 @@ begin
      for i := 1 to 64 do
        begin
          whichSquare := othellier[i];
-	       if (whichSquare in surQuellesCases) & possibleMove[whichSquare] &
-	          (GetCouleurOfSquareDansJeuCourant(whichSquare) = pionVide) & GetOthellierEstSale(whichSquare) then
+	       if (whichSquare in surQuellesCases) and possibleMove[whichSquare] and
+	          (GetCouleurOfSquareDansJeuCourant(whichSquare) = pionVide) and GetOthellierEstSale(whichSquare) then
 	         begin
 
-	           if (whichSquare = CoupSuggere) & avecDessinAutresInfosSurLesCases
+	           if (whichSquare = CoupSuggere) and avecDessinAutresInfosSurLesCases
 	             then
 	               begin
 	                 if CassioEstEn3D
@@ -3728,7 +3728,7 @@ begin
      MemoryFillChar(@inverseVideo,sizeof(inverseVideo),chr(0));
      aideDebutant := false;
 
-     if avecDessinAutresInfosSurLesCases & (accumulateur <> [] ) then
+     if avecDessinAutresInfosSurLesCases and (accumulateur <> [] ) then
        begin
          DessineAutresInfosSurCasesAideDebutant(accumulateur, 'EffaceAideDebutant');
          DessineAnglesCarreCentral;
@@ -3770,8 +3770,8 @@ begin
     end;
   *)
 
-  if afficheSuggestionDeCassio & SuggestionAnalyseDeFinaleEstDessinee &
-    (GetBestMoveAttenteAnalyseDeFinale <> bestMove) & AttenteAnalyseDeFinaleDansPositionCourante then
+  if afficheSuggestionDeCassio and SuggestionAnalyseDeFinaleEstDessinee and
+    (GetBestMoveAttenteAnalyseDeFinale <> bestMove) and AttenteAnalyseDeFinaleDansPositionCourante then
     begin
       WritelnDansRapport('ASSERT dans ActiverSuggestionDeCassio !! fonctionAppelante = '+fonctionAppelante);
 
@@ -3805,22 +3805,22 @@ begin
 
   result := false;
 
-  if (GetValeurDessinEnTraceDeRayon(whichSquare) = pionSuggestionDeCassio) |
-     ((BAnd(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) &
-      (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse | SuggestionAnalyseDeFinaleEstDessinee) &
+  if (GetValeurDessinEnTraceDeRayon(whichSquare) = pionSuggestionDeCassio) or
+     ((BAnd(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) and
+      (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse or SuggestionAnalyseDeFinaleEstDessinee) and
       (GetBestSuggestionDeCassio = whichSquare))
     then result := true;
 
   if result then
   with gCouleurOthellier do
-    if estUneImage &
-       ((Pos('Pions go',nomFichierTexture) > 0)             |
-        (Pos('Tsukuda',nomFichierTexture) > 0)              |
-        (Pos('Spear',nomFichierTexture) > 0)                |
-        (Pos('Ravensburger',nomFichierTexture) > 0)         |
-        (Pos('Magnetic',nomFichierTexture) > 0)             |
-        (Pos('EuroCents',nomFichierTexture) > 0)            |
-        (Pos('Barnaba',nomFichierTexture) > 0)              |
+    if estUneImage and
+       ((Pos('Pions go',nomFichierTexture) > 0)             or
+        (Pos('Tsukuda',nomFichierTexture) > 0)              or
+        (Pos('Spear',nomFichierTexture) > 0)                or
+        (Pos('Ravensburger',nomFichierTexture) > 0)         or
+        (Pos('Magnetic',nomFichierTexture) > 0)             or
+        (Pos('EuroCents',nomFichierTexture) > 0)            or
+        (Pos('Barnaba',nomFichierTexture) > 0)              or
         (Pos('Clementoni',nomFichierTexture) > 0))
     then result := false;
 
@@ -3837,7 +3837,7 @@ begin
   tailleCaseCourante := GetTailleCaseCourante;
   X := ((loc.h-aireDeJeu.left) div tailleCaseCourante)+1;
   Y := ((loc.v-aireDeJeu.top) div tailleCaseCourante)+1;
-  PtInPlateau2D := test & InRange(X,1,8) & InRange(Y,1,8);
+  PtInPlateau2D := test and InRange(X,1,8) and InRange(Y,1,8);
   caseCliquee := X+10*Y;
 end;
 
@@ -3854,9 +3854,9 @@ procedure EffaceAnnonceFinaleSiNecessaire;
 begin
   if HumCtreHum then
     with meilleureSuiteInfos do
-      if (statut = ReflAnnonceGagnant) |
-         (statut = ReflAnnonceParfait) |
-         (statut = ReflTriGagnant) |
+      if (statut = ReflAnnonceGagnant) or
+         (statut = ReflAnnonceParfait) or
+         (statut = ReflTriGagnant) or
          (statut = ReflTriParfait) then
         DetruitMeilleureSuite;
 end;
@@ -3866,12 +3866,12 @@ end;
 
 procedure SetOthellierEstSale(square : SInt16; flag : boolean);
 begin
-  if (square >= 0) & (square <= 99) then othellierEstSale[square] := flag;
+  if (square >= 0) and (square <= 99) then othellierEstSale[square] := flag;
 end;
 
 function GetOthellierEstSale(square : SInt16) : boolean;
 begin
-  if (square >= 0) & (square <= 99)
+  if (square >= 0) and (square <= 99)
     then GetOthellierEstSale := othellierEstSale[square]
     else GetOthellierEstSale := false;
     {

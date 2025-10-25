@@ -111,12 +111,12 @@ begin
       t := othellier[i];
       dirJouableDeb[t] := 1;
       dirJouableFin[t] := 8;
-      if EstUneCaseBordNord(t) | EstUneCaseBordSud(t) then
+      if EstUneCaseBordNord(t) or EstUneCaseBordSud(t) then
         begin
           dirJouableDeb[t] := 1;
           dirJouableFin[t] := 2;
         end;
-      if EstUneCaseBordOuest(t) | EstUneCaseBordEst(t) then
+      if EstUneCaseBordOuest(t) or EstUneCaseBordEst(t) then
         begin
           dirJouableDeb[t] := 7;
           dirJouableFin[t] := 8;
@@ -542,7 +542,7 @@ begin
     end;
   {F comme C3,F3,C6,F6}
   for i := 3 to 6 do
-  if (i = 3) | (i = 6) then
+  if (i = 3) or (i = 6) then
     begin
       othellier[compteur+1] := 3+10*i;
       othellier[compteur+2] := 6+10*i;
@@ -559,7 +559,7 @@ begin
     end;
   {D comme B3,B6,etc }
   for i := 3 to 6 do
-  if (i = 3) | (i = 6) then
+  if (i = 3) or (i = 6) then
     begin
       othellier[compteur+1] := 2+10*I;
       othellier[compteur+2] := i+10*2;
@@ -569,7 +569,7 @@ begin
     end;
   {A comme A3,A6,etc }
   for i := 3 to 6 do
-  if (i = 3) | (i = 6) then
+  if (i = 3) or (i = 6) then
     begin
       othellier[compteur+1] := 1+10*i;
       othellier[compteur+2] := i+10;
@@ -622,12 +622,12 @@ begin
       t := othellier[i];
       dirJouableDeb[t] := 1;
       dirJouableFin[t] := 8;
-      if EstUneCaseBordNord(t) | EstUneCaseBordSud(t) then
+      if EstUneCaseBordNord(t) or EstUneCaseBordSud(t) then
         begin
           dirJouableDeb[t] := 1;
           dirJouableFin[t] := 2;
         end;
-      if EstUneCaseBordOuest(t) | EstUneCaseBordEst(t) then
+      if EstUneCaseBordOuest(t) or EstUneCaseBordEst(t) then
         begin
           dirJouableDeb[t] := 7;
           dirJouableFin[t] := 8;
@@ -708,22 +708,22 @@ begin
    begin
      i := t mod 10;
      j := t div 10;
-     if (i <= 4) & (j <= 4) then
+     if (i <= 4) and (j <= 4) then
        begin
          numeroQuadrant[t] := 0;
          constanteDeParite[t] := 1;
        end;
-     if (i > 4) & (j <= 4) then
+     if (i > 4) and (j <= 4) then
        begin
          numeroQuadrant[t] := 1;
          constanteDeParite[t] := 2;
        end;
-     if (i <= 4) & (j > 4) then
+     if (i <= 4) and (j > 4) then
        begin
          numeroQuadrant[t] := 2;
          constanteDeParite[t] := 4;
        end;
-     if (i > 4) & (j > 4) then
+     if (i > 4) and (j > 4) then
        begin
          numeroQuadrant[t] := 3;
          constanteDeParite[t] := 8;
@@ -1069,7 +1069,7 @@ begin
      if not(CoinPlusProcheVide(x,plat))
        then valeurTact[x] := valeurTact[x]+400;
    end;
-   if (GetCadence <= minutes3) | jeuInstantane then
+   if (GetCadence <= minutes3) or jeuInstantane then
      begin
        valeurtact[22] := valeurtact[22]-300;
        valeurtact[27] := valeurtact[27]-300;
@@ -1102,30 +1102,30 @@ begin
      xdeb := caseX[t,debut];
      xfin := caseX[t,fin];
 
-     if (c = '00222220')|(c = '00220020')|(c = '00200220') then valeurtact[xdeb] := 200
-     else if (c = '02222200')|(c = '02002200')|(c = '02200200') then valeurtact[xfin] := 200
+     if (c = '00222220')or(c = '00220020')or(c = '00200220') then valeurtact[xdeb] := 200
+     else if (c = '02222200')or(c = '02002200')or(c = '02200200') then valeurtact[xfin] := 200
 
-     else if (c = '00102220')|(c = '00120220')|(c = '00122020')|
-             (c = '00110220')|(c = '00111020')|(c = '00112020')|
-             (c = '00010220')|(c = '00011020')|(c = '00012020')|(c = '00002220')
+     else if (c = '00102220')or(c = '00120220')or(c = '00122020')or
+             (c = '00110220')or(c = '00111020')or(c = '00112020')or
+             (c = '00010220')or(c = '00011020')or(c = '00012020')or(c = '00002220')
      then valeurtact[xdeb] := 200
-     else if (c = '02220100')|(c = '02202100')|(c = '02022100')|
-             (c = '02201100')|(c = '02011100')|(c = '02021100')|
-             (c = '02201000')|(c = '02011000')|(c = '02021000')|(c = '02220000')
+     else if (c = '02220100')or(c = '02202100')or(c = '02022100')or
+             (c = '02201100')or(c = '02011100')or(c = '02021100')or
+             (c = '02201000')or(c = '02011000')or(c = '02021000')or(c = '02220000')
      then valeurtact[xfin] := 200
 
-     else if (c = '01022220')|(c = '01102220')|(c = '01110220')|(c = '01111020')then
+     else if (c = '01022220')or(c = '01102220')or(c = '01110220')or(c = '01111020')then
        begin
          valeurtact[xdeb] := 300;
          valeurtact[xfin] := valeurtact[xfin]-300;
        end
-     else if (c = '02222010')|(c = '02220110')|(c = '02201110')|(c = '02011110') then
+     else if (c = '02222010')or(c = '02220110')or(c = '02201110')or(c = '02011110') then
        begin
          valeurtact[xfin] := 300;
          valeurtact[xdeb] := valeurtact[xdeb]-300;
        end
 
-     else if (c = '01111110')|(c = '02222220')then
+     else if (c = '01111110')or(c = '02222220')then
        begin
          valeurtact[xdeb] := valeurtact[xdeb]-200;
          valeurtact[xfin] := valeurtact[xfin]-200;
@@ -1340,7 +1340,7 @@ var PourcentageElagage : double_t ;
     numeroCoup : SInt16;
 begin
   numeroCoup := nbBla+nbNoi-4;
-  if CassioEstEnModeAnalyse | (numeroCoup >= 37)
+  if CassioEstEnModeAnalyse or (numeroCoup >= 37)
     then
       PourcentageElagage := 1.0
     else
@@ -1362,10 +1362,10 @@ begin
       nbNoiEl := nbNoi;
       nbBlaEl := nbBla;
       bidbool := ModifPlatFin(xCourant,couleur,PlatEl,nbBlaEl,nbNoiEl);
-      if ((platEl[11] = pionVide) & PeutJouerIci(couleur,11,PlatEl)) |
-         ((platEl[18] = pionVide) & PeutJouerIci(couleur,18,PlatEl)) |
-         ((platEl[81] = pionVide) & PeutJouerIci(couleur,81,PlatEl)) |
-         ((platEl[88] = pionVide) & PeutJouerIci(couleur,88,PlatEl)) then
+      if ((platEl[11] = pionVide) and PeutJouerIci(couleur,11,PlatEl)) or
+         ((platEl[18] = pionVide) and PeutJouerIci(couleur,18,PlatEl)) or
+         ((platEl[81] = pionVide) and PeutJouerIci(couleur,81,PlatEl)) or
+         ((platEl[88] = pionVide) and PeutJouerIci(couleur,88,PlatEl)) then
          begin
            defense := class[i].theDefense;
            for t := i downto index+2 do class[t] := class[t-1];
@@ -1549,12 +1549,12 @@ begin
                 valPionCentre := valPionCentre+35;
                 valPionPetitCentre := valPionPetitCentre+1;
               end;
-  if (n > 6) & (n <= 12) then
+  if (n > 6) and (n <= 12) then
               begin
                 valPionCentre := valPionCentre+40;
                 valPionPetitCentre := valPionPetitCentre+15;
               end;
-  if (n > 12) & (n < 27) then
+  if (n > 12) and (n < 27) then
               begin
                 valPionCentre := valPionCentre+45;
                 valPionPetitCentre := valPionPetitCentre+20;

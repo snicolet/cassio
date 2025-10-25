@@ -143,7 +143,7 @@ var unRect,windowRect,unrectBis,rect3,horlogerect : rect;
 
 begin
   BeginDialog;
-  {EnvoyezLaMusique := HumCtreHum | gameOver | (nbreCoup = 0);}
+  {EnvoyezLaMusique := HumCtreHum or gameOver or (nbreCoup = 0);}
   sortie := false;
   EnvoyezLaMusique := true;
   if EnvoyezLaMusique
@@ -274,7 +274,7 @@ REPEAT
 
   repeat
     if WaitNextEvent(masque,theEvent,0,NIL) then sortie := true;
-  until sortie | (TickCount > tick + 4);
+  until sortie or (TickCount > tick + 4);
 
   ScrollRect(rect3,0,vitesse,uneRgn);
 
@@ -625,9 +625,9 @@ begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
    err := Gestalt(gestaltSystemVersion, response);
    animationEstPresente :=   (err = noErr)
-                           & (response >= $00001050)
-                           & (response <= $00001070)
-                           & CassioEstUnBundleApplicatif;
+                           and (response >= $00001050)
+                           and (response <= $00001070)
+                           and CassioEstUnBundleApplicatif;
   {$ELSEC}
    Discard2(err,response);
    animationEstPresente := false;
@@ -795,7 +795,7 @@ var i,b : SInt32;
 
 begin
 
-  if windowAideOpen & (wAidePtr <> NIL) then
+  if windowAideOpen and (wAidePtr <> NIL) then
     begin
 
       GetPort(oldPort);

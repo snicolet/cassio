@@ -126,7 +126,7 @@ begin
         {WritelnNumDansRapport('puissanceDeDeux = '+Hexa(puissanceDeDeux) + ' pour la longueur ',longueur);}
 
 
-        if (square >= 11) & (square <= 88)
+        if (square >= 11) and (square <= 88)
           then
             begin
               (* if longueur = 0
@@ -202,7 +202,7 @@ begin
             {WritelnNumDansRapport('myListeBitboard = '+Hexa(myListeBitboard) + ' pour la longueur ',longueur);}
 
             (*
-            if (square >= 11) & (square <= 88)
+            if (square >= 11) and (square <= 88)
               then
                 begin
                   { if longueur = 0
@@ -257,7 +257,7 @@ begin
   if (nbCasesVides = 30)
     then SetDoitReconstruireLaListeBitboard(true);
 
-  if DoitReconstruireLaListeBitboard & (nbCasesVides <= 30)
+  if DoitReconstruireLaListeBitboard and (nbCasesVides <= 30)
     then
       begin
         ConstruireTableListeBitboardToSquare(listeChainee);
@@ -332,7 +332,7 @@ begin
 
           GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE(listeBitboard,iCourant1,iCourant2);
 
-          if (iCourant1 <> listeNormale[i]) & (iCourant1 <> listeNormale[j]) then
+          if (iCourant1 <> listeNormale[i]) and (iCourant1 <> listeNormale[j]) then
             begin
               WritelnDansRapport('ASSSERT (2) dans TesterListeCasesVidesBitboard !!');
               WritelnStringAndCoupDansRapport('listeNormale[i] = ',listeNormale[i]);
@@ -344,7 +344,7 @@ begin
               AttendFrappeClavier;
             end;
 
-          if (iCourant2 <> listeNormale[i]) & (iCourant2 <> listeNormale[j]) then
+          if (iCourant2 <> listeNormale[i]) and (iCourant2 <> listeNormale[j]) then
             begin
               WritelnDansRapport('ASSSERT (3) dans TesterListeCasesVidesBitboard !!');
               WritelnStringAndCoupDansRapport('listeNormale[i] = ',listeNormale[i]);
@@ -495,7 +495,7 @@ WritelnDansRapport('');
 
 
 
-          if (iCourant1 <> listeNormale[i]) & (iCourant1 <> listeNormale[j]) then
+          if (iCourant1 <> listeNormale[i]) and (iCourant1 <> listeNormale[j]) then
             begin
               WritelnDansRapport('');
               WritelnDansRapport('ASSSERT (2) dans WritelnListeBitboardDansRapport : iCourant1 n''est pas bon !!');
@@ -508,7 +508,7 @@ WritelnDansRapport('');
               AttendFrappeClavier;
             end;
 
-          if (iCourant2 <> listeNormale[i]) & (iCourant2 <> listeNormale[j]) then
+          if (iCourant2 <> listeNormale[i]) and (iCourant2 <> listeNormale[j]) then
             begin
               WritelnDansRapport('');
               WritelnDansRapport('ASSSERT (3) dans WritelnListeBitboardDansRapport : iCourant2 n''est pas bon !!');

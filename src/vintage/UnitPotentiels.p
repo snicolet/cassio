@@ -199,7 +199,7 @@ begin
   whichPos := MakePositionEtTrait(whichPlat,whichColor);
 
   inc(nbUpdatesPotentiels);
-  debug := (nbUpdatesPotentiels < 1000) & false;
+  debug := (nbUpdatesPotentiels < 1000) and false;
   rapportLog := GetEcritToutDansRapportLog;
   SetEcritToutDansRapportLog(true);
 
@@ -213,7 +213,7 @@ begin
 
   nbVides := NbCasesVidesDansPosition(whichPos.position);
 
-  if (nbVides <= 1) | (nbVides >= 57) | (GetTraitOfPosition(whichPos) = pionVide)
+  if (nbVides <= 1) or (nbVides >= 57) or (GetTraitOfPosition(whichPos) = pionVide)
     then exit(UpdatePotentiels);
 
   if debug then WritelnNumDansRapport('nbVides = ',nbVides);
@@ -225,13 +225,13 @@ begin
       posAux := whichPos;
       whichSquare := othellier[t];
       nbPionsRetournes := RetournePionsPositionEtTrait(posAux,whichSquare);
-      if (nbPionsRetournes > 0) &
-         (whichSquare >= 11) &
-         (whichSquare <= 88) &
-         (estUneCaseC[whichSquare] | not(VincenzPenseQueCEstUnTresMauvaisCoup(whichSquare,whichPos))) then
+      if (nbPionsRetournes > 0) and
+         (whichSquare >= 11) and
+         (whichSquare <= 88) and
+         (estUneCaseC[whichSquare] or not(VincenzPenseQueCEstUnTresMauvaisCoup(whichSquare,whichPos))) then
         begin
 
-          if (GetTraitOfPosition(posAux) <> pionVide) &
+          if (GetTraitOfPosition(posAux) <> pionVide) and
              (GetTraitOfPosition(whichPos) = -GetTraitOfPosition(posAux)) then
 	          begin
 
@@ -261,7 +261,7 @@ begin
 						      if nbVides > 15
 						        then coeffMinimisation := minimisation
 						        else coeffMinimisation := -minimisation;
-						      if (nbVides > 15) & (NbPionsDefinitifsSurLesBords(whichColor,whichPlat) > 0) then
+						      if (nbVides > 15) and (NbPionsDefinitifsSurLesBords(whichColor,whichPlat) > 0) then
 						        coeffMinimisation := 0.5*minimisation;
 
 						      if debug then
@@ -312,10 +312,10 @@ begin
     begin
 
       {si on a retournŽ une case X => mauvais coup}
-		  if ((whichPos.position[22] <> pionVide) & (newPos.position[22] = -whichPos.position[22])) |
-		     ((whichPos.position[27] <> pionVide) & (newPos.position[27] = -whichPos.position[27])) |
-		     ((whichPos.position[72] <> pionVide) & (newPos.position[72] = -whichPos.position[72])) |
-		     ((whichPos.position[77] <> pionVide) & (newPos.position[77] = -whichPos.position[77])) then
+		  if ((whichPos.position[22] <> pionVide) and (newPos.position[22] = -whichPos.position[22])) or
+		     ((whichPos.position[27] <> pionVide) and (newPos.position[27] = -whichPos.position[27])) or
+		     ((whichPos.position[72] <> pionVide) and (newPos.position[72] = -whichPos.position[72])) or
+		     ((whichPos.position[77] <> pionVide) and (newPos.position[77] = -whichPos.position[77])) then
 		    begin
 		      VincenzPenseQueCEstUnTresMauvaisCoup := true;
 		      exit(VincenzPenseQueCEstUnTresMauvaisCoup);
@@ -325,7 +325,7 @@ begin
 		  if estUneCaseC[whichSquare] then
 		    begin
 		      coin := CoinPlusProche(whichSquare);
-		      if (newPos.position[coin] = pionVide) & PeutJouerIci(-GetTraitOfPosition(whichPos),coin,newPos.position) then
+		      if (newPos.position[coin] = pionVide) and PeutJouerIci(-GetTraitOfPosition(whichPos),coin,newPos.position) then
 		        begin
 		          VincenzPenseQueCEstUnTresMauvaisCoup := true;
 		          exit(VincenzPenseQueCEstUnTresMauvaisCoup);
@@ -351,7 +351,7 @@ begin
   if nbVides > 15
     then coeffMinimisation := degreMinimisation
     else coeffMinimisation := -degreMinimisation;
-  if (nbVides > 15) & (NbPionsDefinitifsSurLesBords(GetTraitOfPosition(whichPos),whichPos.position) > 0) then
+  if (nbVides > 15) and (NbPionsDefinitifsSurLesBords(GetTraitOfPosition(whichPos),whichPos.position) > 0) then
     coeffMinimisation := 0.5*degreMinimisation;
 
 
@@ -394,7 +394,7 @@ begin
   for t := 1 to 64 do
     begin
       square := othellier[t];
-      if (positionEtTrait.position[square] = pionVide) &
+      if (positionEtTrait.position[square] = pionVide) and
           PeutJouerIci(GetTraitOfPosition(positionEtTrait),square,positionEtTrait.position) then
          begin
            newPos := positionEtTrait;

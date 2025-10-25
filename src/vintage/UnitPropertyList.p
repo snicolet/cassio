@@ -217,7 +217,7 @@ procedure CompacterPropertyList(var L : PropertyList);
 var L1,L2 : PropertyList;
 begin
 
-  while (L <> NIL) & PropertyEstVide(L^.head) do
+  while (L <> NIL) and PropertyEstVide(L^.head) do
     begin
       dec(SoldeCreationProperties);
      {WriteStringAndPropertyDansRapport('destruction (dans compacterListe (1)) de ',L^.head);
@@ -262,7 +262,7 @@ end;
 
 function HeadOfPropertyList(L : PropertyList) : PropertyPtr;
 begin
-  if (L = NIL) | PropertyEstVide(L^.head)
+  if (L = NIL) or PropertyEstVide(L^.head)
     then HeadOfPropertyList := NIL
     else HeadOfPropertyList := @L^.head;
 end;
@@ -301,7 +301,7 @@ end;
 
 function PropertyListLength(L : PropertyList) : SInt32;
 begin
-  if (L = NIL) | (L = L^.tail)
+  if (L = NIL) or (L = L^.tail)
     then PropertyListLength := 0
     else PropertyListLength := 1 + PropertyListLength(L^.tail);
 end;
@@ -402,7 +402,7 @@ begin
 
 
 		  { gestion speciale pour les propietes stockees en triple }
-		  if (prop.stockage = StockageEnTriple) &
+		  if (prop.stockage = StockageEnTriple) and
 		     (prop.genre in [CheckMarkProp,GoodForBlackProp,GoodForWhiteProp,TesujiProp,BadMoveProp,DrawMarkProp,UnclearPositionProp]) then
 		    begin
 		      aux := SelectFirstPropertyOfTypes([prop.genre],L);
@@ -412,7 +412,7 @@ begin
 
 		  { cas normal }
 		  aux := SelectFirstPropertyOfTypes([prop.genre],L);
-		  if (aux = NIL) | not(SameProperties(aux^,prop)) then
+		  if (aux = NIL) or not(SameProperties(aux^,prop)) then
 		    AddPropertyToListIter(prop,L);
 	  end;
 end;
@@ -438,21 +438,21 @@ begin
 
             { Si on ajoute de l'information de score exact,
             { il faut dŽtruire l'info gagnant/perdant Žventuelle, moins prŽcise}
-            if ((theColor = pionNoir)  & (theValue >= 2)) |
-               ((theColor = pionBlanc) & (theValue <= -2)) then
+            if ((theColor = pionNoir)  and (theValue >= 2)) or
+               ((theColor = pionBlanc) and (theValue <= -2)) then
               begin
                 DeletePropertiesOfTheseTypesInList([GoodForBlackProp],L);
                 aux := SelectFirstPropertyOfTypes([NodeValueProp],L);
-                if (aux <> NIL) & CetteCouleurAAuMoinsUnGainDansProperty(pionNoir,aux^)
+                if (aux <> NIL) and CetteCouleurAAuMoinsUnGainDansProperty(pionNoir,aux^)
                   then DeletePropertyFromList(aux^,L);
               end;
 
-            if ((theColor = pionBlanc) & (theValue >= 2)) |
-               ((theColor = pionNoir)  & (theValue <= -2)) then
+            if ((theColor = pionBlanc) and (theValue >= 2)) or
+               ((theColor = pionNoir)  and (theValue <= -2)) then
               begin
                 DeletePropertiesOfTheseTypesInList([GoodForWhiteProp],L);
                 aux := SelectFirstPropertyOfTypes([NodeValueProp],L);
-                if (aux <> NIL) & CetteCouleurAAuMoinsUnGainDansProperty(pionBlanc,aux^)
+                if (aux <> NIL) and CetteCouleurAAuMoinsUnGainDansProperty(pionBlanc,aux^)
                   then DeletePropertyFromList(aux^,L);
               end;
 
@@ -468,13 +468,13 @@ begin
 
                 { Si on sait deja le score exact et qu'on veut ajouter une info }
                 { de gagnant/perdant, ce n'est pas la peineÉ}
-                if ((theColor = pionNoir)  & (theValue >= 2)) |
-                   ((theColor = pionBlanc) & (theValue <= -2)) then
+                if ((theColor = pionNoir)  and (theValue >= 2)) or
+                   ((theColor = pionBlanc) and (theValue <= -2)) then
                   exit(AddScorePropertyToListSansDuplication);
 
                 { On prefere marquer le gain Noir avec une propriete GoodForBlackProp}
-                if ((theColor = pionNoir)  & (theValue = +1)) |
-                   ((theColor = pionBlanc) & (theValue = -1)) then
+                if ((theColor = pionNoir)  and (theValue = +1)) or
+                   ((theColor = pionBlanc) and (theValue = -1)) then
                   DeletePropertyFromList(aux^,L);
 
                 DeletePropertiesOfTheseTypesInList([DrawMarkProp],L);
@@ -490,13 +490,13 @@ begin
 
                 { Si on sait deja le score exact et qu'on veut ajouter une info }
                 { de gagnant/perdant, ce n'est pas la peineÉ}
-                if ((theColor = pionBlanc) & (theValue >= 2 )) |
-                   ((theColor = pionNoir)  & (theValue <= -2)) then
+                if ((theColor = pionBlanc) and (theValue >= 2 )) or
+                   ((theColor = pionNoir)  and (theValue <= -2)) then
                   exit(AddScorePropertyToListSansDuplication);
 
                 { On prefere marquer le gain Noir avec une propriete GoodForWhiteProp}
-                if ((theColor = pionNoir)  & (theValue = -1)) |
-                   ((theColor = pionBlanc) & (theValue = +1)) then
+                if ((theColor = pionNoir)  and (theValue = -1)) or
+                   ((theColor = pionBlanc) and (theValue = +1)) then
                   DeletePropertyFromList(aux^,L);
 
                 DeletePropertiesOfTheseTypesInList([DrawMarkProp],L);
@@ -584,7 +584,7 @@ begin
 
 
 		  { gestion speciale pour les propietes stockees en triple }
-		  if (prop.stockage = StockageEnTriple) &
+		  if (prop.stockage = StockageEnTriple) and
 		     (prop.genre in [CheckMarkProp,GoodForBlackProp,GoodForWhiteProp,TesujiProp,BadMoveProp,DrawMarkProp,UnclearPositionProp]) then
 		    begin
 		      aux := SelectFirstPropertyOfTypes([prop.genre],L);
@@ -595,7 +595,7 @@ begin
 		  { cas normal }
 		  aux := SelectFirstPropertyOfTypes([prop.genre],L);
 
-		  if (aux = NIL) | not(SameProperties(aux^,prop)) then
+		  if (aux = NIL) or not(SameProperties(aux^,prop)) then
 		    begin
 		      if (L = NIL)
     		    then
@@ -657,7 +657,7 @@ procedure ForEachPropertyOfTheseTypesDoIter(L : PropertyList; whichTypes : SetOf
 begin
   if (L <> NIL) then
     begin
-      if not(PropertyEstVide(L^.head)) & (L^.head.genre in whichTypes) then   {on fait l'action}
+      if not(PropertyEstVide(L^.head)) and (L^.head.genre in whichTypes) then   {on fait l'action}
         DoWhat(L^.head);
       if L^.tail <> NIL then
         if (L^.tail = L)
@@ -684,9 +684,9 @@ begin
   if (L <> NIL) then
     begin
       continuer := true;
-      if not(PropertyEstVide(L^.head)) & (L^.head.genre in whichTypes) then   {on fait l'action}
+      if not(PropertyEstVide(L^.head)) and (L^.head.genre in whichTypes) then   {on fait l'action}
         DoWhat(L^.head,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         begin
 	        if (L^.tail = L)
 	          then
@@ -713,9 +713,9 @@ begin
   if (L <> NIL) then
     begin
       continuer := true;
-      if not(PropertyEstVide(L^.head)) & (L^.head.genre in whichTypes) then   {on fait l'action}
+      if not(PropertyEstVide(L^.head)) and (L^.head.genre in whichTypes) then   {on fait l'action}
         DoWhat(L^.head,prop,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         begin
           if (L^.tail = L)
             then
@@ -770,7 +770,7 @@ begin
       continuer := true;
       if not(PropertyEstVide(L^.head)) then   {on fait l'action}
         DoWhat(L^.head,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         begin
 	        if (L^.tail = L)
 	          then
@@ -799,7 +799,7 @@ begin
       continuer := true;
       if not(PropertyEstVide(L^.head)) then   {on fait l'action}
         DoWhat(L^.head,prop,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         begin
           if (L^.tail = L)
             then
@@ -987,7 +987,7 @@ begin
   if (prop.stockage = StockageEnEnsembleDeCases) then
     begin
       aux := SelectFirstPropertyOfTypes([prop.genre],L);
-      if (aux <> NIL) & (GetPackedSquareSetOfProperty(prop).private <= GetPackedSquareSetOfProperty(aux^).private)
+      if (aux <> NIL) and (GetPackedSquareSetOfProperty(prop).private <= GetPackedSquareSetOfProperty(aux^).private)
         then NbOccurencesInPropertyList := 1
         else NbOccurencesInPropertyList := 0;
       exit(NbOccurencesInPropertyList);
@@ -1028,7 +1028,7 @@ var result : SetOfPropertyTypes;
     septCaracteres : String255;
 begin
   result := [];
-  if (L <> NIL) & (whichSquare >= 11) & (whichSquare <= 88) then
+  if (L <> NIL) and (whichSquare >= 11) and (whichSquare <= 88) then
     begin
       while L <> NIL do
         begin
@@ -1053,7 +1053,7 @@ begin
 				       StockageEnCoupleCases:
 							     begin
 							       GetSquareCoupleOfProperty(aux,auxSquare,auxSquare2);
-							       if (auxSquare = whichSquare) | (auxSquare2 = whichSquare) then
+							       if (auxSquare = whichSquare) or (auxSquare2 = whichSquare) then
 				               result := result + [aux.genre];
 							     end;
              end;  {case}
@@ -1077,7 +1077,7 @@ var result : PropertyList;
     septCaracteres : String255;
     myProp : Property;
 begin
-  if (L = NIL) | (whichSquare < 11) | (whichSquare > 88) then
+  if (L = NIL) or (whichSquare < 11) or (whichSquare > 88) then
     begin
       ExtractListOfPropertyOnThatSquare := NIL;
       exit(ExtractListOfPropertyOnThatSquare);
@@ -1108,7 +1108,7 @@ begin
 		       StockageEnCoupleCases:
 				       begin
 				         GetSquareCoupleOfProperty(aux,auxSquare,auxSquare2);
-							   if (auxSquare = whichSquare) | (auxSquare2 = whichSquare) then
+							   if (auxSquare = whichSquare) or (auxSquare2 = whichSquare) then
 				            AddPropertyToList(aux,result);
 				       end;
          end;  {case}
@@ -1149,7 +1149,7 @@ begin
           SelectInPropertList := @L^.head;
           exit(SelectInPropertList);
         end;
-      if (L^.tail <> NIL) & (L^.tail <> L) then
+      if (L^.tail <> NIL) and (L^.tail <> L) then
         begin
           SelectInPropertList := SelectInPropertList(L^.tail,choice,result);
           exit(SelectInPropertList);
@@ -1202,7 +1202,7 @@ procedure DeletePropertyFromListIter(prop : Property; var L : PropertyList);
 begin
   if (L <> NIL) then
     begin
-      if not(PropertyEstVide(L^.head)) & SameProperties(L^.head,prop) then
+      if not(PropertyEstVide(L^.head)) and SameProperties(L^.head,prop) then
         begin
           DisposePropertyStuff(L^.head);
     {      WritelnDansRapport('NON !!');  }
@@ -1349,7 +1349,7 @@ begin
       begin
 
 
-        if (aux.genre in nePasDupliquer) &
+        if (aux.genre in nePasDupliquer) and
            ((nePasDupliquer * typesDansL1) <> [])  { * = set intersection}
           then
             begin

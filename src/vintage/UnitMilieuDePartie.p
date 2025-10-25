@@ -153,7 +153,7 @@ var coulPourMeilleurMilieu,coulDefense:-1..1;
 procedure AnnonceRechercheMilieuDePartieDansRapport;
 var s,s1,s2 : String255;
 begin
-  if not(enTournoi) & not(jeuInstantane) & not(analyseRetrograde.enCours) then
+  if not(enTournoi) and not(jeuInstantane) and not(analyseRetrograde.enCours) then
     begin
       s1 := NumEnString((MC_nbBl+MC_nbNo-4)+1);
       if MC_coul = pionNoir
@@ -190,8 +190,8 @@ var s : String255;
     oldScript : SInt32;
     data : SInt32;
 begin
-  {if not(jeuInstantane) | analyseRetrograde.enCours then}
-  if not(jeuInstantane) & not(analyseRetrograde.enCours) then
+  {if not(jeuInstantane) or analyseRetrograde.enCours then}
+  if not(jeuInstantane) and not(analyseRetrograde.enCours) then
     begin
 		  s := chaineGauche + MeilleureSuiteEtNoteEnChaine(coul,note,profondeur);
 		  if not(MemberOfStringSet(s,data,chainesDejaEcrites))
@@ -203,9 +203,9 @@ begin
 					  FinRapport;
 			      TextNormalDansRapport;
 
-			      if (profondeur <> profondeurDerniereLigneEcriteDansRapport) &
-			         (profondeurDerniereLigneEcriteDansRapport > 0) &
-			         (avecEvaluationTotale | (nbCoupsEnTete > 1))
+			      if (profondeur <> profondeurDerniereLigneEcriteDansRapport) and
+			         (profondeurDerniereLigneEcriteDansRapport > 0) and
+			         (avecEvaluationTotale or (nbCoupsEnTete > 1))
 			        then WritelnDansRapport('');
 
 			      WritelnDansRapport(s);
@@ -221,10 +221,10 @@ end;
 
 procedure AnnonceMeilleureSuiteEtNoteDansRapport(couleur,note,profondeur : SInt32);
 begin
-  if not(enTournoi) & not(jeuInstantane) & not(analyseRetrograde.enCours) then
+  if not(enTournoi) and not(jeuInstantane) and not(analyseRetrograde.enCours) then
     begin
       if not(rechercheDejaAnnoncee) then
-        if not(HumCtreHum) & (MC_Coul = couleurMacintosh) then
+        if not(HumCtreHum) and (MC_Coul = couleurMacintosh) then
           AnnonceRechercheMilieuDePartieDansRapport;
       MeilleureSuiteEtNoteDansRapport(couleur,note,profondeur,'  ',lignesEcritesDansRapport);
     end;
@@ -240,7 +240,7 @@ begin
       longueurSuite := LongueurMeilleureSuite;
       empties := nbCasesVidesMilieu;
 
-      if (longueurSuite < profondeur - 3) & (longueurSuite < empties - 10) then
+      if (longueurSuite < profondeur - 3) and (longueurSuite < empties - 10) then
         begin
           {
           WritelnNumDansRapport('attendue = ',profondeur);
@@ -259,10 +259,10 @@ var s, s2 : String255;
     numeroEngine : SInt32;
 begin
 
-  if (prof < 0) | (prof > kNbMaxNiveaux) then
+  if (prof < 0) or (prof > kNbMaxNiveaux) then
     begin
       SysBeep(0);
-      WritelnDansRapport('ASSERT : (prof < 0) | (prof > kNbMaxNiveaux) dans CollecteStatistiques');
+      WritelnDansRapport('ASSERT : (prof < 0) or (prof > kNbMaxNiveaux) dans CollecteStatistiques');
       WritelnNumDansRapport('prof = ',prof);
       exit(CollecteStatistiques);
     end;
@@ -273,12 +273,12 @@ begin
   StatistiquesSurLesCoups[prof].tempsCetteProf := tempsDeCetteProf;
 
   if {InfosTechniquesDansRapport
-     &} (prof + 1 >= kProfMinimalePourSuiteDansRapport)
-     & not(enTournoi)
-     & not(RechercheDeProblemeDePriseDeCoinEnCours)
-     & not(jeuInstantane)
-     & not(analyseRetrograde.enCours)
-     & ((interruptionReflexion = pasdinterruption))
+     and} (prof + 1 >= kProfMinimalePourSuiteDansRapport)
+     and not(enTournoi)
+     and not(RechercheDeProblemeDePriseDeCoinEnCours)
+     and not(jeuInstantane)
+     and not(analyseRetrograde.enCours)
+     and ((interruptionReflexion = pasdinterruption))
     then
       begin
 
@@ -288,7 +288,7 @@ begin
 
         empties := nbCasesVidesMilieu;
 
-        if (prof + 1 > empties) & CassioIsUsingAnEngine(numeroEngine)
+        if (prof + 1 > empties) and CassioIsUsingAnEngine(numeroEngine)
           then
             begin
               precision := ProfondeurMilieuEnPrecisionFinaleEngine(prof + 1, empties);
@@ -352,7 +352,7 @@ begin
       coupEnTeteDernierNiveau := StatistiquesSurLesCoups[profmax].teteDeListe;
       memeCoupEnTeteDernierNiveauEtPrec := false;
       for i := 0 to kNbMaxNiveaux do
-        if (i <> profmax) & (StatistiquesSurLesCoups[i].teteDeListe <> 0) then
+        if (i <> profmax) and (StatistiquesSurLesCoups[i].teteDeListe <> 0) then
           memeCoupEnTeteDernierNiveauEtPrec := (StatistiquesSurLesCoups[i].teteDeListe = coupEnTeteDernierNiveau);
       nbFeuillesDeuxieme := -20000;
       with StatistiquesSurLesCoups[profmax] do
@@ -367,9 +367,9 @@ begin
         else rapportDeuxiemeSurTete := 500;
 
       with StatistiquesSurLesCoups[profmax] do
-      if ((rapportDeuxiemeSurTete <= 30) & (profmax+1 >= 19)) |
-         (((nbfeuillesTeteDeListe/nbFeuillesTotalCetteProf) > 0.90) & (profmax+1 >= 17)) then
-        if memeCoupEnTeteDernierNiveauEtPrec & not(enTournoi) & not(CassioIsUsingAnEngine(numEngine)) then
+      if ((rapportDeuxiemeSurTete <= 30) and (profmax+1 >= 19)) or
+         (((nbfeuillesTeteDeListe/nbFeuillesTotalCetteProf) > 0.90) and (profmax+1 >= 17)) then
+        if memeCoupEnTeteDernierNiveauEtPrec and not(enTournoi) and not(CassioIsUsingAnEngine(numEngine)) then
             begin
               testCoupFacile := true;
               vraimentFacile := ((nbfeuillesTeteDeListe/nbFeuillesTotalCetteProf) > 0.90);
@@ -463,7 +463,7 @@ begin
       beta  := +30000;
     end;
 
-  if (estimationDeDepart >= 25000) | (estimationDeDepart <= -25000) then
+  if (estimationDeDepart >= 25000) or (estimationDeDepart <= -25000) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('estimationDeDepart semble trop grand ou trop petit : ',estimationDeDepart);
@@ -474,7 +474,7 @@ begin
   if estimationDeDepart - largeurFenetre >= beta   then estimationDeDepart := beta  + largeurFenetre - 1;
   if estimationDeDepart + largeurFenetre <= alpha  then estimationDeDepart := alpha - largeurFenetre + 1;
 
-  if (estimationDeDepart + largeurFenetre <= alpha) | (estimationDeDepart - largeurFenetre >= beta) then
+  if (estimationDeDepart + largeurFenetre <= alpha) or (estimationDeDepart - largeurFenetre >= beta) then
     begin
       SysBeep(0);
       WritelnStringDansRapport('estimationDeDepart n''est pas dans la fenetre (alpha,beta) : ');
@@ -515,7 +515,7 @@ begin
   if (aux >= haut_Fenetre)
     then
       {on monte jusqu'a trouver la bonne valeur}
-      while (aux >= haut_Fenetre) & (aux < beta) & (interruptionReflexion = pasdinterruption) do
+      while (aux >= haut_Fenetre) and (aux < beta) and (interruptionReflexion = pasdinterruption) do
         begin
 
           bas_Fenetre  := aux;
@@ -530,7 +530,7 @@ begin
   if (aux <= bas_fenetre)
     then
       {on descend jusqu'a trouver la bonne valeur}
-      while (aux <= bas_fenetre) & (aux > alpha) & (interruptionReflexion = pasdinterruption) do
+      while (aux <= bas_fenetre) and (aux > alpha) and (interruptionReflexion = pasdinterruption) do
         begin
 
           bas_Fenetre  := Max(aux-increment,alpha);
@@ -603,7 +603,7 @@ begin
 
         NoteMinimumAffichee := noteMax;
         for i := 1 to compteur-1 do
-          if (classAux[i].note < NoteMinimumAffichee) & (classAux[i].note > -30000) then
+          if (classAux[i].note < NoteMinimumAffichee) and (classAux[i].note > -30000) then
             NoteMinimumAffichee := classAux[i].note;
 
 
@@ -618,7 +618,7 @@ begin
               suiteInteressante := false;
             end
           else
-            if (aux >= haut_Fenetre) & (aux < betaAB) then
+            if (aux >= haut_Fenetre) and (aux < betaAB) then
               begin
 
                 ReflexData^.class[compteur].note := aux + (ReflexData^.class[1].note - bestAB);  {penalite affichee}
@@ -782,7 +782,7 @@ begin  {MiniMax}
 	  DefCoup := classAux[compteur].theDefense;
 
 	  if KillerGlb^[miniprof,1] <> defcoup then
-	  if (DefCoup >= 11) & (DefCoup <= 88) then
+	  if (DefCoup >= 11) and (DefCoup <= 88) then
 	    if not(interdit[defCoup]) then
 	      if not(estUnCoin[defcoup]) then
 	          begin
@@ -792,7 +792,7 @@ begin  {MiniMax}
 
 
 
-	  if not(RefleSurTempsJoueur) & (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) & pionclignotant
+	  if not(RefleSurTempsJoueur) and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) and pionclignotant
 	    then DessinePionMontreCoupLegal(XCourant);
 
 	  platMod := jeu;
@@ -814,7 +814,7 @@ begin  {MiniMax}
 	      end
 	    else
 	      begin
-	        if avecEvaluationTotale | (miniprof+1 <= 2)
+	        if avecEvaluationTotale or (miniprof+1 <= 2)
 	          then valXY := CalculParEvaluationTotale(suiteEstInteressante)
 	          else valXY := CalculNormal(Min(nbCoupsEnTete,longueurDuClassement),suiteEstInteressante);
 	      end;
@@ -823,15 +823,15 @@ begin  {MiniMax}
 	  TempsDeXCourant := Max(TickCount - tickChrono + 10 * (longueurDuClassement - compteur) , 0);  {pour favoriser ceux en tete de liste}
 	  nbreFeuillesDeXCourant := (nbreFeuillesMilieu - nbreFeuillesDeXCourant)*1.0 + 1000000000.0*(nbreToursFeuillesMilieu - nbreToursFeuillesDeXCourant);
 
-	  if (nbreFeuillesDeXCourant = 0) & CassioIsUsingAnEngine(numeroEngine)
+	  if (nbreFeuillesDeXCourant = 0) and CassioIsUsingAnEngine(numeroEngine)
 	    then nbreFeuillesDeXCourant := 1000.0 * GetSpeedOfEngine * ((TickCount - tickChrono) / 60.0);
 
 
 	  if compteur = 1
 	    then ValeurDeGauche := valXY
-	    else hesitation := hesitation | (valXY > bestAB);
+	    else hesitation := hesitation or (valXY > bestAB);
 
-	  if suiteEstInteressante & (valXY <= bestAB) then
+	  if suiteEstInteressante and (valXY <= bestAB) then
 	    begin
 	      GetMeilleureSuiteInfos(oldMeilleureSuiteInfos);
 	      FabriqueMeilleureSuiteInfos(XCourant,suiteJoueeGlb^,meilleureSuiteGlb,
@@ -839,14 +839,14 @@ begin  {MiniMax}
 
 	      VerifierMeilleureSuiteDuMoteur(miniprof+1);
 
-	      if not(HumCtreHum) & (coulPourMeilleurMilieu = couleurMacintosh) then
+	      if not(HumCtreHum) and (coulPourMeilleurMilieu = couleurMacintosh) then
 	        if (MiniProf+1 >= kProfMinimalePourSuiteDansRapport) then
-	          if (not(jeuInstantane) | analyseRetrograde.enCours) then
+	          if (not(jeuInstantane) or analyseRetrograde.enCours) then
 	            AnnonceMeilleureSuiteEtNoteDansRapport(coulPourMeilleurMilieu,valXY,miniprof+1);
 	      SetMeilleureSuiteInfos(oldMeilleureSuiteInfos);
 	    end;
 
-	  if (valXY > bestAB) & (interruptionReflexion = pasdinterruption) then
+	  if (valXY > bestAB) and (interruptionReflexion = pasdinterruption) then
 	    begin
 
 	      if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
@@ -860,14 +860,14 @@ begin  {MiniMax}
 
 	      VerifierMeilleureSuiteDuMoteur(miniprof+1);
 
-	      if not(HumCtreHum) & (coulPourMeilleurMilieu = couleurMacintosh) then
+	      if not(HumCtreHum) and (coulPourMeilleurMilieu = couleurMacintosh) then
 	        if (MiniProf+1 >= kProfMinimalePourSuiteDansRapport) then
-	          if (not(jeuInstantane) | analyseRetrograde.enCours) then
+	          if (not(jeuInstantane) or analyseRetrograde.enCours) then
 	          begin
 	            AnnonceMeilleureSuiteEtNoteDansRapport(coulPourMeilleurMilieu,valXY,miniprof+1);
 	          end;
-	     (* if avecDessinCoupEnTete & (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) then
-	        if not(RefleSurTempsJoueur) | afficheSuggestionDeCassio then
+	     (* if avecDessinCoupEnTete and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) then
+	        if not(RefleSurTempsJoueur) or afficheSuggestionDeCassio then
 	          begin
 	            if (compteur > 1) then EffaceCoupEnTete;
 	            SetCoupEntete(XCourant);
@@ -884,7 +884,7 @@ begin  {MiniMax}
 
 	  k := 1;
 	  while ((classAux[k].note >= valxy))
-	         & (k < compteur) do k := k+1;
+	         and (k < compteur) do k := k+1;
 	  for j := compteur downto k+1 do classAux[j] := classAux[j-1];
 	  classAux[k].x := XCourant;
 	  classAux[k].note := ValXY;
@@ -898,15 +898,15 @@ begin  {MiniMax}
 	  VerifieAssertionsSurClassementDeMilieu(classAux, longClass, MC_jeu, 'Minimax classAux {4}');
 
 	  (***  classement au temps si pas meilleur  ***)
-	  if (compteur >= 2) & (k = compteur) & (valXY = valeurDeGauche) &
-	     not(avecEvaluationTotale | (miniprof+1 <= 2)) then
+	  if (compteur >= 2) and (k = compteur) and (valXY = valeurDeGauche) and
+	     not(avecEvaluationTotale or (miniprof+1 <= 2)) then
 	    begin
 	      k := 1;
 	      while ((classAux[k].note > valxy))
-	         & (k < compteur) do k := k+1;
-	      if (k < compteur) & (classAux[k].note = valxy) then k := k+1;
-	      while (classAux[k].temps >= TempsDeXCourant) & (classAux[k].note = valxy)
-	         & (k < compteur) do k := k+1;
+	         and (k < compteur) do k := k+1;
+	      if (k < compteur) and (classAux[k].note = valxy) then k := k+1;
+	      while (classAux[k].temps >= TempsDeXCourant) and (classAux[k].note = valxy)
+	         and (k < compteur) do k := k+1;
 	      for j := compteur downto k+1 do classAux[j] := classAux[j-1];
 	      classAux[k].x := XCourant;
 	      classAux[k].note := ValXY;
@@ -943,7 +943,7 @@ begin  {MiniMax}
 			      end;
 			  if affichageReflexion.doitAfficher then EcritReflexion('MiniMax');
 
-			  if (CassioEstEnModeAnalyse {| analyseRetrograde.enCours}) & EstLaPositionCourante(positionArrivee) & (MiniProf >= 7) then
+			  if (CassioEstEnModeAnalyse {or analyseRetrograde.enCours}) and EstLaPositionCourante(positionArrivee) and (MiniProf >= 7) then
 			    begin
 			      nbLignes := GetNbLignesScoresCompletsCetteProf(ReflexData^);
 			      for j := 1 to Min(nbLignes,longueurDuClassement) do
@@ -955,18 +955,18 @@ begin  {MiniMax}
 
 	   end;
 
-	if not(RefleSurTempsJoueur) & (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) & pionclignotant then
+	if not(RefleSurTempsJoueur) and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) and pionclignotant then
 		EffacePionMontreCoupLegal(XCourant);
 
 
-	until sortieDeBoucle | (compteur >= longueurDuClassement) | ((interruptionReflexion <> pasdinterruption));
+	until sortieDeBoucle or (compteur >= longueurDuClassement) or ((interruptionReflexion <> pasdinterruption));
 
 
 
 	if (interruptionReflexion = pasdinterruption)
 	  then
 			begin
-			  if avecEvaluationTotale | (miniprof+1 <= 2)
+			  if avecEvaluationTotale or (miniprof+1 <= 2)
 			    then
 			      begin
 			        class := classAux;
@@ -980,14 +980,14 @@ begin  {MiniMax}
 			        { on rejette a la fin les coups affiches comme "pas mieux" }
 			        { 1) d'abord on prend les autres }
 			        for i := 2 to longClass do
-			          if (classAux[i].note <> classAux[i-1].note) | (i <= nbCoupsEnTete) then
+			          if (classAux[i].note <> classAux[i-1].note) or (i <= nbCoupsEnTete) then
 			            begin
 			              k := k+1;
 			              class[k] := classAux[i];
 			            end;
 			        { 2) puis les pas mieux }
 			        for i := 2 to longClass do
-			          if not((classAux[i].note <> classAux[i-1].note) | (i <= nbCoupsEnTete)) then
+			          if not((classAux[i].note <> classAux[i-1].note) or (i <= nbCoupsEnTete)) then
 			            begin
 			              k := k+1;
 			              class[k] := classAux[i];
@@ -1082,7 +1082,7 @@ function CalculeVariationAvecGraphe(classement : ListOfMoveRecords; longueurClas
 	 nbCoupsEnvisageables := 1;
 	 CoupsEnvisageables[1] := classement[1];
 	 for i := 2 to longueurClassement do
-	   if (classement[i].note > classement[1].note - gEntrainementOuvertures.deltaNoteAutoriseParCoup) &
+	   if (classement[i].note > classement[1].note - gEntrainementOuvertures.deltaNoteAutoriseParCoup) and
 	      (classement[i].note <> classement[i-1].note) then
 	     begin
 	       nbCoupsEnvisageables := nbCoupsEnvisageables+1;
@@ -1096,7 +1096,7 @@ function CalculeVariationAvecGraphe(classement : ListOfMoveRecords; longueurClas
 	   CalculeVariationAvecGraphe := nbreHit;
 	   variationJamaisJoueeDansGraphe := not(CoupEstDansListeDeCellulesEtDeCoups(classement[indexDuCoupConseille].x,FilsDejaJoues,numeroCellule));
 	   nbreHit := nbreHit+1;
-	 until (nbreHit > nbCoupsEnvisageables) | variationJamaisJoueeDansGraphe;
+	 until (nbreHit > nbCoupsEnvisageables) or variationJamaisJoueeDansGraphe;
 
    RandomizeTimer;
 	 if not(variationJamaisJoueeDansGraphe) then  {tous les coups envisageables sont deja connus}
@@ -1117,7 +1117,7 @@ function CalculeVariationAvecMilieu(classement : ListOfMoveRecords; longueurClas
 
    ViderListOfMoveRecords(CoupsEnvisageables);
 
-   {if (longueurClassement >= 2) & (classement[1].x = classement[2].x) then
+   {if (longueurClassement >= 2) and (classement[1].x = classement[2].x) then
      begin
        Sysbeep(0);
        WritelnDansRapport('WARNING : deux coups identiques dans CalculeVariationAvecMilieu !');
@@ -1136,7 +1136,7 @@ function CalculeVariationAvecMilieu(classement : ListOfMoveRecords; longueurClas
 	   begin
 	     {WriteStringAndCoupDansRapport('coup class = ',classement[i].x);
 	     WritelnNumDansRapport(' =  >   ',classement[i].note);}
-  	   if (classement[i].note > classement[1].note - gEntrainementOuvertures.deltaNoteAutoriseParCoup) &
+  	   if (classement[i].note > classement[1].note - gEntrainementOuvertures.deltaNoteAutoriseParCoup) and
   	      (classement[i].note <> classement[i-1].note) then
   	     begin
   	       nbCoupsEnvisageables := nbCoupsEnvisageables + 1;
@@ -1249,17 +1249,17 @@ begin          {CalculeClassementMilieuDePartie}
 
   with gEntrainementOuvertures do
     begin
-      varierLesCoups := CassioVarieSesCoups &
-                        (MC_coul = couleurMacintosh) &
-                        (nbreCoup <= varierJusquaCeNumeroDeCoup) &
-                        (GetCadence <= varierJusquaCetteCadence) &
-                        not(analyseRetrograde.enCours) &
+      varierLesCoups := CassioVarieSesCoups and
+                        (MC_coul = couleurMacintosh) and
+                        (nbreCoup <= varierJusquaCeNumeroDeCoup) and
+                        (GetCadence <= varierJusquaCetteCadence) and
+                        not(analyseRetrograde.enCours) and
                         not(positionFeerique);
       ViderListOfMoveRecords(classementVariations);
       derniereProfCompleteMilieuDePartie := 0;
     end;
 
-  discretisationEvaluationEstOK := not(analyseRetrograde.enCours) & not(varierLesCoups);
+  discretisationEvaluationEstOK := not(analyseRetrograde.enCours) and not(varierLesCoups);
 
   LanceDecompteDesNoeuds;
   compteurNoeuds := 0;
@@ -1325,19 +1325,19 @@ begin          {CalculeClassementMilieuDePartie}
 		  CarteMove(coulPourMeilleurMilieu,MC_jeu,moves,mob);
 
 		  for i := 1 to nbCasesVidesMilieu do
-		    if moves[casesVidesMilieu[i]] & (casesVidesMilieu[i] in casesExclues) then
+		    if moves[casesVidesMilieu[i]] and (casesVidesMilieu[i] in casesExclues) then
 		      begin
 		        dec(mob);
 		        moves[casesVidesMilieu[i]] := false;
 		      end;
 
 
-		  if (mob > 1) | calculerMemeSiUnSeulCoupLegal | ((analyseRetrograde.enCours) & ((MC_nbBl+MC_nbNo) >= 44))
+		  if (mob > 1) or calculerMemeSiUnSeulCoupLegal or ((analyseRetrograde.enCours) and ((MC_nbBl+MC_nbNo) >= 44))
 		    then
 		     begin
 		       nbCoup := 0;
 		       for i := 1 to nbCasesVidesMilieu do
-		         if moves[casesVidesMilieu[i]] & not(casesVidesMilieu[i] in casesExclues) then
+		         if moves[casesVidesMilieu[i]] and not(casesVidesMilieu[i] in casesExclues) then
 		           begin
 		             nbCoup := nbCoup+1;
 		             classement[nbCoup].x := casesVidesMilieu[i];
@@ -1367,7 +1367,7 @@ begin          {CalculeClassementMilieuDePartie}
 				       REPEAT
 						     tempoPhase := phaseDeLaPartie;
 						     phaseDeLaPartie := phaseMilieu;
-						     if (profondeurDemandee = 1) | (ProfondeurMilieuEstImposee & (profondeurDemandee = MFniv-1))
+						     if (profondeurDemandee = 1) or (ProfondeurMilieuEstImposee and (profondeurDemandee = MFniv-1))
 						       then profondeurDemandee := profondeurDemandee + 1
 						       else profondeurDemandee := profondeurDemandee + valeurApprondissementIteratif;
 						     if (profondeurDemandee < 1) then profondeurDemandee := 1;
@@ -1382,7 +1382,7 @@ begin          {CalculeClassementMilieuDePartie}
 						     *)
 
 						     {on fait les profondeurs paires}
-								 if not(ProfondeurMilieuEstImposee) & not(odd(profondeurDemandee)) then
+								 if not(ProfondeurMilieuEstImposee) and not(odd(profondeurDemandee)) then
 									 inc(profondeurDemandee);
 
 						     (*
@@ -1404,7 +1404,7 @@ begin          {CalculeClassementMilieuDePartie}
 						             classement,MC_frontiere,hesitationSurLeBonCoup);
 
 						     nbFeuillesCetteProf := (nbreFeuillesMilieu - nbFeuillesCetteProf)*1.0 + 1000000000.0*(nbreToursFeuillesMilieu - nbToursFeuillesCetteProf);
-						     if (nbFeuillesCetteProf = 0) & CassioIsUsingAnEngine(numeroEngine)
+						     if (nbFeuillesCetteProf = 0) and CassioIsUsingAnEngine(numeroEngine)
 	                 then nbFeuillesCetteProf := 1000.0 * GetSpeedOfEngine * ((TickCount - tickDepartCetteProf) / 60.0);
 
 						     CollecteStatistiques(profondeurDemandee,classement,nbFeuillesCetteProf,(TickCount - tickDepartCetteProf)/60.0, (TickCount - tickNoeuds + 30)/60.0);
@@ -1418,7 +1418,7 @@ begin          {CalculeClassementMilieuDePartie}
 						       else
 							       begin
 
-									     profSupUn := (interruptionReflexion = pasdinterruption) &
+									     profSupUn := (interruptionReflexion = pasdinterruption) and
 									                  (profondeurDemandee > 0);
 
 									     phaseDeLaPartie := tempoPhase;
@@ -1440,15 +1440,15 @@ begin          {CalculeClassementMilieuDePartie}
 									     if tempsPrevu < 200 then tempsPrevu := 200;
 									     if tempsPrevu < tempseffectif then tempsPrevu := tempseffectif;
 
-									     if (interruptionReflexion = pasdinterruption) & not(CassioEstEnModeAnalyse) then
+									     if (interruptionReflexion = pasdinterruption) and not(CassioEstEnModeAnalyse) then
 									       begin
 									         vraimentTresFacile := false;
-									         {if CoupFacile(classement,nbCoup,vraimentTresFacile) & (tempsAlloue <> minutes10000000) then
+									         {if CoupFacile(classement,nbCoup,vraimentTresFacile) and (tempsAlloue <> minutes10000000) then
 									           if vraimentTresFacile
 									             then tempsPrevu := tempsPrevu*500
 									             else tempsPrevu := tempsPrevu*4;}
-									         if hesitationSurLeBonCoup & (profondeurDemandee >= 6) & (classement[1].note <= 10) &
-									            (tempsAlloue <> minutes10000000) & not(analyseRetrograde.enCours)
+									         if hesitationSurLeBonCoup and (profondeurDemandee >= 6) and (classement[1].note <= 10) and
+									            (tempsAlloue <> minutes10000000) and not(analyseRetrograde.enCours)
 									           then tempsAlloue := Min(MyTrunc(1.35*tempsAlloue),MyTrunc(4.0*tempsAlloueAuDebutDeLaReflexion));
 									       end;
 
@@ -1470,35 +1470,35 @@ begin          {CalculeClassementMilieuDePartie}
 									         SetValeursGestionTemps(tempsAlloue,tempsAfficheDansGestion,tempsPrevu,divergence,profReelle,profsuivante);
 
 									       end;
-									     if afficheGestionTemps & (interruptionReflexion = pasdinterruption)
+									     if afficheGestionTemps and (interruptionReflexion = pasdinterruption)
 									       then EcritGestionTemps;
 
-									     if (interruptionReflexion = pasdinterruption) & varierLesCoups then
+									     if (interruptionReflexion = pasdinterruption) and varierLesCoups then
 									       with gEntrainementOuvertures do
 									       begin
 									         derniereProfCompleteMilieuDePartie := profondeurDemandee+1;
 									         CopyListOMoveRecords(classement,classementVariations);
 									       end;
 
-									     doitSeDepecher := (profondeurDemandee >= 2) & not(analyseRetrograde.enCours) &
-									                       (( 0.333*((tempsReflexionMac+tempsPrevu) div 60) > tempsAlloue) |
-									                       (varierLesCoups & not(RefleSurTempsJoueur) & (profondeurDemandee+1 >= gEntrainementOuvertures.profondeurRechercheVariations)));
-									     if (tempsAlloue >= kUnMoisDeTemps) | (tempsAlloueAuDebutDeLaReflexion >= kUnMoisDeTemps) then
+									     doitSeDepecher := (profondeurDemandee >= 2) and not(analyseRetrograde.enCours) and
+									                       (( 0.333*((tempsReflexionMac+tempsPrevu) div 60) > tempsAlloue) or
+									                       (varierLesCoups and not(RefleSurTempsJoueur) and (profondeurDemandee+1 >= gEntrainementOuvertures.profondeurRechercheVariations)));
+									     if (tempsAlloue >= kUnMoisDeTemps) or (tempsAlloueAuDebutDeLaReflexion >= kUnMoisDeTemps) then
 									       doitSeDepecher := false;
 
 									     if ProfondeurMilieuEstImposee
 									       then sortieBoucleProfIterative := (profondeurDemandee >= MFniv)
-									       else sortieBoucleProfIterative := (doitSeDepecher & not(RefleSurTempsJoueur & (AQuiDeJouer <> couleurMacintosh)));
+									       else sortieBoucleProfIterative := (doitSeDepecher and not(RefleSurTempsJoueur and (AQuiDeJouer <> couleurMacintosh)));
 
-									     sortieBoucleProfIterative := sortieBoucleProfIterative |
-									                                  (profondeurDemandee >= kNbMaxNiveaux - 3) |
-									                                  (profondeurDemandee >= nbCasesVidesMilieu + PlusGrandeProfondeurAvecProbCut) |
+									     sortieBoucleProfIterative := sortieBoucleProfIterative or
+									                                  (profondeurDemandee >= kNbMaxNiveaux - 3) or
+									                                  (profondeurDemandee >= nbCasesVidesMilieu + PlusGrandeProfondeurAvecProbCut) or
 									                                  (interruptionReflexion <> pasdinterruption);
 
 									  end;
 
 
-						   UNTIL sortieBoucleProfIterative | (interruptionReflexion <> pasdinterruption);
+						   UNTIL sortieBoucleProfIterative or (interruptionReflexion <> pasdinterruption);
 
 						   if not(varierLesCoups)
 						     then
@@ -1523,10 +1523,10 @@ begin          {CalculeClassementMilieuDePartie}
 						       end;
 
 		           {
-						   if (interruptionReflexion = pasdinterruption) | doitSeDepecher then
-						     if not(HumCtreHum) & (coulPourMeilleurMilieu = couleurMacintosh) then
+						   if (interruptionReflexion = pasdinterruption) or doitSeDepecher then
+						     if not(HumCtreHum) and (coulPourMeilleurMilieu = couleurMacintosh) then
 						       if (profondeurDemandee+1) > kProfMinimalePourSuiteDansRapport then
-						         if not(jeuInstantane) | analyseRetrograde.enCours then
+						         if not(jeuInstantane) or analyseRetrograde.enCours then
 						         AnnonceMeilleureSuiteEtNoteDansRapport(coulPourMeilleurMilieu,classement[1].note,profondeurDemandee+1);
 		           }
 
@@ -1579,7 +1579,7 @@ begin          {CalculeClassementMilieuDePartie}
   if affichageReflexion.doitAfficher then EffaceReflexion(HumCtreHum);
 
 
-  if (indexDuCoupConseille < 1) | (indexDuCoupConseille > 64)
+  if (indexDuCoupConseille < 1) or (indexDuCoupConseille > 64)
     then
       begin
         if (interruptionReflexion = pasdinterruption) then
@@ -1643,12 +1643,12 @@ begin
 
 
   with gEntrainementOuvertures do
-	  if CassioVarieSesCoups &
-	     not(analyseRetrograde.enCours) &
-	     (couleur = couleurMacintosh) &
-	     ((nbBlancs+nbNoirs-4) <= varierJusquaCeNumeroDeCoup) &
-	     not(RefleSurTempsJoueur) &
-	     not(positionFeerique) &
+	  if CassioVarieSesCoups and
+	     not(analyseRetrograde.enCours) and
+	     (couleur = couleurMacintosh) and
+	     ((nbBlancs+nbNoirs-4) <= varierJusquaCeNumeroDeCoup) and
+	     not(RefleSurTempsJoueur) and
+	     not(positionFeerique) and
 	     (GetCadence <= varierJusquaCetteCadence)
 	     then
 	       begin
@@ -1667,7 +1667,7 @@ begin
   WritelnDansRapport('');
   }
 
-  if (numCoupConseille >= 1) & (numCoupConseille <= 64)
+  if (numCoupConseille >= 1) and (numCoupConseille <= 64)
     then
       begin
         result.x := liste[numCoupConseille].x;
@@ -1761,11 +1761,11 @@ begin
   valeurCalculeeParLeMoteurExterne := false;
 
 
-  if CassioIsUsingAnEngine(numeroEngine) & (prof > 8)
+  if CassioIsUsingAnEngine(numeroEngine) and (prof > 8)
     then valeurCalculeeParLeMoteurExterne := EnginePeutFaireCalculDeMilieu(plateau,prof,coul,alpha,beta,pere,valeur,bstDef,meilleureSuiteGlb^);
 
 
-  if not(valeurCalculeeParLeMoteurExterne) & not(Quitter) then
+  if not(valeurCalculeeParLeMoteurExterne) and not(Quitter) then
     begin
 
       nbBlancs := NbPionsDeCetteCouleurDansPosition(pionBlanc,plateau);
@@ -1810,7 +1810,7 @@ begin
       prof    := Max(inProfondeurFinale,0);
 
       // Verification de coherence
-      if (couleur <> pionNoir) & (couleur <> pionBlanc) then
+      if (couleur <> pionNoir) and (couleur <> pionBlanc) then
         begin
           WritelnNumDansRapport('ASSERT : dans LanceurAlphaBetaMilieuWithSearchParams, couleur = ',couleur);
           LanceurAlphaBetaMilieuWithSearchParams := -noteMax;
@@ -1887,7 +1887,7 @@ begin
 
 
       // Lecture des resultats
-      if (interruptionReflexion = pasdinterruption) & (score > -6500) & (score < 6500)
+      if (interruptionReflexion = pasdinterruption) and (score > -6500) and (score < 6500)
         then
           begin
 
@@ -1904,7 +1904,7 @@ begin
                 outBestMoveFinale      := meilleurCoup;
                 outLineFinale          := StructureMeilleureSuiteToString(meilleureSuiteGlb^, inProfondeurFinale);
 
-                if (LENGTH_OF_STRING(outLineFinale) <= 0) & (meilleurCoup >= 11) & (meilleurCoup <= 88) & (inPositionPourFinale[meilleurCoup] = pionVide)
+                if (LENGTH_OF_STRING(outLineFinale) <= 0) and (meilleurCoup >= 11) and (meilleurCoup <= 88) and (inPositionPourFinale[meilleurCoup] = pionVide)
                   then outLineFinale := CoupEnStringEnMajuscules(meilleurCoup);
 
                 if (LENGTH_OF_STRING(outLineFinale) >= 2)

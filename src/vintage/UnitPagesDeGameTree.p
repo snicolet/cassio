@@ -170,7 +170,7 @@ end;
 function TrouvePlaceDansPageDeGameTree(var nroPage,nroIndex : SInt32) : boolean;
 var n,i,k : SInt32;
 begin
-  if (dernierePageGameTreeCree <= 0) & not(PeutCreerNouvellePageGameTree) then
+  if (dernierePageGameTreeCree <= 0) and not(PeutCreerNouvellePageGameTree) then
     begin
       TrouvePlaceDansPageDeGameTree := false;
       nroPage := -1;
@@ -202,7 +202,7 @@ begin
       if (n < 1) then n := n + dernierePageGameTreeCree;
       if ReserveDeGameTree[n] <> NIL then
         with ReserveDeGameTree[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -219,7 +219,7 @@ begin
       if (n < 1) then n := n + dernierePageGameTreeCree;
       if ReserveDeGameTree[n] <> NIL then
         with ReserveDeGameTree[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -272,7 +272,7 @@ begin
 	      with ReserveDeGameTree[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleGameTreeBuffer-1)*sizeof(GameTreeRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleGameTreeBuffer-1)*sizeof(GameTreeRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -290,7 +290,7 @@ begin
 	      with ReserveDeGameTree[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleGameTreeBuffer-1)*sizeof(GameTreeRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleGameTreeBuffer-1)*sizeof(GameTreeRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -332,11 +332,11 @@ begin
                   if IndexDansPage = premierEmplacementVide then
 			              repeat
 			                inc(premierEmplacementVide);
-			              until libre[premierEmplacementVide] | (premierEmplacementVide >= dernierEmplacementVide) | (premierEmplacementVide > TailleGameTreeBuffer);
+			              until libre[premierEmplacementVide] or (premierEmplacementVide >= dernierEmplacementVide) or (premierEmplacementVide > TailleGameTreeBuffer);
                   if IndexDansPage = dernierEmplacementVide then
 			              repeat
 			                dec(dernierEmplacementVide);
-			              until libre[dernierEmplacementVide] | (dernierEmplacementVide <= premierEmplacementVide) | (dernierEmplacementVide < 1);
+			              until libre[dernierEmplacementVide] or (dernierEmplacementVide <= premierEmplacementVide) or (dernierEmplacementVide < 1);
                 end;
           end
       end
@@ -355,8 +355,8 @@ begin
 
   LocaliserGameTreeDansSaPage(G,nroDePage,nroIndex);
 
-  if (nroDePage >= 1) & (nroDePage <= nbPagesDeGameTree) &
-     (nroIndex  >= 1) & (nroIndex  <= TailleGameTreeBuffer) &
+  if (nroDePage >= 1) and (nroDePage <= nbPagesDeGameTree) and
+     (nroIndex  >= 1) and (nroIndex  <= TailleGameTreeBuffer) and
      (ReserveDeGameTree[nroDePage] <> NIL) then
     with ReserveDeGameTree[nroDePage]^ do
       begin

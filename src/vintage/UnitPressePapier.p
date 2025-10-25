@@ -100,7 +100,7 @@ var result : SInt32;
 		       end
 		     else
 		       begin
-		         if CharInRange(c,'1','8') & CharInRange(dernierCaractereRecu,'A','H') then
+		         if CharInRange(c,'1','8') and CharInRange(dernierCaractereRecu,'A','H') then
 		           begin
 		             partieRecue     := partieRecue + dernierCaractereRecu + c;
 		             attendUneLettre := true;
@@ -130,7 +130,7 @@ var result : SInt32;
 		        if PeutArreterAnalyseRetrograde then
 		          begin
 		            PlaquerPartieLegale(chaine,kNePasRejouerLesCoupsEnDirect);
-		            if not(HumCtreHum) & not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
+		            if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
 
 		            positionStandard := true;
 		            partieEnAlpha := chaine;
@@ -144,13 +144,13 @@ begin
   partieEnAlpha := '';
   longueurDuTexteDansLePressePapier := LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT'));
 
-  if enRetour | enSetUp | (longueurDuTexteDansLePressePapier <= 0) then
+  if enRetour or enSetUp or (longueurDuTexteDansLePressePapier <= 0) then
     begin
       PeutCollerPartie := true;
       exit(PeutCollerPartie);
     end;
 
-  if not(enRetour | enSetUp) then
+  if not(enRetour or enSetUp) then
     begin
       hdest := AllocateMemoryHdl(3000);
       if (hdest <> NIL)
@@ -183,7 +183,7 @@ begin
 	            for i := 0 to longueurDuTexteDansLePressePapier do
                 begin
                   c :=  pointeurDeCaractere^[i];
-                  if (compteur < 255) & (CharInRange(c,'1','8') | CharInRange(c,'a','h') | CharInRange(c,'A','H')) then
+                  if (compteur < 255) and (CharInRange(c,'1','8') or CharInRange(c,'a','h') or CharInRange(c,'A','H')) then
                     begin
                       inc(compteur);
                       texteBrut := texteBrut + c;
@@ -228,15 +228,15 @@ begin
 
 			            if (longueurMaximale >= 3) then
 			              begin
-    			            if (err <> 0) & (longueurMaximale = longueur1) then err := InterpreterPartie(texteBrut);
-    	                if (err <> 0) & (longueurMaximale = longueur2) then err := InterpreterPartie(PartiePourPressePapier(false,false,nbreCoup)+texteBrut);
-    			            if (err <> 0) & (longueurMaximale = longueur3) then err := InterpreterPartie(partieRecue);
-    			            if (err <> 0) & (longueurMaximale = longueur4) then err := InterpreterPartie(PartiePourPressePapier(false,false,nbreCoup)+partieRecue);
+    			            if (err <> 0) and (longueurMaximale = longueur1) then err := InterpreterPartie(texteBrut);
+    	                if (err <> 0) and (longueurMaximale = longueur2) then err := InterpreterPartie(PartiePourPressePapier(false,false,nbreCoup)+texteBrut);
+    			            if (err <> 0) and (longueurMaximale = longueur3) then err := InterpreterPartie(partieRecue);
+    			            if (err <> 0) and (longueurMaximale = longueur4) then err := InterpreterPartie(PartiePourPressePapier(false,false,nbreCoup)+partieRecue);
 			              end;
 			
 			            // WritelnNumDansRapport('err = ',err);
 
-			            CollerPartieOK := (err = 0) & (longueurMaximale >= 3);
+			            CollerPartieOK := (err = 0) and (longueurMaximale >= 3);
 			
 			            // WritelnStringAndBoolDansRapport('CollerPartieOK = ',CollerPartieOK);
 			
@@ -351,7 +351,7 @@ begin
         Wait(0.1);
         myError := FichierTexteDeCassioExiste(fileName, fic);
         inc(boucle);
-      until (myError <> -43) | ((TickCount - t) > 120);
+      until (myError <> -43) or ((TickCount - t) > 120);
     end;
 
   { WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , myError = ',myError);
@@ -359,7 +359,7 @@ begin
 
   if (myError = NoErr) then myError := OuvreFichierTexte(fic);
   if (myError = NoErr) then myError := GetTailleFichierTexte(fic,taille);
-  if (myError = NoErr) & (taille > 0) then
+  if (myError = NoErr) and (taille > 0) then
     begin
       dataPtr := AllocateMemoryPtr(taille + 100);
       if (dataPtr <> NIL) then
@@ -477,10 +477,10 @@ begin
   if not(EvaluationPourCourbeProvientDeLaFinale(numeroDuCoup))
     then
       begin
-        if not(HumCtreHum) &
-           (InfosDerniereReflexionMac.nroDuCoup = numeroDuCoup) &
-           (InfosDerniereReflexionMac.coup = coup) &
-           (InfosDerniereReflexionMac.coul = couleur) &
+        if not(HumCtreHum) and
+           (InfosDerniereReflexionMac.nroDuCoup = numeroDuCoup) and
+           (InfosDerniereReflexionMac.coup = coup) and
+           (InfosDerniereReflexionMac.coul = couleur) and
            (InfosDerniereReflexionMac.valeurCoup <> -noteMax)
           then
             begin
@@ -682,7 +682,7 @@ begin
 
   {titre : soit les joueurs si on les connait, sinon le score seul}
   with ParamDiagPartieFFORUM do
-    if gameOver & (titreFForum <> NIL) & (titreFForum^^ <> '')
+    if gameOver and (titreFForum <> NIL) and (titreFForum^^ <> '')
       then
         begin
           s1 := titreFForum^^;
@@ -701,14 +701,14 @@ begin
 
   (*
 
-|00|00|00|00|00|00|00|00|
-|00|00|00|00|00|00|00|00|
-|00|00| 3|00|00|00|00|00|
-|00|00|00|()|##|00|00|00|
-|00|00|00|##|()| 1|00|00|
-|00|00|00| 2|00|00|00|00|
-|00|00|00|00|00|00|00|00|
-|00|00|00|00|00|00|00|00|
+or00or00or00or00or00or00or00or00or
+or00or00or00or00or00or00or00or00or
+or00or00or 3or00or00or00or00or00or
+or00or00or00or()or##or00or00or00or
+or00or00or00or##or()or 1or00or00or
+or00or00or00or 2or00or00or00or00or
+or00or00or00or00or00or00or00or00or
+or00or00or00or00or00or00or00or00or
            5-2
 
  *)

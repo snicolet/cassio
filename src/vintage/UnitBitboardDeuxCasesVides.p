@@ -11458,12 +11458,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000002) = 0) &
-                     (BAnd(opp_bits_low,$000000FC) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     ((BAnd(opp_bits_low,$08040000) <> 0) | (BAnd(opp_bits_high,$80402010) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000100) = 0) &
-                     ((BAnd(opp_bits_low,$01010000) <> 0) | (BAnd(opp_bits_high,$01010101) <> 0)))
+                    ((BAnd(opp_bits_low,$00000002) = 0) and
+                     (BAnd(opp_bits_low,$000000FC) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     ((BAnd(opp_bits_low,$08040000) <> 0) or (BAnd(opp_bits_high,$80402010) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000100) = 0) and
+                     ((BAnd(opp_bits_low,$01010000) <> 0) or (BAnd(opp_bits_high,$01010101) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -11717,12 +11717,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000004) = 0) &
-                     (BAnd(opp_bits_low,$000000F8) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     ((BAnd(opp_bits_low,$10080000) <> 0) | (BAnd(opp_bits_high,$00804020) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     ((BAnd(opp_bits_low,$02020000) <> 0) | (BAnd(opp_bits_high,$02020202) <> 0)))
+                    ((BAnd(opp_bits_low,$00000004) = 0) and
+                     (BAnd(opp_bits_low,$000000F8) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     ((BAnd(opp_bits_low,$10080000) <> 0) or (BAnd(opp_bits_high,$00804020) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     ((BAnd(opp_bits_low,$02020000) <> 0) or (BAnd(opp_bits_high,$02020202) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -11952,15 +11952,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000008) = 0) &
-                     (BAnd(opp_bits_low,$000000F0) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$20100000) <> 0) | (BAnd(opp_bits_high,$00008040) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     ((BAnd(opp_bits_low,$04040000) <> 0) | (BAnd(opp_bits_high,$04040404) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     (BAnd(opp_bits_low,$00010000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000002) = 0) &
+                    ((BAnd(opp_bits_low,$00000008) = 0) and
+                     (BAnd(opp_bits_low,$000000F0) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$20100000) <> 0) or (BAnd(opp_bits_high,$00008040) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     ((BAnd(opp_bits_low,$04040000) <> 0) or (BAnd(opp_bits_high,$04040404) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     (BAnd(opp_bits_low,$00010000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000002) = 0) and
                      (BAnd(opp_bits_low,$00000001) <> 0))
                     then
                       begin
@@ -12187,15 +12187,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000010) = 0) &
-                     (BAnd(opp_bits_low,$000000E0) <> 0)) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$40200000) <> 0) | (BAnd(opp_bits_high,$00000080) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$08080000) <> 0) | (BAnd(opp_bits_high,$08080808) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     (BAnd(opp_bits_low,$01020000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000004) = 0) &
+                    ((BAnd(opp_bits_low,$00000010) = 0) and
+                     (BAnd(opp_bits_low,$000000E0) <> 0)) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$40200000) <> 0) or (BAnd(opp_bits_high,$00000080) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$08080000) <> 0) or (BAnd(opp_bits_high,$08080808) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     (BAnd(opp_bits_low,$01020000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000004) = 0) and
                      (BAnd(opp_bits_low,$00000003) <> 0))
                     then
                       begin
@@ -12422,15 +12422,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000020) = 0) &
-                     (BAnd(opp_bits_low,$000000C0) <> 0)) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     (BAnd(opp_bits_low,$80400000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$10100000) <> 0) | (BAnd(opp_bits_high,$10101010) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$02040000) <> 0) | (BAnd(opp_bits_high,$00000001) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000008) = 0) &
+                    ((BAnd(opp_bits_low,$00000020) = 0) and
+                     (BAnd(opp_bits_low,$000000C0) <> 0)) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     (BAnd(opp_bits_low,$80400000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$10100000) <> 0) or (BAnd(opp_bits_high,$10101010) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$02040000) <> 0) or (BAnd(opp_bits_high,$00000001) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000008) = 0) and
                      (BAnd(opp_bits_low,$00000007) <> 0))
                     then
                       begin
@@ -12657,15 +12657,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000040) = 0) &
-                     (BAnd(opp_bits_low,$00000080) <> 0)) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     (BAnd(opp_bits_low,$00800000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     ((BAnd(opp_bits_low,$20200000) <> 0) | (BAnd(opp_bits_high,$20202020) <> 0))) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$04080000) <> 0) | (BAnd(opp_bits_high,$00000102) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000010) = 0) &
+                    ((BAnd(opp_bits_low,$00000040) = 0) and
+                     (BAnd(opp_bits_low,$00000080) <> 0)) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     (BAnd(opp_bits_low,$00800000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     ((BAnd(opp_bits_low,$20200000) <> 0) or (BAnd(opp_bits_high,$20202020) <> 0))) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$04080000) <> 0) or (BAnd(opp_bits_high,$00000102) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000010) = 0) and
                      (BAnd(opp_bits_low,$0000000F) <> 0))
                     then
                       begin
@@ -12892,11 +12892,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     ((BAnd(opp_bits_low,$40400000) <> 0) | (BAnd(opp_bits_high,$40404040) <> 0))) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     ((BAnd(opp_bits_low,$08100000) <> 0) | (BAnd(opp_bits_high,$00010204) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000020) = 0) &
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     ((BAnd(opp_bits_low,$40400000) <> 0) or (BAnd(opp_bits_high,$40404040) <> 0))) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     ((BAnd(opp_bits_low,$08100000) <> 0) or (BAnd(opp_bits_high,$00010204) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000020) = 0) and
                      (BAnd(opp_bits_low,$0000001F) <> 0))
                     then
                       begin
@@ -13127,11 +13127,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H1 ? }
                   if
-                    ((BAnd(opp_bits_low,$00008000) = 0) &
-                     ((BAnd(opp_bits_low,$80800000) <> 0) | (BAnd(opp_bits_high,$80808080) <> 0))) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     ((BAnd(opp_bits_low,$10200000) <> 0) | (BAnd(opp_bits_high,$01020408) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000040) = 0) &
+                    ((BAnd(opp_bits_low,$00008000) = 0) and
+                     ((BAnd(opp_bits_low,$80800000) <> 0) or (BAnd(opp_bits_high,$80808080) <> 0))) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     ((BAnd(opp_bits_low,$10200000) <> 0) or (BAnd(opp_bits_high,$01020408) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000040) = 0) and
                      (BAnd(opp_bits_low,$0000003F) <> 0))
                     then
                       begin
@@ -13386,12 +13386,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     (BAnd(opp_bits_low,$0000FC00) <> 0)) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     ((BAnd(opp_bits_low,$04000000) <> 0) | (BAnd(opp_bits_high,$40201008) <> 0))) |
-                    ((BAnd(opp_bits_low,$00010000) = 0) &
-                     ((BAnd(opp_bits_low,$01000000) <> 0) | (BAnd(opp_bits_high,$01010101) <> 0)))
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     (BAnd(opp_bits_low,$0000FC00) <> 0)) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     ((BAnd(opp_bits_low,$04000000) <> 0) or (BAnd(opp_bits_high,$40201008) <> 0))) or
+                    ((BAnd(opp_bits_low,$00010000) = 0) and
+                     ((BAnd(opp_bits_low,$01000000) <> 0) or (BAnd(opp_bits_high,$01010101) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -13621,12 +13621,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     (BAnd(opp_bits_low,$0000F800) <> 0)) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     ((BAnd(opp_bits_low,$08000000) <> 0) | (BAnd(opp_bits_high,$80402010) <> 0))) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     ((BAnd(opp_bits_low,$02000000) <> 0) | (BAnd(opp_bits_high,$02020202) <> 0)))
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     (BAnd(opp_bits_low,$0000F800) <> 0)) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     ((BAnd(opp_bits_low,$08000000) <> 0) or (BAnd(opp_bits_high,$80402010) <> 0))) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     ((BAnd(opp_bits_low,$02000000) <> 0) or (BAnd(opp_bits_high,$02020202) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -13844,15 +13844,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     (BAnd(opp_bits_low,$0000F000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$10000000) <> 0) | (BAnd(opp_bits_high,$00804020) <> 0))) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     ((BAnd(opp_bits_low,$04000000) <> 0) | (BAnd(opp_bits_high,$04040404) <> 0))) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     (BAnd(opp_bits_low,$01000000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     (BAnd(opp_bits_low,$0000F000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$10000000) <> 0) or (BAnd(opp_bits_high,$00804020) <> 0))) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     ((BAnd(opp_bits_low,$04000000) <> 0) or (BAnd(opp_bits_high,$04040404) <> 0))) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     (BAnd(opp_bits_low,$01000000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
                      (BAnd(opp_bits_low,$00000100) <> 0))
                     then
                       begin
@@ -14067,15 +14067,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     (BAnd(opp_bits_low,$0000E000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$20000000) <> 0) | (BAnd(opp_bits_high,$00008040) <> 0))) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$08000000) <> 0) | (BAnd(opp_bits_high,$08080808) <> 0))) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     ((BAnd(opp_bits_low,$02000000) <> 0) | (BAnd(opp_bits_high,$00000001) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     (BAnd(opp_bits_low,$0000E000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$20000000) <> 0) or (BAnd(opp_bits_high,$00008040) <> 0))) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$08000000) <> 0) or (BAnd(opp_bits_high,$08080808) <> 0))) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     ((BAnd(opp_bits_low,$02000000) <> 0) or (BAnd(opp_bits_high,$00000001) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
                      (BAnd(opp_bits_low,$00000300) <> 0))
                     then
                       begin
@@ -14290,15 +14290,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     (BAnd(opp_bits_low,$0000C000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     ((BAnd(opp_bits_low,$40000000) <> 0) | (BAnd(opp_bits_high,$00000080) <> 0))) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$10000000) <> 0) | (BAnd(opp_bits_high,$10101010) <> 0))) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$04000000) <> 0) | (BAnd(opp_bits_high,$00000102) <> 0))) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     (BAnd(opp_bits_low,$0000C000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     ((BAnd(opp_bits_low,$40000000) <> 0) or (BAnd(opp_bits_high,$00000080) <> 0))) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$10000000) <> 0) or (BAnd(opp_bits_high,$10101010) <> 0))) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$04000000) <> 0) or (BAnd(opp_bits_high,$00000102) <> 0))) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
                      (BAnd(opp_bits_low,$00000700) <> 0))
                     then
                       begin
@@ -14513,15 +14513,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     (BAnd(opp_bits_low,$00008000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     (BAnd(opp_bits_low,$80000000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     ((BAnd(opp_bits_low,$20000000) <> 0) | (BAnd(opp_bits_high,$20202020) <> 0))) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$08000000) <> 0) | (BAnd(opp_bits_high,$00010204) <> 0))) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     (BAnd(opp_bits_low,$00008000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     (BAnd(opp_bits_low,$80000000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     ((BAnd(opp_bits_low,$20000000) <> 0) or (BAnd(opp_bits_high,$20202020) <> 0))) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$08000000) <> 0) or (BAnd(opp_bits_high,$00010204) <> 0))) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
                      (BAnd(opp_bits_low,$00000F00) <> 0))
                     then
                       begin
@@ -14736,11 +14736,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     ((BAnd(opp_bits_low,$40000000) <> 0) | (BAnd(opp_bits_high,$40404040) <> 0))) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     ((BAnd(opp_bits_low,$10000000) <> 0) | (BAnd(opp_bits_high,$01020408) <> 0))) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     ((BAnd(opp_bits_low,$40000000) <> 0) or (BAnd(opp_bits_high,$40404040) <> 0))) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     ((BAnd(opp_bits_low,$10000000) <> 0) or (BAnd(opp_bits_high,$01020408) <> 0))) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
                      (BAnd(opp_bits_low,$00001F00) <> 0))
                     then
                       begin
@@ -14959,11 +14959,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H2 ? }
                   if
-                    ((BAnd(opp_bits_low,$00800000) = 0) &
-                     ((BAnd(opp_bits_low,$80000000) <> 0) | (BAnd(opp_bits_high,$80808080) <> 0))) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     ((BAnd(opp_bits_low,$20000000) <> 0) | (BAnd(opp_bits_high,$02040810) <> 0))) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
+                    ((BAnd(opp_bits_low,$00800000) = 0) and
+                     ((BAnd(opp_bits_low,$80000000) <> 0) or (BAnd(opp_bits_high,$80808080) <> 0))) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     ((BAnd(opp_bits_low,$20000000) <> 0) or (BAnd(opp_bits_high,$02040810) <> 0))) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
                      (BAnd(opp_bits_low,$00003F00) <> 0))
                     then
                       begin
@@ -15194,15 +15194,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000100) = 0) &
-                     (BAnd(opp_bits_low,$00000001) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     (BAnd(opp_bits_low,$00000004) <> 0)) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     (BAnd(opp_bits_low,$00FC0000) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_high,$20100804) <> 0)) |
-                    ((BAnd(opp_bits_low,$01000000) = 0) &
+                    ((BAnd(opp_bits_low,$00000100) = 0) and
+                     (BAnd(opp_bits_low,$00000001) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     (BAnd(opp_bits_low,$00000004) <> 0)) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     (BAnd(opp_bits_low,$00FC0000) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_high,$20100804) <> 0)) or
+                    ((BAnd(opp_bits_low,$01000000) = 0) and
                      (BAnd(opp_bits_high,$01010101) <> 0))
                     then
                       begin
@@ -15429,15 +15429,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     (BAnd(opp_bits_low,$00000002) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     (BAnd(opp_bits_low,$00000008) <> 0)) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     (BAnd(opp_bits_low,$00F80000) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_high,$40201008) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     (BAnd(opp_bits_low,$00000002) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     (BAnd(opp_bits_low,$00000008) <> 0)) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     (BAnd(opp_bits_low,$00F80000) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_high,$40201008) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
                      (BAnd(opp_bits_high,$02020202) <> 0))
                     then
                       begin
@@ -15652,21 +15652,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000200) = 0) &
-                     (BAnd(opp_bits_low,$00000001) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     (BAnd(opp_bits_low,$00000004) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     (BAnd(opp_bits_low,$00000010) <> 0)) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     (BAnd(opp_bits_low,$00F00000) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_high,$80402010) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_high,$04040404) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_high,$00000001) <> 0)) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
+                    ((BAnd(opp_bits_low,$00000200) = 0) and
+                     (BAnd(opp_bits_low,$00000001) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     (BAnd(opp_bits_low,$00000004) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     (BAnd(opp_bits_low,$00000010) <> 0)) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     (BAnd(opp_bits_low,$00F00000) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_high,$80402010) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_high,$04040404) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_high,$00000001) <> 0)) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
                      (BAnd(opp_bits_low,$00010000) <> 0))
                     then
                       begin
@@ -15899,21 +15899,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000400) = 0) &
-                     (BAnd(opp_bits_low,$00000002) <> 0)) |
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     (BAnd(opp_bits_low,$00000008) <> 0)) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     (BAnd(opp_bits_low,$00000020) <> 0)) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     (BAnd(opp_bits_low,$00E00000) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_high,$00804020) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_high,$08080808) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_high,$00000102) <> 0)) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
+                    ((BAnd(opp_bits_low,$00000400) = 0) and
+                     (BAnd(opp_bits_low,$00000002) <> 0)) or
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     (BAnd(opp_bits_low,$00000008) <> 0)) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     (BAnd(opp_bits_low,$00000020) <> 0)) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     (BAnd(opp_bits_low,$00E00000) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_high,$00804020) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_high,$08080808) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_high,$00000102) <> 0)) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
                      (BAnd(opp_bits_low,$00030000) <> 0))
                     then
                       begin
@@ -16146,21 +16146,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00000800) = 0) &
-                     (BAnd(opp_bits_low,$00000004) <> 0)) |
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     (BAnd(opp_bits_low,$00000010) <> 0)) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     (BAnd(opp_bits_low,$00000040) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     (BAnd(opp_bits_low,$00C00000) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_high,$00008040) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_high,$10101010) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_high,$00010204) <> 0)) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
+                    ((BAnd(opp_bits_low,$00000800) = 0) and
+                     (BAnd(opp_bits_low,$00000004) <> 0)) or
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     (BAnd(opp_bits_low,$00000010) <> 0)) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     (BAnd(opp_bits_low,$00000040) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     (BAnd(opp_bits_low,$00C00000) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_high,$00008040) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_high,$10101010) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_high,$00010204) <> 0)) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
                      (BAnd(opp_bits_low,$00070000) <> 0))
                     then
                       begin
@@ -16393,21 +16393,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F3 ? }
                   if
-                    ((BAnd(opp_bits_low,$00001000) = 0) &
-                     (BAnd(opp_bits_low,$00000008) <> 0)) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     (BAnd(opp_bits_low,$00000020) <> 0)) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     (BAnd(opp_bits_low,$00000080) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     (BAnd(opp_bits_low,$00800000) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_high,$00000080) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_high,$20202020) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_high,$01020408) <> 0)) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
+                    ((BAnd(opp_bits_low,$00001000) = 0) and
+                     (BAnd(opp_bits_low,$00000008) <> 0)) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     (BAnd(opp_bits_low,$00000020) <> 0)) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     (BAnd(opp_bits_low,$00000080) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     (BAnd(opp_bits_low,$00800000) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_high,$00000080) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_high,$20202020) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_high,$01020408) <> 0)) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
                      (BAnd(opp_bits_low,$000F0000) <> 0))
                     then
                       begin
@@ -16640,15 +16640,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G3 ? }
                   if
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_high,$40404040) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_high,$02040810) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     (BAnd(opp_bits_low,$001F0000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00002000) = 0) &
-                     (BAnd(opp_bits_low,$00000010) <> 0)) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_high,$40404040) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_high,$02040810) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     (BAnd(opp_bits_low,$001F0000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00002000) = 0) and
+                     (BAnd(opp_bits_low,$00000010) <> 0)) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
                      (BAnd(opp_bits_low,$00000040) <> 0))
                     then
                       begin
@@ -16863,15 +16863,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H3 ? }
                   if
-                    ((BAnd(opp_bits_low,$80000000) = 0) &
-                     (BAnd(opp_bits_high,$80808080) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_high,$04081020) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     (BAnd(opp_bits_low,$003F0000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00004000) = 0) &
-                     (BAnd(opp_bits_low,$00000020) <> 0)) |
-                    ((BAnd(opp_bits_low,$00008000) = 0) &
+                    ((BAnd(opp_bits_low,$80000000) = 0) and
+                     (BAnd(opp_bits_high,$80808080) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_high,$04081020) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     (BAnd(opp_bits_low,$003F0000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00004000) = 0) and
+                     (BAnd(opp_bits_low,$00000020) <> 0)) or
+                    ((BAnd(opp_bits_low,$00008000) = 0) and
                      (BAnd(opp_bits_low,$00000080) <> 0))
                     then
                       begin
@@ -17098,15 +17098,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00010000) = 0) &
-                     (BAnd(opp_bits_low,$00000101) <> 0)) |
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     (BAnd(opp_bits_low,$00000408) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_low,$FC000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_high,$10080400) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000001) = 0) &
+                    ((BAnd(opp_bits_low,$00010000) = 0) and
+                     (BAnd(opp_bits_low,$00000101) <> 0)) or
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     (BAnd(opp_bits_low,$00000408) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_low,$FC000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_high,$10080400) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000001) = 0) and
                      (BAnd(opp_bits_high,$01010100) <> 0))
                     then
                       begin
@@ -17333,15 +17333,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     (BAnd(opp_bits_low,$00000202) <> 0)) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     (BAnd(opp_bits_low,$00000810) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_low,$F8000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_high,$20100800) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     (BAnd(opp_bits_low,$00000202) <> 0)) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     (BAnd(opp_bits_low,$00000810) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_low,$F8000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_high,$20100800) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
                      (BAnd(opp_bits_high,$02020200) <> 0))
                     then
                       begin
@@ -17556,21 +17556,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00020000) = 0) &
-                     (BAnd(opp_bits_low,$00000100) <> 0)) |
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     (BAnd(opp_bits_low,$00000404) <> 0)) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     (BAnd(opp_bits_low,$00001020) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_low,$F0000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_high,$40201000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_high,$04040400) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_high,$00000100) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
+                    ((BAnd(opp_bits_low,$00020000) = 0) and
+                     (BAnd(opp_bits_low,$00000100) <> 0)) or
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     (BAnd(opp_bits_low,$00000404) <> 0)) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     (BAnd(opp_bits_low,$00001020) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_low,$F0000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_high,$40201000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_high,$04040400) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_high,$00000100) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
                      (BAnd(opp_bits_low,$01000000) <> 0))
                     then
                       begin
@@ -17803,21 +17803,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00040000) = 0) &
-                     (BAnd(opp_bits_low,$00000201) <> 0)) |
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     (BAnd(opp_bits_low,$00000808) <> 0)) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     (BAnd(opp_bits_low,$00002040) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_low,$E0000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_high,$80402000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_high,$08080800) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_high,$00010200) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
+                    ((BAnd(opp_bits_low,$00040000) = 0) and
+                     (BAnd(opp_bits_low,$00000201) <> 0)) or
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     (BAnd(opp_bits_low,$00000808) <> 0)) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     (BAnd(opp_bits_low,$00002040) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_low,$E0000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_high,$80402000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_high,$08080800) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_high,$00010200) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
                      (BAnd(opp_bits_low,$03000000) <> 0))
                     then
                       begin
@@ -18074,21 +18074,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00080000) = 0) &
-                     (BAnd(opp_bits_low,$00000402) <> 0)) |
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     (BAnd(opp_bits_low,$00001010) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     (BAnd(opp_bits_low,$00004080) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_low,$C0000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_high,$00804000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_high,$10101000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_high,$01020400) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
+                    ((BAnd(opp_bits_low,$00080000) = 0) and
+                     (BAnd(opp_bits_low,$00000402) <> 0)) or
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     (BAnd(opp_bits_low,$00001010) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     (BAnd(opp_bits_low,$00004080) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_low,$C0000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_high,$00804000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_high,$10101000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_high,$01020400) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
                      (BAnd(opp_bits_low,$07000000) <> 0))
                     then
                       begin
@@ -18345,21 +18345,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F4 ? }
                   if
-                    ((BAnd(opp_bits_low,$00100000) = 0) &
-                     (BAnd(opp_bits_low,$00000804) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     (BAnd(opp_bits_low,$00002020) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     (BAnd(opp_bits_low,$00008000) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_low,$80000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_high,$00008000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_high,$20202000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_high,$02040800) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
+                    ((BAnd(opp_bits_low,$00100000) = 0) and
+                     (BAnd(opp_bits_low,$00000804) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     (BAnd(opp_bits_low,$00002020) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     (BAnd(opp_bits_low,$00008000) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_low,$80000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_high,$00008000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_high,$20202000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_high,$02040800) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
                      (BAnd(opp_bits_low,$0F000000) <> 0))
                     then
                       begin
@@ -18592,15 +18592,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G4 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_high,$40404000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_high,$04081000) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_low,$1F000000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00200000) = 0) &
-                     (BAnd(opp_bits_low,$00001008) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_high,$40404000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_high,$04081000) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_low,$1F000000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00200000) = 0) and
+                     (BAnd(opp_bits_low,$00001008) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
                      (BAnd(opp_bits_low,$00004040) <> 0))
                     then
                       begin
@@ -18815,15 +18815,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H4 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000080) = 0) &
-                     (BAnd(opp_bits_high,$80808000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_high,$08102000) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_low,$3F000000) <> 0)) |
-                    ((BAnd(opp_bits_low,$00400000) = 0) &
-                     (BAnd(opp_bits_low,$00002010) <> 0)) |
-                    ((BAnd(opp_bits_low,$00800000) = 0) &
+                    ((BAnd(opp_bits_high,$00000080) = 0) and
+                     (BAnd(opp_bits_high,$80808000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_high,$08102000) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_low,$3F000000) <> 0)) or
+                    ((BAnd(opp_bits_low,$00400000) = 0) and
+                     (BAnd(opp_bits_low,$00002010) <> 0)) or
+                    ((BAnd(opp_bits_low,$00800000) = 0) and
                      (BAnd(opp_bits_low,$00008080) <> 0))
                     then
                       begin
@@ -19050,15 +19050,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A5 ? }
                   if
-                    ((BAnd(opp_bits_low,$01000000) = 0) &
-                     (BAnd(opp_bits_low,$00010101) <> 0)) |
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_low,$00040810) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_high,$000000FC) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     (BAnd(opp_bits_high,$08040000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000100) = 0) &
+                    ((BAnd(opp_bits_low,$01000000) = 0) and
+                     (BAnd(opp_bits_low,$00010101) <> 0)) or
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_low,$00040810) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_high,$000000FC) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     (BAnd(opp_bits_high,$08040000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000100) = 0) and
                      (BAnd(opp_bits_high,$01010000) <> 0))
                     then
                       begin
@@ -19285,15 +19285,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B5 ? }
                   if
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_low,$00020202) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_low,$00081020) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_high,$000000F8) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     (BAnd(opp_bits_high,$10080000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_low,$00020202) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_low,$00081020) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_high,$000000F8) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     (BAnd(opp_bits_high,$10080000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
                      (BAnd(opp_bits_high,$02020000) <> 0))
                     then
                       begin
@@ -19508,21 +19508,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C5 ? }
                   if
-                    ((BAnd(opp_bits_low,$02000000) = 0) &
-                     (BAnd(opp_bits_low,$00010000) <> 0)) |
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_low,$00040404) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_low,$00102040) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_high,$000000F0) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     (BAnd(opp_bits_high,$20100000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     (BAnd(opp_bits_high,$04040000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     (BAnd(opp_bits_high,$00010000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
+                    ((BAnd(opp_bits_low,$02000000) = 0) and
+                     (BAnd(opp_bits_low,$00010000) <> 0)) or
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_low,$00040404) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_low,$00102040) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_high,$000000F0) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     (BAnd(opp_bits_high,$20100000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     (BAnd(opp_bits_high,$04040000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     (BAnd(opp_bits_high,$00010000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
                      (BAnd(opp_bits_high,$00000001) <> 0))
                     then
                       begin
@@ -19755,21 +19755,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D5 ? }
                   if
-                    ((BAnd(opp_bits_low,$04000000) = 0) &
-                     (BAnd(opp_bits_low,$00020100) <> 0)) |
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_low,$00080808) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_low,$00204080) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_high,$000000E0) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     (BAnd(opp_bits_high,$40200000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     (BAnd(opp_bits_high,$08080000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     (BAnd(opp_bits_high,$01020000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
+                    ((BAnd(opp_bits_low,$04000000) = 0) and
+                     (BAnd(opp_bits_low,$00020100) <> 0)) or
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_low,$00080808) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_low,$00204080) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_high,$000000E0) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     (BAnd(opp_bits_high,$40200000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     (BAnd(opp_bits_high,$08080000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     (BAnd(opp_bits_high,$01020000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
                      (BAnd(opp_bits_high,$00000003) <> 0))
                     then
                       begin
@@ -20026,21 +20026,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E5 ? }
                   if
-                    ((BAnd(opp_bits_low,$08000000) = 0) &
-                     (BAnd(opp_bits_low,$00040201) <> 0)) |
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_low,$00101010) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_low,$00408000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_high,$000000C0) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     (BAnd(opp_bits_high,$80400000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     (BAnd(opp_bits_high,$10100000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     (BAnd(opp_bits_high,$02040000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
+                    ((BAnd(opp_bits_low,$08000000) = 0) and
+                     (BAnd(opp_bits_low,$00040201) <> 0)) or
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_low,$00101010) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_low,$00408000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_high,$000000C0) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     (BAnd(opp_bits_high,$80400000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     (BAnd(opp_bits_high,$10100000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     (BAnd(opp_bits_high,$02040000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
                      (BAnd(opp_bits_high,$00000007) <> 0))
                     then
                       begin
@@ -20297,21 +20297,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F5 ? }
                   if
-                    ((BAnd(opp_bits_low,$10000000) = 0) &
-                     (BAnd(opp_bits_low,$00080402) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_low,$00202020) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_low,$00800000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_high,$00000080) <> 0)) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$00800000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     (BAnd(opp_bits_high,$20200000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     (BAnd(opp_bits_high,$04080000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
+                    ((BAnd(opp_bits_low,$10000000) = 0) and
+                     (BAnd(opp_bits_low,$00080402) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_low,$00202020) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_low,$00800000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_high,$00000080) <> 0)) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$00800000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     (BAnd(opp_bits_high,$20200000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     (BAnd(opp_bits_high,$04080000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
                      (BAnd(opp_bits_high,$0000000F) <> 0))
                     then
                       begin
@@ -20544,15 +20544,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G5 ? }
                   if
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$40400000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     (BAnd(opp_bits_high,$08100000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_high,$0000001F) <> 0)) |
-                    ((BAnd(opp_bits_low,$20000000) = 0) &
-                     (BAnd(opp_bits_low,$00100804) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$40400000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     (BAnd(opp_bits_high,$08100000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_high,$0000001F) <> 0)) or
+                    ((BAnd(opp_bits_low,$20000000) = 0) and
+                     (BAnd(opp_bits_low,$00100804) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
                      (BAnd(opp_bits_low,$00404040) <> 0))
                     then
                       begin
@@ -20767,15 +20767,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H5 ? }
                   if
-                    ((BAnd(opp_bits_high,$00008000) = 0) &
-                     (BAnd(opp_bits_high,$80800000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$10200000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_high,$0000003F) <> 0)) |
-                    ((BAnd(opp_bits_low,$40000000) = 0) &
-                     (BAnd(opp_bits_low,$00201008) <> 0)) |
-                    ((BAnd(opp_bits_low,$80000000) = 0) &
+                    ((BAnd(opp_bits_high,$00008000) = 0) and
+                     (BAnd(opp_bits_high,$80800000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$10200000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_high,$0000003F) <> 0)) or
+                    ((BAnd(opp_bits_low,$40000000) = 0) and
+                     (BAnd(opp_bits_low,$00201008) <> 0)) or
+                    ((BAnd(opp_bits_low,$80000000) = 0) and
                      (BAnd(opp_bits_low,$00808080) <> 0))
                     then
                       begin
@@ -21002,15 +21002,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000001) = 0) &
-                     (BAnd(opp_bits_low,$01010101) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_low,$04081020) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     (BAnd(opp_bits_high,$0000FC00) <> 0)) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     (BAnd(opp_bits_high,$04000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00010000) = 0) &
+                    ((BAnd(opp_bits_high,$00000001) = 0) and
+                     (BAnd(opp_bits_low,$01010101) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_low,$04081020) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     (BAnd(opp_bits_high,$0000FC00) <> 0)) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     (BAnd(opp_bits_high,$04000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00010000) = 0) and
                      (BAnd(opp_bits_high,$01000000) <> 0))
                     then
                       begin
@@ -21237,15 +21237,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_low,$02020202) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_low,$08102040) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     (BAnd(opp_bits_high,$0000F800) <> 0)) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     (BAnd(opp_bits_high,$08000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_low,$02020202) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_low,$08102040) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     (BAnd(opp_bits_high,$0000F800) <> 0)) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     (BAnd(opp_bits_high,$08000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
                      (BAnd(opp_bits_high,$02000000) <> 0))
                     then
                       begin
@@ -21460,21 +21460,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000002) = 0) &
-                     (BAnd(opp_bits_low,$01000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_low,$04040404) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_low,$10204080) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     (BAnd(opp_bits_high,$0000F000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     (BAnd(opp_bits_high,$10000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     (BAnd(opp_bits_high,$04000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     (BAnd(opp_bits_high,$01000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
+                    ((BAnd(opp_bits_high,$00000002) = 0) and
+                     (BAnd(opp_bits_low,$01000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_low,$04040404) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_low,$10204080) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     (BAnd(opp_bits_high,$0000F000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     (BAnd(opp_bits_high,$10000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     (BAnd(opp_bits_high,$04000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     (BAnd(opp_bits_high,$01000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
                      (BAnd(opp_bits_high,$00000100) <> 0))
                     then
                       begin
@@ -21707,21 +21707,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000004) = 0) &
-                     (BAnd(opp_bits_low,$02010000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_low,$08080808) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_low,$20408000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     (BAnd(opp_bits_high,$0000E000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     (BAnd(opp_bits_high,$20000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     (BAnd(opp_bits_high,$08000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     (BAnd(opp_bits_high,$02000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
+                    ((BAnd(opp_bits_high,$00000004) = 0) and
+                     (BAnd(opp_bits_low,$02010000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_low,$08080808) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_low,$20408000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     (BAnd(opp_bits_high,$0000E000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     (BAnd(opp_bits_high,$20000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     (BAnd(opp_bits_high,$08000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     (BAnd(opp_bits_high,$02000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
                      (BAnd(opp_bits_high,$00000300) <> 0))
                     then
                       begin
@@ -21954,21 +21954,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000008) = 0) &
-                     (BAnd(opp_bits_low,$04020100) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_low,$10101010) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_low,$40800000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     (BAnd(opp_bits_high,$0000C000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     (BAnd(opp_bits_high,$40000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     (BAnd(opp_bits_high,$10000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     (BAnd(opp_bits_high,$04000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
+                    ((BAnd(opp_bits_high,$00000008) = 0) and
+                     (BAnd(opp_bits_low,$04020100) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_low,$10101010) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_low,$40800000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     (BAnd(opp_bits_high,$0000C000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     (BAnd(opp_bits_high,$40000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     (BAnd(opp_bits_high,$10000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     (BAnd(opp_bits_high,$04000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
                      (BAnd(opp_bits_high,$00000700) <> 0))
                     then
                       begin
@@ -22201,21 +22201,21 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000010) = 0) &
-                     (BAnd(opp_bits_low,$08040201) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_low,$20202020) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_low,$80000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$00008000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     (BAnd(opp_bits_high,$80000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     (BAnd(opp_bits_high,$20000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     (BAnd(opp_bits_high,$08000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
+                    ((BAnd(opp_bits_high,$00000010) = 0) and
+                     (BAnd(opp_bits_low,$08040201) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_low,$20202020) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_low,$80000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$00008000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     (BAnd(opp_bits_high,$80000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     (BAnd(opp_bits_high,$20000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     (BAnd(opp_bits_high,$08000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
                      (BAnd(opp_bits_high,$00000F00) <> 0))
                     then
                       begin
@@ -22448,15 +22448,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     (BAnd(opp_bits_high,$40000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     (BAnd(opp_bits_high,$10000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     (BAnd(opp_bits_high,$00001F00) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000020) = 0) &
-                     (BAnd(opp_bits_low,$10080402) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     (BAnd(opp_bits_high,$40000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     (BAnd(opp_bits_high,$10000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     (BAnd(opp_bits_high,$00001F00) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000020) = 0) and
+                     (BAnd(opp_bits_low,$10080402) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
                      (BAnd(opp_bits_low,$40404040) <> 0))
                     then
                       begin
@@ -22671,15 +22671,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H6 ? }
                   if
-                    ((BAnd(opp_bits_high,$00800000) = 0) &
-                     (BAnd(opp_bits_high,$80000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     (BAnd(opp_bits_high,$20000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$00003F00) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000040) = 0) &
-                     (BAnd(opp_bits_low,$20100804) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000080) = 0) &
+                    ((BAnd(opp_bits_high,$00800000) = 0) and
+                     (BAnd(opp_bits_high,$80000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     (BAnd(opp_bits_high,$20000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$00003F00) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000040) = 0) and
+                     (BAnd(opp_bits_low,$20100804) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000080) = 0) and
                      (BAnd(opp_bits_low,$80808080) <> 0))
                     then
                       begin
@@ -22906,11 +22906,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000100) = 0) &
-                     ((BAnd(opp_bits_low,$01010101) <> 0) | (BAnd(opp_bits_high,$00000001) <> 0))) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     ((BAnd(opp_bits_low,$08102040) <> 0) | (BAnd(opp_bits_high,$00000004) <> 0))) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
+                    ((BAnd(opp_bits_high,$00000100) = 0) and
+                     ((BAnd(opp_bits_low,$01010101) <> 0) or (BAnd(opp_bits_high,$00000001) <> 0))) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     ((BAnd(opp_bits_low,$08102040) <> 0) or (BAnd(opp_bits_high,$00000004) <> 0))) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
                      (BAnd(opp_bits_high,$00FC0000) <> 0))
                     then
                       begin
@@ -23141,11 +23141,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     ((BAnd(opp_bits_low,$02020202) <> 0) | (BAnd(opp_bits_high,$00000002) <> 0))) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     ((BAnd(opp_bits_low,$10204080) <> 0) | (BAnd(opp_bits_high,$00000008) <> 0))) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     ((BAnd(opp_bits_low,$02020202) <> 0) or (BAnd(opp_bits_high,$00000002) <> 0))) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     ((BAnd(opp_bits_low,$10204080) <> 0) or (BAnd(opp_bits_high,$00000008) <> 0))) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
                      (BAnd(opp_bits_high,$00F80000) <> 0))
                     then
                       begin
@@ -23364,15 +23364,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     (BAnd(opp_bits_high,$00010000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000200) = 0) &
-                     (BAnd(opp_bits_high,$00000001) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     ((BAnd(opp_bits_low,$04040404) <> 0) | (BAnd(opp_bits_high,$00000004) <> 0))) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$20408000) <> 0) | (BAnd(opp_bits_high,$00000010) <> 0))) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     (BAnd(opp_bits_high,$00010000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000200) = 0) and
+                     (BAnd(opp_bits_high,$00000001) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     ((BAnd(opp_bits_low,$04040404) <> 0) or (BAnd(opp_bits_high,$00000004) <> 0))) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$20408000) <> 0) or (BAnd(opp_bits_high,$00000010) <> 0))) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
                      (BAnd(opp_bits_high,$00F00000) <> 0))
                     then
                       begin
@@ -23587,15 +23587,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     (BAnd(opp_bits_high,$00030000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000400) = 0) &
-                     ((BAnd(opp_bits_low,$01000000) <> 0) | (BAnd(opp_bits_high,$00000002) <> 0))) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$08080808) <> 0) | (BAnd(opp_bits_high,$00000008) <> 0))) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$40800000) <> 0) | (BAnd(opp_bits_high,$00000020) <> 0))) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     (BAnd(opp_bits_high,$00030000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000400) = 0) and
+                     ((BAnd(opp_bits_low,$01000000) <> 0) or (BAnd(opp_bits_high,$00000002) <> 0))) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$08080808) <> 0) or (BAnd(opp_bits_high,$00000008) <> 0))) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$40800000) <> 0) or (BAnd(opp_bits_high,$00000020) <> 0))) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
                      (BAnd(opp_bits_high,$00E00000) <> 0))
                     then
                       begin
@@ -23810,15 +23810,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     (BAnd(opp_bits_high,$00070000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00000800) = 0) &
-                     ((BAnd(opp_bits_low,$02010000) <> 0) | (BAnd(opp_bits_high,$00000004) <> 0))) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$10101010) <> 0) | (BAnd(opp_bits_high,$00000010) <> 0))) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     ((BAnd(opp_bits_low,$80000000) <> 0) | (BAnd(opp_bits_high,$00000040) <> 0))) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     (BAnd(opp_bits_high,$00070000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00000800) = 0) and
+                     ((BAnd(opp_bits_low,$02010000) <> 0) or (BAnd(opp_bits_high,$00000004) <> 0))) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$10101010) <> 0) or (BAnd(opp_bits_high,$00000010) <> 0))) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     ((BAnd(opp_bits_low,$80000000) <> 0) or (BAnd(opp_bits_high,$00000040) <> 0))) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
                      (BAnd(opp_bits_high,$00C00000) <> 0))
                     then
                       begin
@@ -24033,15 +24033,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     (BAnd(opp_bits_high,$000F0000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00001000) = 0) &
-                     ((BAnd(opp_bits_low,$04020100) <> 0) | (BAnd(opp_bits_high,$00000008) <> 0))) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     ((BAnd(opp_bits_low,$20202020) <> 0) | (BAnd(opp_bits_high,$00000020) <> 0))) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     (BAnd(opp_bits_high,$00000080) <> 0)) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     (BAnd(opp_bits_high,$000F0000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00001000) = 0) and
+                     ((BAnd(opp_bits_low,$04020100) <> 0) or (BAnd(opp_bits_high,$00000008) <> 0))) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     ((BAnd(opp_bits_low,$20202020) <> 0) or (BAnd(opp_bits_high,$00000020) <> 0))) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     (BAnd(opp_bits_high,$00000080) <> 0)) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
                      (BAnd(opp_bits_high,$00800000) <> 0))
                     then
                       begin
@@ -24256,12 +24256,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     (BAnd(opp_bits_high,$001F0000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00002000) = 0) &
-                     ((BAnd(opp_bits_low,$08040201) <> 0) | (BAnd(opp_bits_high,$00000010) <> 0))) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     ((BAnd(opp_bits_low,$40404040) <> 0) | (BAnd(opp_bits_high,$00000040) <> 0)))
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     (BAnd(opp_bits_high,$001F0000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00002000) = 0) and
+                     ((BAnd(opp_bits_low,$08040201) <> 0) or (BAnd(opp_bits_high,$00000010) <> 0))) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     ((BAnd(opp_bits_low,$40404040) <> 0) or (BAnd(opp_bits_high,$00000040) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -24479,12 +24479,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H7 ? }
                   if
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     (BAnd(opp_bits_high,$003F0000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00004000) = 0) &
-                     ((BAnd(opp_bits_low,$10080402) <> 0) | (BAnd(opp_bits_high,$00000020) <> 0))) |
-                    ((BAnd(opp_bits_high,$00008000) = 0) &
-                     ((BAnd(opp_bits_low,$80808080) <> 0) | (BAnd(opp_bits_high,$00000080) <> 0)))
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     (BAnd(opp_bits_high,$003F0000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00004000) = 0) and
+                     ((BAnd(opp_bits_low,$10080402) <> 0) or (BAnd(opp_bits_high,$00000020) <> 0))) or
+                    ((BAnd(opp_bits_high,$00008000) = 0) and
+                     ((BAnd(opp_bits_low,$80808080) <> 0) or (BAnd(opp_bits_high,$00000080) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -24714,11 +24714,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en A8 ? }
                   if
-                    ((BAnd(opp_bits_high,$00010000) = 0) &
-                     ((BAnd(opp_bits_low,$01010101) <> 0) | (BAnd(opp_bits_high,$00000101) <> 0))) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     ((BAnd(opp_bits_low,$10204080) <> 0) | (BAnd(opp_bits_high,$00000408) <> 0))) |
-                    ((BAnd(opp_bits_high,$02000000) = 0) &
+                    ((BAnd(opp_bits_high,$00010000) = 0) and
+                     ((BAnd(opp_bits_low,$01010101) <> 0) or (BAnd(opp_bits_high,$00000101) <> 0))) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     ((BAnd(opp_bits_low,$10204080) <> 0) or (BAnd(opp_bits_high,$00000408) <> 0))) or
+                    ((BAnd(opp_bits_high,$02000000) = 0) and
                      (BAnd(opp_bits_high,$FC000000) <> 0))
                     then
                       begin
@@ -24973,11 +24973,11 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en B8 ? }
                   if
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     ((BAnd(opp_bits_low,$02020202) <> 0) | (BAnd(opp_bits_high,$00000202) <> 0))) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     ((BAnd(opp_bits_low,$20408000) <> 0) | (BAnd(opp_bits_high,$00000810) <> 0))) |
-                    ((BAnd(opp_bits_high,$04000000) = 0) &
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     ((BAnd(opp_bits_low,$02020202) <> 0) or (BAnd(opp_bits_high,$00000202) <> 0))) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     ((BAnd(opp_bits_low,$20408000) <> 0) or (BAnd(opp_bits_high,$00000810) <> 0))) or
+                    ((BAnd(opp_bits_high,$04000000) = 0) and
                      (BAnd(opp_bits_high,$F8000000) <> 0))
                     then
                       begin
@@ -25208,15 +25208,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en C8 ? }
                   if
-                    ((BAnd(opp_bits_high,$02000000) = 0) &
-                     (BAnd(opp_bits_high,$01000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00020000) = 0) &
-                     (BAnd(opp_bits_high,$00000100) <> 0)) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     ((BAnd(opp_bits_low,$04040404) <> 0) | (BAnd(opp_bits_high,$00000404) <> 0))) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$40800000) <> 0) | (BAnd(opp_bits_high,$00001020) <> 0))) |
-                    ((BAnd(opp_bits_high,$08000000) = 0) &
+                    ((BAnd(opp_bits_high,$02000000) = 0) and
+                     (BAnd(opp_bits_high,$01000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00020000) = 0) and
+                     (BAnd(opp_bits_high,$00000100) <> 0)) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     ((BAnd(opp_bits_low,$04040404) <> 0) or (BAnd(opp_bits_high,$00000404) <> 0))) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$40800000) <> 0) or (BAnd(opp_bits_high,$00001020) <> 0))) or
+                    ((BAnd(opp_bits_high,$08000000) = 0) and
                      (BAnd(opp_bits_high,$F0000000) <> 0))
                     then
                       begin
@@ -25443,15 +25443,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en D8 ? }
                   if
-                    ((BAnd(opp_bits_high,$04000000) = 0) &
-                     (BAnd(opp_bits_high,$03000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00040000) = 0) &
-                     (BAnd(opp_bits_high,$00000201) <> 0)) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$08080808) <> 0) | (BAnd(opp_bits_high,$00000808) <> 0))) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$80000000) <> 0) | (BAnd(opp_bits_high,$00002040) <> 0))) |
-                    ((BAnd(opp_bits_high,$10000000) = 0) &
+                    ((BAnd(opp_bits_high,$04000000) = 0) and
+                     (BAnd(opp_bits_high,$03000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00040000) = 0) and
+                     (BAnd(opp_bits_high,$00000201) <> 0)) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$08080808) <> 0) or (BAnd(opp_bits_high,$00000808) <> 0))) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$80000000) <> 0) or (BAnd(opp_bits_high,$00002040) <> 0))) or
+                    ((BAnd(opp_bits_high,$10000000) = 0) and
                      (BAnd(opp_bits_high,$E0000000) <> 0))
                     then
                       begin
@@ -25678,15 +25678,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en E8 ? }
                   if
-                    ((BAnd(opp_bits_high,$08000000) = 0) &
-                     (BAnd(opp_bits_high,$07000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00080000) = 0) &
-                     ((BAnd(opp_bits_low,$01000000) <> 0) | (BAnd(opp_bits_high,$00000402) <> 0))) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$10101010) <> 0) | (BAnd(opp_bits_high,$00001010) <> 0))) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     (BAnd(opp_bits_high,$00004080) <> 0)) |
-                    ((BAnd(opp_bits_high,$20000000) = 0) &
+                    ((BAnd(opp_bits_high,$08000000) = 0) and
+                     (BAnd(opp_bits_high,$07000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00080000) = 0) and
+                     ((BAnd(opp_bits_low,$01000000) <> 0) or (BAnd(opp_bits_high,$00000402) <> 0))) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$10101010) <> 0) or (BAnd(opp_bits_high,$00001010) <> 0))) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     (BAnd(opp_bits_high,$00004080) <> 0)) or
+                    ((BAnd(opp_bits_high,$20000000) = 0) and
                      (BAnd(opp_bits_high,$C0000000) <> 0))
                     then
                       begin
@@ -25913,15 +25913,15 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en F8 ? }
                   if
-                    ((BAnd(opp_bits_high,$10000000) = 0) &
-                     (BAnd(opp_bits_high,$0F000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00100000) = 0) &
-                     ((BAnd(opp_bits_low,$02010000) <> 0) | (BAnd(opp_bits_high,$00000804) <> 0))) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     ((BAnd(opp_bits_low,$20202020) <> 0) | (BAnd(opp_bits_high,$00002020) <> 0))) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     (BAnd(opp_bits_high,$00008000) <> 0)) |
-                    ((BAnd(opp_bits_high,$40000000) = 0) &
+                    ((BAnd(opp_bits_high,$10000000) = 0) and
+                     (BAnd(opp_bits_high,$0F000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00100000) = 0) and
+                     ((BAnd(opp_bits_low,$02010000) <> 0) or (BAnd(opp_bits_high,$00000804) <> 0))) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     ((BAnd(opp_bits_low,$20202020) <> 0) or (BAnd(opp_bits_high,$00002020) <> 0))) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     (BAnd(opp_bits_high,$00008000) <> 0)) or
+                    ((BAnd(opp_bits_high,$40000000) = 0) and
                      (BAnd(opp_bits_high,$80000000) <> 0))
                     then
                       begin
@@ -26148,12 +26148,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en G8 ? }
                   if
-                    ((BAnd(opp_bits_high,$20000000) = 0) &
-                     (BAnd(opp_bits_high,$1F000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00200000) = 0) &
-                     ((BAnd(opp_bits_low,$04020100) <> 0) | (BAnd(opp_bits_high,$00001008) <> 0))) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     ((BAnd(opp_bits_low,$40404040) <> 0) | (BAnd(opp_bits_high,$00004040) <> 0)))
+                    ((BAnd(opp_bits_high,$20000000) = 0) and
+                     (BAnd(opp_bits_high,$1F000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00200000) = 0) and
+                     ((BAnd(opp_bits_low,$04020100) <> 0) or (BAnd(opp_bits_high,$00001008) <> 0))) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     ((BAnd(opp_bits_low,$40404040) <> 0) or (BAnd(opp_bits_high,$00004040) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;
@@ -26383,12 +26383,12 @@ begin
                 BEGIN
                   { l'adversaire peut-il jouer en H8 ? }
                   if
-                    ((BAnd(opp_bits_high,$40000000) = 0) &
-                     (BAnd(opp_bits_high,$3F000000) <> 0)) |
-                    ((BAnd(opp_bits_high,$00400000) = 0) &
-                     ((BAnd(opp_bits_low,$08040201) <> 0) | (BAnd(opp_bits_high,$00002010) <> 0))) |
-                    ((BAnd(opp_bits_high,$00800000) = 0) &
-                     ((BAnd(opp_bits_low,$80808080) <> 0) | (BAnd(opp_bits_high,$00008080) <> 0)))
+                    ((BAnd(opp_bits_high,$40000000) = 0) and
+                     (BAnd(opp_bits_high,$3F000000) <> 0)) or
+                    ((BAnd(opp_bits_high,$00400000) = 0) and
+                     ((BAnd(opp_bits_low,$08040201) <> 0) or (BAnd(opp_bits_high,$00002010) <> 0))) or
+                    ((BAnd(opp_bits_high,$00800000) = 0) and
+                     ((BAnd(opp_bits_low,$80808080) <> 0) or (BAnd(opp_bits_high,$00008080) <> 0)))
                     then
                       begin
                         noteCourante := diffPions - 3;

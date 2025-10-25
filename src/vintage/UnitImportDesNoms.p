@@ -180,8 +180,8 @@ begin
   pseudoPGNAvecLesChiffresTerminaux := pseudoPGN;
 
   t := LENGTH_OF_STRING(pseudoPGN);
-  pseudoPGNSeTermineParDesChiffres := (t > 1) & IsDigit(pseudoPGN[t]);
-  while (t > 1) & IsDigit(pseudoPGN[t]) & eraseDigitsInPseudos do
+  pseudoPGNSeTermineParDesChiffres := (t > 1) and IsDigit(pseudoPGN[t]);
+  while (t > 1) and IsDigit(pseudoPGN[t]) and eraseDigitsInPseudos do
     dec(t);
   SET_LENGTH_OF_STRING(pseudoPGN,t);
 
@@ -219,8 +219,8 @@ begin
 
         if not(MemberOfStringSet(LowerCaseStr(pseudoPGN),numero,gImportDesNoms.pseudosAyantUnNomReel)) then
           begin
-            if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux) &
-               (pseudoPGN = pseudoPGNAvecLesChiffresTerminaux) &
+            if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux) and
+               (pseudoPGN = pseudoPGNAvecLesChiffresTerminaux) and
                (pseudoPGNSansLesChiffresTerminaux <> '')
               then
                 begin
@@ -261,12 +261,12 @@ begin
       ligne := '';
       trouve := false;
 
-      while not(EOFFichierTexte(dictionnairePseudosPGN,erreurES)) & not(trouve) do
+      while not(EOFFichierTexte(dictionnairePseudosPGN,erreurES)) and not(trouve) do
         begin
           erreurES := ReadlnDansFichierTexte(dictionnairePseudosPGN,s);
           ligne := s;
           EnleveEspacesDeGaucheSurPlace(ligne);
-          if (ligne = '') | (ligne[1] = '%')
+          if (ligne = '') or (ligne[1] = '%')
             then
               begin
                 {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
@@ -301,7 +301,7 @@ begin
                       begin
                         s1[1] := LowerCase(s1[1]);
 
-                        if doitMettreAJourLesPseudosAyantUnNomReel & (s1 <> '') then
+                        if doitMettreAJourLesPseudosAyantUnNomReel and (s1 <> '') then
                           begin
 
                             // on ajoute dans le cache des pseudos ayant un nom reel le pseudo du
@@ -310,7 +310,7 @@ begin
 
                             pseudoAvecUnNomReel := s1;
                             t := LENGTH_OF_STRING(pseudoAvecUnNomReel);
-                            while (t > 1) & IsDigit(pseudoAvecUnNomReel[t]) do
+                            while (t > 1) and IsDigit(pseudoAvecUnNomReel[t]) do
                               dec(t);
                             SET_LENGTH_OF_STRING(pseudoAvecUnNomReel,t);
 
@@ -323,7 +323,7 @@ begin
 
                         //WritelnDansRapport('s1 = '+s1);
 
-                        if (NoCasePos(pseudoPGN,s1) = 1) & (LENGTH_OF_STRING(pseudoPGN) >= LENGTH_OF_STRING(s1) - 2) then
+                        if (NoCasePos(pseudoPGN,s1) = 1) and (LENGTH_OF_STRING(pseudoPGN) >= LENGTH_OF_STRING(s1) - 2) then
                           begin
                             EnleveEspacesDeGaucheSurPlace(reste);
                             EnleveEspacesDeDroiteSurPlace(reste);
@@ -340,13 +340,13 @@ begin
       (* si on a trouve le pseudo, la liste des pseudos ayant un
          nom reel est incomplete car on a shinté la fin du fichier :
          on préfere donc l'effacer  *)
-      if doitMettreAJourLesPseudosAyantUnNomReel & trouve
+      if doitMettreAJourLesPseudosAyantUnNomReel and trouve
         then DisposeStringSet(gImportDesNoms.pseudosAyantUnNomReel);
 
 
      if not(trouve)
-        & (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux)
-        & (pseudoPGNSansLesChiffresTerminaux <> '')
+        and (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux)
+        and (pseudoPGNSansLesChiffresTerminaux <> '')
        then
          begin
            // WritelnDansRapport('appel recursif {2}');
@@ -366,7 +366,7 @@ procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);
     if not(MemberOfStringSet(pseudo,aux,gImportDesNoms.pseudosInconnus)) then
       begin
 
-        if (nom = '???') | (nom = '') then
+        if (nom = '???') or (nom = '') then
           begin
             pseudoUTF8 := UTF8ToAscii(pseudo);
             WriteDansRapport(message_erreur + pseudoUTF8);
@@ -388,7 +388,7 @@ procedure AjoutePseudoInconnu(const message_erreur,pseudo,nom : String255);
 procedure AnnonceNomAAjouterDansThor(const pseudo,nom : String255);
   var aux : SInt64;
   begin
-    if (nom <> '???') & (nom <> '') &
+    if (nom <> '???') and (nom <> '') and
        not(MemberOfStringSet(nom,aux,gImportDesNoms.nomsReelsARajouterDansBase)) then
       begin
         WritelnDansRapport('nom réel à rajouter dans WThor : '+ nom + '        (correspondant au pseudo ' + pseudo +')');
@@ -454,7 +454,7 @@ begin
 
       // StripHTMLAccents(pseudoArrivee);
 
-      if (LENGTH_OF_STRING(pseudoArrivee) <= 2) & not(EstUnNomChinoisDeDeuxLettresOuMoins(pseudoArrivee))
+      if (LENGTH_OF_STRING(pseudoArrivee) <= 2) and not(EstUnNomChinoisDeDeuxLettresOuMoins(pseudoArrivee))
         then SortirSurEchec;
 
 
@@ -476,7 +476,7 @@ begin
 
           // WritelnDansRapport('pseudo = '+pseudo);
 
-          if (LENGTH_OF_STRING(pseudo) > LongueurPlusLongNomDeJoueurDansBase) &
+          if (LENGTH_OF_STRING(pseudo) > LongueurPlusLongNomDeJoueurDansBase) and
              (LongueurPlusLongNomDeJoueurDansBase > 10)
             then pseudo := LeftOfString(pseudo, LongueurPlusLongNomDeJoueurDansBase);
 
@@ -489,12 +489,12 @@ begin
 
           if (nomDansThor = '') then SortirSurEchec;
 
-          if (numeroDansThor <= kNroJoueurInconnu) | (confiance < 100) then
+          if (numeroDansThor <= kNroJoueurInconnu) or (confiance < 100) then
             begin
               if TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(LeftOfString(nomDansThor,LongueurPlusLongNomDeJoueurDansBase), nouveauNumero, nouvelleConfiance)
                 then
                   begin
-                    if (nouvelleConfiance > confiance) & (nouveauNumero > kNroJoueurInconnu) then
+                    if (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
                       begin
                         confiance      := nouvelleConfiance;
                         numeroDansThor := nouveauNumero;
@@ -516,10 +516,10 @@ begin
           { à tout hasard, on essaie de voir si le pseudo ne serait pas
             directement un nom de joueur dans la base WThor :-)        }
           if not(strict) then
-            if (numeroDansThor <= kNroJoueurInconnu) | (confiance < 100) then
+            if (numeroDansThor <= kNroJoueurInconnu) or (confiance < 100) then
               begin
                 if TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(pseudo, nouveauNumero, nouvelleConfiance)
-                  & (nouvelleConfiance > confiance) & (nouveauNumero > kNroJoueurInconnu) then
+                  and (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
                     begin
                       confiance      := nouvelleConfiance;
                       numeroDansThor := nouveauNumero;
@@ -530,10 +530,10 @@ begin
           { on essaie aussi de voir s'il n'existerait pas un nom dans
             la base Wthor qui serait un préfixe de notre pseudo... :-)   }
           if not(strict) then
-            if (numeroDansThor <= kNroJoueurInconnu) | (confiance < 100) then
+            if (numeroDansThor <= kNroJoueurInconnu) or (confiance < 100) then
                begin
                  if TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor(pseudoLong,nouveauNumero,nouvelleConfiance)
-                   & (nouvelleConfiance > confiance) & (nouveauNumero > kNroJoueurInconnu) then
+                   and (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
                     begin
                       confiance      := nouvelleConfiance;
                       numeroDansThor := nouveauNumero;
@@ -549,10 +549,10 @@ begin
          permet pas de conclure...  C'est la routine la plus lente
          pour les cas desespérés }
         if not(strict) then
-          if (numeroDansThor <= kNroJoueurInconnu) | (confiance < 100) then
+          if (numeroDansThor <= kNroJoueurInconnu) or (confiance < 100) then
              begin
                if TrouveLexemesDeCeNomDeJoueurDansLaBaseThor(pseudoLong,nouveauNumero,nouvelleConfiance)
-                 & (nouvelleConfiance > confiance) & (nouveauNumero > kNroJoueurInconnu) then
+                 and (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
                   begin
                     confiance      := nouvelleConfiance;
                     numeroDansThor := nouveauNumero;
@@ -566,7 +566,7 @@ begin
           if (numeroDansThor <= kNroJoueurInconnu) then
              begin
                if TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(pseudoArrivee,nouveauNumero,nouvelleConfiance)
-                 & (nouvelleConfiance > confiance) & (nouveauNumero > kNroJoueurInconnu) then
+                 and (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
                   begin
                     confiance      := nouvelleConfiance;
                     numeroDansThor := nouveauNumero;
@@ -618,7 +618,7 @@ begin
 
       { à tout hasard, on essaie de voir si le pseudo ne serait pas
         directement un nom de tournoi dans la base WThor :-)       }
-      if (numeroDansThor = kNroTournoiDiversesParties) & TrouveNumeroDuTournoi(pseudo,numeroDirect,0)
+      if (numeroDansThor = kNroTournoiDiversesParties) and TrouveNumeroDuTournoi(pseudo,numeroDirect,0)
         then
           begin
             numeroDansThor := numeroDirect;
@@ -728,7 +728,7 @@ var nbJoueursTrouves : SInt64;
                                - (LENGTH_OF_STRING(pseudoBlanc) - 1) * 2 ;
 
 
-    if (Pos(pseudoNoir, nomThorNoir) = 1) & (Pos(pseudoBlanc, nomThorBlanc) = 1)
+    if (Pos(pseudoNoir, nomThorNoir) = 1) and (Pos(pseudoBlanc, nomThorBlanc) = 1)
       then distanceDeCetteSolution := distanceDeCetteSolution - 5;
 
     (*
@@ -738,8 +738,8 @@ var nbJoueursTrouves : SInt64;
     *)
 
 
-    if (distanceDeCetteSolution < distanceBestSolution) |
-       ((distanceDeCetteSolution = distanceBestSolution) & (longueurDeCetteSolution > longueurBestSolution)) then
+    if (distanceDeCetteSolution < distanceBestSolution) or
+       ((distanceDeCetteSolution = distanceBestSolution) and (longueurDeCetteSolution > longueurBestSolution)) then
       begin
         numeroNoirBestSolution  := numeroNoir;
         numeroBlancBestSolution := numeroBlanc;
@@ -768,11 +768,11 @@ var nbJoueursTrouves : SInt64;
 	  EnleveEspacesDeGaucheSurPlace(pseudoBlanc);
 	  EnleveEspacesDeDroiteSurPlace(pseudoBlanc);
 
-	  if (pseudoNoir = '') | (pseudoBlanc = '')
+	  if (pseudoNoir = '') or (pseudoBlanc = '')
 	    then PeutTrouverDeuxNomsDeJoueursDansWThor := false
 	    else
 	      begin
-	        ok := PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudoNoir,false,nomNoir,numeroNoir) &
+	        ok := PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudoNoir,false,nomNoir,numeroNoir) and
 	              PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudoBlanc,false,nomBlanc,numeroBlanc);
 
 	        if ok then PublishSolution(pseudoNoir,pseudoBlanc);
@@ -821,7 +821,7 @@ var nbJoueursTrouves : SInt64;
       longueur de 1, ou si le morceau est trop court : dans ce cas,
       on choisit de ne meme pas chercher }
     permutation := MakePseudo(imin,imax,0);
-    if (LENGTH_OF_STRING(permutation) <= 2*(imax - imin + 1)) |
+    if (LENGTH_OF_STRING(permutation) <= 2*(imax - imin + 1)) or
        (LENGTH_OF_STRING(permutation) < longueurMinimaleUnPseudo) then
       begin
         nom := '';
@@ -831,7 +831,7 @@ var nbJoueursTrouves : SInt64;
 
 
     { Maintenant on peut chercher }
-    if (imax >= imin) & (numero <> kNroJoueurInconnu) then
+    if (imax >= imin) and (numero <> kNroJoueurInconnu) then
       for coupurePrenom := 0 to (imax - imin) do
         begin
           permutation := MakePseudo(imin,imax,coupurePrenom);
@@ -921,9 +921,9 @@ var nbJoueursTrouves : SInt64;
     *)
 
 
-	  if (trouve1) & (trouve2) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom1,nom2);
-	  if (trouve2) & (trouve3) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom2,nom3);
-	  if (trouve1) & (trouve3) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom1,nom3);
+	  if (trouve1) and (trouve2) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom1,nom2);
+	  if (trouve2) and (trouve3) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom2,nom3);
+	  if (trouve1) and (trouve3) then bidon := PeutTrouverDeuxNomsDeJoueursDansWThor(nom1,nom3);
 
 	  {WritelnDansRapport('');}
 	  {Attendfrappeclavier;}
@@ -972,7 +972,7 @@ var nbJoueursTrouves : SInt64;
       	partieDigeree    := '';
       	partieNonDigeree := s;
 
-      	while (reste <> '') & (i < kNbMaxChaines) do
+      	while (reste <> '') and (i < kNbMaxChaines) do
       	  begin
       	    inc(i);
       	    Parser(reste,chaines[i],reste);
@@ -992,7 +992,7 @@ var nbJoueursTrouves : SInt64;
 
 
 
-      	    while (LENGTH_OF_STRING(chaines[i]) > 0) & ( chaines[i][1] = '-') do
+      	    while (LENGTH_OF_STRING(chaines[i]) > 0) and ( chaines[i][1] = '-') do
       	      chaines[i] := TPCopy(chaines[i],2,LENGTH_OF_STRING(chaines[i])-1);
 
       	    (* optimisation : on enlève les extensions de fichier *)
@@ -1017,12 +1017,12 @@ var nbJoueursTrouves : SInt64;
       	    {les lexemes composes seulement de chiffres sont probablement
       	     des scores, on les utilise comme separateurs de chunks }
       	    if (chaines[i] = GarderSeulementLesChiffres(chaines[i]))
-      	       | not(ContientUneLettre(chaines[i]))
-      	       | (ChaineEnLongint(GarderSeulementLesChiffres(separateurs)) <> 0)
+      	       or not(ContientUneLettre(chaines[i]))
+      	       or (ChaineEnLongint(GarderSeulementLesChiffres(separateurs)) <> 0)
       	      then inc(chunkNumber);
 
             {la chaine 'vs' est probablement un séparateur de chunk}
-            if (chaines[i] = 'vs') | (chaines[i] = 'VS') then
+            if (chaines[i] = 'vs') or (chaines[i] = 'VS') then
               begin
                 chaines[i] := '';
                 inc(chunkNumber);
@@ -1034,20 +1034,20 @@ var nbJoueursTrouves : SInt64;
 
       	    EnleveEspacesDeGaucheSurPlace(chaines[i]);
       	    EnleveEspacesDeDroiteSurPlace(chaines[i]);
-      	    if (chaines[i] = '') |
-      	       (chaines[i] = '-') |
-      	       (chaines[i] = '_') |
-      	       (chaines[i] = '–') |
-      	       (chaines[i] = '—') |
-      	       (chaines[i] = '--') |
-      	       (chaines[i] = '__') |
-      	       (chaines[i] = '——') |
-      	       (chaines[i] = '––') |
-      	       (chaines[i] = GarderSeulementLesChiffres(chaines[i])) |
-      	       ((chaines[i] = 'r') & (i = 1) & (s[2] <> ' ')) |
-      	       ((chaines[i] = 'R') & (i = 1) & (s[2] <> ' ')) |
-      	       ((chaines[i] = 'round') & (i = 1)) |
-      	       ((chaines[i] = 'Round') & (i = 1))
+      	    if (chaines[i] = '') or
+      	       (chaines[i] = '-') or
+      	       (chaines[i] = '_') or
+      	       (chaines[i] = '–') or
+      	       (chaines[i] = '—') or
+      	       (chaines[i] = '--') or
+      	       (chaines[i] = '__') or
+      	       (chaines[i] = '——') or
+      	       (chaines[i] = '––') or
+      	       (chaines[i] = GarderSeulementLesChiffres(chaines[i])) or
+      	       ((chaines[i] = 'r') and (i = 1) and (s[2] <> ' ')) or
+      	       ((chaines[i] = 'R') and (i = 1) and (s[2] <> ' ')) or
+      	       ((chaines[i] = 'round') and (i = 1)) or
+      	       ((chaines[i] = 'Round') and (i = 1))
       	      then dec(i);
       	
       	    aux := chaines[i];
@@ -1083,7 +1083,7 @@ var nbJoueursTrouves : SInt64;
         for i := 1 to nbSousChaines do
           longueurTotale := longueurTotale + LENGTH_OF_STRING(chaines[i]) + 1;
 
-        if (longueurTotale > 0) & (longueurBestSolution > 0)
+        if (longueurTotale > 0) and (longueurBestSolution > 0)
           then confiance := 1.0*longueurBestSolution/longueurTotale;
 
         TrouverNomsAvecCeParsingSet := (longueurBestSolution > 0);
@@ -1124,7 +1124,7 @@ begin  {TrouverNomsDesJoueursDansNomDeFichier}
 
 
   { Si la chaine contient des underscores, il se peut qu'ils soient utilisés comme séparateurs }
-  if (Pos('_',s) > 0) | (Pos('_',s) > 0) then
+  if (Pos('_',s) > 0) or (Pos('_',s) > 0) then
     begin
       theParsingCaracters := ['-','–','.',',',';',':','+','¿','/','\','|','~','≠','±','÷','@','#','•',' ',' ','(',')','{','}','[',']','0','1','2','3','4','5','6','7','8','9','_','_'];
       if TrouverNomsAvecCeParsingSet(theParsingCaracters,confiance) then
@@ -1195,8 +1195,8 @@ begin
 
       (*
       if effetspecial2 then
-      if (c <> ' ') & (c <> '.') & (c <> '-') then
-      if not(((c >= 'a') & (c <= 'z')) | ((c >= 'A') & (c <= 'Z'))) then
+      if (c <> ' ') and (c <> '.') and (c <> '-') then
+      if not(((c >= 'a') and (c <= 'z')) or ((c >= 'A') and (c <= 'Z'))) then
         begin
           EssaieSetPortWindowPlateau;
           WriteNumAt(c+' soit ASCII #',ord(c),10,10);
@@ -1218,7 +1218,7 @@ begin
         begin
           nouveauNom[25] := ' ';
           nouveauNom[24] := ' ';
-          if (nouveauNom[23] >= '0') & (nouveauNom[23] <= '9') then nouveauNom[23] := ' ';
+          if (nouveauNom[23] >= '0') and (nouveauNom[23] <= '9') then nouveauNom[23] := ' ';
         end;
     MoisEnToutesLettres:
       if nouveauNom[25] = '/' then
@@ -1262,8 +1262,8 @@ begin
 
       {
       if effetspecial2 then
-      if (c <> ' ') & (c <> '.') & (c <> '-') then
-      if not(((c >= 'a') & (c <= 'z')) | ((c >= 'A') & (c <= 'Z'))) then
+      if (c <> ' ') and (c <> '.') and (c <> '-') then
+      if not(((c >= 'a') and (c <= 'z')) or ((c >= 'A') and (c <= 'Z'))) then
         begin
           EssaieSetPortWindowPlateau;
           WriteNumAt(c+' soit ASCII #',ord(c),10,10);
@@ -1285,9 +1285,9 @@ begin
     nouveauNom := ReplaceStringByStringInString('Cassio (nicolet)','Cassio (coucou !)',nouveauNom);
 
  (*
-  if (premierCaractere = 'D') & (nouveauNom = 'Di Mattei Alessandr') then
+  if (premierCaractere = 'D') and (nouveauNom = 'Di Mattei Alessandr') then
     nouveauNom := ReplaceStringByStringInString('Di Mattei Alessandr','Di Mattei Alessandro',nouveauNom);
-  if (premierCaractere = 'L') & (nouveauNom = 'Lévy-Abégnoli Thier') then
+  if (premierCaractere = 'L') and (nouveauNom = 'Lévy-Abégnoli Thier') then
     nouveauNom := ReplaceStringByStringInString('Lévy-Abégnoli Thier','Lévy-Abégnoli Thierry',nouveauNom);
   *)
 
@@ -1297,7 +1297,7 @@ begin
     nouveauNom := ReplaceStringByStringInString('Tom Pouce (andrian)','Tom Pouce (bintsa)',nouveauNom);
   if (premierCaractere = '5') then
     nouveauNom := ReplaceStringByStringInString('5semaines (lanuit)','Cinq semaines ()',nouveauNom);
-  if not(gVersionJaponaiseDeCassio & gHasJapaneseScript) then
+  if not(gVersionJaponaiseDeCassio and gHasJapaneseScript) then
     begin
 		  if premierCaractere = 'B' then
 		    begin
@@ -1334,7 +1334,7 @@ begin
 		  nouveauNom := ReplaceStringByStringInString('Aurelien','Aurélien',nouveauNom);
 		  nouveauNom := ReplaceStringByStringInString('Aurelie','Aurélie',nouveauNom);
 
-		  nouveauNom := ReplaceStringByStringInString('C&bek (quin/herve)','C&bek (quin/hervé)',nouveauNom);
+		  nouveauNom := ReplaceStringByStringInString('Candbek (quin/herve)','Candbek (quin/hervé)',nouveauNom);
 		  nouveauNom := ReplaceStringByStringInString('Pege','Pégé',nouveauNom);
 		  nouveauNom := ReplaceStringByStringInString('Masse','Massé',nouveauNom);
 		  nouveauNom := ReplaceStringByStringInString('Nelis','Nélis',nouveauNom);
@@ -1375,8 +1375,8 @@ begin
     if Pos('<IOS>',nouveauNom) > 0 then
       nouveauNom := Concat(Concat('<',TPCopy(nouveauNom,6,LENGTH_OF_STRING(nouveauNom)-5)),'>');
 
-  if (premierCaractere = 'O') | (premierCaractere = '0') |
-     (((nouveauNom[2] = 'O') | (nouveauNom[2] = '0')) & (premierCaractere = '<')) then
+  if (premierCaractere = 'O') or (premierCaractere = '0') or
+     (((nouveauNom[2] = 'O') or (nouveauNom[2] = '0')) and (premierCaractere = '<')) then
     begin
       nouveauNom := ReplaceStringByStringInString('Oo7','007',nouveauNom);{on met des vrais zéros}
       nouveauNom := ReplaceStringByStringInString('OO7','007',nouveauNom);
@@ -1397,41 +1397,41 @@ begin
   i := 1;
   repeat
     c := nomOrigine[i];
-    if (i = 1) & (c >= 'a') & (c <= 'z') then c := chr(ord(c)-32);
+    if (i = 1) and (c >= 'a') and (c <= 'z') then c := chr(ord(c)-32);
     if ord(c) <> 0 then nomSansPrenom := Concat(nomSansPrenom,c);
     i := i+1;
-  until ((c = ' ') &
-        (nomSansPrenom <> 'Le ')       &
-        (nomSansPrenom <> 'Di ')       &
-        (nomSansPrenom <> 'De la ')    &
-        (nomSansPrenom <> 'De ')       &
-        (nomSansPrenom <> 'Des ')      &
-        (nomSansPrenom <> 'Den ')      &
-        (nomSansPrenom <> 'Othel ')    &
-        (nomSansPrenom <> 'Othel du ') &
-        (nomSansPrenom <> 'Qvist ')    &
-        (nomSansPrenom <> 'Peer ')     &
-        (nomSansPrenom <> 'Van ')      &
-        (nomSansPrenom <> 'Van de ')   &
-        (nomSansPrenom <> 'Van der ')  &
-        (nomSansPrenom <> 'Van den ')  &
-        (nomSansPrenom <> 'V/d ')      &
-        (nomSansPrenom <> 'Vd ')       &
-        (nomSansPrenom <> 'In ')       &
-        (nomSansPrenom <> 'In het ')   &
-        (nomSansPrenom <> 'Saint ')    &
-        ((nomSansPrenom <> 'Gros ') | (nomOrigine <> 'Gros Thello (pinta)'))   &
-        (nomSansPrenom <> 'Reversi ')  &
-        (nomSansPrenom <> 'Pee ')      &
-        (nomSansPrenom <> 'Tom ')      &
-        (nomSansPrenom <> 'Von ')      &
-        (nomSansPrenom <> 'La ')       &
-        (nomSansPrenom <> 'Du ')       &
-        (nomSansPrenom <> 'El ')       &
-        (nomSansPrenom <> 'The ')      &
-        (nomSansPrenom <> 'Pc ')       &
+  until ((c = ' ') and
+        (nomSansPrenom <> 'Le ')       and
+        (nomSansPrenom <> 'Di ')       and
+        (nomSansPrenom <> 'De la ')    and
+        (nomSansPrenom <> 'De ')       and
+        (nomSansPrenom <> 'Des ')      and
+        (nomSansPrenom <> 'Den ')      and
+        (nomSansPrenom <> 'Othel ')    and
+        (nomSansPrenom <> 'Othel du ') and
+        (nomSansPrenom <> 'Qvist ')    and
+        (nomSansPrenom <> 'Peer ')     and
+        (nomSansPrenom <> 'Van ')      and
+        (nomSansPrenom <> 'Van de ')   and
+        (nomSansPrenom <> 'Van der ')  and
+        (nomSansPrenom <> 'Van den ')  and
+        (nomSansPrenom <> 'V/d ')      and
+        (nomSansPrenom <> 'Vd ')       and
+        (nomSansPrenom <> 'In ')       and
+        (nomSansPrenom <> 'In het ')   and
+        (nomSansPrenom <> 'Saint ')    and
+        ((nomSansPrenom <> 'Gros ') or (nomOrigine <> 'Gros Thello (pinta)'))   and
+        (nomSansPrenom <> 'Reversi ')  and
+        (nomSansPrenom <> 'Pee ')      and
+        (nomSansPrenom <> 'Tom ')      and
+        (nomSansPrenom <> 'Von ')      and
+        (nomSansPrenom <> 'La ')       and
+        (nomSansPrenom <> 'Du ')       and
+        (nomSansPrenom <> 'El ')       and
+        (nomSansPrenom <> 'The ')      and
+        (nomSansPrenom <> 'Pc ')       and
         (nomSansPrenom <> 'Des '))
-        | (i > longueur) | (ord(c) = 0);
+        or (i > longueur) or (ord(c) = 0);
 end;
 
 
@@ -1445,44 +1445,44 @@ begin
       begin
         nomEnMajuscules := MyUpperString(nomJoueur, false);
         EstUnNomChinoisDeDeuxLettresOuMoins :=
-           (nomEnMajuscules = 'AO') |
-           (nomEnMajuscules = 'BA') |
-           (nomEnMajuscules = 'BE') |
-           (nomEnMajuscules = 'BO') |
-           (nomEnMajuscules = 'FU') |
-           (nomEnMajuscules = 'GI') |
-           (nomEnMajuscules = 'HE') |
-           (nomEnMajuscules = 'HO') |
-           (nomEnMajuscules = 'HU') |
-           (nomEnMajuscules = 'HA') |
-           (nomEnMajuscules = 'IO') |
-           (nomEnMajuscules = 'IU') |
-           (nomEnMajuscules = 'JO') |
-           (nomEnMajuscules = 'KA') |
-           (nomEnMajuscules = 'KO') |
-           (nomEnMajuscules = 'LE') |
-           (nomEnMajuscules = 'LI') |
-           (nomEnMajuscules = 'LU') |
-           (nomEnMajuscules = 'LO') |
-           (nomEnMajuscules = 'MA') |
-           (nomEnMajuscules = 'NG') |
-           (nomEnMajuscules = 'O')  |
-           (nomEnMajuscules = 'OH') |
-           (nomEnMajuscules = 'RA') |
-           (nomEnMajuscules = 'RI') |
-           (nomEnMajuscules = 'SY') |
-           (nomEnMajuscules = 'TA') |
-           (nomEnMajuscules = 'TE') |
-           (nomEnMajuscules = 'TI') |
-           (nomEnMajuscules = 'TU') |
-           (nomEnMajuscules = 'TO') |
-           (nomEnMajuscules = 'TY') |
-           (nomEnMajuscules = 'VO') |
-           (nomEnMajuscules = 'WU') |
-           (nomEnMajuscules = 'XU') |
-           (nomEnMajuscules = 'YE') |
-           (nomEnMajuscules = 'YI') |
-           (nomEnMajuscules = 'YO') |
+           (nomEnMajuscules = 'AO') or
+           (nomEnMajuscules = 'BA') or
+           (nomEnMajuscules = 'BE') or
+           (nomEnMajuscules = 'BO') or
+           (nomEnMajuscules = 'FU') or
+           (nomEnMajuscules = 'GI') or
+           (nomEnMajuscules = 'HE') or
+           (nomEnMajuscules = 'HO') or
+           (nomEnMajuscules = 'HU') or
+           (nomEnMajuscules = 'HA') or
+           (nomEnMajuscules = 'IO') or
+           (nomEnMajuscules = 'IU') or
+           (nomEnMajuscules = 'JO') or
+           (nomEnMajuscules = 'KA') or
+           (nomEnMajuscules = 'KO') or
+           (nomEnMajuscules = 'LE') or
+           (nomEnMajuscules = 'LI') or
+           (nomEnMajuscules = 'LU') or
+           (nomEnMajuscules = 'LO') or
+           (nomEnMajuscules = 'MA') or
+           (nomEnMajuscules = 'NG') or
+           (nomEnMajuscules = 'O')  or
+           (nomEnMajuscules = 'OH') or
+           (nomEnMajuscules = 'RA') or
+           (nomEnMajuscules = 'RI') or
+           (nomEnMajuscules = 'SY') or
+           (nomEnMajuscules = 'TA') or
+           (nomEnMajuscules = 'TE') or
+           (nomEnMajuscules = 'TI') or
+           (nomEnMajuscules = 'TU') or
+           (nomEnMajuscules = 'TO') or
+           (nomEnMajuscules = 'TY') or
+           (nomEnMajuscules = 'VO') or
+           (nomEnMajuscules = 'WU') or
+           (nomEnMajuscules = 'XU') or
+           (nomEnMajuscules = 'YE') or
+           (nomEnMajuscules = 'YI') or
+           (nomEnMajuscules = 'YO') or
            (nomEnMajuscules = 'YU');
        end;
 
@@ -1560,7 +1560,7 @@ begin
 
 
   s := ReplaceStringByStringInString('Divers avant et pendant','Avant',s);
-  s := ReplaceStringByStringInString('Aas Open & Othello Cup','Aas',s);
+  s := ReplaceStringByStringInString('Aas Open and Othello Cup','Aas',s);
   s := ReplaceStringByStringInString('Othello Cup','',s);
 
 
@@ -1648,7 +1648,7 @@ begin
 
   s := ReplaceStringByStringInString('Russie 1','Russie',s);
   s := ReplaceStringByStringInString('Russie 2','Russie',s);
-  s := ReplaceStringByStringInString('Russie 3&4','Russie',s);
+  s := ReplaceStringByStringInString('Russie 3and4','Russie',s);
   s := ReplaceStringByStringInString('Russie 3','Russie',s);
   s := ReplaceStringByStringInString('Russie 4','Russie',s);
 
@@ -1759,7 +1759,7 @@ begin
   debug := false;
 
 
-  if (genreRecherche = kChercherSeulementDansBaseOfficielle) &
+  if (genreRecherche = kChercherSeulementDansBaseOfficielle) and
      (NombreJoueursDansBaseOfficielle > 0)
      then indexMax := NombreJoueursDansBaseOfficielle
      else indexMax := JoueursNouveauFormat.nbJoueursNouveauFormat;
@@ -1774,7 +1774,7 @@ begin
       positionDuNom := FindStringDansNomEnMajusculesSansEspaceDeCeJoueur(nomChercheEnMajuscules, i);
 
 
-      if (positionMetaphone > 0) | (positionDuNom > 0) then
+      if (positionMetaphone > 0) or (positionDuNom > 0) then
 	      begin
 	
 	        trouve := true;
@@ -1824,7 +1824,7 @@ begin
     	                end;
     	              *)
 
-                    if (LENGTH_OF_STRING(nomChercheEnMajuscules) = LENGTH_OF_STRING(nomBaseEnMajuscules)) |
+                    if (LENGTH_OF_STRING(nomChercheEnMajuscules) = LENGTH_OF_STRING(nomBaseEnMajuscules)) or
                        (nomBase[len + 1] = ' ') then
                       nouvelleQualite := 100;  // parfait si le nom du joueur est exactement le nom de la base
                   end;
@@ -1875,7 +1875,7 @@ var formeAlternative : String255;
      var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
-       if not(trouve & (confiance >= 100)) then
+       if not(trouve and (confiance >= 100)) then
          begin
            patMajuscules := FabriqueNomEnMajusculesAvecEspaces(pattern);
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
@@ -1883,7 +1883,7 @@ var formeAlternative : String255;
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringByStringInString(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
-               if TrouveNumeroDuJoueur(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) &
+               if TrouveNumeroDuJoueur(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
                    trouve := true;
@@ -1901,7 +1901,7 @@ begin { TrouveNumeroDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveNumeroDuJoueur(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
+  if not(trouve and (confiance >= 100)) and TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -1964,7 +1964,7 @@ begin
 
   nomChercheEnMajuscules := FabriqueNomEnMajusculesSansEspaceSansMetaphone(UTF8ToAscii(nomJoueur));
 
-  if (genreRecherche = kChercherSeulementDansBaseOfficielle) &
+  if (genreRecherche = kChercherSeulementDansBaseOfficielle) and
      (NombreJoueursDansBaseOfficielle > 0)
      then indexMax := NombreJoueursDansBaseOfficielle
      else indexMax := JoueursNouveauFormat.nbJoueursNouveauFormat;
@@ -1975,7 +1975,7 @@ begin
 
       {WritelnDansRapport( nomBaseEnMajuscules + ' ' + nomChercheEnMajuscules);}
 
-      if (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = '.') |
+      if (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = '.') or
          (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = ' ')
          then nomBaseEnMajuscules := TPCopy(nomBaseEnMajuscules, 1, LENGTH_OF_STRING(nomBaseEnMajuscules) - 1);
 
@@ -2042,7 +2042,7 @@ var formeAlternative : String255;
      var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
-       if not(trouve & (confiance >= 100)) then
+       if not(trouve and (confiance >= 100)) then
          begin
            patMajuscules := FabriqueNomEnMajusculesAvecEspaces(pattern);
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
@@ -2050,7 +2050,7 @@ var formeAlternative : String255;
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringByStringInString(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
-               if TrouvePrefixeDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) &
+               if TrouvePrefixeDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
                    trouve := true;
@@ -2067,7 +2067,7 @@ begin { TrouvePrefixeDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouvePrefixeDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
+  if not(trouve and (confiance >= 100)) and TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2124,7 +2124,7 @@ begin
 
   nomChercheEnMajusculesArrivee := FabriqueNomEnMajusculesSansEspaceSansMetaphone(UTF8ToAscii(nomJoueur));
 
-  if (genreRecherche = kChercherSeulementDansBaseOfficielle) &
+  if (genreRecherche = kChercherSeulementDansBaseOfficielle) and
      (NombreJoueursDansBaseOfficielle > 0)
      then indexMax := NombreJoueursDansBaseOfficielle
      else indexMax := JoueursNouveauFormat.nbJoueursNouveauFormat;
@@ -2148,7 +2148,7 @@ begin
 
             {WritelnDansRapport( nomBaseEnMajuscules + ' ' + nomChercheEnMajuscules);}
 
-            if (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = '.') |
+            if (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = '.') or
                (nomBaseEnMajuscules[LENGTH_OF_STRING(nomBaseEnMajuscules)] = ' ')
                then nomBaseEnMajuscules := TPCopy(nomBaseEnMajuscules, 1, LENGTH_OF_STRING(nomBaseEnMajuscules) - 1);
 
@@ -2224,7 +2224,7 @@ var formeAlternative : String255;
      var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
-       if not(trouve & (confiance >= 100)) then
+       if not(trouve and (confiance >= 100)) then
          begin
            patMajuscules := FabriqueNomEnMajusculesAvecEspaces(pattern);
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
@@ -2232,7 +2232,7 @@ var formeAlternative : String255;
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringByStringInString(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
-               if TrouveSousChaineDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) &
+               if TrouveSousChaineDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
                    trouve := true;
@@ -2249,7 +2249,7 @@ begin { TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveSousChaineDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
+  if not(trouve and (confiance >= 100)) and TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2331,7 +2331,7 @@ begin
   debug := false;
 
 
-  if (genreRecherche = kChercherSeulementDansBaseOfficielle) &
+  if (genreRecherche = kChercherSeulementDansBaseOfficielle) and
      (NombreJoueursDansBaseOfficielle > 0)
      then indexMax := NombreJoueursDansBaseOfficielle
      else indexMax := JoueursNouveauFormat.nbJoueursNouveauFormat;
@@ -2361,7 +2361,7 @@ begin
               lexemesCherchesAux[k] := -1;
             end;
 
-      if (nbLexemesBaseAux <= 0) | (nbLexemesCherchesAux <= 0) then
+      if (nbLexemesBaseAux <= 0) or (nbLexemesCherchesAux <= 0) then
         begin
 
           trouve := true;
@@ -2413,14 +2413,14 @@ var formeAlternative : String255;
      var newNumero,newConfiance : SInt64;
          patMajuscules, rempMajuscules : String255;
      begin
-       if not(trouve & (confiance >= 100)) then
+       if not(trouve and (confiance >= 100)) then
          begin
            patMajuscules := FabriqueNomEnMajusculesAvecEspaces(pattern);
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringByStringInString(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
-               if TrouveLexemesDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) &
+               if TrouveLexemesDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
                    trouve := true;
@@ -2447,7 +2447,7 @@ begin { TrouveLexemesDeCeNomDeJoueurDansLaBaseThor }
 
   trouve := TrouveLexemesDansLaBaseWthor(nomJoueurEnMajuscules,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle);
 
-  if not(trouve & (confiance >= 100)) & TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
+  if not(trouve and (confiance >= 100)) and TrouveATRDansChaine(gImportDesNoms.formesPossiblesDesVanDen, nomJoueurEnMajuscules, position)
     then
       begin
         TesterFormeAlternative('van den ','v/d ');
@@ -2502,7 +2502,7 @@ begin
       positionSousChaine := Pos(nomCherche,nomCourant);
       if (positionSousChaine > 0) then
 	      begin
-	        if (positionSousChaine = 1) | (numeroTournoi = -1)
+	        if (positionSousChaine = 1) or (numeroTournoi = -1)
 	          then numeroTournoi := i;
 	        TrouveNumeroDuTournoi := true;
 	        if (positionSousChaine = 1) then exit(TrouveNumeroDuTournoi);
@@ -2535,7 +2535,7 @@ begin
   for k := 1 to LENGTH_OF_STRING(s) do
     begin
       c := s[k];
-      if (c <> ' ') & (c <> '-') & (c <> '–') & (c <> '_') & (c <> ' ') & (c <> '.') & (c <> '(') & (c <> ')') & (c <> ',') then
+      if (c <> ' ') and (c <> '-') and (c <> '–') and (c <> '_') and (c <> ' ') and (c <> '.') and (c <> '(') and (c <> ')') and (c <> ',') then
         result := result + c;
     end;
 
@@ -2553,7 +2553,7 @@ begin
   for k := 1 to LENGTH_OF_STRING(s) do
     begin
       c := result[k];
-      if ((c = ' ') | (c = '-') | (c = '–') | (c = '_') | (c = ' ') | (c = '.') | (c = '(') | (c = ')') | (c = ',') | (c = '/'))
+      if ((c = ' ') or (c = '-') or (c = '–') or (c = '_') or (c = ' ') or (c = '.') or (c = '(') or (c = ')') or (c = ',') or (c = '/'))
         then result[k] := ' ';
     end;
 
@@ -2572,7 +2572,7 @@ end;
 
 function FabriqueNomEnMajusculesSansEspaceDunNomWThor(nom : String255) : String255;
 begin
-  if gUsingMetaphone & (nom <> '???') & (nom <> '')
+  if gUsingMetaphone and (nom <> '???') and (nom <> '')
     then FabriqueNomEnMajusculesSansEspaceDunNomWThor := FabriqueNomEnMajusculesSansEspaceAvecMetaphone(nom)
     else FabriqueNomEnMajusculesSansEspaceDunNomWThor := FabriqueNomEnMajusculesSansEspaceSansMetaphone(nom);
 end;
@@ -2588,7 +2588,7 @@ begin
   WritelnStringAndBoolDansRapport('reconnaissance des noms par Metaphone = ',gUsingMetaphone);
 
   with JoueursNouveauFormat do
-    if (nbJoueursNouveauFormat > 0) &
+    if (nbJoueursNouveauFormat > 0) and
        (listeJoueurs <> NIL) then
        begin
 
@@ -2597,7 +2597,7 @@ begin
              nom := GetNomJoueur(k);
              SetNomJoueur(k,nom);
 
-             if (k <= 10) | ((k >= 1000) & (k < 1010)) then
+             if (k <= 10) or ((k >= 1000) and (k < 1010)) then
                if CassioIsUsingMetaphone
                  then WritelnDansRapport(GetNomJoueurEnMetaphoneAvecEspaces(k))
                  else WritelnDansRapport(GetNomJoueurEnMajusculesSansEspace(k));
@@ -2646,7 +2646,7 @@ begin
 
   s := Trim(ligne.debutLigne);
 
-  if (s <> '') & (s[1] <> '%') then
+  if (s <> '') and (s[1] <> '%') then
     begin
       Parser5( s, s1, s2, s3, s4, s5, reste);
 
@@ -2688,7 +2688,7 @@ begin
 
                 end;
 
-            reussi := NoCaseEquals(StripDiacritics(UTF8ToAscii(s1)), StripDiacritics(UTF8ToAscii(expected1))) &
+            reussi := NoCaseEquals(StripDiacritics(UTF8ToAscii(s1)), StripDiacritics(UTF8ToAscii(expected1))) and
                       NoCaseEquals(StripDiacritics(UTF8ToAscii(s2)), StripDiacritics(UTF8ToAscii(expected2)));
 
 

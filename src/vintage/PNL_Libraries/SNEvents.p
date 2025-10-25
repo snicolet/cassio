@@ -61,8 +61,8 @@ var test : boolean;
 begin
   with myEvent do
     begin
-      test := (Abs(EmplacementDernierClic.h-where.h) <= 3) &
-            (Abs(EmplacementDernierClic.v-where.v) <= 3) &
+      test := (Abs(EmplacementDernierClic.h-where.h) <= 3) and
+            (Abs(EmplacementDernierClic.v-where.v) <= 3) and
             ((when-instantDernierClic) <= GetDblTime);
       EstUnDoubleClic := test;
     end;
@@ -74,12 +74,12 @@ begin
          begin
            arretAttente := instantDernierClic + GetDblTime;
            repeat
-           until (TickCount >= arretAttente) | EventAvail(mDownMask,NextEvent);
+           until (TickCount >= arretAttente) or EventAvail(mDownMask,NextEvent);
          end;
        if EventAvail(mDownMask,NextEvent) then
          begin
-           test := (Abs(EmplacementDernierClic.h-NextEvent.where.h) <= 2) &
-                 (Abs(EmplacementDernierClic.v-NextEvent.where.v) <= 2) &
+           test := (Abs(EmplacementDernierClic.h-NextEvent.where.h) <= 2) and
+                 (Abs(EmplacementDernierClic.v-NextEvent.where.v) <= 2) and
                  ((NextEvent.when-instantDernierClic) <= GetDblTime);
            if test then
              begin
@@ -167,10 +167,10 @@ begin
 	repeat
 	until GetNextEvent(KeyDownMask + MDownMask, event);
 
-	isKeyEvent := (event.what = keyDown) | (event.what = autoKey);
+	isKeyEvent := (event.what = keyDown) or (event.what = autoKey);
 	theChar := chr(BAnd(event.message,charCodemask));
 
-	if (theChar = 'q') | (theChar = 'Q') then
+	if (theChar = 'q') or (theChar = 'Q') then
 	  begin
 	    Quitter := true;
 	    LanceInterruptionSimple('AttendFrappeClavier');
@@ -188,10 +188,10 @@ begin
 	repeat
 	until GetNextEvent(KeyDownMask + MDownMask, event);
 
-	isKeyEvent := (event.what = keyDown) | (event.what = autoKey);
+	isKeyEvent := (event.what = keyDown) or (event.what = autoKey);
 	theChar := chr(BAnd(event.message,charCodemask));
 
-	if (theChar = 'q') | (theChar = 'Q') then
+	if (theChar = 'q') or (theChar = 'Q') then
 	  begin
 	    Quitter := true;
 	    LanceInterruptionSimple('AttendFrappeClavier');
@@ -207,7 +207,7 @@ function QuelCaractereDeControle(c : char; enMajuscule : boolean) : char;  { si 
 		codeAscii : SInt16;
 begin
 	codeAscii := ord(c);
-	if (codeAscii < 1) | (codeAscii > 26) then
+	if (codeAscii < 1) or (codeAscii > 26) then
 		QuelCaractereDeControle := c
 	else if enMajuscule then
 		QuelCaractereDeControle := chr(codeAscii + ord('A') - 1)
@@ -334,7 +334,7 @@ procedure EmuleToucheCommandeParControleDansEvent(var myEvent : eventrecord);  {
 		option, shift, verouillage : boolean;
 		ch, aux : char;
 begin
-	if (BAnd(myEvent.modifiers, controlKey) <> 0) & (BAnd(myEvent.modifiers, cmdKey) = 0) then
+	if (BAnd(myEvent.modifiers, controlKey) <> 0) and (BAnd(myEvent.modifiers, cmdKey) = 0) then
 		begin
 			shift := BAnd(myEvent.modifiers, shiftKey) <> 0;
 			verouillage := BAnd(myEvent.modifiers, alphaLock) <> 0;
@@ -344,11 +344,11 @@ begin
 			myEvent.modifiers := BitXor(myEvent.modifiers, controlKey);
 			myEvent.modifiers := BitXor(myEvent.modifiers, cmdKey);
 
-			if (myEvent.what = keyDown) | (myEvent.what = autoKey) | (myEvent.what = keyUp) then
+			if (myEvent.what = keyDown) or (myEvent.what = autoKey) or (myEvent.what = keyUp) then
 				begin
 					ch := chr(BAnd(myEvent.message, charCodeMask));
-					aux := QuelCaractereDeControle(ch, shift | verouillage);
-					if option & (((aux >= 'a') & (aux <= 'z')) | ((aux >= 'A') & (aux <= 'Z'))) then
+					aux := QuelCaractereDeControle(ch, shift or verouillage);
+					if option and (((aux >= 'a') and (aux <= 'z')) or ((aux >= 'A') and (aux <= 'Z'))) then
 						aux := CreerCaractereAvecOption(aux);
 						
 				    FIXME : COMMENT TRAITER LES CARACTERES UNICODES EN FREE PASCAL ?

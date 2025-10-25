@@ -114,7 +114,7 @@ begin
 		            end;
 		          if scoreWLD = bestScoreSoFar then inc(compteurCoupsOptimaux);
 
-		          if (bestScoreSoFar = +1) & (compteurCoupsOptimaux >= borneNbCoupsGagnants) then Leave;
+		          if (bestScoreSoFar = +1) and (compteurCoupsOptimaux >= borneNbCoupsGagnants) then Leave;
 		        end;
         end;
 
@@ -224,8 +224,8 @@ begin
 
   with params do
     begin
-      if (inProfondeurFinale <= 0) |
-         (DoitPasserPlatSeulement(pionBlanc, inPositionPourFinale) & DoitPasserPlatSeulement(pionNoir, inPositionPourFinale))
+      if (inProfondeurFinale <= 0) or
+         (DoitPasserPlatSeulement(pionBlanc, inPositionPourFinale) and DoitPasserPlatSeulement(pionNoir, inPositionPourFinale))
           then
         begin
           ViderSearchResults(outResult);
@@ -237,7 +237,7 @@ begin
           end; {case}
 
           // donner les cases vides au vainqueur
-          if (score >= -64) & (score <= 64) then
+          if (score >= -64) and (score <= 64) then
             begin
               if (score > 0) then score := score + NbCasesVidesDansPosition(inPositionPourFinale) else
               if (score < 0) then score := score - NbCasesVidesDansPosition(inPositionPourFinale);
@@ -379,7 +379,7 @@ begin
 
                   outScoreFinale := score;
 
-                  if (LENGTH_OF_STRING(outLineFinale) <= 0) & (outBestMoveFinale >= 11) & (outBestMoveFinale <= 88) & (whichPosition.position[outBestMoveFinale] = pionVide)
+                  if (LENGTH_OF_STRING(outLineFinale) <= 0) and (outBestMoveFinale >= 11) and (outBestMoveFinale <= 88) and (whichPosition.position[outBestMoveFinale] = pionVide)
                     then outLineFinale := CoupEnStringEnMajuscules(outBestMoveFinale);
 
                   if (LENGTH_OF_STRING(outLineFinale) >= 2)
@@ -616,7 +616,7 @@ begin
         		  ReinitilaliseInfosAffichageReflexion;
         		  EffaceReflexion(true);
         		  RefleSurTempsJoueur := false;
-        		  if not(RefleSurTempsJoueur) & (AQuiDeJouer = couleurMacintosh) then EcritJeReflechis(AQuiDeJouer);
+        		  if not(RefleSurTempsJoueur) and (AQuiDeJouer = couleurMacintosh) then EcritJeReflechis(AQuiDeJouer);
         		  EnleveCetteInterruption(GetCurrentInterruption);
 
         		  { maintenant que l'on a plaquŽ la position, on peut calculer la finale en background}
@@ -670,7 +670,7 @@ begin
 
 
         { Si tout est bon, on retourne le rŽsultat }
-        if (valeurDeLaPosition >= -64) & (valeurDeLaPosition <= 64) & (interruptionReflexion = pasdinterruption) then
+        if (valeurDeLaPosition >= -64) and (valeurDeLaPosition <= 64) and (interruptionReflexion = pasdinterruption) then
           begin
             score := valeurDeLaPosition;
             ligneOptimale := MeilleureSuiteInfosEnChaine(0,false,false,true,false,0);
@@ -709,7 +709,7 @@ begin
       longueurPartie := LENGTH_OF_STRING(theGame) div 2;
 
       { si c'est une partie non terminee... }
-      if (longueurPartie < 60) & not(EstUnePartieOthelloTerminee(theGame,false,nbNoirs,nbBlancs)) then
+      if (longueurPartie < 60) and not(EstUnePartieOthelloTerminee(theGame,false,nbNoirs,nbBlancs)) then
         begin
           { ...on calcule la derniere position atteinte... }
           positionACompleter := PositionEtTraitAfterMoveNumberAlpha(theGame,longueurPartie,erreur);
@@ -839,16 +839,16 @@ begin
   with params do
     begin
 
-      correct :=     (inAlphaFinale < inBetaFinale) &            // pas de blague sur les bornes
-                     (inProfondeurFinale <= 60) &                // pas plus de 60 cases vides, hein
-                     (inMuMinimumFinale <= inMuMaximumFinale) &
-                     (inPrioriteFinale >= 0) &
-                     (inNbreNoirsFinale >= 0) &
-                     (inNbreNoirsFinale <= 64) &
-                     (inNbreBlancsFinale >= 0) &
-                     (inNbreBlancsFinale <= 64) &
-                     ((inCouleurFinale = pionNoir) | (inCouleurFinale = pionBlanc)) &
-                     ((inTypeCalculFinale = ReflGagnant) | (inTypeCalculFinale = ReflParfait) | (inTypeCalculFinale = ReflMilieu));
+      correct :=     (inAlphaFinale < inBetaFinale) and            // pas de blague sur les bornes
+                     (inProfondeurFinale <= 60) and                // pas plus de 60 cases vides, hein
+                     (inMuMinimumFinale <= inMuMaximumFinale) and
+                     (inPrioriteFinale >= 0) and
+                     (inNbreNoirsFinale >= 0) and
+                     (inNbreNoirsFinale <= 64) and
+                     (inNbreBlancsFinale >= 0) and
+                     (inNbreBlancsFinale <= 64) and
+                     ((inCouleurFinale = pionNoir) or (inCouleurFinale = pionBlanc)) and
+                     ((inTypeCalculFinale = ReflGagnant) or (inTypeCalculFinale = ReflParfait) or (inTypeCalculFinale = ReflMilieu));
 
 
       CheckEndgameSearchParams := correct;

@@ -64,7 +64,7 @@ begin
 
   quickDrawErr := NewGWorld(offScreenGWorld, 0, theRect, NIL, NIL, 0 );
 
-  if ((offScreenGWorld = NIL) | (quickDrawErr <> noErr)) then
+  if ((offScreenGWorld = NIL) or (quickDrawErr <> noErr)) then
     begin
       KillTempOffscreenWorld(offScreenGWorld);
       exit(CreateOffScreenPixMap);
@@ -163,7 +163,7 @@ begin
       NumEnString(aux,s);
       WritelnDansRapport('taille de la table des couleurs = '+s);}
 
-      if killColorTable & (wasPort^.portPixMap^^.pmTable <> NIL) &
+      if killColorTable and (wasPort^.portPixMap^^.pmTable <> NIL) and
          (wasPort^.portPixMap^^.pmTable <> GetGDevice^^.gdPMap^^.pmTable) then
         begin
           DisposeMemoryHdl(Handle(wasPort^.portPixMap^^.pmTable));
@@ -200,7 +200,7 @@ begin
   {avant de d'essayer de creer notre buffer dedans}
   quickDrawErr := NewGWorld(offScreenGWorld, 0, theRect, NIL, NIL, useTempMem {0});
 
-  if ((offScreenGWorld = NIL) | (quickDrawErr <> noErr)) then
+  if ((offScreenGWorld = NIL) or (quickDrawErr <> noErr)) then
     begin
       KillTempOffscreenWorld(offScreenGWorld);
       if (quickDrawErr <>  noErr)

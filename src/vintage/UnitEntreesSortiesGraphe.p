@@ -259,7 +259,7 @@ begin
 		    orbite.liste[orbite.cardinal].fils := GetFils(cellule);
 		    orbite.liste[orbite.cardinal].numeroCoup := GetNumeroCoup(cellule);
 		    aux := GetMemePosition(cellule);
-		  until (aux = positionDebut) | (orbite.cardinal >= kLongueurListeInfinie);
+		  until (aux = positionDebut) or (orbite.cardinal >= kLongueurListeInfinie);
 
 		  if (orbite.cardinal >= kLongueurListeInfinie) then
 		    begin
@@ -290,8 +290,8 @@ begin
 		            {on recherche toutes les memes partageant ce fils et ce numero de coup}
 		            bonneOrbite.cardinal := 0;
 		            for j := 1 to orbite.cardinal do
-		              if (orbite.liste[j].numeroCellule <> 0) &
-		                 (orbite.liste[j].fils = filsTraite) &
+		              if (orbite.liste[j].numeroCellule <> 0) and
+		                 (orbite.liste[j].fils = filsTraite) and
 		                 (orbite.liste[j].numeroCoup = numeroCoupTraite) then
 		              begin
 		                {A priori orbite.liste[j].numeroCellule est a ajouter
@@ -352,11 +352,11 @@ begin
 		    orbiteReparee.cardinal := orbiteReparee.cardinal+1;
 		    orbiteReparee.liste[orbiteReparee.cardinal].numeroCellule := aux;
 		    aux := GetMemePosition(cellule);
-		  until (aux = positionDebut) | (aux = 0) |
+		  until (aux = positionDebut) or (aux = 0) or
 		        (orbiteReparee.cardinal >= kLongueurListeInfinie);
 		end;
 
-  if (orbiteReparee.cardinal >= kLongueurListeInfinie) | (orbiteReparee.cardinal <= 0)
+  if (orbiteReparee.cardinal >= kLongueurListeInfinie) or (orbiteReparee.cardinal <= 0)
     then RepareOrbite := -1
     else RepareOrbite := NoErr;
 
@@ -413,7 +413,7 @@ begin
 		    freres.liste[freres.cardinal].pere := GetPere(cellule);
 		    freres.liste[freres.cardinal].numeroCoup := GetNumeroCoup(cellule);
 		    aux := GetFrere(cellule);
-		  until (aux = premierFrere) | (freres.cardinal >= kLongueurListeInfinie);
+		  until (aux = premierFrere) or (freres.cardinal >= kLongueurListeInfinie);
 
 		  if (freres.cardinal >= kLongueurListeInfinie) then
 		    begin
@@ -444,8 +444,8 @@ begin
 		            {on recherche tous les freres partageant ce pere et ce numero de coup}
 		            bonFreres.cardinal := 0;
 		            for j := 1 to freres.cardinal do
-		              if (freres.liste[j].numeroCellule <> 0) &
-		                 (freres.liste[j].pere = pereTraite) &
+		              if (freres.liste[j].numeroCellule <> 0) and
+		                 (freres.liste[j].pere = pereTraite) and
 		                 (freres.liste[j].numeroCoup = numeroCoupTraite) then
 		              begin
 		                {A priori freres.liste[j].numeroCellule est a ajouter
@@ -505,11 +505,11 @@ begin
         listeDesFreresReparee.cardinal := listeDesFreresReparee.cardinal+1;
         listeDesFreresReparee.liste[listeDesFreresReparee.cardinal].numeroCellule := aux;
         aux := GetFrere(cellule);
-      until (aux = premierFrere) | (aux = 0) |
+      until (aux = premierFrere) or (aux = 0) or
             (listeDesFreresReparee.cardinal >= kLongueurListeInfinie);
     end;
 
-  if (listeDesFreresReparee.cardinal >= kLongueurListeInfinie) | (listeDesFreresReparee.cardinal <= 0)
+  if (listeDesFreresReparee.cardinal >= kLongueurListeInfinie) or (listeDesFreresReparee.cardinal <= 0)
     then RepareListeDesFreres := -1
     else RepareListeDesFreres := NoErr;
 
@@ -582,9 +582,9 @@ begin
             end;
 
 
-          if (coupCourant < 11) | (coupCourant > 88) then
+          if (coupCourant < 11) or (coupCourant > 88) then
               begin
-                WritelnDansRapport('## ERROR : (coupCourant < 11) | (coupCourant > 88) dans CreePartieDansGrapheApprentissage');
+                WritelnDansRapport('## ERROR : (coupCourant < 11) or (coupCourant > 88) dans CreePartieDansGrapheApprentissage');
                 WritelnNumDansRapport('coupCourant = ',coupCourant);
               end;
 
@@ -681,13 +681,13 @@ begin
   probleme := false;
 
   with cell do
-   if (pere < 0) |
-      (pere > n) |
-      (fils < 0) |
-      (fils > n) |
-      (memePosition <= 0) |
-      (memeposition > n) |
-      (frere < 0) |
+   if (pere < 0) or
+      (pere > n) or
+      (fils < 0) or
+      (fils > n) or
+      (memePosition <= 0) or
+      (memeposition > n) or
+      (frere < 0) or
       (frere > n) then
         begin
           AnnonceProblemeDansRapport;
@@ -696,7 +696,7 @@ begin
         end;
 
 
-   if (not(HasPere(cell)) & (numeroCellule > 1)) |
+   if (not(HasPere(cell)) and (numeroCellule > 1)) or
        not(HasFrere(cell)) then
         begin
           {AnnonceProblemeDansRapport;}
@@ -746,9 +746,9 @@ begin
          Ensemble.cardinal := Ensemble.cardinal+1;
          ensemble.liste[Ensemble.cardinal].numeroCellule := aux;
          aux := GetMemePosition(cellAux);
-       until (aux = debutListeChainee) | (Ensemble.cardinal >= kLongueurListeInfinie) | (aux <= 0);
+       until (aux = debutListeChainee) or (Ensemble.cardinal >= kLongueurListeInfinie) or (aux <= 0);
 
-       if (Ensemble.cardinal >= kLongueurListeInfinie) | (aux <= 0)
+       if (Ensemble.cardinal >= kLongueurListeInfinie) or (aux <= 0)
          then
            begin
              AnnonceProblemeDansRapport;
@@ -840,7 +840,7 @@ begin
 
     if (GetFrere(cell) <> numeroCellule) then
       begin
-       if not(HasFrere(cell)) |
+       if not(HasFrere(cell)) or
           not(HasPere(cell))
           then
             begin
@@ -857,10 +857,10 @@ begin
                 Ensemble.cardinal := Ensemble.cardinal+1;
                 Ensemble.liste[Ensemble.cardinal].numeroCellule := aux;
                 aux := GetFrere(cellAux);
-              until (aux = debutListeChainee) | (Ensemble.cardinal >= kLongueurListeInfinie) | (aux <= 0);
+              until (aux = debutListeChainee) or (Ensemble.cardinal >= kLongueurListeInfinie) or (aux <= 0);
 
 
-              if (Ensemble.cardinal >= kLongueurListeInfinie) | (aux <= 0)
+              if (Ensemble.cardinal >= kLongueurListeInfinie) or (aux <= 0)
                 then
                   begin
                     AnnonceProblemeDansRapport;
@@ -904,7 +904,7 @@ begin
                         ok := true;
                         for i := 1 to Ensemble.cardinal do
                           for j := 1 to Ensemble.cardinal do
-                            if (i <> j) &
+                            if (i <> j) and
                                (GetNiemeCoupDansListe(fichier,Ensemble,i) = GetNiemeCoupDansListe(fichier,Ensemble,j))
                                  then ok := false;
                         if not(ok) then
@@ -946,7 +946,7 @@ begin
  WritelnDansRapport('Vérification de l''intégrité du graphe…');
  WritelnDansRapport('il y a '+NumEnString(n)+' cellules dans le graphe');
  num := 1;
- while (num <= n) & not(Quitter) do
+ while (num <= n) and not(Quitter) do
    begin
      {WritelnDansRapport(NumEnString(num));}
      if (num mod 20) = 0 then
@@ -1001,16 +1001,16 @@ begin
             LitEnsembleDesFils(fichier,numCelluleCourante,ListeDesFils);
 
 
-            if (coupCherche < 11) | (coupCherche > 88) then
+            if (coupCherche < 11) or (coupCherche > 88) then
               begin
-                WritelnDansRapport('## ERROR : (coupCherche < 11) | (coupCherche > 88) dans PositionEstDansLeGraphe');
+                WritelnDansRapport('## ERROR : (coupCherche < 11) or (coupCherche > 88) dans PositionEstDansLeGraphe');
                 WritelnNumDansRapport('coupCherche = ',coupCherche);
               end;
 
             filsEstDansLeGraphe := CoupEstDansListe(fichier,coupCherche,ListeDesFils,numCelluleFils);
-          until (longueur >= LongueurPartieDuGraphe(chemin)) | not(filsEstDansLeGraphe);
+          until (longueur >= LongueurPartieDuGraphe(chemin)) or not(filsEstDansLeGraphe);
 
-          if (longueur >= LongueurPartieDuGraphe(chemin)) & filsEstDansLeGraphe then
+          if (longueur >= LongueurPartieDuGraphe(chemin)) and filsEstDansLeGraphe then
             begin
               suiteDesCellules.cardinal := longueur;
               suiteDesCellules.liste[longueur].numeroCellule := numCelluleFils;
@@ -1053,7 +1053,7 @@ begin
             if alea >= 1.0 then alea := 0.9999999;
 
             for i := 1 to filsJouables.cardinal do
-              if (SommesPartielles[i-1] <= alea) & (alea < SommesPartielles[i]) then
+              if (SommesPartielles[i-1] <= alea) and (alea < SommesPartielles[i]) then
                 begin
                   TrouveCoupDansGrapheApprentissage := true;
                   coup := (filsJouables.liste[i].coup);
@@ -1089,7 +1089,7 @@ begin
 
       if PositionEstDansLeGraphe(fichier,partie60,path) then
         begin
-          autreCoupQuatreDansPartie := (nbreCoup >= 4) & PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
+          autreCoupQuatreDansPartie := (nbreCoup >= 4) and PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
 
           LitCellule(fichier,path.liste[path.cardinal].numeroCellule,cellule);
           if HasFils(cellule) then
@@ -1154,7 +1154,7 @@ begin
     begin
       PeutChoisirDansGrapheApprentissage := true;
 
-      autreCoupQuatreDansPartie := (nbreCoup >= 4) & PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
+      autreCoupQuatreDansPartie := (nbreCoup >= 4) and PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
 
       aux := coupNonNormalise;
       TransposeCoupPourOrientation(aux,autreCoupQuatreDansPartie);
@@ -1198,11 +1198,11 @@ var i,longueur : SInt32;
     cheminExiste : boolean;
 begin
   FILL_PACKED_GAME_WITH_ZEROS(partie60);
-  if (numCellule >= 0) & (numCellule <= NbrePositionsDansGrapheApprentissage(fichier)) then
+  if (numCellule >= 0) and (numCellule <= NbrePositionsDansGrapheApprentissage(fichier)) then
     begin
       LitCellule(fichier,numCellule,cellule);
       longueur := GetNumeroCoup(cellule);
-      if (longueur > 0) & (longueur <= 60) then
+      if (longueur > 0) and (longueur <= 60) then
         begin
           cheminExiste := true;
           for i := longueur downto 1 do
@@ -1245,7 +1245,7 @@ begin
 
   Quitter := false;
   nbrePartiesDansGrapheApprentissage := 0;
-  if (AQuelCoup >= 0) & (AQuelCoup <= 60) then
+  if (AQuelCoup >= 0) and (AQuelCoup <= 60) then
 	  if GrapheApprentissageExiste(nomGrapheApprentissage,fichier,grapheDejaOuvertALArrivee) then
 	    begin
 
@@ -1261,11 +1261,11 @@ begin
 
 	      i := 1;
 	      iMax := NbrePositionsDansGrapheApprentissage(fichier);
-	      while (i <= iMax) & not(Quitter) do
+	      while (i <= iMax) and not(Quitter) do
 	        begin
 	          LitCellule(fichier,i,cellule);
 	          with cellule do
-	            if (numeroDuCoup >= 0) & (numeroDuCoup <= 60) then
+	            if (numeroDuCoup >= 0) and (numeroDuCoup <= 60) then
 	              inc(nbPartiesAChaqueCoup[numeroDuCoup]);
 	          if (i mod 1000) = 0 then
 	            WritelnDansRapport(CharToString('#')+NumEnString(i)+' : '+NumEnString(nbPartiesAChaqueCoup[35])+' parties');
@@ -1316,7 +1316,7 @@ begin
       compteur := 0;
       i := 1;
       iMax := NbrePositionsDansGrapheApprentissage(fichier);
-      while (i <= iMax) & not(Quitter) do
+      while (i <= iMax) and not(Quitter) do
         begin
           LitCellule(fichier,i,cellule);
           if cellule.valeurMinimax = valeurIndeterminee then
@@ -1326,9 +1326,9 @@ begin
               EcritCellule(fichier,i,cellule);
             end;
 
-          if not(HasPere(cellule)) &
-             not(HasFils(cellule)) &
-             not(HasFrere(cellule)) &
+          if not(HasPere(cellule)) and
+             not(HasFils(cellule)) and
+             not(HasFrere(cellule)) and
              (cellule.numeroDuCoup > 0) then
             begin
               cellule.numeroDuCoup := 0;
@@ -1406,7 +1406,7 @@ begin
             AfficheCelluleDansRapport(fichier,path.liste[path.cardinal].numeroCellule,cell);
             if HasFils(cell) then
               begin
-                autreCoupQuatreDansPartie := (nbreCoup >= 4) & PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
+                autreCoupQuatreDansPartie := (nbreCoup >= 4) and PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
 
                 LitEnsembleDesFils(fichier,path.liste[path.cardinal].numeroCellule,FilsConnus);
                 SelectionneDansListe(fichier,FilsConnus,[kGainAbsolu,kGainDansT],FilsGagnants);
@@ -1462,7 +1462,7 @@ var cell,cellAux : CelluleRec;
     grapheDejaOuvertALArrivee : boolean;
     diagonaleInversee : boolean;
 begin
-  if GetAfficheInfosApprentissage &
+  if GetAfficheInfosApprentissage and
      GrapheApprentissageExiste(nomGrapheApprentissage,fichier,grapheDejaOuvertALArrivee) then
     begin
 
@@ -1528,7 +1528,7 @@ begin
 
             if HasFils(cell) then
               begin
-                autreCoupQuatreDansPartie := (nbreCoup >= 4) & PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
+                autreCoupQuatreDansPartie := (nbreCoup >= 4) and PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
 
                 LitEnsembleDesFils(fichier,path.liste[path.cardinal].numeroCellule,FilsConnus);
                 {WritelnNumDansRapport('FilsConnus.cardinal = ',FilsConnus.cardinal);
@@ -1542,8 +1542,8 @@ begin
                 UnionListes(FilsAffiches,FilsPerdants,FilsAffiches);
                 UnionListes(FilsAffiches,FilsSansOpinion,FilsAffiches);
 
-                if (nbreCoup < nroDernierCoupAtteint) &
-                   ((IndexProchainFilsDansGraphe < 1) |
+                if (nbreCoup < nroDernierCoupAtteint) and
+                   ((IndexProchainFilsDansGraphe < 1) or
                     (IndexProchainFilsDansGraphe > FilsAffiches.cardinal))
                     then prochainCoupDeLaPartie := GetNiemeCoupPartieCourante(nbreCoup+1)
                     else prochainCoupDeLaPartie := -139;

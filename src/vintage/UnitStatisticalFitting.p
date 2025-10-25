@@ -124,7 +124,7 @@ end;
 function gammp(a,x : TypeReel) : TypeReel;
 var gamser,gamcf,gln : TypeReel;
 begin
-  if (x < 0.0) | (a <=  0.0) then
+  if (x < 0.0) or (a <=  0.0) then
     begin
       WritelnDansRapport('Pause dans gammp : invalid arguments');
       exit(gammp);
@@ -146,7 +146,7 @@ end;
 function gammq(a,x : TypeReel) : TypeReel;
 var gamser,gamcf,gln : TypeReel;
 begin
-  if (x < 0.0) | (a <=  0.0) then
+  if (x < 0.0) or (a <=  0.0) then
     begin
       WritelnDansRapport('Pause dans gammp : invalid arguments');
       exit(gammq);
@@ -242,7 +242,7 @@ var n,i : SInt32;
     wt,t,sxoss,sx,sy,st2,ss,sigdat : TypeReel;
 begin
 
-  if (x = NIL) | (y = NIL) then
+  if (x = NIL) or (y = NIL) then
     begin
       WritelnDansRapport('erreur dans StraightLineFitting : (x = NIL) ou (y = NIL) !');
       exit(StraightLineFitting);
@@ -250,8 +250,8 @@ begin
 
   n := DimensionDuPointMultidimensionnel(x);
 
-  if (DimensionDuPointMultidimensionnel(y) <> n) |
-     ((sigma <> NIL) & (DimensionDuPointMultidimensionnel(y) <> n)) then
+  if (DimensionDuPointMultidimensionnel(y) <> n) or
+     ((sigma <> NIL) and (DimensionDuPointMultidimensionnel(y) <> n)) then
     begin
       WritelnDansRapport('erreur dans StraightLineFitting : vecteurs de longueurs differentes !');
       exit(StraightLineFitting);
@@ -262,7 +262,7 @@ begin
       exit(StraightLineFitting);
     end;
 
-  variancesIndividuellesConnues := variancesIndividuellesConnues & (sigma <> NIL);
+  variancesIndividuellesConnues := variancesIndividuellesConnues and (sigma <> NIL);
 
   sx := 0.0;
   sy := 0.0;

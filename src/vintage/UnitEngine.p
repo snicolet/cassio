@@ -294,7 +294,7 @@ function GetEngineName(numeroEngine : SInt64) : String255;
 begin
   GetEngineName := '';
 
-  if (numeroEngine >= 1) & (numeroEngine <= NumberOfEngines)
+  if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines)
     then GetEngineName := listOfEngines.engines[numeroEngine].name;
 end;
 
@@ -340,7 +340,7 @@ var k : SInt64;
 begin
 
   // chercher eventuellement par numero
-  if (numeroEngine >= 1) & (numeroEngine <= NumberOfEngines) then
+  if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines) then
     begin
       GetEnginePath := listOfEngines.engines[numeroEngine].path;
       exit(GetEnginePath);
@@ -373,7 +373,7 @@ function GetEngineVersion(numeroEngine : SInt64) : String255;
 begin
   GetEngineVersion := '';
 
-  if (numeroEngine >= 1) & (numeroEngine <= NumberOfEngines)
+  if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines)
     then GetEngineVersion := listOfEngines.engines[numeroEngine].version;
 end;
 
@@ -395,7 +395,7 @@ begin
   version := ReplaceStringByStringInString('[[1]] version: ','',version);
   version := ReplaceStringByStringInString('version: ','',version);
 
-  if (numeroEngine >= 1) & (numeroEngine <= NumberOfEngines) then
+  if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines) then
     begin
       listOfEngines.engines[numeroEngine].version := version;
       EcritGestionTemps;
@@ -431,7 +431,7 @@ end;
 procedure AddEngine(nomEngine, pathEngine : String255);
 begin
   with listOfEngines do
-    if (cardinal < nbreMaxEngines) & not(EngineExists(nomEngine)) then
+    if (cardinal < nbreMaxEngines) and not(EngineExists(nomEngine)) then
       begin
         inc(cardinal);
         engines[cardinal].name    := nomEngine;
@@ -466,7 +466,7 @@ begin
       then AddValidCassioFolderPath(iterateurCassioFolderPaths)
       else iterateurCassioFolderPaths := TryNextCassioFolderPath;
 
-  until trouve | (iterateurCassioFolderPaths = '');
+  until trouve or (iterateurCassioFolderPaths = '');
 
 end;
 
@@ -535,7 +535,7 @@ begin
        end;
    end;
 
-  TraiteFichierEngineEtRecursion := isFolder & (p < 2);
+  TraiteFichierEngineEtRecursion := isFolder and (p < 2);
 end;
 
 
@@ -556,7 +556,7 @@ procedure PingEngine;
 var t : SInt64;
 begin
   t := Tickcount;
-  if (t - engine.lastDateOfActivity > 70) &
+  if (t - engine.lastDateOfActivity > 70) and
      (t - engine.lastDateOfPinging > 70)
       then
     begin
@@ -583,12 +583,12 @@ function EngineIsDead : boolean;
 var dead : boolean;
 begin
 
-  dead := (engine.state = ENGINE_RUNNING) &
-          (Tickcount - engine.lastDateOfPinging < 60) &  // 1 seconde
-          (Tickcount - engine.lastDateOfActivity > 1800) &  // 30 secondes
+  dead := (engine.state = ENGINE_RUNNING) and
+          (Tickcount - engine.lastDateOfPinging < 60) and  // 1 seconde
+          (Tickcount - engine.lastDateOfActivity > 1800) and  // 30 secondes
           (Tickcount - engine.lastDateOfSearchStart > 1800);  // 30 secondes
 
-  if dead & engine.CassioIsWaitingAResult then
+  if dead and engine.CassioIsWaitingAResult then
     begin
       EnginePrint('Engine seems dead, trying to kill it properly');
       KillCurrentEngine;
@@ -613,8 +613,8 @@ begin
   if (state = ENGINE_KILLED)
     then mySendDataToEnginePtr     := NIL;
 
-  if (state = ENGINE_KILLED) |
-     ((state = ENGINE_STOPPED) & (interruptionReflexion <> interruptionPositionADisparuDuZoo))
+  if (state = ENGINE_KILLED) or
+     ((state = ENGINE_STOPPED) and (interruptionReflexion <> interruptionPositionADisparuDuZoo))
     then EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo('SetEngineState');
 end;
 
@@ -683,7 +683,7 @@ begin
   Wait(0.25);
 
   // relancer le meme
-  if (numeroEngineEnCours > 0) & CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
+  if (numeroEngineEnCours > 0) and CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
     then Wait(1.0);
 end;
 
@@ -823,7 +823,7 @@ var dist,distMin, i : SInt64;
     mu : String255;
 begin
 
-  if (precision <= 0) | (precision >= 100) then precision := 100;
+  if (precision <= 0) or (precision >= 100) then precision := 100;
 
   mu := '0,'+NumEnString(kDeltaFinaleInfini);
 
@@ -947,9 +947,9 @@ end;
 procedure PatcherLesResultatsEntiersDesRequetesDeMilieu(search : EngineSearchRec; var result : EngineResultRec);
 begin
   if (CassioIsWaitingAnEngineResult)
-     & (search.typeDeRecherche = ReflMilieu)
-     & (result.typeResult = ReflParfait)
-     & (SamePositionEtTrait(result.position, search.position))
+     and (search.typeDeRecherche = ReflMilieu)
+     and (result.typeResult = ReflParfait)
+     and (SamePositionEtTrait(result.position, search.position))
     then
       begin
         result.minorantOfValue := 100 * result.minorantOfValue;
@@ -970,9 +970,9 @@ procedure PatcherLesResultatsFlottantsDesRequetesDeFinale(search : EngineSearchR
 var v : SInt64;
 begin
   if (CassioIsWaitingAnEngineResult)
-     & (search.typeDeRecherche = ReflParfait)
-     & (result.typeResult = ReflMilieu)
-     & (SamePositionEtTrait(result.position, search.position))
+     and (search.typeDeRecherche = ReflParfait)
+     and (result.typeResult = ReflMilieu)
+     and (SamePositionEtTrait(result.position, search.position))
     then
       with result do
         begin
@@ -1004,22 +1004,22 @@ begin
               end
             else
               begin
-                if (minorantOfValue < 0) & (majorantOfValue <= 0) then
+                if (minorantOfValue < 0) and (majorantOfValue <= 0) then
                   begin
                     minorantOfValue := ((minorantOfValue - 99) div 100);
                     majorantOfValue := (majorantOfValue div 100);
                   end
-                else if (minorantOfValue < 0) & (majorantOfValue > 0) then
+                else if (minorantOfValue < 0) and (majorantOfValue > 0) then
                   begin
                     minorantOfValue := ((minorantOfValue - 99) div 100);
                     majorantOfValue := ((majorantOfValue + 99) div 100);
                   end
-                else if (minorantOfValue >= 0) & (majorantOfValue > 0) then
+                else if (minorantOfValue >= 0) and (majorantOfValue > 0) then
                   begin
                     minorantOfValue := (minorantOfValue div 100);
                     majorantOfValue := ((majorantOfValue + 99) div 100);
                   end
-                else if (minorantOfValue >= 0) & (majorantOfValue <= 0) then
+                else if (minorantOfValue >= 0) and (majorantOfValue <= 0) then
                   begin
                     minorantOfValue := (minorantOfValue div 100);
                     majorantOfValue := (majorantOfValue div 100);
@@ -1127,7 +1127,7 @@ begin
 
       Parser5(s5,c1,c2,c3,c4,c5,reste);
 
-      if ((c2 <> '<=') & (c2 <> '<')) | (c3 <> 'v') | ((c4 <> '<=') & (c4 <> '<'))
+      if ((c2 <> '<=') and (c2 <> '<')) or (c3 <> 'v') or ((c4 <> '<=') and (c4 <> '<'))
         then ParseError('impossible de parser l''encadrement des valeurs dans un resultat de l''engine');
 
 
@@ -1135,7 +1135,7 @@ begin
       if (Pos('.',c5) = 0) then c5 := c5 + '.00';
 
 
-      if (Pos('.',c1) > 0) | (Pos('.',c5) > 0)
+      if (Pos('.',c1) > 0) or (Pos('.',c5) > 0)
         then aux.typeResult := ReflMilieu
         else aux.typeResult := ReflParfait;
 
@@ -1175,8 +1175,8 @@ begin
         end;
 
 
-      if ((aux.colorOfValue = pionBlanc) & (GetTraitOfPosition(aux.position) = pionNoir)) |
-         ((aux.colorOfValue = pionNoir)  & (GetTraitOfPosition(aux.position) = pionBlanc)) then
+      if ((aux.colorOfValue = pionBlanc) and (GetTraitOfPosition(aux.position) = pionNoir)) or
+         ((aux.colorOfValue = pionNoir)  and (GetTraitOfPosition(aux.position) = pionBlanc)) then
          begin
            aux.colorOfValue    := GetTraitOfPosition(aux.position);
            temp                :=  aux.minorantOfValue;
@@ -1445,14 +1445,14 @@ begin
   if (LENGTH_OF_STRING(s) <= 14) then
     begin
       stringIsPoint   := (s = '.');
-      stringIsReady   := not(stringIsPoint) & (Pos('ready.',s) > 0);
-      stringIsOk      := not(stringIsPoint|stringIsReady) & (Pos('ok.',s) > 0);
-      stringIsStarted := not(stringIsPoint|stringIsReady|stringIsOk) & (Pos('Engine started',s) > 0);
+      stringIsReady   := not(stringIsPoint) and (Pos('ready.',s) > 0);
+      stringIsOk      := not(stringIsPointorstringIsReady) and (Pos('ok.',s) > 0);
+      stringIsStarted := not(stringIsPointorstringIsReadyorstringIsOk) and (Pos('Engine started',s) > 0);
 
-      if stringIsPoint | stringIsReady | stringIsOk | stringIsStarted then
+      if stringIsPoint or stringIsReady or stringIsOk or stringIsStarted then
         begin
-          if ((engine.state = ENGINE_STARTING) & stringIsReady) &
-             (debugEngine | debuggage.engineInput | debuggage.engineOutput | InfosTechniquesDansRapport)
+          if ((engine.state = ENGINE_STARTING) and stringIsReady) and
+             (debugEngine or debuggage.engineInput or debuggage.engineOutput or InfosTechniquesDansRapport)
              then EnginePrint('OK, confirmation que le moteur a démarré');
 
           if stringIsReady then
@@ -1460,7 +1460,7 @@ begin
               then PosterUnResultatVenantDeLEngine(line)
               else engine.readyReceived := true;
 
-          if (stringIsPoint | stringIsReady | stringIsOk) then
+          if (stringIsPoint or stringIsReady or stringIsOk) then
             begin
               SetEngineState(ENGINE_RUNNING);
             end;
@@ -1472,7 +1472,7 @@ begin
     end;
 
   (* interpret speed and nodes results *)
-  if ((s[1] = 'n') & (LENGTH_OF_STRING(s) <= 60) & (Pos('node',s) = 1)) then
+  if ((s[1] = 'n') and (LENGTH_OF_STRING(s) <= 60) and (Pos('node',s) = 1)) then
     if ParseSpeedResult(line,theResult) then
       begin
         CalculateSpeedOfEngine(theResult);
@@ -1484,7 +1484,7 @@ begin
 
 
   (* write DEBUG messages sent by the engines back in Cassio *)
-  if ((s[1] = 'D') & (Pos('DEBUG',s) = 1)) then
+  if ((s[1] = 'D') and (Pos('DEBUG',s) = 1)) then
     begin
       EnginePrintDebug(s);
       exit(InterpretEngineCommand);
@@ -1492,14 +1492,14 @@ begin
 
 
   (* write WARNING messages sent by the engines back in Cassio *)
-  if ((s[1] = 'W') & (Pos('WARNING',s) = 1)) then
+  if ((s[1] = 'W') and (Pos('WARNING',s) = 1)) then
     begin
       EnginePrintWarning(s);
       exit(InterpretEngineCommand);
     end;
 
   (* understand version information sent by the engines *)
-  if ((s[1] = '[') & ((Pos('version: ',s) >= 1) | (Pos('version : ',s) >= 1))) then
+  if ((s[1] = '[') and ((Pos('version: ',s) >= 1) or (Pos('version : ',s) >= 1))) then
     begin
       canal := ChaineEnLongint(CharToString(s[3]));
       moteur := NumeroDuMoteurParlantDansCeCanal(canal);
@@ -1511,19 +1511,19 @@ begin
 
 
   (* check if the engine crashed or has been killed by the Unix kernel *)
-  if (s[1] <> 'X') &
-     (s[1] <> 'O') &
-     (s[1] <> '-') &
+  if (s[1] <> 'X') and
+     (s[1] <> 'O') and
+     (s[1] <> '-') and
      ((Pos('Killed', s) > 0)
-      | (Pos('Segmentation fault', s) > 0)
-      | (Pos('Bus error', s) > 0)
-      | ((Pos('Engine terminated', s) > 0))
+      or (Pos('Segmentation fault', s) > 0)
+      or (Pos('Bus error', s) > 0)
+      or ((Pos('Engine terminated', s) > 0))
       ) then
     begin
       if (Pos('Killed', s) > 0)
         then EnginePrint('The engine seems to have been killed by the Unix kernel') else
 
-      if (Pos('Segmentation fault', s) > 0) | (Pos('Bus error', s) > 0)
+      if (Pos('Segmentation fault', s) > 0) or (Pos('Bus error', s) > 0)
         then EnginePrint('The engine seems to have had a problem, as Apollo 13 said');
 
       if Pos('Engine terminated', s) <= 0
@@ -1544,15 +1544,15 @@ begin
 
   (* try to parse othello results *)
   if (LENGTH_OF_STRING(s) >= 65)
-      & engine.CassioIsWaitingAResult
-      & ParserResultLine(line,theResult) then
+      and engine.CassioIsWaitingAResult
+      and ParserResultLine(line,theResult) then
       begin
         // Filtrer les resultats : ne nous interessent a priori (dans cette
         // premiere implementation) que les resultats exactement de la
         // position dont on a demande la resolution, et pas les resultats
         // partiels donnes par exemple par Roxane.
 
-        if (theResult.depth >= engine.lastSearchSent.depth) &
+        if (theResult.depth >= engine.lastSearchSent.depth) and
            SamePositionEtTrait(theResult.position,engine.lastSearchSent.position)
           then PosterUnResultatVenantDeLEngine(line);
 
@@ -1595,7 +1595,7 @@ begin
             begin
               if (lastStringReceived.debutLigne <> '') then
                 begin
-                  if debugEngine | debuggage.engineInput then
+                  if debugEngine or debuggage.engineInput then
                     EnginePrintInput(lastStringReceived.debutLigne);
 
                   InterpretEngineCommand(lastStringReceived);
@@ -1636,10 +1636,10 @@ end;
 procedure SendStringToEngine(s : String255);
 var data : CFStringRef;
 begin
-  if (mySendDataToEnginePtr <> NIL) & (engine.state <> ENGINE_KILLED) then
+  if (mySendDataToEnginePtr <> NIL) and (engine.state <> ENGINE_KILLED) then
     begin
 
-      if (debugEngine | debuggage.engineOutput) & (s <> '') then
+      if (debugEngine or debuggage.engineOutput) and (s <> '') then
         begin
           if (s <> 'ENGINE-PROTOCOL  get-search-infos')
             then EnginePrintOutput(s)
@@ -1706,7 +1706,7 @@ begin
     mySwitchToEnginePtr := SwitchToEngineProcPtr(GetFunctionPointerFromPrivateBundle( GetEngineBundleName ,'SwitchToEngine'));
 
   if (mySwitchToEnginePtr <> NIL) then
-    if (whichChannel >= 0) & (whichChannel <= 1)
+    if (whichChannel >= 0) and (whichChannel <= 1)
       then mySwitchToEnginePtr(whichChannel);
 end;
 
@@ -1748,14 +1748,14 @@ begin
     else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
 
-  if (debugEngine | debuggage.engineInput | debuggage.engineOutput | InfosTechniquesDansRapport) then
+  if (debugEngine or debuggage.engineInput or debuggage.engineOutput or InfosTechniquesDansRapport) then
     begin
       EnginePrint('');
       EnginePrint('Trying to start   '+pathUnix);
     end;
 
 
-  if pathIsAnUnixBinary | (FichierTexteExiste(pathMac,0,fic) = NoErr)
+  if pathIsAnUnixBinary or (FichierTexteExiste(pathMac,0,fic) = NoErr)
     then
       begin
 
@@ -1769,7 +1769,7 @@ begin
         mySwitchToEnginePtr       := SwitchToEngineProcPtr      (GetFunctionPointerFromPrivateBundle( bundleName ,'SwitchToEngine'));
 
 
-        if (myStartEnginePtr <> NIL) & (mySetCallBackForEnginePtr <> NIL)
+        if (myStartEnginePtr <> NIL) and (mySetCallBackForEnginePtr <> NIL)
           then
             begin
 
@@ -1952,10 +1952,10 @@ end;
 procedure EngineNewPosition;
 var s : String255;
 begin
-  if not(AnalyseRetrogradeEnCours) & not(CassioEstEnTrainDeCalculerPourLeZoo) then
+  if not(AnalyseRetrogradeEnCours) and not(CassioEstEnTrainDeCalculerPourLeZoo) then
     begin
       s := 'ENGINE-PROTOCOL new-position';
-      if (engine.lastStringSent <> s) & (Pos('feed-hash',engine.lastStringSent) <= 0)
+      if (engine.lastStringSent <> s) and (Pos('feed-hash',engine.lastStringSent) <= 0)
         then SendStringToEngine(s);
     end;
 end;
@@ -2030,7 +2030,7 @@ end;
 procedure EmitFeedHashString(const s : String255);
 var foo : SInt64;
 begin
-  if (s <> '') & not(MemberOfStringSet(s,foo,lignesEnvoyeesParHashFeed)) then
+  if (s <> '') and not(MemberOfStringSet(s,foo,lignesEnvoyeesParHashFeed)) then
     begin
       SendStringToEngine(s);
       AddStringToSet(s,0,lignesEnvoyeesParHashFeed);
@@ -2058,11 +2058,11 @@ begin
 
       continuerSequence := false;
 
-      if (depthCourante = depth) &
-         (valeurMin = vMinCourant) & (valeurMax = vMaxCourant) &
-         (SamePositionEtTrait(positionCourante, position)) &
-         (bestMove >= 11) & (bestMove <= 88) &
-         (UpdatePositionEtTrait(positionCourante, bestMove)) &
+      if (depthCourante = depth) and
+         (valeurMin = vMinCourant) and (valeurMax = vMaxCourant) and
+         (SamePositionEtTrait(positionCourante, position)) and
+         (bestMove >= 11) and (bestMove <= 88) and
+         (UpdatePositionEtTrait(positionCourante, bestMove)) and
          (GetTraitOfPosition(positionCourante) = - trait)
         then
           begin
@@ -2079,7 +2079,7 @@ begin
 
           positionCourante := position;
 
-          if (UpdatePositionEtTrait(positionCourante, bestMove)) &
+          if (UpdatePositionEtTrait(positionCourante, bestMove)) and
              (GetTraitOfPosition(positionCourante) = - trait)
             then
               begin
@@ -2111,7 +2111,7 @@ var s,s1 : String255;
     i, foo : SInt64;
 begin
 
-  if (depth >= 15) & (engine.state <> ENGINE_KILLED) then
+  if (depth >= 15) and (engine.state <> ENGINE_KILLED) then
     begin
 
       // ENGINE-PROTOCOL feed-hash position lower upper depth selectivity move
@@ -2127,7 +2127,7 @@ begin
       s := s + ' ' + NumEnString(depth);
       s := s + ' ' + NumEnString(100);
 
-      if (bestMove >= 11) & (bestMove <= 88)
+      if (bestMove >= 11) and (bestMove <= 88)
         then s := s + ' ' + CoupEnStringEnMajuscules(bestMove)
         else s := s + ' ??';
 
@@ -2256,19 +2256,19 @@ begin
   *)
 
 
-  if (resultPartiel.depth     >= search.depth) &
-     (resultPartiel.precision >= resultGlobal.precision) &
+  if (resultPartiel.depth     >= search.depth) and
+     (resultPartiel.precision >= resultGlobal.precision) and
      SamePositionEtTrait(search.position, resultPartiel.position)
     then
       begin
-        if (resultPartiel.precision > resultGlobal.precision) |
+        if (resultPartiel.precision > resultGlobal.precision) or
            not(SamePositionEtTrait(resultPartiel.position, resultGlobal.position))
           then InitResult(resultGlobal);
 
         with resultPartiel do
-        if ((minorantOfValue <= search.alpha) & (majorantOfValue > search.alpha)) |
-           ((majorantOfValue >= search.beta) & (minorantOfValue < search.beta)) |
-           ((minorantOfValue >= search.alpha) & (majorantOfValue <= search.beta) & (minorantOfValue < majorantOfValue)) then
+        if ((minorantOfValue <= search.alpha) and (majorantOfValue > search.alpha)) or
+           ((majorantOfValue >= search.beta) and (minorantOfValue < search.beta)) or
+           ((minorantOfValue >= search.alpha) and (majorantOfValue <= search.beta) and (minorantOfValue < majorantOfValue)) then
           begin
             EnginePrintError('ERROR : the result window overlaps the [alpha,beta] window !');
             EnginePrintError('[alpha , beta] = [' + NumEnString(search.alpha) + ' , ' + NumEnString(search.beta) + ']');
@@ -2330,7 +2330,7 @@ var i : SInt64;
     totalKiloNoeuds, totalTime, v, vitesseMax : double_t;
 begin
 
-  if (result.time <> 0.0) & (result.kilonodes <> 0.0) then
+  if (result.time <> 0.0) and (result.kilonodes <> 0.0) then
     with gVitessesInstantaneesEngine do
       begin
 
@@ -2345,7 +2345,7 @@ begin
         vitesseMax      := 0.0;
 
         for i := 1 to 5 do
-          if (data[i].kilonodes >= 0.0) & (data[i].time <> 0.0) then
+          if (data[i].kilonodes >= 0.0) and (data[i].time <> 0.0) then
             begin
 
               totalKiloNoeuds := totalKiloNoeuds + data[i].kilonodes;
@@ -2375,12 +2375,12 @@ end;
 procedure CheckIncreaseOfNodesInAnswerFromEngine(const result : EngineResultRec);
 begin
 
-  if (result.time <> 0.0) & (result.kilonodes <> 0.0) then
+  if (result.time <> 0.0) and (result.kilonodes <> 0.0) then
       begin
 
-        if (result.kilonodes = lastSpeedResultReceived.kilonodes) &
-           (result.time      > lastSpeedResultReceived.time) &
-           (debugEngine | debuggage.engineInput) then
+        if (result.kilonodes = lastSpeedResultReceived.kilonodes) and
+           (result.time      > lastSpeedResultReceived.time) and
+           (debugEngine or debuggage.engineInput) then
           begin
             EnginePrintColoredStringInRapport('WARNING : node count didn''t change, engine is probably stuck', RougeCmd, normal);
           end;
@@ -2469,7 +2469,7 @@ begin
   terminee    := false;
   interrompue := false;
 
-  while not(interrompue | terminee | (engine.state = ENGINE_KILLED) | (engine.state = ENGINE_STOPPED)) do
+  while not(interrompue or terminee or (engine.state = ENGINE_KILLED) or (engine.state = ENGINE_STOPPED)) do
     begin
 
       PingEngine;
@@ -2483,7 +2483,7 @@ begin
       if (TickCount - dernierTick) >= delaiAvantDoSystemTask then
         DoSystemTask(AQuiDeJouer);
 
-      if Quitter | (interruptionReflexion <> pasdinterruption) | EngineIsDead then
+      if Quitter or (interruptionReflexion <> pasdinterruption) or EngineIsDead then
         begin
           interrompue := true;
           engine.CassioIsWaitingAResult := false;
@@ -2522,10 +2522,10 @@ begin
                 if ParserResultLine(line, resultatPartiel) then
                   begin
 
-                    if (engine.lastSearchSent.typeDeRecherche = ReflMilieu) & (resultatPartiel.typeResult = ReflParfait)
+                    if (engine.lastSearchSent.typeDeRecherche = ReflMilieu) and (resultatPartiel.typeResult = ReflParfait)
                       then PatcherLesResultatsEntiersDesRequetesDeMilieu(search, resultatPartiel);
 
-                    if (engine.lastSearchSent.typeDeRecherche = ReflParfait) & (resultatPartiel.typeResult = ReflMilieu)
+                    if (engine.lastSearchSent.typeDeRecherche = ReflParfait) and (resultatPartiel.typeResult = ReflMilieu)
                       then PatcherLesResultatsFlottantsDesRequetesDeFinale(search, resultatPartiel);
 
                     inc(nbreResultatsPartiels);
@@ -2538,12 +2538,12 @@ begin
               end;
         end;
 
-      terminee := engine.readyReceived & (engine.state = ENGINE_RUNNING);
+      terminee := engine.readyReceived and (engine.state = ENGINE_RUNNING);
 
     end;
 
 
-  WaitEngineResult := terminee & not(interrompue);
+  WaitEngineResult := terminee and not(interrompue);
 
   engine.CassioIsWaitingAResult := false;
 
@@ -2622,7 +2622,7 @@ begin
     with result do
       begin
 
-        if (search.precision >= 100) & (result.precision < 100) then
+        if (search.precision >= 100) and (result.precision < 100) then
           EnginePrintError('ASSERT : précision insuffisante du résultat (' + NumEnString(result.precision) + '%) dans AnalyserLeResultatGlobal !');
 
         if (minorantOfValue > majorantOfValue) then
@@ -2638,13 +2638,13 @@ begin
             begin
               if minorantOfValue >= search.beta  then
                 begin
-                  if (typeResult = ReflParfait) & odd(minorantOfValue) then inc(minorantOfValue);
+                  if (typeResult = ReflParfait) and odd(minorantOfValue) then inc(minorantOfValue);
                   note := minorantOfValue;
                 end
               else
               if majorantOfValue <= search.alpha then
                 begin
-                  if (typeResult = ReflParfait) & odd(majorantOfValue) then dec(majorantOfValue);
+                  if (typeResult = ReflParfait) and odd(majorantOfValue) then dec(majorantOfValue);
                   note := majorantOfValue;
                 end
               else
@@ -2655,7 +2655,7 @@ begin
             end;
 
         // faut-il redresser la note (apres un passe ?)
-        if (couleur = -result.colorOfValue) & (note <> -noteMax)
+        if (couleur = -result.colorOfValue) and (note <> -noteMax)
           then
             begin
               // EnginePrintWarning('WARNING : la recherche a ete faite par le moteur pour l''autre couleur...');
@@ -2666,7 +2666,7 @@ begin
 
   // remplir la ligne principale de Cassio
 
-  if rechercheTerminee & (result.depth >= search.depth)
+  if rechercheTerminee and (result.depth >= search.depth)
     then MettreLeResultatGlobalDansLesVariablesDeCassio(search, result, meilleureSuite);
 
 end;
@@ -2690,7 +2690,7 @@ begin
 
   EnginePeutFaireCeCalcul := false;
 
-  if (engine.state <> ENGINE_RUNNING) & (engine.state <> ENGINE_STOPPED) then
+  if (engine.state <> ENGINE_RUNNING) and (engine.state <> ENGINE_STOPPED) then
     begin
       // EnginePrintError('Cassio ERROR : Engine not ready');
       exit(EnginePeutFaireCeCalcul);
@@ -2729,7 +2729,7 @@ begin
       exit(EnginePeutFaireCeCalcul);
     end;
 
-  if (precision < 0) | (precision > 100) then
+  if (precision < 0) or (precision > 100) then
     begin
       EnginePrintError('Cassio ERROR : precision out of bounds in EnginePeutFaireCeCalcul');
       exit(EnginePeutFaireCeCalcul);
@@ -2755,7 +2755,7 @@ begin
       end;
 
   (*
-  if (search.depth < 20) & (search.typeDeRecherche = ReflParfait) then
+  if (search.depth < 20) and (search.typeDeRecherche = ReflParfait) then
     begin
       EnginePrintError('Cassio ERROR : (depth < 20) dans EnginePeutFaireCeCalcul');
       exit(EnginePeutFaireCeCalcul);
@@ -2814,8 +2814,8 @@ function EnginePeutFaireCalculDeFinale(var plateau : plateauOthello; couleur, al
 var empties : SInt64;
 begin
 
-  if (alpha < -64) & (beta >= -63) then alpha := -64;
-  if (alpha <= 63) & (beta >   64) then beta  :=  64;
+  if (alpha < -64) and (beta >= -63) then alpha := -64;
+  if (alpha <= 63) and (beta >   64) then beta  :=  64;
 
   if (alpha >= beta) then
     begin
@@ -2851,7 +2851,7 @@ begin
   if (beta  < -6400) then beta  := -6400;
   if (beta  >  6400) then beta  :=  6400;
 
-  if (alpha >= beta) & ((alpha = 6400) | (beta = -6400)) then
+  if (alpha >= beta) and ((alpha = 6400) or (beta = -6400)) then
     begin
       EnginePeutFaireCalculDeMilieu := false;
       exit(EnginePeutFaireCalculDeMilieu);
@@ -2871,7 +2871,7 @@ begin
   if (profondeur > empties)
     then
       begin
-        // on va utiliser une recherche de finale par le moteur la place de notre recherche de milieu
+        // on va utiliser une recherche de finale par le moteur a la place de notre recherche de milieu
 
         alpha := (PrecedentMultipleDeN(alpha, 100) div 100);
         beta  := (ProchainMultipleDeN(beta, 100) div 100);
@@ -2926,7 +2926,7 @@ begin
     begin
 
 
-      if FALSE & ParsePositionEtTrait('--X-OOO---XXOO---XXOXXO-XXOOOOOOXXXXXXOX-XOOOOXX--OOOO-------O--X',positionToSolve) then
+      if FALSE and ParsePositionEtTrait('--X-OOO---XXOO---XXOXXO-XXOOOOOOXXXXXXOX-XOOOOXX--OOOO-------O--X',positionToSolve) then
         begin
 
           tick := Tickcount;
@@ -3023,7 +3023,7 @@ end;
 procedure EnginePrintDebug(const s : String255);
 var version : String255;
 begin
-  if (Pos('DEBUG : Roxane',s) = 1) &
+  if (Pos('DEBUG : Roxane',s) = 1) and
      (Pos('oxane',GetEngineName(numeroEngineEnCours)) > 0) then
     begin
       version := ReplaceStringByStringInString('DEBUG : ' , '' , s);
@@ -3060,8 +3060,8 @@ procedure EnginePrintInput(const s : String255);
 begin
   // les infos de DEBUG et WARNING seront de toute façon écrites en vert,
   // donc pas besoin de les ecrire en orange...
-  if ((s[1] = 'D') & (Pos('DEBUG',s) = 1))  |
-     ((s[1] = 'W') & (Pos('WARNING',s) = 1))
+  if ((s[1] = 'D') and (Pos('DEBUG',s) = 1))  or
+     ((s[1] = 'W') and (Pos('WARNING',s) = 1))
     then exit(EnginePrintInput);
   EnginePrintColoredStringInRapport(s, OrangeCmd, normal);
 end;

@@ -157,7 +157,7 @@ begin
   oldMagicCookie := DemandeCalculsPourBase.magicCookie;
   {WritelnNumDansRapport('--> ConstruitStatistiques : ',oldMagicCookie);}
 
-  if not(problemeMemoireBase) & (statistiques <> NIL) then
+  if not(problemeMemoireBase) and (statistiques <> NIL) then
     BEGIN
 		  with DemandeCalculsPourBase do
 		    begin
@@ -187,7 +187,7 @@ begin
 			                  for i := 1 to nbPartiesActives do  {nbPartiesActives}
 			                    begin
 			                      if magicCookie <> oldMagicCookie then goto sortie;
-			                      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+			                      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 				                  if magicCookie <> oldMagicCookie then goto sortie;
 
 			                      nroreference := tableNumeroReference^^[i];
@@ -214,7 +214,7 @@ begin
 			                          end
 			                        else
 			                          begin
-			                            if (nbreponsesTrouvees < nbMaxStatistiques) & (reponse > 0) then
+			                            if (nbreponsesTrouvees < nbMaxStatistiques) and (reponse > 0) then
 			                              begin
 			                                nbreponsesTrouvees := nbreponsesTrouvees+1;
 			                                tableNumerotationReponses[reponse] := nbreponsesTrouvees;
@@ -240,7 +240,7 @@ begin
 			         end;{with}
 
 			       if magicCookie <> oldMagicCookie then goto sortie;
-			       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+			       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 				   if magicCookie <> oldMagicCookie then goto sortie;
 
 			       with StatistiquesTemporaires do
@@ -252,7 +252,7 @@ begin
 			               table[0] := table[i];
 			               j := i+1;
 			               flag := true;
-			               while (j <= up) & flag do
+			               while (j <= up) and flag do
 			                 if table[0].nbpartiessurcecoup < table[j].nbpartiessurcecoup
 			                   then
 			                     begin
@@ -295,7 +295,7 @@ begin
   oldMagicCookie := DemandeCalculsPourBase.magicCookie;
   {WritelnNumDansRapport('--> DessineStatistiques : ',oldMagicCookie);}
 
-  if not(problemeMemoireBase) & (statistiques <> NIL) then
+  if not(problemeMemoireBase) and (statistiques <> NIL) then
     BEGIN
 		  if StatistiquesSontEcritesDansLaFenetreNormale
 		    then GetPort(oldport);
@@ -318,7 +318,7 @@ begin
 			    yposition := DecV+hauteurRubanStatistiques+1;
 
 			    nbPartiestotal := statistiques^^.nbTotalParties;
-			    if (nbPartiestotal <= 0) | (nbPartiesChargees <= 0) | (nbPartiesActives <= 0) | not(StatistiquesCalculsFaitsAuMoinsUneFois) then
+			    if (nbPartiestotal <= 0) or (nbPartiesChargees <= 0) or (nbPartiesActives <= 0) or not(StatistiquesCalculsFaitsAuMoinsUneFois) then
 			        begin
 
 			          if StatistiquesSontEcritesDansLaFenetreNormale then
@@ -327,7 +327,7 @@ begin
 			              if gCassioUseQuartzAntialiasing then EnableQuartzAntiAliasingThisPort(GetWindowPort(wStatPtr),true);
 			            end;
 
-			          if avecEffacement & StatistiquesSontEcritesDansLaFenetreNormale then
+			          if avecEffacement and StatistiquesSontEcritesDansLaFenetreNormale then
 			             begin
 			               with QDGetPortBound do
 					             begin
@@ -346,7 +346,7 @@ begin
 			              MyDrawString(s);
 			            end
 			           else
-			          if (nbPartiestotal <= 0) & (nbPartiesActives > 0) then
+			          if (nbPartiestotal <= 0) and (nbPartiesActives > 0) then
 			            begin
 			              Moveto(DecH+50,DecV+50);
 			              if gameOver
@@ -375,9 +375,9 @@ begin
 			        end
 			      else
 			        begin
-			          if (magicCookie <> oldMagicCookie) | not(windowStatOpen) then goto sortie;
-			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
-				        if (magicCookie <> oldMagicCookie) | not(windowStatOpen) then goto sortie;
+			          if (magicCookie <> oldMagicCookie) or not(windowStatOpen) then goto sortie;
+			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
+				        if (magicCookie <> oldMagicCookie) or not(windowStatOpen) then goto sortie;
 
 			          if StatistiquesSontEcritesDansLaFenetreNormale then
 		               begin
@@ -393,9 +393,9 @@ begin
 			          if nbreCoup >= 3 then ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
 			          for compteur := 1 to statistiques^^.nbreponsesTrouvees do
 			           begin
-			             if (magicCookie <> oldMagicCookie) | not(windowStatOpen) then goto sortie;
-			             if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
-				           if (magicCookie <> oldMagicCookie) | not(windowStatOpen) then goto sortie;
+			             if (magicCookie <> oldMagicCookie) or not(windowStatOpen) then goto sortie;
+			             if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
+				           if (magicCookie <> oldMagicCookie) or not(windowStatOpen) then goto sortie;
 
 			             if StatistiquesSontEcritesDansLaFenetreNormale then
 			               begin
@@ -581,8 +581,8 @@ begin
 	                   TextFace(normal);
 	                 end;
 			         MyDrawString(s);
-			         if StatistiquesSontEcritesDansLaFenetreNormale &
-			            avecEffacement & (yposition >= QDGetPortBound.bottom-15)
+			         if StatistiquesSontEcritesDansLaFenetreNormale and
+			            avecEffacement and (yposition >= QDGetPortBound.bottom-15)
 			           then DessineBoiteDeTaille(wStatPtr);
 
 
@@ -666,7 +666,7 @@ begin
 		  xPositionPourcentageBlancT := DecH+217;
 
       rubanRect := MakeRect(-2,-2,500,DecV+hauteurRubanStatistiques);
-      if gCassioUseQuartzAntialiasing & StatistiquesSontEcritesDansLaFenetreNormale then
+      if gCassioUseQuartzAntialiasing and StatistiquesSontEcritesDansLaFenetreNormale then
         begin
           MyEraseRect(rubanRect);
           MyEraseRectWithColor(rubanRect,OrangeCmd,blackPattern,'');
@@ -694,7 +694,7 @@ begin
 		  s := ReadStringFromRessource(TextesStatistiquesID,3);
 		  MyDrawString(s);
 
-		  if gCassioUseQuartzAntialiasing & StatistiquesSontEcritesDansLaFenetreNormale
+		  if gCassioUseQuartzAntialiasing and StatistiquesSontEcritesDansLaFenetreNormale
         then EnableQuartzAntiAliasingThisPort(GetWindowPort(wStatPtr),true);
 
 		  TextFace(normal);
@@ -724,7 +724,7 @@ begin
 
 		  ForeColor(BlackColor);
 
-		  if gCassioUseQuartzAntialiasing & StatistiquesSontEcritesDansLaFenetreNormale then
+		  if gCassioUseQuartzAntialiasing and StatistiquesSontEcritesDansLaFenetreNormale then
         EnableQuartzAntiAliasingThisPort(GetWindowPort(wStatPtr),false);
 
       if StatistiquesSontEcritesDansLaFenetreNormale

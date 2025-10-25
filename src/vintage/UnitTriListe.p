@@ -95,7 +95,7 @@ begin
   for j := 1 to nbPartiesChargees do
     begin
       m := tableTriListe^^[j];
-      if (GetNroTournoiParNroRefPartie(m) <> tournoi) | (GetAnneePartieParNroRefPartie(m) <> annee) then
+      if (GetNroTournoiParNroRefPartie(m) <> tournoi) or (GetAnneePartieParNroRefPartie(m) <> annee) then
         begin
           // echanger l'ordre dans le morceau [i ... j-1]
 
@@ -494,7 +494,7 @@ var s1,s2 : PackedThorGame;
               begin
                 temp := tableTriListe^^[i];
                 j := i+d;
-                while (j <= up) & PlusGrand(temp,tableTriListe^^[j]) do
+                while (j <= up) and PlusGrand(temp,tableTriListe^^[j]) do
                   begin
                     tableTriListe^^[j-d] := tableTriListe^^[j];
                     j := j+d;
@@ -534,7 +534,7 @@ var s1,s2 : PackedThorGame;
               begin
                 temp := tableTriListe^^[i];
                 j := i+d;
-                while (j <= up) & PlusGrand(temp,tableTriListe^^[j]) do
+                while (j <= up) and PlusGrand(temp,tableTriListe^^[j]) do
                   begin
                     tableTriListe^^[j-d] := tableTriListe^^[j];
                     j := j+d;
@@ -607,8 +607,8 @@ var s1,s2 : PackedThorGame;
             j := ir;
             a := tableTriListe^^[l];
             while true do begin
-              repeat inc(i) until (j < i) | PlusGrand(tableTriListe^^[i],a);
-              repeat dec(j) until (j < i) | PlusGrand(a,tableTriListe^^[j]);
+              repeat inc(i) until (j < i) or PlusGrand(tableTriListe^^[i],a);
+              repeat dec(j) until (j < i) or PlusGrand(a,tableTriListe^^[j]);
               if j < i then goto 20; {break}
               temp := tableTriListe^^[i];
               tableTriListe^^[i] := tableTriListe^^[j];
@@ -642,15 +642,15 @@ begin  {TrierListePartie}
   if problemeMemoireBase
      then exit(TrierListePartie);
 
-  if ((critereDeTri = TriParJoueurBlanc) | (critereDeTri = TriParJoueurNoir)) & not(JoueursEtTournoisEnMemoire)
+  if ((critereDeTri = TriParJoueurBlanc) or (critereDeTri = TriParJoueurNoir)) and not(JoueursEtTournoisEnMemoire)
      then exit(TrierListePartie);
 
-  if (critereDeTri = TriParDate) & LectureAntichronologique then critereDeTri := TriParAntiDate;
-  if (critereDeTri = TriParAntiDate) & not(LectureAntichronologique) then critereDeTri := TriParDate;
+  if (critereDeTri = TriParDate) and LectureAntichronologique then critereDeTri := TriParAntiDate;
+  if (critereDeTri = TriParAntiDate) and not(LectureAntichronologique) then critereDeTri := TriParDate;
 
-  if ((critereDeTri = TriParJoueurBlanc) |
-      (critereDeTri = TriParJoueurNoir) |
-      (critereDeTri = TriParDate) |
+  if ((critereDeTri = TriParJoueurBlanc) or
+      (critereDeTri = TriParJoueurNoir) or
+      (critereDeTri = TriParDate) or
       (critereDeTri = TriParAntiDate)) then
         begin
           if not(JoueursNouveauFormat.dejaTriesAlphabetiquement) then
@@ -658,7 +658,7 @@ begin  {TrierListePartie}
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Avant TrierAlphabetiquementJoueursNouveauFormat dans TrierListePartie',true);
               TrierAlphabetiquementJoueursNouveauFormat;
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Apres TrierAlphabetiquementJoueursNouveauFormat dans TrierListePartie',true);
-              if gVersionJaponaiseDeCassio & gHasJapaneseScript
+              if gVersionJaponaiseDeCassio and gHasJapaneseScript
                 then err := LitNomsDesJoueursEnJaponais;
             end;
           if not(TournoisNouveauFormat.dejaTriesAlphabetiquement) then
@@ -666,7 +666,7 @@ begin  {TrierListePartie}
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Avant TrierAlphabetiquementTournoisNouveauFormat dans TrierListePartie',true);
               TrierAlphabetiquementTournoisNouveauFormat;
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Apres TrierAlphabetiquementTournoisNouveauFormat dans TrierListePartie',true);
-              if gVersionJaponaiseDeCassio & gHasJapaneseScript
+              if gVersionJaponaiseDeCassio and gHasJapaneseScript
                 then err := LitNomsDesTournoisEnJaponais;
             end;
         end;
@@ -745,7 +745,7 @@ begin
       GetPort(oldport);
       ancienCritereDeTri := gGenreDeTriListe;
       ancienAlgoDeTri := gDernierAlgoDeTriUtilise;
-      if (ancienCritereDeTri <> critereDeTri) | (critereDeTri = TriParClassementDuRapport) |
+      if (ancienCritereDeTri <> critereDeTri) or (critereDeTri = TriParClassementDuRapport) or
          (ancienAlgoDeTri <> algorithmeDeTri) then
         begin
           AnnulerSousCriteresRuban;
@@ -913,8 +913,8 @@ begin
       if BAnd(theEvent.modifiers,optionKey) = 0
         then
           begin { on sŽpare les couleurs }
-            if (min1 = n1) & (min2 = b2) then OrdreSuivantUnClassement := false else
-            if (min1 = b1) & (min2 = n2) then OrdreSuivantUnClassement := true else
+            if (min1 = n1) and (min2 = b2) then OrdreSuivantUnClassement := false else
+            if (min1 = b1) and (min2 = n2) then OrdreSuivantUnClassement := true else
 
             if max1 > max2 then OrdreSuivantUnClassement := true else
             if max1 < max2 then OrdreSuivantUnClassement := false;
@@ -1090,7 +1090,7 @@ begin {TrierListeSuivantUnClassement}
 
   TrierListeSuivantUnClassement := false;
 
-  if (LongueurSelectionRapport <= 3) & (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) <= 10) then
+  if (LongueurSelectionRapport <= 3) and (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) <= 10) then
     ExplicationSyntaxeTriListeSuivantClassementTournoi;
 
   ApprendreClassementDuTournoi;

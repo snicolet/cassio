@@ -84,9 +84,9 @@ function SousCriteresVides : boolean;
 begin
   if CriteresSuplementaires = NIL
     then SousCriteresVides := true
-    else SousCriteresVides := (CriteresSuplementaires^^.CriteresNoir =  'รรรรรร') &
-                              (CriteresSuplementaires^^.CriteresBlanc =  'รรรรรร') &
-                              (CriteresSuplementaires^^.CriteresTournoi =  'รรรร') &
+    else SousCriteresVides := (CriteresSuplementaires^^.CriteresNoir =  'รรรรรร') and
+                              (CriteresSuplementaires^^.CriteresBlanc =  'รรรรรร') and
+                              (CriteresSuplementaires^^.CriteresTournoi =  'รรรร') and
                               (CriteresSuplementaires^^.CriteresDistribution =  'รรรร');
 end;
 
@@ -180,7 +180,7 @@ begin
           then InsererDansATR(arbrePositif,nomCompare)
           else InsererDansATR(arbreNegatif,nomCompare);
 
-        if gVersionJaponaiseDeCassio & gHasJapaneseScript then
+        if gVersionJaponaiseDeCassio and gHasJapaneseScript then
           begin
             nomCompareJaponais := TPCopy(chaine,1,Min(19,LENGTH_OF_STRING(chaine)));
             nomCompareJaponais := MyUpperString(nomCompareJaponais,false);
@@ -221,7 +221,7 @@ begin
                           FabriquerRecursivementArbreDesJoueurs(arbrePositif,arbreNegatif,joueur,NiveauxRecurence+1,positif);
                           listeGroupeJoueurs := '';
                         end;
-                  until (q = 0) | (listeGroupeJoueurs = '');
+                  until (q = 0) or (listeGroupeJoueurs = '');
               end;
           end;
       end;
@@ -254,7 +254,7 @@ begin
         if positif
           then InsererDansATR(arbrePositif,nomCompare)
           else InsererDansATR(arbreNegatif,nomCompare);
-        if gVersionJaponaiseDeCassio & gHasJapaneseScript then
+        if gVersionJaponaiseDeCassio and gHasJapaneseScript then
           begin
             nomCompareJaponais := TPCopy(chaine,1,Min(29,LENGTH_OF_STRING(chaine)));
             nomCompareJaponais := MyUpperString(nomCompareJaponais,false);
@@ -294,7 +294,7 @@ begin
                           FabriquerRecursivementArbreDesTournois(arbrePositif,arbreNegatif,tournoi,NiveauxRecurence+1,positif);
                           listeGroupeTournois := '';
                         end;
-                  until (q = 0) | (listeGroupeTournois = '');
+                  until (q = 0) or (listeGroupeTournois = '');
               end;
           end;
       end;
@@ -319,7 +319,7 @@ begin
   if (nomJoueur[LENGTH_OF_STRING(nomJoueur)] = '"')
     then nomJoueur[LENGTH_OF_STRING(nomJoueur)] := '$';
 
-  if (nomJoueur = '^') | (nomJoueur = '$') | (nomJoueur = '^$')
+  if (nomJoueur = '^') or (nomJoueur = '$') or (nomJoueur = '^$')
     then nomJoueur := '';
 
   (* lancer le calcul des joueurs compatibles *)
@@ -342,12 +342,12 @@ begin
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
 
-          if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
-             (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
+          if (ATRIsEmpty(arbrePositif) or TrouveATRDansChaine(arbrePositif,nomBase,position)) and
+             (ATRIsEmpty(arbreNegatif) or not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
         end;
 
-      if gVersionJaponaiseDeCassio & gHasJapaneseScript then
+      if gVersionJaponaiseDeCassio and gHasJapaneseScript then
         for k := 0 to JoueursNouveauFormat.nbJoueursNouveauFormat-1 do
 	        if JoueurAUnNomJaponais(k) then
 	          begin
@@ -388,7 +388,7 @@ begin
   if (nomTournoi[LENGTH_OF_STRING(nomTournoi)] = '"')
     then nomTournoi[LENGTH_OF_STRING(nomTournoi)] := '$';
 
-  if (nomTournoi = '^') | (nomTournoi = '$') | (nomTournoi = '^$')
+  if (nomTournoi = '^') or (nomTournoi = '$') or (nomTournoi = '^$')
     then nomTournoi := '';
 
 
@@ -412,8 +412,8 @@ begin
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
 
-          if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
-             (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
+          if (ATRIsEmpty(arbrePositif) or TrouveATRDansChaine(arbrePositif,nomBase,position)) and
+             (ATRIsEmpty(arbreNegatif) or not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
         end;
 
@@ -425,12 +425,12 @@ begin
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
 
-          if (ATRIsEmpty(arbrePositif) | TrouveATRDansChaine(arbrePositif,nomBase,position)) &
-             (ATRIsEmpty(arbreNegatif) | not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
+          if (ATRIsEmpty(arbrePositif) or TrouveATRDansChaine(arbrePositif,nomBase,position)) and
+             (ATRIsEmpty(arbreNegatif) or not(TrouveATRDansChaine(arbreNegatif,nomBase,position)))
              then compatible^[k] := true;
         end;
 
-      if gVersionJaponaiseDeCassio & gHasJapaneseScript then
+      if gVersionJaponaiseDeCassio and gHasJapaneseScript then
         for k := 0 to TournoisNouveauFormat.nbTournoisNouveauFormat-1 do
 	        if TournoiAUnNomJaponais(k) then
 	          begin
@@ -465,7 +465,7 @@ begin
   if (nomDistribution[LENGTH_OF_STRING(nomDistribution)] = '"')
     then nomDistribution[LENGTH_OF_STRING(nomDistribution)] := '$';
 
-  if (nomDistribution = '^') | (nomDistribution = '$') | (nomDistribution = '^$')
+  if (nomDistribution = '^') or (nomDistribution = '$') or (nomDistribution = '^$')
     then nomDistribution := '';
 
 
@@ -488,7 +488,7 @@ begin
           if (Pos(nomDistribution,nomDistributionSurDisque) > 0)
              then compatible^[k] := true;
         end;
-      if (Pos('***',nomDistribution) = 1) & (ASeulementCeCaractere('*',nomDistribution))
+      if (Pos('***',nomDistribution) = 1) and (ASeulementCeCaractere('*',nomDistribution))
         then compatible^[0] := true;
     end;
 end;
@@ -547,7 +547,7 @@ var TournoiCompatible : t_TournoiCompatible;
             k : SInt32;
         begin
           test := true;
-          for k := 1 to 6 do test := test & (NomNoirCrit[k] = '');
+          for k := 1 to 6 do test := test and (NomNoirCrit[k] = '');
           NoirEstVide := test;
         end;
 
@@ -556,7 +556,7 @@ var TournoiCompatible : t_TournoiCompatible;
             k : SInt32;
         begin
           test := true;
-          for k := 1 to 6 do test := test & (NomBlancCrit[k] = '');
+          for k := 1 to 6 do test := test and (NomBlancCrit[k] = '');
           BlancEstVide := test;
         end;
 
@@ -565,7 +565,7 @@ var TournoiCompatible : t_TournoiCompatible;
             k : SInt32;
         begin
           test := true;
-          for k := 1 to 4 do test := test & (NomTournoiCrit[k] = '');
+          for k := 1 to 4 do test := test and (NomTournoiCrit[k] = '');
           TournoiEstVide := test;
         end;
 
@@ -574,7 +574,7 @@ var TournoiCompatible : t_TournoiCompatible;
             k : SInt32;
         begin
           test := true;
-          for k := 1 to 4 do test := test & (NomDistribCrit[k] = '');
+          for k := 1 to 4 do test := test and (NomDistribCrit[k] = '');
           DistributionEstVide := test;
         end;
 
@@ -663,7 +663,7 @@ var TournoiCompatible : t_TournoiCompatible;
                     if critere <> '' then
                       begin
                         if not(TrouveNumeroDuTournoi(critere, numeroTournoi, 0))
-                           & EnleveAnneeADroiteDansChaine(critere,firstAnneeDemandee,lastAnneeDemandee) then
+                           and EnleveAnneeADroiteDansChaine(critere,firstAnneeDemandee,lastAnneeDemandee) then
                           begin
                             avecAnnees := true;
                             for an := firstAnneeDemandee to lastAnneeDemandee do
@@ -757,18 +757,18 @@ var TournoiCompatible : t_TournoiCompatible;
 
 begin  {CalculTableCriteres}
 
-  if problemeMemoireBase | (CriteresSuplementaires = NIL)
+  if problemeMemoireBase or (CriteresSuplementaires = NIL)
     then exit(CalculTableCriteres);
 
 
-  if not(gPendantLesInitialisationsDeCassio) & (tempsUtiliseDernierCalculDesCriteres > 15) then
+  if not(gPendantLesInitialisationsDeCassio) and (tempsUtiliseDernierCalculDesCriteres > 15) then
     begin
 
       watch := GetCursor(watchcursor);
       SafeSetCursor(watch);
     end;
   if GetNextEvent(updateMask,theEvent) then TraiteEvenements;
-  if not(gPendantLesInitialisationsDeCassio) & (tempsUtiliseDernierCalculDesCriteres > 15) then
+  if not(gPendantLesInitialisationsDeCassio) and (tempsUtiliseDernierCalculDesCriteres > 15) then
     begin
 
       watch := GetCursor(watchcursor);
@@ -784,7 +784,7 @@ begin  {CalculTableCriteres}
   TournoiCompatible      := NewTableTournoiCompatiblePtr;
   DistributionCompatible := NewTableDistributionsCompatiblesPtr;
 
-  if SousCriteresVides & InclurePartiesAvecOrdinateursDansListe
+  if SousCriteresVides and InclurePartiesAvecOrdinateursDansListe
     then
       begin
         LaveTableCriteres;
@@ -820,16 +820,16 @@ begin  {CalculTableCriteres}
               for nroPartie := 1 to nbPartiesChargees do
                 begin
                   if avecAnnees
-                    then compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)] & anneeCompatible[GetAnneePartieParNroRefPartie(nroPartie)]
+                    then compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)] and anneeCompatible[GetAnneePartieParNroRefPartie(nroPartie)]
                     else compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)];
                   if ANDentreJoueurs
-                    then compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] &
+                    then compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] and
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)]
-                    else compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] |
+                    else compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] or
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)];
                   compatibiliteDistribution   := DistributionCompatible^[GetNroDistributionParNroRefPartie(nroPartie)];
 
-                  SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi & compatibiliteJoueurs & compatibiliteDistribution);
+                  SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi and compatibiliteJoueurs and compatibiliteDistribution);
                 end;
             end
           else
@@ -838,17 +838,17 @@ begin  {CalculTableCriteres}
               for nroPartie := 1 to nbPartiesChargees do
                 begin
                   if avecAnnees
-                    then compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)] & anneeCompatible[GetAnneePartieParNroRefPartie(nroPartie)]
+                    then compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)] and anneeCompatible[GetAnneePartieParNroRefPartie(nroPartie)]
                     else compatibiliteTournoi := TournoiCompatible^[GetNroTournoiParNroRefPartie(nroPartie)];
                   if ANDentreJoueurs
-                    then compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] &
+                    then compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] and
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)]
-                    else compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] |
+                    else compatibiliteJoueurs := JoueurNoirCompatible^[GetNroJoueurNoirParNroRefPartie(nroPartie)] or
                                                  JoueurBlancCompatible^[GetNroJoueurBlancParNroRefPartie(nroPartie)];
                   compatibiliteDistribution   := DistributionCompatible^[GetNroDistributionParNroRefPartie(nroPartie)];
                   compatibiliteOrdinateurs    := PartieEstSansOrdinateur(nroPartie);
 
-                  SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi & compatibiliteJoueurs & compatibiliteDistribution & compatibiliteOrdinateurs);
+                  SetPartieCompatibleParCriteres(nroPartie, compatibiliteTournoi and compatibiliteJoueurs and compatibiliteDistribution and compatibiliteOrdinateurs);
                 end;
             end;
 
@@ -997,7 +997,7 @@ var s : String255;
             JoueurNoir1..Tournoi4:
               begin
                 GetItemTextInDialog(criteresdp,itemHit,s);
-                if (s[LENGTH_OF_STRING(s)] = '=') & JoueursEtTournoisEnMemoire then
+                if (s[LENGTH_OF_STRING(s)] = '=') and JoueursEtTournoisEnMemoire then
                   begin
                     s := TPCopy(s,1,LENGTH_OF_STRING(s)-1);
                     case itemHit of
@@ -1029,7 +1029,7 @@ begin  {DoCriteres}
     then DialogueMemoireBase
     else
       begin
-        if (CriteresSuplementaires <> NIL) & HumainVeutNouveauxCriteres
+        if (CriteresSuplementaires <> NIL) and HumainVeutNouveauxCriteres
           then
             begin
               InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
@@ -1062,7 +1062,7 @@ begin
 		      begin
 		        InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
 		        EcritRubanListe(true);
-		        if not(sousSelectionActive) & InclurePartiesAvecOrdinateursDansListe
+		        if not(sousSelectionActive) and InclurePartiesAvecOrdinateursDansListe
 		          then
 		            begin
 		              LaveTableCriteres;
@@ -1122,7 +1122,7 @@ var i,longueur : SInt32;
     s : String255;
     caract : charsHandle;
 begin
-  if windowListeOpen & (CriteresSuplementaires <> NIL) then
+  if windowListeOpen and (CriteresSuplementaires <> NIL) then
     begin
       if CriteresRubanModifies then
         begin
@@ -1201,7 +1201,7 @@ procedure DoSwaperLesSousCriteres;
 var StringAux : String255;
     nroBoiteDeSousCritereActive : SInt32;
 begin
-  if not(problemeMemoireBase) & (CriteresSuplementaires <> NIL) then
+  if not(problemeMemoireBase) and (CriteresSuplementaires <> NIL) then
 	  if (CriteresSuplementaires^^.CriteresNoir <> CriteresSuplementaires^^.CriteresBlanc) then
 	    begin
 	      InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
@@ -1227,7 +1227,7 @@ var stringAux : String255;
     strings : array[1..6] of String255;
     i : SInt16;
 begin
-  if not(problemeMemoireBase) & (CriteresSuplementaires <> NIL) then
+  if not(problemeMemoireBase) and (CriteresSuplementaires <> NIL) then
 	  if not(SousCriteresVides) then
 	    begin
 	      InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;

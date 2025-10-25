@@ -183,16 +183,16 @@ begin
   TousLesPointeursDeLEvalEdmondSontBons := true;
 
   for i := 0 to 63 do
-    if ( Edmond_DIAG_5_stub[i] = NIL)      |
-       ( Edmond_DIAG_6_stub[i] = NIL )     |
-       ( Edmond_DIAG_7_stub[i] = NIL )     |
-       ( Edmond_DIAG_8_stub[i] = NIL )     |
-       ( Edmond_HV_4_stub[i] = NIL )       |
-       ( Edmond_HV_3_stub[i] = NIL )       |
-       ( Edmond_HV_2_stub[i] = NIL )       |
-       ( Edmond_EDGE_6_4_stub[i] = NIL )   |
-       ( Edmond_CORNER_2x5_stub[i] = NIL ) |
-       ( Edmond_CORNER_11_stub[i] = NIL )  |
+    if ( Edmond_DIAG_5_stub[i] = NIL)      or
+       ( Edmond_DIAG_6_stub[i] = NIL )     or
+       ( Edmond_DIAG_7_stub[i] = NIL )     or
+       ( Edmond_DIAG_8_stub[i] = NIL )     or
+       ( Edmond_HV_4_stub[i] = NIL )       or
+       ( Edmond_HV_3_stub[i] = NIL )       or
+       ( Edmond_HV_2_stub[i] = NIL )       or
+       ( Edmond_EDGE_6_4_stub[i] = NIL )   or
+       ( Edmond_CORNER_2x5_stub[i] = NIL ) or
+       ( Edmond_CORNER_11_stub[i] = NIL )  or
        ( Edmond_EDGE_2XC_stub[i] = NIL )
          then
            begin
@@ -413,19 +413,19 @@ begin
 
             evalDesBords := 0;
 
-            if (position[11] = pionVide) & (position[22] = pionVide) & (position[18] = pionVide) & (position[27] = pionVide)
+            if (position[11] = pionVide) and (position[22] = pionVide) and (position[18] = pionVide) and (position[27] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[AdressePattern[kAdresseBord6Plus4Nord]]
               else evalDesBords := evalDesBords + evalTable2^[AdressePattern[kAdresseBord2XCNord]];
 
-            if (position[11] = pionVide) & (position[22] = pionVide) & (position[81] = pionVide) & (position[72] = pionVide)
+            if (position[11] = pionVide) and (position[22] = pionVide) and (position[81] = pionVide) and (position[72] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[AdressePattern[kAdresseBord6Plus4Ouest]]
               else evalDesBords := evalDesBords + evalTable2^[AdressePattern[kAdresseBord2XCOuest]];
 
-            if (position[88] = pionVide) & (position[77] = pionVide) & (position[81] = pionVide) & (position[72] = pionVide)
+            if (position[88] = pionVide) and (position[77] = pionVide) and (position[81] = pionVide) and (position[72] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[AdressePattern[kAdresseBord6Plus4Sud]]
               else evalDesBords := evalDesBords + evalTable2^[AdressePattern[kAdresseBord2XCSud]];
 
-            if (position[88] = pionVide) & (position[77] = pionVide) & (position[18] = pionVide) & (position[27] = pionVide)
+            if (position[88] = pionVide) and (position[77] = pionVide) and (position[18] = pionVide) and (position[27] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[AdressePattern[kAdresseBord6Plus4Est]]
               else evalDesBords := evalDesBords + evalTable2^[AdressePattern[kAdresseBord2XCEst]];
 
@@ -509,19 +509,19 @@ begin
 
             evalDesBords := 0;
 
-            if (position[11] = pionVide) & (position[22] = pionVide) & (position[18] = pionVide) & (position[27] = pionVide)
+            if (position[11] = pionVide) and (position[22] = pionVide) and (position[18] = pionVide) and (position[27] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[ -AdressePattern[kAdresseBord6Plus4Nord]]
               else evalDesBords := evalDesBords + evalTable2^[ -AdressePattern[kAdresseBord2XCNord]];
 
-            if (position[11] = pionVide) & (position[22] = pionVide) & (position[81] = pionVide) & (position[72] = pionVide)
+            if (position[11] = pionVide) and (position[22] = pionVide) and (position[81] = pionVide) and (position[72] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[ -AdressePattern[kAdresseBord6Plus4Ouest]]
               else evalDesBords := evalDesBords + evalTable2^[ -AdressePattern[kAdresseBord2XCOuest]];
 
-            if (position[88] = pionVide) & (position[77] = pionVide) & (position[81] = pionVide) & (position[72] = pionVide)
+            if (position[88] = pionVide) and (position[77] = pionVide) and (position[81] = pionVide) and (position[72] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[ -AdressePattern[kAdresseBord6Plus4Sud]]
               else evalDesBords := evalDesBords + evalTable2^[ -AdressePattern[kAdresseBord2XCSud]];
 
-            if (position[88] = pionVide) & (position[77] = pionVide) & (position[18] = pionVide) & (position[27] = pionVide)
+            if (position[88] = pionVide) and (position[77] = pionVide) and (position[18] = pionVide) and (position[27] = pionVide)
               then evalDesBords := evalDesBords + evalTable^[ -AdressePattern[kAdresseBord6Plus4Est]]
               else evalDesBords := evalDesBords + evalTable2^[ -AdressePattern[kAdresseBord2XCEst]];
 
@@ -553,7 +553,7 @@ begin
 
   // On discretise eventuellement l'evaluation
 
-  if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+  if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
     then
       begin
         if evalPartielle >= 0
@@ -568,8 +568,8 @@ begin
   evalDesBords := evalDesBords div 8;
   evalDesBords := (evalDesBords * 141) div 128;
 
-  if ((evalDesBords >= 2000) | (evalDesBords <= -2000)) &
-     ((position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide)) then
+  if ((evalDesBords >= 2000) or (evalDesBords <= -2000)) and
+     ((position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide)) then
      begin
       if (trait = pionNoir)
         then
@@ -627,7 +627,7 @@ begin
   discretisationEvaluationEstOK := tempoDiscretisation;
 
   // renvoyer cette eval mixte, eventuellement discretisee
-  if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+  if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
     then
       begin
         if evalPartielle >= 0
@@ -815,7 +815,7 @@ begin
 
 sortie :
 
-  if (err = 0) | (err = kErrorCassioVeutQuitterEnCatastrophe) then
+  if (err = 0) or (err = kErrorCassioVeutQuitterEnCatastrophe) then
     err := FermeFichierTexte(fichierEval);
 
   if (err <> NoErr)

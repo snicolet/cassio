@@ -109,7 +109,7 @@ end;
 
 function StringSetEstVide(S : StringSet) : boolean;
 begin
-  StringSetEstVide := (S.cardinal = 0) | ABRIsEmpty(S.arbre);
+  StringSetEstVide := (S.cardinal = 0) or ABRIsEmpty(S.arbre);
 end;
 
 

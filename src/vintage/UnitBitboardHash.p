@@ -207,13 +207,13 @@ begin
     	    // read all the packed (lower,upper,stored_move,empties) info from deepest^
     	    infosDansDeepest := loweruppermoveempties;
 
-    	    if ((lock_my_low   XOR infosDansDeepest.toutensemble) = pos_my_bits_low)  &
-    	       ((lock_my_high  XOR infosDansDeepest.toutensemble) = pos_my_bits_high) &
-    	       ((lock_opp_low  XOR infosDansDeepest.toutensemble) = pos_opp_bits_low) &
+    	    if ((lock_my_low   XOR infosDansDeepest.toutensemble) = pos_my_bits_low)  and
+    	       ((lock_my_high  XOR infosDansDeepest.toutensemble) = pos_my_bits_high) and
+    	       ((lock_opp_low  XOR infosDansDeepest.toutensemble) = pos_opp_bits_low) and
     	       ((lock_opp_high XOR infosDansDeepest.toutensemble) = pos_opp_bits_high) then
         	  begin
-          		if (score < beta)  & (score < infosDansDeepest.upper) then infosDansDeepest.upper := score;
-          		if (score > alpha) & (score > infosDansDeepest.lower) then infosDansDeepest.lower := score;
+          		if (score < beta)  and (score < infosDansDeepest.upper) then infosDansDeepest.upper := score;
+          		if (score > alpha) and (score > infosDansDeepest.lower) then infosDansDeepest.lower := score;
           		infosDansDeepest.stored_move := move;
 
           		// store the updated (lower,upper,stored_move,empties) info deepest^
@@ -233,13 +233,13 @@ begin
     	    // read all the packed (lower,upper,stored_move,empties) info from newest^
     	    infosDansNewest := loweruppermoveempties;
 
-    	    if ((lock_my_low   XOR infosDansNewest.toutensemble) = pos_my_bits_low)  &
-    	       ((lock_my_high  XOR infosDansNewest.toutensemble) = pos_my_bits_high) &
-    	       ((lock_opp_low  XOR infosDansNewest.toutensemble) = pos_opp_bits_low) &
+    	    if ((lock_my_low   XOR infosDansNewest.toutensemble) = pos_my_bits_low)  and
+    	       ((lock_my_high  XOR infosDansNewest.toutensemble) = pos_my_bits_high) and
+    	       ((lock_opp_low  XOR infosDansNewest.toutensemble) = pos_opp_bits_low) and
     	       ((lock_opp_high XOR infosDansNewest.toutensemble) = pos_opp_bits_high) then
         	  begin
-          		if (score < beta)  & (score < infosDansNewest.upper) then infosDansNewest.upper := score;
-          		if (score > alpha) & (score > infosDansNewest.lower) then infosDansNewest.lower := score;
+          		if (score < beta)  and (score < infosDansNewest.upper) then infosDansNewest.upper := score;
+          		if (score > alpha) and (score > infosDansNewest.lower) then infosDansNewest.lower := score;
           		infosDansNewest.stored_move := move;
 
           		// store the updated (lower,upper,stored_move,empties) info newest^
@@ -323,9 +323,9 @@ begin
       	  begin
       	    info_dans_hash := loweruppermoveempties;
 
-      	    if ((lock_my_low   XOR info_dans_hash.toutensemble) = pos_my_bits_low)  &
-      	       ((lock_my_high  XOR info_dans_hash.toutensemble) = pos_my_bits_high) &
-      	       ((lock_opp_low  XOR info_dans_hash.toutensemble) = pos_opp_bits_low) &
+      	    if ((lock_my_low   XOR info_dans_hash.toutensemble) = pos_my_bits_low)  and
+      	       ((lock_my_high  XOR info_dans_hash.toutensemble) = pos_my_bits_high) and
+      	       ((lock_opp_low  XOR info_dans_hash.toutensemble) = pos_opp_bits_low) and
       	       ((lock_opp_high XOR info_dans_hash.toutensemble) = pos_opp_bits_high) then
               	 begin
               	   hash_info       := info_dans_hash;
@@ -339,9 +339,9 @@ begin
           begin
             info_dans_hash := loweruppermoveempties;
 
-            if ((lock_my_low   XOR info_dans_hash.toutensemble) = pos_my_bits_low)  &
-      	       ((lock_my_high  XOR info_dans_hash.toutensemble) = pos_my_bits_high) &
-      	       ((lock_opp_low  XOR info_dans_hash.toutensemble) = pos_opp_bits_low) &
+            if ((lock_my_low   XOR info_dans_hash.toutensemble) = pos_my_bits_low)  and
+      	       ((lock_my_high  XOR info_dans_hash.toutensemble) = pos_my_bits_high) and
+      	       ((lock_opp_low  XOR info_dans_hash.toutensemble) = pos_opp_bits_low) and
       	       ((lock_opp_high XOR info_dans_hash.toutensemble) = pos_opp_bits_high) then
                 	begin
                 	  hash_info       := info_dans_hash;
@@ -452,7 +452,7 @@ end;
 
 
 //  {$DEFINEC FIND_IN_BITBOARD_HASH_AND_GET_LOCK  BitboardHashGet }
-//  {$DEFINEC GET_BITBOARD_HASH_LOCK(index)  (not(CassioUtiliseLeMultiprocessing) | (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexAccesBitboardHash[(index and kMutexAccesBitboardMask) * 16]) <> 0)) }
+//  {$DEFINEC GET_BITBOARD_HASH_LOCK(index)  (not(CassioUtiliseLeMultiprocessing) or (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexAccesBitboardHash[(index and kMutexAccesBitboardMask) * 16]) <> 0)) }
 //  {$DEFINEC RELEASE_BITBOARD_HASH_LOCK_BARRIER(index)  begin if CassioUtiliseLeMultiprocessing then begin OS_MEMORY_BARRIER; gMutexAccesBitboardHash[(index and kMutexAccesBitboardMask) * 16] := 0; end; end }
 //  {$DEFINEC RELEASE_BITBOARD_HASH_LOCK(index)  begin if CassioUtiliseLeMultiprocessing then begin gMutexAccesBitboardHash[(index and kMutexAccesBitboardMask) * 16] := 0; end; end }
 
@@ -483,9 +483,9 @@ begin
           	  begin
           	    info_dans_hash := loweruppermoveempties;
 
-          	    if (lock_my_low   = pos_my_bits_low)  &
-          	       (lock_my_high  = pos_my_bits_high) &
-          	       (lock_opp_low  = pos_opp_bits_low) &
+          	    if (lock_my_low   = pos_my_bits_low)  and
+          	       (lock_my_high  = pos_my_bits_high) and
+          	       (lock_opp_low  = pos_opp_bits_low) and
           	       (lock_opp_high = pos_opp_bits_high) then
                   	 begin
                   	   hash_info       := info_dans_hash;
@@ -500,9 +500,9 @@ begin
               begin
                 info_dans_hash := loweruppermoveempties;
 
-                if (lock_my_low   = pos_my_bits_low)  &
-            	     (lock_my_high  = pos_my_bits_high) &
-            	     (lock_opp_low  = pos_opp_bits_low) &
+                if (lock_my_low   = pos_my_bits_low)  and
+            	     (lock_my_high  = pos_my_bits_high) and
+            	     (lock_opp_low  = pos_opp_bits_low) and
             	     (lock_opp_high = pos_opp_bits_high) then
                     	begin
                     	  hash_info       := info_dans_hash;
@@ -551,13 +551,13 @@ begin
         	    // read all the packed (lower,upper,stored_move,empties) info from deepest^
         	    infosDansDeepest := loweruppermoveempties;
 
-        	    if (lock_my_low   = pos_my_bits_low)  &
-        	       (lock_my_high  = pos_my_bits_high) &
-        	       (lock_opp_low  = pos_opp_bits_low) &
+        	    if (lock_my_low   = pos_my_bits_low)  and
+        	       (lock_my_high  = pos_my_bits_high) and
+        	       (lock_opp_low  = pos_opp_bits_low) and
         	       (lock_opp_high = pos_opp_bits_high) then
             	  begin
-              		if (score < beta)  & (score < infosDansDeepest.upper) then infosDansDeepest.upper := score;
-              		if (score > alpha) & (score > infosDansDeepest.lower) then infosDansDeepest.lower := score;
+              		if (score < beta)  and (score < infosDansDeepest.upper) then infosDansDeepest.upper := score;
+              		if (score > alpha) and (score > infosDansDeepest.lower) then infosDansDeepest.lower := score;
               		infosDansDeepest.stored_move := move;
 
               		// stored the updated (lower,upper,stored_move,empties) info into deepest^
@@ -574,13 +574,13 @@ begin
         	    // read all the packed (lower,upper,stored_move,empties) info from newest^
         	    infosDansNewest := loweruppermoveempties;
 
-        	    if (lock_my_low   = pos_my_bits_low)  &
-        	       (lock_my_high  = pos_my_bits_high) &
-        	       (lock_opp_low  = pos_opp_bits_low) &
+        	    if (lock_my_low   = pos_my_bits_low)  and
+        	       (lock_my_high  = pos_my_bits_high) and
+        	       (lock_opp_low  = pos_opp_bits_low) and
         	       (lock_opp_high = pos_opp_bits_high) then
             	  begin
-              		if (score < beta)  & (score < infosDansNewest.upper) then infosDansNewest.upper := score;
-              		if (score > alpha) & (score > infosDansNewest.lower) then infosDansNewest.lower := score;
+              		if (score < beta)  and (score < infosDansNewest.upper) then infosDansNewest.upper := score;
+              		if (score > alpha) and (score > infosDansNewest.lower) then infosDansNewest.lower := score;
               		infosDansNewest.stored_move := move;
 
               		// stored the updated (lower,upper,stored_move,empties) info into newest^

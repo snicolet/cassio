@@ -139,7 +139,7 @@ begin
             if TrouveValMinimaxDansListe(fichier,[kPerteDansT,kPerteAbsolue],LesFils,numeroCellule) then nouvelleValeurMinimax := kGainDansT
               else nouvelleValeurMinimax := kPasDansT;
           end;
-      if (nouvelleValeurMinimax <> valeurIndeterminee) & (nouvelleValeurMinimax <> ancienneValeur) then
+      if (nouvelleValeurMinimax <> valeurIndeterminee) and (nouvelleValeurMinimax <> ancienneValeur) then
         begin
           valeurChangee := true;
           SetValeurMinimax(cellule,nouvelleValeurMinimax);
@@ -201,7 +201,7 @@ begin
               end;
         end;
 
-  if (nouvelleValeurDeviante <> valeurIndeterminee) & (nouvelleValeurDeviante <> ancienneValeur) then
+  if (nouvelleValeurDeviante <> valeurIndeterminee) and (nouvelleValeurDeviante <> ancienneValeur) then
     begin
       valeurChangee := true;
       SetValeurDeviante(cellule,couleur,nouvelleValeurDeviante);
@@ -230,31 +230,31 @@ begin
   valeurChangees := false;
 
   CalculeValeurMinimaxDansT(fichier,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   {CalculeValeurDeviante(fichier,Noir,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeValeurDeviante(fichier,Blanc,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeProofNumber(fichier,Noir,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeProofNumber(fichier,Blanc,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeDisproofNumber(fichier,Noir,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeDisproofNumber(fichier,Blanc,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeEsperanceDeGain(fichier,Noir,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
 
   CalculeEsperanceDeGain(fichier,Blanc,numCellule,changement);
-  valeurChangees := valeurChangees | changement;
+  valeurChangees := valeurChangees or changement;
   }
 end;
 
@@ -269,7 +269,7 @@ begin
   for i := 1 to orbite.cardinal do
     CalculeValeurMinimaxDansT(fichier,orbite.liste[i].numeroCellule,changement[i]);
   for i := 1 to orbite.cardinal do
-    AuMoinsUnChange := AuMoinsUnChange | changement[i];
+    AuMoinsUnChange := AuMoinsUnChange or changement[i];
 end;
 
 procedure CalculeValeurDevianteDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean);
@@ -282,7 +282,7 @@ begin
   for i := 1 to orbite.cardinal do
     CalculeValeurDeviante(fichier,couleur,orbite.liste[i].numeroCellule,changement[i]);
   for i := 1 to orbite.cardinal do
-    AuMoinsUnChange := AuMoinsUnChange | changement[i];
+    AuMoinsUnChange := AuMoinsUnChange or changement[i];
 end;
 
 procedure CalculeProofNumberDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean);
@@ -295,7 +295,7 @@ begin
   for i := 1 to orbite.cardinal do
     CalculeProofNumber(fichier,couleur,orbite.liste[i].numeroCellule,changement[i]);
   for i := 1 to orbite.cardinal do
-    AuMoinsUnChange := AuMoinsUnChange | changement[i];
+    AuMoinsUnChange := AuMoinsUnChange or changement[i];
 end;
 
 procedure CalculeDisproofNumberDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean);
@@ -308,7 +308,7 @@ begin
   for i := 1 to orbite.cardinal do
     CalculeDisproofNumber(fichier,couleur,orbite.liste[i].numeroCellule,changement[i]);
   for i := 1 to orbite.cardinal do
-    AuMoinsUnChange := AuMoinsUnChange | changement[i];
+    AuMoinsUnChange := AuMoinsUnChange or changement[i];
 end;
 
 procedure CalculeEsperanceDeGainDeLOrbite(var fichier : Graphe; couleur : SInt16; numCellule : SInt32; var AuMoinsUnChange : boolean);
@@ -321,7 +321,7 @@ begin
   for i := 1 to orbite.cardinal do
     CalculeEsperanceDeGain(fichier,couleur,orbite.liste[i].numeroCellule,changement[i]);
   for i := 1 to orbite.cardinal do
-    AuMoinsUnChange := AuMoinsUnChange | changement[i];
+    AuMoinsUnChange := AuMoinsUnChange or changement[i];
 end;
 
 procedure CalculeToutesLesValeursDeLOrbite(var fichier : Graphe; numCellule : SInt32; var AuMoinsUnChange : boolean);
@@ -330,32 +330,32 @@ begin
   AuMoinsUnChange := false;
 
   CalculeValeurMinimaxDeLOrbite(fichier,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   {
   CalculeValeurDevianteDeLOrbite(fichier,Noir,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeValeurDevianteDeLOrbite(fichier,Blanc,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeProofNumberDeLOrbite(fichier,Noir,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeProofNumberDeLOrbite(fichier,Blanc,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeDisproofNumberDeLOrbite(fichier,Noir,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeDisproofNumberDeLOrbite(fichier,Blanc,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeEsperanceDeGainDeLOrbite(fichier,Noir,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
 
   CalculeEsperanceDeGainDeLOrbite(fichier,Blanc,numCellule,changement);
-  AuMoinsUnChange := AuMoinsUnChange | changement;
+  AuMoinsUnChange := AuMoinsUnChange or changement;
   }
 end;
 
@@ -675,9 +675,9 @@ begin
   CoupEstDansListe := false;
   numCellule := -1;
 
-  if (coupCherche < 11) | (coupCherche > 88) then
+  if (coupCherche < 11) or (coupCherche > 88) then
     begin
-      WritelnDansRapport('## ERROR : (coupCherche < 11) | (coupCherche > 88) dans CoupEstDansListe');
+      WritelnDansRapport('## ERROR : (coupCherche < 11) or (coupCherche > 88) dans CoupEstDansListe');
       WritelnNumDansRapport('coupCherche = ',coupCherche);
       exit(CoupEstDansListe);
     end;
@@ -697,9 +697,9 @@ begin
   CoupEstDansListeDeCellulesEtDeCoups := false;
   numCellule := -1;
 
-  if (coupCherche < 11) | (coupCherche > 88) then
+  if (coupCherche < 11) or (coupCherche > 88) then
     begin
-      WritelnDansRapport('## ERROR : (coupCherche < 11) | (coupCherche > 88) dans CoupEstDansListeDeCellulesEtDeCoups');
+      WritelnDansRapport('## ERROR : (coupCherche < 11) or (coupCherche > 88) dans CoupEstDansListeDeCellulesEtDeCoups');
       exit(CoupEstDansListeDeCellulesEtDeCoups);
     end;
 
@@ -757,7 +757,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetValeurDeviante(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux > maximum)
+      if (aux <> valeurIndeterminee) and (aux > maximum)
        then maximum := aux;
     end;
   MaxValeurDevianteDansListe := maximum;
@@ -772,7 +772,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetValeurDeviante(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux < minimum)
+      if (aux <> valeurIndeterminee) and (aux < minimum)
        then minimum := aux;
     end;
   MinValeurDevianteDansListe := minimum;
@@ -787,7 +787,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetProofNumber(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux > maximum)
+      if (aux <> valeurIndeterminee) and (aux > maximum)
        then maximum := aux;
     end;
   MaxProofNumberDansListe := maximum;
@@ -802,7 +802,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetProofNumber(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux < minimum)
+      if (aux <> valeurIndeterminee) and (aux < minimum)
        then minimum := aux;
     end;
   MinProofNumberDansListe := minimum;
@@ -817,7 +817,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetDisproofNumber(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux > maximum)
+      if (aux <> valeurIndeterminee) and (aux > maximum)
        then maximum := aux;
     end;
   MaxDisproofNumberDansListe := maximum;
@@ -832,7 +832,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetDisproofNumber(cellAux,couleur);
-      if (aux <> valeurIndeterminee) & (aux < minimum)
+      if (aux <> valeurIndeterminee) and (aux < minimum)
        then minimum := aux;
     end;
   MinDisproofNumberDansListe := minimum;
@@ -895,7 +895,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetEsperanceDeGain(cellAux,couleur);
-      if (aux <> esperanceIndeterminee) & (aux > maximum)
+      if (aux <> esperanceIndeterminee) and (aux > maximum)
        then maximum := aux;
     end;
   MaxEsperanceDeGainDansListe := maximum;
@@ -911,7 +911,7 @@ begin
     begin
       LitCellule(fichier,maListe.liste[t].numeroCellule,cellAux);
       aux := GetEsperanceDeGain(cellAux,couleur);
-      if (aux <> esperanceIndeterminee) & (aux < minimum)
+      if (aux <> esperanceIndeterminee) and (aux < minimum)
        then minimum := aux;
     end;
   MinEsperanceDeGainDansListe := minimum;
@@ -1060,7 +1060,7 @@ begin
       if PositionEstDansLeGraphe(fichier,partie60,path) then
         begin
           LitCellule(fichier,path.liste[path.cardinal].numeroCellule,cellule);
-          if HasFils(cellule) & EstDansT(cellule) then
+          if HasFils(cellule) and EstDansT(cellule) then
             begin
               LitEnsembleDesFils(fichier,path.liste[path.cardinal].numeroCellule,LesFils);
               if PasseApresCeCoup(fichier,path.liste[path.cardinal].numeroCellule)
@@ -1077,9 +1077,9 @@ begin
                         begin
                           typesVoulus := [kNulleDansT,kNulleAbsolue];
                           SelectionneDansListe(fichier,LesFils,typesVoulus,FilsSelectionnes);
-                          if gEntrainementOuvertures.CassioSeContenteDeLaNulle |
-                             (((LesFils.cardinal = 1) & UneChanceSur(2)) |
-                             ((LesFils.cardinal > 1) & PChancesSurN(3,4))) then
+                          if gEntrainementOuvertures.CassioSeContenteDeLaNulle or
+                             (((LesFils.cardinal = 1) and UneChanceSur(2)) or
+                             ((LesFils.cardinal > 1) and PChancesSurN(3,4))) then
                             CopieListeAvecProbasUniformes(fichier,FilsSelectionnes,conseils);
                         end;
                       kPerteDansT,kPerteAbsolue:
@@ -1088,10 +1088,10 @@ begin
                             then typesVoulus := [kPerteDansT,kPerteAbsolue,kPasDansT,kPropositionHeuristique]
                             else typesVoulus := [kPerteDansT,kPerteAbsolue];
                           SelectionneDansListe(fichier,LesFils,typesVoulus,FilsSelectionnes);
-                          if (FilsSelectionnes.cardinal > 6) |
-                             not(gEntrainementOuvertures.CassioVarieSesCoups) |
-                             UneChanceSur(4) |
-                             ((FilsSelectionnes.cardinal >= 3) & UneChanceSur(2)) then
+                          if (FilsSelectionnes.cardinal > 6) or
+                             not(gEntrainementOuvertures.CassioVarieSesCoups) or
+                             UneChanceSur(4) or
+                             ((FilsSelectionnes.cardinal >= 3) and UneChanceSur(2)) then
                           if (FilsSelectionnes.cardinal > 1) then {choisir parmi plusieurs coups perdants}
                             begin
                               conseils.cardinal := FilsSelectionnes.cardinal;
@@ -1123,9 +1123,9 @@ begin
                         begin
                           typesVoulus := [kNulleDansT,kNulleAbsolue];
                           SelectionneDansListe(fichier,LesFils,typesVoulus,FilsSelectionnes);
-                          if gEntrainementOuvertures.CassioSeContenteDeLaNulle |
-                             ((LesFils.cardinal = 1) & UneChanceSur(2)) |
-                             ((LesFils.cardinal > 1) & PChancesSurN(3,4)) then
+                          if gEntrainementOuvertures.CassioSeContenteDeLaNulle or
+                             ((LesFils.cardinal = 1) and UneChanceSur(2)) or
+                             ((LesFils.cardinal > 1) and PChancesSurN(3,4)) then
                             CopieListeAvecProbasUniformes(fichier,FilsSelectionnes,conseils);
                         end;
                       kGainDansT,kGainAbsolu:
@@ -1134,10 +1134,10 @@ begin
                             then typesVoulus := [kPerteDansT,kPerteAbsolue,kPasDansT,kPropositionHeuristique]
                             else typesVoulus := [kPerteDansT,kPerteAbsolue];
                           SelectionneDansListe(fichier,LesFils,typesVoulus,FilsSelectionnes);
-                          if (FilsSelectionnes.cardinal > 6) |
-                             not(gEntrainementOuvertures.CassioVarieSesCoups) |
-                             UneChanceSur(4) |
-                             ((FilsSelectionnes.cardinal >= 3) & UneChanceSur(2)) then
+                          if (FilsSelectionnes.cardinal > 6) or
+                             not(gEntrainementOuvertures.CassioVarieSesCoups) or
+                             UneChanceSur(4) or
+                             ((FilsSelectionnes.cardinal >= 3) and UneChanceSur(2)) then
                           if (FilsSelectionnes.cardinal > 1) then {choisir parmi plusieurs coups perdants}
                             begin
                               conseils.cardinal := FilsSelectionnes.cardinal;

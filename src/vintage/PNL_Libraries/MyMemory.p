@@ -71,13 +71,13 @@ IMPLEMENTATION
 
 	function CheckPtr ( p : Ptr ) : boolean;
 	begin
-		Assert( (p <> NIL) & (GetPtrSize( p ) >= 0) & (MemError = noErr) );
+		Assert( (p <> NIL) and (GetPtrSize( p ) >= 0) and (MemError = noErr) );
 		CheckPtr := p <> NIL;
 	end;
 
 	function CheckHandle ( data : Handle ) : boolean;
 	begin
-		Assert( (data <> NIL) & (GetHandleSize( data ) >= 0) & (MemError = noErr) );
+		Assert( (data <> NIL) and (GetHandleSize( data ) >= 0) and (MemError = noErr) );
 		CheckHandle := data <> NIL;
 	end;
 
@@ -208,7 +208,7 @@ IMPLEMENTATION
 
 	procedure MDisposePtr ( var p : UnivPtr );
 	begin
-		if (p <> NIL) & CheckPtr( p ) then begin
+		if (p <> NIL) and CheckPtr( p ) then begin
 		    { a remettre dans CW Pro !!   }
 			{MTrashPtr( p );}
 			DisposePtr(p);
@@ -218,7 +218,7 @@ IMPLEMENTATION
 
 	procedure MDisposeHandle ( var data : UnivHandle );
 	begin
-		if (data <> NIL) & CheckHandle( Handle(data) ) then begin
+		if (data <> NIL) and CheckHandle( Handle(data) ) then begin
 		    { a remettre dans CW Pro !!   }
 			{MTrashHandle( data );}
 			DisposeHandle( Handle(data) );
@@ -254,7 +254,7 @@ IMPLEMENTATION
 	begin
 		Assert( (size >= 0) );
 		if CheckPointer(p) then begin
-			(* Assert( (BAnd(POINTER_VALUE(p), 3) = 0) & (BAnd(size, 3) = 0) ); *)
+			(* Assert( (BAnd(POINTER_VALUE(p), 3) = 0) and (BAnd(size, 3) = 0) ); *)
 			i := SInt32(p);
 			while size > 3 do begin
 				longPtr(i)^ := val;
@@ -293,7 +293,7 @@ IMPLEMENTATION
 			junk_long: SInt32;
 	begin
 		if CheckHandle( data ) then begin
-			Assert( (len2 >= 0) & (0 <= offset) & (offset <= GetHandleSize( data ) ) );
+			Assert( (len2 >= 0) and (0 <= offset) and (offset <= GetHandleSize( data ) ) );
 			junk_long := Munger(data, offset, NIL, 0, ptr2, len2);
 			MMungerInsert := MemError;
 		end else begin
@@ -306,7 +306,7 @@ IMPLEMENTATION
 			junk_long: SInt32;
 	begin
 		if CheckHandle( data ) then begin
-			Assert( (len1 >= 0) & (0 <= offset) & (offset + len1 <= GetHandleSize( data ) ) );
+			Assert( (len1 >= 0) and (0 <= offset) and (offset + len1 <= GetHandleSize( data ) ) );
 			junk_long := Munger(data, offset, NIL, len1, @junk_long, 0);
 		end;
 	end;

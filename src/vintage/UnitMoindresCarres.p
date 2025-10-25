@@ -71,7 +71,7 @@ begin
   ok := false;
   scoreParfaitPourNoir := -1;
 
-  if (nroRefPartie >= 1) & (nroRefPartie <= nbPartiesActives) then
+  if (nroRefPartie >= 1) and (nroRefPartie <= nbPartiesActives) then
     begin
       ExtraitPartieTableStockageParties(nroRefPartie,s60);
 
@@ -87,7 +87,7 @@ begin
             else scoreParfaitPourNoir := 64-GetScoreTheoriqueParNroRefPartie(nroRefPartie);
 
           {ok := true;}
-          ok := (scoreParfaitPourNoir >= 12) & (scoreParfaitPourNoir <= 52);
+          ok := (scoreParfaitPourNoir >= 12) and (scoreParfaitPourNoir <= 52);
         end;
     end;
 end;
@@ -459,7 +459,7 @@ begin
   WritelnVecteurEvaluationDansRapport('variance',variance,5);
 
 
-  if (multiplicateur.vec[kNoteBord] <> 0.0) & (multiplicateur.vec[kNoteBord] <> 1.0) then
+  if (multiplicateur.vec[kNoteBord] <> 0.0) and (multiplicateur.vec[kNoteBord] <> 1.0) then
     begin
       aux := multiplicateur.vec[kNoteBord];
       for i := 1 to multiplicateur.longueur do

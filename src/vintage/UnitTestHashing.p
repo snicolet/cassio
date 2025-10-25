@@ -233,7 +233,7 @@ begin
       test2 := BTST(myUInt32Ptr^,decalage);
 
 
-      CeMotEstDansLaTableDeHachage := test1 & test2;
+      CeMotEstDansLaTableDeHachage := test1 and test2;
 
     end;
 end;
@@ -249,7 +249,7 @@ begin
 
       len := LENGTH_OF_STRING(mot);
 
-      if (len > 0) & (len <= kLONGUEUR_MAX_MOT) then
+      if (len > 0) and (len <= kLONGUEUR_MAX_MOT) then
         begin
           n := nombreDeMotsDeCetteLongueur[len] * len;
 
@@ -296,7 +296,7 @@ begin
   with crypto do
     begin
       s := '';
-      if (n >= 1) & (n <= nombreDeMotsDeCetteLongueur[len]) & (lettresEnTas[len] <> NIL) then
+      if (n >= 1) and (n <= nombreDeMotsDeCetteLongueur[len]) and (lettresEnTas[len] <> NIL) then
         begin
           debut := (n - 1) * len;
 
@@ -342,7 +342,7 @@ begin
 
     s := EnleveEspacesDeGauche(s);
 
-    if (err = NoErr) & (s <> '') & (s[1] <> '#') & (s[1] <> '%') then
+    if (err = NoErr) and (s <> '') and (s[1] <> '#') and (s[1] <> '%') then
       begin
         inc(compteurMots);
 
@@ -350,7 +350,7 @@ begin
 
       end;
 
-  until (err <> NoErr) | EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EOFFichierTexte(fic,err);
 
   err := FermeFichierTexte(fic);
   if (err <> NoErr) then goto sortie;
@@ -410,7 +410,7 @@ begin
     s := EnleveEspacesDeGauche(s);
     s := UTF8ToAscii(s);
 
-    if (err = NoErr) & (s <> '') & (s[1] <> '#') & (s[1] <> '%') then
+    if (err = NoErr) and (s <> '') and (s[1] <> '#') and (s[1] <> '%') then
       begin
         inc(compteurMots);
 
@@ -438,7 +438,7 @@ begin
         for k := 1 to LENGTH_OF_STRING(s) do
           begin
             c := s[k];
-            if (c >= 'A') & (c <= 'Z') then
+            if (c >= 'A') and (c <= 'Z') then
             //if (c <> ' ') then
               begin
                 inc(compteurCaracteres);
@@ -469,7 +469,7 @@ begin
 
       end;
 
-  until (err <> NoErr) | EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EOFFichierTexte(fic,err);
 
   err := FermeFichierTexte(fic);
   if (err <> NoErr) then goto sortie;
@@ -564,8 +564,8 @@ begin
 
   for k := 2 to longueurMot do
     begin
-      if (decalage[k] >= -1000) &
-         (decalage[1] >= -1000) &
+      if (decalage[k] >= -1000) and
+         (decalage[1] >= -1000) and
          (decalage[k] = decalage[1]) then
         begin
 
@@ -674,8 +674,8 @@ begin
   CalculerLesDecalages(motCandidatCrypte, motCandidat, decalages);
 
   if DecalageEstPeriodique(decalages, len, longueurPeriode)
-     & (longueurPeriode < len)
-     // & (longueurPeriode < minimum)
+     and (longueurPeriode < len)
+     // and (longueurPeriode < minimum)
     then
     begin
 
@@ -701,7 +701,7 @@ begin
 
            messageDecode := messageDecode + chr(n);
 
-           if (t = 14) | (t = 16) then messageDecode := messageDecode + ' ';
+           if (t = 14) or (t = 16) then messageDecode := messageDecode + ' ';
 
          end;
 
@@ -714,8 +714,8 @@ begin
 
 
         if CeMotEstDansLaTableDeHachage(mots[3])
-         //  & EstUnMotFrancais(mots[3])
-             & (mots[3] <> gDernierMotSolutionAffiche)
+         //  and EstUnMotFrancais(mots[3])
+             and (mots[3] <> gDernierMotSolutionAffiche)
             then
           begin
             gDernierMotSolutionAffiche := mots[3];
@@ -1001,13 +1001,13 @@ begin
       extraits[3] := '';
       extraits[4] := '';
 
-      if (mot[1] <> '') & (mot[5] <> '') & (mot[3] <> '') & (mot[6] <> '')
+      if (mot[1] <> '') and (mot[5] <> '') and (mot[3] <> '') and (mot[6] <> '')
         then extraits[1] := mot[1][7] + mot[5][1] + mot[3][2] + mot[6][1];  // vert
 
-      if (mot[8] <> '') & (mot[7] <> '') & (mot[10] <> '')
+      if (mot[8] <> '') and (mot[7] <> '') and (mot[10] <> '')
         then extraits[2] := mot[8][4] + mot[7][2] + mot[10][1] ;            // gris
 
-      if (mot[9] <> '') & (mot[7] <> '') & (mot[6] <> '')
+      if (mot[9] <> '') and (mot[7] <> '') and (mot[6] <> '')
         then extraits[3] := mot[9][3] + mot[7][1] + mot[6][2];             // orange
 
       if (mot[2] <> '')
@@ -1031,63 +1031,63 @@ begin
     begin
       for k := 1 to kNbMotCroises do
         begin
-          if (mot[k] <> '') & (LENGTH_OF_STRING(mot[k]) <> longueur[k])
+          if (mot[k] <> '') and (LENGTH_OF_STRING(mot[k]) <> longueur[k])
             then Failure;
         end;
 
 
       // contrainte de mots devines
 
-      // if (mot[2] <> '') & (mot[2] <> 'AUTORAIL') then Failure;
+      // if (mot[2] <> '') and (mot[2] <> 'AUTORAIL') then Failure;
 
       // contraintes de croisements
 
-      if (mot[1] <> '') & (mot[2] <> '') & (mot[1][1] <> mot[2][1]) then Failure;
+      if (mot[1] <> '') and (mot[2] <> '') and (mot[1][1] <> mot[2][1]) then Failure;
 
-      if (mot[1] <> '') & (mot[4] <> '') & (mot[1][5] <> mot[4][1]) then Failure;
+      if (mot[1] <> '') and (mot[4] <> '') and (mot[1][5] <> mot[4][1]) then Failure;
 
-      if (mot[2] <> '') & (mot[3] <> '') & (mot[2][5] <> mot[3][1]) then Failure;
+      if (mot[2] <> '') and (mot[3] <> '') and (mot[2][5] <> mot[3][1]) then Failure;
 
-      if (mot[3] <> '') & (mot[4] <> '') & (mot[3][5] <> mot[4][5]) then Failure;
+      if (mot[3] <> '') and (mot[4] <> '') and (mot[3][5] <> mot[4][5]) then Failure;
 
-      if (mot[3] <> '') & (mot[5] <> '') & (mot[3][7] <> mot[5][3]) then Failure;
+      if (mot[3] <> '') and (mot[5] <> '') and (mot[3][7] <> mot[5][3]) then Failure;
 
-      if (mot[5] <> '') & (mot[8] <> '') & (mot[5][1] <> mot[8][1]) then Failure;
+      if (mot[5] <> '') and (mot[8] <> '') and (mot[5][1] <> mot[8][1]) then Failure;
 
-      if (mot[5] <> '') & (mot[10] <> '') & (mot[5][6] <> mot[10][3]) then Failure;
-
-
-      if (mot[2] <> '') & (mot[9] <> '') & (mot[2][4] <> mot[9][2]) then Failure;
+      if (mot[5] <> '') and (mot[10] <> '') and (mot[5][6] <> mot[10][3]) then Failure;
 
 
-      if (mot[2] <> '') & (mot[6] <> '') & (mot[2][7] <> mot[6][3]) then Failure;
+      if (mot[2] <> '') and (mot[9] <> '') and (mot[2][4] <> mot[9][2]) then Failure;
 
-      if (mot[6] <> '') & (mot[7] <> '') & (mot[6][1] <> mot[7][3]) then Failure;
+
+      if (mot[2] <> '') and (mot[6] <> '') and (mot[2][7] <> mot[6][3]) then Failure;
+
+      if (mot[6] <> '') and (mot[7] <> '') and (mot[6][1] <> mot[7][3]) then Failure;
 
 
       // contrainte de L'ALMA ?
 
       (*
-      if (mot[1] <> '') & (mot[1][7] <> 'A') & (mot[1][7] <> 'L') & (mot[1][7] <> 'M') then Failure;
-      if (mot[3] <> '') & (mot[3][2] <> 'A') & (mot[3][2] <> 'L') & (mot[3][2] <> 'M') then Failure;
-      if (mot[5] <> '') & (mot[5][1] <> 'A') & (mot[5][1] <> 'L') & (mot[5][1] <> 'M') then Failure;
-      if (mot[6] <> '') & (mot[6][1] <> 'A') & (mot[6][1] <> 'L') & (mot[6][1] <> 'M') then Failure;
+      if (mot[1] <> '') and (mot[1][7] <> 'A') and (mot[1][7] <> 'L') and (mot[1][7] <> 'M') then Failure;
+      if (mot[3] <> '') and (mot[3][2] <> 'A') and (mot[3][2] <> 'L') and (mot[3][2] <> 'M') then Failure;
+      if (mot[5] <> '') and (mot[5][1] <> 'A') and (mot[5][1] <> 'L') and (mot[5][1] <> 'M') then Failure;
+      if (mot[6] <> '') and (mot[6][1] <> 'A') and (mot[6][1] <> 'L') and (mot[6][1] <> 'M') then Failure;
       *)
 
 
       // contrainte du RER orange ?
 
       (*
-      if (mot[6] <> '') & (mot[6][2] <> 'R') & (mot[6][2] <> 'E') then Failure;
-      if (mot[7] <> '') & (mot[7][1] <> 'R') & (mot[7][1] <> 'E') then Failure;
-      if (mot[9] <> '') & (mot[9][3] <> 'R') & (mot[9][3] <> 'E') then Failure;
+      if (mot[6] <> '') and (mot[6][2] <> 'R') and (mot[6][2] <> 'E') then Failure;
+      if (mot[7] <> '') and (mot[7][1] <> 'R') and (mot[7][1] <> 'E') then Failure;
+      if (mot[9] <> '') and (mot[9][3] <> 'R') and (mot[9][3] <> 'E') then Failure;
       *)
 
 
       // Contrainte du L apostrophe ?
 
       (*
-      if (mot[2] <> '') & ((mot[2][8] <> 'L') & (mot[2][8] <> 'C')) then Failure;
+      if (mot[2] <> '') and ((mot[2][8] <> 'L') and (mot[2][8] <> 'C')) then Failure;
       *)
 
 
@@ -1096,7 +1096,7 @@ begin
       // Changer de mot 3 ˆ trouver ?
 
       (*
-      if (LENGTH_OF_STRING(extraits[2]) = 3) & (extraits[2] = derniereSolutionPubliee) then Failure;
+      if (LENGTH_OF_STRING(extraits[2]) = 3) and (extraits[2] = derniereSolutionPubliee) then Failure;
       *)
 
 
@@ -1105,8 +1105,8 @@ begin
       (*
       if (LENGTH_OF_STRING(extraits[1]) = 4) then
         begin
-          if (CompterOccurencesDeSousChaine('A',extraits[1]) <> 2) |
-             (Pos('L',extraits[1]) = 0) |
+          if (CompterOccurencesDeSousChaine('A',extraits[1]) <> 2) or
+             (Pos('L',extraits[1]) = 0) or
              (Pos('M',extraits[1]) = 0) then
             begin
                Failure;
@@ -1117,19 +1117,19 @@ begin
       // contrainte du RER vert ou orange ?
 
       (*
-      if (LENGTH_OF_STRING(extraits[2]) = 3) & (LENGTH_OF_STRING(extraits[3]) = 3) then
+      if (LENGTH_OF_STRING(extraits[2]) = 3) and (LENGTH_OF_STRING(extraits[3]) = 3) then
         begin
            RERFound := false;
 
 
-           if (CompterOccurencesDeSousChaine('R',extraits[2]) = 2) &
-              (CompterOccurencesDeSousChaine('E',extraits[2]) = 1) &
+           if (CompterOccurencesDeSousChaine('R',extraits[2]) = 2) and
+              (CompterOccurencesDeSousChaine('E',extraits[2]) = 1) and
                EstUnMotFrancais(extraits[3])
               then RERFound := true;
 
 
-           if (CompterOccurencesDeSousChaine('R',extraits[3]) = 2) &
-              (CompterOccurencesDeSousChaine('E',extraits[3]) = 1) &
+           if (CompterOccurencesDeSousChaine('R',extraits[3]) = 2) and
+              (CompterOccurencesDeSousChaine('E',extraits[3]) = 1) and
               EstUnMotFrancais(extraits[2])
               then RERFound := true;
 
@@ -1217,7 +1217,7 @@ begin
 
 
       (*
-      if FALSE & (numeroMotActif = 2)
+      if FALSE and (numeroMotActif = 2)
         then
           begin
             mot[numeroMotActif] := 'AUTORAIL';
@@ -1284,7 +1284,7 @@ begin
     *)
 
   for t := 1 to crypto.nombreDeMotsDeCetteLongueur[5] do
-    if (GetNiemeMotDeCetteLongueur(t,5)[3] = c1) &
+    if (GetNiemeMotDeCetteLongueur(t,5)[3] = c1) and
        (GetNiemeMotDeCetteLongueur(t,5)[5] = c2)
       then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,5));
 end;
@@ -1310,8 +1310,8 @@ begin
         WritelnDansRapport('');
 
         for t := 1 to crypto.nombreDeMotsDeCetteLongueur[11] do
-          if (GetNiemeMotDeCetteLongueur(t,11)[5] = 'T') &
-             (GetNiemeMotDeCetteLongueur(t,11)[7] = c1) &
+          if (GetNiemeMotDeCetteLongueur(t,11)[5] = 'T') and
+             (GetNiemeMotDeCetteLongueur(t,11)[7] = c1) and
              (GetNiemeMotDeCetteLongueur(t,11)[11] = c2)
             then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,11));
 
@@ -1339,7 +1339,7 @@ begin
       WritelnDansRapport('');
 
       for t := 1 to crypto.nombreDeMotsDeCetteLongueur[7] do
-        if (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) &
+        if (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) and
            (GetNiemeMotDeCetteLongueur(t,7)[7] = c2)
           then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,7));
 
@@ -1368,7 +1368,7 @@ begin
       WritelnDansRapport('');
 
       for t := 1 to crypto.nombreDeMotsDeCetteLongueur[7] do
-        if (GetNiemeMotDeCetteLongueur(t,7)[7] = c1) &
+        if (GetNiemeMotDeCetteLongueur(t,7)[7] = c1) and
            (GetNiemeMotDeCetteLongueur(t,7)[1] = c2)
           then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,7));
 
@@ -1397,8 +1397,8 @@ begin
       WritelnDansRapport('');
 
       for t := 1 to crypto.nombreDeMotsDeCetteLongueur[7] do
-        if (GetNiemeMotDeCetteLongueur(t,7)[2] = 'I') &
-           (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) &
+        if (GetNiemeMotDeCetteLongueur(t,7)[2] = 'I') and
+           (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) and
            (GetNiemeMotDeCetteLongueur(t,7)[7] = c2)
           then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,7));
 
@@ -1417,8 +1417,8 @@ begin
       WritelnDansRapport('');
 
       for t := 1 to crypto.nombreDeMotsDeCetteLongueur[7] do
-        if (GetNiemeMotDeCetteLongueur(t,7)[2] = 'I') &
-           (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) &
+        if (GetNiemeMotDeCetteLongueur(t,7)[2] = 'I') and
+           (GetNiemeMotDeCetteLongueur(t,7)[1] = c1) and
            (GetNiemeMotDeCetteLongueur(t,7)[7] = c2)
           then WritelnDansRapport(GetNiemeMotDeCetteLongueur(t,7));
 

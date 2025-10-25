@@ -116,7 +116,7 @@ end;
 function ValeurFutureDeCetteCaseDansRetournementSpecial(whichSquare : SInt32) : SInt32;
 begin
   with gRetournementSpecial do
-    if enCours & (whichSquare >= 11) & (whichSquare <= 88)
+    if enCours and (whichSquare >= 11) and (whichSquare <= 88)
       then ValeurFutureDeCetteCaseDansRetournementSpecial := positionFuture.position[whichSquare]
       else ValeurFutureDeCetteCaseDansRetournementSpecial := 0;
 end;
@@ -151,7 +151,7 @@ var yposition : SInt16;
     oldport : grafPtr;
     effaceRect : rect;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL)  then
+  if windowPlateauOpen and (wPlateauPtr <> NIL)  then
     begin
       GetPort(oldport);
       SetPortByWindow(wPlateauPtr);
@@ -165,7 +165,7 @@ begin
   TextMode(srcXor);
   TextFont(0);
   MyDrawString(Concat(chaine,'   '));
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then SetPort(oldport);
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then SetPort(oldport);
 
   {Writeln(chaine);}
 end;
@@ -174,7 +174,7 @@ procedure StoppeEtAffichePourDebugage(chaine : String255);
 begin
   AffichePourDebugage(chaine);
   SysBeep(0);
-  if windowCourbeOpen | (windowPlateauOpen & (wPlateauPtr <> NIL))
+  if windowCourbeOpen or (windowPlateauOpen and (wPlateauPtr <> NIL))
     then AttendFrappeClavier;
 end;
 
@@ -194,7 +194,7 @@ function PeutReculerUnCoup : boolean;
 var result : boolean;
 begin
   result := false;
-  if (nbreCoup > 0) & not(CassioEstEnModeTournoi) then
+  if (nbreCoup > 0) and not(CassioEstEnModeTournoi) then
     if (DerniereCaseJouee <> coupInconnu) then result := true;
   PeutReculerUnCoup := result;
 end;
@@ -203,7 +203,7 @@ function PeutReculerDeuxCoups : boolean;
 var result : boolean;
 begin
   result := false;
-  if (nbreCoup > 1) & not(CassioEstEnModeTournoi) then
+  if (nbreCoup > 1) and not(CassioEstEnModeTournoi) then
     if (DerniereCaseJouee <> coupInconnu) then result := true;
   PeutReculerDeuxCoups := result;
 end;
@@ -216,7 +216,7 @@ var result : boolean;
 begin
   result := false;
 
-  if (nbreCoup > 0) & not(CassioEstEnModeTournoi) then
+  if (nbreCoup > 0) and not(CassioEstEnModeTournoi) then
     with partie^^[nbreCoup] do
       if (DerniereCaseJouee <> coupInconnu) then
         begin
@@ -237,20 +237,20 @@ end;
 
 function PeutAvancerUnCoup : boolean;
 begin
-  PeutAvancerUnCoup := (nbreCoup < nroDernierCoupAtteint) & not(CassioEstEnModeTournoi);
+  PeutAvancerUnCoup := (nbreCoup < nroDernierCoupAtteint) and not(CassioEstEnModeTournoi);
 end;
 
 
 function PeutAvancerDeuxCoups : boolean;
 begin
-  PeutAvancerDeuxCoups := ((nbreCoup+1) < nroDernierCoupAtteint) & not(CassioEstEnModeTournoi);
+  PeutAvancerDeuxCoups := ((nbreCoup+1) < nroDernierCoupAtteint) and not(CassioEstEnModeTournoi);
 end;
 
 
 function PeutAvancerPartieSelectionnee : boolean;
 var test : boolean;
 begin
-  test := not(gameOver) & (nbPartiesActives > 0) & windowListeOpen & not(CassioEstEnModeTournoi);
+  test := not(gameOver) and (nbPartiesActives > 0) and windowListeOpen and not(CassioEstEnModeTournoi);
   PeutAvancerPartieSelectionnee := test;
 end;
 
@@ -295,7 +295,7 @@ const QuitterID = 128;
 var itemHit : SInt16;
 begin
   ConfirmationQuitter := true;
-  if doitConfirmerQuitter & not(enTournoi) then
+  if doitConfirmerQuitter and not(enTournoi) then
     begin
 
       itemHit := AlertTwoButtonsFromRessource(QuitterID,3,0,QuitterButton,AnnulerButton);
@@ -371,7 +371,7 @@ begin
       EffaceZoneAuDessousDeLOthellier;
       if avecSystemeCoordonnees then DessineSystemeCoordonnees;
 
-      if (TrebuchetMSID <> 0) & gIsRunningUnderMacOSX
+      if (TrebuchetMSID <> 0) and gIsRunningUnderMacOSX
         then
           begin
             TextFont(TrebuchetMSID);
@@ -385,8 +385,8 @@ begin
       TextSize(12);
       TextMode(srcBic);
 
-      promptEnDessous := ((GetWindowPortRect(wPlateauPtr).right-aireDeJeu.right - EpaisseurBordureOthellier) < 100) |
-                         (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) | CassioEstEn3D | EnModeEntreeTranscript;
+      promptEnDessous := ((GetWindowPortRect(wPlateauPtr).right-aireDeJeu.right - EpaisseurBordureOthellier) < 100) or
+                         (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) or CassioEstEn3D or EnModeEntreeTranscript;
       if promptEnDessous
         then
           begin

@@ -62,7 +62,7 @@ procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage;
 // Callback to handle event passing between the navigation dialogs and the application
 begin  {$unused callBackUD}
 	if ( callBackSelector = kNavCBEvent ) then
-	  if (callBackParms <> NIL) &
+	  if (callBackParms <> NIL) and
 	     (callBackParms^.eventData.eventDataParms.event <> NIL)
 	    then
     		if (callBackParms^.eventData.eventDataParms.event^.what = updateEvt) then
@@ -89,7 +89,7 @@ begin
 		begin
 			open	 := NavTypeListHandle(hdl);
 
-      if (open <> NIL) & (open^ <> NIL) then
+      if (open <> NIL) and (open^ <> NIL) then
         begin
     			open^^.componentSignature := applicationSignature;
     			open^^.osTypeCount	 := numTypes;
@@ -186,14 +186,14 @@ begin
 
     end;
 
-	if ( theErr <> noErr ) & ( theErr <> userCanceledErr ) then
+	if ( theErr <> noErr ) and ( theErr <> userCanceledErr ) then
 	begin
 		// if out of memory then a message will already be shown
 		if (theErr = memFullErr) then
 			theErr := userCanceledErr;
 	end;
 
-	if (theErr = noErr ) & ( theReply.validRecord) then
+	if (theErr = noErr ) and ( theReply.validRecord) then
 	begin
 		// Multiple files open : use ApleEvents
 		theErr := NavSendOpenAE(theReply.selection);
@@ -276,19 +276,19 @@ begin
 
 
 
-        	if ( theErr <> noErr ) & ( theErr <> userCanceledErr ) then
+        	if ( theErr <> noErr ) and ( theErr <> userCanceledErr ) then
           	begin
           		// if out of memory then a message will already be shown
           		if (theErr = memFullErr) then
           			theErr := userCanceledErr;
           	end;
 
-        	if (theErr = noErr ) & ( theReply.validRecord) then
+        	if (theErr = noErr ) and ( theReply.validRecord) then
           	begin
 
           	  theErr := AECountItems(theReply.selection, count);
 
-          	  if (count >= 1) & (theErr = NoErr) then
+          	  if (count >= 1) and (theErr = NoErr) then
           	    begin
 
 
@@ -427,7 +427,7 @@ begin
 
         	dialogOptions.dialogOptionFlags := dialogOptions.dialogOptionFlags + kNavNoTypePopup;
 
-        	if (prompt <> NIL) & (prompt^ <> '') then
+        	if (prompt <> NIL) and (prompt^ <> '') then
         	  dialogOptions.message := prompt^;
 
           if fileName <> NIL then
@@ -439,7 +439,7 @@ begin
         	theErr := NavPutFile(NIL, reply, @dialogOptions, eventUPP, filetype, fileCreator, NIL);
         end;
 
-    	if (theErr = NoErr) & (reply.validRecord) then
+    	if (theErr = NoErr) and (reply.validRecord) then
       	begin
 
       		// retrieve the returned selection:

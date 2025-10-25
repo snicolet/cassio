@@ -358,7 +358,7 @@ function GetNomTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTo
 var s : String255;
     i : SInt16;
 begin
-  {if (GetNroDistributionParNroRefPartie(nroReference) <> nroDistributionWThor) &
+  {if (GetNroDistributionParNroRefPartie(nroReference) <> nroDistributionWThor) and
      (GetNroTournoiParNroRefPartie(nroReference) = kNroTournoiDiversesParties)
      then s := GetNomDistributionParNroRefPartie(nroReference)
      else s := GetNomTournoiParNroRefPartie(nroReference);}
@@ -474,9 +474,9 @@ function GetNomJoueur(nroJoueur : SInt32) : String255;
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -519,9 +519,9 @@ function GetNomJoueurEnMajusculesSansEspace(nroJoueur : SInt32) : String255;
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -537,9 +537,9 @@ function GetNomJoueurEnMetaphoneAvecEspaces(nroJoueur : SInt32) : String255;
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -556,9 +556,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
 
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -580,10 +580,10 @@ begin
   len  := LENGTH_OF_STRING(s);
 
   with JoueursNouveauFormat do
-  if (len > 0) &
-     (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (len > 0) and
+     (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -624,10 +624,10 @@ begin
   len  := LENGTH_OF_STRING(s);
 
   with JoueursNouveauFormat do
-  if (len > 0) &
-     (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (len > 0) and
+     (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -697,9 +697,9 @@ begin
 
   // check if the lexemes for this player have already been calculated and cached
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
          begin
@@ -712,8 +712,8 @@ begin
                nbLexemes := hashDesLexemes[0];
 
                // convention : lexemes without metaphones have a negative count in the cache
-               if ((nbLexemes > 0) & usingMetaphone) |
-                  ((nbLexemes < 0) & not(usingMetaphone)) then
+               if ((nbLexemes > 0) and usingMetaphone) or
+                  ((nbLexemes < 0) and not(usingMetaphone)) then
                     begin
                       for k := 1 to 5 do
                         lexemes^[k] := hashDesLexemes[k];
@@ -733,7 +733,7 @@ begin
 
 
   // store the lexemes in the cache, if possible
-  if (JoueurArrow <> NIL) & (nbLexemes >= 1) & (nbLexemes <= 5) then
+  if (JoueurArrow <> NIL) and (nbLexemes >= 1) and (nbLexemes <= 5) then
     with JoueurArrow^ do
       begin
 
@@ -760,9 +760,9 @@ function GetNomTournoi(nroTournoi : SInt32) : String255;
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-      (nroTournoi >= 0) &
-      (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+      (nroTournoi >= 0) and
+      (nroTournoi < nbTournoisNouveauFormat) and
       (listeTournois <> NIL)
         then
           begin
@@ -777,9 +777,9 @@ function GetNomCourtTournoi(nroTournoi : SInt32) : String255;
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-      (nroTournoi >= 0) &
-      (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+      (nroTournoi >= 0) and
+      (nroTournoi < nbTournoisNouveauFormat) and
       (listeTournois <> NIL)
         then
           begin
@@ -801,7 +801,7 @@ end;
 function GetNomUsuelDistribution(nroDistribution : SInt32) : String255;
 begin
   with DistributionsNouveauFormat do
-  if (nroDistribution >= 1) & (nroDistribution <= nbDistributions)
+  if (nroDistribution >= 1) and (nroDistribution <= nbDistributions)
     then GetNomUsuelDistribution := distribution[nroDistribution].nomUsuel^
     else GetNomUsuelDistribution := '******';
 end;
@@ -809,7 +809,7 @@ end;
 function GetNameOfDistribution(nroDistribution : SInt32) : String255;
 begin
   with DistributionsNouveauFormat do
-  if (nroDistribution >= 1) & (nroDistribution <= nbDistributions)
+  if (nroDistribution >= 1) and (nroDistribution <= nbDistributions)
     then GetNameOfDistribution := distribution[nroDistribution].name^
     else GetNameOfDistribution := '******';
 end;
@@ -817,7 +817,7 @@ end;
 function GetPathOfDistribution(nroDistribution : SInt32) : String255;
 begin
   with DistributionsNouveauFormat do
-  if (nroDistribution >= 1) & (nroDistribution <= nbDistributions)
+  if (nroDistribution >= 1) and (nroDistribution <= nbDistributions)
     then GetPathOfDistribution := distribution[nroDistribution].path^
     else GetPathOfDistribution := '******';
 end;
@@ -829,9 +829,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
     k : SInt32;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -842,7 +842,7 @@ begin
          nomMajAvecEspace                       := FabriqueNomEnMajusculesAvecEspaces(joueur);
 
          (* calculer le metaphone en gardant les espaces *)
-         if (joueur = '???') | (joueur = '')
+         if (joueur = '???') or (joueur = '')
            then JoueurArrow^.nomMetaphoneAvecEspaces   := nomMajAvecEspace
            else JoueurArrow^.nomMetaphoneAvecEspaces   := FabriqueMetaphoneDesLexemes(nomMajAvecEspace);
 
@@ -866,9 +866,9 @@ procedure SetNomCourtJoueur(nroJoueur : SInt32; joueur : String255);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -881,9 +881,9 @@ procedure SetNomTournoi(nroTournoi : SInt32; tournoi : String255);
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -895,9 +895,9 @@ procedure SetNomCourtTournoi(nroTournoi : SInt32; tournoi : String255);
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -911,9 +911,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetNroOrdreAlphabetiqueJoueur := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -927,9 +927,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetNroFFODuJoueur := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -943,9 +943,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetNroJoueurDansSonFichier := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -958,9 +958,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetAnneePremierePartieDeCeJoueur := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -973,9 +973,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetAnneeDernierePartieDeCeJoueur := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -988,9 +988,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetDonneesClassementDeCeJoueur := -1;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1043,9 +1043,9 @@ var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   GetNroOrdreAlphabetiqueTournoi := -1;
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -1058,9 +1058,9 @@ var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   GetNroTournoiDansSonFichier := -1;
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -1073,9 +1073,9 @@ procedure SetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32; nroDansOrdreAlphabet
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1087,9 +1087,9 @@ procedure SetNroFFODuJoueur(nroJoueur : SInt32; whichNumeroFFO : SInt32);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1101,9 +1101,9 @@ procedure SetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32; nroDansOrdreAlphab
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -1115,9 +1115,9 @@ procedure SetNroDansFichierJoueur(nroJoueur : SInt32; nroDansSonFichier : SInt32
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1129,9 +1129,9 @@ procedure SetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1143,9 +1143,9 @@ procedure SetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1157,9 +1157,9 @@ procedure SetDonneesClassementDeCeJoueur(nroJoueur : SInt32; data : SInt32);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1172,9 +1172,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   GetJoueurEstUnOrdinateur := false;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1186,9 +1186,9 @@ procedure SetJoueurEstUnOrdinateur(nroJoueur : SInt32; flag : boolean);
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
        begin
          JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1201,9 +1201,9 @@ procedure SetNroDansFichierTournoi(nroTournoi : SInt32; nroDansSonFichier : SInt
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
        begin
          TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -1217,9 +1217,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   JoueurAUnNomJaponais := false;
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
     then
       begin
@@ -1233,9 +1233,9 @@ var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   TournoiAUnNomJaponais := false;
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL)
     then
       begin
@@ -1269,9 +1269,9 @@ function GetNomJaponaisDuJoueur(nroJoueur : SInt32) : String255;
 var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
        then
 		     begin
@@ -1305,9 +1305,9 @@ function GetNomJaponaisDuTournoi(nroTournoi : SInt32) : String255;
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL)
     then
       begin
@@ -1341,9 +1341,9 @@ var JoueurArrow : JoueursNouveauFormatRecPtr;
 begin
 
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
      begin
        JoueurArrow := POINTER_ADD(listeJoueurs , nroJoueur*sizeof(JoueursNouveauFormatRec));
@@ -1366,9 +1366,9 @@ procedure SetNomJaponaisDuTournoi(nroTournoi : SInt32; nomJaponais : String255);
 var TournoiArrow : TournoisNouveauFormatRecPtr;
 begin
   with TournoisNouveauFormat do
-  if (nbTournoisNouveauFormat > 0) &
-     (nroTournoi >= 0) &
-     (nroTournoi < nbTournoisNouveauFormat) &
+  if (nbTournoisNouveauFormat > 0) and
+     (nroTournoi >= 0) and
+     (nroTournoi < nbTournoisNouveauFormat) and
      (listeTournois <> NIL) then
      begin
        TournoiArrow := POINTER_ADD(listeTournois , nroTournoi*sizeof(TournoisNouveauFormatRec));
@@ -1402,9 +1402,9 @@ var nroAlphabetique : SInt32;
 begin
 
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
     then
 			begin
@@ -1427,7 +1427,7 @@ begin
 			  nomSansPrenomEnMajuscule := nomSansPrenom;
 			  nomSansPrenomEnMajuscule := MyUpperString(nomSansPrenomEnMajuscule, false);
 
-			  if not(differencierLesFreres) | (Pos('TASTET',nomSansPrenomEnMajuscule) > 0) then
+			  if not(differencierLesFreres) or (Pos('TASTET',nomSansPrenomEnMajuscule) > 0) then
 			    begin
 			      nomSansPrenom := EnleveEspacesDeDroite(nomSansPrenom);
 			      JoueurArrow^.nomCourt := nomSansPrenom;
@@ -1452,16 +1452,16 @@ begin
 			    begin
 			      aux := JoueurArrow2^.numeroDansOrdreAlphabetique;
 
-			      if (nroMinAvant <= aux) & (aux <= nroMaxApres) & (k <> nroJoueur) then
+			      if (nroMinAvant <= aux) and (aux <= nroMaxApres) and (k <> nroJoueur) then
 			        begin
 			          nomJoueurTeste := JoueurArrow2^.nom;
 			          EnlevePrenom(nomJoueurTeste,nomTesteSansPrenom);
-			          if (nomSansPrenom = nomTesteSansPrenom) & (nomJoueurTeste <> nomJoueur) then
+			          if (nomSansPrenom = nomTesteSansPrenom) and (nomJoueurTeste <> nomJoueur) then
 			            begin
 			              longueur := longueurInitiale;
-			              while (longueur < longueurMax) &
-			                    (nomJoueur[longueur] = nomJoueurTeste[longueur]) &
-			                    (nomJoueur[longueur] <> '(') &
+			              while (longueur < longueurMax) and
+			                    (nomJoueur[longueur] = nomJoueurTeste[longueur]) and
+			                    (nomJoueur[longueur] <> '(') and
 			                    (nomJoueur[longueur+1] <> '(') do
 			                inc(longueur);
 			              if longueur > longueurDiscriminante then
@@ -1514,9 +1514,9 @@ var nomJoueur,nomSansPrenom : String255;
 begin
 
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (nroJoueur >= 0) &
-     (nroJoueur < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (nroJoueur >= 0) and
+     (nroJoueur < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL)
     then
 			begin

@@ -268,7 +268,7 @@ end;
 
 function CassioUtiliseLeZoo : boolean;
 begin
-  CassioUtiliseLeZoo := CassioDoitRentrerEnContactAvecLeZoo & (liaisonArbreZoo.profMinUtilisationZoo <= 64);
+  CassioUtiliseLeZoo := CassioDoitRentrerEnContactAvecLeZoo and (liaisonArbreZoo.profMinUtilisationZoo <= 64);
 end;
 
 
@@ -413,7 +413,7 @@ var urlParams : String255;
 begin
   AjouterDansLaListeDesRequetesDuZoo := false;
 
-  if (searchParams.inProfondeurFinale > 0) &
+  if (searchParams.inProfondeurFinale > 0) and
      (searchParams.inCouleurFinale <> pionVide) then
     with gListeDesJobsDuZoo do
       begin
@@ -496,10 +496,10 @@ begin
             if statut[index] <> k_ZOO_VALUE_IS_CALCULATED then
               begin
 
-                if (statut[index] <> k_ZOO_EN_ATTENTE_DE_RESULTAT) &
+                if (statut[index] <> k_ZOO_EN_ATTENTE_DE_RESULTAT) and
                    (statut[index] <> k_ZOO_POSITION_PRISE_EN_CHARGE) then
                   begin
-                    WriteDansRapport('ASSERT :   (statut <> k_ZOO_EN_ATTENTE_DE_RESULTAT) & (statut <> k_ZOO_POSITION_PRISE_EN_CHARGE) dans MarquerLaRequeteDuZooCommeEtantCalculee , statut = ');
+                    WriteDansRapport('ASSERT :   (statut <> k_ZOO_EN_ATTENTE_DE_RESULTAT) and (statut <> k_ZOO_POSITION_PRISE_EN_CHARGE) dans MarquerLaRequeteDuZooCommeEtantCalculee , statut = ');
                     case statut[index] of
                        k_ZOO_NOT_INITIALIZED_VALUE    : WritelnDansRapport('k_ZOO_NOT_INITIALIZED_VALUE');
                        k_ZOO_VALUE_IS_CALCULATED      : WritelnDansRapport('k_ZOO_VALUE_IS_CALCULATED');
@@ -527,7 +527,7 @@ begin
                 WritelnPositionEtTraitDansRapport(pos,searchParam.inCouleurFinale);
                 WritelnFenetreAlphaBetaDansRapport(searchParam.inAlphaFinale,searchParam.inBetaFinale);
                 WriteNumDansRapport('whichScore = ',searchParam.outScoreFinale);
-                WriteStringAndCoupDansRapport(', coup&def = ',searchParam.outBestMoveFinale);
+                WriteStringAndCoupDansRapport(', coupanddef = ',searchParam.outBestMoveFinale);
                 WritelnStringAndCoupDansRapport('',searchParam.outBestDefenseFinale);
                 WritelnDansRapport(', suite = '+searchParam.outLineFinale);
                 WritelnNumDansRapport('whichHash = ',whichHash);
@@ -555,7 +555,7 @@ begin
                       with liaisonArbreZoo.infosNoeuds[profPere] do
                         begin
 
-                          if (myScore >= -64) & (myScore <= 64) then
+                          if (myScore >= -64) and (myScore <= 64) then
                             begin
                               {WritelnNumDansRapport('Je mets le score suivant : ',myScore);
                               WritelnStringAndCoupDansRapport('coup : ',coupsFils[numeroFils].coup);
@@ -659,7 +659,7 @@ begin
                             begin
                               valeurConnue := GetValeurZooDeCeFils(profPere, coupsFils[numeroFils].coup,bestMove,timeTaken);
 
-                              if (valeurConnue < -64) | (valeurConnue > 64) then
+                              if (valeurConnue < -64) or (valeurConnue > 64) then
                                 SetValeurZooDeCeFils(profPere, coupsFils[numeroFils].coup, k_ZOO_POSITION_PRISE_EN_CHARGE, -1, -1.0);
                             end;
 
@@ -743,7 +743,7 @@ begin
                             begin
                               valeurConnue := GetValeurZooDeCeFils(profPere, coupsFils[numeroFils].coup,bestMove,timeTaken);
 
-                              if (valeurConnue < -64) | (valeurConnue > 64) then
+                              if (valeurConnue < -64) or (valeurConnue > 64) then
                                 SetValeurZooDeCeFils(profPere, coupsFils[numeroFils].coup, k_ZOO_EN_ATTENTE_DE_RESULTAT, -1, -1.0);
                             end;
 
@@ -778,7 +778,7 @@ begin
             if (statut[index] = k_ZOO_NOT_INITIALIZED_VALUE) then
               WritelnDansRapport('ASSERT :   (statut = k_ZOO_NOT_INITIALIZED_VALUE)  dans RetirerDeLaListeDesRequetesDuZoo !! ');
 
-            if (statut[index] = k_ZOO_EN_ATTENTE_DE_RESULTAT) | (statut[index] = k_ZOO_POSITION_PRISE_EN_CHARGE) then
+            if (statut[index] = k_ZOO_EN_ATTENTE_DE_RESULTAT) or (statut[index] = k_ZOO_POSITION_PRISE_EN_CHARGE) then
               begin
                 dec(nbJobsDemandes);
                 {WritelnNumDansRapport('nbJobsDemandes = ',nbJobsDemandes);}
@@ -828,7 +828,7 @@ begin
         then
           SetLastTimestampOfResultSurLeZoo(timeStamp)
         else
-          if (timeStamp = stamp) & (TickCount >= tickReception + 150) then
+          if (timeStamp = stamp) and (TickCount >= tickReception + 150) then
             begin
 
               // on incremente les secondes du timestamp UNIX
@@ -857,7 +857,7 @@ begin
 
   // EnleveEspacesDeGaucheSurPlace(ligne);  // FIXEME : TEST THIS !!
 
-  if LongStringIsEmpty(ligne) | LongStringBeginsWith('NO NEW RESULT', ligne)
+  if LongStringIsEmpty(ligne) or LongStringBeginsWith('NO NEW RESULT', ligne)
     then exit(RecevoirUnResultatDuZoo);
 
   if PeutParserUnResultatDuZoo(ligne,params,action,suite,timestamp)
@@ -889,7 +889,7 @@ end;
 procedure CopierListeDesCoupsPourLeZoo(prof,nbCoups,couleur,hashCassio : SInt32; const liste : listeVides; const position : plateauOthello; alpha, beta : SInt32);
 var i : SInt32;
 begin
-  if (prof >= 0) & (prof <= 64) then
+  if (prof >= 0) and (prof <= 64) then
   with liaisonArbreZoo.infosNoeuds[prof] do
     begin
       longueurListe    := nbCoups;
@@ -915,7 +915,7 @@ end;
 function GetPositionApresCeFilsDuZoo(prof,whichMove : SInt32; var posResultante : PositionEtTraitRec) : boolean;
 begin
   GetPositionApresCeFilsDuZoo := false;
-  if (prof >= 0) & (prof <= 64) then
+  if (prof >= 0) and (prof <= 64) then
     with liaisonArbreZoo.infosNoeuds[prof] do
       begin
 
@@ -940,7 +940,7 @@ function FindFilsAvecCeHash(prof : SInt32; hash : UInt64; var numeroFils : SInt3
 var k : SInt32;
 begin
 
-  if (prof >= 1) & (prof <= 64) then
+  if (prof >= 1) and (prof <= 64) then
     with liaisonArbreZoo.infosNoeuds[prof] do
       begin
         for k := 1 to longueurListe do
@@ -962,7 +962,7 @@ var profDuPere : SInt32;
 begin
   profDuPere := paramsDuFils.inProfondeurFinale + 1;  {profondeur du pere}
 
-  if (profDuPere < 0) & (profDuPere > 64)
+  if (profDuPere < 0) and (profDuPere > 64)
     then PasseApresCeFilsDuZoo := false
     else PasseApresCeFilsDuZoo := (paramsDuFils.inCouleurFinale = liaisonArbreZoo.infosNoeuds[profDuPere].trait)
 end;
@@ -975,7 +975,7 @@ begin
 
   with params do
     begin
-      if (alpha >= -1) & (beta <= 1)
+      if (alpha >= -1) and (beta <= 1)
         then inTypeCalculFinale                   := ReflGagnant
         else inTypeCalculFinale                   := ReflParfait;
 
@@ -1048,13 +1048,13 @@ var k,valeur : SInt32;
     params : MakeEndgameSearchParamRec;
 begin
 
-  if (prof < 0) & (prof > 64) then
+  if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans EnvoyerCeFilsAuZoo,  prof = ',prof);
       exit(EnvoyerCeFilsAuZoo);
     end;
 
-  if (whichMove < 11) & (whichMove > 88) then
+  if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans EnvoyerCeFilsAuZoo  , whichMove = ',whichMove);
       exit(EnvoyerCeFilsAuZoo);
@@ -1076,7 +1076,7 @@ begin
             if GetPositionApresCeFilsDuZoo(prof,whichMove,thePos) then
               begin
 
-                if MakeSearchParamsPourCeFilsDuZoo(prof,alpha,beta,deltaFinal,thePos,params) &
+                if MakeSearchParamsPourCeFilsDuZoo(prof,alpha,beta,deltaFinal,thePos,params) and
                    AjouterDansLaListeDesRequetesDuZoo(params) then
                   begin
 
@@ -1111,7 +1111,7 @@ var k : SInt32;
 begin
   GetValeurZooDeCeFils := k_ZOO_NOT_INITIALIZED_VALUE;
 
-  if (prof >= 0) & (prof <= 64) then
+  if (prof >= 0) and (prof <= 64) then
     with liaisonArbreZoo.infosNoeuds[prof] do
       begin
         if (longueurListe > 0) then
@@ -1132,7 +1132,7 @@ end;
 procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double_t);
 var k : SInt32;
 begin
-  if (prof >= 0) & (prof <= 64) then
+  if (prof >= 0) and (prof <= 64) then
     with liaisonArbreZoo.infosNoeuds[prof] do
       begin
         if (longueurListe > 0) then
@@ -1154,13 +1154,13 @@ procedure RetirerCeFilsDuZoo(prof,whichMove : SInt32);
 var k : SInt32;
 begin
 
-  if (prof < 0) & (prof > 64) then
+  if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans RetirerCeFilsDuZoo,  prof = ',prof);
       exit(RetirerCeFilsDuZoo);
     end;
 
-  if (whichMove < 11) & (whichMove > 88) then
+  if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans RetirerCeFilsDuZoo  , whichMove = ',whichMove);
       exit(RetirerCeFilsDuZoo);
@@ -1173,13 +1173,13 @@ begin
 
   with liaisonArbreZoo do
     begin
-       if (prof >= 0) & (prof <= 64) &
-          (prof >= profMinUtilisationZoo) & (prof <= profMaxUtilisationZoo) then
+       if (prof >= 0) and (prof <= 64) and
+          (prof >= profMinUtilisationZoo) and (prof <= profMaxUtilisationZoo) then
           with infosNoeuds[prof] do
             begin
 
               for k := 1 to longueurListe do
-                if (coupsFils[k].coup = whichMove) &  { trouvŽ ! }
+                if (coupsFils[k].coup = whichMove) and  { trouvŽ ! }
                    (coupsFils[k].theVal <> k_ZOO_NOT_INITIALIZED_VALUE) then
                   begin
 
@@ -1210,13 +1210,13 @@ var k : SInt32;
     s : String255;
 begin
 
-  if (prof < 0) & (prof > 64) then
+  if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans CassioPrendEnChargeLuiMemeCeFilsDuZoo,  prof = ',prof);
       exit(CassioPrendEnChargeLuiMemeCeFilsDuZoo);
     end;
 
-  if (whichMove < 11) & (whichMove > 88) then
+  if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans CassioPrendEnChargeLuiMemeCeFilsDuZoo  , whichMove = ',whichMove);
       exit(CassioPrendEnChargeLuiMemeCeFilsDuZoo);
@@ -1229,13 +1229,13 @@ begin
 
   with liaisonArbreZoo do
     begin
-       if (prof >= 0) & (prof <= 64) &
-          (prof >= profMinUtilisationZoo) & (prof <= profMaxUtilisationZoo) then
+       if (prof >= 0) and (prof <= 64) and
+          (prof >= profMinUtilisationZoo) and (prof <= profMaxUtilisationZoo) then
           with infosNoeuds[prof] do
             begin
 
               for k := 1 to longueurListe do
-                if (coupsFils[k].coup = whichMove) &  { trouvŽ ! }
+                if (coupsFils[k].coup = whichMove) and  { trouvŽ ! }
                    (coupsFils[k].theVal = k_ZOO_EN_ATTENTE_DE_RESULTAT) then
                   begin
 
@@ -1265,8 +1265,8 @@ begin
 
   with liaisonArbreZoo do
     begin
-       if (prof >= 0) & (prof <= 64) &
-          (prof >= profMinUtilisationZoo) & (prof <= profMaxUtilisationZoo) then
+       if (prof >= 0) and (prof <= 64) and
+          (prof >= profMinUtilisationZoo) and (prof <= profMaxUtilisationZoo) then
           with infosNoeuds[prof] do
             begin
 
@@ -1299,8 +1299,8 @@ begin
 
   with liaisonArbreZoo do
     begin
-       if (prof >= 0) & (prof <= 64) &
-          (prof >= profMinUtilisationZoo) & (prof <= profMaxUtilisationZoo) then
+       if (prof >= 0) and (prof <= 64) and
+          (prof >= profMinUtilisationZoo) and (prof <= profMaxUtilisationZoo) then
           with infosNoeuds[prof] do
             begin
 
@@ -1365,8 +1365,8 @@ begin
   GetNombreDeFilsParallelisesPourCetteProf := 0;
 
   with liaisonArbreZoo do
-    if (prof >= 0) & (prof <= 64) &
-       (prof >= profMinUtilisationZoo) & (prof <= profMaxUtilisationZoo)
+    if (prof >= 0) and (prof <= 64) and
+       (prof >= profMinUtilisationZoo) and (prof <= profMaxUtilisationZoo)
       then GetNombreDeFilsParallelisesPourCetteProf := infosNoeuds[prof].nbCoupsEnvoyesAuZoo;
 
 end;
@@ -1386,7 +1386,7 @@ end;
 
 procedure RecordTraceExecutionFinale(prof, hashCassio, coup : SInt32);
 begin
-  if (prof >= 0) & (prof <= 64)
+  if (prof >= 0) and (prof <= 64)
     then
       begin
         gTraceExecutionDeFinale.theTrace[prof].hashCassio := hashCassio;
@@ -1404,7 +1404,7 @@ end;
 
 function PositionEstDansLaTraceExecutionFinale(prof, hashCassio : SInt32) : boolean;
 begin
-   if (prof >= 0) & (prof <= 64)
+   if (prof >= 0) and (prof <= 64)
      then
        PositionEstDansLaTraceExecutionFinale := (hashCassio = gTraceExecutionDeFinale.theTrace[prof].hashCassio)
      else
@@ -1418,9 +1418,9 @@ end;
 
 function CeFilsEstDansLaTraceExecutionFinale(profPere, hashCassioDuPere, coupFils : SInt32) : boolean;
 begin
-   if (profPere >= 1) & (profPere <= 64)
+   if (profPere >= 1) and (profPere <= 64)
      then
-       CeFilsEstDansLaTraceExecutionFinale := (gTraceExecutionDeFinale.theTrace[profPere].hashCassio = hashCassioDuPere) &
+       CeFilsEstDansLaTraceExecutionFinale := (gTraceExecutionDeFinale.theTrace[profPere].hashCassio = hashCassioDuPere) and
                                               (gTraceExecutionDeFinale.theTrace[profPere - 1].coup   = coupFils)
      else
        begin
@@ -1495,7 +1495,7 @@ begin
           end;
     end;
 
-  if doitAfficher | (gTraceExecutionDeFinale.arrets.cardinal > 0) then
+  if doitAfficher or (gTraceExecutionDeFinale.arrets.cardinal > 0) then
     begin
 
       for k := 1 to gTraceExecutionDeFinale.arrets.cardinal do
@@ -1529,15 +1529,15 @@ end;
 function OnVientDeStoperExecutionDeCeFils(profPere,coupFils : SInt32; var numeroArret : SInt32) : boolean;
 var hashPere, k : SInt32;
 begin
-  if (profPere >= 1) & (profPere <= 64) & (coupFils >= 11) & (coupFils <= 88) then
+  if (profPere >= 1) and (profPere <= 64) and (coupFils >= 11) and (coupFils <= 88) then
     with gTraceExecutionDeFinale do
       begin
         hashPere := theTrace[profPere].hashCassio;
 
         for k := 1 to arrets.cardinal do
           begin
-            if (arrets.descr[k].hashDuPere = hashPere) &
-               (arrets.descr[k].profDuFils = profPere - 1) &
+            if (arrets.descr[k].hashDuPere = hashPere) and
+               (arrets.descr[k].profDuFils = profPere - 1) and
                (arrets.descr[k].coupDuFils = coupFils) then
               begin
                 OnVientDeStoperExecutionDeCeFils := true;
@@ -1559,7 +1559,7 @@ procedure RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret(numeroArret :
 var j : SInt32;
 begin
   with gTraceExecutionDeFinale.arrets do
-    if (numeroArret >= 1) & (numeroArret <= cardinal) then
+    if (numeroArret >= 1) and (numeroArret <= cardinal) then
       begin
 
         for j := numeroArret + 1 to cardinal do
@@ -1607,7 +1607,7 @@ begin
 
   {WritelnNumDansRapport('       Je dois arreter les calculs jusqu''a la profondeur (du fils) ',prof);}
 
-  if (prof < 0) | (prof > 64) then
+  if (prof < 0) or (prof > 64) then
     exit(AjouterDansLaListeDesTracesExecutionAStopper);
 
   with gTraceExecutionDeFinale.arrets do

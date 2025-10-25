@@ -478,12 +478,12 @@ begin
       MetTitreFenetrePlateau;
 
       if sauvegardeEn3D then DoChangeEn3D(false);
-      if not(sauvegardePaletteAffichee) & windowPaletteOpen then DoChangePalette;
+      if not(sauvegardePaletteAffichee) and windowPaletteOpen then DoChangePalette;
 
       if (sauvegardeEvaluerTousLesCoups <> avecEvaluationTotale) then DoChangeEvaluationTotale(true);
 
-      if (sauvegardeCadence              <> GetCadence)              |
-         (sauvegardeCadencePersoAffichee <> cadencePersoAffichee) |
+      if (sauvegardeCadence              <> GetCadence)              or
+         (sauvegardeCadencePersoAffichee <> cadencePersoAffichee) or
          (sauvegardeJeuInstantane        <> jeuInstantane) then
         begin
           SetCadence(sauvegardeCadence);
@@ -519,7 +519,7 @@ begin
         jeuInstantane        := false;
         AjusteCadenceMin(GetCadence);
 
-        if not(HumCtreHum) & (AQuiDeJouer <> couleurMacintosh) then
+        if not(HumCtreHum) and (AQuiDeJouer <> couleurMacintosh) then
             begin
               if PeutArreterAnalyseRetrograde then
                 LanceInterruptionSimple('PrepareCassioPourEditionTranscript');
@@ -539,7 +539,7 @@ begin
 
         if not(avecSystemeCoordonnees) then DoChangeAvecSystemeCoordonnees;
 
-        if (tailleFenetre.h < (2*GetTailleCaseCourante*8 + RoundToL(3.7*EpaisseurBordureOthellier))) |
+        if (tailleFenetre.h < (2*GetTailleCaseCourante*8 + RoundToL(3.7*EpaisseurBordureOthellier))) or
            (tailleFenetre.v < (GetTailleCaseCourante*10 + 2*EpaisseurBordureOthellier)) then
           begin
             AjusteAffichageFenetrePlat(nouvelleTailleDesCases,tailleCaseChange,positionScoreChange);
@@ -603,7 +603,7 @@ begin
     begin
       globalTranscriptError := BitOr(globalTranscriptError,whichError);
 
-      if (square >= 11) & (square <= 88)
+      if (square >= 11) and (square <= 88)
         then
           erreursDansCetteCase[square] := (erreursDansCetteCase[square] or whichError)
         else
@@ -621,7 +621,7 @@ end;
 
 function HasTheseErrorsForThisMove(whichErrors : SInt64; const analyse : AnalyseDeTranscript; numeroCoup : SInt64) : boolean;
 begin
-  if (numeroCoup < 1) | (numeroCoup > 99)
+  if (numeroCoup < 1) or (numeroCoup > 99)
     then HasTheseErrorsForThisMove := false
     else HasTheseErrorsForThisMove := BitAnd(TypeErreurDeCeNumeroDansTranscript(numeroCoup,analyse),whichErrors) <> 0;
 end;
@@ -652,7 +652,7 @@ var k : SInt64;
 begin
   for k := 0 to 99 do
     begin
-      if (t1.chiffres[k,kGauche] <> t2.chiffres[k,kGauche]) |
+      if (t1.chiffres[k,kGauche] <> t2.chiffres[k,kGauche]) or
          (t1.chiffres[k,kDroite] <> t2.chiffres[k,kDroite]) then
         begin
           SameTranscript := false;
@@ -694,7 +694,7 @@ begin
 
       distance := 1;
 
-      if (compareAnalyse1 <> NIL) & (compareAnalyse2 <> NIL) then
+      if (compareAnalyse1 <> NIL) and (compareAnalyse2 <> NIL) then
         begin
           ChercherLesErreursDansCeTranscript(t1,compareAnalyse1^);
           ChercherLesErreursDansCeTranscript(t2,compareAnalyse2^);
@@ -708,7 +708,7 @@ end;
 
 function EstUneCaseVideDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;
 begin
-  if (whichSquare < 11) | (whichSquare > 88)
+  if (whichSquare < 11) or (whichSquare > 88)
     then EstUneCaseVideDansTranscript := false
     else EstUneCaseVideDansTranscript := (myTranscript.chiffres[whichSquare,kGauche] >= 0);
 end;
@@ -728,7 +728,7 @@ begin
     if (aux < 11) then aux := 88;
     trouve := EstUneCaseVideDansTranscript(aux,myTranscript);
 
-  until (compteur >= 100) | trouve;
+  until (compteur >= 100) or trouve;
 
   if trouve
     then CaseVidePrecedenteDansTranscript := aux
@@ -749,7 +749,7 @@ begin
     if (aux > 88) then aux := 11;
     trouve := EstUneCaseVideDansTranscript(aux,myTranscript);
 
-  until (compteur >= 100) | trouve;
+  until (compteur >= 100) or trouve;
 
   if trouve
     then CaseVideSuivanteDansTranscript := aux
@@ -771,9 +771,9 @@ end;
 
 function EstUneCaseSansChiffreDansTranscript(whichSquare : SInt16; const myTranscript : Transcript) : boolean;
 begin
-   if (whichSquare < 11) | (whichSquare > 88)
+   if (whichSquare < 11) or (whichSquare > 88)
     then EstUneCaseSansChiffreDansTranscript := false
-    else EstUneCaseSansChiffreDansTranscript := (myTranscript.chiffres[whichSquare,kGauche] = kChiffreSpecialChiffreVide) &
+    else EstUneCaseSansChiffreDansTranscript := (myTranscript.chiffres[whichSquare,kGauche] = kChiffreSpecialChiffreVide) and
                                                 (myTranscript.chiffres[whichSquare,kDroite] = kChiffreSpecialChiffreVide);
 end;
 
@@ -792,7 +792,7 @@ begin
     if (aux < 11) then aux := 88;
     trouve := EstUneCaseSansChiffreDansTranscript(aux,myTranscript);
 
-  until (compteur >= 100) | trouve;
+  until (compteur >= 100) or trouve;
 
   if trouve
     then CaseSansChiffrePrecedenteDansTranscript := aux
@@ -813,7 +813,7 @@ begin
     if (aux > 88) then aux := 11;
     trouve := EstUneCaseSansChiffreDansTranscript(aux,myTranscript);
 
-  until (compteur >= 100) | trouve;
+  until (compteur >= 100) or trouve;
 
   if trouve
     then CaseSansChiffreSuivanteDansTranscript := aux
@@ -879,7 +879,7 @@ begin {ProchaineCaseAvecUneErreurDansTranscript}
                     for k := 1 to cardinal do
                       AjouterCaseInteressante(liste[k]);
                   end;
-                (*if false & HasTheseErrorsForThisMove(kTranscriptCoupsDupliques,gAnalyseDuTranscript,n) then
+                (*if false and HasTheseErrorsForThisMove(kTranscriptCoupsDupliques,gAnalyseDuTranscript,n) then
                   begin
                     with cases[n+1] do
                       begin
@@ -898,10 +898,10 @@ begin {ProchaineCaseAvecUneErreurDansTranscript}
           begin
             {ajouter la premiere case sans chiffre}
             square := PremiereCaseSansChiffreDansTranscript(CurrentTranscript);
-            if not(square in interessantes) &
-               EstUneCaseVideDansTranscript(square,CurrentTranscript) &
+            if not(square in interessantes) and
+               EstUneCaseVideDansTranscript(square,CurrentTranscript) and
                EstUneCaseSansChiffreDansTranscript(square,CurrentTranscript)
-               & not(EstUneCaseSansChiffreDansTranscript(GetCurrentSquareOfCurseur,CurrentTranscript))
+               and not(EstUneCaseSansChiffreDansTranscript(GetCurrentSquareOfCurseur,CurrentTranscript))
               then AjouterCaseInteressante(square);
           end
         else
@@ -999,7 +999,7 @@ end;
 
 procedure SetCouleurDeCePionDansTranscript(whichSquare,color : SInt16; var myTranscript : Transcript);
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) then
+  if (whichSquare >= 11) and (whichSquare <= 88) then
     with myTranscript do
      begin
       case color of
@@ -1037,7 +1037,7 @@ begin
   if (numero > 99) then numero := 99;
   if (numero < 0) then numero := 0;
 
-  if (whichSquare >= 11) & (whichSquare <= 88) & (numero >= 0) & (numero <= 99) then
+  if (whichSquare >= 11) and (whichSquare <= 88) and (numero >= 0) and (numero <= 99) then
     with myTranscript do
      begin
       chiffres[whichSquare,kGauche] := numero div 10;
@@ -1050,7 +1050,7 @@ function CurseurEstToutEnHautAGauche(var myTranscript : Transcript) : boolean;
 var square : SInt16;
 begin
   square := myTranscript.curseur.square;
-  CurseurEstToutEnHautAGauche := (myTranscript.curseur.lateralisation = kGauche) &
+  CurseurEstToutEnHautAGauche := (myTranscript.curseur.lateralisation = kGauche) and
                                  (CaseVidePrecedenteDansTranscript(square,myTranscript) >= square);
 end;
 
@@ -1059,7 +1059,7 @@ function CurseurEstToutEnBasADroite(var myTranscript : Transcript) : boolean;
 var square : SInt16;
 begin
   square := myTranscript.curseur.square;
-  CurseurEstToutEnBasADroite := (myTranscript.curseur.lateralisation = kDroite) &
+  CurseurEstToutEnBasADroite := (myTranscript.curseur.lateralisation = kDroite) and
                                 (CaseVideSuivanteDansTranscript(square,myTranscript) <= square);
 end;
 
@@ -1074,7 +1074,7 @@ begin
         square := square - 10;
         if square < 11 then square := square + 80;
         inc(compteur);
-      until (compteur > 10) | EstUneCaseVideDansTranscript(square,myTranscript);
+      until (compteur > 10) or EstUneCaseVideDansTranscript(square,myTranscript);
     end;
 end;
 
@@ -1089,7 +1089,7 @@ begin
         square := square + 10;
         if square > 88 then square := square - 80;
         inc(compteur);
-      until (compteur > 10) | EstUneCaseVideDansTranscript(square,myTranscript);
+      until (compteur > 10) or EstUneCaseVideDansTranscript(square,myTranscript);
     end;
 end;
 
@@ -1109,9 +1109,9 @@ begin
               square := square + 1;
               if (square mod 10) = 9 then square := square - 8;
               inc(compteur);
-            until (compteur > 10) | EstUneCaseVideDansTranscript(square,myTranscript);
+            until (compteur > 10) or EstUneCaseVideDansTranscript(square,myTranscript);
 
-            if ((square mod 10) = 1) & (lateralisation = kGauche)
+            if ((square mod 10) = 1) and (lateralisation = kGauche)
               then DescendreCurseur(myTranscript);
           end;
     end;
@@ -1172,9 +1172,9 @@ begin
               square := square - 1;
               if (square mod 10) = 0 then square := square + 8;
               inc(compteur);
-            until (compteur > 10) | EstUneCaseVideDansTranscript(square,myTranscript);
+            until (compteur > 10) or EstUneCaseVideDansTranscript(square,myTranscript);
 
-            if ((square mod 10) = 8) & (lateralisation = kDroite)
+            if ((square mod 10) = 8) and (lateralisation = kDroite)
               then MonterCurseur(myTranscript);
           end;
     end;
@@ -1209,7 +1209,7 @@ begin
       if CurseurEstToutEnHautAGauche(myTranscript)
         then exit(TraiteDeleteKeyDansTranscript)  {on est arrive tout en haut a gauche}
         else
-          if CurseurEstToutEnBasADroite(myTranscript) & (GetCurrentChiffreSousLeCurseur <> kChiffreSpecialChiffreVide)
+          if CurseurEstToutEnBasADroite(myTranscript) and (GetCurrentChiffreSousLeCurseur <> kChiffreSpecialChiffreVide)
             then
               begin
                 square := curseur.square;
@@ -1247,7 +1247,7 @@ begin
               then
                 begin
                   chiffres[square,lateralisation] := ord(ch) - ord('0');
-                  if (lateralisation = kGauche) & (chiffres[square,lateralisation] >= 7)
+                  if (lateralisation = kGauche) and (chiffres[square,lateralisation] >= 7)
                     then RaiseTranscriptError(kTranscriptChiffreTropGrand,square,gAnalyseDuTranscript);
                 end
               else chiffres[square,lateralisation] := kChiffreSpecialChiffreVide;
@@ -1278,7 +1278,7 @@ begin
           lateralisation := kDroite;
           continuer := true;
 
-          while (t > caseDebut) & continuer do
+          while (t > caseDebut) and continuer do
             begin
               if lateralisation = kDroite
                 then
@@ -1306,7 +1306,7 @@ begin
           lateralisation := lateralisationDebut;
           continuer := true;
 
-          while (t <= 88) & continuer do
+          while (t <= 88) and continuer do
             begin
               if lateralisation = kGauche
                 then
@@ -1356,7 +1356,7 @@ begin
         if EstUneCaseVideDansTranscript(t,myTranscript) then
           begin
             valeur := NumeroDeCetteCaseDansTranscript(t,myTranscript);
-            if (valeur >= numeroMinimum) & (valeur <= min) then
+            if (valeur >= numeroMinimum) and (valeur <= min) then
               begin
                 min := valeur;
                 result := t;
@@ -1423,7 +1423,7 @@ begin
     begin
       prochainNumeroActif := 99;
       for t := 11 to 88 do
-        if EstUneCaseVideDansTranscript(t,myTranscript) &
+        if EstUneCaseVideDansTranscript(t,myTranscript) and
            not(EstUneCaseSansChiffreDansTranscript(t,myTranscript)) then
           begin
             valeur := NumeroDeCetteCaseDansTranscript(t,myTranscript);
@@ -1464,7 +1464,7 @@ var temp : SInt16;
 begin
   with myTranscript do
     begin
-      if (square1 >= 11) & (square1 <= 88) & (square2 >= 11) & (square2 <= 88) then
+      if (square1 >= 11) and (square1 <= 88) and (square2 >= 11) and (square2 <= 88) then
         begin
           temp := chiffres[square1,kGauche];
           chiffres[square1,kGauche] := chiffres[square2,kGauche];
@@ -1575,7 +1575,7 @@ begin
         begin
           next := current + 1;
           if next >= kTaillePileTranscripts then next := next - kTaillePileTranscripts;
-          if (current = tete) | not(SameTranscript(myTranscript,pile[next])) then
+          if (current = tete) or not(SameTranscript(myTranscript,pile[next])) then
             begin
               tete := next;
               if (tete = queue) then queue := (queue+1) mod kTaillePileTranscripts;
@@ -1633,7 +1633,7 @@ begin
     begin
       square := othellier[t];
       numero := coups[square];
-      if (numero >= 0) & (numero <= 99) then
+      if (numero >= 0) and (numero <= 99) then
         SetNumeroDeCetteCaseDansTranscript(square,numero,result);
     end;
   MakeTranscriptFromPlateauOthello := result;
@@ -1669,7 +1669,7 @@ begin
 
   chiffre := CurrentTranscript.chiffres[square,lateralisation];
 
-  if (chiffre >= 0) & (chiffre <= 9) then s := NumEnString(chiffre);
+  if (chiffre >= 0) and (chiffre <= 9) then s := NumEnString(chiffre);
   if (chiffre = kChiffreSpecialChiffreVide) then s := '  ';
 
   PrepareTexteStatePourTranscript;
@@ -1682,7 +1682,7 @@ begin
     then justification := kJusticationGauche+kJusticationCentreVert
     else justification := kJusticationDroite+kJusticationCentreVert;
 
-  if (square         = GetCurrentSquareOfCurseur) &
+  if (square         = GetCurrentSquareOfCurseur) and
      (lateralisation = GetCurrentLateralisationOfCurseur)
     then justification := justification + kJustificationInverseVideo;
 
@@ -1708,7 +1708,7 @@ end;
 
 function EstUnePartieLegaleEtComplete(const analyse : AnalyseDeTranscript) : boolean;
 begin
-  EstUnePartieLegaleEtComplete := analyse.tousLesCoupsSontLegaux & analyse.partieTerminee;
+  EstUnePartieLegaleEtComplete := analyse.tousLesCoupsSontLegaux and analyse.partieTerminee;
 end;
 
 
@@ -1730,7 +1730,7 @@ var test : boolean;
 begin
   p1 := PositionEtTraitInitiauxDuTranscriptCourant;
 
-  test := PositionIsTheInitialPositionOfGameTree(p1) &
+  test := PositionIsTheInitialPositionOfGameTree(p1) and
           (gAnalyseDuTranscript.plusLonguePartieLegale = PartiePourPressePapier(true,false,nbreCoup));
 
   PlusLonguePartieLegaleDuTranscriptEstDansOthellierDeGauche := test;
@@ -1779,7 +1779,7 @@ begin
 
   BeginDrawingForTranscript;
 
-  if (square >= 11) & (square <= 88) then
+  if (square >= 11) and (square <= 88) then
     begin
       InvalidateDessinEnTraceDeRayon(square);
       if not(EstUneCaseVideDansTranscript(square,CurrentTranscript))
@@ -1853,7 +1853,7 @@ var theRect : rect;
 begin
   BeginDrawingForTranscript;
 
-  if (square >= 11) & (square <= 88) then
+  if (square >= 11) and (square <= 88) then
     begin
       theRect := GetBoundingRectOfSquare(square);
       PenMode(patCopy);
@@ -1877,15 +1877,15 @@ var theRect1,theRect2 : rect;
 begin
   BeginDrawingForTranscript;
 
-  if (square1 >= 11) & (square1 <= 88) &
-     (square2 >= 11) & (square2 <= 88) then
+  if (square1 >= 11) and (square1 <= 88) and
+     (square2 >= 11) and (square2 <= 88) then
     begin
       theRect1 := GetBoundingRectOfSquare(square1);
       theRect2 := GetBoundingRectOfSquare(square2);
 
       InSetRect(theRect1,-1,-1);
       InSetRect(theRect2,-1,-1);
-      if not(gCouleurOthellier.estUneImage) & not(retirerEffet3DSubtilOthellier2D) then
+      if not(gCouleurOthellier.estUneImage) and not(retirerEffet3DSubtilOthellier2D) then
         begin
           inc(theRect1.right); inc(theRect1.bottom);
           inc(theRect2.right); inc(theRect2.bottom);
@@ -1983,7 +1983,7 @@ var s : String255;
     t : SInt16;
     pt : Point;
 begin
-  if (n >= 1) & (n <= NombreSuggestionsAffichees) then
+  if (n >= 1) and (n <= NombreSuggestionsAffichees) then
     with gTranscriptSearch.suggestions[n] do
     begin
       s := ReadStringFromRessource(kTextesTranscriptID,3)+'  '; {'Suggestion:'}
@@ -2070,7 +2070,7 @@ end;
 function DerniereCaseTapeeEstUnCoupIllegal : boolean;
 begin
   with gAnalyseDuTranscript do
-    DerniereCaseTapeeEstUnCoupIllegal := (BitAnd(TypeErreurDeCetteCaseDansTranscript(derniereCaseTapee,gAnalyseDuTranscript),kTranscriptCoupIllegal) <> 0) &
+    DerniereCaseTapeeEstUnCoupIllegal := (BitAnd(TypeErreurDeCetteCaseDansTranscript(derniereCaseTapee,gAnalyseDuTranscript),kTranscriptCoupIllegal) <> 0) and
                                          (GetCurrentLateralisationOfCurseur = kGauche);
 end;
 
@@ -2083,7 +2083,7 @@ end;
 
 function CeNumeroDeCoupAUneErreur(numero : SInt16; const analyse : AnalyseDeTranscript) : boolean;
 begin
-  if (numero >= 1) & (numero <= 99)
+  if (numero >= 1) and (numero <= 99)
     then CeNumeroDeCoupAUneErreur := (analyse.cases[numero].typeErreur <> 0)
     else CeNumeroDeCoupAUneErreur := false;
 end;
@@ -2091,7 +2091,7 @@ end;
 
 function TypeErreurDeCeNumeroDansTranscript(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt64;
 begin
-  if (numero >= 1) & (numero <= 99)
+  if (numero >= 1) and (numero <= 99)
     then TypeErreurDeCeNumeroDansTranscript := analyse.cases[numero].typeErreur
     else TypeErreurDeCeNumeroDansTranscript := 0;
 end;
@@ -2099,7 +2099,7 @@ end;
 
 function TypeErreurDeCetteCaseDansTranscript(whichSquare : SInt16; const analyse : AnalyseDeTranscript) : SInt64;
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88)
+  if (whichSquare >= 11) and (whichSquare <= 88)
     then TypeErreurDeCetteCaseDansTranscript := analyse.erreursDansCetteCase[whichSquare]
     else TypeErreurDeCetteCaseDansTranscript := 0;
 end;
@@ -2132,13 +2132,13 @@ begin
         if EstUneCaseVideDansTranscript(square,myTranscript) then
           begin
             n := NumeroDeCetteCaseDansTranscript(square,myTranscript);
-            if (n >= 0) & (n <= 200) then
+            if (n >= 0) and (n <= 200) then
               with cases[n] do
                 begin
 
-                  if (n >= 1) & (n <= 6) &
-                     (GetSquareOfCurseur(myTranscript) = square) &
-                     (GetLateralisationOfCurseur(myTranscript) = kDroite) &
+                  if (n >= 1) and (n <= 6) and
+                     (GetSquareOfCurseur(myTranscript) = square) and
+                     (GetLateralisationOfCurseur(myTranscript) = kDroite) and
                      (myTranscript.chiffres[square,kDroite] = kChiffreSpecialChiffreVide)
                     then
                       begin
@@ -2148,7 +2148,7 @@ begin
                     else
                       begin
                         inc(cardinal);
-                        if (n > 0) & (cardinal >= 2) then
+                        if (n > 0) and (cardinal >= 2) then
                           begin
                             typeErreur := typeErreur or kTranscriptCoupsDupliques;
                             RaiseTranscriptError(kTranscriptCoupsDupliques,square,analyse);
@@ -2163,7 +2163,7 @@ begin
       if EstUneCaseVideDansTranscript(derniereCaseTapee,myTranscript) then
         begin
           n := NumeroDeCetteCaseDansTranscript(derniereCaseTapee,myTranscript);
-          if (n >= 1) & (cases[n].cardinal > 1) then
+          if (n >= 1) and (cases[n].cardinal > 1) then
             RaiseTranscriptError(kTranscriptVientDeCreerUnDoublon,derniereCaseTapee,analyse);
         end;
 
@@ -2181,11 +2181,11 @@ begin
       {on cherche si il faut inverser la position initiale : le dernier coup rentré
        est-il le coup numero 1 ?}
 
-        if EstUneCaseVideDansTranscript(derniereCaseTapee,myTranscript) &
+        if EstUneCaseVideDansTranscript(derniereCaseTapee,myTranscript) and
            (NumeroDeCetteCaseDansTranscript(derniereCaseTapee,myTranscript) = 1) then
            begin
-             if (TranscriptALaPositionDeDepartInversee(myTranscript) & SquareInSquareSet(derniereCaseTapee,[34,43,56,65])) |
-                (not(TranscriptALaPositionDeDepartInversee(myTranscript)) & SquareInSquareSet(derniereCaseTapee,[35,46,53,64]))
+             if (TranscriptALaPositionDeDepartInversee(myTranscript) and SquareInSquareSet(derniereCaseTapee,[34,43,56,65])) or
+                (not(TranscriptALaPositionDeDepartInversee(myTranscript)) and SquareInSquareSet(derniereCaseTapee,[35,46,53,64]))
                then
                  InverserCouleurDesPionsDuTranscript(myTranscript);
            end;
@@ -2197,8 +2197,8 @@ begin
           begin
             square := cases[1].liste[1];
             if (GetSquareOfCurseur(myTranscript) <> square) then
-              if (TranscriptALaPositionDeDepartInversee(myTranscript) & SquareInSquareSet(square,[34,43,56,65])) |
-                 (not(TranscriptALaPositionDeDepartInversee(myTranscript)) & SquareInSquareSet(square,[35,46,53,64]))
+              if (TranscriptALaPositionDeDepartInversee(myTranscript) and SquareInSquareSet(square,[34,43,56,65])) or
+                 (not(TranscriptALaPositionDeDepartInversee(myTranscript)) and SquareInSquareSet(square,[35,46,53,64]))
                 then
                   InverserCouleurDesPionsDuTranscript(myTranscript);
           end;
@@ -2216,7 +2216,7 @@ begin
         if (cases[n].cardinal = 0) then
           begin
             if (numeroPremierCoupManquant <= 0) then numeroPremierCoupManquant := n;
-            if (n < numeroDernierCoupPresent) | ((n <= 60) & (nombreCasesRemplies >= 50)) then
+            if (n < numeroDernierCoupPresent) or ((n <= 60) and (nombreCasesRemplies >= 50)) then
               begin
                 inc(nbCoupsManquants);
                 cases[n].typeErreur := cases[n].typeErreur or kTranscriptCoupManquant;
@@ -2231,17 +2231,17 @@ begin
 
       {on cherche le premier coup illegal}
       for n := 1 to 99 do
-        if (numeroPremierCoupIllegal <= 0) & HasTheseErrorsForThisMove(kTranscriptCoupIllegal,analyse,n)
+        if (numeroPremierCoupIllegal <= 0) and HasTheseErrorsForThisMove(kTranscriptCoupIllegal,analyse,n)
           then numeroPremierCoupIllegal := n;
 
       {on cherche le premier doublon}
       for n := 1 to 99 do
-        if (numeroPremierDoublon <= 0) & HasTheseErrorsForThisMove(kTranscriptCoupsDupliques,analyse,n)
+        if (numeroPremierDoublon <= 0) and HasTheseErrorsForThisMove(kTranscriptCoupsDupliques,analyse,n)
           then numeroPremierDoublon := n;
 
       {on cherche le premier coup isole}
       for n := 1 to 99 do
-        if (numeroPremierCoupIsole <= 0) & HasTheseErrorsForThisMove(kTranscriptCoupsIsoles,analyse,n)
+        if (numeroPremierCoupIsole <= 0) and HasTheseErrorsForThisMove(kTranscriptCoupsIsoles,analyse,n)
           then numeroPremierCoupIsole := n;
 
     end;
@@ -2257,8 +2257,8 @@ var jusqueQuelCoup : SInt16;
     tempoAfficheProchainsCoup : boolean;
 begin
 
-  if (partiePlaquee = PartiePourPressePapier(true,false,nbreCoup)) |
-     (analyseRetrograde.enCours & not(PeutArreterAnalyseRetrograde)) then
+  if (partiePlaquee = PartiePourPressePapier(true,false,nbreCoup)) or
+     (analyseRetrograde.enCours and not(PeutArreterAnalyseRetrograde)) then
     exit(PlaquerPositionEtPartieLegaleDansOthellierDeGauche);
 
   SetCassioMustCheckDangerousEvents(false, @oldCheckDangerousEvents);
@@ -2266,7 +2266,7 @@ begin
   jusqueQuelCoup := LENGTH_OF_STRING(partiePlaquee) div 2;
   partieDeCassioCourante := PartiePourPressePapier(true,false,nroDernierCoupAtteint);
 
-  if (jusqueQuelCoup <= 0) | IsPrefix(partieDeCassioCourante,partiePlaquee)
+  if (jusqueQuelCoup <= 0) or IsPrefix(partieDeCassioCourante,partiePlaquee)
     then
       begin
         {la partie plaquee est un prefixe de la partie courante}
@@ -2281,7 +2281,7 @@ begin
         EntrerPartieDansCurrentTranscript(jusqueQuelCoup);
       end
     else
-      if (nbreCoup > 0) & IsPrefix(partiePlaquee,partieDeCassioCourante)
+      if (nbreCoup > 0) and IsPrefix(partiePlaquee,partieDeCassioCourante)
         then
           begin
             {la partie courante est un prefixe de la partie plaquee}
@@ -2307,7 +2307,7 @@ begin
               then DoDebut(false)
               else PlaquerPosition(position.position,GetTraitOfPosition(position),kRedessineEcran);
 
-            if (partiePlaquee <> '') & (jusqueQuelCoup > 0) then
+            if (partiePlaquee <> '') and (jusqueQuelCoup > 0) then
               begin
                 SetTranscriptAccepteLesDonnees(false,oldValue);
 
@@ -2342,7 +2342,7 @@ begin
 
         if DoitAfficherLaPlusLonguePartiePossible then
           begin
-            if PositionIsTheInitialPositionOfGameTree(position) &
+            if PositionIsTheInitialPositionOfGameTree(position) and
                (plusLonguePartieLegale = PartiePourPressePapier(true,false,Min(nombreCoupsPossibles,jusqueQuelCoup)))
               then {WritelnDansRapport('La partie est déjà à jour…')}
               else
@@ -2372,7 +2372,7 @@ end;
 
 function NombreCasesAvecCeNumero(numero : SInt16; const analyse : AnalyseDeTranscript) : SInt16;
 begin
-  if (numero < 1) | (numero > 99)
+  if (numero < 1) or (numero > 99)
     then NombreCasesAvecCeNumero := 0
     else NombreCasesAvecCeNumero := analyse.cases[numero].cardinal;
 end;
@@ -2405,7 +2405,7 @@ begin
   if (numero > 99) then numero := 99;
   if (numero < 1)  then numero := 1;
   compteur := 0;
-  while (numero <= 99) & (analyse.cases[numero].cardinal >= 2) do
+  while (numero <= 99) and (analyse.cases[numero].cardinal >= 2) do
     begin
       inc(compteur);
       inc(numero);
@@ -2420,7 +2420,7 @@ begin
   if (numero > 99) then numero := 99;
   if (numero < 1)  then numero := 1;
   compteur := 0;
-  while (numero <= 99) & (analyse.cases[numero].cardinal <= 0) do
+  while (numero <= 99) and (analyse.cases[numero].cardinal <= 0) do
     begin
       inc(compteur);
       inc(numero);
@@ -2447,7 +2447,7 @@ begin
   nbErreurs := NombreDoublons(analyse) + NombreCoupsIsoles(analyse);
 
   k := PremierCoupIllegal(analyse);
-  if (k >= 1) & (k <= 99) &
+  if (k >= 1) and (k <= 99) and
      not(HasTheseErrorsForThisMove(kTranscriptCoupsDupliques+kTranscriptCoupsIsoles,analyse,k))
     then inc(nbErreurs);
 
@@ -2487,9 +2487,9 @@ end;
 
 function TranscriptALaPositionDeDepartInversee(const whichTranscript : Transcript) : boolean;
 begin
-  TranscriptALaPositionDeDepartInversee := (CouleurDeCetteCaseDansTranscript(44,whichTranscript) = pionNoir) &
-                                           (CouleurDeCetteCaseDansTranscript(45,whichTranscript) = pionBlanc) &
-                                           (CouleurDeCetteCaseDansTranscript(54,whichTranscript) = pionBlanc) &
+  TranscriptALaPositionDeDepartInversee := (CouleurDeCetteCaseDansTranscript(44,whichTranscript) = pionNoir) and
+                                           (CouleurDeCetteCaseDansTranscript(45,whichTranscript) = pionBlanc) and
+                                           (CouleurDeCetteCaseDansTranscript(54,whichTranscript) = pionBlanc) and
                                            (CouleurDeCetteCaseDansTranscript(55,whichTranscript) = pionNoir);
 end;
 
@@ -2531,12 +2531,12 @@ begin
 
       n := 1;
       bloquage := false;
-      while (n <= 100) & not(bloquage) do
+      while (n <= 100) and not(bloquage) do
         begin
           {doublon ?}
           if (cases[n].cardinal >= 2) then bloquage := true; {zero ou un coup par numero}
 
-          if (GetTraitOfPosition(position) = pionVide) & (cases[n].cardinal >= 1) then
+          if (GetTraitOfPosition(position) = pionVide) and (cases[n].cardinal >= 1) then
              begin
                { Si la partie est legale mais que l'on n'a pas utilisé
                  tous les coups du transcripts, les coups superflus sont illegaux }
@@ -2552,7 +2552,7 @@ begin
                  end;
              end;
 
-          if not(bloquage) & (cases[n].cardinal = 1) then
+          if not(bloquage) and (cases[n].cardinal = 1) then
             begin
               square := cases[n].liste[1];
               if UpdatePositionEtTrait(position,square)
@@ -2585,7 +2585,7 @@ begin
           position := PositionEtTraitInitiauxDuTranscript(whichTranscript);
           n := 1;
           bloquage := false;
-          while (n <= 100) & not(bloquage) do
+          while (n <= 100) and not(bloquage) do
             begin
               {doublon ?}
 
@@ -2594,7 +2594,7 @@ begin
                   for k := 1 to cases[n].cardinal do
                     begin
                       square := cases[n].liste[k];
-                      if (cases[n].cardinal = 1) & UpdatePositionEtTrait(position,square)
+                      if (cases[n].cardinal = 1) and UpdatePositionEtTrait(position,square)
                         then
                           begin
                             inc(compteur);
@@ -2630,7 +2630,7 @@ begin
 
 
   analyse.scorePartieComplete    := nNoirs - nBlancs;
-  analyse.partieTerminee         := (GetTraitOfPosition(position) = pionVide) & not(HasTranscriptErrorMask(kTranscriptCoupIllegal,analyse));
+  analyse.partieTerminee         := (GetTraitOfPosition(position) = pionVide) and not(HasTranscriptErrorMask(kTranscriptCoupIllegal,analyse));
   analyse.nombreCoupsPossibles   := compteur;
   analyse.plusLonguePartieLegale := s;
 
@@ -2679,13 +2679,13 @@ begin
 
       {affichons tous les doublons depuis le plus grand numero}
       for numero := 200 downto 1 do
-        if CeNumeroDeCoupAUneErreur(numero,gAnalyseDuTranscript) &
+        if CeNumeroDeCoupAUneErreur(numero,gAnalyseDuTranscript) and
            (BitAnd(cases[numero].typeErreur,whichErrors) <> 0) then
           begin
 
             {doublons ?}
 
-            if (BitAnd(whichErrors,kTranscriptCoupsDupliques) <> 0) &
+            if (BitAnd(whichErrors,kTranscriptCoupsDupliques) <> 0) and
                (BitAnd(cases[numero].typeErreur,kTranscriptCoupsDupliques) <> 0) then
               begin
                 with cases[numero] do
@@ -2697,7 +2697,7 @@ begin
 
 
       for numero := 1 to 200 do
-        if CeNumeroDeCoupAUneErreur(numero,gAnalyseDuTranscript) &
+        if CeNumeroDeCoupAUneErreur(numero,gAnalyseDuTranscript) and
            (BitAnd(cases[numero].typeErreur,whichErrors) <> 0) then
 
           begin
@@ -2705,7 +2705,7 @@ begin
 
             {coups isoles ?}
 
-            if (BitAnd(whichErrors,kTranscriptCoupsIsoles) <> 0) &
+            if (BitAnd(whichErrors,kTranscriptCoupsIsoles) <> 0) and
                (BitAnd(cases[numero].typeErreur,kTranscriptCoupsIsoles) <> 0) then
               begin
                 EntourerUneCaseDansTranscript(cases[numero].liste[1],gPurBlanc);
@@ -2713,14 +2713,14 @@ begin
 
             {coups manquants ?}
 
-            if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) &
+            if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) and
                (BitAnd(cases[numero].typeErreur,kTranscriptCoupManquant) <> 0) then
               begin
                 inc(nbCoupsManquantsTrouves);
 
                 if (nbCoupsManquantsTrouves = 1)
                   then messageCoupsManquants := messageCoupsManquants + NumEnString(numero) else
-                if (nbCoupsManquantsTrouves >= 2) & (nbCoupsManquantsTrouves <= nbMaxManquantsAffiches)
+                if (nbCoupsManquantsTrouves >= 2) and (nbCoupsManquantsTrouves <= nbMaxManquantsAffiches)
                   then messageCoupsManquants := messageCoupsManquants + ', '+NumEnString(numero) else
                 if (nbCoupsManquantsTrouves = succ(nbMaxManquantsAffiches))
                   then messageCoupsManquants := messageCoupsManquants + ', …';
@@ -2728,8 +2728,8 @@ begin
 
           end;
 
-      if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) &
-          CurrentTranscriptHasThisErrors(kTranscriptCoupManquant) &
+      if (BitAnd(whichErrors,kTranscriptCoupManquant) <> 0) and
+          CurrentTranscriptHasThisErrors(kTranscriptCoupManquant) and
           not(TranscriptCourantEstUnePartieLegaleEtComplete)
         then EcritMessageSousTranscript(messageCoupsManquants);
 
@@ -2741,8 +2741,8 @@ procedure ImposerUnCoupDansTranscript(whichSquare,numero : SInt16; var myTranscr
 begin
   if TranscriptAccepteLesDonnees then
     begin
-      if (whichSquare >= 11) & (whichSquare <= 88) &
-         (numero >= 1) & (numero <= 99) &
+      if (whichSquare >= 11) and (whichSquare <= 88) and
+         (numero >= 1) and (numero <= 99) and
          (NumeroDeCetteCaseDansTranscript(whichSquare,myTranscript) <> numero) then
           begin
             SetNumeroDeCetteCaseDansTranscript(whichSquare,numero,myTranscript);
@@ -2827,7 +2827,7 @@ begin
              repeat
                inc(compteur);
                myTranscript := DecrementerToutesLesCases(nbreCoup+2, -1,myTranscript,prochainNumeroActif,quelleCase);
-             until (prochainNumeroActif = nbreCoup+1) | (compteur >= 10);
+             until (prochainNumeroActif = nbreCoup+1) or (compteur >= 10);
              EmpileTranscript(myTranscript);
 
           end
@@ -2850,7 +2850,7 @@ begin
       while (k <= longueur) do
         begin
           square := ScannerStringPourTrouverCoup(2*k-1,legalGame,posDansChaine);
-          if (square >= 11) & (square <= 88)
+          if (square >= 11) and (square <= 88)
             then ImposerUnCoupDansTranscript(square,k,result);
           inc(k);
         end;
@@ -2863,12 +2863,12 @@ end;
 procedure EntrerPartieDansTranscript(jusqueQuelCoup : SInt16; var myTranscript : Transcript);
 var k,coup : SInt16;
 begin
-  if EnModeEntreeTranscript & TranscriptAccepteLesDonnees then
+  if EnModeEntreeTranscript and TranscriptAccepteLesDonnees then
     begin
       for k := 1 to jusqueQuelCoup do
         begin
           coup := GetNiemeCoupPartieCourante(k);
-          if (coup >= 11) & (coup <= 88)
+          if (coup >= 11) and (coup <= 88)
             then ImposerUnCoupDansTranscript(coup,k,myTranscript);
         end;
     end;
@@ -2878,7 +2878,7 @@ end;
 procedure EntrerPartieDansCurrentTranscript(jusqueQuelCoup : SInt16);
 var myTranscript : Transcript;
 begin
-  if EnModeEntreeTranscript & TranscriptAccepteLesDonnees then
+  if EnModeEntreeTranscript and TranscriptAccepteLesDonnees then
     begin
       myTranscript := CurrentTranscript;
       EntrerPartieDansTranscript(jusqueQuelCoup,myTranscript);
@@ -2897,7 +2897,7 @@ begin
   BeginDrawingForTranscript;
   mouseLoc := evt.where;
   GlobalToLocal(mouseLoc);
-  if PtInPlateau(mouseLoc,caseCliquee) & EstUneCaseVideDansTranscript(caseCliquee,CurrentTranscript)
+  if PtInPlateau(mouseLoc,caseCliquee) and EstUneCaseVideDansTranscript(caseCliquee,CurrentTranscript)
     then
       begin
         { S'agit-il plutot d'un clic sur le chiffre gauche ou droit ? }
@@ -2946,13 +2946,13 @@ begin
   ch := LowerCase(ch);
   oldCurseurPosition := GetCurrentSquareOfCurseur;
 
-  if (ch = chr(FlecheHautKey))     |
-     (ch = chr(FlecheBasKey))      |
-     (ch = chr(FlecheGaucheKey))   |
-     (ch = chr(FlecheDroiteKey))   |
-     (ch = chr(TabulationKey))     |
-     (ch = chr(EntreeKey))         |
-     (ch = chr(TopDocumentKey))    |
+  if (ch = chr(FlecheHautKey))     or
+     (ch = chr(FlecheBasKey))      or
+     (ch = chr(FlecheGaucheKey))   or
+     (ch = chr(FlecheDroiteKey))   or
+     (ch = chr(TabulationKey))     or
+     (ch = chr(EntreeKey))         or
+     (ch = chr(TopDocumentKey))    or
      (ch = chr(BottomDocumentKey))    then
     begin
 
@@ -2994,9 +2994,9 @@ begin
       TraiteKeyboardEventDansTranscript := true;
     end;
 
-  if IsDigit(ch) | (ch = ' ')  | (ch = chr(RetourArriereKey)) |
-     ((ch = '+') & not(command)) | (ch = '-') | (ch = '=') | (ch = '*') | (ch = 'i') | (ch = 'd') |
-     (ch = '>') | (ch = '<') then
+  if IsDigit(ch) or (ch = ' ')  or (ch = chr(RetourArriereKey)) or
+     ((ch = '+') and not(command)) or (ch = '-') or (ch = '=') or (ch = '*') or (ch = 'i') or (ch = 'd') or
+     (ch = '>') or (ch = '<') then
     begin
       case ch of
         'i', '>' :
@@ -3022,7 +3022,7 @@ begin
                     then myTranscript := IncrementerCetteCase(GetCurrentSquareOfCurseur, +2, CurrentTranscript)
                     else
                       begin
-                        if (gAnalyseDuTranscript.cases[n].cardinal > 1) & (gAnalyseDuTranscript.cases[n-1].cardinal > 1)
+                        if (gAnalyseDuTranscript.cases[n].cardinal > 1) and (gAnalyseDuTranscript.cases[n-1].cardinal > 1)
                           then
                             begin
                               myTranscript := IncrementerToutesLesCasesAndSetValueDansSquare(n+1,1,GetCurrentSquareOfCurseur,n+1,CurrentTranscript);
@@ -3097,15 +3097,15 @@ begin
       TraiteKeyboardEventDansTranscript := true;
     end;
 
-  if (ch = chr(SuppressionKey))  |
-     (ch = '\')                  |
-     (ch = '/')                  |
-     (ch = ' ')                  | {option-espace : espace dur}
-     (ch = ' ')                  | {option-maj-espace : espace dur}
-     ((ch = ',') & not(command)) |
-     ((ch = '.') & not(command))   then
+  if (ch = chr(SuppressionKey))  or
+     (ch = '\')                  or
+     (ch = '/')                  or
+     (ch = ' ')                  or {option-espace : espace dur}
+     (ch = ' ')                  or {option-maj-espace : espace dur}
+     ((ch = ',') and not(command)) or
+     ((ch = '.') and not(command))   then
     begin
-      if (ch = chr(SuppressionKey)) | (ch = '\') | (ch = ',') | (ch = '.')
+      if (ch = chr(SuppressionKey)) or (ch = '\') or (ch = ',') or (ch = '.')
         then DecalerTousLesChiffresDansTranscript(GetCurrentSquareOfCurseur,GetCurrentLateralisationOfCurseur,kGauche)
         else DecalerTousLesChiffresDansTranscript(GetCurrentSquareOfCurseur,GetCurrentLateralisationOfCurseur,kDroite);
       DessineTranscriptCourant;
@@ -3126,7 +3126,7 @@ begin
           peutRepeter := false;
           TraiteKeyboardEventDansTranscript := true;
         end;
-      if (ch = 'z') | (ch = 'Z') then
+      if (ch = 'z') or (ch = 'Z') then
         begin
           if shift
             then myTranscript := DepileTranscriptVersLaDroite
@@ -3137,7 +3137,7 @@ begin
           peutRepeter := false;
           TraiteKeyboardEventDansTranscript := true;
         end;
-      if (ch = 'Â') | (ch = 'Å') then  {option - z}
+      if (ch = 'Â') or (ch = 'Å') then  {option - z}
         begin
           myTranscript := DepileTranscriptVersLaDroite;
           DessineTranscriptCourant;
@@ -3146,7 +3146,7 @@ begin
           peutRepeter := false;
           TraiteKeyboardEventDansTranscript := true;
         end;
-      if (ch = 'n') | (ch = 'N') then
+      if (ch = 'n') or (ch = 'N') then
         begin
           ViderTranscriptCourant;
           DessineTranscriptCourant;
@@ -3159,9 +3159,9 @@ begin
 
   if (TranscriptError(gAnalyseDuTranscript) <> 0) then
     begin
-      if CurrentTranscriptHasThisErrors(kTranscriptChiffreTropGrand) |
-         CurrentTranscriptHasThisErrors(kTranscriptVientDeCreerUnDoublon) |
-        (CurrentTranscriptHasThisErrors(kTranscriptCoupIllegal) & DerniereCaseTapeeEstUnCoupIllegal)
+      if CurrentTranscriptHasThisErrors(kTranscriptChiffreTropGrand) or
+         CurrentTranscriptHasThisErrors(kTranscriptVientDeCreerUnDoublon) or
+        (CurrentTranscriptHasThisErrors(kTranscriptCoupIllegal) and DerniereCaseTapeeEstUnCoupIllegal)
         then SysBeep(0);
 
       mask := ErreursAAfficherDansTranscriptCourant;
@@ -3226,7 +3226,7 @@ end;
 
 function TranscriptSetEstVide(S : TranscriptSet) : boolean;
 begin
-  TranscriptSetEstVide := (S.cardinal = 0) | ABRIsEmpty(S.arbre);
+  TranscriptSetEstVide := (S.cardinal = 0) or ABRIsEmpty(S.arbre);
 end;
 
 
@@ -3411,7 +3411,7 @@ begin
                   n1 := NumeroDeCetteCaseDansTranscript(square1, CurrentTranscript);
                   n2 := NumeroDeCetteCaseDansTranscript(square2, CurrentTranscript);
 
-                  if (decalage = 1) & (n2 = n1 + 1)
+                  if (decalage = 1) and (n2 = n1 + 1)
                     then
                       begin
                         s := s + NumEnString(n1) + '.' + CoupEnString(square1,CassioUtiliseDesMajuscules) + '+';
@@ -3440,7 +3440,7 @@ end;
 
 procedure EcrireUneCorrectionDansRapport(profondeur : SInt16; whichAction : ActionDeCorrection);
 begin
-  if (profondeur >= 0) & (profondeur <= kMaxNiveauRecursionCorrectionAutomatique) then
+  if (profondeur >= 0) and (profondeur <= kMaxNiveauRecursionCorrectionAutomatique) then
   with gTranscriptSearch, whichAction do
     begin
       WriteDansRapport('(');
@@ -3452,7 +3452,7 @@ end;
 
 procedure PublierUneCorrection(profondeur : SInt16; theCorrection : ActionDeCorrection);
 begin
-  if (profondeur >= 0) & (profondeur <= kMaxNiveauRecursionCorrectionAutomatique) then
+  if (profondeur >= 0) and (profondeur <= kMaxNiveauRecursionCorrectionAutomatique) then
     gTranscriptSearch.correctionsCourantes[profondeur] := theCorrection;
 end;
 
@@ -3496,7 +3496,7 @@ begin
                             if (cases[k].cardinal = 1) then
                               begin
                                 square := cases[k].liste[1];
-                                if ((analyseDepart^.cases[k].cardinal <> 1) | (square <> analyseDepart^.cases[k].liste[1])) &
+                                if ((analyseDepart^.cases[k].cardinal <> 1) or (square <> analyseDepart^.cases[k].liste[1])) and
                                    (NumeroDeCetteCaseDansTranscript(square,transcriptCorrige) <> NumeroDeCetteCaseDansTranscript(square,transcriptDepart)) then
                                   begin
                                     actions[nbActions] := MakeActionDeCorrection(Renumeroter,square,0,k,0);
@@ -3559,9 +3559,9 @@ label sortie;
 begin {$UNUSED mask}
 
   with gTranscriptSearch do
-    if (distanceRacine         >= 0) &
-       (distanceRacine         <= kMaxNiveauRecursionCorrectionAutomatique) &
-       (searchHistory.cardinal < kTailleMaxArbreCorrectionAutomatique) &
+    if (distanceRacine         >= 0) and
+       (distanceRacine         <= kMaxNiveauRecursionCorrectionAutomatique) and
+       (searchHistory.cardinal < kTailleMaxArbreCorrectionAutomatique) and
        (nbreNoeudsVisites      < kTailleMaxAppelsCorrectionAutomatique) then
       begin
         oldMagicCookie := magicCookie;
@@ -3591,14 +3591,14 @@ begin {$UNUSED mask}
           then { bingo !}
             PublierUneSolutionDeCorrection(distanceRacine,myTranscript,analyse^)
           else { bon, il va falloir essayer quelque chose... }
-            if (distanceRacine < profondeurArret) &
+            if (distanceRacine < profondeurArret) and
                (NombreErreurs(analyse^) <= profondeurRestante + 2) then
               with analyse^ do
                 begin
 
                   (* cases vides : on essaie de leur affecter un coup manquant *)
                   for square1 := 11 to 88 do
-                    if EstUneCaseVideDansTranscript(square1,myTranscript) &
+                    if EstUneCaseVideDansTranscript(square1,myTranscript) and
                        EstUneCaseSansChiffreDansTranscript(square1,myTranscript) then
                       begin
                         TesterEvenementPendantRechercheRecursive;
@@ -3619,7 +3619,7 @@ begin {$UNUSED mask}
 
                       dernierCoupManquantEssaye := DernierCoupPresent(analyse^) - 1;
                       if dernierCoupManquantEssaye > 68 then dernierCoupManquantEssaye := 68;
-                      if (dernierCoupManquantEssaye < 60) & (DernierCoupPresent(analyse^) >= 57) then
+                      if (dernierCoupManquantEssaye < 60) and (DernierCoupPresent(analyse^) >= 57) then
                         dernierCoupManquantEssaye := 60;
 
                       for n2 := 1 to dernierCoupManquantEssaye do
@@ -3636,7 +3636,7 @@ begin {$UNUSED mask}
                     end;
 
                   (* coups manquants : on essaye de leur affecter un doublon plausible *)
-                  if HasTranscriptErrorMask(kTranscriptCoupManquant,analyse^) &
+                  if HasTranscriptErrorMask(kTranscriptCoupManquant,analyse^) and
                      HasTranscriptErrorMask(kTranscriptCoupsDupliques,analyse^) then
                     begin
                       n := PremierCoupManquant(analyse^);
@@ -3645,8 +3645,8 @@ begin {$UNUSED mask}
                         begin
                           n1 := NumeroDeCetteCaseDansTranscript(square1, myTranscript);
 
-                          if (NombreCasesAvecCeNumero(n1, analyse^) >= 2) &
-                             ((n mod 10 = n1 mod 10) | (n div 10 = n1 div 10) | (abs(n - n1) <= 3)) then
+                          if (NombreCasesAvecCeNumero(n1, analyse^) >= 2) and
+                             ((n mod 10 = n1 mod 10) or (n div 10 = n1 div 10) or (abs(n - n1) <= 3)) then
                             begin
                               TesterEvenementPendantRechercheRecursive;
                               newTranscript := myTranscript;
@@ -3661,12 +3661,12 @@ begin {$UNUSED mask}
                     end;
 
                   (* coups illegaux : on essaie de transposer quelques coups *)
-                  if HasTranscriptErrorMask(kTranscriptCoupIllegal,analyse^) &
+                  if HasTranscriptErrorMask(kTranscriptCoupIllegal,analyse^) and
                      (nbreEchangesCoupsAutorises >= 1) then
                     begin
                       n := PremierCoupIllegal(analyse^);
 
-                      if (n >= 1) & (n <= 99) then
+                      if (n >= 1) and (n <= 99) then
                         begin
                           if not(HasTheseErrorsForThisMove(kTranscriptCoupsDupliques,analyse^,n)) then
                             begin
@@ -3675,7 +3675,7 @@ begin {$UNUSED mask}
                               n1 := n;
                               for c1 := 1 to cases[n1].cardinal do
                                 for n2 := n1 - 1 downto n1 - 2 do
-                                  if (n2 >= 1) & (n2 <= 99) then
+                                  if (n2 >= 1) and (n2 <= 99) then
                                     for c2 := 1 to cases[n2].cardinal do
                                     begin
                                       TesterEvenementPendantRechercheRecursive;
@@ -3695,7 +3695,7 @@ begin {$UNUSED mask}
                               { transposition des coups n-1 et n-2 ? }
                               n1 := n-1;
                               n2 := n-2;
-                              if (n1 >= 1) & (n1 <= 99) & (n2 >= 1) & (n2 <= 99) then
+                              if (n1 >= 1) and (n1 <= 99) and (n2 >= 1) and (n2 <= 99) then
                                 for c1 := 1 to cases[n1].cardinal do
                                   for c2 := 1 to cases[n2].cardinal do
                                     begin
@@ -3715,7 +3715,7 @@ begin {$UNUSED mask}
                               { transposition des coups n-1 et n+1 ? }
                               n1 := n-1;
                               n2 := n+1;
-                              if (n1 >= 1) & (n1 <= 99) & (n2 >= 1) & (n2 <= 99) then
+                              if (n1 >= 1) and (n1 <= 99) and (n2 >= 1) and (n2 <= 99) then
                                 for c1 := 1 to cases[n1].cardinal do
                                   for c2 := 1 to cases[n2].cardinal do
                                     begin
@@ -3736,7 +3736,7 @@ begin {$UNUSED mask}
                               n1 := n;
                               for c1 := 1 to cases[n1].cardinal do
                                 for n2 := n1 + 1 to n1 + 2 do
-                                  if (n2 >= 1) & (n2 <= 99) then
+                                  if (n2 >= 1) and (n2 <= 99) then
                                     for c2 := 1 to cases[n2].cardinal do
                                     begin
                                       TesterEvenementPendantRechercheRecursive;
@@ -3758,7 +3758,7 @@ begin {$UNUSED mask}
                                 for k := 1 to 4 do
                                   begin
                                     n2 := n1 + k*10;
-                                    if (n2 >= 1) & (n2 <= 60) then
+                                    if (n2 >= 1) and (n2 <= 60) then
                                       for c2 := 1 to cases[n2].cardinal do
                                       begin
                                         TesterEvenementPendantRechercheRecursive;
@@ -3792,7 +3792,7 @@ begin {$UNUSED mask}
 
                           dernierCoupManquantEssaye := DernierCoupPresent(analyse^) - 1;
                           if dernierCoupManquantEssaye > 68 then dernierCoupManquantEssaye := 68;
-                          if (dernierCoupManquantEssaye < 60) & (DernierCoupPresent(analyse^) >= 57) then
+                          if (dernierCoupManquantEssaye < 60) and (DernierCoupPresent(analyse^) >= 57) then
                             dernierCoupManquantEssaye := 60;
 
                           for n2 := 1 to dernierCoupManquantEssaye do
@@ -3830,7 +3830,7 @@ begin {$UNUSED mask}
                               {on cherche le premier numero au-dela de n+decalage qui a une case non vide}
                               n2 := 0;
                               for k := n+decalage to 99 do
-                                if (cases[k].cardinal > 0) & (n2 = 0) then n2 := k;
+                                if (cases[k].cardinal > 0) and (n2 = 0) then n2 := k;
                               if (n2 = 0) then n2 := n+decalage;
 
                               PublierUneCorrection(distanceRacine,MakeActionDeCorrection(IncrementAndSet,square1,cases[n2].liste[1],n+decalage,Max(decalage - placeDisponible,0)));
@@ -3848,7 +3848,7 @@ begin {$UNUSED mask}
                   numeroPremiereErreur := 0;
                   mask := kTranscriptCoupsDupliques + kTranscriptChiffreTropGrand + kTranscriptCoupsIsoles + kTranscriptCoupIllegal + kTranscriptVientDeCreerUnDoublon;
                   for n := 1 to 99 do
-                    if HasTheseErrorsForThisMove(mask,analyse^,n) & (numeroPremiereErreur <= 0) then
+                    if HasTheseErrorsForThisMove(mask,analyse^,n) and (numeroPremiereErreur <= 0) then
                       begin
                         numeroPremiereErreur := n;
                         for c1 := 1 to cases[n].cardinal do
@@ -3879,12 +3879,12 @@ var profondeurDeRecherche : SInt64;
 begin
   with gTranscriptSearch do
     begin
-      if TranscriptDoitChercherDesCorrections & not(SameTranscript(whichTranscript,transcriptDepart)) then
+      if TranscriptDoitChercherDesCorrections and not(SameTranscript(whichTranscript,transcriptDepart)) then
         begin
           ViderSuggestionsDeCorrection;
 
-          if (NombreCasesRempliesDansTranscript(whichTranscript) >= 60) |
-             ((whichTranscript.curseur.square = 88) & (whichTranscript.curseur.lateralisation = kDroite)) then
+          if (NombreCasesRempliesDansTranscript(whichTranscript) >= 60) or
+             ((whichTranscript.curseur.square = 88) and (whichTranscript.curseur.lateralisation = kDroite)) then
             begin
               ticks := TickCount;
               BeginTranscriptSearch;
@@ -3903,8 +3903,8 @@ begin
                      simuler une recherche en largeur d'abord  *)
 
                   if   (magicCookie = oldMagicCookie)
-                     & (NombreErreurs(analyseDepart^) <= kMaxNiveauRecursionCorrectionAutomatique + 2)
-                     & not(EstUnePartieLegaleEtComplete(analyseDepart^)) then
+                     and (NombreErreurs(analyseDepart^) <= kMaxNiveauRecursionCorrectionAutomatique + 2)
+                     and not(EstUnePartieLegaleEtComplete(analyseDepart^)) then
                     begin
                       for profondeurDeRecherche := 1 to kMaxNiveauRecursionCorrectionAutomatique do
                         if (magicCookie = oldMagicCookie)

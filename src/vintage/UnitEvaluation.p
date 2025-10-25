@@ -238,7 +238,7 @@ var platRecur : plateauOthello;
    }
 
 
-    { if ecrireCoupsCritiques | EstLaPositionBizarreDansEvaluation(position,coulEvaluation) then
+    { if ecrireCoupsCritiques or EstLaPositionBizarreDansEvaluation(position,coulEvaluation) then
         begin
           WritelnDansRapport('');
           WritelnDansRapport('   ………position bizarre dans EvalueCoupCritique');
@@ -569,11 +569,11 @@ begin
 				    end
 				  else evalPartielle := -penalitePourLeTrait;
 
-			  if (nbBlancs <= 3) & (nbNoirs > 13) & afraidOfWipeOut then
+			  if (nbBlancs <= 3) and (nbNoirs > 13) and afraidOfWipeOut then
 			    if (coulEvaluation = pionBlanc)
 				  then evalPartielle := evalPartielle-5000
 				  else evalPartielle := evalPartielle+5000;
-			  if (nbNoirs <= 3) & (nbBlancs > 13) & afraidOfWipeOut then
+			  if (nbNoirs <= 3) and (nbBlancs > 13) and afraidOfWipeOut then
 				if (coulEvaluation = pionNoir)
 				  then evalPartielle := evalPartielle-5000
 				  else evalPartielle := evalPartielle+5000;
@@ -633,7 +633,7 @@ begin
 
 			          evalPartielle := evalPartielle+NoteJeuCasesXPourBlanc(position,nbNoirs,nbBlancs);
 
-			          if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide)
+			          if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide)
 			            then evalPartielle := evalPartielle+valMinimisationAvantCoins*(nbBlancs-nbNoirs);
 			            {else evalPartielle := evalPartielle+valMinimisationApresCoins*(nbBlancs-nbNoirs);}
 			          evalPartielle := evalPartielle+centre;
@@ -692,7 +692,7 @@ begin
 
 			          evalPartielle := evalPartielle+NoteJeuCasesXPourNoir(position,nbNoirs,nbBlancs);
 
-			          if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide)
+			          if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide)
 			            then evalPartielle := evalPartielle+valMinimisationAvantCoins*(nbNoirs-nbBlancs);
 			            {else evalPartielle := evalPartielle+valMinimisationApresCoins*(nbNoirs-nbBlancs);}
 			          evalPartielle := evalPartielle-centre;
@@ -761,7 +761,7 @@ begin
 
 
 			     {grosse masse}
-			     if (mobiliteCoulEvaluation <= seuilMobilitePourGrosseMasse) & (evalFrontiere >= 0) then
+			     if (mobiliteCoulEvaluation <= seuilMobilitePourGrosseMasse) and (evalFrontiere >= 0) then
 			       if CalculeMobilite(coulEvaluation,position,jouable) <= 5 then
 			       begin
 			         {EssaieSetPortWindowPlateau;
@@ -802,7 +802,7 @@ begin
   if valeurAlphaBetaCoins > evalPartielle then evalPartielle := valeurAlphaBetaCoins;
 
   {
-  if (MaxApresPriseCoin <> MoinsInfini) &
+  if (MaxApresPriseCoin <> MoinsInfini) and
      (MaxApresPriseCoin < evalPartielle) then
     begin
       if MaxApresPriseCoin > (evalPartielle - valPriseCoin)
@@ -932,11 +932,11 @@ with result do
 		      then noteAleatoire := noteAleatoire mod 200
 		      else noteAleatoire := -((-noteAleatoire) mod 200);
 
-			  if (nbBlancs <= 3) & (nbNoirs > 13) then
+			  if (nbBlancs <= 3) and (nbNoirs > 13) then
 			    if (coulEvaluation = pionBlanc)
 			      then noteWipeOut := -5000
 			      else noteWipeOut := +5000;
-			  if (nbNoirs <= 3) & (nbBlancs > 13) then
+			  if (nbNoirs <= 3) and (nbBlancs > 13) then
 			    if (coulEvaluation = pionNoir)
 			      then noteWipeOut := -5000
 			      else noteWipeOut := +5000;
@@ -972,17 +972,17 @@ with result do
 			          {cases X}
 			          if (position[22] = pionNoir) then
 			            case position[11] of
-			              pionVide: if (position[12] <> pionVide) & (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[12] <> pionVide) and (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			                                                                               else noteCaseX := noteCaseX+valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[12] <> pionVide) & (position[21] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[12] =  pionVide) & (position[13] =  pionNoir) & (position[23] =  pionNoir) then aux := aux+valTrouCaseC;
-			                  if (position[21] =  pionVide) & (position[31] =  pionNoir) & (position[32] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[12] <> pionVide) and (position[21] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[12] =  pionVide) and (position[13] =  pionNoir) and (position[23] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[21] =  pionVide) and (position[31] =  pionNoir) and (position[32] =  pionNoir) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -990,17 +990,17 @@ with result do
 			            end else
 			          if (position[22] = pionBlanc) then
 			            case position[11] of
-			              pionVide: if (position[12] <> pionVide) & (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[12] <> pionVide) and (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[12] <> pionVide) & (position[21] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[12] =  pionVide) & (position[13] =  pionBlanc) & (position[23] =  pionBlanc) then aux := aux-valTrouCaseC;
-			                  if (position[21] =  pionVide) & (position[31] =  pionBlanc) & (position[32] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[12] <> pionVide) and (position[21] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[12] =  pionVide) and (position[13] =  pionBlanc) and (position[23] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[21] =  pionVide) and (position[31] =  pionBlanc) and (position[32] =  pionBlanc) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1008,17 +1008,17 @@ with result do
 			            end;
 			          if (position[27] = pionNoir)  then
 			            case position[18] of
-			              pionVide: if (position[17] <> pionVide) & (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[17] <> pionVide) and (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[17] <> pionVide) & (position[28] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[17] =  pionVide) & (position[16] =  pionNoir) & (position[26] =  pionNoir) then aux := aux+valTrouCaseC;
-			                  if (position[28] =  pionVide) & (position[38] =  pionNoir) & (position[37] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[17] <> pionVide) and (position[28] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[17] =  pionVide) and (position[16] =  pionNoir) and (position[26] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[28] =  pionVide) and (position[38] =  pionNoir) and (position[37] =  pionNoir) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1026,17 +1026,17 @@ with result do
 			            end else
 			          if (position[27] = pionBlanc) then
 			            case position[18] of
-			              pionVide: if (position[17] <> pionVide) & (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[17] <> pionVide) and (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[17] <> pionVide) & (position[28] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[17] =  pionVide) & (position[16] =  pionBlanc) & (position[26] =  pionBlanc) then aux := aux-valTrouCaseC;
-			                  if (position[28] =  pionVide) & (position[38] =  pionBlanc) & (position[37] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[17] <> pionVide) and (position[28] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[17] =  pionVide) and (position[16] =  pionBlanc) and (position[26] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[28] =  pionVide) and (position[38] =  pionBlanc) and (position[37] =  pionBlanc) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1044,17 +1044,17 @@ with result do
 			            end;
 			          if (position[72] = pionNoir)  then
 			            case position[81] of
-			              pionVide: if (position[71] <> pionVide) & (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[71] <> pionVide) and (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																															   else noteCaseX := noteCaseX+valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[71] <> pionVide) & (position[82] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[71] =  pionVide) & (position[61] =  pionNoir) & (position[62] =  pionNoir) then aux := aux+valTrouCaseC;
-			                  if (position[82] =  pionVide) & (position[83] =  pionNoir) & (position[73] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[71] <> pionVide) and (position[82] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[71] =  pionVide) and (position[61] =  pionNoir) and (position[62] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[82] =  pionVide) and (position[83] =  pionNoir) and (position[73] =  pionNoir) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1062,17 +1062,17 @@ with result do
 			            end else
 			          if (position[72] = pionBlanc) then
 			            case position[81] of
-			              pionVide: if (position[71] <> pionVide) & (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[71] <> pionVide) and (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[71] <> pionVide) & (position[82] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[71] =  pionVide) & (position[61] =  pionBlanc) & (position[62] =  pionBlanc) then aux := aux-valTrouCaseC;
-			                  if (position[82] =  pionVide) & (position[83] =  pionBlanc) & (position[73] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[71] <> pionVide) and (position[82] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[71] =  pionVide) and (position[61] =  pionBlanc) and (position[62] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[82] =  pionVide) and (position[83] =  pionBlanc) and (position[73] =  pionBlanc) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1080,17 +1080,17 @@ with result do
 			            end;
 			          if (position[77] = pionNoir) then
 			            case position[88] of
-			              pionVide: if (position[78] <> pionVide) & (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[78] <> pionVide) and (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[78] <> pionVide) & (position[87] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[78] =  pionVide) & (position[68] =  pionNoir) & (position[67] =  pionNoir) then aux := aux+valTrouCaseC;
-			                  if (position[87] =  pionVide) & (position[86] =  pionNoir) & (position[76] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[78] <> pionVide) and (position[87] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[78] =  pionVide) and (position[68] =  pionNoir) and (position[67] =  pionNoir) then aux := aux+valTrouCaseC;
+			                  if (position[87] =  pionVide) and (position[86] =  pionNoir) and (position[76] =  pionNoir) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1098,24 +1098,24 @@ with result do
 			            end else
 			          if (position[77] = pionBlanc) then
 			            case position[88] of
-			              pionVide: if (position[78] <> pionVide) & (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[78] <> pionVide) and (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionNoir,pionBlanc:
 			                begin
 			                  aux := 0;
-			                  if (position[78] <> pionVide) & (position[87] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[78] =  pionVide) & (position[68] =  pionBlanc) & (position[67] =  pionBlanc) then aux := aux-valTrouCaseC;
-			                  if (position[87] =  pionVide) & (position[86] =  pionBlanc) & (position[76] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[78] <> pionVide) and (position[87] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[78] =  pionVide) and (position[68] =  pionBlanc) and (position[67] =  pionBlanc) then aux := aux-valTrouCaseC;
+			                  if (position[87] =  pionVide) and (position[86] =  pionBlanc) and (position[76] =  pionBlanc) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
 			                end;
 			            end;
 
-			          if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide)
+			          if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide)
 			            then noteMinimisationAvant  := valMinimisationAvantCoins*(nbBlancs-nbNoirs)
 			            else noteMinimisationApres  := valMinimisationApresCoins*(nbBlancs-nbNoirs);
 			          noteCentre                    := centre;
@@ -1139,17 +1139,17 @@ with result do
 			          {cases X}
 			          if (position[22] = pionBlanc) then
 			            case position[11] of
-			              pionVide: if (position[12] <> pionVide) & (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[12] <> pionVide) and (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[12] <> pionVide) & (position[21] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[12] =  pionVide) & (position[13] =  pionBlanc) & (position[23] =  pionBlanc) then aux := aux+valTrouCaseC;
-			                  if (position[21] =  pionVide) & (position[31] =  pionBlanc) & (position[32] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[12] <> pionVide) and (position[21] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[12] =  pionVide) and (position[13] =  pionBlanc) and (position[23] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[21] =  pionVide) and (position[31] =  pionBlanc) and (position[32] =  pionBlanc) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1157,17 +1157,17 @@ with result do
 			            end else
 			          if (position[22] = pionNoir) then
 			            case position[11] of
-			              pionVide: if (position[12] <> pionVide) & (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[12] <> pionVide) and (position[21] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[12] <> pionVide) & (position[21] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[12] =  pionVide) & (position[13] =  pionNoir) & (position[23] =  pionNoir) then aux := aux-valTrouCaseC;
-			                  if (position[21] =  pionVide) & (position[31] =  pionNoir) & (position[32] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[12] <> pionVide) and (position[21] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[12] =  pionVide) and (position[13] =  pionNoir) and (position[23] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[21] =  pionVide) and (position[31] =  pionNoir) and (position[32] =  pionNoir) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1175,17 +1175,17 @@ with result do
 			            end;
 			          if (position[27] = pionBlanc)  then
 			            case position[18] of
-			              pionVide: if (position[17] <> pionVide) & (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[17] <> pionVide) and (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[17] <> pionVide) & (position[28] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[17] =  pionVide) & (position[16] =  pionBlanc) & (position[26] =  pionBlanc) then aux := aux+valTrouCaseC;
-			                  if (position[28] =  pionVide) & (position[38] =  pionBlanc) & (position[37] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[17] <> pionVide) and (position[28] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[17] =  pionVide) and (position[16] =  pionBlanc) and (position[26] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[28] =  pionVide) and (position[38] =  pionBlanc) and (position[37] =  pionBlanc) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1193,17 +1193,17 @@ with result do
 			            end else
 			          if (position[27] = pionNoir) then
 			            case position[18] of
-			              pionVide: if (position[17] <> pionVide) & (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[17] <> pionVide) and (position[28] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[17] <> pionVide) & (position[28] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[17] =  pionVide) & (position[16] =  pionNoir) & (position[26] =  pionNoir) then aux := aux-valTrouCaseC;
-			                  if (position[28] =  pionVide) & (position[38] =  pionNoir) & (position[37] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[17] <> pionVide) and (position[28] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[17] =  pionVide) and (position[16] =  pionNoir) and (position[26] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[28] =  pionVide) and (position[38] =  pionNoir) and (position[37] =  pionNoir) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1211,17 +1211,17 @@ with result do
 			            end;
 			          if (position[72] = pionBlanc)  then
 			            case position[81] of
-			              pionVide: if (position[71] <> pionVide) & (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[71] <> pionVide) and (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[71] <> pionVide) & (position[82] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[71] =  pionVide) & (position[61] =  pionBlanc) & (position[62] =  pionBlanc) then aux := aux+valTrouCaseC;
-			                  if (position[82] =  pionVide) & (position[83] =  pionBlanc) & (position[73] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[71] <> pionVide) and (position[82] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[71] =  pionVide) and (position[61] =  pionBlanc) and (position[62] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[82] =  pionVide) and (position[83] =  pionBlanc) and (position[73] =  pionBlanc) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX+valCaseX;
@@ -1229,17 +1229,17 @@ with result do
 			            end else
 			          if (position[72] = pionNoir) then
 			            case position[81] of
-			              pionVide: if (position[71] <> pionVide) & (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[71] <> pionVide) and (position[82] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[71] <> pionVide) & (position[82] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[71] =  pionVide) & (position[61] =  pionNoir) & (position[62] =  pionNoir) then aux := aux-valTrouCaseC;
-			                  if (position[82] =  pionVide) & (position[83] =  pionNoir) & (position[73] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[71] <> pionVide) and (position[82] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[71] =  pionVide) and (position[61] =  pionNoir) and (position[62] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[82] =  pionVide) and (position[83] =  pionNoir) and (position[73] =  pionNoir) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin) then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                                           else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
 			                            else noteCaseX := noteCaseX-valCaseX;
@@ -1247,17 +1247,17 @@ with result do
 			            end;
 			          if (position[77] = pionBlanc) then
 			            case position[88] of
-			              pionVide: if (position[78] <> pionVide) & (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
+			              pionVide: if (position[78] <> pionVide) and (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC+valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX+valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[78] <> pionVide) & (position[87] <> pionVide) then aux := -valCaseXPlusCoin;
-			                  if (position[78] =  pionVide) & (position[68] =  pionBlanc) & (position[67] =  pionBlanc) then aux := aux+valTrouCaseC;
-			                  if (position[87] =  pionVide) & (position[86] =  pionBlanc) & (position[76] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[78] <> pionVide) and (position[87] <> pionVide) then aux := -valCaseXPlusCoin;
+			                  if (position[78] =  pionVide) and (position[68] =  pionBlanc) and (position[67] =  pionBlanc) then aux := aux+valTrouCaseC;
+			                  if (position[87] =  pionVide) and (position[86] =  pionBlanc) and (position[76] =  pionBlanc) then aux := aux+valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin)
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin)
 			                                  then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                  else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
@@ -1266,17 +1266,17 @@ with result do
 			            end else
 			          if (position[77] = pionNoir) then
 			            case position[88] of
-			              pionVide: if (position[78] <> pionVide) & (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
+			              pionVide: if (position[78] <> pionVide) and (position[87] <> pionVide) then noteCaseXEntreCasesC := noteCaseXEntreCasesC-valCaseXEntreCasesC
 			              																																 else noteCaseX := noteCaseX-valCaseX;
 			              pionBlanc,pionNoir:
 			                begin
 			                  aux := 0;
-			                  if (position[78] <> pionVide) & (position[87] <> pionVide) then aux := valCaseXPlusCoin;
-			                  if (position[78] =  pionVide) & (position[68] =  pionNoir) & (position[67] =  pionNoir) then aux := aux-valTrouCaseC;
-			                  if (position[87] =  pionVide) & (position[86] =  pionNoir) & (position[76] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[78] <> pionVide) and (position[87] <> pionVide) then aux := valCaseXPlusCoin;
+			                  if (position[78] =  pionVide) and (position[68] =  pionNoir) and (position[67] =  pionNoir) then aux := aux-valTrouCaseC;
+			                  if (position[87] =  pionVide) and (position[86] =  pionNoir) and (position[76] =  pionNoir) then aux := aux-valTrouCaseC;
 			                  if aux <> 0 then
 			                              begin
-			                                if (aux = valCaseXPlusCoin) | (aux = -valCaseXPlusCoin)
+			                                if (aux = valCaseXPlusCoin) or (aux = -valCaseXPlusCoin)
 			                                  then noteCaseXPlusCoin := noteCaseXPlusCoin+aux
 			                                  else noteTrouCaseC := noteTrouCaseC+aux;
 			                              end
@@ -1284,7 +1284,7 @@ with result do
 			                end;
 			            end;
 
-			          if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide)
+			          if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide)
 			            then noteMinimisationAvant  := valMinimisationAvantCoins*(nbNoirs-nbBlancs)
 			            else noteMinimisationApres  := valMinimisationApresCoins*(nbNoirs-nbBlancs);
 			          noteCentre                    := -centre;
@@ -1316,7 +1316,7 @@ with result do
 			     noteMobilite := valMobiliteUnidirectionnelle*(mobiliteAmie-mobiliteEnnemie);
 
 
-			      if (mobiliteAmie <= seuilMobilitePourGrosseMasse) & ((noteFrontiere+noteEquivalentFrontiere) >= 0) then
+			      if (mobiliteAmie <= seuilMobilitePourGrosseMasse) and ((noteFrontiere+noteEquivalentFrontiere) >= 0) then
 				       if CalculeMobilite(coulEvaluation,position,jouable) <= 5 then
 				         noteGrosseMasse := -valGrosseMasse;
 			    end;  { with front do }
@@ -1390,7 +1390,7 @@ begin
       if index < 0                                       then index := index + kTailleCacheDesEvaluationsHorsContexte;
 
       with gCacheDesEvaluationsHorsContexte[index] do
-        if (whichHashKey = key) & (whichProf = prof) then
+        if (whichHashKey = key) and (whichProf = prof) then
           begin
             glastUsedIndexinSearch := index;
             FindInHistoryOfEvaluationHorsContexte := true;
@@ -1406,7 +1406,7 @@ begin
       if index < 0                                       then index := index + kTailleCacheDesEvaluationsHorsContexte;
 
       with gCacheDesEvaluationsHorsContexte[index] do
-        if (whichHashKey = key) & (whichProf = prof) then
+        if (whichHashKey = key) and (whichProf = prof) then
           begin
             glastUsedIndexinSearch := index;
             FindInHistoryOfEvaluationHorsContexte := true;

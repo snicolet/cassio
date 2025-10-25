@@ -152,7 +152,7 @@ begin
 
 
     { effacer le ruban si necessaire }
-    if effacerAussiLeRuban | (nbreCoup <= 0) | (nbreCoup >= 60) | gameOver |
+    if effacerAussiLeRuban or (nbreCoup <= 0) or (nbreCoup >= 60) or gameOver or
        (abs(ReflexData^.empties - (60 - nbreCoup)) > 10) then
       begin
         MyEraseRect(myRect);
@@ -174,7 +174,7 @@ begin
     RGBForeColor(gPurGris);
 
     { si la partie est finie, afficher le score }
-    if (nbreCoup >= 60) | gameOver then
+    if (nbreCoup >= 60) or gameOver then
       begin
         TextMode(1);
         TextFont(gCassioApplicationFont);
@@ -206,17 +206,17 @@ begin
   with affichageReflexion do
     begin
       {plus d'une demi-seconde ?}
-      forcerAffichageImmediat := forcerAffichageImmediat | ((Tickcount - tickDernierAffichageReflexion) >= 25);
+      forcerAffichageImmediat := forcerAffichageImmediat or ((Tickcount - tickDernierAffichageReflexion) >= 25);
 
       tempoRedirectionVersRapport := DoitRedirigerContenuFntreReflexionDansRapport;
       SetRedirigerContenuFntreReflexionDansRapport(false);
 
-      if doitAfficher & forcerAffichageImmediat
+      if doitAfficher and forcerAffichageImmediat
         then EcritReflexion(fonctionAppelante)
         else SetDemandeAffichageReflexionEnSuspens(true);
 
 
-      if tempoRedirectionVersRapport & ('DoSystemTask' <> fonctionAppelante) then
+      if tempoRedirectionVersRapport and ('DoSystemTask' <> fonctionAppelante) then
         begin
           SetRedirigerContenuFntreReflexionDansRapport(true);
           DumpReflexionDansRapport(fonctionAppelante);
@@ -282,7 +282,7 @@ begin
   with reflexionInfos do
     if (longClass > 0) then result := class[1].x;
 
-  if (result > 0) & (result >= 11) & (result <= 88)
+  if (result > 0) and (result >= 11) and (result <= 88)
     then GetCoupEnTeteDansReflexionInfos := result
     else GetCoupEnTeteDansReflexionInfos := 0;
 end;
@@ -393,7 +393,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
     coupStr := CoupEnString(coupAnalyse,CassioUtiliseDesMajuscules) + ' ';
     infoStr := '';
     strAux := '';
-    if (typeDonnees = ReflParfaitPhaseRechScore) |
+    if (typeDonnees = ReflParfaitPhaseRechScore) or
        (typeDonnees = ReflRetrogradeParfaitPhaseRechScore)
      then
       begin
@@ -414,7 +414,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
             infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
             onASeulementEcritDesPerdants := false;
           end;
-        if (certitude = 100) {& (note > ReflexData^.class[1].note + 8) }
+        if (certitude = 100) {and (note > ReflexData^.class[1].note + 8) }
           then infoStr := infoStr + 'É';
       end
      else
@@ -423,7 +423,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
          begin
           if (note > 0) then
             begin
-              if not(odd(note)) & (typeDonnees <> ReflRetrogradeParfaitPhaseGagnant) & (typeDonnees <> ReflParfaitPhaseGagnant)
+              if not(odd(note)) and (typeDonnees <> ReflRetrogradeParfaitPhaseGagnant) and (typeDonnees <> ReflParfaitPhaseGagnant)
                 then
                   begin
                     coupStr := coupStr + DefenseEnString(defense) + ' ';
@@ -434,13 +434,13 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                 else
                   begin
 {gagnant}           infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,7);
-                    if (note <>  + 1) & (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')';
+                    if (note <>  + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')';
                     onASeulementEcritDesPerdants := false;
                   end;
             end;
           if note < 0 then
             begin
-              if not(odd(note)) & (typeDonnees <> ReflRetrogradeParfaitPhaseGagnant) & (typeDonnees <> ReflParfaitPhaseGagnant)
+              if not(odd(note)) and (typeDonnees <> ReflRetrogradeParfaitPhaseGagnant) and (typeDonnees <> ReflParfaitPhaseGagnant)
                 then
                   begin
 {perd de ^0}        coupStr := coupStr + DefenseEnString(defense) + ' ';
@@ -452,7 +452,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                   begin
                     coupStr := coupStr + DefenseEnString(defense) + ' ';
 {perdant}           infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,9);
-                    if (note <> -1) & (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')';
+                    if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')';
                     typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                   end;
              end;
@@ -470,15 +470,15 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
           then
             begin
               peutAfficherLeTemps := false;
-              estLeDeuxiemeCoupDuClassement := (numLigne = 2) & (analyseRetrograde.enCours) & (ReflexData^.class[1].x = ReflexData^.coupAnalyseRetrograde);
+              estLeDeuxiemeCoupDuClassement := (numLigne = 2) and (analyseRetrograde.enCours) and (ReflexData^.class[1].x = ReflexData^.coupAnalyseRetrograde);
               case typeDonnees of
                 ReflGagnant,ReflRetrogradeGagnant,
                 ReflRetrogradeParfaitPhaseGagnant,ReflParfaitPhaseGagnant:
-                  if (note >= -1) | estLeDeuxiemeCoupDuClassement
+                  if (note >= -1) or estLeDeuxiemeCoupDuClassement
                     then
 		                  begin
 		                    coupStr := coupStr + DefenseEnString(defense) + '  ';
-		                    if ((note = kValeurSpecialeDansReflPourPerdant) | ((note = -32767) & estLeDeuxiemeCoupDuClassement & (ReflexData^.class[1].note < 0)))
+		                    if ((note = kValeurSpecialeDansReflPourPerdant) or ((note = -32767) and estLeDeuxiemeCoupDuClassement and (ReflexData^.class[1].note < 0)))
 		                      then
 		                        begin
 		                          infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,9);    {perdant}
@@ -498,7 +498,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		                  end;
 		            ReflParfait,ReflParfaitPhaseRechScore,
 		            ReflRetrogradeParfait,ReflRetrogradeParfaitPhaseRechScore :
-		              if (note >= -64) | estLeDeuxiemeCoupDuClassement
+		              if (note >= -64) or estLeDeuxiemeCoupDuClassement
                     then
 		                  begin
 		                    coupStr := coupStr + DefenseEnString(defense) + '  ';
@@ -537,18 +537,18 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                       begin
                         coupStr := coupStr + DefenseEnString(defense) + ' ';
                         infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,9);  {perdant}
-                        if (note <> -1) & (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')' ;
+                        if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')' ;
                         typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                       end
                     else
-		                  if (note > 0) & (ReflexData^.class[1].note <= 0)
+		                  if (note > 0) and (ReflexData^.class[1].note <= 0)
 		                    then
 		                      begin
 		                        if odd(note)
 		                          then
 		                            begin  {gagnant}
 		                              infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,7);
-		                              if (note <>   + 1) & (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')' ;
+		                              if (note <>   + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')' ;
 		                              onASeulementEcritDesPerdants := false;
 		                            end
 		                          else
@@ -568,7 +568,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		                              then infoStr := infoStr + '(+' + NumEnString(note) + ')';
 		                            if note = 0
 		                              then infoStr := infoStr + '(' + NumEnString(note) + ')';
-		                            if (note < 0) & (Abs(note) < 1000)
+		                            if (note < 0) and (Abs(note) < 1000)
 		                              then infoStr := infoStr + '(' + NumEnString(note) + ')';
 		                          end;
                             typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
@@ -616,20 +616,20 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
           then
             infoStr := infoStr + pointInterrogation
           else
-				    if (certitude > 0) & (certitude < 100) then
+				    if (certitude > 0) and (certitude < 100) then
 				      begin
 				        infoStr := infoStr + pointInterrogation;
 				        strAux := strAux + ' [' + NumEnString(certitude) + '%]';
 				      end;
-        if (delta >= 0) & (delta < kDeltaFinaleInfini) & (Pos('?',infoStr) = 0)
+        if (delta >= 0) and (delta < kDeltaFinaleInfini) and (Pos('?',infoStr) = 0)
           then infoStr := infoStr + pointInterrogation;
 
-        if not(afficheeCommeNoteDeMilieu | (delta = kDeltaFinaleInfini) | (delta = kTypeMilieuDePartie))
+        if not(afficheeCommeNoteDeMilieu or (delta = kDeltaFinaleInfini) or (delta = kTypeMilieuDePartie))
           then strAux := strAux + ' [' + DeltaFinaleEnChaine(delta) + ']';
 
-        if afficheGestionTemps & peutAfficherLeTemps then
+        if afficheGestionTemps and peutAfficherLeTemps then
           begin
-		        if (certitude <= 0) | (certitude >= 100)
+		        if (certitude <= 0) or (certitude >= 100)
 		          then strAux := strAux + ' (' + NumEnString((30 + ReflexData^.class[numligne].temps) div 60) + ' s)'
 		          else
 		            begin
@@ -638,7 +638,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		            end;
 		      end;
 
-		    {if (certitude > 0) & (certitude < 100) & (typeDeFleche = kFlecheEtroite) then
+		    {if (certitude > 0) and (certitude < 100) and (typeDeFleche = kFlecheEtroite) then
 			      typeDeFleche := kFlecheTresEtroite;
 			   }
       end;
@@ -685,7 +685,7 @@ var afficheeCommeNoteDeMilieu : boolean;
   var aux : String255;
   begin
     aux := ReadStringFromRessource(TextesReflexionID,7);        {gagnant}
-		if (note <>  + 1) & (Abs(note) < 1000) then aux := aux + '(+' + NumEnString(note) + ')';
+		if (note <>  + 1) and (Abs(note) < 1000) then aux := aux + '(+' + NumEnString(note) + ')';
 		ChaineGagnantAvecScore := aux;
   end;
 
@@ -693,7 +693,7 @@ var afficheeCommeNoteDeMilieu : boolean;
   var aux : String255;
   begin
     aux := ReadStringFromRessource(TextesReflexionID,9);  {perdant}
-		if (note <> -1) & (Abs(note) < 1000) then aux := aux + '(' + NumEnString(note) + ')';
+		if (note <> -1) and (Abs(note) < 1000) then aux := aux + '(' + NumEnString(note) + ')';
 		ChainePerdantAvecScore := aux;
   end;
 
@@ -717,14 +717,14 @@ begin
 		            end;
 		      end
 		    else
-    		  if (note = kValeurSpecialeDansReflPourPerdant) &
-    		     (delta <> kTypeMilieuDePartie) &
-    		     ((typeDonnees = ReflParfait) |
-    		      (typeDonnees = ReflParfaitExhaustif) |
-    		   { (typeDonnees  = ReflParfaitPhaseGagnant) |}
-    		     (typeDonnees  = ReflParfaitPhaseRechScore) |
-    		     (typeDonnees  = ReflRetrogradeParfait) |
-    		   { (typeDonnees  = ReflRetrogradeParfaitPhaseGagnant)|}
+    		  if (note = kValeurSpecialeDansReflPourPerdant) and
+    		     (delta <> kTypeMilieuDePartie) and
+    		     ((typeDonnees = ReflParfait) or
+    		      (typeDonnees = ReflParfaitExhaustif) or
+    		   { (typeDonnees  = ReflParfaitPhaseGagnant) or}
+    		     (typeDonnees  = ReflParfaitPhaseRechScore) or
+    		     (typeDonnees  = ReflRetrogradeParfait) or
+    		   { (typeDonnees  = ReflRetrogradeParfaitPhaseGagnant)or}
     		     (typeDonnees  = ReflRetrogradeParfaitPhaseRechScore))
     		    then
     		      begin
@@ -751,7 +751,7 @@ begin
     				           begin
     				             if (nroLigne <= nbLignesScoresCompletsCetteProf) then s2 := Concat(' ',NoteEnStringLocal(note)) else
     					           if (nroLigne <= nbCoupsEnTete) then s2 := Concat(' ',NoteEnStringLocal(note)) else
-    					           if (note = noteLignePrecedente) & (nroLigne > 1)
+    					           if (note = noteLignePrecedente) and (nroLigne > 1)
     					               then s2 := Concat(' ',ReadStringFromRessource(TextesReflexionID,16))  {pas mieux}
     					               else s2 := Concat(' ',NoteEnStringLocal(note));
     					           afficheeCommeNoteDeMilieu := true;
@@ -769,7 +769,7 @@ begin
     				       if (nroLigne = 1)
     				         then
     				           begin
-    				             if odd(note) | (typeDonnees = ReflParfaitPhaseGagnant)
+    				             if odd(note) or (typeDonnees = ReflParfaitPhaseGagnant)
     				               then
     				                 begin
     				                   if note < 0 then
@@ -811,10 +811,10 @@ begin
     				             if odd(note)
     				               then
     				                 begin
-    				                   if (note = noteLignePrecedente) | (note = ReflexData^.class[1].note)
+    				                   if (note = noteLignePrecedente) or (note = ReflexData^.class[1].note)
     				                     then
     				                       begin
-    				                         if (note = -1) & (typeDonnees = ReflParfaitPhaseGagnant)
+    				                         if (note = -1) and (typeDonnees = ReflParfaitPhaseGagnant)
       				                         then
       				                           begin
       				                             s2 := ReadStringFromRessource(TextesReflexionID,9);    {perdant}
@@ -845,7 +845,7 @@ begin
     				                 end
     				               else
     				                 begin
-    				                   if (note = noteLignePrecedente) | (note = ReflexData^.class[1].note) then
+    				                   if (note = noteLignePrecedente) or (note = ReflexData^.class[1].note) then
     				                     begin
     				                       if onASeulementEcritDesPerdants
                         		         then
@@ -896,7 +896,7 @@ begin
     				           end
     				         else
     				           begin
-    		{pas mieux}      if ((note = noteLignePrecedente) | (note = ReflexData^.class[1].note)) & (note >= 0)
+    		{pas mieux}      if ((note = noteLignePrecedente) or (note = ReflexData^.class[1].note)) and (note >= 0)
     		                   then
     		                      begin
     		                        s2 := ReadStringFromRessource(TextesReflexionID,16);
@@ -918,7 +918,7 @@ begin
     		                               end;
     				           end;
     				     ReflRetrogradeParfait,ReflRetrogradeParfaitPhaseGagnant,ReflRetrogradeParfaitPhaseRechScore:
-    				       if (coup = coupAnalyseRetrograde) & not(odd(scoreAnalyseRetrograde))
+    				       if (coup = coupAnalyseRetrograde) and not(odd(scoreAnalyseRetrograde))
     				         then
     				           begin
     		{perd de ^0}     if scoreAnalyseRetrograde < 0 then
@@ -942,7 +942,7 @@ begin
     							       if (nroLigne = 1)
     							         then
     							           begin
-    							             if odd(note) | (typeDonnees = ReflRetrogradeParfaitPhaseGagnant)
+    							             if odd(note) or (typeDonnees = ReflRetrogradeParfaitPhaseGagnant)
     							               then
     							                 begin
     		{perdant(-X)}			           if note < 0 then
@@ -981,10 +981,10 @@ begin
     							           end
     							         else
     							           begin
-    							             if (note = noteLignePrecedente) | (note = ReflexData^.class[1].note)
+    							             if (note = noteLignePrecedente) or (note = ReflexData^.class[1].note)
     							             then
     							               begin
-    							                 if odd(note) & (note < 0) & (note = -1)
+    							                 if odd(note) and (note < 0) and (note = -1)
     		{perdant}                    then
     		                               s2 := ReadStringFromRessource(TextesReflexionID,9)
     		{pas mieux}                  else
@@ -1014,7 +1014,7 @@ begin
     							                   end
     							                 else
     							                   begin
-      		{pas mieux}                  if (note > noteLignePrecedente) & (note = ReflexData^.class[1].note) then
+      		{pas mieux}                  if (note > noteLignePrecedente) and (note = ReflexData^.class[1].note) then
       		                               begin
       		                                 s2 := ReadStringFromRessource(TextesReflexionID,16);
       		                                 onASeulementEcritDesPerdants := false;
@@ -1076,17 +1076,17 @@ begin
     				       s2 := '';
     				   end; {case}
 
-    		   if (s2 <> '') & not(ASeulementCeCaractere(' ',s2)) then
+    		   if (s2 <> '') and not(ASeulementCeCaractere(' ',s2)) then
     		     begin
 
-    		       if (delta = kTypeMilieuDePartie) & not(afficheeCommeNoteDeMilieu)
+    		       if (delta = kTypeMilieuDePartie) and not(afficheeCommeNoteDeMilieu)
     		           then
                      begin
     {pas explorŽ}      s2 := ReadStringFromRessource(TextesReflexionID,21);
                        onASeulementEcritDesPerdants := false;
                      end
     		           else
-      	             if not((delta = kDeltaFinaleInfini) | (delta = kTypeMilieuDePartie))
+      	             if not((delta = kDeltaFinaleInfini) or (delta = kTypeMilieuDePartie))
     		               then s2 := s2 + '  ['+DeltaFinaleEnChaine(delta)+']';
 
     		       if avecFleche
@@ -1115,7 +1115,7 @@ var yposition,xposition,ypositionDebutListe,j : SInt16;
    procedure UpdateNoteDerniereLigneAffichee;
    begin
      with ReflexData^ do
-       if (class[j].x = coupAnalyseRetrograde) & not(odd(scoreAnalyseRetrograde))
+       if (class[j].x = coupAnalyseRetrograde) and not(odd(scoreAnalyseRetrograde))
          then noteDerniereLigneAffichee := scoreAnalyseRetrograde
          else
            if class[j].note > -30000 then
@@ -1124,13 +1124,13 @@ var yposition,xposition,ypositionDebutListe,j : SInt16;
 
 
 begin
- if windowReflexOpen & (ReflexData^.longClass <= 0) then EffaceReflexion(HumCtreHum) else
- if windowReflexOpen & (ReflexData^.longClass > 0) then
+ if windowReflexOpen and (ReflexData^.longClass <= 0) then EffaceReflexion(HumCtreHum) else
+ if windowReflexOpen and (ReflexData^.longClass > 0) then
   begin
     ChainePourLigneVide := '  =>              ';
 
     redirectionVersRapport := DoitRedirigerContenuFntreReflexionDansRapport;
-    if redirectionVersRapport & (fonctionAppelante = 'DoSystemTask')
+    if redirectionVersRapport and (fonctionAppelante = 'DoSystemTask')
       then exit(EcritReflexion);
 
     GetPort(oldport);
@@ -1160,11 +1160,11 @@ begin
 		           Lineto(QDGetPortBound.right - 1,yposition+kHauteurRubanReflexion);
              end;
 
-         if (typeDonnees = ReflMilieu) |
-            (typeDonnees = ReflMilieuExhaustif) |
-            (typeDonnees = ReflAnnonceParfait) |
-            (typeDonnees = ReflAnnonceGagnant) |
-            (typeDonnees = ReflTriGagnant) |
+         if (typeDonnees = ReflMilieu) or
+            (typeDonnees = ReflMilieuExhaustif) or
+            (typeDonnees = ReflAnnonceParfait) or
+            (typeDonnees = ReflAnnonceGagnant) or
+            (typeDonnees = ReflTriGagnant) or
             (typeDonnees = ReflTriParfait)
            then espaceEntreCoup := '  '
            else espaceEntreCoup := '  ';
@@ -1203,7 +1203,7 @@ begin
            ReflMilieu,
            ReflMilieuExhaustif                : begin
                                                   s2 := ReadStringFromRessource(TextesReflexionID,5); {'milieu de partie, profondeur = '}
-                                                  if (prof + 1 > empties) & CassioIsUsingAnEngine(numeroEngine)
+                                                  if (prof + 1 > empties) and CassioIsUsingAnEngine(numeroEngine)
                                                     then
                                                       begin
                                                         s2 := ReplaceStringByStringInString('profondeur = ','prof = ',s2);
@@ -1226,7 +1226,7 @@ begin
 
          RGBForeColor(gPurNoir);
 
-         if (typeDonnees = ReflTriGagnant) |
+         if (typeDonnees = ReflTriGagnant) or
             (typeDonnees = ReflTriParfait)
            then
 	           begin
@@ -1309,11 +1309,11 @@ begin
                  ConstruitChaineLigneReflexion(j,class[j].x,class[j].note,class[j].delta,noteDerniereLigneAffichee,true,s2,onASeulementEcritDesPerdants);
                  UpdateNoteDerniereLigneAffichee;
 
-                 if afficheGestionTemps & (s2 <> ChainePourLigneVide)
+                 if afficheGestionTemps and (s2 <> ChainePourLigneVide)
                    then s3 := ' (' + NumEnString((30+class[j].temps) div 60) + ' s)'
                    else s3 := '';
                  s := CoupEnString(class[j].x,CassioUtiliseDesMajuscules);
-                 if (class[j].theDefense >= 11) & (class[j].theDefense <= 88) & (prof + 1 <> 1)
+                 if (class[j].theDefense >= 11) and (class[j].theDefense <= 88) and (prof + 1 <> 1)
                    then s1 := DefenseEnString(class[j].theDefense)
                    else s1 := '    ';
                  s := s + espaceEntreCoup + s1 + s2 + s3;
@@ -1356,24 +1356,24 @@ begin
                      begin
                        if (j <= nbCoupsEnTete) then s2 := NoteEnString(class[j].note,false,1,2) else
                        if (j <= nbLignesScoresCompletsProfPrecedente) then s2 := NoteEnString(class[j].note,false,1,2) else
-                       if (class[j].note = class[j-1].note) | ((j = IndexCoupEnCours + 1) & ((j = longClass) | (class[j].note = class[j + 1].note)))
+                       if (class[j].note = class[j-1].note) or ((j = IndexCoupEnCours + 1) and ((j = longClass) or (class[j].note = class[j + 1].note)))
                          then s2 := CharToString(' ')+ReadStringFromRessource(TextesReflexionID,16)          {pas mieux}
                          else s2 := NoteEnString(class[j].note,false,1,2);
                      end;
 
-                 if (typeDonnees = ReflMilieu) |
-                    (typeDonnees = ReflMilieuExhaustif) |
-                    (typeDonnees = ReflAnnonceParfait) |
-                    (typeDonnees = ReflAnnonceGagnant) |
-                    (typeDonnees = ReflTriGagnant) |
+                 if (typeDonnees = ReflMilieu) or
+                    (typeDonnees = ReflMilieuExhaustif) or
+                    (typeDonnees = ReflAnnonceParfait) or
+                    (typeDonnees = ReflAnnonceGagnant) or
+                    (typeDonnees = ReflTriGagnant) or
                     (typeDonnees = ReflTriParfait) then
                    if (class[j].note <= -30000) then
                      s2 := '             ';
-                 if afficheGestionTemps & (s2 <> '             ')
+                 if afficheGestionTemps and (s2 <> '             ')
                    then s3 := ' (' + NumEnString((30 + class[j].temps) div 60) + ' s)'
                    else s3 := '';
                  s := CoupEnString(class[j].x,CassioUtiliseDesMajuscules);
-                 if (class[j].theDefense >= 11) & (class[j].theDefense <= 88)
+                 if (class[j].theDefense >= 11) and (class[j].theDefense <= 88)
                    then s1 := DefenseEnString(class[j].theDefense)+'  => '
                    else s1 := '    '+'  => ';
                  s := s + espaceEntreCoup + s1 + s2 + s3;
@@ -1382,14 +1382,14 @@ begin
                  if redirectionVersRapport
                    then
                      begin
-                       if (class[j].x >= 11) & (class[j].x <= 88) & (prof <> 0) then
+                       if (class[j].x >= 11) and (class[j].x <= 88) and (prof <> 0) then
                          WritelnDansRapport(s)
                      end
                    else
                      begin
                        MyEraseRect(lignerect);
                        MyEraseRectWithColor(lignerect,JauneCmd,blackPattern,'');
-                       if (class[j].x >= 11) & (class[j].x <= 88) & (prof <> 0) then
+                       if (class[j].x >= 11) and (class[j].x <= 88) and (prof <> 0) then
                          if (class[j].x = coupAnalyseRetrograde)
       	                   then
       	                     begin
@@ -1444,22 +1444,22 @@ begin
   bonPourAfficher := false;
   ChoixX := 44;
   MeilleurDef := 44;
-  ok := not(gameOver) & (nbreCoup < 60) & (interruptionReflexion = pasdinterruption);
-  ok := ok & (not(CassioEstEnModeSolitaire) | (AQuiDeJouer = -couleurMacintosh));
+  ok := not(gameOver) and (nbreCoup < 60) and (interruptionReflexion = pasdinterruption);
+  ok := ok and (not(CassioEstEnModeSolitaire) or (AQuiDeJouer = -couleurMacintosh));
   if ok then for i := 1 to nbreCoup do
-                 ok := (ok & (GetNiemeCoupPartieCourante(i) = partie^^[i].coupParfait));
-  if ok then ok := (ok & partie^^[nbreCoup + 1].optimal);
+                 ok := (ok and (GetNiemeCoupPartieCourante(i) = partie^^[i].coupParfait));
+  if ok then ok := (ok and partie^^[nbreCoup + 1].optimal);
   if ok then
     begin
       coup := partie^^[nbreCoup + 1].coupParfait;
       aux := partie^^[nbreCoup + 2].coupParfait;
-      if (coup < 11) | (coup > 88) then ok := false;
-      if ok & possibleMove[coup]
+      if (coup < 11) or (coup > 88) then ok := false;
+      if ok and possibleMove[coup]
          then
            begin
              ChoixX := coup;
              if partie^^[nbreCoup + 2].optimal then
-               if (aux >= 11) & (aux <= 88) then
+               if (aux >= 11) and (aux <= 88) then
                  MeilleurDef := aux;
            end
          else
@@ -1472,8 +1472,8 @@ begin
      for i := nbreCoup + 1 to 60 do
        begin
          coup := partie^^[i].coupParfait;
-         if (coup >= 11) & (coup <= 88) then
-           ligneOptimaleJusquaLaFin := ligneOptimaleJusquaLaFin & partie^^[i].optimal;
+         if (coup >= 11) and (coup <= 88) then
+           ligneOptimaleJusquaLaFin := ligneOptimaleJusquaLaFin and partie^^[i].optimal;
 
          {
          WriteNumDansRapport('i = ',i);
@@ -1494,12 +1494,12 @@ begin
              for i := nbreCoup + 1 to 60 do
                begin
                  coup := partie^^[i].coupParfait;
-                 if ((coup < 11) | (coup > 88)) & (GetTraitOfPosition(position) <> pionVide) then
+                 if ((coup < 11) or (coup > 88)) and (GetTraitOfPosition(position) <> pionVide) then
                    begin
                      ligneOptimaleJusquaLaFin := false;
                      coupPossible := false;
                    end;
-                 if coupPossible & (coup >= 11) & (coup <= 88) then
+                 if coupPossible and (coup >= 11) and (coup <= 88) then
                    begin
                      coupPossible := UpdatePositionEtTrait(position,coup);
                      if coupPossible then SetCoupDansMeilleureSuite(i-(nbreCoup + 1), coup);
@@ -1546,17 +1546,17 @@ begin
              coup := GetOthelloSquareOfProperty(liste2^.head);
 
 
-             if ((coup < 11) | (coup > 88)) & (GetTraitOfPosition(position) <> pionVide)
+             if ((coup < 11) or (coup > 88)) and (GetTraitOfPosition(position) <> pionVide)
                then ok := false;
 
-             if ok & (coup >= 11) & (coup <= 88) then
+             if ok and (coup >= 11) and (coup <= 88) then
                begin
                  ok := UpdatePositionEtTrait(position,coup);
                  if ok then SetCoupDansMeilleureSuite(i-(nbreCoup + 1), coup);
                end;
 
              liste2 := liste2^.tail;
-             ok := ok & (liste2 <> NIL)
+             ok := ok and (liste2 <> NIL)
            end;
 
 
@@ -1612,8 +1612,8 @@ procedure EssayeAfficherMeilleureSuiteParArbreDeJeu;
 var foo1, foo2 : SInt32;
     fooBool : boolean;
 begin
-  if (interruptionReflexion = pasdinterruption) | vaDepasserTemps then
-    if HumCtreHum & not(CassioEstEnModeSolitaire) then
+  if (interruptionReflexion = pasdinterruption) or vaDepasserTemps then
+    if HumCtreHum and not(CassioEstEnModeSolitaire) then
       begin
         {on essaye d'afficher la meilleure suite, si on la connait par l'arbre de jeu}
 
@@ -1715,7 +1715,7 @@ var i,coup : SInt16;
         begin
           result := '';
           i := indexDebut;
-          while (GetCoupDansMeilleureSuite(i) <> 0) & (i < indexFin) & (i <= kNbMaxNiveaux) do
+          while (GetCoupDansMeilleureSuite(i) <> 0) and (i < indexFin) and (i <= kNbMaxNiveaux) do
 		        begin
 		         coup := GetCoupDansMeilleureSuite(i);
 		         if coup <> 0 then
@@ -1736,7 +1736,7 @@ begin
  {WritelnStringAndBoolDansRapport('  =>  remplacerScoreIncompletParEtc = ',remplacerScoreIncompletParEtc);}
 
  chaineMeilleureSuite := '';
- if (Abs(meilleureSuiteInfos.numeroCoup - nbreCoup) >= 20) | (nbreCoup = 0)
+ if (Abs(meilleureSuiteInfos.numeroCoup - nbreCoup) >= 20) or (nbreCoup = 0)
    then
      VideMeilleureSuiteInfos
    else
@@ -1767,23 +1767,23 @@ begin
                 end;
 
               forcerDoitAfficherSi := false;
-              if (statut = ToutEstPerdant) |
-                 (statut = ToutEstProbablementPerdant) |
-                 (statut = Nulle) |
-                 (statut = VictoireBlanche) |
+              if (statut = ToutEstPerdant) or
+                 (statut = ToutEstProbablementPerdant) or
+                 (statut = Nulle) or
+                 (statut = VictoireBlanche) or
                  (statut = VictoireNoire)
                 then forcerDoitAfficherSi := true;
 
               forcerNePasAfficherSi := false;
-              if (nbreCoup > finDePartieOptimale) &
-                 (phaseDeLaPartie >= phaseFinale) &
-                 ((statut = ReflAnnonceGagnant) |
-                  (statut = ReflAnnonceParfait) |
+              if (nbreCoup > finDePartieOptimale) and
+                 (phaseDeLaPartie >= phaseFinale) and
+                 ((statut = ReflAnnonceGagnant) or
+                  (statut = ReflAnnonceParfait) or
                   (statut = NeSaitPas))
                 then forcerNePasAfficherSi := true;
 
-              doitAfficherSi := ((numeroCoup-2 <= finDePartieOptimale) &
-                                 (nbreCoup <= finDePartieOptimale) &
+              doitAfficherSi := ((numeroCoup-2 <= finDePartieOptimale) and
+                                 (nbreCoup <= finDePartieOptimale) and
                                  (nbreCoup = numeroCoup-2));
 
               (* WritelnStringAndBoolDansRapport('au tout dŽbut, doitAfficherSi = ',doitAfficherSi); *)
@@ -1803,13 +1803,13 @@ begin
               {doitAfficherNumeroCoup := (phaseDeLaPartie < phaseFinale);}
               doitAfficherNumeroCoup := avecNumeroPremierCoup;
 
-              if RefleSurTempsJoueur &
-                 (statut <> ReflAnnonceGagnant) &
+              if RefleSurTempsJoueur and
+                 (statut <> ReflAnnonceGagnant) and
                  (statut <> ReflAnnonceParfait) then
               begin
                 coup := GetCoupDansMeilleureSuite(-1);
-                if (coup < 11) | (coup > 88)  then coup := 44;
-                if doitAfficherSi & partie^^[numeroCoup-1].optimal & (partie^^[numeroCoup-1].coupParfait = coup)
+                if (coup < 11) or (coup > 88)  then coup := 44;
+                if doitAfficherSi and partie^^[numeroCoup-1].optimal and (partie^^[numeroCoup-1].coupParfait = coup)
                   then doitAfficherSi := false;
                 if forcerNePasAfficherSi then doitAfficherSi := false;
                 if forcerDoitAfficherSi then doitAfficherSi := true;
@@ -1847,9 +1847,9 @@ begin
                   end;
               end;
 
-              if (statut = ToutEstPerdant) |
-                 (statut = ReflAnnonceGagnant) |
-                 (statut = ReflAnnonceParfait) |
+              if (statut = ToutEstPerdant) or
+                 (statut = ReflAnnonceGagnant) or
+                 (statut = ReflAnnonceParfait) or
                  (statut = ToutEstProbablementPerdant)
                 then
                   begin
@@ -1880,15 +1880,15 @@ begin
                 else
                   begin
 
-                    if doitAfficherNumeroCoup &
-                       not((Statut = NeSaitPas) & (phaseDeLaPartie >= phaseFinale)) then
+                    if doitAfficherNumeroCoup and
+                       not((Statut = NeSaitPas) and (phaseDeLaPartie >= phaseFinale)) then
                       begin
                         s1 := NumEnString(numeroCoup);
                         chaineMeilleureSuite := chaineMeilleureSuite + s1 + CharToString('.');
                       end;
 
                     coup := GetCoupDansMeilleureSuite(0);
-                    if (coup >= 11) & (coup <= 88) then
+                    if (coup >= 11) and (coup <= 88) then
                       begin
                         if enMajuscules
                           then s := CoupEnStringEnMajuscules(coup)
@@ -1901,9 +1901,9 @@ begin
 	                      begin
 	                        chaineMeilleureSuite := chaineMeilleureSuite + SuiteDesCoups(1,kNbMaxNiveaux);
 
-	                        if avecScore & (phaseDeLaPartie >= phaseFinale) & (score.noir + score.blanc > 0) then
+	                        if avecScore and (phaseDeLaPartie >= phaseFinale) and (score.noir + score.blanc > 0) then
 	                          begin
-		                          if remplacerScoreIncompletParEtc & (score.noir + score.blanc < 64)
+		                          if remplacerScoreIncompletParEtc and (score.noir + score.blanc < 64)
 		                            then
 		                              begin
 		                                if (score.noir + score.blanc < 64)
@@ -1933,8 +1933,8 @@ begin
                                  then s := ReadStringFromRessource(TextesPlateauID,13)  {annule}
                                  else
                                    begin
-                                     if ((statut = VictoireNoire) & (couleur = pionNoir)) |
-                                        ((statut = VictoireBlanche) & (couleur = pionBlanc))
+                                     if ((statut = VictoireNoire) and (couleur = pionNoir)) or
+                                        ((statut = VictoireBlanche) and (couleur = pionBlanc))
                                         then s := ReadStringFromRessource(TextesPlateauID,14)  {est gagnant}
                                         else s := ReadStringFromRessource(TextesPlateauID,15); {est perdant}
                                    end;
@@ -2051,7 +2051,7 @@ var marge,a : SInt32;
     ligneRect : rect;
 begin
 
- if (Abs(meilleureSuiteInfos.numeroCoup-nbreCoup) >= 20) | (nbreCoup = 0)
+ if (Abs(meilleureSuiteInfos.numeroCoup-nbreCoup) >= 20) or (nbreCoup = 0)
    then
      begin
        DetruitMeilleureSuite;
@@ -2122,7 +2122,7 @@ begin
       if (Pos(s,GetMeilleureSuite) <= 0) then SetMeilleureSuite(s);
       phaseDeLaPartie := tempPhase;
     end;
-  if afficheMeilleureSuite & ok then EcritMeilleureSuite;
+  if afficheMeilleureSuite and ok then EcritMeilleureSuite;
 end;
 
 

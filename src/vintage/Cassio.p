@@ -74,7 +74,7 @@ USES
          plutil Cassio.info.plist
      - Fermer le fichier Cassio.info.plist
      - L'ouvrir dans Tex-Edit Plus, de Trans-Tex Software
-     - Tout selectionner, puis Edition->Couper&Coller spŽcial->Copier sans style
+     - Tout selectionner, puis Edition->CouperandColler spŽcial->Copier sans style
      - Coller le presse-papier dans la ressource plst 0 dans Resedit, sauvegarder
      - Construire Cassio dans CodeWarrior
      - Lancer Cassio depuis le Finder
@@ -1104,7 +1104,7 @@ begin
 
   if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  initialisation : avant HauteurChaqueLigneDansListe');
 
-  if gVersionJaponaiseDeCassio & gHasJapaneseScript
+  if gVersionJaponaiseDeCassio and gHasJapaneseScript
     then HauteurChaqueLigneDansListe := 14
     else HauteurChaqueLigneDansListe := 12;
 
@@ -1139,7 +1139,7 @@ begin
   with iconisationDeCassio do
     begin
       (*
-      if gIsRunningUnderMacOSX | gWindowsHaveThickBorders
+      if gIsRunningUnderMacOSX or gWindowsHaveThickBorders
         then LargeurFenetreIconisation := 89
         else LargeurFenetreIconisation := 93;
       *)
@@ -1384,7 +1384,7 @@ begin
   if nbCoupsEnTete > 1
     then MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),NumEnString(nbCoupsEnTete),'','',''))
     else MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ReadStringFromRessource(MenusChangeantsID,18));
-  if gVersionJaponaiseDeCassio & gHasJapaneseScript then
+  if gVersionJaponaiseDeCassio and gHasJapaneseScript then
     NePasUtiliserLeGrasFenetreOthellier := true;  {on forcer cela}
 
   AjusteCadenceMin(GetCadence);
@@ -1439,7 +1439,7 @@ begin
   CommentaireSolitaire^^ := '';
   SetMeilleureSuite('');
   MeilleureSuiteEffacee := true;
-  DerniereChaineComplementation^^ := '@&µ™¹¦Ç‚Ô';
+  DerniereChaineComplementation^^ := '@andµ™¹¦Ç‚Ô';
   TypeDerniereComplementation := 0;
 
 
@@ -1524,7 +1524,7 @@ begin
 
   NoUpdateWindowPlateau;
   PrepareNouvellePartie(false);
-  if (traductionMoisTournoi < 1) | (traductionMoisTournoi > 3)
+  if (traductionMoisTournoi < 1) or (traductionMoisTournoi > 3)
     then traductionMoisTournoi := SucrerPurementEtSimplement;
   dernierTick := TickCount;
 
@@ -1572,10 +1572,10 @@ begin
 
 
 
-  if GetAvecAffichageNotesSurCases(kNotesDeCassio) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
+  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
      then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode + kNotesCassioSurLesCases);
 
-  if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+  if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
     then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNotesCassioSurLesCases);
 
 
@@ -1641,7 +1641,7 @@ begin
 
 
   // This will force Cassio to copy its private fonts to ~/Library/Fonts/
-  // myFontID := GetCassioFontNum('aaaaaaa-$&@%$!¤');
+  // myFontID := GetCassioFontNum('aaaaaaa-$and@%$!¤');
 
 
 
@@ -1681,7 +1681,7 @@ begin
     if not(Quitter) then
       if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
 
-    if not(Quitter | enSetUp | enRetour) then
+    if not(Quitter or enSetUp or enRetour) then
       if (FrontWindow = NIL) then
           begin
             DisableMenu(EditionMenu,[AnnulerCmd,CouperCmd,CopierCmd,CopierSpecialCmd,CollerCmd,EffacerCmd]);
@@ -1710,7 +1710,7 @@ begin
       if interruptionReflexion <> pasdinterruption then
          EffectueTacheInterrompante(interruptionReflexion);
 
-    if (DemandeCalculsPourBase.EtatDesCalculs = kCalculsDemandes) & not(CassioVaJouerInstantanement)
+    if (DemandeCalculsPourBase.EtatDesCalculs = kCalculsDemandes) and not(CassioVaJouerInstantanement)
       then TraiteDemandeCalculsPourBase('BouclePrincipale (1)');
 
     if gDemandeAffichageZebraBook.enAttente
@@ -1725,16 +1725,16 @@ begin
 
     VerifierLeStatutDeCassioPourLeZoo;
 
-    if (typedeCalculALancer = k_PREMIER_COUP_MAC) | (typedeCalculALancer = k_JEU_MAC)  then
+    if (typedeCalculALancer = k_PREMIER_COUP_MAC) or (typedeCalculALancer = k_JEU_MAC)  then
        begin
          if typedeCalculALancer = k_PREMIER_COUP_MAC then PremierCoupMac;
          if typedeCalculALancer = k_JEU_MAC then JeuMac(level,'BouclePrincipale');
-         if (interruptionReflexion <> pasdinterruption) & not(Quitter)
+         if (interruptionReflexion <> pasdinterruption) and not(Quitter)
             then EffectueTacheInterrompante(interruptionReflexion);
          vaDepasserTemps := false;
        end;
 
-    if (interruptionReflexion <> pasdinterruption) & not(Quitter) then
+    if (interruptionReflexion <> pasdinterruption) and not(Quitter) then
       EffectueTacheInterrompante(interruptionReflexion);
 
     GererDemandeInterruptionBrutaleEnCours;
@@ -2284,7 +2284,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   // WritelnDansRapport('avant LireFichierEvalEdmondSurLeDisque');
   // AttendFrappeClavier;
 
-  if not(EvaluationEdmondEstDisponible) &
+  if not(EvaluationEdmondEstDisponible) and
      (LireFichierEvalEdmondSurLeDisque = NoErr)
     then SetEvaluationEdmondEstDisponible(true);
 
@@ -2409,7 +2409,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
  WritelnDansRapport(EnleveChiffresAvantCeCaractereEnDebutDeLigne(')','1234)bip',true));
  WritelnDansRapport(EnleveChiffresApresCeCaractereEnFinDeLigne('(','blah(1234',false));
  WritelnDansRapport(EnleveChiffresApresCeCaractereEnFinDeLigne('(','blah(1234',true)); *)
- {ComparerFormatThorEtFormatSuedois('8.#BAJ/"$%9&CDKTL?UVSR5I+@:0M !4* = )3 > GNXWQH',
+ {ComparerFormatThorEtFormatSuedois('8.#BAJ/"$%9andCDKTL?UVSR5I+@:0M !4* = )3 > GNXWQH',
                                    'ongZflephcvamksuw2x5idqVjrXPUWTYQb43yKSMCLFDEJRBNG67zt01HOAI');}
  {ProcessEachSolitaireOnDisc(0,100);}
 
@@ -2711,7 +2711,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   ExitToShell;
 end;
 
-{ TODO & FIXME :
+{ TODO and FIXME :
 
   0) aucun pour le moment...
 }

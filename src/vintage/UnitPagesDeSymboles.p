@@ -168,7 +168,7 @@ end;
 function TrouvePlaceDansPageDeSymbole(var nroPage,nroIndex : SInt32) : boolean;
 var n,i,k : SInt32;
 begin
-  if (dernierePageSymboleCree <= 0) & not(PeutCreerNouvellePageSymbole)  then
+  if (dernierePageSymboleCree <= 0) and not(PeutCreerNouvellePageSymbole)  then
     begin
       TrouvePlaceDansPageDeSymbole := false;
       nroPage := -1;
@@ -200,7 +200,7 @@ begin
       if (n < 1) then n := n + dernierePageSymboleCree;
       if ReserveDeSymbole[n] <> NIL then
         with ReserveDeSymbole[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -217,7 +217,7 @@ begin
       if (n < 1) then n := n + dernierePageSymboleCree;
       if ReserveDeSymbole[n] <> NIL then
         with ReserveDeSymbole[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -271,7 +271,7 @@ begin
 	      with ReserveDeSymbole[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(Sym) >= baseAddress) & (SInt32(Sym) <= baseAddress+(TailleSymboleBuffer-1)*sizeof(SymboleRec))
+	        if (SInt32(Sym) >= baseAddress) and (SInt32(Sym) <= baseAddress+(TailleSymboleBuffer-1)*sizeof(SymboleRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -289,7 +289,7 @@ begin
 	      with ReserveDeSymbole[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(Sym) >= baseAddress) & (SInt32(Sym) <= baseAddress+(TailleSymboleBuffer-1)*sizeof(SymboleRec))
+	        if (SInt32(Sym) >= baseAddress) and (SInt32(Sym) <= baseAddress+(TailleSymboleBuffer-1)*sizeof(SymboleRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -331,11 +331,11 @@ begin
                   if IndexDansPage = premierEmplacementVide then
 			              repeat
 			                inc(premierEmplacementVide);
-			              until libre[premierEmplacementVide] | (premierEmplacementVide >= dernierEmplacementVide) | (premierEmplacementVide > TailleSymboleBuffer);
+			              until libre[premierEmplacementVide] or (premierEmplacementVide >= dernierEmplacementVide) or (premierEmplacementVide > TailleSymboleBuffer);
                   if IndexDansPage = dernierEmplacementVide then
 			              repeat
 			                dec(dernierEmplacementVide);
-			              until libre[dernierEmplacementVide] | (dernierEmplacementVide <= premierEmplacementVide) | (dernierEmplacementVide < 1);
+			              until libre[dernierEmplacementVide] or (dernierEmplacementVide <= premierEmplacementVide) or (dernierEmplacementVide < 1);
                 end;
           end
       end
@@ -356,8 +356,8 @@ begin
   LocaliserSymboleDansSaPage(Sym,nroDePage,nroIndex);
 
 
-  if (nroDePage >= 1) & (nroDePage <= nbPagesDeSymbole) &
-     (nroIndex  >= 1) & (nroIndex  <= TailleSymboleBuffer) &
+  if (nroDePage >= 1) and (nroDePage <= nbPagesDeSymbole) and
+     (nroIndex  >= 1) and (nroIndex  <= TailleSymboleBuffer) and
      (ReserveDeSymbole[nroDePage] <> NIL) then
     with ReserveDeSymbole[nroDePage]^ do
       begin

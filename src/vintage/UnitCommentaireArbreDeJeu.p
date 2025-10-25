@@ -50,7 +50,7 @@ var oldPort : grafPtr;
     s : String255;
 begin
   with arbreDeJeu do
-  if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+  if windowOpen and (GetArbreDeJeuWindow <> NIL) then
     begin
       {WritelnDansRapport('DessineRubanDuCommentaireDansFenetreArbreDeJeu');}
 
@@ -67,7 +67,7 @@ begin
       MyEraseRect(MakeRect(3,unrect.top,EditionRect.right,unRect.top+gCassioSmallFontSize+3));
       MyEraseRectWithColor(MakeRect(3,unrect.top,EditionRect.right,unRect.top+gCassioSmallFontSize+3),OrangeCmd,blackPattern,'');
 
-      if (nbreCoup <= 0) | positionFeerique
+      if (nbreCoup <= 0) or positionFeerique
         then
           begin
             s := ReadStringFromRessource(10020,8);  {'Commentaires'}
@@ -83,10 +83,10 @@ begin
 
 
       if forceModeEdition then enModeEdition := true;
-      if not(forceModeEdition) & (GetArbreDeJeuWindow <> FrontWindowSaufPalette)
+      if not(forceModeEdition) and (GetArbreDeJeuWindow <> FrontWindowSaufPalette)
         then enModeEdition := false;
 
-      if forceModeEdition | (enModeEdition & (GetArbreDeJeuWindow = FrontWindowSaufPalette)) | doitResterEnModeEdition
+      if forceModeEdition or (enModeEdition and (GetArbreDeJeuWindow = FrontWindowSaufPalette)) or doitResterEnModeEdition
         then
           begin
             PenSize(2,2);
@@ -115,7 +115,7 @@ procedure DessineZoneDeTexteDansFenetreArbreDeJeu(forceModeEdition : boolean);
 var oldPort : grafPtr;
 begin
   with arbreDeJeu do
-  if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+  if windowOpen and (GetArbreDeJeuWindow <> NIL) then
     begin
       {WritelnDansRapport('DessineZoneDeTexteDansFenetreArbreDeJeu');}
       GetPort(oldPort);
@@ -135,7 +135,7 @@ var unRect : rect;
     myText : TEHandle;
 begin
   with arbreDeJeu do
-    if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+    if windowOpen and (GetArbreDeJeuWindow <> NIL) then
       begin
         GetPort(oldPort);
         SetPortByWindow(GetArbreDeJeuWindow);
@@ -170,7 +170,7 @@ var unRect : rect;
     oldPort : grafPtr;
 begin
   with arbreDeJeu do
-    if windowOpen & (theDialog <> NIL) then
+    if windowOpen and (theDialog <> NIL) then
       begin
         GetPort(oldPort);
         SetPortByDialog(arbreDeJeu.theDialog);
@@ -217,7 +217,7 @@ procedure FaireClignoterFenetreArbreDeJeu;
 var myText : TEHandle;
 begin
   with arbreDeJeu do
-    if {enModeEdition & }windowOpen & (GetArbreDeJeuWindow <> NIL) then
+    if {enModeEdition and }windowOpen and (GetArbreDeJeuWindow <> NIL) then
       begin
         myText := GetDialogTextEditHandle(theDialog);
         if myText <> NIL then TEIdle(myText)
@@ -228,7 +228,7 @@ procedure ClicDansTexteCommentaires(pt : Point; extend : boolean);
 var myText : TEHandle;
 begin
   with arbreDeJeu do
-    if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+    if windowOpen and (GetArbreDeJeuWindow <> NIL) then
       begin
         myText := GetDialogTextEditHandle(theDialog);
         if myText <> NIL then TEClick(pt,extend,myText);

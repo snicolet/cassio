@@ -221,7 +221,7 @@ end;
 procedure EnleverDeLaListeChaineeDesCasesVides(whichSquare : SInt32);
 var celluleDansListeChaineeCasesVides : celluleCaseVideDansListeChaineePtr;
 begin
-  if (whichSquare < 11) | (whichSquare > 88) then
+  if (whichSquare < 11) or (whichSquare > 88) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('ERROR !! dans EnleverDeLaListeChaineeDesCasesVides, whichSquare = ',whichSquare);
@@ -251,7 +251,7 @@ end;
 procedure RemettreDansLaListeChaineeDesCasesVides(whichSquare : SInt32);
 var celluleDansListeChaineeCasesVides : celluleCaseVideDansListeChaineePtr;
 begin
-  if (whichSquare < 11) | (whichSquare > 88) then
+  if (whichSquare < 11) or (whichSquare > 88) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('ERROR !! dans RemettreDansLaListeChaineeDesCasesVides, whichSquare = ',whichSquare);
@@ -290,7 +290,7 @@ begin
     with celluleDansListeChainee^ do
       begin
         inc(longueur);
-        if (square >= 11) & (square <= 88)
+        if (square >= 11) and (square <= 88)
           then
             begin
               if longueur = 1
@@ -344,7 +344,7 @@ begin
     celluleDansListeChainee1 := celluleDansListeChainee1^.next;
     celluleDansListeChainee2 := celluleDansListeChainee2^.next;
 
-  until (celluleDansListeChainee1 = celluleDepart1) | (longueur > 64);
+  until (celluleDansListeChainee1 = celluleDepart1) or (longueur > 64);
 
 
   WritelnDansRapport(']');

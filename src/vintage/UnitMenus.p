@@ -101,7 +101,7 @@ begin
 
         WritelnDansRapport('cmdChar = '+cmdChar);
 
-        if (ord(cmdChar) > 0) & ((ch = cmdChar) | (ch = chr(ord(cmdChar)+32))) then
+        if (ord(cmdChar) > 0) and ((ch = cmdChar) or (ch = chr(ord(cmdChar)+32))) then
           begin
             EquivalentClavierEstDansCeMenu := true;
             whichItem := i;
@@ -133,7 +133,7 @@ begin
   if EquivalentClavierEstDansCeMenu(ch,GestionBaseWThorMenu,item)then res := item + 65536*GestionBaseWThorID else
   if EquivalentClavierEstDansCeMenu(ch,NMeilleursCoupsMenu,item) then res := item + 65536*NMeilleursCoupID   else
   if EquivalentClavierEstDansCeMenu(ch,ReouvrirMenu,item)        then res := item + 65536*ReouvrirID         else
-  if avecProgrammation &
+  if avecProgrammation and
      EquivalentClavierEstDansCeMenu(ch,ProgrammationMenu,item)   then res := item + 65536*ProgrammationID;
 
   if res <> 0 then BeginHiliteMenu(res div 65536);
@@ -148,7 +148,7 @@ end;
 
 procedure EssaieDisableForceCmd;
 begin
-  if RefleSurTempsJoueur | HumCtreHum | (AQuiDeJouer <> couleurMacintosh)
+  if RefleSurTempsJoueur or HumCtreHum or (AQuiDeJouer <> couleurMacintosh)
      then MyDisableItem(PartieMenu,ForceCmd);
 end;
 
@@ -158,24 +158,24 @@ end;
 procedure FixeMarqueSurMenuMode(n : SInt16);
 begin
 
-  MyCheckItem(NMeilleursCoupsMenu,1,not(avecEvaluationTotale) & (nbCoupsEnTete = 2));
-  MyCheckItem(NMeilleursCoupsMenu,2,not(avecEvaluationTotale) & (nbCoupsEnTete = 3));
-  MyCheckItem(NMeilleursCoupsMenu,3,not(avecEvaluationTotale) & (nbCoupsEnTete = 4));
-  MyCheckItem(NMeilleursCoupsMenu,4,not(avecEvaluationTotale) & (nbCoupsEnTete = 5));
-  MyCheckItem(NMeilleursCoupsMenu,5,not(avecEvaluationTotale) & (nbCoupsEnTete = 6));
-  MyCheckItem(NMeilleursCoupsMenu,6,not(avecEvaluationTotale) & (nbCoupsEnTete = 7));
-  MyCheckItem(NMeilleursCoupsMenu,7,not(avecEvaluationTotale) & (nbCoupsEnTete = 8));
-  MyCheckItem(NMeilleursCoupsMenu,8,not(avecEvaluationTotale) & (nbCoupsEnTete = 9));
-  MyCheckItem(NMeilleursCoupsMenu,9,not(avecEvaluationTotale) & (nbCoupsEnTete = 10));
-  MyCheckItem(NMeilleursCoupsMenu,10,not(avecEvaluationTotale) & (nbCoupsEnTete = 11));
-  MyCheckItem(NMeilleursCoupsMenu,11,not(avecEvaluationTotale) & (nbCoupsEnTete = 12));
+  MyCheckItem(NMeilleursCoupsMenu,1,not(avecEvaluationTotale) and (nbCoupsEnTete = 2));
+  MyCheckItem(NMeilleursCoupsMenu,2,not(avecEvaluationTotale) and (nbCoupsEnTete = 3));
+  MyCheckItem(NMeilleursCoupsMenu,3,not(avecEvaluationTotale) and (nbCoupsEnTete = 4));
+  MyCheckItem(NMeilleursCoupsMenu,4,not(avecEvaluationTotale) and (nbCoupsEnTete = 5));
+  MyCheckItem(NMeilleursCoupsMenu,5,not(avecEvaluationTotale) and (nbCoupsEnTete = 6));
+  MyCheckItem(NMeilleursCoupsMenu,6,not(avecEvaluationTotale) and (nbCoupsEnTete = 7));
+  MyCheckItem(NMeilleursCoupsMenu,7,not(avecEvaluationTotale) and (nbCoupsEnTete = 8));
+  MyCheckItem(NMeilleursCoupsMenu,8,not(avecEvaluationTotale) and (nbCoupsEnTete = 9));
+  MyCheckItem(NMeilleursCoupsMenu,9,not(avecEvaluationTotale) and (nbCoupsEnTete = 10));
+  MyCheckItem(NMeilleursCoupsMenu,10,not(avecEvaluationTotale) and (nbCoupsEnTete = 11));
+  MyCheckItem(NMeilleursCoupsMenu,11,not(avecEvaluationTotale) and (nbCoupsEnTete = 12));
 
   MyCheckItem(ModeMenu,ReflSurTempsAdverseCmd,CassioDoitReflechirSurLeTempsAdverse);
-  MyCheckItem(ModeMenu,BiblActiveCmd,avecBibl & bibliothequeLisible);
-  MyCheckItem(ModeMenu,VarierOuverturesCmd,gEntrainementOuvertures.CassioVarieSesCoups & (GetCadence <= gEntrainementOuvertures.varierJusquaCetteCadence));
+  MyCheckItem(ModeMenu,BiblActiveCmd,avecBibl and bibliothequeLisible);
+  MyCheckItem(ModeMenu,VarierOuverturesCmd,gEntrainementOuvertures.CassioVarieSesCoups and (GetCadence <= gEntrainementOuvertures.varierJusquaCetteCadence));
   if InRange(n,0,finDePartie-1) then
     begin
-      MyCheckItem(ModeMenu,MilieuDeJeuNormalCmd,not(avecEvaluationTotale) & (nbCoupsEnTete <= 1));
+      MyCheckItem(ModeMenu,MilieuDeJeuNormalCmd,not(avecEvaluationTotale) and (nbCoupsEnTete <= 1));
       MyCheckItem(ModeMenu,MilieuDeJeuAnalyseCmd,avecEvaluationTotale);
       MyCheckItem(ModeMenu,FinaleGagnanteCmd,false);
       MyCheckItem(ModeMenu,FinaleOptimaleCmd,false);
@@ -194,7 +194,7 @@ begin
       MyCheckItem(ModeMenu,FinaleGagnanteCmd,false);
       MyCheckItem(ModeMenu,FinaleOptimaleCmd,true);
     end;
-  if ((60-n) <= kNbMaxNiveaux-1) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour) then
+  if ((60-n) <= kNbMaxNiveaux-1) and not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour) then
      begin
       MyEnableItem(ModeMenu,MilieuDeJeuNormalCmd);
       MyEnableItem(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd);
@@ -204,7 +204,7 @@ begin
      end
    else
      begin
-      if not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour) then
+      if not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour) then
         begin
           MyEnableItem(ModeMenu,MilieuDeJeuNormalCmd);
           MyEnableItem(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd);
@@ -214,19 +214,19 @@ begin
       MyDisableItem(ModeMenu,FinaleOptimaleCmd);
      end;
 
-  if analyseRetrograde.enCours | (enSetUp | enRetour | iconisationDeCassio.encours)
+  if analyseRetrograde.enCours or (enSetUp or enRetour or iconisationDeCassio.encours)
     then MyDisableItem(ModeMenu,ParametrerAnalyseRetrogradeCmd)
     else EnableItemPourCassio(ModeMenu,ParametrerAnalyseRetrogradeCmd);
-  if (nroDernierCoupAtteint >= 20) & not(analyseRetrograde.enCours) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+  if (nroDernierCoupAtteint >= 20) and not(analyseRetrograde.enCours) and not(enSetUp or enRetour or iconisationDeCassio.encours)
     then EnableItemPourCassio(ModeMenu,AnalyseRetrogradeCmd)
     else MyDisableItem(ModeMenu,AnalyseRetrogradeCmd);
 
-  if (n >= 1) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+  if (n >= 1) and not(enSetUp or enRetour or iconisationDeCassio.encours)
     then EnableItemPourCassio(PartieMenu,MakeMainBranchCmd)
     else MyDisableItem(PartieMenu,MakeMainBranchCmd);
 
 
-  if (nbreCoup < nroDernierCoupAtteint) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
+  if (nbreCoup < nroDernierCoupAtteint) and not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour)
     then
       begin
         MyEnableItem(PartieMenu,ForwardCmd);
@@ -236,14 +236,14 @@ begin
         MyDisableItem(PartieMenu,ForwardCmd);
       end;
 
-  if ((nbreCoup+1) < nroDernierCoupAtteint) & not(enSetUp) & not(enRetour)
+  if ((nbreCoup+1) < nroDernierCoupAtteint) and not(enSetUp) and not(enRetour)
     then EnableItemPourCassio(PartieMenu,DoubleForwardCmd)
     else MyDisableItem(PartieMenu,DoubleForwardCmd);
 
-  if (nbreCoup > 0) & not(iconisationDeCassio.encours)
+  if (nbreCoup > 0) and not(iconisationDeCassio.encours)
     then MyEnableItem(EditionMenu,AnnulerCmd)
     else MyDisableItem(EditionMenu,AnnulerCmd);
-  if (nbreCoup > 0) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
+  if (nbreCoup > 0) and not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour)
     then
       begin
         MyEnableItem(PartieMenu,BackCmd);
@@ -256,20 +256,20 @@ begin
         MyDisableItem(PartieMenu,RevenirCmd);
         MyDisableItem(PartieMenu,DebutCmd);
       end;
-   if (nbreCoup > 1) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
+   if (nbreCoup > 1) and not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour)
      then MyEnableItem(PartieMenu,DoubleBackCmd)
      else MyDisableItem(PartieMenu,DoubleBackCmd);
 
-   if (nroDernierCoupAtteint > 0) & not(iconisationDeCassio.encours) & not(enSetUp) & not(enRetour)
+   if (nroDernierCoupAtteint > 0) and not(iconisationDeCassio.encours) and not(enSetUp) and not(enRetour)
      then MyEnableItem(PartieMenu,DeleteMoveCmd)
      else MyDisableItem(PartieMenu,DeleteMoveCmd);
 
 
-   if ((60-n) <= 30) & not(enSetUp) & not(enRetour)
+   if ((60-n) <= 30) and not(enSetUp) and not(enRetour)
     then EnableItemPourCassio(SolitairesMenu,EstSolitaireCmd)
     else MyDisableItem(SolitairesMenu,EstSolitaireCmd);
 
-   if CassioEstEnModeSolitaire & not(enSetUp) & not(enRetour)
+   if CassioEstEnModeSolitaire and not(enSetUp) and not(enRetour)
      then EnableItemPourCassio(SolitairesMenu,EcrireSolutionSolitaireCmd)
      else MyDisableItem(SolitairesMenu,EcrireSolutionSolitaireCmd);
 
@@ -280,16 +280,16 @@ end;
 
 procedure FixeMarqueSurMenuBase;
 begin
-   if windowListeOpen & (nbPartiesActives > 0) & not(iconisationDeCassio.encours)
+   if windowListeOpen and (nbPartiesActives > 0) and not(iconisationDeCassio.encours)
      then EnableItemPourCassio(BaseMenu,EnregistrerPartiesBaseCmd)
      else MyDisableItem(BaseMenu,EnregistrerPartiesBaseCmd);
-   if {windowListeOpen & }not(positionFeerique) & gameOver & not(enSetUp | enRetour | iconisationDeCassio.encours)
+   if {windowListeOpen and }not(positionFeerique) and gameOver and not(enSetUp or enRetour or iconisationDeCassio.encours)
      then EnableItemPourCassio(BaseMenu,AjouterPartieDansListeCmd)
      else MyDisableItem(BaseMenu,AjouterPartieDansListeCmd);
-   if windowListeOpen & not(enSetUp | enRetour | iconisationDeCassio.encours)
+   if windowListeOpen and not(enSetUp or enRetour or iconisationDeCassio.encours)
      then EnableItemPourCassio(BaseMenu,TrierCmd)
      else MyDisableItem(BaseMenu,TrierCmd);
-   if windowListeOpen & (nbPartiesActives > 0) & not(iconisationDeCassio.encours)
+   if windowListeOpen and (nbPartiesActives > 0) and not(iconisationDeCassio.encours)
     then
       begin
         MyEnableItem(BaseMenu,ChangerOrdreCmd);
@@ -300,13 +300,13 @@ begin
         MyDisableItem(BaseMenu,ChangerOrdreCmd);
         MyDisableItem(BaseMenu,OuvrirSelectionneeCmd);
       end;
-   if JoueursEtTournoisEnMemoire & (windowListeOpen | windowStatOpen | windowNuageOpen) & not(iconisationDeCassio.encours)
+   if JoueursEtTournoisEnMemoire and (windowListeOpen or windowStatOpen or windowNuageOpen) and not(iconisationDeCassio.encours)
      then MyEnableItem(BaseMenu,SousSelectionActiveCmd)
      else MyDisableItem(BaseMenu,SousSelectionActiveCmd);
-   if windowListeOpen & (nbPartiesActives > 0) & not(gameOver) & not(iconisationDeCassio.encours)
+   if windowListeOpen and (nbPartiesActives > 0) and not(gameOver) and not(iconisationDeCassio.encours)
      then MyEnableItem(BaseMenu,JouerSelectionneCmd)
      else MyDisableItem(BaseMenu,JouerSelectionneCmd);
-   if windowStatOpen & (nbPartiesActives > 0) & not(gameOver) & not(iconisationDeCassio.encours)
+   if windowStatOpen and (nbPartiesActives > 0) and not(gameOver) and not(iconisationDeCassio.encours)
      then MyEnableItem(BaseMenu,JouerMajoritaireCmd)
      else MyDisableItem(BaseMenu,JouerMajoritaireCmd);
 
@@ -323,7 +323,7 @@ procedure DisableItemTousMenus;
    MyDisableItem(GetFileMenu,ImporterUnRepertoireCmd);
    MyDisableItem(GetFileMenu,EnregistrerPartieCmd);
    MyDisableItem(GetFileMenu,EnregistrerArbreCmd);
-   if not(enRetour) | iconisationDeCassio.encours then
+   if not(enRetour) or iconisationDeCassio.encours then
      begin
        MyDisableItem(GetFileMenu,ApercuAvantImpressionCmd);
        MyDisableItem(GetFileMenu,FormatImpressionCmd);
@@ -337,14 +337,14 @@ procedure DisableItemTousMenus;
      MyDisableItem(EditionMenu,AnnulerCmd);
    MyDisableItem(EditionMenu,CollerCmd);
    MyDisableItem(EditionMenu,EffacerCmd);
-   if not(enRetour) | iconisationDeCassio.encours
+   if not(enRetour) or iconisationDeCassio.encours
      then
        begin
          MyDisableItem(EditionMenu,CopierCmd);
          MyDisableItem(EditionMenu,CouperCmd);
        end;
    MyDisableItem(EditionMenu,ToutselectionnerCmd);
-   if enSetUp | iconisationDeCassio.encours  then
+   if enSetUp or iconisationDeCassio.encours  then
      MyDisableItem(EditionMenu,ParamPressePapierCmd);
    MyDisableItem(EditionMenu,RaccourcisCmd);
 
@@ -385,7 +385,7 @@ procedure DisableItemTousMenus;
    MyDisableItem(JoueursMenu,MinuteBlancCmd);
 
    MyDisableItem(AffichageMenu,ChangerEn3DCmd);
-   if not(enRetour) | iconisationDeCassio.encours then
+   if not(enRetour) or iconisationDeCassio.encours then
      begin
        MyDisableItem(AffichageMenu,Symetrie_A1_H8Cmd);
        MyDisableItem(AffichageMenu,Symetrie_A8_H1Cmd);
@@ -432,7 +432,7 @@ function SousMenuReouvrirEstVide : boolean;
 var k : SInt16;
 begin
   for k := 1 to NbMaxItemsReouvrirMenu do
-    if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+    if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         SousMenuReouvrirEstVide := false;
         exit(SousMenuReouvrirEstVide);
@@ -454,7 +454,7 @@ procedure EnableItemTousMenus;
      begin
 	      if (FrontWindow <> wPlateauPtr) then
 	        begin
-	          if not(enSetUp | enRetour)
+	          if not(enSetUp or enRetour)
 	            then MyEnableItem(GetFileMenu,CloseCmd);
 	        end;
      end;
@@ -464,7 +464,7 @@ procedure EnableItemTousMenus;
    MyEnableItem(GetFileMenu,EnregistrerArbreCmd);
    MyEnableItem(GetFileMenu,ImporterUnRepertoireCmd);
 
-   if windowPlateauOpen & ImpressionEstPossible
+   if windowPlateauOpen and ImpressionEstPossible
      then
        begin
          MyEnableItem(GetFileMenu,ApercuAvantImpressionCmd);
@@ -505,7 +505,7 @@ procedure EnableItemTousMenus;
    if not(EnModeEntreeTranscript)
      then MyEnableItem(PartieMenu,SetUpCmd)
      else MyDisableItem(PartieMenu,SetUpCmd);
-   if not(RefleSurTempsJoueur) & not(HumCtreHum) then MyEnableItem(PartieMenu,ForceCmd);
+   if not(RefleSurTempsJoueur) and not(HumCtreHum) then MyEnableItem(PartieMenu,ForceCmd);
 
 
    MyEnableItem(ModeMenu,CadenceCmd);
@@ -564,17 +564,17 @@ procedure EnableItemTousMenus;
    if avecGestionBase then
      begin
        MyEnableItem(BaseMenu,ChargerDesPartiesCmd);
-       if windowListeOpen & (nbPartiesActives > 0) then MyEnableItem(BaseMenu,ChangerOrdreCmd);
-       if {windowListeOpen & }not(positionFeerique) & gameOver then EnableItemPourCassio(BaseMenu,AjouterPartieDansListeCmd);
+       if windowListeOpen and (nbPartiesActives > 0) then MyEnableItem(BaseMenu,ChangerOrdreCmd);
+       if {windowListeOpen and }not(positionFeerique) and gameOver then EnableItemPourCassio(BaseMenu,AjouterPartieDansListeCmd);
        if windowListeOpen then MyEnableItem(BaseMenu,TrierCmd);
-       if windowListeOpen & (nbPartiesActives > 0) then MyEnableItem(BaseMenu,OuvrirSelectionneeCmd);
-       if windowListeOpen & (nbPartiesActives > 0) & not(gameOver) then MyEnableItem(BaseMenu,JouerSelectionneCmd);
-       if windowStatOpen & (nbPartiesActives > 0) & not(gameOver) then MyEnableItem(BaseMenu,JouerMajoritaireCmd);
+       if windowListeOpen and (nbPartiesActives > 0) then MyEnableItem(BaseMenu,OuvrirSelectionneeCmd);
+       if windowListeOpen and (nbPartiesActives > 0) and not(gameOver) then MyEnableItem(BaseMenu,JouerSelectionneCmd);
+       if windowStatOpen and (nbPartiesActives > 0) and not(gameOver) then MyEnableItem(BaseMenu,JouerMajoritaireCmd);
        MyEnableItem(BaseMenu,StatistiqueCmd);
        MyEnableItem(BaseMenu,ListePartiesCmd);
        MyEnableItem(BaseMenu,NuageDeRegressionCmd);
        {if JoueursEtTournoisEnMemoire then MyEnableItem(BaseMenu,CriteresCmd);}
-       if JoueursEtTournoisEnMemoire & (windowListeOpen | windowStatOpen | windowNuageOpen)
+       if JoueursEtTournoisEnMemoire and (windowListeOpen or windowStatOpen or windowNuageOpen)
          then MyEnableItem(BaseMenu,SousSelectionActiveCmd)
          else MyDisableItem(BaseMenu,SousSelectionActiveCmd);
        MyEnableItem(BaseMenu,ListerGroupesCmd);
@@ -591,22 +591,22 @@ var coupUn,i : SInt16;
     err : OSStatus;
   begin
 
-    if (FrontWindow <> NIL) & (FrontWindow <> wPlateauPtr) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+    if (FrontWindow <> NIL) and (FrontWindow <> wPlateauPtr) and not(enSetUp or enRetour or iconisationDeCassio.encours)
       then MyEnableItem(GetFileMenu,CloseCmd)
       else MyDisableItem(GetFileMenu,CloseCmd);
 
-    if not(EnModeEntreeTranscript) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+    if not(EnModeEntreeTranscript) and not(enSetUp or enRetour or iconisationDeCassio.encours)
      then MyEnableItem(PartieMenu,SetUpCmd)
      else MyDisableItem(PartieMenu,SetUpCmd);
 
-    if not(analyseRetrograde.enCours) & not(enRetour)
+    if not(analyseRetrograde.enCours) and not(enRetour)
      then MyEnableItem(PartieMenu,TaperUnDiagrammeCmd)
      else MyDisableItem(PartieMenu,TaperUnDiagrammeCmd);
 
     MyCheckItem(ModeMenu,ReflSurTempsAdverseCmd,CassioDoitReflechirSurLeTempsAdverse);
-    MyCheckItem(ModeMenu,BiblActiveCmd,avecBibl & bibliothequeLisible);
-    MyCheckItem(ModeMenu,VarierOuverturesCmd,gEntrainementOuvertures.CassioVarieSesCoups & (GetCadence <= gEntrainementOuvertures.varierJusquaCetteCadence));
-    if (GetCadence <= minutes5) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+    MyCheckItem(ModeMenu,BiblActiveCmd,avecBibl and bibliothequeLisible);
+    MyCheckItem(ModeMenu,VarierOuverturesCmd,gEntrainementOuvertures.CassioVarieSesCoups and (GetCadence <= gEntrainementOuvertures.varierJusquaCetteCadence));
+    if (GetCadence <= minutes5) and not(enSetUp or enRetour or iconisationDeCassio.encours)
       then MyEnableItem(ModeMenu,VarierOuverturesCmd)
       else MyDisableItem(ModeMenu,VarierOuverturesCmd);
 
@@ -670,14 +670,14 @@ var coupUn,i : SInt16;
         end
       else
         begin
-          if (couleurMacintosh = pionBlanc) & not(CassioEstEnModeAnalyse)
+          if (couleurMacintosh = pionBlanc) and not(CassioEstEnModeAnalyse)
             then
               begin
                 MyCheckItem(JoueursMenu,MacBlancsCmd,true);
                 MyCheckItem(JoueursMenu,MacNoirsCmd,false);
                 MyCheckItem(JoueursMenu,MacAnalyseLesDeuxCouleursCmd,false);
               end;
-          if (couleurMacintosh = pionNoir) & not(CassioEstEnModeAnalyse)
+          if (couleurMacintosh = pionNoir) and not(CassioEstEnModeAnalyse)
             then
               begin
                 MyCheckItem(JoueursMenu,MacBlancsCmd,false);
@@ -715,7 +715,7 @@ var coupUn,i : SInt16;
     MyCheckItem(AffichageMenu,PaletteFlottanteCmd,windowPaletteOpen);
     MyCheckItem(EditionMenu,RaccourcisCmd,windowAideOpen);
     MyCheckItem(AffichageMenu,SonCmd,avecSon);
-    if not(positionFeerique) {& (nroDernierCoupAtteint >= 1)} then
+    if not(positionFeerique) {and (nroDernierCoupAtteint >= 1)} then
       begin
         if (nroDernierCoupAtteint >= 1)
           then coupUn := GetNiemeCoupPartieCourante(1)
@@ -761,7 +761,7 @@ var coupUn,i : SInt16;
       end;
 
 
-    if {windowListeOpen & }not(positionFeerique) & gameOver & not(enSetUp | enRetour | iconisationDeCassio.encours)
+    if {windowListeOpen and }not(positionFeerique) and gameOver and not(enSetUp or enRetour or iconisationDeCassio.encours)
       then EnableItemPourCassio(BaseMenu,AjouterPartieDansListeCmd);
     MyCheckItem(BaseMenu,StatistiqueCmd,windowStatOpen);
     MyCheckItem(BaseMenu,ListePartiesCmd,windowListeOpen);
@@ -771,13 +771,13 @@ var coupUn,i : SInt16;
 
 
     for i := VertCmd to AutreCouleurCmd do
-      MyCheckItem(CouleurMenu,i,gEcranCouleur & (gCouleurOthellier.menuID = CouleurID) & (gCouleurOthellier.menuCmd = i));
+      MyCheckItem(CouleurMenu,i,gEcranCouleur and (gCouleurOthellier.menuID = CouleurID) and (gCouleurOthellier.menuCmd = i));
 
     for i := 1 to MyCountMenuItems(Picture2DMenu) do
-      MyCheckItem(Picture2DMenu,i,(gCouleurOthellier.menuID = Picture2DID) & (gCouleurOthellier.menuCmd = i));
+      MyCheckItem(Picture2DMenu,i,(gCouleurOthellier.menuID = Picture2DID) and (gCouleurOthellier.menuCmd = i));
 
     for i := 1 to MyCountMenuItems(Picture3DMenu) do
-      MyCheckItem(Picture3DMenu,i,(gCouleurOthellier.menuID = Picture3DID) & (gCouleurOthellier.menuCmd = i));
+      MyCheckItem(Picture3DMenu,i,(gCouleurOthellier.menuID = Picture3DID) and (gCouleurOthellier.menuCmd = i));
 
     MyCheckItem(TriMenu,TriParDatabaseCmd,    (gGenreDeTriListe = TriParDistribution));
     MyCheckItem(TriMenu,TriParDateCmd,        (gGenreDeTriListe = TriParDate));
@@ -800,7 +800,7 @@ var coupUn,i : SInt16;
         MyCheckItem(ProgrammationMenu,ArrondirEvaluationsCmd,utilisateurVeutDiscretiserEvaluation);
         MyCheckItem(ProgrammationMenu,UtiliserScoresArbreCmd,not(seMefierDesScoresDeLArbre));
 
-        if (HumCtreHum | (nbreCoup <= 1)) & (interruptionReflexion = pasdinterruption) & (nbPartiesActives > 0) & not(enSetUp | enRetour | iconisationDeCassio.encours)
+        if (HumCtreHum or (nbreCoup <= 1)) and (interruptionReflexion = pasdinterruption) and (nbPartiesActives > 0) and not(enSetUp or enRetour or iconisationDeCassio.encours)
           then MyEnableItem(ProgrammationMenu,ChercherSolitairesListeCmd)
           else MyDisableItem(ProgrammationMenu,ChercherSolitairesListeCmd);
       end;
@@ -812,8 +812,8 @@ var k : SInt32;
 begin
 
   for k := 1 to NbMaxItemsReouvrirMenu do
-    if (nomDuFichierAReouvrir[k] <> NIL) &
-       (nomLongDuFichierAReouvrir[k] <> NIL) &
+    if (nomDuFichierAReouvrir[k] <> NIL) and
+       (nomLongDuFichierAReouvrir[k] <> NIL) and
        (nomDuFichierAReouvrir[k]^^ = path) then
       begin
         theLongName := nomLongDuFichierAReouvrir[k]^^;
@@ -830,7 +830,7 @@ var NbItemsDansMenu,k : SInt16;
     nomFichier,aux : String255;
     nomLongDuFichier : String255;
 begin
-  if (numeroItem >= 1) & (numeroItem <= NbMaxItemsReouvrirMenu) &
+  if (numeroItem >= 1) and (numeroItem <= NbMaxItemsReouvrirMenu) and
      (nomDuFichierAReouvrir[numeroItem] <> NIL) then
     begin
 
@@ -843,8 +843,8 @@ begin
 
 
 	    if EstUnNomDeFichierTronquePourPanther(nomFichier)
-	       & not(NomLongDejaCalculeDansMenuReouvrir(pathFichier,nomLongDuFichier))
-	       & (PathCompletToLongName(pathFichier,aux) = NoErr)
+	       and not(NomLongDejaCalculeDansMenuReouvrir(pathFichier,nomLongDuFichier))
+	       and (PathCompletToLongName(pathFichier,aux) = NoErr)
 	      then nomLongDuFichier := aux;
 
 
@@ -879,7 +879,7 @@ begin
   result := '';
   compteur := 0;
   for k := 1 to NbMaxItemsReouvrirMenu do
-    if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+    if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         inc(compteur);
         if (compteur = numeroItem) then result := nomDuFichierAReouvrir[k]^^;
@@ -893,7 +893,7 @@ var k,compteur : SInt16;
 begin
   compteur := 0;
   for k := 1 to NbMaxItemsReouvrirMenu do
-    if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+    if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         inc(compteur);
         if (compteur = numeroItem) then
@@ -911,7 +911,7 @@ var k,compteur : SInt16;
 begin
   compteur := 0;
   for k := 1 to NbMaxItemsReouvrirMenu do
-    if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+    if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         inc(compteur);
         if (nomDuFichierAReouvrir[compteur] <> NIL)
@@ -960,12 +960,12 @@ var k,i : SInt16;
     s : String255;
   begin
 
-    if (CheminEtNomFichier = '') | EstUnNomDeFichierTemporaireDePressePapier(CheminEtNomFichier)
+    if (CheminEtNomFichier = '') or EstUnNomDeFichierTemporaireDePressePapier(CheminEtNomFichier)
       then exit(AjoutePartieDansMenuReouvrir);
 
     {si la partie est deja dans le menu, on la met en tete}
     for i := 1 to NbMaxItemsReouvrirMenu do
-      if (nomDuFichierAReouvrir[i] <> NIL) & (nomDuFichierAReouvrir[i]^^ = CheminEtNomFichier) then
+      if (nomDuFichierAReouvrir[i] <> NIL) and (nomDuFichierAReouvrir[i]^^ = CheminEtNomFichier) then
         begin
           {on decale tout vers le bas jusqu'a i}
           for k := i-1 downto 1 do
@@ -983,7 +983,7 @@ var k,i : SInt16;
     {reste-t-il de la place ?}
     PlusDePlaceDansMenu := true;
     for k := 1 to NbMaxItemsReouvrirMenu do
-      if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ = '') then
+      if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ = '') then
         PlusDePlaceDansMenu := false;
 
     if PlusDePlaceDansMenu
@@ -1024,7 +1024,7 @@ var option,command,shift,control : boolean;
     option := BAnd(modifiers,optionKey) <> 0;
     control := BAnd(modifiers,controlKey) <> 0;
 
-    if option & not(gDernierEtatDesMenusEstAvecOption)
+    if option and not(gDernierEtatDesMenusEstAvecOption)
       then
         begin
           MySetMenuItemText(GetFileMenu,CloseCmd,ReadStringFromRessource(MenusChangeantsID,2));
@@ -1040,7 +1040,7 @@ var option,command,shift,control : boolean;
           MySetMenuItemText(FormatBaseMenu,FormatXOFCmd,ReadStringFromRessource(MenusChangeantsID,42));}
         end
       else
-    if not(option) & gDernierEtatDesMenusEstAvecOption then
+    if not(option) and gDernierEtatDesMenusEstAvecOption then
         begin
           MySetMenuItemText(GetFileMenu,CloseCmd,ReadStringFromRessource(MenusChangeantsID,1));
           MySetMenuItemText(GetFileMenu,EnregistrerPartieCmd,ReadStringFromRessource(MenusChangeantsID,33));

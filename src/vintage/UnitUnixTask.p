@@ -226,7 +226,7 @@ begin
 
   inc(unixTask.suspendCount);
 
-  if (unixTask.suspendCount > 0) & (mySuspendUnixTaskPtr <> NIL) then
+  if (unixTask.suspendCount > 0) and (mySuspendUnixTaskPtr <> NIL) then
     begin
       UnixTaskPrint('WARNING : Appel de mySuspendUnixTaskPtr dans Cassio');
       mySuspendUnixTaskPtr;
@@ -247,7 +247,7 @@ begin
 
   dec(unixTask.suspendCount);
 
-  if (unixTask.suspendCount = 0) & (myResumeUnixTaskPtr <> NIL) then
+  if (unixTask.suspendCount = 0) and (myResumeUnixTaskPtr <> NIL) then
     begin
       myResumeUnixTaskPtr;
       UnixTaskPrint('WARNING : Appel de myResumeUnixTaskPtr dans Cassio');
@@ -278,17 +278,17 @@ begin
   if (LENGTH_OF_STRING(s) <= 14) then
     begin
       stringIsPoint   := (s = '.');
-      stringIsReady   := not(stringIsPoint) & (Pos('ready.',s) > 0);
-      stringIsOk      := not(stringIsPoint|stringIsReady) & (Pos('ok.',s) > 0);
-      stringIsStarted := not(stringIsPoint|stringIsReady|stringIsOk) & (Pos('Unix task started',s) > 0);
+      stringIsReady   := not(stringIsPoint) and (Pos('ready.',s) > 0);
+      stringIsOk      := not(stringIsPointorstringIsReady) and (Pos('ok.',s) > 0);
+      stringIsStarted := not(stringIsPointorstringIsReadyorstringIsOk) and (Pos('Unix task started',s) > 0);
 
-      if stringIsPoint | stringIsReady | stringIsOk | stringIsStarted then
+      if stringIsPoint or stringIsReady or stringIsOk or stringIsStarted then
         begin
-          if ((unixTask.state = UNIX_TASK_STARTING) & stringIsReady) &
-             (debugUnixTask | debuggage.engineInput | debuggage.engineOutput)
+          if ((unixTask.state = UNIX_TASK_STARTING) and stringIsReady) and
+             (debugUnixTask or debuggage.engineInput or debuggage.engineOutput)
              then UnixTaskPrint('OK, confirmation que la commande unix a démarré');
 
-          if (stringIsPoint | stringIsReady | stringIsOk) then
+          if (stringIsPoint or stringIsReady or stringIsOk) then
             begin
               SetUnixTaskState(UNIX_TASK_RUNNING);
             end;
@@ -301,7 +301,7 @@ begin
 
 
   (* write DEBUG messages sent by the UnixTasks back in Cassio *)
-  if ((s[1] = 'D') & (Pos('DEBUG',s) = 1)) then
+  if ((s[1] = 'D') and (Pos('DEBUG',s) = 1)) then
     begin
       UnixTaskPrintDebug(s);
       exit(InterpretUnixTaskCommand);
@@ -309,7 +309,7 @@ begin
 
 
   (* write WARNING messages sent by the UnixTasks back in Cassio *)
-  if ((s[1] = 'W') & (Pos('WARNING',s) = 1)) then
+  if ((s[1] = 'W') and (Pos('WARNING',s) = 1)) then
     begin
       UnixTaskPrintWarning(s);
       exit(InterpretUnixTaskCommand);
@@ -317,15 +317,15 @@ begin
 
   (* check if the UnixTask crashed or has been killed by the Unix kernel *)
   if ((Pos('Killed', s) > 0)
-      | (Pos('Segmentation fault', s) > 0)
-      | (Pos('Bus error', s) > 0)
-      | ((Pos('Unix task terminated', s) > 0))
+      or (Pos('Segmentation fault', s) > 0)
+      or (Pos('Bus error', s) > 0)
+      or ((Pos('Unix task terminated', s) > 0))
       ) then
     begin
       if (Pos('Killed', s) > 0)
         then UnixTaskPrint('The unix task seems to have been killed by the Unix kernel') else
 
-      if (Pos('Segmentation fault', s) > 0) | (Pos('Bus error', s) > 0)
+      if (Pos('Segmentation fault', s) > 0) or (Pos('Bus error', s) > 0)
         then UnixTaskPrint('The unix task seems to have had a problem, as Apollo 13 said');
 
       if Pos('Unix task terminated', s) <= 0
@@ -378,7 +378,7 @@ begin
             begin
               if (lastStringReceived.debutLigne <> '') then
                 begin
-                  if debugUnixTask | debuggage.engineInput then
+                  if debugUnixTask or debuggage.engineInput then
                     UnixTaskPrintInput(lastStringReceived.debutLigne);
 
                   InterpretUnixTaskCommand(lastStringReceived);
@@ -419,10 +419,10 @@ end;
 procedure SendStringToUnixTask(s : String255);
 var data : CFStringRef;
 begin
-  if (mySendDataToUnixTaskPtr <> NIL) & (unixTask.state <> UNIX_TASK_KILLED) then
+  if (mySendDataToUnixTaskPtr <> NIL) and (unixTask.state <> UNIX_TASK_KILLED) then
     begin
 
-      if (debugUnixTask | debuggage.engineOutput) & (s <> '') then
+      if (debugUnixTask or debuggage.engineOutput) and (s <> '') then
         begin
           UnixTaskPrintOutput(s);
         end;
@@ -485,7 +485,7 @@ begin
     mySwitchToUnixTaskPtr := SwitchToUnixTaskProcPtr(GetFunctionPointerFromPrivateBundle( GetUnixTaskBundleName ,'SwitchToUnixTask'));
 
   if (mySwitchToUnixTaskPtr <> NIL) then
-    if (whichChannel >= 0) & (whichChannel <= 1)
+    if (whichChannel >= 0) and (whichChannel <= 1)
       then mySwitchToUnixTaskPtr(whichChannel);
 end;
 
@@ -565,14 +565,14 @@ begin
     else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
 
-  if (debugUnixTask | debuggage.engineInput | debuggage.engineOutput) then
+  if (debugUnixTask or debuggage.engineInput or debuggage.engineOutput) then
     begin
       UnixTaskPrint('');
       UnixTaskPrint('Trying to start   '+pathUnix);
     end;
 
 
-  if pathIsAnUnixBinary | (FichierTexteExiste(pathMac,0,fic) = NoErr)
+  if pathIsAnUnixBinary or (FichierTexteExiste(pathMac,0,fic) = NoErr)
     then
       begin
 
@@ -586,7 +586,7 @@ begin
         mySwitchToUnixTaskPtr       := SwitchToUnixTaskProcPtr      (GetFunctionPointerFromPrivateBundle( bundleName ,'SwitchToUnixTask'));
 
 
-        if (myStartUnixTaskPtr <> NIL) & (mySetCallBackForUnixTaskPtr <> NIL)
+        if (myStartUnixTaskPtr <> NIL) and (mySetCallBackForUnixTaskPtr <> NIL)
           then
             begin
 
@@ -698,7 +698,7 @@ begin
     begin
 
 
-      if FALSE & ParsePositionEtTrait('--X-OOO---XXOO---XXOXXO-XXOOOOOOXXXXXXOX-XOOOOXX--OOOO-------O--X',positionToSolve) then
+      if FALSE and ParsePositionEtTrait('--X-OOO---XXOO---XXOXXO-XXOOOOOOXXXXXXOX-XOOOOXX--OOOO-------O--X',positionToSolve) then
         begin
 
           tick := Tickcount;
@@ -817,8 +817,8 @@ procedure UnixTaskPrintInput(const s : String255);
 begin
   // les infos de DEBUG et WARNING seront de toute façon écrites en vert,
   // donc pas besoin de les ecrire en orange...
-  if ((s[1] = 'D') & (Pos('DEBUG',s) = 1))  |
-     ((s[1] = 'W') & (Pos('WARNING',s) = 1))
+  if ((s[1] = 'D') and (Pos('DEBUG',s) = 1))  or
+     ((s[1] = 'W') and (Pos('WARNING',s) = 1))
     then exit(UnixTaskPrintInput);
   UnixTaskPrintColoredStringInRapport(s, OrangeCmd, normal);
 end;

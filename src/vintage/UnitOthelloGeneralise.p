@@ -74,8 +74,8 @@ var adversaire,n : SInt32;
 begin
   NumberOfFlipsThisDirection := 0;
 
-  if (squareX >= 1) & (squareX <= kSizeOthellierMax) &
-     (squareY >= 1) & (squareY <= kSizeOthellierMax) then
+  if (squareX >= 1) and (squareX <= kSizeOthellierMax) and
+     (squareY >= 1) and (squareY <= kSizeOthellierMax) then
     begin
 		  adversaire := -couleur;
 		  if (plateau[squareX,squareY] = pionVide) then
@@ -83,8 +83,8 @@ begin
 		      n := 0;
 		      squareX := squareX + dx;
 		      squareY := squareY + dy;
-		      if (squareX >= 1) & (squareX <= kSizeOthellierMax) &
-		         (squareY >= 1) & (squareY <= kSizeOthellierMax) &
+		      if (squareX >= 1) and (squareX <= kSizeOthellierMax) and
+		         (squareY >= 1) and (squareY <= kSizeOthellierMax) and
 		         (plateau[squareX,squareY] = adversaire) then
 		        begin
 					    repeat
@@ -107,8 +107,8 @@ begin
     begin
       squareX := squareX + dx;
       squareY := squareY + dy;
-      if (squareX >= 1) & (squareX <= kSizeOthellierMax) &
-         (squareY >= 1) & (squareY <= kSizeOthellierMax) then
+      if (squareX >= 1) and (squareX <= kSizeOthellierMax) and
+         (squareY >= 1) and (squareY <= kSizeOthellierMax) then
          plateau[squareX,squareY] := -plateau[squareX,squareY];
     end;
 end;
@@ -132,8 +132,8 @@ var total,n : SInt32;
 
 begin
   total := 0;
-  if (squareX >= 1) & (squareX <= kSizeOthellierMax) &
-     (squareY >= 1) & (squareY <= kSizeOthellierMax) &
+  if (squareX >= 1) and (squareX <= kSizeOthellierMax) and
+     (squareY >= 1) and (squareY <= kSizeOthellierMax) and
      (position.plateau[squareX,squareY] = pionVide) then
     begin
 		  TryFlippingThisDirection(-1,0);
@@ -168,8 +168,8 @@ function PeutJouerIciBigOthello(var position : BigOthelloRec; squareX,squareY : 
   end;
 
 begin
-  if (squareX >= 1) & (squareX <= kSizeOthellierMax) &
-     (squareY >= 1) & (squareY <= kSizeOthellierMax) &
+  if (squareX >= 1) and (squareX <= kSizeOthellierMax) and
+     (squareY >= 1) and (squareY <= kSizeOthellierMax) and
      (position.plateau[squareX,squareY] = pionVide) then
     begin
 		  TryFlippingThisDirection(-1,0);
@@ -203,7 +203,7 @@ function MakeBigOthelloRec(theSize : Point; var plateau : BigOthellier; trait : 
 var aux : BigOthelloRec;
     i,j : SInt16;
 begin
-  if (theSize.h < 1) | (theSize.v < 1) | (theSize.h > kSizeOthellierMax) | (theSize.v > kSizeOthellierMax)
+  if (theSize.h < 1) or (theSize.v < 1) or (theSize.h > kSizeOthellierMax) or (theSize.v > kSizeOthellierMax)
     then
       begin
         SysBeep(0);
@@ -254,7 +254,7 @@ begin
 
   i := sizeH div 2;
   j := sizeV div 2;
-  if (i > 0) & (i <= kSizeOthellierMax) & (j > 0) & (j <= kSizeOthellierMax) then
+  if (i > 0) and (i <= kSizeOthellierMax) and (j > 0) and (j <= kSizeOthellierMax) then
     begin
 		  aux[i,j]     := pionBlanc;
 		  aux[i,j+1]   := pionNoir;
@@ -340,18 +340,18 @@ end;
 function UpdateBigOthello(var position : BigOthelloRec; whichMoveX,whichMoveY : SInt16) : boolean;
 var CoupLegal : boolean;
 begin
-  if (whichMoveX < 1) | (whichMoveX > position.size.h) then
+  if (whichMoveX < 1) or (whichMoveX > position.size.h) then
     begin
       UpdateBigOthello := false;
       exit(UpdateBigOthello);
     end;
-  if (whichMoveY < 1) | (whichMoveY > position.size.v) then
+  if (whichMoveY < 1) or (whichMoveY > position.size.v) then
     begin
       UpdateBigOthello := false;
       exit(UpdateBigOthello);
     end;
 
-  CoupLegal := (position.plateau[whichMoveX,whichMoveY] = pionVide) &
+  CoupLegal := (position.plateau[whichMoveX,whichMoveY] = pionVide) and
                (DoFlips(position,whichMoveX,whichMoveY) <> 0);
   if not(CoupLegal) then
     begin
@@ -378,12 +378,12 @@ function RetournePionsBigOthello(var position : BigOthelloRec; whichMoveX,whichM
 var CoupLegal : boolean;
     nbPionsRetournes : SInt16;
 begin
-  if (whichMoveX < 1) | (whichMoveX > position.size.h) then
+  if (whichMoveX < 1) or (whichMoveX > position.size.h) then
     begin
       RetournePionsBigOthello := 0;
       exit(RetournePionsBigOthello);
     end;
-  if (whichMoveY < 1) | (whichMoveY > position.size.v) then
+  if (whichMoveY < 1) or (whichMoveY > position.size.v) then
     begin
       RetournePionsBigOthello := 0;
       exit(RetournePionsBigOthello);
@@ -435,7 +435,7 @@ var result : PositionEtTraitRec;
 begin
   result := MakeEmptyPositionEtTrait;
 
-  if (position.size.v <> 8) | (position.size.h <> 8)
+  if (position.size.v <> 8) or (position.size.h <> 8)
     then
       begin
         WritelnDansRapport('ERREUR : la taile n''est pas 8x8 dans BigOthelloEnPositionEtTrait !!')

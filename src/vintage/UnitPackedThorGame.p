@@ -89,7 +89,7 @@ end;
 function GET_LENGTH_OF_PACKED_GAME(const whichGame : PackedThorGame) : UInt8;
 begin
 
-  if (whichGame.theMoves[0] < 0) | (whichGame.theMoves[0] > 60) then
+  if (whichGame.theMoves[0] < 0) or (whichGame.theMoves[0] > 60) then
     begin
       WritelnStringDansRapport('WARNING : resultat out of range dans GET_LENGTH_OF_PACKED_GAME  !!');
       WritelnNumDansRapport('@ = ', SInt32(@whichGame));
@@ -134,7 +134,7 @@ function GET_NTH_MOVE_OF_PACKED_GAME(const whichGame : PackedThorGame; n : UInt8
 var exceptionDeSentinelleConnue : boolean;
 begin
 
-  if (n < 1) | (n > 60) | (n > whichGame.theMoves[0]) then
+  if (n < 1) or (n > 60) or (n > whichGame.theMoves[0]) then
     begin
       WritelnStringDansRapport('WARNING : l''index n est bizarre dans GET_NTH_MOVE_OF_PACKED_GAME  !!');
       WritelnStringDansRapport('fonction appelante = '+fonctionAppelante);
@@ -144,15 +144,15 @@ begin
     end;
 
 
-  exceptionDeSentinelleConnue := ((n = 1) & (whichGame.theMoves[n] = 197)) |
-                                 ((n = 1) & (whichGame.theMoves[n] = 200)) |
-                                 ((n = 1) & (whichGame.theMoves[n] = 230)) |
-                                 ((n = 1) & (whichGame.theMoves[n] = 132)) |
-                                 ((n = 1) & (whichGame.theMoves[n] = 151)) |
-                                 ((n = 1) & (whichGame.theMoves[n] = 150)) |
-                                 ((whichGame.theMoves[0] = 60) & (n > 0) & (n <= 60) & (whichGame.theMoves[n] = 0));
+  exceptionDeSentinelleConnue := ((n = 1) and (whichGame.theMoves[n] = 197)) or
+                                 ((n = 1) and (whichGame.theMoves[n] = 200)) or
+                                 ((n = 1) and (whichGame.theMoves[n] = 230)) or
+                                 ((n = 1) and (whichGame.theMoves[n] = 132)) or
+                                 ((n = 1) and (whichGame.theMoves[n] = 151)) or
+                                 ((n = 1) and (whichGame.theMoves[n] = 150)) or
+                                 ((whichGame.theMoves[0] = 60) and (n > 0) and (n <= 60) and (whichGame.theMoves[n] = 0));
 
-  if ((whichGame.theMoves[n] < 11) | (whichGame.theMoves[n] > 88)) & not(exceptionDeSentinelleConnue)
+  if ((whichGame.theMoves[n] < 11) or (whichGame.theMoves[n] > 88)) and not(exceptionDeSentinelleConnue)
     then
     begin
       WritelnStringDansRapport('WARNING : resultat out of range dans GET_NTH_MOVE_OF_PACKED_GAME  !!');
@@ -172,7 +172,7 @@ end;
 procedure SET_NTH_MOVE_OF_PACKED_GAME(var whichGame : PackedThorGame; n : UInt8; whichSquare : UInt8);
 begin
 
-  if (n < 1) | (n > 60) then
+  if (n < 1) or (n > 60) then
     begin
       WritelnNumDansRapport('WARNING : n out of range dans SET_NTH_MOVE_OF_PACKED_GAME  !! @ = ', SInt32(@whichGame));
       WritelnNumDansRapport('n = ',n);
@@ -263,7 +263,7 @@ begin
   len1 := game1.theMoves[0];
   len2 := game2.theMoves[0];
 
-  if (len1 = 0) & (len2 = 0) then
+  if (len1 = 0) and (len2 = 0) then
     begin
       COMPARE_PACKED_GAMES :=  0;
       exit(COMPARE_PACKED_GAMES);
@@ -323,9 +323,9 @@ end;
 
 function PACKED_GAME_IS_A_DIAGONAL(const whichGame : PackedThorGame) : boolean;
 begin
-  if (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,1, 'LectureSurCriteres(1)') = 56) &  { F5F6E6F4 ? }
-     (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,2, 'LectureSurCriteres(2)') = 66) &
-     (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,3, 'LectureSurCriteres(3)') = 65) &
+  if (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,1, 'LectureSurCriteres(1)') = 56) and  { F5F6E6F4 ? }
+     (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,2, 'LectureSurCriteres(2)') = 66) and
+     (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,3, 'LectureSurCriteres(3)') = 65) and
      (GET_NTH_MOVE_OF_PACKED_GAME(whichGame,4, 'LectureSurCriteres(4)') = 46)
      then PACKED_GAME_IS_A_DIAGONAL := true
      else PACKED_GAME_IS_A_DIAGONAL := false;

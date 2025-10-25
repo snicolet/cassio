@@ -27,7 +27,7 @@ IMPLEMENTATION
 	begin
 		len := 0;
 		p := c;
-		while (p^ <> 0) & (len<255) do begin
+		while (p^ <> 0) and (len<255) do begin
 			Inc(len);
 			Inc(SInt32(p));
 		end;

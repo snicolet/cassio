@@ -258,14 +258,14 @@ begin
   EnleveEspacesDeGaucheSurPlace(s);
 
 
-  if (afficherLesJoueursDuFichierFFO |afficherLesDoublons)
-     & StringBeginsWith(s, 'pays ') then
+  if (afficherLesJoueursDuFichierFFO orafficherLesDoublons)
+     and StringBeginsWith(s, 'pays ') then
     begin
       WritelnDansRapport(s);
       WritelnDansRapport('');
     end;
 
-  if (s <> '') & (s[1] <> '%') & not(StringBeginsWith(s, 'pays ')) then
+  if (s <> '') and (s[1] <> '%') and not(StringBeginsWith(s, 'pays ')) then
     begin
 
       SplitBy(s, '%', infosFFO, s2);
@@ -277,7 +277,7 @@ begin
 
 
 
-      if (chaineNumero <> '') & (nomFFO <> '') & (nomFFO <> ',') then
+      if (chaineNumero <> '') and (nomFFO <> '') and (nomFFO <> ',') then
         begin
 
           inc(nombreJoueursDansFichierFFO);
@@ -320,7 +320,7 @@ begin
           gLastFFOLineRead   := ligne.debutLigne;
 
 
-          if PeutImporterNomJoueurFormatPGN('', nomFFO, false, nomDansWThor, numeroWThor) & (numeroFFO > 0) & (numeroWThor > 0)
+          if PeutImporterNomJoueurFormatPGN('', nomFFO, false, nomDansWThor, numeroWThor) and (numeroFFO > 0) and (numeroWThor > 0)
             then
               begin
 
@@ -328,7 +328,7 @@ begin
                 SetNroFFODuJoueur(GetNroJoueurDansSonFichier(numeroWThor), numeroFFO);
 
 
-                if afficherLesJoueursDuFichierFFO & (nombreJoueursDansFichierFFO <= 100) then
+                if afficherLesJoueursDuFichierFFO and (nombreJoueursDansFichierFFO <= 100) then
                   WritelnDansRapport('OK : ' + nomFFO + ' = ' + nomDansWThor + ' = ' + NumEnString(numeroWThor));
 
               end
@@ -337,7 +337,7 @@ begin
 
                 // Il s'agit d'un joueur FFO que l'on n'a pas trouvŽ dans la base WThor
 
-                if afficherLesJoueursDuFichierFFO & (nombreJoueursDansFichierFFO <= 100) then
+                if afficherLesJoueursDuFichierFFO and (nombreJoueursDansFichierFFO <= 100) then
                   WritelnDansRapport('FAIL : ' + nomFFO);
               end;
 
@@ -393,9 +393,9 @@ begin
   whichNumeroFFO := -1;
 
   with JoueursNouveauFormat do
-  if (nbJoueursNouveauFormat > 0) &
-     (whichWThorNumber >= 0) &
-     (whichWThorNumber < nbJoueursNouveauFormat) &
+  if (nbJoueursNouveauFormat > 0) and
+     (whichWThorNumber >= 0) and
+     (whichWThorNumber < nbJoueursNouveauFormat) and
      (listeJoueurs <> NIL) then
         begin
 

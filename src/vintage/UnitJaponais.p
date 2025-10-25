@@ -146,7 +146,7 @@ begin
   gHasTSMTE := false;
   if GestaltImplemented then
     begin
-      if (Gestalt(gestaltTSMgrVersion, gestaltResponse) = noErr) & (gestaltResponse  >= 1) then
+      if (Gestalt(gestaltTSMgrVersion, gestaltResponse) = noErr) and (gestaltResponse  >= 1) then
         begin
           gHasTextServices := true;
           if Gestalt(gestaltTSMTEAttr, gestaltResponse) = noErr then
@@ -166,11 +166,11 @@ var response : SInt32;
 	  theStyle : TextStyle;
 begin
   {$UNUSED refCon}
-	if ((Gestalt(gestaltTSMTEVersion, response) = noErr) & (response = gestaltTSMTE1)) then
+	if ((Gestalt(gestaltTSMTEVersion, response) = noErr) and (response = gestaltTSMTE1)) then
 	begin
 		keyboardScript := GetScriptManagerVariable(smKeyScript);
 		mode := doFont;
-		if not(TEContinuousStyle(mode, theStyle, textH) &
+		if not(TEContinuousStyle(mode, theStyle, textH) and
 		      (FontToScript(theStyle.tsFont) = keyboardScript)) then
 		begin
 			theStyle.tsFont := GetScriptVariable(keyboardScript, smScriptAppFond);
@@ -195,7 +195,7 @@ end;
 
 procedure SwitchToJapaneseScript;
 begin
-  if gVersionJaponaiseDeCassio & gHasTextServices & gHasJapaneseScript & not(CassioIsInBackground)
+  if gVersionJaponaiseDeCassio and gHasTextServices and gHasJapaneseScript and not(CassioIsInBackground)
     then KeyScript(smJapanese);
 end;
 
@@ -203,10 +203,10 @@ end;
 procedure SwitchToRomanScript;
 var currentScript : SInt32;
 begin
-  if gHasTextServices & not(CassioIsInBackground) & not(UnDialogueEstAffiche) then
+  if gHasTextServices and not(CassioIsInBackground) and not(UnDialogueEstAffiche) then
     begin
       currentScript := GetScriptManagerVariable(smKeyScript);
-      if (currentScript <> smRoman) & not(AuMoinsUneZoneDeTexteEnModeEntree)
+      if (currentScript <> smRoman) and not(AuMoinsUneZoneDeTexteEnModeEntree)
         then KeyScript(smKeyRoman);
     end;
 end;
@@ -214,7 +214,7 @@ end;
 procedure SwitchToScript(whichScript : SInt32);
 var currentScript : SInt32;
 begin
-  if gHasTextServices & not(CassioIsInBackGround) then
+  if gHasTextServices and not(CassioIsInBackGround) then
     begin
       EnableKeyboardScriptSwitch;
       currentScript := GetScriptManagerVariable(smKeyScript);
@@ -226,7 +226,7 @@ end;
 
 procedure EnableKeyboardScriptSwitch;
 begin
-  if gHasTextServices & not(CassioIsInBackGround) then
+  if gHasTextServices and not(CassioIsInBackGround) then
     begin
       KeyScript(smKeyEnableKybds);
     end;
@@ -235,7 +235,7 @@ end;
 
 procedure DisableKeyboardScriptSwitch;
 begin
-  if gHasTextServices & not(CassioIsInBackGround) & not(AuMoinsUneZoneDeTexteEnModeEntree) then
+  if gHasTextServices and not(CassioIsInBackGround) and not(AuMoinsUneZoneDeTexteEnModeEntree) then
     begin
       KeyScript(smKeyDisableKybdSwitch);
     end;

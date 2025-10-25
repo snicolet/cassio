@@ -57,8 +57,8 @@ var gPremierCoupRechercheSol,gDernierCoupRechercheSol : SInt16;
 function DoitChercherCelleLa(numeroDansLaListe,numeroPartie : SInt32; var result : SInt32) : boolean;
 begin  {$UNUSED numeroPartie,result}
   gNumeroEnCoursDansLaListe := numeroDansLaListe;
-  DoitChercherCelleLa := (interruptionReflexion = pasdinterruption) &
-                         (numeroDansLaListe >= gNroPartieMinRechercheSol) &
+  DoitChercherCelleLa := (interruptionReflexion = pasdinterruption) and
+                         (numeroDansLaListe >= gNroPartieMinRechercheSol) and
                          (numeroDansLaListe <= gNroPartieMaxRechercheSol);
 
 end;
@@ -67,9 +67,9 @@ function DoitChercherCeCoupLa(numeroCoup : SInt16) : boolean;
 var nbreDeCasesVides : SInt16;
 begin
   nbreDeCasesVides := 60 - numeroCoup + 1;
-  DoitChercherCeCoupLa := (interruptionReflexion = pasdinterruption) &
-                          (numeroCoup >= gPremierCoupRechercheSol) &
-                          (numeroCoup <= gDernierCoupRechercheSol) &
+  DoitChercherCeCoupLa := (interruptionReflexion = pasdinterruption) and
+                          (numeroCoup >= gPremierCoupRechercheSol) and
+                          (numeroCoup <= gDernierCoupRechercheSol) and
                           gCaseVideDemandeeRechercheSolitaires[nbreDeCasesVides];
 end;
 
@@ -160,7 +160,7 @@ begin
   n := gNroPartieMaxRechercheSol - gNroPartieMinRechercheSol;
 
   tempsUtilise := (TickCount - tickDepartRechercheSolitaires) / 60.0;  {en secondes}
-  if (tempsUtilise <= 0.0) | (x <= 0) | (n <= 0)
+  if (tempsUtilise <= 0.0) or (x <= 0) or (n <= 0)
     then
       begin
         tempsTotalEstime := 0.0;
@@ -306,9 +306,9 @@ begin
 
       for nroRefPartie := 1 to nbPartiesActives do
         begin
-          if (GetNumeroTournoiDansFichierParNroRefPartie(nroRefPartie) = nroTournoi) &
-             (GetAnneePartieParNroRefPartie(nroRefPartie) = annee) &
-             (GetNumeroJoueurNoirDansFichierParNroRefPartie(nroRefPartie) = nroJoueurNoir) &
+          if (GetNumeroTournoiDansFichierParNroRefPartie(nroRefPartie) = nroTournoi) and
+             (GetAnneePartieParNroRefPartie(nroRefPartie) = annee) and
+             (GetNumeroJoueurNoirDansFichierParNroRefPartie(nroRefPartie) = nroJoueurNoir) and
              (GetNumeroJoueurBlancDansFichierParNroRefPartie(nroRefPartie) = nroJoueurBlanc)
              then
                begin
@@ -371,7 +371,7 @@ begin
 					          inc(compteur);
 					          {if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;}
 
-					          if not(Quitter) & (compteur >= debut) & (compteur <= fin) then
+					          if not(Quitter) and (compteur >= debut) and (compteur <= fin) then
 					            begin
 		                    error := LitSolitaireNouveauFormat(refNum,t,theSolitaire);
 		                    if error <> NoErr

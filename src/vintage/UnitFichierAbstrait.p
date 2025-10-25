@@ -134,7 +134,7 @@ begin
       GetFichierTEXTOfFichierAbstraitPtr := -1;
       exit(GetFichierTEXTOfFichierAbstraitPtr);
     end;
-  if (theFile.genre <> FichierAbstraitEstFichier) | (theFile.infos = NIL) then
+  if (theFile.genre <> FichierAbstraitEstFichier) or (theFile.infos = NIL) then
      begin
       GetFichierTEXTOfFichierAbstraitPtr := -2;
       exit(GetFichierTEXTOfFichierAbstraitPtr);
@@ -257,7 +257,7 @@ end;
 function EcrireDansFichierAbstraitPointeur(theAbstractFilePtr : FichierAbstraitPtr; buffer : Ptr; fromPos : SInt32; var nbOctets : SInt32) : OSErr;
 var theFile : FichierAbstrait;
 begin
-  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) |
+  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
      (theFile.infos = NIL)  then
     begin
       EcrireDansFichierAbstraitPointeur := -1;
@@ -273,7 +273,7 @@ end;
 function LireFromFichierAbstraitPointeur(theAbstractFilePtr : FichierAbstraitPtr; buffer : Ptr; fromPos : SInt32; var nbOctets : SInt32) : OSErr;
 var theFile : FichierAbstrait;
 begin
-  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) |
+  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
      (theFile.infos = NIL)  then
     begin
       LireFromFichierAbstraitPointeur := -1;
@@ -290,7 +290,7 @@ function ClearFichierAbstraitEnMemoire(theAbstractFilePtr : FichierAbstraitPtr) 
 var theFile : FichierAbstrait;
     count : SInt32;
 begin
-  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) |
+  if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
      (theFile.infos = NIL)  then
     begin
       ClearFichierAbstraitEnMemoire := -1;
@@ -404,7 +404,7 @@ var taille : SInt32;
 begin
   taille := LENGTH_OF_STRING(s);
 
-  if (taille > 0) & (s <> '')
+  if (taille > 0) and (s <> '')
     then
       begin
         aux := MakeFichierAbstraitEnMemoire(taille+10);
@@ -419,7 +419,7 @@ end;
 
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;
 begin
-  FichierAbstraitEstCorrect := (theFile.genre = FichierAbstraitEstPointeur) |
+  FichierAbstraitEstCorrect := (theFile.genre = FichierAbstraitEstPointeur) or
                                (theFile.genre = FichierAbstraitEstFichier);
 end;
 
@@ -458,9 +458,9 @@ begin
   err := 0;
   with theFile do
     begin
-      if (fromPos >= 0) & (nbOctets > tailleMaximalePossible - fromPos)
+      if (fromPos >= 0) and (nbOctets > tailleMaximalePossible - fromPos)
 		    then nbOctets := tailleMaximalePossible - fromPos;
-		  if (fromPos < 0)  & (nbOctets > tailleMaximalePossible - nbOctetsOccupes)
+		  if (fromPos < 0)  and (nbOctets > tailleMaximalePossible - nbOctetsOccupes)
 		    then nbOctets := tailleMaximalePossible - nbOctetsOccupes;
 		  err := Ecrire(@theFile,text,fromPos,nbOctets);
 		  if err <> NoErr then
@@ -549,9 +549,9 @@ begin
   err := 0;
   with theFile do
     begin
-		  if (fromPos >= 0) & (count > nbOctetsOccupes - fromPos)
+		  if (fromPos >= 0) and (count > nbOctetsOccupes - fromPos)
 		    then count := nbOctetsOccupes - fromPos;
-		  if (fromPos < 0)  & (count > nbOctetsOccupes - position)
+		  if (fromPos < 0)  and (count > nbOctetsOccupes - position)
 		    then count := nbOctetsOccupes - position;
 		  err := Lire(@theFile, buffer, fromPos, count);
 		  if err <> NoErr then
@@ -622,12 +622,12 @@ begin
 
   len := 0;
   i := 1;
-  while (i < n) & (s[i] <> cr) & (s[i] <> lf) do inc(i); {line feed or carriage return}
+  while (i < n) and (s[i] <> cr) and (s[i] <> lf) do inc(i); {line feed or carriage return}
   if (s[i] = cr)
     then
       begin
         len := i-1;
-        if (i < 255) & (s[i+1] = lf)
+        if (i < 255) and (s[i+1] = lf)
           then newPosition := oldPosition + len + 2  {+2 car on veut sauter le CR-LF}
           else newPosition := oldPosition + len + 1; {+1 car on veut sauter le CR}
       end
@@ -636,7 +636,7 @@ begin
     then
       begin
         len := i-1;
-        if (i < 255) & (s[i+1] = cr)
+        if (i < 255) and (s[i+1] = cr)
           then newPosition := oldPosition + len + 2  {+2 car on veut sauter le CR-LF}
           else newPosition := oldPosition + len + 1; {+1 car on veut sauter le LF}
       end
@@ -684,12 +684,12 @@ begin
 
   len := 0;
   i := 1;
-  while (i < n) & (buffer[i] <> cr) & (buffer[i] <> lf) do inc(i); {line feed or carriage return}
+  while (i < n) and (buffer[i] <> cr) and (buffer[i] <> lf) do inc(i); {line feed or carriage return}
   if (buffer[i] = cr)
     then
       begin
         len := i-1;
-        if (i < kTailleMaxOfLongString) & (buffer[i+1] = lf)
+        if (i < kTailleMaxOfLongString) and (buffer[i+1] = lf)
           then newPosition := oldPosition + len + 2  {+2 car on veut sauter le CR-LF}
           else newPosition := oldPosition + len + 1; {+1 car on veut sauter le CR}
       end
@@ -698,7 +698,7 @@ begin
     then
       begin
         len := i-1;
-        if (i < kTailleMaxOfLongString) & (buffer[i+1] = cr)
+        if (i < kTailleMaxOfLongString) and (buffer[i+1] = cr)
           then newPosition := oldPosition + len + 2  {+2 car on veut sauter le CR-LF}
           else newPosition := oldPosition + len + 1; {+1 car on veut sauter le LF}
       end
@@ -713,7 +713,7 @@ begin
   first := 1;
 
   if ignoreLeadingSpaces then
-    while (len > 0) & (buffer[first] = ' ') do
+    while (len > 0) and (buffer[first] = ' ') do
       begin
         inc(first);
         dec(len);
@@ -730,7 +730,7 @@ end;
 function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr) : boolean;
 var fic : FichierTEXT;
 begin
-  if (theFile.genre = FichierAbstraitEstFichier) &
+  if (theFile.genre = FichierAbstraitEstFichier) and
      (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then
       EOFFichierAbstrait := EOFFichierTexte(fic,erreurES)
@@ -758,7 +758,7 @@ procedure SetAbstractFileType(var theFile : FichierAbstrait; whichType : OSType)
 var fic : FichierTEXT;
 begin
    theFile.zoneType := whichType;
-   if (theFile.genre = FichierAbstraitEstFichier) &
+   if (theFile.genre = FichierAbstraitEstFichier) and
      (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then SetFileTypeFichierTexte(fic,whichType);
 end;
@@ -767,7 +767,7 @@ procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : O
 var fic : FichierTEXT;
 begin
   theFile.zoneCreator := whichCreator;
-  if (theFile.genre = FichierAbstraitEstFichier) &
+  if (theFile.genre = FichierAbstraitEstFichier) and
      (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then SetFileCreatorFichierTexte(fic,whichCreator);
 end;

@@ -196,7 +196,7 @@ begin
   ChangeFontFaceDansRapport(bold);
   ChangeFontSizeDansRapport(24);
   policeMise := false;
-  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+  if not(gVersionJaponaiseDeCassio) and not(policeMise) then
     begin
       niceRomanFont := MyGetFontNum('Bookman');
       if niceRomanFont > 0 then
@@ -205,7 +205,7 @@ begin
           policeMise := true;
         end;
     end;
-  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+  if not(gVersionJaponaiseDeCassio) and not(policeMise) then
     begin
       niceRomanFont := MyGetFontNum('Comic Sans MS');
       if niceRomanFont > 0 then
@@ -214,7 +214,7 @@ begin
           policeMise := true;
         end;
     end;
-  if not(gVersionJaponaiseDeCassio) & not(policeMise) then
+  if not(gVersionJaponaiseDeCassio) and not(policeMise) then
     begin
       niceRomanFont := MyGetFontNum('Times');
       if niceRomanFont > 0 then
@@ -223,18 +223,18 @@ begin
           policeMise := true;
         end;
     end;
-  if gVersionJaponaiseDeCassio & not(policeMise) then
+  if gVersionJaponaiseDeCassio and not(policeMise) then
     begin
-      niceJapaneseFont := MyGetFontNum('ñ{ñæí©Å|Çl');
+      niceJapaneseFont := MyGetFontNum('ñ{ñæí©ÅorÇl');
       if niceJapaneseFont > 0 then
         begin
           ChangeFontDansRapport(niceJapaneseFont);
           policeMise := true;
         end;
     end;
-  if gVersionJaponaiseDeCassio & not(policeMise) then
+  if gVersionJaponaiseDeCassio and not(policeMise) then
     begin
-      niceJapaneseFont := MyGetFontNum('ä€ÉSÉVÉbÉNÅ|Çl');
+      niceJapaneseFont := MyGetFontNum('ä€ÉSÉVÉbÉNÅorÇl');
       if niceJapaneseFont > 0 then
         begin
           ChangeFontDansRapport(niceJapaneseFont);
@@ -280,7 +280,7 @@ begin
 
   GetPort(oldport);
   with rapport do
-    if (theWindow <> NIL) & (theText <> NIL) then
+    if (theWindow <> NIL) and (theText <> NIL) then
      begin
         SetPortByWindow(theWindow);
         GlobalToLocal(where);
@@ -310,7 +310,7 @@ begin
              end;
           otherwise
             begin
-             if (where.h < GetWindowPortRect(rapport.theWindow).right-15) &
+             if (where.h < GetWindowPortRect(rapport.theWindow).right-15) and
                 (where.v < GetWindowPortRect(rapport.theWindow).bottom-15)
                then
                  begin
@@ -320,15 +320,15 @@ begin
 
                    posMilieuMot := GetMilieuSelectionRapport;
 
-                   if EstUnDoubleClic(evt,false) &
+                   if EstUnDoubleClic(evt,false) and
                       EstDansBanniereAnalyseRetrograde(posMilieuMot)
                      then SelectionneAnalyseRetrograde(posMilieuMot);
 
-                   if EstUnDoubleClic(evt,false) &
-                      FenetreRapportEstOuverte &
-		                  SelectionRapportNonVide &
-		                  (BAnd(theEvent.modifiers,optionKey) <> 0) &
-		                  SelectionRapportEstUnePartieLegale(partieLegale) &
+                   if EstUnDoubleClic(evt,false) and
+                      FenetreRapportEstOuverte and
+		                  SelectionRapportNonVide and
+		                  (BAnd(theEvent.modifiers,optionKey) <> 0) and
+		                  SelectionRapportEstUnePartieLegale(partieLegale) and
 		                  PeutArreterAnalyseRetrograde
 		                 then PlaquerPartieLegale(partieLegale,kRejouerLesCoupsEnDirect);
 
@@ -350,16 +350,16 @@ procedure AnnonceScoreFinalDansRapport;
 var s,s1 : String255;
     oldScript : SInt32;
 begin
-  if gameOver & not(HumCtreHum) & not(enTournoi) then
+  if gameOver and not(HumCtreHum) and not(enTournoi) then
     if not(CassioEstEnModeSolitaire) then
       begin
         s := NumEnString(nbreDePions[pionNoir]);
         s1 := NumEnString(nbreDePions[pionBlanc]);
         s1 := s+CharToString('-')+s1;
         s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
-        if not(HumCtreHum) & not(CassioEstEnModeAnalyse) then
-          if ((nbreDePions[pionNoir] > 32) & (couleurMacintosh = pionBlanc)) |
-             ((nbreDePions[pionBlanc] > 32) & (couleurMacintosh = pionNoir))
+        if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then
+          if ((nbreDePions[pionNoir] > 32) and (couleurMacintosh = pionBlanc)) or
+             ((nbreDePions[pionBlanc] > 32) and (couleurMacintosh = pionNoir))
              then s := s + '. ' + ReadStringFromRessource(TextesRapportID,8)    {'Félicitations !'}
              else s := s + '. ' + ReadStringFromRessource(TextesRapportID,9);   {'Voulez-vous en faire une autre ?'}
 
@@ -411,7 +411,7 @@ procedure AnnonceSupposeSuitConseilMac(numeroCoup,conseil : SInt16);
 var s,s1 : String255;
     oldScript : SInt32;
 begin
-  if not(CassioEstEnModeSolitaire) & not(jeuInstantane) then
+  if not(CassioEstEnModeSolitaire) and not(jeuInstantane) then
     begin
       s1 := NumEnString(numeroCoup);
       s := ReadStringFromRessource(TextesRapportID,10);   {'conseil'}
@@ -464,7 +464,7 @@ begin
 
   if control then
     begin
-      ch2 := QuelCaractereDeControle(ch,shift|verouillage);
+      ch2 := QuelCaractereDeControle(ch,shiftorverouillage);
       s := 'touche controle appuyée,  ';
       s := s + 'caractère =  ^'+ch2;
       WritelnDansRapport(s);
@@ -475,8 +475,8 @@ function CollerDansRapport : boolean;
 begin
   collerDansRapport := false;
   with rapport do
-  if windowRapportOpen & (theText <> NIL) then
-   if (theWindow = FrontWindowSaufPalette) & (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) > 0)
+  if windowRapportOpen and (theText <> NIL) then
+   if (theWindow = FrontWindowSaufPalette) and (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) > 0)
     then
      begin
        // Le presse-Papier contient du TEXT, mais le rapport
@@ -499,7 +499,7 @@ function CouperFromRapport : boolean;
 begin
   couperFromRapport := false;
   with rapport do
-  if windowRapportOpen & (theText <> NIL) then
+  if windowRapportOpen and (theText <> NIL) then
     if SelectionRapportNonVide  then
       if theWindow = FrontWindowSaufPalette then
         begin
@@ -515,7 +515,7 @@ function CopierFromRapport : boolean;
 begin
   copierFromRapport := false;
   with rapport do
-  if windowRapportOpen & (theText <> NIL) then
+  if windowRapportOpen and (theText <> NIL) then
     if SelectionRapportNonVide  then
       if theWindow = FrontWindowSaufPalette then
         begin
@@ -533,7 +533,7 @@ function EffacerDansRapport : boolean;
 begin
   effacerDansRapport := false;
   with rapport do
-  if windowRapportOpen & (theText <> NIL) then
+  if windowRapportOpen and (theText <> NIL) then
     if SelectionRapportNonVide  then
       if theWindow = FrontWindowSaufPalette then
         begin
@@ -551,7 +551,7 @@ function SelectionneToutDansRapport : boolean;
 begin
   SelectionneToutDansRapport := false;
   with rapport do
-    if windowRapportOpen & (theText <> NIL) then
+    if windowRapportOpen and (theText <> NIL) then
       if theWindow = FrontWindowSaufPalette then
         begin
           TESetSelect(0,2000000000-1,theText);   {2000000000 was MawLongint}
@@ -573,14 +573,14 @@ begin
     begin
       longueur := LongueurSelectionRapport;
 
-      if (longueur < 2) | (longueur > 250)
+      if (longueur < 2) or (longueur > 250)
         then exit(SelectionRapportEstUnePartieLegale);
 
       s := SelectionRapportEnString(longueur);
       EnleveEspacesDeDroiteSurPlace(s);
       EnleveEspacesDeGaucheSurPlace(s);
 
-      if (ScannerStringPourTrouverCoup(1,s,loc) > 0) & EstUnePartieOthello(s,true) then
+      if (ScannerStringPourTrouverCoup(1,s,loc) > 0) and EstUnePartieOthello(s,true) then
         begin
           partieAlpha := s;
 		      SelectionRapportEstUnePartieLegale := true;

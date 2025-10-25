@@ -115,7 +115,7 @@ begin
     else
       begin
         {memoisation ?}
-        if (SymetrisationLigne <> NIL) & (SymetrisationLigne^[length,n] <> kSymetrisationNonEncoreCalculee) then
+        if (SymetrisationLigne <> NIL) and (SymetrisationLigne^[length,n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMappingLongSquaresLine := SymetrisationLigne^[length,n];
             exit(SymmetricalMappingLongSquaresLine);
@@ -153,7 +153,7 @@ begin
 			  (*
 			  {on ajoute dans le buffer}
 			  inc(DernierIndexDansBufferMapping[length]);
-			  if (DernierIndexDansBufferMapping[length] < 0) | (DernierIndexDansBufferMapping[length] > kTailleBufferMapping)
+			  if (DernierIndexDansBufferMapping[length] < 0) or (DernierIndexDansBufferMapping[length] > kTailleBufferMapping)
 			    then DernierIndexDansBufferMapping[length] := 0;
 			  aux := DernierIndexDansBufferMapping[length];
 			  bufferSymmetricalMapping[aux,length].x     := nArrivee;
@@ -230,7 +230,7 @@ begin
     else
       begin
         {memoisation ?}
-        if (SymetrisationEdge2X <> NIL) & (SymetrisationEdge2X^[n] <> kSymetrisationNonEncoreCalculee) then
+        if (SymetrisationEdge2X <> NIL) and (SymetrisationEdge2X^[n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMappingEdge2X := SymetrisationEdge2X^[n];
             exit(SymmetricalMappingEdge2X);
@@ -268,7 +268,7 @@ begin
 			  (*
 			  {on ajoute dans le buffer}
 			  inc(DernierIndexDansBufferMapping[10]);
-			  if (DernierIndexDansBufferMapping[10] < 0) | (DernierIndexDansBufferMapping[10] > kTailleBufferMapping)
+			  if (DernierIndexDansBufferMapping[10] < 0) or (DernierIndexDansBufferMapping[10] > kTailleBufferMapping)
 			    then DernierIndexDansBufferMapping[10] := 0;
 			  aux := DernierIndexDansBufferMapping[10];
 			  bufferSymmetricalMapping[aux,10].x     := nArrivee;
@@ -296,7 +296,7 @@ begin
       begin
 
         {memoisation ?}
-        if (SymetrisationCorner13 <> NIL) & (SymetrisationCorner13^[n] <> kSymetrisationNonEncoreCalculee) then
+        if (SymetrisationCorner13 <> NIL) and (SymetrisationCorner13^[n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMapping13SquaresCorner := SymetrisationCorner13^[n];
             exit(SymmetricalMapping13SquaresCorner);
@@ -336,7 +336,7 @@ begin
 			  (*
 			  {on ajoute dans le buffer}
 			  inc(DernierIndexDansBufferMapping[13]);
-			  if (DernierIndexDansBufferMapping[13] < 0) | (DernierIndexDansBufferMapping[13] > kTailleBufferMapping)
+			  if (DernierIndexDansBufferMapping[13] < 0) or (DernierIndexDansBufferMapping[13] > kTailleBufferMapping)
 			    then DernierIndexDansBufferMapping[13] := 0;
 			  baux := DernierIndexDansBufferMapping[13];
 			  bufferSymmetricalMapping[baux,13].x     := nArrivee;

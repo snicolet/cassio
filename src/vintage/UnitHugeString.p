@@ -147,7 +147,7 @@ end;
 procedure CopyHugeString(var source, dest : HugeString);
 var k : SInt32;
 begin
-  if (HugeStringIsUsable(source) & HugeStringIsUsable(dest)) then
+  if (HugeStringIsUsable(source) and HugeStringIsUsable(dest)) then
     begin
       dest.longueur := source.longueur;
       for k := 1 to dest.longueur do
@@ -165,7 +165,7 @@ end;
  *)
 function HugeStringIsUsable(const ligne : HugeString) : boolean;
 begin
-  HugeStringIsUsable := (ligne.longueur >= 0) & (ligne.theChars <> NIL);
+  HugeStringIsUsable := (ligne.longueur >= 0) and (ligne.theChars <> NIL);
 end;
 
 
@@ -182,7 +182,7 @@ begin
 
   SameHugeString := false;
 
-  if not(HugeStringIsUsable(ligne1)) | not(HugeStringIsUsable(ligne2)) then
+  if not(HugeStringIsUsable(ligne1)) or not(HugeStringIsUsable(ligne2)) then
     exit(SameHugeString);
 
   if (ligne1.longueur <> ligne2.longueur) then
@@ -280,7 +280,7 @@ begin
               for k := 1 to (LengthOfHugeString(ligne) - len + 1) do
                 begin
                   j := 1;
-                  while (j <= len) & (theChars^[k + j - 1] = s[j]) do
+                  while (j <= len) and (theChars^[k + j - 1] = s[j]) do
                     inc(j);
 
                   if (j > len) then  // found in position k
@@ -291,7 +291,7 @@ begin
                 end;
             end
           else
-            if (len <= 0) & (LengthOfHugeString(ligne) > 0) then
+            if (len <= 0) and (LengthOfHugeString(ligne) > 0) then
               begin
                 FindStringInHugeString := 1;  // par convention
                 exit(FindStringInHugeString);
@@ -313,9 +313,9 @@ end;
  *)
 function HugeStringBeginsWith(const s : String255; const ligne : HugeString) : boolean;
 begin
-  if (s = '') |
-     (LengthOfHugeString(ligne) <= 0) |
-     not(HugeStringIsUsable(ligne))   |
+  if (s = '') or
+     (LengthOfHugeString(ligne) <= 0) or
+     not(HugeStringIsUsable(ligne))   or
      (ligne.theChars^[1] <> s[1]) then
     begin
       HugeStringBeginsWith := false;
@@ -445,7 +445,7 @@ procedure BufferToHugeString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; v
 var k : SInt32;
 begin
 
-  if HugeStringIsUsable(ligne) & (buffer <> NIL) & (nbOctets >= 0) then
+  if HugeStringIsUsable(ligne) and (buffer <> NIL) and (nbOctets >= 0) then
       with ligne do
         begin
 
@@ -476,7 +476,7 @@ end;
  *)
 procedure TruncateHugeString(var ligne : HugeString; len : SInt32);
 begin
-  if (len >= 0) & (len < LengthOfHugeString(ligne))
+  if (len >= 0) and (len < LengthOfHugeString(ligne))
     then ligne.longueur := len;
 end;
 
@@ -511,7 +511,7 @@ end;
 procedure WriteHugeStringDansRapport(const ligne : HugeString);
 begin
 
-  if HugeStringIsUsable(ligne) & (ligne.longueur > 0) then
+  if HugeStringIsUsable(ligne) and (ligne.longueur > 0) then
     InsereTexteDansRapport(Ptr(ligne.theChars), ligne.longueur);
 
 end;

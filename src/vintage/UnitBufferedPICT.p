@@ -209,7 +209,7 @@ begin
   {WritelnDansRapport('nomFichierTexture = '+whichTexture.nomFichierTexture);
   WritelnNumDansRapport('a = ',a);}
 
-  if FichierPhotosHappyEndExistePourCesTextureEtCouleur(whichTexture.nomFichierTexture,couleur,numeroFic) |
+  if FichierPhotosHappyEndExistePourCesTextureEtCouleur(whichTexture.nomFichierTexture,couleur,numeroFic) or
      FichierPhotosHappyEndExistePourCesTextureEtCouleur(whichTexture.nomFichierTexture,kImagePionsVides,numeroFic)  {default}
     then
       begin
@@ -376,16 +376,16 @@ begin
          FillRect(boundsRect,blackPattern);
 
 
-         if avecOmbrageDesPions & false
+         if avecOmbrageDesPions and false
 	          then DessineOmbreDuPion(discRect);
 
          if RGBColorEstClaire(whichTexture.RGB,21500)
             then couleurMontreCoupLegal := NoircirCouleurDeCetteQuantite(whichTexture.RGB,17000)
             else
-              if not(whichTexture.EstTresClaire) |
-                 ((whichTexture.menuCmd <> BlancCmd) &
-                 (whichTexture.menuCmd <> JauneCmd) &
-                 (whichTexture.menuCmd <> BleuPaleCmd) &
+              if not(whichTexture.EstTresClaire) or
+                 ((whichTexture.menuCmd <> BlancCmd) and
+                 (whichTexture.menuCmd <> JauneCmd) and
+                 (whichTexture.menuCmd <> BleuPaleCmd) and
                  (whichTexture.menuCmd <> JaunePaleCmd))
                  then couleurMontreCoupLegal := EclaircirCouleur(whichTexture.RGB)
                  else couleurMontreCoupLegal := NoircirCouleurDeCetteQuantite(whichTexture.RGB,22000);
@@ -405,7 +405,7 @@ begin
 
 	         InSetRect(discRect,2,2);
 
-	         if avecOmbrageDesPions & false
+	         if avecOmbrageDesPions and false
 	          then DessineOmbreDuPion(discRect);
 
 	         SetRGBColor(couleurPionDore,65535,60138,6168);
@@ -556,8 +556,8 @@ begin
           doitFermerFichierPhotos := false;
 
           {on prend les PICT dans le fichier de "picture" qui va bien }
-          if whichTexture.estUneImage &
-            (GetTypeOfTexture(whichTexture.nomFichierTexture) <> kFichierPictureHappyEnd) &
+          if whichTexture.estUneImage and
+            (GetTypeOfTexture(whichTexture.nomFichierTexture) <> kFichierPictureHappyEnd) and
             (FichierPhotosExisteSurLeDisque(GetPathCompletFichierPionsPourCetteTexture(whichTexture),fichierDesPhotos)) then
     	        begin
     	          oldResourceFile := CurResFile;
@@ -658,7 +658,7 @@ begin
 
   err := CreateTempOffScreenWorld(theRect,gOffScreenBordure);
 
-  if (err = NoErr) & (gOffScreenBordure <> NIL) then
+  if (err = NoErr) and (gOffScreenBordure <> NIL) then
     begin
       gOffScreenBordureBoundingBox := theRect;
 
@@ -702,7 +702,7 @@ begin
 			        end;
 
 			      {pour le debuggage}
-			      if false & windowPlateauOpen  & (wPlateauPtr <> NIL) & IsWindowVisible(wPlateauPtr) then
+			      if false and windowPlateauOpen  and (wPlateauPtr <> NIL) and IsWindowVisible(wPlateauPtr) then
 			        begin
 			          EssaieSetPortWindowPlateau;
 			          DumpWorkToScreen(theRect,theRect,gOffScreenBordure,GetWindowPort(wPlateauPtr));
@@ -757,10 +757,10 @@ begin
 
   PremierePictDeLaSerieID := (thePictID - (thePictID mod 100));
 
-  if (wPlateauPtr = NIL) | not(windowPlateauOpen) then
+  if (wPlateauPtr = NIL) or not(windowPlateauOpen) then
     exit(DrawBufferedColorPict);
 
-  if (thePictID < PremierePictDeLaSerieID) | (thePictID > PremierePictDeLaSerieID+kNbPictDansUneSerie-1) then
+  if (thePictID < PremierePictDeLaSerieID) or (thePictID > PremierePictDeLaSerieID+kNbPictDansUneSerie-1) then
     begin
       SysBeep(0);
       WritelnDansRapport('thePictID n''est pas dans l''intervalle minimumPictID-maximumPictID !');
@@ -770,8 +770,8 @@ begin
 
 
   tailleCase := inRect.right-inRect.left;
-  if (tailleCase <> GetCurrentSizeOfBufferedPicts) |
-     (SerieDePictCouramentAffichee.whichMenuID <> whichTexture.menuID) |
+  if (tailleCase <> GetCurrentSizeOfBufferedPicts) or
+     (SerieDePictCouramentAffichee.whichMenuID <> whichTexture.menuID) or
      (SerieDePictCouramentAffichee.whichMenuItem <> whichTexture.menuCmd) then
     begin
       GetPort(oldPort);
@@ -824,7 +824,7 @@ end;
 
 function BordureOthellierEstUneTexture : boolean;
 begin
-  (* BordureOthellierEstUneTexture := avecSystemeCoordonnees & not(CassioEstEn3D) &
+  (* BordureOthellierEstUneTexture := avecSystemeCoordonnees and not(CassioEstEn3D) and
                                    gCouleurOthellier.estUneImage; *)
   BordureOthellierEstUneTexture := true;
 end;
@@ -836,13 +836,13 @@ var oldPort : grafPtr;
     err : OSErr;
 begin
 
-  if (wPlateauPtr = NIL) | not(windowPlateauOpen) then
+  if (wPlateauPtr = NIL) or not(windowPlateauOpen) then
     begin
       DrawBordureColorPict := -1;
       exit(DrawBordureColorPict);
     end;
 
-  if (gOffScreenBordure = NIL) | (GetCurrentTailleOfBordurePicts <> GetTailleCaseCourante) then
+  if (gOffScreenBordure = NIL) or (GetCurrentTailleOfBordurePicts <> GetTailleCaseCourante) then
     begin
       KillOffScreenWorldBordure;
       err := CreateOffScreenWorldBordure(GetTailleCaseCourante,gCouleurOthellier);
@@ -903,7 +903,7 @@ begin
   if (whichRect.right > windowRect.right)   then whichRect.right  := windowRect.right;
   if (whichRect.bottom > windowRect.bottom) then whichRect.bottom := windowRect.bottom;
 
-  if not(PtInRect(whichRect.topLeft,gOffScreenBordureBoundingBox) &
+  if not(PtInRect(whichRect.topLeft,gOffScreenBordureBoundingBox) and
          PtInRect(whichRect.botRight,gOffScreenBordureBoundingBox)) then
      begin
        KillOffScreenWorldBordure;
@@ -919,13 +919,13 @@ end;
 
 procedure SetValeurDessinEnTraceDeRayon(square,valeur : SInt16);
 begin
-  if (square >= 11) & (square <= 88) then
+  if (square >= 11) and (square <= 88) then
     DessinEnTraceDeRayon[square] := valeur;
 end;
 
 function GetValeurDessinEnTraceDeRayon(square : SInt16) : SInt16;
 begin
-  if (square >= 11) & (square <= 88)
+  if (square >= 11) and (square <= 88)
     then GetValeurDessinEnTraceDeRayon := DessinEnTraceDeRayon[square]
     else GetValeurDessinEnTraceDeRayon := kCaseDevantEtreRedessinee;
 end;

@@ -196,7 +196,7 @@ var auxRect,inter : rect;
     droite,tousDuMemeCote : boolean;
 begin
   InSetRect(theRect,-3,-3);
-  if PtInRect(M1,theRect) | PtInRect(M2,theRect) then
+  if PtInRect(M1,theRect) or PtInRect(M2,theRect) then
     begin
       SegmentIntersecteRect := true;
       exit(SegmentIntersecteRect);
@@ -217,9 +217,9 @@ begin
     begin
       tousDuMemeCote := true;
       droite := ADroite(M1.h,M1.v,M2.h,M2.v,left,top);
-      tousDuMemeCote := tousDuMemeCote & (droite = ADroite(M1.h,M1.v,M2.h,M2.v,left,bottom));
-      tousDuMemeCote := tousDuMemeCote & (droite = ADroite(M1.h,M1.v,M2.h,M2.v,right,bottom));
-      tousDuMemeCote := tousDuMemeCote & (droite = ADroite(M1.h,M1.v,M2.h,M2.v,right,top));
+      tousDuMemeCote := tousDuMemeCote and (droite = ADroite(M1.h,M1.v,M2.h,M2.v,left,bottom));
+      tousDuMemeCote := tousDuMemeCote and (droite = ADroite(M1.h,M1.v,M2.h,M2.v,right,bottom));
+      tousDuMemeCote := tousDuMemeCote and (droite = ADroite(M1.h,M1.v,M2.h,M2.v,right,top));
     end;
 
   SegmentIntersecteRect := not(tousDuMemeCote);

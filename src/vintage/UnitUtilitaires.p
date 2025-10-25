@@ -199,7 +199,7 @@ begin
 
   WritelnDansRapport('Apprentissage des coeffs de la liste à la Bill…');
   n := 1;
-  while (n <= nbPartiesActives) & not(Quitter) do
+  while (n <= nbPartiesActives) and not(Quitter) do
     begin
       nroReference := tableNumeroReference^^[n];
       GainTheorique := GetGainTheoriqueParNroRefPartie(nroReference);
@@ -226,13 +226,13 @@ begin
           ok := ModifPlat(ord(s60[i]),trait,platBill,jouableBill,nbBlancBill,nbNoirBill,frontBill);
           trait := traitDansPartie[i+1];
           if ok then
-            if ((GainTheorique = CaracterePourNoir) & (trait = pionNoir)) |
-               ((GainTheorique = CaracterePourBlanc) & (trait = pionBlanc))
+            if ((GainTheorique = CaracterePourNoir) and (trait = pionNoir)) or
+               ((GainTheorique = CaracterePourBlanc) and (trait = pionBlanc))
                then apprendCoeffsMoyensPositionBill(i,ClasseGagnantBill,platBill,trait,
                                                   nbBlancBill,nbNoirBill,jouableBill,frontBill);
           if ok then
-            if ((GainTheorique = CaracterePourNoir) & (trait = pionBlanc)) |
-               ((GainTheorique = CaracterePourBlanc) & (trait = pionNoir))
+            if ((GainTheorique = CaracterePourNoir) and (trait = pionBlanc)) or
+               ((GainTheorique = CaracterePourBlanc) and (trait = pionNoir))
                then apprendCoeffsMoyensPositionBill(i,ClassePerdantBill,platBill,trait,
                                                   nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
@@ -259,7 +259,7 @@ begin
 
   WritelnDansRapport('apprentissage des covariances…');
   n := 1;
-  while (n <= nbPartiesActives) & not(Quitter) do
+  while (n <= nbPartiesActives) and not(Quitter) do
     begin
       nroReference := tableNumeroReference^^[n];
       GainTheorique := GetGainTheoriqueParNroRefPartie(nroReference);
@@ -287,13 +287,13 @@ begin
           ok := ModifPlat(ord(s60[i]),trait,platBill,jouableBill,nbBlancBill,nbNoirBill,frontBill);
           trait := traitDansPartie[i+1];
           if ok then
-            if ((GainTheorique = CaracterePourNoir) & (trait = pionNoir)) |
-               ((GainTheorique = CaracterePourBlanc) & (trait = pionBlanc))
+            if ((GainTheorique = CaracterePourNoir) and (trait = pionNoir)) or
+               ((GainTheorique = CaracterePourBlanc) and (trait = pionBlanc))
                then apprendVariancesCoeffPositionBill(i,ClasseGagnantBill,platBill,trait,
                                                       nbBlancBill,nbNoirBill,jouableBill,frontBill);
           if ok then
-            if ((GainTheorique = CaracterePourNoir) & (trait = pionBlanc)) |
-               ((GainTheorique = CaracterePourBlanc) & (trait = pionNoir))
+            if ((GainTheorique = CaracterePourNoir) and (trait = pionBlanc)) or
+               ((GainTheorique = CaracterePourBlanc) and (trait = pionNoir))
                then apprendVariancesCoeffPositionBill(i,ClassePerdantBill,platBill,trait,
                                                       nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
@@ -448,7 +448,7 @@ begin
   WritelnDansRapport('Apprentissage des lignes de la liste…');
 
   n := 1;
-  while (n <= nbPartiesActives) & not(Quitter) do
+  while (n <= nbPartiesActives) and not(Quitter) do
     begin
       nroReference := tableNumeroReference^^[n];
       GainTheorique := GetGainTheoriqueParNroRefPartie(nroReference);
@@ -619,7 +619,7 @@ begin
 
   WritelnDansRapport('Apprentissage des blocs de coin de la liste…');
   n := 1;
-  while (n <= nbPartiesActives) & not(Quitter) do
+  while (n <= nbPartiesActives) and not(Quitter) do
     begin
       nroReference := tableNumeroReference^^[n];
       GainTheorique := GetGainTheoriqueParNroRefPartie(nroReference);
@@ -661,7 +661,7 @@ begin
           begin
             fnote := 1.0*valeurBlocsDeCoin^[i]/nbOccurencesLigne8^[i];
             CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
-            if (nbVides >= 1) & ((i mod 30) = 6) then
+            if (nbVides >= 1) and ((i mod 30) = 6) then
               begin
                 WritelnDansRapport('');
                 WritelnDansRapport(TPCopy(code,1,4));
@@ -726,7 +726,7 @@ begin
           WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
         end;
 
-      if (((i+14) mod 50)  = 0) & (fnote <> 0.0) then
+      if (((i+14) mod 50)  = 0) and (fnote <> 0.0) then
         begin
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WritelnDansRapport('');
@@ -757,9 +757,9 @@ begin
   derniereChaineMajus := MyUpperString(derniereChaineMajus,false);
 
 
-  if (prefixe <> '') & (JoueursNouveauFormat.nbJoueursNouveauFormat > 0) then
+  if (prefixe <> '') and (JoueursNouveauFormat.nbJoueursNouveauFormat > 0) then
     begin
-      if (prefixeMajus <> derniereChaineMajus) |
+      if (prefixeMajus <> derniereChaineMajus) or
          (TypeDerniereComplementation <> typeVoulu)
         then
           begin  {complementation avec un nouveau prefixe}
@@ -820,7 +820,7 @@ begin
           end;
 
         {on fait la meme chose avec les noms japonais}
-        if gVersionJaponaiseDeCassio & gHasJapaneseScript & not(found) & JoueurAUnNomJaponais(i) then
+        if gVersionJaponaiseDeCassio and gHasJapaneseScript and not(found) and JoueurAUnNomJaponais(i) then
           begin
             joueurBase := GetNomJaponaisDuJoueur(i);
             joueurBase := MyUpperString(joueurBase,false);
@@ -852,7 +852,7 @@ begin
 
         i := i+1;
         if (i >= JoueursNouveauFormat.nbJoueursNouveauFormat) then i := 0;
-      until found | (i = iDepart);
+      until found or (i = iDepart);
     end;
 
   TypeDerniereComplementation := typeVoulu;
@@ -876,7 +876,7 @@ begin
   prefixeMaj := MyUpperString(prefixeMaj,false);
   derniereChaineMaj := MyUpperString(derniereChaineMaj,false);
 
-  if (prefixeMaj <> derniereChaineMaj) | (TypeDerniereComplementation <> typeVoulu)
+  if (prefixeMaj <> derniereChaineMaj) or (TypeDerniereComplementation <> typeVoulu)
     then
       begin {complementation avec un nouveau prefixe}
         DisposeStringSet(gTournoisComplementes);
@@ -937,7 +937,7 @@ begin
 
     i := i-1;
     if (i < 0) then i := TournoisNouveauFormat.nbTournoisNouveauFormat-1;
-  until found | (i = iDepart);
+  until found or (i = iDepart);
 
   TypeDerniereComplementation := typeVoulu;
   if found
@@ -974,7 +974,7 @@ begin {$UNUSED numeroCoup,coup,s,s1,oldScript}
 
   if avecNomOuvertures then
     begin
-		  if (SelectFirstPropertyOfTypesInGameTree([OpeningNameProp],GetCurrentNode) = NIL) &
+		  if (SelectFirstPropertyOfTypesInGameTree([OpeningNameProp],GetCurrentNode) = NIL) and
 		      NomOuvertureChange(nomOuverture) then
 		    begin
 		      EnleveEspacesDeDroiteSurPlace(nomOuverture);
@@ -1073,7 +1073,7 @@ var i : SInt64;
 
 begin
   ok := false;
-  if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan & SelectionRapportNonVide then
+  if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan and SelectionRapportNonVide then
     ok := true;
   if not(ok)
     then
@@ -1105,9 +1105,9 @@ begin
 
               { On verifie que le nom du groupe est non vide, qu'il commence par ∑
                 et que les acolades sont bien placees }
-              syntaxeCorrecte := (posSigma = 1) &
-                                 (posEgal > 2) &
-                                 (posAcoladeOuvrante > posEgal) &
+              syntaxeCorrecte := (posSigma = 1) and
+                                 (posEgal > 2) and
+                                 (posAcoladeOuvrante > posEgal) and
                                  (posAcoladeFermante > posAcoladeOuvrante);
 
               { Et il ne doit y avoir que des espaces (eventuellement aucune)
@@ -1141,7 +1141,7 @@ begin
                           groupeExistant := TPCopy(groupeExistant,1,posEgal-1);
                           EnleveEspacesDeDroiteSurPlace(groupeExistant);
 
-                          if (groupeExistant = nomDuGroupe) & not(groupeUtilise) then
+                          if (groupeExistant = nomDuGroupe) and not(groupeUtilise) then
                             begin
                               groupeUtilise := true;
                               if groupeVide
@@ -1171,7 +1171,7 @@ begin
                         end;
                     if not(groupeUtilise) then
                       for i := 1 to nbMaxGroupes do
-                        if (groupes^^[i] = '') & not(groupeUtilise) then
+                        if (groupes^^[i] = '') and not(groupeUtilise) then
                           begin
                             groupes^^[i] := newGroupe;
                             ListeDesGroupesModifiee := true;
@@ -1221,7 +1221,7 @@ procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPre
 var s,s2 : String255;
     nom : String255;
 begin
-  if enleverLesPrenoms & (nomNoir[LENGTH_OF_STRING(nomNoir)] <> '.')
+  if enleverLesPrenoms and (nomNoir[LENGTH_OF_STRING(nomNoir)] <> '.')
     then EnlevePrenom(nomNoir,nom)
     else nom := nomNoir;
 
@@ -1239,7 +1239,7 @@ begin
   s2 := NumEnString(64-scoreNoir);
   s := s + s2+CharToString(' ');
 
-  if enleverLesPrenoms & (nomBlanc[LENGTH_OF_STRING(nomBlanc)] <> '.')
+  if enleverLesPrenoms and (nomBlanc[LENGTH_OF_STRING(nomBlanc)] <> '.')
     then EnlevePrenom(nomBlanc,nom)
     else nom := nomBlanc;
   if nom[LENGTH_OF_STRING(nom)] = ' ' then nom := TPCopy(nom,1,pred(LENGTH_OF_STRING(nom)));
@@ -1269,12 +1269,12 @@ begin
 	repeat
 	  diminish := false;
 		k := LENGTH_OF_STRING(s);
-		if (k >= 5) &
-		   IsDigit(s[k]) &
-			 IsDigit(s[k-1]) &
-			 IsDigit(s[k-2]) &
-			 IsDigit(s[k-3]) &
-			 ((s[k-4] = ' ') | (s[k-4] = '-')) then
+		if (k >= 5) and
+		   IsDigit(s[k]) and
+			 IsDigit(s[k-1]) and
+			 IsDigit(s[k-2]) and
+			 IsDigit(s[k-3]) and
+			 ((s[k-4] = ' ') or (s[k-4] = '-')) then
 			    begin
 			      trouve := true;
 			      diminish := true;
@@ -1287,10 +1287,10 @@ begin
 			      s := s1;
 			    end;
 		k := LENGTH_OF_STRING(s);
-		if (k >= 3) &
-		   IsDigit(s[k]) &
-			 IsDigit(s[k-1]) &
-			 ((s[k-2] = ' ') | (s[k-2] = '-')) then
+		if (k >= 3) and
+		   IsDigit(s[k]) and
+			 IsDigit(s[k-1]) and
+			 ((s[k-2] = ' ') or (s[k-2] = '-')) then
 			    begin
 			      trouve := true;
 			      diminish := true;
@@ -1305,10 +1305,10 @@ begin
 			      s := s1;
 			    end;
 		 k := LENGTH_OF_STRING(s);
-		 if (k = 4) &
-		   IsDigit(s[k]) &
-			 IsDigit(s[k-1]) &
-			 IsDigit(s[k-2]) &
+		 if (k = 4) and
+		   IsDigit(s[k]) and
+			 IsDigit(s[k-1]) and
+			 IsDigit(s[k-2]) and
 			 IsDigit(s[k-3]) then
 			    begin
 			      trouve := true;
@@ -1320,8 +1320,8 @@ begin
 			      s := '';
 			    end;
 	  k := LENGTH_OF_STRING(s);
-		if (k = 2) &
-		   IsDigit(s[k]) &
+		if (k = 2) and
+		   IsDigit(s[k]) and
 			 IsDigit(s[k-1]) then
 			    begin
 			      trouve := true;
@@ -1335,10 +1335,10 @@ begin
 			      s := '';
 			    end;
 	until not(diminish);
-  if trouve & (firstYear < 1950) then firstYear := 1950;
-  if trouve & (firstYear > 2049) then firstYear := 2049;
-  if trouve & (lastYear < 1950) then lastYear := 1950;
-  if trouve & (lastYear > 2049) then lastYear := 2049;
+  if trouve and (firstYear < 1950) then firstYear := 1950;
+  if trouve and (firstYear > 2049) then firstYear := 2049;
+  if trouve and (lastYear < 1950) then lastYear := 1950;
+  if trouve and (lastYear > 2049) then lastYear := 2049;
 	EnleveAnneeADroiteDansChaine := trouve;
 end;
 
@@ -1371,8 +1371,8 @@ begin
   for i := 1 to longueur do
     begin
       c := unNomDeJoueur[i];
-      if (c = 'é') | (c = 'è') then c := 'e';
-      if (c >= 'A') & (c <= 'Z') then c := chr(ord(c)+32);
+      if (c = 'é') or (c = 'è') then c := 'e';
+      if (c >= 'A') and (c <= 'Z') then c := chr(ord(c)+32);
       nomAux := nomAux+c;
     end;
   EchangeSurnoms(nomAux);
@@ -1389,8 +1389,8 @@ begin
   for i := 1 to longueur do
     begin
       c := nomBrut[i];
-      if (c = 'é') | (c = 'è') then c := 'e';
-      if (c >= 'A') & (c <= 'Z') then c := chr(ord(c)+32);
+      if (c = 'é') or (c = 'è') then c := 'e';
+      if (c >= 'A') and (c <= 'Z') then c := chr(ord(c)+32);
       nomJoueur := Concat(nomJoueur,c);
     end;
   EchangeSurnoms(nomJoueur);
@@ -1430,7 +1430,7 @@ begin
                 len := LENGTH_OF_STRING(aux);
                 aux := ReplaceStringByStringInString(table[k].theAccent^ , table[k].theRemplacement^, aux);
                 inc(compteur);
-              until ((LENGTH_OF_STRING(aux) = len) | (compteur >= 10));
+              until ((LENGTH_OF_STRING(aux) = len) or (compteur >= 10));
             end;
 
           UTF8ToAscii := aux;
@@ -1507,7 +1507,7 @@ begin
 						  if theAccent <> NIL       then theAccent^       := accent;
 						  if theRemplacement <> NIL then theRemplacement^ := remplacement;
 
-						  if (theAccent = NIL) | (theRemplacement = NIL)
+						  if (theAccent = NIL) or (theRemplacement = NIL)
 						    then dec(cardinal);
 						end;
 
@@ -1726,7 +1726,7 @@ begin
   for i := 1 to longueur do
     begin
       c := nom[i];
-      if (c >= 'A') & (c <= 'Z') then c := chr(ord(c)+32);
+      if (c >= 'A') and (c <= 'Z') then c := chr(ord(c)+32);
       nomTournoi := Concat(nomTournoi,c);
     end;
 
@@ -1807,7 +1807,7 @@ begin
     aux := (xminSlider+xmaxSlider) div 2 +MyTrunc((xmaxSlider-xminSlider)*ln(c)/2/ln4);
 
     haut := (kInterligneEntreDeuxCoeffs div 2) - 2;
-    test := (aux- haut <= mouseLoc.h) & (mouseLoc.h <= aux + haut);
+    test := (aux- haut <= mouseLoc.h) and (mouseLoc.h <= aux + haut);
     ClicSurCurseurCoeff := test;
     if not(test) then nroCoeff := 0;
 end;
@@ -1843,15 +1843,15 @@ begin
                   SetRect(Ecriturerect,0,hauteurExacte-7,EchelleCoeffsRect.left-5,hauteurExacte+7);
                   tirecurseur := true;
                   mouseX := 0;
-                  while Button & tirecurseur do
+                  while Button and tirecurseur do
                     begin
                       GetMouse(mouseLoc);
                       tirecurseur := PtInRect(mouseLoc,sourisrect);
-                      bouge := (mouseLoc.h <> mouseX) &
-                             (((mouseLoc.h >= EchelleCoeffsRect.left ) & (mouseLoc.h <= EchelleCoeffsRect.right)) |
-                              ((mouseLoc.h <= EchelleCoeffsRect.left ) & (mouseX >= EchelleCoeffsRect.left)) |
-                              ((mouseLoc.h >= EchelleCoeffsRect.right) & (mouseX <= EchelleCoeffsRect.right)));
-                      if bouge & tirecurseur then
+                      bouge := (mouseLoc.h <> mouseX) and
+                             (((mouseLoc.h >= EchelleCoeffsRect.left ) and (mouseLoc.h <= EchelleCoeffsRect.right)) or
+                              ((mouseLoc.h <= EchelleCoeffsRect.left ) and (mouseX >= EchelleCoeffsRect.left)) or
+                              ((mouseLoc.h >= EchelleCoeffsRect.right) and (mouseX <= EchelleCoeffsRect.right)));
+                      if bouge and tirecurseur then
                         begin
                           MyEraseRect(Dessinerect);
                           MyEraseRectWithColor(DessineRect,OrangeCmd,blackPattern,'');
@@ -1928,7 +1928,7 @@ procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);
     PenSize(1,1);
     dx := dir[indexBord];
     x := casebord[indexBord]-dx;
-    if (indexBord = 4) | (indexBord = 2) then
+    if (indexBord = 4) or (indexBord = 2) then
       begin
         x := x+7*dx;
         dx := -dx;
@@ -1974,7 +1974,7 @@ begin
         err := CreateSliderControl(GetDialogWindow(dp),sliderRect,aux,xmin,xmax,
                                    kControlSliderDoesNotPoint, 0, false, NIL, theSlider);
 
-        if (err = NoErr) & (theSlider <> NIL) then
+        if (err = NoErr) and (theSlider <> NIL) then
           begin
             Draw1Control(theSlider);
             ShowControl(theSlider);
@@ -2053,63 +2053,63 @@ begin
 
    y := yCurseurPremierParametre + 4;
    s := ReadStringFromRessource(TextesCoeffsID,2);
-   if (quelParametre = 1) | (quelParametre <= 0) then
+   if (quelParametre = 1) or (quelParametre <= 0) then
      EcritParametre(dp,s,-valFrontiere,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,7);
-   if (quelParametre = 2) | (quelParametre <= 0) then
+   if (quelParametre = 2) or (quelParametre <= 0) then
      EcritParametre(dp,s,-valMinimisationAvantCoins,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,19);
-   if (quelParametre = 3) | (quelParametre <= 0) then
+   if (quelParametre = 3) or (quelParametre <= 0) then
      EcritParametre(dp,s,4*valMobiliteUnidirectionnelle,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,12);
-   if (quelParametre = 4) | (quelParametre <= 0) then
+   if (quelParametre = 4) or (quelParametre <= 0) then
      EcritParametre(dp,s,-penalitePourTraitAff,y);
 
    {
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,3);
-   if (quelParametre = 2) | (quelParametre <= 0) then
+   if (quelParametre = 2) or (quelParametre <= 0) then
      EcritParametre(dp,s,-valEquivalentFrontiere,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,4);
-   if (quelParametre = 3) | (quelParametre <= 0) then
+   if (quelParametre = 3) or (quelParametre <= 0) then
      EcritParametre(dp,s,valPionCentre,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,5);
-   if (quelParametre = 4) | (quelParametre <= 0) then
+   if (quelParametre = 4) or (quelParametre <= 0) then
      EcritParametre(dp,s,valPionPetitCentre,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,6);
-   if (quelParametre = 5) | (quelParametre <= 0) then
+   if (quelParametre = 5) or (quelParametre <= 0) then
      EcritParametre(dp,s,valBetonnage,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,8);
-   if (quelParametre = 7) | (quelParametre <= 0) then
+   if (quelParametre = 7) or (quelParametre <= 0) then
      EcritParametre(dp,s,valPriseCoin,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,9);
-   if (quelParametre = 8) | (quelParametre <= 0) then
+   if (quelParametre = 8) or (quelParametre <= 0) then
      EcritParametre(dp,s,-valDefenseCoin,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,10);
-   if (quelParametre = 9) | (quelParametre <= 0) then
+   if (quelParametre = 9) or (quelParametre <= 0) then
      EcritParametre(dp,s,valCoin,y);
 
    y := y+kInterligneEntreDeuxCoeffs;
    s := ReadStringFromRessource(TextesCoeffsID,11);
-   if (quelParametre = 10) | (quelParametre <= 0) then
+   if (quelParametre = 10) or (quelParametre <= 0) then
      EcritParametre(dp,s,-valCaseX,y);
 
   }
@@ -2194,7 +2194,7 @@ procedure DoInsererMarque;
 var i : SInt64;
     peutMettreNouvelleMarque : boolean;
 begin
-  if (nbreCoup > 0) & not(gameOver) then
+  if (nbreCoup > 0) and not(gameOver) then
    if (marques[0] < 10) then
     begin
       peutMettreNouvelleMarque := true;
@@ -2221,7 +2221,7 @@ begin
     begin
       longueur := LongueurSelectionRapport;
 
-      if (longueur < 2) | (longueur > 250)
+      if (longueur < 2) or (longueur > 250)
         then exit(PeutCompleterPartieAvecSelectionRapport);
 
       s := SelectionRapportEnString(longueur);
@@ -2270,8 +2270,8 @@ begin
        if RefleSurTempsJoueur then
        begin
          coup := meilleurCoupHum;
-         if (coup < 11) | (coup > 88) then coup := 44;
-         if PossibleMove[coup] & (coup <> premierCoup) then
+         if (coup < 11) or (coup > 88) then coup := 44;
+         if PossibleMove[coup] and (coup <> premierCoup) then
            SetCoupDansMeilleureSuite(-1, coup);
        end;
 
@@ -2280,14 +2280,14 @@ begin
        i := kNbMaxNiveaux+1;
        repeat
          i := i-1;
-       until (i < 0) | (suiteJouee[i] <> 0);
+       until (i < 0) or (suiteJouee[i] <> 0);
        for j := i downto 1 do
         begin
          coup := meilleureSuite^[i,j];
          if coup <> 0 then
            begin
              p := 1+(i-j);
-             if (p >= 1) & (p <= kNbMaxNiveaux) then
+             if (p >= 1) and (p <= kNbMaxNiveaux) then
                SetCoupDansMeilleureSuite(p, coup);
            end;
        end;
@@ -2296,7 +2296,7 @@ begin
      then
        begin
          positionEtTrait := MakePositionEtTrait(plat,coul);
-         if (GetTraitOfPosition(positionEtTrait) <> coul) & not(DoitPasserPlatSeulement(coul,plat)) then
+         if (GetTraitOfPosition(positionEtTrait) <> coul) and not(DoitPasserPlatSeulement(coul,plat)) then
            begin
              SysBeep(0);
              WritelnDansRapport('erreur 1 dans FabriqueMeilleureSuiteInfos (milieu de partie) : GetTraitOfPosition(positionEtTrait) <> coul !!');
@@ -2305,8 +2305,8 @@ begin
          repeat
            inc(i);
            coup := GetCoupDansMeilleureSuite(i);
-           coupPossible := (coup <> 0) & UpdatePositionEtTrait(positionEtTrait,coup);
-         until not(coupPossible) | (i >= kNbMaxNiveaux);
+           coupPossible := (coup <> 0) and UpdatePositionEtTrait(positionEtTrait,coup);
+         until not(coupPossible) or (i >= kNbMaxNiveaux);
          for j := i to kNbMaxNiveaux do SetCoupDansMeilleureSuite(j, 0);
        end
      else
@@ -2317,7 +2317,7 @@ begin
             i := kNbMaxNiveaux + 1;
             repeat
               i := i - 1;
-            until (i < 0) | (suiteJouee[i] <> 0);
+            until (i < 0) or (suiteJouee[i] <> 0);
             for j := i downto 1 do
               begin
                 coup := meilleureSuite^[i,j];
@@ -2378,7 +2378,7 @@ begin
 
   with meilleureSuiteInfos do
     if (phaseDeLaPartie >= phaseFinaleParfaite) then
-      if (coul = couleurMacintosh) | not(finaleEnModeSolitaire) then
+      if (coul = couleurMacintosh) or not(finaleEnModeSolitaire) then
          begin
            for i := 0 to nbreCoup do
              begin
@@ -2392,19 +2392,19 @@ begin
            for i := nbreCoup + 1 to numeroCoup - 1 do
              begin
                coup := GetNiemeCoupPartieCourante(i);
-               if (coup <> coupInconnu) & not(partie^^[i].optimal) then
+               if (coup <> coupInconnu) and not(partie^^[i].optimal) then
                  partie^^[i].coupParfait := coup;
              end;
 
 
-           ok := (statut <> ReflAnnonceGagnant) & (statut <> ReflAnnonceParfait);
+           ok := (statut <> ReflAnnonceGagnant) and (statut <> ReflAnnonceParfait);
 
            if ok then
              begin
 
                coup := GetCoupDansMeilleureSuite(-1);
-               if (coup <> 44) & (coup >= 11) & (coup <= 88) then
-                 if partie^^[numeroCoup - 1].optimal & (partie^^[numeroCoup - 1].coupParfait <> coup)
+               if (coup <> 44) and (coup >= 11) and (coup <= 88) then
+                 if partie^^[numeroCoup - 1].optimal and (partie^^[numeroCoup - 1].coupParfait <> coup)
                    then ok := false
                    else partie^^[numeroCoup-1].coupParfait := coup;
 
@@ -2413,13 +2413,13 @@ begin
                  begin
                    coup := GetCoupDansMeilleureSuite(i-numeroCoup);
                    partie^^[i].coupParfait := coup;
-                   if (i > nbreCoup) & ((i-numeroCoup) >= 0) then
+                   if (i > nbreCoup) and ((i-numeroCoup) >= 0) then
                      partie^^[i].optimal := true;
                  end;
 
 
 
-               // debugMeilleureSuite := (partie^^[50].coupParfait = 27) | (partie^^[51].coupParfait = 27) ;
+               // debugMeilleureSuite := (partie^^[50].coupParfait = 27) or (partie^^[51].coupParfait = 27) ;
                debugMeilleureSuite := false;
 
                if debugMeilleureSuite then
@@ -2445,7 +2445,7 @@ end;
 
 procedure SetCoupDansSuite(var suite : meilleureSuiteInfosRec; index, coup : SInt64);
 begin
-  if (index < profondeurMax) | (index > kNbMaxNiveaux) then
+  if (index < profondeurMax) or (index > kNbMaxNiveaux) then
     begin
       WritelnNumDansRapport('WARNING, index out of bound dans SetCoupDansSuite :  index = ',index);
       exit(SetCoupDansSuite);
@@ -2456,7 +2456,7 @@ end;
 
 function GetCoupDansSuite(var suite : meilleureSuiteInfosRec; index : SInt64) : SInt64;
 begin
-  if (index < profondeurMax) | (index > kNbMaxNiveaux) then
+  if (index < profondeurMax) or (index > kNbMaxNiveaux) then
     begin
       WritelnNumDansRapport('WARNING, index out of bound dans GetCoupDansSuite :  index = ',index);
       GetCoupDansSuite := -1;
@@ -2479,8 +2479,8 @@ end;
 procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);
   var k,kcoup : SInt64;
   begin
-    if (killerProf >= profondeurMax) & (killerProf <= kNbMaxNiveaux) then
-      if (coup >= 11) & (coup <= 88) then
+    if (killerProf >= profondeurMax) and (killerProf <= kNbMaxNiveaux) then
+      if (coup >= 11) and (coup <= 88) then
           if not(interdit[coup]) then
             if not(estUnCoin[coup]) then
               begin
@@ -2495,7 +2495,7 @@ procedure MetCoupEnTeteDansKiller(coup,KillerProf : SInt64);
                         kcoup := nbKillerGlb^[killerProf];
                         for k := 1 to nbKillerGlb^[killerProf] do
                           if KillerGlb^[killerProf,k] = coup then kCoup := k;
-                        if (KillerGlb^[killerProf,kcoup] <> coup) & (kcoup < nbCoupsMeurtriers)
+                        if (KillerGlb^[killerProf,kcoup] <> coup) and (kcoup < nbCoupsMeurtriers)
                           then kcoup := kcoup+1;
                         for k := kcoup downto 2 do
                           KillerGlb^[killerProf,k] := KillerGlb^[killerProf,k-1];
@@ -2535,7 +2535,7 @@ end;
 procedure SetNbrePionsPerduParVariation(numeroDuCoup,deltaScore : SInt64);
 var i,somme : SInt16;
 begin
-  if (numeroDuCoup >= 0) & (numeroDuCoup <= 64) then
+  if (numeroDuCoup >= 0) and (numeroDuCoup <= 64) then
   with gEntrainementOuvertures do
     begin
 
@@ -2715,8 +2715,8 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
 
 
 
-    if CeMotEstDansLeGrille(planete[i]) &
-       CeMotEstDansLeGrille(planete[j]) &
+    if CeMotEstDansLeGrille(planete[i]) and
+       CeMotEstDansLeGrille(planete[j]) and
        CeMotEstDansLeGrille(planete[k])
       then
         begin
@@ -2748,21 +2748,21 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
     for t := 1 to LENGTH_OF_STRING(planete[i]) do
       begin
         c := planete[i][t];
-        if (t >= 2) & (c = planete[i][t - 1]) then inc(lettres[c]); // TERRE redouble le R
+        if (t >= 2) and (c = planete[i][t - 1]) then inc(lettres[c]); // TERRE redouble le R
         if (lettres[c] = 0) then inc(lettres[c]);
       end;
 
     for t := 1 to LENGTH_OF_STRING(planete[j]) do
       begin
         c := planete[j][t];
-        if (t >= 2) & (c = planete[j][t - 1]) then inc(lettres[c]); // TERRE redouble le R
+        if (t >= 2) and (c = planete[j][t - 1]) then inc(lettres[c]); // TERRE redouble le R
         if (lettres[c] = 0) then inc(lettres[c]);
       end;
 
     for t := 1 to LENGTH_OF_STRING(planete[k]) do
       begin
         c := planete[k][t];
-        if (t >= 2) & (c = planete[k][t - 1]) then inc(lettres[c]); // TERRE redouble le R
+        if (t >= 2) and (c = planete[k][t - 1]) then inc(lettres[c]); // TERRE redouble le R
         if (lettres[c] = 0) then inc(lettres[c]);
       end;
 
@@ -2888,7 +2888,7 @@ begin
   for i := 1 to k_NBRE_PLANETES do
     for j := i + 1 to k_NBRE_PLANETES do
       for k := j + 1 to k_NBRE_PLANETES do
-        if (i <> j) & (i <> k) & (j <> k) then
+        if (i <> j) and (i <> k) and (j <> k) then
           begin
             EssayerCesPlanetes(i,j,k);
           end;

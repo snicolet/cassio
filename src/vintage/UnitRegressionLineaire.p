@@ -333,7 +333,7 @@ var taille : SInt32;
 begin
   with gCloud do
     begin
-      if (cardinal <> 0) | (data <> NIL)
+      if (cardinal <> 0) or (data <> NIL)
         then DisposeMemoryForCloud;
 
       taille := (numberOfPoints + 10)*sizeof(RegressionPointRec);
@@ -428,8 +428,8 @@ begin
     begin
 
       // la premiere ligne et la derniere ligne du fichier ne nous interessent pas
-      if (Pos('-64; -62; -60; -58; -56; -54; -52; -50; -48; -46; -44; -42;',debutLigne) > 0) |
-         (Pos('somme',debutLigne) > 0) | (debutLigne = '') then
+      if (Pos('-64; -62; -60; -58; -56; -54; -52; -50; -48; -46; -44; -42;',debutLigne) > 0) or
+         (Pos('somme',debutLigne) > 0) or (debutLigne = '') then
         exit(LireUneLigneDuFichierDeCorrelationEdax);
 
 
@@ -461,10 +461,10 @@ begin
               end;
 
             // les autres cellules representent les frequences d'Edax
-            if (nombreDeNombresLus >= 1) & (nombreDeNombresLus <= 65) then
+            if (nombreDeNombresLus >= 1) and (nombreDeNombresLus <= 65) then
               begin
                 totalParties := totalParties + n;
-                if (gEdaxCorrelationMatrix <> NIL) & (scoreEdax >= -64) & (scoreEdax <= 64) then
+                if (gEdaxCorrelationMatrix <> NIL) and (scoreEdax >= -64) and (scoreEdax <= 64) then
                   begin
                     nbDePionsDeNoirs := nombreDeNombresLus - 1;
 
@@ -485,7 +485,7 @@ begin
               finLigne := '';
             end;
 
-      until (s = '') | (nombreDeNombresLus >= 65);
+      until (s = '') or (nombreDeNombresLus >= 65);
 
       // WritelnDansRapport('');
 
@@ -587,7 +587,7 @@ begin
 
   with gGrid do
     begin
-      if (x >= min_x) & (x <= max_x) & (y >= min_y) & (y <= max_y) then
+      if (x >= min_x) and (x <= max_x) and (y >= min_y) and (y <= max_y) then
         begin
           grid_x := (x - min_x) div step_x;
           grid_y := (y - min_y) div step_y;
@@ -601,8 +601,8 @@ end;
 function GetBoundingRectOfGridSquare(grid_x,grid_y : SInt32) : Rect;
 begin
   with gGrid do
-    if (grid_x >= 0) & (grid_x <= rows) &
-       (grid_y >= 0) & (grid_y <= columns)
+    if (grid_x >= 0) and (grid_x <= rows) and
+       (grid_y >= 0) and (grid_y <= columns)
       then GetBoundingRectOfGridSquare := MakeRect(min_x + grid_x * step_x,
                                                    min_y + grid_y * step_y,
                                                    min_x + (grid_x + 1) * step_x - 1,
@@ -613,7 +613,7 @@ end;
 
 function MyLecture(index : SInt32) : RegressionPointRec;
 begin
-  if (index < 1) | (index > gCloud.cardinal) then
+  if (index < 1) or (index > gCloud.cardinal) then
     begin
       WritelnNumDansRapport('ASSERT dans MyLecture, index = ',index);
       AttendFrappeClavier;
@@ -629,12 +629,12 @@ var grid_x_1, grid_y_1 : SInt32;
     grid_x_2, grid_y_2 : SInt32;
 begin
 
-  if GetGridSquareOfPoint(element1.x, element1.y, grid_x_1, grid_y_1) &
+  if GetGridSquareOfPoint(element1.x, element1.y, grid_x_1, grid_y_1) and
      GetGridSquareOfPoint(element2.x, element2.y, grid_x_2, grid_y_2)
      then
        begin
-         MyOrdre := (grid_x_1 > grid_x_2) |
-                    ((grid_x_1 = grid_x_2) & (grid_y_1 >= grid_y_2));
+         MyOrdre := (grid_x_1 > grid_x_2) or
+                    ((grid_x_1 = grid_x_2) and (grid_y_1 >= grid_y_2));
        end
      else
        begin
@@ -646,7 +646,7 @@ end;
 procedure MyAffectation(index : SInt32; const element : RegressionPointRec);
 begin
 
-  if (index < 1) | (index > gCloud.cardinal) then
+  if (index < 1) or (index > gCloud.cardinal) then
     begin
       WritelnNumDansRapport('ASSERT dans MyAffectation, index = ',index);
       AttendFrappeClavier;
@@ -774,14 +774,14 @@ begin
   indexMin := 0;
   indexMax := 0;
 
-  if (grid_x < 0) | (grid_x > kGridQuantificationLevel) |
-     (grid_y < 0) | (grid_y > kGridQuantificationLevel) then
+  if (grid_x < 0) or (grid_x > kGridQuantificationLevel) or
+     (grid_y < 0) or (grid_y > kGridQuantificationLevel) then
     begin
       CetteCaseDansLaGrilleContientDesPoints := false;
       exit(CetteCaseDansLaGrilleContientDesPoints);
     end;
 
-  if (grid_x = 0) & (grid_y = 0)
+  if (grid_x = 0) and (grid_y = 0)
     then
       begin
         indexMin := 1;
@@ -925,7 +925,7 @@ begin
           for k := indexMin to indexMax do
             with gCloud.data^[k] do
               begin
-                if (x < boundingRect.left) | (x > boundingRect.right) | (y < boundingRect.top) | (y > boundingRect.bottom)
+                if (x < boundingRect.left) or (x > boundingRect.right) or (y < boundingRect.top) or (y > boundingRect.bottom)
                   then
                     begin
                       WritelnDansRapport('ASSERT ! point pas dans le bounding rect de sa case..');
@@ -944,9 +944,9 @@ begin
                     end
                   else
                     begin
-                      if (grid_x <> i) | (grid_y <> j) then
+                      if (grid_x <> i) or (grid_y <> j) then
                         begin
-                          WritelnDansRapport('ASSERT ! (grid_x <> i) | (grid_y <> j) ... ');
+                          WritelnDansRapport('ASSERT ! (grid_x <> i) or (grid_y <> j) ... ');
                           WritelnNumDansRapport('k = ',k);
                           WritelnNumDansRapport('i = ',i);
                           WritelnNumDansRapport('j = ',j);
@@ -987,8 +987,8 @@ begin
     begin
       index := cardinal + 1;
 
-      if (index >= 0) & (index <= capaciteMaximale) &
-         (capaciteMaximale > 0) & (data <> NIL) then
+      if (index >= 0) and (index <= capaciteMaximale) and
+         (capaciteMaximale > 0) and (data <> NIL) then
         with data^[index] do
           begin
 
@@ -1039,7 +1039,7 @@ begin
       ancienneLargeur := oldWindowRect.right - oldWindowRect.left;
       nouvelleLargeur := newWindowRect.right - newWindowRect.left;
 
-      if windowNuageOpen & (wNuagePtr <> NIL) then
+      if windowNuageOpen and (wNuagePtr <> NIL) then
         begin
 
           GetPort(oldPort);
@@ -1056,8 +1056,8 @@ begin
 
               DeterminerLaMeilleureEchelleVerticaleDuNuage;
 
-              if (cardinal > 0) & (data <> NIL) then
-                if ((ancienneLargeur <> nouvelleLargeur) & (ancienneLargeur <> 0) & (nouvelleLargeur <> 0)) |
+              if (cardinal > 0) and (data <> NIL) then
+                if ((ancienneLargeur <> nouvelleLargeur) and (ancienneLargeur <> 0) and (nouvelleLargeur <> 0)) or
                    (kIntervalleEntreDeuxLignesDuNuage <> ancienIntervalleEntreDeuxLignes) then
                   begin
 
@@ -1092,9 +1092,9 @@ begin
                               if theorique < 0  then theorique := 0;
                               if theorique > 64 then theorique := 64;
 
-                              if (theorique > 64) | (theorique < 0) then
+                              if (theorique > 64) or (theorique < 0) then
                                  begin
-                                   WritelnDansRapport('ASSERT !!! ((theorique > 64) | (theorique < 0)) dans RedimensionnerLeNuage');
+                                   WritelnDansRapport('ASSERT !!! ((theorique > 64) or (theorique < 0)) dans RedimensionnerLeNuage');
                                    WritelnNumDansRapport('theorique = ',theorique);
                                    WritelnNumDansRapport('ancien y = ',y);
                                    leave;
@@ -1297,8 +1297,8 @@ begin
       // Don't search if the mouse has not moved or the time has not moved enough
 
       with gLastRecherchePointPlusProcheDansCloud do
-        if (gCloud.cardinal <= 0) |                                     // pas de point
-           ((mouse_x = last_mouse_x) & (mouse_y = last_mouse_y)) |      // meme souris
+        if (gCloud.cardinal <= 0) or                                     // pas de point
+           ((mouse_x = last_mouse_x) and (mouse_y = last_mouse_y)) or      // meme souris
            (abs(TickCount - lastTick) <= 1)                             // meme tick
           then
             begin
@@ -1314,7 +1314,7 @@ begin
   // Recherche en spirale dans le nuage de point, a partir de la position de la souris
   with gCloud do
     begin
-      if (cardinal > 0) & (data <> NIL) then
+      if (cardinal > 0) and (data <> NIL) then
         begin
 
           continuer := true;
@@ -1404,8 +1404,8 @@ begin
       // Don't search if the mouse has not moved or the time has not moved enough
 
       with gLastRecherchePointPlusProcheDansCloud do
-        if (gCloud.cardinal <= 0) |                                     // pas de point
-           ((mouse_x = last_mouse_x) & (mouse_y = last_mouse_y)) |      // meme souris
+        if (gCloud.cardinal <= 0) or                                     // pas de point
+           ((mouse_x = last_mouse_x) and (mouse_y = last_mouse_y)) or      // meme souris
            (abs(TickCount - lastTick) <= 1)                             // meme tick
           then exit(TrouverNouveauPointProcheDeLaSourisDansCloud);
     end;
@@ -1417,7 +1417,7 @@ begin
   // Remarque : il faudra vraiment changer a pour accŽlerer !
   with gCloud do
     begin
-      if (cardinal > 0) & (data <> NIL) then
+      if (cardinal > 0) and (data <> NIL) then
         begin
           for k := 1 to cardinal do
             with data^[k] do
@@ -1589,7 +1589,7 @@ var oldPort : grafPtr;
     err : OSStatus;
 begin
   with gTooltip do
-    if (tooltipWindow <> NIL) & affiche then
+    if (tooltipWindow <> NIL) and affiche then
       begin
         GetPort(oldPort);
         SetPortByWindow(tooltipWindow);
@@ -1633,7 +1633,7 @@ var oldPort : grafPtr;
     err : OSStatus;
 begin
   with gTooltip do
-  if (tooltipWindow <> NIL) & not(affiche) then
+  if (tooltipWindow <> NIL) and not(affiche) then
     begin
       GetPort(oldPort);
       SetPortByWindow(tooltipWindow);
@@ -1658,7 +1658,7 @@ procedure HideTooltipWindowInCloud;
 var err : OSErr;
 begin
   with gTooltip do
-  if (tooltipWindow <> NIL) & affiche then
+  if (tooltipWindow <> NIL) and affiche then
     begin
       HideWindow(tooltipWindow);
       err := SetWindowContentColor(tooltipWindow,yellow);
@@ -1698,7 +1698,7 @@ end;
 
 function TooltipWindowInCloudOpened : boolean;
 begin
-  TooltipWindowInCloudOpened := (gTooltip.tooltipWindow <> NIL) & gTooltip.affiche;
+  TooltipWindowInCloudOpened := (gTooltip.tooltipWindow <> NIL) and gTooltip.affiche;
 end;
 
 
@@ -1761,7 +1761,7 @@ begin
                 kWindowDoesNotCycleAttribute +
                 kWindowNoActivatesAttribute;
 
-  if useSmoothTransitions & (gTooltip.tooltipWindow <> NIL)
+  if useSmoothTransitions and (gTooltip.tooltipWindow <> NIL)
     then
       begin
         { on peut essayer de bouger la fenetre existante }
@@ -1792,7 +1792,7 @@ begin
 
 
         // on affiche le nouveau contenu
-       if (err = NoErr) & (gTooltip.tooltipWindow <> NIL) then
+       if (err = NoErr) and (gTooltip.tooltipWindow <> NIL) then
           ShowTooltipWindowInCloud;
       end;
 
@@ -1935,7 +1935,7 @@ begin
   with gCloud do
     begin
 
-      if (numeroDuPoint <= 0) | (numeroDuPoint > cardinal) | (data = NIl)
+      if (numeroDuPoint <= 0) or (numeroDuPoint > cardinal) or (data = NIl)
         then exit(CreateTooltipWindowInCloud);
 
       GetPort(oldport);
@@ -2036,7 +2036,7 @@ end;
 procedure TraiterDemandesDeVisiteDesPartiesDuNuage;
 begin
   with gDemandeDeVisiteDePartiesDuNuage do
-    if (nbDemandes > 0) &  not(CassioEstEnTrainDeTracerLeNuage) & CassioCanCheckForDangerousEvents
+    if (nbDemandes > 0) and  not(CassioEstEnTrainDeTracerLeNuage) and CassioCanCheckForDangerousEvents
       then
         begin
           nbDemandes := 0;
@@ -2066,7 +2066,7 @@ begin  {$unused mouseLocGlobal,err}
 
             { on suit les changements d'etats de la touche commande }
 
-            if CassioCanCheckForDangerousEvents & laToucheCommandeSembleChangee then
+            if CassioCanCheckForDangerousEvents and laToucheCommandeSembleChangee then
               begin
 
                 CreateTooltipWindowInCloud(gTooltip.numeroDuPoint, DernierEvenement.command);
@@ -2088,7 +2088,7 @@ begin  {$unused mouseLocGlobal,err}
 
 
             if gCloud.estTrie
-              then trouve := PtInRect(mouseLoc,MakeRect(gGrid.min_x,gGrid.min_y,gGrid.max_x,gGrid.max_y)) &
+              then trouve := PtInRect(mouseLoc,MakeRect(gGrid.min_x,gGrid.min_y,gGrid.max_x,gGrid.max_y)) and
                              TrouverNouveauPointPlusProcheParAlgoEnSpirale(mouseLoc,numeroDuPoint)
               else
 
@@ -2101,14 +2101,14 @@ begin  {$unused mouseLocGlobal,err}
 
                 if CassioCanCheckForDangerousEvents then
                   begin
-                    if DernierEvenement.command &
-                       not(CassioEstEnTrainDeTracerLeNuage) &
-                       not(analyseRetrograde.enCours) &
-                       (HumCtreHum | CassioEstEnModeAnalyse) then
+                    if DernierEvenement.command and
+                       not(CassioEstEnTrainDeTracerLeNuage) and
+                       not(analyseRetrograde.enCours) and
+                       (HumCtreHum or CassioEstEnModeAnalyse) then
                       LanceDemandeDeVisiteDeLaPartieDeCePointDuNuage(numeroDuPoint);
 
-                    if CassioCanCheckForDangerousEvents &
-                       ((gTooltip.numeroDuPoint <> numeroDuPoint) | laToucheCommandeSembleChangee)  then
+                    if CassioCanCheckForDangerousEvents and
+                       ((gTooltip.numeroDuPoint <> numeroDuPoint) or laToucheCommandeSembleChangee)  then
                       begin
                         // creation du nouveau tooltip
                         CreateTooltipWindowInCloud(numeroDuPoint, DernierEvenement.command);
@@ -2129,9 +2129,9 @@ begin  {$unused mouseLocGlobal,err}
 
   // ajustons le curseur
 
-  if gCloud.tooltipsSuiventSouris & (gCloud.cardinal > 0) &
-     (mouseLoc.h >= gGrid.min_x) & (mouseLoc.h <= gGrid.max_x) &
-     (mouseLoc.v >= gGrid.min_y) & (mouseLoc.v <= gGrid.max_y)
+  if gCloud.tooltipsSuiventSouris and (gCloud.cardinal > 0) and
+     (mouseLoc.h >= gGrid.min_x) and (mouseLoc.h <= gGrid.max_x) and
+     (mouseLoc.v >= gGrid.min_y) and (mouseLoc.v <= gGrid.max_y)
     then
       SafeSetCursor(GetCursor(DigitCurseurID))
     else
@@ -2215,9 +2215,9 @@ begin
           end
         else
           begin
-            if (nbPartiesChargees <= 0) & not(enRetour | enSetUp)
+            if (nbPartiesChargees <= 0) and not(enRetour or enSetUp)
               then DoChargerLaBaseSansInterventionUtilisateur;
-            if (nbPartiesChargees > 0) & (typeDeRegressionChange | (gCloud.cardinal <> nbPartiesActives))
+            if (nbPartiesChargees > 0) and (typeDeRegressionChange or (gCloud.cardinal <> nbPartiesActives))
               then DoTracerNuage;
           end;
     end;
@@ -2251,7 +2251,7 @@ var n,i : SInt32;
     oldPort : grafPtr;
 begin
   with gCloud do
-    if (cardinal > 0) & (data <> NIL) then
+    if (cardinal > 0) and (data <> NIL) then
       begin
         n := Min(Min(100000, cardinal),capaciteMaximale);
 
@@ -2314,7 +2314,7 @@ var s : String255;
 begin
   with gCloud do
     begin
-      if (numeroDuPoint <= 0) | (numeroDuPoint >= cardinal) | (data = NIL) then
+      if (numeroDuPoint <= 0) or (numeroDuPoint >= cardinal) or (data = NIL) then
         exit(EcrireReferencesDeCePointDansRapport);
 
       with data^[numeroDuPoint] do
@@ -2345,7 +2345,7 @@ var s : String255;
 begin
   with gCloud do
     begin
-      if (numeroDuPoint <= 0) | (numeroDuPoint > cardinal) | (cardinal <= 0) | (data = NIL)  then
+      if (numeroDuPoint <= 0) or (numeroDuPoint > cardinal) or (cardinal <= 0) or (data = NIL)  then
         exit(OuvrirPartieDeLaListeCorrespondantACePoint);
 
       with data^[numeroDuPoint] do
@@ -2367,8 +2367,8 @@ begin
               partieDansLaListe := LeftOfString(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2);
               partieCourante    := PartiePourPressePapier(true,false,nbreCoup);
 
-              if not(EstLaPositionCourante(positionDeLaListe)) &
-                 not((nbreCoup > 0) & (IsPrefix(partieDansLaListe,partieCourante) | IsPrefix(partieCourante,partieDansLaListe)))  then
+              if not(EstLaPositionCourante(positionDeLaListe)) and
+                 not((nbreCoup > 0) and (IsPrefix(partieDansLaListe,partieCourante) or IsPrefix(partieCourante,partieDansLaListe)))  then
                 begin
 
                   //BeginFonctionModifiantNbreCoup('OuvrirPartieDeLaListeCorrespondantACePoint');
@@ -2380,8 +2380,8 @@ begin
                    if not(EstLaPositionCourante(positionDeLaListe)) then
                      begin
 
-                        if (erreur = kPartieTropCourte) & EstLaPositionInitialeStandard(positionDeLaListe) &
-                           ((LENGTH_OF_STRING(partieEnAlpha) div 2) < kNumeroCoupCalculScoreTheoriqueDansWThor) & (AQuiDeJouer = pionVide)
+                        if (erreur = kPartieTropCourte) and EstLaPositionInitialeStandard(positionDeLaListe) and
+                           ((LENGTH_OF_STRING(partieEnAlpha) div 2) < kNumeroCoupCalculScoreTheoriqueDansWThor) and (AQuiDeJouer = pionVide)
                          then
                            positionDeLaListe := PositionEtTraitCourant
                          else
@@ -2664,7 +2664,7 @@ begin
 
       SetPort(oldport);
 
-      if ((gNbPointsRegressionTraces mod 128) = 0) &
+      if ((gNbPointsRegressionTraces mod 128) = 0) and
          (TickCount-dernierTick >= 2) then DoSystemTask(AQuiDeJouer);
 
     end;
@@ -2884,7 +2884,7 @@ begin {$unused typeLissage}
         end;
 
 
-      if (quelScoreTheorique = -64) | (quelScoreTheorique = 64)
+      if (quelScoreTheorique = -64) or (quelScoreTheorique = 64)
         then
           LisserTableDistribution(tableEcran,tableEcranLissee,k_LISSAGE_MOYENNE)
         else
@@ -2916,7 +2916,7 @@ begin {$unused typeLissage}
       WritelnNumDansRapport('gCloud.cardinal = ',gCloud.cardinal);
       *)
 
-      if (gCloud.cardinal < 10000) & (nbPartiesActives < 10000) & (gCloud.capaciteMaximale < 10000)
+      if (gCloud.cardinal < 10000) and (nbPartiesActives < 10000) and (gCloud.capaciteMaximale < 10000)
         then facteurVertical := 8.0
         else facteurVertical := 6.0;
 
@@ -3175,7 +3175,7 @@ begin {$unused nbEvalsRecursives}
 
   ValeurEvaluationDeCassioPourNoirDeLaPartie := 0;
 
-  if (nroRefPartie >= 1) & (nroRefPartie <= nbPartiesChargees) then
+  if (nroRefPartie >= 1) and (nroRefPartie <= nbPartiesChargees) then
     begin
 
       if (typeRegression = k_REGRESSION_SCORE_FINAL)
@@ -3422,7 +3422,7 @@ begin
       if PositionsExtremesDansRapport then
         begin
           WritelnDansRapport('');
-          if (quelScoreTheorique <= 32) & (valMax >= 0) then
+          if (quelScoreTheorique <= 32) and (valMax >= 0) then
             begin
               WritelnNumDansRapport('score = '+NumEnString(quelScoreTheorique)+' mais eval = ',valMax);
               WritelnPositionEtTraitDansRapport(positionMax.position,GetTraitOfPosition(positionMax));
@@ -3434,7 +3434,7 @@ begin
 	            s := GetNomJoueurBlancParNroRefPartie(nroPartieMaximun);
 	            WritelnDansRapport(s);
             end;
-          if (quelScoreTheorique >= 32) & (valMin <= 0) then
+          if (quelScoreTheorique >= 32) and (valMin <= 0) then
             begin
               WritelnNumDansRapport('score = '+NumEnString(quelScoreTheorique)+' mais eval = ',valMin);
               WritelnPositionEtTraitDansRapport(positionMin.position,GetTraitOfPosition(positionMin));
@@ -3560,7 +3560,7 @@ begin
   Superviseur(kNumeroCoupCalculScoreTheoriqueDansWThor);
 
   for score := 0 to 64 do
-    if not(Quitter) & (gCloud.magicCookie = magicCookieArrivee) then
+    if not(Quitter) and (gCloud.magicCookie = magicCookieArrivee) then
       begin
         if (gCloud.magicCookie <> magicCookieArrivee) then
           goto sortie;
@@ -3595,7 +3595,7 @@ var c : TableDistributionPtr;
     heuristique : SInt32;
 begin
 
-  if (gCloud.cardinal <= 0) | not(EstUnScoreTheoriqueDontOnDoitTracerLaCourbe(scoreTheoriqueATracer))
+  if (gCloud.cardinal <= 0) or not(EstUnScoreTheoriqueDontOnDoitTracerLaCourbe(scoreTheoriqueATracer))
     then exit(RedrawFastApproximateCurve);
 
 
@@ -3671,7 +3671,7 @@ begin
 
   tickDepart := TickCount;
 
-  if (gCloud.cardinal > 0) & (gCloud.data <> NIL) & (wNuagePtr <> NIL) then
+  if (gCloud.cardinal > 0) and (gCloud.data <> NIL) and (wNuagePtr <> NIL) then
     begin
 
       GetPort(oldPort);
@@ -3697,7 +3697,7 @@ begin
 
       // We use the fast (with bit table) drawing algorithm only if the window is < 2048x2048 pixels
 
-      if (x_centre < 1024) & (y_centre < 1024)  then
+      if (x_centre < 1024) and (y_centre < 1024)  then
         begin
           // allocate a table able to store 2048x2048 bits, which is 512kb
 
@@ -3737,7 +3737,7 @@ begin
 
 
                     (*
-                    if (index < 0) | (index > taille div 4) then
+                    if (index < 0) or (index > taille div 4) then
                       begin
                         WritelnNumDansRapport('ASSERT dans RedrawFastApproximateCloud : index = ',index);
                         WritelnNumDansRapport('   y = ',y);
@@ -3758,7 +3758,7 @@ begin
                         heuristique := eval;
 
                         {
-                        if true | (scoreTheorique >= 32)
+                        if true or (scoreTheorique >= 32)
                           then RGBForeColor(GetCouleurAffichageValeurZebraBook(pionBlanc, abs(200*(scoreTheorique - 32) - heuristique)))
                           else RGBForeColor(GetCouleurAffichageValeurZebraBook(pionNoir,  abs(200*(scoreTheorique - 32) - heuristique)));
                         }
@@ -3814,7 +3814,7 @@ begin
                             heuristique := eval;
 
                             {
-                            if true | (scoreTheorique >= 32)
+                            if true or (scoreTheorique >= 32)
                               then RGBForeColor(GetCouleurAffichageValeurZebraBook(pionBlanc, abs(200*(scoreTheorique - 32) - heuristique)))
                               else RGBForeColor(GetCouleurAffichageValeurZebraBook(pionNoir,  abs(200*(scoreTheorique - 32) - heuristique)));
                             }
@@ -3838,7 +3838,7 @@ begin
                       end;
 
                    // flush the points in the little square to the screen
-                   if windowIsBuffered & FALSE
+                   if windowIsBuffered and FALSE
                       then
                         begin
                           theRgn := NewRgn();
@@ -3998,7 +3998,7 @@ begin
     AjusterModeleDeCeScore(32);
     {penalitePourLeTrait := penalitePourLeTrait+MyTrunc(1.0*moyenneDesValeursPourCeScore[32]);}
     penalitePourLeTrait := penalitePourLeTrait+MyTrunc(1.0*medianeDesValeursPourCeScore[32]);
-  until (nbAjustementsMoyenne >= 7) |
+  until (nbAjustementsMoyenne >= 7) or
         {(Abs(moyenneDesValeursPour32) <= 1)}
         (Abs(medianeDesValeursPourCeScore[32]) <= 1);
 

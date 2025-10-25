@@ -261,7 +261,7 @@ begin
   SolutionEstUneCaseX := false;
 
   with probleme do
-    if (solution.nbCoupsSolutions = 1) &
+    if (solution.nbCoupsSolutions = 1) and
        (solution.coup[1] in [22,27,72,77])
         then SolutionEstUneCaseX := true;
 
@@ -326,7 +326,7 @@ function TerminaisonDansAlgoProblemePriseDeCoin(var probleme : ProblemePriseDeCo
 begin  {$UNUSED beta}
   with probleme do
     begin
-      if (nbCoupsJouesParAttaquant >= horizon) |
+      if (nbCoupsJouesParAttaquant >= horizon) or
          (nbCoupsJouesParAttaquant >= alpha) then
         begin
           if (NbCoins(attaquant,currentBoard.position) > 0)
@@ -421,7 +421,7 @@ begin
       (* optimisation : si on est juste un coup avant l'horizon de recherche,
                         on ne genere que les coups dans les coins
        *)
-      if (nbCoupsJouesParAttaquant >= horizon - 1) | (nbCoupsJouesParAttaquant >= alpha - 1)
+      if (nbCoupsJouesParAttaquant >= horizon - 1) or (nbCoupsJouesParAttaquant >= alpha - 1)
         then indiceMaxDeGenerationDesCoups := 4   { comme cela on ne genere que les coins }
         else indiceMaxDeGenerationDesCoups := 64; { comme ceci on genere tout l'othellier }
 
@@ -454,7 +454,7 @@ begin
 
                       end;
 
-                    (*if (nbCoupsJouesParAttaquant = 2) & (pileDesCoupsJouees[0] = 85) then
+                    (*if (nbCoupsJouesParAttaquant = 2) and (pileDesCoupsJouees[0] = 85) then
                       begin
                         WritelnPositionEtTraitDansRapport(currentBoard.position,GetTraitOfPosition(currentBoard));
                         WritelnStringAndCoupDansRapport('whichsquare : ',whichSquare);
@@ -465,8 +465,8 @@ begin
 
 
                     { Attention, a-t-on une solution dupliquee ? }
-                    if (nbCoupsJouesParAttaquant = 0) &
-                       (valeurDuCoup = valeurMeilleureAttaqueTrouvee) &
+                    if (nbCoupsJouesParAttaquant = 0) and
+                       (valeurDuCoup = valeurMeilleureAttaqueTrouvee) and
                        (valeurDuCoup <= horizon)
                       then
                         begin
@@ -483,7 +483,7 @@ begin
                     { L'attaquant cherche a minimiser le temps utilise pour arriver a un coin }
                     if (valeurDuCoup < valeurMeilleureAttaqueTrouvee) then
                       begin
-                        if (nbCoupsJouesParAttaquant = 0) &
+                        if (nbCoupsJouesParAttaquant = 0) and
                            (valeurDuCoup <= horizon) then
                           begin
                             solution.coup[1]          := whichSquare;
@@ -579,9 +579,9 @@ begin
 
 
           (* A-t-on trouve une solution valable ? *)
-          if (valeur >= gRechercheProblemesDePriseDeCoin.difficulteMin) &
-             (valeur <= gRechercheProblemesDePriseDeCoin.difficulteMax) &
-             (solution.nbCoupsSolutions = 1) {&
+          if (valeur >= gRechercheProblemesDePriseDeCoin.difficulteMin) and
+             (valeur <= gRechercheProblemesDePriseDeCoin.difficulteMax) and
+             (solution.nbCoupsSolutions = 1) {and
              SolutionEstUneCaseX(outEnonce)}
             then
               begin
@@ -590,7 +590,7 @@ begin
                 (* on teste si la solution est une defense de coin triviale *)
                 solution.estUneDefenseDeCoinTriviale := SolutionEstUneDefenseDeCoinTriviale(outEnonce);
 
-                if DoitRefuserDefensesTrivialesDeCoin & solution.estUneDefenseDeCoinTriviale
+                if DoitRefuserDefensesTrivialesDeCoin and solution.estUneDefenseDeCoinTriviale
                   then EstUnProblemeDePriseDeCoinValable := false
                   else EstUnProblemeDePriseDeCoinValable := true;
 
@@ -598,7 +598,7 @@ begin
             else
               begin
 
-                if (valeur > gRechercheProblemesDePriseDeCoin.difficulteMax) |
+                if (valeur > gRechercheProblemesDePriseDeCoin.difficulteMax) or
                    (valeur < gRechercheProblemesDePriseDeCoin.difficulteMin) then
                   begin
                     solution.causeRejet  := kRejetPasDeSolutionPbDeCoin;
@@ -636,10 +636,10 @@ begin {$unused numeroReference}
 
   result := numeroDansLaListe;
 
-  FiltreRechercheProblemeDePriseDeCoin := not(gRechercheProblemesDePriseDeCoin.enCours) &
-                                          not(Quitter) &
-                                          not(gRechercheProblemesDePriseDeCoin.interrompue) &
-                                          (numeroDansLaListe >= gRechercheProblemesDePriseDeCoin.nroDeDepartDansLaListe) &
+  FiltreRechercheProblemeDePriseDeCoin := not(gRechercheProblemesDePriseDeCoin.enCours) and
+                                          not(Quitter) and
+                                          not(gRechercheProblemesDePriseDeCoin.interrompue) and
+                                          (numeroDansLaListe >= gRechercheProblemesDePriseDeCoin.nroDeDepartDansLaListe) and
                                           PartieEstActive(numeroReference);
 end;
 
@@ -838,7 +838,7 @@ begin  {$UNUSED jouable,frontiere}
   with gRechercheProblemesDePriseDeCoin do
     if not(interrompue) then
       begin
-        if (numeroDuCoup >= premierCoup) & (numeroDuCoup <= dernierCoup) then
+        if (numeroDuCoup >= premierCoup) and (numeroDuCoup <= dernierCoup) then
           begin
 
           (* on cherche un probleme avec le trait naturel *)
@@ -885,8 +885,8 @@ var tickDepartRechercheDesProblemes : SInt32;
     tempDifficulteMin : SInt32;
     tempDifficulteMax : SInt32;
 begin
-  if (nbPartiesActives > 0) & windowListeOpen &
-     not(gRechercheProblemesDePriseDeCoin.enCours) &
+  if (nbPartiesActives > 0) and windowListeOpen and
+     not(gRechercheProblemesDePriseDeCoin.enCours) and
      not(gRechercheProblemesDePriseDeCoin.rechercheListeEnCours) then
     begin
       PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
@@ -945,7 +945,7 @@ var position : PositionEtTraitRec;
     enonce : ProblemePriseDeCoin;
     tempDifficulteMin,tempDifficulteMax : SInt32;
 begin
-  if not(gRechercheProblemesDePriseDeCoin.enCours) &
+  if not(gRechercheProblemesDePriseDeCoin.enCours) and
      not(gRechercheProblemesDePriseDeCoin.rechercheListeEnCours) then
     begin
       PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
@@ -990,7 +990,7 @@ var partie60 : PackedThorGame;
     ouverturesDejaGenerees : StringSet;
 begin
 
-  if not(gRechercheProblemesDePriseDeCoin.enCours) &
+  if not(gRechercheProblemesDePriseDeCoin.enCours) and
      not(gRechercheProblemesDePriseDeCoin.rechercheListeEnCours) then
     begin
 
@@ -1067,9 +1067,9 @@ begin
 
           inc(compteur);
 
-        until (gRechercheProblemesDePriseDeCoin.nbTrouves > 0) | (compteur mod 100 = 0) | EscapeDansQueue | Quitter;
+        until (gRechercheProblemesDePriseDeCoin.nbTrouves > 0) or (compteur mod 100 = 0) or EscapeDansQueue or Quitter;
 
-      until (gRechercheProblemesDePriseDeCoin.nbTrouves > 0) | (compteur >= 300) | EscapeDansQueue | Quitter;
+      until (gRechercheProblemesDePriseDeCoin.nbTrouves > 0) or (compteur >= 300) or EscapeDansQueue or Quitter;
 
       {WritelnNumDansRapport('Il a fallu '+NumEnString(compteur)+' parties aléatoires pour générer ce problème de type ',typeDeProbleme);}
 

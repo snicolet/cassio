@@ -184,8 +184,8 @@ begin
 
   // si on affiche dans la fenetre de la liste ou dans
   // la fenetre des statistiques, il faudra penser ˆ tout remonter
-  if not(forcerValeurParDefaut) & DoitDessinerMessagesChargementBase &
-     (fenetreMessagesBase <> NIL) & (fenetreMessagesBase <> dp)
+  if not(forcerValeurParDefaut) and DoitDessinerMessagesChargementBase and
+     (fenetreMessagesBase <> NIL) and (fenetreMessagesBase <> dp)
     then delta := -150
     else delta := 0;
 
@@ -225,7 +225,7 @@ begin
   with gListeFichiersWthorATelecharger do
     begin
       for k := 1 to kTailleListeDesTelechargementsWTHOR do
-        if (noms[k] = NIL) & not(telechargementEnCours[k]) then
+        if (noms[k] = NIL) and not(telechargementEnCours[k]) then
           begin
             noms[k] := String255Hdl(AllocateMemoryHdl(sizeof(String255)));
             if (noms[k] <> NIL) then
@@ -253,7 +253,7 @@ begin
   with gListeFichiersWthorATelecharger do
     begin
       for k := 1 to kTailleListeDesTelechargementsWTHOR do
-        if (noms[k] <> NIL) & (noms[k]^^ = nomFichier) then
+        if (noms[k] <> NIL) and (noms[k]^^ = nomFichier) then
           begin
 
             DisposeMemoryHdl(Handle(noms[k]));
@@ -276,14 +276,14 @@ var k : SInt32;
 begin
   with gListeFichiersWthorATelecharger do
     begin
-      if (cardinal > 0) &
-         (abs(TickCount - dernierTickLancementTelechargement) > 0) &
+      if (cardinal > 0) and
+         (abs(TickCount - dernierTickLancementTelechargement) > 0) and
          (NombreTelechargementsWthorEnCours < kNumberOfSimultaneousWTHORDownloads) then
        begin
          // chercher un fichier dans la liste des fichiers a telecharger
 
          for k := 1 to kTailleListeDesTelechargementsWTHOR do
-           if (noms[k] <> NIL) & not(telechargementEnCours[k]) then
+           if (noms[k] <> NIL) and not(telechargementEnCours[k]) then
              begin
                dernierTickLancementTelechargement := TickCount;
 
@@ -309,7 +309,7 @@ begin
 
   with gListeFichiersWthorATelecharger do
   for k := 1 to kTailleListeDesTelechargementsWTHOR do
-    if telechargementEnCours[k] & (noms[k] <> NIL)
+    if telechargementEnCours[k] and (noms[k] <> NIL)
       then inc(compteur);
 
   NombreTelechargementsWthorEnCours := compteur;
@@ -338,10 +338,10 @@ begin
           then
             begin
               ChaineToLongint(s,result);
-              if (result <> 19) & (result <> 20) then
+              if (result <> 19) and (result <> 20) then
                 begin
-                  if (0 <= result) & (result < kChangementDeSiecleOthellistique) then result := 2000+result;
-                  if (kChangementDeSiecleOthellistique <= result) & (result <= 99) then result := 1900+result;
+                  if (0 <= result) and (result < kChangementDeSiecleOthellistique) then result := 2000+result;
+                  if (kChangementDeSiecleOthellistique <= result) and (result <= 99) then result := 1900+result;
                 end;
             end
           else
@@ -366,7 +366,7 @@ begin
         couleurDesCases := PlusProcheCouleurRGBOfTexture(gCouleurOthellier,textureInconnue);
         couleurDesCases := EclaircirCouleurDeCetteQuantite(couleurDesCases,5000);
 
-        if textureInconnue | RGBColorEstFoncee(couleurDesCases,10000)
+        if textureInconnue or RGBColorEstFoncee(couleurDesCases,10000)
           then couleurDesCases := EclaircirCouleurDeCetteQuantite(couleurDesCases,40000);
 
       end
@@ -516,7 +516,7 @@ begin
                        x+i*taillecaselecture,y+j*taillecaselecture);
       s := NumEnString(t);
       larg := MyStringWidth(s);
-      if (t >= 10) & (t <= 19)
+      if (t >= 10) and (t <= 19)
         then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
         else Moveto((unRect.left+unRect.right-larg) div 2+1,unRect.bottom-4);
       MyDrawString(s);
@@ -578,7 +578,7 @@ begin
           for i := 1 to GET_LENGTH_OF_PACKED_GAME(ChainePartieLecture) do
             begin
               coup := GET_NTH_MOVE_OF_PACKED_GAME(ChainePartieLecture, i, 'VerifiePositionLectureModifiee');
-              concordance := concordance & (coup = GetNiemeCoupPartieCourante(i));
+              concordance := concordance and (coup = GetNiemeCoupPartieCourante(i));
             end;
           positionLectureModifiee := not(concordance);
           {if not(positionLectureModifiee) then SysBeep(0);}
@@ -592,7 +592,7 @@ begin
   positionLectureModifiee := false;
   DessineOthellierLecture(whichWindow);
   DessineOthellierLectureHistorique(whichWindow);
-  if positionFeerique | gameOver
+  if positionFeerique or gameOver
     then
       begin
         OthellierDeDepart(PlatLecture);
@@ -605,7 +605,7 @@ begin
   for i := 1 to nbreCoup do
     begin
       coup := GetNiemeCoupPartieCourante(i);
-      if (coup >= 11) & (coup <= 88) then
+      if (coup >= 11) and (coup <= 88) then
         ADD_MOVE_TO_PACKED_GAME(ChainePartieLecture, coup);
     end;
   AfficheHistoriqueLecture(PlatLecture,whichWindow);
@@ -636,7 +636,7 @@ begin
              test := ModifPlatFin(x,-trait,platlecture,nBla,nNoi);
        end
        else test := false;
-     until (k >= longueur) | not(test);
+     until (k >= longueur) or not(test);
     end;
     ChainePartieLecture := ligne;
     AffichePositionLecture(PlatLecture,whichWindow);
@@ -673,7 +673,7 @@ begin
              test := ModifPlatFin(x,-trait,platlecture,nBla,nNoi);
        end
        else test := false;
-     until (k >= longueur-1) | not(test);
+     until (k >= longueur-1) or not(test);
     end;
   AffichePositionLecture(PlatLecture,whichWindow);
   if longueur >= 1 then
@@ -702,7 +702,7 @@ var i,j,k,t,x,y,longueur,trait : SInt16;
     unRect : rect;
 begin
   longueur := GET_LENGTH_OF_PACKED_GAME(ChainePartieLecture);
-  if (coup-1 < longueur) & (coup >= 1) then
+  if (coup-1 < longueur) and (coup >= 1) then
     begin
       longueur := coup;
       OthellierEtPionsDeDepart(platlecture,nBla,nNoi);
@@ -724,7 +724,7 @@ begin
                  test := ModifPlatFin(x,-trait,platlecture,nBla,nNoi);
            end
            else test := false;
-         until (k >= longueur-1) | not(test);
+         until (k >= longueur-1) or not(test);
         end;
       AffichePositionLecture(PlatLecture,whichWindow);
       if longueur >= 1 then
@@ -785,7 +785,7 @@ begin
                x+a*taillecaselecture,y+b*taillecaselecture);
         s := NumEnString(nbBlanc+nbNoir-4);
         larg := MyStringWidth(s);
-        if (nbBlanc+nbNoir-4 >= 10) & (nbBlanc+nbNoir-4 <= 19)
+        if (nbBlanc+nbNoir-4 >= 10) and (nbBlanc+nbNoir-4 <= 19)
           then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
           else Moveto((unRect.left+unRect.right-larg) div 2+1,unRect.bottom-4);
         MyDrawString(s);
@@ -803,7 +803,7 @@ begin
           xtest := othellier[t];
           if PlatLecture[xtest] = pionVide then
             trouve := PeutJouerIci(couleurtrait,xtest,PlatLecture)
-        until trouve | (t >= 64);
+        until trouve or (t >= 64);
         if not(trouve) then
           if PeutJouerIci(-couleurtrait,xcourant,PlatLecture)
             then
@@ -815,7 +815,7 @@ begin
                                x+a*taillecaselecture,y+b*taillecaselecture);
                 s := NumEnString(nbBlanc+nbNoir-4);
                 larg := MyStringWidth(s);
-                if (nbBlanc+nbNoir-4 >= 10) & (nbBlanc+nbNoir-4 <= 19)
+                if (nbBlanc+nbNoir-4 >= 10) and (nbBlanc+nbNoir-4 <= 19)
                   then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
                   else Moveto((unRect.left+unRect.right-larg) div 2+1,unRect.bottom-4);
                 MyDrawString(s);
@@ -845,7 +845,7 @@ begin
    then
      begin
       for t := 1 to longueur do
-        if (GET_NTH_MOVE_OF_PACKED_GAME(ChainePartieLecture, t, 'ClicDansHistoriqueLecture(1)') = xcourant) & not(trouve)
+        if (GET_NTH_MOVE_OF_PACKED_GAME(ChainePartieLecture, t, 'ClicDansHistoriqueLecture(1)') = xcourant) and not(trouve)
           then
             begin
               trouve := true;
@@ -882,7 +882,7 @@ begin
             if (BAnd(evt.modifiers,cmdKey) <> 0) then
               begin
                 ch := chr(BAnd(evt.message,charCodemask));
-                if (ch = 'ò') | (ch = 'Ù') then  {pomme-option-y}
+                if (ch = 'ò') or (ch = 'Ù') then  {pomme-option-y}
                   begin
                     GetItemTextInDialog(dlog,JoueurNoirText,s1);
                     GetItemTextInDialog(dlog,JoueurBlancText,s2);
@@ -958,20 +958,20 @@ begin
            then
              begin
                ch := chr(BAnd(evt.message,charCodemask));
-               if (ch = 'z') | (ch = 'Z') then     { pomme-z }
+               if (ch = 'z') or (ch = 'Z') then     { pomme-z }
                  begin
                    item := CoupPrecedentBouton;
                    FiltreLectureDialog := true;
                    exit(FiltreLectureDialog);
                  end;
-               if (ch = '¨') | (ch = 'Û') | (ch = 'n') | (ch = 'N') then  { pomme-n }
+               if (ch = '¨') or (ch = 'Û') or (ch = 'n') or (ch = 'N') then  { pomme-n }
                  begin
                    DejoueNCoupsPlateauLecture(1,GetDialogWindow(dlog));
                    item := 0;
                    FiltreLectureDialog := true;
                    exit(FiltreLectureDialog);
                  end;
-               if (ch = 'ò') | (ch = 'Ù') then  { pomme-option-y echange les noirs et les blancs }
+               if (ch = 'ò') or (ch = 'Ù') then  { pomme-option-y echange les noirs et les blancs }
                  begin
                    GetItemTextInDialog(dlog,JoueurNoirText,s1);
                    GetItemTextInDialog(dlog,JoueurBlancText,s2);
@@ -995,9 +995,9 @@ begin
              ch := chr(BAnd(evt.message,charCodemask));
 
 
-             if (item = JoueurNoirText)  & (ch <> tab) then mustBeAPerfectMatch[JoueurNoirText]  := false;
-             if (item = JoueurBlancText) & (ch <> tab) then mustBeAPerfectMatch[JoueurBlancText] := false;
-             if (item = TournoiText)     & (ch <> tab) then mustBeAPerfectMatch[TournoiText]     := false;
+             if (item = JoueurNoirText)  and (ch <> tab) then mustBeAPerfectMatch[JoueurNoirText]  := false;
+             if (item = JoueurBlancText) and (ch <> tab) then mustBeAPerfectMatch[JoueurBlancText] := false;
+             if (item = TournoiText)     and (ch <> tab) then mustBeAPerfectMatch[TournoiText]     := false;
 
              (*
              WritelnDansRapport('dans FiltreLectureDialog (1) : ');
@@ -1024,7 +1024,7 @@ end;
 function AnneeIsCompatible(anneeDeLaPartie,anneeDeRecherche,testInegalite : SInt16) : boolean;
 begin
   AnneeIsCompatible := true;
-  if (anneeDeRecherche >= 1970) & (anneeDeRecherche <= kFinDuMondeOthellistique) then
+  if (anneeDeRecherche >= 1970) and (anneeDeRecherche <= kFinDuMondeOthellistique) then
 	  case testInegalite of
 	    testEgalite  :        AnneeIsCompatible := (anneeDeLaPartie = anneeDeRecherche);
 	    testSuperieur:        AnneeIsCompatible := (anneeDeLaPartie >= anneeDeRecherche);
@@ -1106,7 +1106,7 @@ var k : SInt32;
 begin
   with popUpBases do
     begin
-      if (nroDistribCherchee >= 1) & (nroDistribCherchee <= DistributionsNouveauFormat.nbDistributions) then
+      if (nroDistribCherchee >= 1) and (nroDistribCherchee <= DistributionsNouveauFormat.nbDistributions) then
 	       for k := 0 to nbMaxDistributions do
 	          if (tableLiaisonEntreMenuBasesEtNumerosDistrib[k] = nroDistribCherchee) then
 	            begin
@@ -1120,8 +1120,8 @@ end;
 function ItemNumberToNroDistrib(popUpBases : menuFlottantBasesRec; itemNumberCherche : SInt32) : SInt32;
 begin
   with popUpBases do
-    if (itemNumberCherche > nbreItemsAvantListeDesBases) & (itemNumberCherche <= MyCountMenuItems(MenuFlottantBases)) &
-       (itemNumberCherche >= 0) & (itemNumberCherche <= nbMaxDistributions)
+    if (itemNumberCherche > nbreItemsAvantListeDesBases) and (itemNumberCherche <= MyCountMenuItems(MenuFlottantBases)) and
+       (itemNumberCherche >= 0) and (itemNumberCherche <= nbMaxDistributions)
       then ItemNumberToNroDistrib := tableLiaisonEntreMenuBasesEtNumerosDistrib[itemNumberCherche]
       else ItemNumberToNroDistrib := 0;
 end;
@@ -1189,7 +1189,7 @@ var somme : SInt32;
 begin
   somme := 0;
   for numFichier := 1 to InfosFichiersNouveauFormat.nbFichiers do
-    if (InfosFichiersNouveauFormat.fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) &
+    if (InfosFichiersNouveauFormat.fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) and
        (InfosFichiersNouveauFormat.fichiers[numFichier].nroDistribution in ChoixDistributions.distributionsALire) then
        begin
          anneeFichier := AnneePartiesFichierNouveauFormat(numFichier);
@@ -1211,9 +1211,9 @@ begin
   SetPortByWindow(whichWindow);
   anneeRechercheArrivee := anneeRecherche;
   CalculeNbPartiesPotentiellementLues(anneeRecherche,genreDeTestPourAnnee);
-  if {(NbPartiesPotentiellementLues = ChoixDistributions.NbTotalPartiesDansDistributionsALire) |}
-     (anneeRechercheArrivee < 0) | (anneeRecherche > kFinDuMondeOthellistique) | (anneeRecherche < kDebutDuMondeOthellistique) |
-     ((NbPartiesPotentiellementLues = 0) & ((anneeRechercheArrivee = 19)|(anneeRechercheArrivee < 10)))
+  if {(NbPartiesPotentiellementLues = ChoixDistributions.NbTotalPartiesDansDistributionsALire) or}
+     (anneeRechercheArrivee < 0) or (anneeRecherche > kFinDuMondeOthellistique) or (anneeRecherche < kDebutDuMondeOthellistique) or
+     ((NbPartiesPotentiellementLues = 0) and ((anneeRechercheArrivee = 19)or(anneeRechercheArrivee < 10)))
     then
       begin
          EcritMessageLectureBase('                            ',25,kYpositionNbPartiesPotentiellementLues);
@@ -1282,7 +1282,7 @@ var s : String255;
 begin
   MenuItemToOuverture := false;
   FILL_PACKED_GAME_WITH_ZEROS(ligneOuverture);
-  if (item > 2) & (bibliothequeIndex <> NIL) & (bibliothequeEnTas <> NIL) then
+  if (item > 2) and (bibliothequeIndex <> NIL) and (bibliothequeEnTas <> NIL) then
     begin
       MyGetMenuItemText(OuvertureMenu,item,s);
       s := EnleveEspacesDeDroite(s);
@@ -1295,7 +1295,7 @@ begin
           for j := OctetDebut to OctetFin do
             begin
               whichSquare := bibliothequeEnTas^^[j];
-              if (whichSquare >= 11) & (whichSquare <= 88) then
+              if (whichSquare >= 11) and (whichSquare <= 88) then
                 ADD_MOVE_TO_PACKED_GAME(ligneOuverture, whichSquare);
             end;
         end;
@@ -1386,7 +1386,7 @@ begin
         end;
 
       nroDistrib := ItemNumberToNroDistrib(popUpBases,item);
-      if (nroDistrib in ChoixDistributions.distributionsALire) & (nbDistributionsDansEnsemble >= 2)
+      if (nroDistrib in ChoixDistributions.distributionsALire) and (nbDistributionsDansEnsemble >= 2)
         then ChoixDistributions.distributionsALire := (ChoixDistributions.distributionsALire - [nroDistrib])
         else ChoixDistributions.distributionsALire := (ChoixDistributions.distributionsALire + [nroDistrib]);
 
@@ -1404,7 +1404,7 @@ begin
           ChoixDistributions.genre := kAucuneDistribution;
           item := AucuneBaseCmd;
         end;
-      if (ChoixDistributions.distributionsALire = distributionsAccessiblesSet) &
+      if (ChoixDistributions.distributionsALire = distributionsAccessiblesSet) and
          (nbDistributionsDansEnsemble > 1) then
         begin
           ChoixDistributions.genre := kToutesLesDistributions;
@@ -1459,7 +1459,7 @@ begin
   if (nomNoir[LENGTH_OF_STRING(nomNoir)] = '"')
     then nomNoir[LENGTH_OF_STRING(nomNoir)] := '$';
 
-  if (nomNoir = '^') | (nomNoir = '$') | (nomNoir = '^$')
+  if (nomNoir = '^') or (nomNoir = '$') or (nomNoir = '^$')
     then nomNoir := '';
 
   (* nomBlanc : changer les guillemets pour utiliser la syntaxe de grep
@@ -1471,7 +1471,7 @@ begin
   if (nomBlanc[LENGTH_OF_STRING(nomBlanc)] = '"')
     then nomBlanc[LENGTH_OF_STRING(nomBlanc)] := '$';
 
-  if (nomBlanc = '^') | (nomBlanc = '$') | (nomBlanc = '^$')
+  if (nomBlanc = '^') or (nomBlanc = '$') or (nomBlanc = '^$')
     then nomBlanc := '';
 
   (* lancer le calcul des joueurs compatibles *)
@@ -1479,7 +1479,7 @@ begin
   traiteNoir  := (nomNoir <> '');
   traiteBlanc := (nomBlanc <> '');
 
-  if traiteNoir | traiteBlanc then
+  if traiteNoir or traiteBlanc then
     begin
       if traiteNoir then RemplitTableCompatibleJoueurAvecCeBooleen(JoueurNoirCompatible,false);
       if traiteBlanc then RemplitTableCompatibleJoueurAvecCeBooleen(JoueurBlancCompatible,false);
@@ -1626,7 +1626,7 @@ begin
                 c := nom[i];
                 if c = 'Ž' then c := '‚';
                 if c = '' then c := 'Š';
-                if (c >= 'A') & (c <= 'Z') then c := chr(ord(c)+32);
+                if (c >= 'A') and (c <= 'Z') then c := chr(ord(c)+32);
                 nomTournoi := nomTournoi + c;
               end;
           end;
@@ -1650,7 +1650,7 @@ begin
   repeat
     i := i-1;
     test := GET_NTH_MOVE_OF_PACKED_GAME(ouverture,i, 'MemesCoupsPartie(1)') = listeCoups[i];
-  until not(test) | (i <= 1);
+  until not(test) or (i <= 1);
   MemesCoupsPartie := test;
 end;
 
@@ -1750,7 +1750,7 @@ begin
   if tientCompteDeNro
     then GetItemTextInDialog(dp,NroText,ChaineNroPart);
 
-  if (ChaineNroPart = '') | not(tientCompteDeNro) then
+  if (ChaineNroPart = '') or not(tientCompteDeNro) then
     begin
       GetItemTextInDialog(dp,ScoreNoirText,NewScoreNoir);
       GetItemTextInDialog(dp,AnneeText,NewAnnee);
@@ -1784,14 +1784,14 @@ end;
 procedure ChargePartie(nroChargement : SInt32; nroDistribution,anneePartie : SInt16);
 begin
 
-  if (nroChargement >= 1) & (nroChargement <= PartiesNouveauFormat.nbPartiesEnMemoire) then
+  if (nroChargement >= 1) and (nroChargement <= PartiesNouveauFormat.nbPartiesEnMemoire) then
     begin
      SetPartieActive(nroChargement,true);
      SetAnneePartieParNroRefPartie(nroChargement,anneePartie);
      SetPartieRecordParNroRefPartie(nroChargement,partieBuff);
      SetNroDistributionParNroRefPartie(nroChargement,nroDistribution);
 
-     SetPartieEstSansOrdinateur(nroChargement,not(GetJoueurEstUnOrdinateur(partieBuff.nroJoueurNoir) | GetJoueurEstUnOrdinateur(partieBuff.nroJoueurBlanc)));
+     SetPartieEstSansOrdinateur(nroChargement,not(GetJoueurEstUnOrdinateur(partieBuff.nroJoueurNoir) or GetJoueurEstUnOrdinateur(partieBuff.nroJoueurBlanc)));
 
      {
      partie60 := '';
@@ -1872,10 +1872,10 @@ begin
 
       i := LENGTH_OF_STRING(s);
       if i >= 5 then
-        if IsDigit(s[i]) &
-           IsDigit(s[i-1]) &
-           IsDigit(s[i-2]) &
-           IsDigit(s[i-3]) &
+        if IsDigit(s[i]) and
+           IsDigit(s[i-1]) and
+           IsDigit(s[i-2]) and
+           IsDigit(s[i-3]) and
            (s[i-4] = ' ')  then
              begin
                s1 := TPCopy(s,i-3,4);
@@ -1889,8 +1889,8 @@ begin
                exit(DeplaceAnneeDuTournoi);
              end;
       if i >= 3 then
-        if IsDigit(s[i]) &
-           IsDigit(s[i-1]) &
+        if IsDigit(s[i]) and
+           IsDigit(s[i-1]) and
            (s[i-2] = ' ')  then
              begin
                s1 := TPCopy(s,i-1,2);
@@ -2016,7 +2016,7 @@ var myEvent : eventRecord;
 begin
   TesteAnnulationPendantLecture := false;
 
-  if (actionDemandee = BaseLectureCriteres) & (Abs(dateDernierVerifEvents - TickCount) >= 3) then
+  if (actionDemandee = BaseLectureCriteres) and (Abs(dateDernierVerifEvents - TickCount) >= 3) then
     begin
       if HasGotEvent(mDownMask+KeyDownMask+AutoKeyMask,myEvent,0,NIL) then
         begin
@@ -2040,7 +2040,7 @@ begin
     end;
 
 
-  if DoitDessinerMessagesChargementBase &
+  if DoitDessinerMessagesChargementBase and
     (Abs(dateDernierFlush - TickCount) >= 2) then
     begin
       FlushWindow(fenetreMessagesBase);
@@ -2134,13 +2134,13 @@ begin  {ChargerLaBase}
             begin
               TestTigre := interversionFautive^^[interversionsCompatibles[NbinterversionsCompatibles]];
               if LENGTH_OF_STRING(TestTigre) = 5 then                                   {F5D6C3D3C4 = F5D6C4C3D3}
-                if (TestTigre[2] = chr(64)) & (TestTigre[3] = chr(43)) &    {interversion de la Tigre}
-                   (TestTigre[4] = chr(34)) & (TestTigre[5] = chr(33)) then   {dŽjˆ dans la base de thor}
+                if (TestTigre[2] = chr(64)) and (TestTigre[3] = chr(43)) and    {interversion de la Tigre}
+                   (TestTigre[4] = chr(34)) and (TestTigre[5] = chr(33)) then   {dŽjˆ dans la base de thor}
                      NbinterversionsCompatibles := NbinterversionsCompatibles-1;
             end;
           *)
         end;
-      doitTraiterInterversions := interversionlecturebase & (NbinterversionsCompatibles > 0);
+      doitTraiterInterversions := interversionlecturebase and (NbinterversionsCompatibles > 0);
       SET_NTH_MOVE_OF_PACKED_GAME(ouvertureactive60, 1, 197);   { sentinelle ˆ la place de F5 }
     end
     else
@@ -2197,7 +2197,7 @@ begin  {ChargerLaBase}
       EcritMessageLectureBase(ReadStringFromRessource(TextesBaseID,3),20,kYpositionMessageBase);
       codeErreur := MetJoueursEtTournoisEnMemoire(false);
     end;
-  if (JoueurNoirRecherche <> '') | (JoueurBlancRecherche <> '') then
+  if (JoueurNoirRecherche <> '') or (JoueurBlancRecherche <> '') then
     begin
       EcritMessageLectureBase(ReadStringFromRessource(TextesBaseID,4),20,kYpositionMessageBase);
       ChercheNumerosJoueursCompatibles(JoueurNoirRecherche,JoueurBlancRecherche);
@@ -2253,15 +2253,15 @@ begin  {ChargerLaBase}
 	AttendFrappeClavierOuSouris(effetspecial2);
 	}
 
-  if (numeroFichierCourant >= 1) & (numeroFichierCourant <= InfosFichiersNouveauFormat.nbFichiers) &
-     (InfosFichiersNouveauFormat.fichiers[numeroFichierCourant].typeDonnees = kFicPartiesNouveauFormat) &
-     (InfosFichiersNouveauFormat.fichiers[numeroFichierCourant].nroDistribution in ChoixDistributions.distributionsALire) &
+  if (numeroFichierCourant >= 1) and (numeroFichierCourant <= InfosFichiersNouveauFormat.nbFichiers) and
+     (InfosFichiersNouveauFormat.fichiers[numeroFichierCourant].typeDonnees = kFicPartiesNouveauFormat) and
+     (InfosFichiersNouveauFormat.fichiers[numeroFichierCourant].nroDistribution in ChoixDistributions.distributionsALire) and
      (AnneeIsCompatible(anneeFichierCourant,anneeRecherche,genreDeTestPourAnnee)) then
      begin
 
 
 
-      if (JoueurNoirRecherche <> '') | (JoueurBlancRecherche <> '') | (tournoiRecherche <> '') | (longueurOuverture > 0)
+      if (JoueurNoirRecherche <> '') or (JoueurBlancRecherche <> '') or (tournoiRecherche <> '') or (longueurOuverture > 0)
         then ChargeIndexFichierCourant(numeroFichierCourant)
         else IndexNouveauFormat.tailleIndex := 0;
 
@@ -2296,7 +2296,7 @@ begin  {ChargerLaBase}
 
 
 		    with IndexNouveauFormat do
-		      if (tailleIndex <= 0) | (actionDemandee = BaseLectureSansInterventionUtilisateur)
+		      if (tailleIndex <= 0) or (actionDemandee = BaseLectureSansInterventionUtilisateur)
 		        then passeLeFiltreDesIndex := true
 		        else
 				      begin
@@ -2310,9 +2310,9 @@ begin  {ChargerLaBase}
 				          // compatibilite des joueurs ?
 				        if passeLeFiltreDesIndex then
 				          if ANDentreJoueurs
-				            then passeLeFiltreDesIndex := (NoirsCompatibleParIndex[indexNoir^[compteurPartieDansFichierCourant]] &
+				            then passeLeFiltreDesIndex := (NoirsCompatibleParIndex[indexNoir^[compteurPartieDansFichierCourant]] and
 				                                        BlancsCompatibleParIndex[indexBlanc^[compteurPartieDansFichierCourant]])
-				            else passeLeFiltreDesIndex := (NoirsCompatibleParIndex[indexNoir^[compteurPartieDansFichierCourant]] |
+				            else passeLeFiltreDesIndex := (NoirsCompatibleParIndex[indexNoir^[compteurPartieDansFichierCourant]] or
 				                                        BlancsCompatibleParIndex[indexBlanc^[compteurPartieDansFichierCourant]]);
 				      end;
 
@@ -2365,9 +2365,9 @@ begin  {ChargerLaBase}
 		            if compatibiliteTournoi then
 		               begin
 		                 if ANDentreJoueurs
-		                  then compatibiliteJoueurs := JoueurNoirCompatible^[nroJoueurNoir] &
+		                  then compatibiliteJoueurs := JoueurNoirCompatible^[nroJoueurNoir] and
 		                                             JoueurBlancCompatible^[nroJoueurBlanc]
-		                  else compatibiliteJoueurs := JoueurNoirCompatible^[nroJoueurNoir] |
+		                  else compatibiliteJoueurs := JoueurNoirCompatible^[nroJoueurNoir] or
 		                                             JoueurBlancCompatible^[nroJoueurBlanc];
 
 
@@ -2381,9 +2381,9 @@ begin  {ChargerLaBase}
 		                   end;
 		                 *)
 
-		                 if compatibiliteJoueurs & ScoreCompatible^[scoreReel] then
+		                 if compatibiliteJoueurs and ScoreCompatible^[scoreReel] then
 		                    begin
-		                      if (longueurOuverture <= 1) | (actionDemandee = BaseLectureSansInterventionUtilisateur)
+		                      if (longueurOuverture <= 1) or (actionDemandee = BaseLectureSansInterventionUtilisateur)
 		                        then
 		                          begin
 		                            inc(nbChargees);
@@ -2449,7 +2449,7 @@ begin  {ChargerLaBase}
 		          DessineProgressBar(true);
 		        end;
 
-		  until (nbChargees >= nbrePartiesEnMemoire) | depassementLimite | annulationPendantLecture;
+		  until (nbChargees >= nbrePartiesEnMemoire) or depassementLimite or annulationPendantLecture;
 
 
       codeErreur := FermeFichierNouveauFormat(numeroFichierCourant);
@@ -2463,14 +2463,14 @@ begin  {ChargerLaBase}
     then numeroFichierCourant := succ(numeroFichierCourant)
     else numeroFichierCourant := pred(numeroFichierCourant);
 
-  UNTIL (numeroFichierCourant > InfosFichiersNouveauFormat.nbFichiers) |
-        (numeroFichierCourant < 0) |
-        (nbChargees >= nbrePartiesEnMemoire) |
+  UNTIL (numeroFichierCourant > InfosFichiersNouveauFormat.nbFichiers) or
+        (numeroFichierCourant < 0) or
+        (nbChargees >= nbrePartiesEnMemoire) or
         annulationPendantLecture;
 
 
   auMoinsUnePartieDansBuffer := (nbChargees > 0);
-  if (nbChargees >= nbrePartiesEnMemoire) & not(depassementLimite) & (nbInformationMemoire < 1) then
+  if (nbChargees >= nbrePartiesEnMemoire) and not(depassementLimite) and (nbInformationMemoire < 1) then
     begin
       nbInformationMemoire := nbInformationMemoire+1;
       SysBeep(0);
@@ -2529,7 +2529,7 @@ try_again :
 
         if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Avant GetCursor dans ChargerLaBase',true);
 
-        if not(gPendantLesInitialisationsDeCassio) & DoitDessinerMessagesChargementBase then
+        if not(gPendantLesInitialisationsDeCassio) and DoitDessinerMessagesChargementBase then
           begin
             watch := GetCursor(watchcursor);
             SafeSetCursor(watch);
@@ -2564,7 +2564,7 @@ try_again :
 
 
         {Si on n'a aucune partie active, on essaye de desactiver la boite "enlever les parties d'ordinateurs"}
-        if (nbPartiesChargees > 0) & (nbPartiesActives <= 0) & not(InclurePartiesAvecOrdinateursDansListe) then
+        if (nbPartiesChargees > 0) and (nbPartiesActives <= 0) and not(InclurePartiesAvecOrdinateursDansListe) then
           begin
             SetInclurePartiesAvecOrdinateursDansListe(true);
             goto try_again;
@@ -2625,7 +2625,7 @@ begin
     for i := 1 to nbreCoup do
       begin
         coup := GetNiemeCoupPartieCourante(i);
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           ADD_MOVE_TO_PACKED_GAME(ChainePartieLecture, coup);
       end;
   TraductionThorEnAlphanumerique(ChainePartieLecture, partieEnChaine);
@@ -2737,7 +2737,7 @@ begin
             s := GarderSeulementLesChiffres(s1);
             SetItemTextInDialog(dp,itemHit,s);
             ChaineToLongint(s,aux);
-            if (LENGTH_OF_STRING(s) > 2) | (aux > 64) then SysBeep(0);
+            if (LENGTH_OF_STRING(s) > 2) or (aux > 64) then SysBeep(0);
           end;
         AnneeText:
           begin
@@ -2745,7 +2745,7 @@ begin
             s := GarderSeulementLesChiffres(s1);
             SetItemTextInDialog(dp,itemHit,s);
             anneeRecherche := StringEnAnneeSansBugAn2000(s);
-            if (LENGTH_OF_STRING(s) > 4) | ((LENGTH_OF_STRING(s) = 4) & (AnneeRecherche < 1970))
+            if (LENGTH_OF_STRING(s) > 4) or ((LENGTH_OF_STRING(s) = 4) and (AnneeRecherche < 1970))
               then SysBeep(0);
             CalculeNbPartiesPotentiellementLues(anneeRecherche,genreDeTestPourAnnee);
             EcritNbPartiesPotentiellementLues(anneeRecherche,genreDeTestPourAnnee,fenetreMessagesBase);
@@ -2782,7 +2782,7 @@ begin
           end;
         LectureBouton:
            begin
-             if positionLectureModifiee & analyseRetrograde.enCours then
+             if positionLectureModifiee and analyseRetrograde.enCours then
                begin
                  with popUpBases do
                    begin
@@ -2835,7 +2835,7 @@ begin
              if MenuItemToOuverture(itemmenuouverture,s60) then
                begin
                  ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
-                 TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale,4,60);
+                 TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale,4,60);
                  JoueOuverturePlateauLecture(s60,GetDialogWindow(dp));
                  RedessineDialogue(dp);
                end;
@@ -2858,7 +2858,7 @@ begin
             GetItemTextInDialog(dp,itemHit,s);
             if s = '=>' then s := '>=';
             if s = '=<' then s := '<=';
-            if (s <> '=') & (s <> '>=') & (s <> '<=') & (s <> '>') & (s <> '<')
+            if (s <> '=') and (s <> '>=') and (s <> '<=') and (s <> '>') and (s <> '<')
               then
                 begin
                   if s <> '' then SysBeep(0);
@@ -2883,7 +2883,7 @@ begin
             LectureAntichronologique := not(LectureAntichronologique);
           end;
       end; {case}
-    until (itemHit = LectureBouton) | (itemHit = AnnulerBouton);
+    until (itemHit = LectureBouton) or (itemHit = AnnulerBouton);
     SauveAnciensParametres;
     AjusterPositionMessagesBase(fenetreMessagesBase,GetDialogWindow(dp),true);
 
@@ -2935,13 +2935,13 @@ begin
   GetCurrentScript(gLastScriptUsedInDialogs);
   SwitchToRomanScript;
 
-  if not(windowListeOpen | windowStatOpen) & ((itemHit = LectureBouton) & (nbPartiesChargees > 0)) then
+  if not(windowListeOpen or windowStatOpen) and ((itemHit = LectureBouton) and (nbPartiesChargees > 0)) then
     begin
       DoStatistiques;
       DoListeDeParties;
     end;
 
-  if (itemHit = LectureBouton) | ((itemHit = AnnulerBouton) & PeutAbandonner)
+  if (itemHit = LectureBouton) or ((itemHit = AnnulerBouton) and PeutAbandonner)
     then result := true
     else result := false;
 
@@ -2968,7 +2968,7 @@ begin {Action base de donnees}
 	                                   : begin
 	                                       if positionFeerique then
 	                                         begin
-	                                           if CassioEstEnModeSolitaire & PeutParserReferencesSolitaire(CommentaireSolitaire^^,nomNoir,nomBlanc,nomTournoi)
+	                                           if CassioEstEnModeSolitaire and PeutParserReferencesSolitaire(CommentaireSolitaire^^,nomNoir,nomBlanc,nomTournoi)
 	                                             then
 	                                               begin
 	                                                 ParametresOuvrirThor^^[1] := nomTournoi;
@@ -2987,8 +2987,8 @@ begin {Action base de donnees}
 	                                           result := false;
 	                                         end;
 
-	                                       if (actionDemandee = BaseLectureSansInterventionUtilisateur) &
-	                                          ((FrontWindowSaufPalette = wListePtr) | (FrontWindowSaufPalette = wStatPtr))
+	                                       if (actionDemandee = BaseLectureSansInterventionUtilisateur) and
+	                                          ((FrontWindowSaufPalette = wListePtr) or (FrontWindowSaufPalette = wStatPtr))
 	                                          then LectureSurCriteres(actionDemandee, FrontWindowSaufPalette)
 	                                          else LectureSurCriteres(actionDemandee, NIL);
 
@@ -3001,7 +3001,7 @@ begin {Action base de donnees}
   FixeMarqueSurMenuBase;
 
   if not(actionDemandee = BaseLectureJoueursEtTournois) then
-  if not((actionDemandee = BaseLectureCriteres) & positionLectureModifiee) then
+  if not((actionDemandee = BaseLectureCriteres) and positionLectureModifiee) then
   if not(enSetUp) then
     begin
       if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Avant HasGotEvent dans ActionBaseDeDonnee',true);
@@ -3029,7 +3029,7 @@ var OSErreur : OSErr;
 begin
 
 
-  if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire) then
+  if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire) then
     begin
       OSErreur := MetJoueursEtTournoisEnMemoire(nomsCourts);
 
@@ -3097,7 +3097,7 @@ begin
 
       (* WritelnNumDansRapportThreadSafe('err = ',err); *)
 
-      if (err = NoErr) & (taille > 0) then
+      if (err = NoErr) and (taille > 0) then
         begin
           (* WritelnDansRapportThreadSafe('Le fichier '+pathFichierTelecharge+' contient '+NumEnString(taille) + ' octets'); *)
 
@@ -3154,8 +3154,8 @@ var err : OSErr;
     numeroLibre : SInt32;
     pathFichierTelecharge : String255;
 begin
-  if TrouverSlotLibreDansLaReservePourTelecharger(numeroLibre) &
-     (numeroLibre >= 0) &
+  if TrouverSlotLibreDansLaReservePourTelecharger(numeroLibre) and
+     (numeroLibre >= 0) and
      (numeroLibre <= kNumberOfAsynchroneNetworkConnections)
     then
       with gReserveZonesPourTelecharger.table[numeroLibre] do
@@ -3175,7 +3175,7 @@ begin
 
           err := ViderFichierAbstrait(fic);
 
-          if FichierAbstraitEstCorrect(fic) & (err = NoErr)
+          if FichierAbstraitEstCorrect(fic) and (err = NoErr)
             then DownloadURLToFichierAbstrait(numeroLibre, url, fic, TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase);
 
         end;
@@ -3192,7 +3192,7 @@ begin
 
   err := SetPositionTeteLectureFichierTexte(gFicListingWThor, 0);  // au debut
 
-  while (err = NoErr) & not(EOFFichierTexte(gFicListingWThor,err))  do
+  while (err = NoErr) and not(EOFFichierTexte(gFicListingWThor,err))  do
     begin
 
       err := ReadlnDansFichierTexte(gFicListingWThor,ligneDuFichier);
@@ -3239,7 +3239,7 @@ begin  {$unused theFic, result}
 
       doitTelechargerCeFichier := false;
 
-      if gMettreAJourParInternetTOUSLesFichiersWThor |   // tous les fichiers ?
+      if gMettreAJourParInternetTOUSLesFichiersWThor or   // tous les fichiers ?
          not(LigneEstDansNotreListingWthorLocal(s))      // fichier absent de la petite liste locale precedente ?
         then
           doitTelechargerCeFichier := true
@@ -3279,7 +3279,7 @@ begin  {$unused theFic, result}
                   WritelnStringAndReelDansRapport('tailleVersionLocale = ', tailleVersionLocale, 9);
                   *)
 
-                  doitTelechargerCeFichier := (tailleSurLeSiteFFO >= tailleVersionLocale) &
+                  doitTelechargerCeFichier := (tailleSurLeSiteFFO >= tailleVersionLocale) and
                                               ((tailleSurLeSiteFFO - tailleVersionLocale) > 0.5);
 
 
@@ -3314,7 +3314,7 @@ begin  {$unused theFic, result}
 
   {UpCaseString(s);}
 
-  if (Pos('HREF',s) > 0) | (Pos('href',s) > 0) then
+  if (Pos('HREF',s) > 0) or (Pos('href',s) > 0) then
     begin
 
       if SplitAtStr(s, 'HREF', left, right) then s := right else
@@ -3345,7 +3345,7 @@ begin  {$unused theFic, result}
       s := EnleveEspacesDeGauche(s);
       s := EnleveEspacesDeDroite(s);
 
-      if (Pos('WTH', s) = 1) | (Pos('wth', s) = 1) then
+      if (Pos('WTH', s) = 1) or (Pos('wth', s) = 1) then
         begin
 
           { maintenant la chaine s contient le nom du fichier, et date contient
@@ -3432,7 +3432,7 @@ begin
 
 
       // fermeture du fichier Listing-of-WTHOR.temp.txt
-      if (err = NoErr) & (FermeFichierTexte(gFicListingWThorTemp) = NoErr) then
+      if (err = NoErr) and (FermeFichierTexte(gFicListingWThorTemp) = NoErr) then
         begin
 
           // on lit chaque ligne du fichier "Listing-of-WTHOR.temp.txt"
@@ -3469,8 +3469,8 @@ begin
 
   AttendFrappeClavier;}
 
-  if (Pos(kNomFichierDirectoryWTHORHtml, pathFichierTelecharge) > 0) &
-     (tailleFichier > 0) & (tailleFichier < 40000)
+  if (Pos(kNomFichierDirectoryWTHORHtml, pathFichierTelecharge) > 0) and
+     (tailleFichier > 0) and (tailleFichier < 40000)
     then ComparerListingDuRepertoireDeLaBaseSurInternet(pathFichierTelecharge);
 
 
@@ -3496,7 +3496,7 @@ begin
   {WritelnDansRapport('Entree dans TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase');
   AttendFrappeClavier;}
 
-  if (abstractFile <> NIL) & (abstractFile^.genre = FichierAbstraitEstFichier) then
+  if (abstractFile <> NIL) and (abstractFile^.genre = FichierAbstraitEstFichier) then
     begin
 
       {
@@ -3547,11 +3547,11 @@ begin
       AttendFrappeClavier;}
 
 
-      if (networkError = 0) & (pathFichier <> '')  then
+      if (networkError = 0) and (pathFichier <> '')  then
         GererTelechargementAutomatiqueDeLaBase(pathFichier, tailleFichier);
 
 
-      if (err = NoErr) & (networkError <> 0) then
+      if (err = NoErr) and (networkError <> 0) then
         err := networkError;
 
       {
@@ -3586,8 +3586,8 @@ begin {$unused err, url }
   // FIXME : la ligne suivante seulement pour les test !
   {gMettreAJourParInternetTOUSLesFichiersWThor := true;}
 
-  if TrouverSlotLibreDansLaReservePourTelecharger(numeroLibre) &
-     (numeroLibre >= 0) &
+  if TrouverSlotLibreDansLaReservePourTelecharger(numeroLibre) and
+     (numeroLibre >= 0) and
      (numeroLibre <= kNumberOfAsynchroneNetworkConnections)
     then
       with gReserveZonesPourTelecharger.table[numeroLibre] do
@@ -3604,7 +3604,7 @@ begin {$unused err, url }
 
           url := MakeLongString(kURLTelechargementDeLaBase);
 
-          if FichierAbstraitEstCorrect(fic) & (err = NoErr)
+          if FichierAbstraitEstCorrect(fic) and (err = NoErr)
             then DownloadURLToFichierAbstrait(numeroLibre, url, fic, TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase);
 
         end;

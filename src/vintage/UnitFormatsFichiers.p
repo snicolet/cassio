@@ -143,7 +143,7 @@ begin
       codeAsciiCaractere := ord(c);
       estUnCaractereDeControle := (c in gLectureFichier.caracteresASauter);
 
-      if not(estUnCaractereDeControle) |
+      if not(estUnCaractereDeControle) or
          not(sauterLesCaracteresDeControle) then
          begin
 		       for i := -kTailleBufferArriere to -1 do
@@ -162,7 +162,7 @@ end;
 
 function GetPreviousCharFichier(negOffset : SInt16) : char;
 begin
-  if (negOffset >= -kTailleBufferArriere) & (negOffset <= 0)
+  if (negOffset >= -kTailleBufferArriere) and (negOffset <= 0)
     then GetPreviousCharFichier := gLectureFichier.bufferCaracteres[negOffset]
     else GetPreviousCharFichier := chr(0);
 end;
@@ -192,13 +192,13 @@ begin
 
   { Sauter tous les caracteres qui ne sont pas des chiffres }
   err := GetNextCharFichier(false,c);
-  while (err = NoErr) & not(IsDigit(c)) do
+  while (err = NoErr) and not(IsDigit(c)) do
     err := GetNextCharFichier(false,c);
 
   { Lire le nombre }
   s := '';
   longueur := 0;
-  while (err = NoErr) & IsDigit(c) & (longueur <= 10) do
+  while (err = NoErr) and IsDigit(c) and (longueur <= 10) do
     begin
       s := s + CharToString(c);
       inc(longueur);
@@ -237,7 +237,7 @@ begin
   c := GetPreviousCharFichier(0);
   if c <> caractereOuvrant then err := GetNextCharFichier(true,c);
 
-  if (c <> caractereOuvrant) | (err <> NoErr) then
+  if (c <> caractereOuvrant) or (err <> NoErr) then
     begin
       ScanChaineValeurProperty := '';
       exit(ScanChaineValeurProperty);
@@ -248,9 +248,9 @@ begin
   repeat
     inc(longueur);
     err := GetNextCharFichier(true,c);
-    if (err = NoErr) & (c <> caractereFermant)
+    if (err = NoErr) and (c <> caractereFermant)
       then s := s + c;
-  until (err <> NoErr) | (longueur > 240) | (c = caractereFermant);
+  until (err <> NoErr) or (longueur > 240) or (c = caractereFermant);
 
   ScanChaineValeurProperty := s;
 end;
@@ -276,8 +276,8 @@ begin
   count               := WZEBRA_RECORD_LENGTH;
   err                 := NoErr;
 
-  while (err = NoErr) & (compteurCoup < 200) & (LENGTH_OF_STRING(chaineDesCoups) < (2 * 64)) &
-        (count = WZEBRA_RECORD_LENGTH) &
+  while (err = NoErr) and (compteurCoup < 200) and (LENGTH_OF_STRING(chaineDesCoups) < (2 * 64)) and
+        (count = WZEBRA_RECORD_LENGTH) and
         (index + WZEBRA_RECORD_LENGTH <= taille_zone_memoire) do
     begin
       inc(compteurCoup);
@@ -345,7 +345,7 @@ begin
     if VientDeLireCetteChaine(WZEBRA_HEADER)  then
       begin
         header_trouvee := true;
-        if ParserFormatWZebra(s) & EstUnePartieOthelloAvecMiroir(s) then
+        if ParserFormatWZebra(s) and EstUnePartieOthelloAvecMiroir(s) then
           begin
             partie_trouvee := true;
             infos.tailleOthellier  := 8;
@@ -354,9 +354,9 @@ begin
           end;
        end;
 
-  until (err <> NoErr) |
-        (compteurCaracteres > 30) |
-        (header_trouvee & header_trouvee);
+  until (err <> NoErr) or
+        (compteurCaracteres > 30) or
+        (header_trouvee and header_trouvee);
 end;
 
 
@@ -378,13 +378,13 @@ begin
     EnleveEspacesDeGaucheSurPlace(s);
     if (s <> '') then inc(compteurLignesNonVides);
 
-    if (compteurLignesNonVides >= 1) & (compteurLignesNonVides <= 2) then
-      if (Pos('WZebra',s) > 0) | (Pos('Zebra',s) > 0) then promptWZebraTrouve := true;
+    if (compteurLignesNonVides >= 1) and (compteurLignesNonVides <= 2) then
+      if (Pos('WZebra',s) > 0) or (Pos('Zebra',s) > 0) then promptWZebraTrouve := true;
 
-    if (compteurLignesNonVides >= 3) & not(promptWZebraTrouve)
+    if (compteurLignesNonVides >= 3) and not(promptWZebraTrouve)
       then exit(EssaieReconnaitreFormatExportTexteDeZebra);
 
-    if promptWZebraTrouve & EstUnePartieOthelloAvecMiroir(s) then
+    if promptWZebraTrouve and EstUnePartieOthelloAvecMiroir(s) then
       begin
         infos.tailleOthellier  := 8;
         infos.positionEtPartie := '...........................ox......xo...........................' + s;
@@ -392,7 +392,7 @@ begin
         exit(EssaieReconnaitreFormatExportTexteDeZebra);
       end;
 
-  until (compteurLignes > 15) | (compteurLignesNonVides >= 7) | (err <> NoErr);
+  until (compteurLignes > 15) or (compteurLignesNonVides >= 7) or (err <> NoErr);
 
 end;
 
@@ -421,7 +421,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s);
     EnleveEspacesDeGaucheSurPlace(s);
-    if (err = NoErr) & (s <> '') then
+    if (err = NoErr) and (s <> '') then
       begin
         inc(compteurLignesNonVides);
 
@@ -430,7 +430,7 @@ begin
 
         joueursTrouves := TrouverPartieEtJoueursDansChaine(s,moves,joueur1,joueur2,confiance);
 
-        if partieLegale & not(joueursTrouves) then
+        if partieLegale and not(joueursTrouves) then
           begin
             inc(compteurPartiesTrouvees);
             moves := s;
@@ -438,10 +438,10 @@ begin
           end;
 
       end;
-  until (compteurLignes > 6) | (compteurLignesNonVides >= 2) | (err <> NoErr);
+  until (compteurLignes > 6) or (compteurLignesNonVides >= 2) or (err <> NoErr);
 
-  if (compteurPartiesTrouvees >= 1) &
-     (compteurLignesNonVides = compteurPartiesTrouvees) &
+  if (compteurPartiesTrouvees >= 1) and
+     (compteurLignesNonVides = compteurPartiesTrouvees) and
      (moves <> '')  then
     begin
       {WritelnNumDansRapport('TROUVE (kTypeFichierSimplementDesCoups), compteurPartiesTrouvees = '+compteurPartiesTrouvees);}
@@ -485,16 +485,16 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s);
     EnleveEspacesDeGaucheSurPlace(s);
-    if (err = NoErr) & (s <> '') then
+    if (err = NoErr) and (s <> '') then
       begin
         inc(compteurLignesNonVides);
 
         partieTrouvee := TrouverPartieEtJoueursDansChaine(s,moves,joueur1,joueur2,confiance);
-        partieTrouvee := partieTrouvee & EstUnePartieOthelloAvecMiroir(moves);  {symetrisons, eventuellement}
+        partieTrouvee := partieTrouvee and EstUnePartieOthelloAvecMiroir(moves);  {symetrisons, eventuellement}
 
         if partieTrouvee then inc(compteurPartiesTrouvees);
       end;
-  until (compteurLignes > 10) | (compteurPartiesTrouvees >= 2) | (err <> NoErr);
+  until (compteurLignes > 10) or (compteurPartiesTrouvees >= 2) or (err <> NoErr);
 
   if (compteurPartiesTrouvees >= 1) then
     begin
@@ -511,7 +511,7 @@ begin
             infos.tailleOthellier  := 8;
             infos.positionEtPartie := '...........................ox......xo...........................' + moves;
 
-            if (joueur1 <> kNroJoueurInconnu) & (joueur2 <> kNroJoueurInconnu) then
+            if (joueur1 <> kNroJoueurInconnu) and (joueur2 <> kNroJoueurInconnu) then
               if EstUnePartieOthelloTerminee(moves,false,nbPionsNoirs,nbPionsBlancs)
                 then infos.joueurs := GetNomJoueur(joueur1) + ' '+ScoreFinalEnChaine(nbPionsNoirs-nbPionsBlancs)+' ' + GetNomJoueur(joueur2)
                 else infos.joueurs := GetNomJoueur(joueur1) + ' 0-0 ' + GetNomJoueur(joueur2);
@@ -564,10 +564,10 @@ begin
         FENString   := s;
       end;
 
-  until (compteurLignes > 15) | (err <> NoErr) | (eventTagFound & reversiTagFound & fenTagFound);
+  until (compteurLignes > 15) or (err <> NoErr) or (eventTagFound and reversiTagFound and fenTagFound);
 
 
-  if eventTagFound & reversiTagFound & fenTagFound then
+  if eventTagFound and reversiTagFound and fenTagFound then
     begin
 
       if ParserFENEnPositionEtTrait(FENString, thePosition) then
@@ -618,7 +618,7 @@ begin
                     k2 := Pos('p@' , s);
 
                     k := 0;
-                    if (k1 > 0) & (k2 > 0) then k := Min(k1,k2) else
+                    if (k1 > 0) and (k2 > 0) then k := Min(k1,k2) else
                     if (k1 > 0)            then k := k1 else
                     if (k2 > 0)            then k := k2;
 
@@ -631,9 +631,9 @@ begin
                   until (k <= 0);
 
                 end;
-            until (token = '') | (indexDansBuffer >= bufferSize);
+            until (token = '') or (indexDansBuffer >= bufferSize);
 
-          until (err <> NoErr) | (LENGTH_OF_STRING(coups) >= (2 * 64)) | (indexDansFichier >= tailleFichier);
+          until (err <> NoErr) or (LENGTH_OF_STRING(coups) >= (2 * 64)) or (indexDansFichier >= tailleFichier);
 
 
           DisposeMemoryPtr(Ptr(buffer));
@@ -664,7 +664,7 @@ begin
       inc(compteurLignes);
       err := GetNextLineDansFichier(s);
       EnleveEspacesDeGaucheSurPlace(s);
-    until (compteurLignes > 15) | (err <> NoErr) | (Pos('[Event',s) > 0);
+    until (compteurLignes > 15) or (err <> NoErr) or (Pos('[Event',s) > 0);
 
     if Pos('[Event',s) > 0 then
       infos.format := kTypeFichierPGN;
@@ -680,7 +680,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s);
     EnleveEspacesDeGaucheSurPlace(s);
-  until (compteurLignes > 3) | (err <> NoErr) | (Pos('%versionOfPrefsFile',s) = 1);
+  until (compteurLignes > 3) or (err <> NoErr) or (Pos('%versionOfPrefsFile',s) = 1);
 
   if (Pos('%versionOfPrefsFile',s) = 1) then
     infos.format := kTypeFichierPreferences;
@@ -695,7 +695,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s);
     EnleveEspacesDeGaucheSurPlace(s);
-  until (compteurLignes > 3) | (err <> NoErr) | (Pos('% Format_Cassio = [bibliotheque]',s) = 1);
+  until (compteurLignes > 3) or (err <> NoErr) or (Pos('% Format_Cassio = [bibliotheque]',s) = 1);
 
   if (Pos('% Format_Cassio = [bibliotheque]',s) = 1) then
     infos.format := kTypeFichierBibliotheque;
@@ -714,7 +714,7 @@ begin
 
       caracteresDeControle := [];
       for c := chr(0) to chr(255) do
-        if (ord(c) <= 32) | (c = ' ') | (c = chr(202)) | (c = 'Ê') then
+        if (ord(c) <= 32) or (c = ' ') or (c = chr(202)) or (c = 'Ê') then
           caracteresDeControle := caracteresDeControle + [c];
 
       if sauter_les_coordonnees_autour_othellier then
@@ -749,33 +749,33 @@ begin
         if (compteurCaracteres <= 64) then
           begin
             s := s + c;
-    	      que_points_ou_x_ou_o := que_points_ou_x_ou_o &
+    	      que_points_ou_x_ou_o := que_points_ou_x_ou_o and
     	                              CharInSet(c,['.','-','Ñ','_','Ð',',','+','#','x','X','*','¥','o','O','0']);
           end;
 
         if compteurCaracteres = 64 then
           position_initiale_trouvee := que_points_ou_x_ou_o;
 
-        if (compteurCaracteres > 64) & (compteurCaracteres < 250) &
-           (c <> 'Â') & (c <> '%') & (err = NoErr) then
+        if (compteurCaracteres > 64) and (compteurCaracteres < 250) and
+           (c <> 'Â') and (c <> '%') and (err = NoErr) then
           begin
             s := s + c;
-            que_des_coordonnees := que_des_coordonnees &
-                                   (CharInRange(c,'a','h') | CharInRange(c,'A','H') | CharInRange(c,'1','8'));
+            que_des_coordonnees := que_des_coordonnees and
+                                   (CharInRange(c,'a','h') or CharInRange(c,'A','H') or CharInRange(c,'1','8'));
           end;
 
-        if (c = '%') | (c = 'Â') | (err <> NoErr) then
+        if (c = '%') or (c = 'Â') or (err <> NoErr) then
           begin
             sortieDeBoucle := true;
-            partie_trouvee := que_des_coordonnees & (compteurCaracteres < 250);
+            partie_trouvee := que_des_coordonnees and (compteurCaracteres < 250);
           end;
 
-      until (err <> NoErr) | sortieDeBoucle |
-            (compteurCaracteres > 250) |
-            (position_initiale_trouvee & partie_trouvee) |
-            ((compteurCaracteres > 64) & not(position_initiale_trouvee));
+      until (err <> NoErr) or sortieDeBoucle or
+            (compteurCaracteres > 250) or
+            (position_initiale_trouvee and partie_trouvee) or
+            ((compteurCaracteres > 64) and not(position_initiale_trouvee));
 
-      if (position_initiale_trouvee & partie_trouvee) then
+      if (position_initiale_trouvee and partie_trouvee) then
         begin
           infos.format           := kTypeFichierCassio;
           infos.tailleOthellier  := 8;
@@ -797,7 +797,7 @@ begin
 
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
-    if (ord(c) <= 32) | (c = ' ') then
+    if (ord(c) <= 32) or (c = ' ') then
       caracteresDeControle := caracteresDeControle + [c];
   SetCaracteresASauter(caracteresDeControle);
 
@@ -813,22 +813,22 @@ begin
 
     {WriteDansRapport(c);}
 
-    if (GetPreviousCharFichier(-1) = '(') &
+    if (GetPreviousCharFichier(-1) = '(') and
        (GetPreviousCharFichier(0) = ';')
       then parenthese_initiale_trouvee := true;
 
-    if (GetPreviousCharFichier(-2) = 'G') &
-       (GetPreviousCharFichier(-1) = 'M') &
+    if (GetPreviousCharFichier(-2) = 'G') and
+       (GetPreviousCharFichier(-1) = 'M') and
        (GetPreviousCharFichier(0) = '[')
       then GM_trouve := true;
 
-    if (GetPreviousCharFichier(-2) = 'F') &
-       (GetPreviousCharFichier(-1) = 'F') &
+    if (GetPreviousCharFichier(-2) = 'F') and
+       (GetPreviousCharFichier(-1) = 'F') and
        (GetPreviousCharFichier(0) = '[')
       then FF_trouvee := true;
 
-    if (GetPreviousCharFichier(-2) = 'S') &
-       (GetPreviousCharFichier(-1) = 'Z') &
+    if (GetPreviousCharFichier(-2) = 'S') and
+       (GetPreviousCharFichier(-1) = 'Z') and
        (GetPreviousCharFichier(0) = '[') then
       begin
         s := ScanChaineValeurProperty('[',']');
@@ -885,9 +885,9 @@ begin
           end;
       end;
 
-  until (err <> NoErr) |
-        (compteurCaracteres > 20000) |
-        (parenthese_initiale_trouvee {& GM_trouve} & FF_trouvee & SZ_trouvee);
+  until (err <> NoErr) or
+        (compteurCaracteres > 20000) or
+        (parenthese_initiale_trouvee {and GM_trouve} and FF_trouvee and SZ_trouvee);
 
   (*
   WritelnDansRapport('');
@@ -897,7 +897,7 @@ begin
   WritelnStringAndBooleanDansRapport('SZ_trouvee = ',SZ_trouvee);
   *)
 
-  if (parenthese_initiale_trouvee {& GM_trouve} & FF_trouvee & SZ_trouvee) then
+  if (parenthese_initiale_trouvee {and GM_trouve} and FF_trouvee and SZ_trouvee) then
     begin
       infos.format := kTypeFichierSGF;
     end;
@@ -914,7 +914,7 @@ begin
 
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
-    if (ord(c) <= 32) | (c = ' ') then
+    if (ord(c) <= 32) or (c = ' ') then
       caracteresDeControle := caracteresDeControle + [c];
   SetCaracteresASauter(caracteresDeControle);
 
@@ -933,87 +933,87 @@ begin
     WriteDansRapport(c);
     }
 
-    if (GetPreviousCharFichier(-4) = '(') &
-       (GetPreviousCharFichier(-3) = ';') &
-       (GetPreviousCharFichier(-2) = 'G') &
-       (GetPreviousCharFichier(-1) = 'M') &
+    if (GetPreviousCharFichier(-4) = '(') and
+       (GetPreviousCharFichier(-3) = ';') and
+       (GetPreviousCharFichier(-2) = 'G') and
+       (GetPreviousCharFichier(-1) = 'M') and
        (GetPreviousCharFichier(0) = '[') then
        begin
          s := ScanChaineValeurProperty('[',']');
-         if (s = 'Reversi') | (s = 'Othello')
+         if (s = 'Reversi') or (s = 'Othello')
            then inc(nbGamePropertiesTrouvees);
        end;
 
 
-    if (GetPreviousCharFichier(-4) = 'B') &
-       (GetPreviousCharFichier(-3) = 'O') &
-       (GetPreviousCharFichier(-2) = '[') &
-       (GetPreviousCharFichier(-1) = '1') &
+    if (GetPreviousCharFichier(-4) = 'B') and
+       (GetPreviousCharFichier(-3) = 'O') and
+       (GetPreviousCharFichier(-2) = '[') and
+       (GetPreviousCharFichier(-1) = '1') and
        (GetPreviousCharFichier(0) = '2') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 12;
        end;
 
-    if (GetPreviousCharFichier(-4) = 'B') &
-       (GetPreviousCharFichier(-3) = 'O') &
-       (GetPreviousCharFichier(-2) = '[') &
-       (GetPreviousCharFichier(-1) = '1') &
+    if (GetPreviousCharFichier(-4) = 'B') and
+       (GetPreviousCharFichier(-3) = 'O') and
+       (GetPreviousCharFichier(-2) = '[') and
+       (GetPreviousCharFichier(-1) = '1') and
        (GetPreviousCharFichier(0) = '1') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 11;
        end;
 
-    if (GetPreviousCharFichier(-4) = 'B') &
-       (GetPreviousCharFichier(-3) = 'O') &
-       (GetPreviousCharFichier(-2) = '[') &
-       (GetPreviousCharFichier(-1) = '1') &
+    if (GetPreviousCharFichier(-4) = 'B') and
+       (GetPreviousCharFichier(-3) = 'O') and
+       (GetPreviousCharFichier(-2) = '[') and
+       (GetPreviousCharFichier(-1) = '1') and
        (GetPreviousCharFichier(0) = '0') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 10;
        end;
 
-    if (GetPreviousCharFichier(-3) = 'B') &
-       (GetPreviousCharFichier(-2) = 'O') &
-       (GetPreviousCharFichier(-1) = '[') &
+    if (GetPreviousCharFichier(-3) = 'B') and
+       (GetPreviousCharFichier(-2) = 'O') and
+       (GetPreviousCharFichier(-1) = '[') and
        (GetPreviousCharFichier(0) = '9') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 9;
        end;
 
-    if (GetPreviousCharFichier(-3) = 'B') &
-       (GetPreviousCharFichier(-2) = 'O') &
-       (GetPreviousCharFichier(-1) = '[') &
+    if (GetPreviousCharFichier(-3) = 'B') and
+       (GetPreviousCharFichier(-2) = 'O') and
+       (GetPreviousCharFichier(-1) = '[') and
        (GetPreviousCharFichier(0) = '8') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 8;
        end;
 
-     if (GetPreviousCharFichier(-3) = 'B') &
-       (GetPreviousCharFichier(-2) = 'O') &
-       (GetPreviousCharFichier(-1) = '[') &
+     if (GetPreviousCharFichier(-3) = 'B') and
+       (GetPreviousCharFichier(-2) = 'O') and
+       (GetPreviousCharFichier(-1) = '[') and
        (GetPreviousCharFichier(0) = '7') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 7;
        end;
 
-     if (GetPreviousCharFichier(-3) = 'B') &
-       (GetPreviousCharFichier(-2) = 'O') &
-       (GetPreviousCharFichier(-1) = '[') &
+     if (GetPreviousCharFichier(-3) = 'B') and
+       (GetPreviousCharFichier(-2) = 'O') and
+       (GetPreviousCharFichier(-1) = '[') and
        (GetPreviousCharFichier(0) = '6') then
        begin
          inc(nbBoardPropertiesTrouvees);
          infos.tailleOthellier := 6;
        end;
 
-  until (err <> NoErr) |
-        (compteurCaracteres > 4000) |
-        ((nbGamePropertiesTrouvees >= 2) & (nbBoardPropertiesTrouvees >= 1));
+  until (err <> NoErr) or
+        (compteurCaracteres > 4000) or
+        ((nbGamePropertiesTrouvees >= 2) and (nbBoardPropertiesTrouvees >= 1));
 
   {
   WritelnDansRapport('');
@@ -1021,7 +1021,7 @@ begin
   WritelnStringAndBooleanDansRapport('BO_trouvee = ',BO_trouvee);
   }
 
-  if (nbGamePropertiesTrouvees >= 1) & (nbBoardPropertiesTrouvees >= 1) then
+  if (nbGamePropertiesTrouvees >= 1) and (nbBoardPropertiesTrouvees >= 1) then
     begin
       if (nbGamePropertiesTrouvees >= 2)
         then infos.format := kTypeFichierGGFMultiple
@@ -1044,7 +1044,7 @@ var s1,s2,s3 : String255;
     confiance : double_t;
 begin
 
-  if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire)
+  if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire)
     then erreurES := MetJoueursEtTournoisEnMemoire(false);
 
   ResetLectureFichier;
@@ -1058,7 +1058,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(s1);
     EnleveEspacesDeGaucheSurPlace(s1);
-  until (compteurLignes > 3) | (err <> NoErr) | (s1 <> '');
+  until (compteurLignes > 3) or (err <> NoErr) or (s1 <> '');
 
   if (err = NoErr) then
     begin
@@ -1067,7 +1067,7 @@ begin
         inc(compteurLignes);
         err := GetNextLineDansFichier(s2);
         EnleveEspacesDeGaucheSurPlace(s2);
-      until (compteurLignes > 3) | (err <> NoErr) | (s2 <> '');
+      until (compteurLignes > 3) or (err <> NoErr) or (s2 <> '');
     end;
 
   if (err = NoErr) then
@@ -1077,25 +1077,25 @@ begin
         inc(compteurLignes);
         err := GetNextLineDansFichier(s3);
         EnleveEspacesDeGaucheSurPlace(s3);
-      until (compteurLignes > 3) | (err <> NoErr) | (s3 <> '');
+      until (compteurLignes > 3) or (err <> NoErr) or (s3 <> '');
     end;
 
 
   moves := s1;
   noms  := s2;
   somme := moves + noms;
-  if (infos.format = kTypeFichierInconnu) & (moves <> '') &
-     EstUnePartieOthelloAvecMiroir(moves) &
-     (not(EstUnePartieOthello(somme,false)) | EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) &
+  if (infos.format = kTypeFichierInconnu) and (moves <> '') and
+     EstUnePartieOthelloAvecMiroir(moves) and
+     (not(EstUnePartieOthello(somme,false)) or EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) and
      TrouverNomsDesJoueursDansNomDeFichier(noms,n1,n2,0,confiance)
     then infos.format := kTypeFichierSuiteDePartiePuisJoueurs;
 
   moves := s2;
   noms  := s1;
   somme := moves + noms;
-  if (infos.format = kTypeFichierInconnu) & (moves <> '') &
-     EstUnePartieOthelloAvecMiroir(moves) &
-     (not(EstUnePartieOthello(somme,false)) | EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) &
+  if (infos.format = kTypeFichierInconnu) and (moves <> '') and
+     EstUnePartieOthelloAvecMiroir(moves) and
+     (not(EstUnePartieOthello(somme,false)) or EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) and
      TrouverNomsDesJoueursDansNomDeFichier(noms,n1,n2,0,confiance)
     then infos.format := kTypeFichierSuiteDeJoueursPuisPartie;
 
@@ -1103,9 +1103,9 @@ begin
   moves := s1 + s2;
   noms  := s3;
   somme := moves + noms;
-  if (infos.format = kTypeFichierInconnu) & (moves <> '') &
-     EstUnePartieOthelloAvecMiroir(moves) &
-     (not(EstUnePartieOthello(somme,false)) | EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) &
+  if (infos.format = kTypeFichierInconnu) and (moves <> '') and
+     EstUnePartieOthelloAvecMiroir(moves) and
+     (not(EstUnePartieOthello(somme,false)) or EstUnePartieOthelloTerminee(moves,false,nbNoirs,nbBlancs)) and
      TrouverNomsDesJoueursDansNomDeFichier(noms,n1,n2,0,confiance)
     then infos.format := kTypeFichierSuiteDePartiePuisJoueurs;
 
@@ -1121,7 +1121,7 @@ begin
 
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
-    if (ord(c) <= 32) | (c = ' ') then
+    if (ord(c) <= 32) or (c = ' ') then
       caracteresDeControle := caracteresDeControle + [c];
   SetCaracteresASauter(caracteresDeControle);
 
@@ -1137,26 +1137,26 @@ begin
     {
     WriteDansRapport(c);
     }
-    if VientDeLireCetteChaine('OthelloBrowser') |
-       VientDeLireCetteChaine('othellobrowser') |
-       VientDeLireCetteChaine('OTHELLOBROWSER') |
-       VientDeLireCetteChaine('OthelloViewer')  |
-       VientDeLireCetteChaine('othelloviewer')  |
+    if VientDeLireCetteChaine('OthelloBrowser') or
+       VientDeLireCetteChaine('othellobrowser') or
+       VientDeLireCetteChaine('OTHELLOBROWSER') or
+       VientDeLireCetteChaine('OthelloViewer')  or
+       VientDeLireCetteChaine('othelloviewer')  or
        VientDeLireCetteChaine('OTHELLOVIEWER')  then
       begin
         browser_trouvee := true;
         infos.tailleOthellier := 8;
       end;
 
-    if VientDeLireCetteChaine('applet') |
-       VientDeLireCetteChaine('Applet') |
+    if VientDeLireCetteChaine('applet') or
+       VientDeLireCetteChaine('Applet') or
        VientDeLireCetteChaine('APPLET') then
       begin
         applet_trouvee := true;
       end;
 
-    if VientDeLireCetteChaine('value="') |
-       VientDeLireCetteChaine('Value="') |
+    if VientDeLireCetteChaine('value="') or
+       VientDeLireCetteChaine('Value="') or
        VientDeLireCetteChaine('VALUE="') then
      begin
        s := ScanChaineValeurProperty('"','"');
@@ -1167,9 +1167,9 @@ begin
          end;
      end;
 
-  until (err <> NoErr) |
-        (compteurCaracteres > 20000) |
-        (browser_trouvee & applet_trouvee & partie_trouvee);
+  until (err <> NoErr) or
+        (compteurCaracteres > 20000) or
+        (browser_trouvee and applet_trouvee and partie_trouvee);
 
   {
   WritelnDansRapport('');
@@ -1180,7 +1180,7 @@ begin
   }
 
 
-  if browser_trouvee & applet_trouvee & partie_trouvee then
+  if browser_trouvee and applet_trouvee and partie_trouvee then
     begin
       infos.format := kTypeFichierHTMLOthelloBrowser;
     end;
@@ -1200,7 +1200,7 @@ begin
   for coordonnees_a_gauche := false to true do
     for coordonnees_a_droite := false to true do
       for cases_centrales_peuvent_etre_zero := false to true do
-        if (infos.format = kTypeFichierInconnu) & (analyse <> NIL) then
+        if (infos.format = kTypeFichierInconnu) and (analyse <> NIL) then
           begin
             ResetLectureFichier;
             MemoryFillChar(@coupsPourLeTranscript,SizeOf(platValeur),chr(0));
@@ -1208,27 +1208,27 @@ begin
             err := NoErr;
             square := 10;
             repeat
-              if ((square mod 10) = 0) & not(coordonnees_a_gauche) then inc(square) else
-              if ((square mod 10) = 9) & not(coordonnees_a_droite) then inc(square)
+              if ((square mod 10) = 0) and not(coordonnees_a_gauche) then inc(square) else
+              if ((square mod 10) = 9) and not(coordonnees_a_droite) then inc(square)
                 else
                   begin
                     err := GetNextLongintDansFichier(numero);
 
                     { sauter les cases centrales, sauf si on a l'impression
                       qu''elles sont numerotes par zero dans le transcript }
-                    if ((square = 44) | (square = 45) | (square = 54) | (square = 55))
-                       & (cases_centrales_peuvent_etre_zero | (numero <> 0)) then
-                      while (square = 44) | (square = 45) | (square = 54) | (square = 55) do
+                    if ((square = 44) or (square = 45) or (square = 54) or (square = 55))
+                       and (cases_centrales_peuvent_etre_zero or (numero <> 0)) then
+                      while (square = 44) or (square = 45) or (square = 54) or (square = 55) do
                         inc(square);
 
-                    if (numero >= 0) & (numero <= 99) then
+                    if (numero >= 0) and (numero <= 99) then
                       begin
                         if (square <= 88) then coupsPourLeTranscript[square] := numero;
                         inc(square);
                       end;
                   end;
 
-            until (err <> NoErr) | (square > 88) |
+            until (err <> NoErr) or (square > 88) or
                   (NombreCaracteresLusDansFichier >= 2000);
 
             if (square > 88) then
@@ -1272,7 +1272,7 @@ end;
 procedure EssaieReconnaitreFormatScriptFinales;
 var c : char;
 begin
-  if (NoCasePos('.script',myFic.nomFichier) > 0) {| (NoCasePos('clipboard',myFic.nomFichier) > 0)} then
+  if (NoCasePos('.script',myFic.nomFichier) > 0) {or (NoCasePos('clipboard',myFic.nomFichier) > 0)} then
     begin
 
       {
@@ -1281,7 +1281,7 @@ begin
 
       caracteresDeControle := [];
       for c := chr(0) to chr(255) do
-        if (ord(c) <= 32) | (c = ' ') then
+        if (ord(c) <= 32) or (c = ' ') then
           caracteresDeControle := caracteresDeControle + [c];
       SetCaracteresASauter(caracteresDeControle);
 
@@ -1323,8 +1323,8 @@ begin
       err := GetNextLineDansFichier(ligne1);
       err := GetNextLineDansFichier(ligne2);
 
-      if (err = NoErr) &
-         (Pos('%!PS-Adobe-3.0 EPSF-3.0', ligne1) = 1) &
+      if (err = NoErr) and
+         (Pos('%!PS-Adobe-3.0 EPSF-3.0', ligne1) = 1) and
          (Pos('%%Creator: Cassio',       ligne2) = 1) then
         begin
           infos.format := kTypeFichierEPS;
@@ -1342,7 +1342,7 @@ begin
                 if (Pos('%%Othello-moves: ', ligne) = 1) then
                   Parser(ligne, foo, moves);
               end;
-          until (compteurLignes > 20) | (err <> NoErr) | (Pos('%%BeginProlog',ligne) > 0) | (Pos('%%EndComments',ligne) > 0);
+          until (compteurLignes > 20) or (err <> NoErr) or (Pos('%%BeginProlog',ligne) > 0) or (Pos('%%EndComments',ligne) > 0);
 
           infos.positionEtPartie := posDebut + ' ' + moves;
         end;
@@ -1358,7 +1358,7 @@ begin
 
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
-    if (ord(c) <= 32) | (c = ' ') then
+    if (ord(c) <= 32) or (c = ' ') then
       caracteresDeControle := caracteresDeControle + [c];
   SetCaracteresASauter(caracteresDeControle);
 
@@ -1375,13 +1375,13 @@ begin
       else s := ligne;
     EnleveEspacesDeGaucheSurPlace(s);
 
-    if (Pos('JOB ',s) = 1) | (Pos('PREFETCH ',s) = 1) then
+    if (Pos('JOB ',s) = 1) or (Pos('PREFETCH ',s) = 1) then
       begin
         infos.format := kTypeFichierScriptZoo;
         exit(EssaieReconnaitreFormatScriptZoo);
       end;
 
-  until (compteurLignes > 25) | (err <> NoErr);
+  until (compteurLignes > 25) or (err <> NoErr);
 
 end;
 
@@ -1418,7 +1418,7 @@ begin
 
   caracteresDeControle := [];
   for c := chr(0) to chr(255) do
-    if (ord(c) <= 32) | (c = ' ') then
+    if (ord(c) <= 32) or (c = ' ') then
       caracteresDeControle := caracteresDeControle + [c];
   SetCaracteresASauter(caracteresDeControle);
 
@@ -1446,9 +1446,9 @@ begin
           then
             begin
               Parser2(s,s1,s2,reste);
-              if (s1[1] <> '%') & ChaineNeContientQueCesCaracteres(s1,['-','X','x','0','O','o']) then
+              if (s1[1] <> '%') and ChaineNeContientQueCesCaracteres(s1,['-','X','x','0','O','o']) then
                 begin
-                  if (LENGTH_OF_STRING(s1) = 64) & (LENGTH_OF_STRING(s2) = 1) then
+                  if (LENGTH_OF_STRING(s1) = 64) and (LENGTH_OF_STRING(s2) = 1) then
                     begin
                       infos.tailleOthellier  := 8;
                       infos.positionEtPartie := s1 + ' ' + s2 + ' ' + reste;
@@ -1472,14 +1472,14 @@ begin
       end;
 
 
-  until (compteurLignes > 25) | (err <> NoErr);
+  until (compteurLignes > 25) or (err <> NoErr);
 
 
 end;
 
 procedure EssaieReconnaitreFormatTHOR_PAR;
 begin
-  if (NoCasePos('.PAR',myFic.nomFichier) > 0) &
+  if (NoCasePos('.PAR',myFic.nomFichier) > 0) and
      (gLectureFichier.whichFichierAbstrait.nbOctetsOccupes = TailleDuFichierTHOR_PAR) then
     begin
       infos.format           := kTypeFichierTHOR_PAR;
@@ -1499,7 +1499,7 @@ begin
     inc(compteur);
     err := GetNextCharFichier(true,c);
     WritelnNumDansRapport(NumEnString(compteur-compteur) + ' : '+CharToString(c)+'=',ord(c));
-  until EscapeDansQueue | (compteur >= nbDeCaracteres);
+  until EscapeDansQueue or (compteur >= nbDeCaracteres);
 end;
 
 
@@ -1527,7 +1527,7 @@ begin  { TypeDeFichierEstConnu }
   }
 
 
-  if (FichierTexteExiste(fic.nomFichier,0,myFic) = NoErr) &
+  if (FichierTexteExiste(fic.nomFichier,0,myFic) = NoErr) and
      (GetNameOfFSSpec(myFic.theFSSpec)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
      then
     with gLectureFichier do
@@ -1635,7 +1635,7 @@ begin  { TypeDeFichierEstConnu }
 
 
             { TODO : je devrais faire de reverse engeneering et essayer de comprendre le format .wzg pour les positionsÉ
-            if (infos.format = kTypeFichierInconnu) & (NoCasePos('problema 10 Negras.wzg',myFic.nomFichier) > 0) then
+            if (infos.format = kTypeFichierInconnu) and (NoCasePos('problema 10 Negras.wzg',myFic.nomFichier) > 0) then
               DumpFirstCaracteresOfFileDansRapport(1376);
             }
 
@@ -1643,7 +1643,7 @@ begin  { TypeDeFichierEstConnu }
           end;
 
 
-        if (infos.format = kTypeFichierSGF) | (infos.format = kTypeFichierGGF) then
+        if (infos.format = kTypeFichierSGF) or (infos.format = kTypeFichierGGF) then
           begin
 
             (*
@@ -1695,8 +1695,8 @@ end;
 1 |51|39|36|34|33|37|56|57|
 2 |52|50|16|25|11|14|58|31|
 3 |26|35|22| 5| 6|15|17|30|
-4 |43|21|10||##| 4| 7|29|
-5 |45|12| 3|##|| 1| 8|28|
+4 |43|21|10|()|##| 4| 7|29|
+5 |45|12| 3|##|()| 1| 8|28|
 6 |46|40|23| 2| 9|18|32|19|
 7 |47|49|20|13|27|24|54|60|
 8 |48|53|42|41|44|38|59|55|

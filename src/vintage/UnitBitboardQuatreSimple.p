@@ -206,7 +206,7 @@ debut_prof_4:
 
      GET_NEXT_CASE_VIDE(iterateur_4,bitCaseVide_4,iCourant_4,leadingZeros_4);
 
-        if COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros_4,pairesImpaires_4) &
+        if COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros_4,pairesImpaires_4) and
            ModifPlatPlausible(iCourant_4,pos_opp_bits_low_4,pos_opp_bits_high_4) then
 	        begin
 	          {$IFC AVEC_DEBUG_QUATRE_CASES_VIDES}
@@ -11588,7 +11588,7 @@ debut_prof_3:
 
      GET_NEXT_CASE_VIDE(iterateur_3,bitCaseVide_3,iCourant_3,leadingZeros_3);
 
-        if COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros_3,pairesImpaires_3) &
+        if COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros_3,pairesImpaires_3) and
            ModifPlatPlausible(iCourant_3,pos_opp_bits_low_3,pos_opp_bits_high_3) then
 	        begin
 	          {$IFC AVEC_DEBUG_QUATRE_CASES_VIDES}

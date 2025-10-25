@@ -99,7 +99,7 @@ end;
 
 function PositionEtTraitSetEstVide(S : PositionEtTraitSet) : boolean;
 begin
-  PositionEtTraitSetEstVide := (S.cardinal = 0) | ABRIsEmpty(S.arbre);
+  PositionEtTraitSetEstVide := (S.cardinal = 0) or ABRIsEmpty(S.arbre);
 end;
 
 

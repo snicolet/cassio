@@ -303,7 +303,7 @@ var positionVariante,positionCanonique : PositionEtTraitRec;
 begin
   longueur := GET_LENGTH_OF_PACKED_GAME(variante60);
   longueurUtile := 1;
-  if (longueur > 1) & (longueur = GET_LENGTH_OF_PACKED_GAME(canonique60)) then
+  if (longueur > 1) and (longueur = GET_LENGTH_OF_PACKED_GAME(canonique60)) then
     begin
       positionVariante := PositionEtTraitInitiauxStandard;
       positionCanonique := PositionEtTraitInitiauxStandard;
@@ -312,12 +312,12 @@ begin
         begin
           coup1 := GET_NTH_MOVE_OF_PACKED_GAME(variante60, i,'RaccourcirInterversion(1)');
           coup2 := GET_NTH_MOVE_OF_PACKED_GAME(canonique60, i,'RaccourcirInterversion(2)');
-          if UpdatePositionEtTrait(positionVariante,coup1) &
+          if UpdatePositionEtTrait(positionVariante,coup1) and
              UpdatePositionEtTrait(positionCanonique,coup2)
              then
                begin
                  memesPositionsCeCoup := SamePositionEtTrait(positionVariante,positionCanonique);
-                 if not(memesPositionsCoupPrecedent) & memesPositionsCeCoup then longueurUtile := i;
+                 if not(memesPositionsCoupPrecedent) and memesPositionsCeCoup then longueurUtile := i;
                  memesPositionsCoupPrecedent := memesPositionsCeCoup;
                  estInterversion := memesPositionsCeCoup;
                end
@@ -331,7 +331,7 @@ begin
                end;
         end;
     end;
-  if (longueurUtile > 0) & (longueurUtile <> longueur) then
+  if (longueurUtile > 0) and (longueurUtile <> longueur) then
     begin
       SHORTEN_PACKED_GAME(variante60, longueurUtile);
       SHORTEN_PACKED_GAME(canonique60, longueurUtile);
@@ -352,7 +352,7 @@ var variante120,canonique120 : String255;
     oldScript : SInt32;
 const InterversionDialogID = 1128;
 begin
-  if (longueur <= 33) & (longueur >= 5) then
+  if (longueur <= 33) and (longueur >= 5) then
     begin
       SHORTEN_PACKED_GAME(InterVarianteAlaVolee,longueur);
       SHORTEN_PACKED_GAME(InterCanonAlaVolee,longueur);
@@ -361,9 +361,9 @@ begin
 
       RaccourcirInterversion(InterVarianteAlaVolee,InterCanonAlaVolee,longueur,estUneInterversion);
 
-      if not(estUneInterversion) | (longueur < 5) then
+      if not(estUneInterversion) or (longueur < 5) then
         begin
-          WritelnDansRapport('## BIZARRE : not(estUneInterversion) | (longueur < 5) dans AjouterInterversionAlaVolee');
+          WritelnDansRapport('## BIZARRE : not(estUneInterversion) or (longueur < 5) dans AjouterInterversionAlaVolee');
           exit(AjouterInterversionAlaVolee);
         end;
 
@@ -385,7 +385,7 @@ begin
       CalculePositionFinale(variante120,platVariante,varianteEstLegale,nbCoupsLegauxVariante);
       CalculePositionFinale(canonique120,platCanon,canoniqueEstLegale,nbCoupsLegauxCanon);
 
-      if not(varianteEstLegale) | not(canoniqueEstLegale) |
+      if not(varianteEstLegale) or not(canoniqueEstLegale) or
         not(PositionsEgales(platVariante,platCanon)) then exit(AjouterInterversionAlaVolee);
 
       ApprendInterversionAlaVoleeDansGraphe(canonique120,variante120,not(PendantLectureFormatSmartGameBoard));
@@ -413,11 +413,11 @@ begin
               t := 1;
               repeat
                 inc(t);
-              until (t >= longueur) | (canonique120[2*t-1] <> variante120[2*t-1]) | (canonique120[2*t] <> variante120[2*t]);
+              until (t >= longueur) or (canonique120[2*t-1] <> variante120[2*t-1]) or (canonique120[2*t] <> variante120[2*t]);
               canoniqueAff := TPCopy(canonique120,1,2*t-2)+CharToString('-')+TPCopy(canonique120,2*t-1,2*longueur-2*t+2);
               varianteAff := TPCopy(variante120,1,2*t-2)+CharToString('-')+TPCopy(variante120,2*t-1,2*longueur-2*t+2);
 
-		          if not(PendantLectureFormatSmartGameBoard) & not(EnModeEntreeTranscript) then
+		          if not(PendantLectureFormatSmartGameBoard) and not(EnModeEntreeTranscript) then
 		            begin
 		              MyParamText(canoniqueAff,varianteAff,'','');
 		              DialogueSimple(InterversionDialogID);
@@ -524,7 +524,7 @@ var posHash,goalHash : SInt32;
     nbDepilements : SInt32;
     trait : SInt32;
 begin
-  if (nbImpassesLocales > 0) & not(PileEstVide(pileIndexImpasses) | PositionEtTraitSetEstVide(impasses)) then
+  if (nbImpassesLocales > 0) and not(PileEstVide(pileIndexImpasses) or PositionEtTraitSetEstVide(impasses)) then
     begin
       trait := GetTraitOfPosition(whichGoal);
       goalHash := GenericHash(@whichGoal,sizeof(whichGoal));
@@ -533,7 +533,7 @@ begin
         inc(nbDepilements);
         posHash := Depiler(pileIndexImpasses,ok);
         elementTrouve := ABRSearch(impasses.arbre,posHash);
-        if (elementTrouve <> NIL) & (elementTrouve^.data = goalHash) then
+        if (elementTrouve <> NIL) and (elementTrouve^.data = goalHash) then
           begin
             impasses.cardinal := impasses.cardinal-1;
             SupprimerDansABR(impasses.arbre,elementTrouve);
@@ -542,7 +542,7 @@ begin
               WritelnNumDansRapport('Depiler '+NumEnString(posHash)+' / ',goalHash);
 
           end;
-      until (nbDepilements >= nbImpassesLocales) | PileEstVide(pileIndexImpasses);
+      until (nbDepilements >= nbImpassesLocales) or PileEstVide(pileIndexImpasses);
     end;
 end;
 
@@ -589,7 +589,7 @@ var couleurPionsForces : platValeur;
 		        WritelnDansRapport('');
           end;
 
-        if (numeroCoup >= nbCoupMax) | (GetTraitOfPosition(posAux) = pionVide)
+        if (numeroCoup >= nbCoupMax) or (GetTraitOfPosition(posAux) = pionVide)
           then
 	          begin
 	            if SamePositionEtTrait(goal,posAux) then
@@ -599,7 +599,7 @@ var couleurPionsForces : platValeur;
 	                for i := 1 to numeroCoup do
 	                  partieReussie := partieReussie+CoupEnStringEnMajuscules(ligne[i]);
 
-	                estTriviale := (whichGame <> NIL) & (partieReussie = whichGame^);
+	                estTriviale := (whichGame <> NIL) and (partieReussie = whichGame^);
 
 	                if trace then
 	                  begin
@@ -609,7 +609,7 @@ var couleurPionsForces : platValeur;
 	                  end;
 
 	                nbLigneAffichee := 0;
-	                if dansRapport & not(estTriviale) {& (longueurInterversionPrincipale = numeroCoup)} then
+	                if dansRapport and not(estTriviale) {and (longueurInterversionPrincipale = numeroCoup)} then
 	                  begin
 	                    inc(nbAffichageSousLignesDansRapport);
 	                    nbLigneAffichee := nbAffichageSousLignesDansRapport;
@@ -619,7 +619,7 @@ var couleurPionsForces : platValeur;
 	                (*
 	                nbSousInter := 0;
 	                nbSousInterversionsCetteInter := 0;
-	                if FALSE & sousIntervertions {& not(estTriviale)} then
+	                if FALSE and sousIntervertions {and not(estTriviale)} then
 	                  begin
 	                    for i := 1 to numeroCoup-1 do
                         begin
@@ -632,7 +632,7 @@ var couleurPionsForces : platValeur;
                     end;
                   *)
 
-                  if dansRapport {& not(estTriviale)} {& (longueurInterversionPrincipale = numeroCoup)} then
+                  if dansRapport {and not(estTriviale)} {and (longueurInterversionPrincipale = numeroCoup)} then
 	                  begin
 	                    WriteNumDansRapport('#',nbLigneAffichee);
 	                    WriteStringDansRapport(' ');
@@ -656,7 +656,7 @@ var couleurPionsForces : platValeur;
 
 
 	                (*
-	                if metDansGraphe & not(estTriviale) then
+	                if metDansGraphe and not(estTriviale) then
 	                  ApprendInterversionAlaVoleeDansGraphe(whichGame^,partieReussie,false);
 	                *)
 
@@ -677,7 +677,7 @@ var couleurPionsForces : platValeur;
                 else *)
                   begin
                     (*
-			              if FALSE & MemberOfPositionEtTraitSet(posAux,nbFaconAtteindrePosCherchee,memoisationEnAvant)
+			              if FALSE and MemberOfPositionEtTraitSet(posAux,nbFaconAtteindrePosCherchee,memoisationEnAvant)
 			                then
 			                  begin
 			                    if trace then
@@ -714,19 +714,19 @@ var couleurPionsForces : platValeur;
 									                  x := goalLigne[numeroCoup+1]+dist;
 									                  {WritelnNumDansRapport(' dist = ',dist);
 									                  WritelnNumDansRapport(' test de x = ',x);}
-													          if (x >= caseNordOuest) & (x <= caseSudEst) & (posAux.position[x] = pionVide) then
+													          if (x >= caseNordOuest) and (x <= caseSudEst) and (posAux.position[x] = pionVide) then
 													            begin
 													              couleurCase := couleurPionsForces[x];
-													              if (couleurCase <> pionVide) & ((couleurCase = kCaseRemplieCouleurIndeterminee) | (couleurCase = GetTraitOfPosition(posAux)))
+													              if (couleurCase <> pionVide) and ((couleurCase = kCaseRemplieCouleurIndeterminee) or (couleurCase = GetTraitOfPosition(posAux)))
 													                then JouerCoup(posAux,x,numeroCoup+1);
 													            end;
 													          x := goalLigne[numeroCoup+1]-dist;
 													          {WritelnNumDansRapport(' dist = ',-dist);
 									                  WritelnNumDansRapport(' test de x = ',x);}
-													          if (x >= caseNordOuest) & (x <= caseSudEst) & (posAux.position[x] = pionVide) then
+													          if (x >= caseNordOuest) and (x <= caseSudEst) and (posAux.position[x] = pionVide) then
 													            begin
 													              couleurCase := couleurPionsForces[x];
-													              if (couleurCase <> pionVide) & ((couleurCase = kCaseRemplieCouleurIndeterminee) | (couleurCase = GetTraitOfPosition(posAux)))
+													              if (couleurCase <> pionVide) and ((couleurCase = kCaseRemplieCouleurIndeterminee) or (couleurCase = GetTraitOfPosition(posAux)))
 													                then JouerCoup(posAux,x,numeroCoup+1);
 													            end;
 												          end;
@@ -734,10 +734,10 @@ var couleurPionsForces : platValeur;
 												        x := goalLigne[numeroCoup+1];
 			                          {WritelnNumDansRapport(' dist = ',0);
 			                          WritelnNumDansRapport(' test de x = ',x);}
-											          if (x >= caseNordOuest) & (x <= caseSudEst) & (posAux.position[x] = pionVide) then
+											          if (x >= caseNordOuest) and (x <= caseSudEst) and (posAux.position[x] = pionVide) then
 											            begin
 											              couleurCase := couleurPionsForces[x];
-											              if (couleurCase <> pionVide) & ((couleurCase = kCaseRemplieCouleurIndeterminee) | (couleurCase = GetTraitOfPosition(posAux)))
+											              if (couleurCase <> pionVide) and ((couleurCase = kCaseRemplieCouleurIndeterminee) or (couleurCase = GetTraitOfPosition(posAux)))
 											                then JouerCoup(posAux,x,numeroCoup+1);
 											            end;
 
@@ -748,7 +748,7 @@ var couleurPionsForces : platValeur;
 											          if (posAux.position[x] = pionVide) then
 											            begin
 											              couleurCase := couleurPionsForces[x];
-											              if (couleurCase <> pionVide) & ((couleurCase = kCaseRemplieCouleurIndeterminee) | (couleurCase = GetTraitOfPosition(posAux)))
+											              if (couleurCase <> pionVide) and ((couleurCase = kCaseRemplieCouleurIndeterminee) or (couleurCase = GetTraitOfPosition(posAux)))
 											                then JouerCoup(posAux,x,numeroCoup+1);
 											            end;
 												      end;
@@ -837,10 +837,10 @@ begin  {$UNUSED refGoal, metDansGraphe, sousIntervertions}
 
 					          pionExterieur := false;
 					          for j := 1 to 13 do
-					            if ((position[t+dirPrise[j]]   = pionVide) | (position[t+dirPrise[j]]  = PionInterdit)) &
-					               ((position[t+dirPrise[j+1]] = pionVide) | (position[t+dirPrise[j+1]] = PionInterdit)) &
-					               ((position[t+dirPrise[j+2]] = pionVide) | (position[t+dirPrise[j+2]] = PionInterdit)) &
-					               ((position[t+dirPrise[j+3]] = pionVide) | (position[t+dirPrise[j+3]] = PionInterdit))
+					            if ((position[t+dirPrise[j]]   = pionVide) or (position[t+dirPrise[j]]  = PionInterdit)) and
+					               ((position[t+dirPrise[j+1]] = pionVide) or (position[t+dirPrise[j+1]] = PionInterdit)) and
+					               ((position[t+dirPrise[j+2]] = pionVide) or (position[t+dirPrise[j+2]] = PionInterdit)) and
+					               ((position[t+dirPrise[j+3]] = pionVide) or (position[t+dirPrise[j+3]] = PionInterdit))
 					                 then pionExterieur := true;
 
 					          if pionExterieur
@@ -857,7 +857,7 @@ begin  {$UNUSED refGoal, metDansGraphe, sousIntervertions}
 			      for i := 1 to nbCoupMax do
 			        begin
 			          t := PositionDansStringAlphaEnCoup(whichGame^,2*i-1);
-			          if (t >= 11) & (t <= 88)
+			          if (t >= 11) and (t <= 88)
 			            then goalLigne[i] := t
 			            else chercheSolutionsLocales := false;
 			        end;
@@ -905,7 +905,7 @@ begin  {$UNUSED refGoal, metDansGraphe, sousIntervertions}
 				{et on memoizeÉ }
 
 				(*
-				if (compteurReussites <= 1) & (whichGame <> NIL) then
+				if (compteurReussites <= 1) and (whichGame <> NIL) then
 				  begin
 				    positionForcee := PositionEtTraitInitiauxStandard;
 				    for i := 1 to nbCoupMax-1 do
@@ -967,7 +967,7 @@ var s60 : PackedThorGame;
     sousPosition : PositionEtTraitRec;
     sousPartie : String255;
 begin
-  if (LENGTH_OF_STRING(partieAlpha) > 0) & EstUnePartieOthello(partieAlpha,true) then
+  if (LENGTH_OF_STRING(partieAlpha) > 0) and EstUnePartieOthello(partieAlpha,true) then
     begin
       if trace then
 		    WritelnDansRapport('appel de ChercheToutesInterversionsPartie('+partieAlpha+')');
@@ -977,7 +977,7 @@ begin
       longueur := GET_LENGTH_OF_PACKED_GAME(s60);
 
       for i := 1 to longueur do
-        if sousIntervertions | (longueur = i) then
+        if sousIntervertions or (longueur = i) then
         begin
           sousPosition := PositionEtTraitAfterMoveNumber(s60,i,erreur);
           sousPartie := TPCopy(partieAlpha,1,2*i);
@@ -1209,7 +1209,7 @@ var aux : GameTree;
     s60 : PackedThorGame;
     premierCoup,i,compteur : SInt16;
 begin
-  if (G <> NIL) & (G^.transpositionOrbite <> NIL) & (table <> NIL) &
+  if (G <> NIL) and (G^.transpositionOrbite <> NIL) and (table <> NIL) and
      GameTreeHasStandardInitialPosition then
     begin
       ExtraitPremierCoup(premierCoup,autreCoupQuatre);
@@ -1233,7 +1233,7 @@ begin
           end;
 	      aux := aux^.transpositionOrbite;
 	      compteur := compteur + 1;
-		  until (aux = NIL) | (aux = G);
+		  until (aux = NIL) or (aux = G);
     end;
 end;
 
@@ -1257,7 +1257,7 @@ end;
 
 procedure TrierTableParties60(table : TableParties60Ptr);
 begin
-  if (table <> NIL) & (table^.cardinal > 1) then
+  if (table <> NIL) and (table^.cardinal > 1) then
     begin
 		  tablePartiesPourTri := table;
 		  GeneralQuickSort(1,table^.cardinal,LectureTriParties60,AffectationTriParties60,CompareTriParties60);
@@ -1296,8 +1296,8 @@ begin
   table^.cardinal := 0;
   index := -1;
 
-  if GameTreeHasStandardInitialPosition &
-     CreatePartieEnAlphaJusqua(whichNode,whichGame,whichPosition) &
+  if GameTreeHasStandardInitialPosition and
+     CreatePartieEnAlphaJusqua(whichNode,whichGame,whichPosition) and
      (LENGTH_OF_STRING(whichGame) > 0)
     then
       begin
@@ -1307,7 +1307,7 @@ begin
 
 			      ExtraitPremierCoup(premierCoup,autreCoupQuatreDiagDansPartie);
 
-			      if autreCoupQuatreDiagDansPartie &
+			      if autreCoupQuatreDiagDansPartie and
 			         (GET_LENGTH_OF_PACKED_GAME(table^.table[1]) >= 4) then
 			        for i := 1 to table^.cardinal do
 			          begin
@@ -1332,7 +1332,7 @@ begin
 			      {EcrireTableParties60DansRapport(table);}
 			      TraductionAlphanumeriqueEnThor(whichGame,s60);
 
-			      if TrouvePartieDansTableParties60(s60,table,k) &
+			      if TrouvePartieDansTableParties60(s60,table,k) and
 			         (table^.cardinal > 0) then
 			        begin
 			          for i := 1 to table^.cardinal do
@@ -1362,7 +1362,7 @@ begin
 
   SetCassioMustCheckDangerousEvents(false,@oldCheckDangerousEvents);
 
-  if CalculeCycleTrieDesInterversions(whichNode,tableLignes,index) &
+  if CalculeCycleTrieDesInterversions(whichNode,tableLignes,index) and
      GetPositionEtTraitACeNoeud(whichNode, whichPosition, 'CyclerDansOrbiteInterversionDuGraphe {1}') then
     begin
 
@@ -1391,7 +1391,7 @@ begin
             RejouePartieOthello(s,longueur,true,bidPlat,0,gameNodeLePlusProfond,true,true);
             SetEnTrainDeRejouerUneInterversion(false);
 
-            if GetPositionEtTraitACeNoeud(gameNodeLePlusProfond, positionTestee, 'CyclerDansOrbiteInterversionDuGraphe {2}') &
+            if GetPositionEtTraitACeNoeud(gameNodeLePlusProfond, positionTestee, 'CyclerDansOrbiteInterversionDuGraphe {2}') and
                SamePositionEtTrait(positionTestee,whichPosition)
               then
                 begin
@@ -1407,7 +1407,7 @@ begin
                   DisposePropertyStuff(compteurProp);
 
                   {redessiner}
-                  if changed & (GetAffichageProprietesOfCurrentNode <> kAucunePropriete) then
+                  if changed and (GetAffichageProprietesOfCurrentNode <> kAucunePropriete) then
                     begin
                       EffaceNoeudDansFenetreArbreDeJeu;
                       LireBibliothequeDeZebraPourCurrentNode('CyclerDansOrbiteInterversionDuGraphe');
@@ -1437,14 +1437,14 @@ var index : SInt16;
     changed : boolean;
 begin
 
-  if CalculeCycleTrieDesInterversions(whichNode,tableLignes,index) &
+  if CalculeCycleTrieDesInterversions(whichNode,tableLignes,index) and
      GetPositionEtTraitACeNoeud(whichNode, position, 'EcrireInterversionsDuGrapheCeNoeudDansRapport') then
     begin
 
       compteurProp := MakeCoupleLongintProperty(TranspositionRangeProp,index,tableLignes^.cardinal);
       OverWritePropertyToGameTree(compteurProp,whichNode,changed);
       DisposePropertyStuff(compteurProp);
-      if changed & (GetAffichageProprietesOfCurrentNode <> kAucunePropriete) then
+      if changed and (GetAffichageProprietesOfCurrentNode <> kAucunePropriete) then
         begin
           EffaceNoeudDansFenetreArbreDeJeu;
           LireBibliothequeDeZebraPourCurrentNode('EcrireInterversionsDuGrapheCeNoeudDansRapport');
@@ -1517,7 +1517,7 @@ begin
       compare := interversionFautive^^[nroInterversion];
       longueurEnCours := LENGTH_OF_STRING(compare);
 
-      if (longueurEnCours > 1) & (longueurEnCours <= lengthOfTheGame) then
+      if (longueurEnCours > 1) and (longueurEnCours <= lengthOfTheGame) then
         begin
           t := longueurEnCours;
           while (compare[t] = chr(GET_NTH_MOVE_OF_PACKED_GAME(whichGame,t, 'TraiteInterversionFormatThorCompile'))) do
@@ -1546,7 +1546,7 @@ begin
       compare := interversionFautive^^[nroInterversion];
       longueurEnCours := LENGTH_OF_STRING(compare);
 
-      if (longueurEnCours > 1) & (longueurEnCours <= lengthOfTheGame) then
+      if (longueurEnCours > 1) and (longueurEnCours <= lengthOfTheGame) then
         begin
           t := longueurEnCours;
           while (compare[t] = chr(GET_NTH_MOVE_OF_PACKED_GAME(whichGame,t, 'TraiteInterversionFormatThor'))) do
@@ -1592,7 +1592,7 @@ begin
     compare := interversionFautive^^[nroInterversion];
     longueurEnCours := LENGTH_OF_STRING(compare);
 
-    if (longueurEnCours > 1) & (longueurEnCours <= lengthOfTheGame) then
+    if (longueurEnCours > 1) and (longueurEnCours <= lengthOfTheGame) then
       begin
         t := longueurEnCours;
         while (compare[t] = chr(GET_NTH_MOVE_OF_PACKED_GAME(whichGame,t, 'PrecompileInterversions(1)'))) do
@@ -1625,7 +1625,7 @@ begin
       longueurEnCours := LENGTH_OF_STRING(canonique);
 
       t := longueurEnCours;
-      if (longueurEnCours > 1) & (longueurEnCours <= lengthOfTheGame) then
+      if (longueurEnCours > 1) and (longueurEnCours <= lengthOfTheGame) then
         begin
           while (canonique[t] = chr(GET_NTH_MOVE_OF_PACKED_GAME(whichGame,t, 'PrecompileInterversions(2)'))) do
             dec(t);
@@ -1731,7 +1731,7 @@ begin
 
   CalculePositionFinale(fautive,platFaut,fautiveEstLegale,nbCoupsLegauxFaut);
   CalculePositionFinale(principale,platPrinc,princEstLegale,nbCoupsLegauxPrinc);
-  if not(fautiveEstLegale & princEstLegale) then
+  if not(fautiveEstLegale and princEstLegale) then
     begin
       AlerteSimple(' ligne illŽgale : '+fautive+' ou '+principale);
       exit(ajouterInterversion);

@@ -604,11 +604,11 @@ begin
     if cadencePersoAffichee <= 0
       then cadencePersoAffichee := GetCadence;
 
-    if (NiveauJeuInstantane < NiveauDebutants) |
+    if (NiveauJeuInstantane < NiveauDebutants) or
        (NiveauJeuInstantane > NiveauChampions)
       then  NiveauJeuInstantane := NiveauDebutants;
 
-    if (gCouleurOthellier.menuCmd <= 0) |
+    if (gCouleurOthellier.menuCmd <= 0) or
        (gCouleurOthellier.menuCmd > AutreCouleurCmd)
       then gCouleurOthellier.menuCmd := VertPaleCmd;
 
@@ -621,10 +621,10 @@ var s1,s2,s3,s4,reste : String255;
 begin
   Parser2(s,s1,s2,reste);  { '\nroPasse'  '->' }
   nroPasse := ChaineEnLongint(s1);
-  if (nroPasse >= 1) & (nroPasse <= nbMaxDePassesAnalyseRetrograde) then
+  if (nroPasse >= 1) and (nroPasse <= nbMaxDePassesAnalyseRetrograde) then
     begin
       nroStage := 0;
-      while (reste <> '') & (nroStage < nbMaxDeStagesAnalyseRetrograde) do
+      while (reste <> '') and (nroStage < nbMaxDeStagesAnalyseRetrograde) do
         begin
           inc(nroStage);
           Parser4(reste,s1,s2,s3,s4,reste);
@@ -976,7 +976,7 @@ begin
     end;
 
   for k := NbMaxItemsReouvrirMenu downto 1 do
-    if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+    if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         chainePref := nomDuFichierAReouvrir[k]^^;
         erreurES := WritelnDansFichierTexte(fichierPref,'%partieAReouvrir = '+chainePref);
@@ -995,7 +995,7 @@ begin
 
          {
           TraceLog('k = '+NumEnString(k));
-          if (Distribution[k].path <> NIL) & (Distribution[k].name <> NIL)
+          if (Distribution[k].path <> NIL) and (Distribution[k].name <> NIL)
             then TraceLog('   '+Distribution[k].path^ + Distribution[k].name^)
             else TraceLog('   NIL ou NIL !');
           if (k in ChoixDistributions.distributionsALire)
@@ -1003,8 +1003,8 @@ begin
             else TraceLog('   k in ChoixDistributions.distributionsALire => false');
          }
 
-          if (k in ChoixDistributions.distributionsALire) &
-           (Distribution[k].path <> NIL) & (Distribution[k].name <> NIL) then
+          if (k in ChoixDistributions.distributionsALire) and
+           (Distribution[k].path <> NIL) and (Distribution[k].name <> NIL) then
           begin
             chainePref := Distribution[k].path^ + Distribution[k].name^;
             chainePref := ReplaceStringByStringInString(pathCassioFolder,'$CASSIO_FOLDER:',chainePref);
@@ -1053,7 +1053,7 @@ begin
      for i := 1 to kMaxPrefFiles do
        begin
          autreFichierPreferencesSuggere := gListeOfPrefFiles[i].name;
-         if (erreurES = fnfErr) & (autreFichierPreferencesSuggere <> '') then
+         if (erreurES = fnfErr) and (autreFichierPreferencesSuggere <> '') then
            begin
              erreurES := FichierPreferencesDeCassioExiste(autreFichierPreferencesSuggere,fichierPref);
              if erreurES = NoErr then
@@ -1104,7 +1104,7 @@ begin
    end
   else
    begin
-    while (erreurES = NoErr) & not(EOFFichierTexte(fichierPref,erreurES)) do
+    while (erreurES = NoErr) and not(EOFFichierTexte(fichierPref,erreurES)) do
      begin
 
 
@@ -1384,7 +1384,7 @@ procedure DoDialoguePreferences;
 	    k : SInt32;
   begin
     MenuFlottantChoixEval := MyGetMenu(MenuFlottantChoixEvalID);
-    if CassioEstUnBundleApplicatif & (GetEngineBundleName <> '') then
+    if CassioEstUnBundleApplicatif and (GetEngineBundleName <> '') then
       for k := 1 to NumberOfEngines do
         begin
           name := GetEngineName(k);
@@ -1434,7 +1434,7 @@ procedure DoDialoguePreferences;
       SetIntegerEditableText(dp,TaillePionsText,gPourcentageTailleDesPions);}
       SetIntegerEditableText(dp,NbreMegasBaseText,gNbreMegaoctetsPourLaBase);
 
-      if (Radios.selection = BoutonJamais) | (Radios.selection = BoutonToujours)
+      if (Radios.selection = BoutonJamais) or (Radios.selection = BoutonToujours)
         then SetIntegerEditableText(dp,TextNbExplications,2)
         else SetIntegerEditableText(dp,TextNbExplications,nbExplicationsPasses);
 
@@ -1496,7 +1496,7 @@ procedure DoDialoguePreferences;
           begin
             if not(CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors)))
               then numeroEngineEnCours := 0;
-            if CassioAttendaitUnResultat & (numeroEngineEnCours <> 0) then
+            if CassioAttendaitUnResultat and (numeroEngineEnCours <> 0) then
               begin
                 Wait(1.0);   // wait a one second
                 RelancerDerniereRechercheEngine;
@@ -1516,7 +1516,7 @@ procedure DoDialoguePreferences;
 
     SetNombreDeProcesseursActifs(nombreProcesseursVoulus);
 
-    if (numProcessors <> oldNombreDeProcesseurs) & CassioIsUsingAnEngine(numeroEngine) then
+    if (numProcessors <> oldNombreDeProcesseurs) and CassioIsUsingAnEngine(numeroEngine) then
       begin
         CassioAttendaitUnResultat := CassioIsWaitingAnEngineResult;
 
@@ -1528,7 +1528,7 @@ procedure DoDialoguePreferences;
           begin
             if not(CanStartEngine(GetEnginePath(numeroEngine,''), NumEnString(numProcessors)))
               then numeroEngineEnCours := 0;
-            if CassioAttendaitUnResultat & (numeroEngineEnCours <> 0) then
+            if CassioAttendaitUnResultat and (numeroEngineEnCours <> 0) then
               begin
                 Wait(1.0);   // wait a one second
                 RelancerDerniereRechercheEngine;
@@ -1566,7 +1566,7 @@ procedure DoDialoguePreferences;
     SetNombreDeProcesseursActifs(nombreProcesseursVoulus);
 
 
-    if (numeroEngineEnCours <> oldEngine) | (numProcessors <> oldNombreDeProcesseurs) then
+    if (numeroEngineEnCours <> oldEngine) or (numProcessors <> oldNombreDeProcesseurs) then
       begin
         CassioAttendaitUnResultat := CassioIsWaitingAnEngineResult;
 
@@ -1582,7 +1582,7 @@ procedure DoDialoguePreferences;
           begin
             if not(CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors)))
               then numeroEngineEnCours := 0;
-            if CassioAttendaitUnResultat & (numeroEngineEnCours <> 0) then
+            if CassioAttendaitUnResultat and (numeroEngineEnCours <> 0) then
               begin
                 Wait(1.0);   // wait a one second
                 RelancerDerniereRechercheEngine;
@@ -1618,7 +1618,7 @@ procedure DoDialoguePreferences;
 
       if gNbreMegaoctetsPourLaBase <= 0 then gNbreMegaoctetsPourLaBase := 1;
 
-      if gIsRunningUnderMacOSX & (gNbreMegaoctetsPourLaBase <> gNbreMegaoctetsPourLaBaseArrivee)
+      if gIsRunningUnderMacOSX and (gNbreMegaoctetsPourLaBase <> gNbreMegaoctetsPourLaBaseArrivee)
 		    then ChangeNbPartiesChargeablesPourBase(CalculeNbrePartiesOptimum(gNbreMegaoctetsPourLaBase*1024*1024));
 
       themeCourantDeCassio := itemMenuPoliceRapport;
@@ -1726,7 +1726,7 @@ procedure DoDialoguePreferences;
               TaillePionsText           : begin
                                             FiltrerChiffreInEditText(dp,TaillePionsText);
                                             GetLongintEditableText(dp,TaillePionsText,aux);
-                                            if (aux > 10) & not(gCouleurOthellier.estUneImage) then
+                                            if (aux > 10) and not(gCouleurOthellier.estUneImage) then
                                               begin
                                                 doitRedessinerOthellier := true;
                                                 gPourcentageTailleDesPions := aux;
@@ -1805,8 +1805,8 @@ procedure DoDialoguePreferences;
         end;
 
       {si on a clique sur Annuler, alors il faut annuler les nouveaux moteurs}
-      if (itemHit = Annuler) &
-         ((itemMenuChoixEvalArrivee <> itemMenuChoixEval) | (itemMenuParallelismeArrivee <> itemMenuParallelisme))
+      if (itemHit = Annuler) and
+         ((itemMenuChoixEvalArrivee <> itemMenuChoixEval) or (itemMenuParallelismeArrivee <> itemMenuParallelisme))
          then ChangeMoteurEtNombreDeProcesseurs(itemMenuChoixEvalArrivee,itemMenuParallelismeArrivee);
 
       DesinstalleMenuFlottantPoliceRapport;
@@ -1932,10 +1932,10 @@ procedure DoDialoguePreferencesAffichage;
         EffaceNoteSurCases(kNotesDeCassio,othellierToutEntier);
         EffaceNoteSurCases(kNotesDeZebra,othellierToutEntier);
 
-        if GetAvecAffichageNotesSurCases(kNotesDeCassio) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+        if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
 		      then DessineNoteSurCases(kNotesDeCassio,othellierToutEntier);
 
-		    if GetAvecAffichageNotesSurCases(kNotesDeZebra) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
+		    if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
 		      then DessineNoteSurCases(kNotesDeZebra,othellierToutEntier);
 
 		    AfficheProprietesOfCurrentNode(true,othellierToutEntier,'GetPreferencesAffichageFromDialogue');
@@ -1962,14 +1962,14 @@ begin
       err := SetDialogTracksCursor(dp,true);
       repeat
         ModalDialog(FiltreDialogueUPP,itemHit);
-        if (itemHit <> OK) & (itemHit <> Annuler) &
-           (itemHit >= PremiereCheckBox) & (itemHit <= DerniereCheckBox)
+        if (itemHit <> OK) and (itemHit <> Annuler) and
+           (itemHit >= PremiereCheckBox) and (itemHit <= DerniereCheckBox)
           then
             begin
               ToggleCheckBox(dp,itemHit);
               GetPreferencesAffichageFromDialogue;
             end;
-      until (itemHit = OK) | (itemHit = Annuler);
+      until (itemHit = OK) or (itemHit = Annuler);
       if (itemHit = OK) then
         GetPreferencesAffichageFromDialogue;
       MyDisposeDialog(dp);
@@ -2090,10 +2090,10 @@ begin
       err := SetDialogTracksCursor(dp,true);
       repeat
         ModalDialog(FiltreDialogueDebuggageUPP,itemHit);
-        if (itemHit <> OK) & (itemHit <> Annuler) &
-           (itemHit >= PremiereCheckBox) & (itemHit <= DerniereCheckBox)
+        if (itemHit <> OK) and (itemHit <> Annuler) and
+           (itemHit >= PremiereCheckBox) and (itemHit <= DerniereCheckBox)
           then ToggleCheckBox(dp,itemHit);
-      until (itemHit = OK) | (itemHit = Annuler);
+      until (itemHit = OK) or (itemHit = Annuler);
       if (itemHit = OK) then
         GetVariablesSpecialesFromDialogue;
       MyDisposeDialog(dp);
@@ -2119,7 +2119,7 @@ begin
   nbGroupes := 0;
   repeat
     erreurES := ReadlnDansFichierTexte(fichierGroupes,s);
-    if (s <> '') & (erreurES = NoErr) then
+    if (s <> '') and (erreurES = NoErr) then
       if s[1] = '·' then
         begin
           longueur := LENGTH_OF_STRING(s);
@@ -2131,7 +2131,7 @@ begin
           if nbGroupes <= nbMaxGroupes then
             groupes^^[nbGroupes] := s;
         end;
-  until (nbGroupes >= nbMaxGroupes) | (erreurES <> NoErr) | EOFFichierTexte(fichiergroupes,erreurES);
+  until (nbGroupes >= nbMaxGroupes) or (erreurES <> NoErr) or EOFFichierTexte(fichiergroupes,erreurES);
   erreurES := FermeFichierTexte(fichierGroupes);
 end;
 
@@ -2200,7 +2200,7 @@ begin
       WritelnDansRapport('nomDest = ' + nomDest);
       *)
 
-      if (FichierTexteExiste(nomSource,0,source) = NoErr) &
+      if (FichierTexteExiste(nomSource,0,source) = NoErr) and
          (FichierTexteExiste(nomDest,0,dest) = NoErr) then
          begin
            err := OuvreFichierTexte(source);
@@ -2277,7 +2277,7 @@ begin
   if erreurES <> 0 then exit(SauvegarderListeOfPrefsFiles);
 
   for i := 1 to kMaxPrefFiles do
-    if (gListeOfPrefFiles[i].date <> '') &
+    if (gListeOfPrefFiles[i].date <> '') and
        (gListeOfPrefFiles[i].name <> '') then
       begin
         s := gListeOfPrefFiles[i].date + ' ' + gListeOfPrefFiles[i].name;
@@ -2312,12 +2312,12 @@ begin
   nbPrefFiles := 0;
   repeat
     erreurES := ReadlnDansFichierTexte(fic,s);
-    if (s <> '') & (erreurES = NoErr) then
+    if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);
         Parser(s,gListeOfPrefFiles[nbPrefFiles].date,gListeOfPrefFiles[nbPrefFiles].name);
       end;
-  until (nbPrefFiles >= kMaxPrefFiles) | (erreurES <> NoErr) | EOFFichierTexte(fic,erreurES);
+  until (nbPrefFiles >= kMaxPrefFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
 
   erreurES := FermeFichierTexte(fic);
 end;
@@ -2374,8 +2374,8 @@ begin
   WritelnDansRapport('nomDuBundle = '+nomDuBundle);
   }
 
-  if (nomDeLApplication = 'Cassio') |
-     (nomDeLApplication = 'Cassio.app') |
+  if (nomDeLApplication = 'Cassio') or
+     (nomDeLApplication = 'Cassio.app') or
      (nomDeLApplication = '')
     then nomDeLApplication := 'Cassio ' + VersionDeCassioEnString;
 
@@ -2409,7 +2409,7 @@ begin
      for i := 1 to kMaxPrefFiles do
        begin
          autreFichierPreferencesSuggere := gListeOfPrefFiles[i].name;
-         if (erreurES = fnfErr) & (autreFichierPreferencesSuggere <> '') then
+         if (erreurES = fnfErr) and (autreFichierPreferencesSuggere <> '') then
            begin
              erreurES := FichierPreferencesDeCassioExiste(autreFichierPreferencesSuggere,gPrefsFileInfos.filePtr);
              if erreurES = NoErr then

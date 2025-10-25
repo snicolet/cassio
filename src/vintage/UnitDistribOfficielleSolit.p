@@ -84,7 +84,7 @@ begin
   GetNumeroFichierSolitaireNouveauFormat := false;
   numeroFichier := 0;
 
-  if (nbreCasesVides >= 1) & (nbreCasesVides <= 64) then
+  if (nbreCasesVides >= 1) and (nbreCasesVides <= 64) then
 	  {on trouve le premier fichier de solitaires avec ce nombre de cases vides}
 	  with InfosFichiersNouveauFormat do
 	    for i := 1 to nbFichiers do
@@ -109,7 +109,7 @@ var nom : String255;
 begin
   CreerFichierSolitaireVideNouveauFormat := -1;
 
-  if (nbreCasesVides > 0) & (nbreCasesVides <= 60) then
+  if (nbreCasesVides > 0) and (nbreCasesVides <= 60) then
     begin
 		  nom := 'Solitaires_'+NumEnString(nbreCasesVides)+'.pzz';
 
@@ -160,7 +160,7 @@ var nroFichier : SInt16;
 begin
   AjouterSolitaireNouveauFormatSurDisque := -1;
 
-  if (nbreCasesVides > 0) & (nbreCasesVides <= 60) &
+  if (nbreCasesVides > 0) and (nbreCasesVides <= 60) and
      GetNumeroFichierSolitaireNouveauFormat(nbreCasesVides,nroFichier) then
     with InfosFichiersNouveauFormat.fichiers[nroFichier] do
       begin

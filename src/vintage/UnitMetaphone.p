@@ -133,7 +133,7 @@ begin
         resultat := resultat + secondary;
       end;
     inc(compteurBoucle);
-  until (reste = '') | (nbLexemes >= 200) | (compteurBoucle > 255);
+  until (reste = '') or (nbLexemes >= 200) or (compteurBoucle > 255);
 
   FabriqueMetaphoneDesLexemes := resultat;
 end;

@@ -89,13 +89,13 @@ IMPLEMENTATION
 			entry: EntryRecord;
 			i : SInt32;
 	begin
-		if (startup_error = noErr) & (entries = NIL) then begin
+		if (startup_error = noErr) and (entries = NIL) then begin
 			startup_error := MNewHandle(UnivHandle(entries), 0);
 		end;
 		if startup_error = noErr then begin
 			found := false;
 			for i := 1 to entries_count do begin
-				if (entries^^[i].init = init) & (entries^^[i].idle = idle) & (entries^^[i].idle_period = idle_period) & (entries^^[i].finish = finish) then begin
+				if (entries^^[i].init = init) and (entries^^[i].idle = idle) and (entries^^[i].idle_period = idle_period) and (entries^^[i].finish = finish) then begin
 					found := true;
 					leave;
 				end;
@@ -122,7 +122,7 @@ IMPLEMENTATION
 		current_time := TickCount;
 		for i := 1 to entries_count do begin
 			tmp_hack := entries^^[i].idle;
-			if (tmp_hack <> NIL) & (current_time >= entries^^[i].next_idle) then begin
+			if (tmp_hack <> NIL) and (current_time >= entries^^[i].next_idle) then begin
 				entries^^[i].next_idle := current_time + entries^^[i].idle_period;
 				tmp_hack;
 			end;
@@ -157,7 +157,7 @@ IMPLEMENTATION
 	begin
 		msg := ord(SMT_Startup);
 		i := 0;
-		while (startup_error = noErr) & (i < entries_count) do begin
+		while (startup_error = noErr) and (i < entries_count) do begin
 			i := i + 1;
 			tmp_hack_init := entries^^[i].init;
 			if tmp_hack_init <> NIL then begin

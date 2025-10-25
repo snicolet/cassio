@@ -166,7 +166,7 @@ end;
 function TrouvePlaceDansPageDeATR(var nroPage,nroIndex : SInt32) : boolean;
 var n,i,k : SInt32;
 begin
-  if (dernierePageATRCree <= 0) & not(PeutCreerNouvellePageATR) then
+  if (dernierePageATRCree <= 0) and not(PeutCreerNouvellePageATR) then
     begin
       TrouvePlaceDansPageDeATR := false;
       nroPage := -1;
@@ -199,7 +199,7 @@ begin
 
       if ReserveDeATR[n] <> NIL then
         with ReserveDeATR[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -216,7 +216,7 @@ begin
       if (n < 1) then n := n + dernierePageATRCree;
       if ReserveDeATR[n] <> NIL then
         with ReserveDeATR[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -271,7 +271,7 @@ begin
 	      with ReserveDeATR[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleATRBuffer-1)*sizeof(ATRRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleATRBuffer-1)*sizeof(ATRRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -290,7 +290,7 @@ begin
 	      with ReserveDeATR[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(G) >= baseAddress) & (SInt32(G) <= baseAddress+(TailleATRBuffer-1)*sizeof(ATRRec))
+	        if (SInt32(G) >= baseAddress) and (SInt32(G) <= baseAddress+(TailleATRBuffer-1)*sizeof(ATRRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -332,11 +332,11 @@ begin
                   if IndexDansPage = premierEmplacementVide then
 			              repeat
 			                inc(premierEmplacementVide);
-			              until libre[premierEmplacementVide] | (premierEmplacementVide >= dernierEmplacementVide) | (premierEmplacementVide > TailleATRBuffer);
+			              until libre[premierEmplacementVide] or (premierEmplacementVide >= dernierEmplacementVide) or (premierEmplacementVide > TailleATRBuffer);
                   if IndexDansPage = dernierEmplacementVide then
 			              repeat
 			                dec(dernierEmplacementVide);
-			              until libre[dernierEmplacementVide] | (dernierEmplacementVide <= premierEmplacementVide) | (dernierEmplacementVide < 1);
+			              until libre[dernierEmplacementVide] or (dernierEmplacementVide <= premierEmplacementVide) or (dernierEmplacementVide < 1);
                 end;
           end
       end
@@ -358,8 +358,8 @@ begin
   LocaliserATRDansSaPage(x,nroDePage,nroIndex);
 
 
-  if (nroDePage >= 1) & (nroDePage <= nbPagesDeATR) &
-     (nroIndex  >= 1) & (nroIndex  <= TailleATRBuffer) &
+  if (nroDePage >= 1) and (nroDePage <= nbPagesDeATR) and
+     (nroIndex  >= 1) and (nroIndex  <= TailleATRBuffer) and
      (ReserveDeATR[nroDePage] <> NIL) then
     with ReserveDeATR[nroDePage]^ do
       begin

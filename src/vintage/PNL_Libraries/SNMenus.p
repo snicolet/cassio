@@ -264,7 +264,7 @@ begin
 
   {if unit_MacExtras_debuggage then WritelnDansRapport('dans EventPopUpItem : avant if HiWord(choice) = theMenu^^.menuId');}
 
-	if (HiWord(choice) = GetMenuID(theMenu)) & (LoWord(choice) <> 0)
+	if (HiWord(choice) = GetMenuID(theMenu)) and (LoWord(choice) <> 0)
 	  then
 	    begin
 	      {if unit_MacExtras_debuggage then WritelnDansRapport('dans EventPopUpItem : avant EventPopUpItem := true');}
@@ -315,7 +315,7 @@ var theMenuID : SInt16;
     menuFontSize : UInt16;
 begin  {$UNUSED drawMark}
   GetPort(currentPort);
-  if (theMenu <> NIL) & (currentPort <> NIL) then
+  if (theMenu <> NIL) and (currentPort <> NIL) then
     begin
       theMenuID := GetMenuID(theMenu);
       CalcMenuSize(theMenu);
@@ -323,8 +323,8 @@ begin  {$UNUSED drawMark}
 			loc.bottom := loc.top + 19;
 			OffsetRect(loc,-1,0);
 
-      if (GetMenuFont(theMenu,menuFontID,menuFontSize) = NoErr) &
-         ((menuFontSize <> 0) | (menuFontID <> 0))
+      if (GetMenuFont(theMenu,menuFontID,menuFontSize) = NoErr) and
+         ((menuFontSize <> 0) or (menuFontID <> 0))
 			  then
 			    begin
 			      TextFont(menuFontID);
@@ -421,7 +421,7 @@ begin
   with whichMenuFlottant do
     if theMenu <> NIL then
 	    begin
-	      if (theWindow = NIL) | (theControl = NIL)
+	      if (theWindow = NIL) or (theControl = NIL)
 	        then
 	          DrawPUItem(theMenu, theItem, theRect, drawMark)
 	        else
@@ -444,7 +444,7 @@ begin
   InitUnitMacExtras(false);
 
   with whichMenuFlottant do
-    if (whichWindow <> NIL) & (theMenu <> NIL) then
+    if (whichWindow <> NIL) and (theMenu <> NIL) then
 		  begin
 		    theWindow := whichWindow;
 
@@ -454,7 +454,7 @@ begin
 				myRect.bottom := myRect.top + 19;
 				OffsetRect(myRect,-1,-1);
 
-				if ((theMenuFontSize <> 0) | (theMenuFontID <> 0))
+				if ((theMenuFontSize <> 0) or (theMenuFontID <> 0))
 			  then
 			    begin
 			      TextFont(theMenuFontID);
@@ -485,7 +485,7 @@ begin
 			    installe := true;
 			    EnleveEspacesDeDroiteItemsMenu(theMenu);
 
-			    if (theMenuFontID <> 0) | (theMenuFontSize <> 0) then
+			    if (theMenuFontID <> 0) or (theMenuFontSize <> 0) then
 			      err := SetMenuFont(theMenu,theMenuFontID,theMenuFontSize);
 
 			    InsertMenu(theMenu, -1);
@@ -500,7 +500,7 @@ procedure DesinstalleMenuFlottant(var whichMenuFlottant : MenuFlottantRec);
 begin
 	with whichMenuFlottant do
 	  begin
-	    if installe & (theMenu <> NIL) then
+	    if installe and (theMenu <> NIL) then
 				begin
 				  if not(installe) then
 				    TraceLog('WARNING : desinstallation d''un menu non installe !');
@@ -524,8 +524,8 @@ begin
 		begin
 		  {if unit_MacExtras_debuggage then WritelnDansRapport('dans EventPopUpItemMenuFlottant : avant EventPopUpItem');}
 			result := EventPopUpItem(theMenu, theItem, theRect, drawChoice, checkChoiceBefore);
-			if result & (theItem > 0) & (theControl <> NIL) then SetControlValue(theControl,theItem);
-			if checkChoiceAfter & result & (theItem > 0) & (theItem < 127) then
+			if result and (theItem > 0) and (theControl <> NIL) then SetControlValue(theControl,theItem);
+			if checkChoiceAfter and result and (theItem > 0) and (theItem < 127) then
 				begin
 				  if theItem in checkedItems then
 						begin

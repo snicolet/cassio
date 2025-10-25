@@ -135,9 +135,9 @@ end;
  *)
 function SameLongString(const ligne1, ligne2 : LongString) : boolean;
 begin
-  SameLongString := (LENGTH_OF_STRING(ligne1.debutLigne) = LENGTH_OF_STRING(ligne2.debutLigne)) &
-                    (LENGTH_OF_STRING(ligne1.finLigne)   = LENGTH_OF_STRING(ligne2.finLigne)) &
-                    (ligne1.debutLigne = ligne2.debutLigne) &
+  SameLongString := (LENGTH_OF_STRING(ligne1.debutLigne) = LENGTH_OF_STRING(ligne2.debutLigne)) and
+                    (LENGTH_OF_STRING(ligne1.finLigne)   = LENGTH_OF_STRING(ligne2.finLigne)) and
+                    (ligne1.debutLigne = ligne2.debutLigne) and
                     (ligne1.finLigne   = ligne2.finLigne);
 end;
 
@@ -184,7 +184,7 @@ begin
 
   trouve := Pos(s, ligne.debutLigne);
 
-  if (trouve > 0) | (ligne.finLigne = '')
+  if (trouve > 0) or (ligne.finLigne = '')
     then
       begin
         FindStringInLongString := trouve;
@@ -218,7 +218,7 @@ end;
  *)
 function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;
 begin
-  if (s = '') | (ligne.debutLigne = '') | (s[1] <> ligne.debutLigne[1]) then
+  if (s = '') or (ligne.debutLigne = '') or (s[1] <> ligne.debutLigne[1]) then
     begin
       LongStringBeginsWith := false;
       exit(LongStringBeginsWith);
@@ -250,7 +250,7 @@ begin
       len1 := LENGTH_OF_STRING(debutLigne);
       len2 := LENGTH_OF_STRING(finLigne);
 
-      if (len1 < 255) & (len2 > 0) then
+      if (len1 < 255) and (len2 > 0) then
         begin
           nbOctetsDeplaces := Min(len2, 255 - len1);
 
@@ -259,8 +259,8 @@ begin
         end;
 
 
-      if (LengthOfLongString(ligne) <> len1 + len2) |
-         ((LENGTH_OF_STRING(ligne.debutLigne) < 255) & (LENGTH_OF_STRING(ligne.finLigne) > 0)) then
+      if (LengthOfLongString(ligne) <> len1 + len2) or
+         ((LENGTH_OF_STRING(ligne.debutLigne) < 255) and (LENGTH_OF_STRING(ligne.finLigne) > 0)) then
         begin
           WritelnDansRapport('ASSERT : LongString mal normalisee dans NormaliserLongString !');
           WritelnLongStringDansRapport(ligne);
@@ -284,7 +284,7 @@ begin
 
   with ligne do
     begin
-      if (LENGTH_OF_STRING(debutLigne) < 255) & (LENGTH_OF_STRING(finLigne) > 0)
+      if (LENGTH_OF_STRING(debutLigne) < 255) and (LENGTH_OF_STRING(finLigne) > 0)
         then NormaliserLongString(ligne);
 
 
@@ -308,7 +308,7 @@ begin
                     else
                       begin
                         i := 1;
-                        while (i <= len2) & ((len + i) <= 255) do
+                        while (i <= len2) and ((len + i) <= 255) do
                           begin
                             debutLigne := debutLigne + s[i];
                             i := i + 1;
@@ -340,7 +340,7 @@ procedure AppendCharToLongString(var ligne : LongString; c : char);
 var len : SInt32;
 begin
 
-  if (LENGTH_OF_STRING(ligne.debutLigne) < 255) & (LENGTH_OF_STRING(ligne.finLigne) > 0)
+  if (LENGTH_OF_STRING(ligne.debutLigne) < 255) and (LENGTH_OF_STRING(ligne.finLigne) > 0)
     then NormaliserLongString(ligne);
 
   len := LENGTH_OF_STRING(ligne.debutLigne);

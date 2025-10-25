@@ -110,7 +110,7 @@ begin
 
 		  GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,coupTest,leadingZeros);
 
-		     if ModifPlatPlausible(coupTest,pos_opp_bits_low,pos_opp_bits_high) &
+		     if ModifPlatPlausible(coupTest,pos_opp_bits_low,pos_opp_bits_high) and
 		       (ModifPlatBitboard(coupTest,0,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,position,diffBidon) <> 0)
 		       then
 		         begin

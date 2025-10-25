@@ -99,7 +99,7 @@ var nbSolitaires : SInt32;
 begin
   NbSolitairesDansFichierSolitairesNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numeroFichier > 0) & (numeroFichier <= nbFichiers) &
+  if (numeroFichier > 0) and (numeroFichier <= nbFichiers) and
      (fichiers[numeroFichier].typeDonnees = kFicSolitairesNouveauFormat)  then
        begin
          GetNbSolitairesEtNbCasesVidesFromEntete(fichiers[numeroFichier].entete,nbSolitaires,nbCasesVides);
@@ -113,7 +113,7 @@ var nbSolitaires : SInt32;
 begin
   NbCasesVidesDeCeFichierSolitairesNouveauFormat := 0;
   with InfosFichiersNouveauFormat do
-  if (numeroFichier > 0) & (numeroFichier <= nbFichiers) &
+  if (numeroFichier > 0) and (numeroFichier <= nbFichiers) and
      (fichiers[numeroFichier].typeDonnees = kFicSolitairesNouveauFormat)  then
        begin
          GetNbSolitairesEtNbCasesVidesFromEntete(fichiers[numeroFichier].entete,nbSolitaires,nbCasesVides);
@@ -230,7 +230,7 @@ begin
       with fichiers[i] do
 	    if (typeDonnees = kFicSolitairesNouveauFormat) then
 	      with entete do
-	        if (TailleDuPlateau <> 8) | (EstUnFichierSolitaire <> 1) | (ProfondeurCalculTheorique <> 0) then
+	        if (TailleDuPlateau <> 8) or (EstUnFichierSolitaire <> 1) or (ProfondeurCalculTheorique <> 0) then
 			      begin
 			        TailleDuPlateau := 8;
 			        EstUnFichierSolitaire := 1;
@@ -239,9 +239,9 @@ begin
 			        dejaOuvert := open;
 			        codeErreur := 0;
 
-			        if (codeErreur = 0) & not(dejaOuvert) then codeErreur := OuvreFichierNouveauFormat(i);
-			        if (codeErreur = 0) & open            then codeErreur := EcritEnteteNouveauFormat(refnum,entete);
-			        if (codeErreur = 0) & not(dejaOuvert) then codeErreur := FermeFichierNouveauFormat(i);
+			        if (codeErreur = 0) and not(dejaOuvert) then codeErreur := OuvreFichierNouveauFormat(i);
+			        if (codeErreur = 0) and open            then codeErreur := EcritEnteteNouveauFormat(refnum,entete);
+			        if (codeErreur = 0) and not(dejaOuvert) then codeErreur := FermeFichierNouveauFormat(i);
 
 
 			        WritelnNumDansRapport('RŽparation de '+nomFichier^+'  => codeErreur = ',codeErreur);
@@ -317,7 +317,7 @@ begin
   nomBlanc := GetNomJoueur(whichSolitaire.nroJoueurBlanc + DecalageJoueursSolitaires);
 
   {Les ordinateurs ont des parentheses dans leur nom...}
-  SolitaireEstEntreDeuxOrdinateurs :=  (Pos('(',nomNoir) > 0) &
+  SolitaireEstEntreDeuxOrdinateurs :=  (Pos('(',nomNoir) > 0) and
                                        (Pos('(',nomBlanc) > 0);
 end;
 
@@ -373,7 +373,7 @@ begin
       ParamDiagPartieFFORUM.TitreFFORUM^^ := nom + ' - ';
 
       {le score si on est en references completes}
-      if referencesCompletes & (scoreReel <> 0)
+      if referencesCompletes and (scoreReel <> 0)
         then commentaire := commentaire + nom + ' ' + NumEnString(scoreReel) + 'Ñ'  // note : c'est un tiret long (option Ñ )
         else commentaire := commentaire + nom + ' Ñ ';                              // note : c'est un tiret long (option Ñ )
 
@@ -384,7 +384,7 @@ begin
       ParamDiagPartieFFORUM.TitreFFORUM^^ := ParamDiagPartieFFORUM.TitreFFORUM^^ + nom;
 
       {le score si on est en references completes}
-      if referencescompletes & (scoreReel <> 0)
+      if referencescompletes and (scoreReel <> 0)
         then commentaire := commentaire + NumEnString(64-scoreReel) + ' ' + nom
         else commentaire := commentaire + nom;
 
@@ -433,7 +433,7 @@ begin
       if (fichiers[i].typeDonnees = kFicSolitairesNouveauFormat) then
         begin
           k := NbCasesVidesDeCeFichierSolitairesNouveauFormat(i);
-          if (k >= 1) & (k <= 64) & SolitairesDemandes[k]
+          if (k >= 1) and (k <= 64) and SolitairesDemandes[k]
             then tableNbSolitaires[k] := tableNbSolitaires[k] + NbSolitairesDansFichierSolitairesNouveauFormat(i);
         end;
 
@@ -545,24 +545,24 @@ begin
 
 				  {trouvons le nb de cases vides du k-ieme solitaire}
 				  for i := 0 to 64 do
-				    if (tableNbSolitairesCumules[i-1] < k) & (tableNbSolitairesCumules[i] >= k) then
+				    if (tableNbSolitairesCumules[i-1] < k) and (tableNbSolitairesCumules[i] >= k) then
 				      begin
 				        nbCasesVides := i;
 				        leave;
 				      end;
 
-				  if (nbCasesVides >= 1) & (nbCasesVides <= 64) then
+				  if (nbCasesVides >= 1) and (nbCasesVides <= 64) then
 				    begin
 						  {trouvons a quel numero de fichier correspond le k-ieme solitaire}
 						  sum := tableNbSolitairesCumules[nbCasesVides-1];
 
 				      for i := 1 to nbFichiers do
-				        if (fichiers[i].typeDonnees = kFicSolitairesNouveauFormat) &
+				        if (fichiers[i].typeDonnees = kFicSolitairesNouveauFormat) and
 				           (NbCasesVidesDeCeFichierSolitairesNouveauFormat(i) = nbCasesVides) then
                   begin
                     oldSum := sum;
                     sum := sum + NbSolitairesDansFichierSolitairesNouveauFormat(i);
-                    if (oldSum < k) & (sum >= k) then
+                    if (oldSum < k) and (sum >= k) then
                       begin
                         numeroFichier := i;
                         numeroSolitaireDansFichier := k - oldSum;
@@ -572,7 +572,7 @@ begin
 						end;
 
 
-			    if (nbCasesVides >= 1) & (numeroFichier >= 1) & (numeroFichier <= nbFichiers) & (numeroSolitaireDansFichier >= 1) &
+			    if (nbCasesVides >= 1) and (numeroFichier >= 1) and (numeroFichier <= nbFichiers) and (numeroSolitaireDansFichier >= 1) and
 			       (NbCasesVidesDeCeFichierSolitairesNouveauFormat(numeroFichier) = nbCasesVides) then
 			      begin
 			        {WritelnNumDansRapport('nbCasesVides = ',nbCasesVides);
@@ -587,7 +587,7 @@ begin
 			        {WritelnNumDansRapport('error = ',error);}
 
 			        solitaireEstRejete := false;
-			        if eviterSolitairesOrdinateursSVP & SolitaireEstEntreDeuxOrdinateurs(theSolitaire) then
+			        if eviterSolitairesOrdinateursSVP and SolitaireEstEntreDeuxOrdinateurs(theSolitaire) then
 			          begin
 			            inc(nbSolitairesEntreOrdinateursTrouves);
 			            solitaireEstRejete := (nbSolitairesEntreOrdinateursTrouves <= 10);

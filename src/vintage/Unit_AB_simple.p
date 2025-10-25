@@ -105,7 +105,7 @@ var platEssai : plateauOthello;
           for i := 1 to 64 do
 				    begin
 				      iCourant := othellier[i];
-				      if (platTri[iCourant] = pionVide) & jouablTri[iCourant] &
+				      if (platTri[iCourant] = pionVide) and jouablTri[iCourant] and
 				         ModifPlat(iCourant,coul,platTri,jouablTri,nbBlcTri,nbNrTri,frontTri) then
 					       begin
 					         inc(nbCoupsLegauxPotentiels);
@@ -125,7 +125,7 @@ var platEssai : plateauOthello;
 
                    {tri par insertion}
                    k := 1;
-                   while (coupsPotentiels[k].noteAdv <= evalAdverse) & (k < nbCoupsLegauxPotentiels) do
+                   while (coupsPotentiels[k].noteAdv <= evalAdverse) and (k < nbCoupsLegauxPotentiels) do
                      inc(k);
                    for j := nbCoupsLegauxPotentiels downto succ(k) do
                      coupsPotentiels[j].coup := coupsPotentiels[pred(j)].coup;
@@ -192,7 +192,7 @@ begin
 
 
 
-   if (canDoProbCut & (beta <= alpha+1)) then
+   if (canDoProbCut and (beta <= alpha+1)) then
 	   begin
 
 	     nroDuCoup := nBla + nNoi - 4;
@@ -275,7 +275,7 @@ begin
                end
              else
                begin
-                 if not(aJoue) | (beta <= maxCourant+1)
+                 if not(aJoue) or (beta <= maxCourant+1)
                    then
                      begin
                        noteCourante := -AB_simple(platEssai,jouablEssai,bestSuite,adversaire,profms1,
@@ -285,7 +285,7 @@ begin
                      begin
                        noteCourante := -AB_simple(platEssai,jouablEssai,bestSuite,adversaire,profms1,
                                               -maxCourant-1,-maxCourant,nbBlcEssai,nbNrEssai,frontEssai,canDoProbCut);
-                       if (maxCourant < noteCourante) & (noteCourante < beta) then
+                       if (maxCourant < noteCourante) and (noteCourante < beta) then
                          begin
                            noteCourante := -AB_simple(platEssai,jouablEssai,bestSuite,adversaire,profms1,
                                                   -beta,-noteCourante,nbBlcEssai,nbNrEssai,frontEssai,canDoProbCut);

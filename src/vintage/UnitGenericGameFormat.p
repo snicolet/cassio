@@ -173,10 +173,10 @@ begin
     begin
 
       codeAsciiCaractere := ord(c);
-      estUnCaractereDeControle := (c = ' ') |
+      estUnCaractereDeControle := (c = ' ') or
                                   (codeAsciiCaractere <= 32);
 
-      if not(estUnCaractereDeControle) |
+      if not(estUnCaractereDeControle) or
          not(sauterLesCaracteresDeControle) then
          begin
 		       for i := -kTailleBufferCaracteresLocal_NxN to -1 do
@@ -195,7 +195,7 @@ end;
 
 function GetPreviousCharFichier_NxN(negOffset : SInt16) : char;
 begin
-  if (negOffset >= -kTailleBufferCaracteresLocal_NxN) & (negOffset <= 0)
+  if (negOffset >= -kTailleBufferCaracteresLocal_NxN) and (negOffset <= 0)
     then GetPreviousCharFichier_NxN := gLecture_NxN.bufferCaracteres[negOffset]
     else GetPreviousCharFichier_NxN := chr(0);
 end;
@@ -235,7 +235,7 @@ begin
 		      s9  := NumEnString(9) + 'x' + NumEnString(9);   {'9x9'}
 		      s10 := NumEnString(10) + 'x' + NumEnString(10); {'10x10'}
 
-		      if (Pos(s9,GetNameOfSFReply(reply)) <= 0) &
+		      if (Pos(s9,GetNameOfSFReply(reply)) <= 0) and
 		         (Pos(s10,GetNameOfSFReply(reply)) <= 0)
 		        then
 		          begin
@@ -311,47 +311,47 @@ begin
           else c3 := chr(0);
 
         {'tt' = passe' dans SGF}
-        if (c1 = 't') & (c2 = 't') then exit(StringSGFEnCoup);
-        if (c1 = 'p') & (c2 = 'a') then exit(StringSGFEnCoup);
-        if (c1 = 'P') & (c2 = 'A') then exit(StringSGFEnCoup);
+        if (c1 = 't') and (c2 = 't') then exit(StringSGFEnCoup);
+        if (c1 = 'p') and (c2 = 'a') then exit(StringSGFEnCoup);
+        if (c1 = 'P') and (c2 = 'A') then exit(StringSGFEnCoup);
 
         x := 0;
         y := 0;
 
-        if CharInRange(c1,'a','j') & CharInRange(c2,'a','j') then
+        if CharInRange(c1,'a','j') and CharInRange(c2,'a','j') then
           begin
             x := ord(c1) - ord('a') + 1;
             y := ord(c2) - ord('a') + 1;
           end;
 
-        if CharInRange(c1,'A','J') & CharInRange(c2,'A','J') then
+        if CharInRange(c1,'A','J') and CharInRange(c2,'A','J') then
           begin
             x := ord(c1) - ord('A') + 1;
             y := ord(c2) - ord('A') + 1;
           end;
 
-        if CharInRange(c1,'A','J') & IsDigit(c2) & IsDigit(c3) then
+        if CharInRange(c1,'A','J') and IsDigit(c2) and IsDigit(c3) then
           begin
             x := ord(c1) - ord('A') + 1;
             chaine := Concat(c2,c3);
             y := ChaineEnInteger(chaine);
           end;
 
-        if CharInRange(c1,'a','j') & IsDigit(c2) & IsDigit(c3) then
+        if CharInRange(c1,'a','j') and IsDigit(c2) and IsDigit(c3) then
           begin
             x := ord(c1) - ord('a') + 1;
             chaine := Concat(c2,c3);
             y := ChaineEnInteger(chaine);
           end;
 
-        if CharInRange(c1,'A','J') & IsDigit(c2) & not(IsDigit(c3)) then
+        if CharInRange(c1,'A','J') and IsDigit(c2) and not(IsDigit(c3)) then
           begin
             x := ord(c1) - ord('A') + 1;
             chaine := c2;
             y := ChaineEnInteger(chaine);
           end;
 
-        if CharInRange(c1,'a','j') & IsDigit(c2) & not(IsDigit(c3)) then
+        if CharInRange(c1,'a','j') and IsDigit(c2) and not(IsDigit(c3)) then
           begin
             x := ord(c1) - ord('a') + 1;
             chaine := c2;
@@ -360,7 +360,7 @@ begin
 
         { WritelnNumDansRapport('x = '+NumEnString(x) + '  y = ',y); }
 
-        if (x >= 1) & (x <= 10) & (y >= 1) & (y <= 10) then
+        if (x >= 1) and (x <= 10) and (y >= 1) and (y <= 10) then
           begin
             trouve := true;
             square_x := x;
@@ -369,7 +369,7 @@ begin
             exit(StringSGFEnCoup);
           end;
 
-      until trouve | (k >= (longueur-1)) ;
+      until trouve or (k >= (longueur-1)) ;
     end;
 
 end;
@@ -387,7 +387,7 @@ begin
   c := GetPreviousCharFichier_NxN(0);
   if c <> '[' then err := GetNextCharFichier_NxN(c);
 
-  if (c <> '[') | (err <> NoErr) then
+  if (c <> '[') or (err <> NoErr) then
     begin
       ScanChaineValeurProperty_NxN := '';
       exit(ScanChaineValeurProperty_NxN);
@@ -398,9 +398,9 @@ begin
   repeat
     inc(longueur);
     err := GetNextCharFichier_NxN(c);
-    if (err = NoErr) & (c <> ']')
+    if (err = NoErr) and (c <> ']')
       then s := s + c;
-  until (err <> NoErr) | (longueur > 240) | (c = ']');
+  until (err <> NoErr) or (longueur > 240) or (c = ']');
   ScanChaineValeurProperty_NxN := s;
 
 end;
@@ -416,15 +416,15 @@ begin
   c := GetPreviousCharFichier_NxN(0);
   if c <> '(' then err := GetNextCharFichier_NxN(c);
 
-  if (c <> '(') | (err <> NoErr) then
+  if (c <> '(') or (err <> NoErr) then
     begin
       exit(SauterSousArbreNxN);
     end;
 
   repeat
     err := GetNextCharFichier_NxN(c);
-  until (err <> NoErr) |
-        ((c = ')') & (GetPreviousCharFichier_NxN(-1) <> '\'));
+  until (err <> NoErr) or
+        ((c = ')') and (GetPreviousCharFichier_NxN(-1) <> '\'));
 
 end;
 
@@ -432,8 +432,8 @@ end;
 function PropertyCoupNoirReconnue(negOffset : SInt16) : boolean;
 begin
   PropertyCoupNoirReconnue  :=
-                 ((GetPreviousCharFichier_NxN(negOffset-2) = ';') | (GetPreviousCharFichier_NxN(negOffset-2) = ']') | (GetPreviousCharFichier_NxN(negOffset-2) = ' ')) &
-			           ((GetPreviousCharFichier_NxN(negOffset-1) = 'B') | (GetPreviousCharFichier_NxN(negOffset-1) = 'b')) &
+                 ((GetPreviousCharFichier_NxN(negOffset-2) = ';') or (GetPreviousCharFichier_NxN(negOffset-2) = ']') or (GetPreviousCharFichier_NxN(negOffset-2) = ' ')) and
+			           ((GetPreviousCharFichier_NxN(negOffset-1) = 'B') or (GetPreviousCharFichier_NxN(negOffset-1) = 'b')) and
 			            (GetPreviousCharFichier_NxN(negOffset) = '[');
 end;
 
@@ -441,8 +441,8 @@ end;
 function PropertyCoupBlancReconnue(negOffset : SInt16) : boolean;
 begin
   PropertyCoupBlancReconnue  :=
-                 ((GetPreviousCharFichier_NxN(negOffset-2) = ';') | (GetPreviousCharFichier_NxN(negOffset-2) = ']') | (GetPreviousCharFichier_NxN(negOffset-2) = ' ')) &
-			           ((GetPreviousCharFichier_NxN(negOffset-1) = 'W') | (GetPreviousCharFichier_NxN(negOffset-1) = 'w')) &
+                 ((GetPreviousCharFichier_NxN(negOffset-2) = ';') or (GetPreviousCharFichier_NxN(negOffset-2) = ']') or (GetPreviousCharFichier_NxN(negOffset-2) = ' ')) and
+			           ((GetPreviousCharFichier_NxN(negOffset-1) = 'W') or (GetPreviousCharFichier_NxN(negOffset-1) = 'w')) and
 			            (GetPreviousCharFichier_NxN(negOffset) = '[');
 end;
 
@@ -475,9 +475,9 @@ begin
 		        chaineBlancs := '';
 		        repeat
 		          err := GetNextCharFichier_NxN(c);
-		        until (err <> NoErr) |
-		              ((GetPreviousCharFichier_NxN(-2) = 'A') &
-		               (GetPreviousCharFichier_NxN(-1) = 'W') &
+		        until (err <> NoErr) or
+		              ((GetPreviousCharFichier_NxN(-2) = 'A') and
+		               (GetPreviousCharFichier_NxN(-1) = 'W') and
 		               (GetPreviousCharFichier_NxN(0) = '['));
 
 		        repeat
@@ -491,9 +491,9 @@ begin
 		        chaineNoirs := '';
 		        repeat
 		          err := GetNextCharFichier_NxN(c);
-		        until (err <> NoErr) |
-		              ((GetPreviousCharFichier_NxN(-2) = 'A') &
-		               (GetPreviousCharFichier_NxN(-1) = 'B') &
+		        until (err <> NoErr) or
+		              ((GetPreviousCharFichier_NxN(-2) = 'A') and
+		               (GetPreviousCharFichier_NxN(-1) = 'B') and
 		               (GetPreviousCharFichier_NxN(0) = '['));
 
 		        repeat
@@ -512,15 +512,15 @@ begin
 		        ResetLecture_NxN;
 		        repeat
 		          err := GetNextCharFichier_NxN(c);
-		        until (err <> NoErr) |
-		              ((GetPreviousCharFichier_NxN(-2) = 'P') &
-		               (GetPreviousCharFichier_NxN(-1) = 'L') &
-		               (GetPreviousCharFichier_NxN(0) = '[')) |
-		              PropertyCoupBlancReconnue(0) |
+		        until (err <> NoErr) or
+		              ((GetPreviousCharFichier_NxN(-2) = 'P') and
+		               (GetPreviousCharFichier_NxN(-1) = 'L') and
+		               (GetPreviousCharFichier_NxN(0) = '[')) or
+		              PropertyCoupBlancReconnue(0) or
 		              PropertyCoupNoirReconnue(0);
 
-		        if (GetPreviousCharFichier_NxN(-2) = 'P') &
-		           (GetPreviousCharFichier_NxN(-1) = 'L') &
+		        if (GetPreviousCharFichier_NxN(-2) = 'P') and
+		           (GetPreviousCharFichier_NxN(-1) = 'L') and
 		           (GetPreviousCharFichier_NxN(0) = '[') then
 		           begin
 		             s := ScanChaineValeurProperty_NxN;
@@ -556,13 +556,13 @@ begin
 
 		        repeat
 		          err := GetNextCharFichier_NxN(c);
-		        until (err <> NoErr) |
-		              ((GetPreviousCharFichier_NxN(-2) = 'B') &
-		               (GetPreviousCharFichier_NxN(-1) = 'O') &
+		        until (err <> NoErr) or
+		              ((GetPreviousCharFichier_NxN(-2) = 'B') and
+		               (GetPreviousCharFichier_NxN(-1) = 'O') and
 		               (GetPreviousCharFichier_NxN(0) = '['));
 
-		        if (GetPreviousCharFichier_NxN(-2) = 'B') &
-			         (GetPreviousCharFichier_NxN(-1) = 'O') &
+		        if (GetPreviousCharFichier_NxN(-2) = 'B') and
+			         (GetPreviousCharFichier_NxN(-1) = 'O') and
 			         (GetPreviousCharFichier_NxN(0) = '[') then
 			          begin
 			            s := ScanChaineValeurProperty_NxN;
@@ -647,32 +647,32 @@ begin
 		          err := GetNextCharFichier_NxN(c);
 		          inc(compteurCaracteres);
 
-		          if (GetPreviousCharFichier_NxN(-2) = 'P') &
-                 (GetPreviousCharFichier_NxN(-1) = 'B') &
+		          if (GetPreviousCharFichier_NxN(-2) = 'P') and
+                 (GetPreviousCharFichier_NxN(-1) = 'B') and
                  (GetPreviousCharFichier_NxN(0) = '[')
                 then nomDesNoirs := ScanChaineValeurProperty_NxN;
 
-              if (GetPreviousCharFichier_NxN(-2) = 'P') &
-                 (GetPreviousCharFichier_NxN(-1) = 'W') &
+              if (GetPreviousCharFichier_NxN(-2) = 'P') and
+                 (GetPreviousCharFichier_NxN(-1) = 'W') and
                  (GetPreviousCharFichier_NxN(0) = '[')
                 then nomDesBlancs := ScanChaineValeurProperty_NxN;
 
-              if (GetPreviousCharFichier_NxN(-2) = 'E') &
-                 (GetPreviousCharFichier_NxN(-1) = 'V') &
+              if (GetPreviousCharFichier_NxN(-2) = 'E') and
+                 (GetPreviousCharFichier_NxN(-1) = 'V') and
                  (GetPreviousCharFichier_NxN(0) = '[')
                 then nomTournoi := ScanChaineValeurProperty_NxN;
 
-              if (nomTournoi = '') &
-                 (GetPreviousCharFichier_NxN(-2) = 'P') &
-                 (GetPreviousCharFichier_NxN(-1) = 'C') &
+              if (nomTournoi = '') and
+                 (GetPreviousCharFichier_NxN(-2) = 'P') and
+                 (GetPreviousCharFichier_NxN(-1) = 'C') and
                  (GetPreviousCharFichier_NxN(0) = '[')
                 then nomTournoi := ScanChaineValeurProperty_NxN;
 
-		        until (err <> NoErr) | (compteurCaracteres > 2000) |
-		              ((nomDesNoirs <> '') & (nomDesBlancs <> '') & (nomTournoi <> '')) |
-		              PropertyCoupBlancReconnue(0) |
-		              PropertyCoupNoirReconnue(0) |
-		              ((GetPreviousCharFichier_NxN(-1) = ';') & (GetPreviousCharFichier_NxN(0) = ')'));
+		        until (err <> NoErr) or (compteurCaracteres > 2000) or
+		              ((nomDesNoirs <> '') and (nomDesBlancs <> '') and (nomTournoi <> '')) or
+		              PropertyCoupBlancReconnue(0) or
+		              PropertyCoupNoirReconnue(0) or
+		              ((GetPreviousCharFichier_NxN(-1) = ';') and (GetPreviousCharFichier_NxN(0) = ')'));
 
 		        if ecrireEnClairInfosDansRapport then
 		          begin
@@ -749,17 +749,17 @@ begin
 			        repeat
 			          err := GetNextCharFichier_NxN(c);
 			          {WriteDansRapport(CharToString(c));}
-			        until (err <> NoErr) |
+			        until (err <> NoErr) or
 
 			              {coup blanc}
-			              PropertyCoupBlancReconnue(0) |
+			              PropertyCoupBlancReconnue(0) or
 
 			              {coup noir}
-			              PropertyCoupNoirReconnue(0) |
+			              PropertyCoupNoirReconnue(0) or
 
 			              {premiere parenthese fermante = fin de la branche principale}
-			              ((numeroDuCoupCourant > 0) &
-			               (GetPreviousCharFichier_NxN(-1) <> '\') &
+			              ((numeroDuCoupCourant > 0) and
+			               (GetPreviousCharFichier_NxN(-1) <> '\') and
 			               (GetPreviousCharFichier_NxN(-1) = ')'));
 
 			        case position_NxN.trait of
@@ -781,7 +781,7 @@ begin
 
 			                inc(numeroDuCoupCourant);
 
-			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) & not(auMoinsUnCoupIllegalAnnonce) then
+			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
 			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
@@ -806,7 +806,7 @@ begin
 
 			                inc(numeroDuCoupCourant);
 
-			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) & not(auMoinsUnCoupIllegalAnnonce) then
+			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
 			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
@@ -827,8 +827,8 @@ begin
 		              end;
 
 
-			      until (err <> NoErr) | {numeroDuCoupDiagrammeDejaAtteint |}
-			            ((GetPreviousCharFichier_NxN(-1) <> '\') & {premiere parenthese fermante = fin de la branche principale}
+			      until (err <> NoErr) or {numeroDuCoupDiagrammeDejaAtteint or}
+			            ((GetPreviousCharFichier_NxN(-1) <> '\') and {premiere parenthese fermante = fin de la branche principale}
 			             (GetPreviousCharFichier_NxN(-1) = ')'));
 
 		      end;
@@ -841,16 +841,16 @@ begin
 		        repeat
 			        repeat
 			          err := GetNextCharFichier_NxN(c);
-			        until (err <> NoErr) |
+			        until (err <> NoErr) or
 
 			              {coup blanc}
-			              PropertyCoupBlancReconnue(0) |
+			              PropertyCoupBlancReconnue(0) or
 
 			              {coup noir}
-			              PropertyCoupNoirReconnue(0) |
+			              PropertyCoupNoirReconnue(0) or
 
 			              {premiere parenthese fermante = fin de la branche principale}
-			              ((GetPreviousCharFichier_NxN(-1) <> '\') &
+			              ((GetPreviousCharFichier_NxN(-1) <> '\') and
 			               (GetPreviousCharFichier_NxN(-1) = ')'));
 
 			        case position_NxN.trait of
@@ -873,7 +873,7 @@ begin
 
 			                inc(numeroDuCoupCourant);
 
-			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) & not(auMoinsUnCoupIllegalAnnonce) then
+			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
 			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
@@ -899,7 +899,7 @@ begin
 
 			                inc(numeroDuCoupCourant);
 
-			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) & not(auMoinsUnCoupIllegalAnnonce) then
+			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
 			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
@@ -920,8 +920,8 @@ begin
 		              end;
 
 
-			      until (err <> NoErr) | {numeroDuCoupDiagrammeDejaAtteint |}
-			            ((GetPreviousCharFichier_NxN(-1) <> '\') & {premiere parenthese fermante = fin de la branche principale}
+			      until (err <> NoErr) or {numeroDuCoupDiagrammeDejaAtteint or}
+			            ((GetPreviousCharFichier_NxN(-1) <> '\') and {premiere parenthese fermante = fin de la branche principale}
 			             (GetPreviousCharFichier_NxN(-1) = ')'));
 
 		      end;
@@ -1054,7 +1054,7 @@ begin
   {SetDebuggageUnitFichiersTexte(true);}
 
   N := -1;
-  if (UtilisateurChoisitFichier_NxN(N,theFic) = NoErr) & (N >= 9) then
+  if (UtilisateurChoisitFichier_NxN(N,theFic) = NoErr) and (N >= 9) then
 
     begin
 
@@ -1066,9 +1066,9 @@ begin
       {AttendFrappeClavier;}
 
       with gLecture_NxN do
-	      if TypeDeFichierEstConnu(theFic,formatFichier,err) &
-	         ((formatFichier.format = kTypeFichierSGF) | (formatFichier.format = kTypeFichierGGF)) &
-	         ((formatFichier.tailleOthellier = 9) |(formatFichier.tailleOthellier = 10)) then
+	      if TypeDeFichierEstConnu(theFic,formatFichier,err) and
+	         ((formatFichier.format = kTypeFichierSGF) or (formatFichier.format = kTypeFichierGGF)) and
+	         ((formatFichier.tailleOthellier = 9) or(formatFichier.tailleOthellier = 10)) then
 
 	        begin
 

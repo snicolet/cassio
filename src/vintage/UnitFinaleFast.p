@@ -269,12 +269,12 @@ function EstUneNoteDeETCNonValide(note : SInt32) : boolean;
 begin
 
   EstUneNoteDeETCNonValide  :=
-                  ((note >=  kNoteBidonPositionNonTrouveeDansHash - 5) & (note <=  kNoteBidonPositionNonTrouveeDansHash + 5))
-                | ((note >= -kNoteBidonPositionNonTrouveeDansHash - 5) & (note <= -kNoteBidonPositionNonTrouveeDansHash + 5));
+                  ((note >=  kNoteBidonPositionNonTrouveeDansHash - 5) and (note <=  kNoteBidonPositionNonTrouveeDansHash + 5))
+                or ((note >= -kNoteBidonPositionNonTrouveeDansHash - 5) and (note <= -kNoteBidonPositionNonTrouveeDansHash + 5));
 
 
   (*
-  EstUneNoteDeETCNonValide := (note =  kNoteBidonPositionNonTrouveeDansHash ) | (note =  -kNoteBidonPositionNonTrouveeDansHash);
+  EstUneNoteDeETCNonValide := (note =  kNoteBidonPositionNonTrouveeDansHash ) or (note =  -kNoteBidonPositionNonTrouveeDansHash);
   *)
 
 end;
@@ -282,8 +282,8 @@ end;
 
 function ValeurDeFinaleInexploitable(whichNote : SInt32) : boolean;
 begin
-  ValeurDeFinaleInexploitable := EstUneNoteDeETCNonValide(whichNote) | (interruptionReflexion <> pasdinterruption) |
-                                 (whichNote = -noteMax) | (whichNote =  noteMax);
+  ValeurDeFinaleInexploitable := EstUneNoteDeETCNonValide(whichNote) or (interruptionReflexion <> pasdinterruption) or
+                                 (whichNote = -noteMax) or (whichNote =  noteMax);
 end;
 
 
@@ -408,7 +408,7 @@ function PasListeFinaleStockeeDansHash(nbVides : SInt32; var whichLegalMoves : C
   var i,uncoup,n : SInt32;
   begin
     n := whichLegalMoves^[clefHashExacte,0];
-    if (n > 0) & (n <= nbVides) then
+    if (n > 0) and (n <= nbVides) then
       begin
         for i := 1 to n do
           begin
@@ -503,9 +503,9 @@ begin
                    {$ENDC}
 
                    with bornes do
-                   if (nbArbresCoupesValMin[nbreDeltaSuccessifs] = 0) &
-                      (valMin[nbreDeltaSuccessifs] = valMax[nbreDeltaSuccessifs]) &
-		                  (coupDeCetteValMin[nbreDeltaSuccessifs] <> 0) & (coupDeCetteValMin[nbreDeltaSuccessifs] <> meiDef) then
+                   if (nbArbresCoupesValMin[nbreDeltaSuccessifs] = 0) and
+                      (valMin[nbreDeltaSuccessifs] = valMax[nbreDeltaSuccessifs]) and
+		                  (coupDeCetteValMin[nbreDeltaSuccessifs] <> 0) and (coupDeCetteValMin[nbreDeltaSuccessifs] <> meiDef) then
                      begin
                        Sysbeep(0);
                        WritelnDansRapport('');
@@ -541,11 +541,11 @@ begin
 
 
                        {
-                       if (ValMin[k] > valMax[k]) & (whichDeltaFinal = kDeltaFinaleInfini)
-                          & (interruptionReflexion = pasdinterruption)  then
+                       if (ValMin[k] > valMax[k]) and (whichDeltaFinal = kDeltaFinaleInfini)
+                          and (interruptionReflexion = pasdinterruption)  then
                          begin
                            SysBeep(0);
-                           WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) & ValeurMinEstAcceptable & ValeurMaxEstAcceptable');
+                           WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) and ValeurMinEstAcceptable and ValeurMaxEstAcceptable');
                            WritelnNumDansRapport('gClefHashage = ',gClefHashage);
 	                         WritelnNumDansRapport('ValMin['+NumEnString(ThisDeltaFinal(k))+'] = ',ValMin[k]);
                            WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
@@ -556,7 +556,7 @@ begin
                        }
 
                        (*
-                       if (k = nbreDeltaSuccessifs) & (valMin[k] >= valMax[k]) then
+                       if (k = nbreDeltaSuccessifs) and (valMin[k] >= valMax[k]) then
                          begin
                            WritelnPositionEtTraitDansRapport(plat,couleur);
                            WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(k))+'] = ',bornes.valMin[k]);
@@ -573,13 +573,13 @@ begin
                          then
                            begin
 
-                             if bestMode &
-                                (alpha <= valMax[k]) &
-                                (valMin[k] <= beta) &
+                             if bestMode and
+                                (alpha <= valMax[k]) and
+                                (valMin[k] <= beta) and
                                 (whichDeltaFinal = kDeltaFinaleInfini)
                                then
                                  begin
-                                   if (meiDef <> 0) & (meidef = coupDeCetteValMin[k]) then
+                                   if (meiDef <> 0) and (meidef = coupDeCetteValMin[k]) then
                                      begin
 		                                   {on connait le score, mais on ne sort pas tout de suite
 		                                    de la fonction, on se contente de dire qu'il n'y a qu'un
@@ -665,10 +665,10 @@ var ok : boolean;
 begin
   with contexte do
     begin
-      ok := coupGagnantUtiliseEndgameTrees &
-            (whichNumeroEndgameTreeActif >= 1) &
-            (whichNumeroEndgameTreeActif <= NbMaxEndgameTrees) &
-            (magicCookieEndgameTree > 0) &
+      ok := coupGagnantUtiliseEndgameTrees and
+            (whichNumeroEndgameTreeActif >= 1) and
+            (whichNumeroEndgameTreeActif <= NbMaxEndgameTrees) and
+            (magicCookieEndgameTree > 0) and
             (GetMagicCookieInitialEndgameTree(whichNumeroEndgameTreeActif) = magicCookieEndgameTree);
 
       if not(ok) then whichNumeroEndgameTreeActif := -1;
@@ -860,7 +860,7 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
           if not(doitEcrireReflexFinale) then
             exit(AfficheResultatsPremiersNiveaux);
 
-          if analyseRetrograde.enCours & passeDeRechercheAuMoinsValeurCible & (ReflexData^.class[1].note < valeurCible)
+          if analyseRetrograde.enCours and passeDeRechercheAuMoinsValeurCible and (ReflexData^.class[1].note < valeurCible)
             then noteDeTeteVisible := valeurCible-1
             else noteDeTeteVisible := ReflexData^.class[1].note;
 
@@ -885,26 +885,26 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
                 pourcentagePartielProf2 := RoundToL(100.0*(indexDuCoupCetteProf - 1 + nro/total)/mobiliteCetteProf -0.01);
               end;
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             not(passeDeRechercheAuMoinsValeurCible) &
-             (maxPourBestDef > noteDeTeteVisible) &
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             not(passeDeRechercheAuMoinsValeurCible) and
+             (maxPourBestDef > noteDeTeteVisible) and
              (pourcentagePartielProf2 > pourcentageAffiche)
              then pourcentageAffiche := pourcentagePartielProf2;
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             passeDeRechercheAuMoinsValeurCible &
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             passeDeRechercheAuMoinsValeurCible and
              (maxPourBestDef = valeurCible)
              then pourcentageAffiche := pourcentagePartielProf2;
 
-          if (nro = 1) & (total > 1) & (indexDuCoupDansFntrReflexion > 1) &
+          if (nro = 1) and (total > 1) and (indexDuCoupDansFntrReflexion > 1) and
             not(FenetreLargePourRechercheScoreExact) then
             exit(afficheResultatsPremiersNiveaux);
 
           {
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             not(passeDeRechercheAuMoinsValeurCible) &
-             (maxPourBestDef > noteDeTeteVisible+2) &
-             (nro > 1) & (total > 1)
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             not(passeDeRechercheAuMoinsValeurCible) and
+             (maxPourBestDef > noteDeTeteVisible+2) and
+             (nro > 1) and (total > 1)
            then
              begin
                	EssaieSetPortWindowPlateau;
@@ -935,39 +935,39 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
              end;
           }
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             passeDeRechercheAuMoinsValeurCible &
-             (maxPourBestDef = valeurCible) &
-             (nro <= 1) & (total > 1) then
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             passeDeRechercheAuMoinsValeurCible and
+             (maxPourBestDef = valeurCible) and
+             (nro <= 1) and (total > 1) then
              exit(afficheResultatsPremiersNiveaux);
 
           {
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             not(passeDeRechercheAuMoinsValeurCible) &
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             not(passeDeRechercheAuMoinsValeurCible) and
              (indexDuCoupDansFntrReflexion <= 1) then
              exit(afficheResultatsPremiersNiveaux);
           }
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
              (couleurAffichee = CoulDefense) then
              exit(afficheResultatsPremiersNiveaux);
 
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             not(passeDeRechercheAuMoinsValeurCible) &
-             (maxPourBestDef > noteDeTeteVisible+2) &
-             (indexDuCoupDansFntrReflexion > 1) &
-             (nro = 1) & (total > 1)
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             not(passeDeRechercheAuMoinsValeurCible) and
+             (maxPourBestDef > noteDeTeteVisible+2) and
+             (indexDuCoupDansFntrReflexion > 1) and
+             (nro = 1) and (total > 1)
             then exit(afficheResultatsPremiersNiveaux);
 
 
-          if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-             (pourcentageDejaVisible > 0) &
-             (pourcentageDejaVisible < 100) &
+          if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+             (pourcentageDejaVisible > 0) and
+             (pourcentageDejaVisible < 100) and
              (pourcentageAffiche < pourcentageDejaVisible) then
              exit(afficheResultatsPremiersNiveaux);
 
-          if not(bestMode) & not(bestmodeArriveeDansCoupGagnant)
+          if not(bestMode) and not(bestmodeArriveeDansCoupGagnant)
             then
               if analyseRetrograde.enCours
                 then typeAffichage := ReflRetrogradeGagnant
@@ -980,7 +980,7 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
                 then
                   if FenetreLargePourRechercheScoreExact
                     then typeAffichage := ReflRetrogradeParfaitPhaseRechScore
-                    else if (passeDeRechercheAuMoinsValeurCible & (valeurCible = 0))
+                    else if (passeDeRechercheAuMoinsValeurCible and (valeurCible = 0))
                            then typeAffichage := ReflRetrogradeParfaitPhaseGagnant
                            else typeAffichage := ReflRetrogradeParfait
                 else
@@ -989,19 +989,19 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
                       if analyseIntegraleDeFinale
                         then typeAffichage := ReflParfaitExhaustif
                         else typeAffichage := ReflParfaitPhaseRechScore
-                    else if (passeDeRechercheAuMoinsValeurCible & (valeurCible = 0))
+                    else if (passeDeRechercheAuMoinsValeurCible and (valeurCible = 0))
                            then typeAffichage := ReflParfaitPhaseGagnant
                            else typeAffichage := ReflParfait;
 
            noteAffichee := -maxPourBestDef;
-           if (noteAffichee > valeurCible) & passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible+1;
-           if (noteAffichee = valeurCible) & passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible;
-           if (noteAffichee < valeurCible) & passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible-1;
+           if (noteAffichee > valeurCible) and passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible+1;
+           if (noteAffichee = valeurCible) and passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible;
+           if (noteAffichee < valeurCible) and passeDeRechercheAuMoinsValeurCible then noteAffichee := valeurCible-1;
            if couleurAffichee <> CoulDefense then noteAffichee := -noteAffichee;
 
-           if (ESprof <= gNbreVides_entreeCoupGagnant-2) &
-              (not(passeDeRechercheAuMoinsValeurCible) | (maxPourBestDef = valeurCible)) &
-              ((maxPourBestDef > noteDeTeteVisible+2) | (indexDuCoupDansFntrReflexion = 1))
+           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
+              (not(passeDeRechercheAuMoinsValeurCible) or (maxPourBestDef = valeurCible)) and
+              ((maxPourBestDef > noteDeTeteVisible+2) or (indexDuCoupDansFntrReflexion = 1))
             then pourcentageAffiche := pourcentagePartielProf2;
 
            ReflexData^.typeDonnees := typeAffichage;
@@ -1186,7 +1186,7 @@ begin
 
       	      for k := indexDeltaFinaleCourant to nbreDeltaSuccessifs do
       	        begin
-      			      if (estimationPessimiste > bornes.valMax[k]) & (bornes.nbArbresCoupesValMax[k] = 0)
+      			      if (estimationPessimiste > bornes.valMax[k]) and (bornes.nbArbresCoupesValMax[k] = 0)
       			        then estimationPessimiste := Max(-64,bornes.valMax[k]);
 
       			      if (estimationPessimiste > bornes.valMax[k])
@@ -1246,7 +1246,7 @@ begin
 
       	      for k := indexDeltaFinaleCourant to nbreDeltaSuccessifs do
       	        begin
-      			      if (estimationOptimiste < bornes.valMin[k]) & (bornes.nbArbresCoupesValMin[k] = 0)
+      			      if (estimationOptimiste < bornes.valMin[k]) and (bornes.nbArbresCoupesValMin[k] = 0)
       			        then estimationOptimiste := Min(64,bornes.valMin[k]);
 
       			      if (estimationOptimiste < bornes.valMin[k])
@@ -1316,7 +1316,7 @@ function PeutFaireCoupureRapide(alphaRapide,betaRapide : SInt32; var newAlpha,ne
 var t : SInt32;
 begin
   if (alphaRapide < betaRapide) then
-  if (alphaRapide <> alpha) | (betaRapide <> beta) then
+  if (alphaRapide <> alpha) or (betaRapide <> beta) then
     begin
 	  {WritelnStringDansRapport(s);
 	   WritelnNumDansRapport('alphaInitial = ',alphaInitial);
@@ -1410,7 +1410,7 @@ begin
 
          begin
            WritelnNumDansRapport('alphaRapide < t < betaRapide : t = ',t);
-           if (t > alpha) & (t < beta) then
+           if (t > alpha) and (t < beta) then
              begin
                WritelnStringDansRapport('valeur exacte !');
                newAlpha := t-1;
@@ -1418,7 +1418,7 @@ begin
                PeutFaireCoupureRapide := true;
                exit(PeutFaireCoupureRapide);
              end;
-           WritelnNumDansRapport('should never happen (not((t > alpha) & (t < beta))) ! ',0);
+           WritelnNumDansRapport('should never happen (not((t > alpha) and (t < beta))) ! ',0);
            SysBeep(0);
            AttendFrappeClavier;
          end;
@@ -1441,14 +1441,14 @@ begin
       dernierDeltaDeCettePosition := -100000;
       with bornes do
 	      for k := 1 to nbreDeltaSuccessifs do
-	        if (bornes.valMin[k] > -64) | (bornes.valMax[k] < 64)         {pas juste developpe ?}
+	        if (bornes.valMin[k] > -64) or (bornes.valMax[k] < 64)         {pas juste developpe ?}
 	          then dernierDeltaDeCettePosition := ThisDeltaFinal(k);
 
       if dernierDeltaDeCettePosition < deltaFinaleCourant then
         begin
 
 		      for k := 1 to nbreDeltaSuccessifs do
-		        if (deltaSuccessifs[k].valeurDeMu > dernierDeltaDeCettePosition) &
+		        if (deltaSuccessifs[k].valeurDeMu > dernierDeltaDeCettePosition) and
 		           (deltaSuccessifs[k].valeurDeMu < deltaFinaleCourant) then
 		          begin
 
@@ -1485,7 +1485,7 @@ begin
   dernierDeltaDeCettePosition := -100000;
   with bornes do
     for k := 1 to nbreDeltaSuccessifs do
-      if (bornes.valMin[k] > -64) | (bornes.valMax[k] < 64)         {pas juste developpe ?}
+      if (bornes.valMin[k] > -64) or (bornes.valMax[k] < 64)         {pas juste developpe ?}
         then dernierDeltaDeCettePosition := ThisDeltaFinal(k);
 
 
@@ -1602,8 +1602,8 @@ begin
 					      begin
 
 					        {$IFC USE_DEBUG_STEP_BY_STEP}
-					        if gDebuggageAlgoFinaleStepByStep.actif &
-					           (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+					        if gDebuggageAlgoFinaleStepByStep.actif and
+					           (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
 					           MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
 					          begin
 					            WritelnDansRapport('');
@@ -1713,33 +1713,33 @@ begin
      // du nombre de noeuds.
 
      if estPresqueSurementUneCoupureBeta
-        & (profMoins1 <= profForceBrute + 2)
-        & (indexDeBoucle <= 1)
+        and (profMoins1 <= profForceBrute + 2)
+        and (indexDeBoucle <= 1)
         then switchToBitboardAlphaBeta := true;
 
 
      if CassioUtiliseLeMultiprocessing
-        & not(estPresqueSurementUneCoupureAlpha)
-        & (profMoins1 <= profForceBrute + gExtensionDeParallelisme)
+        and not(estPresqueSurementUneCoupureAlpha)
+        and (profMoins1 <= profForceBrute + gExtensionDeParallelisme)
         then switchToBitboardAlphaBeta := true;
 
 
      if CassioUtiliseLeMultiprocessing
-        & not(estPresqueSurementUneCoupureBeta)
-        & (profMoins1 >= profForceBrute)
+        and not(estPresqueSurementUneCoupureBeta)
+        and (profMoins1 >= profForceBrute)
         then switchToBitboardAlphaBeta := false;
 
 
      if CassioUtiliseLeMultiprocessing
-        & estPresqueSurementUneCoupureBeta
-        & (profMoins1 <= profForceBrute + gExtensionDeParallelisme + gExtensionDeCoupureBetaProbable)
+        and estPresqueSurementUneCoupureBeta
+        and (profMoins1 <= profForceBrute + gExtensionDeParallelisme + gExtensionDeCoupureBetaProbable)
         then switchToBitboardAlphaBeta := true;
 
 
 
 
      (*
-     if estPresqueSurementUneCoupureBeta & (profMoins1 <= profForceBrute + 3) & (indexDeBoucle = 1)
+     if estPresqueSurementUneCoupureBeta and (profMoins1 <= profForceBrute + 3) and (indexDeBoucle = 1)
        then
          begin
            inc(gNombreDeCoupuresBetaPresquesSures);
@@ -1752,18 +1752,18 @@ begin
          begin
 
 
-              if estPresqueSurementUneCoupureBeta  & (indexDeBoucle = 1) & gAvecParallelismeSpeculatif
+              if estPresqueSurementUneCoupureBeta  and (indexDeBoucle = 1) and gAvecParallelismeSpeculatif
                 then nroPremierFilsAParalleliser := 1
                 else nroPremierFilsAParalleliser := Max(gYoungBrotherWaitElders, indexDeBoucle);
 
               noteCourante := -LanceurBitboardAlphaBeta(platEssai,adversaire,profMoins1,-beta,-alpha,-diffEssai,nroPremierFilsAParalleliser);
 
 
-              if (noteCourante < -64) | (noteCourante > 64) then
+              if (noteCourante < -64) or (noteCourante > 64) then
                 WritelnNumDansRapport('ASSERT !!! dans CalculerLaNoteCouranteDeCeFils, noteCourante par bitboard = ',noteCourante);
 
 
-              if (noteCourante >= beta) & (nroPremierFilsAParalleliser > 1)
+              if (noteCourante >= beta) and (nroPremierFilsAParalleliser > 1)
                 then inc(gNbreDeSplitNodesRates);
 
               {$IFC NOT(NBRE_NOEUDS_EXACT_DANS_ENDGAME or COLLECTE_STATS_NBRE_NOEUDS_ENDGAME) }
@@ -1785,7 +1785,7 @@ begin
 
           valeurParLeZoo := GetValeurZooDeCeFils(ESProf,iCourant,bestSuite,tempsZoo);
 
-          if (valeurParLeZoo >= -64) & (valeurParLeZoo <= 64)
+          if (valeurParLeZoo >= -64) and (valeurParLeZoo <= 64)
             then
               begin
 
@@ -1807,12 +1807,12 @@ begin
 
                 noteCourante := valeurParLeZoo;
 
-                if (profMoins1 < profFinaleHeuristique) | (deltaFinaleCourant = kDeltaFinaleInfini)
+                if (profMoins1 < profFinaleHeuristique) or (deltaFinaleCourant = kDeltaFinaleInfini)
                   then NbNoeudsHeuristiquesDansCeFils := 0
                   else NbNoeudsHeuristiquesDansCeFils := 1;
 
                 for k := profForceBrutePlusUn to profMoins1 do  meilleureSuite[profMoins1,k] := 0;
-                if (bestSuite >= 11) & (bestSuite <= 88)
+                if (bestSuite >= 11) and (bestSuite <= 88)
                   then
                     begin
                       meilleureSuite[profMoins1,profMoins1] := bestSuite;
@@ -1826,7 +1826,7 @@ begin
             else
               begin
 
-                if (valeurParLeZoo = k_ZOO_EN_ATTENTE_DE_RESULTAT) & not(DoitStopperExecutionDeCeSousArbre(ESProf)) & (interruptionReflexion = pasdinterruption)
+                if (valeurParLeZoo = k_ZOO_EN_ATTENTE_DE_RESULTAT) and not(DoitStopperExecutionDeCeSousArbre(ESProf)) and (interruptionReflexion = pasdinterruption)
                   then CassioPrendEnChargeLuiMemeCeFilsDuZoo(ESProf,iCourant);
 
                 if (nbEvalue <= 0)
@@ -1842,7 +1842,7 @@ begin
                      noteCourante := -ABFin(contexteMakeEndgameSearch, platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                             pred(-alpha),-alpha,-diffEssai,indiceHashDesFils[indexDeBoucle],false,
                                             InfosMilieuEssai,NbNoeudsHeuristiquesDansCeFils,essayerMoinsPrecis,false);
-                     if (alpha < noteCourante) & (noteCourante < beta) then
+                     if (alpha < noteCourante) and (noteCourante < beta) then
                        if bestMode
                          then
                            begin
@@ -1859,8 +1859,8 @@ begin
                                                       InfosMilieuEssai,NbNoeudsHeuristiquesDansCeFils,essayerMoinsPrecis,false);
                                largeur_fenetre := 2*largeur_fenetre;
                                if largeur_fenetre > 16 then largeur_fenetre := 16;
-                             until ((bas_fenetre < noteCourante) & (noteCourante < haut_fenetre)) |
-                                   (noteCourante >= beta) | (noteCourante <= alpha) | ValeurDeFinaleInexploitable(noteCourante);
+                             until ((bas_fenetre < noteCourante) and (noteCourante < haut_fenetre)) or
+                                   (noteCourante >= beta) or (noteCourante <= alpha) or ValeurDeFinaleInexploitable(noteCourante);
                            end
                          else
                            noteCourante := -ABFin(contexteMakeEndgameSearch, platEssai,bestSuite,iCourant,adversaire,profMoins1,
@@ -1868,10 +1868,10 @@ begin
                                                   InfosMilieuEssai,NbNoeudsHeuristiquesDansCeFils,essayerMoinsPrecis,false);
                    end;
 
-                 if (noteCourante < -64) | (noteCourante > 64) then
+                 if (noteCourante < -64) or (noteCourante > 64) then
                    begin
 
-                     if ValeurDeFinaleInexploitable(noteCourante) & (noteCourante > 0) then noteCourante := - noteCourante;
+                     if ValeurDeFinaleInexploitable(noteCourante) and (noteCourante > 0) then noteCourante := - noteCourante;
 
                      if OnVientDeStoperExecutionDeCeFils(ESProf,iCourant,numeroArret) then
                        begin
@@ -1890,7 +1890,7 @@ begin
                  if (valeurParLeZoo <> k_ZOO_NOT_INITIALIZED_VALUE) then
                    begin
 
-                     if (valeurParLeZoo >= -64) & (valeurParLeZoo <= 64)
+                     if (valeurParLeZoo >= -64) and (valeurParLeZoo <= 64)
                        then
                          begin
                            (*
@@ -1906,7 +1906,7 @@ begin
                          end
                        else
                          begin
-                           if (interruptionReflexion = pasdinterruption) & not(DoitStopperExecutionDeCeSousArbre(ESProf)) then
+                           if (interruptionReflexion = pasdinterruption) and not(DoitStopperExecutionDeCeSousArbre(ESProf)) then
                              begin
                                RetirerCeFilsDuZoo(ESProf,iCourant);
 
@@ -1949,11 +1949,11 @@ end;
 procedure EnvoyerDesInfosPourEstimerLaCharge;
 begin
 
-   if (tempsEnSecondesPourEvaluerCeFils >= 1.0) & (indexDeBoucle > 1) then
+   if (tempsEnSecondesPourEvaluerCeFils >= 1.0) and (indexDeBoucle > 1) then
      begin
        WriteNumDansRapport('p = ',ESprof);
        WriteNumDansRapport('  , d = ',NbNoeudsHeuristiquesDansCeFils);
-       WriteStringAndBoolDansRapport('  , dev = ',(profMoins1 < profFinaleHeuristique) | (deltaFinaleCourant = kDeltaFinaleInfini));
+       WriteStringAndBoolDansRapport('  , dev = ',(profMoins1 < profFinaleHeuristique) or (deltaFinaleCourant = kDeltaFinaleInfini));
        WriteNumDansRapport('  , µ = ',deltaFinaleCourant);
        WriteNumDansRapport('  , h = ',profFinaleHeuristique);
        WriteNumDansRapport('  , profhash = ',ProfPourHashExacte);
@@ -1993,7 +1993,7 @@ begin
       if not(CassioUtiliseLeZoo) then
         exit(EssayerDeParalliserCesFilsSurLeZoo);
 
-      if (ESProf < profMinUtilisationZoo ) |
+      if (ESProf < profMinUtilisationZoo ) or
          (ESProf > profMaxUtilisationZoo ) then
         begin
           WritelnNumDansRapport('ASSERT : prof out of bounds dans EssayerDeParalliserCesFilsSurLeZoo,  ESprof = ',ESprof);
@@ -2026,7 +2026,7 @@ begin
       nbFilsEnvoyesAuZoo := 0;
 
       for i := 1 to nbCoupsEnvisages do
-        if (i >= numPremierFils) & (i <= numDernierFils) &
+        if (i >= numPremierFils) and (i <= numDernierFils) and
            (GetValeurZooDeCeFils(ESProf,listeFinale[i],foo,fooDouble) = k_ZOO_NOT_INITIALIZED_VALUE) then
           begin
 
@@ -2047,7 +2047,7 @@ begin
         	         end;
 
         	      if (indexMu <> IndexOfThisDelta(kDeltaFinaleInfini)) then
-        	        if (evalApresCeFils <= 100*alpha - ThisDeltaFinal(indexMu) - liaisonArbreZoo.margePourParallelismeHeuristique) |
+        	        if (evalApresCeFils <= 100*alpha - ThisDeltaFinal(indexMu) - liaisonArbreZoo.margePourParallelismeHeuristique) or
         	           (evalApresCeFils >= 100*beta  + ThisDeltaFinal(indexMu) + liaisonArbreZoo.margePourParallelismeHeuristique)
         	          then tempsEstimeDeCeFils := tempsEstimeDeCeFils / 10.0;
 
@@ -2072,8 +2072,8 @@ begin
 
             { on envoie les fils au zoo a condition que l'estimation de leur temps de resolution soit assez long }
 
-            if (tempsEstimeDeCeFils * dilatation >= tempsMinimalPourEnvoyerAuZoo ) &
-               (tempsEstimeDeCeFils              <= tempsMaximalPourEnvoyerAuZoo ) &
+            if (tempsEstimeDeCeFils * dilatation >= tempsMinimalPourEnvoyerAuZoo ) and
+               (tempsEstimeDeCeFils              <= tempsMaximalPourEnvoyerAuZoo ) and
                (GetValeurZooDeCeFils(ESProf,listeFinale[i],foo,fooDouble) = k_ZOO_NOT_INITIALIZED_VALUE)
               then
                 begin
@@ -2098,7 +2098,7 @@ begin
   with liaisonArbreZoo do
     begin
 
-      if (ESProf < profMinUtilisationZoo ) |
+      if (ESProf < profMinUtilisationZoo ) or
          (ESProf > profMaxUtilisationZoo ) then
         exit(InitialiserInfosPourLeZooDeCeNoeud);
 
@@ -2114,7 +2114,7 @@ begin
 
       { on parallelise eventuellement la recherche }
 
-      if (ESprof >= profMinimalePourClassementParMilieu) & (nbCoupsEnvisages >= 2) then
+      if (ESprof >= profMinimalePourClassementParMilieu) and (nbCoupsEnvisages >= 2) then
         begin
 
           { On va essayer de deviner si cette position est un noeud alpha qui pourra etre parallelise... }
@@ -2155,22 +2155,22 @@ begin
   with liaisonArbreZoo do
     begin
 
-      if (ESProf < profMinUtilisationZoo ) |
-         (ESProf > profMaxUtilisationZoo ) |
-         (interruptionReflexion <> pasdinterruption) |
+      if (ESProf < profMinUtilisationZoo ) or
+         (ESProf > profMaxUtilisationZoo ) or
+         (interruptionReflexion <> pasdinterruption) or
          DoitStopperExecutionDeCeSousArbre(ESProf) then
         exit(VerifierLeParallelismeDuZoo);
 
-      if (noteCourante >= -64) & (noteCourante < beta) then
+      if (noteCourante >= -64) and (noteCourante < beta) then
          begin
 
 
-           { if (indexDeBoucle > 1) & (tempsEnSecondesPourEvaluerCeFils >= 0.15) then EnvoyerDesInfosPourEstimerLaCharge; }
+           { if (indexDeBoucle > 1) and (tempsEnSecondesPourEvaluerCeFils >= 0.15) then EnvoyerDesInfosPourEstimerLaCharge; }
 
-           if (indexDeBoucle = 1) &
-              (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) &
-              (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) &
-              (alpha > -64) {&
+           if (indexDeBoucle = 1) and
+              (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) and
+              (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) and
+              (alpha > -64) {and
               (GetNombreDeFilsParallelisesPourCetteProf(ESProf) <= 0)}
              then
                begin
@@ -2189,9 +2189,9 @@ begin
                    then EssayerDeParalliserCesFilsSurLeZoo(3,nbCoupsEnvisages,facteur);
                end;
 
-           if (indexDeBoucle >= 2) &
-              (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) &
-              (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) &
+           if (indexDeBoucle >= 2) and
+              (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) and
+              (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) and
               (alpha > -64) then
               begin
 
@@ -2223,9 +2223,9 @@ begin
               end;
 
             (*
-            if (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) &
-               (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) &
-               (ESProf >= 28) &
+            if (tempsEnSecondesPourEvaluerCeFils >= tempsMinimalPourEnvoyerAuZoo) and
+               (tempsEnSecondesPourEvaluerCeFils <= tempsMaximalPourEnvoyerAuZoo) and
+               (ESProf >= 28) and
                (gNombreDeParallelisationVerifiees > 0) then
               begin
 
@@ -2251,7 +2251,7 @@ begin
 
          begin
 
-           if (indexDeBoucle = 1) &
+           if (indexDeBoucle = 1) and
               (GetNombreDeFilsParallelisesPourCetteProf(ESProf) > 0)  then
              begin
                inc(gNombreDeParallelisationVerifiees);
@@ -2267,14 +2267,14 @@ begin
                if gNombreDeParallelisationEnRetard > 0 then
                  WritelnStringAndReelDansRapport('ratio d''alpha-parallelisme en retard = ',100.0*gNombreDeParallelisationEnRetard/gNombreDeParallelisationVerifiees,4);
 
-               if (gNombreDeMauvaisesParallelisation > 0) & (gNombreDeParallelisationVerifiees > 0) then
+               if (gNombreDeMauvaisesParallelisation > 0) and (gNombreDeParallelisationVerifiees > 0) then
                  WritelnStringAndReelDansRapport('ratio de mauvais alpha-parallelisme = ',100.0*gNombreDeMauvaisesParallelisation/gNombreDeParallelisationVerifiees,4);
                *)
 
              end;
 
-           if (indexDeBoucle = 2) &
-              (GetNombreDeFilsParallelisesPourCetteProf(ESProf) > 0) &
+           if (indexDeBoucle = 2) and
+              (GetNombreDeFilsParallelisesPourCetteProf(ESProf) > 0) and
               (GetValeurZooDeCeFils(ESProf,iCourant,foo,fooDouble) = k_ZOO_EN_ATTENTE_DE_RESULTAT)
              then
              begin
@@ -2291,7 +2291,7 @@ begin
                if gNombreDeParallelisationEnRetard > 0 then
                  WritelnStringAndReelDansRapport('ratio d''alpha-parallelisme en retard = ',100.0*gNombreDeParallelisationEnRetard/gNombreDeParallelisationVerifiees,4);
 
-               if (gNombreDeMauvaisesParallelisation > 0) & (gNombreDeParallelisationVerifiees > 0) then
+               if (gNombreDeMauvaisesParallelisation > 0) and (gNombreDeParallelisationVerifiees > 0) then
                  WritelnStringAndReelDansRapport('ratio de mauvais alpha-parallelisme = ',100.0*gNombreDeMauvaisesParallelisation/gNombreDeParallelisationVerifiees,4);
                *)
              end;
@@ -2318,8 +2318,8 @@ begin  {ABFin}
     begin
 
       {$IFC USE_DEBUG_STEP_BY_STEP}
-      if gDebuggageAlgoFinaleStepByStep.actif &
-    	   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+      if gDebuggageAlgoFinaleStepByStep.actif and
+    	   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
     		 MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
     	  begin
     		  WritelnDansRapport('');
@@ -2420,12 +2420,12 @@ begin  {ABFin}
      IDUniqueDeCeNoeud := nbreNoeudsGeneresFinale;
      if seulementChercherDansHash then ABFin := kNoteBidonPositionNonTrouveeDansHash;
 
-     if (ESprof >= liaisonArbreZoo.profMinUtilisationZoo) &
+     if (ESprof >= liaisonArbreZoo.profMinUtilisationZoo) and
         (ESprof <= liaisonArbreZoo.profMaxUtilisationZoo)
         then utiliseMilieuDePartie :=  ESprof >= profMinimalePourClassementParMilieu
         else utiliseMilieuDePartie := (ESprof >= profMinimalePourClassementParMilieu)
-                                       {& (alpha < 40) & (beta > -40)}
-                                       & (alpha < 60) & (beta > -60);
+                                       {and (alpha < 40) and (beta > -40)}
+                                       and (alpha < 60) and (beta > -60);
 
      NbNoeudsHeuristiquesDansTousLesFils := 0;
      adversaire := -couleur;
@@ -2504,9 +2504,9 @@ begin  {ABFin}
                      {$ENDC}
 
                      with bornes do
-                     if (nbArbresCoupesValMin[nbreDeltaSuccessifs] = 0) &
-                        (valMin[nbreDeltaSuccessifs] = valMax[nbreDeltaSuccessifs]) &
-  		                  (coupDeCetteValMin[nbreDeltaSuccessifs] <> 0) & (coupDeCetteValMin[nbreDeltaSuccessifs] <> meiDef) then
+                     if (nbArbresCoupesValMin[nbreDeltaSuccessifs] = 0) and
+                        (valMin[nbreDeltaSuccessifs] = valMax[nbreDeltaSuccessifs]) and
+  		                  (coupDeCetteValMin[nbreDeltaSuccessifs] <> 0) and (coupDeCetteValMin[nbreDeltaSuccessifs] <> meiDef) then
                        begin
                          Sysbeep(0);
                          WritelnDansRapport('');
@@ -2525,8 +2525,8 @@ begin  {ABFin}
                        begin
 
                           {$IFC USE_DEBUG_STEP_BY_STEP}
-                          if gDebuggageAlgoFinaleStepByStep.actif &
-                             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                          if gDebuggageAlgoFinaleStepByStep.actif and
+                             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   					                 MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
                             begin
                               WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(k))+'] = ',valMin[k]);
@@ -2539,13 +2539,13 @@ begin  {ABFin}
                          {Ajustement de la fenetre alpha-beta}
                          if (valMin[k] > alpha) then
                            begin
-  	                         if bestMode & (deltaFinaleCourant = kDeltaFinaleInfini)
+  	                         if bestMode and (deltaFinaleCourant = kDeltaFinaleInfini)
   		                         then alpha := pred(valMin[k])
   		                         else alpha := valMin[k];
   		                       NbNoeudsHeuristiquesPourAjusterAlpha := NbNoeudsHeuristiquesPourAjusterAlpha + nbArbresCoupesValMin[k];
 
-  		                       if false & (nbArbresCoupesValMin[k] = 0) & (k = nbreDeltaSuccessifs) &
-  		                          (coupDeCetteValMin[k] <> 0) & (coupDeCetteValMin[k] <> meiDef) then
+  		                       if false and (nbArbresCoupesValMin[k] = 0) and (k = nbreDeltaSuccessifs) and
+  		                          (coupDeCetteValMin[k] <> 0) and (coupDeCetteValMin[k] <> meiDef) then
   		                           begin
   		                             Sysbeep(0);
   		                             WritelnDansRapport('');
@@ -2558,9 +2558,9 @@ begin  {ABFin}
   		                           end;
 
   		                       {$IFC USE_DEBUG_STEP_BY_STEP}
-  		                       if gDebuggageAlgoFinaleStepByStep.actif &
-  			                        (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
-  			                        ((alpha <> alphaInitial) | (beta <> betaInitial)) &
+  		                       if gDebuggageAlgoFinaleStepByStep.actif and
+  			                        (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
+  			                        ((alpha <> alphaInitial) or (beta <> betaInitial)) and
   							                MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   			                       begin
   			                         WritelnDansRapport('');
@@ -2577,15 +2577,15 @@ begin  {ABFin}
 
   	                     if (valMax[k] < beta) then
                            begin
-                             if bestMode & (deltaFinaleCourant = kDeltaFinaleInfini)
+                             if bestMode and (deltaFinaleCourant = kDeltaFinaleInfini)
                                then beta := succ(valMax[k])
                                else beta := valMax[k];
                              NbNoeudsHeuristiquesPourAjusterBeta := NbNoeudsHeuristiquesPourAjusterBeta + nbArbresCoupesValMax[k];
 
                              {$IFC USE_DEBUG_STEP_BY_STEP}
-                             if gDebuggageAlgoFinaleStepByStep.actif &
-  			                        (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
-  			                        ((alpha <> alphaInitial) | (beta <> betaInitial)) &
+                             if gDebuggageAlgoFinaleStepByStep.actif and
+  			                        (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
+  			                        ((alpha <> alphaInitial) or (beta <> betaInitial)) and
   							                MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   			                       begin
   			                         WritelnDansRapport('');
@@ -2603,11 +2603,11 @@ begin  {ABFin}
 
 
                          {
-                         if (ValMin[k] > valMax[k]) & (deltaFinaleCourant = kDeltaFinaleInfini)
-                            & (interruptionReflexion = pasdinterruption)  then
+                         if (ValMin[k] > valMax[k]) and (deltaFinaleCourant = kDeltaFinaleInfini)
+                            and (interruptionReflexion = pasdinterruption)  then
                            begin
                              SysBeep(0);
-                             WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) & ValeurMinEstAcceptable & ValeurMaxEstAcceptable');
+                             WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) and ValeurMinEstAcceptable and ValeurMaxEstAcceptable');
                              WritelnNumDansRapport('gClefHashage = ',gClefHashage);
   	                         WritelnNumDansRapport('ValMin['+NumEnString(ThisDeltaFinal(k))+'] = ',ValMin[k]);
                              WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
@@ -2623,8 +2623,8 @@ begin  {ABFin}
                              begin
 
                                {$IFC USE_DEBUG_STEP_BY_STEP}
-                               if gDebuggageAlgoFinaleStepByStep.actif &
-  	                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                               if gDebuggageAlgoFinaleStepByStep.actif and
+  	                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   	                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   	                              begin
   	                                WritelnDansRapport('');
@@ -2639,14 +2639,14 @@ begin  {ABFin}
 
 
 
-                               if bestMode &
-                                  (alpha <= valMax[k]) &
-                                  (valMin[k] <= beta) &
+                               if bestMode and
+                                  (alpha <= valMax[k]) and
+                                  (valMin[k] <= beta) and
                                   (deltaFinaleCourant = kDeltaFinaleInfini)
                                  then
                                    begin
 
-                                     if (meiDef <> 0) & (meidef = coupDeCetteValMin[k]) then
+                                     if (meiDef <> 0) and (meidef = coupDeCetteValMin[k]) then
                                        begin
   		                                   {on connait le score, mais on ne sort pas tout de suite
   		                                    de la fonction, on se contente de dire qu'il n'y a qu'un
@@ -2659,13 +2659,13 @@ begin  {ABFin}
   		                                 end;
 
                                      {$IFC USE_DEBUG_STEP_BY_STEP}
-                                     if (meiDef <> 0) & (meidef = coupDeCetteValMin[k]) &
-                                         gDebuggageAlgoFinaleStepByStep.actif &
-  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                                     if (meiDef <> 0) and (meidef = coupDeCetteValMin[k]) and
+                                         gDebuggageAlgoFinaleStepByStep.actif and
+  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   				                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   				                              begin
   				                                WritelnDansRapport('');
-  						                            WritelnDansRapport('(valMin[k] = valMax[k]) & (meiDef <> 0), donc je mets un seul coup legal dans ABFin :');
+  						                            WritelnDansRapport('(valMin[k] = valMax[k]) and (meiDef <> 0), donc je mets un seul coup legal dans ABFin :');
   						                            WritelnPositionEtTraitDansRapport(plat,couleur);
   						                            WritelnNumDansRapport('ESProf = ',ESProf);
   						                            WritelnNumDansRapport('alpha = ',alpha);
@@ -2677,12 +2677,12 @@ begin  {ABFin}
   						                          end;
   						                       {$ENDC}
 
-                                     if (k = nbreDeltaSuccessifs) &    // 100%
-                                        (coupDeCetteValMin[k] = 0) &
-                                        (alphaInitial = betaInitial - 1) &
-                                        (valMin[k] >= betaInitial) &
-                                        odd(alphaInitial) &
-                                        (alphaInitial < 63) &
+                                     if (k = nbreDeltaSuccessifs) and    // 100%
+                                        (coupDeCetteValMin[k] = 0) and
+                                        (alphaInitial = betaInitial - 1) and
+                                        (valMin[k] >= betaInitial) and
+                                        odd(alphaInitial) and
+                                        (alphaInitial < 63) and
                                         bestMode then
                                        begin
                                          // WritelnDansRapport('BINGO cas 3');
@@ -2707,8 +2707,8 @@ begin  {ABFin}
                                      NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k] + nbArbresCoupesValMax[k];
 
                                      {$IFC USE_DEBUG_STEP_BY_STEP}
-                                     if gDebuggageAlgoFinaleStepByStep.actif &
-  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                                     if gDebuggageAlgoFinaleStepByStep.actif and
+  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   				                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   				                              begin
   				                                WritelnDansRapport('');
@@ -2742,8 +2742,8 @@ begin  {ABFin}
                                    NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k];
 
                                    {$IFC USE_DEBUG_STEP_BY_STEP}
-                                   if gDebuggageAlgoFinaleStepByStep.actif &
-  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                                   if gDebuggageAlgoFinaleStepByStep.actif and
+  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   				                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   				                              begin
   				                                WritelnDansRapport('');
@@ -2774,8 +2774,8 @@ begin  {ABFin}
                                    NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMax[k];
 
                                    {$IFC USE_DEBUG_STEP_BY_STEP}
-                                   if gDebuggageAlgoFinaleStepByStep.actif &
-  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                                   if gDebuggageAlgoFinaleStepByStep.actif and
+  				                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   				                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
   				                              begin
   				                                WritelnDansRapport('');
@@ -2805,13 +2805,13 @@ begin  {ABFin}
 
   		               DecompresserBornesHashTableExacte(quelleHashTableExacte^[clefHashExacte],bornes);
 
-  		               {if essayerMoinsPrecis & (ESprof > profFinaleHeuristique - 1) & utiliseMilieuDePartie then
+  		               {if essayerMoinsPrecis and (ESprof > profFinaleHeuristique - 1) and utiliseMilieuDePartie then
   		                 begin
   		                   EssaieApproximationsMoinsPrecises;
   		                   DecompresserBornesHashTableExacte(quelleHashTableExacte^[clefHashExacte],bornes);
   		                 end;
   		               }
-  		               {if essayerMoinsPrecis & (ESprof = profFinaleHeuristique - 2) & utiliseMilieuDePartie then
+  		               {if essayerMoinsPrecis and (ESprof = profFinaleHeuristique - 2) and utiliseMilieuDePartie then
                        begin
                          EssaieApproximationsHeuristiquesSecondNiveau;
                          DecompresserBornesHashTableExacte(quelleHashTableExacte^[clefHashExacte],bornes);
@@ -2840,13 +2840,13 @@ begin  {ABFin}
 
                // pour Cassio's eval
                (*
-               if (ESprof >= profFinaleHeuristique - 1) & (ESprof <= profFinaleHeuristique + 1)
+               if (ESprof >= profFinaleHeuristique - 1) and (ESprof <= profFinaleHeuristique + 1)
                  then EssaieCoupuresHeuristiques;
                *)
 
                // pour Edmond's eval
 
-               if (ESprof >= profFinaleHeuristique ) & (ESprof <= profFinaleHeuristique + 1) then
+               if (ESprof >= profFinaleHeuristique ) and (ESprof <= profFinaleHeuristique + 1) then
                  if PeutFaireCoupureHeuristique(noteCoupure) then
                    begin
                      ABFin := noteCoupure;
@@ -2890,7 +2890,7 @@ begin  {ABFin}
              exit(ABFin);
            end;
        end;
-     if (beta <= -40) & (profMoins1 <= profForceBrute) then
+     if (beta <= -40) and (profMoins1 <= profForceBrute) then
        begin
          if beta <= -50
            then valeurMinParPionsDefinitifs := -64+2*nbPionsDefinitifsAvecInterieursEndgame(couleur,plat)
@@ -2920,8 +2920,8 @@ begin  {ABFin}
            gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
 
          {$IFC USE_DEBUG_STEP_BY_STEP}
-         if gDebuggageAlgoFinaleStepByStep.actif &
-            (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+         if gDebuggageAlgoFinaleStepByStep.actif and
+            (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
             MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
            begin
              WritelnDansRapport('');
@@ -2944,8 +2944,8 @@ begin  {ABFin}
   	       TrierCasesVidesIsolees;
 
   	       {$IFC USE_DEBUG_STEP_BY_STEP}
-  	       if gDebuggageAlgoFinaleStepByStep.actif &
-             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+  	       if gDebuggageAlgoFinaleStepByStep.actif and
+             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
              MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
             begin
               WritelnDansRapport('');
@@ -2959,15 +2959,15 @@ begin  {ABFin}
   	       if ESprof >= profPourTriSelonDivergence then
   	          nbCoupsPourCoul := TrierSelonDivergenceAvecMilieu(plat,couleur,nbCoupsPourCoul,conseilHash,listeFinale,listeFinale,InfosMilieuDePartie,
         	                                                      100*alpha,100*beta,estPresqueSurementUneCoupureAlpha,estPresqueSurementUneCoupureBeta,
-        	                                                      utiliseMilieuDePartie & not(estPresqueSurementUneCoupureAlpha) & (alpha < 60) & (beta > -60),
+        	                                                      utiliseMilieuDePartie and not(estPresqueSurementUneCoupureAlpha) and (alpha < 60) and (beta > -60),
         	                                                      evaluationDeLaPosition);
 
   	       {if (ESprof >= ProfPourHashExacte) then
   	           AttacheCoupsLegauxDansHash(1,nbCoupsPourCoul,quelleHashTableCoupsLegaux,clefHashExacte,listeFinale);}
 
   	       {$IFC USE_DEBUG_STEP_BY_STEP}
-  	       if gDebuggageAlgoFinaleStepByStep.actif &
-             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+  	       if gDebuggageAlgoFinaleStepByStep.actif and
+             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
              MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
             begin
               WritelnNumDansRapport('ESprof = ',ESprof);
@@ -2990,8 +2990,8 @@ begin  {ABFin}
          begin
 
            {$IFC USE_DEBUG_STEP_BY_STEP}
-           if gDebuggageAlgoFinaleStepByStep.actif &
-             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+           if gDebuggageAlgoFinaleStepByStep.actif and
+             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
              MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
             begin
               WritelnDansRapport('');
@@ -3003,8 +3003,8 @@ begin  {ABFin}
             end;
             {$ENDC}
 
-           if (ESprof > ProfPourHashExacte) &
-  			      (alpha <= 50) & (beta >= -50) then
+           if (ESprof > ProfPourHashExacte) and
+  			      (alpha <= 50) and (beta >= -50) then
   			     if PeutTrouverTranspositionUnCoupPlusLoin(alpha,beta,noteCoupure) then
   			       begin  // ETC !
   			         ABFin := noteCoupure;
@@ -3054,7 +3054,7 @@ begin  {ABFin}
 
     for numeroDePasse := 1 to 2 do
       for indexDeBoucle := 1 to nbCoupsEnvisages do
-        if not(filsEvalue[indexDeBoucle]) & (interruptionReflexion = pasdinterruption) then
+        if not(filsEvalue[indexDeBoucle]) and (interruptionReflexion = pasdinterruption) then
           begin
             indiceHashDesFils[indexDeBoucle] := -3000;
 
@@ -3065,7 +3065,7 @@ begin  {ABFin}
 
 
                 { lors de la premiere passe, on saute les coups pris en charge par le zoo }
-                if (numeroDePasse = 1) & (indexDeBoucle >= 2) &
+                if (numeroDePasse = 1) and (indexDeBoucle >= 2) and
                    (GetValeurZooDeCeFils(ESProf,iCourant,bestSuite,tempsCalculZoo) = k_ZOO_POSITION_PRISE_EN_CHARGE)
                   then
                     begin
@@ -3079,7 +3079,7 @@ begin  {ABFin}
 
                 constanteDePariteDeiCourant := constanteDeParite[iCourant];
 
-                {if (deltaFinaleCourant = kDeltaFinaleInfini) & (NbNoeudsHeuristiquesDansTousLesFils <> 0) & (interruptionReflexion = pasdinterruption)  then
+                {if (deltaFinaleCourant = kDeltaFinaleInfini) and (NbNoeudsHeuristiquesDansTousLesFils <> 0) and (interruptionReflexion = pasdinterruption)  then
                   begin
                     SysBeep(0);
                     WritelnNumDansRapport('ERROR au début de la boucle des coups légaux : deltaFinaleCourant = infini mais NbNoeudsHeuristiquesDansTousLesFils = ',NbNoeudsHeuristiquesDansTousLesFils);
@@ -3148,13 +3148,13 @@ begin  {ABFin}
                     filsEvalue[indexDeBoucle] := true;
 
 
-                    if (noteCourante >= beta) & (noteCourante < betaInitial) then
+                    if (noteCourante >= beta) and (noteCourante < betaInitial) then
                       NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + NbNoeudsHeuristiquesPourAjusterBeta;
-                    if (noteCourante <= alpha) & (noteCourante > alphaInitial) then
+                    if (noteCourante <= alpha) and (noteCourante > alphaInitial) then
                       NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + NbNoeudsHeuristiquesPourAjusterAlpha;
 
                     (*
-                    if estPresqueSurementUneCoupureBeta & (profMoins1 <= profForceBrute + 3) & (indexDeBoucle = 1) & (noteCourante >= beta) then
+                    if estPresqueSurementUneCoupureBeta and (profMoins1 <= profForceBrute + 3) and (indexDeBoucle = 1) and (noteCourante >= beta) then
                       begin
                         inc(gNombreDeCoupuresBetaReussies);
                         {if (gNombreDeCoupuresBetaPresquesSures mod 128) = 0 then
@@ -3170,8 +3170,8 @@ begin  {ABFin}
           		      {$ENDC}
 
           		      {$IFC USE_DEBUG_STEP_BY_STEP}
-          		      if gDebuggageAlgoFinaleStepByStep.actif &
-          	          (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+          		      if gDebuggageAlgoFinaleStepByStep.actif and
+          	          (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
           	          MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
           	          begin
           	            WritelnDansRapport('');
@@ -3204,8 +3204,8 @@ begin  {ABFin}
                        begin
 
                          {$IFC USE_DEBUG_STEP_BY_STEP}
-                         if gDebuggageAlgoFinaleStepByStep.actif &
-      					           (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                         if gDebuggageAlgoFinaleStepByStep.actif and
+      					           (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
       					           MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
       					          begin
       					            WritelnDansRapport('');
@@ -3230,10 +3230,10 @@ begin  {ABFin}
                          maxPourBestDef := noteCourante;
                          meiDef := iCourant;
 
-                         if (ESprof >= ProfPourHashExacte) &
-                            (maxPourBestDef <= bornes.valMin[nbreDeltaSuccessifs]) {&
-                            (bornes.coupDeCetteValMin[nbreDeltaSuccessifs] <> 0)} &
-                            (maxPourBestDef <= alpha) &
+                         if (ESprof >= ProfPourHashExacte) and
+                            (maxPourBestDef <= bornes.valMin[nbreDeltaSuccessifs]) {and
+                            (bornes.coupDeCetteValMin[nbreDeltaSuccessifs] <> 0)} and
+                            (maxPourBestDef <= alpha) and
                             (nbCoupsEnvisages > 1)
       	                   then meiDef := bornes.coupDeCetteValMin[nbreDeltaSuccessifs];
 
@@ -3241,17 +3241,17 @@ begin  {ABFin}
                            then
       	                     begin
 
-      	                       if (ESprof >= ProfPourHashExacte) &
-      					                  (noteCourante > valeurExacteMax) &
-      					                  (NbNoeudsHeuristiquesDansCeFils = 0) &
+      	                       if (ESprof >= ProfPourHashExacte) and
+      					                  (noteCourante > valeurExacteMax) and
+      					                  (NbNoeudsHeuristiquesDansCeFils = 0) and
       					                  (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] > 0) then
       			                      begin
       			                        ValeurExacteMax := noteCourante;
       			                        bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] := bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant];
       			                      end;
 
-      	                       if (ESprof >= ProfPourHashExacte) &
-      					                  (noteCourante > valeurExacteMax) &
+      	                       if (ESprof >= ProfPourHashExacte) and
+      					                  (noteCourante > valeurExacteMax) and
       					                  (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] > 0) then
       			                        begin
       		                            ValeurExacteMax := noteCourante;
@@ -3302,16 +3302,16 @@ begin  {ABFin}
 
       	                           {si les evaluations des coups precedents etaient sures,
       	                            on peut liberer un peu de place dans la table de hashage}
-      	                           if (indexDeBoucle > 1) & (ESprof > ProfPourHashExacte) &
-      	                              ((ESprof < profFinaleHeuristique) |
-      	                              (({(deltaFinaleCourant = kDeltaFinaleInfini) &} (NbNoeudsHeuristiquesDansTousLesFils = 0)))) then
+      	                           if (indexDeBoucle > 1) and (ESprof > ProfPourHashExacte) and
+      	                              ((ESprof < profFinaleHeuristique) or
+      	                              (({(deltaFinaleCourant = kDeltaFinaleInfini) and} (NbNoeudsHeuristiquesDansTousLesFils = 0)))) then
       	                              LiberePlacesHashTableExacte(1,pred(indexDeBoucle));
 
       	                           {si les evaluations des coups precedents etaient sures,
       	                            on peut elaguer ces coups; sinon on stocke tous les coups
       	                            legaux pour eviter d'avoir à les recalculer}
-      	                           if ((ESprof < profFinaleHeuristique) |
-      	                               ({(deltaFinaleCourant = kDeltaFinaleInfini) &} (NbNoeudsHeuristiquesDansTousLesFils = 0)))
+      	                           if ((ESprof < profFinaleHeuristique) or
+      	                               ({(deltaFinaleCourant = kDeltaFinaleInfini) and} (NbNoeudsHeuristiquesDansTousLesFils = 0)))
       	                             then
       	                               begin
       	                                 MetCoupEnTeteEtAttacheCoupsLegauxDansHash(indexDeBoucle,nbCoupsPourCoul,meiDef,quelleHashTableCoupsLegaux,clefHashExacte,listeFinale);
@@ -3326,7 +3326,7 @@ begin  {ABFin}
 
       	                           {on vient de trouver un nouvelle borne inferieure}
 
-      	                           {if (NbNoeudsHeuristiquesDansTousLesFils = 0) & (ValeursArriveeHashExacte.nbSousArbresCoupesValeurMax > 0) then
+      	                           {if (NbNoeudsHeuristiquesDansTousLesFils = 0) and (ValeursArriveeHashExacte.nbSousArbresCoupesValeurMax > 0) then
       	                                 begin
       	                                   WritelnDansRapport('WARNING : aurais-je trouvé ???');
       	                                   WritelnNumDansRapport('gClefHashage = ',gClefHashage);
@@ -3370,8 +3370,8 @@ begin  {ABFin}
       	                            ABFin := maxPourBestDef;
 
       	                            {$IFC USE_DEBUG_STEP_BY_STEP}
-      	                            if gDebuggageAlgoFinaleStepByStep.actif &
-      	                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+      	                            if gDebuggageAlgoFinaleStepByStep.actif and
+      	                               (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
       	                               MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
       	                              begin
       			                            WritelnDansRapport('sortie par (alpha >= beta) dans ABFin :');
@@ -3394,7 +3394,7 @@ begin  {ABFin}
       	                                meilleureSuite[ESprof,ESprof] := meiDef;
       	                              end;
 
-      	                            if (ESprof >= ProfUtilisationHash) & (ESprof >= profondeurRemplissageHash)
+      	                            if (ESprof >= ProfUtilisationHash) and (ESprof >= profondeurRemplissageHash)
       	                                  then HashTable^^[clefHashConseil] := meiDef;
       	                            NettoyerInfosDuZooPourCetteProf(ESProf);
       	                            CleanUpPourQuitterABFin;
@@ -3415,8 +3415,8 @@ begin  {ABFin}
       		               meilleureSuite[ESprof,ESprof] := iCourant;
 
       		               {$IFC USE_DEBUG_STEP_BY_STEP}
-                         if gDebuggageAlgoFinaleStepByStep.actif &
-      	                    (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+                         if gDebuggageAlgoFinaleStepByStep.actif and
+      	                    (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
       	                    MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
       	                    begin
       	                      WritelnDansRapport('');
@@ -3469,15 +3469,15 @@ begin  {ABFin}
               if (ESprof >= ProfPourHashExacte) then
                   begin
 
-                   if (valeurExacteMin > maxPourBestDef) &
-                      (NbNoeudsHeuristiquesDansTousLesFils > 0) &
+                   if (valeurExacteMin > maxPourBestDef) and
+                      (NbNoeudsHeuristiquesDansTousLesFils > 0) and
                       (bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] = 0) then
                       begin
                         maxPourBestDef := valeurExacteMin;
                       end;
 
-                   if (valeurExacteMin > maxPourBestDef) &
-                      (NbNoeudsHeuristiquesDansTousLesFils = 0) &
+                   if (valeurExacteMin > maxPourBestDef) and
+                      (NbNoeudsHeuristiquesDansTousLesFils = 0) and
                       (bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] > 0) then
                       begin
                         valeurExacteMin := maxPourBestDef;
@@ -3493,8 +3493,8 @@ begin  {ABFin}
 
                       end;
 
-                   if (valeurExacteMin > maxPourBestDef) &
-                      (NbNoeudsHeuristiquesDansTousLesFils > 0) &
+                   if (valeurExacteMin > maxPourBestDef) and
+                      (NbNoeudsHeuristiquesDansTousLesFils > 0) and
                       (bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] > 0) then
                      begin
                        valeurExacteMin := maxPourBestDef;
@@ -3510,8 +3510,8 @@ begin  {ABFin}
 
                      end;
 
-                  if (valeurExacteMin <> maxPourBestDef) &
-                     (NbNoeudsHeuristiquesDansTousLesFils = 0) &
+                  if (valeurExacteMin <> maxPourBestDef) and
+                     (NbNoeudsHeuristiquesDansTousLesFils = 0) and
                       (bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] = 0) then
                       begin
                         (*
@@ -3526,10 +3526,10 @@ begin  {ABFin}
                      on peut elaguer tous les fils sauf le meilleur,
                      et liberer les places correspondantes dans la table
                      de hachage}
-                    if (ordreDuMeilleur >= 1) & (meiDef <> 0) &
-                       ((ESprof < profFinaleHeuristique) |
-                       ({(deltaFinaleCourant = kDeltaFinaleInfini) & }
-                         (NbNoeudsHeuristiquesDansTousLesFils = 0) & (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] = 0) &
+                    if (ordreDuMeilleur >= 1) and (meiDef <> 0) and
+                       ((ESprof < profFinaleHeuristique) or
+                       ({(deltaFinaleCourant = kDeltaFinaleInfini) and }
+                         (NbNoeudsHeuristiquesDansTousLesFils = 0) and (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] = 0) and
                                                                      (bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] = 0)))
                       then            { alpha < maxPourBestDef < beta }
                         begin
@@ -3571,10 +3571,10 @@ begin  {ABFin}
                       else DiminutionMajorant(maxPourBestDef,deltaFinaleCourant,couleur,bornes,plat,'sortie normale (4)'); {valeur heuristique}
 
                     {l'ancienne borne inferieure}
-                    if ((valeurExacteMin > alphaInitial) | ((valeurExacteMin = 64) & (alphaInitial = 64)) |
-                          ((maxPourBestDef = -64) & (valeurExacteMin = -64) & (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] = 0))) &
-                       ((valeurExacteMin < betaInitial) | ((valeurExacteMin = -64) & (betaInitial = -64))) &
-                       (valeurExacteMin = maxPourBestDef) & (meiDef <> 0) & (NbNoeudsHeuristiquesDansTousLesFils = 0)
+                    if ((valeurExacteMin > alphaInitial) or ((valeurExacteMin = 64) and (alphaInitial = 64)) or
+                          ((maxPourBestDef = -64) and (valeurExacteMin = -64) and (bornes.nbArbresCoupesValMax[indexDeltaFinaleCourant] = 0))) and
+                       ((valeurExacteMin < betaInitial) or ((valeurExacteMin = -64) and (betaInitial = -64))) and
+                       (valeurExacteMin = maxPourBestDef) and (meiDef <> 0) and (NbNoeudsHeuristiquesDansTousLesFils = 0)
                       then meiDefenseSansHeuristique := meiDef;
                     if bornes.nbArbresCoupesValMin[indexDeltaFinaleCourant] = 0
                       then AugmentationMinorant(valeurExacteMin,kDeltaFinaleInfini,meiDefenseSansHeuristique,couleur,bornes,plat,'sortie normale (1)')  {valeur sure à 100%}
@@ -3609,8 +3609,8 @@ begin  {ABFin}
 
 
           {$IFC USE_DEBUG_STEP_BY_STEP}
-          if gDebuggageAlgoFinaleStepByStep.actif &
-             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+          if gDebuggageAlgoFinaleStepByStep.actif and
+             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
              MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
             begin
               WritelnDansRapport('');
@@ -3636,8 +3636,8 @@ begin  {ABFin}
         begin
 
           {$IFC USE_DEBUG_STEP_BY_STEP}
-          if gDebuggageAlgoFinaleStepByStep.actif &
-             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+          if gDebuggageAlgoFinaleStepByStep.actif and
+             (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
              MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
             begin
               WritelnDansRapport('');
@@ -3715,11 +3715,11 @@ begin
     		  WriteStringDansRapport('  )……');
     		end;
 
-      if (alpha > beta) | (alpha < -65) | (beta > 65) then
+      if (alpha > beta) or (alpha < -65) or (beta > 65) then
         begin
           SysBeep(0);
           WritelnDansRapport('');
-          WritelnDansRapport('ASSERT((alpha < -64) | (beta > 64) | (alpha > beta)) dans LanceurABFin!!!');
+          WritelnDansRapport('ASSERT((alpha < -64) or (beta > 64) or (alpha > beta)) dans LanceurABFin!!!');
           WritelnPositionEtTraitDansRapport(plat,couleur);
           WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
           WritelnStringAndCoupDansRapport('pere = ',pere);
@@ -3742,8 +3742,8 @@ begin
       with gDebuggageAlgoFinaleStepByStep do
         begin
           positionsCherchees := MakeEmptyPositionEtTraitSet;
-          {actif := (pere = 22)} {& (deltaFinaleCourant >= 200) & (alpha = -64)};
-          {actif := (pere = 78) & (ESProf = 19);}
+          {actif := (pere = 22)} {and (deltaFinaleCourant >= 200) and (alpha = -64)};
+          {actif := (pere = 78) and (ESProf = 19);}
           actif := true;
           profMin := 0;
           if actif then AjouterPositionsDevantEtreDebugueesPasAPas(positionsCherchees);
@@ -3795,12 +3795,12 @@ begin
       coupuresHeuristiques := 0;
 
       if not(CassioEstEnTrainDeCalculerPourLeZoo)
-         & AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, kDeltaFinaleInfini, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
-         & not(passeEhancedTranspositionCutOffEstEnCours)
-         & (not(bestMode) | ((alphaLanceur >= betaLanceur - 1) & (alphaLanceur < 63)) | (deltaFinaleCourant < kDeltaFinaleInfini))
-         & (alphaLanceur >= betaLanceur)
-         & ((alphaLanceur >= beta) | ((alpha = -64) & (beta = 64)))
-         & (coupuresHeuristiques = 0)
+         and AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, kDeltaFinaleInfini, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
+         and not(passeEhancedTranspositionCutOffEstEnCours)
+         and (not(bestMode) or ((alphaLanceur >= betaLanceur - 1) and (alphaLanceur < 63)) or (deltaFinaleCourant < kDeltaFinaleInfini))
+         and (alphaLanceur >= betaLanceur)
+         and ((alphaLanceur >= beta) or ((alpha = -64) and (beta = 64)))
+         and (coupuresHeuristiques = 0)
         then
           begin
             valeurTrouveeDansLaTableDeHachage := true;
@@ -3817,11 +3817,11 @@ begin
       coupuresHeuristiques := 0;
 
       if not(CassioEstEnTrainDeCalculerPourLeZoo)
-         & not(seMefierDesScoresDeLArbre)
-         & SuiteParfaiteEstConnueDansGameTree
-         & AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, deltaFinaleCourant, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
-         & (alphaLanceur >= betaLanceur)
-         & (coupuresHeuristiques = 0)
+         and not(seMefierDesScoresDeLArbre)
+         and SuiteParfaiteEstConnueDansGameTree
+         and AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, deltaFinaleCourant, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
+         and (alphaLanceur >= betaLanceur)
+         and (coupuresHeuristiques = 0)
         then
           begin
             valeurTrouveeDansLaTableDeHachage := true;
@@ -3832,7 +3832,7 @@ begin
           end;
 
 
-      if CassioIsUsingAnEngine(numeroEngine) & (ESprof >= 22) & not(passeEhancedTranspositionCutOffEstEnCours) & not(valeurTrouveeDansLaTableDeHachage) then
+      if CassioIsUsingAnEngine(numeroEngine) and (ESprof >= 22) and not(passeEhancedTranspositionCutOffEstEnCours) and not(valeurTrouveeDansLaTableDeHachage) then
         begin
            precision := IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinaleCourant);
 
@@ -3840,14 +3840,14 @@ begin
            // si la precision est < 100% , il suffit d'avoir alpha >= beta dans
            // la table de hachage de Cassio pour provoquer une coupure : il
            // est inutile d'appeler les moteurs dans ce cas
-           if (precision < 100) & not(seMefierDesScoresDeLArbre) & not(CassioEstEnTrainDeCalculerPourLeZoo) then
+           if (precision < 100) and not(seMefierDesScoresDeLArbre) and not(CassioEstEnTrainDeCalculerPourLeZoo) then
              begin
                alphaLanceur := -64;
                betaLanceur := 64;
                coupuresHeuristiques := 0;
                if AmeliorerFenetreParHashTableExacte(meilleureSuite, bestmode, platEndgame, pere, couleur, ESProf, kDeltaFinaleInfini, alphaLanceur, betaLanceur, valeur, meiDef, coupuresHeuristiques)
-                  & (alphaLanceur >= betaLanceur)
-                  & (coupuresHeuristiques = 0)
+                  and (alphaLanceur >= betaLanceur)
+                  and (coupuresHeuristiques = 0)
                   then valeurTrouveeDansLaTableDeHachage := true;
              end;
 
@@ -3856,9 +3856,9 @@ begin
            // suite parfaite complete puisque l'on cherche aussi à ramener une
            // suite de coups.
            if (precision = 100)
-              & not(seMefierDesScoresDeLArbre)
-              & coupGagnantUtiliseEndgameTrees
-              & EndgameTreeEstValide(numeroEndgameTreeActif, contexteMakeEndgameSearch) then
+              and not(seMefierDesScoresDeLArbre)
+              and coupGagnantUtiliseEndgameTrees
+              and EndgameTreeEstValide(numeroEndgameTreeActif, contexteMakeEndgameSearch) then
                 begin
                   suiteOptimale := NewPropertyList;
                   G := GetActiveNodeOfEndgameTree(numeroEndgameTreeActif);
@@ -3866,7 +3866,7 @@ begin
                      begin
                        currentPos := MakePositionEtTrait(platEndgame,couleur);
                        if SamePositionEtTrait(treePos, currentPos)
-                          & PeutCalculerFinaleParEndgameTree(numeroEndgameTreeActif, treePos, suiteOptimale, valeur)
+                          and PeutCalculerFinaleParEndgameTree(numeroEndgameTreeActif, treePos, suiteOptimale, valeur)
                           then valeurTrouveeDansLaTableDeHachage := true; // ligne parfaite trouvee !
                      end;
                   DisposePropertyList(suiteOptimale);
@@ -3875,12 +3875,12 @@ begin
 
            // WritelnNumDansRapport('estimationPositionDApresMilieu = ',estimationPositionDApresMilieu);
 
-           essayerUtiliserLeMoteur := ((precision >= 80) |                                                // pour forcer l'utilisation du moteur dans les hautes precisions
-                                      ((precision >= 70) & (ESprof > 30))) |                              // idem
-                                      ((precision >= 25) & (abs(estimationPositionDApresMilieu) >= 50));  // pour forcer l'utilisation du moteur dans les positions desequilibrees
+           essayerUtiliserLeMoteur := ((precision >= 80) or                                                // pour forcer l'utilisation du moteur dans les hautes precisions
+                                      ((precision >= 70) and (ESprof > 30))) or                              // idem
+                                      ((precision >= 25) and (abs(estimationPositionDApresMilieu) >= 50));  // pour forcer l'utilisation du moteur dans les positions desequilibrees
 
            essayerUtiliserLeMoteur := essayerUtiliserLeMoteur
-                                      & not(valeurTrouveeDansLaTableDeHachage) & (alpha < beta);
+                                      and not(valeurTrouveeDansLaTableDeHachage) and (alpha < beta);
 
            if essayerUtiliserLeMoteur then
              valeurCalculeeParLeMoteurExterne := EnginePeutFaireCalculDeFinale(plat,couleur,alpha,beta,precision,pere,valeur,meiDef,contexteMakeEndgameSearch.meilleureSuite);
@@ -3898,7 +3898,7 @@ begin
           avecRecursiviteDansEval := tempoAvecRecursiviteDansEval;
         end;
 
-      if ValeurDeFinaleInexploitable(valeur) & (valeur > 0) then valeur := - valeur;
+      if ValeurDeFinaleInexploitable(valeur) and (valeur > 0) then valeur := - valeur;
 
       LanceurABFin := valeur;
 
@@ -3906,11 +3906,11 @@ begin
       nbTickLanceur := TickCount - nbTickLanceur;
 
 
-      if ((valeur < -64) | (valeur > 64)) & not(ValeurDeFinaleInexploitable(valeur))  then
+      if ((valeur < -64) or (valeur > 64)) and not(ValeurDeFinaleInexploitable(valeur))  then
         begin
           SysBeep(0);
           WritelnDansRapport('');
-          WritelnDansRapport('ASSERT((valeur < -64) | (valeur > 64)) dans LanceurABFin!!!');
+          WritelnDansRapport('ASSERT((valeur < -64) or (valeur > 64)) dans LanceurABFin!!!');
           WritelnPositionEtTraitDansRapport(plat,couleur);
           WritelnNumDansRapport('valeur = ',valeur);
           WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
@@ -4164,7 +4164,7 @@ begin
         iCourant := square;
         constanteDePariteDeiCourant := constantePariteDeSquare;
 
-        if (ESprof < 3) | (BAnd(gVecteurParite,constanteDePariteDeiCourant) <> 0) then
+        if (ESprof < 3) or (BAnd(gVecteurParite,constanteDePariteDeiCourant) <> 0) then
 
 
         if ModifPlatFinDiffFastLongint(iCourant,couleur,adversaire,platEssai,diffEssai)
@@ -4716,7 +4716,7 @@ var platEssai : plateauOthello;
         alphaPourEval := GetWindowAlphaEnMidgameEval(fenetre);
         betaPourEval := GetWindowBetaEnMidgameEval(fenetre);
 
-        if (profArrivee > 2) & (alphaPourEval > -20000) & (betaPourEval < 20000)
+        if (profArrivee > 2) and (alphaPourEval > -20000) and (betaPourEval < 20000)
           then
             begin
 
@@ -4771,9 +4771,9 @@ begin  {ABPreordre}
 
          probableFailLow  := false;
          probableFailHigh := false;
-      	 utiliseMilieuDePartiePourTrier := suffisamentLoinDesFeuillesDeLArbre &
+      	 utiliseMilieuDePartiePourTrier := suffisamentLoinDesFeuillesDeLArbre and
       		                                (ESprof >= profMinimalePourClassementParMilieu)
-      		                                & (alphaPourEval < 6000) & (betaPourEval > -6000);
+      		                                and (alphaPourEval < 6000) and (betaPourEval > -6000);
 
          adversaire := -couleur;
          profMoins1 := pred(ESprof);
@@ -4797,7 +4797,7 @@ begin  {ABPreordre}
            end;
          *)
 
-         if (canDoProbCut & IsNullWindow(fenetre)) then
+         if (canDoProbCut and IsNullWindow(fenetre)) then
       	   begin
       	      {if beta > alpha+1 then
       	        begin
@@ -4901,8 +4901,8 @@ begin  {ABPreordre}
       	       TrierCasesVidesIsolees;
 
       	       {$IFC USE_DEBUG_STEP_BY_STEP}
-        	     if gDebuggageAlgoFinaleStepByStep.actif &
-                   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+        	     if gDebuggageAlgoFinaleStepByStep.actif and
+                   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
                    MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
                   begin
                     WritelnDansRapport('');
@@ -4923,8 +4923,8 @@ begin  {ABPreordre}
       	         end;
 
       	       {$IFC USE_DEBUG_STEP_BY_STEP}
-      	       if gDebuggageAlgoFinaleStepByStep.actif &
-                 (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+      	       if gDebuggageAlgoFinaleStepByStep.actif and
+                 (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
                  MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
                 begin
                   WritelnNumDansRapport('ESprof = ',ESprof);
@@ -4946,14 +4946,14 @@ begin  {ABPreordre}
       	   else
       	     begin
       	       (*
-      	        if (ESprof >= profPourTriSelonDivergence) & suffisamentLoinDesFeuillesDeLArbre &
-      	          (ESprof >= ProfPourHashExacte) & (BAnd(quelleHashTableExacte^[clefHashExacte].flags,kMaskRecalculerCoupsLegaux) <> 0)
+      	        if (ESprof >= profPourTriSelonDivergence) and suffisamentLoinDesFeuillesDeLArbre and
+      	          (ESprof >= ProfPourHashExacte) and (BAnd(quelleHashTableExacte^[clefHashExacte].flags,kMaskRecalculerCoupsLegaux) <> 0)
       	         then TrierSelonDivergenceAvecMilieu(listeFinale,listeFinale);
       	       *)
 
       	       {$IFC USE_DEBUG_STEP_BY_STEP}
-      	       if gDebuggageAlgoFinaleStepByStep.actif &
-                   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) &
+      	       if gDebuggageAlgoFinaleStepByStep.actif and
+                   (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
                    MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
                   begin
                     WritelnDansRapport('');
@@ -4990,7 +4990,7 @@ begin  {ABPreordre}
               //WritelnNumDansRapport('ABPreordre, coup = ',iCourant);
 
               with InfosMilieuEssai do
-                coupLegal := (platEssai[iCourant] = pionVide) & ModifPlatLongint(iCourant,couleur,platEssai,jouable,nbBlancs,nbNoirs,frontiere);
+                coupLegal := (platEssai[iCourant] = pionVide) and ModifPlatLongint(iCourant,couleur,platEssai,jouable,nbBlancs,nbNoirs,frontiere);
 
               if coupLegal then
                 begin
@@ -5009,7 +5009,7 @@ begin  {ABPreordre}
                         else
                           begin
                             evaluerMaintenant := true;
-                            if evaluerMaintenant & not(utilisationNouvelleEval) then
+                            if evaluerMaintenant and not(utilisationNouvelleEval) then
                               evaluerMaintenant := PasDeBordDeCinqAttaque(adversaire,InfosMilieuEssai.frontiere,platessai);
                           end;
 
@@ -5030,7 +5030,7 @@ begin  {ABPreordre}
                       end
                     else
                      begin
-                      if (nbEvalue <= 0) | IsNullWindow(fenetre)
+                      if (nbEvalue <= 0) or IsNullWindow(fenetre)
                        then
                          begin
                           noteCourante := ReverseResult(ABPreOrdre(platEssai,InfosMilieuEssai,bestSuite,iCourant,adversaire,profMoins1,
@@ -5086,15 +5086,15 @@ begin  {ABPreordre}
                    *)
 
 
-                   if (ameliorationMinimax & (typePropagation = kPropagationMinimax)) |
-                      (ameliorationProofNumber & (typePropagation = kPropagationProofNumber)) then
+                   if (ameliorationMinimax and (typePropagation = kPropagationMinimax)) or
+                      (ameliorationProofNumber and (typePropagation = kPropagationProofNumber)) then
                       begin
 
                         meiDef := iCourant;
 
                         oldAlpha := GetWindowAlphaEnMidgameEval(fenetre);
-                        if UpdateSearchWindow(maxPourBestDef,fenetre) |
-                           (ameliorationProofNumber & (typePropagation = kPropagationProofNumber)) then
+                        if UpdateSearchWindow(maxPourBestDef,fenetre) or
+                           (ameliorationProofNumber and (typePropagation = kPropagationProofNumber)) then
                           begin
 
                             with ameliorationsAlpha do
@@ -5119,7 +5119,7 @@ begin  {ABPreordre}
                                 SetBestDefenseDansHashExacte(meiDef,quelleHashTableExacte^[clefHashExacte]);
                               end;
 
-                            if (AlphaBetaCut(fenetre) & (typePropagation = kPropagationMinimax)) then
+                            if (AlphaBetaCut(fenetre) and (typePropagation = kPropagationMinimax)) then
                                begin
                                  ABPreOrdre := maxPourBestDef;
                                  if ESprof >= ProfUtilisationHash  then
@@ -5150,7 +5150,7 @@ begin  {ABPreordre}
 
                   if (ESprof >= ProfPourHashExacte) then
                     begin
-                      (*if (ESprof = profFinaleHeuristique) & (distanceProfArret >= profEvaluationHeuristique[ESprof]) & (ameliorationsAlpha.cardinal >= 1)
+                      (*if (ESprof = profFinaleHeuristique) and (distanceProfArret >= profEvaluationHeuristique[ESprof]) and (ameliorationsAlpha.cardinal >= 1)
                         then
                           begin
                             {
@@ -5214,8 +5214,8 @@ begin
           WritelnDansRapport('entrée dans AjouteScoreToEndgameTree : ');
         end;
 
-      if not(ValeurDeFinaleInexploitable(valeur)) &
-         (GetTraitOfPosition(positionEtTrait) <> pionVide) &
+      if not(ValeurDeFinaleInexploitable(valeur)) and
+         (GetTraitOfPosition(positionEtTrait) <> pionVide) and
          EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) then
         begin
           G := GetActiveNodeOfEndgameTree(numeroEndgameTreeActif);
@@ -5241,10 +5241,10 @@ begin
     			      	WritelnDansRapport('');
     	      	  end;
 
-    	      	if OK & SamePositionEtTrait(posArbre,positionEtTrait)
+    	      	if OK and SamePositionEtTrait(posArbre,positionEtTrait)
     	      	  then
     	      	    begin
-    	      	      if (genreRefl = ReflParfait) & odd(scorePourNoir) then
+    	      	      if (genreRefl = ReflParfait) and odd(scorePourNoir) then
                       begin
                         {SysBeep(0);}
                         WritelnNumDansRapport('PAS NORMAL ! dans AjouteScoreToEndgameTree, scorePourNoir = ',scorePourNoir);
@@ -5259,7 +5259,7 @@ begin
     	      	  else
     	      	    begin
     	      	      SysBeep(0);
-    	      	      WritelnDansRapport('ASSERT( OK & SamePositionEtTrait(posArbre,positionEtTrait)) dans AjouteScoreToEndgameTree');
+    	      	      WritelnDansRapport('ASSERT( OK and SamePositionEtTrait(posArbre,positionEtTrait)) dans AjouteScoreToEndgameTree');
     	      	    end;
             end;
         end;
@@ -5289,8 +5289,8 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch do
     begin
       if interruptionReflexion = pasdinterruption then
-      if not(rechercheDejaAnnonceeDansRapport) & not(InfosDansRapportSontCensurees(numeroCoup)) then
-        if (numeroCoup < (60-kNbCasesVidesPourAnnonceDansRapport)) |
+      if not(rechercheDejaAnnonceeDansRapport) and not(InfosDansRapportSontCensurees(numeroCoup)) then
+        if (numeroCoup < (60-kNbCasesVidesPourAnnonceDansRapport)) or
            GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]) then
           begin
             s1 := NumEnString(numeroCoup);
@@ -5330,13 +5330,13 @@ begin
     begin
       if not(InfosDansRapportSontCensurees(noCoupRecherche)) then
         begin
-          s := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,((deltaFinaleCourant < kDeltaFinaleInfini) | not(bestMode)),score);
+          s := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,((deltaFinaleCourant < kDeltaFinaleInfini) or not(bestMode)),score);
 
           if deltaFinaleCourant < kDeltaFinaleInfini
             then s := s + '    '+DeltaFinaleEnChaine(deltaFinaleCourant);
           EnleveEspacesDeGaucheSurPlace(s);
 
-          if affichageReflexion.afficherToutesLesPasses | debuggage.algoDeFinale |
+          if affichageReflexion.afficherToutesLesPasses or debuggage.algoDeFinale or
             (deltaFinaleCourant = kDeltaFinaleInfini) then
             begin
               AnnonceRechercheDansRapport(noCoupRecherche);
@@ -5478,7 +5478,7 @@ begin  {$UNUSED i}
 
         suiteComplete := false;
 
-        if (premierCoupDeLaSuite < 11) | (premierCoupDeLaSuite > 88) | (profondeur <= 1)
+        if (premierCoupDeLaSuite < 11) or (premierCoupDeLaSuite > 88) or (profondeur <= 1)
           then exit(RemplirMeilleureSuiteAvecHashTable);
 
         {WritelnDansRapport('entrée dans RemplirMeilleureSuiteAvecHashTable');
@@ -5571,7 +5571,7 @@ begin  {$UNUSED i}
               coup := GetBestDefenseDansHashExacte(quelleHashTableExacte^[myClefExacte]);
               coupLegal := UpdatePositionEtTrait(positionEtTrait,coup);
 
-              if coupLegal & confirmationScore then
+              if coupLegal and confirmationScore then
                 begin
                   {WriteNumDansRapport('remplissage : meilleureSuite[',profondeur);
                   WriteNumDansRapport(',',profondeurCourante);
@@ -5592,7 +5592,7 @@ begin  {$UNUSED i}
 
           dec(profondeurCourante);
 
-        until not(coupLegal) | not(confirmationScore) | not(trouve) | (coup < 11) | (coup > 88);
+        until not(coupLegal) or not(confirmationScore) or not(trouve) or (coup < 11) or (coup > 88);
 
         suiteComplete := (GetTraitOfPosition(positionEtTrait) = pionVide);
 
@@ -5679,12 +5679,12 @@ begin
                 {WritelnStringAndCoupDansRapport('Le coup de la matrice meilleuresuite :   p = '+NumEnString(p) + ' :  ', coup);}
 
                 coupPossible := false;
-                if (coup >= 11) & (coup <= 88) then
+                if (coup >= 11) and (coup <= 88) then
                   if (platCompl.position[coup] = pionVide) then
                     coupPossible := UpdatePositionEtTrait(platCompl,coup);
 
 
-                if not(coupPossible) & essayerAvecBitboardHash then
+                if not(coupPossible) and essayerAvecBitboardHash then
                   if GetEndgameValuesInAllBitboardHashTables(platCompl,valMinPourNoir,valMaxPourNoir,coup) then
                     begin
                       {WritelnDansRapport('Hit dans la table de hachage bitboard !  p = '+NumEnString(p) + ' :  '+CoupEnString(coup,true)+'['+ NumEnString(valMinPourNoir)+','+NumEnString(valMaxPourNoir)+']');}
@@ -5693,8 +5693,8 @@ begin
                         then scorePourVerifVuPourNoir := scorePourVerif
                         else scorePourVerifVuPourNoir := -scorePourVerif;
 
-                      if (valMinPourNoir = valMaxPourNoir) & (valMinPourNoir = scorePourVerifVuPourNoir) &
-                         (coup >= 11) & (coup <= 88) & (platCompl.position[coup] = pionVide) then
+                      if (valMinPourNoir = valMaxPourNoir) and (valMinPourNoir = scorePourVerifVuPourNoir) and
+                         (coup >= 11) and (coup <= 88) and (platCompl.position[coup] = pionVide) then
                           begin
                             coupPossible := UpdatePositionEtTrait(platCompl,coup);
                             if coupPossible then
@@ -5709,7 +5709,7 @@ begin
                           end;
                     end;
 
-              until (p <= 1) | (coup = 0) | not(coupPossible);
+              until (p <= 1) or (coup = 0) or not(coupPossible);
 
               nBlaCompl := NbPionsDeCetteCouleurDansPosition(pionBlanc,platCompl.position);
               nNoiCompl := NbPionsDeCetteCouleurDansPosition(pionNoir,platCompl.position);
@@ -5744,7 +5744,7 @@ begin
                             WritelnLongStringDansRapport(theJob);
                           end;
 
-                        if not(enTournoi | CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
+                        if not(enTournoi or CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
                       end;
                     pere := meilleuresuite[minimaxprof,p+1];
 
@@ -5768,10 +5768,10 @@ begin
                                                                  -noteMax,noteMax,nBlaCompl-nNoiCompl,false);
 
                     (* on verifie au passage le score de la suite donnee par les tables des hachages *)
-                    if (Abs(scorePourVerif-scoreSuite) > 1) & (interruptionReflexion = pasdinterruption) then
+                    if (Abs(scorePourVerif-scoreSuite) > 1) and (interruptionReflexion = pasdinterruption) then
                       begin
 
-                        if essayerAvecBitboardHash & (p = profondeurMinRelaisParBitboardHash - 1) then
+                        if essayerAvecBitboardHash and (p = profondeurMinRelaisParBitboardHash - 1) then
                           begin
                             {
                             if not(enTournoi) then
@@ -5802,13 +5802,13 @@ begin
                             WritelnLongStringDansRapport(theJob);
                           end;
 
-                        if not(enTournoi | CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
+                        if not(enTournoi or CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
 
                         s := NumEnString(nBlaCompl);
                         s1 := NumEnString(nNoiCompl);
                         s := '(nBlaCompl = '+s+'  et nNoiCompl = '+s1+CharToString(')');
                         WritelnDansRapport(s);
-                        if (pere >= 11) & (pere <= 88)
+                        if (pere >= 11) and (pere <= 88)
                           then s := CoupEnString(pere,true)
                           else s := NumEnString(pere);
                         if GetTraitOfPosition(platCompl) = pionNoir  then s1 := 'Noir' else
@@ -5860,16 +5860,16 @@ begin
         if ValeurDeFinaleInexploitable(valXY) then
           exit(GestionMeilleureSuite);
 
-        if analyseRetrograde.enCours &
-           {(analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) &}
+        if analyseRetrograde.enCours and
+           {(analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) and}
            (XCourant = coupDontLeScoreEstConnu) then
          exit(GestionMeilleureSuite);
 
         message := pasdemessage;
-        if (valXY > 0) & (valeurCible = 0) & (not(bestMode) | passeDeRechercheAuMoinsValeurCible) then message := messageEstGagnant;
-        if (valXY = 0) & (valeurCible = 0) & (not(bestMode) | passeDeRechercheAuMoinsValeurCible) then message := messageFaitNulle;
-        if (valXY < 0) & (valeurCible = 0) & (not(bestMode) | passeDeRechercheAuMoinsValeurCible) then
-          if (nroCoup < nbreCoupsLegaux) | (analyseIntegraleDeFinale {& (deltaDeXCourant < kDeltaFinaleInfini)})
+        if (valXY > 0) and (valeurCible = 0) and (not(bestMode) or passeDeRechercheAuMoinsValeurCible) then message := messageEstGagnant;
+        if (valXY = 0) and (valeurCible = 0) and (not(bestMode) or passeDeRechercheAuMoinsValeurCible) then message := messageFaitNulle;
+        if (valXY < 0) and (valeurCible = 0) and (not(bestMode) or passeDeRechercheAuMoinsValeurCible) then
+          if (nroCoup < nbreCoupsLegaux) or (analyseIntegraleDeFinale {and (deltaDeXCourant < kDeltaFinaleInfini)})
             then message := messageEstPerdant
             else message := messageToutEstPerdant;
 
@@ -5877,9 +5877,9 @@ begin
         WritelnNumDansRapport('ProfRecherche = ',ProfRecherche);
         *)
 
-        if bestMode & not(passeDeRechercheAuMoinsValeurCible) &
-           (deltaFinaleCourant = kDeltaFinaleInfini) & not(ValeurDeFinaleInexploitable(valXY)) &
-           (not(coupGagnantAUneFenetreAlphaBetaReduite) | ((valXY >= inAlphaFinale) & (valXY < inBetaFinale)))
+        if bestMode and not(passeDeRechercheAuMoinsValeurCible) and
+           (deltaFinaleCourant = kDeltaFinaleInfini) and not(ValeurDeFinaleInexploitable(valXY)) and
+           (not(coupGagnantAUneFenetreAlphaBetaReduite) or ((valXY >= inAlphaFinale) and (valXY < inBetaFinale)))
           then
             begin
               (*
@@ -5920,16 +5920,16 @@ begin
       		  if (deltaDeXCourant < kDeltaFinaleInfini)
       		    then SetMeilleureSuite(GetMeilleureSuite + '   ' + DeltaFinaleEnChaine(deltaDeXCourant));
 
-      		  if afficheMeilleureSuite & not(analyseIntegraleDeFinale) &
-      		     not(CassioEstEnModeAnalyse & meilleureSuiteAEteCalculeeParOptimalite) &
+      		  if afficheMeilleureSuite and not(analyseIntegraleDeFinale) and
+      		     not(CassioEstEnModeAnalyse and meilleureSuiteAEteCalculeeParOptimalite) and
       		     not(CassioEstEnTrainDeCalculerPourLeZoo)
       		    then EcritMeilleureSuite;
 
-      		  if bestMode | (valXY >= 0) |
-      		    (message = messageToutEstPerdant) |
-      		    (message = messageToutEstProbablementPerdant) |
-      		    ((inTypeCalculFinale = ReflGagnantExhaustif) & analyseIntegraleDeFinale) then
-        		    if inCommentairesDansRapportFinale & not(CassioEstEnTrainDeCalculerPourLeZoo) then
+      		  if bestMode or (valXY >= 0) or
+      		    (message = messageToutEstPerdant) or
+      		    (message = messageToutEstProbablementPerdant) or
+      		    ((inTypeCalculFinale = ReflGagnantExhaustif) and analyseIntegraleDeFinale) then
+        		    if inCommentairesDansRapportFinale and not(CassioEstEnTrainDeCalculerPourLeZoo) then
         		      begin
         		        if analyseIntegraleDeFinale
         		          then
@@ -5943,11 +5943,11 @@ begin
         		            end;
         		      end;
 
-      		  if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) &
-      		     (xCourantEstLeMeilleurCoup | GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif])) &
-      		     (deltaFinaleCourant = kDeltaFinaleInfini) &
-      		     (suiteEstComplete | not(bestmode)) & suiteEstLegale &
-      		     (interruptionReflexion = pasdinterruption) &
+      		  if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) and
+      		     (xCourantEstLeMeilleurCoup or GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif])) and
+      		     (deltaFinaleCourant = kDeltaFinaleInfini) and
+      		     (suiteEstComplete or not(bestmode)) and suiteEstLegale and
+      		     (interruptionReflexion = pasdinterruption) and
       		     not(CassioEstEnTrainDeCalculerPourLeZoo) then
       		    begin
       		      G := GetActiveNodeOfEndgameTree(numeroEndgameTreeActif);
@@ -5970,7 +5970,7 @@ begin
 
 
       			      oldStatut := GetStatutMeilleureSuite;
-      		        if (oldStatut = ToutEstPerdant) | (oldStatut = ToutEstProbablementPerdant) then
+      		        if (oldStatut = ToutEstPerdant) or (oldStatut = ToutEstProbablementPerdant) then
       		          if scoreOptimalPourNoir > 0
       		            then SetStatutMeilleureSuite(VictoireNoire)
       		            else SetStatutMeilleureSuite(VictoireBlanche);
@@ -6024,7 +6024,7 @@ begin
       		    end;
 
 
-      		  if CassioEstEnTrainDeCalculerPourLeZoo & xCourantEstLeMeilleurCoup then
+      		  if CassioEstEnTrainDeCalculerPourLeZoo and xCourantEstLeMeilleurCoup then
       		    begin
       		      meilleureSuiteCommeResultatDeMakeEndgameSearch := GetMeilleureSuite;
       		      // WritelnDansRapport(meilleureSuiteCommeResultatDeMakeEndgameSearch);
@@ -6034,7 +6034,7 @@ begin
              veut simplement afficher la suite du coup courant dans
              le rapport sans changer la 'vraie' meilleure suite : on
              encadre la gestion de la suite du coup courant}
-      		  if not(xCourantEstLeMeilleurCoup) | analyseIntegraleDeFinale | CassioEstEnTrainDeCalculerPourLeZoo then
+      		  if not(xCourantEstLeMeilleurCoup) or analyseIntegraleDeFinale or CassioEstEnTrainDeCalculerPourLeZoo then
               begin
                 SetMeilleureSuiteInfos(oldMeilleureSuiteInfos);
                 SetMeilleureSuite(oldMeilleureSuite);
@@ -6151,7 +6151,7 @@ begin
     begin
       if (interruptionReflexion = pasdinterruption)  then
         begin
-    		  if (coulPourMeilleurFin = AQuiDeJouer) & not(CassioEstEnTrainDeCalculerPourLeZoo)
+    		  if (coulPourMeilleurFin = AQuiDeJouer) and not(CassioEstEnTrainDeCalculerPourLeZoo)
     		    then EcritAnnonceFinaleDansMeilleureSuite(inTypeCalculFinale,noCoupRecherche,kDeltaFinaleInfini);
 
     		  case inTypeCalculFinale of
@@ -6163,7 +6163,7 @@ begin
   		         SetValReflex(classement,MFniv,nbCoup,nbCoup,ReflAnnonceGagnant,noCoupRecherche,MAXINT_16BITS,inCouleurFinale);
   		     end;
 
-    		  if affichageReflexion.doitAfficher & doitEcrireReflexFinale then EcritReflexion('AfficheClassementPreordre');
+    		  if affichageReflexion.doitAfficher and doitEcrireReflexFinale then EcritReflexion('AfficheClassementPreordre');
     		end;
     end;
 end;
@@ -6174,7 +6174,7 @@ begin
     begin
       if (interruptionReflexion = pasdinterruption) then
         begin
-    		  if (coulPourMeilleurFin = AQuiDeJouer) & not(CassioEstEnTrainDeCalculerPourLeZoo)
+    		  if (coulPourMeilleurFin = AQuiDeJouer) and not(CassioEstEnTrainDeCalculerPourLeZoo)
     		    then EcritAnnonceFinaleDansMeilleureSuite(inTypeCalculFinale,noCoupRecherche,kDeltaFinaleInfini);
 
     		    case inTypeCalculFinale of
@@ -6186,7 +6186,7 @@ begin
     		         SetValReflex(classement,profondeurCettePasse,indexDuCoup,nbCoup,ReflTriGagnant,noCoupRecherche,MAXINT_16BITS,inCouleurFinale);
     		     end;
 
-    		  if affichageReflexion.doitAfficher & doitEcrireReflexFinale then
+    		  if affichageReflexion.doitAfficher and doitEcrireReflexFinale then
     		    if affichageImmediat
     		      then EcritReflexion('AfficheClassementTriDesCoups')
     		      else LanceDemandeAffichageReflexion(DeltaAAfficherImmediatement(deltaFinaleCourant),'AfficheClassementTriDesCoups');
@@ -6237,11 +6237,11 @@ begin
       if meilleureSuiteAEteCalculeeParOptimalite then
         begin
            coupAMettreEnTete := GetBestMoveAttenteAnalyseDeFinale;
-           if (coupAMettreEnTete >= 11) & (coupAMettreEnTete <= 88) then
+           if (coupAMettreEnTete >= 11) and (coupAMettreEnTete <= 88) then
              begin
                for i := 1 to myNbCoup do
-                 if (myClassement[i].x = coupAMettreEnTete) &
-                    (scoreDuCoupCalculeParOptimalite >= -64) & (scoreDuCoupCalculeParOptimalite <= 64) then
+                 if (myClassement[i].x = coupAMettreEnTete) and
+                    (scoreDuCoupCalculeParOptimalite >= -64) and (scoreDuCoupCalculeParOptimalite <= 64) then
                    begin
                      temp := myClassement[i];
                      for k := i downto 2 do myClassement[k] := myClassement[k-1];
@@ -6316,7 +6316,7 @@ begin
                  begin
                     noteclass := -LanceurMilieuDePartie(profondeurDeCettePasse,-alpha-1,-alpha,platClass,jouableClass,defenseEndgameSearch,
                                                         iCourant,coulDefense,nbBlancClass,nbNoirClass,frontClass,canDoProbCut);
-                    if (alpha < noteclass) & (noteclass < beta) & (interruptionReflexion = pasdinterruption) then
+                    if (alpha < noteclass) and (noteclass < beta) and (interruptionReflexion = pasdinterruption) then
                       begin
                         noteclass := -LanceurMilieuDePartie(profondeurDeCettePasse,-beta,-noteclass,platClass,jouableClass,defenseEndgameSearch,
                                                             iCourant,coulDefense,nbBlancClass,nbNoirClass,frontClass,canDoProbCut);
@@ -6327,7 +6327,7 @@ begin
 
 
 
-             if (BAnd(gVecteurParite,constanteDeParite[iCourant]) <> 0) & not(utilisationNouvelleEval)
+             if (BAnd(gVecteurParite,constanteDeParite[iCourant]) <> 0) and not(utilisationNouvelleEval)
                then noteclass := noteclass + 400;
 
              if (gNbreVidesCeQuadrantCoupGagnant[numeroQuadrant[iCourant]] = 1) then
@@ -6420,12 +6420,12 @@ begin
 
           { ne pas faire une recherche preliminaire de milieu trop loin
             dans les positions tres deséquilibrées : c'est inutile... }
-          if ( classement[1].note < -5600) |
+          if ( classement[1].note < -5600) or
              ( classement[1].note > 5600)
             then profondeurPreordre := Min(profondeurPreordre,6);
 
           { ni si la suite est dans l'arbre ! }
-          if not(seMefierDesScoresDeLArbre) & SuiteParfaiteEstConnueDansGameTree &
+          if not(seMefierDesScoresDeLArbre) and SuiteParfaiteEstConnueDansGameTree and
              GenreDeReflexionInSet(inTypeCalculFinale,[ReflGagnant,ReflParfait,ReflRetrogradeGagnant,ReflRetrogradeParfait])
             then profondeurPreordre := Min(profondeurPreordre,3);
 
@@ -6437,7 +6437,7 @@ begin
           estimationPositionDApresMilieu := 2*(NoteCassioEnScoreFinal(classement[1].note)-32);
 
           {
-          if (inProfondeurFinale >= 25) & utilisationNouvelleEval & InRange(estimationPositionDApresMilieu,-8,8) then
+          if (inProfondeurFinale >= 25) and utilisationNouvelleEval and InRange(estimationPositionDApresMilieu,-8,8) then
             begin
               profondeurPreordre := 12;
               PassePreordonnancementDesCoups(profondeurPreordre,true);
@@ -6445,7 +6445,7 @@ begin
             end;
           }
 
-          if InfosTechniquesDansRapport & inCommentairesDansRapportFinale & not(InfosDansRapportSontCensurees(noCoupRecherche)) & (interruptionReflexion = pasdinterruption) then
+          if InfosTechniquesDansRapport and inCommentairesDansRapportFinale and not(InfosDansRapportSontCensurees(noCoupRecherche)) and (interruptionReflexion = pasdinterruption) then
             begin
               AnnonceRechercheDansRapport(noCoupRecherche);
               ChangeFontFaceDansRapport(italic);
@@ -6494,7 +6494,7 @@ begin
         WriteNumAt('v = ',-v,110,30);
         WriteNumAt('t = ',-t,110,40);
 
-      until suiteOK | (lower >= upper) | ValeurDeFinaleInexploitable(t);
+      until suiteOK or (lower >= upper) or ValeurDeFinaleInexploitable(t);
 
       NegaCStar := t;
     end;
@@ -6520,7 +6520,7 @@ begin
         t := -LanceurABFin(variablesMakeEndgameSearch,jeu,meilleurCoup,dernierCoupJoue,couleur,ProfRecherche,-v,-v+1,nbBla,nbNoi,InfosMilieuDePartie);
         EssaieSetPortWindowPlateau;
         WriteNumAt('SSS* score >= ',-t,10,40);
-      until (t = v) | (t <= lower) | ValeurDeFinaleInexploitable(t);
+      until (t = v) or (t <= lower) or ValeurDeFinaleInexploitable(t);
 
       TesterClefHashage(copieDeClefHashage,'Algo_SSStar');
 
@@ -6637,13 +6637,13 @@ begin
     		  if bestAB = -infini
     		    then WriteDansRapport('(-∞')
     		    else
-    		      if (bestAB >= -64) & (bestAB <= 64)
+    		      if (bestAB >= -64) and (bestAB <= 64)
     		        then WriteNumDansRapport('(',bestAB)
     		        else WriteDansRapport('('+messageErreur);
     		  if betaAB = +infini
     		    then WriteDansRapport(', +∞')
     		    else
-    		      if (betaAB >= -64) & (betaAB <= 64)
+    		      if (betaAB >= -64) and (betaAB <= 64)
     		        then WriteNumDansRapport(', ',betaAB)
     		        else WriteDansRapport(', '+messageErreur);
     		  WriteDansRapport(')');
@@ -6657,13 +6657,13 @@ begin
     		  if bestAB = -infini
     		    then WriteDansRapport('(-∞')
     		    else
-    		      if (bestAB >= -64) & (bestAB <= 64)
+    		      if (bestAB >= -64) and (bestAB <= 64)
     		        then WriteNumDansRapport('(',bestAB)
     		        else WriteDansRapport('('+messageErreur);
     		  if betaAB = +infini
     		    then WriteDansRapport(', +∞')
     		    else
-    		      if (betaAB >= -64) & (betaAB <= 64)
+    		      if (betaAB >= -64) and (betaAB <= 64)
     		        then WriteNumDansRapport(', ',betaAB)
     		        else WriteDansRapport(', '+messageErreur);
     		  WriteDansRapport(')');
@@ -6694,13 +6694,13 @@ begin
     		  if bestAB = -infini
     		    then WriteDansRapport('(-∞')
     		    else
-    		      if (bestAB >= -64) & (bestAB <= 64)
+    		      if (bestAB >= -64) and (bestAB <= 64)
     		        then WriteNumDansRapport('(',bestAB)
     		        else WriteDansRapport('('+messageErreur);
     		  if betaAB = +infini
     		    then WriteDansRapport(', +∞')
     		    else
-    		      if (betaAB >= -64) & (betaAB <= 64)
+    		      if (betaAB >= -64) and (betaAB <= 64)
     		        then WriteNumDansRapport(', ',betaAB)
     		        else WriteDansRapport(', '+messageErreur);
     		  WriteDansRapport(')');
@@ -6714,13 +6714,13 @@ begin
     		  if bestAB = -infini
     		    then WriteDansRapport('(-∞')
     		    else
-    		      if (bestAB >= -64) & (bestAB <= 64)
+    		      if (bestAB >= -64) and (bestAB <= 64)
     		        then WriteNumDansRapport('(',bestAB)
     		        else WriteDansRapport('('+messageErreur);
     		  if betaAB = +infini
     		    then WriteDansRapport(', +∞')
     		    else
-    		      if (betaAB >= -64) & (betaAB <= 64)
+    		      if (betaAB >= -64) and (betaAB <= 64)
     		        then WriteNumDansRapport(', ',betaAB)
     		        else WriteDansRapport(', '+messageErreur);
     		  WriteDansRapport(')');
@@ -6733,7 +6733,7 @@ procedure SetNoteDansElementClassement(var classement : ListOfMoveRecords; index
 begin
   //with variablesMakeEndgameSearch do
     begin
-      if variablesMakeEndgameSearch.passeEhancedTranspositionCutOffEstEnCours & EstLaListeDesCoupsDeFenetreReflexion(classement)
+      if variablesMakeEndgameSearch.passeEhancedTranspositionCutOffEstEnCours and EstLaListeDesCoupsDeFenetreReflexion(classement)
         then exit(SetNoteDansElementClassement);
 
 
@@ -6748,7 +6748,7 @@ begin
             end;
         end;
 
-      if affichageReflexion.doitAfficher & EstLaListeDesCoupsDeFenetreReflexion(classement) & doitEcrireReflexFinale
+      if affichageReflexion.doitAfficher and EstLaListeDesCoupsDeFenetreReflexion(classement) and doitEcrireReflexFinale
         then LanceDemandeAffichageReflexion(DeltaAAfficherImmediatement(deltaFinaleCourant),'SetNoteDansElementClassement');
     end;
 end;
@@ -6769,7 +6769,7 @@ begin
 
       copieDeClefHashage := SetClefHashageGlobale(clefHashageCoupGagnant);
 
-      if bestMode & (compteur > 1)
+      if bestMode and (compteur > 1)
         then
           begin
             FenetreLargePourRechercheScoreExact := false;
@@ -6779,7 +6779,7 @@ begin
             largeur_fenetre := 2;
 
             if not(ValeurDeFinaleInexploitable(t)) then
-            if (bestAB < t) & (t < betaAB) then
+            if (bestAB < t) and (t < betaAB) then
                repeat
                  FenetreLargePourRechercheScoreExact := false;
                  SetNoteDansElementClassement(ReflexData^.class,compteur,t,deltaFinaleCourant,tickChrono);
@@ -6793,7 +6793,7 @@ begin
                  largeur_fenetre := 2*largeur_fenetre;
                  if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-               until ((bas_fenetre < t) & (t < haut_fenetre)) | (t >= betaAB) | ValeurDeFinaleInexploitable(t);
+               until ((bas_fenetre < t) and (t < haut_fenetre)) or (t >= betaAB) or ValeurDeFinaleInexploitable(t);
 
             {
               begin
@@ -6863,7 +6863,7 @@ begin
                 largeur_fenetre := 2;
 
                 if not(ValeurDeFinaleInexploitable(t)) then
-                if (lower < t) & (t < upper) then
+                if (lower < t) and (t < upper) then
                    repeat
                      FenetreLargePourRechercheScoreExact := false;
                      SetNoteDansElementClassement(ReflexData^.class,compteur,t,deltaFinaleCourant,tickChrono);
@@ -6877,7 +6877,7 @@ begin
                      largeur_fenetre := 2*largeur_fenetre;
                      if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-                   until ((bas_fenetre < t) & (t < haut_fenetre)) | (t >= upper) | ValeurDeFinaleInexploitable(t);
+                   until ((bas_fenetre < t) and (t < haut_fenetre)) or (t >= upper) or ValeurDeFinaleInexploitable(t);
                end;
       SSS_Dual := t;
 
@@ -6907,7 +6907,7 @@ begin
 
       copieDeClefHashage := SetClefHashageGlobale(clefHashageCoupGagnant);
 
-      if not(bestMode) | coupGagnantAUneFenetreAlphaBetaReduite
+      if not(bestMode) or coupGagnantAUneFenetreAlphaBetaReduite
         then
           begin
             FenetreLargePourRechercheScoreExact := false;
@@ -6922,7 +6922,7 @@ begin
 
               t := -LanceurABFin(variablesMakeEndgameSearch,platMod,defenseEndgameSearch,XCourant,coulDefense,minimaxprof,-valeurCible-1,-valeurCible+1,nbBlancMod,nbNoirMod,InfosMod);
 
-              if (t > valeurCible) & not(ValeurDeFinaleInexploitable(t)) then
+              if (t > valeurCible) and not(ValeurDeFinaleInexploitable(t)) then
                  begin
                     largeur_fenetre := 2;
                     repeat
@@ -6975,7 +6975,7 @@ begin
       	              largeur_fenetre := 2*largeur_fenetre;
       	              if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-      	           until ({(bas_fenetre < t) &} (t < haut_fenetre)) | (t >= upper) | ValeurDeFinaleInexploitable(t);
+      	           until ({(bas_fenetre < t) and} (t < haut_fenetre)) or (t >= upper) or ValeurDeFinaleInexploitable(t);
                  end;
 
                 if not(ValeurDeFinaleInexploitable(t)) then
@@ -6983,7 +6983,7 @@ begin
 
              end
             else  {passeDeRechercheAuMoinsValeurCible = false}
-              if (compteur = 1) | forcerDichotomie
+              if (compteur = 1) or forcerDichotomie
                 then
                   begin
                     FenetreLargePourRechercheScoreExact := false;
@@ -6996,7 +6996,7 @@ begin
 
                     largeur_fenetre := 2;
 
-                    if (t > valeurCible) & (t < upper) & not(ValeurDeFinaleInexploitable(t)) then
+                    if (t > valeurCible) and (t < upper) and not(ValeurDeFinaleInexploitable(t)) then
                         repeat
 
                         classAux[compteur].note := t;
@@ -7016,7 +7016,7 @@ begin
                         bas_fenetre := Max(t-1,lower);
                         haut_fenetre := Min(bas_fenetre+largeur_fenetre,upper);
 
-                        if (bas_fenetre = 64) & (haut_fenetre = 64) then
+                        if (bas_fenetre = 64) and (haut_fenetre = 64) then
                            bas_fenetre := 63;
 
 
@@ -7046,9 +7046,9 @@ begin
                         largeur_fenetre := 2*largeur_fenetre;
                         if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-                      until ({(bas_fenetre < t) &} (t < haut_fenetre)) | (t >= upper) | ValeurDeFinaleInexploitable(t);
+                      until ({(bas_fenetre < t) and} (t < haut_fenetre)) or (t >= upper) or ValeurDeFinaleInexploitable(t);
 
-                    if (t < valeurCible) & (t > lower) & not(ValeurDeFinaleInexploitable(t)) then
+                    if (t < valeurCible) and (t > lower) and not(ValeurDeFinaleInexploitable(t)) then
                       repeat
 
                         classAux[compteur].note := t;
@@ -7095,7 +7095,7 @@ begin
                         largeur_fenetre := 2*largeur_fenetre;
                         if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-                      until ((bas_fenetre < t) {& (t < haut_fenetre)}) | (t <= lower) | ValeurDeFinaleInexploitable(t);
+                      until ((bas_fenetre < t) {and (t < haut_fenetre)}) or (t <= lower) or ValeurDeFinaleInexploitable(t);
 
                   end
                 else
@@ -7110,7 +7110,7 @@ begin
                     largeur_fenetre := 2;
 
                     if not(ValeurDeFinaleInexploitable(t)) then
-                    if (lower < t) & (t < upper) then
+                    if (lower < t) and (t < upper) then
                        repeat
                          SetNoteDansElementClassement(ReflexData^.class,compteur,t,deltaFinaleCourant,tickChrono);
 
@@ -7145,7 +7145,7 @@ begin
                          largeur_fenetre := 2*largeur_fenetre;
                          if largeur_fenetre > 16 then largeur_fenetre := 16;
 
-                       until ({(bas_fenetre < t) &} (t < haut_fenetre)) | (t >= upper) | ValeurDeFinaleInexploitable(t);
+                       until ({(bas_fenetre < t) and} (t < haut_fenetre)) or (t >= upper) or ValeurDeFinaleInexploitable(t);
 
                    end;
       Dichotomie_first := t;
@@ -7267,7 +7267,7 @@ begin
     		  k := MAXINT_16BITS;
     		  for i := 1 to longClass do
     		    if classAux[i].x = coupDontLeScoreEstConnu then k := i;
-    		  if (k > 1) & (k <= longClass) then
+    		  if (k > 1) and (k <= longClass) then
     		    begin
     		      tempoMoveRec := classAux[k];
     		      for i := k downto 2 do classAux[i] := classAux[i-1];
@@ -7282,7 +7282,7 @@ begin
     		  classAux[1].noteMilieuDePartie := 30000000; {idem}
 
 
-    		  if (analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeGagnant) | not(bestmodeArriveeDansCoupGagnant)
+    		  if (analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeGagnant) or not(bestmodeArriveeDansCoupGagnant)
     		    then typeAffichage := ReflRetrogradeGagnant
     		    else
     		      if bestMode
@@ -7295,7 +7295,7 @@ begin
     		      SetValReflexFinale(classAux,MFniv,1,longClass,typeAffichage,noCoupRecherche,MAXINT_16BITS,inCouleurFinale);         {pour mettre LigneDuCoupAnalysé à 1}
     		    end;
 
-    		  if affichageReflexion.doitAfficher & doitEcrireReflexFinale then
+    		  if affichageReflexion.doitAfficher and doitEcrireReflexFinale then
     		    LanceDemandeAffichageReflexion(true,'MetCoupConnuEnTete');
 
     		  for i := 2 to longClass do classAux[i].note := -infini;
@@ -7370,7 +7370,7 @@ begin
       infoExactePourCoup1 := (bornes1.valMin[nbreDeltaSuccessifs] = bornes1.valMax[nbreDeltaSuccessifs]);
       infoExactePourCoup2 := (bornes2.valMin[nbreDeltaSuccessifs] = bornes2.valMax[nbreDeltaSuccessifs]);
 
-      if (infoExactePourCoup1 | infoExactePourCoup2) then
+      if (infoExactePourCoup1 or infoExactePourCoup2) then
         begin
           {WritelnStringAndCoupDansRapport(CoupEnString(coup1,true) + ' vs ' , coup2);
           WritelnStringAndCoupDansRapport(' Bornes de ',coup1);
@@ -7378,19 +7378,19 @@ begin
           WritelnStringAndCoupDansRapport(' Bornes de ',coup2);
           WritelnBornesDansRapport(bornes2);}
 
-          if infoExactePourCoup1 & infoExactePourCoup2 then
+          if infoExactePourCoup1 and infoExactePourCoup2 then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := (bornes1.valMin[nbreDeltaSuccessifs] >= bornes2.valMin[nbreDeltaSuccessifs]);
               exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
             end;
 
-          if infoExactePourCoup1 & not(infoExactePourCoup2) then
+          if infoExactePourCoup1 and not(infoExactePourCoup2) then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := true;
               exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
             end;
 
-          if not(infoExactePourCoup1) & infoExactePourCoup2 then
+          if not(infoExactePourCoup1) and infoExactePourCoup2 then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := false;
               exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
@@ -7488,19 +7488,19 @@ begin
     begin
 
       with analyseRetrograde do
-        if enCours & ((genreAnalyseEnCours = ReflRetrogradeParfait) | (genreAnalyseEnCours = ReflRetrogradeGagnant)) &
-           (not(bestmode) | passeDeRechercheAuMoinsValeurCible) & (compteur >= 2) & (valXY < valeurCible) & (classAux[1].x = coupDontLeScoreEstConnu)
+        if enCours and ((genreAnalyseEnCours = ReflRetrogradeParfait) or (genreAnalyseEnCours = ReflRetrogradeGagnant)) and
+           (not(bestmode) or passeDeRechercheAuMoinsValeurCible) and (compteur >= 2) and (valXY < valeurCible) and (classAux[1].x = coupDontLeScoreEstConnu)
           then k := 2
           else k := 1;
 
       {classement au mérite}
 
-      while (k < compteur) &
-            ((classAux[k].note > valxy) |
-             ((classAux[k].note = valXY) &
-              Coup1EstPlusPrecisQueCoup2DansHashTableExacte(classAux[k].x,XCourant) &
-              not(EstLeCoupParfaitAfficheCommeSuggestionDeFinale(XCourant)) &
-              not(GetScoreExactOfThisSonDansHashTableExacte(classAux[k].x,noteDeK) & (noteDeK < valXY))))  do
+      while (k < compteur) and
+            ((classAux[k].note > valxy) or
+             ((classAux[k].note = valXY) and
+              Coup1EstPlusPrecisQueCoup2DansHashTableExacte(classAux[k].x,XCourant) and
+              not(EstLeCoupParfaitAfficheCommeSuggestionDeFinale(XCourant)) and
+              not(GetScoreExactOfThisSonDansHashTableExacte(classAux[k].x,noteDeK) and (noteDeK < valXY))))  do
         k := k+1;
       for j := compteur downto k+1 do
         classAux[j] := classAux[j-1];
@@ -7514,7 +7514,7 @@ begin
       classAux[k].pourcentageCertitude := 100;
       classAux[k].delta := deltaDeXCourantApresRecherche;
 
-      if FALSE & debuggage.algoDeFinale then
+      if FALSE and debuggage.algoDeFinale then
         EcritClassementDansRapport(classAux, 'Classement au mérite de ' + CoupEnString(XCourant,true) + ' : ',longClass);
 
       GererLeClassementDesCoupsAuMerite := k;
@@ -7549,7 +7549,7 @@ begin
 
       if not(ValeurDeFinaleInexploitable(valXY)) then
         begin
-          if (CassioEstEnModeAnalyse {| analyseRetrograde.enCours}) & (nbCoupuresHeuristiquesDeXCourant = 0) &
+          if (CassioEstEnModeAnalyse {or analyseRetrograde.enCours}) and (nbCoupuresHeuristiquesDeXCourant = 0) and
              EstLaPositionCourante(positionEtTraitDeMakeEndgameSearch)
             then
               begin
@@ -7564,7 +7564,7 @@ begin
                     end
                   else
                     begin
-                      if bestmode & not(passeDeRechercheAuMoinsValeurCible)
+                      if bestmode and not(passeDeRechercheAuMoinsValeurCible)
                         then
                           begin
                             valMin := valXY;
@@ -7617,12 +7617,12 @@ begin
 
                       if (valMax < 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourPerte else
                       if (valMin > 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourGain  else
-                      if (valMax = 0) & (valMin = 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourNulle;
+                      if (valMax = 0) and (valMin = 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourNulle;
 
                       if (noteAfficheeSurOthellier <> kNoteSurCaseNonDisponible) then
                         begin
-                          if not((inProfondeurFinale <=  8) & GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfait,ReflParfaitExhaustif,ReflRetrogradeParfait])) then
-                            if analyseIntegraleDeFinale | (classAux[indexDuCoup].note < 0) | (indexDuCoup = 1) then
+                          if not((inProfondeurFinale <=  8) and GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfait,ReflParfaitExhaustif,ReflRetrogradeParfait])) then
+                            if analyseIntegraleDeFinale or (classAux[indexDuCoup].note < 0) or (indexDuCoup = 1) then
                               if (indexDuCoup = 1)
                                 then SetMeilleureNoteSurCase(kNotesDeCassio,classAux[indexDuCoup].x,noteAfficheeSurOthellier)
                                 else SetNoteSurCase(kNotesDeCassio,classAux[indexDuCoup].x,noteAfficheeSurOthellier);
@@ -7641,10 +7641,10 @@ begin
 
 
                       noteAfficheeSurOthellier := 100*(valMin);
-                      if odd(noteAfficheeSurOthellier div 100) & (noteAfficheeSurOthellier < 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourPerte else
-                      if odd(noteAfficheeSurOthellier div 100) & (noteAfficheeSurOthellier > 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourGain;
+                      if odd(noteAfficheeSurOthellier div 100) and (noteAfficheeSurOthellier < 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourPerte else
+                      if odd(noteAfficheeSurOthellier div 100) and (noteAfficheeSurOthellier > 0) then noteAfficheeSurOthellier := kNoteSpecialeSurCasePourGain;
 
-                      if analyseIntegraleDeFinale | (indexDuCoup = 1) then
+                      if analyseIntegraleDeFinale or (indexDuCoup = 1) then
                         if (indexDuCoup = 1)
                           then SetMeilleureNoteSurCase(kNotesDeCassio,classAux[indexDuCoup].x,noteAfficheeSurOthellier)
                           else SetNoteSurCase(kNotesDeCassio,classAux[indexDuCoup].x,noteAfficheeSurOthellier);
@@ -7670,10 +7670,10 @@ begin
 
       (***  tri suivant le classement au temps (ie. milieu + 100*temps) si tous  ***)
       (***  moins bons que valeurCible                                           ***)
-      if classementAuTempsSiTousMoinsBonsQueValeurCible & not(passeEhancedTranspositionCutOffEstEnCours) then
+      if classementAuTempsSiTousMoinsBonsQueValeurCible and not(passeEhancedTranspositionCutOffEstEnCours) then
         begin
-          if (not(bestMode) | passeDeRechercheAuMoinsValeurCible) then
-            if (valXY < valeurCible) & (bestAB < valeurCible) & (valXY >= bestAB) then
+          if (not(bestMode) or passeDeRechercheAuMoinsValeurCible) then
+            if (valXY < valeurCible) and (bestAB < valeurCible) and (valXY >= bestAB) then
               begin
                 {
                 if debuggage.algoDeFinale then
@@ -7690,11 +7690,11 @@ begin
                 }
 
                 with analyseRetrograde do
-    	            if enCours &
-    	              ((genreAnalyseEnCours = ReflRetrogradeParfait) | (genreAnalyseEnCours = ReflRetrogradeGagnant)) &
-    	               (not(bestmode) | passeDeRechercheAuMoinsValeurCible) &
-    	               (compteur >= 2) &
-    	               (valXY < valeurCible) &
+    	            if enCours and
+    	              ((genreAnalyseEnCours = ReflRetrogradeParfait) or (genreAnalyseEnCours = ReflRetrogradeGagnant)) and
+    	               (not(bestmode) or passeDeRechercheAuMoinsValeurCible) and
+    	               (compteur >= 2) and
+    	               (valXY < valeurCible) and
     	               (classAux[1].x = coupDontLeScoreEstConnu)
     	              then k := 2
     	              else k := 1;
@@ -7729,7 +7729,7 @@ begin
             if classAux[k].x = XCourant then j := k;
 
           GestionMeilleureSuite(minimaxprof,platmod,coulDefense,nbBlancMod,nbNoirMod,valXY,XCourant,deltaDeXCourantApresRecherche,
-                                compteur,longClass,(not(bestmode) & (bestAB < 0)) | ((valXY = bestAB) & (j = 1)));
+                                compteur,longClass,(not(bestmode) and (bestAB < 0)) or ((valXY = bestAB) and (j = 1)));
 
 
         end;
@@ -7747,7 +7747,7 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch do
     begin
 
-      if meilleureSuiteAEteCalculeeParOptimalite & afficheSuggestionDeCassio & SuggestionAnalyseDeFinaleEstDessinee then
+      if meilleureSuiteAEteCalculeeParOptimalite and afficheSuggestionDeCassio and SuggestionAnalyseDeFinaleEstDessinee then
         TrierClassementSiMeilleureSuiteAEteCalculeeParOptimalite(classAux,longClass);
 
 
@@ -7777,13 +7777,13 @@ begin
 
       SetValReflexFinale(classementMinimax,minimaxprof,nbcoup,nbcoup,ReflexData^.typeDonnees,noCoupRecherche,MAXINT_16BITS,inCouleurFinale);
 
-      if affichageReflexion.doitAfficher & doitEcrireReflexFinale then
+      if affichageReflexion.doitAfficher and doitEcrireReflexFinale then
         LanceDemandeAffichageReflexion(DeltaAAfficherImmediatement(deltaFinaleCourant),'GererLaRecopieFinaleDuClassementQuandOnNEstPasInterrompu');
 
 
       MinimaxFinale := classementMinimax[1].note;
 
-      if inCommentairesDansRapportFinale & not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif])) &
+      if inCommentairesDansRapportFinale and not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif])) and
          ((minimaxprof+1) <= kNbCasesVidesPourAnnonceDansRapport) then
         MeilleureSuiteDansRapport(classementMinimax[1].note);
     end;
@@ -7813,8 +7813,8 @@ begin
 
            MinimaxFinale := classementMinimax[1].note;
 
-           if inCommentairesDansRapportFinale & not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]))
-              & ((minimaxprof+1) <= kNbCasesVidesPourAnnonceDansRapport) then
+           if inCommentairesDansRapportFinale and not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]))
+              and ((minimaxprof+1) <= kNbCasesVidesPourAnnonceDansRapport) then
              MeilleureSuiteDansRapport(classementMinimax[1].note);
          end;
     end;
@@ -7838,13 +7838,13 @@ begin
       classAux := classementMinimax;
       for i := 0 to 99 do AEteEnTete[i] := -1;
 
-      if analyseRetrograde.enCours & (inMessageHandleFinale <> NIL) then
+      if analyseRetrograde.enCours and (inMessageHandleFinale <> NIL) then
         begin
           UpdateBestABAvecLeScoreDuCoupConnu(inMessageHandleFinale,bestAB);
           GetCoupDontLeScoreEstConnu(inMessageHandleFinale,coupDontLeScoreEstConnu,defenseDuCoupDontLeScoreEstConnu,scoreDuCoupDontLeScoreEstConnu);
 
-          if (classAux[1].x <> coupDontLeScoreEstConnu) &
-             ((deltaFinaleCourant = deltaSuccessifs[1].valeurDeMu) | (classementMinimax[1].note <= scoreDuCoupDontLeScoreEstConnu)) then
+          if (classAux[1].x <> coupDontLeScoreEstConnu) and
+             ((deltaFinaleCourant = deltaSuccessifs[1].valeurDeMu) or (classementMinimax[1].note <= scoreDuCoupDontLeScoreEstConnu)) then
             InstalleCoupAnalyseRetrogradeEnHautDuClassement(inMessageHandleFinale,classAux);
 
           MetLesCoupsDansLeMemeOrdre(classAux,classementMinimax,longClass);
@@ -7903,12 +7903,12 @@ begin
                     else SetValReflexFinale(classAux,minimaxprof,compteur,longClass,ReflGagnant,noCoupRecherche,compteur+1,inCouleurFinale);
 
 
-          if affichageReflexion.doitAfficher & doitEcrireReflexFinale then
-            LanceDemandeAffichageReflexion(DeltaAAfficherImmediatement(deltaFinaleCourant) | deltaDeXCourantDevientInfini,'GererAffichageClassementDansFenetreReflexion');
+          if affichageReflexion.doitAfficher and doitEcrireReflexFinale then
+            LanceDemandeAffichageReflexion(DeltaAAfficherImmediatement(deltaFinaleCourant) or deltaDeXCourantDevientInfini,'GererAffichageClassementDansFenetreReflexion');
 
         end;
 
-      if not(RefleSurTempsJoueur) & (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) & PionClignotant then
+      if not(RefleSurTempsJoueur) and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) and PionClignotant then
       	EffacePionMontreCoupLegal(XCourant);
     end;
 end;
@@ -7923,13 +7923,13 @@ begin
       if not(doitEcrireReflexFinale) then
         exit(GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche);
 
-      if not(RefleSurTempsJoueur) & (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) & PionClignotant then
+      if not(RefleSurTempsJoueur) and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) and PionClignotant then
         DessinePionMontreCoupLegal(XCourant);
 
       if passeEhancedTranspositionCutOffEstEnCours
         then exit(GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche);
 
-      if (indexDuCoupDansFntrReflexion > 1) | (deltaFinaleCourant > deltaSuccessifs[1].valeurDeMu) then
+      if (indexDuCoupDansFntrReflexion > 1) or (deltaFinaleCourant > deltaSuccessifs[1].valeurDeMu) then
         begin
 
           {afficher que l'on cherche avec ce delta pour ce coup}
@@ -7937,13 +7937,13 @@ begin
             ReflexData^.class[compteur].delta := Max(ReflexData^.class[compteur].delta,deltaFinaleCourant);
 
           {et si deltaFinaleCourant = kDeltaFinaleInfini, on affiche un joli point d'interrogation}
-          if (deltaFinaleCourant = kDeltaFinaleInfini) & (XCourant <> coupDontLeScoreEstConnu) then
+          if (deltaFinaleCourant = kDeltaFinaleInfini) and (XCourant <> coupDontLeScoreEstConnu) then
             ReflexData^.class[compteur].pourcentageCertitude := kCertitudeSpecialPourPointInterrogation;
 
           {et afficher des 'pas mieux' en dessous}
-          if not(analyseIntegraleDeFinale & (deltaFinaleCourant >= deltaSuccessifs[1].valeurDeMu)) then
+          if not(analyseIntegraleDeFinale and (deltaFinaleCourant >= deltaSuccessifs[1].valeurDeMu)) then
             begin
-              if analyseRetrograde.enCours & (classAux[1].x = coupDontLeScoreEstConnu)
+              if analyseRetrograde.enCours and (classAux[1].x = coupDontLeScoreEstConnu)
                 then
                   if (compteur = 2)
                     then MetCetteNoteDansClassement(ReflexData^.class,classementMinimax[2].note,compteur,longClass) {note de l'iteration precedente}
@@ -7956,7 +7956,7 @@ begin
             end;
           SetNroLigneEnCoursDAnalyseDansReflex(compteur);
 
-          LanceDemandeAffichageReflexion((indexDuCoupDansFntrReflexion <= 2) | (deltaFinaleCourant = kDeltaFinaleInfini),'GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche');
+          LanceDemandeAffichageReflexion((indexDuCoupDansFntrReflexion <= 2) or (deltaFinaleCourant = kDeltaFinaleInfini),'GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche');
         end;
     end;
 
@@ -7972,8 +7972,8 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch, paramMakeEndgameSearch.outResult do
     begin
 
-      if not(ValeurDeFinaleInexploitable(valXY)) &
-         not(bestMode) & (valXY > quelleValeurCible) & not(analyseIntegraleDeFinale) then
+      if not(ValeurDeFinaleInexploitable(valXY)) and
+         not(bestMode) and (valXY > quelleValeurCible) and not(analyseIntegraleDeFinale) then
         begin
           MakeEndgameSearch := true;
           outScoreFinale := valXY;
@@ -8008,14 +8008,14 @@ begin
       if not(ValeurDeFinaleInexploitable(valXY)) then
         begin
 
-          if bestMode & (valXY = maxConnuSiToutEstMoinsBonQueValeurCible) & (betaAB = (maxConnuSiToutEstMoinsBonQueValeurCible+1)) then
+          if bestMode and (valXY = maxConnuSiToutEstMoinsBonQueValeurCible) and (betaAB = (maxConnuSiToutEstMoinsBonQueValeurCible+1)) then
             begin
               MakeEndgameSearch := false;
               outScoreFinale := valXY;
               sortieDeBoucleAcceleree := true;
             end;
 
-          if (valxy >= 64) & (nbCoupuresHeuristiquesDeXCourant = 0) & not(analyseIntegraleDeFinale) then
+          if (valxy >= 64) and (nbCoupuresHeuristiquesDeXCourant = 0) and not(analyseIntegraleDeFinale) then
             begin
               MakeEndgameSearch := true;
               outScoreFinale := valXY;
@@ -8036,7 +8036,7 @@ begin
       if not(ValeurDeFinaleInexploitable(valXY)) then
         begin
 
-          if coupGagnantAUneFenetreAlphaBetaReduite & (valXY >= inBetaFinale) then
+          if coupGagnantAUneFenetreAlphaBetaReduite and (valXY >= inBetaFinale) then
             begin
               MakeEndgameSearch := true;
               outScoreFinale := valXY;
@@ -8130,9 +8130,9 @@ begin
                       end
                     else
                       begin
-                        peutUtiliserDichotomie := not(MinimaxAEvalueAUMoinsUnCoupDansCettePasse) |
-                                                  ((compteur = 2 ) & analyseRetrograde.enCours &
-                                                   (classAux[1].x = coupDontLeScoreEstConnu) &
+                        peutUtiliserDichotomie := not(MinimaxAEvalueAUMoinsUnCoupDansCettePasse) or
+                                                  ((compteur = 2 ) and analyseRetrograde.enCours and
+                                                   (classAux[1].x = coupDontLeScoreEstConnu) and
                                                    (valeurCible > scoreDuCoupDontLeScoreEstConnu));
                         valXY := {SSS_Dual;}
                                  {CalculNormal;}
@@ -8141,7 +8141,7 @@ begin
                 end;
           end;
 
-      if ValeurDeFinaleInexploitable(valXY) & (valXY > 0) then valXY := - valXY;
+      if ValeurDeFinaleInexploitable(valXY) and (valXY > 0) then valXY := - valXY;
 
       GererLeCalculDeLaValeur := valXY;
 
@@ -8249,7 +8249,7 @@ begin
 
       gVecteurParite := BXOr(gVecteurParite, (constanteDeParite[XCourant]));
       RemettreDansLaListeChaineeDesCasesVides(XCourant);
-      if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) & (interruptionReflexion = pasdinterruption) then
+      if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) and (interruptionReflexion = pasdinterruption) then
         UndoMoveEndgameTree(numeroEndgameTreeActif);
 
 
@@ -8335,7 +8335,7 @@ begin
         else
           begin
             nbCoupuresHeuristiquesDeXCourant := nbCoupuresHeuristiquesCettePasse-nbCoupuresHeuristiquesDeXCourant;
-            deltaDeXCourantDevientInfini := (nbCoupuresHeuristiquesDeXCourant = 0) & (deltaDeXCourantAvantRecherche <> kDeltaFinaleInfini);
+            deltaDeXCourantDevientInfini := (nbCoupuresHeuristiquesDeXCourant = 0) and (deltaDeXCourantAvantRecherche <> kDeltaFinaleInfini);
 
             if nbCoupuresHeuristiquesDeXCourant = 0
               then deltaDeXCourantApresRecherche := kDeltaFinaleInfini
@@ -8363,10 +8363,10 @@ begin
           WritelnNumDansRapport(' , bestAB = ',bestAB);
         end;
 
-      if not(bestMode) & (valeurCible = 0) & (valXY < 0) then valXY := -1;
-      if not(bestMode) & (valeurCible = 0) & (valXY > 0) then valXY := +1;
-      if bestMode & passeDeRechercheAuMoinsValeurCible & (valXY < valeurCible) then
-        if not(analyseRetrograde.enCours) | (XCourant <> coupDontLeScoreEstConnu)
+      if not(bestMode) and (valeurCible = 0) and (valXY < 0) then valXY := -1;
+      if not(bestMode) and (valeurCible = 0) and (valXY > 0) then valXY := +1;
+      if bestMode and passeDeRechercheAuMoinsValeurCible and (valXY < valeurCible) then
+        if not(analyseRetrograde.enCours) or (XCourant <> coupDontLeScoreEstConnu)
           then
             begin
               if valXY > maxConnuSiToutEstMoinsBonQueValeurCible
@@ -8374,30 +8374,30 @@ begin
               if (Signe(valXY) = Signe(valeurCible-1))
                 then valXY := valeurCible-1;
             end;
-      if bestMode & (valXY > valeurCible) & odd(valXY) then inc(valXY);
-      if bestMode & not(analyseIntegraleDeFinale) & (valXY < bestAB) then valXY := bestAB;
+      if bestMode and (valXY > valeurCible) and odd(valXY) then inc(valXY);
+      if bestMode and not(analyseIntegraleDeFinale) and (valXY < bestAB) then valXY := bestAB;
 
-      if (bestmode & GetScoreExactOfThisSonDansHashTableExacte(XCourant,noteExacte)) then valXY := noteExacte;
+      if (bestmode and GetScoreExactOfThisSonDansHashTableExacte(XCourant,noteExacte)) then valXY := noteExacte;
 
-      if (not(bestmode) & GetScoreExactOfThisSonDansHashTableExacte(XCourant,noteExacte) & (noteExacte < valXY)) then valXY := noteExacte;
+      if (not(bestmode) and GetScoreExactOfThisSonDansHashTableExacte(XCourant,noteExacte) and (noteExacte < valXY)) then valXY := noteExacte;
 
-      if odd(valXY) & coupGagnantAUneFenetreAlphaBetaReduite & (valXY <= inAlphaFinale) then dec(valXY);
-      if odd(valXY) & coupGagnantAUneFenetreAlphaBetaReduite & (valXY >= inBetaFinale)  then inc(valXY);
+      if odd(valXY) and coupGagnantAUneFenetreAlphaBetaReduite and (valXY <= inAlphaFinale) then dec(valXY);
+      if odd(valXY) and coupGagnantAUneFenetreAlphaBetaReduite and (valXY >= inBetaFinale)  then inc(valXY);
 
       if (interruptionReflexion <> pasdinterruption) then valXY := -infini;
 
       doitAppelerGestionMeilleureSuite := false;
       if not(ValeurDeFinaleInexploitable(valXY)) then
         begin
-          if (valXY > bestAB) |
-             (not(bestMode) & (valXY = bestAB) & (valXY = (valeurCible-1))) |
+          if (valXY > bestAB) or
+             (not(bestMode) and (valXY = bestAB) and (valXY = (valeurCible-1))) or
              (analyseIntegraleDeFinale) then
             begin
 
               if (valXY > bestAB) then ChangeBestAB(valXY,'valXY > bestAB');
 
-              if analyseIntegraleDeFinale |
-                 not(bestMode & passeDeRechercheAuMoinsValeurCible & (valXY < valeurCible))
+              if analyseIntegraleDeFinale or
+                 not(bestMode and passeDeRechercheAuMoinsValeurCible and (valXY < valeurCible))
                   then doitAppelerGestionMeilleureSuite := true;
             end;
         end;
@@ -8411,7 +8411,7 @@ begin
               indice_du_meilleur := compteur;
             end;
 
-          if (compteur = 1) | (valXY > classAux[1].note) then
+          if (compteur = 1) or (valXY > classAux[1].note) then
             AEteEnTete[XCourant] := deltaFinaleCourant;
 
         end;
@@ -8431,7 +8431,7 @@ begin
       begin
 
 
-        if ((classementMinimax[1].x <> infosPourMuVariant.x) & (classementMinimax[1].note <> -1)) |
+        if ((classementMinimax[1].x <> infosPourMuVariant.x) and (classementMinimax[1].note <> -1)) or
            (classementMinimax[1].note <> infosPourMuVariant.note) then
          begin
            outDernierMuVariant := deltaFinaleCourant;
@@ -8459,10 +8459,10 @@ begin
     begin
 
       (* on met le score du noeud dans l'arbre de jeu *)
-      if not(ValeurDeFinaleInexploitable(classAux[1].note)) &
-         ((compteur >= longClass) | sortieDeBoucleAcceleree) &
-         (deltaFinaleCourant = kDeltaFinaleInfini) &
-         not(bestmode & passeDeRechercheAuMoinsValeurCible & (valeurCible <> 0) & (classAux[1].note <> valeurCible)) then
+      if not(ValeurDeFinaleInexploitable(classAux[1].note)) and
+         ((compteur >= longClass) or sortieDeBoucleAcceleree) and
+         (deltaFinaleCourant = kDeltaFinaleInfini) and
+         not(bestmode and passeDeRechercheAuMoinsValeurCible and (valeurCible <> 0) and (classAux[1].note <> valeurCible)) then
         begin
          {WritelnStringAndBoolDansRapport('bestMode = ',bestMode);
           WritelnStringAndBoolDansRapport('bestmodeArriveeDansCoupGagnant = ',bestmodeArriveeDansCoupGagnant);
@@ -8470,7 +8470,7 @@ begin
           WritelnStringAndBoolDansRapport('passeDeRechercheAuMoinsValeurCible = ',passeDeRechercheAuMoinsValeurCible);
           WritelnNumDansRapport('valeurCible = ',valeurCible);}
 
-          if bestMode & not(passeDeRechercheAuMoinsValeurCible)
+          if bestMode and not(passeDeRechercheAuMoinsValeurCible)
             then
               begin
                 if odd(classAux[1].note) then
@@ -8492,14 +8492,14 @@ begin
   with variablesMakeEndgameSearch do
     begin
 
-      if MinimaxAEvalueAUMoinsUnCoupDansCettePasse & (maxConnuSiToutEstMoinsBonQueValeurCible <> -infini) then
+      if MinimaxAEvalueAUMoinsUnCoupDansCettePasse and (maxConnuSiToutEstMoinsBonQueValeurCible <> -infini) then
         begin
           if analyseRetrograde.enCours
-            then ChangeBestAB(scoreDuCoupDontLeScoreEstConnu,'bestMode & passeDeRechercheAuMoinsValeurCible{1}')
-            else ChangeBestAB(-64,'bestMode & passeDeRechercheAuMoinsValeurCible{2}');
+            then ChangeBestAB(scoreDuCoupDontLeScoreEstConnu,'bestMode and passeDeRechercheAuMoinsValeurCible{1}')
+            else ChangeBestAB(-64,'bestMode and passeDeRechercheAuMoinsValeurCible{2}');
 
           if MinimaxAEvalueTousLesCoupsDansCettePasse(longClass) then   {on sait que tous les coups sont < à valeurCible}
-            ChangeBetaAB(succ(maxConnuSiToutEstMoinsBonQueValeurCible),'bestMode & passeDeRechercheAuMoinsValeurCible{3}');
+            ChangeBetaAB(succ(maxConnuSiToutEstMoinsBonQueValeurCible),'bestMode and passeDeRechercheAuMoinsValeurCible{3}');
         end;
 
     end;
@@ -8512,8 +8512,8 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch do
     begin
 
-      if not(ValeurDeFinaleInexploitable(valXY)) & avecRefutationsDansRapport & inCommentairesDansRapportFinale &
-        not(bestMode) & (compteur >= longClass) & (bestAB < 0) then
+      if not(ValeurDeFinaleInexploitable(valXY)) and avecRefutationsDansRapport and inCommentairesDansRapportFinale and
+        not(bestMode) and (compteur >= longClass) and (bestAB < 0) then
           EcritRefutationsDansRapport(longClass,classAux);
 
     end;
@@ -8575,7 +8575,7 @@ BEGIN {MinimaxFinale}
 
 
       toutesLesPassesTerminees := false;
-      passeEhancedTranspositionCutOffEstEnCours := (deltaFinaleCourant < kDeltaFinaleInfini) & (noCoupRecherche <= 58);
+      passeEhancedTranspositionCutOffEstEnCours := (deltaFinaleCourant < kDeltaFinaleInfini) and (noCoupRecherche <= 58);
 
     BOUCLE_SUR_LES_FILS :
 
@@ -8623,13 +8623,13 @@ BEGIN {MinimaxFinale}
     		        end;
            end;
 
-        until sortieDeBoucleAcceleree | (compteur >= longClass) | (interruptionReflexion <> pasdinterruption);
+        until sortieDeBoucleAcceleree or (compteur >= longClass) or (interruptionReflexion <> pasdinterruption);
 
 
         GererAnnonceFinDUnePasseDeMinimaxFinale;
         GererLeTransfertDeLInformationDansLArbreDeJeu;
 
-        if bestMode & passeDeRechercheAuMoinsValeurCible
+        if bestMode and passeDeRechercheAuMoinsValeurCible
           then
             begin
               passeDeRechercheAuMoinsValeurCible := false;
@@ -8638,9 +8638,9 @@ BEGIN {MinimaxFinale}
           else
             toutesLesPassesTerminees := true;
 
-      until toutesLesPassesTerminees | (interruptionReflexion <> pasdinterruption);
+      until toutesLesPassesTerminees or (interruptionReflexion <> pasdinterruption);
 
-      if passeEhancedTranspositionCutOffEstEnCours & (interruptionReflexion = pasdinterruption) then
+      if passeEhancedTranspositionCutOffEstEnCours and (interruptionReflexion = pasdinterruption) then
         begin
           passeEhancedTranspositionCutOffEstEnCours := false;
           goto BOUCLE_SUR_LES_FILS;
@@ -8671,26 +8671,26 @@ begin
           LanceChronoCetteProf;
 
           { on lance la passe de calcul }
-          if afficheGestionTemps & (interruptionReflexion = pasdinterruption) & not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
+          if afficheGestionTemps and (interruptionReflexion = pasdinterruption) and not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
           outScoreFinale := MinimaxFinale(quelleValeurCible,coulPourMeilleurFin,MFniv,nbCoup,nbbl,nbno,jeu,emplacementsJouablesFinale,frontiereFinale,trierAvecLeTemps,classement);
-          if afficheGestionTemps & (interruptionReflexion = pasdinterruption) & not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
+          if afficheGestionTemps and (interruptionReflexion = pasdinterruption) and not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
 
 
           { affichage des infos dans la fenetre Gestion du temps }
           precision := IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinaleCourant);
           profondeurAffichee := PrecisionFinaleEngineEnProfondeurMilieu(precision, inProfondeurFinale);
           nbNoeudsEnFlottant := (1.0 * nbreToursNoeudsGeneresFinale) * 1000000000.0 + 1.0 * nbreNoeudsGeneresFinale;
-          if (nbNoeudsEnFlottant > 0) & (inProfondeurFinale - 2 >  0)
+          if (nbNoeudsEnFlottant > 0) and (inProfondeurFinale - 2 >  0)
 						then divergence := exp(ln(nbNoeudsEnFlottant)/(inProfondeurFinale - 2))
 					  else divergence := 0.0;
           SetValeursGestionTemps(tempsAlloue,TickCount-tempsGlobalDeLaFonction,0,divergence,profondeurAffichee,0);
-          if afficheGestionTemps & (interruptionReflexion = pasdinterruption) & not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
+          if afficheGestionTemps and (interruptionReflexion = pasdinterruption) and not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
 
 
-          if (interruptionReflexion = pasdinterruption) & ((outScoreFinale < -64) | (outScoreFinale > 64)) then
+          if (interruptionReflexion = pasdinterruption) and ((outScoreFinale < -64) or (outScoreFinale > 64)) then
             begin
               Sysbeep(0);
-              WritelnDansRapport('ASSERT dans Algo_Directionnel : (outScoreFinale < -64) | (outScoreFinale > 64)');
+              WritelnDansRapport('ASSERT dans Algo_Directionnel : (outScoreFinale < -64) or (outScoreFinale > 64)');
               WritelnNumDansRapport('  outScoreFinale = ',outScoreFinale);
               EcritClassementDansRapport(classement, 'classement retourné : ',nbCoup);
             end;
@@ -8714,7 +8714,7 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch, paramMakeEndgameSearch.outResult do
     begin
 
-      if (deltaFinaleVoulu >= 0) & (interruptionReflexion = pasdinterruption) then
+      if (deltaFinaleVoulu >= 0) and (interruptionReflexion = pasdinterruption) then
         begin
       	  SetDeltaFinalCourant(deltaFinaleVoulu);
 
@@ -8741,7 +8741,7 @@ begin
       	  PasseAlgoDirectionnel := meilleurScore;
 
       	  {… et on sauvegarde eventuellement le score et la suite parfaite}
-      	  if (deltaFinaleVoulu = kDeltaFinaleInfini) & (interruptionReflexion = pasdinterruption) then
+      	  if (deltaFinaleVoulu = kDeltaFinaleInfini) and (interruptionReflexion = pasdinterruption) then
       	    begin
               if CoulPourMeilleurFin = pionNoir
                 then scoreDeNoir :=  meilleurScore
@@ -8768,7 +8768,7 @@ begin
   with variablesMakeEndgameSearch, paramMakeEndgameSearch, paramMakeEndgameSearch.outResult do
     begin
 
-       if bestMode & not(analyseRetrograde.enCours) & not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflGagnantExhaustif])) then
+       if bestMode and not(analyseRetrograde.enCours) and not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflGagnantExhaustif])) then
          if PeutCalculerFinaleOptimaleParOptimalite(inPositionPourFinale,inNbreNoirsFinale,inNbreBlancsFinale,outBestMoveFinale,outBestDefenseFinale,scoreDeNoir)
            then
              begin
@@ -8786,8 +8786,8 @@ begin
                      resultatSansCalcul := true;
 
                      {coup gagnannt ?}
-                     MakeEndgameSearch := ((scoreDeNoir >= 0) & (coulPourMeilleurFin = pionNoir)) |
-                                          ((scoreDeNoir <= 0) & (coulPourMeilleurFin = pionBlanc));
+                     MakeEndgameSearch := ((scoreDeNoir >= 0) and (coulPourMeilleurFin = pionNoir)) or
+                                          ((scoreDeNoir <= 0) and (coulPourMeilleurFin = pionBlanc));
 
                      outScoreFinale := scoreDuCoupCalculeParOptimalite;
 
@@ -8867,7 +8867,7 @@ begin
            exit(InitToutPourRechercheDeFinaleEnProfondeur);
          end;
 
-      {if inCommentairesDansRapportFinale & InfosTechniquesDansRapport & (noCoupRecherche < 43) then
+      {if inCommentairesDansRapportFinale and InfosTechniquesDansRapport and (noCoupRecherche < 43) then
     	           AnnonceRechercheDansRapport(noCoupRecherche);}
 
     	 tempsGlobalDeLaFonction := TickCount;
@@ -8879,7 +8879,7 @@ begin
        MemoryFillChar(@meilleureSuite,sizeof(meilleureSuite),chr(0));
        MemoryFillChar(@classement,sizeof(classement),chr(0));
        SetDerniereAnnonceFinaleDansMeilleureSuite('');
-       if doitEcrireReflexFinale & affichageReflexion.doitAfficher
+       if doitEcrireReflexFinale and affichageReflexion.doitAfficher
          then SetPositionDansFntreReflexion(ReflexData^,MakePositionEtTrait(inPositionPourFinale,inCouleurFinale));
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
@@ -8904,7 +8904,7 @@ begin
        if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
 
        {version de VideToutesLesHashTablesExactes dans laquelle on verifie les interruptions}
-       if (MFniv >= 10) & not(analyseRetrograde.enCours & (nbreCoup >= 40)) then
+       if (MFniv >= 10) and not(analyseRetrograde.enCours and (nbreCoup >= 40)) then
          begin
     	     for i := 0 to nbTablesHashExactes-1 do
     			   begin
@@ -8989,13 +8989,13 @@ begin
 
       SetListeChaineeDesCasesVidesEstDisponible(listeChaineeEstDisponibleArrivee);
 
-      if doitEcrireReflexFinale & affichageReflexion.doitAfficher & not(analyseIntegraleDeFinale) then
+      if doitEcrireReflexFinale and affichageReflexion.doitAfficher and not(analyseIntegraleDeFinale) then
         begin
           ReinitilaliseInfosAffichageReflexion;
           EffaceReflexion(HumCtreHum);
         end;
 
-       if InfosTechniquesDansRapport & inCommentairesDansRapportFinale & not(InfosDansRapportSontCensurees(noCoupRecherche)) then
+       if InfosTechniquesDansRapport and inCommentairesDansRapportFinale and not(InfosDansRapportSontCensurees(noCoupRecherche)) then
          begin
            {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
            AfficheMiniProfilerDansRapport(ktempsMoyen);
@@ -9042,14 +9042,14 @@ begin
     begin
       done := false;
       if CassioIsUsingAnEngine(numeroEngine)
-         & (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur)
-         & (inAlphaFinale < inBetaFinale) then
+         and (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur)
+         and (inAlphaFinale < inBetaFinale) then
         begin
           line := meilleureSuitePtr(AllocateMemoryPtrClear(sizeof(t_meilleureSuite)));
 
           if (line <> NIL) then
             if EnginePeutFaireCalculDeFinale(inPositionPourFinale,inCouleurFinale,inAlphaFinale,inBetaFinale,inPrecisionFinale,44,note,bestMove,line^) then
-              if (note >= -64) & (note <= 64) & (interruptionReflexion = pasdinterruption) then
+              if (note >= -64) and (note <= 64) and (interruptionReflexion = pasdinterruption) then
                  begin
                    // tout a l'air bon, hein
                    done := true;
@@ -9089,7 +9089,7 @@ BEGIN          {MakeEndgameSearch}
       tempsGlobalDeLaFonction := 1; { un tick au moins }
       tickDepartDeLaFonction  := Tickcount;
 
-      if (interruptionReflexion = pasdinterruption) & VerifieAssertionsDeFinale & ListeChaineeDesCasesVidesEstDisponible then
+      if (interruptionReflexion = pasdinterruption) and VerifieAssertionsDeFinale and ListeChaineeDesCasesVidesEstDisponible then
         begin
 
           chainesDejaEcrites := MakeEmptyStringSet;
@@ -9097,7 +9097,7 @@ BEGIN          {MakeEndgameSearch}
       	  PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
       	  analyseIntegraleDeFinale := false;
 
-      	  if (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur) & not(CassioIsUsingAnEngine(numeroEngine))
+      	  if (inTypeCalculFinale = ReflFinalePasseeDirectementAuMoteur) and not(CassioIsUsingAnEngine(numeroEngine))
       	    then inTypeCalculFinale := ReflParfait;
 
 
@@ -9140,7 +9140,7 @@ BEGIN          {MakeEndgameSearch}
           gAvecAttenteTouchePourDebuguerParallelisme  := true;
 
       	  if not(ScriptDeFinaleEnCours)
-      	    then inCommentairesDansRapportFinale := inCommentairesDansRapportFinale & not(jeuInstantane);
+      	    then inCommentairesDansRapportFinale := inCommentairesDansRapportFinale and not(jeuInstantane);
 
       	  if debuggage.algoDeFinale then
       	    begin
@@ -9177,18 +9177,18 @@ BEGIN          {MakeEndgameSearch}
 
       	  case inTypeCalculFinale of
       	    ReflParfaitExhaustif,ReflGagnantExhaustif :
-      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees & (inGameTreeNodeFinale <> NIL);
+      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees and (inGameTreeNodeFinale <> NIL);
       	    ReflParfait,ReflGagnant :
-      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees & (inGameTreeNodeFinale <> NIL) &
+      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees and (inGameTreeNodeFinale <> NIL) and
       	                                         EstLaPositionCourante(positionEtTraitDeMakeEndgameSearch);
       	    ReflRetrogradeParfait, ReflRetrogradeGagnant:
-      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees & (inGameTreeNodeFinale <> NIL) &
+      	       coupGagnantUtiliseEndgameTrees := usingEndgameTrees and (inGameTreeNodeFinale <> NIL) and
       	                                         EstLaPositionCourante(positionEtTraitDeMakeEndgameSearch);
       	    otherwise
       	       coupGagnantUtiliseEndgameTrees := false;
       	  end; {case}
       	  coupDontLeScoreEstConnu := 0;
-      	  coupGagnantAUneFenetreAlphaBetaReduite := (inAlphaFinale > -64) | (inBetaFinale < 64);
+      	  coupGagnantAUneFenetreAlphaBetaReduite := (inAlphaFinale > -64) or (inBetaFinale < 64);
 
 
 
@@ -9201,7 +9201,7 @@ BEGIN          {MakeEndgameSearch}
       	  *)
 
 
-      	  if not(CalculDirectParLeMoteur) & (interruptionReflexion = pasdinterruption) then
+      	  if not(CalculDirectParLeMoteur) and (interruptionReflexion = pasdinterruption) then
 
     	      begin
 
@@ -9222,7 +9222,7 @@ BEGIN          {MakeEndgameSearch}
           	         else magicCookieEndgameTree := 0;
           	     end;
 
-          	  if coupGagnantUtiliseEndgameTrees & not(seMefierDesScoresDeLArbre) then
+          	  if coupGagnantUtiliseEndgameTrees and not(seMefierDesScoresDeLArbre) then
                  begin
                    RetropropagerScoreDesFilsDansGameTree(inGameTreeNodeFinale);
                    EffaceNoeudDansFenetreArbreDeJeu;
@@ -9237,12 +9237,12 @@ BEGIN          {MakeEndgameSearch}
 
           	         // WritelnStringAndBooleanDansRapport('inDoitAbsolumentRamenerLaSuiteFinale = ',inDoitAbsolumentRamenerLaSuiteFinale);
 
-          	         if (mob > 1) |                                            {**** au moins deux coups jouables ****}
-          	            inDoitAbsolumentRamenerLaSuiteFinale |
-          	            inDoitAbsolumentRamenerUnScoreFinale |
+          	         if (mob > 1) or                                            {**** au moins deux coups jouables ****}
+          	            inDoitAbsolumentRamenerLaSuiteFinale or
+          	            inDoitAbsolumentRamenerUnScoreFinale or
           	            GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]) then
           				     BEGIN
-          				       if (coulPourMeilleurFin = AQuiDeJouer) & not(CassioEstEnTrainDeCalculerPourLeZoo)
+          				       if (coulPourMeilleurFin = AQuiDeJouer) and not(CassioEstEnTrainDeCalculerPourLeZoo)
           				         then EcritAnnonceFinaleDansMeilleureSuite(inTypeCalculFinale,noCoupRecherche,kDeltaFinaleInfini);
 
           				       nbcoup := 0;
@@ -9261,7 +9261,7 @@ BEGIN          {MakeEndgameSearch}
 
           				       tempsAlloue := CalculeTempsAlloueEnFinale(CoulPourMeilleurFin);
           				       SetValeursGestionTemps(tempsAlloue,0,0,0.0,0,0);
-          				       if afficheGestionTemps & (interruptionReflexion = pasdinterruption) & not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
+          				       if afficheGestionTemps and (interruptionReflexion = pasdinterruption) and not(CassioEstEnTrainDeCalculerPourLeZoo) then EcritGestionTemps;
 
 
 
@@ -9349,7 +9349,7 @@ BEGIN          {MakeEndgameSearch}
 
           					     if VerifieAssertionsDeFinale then DoNothing;
 
-          			         if (interruptionReflexion = pasdinterruption) & not(seMefierDesScoresDeLArbre) then
+          			         if (interruptionReflexion = pasdinterruption) and not(seMefierDesScoresDeLArbre) then
           			           begin
           			             EngineBeginFeedHashSequence;
           			             MetSousArbreDansHashTableExacte(inGameTreeNodeFinale,ProfPourHashExacte);
@@ -9360,7 +9360,7 @@ BEGIN          {MakeEndgameSearch}
           	      	         EcritCurrentNodeDansFenetreArbreDeJeu(true,false);
           			           end;
 
-                         if bestMode & coupGagnantAUneFenetreAlphaBetaReduite & (inTypeCalculFinale = ReflParfait) {l'algo avec une fenetre alpha-beta personalisée}
+                         if bestMode and coupGagnantAUneFenetreAlphaBetaReduite and (inTypeCalculFinale = ReflParfait) {l'algo avec une fenetre alpha-beta personalisée}
                            then
                              begin
                                milieuFenetre := (inAlphaFinale + inBetaFinale) div 2;
@@ -9369,7 +9369,7 @@ BEGIN          {MakeEndgameSearch}
           							         if not(termine) then outScoreFinale := PasseAlgoDirectionnel(milieuFenetre,deltaSuccessifs[index].valeurDeMu,true,termine);
                              end
                            else
-          					     if bestMode & not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]))  {l'algo de meilleur score standard}
+          					     if bestMode and not(GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]))  {l'algo de meilleur score standard}
           				         then
           					         begin
           					           bestMode := false;
@@ -9384,7 +9384,7 @@ BEGIN          {MakeEndgameSearch}
           						         outScoreFinale := PasseAlgoDirectionnel(outScoreFinale,kDeltaFinaleInfini,false,dernierePasseTerminee);
           						       end
           					       else
-          					     if bestMode & (inTypeCalculFinale = ReflParfaitExhaustif)  {l'algo pour tous les scores}
+          					     if bestMode and (inTypeCalculFinale = ReflParfaitExhaustif)  {l'algo pour tous les scores}
           				         then
           					         begin
 
@@ -9402,7 +9402,7 @@ BEGIN          {MakeEndgameSearch}
           						         outScoreFinale := PasseAlgoDirectionnel(outScoreFinale,kDeltaFinaleInfini,false,dernierePasseTerminee);
 
           						         {on connait le meilleur coup : on l'affiche eventuellement comme suggestion de Cassio}
-          						         if (interruptionReflexion = pasdinterruption) &
+          						         if (interruptionReflexion = pasdinterruption) and
           						            EstLaPositionCourante(positionEtTraitDeMakeEndgameSearch)
           						           then ActiverSuggestionDeCassio(PositionEtTraitCourant,classement[1].x,classement[1].theDefense,'MakeEndgameSearch {ReflParfaitExhaustif}');
 
@@ -9415,7 +9415,7 @@ BEGIN          {MakeEndgameSearch}
           						         outScoreFinale := PasseAlgoDirectionnel(outScoreFinale,kDeltaFinaleInfini,false,dernierePasseTerminee);
           						       end
           						     else  {l'algo gagnant/perdant exhaustif}
-          						   if not(bestMode) & (inTypeCalculFinale = ReflGagnantExhaustif)
+          						   if not(bestMode) and (inTypeCalculFinale = ReflGagnantExhaustif)
           						     then
           				           begin
           				             analyseIntegraleDeFinale := false;
@@ -9425,7 +9425,7 @@ BEGIN          {MakeEndgameSearch}
           						         outScoreFinale := PasseAlgoDirectionnel(0,kDeltaFinaleInfini,false,dernierePasseTerminee);
 
           						         {on connait un coup gagnant : on l'affiche eventuellement comme suggestion de Cassio}
-          						         if (interruptionReflexion = pasdinterruption) & (classement[1].note >= 0) &
+          						         if (interruptionReflexion = pasdinterruption) and (classement[1].note >= 0) and
           						            EstLaPositionCourante(positionEtTraitDeMakeEndgameSearch) then
           						           ActiverSuggestionDeCassio(PositionEtTraitCourant,classement[1].x,classement[1].theDefense,'MakeEndgameSearch {ReflGagnantExhaustif}');
 
@@ -9497,7 +9497,7 @@ BEGIN          {MakeEndgameSearch}
           	      EffaceNoeudDansFenetreArbreDeJeu;
           	      EcritCurrentNodeDansFenetreArbreDeJeu(true,false);
 
-          	      if afficheProchainsCoups & (BAnd(GetAffichageProprietesOfCurrentNode,kProchainCoup) <> 0) then
+          	      if afficheProchainsCoups and (BAnd(GetAffichageProprietesOfCurrentNode,kProchainCoup) <> 0) then
           	        DessineAutresInfosSurCasesAideDebutant(othellierToutEntier,'MakeEndgameSearch');
           	    end;
           	  if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) then

@@ -110,7 +110,7 @@ begin
       repeat
         if permutationDesNumerosDeQuiz[j] = kCelluleVide then inc(compteur);
         if (compteur < n) then inc(j);
-      until (j >= kNbTotalDeQuiz) | (compteur >= n);
+      until (j >= kNbTotalDeQuiz) or (compteur >= n);
 
       permutationDesNumerosDeQuiz[j] := a;
       if a = kValeurSpeciale then premierAntecedant := j;
@@ -152,7 +152,7 @@ begin
   ExtraitPositionEtTraitDeLaListeEnString := '';
   typeErreur := kPartieOK;
 
-  if (numeroReference > 0) & (numeroReference <= nbPartiesActives) then
+  if (numeroReference > 0) and (numeroReference <= nbPartiesActives) then
     begin
       ExtraitPartieTableStockageParties(numeroReference,s60);
       ExtraitPositionEtTraitDeLaListeEnString := PositionEtTraitAfterMoveEnString(s60,apresQuelCoup,typeErreur);
@@ -173,7 +173,7 @@ var n,k : SInt32;
     explicationRejetPartie : SInt32;
 begin
   err := -1;
-  if windowListeOpen & (nbPartiesActives > 0) then
+  if windowListeOpen and (nbPartiesActives > 0) then
     begin
 		  s := ReadStringFromRessource(TextesDiversID,2);   {'sans titre'}
 		  SetNameOfSFReply(reply, s);
@@ -225,7 +225,7 @@ begin
 
 		            theLine := ExtraitPositionEtTraitDeLaListeEnString(n,kApresQuelCoup,explicationRejetPartie);
 
-		            if (theLine <> '') & (explicationRejetPartie = kPartieOK)
+		            if (theLine <> '') and (explicationRejetPartie = kPartieOK)
 		              then
 		                err := WritelnDansFichierTexte(script,theLine+' % '+nomDeLaBase+' after '+NumEnString(kApresQuelCoup)+' #'+NumEnString(n))
 		              else
@@ -360,8 +360,8 @@ var ligne,nomOutpuScript,comment,s,result : String255;
 
 
 
-        if (Pos('SET ENGINE = CASSIO',ligne) > 0) |
-           (Pos('SET ENGINE = EDMOND',ligne) > 0) |
+        if (Pos('SET ENGINE = CASSIO',ligne) > 0) or
+           (Pos('SET ENGINE = EDMOND',ligne) > 0) or
            (Pos('SET ENGINE = MIXTE_CASSIO_EDMOND',ligne) > 0) then
           begin
 
@@ -391,7 +391,7 @@ begin
 
   endgameSolveFlags := 0;
 
-  if (nbreCoup > 20) & (phaseDeLaPartie < phaseFinaleParfaite) then
+  if (nbreCoup > 20) and (phaseDeLaPartie < phaseFinaleParfaite) then
     endgameSolveFlags := endgameSolveFlags + kEndgameSolveOnlyWLD;
 
   if afficheMeilleureSuite then
@@ -401,7 +401,7 @@ begin
     endgameSolveFlags := endgameSolveFlags + kEndgameSolveEcrireInfosTechniquesDansRapport;
 
 
-  if ScriptDeFinaleEnCours |
+  if ScriptDeFinaleEnCours or
      not(PeutArreterAnalyseRetrograde) then
     exit(OuvrirEndgameScript);
 
@@ -489,8 +489,8 @@ begin
   tempsMaximumEnSecondes := 0;
   erreurES := NoErr;
   ligne := '';
-  while not(EOFFichierTexte(inputScript,erreurES)) &
-        (Pos('% End of the endgame script',ligne) = 0) &
+  while not(EOFFichierTexte(inputScript,erreurES)) and
+        (Pos('% End of the endgame script',ligne) = 0) and
         not(EscapeDansQueue) do
     begin
 
@@ -501,7 +501,7 @@ begin
       erreurES := ReadlnDansFichierTexte(inputScript,s);
       ligne := s;
       ligne := EnleveEspacesDeGauche(ligne);
-      if (ligne = '') | (ligne[1] = '%')
+      if (ligne = '') or (ligne[1] = '%')
         then
           begin
             erreurES := WritelnDansFichierTexte(outputScript,s);
@@ -509,7 +509,7 @@ begin
           end
         else
           begin
-            if ParsePositionEtTrait(ligne,positionEtTrait) & (GetTraitOfPosition(positionEtTrait) <> pionVide)
+            if ParsePositionEtTrait(ligne,positionEtTrait) and (GetTraitOfPosition(positionEtTrait) <> pionVide)
               then
                 begin
                   positionCommentaire := Pos('%',ligne);
@@ -523,7 +523,7 @@ begin
                     then score := -1000     {or any impossible score  < -64 or > 64}
                     else score := DoPlaquerPositionAndMakeEndgameSolve(positionEtTrait,endgameSolveFlags,solveResults);
 
-                  if Quitter | (score < -64) | (score > 64)
+                  if Quitter or (score < -64) or (score > 64)
                     then result := '?? - ??      '
                     else
                       begin
@@ -535,7 +535,7 @@ begin
                         tempsTotalEnSecondes := tempsTotalEnSecondes+tempsPourCettePositionsEnSecondes;
                         if tempsPourCettePositionsEnSecondes > tempsMaximumEnSecondes then tempsMaximumEnSecondes := tempsPourCettePositionsEnSecondes;
 
-                        if (nbPositionsResolues <> 0) & ((nbPositionsResolues mod 50) = 0) then
+                        if (nbPositionsResolues <> 0) and ((nbPositionsResolues mod 50) = 0) then
                           begin
                             WritelnDansRapport('après '+NumEnString(nbPositionsResolues)+' positions résolues :');
                             WritelnStringAndReelDansRapport('   temps moyen en sec : ',1.0*tempsTotalEnSecondes/nbPositionsResolues,3);
@@ -659,7 +659,7 @@ begin {CreerQuizEnPHP}
                                            '<img src="top.gif" width="224" height="16"><br />',
                                            '<img src="^0^1.gif" width="16" height="24">',
                                            '<img src="^0^1.gif" width="16" height="24"><br />',
-                                           '<span><br><b > Probl&egrave;me '+NumEnString(numeroQuiz)+'</b></span>'
+                                           '<span><br><b > Problandegrave;me '+NumEnString(numeroQuiz)+'</b></span>'
                                           )
          else erreurES := WritePositionEtTraitEnHTMLDansFichierAbstrait(positionQuiz,fichierAbstraitPHP,
                                            '<div class="diagramme">',
@@ -673,7 +673,7 @@ begin {CreerQuizEnPHP}
                                            '<img src="top.gif" width="224" height="16"><br />',
                                            '<img src="^0^1.gif" width="16" height="24">',
                                            '<img src="^0^1.gif" width="16" height="24"><br />',
-                                           '<span><br><b > Probl&egrave;me '+NumEnString(numeroQuiz)+'</b></span>'
+                                           '<span><br><b > Problandegrave;me '+NumEnString(numeroQuiz)+'</b></span>'
                                           );
 
       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
@@ -689,14 +689,14 @@ begin {CreerQuizEnPHP}
 
       ErreurES := WritelnDansFichierTexte(fichierPHP,'<td valign="top">');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
+      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
+      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
+      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
 
       ErreurES := WritelnDansFichierTexte(fichierPHP,'<p>');
       if GetTraitOfPosition(positionQuiz) = pionNoir
-        then ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait &agrave;  < b > Noir </b > .')
-        else ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait &agrave;  < b > Blanc </b > .');
+        then ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait andagrave;  < b > Noir </b > .')
+        else ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait andagrave;  < b > Blanc </b > .');
       ErreurES := WritelnDansFichierTexte(fichierPHP,'Cliquez sur le bon coup ! </p>');
       ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
       ErreurES := WritelnDansFichierTexte(fichierPHP,'</tr>');
@@ -709,7 +709,7 @@ begin {CreerQuizEnPHP}
       ErreurES := WritelnDansFichierTexte(fichierPHP,'<hr>');
 
       ErreurES := WritelnDansFichierTexte(fichierPHP,'<p class="menu-navigation-rapide">');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour &agrave; l''accueil');
+      ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
       ErreurES := WritelnDansFichierTexte(fichierPHP,'</a > ]');
       ErreurES := WritelnDansFichierTexte(fichierPHP,'</p>');
 
@@ -731,7 +731,7 @@ begin {CreerQuizEnPHP}
         positionEssai    := positionQuiz;
         positionSolution := positionQuiz;
 
-        if UpdatePositionEtTrait(positionEssai,square) & UpdatePositionEtTrait(positionSolution,coupSolution) then
+        if UpdatePositionEtTrait(positionEssai,square) and UpdatePositionEtTrait(positionSolution,coupSolution) then
           begin
 
 
@@ -775,9 +775,9 @@ begin {CreerQuizEnPHP}
 
 
                       ErreurES := WritelnDansFichierTexte(fichierPHP,'<td valign="top">');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">&nbsp; </p>');
+                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
+                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
+                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
                       ErreurES := WritelnDansFichierTexte(fichierPHP,'<p><b > Bravo </b >  !');
 
                       FermerFichierEtFabriquerFichierAbstrait(fichierPHP,fichierAbstraitPHP);
@@ -795,7 +795,7 @@ begin {CreerQuizEnPHP}
                     begin
 
                       FermerFichierEtFabriquerFichierAbstrait(fichierPHP,fichierAbstraitPHP);
-                      erreurES := WritePositionEtTraitPageWebFFODansFichierAbstrait(positionEssai,'<span><br><b > Rat&eacute; </b></span>',fichierAbstraitPHP);
+                      erreurES := WritePositionEtTraitPageWebFFODansFichierAbstrait(positionEssai,'<span><br><b > Ratandeacute; </b></span>',fichierAbstraitPHP);
                       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
 
                       ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
@@ -826,7 +826,7 @@ begin {CreerQuizEnPHP}
                 ErreurES := WritelnDansFichierTexte(fichierPHP,'<hr>');
 
                 ErreurES := WritelnDansFichierTexte(fichierPHP,'<p class="menu-navigation-rapide">');
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour &agrave; l''accueil');
+                ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
                 ErreurES := WritelnDansFichierTexte(fichierPHP,'</a > ]');
                 ErreurES := WritelnDansFichierTexte(fichierPHP,'</p>');
 
@@ -925,8 +925,8 @@ begin
   erreurES := NoErr;
   ligne := '';
   arretPoblemesStepanov := false;
-  while not(arretPoblemesStepanov) &
-        not(EOFFichierTexte(inputScript,erreurES)) &
+  while not(arretPoblemesStepanov) and
+        not(EOFFichierTexte(inputScript,erreurES)) and
         (Pos('% End of the endgame script',ligne) = 0) do
     begin
 
@@ -942,13 +942,13 @@ begin
       EnleveEtCompteCeCaractereAGaucheDansBuffer(@buffer[0],count,' ',nbEspacesEnleves);
 
 
-      if (count >= 70) & (buffer[0] <> '%')  then
+      if (count >= 70) and (buffer[0] <> '%')  then
           begin
 
             ligne := BufferToPascalString(@buffer[0],0, 69);
 
             {WritelnDansRapport(ligne);}
-            if ParsePositionEtTrait(ligne,positionEtTrait) & (GetTraitOfPosition(positionEtTrait) <> pionVide)
+            if ParsePositionEtTrait(ligne,positionEtTrait) and (GetTraitOfPosition(positionEtTrait) <> pionVide)
               then
                 begin
 
@@ -989,7 +989,7 @@ begin
 
                   ticks := TickCount;
 
-                  if not(Quitter) & (nbProblemesTraites = quelProbleme) then
+                  if not(Quitter) and (nbProblemesTraites = quelProbleme) then
                     begin
                       dernierProblemeStepnanovAffiche := quelProbleme;
                       PlaquerPosition(positionEtTrait.position,GetTraitOfPosition(positionEtTrait),kRedessineEcran);

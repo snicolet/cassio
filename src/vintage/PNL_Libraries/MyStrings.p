@@ -296,10 +296,10 @@ begin
 	flag := true;
 	for i := 1 to LENGTH_OF_STRING(alpha) do
 		if (IsDigit(alpha[i])
-		    | (alpha[i] = '.')
-		    | (alpha[i] = 'e')
-		    | (alpha[i] = 'E')
-		    | (alpha[i] = '-'))
+		    or (alpha[i] = '.')
+		    or (alpha[i] = 'e')
+		    or (alpha[i] = 'E')
+		    or (alpha[i] = '-'))
 		then {bons caractres}
 			begin
 				if alpha[i] = '.' then
@@ -463,56 +463,56 @@ begin
       unreel := unreel- nbBilliards*1000000000000000.0;
     end;
   nbBillions := MyTrunc(unreel/1000000000000.0);
-  if (nbBillions = 0) & (dejaEcritDesChiffres) then s1 := s1 + '000' else
+  if (nbBillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbBillions >= 1) then
     begin
       s2 := NumEnString(nbBillions);
-      if (nbBillions >= 1)  & (nbBillions <= 9)  & dejaEcritDesChiffres then s2 := Concat('00',s2);
-      if (nbBillions >= 10) & (nbBillions <= 99) & dejaEcritDesChiffres then s2 := Concat('0',s2);
+      if (nbBillions >= 1)  and (nbBillions <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
+      if (nbBillions >= 10) and (nbBillions <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbBillions*1000000000000.0;
     end;
   nbMilliards := MyTrunc(unreel/1000000000.0);
-  if (nbMilliards = 0) & (dejaEcritDesChiffres) then s1 := s1 + '000' else
+  if (nbMilliards = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliards >= 1) then
     begin
       s2 := NumEnString(nbMilliards);
-      if (nbMilliards >= 1)  & (nbMilliards <= 9)  & dejaEcritDesChiffres then s2 := Concat('00',s2);
-      if (nbMilliards >= 10) & (nbMilliards <= 99) & dejaEcritDesChiffres then s2 := Concat('0',s2);
+      if (nbMilliards >= 1)  and (nbMilliards <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
+      if (nbMilliards >= 10) and (nbMilliards <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMilliards*1000000000.0;
     end;
   nbMillions := MyTrunc(unreel/1000000.0);
-  if (nbMillions = 0) & (dejaEcritDesChiffres) then s1 := s1 + '000' else
+  if (nbMillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMillions >= 1) then
     begin
       s2 := NumEnString(nbMillions);
-      if (nbMillions >= 1)  & (nbMillions <= 9)  & dejaEcritDesChiffres then s2 := Concat('00',s2);
-      if (nbMillions >= 10) & (nbMillions <= 99) & dejaEcritDesChiffres then s2 := Concat('0',s2);
+      if (nbMillions >= 1)  and (nbMillions <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
+      if (nbMillions >= 10) and (nbMillions <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMillions*1000000.0;
     end;
   nbMilliers := MyTrunc(unreel/1000.0);
-  if (nbMilliers = 0) & (dejaEcritDesChiffres) then s1 := s1 + '000' else
+  if (nbMilliers = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliers >= 1) then
     begin
       s2 := NumEnString(nbMilliers);
-      if (nbMilliers >= 1)  & (nbMilliers <= 9)  & dejaEcritDesChiffres then s2 := Concat('00',s2);
-      if (nbMilliers >= 10) & (nbMilliers <= 99) & dejaEcritDesChiffres then s2 := Concat('0',s2);
+      if (nbMilliers >= 1)  and (nbMilliers <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
+      if (nbMilliers >= 10) and (nbMilliers <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMilliers*1000.0;
     end;
   nbUnites := MyTrunc(unreel);
-  if (nbUnites = 0) & (dejaEcritDesChiffres) then s1 := s1 + '000' else
+  if (nbUnites = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbUnites >= 0) then   { >= 0 au lieu de >= 1 car on veut ecrire 0.abc et non pas .abc}
     begin
       s2 := NumEnString(nbUnites);
-      if (nbUnites >= 1)  & (nbUnites <= 9)  & dejaEcritDesChiffres then s2 := Concat('00',s2);
-      if (nbUnites >= 10) & (nbUnites <= 99) & dejaEcritDesChiffres then s2 := Concat('0',s2);
+      if (nbUnites >= 1)  and (nbUnites <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
+      if (nbUnites >= 10) and (nbUnites <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbUnites;
@@ -590,7 +590,7 @@ end;
 	function FindCharacter(p : Ptr; len : SInt32; ch : char; var pos : SInt32) : boolean;
 	begin
 		pos := 0;
-		while (pos < len) & (Ptr(POINTER_VALUE(p)+pos)^ <> ord(ch)) do begin
+		while (pos < len) and (Ptr(POINTER_VALUE(p)+pos)^ <> ord(ch)) do begin
 			pos := pos+1;
 		end;
 		FindCharacter := pos < len;
@@ -696,17 +696,17 @@ end;
 	procedure StringToHandle (const s : String255; hhhh : UnivHandle);
 	begin
 		SetHandleSize(Handle(hhhh), LENGTH_OF_STRING(s));
-		if (MemError = noErr) & (LENGTH_OF_STRING(s) > 0) then begin
+		if (MemError = noErr) and (LENGTH_OF_STRING(s) > 0) then begin
 			BlockMoveData(@s[1], hhhh^, LENGTH_OF_STRING(s));
 		end;
 	end;
 
 	function Trim (s : String255) : String255;
 	begin
-		while (LENGTH_OF_STRING(s) > 0) & CharInSet(s[1],[spc, tab, cr, lf]) do begin
+		while (LENGTH_OF_STRING(s) > 0) and CharInSet(s[1],[spc, tab, cr, lf]) do begin
 			DeleteString(s, 1, 1);
 		end;
-		while (LENGTH_OF_STRING(s) > 0) & CharInSet(s[LENGTH_OF_STRING(s)],[spc, tab, cr, lf]) do begin
+		while (LENGTH_OF_STRING(s) > 0) and CharInSet(s[LENGTH_OF_STRING(s)],[spc, tab, cr, lf]) do begin
 			DeleteString(s, LENGTH_OF_STRING(s), 1);
 		end;
 		Trim := s;
@@ -714,7 +714,7 @@ end;
 
 	function LowerCase( ch : char ) : char;
 	begin
-		if ('A' <= ch) & (ch <= 'Z') then begin
+		if ('A' <= ch) and (ch <= 'Z') then begin
 			ch := chr(ord(ch) + $20);
 		end;
 		LowerCase := ch;
@@ -722,7 +722,7 @@ end;
 
 	function UpCase (ch : char) : char;
 	begin
-		if ('a' <= ch) & (ch <= 'z') then begin
+		if ('a' <= ch) and (ch <= 'z') then begin
 			ch := chr(ord(ch) - $20);
 		end;
 		UpCase := ch;
@@ -730,22 +730,22 @@ end;
 
 	function IsDigit(ch : char) : boolean;
 	begin
-		IsDigit := ('0' <= ch) & (ch <= '9');
+		IsDigit := ('0' <= ch) and (ch <= '9');
 	end;
 
 	function IsLower(ch : char) : boolean;
 	begin
-		IsLower := ('a' <= ch) & (ch <= 'z');
+		IsLower := ('a' <= ch) and (ch <= 'z');
 	end;
 
 	function IsUpper(ch : char) : boolean;
 	begin
-		IsUpper := ('A' <= ch) & (ch <= 'Z');
+		IsUpper := ('A' <= ch) and (ch <= 'Z');
 	end;
 
 	function IsAlpha(ch : char) : boolean;
 	begin
-		IsAlpha := (('a' <= ch) & (ch <= 'z')) | (('A' <= ch) & (ch <= 'Z'));
+		IsAlpha := (('a' <= ch) and (ch <= 'z')) or (('A' <= ch) and (ch <= 'Z'));
 	end;
 
 	function NoCaseEquals( s1, s2 : String255 ) : boolean;
@@ -843,7 +843,7 @@ function LastPos (sub, str : String255) : SInt16;
 var i, j : SInt16;
 begin
   LastPos := 0;
-	if (LENGTH_OF_STRING(sub) > 0) & (LENGTH_OF_STRING(sub) <= LENGTH_OF_STRING(str)) then
+	if (LENGTH_OF_STRING(sub) > 0) and (LENGTH_OF_STRING(sub) <= LENGTH_OF_STRING(str)) then
 	  begin
 		i := succ(LENGTH_OF_STRING(str)-LENGTH_OF_STRING(sub));
 		while (i >= 1) do
@@ -893,7 +893,7 @@ begin
                   begin
                     i := 1;
                     c := sub[1];
-                    while (i <= len_str) & (str[i] <> c) do
+                    while (i <= len_str) and (str[i] <> c) do
                       inc(i);
 
                     if (i > len_str)
@@ -1175,7 +1175,7 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 	
  function StringBeginsWith(const s, pattern : String255) : boolean;
  begin
-   if (s = '') | (pattern = '') then
+   if (s = '') or (pattern = '') then
      begin
        StringBeginsWith := false;
        exit(StringBeginsWith);
@@ -1290,8 +1290,8 @@ begin
   if (len > 0) then
     begin
       i := 1;
-      if ((s[1] = ' ') | (s[1] = tab)) then
-        repeat inc(i); until (i > len) | ((s[i] <> ' ') & (s[i] <> tab));
+      if ((s[1] = ' ') or (s[1] = tab)) then
+        repeat inc(i); until (i > len) or ((s[i] <> ' ') and (s[i] <> tab));
       for j := i to len do result := result + s[j];
     end;
   EnleveEspacesDeGauche := result;
@@ -1312,11 +1312,11 @@ begin
   if (len > 0) then
     begin
       i := 1;
-      if ((s[1] = ' ') | (s[1] = tab)) then
+      if ((s[1] = ' ') or (s[1] = tab)) then
         repeat
           inc(i);
           inc(nbEspacesEnleves);
-        until (i > len) | ((s[i] <> ' ') & (s[i] <> tab));
+        until (i > len) or ((s[i] <> ' ') and (s[i] <> tab));
       if nbEspacesEnleves > 0 then
         begin
           for j := 1 to len - nbEspacesEnleves do
@@ -1335,10 +1335,10 @@ begin
   if (len > 0) then
     begin
       i := len;
-      if ((s[len] = ' ') | (s[len] = tab)) then
+      if ((s[len] = ' ') or (s[len] = tab)) then
         repeat
           dec(i);
-        until (i < 1) | ((s[i] <> ' ') & (s[i] <> tab));
+        until (i < 1) or ((s[i] <> ' ') and (s[i] <> tab));
       for j := 1 to i do result := result + s[j];
     end;
   EnleveEspacesDeDroite := result;
@@ -1353,11 +1353,11 @@ begin
   if (len > 0) then
     begin
       i := len;
-      if ((s[len] = ' ') | (s[len] = tab)) then
+      if ((s[len] = ' ') or (s[len] = tab)) then
         repeat
           dec(i);
           inc(nbEspacesEnleves);
-        until (i < 1) | ((s[i] <> ' ') & (s[i] <> tab));
+        until (i < 1) or ((s[i] <> ' ') and (s[i] <> tab));
       if nbEspacesEnleves > 0 then
         SET_LENGTH_OF_STRING(s,len-nbEspacesEnleves);
     end;
@@ -1375,7 +1375,7 @@ begin
         repeat
           inc(i);
           inc(nbCaracteresEnleves);
-        until (i > len) | (s[i] <> ch);
+        until (i > len) or (s[i] <> ch);
       if nbCaracteresEnleves > 0 then
         begin
           for j := 1 to len-nbCaracteresEnleves do
@@ -1397,7 +1397,7 @@ begin
         repeat
           dec(i);
           inc(nbCaracteresEnleves);
-        until (i < 1) | (s[i] <> ch);
+        until (i < 1) or (s[i] <> ch);
       if nbCaracteresEnleves > 0 then
         SET_LENGTH_OF_STRING(s,len-nbCaracteresEnleves);
     end;
@@ -1435,7 +1435,7 @@ begin
             repeat
               inc(i);
               inc(nbCaracteresEnleves);
-            until (i >= len) | (localBuffer^[i] <> ch);
+            until (i >= len) or (localBuffer^[i] <> ch);
 
           if (nbCaracteresEnleves > 0) then
             begin
@@ -1481,7 +1481,7 @@ var len,lensub,i,k : SInt32;
 begin
   len := LENGTH_OF_STRING(s);
   lenSub := LENGTH_OF_STRING(subString);
-  if (len <= 0) | (lensub <= 0)
+  if (len <= 0) or (lensub <= 0)
     then
       begin
         CompterOccurencesDeSousChaine := 0;
@@ -1496,7 +1496,7 @@ begin
         while (i <= len-lensub+1) do
           begin
             k := 1;
-            while (k <= lenSub) & (i+k-1 <= len) & (s[i+k-1] = subString[k]) do
+            while (k <= lenSub) and (i+k-1 <= len) and (s[i+k-1] = subString[k]) do
              inc(k);
 
             if (k > lenSub)
@@ -1548,7 +1548,7 @@ begin
   //WritelnDansRapport(s);
 
 
-  while (Pos('&', s ) > 0) & (Pos( ';', s ) > 0) do
+  while (Pos('&', s ) > 0) and (Pos( ';', s ) > 0) do
     begin
 
 
@@ -1747,7 +1747,7 @@ begin
 
 
 
-  if (longueur >= 10) & (nomFichier[longueur-3] = '.') then
+  if (longueur >= 10) and (nomFichier[longueur-3] = '.') then
     begin
 
       for i := (longueur - 9) to (longueur - 4) do
@@ -1760,7 +1760,7 @@ begin
        exit(EstUnNomDeFichierTronquePourPanther);
     end;
 
-  if (longueur >= 11) & (nomFichier[longueur-4] = '.') then
+  if (longueur >= 11) and (nomFichier[longueur-4] = '.') then
     begin
       for i := (longueur - 10) to (longueur - 5) do
         if not(EstUnChiffreHexa(nomFichier[i])) then
@@ -1837,8 +1837,8 @@ begin
          posCrochetOuvrant := Pos('[',reste);
          posCrochetFermant := Pos(']',reste);
 
-         if (reste[1] = '$') &
-            (posCrochetOuvrant > 0) &
+         if (reste[1] = '$') and
+            (posCrochetOuvrant > 0) and
             (posCrochetFermant > posCrochetOuvrant)
            then
              begin
@@ -1876,13 +1876,13 @@ function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
 var n,len : SInt16;
 begin
   len := LENGTH_OF_STRING(s);
-  if (p > len) | (p < 1) then
+  if (p > len) or (p < 1) then
     begin
       DeleteSpacesBefore := s;
       exit(DeleteSpacesBefore);
     end;
   n := p;
-  while (n >= 1) & (s[n] = ' ') do n := n-1;
+  while (n >= 1) and (s[n] = ' ') do n := n-1;
   if (n >= 1)
     then DeleteSpacesBefore := TPCopy(s,1,n) + TPCopy(s,p+1,len-p)
     else DeleteSpacesBefore := TPCopy(s,p+1,len-p);
@@ -1893,13 +1893,13 @@ function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
 var n,len : SInt16;
 begin
   len := LENGTH_OF_STRING(s);
-  if (p > len) | (p < 1) then
+  if (p > len) or (p < 1) then
     begin
       DeleteSpacesAfter := s;
       exit(DeleteSpacesAfter);
     end;
   n := p;
-  while (n <= len) & (s[n] = ' ') do n := n+1;
+  while (n <= len) and (s[n] = ' ') do n := n+1;
   if (n <= len)
     then DeleteSpacesAfter := TPCopy(s,1,p-1) + TPCopy(s,n,len-n+1)
     else DeleteSpacesAfter := TPCopy(s,1,p-1);
@@ -1943,27 +1943,27 @@ begin
   if len > 0 then
     begin
       n := 1;
-      while (n <= len) & (parsing_set_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
+      while (n <= len) and (parsing_set_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
       if (n <= len) then
         begin
-          if protect_parsing_with_quotes & (s[n] = '"')
+          if protect_parsing_with_quotes and (s[n] = '"')
             then
               begin
                 n := n + 1;
-                while (n <= len) & (s[n] <> '"') do   {on va jusqu'au prochain quote}
+                while (n <= len) and (s[n] <> '"') do   {on va jusqu'au prochain quote}
                   begin
                     tete := Concat(tete,s[n]);
                     n := n + 1;
                   end;
-                if (s[n] = '"') & (n <= len) then n := n + 1; {on saute le quote fermant}
+                if (s[n] = '"') and (n <= len) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n <= len) & (not(parsing_set_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
+              while (n <= len) and (not(parsing_set_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
                 begin
                   tete := Concat(tete,s[n]);
                   n := n + 1;
                 end;
-          while (n <= len) & (parsing_set_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du reste}
+          while (n <= len) and (parsing_set_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du reste}
           if (n <= len) then reste := TPCopy(s,n,len - n + 1);
         end;
     end;
@@ -2025,7 +2025,7 @@ var len1,len2,i : SInt16;
 begin
   len1 := LENGTH_OF_STRING(s);
   len2 := LENGTH_OF_STRING(sub);
-  if (len1 <= 0) | (len2 <= 0) | (len1 < len2)
+  if (len1 <= 0) or (len2 <= 0) or (len1 < len2)
     then
       EndsWith := false
     else
@@ -2070,7 +2070,7 @@ end;
 
 function CharInRange(ch : char; min,max : char) : boolean;
 begin
-  CharInRange := (ch >= min) & (ch <= max);
+  CharInRange := (ch >= min) and (ch <= max);
 end;
 
 function ContientUneLettre(const s : String255) : boolean;
@@ -2080,7 +2080,7 @@ begin
   for i := 1 to LENGTH_OF_STRING(s) do
     begin
       c := s[i];
-      if ((c >= 'a') & (c <= 'z')) | ((c >= 'A') & (c <= 'Z')) then
+      if ((c >= 'a') and (c <= 'z')) or ((c >= 'A') and (c <= 'Z')) then
         begin
           ContientUneLettre := true;
           exit(ContientUneLettre);
@@ -2092,8 +2092,8 @@ end;
 
 function EstUnChiffreHexa(ch : char) : boolean;
 begin
-  EstUnChiffreHexa := CharInRange(ch,'0','9') |
-                      CharInRange(ch,'A','F') |
+  EstUnChiffreHexa := CharInRange(ch,'0','9') or
+                      CharInRange(ch,'A','F') or
                       CharInRange(ch,'a','f');
 end;
 
@@ -2110,13 +2110,13 @@ const TopDocumentKey = 1;
 var ascii : SInt32;
 begin
   ascii := ord(ch);
-  IsAnArrowKey := (ascii = TopDocumentKey)    |
-                  (ascii = BottomDocumentKey) |
-                  (ascii = PageUpKey)         |
-                  (ascii = PageDownKey)       |
-                  (ascii = FlecheGaucheKey)   |
-                  (ascii = FlecheDroiteKey)   |
-                  (ascii = FlecheHautKey)     |
+  IsAnArrowKey := (ascii = TopDocumentKey)    or
+                  (ascii = BottomDocumentKey) or
+                  (ascii = PageUpKey)         or
+                  (ascii = PageDownKey)       or
+                  (ascii = FlecheGaucheKey)   or
+                  (ascii = FlecheDroiteKey)   or
+                  (ascii = FlecheHautKey)     or
                   (ascii = FlecheBasKey);
 end;
 
@@ -2132,7 +2132,7 @@ begin
 	for i := 1 to LENGTH_OF_STRING(s) do
 		begin
 			c := s[i];
-			if (c >= 'A') & (c <= 'Z') then
+			if (c >= 'A') and (c <= 'Z') then
 				c := chr(ord(c) + 32);
 			s1 := s1 + c;
 		end;
@@ -2154,7 +2154,7 @@ begin
   aux := s;
 
 	j := Pos('^0', aux);
-  if (j > 0) & (j < 255) then
+  if (j > 0) and (j < 255) then
     begin
       DeleteString(aux, j, 2);
       if (p0 <> '') then Insert(p0, aux, j);
@@ -2162,7 +2162,7 @@ begin
 
 
   j := Pos('^1', aux);
-  if (j > 0) & (j < 255) then
+  if (j > 0) and (j < 255) then
     begin
       DeleteString(aux, j, 2);
       if (p1 <> '') then Insert(p1, aux, j);
@@ -2170,7 +2170,7 @@ begin
 
 
   j := Pos('^2', aux);
-  if (j > 0) & (j < 255) then
+  if (j > 0) and (j < 255) then
     begin
       DeleteString(aux, j, 2);
       if (p2 <> '') then Insert(p2, aux, j);
@@ -2178,7 +2178,7 @@ begin
 
 
   j := Pos('^3', aux);
-  if (j > 0) & (j < 255) then
+  if (j > 0) and (j < 255) then
     begin
       DeleteString(aux, j, 2);
       if (p3 <> '') then Insert(p3, aux, j);
@@ -2200,7 +2200,7 @@ begin
 	for i := 1 to LENGTH_OF_STRING(s) do
 		begin
 			c := s[i];
-			if (c >= '0') & (c <= '9') then
+			if (c >= '0') and (c <= '9') then
 				result := result + c;
 		end;
 	GarderSeulementLesChiffres := result;
@@ -2216,7 +2216,7 @@ begin
 	for i := 1 to LENGTH_OF_STRING(s) do
 		begin
 			c := s[i];
-			if ((c >= '0') & (c <= '9')) | (c = '.') | (c = ',') then
+			if ((c >= '0') and (c <= '9')) or (c = '.') or (c = ',') then
 				result := result + c;
 		end;
 	GarderSeulementLesChiffresOuLesPoints := result;
@@ -2233,7 +2233,7 @@ begin
 	for i := 1 to LENGTH_OF_STRING(s) do
 		begin
 			c := s[i];
-			if not((c >= '0') & (c <= '9')) then
+			if not((c >= '0') and (c <= '9')) then
 				result := result + c;
 		end;
 	EnleverTousLesChiffres := result;
@@ -2251,10 +2251,10 @@ begin
 		begin
 			c := s[i];
 			
-			if (i = 1) | (i = LENGTH_OF_STRING(s))
+			if (i = 1) or (i = LENGTH_OF_STRING(s))
 			  then result := result + c
 			  else
-			    if not((c >= 'A') & (c <= 'Z') & (s[i - 1] = gauche) & (s[i + 1] = droite))
+			    if not((c >= 'A') and (c <= 'Z') and (s[i - 1] = gauche) and (s[i + 1] = droite))
 			      then result := result + c;
 		end;
 	EnleverLesCaracteresMajusculesEntreCesCaracteres := result;
@@ -2271,7 +2271,7 @@ begin
   for i := 1 to LENGTH_OF_STRING(s) do
     begin
       c := s[i];
-			if ((c < '0') | (c > '9')) then
+			if ((c < '0') or (c > '9')) then
 			  begin
 			    ChaineNeContientQueDesChiffres := false;
 			    exit(ChaineNeContientQueDesChiffres);
@@ -2347,7 +2347,7 @@ begin
   a := index + nb_chars_to_delete;
   b := longueur;
 
-  if (a <= longueur) & (a <= b) then
+  if (a <= longueur) and (a <= b) then
     for k := a to b do
       result := result + s[k];
 
@@ -2385,7 +2385,7 @@ var position1,position2 : SInt32;
 begin
   position1 := Pos(delim1,s);
   position2 := Pos(delim2,s);
-  if (position1 > 0) & (position2 > 0) & (position2 > position1) then
+  if (position1 > 0) and (position2 > 0) and (position2 > position1) then
     begin
       s1 := TPCopy(s,position1 + 1,position2 - position1 - 1);
       if ChaineNeContientQueDesChiffres(s1) then
@@ -2447,7 +2447,7 @@ var position1,position2 : SInt32;
 begin
   position1 := Pos(delim1,s);
   position2 := Pos(delim2,s);
-  if (position1 > 0) & (position2 > 0) & (position2 > position1) then
+  if (position1 > 0) and (position2 > 0) and (position2 > position1) then
     begin
       s1 := TPCopy(s,position1 + 1,position2 - position1 - 1);
       if ChaineNeContientQueCesCaracteres(s1,whichChars) then
@@ -2558,14 +2558,14 @@ begin
                   else s := s + NumEnString(aux) + ' days ';
           end;
         heures := false;
-        if (secondes > 3600) | jours then
+        if (secondes > 3600) or jours then
           begin
             heures := true;
             aux := secondes div 3600;
             secondes := secondes - aux*3600;
             s := s + NumEnString(aux) + ' h. ';
           end;
-        if (secondes > 60) | heures then
+        if (secondes > 60) or heures then
           begin
             aux := secondes div 60;
             secondes := secondes - aux*60;
@@ -2614,7 +2614,7 @@ begin
   FindStringInBuffer := false;
   positionTrouvee := 0;
 
-  if (buffer <> NIL) & (bufferLength > 0) then
+  if (buffer <> NIL) and (bufferLength > 0) then
     begin
 		  len := LENGTH_OF_STRING(s);
 		  if (len > 0) then
@@ -2628,10 +2628,10 @@ begin
 
 				  depart := from;
 
-				  while (depart >= 0) & ((depart + len - 1) <= bufferLength) do
+				  while (depart >= 0) and ((depart + len - 1) <= bufferLength) do
 				    begin
 						  k := 0;
-						  while (k < len) & (texte^[depart + k] = s[k + 1]) do
+						  while (k < len) and (texte^[depart + k] = s[k + 1]) do
 						    inc(k);
 
 						  if (k = len) then
@@ -2657,7 +2657,7 @@ begin
   result := '';
   indexDernierCaractereLu := from - 1;
 
-  if (buffer <> NIL) & (bufferLength > 0) then
+  if (buffer <> NIL) and (bufferLength > 0) then
     begin
 		  texte := PackedArrayOfCharPtr(buffer);
 
@@ -2666,22 +2666,22 @@ begin
 
 		  n := from;
 		
-      while (n < bufferLength) & (parsing_set_as_booleans[ord(texte^[n])]) do n := n + 1;  {on saute les espaces en tete }
+      while (n < bufferLength) and (parsing_set_as_booleans[ord(texte^[n])]) do n := n + 1;  {on saute les espaces en tete }
       if (n < bufferLength) then
         begin
-          if protect_parsing_with_quotes & (texte^[n] = '"')
+          if protect_parsing_with_quotes and (texte^[n] = '"')
             then
               begin
                 n := n + 1;
-                while (n < bufferLength) & (texte^[n] <> '"') do   {on va jusqu'au prochain quote}
+                while (n < bufferLength) and (texte^[n] <> '"') do   {on va jusqu'au prochain quote}
                   begin
                     result := Concat(result,texte^[n]);
                     n := n + 1;
                   end;
-                if (texte^[n] = '"') & (n < bufferLength) then n := n + 1; {on saute le quote fermant}
+                if (texte^[n] = '"') and (n < bufferLength) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n < bufferLength) & (not(parsing_set_as_booleans[ord(texte^[n])])) do {on va jusqu'au prochain espace}
+              while (n < bufferLength) and (not(parsing_set_as_booleans[ord(texte^[n])])) do {on va jusqu'au prochain espace}
                 begin
                   result := Concat(result,texte^[n]);
                   n := n + 1;
@@ -2722,11 +2722,11 @@ function RemoveLeadingZeros(const s : String255) : String255;
 var k,len : SInt32;
 begin
   len := LENGTH_OF_STRING(s);
-  if (len >= 2) & (s[1] = '0')
+  if (len >= 2) and (s[1] = '0')
     then
       begin
         k := 2;
-        while (k < len) & (s[k] = '0') do
+        while (k < len) and (s[k] = '0') do
           inc(k);
         RemoveLeadingZeros := TPCopy(s, k, len - k + 1);
       end

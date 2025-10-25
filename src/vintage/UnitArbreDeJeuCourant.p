@@ -262,9 +262,9 @@ begin
   ProfilerTerm;
 {$ENDC}
 
-  if avecAlerteSoldeCreationDestructionNonNul &
-     ((SoldeCreationProperties <> 0) | (SoldeCreationPropertyList <> 0) |
-      (SoldeCreationGameTree <> 0) | (SoldeCreationGameTreeList <> 0)) then
+  if avecAlerteSoldeCreationDestructionNonNul and
+     ((SoldeCreationProperties <> 0) or (SoldeCreationPropertyList <> 0) or
+      (SoldeCreationGameTree <> 0) or (SoldeCreationGameTreeList <> 0)) then
     begin
       AlerteSimple('Erreur dans le solde creations-destruction de memoire, voir le rapport !!! Prévénez Stéphane');
 		  WritelnSoldesCreationsPropertiesDansRapport('Erreur : en sortant de DisposeGameTreeGlobalDeLaPartie, ');
@@ -321,13 +321,13 @@ begin
     end;
 
   coup := GetOthelloSquareOfProperty(prop);
-  if (coup < 11) | (coup > 88) then
+  if (coup < 11) or (coup > 88) then
     begin
       PlayMoveProperty := false;
       exit(PlayMoveProperty);
     end;
 
-  ok := (positionEtTrait.position[coup] = pionVide) &
+  ok := (positionEtTrait.position[coup] = pionVide) and
         UpdatePositionEtTrait(positionEtTrait,coup);
   if not(ok) then
     begin
@@ -504,13 +504,13 @@ begin
 
   brothers := GetBrothers(G);
 
-  if (brothers = NIL) & (EstLaRacineDeLaPartie(G)) then
+  if (brothers = NIL) and (EstLaRacineDeLaPartie(G)) then
     exit(VerifieHomogeneiteDesCouleurs);  {c'est normal}
 
 
   if (brothers = NIL) then
     begin
-      if debuggage.arbreDeJeu | true then
+      if debuggage.arbreDeJeu or true then
         begin
 		      WritelnDansRapport('');
 		      WritelnDansRapport('erreur dans VerifieHomogeneiteDesCouleurs : brothers = NIL !!');
@@ -538,9 +538,9 @@ begin
           erreurForceePourPhaseDeTest := false;
           if erreurForceePourPhaseDeTest then WritelnDansRapport('Random dans VerifieHomogeneiteDesCouleurs');
 
-          if erreurForceePourPhaseDeTest |
-             ((colorOfThisBrother <> firstColor) &
-              (problemePourLesCoupsVides | ((firstColor <> pionVide) & (colorOfThisBrother <> pionVide)))) then
+          if erreurForceePourPhaseDeTest or
+             ((colorOfThisBrother <> firstColor) and
+              (problemePourLesCoupsVides or ((firstColor <> pionVide) and (colorOfThisBrother <> pionVide)))) then
 	          begin
 	            AlerteSimple('Deux couleurs différentes dans des noeuds freres dans VerifieHomogeneiteDesCouleurs!! Prévenez Stéphane');
 		          {if debuggage.arbreDeJeu then}
@@ -576,14 +576,14 @@ begin
   problemeDeCouleursDansLArbre := false;
   isNew := true;
 
-  if (square < 11) | (square > 88) then
+  if (square < 11) or (square > 88) then
     begin
       WritelnDansRapport('erreur : case hors de l''intervalle (11..88) dans ChangeCurrentNodeAfterMove !!!');
       ChangeCurrentNodeAfterThisMove := -1;
       exit(ChangeCurrentNodeAfterThisMove);
     end;
 
-  if (couleur <> pionNoir) & (couleur <> pionBlanc) then
+  if (couleur <> pionNoir) and (couleur <> pionBlanc) then
     begin
       WritelnDansRapport('erreur : couleur non legale dans ChangeCurrentNodeAfterMove !!!');
       ChangeCurrentNodeAfterThisMove := -1;
@@ -613,11 +613,11 @@ begin
 
   noeudsDejaGeneres := GetEnsembleDesCoupsDesFils(couleur,GameTreeCourant);
 
- {erreurForceePourPhaseDeTest := UneChanceSur(10) & (Pos('JoueEn',fonctionAppelante) > 0);}
+ {erreurForceePourPhaseDeTest := UneChanceSur(10) and (Pos('JoueEn',fonctionAppelante) > 0);}
   erreurForceePourPhaseDeTest := false;
 
   freresDeLaMauvaiseCouleur := GetEnsembleDesCoupsDesFils(-couleur,GameTreeCourant);
-  if (freresDeLaMauvaiseCouleur <> []) | erreurForceePourPhaseDeTest then
+  if (freresDeLaMauvaiseCouleur <> []) or erreurForceePourPhaseDeTest then
     begin
 
       if erreurForceePourPhaseDeTest then
@@ -646,7 +646,7 @@ begin
       exit(ChangeCurrentNodeAfterThisMove);
     end;
 
-  if debuggage.arbreDeJeu | problemeDeCouleursDansLArbre then
+  if debuggage.arbreDeJeu or problemeDeCouleursDansLArbre then
     begin
       if (noeudsDejaGeneres = [])
         then
@@ -682,7 +682,7 @@ begin
           otherwise     prop := MakeEmptyProperty;
         end; {case}
 
-        if debuggage.arbreDeJeu | problemeDeCouleursDansLArbre then
+        if debuggage.arbreDeJeu or problemeDeCouleursDansLArbre then
            WritelnStringAndPropertyDansRapport(Concat(fonctionAppelante, ' : création de '),prop);
 
         subtree := MakeGameTreeFromProperty(prop);
@@ -712,7 +712,7 @@ end;
 
 procedure ChangeCurrentNodeForBackMove;
 begin
-  if not(GameTreeEstVide(GameTreeCourant)) & not(GameTreeEstVide(GameTreeCourant^.father)) then
+  if not(GameTreeEstVide(GameTreeCourant)) and not(GameTreeEstVide(GameTreeCourant^.father)) then
     GameTreeCourant := GameTreeCourant^.father;
 
    if VerifieHomogeneiteDesCouleurs(GameTreeCourant,true) <> 0 then
@@ -722,10 +722,10 @@ end;
 
 procedure DoChangeCurrentNodeBackwardUntil(G : GameTree);
 begin
-  if (G = NIL) | (GameTreeCourant = G) then
+  if (G = NIL) or (GameTreeCourant = G) then
     exit(DoChangeCurrentNodeBackwardUntil);
 
-	while not(GameTreeEstVide(GameTreeCourant)) & not(GameTreeEstVide(GameTreeCourant^.father)) do
+	while not(GameTreeEstVide(GameTreeCourant)) and not(GameTreeEstVide(GameTreeCourant^.father)) do
 		begin
 		  GameTreeCourant := GameTreeCourant^.father;
 		  if (GameTreeCourant = G) then exit(DoChangeCurrentNodeBackwardUntil);
@@ -739,7 +739,7 @@ end;
 procedure SetCurrentNode(G : GameTree; const fonctionAppelante : String255);
 var error : SInt32;
 begin
-  if (G = NIL) | (GameTreeCourant = G) then
+  if (G = NIL) or (GameTreeCourant = G) then
     exit(SetCurrentNode);
 
   GameTreeCourant := G;
@@ -893,8 +893,8 @@ begin
   if aux <> NIL then
     begin
       c := GetCharOfProperty(aux^);
-      if (c = 'B') | (c = 'b') then trait := pionNoir else
-      if (c = 'W') | (c = 'w') then trait := pionBlanc;
+      if (c = 'B') or (c = 'b') then trait := pionNoir else
+      if (c = 'W') or (c = 'w') then trait := pionBlanc;
       CalculeNouvellePositionInitialeFromThisList := true;
     end;
 end;
@@ -1160,7 +1160,7 @@ begin
         end;
 
 
-      if PropertyEstVide(prop) | (prop.genre = VerbatimProp)
+      if PropertyEstVide(prop) or (prop.genre = VerbatimProp)
         then
           begin
             WritelnDansRapport(ReadStringFromRessource(TextesDiversID,14)+'   ' + propertyDescription);  { Syntax error : unrecognizable property ?!? }
@@ -1206,7 +1206,7 @@ begin
         end;
 
 
-      if PropertyEstVide(prop) | (prop.genre = VerbatimProp)
+      if PropertyEstVide(prop) or (prop.genre = VerbatimProp)
         then
           begin
             WritelnDansRapport(ReadStringFromRessource(TextesDiversID,14)+'   ' + propertyDescription);  { Syntax error : unrecognizable property ?!? }
@@ -1252,7 +1252,7 @@ label boucle;
 begin
   changed := false;
 
-  if (G <> NIL) & (propertyListDescription <> '') then
+  if (G <> NIL) and (propertyListDescription <> '') then
     begin
 
       changed := false;
@@ -1268,12 +1268,12 @@ begin
           theProperty := theProperty + left + ']';
           propertyListDescription := right;
 
-          if ((LENGTH_OF_STRING(right) >= 1) & (right[1] = '[')) then goto boucle;
+          if ((LENGTH_OF_STRING(right) >= 1) and (right[1] = '[')) then goto boucle;
 
-        until (propertyListDescription = '') |
-              ((LENGTH_OF_STRING(theProperty) >= 2) & (theProperty[LENGTH_OF_STRING(theProperty) - 1] <> '\'));
+        until (propertyListDescription = '') or
+              ((LENGTH_OF_STRING(theProperty) >= 2) and (theProperty[LENGTH_OF_STRING(theProperty) - 1] <> '\'));
 
-        changed := AddPropertyAsStringDansCeNoeud(G, theProperty) | changed;
+        changed := AddPropertyAsStringDansCeNoeud(G, theProperty) or changed;
 
       until (propertyListDescription = '');
 
@@ -1312,7 +1312,7 @@ var texte : Ptr;
     longueur : SInt32;
 begin
   GetCommentaireDeCeNoeud(G,texte,longueur);
-  NoeudHasCommentaire := (texte <> NIL) & (longueur > 0);
+  NoeudHasCommentaire := (texte <> NIL) and (longueur > 0);
 end;
 
 function CurrentNodeHasCommentaire : boolean;
@@ -1371,7 +1371,7 @@ begin
   if (G <> NIL) then
     begin
       DeleteCommentaireDeCeNoeud(G);
-      if (texte <> NIL) & (longueur > 0) then
+      if (texte <> NIL) and (longueur > 0) then
         begin
           if EstLaRacineDeLaPartie(G)
             then prop := MakeTexteProperty(GameCommentProp,texte,longueur)
@@ -1424,7 +1424,7 @@ var myText : TEHandle;
     state : SInt8;
 begin
   with arbreDeJeu do
-    if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+    if windowOpen and (GetArbreDeJeuWindow <> NIL) then
       begin
         myText := GetDialogTextEditHandle(theDialog);
         if myText  <> NIL then
@@ -1458,41 +1458,41 @@ begin
       if (buffer <> NIL) then
         begin
 
-          if FindStringInBuffer('search :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('search:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Search :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('Search:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('SEARCH :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('SEARCH:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('find :'  , buffer, len, 0, +1, position) |
-             FindStringInBuffer('find:'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Find :'  , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Find:'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('FIND :'  , buffer, len, 0, +1, position) |
-             FindStringInBuffer('FIND:'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('google :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('google:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Google :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('Google:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('GOOGLE :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('GOOGLE:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('add :'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('add:'    , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Add :'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Add:'    , buffer, len, 0, +1, position) |
-             FindStringInBuffer('ADD :'   , buffer, len, 0, +1, position) |
-             FindStringInBuffer('ADD:'    , buffer, len, 0, +1, position) |
-             FindStringInBuffer('delete :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('delete:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Delete :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('Delete:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('DELETE :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('DELETE:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('remove :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('remove:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('Remove :', buffer, len, 0, +1, position) |
-             FindStringInBuffer('Remove:' , buffer, len, 0, +1, position) |
-             FindStringInBuffer('REMOVE :', buffer, len, 0, +1, position) |
+          if FindStringInBuffer('search :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('search:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Search :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('Search:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('SEARCH :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('SEARCH:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('find :'  , buffer, len, 0, +1, position) or
+             FindStringInBuffer('find:'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Find :'  , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Find:'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('FIND :'  , buffer, len, 0, +1, position) or
+             FindStringInBuffer('FIND:'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('google :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('google:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Google :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('Google:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('GOOGLE :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('GOOGLE:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('add :'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('add:'    , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Add :'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Add:'    , buffer, len, 0, +1, position) or
+             FindStringInBuffer('ADD :'   , buffer, len, 0, +1, position) or
+             FindStringInBuffer('ADD:'    , buffer, len, 0, +1, position) or
+             FindStringInBuffer('delete :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('delete:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Delete :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('Delete:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('DELETE :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('DELETE:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('remove :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('remove:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('Remove :', buffer, len, 0, +1, position) or
+             FindStringInBuffer('Remove:' , buffer, len, 0, +1, position) or
+             FindStringInBuffer('REMOVE :', buffer, len, 0, +1, position) or
              FindStringInBuffer('REMOVE:' , buffer, len, 0, +1, position) then
             begin
               trouve := true;
@@ -1556,7 +1556,7 @@ begin
     begin
       commande := MyUpperString(commande,false);
 
-      if (commande = 'SEARCH' ) | (commande = 'FIND') | (commande = 'GOOGLE') then
+      if (commande = 'SEARCH' ) or (commande = 'FIND') or (commande = 'GOOGLE') then
         begin
           SetLastStringSearchedInGameTree(argument);
           FindStringDansArbreDeJeuCourant(argument,true);
@@ -1568,7 +1568,7 @@ begin
       SetDoitEcrireMessageDeTransfoArbreDansRapport(true);
 
       if (commande = 'ADD')                            then gameTreeChanged := AddPropertyAsStringDansCeNoeud(G,argument) else
-      if (commande = 'DELETE') | (commande = 'REMOVE') then gameTreeChanged := DeletePropertyAsStringDansCeNoeud(G,argument);
+      if (commande = 'DELETE') or (commande = 'REMOVE') then gameTreeChanged := DeletePropertyAsStringDansCeNoeud(G,argument);
 
       SetDoitEcrireMessageDeTransfoArbreDansRapport(false);
 
@@ -1591,13 +1591,13 @@ var G1 : GameTree;
     coupProp : PropertyPtr;
     listeDesCoups : PropertyList;
 begin
-  if (G = NIL) | EstLaRacineDeLaPartie(G)
+  if (G = NIL) or EstLaRacineDeLaPartie(G)
     then CreateListeDesCoupsJusqua := NIL
     else
       begin
 			  listeDesCoups := NIL;
 			  G1 := G;
-			  while (G1 <> NIL) & not(EstLaRacineDeLaPartie(G1)) do
+			  while (G1 <> NIL) and not(EstLaRacineDeLaPartie(G1)) do
 			    begin
 			      coupProp := SelectFirstPropertyOfTypesInGameTree([BlackMoveProp,WhiteMoveProp],G1);
 			      if coupProp <> NIL then
@@ -1641,7 +1641,7 @@ begin
 
   nbCoupsDansListe := 0;
   G1 := G;
-  while not((G1 = NIL) | EstLaRacineDeLaPartie(G1)) do
+  while not((G1 = NIL) or EstLaRacineDeLaPartie(G1)) do
     begin
       inc(nbCoupsDansListe);
       if (nbCoupsDansListe <= 64) then
@@ -1668,7 +1668,7 @@ begin
             then coup := GetOthelloSquareOfProperty(listeAReboursDesCoups[i]^)
             else coup := 0;
           partieAlpha := Concat(partieAlpha,CoupEnStringEnMajuscules(coup));
-          ok := ok & UpdatePositionEtTrait(positionTerminale,coup);
+          ok := ok and UpdatePositionEtTrait(positionTerminale,coup);
         end;
 
       if not(ok) then
@@ -1746,7 +1746,7 @@ begin
 
   nbCoupsDansListe := 0;
   G1 := G;
-  while not((G1 = NIL) | EstLaRacineDeLaPartie(G1)) do
+  while not((G1 = NIL) or EstLaRacineDeLaPartie(G1)) do
     begin
       inc(nbCoupsDansListe);
       if (nbCoupsDansListe <= 64) then
@@ -1774,7 +1774,7 @@ begin
       if (listeAReboursDesCoups[i] <> NIL)
         then coup := GetOthelloSquareOfProperty(listeAReboursDesCoups[i]^)
         else coup := 0;
-      ok := ok & UpdatePositionEtTrait(position,coup);
+      ok := ok and UpdatePositionEtTrait(position,coup);
     end;
 
   if not(ok) then
@@ -1826,17 +1826,17 @@ begin
 		  SetCurrentNode(G, 'AjouteMeilleureSuiteDansGameTree {1}');
 		  ok := GetPositionEtTraitACeNoeud(G, positionEtTrait, 'AjouteMeilleureSuiteDansGameTree {1}');
 
-	    if ok & (GetTraitOfPosition(positionEtTrait) <> pionVide) then
+	    if ok and (GetTraitOfPosition(positionEtTrait) <> pionVide) then
 	      begin
 
-	        if (genreReflexion in [ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif]) & odd(scoreDeNoir) then
+	        if (genreReflexion in [ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif]) and odd(scoreDeNoir) then
           begin
             Sysbeep(0);
             WritelnNumDansRapport('BIZARRE : score impair dans AjouteMeilleureSuiteDansGameTree, scorePourNoir = ',scoreDeNoir);
           end;
 
 
-          if ((scoreDeNoir < -64) | (scoreDeNoir > 64)) &
+          if ((scoreDeNoir < -64) or (scoreDeNoir > 64)) and
              not(GenreDeReflexionInSet(genreReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
             begin
               WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scoreDeNoir)+' dans AjouteMeilleureSuiteDansGameTree(ReflParfait), prévenez Stéphane !');
@@ -1880,7 +1880,7 @@ begin
 						          if debugage then WritelnPropertyDansRapport(moveProperty);
 								      err := ChangeCurrentNodeAfterThisMove(whichSquare,GetCouleurOfMoveProperty(moveProperty),'AjouteMeilleureSuiteDansGameTree',isNew);
 
-						          if estUnScoreDeFinale & GetEndgameValuesInHashTableFromThisNode(positionEtTrait,GetCurrentNode,kDeltaFinaleInfini,vMinPourNoir,vMaxPourNoir) then
+						          if estUnScoreDeFinale and GetEndgameValuesInHashTableFromThisNode(positionEtTrait,GetCurrentNode,kDeltaFinaleInfini,vMinPourNoir,vMaxPourNoir) then
 							          begin
 
 
@@ -1911,9 +1911,9 @@ begin
   							                *)
   							              end;
 
-							            ok := ok & (confirmation | confirmationFaible);
+							            ok := ok and (confirmation or confirmationFaible);
 
-							            if debugage | (not(confirmation) & not(confirmationFaible)) then
+							            if debugage or (not(confirmation) and not(confirmationFaible)) then
 							              begin
 							                WritelnDansRapport('Dans AjouteMeilleureSuiteDansGameTree : ');
 							                WritelnNumDansRapport('scoreDeNoir = ',scoreDeNoir);
@@ -1933,8 +1933,8 @@ begin
 								          (* statut reel/virtuel des noueuds *)
 								          if (virtualite = kForceReel)               then MarquerCurrentNodeCommeReel('AjouteMeilleureSuiteDansGameTree {1}') else
 								          if (virtualite = kForceVirtual)            then MarquerCurrentNodeCommeVirtuel else
-								          if isNew & (virtualite = kNewMovesReel)    then MarquerCurrentNodeCommeReel('AjouteMeilleureSuiteDansGameTree {2}') else
-								          if isNew & (virtualite = kNewMovesVirtual) then MarquerCurrentNodeCommeVirtuel;
+								          if isNew and (virtualite = kNewMovesReel)    then MarquerCurrentNodeCommeReel('AjouteMeilleureSuiteDansGameTree {2}') else
+								          if isNew and (virtualite = kNewMovesVirtual) then MarquerCurrentNodeCommeVirtuel;
 
 
 								          if premierCoupDeLaSuite
@@ -1951,7 +1951,7 @@ begin
 									          else
 									            begin
 									              if GenreDeReflexionInSet(genreReflexion,[ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif]) then
-									                if (virtualite = kForceReel) | (virtualite = kNewMovesReel) then
+									                if (virtualite = kForceReel) or (virtualite = kNewMovesReel) then
 									                  PromeutParmiSesFreres(GetCurrentNode);
 									            end;
 									      end;
@@ -1965,7 +1965,7 @@ begin
 							      end;
 			          DisposePropertyStuff(moveProperty);
 			        end;
-			    until (whichSquare = -1) | not(ok) | (meilleureSuite = '') | (GetTraitOfPosition(positionEtTrait) = pionVide);
+			    until (whichSquare = -1) or not(ok) or (meilleureSuite = '') or (GetTraitOfPosition(positionEtTrait) = pionVide);
 
 			    DisposePropertyStuff(scoreProperty);
 	      end;
@@ -1984,7 +1984,7 @@ var oldCurrentNode : GameTree;
 begin
   oldCurrentNode := GetCurrentNode;
 
-  if (genreReflexion in [ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif]) & odd(scoreDeLaLignePourNoir) then
+  if (genreReflexion in [ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif]) and odd(scoreDeLaLignePourNoir) then
     begin
       WritelnNumDansRapport('ASSERT : score impair dans AjouteMeilleureSuiteDansArbreDeJeuCourant, scoreDeLaLignePourNoir = ',scoreDeLaLignePourNoir);
     end;
@@ -1997,12 +1997,12 @@ end;
 
 procedure AjoutePropertyValeurDeCoupDansCurrentNode(quelGenreDeReflexion,scorePourNoir : SInt32);
 begin
-  if (quelGenreDeReflexion = ReflParfait) & odd(scorePourNoir) then
+  if (quelGenreDeReflexion = ReflParfait) and odd(scorePourNoir) then
     begin
       {SysBeep(0);}
       WritelnNumDansRapport('PAS NORMAL ! dans AjoutePropertyValeurDeCoupDansCurrentNode, scorePourNoir = ',scorePourNoir);
     end;
-  if ((scorePourNoir < -64) | (scorePourNoir > 64)) &
+  if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
      not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
     begin
       WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansCurrentNode(reflexion de finale), prévenez Stéphane !');
@@ -2080,7 +2080,7 @@ begin
         then G := FindNodeInGameTree(noeudDepart,FindUpperStringWithoutDiacriticsInNode, stringAdresse)
         else G := FindNodeInGameTree(noeudDepart,FindStringInNode, stringAdresse);
 
-      if (G <> NIL) & (G <> GetCurrentNode)
+      if (G <> NIL) and (G <> GetCurrentNode)
         then JumpToPosition(G);
     end;
 end;
@@ -2095,7 +2095,7 @@ begin
 
   G := FindNodeInGameTree(noeudDepart,GameNodeHasTooManySons,nbreDeFils);
 
-  if (G <> NIL) & (G <> GetCurrentNode)
+  if (G <> NIL) and (G <> GetCurrentNode)
     then JumpToPosition(G);
 end;
 

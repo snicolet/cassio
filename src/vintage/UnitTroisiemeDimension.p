@@ -154,7 +154,7 @@ end;
 
 function EnVieille3D : boolean;
 begin
-  EnVieille3D := enVieille3DMoche & not(gCouleurOthellier.estPovRayEn3D);
+  EnVieille3D := enVieille3DMoche and not(gCouleurOthellier.estPovRayEn3D);
 end;
 
 function EnJolie3D : boolean;
@@ -164,7 +164,7 @@ end;
 
 function CassioEstEn3D : boolean;
 begin
-  CassioEstEn3D := (enVieille3DMoche | gCouleurOthellier.estPovRayEn3D);
+  CassioEstEn3D := (enVieille3DMoche or gCouleurOthellier.estPovRayEn3D);
 end;
 
 function Calculs3DMocheSontFaits : boolean;
@@ -186,21 +186,21 @@ end;
 
 function GetBoundingRect3D(whichSquare : SInt16) : rect;
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (boundingRect3D <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (boundingRect3D <> NIL)
     then GetBoundingRect3D := boundingRect3D^^[whichSquare]
     else GetBoundingRect3D := MakeRect(0,0,0,0);
 end;
 
 function GetRect3DDessus(whichSquare : SInt16) : rect;
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (rect3DDessus <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (rect3DDessus <> NIL)
     then GetRect3DDessus := rect3DDessus^^[whichSquare]
     else GetRect3DDessus := MakeRect(0,0,0,0);
 end;
 
 function GetRect3DDessous(whichSquare : SInt16) : rect;
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (rect3DDessous <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (rect3DDessous <> NIL)
     then GetRect3DDessous := rect3DDessous^^[whichSquare]
     else GetRect3DDessous := MakeRect(0,0,0,0);
 end;
@@ -223,19 +223,19 @@ end;
 
 procedure SetBoundingRect3D(whichSquare : SInt16; whichRect : rect);
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (boundingRect3D <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (boundingRect3D <> NIL)
     then boundingRect3D^^[whichSquare] := whichRect;
 end;
 
 procedure SetRect3DDessus(whichSquare : SInt16; whichRect : rect);
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (rect3DDessus <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (rect3DDessus <> NIL)
     then rect3DDessus^^[whichSquare] := whichRect;
 end;
 
 procedure SetRect3DDessous(whichSquare : SInt16; whichRect : rect);
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) & (rect3DDessous <> NIL)
+  if (whichSquare >= 11) and (whichSquare <= 88) and (rect3DDessous <> NIL)
     then rect3DDessous^^[whichSquare] := whichRect;
 end;
 
@@ -318,8 +318,8 @@ begin
   a := a+1;
   SetRect(unRect,a-larg,b-haut,a+larg,b+haut);
 
-  if (X = 6) & (Y = 3) then InsetRect(unRect,1,0);
-  if (Y = 1) & (X = 6) then InsetRect(unRect,1,0);
+  if (X = 6) and (Y = 3) then InsetRect(unRect,1,0);
+  if (Y = 1) and (X = 6) then InsetRect(unRect,1,0);
   SetRect3DDessous(square,unRect);
 
   OffsetRect(unRect,0,-4);
@@ -702,10 +702,10 @@ begin
 			          if gEcranCouleur
 			             then
 			               begin
-			                 if not(gCouleurOthellier.EstTresClaire) |
-			                    ((gCouleurOthellier.menuCmd <> BlancCmd) &
-			                    (gCouleurOthellier.menuCmd <> JauneCmd) &
-			                    (gCouleurOthellier.menuCmd <> BleuPaleCmd) &
+			                 if not(gCouleurOthellier.EstTresClaire) or
+			                    ((gCouleurOthellier.menuCmd <> BlancCmd) and
+			                    (gCouleurOthellier.menuCmd <> JauneCmd) and
+			                    (gCouleurOthellier.menuCmd <> BleuPaleCmd) and
 			                    (gCouleurOthellier.menuCmd <> JaunePaleCmd))
 			                   then
 			                     begin
@@ -739,7 +739,7 @@ begin
 			              if gCouleurOthellier.estTresClaire
 			                then BackColor(BlackColor)
 			                else
-					              if (gCouleurOthellier.menuCmd = VertSapinCmd)     |
+					              if (gCouleurOthellier.menuCmd = VertSapinCmd)     or
 					                 (gCouleurOthellier.menuCmd = VertTurquoiseCmd)
 					                  then BackColor(WhiteColor)
 					                  else BackColor(gCouleurOthellier.couleurBack);
@@ -878,7 +878,7 @@ begin
   for i := 1 to 8 do
     begin
      t := j*10+i;
-     if (position[t] = pionVide) & (plat3DEffectif[t] <> pionVide)
+     if (position[t] = pionVide) and (plat3DEffectif[t] <> pionVide)
        then
          begin
            if t > 20
@@ -893,7 +893,7 @@ begin
     end;
 
   compteurSons := 0;
-  if avecBruitage & avecSonPourPosePion & not(enTournoi & (phaseDeLaPartie >= phaseFinale))
+  if avecBruitage and avecSonPourPosePion and not(enTournoi and (phaseDeLaPartie >= phaseFinale))
     then PlayPosePionSound;
 
   for j := 1 to 8 do
@@ -905,13 +905,13 @@ begin
       begin
         repeat
           inc(compteurSons);
-          if avecBruitage & avecSonPourRetournePion & (compteurSons = 1)
+          if avecBruitage and avecSonPourRetournePion and (compteurSons = 1)
             then PlayRetournementDePionSound;
           plat3DEffectif[t] := position[t];
           DessinePion3D(t,position[t]);
           t := t+10;
-        until interdit[t] | (plat3DEffectif[t] = position[t]);
-        if not(interdit[t]) & (position[t] <> pionVide) then
+        until interdit[t] or (plat3DEffectif[t] = position[t]);
+        if not(interdit[t]) and (position[t] <> pionVide) then
           DessineDessusPion3D(t,position[t]);
       end;
     end;
@@ -995,7 +995,7 @@ begin
       begin
         end1 := not(ADroite(x3Ddroite[0],y3D[0],x3Ddroite[8],y3D[8],loc.h,loc.v));
 			  end2 := ADroite(x3DGauche[0],y3D[0],x3DGauche[8],y3D[8],loc.h,loc.v);
-			  if end1 & end2 & (loc.v >= y3D[0]) & (loc.v <= y3D[8]) then
+			  if end1 and end2 and (loc.v >= y3D[0]) and (loc.v <= y3D[8]) then
 			    begin
 			      PtInPlateau3D := true;
 			      X := 1;

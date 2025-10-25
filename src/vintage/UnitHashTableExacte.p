@@ -207,14 +207,14 @@ begin
 
   VideHashTable(HashTable);
 
-  if withCheckEvents & ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
+  if withCheckEvents and ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
 
   for i := 0 to nbTablesHashExactes-1 do
     if (interruptionReflexion = pasdinterruption) then
 	   begin
-	     if withCheckEvents & ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
+	     if withCheckEvents and ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
        if (interruptionReflexion = pasdinterruption) then VideHashTableExacte(HashTableExacte[i]);
-	     if withCheckEvents & ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
+	     if withCheckEvents and ((TickCount - dernierTick) >= delaiAvantDoSystemTask) then DoSystemTask(AQuiDeJouer);
        if (interruptionReflexion = pasdinterruption) then VideHashTableCoupsLegaux(CoupsLegauxHash[i]);
 	   end;
 	
@@ -243,7 +243,7 @@ begin
     begin
       whichHashTableExacte := HashTableExacte[i];
       whichHashTableCoupsLegaux := CoupsLegauxHash[i];
-      if (whichHashTableExacte <> NIL) & (whichHashTableCoupsLegaux <> NIL) then
+      if (whichHashTableExacte <> NIL) and (whichHashTableCoupsLegaux <> NIL) then
         begin
           for k := 0 to 1023 do
             begin
@@ -607,7 +607,7 @@ begin
     begin
       coup := coupDeCetteValMin[nbreDeltaSuccessifs];
 
-      if (coup = 0) | (valMin[nbreDeltaSuccessifs] <> valMax[nbreDeltaSuccessifs])
+      if (coup = 0) or (valMin[nbreDeltaSuccessifs] <> valMax[nbreDeltaSuccessifs])
       then
         MeilleurCoupEstStockeDansLesBornes := false
       else
@@ -632,7 +632,7 @@ begin
         begin
           meilleurCoupParBornes := coupDeCetteValMin[nbreDeltaSuccessifs];
 
-          if (meilleurCoupParBornes <> 0) &
+          if (meilleurCoupParBornes <> 0) and
              (meilleurCoupParBornes <> meilleurCoup) then
             begin
               WritelnDansRapport('');
@@ -669,7 +669,7 @@ begin
 
       {verification de la parite des bornes}
       for k := 1 to nbreDeltaSuccessifs do
-        if (BAnd(valMin[k],$01) <> 0) & (erreur = 0) then
+        if (BAnd(valMin[k],$01) <> 0) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -678,7 +678,7 @@ begin
           end;
 
       for k := 1 to nbreDeltaSuccessifs do
-        if (BAnd(valMax[k],$01) <> 0) & (erreur = 0) then
+        if (BAnd(valMax[k],$01) <> 0) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -688,7 +688,7 @@ begin
 
       {verification de la coherence}
       for k := 1 to nbreDeltaSuccessifs do
-        if (valMin[k] > valMax[k]) & (erreur = 0) then
+        if (valMin[k] > valMax[k]) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -699,7 +699,7 @@ begin
       {verification des sens de variation}
       (*
       for k := 2 to nbreDeltaSuccessifs do
-        if (valMin[k] > valMin[k-1]) & (erreur = 0)  then
+        if (valMin[k] > valMin[k-1]) and (erreur = 0)  then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -708,7 +708,7 @@ begin
           end;
 
       for k := 2 to nbreDeltaSuccessifs do
-        if (valMax[k] < valMax[k-1]) & (erreur = 0)  then
+        if (valMax[k] < valMax[k-1]) and (erreur = 0)  then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -719,7 +719,7 @@ begin
 
       {verification des intervalles}
       for k := 1 to nbreDeltaSuccessifs do
-        if ((valMin[k] < -64) | (valMin[k] > 64)) & (erreur = 0) then
+        if ((valMin[k] < -64) or (valMin[k] > 64)) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -728,7 +728,7 @@ begin
           end;
 
       for k := 1 to nbreDeltaSuccessifs do
-        if ((valMax[k] < -64) | (valMax[k] > 64)) & (erreur = 0) then
+        if ((valMax[k] < -64) or (valMax[k] > 64)) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -860,7 +860,7 @@ var k,index,aux,coupAux : SInt32; {$UNUSED fonctionAppelante,couleur,plat}
 begin
 
   {$IFC USE_DEBUG_STEP_BY_STEP}
-  if (coup = 0) & (newValeurMin > -64) & (bornes.valMax[IndexOfThisDelta(newDeltaMin)] <= newValeurMin) then
+  if (coup = 0) and (newValeurMin > -64) and (bornes.valMax[IndexOfThisDelta(newDeltaMin)] <= newValeurMin) then
     begin
       SysBeep(0);
       WritelnStringDansRapport('Vous avez sans doute trouvé un bug, coup = 0 dans AugmentationMinorant! fonctionAppelante = '+fonctionAppelante);
@@ -873,14 +873,14 @@ begin
     end;
   {$ENDC}
 
-  if (newValeurMin >= -64) & (newValeurMin <= 64) then
+  if (newValeurMin >= -64) and (newValeurMin <= 64) then
 	  with bornes do
     begin
       index := IndexOfThisDelta(newDeltaMin);
 
       for k := 1 to index do
         begin
-          if (valMin[k] = newValeurMin) & (nbArbresCoupesValMin[k] > 0) then
+          if (valMin[k] = newValeurMin) and (nbArbresCoupesValMin[k] > 0) then
             begin
               valMin[k]            := newValeurMin;
 	            coupDeCetteValMin[k] := coup;
@@ -896,8 +896,8 @@ begin
 	              then nbArbresCoupesValMin[k] := 0
 	              else nbArbresCoupesValMin[k] := 1;
 	          end else
-	        if (valMin[k] = newValeurMin) & (nbArbresCoupesValMin[k] = 0) &
-	           (coupDeCetteValMin[k] = 0) & (newDeltaMin = kDeltaFinaleInfini) then
+	        if (valMin[k] = newValeurMin) and (nbArbresCoupesValMin[k] = 0) and
+	           (coupDeCetteValMin[k] = 0) and (newDeltaMin = kDeltaFinaleInfini) then
             begin
               valMin[k]            := newValeurMin;
 	            coupDeCetteValMin[k] := coup;
@@ -909,7 +909,7 @@ begin
         end;
 
       for k := 1 to index do
-		    if (newValeurMin > valMax[k]) & (nbArbresCoupesValMax[k] <> 0)
+		    if (newValeurMin > valMax[k]) and (nbArbresCoupesValMax[k] <> 0)
 		      then valMax[k] := newValeurMin;
 
 		  {quand meme, on prefere l'information sure a 100%}
@@ -967,14 +967,14 @@ procedure DiminutionMajorant(newValeurMax,newDeltaMax,couleur : SInt32; var born
 var k,index,aux : SInt32;  {$UNUSED fonctionAppelante,couleur,plat}
 begin
 
-  if (newValeurMax >= -64) & (newValeurMax <= 64) then
+  if (newValeurMax >= -64) and (newValeurMax <= 64) then
   with bornes do
     begin
       index := IndexOfThisDelta(newDeltaMax);
 
       for k := 1 to index do
         begin
-          if (valMax[k] = newValeurMax) & (nbArbresCoupesValMax[k] > 0) then
+          if (valMax[k] = newValeurMax) and (nbArbresCoupesValMax[k] > 0) then
             begin
               valMax[k] := newValeurMax;
 	            if (newDeltaMax = kDeltaFinaleInfini)
@@ -991,7 +991,7 @@ begin
         end;
 
       for k := 1 to index do
-		    if (valMin[k] > newValeurMax ) & (nbArbresCoupesValMin[k] <> 0)
+		    if (valMin[k] > newValeurMax ) and (nbArbresCoupesValMin[k] <> 0)
 		      then valMin[k] := newValeurMax;
 
 		  {quand meme, on prefere l'information sure a 100%}
@@ -1052,7 +1052,7 @@ begin
 	      for k := 1 to nbreDeltaSuccessifs - 1 do
 	        begin
 	          square := coupDeCetteValMin[k];
-	          if (square <> 0) & not(square in coupsLegaux) then
+	          if (square <> 0) and not(square in coupsLegaux) then
 	            begin
 	              valMin[k]               := valMin[nbreDeltaSuccessifs];
 	              coupDeCetteValMin[k]    := coupDeCetteValMin[nbreDeltaSuccessifs];
@@ -1115,7 +1115,7 @@ begin
 
 
 
-  if (odd(valMin) | odd(valMax)) then
+  if (odd(valMin) or odd(valMax)) then
     begin
       WritelnDansRapport('Erreur : valMin ou valMax est impair dans SetEndgameValuesInHashExacte!! Prévenez Stéphane');
       WritelnNumDansRapport('valMin = ',valMin);
@@ -1147,12 +1147,12 @@ begin
   if dejaDansHash
     then
       begin
-        if (valMin <= -64) & (meilleurCoup <> 0) then
+        if (valMin <= -64) and (meilleurCoup <> 0) then
           begin
             (*
             bestDefDansHash := GetBestDefenseDansHashExacte(quelleHashTableExacte^[laClefExacte]);
             WritelnStringAndCoupDansRapport(CoupEnStringEnMajuscules(meilleurCoup)+ ' vs ',bestDefDansHash);
-            if (bestDefDansHash <> meilleurCoup) & (bestDefDansHash <> 0)
+            if (bestDefDansHash <> meilleurCoup) and (bestDefDansHash <> 0)
               then
                 begin
                   meilleurCoup := 0;
@@ -1176,7 +1176,7 @@ begin
   DecompresserBornesHashTableExacte(quelleHashTableExacte^[laClefExacte],bornes);
   AugmentationMinorant(valMin,deltaFinale,meilleurCoup,GetTraitOfPosition(jeu),bornes,jeu.position,'SetEndgameValuesInHashExacte');
   DiminutionMajorant(valMax,deltaFinale,GetTraitOfPosition(jeu),bornes,jeu.position,'SetEndgameValuesInHashExacte');
-  if avecVerifAssertionsBornes & (VerificationAssertionsSurLesBornes(bornes,'SetEndgameValuesInHashExacte') <> NoErr)
+  if avecVerifAssertionsBornes and (VerificationAssertionsSurLesBornes(bornes,'SetEndgameValuesInHashExacte') <> NoErr)
     then WritelnDansRapport('ASSERT : erreur sur les bornes dans SetEndgameValuesInHashExacte (cf plus haut)');
   CompresserBornesDansHashTableExacte(quelleHashTableExacte^[laClefExacte],bornes);
 
@@ -1288,7 +1288,7 @@ begin
 
 	ok := GetEndgameValuesInHashTableAtThisHashKey(plat,myHashIndex,deltaFinale,valMinPourNoir,valMaxPourNoir);
 
-	if (ok & (valMinPourNoir > valMaxPourNoir)) then
+	if (ok and (valMinPourNoir > valMaxPourNoir)) then
 	  begin
 	    WritelnDansRapport('ASSERT : (valMinPourNoir > valMaxPourNoir) dans GetEndgameValuesInHashTableFromThisNode !');
 	    WritelnDansRapport('J''ai essayé de trouver les valeurs dans la hash pour la position suivante : ');
@@ -1416,7 +1416,7 @@ begin
                       coup := GetOthelloSquareOfProperty(prop^);
                       couleur := GetCouleurOfMoveProperty(prop^);
 
-                      if (pere >= 11) & (pere <= 88) then
+                      if (pere >= 11) and (pere <= 88) then
                         hashValue := BXOr(hashValue , (IndiceHash^^[couleur,pere]));
 
                     end;
@@ -1426,15 +1426,15 @@ begin
             end;
           DisposePropertyList(listeDesCoups);
 
-          if (NumberOfSons(whichNode) <> nbreFils) &
-             (GetFather(gameTreeDeLaPosition) = whichNode) &
-             not(HasSons(gameTreeDeLaPosition)) &
+          if (NumberOfSons(whichNode) <> nbreFils) and
+             (GetFather(gameTreeDeLaPosition) = whichNode) and
+             not(HasSons(gameTreeDeLaPosition)) and
              IsAVirtualNode(gameTreeDeLaPosition)
             then DeleteThisSon(whichNode,gameTreeDeLaPosition);
 
         end;
 
-      if (GetTraitOfPosition(positionCherchee) <> pionVide) & (dernierCoup >= 11) & (dernierCoup <= 88) then
+      if (GetTraitOfPosition(positionCherchee) <> pionVide) and (dernierCoup >= 11) and (dernierCoup <= 88) then
         hashValue := BXOr(hashValue , (IndiceHash^^[GetTraitOfPosition(positionCherchee),dernierCoup]));
 
     end;
@@ -1459,8 +1459,8 @@ procedure MetValeursDansHashExacte(clefHash,nbVides : SInt32; jeu : PositionEtTr
 var jeuEssai : PositionEtTraitRec;
     clefHashEssai,t,coup : SInt32;
 begin {$UNUSED fonctionAppelante}
-  if (GetTraitOfPosition(jeu) <> pionVide) &
-     ((valMin > -64) | (valMax < 64) | (meilleurCoup <> 0)) then  {info interessante ?}
+  if (GetTraitOfPosition(jeu) <> pionVide) and
+     ((valMin > -64) or (valMax < 64) or (meilleurCoup <> 0)) then  {info interessante ?}
     begin
 
       (*
@@ -1538,9 +1538,9 @@ begin
   *)
 
 
-  if (G <> NIL) & (nbVides >= nbVidesMinimum) then
+  if (G <> NIL) and (nbVides >= nbVidesMinimum) then
     begin
-		  if (GetTraitOfPosition(plat) <> pionVide) &
+		  if (GetTraitOfPosition(plat) <> pionVide) and
 		     GetEndgameScoreDeCetteCouleurDansGameNode(G,GetTraitOfPosition(plat),valeurMin,valeurMax)
 		    then
 		      begin
@@ -1597,14 +1597,14 @@ begin
 				            then meilleureDefense := 0;
 
 				        (* verifier que le score du meilleur fils connu est coherent avec le score du noeud courant *)
-				        if (GetTraitOfPosition(plat) <> pionVide) &
-				           (meilleureDefense >= 11) & (meilleureDefense <= 88) &
+				        if (GetTraitOfPosition(plat) <> pionVide) and
+				           (meilleureDefense >= 11) and (meilleureDefense <= 88) and
 				           (plat.position[meilleureDefense] = pionVide)
 				          then
   				          begin
   				            platEssai := plat;
-  				            if not(UpdatePositionEtTrait(platEssai,meilleureDefense)) |                    { le fils n'est pas jouable }
-  				               not((valeurMin <= bestScoreFilsConnu) & (bestScoreFilsConnu <= valeurMax))  { le score du meilleur fils connu n'est pas cohérent avec le score de notre noeud }
+  				            if not(UpdatePositionEtTrait(platEssai,meilleureDefense)) or                    { le fils n'est pas jouable }
+  				               not((valeurMin <= bestScoreFilsConnu) and (bestScoreFilsConnu <= valeurMax))  { le score du meilleur fils connu n'est pas cohérent avec le score de notre noeud }
   				              then
   				                meilleureDefense := 0;
   				          end
@@ -1634,7 +1634,7 @@ begin
 
 		      end;
 
-		  if (nbVides > nbVidesMinimum) & (GetTraitOfPosition(plat) <> pionVide) & HasSons(G) then
+		  if (nbVides > nbVidesMinimum) and (GetTraitOfPosition(plat) <> pionVide) and HasSons(G) then
 		    begin
 		      theSons := GetSons(G);
 
@@ -1681,7 +1681,7 @@ begin
   {$ENDC}
 
 
-  if (G <> NIL) & GetPositionEtTraitACeNoeud(G, position, 'MetSousArbreDansHashTableExacte') then
+  if (G <> NIL) and GetPositionEtTraitACeNoeud(G, position, 'MetSousArbreDansHashTableExacte') then
     begin
       ticks := TickCount;
       {WritelnDansRapport('Entrée dans MetSousArbreDansHashTableExacte');}
@@ -1743,11 +1743,11 @@ begin
 
     coup := lastMove;
 
-    while (coup >= 11) & (coup <= 88) & suiteLegale do
+    while (coup >= 11) and (coup <= 88) and suiteLegale do
       begin
 
 
-        if debugage & ((prof - profondeurCourante) <= 3) then
+        if debugage and ((prof - profondeurCourante) <= 3) then
           begin
             WritelnPositionEtTraitDansRapport(position.position,GetTraitOfPosition(position));
             WritelnNumDansRapport('hash = ',gClefHashage);
@@ -1777,7 +1777,7 @@ begin
         coup := ScannerStringPourTrouverCoup(next+2,ligne,next);
 
         (*
-        if debugage & ((prof - profondeurCourante) <= 3) then
+        if debugage and ((prof - profondeurCourante) <= 3) then
           begin
             WritelnNumDansRapport('vMin = ',vMin);
             WritelnNumDansRapport('vMax = ',vMax);
@@ -1786,7 +1786,7 @@ begin
           end;
         *)
 
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           begin
             meilleureSuite[prof,profondeurCourante] := coup;
 
@@ -1804,7 +1804,7 @@ begin
           end;
 
 
-        suiteLegale := suiteLegale & UpdatePositionEtTrait(position,coup);
+        suiteLegale := suiteLegale and UpdatePositionEtTrait(position,coup);
 
         dec(profondeurCourante);
       end;
@@ -1826,7 +1826,7 @@ begin
               begin
                 coup := meilleureSuite[p , k];
 
-                if (coup >= 11) & (coup <= 88) then
+                if (coup >= 11) and (coup <= 88) then
                   WriteDansRapport( CoupEnString(coup , true));
               end;
             WritelnDansRapport('');
@@ -1858,7 +1858,7 @@ var i, k, coup, profondeurCourante : SInt32;
     suiteLegale : boolean;
     debugage : boolean;
 begin
-    debugage := (deltaFinale > 2000) & (vmin = vmax);
+    debugage := (deltaFinale > 2000) and (vmin = vmax);
     debugage := false;
 
     position := startingPosition;
@@ -1886,11 +1886,11 @@ begin
 
     coup := lastMove;
 
-    while (coup >= 11) & (coup <= 88) & suiteLegale do
+    while (coup >= 11) and (coup <= 88) and suiteLegale do
       begin
 
 
-        if debugage & ((prof - profondeurCourante) <= 3) then
+        if debugage and ((prof - profondeurCourante) <= 3) then
           begin
             WritelnPositionEtTraitDansRapport(position.position,GetTraitOfPosition(position));
             WritelnNumDansRapport('hash = ',gClefHashage);
@@ -1918,7 +1918,7 @@ begin
         coup := ScannerStringPourTrouverCoup(next+2,ligne,next);
 
 
-        if debugage & ((prof - profondeurCourante) <= 3) then
+        if debugage and ((prof - profondeurCourante) <= 3) then
           begin
             WritelnNumDansRapport('vMin = ',vMin);
             WritelnNumDansRapport('vMax = ',vMax);
@@ -1927,7 +1927,7 @@ begin
           end;
 
 
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           begin
             meilleureSuite[prof,profondeurCourante] := coup;
 
@@ -1945,7 +1945,7 @@ begin
           end;
 
 
-        suiteLegale := suiteLegale & UpdatePositionEtTrait(position,coup);
+        suiteLegale := suiteLegale and UpdatePositionEtTrait(position,coup);
 
         dec(profondeurCourante);
       end;
@@ -1976,13 +1976,13 @@ begin
   case genreReflexion of
     ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif :
       begin
-        result := (scoreDeNoir = vMinPourNoir) & (scoreDeNoir = vMaxPourNoir);
+        result := (scoreDeNoir = vMinPourNoir) and (scoreDeNoir = vMaxPourNoir);
       end;
     ReflGagnant,ReflRetrogradeGagnant,ReflParfaitExhaustPhaseGagnant, ReflGagnantExhaustif:
       begin
         if (scoreDeNoir > 0) then result := (vMinPourNoir > 0) else
         if (scoreDeNoir < 0) then result := (vMaxPourNoir < 0) else
-        if (scoreDeNoir = 0) then result := (vMinPourNoir = 0) & (vMaxPourNoir = 0);
+        if (scoreDeNoir = 0) then result := (vMinPourNoir = 0) and (vMaxPourNoir = 0);
       end;
   end; {case}
   ScoreFinalEstConfirmeParValeursHashExacte := result;
@@ -1996,13 +1996,13 @@ begin
   case genreReflexion of
     ReflParfait,ReflRetrogradeParfait,ReflParfaitExhaustif :
       begin
-        result := (scoreDeNoir >= vMinPourNoir) & (scoreDeNoir <= vMaxPourNoir);
+        result := (scoreDeNoir >= vMinPourNoir) and (scoreDeNoir <= vMaxPourNoir);
       end;
     ReflGagnant,ReflRetrogradeGagnant,ReflParfaitExhaustPhaseGagnant, ReflGagnantExhaustif:
       begin
         if (scoreDeNoir > 0) then result := (vMinPourNoir > 0) else
         if (scoreDeNoir < 0) then result := (vMaxPourNoir < 0) else
-        if (scoreDeNoir = 0) then result := (vMinPourNoir = 0) & (vMaxPourNoir = 0);
+        if (scoreDeNoir = 0) then result := (vMinPourNoir = 0) and (vMaxPourNoir = 0);
       end;
   end; {case}
   ScoreFinalEstFaiblementConfirmeParValeursHashExacte := result;
@@ -2014,14 +2014,14 @@ var vides,liberees,utilisees,k : SInt32;
     whichTableExacte : HashTableExactePtr;
     whichTableCoupsLegaux : CoupsLegauxHashPtr;
 begin
-  if (nroTable < 0) | (nroTable > nbMaxTablesHashExactes) then
+  if (nroTable < 0) or (nroTable > nbMaxTablesHashExactes) then
     begin
       TauxDeRemplissageHashExacte := -1.0;
       exit(TauxDeRemplissageHashExacte);
     end;
 
-  if ((HashTableExacte[nroTable] =  NIL) & (CoupsLegauxHash[nroTable] <> NIL)) |
-     ((HashTableExacte[nroTable] <> NIL) & (CoupsLegauxHash[nroTable] =  NIL)) then
+  if ((HashTableExacte[nroTable] =  NIL) and (CoupsLegauxHash[nroTable] <> NIL)) or
+     ((HashTableExacte[nroTable] <> NIL) and (CoupsLegauxHash[nroTable] =  NIL)) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('ERROR : (HashTableExacte[i] = NIL) XOR (CoupsLegauxHash[i] = NIL) pour i = ',nroTable);
@@ -2029,7 +2029,7 @@ begin
       exit(TauxDeRemplissageHashExacte);
     end;
 
-  if (HashTableExacte[nroTable] =  NIL) | (CoupsLegauxHash[nroTable] = NIL) then
+  if (HashTableExacte[nroTable] =  NIL) or (CoupsLegauxHash[nroTable] = NIL) then
     begin
       TauxDeRemplissageHashExacte := -1.0;
       exit(TauxDeRemplissageHashExacte);

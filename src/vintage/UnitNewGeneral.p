@@ -254,13 +254,13 @@ begin
 		end;
 
 
-  if (tableBooleensDeLaListe = NIL)          |
-     (tableDistributionDeLaPartie = NIL)     |
-     (CriteresSuplementaires = NIL)          |
-     (tableTriListe = NIL)                   |
-     (tableTriListeAux = NIL)                |
-     (tableAnneeParties = NIL)               |
-     (tableNumeroReference = NIL)            |
+  if (tableBooleensDeLaListe = NIL)          or
+     (tableDistributionDeLaPartie = NIL)     or
+     (CriteresSuplementaires = NIL)          or
+     (tableTriListe = NIL)                   or
+     (tableTriListeAux = NIL)                or
+     (tableAnneeParties = NIL)               or
+     (tableNumeroReference = NIL)            or
      (statistiques = NIL)
         then
           begin

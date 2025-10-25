@@ -256,7 +256,7 @@ begin
 
       // 11 cases : Edmond_CORNER_11
 
-      if (indexCassio >= -demi_taille_pattern_11_cases) & (indexCassio <= demi_taille_pattern_11_cases) then
+      if (indexCassio >= -demi_taille_pattern_11_cases) and (indexCassio <= demi_taille_pattern_11_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 11);
@@ -268,7 +268,7 @@ begin
 
       // 10 cases : Edmond_EDGE_6_4, Edmond_CORNER_2x5
 
-      if (indexCassio >= -demi_taille_pattern_10_cases) & (indexCassio <= demi_taille_pattern_10_cases) then
+      if (indexCassio >= -demi_taille_pattern_10_cases) and (indexCassio <= demi_taille_pattern_10_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 10);
@@ -283,7 +283,7 @@ begin
 
       // 8 cases : Edmond_DIAG_8, Edmond_HV_4, Edmond_HV_3, Edmond_HV_2
 
-      if (indexCassio >= -demi_taille_pattern_8_cases) & (indexCassio <= demi_taille_pattern_8_cases) then
+      if (indexCassio >= -demi_taille_pattern_8_cases) and (indexCassio <= demi_taille_pattern_8_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 8);
@@ -301,7 +301,7 @@ begin
 
       // 7 cases : Edmond_DIAG_7
 
-      if (indexCassio >= -demi_taille_pattern_7_cases) & (indexCassio <= demi_taille_pattern_7_cases) then
+      if (indexCassio >= -demi_taille_pattern_7_cases) and (indexCassio <= demi_taille_pattern_7_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 7);
@@ -313,7 +313,7 @@ begin
 
       // 6 cases : Edmond_DIAG_6
 
-      if (indexCassio >= -demi_taille_pattern_6_cases) & (indexCassio <= demi_taille_pattern_6_cases) then
+      if (indexCassio >= -demi_taille_pattern_6_cases) and (indexCassio <= demi_taille_pattern_6_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 6);
@@ -325,7 +325,7 @@ begin
 
       // 5 cases : Edmond_DIAG_5
 
-      if (indexCassio >= -demi_taille_pattern_5_cases) & (indexCassio <= demi_taille_pattern_5_cases) then
+      if (indexCassio >= -demi_taille_pattern_5_cases) and (indexCassio <= demi_taille_pattern_5_cases) then
         begin
 
           indexBruno := TransformePatternCassioVersBruno(indexCassio, 5);
@@ -350,7 +350,7 @@ sortie :
 
   // On ecrit les coefficients de l'eval sur le disque
 
-  if not(EvaluationEdmondEstDisponible) | (EcrireFichierEvalEdmondSurLeDisque <> NoErr) then
+  if not(EvaluationEdmondEstDisponible) or (EcrireFichierEvalEdmondSurLeDisque <> NoErr) then
     begin
       WritelnDansRapport('ERROR : impossible d''ecrire le fichier de l''eval d''Edmond sur le disque !! ');
       SysBeep(0);
@@ -405,7 +405,7 @@ begin
 
 
   { Verification du resultat }
-  if (result < 0) | (result > TailleDUnPatternDeTantDeCases(nbreCasesDansPattern)) then
+  if (result < 0) or (result > TailleDUnPatternDeTantDeCases(nbreCasesDansPattern)) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('résultat out of range pour addresseCassio = ',adresseCassio);

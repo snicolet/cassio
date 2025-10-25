@@ -229,9 +229,9 @@ begin
             pionBlanc : err := WriteDansFichierAbstrait(theFile,ParamStr(chainePionsBlancs,squareStr,squareStr,squareStr,squareStr));
             pionNoir  : err := WriteDansFichierAbstrait(theFile,ParamStr(chainePionsNoirs,squareStr,squareStr,squareStr,squareStr));
             pionVide  : begin
-                          if PeutJouerIci(pionBlanc,square,position.position) & (Pos('^0',chaineCoupsLegauxBlancs) > 0)
+                          if PeutJouerIci(pionBlanc,square,position.position) and (Pos('^0',chaineCoupsLegauxBlancs) > 0)
                             then err := WriteDansFichierAbstrait(theFile,ParamStr(chaineCoupsLegauxBlancs,squareStr,squareStr,squareStr,squareStr)) else
-                          if PeutJouerIci(pionNoir,square,position.position) & (Pos('^0',chaineCoupsLegauxNoirs) > 0)
+                          if PeutJouerIci(pionNoir,square,position.position) and (Pos('^0',chaineCoupsLegauxNoirs) > 0)
                             then err := WriteDansFichierAbstrait(theFile,ParamStr(chaineCoupsLegauxNoirs,squareStr,squareStr,squareStr,squareStr))
                             else err := WriteDansFichierAbstrait(theFile,ParamStr(chaineAutresCasesVides,squareStr,squareStr,squareStr,squareStr));
                         end;
@@ -244,7 +244,7 @@ begin
   err := WritelnDansFichierAbstrait(theFile,chaineEpilogue);
 
 
-  if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) & not(fichierEtaitOuvertEnArrivant)
+  if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) and not(fichierEtaitOuvertEnArrivant)
     then err := FermeFichierTexte(fic);
 
 
@@ -337,7 +337,7 @@ begin
   if (myImporter <> NIL) then
     begin
       err := GraphicsImportGetNaturalBounds(myImporter, myRect);
-      if (whichWindow <> NIL) & (err = NoErr) then
+      if (whichWindow <> NIL) and (err = NoErr) then
         begin
           GetPort(oldPort);
           SetPort(whichWindow);
@@ -365,7 +365,7 @@ begin
   if (myImporter <> NIL) then
     begin
       err := GraphicsImportGetNaturalBounds(myImporter, myRect);
-      if (whichWindow <> NIL) & (err = NoErr) then
+      if (whichWindow <> NIL) and (err = NoErr) then
         begin
           GetPort(oldPort);
           SetPort(whichWindow);
@@ -392,7 +392,7 @@ var i,j,square : SInt32;
     procedure DrawPicture(nom : String255; whichBounds : rect);
     begin
       erreurES := FichierTexteDeCassioExiste(nom,fic);
-      if (erreurES = NoErr) & (wPlateauPtr <> NIL) then
+      if (erreurES = NoErr) and (wPlateauPtr <> NIL) then
         erreurES := QTGraph_ShowImageFromFile(GetWindowPort(wPlateauPtr),whichBounds,fic.theFSSpec);
     end;
 

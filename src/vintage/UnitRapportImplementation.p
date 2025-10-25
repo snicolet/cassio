@@ -196,7 +196,7 @@ procedure AjouterStringDansListePourRapportThreadSafe(s : String255);
 var k,t : SInt32;
 begin
 
-  if (s = '') | (gListeEcritureThreadSafeDansRapport.cardinal >= kTailleListeDesEcrituresThreadSafeDansRapport)
+  if (s = '') or (gListeEcritureThreadSafeDansRapport.cardinal >= kTailleListeDesEcrituresThreadSafeDansRapport)
     then exit(AjouterStringDansListePourRapportThreadSafe);
 
   with gListeEcritureThreadSafeDansRapport do
@@ -240,7 +240,7 @@ begin
           if t > kTailleListeDesEcrituresThreadSafeDansRapport then t := t - (kTailleListeDesEcrituresThreadSafeDansRapport + 1);
 
 
-          if (strings[t] <> NIL) & (strings[t]^^ = s) then
+          if (strings[t] <> NIL) and (strings[t]^^ = s) then
             begin
 
               DisposeMemoryHdl(Handle(strings[t]));
@@ -307,7 +307,7 @@ begin
         do;
 
       trick := false;
-      if gIsRunningUnderMacOSX & SelectionRapportEstVide then
+      if gIsRunningUnderMacOSX and SelectionRapportEstVide then
         begin
           trick := true;
           {InsereStringDansRapportSync(' ',false);}
@@ -345,7 +345,7 @@ end;
 
 function GetWindowRapportOpen : boolean;
 begin
-  GetWindowRapportOpen := (windowRapportOpen & (rapport.theWindow <> NIL));
+  GetWindowRapportOpen := (windowRapportOpen and (rapport.theWindow <> NIL));
 end;
 
 function GetRapportWindow : WindowPtr;
@@ -400,13 +400,13 @@ var firstLine, firstCol : SInt16;
     nbDeLignesVisibles,nbTotalDeLignes : SInt32;
 begin
   with rapport do
-   if (theText <> NIL) & (vScroller <> NIL) & (hScroller <> NIL) then
+   if (theText <> NIL) and (vScroller <> NIL) and (hScroller <> NIL) then
     begin
       nbTotalDeLignes := succ(TEGetHeight(0,32000,theText) div vUnit);
       nbDeLignesVisibles := NbLignesVisiblesDansRapport;
       firstLine := succ((TEdecalage - theText^^.destRect.top) div vUnit);
 
-      if (nbTotalDeLignes <= nbDeLignesVisibles) & (firstLine = 1)
+      if (nbTotalDeLignes <= nbDeLignesVisibles) and (firstLine = 1)
         then
           begin
             SetControlValue(vScroller, 1);
@@ -431,7 +431,7 @@ var height, width: SInt16;
     viewRect,destRect : rect;
 begin
     with rapport do
-      if (theWindow <> NIL) & (theText <> NIL) then
+      if (theWindow <> NIL) and (theText <> NIL) then
       begin
          with GetWindowPortRect(rapport.theWindow) do
            begin
@@ -461,7 +461,7 @@ var oldValue, newValue: SInt16;
     dateCourante : double_t;
 begin
   with rapport do
-    if (theText <> NIL) & (ch <> NIL) then
+    if (theText <> NIL) and (ch <> NIL) then
       begin
   	    oldValue := GetControlValue(ch);
   	    newvalue := oldvalue;
@@ -516,7 +516,7 @@ begin
 
   MyTrackControlIndicatorPartRapport := 0;
 
-  if (theControl <> NIL) & (rapport.theText <> NIL) then
+  if (theControl <> NIL) and (rapport.theText <> NIL) then
     begin
       SetPortByWindow(GetControlOwner(theControl));
       GetMouse(oldMouseLoc);
@@ -546,8 +546,8 @@ begin
         begin
           SetPortByWindow(GetControlOwner(theControl));
           GetMouse(mouseLoc);
-          SourisADejaBouje := SourisADejaBouje | (SInt32(mouseLoc) <> SInt32(oldMouseLoc));
-          if SourisADejaBouje & (SInt32(mouseLoc) <> SInt32(oldMouseLoc)) then
+          SourisADejaBouje := SourisADejaBouje or (SInt32(mouseLoc) <> SInt32(oldMouseLoc));
+          if SourisADejaBouje and (SInt32(mouseLoc) <> SInt32(oldMouseLoc)) then
             begin
 	          oldValue := GetControlValue(theControl);
 	          minimum := GetControlMinimum(theControl);
@@ -671,7 +671,7 @@ var oldport: GrafPtr;
     errDebug : OSErr;
 begin
   with rapport do
-    if (theText <> NIL) & (theWindow <> NIL) then
+    if (theText <> NIL) and (theWindow <> NIL) then
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       GetPort(oldport);
@@ -692,7 +692,7 @@ var oldport: GrafPtr;
     errDebug : OSErr;
 begin
   with rapport do
-    if (theText <> NIL) & (theWindow <> NIL) then
+    if (theText <> NIL) and (theWindow <> NIL) then
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       GetPort(oldport);
@@ -886,7 +886,7 @@ end;
 
 function GetPositionPointDinsertion : SInt32;
 begin
-  if SelectionRapportNonVide & (rapport.theText <> NIL)
+  if SelectionRapportNonVide and (rapport.theText <> NIL)
     then GetPositionPointDinsertion := 2000000000-1   {2000000000, used to be MaxLongint}
     else GetPositionPointDinsertion := GetDebutSelectionRapport;
 end;
@@ -930,10 +930,10 @@ begin
 
 					  depart := from;
 
-					  while (depart >= 0) & ((depart + len - 1) <= tailleRapport) do
+					  while (depart >= 0) and ((depart + len - 1) <= tailleRapport) do
 					    begin
 							  k := 0;
-							  while (k < len) & (texteRapportHdl^^[depart+k] = s[k+1]) do
+							  while (k < len) and (texteRapportHdl^^[depart+k] = s[k+1]) do
 							    inc(k);
 
 							  if (k = len) then
@@ -979,7 +979,7 @@ end;
 procedure ChangeFontDansRapport(whichFont : SInt16);
 var newStyle : TextStyle;
 begin
-  if not(sousEmulatorSousPC) & (rapport.theText <> NIL) then
+  if not(sousEmulatorSousPC) and (rapport.theText <> NIL) then
     begin
       newStyle.tsFont := whichFont;
       MyTESetStyle(doFont,newStyle,false,rapport.theText);
@@ -990,7 +990,7 @@ end;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);
 var newStyle : TextStyle;
 begin
-  if not(sousEmulatorSousPC) & (rapport.theText <> NIL) then
+  if not(sousEmulatorSousPC) and (rapport.theText <> NIL) then
     begin
 
     {$IFC (DEFINED __GPC__) AND NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
@@ -1008,7 +1008,7 @@ end;
 procedure ChangeFontSizeDansRapport(whichSize : SInt16);
 var newStyle : TextStyle;
 begin
-  if not(sousEmulatorSousPC) & (rapport.theText <> NIL) then
+  if not(sousEmulatorSousPC) and (rapport.theText <> NIL) then
     begin
       newStyle.tsSize := whichSize;
       MyTESetStyle(doSize,newStyle,false,rapport.theText);
@@ -1029,7 +1029,7 @@ end;
 procedure ChangeFontColorRGBDansRapport(whichColor : RGBColor);
 var newStyle : TextStyle;
 begin
-  if not(sousEmulatorSousPC) & (rapport.theText <> NIL) then
+  if not(sousEmulatorSousPC) and (rapport.theText <> NIL) then
     begin
       newStyle.tsColor := whichColor;
       MyTESetStyle(doColor,newStyle,false,rapport.theText);

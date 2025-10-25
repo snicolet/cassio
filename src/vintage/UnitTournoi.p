@@ -337,7 +337,7 @@ begin
       exit(NumeroDuMoteurParlantDansCeCanal);
     end;
 
-  if (nroCanal < 0) | (nroCanal > 1) then
+  if (nroCanal < 0) or (nroCanal > 1) then
     begin
       NumeroDuMoteurParlantDansCeCanal := 0;
       exit(NumeroDuMoteurParlantDansCeCanal);
@@ -467,7 +467,7 @@ end;
           if (niveau2 >= 0) then s1 := s1 + ' (prof ' + NumEnString(niveau2) + ')';
           if (typeDeMatch <> ENTRE_ENGINES) then s1 := s1+' (n°2)';
           MyDrawString(s1);
-          if (local2 = localMax) & (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
+          if (local2 = localMax) and (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
             then plusLongueChaineDroite := s1;
 
           if (typeDeMatch <> ENTRE_ENGINES) then
@@ -491,7 +491,7 @@ end;
           if (niveau1 >= 0) then s1 := s1 + ' (prof ' + NumEnString(niveau1) + ')';
           if (typeDeMatch <> ENTRE_ENGINES) then s1 := s1+' (n°1)';
           MyDrawString(s1);
-          if (local1 = localMax) & (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
+          if (local1 = localMax) and (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
             then plusLongueChaineDroite := s1;
 
           if (typeDeMatch <> ENTRE_ENGINES) then
@@ -714,9 +714,9 @@ begin
 
       ResetStatistiquesDuMatch(match);
 
-      if (joueur1 = kEngineSpecialBip) | (joueur2 = kEngineSpecialBip) then
+      if (joueur1 = kEngineSpecialBip) or (joueur2 = kEngineSpecialBip) then
         begin
-          if (joueur1 = kEngineSpecialBip) & (joueur2 = kEngineSpecialBip) then FaireUnMatch := 50.0 else
+          if (joueur1 = kEngineSpecialBip) and (joueur2 = kEngineSpecialBip) then FaireUnMatch := 50.0 else
           if (joueur1 = kEngineSpecialBip) then FaireUnMatch := 100.0 else
           if (joueur2 = kEngineSpecialBip) then FaireUnMatch := 0.0;
           exit(FaireUnMatch);
@@ -760,7 +760,7 @@ begin
 
           end
         else
-      while not(quitterMatch | Quitter) & (compteurPartie < nbParties) do
+      while not(quitterMatch or Quitter) and (compteurPartie < nbParties) do
         begin
 
           {EcritStatistiquesDeBordsABLocal;}
@@ -773,7 +773,7 @@ begin
 
           {if (compteurPartie mod 20 = 0) then AffichePotentiels;}
 
-          if (compteurPartie >= 3) & ouverturesAleatoires & odd(compteurPartie)
+          if (compteurPartie >= 3) and ouverturesAleatoires and odd(compteurPartie)
             then ChoisirUneOuvertureEquilibree(ouvertureDuMatch, ouverturesDejaJouees);
 
 
@@ -782,16 +782,16 @@ begin
 
          {WritelnDansRapport('GetEngineState = ' + GetEngineState);}
 
-          while not(gameOver | quitterMatch | Quitter) do
+          while not(gameOver or quitterMatch or Quitter) do
              begin
-                UnContreDeux := (compteurPartie mod 4 = 1) | (compteurPartie mod 4 = 0);
+                UnContreDeux := (compteurPartie mod 4 = 1) or (compteurPartie mod 4 = 0);
 
 
                 {UpdatePotentiels(JeuCourant,AQuiDeJouer);}
 
                 EcritScoreMatch(match, UnContreDeux);
-                if (UnContreDeux & (AQuiDeJouer = pionNoir)) |
-                   (not(UnContreDeux) & (AQuiDeJouer = pionBlanc))
+                if (UnContreDeux and (AQuiDeJouer = pionNoir)) or
+                   (not(UnContreDeux) and (AQuiDeJouer = pionBlanc))
                  then premierAppele := true
                  else premierAppele := false;
 
@@ -881,7 +881,7 @@ begin
                               else numeroEngineEnCours := 0;      // ceci forcera Cassio à jouer avec l'eval d'Edmond
                           end
                         else
-                          if (joueur2 = kIndexJoueurSansDeviation) & (joueur1 <> joueur2)
+                          if (joueur2 = kIndexJoueurSansDeviation) and (joueur1 <> joueur2)
                             then SetEffetSpecial(false)
                             else SetEffetSpecial(true);
                       avecSelectivite                      := false;
@@ -918,12 +918,12 @@ begin
 
                 premiersCoupsOK := true;
                 for i := 1 to nbreCoup do
-                  premiersCoupsOK := premiersCoupsOK & (GetNiemeCoupPartieCourante(i) = PremiersCoups[i]);
-                premiersCoupsOK := premiersCoupsOK & possibleMove[PremiersCoups[nbreCoup+1]];
+                  premiersCoupsOK := premiersCoupsOK and (GetNiemeCoupPartieCourante(i) = PremiersCoups[i]);
+                premiersCoupsOK := premiersCoupsOK and possibleMove[PremiersCoups[nbreCoup+1]];
 
 
-                if not(Quitter | quitterMatch) then
-                  if ouverturesAleatoires & (nbreCoup < longueurOuvertureAleatoire)
+                if not(Quitter or quitterMatch) then
+                  if ouverturesAleatoires and (nbreCoup < longueurOuvertureAleatoire)
                     then
                       begin
                         tempoSon := avecSon;
@@ -932,7 +932,7 @@ begin
                         avecSon := tempoSon;
                       end
                     else
-    		              if premiersCoupsOK & ((nbCoupsImposes > 0) & (nbreCoup < nbCoupsImposes))
+    		              if premiersCoupsOK and ((nbCoupsImposes > 0) and (nbreCoup < nbCoupsImposes))
     		                then
     		                  begin
     		                    tempoSon := avecSon;
@@ -942,9 +942,9 @@ begin
     		                  end
     		                else
     		                  begin
-    		                    if premiersCoupsOK &
-    		                       not(odd(compteurPartie)) &
-    		                       ((nbreCoup < nbCoupsIdentiques) | PositionCouranteEstDansLaBibliotheque)
+    		                    if premiersCoupsOK and
+    		                       not(odd(compteurPartie)) and
+    		                       ((nbreCoup < nbCoupsIdentiques) or PositionCouranteEstDansLaBibliotheque)
     		                      then
     		                        begin
     		                          tempoSon := avecSon;
@@ -954,7 +954,7 @@ begin
     		                        end
     		                      else
     		                        begin
-    		                          if (nbreCoup = 0) | true
+    		                          if (nbreCoup = 0) or true
     		                            then gEntrainementOuvertures.CassioVarieSesCoups := false
     		                            else gEntrainementOuvertures.CassioVarieSesCoups := PositionCouranteEstDansGrapheApprentissage;
     		                          {JeuMac(level,'FaireUnMatch(3)');}
@@ -1006,10 +1006,10 @@ begin
     		                   end;
              end;
 
-          quitterMatch := quitterMatch | Quitter;
+          quitterMatch := quitterMatch or Quitter;
 
 
-          if avecSauvegardePartieDansListe & gameOver & not(quitterMatch) then
+          if avecSauvegardePartieDansListe and gameOver and not(quitterMatch) then
             begin
               if sousSelectionActive then DoChangeSousSelectionActive;
 
@@ -1021,17 +1021,17 @@ begin
                   if UnContreDeux
                     then
                       begin
-                        if (joueur1 > 0) & (NoCasePos('roxane',GetEngineName(joueur1)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurCyrano else
-                        if (joueur1 > 0) & (NoCasePos('edax',  GetEngineName(joueur1)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurEdax;
-                        if (joueur2 > 0) & (NoCasePos('roxane',GetEngineName(joueur2)) > 0) then joueurBlancPourBaseWthor := kNroJoueurCyrano else
-                        if (joueur2 > 0) & (NoCasePos('edax',  GetEngineName(joueur2)) > 0) then joueurBlancPourBaseWthor := kNroJoueurEdax;
+                        if (joueur1 > 0) and (NoCasePos('roxane',GetEngineName(joueur1)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurCyrano else
+                        if (joueur1 > 0) and (NoCasePos('edax',  GetEngineName(joueur1)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurEdax;
+                        if (joueur2 > 0) and (NoCasePos('roxane',GetEngineName(joueur2)) > 0) then joueurBlancPourBaseWthor := kNroJoueurCyrano else
+                        if (joueur2 > 0) and (NoCasePos('edax',  GetEngineName(joueur2)) > 0) then joueurBlancPourBaseWthor := kNroJoueurEdax;
                       end
                     else
                       begin
-                        if (joueur1 > 0) & (NoCasePos('roxane',GetEngineName(joueur1)) > 0) then joueurBlancPourBaseWthor := kNroJoueurCyrano else
-                        if (joueur1 > 0) & (NoCasePos('edax',  GetEngineName(joueur1)) > 0) then joueurBlancPourBaseWthor := kNroJoueurEdax;
-                        if (joueur2 > 0) & (NoCasePos('roxane',GetEngineName(joueur2)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurCyrano else
-                        if (joueur2 > 0) & (NoCasePos('edax',  GetEngineName(joueur2)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurEdax;
+                        if (joueur1 > 0) and (NoCasePos('roxane',GetEngineName(joueur1)) > 0) then joueurBlancPourBaseWthor := kNroJoueurCyrano else
+                        if (joueur1 > 0) and (NoCasePos('edax',  GetEngineName(joueur1)) > 0) then joueurBlancPourBaseWthor := kNroJoueurEdax;
+                        if (joueur2 > 0) and (NoCasePos('roxane',GetEngineName(joueur2)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurCyrano else
+                        if (joueur2 > 0) and (NoCasePos('edax',  GetEngineName(joueur2)) > 0) then joueurNoirPourBaseWthor  := kNroJoueurEdax;
                       end;
                 end;
 
@@ -1041,7 +1041,7 @@ begin
             end;
 
 
-          if avecAttenteEntreParties & not(quitterMatch) then
+          if avecAttenteEntreParties and not(quitterMatch) then
             begin
               AttendFrappeClavier;
               tempo3D := EnVieille3D;
@@ -1058,7 +1058,7 @@ begin
             end;
 
           {Les cases vides vont au vainqueur}
-          if gameOver & not(quitterMatch) then
+          if gameOver and not(quitterMatch) then
             begin
               if (nbredepions[pionNoir ] > nbredepions[pionBlanc]) then nbredepions[pionNoir ] := 64 - nbredepions[pionBlanc] else
               if (nbredepions[pionBlanc] > nbredepions[pionNoir ]) then nbredepions[pionBlanc] := 64 - nbredepions[pionNoir ] else
@@ -1120,7 +1120,7 @@ begin
 
 
           {on met les parties du match dans le graphe d'apprentissage}
-          if LaDemoApprend & not(Quitter) & not(quitterMatch) & gameOver then
+          if LaDemoApprend and not(Quitter) and not(quitterMatch) and gameOver then
             if not(jeuInstantane) then
             begin
               if nbredepions[pionNoir] > nbredepions[pionBlanc] then gainTheorique := CaracterePourNoir;
@@ -1242,14 +1242,14 @@ end;
    with match do
       begin
 
-        if (joueur1 = kEngineSpecialBip) | (joueur2 = kEngineSpecialBip) then
+        if (joueur1 = kEngineSpecialBip) or (joueur2 = kEngineSpecialBip) then
           exit(EcrireDeuxPartiesDuMatchDansRapport);
 
         coupDivergent := -1;
         for i := 1 to 120 do
-          if (coupDivergent = -1) & (partieActuelle[i] <> partiePrecedente[i])
+          if (coupDivergent = -1) and (partieActuelle[i] <> partiePrecedente[i])
             then coupDivergent := i;
-        if (coupDivergent > 0) & not(odd(coupDivergent)) then dec(coupDivergent);
+        if (coupDivergent > 0) and not(odd(coupDivergent)) then dec(coupDivergent);
 
         numeroDuCoupDivergent := (coupDivergent + 1) div 2;
 
@@ -1279,8 +1279,8 @@ end;
                   if (fanny[1] <> fanny[2])
                     then
                       begin
-                        coupDivergentEstBon := ((fanny[1] > fanny[2]) & odd(numeroDuCoupDivergent)) |
-                                               ((fanny[2] > fanny[1]) & not(odd(numeroDuCoupDivergent)));
+                        coupDivergentEstBon := ((fanny[1] > fanny[2]) and odd(numeroDuCoupDivergent)) or
+                                               ((fanny[2] > fanny[1]) and not(odd(numeroDuCoupDivergent)));
                         if coupDivergentEstBon
                           then ChangeFontColorDansRapport(VertSapinCmd)
                           else ChangeFontColorDansRapport(RougeCmd);
@@ -1330,8 +1330,8 @@ end;
                   if (fanny[1] <> fanny[2])
                     then
                       begin
-                        coupDivergentEstBon := ((fanny[2] > fanny[1]) & odd(numeroDuCoupDivergent)) |
-                                               ((fanny[1] > fanny[2]) & not(odd(numeroDuCoupDivergent)));
+                        coupDivergentEstBon := ((fanny[2] > fanny[1]) and odd(numeroDuCoupDivergent)) or
+                                               ((fanny[1] > fanny[2]) and not(odd(numeroDuCoupDivergent)));
                         if coupDivergentEstBon
                           then ChangeFontColorDansRapport(VertSapinCmd)
                           else ChangeFontColorDansRapport(RougeCmd);
@@ -1388,7 +1388,7 @@ begin
       WritelnDansRapport('');
       WritelnDansRapport('Utilisez cmd-Q pour arrêter le tournoi…');
       if (nomTournoi <> '') then WritelnDansRapport('Nom du tournoi = "' + nomTournoi+'"');
-      if (settings.niveau1 > 0) & (settings.niveau2 > 0)
+      if (settings.niveau1 > 0) and (settings.niveau2 > 0)
         then WritelnNumDansRapport('Tournoi à profondeur fixe = ',settings.niveau1)
         else WritelnDansRapport('Temps par joueur = ' + NumEnString(settings.tempsParPartie div 60) + ' min.');
 
@@ -1461,7 +1461,7 @@ begin
       ChangeFontFaceDansRapport(bold);
       WritelnDansRapport('');
       WriteNumDansRapport('# RONDE ', (nbParticipants - 1)*(tours - 1) + numeroRonde);
-      if (numeroRonde = 1) & (nbParticipants > 2)
+      if (numeroRonde = 1) and (nbParticipants > 2)
         then WriteDansRapport('  (toutes-rondes '+NumEnString(tours)+')');
       WritelnDansRapport('');
       WritelnDansRapport('');
@@ -1522,7 +1522,7 @@ end;
 
             WriteStringAndReelDansRapport('     =>    ',scoreParticipant[t],nbChiffres);
 
-            if (scoreParticipant[t] <> 0) & (nombreDeRondesJouees > 0)
+            if (scoreParticipant[t] <> 0) and (nombreDeRondesJouees > 0)
               then WriteStringAndReelDansRapport(' pts      (',100*scoreParticipant[t]/nombreDeRondesJouees,4)
               else WriteDansRapport(' pts      (0.00');
             WriteDansRapport('%)');
@@ -1564,7 +1564,7 @@ begin
       nom1 := NomDeLEngineDansLeMatch(match, joueur1);
       nom2 := NomDeLEngineDansLeMatch(match, joueur2);
 
-      if (tournoi.nbParticipants > 2) & (joueur1 <> kEngineSpecialBip) & (joueur2 <> kEngineSpecialBip) then
+      if (tournoi.nbParticipants > 2) and (joueur1 <> kEngineSpecialBip) and (joueur2 <> kEngineSpecialBip) then
         WriteDansRapport('match '+nom1+'-'+nom2+'… ');
 
     end;
@@ -1681,8 +1681,8 @@ begin
       if (sauvegardeAfficheSuggestionDeCassio <> afficheSuggestionDeCassio)
         then DoChangeAfficheSuggestionDeCassio;
 
-      if (sauvegardeCadence              <> GetCadence)           |
-         (sauvegardeCadencePersoAffichee <> cadencePersoAffichee) |
+      if (sauvegardeCadence              <> GetCadence)           or
+         (sauvegardeCadencePersoAffichee <> cadencePersoAffichee) or
          (sauvegardeJeuInstantane        <> jeuInstantane) then
         begin
           SetCadence(sauvegardeCadence);
@@ -1792,8 +1792,8 @@ begin
                         match.joueur1 := nroEngineParticipant[n1];
                         match.joueur2 := nroEngineParticipant[n2];
 
-                        if (nbParticipants > 2) &
-                           (match.joueur1 <> kEngineSpecialBip) &
+                        if (nbParticipants > 2) and
+                           (match.joueur1 <> kEngineSpecialBip) and
                            (match.joueur2 <> kEngineSpecialBip) then
                           EcrireAnnonceDuMatchDansRapport(tournoi, match);
 
@@ -1809,9 +1809,9 @@ begin
 
                         scoreDuJoueur2 := FaireUnMatch(match, ouverturesDejaJouees)/100.0;
 
-                        if (nbParticipants > 2) &
-                           not(Quitter) &
-                           (match.joueur1 <> kEngineSpecialBip) &
+                        if (nbParticipants > 2) and
+                           not(Quitter) and
+                           (match.joueur1 <> kEngineSpecialBip) and
                            (match.joueur2 <> kEngineSpecialBip) then
                           EcrireConclusionDuMatchDansRapport(tournoi,scoreDuJoueur2);
 
@@ -1819,14 +1819,14 @@ begin
                         scoreParticipant[n1] := scoreParticipant[n1] + (1.0 - scoreDuJoueur2);
                         scoreParticipant[n2] := scoreParticipant[n2] + scoreDuJoueur2;
 
-                        if not(Quitter) & ((scoreDuJoueur2 <> 0.5) | (match.partieActuelle <> match.partiePrecedente))
+                        if not(Quitter) and ((scoreDuJoueur2 <> 0.5) or (match.partieActuelle <> match.partiePrecedente))
                           then EcrireDeuxPartiesDuMatchDansRapport(match);
 
                       end;
 
                   if not(Quitter) then
                     begin
-                      if (nbParticipants > 2) & (scoreDuJoueur2 = 0.5)
+                      if (nbParticipants > 2) and (scoreDuJoueur2 = 0.5)
                         then WritelnDansRapport('');
                       EcrireClassementTournoiDansRapport(tournoi, tours);
                     end;
@@ -1881,7 +1881,7 @@ begin
     err := ReadlnDansFichierTexte(fic,s);
     s := EnleveEspacesDeGauche(s);
 
-    if (err = NoErr) & (s <> '') & (s[1] <> '#') & (s[1] <> '%') then
+    if (err = NoErr) and (s <> '') and (s[1] <> '#') and (s[1] <> '%') then
       with tournoi do
         begin
           Parser6(s,s1,s2,s3,s4,s5,s6,reste);
@@ -1900,7 +1900,7 @@ begin
                   end
                 else
                   begin
-                    if not(NoCaseEquals(s3,'Cassio')) & not(NoCaseEquals(s3,'Edmond')) then
+                    if not(NoCaseEquals(s3,'Cassio')) and not(NoCaseEquals(s3,'Edmond')) then
                       begin
                         WritelnDansRapport('');
                         ChangeFontColorDansRapport(RougeCmd);
@@ -1930,7 +1930,7 @@ begin
           if NoCaseEquals('PROFONDEUR-FIXE',s1) then
             begin
               num := ChaineEnLongint(s3);
-              if not(IsDigit(s3[1]))  | NoCaseEquals('non',s3) | (num <= 0) | (num > 64)
+              if not(IsDigit(s3[1]))  or NoCaseEquals('non',s3) or (num <= 0) or (num > 64)
                 then
                   begin
                     settings.niveau1 := -1;
@@ -1960,7 +1960,7 @@ begin
 
 
         end;
-  until (err <> NoErr) | EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EOFFichierTexte(fic,err);
 
   err := FermeFichierTexte(fic);
   if (err <> NoErr) then goto sortie;
@@ -2129,7 +2129,7 @@ begin
   dev_mobilite := 0;
   dev_penalitetrait := 0;
 
-  if (index >= 0) & (index <= 624) then
+  if (index >= 0) and (index <= 624) then
     begin
       aux := index mod 5;
       dev_penalitetrait := aux - 2;
@@ -2514,8 +2514,8 @@ begin
 
   repeat
     erreurES := ReadlnDansFichierTexte(fichierRapport,s);
-    if (s <> '') & (erreurES = NoErr) then
-      if (s[1] <> '#') & (Pos('(front,min,mob,pen)',s) = 1) then
+    if (s <> '') and (erreurES = NoErr) then
+      if (s[1] <> '#') and (Pos('(front,min,mob,pen)',s) = 1) then
         begin
           longueur := LENGTH_OF_STRING(s);
 
@@ -2554,7 +2554,7 @@ begin
           AjouterResultatMatchPourCetteDeviation(index,kNombrePartiesParMatchDansDemo,pions,gains);
 
           (* on ecrit quelques lignes au hasard pour verifier que l'on parse bien... *)
-          if false & (index >= 168) & (index <= 168) then
+          if false and (index >= 168) and (index <= 168) then
             begin
               WritelnDansRapport(s);
               WriteNumDansRapport('••••••••• ',index);
@@ -2584,7 +2584,7 @@ begin
             end;
 
         end;
-  until (erreurES <> NoErr) | EOFFichierTexte(fichierRapport,erreurES);
+  until (erreurES <> NoErr) or EOFFichierTexte(fichierRapport,erreurES);
   erreurES := FermeFichierTexte(fichierRapport);
 
   WritelnNumDansRapport('#sortie de PeutParserFichierRapportLogPourTournoiDeviations, erreurES = ',erreurES);
@@ -2813,7 +2813,7 @@ begin
       for j := -2 to 2 do
         for k := -2 to 2 do
           for l := -2 to 2 do
-            if not(quitterDemo | Quitter) then
+            if not(quitterDemo or Quitter) then
               BEGIN
 
                 deviation_frontiere := i;
@@ -2843,7 +2843,7 @@ begin
                         scoreDuJoueur2 := FaireUnMatchEntreDeviations(match);
 
                         (* Mettre a jour les pourcentages des deviations *)
-                        if not(quitterDemo|Quitter) then
+                        if not(quitterDemoorQuitter) then
                           with match do
                             begin
                               AjouterResultatMatchPourCetteDeviation(index_deviation_courante,fanny[1]+fanny[2],scorecumule[2],fanny[2]);
@@ -2872,7 +2872,7 @@ var index,t,r,n1,n2 : SInt32;
     ouverturesJoueesDansLeMatch : StringSet;
 begin
 
-  if not(quitterDemo | Quitter) then
+  if not(quitterDemo or Quitter) then
     with tournoiDeviations do
       begin
 
@@ -2910,7 +2910,7 @@ begin
           end;
 
 
-        if not(quitterDemo | Quitter) then
+        if not(quitterDemo or Quitter) then
           for tours := 1 to nbToursDuTournoi do
             for r := 1 to kNombreDeviationsDansLeTournoi do
               begin
@@ -2921,7 +2921,7 @@ begin
                 FaireTournerParticipantsTournoiToutesRondes(numeroRonde,tournoiDeviations);
 
                 for t := 0 to (kNombreDeviationsDansLeTournoi div 2) do
-                  if not(quitterDemo | Quitter) then
+                  if not(quitterDemo or Quitter) then
                     begin
                       n1 := tableauTouteRonde[t];
                       n2 := tableauTouteRonde[kNombreDeviationsDansLeTournoi - t];
@@ -2962,7 +2962,7 @@ begin
 
                     end;
 
-                if not(quitterDemo | Quitter) then
+                if not(quitterDemo or Quitter) then
                   begin
                     WritelnNumDansRapport('Classement après la ronde ',numeroRonde);
                     for t := 0 to nbParticipants - 1 do
@@ -3027,10 +3027,10 @@ begin {DoDemo}
 
        WritelnDansRapport('# avant PeutAllouerTableauDeviations dans DoDemo');
 
-       if PeutAllouerTableauDeviations & PeutParserFichierRapportLogPourTournoiDeviations  then
+       if PeutAllouerTableauDeviations and PeutParserFichierRapportLogPourTournoiDeviations  then
          begin
            for nroPasse := 1 to 10000 do
-             if not(quitterDemo | Quitter) then
+             if not(quitterDemo or Quitter) then
                begin
 
                  WritelnNumDansRapport('## DEBUT DE LA PASSE ',nroPasse);
@@ -3284,7 +3284,7 @@ begin
   numeroTest := NumeroDeb-increment;
   repeat
    numeroTest := numeroTest+increment;
-   if (interruptionReflexion = pasdinterruption) & not(Quitter) then
+   if (interruptionReflexion = pasdinterruption) and not(Quitter) then
     begin
       s := NumEnString(numeroTest);
       if numeroTest < 10
@@ -3308,7 +3308,7 @@ begin
       LanceChrono;
       tempsPrevu := 10;
       tempsAlloue := TempsPourCeCoup(nbreCoup,couleurMacintosh);
-      if not(RefleSurTempsJoueur) & (AQuiDeJouer = couleurMacintosh)
+      if not(RefleSurTempsJoueur) and (AQuiDeJouer = couleurMacintosh)
         then
           begin
             EcritJeReflechis(AQuiDeJouer);
@@ -3590,7 +3590,7 @@ begin
       AfficheResultats;
 
      end;
-   until (numeroTest = numeroFin) | (interruptionReflexion <> pasdinterruption) | Quitter;
+   until (numeroTest = numeroFin) or (interruptionReflexion <> pasdinterruption) or Quitter;
 
    {if not(Quitter) then
      begin

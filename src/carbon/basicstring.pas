@@ -291,7 +291,7 @@ end;
 
 
 begin
-   testBasicString;
+   // testBasicString;
 end.
 
 

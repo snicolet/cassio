@@ -150,10 +150,10 @@ begin
   FichierPhotosExisteEnMemoire := false;
   numeroFic := 0;
 
-  if (pathComplet <> '') &
+  if (pathComplet <> '') and
      (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
-       if (gFichiersPicture.fic[i].nomComplet <> NIL) &
+       if (gFichiersPicture.fic[i].nomComplet <> NIL) and
           (pathComplet = gFichiersPicture.fic[i].nomComplet^) then
          begin
            FichierPhotosExisteEnMemoire := true;
@@ -169,10 +169,10 @@ begin
   FichierPhotosExisteDansMenu := false;
   numeroFic := 0;
 
-  if (nomFichierDansMenu <> '') &
+  if (nomFichierDansMenu <> '') and
      (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
-       if (gFichiersPicture.fic[i].nomDansMenu <> NIL) &
+       if (gFichiersPicture.fic[i].nomDansMenu <> NIL) and
           (nomFichierDansMenu = gFichiersPicture.fic[i].nomDansMenu^) then
          begin
            FichierPhotosExisteDansMenu := true;
@@ -188,13 +188,13 @@ begin
   FichierPhotosHappyEndExistePourCesTextureEtCouleur := false;
   numeroFic := 0;
 
-  if (nomFichierDansMenu <> '') &
+  if (nomFichierDansMenu <> '') and
      (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
-       if (gFichiersPicture.fic[i].nomDansMenu <> NIL) &
-          (nomFichierDansMenu = gFichiersPicture.fic[i].nomDansMenu^) &
-          (gFichiersPicture.fic[i].typeFichier = kFichierPictureHappyEnd) &
-          (gFichiersPicture.fic[i].whichMenuID = Picture2DID) &
+       if (gFichiersPicture.fic[i].nomDansMenu <> NIL) and
+          (nomFichierDansMenu = gFichiersPicture.fic[i].nomDansMenu^) and
+          (gFichiersPicture.fic[i].typeFichier = kFichierPictureHappyEnd) and
+          (gFichiersPicture.fic[i].whichMenuID = Picture2DID) and
           (gFichiersPicture.fic[i].couleurPions = couleur) then
          begin
            FichierPhotosHappyEndExistePourCesTextureEtCouleur := true;
@@ -213,9 +213,9 @@ begin
   if (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
        with gFichiersPicture.fic[i] do
-	       if (whichMenuID = whichTexture.menuID) &
-	          (whichMenuItem = whichTexture.menuCmd) &
-	          (nomComplet <> NIL) &
+	       if (whichMenuID = whichTexture.menuID) and
+	          (whichMenuItem = whichTexture.menuCmd) and
+	          (nomComplet <> NIL) and
 	          (nomComplet^ <> '') then
 	         begin
 	           GetPathCompletFichierPionsPourCetteTexture := nomComplet^;
@@ -234,8 +234,8 @@ begin  {$UNUSED whichTexture}
   if (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
        with gFichiersPicture.fic[i] do
-	       if (typeFichier = kFichierBordure) &
-	          (nomComplet <> NIL) &
+	       if (typeFichier = kFichierBordure) and
+	          (nomComplet <> NIL) and
 	          (nomComplet^ <> '') then
 	         begin
 	           GetPathCompletFichierBordurePourCetteTexture := nomComplet^;
@@ -253,9 +253,9 @@ begin
   if (gFichiersPicture.nbFichiers > 0) then
      for i := 1 to gFichiersPicture.nbFichiers do
        with gFichiersPicture.fic[i] do
-	       if (whichMenuID = whichTexture.menuID) &
-	          (whichMenuItem = whichTexture.menuCmd) &
-	          (nomDansMenu <> NIL) &
+	       if (whichMenuID = whichTexture.menuID) and
+	          (whichMenuItem = whichTexture.menuCmd) and
+	          (nomDansMenu <> NIL) and
 	          (nomDansMenu^ <> '') then
 	         begin
 	           GetNomDansMenuPourCetteTexture := nomDansMenu^;
@@ -273,7 +273,7 @@ end;
 
 function GetPathCompletFichierParNumero(numeroFic : SInt16) : String255;
 begin
-  if (numeroFic >= 1) & (numeroFic <= gFichiersPicture.nbFichiers) &
+  if (numeroFic >= 1) and (numeroFic <= gFichiersPicture.nbFichiers) and
      (gFichiersPicture.fic[numeroFic].nomComplet <> NIL)
     then GetPathCompletFichierParNumero := gFichiersPicture.fic[numeroFic].nomComplet^
     else GetPathCompletFichierParNumero := '';
@@ -283,7 +283,7 @@ end;
 
 function GetNomDansMenuParNumero(numeroFic : SInt16) : String255;
 begin
-  if (numeroFic >= 1) & (numeroFic <= gFichiersPicture.nbFichiers) &
+  if (numeroFic >= 1) and (numeroFic <= gFichiersPicture.nbFichiers) and
      (gFichiersPicture.fic[numeroFic].nomDansMenu <> NIL)
     then GetNomDansMenuParNumero := gFichiersPicture.fic[numeroFic].nomDansMenu^
     else GetNomDansMenuParNumero := '';
@@ -299,9 +299,9 @@ begin
 
   for k := 1 to gFichiersPicture.nbFichiers do
     with gFichiersPicture.fic[k] do
-     if (couleurPions = coul) &
-        (typeFichier = kFichierPicture3D) & (whichMenuID = Picture3DID) &
-        (nomDansMenu <> NIL) & (nomDansMenu^ = nomFichierDansMenu) &
+     if (couleurPions = coul) and
+        (typeFichier = kFichierPicture3D) and (whichMenuID = Picture3DID) and
+        (nomDansMenu <> NIL) and (nomDansMenu^ = nomFichierDansMenu) and
         (nomComplet <> NIL)
        then
          begin
@@ -318,9 +318,9 @@ begin
 
   for k := 1 to gFichiersPicture.nbFichiers do
     with gFichiersPicture.fic[k] do
-     if (couleurPions = coul) &
-        (typeFichier = kFichierPictureHappyEnd) & (whichMenuID = Picture2DID) &
-        (nomDansMenu <> NIL) & (nomDansMenu^ = nomFichierDansMenu) &
+     if (couleurPions = coul) and
+        (typeFichier = kFichierPictureHappyEnd) and (whichMenuID = Picture2DID) and
+        (nomDansMenu <> NIL) and (nomDansMenu^ = nomFichierDansMenu) and
         (nomComplet <> NIL)
        then
          begin
@@ -517,8 +517,8 @@ begin
 	    begin
 	      codeErreur := FSSpecToFullPath(fs,path);
 
-	      if (GetNameOfFSSpec(fs)[1] <> '.') &
-	         (Pos('escr.txt',path) = 0) & (Pos('Borders',path) = 0) then
+	      if (GetNameOfFSSpec(fs)[1] <> '.') and
+	         (Pos('escr.txt',path) = 0) and (Pos('Borders',path) = 0) then
 	        begin
 
 			      case typeFichierGraphique of
@@ -534,7 +534,7 @@ begin
 			      dejaDansListe := FichierPhotosExisteEnMemoire(path,num);
 			      dejaDansMenu  := FichierPhotosExisteDansMenu(textePourMenu,num);
 
-			      if not(dejaDansListe) & (nbFichiers < kMaxFichiersOthelliers)  then
+			      if not(dejaDansListe) and (nbFichiers < kMaxFichiersOthelliers)  then
 			        begin
 							  inc(nbFichiers);
 							  with fic[nbFichiers] do
@@ -614,10 +614,10 @@ begin
      if (Pos('Meteo',path) <> 0)
        then AjouterFichierOthellierPicture(fs,kFichierPictureMeteo) else
 
-     if (Pos('2D',path) <> 0) & ('Bordure' = GetNameOfFSSpec(fs))
+     if (Pos('2D',path) <> 0) and ('Bordure' = GetNameOfFSSpec(fs))
        then AjouterFichierOthellierPicture(fs,kFichierBordure)      else
 
-     if (Pos('2D',path) <> 0) & (Pos('Bordure',GetNameOfFSSpec(fs)) <= 0)
+     if (Pos('2D',path) <> 0) and (Pos('Bordure',GetNameOfFSSpec(fs)) <= 0)
        then AjouterFichierOthellierPicture(fs,kFichierPicture2D)    else
 
      if (Pos('3D',path) <> 0)
@@ -628,7 +628,7 @@ begin
    end;
 
   {on cherche recursivement, sauf dans le dossier "cache"}
-  TraiteFichierPictureEtRecursion := isFolder & (Pos(':cache',path) = 0) ;
+  TraiteFichierPictureEtRecursion := isFolder and (Pos(':cache',path) = 0) ;
 end;
 
 
@@ -671,7 +671,7 @@ begin
       then AddValidCassioFolderPath(iterateurCassioFolderPaths)
       else iterateurCassioFolderPaths := TryNextCassioFolderPath;
 
-  until trouve | (iterateurCassioFolderPaths = '');
+  until trouve or (iterateurCassioFolderPaths = '');
 
 
 end;
@@ -726,21 +726,21 @@ begin
   SetDebugLegalMovesRects3DPovRay(false);
   SetDebugUpSideFacesRects3DPovRay(false);
 
-  while (erreurES = NoErr) & not(EOFFichierTexte(fic,erreurES)) do
+  while (erreurES = NoErr) and not(EOFFichierTexte(fic,erreurES)) do
     begin
       erreurES := ReadlnDansFichierTexte(fic,ligne);
       //WritelnDansRapport(ligne);  // CREATE NEW
-      if (erreurES = NoErr) & (ligne <> '') & (ligne[1] <> '%') then
+      if (erreurES = NoErr) and (ligne <> '') and (ligne[1] <> '%') then
         begin
           Parser3(ligne,s0,s1,s2,s);
-          if (s1 = '=') & (s2 <> '{') then
+          if (s1 = '=') and (s2 <> '{') then
             begin
               s0 := MyUpperString(s0,false);
               s2 := MyUpperString(s2,false);
 
               {parser les booleens}
-              if (Pos('DEBUG_BOUNDING_RECTANGLES',s0) > 0) |
-                 (Pos('DEBUG_UPPER_RECTANGLES',s0) > 0) |
+              if (Pos('DEBUG_BOUNDING_RECTANGLES',s0) > 0) or
+                 (Pos('DEBUG_UPPER_RECTANGLES',s0) > 0) or
                  (Pos('DEBUG_DOWN_RECTANGLES',s0) > 0) then
                 begin
 		              if Pos('DEBUG_BOUNDING_RECTANGLES',s0) > 0 then SetDebugBoundingRects3DPovRay(s2 = 'TRUE') else
@@ -748,14 +748,14 @@ begin
 		              if Pos('DEBUG_DOWN_RECTANGLES',s0)    > 0 then SetDebugLegalMovesRects3DPovRay(s2 = 'TRUE');
 		            end;
             end else
-          if (s1 = '=') & (s2 = '{') then
+          if (s1 = '=') and (s2 = '{') then
             begin
               s0 := MyUpperString(s0,false);
 
               {parser les rectangles}
-              if (Pos('ESCARGOT_RECT',s0) > 0) |
-                 (Pos('BOUNDING_RECT',s0) > 0) |
-                 (Pos('UP_RECT',s0) > 0) |
+              if (Pos('ESCARGOT_RECT',s0) > 0) or
+                 (Pos('BOUNDING_RECT',s0) > 0) or
+                 (Pos('UP_RECT',s0) > 0) or
                  (Pos('DOWN_RECT',s0) > 0)
                   then
                 begin
@@ -782,10 +782,10 @@ begin
 		            end;
 
 		          {parser les points}
-			        if (Pos('IMAGE_SIZE',s0) > 0) |
-			           (Pos('BLACK_SCORE_POSITION',s0) > 0) |
-			           (Pos('WHITE_SCORE_POSITION',s0) > 0) |
-			           (Pos('BEST_LINE_POSITION',s0) > 0) |
+			        if (Pos('IMAGE_SIZE',s0) > 0) or
+			           (Pos('BLACK_SCORE_POSITION',s0) > 0) or
+			           (Pos('WHITE_SCORE_POSITION',s0) > 0) or
+			           (Pos('BEST_LINE_POSITION',s0) > 0) or
 			           (Pos('YOUR_MOVE_PLEASE_POSITION',s0) > 0) then
 			            begin
 			              Parser2(s,s1,s2,s);

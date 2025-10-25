@@ -117,13 +117,13 @@ end;
 
 procedure AjouterTempsDansMiniProfiler(nbVides,prof : SInt32; microsecondesUtilisees : UInt32; affichage : SInt32);
 begin
-  if (prof < k_MIN_PROF_MINIPROFILER) | (prof > k_MAX_PROF_MINIPROFILER) then
+  if (prof < k_MIN_PROF_MINIPROFILER) or (prof > k_MAX_PROF_MINIPROFILER) then
     begin
       WritelnNumDansRapport('ERROR : prof out of range dans AjouterTempsDansMiniProfiler!  prof = ',prof);
       exit(AjouterTempsDansMiniProfiler);
     end;
 
-  if (nbVides < 0) | (nbVides > 64) then
+  if (nbVides < 0) or (nbVides > 64) then
     begin
       WritelnNumDansRapport('ERROR : nbVides out of range dans AjouterTempsDansMiniProfiler! nbVides = ',nbVides);
       exit(AjouterTempsDansMiniProfiler);
@@ -135,7 +135,7 @@ begin
       temps[nbVides,prof].lo := temps[nbVides,prof].lo + microsecondesUtilisees;
       inc(occu[nbVides,prof]);
 
-      if InfosTechniquesDansRapport &
+      if InfosTechniquesDansRapport and
          (TickCount - dernierTickAffichageMicrosecondes >= 3600)  {toutes les 60 sec}
         then AfficheMiniProfilerDansRapport(affichage);
     end;

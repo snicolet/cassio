@@ -144,7 +144,7 @@ begin
   inverse := DecoderBord(code_inverse);
 
   for i := 0 to longueur_liste_assoc_turbulence_bord_AB_local-1 do
-  if (liste_assoc_turbulence_bord_AB_local[i].QuelBord = inverse) &
+  if (liste_assoc_turbulence_bord_AB_local[i].QuelBord = inverse) and
      (liste_assoc_turbulence_bord_AB_local[i].QuelleCaseCritiqueSurLeBord = CaseCritiqueInverse)
     then
       begin
@@ -271,7 +271,7 @@ procedure Trier_liste_assoc_turbulence_bord_AB_local; {on trie par bord ascendan
                 temp.bord        := liste_assoc_turbulence_bord_AB_local[i].QuelBord;
                 temp.CaseCritique := liste_assoc_turbulence_bord_AB_local[i].QuelleCaseCritiqueSurLeBord;
                 j := i+d;
-                while (j <= up) &
+                while (j <= up) and
                       (temp.bord > liste_assoc_turbulence_bord_AB_local[j].QuelBord) do
                   begin
                     liste_assoc_turbulence_bord_AB_local[j-d] := liste_assoc_turbulence_bord_AB_local[j];
@@ -400,7 +400,7 @@ var ticks : SInt32;
 
    procedure MetDansTableTurbulente_alpha_beta_local(bord,caseCritiqueDansBord : SInt32);
     begin
-      if (caseCritiqueDansBord < 1) | (caseCritiqueDansBord > 8)
+      if (caseCritiqueDansBord < 1) or (caseCritiqueDansBord > 8)
         then exit(MetDansTableTurbulente_alpha_beta_local);
 
 
@@ -412,7 +412,7 @@ var ticks : SInt32;
 	        end
 	      else
 	        begin
-	          if (caseCritiqueDansBord < 1) | (caseCritiqueDansBord > 8)
+	          if (caseCritiqueDansBord < 1) or (caseCritiqueDansBord > 8)
 	            then
 	              begin
 	                SysBeep(0);
@@ -492,7 +492,7 @@ begin  {Initialise_turbulence_bords}
 
    // Si on a déjà initialisé la turbulence, avec les memes parametres, ce n'est pas la peine de la refaire
 
-   if TurbulenceBordsEstInitialisee & (priseDeBordsSontTurbulentes = gTurbulenceDesPrisesDansTurbulenceDesBords)
+   if TurbulenceBordsEstInitialisee and (priseDeBordsSontTurbulentes = gTurbulenceDesPrisesDansTurbulenceDesBords)
      then exit(Initialise_turbulence_bords);
 
 
@@ -1152,7 +1152,7 @@ begin
      inverse := inverse+puiss3[i]*equ_bord[code[9-i]];
 
   (*
-  if (code[1] = '0') & (code[8] = '0') then
+  if (code[1] = '0') and (code[8] = '0') then
     for i := 2 to 7 do
       if code[i] = '1' then note := note+25 else
       if code[i] = '2' then note := note-25;
@@ -3601,8 +3601,8 @@ begin
           if (valeurBord^[i] = 0) then
             begin
               CoderBord(i,uncode,nbtrous,nbamis,nbennemis);
-              if (Pos('1212',uncode) <= 0) & (Pos('2121',uncode) <= 0) then
-              if (Pos('121121',uncode) <= 0) & (Pos('212212',uncode) <= 0) then
+              if (Pos('1212',uncode) <= 0) and (Pos('2121',uncode) <= 0) then
+              if (Pos('121121',uncode) <= 0) and (Pos('212212',uncode) <= 0) then
                 begin
                   Write(fichierBordsNonCotes,'EnvoyerBord(''');
                   Write(fichierBordsNonCotes,uncode);

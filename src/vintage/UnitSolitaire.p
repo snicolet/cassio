@@ -305,7 +305,7 @@ if interruptionReflexion = pasdinterruption then
              then
                begin
                  noteCourante := -DernierCoupSolitaire(platEssai,bestSuite,adversaire,nbBlcEssai,nbNrEssai);
-                 if (0 < noteCourante) & (noteCourante < maxPourBestDef)
+                 if (0 < noteCourante) and (noteCourante < maxPourBestDef)
                    then
                      begin
                        solitaire := false;
@@ -318,7 +318,7 @@ if interruptionReflexion = pasdinterruption then
                begin
                  noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                               -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-                 if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+                 if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                    begin
                      t := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                      -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSolPetite);
@@ -338,7 +338,7 @@ if interruptionReflexion = pasdinterruption then
                   then solitaire := false
                   else
                     begin
-                     if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+                     if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
                        then
                          begin
                            if solitaireEssai then
@@ -474,7 +474,7 @@ if (interruptionReflexion = pasdinterruption) then
    (*
    WriteNumAt('pere = ',pere,100,190);
    WriteNumAt('FilsDePere = ',FilsDePere,10,190);
-   if (pere < 11) | (pere > 88) then
+   if (pere < 11) or (pere > 88) then
      begin
        SysBeep(0);
        AttendFrappeClavier;
@@ -496,7 +496,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                              -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                    -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -511,7 +511,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,-beta,-alpha,
                                     nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,-1,0,
                             nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -530,7 +530,7 @@ if (interruptionReflexion = pasdinterruption) then
                   then solitaire := false
                   else
                     begin
-                     if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+                     if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
                        then
                          begin
                            if solitaireEssai then
@@ -604,7 +604,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                              -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                    -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -619,7 +619,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,-beta,-alpha,
                                     nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                    -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -638,7 +638,7 @@ if (interruptionReflexion = pasdinterruption) then
                   then solitaire := false
                   else
                     begin
-                     if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+                     if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
                        then
                          begin
                            if solitaireEssai then
@@ -723,7 +723,7 @@ if (interruptionReflexion = pasdinterruption) then
 		             begin
 		               noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 		                             -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-		               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+		               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
 		                 begin
 		                   t := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 		                                   -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -738,7 +738,7 @@ if (interruptionReflexion = pasdinterruption) then
 		             begin
 		               noteCourante := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 		                             -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-		               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+		               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
 		                 begin
 		                   t := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 		                                   -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -757,7 +757,7 @@ if (interruptionReflexion = pasdinterruption) then
 		                  then solitaire := false
 		                  else
 		                    begin
-		                     if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+		                     if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
 		                       then
 		                         begin
 		                           if solitaireEssai then
@@ -842,7 +842,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                              -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                    -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -857,7 +857,7 @@ if (interruptionReflexion = pasdinterruption) then
              begin
                noteCourante := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                              -beta,-alpha,nbBlcEssai,nbNrEssai,nbreSuitesEssai,solitaireEssai);
-               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
                  begin
                    t := -ABSol(platEssai,bestSuite,iCourant,adversaire,profMoins1,
                                    -1,0,nbBlcEssai,nbNrEssai,nbreSuitesEssai,localBidBool_ABSol);
@@ -876,7 +876,7 @@ if (interruptionReflexion = pasdinterruption) then
                   then solitaire := false
                   else
                     begin
-                     if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+                     if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
                        then
                          begin
                            if solitaireEssai then
@@ -1094,7 +1094,7 @@ if (interruptionReflexion = pasdinterruption) then
 	             begin
 	               noteCourante := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 	                             -beta,-alpha,InfosMilieuEssai.nbBlancs,InfosMilieuEssai.nbNoirs,nbreSuitesEssai,solitaireEssai);
-	               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+	               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
 	                 begin
 	                   note := -ABSolPetite(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 	                                   -1,0,InfosMilieuEssai.nbBlancs,InfosMilieuEssai.nbNoirs,nbreSuitesEssai,localBidBool_ABSol);
@@ -1109,7 +1109,7 @@ if (interruptionReflexion = pasdinterruption) then
 	             begin
 	               noteCourante := -AlphaBetaSolitaireFast(platEssai,bestSuite,iCourant,adversaire,profMoins1,-beta,-alpha,
 	                                                       nbreSuitesEssai,solitaireEssai,InfosMilieuEssai);
-	               if (0 < noteCourante) & (noteCourante < maxPourBestDef) then
+	               if (0 < noteCourante) and (noteCourante < maxPourBestDef) then
 	                 begin
 	                   note := -AlphaBetaSolitaireFast(platEssai,bestSuite,iCourant,adversaire,profMoins1,
 	                                                   -1,0,nbreSuitesEssai,localBidBool_ABSol,InfosMilieuEssai);
@@ -1128,7 +1128,7 @@ if (interruptionReflexion = pasdinterruption) then
 	                then solitaire := false
 	                else
 	                  begin
-	                   if ((noteCourante < 0) | ((noteCourante = 0) & (couleur = couldefense)))
+	                   if ((noteCourante < 0) or ((noteCourante = 0) and (couleur = couldefense)))
 	                     then
 	                       begin
 	                         if solitaireEssai then
@@ -1166,8 +1166,8 @@ if (interruptionReflexion = pasdinterruption) then
               end;
 
            (*
-           if not(pourVraimentJouer) & (couleur = CoulAttaque) &
-              (maxPourBestDef > 0) & not(solitaire) then
+           if not(pourVraimentJouer) and (couleur = CoulAttaque) and
+              (maxPourBestDef > 0) and not(solitaire) then
               begin
                 AlphaBetaSolitaireFast := maxPourBestDef;
                 exit(AlphaBetaSolitaireFast);
@@ -1256,7 +1256,7 @@ var Xcourant : SInt32;
    EssaieSetPortWindowPlateau;
    for i := 0 to 15 do
      for j := 0 to 15 do
-       if (i = index1EnCours) & (j = index2EnCours)
+       if (i = index1EnCours) and (j = index2EnCours)
          then WriteNumAt('*',tableauComparaison[i,j],10+i*50,10+j*15)
          else WriteNumAt(' ',tableauComparaison[i,j],10+i*50,10+j*15);
  end;
@@ -1273,7 +1273,7 @@ if (interruptionReflexion = pasdinterruption) then
 
   MemoryFillChar(meilleureSuite,sizeof(t_meilleureSuite),chr(0));
   indice_du_meilleur := longClass;
-  if (traitement = kSortiePapier) | (traitement = kSortiePapierCourte)
+  if (traitement = kSortiePapier) or (traitement = kSortiePapierCourte)
      then maxCoupsOfferts := noteMax
      else maxCoupsOfferts := -noteMax;
   bestAB := -noteMax;
@@ -1303,7 +1303,7 @@ if (interruptionReflexion = pasdinterruption) then
 
     compteur := compteur+1;
     Xcourant := class[compteur].x;
-    if (class[compteur].theDefense >= 11) & (class[compteur].theDefense <= 88) then
+    if (class[compteur].theDefense >= 11) and (class[compteur].theDefense <= 88) then
       fils[Xcourant] := class[compteur].theDefense;
 
 
@@ -1369,7 +1369,7 @@ if (interruptionReflexion = pasdinterruption) then
         DisplayTableauComparaison(i,j);
         *)
 
-        if windowPlateauOpen & debuggage.general then
+        if windowPlateauOpen and debuggage.general then
         begin
           GetPort(oldport);
           SetPortByWindow(wPlateauPtr);
@@ -1394,14 +1394,14 @@ if (interruptionReflexion = pasdinterruption) then
         solitaireJusquaPresent := false;
         nbreMeilleurs := nbreMeilleurs+1;
       end;
-    if ((valXY > 0) & (valXY < bestAB)) & not(PourVraimentJouer) then
+    if ((valXY > 0) and (valXY < bestAB)) and not(PourVraimentJouer) then
         solitaireJusquaPresent := false;
     if (valXY > bestAB) then
       begin
         nbreMeilleurs := 1;
         solitaireJusquaPresent := testsolitaire;
         CalculMobiliteFait := false;
-        if (traitement = kSortiePapier) | (traitement = kSortiePapierCourte)
+        if (traitement = kSortiePapier) or (traitement = kSortiePapierCourte)
           then maxCoupsOfferts := noteMax
           else maxCoupsOfferts := -noteMax;
         FabriqueMeilleureSuiteInfos(Xcourant,suiteJouee,meilleureSuite,-couleurmini,
@@ -1410,7 +1410,7 @@ if (interruptionReflexion = pasdinterruption) then
         if afficheMeilleureSuite then EcritMeilleureSuite;
         bestAB := valXY;
         if valXY > alphaAB then alphaAB := valXY;
-        if (valXY > 0) & not(PourVraimentJouer) then
+        if (valXY > 0) and not(PourVraimentJouer) then
           begin
             alphaAB := 0;
             betaAB := +1;
@@ -1426,15 +1426,15 @@ if (interruptionReflexion = pasdinterruption) then
     if valxy > classAux[1].note then indice_du_meilleur := compteur;
 
     k := 1;
-    while (classAux[k].note >= valxy) & (k < compteur) do k := k+1;
-    if (traitement = kSortiePapier) | (traitement = kSortiePapierCourte) then
+    while (classAux[k].note >= valxy) and (k < compteur) do k := k+1;
+    if (traitement = kSortiePapier) or (traitement = kSortiePapierCourte) then
       {dans ce cas on minimise le nb de coups offerts}
       begin
         if (valxy >= classAux[1].note)
          then
            begin
-             lignecritique := (valXY <= 0) &
-                            (((valXY < 0) & solitaireGagnant) | ((valXY = 0) & not(solitaireGagnant)));
+             lignecritique := (valXY <= 0) and
+                            (((valXY < 0) and solitaireGagnant) or ((valXY = 0) and not(solitaireGagnant)));
              if not(CalculMobiliteFait) {on est dans le cas valxy > classAux[1].note}
               then
                begin
@@ -1444,10 +1444,10 @@ if (interruptionReflexion = pasdinterruption) then
                end
               else
                begin
-                if not(lignecritique) | testSolitaire then
+                if not(lignecritique) or testSolitaire then
                   begin
                     nbCoupsOfferts := CalculeMobilitePlatSeulement(platMod,-couleurmini);
-                    if (nbCoupsOfferts < maxCoupsOfferts) & (maxCoupsOfferts > 1) then
+                    if (nbCoupsOfferts < maxCoupsOfferts) and (maxCoupsOfferts > 1) then
                       begin
                         maxCoupsOfferts := nbCoupsOfferts;
                         k := 1;
@@ -1462,8 +1462,8 @@ if (interruptionReflexion = pasdinterruption) then
       end
      else  {ˆ l'ecran on maximise le nb de coups offerts}
       begin
-        if ((valXY <= 0) & (valxy >= classAux[1].note) & testSolitaire) |
-           ((valXY > 0) & (valxy >= classAux[1].note))
+        if ((valXY <= 0) and (valxy >= classAux[1].note) and testSolitaire) or
+           ((valXY > 0) and (valxy >= classAux[1].note))
          then
            begin
              if not(CalculMobiliteFait) {on est dans le cas valxy > classAux[1].note}
@@ -1504,8 +1504,8 @@ if (interruptionReflexion = pasdinterruption) then
 		if affichageReflexion.doitAfficher then LanceDemandeAffichageReflexion(true,'MinimaxSolitaire');
 
     if not(PourVraimentJouer) then
-    if ((valXY > 0) & not(solitaireJusquaPresent)) |
-     ((classAux[1].note > 0) & (classAux[2].note > 0)) then
+    if ((valXY > 0) and not(solitaireJusquaPresent)) or
+     ((classAux[1].note > 0) and (classAux[2].note > 0)) then
       begin
         solitaireJusquaPresent := false;
         sortieDeBoucle := true;
@@ -1524,11 +1524,11 @@ if (interruptionReflexion = pasdinterruption) then
 
 
 
-  until sortieDeBoucle | (compteur >= longClass) | Quitter;
+  until sortieDeBoucle or (compteur >= longClass) or Quitter;
 
   for i := 1 to longClass do class[i] := classAux[i];
 
-  if (interruptionReflexion = pasdinterruption) & (traitement = kJeuNormal)
+  if (interruptionReflexion = pasdinterruption) and (traitement = kJeuNormal)
     then SauvegardeLigneOptimale(-couleurmini);
 
  end;
@@ -1548,7 +1548,7 @@ begin
    killer         := KillerTableSolitairesPtr(AllocateMemoryPtr(sizeof(KillerTableSolitaires)));
    meilleureSuite := meilleureSuitePtr(AllocateMemoryPtr(sizeof(t_meilleureSuite)));
 
-   if (killing = NIL) | (killer = NIL) | (meilleureSuite = NIL) then
+   if (killing = NIL) or (killer = NIL) or (meilleureSuite = NIL) then
      begin
        InitMaterielSolitaire := -1;
        exit(InitMaterielSolitaire);
@@ -1640,7 +1640,7 @@ begin
    MFniv := MFprof-1;
    CoulAttaque := couleur;
    coulDefense := -couleur;
-   if not(HumCtreHum) & pourVraimentJouer then
+   if not(HumCtreHum) and pourVraimentJouer then
      begin
        commentaire := CommentaireSolitaire^^;
        if commentaire <> '' then
@@ -1719,7 +1719,7 @@ begin
 
                 if (BAnd(gVecteurParite,constanteDeParite[iCourant]) <> 0)
                   then classement[i].note := classement[i].note+300;
-                if (nbVidesQuadrant[numeroQuadrant[iCourant]] = 1) &
+                if (nbVidesQuadrant[numeroQuadrant[iCourant]] = 1) and
                    PeutJouerIci(-couleur,iCourant,jeu)
                     then
                       begin
@@ -1737,7 +1737,7 @@ begin
              repeat
                 maxcoupGagnant := -noteMax;
                 for i := 1 to nbCoup do
-                  if (classement[i].note >= maxcoupGagnant) & (classement[i].note < limSup)
+                  if (classement[i].note >= maxcoupGagnant) and (classement[i].note < limSup)
                     then maxcoupGagnant := classement[i].note;
                 for i := 1 to nbCoup do
                   if classement[i].note = maxcoupGagnant
@@ -1747,7 +1747,7 @@ begin
                         classProv[compt] := classement[i];
                       end;
                 limSup := maxcoupGagnant;
-             until (compt >= nbCoup) | (limSup <= -noteMax);
+             until (compt >= nbCoup) or (limSup <= -noteMax);
              for i := 1 to nbCoup do classement[i] := classProv[i];
              premierePasse := true;
            end;
@@ -1759,21 +1759,21 @@ begin
           MinimaxSolitaire(couleur,MFniv,nbCoup,nbbl,nbno,jeu,classement);
         end;
 
-        EstUnSolitaire := solitaireJusquaPresent &
-                        (((classement[1].note > 0) & (classement[2].note <= 0)) |
-                        ((classement[1].note = 0) & (classement[2].note < 0)));
+        EstUnSolitaire := solitaireJusquaPresent and
+                        (((classement[1].note > 0) and (classement[2].note <= 0)) or
+                        ((classement[1].note = 0) and (classement[2].note < 0)));
 
         if classement[1].note < 0 then causerejet := kRejetPerdant;
-        if (classement[1].note > 0) & (classement[2].note <= 0) & not(solitaireJusquaPresent)
+        if (classement[1].note > 0) and (classement[2].note <= 0) and not(solitaireJusquaPresent)
            then causerejet := kRejetSeulGagnantMaisChoixPlusTard;
-        if (classement[1].note = 0) & (classement[2].note < 0) & not(solitaireJusquaPresent)
+        if (classement[1].note = 0) and (classement[2].note < 0) and not(solitaireJusquaPresent)
            then causerejet := kRejetSeuleNulleMaisChoixPlusTard;
-        if (classement[1].note > 0) & (classement[nbCoup].note = -noteMax) & not(solitaireJusquaPresent)
+        if (classement[1].note > 0) and (classement[nbCoup].note = -noteMax) and not(solitaireJusquaPresent)
            then causerejet := kRejetGagnantEtChoixPlusTard;
-        if (classement[1].note = 0) & (classement[nbCoup].note = -noteMax) & not(solitaireJusquaPresent)
+        if (classement[1].note = 0) and (classement[nbCoup].note = -noteMax) and not(solitaireJusquaPresent)
            then causerejet := kRejetNulleEtChoixPlusTard;
-        if (classement[1].note > 0) & (classement[2].note > 0) then causerejet := kRejetDeuxCoupsGagnants;
-        if (classement[1].note = 0) & (classement[2].note = 0) then causerejet := kRejetDeuxCoupsPourFaireNulle;
+        if (classement[1].note > 0) and (classement[2].note > 0) then causerejet := kRejetDeuxCoupsGagnants;
+        if (classement[1].note = 0) and (classement[2].note = 0) then causerejet := kRejetDeuxCoupsPourFaireNulle;
 
         { on renvoie le premier du classement }
         meilleurX := classement[1].x;
@@ -1823,7 +1823,7 @@ begin
     if jeu[X] = pionVide then
       test := PeutJouerIci(CouleurHumain,X,jeu);
     X := X+1;
-  until test | (X > 88);
+  until test or (X > 88);
   HumainPeutJouer := test;
 end;
 
@@ -1837,7 +1837,7 @@ begin
     if jeu[X] = pionVide then
       test := PeutJouerIci(CouleurOrdi,X,jeu);
     X := X+1;
-  until test | (X > 88);
+  until test or (X > 88);
   OrdiPeutJouer := test;
 end;
 
@@ -1862,7 +1862,7 @@ var causerejet : SInt32;
     i,t,jeudeT : SInt32;
     mobilite : SInt32;
 begin
- InterruptionCalculSuites := InterruptionCalculSuites | EscapeDansQueue;
+ InterruptionCalculSuites := InterruptionCalculSuites or EscapeDansQueue;
  if not(InterruptionCalculSuites) then
  if (nbrelignesSolution < MaxNbreLignesAutorisees) then
    begin
@@ -1943,7 +1943,7 @@ var nroChoixHumain : SInt32;
     end;
 
 begin
- InterruptionCalculSuites := InterruptionCalculSuites | EscapeDansQueue;
+ InterruptionCalculSuites := InterruptionCalculSuites or EscapeDansQueue;
  if not(InterruptionCalculSuites) then
  if (nbrelignesSolution < MaxNbreLignesAutorisees) then
    begin
@@ -2027,7 +2027,7 @@ begin
   CouleurOrdi := -couleurHumain;
   commentaire := CommentaireSolitaire^^;
   s := ReadStringFromRessource(TextesSolitairesID,5);
-  if (commentaire <> '') & (Pos(s,commentaire) > 0)
+  if (commentaire <> '') and (Pos(s,commentaire) > 0)
     then solitaireGagnant := true
     else solitaireGagnant := false;
   if HumainPeutJouer(position)
@@ -2145,8 +2145,8 @@ begin    {EstUnSolitaire}
              begin
                nomprec := ReadStringFromRessource(TextesSolitairesID,14);
                EcritSolitaireCompletFFORUM(jeu);
-               if (nbrelignesSolution > 0) & not(InterruptionCalculSuites) then
-                if (nbrelignesSolution < 80) & (traitement <> kSortiePapierLongue)
+               if (nbrelignesSolution > 0) and not(InterruptionCalculSuites) then
+                if (nbrelignesSolution < 80) and (traitement <> kSortiePapierLongue)
                  then
                    begin
                      s1 := NumEnString(nbrelignesSolution);
@@ -2158,7 +2158,7 @@ begin    {EstUnSolitaire}
                        begin
                          traitement := kSortiePapierLongue;
                          EcritSolitaireCompletFFORUM(jeu);
-                         if (nbrelignesSolution > 0) & not(InterruptionCalculSuites) then
+                         if (nbrelignesSolution > 0) and not(InterruptionCalculSuites) then
                            begin
                              s1 := NumEnString(nbrelignesSolution);
                              s := ReadStringFromRessource(TextesSolitairesID,16);
@@ -2378,7 +2378,7 @@ begin
             test := ModifPlatFin(x,-trait,platSol,nBlaSol,nNoiSol);
       end
       else test := false;
-  until (k >= n) | not(test);
+  until (k >= n) or not(test);
   RejoueJusquAuCoup := test;
 end;
 
@@ -2419,7 +2419,7 @@ begin
 
 
         nrocoup := nrocoup+1;
-      until test | (nrocoup > coupmax) | sortieDeBoucle;
+      until test or (nrocoup > coupmax) or sortieDeBoucle;
     end;
   SolitairePossible := test;
 
@@ -2498,7 +2498,7 @@ begin
   err := SetVol(NIL,SolitairesRefVol);
   fileName := CheminAccesThorDBASolitaire^^;
   i := LENGTH_OF_STRING(fileName);
-  while (fileName[i] <> ':') & (i > 0) do i := i-1;
+  while (fileName[i] <> ':') and (i > 0) do i := i-1;
   fileName := Concat(TPCopy(fileName,1,i),'Solitaires Cassio');
   err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
   if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
@@ -2506,7 +2506,7 @@ begin
     begin
       fileName := CheminAccesThorDBASolitaire^^;
       i := LENGTH_OF_STRING(fileName);
-      while (fileName[i] <> ':') & (i > 0) do i := i-1;
+      while (fileName[i] <> ':') and (i > 0) do i := i-1;
       fileName := Concat(TPCopy(fileName,1,i),'Solitaire Cassio');
       err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
       if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
@@ -2545,7 +2545,7 @@ begin
           err := SetDialogTracksCursor(dp,true);
           repeat
             ModalDialog(MyFiltreClassiqueUPP,itemHit);
-          until (itemHit = PasTrouveOKBouton) | (itemHit = PasTrouveAnnulerBouton);
+          until (itemHit = PasTrouveOKBouton) or (itemHit = PasTrouveAnnulerBouton);
           MyDisposeDialog(dp);
         end;
         if (itemHit = PasTrouveAnnulerBouton)
@@ -2561,7 +2561,7 @@ begin
               EndDialog;
               if reply.good
                 then
-                  if (Pos('olitaires Cassio',GetNameOfSFReply(reply)) > 0) |
+                  if (Pos('olitaires Cassio',GetNameOfSFReply(reply)) > 0) or
                      (Pos('olitaire Cassio' ,GetNameOfSFReply(reply)) > 0)
                    then
                     begin
@@ -2613,7 +2613,7 @@ begin
 
   PositionDansFichier := SInt32((SInt32(nroligne)-SInt32(1))*SInt32(14));  {var intermediaire pour forcer le calcul en SInt32}
 
-  if (PositionDansFichier < 0) |
+  if (PositionDansFichier < 0) or
      (PositionDansFichier > longFichierReferencesSolitaires) then SysBeep(0);
 
   {WriteNumDansRapport('   PositionDansFichier = ',PositionDansFichier);}
@@ -2678,7 +2678,7 @@ begin
   for n := 1 to 5 do
     begin
       c := uneligne[n];
-      if (c >= '0') & (c <= '9') then s := s + c;
+      if (c >= '0') and (c <= '9') then s := s + c;
     end;
   nroPartie := 0;
   ChaineToLongint(s,nroPartie);
@@ -2734,7 +2734,7 @@ begin
     c := s29[i];
     comment := Concat(comment,c);
     i := i+1;
-  until (i > long) | (ord(c) = 0);
+  until (i > long) or (ord(c) = 0);
 
   i := LENGTH_OF_STRING(s29);
   ParamDiagPartieFFORUM.TitreFFORUM^^ := ParamDiagPartieFFORUM.TitreFFORUM^^+' '+s29[i-3]+s29[i-2]+s29[i-1]+s29[i];
@@ -2784,7 +2784,7 @@ begin
       if odd(Random) then EffectueSymetrieAxeNE_SW(platSol);
       FabriqueCommentaire(nroDeCeSolitaire,s);
       commentaire := commentaire+s;
-      if referencesCompletes & not(EnVieille3D) then
+      if referencesCompletes and not(EnVieille3D) then
         begin
           NumEnString(numerodecoup,s);
           commentaire := commentaire+', c.'+s;
@@ -2811,7 +2811,7 @@ begin
   toutSePasseBien := true;
   buffer := bufferPtr(AllocateMemoryPtr(sizeof(t_buffer)));
   partieBuff := partieDansThorDBAPtr(AllocateMemoryPtr(sizeof(t_partieDansThorDBA)));
-  if (buffer = NIL) | (partieBuff = NIL)
+  if (buffer = NIL) or (partieBuff = NIL)
     then
      begin
        toutsePasseBien := false;
@@ -2872,7 +2872,7 @@ begin
                      err := SetDialogTracksCursor(dp,true);
                      repeat
                        ModalDialog(MyFiltreClassiqueUPP,itemHit);
-                     until (itemHit = PasTrouveOKBouton) | (itemHit = PasTrouveAnnulerBouton);
+                     until (itemHit = PasTrouveOKBouton) or (itemHit = PasTrouveAnnulerBouton);
                      MyDisposeDialog(dp);
                    end;
                    if (itemHit = PasTrouveAnnulerBouton)
@@ -2888,9 +2888,9 @@ begin
                          EndDialog;
                          if reply.good
                            then
-                             if (Pos('litaires.dba',GetNameOfSFReply(reply)) > 0) | (Pos('LITAIRES.dba',GetNameOfSFReply(reply)) > 0) |
-                                (Pos('LITAIRES.DBA',GetNameOfSFReply(reply)) > 0) | (Pos('LITAIRE.DBA',GetNameOfSFReply(reply)) > 0) |
-                                (Pos('litaire.dba',GetNameOfSFReply(reply)) > 0)  | (Pos('LITAIRE.dba',GetNameOfSFReply(reply)) > 0) then
+                             if (Pos('litaires.dba',GetNameOfSFReply(reply)) > 0) or (Pos('LITAIRES.dba',GetNameOfSFReply(reply)) > 0) or
+                                (Pos('LITAIRES.DBA',GetNameOfSFReply(reply)) > 0) or (Pos('LITAIRE.DBA',GetNameOfSFReply(reply)) > 0) or
+                                (Pos('litaire.dba',GetNameOfSFReply(reply)) > 0)  or (Pos('LITAIRE.dba',GetNameOfSFReply(reply)) > 0) then
                                begin
                                  pathName := GetWDName(reply.vRefNum);
                                  filename := GetNameOfSFReply(reply);
@@ -2941,7 +2941,7 @@ begin
   if BAnd(theEvent.modifiers,optionKey) = 0
     then indexSolitaire := indexSolitaire+1
     else indexSolitaire := indexSolitaire-1;
-  if (indexSolitaire >= 1) & (indexSolitaire <= SolitairesEnMemoire)
+  if (indexSolitaire >= 1) and (indexSolitaire <= SolitairesEnMemoire)
     then
       begin
         s := tableSolitaire^^.chaines[indexSolitaire];
@@ -3014,7 +3014,7 @@ var nombreSolitaireCetteProf : array[1..64] of SInt32;
             MyEraseRect(myRect);
             MyEraseRectWithColor(myRect,OrangeCmd,blackPattern,'');
 
-            if (nombreSolitaireCetteProf[k] > 0) & IsCheckBoxOn(theDialog, k) then
+            if (nombreSolitaireCetteProf[k] > 0) and IsCheckBoxOn(theDialog, k) then
               begin
                 Moveto(myRect.left,myRect.bottom-5);
                 s := ReadStringFromRessource(TextesSolitairesID,32);  {'^0 solitaires'}
@@ -3098,7 +3098,7 @@ begin
 	        kPasDeSolitairesEntreOrdiBox :
 	          ToggleCheckBox(theDialog,itemHit);
 	       end; {case}
-       until (itemHit = OK) | (itemHit = Annuler);
+       until (itemHit = OK) or (itemHit = Annuler);
 
       if (itemHit = OK) then
         GetSolitairesDemandesFromDialogue;
@@ -3127,7 +3127,7 @@ var itemHit : SInt16;
     oldInterruption : SInt16;
 begin
 
-  if not(gameOver) & (interruptionReflexion = pasdinterruption) then
+  if not(gameOver) and (interruptionReflexion = pasdinterruption) then
     begin
       oldInterruption := GetCurrentInterruption;
       EnleveCetteInterruption(oldInterruption);
@@ -3155,7 +3155,7 @@ begin
                if (interruptionReflexion = pasdinterruption) then
                 begin
                   senslargeSolitaire := true;
-                  if (score >= 0) & (nbremeill = 1)
+                  if (score >= 0) and (nbremeill = 1)
                     then
                       begin
                         if EstUnSolitaire(seulCoup,seuleDef,couleur,prof,nbblanc,nbnoir,JeuCourant,
@@ -3218,7 +3218,7 @@ begin
             begin
 
               if HasGotEvent(updateMask,theEvent,0,NIL) then TraiteOneEvenement;
-              if (itemHit = ValiderButton) & propositiondeValider then
+              if (itemHit = ValiderButton) and propositiondeValider then
                 begin
                   if couleurMacintosh = couleur then
                     begin
@@ -3233,7 +3233,7 @@ begin
                     begin
                       HumCtreHum := not(HumCtreHum);
                       DessineIconesChangeantes;
-                      if afficheSuggestionDeCassio & HumCtreHum then EffaceSuggestionDeCassio;
+                      if afficheSuggestionDeCassio and HumCtreHum then EffaceSuggestionDeCassio;
 
                       DessineCourbe(kCourbeColoree,'DoEstUnSolitaire');
                       DessineSliderFenetreCourbe;
@@ -3263,8 +3263,8 @@ begin
                            then s := ReadStringFromRessource(TextesSolitairesID,3)  {Noir joue et annuleÉ}
                            else s := ReadStringFromRessource(TextesSolitairesID,4); {Noir joue et annuleÉ}
                   CommentaireSolitaire^^ := s;
-                  if (nbPartiesActives = 1) & JoueursEtTournoisEnMemoire &
-                     (windowListeOpen | windowStatOpen) then
+                  if (nbPartiesActives = 1) and JoueursEtTournoisEnMemoire and
+                     (windowListeOpen or windowStatOpen) then
                     begin
                       s := ConstruireChaineReferencesPartieDapresListe(1,referencesCompletes);
                       CommentaireSolitaire^^ := CommentaireSolitaire^^ + '   ' + s;
@@ -3332,7 +3332,7 @@ begin
             err := SetDialogTracksCursor(dp,true);
             repeat
               ModalDialog(MyFiltreClassiqueUPP,itemHit);
-            until (itemHit = AutreSolitaire) | (itemHit = Annuler);
+            until (itemHit = AutreSolitaire) or (itemHit = Annuler);
 
             if avecSon then
               begin
@@ -3361,7 +3361,7 @@ const gainNoir = 1;
 var etatFinal,coulDuSol : SInt32;
     s,commentaire : String255;
 begin
-  if peutfeliciter & not(HumCtreHum)
+  if peutfeliciter and not(HumCtreHum)
     then
       begin
         if nbredePions[pionNoir] > nbredePions[pionBlanc] then etatFinal := gainNoir;
@@ -3376,14 +3376,14 @@ begin
           then
             begin
               s := ReadStringFromRessource(TextesSolitairesID,6);     {'et annuleÉ'}
-              if (Pos(s,commentaire) > 0) & (etatFinal = PartieNulle) then
+              if (Pos(s,commentaire) > 0) and (etatFinal = PartieNulle) then
                 begin
                   DoAfficheFelicitations;
                   exit(EssaieAfficherFelicitation);
                 end;
               s := ReadStringFromRessource(TextesSolitairesID,5);     {'et gagneÉ'}
-              if ((Pos(s,commentaire) > 0) & (etatFinal = gainNoir) & (coulDuSol = pionNoir)) |
-                 ((Pos(s,commentaire) > 0) & (etatFinal = gainBlanc) & (coulDuSol = pionBlanc)) then
+              if ((Pos(s,commentaire) > 0) and (etatFinal = gainNoir) and (coulDuSol = pionNoir)) or
+                 ((Pos(s,commentaire) > 0) and (etatFinal = gainBlanc) and (coulDuSol = pionBlanc)) then
                    begin
                      DoAfficheFelicitations;
                      exit(EssaieAfficherFelicitation);
@@ -3467,7 +3467,7 @@ begin
 
       if SplitAt(reste,'Ñ',s1,s2) then // note : c'est un tiret long (option Ñ )
         if SplitAt(s2,',',s2,s3) then
-          if (Pos(',',s3) <= 0) | SplitAt(s3,',',s3,s4) then
+          if (Pos(',',s3) <= 0) or SplitAt(s3,',',s3,s4) then
             begin
               noir    := s1;
               blanc   := s2;
@@ -3510,7 +3510,7 @@ begin
             end;
     end;
 
-  PeutParserReferencesSolitaire := (noir <> '') & (blanc <> '') & (tournoi <> '');
+  PeutParserReferencesSolitaire := (noir <> '') and (blanc <> '') and (tournoi <> '');
 end;
 
 

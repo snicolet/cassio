@@ -383,7 +383,7 @@ var i : SInt32;
 begin
   for i := 0 to 64 do
     begin
-      if (nbAppelsABFinPetite[i].lo <> 0) | (nbAppelsABFinPetite[i].hi <> 0) then
+      if (nbAppelsABFinPetite[i].lo <> 0) or (nbAppelsABFinPetite[i].hi <> 0) then
         begin
           nAppels := (1000000000.0 * nbAppelsABFinPetite[i].hi) + 1.0*nbAppelsABFinPetite[i].lo;
           nNoeuds := (1000000000.0 * nbNoeudsDansABFinPetite[i].hi) + 1.0*nbNoeudsDansABFinPetite[i].lo;
@@ -526,10 +526,10 @@ begin
         then
           begin
             aux := whichDeltaFinal div 100;
-            DeltaAAfficherImmediatement := {(aux = 0)  |} (aux = 1) |
-                                            (aux = 2)  | (aux = 4)  |
-                                            (aux = 8)  | (aux = 14) |
-                                            (aux = 16) | (aux = 24);
+            DeltaAAfficherImmediatement := {(aux = 0)  or} (aux = 1) or
+                                            (aux = 2)  or (aux = 4)  or
+                                            (aux = 8)  or (aux = 14) or
+                                            (aux = 16) or (aux = 24);
           end
         else
           DeltaAAfficherImmediatement := false;
@@ -564,7 +564,7 @@ end;
 
 function ThisDeltaFinal(index : SInt32) : SInt32;
 begin
-  if (index < 1) | (index > nbreDeltaSuccessifs) then
+  if (index < 1) or (index > nbreDeltaSuccessifs) then
     begin
       SysBeep(0);
       WritelnNumDansRapport('ERREUR dans ThisDeltaFinal : index = ',index);

@@ -169,9 +169,9 @@ end;
 
 function PasLaDistributionWThor(nroDistribution : SInt16) : boolean;
 begin
-  PasLaDistributionWThor := (nroDistribution >= 1) &
-                            (nroDistribution <= DistributionsNouveauFormat.nbDistributions) &
-                            EstUneDistributionDeParties(nroDistribution) &
+  PasLaDistributionWThor := (nroDistribution >= 1) and
+                            (nroDistribution <= DistributionsNouveauFormat.nbDistributions) and
+                            EstUneDistributionDeParties(nroDistribution) and
                             (Pos('WThor',GetNomUsuelDistribution(nroDistribution)) <= 0);
 end;
 
@@ -198,7 +198,7 @@ begin
 	    begin
 			  dejaDansTable := false;
 			  for i := 1 to kNbJoueursMenuSaisie do
-			    if (tableDerniersJoueurs[i] = nroJoueur) & not(dejaDansTable) then
+			    if (tableDerniersJoueurs[i] = nroJoueur) and not(dejaDansTable) then
 			      begin
 			        dejaDansTable := true;
 			        if i > 1 then
@@ -243,7 +243,7 @@ begin
 	    begin
 			  dejaDansTable := false;
 			  for i := 1 to kNbTournoisMenuSaisie do
-			    if (tableDerniersTournois[i] = nroTournoi) & not(dejaDansTable) then
+			    if (tableDerniersTournois[i] = nroTournoi) and not(dejaDansTable) then
 			      begin
 			        dejaDansTable := true;
 			        if i > 1 then
@@ -266,26 +266,26 @@ end;
 
 procedure SetNiemeJoueurTableSaisiePartie(N,nroJoueur : SInt32);
 begin
-  if (N >= 1) & (N <= kNbJoueursMenuSaisie) then
+  if (N >= 1) and (N <= kNbJoueursMenuSaisie) then
     gInfosSaisiePartie.tableDerniersJoueurs[N] := nroJoueur;
 end;
 
 function GetNiemeJoueurTableSaisiePartie(N : SInt32) : SInt32;
 begin
-  if (N >= 1) & (N <= kNbJoueursMenuSaisie)
+  if (N >= 1) and (N <= kNbJoueursMenuSaisie)
     then GetNiemeJoueurTableSaisiePartie := gInfosSaisiePartie.tableDerniersJoueurs[N]
     else GetNiemeJoueurTableSaisiePartie := -1;
 end;
 
 procedure SetNiemeTournoiTableSaisiePartie(N,nroTournoi : SInt32);
 begin
-  if (N >= 1) & (N <= kNbTournoisMenuSaisie) then
+  if (N >= 1) and (N <= kNbTournoisMenuSaisie) then
     gInfosSaisiePartie.tableDerniersTournois[N] := nroTournoi;
 end;
 
 function GetNiemeTournoiTableSaisiePartie(N : SInt32) : SInt32;
 begin
-  if (N >= 1) & (N <= kNbTournoisMenuSaisie)
+  if (N >= 1) and (N <= kNbTournoisMenuSaisie)
     then GetNiemeTournoiTableSaisiePartie := gInfosSaisiePartie.tableDerniersTournois[N]
     else GetNiemeTournoiTableSaisiePartie := -1;
 end;
@@ -454,9 +454,9 @@ var oldParamDiagrammes : ParamDiagRec;
     tempo : boolean;
 begin
   with gInfosSaisiePartie do
-    if (dialogueSaisie <> NIL) &
-       ((dernierJoueurNoir <> dernierNoirDessine) | (dernierJoueurBlanc <> dernierBlancDessine) |
-        (dernierTournoi <> dernierTournoiDessine) | (derniereAnnee <> derniereAnneeDessinee)) then
+    if (dialogueSaisie <> NIL) and
+       ((dernierJoueurNoir <> dernierNoirDessine) or (dernierJoueurBlanc <> dernierBlancDessine) or
+        (dernierTournoi <> dernierTournoiDessine) or (derniereAnnee <> derniereAnneeDessinee)) then
     begin
       GetPort(oldport);
 			SetPortByDialog(dialogueSaisie);
@@ -489,7 +489,7 @@ begin
 		  if debuggage_saisiePartie then WritelnDansRapport('avant NewRgn');
 
 		  {d'abord dessiner la position finale}
-		  if (dernierJoueurNoir <> dernierNoirDessine) | (dernierJoueurBlanc <> dernierBlancDessine) then
+		  if (dernierJoueurNoir <> dernierNoirDessine) or (dernierJoueurBlanc <> dernierBlancDessine) then
 		    begin
 		      ParamDiagCourant.typeDiagrammeFFORUM := DiagrammePosition;
 
@@ -524,7 +524,7 @@ begin
 		    end;
 
 		  {puis le transcript}
-		  if (dernierTournoi <> dernierTournoiDessine) | (derniereAnnee <> derniereAnneeDessinee) then
+		  if (dernierTournoi <> dernierTournoiDessine) or (derniereAnnee <> derniereAnneeDessinee) then
 		    begin
 				  ParamDiagCourant.typeDiagrammeFFORUM := DiagrammePartie;
 
@@ -599,8 +599,8 @@ begin
 					end;
 			  keyDown :
 			    { commande-'A'  => on selectionne tout }
-			    if EventHasCommandKey(evt) &
-			       ((BAnd(evt.message,charcodemask) = ord('a')) | (BAnd(evt.message,charcodemask) = ord('A')))
+			    if EventHasCommandKey(evt) and
+			       ((BAnd(evt.message,charcodemask) = ord('a')) or (BAnd(evt.message,charcodemask) = ord('A')))
 			      then
 			        begin
 			          item := VirtualSelectAllItemInDialog;
@@ -608,16 +608,16 @@ begin
 			        end
 			      else
 			    { commande-'Y' ou commande-option-'Y' => on echange les joueurs noirs et blancs }
-			    if EventHasCommandKey(evt) &
-			       ((BAnd(evt.message,charcodemask) = ord('y')) | (BAnd(evt.message,charcodemask) = ord('Y')) |
-			        (BAnd(evt.message,charcodemask) = ord('ò')) | (BAnd(evt.message,charcodemask) = ord('Ù')))
+			    if EventHasCommandKey(evt) and
+			       ((BAnd(evt.message,charcodemask) = ord('y')) or (BAnd(evt.message,charcodemask) = ord('Y')) or
+			        (BAnd(evt.message,charcodemask) = ord('ò')) or (BAnd(evt.message,charcodemask) = ord('Ù')))
 			      then
 			        begin
 			          item := VirtualExchangePlayersInDialog;
 						    FiltreDialogueSaisie := true;
 			        end
 			      else
-			    if not(EventHasCommandKey(evt)) & (BAnd(evt.message,charcodemask) = RetourArriereKey)
+			    if not(EventHasCommandKey(evt)) and (BAnd(evt.message,charcodemask) = RetourArriereKey)
 			      then
 			        begin
 			          case focus of
@@ -705,13 +705,13 @@ var FiltreDialogueSaisieUPP : modalFilterUPP;
 begin
   if debuggage_saisiePartie then SetEcritToutDansRapportLog(true);
 
-  if not(JoueursEtTournoisEnMemoire) &
-     avecGestionBase & not(problemeMemoireBase) then
+  if not(JoueursEtTournoisEnMemoire) and
+     avecGestionBase and not(problemeMemoireBase) then
      DoLectureJoueursEtTournoi(false);
   if not(JoueursNouveauFormat.dejaTriesAlphabetiquement) then
     begin
       TrierAlphabetiquementJoueursNouveauFormat;
-      if gVersionJaponaiseDeCassio & gHasJapaneseScript
+      if gVersionJaponaiseDeCassio and gHasJapaneseScript
         then err := LitNomsDesJoueursEnJaponais;
     end;
 
@@ -728,7 +728,7 @@ begin
 
       with gInfosSaisiePartie do
         begin
-          if (DernierePartieCompatibleEnMemoire(nbCoupsIdentiques,numeroReferencePartie) <> '') &
+          if (DernierePartieCompatibleEnMemoire(nbCoupsIdentiques,numeroReferencePartie) <> '') and
              (nbCoupsIdentiques >= 30) then
                begin
                  dernierJoueurNoir  := GetNroJoueurNoirParNroRefPartie(numeroReferencePartie);
@@ -883,17 +883,17 @@ begin
 					NoirEditableText,BlancEditableText,TournoiEditableText:
 	          begin
 	            with dernierEventSaisie do
-	              if (focus <> itemHit) & not((what = mouseDown) & ((Tickcount - when) >= 15))
+	              if (focus <> itemHit) and not((what = mouseDown) and ((Tickcount - when) >= 15))
 	                then SelectDialogItemText(dialogueSaisie,itemHit,0,MAXINT_16BITS);
 
 	            {l'utilisateur a-t-il appuye sur delete ?}
-	            if not(EventHasCommandKey(dernierEventSaisie)) &
-	               (BAnd(dernierEventSaisie.message,charcodemask) = RetourArriereKey) &
+	            if not(EventHasCommandKey(dernierEventSaisie)) and
+	               (BAnd(dernierEventSaisie.message,charcodemask) = RetourArriereKey) and
 	               (chaineAvantDeleteDlgSaisie <> '')
 	              then
 	                begin
 	                  GetItemTextInDialog(dialogueSaisie,itemHit,s1);
-	                  if (LENGTH_OF_STRING(chaineAvantDeleteDlgSaisie) >= LENGTH_OF_STRING(s1) +1) & not(dernierCaractereEtaitFautif)
+	                  if (LENGTH_OF_STRING(chaineAvantDeleteDlgSaisie) >= LENGTH_OF_STRING(s1) +1) and not(dernierCaractereEtaitFautif)
 	                    then s := TPCopy(s1,1,LENGTH_OF_STRING(s1)-1)
 	                    else s := s1;
 	                end
@@ -911,7 +911,7 @@ begin
                 NoirEditableText :
                   begin
 
-                    if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
+                    if (EnleveEspacesDeGauche(s1) = '') or (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
                           numeroDerniereComplementationDansTable := 0;
@@ -938,7 +938,7 @@ begin
                 BlancEditableText:
                   begin
 
-                    if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
+                    if (EnleveEspacesDeGauche(s1) = '') or (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
                           numeroDerniereComplementationDansTable := 0;
@@ -965,7 +965,7 @@ begin
                 TournoiEditableText :
                   begin
 
-                    if (EnleveEspacesDeGauche(s1) = '') | (EnleveEspacesDeGauche(s) = '')
+                    if (EnleveEspacesDeGauche(s1) = '') or (EnleveEspacesDeGauche(s) = '')
                       then
                         begin
                           numeroDerniereComplementationDansTable := 0;
@@ -1002,7 +1002,7 @@ begin
 	        AnneeEditableText:
 	          begin
 	            with dernierEventSaisie do
-	              if (focus <> AnneeEditableText) & not((what = mouseDown) & ((Tickcount - when) >= 15)) then
+	              if (focus <> AnneeEditableText) and not((what = mouseDown) and ((Tickcount - when) >= 15)) then
 	                SelectDialogItemText(dialogueSaisie,AnneeEditableText,0,MAXINT_16BITS);
 	            GetItemTextInDialog(dialogueSaisie,AnneeEditableText,s1);
 	            s := GarderSeulementLesChiffres(s1);
@@ -1098,9 +1098,9 @@ begin
 
 	        VirtualSelectAllItemInDialog :
 	          begin
-	            if (focus = NoirEditableText) |
-	               (focus = BlancEditableText) |
-	               (focus = TournoiEditableText) |
+	            if (focus = NoirEditableText) or
+	               (focus = BlancEditableText) or
+	               (focus = TournoiEditableText) or
 	               (focus = AnneeEditableText) then
 	              SelectDialogItemText(dialogueSaisie,focus,0,MAXINT_16BITS);
 	          end;
@@ -1115,7 +1115,7 @@ begin
 	            SetItemTextInDialog(dialogueSaisie,NoirEditableText,GetNomJoueur(gInfosSaisiePartie.dernierJoueurNoir));
   	          SetItemTextInDialog(dialogueSaisie,BlancEditableText,GetNomJoueur(gInfosSaisiePartie.dernierJoueurBlanc));
 
-  	          if (focus = NoirEditableText) |
+  	          if (focus = NoirEditableText) or
 	               (focus = BlancEditableText) then
 	              begin
 	                ChangeFocusDialogueSaisie(NoirEditableText);
@@ -1128,7 +1128,7 @@ begin
 
 		    SetPort(oldPort);
 
-		  until (itemHit = OK) | (itemHit = Annuler);
+		  until (itemHit = OK) or (itemHit = Annuler);
 
 		  if focus = NoirEditableText then
         AjouteNouveauJoueurTableSaisiePartie(gInfosSaisiePartie.dernierJoueurNoir);
@@ -1157,7 +1157,7 @@ begin
 
         action := ActionCreerAutrePartie;
 
-        if (DernierePartieCompatibleEnMemoire(nbCoupsIdentiques,numeroReferencePartie) <> '') & (nbCoupsIdentiques >= 30)
+        if (DernierePartieCompatibleEnMemoire(nbCoupsIdentiques,numeroReferencePartie) <> '') and (nbCoupsIdentiques >= 30)
           then
             begin
 
@@ -1186,7 +1186,7 @@ begin
               if enregistrementAutomatique then
                  if (AjouterPartieDansCetteDistribution(partieRec,derniereDistribution,derniereAnnee) = NoErr) then
                    begin
-                     if (numeroReferencePartie >= 1) & (numeroReferencePartie <= nbPartiesChargees) then
+                     if (numeroReferencePartie >= 1) and (numeroReferencePartie <= nbPartiesChargees) then
                        begin
                          SetNroDistributionParNroRefPartie(numeroReferencePartie,gInfosSaisiePartie.derniereDistribution);
                          SetPartieDansListeDoitEtreSauvegardee(numeroReferencePartie,false);

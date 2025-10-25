@@ -411,7 +411,7 @@ procedure CompacterGameTreeList(var L : GameTreeList);
 var L1,L2 : GameTreeList;
 begin
 
-  while (L <> NIL) & (L^.head = NIL) do
+  while (L <> NIL) and (L^.head = NIL) do
     begin
 
       L1 := L^.tail;
@@ -466,7 +466,7 @@ end;
 
 procedure CopyGameTree(source : GameTree; var dest : GameTree);
 begin
-  if (source <> NIL) & (dest <> NIL) then
+  if (source <> NIL) and (dest <> NIL) then
     begin
       dest^.properties          := source^.properties;
       dest^.father              := source^.father;
@@ -515,7 +515,7 @@ end;
 function GameTreeListLength(L : GameTreeList) : SInt32;
 begin
   CompacterGameTreeList(L);
-  if (L = NIL) | (L = L^.tail)
+  if (L = NIL) or (L = L^.tail)
     then GameTreeListLength := 0
     else GameTreeListLength := 1 + GameTreeListLength(L^.tail);
 end;
@@ -589,7 +589,7 @@ end;
 procedure DeleteThisGameTreeInList(var whichTree : GameTree; var L : GameTreeList);
 var aux,temp : GameTreeList;
 begin
-  if (whichTree = NIL) | (L = NIL)
+  if (whichTree = NIL) or (L = NIL)
     then exit(DeleteThisGameTreeInList);
 
   aux := L;
@@ -635,7 +635,7 @@ end;
 procedure BringToFrontInGameTreeList(whichTree : GameTree; var L : GameTreeList);
 var aux,temp,myNewList : GameTreeList;
 begin
-  if (whichTree = NIL) | (L = NIL)
+  if (whichTree = NIL) or (L = NIL)
     then exit(BringToFrontInGameTreeList);
 
   if (L^.head = whichTree)   {whichTree est deja en tete}
@@ -694,13 +694,13 @@ begin
       exit(BringToPositionNInGameTreeList);
     end;
 
-  if (whichTree = NIL) | (L = NIL) then
+  if (whichTree = NIL) or (L = NIL) then
     exit(BringToPositionNInGameTreeList);
 
   aux := L;
   compteur := 1;
   trouve := false;
-  while (aux <> NIL) & not(trouve) do
+  while (aux <> NIL) and not(trouve) do
     begin
       if (aux^.tail = aux) then
         begin
@@ -741,7 +741,7 @@ begin
 
   aux := L;
   compteur := 1;
-  while (aux <> NIL) & (compteur <> (N-1)) do
+  while (aux <> NIL) and (compteur <> (N-1)) do
     begin
       aux := aux^.tail;
       inc(compteur);
@@ -802,7 +802,7 @@ begin
 
   changed := false;
 
-  if (G = NIL) | not(HasSons(G))
+  if (G = NIL) or not(HasSons(G))
     then exit(TrierLesFilsDeCeNoeud);
 
   for k := 1 to 64 do
@@ -830,8 +830,8 @@ begin
                 if IsAVirtualNodeUsedForZebraBookDisplay(L^.head)
                   then table[compteur].note := GetZebraBookEvalForThisNode(L^.head, -couleur)
                   else
-                    if not(HasSons(L^.head)) &
-                       IsAVirtualNode(L^.head) &
+                    if not(HasSons(L^.head)) and
+                       IsAVirtualNode(L^.head) and
                        GetEndgameScoreDeCetteCouleurDansGameNode(L^.head, GetCouleurOfMoveInNode(L^.head), vmin, vmax)
                         then table[compteur].note := vmin
                         else table[compteur].note := 10000000; // pour que les vrais noeuds de l'arbre restent en tete
@@ -902,7 +902,7 @@ end;
 procedure DeleteThisSon(var G : GameTree; var whichSon : GameTree);
 var theSons : GameTreeList;
 begin
-  if (G = NIL) | not(HasSons(G)) then exit(DeleteThisSon);
+  if (G = NIL) or not(HasSons(G)) then exit(DeleteThisSon);
   theSons := GetSons(G);
   DeleteThisGameTreeInList(whichSon,theSons);
   SetSons(G,theSons);
@@ -933,9 +933,9 @@ begin
       for n := nbreDeFils downto 1 do
         begin
           LeFils := SelectNthSon(n,G);
-          if (LeFils <> NIL) &
-             (((couleur = pionNoir) &  (SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],LeFils) <> NIL)) |
-             ((couleur = pionBlanc) & (SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],LeFils) <> NIL)))
+          if (LeFils <> NIL) and
+             (((couleur = pionNoir) and  (SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],LeFils) <> NIL)) or
+             ((couleur = pionBlanc) and (SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],LeFils) <> NIL)))
             then
               begin
                 nbFilsDetruits := nbFilsDetruits+1;
@@ -989,7 +989,7 @@ begin
       continuer := true;
       if L^.head <> NIL then   {on fait l'action}
         DoWhat(L^.head,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         if (L^.tail = L)
           then
             begin
@@ -1016,7 +1016,7 @@ begin
       continuer := true;
       if L^.head <> NIL then   {on fait l'action}
         DoWhat(L^.head,Tree,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         if (L^.tail = L)
           then
             begin
@@ -1041,7 +1041,7 @@ begin
       continuer := true;
       if L^.head <> NIL then   {on fait l'action}
         DoWhat(L^.head,Tree,result,continuer);
-      if continuer & (L^.tail <> NIL) then
+      if continuer and (L^.tail <> NIL) then
         if (L^.tail = L)
           then
             begin
@@ -1250,7 +1250,7 @@ begin
     begin
       CompacterPropertyList(G^.properties);
       ForEachGameTreeInListDo(G^.sons,CompacterGameTree);
-      if PropertyListEstVide(G^.properties) & GameTreeListEstVide(G^.sons) then
+      if PropertyListEstVide(G^.properties) and GameTreeListEstVide(G^.sons) then
         begin
           DetacheDeSonOrbiteDInterversions(G);
 
@@ -1304,7 +1304,7 @@ function GameTreePtrEstValide(G : GameTree) : boolean;
 begin
   if G = NIL
     then GameTreePtrEstValide := false
-    else GameTreePtrEstValide := (G^.transpositionOrbite <> NIL) & (G^.nodeMagicCookie <> 0);
+    else GameTreePtrEstValide := (G^.transpositionOrbite <> NIL) and (G^.nodeMagicCookie <> 0);
 end;
 
 
@@ -1400,7 +1400,7 @@ end;
 procedure AddTranspositionPropertyToGameTree(var texte : String255; var G : GameTree);
 var interversionProp : Property;
 begin
-  if (G <> NIL) & (SelectFirstPropertyOfTypesInGameTree([TranspositionProp],G) = NIL) then
+  if (G <> NIL) and (SelectFirstPropertyOfTypesInGameTree([TranspositionProp],G) = NIL) then
     begin
       interversionProp := MakeStringProperty(TranspositionProp,texte);
       AddPropertyToGameTree(interversionProp,G);
@@ -1416,7 +1416,7 @@ begin
       exit(DeletePropertyFromGameNode);
     end;
 
-  if PropertyEstVide(prop) | (G = NIL) then
+  if PropertyEstVide(prop) or (G = NIL) then
     exit(DeletePropertyFromGameNode);
 
   if (G <> NIL) then
@@ -1453,7 +1453,7 @@ begin
       exit(OverWritePropertyToGameTree);
     end;
 
-  if not(PropertyEstVide(prop)) & (G <> NIL) then
+  if not(PropertyEstVide(prop)) and (G <> NIL) then
     OverWritePropertyToList(prop,G^.properties,changed);
 end;
 
@@ -1467,7 +1467,7 @@ end;
 
 procedure AddSonToGameTree(fils,G : GameTree);
 begin
-  if (G <> NIL) & (fils <> NIL) then
+  if (G <> NIL) and (fils <> NIL) then
     begin
       fils^.father := G;
       AddGameTreeToList(fils,G^.sons);
@@ -1476,7 +1476,7 @@ end;
 
 procedure AddSonToGameTreeSansDupliquer(fils,G : GameTree);
 begin
-  if (G <> NIL) & (fils <> NIL) then
+  if (G <> NIL) and (fils <> NIL) then
     begin
       fils^.father := G;
       AddGameTreeToListSansDupliquer(fils,G^.sons);
@@ -1485,7 +1485,7 @@ end;
 
 function HasSons(G : GameTree) : boolean;
 begin
-  if (G = NIL) | (G^.sons = NIL)
+  if (G = NIL) or (G^.sons = NIL)
     then HasSons := false
     else HasSons := true;
 end;
@@ -1560,14 +1560,14 @@ end;
 
 function HasBrothers(G : GameTree) : boolean;
 begin
-  if (G = NIL) | (G^.father = NIL) | GameTreeListEstVide(G^.father^.sons)
+  if (G = NIL) or (G^.father = NIL) or GameTreeListEstVide(G^.father^.sons)
     then HasBrothers := false
     else HasBrothers := true;
 end;
 
 function GetBrothers(G : GameTree) : GameTreeList;
 begin
-  if (G = NIL) | (G^.father = NIL)
+  if (G = NIL) or (G^.father = NIL)
     then GetBrothers := NIL
     else GetBrothers := G^.father^.sons;
 end;
@@ -1575,7 +1575,7 @@ end;
 
 function GetOlderBrother(G : GameTree) : GameTree;
 begin
-  if (G = NIL) | (G^.father = NIL) | (G^.father^.sons = NIL)
+  if (G = NIL) or (G^.father = NIL) or (G^.father^.sons = NIL)
     then GetOlderBrother := G
     else GetOlderBrother := G^.father^.sons^.head;
 end;
@@ -1583,7 +1583,7 @@ end;
 function GetNextBrother(G : GameTree) : GameTree;
 var L : GameTreeList;
 begin
-  if (G = NIL) | (G^.father = NIL) | (G^.father^.sons = NIL)
+  if (G = NIL) or (G^.father = NIL) or (G^.father^.sons = NIL)
     then
       begin
         GetNextBrother := NIL;
@@ -1613,7 +1613,7 @@ end;
 
 function GetOlderSon(G : GameTree) : GameTree;
 begin
-  if (G = NIL) | (G^.sons = NIL)
+  if (G = NIL) or (G^.sons = NIL)
     then GetOlderSon := NIL
     else GetOlderSon := G^.sons^.head;
 end;
@@ -1640,7 +1640,7 @@ end;
 
 procedure SetBrothers(var G : GameTree; brothers : GameTreeList);
 begin
-  if (G = NIL) | (G^.father = NIL)
+  if (G = NIL) or (G^.father = NIL)
     then exit(SetBrothers)
     else G^.father^.sons := brothers;
 end;
@@ -1649,8 +1649,8 @@ end;
 
 function EstSeulDansSonOrbiteDInterversions(G : GameTree) : boolean;
 begin
-  EstSeulDansSonOrbiteDInterversions := (G = NIL) |
-                                        (G^.transpositionOrbite = NIL) |
+  EstSeulDansSonOrbiteDInterversions := (G = NIL) or
+                                        (G^.transpositionOrbite = NIL) or
                                         (G^.transpositionOrbite = G);
 end;
 
@@ -1663,7 +1663,7 @@ begin
     begin
       AddGameTreeToList(G,L);
       aux := G;
-      while (aux <> NIL) & (aux^.transpositionOrbite <> NIL) & (aux^.transpositionOrbite <> G) do
+      while (aux <> NIL) and (aux^.transpositionOrbite <> NIL) and (aux^.transpositionOrbite <> G) do
         begin
           if aux^.transpositionOrbite = aux then
             begin
@@ -1681,10 +1681,10 @@ end;
 procedure DetacheDeSonOrbiteDInterversions(var G : GameTree);
 var aux : GameTree;
 begin
-  if not((G = NIL) | (G^.transpositionOrbite = NIL) | (G^.transpositionOrbite = G)) then
+  if not((G = NIL) or (G^.transpositionOrbite = NIL) or (G^.transpositionOrbite = G)) then
     begin
       aux := G;
-      while (aux <> NIL) & (aux^.transpositionOrbite <> NIL) & (aux^.transpositionOrbite <> G) do
+      while (aux <> NIL) and (aux^.transpositionOrbite <> NIL) and (aux^.transpositionOrbite <> G) do
         begin
           if aux^.transpositionOrbite = aux then
             begin
@@ -1703,7 +1703,7 @@ procedure FusionOrbitesInterversions(var G1,G2 : GameTree);
 var aux1,aux2 : GameTree;
     memeOrbite : boolean;
 begin
-  if not((G1 = NIL) | (G2 = NIL) | (G1 = G2)) then  {egalite de pointeurs}
+  if not((G1 = NIL) or (G2 = NIL) or (G1 = G2)) then  {egalite de pointeurs}
     begin
       if G1^.transpositionOrbite = NIL then G1^.transpositionOrbite := G1;
       if G2^.transpositionOrbite = NIL then G2^.transpositionOrbite := G2;
@@ -1719,7 +1719,7 @@ begin
       memeOrbite := false;
 
 		  aux1 := G1;
-		  while (aux1 <> NIL) & (aux1^.transpositionOrbite <> NIL) & (aux1^.transpositionOrbite <> G1) do
+		  while (aux1 <> NIL) and (aux1^.transpositionOrbite <> NIL) and (aux1^.transpositionOrbite <> G1) do
 		    begin
 		      {WritelnNumDansRapport('aux1 = ',SInt32(aux1));
 	         WritelnNumDansRapport('aux1.orbite = ',SInt32(aux1^.transpositionOrbite));}
@@ -1735,7 +1735,7 @@ begin
 		    end;
 
 		  aux2 := G2;
-		  while (aux2 <> NIL) & (aux2^.transpositionOrbite <> NIL) & (aux2^.transpositionOrbite <> G2) do
+		  while (aux2 <> NIL) and (aux2^.transpositionOrbite <> NIL) and (aux2^.transpositionOrbite <> G2) do
 		    begin
 		      {WritelnNumDansRapport('aux2 = ',SInt32(aux2));
 	         WritelnNumDansRapport('aux2.orbite = ',SInt32(aux2^.transpositionOrbite));}
@@ -1788,18 +1788,18 @@ function SelectNthGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;
 var i : SInt16;
     aux : GameTreeList;
 begin
-  if (L = NIL) | (n <= 0)
+  if (L = NIL) or (n <= 0)
     then SelectNthGameTreeInList := NIL
     else
       begin
         aux := L;
         i := 1;
-        while (i < n) & (aux <> NIL) do
+        while (i < n) and (aux <> NIL) do
           begin
             aux := aux^.tail;
             inc(i);
           end;
-        if (i = n) & (aux <> NIL)
+        if (i = n) and (aux <> NIL)
           then SelectNthGameTreeInList := aux^.head
           else SelectNthGameTreeInList := NIL;
       end;
@@ -1809,7 +1809,7 @@ function SelectNthRealGameTreeInList(n : SInt16; L : GameTreeList) : GameTree;
 var i : SInt16;
     aux : GameTreeList;
 begin
-  if (L = NIL) | (n <= 0)
+  if (L = NIL) or (n <= 0)
     then SelectNthRealGameTreeInList := NIL
     else
       begin
@@ -1817,12 +1817,12 @@ begin
         if IsARealNode(aux^.head)
           then i := 1
           else i := 0;
-        while (i < n) & (aux <> NIL) do
+        while (i < n) and (aux <> NIL) do
           begin
             aux := aux^.tail;
             if IsARealNode(aux^.head) then inc(i);
           end;
-        if (i = n) & (aux <> NIL)
+        if (i = n) and (aux <> NIL)
           then SelectNthRealGameTreeInList := aux^.head
           else SelectNthRealGameTreeInList := NIL;
       end;
@@ -1831,14 +1831,14 @@ end;
 
 function SelectNthSon(n : SInt16; G : GameTree) : GameTree;
 begin
-  if (G = NIL) | (n <= 0)
+  if (G = NIL) or (n <= 0)
     then SelectNthSon := NIL
     else SelectNthSon := SelectNthGameTreeInList(n,GetSons(G));
 end;
 
 function SelectNthRealSon(n : SInt16; G : GameTree) : GameTree;
 begin
-  if (G = NIL) | (n <= 0)
+  if (G = NIL) or (n <= 0)
     then SelectNthRealSon := NIL
     else SelectNthRealSon := SelectNthRealGameTreeInList(n,GetSons(G));
 end;
@@ -1847,8 +1847,8 @@ end;
 function SelectTheSonAfterThisMove(G : GameTree; square,couleur : SInt16) : GameTree;
 var prop : Property;
 begin
-  if ((square < 11) | (square > 88)) |
-     ((couleur <> pionNoir) & (couleur <> pionBlanc)) |
+  if ((square < 11) or (square > 88)) or
+     ((couleur <> pionNoir) and (couleur <> pionBlanc)) or
      (G = NIL) then
     begin
       SelectTheSonAfterThisMove := NIL;
@@ -1900,17 +1900,17 @@ var nodeProperties : PropertyList;
 begin
   NodeHasTheseProperties := false;
 
-  if not(GameTreeEstVide(G) | PropertyListEstVide(L)) then
+  if not(GameTreeEstVide(G) or PropertyListEstVide(L)) then
     begin
       nodeProperties := GetPropertyList(G);
       if not(PropertyListEstVide(nodeProperties)) then
         begin
           toutesTrouvees := true;
 
-          while toutesTrouvees & (L <> NIL) do
+          while toutesTrouvees and (L <> NIL) do
             begin
               prop := L^.head;
-              toutesTrouvees := toutesTrouvees & ExistsInPropertyList(prop,nodeProperties);
+              toutesTrouvees := toutesTrouvees and ExistsInPropertyList(prop,nodeProperties);
               L := L^.tail;
             end;
 
@@ -1976,7 +1976,7 @@ begin
       NextNodePourParcoursEnProfondeurArbre := GetOlderSon(G)
     else
       begin
-        while (G <> NIL) & (G^.father <> NIL) do
+        while (G <> NIL) and (G^.father <> NIL) do
           begin
             frere := GetNextBrother(G);
             if (frere <> NIL) then
@@ -1995,7 +1995,7 @@ procedure ParcourirGameTree(noeudDepart,noeudArret : GameTree ; DoWhat : GameTre
 var continuer : boolean;
 begin
   with gRechercheGameTree do
-    if (noeudDepart <> NIL) & (noeudArret <> NIL) then
+    if (noeudDepart <> NIL) and (noeudArret <> NIL) then
 	    begin
         continuer := true;
         noeudCourant := noeudDepart;
@@ -2004,7 +2004,7 @@ begin
           DoWhat(noeudCourant,result,continuer);
           if continuer
             then noeudCourant := NextNodePourParcoursEnProfondeurArbre(noeudCourant);
-        until not(continuer) | (noeudCourant = noeudDepart) | (noeudCourant = noeudArret);
+        until not(continuer) or (noeudCourant = noeudDepart) or (noeudCourant = noeudArret);
       end;
 end;
 
@@ -2035,7 +2035,7 @@ begin
     begin
       SearchFromGameTree := NIL;
 
-      if (noeudDepart = NIL) | (noeudArret = NIL)
+      if (noeudDepart = NIL) or (noeudArret = NIL)
         then exit(SearchFromGameTree);
 
       trouve := false;
@@ -2045,7 +2045,7 @@ begin
         trouve := whichPredicate(noeudCourant,parametre);
         if not(trouve)
           then noeudCourant := NextNodePourParcoursEnProfondeurArbre(noeudCourant);
-      until trouve | (noeudCourant = noeudArret) | (noeudCourant = noeudDepart);
+      until trouve or (noeudCourant = noeudArret) or (noeudCourant = noeudDepart);
 
       if trouve then
         begin
@@ -2145,16 +2145,16 @@ begin
       s := String255Ptr(whichStringPtr)^ ;
       GetCommentaireDeCeNoeud(G, texte, longueurCommentaire);
 
-      if (texte <> NIL) & (longueurCommentaire > 0) then
+      if (texte <> NIL) and (longueurCommentaire > 0) then
         begin
       	  depart := 0;
       	  longueurPattern := LENGTH_OF_STRING(s);
       	  commentaire := PackedArrayOfCharPtr(texte);
 
-      	  while (depart >= 0) & ((depart + longueurPattern - 1) <= longueurCommentaire) do
+      	  while (depart >= 0) and ((depart + longueurPattern - 1) <= longueurCommentaire) do
       	    begin
       			  k := 0;
-      			  while (k < longueurPattern) & (commentaire^[depart + k] = s[k+1]) do
+      			  while (k < longueurPattern) and (commentaire^[depart + k] = s[k+1]) do
       			    inc(k);
 
       			  if (k = longueurPattern) then
@@ -2185,16 +2185,16 @@ begin
       s := String255Ptr(whichStringPtr)^ ;
       GetCommentaireDeCeNoeud(G, texte, longueurCommentaire);
 
-      if (texte <> NIL) & (longueurCommentaire > 0) then
+      if (texte <> NIL) and (longueurCommentaire > 0) then
         begin
       	  depart := 0;
       	  longueurPattern := LENGTH_OF_STRING(s);
       	  commentaire := PackedArrayOfCharPtr(texte);
 
-      	  while (depart >= 0) & ((depart + longueurPattern - 1) <= longueurCommentaire) do
+      	  while (depart >= 0) and ((depart + longueurPattern - 1) <= longueurCommentaire) do
       	    begin
       			  k := 0;
-      			  while (k < longueurPattern) & (MyUpperString(commentaire^[depart + k],false)[1] = s[k+1]) do
+      			  while (k < longueurPattern) and (MyUpperString(commentaire^[depart + k],false)[1] = s[k+1]) do
       			    inc(k);
 
       			  if (k = longueurPattern) then
@@ -2332,7 +2332,7 @@ begin
       for k := 1 to 64 do
         begin
           square := othellier[k];
-          if (square in result) & IsAVirtualSon(GetFather(G),square,couleur)
+          if (square in result) and IsAVirtualSon(GetFather(G),square,couleur)
             then result := result - [square];
         end;
     end;
@@ -2353,21 +2353,21 @@ begin
   coupBlanc := SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],G);
   coupNoir := SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],G);
 
-  if (coupBlanc <> NIL) & (coupNoir = NIL) then
+  if (coupBlanc <> NIL) and (coupNoir = NIL) then
     begin
       square := GetOthelloSquareOfProperty(coupBlanc^);
       GetSquareOfMoveInNode := true;
       exit(GetSquareOfMoveInNode);
     end;
 
-  if (coupBlanc = NIL) & (coupNoir <> NIL) then
+  if (coupBlanc = NIL) and (coupNoir <> NIL) then
     begin
       square := GetOthelloSquareOfProperty(coupNoir^);
       GetSquareOfMoveInNode := true;
       exit(GetSquareOfMoveInNode);
     end;
 
-  if (coupBlanc = NIL) & (coupNoir = NIL) then
+  if (coupBlanc = NIL) and (coupNoir = NIL) then
     begin
       if debuggage.arbreDeJeu then
         begin
@@ -2421,19 +2421,19 @@ begin
   coupBlanc := SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],G);
   coupNoir := SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],G);
 
-  if (coupBlanc <> NIL) & (coupNoir = NIL) then
+  if (coupBlanc <> NIL) and (coupNoir = NIL) then
     begin
       GetCouleurOfMoveInNode := pionBlanc;
       exit(GetCouleurOfMoveInNode);
     end;
 
-  if (coupBlanc = NIL) & (coupNoir <> NIL) then
+  if (coupBlanc = NIL) and (coupNoir <> NIL) then
     begin
       GetCouleurOfMoveInNode := pionNoir;
       exit(GetCouleurOfMoveInNode);
     end;
 
-  if (coupBlanc = NIL) & (coupNoir = NIL) then
+  if (coupBlanc = NIL) and (coupNoir = NIL) then
     begin
       if debuggage.arbreDeJeu then
         begin
@@ -2463,7 +2463,7 @@ end;
 function CoupOfGameNodeEnString(G : GameTree) : String255;
 var aux : PropertyPtr;
 begin
-  if (G = NIL) | PropertyListEstVide(G^.properties) then
+  if (G = NIL) or PropertyListEstVide(G^.properties) then
     begin
       CoupOfGameNodeEnString := '';
       exit(CoupOfGameNodeEnString);
@@ -2509,7 +2509,7 @@ begin
 
   G1 := G;
   result := CoupOfGameNodeEnString(G1);
-  while (G1 <> NIL) & (G1^.sons <> NIL) do
+  while (G1 <> NIL) and (G1^.sons <> NIL) do
     begin
       if (G1^.sons^.head = G1) then
         begin
@@ -2670,7 +2670,7 @@ begin
   for i := 0 to nbElementsTableHashageInterversions-1 do
     begin
       G := GetDansHashTableInversion(i,stamp);
-      if (G <> NIL) & not(GameTreePtrEstValide(G)) then
+      if (G <> NIL) and not(GameTreePtrEstValide(G)) then
         begin
           {WritelnNumDansRapport('@GameTree non valide =',SInt32(G));}
           SetDansHashTableInterversion(i,NIL,0);
@@ -2705,7 +2705,7 @@ end;
 function GetDansHashTableInversion(index : SInt32; var stamp : SInt32) : GameTree;
 var cellArrow : ^t_CelluleHachageInterversions;
 begin
-  if (index < 0) | (index > nbElementsTableHashageInterversions-1)
+  if (index < 0) or (index > nbElementsTableHashageInterversions-1)
     then
       begin
         AlerteSimple('Erreur : index = '+NumEnString(index)+ ' dans GetDansHashTableInversion');
@@ -2724,7 +2724,7 @@ end;
 procedure SetDansHashTableInterversion(index : SInt32; G : GameTree; stamp : SInt32);
 var cellArrow : ^t_CelluleHachageInterversions;
 begin
-  if (index < 0) | (index > nbElementsTableHashageInterversions-1)
+  if (index < 0) or (index > nbElementsTableHashageInterversions-1)
     then
       begin
         AlerteSimple('Erreur : index = '+NumEnString(index)+ ' dans SetDansHashTableInterversion');
@@ -2828,7 +2828,7 @@ begin
 	          prop := L^.head;
 
 	          if (prop.genre = SigmaProp)
-	             & not((GetTripleOfProperty(prop).nbTriples = 1) | (GetTripleOfProperty(prop).nbTriples = 2))
+	             and not((GetTripleOfProperty(prop).nbTriples = 1) or (GetTripleOfProperty(prop).nbTriples = 2))
 	            then
 	              begin
 	                virtualPropertyFound := true;
@@ -2845,14 +2845,14 @@ end;
 
 function IsARealNode(G : GameTree) : boolean;
 begin
-  IsARealNode := (G <> NIL) & not(IsAVirtualNode(G));
+  IsARealNode := (G <> NIL) and not(IsAVirtualNode(G));
 end;
 
 
 function IsAVirtualNodeUsedForZebraBookDisplay(G : GameTree) : boolean;
 begin
-  IsAVirtualNodeUsedForZebraBookDisplay := not(HasSons(G)) &
-                                           IsAVirtualNode(G) &
+  IsAVirtualNodeUsedForZebraBookDisplay := not(HasSons(G)) and
+                                           IsAVirtualNode(G) and
                                            NodeHasNoMoreThanThesePropertyTypes(G, [BlackMoveProp,WhiteMoveProp,SigmaProp,ZebraBookProp,TranspositionRangeProp,TranspositionProp]);
 end;
 
@@ -2893,7 +2893,7 @@ procedure DetruitLesFilsVirtuelsInutilesDeCeNoeud(var G : GameTree);
 var lesFils,L : GameTreeList;
     unFils : GameTree;
 begin
-  if (G <> NIL) & HasSons(G) then
+  if (G <> NIL) and HasSons(G) then
     begin
       lesFils := GetSons(G);
       L := lesFils;
@@ -2902,7 +2902,7 @@ begin
           unFils := L^.head;
           L := L^.tail;
 
-          if (unFils <> NIL) & IsAVirtualNode(unFils) & (PropertyListLength(unFils^.properties) = 2) & (unFils <> GetCurrentNode) then
+          if (unFils <> NIL) and IsAVirtualNode(unFils) and (PropertyListLength(unFils^.properties) = 2) and (unFils <> GetCurrentNode) then
             begin
               if (unFils = GetCurrentNode) then
                 WritelnDansRapport('ASSERT dans DetruitLesFilsVirtuelsInutilesDeCeNoeud : (unFils = GetCurrentNode) !!! ');
@@ -2920,7 +2920,7 @@ procedure DetruitLesFilsZebraBookInutilesDeCeNoeud(var G : GameTree);
 var lesFils,L : GameTreeList;
     unFils : GameTree;
 begin
-  if (G <> NIL) & HasSons(G) then
+  if (G <> NIL) and HasSons(G) then
     begin
       lesFils := GetSons(G);
       L := lesFils;
@@ -2929,7 +2929,7 @@ begin
           unFils := L^.head;
           L := L^.tail;
 
-          if (unFils <> NIL) & IsAVirtualNodeUsedForZebraBookDisplay(unFils) & (unFils <> GetCurrentNode) then
+          if (unFils <> NIL) and IsAVirtualNodeUsedForZebraBookDisplay(unFils) and (unFils <> GetCurrentNode) then
             begin
               if (unFils = GetCurrentNode) then
                 WritelnDansRapport('ASSERT dans DetruitLesFilsZebraBookInutilesDeCeNoeud : (unFils = GetCurrentNode) !!! ');
@@ -2952,7 +2952,7 @@ var aux : PropertyPtr;
     scoreEntierDansProp,centiemesDansProp : SInt16;
 begin
 
-  if not((couleur = pionNoir) | (couleur = pionBlanc)) then
+  if not((couleur = pionNoir) or (couleur = pionBlanc)) then
     begin
       AlerteSimple('couleur <> pionNoir et couleur <> pionBlanc dans GetEndgameScoreDeCetteCouleurDansGameNode');
       WritelnNumDansRapport('dans GetEndgameScoreDeCetteCouleurDansGameNode, couleur = ',couleur);
@@ -2972,7 +2972,7 @@ begin
       NodeValueProp :
         begin
           GetOthelloValueOfProperty(aux^,couleurDansProp,signe,scoreEntierDansProp,centiemesDansProp);
-          if (scoreEntierDansProp = 0) & (centiemesDansProp = 0)
+          if (scoreEntierDansProp = 0) and (centiemesDansProp = 0)
              then
                begin
                  scoreMinPourNoir := 0;
@@ -3020,12 +3020,12 @@ begin
                  end;{case}
 
                  { cas speciaux venant des properties V[B+] et V[W+] }
-                 if (scoreMinPourNoir = 1) & (scoreMaxPourNoir = 1) then
+                 if (scoreMinPourNoir = 1) and (scoreMaxPourNoir = 1) then
                    begin
                      scoreMinPourNoir := 2;
                      scoreMaxPourNoir := 64;
                    end;
-                 if (scoreMinPourNoir = -1) & (scoreMaxPourNoir = -1) then
+                 if (scoreMinPourNoir = -1) and (scoreMaxPourNoir = -1) then
                    begin
                      scoreMinPourNoir := -64;
                      scoreMaxPourNoir := -2;
@@ -3057,7 +3057,7 @@ begin
         end;
     end; {case}
 
-  if (scoreMinPourNoir = -10000) | (scoreMaxPourNoir =  10000) | ((couleur <> pionNoir) & (couleur <> pionBlanc))
+  if (scoreMinPourNoir = -10000) or (scoreMaxPourNoir =  10000) or ((couleur <> pionNoir) and (couleur <> pionBlanc))
     then
       begin
         scoreMinPourCouleur := -10000;
@@ -3079,7 +3079,7 @@ begin
               scoreMaxPourCouleur := -scoreMinPourNoir;
             end;
       end;
-   if (odd(scoreMinPourNoir) | odd(scoreMaxPourNoir)) then
+   if (odd(scoreMinPourNoir) or odd(scoreMaxPourNoir)) then
      begin
        WritelnDansRapport('BIZARRE : mauvaise parité dans GetEndgameScoreDeCetteCouleurDansGameNode!!');
        WritelnNumDansRapport('scoreMinPourNoir = ',scoreMinPourNoir);
@@ -3091,8 +3091,8 @@ end;
 function NodeHasAPerfectScoreInformation(G : GameTree) : boolean;
 var scoreMinPourNoir,scoreMaxPourNoir : SInt32;
 begin
-  if GetEndgameScoreDeCetteCouleurDansGameNode(G,pionNoir,scoreMinPourNoir,scoreMaxPourNoir) &
-     (scoreMinPourNoir = scoreMaxPourNoir) & (scoreMinPourNoir >= -64) & (scoreMinPourNoir <= 64)
+  if GetEndgameScoreDeCetteCouleurDansGameNode(G,pionNoir,scoreMinPourNoir,scoreMaxPourNoir) and
+     (scoreMinPourNoir = scoreMaxPourNoir) and (scoreMinPourNoir >= -64) and (scoreMinPourNoir <= 64)
      then NodeHasAPerfectScoreInformation := true
      else NodeHasAPerfectScoreInformation := false;
 end;
@@ -3174,7 +3174,7 @@ begin
     end;
 
   if GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax)
-    then IsADrawNode := (scoreMin = 0) & (scoreMax = 0)
+    then IsADrawNode := (scoreMin = 0) and (scoreMax = 0)
     else IsADrawNode := false;
 end;
 
@@ -3214,15 +3214,15 @@ begin
                couleur       := GetCouleurOfMoveInNode(G);
                couleurDuPere := GetCouleurOfMoveInNode(G^.father);
 
-               if (couleur <> pionVide) & (couleurDuPere <> pionVide) &
-                  GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax) &
+               if (couleur <> pionVide) and (couleurDuPere <> pionVide) and
+                  GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax) and
                   GetEndgameScoreDeCetteCouleurDansGameNode(G^.father,couleurDuPere,scoreMinDuPere,scoreMaxDuPere) then
                  begin
                    { si on sait que le pere (l'adversaire) est gagnant, et qu'on
                      vient de prouver qu'un de ses fils vaut -2 (ou plus), alors le pere vaut
                      exactement +2 }
-                   if (couleur = -couleurDuPere) &
-                      (scoreMin = -2) & (scoreMinDuPere > 0) & (scoreMinDuPere <> scoreMaxDuPere) then
+                   if (couleur = -couleurDuPere) and
+                      (scoreMin = -2) and (scoreMinDuPere > 0) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
                         WritelnDansRapport('Chouette (1), je peux propager la valeur du noeud au pere, qui gagne de +2');}
@@ -3232,8 +3232,8 @@ begin
                    { Plus generalement, si on sait que le pere (l'adversaire) peut faire au moins n,
                      et qu'on vient de prouver qu'un de ses fils peut faire au moins -n, alors le pere
                      vaut exactement n }
-                   if (couleur = -couleurDuPere) &
-                      (-scoreMin = scoreMinDuPere) & (scoreMinDuPere <> scoreMaxDuPere) then
+                   if (couleur = -couleurDuPere) and
+                      (-scoreMin = scoreMinDuPere) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
                         WritelnDansRapport('Chouette (2), je peux propager la valeur du noeud au pere, qui fait '+NumEnString(scoreMinDuPere));}
@@ -3243,8 +3243,8 @@ begin
                    { si le pere est de la meme couleur que ce noeud (on a passe), et
                      qu'on sait qu'on vaut -2 ou plus, et que le pere est perdant, alors
                      le pere vaut exactement -2 }
-                   if (couleur = couleurDuPere) &
-                      (scoreMin = -2) & (scoreMaxDuPere < 0) & (scoreMinDuPere <> scoreMaxDuPere) then
+                   if (couleur = couleurDuPere) and
+                      (scoreMin = -2) and (scoreMaxDuPere < 0) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
                         WritelnDansRapport('Chouette (3), je peux propager la valeur du noeud au pere, qui perd de -2');}
@@ -3254,8 +3254,8 @@ begin
                    { Plus generalement, si on sait que le pere est de la meme couleur que ce noeud (on a passe),
                      que l'on peut faire n ou plus et que le pere peut faire n au maximum, alors
                      le pere vaut exactement n }
-                   if (couleur = couleurDuPere) &
-                      (scoreMin = scoreMaxDuPere) & (scoreMinDuPere <> scoreMaxDuPere) then
+                   if (couleur = couleurDuPere) and
+                      (scoreMin = scoreMaxDuPere) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
                         WritelnDansRapport('Chouette (4), je peux propager la valeur du noeud au pere, qui fait '+NumEnString(scoreMaxDuPere));}
@@ -3263,13 +3263,13 @@ begin
                       end;
                  end;
 
-               if (couleur <> pionVide) & (couleurDuPere <> pionVide) &
-                  GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax) & (scoreMin > 0) then
+               if (couleur <> pionVide) and (couleurDuPere <> pionVide) and
+                  GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax) and (scoreMin > 0) then
                  begin
 
                    {si on sait qu'un noeud est gagnant et que la couleur du noeud pere est l'adversaire,
                     on sait que le pere est un coup perdant}
-                   if (couleurDuPere <> couleur) & not(IsALosingNode(G^.father)) then
+                   if (couleurDuPere <> couleur) and not(IsALosingNode(G^.father)) then
                      begin
                        if (scoreMin = 64)
 		                     then AjoutePropertyScoreExactPourCetteCouleurDansGameTree(ReflParfait,-64,couleurDuPere,G^.father)
@@ -3278,7 +3278,7 @@ begin
 
                    {si on sait qu'un noeud est gagnant et que la couleur du noeud pere est le meme (passe),
                     on sait que le pere est un coup gagnant}
-                   if (couleurDuPere = couleur) & not(IsAWinningNode(G^.father)) then
+                   if (couleurDuPere = couleur) and not(IsAWinningNode(G^.father)) then
                      begin
                        if (scoreMin = 64)
 		                     then AjoutePropertyScoreExactPourCetteCouleurDansGameTree(ReflParfait,64,couleurDuPere,G^.father)
@@ -3332,14 +3332,14 @@ begin
 
   if (G <> NIL) then
     begin
-      if (quelGenreDeReflexion = ReflParfait) & odd(scorePourNoir) then
+      if (quelGenreDeReflexion = ReflParfait) and odd(scorePourNoir) then
         begin
           {SysBeep(0);}
           WritelnNumDansRapport('PAS NORMAL ! dans AjoutePropertyValeurDeCoupDansGameTree, scorePourNoir = ',scorePourNoir);
         end;
 
 
-      if ((scorePourNoir < -64) | (scorePourNoir > 64)) &
+      if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
          not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
         begin
           WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansGameTree(reflexion de finale), prévenez Stéphane !');
@@ -3371,14 +3371,14 @@ begin
       exit(AjoutePropertyScoreExactPourCetteCouleurDansGameTree);
     end;
 
-  if (couleur <> pionNoir) & (couleur <> pionBlanc) then
+  if (couleur <> pionNoir) and (couleur <> pionBlanc) then
     begin
       SysBeep(0);
-      WritelnDansRapport('ASSERT((couleur <> pionNoir) & (couleur <> pionBlanc)) dans AjoutePropertyScoreExactPourCetteCouleurDansGameTree !!');
+      WritelnDansRapport('ASSERT((couleur <> pionNoir) and (couleur <> pionBlanc)) dans AjoutePropertyScoreExactPourCetteCouleurDansGameTree !!');
       exit(AjoutePropertyScoreExactPourCetteCouleurDansGameTree);
     end;
 
-  if (quelGenreDeReflexion = ReflParfait) & odd(score) then
+  if (quelGenreDeReflexion = ReflParfait) and odd(score) then
     begin
       {SysBeep(0);}
       WritelnNumDansRapport('PAS NORMAL ! dans AjoutePropertyScoreExactPourCetteCouleurDansGameTree, scorePourNoir = ',score);
@@ -3401,7 +3401,7 @@ begin
 
   PeutCompleterSuiteParfaiteParGameTree := false;
 
-  if not(GetPositionEtTraitACeNoeud(G, position2, 'PeutCompleterSuiteParfaiteParGameTree')) |
+  if not(GetPositionEtTraitACeNoeud(G, position2, 'PeutCompleterSuiteParfaiteParGameTree')) or
      not(SamePositionEtTrait(position,position2)) then
     begin
       SysBeep(0);
@@ -3418,7 +3418,7 @@ begin
       end;
 
   scoreProp := SelectScorePropertyOfNode(G);
-  if (scoreProp = NIL) | (scoreProp^.genre <> NodeValueProp) then
+  if (scoreProp = NIL) or (scoreProp^.genre <> NodeValueProp) then
     begin
       SysBeep(0);
       if (scoreProp = NIL)
@@ -3462,7 +3462,7 @@ begin
         AttendFrappeClavier;
       end; *)
 
-  until (G = NIL) | (moveProp = NIL);
+  until (G = NIL) or (moveProp = NIL);
 
 (*WritelnDansRapport('avant PropertyListLength');
   AttendFrappeClavier;*)
@@ -3472,7 +3472,7 @@ begin
 (*WritelnNumDansRapport('longueurListeDesCoups = ',longueurListeDesCoups);
   AttendFrappeClavier;*)
 
-  if (longueurListeDesCoups > 0) & (nbCoupsAjoutes > 0) then
+  if (longueurListeDesCoups > 0) and (nbCoupsAjoutes > 0) then
     begin
       (* testons la legalite de la suite des coups *)
       suiteLegale := true;
@@ -3486,7 +3486,7 @@ begin
 		    WritelnPositionEtTraitDansRapport(position.position,GetTraitOfPosition(position));
 		    AttendFrappeClavier;*)
 
-		    suiteLegale := suiteLegale & PlayMoveProperty(liste2^.head,position);
+		    suiteLegale := suiteLegale and PlayMoveProperty(liste2^.head,position);
 		    liste2 := liste2^.tail;
 
 		  (*WritelnStringAndPropertyListDansRapport('dans la boucle, liste2 = ',liste2);
@@ -3504,7 +3504,7 @@ begin
 		      WritelnDansRapport('WARNING : not(suiteLegale) dans PeutCompleterSuiteParfaiteParGameTree');
 		    end;
 
-      if suiteLegale & (GetTraitOfPosition(position) = pionVide) then
+      if suiteLegale and (GetTraitOfPosition(position) = pionVide) then
         begin
 
         (*WritelnDansRapport('je mets PeutCompleterSuiteParfaiteParGameTree à true');
@@ -3534,7 +3534,7 @@ begin
       exit(PeutCalculerFinaleDansGameTree);
     end;
 
-  if (GetTraitOfPosition(position) <> pionVide) & ConnaitValeurDuNoeud(G,kDeltaFinaleInfini,vmin,vmax)
+  if (GetTraitOfPosition(position) <> pionVide) and ConnaitValeurDuNoeud(G,kDeltaFinaleInfini,vmin,vmax)
      then
        PeutCalculerFinaleDansGameTree := PeutCompleterSuiteParfaiteParGameTree(G, position, vmin, vmax, listeDesCoups) ;
 
@@ -3551,7 +3551,7 @@ begin {$UNUSED deltaFinale}
 		  couleur := GetCouleurOfMoveInNode(G);
 
 		  (* d'abord on cherche une info exacte (WLD ou score exact) dans le noeud *)
-		  if ((couleur = pionNoir) | (couleur = pionBlanc)) &
+		  if ((couleur = pionNoir) or (couleur = pionBlanc)) and
 		      GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,valeurMin,valeurMax) then
 		    begin
 		      GetValeurMinimumOfNode := valeurMin;
@@ -3571,7 +3571,7 @@ begin {$UNUSED deltaFinale}
 		  couleur := GetCouleurOfMoveInNode(G);
 
 		  (* d'abord on cherche une info exacte (WLD ou score exact) dans le noeud *)
-		  if ((couleur = pionNoir) | (couleur = pionBlanc)) &
+		  if ((couleur = pionNoir) or (couleur = pionBlanc)) and
 		      GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,valeurMin,valeurMax) then
 		    begin
 		      GetValeurMaximumOfNode := valeurMax;

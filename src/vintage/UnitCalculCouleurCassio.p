@@ -93,7 +93,7 @@ begin  {$UNUSED CouleurDemandeeParUtilisateur}
   if not(gEcranCouleur)
     then
       begin
-        if not(CassioEstEn3D) & (GetTailleCaseCourante <= 12)
+        if not(CassioEstEn3D) and (GetTailleCaseCourante <= 12)
           then
              othellierPat := whitePattern
           else
@@ -203,7 +203,7 @@ begin
   probleme := false;
 
   with whichColor do
-    if (nomFichierTexture = '') | (nomFichierTexture = 'kSimplementUneCouleur')
+    if (nomFichierTexture = '') or (nomFichierTexture = 'kSimplementUneCouleur')
       then
         begin
           nbCouleursDansMenu := AutreCouleurCmd; {CountMItem(CouleurMenu) - 3}
@@ -250,11 +250,11 @@ begin
       if estPovRayEn3D                               then SetResult(2600, 31300,11100) else
       if nomFichierTexture = 'Photographique'        then SetResult(15000,31000,26000) else
       if nomFichierTexture = 'Pions go'              then SetResult(45400,34000,23000) else
-      if (Pos('Realiste',nomFichierTexture) > 0) |
-         (Pos('RŽaliste',nomFichierTexture) > 0) |
+      if (Pos('Realiste',nomFichierTexture) > 0) or
+         (Pos('RŽaliste',nomFichierTexture) > 0) or
          (Pos('Fantaisie',nomFichierTexture) > 0)    then SetResult(11000,26000,6100) else
-      if (Pos('Metal',nomFichierTexture) > 0) |
-         (Pos('MŽtal',nomFichierTexture) > 0) |
+      if (Pos('Metal',nomFichierTexture) > 0) or
+         (Pos('MŽtal',nomFichierTexture) > 0) or
          (Pos('Vert &',nomFichierTexture) > 0)       then SetResult(18500,23500,31000) else
       if (Pos('VOG',nomFichierTexture) > 0)          then SetResult(8400, 36000,21000) else
       if (Pos('Zebra',nomFichierTexture) > 0)        then SetResult(14800,32300,17520) else

@@ -51,14 +51,14 @@ USES
 
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;
 begin
-  if (coup >= 11) & (coup <= 88)
+  if (coup >= 11) and (coup <= 88)
     then CoupEnStringEnMajuscules := CharToString(chr(64+platMod10[coup]))+CharToString(chr(48+platDiv10[coup]))
     else CoupEnStringEnMajuscules := '';
 end;
 
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;
 begin
-  if (coup >= 11) & (coup <= 88)
+  if (coup >= 11) and (coup <= 88)
     then CoupEnStringEnMinuscules := CharToString(chr(96+platMod10[coup]))+CharToString(chr(48+platDiv10[coup]))
     else CoupEnStringEnMinuscules := '';
 end;
@@ -83,14 +83,14 @@ begin
       inc(k);
       col := s[k];
       lign := s[k+1];
-      if (lign >= '1') & (lign <= '8') then
+      if (lign >= '1') and (lign <= '8') then
         begin
-          if (col >= 'A') & (col  <= 'H') then
+          if (col >= 'A') and (col  <= 'H') then
             begin
               StringEnCoup := (ord(col)-ord('A')+1) + 10*(ord(lign)-ord('1')+1);
               exit(StringEnCoup);
             end;
-          if (col >= 'a') & (col  <= 'h') then
+          if (col >= 'a') and (col  <= 'h') then
             begin
               StringEnCoup := (ord(col)-ord('a')+1) + 10*(ord(lign)-ord('1')+1);
               exit(StringEnCoup);
@@ -115,15 +115,15 @@ begin
       inc(k);
       col := s[k];
       lign := s[k + 1];
-      if (lign >= '1') & (lign <= '8') then
+      if (lign >= '1') and (lign <= '8') then
         begin
-          if (col >= 'A') & (col  <= 'H') then
+          if (col >= 'A') and (col  <= 'H') then
             begin
               ScannerStringPourTrouverCoup := (ord(col) - ord('A') + 1) + 10*(ord(lign) - ord('1') + 1);
               positionDuCoupDansChaine := k;
               exit(ScannerStringPourTrouverCoup);
             end;
-          if (col >= 'a') & (col  <= 'h') then
+          if (col >= 'a') and (col  <= 'h') then
             begin
               ScannerStringPourTrouverCoup := (ord(col) - ord('a') + 1) + 10*(ord(lign) - ord('1') + 1);
               positionDuCoupDansChaine := k;
@@ -147,14 +147,14 @@ begin
     begin
       col := s[positionDansChaine];
       lign := s[positionDansChaine+1];
-      if (lign >= '1') & (lign <= '8') then
+      if (lign >= '1') and (lign <= '8') then
         begin
-          if (col >= 'A') & (col  <= 'H') then
+          if (col >= 'A') and (col  <= 'H') then
             begin
               PositionDansStringAlphaEnCoup := (ord(col)-ord('A')+1) + 10*(ord(lign)-ord('1')+1);
               exit(PositionDansStringAlphaEnCoup);
             end;
-          if (col >= 'a') & (col  <= 'h') then
+          if (col >= 'a') and (col  <= 'h') then
             begin
               PositionDansStringAlphaEnCoup := (ord(col)-ord('a')+1) + 10*(ord(lign)-ord('1')+1);
               exit(PositionDansStringAlphaEnCoup);

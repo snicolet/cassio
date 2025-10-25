@@ -150,7 +150,7 @@ end;
 
 function JoueurEstDonneParSonNumero(joueur : String255; var outNumber : SInt32) : boolean;
 begin
-  if (LENGTH_OF_STRING(joueur) >= 2) & (joueur[1] = '#')
+  if (LENGTH_OF_STRING(joueur) >= 2) and (joueur[1] = '#')
     then
       begin
         JoueurEstDonneParSonNumero := true;
@@ -163,7 +163,7 @@ end;
 
 function TournoiEstDonneParSonNumero(tournoi : String255; var outNumber : SInt32) : boolean;
 begin
-  if (LENGTH_OF_STRING(tournoi) >= 2) & (tournoi[1] = '#')
+  if (LENGTH_OF_STRING(tournoi) >= 2) and (tournoi[1] = '#')
     then
       begin
         TournoiEstDonneParSonNumero := true;
@@ -194,8 +194,8 @@ begin
 
   err := FichierTexteExiste(pathFichier,0,fic);
 
-  if (err = NoErr) &
-     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) &
+  if (err = NoErr) and
+     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) and
      (typeFichier = kFicJoueursNouveauFormat) then
      begin
 
@@ -227,7 +227,7 @@ begin
                    tempoMetaphone := CassioIsUsingMetaphone;
                    SetCassioIsUsingMetaphone(false);
 
-                   if (JoueurEstDonneParSonNumero(oldname,numeroJoueur) | TrouveNumeroDuJoueur(oldname,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
+                   if (JoueurEstDonneParSonNumero(oldname,numeroJoueur) or TrouveNumeroDuJoueur(oldname,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) and
                       (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur))
                      then
                        begin
@@ -329,8 +329,8 @@ begin
 
   err := FichierTexteExiste(pathFichier,0,fic);
 
-  if (err = NoErr) &
-     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) &
+  if (err = NoErr) and
+     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) and
      (typeFichier = kFicTournoisNouveauFormat) then
      begin
 
@@ -349,7 +349,7 @@ begin
              if (oldName <> '')
                then  {renommage : on essaye de remplacer un vieux nom}
                  begin
-                   if (TournoiEstDonneParSonNumero(oldname,numeroTournoi) | TrouveNumeroDuTournoi(oldname,numeroTournoi,0)) &
+                   if (TournoiEstDonneParSonNumero(oldname,numeroTournoi) or TrouveNumeroDuTournoi(oldname,numeroTournoi,0)) and
                       (numeroTournoi = GetNroTournoiDansSonFichier(numeroTournoi))
                      then
                        begin
@@ -442,7 +442,7 @@ begin
   tempoMetaphone := CassioIsUsingMetaphone;
   SetCassioIsUsingMetaphone(false);
 
-  if (JoueurEstDonneParSonNumero(joueur,numeroJoueur) | TrouveNumeroDuJoueur(joueur,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
+  if (JoueurEstDonneParSonNumero(joueur,numeroJoueur) or TrouveNumeroDuJoueur(joueur,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) and
      (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur)) then
     begin
       oldName := GetNomJoueur(numeroJoueur);
@@ -507,7 +507,7 @@ begin
 
   (* si le tournoi est deja dans la base, c'est sans doute une erreur *)
 
-  if (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) | TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) &
+  if (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) or TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) and
      (numeroTournoi = GetNroTournoiDansSonFichier(numeroTournoi)) then
     begin
       oldName := GetNomTournoi(numeroTournoi);
@@ -552,7 +552,7 @@ begin
   tempoMetaphone := CassioIsUsingMetaphone;
   SetCassioIsUsingMetaphone(false);
 
-  if (JoueurEstDonneParSonNumero(joueur,numeroJoueur) | TrouveNumeroDuJoueur(joueur,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
+  if (JoueurEstDonneParSonNumero(joueur,numeroJoueur) or TrouveNumeroDuJoueur(joueur,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) and
      (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur))
      then
        begin
@@ -579,7 +579,7 @@ begin
 
   EnleveEspacesDeGaucheSurPlace(tournoi);
 
-  if (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) | TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) &
+  if (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) or TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) and
      (numeroTournoi = GetNroTournoiDansSonFichier(numeroTournoi))
      then
        begin
@@ -601,7 +601,7 @@ var partieSansOrdinateur : boolean;
 begin {$UNUSED partie60}
   SetNroJoueurNoirParNroRefPartie(numeroReferencePartie,numeroNoir);
 
-  partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(numeroReferencePartie))) &
+  partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(numeroReferencePartie))) and
                           not(GetJoueurEstUnOrdinateur(GetNroJoueurBlancParNroRefPartie(numeroReferencePartie)));
   SetPartieEstSansOrdinateur(numeroReferencePartie,partieSansOrdinateur);
 end;
@@ -612,7 +612,7 @@ var partieSansOrdinateur : boolean;
 begin {$UNUSED partie60}
   SetNroJoueurBlancParNroRefPartie(numeroReferencePartie,numeroBlanc);
 
-  partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(numeroReferencePartie))) &
+  partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(numeroReferencePartie))) and
                           not(GetJoueurEstUnOrdinateur(GetNroJoueurBlancParNroRefPartie(numeroReferencePartie)));
   SetPartieEstSansOrdinateur(numeroReferencePartie,partieSansOrdinateur);
 end;
@@ -642,8 +642,8 @@ begin
   nbPartiesAChanger := NumberOfGamesWithThisReferenceFilter(surQuellesParties,bidon);
 
   EnleveEspacesDeGaucheSurPlace(noir);
-  if (noir <> '') &
-     (JoueurEstDonneParSonNumero(noir,numeroJoueur) | TrouveNumeroDuJoueur(noir,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
+  if (noir <> '') and
+     (JoueurEstDonneParSonNumero(noir,numeroJoueur) or TrouveNumeroDuJoueur(noir,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) and
      (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur)) then
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeBlackPlayer,numeroJoueur);
@@ -655,8 +655,8 @@ begin
 
 
   EnleveEspacesDeGaucheSurPlace(blanc);
-  if (blanc <> '') &
-     (JoueurEstDonneParSonNumero(blanc,numeroJoueur) | TrouveNumeroDuJoueur(blanc,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) &
+  if (blanc <> '') and
+     (JoueurEstDonneParSonNumero(blanc,numeroJoueur) or TrouveNumeroDuJoueur(blanc,numeroJoueur,confiance,kChercherSeulementDansBaseOfficielle)) and
      (numeroJoueur = GetNroJoueurDansSonFichier(numeroJoueur)) then
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeWhitePlayer,numeroJoueur);
@@ -668,8 +668,8 @@ begin
 
 
   EnleveEspacesDeGaucheSurPlace(tournoi);
-  if (tournoi <> '') &
-     (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) | TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) &
+  if (tournoi <> '') and
+     (TournoiEstDonneParSonNumero(tournoi,numeroTournoi) or TrouveNumeroDuTournoi(tournoi,numeroTournoi,0)) and
      (numeroTournoi = GetNroTournoiDansSonFichier(numeroTournoi)) then
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeTournament,numeroTournoi);
@@ -743,7 +743,7 @@ begin
             if ((endgameSolveFlags AND kEndgameSolveOnlyWLD) <> 0) then
               begin
                 scoreTheorique := GetScoreTheoriqueParNroRefPartie(numeroReferencePartieEnCours);
-                if (scoreTheorique <= 31) | (scoreTheorique >= 33)
+                if (scoreTheorique <= 31) or (scoreTheorique >= 33)
                   then typeErreur := kPartieIninteressante;
               end;
 
@@ -792,8 +792,8 @@ begin
                   end;
 
 
-              if (interruptionReflexion = pasdinterruption) &
-                 (score >= -64) & (score <= 64) then
+              if (interruptionReflexion = pasdinterruption) and
+                 (score >= -64) and (score <= 64) then
                  begin
                    inc(nbPartiesCalculees);
 
@@ -834,7 +834,7 @@ begin
                    {on met le score theorique dans la liste}
                    if not(enRechercheDePositionsDifficiles) then
                      begin
-                       if (scoreTheoriquePourNoir >= 0) & (scoreTheoriquePourNoir <= 64)
+                       if (scoreTheoriquePourNoir >= 0) and (scoreTheoriquePourNoir <= 64)
                          then SetScoreTheoriqueParNroRefPartie(numeroReferencePartie,scoreTheoriquePourNoir)
                          else WritelnNumDansRapport('ERREUR !! scoreTheoriquePourNoir = ',scoreTheoriquePourNoir);
                      end;
@@ -878,7 +878,7 @@ begin
   if (nbPartiesActives <= 0) then
     exit(LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe);
 
-  if not(CassioEstEnTrainDeReflechir) | CassioEstEnTrainDeCalculerPourLeZoo
+  if not(CassioEstEnTrainDeReflechir) or CassioEstEnTrainDeCalculerPourLeZoo
     then LanceInterruption(kHumainVeutCalculerScoresTheoriquesWThor,'LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe')
     else WritelnDansRapport('ERREUR : (CassioEstEnTrainDeReflechir = true)  dans LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe !!')
 
@@ -932,7 +932,7 @@ begin
     then CalculerScoresTheoriquesPartiesDansListe := NoErr
     else CalculerScoresTheoriquesPartiesDansListe := -20;
 
-  if not(analyseRetrograde.enCours) & not(HumCtreHum) then DoChangeHumCtreHum;
+  if not(analyseRetrograde.enCours) and not(HumCtreHum) then DoChangeHumCtreHum;
 end;
 
 
@@ -987,7 +987,7 @@ begin
   // WritelnDansRapport('commande dans DoActionGestionBaseOfficielle = '+commande);
   // AttendFrappeClavier;
 
-  if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire) then
+  if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire) then
     err := MetJoueursEtTournoisEnMemoire(false);
 
   oldParsingProtectionWithQuote := GetParsingProtectionWithQuotes;
@@ -998,72 +998,72 @@ begin
   err := -10000;
 
   {add player "newname"}
-  if (s1 = 'add') & (s2 = 'player') & (s3 <> '')
+  if (s1 = 'add') and (s2 = 'player') and (s3 <> '')
     then err := AddPlayerDansBaseOfficielle(s3);
 
   {create player "newname"}
-  if (s1 = 'create') & (s2 = 'player') & (s3 <> '')
+  if (s1 = 'create') and (s2 = 'player') and (s3 <> '')
     then err := RenommerJoueurDansFichierWThorOfficiel('',s3);
 
   {rename player "oldname" to "newname"}
-  if (s1 = 'rename') & (s2 = 'player') & (s3 <> '') & (s4 = 'to') & (s5 <> '')
+  if (s1 = 'rename') and (s2 = 'player') and (s3 <> '') and (s4 = 'to') and (s5 <> '')
     then err := RenommerJoueurDansFichierWThorOfficiel(s3,s5);
 
   {find player "name"}
-  if (s1 = 'find') & (s2 = 'player') & (s3 <> '')
+  if (s1 = 'find') and (s2 = 'player') and (s3 <> '')
     then err := FindPlayerDansBaseOfficielle(s3);
 
 
 
   {add tourney "newname"}
-  if (s1 = 'add') & (s2 = 'tourney') & (s3 <> '')
+  if (s1 = 'add') and (s2 = 'tourney') and (s3 <> '')
     then err := RenommerTournoiDansFichierWThorOfficiel('',s3);
 
   {create tourney "newname"}
-  if (s1 = 'create') & (s2 = 'tourney') & (s3 <> '')
+  if (s1 = 'create') and (s2 = 'tourney') and (s3 <> '')
     then err := RenommerTournoiDansFichierWThorOfficiel('',s3);
 
   {rename tourney "oldname" to "newname"}
-  if (s1 = 'rename') & (s2 = 'tourney') & (s3 <> '') & (s4 = 'to') & (s5 <> '')
+  if (s1 = 'rename') and (s2 = 'tourney') and (s3 <> '') and (s4 = 'to') and (s5 <> '')
     then err := RenommerTournoiDansFichierWThorOfficiel(s3,s5);
 
   {find tourney "name"}
-  if (s1 = 'find') & (s2 = 'tourney') & (s3 <> '')
+  if (s1 = 'find') and (s2 = 'tourney') and (s3 <> '')
     then err := FindTournamentDansBaseOfficielle(s3);
 
 
   {change black player to "newname"}
-  if (s1 = 'change') & (s2 = 'black') & (s3 = 'player') & (s4 = 'to') & (s5 <> '')
+  if (s1 = 'change') and (s2 = 'black') and (s3 = 'player') and (s4 = 'to') and (s5 <> '')
     then err := ChangeNumerosJoueursEtTournoisDansListe(s5,'','',FiltrePartieEstActiveEtSelectionnee);
 
   {change white player to "newname"}
-  if (s1 = 'change') & (s2 = 'white') & (s3 = 'player') & (s4 = 'to') & (s5 <> '')
+  if (s1 = 'change') and (s2 = 'white') and (s3 = 'player') and (s4 = 'to') and (s5 <> '')
     then err := ChangeNumerosJoueursEtTournoisDansListe('',s5,'',FiltrePartieEstActiveEtSelectionnee);
 
   {change tourney to "newname"}
-  if (s1 = 'change') & (s2 = 'tourney') & (s3 = 'to') & (s4 <> '')
+  if (s1 = 'change') and (s2 = 'tourney') and (s3 = 'to') and (s4 <> '')
     then err := ChangeNumerosJoueursEtTournoisDansListe('','',s4,FiltrePartieEstActiveEtSelectionnee);
 
   {change year to "NNNN"}
-  if (s1 = 'change') & (s2 = 'year') & (s3 = 'to') & (s4 <> '')
+  if (s1 = 'change') and (s2 = 'year') and (s3 = 'to') and (s4 <> '')
     then err := ChangeAnneeDansListe(ChaineEnLongint(s4),FiltrePartieEstActiveEtSelectionnee);
 
 
   {show last players}
-  if (s1 = 'show') & (s2 = 'last') & (s3 = 'players')
+  if (s1 = 'show') and (s2 = 'last') and (s3 = 'players')
     then err := ListerDerniersJoueursBaseOfficielleDansRapport(30);
 
   {show last tourneys}
-  if (s1 = 'show') & (s2 = 'last') & (s3 = 'tourneys')
+  if (s1 = 'show') and (s2 = 'last') and (s3 = 'tourneys')
     then err := ListerDerniersTournoisBaseOfficielleDansRapport(30);
 
 
   {show all players}
-  if (s1 = 'show') & (s2 = 'all') & (s3 = 'players')
+  if (s1 = 'show') and (s2 = 'all') and (s3 = 'players')
     then err := ListerDerniersJoueursBaseOfficielleDansRapport(NombreJoueursDansBaseOfficielle);
 
   {show all tourneys}
-  if (s1 = 'show') & (s2 = 'all') & (s3 = 'tourneys')
+  if (s1 = 'show') and (s2 = 'all') and (s3 = 'tourneys')
     then err := ListerDerniersTournoisBaseOfficielleDansRapport(NombreTournoisDansBaseOfficielle);
 
 
@@ -1072,12 +1072,12 @@ begin
     then err := CalculerScoresTheoriquesPartiesDansListe(36,kEndgameSolveToujoursRamenerLaSuite,FiltrePartieEstActiveEtSelectionnee);
 
   {recalculate}
-  if (s1 = 'search') & (s2 = 'difficult') & (s3 = 'WLD')
+  if (s1 = 'search') and (s2 = 'difficult') and (s3 = 'WLD')
     then err := CalculerScoresTheoriquesPartiesDansListe(29,kEndgameSolveOnlyWLD + kEndgameSolveSearchDifficultPositions,FiltrePartieEstActiveEtSelectionnee);
 
 
   {wthor help, help, ?}
-  if (s1 = '?') | (s1 = 'help') | ((s1 = 'wthor') & (s2 = 'help'))
+  if (s1 = '?') or (s1 = 'help') or ((s1 = 'wthor') and (s2 = 'help'))
     then
       begin
         WritelnDansRapport('');
@@ -1152,9 +1152,9 @@ begin
 
   nbreLignesSelection := NombreDeLignesDansSelectionRapport;
 
-  if FenetreRapportEstOuverte &
-     FenetreRapportEstAuPremierPlan &
-     SelectionRapportNonVide &
+  if FenetreRapportEstOuverte and
+     FenetreRapportEstAuPremierPlan and
+     SelectionRapportNonVide and
      (LongueurSelectionRapport < 255)
      then myError := DoActionGestionBaseOfficielle(SelectionRapportEnString(longueurSelection));
 

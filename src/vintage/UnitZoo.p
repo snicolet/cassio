@@ -398,7 +398,7 @@ end;
 procedure SetCassioDoitRentrerEnContactAvecLeZoo(s : String255);
 begin
   s := UpCaseStr(s);
-  gZoo.doitRentrerEnContactAvecLeZoo := ((Pos('YES', s) > 0) | (Pos('TRUE', s) > 0));
+  gZoo.doitRentrerEnContactAvecLeZoo := ((Pos('YES', s) > 0) or (Pos('TRUE', s) > 0));
 end;
 
 
@@ -582,14 +582,14 @@ begin
   *)
 
   err := NoErr;
-  while (err = NoErr) & not(LongStringBeginsWith('OK<br>',ligne)) do
+  while (err = NoErr) and not(LongStringBeginsWith('OK<br>',ligne)) do
     begin
 
-      if not(LongStringIsEmpty(ligne)) &
+      if not(LongStringIsEmpty(ligne)) and
          not(LongStringBeginsWith('NO NEW RESULT', ligne)) then
         begin
 
-          if (LongStringBeginsWith('STOPPED ',ligne)) |
+          if (LongStringBeginsWith('STOPPED ',ligne)) or
              (LongStringBeginsWith('COULD_NOT_STOP ',ligne))
              then ParserLesPositionStoppeesDuZoo(ligne, fic)
 
@@ -627,19 +627,19 @@ begin
 
 
   err := NoErr;
-  while (err = NoErr) & not(LongStringBeginsWith('OK<br>',ligne)) do
+  while (err = NoErr) and not(LongStringBeginsWith('OK<br>',ligne)) do
     begin
 
       Parser3(ligne.debutLigne, action, hash, presence, reste);
 
-      if ((action = 'STOPPED') | (action = 'COULD_NOT_STOP')) & (hash <> '')
+      if ((action = 'STOPPED') or (action = 'COULD_NOT_STOP')) and (hash <> '')
         then hashValue := HexToUInt64(hash);
 
 
-      if (action = 'CALCULATED '  ) |
-         (action = 'INCHARGE '    ) |
-         (action = 'PREFETCHED '  ) |
-         (action = 'COULDNTSOLVE ') |
+      if (action = 'CALCULATED '  ) or
+         (action = 'INCHARGE '    ) or
+         (action = 'PREFETCHED '  ) or
+         (action = 'COULDNTSOLVE ') or
          (action = 'DELETED '     )
         then ParserLesResultatsDuZoo(ligne, fic);
 
@@ -664,12 +664,12 @@ begin
 
 
   err := NoErr;
-  while (err = NoErr) & not(LongStringBeginsWith('OK<br>',ligne)) do
+  while (err = NoErr) and not(LongStringBeginsWith('OK<br>',ligne)) do
     begin
 
       Parser4(ligne.debutLigne , action1, action2, valeur, hash, ligne.debutLigne);
 
-      if (action1 = 'STILL') & (action2 = 'USEFUL') & (valeur = 'false') & (hash <> '') then
+      if (action1 = 'STILL') and (action2 = 'USEFUL') and (valeur = 'false') and (hash <> '') then
         begin
           hashValue := HexToUInt64(hash);
 
@@ -677,7 +677,7 @@ begin
           RetirerCeJobDuCacheDesPositionsPrefetchUtiles(hashValue);
 
           // on interrompt aussi la recherche en cours, si elle est sur cette position
-          if CassioEstEnTrainDeCalculerPourLeZoo &
+          if CassioEstEnTrainDeCalculerPourLeZoo and
             Same64Bits(hashValue, HashDuCalculCourantDeCassioPourLeZoo) then
             begin
               s := MakeLongString('STILL INCHARGE false hash=' + hash);
@@ -710,7 +710,7 @@ begin
 
 
   Parser4(ligne.debutLigne , action1, action2, valeur, hash, aux);
-  if (action1 = 'STILL') & (action2 = 'INCHARGE') & (valeur = 'true') & (hash <> '') then
+  if (action1 = 'STILL') and (action2 = 'INCHARGE') and (valeur = 'true') and (hash <> '') then
     begin
 
       hash := TPCopy(hash,6,255);
@@ -719,9 +719,9 @@ begin
       // Si le serveur du zoo pense que nous sommes en train de calculer sur une position qui n'est
       // pas celle en cours, ou dont on ne vient pas d'envoyer le résultat au zoo, il y a un probleme
       // de croisement des messages sur Internet, et on previent le serveur...
-      if not(CassioEstEnTrainDeCalculerPourLeZoo & Same64Bits(hashValue, HashDuCalculCourantDeCassioPourLeZoo))
-         & HashValueDuZooEstCorrecte(hashValue)
-         & not(FindHashDansCacheDesScoresEnvoyesAuZoo(hashValue)) then
+      if not(CassioEstEnTrainDeCalculerPourLeZoo and Same64Bits(hashValue, HashDuCalculCourantDeCassioPourLeZoo))
+         and HashValueDuZooEstCorrecte(hashValue)
+         and not(FindHashDansCacheDesScoresEnvoyesAuZoo(hashValue)) then
            begin
              reason := CalculateZooStatusPourCetEtatDeCassio;
              err := SExcuserAupresDuZooPourCetteHash(hashValue, reason);
@@ -757,7 +757,7 @@ begin
   err := NoErr;
   while (err = NoErr) do
     begin
-      if afficherTouteLaRequete & not(LongStringIsEmpty(ligne)) then
+      if afficherTouteLaRequete and not(LongStringIsEmpty(ligne)) then
         begin
           inc(compteurDelignes);
 
@@ -766,7 +766,7 @@ begin
           WritelnLongStringDansRapport(ligne);
         end;
 
-      found := found | (FindStringInLongString(mot,ligne) > 0);
+      found := found or (FindStringInLongString(mot,ligne) > 0);
 
       err := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
     end;
@@ -795,7 +795,7 @@ begin
       err := ReadlnLongStringDansFichierAbstrait(fic, premiereLigne, true);
 
        // this find will fail, but will have the side-effect to show the transaction in the rapport
-      foo := FindWordInTransaction('WBSLDO@é&@é&@"&@',premiereLigne, fic, true);
+      foo := FindWordInTransaction('WBSLDO@éand@éand@"and@',premiereLigne, fic, true);
 
       err := SetPositionMarqueurFichierAbstrait(fic, positionMarqueur);
     end;
@@ -848,7 +848,7 @@ begin
     if (LongStringBeginsWith('STILL USEFUL ', ligne))
       then ParserLesPrefetchEncoreUtiles(ligne, fic) else
 
-    if (LongStringBeginsWith('STOPPED ', ligne)) |
+    if (LongStringBeginsWith('STOPPED ', ligne)) or
        (LongStringBeginsWith('COULD_NOT_STOP ', ligne))
       then ParserLesPositionStoppeesDuZoo(ligne, fic) else
 
@@ -858,17 +858,17 @@ begin
     if (LongStringBeginsWith('PING ANSWERED', ligne))
       then MettreAJourLeTempsDeReponseDuZoo else
 
-    if (LongStringBeginsWith('CALCULATED '          ,ligne)) |
-       (LongStringBeginsWith('INCHARGE '            ,ligne)) |
-       (LongStringBeginsWith('PREFETCHED '          ,ligne)) |
-       (LongStringBeginsWith('COULDNTSOLVE '        ,ligne)) |
-       (LongStringBeginsWith('DELETED '             ,ligne)) |
+    if (LongStringBeginsWith('CALCULATED '          ,ligne)) or
+       (LongStringBeginsWith('INCHARGE '            ,ligne)) or
+       (LongStringBeginsWith('PREFETCHED '          ,ligne)) or
+       (LongStringBeginsWith('COULDNTSOLVE '        ,ligne)) or
+       (LongStringBeginsWith('DELETED '             ,ligne)) or
        (LongStringBeginsWith('ERROR_TIMED_OUT '     ,ligne))
       then ParserLesResultatsDuZoo(ligne, fic) else
 
-    if (FindStringInLongString('ERROR'  ,ligne) > 0)  |
-       (FindStringInLongString('arning' ,ligne) > 0)  |
-       (FindStringInLongString('<br />'  ,ligne) > 0) |
+    if (FindStringInLongString('ERROR'  ,ligne) > 0)  or
+       (FindStringInLongString('arning' ,ligne) > 0)  or
+       (FindStringInLongString('<br />'  ,ligne) > 0) or
        (FindStringInLongString('DOCTYPE'  ,ligne) > 0)
       then
         begin
@@ -882,57 +882,57 @@ begin
     // on parse la seconde ligne qui est souvent une information de prefetch
     err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
 
-    if (err2 = NoErr) & (LongStringBeginsWith('PREFETCH pos',ligne)) then
+    if (err2 = NoErr) and (LongStringBeginsWith('PREFETCH pos',ligne)) then
       begin
         PrefetchJobDuZoo(ligne);
         err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
       end;
 
-    if (err2 = NoErr) & (LongStringBeginsWith('PREFETCH pos',ligne)) then
+    if (err2 = NoErr) and (LongStringBeginsWith('PREFETCH pos',ligne)) then
       begin
         PrefetchJobDuZoo(ligne);
         err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
       end;
 
-    if (err2 = NoErr) & (LongStringBeginsWith('PREFETCH pos',ligne)) then
+    if (err2 = NoErr) and (LongStringBeginsWith('PREFETCH pos',ligne)) then
       begin
         PrefetchJobDuZoo(ligne);
         err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
       end;
 
-    if (err2 = NoErr) & (LongStringBeginsWith('NO PREFETCH',ligne)) then
+    if (err2 = NoErr) and (LongStringBeginsWith('NO PREFETCH',ligne)) then
       err2 := ReadlnLongStringDansFichierAbstrait(fic, ligne, true);
 
     // on parse les resultats des lignes suivantes pour les requetes multiples
     // ADD_AND_GET_RESULTS, STILL_INCHARGE_AND_GET_RESULTS et GET_WORK_AND_GET_RESULTS
 
-    if (err2 = NoErr) &
-       ((LongStringBeginsWith('CALCULATED '          ,ligne))  |
-        (LongStringBeginsWith('INCHARGE '            ,ligne))  |
-        (LongStringBeginsWith('PREFETCHED '          ,ligne))  |
-        (LongStringBeginsWith('COULDNTSOLVE '        ,ligne))  |
-        (LongStringBeginsWith('DELETED '             ,ligne))  |
+    if (err2 = NoErr) and
+       ((LongStringBeginsWith('CALCULATED '          ,ligne))  or
+        (LongStringBeginsWith('INCHARGE '            ,ligne))  or
+        (LongStringBeginsWith('PREFETCHED '          ,ligne))  or
+        (LongStringBeginsWith('COULDNTSOLVE '        ,ligne))  or
+        (LongStringBeginsWith('DELETED '             ,ligne))  or
         (LongStringBeginsWith('ERROR_TIMED_OUT '     ,ligne)))
       then ParserLesResultatsDuZoo(ligne, fic);
 
-    if (err2 = NoErr) &
-       ((LongStringBeginsWith('STOPPED '  ,ligne)) |
+    if (err2 = NoErr) and
+       ((LongStringBeginsWith('STOPPED '  ,ligne)) or
         (LongStringBeginsWith('COULD_NOT_STOP '    ,ligne)))
       then ParserLesPositionStoppeesDuZoo(ligne, fic);
 
-    if (err2 = NoErr) &
+    if (err2 = NoErr) and
        (LongStringBeginsWith('STILL USEFUL ', ligne))
       then ParserLesPrefetchEncoreUtiles(ligne, fic);
 
-    if (err2 = NoErr) &
+    if (err2 = NoErr) and
       (LongStringBeginsWith('NO JOB', ligne))
       then SetZooStatus('SEEKING_JOB');
 
-    if (err2 = NoErr) &
+    if (err2 = NoErr) and
       (LongStringBeginsWith('STILL INCHARGE true', ligne))
       then TraiterPositionInchargeDuZoo(ligne);
 
-    if (err2 = NoErr) &
+    if (err2 = NoErr) and
        (LongStringBeginsWith('STILL INCHARGE false', ligne))
       then
         begin
@@ -940,16 +940,16 @@ begin
             then EnvoyerUneRequetePourVerifierLeCacheDesPrefetch;
         end;
 
-    if (err2 = NoErr) &
+    if (err2 = NoErr) and
        (LongStringBeginsWith('PLEASE EMPTY CACHE', ligne))
       then
         begin
           {ViderLesCachesPourLeZoo;}
         end;
 
-    if (err2 = NoErr) &
-       ((FindStringInLongString('ERROR'  ,ligne) > 0)  |
-        (FindStringInLongString('arning' ,ligne) > 0)  |
+    if (err2 = NoErr) and
+       ((FindStringInLongString('ERROR'  ,ligne) > 0)  or
+        (FindStringInLongString('arning' ,ligne) > 0)  or
         (FindStringInLongString('<br />'  ,ligne) > 0))
       then
         begin
@@ -965,32 +965,32 @@ end;
 
 procedure AfficherEtatDuZooDansFenetreGestionDuTemps(s : String255);
 begin
-  if (s <> '') & (Pos('....',s) <> 1)
+  if (s <> '') and (Pos('....',s) <> 1)
     then
       begin
 
         (*
-        if (Pos('<br />',s) <> 1) &
-           (Pos('NO JOB',s) = 0) &
-           (Pos('STILL INCHARGE',s) = 0) &
-           (Pos('STILL USEFUL ',s) = 0) &
-           (Pos('NO NEW RESULT',s) = 0) &
-           (Pos('CALCULATED',s) = 0) &
-           (Pos('INCHARGE',s) = 0) &
-           (Pos('COULDNTSOLVE',s) = 0) &
-           (Pos('ADD : OK',s) = 0) &
-           (Pos('ASKER_TAKES_IT : OK',s) = 0) &
-           (Pos(' : OK',s) = 0) &
-           (Pos('PREFETCHED pos',s) = 0) &
-           (Pos('STOPPED ',s) = 0) &
-           (Pos('DELETED ',s) = 0) &
-           (Pos('COULD_NOT_STOP ',s) = 0) &
-           (Pos('PREFETCH pos',s) = 0) &
-           (Pos('NO PREFETCH',s) = 0) &
-           (Pos('SEND_SCORE : OK',s) = 0) &
-           (Pos('JOB pos',s) = 0) &
-           (Pos('RESET_STATUS : pos',s) = 0) &
-           (Pos('RESET_STATUS : OK',s) = 0) &
+        if (Pos('<br />',s) <> 1) and
+           (Pos('NO JOB',s) = 0) and
+           (Pos('STILL INCHARGE',s) = 0) and
+           (Pos('STILL USEFUL ',s) = 0) and
+           (Pos('NO NEW RESULT',s) = 0) and
+           (Pos('CALCULATED',s) = 0) and
+           (Pos('INCHARGE',s) = 0) and
+           (Pos('COULDNTSOLVE',s) = 0) and
+           (Pos('ADD : OK',s) = 0) and
+           (Pos('ASKER_TAKES_IT : OK',s) = 0) and
+           (Pos(' : OK',s) = 0) and
+           (Pos('PREFETCHED pos',s) = 0) and
+           (Pos('STOPPED ',s) = 0) and
+           (Pos('DELETED ',s) = 0) and
+           (Pos('COULD_NOT_STOP ',s) = 0) and
+           (Pos('PREFETCH pos',s) = 0) and
+           (Pos('NO PREFETCH',s) = 0) and
+           (Pos('SEND_SCORE : OK',s) = 0) and
+           (Pos('JOB pos',s) = 0) and
+           (Pos('RESET_STATUS : pos',s) = 0) and
+           (Pos('RESET_STATUS : OK',s) = 0) and
            (Pos('WARNING for RESET_STATUS ',s) = 0)
           then
             begin
@@ -1059,7 +1059,7 @@ begin
 
 
 
-      if (numeroDansReserve >= 0) & (numeroDansReserve <= kNumberOfAsynchroneNetworkConnections)
+      if (numeroDansReserve >= 0) and (numeroDansReserve <= kNumberOfAsynchroneNetworkConnections)
         then
           begin
             { recuperons l'url de la requete}
@@ -1081,7 +1081,7 @@ begin
       *)
 
 
-      if (err = NoErr) & (networkError <> 0) then
+      if (err = NoErr) and (networkError <> 0) then
           err := networkError;
 
 
@@ -1096,7 +1096,7 @@ begin
           // on relance la requete (ceci peur arriver si la base mySQL n'a pas pu traiter
           // la requete a cause d'un nombre de connexions simultanées trop grand chez Free ou Sivit).
 
-          if mustResendRequest & (FindStringInLongString('&retry=1',url) <= 0) then
+          if mustResendRequest and (FindStringInLongString('&retry=1',url) <= 0) then
             begin
               // WritelnDansRapport(url);
               // WritelnDansRapport('SQL server overloaded => retrying...');
@@ -1185,7 +1185,7 @@ var fic : t_LocalFichierAbstraitPtr;
             err := SetPositionMarqueurFichierAbstrait(fic^, 0);
             repeat
               err := ReadlnLongStringDansFichierAbstrait(fic^, s, true);
-            until (err <> NoErr) | not(LongStringIsEmpty(s)) ;
+            until (err <> NoErr) or not(LongStringIsEmpty(s)) ;
 
 
             if not(LongStringIsEmpty(s)) then
@@ -1224,7 +1224,7 @@ begin
 
   err := -1;
 
-  if (theFile <> NIL) & (buffer <> NIL) then
+  if (theFile <> NIL) and (buffer <> NIL) then
     begin
       fic  := t_LocalFichierAbstraitPtr(theFile);
       texte := PackedArrayOfCharPtr(buffer);
@@ -1254,7 +1254,7 @@ begin
 
         SerialiserFichierAbstrait;
 
-      until not(endOfMessageWasFound) | (received >= lenBuffer) | (err <> NoErr);
+      until not(endOfMessageWasFound) or (received >= lenBuffer) or (err <> NoErr);
 
 
       (*
@@ -1286,11 +1286,11 @@ begin
       err := ViderFichierAbstrait(fic^);
       numeroDansReserve := fic^.refCon;
 
-      if (numeroDansReserve >= 0) & (numeroDansReserve <= kNumberOfAsynchroneNetworkConnections)
+      if (numeroDansReserve >= 0) and (numeroDansReserve <= kNumberOfAsynchroneNetworkConnections)
         then LibereSlotDansLaReservePourTelecharger(numeroDansReserve)
         else WritelnNumDansRapport('ASSERT dans LibererMemoireConnectionPermanenteAuZoo !! numeroDansReserve = ',numeroDansReserve);
 
-      if (err = NoErr) & (networkError <> 0) then  err := networkError;
+      if (err = NoErr) and (networkError <> 0) then  err := networkError;
     end;
 
   { WritelnDansRapport('Sortie de LibererMemoireConnectionPermanenteAuZoo');
@@ -1320,11 +1320,11 @@ begin
 
   status := 'RETIRED';
 
-  if CassioEstEnTrainDeCalculerPourLeZoo |
-     (CassioPeutDonnerDuTempsAuZoo & DemandeDeCalculPourLeZooDansLaFileLocale(job))
+  if CassioEstEnTrainDeCalculerPourLeZoo or
+     (CassioPeutDonnerDuTempsAuZoo and DemandeDeCalculPourLeZooDansLaFileLocale(job))
     then status := 'CALCULATING';
 
-  if Quitter | enRetour
+  if Quitter or enRetour
     then status := 'RETIRED';
 
   if CassioPeutDonnerDuTempsAuZoo
@@ -1340,7 +1340,7 @@ var statusReelSurLeZoo : String255;
     statutVouluParEtatDeCassio : String255;
 begin
 
-  if (interruptionReflexion <> pasdinterruption) & not(Quitter)
+  if (interruptionReflexion <> pasdinterruption) and not(Quitter)
     then exit(VerifierLeStatutDeCassioPourLeZoo);
 
 
@@ -1472,7 +1472,7 @@ begin
   if CassioEstEnTrainDeCalculerPourLeZoo         then exit(CassioPeutDonnerDuTempsAuZoo);
   if CassioEstEnTrainDeReflechir                 then exit(CassioPeutDonnerDuTempsAuZoo);
   if EnModeEntreeTranscript                      then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnModeSolitaire & not(HumCtreHum)  then exit(CassioPeutDonnerDuTempsAuZoo);
+  if CassioEstEnModeSolitaire and not(HumCtreHum)  then exit(CassioPeutDonnerDuTempsAuZoo);
   if CassioEstEnRechercheSolitaire               then exit(CassioPeutDonnerDuTempsAuZoo);
   if CassioEstEnTrainDePlaquerUnSolitaire        then exit(CassioPeutDonnerDuTempsAuZoo);
   if CassioIsWaitingAnEngineResult               then exit(CassioPeutDonnerDuTempsAuZoo);
@@ -1481,7 +1481,7 @@ begin
   if enRetour                                    then exit(CassioPeutDonnerDuTempsAuZoo);
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if not(CassioIsUsingAnEngine(numero))          then exit(CassioPeutDonnerDuTempsAuZoo);
-  if (GetEngineState = 'ENGINE_KILLED') &
+  if (GetEngineState = 'ENGINE_KILLED') and
      (DateOfLastStartOfEngine < TickCount - 200) then exit(CassioPeutDonnerDuTempsAuZoo);
   {$ENDC}
 
@@ -1505,7 +1505,7 @@ begin
   GetConfigurationCouranteDeCassio(config);
   if TypeDeCalculLanceParCassioDansCetteConfiguration(config) = k_AUCUN_CALCUL
     then CassioPeutDonnerDuTempsAuZoo := true
-    else CassioPeutDonnerDuTempsAuZoo := (jeuInstantane & (NiveauJeuInstantane < NiveauGrandMaitres) & (nbreCoup <= 40));
+    else CassioPeutDonnerDuTempsAuZoo := (jeuInstantane and (NiveauJeuInstantane < NiveauGrandMaitres) and (nbreCoup <= 40));
 
   Discard(numero);
 
@@ -1590,7 +1590,7 @@ begin
   with gZoo do
     begin
 
-      if FALSE &
+      if FALSE and
         ((TickCount - dateDernierPoussageDeRequete) >= intervallePoussageDeRequete) then
         if TrouverSlotLibreDansLaReservePourTelecharger(numeroLibre) then
           with gReserveZonesPourTelecharger.table[numeroLibre] do
@@ -1598,7 +1598,7 @@ begin
 
               requestSent := false;
 
-              if (numeroLibre >= 0) & (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
+              if (numeroLibre >= 0) and (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
                 begin
 
                   randomURL := MakeLongString('http://foo.random'+NumEnString(abs(RandomLongint))+'.bar' + '?rand=' + NumEnString(abs(RandomLongint)));
@@ -1608,7 +1608,7 @@ begin
 
                   err := ViderFichierAbstrait(petitFichierTampon);
 
-                  if FichierAbstraitEstCorrect(petitFichierTampon) & (err = NoErr)
+                  if FichierAbstraitEstCorrect(petitFichierTampon) and (err = NoErr)
                     then
                       begin
                         {WritelnDansRapport(randomURL);}
@@ -1647,7 +1647,7 @@ begin
 
   with gZoo do
     begin
-      if requeteDePoussageNecessaire &
+      if requeteDePoussageNecessaire and
          ((TickCount - dateDernierPoussageDeRequete) >= intervallePoussageDeRequete) then
         begin
           EnvoyerUneRequeteDePoussageAuZoo;
@@ -1744,7 +1744,7 @@ begin
 
             requestSent := false;
 
-            if (numeroLibre >= 0) & (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
+            if (numeroLibre >= 0) and (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
               begin
 
                 if FindStringInLongString('rand=', requete) <= 0 then
@@ -1757,7 +1757,7 @@ begin
 
                 err := ViderFichierAbstrait(petitFichierTampon);
 
-                if FichierAbstraitEstCorrect(petitFichierTampon) & (err = NoErr)
+                if FichierAbstraitEstCorrect(petitFichierTampon) and (err = NoErr)
                   then
                     begin
                       DownloadURLToFichierAbstrait(numeroLibre, requete, petitFichierTampon, AcknowledgementOfZooTransaction);
@@ -1847,7 +1847,7 @@ begin
   with gZoo, zooJob.params, zooJob.params.outResult do
     begin
 
-      if (score >= -64) & (score <= 64)
+      if (score >= -64) and (score <= 64)
         then
           begin
 
@@ -1856,10 +1856,10 @@ begin
 
             InitLongString(requete);
 
-            if not(CassioEstEnTrainDeCalculerPourLeZoo) &
-               CassioPeutDonnerDuTempsAuZoo &
-               not(DemandeDeCalculPourLeZooDansLaFileLocale(job)) &
-               JobIsEmpty(gZoo.jobPrefetched) &
+            if not(CassioEstEnTrainDeCalculerPourLeZoo) and
+               CassioPeutDonnerDuTempsAuZoo and
+               not(DemandeDeCalculPourLeZooDansLaFileLocale(job)) and
+               JobIsEmpty(gZoo.jobPrefetched) and
                JobIsEmpty(GetPrefetchImportantPasEncoreCalcule)
               then
                 begin
@@ -1882,13 +1882,13 @@ begin
             // on met les resultats (score, suite, etc) dans l'url de la reponse
             AppendToLongString(requete, '&score=' + NumEnString(score));
 
-            if (outBestMoveFinale >= 11) &
-               (outBestMoveFinale <= 88) &
+            if (outBestMoveFinale >= 11) and
+               (outBestMoveFinale <= 88) and
                (inPositionPourFinale[outBestMoveFinale] = pionVide)
                then
                   begin
 
-                    if (LENGTH_OF_STRING(outLineFinale) >= 4) & (CoupEnStringEnMajuscules(outBestMoveFinale) = LeftOfString(outLineFinale,2))
+                    if (LENGTH_OF_STRING(outLineFinale) >= 4) and (CoupEnStringEnMajuscules(outBestMoveFinale) = LeftOfString(outLineFinale,2))
                       then
                         //AppendToLongString(requete, '&moves=' + LeftOfString(outLineFinale,20))  // on n'envoie que 10 coups de la suite :-(
                         //AppendToLongString(requete, '&moves=' + outLineFinale + 'Lessanglotslongsdesviolonsdelautomneblessentmoncoeurdunelangueurmonotone')
@@ -1896,8 +1896,8 @@ begin
                       else
                         begin
                           AppendToLongString(requete, '&moves=' + CoupEnStringEnMajuscules(outBestMoveFinale));
-                          if (outBestDefenseFinale >= 11) &
-                             (outBestDefenseFinale <= 88) &
+                          if (outBestDefenseFinale >= 11) and
+                             (outBestDefenseFinale <= 88) and
                              (inPositionPourFinale[outBestDefenseFinale] = pionVide) then
                              AppendToLongString(requete, CoupEnStringEnMajuscules(outBestDefenseFinale));
                         end;
@@ -2041,7 +2041,7 @@ begin
   empty1 := LongStringIsEmpty(job1);
   empty2 := LongStringIsEmpty(job2);
 
-  if (empty1 & empty2) then
+  if (empty1 and empty2) then
     begin
       SameJobs := true;
       exit(SameJobs);
@@ -2057,14 +2057,14 @@ begin
 
 
   // Les deux jobs sont-ils tous les deux un "PREFETCH" ?   ==>  comparer les chaines ...
-  if LongStringBeginsWith('PREFETCH ', job1) & LongStringBeginsWith('PREFETCH ', job2) then
+  if LongStringBeginsWith('PREFETCH ', job1) and LongStringBeginsWith('PREFETCH ', job2) then
     begin
       SameJobs := SameLongString(job1, job2);
       exit(SameJobs);
     end;
 
   // Les deux jobs sont-ils tous les deux un "JOB" ?   ==>  comparer les chaines ...
-  if LongStringBeginsWith('JOB ', job1) & LongStringBeginsWith('JOB ', job2) then
+  if LongStringBeginsWith('JOB ', job1) and LongStringBeginsWith('JOB ', job2) then
     begin
       SameJobs := SameLongString(job1, job2);
       exit(SameJobs);
@@ -2072,7 +2072,7 @@ begin
 
 
   //  Le cas le plus lent : un "JOB" et un "PREFETCH" : il faut remplacer PREFETCH par JOB et comparer les chaines...
-  if ((LongStringBeginsWith('JOB ', job1) & LongStringBeginsWith('PREFETCH ', job2)) | (LongStringBeginsWith('PREFETCH ', job1) & LongStringBeginsWith('JOB ', job2))) then
+  if ((LongStringBeginsWith('JOB ', job1) and LongStringBeginsWith('PREFETCH ', job2)) or (LongStringBeginsWith('PREFETCH ', job1) and LongStringBeginsWith('JOB ', job2))) then
     begin
 
       aux1 := CopyLongString(job1);
@@ -2103,7 +2103,7 @@ begin
   cut    := ReplaceStringByStringInString('%','',cut);
   selectivite := ChaineEnLongint(cut);
 
-  if (selectivite <= 0) | (selectivite >= 100) then selectivite := 100;
+  if (selectivite <= 0) or (selectivite >= 100) then selectivite := 100;
 
   mu := '0,'+NumEnString(kDeltaFinaleInfini);
 
@@ -2190,8 +2190,8 @@ begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   HashValueDuZooEstCorrecte := (SInt64(hash) > 0);
   {$ELSEC}
-  HashValueDuZooEstCorrecte := ((hash.hi <> 0) | (hash.lo <> 0))
-                               & (BAnd(hash.hi,$80000000) = 0);
+  HashValueDuZooEstCorrecte := ((hash.hi <> 0) or (hash.lo <> 0))
+                               and (BAnd(hash.hi,$80000000) = 0);
   {$ENDC}
 end;
 
@@ -2203,7 +2203,7 @@ begin
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(SExcuserAupresDuZooPourLaPositionPrefetched);
 
   if not(JobIsEmpty(gZoo.jobPrefetched))
-     & PeutParserDemandeDeJob(gZoo.jobPrefetched, params) then
+     and PeutParserDemandeDeJob(gZoo.jobPrefetched, params) then
     begin
       EndgameSearchParamToZooJob(params, myJob);
       SExcuserAupresDuZooPourLaPositionPrefetched := SExcuserAupresDuZoo(myJob, reason);
@@ -2298,7 +2298,7 @@ begin
   mu := ProbCutStringDuZooEnMuString(cut);
 
 
-  if (action = 'JOB') | (action = 'PREFETCH') then
+  if (action = 'JOB') or (action = 'PREFETCH') then
     begin
 
       ViderSearchParams(searchParams);
@@ -2384,7 +2384,7 @@ begin
             then
               begin
                 // c'est un job de finale
-                if (inAlphaFinale >= -1) & (inBetaFinale <= 1)
+                if (inAlphaFinale >= -1) and (inBetaFinale <= 1)
                   then inTypeCalculFinale := ReflGagnant
                   else inTypeCalculFinale := ReflParfait;
               end
@@ -2398,7 +2398,7 @@ begin
           ViderSearchResults(outResult);
 
 
-          correct := CheckEndgameSearchParams(searchParams) & HashValueDuZooEstCorrecte(inHashValue);
+          correct := CheckEndgameSearchParams(searchParams) and HashValueDuZooEstCorrecte(inHashValue);
 
 
           (*
@@ -2476,9 +2476,9 @@ begin
       exit(PeutParserUnResultatDuZoo);
     end;
 
-  if (action = 'CALCULATED') |
-     (action = 'INCHARGE') |
-     (action = 'COULDNTSOLVE') |
+  if (action = 'CALCULATED') or
+     (action = 'INCHARGE') or
+     (action = 'COULDNTSOLVE') or
      (action = 'PREFETCHED') then
     begin
 
@@ -2583,12 +2583,12 @@ begin
           outResult.outBestDefenseFinale                 := k_ZOO_NOT_INITIALIZED_VALUE;
 
           coup := ScannerStringPourTrouverCoup(1,moves,k);
-          if (coup >= 11) & (coup <= 88) & (inPositionPourFinale[coup] = pionVide) then
+          if (coup >= 11) and (coup <= 88) and (inPositionPourFinale[coup] = pionVide) then
             begin
               outResult.outBestMoveFinale := coup;
 
               coup := ScannerStringPourTrouverCoup(k+2,moves,k);
-              if (coup >= 11) & (coup <= 88) & (inPositionPourFinale[coup] = pionVide)
+              if (coup >= 11) and (coup <= 88) and (inPositionPourFinale[coup] = pionVide)
                 then outResult.outBestDefenseFinale := coup;
 
             end;
@@ -2600,7 +2600,7 @@ begin
             then
               begin
                 // c'est un job de finale
-                if (inAlphaFinale >= -1) & (inBetaFinale <= 1)
+                if (inAlphaFinale >= -1) and (inBetaFinale <= 1)
                   then inTypeCalculFinale := ReflGagnant
                   else inTypeCalculFinale := ReflParfait;
               end
@@ -2651,7 +2651,7 @@ var params : MakeEndgameSearchParamRec;
     result : UInt64;
 begin
   if not(JobIsEmpty(gZoo.jobPrefetched))
-     & PeutParserDemandeDeJob(gZoo.jobPrefetched, params)
+     and PeutParserDemandeDeJob(gZoo.jobPrefetched, params)
     then
       begin
         EndgameSearchParamToZooJob(params, myJob);
@@ -2712,7 +2712,7 @@ end;
 
 function GetScoreDansCacheDesPositionsCalculees(index : SInt32; var meilleurCoup,meilleureDef : SInt32; var suite : String255) : SInt32;
 begin
-  if (index >= 1) & (index <= kTailleCacheDesPositionsCalculees)
+  if (index >= 1) and (index <= kTailleCacheDesPositionsCalculees)
     then
       begin
         GetScoreDansCacheDesPositionsCalculees := gCacheZooDesPositionsCalculees[index].score;
@@ -2783,7 +2783,7 @@ begin
 
   for k := 1 to kTailleCacheDesPrefetch do
     with gCacheDesPrefetch[k] do
-    if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) & not(JobIsEmpty(s)) then
+    if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) and not(JobIsEmpty(s)) then
       begin
 
         if (priority < worstPriority) then
@@ -2848,14 +2848,14 @@ begin
           end;
       end;
 
-   if (indexMinEndgame <> -1) & (profMinEndgame <= 64) & (profMinEndgame >= 0) then
+   if (indexMinEndgame <> -1) and (profMinEndgame <= 64) and (profMinEndgame >= 0) then
      begin
        index := indexMinEndgame;
        FindUnJobInutileDansCacheDesPrefetch := true;
        exit(FindUnJobInutileDansCacheDesPrefetch);
      end;
 
-   if (indexMinMilieu <> -1) & (profMinMilieu <= 64) & (profMinMilieu >= 0) then
+   if (indexMinMilieu <> -1) and (profMinMilieu <= 64) and (profMinMilieu >= 0) then
      begin
        index := indexMinMilieu;
        FindUnJobInutileDansCacheDesPrefetch := true;
@@ -2905,8 +2905,8 @@ begin
       if (k < 1)                       then k := k + kTailleCacheDesPrefetch;
 
       with gCacheDesPrefetch[k] do
-        if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) &
-           not(JobIsEmpty(s)) &  not(SameJobs(s, gZoo.jobEnCoursDeTraitement)) &
+        if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) and
+           not(JobIsEmpty(s)) and  not(SameJobs(s, gZoo.jobEnCoursDeTraitement)) and
            not(FindZooJobDansCacheDesPositionsCalculees(hashValue,foo)) then
           begin
 
@@ -2982,26 +2982,26 @@ begin
   // FIXME min ou max pour le milieu ?
 
 
-  if (indexMaxMilieu <> -1) & (profMaxMilieu >= 0) & (profMaxMilieu <= 64) then
+  if (indexMaxMilieu <> -1) and (profMaxMilieu >= 0) and (profMaxMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxMilieu].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
 
-  if (indexMinMilieu <> -1) & (profMinMilieu >= 0) & (profMinMilieu <= 64) then
+  if (indexMinMilieu <> -1) and (profMinMilieu >= 0) and (profMinMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinMilieu].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
 
 
-  if (indexMaxEndgame <> -1) & (profMaxEndgame >= 0) & (profMaxEndgame <= 64) then
+  if (indexMaxEndgame <> -1) and (profMaxEndgame >= 0) and (profMaxEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxEndgame].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
     end;
 
-  if (indexMinEndgame <> -1) & (profMinEndgame >= 0) & (profMinEndgame <= 64) then
+  if (indexMinEndgame <> -1) and (profMinEndgame >= 0) and (profMinEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinEndgame].s;
       exit(GetPrefetchImportantPasEncoreCalcule);
@@ -3025,8 +3025,8 @@ begin
 
   for k := 1 to kTailleCacheDesPrefetch do
     with gCacheDesPrefetch[k] do
-    if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) &
-       not(JobIsEmpty(s)) & not(FindZooJobDansCacheDesPositionsCalculees(hashValue,foo)) then
+    if (depth <> k_ZOO_NOT_INITIALIZED_VALUE) and
+       not(JobIsEmpty(s)) and not(FindZooJobDansCacheDesPositionsCalculees(hashValue,foo)) then
       begin
         inc(nbPositionDansCache);
 
@@ -3120,7 +3120,7 @@ end;
 
 function GetJobDansCacheDesPrefetch(index : SInt32) : LongString;
 begin
-  if (index >= 1) & (index <= kTailleCacheDesPrefetch)
+  if (index >= 1) and (index <= kTailleCacheDesPrefetch)
     then GetJobDansCacheDesPrefetch := gCacheDesPrefetch[index].s
     else GetJobDansCacheDesPrefetch := MakeLongString('');
 end;
@@ -3156,7 +3156,7 @@ begin
 
       affichageDansRapport := false;
 
-      if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
+      if affichageDansRapport or CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
           WritelnDansRapport('');
@@ -3178,11 +3178,11 @@ begin
 
       // ajuster les statistiques du zoo
       tempsRequete := (1.0*(TickCount - ticks) / 60.0);
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete)
+      if (params.outResult.outTimeTakenFinale >= 0.0) and (interruptionReflexion = pasdinterruption) and (params.outResult.outTimeTakenFinale > tempsRequete)
         then tempsRequete := params.outResult.outTimeTakenFinale;
       gZoo.tempsTotalDeCalculPourLeZoo := gZoo.tempsTotalDeCalculPourLeZoo + tempsRequete;
 
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) then
+      if (params.outResult.outTimeTakenFinale >= 0.0) and (interruptionReflexion = pasdinterruption) then
         begin
           gZoo.tempsTotalDesJobsUtilesPourLeZoo   := gZoo.tempsTotalDesJobsUtilesPourLeZoo   + params.outResult.outTimeTakenFinale;
           gZoo.tempsTotalDesJobsDeMilieuPourLeZoo := gZoo.tempsTotalDesJobsDeMilieuPourLeZoo + params.outResult.outTimeTakenFinale;
@@ -3190,7 +3190,7 @@ begin
       inc(gZoo.nbJobsMidgame);
 
 
-      if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
+      if affichageDansRapport or CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
           WritelnDansRapport('');
@@ -3229,7 +3229,7 @@ begin
 
       affichageDansRapport := false;
 
-      if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
+      if affichageDansRapport or CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
           WritelnDansRapport('');
@@ -3255,11 +3255,11 @@ begin
 
       // ajuster les statistiques du zoo
       tempsRequete := (1.0*(TickCount - ticks) / 60.0);
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) & (params.outResult.outTimeTakenFinale > tempsRequete)
+      if (params.outResult.outTimeTakenFinale >= 0.0) and (interruptionReflexion = pasdinterruption) and (params.outResult.outTimeTakenFinale > tempsRequete)
         then tempsRequete := params.outResult.outTimeTakenFinale;
       gZoo.tempsTotalDeCalculPourLeZoo := gZoo.tempsTotalDeCalculPourLeZoo + tempsRequete;
 
-      if (params.outResult.outTimeTakenFinale >= 0.0) & (interruptionReflexion = pasdinterruption) then
+      if (params.outResult.outTimeTakenFinale >= 0.0) and (interruptionReflexion = pasdinterruption) then
         begin
           gZoo.tempsTotalDesJobsUtilesPourLeZoo := gZoo.tempsTotalDesJobsUtilesPourLeZoo + params.outResult.outTimeTakenFinale;
           // nb de jobs de moins d'1/20 de seconde ?
@@ -3268,7 +3268,7 @@ begin
         end;
 
 
-      if affichageDansRapport | CassioEstEnTrainDeDebuguerLeZooEnLocal then
+      if affichageDansRapport or CassioEstEnTrainDeDebuguerLeZooEnLocal then
         begin
           BeginRapportPourZoo;
           WritelnDansRapport('');
@@ -3358,7 +3358,7 @@ begin
                 end;
 
 
-           if (score >= -64) & (score <= 64) & (interruptionReflexion = pasdinterruption)
+           if (score >= -64) and (score <= 64) and (interruptionReflexion = pasdinterruption)
              then
                begin
                  SetCassioEstEnTrainDeCalculerPourLeZoo(false, NIL);
@@ -3539,8 +3539,8 @@ var numero : SInt32;
 begin
 
   if CassioPeutDonnerDuTempsAuZoo
-     & CassioIsUsingAnEngine(numero)
-     & not(CassioIsWaitingAnEngineResult)
+     and CassioIsUsingAnEngine(numero)
+     and not(CassioIsWaitingAnEngineResult)
     then EngineEmptyHash;
 
   if CassioPeutDonnerDuTempsAuZoo then
@@ -3563,7 +3563,7 @@ var params : MakeEndgameSearchParamRec;
 begin
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(PrefetchJobDuZoo);
 
-  if not(JobIsEmpty(s)) & not(SameJobs(s , gZoo.jobPrefetched)) & not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) &
+  if not(JobIsEmpty(s)) and not(SameJobs(s , gZoo.jobPrefetched)) and not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) and
      PeutParserDemandeDeJob(s, params) then
     begin
 
@@ -3579,7 +3579,7 @@ begin
 
           if ((Abs(random) mod 10000) = 0) then {une chance sur dix mille de passer comme prochaine position evaluee}
             begin
-              if JobIsEmpty(gZoo.jobPrefetched) |
+              if JobIsEmpty(gZoo.jobPrefetched) or
                  SameJobs(gZoo.jobPrefetched , gZoo.jobEnCoursDeTraitement)
                 then gZoo.jobPrefetched := s;
             end;
@@ -3596,12 +3596,12 @@ var params : MakeEndgameSearchParamRec;
 begin
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(TraiterJobDuZoo);
 
-  if CassioPeutDonnerDuTempsAuZoo & not(CassioEstEnTrainDeCalculerPourLeZoo) &
-     (JobIsEmpty(gZoo.jobEnCoursDeTraitement) | SameJobs(gZoo.jobEnCoursDeTraitement , s))
+  if CassioPeutDonnerDuTempsAuZoo and not(CassioEstEnTrainDeCalculerPourLeZoo) and
+     (JobIsEmpty(gZoo.jobEnCoursDeTraitement) or SameJobs(gZoo.jobEnCoursDeTraitement , s))
     then
       begin
 
-        if not(JobIsEmpty(gZoo.jobEnCoursDeTraitement)) & not(SameJobs(gZoo.jobEnCoursDeTraitement , s)) then
+        if not(JobIsEmpty(gZoo.jobEnCoursDeTraitement)) and not(SameJobs(gZoo.jobEnCoursDeTraitement , s)) then
           begin
             BeginRapportPourZoo;
             WritelnDansRapport('ASSERT !!!  Impossible de traiter le job suivant : ');
@@ -3622,7 +3622,7 @@ begin
         c'est que les messages se sont croisés sur l'internet : mais comme on ne peut
         pas faire deux recherches en meme temps, on s'excuse auprès du zoo...}
 
-      if not(JobIsEmpty(s)) & not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) &
+      if not(JobIsEmpty(s)) and not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) and
          PeutParserDemandeDeJob(s, params) then
         begin
           EndgameSearchParamToZooJob(params, myJob);
@@ -3839,9 +3839,9 @@ begin
       requete := MakeLongString(urlDuZoo + '?action=STOP_ALL&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
 
       derniereRequete := GetDerniereRequeteEnvoyeeAuZoo;
-      if (GetZooStatus = 'RETIRED') &
-         (GetLastEtatDuReseauAffiche = 'RETIRED') &
-         ((TickCount - GetDateDerniereRequeteSurReseau) <= 200) &
+      if (GetZooStatus = 'RETIRED') and
+         (GetLastEtatDuReseauAffiche = 'RETIRED') and
+         ((TickCount - GetDateDerniereRequeteSurReseau) <= 200) and
          SameLongString(derniereRequete, requete) then
         exit(EnvoyerUneRequetePourArreterTousMesCalculsDuZoo);
 
@@ -3900,10 +3900,10 @@ begin
       WritelnNumDansRapport('gZoo.rechercheEnCours.inHashValue = ',gZoo.rechercheEnCours.inHashValue);
       }
 
-      if (action1 = 'STILL') &
-         (action2 = 'INCHARGE') &
-         (bool = 'false') &
-         Same64Bits(hashValue , HashDuCalculCourantDeCassioPourLeZoo) &
+      if (action1 = 'STILL') and
+         (action2 = 'INCHARGE') and
+         (bool = 'false') and
+         Same64Bits(hashValue , HashDuCalculCourantDeCassioPourLeZoo) and
          not(CassioEstEnTrainDeDebuguerLeZooEnLocal) then
         begin
           gZoo.positionChercheeADisparuDuZoo := true;
@@ -3913,9 +3913,9 @@ begin
           exit(DoitInterrompreCalculPourLeZoo);
         end;
 
-      if (action1 = 'STILL') &
-         (action2 = 'INCHARGE') &
-         (bool = 'false') &
+      if (action1 = 'STILL') and
+         (action2 = 'INCHARGE') and
+         (bool = 'false') and
          (hash = '') then
          begin
            // something got strange here...
@@ -3980,7 +3980,7 @@ begin
 
           SetZooStatus(status);
 
-          if (status = 'RETIRED') & (GetLastEtatDuReseauAffiche = 'NO JOB !')
+          if (status = 'RETIRED') and (GetLastEtatDuReseauAffiche = 'NO JOB !')
             then AfficheEtatDuReseau(status);
 
         end;
@@ -4001,9 +4001,9 @@ begin
   if CassioEstEnTrainDeCalculerPourLeZoo then
     with gZoo do
       begin
-        if ((TickCount - dateDerniereVerificationUtiliteCalculPourLeZoo) >= intervalleVerificationUtiliteCalculPourLeZoo) &
-           CheckEndgameSearchParams(rechercheEnCours.params) & not(positionChercheeADisparuDuZoo) &
-           (interruptionReflexion = pasdinterruption) & (ProfDuCalculCourantDeCassioPourLeZoo > 0) then
+        if ((TickCount - dateDerniereVerificationUtiliteCalculPourLeZoo) >= intervalleVerificationUtiliteCalculPourLeZoo) and
+           CheckEndgameSearchParams(rechercheEnCours.params) and not(positionChercheeADisparuDuZoo) and
+           (interruptionReflexion = pasdinterruption) and (ProfDuCalculCourantDeCassioPourLeZoo > 0) then
 
           begin
 
@@ -4085,7 +4085,7 @@ var s,s2 : LongString;
 begin
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(TransfererPositionPrefetchedDuZooDansLaFileLocale);
 
-  if JobIsEmpty(gZoo.jobEnCoursDeTraitement) &
+  if JobIsEmpty(gZoo.jobEnCoursDeTraitement) and
      not(JobIsEmpty(gZoo.jobPrefetched))
     then
       begin
@@ -4099,7 +4099,7 @@ begin
         exit(TransfererPositionPrefetchedDuZooDansLaFileLocale);
       end;
 
-  if JobIsEmpty(gZoo.jobEnCoursDeTraitement) &
+  if JobIsEmpty(gZoo.jobEnCoursDeTraitement) and
      JobIsEmpty(gZoo.jobPrefetched)
     then
       begin
@@ -4147,8 +4147,8 @@ begin
         WritelnStringAndBooleenDansRapport('DemandeDeCalculPourLeZooDansLaFileLocale = ',DemandeDeCalculPourLeZooDansLaFileLocale(job));
         *)
 
-        if not(CassioEstEnTrainDeCalculerPourLeZoo) &
-           CassioPeutDonnerDuTempsAuZoo &
+        if not(CassioEstEnTrainDeCalculerPourLeZoo) and
+           CassioPeutDonnerDuTempsAuZoo and
            not(DemandeDeCalculPourLeZooDansLaFileLocale(job)) then
              begin
                 {WritelnDansRapport('looking for jobs on the grid…');}
@@ -4182,9 +4182,9 @@ begin
 
   if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(BoucleDeLancementsDesCalculsLocauxPourLeZoo);
 
-  while not(CassioEstEnTrainDeCalculerPourLeZoo) &
-        CassioPeutDonnerDuTempsAuZoo &
-        DemandeDeCalculPourLeZooDansLaFileLocale(job) &
+  while not(CassioEstEnTrainDeCalculerPourLeZoo) and
+        CassioPeutDonnerDuTempsAuZoo and
+        DemandeDeCalculPourLeZooDansLaFileLocale(job) and
         not(Quitter) do
     with gZoo do
      begin
@@ -4208,9 +4208,9 @@ begin
        if (interruptionReflexion = interruptionPositionADisparuDuZoo) then
          begin
            EnleveCetteInterruption(interruptionPositionADisparuDuZoo);
-           if not(CassioEstEnTrainDeCalculerPourLeZoo) &
-              CassioPeutDonnerDuTempsAuZoo &
-              DemandeDeCalculPourLeZooDansLaFileLocale(job) &
+           if not(CassioEstEnTrainDeCalculerPourLeZoo) and
+              CassioPeutDonnerDuTempsAuZoo and
+              DemandeDeCalculPourLeZooDansLaFileLocale(job) and
               not(Quitter)
             then
               begin

@@ -131,7 +131,7 @@ var i,n : SInt16;
 begin
   finDePartie := finDePartieVitesseMac;
   finDePartieOptimale := finDePartieOptimaleVitesseMac;
-  if jeuInstantane & not(enTournoi)
+  if jeuInstantane and not(enTournoi)
    then
     begin
       finDePartie := finDePartie+5;
@@ -143,7 +143,7 @@ begin
         end;
     end
    else
-    if (GetCadence = minutes3) & not(enTournoi) then
+    if (GetCadence = minutes3) and not(enTournoi) then
       begin
         finDePartie := finDePartie+1;
         finDePartieOptimale := finDePartieOptimale+3;
@@ -153,7 +153,7 @@ begin
       i := 0;
       repeat
         i := i+1;
-      until (GetNiemeCoupPartieCourante(i) <> coupInconnu) | (i >= 60);
+      until (GetNiemeCoupPartieCourante(i) <> coupInconnu) or (i >= 60);
       if i > nbreCoup then i := nbreCoup;
       finDePartie := i-2;
       finDePartieOptimale := i-2;
@@ -177,7 +177,7 @@ procedure DoChangeHumCtreHum;
 begin
   HumCtreHum := not(HumCtreHum);
   DessineIconesChangeantes;
-  if afficheSuggestionDeCassio & HumCtreHum then EffaceSuggestionDeCassio;
+  if afficheSuggestionDeCassio and HumCtreHum then EffaceSuggestionDeCassio;
   AjusteSleep;
   if HumCtreHum then MyDisableItem(PartieMenu,ForceCmd);
   AfficheDemandeCoup;
@@ -201,7 +201,7 @@ begin
   DessineIconesChangeantes;
 
   if afficheSuggestionDeCassio then EffaceSuggestionDeCassio;
-  if not(HumCtreHum) & (AQuiDeJouer <> couleurMacintosh)
+  if not(HumCtreHum) and (AQuiDeJouer <> couleurMacintosh)
      then
        begin
          MyDisableItem(PartieMenu,ForceCmd);
@@ -217,10 +217,10 @@ begin
    begin
     if nbreCoup < finDePartie then
       begin
-        if not(selectedByMenu) | PeutArreterAnalyseRetrograde then
+        if not(selectedByMenu) or PeutArreterAnalyseRetrograde then
           begin
             finDePartie := nbreCoup;
-            if selectedByMenu & (finDePartie >= 2) then dec(finDePartie);
+            if selectedByMenu and (finDePartie >= 2) then dec(finDePartie);
 
             if finDePartie > finDePartieOptimale then finDePartieOptimale := finDePartie;
             InterruptionCarPhasePartieChange;
@@ -230,10 +230,10 @@ begin
       begin
        if nbreCoup >= finDePartieOptimale then
          begin
-           if not(selectedByMenu) | PeutArreterAnalyseRetrograde then
+           if not(selectedByMenu) or PeutArreterAnalyseRetrograde then
              begin
                finDePartieOptimale := nbreCoup + 1;
-               if selectedByMenu & (finDePartieOptimale <= 59) then inc(finDePartieOptimale);
+               if selectedByMenu and (finDePartieOptimale <= 59) then inc(finDePartieOptimale);
 
                if finDePartie > finDePartieOptimale then finDePartieOptimale := finDePartie;
                InterruptionCarPhasePartieChange;
@@ -250,14 +250,14 @@ begin
  if (60-nbreCoup) <= kNbMaxNiveaux-2 then
   begin
     finDePartieOptTest := nbreCoup;
-    if not(HumCtreHum) & (AQuiDeJouer = -couleurMacintosh) then
+    if not(HumCtreHum) and (AQuiDeJouer = -couleurMacintosh) then
       finDePartieOptTest := nbreCoup-1;
 
     if (finDePartieOptTest < finDePartieOptimale)  then
       begin
-        if not(selectedByMenu) | PeutArreterAnalyseRetrograde then
+        if not(selectedByMenu) or PeutArreterAnalyseRetrograde then
           begin
-            if selectedByMenu & (finDePartieOptTest <= 59) then dec(finDePartieOptTest);
+            if selectedByMenu and (finDePartieOptTest <= 59) then dec(finDePartieOptTest);
 
             finDePartieOptimale := finDePartieOptTest;
             if (finDePartie > finDePartieOptimale) then finDePartie := finDePartieOptimale;
@@ -283,10 +283,10 @@ procedure DoMilieuDeJeu(selectedByMenu : boolean);
   begin
     if (nbreCoup >= finDePartie) then
       begin
-        if not(selectedByMenu) | PeutArreterAnalyseRetrograde then
+        if not(selectedByMenu) or PeutArreterAnalyseRetrograde then
           begin
             finDePartie := nbreCoup+1;
-            if (selectedByMenu) & (finDePartie <= 59) then inc(finDePartie);
+            if (selectedByMenu) and (finDePartie <= 59) then inc(finDePartie);
 
             if (finDePartie > finDePartieOptimale) then finDePartieOptimale := finDePartie;
             InterruptionCarPhasePartieChange;

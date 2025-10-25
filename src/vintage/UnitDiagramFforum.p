@@ -165,7 +165,7 @@ end;
 
 function DiagrammeDoitCreerVersionEPS : boolean;
 begin
-  DiagrammeDoitCreerVersionEPS := (tailleVersionOthello.h = 8) & gInfosDiagrammeFforumEPS.doitCreerEPS;
+  DiagrammeDoitCreerVersionEPS := (tailleVersionOthello.h = 8) and gInfosDiagrammeFforumEPS.doitCreerEPS;
 end;
 
 
@@ -213,10 +213,10 @@ begin
 
       fontID := ParamDiagCourant.PoliceFForumID;
 
-      if (str = '') & (str1 = '') & (fontID <> GetCassioFontNum('New Century Schoolbook Roman')) then
+      if (str = '') and (str1 = '') and (fontID <> GetCassioFontNum('New Century Schoolbook Roman')) then
         exit(PrintLegendeDiagrammeForEPSFile);
 
-      if (fontID = GetCassioFontNum('Baskerville')) | (fontID = GetCassioFontNum('Fontin Regular')) then
+      if (fontID = GetCassioFontNum('Baskerville')) or (fontID = GetCassioFontNum('Fontin Regular')) then
         begin
           ReplaceCharByCharInString(str,'-',' ');
           ReplaceCharByCharInString(str1,'-',' ');
@@ -554,7 +554,7 @@ begin
 
 
   // pour les diagrammes de partie, on enleve les scores et les initiales de prenoms
-  if (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePartie) |
+  if (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePartie) or
      (ParamDiagCourant.typeDiagrammeFFORUM = DiagrammePourListe) then
     begin
       legende := EnleverTousLesChiffres(legende);                                    // pour enlever les scores
@@ -733,7 +733,7 @@ begin
       begin
         aux := othellier[t];
         if (chainePositionInitiale[t] = 'X') then plat[aux] := pionNoir else
-        if (chainePositionInitiale[t] = 'O') |
+        if (chainePositionInitiale[t] = 'O') or
            (chainePositionInitiale[t] = '0') then plat[aux] := pionBlanc;
       end;
   chainePositionInitiale := '';
@@ -779,7 +779,7 @@ begin
 					  if EcritApres37c7FFORUM
 					  then
 							begin
-							  if (nbreCoup >= 1) & (DerniereCaseJouee <> coupInconnu) then
+							  if (nbreCoup >= 1) and (DerniereCaseJouee <> coupInconnu) then
 							    begin
 								    str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
 								    str := ParamStr(str, '', '', '', '');
@@ -822,8 +822,8 @@ begin
   n := 0;
   len := LENGTH_OF_STRING(chaineCoups);
   for i := 1 to 126 do
-    if (2*i <= len) &
-       ((chaineCoups[2*i-1] = 'N') | (chaineCoups[2*i-1] = 'B'))
+    if (2*i <= len) and
+       ((chaineCoups[2*i-1] = 'N') or (chaineCoups[2*i-1] = 'B'))
       then n := i;
   NbreCoupsDansChaineCoups := n;
 end;
@@ -944,7 +944,7 @@ begin
 			DessineCoinsDuCarreFFORUM := false;
 			DessinePierresDeltaFFORUM := true;
 			EcritApres37c7FFORUM := false;
-			if (CommentPositionFFORUM^^ = '') & (nbreCoup >= 1) then
+			if (CommentPositionFFORUM^^ = '') and (nbreCoup >= 1) then
 				if DerniereCaseJouee <> coupInconnu then
 					begin
 						str := NumEnString(nbreCoup);
@@ -1039,7 +1039,7 @@ begin
 		  largeurTexteSousLeDiagramme := LargeurTexteSousDiagrammeFFORUM;
 		  largeurDiagrammeProjetee := (decalageH + TaillecaseFFORUM * tailleVersionOthello.h + decalagePourLeCadre + BlancADroiteDiagrammeFFORUM);
 
-		  if (largeurTexteSousLeDiagramme > largeurDiagrammeProjetee) & (typeDiagrammeFFORUM <> DiagrammePourListe)
+		  if (largeurTexteSousLeDiagramme > largeurDiagrammeProjetee) and (typeDiagrammeFFORUM <> DiagrammePourListe)
 		    then decalageH := decalageH + (largeurTexteSousLeDiagramme-largeurDiagrammeProjetee) div 2;
 
 
@@ -1048,7 +1048,7 @@ begin
 			else
 				decalageV := RoundToL(epaisseurCadreFFORUM) + distanceCadreFFORUM;
 				
-			if (typeDiagrammeFFORUM = DiagrammePourListe) & EcritNomTournoiFFORUM then
+			if (typeDiagrammeFFORUM = DiagrammePourListe) and EcritNomTournoiFFORUM then
 				decalageV := decalageV + ((3 * TaillecaseFFORUM) div 4);
 				
 		end;  {with}
@@ -1155,7 +1155,7 @@ begin
 				end;
 				
 
-			if (str <> '') | (str1 <> '')
+			if (str <> '') or (str1 <> '')
 			  then
 					begin
 						TextFont(PoliceFForumID);
@@ -1271,7 +1271,7 @@ begin
 			TextMode(1);
 			TextFace(normal);
 
-			if PionsEnDedansFFORUM & odd(nbPixelDedansFFORUM) then
+			if PionsEnDedansFFORUM and odd(nbPixelDedansFFORUM) then
 				TranslatePourPostScript(0.5, 0.5);
 
 			if epaisseurCadreFFORUM > 0.0 then
@@ -1298,7 +1298,7 @@ begin
 			                decalageVertFFORUM + decalageV + tailleVersionOthello.v * TaillecaseFFORUM + 1);
 
 
-			if (couleurOthellierFFORUM <> kCouleurDiagramTransparent) & (FondOthellierPatternFFORUM <> kTranslucidPattern) then
+			if (couleurOthellierFFORUM <> kCouleurDiagramTransparent) and (FondOthellierPatternFFORUM <> kTranslucidPattern) then
 				begin
 					case couleurOthellierFFORUM of
 						kCouleurDiagramTransparent:
@@ -1444,7 +1444,7 @@ begin
 					RGBForeColor(gPurNoir);
 				end;
 				
-			if DessineCoinsDuCarreFFORUM & (tailleVersionOthello.h >= 4) & (tailleVersionOthello.v >= 4) then
+			if DessineCoinsDuCarreFFORUM and (tailleVersionOthello.h >= 4) and (tailleVersionOthello.v >= 4) then
 				begin
 				  PrintForEPSFile(' board_marks');
 				
@@ -1475,7 +1475,7 @@ begin
 					PenSize(1, 1);
 				end;
 
-			if PionsEnDedansFFORUM & odd(nbPixelDedansFFORUM) then
+			if PionsEnDedansFFORUM and odd(nbPixelDedansFFORUM) then
 				UnTranslatePourPostScript(0.5, 0.5);
 		end;
   DisableQuartzAntiAliasingThisPort(qdThePort);
@@ -1562,7 +1562,7 @@ begin
 				for j := 1 to tailleVersionOthello.h do
 					begin
 					  inc(aux);
-						if (aux <= nbreCasesPosition) & (chainePosition[aux] <> '.') then
+						if (aux <= nbreCasesPosition) and (chainePosition[aux] <> '.') then
 							begin
 								a := decalageHorFFORUM + decalageH + j * TaillecaseFFORUM;
 								b := decalageVertFFORUM + decalageV + i * TaillecaseFFORUM;
@@ -1574,7 +1574,7 @@ begin
 								    DessinePionNoirDiagrammeFforum(unRect);
 								    PrintForEPSFile(' ' + CoupEnStringEnMajuscules(10 * i + j) + ' black_disc');
 								  end else
-								if (chainePosition[aux] = 'O') | (chainePosition[aux] = '0') then
+								if (chainePosition[aux] = 'O') or (chainePosition[aux] = '0') then
 									begin
 									  DessinePionBlancDiagrammeFforum(unRect);
 									  PrintForEPSFile(' ' + CoupEnStringEnMajuscules(10 * i + j) + ' white_disc');
@@ -1614,7 +1614,7 @@ begin
 						end;
 				end;
 		  DisableQuartzAntiAliasing;
-			if (str <> '') | (str1 <> '') then
+			if (str <> '') or (str1 <> '') then
 				begin
 					TextFont(PoliceFForumID);
 					TextSize(haut);
@@ -1630,7 +1630,7 @@ begin
 					    {justification au centre de l'othellier}
 					    a := decalageHorFFORUM  + decalageH + ((tailleVersionOthello.h * TaillecaseFFORUM) div 2) - (larg + larg1) div 2
 					  else
-					    if (BlancAGaucheDiagrammeFFORUM > 0) & (BlancADroiteDiagrammeFFORUM = 2)
+					    if (BlancAGaucheDiagrammeFFORUM > 0) and (BlancADroiteDiagrammeFFORUM = 2)
 					      then
 					        {justification à droite}
 					        a := decalageHorFFORUM  + (LargeurDiagrammeFFORUM - (larg + larg1))
@@ -1715,7 +1715,7 @@ begin
 								    DessinePionNoirDiagrammeFforum(unRect);
 								    PrintForEPSFile(' ' + CoupEnStringEnMajuscules(10 * j + i) + ' black_disc');
 								  end else
-								if (chainePositionInitiale[t] = 'O') | (chainePositionInitiale[t] = '0') then
+								if (chainePositionInitiale[t] = 'O') or (chainePositionInitiale[t] = '0') then
 									begin
 									  DessinePionBlancDiagrammeFforum(unRect);
 									  PrintForEPSFile(' ' + CoupEnStringEnMajuscules(10 * j + i) + ' white_disc');
@@ -1763,7 +1763,7 @@ begin
 
 										a := decalageH + i * TaillecaseFFORUM;
 										b := decalageV + j * TaillecaseFFORUM;
-										if (t >= 10) & (t <= 99) then
+										if (t >= 10) and (t <= 99) then
 											begin
 												str := NumEnString(platMod10[t]);
 												str1 := NumEnString(platDiv10[t]);
@@ -1826,13 +1826,13 @@ begin
                         DisableQuartzAntiAliasing;
 
 												TextMode(3);
-												if (PoliceFForumID = 0) & (haut >= 12) then
+												if (PoliceFForumID = 0) and (haut >= 12) then
 													TextFace(normal)        {Chicago est deja assez large}
 												else
 													TextFace(bold);
 											  if t >= 100 then TextFace(condense);
 
-												if (t >= 10) & (t <= 99) & (PoliceFForumID = NewYorkID) then  { New York }
+												if (t >= 10) and (t <= 99) and (PoliceFForumID = NewYorkID) then  { New York }
 													begin
 														str := NumEnString(platMod10[t]);
 														str1 := NumEnString(platDiv10[t]);
@@ -1887,7 +1887,7 @@ begin
 												if t >= 100
 												  then TextFace(condense)
 												  else TextFace(normal);
-												if (t >= 10) & (t <= 99) & (PoliceFForumID = NewYorkID) then
+												if (t >= 10) and (t <= 99) and (PoliceFForumID = NewYorkID) then
 													begin
 														str := NumEnString(platMod10[t]);
 														str1 := NumEnString(platDiv10[t]);
@@ -1925,8 +1925,8 @@ begin
 			str := '';
 			str1 := '';
 			if (titreFForum^^ <> '') then
-				if (typeDiagrammeFFORUM = DiagrammePartie) |
-				   ((typeDiagrammeFFORUM = DiagrammePourListe) & EcritNomsJoueursFFORUM) then
+				if (typeDiagrammeFFORUM = DiagrammePartie) or
+				   ((typeDiagrammeFFORUM = DiagrammePourListe) and EcritNomsJoueursFFORUM) then
 					begin
 						str := titreFForum^^;
 						aux := Pos('\b', str);
@@ -1936,7 +1936,7 @@ begin
 								str := TPCopy(str, 1, aux - 1);
 							end;
 					end;
-			if (str <> '') | (str1 <> '') then
+			if (str <> '') or (str1 <> '') then
 				begin
 					TextFont(PoliceFForumID);
 					TextSize(haut);
@@ -1954,7 +1954,7 @@ begin
 					    {justification au centre de l'othellier}
 					    a := decalageHorFFORUM  + decalageH + ((tailleVersionOthello.h * TaillecaseFFORUM) div 2) - (larg + larg1) div 2
 					  else
-					    if (BlancAGaucheDiagrammeFFORUM > 0) & (BlancADroiteDiagrammeFFORUM = 2)
+					    if (BlancAGaucheDiagrammeFFORUM > 0) and (BlancADroiteDiagrammeFFORUM = 2)
 					      then
 					        {justification à droite}
 					        a := decalageHorFFORUM  + (LargeurDiagrammeFFORUM - (larg + larg1))
@@ -1987,7 +1987,7 @@ begin
 					MyDrawString(GainTheoriqueFFORUM);
 				end;
 			if (CommentPositionFForum^^ <> '') then
-				if ((typeDiagrammeFFORUM = DiagrammePourListe) & EcritNomTournoiFFORUM) then
+				if ((typeDiagrammeFFORUM = DiagrammePourListe) and EcritNomTournoiFFORUM) then
 					begin
 						str := CommentPositionFForum^^;
 						larg := MyStringWidth(str) div 2;
@@ -2024,7 +2024,7 @@ function DoitDecalerRectPourQueLesDeltaSoientCentres(quellecase, genreDeMarqueSp
 		result : rect;
 begin
 	result := CalculeRectOfSquare2DDiagrammeFforum(quelleCase);
-	if not(odd(result.right - result.left)) &
+	if not(odd(result.right - result.left)) and
 	   InPropertyTypes(genreDeMarqueSpeciale,[LosangeWhiteProp, LosangeBlackProp, LosangeProp, DeltaWhiteProp, DeltaBlackProp, DeltaProp, LineProp, ArrowProp]) then
 		DoitDecalerRectPourQueLesDeltaSoientCentres := true
 	else
@@ -2068,8 +2068,8 @@ procedure DessinerPierresDeltaOfPropertyDiagrammeFforum(var prop : Property);
       var TraitMoyen,TraitFin,EstUnCercle : boolean;
       begin
           begin
-		        TraitMoyen  := InPropertyTypes(genre,[CarreWhiteProp, CarreBlackProp, CarreProp, ArrowProp, LineProp]) |
-		                      ((genre = MarkedPointsProp) & (GetCouleurOfSquareDansJeuCourant(square) = pionNoir));
+		        TraitMoyen  := InPropertyTypes(genre,[CarreWhiteProp, CarreBlackProp, CarreProp, ArrowProp, LineProp]) or
+		                      ((genre = MarkedPointsProp) and (GetCouleurOfSquareDansJeuCourant(square) = pionNoir));
 		        TraitFin   := not(TraitMoyen);
 		        EstUnCercle := InPropertyTypes(genre,[PetitCercleWhiteProp, PetitCercleBlackProp, PetitCercleProp]);
 
@@ -2094,8 +2094,8 @@ procedure DessinerPierresDeltaOfPropertyDiagrammeFforum(var prop : Property);
       var TraitMoyen,TraitFin,EstUnCercle : boolean;
       begin
           begin
-		        TraitMoyen  := InPropertyTypes(genre,[CarreWhiteProp, CarreBlackProp, CarreProp, ArrowProp, LineProp]) |
-		                      ((genre = MarkedPointsProp) & (GetCouleurOfSquareDansJeuCourant(square) = pionNoir));
+		        TraitMoyen  := InPropertyTypes(genre,[CarreWhiteProp, CarreBlackProp, CarreProp, ArrowProp, LineProp]) or
+		                      ((genre = MarkedPointsProp) and (GetCouleurOfSquareDansJeuCourant(square) = pionNoir));
 		        TraitFin   := not(TraitMoyen);
 		        EstUnCercle := InPropertyTypes(genre,[PetitCercleWhiteProp, PetitCercleBlackProp, PetitCercleProp]);
 
@@ -2254,7 +2254,7 @@ begin
 				
 		  SetDiagrammeDoitCreerVersionEPS(true);
 		
-		  if (MakeBufferPourDiagrammeEPS = NoErr) & (PeutOuvrirFichierEPSPourPressePapier(fichierEPS) = NoErr)
+		  if (MakeBufferPourDiagrammeEPS = NoErr) and (PeutOuvrirFichierEPSPourPressePapier(fichierEPS) = NoErr)
 		    then SetFichierPourDiagrammeEPS(fichierEPS)
 		    else SetDiagrammeDoitCreerVersionEPS(false);
 
@@ -2380,13 +2380,13 @@ procedure ConstruitPuce(numero : SInt16);
 						FillOval(unRect, blackPattern);
 
 						TextMode(3);
-						if(PoliceFForumID = 0) & (haut >= 12) then
+						if(PoliceFForumID = 0) and (haut >= 12) then
 							TextFace(normal)        {Chicago est deja assez large}
 						else
 							TextFace(bold);
 					  if numero >= 100 then TextFace(condense);
 
-						if (numero >= 10) & (numero <= 99) then
+						if (numero >= 10) and (numero <= 99) then
 							begin
 								str := NumEnString(platMod10[numero]);
 								str1 := NumEnString(platDiv10[numero]);
@@ -2420,7 +2420,7 @@ procedure ConstruitPuce(numero : SInt16);
 						  then TextFace(condense)
 						  else TextFace(normal);
 
-						if (numero >= 10) & (numero <= 99) then
+						if (numero >= 10) and (numero <= 99) then
 							begin
 								str := NumEnString(platMod10[numero]);
 								str1 := NumEnString(platDiv10[numero]);
@@ -2767,7 +2767,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 				case TypeDiagrammeFFORUM of
 					DiagrammePartie:
 						begin
-							if gameOver & not(scoreFinalDejaAfficheDansDialogue) then
+							if gameOver and not(scoreFinalDejaAfficheDansDialogue) then
 								begin
 									GetItemTextInDialog(dp, ExempleStaticText, s);
 									s1 := NumEnString(nbreDePions[pionNoir]);
@@ -2804,7 +2804,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 						end;
 				end;  {case}
 
-				if(nbPixelDedansFFORUM > 0) &(nbPixelDedansFFORUM < 100) then
+				if(nbPixelDedansFFORUM > 0) and(nbPixelDedansFFORUM < 100) then
 					s := NumEnString(nbPixelDedansFFORUM)
 				else
 					begin
@@ -2828,23 +2828,23 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 				if not(EventAvail(keydownmask + autokeymask, theEvent)) then
 					if tailleCaseFFORUM >= 8 then
 						begin
-							if( tailleCaseDessinee <> tailleCaseFFORUM ) |
-							  ( epaisseurCadreDessinee <> epaisseurCadreFFORUM ) |
-							  ( distanceCadreDessinee <> distanceCadreFFORUM ) |
-							  ( PionsEnDedansDessinee <> PionsEnDedansFFORUM ) |
-							  ( nbPixelDedansDessinee <> nbPixelDedansFFORUM ) |
-							  ( DessineCoinsDuCarreDessinee <> DessineCoinsDuCarreFFORUM ) |
-							  ( DessinePierresDeltaDessinee <> DessinePierresDeltaFFORUM ) |
-							  ( EcritApres37c7Dessinee <> EcritApres37c7FFORUM ) |
-							  ( EcritNomsJoueursDessinee <> EcritNomsJoueursFFORUM ) |
-							  ( EcritNomTournoiDessinee <> EcritNomTournoiFFORUM ) |
-							  ( PoliceDessinee <> PoliceFForumID ) |
-							  ( TitreDessinee <> TitreFFORUM^^ ) |
-							  ( Coordonneesdessinee <> CoordonneesFFORUM ) |
-							  ( TraitsFinsdessinee <> TraitsFinsFFORUM ) |
-							  ( FondOthellierDessinee <> FondOthellierPatternFFORUM ) |
-							  ( CouleurOthellierDessinee <> CouleurOthellierFFORUM ) |
-							  ( NumerosSeulementdessinee <> NumerosSeulementFFORUM ) |
+							if( tailleCaseDessinee <> tailleCaseFFORUM ) or
+							  ( epaisseurCadreDessinee <> epaisseurCadreFFORUM ) or
+							  ( distanceCadreDessinee <> distanceCadreFFORUM ) or
+							  ( PionsEnDedansDessinee <> PionsEnDedansFFORUM ) or
+							  ( nbPixelDedansDessinee <> nbPixelDedansFFORUM ) or
+							  ( DessineCoinsDuCarreDessinee <> DessineCoinsDuCarreFFORUM ) or
+							  ( DessinePierresDeltaDessinee <> DessinePierresDeltaFFORUM ) or
+							  ( EcritApres37c7Dessinee <> EcritApres37c7FFORUM ) or
+							  ( EcritNomsJoueursDessinee <> EcritNomsJoueursFFORUM ) or
+							  ( EcritNomTournoiDessinee <> EcritNomTournoiFFORUM ) or
+							  ( PoliceDessinee <> PoliceFForumID ) or
+							  ( TitreDessinee <> TitreFFORUM^^ ) or
+							  ( Coordonneesdessinee <> CoordonneesFFORUM ) or
+							  ( TraitsFinsdessinee <> TraitsFinsFFORUM ) or
+							  ( FondOthellierDessinee <> FondOthellierPatternFFORUM ) or
+							  ( CouleurOthellierDessinee <> CouleurOthellierFFORUM ) or
+							  ( NumerosSeulementdessinee <> NumerosSeulementFFORUM ) or
 							  ( CommentPositiondessinee <> CommentPositionFFORUM^^ ) then
 							begin
 								DessineExamplePictureDiagFFORUM(dp,chainePositionInitiale,chainePosition,chaineCoups);
@@ -3037,7 +3037,7 @@ begin
 					DrawPUItem(MenuFlottantPolice, itemMenuPolice, menuPoliceRect, true);
 					DrawPUItem(MenuFlottantFond, itemMenuFond, menuFondRect, true);
 					DrawPUItem(MenuFlottantIntensite, itemMenuIntensite, menuIntensiteRect, true);
-					if(typeDiagrammeFFORUM = DiagrammePartie) |(typeDiagrammeFFORUM = DiagrammePosition) then
+					if(typeDiagrammeFFORUM = DiagrammePartie) or(typeDiagrammeFFORUM = DiagrammePosition) then
 						SelectDialogItemText(dp, TitreText, 0, MAXINT_16BITS);
 				  SelectWindow(GetDialogWindow(dp));
 					NoUpdateThisWindow(GetDialogWindow(dp));
@@ -3079,7 +3079,7 @@ begin
 								begin
 									GetItemTextInDialog(dp, EpaisseurBordureText, s1);
 									s := GarderSeulementLesChiffresOuLesPoints(s1);
-									if(s <> '') & not(EstUnReel(s)) then
+									if(s <> '') and not(EstUnReel(s)) then
 										SysBeep(0);
 									SetItemTextInDialog(dp, EpaisseurBordureText, s);
 									if LENGTH_OF_STRING(s) > 0 then
@@ -3106,7 +3106,7 @@ begin
 										s := '';
 									SetItemTextInDialog(dp, itemHit, s);
 									ChaineToLongint(s, nbPixelDedansFFORUM);
-									if(LENGTH_OF_STRING(s) > 0) & (nbPixelDedansFFORUM < 10) then
+									if(LENGTH_OF_STRING(s) > 0) and (nbPixelDedansFFORUM < 10) then
 										begin
 											PionsEnDedansFFORUM := true;
 											ChaineToLongint(s, nbPixelDedansFFORUM)
@@ -3213,10 +3213,10 @@ begin
 								end;
 
 						end; {case}
-						if(itemHit <> OK) &(itemHit <> Annuler) &(itemHit <> VirtualUpdateItemInDialog) then
+						if(itemHit <> OK) and(itemHit <> Annuler) and(itemHit <> VirtualUpdateItemInDialog) then
 							AjusteDialogue(false);
 						SetPortByDialog(dp);
-					until(itemHit = OK) | (itemHit = Annuler);
+					until(itemHit = OK) or (itemHit = Annuler);
 					DoDiagrammeFFORUM := (itemHit <> Annuler);
 					DesinstalleMenuFlottantPolice;
 					DesinstalleMenuFlottantFond;

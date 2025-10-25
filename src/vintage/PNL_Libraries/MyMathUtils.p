@@ -91,7 +91,7 @@ CONST
 
 function InRange(n, minimum, maximum : SInt32) : boolean;
 begin
-	InRange := (n >= minimum) & (n <= maximum);
+	InRange := (n >= minimum) and (n <= maximum);
 end;
 
 
@@ -147,7 +147,7 @@ end;
 
 function PChancesSurN(P,N : SInt32) : boolean;
 begin
-  if (0 <= P) & (P <= N) & (0 < N)
+  if (0 <= P) and (P <= N) and (0 < N)
     then
       begin
         RandomizeTimer;
@@ -185,7 +185,7 @@ end;
 {x,y,bornesuperieure sont supposes etre vaguement positifs}
 function SafeAdd(x,y,bornesuperieure : SInt32) : SInt32;
 begin
-  if (x  > (bornesuperieure - y)) | (y  > (bornesuperieure - x))
+  if (x  > (bornesuperieure - y)) or (y  > (bornesuperieure - x))
     then SafeAdd := bornesuperieure
     else SafeAdd := x+y;
 end;
@@ -425,7 +425,7 @@ begin
       WritelnDansRapport('ERROR : (theArray = NIL) dans MySwapIntegerArray !!! ');
     end;
 
-  if ((indexMin > indexMax) | (theArray = NIL))
+  if ((indexMin > indexMax) or (theArray = NIL))
     then exit(MySwapIntegerArray);
 
   myPointer := UInt16Ptr(theArray);                  { c'est l'adresse de table[0] }
@@ -457,7 +457,7 @@ begin
       WritelnDansRapport('ERROR : (theArray = NIL) dans MySwapLongintArray !!! ');
     end;
 
-  if ((indexMin > indexMax) | (theArray = NIL))
+  if ((indexMin > indexMax) or (theArray = NIL))
     then exit(MySwapLongintArray);
 
   myPointer := UInt32Ptr(theArray);                  { c'est l'adresse de table[0] }
@@ -541,8 +541,8 @@ var n : SInt32;
 	begin
 		i := 1;
 		n := 0;
-		while (i <= LENGTH_OF_STRING(s)) &
-		      (IsDigit(s[i]) | IsAlpha(s[i])) do begin
+		while (i <= LENGTH_OF_STRING(s)) and
+		      (IsDigit(s[i]) or IsAlpha(s[i])) do begin
 			case s[i] of
 				'A'..'Z':
 					v := ord(s[i]) - 55;
@@ -573,16 +573,13 @@ begin
   while (i > 0) do
     begin
 
-      case s[i] of
-        'A'..'Z':
-					v := ord(s[i]) - 55;
-				'a'..'z':
-					v := ord(s[i]) - 87;
-				'0'..'9':
-					v := ord(s[i]) - 48;
+          case s[i] of
+            'A'..'Z': v := ord(s[i]) - 55;
+		    'a'..'z': v := ord(s[i]) - 87;
+		    '0'..'9': v := ord(s[i]) - 48;
 		  end;
 		
-		  if (numDigits <= 15) then result := result + BSl(v, 4*numDigits);
+		  if (numDigits <= 15) then result := result + BSl(v, 4 * numDigits);
 		
 		  inc(numDigits);
 		  dec(i);
@@ -682,7 +679,7 @@ end;
 
 function Same64Bits(a , b : UInt64) : boolean;
 begin
-  Same64Bits := (b.lo = a.lo) &
+  Same64Bits := (b.lo = a.lo) and
                 (b.hi = a.hi);
 end;
 

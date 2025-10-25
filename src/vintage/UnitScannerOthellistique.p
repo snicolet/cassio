@@ -87,7 +87,7 @@ begin
  for i := 1 to GET_LENGTH_OF_PACKED_GAME(s) do
   begin
     aux := GET_NTH_MOVE_OF_PACKED_GAME(s,i,'TraductionThorEnAlphanumerique');
-    if (aux >= 11) & (aux <= 88) then
+    if (aux >= 11) and (aux <= 88) then
       chaine := chaine + CoupEnStringEnMajuscules(aux);
   end;
  result := chaine;
@@ -185,7 +185,7 @@ begin
   for i := 1 to GET_LENGTH_OF_PACKED_GAME(s) do
     begin
       aux := GET_NTH_MOVE_OF_PACKED_GAME(s,i,'TraductionThorEnSuedois');
-      if (aux >= 11) & (aux <= 88) then
+      if (aux >= 11) and (aux <= 88) then
         chaine := chaine + gThorToSuedish[aux];
     end;
   result := chaine;
@@ -201,7 +201,7 @@ begin
  for i := 1 to LENGTH_OF_STRING(s) div 2 do
    begin
      aux := PositionDansStringAlphaEnCoup(s,2*i-1);
-     if (aux >= 11) & (aux <= 88) then
+     if (aux >= 11) and (aux <= 88) then
        chaine := chaine + CharToString(chr(aux));
    end;
 
@@ -217,7 +217,7 @@ begin
  for i := 1 to GET_LENGTH_OF_PACKED_GAME(s1) do
   begin
     aux := GET_NTH_MOVE_OF_PACKED_GAME(s1,i,'ComparerFormatThorEtFormatSuedois(1)');
-    if (aux >= 11) & (aux <= 88) then
+    if (aux >= 11) and (aux <= 88) then
       begin
         WriteDansRapport('  gThorToSuedish[StringEnCoup('''+CoupEnStringEnMajuscules(aux)+''')] := ''');
         WritelnDansRapport(chr(GET_NTH_MOVE_OF_PACKED_GAME(s2,i,'ComparerFormatThorEtFormatSuedois(2)'))+''';');
@@ -313,7 +313,7 @@ begin
 			         pionBlanc: inc(nbPionsFinalBlancs);
 			       end; {case}
 
-			 if partieTerminee & ((nbPionsFinalNoirs+nbPionsFinalBlancs) <> 64) then
+			 if partieTerminee and ((nbPionsFinalNoirs+nbPionsFinalBlancs) <> 64) then
 			   begin
 			     if nbPionsFinalNoirs  > nbPionsFinalBlancs then nbPionsFinalNoirs  := 64 - nbPionsFinalBlancs else
 			     if nbPionsFinalBlancs > nbPionsFinalNoirs  then nbPionsFinalBlancs := 64 - nbPionsFinalNoirs  else
@@ -358,7 +358,7 @@ function CalculeLeTraitApresTelCoup(n : SInt16; s : String255; platDebut : plate
 var i,coup : SInt16;
     ok : boolean;
 begin
-  if (traitDebut <> pionNoir) & (traitDebut <> pionBlanc)
+  if (traitDebut <> pionNoir) and (traitDebut <> pionBlanc)
     then traitDebut := pionNoir;   {on ne sait jamais....}
 
   if (n >= (LENGTH_OF_STRING(s) div 2)) then n := LENGTH_OF_STRING(s) div 2;
@@ -394,7 +394,7 @@ var partieToujoursLegale,attendUneLettre,attendUnChiffre,coupComplet,dejaCompact
 		 begin
 		   c := whichChar;
 		   if IsLower(c) then c := chr(ord(c)-32);
-		   if attendUnChiffre & CharInRange(c,'A','H') then
+		   if attendUnChiffre and CharInRange(c,'A','H') then
 		     begin
 		       derniereLettreLue := c;
 		     end;
@@ -459,14 +459,14 @@ begin
       }
       if coupComplet then
         begin
-		      if (coup >= 11) & (coup <= 88)
+		      if (coup >= 11) and (coup <= 88)
 		        then partieToujoursLegale := UpdatePositionEtTrait(position,coup)
 		        else partieToujoursLegale := false;
 		      coupComplet := false;
 		    end;
-    until (k >= longueurChaine) | not(partieToujoursLegale);
+    until (k >= longueurChaine) or not(partieToujoursLegale);
 
-  if (longueurChaine > 0) & (nbCoupsRecus <= 0) then partieToujoursLegale := false;
+  if (longueurChaine > 0) and (nbCoupsRecus <= 0) then partieToujoursLegale := false;
 
   if partieToujoursLegale
     then
@@ -529,7 +529,7 @@ begin
   if EstUnePartieOthello(partieAlpha,compacterPartie) then
     begin
       TraductionAlphanumeriqueEnThor(partieAlpha,s60);
-      if PeutCalculerScoreFinalDeCettePartie(s60,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) & partieTerminee then
+      if PeutCalculerScoreFinalDeCettePartie(s60,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) and partieTerminee then
         begin
           EstUnePartieOthelloTerminee := true;
           s := partieAlpha;
@@ -545,7 +545,7 @@ begin
       if EstUnePartieOthelloAvecMiroir(partieAlpha) then
         begin
           TraductionAlphanumeriqueEnThor(partieAlpha,s60);
-          if PeutCalculerScoreFinalDeCettePartie(s60,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) & partieTerminee then
+          if PeutCalculerScoreFinalDeCettePartie(s60,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) and partieTerminee then
             begin
               EstUnePartieOthelloTerminee := true;
               s := partieAlpha;
@@ -634,7 +634,7 @@ begin  { TrouverPartieEtJoueursDansChaine }
 
   joueursTrouves := TrouverNomsDesJoueursDansNomDeFichier(lesJoueurs,numeroJoueur1,numeroJoueur2,0,qualiteSolution);
 
-  TrouverPartieEtJoueursDansChaine := partieTrouvee & joueursTrouves;
+  TrouverPartieEtJoueursDansChaine := partieTrouvee and joueursTrouves;
 
 end;  { TrouverPartieEtJoueursDansChaine }
 

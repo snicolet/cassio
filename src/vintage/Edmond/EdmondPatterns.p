@@ -102,11 +102,11 @@ begin
 
   // vérifications d'intervalle
 
-  if (indexCassio < -demi_taille_du_pattern) |
+  if (indexCassio < -demi_taille_du_pattern) or
      (indexCassio > +demi_taille_du_pattern) then
     WritelnNumDansRapport('pattern de Cassio out of range : '+nomDuPattern+ ' = ' , indexCassio);
 
-  if (indexBruno < 0) |
+  if (indexBruno < 0) or
      (indexBruno > taille_du_pattern) then
     WritelnNumDansRapport('pattern de Bruno out of range : '+nomDuPattern+ ' = ' , indexBruno);
 
@@ -117,13 +117,13 @@ begin
 
   // le resultat est-il dans le bon intervalle ?
 
-  if (indexTransformeParMonAlgo < 0) |
+  if (indexTransformeParMonAlgo < 0) or
      (indexTransformeParMonAlgo > taille_du_pattern) then
     WritelnNumDansRapport('pattern transforme par mon algo out of range : '+nomDuPattern+ ' = ' , indexTransformeParMonAlgo);
 
 
-  if (indexTransformeParMonAlgo <> indexBruno) &
-         ((Pos('diag', nomDuPattern) > 0) | (Pos('hv' , nomDuPattern) > 0))
+  if (indexTransformeParMonAlgo <> indexBruno) and
+         ((Pos('diag', nomDuPattern) > 0) or (Pos('hv' , nomDuPattern) > 0))
     then
       begin
 

@@ -349,8 +349,8 @@ begin
         compt := compt+1;
         x := 10*i+j;
         c := plateauEnString[compt];
-        if (c = 'o') | (c = 'O') | (c = '0') | (c = 'w') | (c = 'W')                         then plataux[x] := pionBlanc;
-        if (c = 'x') | (c = 'X') | (c = '#') | (c = '*') | (c = '¥') | (c = 'b') | (c = 'B') then plataux[x] := pionNoir;
+        if (c = 'o') or (c = 'O') or (c = '0') or (c = 'w') or (c = 'W')                         then plataux[x] := pionBlanc;
+        if (c = 'x') or (c = 'X') or (c = '#') or (c = '*') or (c = '¥') or (c = 'b') or (c = 'B') then plataux[x] := pionNoir;
       end;
 
 
@@ -359,12 +359,12 @@ begin
 
    trait := pionVide;
 
-   if (LENGTH_OF_STRING(positionEtpartie) = 1) |
-      ((LENGTH_OF_STRING(positionEtpartie) >= 2) & (positionEtpartie[2] = ' ')) then
+   if (LENGTH_OF_STRING(positionEtpartie) = 1) or
+      ((LENGTH_OF_STRING(positionEtpartie) >= 2) and (positionEtpartie[2] = ' ')) then
      begin
        c := positionEtpartie[1];
-       if (c = 'o') | (c = 'O') | (c = '0') | (c = 'w') | (c = 'W') then trait := pionBlanc else
-       if (c = 'x') | (c = 'X') | (c = '#') | (c = '*') | (c = '¥') | (c = 'b') | (c = 'B') then trait := pionNoir;
+       if (c = 'o') or (c = 'O') or (c = '0') or (c = 'w') or (c = 'W') then trait := pionBlanc else
+       if (c = 'x') or (c = 'X') or (c = '#') or (c = '*') or (c = '¥') or (c = 'b') or (c = 'B') then trait := pionNoir;
      end;
 
    { pour determiner le trait de la paritŽ naturelle, nous aurons besoin
@@ -403,7 +403,7 @@ begin
    positionFeerique := not(EstLaPositionStandardDeDepart(JeuCourant));
    if positionFeerique then nbPartiesActives := 0;
 
-   doitDetruireAncienArbreDeJeu := not(mergeWithCurrentTree) | positionFeerique | oldPositionFeerique;
+   doitDetruireAncienArbreDeJeu := not(mergeWithCurrentTree) or positionFeerique or oldPositionFeerique;
    ReInitialisePartieHdlPourNouvellePartie(doitDetruireAncienArbreDeJeu);
    SetCurrentNodeToGameRoot;
    MarquerCurrentNodeCommeReel('ComprendPositionEtPartieDuFichier');
@@ -455,7 +455,7 @@ begin
        for j := 1 to 8 do
          begin
            x := 10*i+j;
-           if (GetCouleurOfSquareDansJeuCourant(x) = pionNoir) | (GetCouleurOfSquareDansJeuCourant(x) = pionBlanc)
+           if (GetCouleurOfSquareDansJeuCourant(x) = pionNoir) or (GetCouleurOfSquareDansJeuCourant(x) = pionBlanc)
              then DessinePion(x,GetCouleurOfSquareDansJeuCourant(x));
          end;
 
@@ -471,7 +471,7 @@ begin
          SetUsingZebraBook(false);
          x := PositionDansStringAlphaEnCoup(positionEtpartie,2*i-1);
          if PeutJouerIci(AQuiDeJouer,x,JeuCourant)
-            & JoueEn(x,PositionEtTraitCourant,legal,true,(i = nombreCoupsRepris),'ComprendPositionEtPartieDuFichier')
+            and JoueEn(x,PositionEtTraitCourant,legal,true,(i = nombreCoupsRepris),'ComprendPositionEtPartieDuFichier')
            then
               DoNothing
            else
@@ -479,7 +479,7 @@ begin
        end;
 
    afficheNumeroCoup := tempoAfficheNumeroCoup;
-   if afficheNumeroCoup & (nbreCoup > 0) then
+   if afficheNumeroCoup and (nbreCoup > 0) then
       begin
         x := DerniereCaseJouee;
         if InRange(x,11,88) then
@@ -541,7 +541,7 @@ begin
    SetCassioMustCheckDangerousEvents(oldCheckDangerousEvents,NIL);
 
 
-   if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+   if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
      then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
    ComprendPositionEtPartieDuFichier := err;
@@ -581,15 +581,15 @@ begin
 
 
   if TypeDeFichierEstConnu(ficPartie,infos,erreurES)
-     & ((infos.format = kTypeFichierCassio) |
-        (infos.format = kTypeFichierXBoardAlien) |
-        (infos.format = kTypeFichierHTMLOthelloBrowser) |
-        (infos.format = kTypeFichierTranscript) |
-        (infos.format = kTypeFichierZebra) |
-        (infos.format = kTypeFichierExportTexteDeZebra) |
-        (infos.format = kTypeFichierSimplementDesCoups) |
+     and ((infos.format = kTypeFichierCassio) or
+        (infos.format = kTypeFichierXBoardAlien) or
+        (infos.format = kTypeFichierHTMLOthelloBrowser) or
+        (infos.format = kTypeFichierTranscript) or
+        (infos.format = kTypeFichierZebra) or
+        (infos.format = kTypeFichierExportTexteDeZebra) or
+        (infos.format = kTypeFichierSimplementDesCoups) or
         (infos.format = kTypeFichierLigneAvecJoueurEtPartie))
-     & (infos.tailleOthellier = 8)
+     and (infos.tailleOthellier = 8)
     then
       begin
         chainePositionEtPartie := infos.positionEtPartie;
@@ -673,7 +673,7 @@ begin
   UpdateScrollersRapport;
 
   if FenetreRapportEstOuverte then InvalidateWindow(GetRapportWindow);
-  if not(CassioEstEnModeAnalyse) & not(HumCtreHum)
+  if not(CassioEstEnModeAnalyse) and not(HumCtreHum)
     then DoChangeHumCtreHum;
 
   erreurES := FermeFichierTexte(ficPartie);
@@ -772,7 +772,7 @@ begin
           Parser(ligne, foo, infosFichier.diagramTitle);
 
       end;
-  until (compteurLignes > 20) | (erreurES <> NoErr) | EOFFichierTexte(ficPartie,erreurES) | (Pos('%%BeginProlog',ligne) = 1);
+  until (compteurLignes > 20) or (erreurES <> NoErr) or EOFFichierTexte(ficPartie,erreurES) or (Pos('%%BeginProlog',ligne) = 1);
 
 
   erreurES := FermeFichierTexte(ficPartie);
@@ -800,11 +800,11 @@ begin
   WritelnDansRapport('SGFAnnotations = '  + infosReelles.SGFAnnotations);
   *)
 
-  if (infosFichier.initialPosition = infosReelles.initialPosition) &
-     (infosFichier.moves           = infosReelles.moves)           &
-     (infosFichier.moveNumber      = infosReelles.moveNumber)      &
-     (infosFichier.SGFAnnotations  = infosReelles.SGFAnnotations)  &
-     (infosFichier.diagramComment  = infosReelles.diagramComment)  &
+  if (infosFichier.initialPosition = infosReelles.initialPosition) and
+     (infosFichier.moves           = infosReelles.moves)           and
+     (infosFichier.moveNumber      = infosReelles.moveNumber)      and
+     (infosFichier.SGFAnnotations  = infosReelles.SGFAnnotations)  and
+     (infosFichier.diagramComment  = infosReelles.diagramComment)  and
      (infosFichier.diagramTitle    = infosReelles.diagramTitle)    then
      begin
        // tout est dŽjˆ lˆ, hein
@@ -832,7 +832,7 @@ begin
 
       if erreurES = NoErr then
         begin
-          if (SGFAnnotations <> '') | (not((moveNumber = '0') & (LENGTH_OF_STRING(moves) = 120)))
+          if (SGFAnnotations <> '') or (not((moveNumber = '0') and (LENGTH_OF_STRING(moves) = 120)))
             then DoRetourAuCoupNro(ChaineEnLongint(moveNumber), true, false);
 
           if (SGFAnnotations <> '') then
@@ -883,8 +883,8 @@ begin  {$UNUSED mergeWithCurrentTree}
       exit(OuvrirFichierPartieFormatGGF);
     end;
 
-  if TypeDeFichierEstConnu(ficPartie,infos,erreurES) &
-     (infos.format = kTypeFichierGGF) & (infos.tailleOthellier = 8)
+  if TypeDeFichierEstConnu(ficPartie,infos,erreurES) and
+     (infos.format = kTypeFichierGGF) and (infos.tailleOthellier = 8)
     then
       begin
         nomLongDuFichier := nomFichier;
@@ -914,7 +914,7 @@ begin  {$UNUSED mergeWithCurrentTree}
   titrePartie^^ := nomLongDuFichier;
 
 
-  if not(CassioEstEnModeAnalyse) & not(HumCtreHum)
+  if not(CassioEstEnModeAnalyse) and not(HumCtreHum)
     then DoChangeHumCtreHum;
 
   OuvrirFichierPartieFormatGGF := NoErr;
@@ -954,11 +954,11 @@ begin
 
   nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
   erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
-  if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) &
+  if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
      (GetModificationDateFichierTexte(ficPartie,theDate) = NoErr) then
     begin
       dateModifFichier := DateEnString(theDate);
-      if FichierExisteDansDatabaseOfRecentSGFFiles(nomCourt,dateDansDatabase) & (dateDansDatabase = dateModifFichier)
+      if FichierExisteDansDatabaseOfRecentSGFFiles(nomCourt,dateDansDatabase) and (dateDansDatabase = dateModifFichier)
         then SetToujoursAjouterInterversionDansGrapheInterversions(false)
         else SetToujoursAjouterInterversionDansGrapheInterversions(true);
       AjouterNomDansDatabaseOfRecentSGFFiles(dateModifFichier,nomCourt);
@@ -1008,7 +1008,7 @@ begin
       AfficheProprietesOfCurrentNode(false,othellierToutEntier,'OuvrirFichierPartieFormatSmartGameBoard');
 
 
-      if not(CassioEstEnModeAnalyse) & not(HumCtreHum)
+      if not(CassioEstEnModeAnalyse) and not(HumCtreHum)
         then DoChangeHumCtreHum;
 
       if not(afficheProchainsCoups) then DoChangeAfficheProchainsCoups;
@@ -1016,7 +1016,7 @@ begin
       ToggleAideDebutant;
       ToggleAideDebutant;
 
-      if positionFeerique | (NbDeFilsOfCurrentNode <= 0)
+      if positionFeerique or (NbDeFilsOfCurrentNode <= 0)
         then SetNomFichierDansTitreDiagrammeFFORUM(nomLongDuFichier);
     end;
 
@@ -1081,7 +1081,7 @@ begin
 				  {WritelnNumDansRapport('infos.format = ',SInt32(infos.format));
 				  WritelnNumDansRapport('infos.tailleOthellier = ',infos.tailleOthellier);}
 
-				  if (kTypeFichierScriptFinale in formats_a_ouvrir) &
+				  if (kTypeFichierScriptFinale in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierScriptFinale)
 				      then
 					      begin
@@ -1099,13 +1099,13 @@ begin
       					end;
 
 
-					if (kTypeFichierTortureImportDesNoms in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierTortureImportDesNoms) &
+					if (kTypeFichierTortureImportDesNoms in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierTortureImportDesNoms) and
 					   (NoCasePos('import-des-noms.torture.txt',nomCompletFichier) > 0) then
 					  err := OuvrirFichierTortureImportDesNoms(nomCompletFichier);
 
 
-          if (kTypeFichierCronjob in formats_a_ouvrir) &
+          if (kTypeFichierCronjob in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierCronjob) then
             begin
               InstallerFichierCronjob(nomCompletFichier);
@@ -1113,87 +1113,87 @@ begin
             end;
 					
 
-					if (kTypeFichierTournoiEntreEngines in formats_a_ouvrir) &
+					if (kTypeFichierTournoiEntreEngines in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierTournoiEntreEngines) then
 					  err := OuvrirFichierTournoiEntreEngines(nomCompletFichier);
 
-					if (kTypeFichierPGN in formats_a_ouvrir) &
+					if (kTypeFichierPGN in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierPGN) then
 					  err := AjouterPartiesFichierPGNDansListe('name_mapping_VOG_to_WThor.txt',fic);
 
-					if ((kTypeFichierGGFMultiple                        in formats_a_ouvrir) |
-					    (kTypeFichierSuiteDePartiePuisJoueurs           in formats_a_ouvrir) |
-					    (kTypeFichierSuiteDeJoueursPuisPartie           in formats_a_ouvrir) |
-					    (kTypeFichierMultiplesLignesAvecJoueursEtPartie in formats_a_ouvrir) |
-					    (kTypeFichierSimplementDesCoupsMultiple         in formats_a_ouvrir)) &
-				     ((infos.format = kTypeFichierGGFMultiple)                        |
-					    (infos.format = kTypeFichierSuiteDePartiePuisJoueurs)           |
-					    (infos.format = kTypeFichierSuiteDeJoueursPuisPartie)           |
-					    (infos.format = kTypeFichierMultiplesLignesAvecJoueursEtPartie) |
+					if ((kTypeFichierGGFMultiple                        in formats_a_ouvrir) or
+					    (kTypeFichierSuiteDePartiePuisJoueurs           in formats_a_ouvrir) or
+					    (kTypeFichierSuiteDeJoueursPuisPartie           in formats_a_ouvrir) or
+					    (kTypeFichierMultiplesLignesAvecJoueursEtPartie in formats_a_ouvrir) or
+					    (kTypeFichierSimplementDesCoupsMultiple         in formats_a_ouvrir)) and
+				     ((infos.format = kTypeFichierGGFMultiple)                        or
+					    (infos.format = kTypeFichierSuiteDePartiePuisJoueurs)           or
+					    (infos.format = kTypeFichierSuiteDeJoueursPuisPartie)           or
+					    (infos.format = kTypeFichierMultiplesLignesAvecJoueursEtPartie) or
 					    (infos.format = kTypeFichierSimplementDesCoupsMultiple))  then
   					err := AjouterPartiesFichierDestructureDansListe(infos.format,fic);
 
-					if (kTypeFichierTHOR_PAR in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierTHOR_PAR) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierTHOR_PAR in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierTHOR_PAR) and (infos.tailleOthellier = 8) then
 					  err := AjouterPartiesFichierTHOR_PARDansListe(fic);
 
-			    if (kTypeFichierCassio in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierCassio) & (infos.tailleOthellier = 8) then
+			    if (kTypeFichierCassio in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierCassio) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 					
-					if (kTypeFichierXBoardAlien in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierXBoardAlien) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierXBoardAlien in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierXBoardAlien) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierHTMLOthelloBrowser in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierHTMLOthelloBrowser) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierHTMLOthelloBrowser in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierHTMLOthelloBrowser) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierTranscript in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierTranscript) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierTranscript in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierTranscript) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierZebra in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierZebra) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierZebra in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierZebra) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierExportTexteDeZebra in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierExportTexteDeZebra) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierExportTexteDeZebra in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierExportTexteDeZebra) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierSimplementDesCoups in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierSimplementDesCoups) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierSimplementDesCoups in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierSimplementDesCoups) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierLigneAvecJoueurEtPartie in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierLigneAvecJoueurEtPartie) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierLigneAvecJoueurEtPartie in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierLigneAvecJoueurEtPartie) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatCassio(nomCompletFichier,mergeWithCurrentTree);
 
-					if (kTypeFichierGGF in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierGGF) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierGGF in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierGGF) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatGGF(nomCompletFichier,mergeWithCurrentTree);
 
-			    if (kTypeFichierSGF in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierSGF) & (infos.tailleOthellier = 8) then
+			    if (kTypeFichierSGF in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierSGF) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierPartieFormatSmartGameBoard(nomCompletFichier,mergeWithCurrentTree);
 					
-					if (kTypeFichierEPS in formats_a_ouvrir) &
-				     (infos.format = kTypeFichierEPS) & (infos.tailleOthellier = 8) then
+					if (kTypeFichierEPS in formats_a_ouvrir) and
+				     (infos.format = kTypeFichierEPS) and (infos.tailleOthellier = 8) then
 					  err := OuvrirFichierFormatEPS(nomCompletFichier,mergeWithCurrentTree);
 					
-					if (kTypeFichierScriptZoo in formats_a_ouvrir) &
+					if (kTypeFichierScriptZoo in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierScriptZoo) then
 					  err := OuvrirFichierScriptZoo(nomCompletFichier);
 
-					if (kTypeFichierBibliotheque in formats_a_ouvrir) &
+					if (kTypeFichierBibliotheque in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierBibliotheque) then
 					  err := LitBibliotheque(nomCompletFichier,BAnd(theEvent.modifiers,optionKey) <> 0);
 
-					if (kTypeFichierPreferences in formats_a_ouvrir) &
+					if (kTypeFichierPreferences in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierPreferences) then
 					  err := NoErr;
 
-			    if (err = 1000) & (infos.format = kTypeFichierInconnu)
+			    if (err = 1000) and (infos.format = kTypeFichierInconnu)
 			      then NotRecognised;
 	       end
 	     else
@@ -1350,12 +1350,12 @@ begin
            s := s + c;
            i := i+1;
            count := count+1;
-           if (c = '¦') | (count >= 230) then
+           if (c = '¦') or (count >= 230) then
              begin
                erreurES := WritelnDansFichierTexte(ficPartie,'ÂRÂ'+s);
                s := ''; count := 0;
              end;
-         until (i >= fin) | (erreurES <> NoErr);
+         until (i >= fin) or (erreurES <> NoErr);
          if (s <> '') then
            erreurES := WritelnDansFichierTexte(ficPartie,'ÂRÂ'+s);
        end;
@@ -1388,7 +1388,7 @@ var theFile : FichierAbstrait;
     bidon : boolean;
 begin
   s := titrePartie^^;
-  if not(EndsWith(s,'.sof') | EndsWith(s,'.SOF') | EndsWith(s,'.sgf') | EndsWith(s,'.SGF')) then
+  if not(EndsWith(s,'.sof') or EndsWith(s,'.SOF') or EndsWith(s,'.sgf') or EndsWith(s,'.SGF')) then
     begin
       if EndsWith(s,'.')
         then s := s + 'sof'
@@ -1581,7 +1581,7 @@ begin
    MyDisableItem(PartieMenu,ForwardCmd);
    Superviseur(nbreCoup);
    FixeMarqueSurMenuMode(nbreCoup);
-   if not(HumCtreHum) & ForceHumCtreHum then DoChangeHumCtreHum;
+   if not(HumCtreHum) and ForceHumCtreHum then DoChangeHumCtreHum;
    EssaieDisableForceCmd;
 
    EffacerTouteLaCourbe('PrepareNouvellePartie');
@@ -1649,7 +1649,7 @@ begin
 
    EndFonctionModifiantNbreCoup('PrepareNouvellePartie');
 
-   if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+   if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
      then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
 
@@ -1792,7 +1792,7 @@ begin  {$unused avecAnimationZoom}
         end;
     end;
 
-  if (FrontWindow = NIL) | (enSetUp | enRetour)
+  if (FrontWindow = NIL) or (enSetUp or enRetour)
       then MyDisableItem(GetFileMenu,CloseCmd)
       else EnableItemPourCassio(GetFileMenu,CloseCmd);
 
@@ -1811,10 +1811,10 @@ var shift,command,option,control : boolean;
 	  if (FrontWindowSaufPalette = NIL)
 	     then
 	       begin
-	         if windowPaletteOpen & (wPalettePtr <> NIL) then DoClose(wPalettePtr,true)
+	         if windowPaletteOpen and (wPalettePtr <> NIL) then DoClose(wPalettePtr,true)
 	       end
 	     else
-	       if windowPaletteOpen & (FrontWindowSaufPalette = wPlateauPtr)
+	       if windowPaletteOpen and (FrontWindowSaufPalette = wPlateauPtr)
 	         then DoClose(wPalettePtr,true)
 	         else
 	           begin
@@ -1896,7 +1896,7 @@ var tempoHumCtreHum : boolean;
 
               HumCtreHum := true;
               DessineIconesChangeantes;
-              if afficheSuggestionDeCassio & HumCtreHum then EffaceSuggestionDeCassio;
+              if afficheSuggestionDeCassio and HumCtreHum then EffaceSuggestionDeCassio;
               HumCtreHum := tempoHumCtreHum;
 
               LanceInterruptionConditionnelle(kHumainVeutChangerHumCtreHum,'SET_HUMCTREHUM',1,'DoDemandeChangerHumCtreHum');
@@ -1913,7 +1913,7 @@ procedure DoDemandeChangerHumCtreHumEtCouleur;
 begin
   if CassioEstEnModeTournoi then exit(DoDemandeChangerHumCtreHumEtCouleur);
 
-  if (AQuiDeJouer = -couleurMacintosh) & HumCtreHum
+  if (AQuiDeJouer = -couleurMacintosh) and HumCtreHum
     then
       begin
         couleurMacintosh := -couleurMacintosh;
@@ -1938,7 +1938,7 @@ end;
 
 procedure DoDemandeCassioPrendLesBlancs;
 begin
-  if (GetCadence = minutes10000000) & (not(CassioEstEnTrainDePlaquerUnSolitaire))
+  if (GetCadence = minutes10000000) and (not(CassioEstEnTrainDePlaquerUnSolitaire))
     then
       begin
         if PeutArreterAnalyseRetrograde then
@@ -1959,7 +1959,7 @@ end;
 
 procedure DoDemandeCassioPrendLesNoirs;
 begin
-  if (GetCadence = minutes10000000) & (not(CassioEstEnTrainDePlaquerUnSolitaire))
+  if (GetCadence = minutes10000000) and (not(CassioEstEnTrainDePlaquerUnSolitaire))
     then
       begin
         if PeutArreterAnalyseRetrograde then
@@ -1980,8 +1980,8 @@ end;
 
 procedure DoDemandeCassioAnalyseLesDeuxCouleurs;
 begin
-  if not(CassioEstEnModeAnalyse) &
-     not(CassioEstEnTrainDePlaquerUnSolitaire) &
+  if not(CassioEstEnModeAnalyse) and
+     not(CassioEstEnTrainDePlaquerUnSolitaire) and
      (CommentaireSolitaire^^ = '') then
     begin
       SetCadence(minutes10000000);
@@ -2029,7 +2029,7 @@ begin
         ModalDialog(FiltreClassiqueUPP,itemHit);
         if InRange(ItemHit,destructionRadios.firstButton,destructionRadios.lastButton) then
           PushRadio(dp,destructionRadios,ItemHit);
-      until (itemHit = OK) | (itemHit = Annuler);
+      until (itemHit = OK) or (itemHit = Annuler);
       MyDisposeDialog(dp);
     end;
   EndDialog;
@@ -2040,7 +2040,7 @@ begin
       EffaceProprietesOfCurrentNode;
       case TypeDerniereDestructionDemandee of
         kDetruireCeNoeudEtFils:
-          if PeutReculerUnCoup & PeutArreterAnalyseRetrograde
+          if PeutReculerUnCoup and PeutArreterAnalyseRetrograde
             then
               begin
                 whichSon := GetCurrentNode;
@@ -2097,7 +2097,7 @@ begin
               RemettreLeCurseurNormalDeCassio;
             end;
 
-          DerniereChaineComplementation^^ := '@&µ™¹¦Ç‚Ô';
+          DerniereChaineComplementation^^ := '@andµ™¹¦Ç‚Ô';
           if ActionBaseDeDonnee(actionDemandee,s) then
             begin
 
@@ -2107,7 +2107,7 @@ begin
               InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
               nbreCoupsApresLecture := LENGTH_OF_STRING(s) div 2;
               {EnableItemPourCassio(BaseMenu,CriteresCmd);}
-              if JoueursEtTournoisEnMemoire & (windowListeOpen | windowStatOpen | windowNuageOpen)
+              if JoueursEtTournoisEnMemoire and (windowListeOpen or windowStatOpen or windowNuageOpen)
                 then EnableItemPourCassio(BaseMenu,SousSelectionActiveCmd);
 
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('apres EnableItemPourCassio dans DoTraiteBaseDeDonnee',true);
@@ -2115,13 +2115,13 @@ begin
               if not(positionLectureModifiee)
                 then
                    begin
-                     if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+                     if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
                         then
                           begin
                             EcritRubanListe(false);
                             LanceCalculsRapidesPourBaseOuNouvelleDemande(false,false);
                           end;
-                     if not(HumCtreHum) & (nbreCoup <= 0) & not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
+                     if not(HumCtreHum) and (nbreCoup <= 0) and not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
                    end
                  else
                    begin
@@ -2132,13 +2132,13 @@ begin
                      CommentaireSolitaire^^ := '';
                      finaleEnModeSolitaire := false;
                      doitRejouerLaPartie := true;
-                     if not(positionFeerique) & (nbreCoupsApresLecture <= nbreCoup) then
+                     if not(positionFeerique) and (nbreCoupsApresLecture <= nbreCoup) then
                        begin
                          test := true;
                          for i := 1 to nbreCoupsApresLecture do
                            begin
                              coup := PositionDansStringAlphaEnCoup(s,2*i-1);
-                             test := test & (coup = GetNiemeCoupPartieCourante(i));
+                             test := test and (coup = GetNiemeCoupPartieCourante(i));
                            end;
                          doitRejouerLaPartie := not(test);
                        end;
@@ -2151,7 +2151,7 @@ begin
                         end
                       else
                         begin
-                         if doitRejouerLaPartie & (nbreCoupsApresLecture > 0)
+                         if doitRejouerLaPartie and (nbreCoupsApresLecture > 0)
                            then
                              begin
                                if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant NoUpdateWindowPlateau dans DoTraiteBaseDeDonnee',true);
@@ -2178,16 +2178,16 @@ begin
 
                      if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant DoChangeHumCtreHum dans DoTraiteBaseDeDonnee',true);
 
-                     if not(HumCtreHum) & not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
+                     if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
                    end;
 
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant "on sait sans avoir ˆ les compterÉ" dans DoTraiteBaseDeDonnee',true);
 
               {on sait sans avoir besoin de les calculer les parties compatibles des coups prŽcŽdents}
-              if avecCalculPartiesActives & (windowListeOpen | windowStatOpen) then
+              if avecCalculPartiesActives and (windowListeOpen or windowStatOpen) then
                 begin
                   nbPartiesDansListe := GetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup);
-                  if (nbPartiesDansListe <> PasDePartieActive) &
+                  if (nbPartiesDansListe <> PasDePartieActive) and
                      (nbPartiesDansListe <> NeSaitPasNbrePartiesActives) then
                     for i := 0 to nbreCoup-1 do
                       begin
@@ -2203,11 +2203,11 @@ begin
 
               if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant derniereChaineComplementation dans DoTraiteBaseDeDonnee',true);
 
-              DerniereChaineComplementation^^ := '@&µ™¹¦Ç‚Ô';
+              DerniereChaineComplementation^^ := '@andµ™¹¦Ç‚Ô';
             end;
 
 
-          if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire)
+          if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire)
             then
               begin
                 if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant if not(enSetUp) dans DoTraiteBaseDeDonnee',true);
@@ -2221,7 +2221,7 @@ begin
                 if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('avant bidbool := ActionBaseDeDonnee(BaseLectureJoueursEtTournois,s); dans DoTraiteBaseDeDonnee',true);
 
                 bidbool := ActionBaseDeDonnee(BaseLectureJoueursEtTournois,s);
-                if windowListeOpen & (nbPartiesChargees > 0) & JoueursEtTournoisEnMemoire then
+                if windowListeOpen and (nbPartiesChargees > 0) and JoueursEtTournoisEnMemoire then
                   begin
                     EcritRubanListe(true);
                     WritelnDansRapport('qu''est-ce que ca change ?');
@@ -2249,10 +2249,10 @@ end;
 
 function AutorisationDeChargerLaBaseSansInterventionUtilisateur : boolean;
 begin
-  if GetAutorisationChargerLaBaseSansPasserParLeDialogue &
-     (nbPartiesChargees <= 0) & not(enRetour | enSetUp | CassioEstEnModeSolitaire) & (nbInformationMemoire <= 0) &
-     ((ParametresOuvrirThor^^[1] = '') & (ParametresOuvrirThor^^[2] = '') & (ParametresOuvrirThor^^[3] = '')) &
-		 ((windowListeOpen & (wListePtr = FrontWindowSaufPalette)) | (windowStatOpen & (wStatPtr = FrontWindowSaufPalette)))
+  if GetAutorisationChargerLaBaseSansPasserParLeDialogue and
+     (nbPartiesChargees <= 0) and not(enRetour or enSetUp or CassioEstEnModeSolitaire) and (nbInformationMemoire <= 0) and
+     ((ParametresOuvrirThor^^[1] = '') and (ParametresOuvrirThor^^[2] = '') and (ParametresOuvrirThor^^[3] = '')) and
+		 ((windowListeOpen and (wListePtr = FrontWindowSaufPalette)) or (windowStatOpen and (wStatPtr = FrontWindowSaufPalette)))
 		 then AutorisationDeChargerLaBaseSansInterventionUtilisateur := true
 		 else AutorisationDeChargerLaBaseSansInterventionUtilisateur := false;
 end;
@@ -2313,8 +2313,8 @@ end;
 
 procedure DoDemandeAnalyseRetrograde(sansDialogueRetrograde : boolean);
 begin
-  if not(analyseRetrograde.enCours) & (nroDernierCoupAtteint >= 20) then
-    if sansDialogueRetrograde | DoDialogueRetrograde(false) then
+  if not(analyseRetrograde.enCours) and (nroDernierCoupAtteint >= 20) then
+    if sansDialogueRetrograde or DoDialogueRetrograde(false) then
       begin
         LanceInterruption(kHumainVeutAnalyserFinale,'DoDemandeAnalyseRetrograde');
         if not(HumCtreHum) then
@@ -2342,12 +2342,12 @@ var oldport : grafPtr;
     a : SInt16;
 begin
   afficheNumeroCoup := not(afficheNumeroCoup);
-  if windowPlateauOpen & (nbreCoup > 0) then
+  if windowPlateauOpen and (nbreCoup > 0) then
      begin
        GetPort(oldport);
        SetPortByWindow(wPlateauPtr);
        a := DerniereCaseJouee;
-       if (a <> coupInconnu) & InRange(a,11,88) then
+       if (a <> coupInconnu) and InRange(a,11,88) then
          if afficheNumeroCoup
            then DessineNumeroCoup(a,nbreCoup,-GetCouleurOfSquareDansJeuCourant(a),GetCurrentNode)
            else
@@ -2404,7 +2404,7 @@ procedure DoChangeAfficheBibliotheque;
 
 procedure DoChangeAfficheGestionTemps;
   begin
-    if not(afficheGestionTemps) | not(windowGestionOpen)
+    if not(afficheGestionTemps) or not(windowGestionOpen)
       then
         begin
           afficheGestionTemps := true;
@@ -2426,7 +2426,7 @@ procedure DoChangeAfficheGestionTemps;
 
 procedure DoChangeAfficheNuage;
   begin
-    if not(afficheNuage) | not(windowNuageOpen)
+    if not(afficheNuage) or not(windowNuageOpen)
       then
         begin
           afficheNuage := true;
@@ -2502,7 +2502,7 @@ begin
       end;
   if aideDebutant then DessineAideDebutant(false,othellierToutEntier);
   DessineAutresInfosSurCasesAideDebutant(othellierToutEntier,'DoChangeAffichePierresDelta');
-  if afficheNumeroCoup & (nbreCoup > 0)
+  if afficheNumeroCoup and (nbreCoup > 0)
     then DessineNumeroCoup(GetDernierCoup,nbreCoup,-GetCouleurOfSquareDansJeuCourant(GetDernierCoup),GetCurrentNode);
 end;
 
@@ -2518,12 +2518,12 @@ end;
 procedure DoChangeAfficheSignesDiacritiques;
 begin
   EffaceProprietesOfCurrentNode;
-  if afficheNumeroCoup & (nbreCoup > 0)
+  if afficheNumeroCoup and (nbreCoup > 0)
     then EffaceNumeroCoup(GetDernierCoup,nbreCoup,GetCurrentNode);
   afficheSignesDiacritiques := not(afficheSignesDiacritiques);
   AfficheProprietesOfCurrentNode(false,othellierToutEntier,'DoChangeAfficheSignesDiacritiques');
   DessineAutresInfosSurCasesAideDebutant(othellierToutEntier,'DoChangeAfficheSignesDiacritiques');
-  if afficheNumeroCoup & (nbreCoup > 0)
+  if afficheNumeroCoup and (nbreCoup > 0)
     then DessineNumeroCoup(GetDernierCoup,nbreCoup,-GetCouleurOfSquareDansJeuCourant(GetDernierCoup),GetCurrentNode);
 end;
 
@@ -2534,10 +2534,10 @@ begin
 
   if (origine = kNotesDeCassio) then
     begin
-      if GetAvecAffichageNotesSurCases(kNotesDeCassio) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
+      if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
         then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode + kNotesCassioSurLesCases);
 
-      if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) & (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+      if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
         then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNotesCassioSurLesCases);
     end;
 
@@ -2546,7 +2546,7 @@ end;
 
 procedure DoChangeAfficheMeilleureSuite;
 begin
-  if afficheMeilleureSuite & MeilleureSuiteEffacee
+  if afficheMeilleureSuite and MeilleureSuiteEffacee
     then
       begin
         EcritMeilleureSuite;
@@ -2571,12 +2571,12 @@ begin
 
   coupSuggere := 0;
 
-  if (afficheSuggestionDeCassio | gDoitJouerMeilleureReponse) then
+  if (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse) then
     if AttenteAnalyseDeFinaleDansPositionCourante
       then coupSuggere := GetBestMoveAttenteAnalyseDeFinale
       else coupSuggere := meilleurCoupHum;
 
-  if (coupSuggere > 0) & (coupSuggere >= 11) & (coupSuggere <= 88) & (possibleMove[coupSuggere]) then
+  if (coupSuggere > 0) and (coupSuggere >= 11) and (coupSuggere <= 88) and (possibleMove[coupSuggere]) then
      begin
        (* on a dŽjˆ un coup dorŽ affichŽ => on l'efface *)
        DoChangeAfficheSuggestionDeCassio;
@@ -2598,11 +2598,11 @@ begin
       end
     else
       coupSuggere := meilleurCoupHum;
-  if not((coupSuggere > 0) & (coupSuggere >= 11) & (coupSuggere <= 88) & (possibleMove[coupSuggere]))
+  if not((coupSuggere > 0) and (coupSuggere >= 11) and (coupSuggere <= 88) and (possibleMove[coupSuggere]))
     then coupSuggere := GetMeilleurCoupConnuMaintenant;
 
 
-  if (coupSuggere > 0) & (coupSuggere >= 11) & (coupSuggere <= 88) & (possibleMove[coupSuggere]) then
+  if (coupSuggere > 0) and (coupSuggere >= 11) and (coupSuggere <= 88) and (possibleMove[coupSuggere]) then
     begin
       {WritelnStringAndCoupDansRapport('appel de ActiverSuggestionDeCassio, coup = ',coupSuggere);}
       afficheSuggestionDeCassio := true;
@@ -2619,7 +2619,7 @@ end;
 procedure SauvegarderDerniereDimensionFenetre2D;
 var tailleFenetreActuelle : Point;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if windowPlateauOpen and (wPlateauPtr <> NIL) then
     if not(CassioEstEn3D) then
 	    begin
 	      tailleFenetreActuelle := GetWindowSize(wPlateauPtr);
@@ -2632,7 +2632,7 @@ end;
 procedure RestaurerDerniereDimensionFenetre2D;
 var ignored : boolean;
 begin
-  if (tailleFenetrePlateauAvantPassageEn3D > 0) & windowPlateauOpen & (wPlateauPtr <> NIL) then
+  if (tailleFenetrePlateauAvantPassageEn3D > 0) and windowPlateauOpen and (wPlateauPtr <> NIL) then
     if CassioEstEn3D then
 	    begin
 	      SizeWindow(wPlateauPtr,LoWord(tailleFenetrePlateauAvantPassageEn3D),HiWord(tailleFenetrePlateauAvantPassageEn3D),true);
@@ -2678,7 +2678,7 @@ end;
 
 procedure DoChangeDisplayJapaneseNamesInJapanese;
 begin
-  if gVersionJaponaiseDeCassio & gHasTextServices then
+  if gVersionJaponaiseDeCassio and gHasTextServices then
     begin
       gDisplayJapaneseNamesInJapanese := not(gDisplayJapaneseNamesInJapanese);
       InvalidateJustificationPasDePartieDansListe;
@@ -2700,7 +2700,7 @@ begin
   verouillage := BAnd(modifiers,alphaLock)  <> 0;
   control     := BAnd(modifiers,controlKey) <> 0;
   command     := BAnd(modifiers,cmdKey)     <> 0;
-  if (control & shift) & not(inBackGround)
+  if (control and shift) and not(inBackGround)
     then DoChangeAvecGagnantEnGrasDansListe;
 end;
 
@@ -2761,7 +2761,7 @@ begin
         EnvoyerUnKeepAliveSiNecessaire;
         nextTick := TickCount + 60;
       end;
-  until not(enRetour) | Quitter | humainVeutAnnuler | not(windowPlateauOpen);
+  until not(enRetour) or Quitter or humainVeutAnnuler or not(windowPlateauOpen);
 
   if mustSuspendEngine then ResumeCurrentEngine;
 
@@ -2771,10 +2771,10 @@ begin
       humainVeutAnnuler := false;
       AjusteSleep;
       dernierTick := TickCount;
-      if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+      if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
          then LanceCalculsRapidesPourBaseOuNouvelleDemande(true,false);
     end;
-  if (gCouleurOthellier.menuID <> oldTextureSelection.theMenu) | (gCouleurOthellier.menuCmd <> oldTextureSelection.theCmd)
+  if (gCouleurOthellier.menuID <> oldTextureSelection.theMenu) or (gCouleurOthellier.menuCmd <> oldTextureSelection.theCmd)
     then
 	    begin
 	      gCouleurOthellier := CalculeCouleurRecord(oldTextureSelection.theMenu,oldTextureSelection.theCmd);
@@ -2782,7 +2782,7 @@ begin
 	    end
 	  else
 	    begin
-	      if gCouleurOthellier.estUneImage {& not(CassioEstEn3D)} & not(Quitter) then
+	      if gCouleurOthellier.estUneImage {and not(CassioEstEn3D)} and not(Quitter) then
 	        DessineNumerosDeCoupsSurTousLesPionsSurDiagramme(nbreCoup); {effacement des numeros fantomes}
 	      EcranStandard(NIL,false);
 	    end;
@@ -2802,7 +2802,7 @@ var i,numeroDuCoupInitial : SInt16;
 begin
   if not(windowPlateauOpen) then DoNouvellePartie(ForceHumCtreHum);
 
-  if not(HumCtreHum) & not(CassioEstEnModeSolitaire) & ForceHumCtreHum
+  if not(HumCtreHum) and not(CassioEstEnModeSolitaire) and ForceHumCtreHum
     then DoChangeHumCtreHum;
   numeroDuCoupInitial := nbreCoup+1;
   for i := nbreCoup downto 1 do
@@ -2952,7 +2952,7 @@ begin
 					      else EffaceValeursTablesPositionnelles(dp);
            end;
       end; {case}
-    until (itemHit = OK) | (itemHit = Annuler);
+    until (itemHit = OK) or (itemHit = Annuler);
     MyDisposeDialog(dp);
     AjusteSleep;
     if not(enSetUp) then
@@ -3046,7 +3046,7 @@ procedure DoChangeSensLectureBase;
 
 procedure DoChangePalette;
 begin
-  if windowPaletteOpen & (wPalettePtr <> NIL)
+  if windowPaletteOpen and (wPalettePtr <> NIL)
     then DoClose(wPalettePtr,true)
     else OuvreFntrPalette;
 end;
@@ -3093,14 +3093,14 @@ procedure DoListeDeParties;
     if windowListeOpen
       then
         begin
-          if ((wListePtr = FrontWindowSaufPalette) & not(AutorisationDeChargerLaBaseSansInterventionUtilisateur))
+          if ((wListePtr = FrontWindowSaufPalette) and not(AutorisationDeChargerLaBaseSansInterventionUtilisateur))
             then
               DoClose(wListePtr,true)
             else
               begin
                 if (wListePtr <> FrontWindowSaufPalette) then SelectWindowSousPalette(wListePtr);
 
-                if AutorisationDeChargerLaBaseSansInterventionUtilisateur & not(DernierEvenement.option)
+                if AutorisationDeChargerLaBaseSansInterventionUtilisateur and not(DernierEvenement.option)
                   then DoChargerLaBaseSansInterventionUtilisateur;
               end;
         end
@@ -3124,11 +3124,11 @@ procedure DoListeDeParties;
                 end;
 
               with infosListePartiesDerniereFermeture do
-                if (nombrePartiesActives  = nbPartiesActives) &
-                   (nombrePartiesChargees = nbPartiesChargees) &
-                   (nbreLignesFntreListe  = CalculeNbreLignesVisiblesFntreListe) &
-                   (partieHilitee >= 1) &
-                   (partieHilitee <= nbPartiesActives) &
+                if (nombrePartiesActives  = nbPartiesActives) and
+                   (nombrePartiesChargees = nbPartiesChargees) and
+                   (nbreLignesFntreListe  = CalculeNbreLignesVisiblesFntreListe) and
+                   (partieHilitee >= 1) and
+                   (partieHilitee <= nbPartiesActives) and
                    (tableNumeroReference^^[partieHilitee] = dernierNroReferenceHilitee)
                  then
                    begin
@@ -3146,7 +3146,7 @@ procedure DoListeDeParties;
                      SetPartieHiliteeEtAjusteAscenseurListe(infosListeParties.partieHilitee);
                    end;
 
-              if AutorisationDeChargerLaBaseSansInterventionUtilisateur & not(DernierEvenement.option)
+              if AutorisationDeChargerLaBaseSansInterventionUtilisateur and not(DernierEvenement.option)
                 then DoChargerLaBaseSansInterventionUtilisateur
                 else EcritListeParties(false,'DoListeDeParties');
 
@@ -3288,7 +3288,7 @@ procedure DoChangeAvecReflexionTempsAdverse;
   begin
     sansReflexionSurTempsAdverse := not(sansReflexionSurTempsAdverse);
 
-    if sansReflexionSurTempsAdverse & not(HumCtreHum) & (AQuiDeJouer = -couleurMacintosh) then
+    if sansReflexionSurTempsAdverse and not(HumCtreHum) and (AQuiDeJouer = -couleurMacintosh) then
        LanceInterruptionSimpleConditionnelle('DoChangeAvecReflexionTempsAdverse');
   end;
 
@@ -3339,7 +3339,7 @@ procedure DoChangeUtilisationNouvelleEval;
     if utilisationNouvelleEval
       then utilisationNouvelleEval := false
       else
-        if not(VecteurEvalIntegerEstVide(vecteurEvaluationInteger)) & FichierEvaluationDeCassioTrouvable('Evaluation de Cassio')
+        if not(VecteurEvalIntegerEstVide(vecteurEvaluationInteger)) and FichierEvaluationDeCassioTrouvable('Evaluation de Cassio')
           then utilisationNouvelleEval := true;
   end;
 
@@ -3385,7 +3385,7 @@ procedure DoChangeInterversions;
 begin
   avecInterversions := not(avecInterversions);
   InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
-  if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+  if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
       then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 end;
 
@@ -3514,13 +3514,13 @@ var tick : SInt32;
   begin
     gameOver := true;
     Quitter := true;
-    while (FrontWindow <> NIL) & ((TickCount-tick) < 500) do
+    while (FrontWindow <> NIL) and ((TickCount-tick) < 500) do
         DoClose(FrontWindow,false);
     LanceInterruptionSimple('FermeToutEtQuitte');
     vaDepasserTemps := false;
     FlushEvents(everyEvent-DiskEvt,0);
     tick := TickCount;
-    while (FrontWindow <> NIL) & ((TickCount-tick) < 500) do
+    while (FrontWindow <> NIL) and ((TickCount-tick) < 500) do
         DoClose(FrontWindow,false);
     {donnons une chance aux autres applications de se redessiner}
     ShareTimeWithOtherProcesses(10);
@@ -3532,11 +3532,11 @@ var tick : SInt32;
   begin
     tick := TickCount;
     whichWindow := FrontWindowSaufPalette;
-    while (whichWindow <> NIL) & ((TickCount-tick) < 500) do
+    while (whichWindow <> NIL) and ((TickCount-tick) < 500) do
       begin
         windowAux := MyGetNextWindow(whichWindow);
         if IsWindowVisible(whichWindow) then
-          if (whichWindow <> wPlateauPtr) & (whichWindow <> wPalettePtr) & (whichWindow <> iconisationDeCassio.theWindow) then
+          if (whichWindow <> wPlateauPtr) and (whichWindow <> wPalettePtr) and (whichWindow <> iconisationDeCassio.theWindow) then
             DoClose(whichWindow,false);
         whichWindow := windowAux;
       end;
@@ -3546,7 +3546,7 @@ var tick : SInt32;
 procedure DoQuit;      {utilisee dans UnitAppleEventsCassio.p}
 begin
   if ConfirmationQuitter then
-    if doitConfirmerQuitter | PeutArreterAnalyseRetrograde then
+    if doitConfirmerQuitter or PeutArreterAnalyseRetrograde then
     begin
       {gameOver := true;}
       Quitter := true;
@@ -3567,7 +3567,7 @@ procedure DoMaster;
 procedure DoTracerNuage;
 begin
  if not(windowNuageOpen) then DoChangeAfficheNuage;
- if (nbPartiesActives <= 10) & (nbreCoup > 0) & (nbPartiesChargees > 0) then
+ if (nbPartiesActives <= 10) and (nbreCoup > 0) and (nbPartiesChargees > 0) then
    begin
      DoDebut(false);
      LanceNouvelleDemandeCalculsPourBase(false,true);
@@ -3592,13 +3592,13 @@ begin
 
     tempoAideDebutant := aideDebutant;
 
-    if (nbreCoup > 0) & EnModeEntreeTranscript &
-       ((NombreCasesVidesTranscriptCourant > 0) | not(TranscriptCourantEstUnePartieLegaleEtComplete)) {&
+    if (nbreCoup > 0) and EnModeEntreeTranscript and
+       ((NombreCasesVidesTranscriptCourant > 0) or not(TranscriptCourantEstUnePartieLegaleEtComplete)) {and
        PlusLonguePartieLegaleDuTranscriptEstDansOthellierDeGauche}
       then ViderTranscriptCourant;
 
 
-    if positionFeerique & not(EnModeEntreeTranscript) & GameTreeHasStandardInitialPositionInversed then
+    if positionFeerique and not(EnModeEntreeTranscript) and GameTreeHasStandardInitialPositionInversed then
       begin
 
         s := ReadStringFromRessource(TextesErreursID,22);  { 'Souhaitez-vous redresser la position initiale ?' }
@@ -3612,7 +3612,7 @@ begin
     EffectueSymetrieArbreDeJeuGlobal(axe);
 
 
-    if debuggage.arbreDeJeu & not(enRetour) then
+    if debuggage.arbreDeJeu and not(enRetour) then
       begin
         AfficheProprietesOfCurrentNode(false,othellierToutEntier,'DoSymetrie {1}');
         WritelnNumDansRapport('Adresse de la racine = ',SInt32(GetRacineDeLaPartie));
@@ -3642,7 +3642,7 @@ begin
     SetPositionInitialeOfGameTree(platAux,traitInitial,nbBlancsInitial,nbNoirsInitial);
 
 
-    if (LENGTH_OF_STRING(s) > 0) | positionFeerique then
+    if (LENGTH_OF_STRING(s) > 0) or positionFeerique then
       begin
 
         if debuggage.arbreDeJeu then
@@ -3713,8 +3713,8 @@ begin
   if windowListeOpen then
     begin
       GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
-      if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero) then
-        if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+      if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero) then
+        if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
           begin
             {nroReference := tableNumeroReference^^[nroHilite];
             if nroReference <> infosListeParties.dernierNroReferenceHilitee then SysBeep(0);}
@@ -3723,7 +3723,7 @@ begin
 		        ExtraitPartieTableStockageParties(nroReference,s60);
 		        ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
 		        ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-		        TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale,4,60);
+		        TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale,4,60);
 		        TraductionThorEnAlphanumerique(s60,s255);
 
 		        if not(EstUnePartieOthello(s255,false)) then
@@ -3734,12 +3734,12 @@ begin
 		            exit(OuvrePartieSelectionnee);
 		          end;
 
-		        if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) &
+		        if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) and
 		           not(TrouveSymetrieEgalisante(JeuCourant, nbreCoup, s60, axe)) then
 			        begin
 			          WritelnDansRapport('WARNING : not(PositionsSontEgales(É) dans OuvrePartieSelectionnee');
 			          with DemandeCalculsPourBase do
-	              if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	              InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 			          exit(OuvrePartieSelectionnee);
@@ -3801,7 +3801,7 @@ end;
 procedure OuvreAccessoireDeBureau(cmdNumber : SInt16);
 var DAName  : String255;
 begin
-  if (FrontWindow = NIL) & not(iconisationDeCassio.enCours) then
+  if (FrontWindow = NIL) and not(iconisationDeCassio.enCours) then
      EnableMenu(EditionMenu,[AnnulerCmd,CouperCmd,CopierCmd,CopierSpecialCmd,CollerCmd,EffacerCmd]);
    MyGetMenuItemText(GetAppleMenu,cmdNumber,DAName);
 end;
@@ -3831,7 +3831,7 @@ var shift,command,option,control : boolean;
 
     case cmdNumber of
       NouvellePartieCmd         :  if PeutArreterAnalyseRetrograde then
-                                     if positionFeerique {| not(HumCtreHum)} | (nbreCoup = 0)
+                                     if positionFeerique {or not(HumCtreHum)} or (nbreCoup = 0)
                                        then DoNouvellePartie(false)
                                        else DoDebut(false);
       OuvrirCmd                 :  DoOuvrir;
@@ -3862,7 +3862,7 @@ var positionEtCoupStr : String255;
     positionNormale : boolean;
 begin
   case cmdNumber of
-    AnnulerCmd    : if enRetour | enSetUp
+    AnnulerCmd    : if enRetour or enSetUp
                       then humainVeutAnnuler := true
                       else
                         if PeutArreterAnalyseRetrograde then
@@ -3883,7 +3883,7 @@ begin
                             EcritRubanListe(true);
                           end
                         else
-                      if arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition
+                      if arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition
                         then
                           begin
                             TECut(GetDialogTextEditHandle(arbreDeJeu.theDialog));
@@ -3909,7 +3909,7 @@ begin
                             {if (MyZeroScrap = noErr) then if (TEToScrap = noErr) then DoNothing;}
                           end
                         else
-                      if arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition
+                      if arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition
                         then
                           begin
                             TECopy(GetDialogTextEditHandle(arbreDeJeu.theDialog));
@@ -3935,7 +3935,7 @@ begin
                               EcritRubanListe(true);
                             end
                           else
-                        if arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition
+                        if arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition
                           then
                             begin
                               TEPaste(GetDialogTextEditHandle(arbreDeJeu.theDialog));
@@ -3952,9 +3952,9 @@ begin
                             end;
                       end;
     EffacerCmd     : if windowListeOpen
-                        & ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) | (LongueurSelectionRapport <= 0))
-                        & not(FenetreListeEstEnModeEntree)
-                        & (nbPartiesActives > 0)
+                        and ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) or (LongueurSelectionRapport <= 0))
+                        and not(FenetreListeEstEnModeEntree)
+                        and (nbPartiesActives > 0)
                        then
                          DoSupprimerPartiesDansListe
                        else
@@ -3967,17 +3967,17 @@ begin
 		                              CriteresRubanModifies := true;
 		                              EcritRubanListe(true);
 		                            end else
-		                          if arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition then
+		                          if arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition then
 		                            begin
 		                              TEDelete(GetDialogTextEditHandle(arbreDeJeu.theDialog));
 		                              SetCommentairesCurrentNodeFromFenetreArbreDeJeu;
 		                            end;
 		                        end;
     ToutSelectionnerCmd :  begin
-                             if windowListeOpen & (nbPartiesActives > 0)
-                                & not(arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition & (OrdreFenetre(wListePtr) > OrdreFenetre(GetArbreDeJeuWindow)))
-                                & not(FenetreListeEstEnModeEntree)
-                                & not(OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr))
+                             if windowListeOpen and (nbPartiesActives > 0)
+                                and not(arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition and (OrdreFenetre(wListePtr) > OrdreFenetre(GetArbreDeJeuWindow)))
+                                and not(FenetreListeEstEnModeEntree)
+                                and not(OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr))
                                then
                                  begin
                                    SelectionnerToutesLesPartiesActivesDansLaListe;
@@ -3985,14 +3985,14 @@ begin
                                  end
                                else
                                  begin
-		                               if not(FenetreListeEstEnModeEntree) & not(arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition) &
-		                                  FenetreRapportEstOuverte & not(FenetreRapportEstAuPremierPlan)
+		                               if not(FenetreListeEstEnModeEntree) and not(arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition) and
+		                                  FenetreRapportEstOuverte and not(FenetreRapportEstAuPremierPlan)
 		                                  then SelectWindowSousPalette(GetRapportWindow);
 		                               if not(SelectionneToutDansRapport) then
 			                               begin
 			                                 if FenetreListeEstEnModeEntree then
 			                                   TESetSelect(0,MAXINT_16BITS,SousCriteresRuban[BoiteDeSousCritereActive]);
-			                                 if arbreDeJeu.windowOpen & arbreDeJeu.enModeEdition then
+			                                 if arbreDeJeu.windowOpen and arbreDeJeu.enModeEdition then
 			                                   TESetSelect(0,MAXINT_16BITS,GetDialogTextEditHandle(arbreDeJeu.theDialog));
 			                               end;
 			                           end;
@@ -4202,7 +4202,7 @@ procedure DoBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
      AjouterPartieDansListeCmd     : DialogueSaisieNomsJoueursPartie(nbreCoup);
      ChangerOrdreCmd               : DoChangerOrdreListe;
      OuvrirSelectionneeCmd         : OuvrePartieSelectionnee(infosListeParties.partieHilitee);
-     JouerSelectionneCmd           : if windowListeOpen & (nbPartiesActives > 0) then
+     JouerSelectionneCmd           : if windowListeOpen and (nbPartiesActives > 0) then
                                       if PeutArreterAnalyseRetrograde then
                                         begin
                                           AccelereProchainDoSystemTask(2);
@@ -4328,7 +4328,7 @@ begin
 
 		  SetEnVieille3D(false);
 		  KillPovOffScreenWorld;
-		  if windowPaletteOpen & BooleanXor(gBlackAndWhite,gBlackAndWhiteArrivee) then DessinePalette;
+		  if windowPaletteOpen and BooleanXor(gBlackAndWhite,gBlackAndWhiteArrivee) then DessinePalette;
 		  SetPositionsTextesWindowPlateau;
 
 		  visibleRgn := NewRgn;
@@ -4438,7 +4438,7 @@ begin
 
         if error <> NoErr then
           begin
-            if avecAlerte & ((error = opWrErr) | (error = memFullErr) | (error = cTempMemErr) | (error = cNoMemErr))
+            if avecAlerte and ((error = opWrErr) or (error = memFullErr) or (error = cTempMemErr) or (error = cNoMemErr))
               then AlertOneButtonFromRessource(AlertePbMemoire3DID,2,0,1)
               else WritelnNumDansRapport(' error <> NoErr (2) dans DoPicture3DMenuCommands, error =',error);
             KillPovOffScreenWorld;
@@ -4512,7 +4512,7 @@ var nomComplet : String255;
       compteur := 0;
       for k := 1 to NbMaxItemsReouvrirMenu do
         begin
-          if (nomDuFichierAReouvrir[k] <> NIL) & (nomDuFichierAReouvrir[k]^^ <> '') then
+          if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
             begin
               inc(compteur);
               WriteNumDansRapport('k = ',k);
@@ -4578,10 +4578,10 @@ procedure DoMenuCommand(command : SInt32; var peutRepeter : boolean);
     { no real menu command, so we don't want to confirm inline input text }
 
 
-    if (whichMenu <> EditionID) | (whichItem < Coupercmd) | (whichItem > toutSelectionnercmd) then
+    if (whichMenu <> EditionID) or (whichItem < Coupercmd) or (whichItem > toutSelectionnercmd) then
       AnnulerSousCriteresRuban;
 
-    if FenetreRapportEstAuPremierPlan &
+    if FenetreRapportEstAuPremierPlan and
        (GetTSMDocOfRapport <> NIL)
 			then err := FixTSMDocument(GetTSMDocOfRapport);
 
@@ -4680,7 +4680,7 @@ begin
 
   {WritelnStringAndBoolDansRapport('EnModeEntreeTranscript = ',EnModeEntreeTranscript);}
 
-  if EnTraitementDeTexte & FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan
+  if EnTraitementDeTexte and FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan
     then
       begin
         if (ord(ch) = EscapeKey)
@@ -4707,7 +4707,7 @@ begin
                 if AutorisationDeChargerLaBaseSansInterventionUtilisateur then DoChargerLaBaseSansInterventionUtilisateur;
                 exit(DoKeyPress);
               end;
-            if (ord(ch) = TabulationKey) | (ord(ch) = EntreeKey) then
+            if (ord(ch) = TabulationKey) or (ord(ch) = EntreeKey) then
               begin
                 { Deplacement dans les champs de criteres actifs :
                     tabulation    => on circule en sens positif
@@ -4784,8 +4784,8 @@ begin
                   for i := 1 to longueur do s := s + caract^^[i-1];
                   if s[longueur] = '=' then
                     begin
-                      if not(JoueursEtTournoisEnMemoire) &
-                         avecGestionBase & not(problemeMemoireBase) then
+                      if not(JoueursEtTournoisEnMemoire) and
+                         avecGestionBase and not(problemeMemoireBase) then
                         DoLectureJoueursEtTournoi(false);
                       s := TPCopy(s,1,longueur-1);
                       case BoiteDeSousCritereActive of
@@ -4815,22 +4815,22 @@ begin
 		        if enRetour
 		          then
 		            begin
-		              if (ord(ch) = ReturnKey) | (ord(ch) = EntreeKey) | (ord(ch) = RetourArriereKey) | (ord(ch) = EscapeKey)
+		              if (ord(ch) = ReturnKey) or (ord(ch) = EntreeKey) or (ord(ch) = RetourArriereKey) or (ord(ch) = EscapeKey)
 		                then humainVeutAnnuler := true;
 		            end
 		          else
 		            begin
 		              if (ord(ch) = ReturnKey) then {return}
 		                begin
-		                  if FenetreRapportEstOuverte &
-		                     SelectionRapportNonVide &
+		                  if FenetreRapportEstOuverte and
+		                     SelectionRapportNonVide and
 		                     FenetreRapportEstAuPremierPlan
 		                    then
 		                      begin
-		                        if PeutCompleterPartieAvecSelectionRapport(s) & PeutArreterAnalyseRetrograde then
+		                        if PeutCompleterPartieAvecSelectionRapport(s) and PeutArreterAnalyseRetrograde then
 		                          begin
 		                            PlaquerPartieLegale(s,kNePasRejouerLesCoupsEnDirect);
-		                            if not(HumCtreHum) & not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
+		                            if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then DoChangeHumCtreHum;
 		                          end;
 		                      end
 		                    else
@@ -4841,11 +4841,11 @@ begin
 		                              DoChargerLaBaseSansInterventionUtilisateur;
 		                            end
 		                          else
-    		                        if windowListeOpen & (nbPartiesActives >= 1) & PeutArreterAnalyseRetrograde then
+    		                        if windowListeOpen and (nbPartiesActives >= 1) and PeutArreterAnalyseRetrograde then
     		                          begin
     		                            oldNbreCoups := nbreCoup;
     		                            OuvrePartieSelectionnee(infosListeParties.partieHilitee);
-    		                            if control & option then
+    		                            if control and option then
     	                                 begin
     	                                   CalculsEtAffichagePourBase(false,true);
     	                                   DialogueSaisieNomsJoueursPartie(oldNbreCoups);
@@ -4855,7 +4855,7 @@ begin
 		                end;
 
 		              if (ord(ch) = EntreeKey) then  {entree}
-		                if windowListeOpen & (nbPartiesChargees > 0) then
+		                if windowListeOpen and (nbPartiesChargees > 0) then
 		                  begin
 		                    if wListePtr <> FrontWindowSaufPalette then DoListeDeParties;
 		                    if not(sousSelectionActive) then DoChangeSousSelectionActive;
@@ -4869,7 +4869,7 @@ begin
 		                    exit(DoKeyPress);
 		                  end;
 
-		              if (ord(ch) = TabulationKey) & windowListeOpen then
+		              if (ord(ch) = TabulationKey) and windowListeOpen then
 		                if not(shift)
 		                  then
 			                  case nbColonnesFenetreListe of
@@ -4907,7 +4907,7 @@ begin
 				                     WritelnZebraValuesDansRapport(current);
 				                   end;
 
-				              '©','¢': if not(enModeIOS) & not(CassioEstEnModeAnalyse) &  {option-c}
+				              '©','¢': if not(enModeIOS) and not(CassioEstEnModeAnalyse) and  {option-c}
 				                         PeutArreterAnalyseRetrograde
 				                        then DoDemandeChangeCouleur;
 
@@ -4947,26 +4947,26 @@ begin
 				                           peutRepeter := not(gameOver);
 				                         end;
 
-				              'e','E': if not(enModeIOS) & PeutArreterAnalyseRetrograde then
+				              'e','E': if not(enModeIOS) and PeutArreterAnalyseRetrograde then
 				                           begin
 				                             AccelereProchainDoSystemTask(2);
 				                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
-				                             if (theEvent.what = autoKey) | shift
+				                             if (theEvent.what = autoKey) or shift
 				                               then DoDoubleAvanceMove
 				                               else DoAvanceMove;
 				                             peutRepeter := not(gameOver);
 				                           end;
 
-				              'r','R','z','Z': if not(enModeIOS) & PeutArreterAnalyseRetrograde then
+				              'r','R','z','Z': if not(enModeIOS) and PeutArreterAnalyseRetrograde then
 				                           begin
 				                             AccelereProchainDoSystemTask(2);
 				                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
-				                             if (theEvent.what = autoKey) | shift
+				                             if (theEvent.what = autoKey) or shift
 				                               then DoDoubleBackMove
 				                               else DoBackMove;
 				                             peutRepeter := (nbreCoup > 0);
 				                           end;
-				               't','T' : if not(enModeIOS) & PeutArreterAnalyseRetrograde then
+				               't','T' : if not(enModeIOS) and PeutArreterAnalyseRetrograde then
 				                           begin
 				                             {RemoveDelayAfterKeyboardOperation;}
                                      DoJouerMeilleurCoupConnuMaintenant;
@@ -4974,7 +4974,7 @@ begin
                                      peutRepeter := false;
 				                           end;
 
-				              'p','P': if not(enModeIOS) & PeutArreterAnalyseRetrograde then
+				              'p','P': if not(enModeIOS) and PeutArreterAnalyseRetrograde then
 				                           begin
 				                             AccelereProchainDoSystemTask(2);
 				                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
@@ -4983,7 +4983,7 @@ begin
 				                             peutRepeter := not(gameOver);
 				                           end;
 
-				              'o','O':if not(enModeIOS) & PeutArreterAnalyseRetrograde then
+				              'o','O':if not(enModeIOS) and PeutArreterAnalyseRetrograde then
 				                           begin
 				                             AccelereProchainDoSystemTask(2);
 				                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
@@ -5015,7 +5015,7 @@ begin
 				                        DoCourbe;
 				                      end;
 
-				              '"','3': if not(enRetour | enSetUp) then DoChangeEn3D(true);
+				              '"','3': if not(enRetour or enSetUp) then DoChangeEn3D(true);
 
 				              '''','4',
 				              'Ô','Õ': DoChangeAfficheZebraBookBrutDeDecoffrage;
@@ -5067,15 +5067,15 @@ begin
 				                *)
 
 				               otherwise {sinon, on cherche a avancer dans l'arbre}
-				                 if afficheProchainsCoups & IsAlpha(ch) then
+				                 if afficheProchainsCoups and IsAlpha(ch) then
 						               begin
 						                 if IsLower(ch)
 						                   then numeroFilsCherche := ord(ch) - ord('a') + 1
 						                   else numeroFilsCherche := ord(ch) - ord('A') + 1;
 
-						                 if (numeroFilsCherche <= NumberOfSons(GetCurrentNode)) &
-						                    FindSquareWithThisEtiquette(ch, square) &
-						                    (GetCouleurOfSquareDansJeuCourant(square) = pionVide) &
+						                 if (numeroFilsCherche <= NumberOfSons(GetCurrentNode)) and
+						                    FindSquareWithThisEtiquette(ch, square) and
+						                    (GetCouleurOfSquareDansJeuCourant(square) = pionVide) and
 						                    PeutArreterAnalyseRetrograde then
 						                      begin
 						                        temposon := avecSon;
@@ -5090,48 +5090,48 @@ begin
 
 				           end;
 
-	                if not(enRetour | enSetUp) then
+	                if not(enRetour or enSetUp) then
 	                  begin
 
 	                   if ch = chr(FlecheHautKey) then           {fleche en haut}
 	                     begin
-	                       if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan & command
+	                       if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan and command
 	                         then TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlUpButtonPart)
 	                         else
 	                           begin
 	                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+1;
-	                             MontePartieHilitee(shift | option);
+	                             MontePartieHilitee(shift or option);
 	                           end;
 	                       peutRepeter := true;
 	                     end;
 
 		                 if ch = chr(FlecheBasKey) then            {fleche en bas}
 		                   begin
-		                     if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan & command
+		                     if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan and command
 		                       then TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlDownButtonPart)
 		                       else
 		                         begin
 		                           gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+1;
-		                           DescendPartieHilitee(shift | option);
+		                           DescendPartieHilitee(shift or option);
 		                         end;
 		                     peutRepeter := true;
 		                   end;
 
 		                 if ch = chr(FlecheGaucheKey) then        {fleche a gauche}
 		                   begin
-		                     if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan & command
+		                     if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan and command
 		                     then TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlUpButtonPart)
 		                     else
-		                       if (nbreCoup > 0) & PeutArreterAnalyseRetrograde then
+		                       if (nbreCoup > 0) and PeutArreterAnalyseRetrograde then
 		                         if option then DoRetourDernierEmbranchement else
 		                           begin
 		                             AccelereProchainDoSystemTask(2);
 		                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
-		                             if windowListeOpen & (nbPartiesActives > 0)
-		                               then if (theEvent.what = autoKey) | shift
+		                             if windowListeOpen and (nbPartiesActives > 0)
+		                               then if (theEvent.what = autoKey) or shift
 		                                    then DoDoubleBackMovePartieSelectionnee(infosListeParties.partieHilitee)
 		                                    else DoBackMovePartieSelectionnee(infosListeParties.partieHilitee)
-		                               else if (theEvent.what = autoKey) | shift
+		                               else if (theEvent.what = autoKey) or shift
 		                                    then DoDoubleBackMove
 		                                    else DoBackMove;
 
@@ -5141,7 +5141,7 @@ begin
 
 		                 if ch = chr(FlecheDroiteKey) then        {fleche a droite}
 		                   begin
-		                     if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan & command
+		                     if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan and command
 		                     then TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlDownButtonPart)
 		                     else
 		                       if PeutArreterAnalyseRetrograde then
@@ -5149,11 +5149,11 @@ begin
 		                           begin
 		                             AccelereProchainDoSystemTask(2);
 		                             gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
-		                             if windowListeOpen & (nbPartiesActives > 0)
-		                               then if (theEvent.what = autoKey) | shift
+		                             if windowListeOpen and (nbPartiesActives > 0)
+		                               then if (theEvent.what = autoKey) or shift
 		                                    then DoDoubleAvanceMovePartieSelectionnee(infosListeParties.partieHilitee)
 		                                    else JoueCoupPartieSelectionnee(infosListeParties.partieHilitee)
-		                               else if (theEvent.what = autoKey) | shift
+		                               else if (theEvent.what = autoKey) or shift
 		                                    then DoDoubleAvanceMove
 		                                    else DoAvanceMove;
 		                           end;
@@ -5161,7 +5161,7 @@ begin
 		                   end;
 
 		                 if ch = chr(TopDocumentKey) then       {document top}
-		                   if windowListeOpen & (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
+		                   if windowListeOpen and (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
 			                     with infosListeParties do
 				                     begin
 				                       ancPosPouce := positionPouceAscenseurListe;
@@ -5170,11 +5170,11 @@ begin
 					                     if ancPosPouce <> positionPouceAscenseurListe then
 					                       EcritListeParties(false,'TopDocumentKey');
 				                     end else
-			                 if FenetreRapportEstOuverte & (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
+			                 if FenetreRapportEstOuverte and (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
 			                     VoirLeDebutDuRapport;
 
 		                 if ch = chr(BottomDocumentKey) then    {document bottom}
-		                   if windowListeOpen & (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
+		                   if windowListeOpen and (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
 		                     with infosListeParties do
 				                   begin
 				                     ancPosPouce := positionPouceAscenseurListe;
@@ -5183,11 +5183,11 @@ begin
 				                     if ancPosPouce <> positionPouceAscenseurListe then
 				                       EcritListeParties(false,'BottomDocumentKey');
 				                   end else
-			                 if FenetreRapportEstOuverte & (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
+			                 if FenetreRapportEstOuverte and (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
 			                     VoirLaFinDuRapport;
 
 		                 if ch = chr(PageUpKey) then            {page up}
-		                   if windowListeOpen & (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
+		                   if windowListeOpen and (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
 		                     with infosListeParties do
 			                     begin
 			                       ancPosPouce := positionPouceAscenseurListe;
@@ -5196,11 +5196,11 @@ begin
 				                     if ancPosPouce <> positionPouceAscenseurListe then
 				                       EcritListeParties(false,'PageUpKey');
 			                     end else
-			                 if FenetreRapportEstOuverte & (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
+			                 if FenetreRapportEstOuverte and (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
 			                     TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlPageUpPart);
 
 		                 if ch = chr(PageDownKey) then          {page down}
-		                   if windowListeOpen & (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
+		                   if windowListeOpen and (OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) then
 		                     with infosListeParties do
 			                     begin
 			                       ancPosPouce := positionPouceAscenseurListe;
@@ -5209,25 +5209,25 @@ begin
 				                     if ancPosPouce <> positionPouceAscenseurListe then
 				                       EcritListeParties(false,'PageDownKey');
 			                     end else
-			                 if FenetreRapportEstOuverte & (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
+			                 if FenetreRapportEstOuverte and (OrdreFenetre(GetRapportWindow) < OrdreFenetre(wListePtr)) then
 			                     TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlPageDownPart);
 
 
 		                 if ch = chr(RetourArriereKey) then   {retour arriere}
 		                   begin
-		                     if option & gDoitJouerMeilleureReponse
+		                     if option and gDoitJouerMeilleureReponse
 		                       then
 		                         begin
 		                           DoChangeAfficheSuggestionDeCassio;
 		                         end
 		                       else
 		                         begin
-        		                   if not(EffacerDansRapport) & PeutArreterAnalyseRetrograde then
+        		                   if not(EffacerDansRapport) and PeutArreterAnalyseRetrograde then
         		                     begin
         		                       RemoveDelayAfterKeyboardOperation;
         		                       AccelereProchainDoSystemTask(2);
         		                       JoueCoupQueMacAttendait;
-        		                       if not(afficheSuggestionDeCassio) & CassioEstEnModeAnalyse
+        		                       if not(afficheSuggestionDeCassio) and CassioEstEnModeAnalyse
         		                         then DoChangeAfficheSuggestionDeCassio;
         		                     end;
         		                 end;
@@ -5236,11 +5236,11 @@ begin
 		                 if ch = chr(HelpAndInsertKey) then   {touche aide}
 		                   DoChangeDessineAide;
 
-		                 if (ch = chr(EscapeKey)) & analyseRetrograde.enCours then {escape}
+		                 if (ch = chr(EscapeKey)) and analyseRetrograde.enCours then {escape}
 		                   DoDemandeChangerHumCtreHum;
 
 	               (*
-	               if afficheInfosApprentissage & avecFlecheProchainCoupDansGraphe then
+	               if afficheInfosApprentissage and avecFlecheProchainCoupDansGraphe then
 	                 begin
 	                   GetFilsDeLaPositionCouranteDansLeGraphe([kGainDansT,kNulleDansT,kPerteDansT,kPasDansT,kPropositionHeuristique,
 	                                                            kGainAbsolu,kNulleAbsolue,kPerteAbsolue],
@@ -5257,7 +5257,7 @@ begin
 	                           end;
 	                       end
 	                     else
-	                       if (IndexProchainFilsDansGraphe >= 1) &
+	                       if (IndexProchainFilsDansGraphe >= 1) and
 	                          (IndexProchainFilsDansGraphe <= FilsConnus.cardinal) then
 	                            begin
 	                              tempoSon := avecSon;
@@ -5269,9 +5269,9 @@ begin
 	                   end;
 	                 *)
 	                 (*
-	                 if afficheInfosApprentissage & avecFlecheProchainCoupDansGraphe then
+	                 if afficheInfosApprentissage and avecFlecheProchainCoupDansGraphe then
 	                   begin
-	                     if (ch = chr(FlecheHautKey)) & (IndexProchainFilsDansGraphe > 1) then {fleche en haut}
+	                     if (ch = chr(FlecheHautKey)) and (IndexProchainFilsDansGraphe > 1) then {fleche en haut}
 	                       begin
 	                         IndexProchainFilsDansGraphe := IndexProchainFilsDansGraphe-1;
 	                         EcritLesInfosDApprentissage;
@@ -5289,7 +5289,7 @@ begin
 	                   end;
 	                  *)
 
-	                  end; {if not(enRetour | enSetUp) then}
+	                  end; {if not(enRetour or enSetUp) then}
 
              {WriteNumAt('ascii n¡',ord(ch),20,40);}
           end;
@@ -5325,7 +5325,7 @@ begin
           case ch of
             'Z':   {pomme-majuscules-Z}
               begin
-                if shift & not(enRetour | enSetUp) & PeutArreterAnalyseRetrograde then
+                if shift and not(enRetour or enSetUp) and PeutArreterAnalyseRetrograde then
                   begin
                     AccelereProchainDoSystemTask(2);
                     gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
@@ -5338,7 +5338,7 @@ begin
               end;
             'K':   {pomme-majuscules-K}
               begin
-                if shift & PeutArreterAnalyseRetrograde then
+                if shift and PeutArreterAnalyseRetrograde then
                   begin
                     BeginHiliteMenu(SolitairesID);
                     ChercherUnProblemeDePriseDeCoinDansListe(20,40);
@@ -5348,7 +5348,7 @@ begin
               end;
             'é','è':   {pomme-option-K}
               begin
-                if option & PeutArreterAnalyseRetrograde then
+                if option and PeutArreterAnalyseRetrograde then
                   begin
                     BeginHiliteMenu(SolitairesID);
                     RevenirAuProblemeDePriseDeCoinPrecedent;
@@ -5413,7 +5413,7 @@ begin
               end;
             '+':   {pomme-plus}
               begin
-                if not(EnModeEntreeTranscript) & not(analyseRetrograde.enCours) then
+                if not(EnModeEntreeTranscript) and not(analyseRetrograde.enCours) then
                   begin
                     if avecProgrammation then BeginHiliteMenu(ProgrammationID);
                     DoChangeEnModeEntreeTranscript;
@@ -5443,7 +5443,7 @@ begin
 
 	      if (ch = chr(FlecheGaucheKey)) then           {pomme-fleche a gauche}
 	        begin
-	          if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan then
+	          if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan then
 	            begin
 	              TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlUpButtonPart);
 	              ToucheCommandeInterceptee := true;
@@ -5464,7 +5464,7 @@ begin
 	        end;
 	      if (ch = chr(FlecheDroiteKey)) then           {pomme-fleche a droite}
 	        begin
-	          if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan then
+	          if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan then
 	            begin
 	              TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlDownButtonPart);
 	              ToucheCommandeInterceptee := true;
@@ -5484,7 +5484,7 @@ begin
 	        end;
 	      if (ch = chr(FlecheHautKey)) then             {pomme-fleche en haut}
 	        begin
-	          if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan
+	          if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan
 	            then
 		            begin
 		              TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlUpButtonPart);
@@ -5501,7 +5501,7 @@ begin
 	        end;
 	      if (ch = chr(FlecheBasKey)) then              {pomme-fleche en bas}
 	        begin
-	          if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan
+	          if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan
 	            then
 	              begin
 		              TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlDownButtonPart);
@@ -5524,22 +5524,22 @@ begin
                 peutRepeter := false;
   		          exit(ToucheCommandeInterceptee);
               end;
-	          if option & gDoitJouerMeilleureReponse then
+	          if option and gDoitJouerMeilleureReponse then
               begin
                 DoChangeAfficheSuggestionDeCassio;
                 peutRepeter := false;
   		          exit(ToucheCommandeInterceptee);
               end;
-            if option & not(afficheSuggestionDeCassio) & CassioEstEnModeAnalyse then
+            if option and not(afficheSuggestionDeCassio) and CassioEstEnModeAnalyse then
         		  begin
         		    DoChangeAfficheSuggestionDeCassio;
         		    peutRepeter := false;
   		          exit(ToucheCommandeInterceptee);
         		  end;
 	          if windowListeOpen
-	            & ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) | (LongueurSelectionRapport <= 0))
-	            & not(FenetreListeEstEnModeEntree)
-	            & (nbPartiesActives > 0)
+	            and ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) or (LongueurSelectionRapport <= 0))
+	            and not(FenetreListeEstEnModeEntree)
+	            and (nbPartiesActives > 0)
 	            then
   	            begin
   	              DoSupprimerPartiesDansListe;
@@ -5556,11 +5556,11 @@ end;
 
 procedure ToggleAideDebutant;
   begin
-    if not(enSetUp | enRetour) then
+    if not(enSetUp or enRetour) then
       begin
 	      aideDebutant := not(aideDebutant);
 
-	      if (nbreCoup <= 5) & not(BibliothequeDeZebraEstAfficheeSurOthellier)
+	      if (nbreCoup <= 5) and not(BibliothequeDeZebraEstAfficheeSurOthellier)
 	        then LireBibliothequeDeZebraPourCurrentNode('ToggleAideDebutant');
 
 	      if aideDebutant
@@ -5587,7 +5587,7 @@ begin
  control := BAnd(modifiers,controlKey) <> 0;
 
 
- if (control) & PtInPlateau(mouseLoc,whichSquare) then
+ if (control) and PtInPlateau(mouseLoc,whichSquare) then
    begin
      ChangePierresDeltaApresCommandClicSurOthellier(mouseLoc,JeuCourant,true);
      AfficheProprietesOfCurrentNode(true,othellierToutEntier,'TraiteSourisStandard {1}');
@@ -5598,26 +5598,26 @@ begin
  if not(PtInPlateau(mouseLoc,whichSquare))
    then
      begin
-       if PtInRect(mouseLoc,gHorlogeRect) & not(EnModeEntreeTranscript)
+       if PtInRect(mouseLoc,gHorlogeRect) and not(EnModeEntreeTranscript)
          then
            begin
              myRect := gHorlogeRect;
              if AppuieBouton(myRect,10,mouseLoc,DrawInvertedClockBoundingRect,DrawClockBoundingRect) then DoCadence;
            end
        else
-       if (option | control | command) & not(EnModeEntreeTranscript)
+       if (option or control or command) and not(EnModeEntreeTranscript)
          then
            begin
              DoDialoguePreferencesAffichage;
            end
        else
-       if PtInRect(mouseLoc,gMeilleureSuiteRect) & not(EnModeEntreeTranscript)
+       if PtInRect(mouseLoc,gMeilleureSuiteRect) and not(EnModeEntreeTranscript)
          then
            begin
              DoChangeAfficheMeilleureSuite;
            end
        else
-       if PtInRect(mouseLoc,GetRectEscargot) & not(EnModeEntreeTranscript)
+       if PtInRect(mouseLoc,GetRectEscargot) and not(EnModeEntreeTranscript)
          then
            begin
              DoTraiteClicEscargot;
@@ -5627,13 +5627,13 @@ begin
      end
    else
      begin
-      if not(option | command)
+      if not(option or command)
         then
           begin
             if not(possibleMove[whichSquare])
               then
                 begin
-                  if PeutReculerUnCoup & CurseurEstEnTeteDeMort & (whichSquare = DerniereCaseJouee) & PeutArreterAnalyseRetrograde
+                  if PeutReculerUnCoup and CurseurEstEnTeteDeMort and (whichSquare = DerniereCaseJouee) and PeutArreterAnalyseRetrograde
 								    then
 								      begin
 								        DetruitSousArbreCourantEtBackMove;
@@ -5641,7 +5641,7 @@ begin
 								    else
 								      begin
 								        ToggleAideDebutant;
-								        if PeutReculerUnCoup & not(CurseurEstEnTeteDeMort) & (whichSquare = DerniereCaseJouee) & not(analyseRetrograde.enCours) then
+								        if PeutReculerUnCoup and not(CurseurEstEnTeteDeMort) and (whichSquare = DerniereCaseJouee) and not(analyseRetrograde.enCours) then
 								          BeginLiveUndo(GetEnsembleDesCoupsDesFreresReels(GetCurrentNode),0);
 								      end;
 								  if CurseurEstEnTeteDeMort then
@@ -5651,7 +5651,7 @@ begin
 								    end;
                 end
               else
-                if not(gameOver | CassioEstEnModeTournoi) then
+                if not(gameOver or CassioEstEnModeTournoi) then
                   begin
                     if CurseurEstEnTeteDeMort
                       then
@@ -5678,7 +5678,7 @@ begin
         else
           begin
             if TrouveCoupDansPartieCourante(whichSquare,numeroCoup) then
-              if PeutArreterAnalyseRetrograde & not(CassioEstEnModeTournoi) then
+              if PeutArreterAnalyseRetrograde and not(CassioEstEnModeTournoi) then
                 begin
                   if numeroCoup < nbreCoup
                     then
@@ -5736,14 +5736,14 @@ begin
             numeroDuCoupTrouve := i-1;
             trouve := true;
           end;
-      if trouve & (numeroDuCoupTrouve < nbreCoup)
+      if trouve and (numeroDuCoupTrouve < nbreCoup)
         then
           begin
             if PeutArreterAnalyseRetrograde then
               begin
                 EffaceZoneADroiteDeLOthellier;
                 EffaceZoneAuDessousDeLOthellier;
-                if gCouleurOthellier.estUneImage & not(Quitter) then
+                if gCouleurOthellier.estUneImage and not(Quitter) then
                   DessineNumerosDeCoupsSurTousLesPionsSurDiagramme(numeroDuCoupTrouve); {effacement des numeros fantomes}
                 DoRetourAuCoupNro(numeroDuCoupTrouve,false,not(CassioEstEnModeAnalyse));
                 {if not(CassioEstEnModeSolitaire) then DoInsererMarque;}
@@ -5781,7 +5781,7 @@ begin
       SetPortByWindow(wPlateauPtr);
       mouseLoc := evt.where;
       GlobalToLocal(mouseLoc);
-      if (mouseLoc.h >= GetWindowPortRect(wPlateauPtr).right-16) &
+      if (mouseLoc.h >= GetWindowPortRect(wPlateauPtr).right-16) and
          (mouseLoc.v >= GetWindowPortRect(wPlateauPtr).bottom-16)
         then
           begin
@@ -5789,7 +5789,7 @@ begin
           end
         else
           begin
-            if not(EnModeEntreeTranscript & TraiteMouseEventDansTranscript(evt)) then
+            if not(EnModeEntreeTranscript and TraiteMouseEventDansTranscript(evt)) then
               if enRetour
                 then TraiteSourisRetour(mouseLoc,evt.modifiers)
                 else TraiteSourisStandard(mouseLoc,evt.modifiers);
@@ -5858,14 +5858,14 @@ var limiteRect : rect;
      repeat
        GetMouse(mouseLoc);
        dedans := PtInRect(mouseLoc,rectangle);
-       if dedans & not(caseEnfoncee) then
+       if dedans and not(caseEnfoncee) then
          begin
            if gBlackAndWhite
              then InvertRect(rectangle)
              else DessineCasePaletteCouleur(nroAction,true);
            caseEnfoncee := true;
          end;
-       if not(dedans) & caseEnfoncee then
+       if not(dedans) and caseEnfoncee then
          begin
            if gBlackAndWhite
              then InvertRect(rectangle)
@@ -5901,16 +5901,16 @@ begin
 
   ok := true;
   if enSetUp then ok := false;
-  if enRetour & (NroAction <> PaletteDiagramme) then ok := false;
+  if enRetour and (NroAction <> PaletteDiagramme) then ok := false;
 
-  if CassioEstEnModeTournoi & ((NroAction = PaletteRetourDebut)   |
-                               (NroAction = PaletteDoubleBack)    |
-                               (NroAction = PaletteBack)          |
-                               (NroAction = PaletteForward)       |
-                               (NroAction = PaletteDoubleForward) |
-                               (NroAction = PaletteAllerFin)      |
-                               (NroAction = PaletteCoupPartieSel) |
-                               (NroAction = PaletteCouleur)       |
+  if CassioEstEnModeTournoi and ((NroAction = PaletteRetourDebut)   or
+                               (NroAction = PaletteDoubleBack)    or
+                               (NroAction = PaletteBack)          or
+                               (NroAction = PaletteForward)       or
+                               (NroAction = PaletteDoubleForward) or
+                               (NroAction = PaletteAllerFin)      or
+                               (NroAction = PaletteCoupPartieSel) or
+                               (NroAction = PaletteCouleur)       or
                                (NroAction = PaletteSablier)) then ok := false;
 
 
@@ -5928,8 +5928,8 @@ begin
                                   PresseCase(PaletteDoubleBack,limiteRect);
                                   DoDoubleBackMove;
                                   repeat
-                                  until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                  while BoutonAppuye(wPalettePtr,limiterect) & PeutReculerUnCoup do
+                                  until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                  while BoutonAppuye(wPalettePtr,limiterect) and PeutReculerUnCoup do
                                     begin
                                       repeat until TickCount > tick+2;
 			                                tick := TickCount;
@@ -5945,8 +5945,8 @@ begin
                                   PresseCase(PaletteBack,limiteRect);
                                   DoBackMove;
                                   repeat
-                                  until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                  while BoutonAppuye(wPalettePtr,limiterect) & PeutReculerUnCoup do
+                                  until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                  while BoutonAppuye(wPalettePtr,limiterect) and PeutReculerUnCoup do
                                     begin
                                       repeat until TickCount > tick+2;
 			                                tick := TickCount;
@@ -5962,8 +5962,8 @@ begin
                                   PresseCase(PaletteForward,limiteRect);
                                   DoAvanceMove;
                                   repeat
-                                  until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                  while BoutonAppuye(wPalettePtr,limiterect) & PeutAvancerUnCoup do
+                                  until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                  while BoutonAppuye(wPalettePtr,limiterect) and PeutAvancerUnCoup do
                                     begin
                                       repeat until TickCount > tick+2;
 			                                tick := TickCount;
@@ -5979,8 +5979,8 @@ begin
                                   PresseCase(PaletteDoubleForward,limiteRect);
                                   DoDoubleAvanceMove;
                                   repeat
-                                  until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                  while BoutonAppuye(wPalettePtr,limiterect) & PeutAvancerUnCoup do
+                                  until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                  while BoutonAppuye(wPalettePtr,limiterect) and PeutAvancerUnCoup do
                                     begin
                                       repeat until TickCount > tick+2;
 			                                tick := TickCount;
@@ -6001,13 +6001,13 @@ begin
                                   if BAnd(theEvent.modifiers,shiftKey) <> 0
                                     then
                                       begin
-                                        if windowListeOpen & (nbPartiesActives > 0) then
+                                        if windowListeOpen and (nbPartiesActives > 0) then
                                           if PeutArreterAnalyseRetrograde then
                                             begin
                                               DoBackMovePartieSelectionnee(infosListeParties.partieHilitee);
                                               repeat
-                                              until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                              while BoutonAppuye(wPalettePtr,limiterect) & PeutReculerUnCoup do
+                                              until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                              while BoutonAppuye(wPalettePtr,limiterect) and PeutReculerUnCoup do
                                                 begin
                                                   repeat until TickCount > tick+2;
 			                                            tick := TickCount;
@@ -6019,8 +6019,8 @@ begin
                                       begin
                                         JoueCoupPartieSelectionnee(infosListeParties.partieHilitee);
                                         repeat
-                                        until not(BoutonAppuye(wPalettePtr,limiterect)) | (TickCount-tick > 15);
-                                        while BoutonAppuye(wPalettePtr,limiterect) & PeutAvancerPartieSelectionnee do
+                                        until not(BoutonAppuye(wPalettePtr,limiterect)) or (TickCount-tick > 15);
+                                        while BoutonAppuye(wPalettePtr,limiterect) and PeutAvancerPartieSelectionnee do
                                           begin
                                             repeat until TickCount > tick+2;
 			                                      tick := TickCount;
@@ -6033,7 +6033,7 @@ begin
                                 end;
         PaletteCouleur        : begin
                                  {if not(HumCtreHum) then}
-                                   if not(CassioEstEnModeAnalyse) & ActionVoulue(PaletteCouleur,limiteRect) then
+                                   if not(CassioEstEnModeAnalyse) and ActionVoulue(PaletteCouleur,limiteRect) then
                                      if PeutArreterAnalyseRetrograde then DoDemandeChangeCouleur;
                                 end;
         PaletteSablier        : begin
@@ -6116,11 +6116,11 @@ begin
           begin
             tick := TickCount;
             SetRect(rubanRect,0,0,QDGetPortBound.right,hauteurRubanStatistiques);
-            if PtInRect(mouseLoc,rubanRect) & PeutArreterAnalyseRetrograde then
+            if PtInRect(mouseLoc,rubanRect) and PeutArreterAnalyseRetrograde then
 	            begin
 	              DoBackMove;
-				        repeat until not(BoutonAppuye(wStatPtr,rubanRect)) | (TickCount-tick > 15);
-			          while BoutonAppuye(wStatPtr,rubanRect) & PeutReculerUnCoup do
+				        repeat until not(BoutonAppuye(wStatPtr,rubanRect)) or (TickCount-tick > 15);
+			          while BoutonAppuye(wStatPtr,rubanRect) and PeutReculerUnCoup do
 			            begin
 			              repeat until TickCount > tick+2;
 			              tick := TickCount;
@@ -6129,8 +6129,8 @@ begin
 			        end;
           end
         else
-          if (nbPartiesChargees > 0) & (nbPartiesActives > 0) &
-             (statistiques <> NIL) & StatistiquesCalculsFaitsAuMoinsUneFois then
+          if (nbPartiesChargees > 0) and (nbPartiesActives > 0) and
+             (statistiques <> NIL) and StatistiquesCalculsFaitsAuMoinsUneFois then
           begin
             numLigne := 1+((mouseLoc.v-hauteurRubanStatistiques-2) div hauteurChaqueLigneStatistique);
             if numLigne <= statistiques^^.nbreponsesTrouvees then
@@ -6138,7 +6138,7 @@ begin
                 autreCoupQuatreDansPartie := false;
                 if nbreCoup >= 3 then ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
                 coup := ord(statistiques^^.table[numLigne].coup);
-                if (coup >= 11) & (coup <= 88) then
+                if (coup >= 11) and (coup <= 88) then
                   begin
 		                TransposeCoupPourOrientation(coup,autreCoupQuatreDansPartie);
 		                tempoSon := avecSon;
@@ -6200,7 +6200,7 @@ var mouseLoc : Point;
       index : SInt32;
   begin
     numeroDuFils := (mouseLoc.v - 1) div InterligneArbreFenetreArbreDeJeu;
-    if (numeroDuFils >= 1) & (numeroDuFils <= NbDeFilsOfCurrentNode) then
+    if (numeroDuFils >= 1) and (numeroDuFils <= NbDeFilsOfCurrentNode) then
       with arbreDeJeu do
       begin
         InverserLeNiemeFilsDansFenetreArbreDeJeu(numeroDuFils);
@@ -6220,7 +6220,7 @@ var mouseLoc : Point;
 
 begin  {TraiteSourisCommentaires}
   with arbreDeJeu do
-    if windowOpen & (GetArbreDeJeuWindow <> NIL) then
+    if windowOpen and (GetArbreDeJeuWindow <> NIL) then
       begin
         enModeEditionArrivee := enModeEdition;
 
@@ -6257,12 +6257,12 @@ begin  {TraiteSourisCommentaires}
 	                end;
 	            end;
 
-	      if not(fenetreActiveeParCeClic) & (GetArbreDeJeuWindow = FrontWindowSaufPalette) then
+	      if not(fenetreActiveeParCeClic) and (GetArbreDeJeuWindow = FrontWindowSaufPalette) then
 	        begin
 	          tick := TickCount;
 
-	          if avecInterversions & not(CurseurEstEnTeteDeMort) &
-	             SurIconeInterversion(mouseLoc,gameNodeAvantInterversion) &
+	          if avecInterversions and not(CurseurEstEnTeteDeMort) and
+	             SurIconeInterversion(mouseLoc,gameNodeAvantInterversion) and
 	             (gameNodeAvantInterversion = GetCurrentNode) then
 	            begin
 	              if PeutArreterAnalyseRetrograde then
@@ -6271,7 +6271,7 @@ begin  {TraiteSourisCommentaires}
 	              exit(TraiteSourisCommentaires);
 	            end;
 
-	          if PtInRect(mouseLoc,backMoveRect) & (not(enModeEditionArrivee) | doitResterEnModeEdition) then
+	          if PtInRect(mouseLoc,backMoveRect) and (not(enModeEditionArrivee) or doitResterEnModeEdition) then
 	            begin
 	              if PeutArreterAnalyseRetrograde then
 	                begin
@@ -6281,8 +6281,8 @@ begin  {TraiteSourisCommentaires}
 					            else
 					              begin
 											    DoBackMove;
-											    repeat until not(BoutonAppuye(GetArbreDeJeuWindow,backMoveRect)) | (TickCount-tick > 15);
-										      while BoutonAppuye(GetArbreDeJeuWindow,backMoveRect) & PeutReculerUnCoup do
+											    repeat until not(BoutonAppuye(GetArbreDeJeuWindow,backMoveRect)) or (TickCount-tick > 15);
+										      while BoutonAppuye(GetArbreDeJeuWindow,backMoveRect) and PeutReculerUnCoup do
 										        begin
 										          repeat until TickCount > tick+2;
 										          tick := TickCount;
@@ -6295,16 +6295,16 @@ begin  {TraiteSourisCommentaires}
 	            end;
 
 
-	          if (mouseLoc.v >= backMoveRect.bottom) & (mouseLoc.v <= EditionRect.top-12) & (not(enModeEditionArrivee) | doitResterEnModeEdition) then
+	          if (mouseLoc.v >= backMoveRect.bottom) and (mouseLoc.v <= EditionRect.top-12) and (not(enModeEditionArrivee) or doitResterEnModeEdition) then
 	            begin
 	              lesFilsRect := MakeRect(-1,backMoveRect.bottom,10000,backMoveRect.bottom + 5 + NbDeFilsOfCurrentNode*InterligneArbreFenetreArbreDeJeu);
-	              if not(PtInRect(mouseLoc,lesFilsRect)) & enModeEditionArrivee & doitResterEnModeEdition then
+	              if not(PtInRect(mouseLoc,lesFilsRect)) and enModeEditionArrivee and doitResterEnModeEdition then
 	                begin
 	                  doitResterEnModeEdition := false;
 	                  ValideZoneCommentaireDansFenetreArbreDeJeu;
 	                end;
 
-                if (shift | option | command) & (NbDeFilsOfCurrentNode > 1)
+                if (shift or option or command) and (NbDeFilsOfCurrentNode > 1)
                   then
                     DeplaceLeFilsSousLeCurseurDeLaSouris
                   else
@@ -6312,8 +6312,8 @@ begin  {TraiteSourisCommentaires}
 							        lesFilsRect := MakeRect(-1,backMoveRect.bottom,1000,EditionRect.top-12);
 							        JoueLeFilsSousLeCurseurDeLaSouris;
 							        repeat
-			                until not(BoutonAppuye(GetArbreDeJeuWindow,lesFilsRect)) | (TickCount-tick > 15);
-		                  while BoutonAppuye(GetArbreDeJeuWindow,lesFilsRect) & PeutAvancerUnCoup do
+			                until not(BoutonAppuye(GetArbreDeJeuWindow,lesFilsRect)) or (TickCount-tick > 15);
+		                  while BoutonAppuye(GetArbreDeJeuWindow,lesFilsRect) and PeutAvancerUnCoup do
 			                  begin
 			                    repeat until TickCount > tick+2;
 			                    tick := TickCount;
@@ -6325,7 +6325,7 @@ begin  {TraiteSourisCommentaires}
 	              exit(TraiteSourisCommentaires);
 	            end;
 
-	          if (mouseLoc.v > EditionRect.top-12) & (mouseLoc.v < EditionRect.top) then
+	          if (mouseLoc.v > EditionRect.top-12) and (mouseLoc.v < EditionRect.top) then
 	            begin
 	              positionSouris := mouseLoc.v;
 
@@ -6399,8 +6399,8 @@ var oldClipRgn : RgnHandle;
             else
               begin
                 visibleRgn := NewRgn;
-                EcranStandard(GetWindowVisibleRegion(wPlateauPtr,visibleRgn), enSetUp | EnModeEntreeTranscript | enTournoi);
-                if not(enSetUp) & afficheInfosApprentissage then EcritLesInfosDApprentissage;
+                EcranStandard(GetWindowVisibleRegion(wPlateauPtr,visibleRgn), enSetUp or EnModeEntreeTranscript or enTournoi);
+                if not(enSetUp) and afficheInfosApprentissage then EcritLesInfosDApprentissage;
                 DisposeRgn(visibleRgn);
               end;
         end
@@ -6497,7 +6497,7 @@ begin
 			    begin
 			      SetPortByWindow(whichWindow);
 
-			      if gIsRunningUnderMacOSX & WindowDeCassio(whichWindow) & (whichWindow <> wNuagePtr) then
+			      if gIsRunningUnderMacOSX and WindowDeCassio(whichWindow) and (whichWindow <> wNuagePtr) then
 			        begin
 			          if (whichWindow = wPlateauPtr)
 			            then EraseRectDansWindowPlateau(GetWindowPortRect(whichWindow)) else
@@ -6526,7 +6526,7 @@ begin
  if not(Quitter) then
  if not(enSetUp) then
    begin
-     if windowPaletteOpen & (wPalettePtr <> NIL) then
+     if windowPaletteOpen and (wPalettePtr <> NIL) then
        if IsWindowUpdatePending(wPalettePtr) then
          begin
            DoUpdateWindow(wPalettePtr);
@@ -6534,7 +6534,7 @@ begin
            AccelereProchainDoSystemTask(60);
          end;
 
-     if windowPlateauOpen & (wPlateauPtr <> NIL) then
+     if windowPlateauOpen and (wPlateauPtr <> NIL) then
        if IsWindowUpdatePending(wPlateauPtr) then
          begin
            DoUpdateWindow(wPlateauPtr);
@@ -6542,7 +6542,7 @@ begin
            AccelereProchainDoSystemTask(60);
          end;
 
-     if windowListeOpen & (wListePtr <> NIL) then
+     if windowListeOpen and (wListePtr <> NIL) then
        if IsWindowUpdatePending(wListePtr) then
          begin
            DoUpdateWindow(wListePtr);
@@ -6556,49 +6556,49 @@ begin
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowStatOpen & (wStatPtr <> NIL) then
+     if windowStatOpen and (wStatPtr <> NIL) then
        if IsWindowUpdatePending(wStatPtr) then
          begin
            DoUpdateWindow(wStatPtr);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if arbreDeJeu.windowOpen & (GetArbreDeJeuWindow <> NIL) then
+     if arbreDeJeu.windowOpen and (GetArbreDeJeuWindow <> NIL) then
        if IsWindowUpdatePending(GetArbreDeJeuWindow) then
          begin
            DoUpdateWindow(GetArbreDeJeuWindow);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowGestionOpen & (wGestionPtr <> NIL) then
+     if windowGestionOpen and (wGestionPtr <> NIL) then
        if IsWindowUpdatePending(wGestionPtr) then
          begin
            DoUpdateWindow(wGestionPtr);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowNuageOpen & (wNuagePtr <> NIL) then
+     if windowNuageOpen and (wNuagePtr <> NIL) then
        if IsWindowUpdatePending(wNuagePtr) then
          begin
            DoUpdateWindow(wNuagePtr);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowCourbeOpen & (wCourbePtr <> NIL) then
+     if windowCourbeOpen and (wCourbePtr <> NIL) then
        if IsWindowUpdatePending(wCourbePtr) then
          begin
            DoUpdateWindow(wCourbePtr);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowAideOpen & (wAidePtr <> NIL) then
+     if windowAideOpen and (wAidePtr <> NIL) then
        if IsWindowUpdatePending(wAidePtr) then
          begin
            DoUpdateWindow(wAidePtr);
            DiminueLatenceEntreDeuxDoSystemTask;
            AccelereProchainDoSystemTask(60);
          end;
-     if windowReflexOpen & (wReflexPtr <> NIL) then
+     if windowReflexOpen and (wReflexPtr <> NIL) then
        if IsWindowUpdatePending(wReflexPtr) then
          begin
            DoUpdateWindow(wReflexPtr);
@@ -6628,7 +6628,7 @@ begin
       {WritelnStringAndBoolDansRapport('1.doitAttendre = ',doitAttendreRepetition);}
 
       MyGetKeys(theKeysPourRepetition);
-      if not(MemesTouchesAppuyees(theKeys,theKeysPourRepetition)) |
+      if not(MemesTouchesAppuyees(theKeys,theKeysPourRepetition)) or
          not(ToucheAppuyee(keyCode)) then
         begin
           doitAttendreRepetition := false;
@@ -6639,7 +6639,7 @@ begin
         then
           begin
             localSleep := 1;
-            if doitAttendreRepetition & WaitNextEvent(autoKeyMask,myLocalEvent,localSleep,NIL) then
+            if doitAttendreRepetition and WaitNextEvent(autoKeyMask,myLocalEvent,localSleep,NIL) then
               begin
                 {WritelnDansRapport('autoKeyDetecte');}
                 doitAttendreRepetition := false;
@@ -6648,7 +6648,7 @@ begin
           end
         else
           begin
-            if doitAttendreRepetition & EventAvail(autoKeyMask,myLocalEvent) then
+            if doitAttendreRepetition and EventAvail(autoKeyMask,myLocalEvent) then
               begin
                 {WritelnDansRapport('autoKeyDetecte');}
                 doitAttendreRepetition := false;
@@ -6656,7 +6656,7 @@ begin
               end;
           end;
 
-      if doitAttendreRepetition & EventAvail(KeyDownMask,myLocalEvent) then
+      if doitAttendreRepetition and EventAvail(KeyDownMask,myLocalEvent) then
         begin
           {WritelnDansRapport('KeyDownDetecte');}
           doitAttendreRepetition := false;
@@ -6671,7 +6671,7 @@ begin
       SetRepetitionDeToucheEnCours(repetitionDetectee);
 
 
-    until (TickCount >= tickcountMinimalPourNouvelleRepetitionDeTouche) | not(doitAttendreRepetition);
+    until (TickCount >= tickcountMinimalPourNouvelleRepetitionDeTouche) or not(doitAttendreRepetition);
 end;
 
 
@@ -6685,11 +6685,11 @@ procedure KeyDownEvents;
       begin
         inc(niveauxDeRecursionDansDoKeyPress);
 
-        if (niveauxDeRecursionDansDoKeyPress >= 2) & ZebraBookDemandeAccelerationDesEvenements
+        if (niveauxDeRecursionDansDoKeyPress >= 2) and ZebraBookDemandeAccelerationDesEvenements
           then IncrementerMagicCookieOfZebraBook;
 
-        if (niveauxDeRecursionDansDoKeyPress <= 1) |
-           (enRetour | enSetUp | EnModeEntreeTranscript | gPendantLesInitialisationsDeCassio | enTournoi) then
+        if (niveauxDeRecursionDansDoKeyPress <= 1) or
+           (enRetour or enSetUp or EnModeEntreeTranscript or gPendantLesInitialisationsDeCassio or enTournoi) then
           begin
             {WritelnDansRapport('KeyDownEvents');}
 
@@ -6716,7 +6716,7 @@ procedure KeyDownEvents;
 
               {WritelnDansRapport('theChar = '+theChar);}
 
-              if not((lastEvent.what = autoKey) & (TickCount < tickcountMinimalPourNouvelleRepetitionDeTouche)) then
+              if not((lastEvent.what = autoKey) and (TickCount < tickcountMinimalPourNouvelleRepetitionDeTouche)) then
                 begin
                   if BAnd(lastEvent.modifiers,cmdKey) = 0
                     then
@@ -6787,14 +6787,14 @@ begin
      ResumeEventClic := BAnd(theEvent.modifiers,activeflag) <> 0;
      codeEvt := FindWindow(theEvent.where,whichWindow);
 
-     if ResumeEventClic | inBackGround then   {reactivation de l'application ?}
+     if ResumeEventClic or inBackGround then   {reactivation de l'application ?}
        begin
          if whichWindow <> NIL then
            DoActivateWindow(whichWindow,true);
          if inBackGround then
            if whichWindow <> NIL then
              if WindowDeCassio(whichWindow) then
-               if (whichWindow <> wPlateauPtr) & (whichWindow <> wPalettePtr)
+               if (whichWindow <> wPlateauPtr) and (whichWindow <> wPalettePtr)
                  then HiliteWindow(whichWindow,true)
                  else
                    begin
@@ -6805,7 +6805,7 @@ begin
                    end;
          ShowTooltipWindowInCloud;
          if windowPaletteOpen then
-           if not(IsWindowVisible(wPalettePtr)) & not(enSetUp | iconisationDeCassio.enCours) then
+           if not(IsWindowVisible(wPalettePtr)) and not(enSetUp or iconisationDeCassio.enCours) then
              begin
                ShowHide(wPalettePtr,true);
                DessinePalette;
@@ -6825,7 +6825,7 @@ begin
                          menuResult := MenuSelect(theEvent.where);
                          DoMenuCommand(menuResult,peutRepeter);
                        end;
-         InContent   : if (whichWindow = iconisationDeCassio.theWindow) & iconisationDeCassio.encours
+         InContent   : if (whichWindow = iconisationDeCassio.theWindow) and iconisationDeCassio.encours
                         then
                           begin
                             {if EstUnDoubleClic(theEvent,true) then}
@@ -6836,7 +6836,7 @@ begin
                             if whichWindow = wPlateauPtr
 			                         then
 			                           begin
-			                             if (wPlateauPtr = FrontWindowSaufPalette) | WindowPlateauSousDAutresFenetres
+			                             if (wPlateauPtr = FrontWindowSaufPalette) or WindowPlateauSousDAutresFenetres
 			                               then
 			                                 begin
 			                                   EssaieUpdateEventsWindowPlateau;
@@ -6858,13 +6858,13 @@ begin
 			                           end
 			                         else
 			                           begin
-			                             if (whichWindow <> FrontWindowSaufPalette) & (whichWindow <> wPalettePtr)
+			                             if (whichWindow <> FrontWindowSaufPalette) and (whichWindow <> wPalettePtr)
 			                               then
 			                                 begin
-			                                   if (whichWindow <> GetArbreDeJeuWindow) & arbreDeJeu.enModeEdition
+			                                   if (whichWindow <> GetArbreDeJeuWindow) and arbreDeJeu.enModeEdition
 			                                     then DeactiverModeEditionFenetreArbreDeJeu;
 			                                   SelectWindowSousPalette(whichWindow);
-			                                   if (whichWindow = wListePtr) & (wListePtr <> NIL)
+			                                   if (whichWindow = wListePtr) and (wListePtr <> NIL)
 			                                     then ShowControl(MyGetRootControl(wListePtr));
 			                                   if not(WindowDeCassio(FrontWindow))
 			                                     then InitCursor;
@@ -6908,7 +6908,7 @@ begin
                          AnnulerSousCriteresRuban;
                          tick := TickCount;
                          ActiveeParDrag := false;
-                         if (whichWindow <> FrontWindowSaufPalette) & (whichWindow <> wPalettePtr) then
+                         if (whichWindow <> FrontWindowSaufPalette) and (whichWindow <> wPalettePtr) then
                            begin
                              ActiveeParDrag := true;
                              if BAnd(theEvent.modifiers,cmdKey) = 0 then
@@ -6924,21 +6924,21 @@ begin
                          if StillDown then
                            begin
                              DragWindow(whichWindow,theEvent.where,@limiteRect);
-                             if (whichWindow = wPlateauPtr) | (whichWindow = wListePtr) | (whichWindow = wStatPtr)
+                             if (whichWindow = wPlateauPtr) or (whichWindow = wListePtr) or (whichWindow = wStatPtr)
                                then SetPositionsTextesWindowPlateau;
-                             if (whichWindow = wNuagePtr) & (TickCount - tick > 10) then CloseTooltipWindowInCloud;
+                             if (whichWindow = wNuagePtr) and (TickCount - tick > 10) then CloseTooltipWindowInCloud;
                            end;
                          EmpileFenetresSousPalette;
-                         ActiveeParDrag := ActiveeParDrag & (whichWindow = FrontWindowSaufPalette);
+                         ActiveeParDrag := ActiveeParDrag and (whichWindow = FrontWindowSaufPalette);
                          if ActiveeParDrag then
-                           if (whichWindow = wListePtr) & (wListePtr <> NIL)
+                           if (whichWindow = wListePtr) and (wListePtr <> NIL)
                              then ShowControl(MyGetRootControl(wListePtr));
                        end;
          inGrow      : begin
                          if whichWindow <> GetArbreDeJeuWindow then
                            if arbreDeJeu.enModeEdition then DeactiverModeEditionFenetreArbreDeJeu;
                          AnnulerSousCriteresRuban;
-                         if (whichWindow = FrontWindowSaufPalette) | (whichWindow = wPlateauPtr)
+                         if (whichWindow = FrontWindowSaufPalette) or (whichWindow = wPlateauPtr)
                            then
                              begin
                                DoGrowWindow(whichWindow,theEvent);
@@ -6972,7 +6972,7 @@ begin
   					                       DoChangeEcritTournoi(nbColonnesFenetreListe);
 										             end
                                else
-                                 if (whichWindow = iconisationDeCassio.theWindow) & iconisationDeCassio.encours
+                                 if (whichWindow = iconisationDeCassio.theWindow) and iconisationDeCassio.encours
                                  then DeiconiserCassio
                                  else MyZoomInOut(whichWindow,codeEvt);
                            end;
@@ -7026,7 +7026,7 @@ begin
 
         GetCurrentScript(gLastScriptUsedOutsideCassio);
         if windowPaletteOpen then
-          if not(IsWindowVisible(wPalettePtr)) & not(enSetUp | iconisationDeCassio.enCours) then
+          if not(IsWindowVisible(wPalettePtr)) and not(enSetUp or iconisationDeCassio.enCours) then
             begin
               ShowHide(wPalettePtr,true);
               DessinePalette;
@@ -7046,7 +7046,7 @@ begin
       end
     else      {suspend event}
       begin
-        if windowPaletteOpen & not(gIsRunningUnderMacOSX) then
+        if windowPaletteOpen and not(gIsRunningUnderMacOSX) then
           if IsWindowVisible(wPalettePtr) then
              ShowHide(wPalettePtr,false);
         if theFrontWindow <> NIL then
@@ -7058,7 +7058,7 @@ begin
         EnableKeyboardScriptSwitch;
         SwitchToScript(gLastScriptUsedOutsideCassio);
         inBackGround := true;
-        if enModeIOS & (MyZeroScrap = NoErr) & (MyPutScrap(LENGTH_OF_STRING(chainePourIOS),MY_FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]) = NoErr) then DoNothing;
+        if enModeIOS and (MyZeroScrap = NoErr) and (MyPutScrap(LENGTH_OF_STRING(chainePourIOS),MY_FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]) = NoErr) then DoNothing;
         AnnulerSousCriteresRuban;
         HideTooltipWindowInCloud;
       end;
@@ -7112,20 +7112,20 @@ begin
 
      {les evenements de menu, ou ceux qui ne sont pas des evenements claviers,
       ne concerent certainement pas la partie commentaire de la fenetre Arbre de Jeu}
-     if command | not(windowOpen) | not((evt.what = keyDown) | (evt.what = autoKey)) then
+     if command or not(windowOpen) or not((evt.what = keyDown) or (evt.what = autoKey)) then
 	     begin
 	       EvenementTraiteParFenetreArbreDeJeu := false;
 	       exit(EvenementTraiteParFenetreArbreDeJeu);
 	     end;
 
 	   { Si c'est un evenement clavier, on regarde si la fenetre est au premier plan}
-	   if ((evt.what = keyDown) | (evt.what = autoKey)) then
+	   if ((evt.what = keyDown) or (evt.what = autoKey)) then
 	     if EnTraitementDeTexte
 	       then
 	         begin
-	           if ((FrontWindowSaufPalette = GetRapportWindow) & FenetreRapportEstOuverte) |
-	              ((FrontWindowSaufPalette = wListePtr) & FenetreListeEstEnModeEntree) |
-	              (IsAnArrowKey(ch) & not(option) & windowListeOpen) then
+	           if ((FrontWindowSaufPalette = GetRapportWindow) and FenetreRapportEstOuverte) or
+	              ((FrontWindowSaufPalette = wListePtr) and FenetreListeEstEnModeEntree) or
+	              (IsAnArrowKey(ch) and not(option) and windowListeOpen) then
 	             begin
 	               EvenementTraiteParFenetreArbreDeJeu := false;
 	               exit(EvenementTraiteParFenetreArbreDeJeu);
@@ -7143,9 +7143,9 @@ begin
 
 	   myText := GetDialogTextEditHandle(theDialog);
 
-	   if enModeEdition & ((ord(ch) = TabulationKey) |
-	                       (ord(ch) = EscapeKey) |
-	                       ((ord(ch) =  ReturnKey) & shift) |
+	   if enModeEdition and ((ord(ch) = TabulationKey) or
+	                       (ord(ch) = EscapeKey) or
+	                       ((ord(ch) =  ReturnKey) and shift) or
 	                       (ord(ch) = EntreeKey)) then
 	     begin     {desactivation}
 	       arbreDeJeu.doitResterEnModeEdition := false;
@@ -7168,8 +7168,8 @@ begin
 		     exit(EvenementTraiteParFenetreArbreDeJeu);
 	     end;
 
-		 if not(enModeEdition) & (GetArbreDeJeuWindow = FrontWindowSaufPalette) &
-		                     ((ord(ch) = EntreeKey) |
+		 if not(enModeEdition) and (GetArbreDeJeuWindow = FrontWindowSaufPalette) and
+		                     ((ord(ch) = EntreeKey) or
 		                      (ord(ch) = TabulationKey)) then
 		   begin     {activation}
 		     ActiverModeEditionFenetreArbreDeJeu;
@@ -7178,10 +7178,10 @@ begin
 	       exit(EvenementTraiteParFenetreArbreDeJeu);
 		   end;
 
-		 if (myText <> NIL) & enModeEdition then
+		 if (myText <> NIL) and enModeEdition then
 		   begin
 		     TEKey(ch,myText);
-		     {if EnTraitementDeTexte & avecSon then PlaySoundSynchrone(MachineAEcrireID, 128);}
+		     {if EnTraitementDeTexte and avecSon then PlaySoundSynchrone(MachineAEcrireID, 128);}
 		     SetCommentairesCurrentNodeFromFenetreArbreDeJeu;
 		     EvenementTraiteParFenetreArbreDeJeu := true;
 		     DecrementeNiveauCurseurTeteDeMort;
@@ -7214,10 +7214,10 @@ begin
         verouillage := BAnd(modifiers,alphaLock) <> 0;
       end;
 
-      if (oldShift <> shift)       |
-         (oldCommand <> command)   |
-         (oldOption <> option)     |
-         (oldControl <> control)   |
+      if (oldShift <> shift)       or
+         (oldCommand <> command)   or
+         (oldOption <> option)     or
+         (oldControl <> control)   or
          (oldVerouillage <> verouillage) then
        begin
          modifiersChanged := true;

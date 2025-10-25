@@ -110,10 +110,10 @@ begin
   inc(compteurPositionsChi2);
 
   if afficheSommesPartiellesDanschi2 then
-    if (compteurPositionsChi2 <> 0) & ((compteurPositionsChi2 mod 100) = 0) then
+    if (compteurPositionsChi2 <> 0) and ((compteurPositionsChi2 mod 100) = 0) then
       WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
   if affichePositionsDansChi2 then
-    if (nroRefPartie <= 10) & ((nbCoupsJoues mod 7) = 0) & (compteurPositionsChi2 <> 0) then
+    if (nroRefPartie <= 10) and ((nbCoupsJoues mod 7) = 0) and (compteurPositionsChi2 <> 0) then
       begin
         WritelnPositionEtTraitDansRapport(position,trait);
         WritelnNumDansRapport('nbCoupsJoues = '+NumEnString(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
@@ -143,7 +143,7 @@ function CalculeChi2(var v : VectNewEval) : TypeReel;
 var tick,tickgroupe : SInt32;
     chi2 : TypeReel;
 begin
-  if VecteurEvalEstVide(v) | VecteurEvalEstVide(vecteurEvaluationChi2) then
+  if VecteurEvalEstVide(v) or VecteurEvalEstVide(vecteurEvaluationChi2) then
    begin
      CalculeChi2 := -1.0;
    end;
@@ -201,10 +201,10 @@ begin
   inc(compteurPositionsChi2);
 
   if afficheSommesPartiellesDanschi2 then
-    if (compteurPositionsChi2 <> 0) & ((compteurPositionsChi2 mod 100) = 0) then
+    if (compteurPositionsChi2 <> 0) and ((compteurPositionsChi2 mod 100) = 0) then
       WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
   if affichePositionsDansChi2 then
-    if (nroRefPartie <= 10) & ((nbCoupsJoues mod 7) = 0) & (compteurPositionsChi2 <> 0) then
+    if (nroRefPartie <= 10) and ((nbCoupsJoues mod 7) = 0) and (compteurPositionsChi2 <> 0) then
       begin
         WritelnPositionEtTraitDansRapport(position,trait);
         WritelnNumDansRapport('nbCoupsJoues = '+NumEnString(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
@@ -231,8 +231,8 @@ function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;
 var tick,tickgroupe : SInt32;
     chi2 : TypeReel;
 begin
-  if VecteurEvalEstVide(v) | VecteurEvalEstVide(vecteurEvaluationChi2) |
-     VecteurEvalEstVide(gradient) | VecteurEvalEstVide(occurences) then
+  if VecteurEvalEstVide(v) or VecteurEvalEstVide(vecteurEvaluationChi2) or
+     VecteurEvalEstVide(gradient) or VecteurEvalEstVide(occurences) then
    begin
      CalculeChi2EtGradient := -1.0;
    end;

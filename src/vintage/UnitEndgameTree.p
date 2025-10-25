@@ -103,7 +103,7 @@ var gSuiteParfaiteEstConnueDansGameTree : boolean;
 
 procedure SetActiveNodeEndgameTree(numeroEndgameTree : SInt32; G : GameTree);
 begin
-  if (numeroEndgameTree >= 1) & (numeroEndgameTree <= kNbMaxEndgameTrees) then
+  if (numeroEndgameTree >= 1) and (numeroEndgameTree <= kNbMaxEndgameTrees) then
 	  with endgameTrees.theTree[numeroEndgameTree] do
 		  if G = NIL
 		    then
@@ -121,9 +121,9 @@ end;
 
 procedure SetPathNodeEndgameTree(numeroEndgameTree : SInt32; depth : SInt32; G : GameTree);
 begin
-  if (numeroEndgameTree >= 1) & (numeroEndgameTree <= kNbMaxEndgameTrees) then
+  if (numeroEndgameTree >= 1) and (numeroEndgameTree <= kNbMaxEndgameTrees) then
 	  with endgameTrees.theTree[numeroEndgameTree] do
-		  if (depth >= 0) & (depth <= kMaxDepthOfEachEndagmeTree)
+		  if (depth >= 0) and (depth <= kMaxDepthOfEachEndagmeTree)
 		    then
 		      begin
 		        if G = NIL
@@ -175,14 +175,14 @@ end;
 
 function ActiveNodeEstValideEndgameTree(numeroEndgameTree : SInt32) : boolean;
 begin
-  if (numeroEndgameTree < 1) & (numeroEndgameTree > kNbMaxEndgameTrees)
+  if (numeroEndgameTree < 1) and (numeroEndgameTree > kNbMaxEndgameTrees)
     then
       ActiveNodeEstValideEndgameTree := false
     else
       begin
         with endgameTrees.theTree[numeroEndgameTree] do
 				  begin
-				    ActiveNodeEstValideEndgameTree := (activeNode <> NIL) &
+				    ActiveNodeEstValideEndgameTree := (activeNode <> NIL) and
 				                                      (activeNodeCookie = GetGameNodeMagicCookie(activeNode));
 				   {WritelnNumDansRapport('dans ActiveNodeEstValideEndgameTree(',numeroEndgameTree);
 				    WritelnNumDansRapport('         activeNode = ',SInt32(activeNode));
@@ -195,16 +195,16 @@ end;
 
 function PathNodeEstValideEndgameTree(numeroEndgameTree : SInt32; depth : SInt32) : boolean;
 begin
-  if (numeroEndgameTree < 1) & (numeroEndgameTree > kNbMaxEndgameTrees)
+  if (numeroEndgameTree < 1) and (numeroEndgameTree > kNbMaxEndgameTrees)
     then
       PathNodeEstValideEndgameTree := false
     else
       begin
 			  with endgameTrees.theTree[numeroEndgameTree] do
-				  if (depth >= 0) & (depth <= kMaxDepthOfEachEndagmeTree)
+				  if (depth >= 0) and (depth <= kMaxDepthOfEachEndagmeTree)
 				    then
 				      begin
-				        PathNodeEstValideEndgameTree := (pathNodes[depth] <> NIL) &
+				        PathNodeEstValideEndgameTree := (pathNodes[depth] <> NIL) and
 				                                        (pathNodesCookies[depth] = GetGameNodeMagicCookie(pathNodes[depth]))
 				      end
 				    else
@@ -391,7 +391,7 @@ begin
       numeroArbre := -1;  {par defaut : allocation non reussie}
       AllocateNewEndgameTree := false;
 
-      if (startingNode <> NIL) & (nbEndgameTreeUtilises < kNbMaxEndgameTrees) then
+      if (startingNode <> NIL) and (nbEndgameTreeUtilises < kNbMaxEndgameTrees) then
 		      for i := 1 to kNbMaxEndgameTrees do
 		        with theTree[i] do
 		          if estLibre then
@@ -422,9 +422,9 @@ begin
   (* WritelnDansRapport('LibereEndgameTree('+NumEnString(numeroArbre)+')'); *)
   with endgameTrees do
     begin
-      if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) then
+      if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) then
         begin
-          if not(ActiveNodeEstValideEndgameTree(numeroArbre)) &
+          if not(ActiveNodeEstValideEndgameTree(numeroArbre)) and
              (interruptionReflexion = pasdinterruption) then
             begin
               SysBeep(0);
@@ -455,9 +455,9 @@ var oldCurrentNode : GameTree;
     err : OSErr;
     isNew : boolean;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) then
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) then
     with endgameTrees.theTree[numeroArbre] do
-      if (activeDepth < kMaxDepthOfEachEndagmeTree) &
+      if (activeDepth < kMaxDepthOfEachEndagmeTree) and
          ActiveNodeEstValideEndgameTree(numeroArbre)
         then
 	        begin
@@ -491,9 +491,9 @@ end;
 
 procedure UndoMoveEndgameTree(numeroArbre : SInt32);
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) then
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) then
     with endgameTrees.theTree[numeroArbre] do
-      if (activeDepth > 0) &
+      if (activeDepth > 0) and
          ActiveNodeEstValideEndgameTree(numeroArbre)
         then
 	        begin
@@ -513,7 +513,7 @@ end;
 
 function GetActiveNodeOfEndgameTree(numeroArbre : SInt32) : GameTree;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) &
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) and
      ActiveNodeEstValideEndgameTree(numeroArbre)
     then GetActiveNodeOfEndgameTree := endgameTrees.theTree[numeroArbre].activeNode
     else GetActiveNodeOfEndgameTree := NIL;
@@ -521,7 +521,7 @@ end;
 
 function GetMagicCookieInitialEndgameTree(numeroArbre : SInt32) : SInt32;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees)
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees)
     then GetMagicCookieInitialEndgameTree := endgameTrees.theTree[numeroArbre].initialCookie
     else GetMagicCookieInitialEndgameTree := 0;
 end;
@@ -540,7 +540,7 @@ end;
 
 function GetValeurMinimumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) & ActiveNodeEstValideEndgameTree(numeroArbre)
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) and ActiveNodeEstValideEndgameTree(numeroArbre)
     then GetValeurMinimumParEndgameTree := GetValeurMinimumOfNode(GetActiveNodeOfEndgameTree(numeroArbre),deltaFinale)
     else GetValeurMinimumParEndgameTree := -64;
 end;
@@ -548,7 +548,7 @@ end;
 
 function GetValeurMaximumParEndgameTree(numeroArbre,deltaFinale : SInt32) : SInt32;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) & ActiveNodeEstValideEndgameTree(numeroArbre)
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) and ActiveNodeEstValideEndgameTree(numeroArbre)
     then GetValeurMaximumParEndgameTree := GetValeurMaximumOfNode(GetActiveNodeOfEndgameTree(numeroArbre),deltaFinale)
     else GetValeurMaximumParEndgameTree := +64;
 end;
@@ -556,7 +556,7 @@ end;
 
 function ConnaitValeurDuNoeudParEndgameTree(numeroArbre,deltaFinale : SInt32; var vmin,vmax : SInt32) : boolean;
 begin
-  if (numeroArbre >= 1) & (numeroArbre <= kNbMaxEndgameTrees) & ActiveNodeEstValideEndgameTree(numeroArbre)
+  if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) and ActiveNodeEstValideEndgameTree(numeroArbre)
     then
       ConnaitValeurDuNoeudParEndgameTree := ConnaitValeurDuNoeud(GetActiveNodeOfEndgameTree(numeroArbre),deltaFinale,vmin,vmax)
     else
@@ -586,7 +586,7 @@ begin
       exit(PeutCalculerFinaleParEndgameTree);
     end;
 
-  if (GetTraitOfPosition(position) <> pionVide) &
+  if (GetTraitOfPosition(position) <> pionVide) and
      ConnaitValeurDuNoeudParEndgameTree(numeroArbre,kDeltaFinaleInfini,vmin,vmax) then
     begin
 

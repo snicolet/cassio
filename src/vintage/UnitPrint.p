@@ -141,7 +141,7 @@ begin
   if EnregistrementImpressionEstCorrect then
     begin
       InitCursor;
-      if OuvreSessionImpression & HandlePageSetup then DoNothing;
+      if OuvreSessionImpression and HandlePageSetup then DoNothing;
       FermeSessionImpression;
       DejaFormatImpression := true;
       AjusteCurseur;
@@ -370,7 +370,7 @@ end;
 
 function OuvreSessionImpression : boolean;
 begin
-  OuvreSessionImpression := (PMCreateSession(g_PrintSession) = NoErr) & (ErreurImpression = NoErr);
+  OuvreSessionImpression := (PMCreateSession(g_PrintSession) = NoErr) and (ErreurImpression = NoErr);
 end;
 
 

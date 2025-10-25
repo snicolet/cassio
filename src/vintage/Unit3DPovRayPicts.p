@@ -260,9 +260,9 @@ var nomDansMenu,path : String255;
       if (whichError <> NoErr) then
         begin
           SetPort(oldPort);
-          if (error <> opWrErr) &
-             (error <> memFullErr) &
-             (error <> cTempMemErr) &
+          if (error <> opWrErr) and
+             (error <> memFullErr) and
+             (error <> cTempMemErr) and
              (error <> cNoMemErr) then
             WritelnDansRapport('error = '+NumEnString(whichError)+' dans CreatePovOffScreenWorld, fonction appelante = '+fonctionAppelante);
           CreatePovOffScreenWorld := whichError;
@@ -292,7 +292,7 @@ begin
 	      SetRect(screenRect,0,0,tailleImagesPovRay.h,tailleImagesPovRay.v);
 	      {SetRect(screenRect,0,0,512,342);}
 
-	      if (gPovRayGWorld = NIL) | (error <> NoErr)
+	      if (gPovRayGWorld = NIL) or (error <> NoErr)
 	        then
 	          begin
 	            if (gPovRayGWorld = NIL) then
@@ -324,7 +324,7 @@ begin
 					        ExitIfError(fnfErr,'FileNotFound(pionsNoirs)');
 
 
-              if (wPlateauPtr <> NIL) & windowPlateauOpen & GetDebugUpSideFacesRects3DPovRay then
+              if (wPlateauPtr <> NIL) and windowPlateauOpen and GetDebugUpSideFacesRects3DPovRay then
 				        begin
 				          SetPortByWindow(wPlateauPtr);
 				          DumpWorkToScreenFromPovRayOffScreen(unRect,screenRect,wPlateauPtr);
@@ -332,7 +332,7 @@ begin
 				          FlushWindow(wPlateauPtr);
 				          AttendFrappeClavier;
 				        end;
-				      if (wPlateauPtr <> NIL) & windowPlateauOpen & GetDebugBoundingRects3DPovRay then
+				      if (wPlateauPtr <> NIL) and windowPlateauOpen and GetDebugBoundingRects3DPovRay then
 				        begin
 				          SetPortByWindow(wPlateauPtr);
 				          DumpWorkToScreenFromPovRayOffScreen(unRect,screenRect,wPlateauPtr);
@@ -411,7 +411,7 @@ begin
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsMontreCoupsLegaux)');
 
-				      if (wPlateauPtr <> NIL) & windowPlateauOpen & GetDebugLegalMovesRects3DPovRay then
+				      if (wPlateauPtr <> NIL) and windowPlateauOpen and GetDebugLegalMovesRects3DPovRay then
 				        begin
 				          SetPortByWindow(wPlateauPtr);
 				          DumpWorkToScreenFromPovRayOffScreen(unRect,screenRect,wPlateauPtr);
@@ -473,7 +473,7 @@ var targetRect,sourceRect{,sourceRect2} : rect;
     maskRgn : RgnHandle;
     count : SInt16; }
 begin
-  if (whichSquare >= 11) & (whichSquare <= 88) then
+  if (whichSquare >= 11) and (whichSquare <= 88) then
     begin
       targetRect := GetBoundingRect3D(whichSquare);
 
@@ -579,7 +579,7 @@ var theMixMap : PixMapHandle;
     ignored : boolean;
     oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (whichSquare >= 11) & (whichSquare <= 88) & (gPovRayGWorld <> NIL) then
+  if windowPlateauOpen and (whichSquare >= 11) and (whichSquare <= 88) and (gPovRayGWorld <> NIL) then
     begin
       GetPort(oldPort);
 
@@ -599,7 +599,7 @@ var theMixMap : PixMapHandle;
     ignored : boolean;
     oldPort : grafPtr;
 begin
-  if windowPlateauOpen & (whichSquare >= 11) & (whichSquare <= 88) & (gPovRayGWorld <> NIL) then
+  if windowPlateauOpen and (whichSquare >= 11) and (whichSquare <= 88) and (gPovRayGWorld <> NIL) then
     begin
       GetPort(oldPort);
 
@@ -621,7 +621,7 @@ var oldPort : grafPtr;
     screenRect : rect;
     square,t : SInt16;
 begin
-  if windowPlateauOpen & (gPovRayGWorld <> NIL) then
+  if windowPlateauOpen and (gPovRayGWorld <> NIL) then
     begin
       GetPort(oldPort);
 
@@ -653,7 +653,7 @@ procedure EraseRectPovRay3D(myRect : rect);
 var oldPort : grafPtr;
     screenRect,auxRect : rect;
 begin
-  if windowPlateauOpen & (gPovRayGWorld <> NIL) then
+  if windowPlateauOpen and (gPovRayGWorld <> NIL) then
     begin
       SetRect(screenRect,0,0,tailleImagesPovRay.h,tailleImagesPovRay.v);
 

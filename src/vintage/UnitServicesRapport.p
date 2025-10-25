@@ -143,7 +143,7 @@ end;
 
 function GetNiemeCaractereDuRapport(n : SInt32) : char;
 begin
-  if (n >= 0) & (n <= GetTailleRapport)
+  if (n >= 0) and (n <= GetTailleRapport)
     then GetNiemeCaractereDuRapport := GetRapportTextHandle^^[n]
     else GetNiemeCaractereDuRapport := chr(0);
 end;
@@ -163,7 +163,7 @@ begin
     	i := Min(fromWhere,GetTailleRapport);
     	count := 0;
       if (i > 0) then nextChar := TexteRapportHdl^^[i-1];
-  	  while (i > 0) & (nextChar <> cr) & (count < 255) do
+  	  while (i > 0) and (nextChar <> cr) and (count < 255) do
       	begin
       	  c := nextChar;
       	  s := c+s;
@@ -283,7 +283,7 @@ begin
   				  s := s + c;
   				  i := i+1;
   				  count := count+1;
-  				until (i >= fin) | (count >= 253);
+  				until (i >= fin) or (count >= 253);
 
 				SelectionRapportEnString := s;
       end;
@@ -291,7 +291,7 @@ end;
 
 procedure SelectionnerTexteDansRapport(posDebut,posFin : SInt32);
 begin
-  if (posDebut <= posFin) & (GetTextEditRecordOfRapport <> NIL) then
+  if (posDebut <= posFin) and (GetTextEditRecordOfRapport <> NIL) then
     TESetSelect(posDebut,posFin,GetTextEditRecordOfRapport);
 end;
 
@@ -319,7 +319,7 @@ begin
            else ligne := ligne+c;
          i := i+1;
          longueurLigne := longueurLigne+1;
-         if (c = '¦') | (longueurLigne >= 240) then
+         if (c = '¦') or (longueurLigne >= 240) then
            begin
              inc(compteurLignes);
              ligne := '';
@@ -357,7 +357,7 @@ begin
            else ligne := ligne+c;
          i := i+1;
          longueurLigne := longueurLigne+1;
-         if (c = '¦') | (longueurLigne >= 240) then
+         if (c = '¦') or (longueurLigne >= 240) then
            begin
              inc(compteurLignes);
              doWhat(ligne,result);
@@ -442,12 +442,12 @@ begin
   if (GetTextEditRecordOfRapport <> NIL) then
     begin
 
-	   if (GetProchaineAlerteRemplissageRapport = (GetTailleMaximumOfRapport-2000)) &
+	   if (GetProchaineAlerteRemplissageRapport = (GetTailleMaximumOfRapport-2000)) and
 	      (GetTailleRapport >= GetTailleMaximumOfRapport-length-2000) then
 	     begin
 	       {
 	       SetProchaineAlerteRemplissageRapport(GetTailleMaximumOfRapport-1000);
-	       if not(enTournoi | enModeIOS | inBackGround | GetAutoVidageDuRapport) then
+	       if not(enTournoi or enModeIOS or inBackGround or GetAutoVidageDuRapport) then
 	         if MySimpleLegacyAlert(RapportBienRempliID,'') = HumainVeutEffacerToutRapportBouton
 	           then VideToutLeRapport;
 	       }
@@ -457,12 +457,12 @@ begin
 	       UpdateScrollersRapport;
 	     end;
 
-	   if (GetProchaineAlerteRemplissageRapport = (GetTailleMaximumOfRapport-1000)) &
+	   if (GetProchaineAlerteRemplissageRapport = (GetTailleMaximumOfRapport-1000)) and
 	      (GetTailleRapport >= GetTailleMaximumOfRapport-length-1000) then
 	     begin
 	       {
 	       SetProchaineAlerteRemplissageRapport(GetTailleMaximumOfRapport);
-	       if not(enTournoi | enModeIOS | inBackGround | GetAutoVidageDuRapport) then
+	       if not(enTournoi or enModeIOS or inBackGround or GetAutoVidageDuRapport) then
 	         if MySimpleLegacyAlert(RapportRempliRasBordID,'') = HumainVeutEffacerToutRapportBouton
 	           then VideToutLeRapport;
 	       }
@@ -472,7 +472,7 @@ begin
 	     begin
 	       SetProchaineAlerteRemplissageRapport(GetTailleMaximumOfRapport-2000);
 	       VideToutLeRapport;
-	       if not(enTournoi | enModeIOS | inBackGround | GetAutoVidageDuRapport) then
+	       if not(enTournoi or enModeIOS or inBackGround or GetAutoVidageDuRapport) then
 	         AlerteSimple(ReadStringFromRessource(TextesRapportID,26));  {Le rapport a ŽtŽ vidŽ}
 	     end;
 
@@ -494,7 +494,7 @@ end;
 procedure RemplacerTexteDansRapport(positionDebut,positionFin : SInt32; newString : String255; scrollerSynchronisation : boolean);
 var k,longueurTexteDetruit : SInt32;
 begin
-  if (positionDebut >= 0) &
+  if (positionDebut >= 0) and
      (positionDebut <= positionFin) then
     begin
       {on se place a positionFin pour garder le meme style}

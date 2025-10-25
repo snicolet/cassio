@@ -202,10 +202,10 @@ function GetEtiqueteOnThisSquare(square : SInt32) : char;
 var t : SInt32;
 begin
   GetEtiqueteOnThisSquare := ' ';
-  if (square >= 11) & (square <= 88) then
+  if (square >= 11) and (square <= 88) then
     begin
       t := etiquetteSurCase[square];
-      if (t >= 0) & (t <= 100) then
+      if (t >= 0) and (t <= 100) then
         GetEtiqueteOnThisSquare := chr(t + ord('a'));
     end;
 end;
@@ -214,7 +214,7 @@ end;
 procedure SetEtiquetteOnThisSquare(square : SInt32; etiquette : char);
 begin
   etiquette := LowerCase(etiquette);
-  if (square >= 11) & (square <= 88) then
+  if (square >= 11) and (square <= 88) then
     etiquetteSurCase[square] := ord(etiquette) - ord('a');
 end;
 
@@ -225,7 +225,7 @@ begin
   etiquette := LowerCase(etiquette);
 
   for k := 11 to 88 do
-    if (etiquetteSurCase[k] >= 0) & (etiquetteSurCase[k] = (ord(etiquette) - ord('a'))) then
+    if (etiquetteSurCase[k] >= 0) and (etiquetteSurCase[k] = (ord(etiquette) - ord('a'))) then
       begin
         square := k;
         FindSquareWithThisEtiquette := true;
@@ -284,8 +284,8 @@ begin
 
               imagetteADessiner := kAucuneImagette;
 
-              if IsARealNode(theSon) |
-                 (IsAVirtualNode(theSon) & not(IsAVirtualNodeUsedForZebraBookDisplay(theSon)) & (codeAsciiCaractere <= ord('a')))
+              if IsARealNode(theSon) or
+                 (IsAVirtualNode(theSon) and not(IsAVirtualNodeUsedForZebraBookDisplay(theSon)) and (codeAsciiCaractere <= ord('a')))
                  then
                 begin
                   if avecSignesDiacritiques then
@@ -415,10 +415,10 @@ begin
   {WritelnDansRapport('AfficheProprietes');}
   {WritelnNumDansRapport('gAffichageProprietesOfCurrentNode = ',gAffichageProprietesOfCurrentNode);}
 
-  if affichePierresDelta & (BAnd(gAffichageProprietesOfCurrentNode,kPierresDeltas) <> 0)
+  if affichePierresDelta and (BAnd(gAffichageProprietesOfCurrentNode,kPierresDeltas) <> 0)
     then DesssinePierresDelta(G, surQuellesCases);
 
-  if afficheProchainsCoups & (BAnd(gAffichageProprietesOfCurrentNode,kProchainCoup) <> 0)
+  if afficheProchainsCoups and (BAnd(gAffichageProprietesOfCurrentNode,kProchainCoup) <> 0)
     then EcritProchainsCoupsSurOthellier(G, 0, afficheSignesDiacritiques, surQuellesCases);
 
   if (BAnd(gAffichageProprietesOfCurrentNode,kCommentaires) <> 0)
@@ -516,12 +516,12 @@ procedure RemoveDansPileParametresRecursifsAfficheProprietesOfCurrentNode(index 
 begin
   Discard(params);
 
-  if (index >= 1) & (index <= 100) then
+  if (index >= 1) and (index <= 100) then
     with gPileAppelsRecursifsAfficheProprietesCurrentNode do
       begin
         pileParametres[index] := -1;
 
-        if (index = cardinalPile) & (cardinalPile >= 1)
+        if (index = cardinalPile) and (cardinalPile >= 1)
           then dec(cardinalPile)
           else WritelnDansRapport('ASSERT : pile des appels recursifs fausse dans RemoveDansPileParametresRecursifsAfficheProprietesOfCurrentNode !!');
       end;
@@ -567,7 +567,7 @@ begin  {$UNUSED fonctionAppelante, t}
           WritelnNumDansRapport('  recur = ',nbAppelsRecursifs);
           *)
 
-    		  if (dessinerAideDebutantSiNecessaire & aideDebutant)
+    		  if (dessinerAideDebutantSiNecessaire and aideDebutant)
     		    then
     		      begin
     		        if (BAnd(gAffichageProprietesOfCurrentNode, kAideDebutant) <> 0)
@@ -641,14 +641,14 @@ var myText : TEHandle;
     texte : Ptr;
     longueur,longueurCouranteCommentaire : SInt32;
 begin
- if arbreDeJeu.windowOpen & (GetArbreDeJeuWindow <> NIL) then
+ if arbreDeJeu.windowOpen and (GetArbreDeJeuWindow <> NIL) then
     begin
       myText := GetDialogTextEditHandle(arbreDeJeu.theDialog);
       if myText <> NIL then
         begin
           commentaireChange := false;
           GetCommentaireDeCeNoeud(G,texte,longueur);
-          if (longueur > 0) & (texte <> NIL)
+          if (longueur > 0) and (texte <> NIL)
             then
               begin
                 TESetText(texte,longueur,myText);
@@ -665,7 +665,7 @@ begin
                     commentaireChange := true;
                   end;
               end;
-          if redessineCommentaires & commentaireChange
+          if redessineCommentaires and commentaireChange
             then DessineZoneDeTexteDansFenetreArbreDeJeu(false)
             else DessineRubanDuCommentaireDansFenetreArbreDeJeu(false);
         end;
@@ -682,8 +682,8 @@ begin
     else
       begin
         theCurrentNode := GetCurrentNode;
-        EstVisibleDansFenetreArbreDeJeu := (G = theCurrentNode) |
-                                           ((G^.father <> NIL) & (G^.father = theCurrentNode));
+        EstVisibleDansFenetreArbreDeJeu := (G = theCurrentNode) or
+                                           ((G^.father <> NIL) and (G^.father = theCurrentNode));
       end;
 end;
 
@@ -850,8 +850,8 @@ begin
 
         GetOthelloValueOfProperty(prop,couleur,signe,valeurEntiere,centiemes);
 
-        if (valeurEntiere = 0) & (centiemes = 0) &
-           (prop.genre <> ComputerEvaluationProp) & (prop.genre <> ZebraBookProp)
+        if (valeurEntiere = 0) and (centiemes = 0) and
+           (prop.genre <> ComputerEvaluationProp) and (prop.genre <> ZebraBookProp)
           then
             begin
               s := ReadStringFromRessource(TextesReflexionID,20);                {'Nulle'}
@@ -861,13 +861,13 @@ begin
             begin
 
               inversion := DoitInverserLesScoresDeCetteCouleur(couleur);
-              if (prop.genre = ZebraBookProp) & inversion then
+              if (prop.genre = ZebraBookProp) and inversion then
                 begin
                   couleur := -couleur;
                   signe := -signe;
                 end;
 
-	            if (prop.genre = ComputerEvaluationProp) | (prop.genre = ZebraBookProp)
+	            if (prop.genre = ComputerEvaluationProp) or (prop.genre = ZebraBookProp)
 	              then
 	                begin
 	                  case couleur of
@@ -936,11 +936,11 @@ begin
 
 
         SetPt(dimension, 0, 0);
-        if (prop.genre = ZebraBookProp) & ZebraBookACetteOption(kAfficherCouleursZebraDansArbre) then
+        if (prop.genre = ZebraBookProp) and ZebraBookACetteOption(kAfficherCouleursZebraDansArbre) then
           DessineGraphiquementTemperatureBibliothequeZebra(prop,positionDessinIcone,dimension);
         Move(dimension.h, 0);
 
-        if not((prop.genre = ZebraBookProp) & not(ZebraBookACetteOption(kAfficherNotesZebraDansArbre))) then
+        if not((prop.genre = ZebraBookProp) and not(ZebraBookACetteOption(kAfficherNotesZebraDansArbre))) then
           begin
             ForeColor(GetDisplayColorOfNodeInFenetreArbreDeJeu);
             EcritChaineOfProperty(s,largeur2);
@@ -1063,7 +1063,7 @@ begin
   nbFilsReels := NumberOfRealSons(G);
 
   oldPositionHorizontale := positionHorizontale;
-  if traiteEmbranchement & (nbFilsReels >= 2) then
+  if traiteEmbranchement and (nbFilsReels >= 2) then
     begin
       GetPen(positionDessinIcone);
       positionDessinIcone.v := positionDessinIcone.v-12;
@@ -1079,7 +1079,7 @@ begin
 		      DisposePropertyStuff(description);
 		    end;
     end else
-  if traiteEmbranchement & (nbFilsReels = 1) & not(EstLaRacineDeLaPartie(G)) then
+  if traiteEmbranchement and (nbFilsReels = 1) and not(EstLaRacineDeLaPartie(G)) then
     begin
       GetPen(positionDessinIcone);
       positionDessinIcone.v := positionDessinIcone.v-12;
@@ -1095,7 +1095,7 @@ begin
 		      DisposePropertyStuff(description);
 		    end;
     end else
-  if traiteFeuille & (nbFilsReels = 0) & not(EstLaRacineDeLaPartie(G)) then
+  if traiteFeuille and (nbFilsReels = 0) and not(EstLaRacineDeLaPartie(G)) then
     begin
       GetPen(positionDessinIcone);
       positionDessinIcone.v := positionDessinIcone.v-11;
@@ -1196,7 +1196,7 @@ var positionVerticale : SInt32;
     oldPort : grafPtr;
     continuer : boolean;
 begin
-  if arbreDeJeu.windowOpen & (G <> NIL) then
+  if arbreDeJeu.windowOpen and (G <> NIL) then
     begin
       {WritelnDansRapport('EcritNoeudDansFenetreArbreDeJeu');}
       GetPort(oldPort);
@@ -1206,7 +1206,7 @@ begin
       RGBForeColor(gPurNoir);
       RGBBackColor(gPurBlanc);
 
-      if (nbreCoup <= 0) & not(phaseCalculListePositionsProperties)
+      if (nbreCoup <= 0) and not(phaseCalculListePositionsProperties)
         then EffaceNoeudDansFenetreArbreDeJeu;
 
       positionVerticale := espaceEntreLignesProperties-1;
@@ -1214,7 +1214,7 @@ begin
       if continuer then
         begin
           EcritProprietesDeCeNoeudHorizontalement(G,positionVerticale,continuer);
-		      if continuer & avecEcritureDesFils then
+		      if continuer and avecEcritureDesFils then
 		        ForEachSonDoAvecResult(G,EcritProprietesDeCeFilsHorizontalement,positionVerticale);
 		    end;
 
@@ -1282,7 +1282,7 @@ begin
          GetCurrentScript(gLastScriptUsedInDialogs);
          SwitchToRomanScript;
        end;
-	   if windowOpen & (theDialog <> NIL) then
+	   if windowOpen and (theDialog <> NIL) then
 	     begin
 	       myText := GetDialogTextEditHandle(theDialog);
 	       if myText <> NIL then TEDeactivate(myText);
@@ -1451,7 +1451,7 @@ begin
 
   end;{case}
 
-  if (PictureADessinerID = 0) & (imagetteADessiner = kAucuneImagette)
+  if (PictureADessinerID = 0) and (imagetteADessiner = kAucuneImagette)
     then
       begin
         SetPt(dimension,0,0);
@@ -1488,7 +1488,7 @@ begin
       Move(largeur+espaceEntreProperties,0)
     else
       begin
-        if gCassioUseQuartzAntialiasing & (GetPortPenLocation(qdThePort, penLocation) <> NIL) then
+        if gCassioUseQuartzAntialiasing and (GetPortPenLocation(qdThePort, penLocation) <> NIL) then
           begin
             myRect := MakeRect(penLocation.h,
                              penLocation.v - espaceEntreLignesProperties + 3,
@@ -1529,7 +1529,7 @@ begin
 	          Move(dimension.h,0);
 	          positionHorizontale := positionHorizontale+dimension.h;
 
-	          if (numeroDuCoup > 0) & (numeroDuCoup <= 64)
+	          if (numeroDuCoup > 0) and (numeroDuCoup <= 64)
 	            then s := NumEnString(numeroDuCoup)+'.'
 	            else s := '';
 	          s := s + CoupEnString(GetOthelloSquareOfProperty(prop^),CassioUtiliseDesMajuscules);
@@ -1659,8 +1659,8 @@ begin
         begin
           prop := GetPropertyPtrOfProperty(description^);
           noeudCorrespondant := GetPossesseurOfPointeurPropertyProperty(description^);
-          SurIconeInterversion := (prop <> NIL) &
-                                  ((prop^.genre = TranspositionProp) | (prop^.genre = TranspositionRangeProp));
+          SurIconeInterversion := (prop <> NIL) and
+                                  ((prop^.genre = TranspositionProp) or (prop^.genre = TranspositionRangeProp));
         end;
       VideListePositionsProperties;
     end;
@@ -1677,7 +1677,7 @@ begin
   if NoeudHasCommentaire(G) then
     begin
       commentaireVide := false;
-      if not(EstLaRacineDeLaPartie(G)) & GetSquareOfMoveInNode(G,coup) then
+      if not(EstLaRacineDeLaPartie(G)) and GetSquareOfMoveInNode(G,coup) then
         begin
           ChangeFontSizeDansRapport(gCassioRapportBoldSize);
           ChangeFontDansRapport(gCassioRapportBoldFont);
@@ -1716,11 +1716,11 @@ var interversionProp : Property;
     G : GameTree;
 begin
   G := GetCurrentNode;
-  if (G <> NIL) & (SelectFirstPropertyOfTypesInGameTree([TranspositionProp],G) = NIL) then
+  if (G <> NIL) and (SelectFirstPropertyOfTypesInGameTree([TranspositionProp],G) = NIL) then
     begin
       interversionProp := MakeStringProperty(TranspositionProp,texte);
       AddPropertyToGameTree(interversionProp,G);
-      if not(PendantLectureFormatSmartGameBoard) &
+      if not(PendantLectureFormatSmartGameBoard) and
          (GetAffichageProprietesOfCurrentNode <> kAucunePropriete) then
         begin
           EcritCurrentNodeDansFenetreArbreDeJeu(false,true);

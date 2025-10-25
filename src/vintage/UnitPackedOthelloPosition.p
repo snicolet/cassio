@@ -140,7 +140,7 @@ begin
             begin
               x := 10*j+(9-i);
               code := aux mod 4;
-              if (code = 1) | (code = 0)
+              if (code = 1) or (code = 0)
                 then plat[x] := pionVide
                 else
                   begin

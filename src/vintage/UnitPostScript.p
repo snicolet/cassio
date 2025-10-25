@@ -259,8 +259,8 @@ var lfh : linefactorhandle;
 begin
   lfh := linefactorHandle(AllocateMemoryHdl(sizeof(linefactor)));
 
-  if DoitGenererPostScriptCompatibleXPress &
-    (gLastNumerateurDansSetLineWidth <> 0) & (gLastDenominateurDansSetLineWidth <> 0) then
+  if DoitGenererPostScriptCompatibleXPress and
+    (gLastNumerateurDansSetLineWidth <> 0) and (gLastDenominateurDansSetLineWidth <> 0) then
     begin  {on multiplie la taille du crayon par l'inverse pour revenir ˆ (1,1) }
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL}
@@ -438,7 +438,7 @@ end;
 
 procedure DrawTranslatedString(s : String255; decX,decY : double_t);
 begin
-  if false & DoitGenererPostScriptCompatibleXPress
+  if false and DoitGenererPostScriptCompatibleXPress
     then
       begin
         MyFlushPostScriptState;

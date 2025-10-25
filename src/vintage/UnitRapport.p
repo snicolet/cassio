@@ -163,7 +163,7 @@ begin
 	    longueurRapport := GetTailleRapport;
 	    selectionDebut := GetDebutSelectionRapport;
 	    selectionFin := GetFinSelectionRapport;
-	    if (selectionDebut <> selectionFin) | (selectionDebut <> longueurRapport)
+	    if (selectionDebut <> selectionFin) or (selectionDebut <> longueurRapport)
 	      then SelectionnerTexteDansRapport(longueurRapport,longueurRapport);
 	    longueur := LENGTH_OF_STRING(s);
 	    InsereTexteDansRapportSync(@s[1],longueur,scrollerSynchronisation);
@@ -545,28 +545,28 @@ end;
 
 procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);
 begin
-  if (square >= 11) & (square <= 88)
+  if (square >= 11) and (square <= 88)
     then WriteDansRapport(s+CoupEnString(square,true))
     else WriteDansRapport(s+CoupEnString(square,true)+'( = '+NumEnString(square)+')');
 end;
 
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);
 begin
-  if (square >= 11) & (square <= 88)
+  if (square >= 11) and (square <= 88)
     then WritelnDansRapport(s+CoupEnString(square,true))
     else WritelnDansRapport(s+CoupEnString(square,true)+'( = '+NumEnString(square)+')');
 end;
 
 procedure WriteCoupAndNumDansRapport(square : SInt32; num : SInt32);
 begin
-  if (square >= 11) & (square <= 88)
+  if (square >= 11) and (square <= 88)
     then WriteNumDansRapport(CoupEnString(square,true)+' => ',num)
     else WriteNumDansRapport(CoupEnString(square,true)+'( = '+NumEnString(square)+') => ',num);
 end;
 
 procedure WritelnCoupAndNumDansRapport(square : SInt32; num : SInt32);
 begin
-  if (square >= 11) & (square <= 88)
+  if (square >= 11) and (square <= 88)
     then WritelnNumDansRapport(CoupEnString(square,true)+' => ',num)
     else WritelnNumDansRapport(CoupEnString(square,true)+'( = '+NumEnString(square)+') => ',num);
 end;

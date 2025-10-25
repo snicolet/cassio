@@ -148,7 +148,7 @@ var InfosPourBeginEndDialog:
 
 function inRange2(n,minimum,maximum : SInt32) : boolean;
   begin
-    inrange2 := (minimum <= n) & (n <= maximum);
+    inrange2 := (minimum <= n) and (n <= maximum);
   end;
 
 procedure ToggleCheck(ch : handle);
@@ -412,11 +412,11 @@ begin
     begin
       ChaineToLongint(s1,unlong);
       s1 := NumEnString(unlong);
-      if (unlong = 0) & (LENGTH_OF_STRING(s1) = 0) then s1 := '';
+      if (unlong = 0) and (LENGTH_OF_STRING(s1) = 0) then s1 := '';
     end;
   if s1 <> s then SetDialogItemText(itemhandle,StringToStr255(s1));
 
-  if avecDialoguesAquatiques & gIsRunningUnderMacOSX
+  if avecDialoguesAquatiques and gIsRunningUnderMacOSX
     then SetWhiteColorForEditText(dp,itemNumber);
 
 
@@ -524,7 +524,7 @@ begin
 
   whichSpec := MyMakeFSSpec(reply.vRefNum, 0, GetNameOfSFReply(reply));
 
-  MakeFileNameSansNavigationServices := reply.good & (erreurES = NoErr);
+  MakeFileNameSansNavigationServices := reply.good and (erreurES = NoErr);
 end;
 
 
@@ -563,7 +563,7 @@ begin
 
 		    erreurES := SaveFileDialog(@s,@prompt255,MY_FOUR_CHAR_CODE('SNXM'),MY_FOUR_CHAR_CODE('TEXT'), fileSpec, stationery ,replacing, navReply);
 
-		    if (erreurES <> NoErr) & debuggage.entreesSortiesUnitFichiersTEXT
+		    if (erreurES <> NoErr) and debuggage.entreesSortiesUnitFichiersTEXT
 		      then WritelnNumDansRapport('MakeFileName : erreurES = ',erreurES);
 
         if (erreurES = NoErr) then
@@ -573,7 +573,7 @@ begin
   			    if navReply.validRecord
   			      then bidErr := FSSpecToFullPath(fileSpec,fullPath);
 
-  			    if navReply.validRecord & replacing
+  			    if navReply.validRecord and replacing
   			      then bidErr := FSpDelete(fileSpec);
 
   	        reply.good    := navReply.validRecord;
@@ -602,14 +602,14 @@ begin
 
 		    (* Hack désespéré : si l'appel normal utilisant les Navigation Services
 		       s'est mal déroulé, on essaye les routines du système 7...            *)
-		    if not(MyNavServicesAvailable) & not(gIsRunningUnderMacOSX) then
+		    if not(MyNavServicesAvailable) and not(gIsRunningUnderMacOSX) then
 		      begin
 		        if MakeFileNameSansNavigationServices(reply, prompt, whichSpec)
 		          then erreurES := NoErr;
 		      end;
 		  end;
 
-  if reply.good & (erreurES = NoErr)
+  if reply.good and (erreurES = NoErr)
     then
       begin
         reply.good := true;
@@ -725,7 +725,7 @@ begin
 
   whichSpec := MyMakeFSSpec(reply.vRefNum, 0, GetNameOfSFReply(reply));
 
-  GetFileNameSansNavigationServices := reply.good & (erreurES = NoErr);
+  GetFileNameSansNavigationServices := reply.good and (erreurES = NoErr);
 end;
 
 
@@ -771,12 +771,12 @@ function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind
 			      end;
 			    erreurES := OpenOneFileDialog(prompt,MY_FOUR_CHAR_CODE('SNX4'),n,@typelist,whichSpec);
 
-			    if (erreurES <> NoErr) & debuggage.entreesSortiesUnitFichiersTEXT
+			    if (erreurES <> NoErr) and debuggage.entreesSortiesUnitFichiersTEXT
 			      then WritelnNumDansRapport('GetFileName : erreurES = ',erreurES);
 
 			    (* Hack désespéré : si l'appel normal utilisant les Navigation Services
              s'est mal déroulé, on essaye les routines du système 7...            *)
-			    if not(MyNavServicesAvailable) & not(gIsRunningUnderMacOSX) then
+			    if not(MyNavServicesAvailable) and not(gIsRunningUnderMacOSX) then
 			      begin
 			        if GetFileNameSansNavigationServices(reply,fileKind1,fileKind2,fileKind3,fileKind4,whichSpec) then
 			          if reply.good
@@ -922,7 +922,7 @@ begin
         keyDown,autoKey :
           begin
             with evt do
-            if (BAnd(message,charcodemask) = ReturnKey) |
+            if (BAnd(message,charcodemask) = ReturnKey) or
                (BAnd(message,charcodemask) = EntreeKey)
               then
                 begin
@@ -931,8 +931,8 @@ begin
                   FiltreClassique := true;
                 end
               else
-                if (BAnd(message,charcodemask) = EscapeKey) |
-                   ((BAnd(message,charcodemask) = ord('.')) & (BAnd(modifiers,cmdKey) <> 0))
+                if (BAnd(message,charcodemask) = EscapeKey) or
+                   ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0))
                   then
                     begin
                       item := 2;
@@ -998,7 +998,7 @@ begin
       case evt.what of
         keyDown,autoKey :
           with evt do
-          if (BAnd(message,charcodemask) = ReturnKey) |
+          if (BAnd(message,charcodemask) = ReturnKey) or
              (BAnd(message,charcodemask) = EntreeKey)
             then
               begin
@@ -1007,8 +1007,8 @@ begin
                 FiltreClassiqueAlerte := true;
               end
             else
-              if (BAnd(message,charcodemask) = EscapeKey) |
-                 ((BAnd(message,charcodemask) = ord('.')) & (BAnd(modifiers,cmdKey) <> 0))
+              if (BAnd(message,charcodemask) = EscapeKey) or
+                 ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0))
                 then
                   begin
                     item := 2;
@@ -1061,7 +1061,7 @@ begin {$UNUSED window}
       end;
   TextSize(haut);
 
-  if (TrebuchetMSID <> 0) & gIsRunningUnderMacOSX
+  if (TrebuchetMSID <> 0) and gIsRunningUnderMacOSX
     then
       begin
         TextFont(TrebuchetMSID);
@@ -1109,12 +1109,12 @@ begin
              begin
                GetMouse(mouseLoc);
                testDedans := PtInRect(mouseLoc,boutonRect);
-               if resultat & not(testDedans) then
+               if resultat and not(testDedans) then
                  begin
                    resultat := false;
                    drawUpState(boutonRect,rayonCoin);
                  end;
-               if not(resultat) & testDedans then
+               if not(resultat) and testDedans then
                  begin
                    resultat := true;
                    drawDownState(boutonRect,rayonCoin);
@@ -1207,12 +1207,12 @@ begin
              begin
                GetMouse(mouseLoc);
                testDedans := PtInRect(mouseLoc,boutonRect);
-               if pressed & not(testDedans) then
+               if pressed and not(testDedans) then
                  begin
                    pressed := false;
                    DessineBoutonLocal(false);
                  end;
-               if not(pressed) & testDedans then
+               if not(pressed) and testDedans then
                  begin
                    pressed := true;
                    DessineBoutonLocal(true);
@@ -1258,12 +1258,12 @@ begin
              begin
                GetMouse(mouseLoc);
                testDedans := PtInRect(mouseLoc,boutonRect);
-               if resultat & not(testDedans) then
+               if resultat and not(testDedans) then
                  begin
                    resultat := false;
                    DessineBoutonPicture(window,boutonNormalPictID,boutonRect.topleft,unRect);
                  end;
-               if not(resultat) & testDedans then
+               if not(resultat) and testDedans then
                  begin
                    resultat := true;
                    DessineBoutonPicture(window,boutonEnfoncePictID,boutonRect.topleft,unRect);
@@ -1325,7 +1325,7 @@ begin
                           activate := BAnd(evt.modifiers,activeflag) <> 0;
 
                           { Make us the front process : this brings all the windows to the front }
-                          if activate & (GetCurrentProcess(process) = NoErr) then
+                          if activate and (GetCurrentProcess(process) = NoErr) then
                             err := SetFrontProcess(process);
 
                           EvenementDuDialogue := IsDialogEvent(evt);
@@ -1434,7 +1434,7 @@ begin  {$UNUSED zoneDuHaut}
   zoneDuBas := MakeRect(-2,60, QDGetPortBound.right+2, QDGetPortBound.bottom+2);
   zoneDuHaut := MakeRect(-2,-2, QDGetPortBound.right+2, 58);
 
-	if (avecDialoguesAquatiques & gIsRunningUnderMacOSX)
+	if (avecDialoguesAquatiques and gIsRunningUnderMacOSX)
 	  then
 	    begin
 				err := GetThemeDrawingState(state);
@@ -1491,7 +1491,7 @@ begin  {$UNUSED state}
 
   if (dp <> NIL) then
     begin
-      if PaletteEstSurCeDialogue(dp) & IsWindowVisible(wPalettePtr) &
+      if PaletteEstSurCeDialogue(dp) and IsWindowVisible(wPalettePtr) and
          InfosPourBeginEndDialog.PaletteAfficheeAvantBeginDialog[InfosPourBeginEndDialog.NiveauRecursion]
         then ShowHide(wPalettePtr,false);
 
@@ -1500,7 +1500,7 @@ begin  {$UNUSED state}
       EnableQuartzAntiAliasingThisPort(GetDialogPort(dp),true);
 
 
-      if avecDialoguesAquatiques & gIsRunningUnderMacOSX then
+      if avecDialoguesAquatiques and gIsRunningUnderMacOSX then
         begin
 		      {err := SetThemePen(kThemeTextColorBlack,ProfondeurMainDevice,true);
 		      err := SetThemeTextColor(kThemeTextColorBlack,ProfondeurMainDevice,true);
@@ -1546,7 +1546,7 @@ begin
 			    InitCursor;
 			  end;
 
-			if windowPaletteOpen & (wPalettePtr <> NIL) & IsWindowVisible(wPalettePtr) then
+			if windowPaletteOpen and (wPalettePtr <> NIL) and IsWindowVisible(wPalettePtr) then
 			  begin
 			    PaletteAfficheeAvantBeginDialog[NiveauRecursion] := true;
 
@@ -1571,7 +1571,7 @@ begin
 		  DrawMenuBar;
 
 		  {on remet eventuellement la palette}
-		  if (wPalettePtr <> NIL) & PaletteAfficheeAvantBeginDialog[NiveauRecursion] then
+		  if (wPalettePtr <> NIL) and PaletteAfficheeAvantBeginDialog[NiveauRecursion] then
 		    ShowHide(wPalettePtr,true);
 		  {et on reinitialise le boolean pour la prochaine fois}
 		  PaletteAfficheeAvantBeginDialog[NiveauRecursion] := false;
@@ -1579,7 +1579,7 @@ begin
 		  ShowTooltipWindowInCloud;
 
 		  SetPort(oldPortBeforeDialog[NiveauRecursion]);
-		  if not(UnDialogueEstAffiche) & not(gCassioUseQuartzAntialiasing)
+		  if not(UnDialogueEstAffiche) and not(gCassioUseQuartzAntialiasing)
 		    then DisableQuartzAntiAliasing;
 
 		  dec(NiveauRecursion);

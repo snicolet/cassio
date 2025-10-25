@@ -59,7 +59,7 @@ procedure DoAvanceMove;
 var coup,couleur : SInt16;
     tempoSon : boolean;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+ if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
    if nroDernierCoupAtteint > nbreCoup then
     if GetNiemeCoupPartieCourante(nbreCoup+1) <> coupInconnu then
      begin
@@ -112,7 +112,7 @@ var coup,couleur,i,mobilite : SInt32;
     oldport : grafPtr;
     err : OSErr;
 begin
-  if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+  if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
   if (nroDernierCoupAtteint > nbreCoup) then
     begin
       if nroDernierCoupAtteint = nbreCoup+1
@@ -135,7 +135,7 @@ begin
                 EffaceAideDebutant(false,true,othellierToutEntier,'DoDoubleAvanceMove');
                 ViderNotesSurCases(kNotesDeCassioEtZebra,GetAvecAffichageNotesSurCases(kNotesDeCassioEtZebra),CoupsLegauxEnSquareSet);
                 EffaceProprietesOfCurrentNode;
-                if afficheNumeroCoup & (nbreCoup > 0) then
+                if afficheNumeroCoup and (nbreCoup > 0) then
                   begin
                     coup := DerniereCaseJouee;
                     if InRange(coup,11,88) then
@@ -206,8 +206,8 @@ begin
                MetTitreFenetrePlateau;
                AjusteCurseur;
                if EnVieille3D then Dessine3D(JeuCourant,false);
-               if afficheNumeroCoup & (nbreCoup > 0) then
-                 if (DerniereCaseJouee <> coupInconnu) & InRange(DerniereCaseJouee,11,88)
+               if afficheNumeroCoup and (nbreCoup > 0) then
+                 if (DerniereCaseJouee <> coupInconnu) and InRange(DerniereCaseJouee,11,88)
                     then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
                {la}
                if EnModeEntreeTranscript then EntrerPartieDansCurrentTranscript(nbreCoup);
@@ -218,7 +218,7 @@ begin
                {Initialise_table_heuristique(JeuCourant);}
                calculPrepHeurisFait := false;
                AfficheScore;
-               if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+               if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
                   begin
                     MyDisableItem(PartieMenu,ForceCmd);
                     AfficheDemandeCoup;
@@ -259,7 +259,7 @@ begin
 
                FlushWindow(wPlateauPtr);
 
-               if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+               if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
                  then LanceCalculsRapidesPourBaseOuNouvelleDemande(true,true);
 
                EngineNewPosition;
@@ -275,7 +275,7 @@ var i,mobilite : SInt32;
     oldport : grafPtr;
     jeu : plateauOthello;
 begin
-  if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+  if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
   begin
     GetPort(oldport);
     SetPortByWindow(wPlateauPtr);
@@ -287,9 +287,9 @@ begin
 
        RetirerZebraBookOption(kAfficherZebraBookBrutDeDecoffrage);
        PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
-       if not(HumCtreHum) & (jeuInstantane | CassioEstEnModeSolitaire) & PartieContreMacDeBoutEnBout & (nbreCoup >= 20)
+       if not(HumCtreHum) and (jeuInstantane or CassioEstEnModeSolitaire) and PartieContreMacDeBoutEnBout and (nbreCoup >= 20)
          then PlayZamfirSound('DoBackMove');
-       if analyseRetrograde.enCours {& (nbPartiesActives > 0)} & (analyseRetrograde.tempsDernierCoupAnalyse < 300) & (nbreCoup > 40)
+       if analyseRetrograde.enCours {and (nbPartiesActives > 0)} and (analyseRetrograde.tempsDernierCoupAnalyse < 300) and (nbreCoup > 40)
          then avecCalculPartiesActives := false
          else avecCalculPartiesActives := true;
 
@@ -340,8 +340,8 @@ begin
        nbreCoup := nbreCoup-1;
 
 
-       if afficheNumeroCoup & (nbreCoup > 0) then
-         if (DerniereCaseJouee <> coupInconnu) & InRange(DerniereCaseJouee,11,88)
+       if afficheNumeroCoup and (nbreCoup > 0) then
+         if (DerniereCaseJouee <> coupInconnu) and InRange(DerniereCaseJouee,11,88)
             then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
        EffaceCourbe(nbreCoup,nbreCoup+1,kCourbePastel,'DoBackMove');
        DessineSliderFenetreCourbe;
@@ -355,7 +355,7 @@ begin
        {Initialise_table_heuristique(JeuCourant);}
        calculPrepHeurisFait := false;
        AfficheScore;
-       if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+       if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
           begin
             MyDisableItem(PartieMenu,ForceCmd);
             AfficheDemandeCoup;
@@ -402,7 +402,7 @@ begin
 
        if not(LiveUndoVaRejouerImmediatementUnAutreCoup) then
          begin
-           if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+           if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
              then LanceCalculsRapidesPourBaseOuNouvelleDemande(true,true);
            avecCalculPartiesActives := true;
          end;
@@ -422,7 +422,7 @@ var i,mobilite : SInt32;
     peutPlusReculer : boolean;
     jeu : plateauOthello;
 begin
-  if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+  if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
   begin
 
 
@@ -436,15 +436,15 @@ begin
        BeginFonctionModifiantNbreCoup('DoDoubleBackMove');
 
        RetirerZebraBookOption(kAfficherZebraBookBrutDeDecoffrage);
-       if not(HumCtreHum) & (jeuInstantane | CassioEstEnModeSolitaire) & PartieContreMacDeBoutEnBout & (nbreCoup >= 20)
+       if not(HumCtreHum) and (jeuInstantane or CassioEstEnModeSolitaire) and PartieContreMacDeBoutEnBout and (nbreCoup >= 20)
          then PlayZamfirSound('DoDoubleBackMove');
-       if HumCtreHum | (not(CassioEstEnModeSolitaire) & (AQuiDeJouer = couleurMacintosh))
+       if HumCtreHum or (not(CassioEstEnModeSolitaire) and (AQuiDeJouer = couleurMacintosh))
          then
            limiteInfNbreCoup := nbreCoup-2
          else
            begin
              i := nbreCoup;
-             while (i > 0) & (GetCouleurNiemeCoupPartieCourante(i) = couleurMacintosh) do i := i-1;
+             while (i > 0) and (GetCouleurNiemeCoupPartieCourante(i) = couleurMacintosh) do i := i-1;
              limiteInfNbreCoup := i-1;
            end;
        if limiteInfNbreCoup < 0 then limiteInfNbreCoup := 0;
@@ -506,13 +506,13 @@ begin
             EffaceCourbe(nbreCoup,nbreCoup+1,kCourbePastel,'DoDoubleBackMove');
             DessineSliderFenetreCourbe;
           end;
-       until (nbreCoup <= limiteInfNbreCoup) | peutPlusReculer;
+       until (nbreCoup <= limiteInfNbreCoup) or peutPlusReculer;
 
 
 
        if EnVieille3D then Dessine3D(JeuCourant,false);
-       if afficheNumeroCoup & (nbreCoup > 0) then
-         if (DerniereCaseJouee <> coupInconnu) & InRange(DerniereCaseJouee,11,88)
+       if afficheNumeroCoup and (nbreCoup > 0) then
+         if (DerniereCaseJouee <> coupInconnu) and InRange(DerniereCaseJouee,11,88)
            then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
        {la}
        if afficheInfosApprentissage then EcritLesInfosDApprentissage;
@@ -524,7 +524,7 @@ begin
        {Initialise_table_heuristique(JeuCourant);}
        calculPrepHeurisFait := false;
        AfficheScore;
-       if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+       if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
           begin
             MyDisableItem(PartieMenu,ForceCmd);
             AfficheDemandeCoup;
@@ -566,7 +566,7 @@ begin
 
        FlushWindow(wPlateauPtr);
 
-       if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+       if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
          then LanceCalculsRapidesPourBaseOuNouvelleDemande(true,true);
 
      end;
@@ -597,17 +597,17 @@ var s60,anciennePartie : PackedThorGame;
     axe : SInt16;
     oldCheckDangerousEvents : boolean;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
- if windowListeOpen & not(positionFeerique) & (nbreCoup > 0) then
+ if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
+ if windowListeOpen and not(positionFeerique) and (nbreCoup > 0) then
    with infosListeParties do
      begin
 
 
 
        GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
-		   {if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero)
+		   {if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero)
 		    then}
-		   if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+		   if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
 		     begin
 
 
@@ -617,14 +617,14 @@ begin
 		      ExtraitPartieTableStockageParties(nroReference,s60);
 		      ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
 		      ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-		      TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale & (nbreCoup >= 4),1,60);
+		      TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale and (nbreCoup >= 4),1,60);
 
-		      if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) &
+		      if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) and
 		         not(TrouveSymetrieEgalisante(JeuCourant, nbreCoup, s60, axe)) then
 	          begin
 	            WritelnDansRapport('WARNING : not(PositionsSontEgales(É) dans DoBackMovePartieSelectionnee');
 	            with DemandeCalculsPourBase do
-	              if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 	            exit(DoBackMovePartieSelectionnee);
@@ -636,12 +636,12 @@ begin
 		        begin
 		          coup := GetNiemeCoupPartieCourante(i);
 		          {patch pour les diagonales avec l'autre coup 4}
-		          if autreCoupQuatreDansPartie & ((i = 1) | (i = 3))
-		            then test := test & ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(1)')) | (coup = CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(2)'),axeSE_NW)))
-		            else test := test & (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(3)'));
+		          if autreCoupQuatreDansPartie and ((i = 1) or (i = 3))
+		            then test := test and ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(1)')) or (coup = CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(2)'),axeSE_NW)))
+		            else test := test and (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60, i,'DoBackMovePartieSelectionnee(3)'));
 		        end;
 
-		      if not(test) & (nbreCoup > 5) then
+		      if not(test) and (nbreCoup > 5) then
 		        begin
 		          if PartieDansLaListeIdentiqueAPartieCourante(nroReference, nbreCoup - 1, autreCoupQuatreDansPartie)
 		            then test := true;
@@ -704,7 +704,7 @@ begin
 		             begin
 		              InvalidateNombrePartiesActivesDansLeCache(i);
 		              coup := GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoBackMovePartieSelectionnee(4)');
-		              good := good & (coup >= 11) & (coup <= 88);
+		              good := good and (coup >= 11) and (coup <= 88);
 		              if good then
 		               if PeutJouerIci(coulTrait,coup,jeu)
 		                then
@@ -766,7 +766,7 @@ begin
 		                         DessinePion(t,GetCouleurOfSquareDansJeuCourant(t));
 		                   end;
 		                 if EnVieille3D then Dessine3D(JeuCourant,false);
-		                 if afficheNumeroCoup & (nbreCoup > 0)
+		                 if afficheNumeroCoup and (nbreCoup > 0)
 		                   then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
 
 		                 gameOver := false;
@@ -793,7 +793,7 @@ begin
 		                 DessineSliderFenetreCourbe;
 
 		                 AfficheScore;
-		                 if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+		                 if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
 		                    begin
 		                      MyDisableItem(PartieMenu,ForceCmd);
 		                      AfficheDemandeCoup;
@@ -846,7 +846,7 @@ begin
 
 		                 SetCassioMustCheckDangerousEvents(oldCheckDangerousEvents,NIL);
 
-		                 if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+		                 if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
 		                    then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
 		                 LanceDemandeAffichageZebraBook('DoBackMovePartieSelectionnee');
@@ -886,8 +886,8 @@ var s60,anciennePartie : PackedThorGame;
     axe : SInt16;
     oldCheckDangerousEvents : boolean;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) &
-    windowListeOpen & not(positionFeerique) & (nbreCoup > 0) then
+ if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) and
+    windowListeOpen and not(positionFeerique) and (nbreCoup > 0) then
  if (nbreCoup = 1)
   then
     DoBackMovePartieSelectionnee(nroHilite)
@@ -895,23 +895,23 @@ begin
     with infosListeParties do
 		  begin
 		   GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
-		   {if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero)
+		   {if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero)
 		    then}
-		   if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+		   if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
 		     begin
 		      nroReference := infosListeParties.dernierNroReferenceHilitee;
 
 		      ExtraitPartieTableStockageParties(nroReference,s60);
 		      ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
 		      ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-		      TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale & (nbreCoup >= 4),1,60);
+		      TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale and (nbreCoup >= 4),1,60);
 
-		      if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) &
+		      if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) and
 		         not(TrouveSymetrieEgalisante(JeuCourant, nbreCoup, s60, axe)) then
 		        begin
 		          WritelnDansRapport('WARNING : not(PositionsSontEgales(É) dans DoDoubleBackMovePartieSelectionnee');
 		          with DemandeCalculsPourBase do
-	              if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 		          exit(DoDoubleBackMovePartieSelectionnee);
@@ -922,13 +922,13 @@ begin
 		        begin
 		          coup := GetNiemeCoupPartieCourante(i);
 		          {patch pour les diagonales avec l'autre coup 4}
-		          if autreCoupQuatreDansPartie & ((i = 1) | (i = 3))
-		            then test := test & ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(1)')) |
+		          if autreCoupQuatreDansPartie and ((i = 1) or (i = 3))
+		            then test := test and ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(1)')) or
 		                                 (coup = CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(2)'),axeSE_NW)))
-		            else test := test & (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(3)'));
+		            else test := test and (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(3)'));
 		        end;
 
-		      if not(test) & (nbreCoup > 6) & PartieDansLaListeIdentiqueAPartieCourante(nroReference, nbreCoup - 2, autreCoupQuatreDansPartie)
+		      if not(test) and (nbreCoup > 6) and PartieDansLaListeIdentiqueAPartieCourante(nroReference, nbreCoup - 2, autreCoupQuatreDansPartie)
 		        then test := true;
 
 		      if test
@@ -984,7 +984,7 @@ begin
 		              begin
   		              InvalidateNombrePartiesActivesDansLeCache(i);
   		              coup := GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleBackMovePartieSelectionnee(4)');
-  		              good := good & (coup >= 11) & (coup <= 88);
+  		              good := good and (coup >= 11) and (coup <= 88);
   		              if good then
   		                if PeutJouerIci(coulTrait,coup,jeu)
   		                  then
@@ -1048,7 +1048,7 @@ begin
 		                         DessinePion(t,GetCouleurOfSquareDansJeuCourant(t));
 		                   end;
 		                 if EnVieille3D then Dessine3D(JeuCourant,false);
-		                 if afficheNumeroCoup & (nbreCoup > 0)
+		                 if afficheNumeroCoup and (nbreCoup > 0)
 		                   then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
 
 		                 gameOver := false;
@@ -1075,7 +1075,7 @@ begin
 		                 DessineSliderFenetreCourbe;
 
 		                 AfficheScore;
-		                 if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+		                 if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
 		                    begin
 		                      MyDisableItem(PartieMenu,ForceCmd);
 		                      AfficheDemandeCoup;
@@ -1136,7 +1136,7 @@ begin
 
 		                 SetCassioMustCheckDangerousEvents(oldCheckDangerousEvents,NIL);
 
-		                 if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+		                 if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
 		                   then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
 
@@ -1163,26 +1163,26 @@ var s60 : PackedThorGame;
     premierCoup,coup : SInt16;
     test : boolean;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
- if windowListeOpen & not(positionFeerique) then
+ if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
+ if windowListeOpen and not(positionFeerique) then
    with infosListeParties do
 	   begin
 	     GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,DernierNumero);
-	     {if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero) then}
-	     if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+	     {if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero) then}
+	     if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
 	       begin
 	         nroReference := infosListeParties.dernierNroReferenceHilitee;
 
 		       ExtraitPartieTableStockageParties(nroReference,s60);
 		       ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
 		       ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-		       TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale & (nbreCoup >= 4),1,60);
+		       TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale and (nbreCoup >= 4),1,60);
 
 		       if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) then
 		        begin
 		          WritelnDansRapport('WARNING : not(PositionsSontEgales(É) dans DoDoubleAvanceMovePartieSelectionnee');
 		          with DemandeCalculsPourBase do
-	              if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 		          exit(DoDoubleAvanceMovePartieSelectionnee);
@@ -1193,9 +1193,9 @@ begin
 	           begin
 	             coup := GetNiemeCoupPartieCourante(i);
 		           {patch pour les diagonales avec l'autre coup 4}
-		           if autreCoupQuatreDansPartie & ((i = 1) | (i = 3))
-		             then test := test & ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(1)')) | (coup = CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(2)'),axeSE_NW)))
-		             else test := test & (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(3)'));
+		           if autreCoupQuatreDansPartie and ((i = 1) or (i = 3))
+		             then test := test and ((coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(1)')) or (coup = CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(2)'),axeSE_NW)))
+		             else test := test and (coup = GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'DoDoubleAvanceMovePartieSelectionnee(3)'));
 		         end;
 	         if test
 	           then
@@ -1265,7 +1265,7 @@ begin
            MarquerCurrentNodeCommeReel('DoRetourAuCoupNro');
 
          end;
-       until (nbreCoup = numeroCoup) | (DerniereCaseJouee = coupInconnu);
+       until (nbreCoup = numeroCoup) or (DerniereCaseJouee = coupInconnu);
        tempsDesJoueurs[pionNoir].minimum := partie^^[nbreCoup+1].tempsUtilise.tempsNoir div 60;
        tempsDesJoueurs[pionNoir].sec := partie^^[nbreCoup+1].tempsUtilise.tempsNoir mod 60;
        tempsDesJoueurs[pionNoir].tick := 0;
@@ -1279,7 +1279,7 @@ begin
        gDoitJouerMeilleureReponse := false;
        if windowPlateauOpen then
          begin
-           if NeDessinerQueLesNouveauxPions & not(CassioEstEn3D)
+           if NeDessinerQueLesNouveauxPions and not(CassioEstEn3D)
              then
                begin
                  SetPortByWindow(wPlateauPtr);
@@ -1290,7 +1290,7 @@ begin
                  DessineGarnitureAutourOthellierPourEcranStandard;
                  if afficheNumeroCoup then
                    begin
-                     if (nbreCoup > 0) & (DerniereCaseJouee <> coupInconnu) & InRange(DerniereCaseJouee,11,88)
+                     if (nbreCoup > 0) and (DerniereCaseJouee <> coupInconnu) and InRange(DerniereCaseJouee,11,88)
                        then DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
                    end;
                end
@@ -1303,7 +1303,7 @@ begin
 
 
        {la}
-       if not(HumCtreHum) & not(CassioEstEnModeSolitaire) & ForceHumCtreHum
+       if not(HumCtreHum) and not(CassioEstEnModeSolitaire) and ForceHumCtreHum
          then DoChangeHumCtreHum;
        EffaceCourbe(nbreCoup,61,kCourbePastel,'DoRetourAuCoupNro');
        InvalidateEvaluationPourCourbe(nroDernierCoupAtteint + 1, 61);
@@ -1351,7 +1351,7 @@ begin
 
        FlushWindow(wPlateauPtr);
 
-       if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+       if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
          then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
        EngineNewPosition;
@@ -1381,7 +1381,7 @@ begin
     then WritelnNumDansRapport('ASSERT : (numeroCoup <= 0) in DoAvanceAuCoupNro, value is ', numeroCoup);
 
 
-  if (numeroCoup >= nbreCoup) & (numeroCoup <= nroDernierCoupAtteint) then
+  if (numeroCoup >= nbreCoup) and (numeroCoup <= nroDernierCoupAtteint) then
     begin
 
      BeginFonctionModifiantNbreCoup('DoAvanceAuCoupNro');
@@ -1449,13 +1449,13 @@ begin
          if windowPlateauOpen then
            begin
              EffaceProprietes(oldCurrentNodeInGameTree);
-             if NeDessinerQueLesNouveauxPions & not(EnVieille3D)
+             if NeDessinerQueLesNouveauxPions and not(EnVieille3D)
                then
                  begin
                    GetPort(oldport);
                    SetPortByWindow(wPlateauPtr);
-                   if afficheNumeroCoup  & (ancienNbreCoup > 0) &
-                      (GetNiemeCoupPartieCourante(ancienNbreCoup) <> coupInconnu) &
+                   if afficheNumeroCoup  and (ancienNbreCoup > 0) and
+                      (GetNiemeCoupPartieCourante(ancienNbreCoup) <> coupInconnu) and
                       InRange(GetNiemeCoupPartieCourante(ancienNbreCoup),11,88) then
                       EffaceNumeroCoup(GetNiemeCoupPartieCourante(ancienNbreCoup),ancienNbreCoup,oldCurrentNodeInGameTree);
                    for i := 1 to 8 do
@@ -1463,8 +1463,8 @@ begin
                        if anciensPionsDessines[10*i+j] <> GetCouleurOfSquareDansJeuCourant(10*i+j) then
                          DessinePion(10*i+j,GetCouleurOfSquareDansJeuCourant(10*i+j));
                    DessineGarnitureAutourOthellierPourEcranStandard;
-                   if afficheNumeroCoup  & (nbreCoup > 0) &
-                      (DerniereCaseJouee <> coupInconnu) &
+                   if afficheNumeroCoup  and (nbreCoup > 0) and
+                      (DerniereCaseJouee <> coupInconnu) and
                       InRange(DerniereCaseJouee,11,88) then
                       DessineNumeroCoup(DerniereCaseJouee,nbreCoup,-GetCouleurOfSquareDansJeuCourant(DerniereCaseJouee),GetCurrentNode);
                    SetPort(oldPort);
@@ -1510,7 +1510,7 @@ begin
 
          FlushWindow(wPlateauPtr);
 
-         if (windowListeOpen | windowStatOpen)
+         if (windowListeOpen or windowStatOpen)
            then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
          EngineNewPosition;
@@ -1526,15 +1526,15 @@ end;
 procedure DoRetourDerniereMarque;
 var i,maximum : SInt16;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+ if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
   if (nbreCoup > 0) then
    begin
     maximum := -100;
     for i := 1 to marques[0] do
-      if (marques[i] > maximum) & (marques[i] < nbreCoup) then
+      if (marques[i] > maximum) and (marques[i] < nbreCoup) then
         maximum := marques[i];
-    if (nbreCoupsApresLecture > 0) & not(positionFeerique) then
-      if (nbreCoupsApresLecture > maximum) & (nbreCoupsApresLecture < nbreCoup) then
+    if (nbreCoupsApresLecture > 0) and not(positionFeerique) then
+      if (nbreCoupsApresLecture > maximum) and (nbreCoupsApresLecture < nbreCoup) then
         maximum := nbreCoupsApresLecture;
     if (maximum <= 0)
       then DoDebut(false)
@@ -1549,15 +1549,15 @@ end;
 procedure DoAvanceProchaineMarque;
 var i,maximum : SInt32;
 begin
- if windowPlateauOpen & not(enRetour | enSetUp) then
+ if windowPlateauOpen and not(enRetour or enSetUp) then
   if (nbreCoup < nroDernierCoupAtteint) then
    begin
     maximum := 1000;
     for i := 1 to marques[0] do
-      if (marques[i] < maximum) & (marques[i] > nbreCoup) then
+      if (marques[i] < maximum) and (marques[i] > nbreCoup) then
         maximum := marques[i];
-    if (nbreCoupsApresLecture > 0) & not(positionFeerique) then
-      if (nbreCoupsApresLecture < maximum) & (nbreCoupsApresLecture > nbreCoup) then
+    if (nbreCoupsApresLecture > 0) and not(positionFeerique) then
+      if (nbreCoupsApresLecture < maximum) and (nbreCoupsApresLecture > nbreCoup) then
         maximum := nbreCoupsApresLecture;
     if maximum > nroDernierCoupAtteint then maximum := nroDernierCoupAtteint;
     if (maximum > nbreCoup)
@@ -1572,14 +1572,14 @@ var i,k,nroCoupEmbranchement : SInt32;
     EmbranchementTrouve : boolean;
     nbrePartiesSuivies : SInt32;
 begin
-  if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+  if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
     if not(gameOver) then
       with infosListeParties do
       begin
         EmbranchementTrouve := false;
         nroCoupEmbranchement := -1;
-        if windowListeOpen | windowListeOpen then
-          if (nbPartiesChargees > 0) & (nbPartiesActives >= 1) then
+        if windowListeOpen or windowListeOpen then
+          if (nbPartiesChargees > 0) and (nbPartiesActives >= 1) then
             if CoupSuivantPartieSelectionnee(partieHilitee) = GetNiemeCoupPartieCourante(nbreCoup+1) then
               begin
                 i := nbreCoup+1;
@@ -1607,17 +1607,17 @@ begin
                         nroCoupEmbranchement := i-1;
                       end;
                     i := i+1;
-                  until EmbranchementTrouve | (i > nroDernierCoupAtteint);
-                if (i > nroDernierCoupAtteint) & not(EmbranchementTrouve) then
+                  until EmbranchementTrouve or (i > nroDernierCoupAtteint);
+                if (i > nroDernierCoupAtteint) and not(EmbranchementTrouve) then
                   begin
                     EmbranchementTrouve := true;
                     nroCoupEmbranchement := nroDernierCoupAtteint;
                   end;
 
               end;
-        if not(EmbranchementTrouve) | (nroCoupEmbranchement <= nbreCoup+1) | (nroCoupEmbranchement = 2)
+        if not(EmbranchementTrouve) or (nroCoupEmbranchement <= nbreCoup+1) or (nroCoupEmbranchement = 2)
           then
-            if windowlisteOpen & (nbPartiesActives >= 1)
+            if windowlisteOpen and (nbPartiesActives >= 1)
               then JoueCoupPartieSelectionnee(partieHilitee)
               else DoAvanceMove
           else
@@ -1633,12 +1633,12 @@ var i,k,nroCoupEmbranchement : SInt32;
     EmbranchementTrouve : boolean;
     nbrePartiesSuivies : SInt32;
 begin
-  if windowPlateauOpen & not(enRetour | enSetUp | CassioEstEnModeTournoi) then
+  if windowPlateauOpen and not(enRetour or enSetUp or CassioEstEnModeTournoi) then
     if (nbreCoup > 0) then
       begin
         EmbranchementTrouve := false;
         nroCoupEmbranchement := -1;
-        if windowListeOpen | windowListeOpen then
+        if windowListeOpen or windowListeOpen then
           if (nbPartiesChargees > 0) then
             begin
 
@@ -1668,14 +1668,14 @@ begin
                       nroCoupEmbranchement := i;
                     end;
                   i := i-1;
-                until EmbranchementTrouve | (i < 0);
-              if (i < 0) & not(EmbranchementTrouve) then
+                until EmbranchementTrouve or (i < 0);
+              if (i < 0) and not(EmbranchementTrouve) then
                   begin
                     EmbranchementTrouve := true;
                     nroCoupEmbranchement := 0;
                   end;
             end;
-        if not(EmbranchementTrouve) | (nroCoupEmbranchement = nbreCoup-1)
+        if not(EmbranchementTrouve) or (nroCoupEmbranchement = nbreCoup-1)
           then DoBackMove
           else if nroCoupEmbranchement = nbreCoup-2
 	              then DoDoubleBackMove
@@ -1695,7 +1695,7 @@ begin
       if (numeroCoup <= 0) then numeroCoup := 0;
       if (numeroCoup >= nroDernierCoupAtteint) then numeroCoup := nroDernierCoupAtteint;
 
-      if (numeroCoup <> nbreCoup) & PeutArreterAnalyseRetrograde then
+      if (numeroCoup <> nbreCoup) and PeutArreterAnalyseRetrograde then
         begin
           if numeroCoup < nbreCoup
             then
@@ -1738,7 +1738,7 @@ var k : SInt32;
 begin
   inc(gNiveauRecursionFonctionsModifiantNbreCoup);
 
-  if (gNiveauRecursionFonctionsModifiantNbreCoup >= 1) & (gNiveauRecursionFonctionsModifiantNbreCoup <= 10) then
+  if (gNiveauRecursionFonctionsModifiantNbreCoup >= 1) and (gNiveauRecursionFonctionsModifiantNbreCoup <= 10) then
     with gPileDesFonctionsModifiantNbreCoup[gNiveauRecursionFonctionsModifiantNbreCoup] do
       begin
         name := fonctionAppelante;
@@ -1764,7 +1764,7 @@ var k : SInt32;
 begin
 
 
-  if (gNiveauRecursionFonctionsModifiantNbreCoup >= 1) & (gNiveauRecursionFonctionsModifiantNbreCoup <= 10)  then
+  if (gNiveauRecursionFonctionsModifiantNbreCoup >= 1) and (gNiveauRecursionFonctionsModifiantNbreCoup <= 10)  then
     with gPileDesFonctionsModifiantNbreCoup[gNiveauRecursionFonctionsModifiantNbreCoup] do
       begin
 

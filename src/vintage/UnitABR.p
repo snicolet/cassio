@@ -264,7 +264,7 @@ begin
     else
       begin
         y := x^.pere;
-        while (y <> NIL) & (x = y^.droit) do
+        while (y <> NIL) and (x = y^.droit) do
           begin
             x := y;
             y := y^.pere;
@@ -287,7 +287,7 @@ begin
     else
       begin
         y := x^.pere;
-        while (y <> NIL) & (x = y^.gauche) do
+        while (y <> NIL) and (x = y^.gauche) do
           begin
             x := y;
             y := y^.pere;
@@ -299,7 +299,7 @@ end;
 
 function ABRIsRacine(x : ABR) : boolean;
 begin
-  ABRIsRacine := (x <> NIL) & (x^.pere = NIL);
+  ABRIsRacine := (x <> NIL) and (x^.pere = NIL);
 end;
 
 function ABRIsEmpty(x : ABR) : boolean;
@@ -353,7 +353,7 @@ var x,y,pereDeY : ABR;
 begin
   if element = NIL then exit(ABRSupprimer);
 
-  if (element^.gauche = NIL) | (element^.droit = NIL)
+  if (element^.gauche = NIL) or (element^.droit = NIL)
     then y := element
     else y := ABRSuccesseur(element);
 

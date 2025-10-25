@@ -455,7 +455,7 @@ begin
       DoWhat(position,jouables,frontiere,nbNoir,nbBlanc,trait,result);
 
       coup := GET_NTH_MOVE_OF_PACKED_GAME(partie60, i,'ForEachPositionInGameDo(1)');
-      if (coup < 11) | (coup > 88) then
+      if (coup < 11) or (coup > 88) then
          begin
            SysBeep(0);
            WritelnDansRapport('coup impensable dans ForEachPositionInGameDo !!');
@@ -482,7 +482,7 @@ begin
                end;
 
              coupSuivant := GET_NTH_MOVE_OF_PACKED_GAME(partie60, (i+1),'ForEachPositionInGameDo(2)');
-             ok := (coupSuivant >= 11) & (coupSuivant <= 88);
+             ok := (coupSuivant >= 11) and (coupSuivant <= 88);
              if not(ok) then
                begin
                  {position terminale prématurée !}
@@ -499,7 +499,7 @@ begin
                  WritelnDansRapport('');
                end;}
 
-             if not(ok) & DoitPasser(trait,position,jouables) then
+             if not(ok) and DoitPasser(trait,position,jouables) then
                begin
                  trait := -trait;
                  if DoitPasser(trait,position,jouables) then
@@ -667,7 +667,7 @@ var yPosition,i : SInt16;
     s : String255;
     couleurAffichageSousCritere : SInt32;
 begin
-  if windowListeOpen & (wListePtr <> NIL) then
+  if windowListeOpen and (wListePtr <> NIL) then
     begin
 
       couleurAffichageSousCritere := BlueColor;
@@ -693,7 +693,7 @@ begin
       SetValeursStandardRubanListe(nbColonnesFenetreListe);
 
 
-      if gVersionJaponaiseDeCassio & gHasJapaneseScript
+      if gVersionJaponaiseDeCassio and gHasJapaneseScript
         then
           begin
             TextFont(gCassioApplicationFont);
@@ -764,7 +764,7 @@ begin
           then TextFace(miseEnValeurTypographique)
           else TextFace(normal);
         s := ReadStringFromRessource(TextesListeID,15);
-        if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[DistributionRubanBox]) <> 0)
+        if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[DistributionRubanBox]) <> 0)
           then ForeColor(couleurAffichageSousCritere)
           else ForeColor(BlackColor);
         MyDrawString(s);
@@ -775,7 +775,7 @@ begin
           then TextFace(miseEnValeurTypographique)
           else TextFace(normal);
         s := ReadStringFromRessource(TextesListeID,6);
-        if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[TournoiRubanBox]) <> 0)
+        if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[TournoiRubanBox]) <> 0)
           then ForeColor(couleurAffichageSousCritere)
           else ForeColor(BlackColor);
         MyDrawString(s);
@@ -786,7 +786,7 @@ begin
           then TextFace(miseEnValeurTypographique)
           else TextFace(normal);
         s := ReadStringFromRessource(TextesListeID,7);
-        if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[JoueurNoirRubanBox]) <> 0)
+        if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[JoueurNoirRubanBox]) <> 0)
           then ForeColor(couleurAffichageSousCritere)
           else ForeColor(BlackColor);
         MyDrawString(s);
@@ -797,7 +797,7 @@ begin
           then TextFace(miseEnValeurTypographique)
           else TextFace(normal);
         s := ReadStringFromRessource(TextesListeID,8);
-        if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[JoueurBlancRubanBox]) <> 0)
+        if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[JoueurBlancRubanBox]) <> 0)
           then ForeColor(couleurAffichageSousCritere)
           else ForeColor(BlackColor);
         MyDrawString(s);
@@ -883,7 +883,7 @@ begin
 	                      PenPat(blackPattern);
 
 	                      {AttendFrappeClavier;}
-	                      if (TEGetTextLength(SousCriteresRuban[i]) <> 0) & (i = BoiteDeSousCritereActive)
+	                      if (TEGetTextLength(SousCriteresRuban[i]) <> 0) and (i = BoiteDeSousCritereActive)
 	                        then
 	                          begin
 	                            InsetRect(unRect,1,1);
@@ -920,7 +920,7 @@ var s,crit : String255;
     i : SInt16;
     oldport : grafPtr;
 begin
-  if windowListeOpen & (CriteresSuplementaires <> NIL) then
+  if windowListeOpen and (CriteresSuplementaires <> NIL) then
     begin
       GetPort(oldport);
       SetPortByWindow(wListePtr);
@@ -1017,7 +1017,7 @@ var oldport : grafPtr;
     ascenseurRect : rect;
     viewRect,destRect : rect;
 begin
-  if windowListeOpen & (wListePtr <> NIL) then
+  if windowListeOpen and (wListePtr <> NIL) then
     with infosListeParties do
     begin
       GetPort(oldport);
@@ -1084,7 +1084,7 @@ end;
 procedure CloseControlesListe;
 var i : SInt16;
 begin
-  if windowListeOpen & (wListePtr <> NIL) then
+  if windowListeOpen and (wListePtr <> NIL) then
     with infosListeParties do
     begin
 
@@ -1139,7 +1139,7 @@ end;
 procedure MontrerAscenseurListe;
 var oldPort : grafPtr;
 begin
-  if windowListeOpen & (infosListeParties.ascenseurListe <> NIL) then
+  if windowListeOpen and (infosListeParties.ascenseurListe <> NIL) then
     begin
 		  GetPort(oldPort);
 		  SetPortByWindow(wListePtr);
@@ -1168,7 +1168,7 @@ end;
 procedure CacherAscenseurListe;
 var oldPort : grafPtr;
 begin
-  if windowListeOpen & (infosListeParties.ascenseurListe <> NIL) then
+  if windowListeOpen and (infosListeParties.ascenseurListe <> NIL) then
     begin
 		  GetPort(oldPort);
 		  SetPortByWindow(wListePtr);
@@ -1195,12 +1195,12 @@ begin
       for i := 0 to 65 do
         begin
   	      etat := GetNombreDePartiesActivesDansLeCachePourCeCoup(i);
-  	      if (etat <> PasDePartieActive) & (etat <> 1) then
+  	      if (etat <> PasDePartieActive) and (etat <> 1) then
   	        if ListePartiesEstGardeeDansLeCache(i,etat) then
   	          InvalidateNombrePartiesActivesDansLeCache(i);
 	      end;
 
-	  if (nbPartiesActives = nbPartiesChargees) & (partieHilitee = 1) then
+	  if (nbPartiesActives = nbPartiesChargees) and (partieHilitee = 1) then
 	    SetPartieHilitee(nbPartiesActives);  {pour qu'apres le renversement on reste en tete de liste}
 	  LanceCalculsRapidesPourBaseOuNouvelleDemande(false,false);
   end;
@@ -1217,7 +1217,7 @@ begin
   ExtraitPartieTableStockageParties(nroReference,s60);
   ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
   ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartieCourante);
-  TransposePartiePourOrientation(s60,autreCoupQuatreDansPartieCourante & ouvertureDiagonale,4,60);
+  TransposePartiePourOrientation(s60,autreCoupQuatreDansPartieCourante and ouvertureDiagonale,4,60);
   TraductionThorEnAlphanumerique(s60,result);
   GetPartieEnAlphaDapresListe := TPCopy(result,1,2*jusquaQuelCoup);
 end;
@@ -1233,14 +1233,14 @@ var t,nroReference : SInt32;
     nbrecoupsjoues : SInt16;
 begin
   positionEtCoupStr := '';
-  if (1 <= nroPartie) & (nroPartie <= nbPartiesActives) then
+  if (1 <= nroPartie) and (nroPartie <= nbPartiesActives) then
     begin
       nroReference := tableNumeroReference^^[nroPartie];
       ExtraitPartieTableStockageParties(nroReference,s60);
       ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
 
       autreCoupQuatreDiag := PartieCouranteEstUneDiagonaleAvecLeCoupQuatreEnD6;
-      TransposePartiePourOrientation(s60,autreCoupQuatreDiag & ouvertureDiagonale,4,60);
+      TransposePartiePourOrientation(s60,autreCoupQuatreDiag and ouvertureDiagonale,4,60);
 
       MemoryFillChar(@Jeu,sizeof(jeu),chr(0));
       for t := 0 to 99 do
@@ -1263,7 +1263,7 @@ begin
       t := 1;
       coup := GET_NTH_MOVE_OF_PACKED_GAME(s60, 1,'ConstruitPositionEtCoupDapresListe(1)');    { coup 1 }
       good := true;                                   { ce coup 1 est legal }
-      while (t <= 60) & (coup >= 11) & (coup <= 88) & good do
+      while (t <= 60) and (coup >= 11) and (coup <= 88) and good do
         begin
           if ModifPlatSeulement(coup,jeu,coulTrait)
             then
@@ -1302,7 +1302,7 @@ var nomNoir,nomBlanc : String255;
     scoreNoir,nroReference : SInt32;
     titre : String255;
 begin
-  if (nbPartiesActives = 1) & ((nbreCoup > 57) | gameOver) & JoueursEtTournoisEnMemoire then
+  if (nbPartiesActives = 1) and ((nbreCoup > 57) or gameOver) and JoueursEtTournoisEnMemoire then
     begin
       nroReference := tableNumeroReference^^[1];
       nomNoir := GetNomJoueurNoirSansPrenomParNroRefPartie(nroReference);
@@ -1332,8 +1332,8 @@ procedure EssayerConstruireTitreDapresListe(nroPartie : SInt32);
 var nroReference,t : SInt32;
     titre,tournoiStr : String255;
 begin
-  if (nbPartiesActives > 0) & JoueursEtTournoisEnMemoire then
-    if (1 <= nroPartie) & (nroPartie <= nbPartiesActives) then
+  if (nbPartiesActives > 0) and JoueursEtTournoisEnMemoire then
+    if (1 <= nroPartie) and (nroPartie <= nbPartiesActives) then
     begin
       nroReference := tableNumeroReference^^[nroPartie];
       titre := ConstruireTitreDapresListeParNroRefPartie(nroReference);
@@ -1341,7 +1341,7 @@ begin
 
       tournoiStr := GetNomTournoiParNroRefPartie(nroReference);
       t := LENGTH_OF_STRING(tournoiStr);
-      while (tournoiStr[t] = ' ') & (t >= 1) do
+      while (tournoiStr[t] = ' ') and (t >= 1) do
         begin
           DeleteString(tournoiStr,t,1);
           t := t-1;
@@ -1369,7 +1369,7 @@ begin
     then chaineScore := Concat(' ',NumEnString(scoreNoir),'-',NumEnString(scoreBlanc),' ')
     else chaineScore := ' - ';
 
-  if (numeroProchainCoup > 0) & (numeroProchainCoup <= 60)
+  if (numeroProchainCoup > 0) and (numeroProchainCoup <= 60)
     then chaineNumeroCoup := ', c.' + NumEnString(numeroProchainCoup)
     else chaineNumeroCoup := '';
 
@@ -1398,7 +1398,7 @@ begin
     then chaineScore := Concat(' ',NumEnString(scoreNoir),'-',NumEnString(scoreBlanc),' ')
     else chaineScore := ' - ';
 
-  if (numeroProchainCoup > 0) & (numeroProchainCoup <= 60)
+  if (numeroProchainCoup > 0) and (numeroProchainCoup <= 60)
     then chaineNumeroCoup := ', c.' + NumEnString(numeroProchainCoup)
     else chaineNumeroCoup := '';
 
@@ -1430,8 +1430,8 @@ var nroReference : SInt32;
     s : String255;
 begin
   s := '';
-  if (nbPartiesActives > 0) & JoueursEtTournoisEnMemoire then
-    if (1 <= nroPartie) & (nroPartie <= nbPartiesActives) then
+  if (nbPartiesActives > 0) and JoueursEtTournoisEnMemoire then
+    if (1 <= nroPartie) and (nroPartie <= nbPartiesActives) then
       begin
         nroReference := tableNumeroReference^^[nroPartie];
         s := ConstruireChaineReferencesPartieParNumeroReference(nroReference,descriptionComplete);
@@ -1454,12 +1454,12 @@ begin
     begin
       etat := GetNombreDePartiesActivesDansLeCachePourCeCoup(i);
 
-      if (etat <> PasDePartieActive) & ListePartiesEstGardeeDansLeCache(i,etat) then
+      if (etat <> PasDePartieActive) and ListePartiesEstGardeeDansLeCache(i,etat) then
         begin
           numeroCoup   := i;
           nroReference := TableInfoDejaCalculee^^[IndexInfoDejaCalculeesCoupNro^^[i-1]+1];
 
-          if (nroReference > 0) & (nroReference <= nbPartiesChargees) then
+          if (nroReference > 0) and (nroReference <= nbPartiesChargees) then
             begin
 
               ExtraitPartieTableStockageParties(nroReference,partie60);
@@ -1469,7 +1469,7 @@ begin
     		      positionEtTraitDansListe := PositionEtTraitAfterMoveNumber(partie60,numeroCoup,erreur1);
     		      positionEtTraitPartie := GetPositionEtTraitPartieCouranteApresCeCoup(numeroCoup,erreur2);
 
-    		      if (erreur1 = kPartieOK) & (erreur2 = kPartieOK) &
+    		      if (erreur1 = kPartieOK) and (erreur2 = kPartieOK) and
     		         SamePositionEtTrait(positionEtTraitDansListe,positionEtTraitPartie) then
     		        begin
     		          TraductionThorEnAlphanumerique(partie60,partieEnAlpha);
@@ -1484,7 +1484,7 @@ end;
 
 function GetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup : SInt32) : SInt32;
 begin
-  if (numeroDuCoup < 0) | (numeroDuCoup > 65)
+  if (numeroDuCoup < 0) or (numeroDuCoup > 65)
     then GetNombreDePartiesActivesDansLeCachePourCeCoup := NeSaitPasNbrePartiesActives
     else GetNombreDePartiesActivesDansLeCachePourCeCoup := partie^^[numeroDuCoup].nombrePartiesActives;
 end;
@@ -1492,7 +1492,7 @@ end;
 
 procedure SetNombreDePartiesActivesDansLeCachePourCeCoup(numeroDuCoup,nbrePartiesActives : SInt32);
 begin
-  if (numeroDuCoup >= 0) | (numeroDuCoup <= 65) then
+  if (numeroDuCoup >= 0) or (numeroDuCoup <= 65) then
     partie^^[numeroDuCoup].nombrePartiesActives := nbrePartiesActives;
 end;
 
@@ -1514,7 +1514,7 @@ end;
 
 procedure InvalidateNombrePartiesActivesDansLeCache(quelNroCoup : SInt16);
 begin
-  if (quelNroCoup >= 0) & (quelNroCoup <= 65) then
+  if (quelNroCoup >= 0) and (quelNroCoup <= 65) then
     partie^^[quelNroCoup].nombrePartiesActives := NeSaitPasNbrePartiesActives;
   {WritelnNumDansRapport('InvalidateNombrePartiesActivesDansLeCache : ',quelNroCoup);}
 end;
@@ -1534,7 +1534,7 @@ begin
   if nbPartiesActives > 0
    then
      begin
-       if (nroHilite >= 1) & (nroHilite <= nbPartiesActives)
+       if (nroHilite >= 1) and (nroHilite <= nbPartiesActives)
          then nroReference := tableNumeroReference^^[nroHilite];
      end
    else
@@ -1567,12 +1567,12 @@ begin
 
 
   with infosListeParties do
-  if windowListeOpen & (nbPartiesActives > 0) then
+  if windowListeOpen and (nbPartiesActives > 0) then
     if nbPartiesActives > 1 then
         begin
           result := 1;
 
-          if (nroReference = infosListeParties.dernierNroReferenceHilitee) & (nroReference > 0) then
+          if (nroReference = infosListeParties.dernierNroReferenceHilitee) and (nroReference > 0) then
             begin
               doitChercherPlusProche := true;
               anneeCherchee := GetAnneePartieParNroRefPartie(nroReference);
@@ -1601,15 +1601,15 @@ begin
 		                    distanceAnnee := 1000*Abs(anneeCherchee - GetAnneePartieParNroRefPartie(tableNumeroReference^^[i]));
 
 					              distanceTournoi := 10000*Abs(rangAlphabetiqueTournoiCherche - GetNumeroOrdreAlphabetiqueTournoiParNroRefPartie(tableNumeroReference^^[i]));
-					              if ((gGenreDeTriListe = TriParDate) | (gGenreDeTriListe = TriParAntiDate)) & (distanceTournoi > 0)
+					              if ((gGenreDeTriListe = TriParDate) or (gGenreDeTriListe = TriParAntiDate)) and (distanceTournoi > 0)
 					                then distanceTournoi := distanceTournoi + 100000000;
 
 					              distanceNoir    := Abs(rangAlphabetiqueNoirCherche - GetNumeroOrdreAlphabetiqueJoueurNoirParNroRefPartie(tableNumeroReference^^[i]));
-					              if (gGenreDeTriListe = TriParJoueurNoir) & (distanceNoir > 0)
+					              if (gGenreDeTriListe = TriParJoueurNoir) and (distanceNoir > 0)
 					                then distanceNoir := distanceNoir + 100000000;
 
 					              distanceBlanc   := Abs(rangAlphabetiqueBlancCherche - GetNumeroOrdreAlphabetiqueJoueurBlancParNroRefPartie(tableNumeroReference^^[i]));
-					              if (gGenreDeTriListe = TriParJoueurBlanc) & (distanceBlanc > 0)
+					              if (gGenreDeTriListe = TriParJoueurBlanc) and (distanceBlanc > 0)
 					                then distanceBlanc := distanceBlanc + 100000000;
 
 					              distance := distance + distanceAnnee + distanceTournoi + distanceNoir + distanceBlanc;
@@ -1653,7 +1653,7 @@ begin
               end
             else
               begin
-                if (gLigneOuLOnVoudraitQueSoitLaPartieHilitee > 0) & (gLigneOuLOnVoudraitQueSoitLaPartieHilitee <= nbreLignesFntreListe)
+                if (gLigneOuLOnVoudraitQueSoitLaPartieHilitee > 0) and (gLigneOuLOnVoudraitQueSoitLaPartieHilitee <= nbreLignesFntreListe)
                   then positionPouceAscenseurListe := nroHilite - gLigneOuLOnVoudraitQueSoitLaPartieHilitee + 1
                   else positionPouceAscenseurListe := nroHilite;
                 SetValeurAscenseurListe(positionPouceAscenseurListe);
@@ -1675,7 +1675,7 @@ begin
         begin
           nroPartie := tableNumeroReference^^[premierNumero+compteur];
 
-          if PartieEstActive(nroPartie) & (partieHilitee = premierNumero+compteur) then
+          if PartieEstActive(nroPartie) and (partieHilitee = premierNumero+compteur) then
             begin
               NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre := compteur+1;
               exit(NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre);
@@ -1689,7 +1689,7 @@ end;
 
 function CalculeNbreLignesVisiblesFntreListe : SInt32;
 begin
-  if windowListeOpen & (wListePtr <> NIL)
+  if windowListeOpen and (wListePtr <> NIL)
     then CalculeNbreLignesVisiblesFntreListe := (GetWindowPortRect(wListePtr).bottom - GetWindowPortRect(wListePtr).top - hauteurRubanListe - hauteurPiedDePageListe) div HauteurChaqueLigneDansListe
     else CalculeNbreLignesVisiblesFntreListe := -1;
 end;
@@ -1725,7 +1725,7 @@ var ascenseurRect : rect;
     positionPouce : SInt32;
 begin
   with infosListeParties do
-   if windowListeOpen & (wListePtr <> NIL) then
+   if windowListeOpen and (wListePtr <> NIL) then
     begin
       SetRect(ascenseurRect,GetWindowPortRect(wListePtr).right-15,
                             GetWindowPortRect(wListePtr).top-1+hauteurRubanListe,
@@ -1769,8 +1769,8 @@ end;
 
 function FenetreListeEstEnModeEntree : boolean;
 begin
-  FenetreListeEstEnModeEntree := windowListeOpen &
-                              (wListePtr = FrontWindowSaufPalette) &
+  FenetreListeEstEnModeEntree := windowListeOpen and
+                              (wListePtr = FrontWindowSaufPalette) and
                               (BoiteDeSousCritereActive <> 0);
 end;
 
@@ -1783,7 +1783,7 @@ begin
     begin
       GetPort(oldport);
       SetPortByWindow(wListePtr);
-      if (BoxActivee < TournoiRubanBox) | (boxActivee > DistributionRubanBox)
+      if (BoxActivee < TournoiRubanBox) or (boxActivee > DistributionRubanBox)
         then
           begin
             BoiteDeSousCritereActive := 0;
@@ -1822,12 +1822,12 @@ var nroReference : SInt32;
     s60 : PackedThorGame;
 begin
   CoupSuivantPartieSelectionnee := -1;
-  if (nbreCoup < 60) & windowListeOpen & not(enRetour | enSetUp) then
+  if (nbreCoup < 60) and windowListeOpen and not(enRetour or enSetUp) then
    with infosListeParties do
     begin
       GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
-      if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero) then
-        if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+      if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero) then
+        if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
           begin
             {nroReference := tableNumeroReference^^[nroHilite];
             if nroReference <> infosListeParties.dernierNroReferenceHilitee then SysBeep(0);}
@@ -1836,13 +1836,13 @@ begin
     		    ExtraitPartieTableStockageParties(nroReference,s60);
     		    ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
     		    ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-    		    TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale,4,60);
+    		    TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale,4,60);
 
     		    if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) then
     		      begin
     		        WritelnDansRapport('WARNING : not(positionsSontEgales(…) dans CoupSuivantPartieSelectionnee');
     		        with DemandeCalculsPourBase do
-    	            if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+    	            if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
     	              LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
     	          InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
     		        exit(CoupSuivantPartieSelectionnee);
@@ -1850,7 +1850,7 @@ begin
 
             ExtraitCoupTableStockagePartie(nroReference,nbreCoup+1,coupEnByte);
             caseX := coupEnByte;
-            if (caseX >= 11) & (caseX <= 88) then
+            if (caseX >= 11) and (caseX <= 88) then
               begin
                 autreCoupQuatreDansPartie := false;
                 if nbreCoup >= 3 then ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
@@ -1954,8 +1954,8 @@ begin
 	        begin
 	          SetPortByWindow(wListePtr);
 	          GetMouse(mouseLoc);
-	          SourisADejaBouje := SourisADejaBouje | (SInt32(mouseLoc) <> SInt32(oldMouseLoc));
-	          if SourisADejaBouje & (SInt32(mouseLoc) <> SInt32(oldMouseLoc)) then
+	          SourisADejaBouje := SourisADejaBouje or (SInt32(mouseLoc) <> SInt32(oldMouseLoc));
+	          if SourisADejaBouje and (SInt32(mouseLoc) <> SInt32(oldMouseLoc)) then
 	            begin
 		          oldValue := GetControlValue(ascenseurListe);
 		          minimum := GetControlMinimum(ascenseurListe);
@@ -2079,7 +2079,7 @@ procedure ClipToRectArea(thisRect : rect);
 begin
   with gOldClipRgn do
     begin
-      if (niveauRecursion >= 0) & (niveauRecursion <= 10) then
+      if (niveauRecursion >= 0) and (niveauRecursion <= 10) then
         begin
           regions[niveauRecursion] := NewRgn;
           GetClip(regions[niveauRecursion]);
@@ -2113,12 +2113,12 @@ var foo : SInt32;
 begin
   result := true;
 
-  if (numeroDuCoup >= 5) & (numeroDuCoup <= 60) then
+  if (numeroDuCoup >= 5) and (numeroDuCoup <= 60) then
     begin
 
       ExtraitPartieTableStockageParties(nroReferencePartie,s60);
       ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
-      TransposePartiePourOrientation(s60,autreCoupQuatreDiagonal & ouvertureDiagonale,4,60);
+      TransposePartiePourOrientation(s60,autreCoupQuatreDiagonal and ouvertureDiagonale,4,60);
 
       if not(PositionsSontEgales(GetPositionEtTraitPartieCouranteApresCeCoup(numeroDuCoup, foo).position,
                                  CalculePositionApres(numeroDuCoup,s60)))
@@ -2164,7 +2164,7 @@ begin
 
   if (nbColonnesFenetreListe = kAvecAffichageDistribution) then
     begin
-      if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[DistributionRubanBox]) <>  0)
+      if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[DistributionRubanBox]) <>  0)
         then ForeColor(couleurAffichageSousCritere)
         else
           begin
@@ -2191,12 +2191,12 @@ begin
 
   { ECRITURE DU TOURNOI }
 
-  if (nbColonnesFenetreListe = kAvecAffichageTournois) | (nbColonnesFenetreListe = kAvecAffichageDistribution) then
+  if (nbColonnesFenetreListe = kAvecAffichageTournois) or (nbColonnesFenetreListe = kAvecAffichageDistribution) then
     begin
-      if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[TournoiRubanBox]) <> 0)
+      if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[TournoiRubanBox]) <> 0)
         then ForeColor(couleurAffichageSousCritere)
         else ForeColor(couleurTexte);
-      if gVersionJaponaiseDeCassio & gHasJapaneseScript & gDisplayJapaneseNamesInJapanese &
+      if gVersionJaponaiseDeCassio and gHasJapaneseScript and gDisplayJapaneseNamesInJapanese and
          EstUnePartieAvecTournoiJaponais(nroPartie)
         then
           begin
@@ -2233,10 +2233,10 @@ begin
 
   { ECRITURE DU NOM DU JOUEUR NOIR }
 
-  if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[JoueurNoirRubanBox]) <> 0)
+  if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[JoueurNoirRubanBox]) <> 0)
     then ForeColor(couleurAffichageSousCritere)
     else ForeColor(couleurTexte);
-  if (avecGagnantEnGrasDansListe & (score > 32))
+  if (avecGagnantEnGrasDansListe and (score > 32))
     then
       begin
         if PartieDansListeDoitEtreSauvegardee(nroPartie)
@@ -2258,7 +2258,7 @@ begin
         if gCassioUseQuartzAntialiasing
 	        then EnableQuartzAntiAliasingThisPort(GetWindowPort(wListePtr),true);
 	    end;
-  if gVersionJaponaiseDeCassio & gHasJapaneseScript & gDisplayJapaneseNamesInJapanese &
+  if gVersionJaponaiseDeCassio and gHasJapaneseScript and gDisplayJapaneseNamesInJapanese and
      EstUnePartieAvecJoueurNoirJaponais(nroPartie)
     then
       begin
@@ -2289,15 +2289,15 @@ begin
             end
           else MyDrawString(s);
       end;
-  if listeEtroiteEtNomsCourts | (avecGagnantEnGrasDansListe & (score > 32)) then UnclipRectArea;
+  if listeEtroiteEtNomsCourts or (avecGagnantEnGrasDansListe and (score > 32)) then UnclipRectArea;
 
 
   { ECRITURE DU NOM DU JOUEUR BLANC }
 
-  if sousSelectionActive & (TEGetTextLength(SousCriteresRuban[JoueurBlancRubanBox]) <> 0)
+  if sousSelectionActive and (TEGetTextLength(SousCriteresRuban[JoueurBlancRubanBox]) <> 0)
     then ForeColor(couleurAffichageSousCritere)
     else ForeColor(couleurTexte);
-  if (avecGagnantEnGrasDansListe & (score < 32))
+  if (avecGagnantEnGrasDansListe and (score < 32))
     then
       begin
         if PartieDansListeDoitEtreSauvegardee(nroPartie)
@@ -2321,7 +2321,7 @@ begin
         if gCassioUseQuartzAntialiasing
 	        then EnableQuartzAntiAliasingThisPort(GetWindowPort(wListePtr),true);
 	    end;
-  if gVersionJaponaiseDeCassio & gHasJapaneseScript & gDisplayJapaneseNamesInJapanese &
+  if gVersionJaponaiseDeCassio and gHasJapaneseScript and gDisplayJapaneseNamesInJapanese and
      EstUnePartieAvecJoueurBlancJaponais(nroPartie)
     then
       begin
@@ -2352,7 +2352,7 @@ begin
             end
           else MyDrawString(s);
       end;
-  if listeEtroiteEtNomsCourts | (avecGagnantEnGrasDansListe & (score < 32)) then UnclipRectArea;
+  if listeEtroiteEtNomsCourts or (avecGagnantEnGrasDansListe and (score < 32)) then UnclipRectArea;
 
 
   { ECRITURE DU GAIN THEORIQUE }
@@ -2378,7 +2378,7 @@ begin
           s := CoupEnString(reponse,CassioUtiliseDesMajuscules)+'  '+s;
         end;
     end;
-  if gVersionJaponaiseDeCassio & gHasJapaneseScript
+  if gVersionJaponaiseDeCassio and gHasJapaneseScript
     then
       begin
         TextFont(gCassioApplicationFont);
@@ -2412,7 +2412,7 @@ var oldport : grafPtr;
     premierCoup : SInt16;
 begin
  with infosListeParties do
-   if windowListeOpen & not(problemeMemoireBase) & JoueursEtTournoisEnMemoire then
+   if windowListeOpen and not(problemeMemoireBase) and JoueursEtTournoisEnMemoire then
      begin
        GetPort(oldport);
        SetPortByWindow(wListePtr);
@@ -2423,8 +2423,8 @@ begin
 
        SetPartieHilitee(nouvellePartieHilitee);
 
-       if (anciennePartieHilitee >= premierNumero) & (anciennePartieHilitee <= dernierNumero)
-         & not(PartieEstDansLaSelection(tableNumeroReference^^[anciennePartieHilitee]))
+       if (anciennePartieHilitee >= premierNumero) and (anciennePartieHilitee <= dernierNumero)
+         and not(PartieEstDansLaSelection(tableNumeroReference^^[anciennePartieHilitee]))
          then  {effacement de l'ancienne partie hilitee}
            begin
              yposition := (anciennePartieHilitee-premierNumero)*HauteurChaqueLigneDansListe+(HauteurChaqueLigneDansListe-3)+hauteurRubanListe;
@@ -2436,7 +2436,7 @@ begin
 	           UnclipRectArea;
            end;
 
-       if (nouvellePartieHilitee >= premierNumero) & (nouvellePartieHilitee <= dernierNumero) &
+       if (nouvellePartieHilitee >= premierNumero) and (nouvellePartieHilitee <= dernierNumero) and
          not(PartieEstDansLaSelection(tableNumeroReference^^[nouvellePartieHilitee]))
          then  {dessin de la nouvelle partie hilitee}
            begin
@@ -2481,9 +2481,9 @@ var theColor : RGBColor;
     mil : SInt32;
     ligneImpaire : boolean;
 begin
-  if (nroRefPartie >= 1) & (nroRefPartie <= nbPartiesChargees) &
-     PartieDansListeDoitEtreSauvegardee(nroRefPartie) &
-     (nroRefPartie <> infosListeParties.dernierNroReferenceHilitee) &
+  if (nroRefPartie >= 1) and (nroRefPartie <= nbPartiesChargees) and
+     PartieDansListeDoitEtreSauvegardee(nroRefPartie) and
+     (nroRefPartie <> infosListeParties.dernierNroReferenceHilitee) and
      not(PartieEstDansLaSelection(nroRefPartie))
     then
       begin
@@ -2550,7 +2550,7 @@ begin
 				      justificationPasDePartie := 1;
 				    end;
 		    end else
-		  if (nbPartiesActives <= 0) & positionFeerique then
+		  if (nbPartiesActives <= 0) and positionFeerique then
 		    begin
 		      if (justificationPasDePartie <> 3) then
 		        begin
@@ -2567,7 +2567,7 @@ begin
 				      justificationPasDePartie := 3;
 				    end;
 		    end else
-		  if (nbPartiesActives <= 0) & sousSelectionActive then
+		  if (nbPartiesActives <= 0) and sousSelectionActive then
 		    begin
 		      if (justificationPasDePartie <> 4) then
 		        begin
@@ -2679,9 +2679,9 @@ begin {$UNUSED fonctionAppelante}
           WritelnDansRapport('   fonction appelante = '+fonctionAppelante);
 	        WritelnNumDansRapport('--> EcritListeParties : ',oldMagicCookie);}
 
-	        if (magicCookie <> oldMagicCookie) | not(windowListeOpen) then goto sortie;
-	        if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
-		      if (magicCookie <> oldMagicCookie) | not(windowListeOpen) then goto sortie;
+	        if (magicCookie <> oldMagicCookie) or not(windowListeOpen) then goto sortie;
+	        if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
+		      if (magicCookie <> oldMagicCookie) or not(windowListeOpen) then goto sortie;
 
 	        SetPortByWindow(wListePtr);
 	        oldclipRgn := NewRgn;
@@ -2698,16 +2698,16 @@ begin {$UNUSED fonctionAppelante}
 	        TextSize(gCassioSmallFontSize);
 	        TextFace(normal);
 	        TextMode(srcOr);
-	        if (nbPartiesActives <= 0) | (nbPartiesChargees <= 0) | not(JoueursEtTournoisEnMemoire)
+	        if (nbPartiesActives <= 0) or (nbPartiesChargees <= 0) or not(JoueursEtTournoisEnMemoire)
 	         then
 	           EcritPourquoiPasDePartieDansListe
 	         else
 	          begin
 	            for compteur := 0 to dernierNumero-premierNumero do
 	             begin
-	               if (magicCookie <> oldMagicCookie) | not(windowListeOpen) then goto sortie;
-	               if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
-		             if (magicCookie <> oldMagicCookie) | not(windowListeOpen) then goto sortie;
+	               if (magicCookie <> oldMagicCookie) or not(windowListeOpen) then goto sortie;
+	               if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
+		             if (magicCookie <> oldMagicCookie) or not(windowListeOpen) then goto sortie;
 
 	               SetPortByWindow(wListePtr);
 
@@ -2718,7 +2718,7 @@ begin {$UNUSED fonctionAppelante}
 
 	               if PartieEstActive(nroPartie) then
 	                  begin
-	                    if (partieHilitee = premierNumero+compteur) | PartieEstDansLaSelection(nroPartie)
+	                    if (partieHilitee = premierNumero+compteur) or PartieEstDansLaSelection(nroPartie)
 	                      then
 	                        begin
 	                          SetRect(unRect,0,yposition-(HauteurChaqueLigneDansListe-3),LimiteDroite,yposition+3);
@@ -2777,14 +2777,14 @@ begin
           listeRect.top := listerect.top+hauteurRubanListe;
           ok := not(SectRect(PaletteRect,ListeRect,inter));
           if ok = false then
-            if ((PaletteRect.top    <= ListeRect.top) & not(toutDescend)) |
-               ((PaletteRect.bottom >= ListeRect.Bottom) & toutDescend) then
+            if ((PaletteRect.top    <= ListeRect.top) and not(toutDescend)) or
+               ((PaletteRect.bottom >= ListeRect.Bottom) and toutDescend) then
                ok := true;
           SetPortByWindow(wListePtr);
         end;
       SetPort(oldPort);
     end;
-  if ok & not(toutDescend) then
+  if ok and not(toutDescend) then
     if (ListeRect.bottom > GetScreenBounds.bottom) then ok := false;
   RisqueDeScrollIncorrect := not(ok);
 end;
@@ -2805,10 +2805,10 @@ begin  {$UNUSED withCheckEvent}
  oldMagicCookie := DemandeCalculsPourBase.magicCookie;
  {WritelnNumDansRapport('--> ScrollEtEcritPartieVisibleListe : ',oldMagicCookie);}
 
-  if windowListeOpen & not(problemeMemoireBase) then
+  if windowListeOpen and not(problemeMemoireBase) then
     with infosListeParties , DemandeCalculsPourBase do
 	  begin
-	    if not(gIsRunningUnderMacOSX) & RisqueDeScrollIncorrect(toutDescend)
+	    if not(gIsRunningUnderMacOSX) and RisqueDeScrollIncorrect(toutDescend)
 	      then EcritListeParties(false,'ScrollEtEcritPartieVisibleListe')
 	      else
 	       begin
@@ -2839,7 +2839,7 @@ begin  {$UNUSED withCheckEvent}
 	        TextFace(normal);
 	        TextSize(gCassioSmallFontSize);
 	        GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
-	        if (nbPartiesActives <= 0) | (nbPartiesChargees <= 0) | not(JoueursEtTournoisEnMemoire)
+	        if (nbPartiesActives <= 0) or (nbPartiesChargees <= 0) or not(JoueursEtTournoisEnMemoire)
 	         then
 	           EcritPourquoiPasDePartieDansListe
 	         else
@@ -2868,7 +2868,7 @@ begin  {$UNUSED withCheckEvent}
 	            SetRect(unRect,0,yposition-(HauteurChaqueLigneDansListe-3),LimiteDroite,yposition+3);
 	            EffacerRectanglePartieDansListe(unRect,nroPartie);
 
-	            if (partieHilitee = premierNumero+numeroLigneaEcrire) | PartieEstDansLaSelection(tableNumeroReference^^[premierNumero+numeroLigneaEcrire])
+	            if (partieHilitee = premierNumero+numeroLigneaEcrire) or PartieEstDansLaSelection(tableNumeroReference^^[premierNumero+numeroLigneaEcrire])
 	             then {dessin de la partie hilitee}
 	               begin
 	                 yposition := (numeroLigneaEcrire)*HauteurChaqueLigneDansListe+(HauteurChaqueLigneDansListe-3)+hauteurRubanListe;
@@ -2892,7 +2892,7 @@ begin  {$UNUSED withCheckEvent}
 
 	           {si la fenetre fait un pixel de moins que la normale, il faut rajouter une ligne surlignee d'un pixel de haut en surlignance}
              if not(toutDescend) then
-               if ((partieHilitee = dernierNumero-1) | PartieEstDansLaSelection(tableNumeroReference^^[dernierNumero-1])) then
+               if ((partieHilitee = dernierNumero-1) or PartieEstDansLaSelection(tableNumeroReference^^[dernierNumero-1])) then
                  begin
                    (* note : the aux variable is necessary to avoid an internal bug in GNU Pascal :-( *)
                    aux := (HauteurChaqueLigneDansListe-1);
@@ -2926,7 +2926,7 @@ var anciennePartieHilitee : SInt32;
 begin
   if (DemandeCalculsPourBase.etatDesCalculs = kCalculsTermines) then
    with infosListeParties do
-    if windowListeOpen & ((partieHilitee >= 2) | revenirAuDebut) then
+    if windowListeOpen and ((partieHilitee >= 2) or revenirAuDebut) then
       begin
         if wListePtr <> FrontWindowSaufPalette then
           begin
@@ -2941,11 +2941,11 @@ begin
 
         GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
 
-        if (premierNumero >= 2) & (partieHilitee <= premierNumero-1) then
+        if (premierNumero >= 2) and (partieHilitee <= premierNumero-1) then
           begin
             positionPouceAscenseurListe := partieHilitee;
             SetValeurAscenseurListe(positionPouceAscenseurListe);
-            if (partieHilitee = premierNumero-1) & not(RevenirAuDebut)
+            if (partieHilitee = premierNumero-1) and not(RevenirAuDebut)
               then ScrollEtEcritPartieVisibleListe(true,false)
               else EcritListeParties(false,'MontePartieHilitee(2)');
           end;
@@ -2970,7 +2970,7 @@ var anciennePartieHilitee : SInt32;
 begin
   if (DemandeCalculsPourBase.etatDesCalculs = kCalculsTermines) then
    with infosListeParties do
-    if windowListeOpen & ((partieHilitee <= nbPartiesActives-1) | allerALaFin) then
+    if windowListeOpen and ((partieHilitee <= nbPartiesActives-1) or allerALaFin) then
 	    begin
 	      if wListePtr <> FrontWindowSaufPalette then
 	        begin
@@ -2985,7 +2985,7 @@ begin
 
 	      GetNumerosPremiereEtDernierePartiesAffichees(premierNumero,dernierNumero);
 
-	      if (premierNumero >= 2) & (partieHilitee <= premierNumero-1) then
+	      if (premierNumero >= 2) and (partieHilitee <= premierNumero-1) then
           begin
             positionPouceAscenseurListe := partieHilitee;
             SetValeurAscenseurListe(positionPouceAscenseurListe);
@@ -2999,7 +2999,7 @@ begin
 	          SetValeurAscenseurListe(positionPouceAscenseurListe);
 	          if ancPosPouce <> positionPouceAscenseurListe then
 	            begin
-	              if (partieHilitee = dernierNumero+1) & not(allerALaFin)
+	              if (partieHilitee = dernierNumero+1) and not(allerALaFin)
 	                then ScrollEtEcritPartieVisibleListe(false,false)
 	                else EcritListeParties(false,'DescendPartieHilitee(3)');
 	            end;
@@ -3029,7 +3029,7 @@ begin
 		  with DemandeCalculsPourBase do
 		    begin
   			  etat := GetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup);
-  			  if infosDejaCalculees & ListePartiesEstGardeeDansLeCache(nbreCoup,etat)
+  			  if infosDejaCalculees and ListePartiesEstGardeeDansLeCache(nbreCoup,etat)
   			    then
   			      begin
   			        if (etat = PasDePartieActive)
@@ -3051,7 +3051,7 @@ begin
   					          ExtraitPartieTableStockageParties(nroReference,s60);
   					          ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
   					          ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-  					          TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale,4,60);
+  					          TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale,4,60);
 
   					          if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60)))
   						        then
@@ -3101,7 +3101,7 @@ begin
   			        if (compteur > nbreInfoGardable) then
   			          SetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup,compteur);
 
-  			        if (compteur >= 1) & (compteur <= nbreInfoGardable) then
+  			        if (compteur >= 1) and (compteur <= nbreInfoGardable) then
   			          begin
   			            SetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup,compteur);
   			            indexDepart := IndexInfoDejaCalculeesCoupNro^^[nbreCoup-1];
@@ -3192,11 +3192,11 @@ begin
 	      for nroReference := 1 to nbPartiesChargees do
 	        begin
 	          if magicCookie <> oldMagicCookie then goto sortie;
-	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		      if magicCookie <> oldMagicCookie then goto sortie;
 
-	          if not(PartieEstCompatibleParCriteres(nroReference)) |
-	             ((nbNoirsReelsCherches >= 0) & (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
+	          if not(PartieEstCompatibleParCriteres(nroReference)) or
+	             ((nbNoirsReelsCherches >= 0) and (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
 	            then
 	              SetPartieActive(nroReference,false)
 	            else
@@ -3251,11 +3251,11 @@ begin
 	      for nroReference := 1 to nbPartiesChargees do
 	        begin
 	          if magicCookie <> oldMagicCookie then goto sortie;
-	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		        if magicCookie <> oldMagicCookie then goto sortie;
 
-	          if not(PartieEstCompatibleParCriteres(nroReference)) |
-	             ((nbNoirsReelsCherches >= 0) & (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
+	          if not(PartieEstCompatibleParCriteres(nroReference)) or
+	             ((nbNoirsReelsCherches >= 0) and (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
 	            then
 	              SetPartieActive(nroReference,false)
 	            else
@@ -3352,7 +3352,7 @@ begin
 	        else nbNoirsReelsCherches := -1;
 
 	      if magicCookie <> oldMagicCookie then goto sortie;
-	      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		    if magicCookie <> oldMagicCookie then goto sortie;
 
 
@@ -3382,7 +3382,7 @@ begin
 
 	      nbreCasesVides := 0;
 	      for t := 1 to 60 do
-	        if not(casesremplies[othellier[t]]) & (othellier[t] <> 56) then
+	        if not(casesremplies[othellier[t]]) and (othellier[t] <> 56) then
 	          begin
 	            inc(nbreCasesVides);
 	            listeCasesVides[nbreCasesVides] := othellier[t];
@@ -3402,8 +3402,8 @@ begin
 	        end;
 
 	      traitPartie := coulTrait;
-	      if (nbreCoup >= 60) | DoitPasserPlatSeulement(traitPartie,positionPartie) then
-	        if (nbreCoup >= 60) | DoitPasserPlatSeulement(-traitPartie,positionPartie)
+	      if (nbreCoup >= 60) or DoitPasserPlatSeulement(traitPartie,positionPartie) then
+	        if (nbreCoup >= 60) or DoitPasserPlatSeulement(-traitPartie,positionPartie)
 	          then traitPartie := pionVide
 	          else traitPartie := -traitPartie;
 
@@ -3412,11 +3412,11 @@ begin
 	      for nroReference := 1 to nbPartiesChargees do
 	        begin
 	          if magicCookie <> oldMagicCookie then goto sortie;
-	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		        if magicCookie <> oldMagicCookie then goto sortie;
 
 	          if not(PartieEstCompatibleParCriteres(nroReference))
-	             | ((nbNoirsReelsCherches >= 0) & (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
+	             or ((nbNoirsReelsCherches >= 0) and (nbNoirsReelsCherches <> GetScoreReelParNroRefPartie(nroReference)))
 	            then
 	              begin
 	                SetPartieActive(nroReference,false);
@@ -3541,7 +3541,7 @@ begin
     begin
      dernierePartieEnMemoire := DernierePartieCompatibleEnMemoire(nbreCoupsSemblables,nroReference);
 
-     if (dernierePartieEnMemoire <> '') &
+     if (dernierePartieEnMemoire <> '') and
         (nbreCoupsSemblables >= 4) then
         begin
 
@@ -3579,11 +3579,11 @@ begin
   with DemandeCalculsPourBase do
    begin
     if magicCookie <> oldMagicCookie then goto sortie;
-	  if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	  if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 	  if magicCookie <> oldMagicCookie then goto sortie;
 
 	  etat := GetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup);
-	  if infosDejaCalculees & ListePartiesEstGardeeDansLeCache(nbreCoup,etat)
+	  if infosDejaCalculees and ListePartiesEstGardeeDansLeCache(nbreCoup,etat)
 	    then
 	      begin
 	        if (etat = PasDePartieActive)
@@ -3600,7 +3600,7 @@ begin
 	    else
 	      begin
 	        if magicCookie <> oldMagicCookie then goto sortie;
-	        if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	        if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		      if magicCookie <> oldMagicCookie then goto sortie;
 
 	        if avecInterversions
@@ -3622,10 +3622,10 @@ begin
 
 
 	              if magicCookie <> oldMagicCookie then goto sortie;
-	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		            if magicCookie <> oldMagicCookie then goto sortie;
 
-	              if (nbreCoup > 4) & (nbreCoup < 58)
+	              if (nbreCoup > 4) and (nbreCoup < 58)
 	                then
 	                  begin
 	                    nbreInterAlaVolee := 0;
@@ -3635,7 +3635,7 @@ begin
 	                    ConstruitTablePartiesActivesAvecToutesInter(partie60,withCheckEvent);
 
 	                    if magicCookie <> oldMagicCookie then goto sortie;
-	                    if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	                    if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		                  if magicCookie <> oldMagicCookie then goto sortie;
 
 	                    if (nbreInterAlaVolee > 0) then
@@ -3646,7 +3646,7 @@ begin
 	                   then
 	                     begin
 	                       if magicCookie <> oldMagicCookie then goto sortie;
-	                       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	                       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		                     if magicCookie <> oldMagicCookie then goto sortie;
 
                          {WritelnDansRapport('Appel de ConstruitTablePartiesActivesSansInter dans ConstruitTablePartiesActives');}
@@ -3656,7 +3656,7 @@ begin
 	                   else
 	                     begin
 	                       if magicCookie <> oldMagicCookie then goto sortie;
-	                       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	                       if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		                     if magicCookie <> oldMagicCookie then goto sortie;
 
                          {WritelnDansRapport('Appel de ConstruitTablePartiesActivesAvecInter dans ConstruitTablePartiesActives');}
@@ -3672,13 +3672,13 @@ begin
 	              TraductionAlphanumeriqueEnThor(partie120,partie60);
 
 	              if magicCookie <> oldMagicCookie then goto sortie;
-	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		            if magicCookie <> oldMagicCookie then goto sortie;
 
 	              ConstruitTablePartiesActivesSansInter(partie60,withCheckEvent);
 
 	              if magicCookie <> oldMagicCookie then goto sortie;
-	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+	              if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
 		            if magicCookie <> oldMagicCookie then goto sortie;
 
 	            end;
@@ -3737,7 +3737,7 @@ begin
 
     		      {WritelnNumDansRapport('--> rec = ',NiveauRecursionCalculsEtAffichagePourBase);}
     		      inc(NiveauRecursionCalculsEtAffichagePourBase);
-    		      if (NiveauRecursionCalculsEtAffichagePourBase > 30) | PhaseDecroissanceRecursion | (nbPartiesChargees <= 0) then
+    		      if (NiveauRecursionCalculsEtAffichagePourBase > 30) or PhaseDecroissanceRecursion or (nbPartiesChargees <= 0) then
     		        begin
     		          withCheckEvent := false;
     		          PhaseDecroissanceRecursion := true;
@@ -3752,13 +3752,13 @@ begin
       			      InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 
       			      if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      if windowStatOpen  then EcritStatistiques(false);
 
       			      if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      if windowListeOpen then EcritListeParties(false,'CalculsEtAffichagePourBase(1)');
@@ -3768,55 +3768,55 @@ begin
       			    begin
 
       			      {if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      if windowListeOpen then NroHilite2NroReference(infosListeParties.partieHilitee,NumeroReferencePartieHilitee);
       			      }
 
       			      if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      ConstruitTablePartiesActives(infosDejaCalculees,withCheckEvent);
       			      {WritelnNumDansRapport('dans CalculsEtAffichagePourBase : après ConstruitTablePartiesActives, nbPartiesActives = ',nbPartiesActives);AttendFrappeClavier;}
 
       			      if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      ConstruitTableNumeroReference(infosDejaCalculees,withCheckEvent);
       			      {WritelnNumDansRapport('dans CalculsEtAffichagePourBase : après ConstruitTableNumeroReference , nbPartiesActives = ',nbPartiesActives);AttendFrappeClavier;}
 
       			      if magicCookie <> oldMagicCookie then goto sortie;
-      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			      if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				    if magicCookie <> oldMagicCookie then goto sortie;
 
       			      if windowStatOpen then
       			        begin
       			          if magicCookie <> oldMagicCookie then goto sortie;
-      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				        if magicCookie <> oldMagicCookie then goto sortie;
 
       			          ConstruitStatistiques(withCheckEvent);
       			          {WritelnNumDansRapport('dans CalculsEtAffichagePourBase : après ConstruitStatistiques ',0);AttendFrappeClavier;}
 
       			          if magicCookie <> oldMagicCookie then goto sortie;
-      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				        if magicCookie <> oldMagicCookie then goto sortie;
 
       			          EcritStatistiques(false);
       			          {WritelnNumDansRapport('dans CalculsEtAffichagePourBase : après EcritStatistiques ',0);AttendFrappeClavier;}
 
       			          if magicCookie <> oldMagicCookie then goto sortie;
-      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				        if magicCookie <> oldMagicCookie then goto sortie;
       			        end;
 
       			      if windowListeOpen then
       			        begin
       			          if magicCookie <> oldMagicCookie then goto sortie;
-      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				        if magicCookie <> oldMagicCookie then goto sortie;
 
       			          AjustePouceAscenseurListe(false);
@@ -3827,7 +3827,7 @@ begin
       			          {WritelnNumDansRapport('dans CalculsEtAffichagePourBase : après EcritListeParties ',0);AttendFrappeClavier;}
 
       			          if magicCookie <> oldMagicCookie then goto sortie;
-      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) & withCheckEvent then CheckEventPendantCalculsBase;
+      			          if (TickCount <> dernierTickPourCheckEventDansCalculsBase) and withCheckEvent then CheckEventPendantCalculsBase;
       				        if magicCookie <> oldMagicCookie then goto sortie;
 
       				        NroHilite2NroReference(infosListeParties.partieHilitee,infosListeParties.dernierNroReferenceHilitee);
@@ -3868,7 +3868,7 @@ begin
     		        {WritelnNumDansRapport('dans CalculsEtAffichagePourBase (finNormale) : avant PhaseDecroissanceRecursion ',0);AttendFrappeClavier;}
 
     		        dec(NiveauRecursionCalculsEtAffichagePourBase);
-    		        if PhaseDecroissanceRecursion & (NiveauRecursionCalculsEtAffichagePourBase < 1) then
+    		        if PhaseDecroissanceRecursion and (NiveauRecursionCalculsEtAffichagePourBase < 1) then
     		          PhaseDecroissanceRecursion := false;
 
     		        {WritelnNumDansRapport('dans CalculsEtAffichagePourBase (finNormale) : apres PhaseDecroissanceRecursion ',0);AttendFrappeClavier;}
@@ -3909,7 +3909,7 @@ var etat,nroReference,indexDepart : SInt32;
     autreCoupQuatreDansPartie : boolean;
     ouvertureDiagonale : boolean;
 begin
-  if (nbreCoup < 0) | (nbreCoup > 60) | positionFeerique
+  if (nbreCoup < 0) or (nbreCoup > 60) or positionFeerique
     then
       begin
         LanceNouvelleDemandeCalculsPourBase(infosDejaCalculees,withCheckEvent);
@@ -3918,7 +3918,7 @@ begin
       begin
         etat := GetNombreDePartiesActivesDansLeCachePourCeCoup(nbreCoup);
 
-  	    if not(infosDejaCalculees) | (etat = NeSaitPasNbrePartiesActives) |
+  	    if not(infosDejaCalculees) or (etat = NeSaitPasNbrePartiesActives) or
   	       not(ListePartiesEstGardeeDansLeCache(nbreCoup,etat)) then
   	       begin  {refaire les calculs => long => lance demande}
   	         LanceNouvelleDemandeCalculsPourBase(false,withCheckEvent);
@@ -3939,7 +3939,7 @@ begin
   	    ExtraitPartieTableStockageParties(nroReference,s60);
   	    ouvertureDiagonale := PACKED_GAME_IS_A_DIAGONAL(s60);
   	    ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
-  	    TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie & ouvertureDiagonale & (nbreCoup >= 4),1,60);
+  	    TransposePartiePourOrientation(s60,autreCoupQuatreDansPartie and ouvertureDiagonale and (nbreCoup >= 4),1,60);
 
   	    if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) then
   	      begin  {infos fausses => refaire les calculs => long => lance demande}
@@ -3997,7 +3997,7 @@ begin
 
       {destruction des parties}
       for nroReference := 1 to nbPartiesChargees do
-        if PartieEstDansLaSelection(nroReference) & PartieEstActive(nroReference)
+        if PartieEstDansLaSelection(nroReference) and PartieEstActive(nroReference)
           then DetruirePartieDeLaListe(nroReference);
 
       {affichage de la nouvelle liste}
@@ -4006,7 +4006,7 @@ begin
       CalculsEtAffichagePourBase(false,true);
 
       {est-ce un vidage complet de la liste ?}
-      if (nbPartiesActives <= 0) & (nbPartiesChargees > 0) & (NbrePartiesDetruitesDansLaListe >= nbPartiesChargees)
+      if (nbPartiesActives <= 0) and (nbPartiesChargees > 0) and (NbrePartiesDetruitesDansLaListe >= nbPartiesChargees)
         then ResetListeDeParties;
     end;
 end;
@@ -4065,7 +4065,7 @@ end;
 
 function PartieEstActive(nroReferencePartie : SInt32) : boolean;
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees)
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees)
     then PartieEstActive := BTST(tableBooleensDeLaListe^[nroReferencePartie],kPartieActiveBit)  {Bit Test}
     else PartieEstActive := false;
 end;
@@ -4089,14 +4089,14 @@ end;
 
 procedure DetruirePartieDeLaListe(nroReferencePartie : SInt32);
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees) then
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees) then
     BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit); {Bit Set}
 end;
 
 
 function PartieDeLaListeEstDetruite(nroReferencePartie : SInt32) : boolean;
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees)
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees)
     then PartieDeLaListeEstDetruite := BTST(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit) {Bit Test}
     else PartieDeLaListeEstDetruite := false;
 end;
@@ -4123,7 +4123,7 @@ end;
 
 procedure SelectionnerPartieDeLaListe(nroReferencePartie : SInt32);
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees) then
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees) then
     begin
 		  if not(PartieEstDansLaSelection(nroReferencePartie)) then
 		    inc(cardinalSelectionDeLaListe);
@@ -4134,7 +4134,7 @@ end;
 
 procedure DeselectionnerPartieDeLaListe(nroReferencePartie : SInt32);
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees) then
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees) then
     begin
       if PartieEstDansLaSelection(nroReferencePartie) then
         dec(cardinalSelectionDeLaListe);
@@ -4145,7 +4145,7 @@ end;
 
 function PartieEstDansLaSelection(nroReferencePartie : SInt32) : boolean;
 begin
-  if (nroReferencePartie >= 1) & (nroReferencePartie <= nbPartiesChargees)
+  if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees)
     then PartieEstDansLaSelection := BTST(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit) {Bit Test}
     else PartieEstDansLaSelection := false;
 end;
@@ -4153,8 +4153,8 @@ end;
 
 function PartieEstActiveEtSelectionnee(nroReferencePartie : SInt32) : boolean;
 begin
-  PartieEstActiveEtSelectionnee := PartieEstActive(nroReferencePartie) &
-                                   (EstLaPartieHilitee(nroReferencePartie) | PartieEstDansLaSelection(nroReferencePartie));
+  PartieEstActiveEtSelectionnee := PartieEstActive(nroReferencePartie) and
+                                   (EstLaPartieHilitee(nroReferencePartie) or PartieEstDansLaSelection(nroReferencePartie));
 end;
 
 
@@ -4251,7 +4251,7 @@ var k,compteur : SInt32;
 begin
   compteur := 0;
   for k := 1 to nbPartiesChargees do
-    if BTST(tableBooleensDeLaListe^[k],kPartieActiveBit) &
+    if BTST(tableBooleensDeLaListe^[k],kPartieActiveBit) and
        BTST(tableBooleensDeLaListe^[k],kPartieSelectionneeBit) then
       inc(compteur);
   NbPartiesActivesDansLaSelectionDeLaListe := compteur;
@@ -4383,8 +4383,8 @@ begin
   compteur := 0;
   if not(problemeMemoireBase) then
 	  for k := 1 to nbPartiesChargees do
-      if BTST(tableBooleensDeLaListe^[k],kPartieActiveBit) &
-         BTST(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit) &
+      if BTST(tableBooleensDeLaListe^[k],kPartieActiveBit) and
+         BTST(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit) and
          not(BTST(tableBooleensDeLaListe^[k],kPartieDetruiteBit)) then
        inc(compteur);
   NbPartiesActivesDevantEtreSauvegardeesDansLaListe := compteur;
@@ -4401,7 +4401,7 @@ begin
   compteur := 0;
   if not(problemeMemoireBase) then
 	  for k := 1 to nbPartiesChargees do
-      if BTST(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit) &
+      if BTST(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit) and
          not(BTST(tableBooleensDeLaListe^[k],kPartieDetruiteBit)) then
        inc(compteur);
   cardinalNombrePartiesASauverDansLaListe := compteur;
@@ -4457,7 +4457,7 @@ begin
   compteur := 0;
   if not(problemeMemoireBase) then
 	  for k := 1 to nbPartiesChargees do
-      if BTST(tableBooleensDeLaListe^[k],kPartieDouteuseLorsDeLImport) &
+      if BTST(tableBooleensDeLaListe^[k],kPartieDouteuseLorsDeLImport) and
          not(BTST(tableBooleensDeLaListe^[k],kPartieDetruiteBit)) then
        inc(compteur);
   cardinalNombrePartiesDouteuseDansLaListe := compteur;
@@ -4502,8 +4502,8 @@ begin {$UNUSED numeroDansLaListe}
   score := -1;
   PartieAvecScoresTheoriqueEtReelEgaux := false;
 
-  if (numeroDansLaListe >= 1) & (numeroDansLaListe <= nbPartiesActives) &
-     (numeroReference >= 1) & (numeroReference <= nbPartiesChargees) then
+  if (numeroDansLaListe >= 1) and (numeroDansLaListe <= nbPartiesActives) and
+     (numeroReference >= 1) and (numeroReference <= nbPartiesChargees) then
     begin
       if PartieEstActive(numeroReference) then
         begin
@@ -4547,10 +4547,10 @@ begin
       GetPort(oldport);
       SetPortByWindow(wListePtr);
 
-      if (infosListeParties.ascenseurListe = NIL) |
-         (SousCriteresRuban[TournoiRubanBox]      = NIL) |
-         (SousCriteresRuban[JoueurNoirRubanBox]   = NIL) |
-         (SousCriteresRuban[JoueurBlancRubanBox]  = NIL) |
+      if (infosListeParties.ascenseurListe = NIL) or
+         (SousCriteresRuban[TournoiRubanBox]      = NIL) or
+         (SousCriteresRuban[JoueurNoirRubanBox]   = NIL) or
+         (SousCriteresRuban[JoueurBlancRubanBox]  = NIL) or
          (SousCriteresRuban[DistributionRubanBox] = NIL) then
         begin
           s := 'WARNING : je suis obligé de reouvrir les controles dans TraiteSourisListe, ce n''est pas normal';
@@ -4617,21 +4617,21 @@ begin
         if mouseLoc.v <= hauteurRubanListe
           then  { clic dans le ruban  }
             begin
-              if PtInRect(mouseLoc,RubanDistributionRect) & AppuieBouton(RubanDistributionRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanDistributionRect) and AppuieBouton(RubanDistributionRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParDistribution,kRadixSort) else
-              if PtInRect(mouseLoc,RubanTournoiRect) & AppuieBouton(RubanTournoiRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanTournoiRect) and AppuieBouton(RubanTournoiRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParDate,kRadixSort) else
-              if PtInRect(mouseLoc,RubanNoirsRect) & AppuieBouton(RubanNoirsRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanNoirsRect) and AppuieBouton(RubanNoirsRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParJoueurNoir,kRadixSort) else
-              if PtInRect(mouseLoc,RubanBlancsRect) & AppuieBouton(RubanBlancsRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanBlancsRect) and AppuieBouton(RubanBlancsRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParJoueurBlanc,kRadixSort) else
-              if PtInRect(mouseLoc,RubanCoupRect) & AppuieBouton(RubanCoupRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanCoupRect) and AppuieBouton(RubanCoupRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParOuverture,kQuickSort) else
-              if PtInRect(mouseLoc,RubanTheoriqueRect) & AppuieBouton(RubanTheoriqueRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanTheoriqueRect) and AppuieBouton(RubanTheoriqueRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParScoreTheorique,kRadixSort) else
-              if PtInRect(mouseLoc,RubanReelRect) & AppuieBouton(RubanReelRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
+              if PtInRect(mouseLoc,RubanReelRect) and AppuieBouton(RubanReelRect,0,mouseLoc,MyInvertRoundRect,MyInvertRoundRect)
                 then DoTrierListe(TriParScoreReel,kRadixSort) else
-              if PtInRect(mouseLoc,RubanSousCritActifs) { & AppuieBouton(RubanSousCritActifs,0,mouseLoc) }
+              if PtInRect(mouseLoc,RubanSousCritActifs) { and AppuieBouton(RubanSousCritActifs,0,mouseLoc) }
                 then
                   if option
                     then DoSwaperLesSousCriteres
@@ -4654,7 +4654,7 @@ begin
             end
           else  { clic dans les parties  }
             begin
-              if control & not(option) & (nbPartiesActives > 0)
+              if control and not(option) and (nbPartiesActives > 0)
                 then
                   begin
                     menuFlottantListe := NewMenuFlottant(MenuFlottantListeID,MakeRect(mouseLoc.h-30,mouseLoc.v-5,mouseLoc.h-30,mouseLoc.v+15),0);
@@ -4676,7 +4676,7 @@ begin
                     DesinstalleMenuFlottant(menuFlottantListe);
                   end
                 else
-                 if (mouseLoc.h < GetWindowPortRect(wListePtr).right - 15) &
+                 if (mouseLoc.h < GetWindowPortRect(wListePtr).right - 15) and
                     (mouseLoc.v < GetWindowPortRect(wListePtr).bottom - hauteurPiedDePageListe) then
                    with infosListeParties do
 	                   begin
@@ -4693,7 +4693,7 @@ begin
 	                             begin
 	                               oldNbreCoups := nbreCoup;
 	                               OuvrePartieSelectionnee(partieCliquee);
-	                               if control & option then
+	                               if control and option then
 	                                 begin
 	                                   CalculsEtAffichagePourBase(false,true);
 	                                   DialogueSaisieNomsJoueursPartie(oldNbreCoups);
@@ -4701,8 +4701,8 @@ begin
 	                             end;
 	                         end
 	                       else
-	                         if ((partieCliquee >= 1) & (partieCliquee <= nbPartiesActives)) &
-	                            not(command) & not(shift) then
+	                         if ((partieCliquee >= 1) and (partieCliquee <= nbPartiesActives)) and
+	                            not(command) and not(shift) then
 	                           begin
 	                             clicHilite := evt.when;
 	                             ChangePartieHilitee(partieCliquee,anciennePartieHilitee);
@@ -4728,9 +4728,9 @@ begin
 	                     if command
 	                       then {command => on toggle la partie nouvellement cliquee}
 	                       begin
-		                       if (partieCliquee = anciennePartieHilitee) &
-		                          not((NbPartiesDansLaSelectionDeLaListe = 0) |
-		                              ((NbPartiesDansLaSelectionDeLaListe = 1) & PartieEstDansLaSelection(tableNumeroReference^^[partieCliquee])))
+		                       if (partieCliquee = anciennePartieHilitee) and
+		                          not((NbPartiesDansLaSelectionDeLaListe = 0) or
+		                              ((NbPartiesDansLaSelectionDeLaListe = 1) and PartieEstDansLaSelection(tableNumeroReference^^[partieCliquee])))
 		                          then
 		                            begin
 		                              if PartieEstDansLaSelection(tableNumeroReference^^[partieCliquee]) then
@@ -4782,7 +4782,7 @@ var isRunningAtLeastInTiger : boolean;
     MacVersion : SInt32;
  begin
 
-   if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) &
+   if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
      (MacVersion >= $1040)  (* au moins Mac OS X 10.4 *)
      then isRunningAtLeastInTiger := true
      else isRunningAtLeastInTiger := false;
@@ -4805,7 +4805,7 @@ var isRunningAtLeastInTiger : boolean;
        delta := nouvelleLargeurFenetreListe - ancienneLargeurFenetreListe;
        currentSize := unRect.right - unRect.left;
 
-       if (nouvelleLargeurFenetreListe <> ancienneLargeurFenetreListe) |
+       if (nouvelleLargeurFenetreListe <> ancienneLargeurFenetreListe) or
           (nouvelleLargeurFenetreListe <> currentSize) then
          begin
 
@@ -4817,12 +4817,12 @@ var isRunningAtLeastInTiger : boolean;
            if (delta > 0)
              then
                begin
-    	           if gIsRunningUnderMacOSX & not(isRunningAtLeastInTiger)
+    	           if gIsRunningUnderMacOSX and not(isRunningAtLeastInTiger)
     	             then
     	               begin
     	                 targetRect := MakeRect(unRect.left-delta,structureRect.top,unRect.left-delta+nouvelleLargeurFenetreListe,unRect.bottom);
 
-    	                 if false & isRunningAtLeastInTiger
+    	                 if false and isRunningAtLeastInTiger
     	                   then
     	                     begin
     	                       OffSetRect(targetRect,delta,0);
@@ -4850,7 +4850,7 @@ var isRunningAtLeastInTiger : boolean;
                end
              else
                begin
-                 if gIsRunningUnderMacOSX & not(isRunningAtLeastInTiger)
+                 if gIsRunningUnderMacOSX and not(isRunningAtLeastInTiger)
                    then
                      begin
                        targetRect := MakeRect(unRect.left-delta,structureRect.top,unRect.left-delta+nouvelleLargeurFenetreListe,unRect.bottom);
@@ -4892,7 +4892,7 @@ var isRunningAtLeastInTiger : boolean;
                      PasseListeEnModeEntree(BoiteDeSousCritereActive);
                    end;
                kAvecAffichageSeulementDesJoueurs :
-                 if (BoiteDeSousCritereActive = TournoiRubanBox) |
+                 if (BoiteDeSousCritereActive = TournoiRubanBox) or
                      (BoiteDeSousCritereActive = DistributionRubanBox) then
                    begin
                      AnnulerSousCriteresRuban;

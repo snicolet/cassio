@@ -23,7 +23,7 @@ INTERFACE
 
   {$ifc not do_debug}
   { buggy compiler $ definec Assert(b)}
-  { $ definec Assert(b) if false & (b) then begin end else begin end }
+  { $ definec Assert(b) if false and (b) then begin end else begin end }
   {$definec SafeDebugStr(s)}
   {$elsec}
   { $ definec Assert(b) AssertCode(b)}
@@ -67,7 +67,7 @@ IMPLEMENTATION
 
 	procedure AssertValidPtr (p : UnivPtr);
 	begin
-		Assert((p <> NIL) & (not odd(POINTER_VALUE(p))));
+		Assert((p <> NIL) and (not odd(POINTER_VALUE(p))));
 	end;
 
 	procedure AssertValidPtrNil (p : UnivPtr);

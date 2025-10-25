@@ -15,7 +15,8 @@ uses
   Connect,
   BasicTypes,
   BasicMemory,
-  BasicString;
+  BasicString,
+  BasicMath;
 
 type
   Point = record

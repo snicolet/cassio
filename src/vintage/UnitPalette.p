@@ -60,7 +60,7 @@ procedure GetRectDansPalette(action : SInt16; var RectAction : rect);
 var oldport : grafPtr;
     i,j : SInt16;
 begin
-  if windowPaletteOpen & (wPalettePtr <> NIL) then
+  if windowPaletteOpen and (wPalettePtr <> NIL) then
     begin
       GetPort(oldport);
       SetPortByWindow(wPalettePtr);
@@ -196,7 +196,7 @@ var unRect : rect;
     oldPort : grafPtr;
     rayon,a,b : SInt16;
 begin
-  if windowPaletteOpen & (wPalettePtr <> NIL) then
+  if windowPaletteOpen and (wPalettePtr <> NIL) then
     begin
       GetPort(oldPort);
       SetPortByWindow(wPalettePtr);
@@ -278,7 +278,7 @@ var oldPort : grafPtr;
     structRect : rect;
     palettePicture : PicHandle;
 begin
-  if windowPaletteOpen & (wPalettePtr <> NIL) then
+  if windowPaletteOpen and (wPalettePtr <> NIL) then
     begin
       GetPort(oldPort);
       SetPortByWindow(wPalettePtr);

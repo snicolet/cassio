@@ -103,7 +103,7 @@ begin
          with MemoisationFonctionLigneChi2 do
            if nbValeursMemoisees > 0 then
              for k := 1 to nbValeursMemoisees do
-               if (positionSurLaLigne[k] = lambda) & (tableValeurChi2[k] >= 0.0) then
+               if (positionSurLaLigne[k] = lambda) and (tableValeurChi2[k] >= 0.0) then
                  begin  {trouve !}
                    if not(verboseMinimisationChi2) then
                       begin
@@ -137,7 +137,7 @@ begin
   DoSystemTask(AQuiDeJouer);
   if Quitter then exit(LineMinimisationChi2);
 
-  if memoireAlloueeFonctionLigneChi2 & not(Quitter) then
+  if memoireAlloueeFonctionLigneChi2 and not(Quitter) then
     begin
 		  InitialiseFonctionLigneChi2(p,xi);
 		  AjoutePaireDansTableMemoisationFonctionLigneChi2(0.0,valeurChi2PourP);
@@ -198,8 +198,8 @@ begin
       exit(ConjugateGradientChi2);
     end;
 
-  if VecteurEvalEstVide(whichEval) |
-     not(memoireAlloueeConjugateGradientChi2) |
+  if VecteurEvalEstVide(whichEval) or
+     not(memoireAlloueeConjugateGradientChi2) or
      not(memoireAlloueeFonctionLigneChi2) then
      begin
        AlerteSimple('Pas assez de memoire pour allouer les vecteurs pour ConjugateGradientChi2 !!!');

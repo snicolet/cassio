@@ -88,7 +88,7 @@ begin
   with gSetUpData do
     begin
       EraseRectDansWindowPlateau(gSetUpData.noteRect);
-      if avecSystemeCoordonnees & not(CassioEstEn3D)
+      if avecSystemeCoordonnees and not(CassioEstEn3D)
         then DessineBordureDuPlateau2D(kBordureDuBas);
       InsetRect(rectPions,-1,-1);
       PenPat(whitePattern);
@@ -109,7 +109,7 @@ begin
 
       EffaceNoteRect;
 
-      if (i >= 1) & (i <= 8) & (j >= 1) & (j <= 8)
+      if (i >= 1) and (i <= 8) and (j >= 1) and (j <= 8)
         then
           DessinePion(i*10+j,couleur)
         else
@@ -242,7 +242,7 @@ begin
       if gIsRunningUnderMacOSX then
         EraseRectDansWindowPlateau(GetBoutonRectParControlManager(left-2,top-2,bottom+4,margeDansLesBoutons+4,s));
 
-      if (BoutonID = annulerID) & gIsRunningUnderMacOSX & GetDrawDefaultSetupBoutonInBlue
+      if (BoutonID = annulerID) and gIsRunningUnderMacOSX and GetDrawDefaultSetupBoutonInBlue
         then DessineBoutonParControlManager(kThemeStatePressed,left,top,bottom,margeDansLesBoutons,s,unRect)
         else DessineBoutonParControlManager(kThemeStateActive,left,top,bottom,margeDansLesBoutons,s,unRect);
 
@@ -644,7 +644,7 @@ begin
              if PtInRect(mouseLoc,SetUprect) then
               begin
                 veutsetUp := AppuieBoutonSetUp(SetUpID,mouseLoc);
-                if veutSetUp & PeutArreterAnalyseRetrograde then
+                if veutSetUp and PeutArreterAnalyseRetrograde then
                   begin
                     testOKsetUp := true;
                     {testOKsetUp := VerificationConnexiteOK(setUpPlat);}
@@ -850,7 +850,7 @@ begin {SetUp}
     	    mouseDown :
     	      begin
     	        IncrementeCompteurDeMouseEvents;
-    	        if (FindWindow(theEvent.where,whichWindow) = InContent) & (whichWindow = wPlateauPtr)
+    	        if (FindWindow(theEvent.where,whichWindow) = InContent) and (whichWindow = wPlateauPtr)
     	         then TraiteSourisSetUp
     	         else TraiteOneEvenement;
     	      end;

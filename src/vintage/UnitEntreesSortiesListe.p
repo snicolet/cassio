@@ -89,7 +89,7 @@ begin
       MyParamText(NumEnString(nbCoupsIdentiques),ConstruireChaineReferencesPartieParNroRefPartie(nroReference,true,-1),chaineRefNouvellePartie,'');
       repeat
         ModalDialog(FiltreClassiqueUPP,itemHit);
-      until (itemHit = remplacerBouton) | (itemHit = nouvellePartieBouton) | (itemHit = annulerBouton);
+      until (itemHit = remplacerBouton) or (itemHit = nouvellePartieBouton) or (itemHit = annulerBouton);
 
       case itemHit of
         remplacerBouton      : ConfirmationEcraserPartie := ActionRemplacer;
@@ -142,7 +142,7 @@ begin
     exit(SauvegardeCesPartiesDeLaListe);
 
   fileName := GetNameOfFSSpec(fichier);
-  if (fileName[LENGTH_OF_STRING(fileName)] <> ' ') & (fileName[LENGTH_OF_STRING(fileName)] <> '_')
+  if (fileName[LENGTH_OF_STRING(fileName)] <> ' ') and (fileName[LENGTH_OF_STRING(fileName)] <> '_')
     then fileName := Concat(fileName,' ');
   fileName := fileName + NumEnString(anneeDesParties);
   fileName := fileName+'.wtb';
@@ -151,7 +151,7 @@ begin
   if codeErreur = NoErr
     then
       begin
-        if doitEcraserBase | ConfirmationEcraserBase
+        if doitEcraserBase or ConfirmationEcraserBase
 		      then
 		        begin
 		          doitEcraserBase := true;
@@ -238,14 +238,14 @@ begin
     	                      AttendFrappeClavier;
     	                    end;}
                         partieNF.scoreReel := nbNoirs;
-                        if (partieNF.scoreTheorique < 0) | (partieNF.scoreTheorique > 64)
+                        if (partieNF.scoreTheorique < 0) or (partieNF.scoreTheorique > 64)
                           then partieNF.scoreTheorique := partieNF.scoreReel;
                       end
                     else
     	                begin
     	                  TraductionThorEnAlphanumerique(s60,s255);
     	                  longueur := LENGTH_OF_STRING(s255) div 2;
-    	                  doitEcrireCettePartie := (longueur > 20) & PartieEstActiveEtSelectionnee(nroReference);
+    	                  doitEcrireCettePartie := (longueur > 20) and PartieEstActiveEtSelectionnee(nroReference);
     	                  {WritelnDansRapport('partie non terminée : '+s255);
     	                  WritelnNumDansRapport('longueur = ',longueur);
     	                  WritelnNumDansRapport('partieNF.scoreReel = ',partieNF.scoreReel);
@@ -341,7 +341,7 @@ var codeErreur : OSErr;
     compteurPartiesDansAnneeCourante : SInt32;
     bidon : SInt32;
 begin
-  if not(windowListeOpen) | (nbPartiesActives <= 0) then
+  if not(windowListeOpen) or (nbPartiesActives <= 0) then
     begin
       SauvegardeListeCouranteAuNouveauFormat := NoErr;
       exit(SauvegardeListeCouranteAuNouveauFormat);
@@ -411,7 +411,7 @@ begin
                       end;
                   end;
             end;
-        until sortieDeBoucle | (nbPartiesActives <= 0);
+        until sortieDeBoucle or (nbPartiesActives <= 0);
 
         if nroDernierePartieDeLAnnee < nroPremierePartieDeLannee then nroDernierePartieDeLAnnee := nroPremierePartieDeLannee;
         if nroDernierePartieDeLAnnee > nbPartiesActives          then nroDernierePartieDeLAnnee := nbPartiesActives;
@@ -433,7 +433,7 @@ begin
 		        WritelnNumDansRapport('    codeErreur = ',codeErreur);
           end;}
 
-      UNTIL (nbPartiesActives <= 0) | (nroDernierePartieDeLAnnee >= nbPartiesActives) | (codeErreur <> 0);
+      UNTIL (nbPartiesActives <= 0) or (nroDernierePartieDeLAnnee >= nbPartiesActives) or (codeErreur <> 0);
 
       if (codeErreur = -1)
         then SauvegardeListeCouranteAuNouveauFormat := NoErr      {cela voulait dire que l'utilisateur a refusé d'écraser une base déjà existante}
@@ -458,10 +458,10 @@ begin
 
   ChangerPartieRecDansListe := false;
 
-  if (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) then
+  if (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) then
     begin
       Sysbeep(0);
-      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieRecDansListe, prévenez Stéphane');
+      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieRecDansListe, prévenez Stéphane');
       exit(ChangerPartieRecDansListe);
     end;
 
@@ -469,7 +469,7 @@ begin
   for i := 1 to 60 do
     begin
       t := partieRec.listeCoups[i];
-      if (t >= 11) & (t <= 88) then
+      if (t >= 11) and (t <= 88) then
         ADD_MOVE_TO_PACKED_GAME(partie60, t);
     end;
   TraductionThorEnAlphanumerique(partie60,partie255);
@@ -495,13 +495,13 @@ begin
       watch := GetCursor(watchcursor);
       SafeSetCursor(watch);
       LecturePreparatoireDossierDatabase(pathCassioFolder,'ChangerPartieRecDansListe');
-      if not(problemeMemoireBase) & not(JoueursEtTournoisEnMemoire) then
+      if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire) then
         err := MetJoueursEtTournoisEnMemoire(false);
       RemettreLeCurseurNormalDeCassio;
     end;
 
 
-  if (nroReferencePartieChangee >= 0) & (nroReferencePartieChangee <= nbrePartiesEnMemoire) then
+  if (nroReferencePartieChangee >= 0) and (nroReferencePartieChangee <= nbrePartiesEnMemoire) then
     begin
 
       {WritelnNumDansRapport('dans ChangerPartieRecDansListe : nroReferencePartieChangee = ',nroReferencePartieChangee);AttendFrappeClavier;}
@@ -522,7 +522,7 @@ begin
       {WritelnNumDansRapport('dans ChangerPartieRecDansListe : apres SetPartieActive ',0);
       AttendFrappeClavier;}
 
-      partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(nroReferencePartieChangee))) &
+      partieSansOrdinateur := not(GetJoueurEstUnOrdinateur(GetNroJoueurNoirParNroRefPartie(nroReferencePartieChangee))) and
                               not(GetJoueurEstUnOrdinateur(GetNroJoueurBlancParNroRefPartie(nroReferencePartieChangee)));
       SetPartieEstSansOrdinateur(nroReferencePartieChangee,true);
       {WritelnNumDansRapport('dans ChangerPartieRecDansListe : apres SetPartieEstSansOrdinateur ',0);
@@ -557,7 +557,7 @@ begin
       {WritelnNumDansRapport('dans ChangerPartieRecDansListe : apres CalculsEtAffichagePourBase ',0);
       AttendFrappeClavier;}
 
-      if sousSelectionActive & not(PartieEstCompatibleParCriteres(nroReferencePartieChangee)) then
+      if sousSelectionActive and not(PartieEstCompatibleParCriteres(nroReferencePartieChangee)) then
         begin
 
           DoChangeSousSelectionActive;
@@ -593,10 +593,10 @@ var partie60 : PackedThorGame;
 begin
   result := false;
 
-  if (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) then
+  if (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) then
     begin
       Sysbeep(0);
-      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieCouranteDansListe, prévenez Stéphane');
+      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieCouranteDansListe, prévenez Stéphane');
       exit(ChangerPartieCouranteDansListe);
     end;
 
@@ -649,10 +649,10 @@ var partie120 : String255;
 begin
   result := false;
 
-  if (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) then
+  if (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) then
     begin
       Sysbeep(0);
-      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) | (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieAlphaDansLaListe, prévenez Stéphane');
+      WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieAlphaDansLaListe, prévenez Stéphane');
       exit(ChangerPartieAlphaDansLaListe);
     end;
 
@@ -674,7 +674,7 @@ begin
       partieRec.nroJoueurBlanc := numeroBlanc;
       partieRec.scoreReel      := score;
 
-      if (theorique >= 0) & (theorique <= 64)
+      if (theorique >= 0) and (theorique <= 64)
         then partieRec.scoreTheorique := theorique
         else partieRec.scoreTheorique := score;
 
@@ -697,7 +697,7 @@ function AjouterPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; ann
 begin
   AjouterPartieRecDansListe := false;
 
-  if (nbPartiesChargees >= nbrePartiesEnMemoire) & (nbPartiesChargees > 0) & (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
+  if (nbPartiesChargees >= nbrePartiesEnMemoire) and (nbPartiesChargees > 0) and (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
     then ResetListeDeParties;
 
   if (nbPartiesChargees < nbrePartiesEnMemoire)
@@ -722,7 +722,7 @@ function AjouterPartieCouranteDansListe(nroNoir,nroBlanc,nroDuTournoi,annee : SI
 begin
   AjouterPartieCouranteDansListe := false;
 
-  if (nbPartiesChargees >= nbrePartiesEnMemoire) & (nbPartiesChargees > 0) & (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
+  if (nbPartiesChargees >= nbrePartiesEnMemoire) and (nbPartiesChargees > 0) and (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
     then ResetListeDeParties;
 
   if (nbPartiesChargees < nbrePartiesEnMemoire)
@@ -747,7 +747,7 @@ function AjouterPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,nume
 begin
   AjouterPartieAlphaDansLaListe := false;
 
-  if (nbPartiesChargees >= nbrePartiesEnMemoire) & (nbPartiesChargees > 0) & (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
+  if (nbPartiesChargees >= nbrePartiesEnMemoire) and (nbPartiesChargees > 0) and (NbPartiesDevantEtreSaugardeesDansLaListe <= 0)
     then ResetListeDeParties;
 
   if (nbPartiesChargees < nbrePartiesEnMemoire)
@@ -787,7 +787,7 @@ begin
 
   {WritelnNumDansRapport('numero de distribution = ',nroDistrib);}
 
-  if (nroDistrib >= 1) & (nroDistrib <= DistributionsNouveauFormat.nbDistributions) &
+  if (nroDistrib >= 1) and (nroDistrib <= DistributionsNouveauFormat.nbDistributions) and
      EstUneDistributionDeParties(nroDistrib) then
     begin
 
@@ -797,8 +797,8 @@ begin
 		  { On cherche un fichier de la bonne distribution et de l'année voulue parmi tous les fichiers de la base}
 		  numFichier := -1;
 		  for k := 1 to InfosFichiersNouveauFormat.nbFichiers do
-		    if (InfosFichiersNouveauFormat.fichiers[k].typeDonnees = kFicPartiesNouveauFormat) &
-		       (InfosFichiersNouveauFormat.fichiers[k].nroDistribution = nroDistrib) &
+		    if (InfosFichiersNouveauFormat.fichiers[k].typeDonnees = kFicPartiesNouveauFormat) and
+		       (InfosFichiersNouveauFormat.fichiers[k].nroDistribution = nroDistrib) and
 		       (AnneePartiesFichierNouveauFormat(k) = anneePartie) then
 		     numFichier := k; {trouvé}
 
@@ -838,7 +838,7 @@ begin
 			      if (codeErreur = NoErr) then codeErreur := EcritEnteteNouveauFormat(fic.refnum,enteteFichierPartie);
 			      {WritelnNumDansRapport('Après EcritEnteteNouveauFormat, codeErreur = ',codeErreur);}
 
-			      if (codeErreur = NoErr) & AjouterFichierNouveauFormat(fic.theFSSpec,GetPathOfDistribution(nroDistrib),kFicPartiesNouveauFormat,enteteFichierPartie)
+			      if (codeErreur = NoErr) and AjouterFichierNouveauFormat(fic.theFSSpec,GetPathOfDistribution(nroDistrib),kFicPartiesNouveauFormat,enteteFichierPartie)
 			        then numFichier := InfosFichiersNouveauFormat.nbFichiers;
 			      {WritelnNumDansRapport('Après AjouterFichierNouveauFormat, numFichier = ',numFichier);}
 
@@ -856,7 +856,7 @@ begin
 			      codeErreur := NoErr;
 			    end;
 
-			if (codeErreur = NoErr) & (numFichier >= 1) & (nroDistrib >= 1) then
+			if (codeErreur = NoErr) and (numFichier >= 1) and (nroDistrib >= 1) then
 			  begin
 
 			    {WritelnNumDansRapport('Tout a l''air bon, j''ajoute une partie au fichier numéro ',numFichier);}
@@ -906,8 +906,8 @@ var descriptionLigne : String255;
     longueurSelection : SInt32;
     nbPartiesExportees : SInt32;
 begin
-  if FenetreRapportEstOuverte &
-     FenetreRapportEstAuPremierPlan &
+  if FenetreRapportEstOuverte and
+     FenetreRapportEstAuPremierPlan and
      SelectionRapportNonVide
      then
       begin
@@ -924,7 +924,7 @@ begin
       end
     else
       begin
-        if not(FenetreRapportEstOuverte) | not(FenetreRapportEstAuPremierPlan)
+        if not(FenetreRapportEstOuverte) or not(FenetreRapportEstAuPremierPlan)
           then DoRapport;
         WritelnDansRapport('Pour exporter les parties de la liste dans un fichier texte, voici comment procéder :');
         WritelnDansRapport('  1) passer en mode "Traitement de texte" (pomme-option-T)');

@@ -87,7 +87,7 @@ begin
    une forme compacte (plus lisible) }
 
   with position do
-    estUneVraiePosition := (BAnd(g_my_bits_low,g_opp_bits_low) = 0) &
+    estUneVraiePosition := (BAnd(g_my_bits_low,g_opp_bits_low) = 0) and
                            (BAnd(g_my_bits_high,g_opp_bits_high) = 0);
 
   ChangeFontDansRapport(MonacoID);
@@ -104,7 +104,7 @@ begin
           if othellierBitboardDescr[square].isLow
             then
               begin
-                if (BAnd(position.g_my_bits_low,v) = 0) & (BAnd(position.g_opp_bits_low,v) = 0)
+                if (BAnd(position.g_my_bits_low,v) = 0) and (BAnd(position.g_opp_bits_low,v) = 0)
                   then
                     begin
                       s1 := s1 + '.';
@@ -131,7 +131,7 @@ begin
               end
             else
               begin
-                if (BAnd(position.g_my_bits_high,v) = 0) & (BAnd(position.g_opp_bits_high,v) = 0)
+                if (BAnd(position.g_my_bits_high,v) = 0) and (BAnd(position.g_opp_bits_high,v) = 0)
                   then
                     begin
                       s1 := s1 + '.';

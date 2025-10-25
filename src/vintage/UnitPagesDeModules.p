@@ -168,7 +168,7 @@ end;
 function TrouvePlaceDansPageDeModule(var nroPage,nroIndex : SInt32) : boolean;
 var n,i,k : SInt32;
 begin
-  if (dernierePageModuleCree <= 0) & not(PeutCreerNouvellePageModule) then
+  if (dernierePageModuleCree <= 0) and not(PeutCreerNouvellePageModule) then
     begin
       TrouvePlaceDansPageDeModule := false;
       nroPage := -1;
@@ -200,7 +200,7 @@ begin
       if (n < 1) then n := n + dernierePageModuleCree;
       if ReserveDeModule[n] <> NIL then
         with ReserveDeModule[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -217,7 +217,7 @@ begin
       if (n < 1) then n := n + dernierePageModuleCree;
       if ReserveDeModule[n] <> NIL then
         with ReserveDeModule[n]^ do
-          if (buffer <> NIL) & (nbEmplacementVides > 0) then
+          if (buffer <> NIL) and (nbEmplacementVides > 0) then
             for i := premierEmplacementVide to dernierEmplacementVide do
               if libre[i] then
                 begin
@@ -271,7 +271,7 @@ begin
 	      with ReserveDeModule[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(theModule) >= baseAddress) & (SInt32(theModule) <= baseAddress+(TailleModuleBuffer-1)*sizeof(ModuleRec))
+	        if (SInt32(theModule) >= baseAddress) and (SInt32(theModule) <= baseAddress+(TailleModuleBuffer-1)*sizeof(ModuleRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -289,7 +289,7 @@ begin
 	      with ReserveDeModule[i]^ do
 	      begin
 	        baseAddress := SInt32(buffer);
-	        if (SInt32(theModule) >= baseAddress) & (SInt32(theModule) <= baseAddress+(TailleModuleBuffer-1)*sizeof(ModuleRec))
+	        if (SInt32(theModule) >= baseAddress) and (SInt32(theModule) <= baseAddress+(TailleModuleBuffer-1)*sizeof(ModuleRec))
 	          then
 	            begin
 	              nroDePage := i;
@@ -332,11 +332,11 @@ begin
                   if IndexDansPage = premierEmplacementVide then
 			              repeat
 			                inc(premierEmplacementVide);
-			              until libre[premierEmplacementVide] | (premierEmplacementVide >= dernierEmplacementVide) | (premierEmplacementVide > TailleModuleBuffer);
+			              until libre[premierEmplacementVide] or (premierEmplacementVide >= dernierEmplacementVide) or (premierEmplacementVide > TailleModuleBuffer);
                   if IndexDansPage = dernierEmplacementVide then
 			              repeat
 			                dec(dernierEmplacementVide);
-			              until libre[dernierEmplacementVide] | (dernierEmplacementVide <= premierEmplacementVide) | (dernierEmplacementVide < 1);
+			              until libre[dernierEmplacementVide] or (dernierEmplacementVide <= premierEmplacementVide) or (dernierEmplacementVide < 1);
                 end;
           end
       end
@@ -357,8 +357,8 @@ begin
   LocaliserModuleDansSaPage(theModule,nroDePage,nroIndex);
 
 
-  if (nroDePage >= 1) & (nroDePage <= nbPagesDeModule) &
-     (nroIndex  >= 1) & (nroIndex  <= TailleModuleBuffer) &
+  if (nroDePage >= 1) and (nroDePage <= nbPagesDeModule) and
+     (nroIndex  >= 1) and (nroIndex  <= TailleModuleBuffer) and
      (ReserveDeModule[nroDePage] <> NIL) then
     with ReserveDeModule[nroDePage]^ do
       begin

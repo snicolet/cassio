@@ -184,7 +184,7 @@ begin
   GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE(listeBitboard,iCourant1,iCourant2);
 
 
-  if ModifPlatPlausible(iCourant1,opp_bits_low,opp_bits_high) &
+  if ModifPlatPlausible(iCourant1,opp_bits_low,opp_bits_high) and
      (ModifPlatBitboard(iCourant1,0,my_bits_low,my_bits_high,opp_bits_low,opp_bits_high,position,diffPions) <> 0) then
     BEGIN
       with position do
@@ -203,7 +203,7 @@ begin
       diffPions := diffPionsDeuxCasesVides;
     END;
 
-  if ModifPlatPlausible(iCourant2,opp_bits_low,opp_bits_high) &
+  if ModifPlatPlausible(iCourant2,opp_bits_low,opp_bits_high) and
      (ModifPlatBitboard(iCourant2,0,my_bits_low,my_bits_high,opp_bits_low,opp_bits_high,position,diffPions) <> 0) then
     BEGIN
       with position do
@@ -331,8 +331,8 @@ begin
       pos_opp_bits_high_4 := g_opp_bits_high;
     end;
 
-  if (alpha_4 >= 50) |
-     ((alpha_4 >= 0) & (diffPions_4 <= alpha_4 - 24)) then
+  if (alpha_4 >= 50) or
+     ((alpha_4 >= 0) and (diffPions_4 <= alpha_4 - 24)) then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -350,8 +350,8 @@ begin
           exit(ABFinBitboardQuatreCasesVides);
         end;
     end;
-  if (beta_4 <= -50) |
-     ((beta_4 <= 0) & (diffPions_4 >= beta_4 + 24)) then
+  if (beta_4 <= -50) or
+     ((beta_4 <= 0) and (diffPions_4 >= beta_4 + 24)) then
     begin
       { Calculons la note minimale que l'on peut obtenir,
         connaissant nos pions definitifs }
@@ -536,7 +536,7 @@ debut_prof_3:
 	            end;
 	          {$ENDC}
 
-	           if ModifPlatPlausible(iCourant_3,pos_opp_bits_low_3,pos_opp_bits_high_3) &
+	           if ModifPlatPlausible(iCourant_3,pos_opp_bits_low_3,pos_opp_bits_high_3) and
                 (ModifPlatBitboard(iCourant_3,0,pos_my_bits_low_3,pos_my_bits_high_3,pos_opp_bits_low_3,pos_opp_bits_high_3,position,diffEssai_3) <> 0)
               then
 
@@ -1259,7 +1259,7 @@ begin
   vientDePasser := (vecteurParite and kBitVientDePasser) <> 0;
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -1656,7 +1656,7 @@ begin
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -2070,7 +2070,7 @@ begin
   vientDePasser := (vecteurParite and kBitVientDePasser) <> 0;
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -2200,7 +2200,7 @@ begin
             {$ENDC}
 
 
-	          if (noteCourante > maxPourBestDefABFinPetite) &
+	          if (noteCourante > maxPourBestDefABFinPetite) and
 	             (noteCourante <> -kValeurSpecialeInterruptionCalculParallele) then
 	             begin
 	               maxPourBestDefABFinPetite := noteCourante;
@@ -2359,7 +2359,7 @@ begin
   vientDePasser := (vecteurParite and kBitVientDePasser) <> 0;
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -2443,7 +2443,7 @@ begin
 
 
 
-  if (typeKnuth = ALPHA_COUPURE_PROBABLE) & (ESProf <= 9)
+  if (typeKnuth = ALPHA_COUPURE_PROBABLE) and (ESProf <= 9)
     then
       begin
         (* generer les coups *)
@@ -2527,7 +2527,7 @@ begin
         			        if (i >= 5) then
             			      statutKnuthProbableDuFils := BETA_COUPURE_PROBABLE
 
-            			    else if (typeKnuth = BETA_COUPURE_PROBABLE) & (i = 1) then
+            			    else if (typeKnuth = BETA_COUPURE_PROBABLE) and (i = 1) then
             			      statutKnuthProbableDuFils := ALPHA_COUPURE_PROBABLE
 
             			    else if (typeKnuth = ALPHA_COUPURE_PROBABLE) then
@@ -2556,7 +2556,7 @@ begin
             {$ENDC}
 
 
-	          if (noteCourante > maxPourBestDefABFinPetite) &
+	          if (noteCourante > maxPourBestDefABFinPetite) and
 	             (noteCourante <> -kValeurSpecialeInterruptionCalculParallele) then
 	             begin
 	               maxPourBestDefABFinPetite := noteCourante;
@@ -2742,7 +2742,7 @@ begin
   vientDePasser := (vecteurParite and kBitVientDePasser) <> 0;
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -2815,7 +2815,7 @@ begin
 
       GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,iCourant,leadingZeros);
 
-		    if ModifPlatPlausible(iCourant,pos_opp_bits_low,pos_opp_bits_high) &
+		    if ModifPlatPlausible(iCourant,pos_opp_bits_low,pos_opp_bits_high) and
 		      (ModifPlatBitboard(iCourant,0,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,position,diffBidon) <> 0)
 		      then
 		        with position do
@@ -2897,7 +2897,7 @@ begin
             {$ENDC}
 
 
-	          if (noteCourante > maxPourBestDefABFinPetite) &
+	          if (noteCourante > maxPourBestDefABFinPetite) and
 	             (noteCourante <> -kValeurSpecialeInterruptionCalculParallele) then
 	             begin
 	               maxPourBestDefABFinPetite := noteCourante;
@@ -3067,7 +3067,7 @@ begin
   vientDePasser := (vecteurParite and kBitVientDePasser) <> 0;
   vecteurParite := vecteurParite and kNeVientDePasserDePasserMask;
 
-  if (alpha >= stability_alpha[ESProf]) {& (diffPions <= alpha-ESProf)} then
+  if (alpha >= stability_alpha[ESProf]) {and (diffPions <= alpha-ESProf)} then
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
@@ -3144,7 +3144,7 @@ begin
 
           GET_NEXT_CASE_VIDE(iterateur,bitCaseVide,iCourant,leadingZeros);
 
-      	    if ModifPlatPlausible(iCourant,pos_opp_bits_low,pos_opp_bits_high) &
+      	    if ModifPlatPlausible(iCourant,pos_opp_bits_low,pos_opp_bits_high) and
     		      (ModifPlatBitboard(iCourant,0,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,position,diffBidon) <> 0)
     		      then
     		        with position do
@@ -3195,10 +3195,10 @@ begin
           exit(ABFinBitboardParallele);
         end;
 
-      utiliserParallelisme := (profMoins1 >= gNbreEmptiesMinimalPourParallelisme) &
-                              (indexCourant >= numFirtSonToParallelize) &
-                              (indexCourant < nbCoupsLegaux) &
-                              (gNbreProcesseursCalculant < numProcessors) &
+      utiliserParallelisme := (profMoins1 >= gNbreEmptiesMinimalPourParallelisme) and
+                              (indexCourant >= numFirtSonToParallelize) and
+                              (indexCourant < nbCoupsLegaux) and
+                              (gNbreProcesseursCalculant < numProcessors) and
                               PeutTrouverUneThreadDisponible(nroThread,ESProf,hashStamp,nroThreadEsclave);
 
 
@@ -3211,7 +3211,7 @@ begin
 
             // {$IFC (AVEC_DEBUG_PARALLELISME OR TRUE)}
             {$IFC FALSE}
-             if (kVerbosityLevelAlgoParallele >= 3) & (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
+             if (kVerbosityLevelAlgoParallele >= 3) and (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                   WritelnNumDansRapport('avant l''appel à CalculerCoupsEnParallele par la thread '+NumEnString(nroThread)+', nroThreadEsclave = ',nroThreadEsclave);
@@ -3241,7 +3241,7 @@ begin
 
 
             // interruption ?
-            if (noteCourante =  kValeurSpecialeInterruptionCalculParallele) |
+            if (noteCourante =  kValeurSpecialeInterruptionCalculParallele) or
                (noteCourante = -kValeurSpecialeInterruptionCalculParallele) then
               begin
                 ABFinBitboardParallele := kValeurSpecialeInterruptionCalculParallele;
@@ -3251,7 +3251,7 @@ begin
 
           //  {$IFC AVEC_DEBUG_PARALLELISME}
            {$IFC FALSE}
-             if (kVerbosityLevelAlgoParallele >= 3) & (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
+             if (kVerbosityLevelAlgoParallele >= 3) and (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                   WritelnNumDansRapport('apres l''appel à CalculerCoupsEnParallele par la thread '+NumEnString(nroThread)+',  nroThreadEsclave = ',nroThreadEsclave);
@@ -3291,7 +3291,7 @@ begin
                   if (profMoins1 >= gNbreEmptiesMinimalPourParallelisme )
             				then
             				  begin
-            				    if (indexCourant < numFirtSonToParallelize) & gAvecParallelismeSpeculatif
+            				    if (indexCourant < numFirtSonToParallelize) and gAvecParallelismeSpeculatif
                 				  then noteCourante := -ABFinBitboardParallele(nroThread,position,profMoins1,-beta,-alpha,-diffEssai,nouvelleParite,1,REMOVE_CASE_VIDE_FROM_LISTE(listeBitboard,iCourant),hash_table)
                 				  else noteCourante := -ABFinBitboardParallele(nroThread,position,profMoins1,-beta,-alpha,-diffEssai,nouvelleParite,gYoungBrotherWaitElders,REMOVE_CASE_VIDE_FROM_LISTE(listeBitboard,iCourant),hash_table);
             				  end
@@ -3317,7 +3317,7 @@ begin
   		    end;
 
 
-      if (noteCourante > maxPourBestDefABFinPetite) &
+      if (noteCourante > maxPourBestDefABFinPetite) and
 	       (noteCourante <> -kValeurSpecialeInterruptionCalculParallele) then
          begin
            maxPourBestDefABFinPetite := noteCourante;
@@ -3569,10 +3569,10 @@ begin
         if (betaFinale  >  64) then betaFinale  :=  64;
         if (betaFinale  < -64) then betaFinale  := -64;
 
-        if (alphaFinale = -64) & (betaFinale = -64) then betaFinale  := -63;
-        if (alphaFinale =  64) & (betaFinale =  64) then alphaFinale :=  63;
+        if (alphaFinale = -64) and (betaFinale = -64) then betaFinale  := -63;
+        if (alphaFinale =  64) and (betaFinale =  64) then alphaFinale :=  63;
 
-        if (alphaFinale > 64) | (alphaFinale < -64) | (alphaFinale > 64) | (alphaFinale < -64) then
+        if (alphaFinale > 64) or (alphaFinale < -64) or (alphaFinale > 64) or (alphaFinale < -64) then
           begin
             SysBeep(0);
             WritelnDansRapport('ASSERT : alphaFinale ou betaFinale est out of range dans PeutFaireFinaleBitboardCettePosition');
@@ -3622,15 +3622,15 @@ begin
 
         (* on transforme inversement la note de finale en note de milieu *)
 
-        if (note <>  kValeurSpecialeInterruptionCalculParallele) &
+        if (note <>  kValeurSpecialeInterruptionCalculParallele) and
            (note <> -kValeurSpecialeInterruptionCalculParallele)
           then note := 100*note;
 
 
-        if (note < -6400) | (note > 6400) then
+        if (note < -6400) or (note > 6400) then
           begin
             SysBeep(0);
-            WritelnDansRapport('ASSERT : (note < -6400) | (note > 6400) dans PeutFaireFinaleBitboardCettePosition');
+            WritelnDansRapport('ASSERT : (note < -6400) or (note > 6400) dans PeutFaireFinaleBitboardCettePosition');
             WritelnPositionEtTraitDansRapport(plat,couleur);
             WritelnNumDansRapport('note = ',note);
             WritelnNumDansRapport('alphaFinale = ',alphaFinale);
@@ -3638,7 +3638,7 @@ begin
             WritelnNumDansRapport('alphaMilieu = ',alphaMilieu);
             WritelnNumDansRapport('betaMilieu =  ',betaMilieu);
 
-            if (note <> kValeurSpecialeInterruptionCalculParallele) &
+            if (note <> kValeurSpecialeInterruptionCalculParallele) and
                (note <> -kValeurSpecialeInterruptionCalculParallele) then
               begin
                 WritelnDansRapport('tapez une touche…');
@@ -3649,7 +3649,7 @@ begin
 
         SetListeChaineeDesCasesVidesEstDisponible(true);
 
-        PeutFaireFinaleBitboardCettePosition := (note <>  kValeurSpecialeInterruptionCalculParallele) &
+        PeutFaireFinaleBitboardCettePosition := (note <>  kValeurSpecialeInterruptionCalculParallele) and
                                                 (note <> -kValeurSpecialeInterruptionCalculParallele);
       end
     else

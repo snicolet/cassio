@@ -371,46 +371,46 @@ begin
   with v do
     begin
       {les blocs de 13 de coin}
-      if (err = NoErr) & (Pattern[kAdresseBlocCoinA1,0].data <> NIL) then
+      if (err = NoErr) and (Pattern[kAdresseBlocCoinA1,0].data <> NIL) then
         err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseBlocCoinA1,0]);
       {edge+2X}
       for stage := 0 to kNbMaxGameStage do
-        if (err = NoErr) & (Edges2X[stage].data <> NIL) then
+        if (err = NoErr) and (Edges2X[stage].data <> NIL) then
           err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Edges2X[stage]);
       for stage := 0 to kNbMaxGameStage do
         begin
           {bords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne1,stage]);
           {prebords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne2,stage]);
           {lignes3}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne3,stage]);
           {lignes4}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne4,stage]);
           {diag. de 5}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA4E8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA4E8,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA4E8,stage]);
           {diag. de 6}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA3F8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA3F8,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA3F8,stage]);
           {diag. de 7}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA2G8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA2G8,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA2G8,stage]);
           {diag. de 8}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA1H8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA1H8,stage].data <> NIL) then
             err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA1H8,stage]);
         end;
-      if (err = NoErr) & (v.Mobilite.data <> NIL) then
+      if (err = NoErr) and (v.Mobilite.data <> NIL) then
         err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,v.Mobilite);
-      if (err = NoErr) & (v.FrontiereDiscs.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereDiscs.data <> NIL) then
         err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereDiscs);
-      if (err = NoErr) & (v.FrontiereSquares.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereSquares.data <> NIL) then
         err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereSquares);
-      if (err = NoErr) & (v.FrontiereNonLineaire.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereNonLineaire.data <> NIL) then
         err := EcritPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereNonLineaire);
     end;
   EcritEvalIntegerDansFichierTexte := err;
@@ -428,42 +428,42 @@ begin
         err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseBlocCoinA1,0]);
       {edge+2X}
       for stage := 0 to kNbMaxGameStage do
-        if (err = NoErr) & (Edges2X[stage].data <> NIL) then
+        if (err = NoErr) and (Edges2X[stage].data <> NIL) then
           err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Edges2X[stage]);
       for stage := 0 to kNbMaxGameStage do
         begin
           {bords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne1,stage]);
           {prebords}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne2,stage]);
           {lignes3}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne3,stage]);
           {lignes4}
-          if (err = NoErr) & (Pattern[kAdresseColonne1,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseColonne1,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseColonne4,stage]);
           {diag. de 5}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA4E8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA4E8,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA4E8,stage]);
           {diag. de 6}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA3F8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA3F8,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA3F8,stage]);
           {diag. de 7}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA2G8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA2G8,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA2G8,stage]);
           {diag. de 8}
-          if (err = NoErr) & (Pattern[kAdresseDiagonaleA1H8,stage].data <> NIL) then
+          if (err = NoErr) and (Pattern[kAdresseDiagonaleA1H8,stage].data <> NIL) then
             err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,Pattern[kAdresseDiagonaleA1H8,stage]);
         end;
-      if (err = NoErr) & (v.Mobilite.data <> NIL) then
+      if (err = NoErr) and (v.Mobilite.data <> NIL) then
         err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,v.Mobilite);
-      if (err = NoErr) & (v.FrontiereDiscs.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereDiscs.data <> NIL) then
         err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereDiscs);
-      if (err = NoErr) & (v.FrontiereSquares.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereSquares.data <> NIL) then
         err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereSquares);
-      if (err = NoErr) & (v.FrontiereNonLineaire.data <> NIL) then
+      if (err = NoErr) and (v.FrontiereNonLineaire.data <> NIL) then
         err := LitPointMultidimensionnelIntegerDansFichierTexte(fic,v.FrontiereNonLineaire);
     end;
   LitEvalIntegerDansFichierTexte := err;

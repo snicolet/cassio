@@ -231,13 +231,13 @@ begin
 
   repeat
     Parser(reste, lexeme, reste);
-    if (lexeme <> '') & (table <> NIL) then
+    if (lexeme <> '') and (table <> NIL) then
       begin
         inc(nbLexemes);
         table^[nbLexemes] := HashString(lexeme);
       end;
     inc(compteurBoucle);
-  until (reste = '') | (nbLexemes >= 200) | (compteurBoucle > 255);
+  until (reste = '') or (nbLexemes >= 200) or (compteurBoucle > 255);
 
   HashLexemes := nbLexemes;
 end;

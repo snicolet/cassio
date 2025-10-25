@@ -166,7 +166,7 @@ begin
   CFWriteStreamWritePtr                         := NIL;
   CFWriteStreamCanAcceptBytesPtr                := NIL;
 
-  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) &
+  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
      (MacVersion >= $1030)  (* au moins Mac OS X 10.3 *)
     then
       begin
@@ -201,28 +201,28 @@ begin
 
 
 
-        CanInitializeCFNetworkGlue := (CFReadStreamOpenPtr                          <> NIL) &
-                                      (CFReadStreamSetPropertyPtr                   <> NIL) &
-                                      (CFReadStreamGetErrorPtr                      <> NIL) &
-                                      (CFReadStreamGetStatusPtr                     <> NIL) &
-                                      (CFReadStreamClosePtr                         <> NIL) &
-                                      (CFReadStreamReadPtr                          <> NIL) &
-                                      (CFReadStreamHasBytesAvailablePtr             <> NIL) &
-                                      (CFReadStreamGetBufferPtr                     <> NIL) &
+        CanInitializeCFNetworkGlue := (CFReadStreamOpenPtr                          <> NIL) and
+                                      (CFReadStreamSetPropertyPtr                   <> NIL) and
+                                      (CFReadStreamGetErrorPtr                      <> NIL) and
+                                      (CFReadStreamGetStatusPtr                     <> NIL) and
+                                      (CFReadStreamClosePtr                         <> NIL) and
+                                      (CFReadStreamReadPtr                          <> NIL) and
+                                      (CFReadStreamHasBytesAvailablePtr             <> NIL) and
+                                      (CFReadStreamGetBufferPtr                     <> NIL) and
 
-                                      (CFReadStreamCreateForHTTPRequestPtr          <> NIL) &
-                                      (CFHTTPMessageCreateRequestPtr                <> NIL) &
+                                      (CFReadStreamCreateForHTTPRequestPtr          <> NIL) and
+                                      (CFHTTPMessageCreateRequestPtr                <> NIL) and
 
-                                      (CFStreamCreatePairWithSocketPtr              <> NIL) &
-                                      (CFStreamCreatePairWithSocketToHostPtr        <> NIL) &
-                                      (CFStreamCreatePairWithPeerSocketSignaturePtr <> NIL) &
+                                      (CFStreamCreatePairWithSocketPtr              <> NIL) and
+                                      (CFStreamCreatePairWithSocketToHostPtr        <> NIL) and
+                                      (CFStreamCreatePairWithPeerSocketSignaturePtr <> NIL) and
 
-                                      (CFWriteStreamOpenPtr                          <> NIL) &
-                                      (CFWriteStreamSetPropertyPtr                   <> NIL) &
-                                      (CFWriteStreamGetErrorPtr                      <> NIL) &
-                                      (CFWriteStreamGetStatusPtr                     <> NIL) &
-                                      (CFWriteStreamClosePtr                         <> NIL) &
-                                      (CFWriteStreamWritePtr                         <> NIL) &
+                                      (CFWriteStreamOpenPtr                          <> NIL) and
+                                      (CFWriteStreamSetPropertyPtr                   <> NIL) and
+                                      (CFWriteStreamGetErrorPtr                      <> NIL) and
+                                      (CFWriteStreamGetStatusPtr                     <> NIL) and
+                                      (CFWriteStreamClosePtr                         <> NIL) and
+                                      (CFWriteStreamWritePtr                         <> NIL) and
                                       (CFWriteStreamCanAcceptBytesPtr                <> NIL) ;
       end;
 end;

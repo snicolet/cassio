@@ -78,8 +78,8 @@ begin
     begin
       for i := 1 to nbFichiers do
         with fic[i] do
-          if (typeFichier = kFichierPictureMeteo) &
-             (nomComplet <> NIL) &
+          if (typeFichier = kFichierPictureMeteo) and
+             (nomComplet <> NIL) and
              (Pos(s,nomComplet^) > 0) then
            begin
              GetCheminAccesImagette := true; // trouvée :-)
@@ -99,8 +99,8 @@ begin
     begin
       for i := 1 to nbFichiers do
         with fic[i] do
-          if (typeFichier = kFichierPictureMeteo) &
-             (nomComplet <> NIL) &
+          if (typeFichier = kFichierPictureMeteo) and
+             (nomComplet <> NIL) and
              (Pos(s,nomComplet^) > 0) then
            begin
              GetCheminAccesImagette := true; // trouvée :-)
@@ -129,7 +129,7 @@ begin {$UNUSED fonctionAppelante}
     begin
       {WritelnStringDansRapport('path = '+ path+', fonctionAppelante = '+fonctionAppelante);}
       erreurES := FichierTexteExiste(path,0,fic);
-      if (erreurES = NoErr) & (whichWindow <> NIL) then
+      if (erreurES = NoErr) and (whichWindow <> NIL) then
         QTGraph_ShowImageWithTransparenceFromFile(GetWindowPort(whichWindow),gPurNoir,whichBounds,fic.theFSSpec);
     end;
 end;
@@ -140,7 +140,7 @@ procedure DrawImagetteMeteoOnSquare(quelleImage : typeImagette; quelleCase : SIn
 var bounds : rect;
     largeur,hauteur : SInt32;
 begin
-  if (quelleCase >= 11) & (quelleCase <= 88) then
+  if (quelleCase >= 11) and (quelleCase <= 88) then
     begin
       bounds := GetBoundingRectOfSquare(quelleCase);
       largeur := bounds.right - bounds.left;

@@ -91,7 +91,7 @@ end;
 
 function IntegerSetEstVide(S : IntegerSet) : boolean;
 begin
-  IntegerSetEstVide := (S.cardinal = 0) | ABRIsEmpty(S.arbre);
+  IntegerSetEstVide := (S.cardinal = 0) or ABRIsEmpty(S.arbre);
 end;
 
 

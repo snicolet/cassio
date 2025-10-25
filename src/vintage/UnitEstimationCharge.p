@@ -214,23 +214,23 @@ begin
                   else erreur := erreur + 10000000000.0;
 
                 (*
-                if (temps > 60.0) & (estim < 60.0) then erreur := erreur + 500;  // 500 est super super !
-                if (temps < 60.0) & (estim > 60.0) then erreur := erreur + 500;
+                if (temps > 60.0) and (estim < 60.0) then erreur := erreur + 500;  // 500 est super super !
+                if (temps < 60.0) and (estim > 60.0) then erreur := erreur + 500;
                 *)
 
 
-                if (temps > 60.0) & (estim < 60.0) then erreur := erreur + penalitePourKendall;  // 500 est super super !
-                if (temps < 60.0) & (estim > 60.0) then erreur := erreur + penalitePourKendall;
+                if (temps > 60.0) and (estim < 60.0) then erreur := erreur + penalitePourKendall;  // 500 est super super !
+                if (temps < 60.0) and (estim > 60.0) then erreur := erreur + penalitePourKendall;
 
 
                 (*
-                if (temps > 30.0) & (estim < 30.0) then erreur := erreur + 0.25 * penalitePourKendall;  // 500 est super super !
-                if (temps < 30.0) & (estim > 30.0) then erreur := erreur + 0.25 * penalitePourKendall;
+                if (temps > 30.0) and (estim < 30.0) then erreur := erreur + 0.25 * penalitePourKendall;  // 500 est super super !
+                if (temps < 30.0) and (estim > 30.0) then erreur := erreur + 0.25 * penalitePourKendall;
                 *)
 
                 (*
-                if (temps > 120.0) & (estim < 120.0) then erreur := erreur + 4.0 * penalitePourKendall;  // 500 est super super !
-                if (temps < 120.0) & (estim > 120.0) then erreur := erreur + 4.0 * penalitePourKendall;
+                if (temps > 120.0) and (estim < 120.0) then erreur := erreur + 4.0 * penalitePourKendall;  // 500 est super super !
+                if (temps < 120.0) and (estim > 120.0) then erreur := erreur + 4.0 * penalitePourKendall;
                 *)
 
                 {erreur := abs(temps - estim);}

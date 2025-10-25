@@ -80,7 +80,7 @@ var orbite,lesFils : ListeDeCellules;
 begin
   LitCellule(fichier,numCellule,cellule);
 
-  if not(HasPere(cellule)) & not(HasFrere(cellule)) then exit(DetruitSousArbre);
+  if not(HasPere(cellule)) and not(HasFrere(cellule)) then exit(DetruitSousArbre);
 
   LitOrbite(fichier,numCellule,orbite);
   if orbite.cardinal > 1
@@ -136,9 +136,9 @@ begin
       exit(UnifiePositions);
     end;
 
-  if (fils1.cardinal = 0) & (fils2.cardinal = 0) then exit(UnifiePositions);
+  if (fils1.cardinal = 0) and (fils2.cardinal = 0) then exit(UnifiePositions);
 
-  if (fils1.cardinal = 0) & (fils2.cardinal > 0)
+  if (fils1.cardinal = 0) and (fils2.cardinal > 0)
     then
       begin
         CreeLiaisonFreresVersPere(fichier,GetFils(cellule2),numCellule1);
@@ -148,7 +148,7 @@ begin
         exit(UnifiePositions);
       end;
 
-   if (fils1.cardinal > 0) & (fils2.cardinal = 0)
+   if (fils1.cardinal > 0) and (fils2.cardinal = 0)
     then
       begin
         CreeLiaisonPeresVersFils(fichier,numCellule2,GetFils(cellule1));
@@ -157,7 +157,7 @@ begin
         exit(UnifiePositions);
       end;
 
-   if (fils1.cardinal > 0) & (fils2.cardinal > 0) then
+   if (fils1.cardinal > 0) and (fils2.cardinal > 0) then
     if CelluleEstDansListe(GetFils(cellule2),fils1) then
       begin
         CreeLiaisonPeresVersFils(fichier,numCellule2,GetFils(cellule1));
@@ -168,7 +168,7 @@ begin
       end;
 
 
-   if (fils1.cardinal > 0) & (fils2.cardinal > 0) then
+   if (fils1.cardinal > 0) and (fils2.cardinal > 0) then
      begin
        for j := 1 to fils2.cardinal do
          begin
@@ -186,9 +186,9 @@ begin
 
            coup := GetNiemeCoupDansListe(fichier,fils2,j);
 
-           if (coup < 11) | (coup > 88) then
+           if (coup < 11) or (coup > 88) then
               begin
-                WritelnDansRapport('## ERROR : (coup < 11) | (coup > 88) dans UnifiePositions');
+                WritelnDansRapport('## ERROR : (coup < 11) or (coup > 88) dans UnifiePositions');
                 WritelnNumDansRapport('coup = ',coup);
               end;
 
@@ -271,7 +271,7 @@ begin
       TraductionAlphanumeriqueEnThor(ligne2,s2);
 
       RaccourcirInterversion(s1,s2,longueur,ok);
-      if not(ok) | (longueur <= 4) then
+      if not(ok) or (longueur <= 4) then
         begin
           WritelnDansRapport('## WARNING : apparentissage d''une interversion fausse ou trop courte dans le graphe :');
           WritelnDansRapport(ligne1+' = '+ligne2);
@@ -301,7 +301,7 @@ begin
           SetMemePosition(temp,cell2);
           EcritCellule(fichier,num1,cell1);
           EcritCellule(fichier,num2,cell2);
-          if HasFils(cell1) | HasFils(cell2) then
+          if HasFils(cell1) or HasFils(cell2) then
             begin
              LitOrbite(fichier,num2,Orbite2);
              for k := 1 to Orbite2.cardinal do
@@ -389,7 +389,7 @@ begin
     begin
 
       AjouteInterversionDansGraphe(fichier,ligne1,ligne2,changed);
-      if changed & annonceDansRapport then
+      if changed and annonceDansRapport then
         begin
           WritelnDansRapport('');
           WritelnDansRapport('CrŽation d''une interversion dans le fichier Ç '+nomGrapheInterversions+' È :');
@@ -407,7 +407,7 @@ begin
     begin
 
       AjouteInterversionDansGraphe(fichier,ligne1,ligne2,changed);
-      if changed & annonceDansRapport then
+      if changed and annonceDansRapport then
         begin
           WritelnDansRapport('');
           WritelnDansRapport('Apprentissage d''une interversion dans le fichier Ç '+nomGrapheApprentissage+' È :');
@@ -446,7 +446,7 @@ begin
         begin
           if dansRapport then WritelnNumDansRapport('orbiteInterversions.cardinal = ',orbiteInterversions.cardinal);
           for i := 1 to orbiteInterversions.cardinal do
-            if dansRapport | (tableLignes <> NIL) then
+            if dansRapport or (tableLignes <> NIL) then
             begin
               CheminDepuisRacineGrapheEnThor(fichier,orbiteInterversions.liste[i].numeroCellule,partie60);
               TransposePartiePourOrientation(partie60,autreCoupQuatre,1,60);
@@ -454,7 +454,7 @@ begin
               TraductionThorEnAlphanumerique(partie60,partie255);
               if dansRapport then
                 WritelnDansRapport(partie255);
-              if (tableLignes <> NIL) & (tableLignes^.cardinal < 100) then
+              if (tableLignes <> NIL) and (tableLignes^.cardinal < 100) then
                 begin
                   inc(tableLignes^.cardinal);
                   tableLignes^.table[tableLignes^.cardinal] := partie60;

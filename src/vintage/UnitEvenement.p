@@ -85,11 +85,11 @@ begin
   WritelnNumDansRapport('  delta = ',TickCount - tickCountDepart);
   *)
 
-  if (theEvent.what = mouseDown) |
-     (theEvent.what = mouseUp)   |
-     (theEvent.what = keyUp)     |
-     (theEvent.what = keyDown)   |
-     (theEvent.what = autoKey)   |
+  if (theEvent.what = mouseDown) or
+     (theEvent.what = mouseUp)   or
+     (theEvent.what = keyUp)     or
+     (theEvent.what = keyDown)   or
+     (theEvent.what = autoKey)   or
      (theEvent.what = nullEvent)
      then MetFlagsModifiersDernierEvenement(theEvent,modifiersChanged);
 
@@ -191,16 +191,16 @@ begin
 
     {si la vitesse du Mac est assez grande, on peut essayer la selection rapide
      dans la liste a la volee}
-    if (indiceVitesseMac > 250) & (nbreAttentes > 0) & (GetDerniereChaineSelectionRapide <> precedente) then
+    if (indiceVitesseMac > 250) and (nbreAttentes > 0) and (GetDerniereChaineSelectionRapide <> precedente) then
       begin
         TraiteSelectionRapideDeListe(GetDernierGenreSelectionRapide,GetDerniereChaineSelectionRapide);
         precedente := GetDerniereChaineSelectionRapide;
       end;
 
-  until not(HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)) &
+  until not(HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)) and
         not(EstEnAttenteSelectionRapideDeListe);
 
-  if (nbreAttentes > 0) & (GetDerniereChaineSelectionRapide <> precedente) then
+  if (nbreAttentes > 0) and (GetDerniereChaineSelectionRapide <> precedente) then
     begin
       TraiteSelectionRapideDeListe(GetDernierGenreSelectionRapide,GetDerniereChaineSelectionRapide);
       precedente := GetDerniereChaineSelectionRapide;
@@ -261,8 +261,8 @@ begin
   {if gotEvent then WritelnNumDansRapport('nbreCoup = ',nbreCoup);}
 
   (*
-  if gotEvent &
-     ((whichEvent.what = keyDown) | (whichEvent.what = autoKey)) then
+  if gotEvent and
+     ((whichEvent.what = keyDown) or (whichEvent.what = autoKey)) then
      begin
        CASE whichEvent.what of
 	      mouseDown       :  WritelnDansRapport('gotEvent : MouseDownEvents ');
@@ -350,38 +350,38 @@ begin
       if FenetreListeEstEnModeEntree then
         exit(SimulateNumericKeyPad);
 
-      if EnTraitementDeTexte & FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan then
+      if EnTraitementDeTexte and FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan then
         exit(SimulateNumericKeyPad);
 
-      if (whichChar = '@')  | (whichChar = '#') then whichChar := '0' else
-      if (whichChar = '&')  | (whichChar = '1') then whichChar := '1' else
-      if (whichChar = 'é')  | (whichChar = '2') then whichChar := '2' else
-      if (whichChar = '"')  | (whichChar = '3') then whichChar := '3' else
-      if (whichChar = '''') | (whichChar = '4') then whichChar := '4' else
-      if (whichChar = '(')  | (whichChar = '5') then whichChar := '5' else
-      if (whichChar = '§')  | (whichChar = '6') then whichChar := '6' else
-      if (whichChar = 'è')  | (whichChar = '7') then whichChar := '7' else
-      if (whichChar = '!')  | (whichChar = '8') then whichChar := '8' else
-      if (whichChar = 'ç')  | (whichChar = '9') then whichChar := '9' else
-      if (whichChar = 'à')  | (whichChar = '0') then whichChar := '0' else
-      if (whichChar = 'u')  | (whichChar = 'U') then whichChar := '4' else
-      if (whichChar = 'i')  | (whichChar = 'I') then whichChar := '5' else
-      if (whichChar = 'o')  | (whichChar = 'O') then whichChar := '6' else
-      if (whichChar = 'j')  | (whichChar = 'J') then whichChar := '1' else
-      if (whichChar = 'k')  | (whichChar = 'K') then whichChar := '2' else
-      if (whichChar = 'l')  | (whichChar = 'L') then whichChar := '3' else
-      if (whichChar = 'n')  | (whichChar = 'N') then whichChar := '0' else  // AZERTY
-      if (whichChar = 'm')  | (whichChar = 'M') then whichChar := '0' else  // QWERTY
-      if (whichChar = ',')  | (whichChar = '?') then whichChar := '0';
+      if (whichChar = '@')  or (whichChar = '#') then whichChar := '0' else
+      if (whichChar = '&')  or (whichChar = '1') then whichChar := '1' else
+      if (whichChar = 'é')  or (whichChar = '2') then whichChar := '2' else
+      if (whichChar = '"')  or (whichChar = '3') then whichChar := '3' else
+      if (whichChar = '''') or (whichChar = '4') then whichChar := '4' else
+      if (whichChar = '(')  or (whichChar = '5') then whichChar := '5' else
+      if (whichChar = '§')  or (whichChar = '6') then whichChar := '6' else
+      if (whichChar = 'è')  or (whichChar = '7') then whichChar := '7' else
+      if (whichChar = '!')  or (whichChar = '8') then whichChar := '8' else
+      if (whichChar = 'ç')  or (whichChar = '9') then whichChar := '9' else
+      if (whichChar = 'à')  or (whichChar = '0') then whichChar := '0' else
+      if (whichChar = 'u')  or (whichChar = 'U') then whichChar := '4' else
+      if (whichChar = 'i')  or (whichChar = 'I') then whichChar := '5' else
+      if (whichChar = 'o')  or (whichChar = 'O') then whichChar := '6' else
+      if (whichChar = 'j')  or (whichChar = 'J') then whichChar := '1' else
+      if (whichChar = 'k')  or (whichChar = 'K') then whichChar := '2' else
+      if (whichChar = 'l')  or (whichChar = 'L') then whichChar := '3' else
+      if (whichChar = 'n')  or (whichChar = 'N') then whichChar := '0' else  // AZERTY
+      if (whichChar = 'm')  or (whichChar = 'M') then whichChar := '0' else  // QWERTY
+      if (whichChar = ',')  or (whichChar = '?') then whichChar := '0';
 
 
 
       (*
       else
-      if (whichChar = ',') | (whichChar = '?') then whichChar := '0' else
-      if (whichChar = ',') | (whichChar = '?') then whichChar := '0' else
-      if (whichChar = ',') | (whichChar = '?') then whichChar := '0' else
-      if (whichChar = ',') | (whichChar = '?') then whichChar := '0' else
+      if (whichChar = ',') or (whichChar = '?') then whichChar := '0' else
+      if (whichChar = ',') or (whichChar = '?') then whichChar := '0' else
+      if (whichChar = ',') or (whichChar = '?') then whichChar := '0' else
+      if (whichChar = ',') or (whichChar = '?') then whichChar := '0' else
       *)
 
     end;
@@ -395,7 +395,7 @@ begin
 
       delaiAvantDebutRepetition := 15;  {1/4eme de seconde}
 
-      if (whichEvent.message <> lastEvent.message) |
+      if (whichEvent.message <> lastEvent.message) or
          (TickCount >= tickFrappeTouche + 15)
         then
           begin

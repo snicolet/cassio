@@ -97,14 +97,14 @@ begin
 
 
   // mettre a jour le compteur des alertes simples successives identiques
-  if (dernierMessageAlerteSimple <> texte) | (compteurAlertesSimplesIdentiques >= 1000000)
+  if (dernierMessageAlerteSimple <> texte) or (compteurAlertesSimplesIdentiques >= 1000000)
     then compteurAlertesSimplesIdentiques := 0
     else inc(compteurAlertesSimplesIdentiques);
 
 
   // on ne fait rien si il s'agit au moins de la troisieme alerte
   // identique en moins de trois secondes
-  if (compteurAlertesSimplesIdentiques >= 2) &
+  if (compteurAlertesSimplesIdentiques >= 2) and
      (Abs(TickCount - dateDerniereAlerteSimple) <= 180) then
     begin
       IsADuplicateRecentDialog := true;
@@ -461,7 +461,7 @@ var item : SInt16;
 begin
   repeat
     item := Alert(alertID,filterProc);
-  until (item = -1) | (item in acceptationSet);
+  until (item = -1) or (item in acceptationSet);
   MyLegacyAlert := item;
 end;
 

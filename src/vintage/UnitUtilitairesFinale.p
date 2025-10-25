@@ -277,8 +277,8 @@ begin
       then erreur := 1;
 
   {ni trop, ni trop peu}
-  if (nbreDeltaSuccessifs < 1) |
-     (nbreDeltaSuccessifs > kNbreMaxDeltasSuccessifs) |
+  if (nbreDeltaSuccessifs < 1) or
+     (nbreDeltaSuccessifs > kNbreMaxDeltasSuccessifs) or
      (nbreDeltaSuccessifs > kNbreMaxDeltasSuccessifsDansHashExacte)
      then erreur := 2;
 
@@ -287,7 +287,7 @@ begin
     then erreur := 3;
 
   {intervalle de dernierIndexDeltaRenvoye}
-  if (dernierIndexDeltaRenvoye < 1) |
+  if (dernierIndexDeltaRenvoye < 1) or
      (dernierIndexDeltaRenvoye > nbreDeltaSuccessifs)
     then erreur := 4;
 
@@ -415,7 +415,7 @@ var i,coup,aux,t : SInt32;
     ChoixXTemp,MeilleurDefTemp : SInt32;
 begin
 
-  if debuggage.calculFinaleOptimaleParOptimalite & (nbreCoup > 40) then
+  if debuggage.calculFinaleOptimaleParOptimalite and (nbreCoup > 40) then
    begin
      WritelnDansRapport('');
      WritelnDansRapport('Entrée dans PeutCalculerFinaleOptimaleParOptimalite…');
@@ -451,7 +451,7 @@ begin
       for t := 1 to nroCoupAtteint do
         begin
           coup := partie^^[t].coupParfait;
-          if (coup < 11) | (coup > 88) | (plat[coup] <> pionVide) then ok := false;
+          if (coup < 11) or (coup > 88) or (plat[coup] <> pionVide) then ok := false;
           if ok then
             if ModifPlatSeulement(coup,plat,coulTrait)
               then coulTrait := -coulTrait
@@ -482,12 +482,12 @@ begin
     begin
       coup := partie^^[nroCoupAtteint+1].coupParfait;
       aux := partie^^[nroCoupAtteint+2].coupParfait;
-      if (coup < 11) | (coup > 88) then ok := false;
+      if (coup < 11) or (coup > 88) then ok := false;
       if ok then
         begin
           ChoixXTemp := coup;
           if partie^^[nroCoupAtteint+2].optimal then
-            if (aux >= 11) & (aux <= 88) then
+            if (aux >= 11) and (aux <= 88) then
               MeilleurDefTemp := aux;
         end;
     end;
@@ -505,8 +505,8 @@ begin
      for i := nroCoupAtteint+1 to 60 do
        begin
          coup := partie^^[i].coupParfait;
-         if (coup < 11) | (coup > 88) then ligneOptimaleJusquaLaFin := false;
-         ligneOptimaleJusquaLaFin := ligneOptimaleJusquaLaFin & partie^^[i].optimal;
+         if (coup < 11) or (coup > 88) then ligneOptimaleJusquaLaFin := false;
+         ligneOptimaleJusquaLaFin := ligneOptimaleJusquaLaFin and partie^^[i].optimal;
        end;
      if ligneOptimaleJusquaLaFin then
        begin
@@ -526,7 +526,7 @@ begin
              for i := nroCoupAtteint+1 to 60 do
                begin
                  coup := partie^^[i].coupParfait;
-                 if (coup >= 11) & (coup <= 88) then
+                 if (coup >= 11) and (coup <= 88) then
                    begin
 
                      coupPossible := ModifPlatFin(Coup,aQui,plat,nBla,nNoi);
@@ -595,7 +595,7 @@ end;
 procedure EcritAnnonceFinaleDansMeilleureSuite(typeCalculFinale,nroCoup,deltaFinale : SInt32);
 // var i : SInt32;
 begin
-  if not(CassioEstEnModeAnalyse & meilleureSuiteAEteCalculeeParOptimalite) then
+  if not(CassioEstEnModeAnalyse and meilleureSuiteAEteCalculeeParOptimalite) then
     begin
       with meilleureSuiteInfos do
         begin
@@ -614,7 +614,7 @@ begin
           meilleureSuiteInfos.numeroCoup := nroCoup;
         end;
       SetMeilleureSuite(MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,(deltaFinale < kDeltaFinaleInfini),0));
-      if afficheMeilleureSuite & (GetMeilleureSuite <> GetDerniereAnnonceFinaleDansMeilleureSuite) then
+      if afficheMeilleureSuite and (GetMeilleureSuite <> GetDerniereAnnonceFinaleDansMeilleureSuite) then
         begin
           EcritMeilleureSuite;
           SetDerniereAnnonceFinaleDansMeilleureSuite(GetMeilleureSuite);
@@ -674,7 +674,7 @@ begin
         begin
           coup := meilleureSuite[prof , k];
 
-          if (coup >= 11) & (coup <= 88) then
+          if (coup >= 11) and (coup <= 88) then
             s := s + CoupEnString(coup , true);
         end;
     end;
@@ -693,7 +693,7 @@ begin
             begin
               coup := meilleureSuite[p , k];
 
-              if (coup >= 11) & (coup <= 88) then
+              if (coup >= 11) and (coup <= 88) then
                 WriteDansRapport( CoupEnString(coup , true));
             end;
           WritelnDansRapport('');
@@ -771,7 +771,7 @@ var i,j,k,nbCoups,mobAdverse,coupTest,coupdiv : SInt32;
 
              {la phase d'insertion du tri par insertion selon la mobilite adverse decroissante}
              k := 1;
-             while (classementDivergence[k].theVal <= mobAdverse) & (k < nbCoups) do inc(k);
+             while (classementDivergence[k].theVal <= mobAdverse) and (k < nbCoups) do inc(k);
              for j := nbCoups downto succ(k) do classementDivergence[j] := classementDivergence[j-1];
              classementDivergence[k].coup   := coupTest;
              classementDivergence[k].theVal := mobAdverse;
@@ -842,8 +842,8 @@ begin  {$UNUSED conseilHash}
         	                                (alpha - seuil_pour_alpha_fastest),(beta + seuil_pour_beta_fastest),nbEvalRecursives);
 
 
-           coupureAlphaProbable := coupureAlphaProbable | (evalCouleur <= alpha - 800);
-        	 coupureBetaProbable  := coupureBetaProbable  | (evalCouleur >= beta  + 800);
+           coupureAlphaProbable := coupureAlphaProbable or (evalCouleur <= alpha - 800);
+        	 coupureBetaProbable  := coupureBetaProbable  or (evalCouleur >= beta  + 800);
 
         	 InfosMilieuDiv := InfosMilieuDePartie;
 
@@ -861,8 +861,8 @@ begin  {$UNUSED conseilHash}
 
 
 	 {$IFC USE_DEBUG_STEP_BY_STEP}
-	 if gDebuggageAlgoFinaleStepByStep.actif &
-       (nbCasesVides >= gDebuggageAlgoFinaleStepByStep.profMin) &
+	 if gDebuggageAlgoFinaleStepByStep.actif and
+       (nbCasesVides >= gDebuggageAlgoFinaleStepByStep.profMin) and
        MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
       begin
         WritelnDansRapport('Entree dans TrierSelonDivergenceAvecMilieu');
@@ -900,7 +900,7 @@ begin  {$UNUSED conseilHash}
 	       then
 	         begin
 	           inc(nbCoups);
-	           { if (coupTest = conseilHash) & (conseilHash > 0)
+	           { if (coupTest = conseilHash) and (conseilHash > 0)
 	             then
 	               mobAdverse := -2000000  (* comme ca on est sur de le mettre en tete :-) *)
 	             else }
@@ -984,8 +984,8 @@ begin  {$UNUSED conseilHash}
   	                       // ... et on ne prend la peine de faire un shallow search tres profond que
   	                       // si ce n'est pas un un coup qui semble tres bon ou tres mauvais
 
-  	                       if (profondeurPourLeTri >= 0) &
-  	                          not(evalAdverse <= (-beta - seuil_super_fastest)) &
+  	                       if (profondeurPourLeTri >= 0) and
+  	                          not(evalAdverse <= (-beta - seuil_super_fastest)) and
   	                          not(evalAdverse >= (-alpha + seuil_super_fastest))
   	                            then
   	                              begin
@@ -1058,7 +1058,7 @@ begin  {$UNUSED conseilHash}
 
 	           {la phase d'insertion du tri par insertion selon la mobilite adverse decroissante}
 	           k := 1;
-	           while (classementDivergence[k].theVal <= mobAdverse) & (k < nbCoups) do inc(k);
+	           while (classementDivergence[k].theVal <= mobAdverse) and (k < nbCoups) do inc(k);
 	           for j := nbCoups downto succ(k) do classementDivergence[j] := classementDivergence[j-1];
 	           classementDivergence[k].coup   := coupTest;
 	           classementDivergence[k].theVal := mobAdverse;

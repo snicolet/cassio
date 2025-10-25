@@ -145,7 +145,7 @@ begin
 
   constante3 := $02040810;
   constante4 := $00000001;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
@@ -154,7 +154,7 @@ begin
 
   constante1 := $04081020;
   constante2 := $00000102;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
@@ -163,7 +163,7 @@ begin
 
   constante3 := $08102040;
   constante4 := $00010204;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
@@ -172,7 +172,7 @@ begin
 
   constante1 := $10204080;
   constante2 := $01020408;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
@@ -181,7 +181,7 @@ begin
 
   constante3 := $20408000;
   constante4 := $02040810;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
@@ -190,7 +190,7 @@ begin
 
   constante1 := $40800000;
   constante2 := $04081020;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
@@ -199,7 +199,7 @@ begin
 
   constante3 := $80000000;
   constante4 := $08102040;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
@@ -237,7 +237,7 @@ begin
 
   constante1 := $40201008;
   constante2 := $00000080;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
@@ -246,7 +246,7 @@ begin
 
   constante3 := $20100804;
   constante4 := $00008040;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
@@ -255,7 +255,7 @@ begin
 
   constante1 := $10080402;
   constante2 := $00804020;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
@@ -264,7 +264,7 @@ begin
 
   constante3 := $08040201;
   constante4 := $80402010;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
@@ -273,7 +273,7 @@ begin
 
   constante1 := $04020100;
   constante2 := $40201008;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
@@ -282,7 +282,7 @@ begin
 
   constante3 := $02010000;
   constante4 := $20100804;
-  if (BAnd(vides_lo,constante3) = 0) &
+  if (BAnd(vides_lo,constante3) = 0) and
      (BAnd(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
@@ -291,7 +291,7 @@ begin
 
   constante1 := $01000000;
   constante2 := $10080402;
-  if (BAnd(vides_lo,constante1) = 0) &
+  if (BAnd(vides_lo,constante1) = 0) and
      (BAnd(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
@@ -330,7 +330,7 @@ begin
 
   CalculePionsStablesBitboard := 0;
 
-  if (stables_lo <> 0) | (stables_hi <> 0) then
+  if (stables_lo <> 0) or (stables_hi <> 0) then
     begin
       {calcul du nombre de bits ˆ 1 dans stables_lo et dans stables_hi}
       if nbPionsStablesSuffisant <= 1 then
@@ -451,7 +451,7 @@ begin
 		    AttendFrappeClavier;
 		    *)
 
-		  until (stables_lo = old_stables_lo) & (stables_hi = old_stables_hi);
+		  until (stables_lo = old_stables_lo) and (stables_hi = old_stables_hi);
 
 		  n1 := 0;
 		  n2 := 0;

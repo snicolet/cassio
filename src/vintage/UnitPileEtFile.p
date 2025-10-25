@@ -145,7 +145,7 @@ end;
 
 function PileEstVide(whichPile : Pile) : boolean;
 begin
-  PileEstVide := (whichPile.tete = whichPile.queue) | (whichPile.data = NIL);
+  PileEstVide := (whichPile.tete = whichPile.queue) or (whichPile.data = NIL);
 end;
 
 function FileEstVide(whichPile : Pile) : boolean;
@@ -156,7 +156,7 @@ end;
 function PileEstPleine(whichPile : Pile) : boolean;
 begin
   with whichPile do
-    PileEstPleine := (tete+1 = queue) | ((tete = taille-1) & (queue = 0));
+    PileEstPleine := (tete+1 = queue) or ((tete = taille-1) and (queue = 0));
 end;
 
 function FileEstPleine(whichPile : Pile) : boolean;
@@ -313,7 +313,7 @@ function RetirerEnTete(var whichPile : Pile; var ok : boolean) : SInt32;
 begin
   with whichPile do
     begin
-      if (data = NIL) | (tete = queue) then
+      if (data = NIL) or (tete = queue) then
         begin
           ok := false;
           RetirerEnTete := -1;
@@ -332,7 +332,7 @@ function RetirerEnQueue(var whichPile : Pile; var ok : boolean) : SInt32;
 begin
   with whichPile do
     begin
-      if (data = NIL) | (tete = queue) then  {Pile vide ?}
+      if (data = NIL) or (tete = queue) then  {Pile vide ?}
         begin
           ok := false;
           RetirerEnQueue := -1;

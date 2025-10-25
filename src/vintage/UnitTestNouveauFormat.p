@@ -129,7 +129,7 @@ begin
   numFichier := 1;
   with InfosFichiersNouveauFormat do
     repeat
-      if (numFichier <= nbFichiers) &
+      if (numFichier <= nbFichiers) and
          (fichiers[numFichier].typeDonnees = kFicPartiesNouveauFormat) then
         begin
           WritelnNumDansRapport('ficher numŽro : ',numFichier);
@@ -152,7 +152,7 @@ begin
           err := FermeFichierNouveauFormat(numFichier);
         end;
       numFichier := succ(numFichier);
-    until (numFichier > nbFichiers) | EscapeDansQueue;
+    until (numFichier > nbFichiers) or EscapeDansQueue;
 end;
 
 
@@ -229,8 +229,8 @@ begin
 		      nroPartie := tableNumeroReference^^[i];
 		      nroJoueurNoir := GetNroJoueurNoirParNroRefPartie(nroPartie);
 
-		      if not(JoueurAUnNomJaponais(nroJoueurNoir)) &
-		         ((i = 1) | (nroJoueurNoir <> nroJoueurNoirPrecedant)) then
+		      if not(JoueurAUnNomJaponais(nroJoueurNoir)) and
+		         ((i = 1) or (nroJoueurNoir <> nroJoueurNoirPrecedant)) then
 		        begin
 					    s := GetNomJoueur(nroJoueurNoir);
 					    err := WritelnDansFichierAbstrait(fic,s+' = ');
@@ -264,8 +264,8 @@ begin
 		      nroPartie := tableNumeroReference^^[i];
 		      nroJoueurBlanc := GetNroJoueurBlancParNroRefPartie(nroPartie);
 
-		      if not(JoueurAUnNomJaponais(nroJoueurBlanc)) &
-		         ((i = 1) | (nroJoueurBlanc <> nroJoueurBlancPrecedant)) then
+		      if not(JoueurAUnNomJaponais(nroJoueurBlanc)) and
+		         ((i = 1) or (nroJoueurBlanc <> nroJoueurBlancPrecedant)) then
 		        begin
 					    s := GetNomJoueur(nroJoueurBlanc);
 					    err := WritelnDansFichierAbstrait(fic,s+' = ');

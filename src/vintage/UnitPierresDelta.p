@@ -93,8 +93,8 @@ begin
           then
             begin
               destRect := GetRectDessousForSquare3D(quelleCase,quelGenre);
-              if (quelGenre = DeltaProp) |
-                 (quelGenre = DeltaWhiteProp)     | (quelGenre = DeltaBlackProp)
+              if (quelGenre = DeltaProp) or
+                 (quelGenre = DeltaWhiteProp)     or (quelGenre = DeltaBlackProp)
                  then OffsetRect(destRect,0,2);  {sinon le delta sur la vcase vide se retrouve trop haut}
             end
           else destRect := GetRectDessusForSquare3D(quelleCase,quelGenre);
@@ -270,7 +270,7 @@ begin
               for j := 1 to 8 do
                 begin
                   whichSquare := i*10+j;
-                  if SquareInPackedSquareSet(whichSquare,regionMarquee) & DoitDessinerPierreDeltaOfThisSquare(whichSquare) then
+                  if SquareInPackedSquareSet(whichSquare,regionMarquee) and DoitDessinerPierreDeltaOfThisSquare(whichSquare) then
                     begin
                       DessinerUnePierreDelta(JeuCourant,whichSquare,genre,GetRectOfSquare2DDansAireDeJeu,texte,CassioEstEn3D,GetRectAreteVisiblePion3DPourPionDelta,GetRectPionDessous3DPourPionDelta);
                       InvalidateDessinEnTraceDeRayon(whichSquare);
@@ -422,7 +422,7 @@ procedure EffacerUnePierreDelta(var quelleCase : SInt16; var continuer : boolean
 var couleur : SInt32;
 begin
   continuer := true;
-  if (quelleCase >= 11) & (quelleCase <= 88) then
+  if (quelleCase >= 11) and (quelleCase <= 88) then
     begin
       couleur := GetCouleurOfSquareDansJeuCourant(quelleCase);
       case couleur of
@@ -616,7 +616,7 @@ var whichSquare,destSquare,genre,genreVoulu,premiereMarqueDansMenu : SInt16;
                 begin
                   DeletePropertyFromList(nouvelleProp,L);
                   EffacerPierresDeltaOfProperty(nouvelleProp);
-                  if InPropertyTypes(genreVoulu,[InterestingMoveProp,DubiousMoveProp,ExoticMoveProp]) & (fils <> NIL) then
+                  if InPropertyTypes(genreVoulu,[InterestingMoveProp,DubiousMoveProp,ExoticMoveProp]) and (fils <> NIL) then
                     EffacerUnePierreDelta(whichSquare,bidon);
                 end
               else
@@ -699,7 +699,7 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
         else myMenuFlottantDelta.theItem := derniereLigneUtiliseeMenuFlottantDelta;
 
 
-      if forceAfficheMarquesSpeciales & not(affichePierresDelta)
+      if forceAfficheMarquesSpeciales and not(affichePierresDelta)
         then DoChangeAffichePierresDelta;
       if not(affichePierresDelta) then MyDisableItem(myMenuFlottantDelta.theMenu,0);
 
@@ -713,7 +713,7 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
 
       genreVoulu := MenuDeltaItemToPropertyType(myMenuFlottantDelta.theItem);
 
-      if (genreVoulu = 0) & (fils <> NIL) & isNew then
+      if (genreVoulu = 0) and (fils <> NIL) and isNew then
         begin
           DeleteSonOfCurrentNode(fils);
           proprietesDuFils := NIL;
@@ -730,7 +730,7 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
 			        begin
 			          oldMouseLoc := mouseLoc;
 			          GetMouse(mouseLoc);
-			          if not(dessinee) | not(EqualPt(mouseLoc,oldMouseLoc)) then
+			          if not(dessinee) or not(EqualPt(mouseLoc,oldMouseLoc)) then
 			            begin
 					          if dessinee then
 					            begin
@@ -761,7 +761,7 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
 	          SetPenState(thePenState);
 	          ShareTimeWithOtherProcesses(2);
 	          FlushEvents(MDownmask+MupMask,0); {pour supprimer les clics intempestifs}
-			      if dessinee & (destSquare <> whichSquare)
+			      if dessinee and (destSquare <> whichSquare)
 			        then nouvelleProp := MakeSquareCoupleProperty(genreVoulu,whichSquare,destSquare)
 			        else nouvelleProp := MakeEmptyProperty;
 			    end
@@ -780,7 +780,7 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
       for item := 1 to MyCountMenuItems(theMenu) do
         begin
           genre := MenuDeltaItemToPropertyType(item);
-          if (genre <> 0) & (genre = genreVoulu) then
+          if (genre <> 0) and (genre = genreVoulu) then
             begin
               if InPropertyTypes(genreVoulu,[InterestingMoveProp,DubiousMoveProp,ExoticMoveProp])
                 then MofifiePropertyListSiNecessaire(proprietesDuFils)
@@ -788,8 +788,8 @@ begin {ChangePierresDeltaApresCommandClicSurOthellier}
             end;
         end;
 
-      if (genreVoulu <> 0) & (fils <> NIL) & isNew
-         & not(InPropertyTypes(genreVoulu,[InterestingMoveProp,DubiousMoveProp,ExoticMoveProp])) then
+      if (genreVoulu <> 0) and (fils <> NIL) and isNew
+         and not(InPropertyTypes(genreVoulu,[InterestingMoveProp,DubiousMoveProp,ExoticMoveProp])) then
         begin
           DeleteSonOfCurrentNode(fils);
           proprietesDuFils := NIL;

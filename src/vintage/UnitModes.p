@@ -73,10 +73,10 @@ end;
 
 function CassioEstEnModeAnalyse : boolean;
 begin
-  CassioEstEnModeAnalyse := (GetCadence = minutes10000000) &
-                            not(analyseRetrograde.enCours) &
-                            (CommentaireSolitaire^^ = '') &
-                            (not(CassioEstEnTrainDePlaquerUnSolitaire)) &
+  CassioEstEnModeAnalyse := (GetCadence = minutes10000000) and
+                            not(analyseRetrograde.enCours) and
+                            (CommentaireSolitaire^^ = '') and
+                            (not(CassioEstEnTrainDePlaquerUnSolitaire)) and
                             not(enTournoi);
 end;
 
@@ -86,9 +86,9 @@ function AuMoinsUneZoneDeTexteEnModeEntree : boolean;
 var fenetrePremierPlan : WindowPtr;
 begin
   fenetrePremierPlan := FrontWindowSaufPalette;
-  if (EnTraitementDeTexte & FenetreRapportEstOuverte & (EstLaFenetreDuRapport(fenetrePremierPlan))) |
-     (arbreDeJeu.enModeEdition & arbreDeJeu.windowOpen & (fenetrePremierPlan = GetArbreDeJeuWindow)) |
-     ((BoiteDeSousCritereActive <> 0) & windowListeOpen & (fenetrePremierPlan = wListePtr))
+  if (EnTraitementDeTexte and FenetreRapportEstOuverte and (EstLaFenetreDuRapport(fenetrePremierPlan))) or
+     (arbreDeJeu.enModeEdition and arbreDeJeu.windowOpen and (fenetrePremierPlan = GetArbreDeJeuWindow)) or
+     ((BoiteDeSousCritereActive <> 0) and windowListeOpen and (fenetrePremierPlan = wListePtr))
      then AuMoinsUneZoneDeTexteEnModeEntree := true
      else AuMoinsUneZoneDeTexteEnModeEntree := false;
 end;
@@ -102,9 +102,9 @@ begin
                  SI ON CHANGE QUELQUE CHOSE DANS CETTE ROUTINE  !!
   *)
 
-  if CassioEstEnModeAnalyse &
-    (AQuiDeJouer <> couleurMacintosh) &
-     not(gameOver | Quitter) & (nbreCoup > 0) then
+  if CassioEstEnModeAnalyse and
+    (AQuiDeJouer <> couleurMacintosh) and
+     not(gameOver or Quitter) and (nbreCoup > 0) then
     begin
       DoDemandeChangeCouleur;
       EffectueTacheInterrompante(interruptionReflexion);
@@ -189,8 +189,8 @@ begin
 
      { algo de UpdateConfigurationDeCassio }
 
-     if enModeAnalyse & (trait <> couleurDeCassio) &
-        not(partieEstFinie | CassioDoitQuitter) & (nombreDeCoupsJoues > 0)
+     if enModeAnalyse and (trait <> couleurDeCassio) and
+        not(partieEstFinie or CassioDoitQuitter) and (nombreDeCoupsJoues > 0)
        then couleurDeCassio := -couleurDeCassio;
 
 
@@ -198,10 +198,10 @@ begin
      { algo de InvalidateAnalyseDeFinaleSiNecessaire(kNormal) }
 
      mode := kNormal;
-     if attenteAnalyseDeFinaleActivee | (mode = kForceInvalidate) then
+     if attenteAnalyseDeFinaleActivee or (mode = kForceInvalidate) then
       begin
-        if (mode = kForceInvalidate) | humainContreHumain | (trait <> couleurDeCassio) |
-           not(enModeAnalyse) | not(attenteEnPosCourante)
+        if (mode = kForceInvalidate) or humainContreHumain or (trait <> couleurDeCassio) or
+           not(enModeAnalyse) or not(attenteEnPosCourante)
             then attenteAnalyseDeFinaleActivee := false;
       end;
 
@@ -209,26 +209,26 @@ begin
      { et voici l'algo principale pour choisir le type de type de calcul de Cassio }
 
      if interruption = pasdinterruption then
-      if not(partieEstFinie) &
-         not(humainContreHumain) &
-         not(CassioDoitQuitter) &
-         not((nombreDeCoupsJoues <= 0) & enModeAnalyse & not(positionEstFeerique)) then
+      if not(partieEstFinie) and
+         not(humainContreHumain) and
+         not(CassioDoitQuitter) and
+         not((nombreDeCoupsJoues <= 0) and enModeAnalyse and not(positionEstFeerique)) then
         begin
           if (trait = couleurDeCassio)
             then
               begin
                 if not(attenteAnalyseDeFinaleActivee) then
                   begin
-	                  if (nombreDeCoupsJoues = 0) & not(positionEstFeerique)
+	                  if (nombreDeCoupsJoues = 0) and not(positionEstFeerique)
 	                    then TypeDeCalculLanceParCassioDansCetteConfiguration := k_PREMIER_COUP_MAC
 	                    else TypeDeCalculLanceParCassioDansCetteConfiguration := k_JEU_MAC;
 	                end;
               end
             else
               begin
-                if CassioDoitReflechirSurLeTempsAdverseDansCetteConfiguration(config) &
-                   not(sansReflexionSurTempsAdversaire | enModeAnalyse) &
-                   not(laReponseEstPrete) &
+                if CassioDoitReflechirSurLeTempsAdverseDansCetteConfiguration(config) and
+                   not(sansReflexionSurTempsAdversaire or enModeAnalyse) and
+                   not(laReponseEstPrete) and
                    (nombreDeCoupsJoues >= 1)
                   then TypeDeCalculLanceParCassioDansCetteConfiguration := k_JEU_MAC;
               end;

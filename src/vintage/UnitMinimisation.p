@@ -162,7 +162,7 @@ begin  {0}
     cx := bx + gold*(bx-ax);
     fc := f(cx);
     nbIter := 0;
-    while (fb >= fc) & (nbIter <= 100) do
+    while (fb >= fc) and (nbIter <= 100) do
       begin  {1}
         r := (bx-ax)*(fb-fc);
         q := (bx-cx)*(fb-fa);
@@ -291,7 +291,7 @@ begin {0}
 	          q := Abs(q);
 	          etemp := e;
 	          e := d;
-	          if (Abs(p) >= Abs(0.5*q*etemp)) | (p <= q*(a-x)) | (p >= q*(b-x))
+	          if (Abs(p) >= Abs(0.5*q*etemp)) or (p <= q*(a-x)) or (p >= q*(b-x))
 	            then
 	              begin  {3}
 	                if x >= xm
@@ -303,7 +303,7 @@ begin {0}
 	              begin  {3}
 	                d := p/q;
 	                u := x+d;
-	                if (u-a < tol2) | (b-u < tol2) then
+	                if (u-a < tol2) or (b-u < tol2) then
 	                  d := sign(tol1,xm-x);
 	              end;  {3}
 	        end  {2}
@@ -336,7 +336,7 @@ begin {0}
 	          if u < x
 	            then a := u
 	            else b := u;
-	          if (fu <= fw) | (w = x)
+	          if (fu <= fw) or (w = x)
 	            then
 	              begin {3}
 	                v := w;
@@ -346,7 +346,7 @@ begin {0}
 	              end {3}
 	            else
 	              begin {3}
-	                if (fu <= fv) | (v = x) | (v = w) then
+	                if (fu <= fv) or (v = x) or (v = w) then
 	                  begin {4}
 	                    v := u;
 	                    fv := fu;
@@ -395,7 +395,7 @@ var
     if derivationNumerique
 	    then
 	      begin
-	        if (x <= 1e-4) & (x >= -1e-4)
+	        if (x <= 1e-4) and (x >= -1e-4)
 	          then h := 0.0001
 	          else h := 0.0001*Abs(x);
 	        if h < 0.0000001 then h := 0.0000001;
@@ -445,14 +445,14 @@ begin
 	          if dv <> dx then d2 := (v-x)*dx/(dx-dv);
 	          u1 := x+d1;
 	          u2 := x+d2;
-	          ok1 := ((a-u1)*(u1-b) > 0.0) & (dx*d1 <= 0.0);
-	          ok2 := ((a-u2)*(u2-b) > 0.0) & (dx*d2 <= 0.0);
+	          ok1 := ((a-u1)*(u1-b) > 0.0) and (dx*d1 <= 0.0);
+	          ok2 := ((a-u2)*(u2-b) > 0.0) and (dx*d2 <= 0.0);
 	          olde := e;
 	          e := d;
-	          if ok1 | ok2
+	          if ok1 or ok2
 	            then
 		            begin
-		              if ok1 & ok2
+		              if ok1 and ok2
 		                then
 		                  if Abs(d1) < Abs(d2)
 		                    then d := d1
@@ -465,7 +465,7 @@ begin
 		                then
 		                  begin
 		                    u := x+d;
-		                    if (u-a  < tol2) | (b-u < tol2) then d := sign(tol1,xm-x);
+		                    if (u-a  < tol2) or (b-u < tol2) then d := sign(tol1,xm-x);
 		                  end
 		                else
 		                  begin
@@ -528,7 +528,7 @@ begin
 	          if u < x
 	            then a := u
 	            else b := u;
-	          if (fu <= fw) | (w = x)
+	          if (fu <= fw) or (w = x)
 	            then
 	              begin
 	                v := w;
@@ -540,7 +540,7 @@ begin
 	              end
 	            else
 	              begin
-	                if (fu < fv) | (v = x) | (v = w) then
+	                if (fu < fv) or (v = x) or (v = w) then
 	                  begin
 	                    v := u;
 	                    fv := fu;
@@ -572,8 +572,8 @@ end;
 
 function AlloueMemoireFonctionLigne(n : SInt32) : boolean;
 begin
-  if AllocatePointMultidimensionnel(n,g_vecteurP) &
-     AllocatePointMultidimensionnel(n,g_vecteurDirection) &
+  if AllocatePointMultidimensionnel(n,g_vecteurP) and
+     AllocatePointMultidimensionnel(n,g_vecteurDirection) and
      AllocatePointMultidimensionnel(n,g_vecteurPPlusXFoisDir)
      then
        begin
@@ -701,9 +701,9 @@ var
   g,h,xi : PointMultidimensionnel;
 begin
   n := DimensionDuPointMultidimensionnel(p);
-  if not(AllocatePointMultidimensionnel(n,g))  |
-     not(AllocatePointMultidimensionnel(n,h))  |
-     not(AllocatePointMultidimensionnel(n,xi)) |
+  if not(AllocatePointMultidimensionnel(n,g))  or
+     not(AllocatePointMultidimensionnel(n,h))  or
+     not(AllocatePointMultidimensionnel(n,xi)) or
      not(AlloueMemoireFonctionLigne(n))
    then
      begin

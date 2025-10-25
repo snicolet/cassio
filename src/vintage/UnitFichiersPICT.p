@@ -108,7 +108,7 @@ begin
 	    Exit(ReadPictFile);
 	  end;
 
-	if ((OSError = noErr) | (OSError = eofErr))
+	if ((OSError = noErr) or (OSError = eofErr))
 		then
 			begin
 			  ReadPictFile := thePicture;
@@ -132,7 +132,7 @@ begin
 
   thePicture := ReadPictFile(picFile,error);
 
-  if (thePicture <> NIL) & (error = NoErr) then
+  if (thePicture <> NIL) and (error = NoErr) then
     begin
       TempHLock(Handle(thePicture),error);			        { If we made it this far, lock handle.}
 	  bounds := GetPicFrameOfPicture(thePicture);			    { Get a copy of the picture's bounds.}
@@ -156,7 +156,7 @@ begin
 
   thePicture := ReadPictFile(picFile,error);
 
-  if (thePicture <> NIL) & (error = NoErr) then
+  if (thePicture <> NIL) and (error = NoErr) then
     DrawPicture(thePicture,inRect);
 
 	if thePicture <> NIL then

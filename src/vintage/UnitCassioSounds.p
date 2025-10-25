@@ -109,7 +109,7 @@ begin
   {on remplace PlaySoundSynchrone(ZamfirID) par le code suivant, qui a l'avantage
    de moduler le volume du son stocke en ressource, qui etait trop fort}
 
-  if avecSon & not(gameOver) & not(analyseRetrograde.enCours) & not(enTournoi & (phaseDeLaPartie >= phaseFinale)) then
+  if avecSon and not(gameOver) and not(analyseRetrograde.enCours) and not(enTournoi and (phaseDeLaPartie >= phaseFinale)) then
     begin
 
       OpenChannel(theChannel);

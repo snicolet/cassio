@@ -79,7 +79,7 @@ begin
   result.tailleCumuleeChainesMax := 0;
   result.derniereCaseVideTrouvee := 0;
 
-  if (charSize > 0) & (stringSize > 0)
+  if (charSize > 0) and (stringSize > 0)
     then
       begin
 
@@ -95,7 +95,7 @@ begin
     else
       begin
         Sysbeep(0);
-        WritelnDansRapport('ASSERT ! (charSize <= 0) | (stringSize <= 0) dans MakeEmptyStringMultiset !!!');
+        WritelnDansRapport('ASSERT ! (charSize <= 0) or (stringSize <= 0) dans MakeEmptyStringMultiset !!!');
       end;
 
   MakeEmptyStringMultiset := result;
@@ -127,7 +127,7 @@ end;
 
 function StringMultisetEstVide(S : StringMultiset) : boolean;
 begin
-  StringMultisetEstVide := (CardinalOfStringMultiset(S) = 0) | StringSetEstVide(S.theSet) | (S.totalOccurences <= 0);
+  StringMultisetEstVide := (CardinalOfStringMultiset(S) = 0) or StringSetEstVide(S.theSet) or (S.totalOccurences <= 0);
 end;
 
 
@@ -138,7 +138,7 @@ begin
   MemberOfStringMultiset := false;
   nbOccurences := 0;
 
-  if MemberOfStringSet(theString, index, S.theSet) & (S.occurence^[index] > 0) then
+  if MemberOfStringSet(theString, index, S.theSet) and (S.occurence^[index] > 0) then
     begin
       MemberOfStringMultiset := true;
       nbOccurences := S.occurence^[index];
@@ -152,7 +152,7 @@ begin
 
   i := S.derniereCaseVideTrouvee + 1;
 
-  if (i > 0) & (i <= S.nbreChainesMax) & (S.occurence^[i] = 0)
+  if (i > 0) and (i <= S.nbreChainesMax) and (S.occurence^[i] = 0)
     then
       begin
         TrouveIndexVideDansStringMultiset := true;
@@ -178,7 +178,7 @@ begin
 
       isMemberOfStheSet := MemberOfStringSet(theString, index, theSet);
 
-      if isMemberOfStheSet & (occurence^[index] > 0) then
+      if isMemberOfStheSet and (occurence^[index] > 0) then
         begin
           inc(occurence^[index]);
           inc(totalOccurences);
@@ -186,7 +186,7 @@ begin
           exit(AddStringToMultiset);
         end;
 
-      if isMemberOfStheSet & (occurence^[index] = kDeletedFromStringMultiSet) then
+      if isMemberOfStheSet and (occurence^[index] = kDeletedFromStringMultiSet) then
         begin
           occurence^[index] := 1;
           inc(totalOccurences);
@@ -198,8 +198,8 @@ begin
         begin
           longueur := LENGTH_OF_STRING(theString);
 
-          if TrouveIndexVideDansStringMultiset(S,index) &
-             (index > 0) & (index <= nbreChainesMax) &
+          if TrouveIndexVideDansStringMultiset(S,index) and
+             (index > 0) and (index <= nbreChainesMax) and
              ((fin^[index - 1] + longueur) <= tailleCumuleeChainesMax) then
             begin
 

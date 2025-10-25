@@ -118,7 +118,7 @@ begin
 
 		    with theFile do
 		      begin
-		        if (position < premierOctetDansBuffer) | (position > dernierOctetDansBuffer) then
+		        if (position < premierOctetDansBuffer) or (position > dernierOctetDansBuffer) then
 		          begin  {defaut de page : on lit un nouveau buffer}
 
 		            {WritelnNumDansRapport('defaut de page : position = ',theFichierAbstrait.position);}
@@ -139,7 +139,7 @@ begin
 		            WritelnNumDansRapport('apres la lecture du buffer : position = ',theFichierAbstrait.position);}
 		          end;
 
-		        if (position >= premierOctetDansBuffer) & (position <= dernierOctetDansBuffer)
+		        if (position >= premierOctetDansBuffer) and (position <= dernierOctetDansBuffer)
 		          then
 		            begin
 		              c := buffer[position-premierOctetDansBuffer];
@@ -156,8 +156,8 @@ begin
 		      end;
 
 
-		    QuitterLecture := QuitterLecture |
-		                      (err <> NoErr)   |
+		    QuitterLecture := QuitterLecture or
+		                      (err <> NoErr)   or
 		                      (compteurCaracteres > theFile.nbOctetsOccupes);
 
 		    GetNextChar := c;
@@ -165,9 +165,9 @@ begin
 
 
 		    codeAsciiCaractere := ord(c);
-		    EstUnCaractereDeControle := (c = ' ') | (codeAsciiCaractere <= 32);
+		    EstUnCaractereDeControle := (c = ' ') or (codeAsciiCaractere <= 32);
 
-		  until not(EstUnCaractereDeControle & SauterLesCaracteresDeControle) | QuitterLecture;
+		  until not(EstUnCaractereDeControle and SauterLesCaracteresDeControle) or QuitterLecture;
 
 		  avantDernierCaractereLu := dernierCaractereLu;
 		  dernierCaractereLu := c;
@@ -184,7 +184,7 @@ begin
 	    begin
 	      nouvellePositionVoulue := Max(position-nbCaracteres,0);
 
-	      if (nouvellePositionVoulue >= premierOctetDansBuffer) &
+	      if (nouvellePositionVoulue >= premierOctetDansBuffer) and
 	         (nouvellePositionVoulue <= dernierOctetDansBuffer)
           then
             begin
@@ -203,7 +203,7 @@ begin
 	        else dernierCaractereLu := chr(0);
 	      avantDernierCaractereLu := chr(0);
 
-	      QuitterLecture := QuitterLecture | (err <> NoErr);
+	      QuitterLecture := QuitterLecture or (err <> NoErr);
 	    end;
 end;
 
@@ -221,16 +221,16 @@ begin
 		  c := GetNextChar(SauterLesCaracteresDeControle);
 		  {WritelnDansRapport('LitArgumentOfPropertyEnChaine : lecture de '+c+' (code ascii = '+NumEnString(ord(c))+')');
 		  }
-		  while not((c = ']') & (avantDernierCaractereLu <> '\')) &
-		       (longueur < 255) & not(QuitterLecture) do
+		  while not((c = ']') and (avantDernierCaractereLu <> '\')) and
+		       (longueur < 255) and not(QuitterLecture) do
 		    begin
-		      if not((c = '\') & (avantDernierCaractereLu <> '\')) then
+		      if not((c = '\') and (avantDernierCaractereLu <> '\')) then
 		        begin
 		          s := Concat(s,c);
 		          inc(longueur);
 
 		          {ne pas lire deux \ dans les sequences du genre \\\[ }
-		          if (c = '\') & (avantDernierCaractereLu = '\') then
+		          if (c = '\') and (avantDernierCaractereLu = '\') then
 		            begin
 		              dernierCaractereLu := chr(0);
 		              avantDernierCaractereLu := chr(0);
@@ -257,7 +257,7 @@ begin
     else
       begin
         square := StringEnCoup(s);
-        if (square = -1) & (LENGTH_OF_STRING(s) >= 2) then
+        if (square = -1) and (LENGTH_OF_STRING(s) >= 2) then
           begin
             {not found, cela pourrait etre un coup au format aa, ab, etc... (c'est-a-dire comme au go, deux coordonees en chiffres)}
             if StringSGFEnCoup(s, colonne, ligne) then
@@ -307,11 +307,11 @@ begin
     if s <> '' then
       begin
         aux := StringEnCoup(s);
-        if (aux >= 11) & (aux <= 88) then result := result+[aux];
+        if (aux >= 11) and (aux <= 88) then result := result+[aux];
       end;
     c := GetNextChar(true);
     inc(compteur);
-  until (c <> '[') | (compteur >= 1000);
+  until (c <> '[') or (compteur >= 1000);
   RevientEnArriereDansFichier(1);
 
   LitArgumentOfPropertyEnSquareSet := result;
@@ -356,12 +356,12 @@ begin
   s1 := s;
 
   {Cas particuliers : gain noir et gain blanc}
-  if (s = 'B+') | ((genre = NodeValueProp) & (s = 'B+1')) then
+  if (s = 'B+') or ((genre = NodeValueProp) and (s = 'B+1')) then
     begin
       ReadOthelloValueProperty := MakeValeurOthelloProperty(genre, pionNoir, +1, 1, 0);
       exit(ReadOthelloValueProperty);
     end;
-  if (s = 'W+') | ((genre = NodeValueProp) & (s = 'W+1')) then
+  if (s = 'W+') or ((genre = NodeValueProp) and (s = 'W+1')) then
     begin
       ReadOthelloValueProperty := MakeValeurOthelloProperty(genre, pionBlanc, +1, 1, 0);
       exit(ReadOthelloValueProperty);
@@ -375,17 +375,17 @@ begin
   integerValue := 0;
   centiemes := 0;
 
-  if (s[1] = 'B') | (s[1] = 'b') then
+  if (s[1] = 'B') or (s[1] = 'b') then
     begin
       couleur := pionNoir;
       s := TPCopy(s,2,LENGTH_OF_STRING(s)-1);
     end else
-  if (s[1] = 'W') | (s[1] = 'w') then
+  if (s[1] = 'W') or (s[1] = 'w') then
     begin
       couleur := pionBlanc;
       s := TPCopy(s,2,LENGTH_OF_STRING(s)-1);
     end else
-  if (s[1] = 'D') | (s[1] = 'd') then
+  if (s[1] = 'D') or (s[1] = 'd') then
     begin
       couleur := pionVide;
       s := TPCopy(s,2,LENGTH_OF_STRING(s)-1);
@@ -412,9 +412,9 @@ begin
 
   {cas particulier : les EL[valeur] de Cassio Žtaient auparavant
    stockees comme des entiers, on divise par 100}
-  if (genre = ComputerEvaluationProp) &
-     (Pos('.',s) = 0) & (centiemes = 0) &
-     GetApplicationNameDansArbre(appName,version) &
+  if (genre = ComputerEvaluationProp) and
+     (Pos('.',s) = 0) and (centiemes = 0) and
+     GetApplicationNameDansArbre(appName,version) and
      (Pos('Cassio',appName) > 0) then
     begin
       if (integerValue >= 0)
@@ -423,7 +423,7 @@ begin
       integerValue := integerValue div 100;
     end;
 
-  if (genre = NodeValueProp) & odd(integerValue) then
+  if (genre = NodeValueProp) and odd(integerValue) then
     begin
       WritelnDansRapport('WARNING : note impaire dans V['+s1+'], je corrige');
       if integerValue > 0
@@ -431,7 +431,7 @@ begin
         else dec(integerValue);
     end;
 
-  if avecRedressement & (signe < 0)
+  if avecRedressement and (signe < 0)
     then ReadOthelloValueProperty := MakeValeurOthelloProperty(genre,-couleur,-signe,integerValue,centiemes)
     else ReadOthelloValueProperty := MakeValeurOthelloProperty(genre, couleur, signe,integerValue,centiemes);
 end;
@@ -463,8 +463,8 @@ function ReadSquareProperty(genre : SInt16) : Property;
 var whichSquare : SInt16;
 begin
   whichSquare := LitArgumentOfPropertyEnCoup;
-  if (genre = BlackMoveProp) & (whichSquare = CoupSpecialPourPasse) then ReadSquareProperty := MakeArgumentVideProperty(BlackPassProp) else
-  if (genre = WhiteMoveProp) & (whichSquare = CoupSpecialPourPasse) then ReadSquareProperty := MakeArgumentVideProperty(WhitePassProp) else
+  if (genre = BlackMoveProp) and (whichSquare = CoupSpecialPourPasse) then ReadSquareProperty := MakeArgumentVideProperty(BlackPassProp) else
+  if (genre = WhiteMoveProp) and (whichSquare = CoupSpecialPourPasse) then ReadSquareProperty := MakeArgumentVideProperty(WhitePassProp) else
   ReadSquareProperty := MakeOthelloSquareProperty(genre,whichSquare)
 end;
 
@@ -533,18 +533,18 @@ begin
 		    compteur := 1;
 		    inc(longueurTotaleDuTexte);
 
-		    while not((c = ']') & (avantDernierCaractereLu <> '\')) &
-		          (longueurTotaleDuTexte < TailleMaximumDuTexte) &
-		          (compteur < 200) & not(QuitterLecture) do
+		    while not((c = ']') and (avantDernierCaractereLu <> '\')) and
+		          (longueurTotaleDuTexte < TailleMaximumDuTexte) and
+		          (compteur < 200) and not(QuitterLecture) do
 		    begin
-		      if not((c = '\') & (avantDernierCaractereLu <> '\')) then
+		      if not((c = '\') and (avantDernierCaractereLu <> '\')) then
 				    begin
 				      s := Concat(s,c);
 				      inc(longueurTotaleDuTexte);
 				      inc(compteur);
 
 				      {ne pas lire deux \ dans les sequences du genre \\\[ }
-		          if (c = '\') & (avantDernierCaractereLu = '\') then
+		          if (c = '\') and (avantDernierCaractereLu = '\') then
 		            begin
 		              dernierCaractereLu := chr(0);
 		              avantDernierCaractereLu := chr(0);
@@ -554,18 +554,18 @@ begin
 		      c := GetNextChar(false);
 		    end;
 
-		    if (c = ']') & (avantDernierCaractereLu <> '\')
+		    if (c = ']') and (avantDernierCaractereLu <> '\')
 		      then AddStringToTexteProperty(prop,s)
 		      else AddStringToTexteProperty(prop,Concat(s,c));
 
-		  until ((c = ']') & (avantDernierCaractereLu <> '\')) |
-		        (longueurTotaleDuTexte >= TailleMaximumDuTexte) |
+		  until ((c = ']') and (avantDernierCaractereLu <> '\')) or
+		        (longueurTotaleDuTexte >= TailleMaximumDuTexte) or
 		        QuitterLecture;
 
-		  if (c <> ']') & (avantDernierCaractereLu <> '\') then
+		  if (c <> ']') and (avantDernierCaractereLu <> '\') then
 		    repeat
 		      c := GetNextChar(false);
-		    until (c = ']') | LectureSmartGameBoard.QuitterLecture;
+		    until (c = ']') or LectureSmartGameBoard.QuitterLecture;
 		end;
 
 end;
@@ -596,7 +596,7 @@ begin
       AppliquerStyleDuFichierAuRapport(fichier,ancienPointDInsertion,GetPositionPointDinsertion);
       WritelnDansRapport('');
     end;
-  if (genre = GameCommentProp) & (longueurTexte > 0) & (longueurTexte < 500)
+  if (genre = GameCommentProp) and (longueurTexte > 0) and (longueurTexte < 500)
     then ReadRapportProperty := MakeTexteProperty(GameCommentProp,textePtr,longueurTexte)
     else ReadRapportProperty := MakeEmptyProperty;
 
@@ -614,7 +614,7 @@ begin
     c := GetNextChar(true);
     RevientEnArriereDansFichier(1);
     if c = '[' then AddStringToTexteProperty(prop,']');
-  until (c <> '[') | (prop.Taille >= 32000);
+  until (c <> '[') or (prop.Taille >= 32000);
   AddStringToTexteProperty(prop,']');
   ReadUnknownProperty := prop;
 end;
@@ -640,12 +640,12 @@ begin
         nomProperty := nomProperty+c;
         inc(compteur);
       end;
-  until (c = '[') | (c = ']') | (compteur >= 10);
+  until (c = '[') or (c = ']') or (compteur >= 10);
 
   {WritelnDansRapport('LitProperty : nomProperty = '+nomProperty);}
 
 
-  if (compteur >= 10) | (c = ']') then
+  if (compteur >= 10) or (c = ']') then
     begin
       if debuggage.lectureSmartGameBoard then
         AlerteSimple('erreur dans la reconnaissance du nom de la propriŽtŽ : '+nomProperty);
@@ -788,7 +788,7 @@ begin
     WritelnStringAndPropertyDansRapport('prop = ',prop);
 
   {on saute les proprietes Sigma[3] qui denotent des noeuds "virtuels"}
-  (* if (prop.genre = SigmaProp) & (GetTripleOfProperty(prop).nbTriples >= 3)
+  (* if (prop.genre = SigmaProp) and (GetTripleOfProperty(prop).nbTriples >= 3)
     then
       begin
         DisposePropertyStuff(prop);
@@ -808,15 +808,15 @@ begin
   repeat
     c := GetNextChar(true);
     separateurDeNoeuds := (c = ';');
-    separateurDeGameTree := (c = '(') | (c = ')');
+    separateurDeGameTree := (c = '(') or (c = ')');
     RevientEnArriereDansFichier(1);
-    if not(separateurDeNoeuds | separateurDeGameTree) then
+    if not(separateurDeNoeuds or separateurDeGameTree) then
       begin
         prop := LitProperty;
         if not(PropertyEstVide(prop)) then AddPropertyToGameTree(prop,G);
         DisposePropertyStuff(prop);
       end;
-  until separateurDeNoeuds | separateurDeGameTree | LectureSmartGameBoard.QuitterLecture;
+  until separateurDeNoeuds or separateurDeGameTree or LectureSmartGameBoard.QuitterLecture;
 end;
 
 
@@ -833,11 +833,11 @@ begin
 
     c := GetNextChar(true);
     separateurDeNoeuds := (c = ';');
-    separateurDeGameTree := (c = '(') | (c = ')');
+    separateurDeGameTree := (c = '(') or (c = ')');
 
     RevientEnArriereDansFichier(1);
 
-    if not(separateurDeNoeuds | separateurDeGameTree) then
+    if not(separateurDeNoeuds or separateurDeGameTree) then
       begin
 
         prop := LitProperty;
@@ -850,7 +850,7 @@ begin
 
         DisposePropertyStuff(prop);
       end;
-  until separateurDeNoeuds | separateurDeGameTree | LectureSmartGameBoard.QuitterLecture;
+  until separateurDeNoeuds or separateurDeGameTree or LectureSmartGameBoard.QuitterLecture;
 
 
   CompacterPropertyList(result);
@@ -911,7 +911,7 @@ begin
 		                  else
 		                    begin {B}
 					                G := GetCurrentNode;
-					                if EstLaRacineDeLaPartie(G) & not(ProprietesDeLaRacinesDejaLues)
+					                if EstLaRacineDeLaPartie(G) and not(ProprietesDeLaRacinesDejaLues)
 					                  then
 					                    begin {C}
 					                      if debuggage.lectureSmartGameBoard then
@@ -983,8 +983,8 @@ begin
 					                      if (coup = NIL)
 					                        then
 					                          begin  {nouveau fils sans coup !} {D}
-					                            if PropertyListEstVide(propertiesLues) |
-					                               ((PropertyListLength(propertiesLues) = 1) & InPropertyTypes(propertiesLues^.head.genre,[BlackPassProp,WhitePassProp]))
+					                            if PropertyListEstVide(propertiesLues) or
+					                               ((PropertyListLength(propertiesLues) = 1) and InPropertyTypes(propertiesLues^.head.genre,[BlackPassProp,WhitePassProp]))
 					                              then
 					                                begin  {E}
 					                                  (*
@@ -1054,7 +1054,7 @@ begin
 													                            AddSonToGameTreeSansDupliquer(subTree,G);
 													                            SetCurrentNode(subTree, 'LectureRecursiveArbre {2}');
 
-													                            if avecInterversions & (profondeur >= 1) &
+													                            if avecInterversions and (profondeur >= 1) and
 														                             (profondeur <= numeroCoupMaxPourRechercheIntervesionDansArbre) then
 														                            GererInterversionDeCeNoeud(GetCurrentNode,thePosition);
 
@@ -1096,7 +1096,7 @@ begin
 		               WritelnDansRapport('erreur : caractere non traitŽ = '+c+ ' (code ascii = '+NumEnString(ord(c))+')');
 		      end; {case}
 
-		    until (EmboitementParentheses <= 0) | QuitterLecture;
+		    until (EmboitementParentheses <= 0) or QuitterLecture;
 	  end;
 end;
 
@@ -1201,7 +1201,7 @@ var c1,c2 : char;
     oldPosition : SInt32;
 begin
 
-  if not(FichierAbstraitEstCorrect(whichFichierAbstrait)) | LectureSmartGameBoardEnCours then
+  if not(FichierAbstraitEstCorrect(whichFichierAbstrait)) or LectureSmartGameBoardEnCours then
     begin
       EstUneFichierAbstraitAuFormatSmartGameBoard := false;
       exit(EstUneFichierAbstraitAuFormatSmartGameBoard);
@@ -1217,7 +1217,7 @@ begin
 
   EndLectureSmartGameBoard;
 
-  EstUneFichierAbstraitAuFormatSmartGameBoard := (c1 = '(') & (c2 = ';');
+  EstUneFichierAbstraitAuFormatSmartGameBoard := (c1 = '(') and (c2 = ';');
 end;
 
 
@@ -1478,7 +1478,7 @@ begin
   if erreurES <> 0 then exit(SauvegarderDatabaseOfRecentSGFFiles);
 
   for i := 1 to kMaxRecentSGFFiles do
-    if (gDatabaseRecentSGFFiles[i].date <> '') &
+    if (gDatabaseRecentSGFFiles[i].date <> '') and
        (gDatabaseRecentSGFFiles[i].name <> '') then
       begin
         s := gDatabaseRecentSGFFiles[i].date + ' ' + gDatabaseRecentSGFFiles[i].name;
@@ -1513,12 +1513,12 @@ begin
   nbPrefFiles := 0;
   repeat
     erreurES := ReadlnDansFichierTexte(fic,s);
-    if (s <> '') & (erreurES = NoErr) then
+    if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);
         Parser(s,gDatabaseRecentSGFFiles[nbPrefFiles].date,gDatabaseRecentSGFFiles[nbPrefFiles].name);
       end;
-  until (nbPrefFiles >= kMaxRecentSGFFiles) | (erreurES <> NoErr) | EOFFichierTexte(fic,erreurES);
+  until (nbPrefFiles >= kMaxRecentSGFFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
 
   erreurES := FermeFichierTexte(fic);
 end;
@@ -1557,7 +1557,7 @@ function FichierExisteDansDatabaseOfRecentSGFFiles(whichName : String255; var mo
 var i : SInt32;
 begin
 
-  if (whichName <> '') & not(EstUnNomDeFichierTemporaireDePressePapier(whichName)) then
+  if (whichName <> '') and not(EstUnNomDeFichierTemporaireDePressePapier(whichName)) then
     begin
       LireDatabaseOfRecentSGFFiles;
       for i := 1 to kMaxRecentSGFFiles do

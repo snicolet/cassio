@@ -63,7 +63,7 @@ function ClassementCalculablePourCettePartie(numeroDansLaListe,numeroRefPartie :
 var joueurNoir,joueurBlanc  : SInt32;
     ok : boolean;
 begin  {$UNUSED numeroDansLaListe,tickGroupe}
-  ok := (numeroRefPartie >= 1) & (numeroRefPartie <= nbPartiesActives);
+  ok := (numeroRefPartie >= 1) and (numeroRefPartie <= nbPartiesActives);
   if ok then
     begin
       joueurNoir  := GetNroJoueurNoirParNroRefPartie (numeroRefPartie);
@@ -73,7 +73,7 @@ begin  {$UNUSED numeroDansLaListe,tickGroupe}
        et si Noir et Blancs sont deux joueurs differents (pour eviter les
        parties d'entrainement d'un programme contre lui-meme) }
 
-      ok := (joueurNoir > 0) & (joueurBlanc > 0) & (joueurNoir <> joueurBlanc);
+      ok := (joueurNoir > 0) and (joueurBlanc > 0) and (joueurNoir <> joueurBlanc);
     end;
 
   {if Pos('Busut',GetNomJoueur(GetNroJoueurNoirParNroRefPartie(numeroRefPartie))) > 0 then
@@ -114,7 +114,7 @@ begin
 
   if afficheInfos then WritelnNumDansRapport('anneeDebut de Noir = ',anneeDebut);
 
-  if (anneeDebut < 0) | {non initialise ? }
+  if (anneeDebut < 0) or {non initialise ? }
      (anneePartie < anneeDebut)
      then SetAnneePremierePartieDeCeJoueur(noir,anneePartie);
 
@@ -124,7 +124,7 @@ begin
 
   if afficheInfos then WritelnNumDansRapport('anneeArret de Noir = ',anneeArret);
 
-  if (anneeArret < 0) | {non initialise ? }
+  if (anneeArret < 0) or {non initialise ? }
      (anneePartie > anneeArret)
      then SetAnneeDernierePartieDeCeJoueur(noir,anneePartie);
 
@@ -133,7 +133,7 @@ begin
 
   if afficheInfos then WritelnNumDansRapport('anneeDebut de Blanc = ',anneeDebut);
 
-  if (anneeDebut < 0) | {non initialise ? }
+  if (anneeDebut < 0) or {non initialise ? }
      (anneePartie < anneeDebut)
      then SetAnneePremierePartieDeCeJoueur(blanc,anneePartie);
 
@@ -141,7 +141,7 @@ begin
 
   if afficheInfos then WritelnNumDansRapport('anneeArret de Blanc = ',anneeArret);
 
-  if (anneeArret < 0) | {non initialise ? }
+  if (anneeArret < 0) or {non initialise ? }
      (anneePartie > anneeArret)
      then SetAnneeDernierePartieDeCeJoueur(blanc,anneePartie);
 

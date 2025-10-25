@@ -333,8 +333,8 @@ begin
       begin
         theRect := GetWindowContentRect(wCourbePtr);
         FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen :=
-             (theRect.bottom - theRect.top <= 400) |
-             ((theRect.bottom - theRect.top <= 330) & (theRect.right - theRect.left <= 700));
+             (theRect.bottom - theRect.top <= 400) or
+             ((theRect.bottom - theRect.top <= 330) and (theRect.right - theRect.left <= 700));
       end
     else
       FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen := false;
@@ -396,8 +396,8 @@ begin
 
       usingOffScreenBuffer[niveauxRecursionDrawing] := false;
 
-      if gUseOffScreenCourbe &
-         (Pos('Repere',fonctionAppelante) = 0) &
+      if gUseOffScreenCourbe and
+         (Pos('Repere',fonctionAppelante) = 0) and
          FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
         then
           begin
@@ -428,11 +428,11 @@ begin
 
 
 
-      if (niveauxRecursionDrawing = 0) &
-        gUseOffScreenCourbe &
-        usingOffScreenBuffer[niveauxRecursionDrawing] &
-        (Pos('Repere',fonctionAppelante) = 0) {&
-        (not(EnTrainDeRejouerUnePartie) | (nbreCoup mod 10 = 0))}
+      if (niveauxRecursionDrawing = 0) and
+        gUseOffScreenCourbe and
+        usingOffScreenBuffer[niveauxRecursionDrawing] and
+        (Pos('Repere',fonctionAppelante) = 0) {and
+        (not(EnTrainDeRejouerUnePartie) or (nbreCoup mod 10 = 0))}
         then
           begin
 
@@ -675,7 +675,7 @@ begin  {$UNUSED fonctionAppelante}
 
       SetPortByWindow(wCourbePtr);
       if gCassioUseQuartzAntialiasing then
-        if gUseOffScreenCourbe & FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
+        if gUseOffScreenCourbe and FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
           then
             begin
               err := SetAntiAliasedTextEnabled(true,9);
@@ -729,7 +729,7 @@ begin
               listeEvaluations[k].doitEtreEffacee := false;
             end;
         end;
-      if windowCourbeOpen & (debut < 1000) & (fin > -1000) then
+      if windowCourbeOpen and (debut < 1000) and (fin > -1000) then
         begin
           // WritelnDansRapport('CheckDoitEffacerLaCourbe = TRUE, fonctionAppelante = ' + fonctionAppelante);
 
@@ -815,8 +815,8 @@ begin
                        UnionRect(accu,effRect,accu);
                      end;
                    i := i+1;
-                 until (i > nroDernierCoupAtteint) |
-                       ((i > nfin + 2) & CourbeEstContinueEnCePoint(i,kGlobalement));
+                 until (i > nroDernierCoupAtteint) or
+                       ((i > nfin + 2) and CourbeEstContinueEnCePoint(i,kGlobalement));
 
                  {for i := n to nroDernierCoupAtteint do
                    WritelnStringAndBoolDansRapport(NumEnString(nbreCoup)+' (post) : continue['+NumEnString(i)+'] = ',CourbeEstContinueEnCePoint(i,kGlobalement));}
@@ -873,12 +873,12 @@ begin
   if windowCourbeOpen then
     with gCourbeData do
       BEGIN
-        if ((x1.v <= mil) & (x2.v <= mil)) | ((x1.v >= mil) & (x2.v >= mil))
+        if ((x1.v <= mil) and (x2.v <= mil)) or ((x1.v >= mil) and (x2.v >= mil))
           then  {les deux points sont du meme cote de l'axe}
             begin
 
 
-              if ((x2.h - x1.h) >= kLargeurMinimalePourRecursion) & (x1.v <> x2.v) (* & (coloration <> kCourbePastel) *)
+              if ((x2.h - x1.h) >= kLargeurMinimalePourRecursion) and (x1.v <> x2.v) (* and (coloration <> kCourbePastel) *)
                 then { on coupe le trapeze en 2 pour avoir un joli dŽgradŽ }
                   begin
                     SetPt(pointDichotomie, (x1.h + x2.h) div 2, (x1.v + x2.v + 1) div 2);
@@ -900,7 +900,7 @@ begin
                 		      note := MyTrunc(note/echelle) div kCoeffMultiplicateurPourCourbeEnFinale;
                 		    end;
           		
-          		      isGoodForWhite := (x2.v > mil) | ((x2.v = mil) & (x1.v > mil));
+          		      isGoodForWhite := (x2.v > mil) or ((x2.v = mil) and (x1.v > mil));
 
                     if (coloration = kCourbePastel)
                       then
@@ -962,7 +962,7 @@ var x,y : SInt32;
     x1,x2 : Point;
     unRect : rect;
 begin
-  if windowCourbeOpen & (n >= 1) & (n <= 60) & (n <= nroDernierCoupAtteint) then
+  if windowCourbeOpen and (n >= 1) and (n <= 60) and (n <= nroDernierCoupAtteint) then
     with gCourbeData do
       begin
         WriteDebugageCourbe(NumEnString(nbreCoup)+' : TraceQuelquesSegmentsDeLaCourbe('+NumEnString(n)+')');
@@ -1036,10 +1036,10 @@ begin
         SetCourbeEstContinueEnCePoint(n  ,kAGauche,true);
 
 
-        if (n+1 <= nroDernierCoupAtteint) & not(CourbeEstContinueEnCePoint(n+1,kGlobalement))
+        if (n+1 <= nroDernierCoupAtteint) and not(CourbeEstContinueEnCePoint(n+1,kGlobalement))
           then TraceQuelquesSegmentsDeLaCourbe(n+1,coloration,regionEffacee);
 
-        if (n-1 >= 1) & not(CourbeEstContinueEnCePoint(n-1,kGlobalement))
+        if (n-1 >= 1) and not(CourbeEstContinueEnCePoint(n-1,kGlobalement))
           then TraceQuelquesSegmentsDeLaCourbe(n-1,coloration,regionEffacee);
 
         PenSize(2,2);
@@ -1068,7 +1068,7 @@ var regionEffacee : rect;
 begin
   WriteDebugageCourbe(NumEnString(nbreCoup)+' : TraceSegmentCourbe('+NumEnString(numeroDuCoup)+'), fonction appelante = '+fonctionAppelante);
 
-  if windowCourbeOpen & (numeroDuCoup >= 1) & (numeroDuCoup <= 60) & (numeroDuCoup <= nroDernierCoupAtteint) then
+  if windowCourbeOpen and (numeroDuCoup >= 1) and (numeroDuCoup <= 60) and (numeroDuCoup <= nroDernierCoupAtteint) then
     begin
       regionEffacee := MakeRect(0,0,0,0);
 
@@ -1086,7 +1086,7 @@ begin
 
   regionEffacee := MakeRect(0,0,0,0);
 
-  if windowCourbeOpen & (numeroDuCoup >= 1) & (numeroDuCoup <= 60) & (numeroDuCoup <= nroDernierCoupAtteint) then
+  if windowCourbeOpen and (numeroDuCoup >= 1) and (numeroDuCoup <= 60) and (numeroDuCoup <= nroDernierCoupAtteint) then
     TraceQuelquesSegmentsDeLaCourbe(numeroDuCoup,coloration,regionEffacee);
 end;
 
@@ -1179,7 +1179,7 @@ end;
 function EvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32) : boolean;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65)
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65)
       then EvaluationPourCourbeProvientDeLaFinale := listeEvaluations[nroDuCoup].evalDonneeParFinale
       else EvaluationPourCourbeProvientDeLaFinale := false;
 end;
@@ -1188,7 +1188,7 @@ end;
 function EvaluationPourCourbeDejaConnue(nroDuCoup : SInt32) : boolean;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65)
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65)
       then EvaluationPourCourbeDejaConnue := listeEvaluations[nroDuCoup].evalCourbeDejaConnue
       else EvaluationPourCourbeDejaConnue := false;
 end;
@@ -1197,7 +1197,7 @@ end;
 procedure SetEvaluationPourCourbeProvientDeLaFinale(nroDuCoup : SInt32; flag : boolean);
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65) then
       begin
         if (listeEvaluations[nroDuCoup].evalDonneeParFinale <> flag) then
           begin
@@ -1212,7 +1212,7 @@ end;
 procedure SetCourbeDoitEtreEffacee(nroDuCoup : SInt32; flag : boolean);
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65) then
       begin
         if (listeEvaluations[nroDuCoup].doitEtreEffacee <> flag) then
           begin
@@ -1225,7 +1225,7 @@ end;
 function CourbeDoitEtreEffacee(nroDuCoup : SInt32) : boolean;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65)
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65)
       then CourbeDoitEtreEffacee := listeEvaluations[nroDuCoup].doitEtreEffacee
       else CourbeDoitEtreEffacee := false;
 end;
@@ -1233,7 +1233,7 @@ end;
 procedure SetEvaluationPourCourbeDejaConnue(nroDuCoup : SInt32; flag : boolean);
 begin
   with gCourbeData do
-    if (nroDuCoup >= 1) & (nroDuCoup <= 65) then
+    if (nroDuCoup >= 1) and (nroDuCoup <= 65) then
       begin
 
         if (listeEvaluations[nroDuCoup].evalCourbeDejaConnue <> flag) then
@@ -1243,13 +1243,13 @@ begin
           end;
 
         { mise a jour (partielle) de premierCoupSansEvaluation }
-        if flag & (nroDuCoup >= premierCoupSansEvaluation) then
+        if flag and (nroDuCoup >= premierCoupSansEvaluation) then
           begin
             inc(magicCookieLastChangeEval);
             premierCoupSansEvaluation := nroDuCoup + 1;
           end;
 
-        if not(flag) & (premierCoupSansEvaluation = nroDuCoup+1) then
+        if not(flag) and (premierCoupSansEvaluation = nroDuCoup+1) then
           begin
             inc(magicCookieLastChangeEval);
             premierCoupSansEvaluation := nroDuCoup;
@@ -1284,7 +1284,7 @@ begin
         end;
 
 
-      if (nroCoupMax >= 60) & (premierCoupSansEvaluation > nroCoupMin) then
+      if (nroCoupMax >= 60) and (premierCoupSansEvaluation > nroCoupMin) then
         begin
           inc(magicCookieLastChangeEval);
           premierCoupSansEvaluation := nroCoupMin;
@@ -1298,7 +1298,7 @@ end;
 function GetEvaluationPourNoirDansCourbe(nroDuCoup : SInt32) : SInt32;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65)
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65)
       then GetEvaluationPourNoirDansCourbe := listeEvaluations[nroDuCoup].evalNoir
       else GetEvaluationPourNoirDansCourbe := 0;
 end;
@@ -1308,7 +1308,7 @@ function GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup(nroDuCoup : 
 var k : SInt32;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65) then
       for k := nroDuCoup downto 0 do
         if (listeEvaluations[k].origineEval = kMilieuDePartie) then
           begin
@@ -1322,7 +1322,7 @@ end;
 function GetOrigineEvaluationDansCourbe(nroDuCoup : SInt32) : typeGenreDeReflexion;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 60)
+    if (nroDuCoup >= 0) and (nroDuCoup <= 60)
       then GetOrigineEvaluationDansCourbe := listeEvaluations[nroDuCoup].origineEval
       else GetOrigineEvaluationDansCourbe := kNonPrecisee;
 end;
@@ -1333,13 +1333,13 @@ var oldEvaluation : SInt32;
     oldOrigine : typeGenreDeReflexion;
 begin
   with gCourbeData do
-    if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
+    if (nroDuCoup >= 0) and (nroDuCoup <= 65) then
       begin
 
         oldEvaluation := listeEvaluations[nroDuCoup].evalNoir;
         oldOrigine    := listeEvaluations[nroDuCoup].origineEval;
 
-        if (evaluationPourNoir <> oldEvaluation) | (oldOrigine <> origine) then
+        if (evaluationPourNoir <> oldEvaluation) or (oldOrigine <> origine) then
           begin
             inc(magicCookieLastChangeEval);
 
@@ -1359,7 +1359,7 @@ end;
 
 function CourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite) : boolean;
 begin
-  if (nroDuCoup >= 0) & (nroDuCoup <= 65)
+  if (nroDuCoup >= 0) and (nroDuCoup <= 65)
     then
       begin
         with gCourbeData.listeEvaluations[nroDuCoup] do
@@ -1374,7 +1374,7 @@ begin
               end;
             kGlobalement :
               begin
-                CourbeEstContinueEnCePoint := continueAGauche & continueADroite;
+                CourbeEstContinueEnCePoint := continueAGauche and continueADroite;
               end;
         end; {case}
       end
@@ -1385,7 +1385,7 @@ end;
 
 procedure SetCourbeEstContinueEnCePoint(nroDuCoup : SInt32; quelCote : typeLateralisationContinuite; flag : boolean);
 begin
-  if (nroDuCoup >= 0) & (nroDuCoup <= 65) then
+  if (nroDuCoup >= 0) and (nroDuCoup <= 65) then
      begin
         with gCourbeData, gCourbeData.listeEvaluations[nroDuCoup] do
           case quelCote of
@@ -1401,7 +1401,7 @@ begin
               end;
             kGlobalement :
               begin
-                if ((continueADroite <> flag) | (continueAGauche <> flag)) then inc(magicCookieLastChangeEval);
+                if ((continueADroite <> flag) or (continueAGauche <> flag)) then inc(magicCookieLastChangeEval);
                 continueAGauche := flag;
                 continueADroite := flag;
               end;
@@ -1449,7 +1449,7 @@ begin
           then noteCoupPrec := GetEvaluationPourNoirDansCourbe(nroCoupDeb - 1)
           else noteCoupPrec := GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup(nroCoupDeb - 2);
 
-        if ((noteCoupPrec > 0) & (scorePourNoir > 0)) | ((noteCoupPrec < 0) & (scorePourNoir < 0))
+        if ((noteCoupPrec > 0) and (scorePourNoir > 0)) or ((noteCoupPrec < 0) and (scorePourNoir < 0))
           then
             begin
               note := noteCoupPrec div kCoeffMultiplicateurPourCourbeEnFinale;
@@ -1485,13 +1485,13 @@ begin
   with gLastDrawingOfScoreDansCourbe do
     begin
 
-      onVientDeDessinerCeMorceau := (gLastDrawingOfScoreDansCourbe.coupDebut   = nroCoupDeb) &
-                                    (gLastDrawingOfScoreDansCourbe.coupFin     = nroCoupFin) &
-                                    (gLastDrawingOfScoreDansCourbe.theOrigin   = origine) &
-                                    (gLastDrawingOfScoreDansCourbe.scoreDeNoir = scorePourNoir) &
+      onVientDeDessinerCeMorceau := (gLastDrawingOfScoreDansCourbe.coupDebut   = nroCoupDeb) and
+                                    (gLastDrawingOfScoreDansCourbe.coupFin     = nroCoupFin) and
+                                    (gLastDrawingOfScoreDansCourbe.theOrigin   = origine) and
+                                    (gLastDrawingOfScoreDansCourbe.scoreDeNoir = scorePourNoir) and
                                     (Abs(gLastDrawingOfScoreDansCourbe.date - TickCount()) <= 20);
 
-      if windowCourbeOpen & not(onVientDeDessinerCeMorceau) & somethingChanged then
+      if windowCourbeOpen and not(onVientDeDessinerCeMorceau) and somethingChanged then
         begin
           fooRect := MakeRect(0,0,0,0);
           GetPort(oldPort);
@@ -1515,7 +1515,7 @@ begin
 
   { Remarque : lors d'une analyse retrograde, on n'affiche le nouveau score comme
                texte que si on a eu une periode d'inactivite de 30 secondes au moins }
-  if not(analyseRetrograde.enCours) | (((TickCount - gCourbeData.dernierTickCommentaire) div 60) > 30)
+  if not(analyseRetrograde.enCours) or (((TickCount - gCourbeData.dernierTickCommentaire) div 60) > 30)
     then EcritCommentaireCourbe(nbreCoup);
 end;
 
@@ -1526,7 +1526,7 @@ var uneNote : SInt32;
     nbEvalRecursives : SInt32;
     plat : plateauOthello;
 begin
-  if HumCtreHum | (numeroDuCoup < finDePartie) | not(EvaluationPourCourbeDejaConnue(numeroDuCoup)) then
+  if HumCtreHum or (numeroDuCoup < finDePartie) or not(EvaluationPourCourbeDejaConnue(numeroDuCoup)) then
     begin
 
       {WritelnNumDansRapport('numeroDuCoup = ',numeroDuCoup);
@@ -1537,10 +1537,10 @@ begin
       WritelnNumDansRapport('i.coul = ',InfosDerniereReflexionMac.coul);
       WritelnNumDansRapport('i.valeurCoup = ',InfosDerniereReflexionMac.valeurCoup);}
 
-      if not(HumCtreHum) &
-         (InfosDerniereReflexionMac.nroDuCoup = numeroDuCoup) &
-         (InfosDerniereReflexionMac.coup = square) &
-         (InfosDerniereReflexionMac.coul = couleur) &
+      if not(HumCtreHum) and
+         (InfosDerniereReflexionMac.nroDuCoup = numeroDuCoup) and
+         (InfosDerniereReflexionMac.coup = square) and
+         (InfosDerniereReflexionMac.coul = couleur) and
          (InfosDerniereReflexionMac.valeurCoup <> -noteMax)
         then
           begin
@@ -1551,13 +1551,13 @@ begin
         else
           begin
 
-            if not(EvaluationEdmondEstDisponible | GetNouvelleEvalDejaChargee) then
+            if not(EvaluationEdmondEstDisponible or GetNouvelleEvalDejaChargee) then
               begin
                 exit(EssaieMettreEvaluationDeMilieuDansCourbe);
               end;
 
 
-            if ((numeroDuCoup mod 8) = 0) | ((numeroDuCoup mod 8) = 1) then Superviseur(numeroDuCoup);
+            if ((numeroDuCoup mod 8) = 0) or ((numeroDuCoup mod 8) = 1) then Superviseur(numeroDuCoup);
 
             plat := position;
 
@@ -1575,7 +1575,7 @@ begin
       SetEvaluationPourCourbeDejaConnue(numeroDuCoup ,true);
       SetEvaluationPourCourbeProvientDeLaFinale(numeroDuCoup ,false);
 
-      if not(HumCtreHum | EvaluationPourCourbeDejaConnue(numeroDuCoup + 1))
+      if not(HumCtreHum or EvaluationPourCourbeDejaConnue(numeroDuCoup + 1))
         then
           begin
             SetEvaluationPourNoirDansCourbe(numeroDuCoup + 1, GetEvaluationPourNoirDansCourbe(numeroDuCoup), kMilieuDePartie);
@@ -1596,7 +1596,7 @@ begin
     begin
 
       { Est-ce un score parfait ? }
-      if (kFinaleParfaite in origineCherchees) & (scoreMinPourNoir = scoreMaxPourNoir) & (scoreMinPourNoir >= -64) & (scoreMinPourNoir <= 64) then
+      if (kFinaleParfaite in origineCherchees) and (scoreMinPourNoir = scoreMaxPourNoir) and (scoreMinPourNoir >= -64) and (scoreMinPourNoir <= 64) then
         begin
           note := scoreMinPourNoir*kCoeffMultiplicateurPourCourbeEnFinale;
           {WritelnNumDansRapport('Chouette, un score parfait@'+ NumEnString(nroDuCoup)+' : ',scoreMinPourNoir);}
@@ -1610,7 +1610,7 @@ begin
         end;
 
       { Est-ce un score WLD gagnant ? }
-      if (kFinaleWLD in origineCherchees) & (scoreMinPourNoir > 0) & (scoreMinPourNoir <= 64) then
+      if (kFinaleWLD in origineCherchees) and (scoreMinPourNoir > 0) and (scoreMinPourNoir <= 64) then
         begin
 
           MetScorePrevuParFinaleDansCourbe(nroDuCoup+1,nroDuCoup+1,kFinaleWLD,2);
@@ -1622,7 +1622,7 @@ begin
         end;
 
       { Est-ce un score WLD perdant ? }
-      if (kFinaleWLD in origineCherchees) & (scoreMaxPourNoir < 0) & (scoreMaxPourNoir >= -64) then
+      if (kFinaleWLD in origineCherchees) and (scoreMaxPourNoir < 0) and (scoreMaxPourNoir >= -64) then
         begin
 
           MetScorePrevuParFinaleDansCourbe(nroDuCoup+1,nroDuCoup+1,kFinaleWLD,-2);
@@ -1736,7 +1736,7 @@ begin
               EraseRectFenetreCourbe(MakeRect(myRect.right,myRect.top-10,sliderRect.right+10,myRect.bottom+10));
               MyEraseRectWithColor(MakeRect(myRect.right,myRect.top-10,sliderRect.right+10,myRect.bottom+10),BleuCmd,blackPattern,'');
 
-              if (err = NoErr) & (theSlider <> NIL) then
+              if (err = NoErr) and (theSlider <> NIL) then
                 begin
                   Draw1Control(theSlider);
                   ShowControl(theSlider);
@@ -1745,7 +1745,7 @@ begin
                   DisposeControl(theSlider);
                 end;
 
-              if (nbreCoup > 0) & (nbreCoup <= 60) & (DerniereCaseJouee <> coupInconnu)
+              if (nbreCoup > 0) and (nbreCoup <= 60) and (DerniereCaseJouee <> coupInconnu)
                 then
                   begin
                     s := NumEnString(nbreCoup)+'.'+CoupEnString(DerniereCaseJouee,CassioUtiliseDesMajuscules);
@@ -1813,7 +1813,7 @@ begin
         GetPort(oldPort);
         SetPortByWindow(wCourbePtr);
 
-        if PtInRect(mouseLoc,zoneSensibleSlider) & EstUnClicSurSliderCourbe(mouseLoc) & (nroDernierCoupAtteint > 0) then
+        if PtInRect(mouseLoc,zoneSensibleSlider) and EstUnClicSurSliderCourbe(mouseLoc) and (nroDernierCoupAtteint > 0) then
           begin
 
             enRetourArrivee := enRetour;
@@ -1824,7 +1824,7 @@ begin
 
             tireCurseur := true;
             mouseX := 0;
-            while Button & tireCurseur & windowCourbeOpen do
+            while Button and tireCurseur and windowCourbeOpen do
               begin
                 InitCursor;
                 doitAjusterCurseur := false;
@@ -1835,26 +1835,26 @@ begin
                 tirecurseur := PtInRect(mouseLoc,sourisRect);
 
 
-                bouge := (mouseLoc.h <> mouseX) &
-                         (((mouseLoc.h >= sliderRect.left ) & (mouseLoc.h <= sliderRect.right)) |
-                          ((mouseLoc.h <= sliderRect.left ) & (mouseX >= sliderRect.left)) |
-                          ((mouseLoc.h >= sliderRect.right) & (mouseX <= sliderRect.right)));
+                bouge := (mouseLoc.h <> mouseX) and
+                         (((mouseLoc.h >= sliderRect.left ) and (mouseLoc.h <= sliderRect.right)) or
+                          ((mouseLoc.h <= sliderRect.left ) and (mouseX >= sliderRect.left)) or
+                          ((mouseLoc.h >= sliderRect.right) and (mouseX <= sliderRect.right)));
 
-                if bouge & tireCurseur then
+                if bouge and tireCurseur then
                   begin
                     numeroDuCoupDemande := PositionSourisEnNumeroDeCoupSurSlider(mouseLoc.h - (LargeurCourbe div 120));
 
                     if (numeroDuCoupDemande < 0) then numeroDuCoupDemande := 0;
                     if (numeroDuCoupDemande > nroDernierCoupAtteint) then numeroDuCoupDemande := nroDernierCoupAtteint;
 
-                    if (numeroDuCoupDemande <> nbreCoup) &
-                       (numeroDuCoupDemande >= 0) &
+                    if (numeroDuCoupDemande <> nbreCoup) and
+                       (numeroDuCoupDemande >= 0) and
                        (numeroDuCoupDemande <= nroDernierCoupAtteint) then
                      begin
 
-                       if (numeroDuCoupDemande < nbreCoup) & (numeroDuCoupDemande >= 0) then
+                       if (numeroDuCoupDemande < nbreCoup) and (numeroDuCoupDemande >= 0) then
                          begin
-                           if (GetNiemeCoupPartieCourante(numeroDuCoupDemande+1) > 0) & PeutArreterAnalyseRetrograde then
+                           if (GetNiemeCoupPartieCourante(numeroDuCoupDemande+1) > 0) and PeutArreterAnalyseRetrograde then
                              begin
                                if (numeroDuCoupDemande = nbreCoup - 1) then DoBackMove else
                                if (numeroDuCoupDemande = nbreCoup - 2) then DoDoubleBackMove else
@@ -1862,9 +1862,9 @@ begin
                              end;
                          end;
 
-                       if (numeroDuCoupDemande > nbreCoup) & (numeroDuCoupDemande <= 60) then
+                       if (numeroDuCoupDemande > nbreCoup) and (numeroDuCoupDemande <= 60) then
                          begin
-                           if (GetNiemeCoupPartieCourante(numeroDuCoupDemande) > 0) & PeutArreterAnalyseRetrograde then
+                           if (GetNiemeCoupPartieCourante(numeroDuCoupDemande) > 0) and PeutArreterAnalyseRetrograde then
                              begin
                                if (numeroDuCoupDemande = nbreCoup + 1) then DoAvanceMove else
                                if (numeroDuCoupDemande = nbreCoup + 2) then DoDoubleAvanceMove else
@@ -1916,7 +1916,7 @@ begin
                   lastMouseLocUtilisee := mouseLoc;
                   numeroPointe := PositionSourisEnNumeroDeCoupSurCourbe(mouseLoc.h - (LargeurCourbe div 120));
 
-                  if (numeroPointe >= 0) & (numeroPointe <= nroDernierCoupAtteint + 1)
+                  if (numeroPointe >= 0) and (numeroPointe <= nroDernierCoupAtteint + 1)
                     then InitCursor
                     else TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe := false;
 
@@ -1933,7 +1933,7 @@ begin
               exit(TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe);
             end;
 
-        if PtInRect(mouseLoc,zoneSensibleSlider) & EstUnClicSurSliderCourbe(mouseLoc) & (nroDernierCoupAtteint > 0) & not(enSetUp)
+        if PtInRect(mouseLoc,zoneSensibleSlider) and EstUnClicSurSliderCourbe(mouseLoc) and (nroDernierCoupAtteint > 0) and not(enSetUp)
           then
             begin
               InitCursor;
@@ -1973,15 +1973,15 @@ begin
                   if numeroCoup < nbreCoup
                     then
                       begin
-                        if (GetNiemeCoupPartieCourante(numeroCoup+1) > 0) & PeutArreterAnalyseRetrograde then
+                        if (GetNiemeCoupPartieCourante(numeroCoup+1) > 0) and PeutArreterAnalyseRetrograde then
                           DoRetourAuCoupNro(numeroCoup,true,not(CassioEstEnModeAnalyse));
                       end
                     else
                   if numeroCoup > nbreCoup
                     then
                       begin
-                        if (((numeroCoup >= nroDernierCoupAtteint) & (nroDernierCoupAtteint > 0)) | (GetNiemeCoupPartieCourante(numeroCoup + 1) > 0))
-                           & PeutArreterAnalyseRetrograde then
+                        if (((numeroCoup >= nroDernierCoupAtteint) and (nroDernierCoupAtteint > 0)) or (GetNiemeCoupPartieCourante(numeroCoup + 1) > 0))
+                           and PeutArreterAnalyseRetrograde then
                           begin
                             DoAvanceAuCoupNro(Min(numeroCoup,nroDernierCoupAtteint),not(CassioEstEnModeAnalyse));
                           end;
@@ -1991,7 +1991,7 @@ begin
           else
            if PtInRect(mouseLoc,zoneSensibleSlider) then
              begin
-               if EstUnClicSurSliderCourbe(mouseLoc) & not(enSetUp) then TraiteClicSurSliderCourbe(mouseLoc);
+               if EstUnClicSurSliderCourbe(mouseLoc) and not(enSetUp) then TraiteClicSurSliderCourbe(mouseLoc);
              end;
 
 
@@ -2032,7 +2032,7 @@ begin
 
   gCourbeData.dernierTickCommentaire := TickCount;
 
-  if windowCourbeOpen & DoitEcrireCommentaireCourbe then
+  if windowCourbeOpen and DoitEcrireCommentaireCourbe then
   with gCourbeData do
     begin
       GetPort(oldport);
@@ -2041,7 +2041,7 @@ begin
       EraseRectFenetreCourbe(commentaireRect);
       MyEraseRectWithColor(commentaireRect,BleuCmd,blackPattern,'EcritCommentaireCourbe');
 
-      if (nroCoup >= 1) & (nroCoup <= nroDernierCoupAtteint) & (GetNiemeCoupPartieCourante(nroCoup) > 0) then
+      if (nroCoup >= 1) and (nroCoup <= nroDernierCoupAtteint) and (GetNiemeCoupPartieCourante(nroCoup) > 0) then
         begin
           dernierCommentaireAffiche := nroCoup;
 
@@ -2179,7 +2179,7 @@ begin
 
 
       GetPort(oldPort);
-      if gUseOffScreenCourbe &
+      if gUseOffScreenCourbe and
          FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
          then
            begin
@@ -2292,7 +2292,7 @@ begin
   WriteDebugageCourbe('');
   WriteDebugageCourbe('Entree dans CreateBackgroundOffScreenSiNecessaire...');
 
-  if windowCourbeOpen & CassioIsUtiliseImageDeFondPourLaCourbe then
+  if windowCourbeOpen and CassioIsUtiliseImageDeFondPourLaCourbe then
     with gCourbeBackground do
       begin
 
@@ -2309,7 +2309,7 @@ begin
             bottom := bottom - b;
           end;
 
-        if (courbeWindowRect.right <> courbeWindowRectLastCheck.right) |
+        if (courbeWindowRect.right <> courbeWindowRectLastCheck.right) or
            (courbeWindowRect.bottom <> courbeWindowRectLastCheck.bottom) then
           begin
             courbeWindowRectLastCheck := courbeWindowRect;
@@ -2317,7 +2317,7 @@ begin
             KillTempOffscreenWorld(offScreenWorld);
 
 
-            if gUseOffScreenCourbe &
+            if gUseOffScreenCourbe and
                FenetreCourbeEstSuffisammentPetitePourUtiliserOffscreen
                then offScreenRect := gOffScreenCourbeRect
                else offScreenRect := courbeWindowRect;

@@ -211,17 +211,17 @@ begin
   WritelnNumDansRapport('   => solde = ',SoldeCreationProperties);}
 
   with p do
-   if (stockage = StockageEnLongint)         |    {type casting sur le Ptr ou la taille ? }
-      (stockage = StockageEnCaseOthello)     |
-      (stockage = StockageEnEnsembleDeCases) |
-      (stockage = StockageEnSeptCaracteres)  |
-      (stockage = StockageEnTriple)          |
-      (stockage = StockageEnBooleen)         |
-      (stockage = StockageEnChar)            |
-      (stockage = StockageArgumentVide)      |
-      (stockage = StockageEnValeurOthello)   |
-      (stockage = StockageEnCoupleLongint)   |
-      (stockage = StockageEnCoupleCases)     |
+   if (stockage = StockageEnLongint)         or    {type casting sur le Ptr ou la taille ? }
+      (stockage = StockageEnCaseOthello)     or
+      (stockage = StockageEnEnsembleDeCases) or
+      (stockage = StockageEnSeptCaracteres)  or
+      (stockage = StockageEnTriple)          or
+      (stockage = StockageEnBooleen)         or
+      (stockage = StockageEnChar)            or
+      (stockage = StockageArgumentVide)      or
+      (stockage = StockageEnValeurOthello)   or
+      (stockage = StockageEnCoupleLongint)   or
+      (stockage = StockageEnCoupleCases)     or
       (stockage = StockageEnQuintuplet)
       then
         begin
@@ -252,25 +252,25 @@ type longintPtr =  ^SInt32;
 var  p1,p2 : longintPtr;
      compteur,borne : SInt32;
 begin
-  if (prop1.genre = prop2.genre) & (prop1.stockage = prop2.stockage) & (prop1.taille = prop2.taille) then
+  if (prop1.genre = prop2.genre) and (prop1.stockage = prop2.stockage) and (prop1.taille = prop2.taille) then
      begin
        { gestion speciale pour les proprietes dont ou on a fait du type casting :
          il suffit de verifier que  prop1.taille = prop2.taille (deja fait) et
          que prop1.info = prop2.info }
-       if (prop1.stockage = StockageEnLongint)         |    {type casting sur le Ptr ou la taille ? }
-          (prop1.stockage = StockageEnCaseOthello)     |
-          (prop1.stockage = StockageEnEnsembleDeCases) |
-          (prop1.stockage = StockageEnSeptCaracteres)  |
-          (prop1.stockage = StockageEnTriple)          |
-          (prop1.stockage = StockageEnBooleen)         |
-          (prop1.stockage = StockageEnChar)            |
-          (prop1.stockage = StockageArgumentVide)      |
-          (prop1.stockage = StockageEnValeurOthello)   |
-          (prop1.stockage = StockageEnCoupleLongint)   |
-          (prop1.stockage = StockageEnCoupleCases)     |
+       if (prop1.stockage = StockageEnLongint)         or    {type casting sur le Ptr ou la taille ? }
+          (prop1.stockage = StockageEnCaseOthello)     or
+          (prop1.stockage = StockageEnEnsembleDeCases) or
+          (prop1.stockage = StockageEnSeptCaracteres)  or
+          (prop1.stockage = StockageEnTriple)          or
+          (prop1.stockage = StockageEnBooleen)         or
+          (prop1.stockage = StockageEnChar)            or
+          (prop1.stockage = StockageArgumentVide)      or
+          (prop1.stockage = StockageEnValeurOthello)   or
+          (prop1.stockage = StockageEnCoupleLongint)   or
+          (prop1.stockage = StockageEnCoupleCases)     or
           (prop1.stockage = StockageEnQuintuplet)      then
           begin
-            SameProperties := (prop1.info = prop2.info) & (prop1.taille = prop2.taille);
+            SameProperties := (prop1.info = prop2.info) and (prop1.taille = prop2.taille);
             exit(SameProperties);
           end;
 
@@ -298,7 +298,7 @@ end;
 function PropertyEstVide(prop : Property) : boolean;
 begin
   with prop do
-    PropertyEstVide := (genre = UnknowProp) & (taille = 0) & (info = NIL) & (stockage = StockageInconnu);
+    PropertyEstVide := (genre = UnknowProp) and (taille = 0) and (info = NIL) and (stockage = StockageInconnu);
 end;
 
 
@@ -308,7 +308,7 @@ begin
   // (celles renvoyee par MakeEmptyProperty), sinon CreateOneElementPropertyList
   // risque de boucler et il faut (au moins) changer CreateOneElementPropertyList...
   with prop do
-    PropertyEstValide := (genre >= UnknowProp) & (genre <= nbMaxOfPropertyTypes);
+    PropertyEstValide := (genre >= UnknowProp) and (genre <= nbMaxOfPropertyTypes);
 end;
 
 
@@ -335,34 +335,34 @@ end;
 function TypeCastingPourCeStockage(stockage : SInt16) : boolean;
 begin
   TypeCastingPourCeStockage  :=
-     (stockage = StockageEnLongint)            |     {type casting sur le Ptr ou la taille ? }
-     (stockage = StockageEnCaseOthello)        |
-     (stockage = StockageEnEnsembleDeCases)    |
-     (stockage = StockageEnSeptCaracteres)     |
-     (stockage = StockageEnTriple)             |
-     (stockage = StockageEnBooleen)            |
-     (stockage = StockageEnChar)               |
-     (stockage = StockageArgumentVide)         |
-     (stockage = StockageEnValeurOthello)      |
-     (stockage = StockageEnCoupleLongint)      |
-     (stockage = StockageEnCoupleCases)        |
+     (stockage = StockageEnLongint)            or     {type casting sur le Ptr ou la taille ? }
+     (stockage = StockageEnCaseOthello)        or
+     (stockage = StockageEnEnsembleDeCases)    or
+     (stockage = StockageEnSeptCaracteres)     or
+     (stockage = StockageEnTriple)             or
+     (stockage = StockageEnBooleen)            or
+     (stockage = StockageEnChar)               or
+     (stockage = StockageArgumentVide)         or
+     (stockage = StockageEnValeurOthello)      or
+     (stockage = StockageEnCoupleLongint)      or
+     (stockage = StockageEnCoupleCases)        or
      (stockage = StockageEnQuintuplet);
 end;
 
 function DuplicateProperty(prop : Property) : Property;
 var aux : Property;
 begin
-  if (prop.stockage = StockageEnLongint)            |     {type casting sur le Ptr ou la taille ? }
-     (prop.stockage = StockageEnCaseOthello)        |
-     (prop.stockage = StockageEnEnsembleDeCases)    |
-     (prop.stockage = StockageEnSeptCaracteres)     |
-     (prop.stockage = StockageEnTriple)             |
-     (prop.stockage = StockageEnBooleen)            |
-     (prop.stockage = StockageEnChar)               |
-     (prop.stockage = StockageArgumentVide)         |
-     (prop.stockage = StockageEnValeurOthello)      |
-     (prop.stockage = StockageEnCoupleLongint)      |
-     (prop.stockage = StockageEnCoupleCases)        |
+  if (prop.stockage = StockageEnLongint)            or     {type casting sur le Ptr ou la taille ? }
+     (prop.stockage = StockageEnCaseOthello)        or
+     (prop.stockage = StockageEnEnsembleDeCases)    or
+     (prop.stockage = StockageEnSeptCaracteres)     or
+     (prop.stockage = StockageEnTriple)             or
+     (prop.stockage = StockageEnBooleen)            or
+     (prop.stockage = StockageEnChar)               or
+     (prop.stockage = StockageArgumentVide)         or
+     (prop.stockage = StockageEnValeurOthello)      or
+     (prop.stockage = StockageEnCoupleLongint)      or
+     (prop.stockage = StockageEnCoupleCases)        or
      (prop.stockage = StockageEnQuintuplet)
     then
       begin
@@ -375,7 +375,7 @@ begin
       end
     else
       begin
-			  if (prop.info = NIL) | (prop.taille <= 0)
+			  if (prop.info = NIL) or (prop.taille <= 0)
 			    then aux := MakeEmptyProperty
 			    else
 			      begin
@@ -477,12 +477,12 @@ end;
 function MakeSquareCoupleProperty(whichType : SInt16; whichSquare1,whichSquare2 : SInt16) : Property;
 var aux : Property;
 begin
-  if (whichSquare1 < 11) | (whichSquare1 > 88) |
-     (whichSquare2 < 11) | (whichSquare2 > 88)
+  if (whichSquare1 < 11) or (whichSquare1 > 88) or
+     (whichSquare2 < 11) or (whichSquare2 > 88)
     then aux := MakeEmptyProperty
     else
       begin
-        if (whichType = LineProp) & (whichSquare1 > whichSquare2)  {on ordonne les LineProp...}
+        if (whichType = LineProp) and (whichSquare1 > whichSquare2)  {on ordonne les LineProp...}
           then aux := MakeCoupleLongintProperty(whichType,whichSquare2,whichSquare1)
           else aux := MakeCoupleLongintProperty(whichType,whichSquare1,whichSquare2);
         aux.stockage := StockageEnCoupleCases;
@@ -542,7 +542,7 @@ end;
 function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;
 var aux : Property;
 begin
-  if (whichSquare < 11) | (whichSquare > 88)
+  if (whichSquare < 11) or (whichSquare > 88)
     then aux := MakeEmptyProperty
     else
       begin
@@ -556,7 +556,7 @@ function MakeOthelloSquareAlphaProperty(whichType : SInt16; whichSquare : SInt16
 var s : String255;
     aux : Property;
 begin
-  if (whichSquare < 11) | (whichSquare > 88)
+  if (whichSquare < 11) or (whichSquare > 88)
     then aux := MakeEmptyProperty
     else
       begin
@@ -654,7 +654,7 @@ var aux : Property;
     s1,s2 : String255;
 begin
 
-  if (whichIntegerValue = 0) & (centiemes = 0)
+  if (whichIntegerValue = 0) and (centiemes = 0)
     then whichSign := +1;
 
   c := 'D';
@@ -674,13 +674,13 @@ begin
       whichIntegerValue := -whichIntegerValue;
     end;
 
-  if (whichIntegerValue >= 0) & (whichIntegerValue <= 999)
+  if (whichIntegerValue >= 0) and (whichIntegerValue <= 999)
     then s1 := NumEnString(whichIntegerValue)
     else s1 := '0';
 
-  if (centiemes <= 0) | (centiemes >= 100) then s2 := '.00' else
-  if (centiemes >= 0) & (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
-  if (centiemes  >= 10) & (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
+  if (centiemes <= 0) or (centiemes >= 100) then s2 := '.00' else
+  if (centiemes >= 0) and (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
+  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
 
   {
   WriteNumDansRapport('signe = ',whichSign);
@@ -706,7 +706,7 @@ function MakeScoringProperty(quelGenreDeReflexion,scorePourNoir : SInt32) : Prop
 var scoreProperty : Property;
 begin
 
-  if ((scorePourNoir < -64) | (scorePourNoir > 64)) &
+  if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
      not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
     begin
       WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans MakeScoringProperty(ReflParfait), prŽvenez StŽphane !');
@@ -728,7 +728,7 @@ begin
             WritelnNumDansRapport('BIZARRE : score impair dans MakeScoringProperty {1}, scorePourNoir = ',scorePourNoir);
           end;
 
-        if (scorePourNoir > 64) | (scorePourNoir < -64) then
+        if (scorePourNoir > 64) or (scorePourNoir < -64) then
           begin
             Sysbeep(0);
             WritelnNumDansRapport('ASSERT : score out of range dans MakeScoringProperty {2}, scorePourNoir = ',scorePourNoir);
@@ -741,7 +741,7 @@ begin
         if (scorePourNoir < 0) then scoreProperty := MakeTripleProperty(GoodForWhiteProp,MakeTriple(1)) else
         if (scorePourNoir = 0) then scoreProperty := MakeValeurOthelloProperty(NodeValueProp,pionNoir,+1,0,0);
 
-        if (scorePourNoir > 64) | (scorePourNoir < -64) then
+        if (scorePourNoir > 64) or (scorePourNoir < -64) then
           begin
             Sysbeep(0);
             WritelnNumDansRapport('ASSERT : score out of range dans MakeScoringProperty {4}, scorePourNoir = ',scorePourNoir);
@@ -920,7 +920,7 @@ function GetCharOfProperty(prop : Property) : char;
 var aux : SInt32;
 begin
   aux := GetLongintInfoOfProperty(prop);
-  if (aux >= 0) & (aux <= 255)
+  if (aux >= 0) and (aux <= 255)
     then GetCharOfProperty := chr(aux)
     else GetCharOfProperty := chr(0);
 end;
@@ -937,12 +937,12 @@ begin
   prop.stockage := oldStockage;
 
   whichColor := pionVide;
-  if (chr(theChar) = 'B') | (chr(theChar) = 'b') then whichColor := pionNoir else
-  if (chr(theChar) = 'W') | (chr(theChar) = 'w') then whichColor := pionBlanc;
+  if (chr(theChar) = 'B') or (chr(theChar) = 'b') then whichColor := pionNoir else
+  if (chr(theChar) = 'W') or (chr(theChar) = 'w') then whichColor := pionBlanc;
 
   whichSign := +1;
-  if (chr(theChar) = 'b') | (chr(theChar) = 'w') then whichSign := -1 else
-  if (chr(theChar) = 'B') | (chr(theChar) = 'W') then whichSign := +1;
+  if (chr(theChar) = 'b') or (chr(theChar) = 'w') then whichSign := -1 else
+  if (chr(theChar) = 'B') or (chr(theChar) = 'W') then whichSign := +1;
 
   s := valueString;
   realValue := StringSimpleEnReel(s);
@@ -968,7 +968,7 @@ begin
           begin
             GetOthelloValueOfProperty(prop,couleurDansProp,signe,scoreEntierDansProp,centiemesDansProp);
 
-            if (scoreEntierDansProp = 0) & (centiemesDansProp = 0)
+            if (scoreEntierDansProp = 0) and (centiemesDansProp = 0)
              then
                begin
                  scoreMinPourNoir := 0;
@@ -1016,12 +1016,12 @@ begin
                  end;{case}
 
                  { cas speciaux venant des properties V[B+] et V[W+] }
-                 if (scoreMinPourNoir = 1) & (scoreMaxPourNoir = 1) then
+                 if (scoreMinPourNoir = 1) and (scoreMaxPourNoir = 1) then
                    begin
                      scoreMinPourNoir := 2;
                      scoreMaxPourNoir := 64;
                    end;
-                 if (scoreMinPourNoir = -1) & (scoreMaxPourNoir = -1) then
+                 if (scoreMinPourNoir = -1) and (scoreMaxPourNoir = -1) then
                    begin
                      scoreMinPourNoir := -64;
                      scoreMaxPourNoir := -2;
@@ -1040,8 +1040,8 @@ begin
           end;
       end; {case}
 
-      CetteCouleurAAuMoinsUnGainDansProperty := ((couleur = pionNoir)  & (scoreMinPourNoir >= 1)) |
-                                                ((couleur = pionBlanc) & (scoreMaxPourNoir <= -1));
+      CetteCouleurAAuMoinsUnGainDansProperty := ((couleur = pionNoir)  and (scoreMinPourNoir >= 1)) or
+                                                ((couleur = pionBlanc) and (scoreMaxPourNoir <= -1));
     end;
 end;
 
@@ -1120,7 +1120,7 @@ procedure GetPointeurPropertyOfProperty(prop : Property; var node : GameTree; va
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1140,7 +1140,7 @@ function GetPossesseurOfPointeurPropertyProperty(prop : Property) : GameTree;
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1154,7 +1154,7 @@ function GetPropertyPtrOfProperty(prop : Property) : PropertyPtr;
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1168,7 +1168,7 @@ function GetRectangleAffichageOfProperty(prop : Property) : rect;
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1330,7 +1330,7 @@ var c : char;
     oldStockage : SInt16;
 begin
 
-  if (whichIntegerValue = 0) & (centiemes = 0)
+  if (whichIntegerValue = 0) and (centiemes = 0)
     then whichSign := +1;
 
   c := 'D';
@@ -1350,13 +1350,13 @@ begin
       whichIntegerValue := -whichIntegerValue;
     end;
 
-  if (whichIntegerValue >= 0) & (whichIntegerValue <= 999)
+  if (whichIntegerValue >= 0) and (whichIntegerValue <= 999)
     then s1 := NumEnString(whichIntegerValue)
     else s1 := '0';
 
-  if (centiemes <= 0) | (centiemes >= 100) then s2 := '.00' else
-  if (centiemes  >= 1)  & (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
-  if (centiemes  >= 10) & (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
+  if (centiemes <= 0) or (centiemes >= 100) then s2 := '.00' else
+  if (centiemes  >= 1)  and (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
+  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
 
   oldStockage := prop.stockage;
   prop.stockage := StockageEnSeptCaracteres;
@@ -1386,9 +1386,9 @@ procedure AddTexteToProperty(var prop : Property; texte : Ptr; longueur : SInt32
 var oldTaille,newTaille : SInt32;
     newSpace : Ptr;
 begin
-  if (prop.stockage = StockageEnTexte) & (longueur > 0) then
+  if (prop.stockage = StockageEnTexte) and (longueur > 0) then
     begin
-      if (prop.taille <= 0) | (prop.info = NIL)
+      if (prop.taille <= 0) or (prop.info = NIL)
         then SetTexteOfProperty(prop,texte,longueur)
         else
           begin
@@ -1416,7 +1416,7 @@ procedure SetPossesseurOfPointeurPropertyProperty(var prop : Property; noeud : G
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1428,7 +1428,7 @@ procedure SetPropertyPtrOfProperty(var prop : Property; adresse : PropertyPtr);
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1440,7 +1440,7 @@ procedure SetRectangleAffichageOfProperty(var prop : Property; whichRect : rect)
 type PropertyLocalisationPtr =  ^PropertyLocalisation;
 var infosProperty : PropertyLocalisationPtr;
 begin
-  if (prop.stockage = StockageEnPtrProperty) & (prop.info <> NIL)
+  if (prop.stockage = StockageEnPtrProperty) and (prop.info <> NIL)
     then
 	    begin
 	      infosProperty := PropertyLocalisationPtr(prop.info);
@@ -1450,7 +1450,7 @@ end;
 
 procedure SetCoupleLongintInfoOfProperty(var prop : Property; whichLongint1,whichLongint2 : SInt32);
 begin
-  if (prop.genre = LineProp) & (whichLongint1 > whichLongint2)  {on ordonne les LineProp...}
+  if (prop.genre = LineProp) and (whichLongint1 > whichLongint2)  {on ordonne les LineProp...}
     then
       begin
         prop.taille  := whichLongint2;          {attention : type casting}
@@ -1526,7 +1526,7 @@ var myZone : FichierAbstrait;
     theProp : Property;
 begin
 
-  if (Pos('[', s) > 0) & (Pos(']', s) > 0) & not(LectureSmartGameBoardEnCours)
+  if (Pos('[', s) > 0) and (Pos(']', s) > 0) and not(LectureSmartGameBoardEnCours)
     then
       begin
         myZone := MakeFichierAbstraitFromString(s);
@@ -1856,12 +1856,12 @@ begin
                                        then s := '[true]'
                                        else s := '[false]';
         StockageEnChar             : s := Concat('[',GetCharOfProperty(prop),']');
-        StockageArgumentVide       : if (prop.genre = BlackPassProp) | (prop.genre = WhitePassProp)
+        StockageArgumentVide       : if (prop.genre = BlackPassProp) or (prop.genre = WhitePassProp)
                                        then s := '[tt]'
                                        else s := '[]';
         StockageEnValeurOthello    : begin
                                        GetOthelloValueOfProperty(prop,theColor,theSign,theIntValue,theCentiemes);
-                                       if (theIntValue = 0) & (theCentiemes = 0)
+                                       if (theIntValue = 0) and (theCentiemes = 0)
                                          then s := '[0]'
                                          else
                                            begin
@@ -1882,7 +1882,7 @@ begin
 			                                             else s := Concat(s,'+',NumEnString(-theIntValue));
 
 			                                       {toujours ecrire la partie decimale}
-			                                       if (theCentiemes > 0) | (prop.genre = ComputerEvaluationProp) | (prop.genre = ZebraBookProp) then
+			                                       if (theCentiemes > 0) or (prop.genre = ComputerEvaluationProp) or (prop.genre = ZebraBookProp) then
 			                                         begin
 					                                       s1 := NumEnString(theCentiemes);
 					                                       if (theCentiemes <= 9)

@@ -152,7 +152,7 @@ var n,m,j : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
   m := DimensionDuPointMultidimensionnel(result);
-  if (n <= 0) | (m <= 0) | (n <> m)
+  if (n <= 0) or (m <= 0) or (n <> m)
     then WritelnDansRapport('Erreur dans HomothetiePointMultidimensionnel !!')
     else
       for j := 1 to n do
@@ -165,7 +165,7 @@ var n,m,j : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
   m := DimensionDuPointMultidimensionnel(result);
-  if (n <= 0) | (m <= 0) | (n <> m)
+  if (n <= 0) or (m <= 0) or (n <> m)
     then WritelnDansRapport('Erreur dans NegationPointMultidimensionnel !!')
     else
       for j := 1 to n do
@@ -178,7 +178,7 @@ var n,m,j : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
   m := DimensionDuPointMultidimensionnel(result);
-  if (n <= 0) | (m <= 0) | (n <> m)
+  if (n <= 0) or (m <= 0) or (n <> m)
     then WritelnDansRapport('Erreur dans ValeurAbsoluePointMultidimensionnel !!')
     else
       for j := 1 to n do
@@ -191,7 +191,7 @@ var n,m,j : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
   m := DimensionDuPointMultidimensionnel(result);
-  if (n <= 0) | (m <= 0) | (n <> m)
+  if (n <= 0) or (m <= 0) or (n <> m)
     then WritelnDansRapport('Erreur dans MaxPointMultidimensionnel !!')
     else
       for j := 1 to n do
@@ -208,7 +208,7 @@ var n,m,j : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
   m := DimensionDuPointMultidimensionnel(result);
-  if (n <= 0) | (m <= 0) | (n <> m)
+  if (n <= 0) or (m <= 0) or (n <> m)
     then WritelnDansRapport('Erreur dans MinPointMultidimensionnel !!')
     else
       for j := 1 to n do
@@ -226,8 +226,8 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   m := DimensionDuPointMultidimensionnel(resultat);
-  if (n1 <= 0) | (n2 <= 0) | (m <= 0) |
-     (n1 <> n2) | (n1 <> m) | (n2 <> m)
+  if (n1 <= 0) or (n2 <= 0) or (m <= 0) or
+     (n1 <> n2) or (n1 <> m) or (n2 <> m)
     then WritelnDansRapport('Erreur dans AddPointMultidimensionnel !!')
     else
       for j := 1 to m do
@@ -241,8 +241,8 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   m := DimensionDuPointMultidimensionnel(resultat);
-  if (n1 <= 0) | (n2 <= 0) | (m <= 0) |
-     (n1 <> n2) | (n1 <> m) | (n2 <> m)
+  if (n1 <= 0) or (n2 <= 0) or (m <= 0) or
+     (n1 <> n2) or (n1 <> m) or (n2 <> m)
     then WritelnDansRapport('Erreur dans DiffPointMultidimensionnel !!')
     else
       for j := 1 to m do
@@ -257,12 +257,12 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   m := DimensionDuPointMultidimensionnel(resultat);
-  if (n1 <= 0) | (n2 <= 0) | (m <= 0) |
-     (n1 <> n2) | (n1 <> m) | (n2 <> m)
+  if (n1 <= 0) or (n2 <= 0) or (m <= 0) or
+     (n1 <> n2) or (n1 <> m) or (n2 <> m)
     then WritelnDansRapport('Erreur dans DivisionPointMultidimensionnel !!')
     else
       for j := 1 to m do
-        if (p2^[j] > eps) | (p2^[j] < -eps)
+        if (p2^[j] > eps) or (p2^[j] < -eps)
           then resultat^[j] := p1^[j]/p2^[j]
           else resultat^[j] := p1^[j];
 end;
@@ -276,18 +276,18 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   m := DimensionDuPointMultidimensionnel(resultat);
-  if (n1 <= 0) | (n2 <= 0) | (m <= 0) |
-     (n1 <> n2) | (n1 <> m) | (n2 <> m)
+  if (n1 <= 0) or (n2 <= 0) or (m <= 0) or
+     (n1 <> n2) or (n1 <> m) or (n2 <> m)
     then WritelnDansRapport('Erreur dans DivisionBorneePointMultidimensionnel !!')
     else
       for j := 1 to m do
-        if (p2^[j] > eps) | (p2^[j] < -eps)
+        if (p2^[j] > eps) or (p2^[j] < -eps)
           then
             begin
               if borne <> 0.0
                 then aux := p2^[j]/borne
                 else aux := 1.0;
-              if (aux > 1.0) | (aux <= 0.0) then aux := 1.0;
+              if (aux > 1.0) or (aux <= 0.0) then aux := 1.0;
               resultat^[j] := p1^[j]*aux/p2^[j];
             end
           else resultat^[j] := p1^[j];
@@ -299,7 +299,7 @@ var n1,n2,j : SInt32;
 begin
   n1 := DimensionDuPointMultidimensionnel(source);
   n2 := DimensionDuPointMultidimensionnel(dest);
-  if (n1 <> n2) | (n1 <= 0) | (n2 <= 0)
+  if (n1 <> n2) or (n1 <= 0) or (n2 <= 0)
     then WritelnDansRapport('Erreur dans CopierPointMultidimensionnel !!')
     else
       for j := 1 to n1 do
@@ -312,7 +312,7 @@ var n1,n2,j : SInt32;
 begin
   n1 := DimensionDuPointMultidimensionnel(source);
   n2 := DimensionDuPointMultidimensionnel(dest);
-  if (n1 <> n2) | (n1 <= 0) | (n2 <= 0)
+  if (n1 <> n2) or (n1 <= 0) or (n2 <= 0)
     then WritelnDansRapport('Erreur dans CopierOpposePointMultidimensionnel !!')
     else
       for j := 1 to n1 do
@@ -328,7 +328,7 @@ begin
   sum := 0.0;
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
-  if (n1 <> n2) | (n1 <= 0) | (n2 <= 0)
+  if (n1 <> n2) or (n1 <= 0) or (n2 <= 0)
     then WritelnDansRapport('Erreur dans ProduitScalairePointMultidimensionnel !!')
     else
       for j := 1 to n1 do
@@ -343,8 +343,8 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   m := DimensionDuPointMultidimensionnel(resultat);
-  if (n1 <= 0) | (n2 <= 0) | (m <= 0) |
-     (n1 <> n2) | (n1 <> m) | (n2 <> m)
+  if (n1 <= 0) or (n2 <= 0) or (m <= 0) or
+     (n1 <> n2) or (n1 <> m) or (n2 <> m)
     then WritelnDansRapport('Erreur dans CombinaisonLineairePointMultidimensionnel !!')
     else
       for j := 1 to m do
@@ -364,8 +364,8 @@ begin
   n1 := DimensionDuPointMultidimensionnel(p1);
   n2 := DimensionDuPointMultidimensionnel(p2);
   n3 := DimensionDuPointMultidimensionnel(p3);
-  if (n1 <= 0) | (n2 <= 0) | (n3 <= 0) |
-     (n1 <> n2) | (n1 <> n3) | (n2 <> n3)
+  if (n1 <= 0) or (n2 <= 0) or (n3 <= 0) or
+     (n1 <> n2) or (n1 <> n3) or (n2 <> n3)
     then WritelnDansRapport('Erreur dans CombinaisonScalairePointMultidimensionnel !!')
     else
       for j := 1 to n1 do
@@ -410,7 +410,7 @@ var InfosTri :
 
 function LitIndexTriPointMultidimensionnel(index : SInt32) : SInt32;
 begin
-  if (index < 1) | (index > InfosTri.TailleVecteur)
+  if (index < 1) or (index > InfosTri.TailleVecteur)
     then
       begin
         WritelnNumDansRapport('pb dans LitIndexTriPointMultidimensionnel !! index = ',index);
@@ -423,7 +423,7 @@ end;
 
 procedure AffecteIndexTriPointMultidimensionnel(index,element : SInt32);
 begin
-  if (index < 1) | (index > InfosTri.TailleVecteur)
+  if (index < 1) or (index > InfosTri.TailleVecteur)
     then
       begin
         WritelnNumDansRapport('pb dans AffecteIndexTriPointMultidimensionnel !! index = ',index);
@@ -435,13 +435,13 @@ end;
 
 function OrdreTriPointMultidimensionnel(element1,element2 : SInt32) : boolean;
 begin
-  if (element1 < 1) | (element1 > InfosTri.TailleVecteur) then
+  if (element1 < 1) or (element1 > InfosTri.TailleVecteur) then
     begin
       WritelnNumDansRapport('pb dans OrdreTriPointMultidimensionnel !! element1 = ',element1);
       OrdreTriPointMultidimensionnel := false;
       exit(OrdreTriPointMultidimensionnel);
     end;
-  if (element2 < 1) | (element2 > InfosTri.TailleVecteur) then
+  if (element2 < 1) or (element2 > InfosTri.TailleVecteur) then
     begin
       WritelnNumDansRapport('pb dans OrdreTriPointMultidimensionnel !! element2 = ',element2);
       OrdreTriPointMultidimensionnel := false;

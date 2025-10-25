@@ -142,7 +142,7 @@ var rect1,rect2 : rect;
     titre : String255;
 begin  {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,8);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wGestionPtr := MyNewCWindow(NIL,FntrGestionRect,titre,false,documentProc,behind,true,0);
@@ -178,7 +178,7 @@ var rect1,rect2 : rect;
     titre : String255;
 begin  {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,11);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    if wNuagePtr = NIL
@@ -216,7 +216,7 @@ var rect1,rect2 : rect;
 begin {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,7);
    titre := 'Ê'+titre;
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wReflexPtr := MyNewCWindow(NIL,FntrReflexRect,titre,false,documentProc,behind,true,0);
@@ -226,7 +226,7 @@ begin {$unused avecAnimationZoom}
      begin
         DeactivateFrontWindowSaufPalette;
         SetRect(rect1,ecranRect.right-29,2,ecranRect.right-13,18);
-        if windowPaletteOpen & (wPalettePtr <> NIL) then
+        if windowPaletteOpen and (wPalettePtr <> NIL) then
           GetRectDansPalette(PaletteReflexion,rect1);
         rect2 := FntrReflexRect;
         rect2.top := rect2.top-18;
@@ -253,7 +253,7 @@ var rect1,rect2 : rect;
     titre : String255;
 begin {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,3);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wListePtr := MyNewCWindow(NIL,FntrListeRect,titre,false,zoomDocProc,behind,true,0);
@@ -262,7 +262,7 @@ begin {$unused avecAnimationZoom}
      begin
         DeactivateFrontWindowSaufPalette;
         SetRect(rect1,ecranRect.right-29,2,ecranRect.right-13,18);
-        if windowPaletteOpen & (wPalettePtr <> NIL) then
+        if windowPaletteOpen and (wPalettePtr <> NIL) then
           GetRectDansPalette(PaletteListe,rect1);
         rect2 := FntrListeRect;
         rect2.top := rect2.top-18;
@@ -291,7 +291,7 @@ var rect1,rect2 : rect;
     titre : String255;
 begin {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,4);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wStatPtr := MyNewCWindow(NIL,FntrStatRect,titre,false,documentProc,behind,true,0);
@@ -300,7 +300,7 @@ begin {$unused avecAnimationZoom}
      begin
         DeactivateFrontWindowSaufPalette;
         SetRect(rect1,ecranRect.right-29,2,ecranRect.right-13,18);
-        if windowPaletteOpen & (wPalettePtr <> NIL) then
+        if windowPaletteOpen and (wPalettePtr <> NIL) then
           GetRectDansPalette(PaletteStatistique,rect1);
         rect2 := FntrStatRect;
         rect2.top := rect2.top-18;
@@ -330,7 +330,7 @@ var behind : WindowPtr;
 begin {$unused avecAnimationZoom}
   with arbreDeJeu do
     begin
-		  if (wPalettePtr <> NIL) & windowPaletteOpen
+		  if (wPalettePtr <> NIL) and windowPaletteOpen
 		     then behind := wPalettePtr
 		     else behind := FenetreFictiveAvantPlan;
 		   theDialog := GetNewDialog(CommentairesID,NIL,behind);
@@ -375,7 +375,7 @@ begin
    titre := ReadStringFromRessource(TitresFenetresTextID,2);
    behind := FenetreFictiveAvantPlan;
 
-   if false & gIsRunningUnderMacOSX then
+   if false and gIsRunningUnderMacOSX then
      begin
        inc(FntrPaletteRect.right);
        inc(FntrPaletteRect.bottom);
@@ -413,7 +413,7 @@ var rect1,rect2 : rect;
     titre : String255;
 begin {$unused avecAnimationZoom}
    titre := ReadStringFromRessource(TitresFenetresTextID,6);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
    wCourbePtr := MyNewCWindow(NIL,FntrCourbeRect,titre,false,zoomDocProc,behind,true,0);
@@ -422,7 +422,7 @@ begin {$unused avecAnimationZoom}
      begin
         DeactivateFrontWindowSaufPalette;
         SetRect(rect1,ecranRect.right-29,2,ecranRect.right-13,18);
-        if windowPaletteOpen & (wPalettePtr <> NIL) then
+        if windowPaletteOpen and (wPalettePtr <> NIL) then
           GetRectDansPalette(PaletteCourbe,rect1);
         rect2 := FntrCourbeRect;
         rect2.top := rect2.top-18;
@@ -447,7 +447,7 @@ var behind : WindowPtr;
     titre : String255;
 begin
    titre := ReadStringFromRessource(TitresFenetresTextID,10);
-   if (wPalettePtr <> NIL) & windowPaletteOpen
+   if (wPalettePtr <> NIL) and windowPaletteOpen
      then behind := wPalettePtr
      else behind := FenetreFictiveAvantPlan;
 
@@ -579,7 +579,7 @@ var oldPort : grafPtr;
       LocalToGlobal(FntrCourbeRect.botright);
       SetPort(oldport);
       SetRect(CloseZoomRectTo,ecranRect.right-29,2,ecranRect.right-13,18);
-      if windowPaletteOpen & (wPalettePtr <> NIL) then
+      if windowPaletteOpen and (wPalettePtr <> NIL) then
         GetRectDansPalette(PaletteCourbe,CloseZoomRectTo);
       CloseZoomRectFrom := FntrCourbeRect;
       CloseZoomRectFrom.top := CloseZoomRectFrom.top-18;
@@ -689,7 +689,7 @@ var oldPort : grafPtr;
       LocalToGlobal(FntrReflexRect.botright);
       SetPort(oldport);
       SetRect(CloseZoomRectTo,ecranRect.right-29,2,ecranRect.right-13,18);
-      if windowPaletteOpen & (wPalettePtr <> NIL) then
+      if windowPaletteOpen and (wPalettePtr <> NIL) then
         GetRectDansPalette(PaletteReflexion,CloseZoomRectTo);
       CloseZoomRectFrom := FntrReflexRect;
       CloseZoomRectFrom.top := CloseZoomRectFrom.top-18;
@@ -716,7 +716,7 @@ var oldPort : grafPtr;
       LocalToGlobal(FntrListeRect.botright);
       SetPort(oldport);
       SetRect(CloseZoomRectTo,ecranRect.right-29,2,ecranRect.right-13,18);
-      if windowPaletteOpen & (wPalettePtr <> NIL) then
+      if windowPaletteOpen and (wPalettePtr <> NIL) then
         GetRectDansPalette(PaletteListe,CloseZoomRectTo);
       CloseZoomRectFrom := FntrListeRect;
       CloseZoomRectFrom.top := CloseZoomRectFrom.top-18;
@@ -733,7 +733,7 @@ var oldPort : grafPtr;
       EmpileFenetresSousPalette;
       EssaieSetPortWindowPlateau;
       if not(Quitter) then
-        if (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) & not(windowListeOpen | windowStatOpen)
+        if (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) and not(windowListeOpen or windowStatOpen)
           then
             begin
               AjusteAffichageFenetrePlatRapide;
@@ -760,7 +760,7 @@ var oldPort : grafPtr;
       LocalToGlobal(FntrStatRect.botright);
       SetPort(oldport);
       SetRect(CloseZoomRectTo,ecranRect.right-29,2,ecranRect.right-13,18);
-      if windowPaletteOpen & (wPalettePtr <> NIL) then
+      if windowPaletteOpen and (wPalettePtr <> NIL) then
         GetRectDansPalette(PaletteStatistique,CloseZoomRectTo);
       CloseZoomRectFrom := FntrStatRect;
       CloseZoomRectFrom.top := CloseZoomRectFrom.top-18;
@@ -771,7 +771,7 @@ var oldPort : grafPtr;
       EmpileFenetresSousPalette;
       EssaieSetPortWindowPlateau;
       if not(Quitter) then
-        if (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) & not(windowListeOpen | windowStatOpen)
+        if (genreAffichageTextesDansFenetrePlateau = kAffichageSousOthellier) and not(windowListeOpen or windowStatOpen)
           then
             begin
               AjusteAffichageFenetrePlatRapide;
@@ -830,7 +830,7 @@ var oldPort : grafPtr;
       LocalToGlobal(FntrPaletteRect.topleft);
       LocalToGlobal(FntrPaletteRect.botright);
 
-      if false & gIsRunningUnderMacOSX then
+      if false and gIsRunningUnderMacOSX then
 			   begin
 			     dec(FntrPaletteRect.right);
 			     dec(FntrPaletteRect.bottom);
@@ -958,7 +958,7 @@ var whichWindow : WindowPtr;
     n : SInt16;
     ok : boolean;
 begin
-  if not(windowPaletteOpen) | (wPalettePtr = NIL) then
+  if not(windowPaletteOpen) or (wPalettePtr = NIL) then
     begin
       EmpileFenetres;
       exit(EmpileFenetresSousPalette);
@@ -979,7 +979,7 @@ begin
 			    whichWindow := MyGetNextWindow(whichWindow);
 			    ok := WindowDeCassio(whichWindow);
 			    if ok then
-			      if IsWindowVisible(whichWindow) & (whichWindow <> GetTooltipWindowInCloud) then
+			      if IsWindowVisible(whichWindow) and (whichWindow <> GetTooltipWindowInCloud) then
 			        begin
 			          inc(n);
 			          if (n = 1)
@@ -1015,9 +1015,9 @@ begin
   whichWindow := FrontNonFloatingWindow;
   ok := WindowDeCassio(whichWindow);
   repeat
-    if ok & (whichWindow <> NIL) then
+    if ok and (whichWindow <> NIL) then
       begin
-        if IsWindowVisible(whichWindow) & (whichWindow <> GetTooltipWindowInCloud) then
+        if IsWindowVisible(whichWindow) and (whichWindow <> GetTooltipWindowInCloud) then
           begin
             inc(n);
             if (n = 1)
@@ -1039,7 +1039,7 @@ begin
         whichWindow := MyGetNextWindow(whichWindow);
         ok := WindowDeCassio(whichWindow);
       end;
-  until (whichWindow = NIL) | not(ok);
+  until (whichWindow = NIL) or not(ok);
   MetTitreFenetrePlateau;
 end;
 
@@ -1063,7 +1063,7 @@ var growSize : SInt32;
 begin
   if thisWindow = NIL then exit(DoGrowWindow);
 
-  if (thisWindow = wPlateauPtr) & CassioEstEn3D
+  if (thisWindow = wPlateauPtr) and CassioEstEn3D
     then
       begin
         SetRect(limitrect,64,64,GetTailleImagesPovRay.h  ,GetTailleImagesPovRay.v  );
@@ -1093,12 +1093,12 @@ begin
   if fenetreRedimensionnee then
     begin
 
-      effaceFenetre := (thisWindow = wCourbePtr) |
-                       (thisWindow = wListePtr) |
-                      // (thisWindow = wNuagePtr) |
-                       ((thisWindow = wPlateauPtr) & enRetour) |
-                       ((thisWindow = wPlateauPtr) & enSetUp) |
-                       (EstLaFenetreDuRapport(thisWindow)) |
+      effaceFenetre := (thisWindow = wCourbePtr) or
+                       (thisWindow = wListePtr) or
+                      // (thisWindow = wNuagePtr) or
+                       ((thisWindow = wPlateauPtr) and enRetour) or
+                       ((thisWindow = wPlateauPtr) and enSetUp) or
+                       (EstLaFenetreDuRapport(thisWindow)) or
                        (thisWindow = GetArbreDeJeuWindow);
 
 
@@ -1131,7 +1131,7 @@ begin
           infosChangent := false;
           if not(toucheOption) then
             begin
-              if ((newSizeRect.bottom - newSizeRect.top) > (oldSizeRect.bottom - newSizeRect.top)) |
+              if ((newSizeRect.bottom - newSizeRect.top) > (oldSizeRect.bottom - newSizeRect.top)) or
                   ((newSizeRect.right - newSizeRect.left) >  (oldSizeRect.right - oldSizeRect.left)) then
                 begin
                   if not(CassioEstEn3D) then DessineBordureDuPlateau2D(kBordureDuBas+kBordureDeDroite);
@@ -1140,30 +1140,30 @@ begin
                 end;
               AjusteAffichageFenetrePlat(0,effaceFenetre,infosChangent);
             end;
-          if infosChangent | effaceFenetre | not(CassioEstEn3D) | enSetUp | enRetour | EnModeEntreeTranscript
+          if infosChangent or effaceFenetre or not(CassioEstEn3D) or enSetUp or enRetour or EnModeEntreeTranscript
             then InvalRect(GetWindowPortRect(wPlateauPtr));
-          if infosChangent & not(CassioEstEn3D) then
+          if infosChangent and not(CassioEstEn3D) then
             begin
               SetRect(unRect,aireDeJeu.right+1,0,GetWindowPortRect(wPlateauPtr).right,GetWindowPortRect(wPlateauPtr).bottom);
               InvalRect(unRect);
             end;
           MetTitreFenetrePlateau;
         end;
-      if (thisWindow = wReflexPtr) & (wReflexPtr <> NIL) & gameOver
+      if (thisWindow = wReflexPtr) and (wReflexPtr <> NIL) and gameOver
         then
           EffaceReflexion(true);
-      if (thisWindow = wListePtr) & (wListePtr <> NIL)
+      if (thisWindow = wListePtr) and (wListePtr <> NIL)
         then
           begin
             AjustePositionAscenseurListe;
             AjustePouceAscenseurListe(true);
           end;
-      if (thisWindow = GetArbreDeJeuWindow) & (GetArbreDeJeuWindow <> NIL) then
+      if (thisWindow = GetArbreDeJeuWindow) and (GetArbreDeJeuWindow <> NIL) then
         begin
           GetDialogItemRect(arbreDeJeu.theDialog,CommenentaireTitreStaticText,unRect);
           ChangeDelimitationEditionRectFenetreArbreDeJeu(unRect.top+6 + (newSizeRect.bottom - oldSizeRect.bottom));
         end;
-      if (thisWindow = wNuagePtr) & (wNuagePtr <> NIL) then
+      if (thisWindow = wNuagePtr) and (wNuagePtr <> NIL) then
         begin
           MetTitreFenetreNuage;
           if not(EqualRect(oldSizeRect,newSizeRect)) then
@@ -1177,7 +1177,7 @@ begin
           InvalRect(unRect);
         end;
 
-      if (thisWindow = wCourbePtr) & (wCourbePtr <> NIL) then
+      if (thisWindow = wCourbePtr) and (wCourbePtr <> NIL) then
         CreerImageDeFondPourCourbeSiNecessaire;
 
     end;
@@ -1194,7 +1194,7 @@ begin
       GetPort(oldport);
       SetPortByWindow(window);
       ZoomWindow(window,partcode,false);
-      if (window = wPlateauPtr) & (BAnd(theEvent.modifiers,optionKey) = 0)
+      if (window = wPlateauPtr) and (BAnd(theEvent.modifiers,optionKey) = 0)
         then
           begin
             AjusteTailleFenetrePlateauPourLa3D;
@@ -1211,7 +1211,7 @@ var dialogRect,PaletteRect,inter : rect;
     oldPort : grafPtr;
 begin
 
-  if (dp = NIL) | not(windowPaletteOpen) | (wPalettePtr = NIL) then
+  if (dp = NIL) or not(windowPaletteOpen) or (wPalettePtr = NIL) then
     begin
       PaletteEstSurCeDialogue := false;
       exit(PaletteEstSurCeDialogue);
@@ -1224,7 +1224,7 @@ begin
   dialogRect := QDGetPortBound;
   LocalToGlobal(dialogRect.topleft);
   LocalToGlobal(dialogRect.botright);
-  if windowPaletteOpen & (wPalettePtr <> NIL) & IsWindowVisible(wPalettePtr) then
+  if windowPaletteOpen and (wPalettePtr <> NIL) and IsWindowVisible(wPalettePtr) then
     begin
       SetPortByWindow(wPalettePtr);
       PaletteRect := QDGetPortBound;
@@ -1248,7 +1248,7 @@ begin
   whichWindow := FrontNonFloatingWindow;
   repeat
 
-    if (whichWindow <> NIL) & WindowDeCassio(whichWindow) & IsWindowVisible(whichWindow) then
+    if (whichWindow <> NIL) and WindowDeCassio(whichWindow) and IsWindowVisible(whichWindow) then
       begin
         if (whichWindow = wPalettePtr)             then s := s + 'T' else
         if (whichWindow = wStatPtr)                then s := s + 'S' else
@@ -1265,10 +1265,10 @@ begin
       end;
     whichWindow := MyGetNextWindow(whichWindow);
 
-  until (whichWindow = NIL) | not(WindowDeCassio(whichWindow));
+  until (whichWindow = NIL) or not(WindowDeCassio(whichWindow));
 
   // on rajoute la palette, si necessaire
-  if windowPaletteOpen & (wPalettePtr <> NIL) & IsWindowVisible(wPalettePtr) & (Pos('T',s) <= 0)
+  if windowPaletteOpen and (wPalettePtr <> NIL) and IsWindowVisible(wPalettePtr) and (Pos('T',s) <= 0)
     then s := 'T' + s;
 
   GetOrdreEmpilementDesFenetresEnChaine := s;
@@ -1320,8 +1320,8 @@ begin
           theChar := s[LENGTH_OF_STRING(s)];
 
           // Exclure la fenetre d'othellier du premier cycle
-           if (gCompteurDeEmpilementsDeFenetres < nombreFenetresDansEmpilement) &
-             (nombreFenetresDansEmpilement > 2) & (theChar = 'O') then
+           if (gCompteurDeEmpilementsDeFenetres < nombreFenetresDansEmpilement) and
+             (nombreFenetresDansEmpilement > 2) and (theChar = 'O') then
             begin
               DeleteString(s, LENGTH_OF_STRING(s) , 1);
               theChar := s[LENGTH_OF_STRING(s)];
@@ -1329,7 +1329,7 @@ begin
 
 
           // Exclure la fenetre de la palette du cycle
-          if (LENGTH_OF_STRING(s) > 0) & (theChar = 'T') then
+          if (LENGTH_OF_STRING(s) > 0) and (theChar = 'T') then
             begin
               DeleteString(s, LENGTH_OF_STRING(s) , 1);
               theChar := s[LENGTH_OF_STRING(s)];
@@ -1428,9 +1428,9 @@ begin
         if activation
           then
             begin
-              if (whichWindow <> wPalettePtr) &
-                 (whichWindow <> iconisationDeCassio.theWindow) &
-                 (whichWindow <> wNuagePtr) &
+              if (whichWindow <> wPalettePtr) and
+                 (whichWindow <> iconisationDeCassio.theWindow) and
+                 (whichWindow <> wNuagePtr) and
                  (whichWindow <> GetTooltipWindowInCloud) then
                 begin
                   SetPortByWindow(whichWindow);
@@ -1453,18 +1453,18 @@ function WindowDeCassio(whichWindow : WindowPtr) : boolean;
 begin
   if whichWindow = NIL
     then WindowDeCassio := false
-    else WindowDeCassio := (whichWindow = wPlateauPtr)                   |
-                           (whichWindow = wCourbePtr)                    |
-                           (whichWindow = wAidePtr)                      |
-                           (whichWindow = wReflexPtr)                    |
-                           (whichWindow = wGestionPtr)                   |
-                           (whichWindow = wNuagePtr)                     |
-                           (whichWindow = wListePtr)                     |
-                           (whichWindow = wStatPtr)                      |
-                           (EstLaFenetreDuRapport(whichWindow))        |
-                           (whichWindow = iconisationDeCassio.theWindow) |
-                           (whichWindow = GetArbreDeJeuWindow)           |
-                           (whichWindow = wPalettePtr)                   |
+    else WindowDeCassio := (whichWindow = wPlateauPtr)                   or
+                           (whichWindow = wCourbePtr)                    or
+                           (whichWindow = wAidePtr)                      or
+                           (whichWindow = wReflexPtr)                    or
+                           (whichWindow = wGestionPtr)                   or
+                           (whichWindow = wNuagePtr)                     or
+                           (whichWindow = wListePtr)                     or
+                           (whichWindow = wStatPtr)                      or
+                           (EstLaFenetreDuRapport(whichWindow))        or
+                           (whichWindow = iconisationDeCassio.theWindow) or
+                           (whichWindow = GetArbreDeJeuWindow)           or
+                           (whichWindow = wPalettePtr)                   or
                            (whichWindow = GetTooltipWindowInCloud);
 end;
 
@@ -1474,15 +1474,15 @@ function WindowPlateauSousDAutresFenetres : boolean;
 var test : boolean;
     whichWindow : WindowPtr;
 begin
-  test := windowPlateauOpen & WindowDeCassio(FrontNonFloatingWindow);
-  test := test & (FrontNonFloatingWindow <> wPlateauPtr);
+  test := windowPlateauOpen and WindowDeCassio(FrontNonFloatingWindow);
+  test := test and (FrontNonFloatingWindow <> wPlateauPtr);
   if test then
     begin
       whichWindow := FrontNonFloatingWindow;
       repeat
         if (whichWindow <> NIL) then
           whichWindow := MyGetNextWindow(whichWindow);
-      until (whichWindow = NIL) | (whichWindow = wPlateauPtr) | not(WindowDeCassio(whichWindow));
+      until (whichWindow = NIL) or (whichWindow = wPlateauPtr) or not(WindowDeCassio(whichWindow));
       test := (whichWindow = wPlateauPtr);
     end;
   windowPlateauSousDAutresFenetres := test;
@@ -1493,7 +1493,7 @@ end;
 function FrontWindowSaufPalette : WindowPtr;
 var whichWindow : WindowPtr;
 begin
-  if not(windowPaletteOpen) & not(TooltipWindowInCloudOpened)
+  if not(windowPaletteOpen) and not(TooltipWindowInCloudOpened)
     then
       begin
         FrontWindowSaufPalette := FrontWindow;
@@ -1502,34 +1502,34 @@ begin
       begin
         whichWindow := FrontNonFloatingWindow;
 
-        if (whichWindow <> NIL) & (whichWindow = wPalettePtr)
+        if (whichWindow <> NIL) and (whichWindow = wPalettePtr)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        if (whichWindow <> NIL) & (whichWindow = GetTooltipWindowInCloud)
+        if (whichWindow <> NIL) and (whichWindow = GetTooltipWindowInCloud)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        if (whichWindow <> NIL) & (whichWindow = wPalettePtr)
+        if (whichWindow <> NIL) and (whichWindow = wPalettePtr)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        if (whichWindow <> NIL) & (whichWindow = GetTooltipWindowInCloud)
+        if (whichWindow <> NIL) and (whichWindow = GetTooltipWindowInCloud)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        while (whichWindow <> NIL) & not(IsWindowVisible(whichWindow)) do
+        while (whichWindow <> NIL) and not(IsWindowVisible(whichWindow)) do
           whichWindow := MyGetNextWindow(whichWindow);
 
-        while (whichWindow <> NIL) & not(IsWindowVisible(whichWindow)) do
+        while (whichWindow <> NIL) and not(IsWindowVisible(whichWindow)) do
           whichWindow := MyGetNextWindow(whichWindow);
 
-        if (whichWindow <> NIL) & (whichWindow = wPalettePtr)
+        if (whichWindow <> NIL) and (whichWindow = wPalettePtr)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        if (whichWindow <> NIL) & (whichWindow = GetTooltipWindowInCloud)
+        if (whichWindow <> NIL) and (whichWindow = GetTooltipWindowInCloud)
           then whichWindow := MyGetNextWindow(whichWindow);
 
-        while (whichWindow <> NIL) & not(IsWindowVisible(whichWindow)) do
+        while (whichWindow <> NIL) and not(IsWindowVisible(whichWindow)) do
           whichWindow := MyGetNextWindow(whichWindow);
 
-        {if (whichWindow <> NIL) & (whichWindow = wPalettePtr)
+        {if (whichWindow <> NIL) and (whichWindow = wPalettePtr)
           then whichWindow := MyGetNextWindow(whichWindow);}
 
         FrontWindowSaufPalette := whichWindow;
@@ -1541,7 +1541,7 @@ const kOrdreFenetreDansLeLointain = 10000;
 var windowAux : WindowPtr;
     n : SInt16;
 begin
-  if (whichWindow <> NIL) & WindowDeCassio(whichWindow) &
+  if (whichWindow <> NIL) and WindowDeCassio(whichWindow) and
       IsWindowVisible(whichWindow) then
     begin
       n := 0;
@@ -1566,7 +1566,7 @@ var ancienneFenetreActive : WindowPtr;
 begin
   if whichWindow = NIL then exit(SelectWindowSousPalette);
 
-  if not(windowPaletteOpen) | (whichWindow = wPalettePtr)
+  if not(windowPaletteOpen) or (whichWindow = wPalettePtr)
     then
       begin
         SelectWindow(whichWindow);
@@ -1574,7 +1574,7 @@ begin
       end
     else
       begin  {on doit selectionner la premiere fenetre sous la palette}
-        if sousEmulatorSousPC | true
+        if sousEmulatorSousPC or true
           then   {methode sale : selectionner la fenetre, puis peindre la palette dessus}
             begin
               SelectWindow(whichWindow);
@@ -1616,7 +1616,7 @@ end;
 
 procedure EssaieSetPortWindowPlateau;
 begin
-  if windowPlateauOpen & (wPlateauPtr <> NIL)
+  if windowPlateauOpen and (wPlateauPtr <> NIL)
     then SetPortByWindow(wPlateauPtr)
     else
       begin
@@ -1636,11 +1636,11 @@ begin
 
   // les fentres suivantes n'ont pas de boite de taille dessinees
 
-  if (whichWindow = wPalettePtr) |
-     (whichWindow = iconisationDeCassio.theWindow) |
-     (whichWindow = NIL) |
-     ((whichWindow = wPlateauPtr) & CassioEstEn3D) |
-     (whichWindow = wNuagePtr) |
+  if (whichWindow = wPalettePtr) or
+     (whichWindow = iconisationDeCassio.theWindow) or
+     (whichWindow = NIL) or
+     ((whichWindow = wPlateauPtr) and CassioEstEn3D) or
+     (whichWindow = wNuagePtr) or
      (whichWindow = GetTooltipWindowInCloud)
      then exit(DessineBoiteDeTaille);
 
@@ -1656,13 +1656,13 @@ begin
       with GetWindowPortRect(whichWindow) do
         SetRect(unRect,right-15,bottom-15,right+1,bottom+1);
 
-      if (whichWindow = wPlateauPtr) & not(gIsRunningUnderMacOSX) & false
+      if (whichWindow = wPlateauPtr) and not(gIsRunningUnderMacOSX) and false
         then
           begin
             toujoursActivee := true;
             PenPat(whitePattern);
             PenSize(1,1);
-            if (whichWindow = FrontWindowSaufPalette) | toujoursActivee
+            if (whichWindow = FrontWindowSaufPalette) or toujoursActivee
               then
                 begin
                   if whichWindow = wPlateauPtr then OffsetRect(unRect,-1,-1);
@@ -1746,7 +1746,7 @@ var currentTitle255 : str255;
     largEspace,largString,i,n : SInt16;
     oldPort : grafPtr;
 begin
-  if windowPlateauOpen & not(Quitter) then
+  if windowPlateauOpen and not(Quitter) then
     begin
       GetWTitle(wPlateauPtr,currentTitle255);
       currentTitle := MyStr255ToString(currentTitle255);
@@ -1766,8 +1766,8 @@ begin
               end;
 
             if not(IsWindowHilited(wPlateauPtr)) then
-              if (windowListeOpen | windowStatOpen | windowRapportOpen | windowAideOpen |
-                  windowGestionOpen | windowCourbeOpen | windowReflexOpen | windowNuageOpen) then
+              if (windowListeOpen or windowStatOpen or windowRapportOpen or windowAideOpen or
+                  windowGestionOpen or windowCourbeOpen or windowReflexOpen or windowNuageOpen) then
                 if not(CassioEstEn3D) then
                   begin
                     GetPort(oldPort);
@@ -1797,7 +1797,7 @@ begin
               then s := GetApplicationBundleName
               else s := GetApplicationName('Cassio');
             s := ReplaceStringByStringInString('.app','',s);
-            if (s = 'Cassio') | (s = 'Cassio.app') | (s = '')
+            if (s = 'Cassio') or (s = 'Cassio.app') or (s = '')
               then s := 'Cassio '+VersionDeCassioEnString;
           end;
       if (s <> currentTitle) then SetWTitle(wPlateauPtr,StringToStr255(s));
@@ -1810,9 +1810,9 @@ begin
   FiltreConfirmationFermetureFenetre := false;
   if sousEmulatorSousPC then EmuleToucheCommandeParControleDansEvent(evt);
   with evt do
-   if ((what = keyDown) | (what = autoKey)) &
-      ((BAnd(message,charcodemask) = EscapeKey) |
-      ((BAnd(message,charcodemask) = ord('.')) & (BAnd(modifiers,cmdKey) <> 0)))
+   if ((what = keyDown) or (what = autoKey)) and
+      ((BAnd(message,charcodemask) = EscapeKey) or
+      ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0)))
       then
         begin
           item := 1;

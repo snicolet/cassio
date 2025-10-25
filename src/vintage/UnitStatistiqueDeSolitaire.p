@@ -106,7 +106,7 @@ begin
 
 		  scoreDuSolitaire := 0;
 		  for i := 64 downto 0 do
-		    if (nbOccurencesDeCeScore[i] > 0) & (scoreDuSolitaire = 0)
+		    if (nbOccurencesDeCeScore[i] > 0) and (scoreDuSolitaire = 0)
 		      then scoreDuSolitaire := i;
 
 		  {on s'interesse aux meilleures lignes (les 25% meilleures)}
@@ -114,14 +114,14 @@ begin
 		  nbPionsLignesInteressantes := 0;
 		  nbLignesIntegrees := 0;
 		  for n := 64 downto 0 do
-		    if (nbOccurencesDeCeScore[n] > 0) & (n <> scoreDuSolitaire) then
+		    if (nbOccurencesDeCeScore[n] > 0) and (n <> scoreDuSolitaire) then
 		      if (nbLignesIntegrees < nbLignesInteressantes) then
 		      begin
 		        nbPionsLignesInteressantes := nbPionsLignesInteressantes + n*nbOccurencesDeCeScore[n];
 		        nbLignesIntegrees := nbLignesIntegrees + nbOccurencesDeCeScore[n];
 		      end;
 
-		  if (nbLignesIntegrees <> 0) & ((scoreDuSolitaire -1) <> 0) then
+		  if (nbLignesIntegrees <> 0) and ((scoreDuSolitaire -1) <> 0) then
 		    begin
 				  difficulte := 1.0*nbPionsLignesInteressantes/(1.0*nbLignesIntegrees*(scoreDuSolitaire-1));
 				  difficulte := difficulte + 0.08;
@@ -160,7 +160,7 @@ begin
 
 		  scoreDuSolitaire := 0;
 		  for i := 64 downto 0 do
-		    if (nbOccurencesDeCeScore[i] > 0) & (scoreDuSolitaire = 0)
+		    if (nbOccurencesDeCeScore[i] > 0) and (scoreDuSolitaire = 0)
 		      then scoreDuSolitaire := i;
 
 		  difficulte := DifficulteDuSolitaire;
@@ -200,7 +200,7 @@ end;
 procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);
 begin
   if (scoresDansFforum <> NIL) then
-    if (nroLigne >= 1) & (nroLigne < kMAXTailleTableDesScores) then
+    if (nroLigne >= 1) and (nroLigne < kMAXTailleTableDesScores) then
       scoresDansFforum^[nroLigne] := score;
 end;
 

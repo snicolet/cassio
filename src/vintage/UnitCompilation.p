@@ -202,7 +202,7 @@ end;
 
 function GetModuleByNumero(numero : SInt64) : Module;
 begin
-  if (numero >= 1) & (numero <= gTableDesModules.cardinal)
+  if (numero >= 1) and (numero <= gTableDesModules.cardinal)
     then GetModuleByNumero := gTableDesModules.pointeurs[numero]
     else GetModuleByNumero := NIL;
 end;
@@ -346,7 +346,7 @@ begin
             WritelnDansRapport('ERREUR !!! le symbole '+name+' est défini dans deux modules différents : ' + GetNameOfModule(whichModule) + ' et '+GetNameOfModule(aux^.dansQuelModule));
           end;
 
-        if (EnleveEspacesDeGauche(GetDefinitionOfSymbole(aux).debutLigne) <> EnleveEspacesDeGauche(definition.debutLigne)) |
+        if (EnleveEspacesDeGauche(GetDefinitionOfSymbole(aux).debutLigne) <> EnleveEspacesDeGauche(definition.debutLigne)) or
            (GetDefinitionOfSymbole(aux).finLigne <> definition.finLigne) then
           begin
             WritelnDansRapport('ERREUR !!! le symbole '+name+' a deux définitions différentes');
@@ -384,23 +384,23 @@ end;
 
 function ModuleDoitEtreAccelere(const name : String255) : boolean;
 begin
-  ModuleDoitEtreAccelere := ((Pos('Unit',name) > 0)  |
-                             (Pos('Cassio.p',name) > 0) |
-                             (Pos('Main.p',name) > 0) |
-                             (Pos('EdmondPatterns.p',name) > 0) |
-                             (Pos('EdmondEvaluation.p',name) > 0) |
-                             (Pos('ImportEdmond.p',name) > 0) |
-                             (Pos('Zebra_to_Cassio.p',name) > 0) |
-                             (Pos('SNEvents.p',name) > 0) |
-                             (Pos('SNMenus.p',name) > 0) |
-                             (Pos('MyFileSystemUtils.p',name) > 0) |
-                             (Pos('MyUtils.p',name) > 0) |
-                             (Pos('MyFonts.p',name) > 0) |
-                             (Pos('MyStrings.p',name) > 0)) &
+  ModuleDoitEtreAccelere := ((Pos('Unit',name) > 0)  or
+                             (Pos('Cassio.p',name) > 0) or
+                             (Pos('Main.p',name) > 0) or
+                             (Pos('EdmondPatterns.p',name) > 0) or
+                             (Pos('EdmondEvaluation.p',name) > 0) or
+                             (Pos('ImportEdmond.p',name) > 0) or
+                             (Pos('Zebra_to_Cassio.p',name) > 0) or
+                             (Pos('SNEvents.p',name) > 0) or
+                             (Pos('SNMenus.p',name) > 0) or
+                             (Pos('MyFileSystemUtils.p',name) > 0) or
+                             (Pos('MyUtils.p',name) > 0) or
+                             (Pos('MyFonts.p',name) > 0) or
+                             (Pos('MyStrings.p',name) > 0)) and
 
-                             not(Pos('UnitJan', name) > 0) &
+                             not(Pos('UnitJan', name) > 0) and
 
-                            ( EndsWith(name,'.p') | EndsWith(name,'.pas'));
+                            ( EndsWith(name,'.p') or EndsWith(name,'.pas'));
 
 
   (*
@@ -415,48 +415,48 @@ end;
 function ModuleDoitEtrePrelinke(const name : String255) : boolean;
 begin
 
-  ModuleDoitEtrePrelinke := ( EndsWith(name,'.p') | EndsWith(name,'.pas')) &
+  ModuleDoitEtrePrelinke := ( EndsWith(name,'.p') or EndsWith(name,'.pas')) and
 
 
-                           ((Pos('Unit', name) = 1) |
-                            (Pos('MyAntialiasing', name) = 1) |
-                            (Pos('MyAssertions', name) = 1) |
-                            (Pos('MyFileSystemUtils', name) = 1) |
-                            (Pos('MyEvents', name) = 1) |
-                            (Pos('MyFileIDs', name) = 1) |
-                            (Pos('MyFonts', name) = 1) |
-                            (Pos('MyKeyMapUtils', name) = 1) |
-                            (Pos('MyLists', name) = 1) |
-                            (Pos('MyLowLevel', name) = 1) |
-                            (Pos('MyMathUtils', name) = 1) |
-                            (Pos('MyMemory', name) = 1) |
-                            (Pos('MyStrings', name) = 1) |
-                            (Pos('MyQuickDraw', name) = 1) |
-                            (Pos('MyTMSTE', name) = 1) |
-                            (Pos('MyUtils', name) = 1) |
-                            (Pos('MyNavigationServices', name) = 1) |
-                            (Pos('Cassio.p', name) = 1) |
-                            (Pos('Zebra_to_Cassio', name) = 1) |
-                            (Pos('EdmondPatterns', name) = 1) |
-                            (Pos('EdmondEvaluation', name) = 1) |
-                            (Pos('ImportEdmond', name) = 1) |
-                            (Pos('SN', name) = 1)) &
+                           ((Pos('Unit', name) = 1) or
+                            (Pos('MyAntialiasing', name) = 1) or
+                            (Pos('MyAssertions', name) = 1) or
+                            (Pos('MyFileSystemUtils', name) = 1) or
+                            (Pos('MyEvents', name) = 1) or
+                            (Pos('MyFileIDs', name) = 1) or
+                            (Pos('MyFonts', name) = 1) or
+                            (Pos('MyKeyMapUtils', name) = 1) or
+                            (Pos('MyLists', name) = 1) or
+                            (Pos('MyLowLevel', name) = 1) or
+                            (Pos('MyMathUtils', name) = 1) or
+                            (Pos('MyMemory', name) = 1) or
+                            (Pos('MyStrings', name) = 1) or
+                            (Pos('MyQuickDraw', name) = 1) or
+                            (Pos('MyTMSTE', name) = 1) or
+                            (Pos('MyUtils', name) = 1) or
+                            (Pos('MyNavigationServices', name) = 1) or
+                            (Pos('Cassio.p', name) = 1) or
+                            (Pos('Zebra_to_Cassio', name) = 1) or
+                            (Pos('EdmondPatterns', name) = 1) or
+                            (Pos('EdmondEvaluation', name) = 1) or
+                            (Pos('ImportEdmond', name) = 1) or
+                            (Pos('SN', name) = 1)) and
 
 
-                            not((Pos('UnitDef', name) > 0) |
-                                (Pos('Type', name) > 0)  |
-                                (Pos('UnitOth0', name) > 0)  |
-                                (Pos('UnitJan', name) > 0) |
-                                (Pos('UnitDebuggage', name) > 0) |
+                            not((Pos('UnitDef', name) > 0) or
+                                (Pos('Type', name) > 0)  or
+                                (Pos('UnitOth0', name) > 0)  or
+                                (Pos('UnitJan', name) > 0) or
+                                (Pos('UnitDebuggage', name) > 0) or
                                 (Pos('UnitVar', name) > 0));
 
   (*
 
-  ModuleDoitEtrePrelinke := (name = 'UnitRapport.p') |
-                            (name = 'MyMathUtils.p') |
-                            (name = 'UnitServicesMemoire.p') |
-                            (name = 'MyStrings.p') |
-                            (name = 'UnitPagesATR.p') |
+  ModuleDoitEtrePrelinke := (name = 'UnitRapport.p') or
+                            (name = 'MyMathUtils.p') or
+                            (name = 'UnitServicesMemoire.p') or
+                            (name = 'MyStrings.p') or
+                            (name = 'UnitPagesATR.p') or
                             (name = 'UnitCarbonisation.p');
 
    ModuleDoitEtrePrelinke := (name = 'UnitModes.p');
@@ -539,7 +539,7 @@ begin
 
       err := WriteDansFichierTexte(fic, sym^.definition.debutLigne);
 
-      if (sym^.definition.finLigne <> '') &
+      if (sym^.definition.finLigne <> '') and
          (err = NoErr) then
         err := WriteDansFichierTexte(fic, sym^.definition.finLigne);
 
@@ -552,7 +552,7 @@ begin
           espaces := ' ';
           len := len + 1;
 
-          while (len < 180) | ((len mod 90) <> 0) do
+          while (len < 180) or ((len mod 90) <> 0) do
             begin
               len := len + 1;
               espaces := espaces + ' ';
@@ -586,7 +586,7 @@ begin
 
       err := WriteDansFichierTexte(fic, sym^.definition.debutLigne);
 
-      if (sym^.definition.finLigne <> '') &
+      if (sym^.definition.finLigne <> '') and
          (err = NoErr) then
         err := WriteDansFichierTexte(fic, sym^.definition.finLigne);
 
@@ -598,7 +598,7 @@ begin
           espaces := ' ';
           len := len + 1;
 
-          while (len < 180) | ((len mod 90) <> 0) do
+          while (len < 180) or ((len mod 90) <> 0) do
             begin
               len := len + 1;
               espaces := espaces + ' ';
@@ -746,9 +746,9 @@ begin
 
   position := Pos('//',ligne.debutLigne);
   if (position > 0) then
-    if (Pos('function',ligne.debutLigne) > position)  |
-       (Pos('FUNCTION',ligne.debutLigne) > position)  |
-       (Pos('procedure',ligne.debutLigne) > position) |
+    if (Pos('function',ligne.debutLigne) > position)  or
+       (Pos('FUNCTION',ligne.debutLigne) > position)  or
+       (Pos('procedure',ligne.debutLigne) > position) or
        (Pos('PROCEDURE',ligne.debutLigne) > position) then
      begin
        ChangeFontColorDansRapport(RougeCmd);
@@ -759,9 +759,9 @@ begin
 
   position := Pos('{',ligne.debutLigne);
   if (position > 0) then
-    if (Pos('function',ligne.debutLigne) > position)  |
-       (Pos('FUNCTION',ligne.debutLigne) > position)  |
-       (Pos('procedure',ligne.debutLigne) > position) |
+    if (Pos('function',ligne.debutLigne) > position)  or
+       (Pos('FUNCTION',ligne.debutLigne) > position)  or
+       (Pos('procedure',ligne.debutLigne) > position) or
        (Pos('PROCEDURE',ligne.debutLigne) > position) then
      begin
        if (FindStringInLongString('}',ligne) <= 0) then
@@ -775,9 +775,9 @@ begin
 
   position := Pos('(*',ligne.debutLigne);
   if (position > 0) then
-    if (Pos('function',ligne.debutLigne) > position)  |
-       (Pos('FUNCTION',ligne.debutLigne) > position)  |
-       (Pos('procedure',ligne.debutLigne) > position) |
+    if (Pos('function',ligne.debutLigne) > position)  or
+       (Pos('FUNCTION',ligne.debutLigne) > position)  or
+       (Pos('procedure',ligne.debutLigne) > position) or
        (Pos('PROCEDURE',ligne.debutLigne) > position) then
      begin
        if (FindStringInLongString('*)',ligne) <= 0) then
@@ -829,7 +829,7 @@ begin
   EnleveEspacesDeDroiteSurPlace(definition.finLigne);
   if definition.finLigne = '' then EnleveEspacesDeDroiteSurPlace(definition.debutLigne);
 
-  if (nomSymbole <> '') & ((definition.debutLigne <> '') | (definition.finLigne <> ''))
+  if (nomSymbole <> '') and ((definition.debutLigne <> '') or (definition.finLigne <> ''))
     then
       begin
         AjouterSymbole(nomSymbole,definition,whichModule,nouveauSymbole);
@@ -951,41 +951,41 @@ begin
 
   nomModule := LowerCaseStr(nomModule);
 
-  if (nomModule = LowerCaseStr('UnitVarGlobalesFinale')) |
-     (nomModule = LowerCaseStr('UnitDefPackedThorGame')) |
-     (nomModule = LowerCaseStr('UnitDefCompilation')) |
-     (nomModule = LowerCaseStr('UnitDefCouleurs')) |
-     (nomModule = LowerCaseStr('UnitDefDialog')) |
-     (nomModule = LowerCaseStr('UnitDefEvaluation')) |
-     (nomModule = LowerCaseStr('UnitDefEvents')) |
-     (nomModule = LowerCaseStr('UnitDefFormatsFichiers')) |
-     (nomModule = LowerCaseStr('UnitDefGeneralSort')) |
-     (nomModule = LowerCaseStr('UnitDefGraphe')) |
-     (nomModule = LowerCaseStr('UnitDefHash')) |
-     (nomModule = LowerCaseStr('UnitDefListeCasesVides')) |
-     (nomModule = LowerCaseStr('UnitDefMenus')) |
-     (nomModule = LowerCaseStr('UnitDefNouveauFormat')) |
-     (nomModule = LowerCaseStr('UnitDefParallelisme')) |
-     (nomModule = LowerCaseStr('UnitDefSmartGameBoard')) |
-     (nomModule = LowerCaseStr('UnitDefTranscript')) |
-     (nomModule = LowerCaseStr('Zebra_types')) |
-     (nomModule = LowerCaseStr('EdmondTypes')) |
-     (nomModule = LowerCaseStr('UnitOth0')) |
-     (nomModule = LowerCaseStr('MacTypes')) |
-     (nomModule = LowerCaseStr('StringTypes')) |
-     (nomModule = LowerCaseStr('UnitDefSet')) |
-     (nomModule = LowerCaseStr('UnitBitboardTypes')) |
-     (nomModule = LowerCaseStr('MyTypes')) |
-     (nomModule = LowerCaseStr('UnitDefSet')) |
-     (nomModule = LowerCaseStr('GPCStrings')) |
-     (nomModule = LowerCaseStr('UnitDefABR')) |
-     (nomModule = LowerCaseStr('UnitDefAlgebreLineaire')) |
-     (nomModule = LowerCaseStr('UnitDefABR')) |
-     (nomModule = LowerCaseStr('UnitDefCompilation')) |
-     (nomModule = LowerCaseStr('UnitDefFichiersTEXT')) |
-     (nomModule = LowerCaseStr('UnitDefOthelloGeneralise')) |
-     (nomModule = LowerCaseStr('UnitDefGameTree')) |
-     (nomModule = LowerCaseStr('UnitDefPositionEtTrait')) |
+  if (nomModule = LowerCaseStr('UnitVarGlobalesFinale')) or
+     (nomModule = LowerCaseStr('UnitDefPackedThorGame')) or
+     (nomModule = LowerCaseStr('UnitDefCompilation')) or
+     (nomModule = LowerCaseStr('UnitDefCouleurs')) or
+     (nomModule = LowerCaseStr('UnitDefDialog')) or
+     (nomModule = LowerCaseStr('UnitDefEvaluation')) or
+     (nomModule = LowerCaseStr('UnitDefEvents')) or
+     (nomModule = LowerCaseStr('UnitDefFormatsFichiers')) or
+     (nomModule = LowerCaseStr('UnitDefGeneralSort')) or
+     (nomModule = LowerCaseStr('UnitDefGraphe')) or
+     (nomModule = LowerCaseStr('UnitDefHash')) or
+     (nomModule = LowerCaseStr('UnitDefListeCasesVides')) or
+     (nomModule = LowerCaseStr('UnitDefMenus')) or
+     (nomModule = LowerCaseStr('UnitDefNouveauFormat')) or
+     (nomModule = LowerCaseStr('UnitDefParallelisme')) or
+     (nomModule = LowerCaseStr('UnitDefSmartGameBoard')) or
+     (nomModule = LowerCaseStr('UnitDefTranscript')) or
+     (nomModule = LowerCaseStr('Zebra_types')) or
+     (nomModule = LowerCaseStr('EdmondTypes')) or
+     (nomModule = LowerCaseStr('UnitOth0')) or
+     (nomModule = LowerCaseStr('MacTypes')) or
+     (nomModule = LowerCaseStr('StringTypes')) or
+     (nomModule = LowerCaseStr('UnitDefSet')) or
+     (nomModule = LowerCaseStr('UnitBitboardTypes')) or
+     (nomModule = LowerCaseStr('MyTypes')) or
+     (nomModule = LowerCaseStr('UnitDefSet')) or
+     (nomModule = LowerCaseStr('GPCStrings')) or
+     (nomModule = LowerCaseStr('UnitDefABR')) or
+     (nomModule = LowerCaseStr('UnitDefAlgebreLineaire')) or
+     (nomModule = LowerCaseStr('UnitDefABR')) or
+     (nomModule = LowerCaseStr('UnitDefCompilation')) or
+     (nomModule = LowerCaseStr('UnitDefFichiersTEXT')) or
+     (nomModule = LowerCaseStr('UnitDefOthelloGeneralise')) or
+     (nomModule = LowerCaseStr('UnitDefGameTree')) or
+     (nomModule = LowerCaseStr('UnitDefPositionEtTrait')) or
      (nomModule = LowerCaseStr('UnitDefFichierAbstrait'))
      then
        EstUnModuleDeDefinition := true;
@@ -1042,7 +1042,7 @@ var lecture : LectureModulePtr;
                 if (s = 'MyStringWidth') then s := 'StringWidthPourGNUPascal';
                 if (s = 'MyDrawString') then s := 'DrawStringPourGNUPascal';
 
-                if MemberOfStringSet(s,symboleAddr,whichModule^.symbolesImplementation) &
+                if MemberOfStringSet(s,symboleAddr,whichModule^.symbolesImplementation) and
                   not(MemberOfStringSet(s,aux,whichModule^.symbolesDejaPrelinkes)) then
                   begin
                     theSymbole := Symbole(symboleAddr);
@@ -1050,7 +1050,7 @@ var lecture : LectureModulePtr;
                     {WritelnDansRapport('@'+s);}
                     ShareTimeWithOtherProcesses(0);
 
-                    if doitEtreAccelere & (action in [K_COMPILER_IMPLEMENTATION]) then
+                    if doitEtreAccelere and (action in [K_COMPILER_IMPLEMENTATION]) then
                       begin
                         err := EcrireSymboleExternalDansFichier(theSymbole,fichierPrelink);
                         if err <> NoErr then
@@ -1121,7 +1121,7 @@ var lecture : LectureModulePtr;
                 if (s = 'MyStringWidth') then s := 'StringWidthPourGNUPascal';
                 if (s = 'MyDrawString') then s := 'DrawStringPourGNUPascal';
 
-                if MemberOfStringSet(s,symboleAddr,whichModule^.symbolesImplementation) &
+                if MemberOfStringSet(s,symboleAddr,whichModule^.symbolesImplementation) and
                    not(MemberOfStringSet(s,aux,whichModule^.symbolesDejaPrelinkes)) then
                   begin
                     theSymbole := Symbole(symboleAddr);
@@ -1129,7 +1129,7 @@ var lecture : LectureModulePtr;
                     {WritelnDansRapport('@'+s);}
                     ShareTimeWithOtherProcesses(0);
 
-                    if doitEtreAccelere & (action in [K_COMPILER_IMPLEMENTATION]) then
+                    if doitEtreAccelere and (action in [K_COMPILER_IMPLEMENTATION]) then
                       begin
                         err := EcrireSymboleExternalDansFichier(theSymbole,fichierPrelink);
                         if (err <> 0) then
@@ -1160,7 +1160,7 @@ var lecture : LectureModulePtr;
   begin
     with lecture^ do
       begin
-        if (ligne.finLigne = '') & not(EstUnModuleDeDefinition(GetNameOfModule(whichModule))) then
+        if (ligne.finLigne = '') and not(EstUnModuleDeDefinition(GetNameOfModule(whichModule))) then
           begin
             result := '';
 
@@ -1206,7 +1206,7 @@ var lecture : LectureModulePtr;
               result := ReplaceStringByStringInString(', ;',';',result);
             result := ReplaceStringByStringInString(' ;',';',result);
 
-            if (Pos('USES', result) <= 0) & (Pos('uses', result) <= 0)
+            if (Pos('USES', result) <= 0) and (Pos('uses', result) <= 0)
               then ligne.debutLigne := '    '+result
               else ligne.debutLigne := result;
           end;
@@ -1233,7 +1233,7 @@ var lecture : LectureModulePtr;
               repeat
                 Parser(reste,s,reste);
 
-                if (s <> 'USES') & (s <> 'uses') & (s <> '') then
+                if (s <> 'USES') and (s <> 'uses') and (s <> '') then
                   begin
 
                     {WritelnDansRapport('J''ajoute le module '+s+ ' à la clause uses ');}
@@ -1278,7 +1278,7 @@ var lecture : LectureModulePtr;
             fileName := moduleName + '.p';
 
 
-            if EstUnModuleDeDefinition(moduleName) &
+            if EstUnModuleDeDefinition(moduleName) and
                not(EstUnModuleDeDefinition(GetNameOfModule(whichModule)))
               then
                 begin
@@ -1348,8 +1348,8 @@ var lecture : LectureModulePtr;
   begin
     with lecture^ do
       begin
-        if (modulesInterface.cardinal > 0) & not(clauseUsesInterfaceDejaEcrite) &
-           (UsesClauseADesModulesDevantEtrePrelinke(modulesInterface) {| UsesClauseContientDesDefinitionsDeDassio(modulesInterface)}) then
+        if (modulesInterface.cardinal > 0) and not(clauseUsesInterfaceDejaEcrite) and
+           (UsesClauseADesModulesDevantEtrePrelinke(modulesInterface) {or UsesClauseContientDesDefinitionsDeDassio(modulesInterface)}) then
           begin
             nombreModulesEcrit := 0;
 
@@ -1385,13 +1385,13 @@ var lecture : LectureModulePtr;
               begin
                 moduleName := GetNameOfModule(modulesInterface.pointeurs[k]);
                 fileName := moduleName + '.p';
-                if not(ModuleDoitEtrePrelinke(fileName)) &
+                if not(ModuleDoitEtrePrelinke(fileName)) and
                    not(EstUnModuleDeDefinition(moduleName)) then
                   begin
 
 
-                    if ((Pos('{$ENDC',moduleName) <= 0) |
-                        (Pos('{$IFC',moduleName) <= 0)  |
+                    if ((Pos('{$ENDC',moduleName) <= 0) or
+                        (Pos('{$IFC',moduleName) <= 0)  or
                         (Pos('USE_',moduleName) <= 0)) then
                       begin
                         if (nombreModulesEcrit > 0) then WriteDansRapport(', ');
@@ -1409,7 +1409,7 @@ var lecture : LectureModulePtr;
               begin
                 moduleName := GetNameOfModule(modulesInterface.pointeurs[k]);
                 fileName := moduleName + '.p';
-                if ModuleDoitEtrePrelinke(fileName) &
+                if ModuleDoitEtrePrelinke(fileName) and
                    not(EstUnModuleDeDefinition(moduleName)) then
                   begin
                     if (nombreModulesEcrit > 0) then WriteDansRapport(', ');
@@ -1438,7 +1438,7 @@ var lecture : LectureModulePtr;
   begin
     with lecture^ do
       begin
-        if doitEtreAccelere &
+        if doitEtreAccelere and
            not(clauseUsesImplementationDejaEcrite)
           then
             begin
@@ -1523,7 +1523,7 @@ var lecture : LectureModulePtr;
             if (theSymbole <> NIL) then
               begin
                 with theSymbole^ do
-                  if (FindStringInLongString('(',definition) > 0) & (FindStringInLongString(')',definition) <= 0) then
+                  if (FindStringInLongString('(',definition) > 0) and (FindStringInLongString(')',definition) <= 0) then
                     begin
 
                       // La definition s'étend sur plusieurs lignes => traitement special
@@ -1573,7 +1573,7 @@ var lecture : LectureModulePtr;
                         AppendToLongString(definition,' '+s);
                         inc(compteur);
 
-                      until (FindStringInLongString(')',definition) > 0) | (compteur >= 15);
+                      until (FindStringInLongString(')',definition) > 0) or (compteur >= 15);
 
                       (*
                       WriteDansRapport(definition.debutLigne);
@@ -1584,7 +1584,7 @@ var lecture : LectureModulePtr;
 
                     end;  {with theSymbole}
 
-                if doitEtrePrelinke & (action in [K_COMPILER_INTERFACE]) then
+                if doitEtrePrelinke and (action in [K_COMPILER_INTERFACE]) then
                   begin
                     err := EcrireSymboleExternalDansFichier(theSymbole,fichierExternalDeclarations);
                     if err <> NoErr then
@@ -1613,13 +1613,13 @@ var lecture : LectureModulePtr;
         WritelnDansRapport(ligne.finLigne);
         *)
 
-        if doitEtrePrelinke &
-          (((FindStringInLongString('VAR ',ligne) > 0) & (Pos('VAR ',ligne.debutLigne) > 0) & (Pos('VAR ',ligne.debutLigne) <= 10)) |
-           ((FindStringInLongString('var ',ligne) > 0) & (Pos('var ',ligne.debutLigne) > 0) & (Pos('var ',ligne.debutLigne) <= 10)) |
-           ((FindStringInLongString('TYPE ',ligne) > 0) & (Pos('TYPE ',ligne.debutLigne) > 0) & (Pos('TYPE ',ligne.debutLigne) <= 10)) |
-           ((FindStringInLongString('type ',ligne) > 0) & (Pos('type ',ligne.debutLigne) > 0) & (Pos('type ',ligne.debutLigne) <= 10)) |
-           ((FindStringInLongString('CONST ',ligne) > 0) & (Pos('CONST ',ligne.debutLigne) > 0) & (Pos('CONST ',ligne.debutLigne) <= 10)) |
-           ((FindStringInLongString('const ',ligne) > 0) & (Pos('const ',ligne.debutLigne) > 0) & (Pos('const ',ligne.debutLigne) <= 10)))
+        if doitEtrePrelinke and
+          (((FindStringInLongString('VAR ',ligne) > 0) and (Pos('VAR ',ligne.debutLigne) > 0) and (Pos('VAR ',ligne.debutLigne) <= 10)) or
+           ((FindStringInLongString('var ',ligne) > 0) and (Pos('var ',ligne.debutLigne) > 0) and (Pos('var ',ligne.debutLigne) <= 10)) or
+           ((FindStringInLongString('TYPE ',ligne) > 0) and (Pos('TYPE ',ligne.debutLigne) > 0) and (Pos('TYPE ',ligne.debutLigne) <= 10)) or
+           ((FindStringInLongString('type ',ligne) > 0) and (Pos('type ',ligne.debutLigne) > 0) and (Pos('type ',ligne.debutLigne) <= 10)) or
+           ((FindStringInLongString('CONST ',ligne) > 0) and (Pos('CONST ',ligne.debutLigne) > 0) and (Pos('CONST ',ligne.debutLigne) <= 10)) or
+           ((FindStringInLongString('const ',ligne) > 0) and (Pos('const ',ligne.debutLigne) > 0) and (Pos('const ',ligne.debutLigne) <= 10)))
            then
              begin
                inc(nombreErreurs);
@@ -1630,10 +1630,10 @@ var lecture : LectureModulePtr;
              end;
 
 
-        if doitEtrePrelinke &
-           ((FindStringInLongString('function ',ligne) > 0) |
-            (FindStringInLongString('procedure ',ligne) > 0) |
-            (FindStringInLongString('FUNCTION ',ligne) > 0) |
+        if doitEtrePrelinke and
+           ((FindStringInLongString('function ',ligne) > 0) or
+            (FindStringInLongString('procedure ',ligne) > 0) or
+            (FindStringInLongString('FUNCTION ',ligne) > 0) or
             (FindStringInLongString('PROCEDURE ',ligne) > 0))
            then
              begin
@@ -1651,12 +1651,12 @@ var lecture : LectureModulePtr;
     if (FindStringInLongString('{$DEFINEC USE_PRELINK',ligne) > 0)
       then lecture^.flag_USE_PRELINK := (FindStringInLongString('true',ligne) > 0);
 
-    if (FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) |
-       (FindStringInLongString('{$DEFINEC USE_PRELINK',ligne) > 0) |
-       (FindStringInLongString('{$IFC NOT(USE_PRELINK)',ligne) > 0) |
-       (FindStringInLongString('{$ELSEC}',ligne) > 0) |
-       (FindStringInLongString('{$I prelink/',ligne) > 0) |
-       (FindStringInLongString('{$ENDC}',ligne) > 0) |
+    if (FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) or
+       (FindStringInLongString('{$DEFINEC USE_PRELINK',ligne) > 0) or
+       (FindStringInLongString('{$IFC NOT(USE_PRELINK)',ligne) > 0) or
+       (FindStringInLongString('{$ELSEC}',ligne) > 0) or
+       (FindStringInLongString('{$I prelink/',ligne) > 0) or
+       (FindStringInLongString('{$ENDC}',ligne) > 0) or
        (FindStringInLongString('END_USE_CLAUSE',ligne) > 0)
       then exit(TraiteImplementationUses);
 
@@ -1672,8 +1672,8 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kInterfacePrologue) then exit(CheckPassageInterfacePrologue);
 
-    if ((FindStringInLongString('INTERFACE ',ligne) > 0) & (FindStringInLongString('INTERFACE ',ligne) < 5)) |
-       ((FindStringInLongString('interface ',ligne) > 0) & (FindStringInLongString('interface ',ligne) < 5)) then
+    if ((FindStringInLongString('INTERFACE ',ligne) > 0) and (FindStringInLongString('INTERFACE ',ligne) < 5)) or
+       ((FindStringInLongString('interface ',ligne) > 0) and (FindStringInLongString('interface ',ligne) < 5)) then
        begin
          lecture^.enCoursDeLecture := kInterfacePrologue;
          if lecture^.afficheTransitionsDansFichier then WritelnDansRapport('  ===>  lecture^.enCoursDeLecture = kInterfacePrologue');
@@ -1684,14 +1684,14 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kInterfaceDeclarations) then exit(CheckPassageInterfaceDeclarations);
 
-    if (FindStringInLongString(';',ligne) > 0) |
-       (FindStringInLongString('VAR ',ligne) > 0) |
-       (FindStringInLongString('var ',ligne) > 0) |
-       (FindStringInLongString('TYPE ',ligne) > 0) |
-       (FindStringInLongString('type ',ligne) > 0) |
-       (FindStringInLongString('CONST ',ligne) > 0) |
-       (FindStringInLongString('const ',ligne) > 0) |
-       (FindStringInLongString('procedure ',ligne) > 0) |
+    if (FindStringInLongString(';',ligne) > 0) or
+       (FindStringInLongString('VAR ',ligne) > 0) or
+       (FindStringInLongString('var ',ligne) > 0) or
+       (FindStringInLongString('TYPE ',ligne) > 0) or
+       (FindStringInLongString('type ',ligne) > 0) or
+       (FindStringInLongString('CONST ',ligne) > 0) or
+       (FindStringInLongString('const ',ligne) > 0) or
+       (FindStringInLongString('procedure ',ligne) > 0) or
        (FindStringInLongString('function ',ligne) > 0) then
        begin
          lecture^.enCoursDeLecture := kInterfaceDeclarations;
@@ -1706,7 +1706,7 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kInterfaceUses) then exit(CheckPassageInterfaceUses);
 
-    if (FindStringInLongString('USES ',ligne) > 0) |
+    if (FindStringInLongString('USES ',ligne) > 0) or
        (FindStringInLongString('uses ',ligne) > 0) then
        begin
          lecture^.enCoursDeLecture := kInterfaceUses;
@@ -1723,8 +1723,8 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kImplementationPrologue) then exit(CheckPassageImplementationPrologue);
 
-    if ((FindStringInLongString('IMPLEMENTATION ',ligne) > 0) & (FindStringInLongString('IMPLEMENTATION ',ligne) < 5)) |
-       ((FindStringInLongString('implementation ',ligne) > 0) & (FindStringInLongString('implementation ',ligne) < 5)) then
+    if ((FindStringInLongString('IMPLEMENTATION ',ligne) > 0) and (FindStringInLongString('IMPLEMENTATION ',ligne) < 5)) or
+       ((FindStringInLongString('implementation ',ligne) > 0) and (FindStringInLongString('implementation ',ligne) < 5)) then
        begin
          {WritelnDansRapport(ligne.debutLigne);}
          lecture^.enCoursDeLecture := kImplementationPrologue;
@@ -1744,14 +1744,14 @@ var lecture : LectureModulePtr;
     if lecture^.got_BEGIN_USE_CLAUSE
       then
         begin
-          if (FindStringInLongString('END_USE_CLAUSE',ligne) > 0) |
-             (FindStringInLongString('VAR ',ligne) > 0) |
-             (FindStringInLongString('var ',ligne) > 0) |
-             (FindStringInLongString('TYPE ',ligne) > 0) |
-             (FindStringInLongString('type ',ligne) > 0) |
-             (FindStringInLongString('CONST ',ligne) > 0) |
-             (FindStringInLongString('const ',ligne) > 0) |
-             (FindStringInLongString('procedure ',ligne) > 0) |
+          if (FindStringInLongString('END_USE_CLAUSE',ligne) > 0) or
+             (FindStringInLongString('VAR ',ligne) > 0) or
+             (FindStringInLongString('var ',ligne) > 0) or
+             (FindStringInLongString('TYPE ',ligne) > 0) or
+             (FindStringInLongString('type ',ligne) > 0) or
+             (FindStringInLongString('CONST ',ligne) > 0) or
+             (FindStringInLongString('const ',ligne) > 0) or
+             (FindStringInLongString('procedure ',ligne) > 0) or
              (FindStringInLongString('function ',ligne) > 0)  then
              begin
                lecture^.enCoursDeLecture := kImplementationDeclarations;
@@ -1780,14 +1780,14 @@ var lecture : LectureModulePtr;
 
     with lecture^ do
       begin
-        if ((FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) & doitEtreAccelere) |
-           (FindStringInLongString('USES ',ligne) > 0) |
+        if ((FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) and doitEtreAccelere) or
+           (FindStringInLongString('USES ',ligne) > 0) or
            (FindStringInLongString('uses ',ligne) > 0) then
            begin
              lecture^.enCoursDeLecture := kImplementationUses;
              if lecture^.afficheTransitionsDansFichier then WritelnDansRapport('  ===>  lecture^.enCoursDeLecture = kImplementationUses');
 
-             if ((FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) & doitEtreAccelere)
+             if ((FindStringInLongString('BEGIN_USE_CLAUSE',ligne) > 0) and doitEtreAccelere)
                 then got_BEGIN_USE_CLAUSE := true;
 
              TraiteImplementationUses;
@@ -1802,14 +1802,14 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kImplementationCode) then exit(CheckPassageImplementationCode);
 
-    if (FindStringInLongString('VAR ',ligne) > 0) |
-       (FindStringInLongString('var ',ligne) > 0) |
-       (FindStringInLongString('TYPE ',ligne) > 0) |
-       (FindStringInLongString('type ',ligne) > 0) |
-       (FindStringInLongString('CONST ',ligne) > 0) |
-       (FindStringInLongString('const ',ligne) > 0) |
-       ((FindStringInLongString('procedure ',ligne) > 0) & (FindStringInLongString('EXTERNAL_NAME',ligne) <= 0)) |
-       ((FindStringInLongString('function ',ligne) > 0) & (FindStringInLongString('EXTERNAL_NAME',ligne) <= 0))    then
+    if (FindStringInLongString('VAR ',ligne) > 0) or
+       (FindStringInLongString('var ',ligne) > 0) or
+       (FindStringInLongString('TYPE ',ligne) > 0) or
+       (FindStringInLongString('type ',ligne) > 0) or
+       (FindStringInLongString('CONST ',ligne) > 0) or
+       (FindStringInLongString('const ',ligne) > 0) or
+       ((FindStringInLongString('procedure ',ligne) > 0) and (FindStringInLongString('EXTERNAL_NAME',ligne) <= 0)) or
+       ((FindStringInLongString('function ',ligne) > 0) and (FindStringInLongString('EXTERNAL_NAME',ligne) <= 0))    then
        begin
          lecture^.enCoursDeLecture := kImplementationCode;
          if lecture^.afficheTransitionsDansFichier then WritelnDansRapport('  ===>  lecture^.enCoursDeLecture = kImplementationCode');
@@ -1824,7 +1824,7 @@ var lecture : LectureModulePtr;
   begin
     if (lecture^.enCoursDeLecture = kEpilogue) then exit(CheckEndOfModule);
 
-    if LongStringBeginsWith('END.',ligne) |
+    if LongStringBeginsWith('END.',ligne) or
        LongStringBeginsWith('end.',ligne) then
        begin
          lecture^.enCoursDeLecture := kEpilogue;
@@ -1845,8 +1845,8 @@ begin {VerifierCetteLigneDansLesSources}
 
       doitDupliquerLigneCourante := true;
 
-      if (enCoursDeLecture = kImplementationUses) &
-         (action = K_COMPILER_IMPLEMENTATION) &
+      if (enCoursDeLecture = kImplementationUses) and
+         (action = K_COMPILER_IMPLEMENTATION) and
          doitEtreAccelere
         then doitDupliquerLigneCourante := false;
 
@@ -1921,8 +1921,8 @@ begin {VerifierCetteLigneDansLesSources}
 
 
       if doitDupliquerLigneCourante then
-        if ((action = K_COMPILER_INTERFACE) & (enCoursDeLecture < kImplementationPrologue)) |
-           ((action = K_COMPILER_IMPLEMENTATION) & (enCoursDeLecture >= kImplementationPrologue)) then
+        if ((action = K_COMPILER_INTERFACE) and (enCoursDeLecture < kImplementationPrologue)) or
+           ((action = K_COMPILER_IMPLEMENTATION) and (enCoursDeLecture >= kImplementationPrologue)) then
         begin
           if (ligne.finLigne = '') then
              ligne.debutLigne := EnleveEspacesDeDroite(ligne.debutLigne);
@@ -1938,7 +1938,7 @@ begin {VerifierCetteLigneDansLesSources}
           err := WriteDansFichierTexte(duplication, ligne.finLigne);
           err := WriteDansFichierTexte(duplication, chr(10));  // chr(10) = LF, make it UNIX !
 
-          if ((ligne.debutLigne = 'IMPLEMENTATION') | (ligne.debutLigne = 'implementation')) &
+          if ((ligne.debutLigne = 'IMPLEMENTATION') or (ligne.debutLigne = 'implementation')) and
              doitEtreAccelere then
             begin
               err := WriteDansFichierTexte(duplication, chr(10)+chr(10)+'{BEGIN_USE_CLAUSE}'+chr(10));
@@ -2009,19 +2009,19 @@ begin
         else (* WritelnDansRapport('Le module '+GetNameOfModule(whichModule)+' a été crée'); *) DoNothing;
 
 
-      if doitEtreAccelere | doitEtrePrelinke then
+      if doitEtreAccelere or doitEtrePrelinke then
         begin
           err := CreerDuplicateFile(fileName, duplication);
           if err = NoErr then err := OuvreFichierTexte(duplication);
 
-          if (err = NoErr) & (action  = K_COMPILER_INTERFACE)
+          if (err = NoErr) and (action  = K_COMPILER_INTERFACE)
             then err := VideFichierTexte(duplication);
 
           err := SetPositionTeteLectureFinFichierTexte(duplication);
           // WritelnNumDansRapport('apres VideFichierTexte pour '+duplication.nomFichier + ', err = ',err);
         end;
 
-      if doitEtreAccelere & (action = K_COMPILER_IMPLEMENTATION) then
+      if doitEtreAccelere and (action = K_COMPILER_IMPLEMENTATION) then
         begin
           err := CreerPrelinkFile(fileName, fichierPrelink);
           if err = NoErr then err := OuvreFichierTexte(fichierPrelink);
@@ -2030,7 +2030,7 @@ begin
           // WritelnNumDansRapport('apres VideFichierTexte pour '+fichierPrelink.nomFichier + ', err = ',err);
         end;
 
-      if doitEtrePrelinke & (action = K_COMPILER_INTERFACE) then
+      if doitEtrePrelinke and (action = K_COMPILER_INTERFACE) then
         begin
           err := CreerExternalDeclarationsFile(fileName, fichierExternalDeclarations);
           if err = NoErr then err := OuvreFichierTexte(fichierExternalDeclarations);
@@ -2067,8 +2067,8 @@ begin
           WritelnDansRapport('');
         end;
 
-      if not((action = K_COMPILER_INTERFACE) & (enCoursDeLecture = kImplementationPrologue)) &
-         not((action = K_COMPILER_IMPLEMENTATION) & (enCoursDeLecture = kEpilogue))  then
+      if not((action = K_COMPILER_INTERFACE) and (enCoursDeLecture = kImplementationPrologue)) and
+         not((action = K_COMPILER_IMPLEMENTATION) and (enCoursDeLecture = kEpilogue))  then
         begin
           ChangeFontFaceDansRapport(bold);
           WritelnDansRapport('Le fichier '+fileName+' n''est pas arrivé au bout : ' + PartieDeModuleToString(enCoursDeLecture));
@@ -2076,14 +2076,14 @@ begin
           WritelnDansRapport('');
         end;
 
-      if doitEtreAccelere | doitEtrePrelinke
+      if doitEtreAccelere or doitEtrePrelinke
         then err := FermeFichierTexte(duplication);
 
-      if doitEtrePrelinke & (action in [K_COMPILER_INTERFACE])
+      if doitEtrePrelinke and (action in [K_COMPILER_INTERFACE])
         then err := FermeFichierTexte(fichierExternalDeclarations);
 
 
-      if doitEtreAccelere & (action in [K_COMPILER_IMPLEMENTATION])
+      if doitEtreAccelere and (action in [K_COMPILER_IMPLEMENTATION])
         then err := FermeFichierTexte(fichierPrelink);
 
 
@@ -2106,7 +2106,7 @@ begin
 
      if (gActionDeCompilationDemandee = K_COMPILER_INTERFACE)
        then
-         if ModuleDoitEtreAccelere(nomFichier) |
+         if ModuleDoitEtreAccelere(nomFichier) or
             ModuleDoitEtrePrelinke(nomFichier) then
            begin
              VerifierCeFichierSource(fs);
@@ -2116,7 +2116,7 @@ begin
     if (gActionDeCompilationDemandee = K_COMPILER_IMPLEMENTATION)
       then
         begin
-          if ModuleDoitEtreAccelere(nomFichier) |
+          if ModuleDoitEtreAccelere(nomFichier) or
              ModuleDoitEtrePrelinke(nomFichier) then
            begin
              VerifierCeFichierSource(fs);

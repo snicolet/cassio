@@ -111,13 +111,13 @@ begin {AjusteCurseur}
       EssaieSetPortWindowPlateau;
 
 		  GetMouse(mouseLoc);
-		  if (LastMousePositionInAjusteCurseur.h <> mouseLoc.h) |
+		  if (LastMousePositionInAjusteCurseur.h <> mouseLoc.h) or
 		     (LastMousePositionInAjusteCurseur.v <> mouseLoc.v)
 		    then
   		    begin {2}
   		      { la souris vient de bouger }
   		      LastMousePositionInAjusteCurseur := mouseLoc;
-  		      if (nbreCoup <= 0) & CassioEstEnTrainDeCalculerPourLeZoo & not(inBackGround)
+  		      if (nbreCoup <= 0) and CassioEstEnTrainDeCalculerPourLeZoo and not(inBackGround)
   		        then AccelereProchainDoSystemTask(4)
   		        else AccelereProchainDoSystemTask(60);
   		      DiminueLatenceEntreDeuxDoSystemTask;
@@ -126,12 +126,12 @@ begin {AjusteCurseur}
   		  else
   		    begin
   		      { la souris est immobile }
-  		      if (gDernierEtatAjusteCurseur.option       = DernierEvenement.option) &
-  		         (gDernierEtatAjusteCurseur.command      = DernierEvenement.command) &
-  		         (gDernierEtatAjusteCurseur.shift        = DernierEvenement.shift) &
-  		         (gDernierEtatAjusteCurseur.control      = DernierEvenement.control) &
-  		         (gDernierEtatAjusteCurseur.verouillage  = DernierEvenement.verouillage) &
-  		         (gDernierEtatAjusteCurseur.numeroCoup   = nbreCoup) &
+  		      if (gDernierEtatAjusteCurseur.option       = DernierEvenement.option) and
+  		         (gDernierEtatAjusteCurseur.command      = DernierEvenement.command) and
+  		         (gDernierEtatAjusteCurseur.shift        = DernierEvenement.shift) and
+  		         (gDernierEtatAjusteCurseur.control      = DernierEvenement.control) and
+  		         (gDernierEtatAjusteCurseur.verouillage  = DernierEvenement.verouillage) and
+  		         (gDernierEtatAjusteCurseur.numeroCoup   = nbreCoup) and
   		         (gDernierEtatAjusteCurseur.dateKeyboard = DateOfLastKeyboardOperation)
   		         then goto sortie;
   		    end;
@@ -141,7 +141,7 @@ begin {AjusteCurseur}
 		    begin {2}
 		      localFrontWindow := FrontWindow;
 
-  		    if WindowDeCassio(localFrontWindow) | (localFrontWindow = NIL)
+  		    if WindowDeCassio(localFrontWindow) or (localFrontWindow = NIL)
   		      then
   		        begin {3}
 
@@ -151,7 +151,7 @@ begin {AjusteCurseur}
 		                goto sortie;
 		              end; {4}
 
-                if enSetUp & not(iconisationDeCassio.encours) then
+                if enSetUp and not(iconisationDeCassio.encours) then
                   begin {4}
                     case couleurEnCoursPourSetUp of
                       pionNoir  : SafeSetCursor(pionNoirCurseur);
@@ -173,7 +173,7 @@ begin {AjusteCurseur}
 
                 localFrontWindowSaufPalette := FrontWindowSaufPalette;
 
-                if windowCourbeOpen & (wCourbePtr <> NIL) & (wCourbePtr = localFrontWindowSaufPalette) then
+                if windowCourbeOpen and (wCourbePtr <> NIL) and (wCourbePtr = localFrontWindowSaufPalette) then
                   begin {4}
                     unRect := GetWindowContentRect(wCourbePtr);
                     if PtInRect(mouseLoc,unRect) then
@@ -190,13 +190,13 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if enSetUp | iconisationDeCassio.encours | enRetour then
+                if enSetUp or iconisationDeCassio.encours or enRetour then
                   begin {4}
                     InitCursor;
                     goto sortie;
                   end; {4}
 
-                if windowPaletteOpen & (wPalettePtr <> NIL) & (wPalettePtr = localFrontWindow) then
+                if windowPaletteOpen and (wPalettePtr <> NIL) and (wPalettePtr = localFrontWindow) then
                   begin {4}
                     unRect := GetWindowStructRect(wPalettePtr);
                     if PtInRect(mouseLoc,unRect) then
@@ -206,7 +206,7 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if windowListeOpen & (wListePtr <> NIL) & (wListePtr = localFrontWindowSaufPalette)  then
+                if windowListeOpen and (wListePtr <> NIL) and (wListePtr = localFrontWindowSaufPalette)  then
                   begin {4}
                     unRect := GetWindowContentRect(wListePtr);
                     if PtInRect(mouseLoc,unRect) then
@@ -214,11 +214,11 @@ begin {AjusteCurseur}
                         SetPortByWindow(wListePtr);
                         GlobalToLocal(mouseLoc);
 
-                        if {(nbPartiesChargees > 0) &}
-                           (((SousCriteresRuban[TournoiRubanBox]      <> NIL) & PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[TournoiRubanBox]))) |
-                            ((SousCriteresRuban[JoueurNoirRubanBox]   <> NIL) & PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[JoueurNoirRubanBox]))) |
-                            ((SousCriteresRuban[JoueurBlancRubanBox]  <> NIL) & PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[JoueurBlancRubanBox]))) |
-                            ((SousCriteresRuban[DistributionRubanBox] <> NIL) & PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[DistributionRubanBox]))))
+                        if {(nbPartiesChargees > 0) and}
+                           (((SousCriteresRuban[TournoiRubanBox]      <> NIL) and PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[TournoiRubanBox]))) or
+                            ((SousCriteresRuban[JoueurNoirRubanBox]   <> NIL) and PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[JoueurNoirRubanBox]))) or
+                            ((SousCriteresRuban[JoueurBlancRubanBox]  <> NIL) and PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[JoueurBlancRubanBox]))) or
+                            ((SousCriteresRuban[DistributionRubanBox] <> NIL) and PtInRect(mouseLoc,TEGetViewRect(SousCriteresRuban[DistributionRubanBox]))))
                            then
                              begin {6}
                               iBeam := GetCursor(iBeamCursor);
@@ -229,7 +229,7 @@ begin {AjusteCurseur}
                                then SafeSetCursor(GetCursor(DigitCurseurID))
                                else
                                  begin
-                                   if (nbPartiesActives > 0) | gameOver
+                                   if (nbPartiesActives > 0) or gameOver
                                      then InitCursor
                                      else SafeSetCursor(CurseurPourLaCouleurActive);
                                  end;
@@ -238,14 +238,14 @@ begin {AjusteCurseur}
                   end; {4}
 
 
-                if windowStatOpen & (wStatPtr <> NIL) & (wStatPtr = localFrontWindowSaufPalette) then
+                if windowStatOpen and (wStatPtr <> NIL) and (wStatPtr = localFrontWindowSaufPalette) then
                   begin {4}
                     unRect := GetWindowContentRect(wStatPtr);
                     if PtInRect(mouseLoc,unRect) then
                       begin {5}
                         SetPortByWindow(wStatPtr);
                         GlobalToLocal(mouseLoc);
-                        if (mouseLoc.v < hauteurRubanStatistiques) & (nbreCoup > 0)
+                        if (mouseLoc.v < hauteurRubanStatistiques) and (nbreCoup > 0)
                           then
                             begin {6}
                               //backMoveCurseur := GetCursor(backMoveCurseurID);
@@ -253,8 +253,8 @@ begin {AjusteCurseur}
                               SafeSetCursor(backMoveCurseur);
                             end {6}
                           else
-                        if (nbPartiesActives > 0) & not(gameOver) & (statistiques <> NIL) &
-                           (mouseLoc.v <= hauteurRubanStatistiques+hauteurChaqueLigneStatistique*statistiques^^.nbreponsesTrouvees + 3) &
+                        if (nbPartiesActives > 0) and not(gameOver) and (statistiques <> NIL) and
+                           (mouseLoc.v <= hauteurRubanStatistiques+hauteurChaqueLigneStatistique*statistiques^^.nbreponsesTrouvees + 3) and
                            (mouseLoc.v >= hauteurRubanStatistiques)
                           then
                             begin {6}
@@ -268,7 +268,7 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if windowAideOpen & (wAidePtr <> NIL) & (wAidePtr = localFrontWindowSaufPalette) then
+                if windowAideOpen and (wAidePtr <> NIL) and (wAidePtr = localFrontWindowSaufPalette) then
                   begin {4}
                     unRect := GetWindowContentRect(wAidePtr);
                     if PtInRect(mouseLoc,unRect) then
@@ -278,7 +278,7 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if windowNuageOpen & (wNuagePtr <> NIL) & (wNuagePtr = localFrontWindowSaufPalette) then
+                if windowNuageOpen and (wNuagePtr <> NIL) and (wNuagePtr = localFrontWindowSaufPalette) then
                   begin {4}
                     unRect := GetWindowContentRect(wNuagePtr);
                     if PtInRect(mouseLoc,unRect) then
@@ -288,21 +288,21 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if arbreDeJeu.windowOpen & (GetArbreDeJeuWindow <> NIL) & (GetArbreDeJeuWindow = localFrontWindowSaufPalette) then
+                if arbreDeJeu.windowOpen and (GetArbreDeJeuWindow <> NIL) and (GetArbreDeJeuWindow = localFrontWindowSaufPalette) then
                   with arbreDeJeu do
                   begin {4}
                     unRect := GetWindowContentRect(GetArbreDeJeuWindow);
                     if PtInRect(mouseLoc,unRect) then
                       begin {5}
                         SetPortByDialog(arbreDeJeu.theDialog);
-                        if (mouseLoc.h >= unRect.right - 15) & (mouseLoc.v >= unRect.bottom - 15)
+                        if (mouseLoc.h >= unRect.right - 15) and (mouseLoc.v >= unRect.bottom - 15)
                           then
                             begin {6}
                               InitCursor;
                               goto sortie;
                             end; {6}
                         GlobalToLocal(mouseLoc);
-                        if enModeEdition & PtInRect(mouseLoc,editionRect)
+                        if enModeEdition and PtInRect(mouseLoc,editionRect)
                           then
                             begin {6}
                               iBeam := GetCursor(iBeamCursor);
@@ -311,8 +311,8 @@ begin {AjusteCurseur}
                             end {6}
                           else
                             begin {6}
-                              if avecInterversions &
-                                 SurIconeInterversion(mouseLoc,whichNode) & not(Button) then
+                              if avecInterversions and
+                                 SurIconeInterversion(mouseLoc,whichNode) and not(Button) then
                                 begin {7}
                                   EcrireInterversionsDuGrapheCeNoeudDansRapport(whichNode);
                                   if (whichNode = GetCurrentNode) then
@@ -322,7 +322,7 @@ begin {AjusteCurseur}
                                       goto sortie;
                                     end; {8}
                                 end; {7}
-                              if PtInRect(mouseLoc,backMoveRect) & (nbreCoup > 0) & (not(enModeEdition) | doitResterEnModeEdition)
+                              if PtInRect(mouseLoc,backMoveRect) and (nbreCoup > 0) and (not(enModeEdition) or doitResterEnModeEdition)
 	                              then
 	                                begin {7}
 	                                  //backMoveCurseur := GetCursor(backMoveCurseurID);
@@ -331,7 +331,7 @@ begin {AjusteCurseur}
 	                                  goto sortie;
 	                                end {7}
 	                              else
-	                            if (mouseLoc.v > EditionRect.top-12) & (mouseLoc.v < EditionRect.top)
+	                            if (mouseLoc.v > EditionRect.top-12) and (mouseLoc.v < EditionRect.top)
 	                              then
                                   begin {7}
 	                                  DragLineHorizontalCurseur := GetCursor(DragLineHorizontalCurseurID);
@@ -339,12 +339,12 @@ begin {AjusteCurseur}
 	                                  goto sortie;
 	                                end {7}
 	                              else
-	                            if (mouseLoc.v >= backMoveRect.bottom) & (mouseLoc.v <= EditionRect.top-12) &
-	                               (NbDeFilsOfCurrentNode >= 1) &
-	                               (((mouseLoc.v - 1) div InterligneArbreFenetreArbreDeJeu) <= NbDeFilsOfCurrentNode+1) & (not(enModeEdition) | doitResterEnModeEdition)
+	                            if (mouseLoc.v >= backMoveRect.bottom) and (mouseLoc.v <= EditionRect.top-12) and
+	                               (NbDeFilsOfCurrentNode >= 1) and
+	                               (((mouseLoc.v - 1) div InterligneArbreFenetreArbreDeJeu) <= NbDeFilsOfCurrentNode+1) and (not(enModeEdition) or doitResterEnModeEdition)
                                 then
 	                                begin {7}
-	                                  if (DernierEvenement.shift | DernierEvenement.command | DernierEvenement.option) & (NbDeFilsOfCurrentNode > 1)
+	                                  if (DernierEvenement.shift or DernierEvenement.command or DernierEvenement.option) and (NbDeFilsOfCurrentNode > 1)
 	                                    then
 	                                      begin {8}
 	                                        DragLineHorizontalCurseur := GetCursor(DragLineHorizontalCurseurID);
@@ -366,14 +366,14 @@ begin {AjusteCurseur}
                       end; {5}
                   end; {4}
 
-                if FenetreRapportEstOuverte & FenetreRapportEstAuPremierPlan then
+                if FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan then
                   begin {4}
                     unRect := GetWindowContentRect(GetRapportWindow);
                     if PtInRect(mouseLoc,unRect) then
                       begin {5}
                         unRect.right := unRect.right-15;
                         unRect.bottom := unRect.bottom-15;
-                        if EnTraitementDeTexte & PtInRect(mouseLoc,unRect)
+                        if EnTraitementDeTexte and PtInRect(mouseLoc,unRect)
                           then
                             begin {6}
                               iBeam := GetCursor(iBeamCursor);
@@ -381,7 +381,7 @@ begin {AjusteCurseur}
                             end {6}
                           else
                             begin
-                              if gameOver | SelectionRapportNonVide
+                              if gameOver or SelectionRapportNonVide
                                 then InitCursor
                                 else SafeSetCursor(CurseurPourLaCouleurActive);
                             end;
@@ -390,24 +390,24 @@ begin {AjusteCurseur}
                   end; {4}
 
 
-                if windowPlateauOpen & (wPlateauPtr <> NIL) then
+                if windowPlateauOpen and (wPlateauPtr <> NIL) then
                   begin {4}
-                    if PtInRect(mouseLoc,gHorlogeRectGlobal) & not(EnModeEntreeTranscript) then
+                    if PtInRect(mouseLoc,gHorlogeRectGlobal) and not(EnModeEntreeTranscript) then
                       begin {5}
                         SafeSetCursor(GetCursor(DigitCurseurID));
                         goto sortie;
                       end; {5}
-                    if PtInRect(mouseLoc,GetRectEscargotGlobal) & not(EnModeEntreeTranscript) then
+                    if PtInRect(mouseLoc,GetRectEscargotGlobal) and not(EnModeEntreeTranscript) then
                       begin {5}
                         SafeSetCursor(GetCursor(DigitCurseurID));
                         goto sortie;
                       end; {5}
-                    if (GetMeilleureSuite <> '') & PtInRect(mouseLoc,GetMeilleureSuiteRectGlobal) & not(EnModeEntreeTranscript) then
+                    if (GetMeilleureSuite <> '') and PtInRect(mouseLoc,GetMeilleureSuiteRectGlobal) and not(EnModeEntreeTranscript) then
                       begin {5}
                         SafeSetCursor(GetCursor(DigitCurseurID));
                         goto sortie;
                       end; {5}
-                    if (DernierEvenement.control | DernierEvenement.option) then
+                    if (DernierEvenement.control or DernierEvenement.option) then
                       begin {5}
                         unRect := GetWindowContentRect(wPlateauPtr);
                         if PtInRect(mouseLoc,unRect)
@@ -424,7 +424,7 @@ begin {AjusteCurseur}
                                         InitCursor;
                                         goto sortie;
                                       end; {8}
-                                    if DernierEvenement.option | DernierEvenement.command then
+                                    if DernierEvenement.option or DernierEvenement.command then
                                       {on prepare pour avancer/reculer}
                                       if TrouveCoupDansPartieCourante(whichSquare,numeroDuCoup) then
                                         begin {8}
@@ -445,7 +445,7 @@ begin {AjusteCurseur}
                                 else
                                   begin {7}
                                     LocalToGlobal(mouseLoc);
-                                    if (mouseLoc.h >= GetWindowContentRect(wPlateauPtr).right-16) &
+                                    if (mouseLoc.h >= GetWindowContentRect(wPlateauPtr).right-16) and
                                        (mouseLoc.v >= GetWindowContentRect(wPlateauPtr).bottom-16)
                                       then InitCursor
                                       else SafeSetCursor(GetCursor(DigitCurseurID));
@@ -457,8 +457,8 @@ begin {AjusteCurseur}
                   end; {4}
 
 
-                if EnModeEntreeTranscript & (NombreSuggestionsAffichees >= 1) then
-                  if windowPlateauOpen & (wPlateauPtr <> NIL) then
+                if EnModeEntreeTranscript and (NombreSuggestionsAffichees >= 1) then
+                  if windowPlateauOpen and (wPlateauPtr <> NIL) then
                     begin {4}
                       unRect := GetWindowContentRect(wPlateauPtr);
                       if PtInRect(mouseLoc,unRect) then

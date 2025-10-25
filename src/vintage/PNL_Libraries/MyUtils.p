@@ -113,7 +113,7 @@ end;
 
 function BooleanXor(b1, b2 : boolean) : boolean;
 begin
-	BooleanXor := (b1 & not(b2)) | (b2 & not(b1));
+	BooleanXor := (b1 and not(b2)) or (b2 and not(b1));
 end;
 
 
@@ -292,7 +292,7 @@ end;
 			f : SInt16;
 			s, dot : String255;
 	begin
-		if (n < 1048576) & extra then begin
+		if (n < 1048576) and extra then begin
 			n := n*1024;
 			extra := false;
 		end;
@@ -386,7 +386,7 @@ end;
 {$PUSH}
 {$R-}
 			len := LENGTH_OF_STRING(s);
-			while (len > 0) & (width > maxwidth) do begin
+			while (len > 0) and (width > maxwidth) do begin
 				width := width - CharWidth(s[len]);
 				len := len - 1;
 			end;
@@ -468,9 +468,9 @@ end;
 			ch : char;
 	begin
 		SendCharToIsDialogEvent := true;
-		if EventIsKeyDown( er ) & not EventHasCommandKey( er ) then begin
+		if EventIsKeyDown( er ) and not EventHasCommandKey( er ) then begin
 			ch := EventChar( er );
-			if not (ch in (cs + [tab, del, bs])) & DirtyKey(ch) then begin
+			if not (ch in (cs + [tab, del, bs])) and DirtyKey(ch) then begin
 				SendCharToIsDialogEvent := false;
 			end;
 		end;

@@ -159,8 +159,8 @@ end;
 function UnJoueurVientDePasser : boolean;
 begin
   UnJoueurVientDePasser := (AQuiDeJouer <> pionVide)
-                           & (nbreCoup > 0)
-                           & (AQuiDeJouer = partie^^[nbreCoup].trait);
+                           and (nbreCoup > 0)
+                           and (AQuiDeJouer = partie^^[nbreCoup].trait);
 end;
 
 
@@ -169,9 +169,9 @@ procedure TransposeCoupPourOrientation(var whichSquare : SInt16; autreCoupQuatre
 var premierCoupParDefaut : SInt32;
   begin
     premierCoupParDefaut := GetPremierCoupParDefaut;
-    if (GetNiemeCoupPartieCourante(1) = 65) | (premierCoupParDefaut = 65) then whichSquare := 10*platMod10[whichSquare]+platDiv10[whichSquare] else
-    if (GetNiemeCoupPartieCourante(1) = 43) | (premierCoupParDefaut = 43) then whichSquare := 10*(9-platDiv10[whichSquare])+9-platMod10[whichSquare] else
-    if (GetNiemeCoupPartieCourante(1) = 34) | (premierCoupParDefaut = 34) then whichSquare := 10*(9-platMod10[whichSquare])+9-platDiv10[whichSquare];
+    if (GetNiemeCoupPartieCourante(1) = 65) or (premierCoupParDefaut = 65) then whichSquare := 10*platMod10[whichSquare]+platDiv10[whichSquare] else
+    if (GetNiemeCoupPartieCourante(1) = 43) or (premierCoupParDefaut = 43) then whichSquare := 10*(9-platDiv10[whichSquare])+9-platMod10[whichSquare] else
+    if (GetNiemeCoupPartieCourante(1) = 34) or (premierCoupParDefaut = 34) then whichSquare := 10*(9-platMod10[whichSquare])+9-platDiv10[whichSquare];
     if autreCoupQuatreDiagonal then whichSquare := 10*platMod10[whichSquare]+platDiv10[whichSquare];
   end;
 
@@ -182,7 +182,7 @@ var i,whichSquare,longueur : SInt16;
   begin
     longueur := GET_LENGTH_OF_PACKED_GAME(partie60);
     premierCoupParDefaut := GetPremierCoupParDefaut;
-    if (GetNiemeCoupPartieCourante(1) = 65) | (premierCoupParDefaut = 65)
+    if (GetNiemeCoupPartieCourante(1) = 65) or (premierCoupParDefaut = 65)
       then
         for i := 1 to longueur do
           begin
@@ -191,7 +191,7 @@ var i,whichSquare,longueur : SInt16;
             SET_NTH_MOVE_OF_PACKED_GAME(partie60, i, whichSquare);
           end
       else
-        if (GetNiemeCoupPartieCourante(1) = 43) | (premierCoupParDefaut = 43)
+        if (GetNiemeCoupPartieCourante(1) = 43) or (premierCoupParDefaut = 43)
           then
             for i := 1 to longueur do
               begin
@@ -200,7 +200,7 @@ var i,whichSquare,longueur : SInt16;
                 SET_NTH_MOVE_OF_PACKED_GAME(partie60, i, whichSquare);
               end
              else
-               if (GetNiemeCoupPartieCourante(1) = 34) | (premierCoupParDefaut = 34)
+               if (GetNiemeCoupPartieCourante(1) = 34) or (premierCoupParDefaut = 34)
                  then
                   for i := 1 to longueur do
                     begin
@@ -208,9 +208,9 @@ var i,whichSquare,longueur : SInt16;
                       whichSquare := 10*(9-platMod10[whichSquare])+9-platDiv10[whichSquare];
                       SET_NTH_MOVE_OF_PACKED_GAME(partie60, i, whichSquare);
                     end;
-    if autreCoupQuatreDiagonal &
-       (minCoupTranspose >= 1) & (minCoupTranspose <= 60) &
-       (maxCoupTranspose >= 1) & (maxCoupTranspose <= 60) then
+    if autreCoupQuatreDiagonal and
+       (minCoupTranspose >= 1) and (minCoupTranspose <= 60) and
+       (maxCoupTranspose >= 1) and (maxCoupTranspose <= 60) then
         begin
           for i := Min(minCoupTranspose,longueur) to Min(maxCoupTranspose,longueur) do
             begin
@@ -234,28 +234,28 @@ begin
   autreCoupQuatreDiag := false;
   if nbreCoup > 0 then
     begin
-      if (GetNiemeCoupPartieCourante(1) = 56) | (premierCoupParDefaut = 56) then
+      if (GetNiemeCoupPartieCourante(1) = 56) or (premierCoupParDefaut = 56) then
        for i := 1 to nbreCoup do
          begin
            coup := GetNiemeCoupPartieCourante(i);
            s := s + CoupEnStringEnMajuscules(coup);
          end
        else
-        if (GetNiemeCoupPartieCourante(1) = 65) | (premierCoupParDefaut = 65) then
+        if (GetNiemeCoupPartieCourante(1) = 65) or (premierCoupParDefaut = 65) then
           for i := 1 to nbreCoup do
            begin
              coup := GetNiemeCoupPartieCourante(i);
              s := s + CHR(64+platDiv10[coup]) + chr(48+platMod10[coup]);
            end
           else
-           if (GetNiemeCoupPartieCourante(1) = 43) | (premierCoupParDefaut = 43) then
+           if (GetNiemeCoupPartieCourante(1) = 43) or (premierCoupParDefaut = 43) then
              for i := 1 to nbreCoup do
              begin
                coup := GetNiemeCoupPartieCourante(i);
                s := s + CHR(73-(platMod10[coup])) + chr(57-(platDiv10[coup]));
              end
             else
-             if (GetNiemeCoupPartieCourante(1) = 34) | (premierCoupParDefaut = 34) then
+             if (GetNiemeCoupPartieCourante(1) = 34) or (premierCoupParDefaut = 34) then
               for i := 1 to nbreCoup do
                 begin
                  coup := GetNiemeCoupPartieCourante(i);
@@ -305,25 +305,25 @@ begin
   premierCoupParDefaut := GetPremierCoupParDefaut;
   if nbreCoup > 0 then
     begin
-      if (GetNiemeCoupPartieCourante(1) = 56) | (premierCoupParDefaut = 56)
+      if (GetNiemeCoupPartieCourante(1) = 56) or (premierCoupParDefaut = 56)
         then begin
           premierCoup := 56;
-          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 66) & (GetNiemeCoupPartieCourante(3) = 65) & (GetNiemeCoupPartieCourante(4) = 64);
+          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 66) and (GetNiemeCoupPartieCourante(3) = 65) and (GetNiemeCoupPartieCourante(4) = 64);
         end else
-      if (GetNiemeCoupPartieCourante(1) = 65) | (premierCoupParDefaut = 65)
+      if (GetNiemeCoupPartieCourante(1) = 65) or (premierCoupParDefaut = 65)
         then begin
           premierCoup := 65;
-          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 66) & (GetNiemeCoupPartieCourante(3) = 56) & (GetNiemeCoupPartieCourante(4) = 46);
+          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 66) and (GetNiemeCoupPartieCourante(3) = 56) and (GetNiemeCoupPartieCourante(4) = 46);
         end else
-      if (GetNiemeCoupPartieCourante(1) = 43) | (premierCoupParDefaut = 43)
+      if (GetNiemeCoupPartieCourante(1) = 43) or (premierCoupParDefaut = 43)
         then begin
           premierCoup := 43;
-          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 33) & (GetNiemeCoupPartieCourante(3) = 34) & (GetNiemeCoupPartieCourante(4) = 35);
+          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 33) and (GetNiemeCoupPartieCourante(3) = 34) and (GetNiemeCoupPartieCourante(4) = 35);
         end else
-      if (GetNiemeCoupPartieCourante(1) = 34) | (premierCoupParDefaut = 34)
+      if (GetNiemeCoupPartieCourante(1) = 34) or (premierCoupParDefaut = 34)
         then begin
           premierCoup := 34;
-          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 33) & (GetNiemeCoupPartieCourante(3) = 43) & (GetNiemeCoupPartieCourante(4) = 53);
+          autreCoupQuatreDiag := (GetNiemeCoupPartieCourante(2) = 33) and (GetNiemeCoupPartieCourante(3) = 43) and (GetNiemeCoupPartieCourante(4) = 53);
         end;
     end;
 end;
@@ -347,26 +347,26 @@ begin
   autreCoupQuatreDiag := false;
   if longueurPartie > 0 then
     begin
-      if  (partie120[1] = 'F') & (partie120[2] = '5') then
+      if  (partie120[1] = 'F') and (partie120[2] = '5') then
         begin
           s := partie120;
         end
        else
-        if (partie120[1] = 'E') & (partie120[2] = '6') then
+        if (partie120[1] = 'E') and (partie120[2] = '6') then
           for i := 1 to longueurPartie do
            begin
              coup := ord(partie120[2*i-1])-64 + 10*(ord(partie120[2*i])-48);
              s := s + CHR(64+platDiv10[coup]) + chr(48+platMod10[coup]);
            end
           else
-           if (partie120[1] = 'C') & (partie120[2] = '4') then
+           if (partie120[1] = 'C') and (partie120[2] = '4') then
              for i := 1 to longueurPartie do
              begin
                coup := ord(partie120[2*i-1])-64 + 10*(ord(partie120[2*i])-48);
                s := s + CHR(73-(platMod10[coup])) + chr(57-(platDiv10[coup]));
              end
             else
-             if (partie120[1] = 'D') & (partie120[2] = '3') then
+             if (partie120[1] = 'D') and (partie120[2] = '3') then
               for i := 1 to longueurPartie do
                 begin
                  coup := ord(partie120[2*i-1])-64 + 10*(ord(partie120[2*i])-48);
@@ -390,7 +390,7 @@ begin
       then
         begin
           TraiteIntervertionsCoups(s);
-          if (longueurPartie >= 4) & (Pos('F5F6E6D6',s) = 1) then
+          if (longueurPartie >= 4) and (Pos('F5F6E6D6',s) = 1) then
             begin
                autreCoupQuatreDiag := true;
                for i := 4 to longueurPartie do
@@ -416,107 +416,107 @@ begin
   longueurPartie := LENGTH_OF_STRING(s) div 2;
 
   { Diagonale }
-  if (longueurPartie >= 4) & (Pos('F5F6E6D6',s) = 1) then
+  if (longueurPartie >= 4) and (Pos('F5F6E6D6',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,4,longueurPartie);
 
   { Heath Cheminee Diagonale }
-  if (longueurPartie >= 8) & (Pos('F5F6E6F4G5D6E7F7',s) = 1) then
+  if (longueurPartie >= 8) and (Pos('F5F6E6F4G5D6E7F7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,8,longueurPartie);
 
   { Coup 6 bizarre sur la Rose }
-  if (longueurPartie >= 8) & (Pos('F5D6C5F4E3C3E6F2',s) = 1) then
+  if (longueurPartie >= 8) and (Pos('F5D6C5F4E3C3E6F2',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,8,longueurPartie);
 
-  if (longueurPartie >= 8) & (Pos('F5D6C5F4E3C3E6D2',s) = 1) then
+  if (longueurPartie >= 8) and (Pos('F5D6C5F4E3C3E6D2',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,8,longueurPartie);
 
   { Coup 6 bizarre sur la Rose, un coup plus loin }
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C3E6F6C4',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C3E6F6C4',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C3E6F6D7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C3E6F6D7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C3E6F6E7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C3E6F6E7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C3E6F6F7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C3E6F6F7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
   { Inoue }
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C6E6F3C4',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C6E6F3C4',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C6E6F3D7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C6E6F3D7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C6E6F3B7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C6E6F3B7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C6E6F3C7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C6E6F3C7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C6E6F3E7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C6E6F3E7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeSE_NW,9,longueurPartie);
 
   { Ball }
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C4D3E6C3',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C4D3E6C3',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C4D3E6B4',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C4D3E6B4',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C4D3E6B5',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C4D3E6B5',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C4D3E6C6',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C4D3E6C6',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,9,longueurPartie);
 
-  if (longueurPartie >= 9) & (Pos('F5D6C5F4E3C4D3E6D7',s) = 1) then
+  if (longueurPartie >= 9) and (Pos('F5D6C5F4E3C4D3E6D7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,9,longueurPartie);
 
   { position de Cedric }
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6B3',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6B3',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6B4',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6B4',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6B5',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6B5',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6B6',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6B6',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6B7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6B7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6C7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6C7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4E6C6D3F6D7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4E6C6D3F6D7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
   { position de Cedric, par interversion }
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6B3',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6B3',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6B4',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6B4',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6B5',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6B5',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6B6',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6B6',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6B7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6B7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6C7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6C7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
-  if (longueurPartie >= 11) & (Pos('F5D6C5F4E3C4D3C6E6F6D7',s) = 1) then
+  if (longueurPartie >= 11) and (Pos('F5D6C5F4E3C4D3C6E6F6D7',s) = 1) then
     SymetriserPartieFormatAlphanumerique(s,axeVertical,11,longueurPartie);
 
   NormaliserLaPartiePourInclusionDansLaBaseWThor := s;
@@ -1120,7 +1120,7 @@ end;
 
 procedure SetPremierCoupParDefaut(coup : SInt32);
 begin
-  if (coup = 34) | (coup = 43) | (coup = 56) | (coup = 65)
+  if (coup = 34) or (coup = 43) or (coup = 56) or (coup = 65)
     then premierCoupParDefautDansListe := coup;
 end;
 
@@ -1166,7 +1166,7 @@ end;
 procedure SymetriserPartieFormatThor(var s60 : PackedThorGame; axeSymetrie : SInt32; debut,fin : SInt32);
 var i : SInt16;
 begin
-  if (debut >= 1) & (debut <= 60) & (fin >= 1) & (fin <= 60) then
+  if (debut >= 1) and (debut <= 60) and (fin >= 1) and (fin <= 60) then
 	  for i := debut to fin do
 	    SET_NTH_MOVE_OF_PACKED_GAME(s60, i, CaseSymetrique(GET_NTH_MOVE_OF_PACKED_GAME(s60,i,'SymetriserPartieFormatThor'), axeSymetrie));
 end;
@@ -1203,7 +1203,7 @@ begin
 
   longueur := GET_LENGTH_OF_PACKED_GAME(s60);
 
-  if (longueur > 0) & (numeroCoup >= 1) & (numeroCoup <= longueur) then
+  if (longueur > 0) and (numeroCoup >= 1) and (numeroCoup <= longueur) then
     begin
       EssayerCetteSymetrie(axeSE_NW);
       EssayerCetteSymetrie(axeSW_NE);
@@ -1222,7 +1222,7 @@ procedure SymetriserPartieFormatAlphanumerique(var s : String255; axeSymetrie : 
 var i,coup : SInt16;
     s1 : String255;
 begin
-  if (debut >= 1) & (debut <= 60) & (fin >= 1) & (fin <= 60) then
+  if (debut >= 1) and (debut <= 60) and (fin >= 1) and (fin <= 60) then
 	  for i := debut to fin do
 	    begin
 	      coup := PositionDansStringAlphaEnCoup(s,2*i-1);
@@ -1309,7 +1309,7 @@ begin
   for i := 1 to Min(GET_LENGTH_OF_PACKED_GAME(partie60),numeroCoup) do
     begin
       coup := GET_NTH_MOVE_OF_PACKED_GAME(partie60,i,'CalculePositionEtTraitApres(1)');
-      if (coup < 11) | (coup > 88)
+      if (coup < 11) or (coup > 88)
         then exit(CalculePositionEtTraitApres);  {coup impensable}
       if ModifPlatFin(coup,trait,position,nbBlanc,nbNoir) then trait := -trait else
       if not(ModifPlatFin(coup,-trait,position,nbBlanc,nbNoir))

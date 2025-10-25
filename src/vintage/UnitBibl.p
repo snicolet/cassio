@@ -241,8 +241,8 @@ begin
   nbReponsesEnBibliotheque := 0;
 
   FormatageBibl(s,chaine);
-  if (not(refuseQuelquesFois) | PChancesSurN(2,3)) then
-  if EnBibliotheque(chaine,index) & (BibliothequeNbReponse^^[index] > 0) then
+  if (not(refuseQuelquesFois) or PChancesSurN(2,3)) then
+  if EnBibliotheque(chaine,index) and (BibliothequeNbReponse^^[index] > 0) then
     begin
       nbReponsesEnBibliotheque := BibliothequeNbReponse^^[index];
       if avecAleatoire then RandomizeTimer;
@@ -257,17 +257,17 @@ begin
           begin
             n1 := n2+1;
             n2 := BibliothequeReponses^^[index,i].bornesup;
-            if not(JoueBonsCoupsBibl) | ((n2-n1) >= 10) then
-              if (n1 <= n) & (n <= n2) then
+            if not(JoueBonsCoupsBibl) or ((n2-n1) >= 10) then
+              if (n1 <= n) and (n <= n2) then
                 begin
                   coup := BibliothequeReponses^^[index,i].x;
                   coupTrouve := true;
                   TrouveCoupEnBibliotheque := true;
                 end;
           end;
-      until coupTrouve | (nbEssais > 500);
+      until coupTrouve or (nbEssais > 500);
       chaine := chaine + chr(coup);
-      if EnBibliotheque(chaine,index) & (BibliothequeNbReponse^^[index] > 0) then
+      if EnBibliotheque(chaine,index) and (BibliothequeNbReponse^^[index] > 0) then
         begin
           if avecAleatoire then RandomizeTimer;
           n := Abs(Random) mod 100;
@@ -277,7 +277,7 @@ begin
             begin
               n1 := n2+1;
               n2 := BibliothequeReponses^^[index,i].bornesup;
-              if (n1 <= n) & (n <= n2) then
+              if (n1 <= n) and (n <= n2) then
                 defense := BibliothequeReponses^^[index,i].x;
             end;
         end;
@@ -300,13 +300,13 @@ begin
 
   test := false;
   strPartie := PartieNormalisee(coupQuatreDiag,true);
-  if (LENGTH_OF_STRING(strPartie) > 0) | (nbreCoup <= 0) then
+  if (LENGTH_OF_STRING(strPartie) > 0) or (nbreCoup <= 0) then
     begin
       test := LENGTH_OF_STRING(strPartie) <= 2*LongMaxBibl;   {  bibliotheque jusqu'au coup 41 }
 
       if test then test := TrouveCoupEnBibliotheque(strPartie,whichSquare,defense,false,nbReponsesEnBibliotheque);
-      if test & refuseQuelquesFois & (nbReponsesEnBibliotheque = 1) then
-        test := test & UneChanceSur(5);  { une chance sur 5 de ÇvarierÈ }
+      if test and refuseQuelquesFois and (nbReponsesEnBibliotheque = 1) then
+        test := test and UneChanceSur(5);  { une chance sur 5 de ÇvarierÈ }
       if test then
         begin
            if GetNiemeCoupPartieCourante(1) = 65 then
@@ -358,7 +358,7 @@ var strPartie : String255;
     end;
 
 begin  {EcritCoupsBibliotheque}
-  if bibliothequeLisible & (nbreCoup <= LongMaxBibl) & not(positionFeerique) then
+  if bibliothequeLisible and (nbreCoup <= LongMaxBibl) and not(positionFeerique) then
     begin
       strPartie := PartieNormalisee(coupQuatreDiag,true);
       FormatageBibl(strPartie,chainePartie);
@@ -378,7 +378,7 @@ begin  {EcritCoupsBibliotheque}
                 DessinePourcentage(whichSquare,n2-n1+1);
             end;
 
-         if avecNomOuvertures & not(CassioEstEn3D) & not(EnModeEntreeTranscript) then
+         if avecNomOuvertures and not(CassioEstEn3D) and not(EnModeEntreeTranscript) then
             begin
               PrepareTexteStatePourCommentaireOuverture;
               indexCommentaireDeb := indexCommentaireBibl^^[index-1]+1;
@@ -423,7 +423,7 @@ var strPartie : String255;
     coupQuatreDiag : boolean;
 begin
   PositionCouranteEstDansLaBibliotheque := false;
-  if bibliothequeLisible & (nbreCoup <= LongMaxBibl) & not(positionFeerique) then
+  if bibliothequeLisible and (nbreCoup <= LongMaxBibl) and not(positionFeerique) then
     begin
       strPartie := PartieNormalisee(coupQuatreDiag,true);
       FormatageBibl(strPartie,chainePartie);
@@ -435,8 +435,8 @@ end;
 
 function DoitAfficherBibliotheque : boolean;
 begin
-  DoitAfficherBibliotheque := afficheBibl & (nbreCoup <= LongMaxBibl) &
-                              (BAnd(GetAffichageProprietesOfCurrentNode,kBibliotheque) <> 0) &
+  DoitAfficherBibliotheque := afficheBibl and (nbreCoup <= LongMaxBibl) and
+                              (BAnd(GetAffichageProprietesOfCurrentNode,kBibliotheque) <> 0) and
                               not(positionFeerique);
 end;
 
@@ -447,7 +447,7 @@ begin
     begin
       Yaffiche := decV;
       for index := ligneDebut to lignefin do
-        if (index >= 1) & (index <= nbrelignesEnBibl) then
+        if (index >= 1) and (index <= nbrelignesEnBibl) then
           begin
             Yaffiche := Yaffiche+12;
             Moveto(decH,Yaffiche);
@@ -484,7 +484,7 @@ begin
           end
         else
           begin
-			      if (s <> '') & (s <> 'N/D') then
+			      if (s <> '') and (s <> 'N/D') then
 			        begin
 			          s := GetLigneDeJeuOfBibliotheque(index);
 			          RejouePartieOthello(s,LENGTH_OF_STRING(s) div 2,true,bidplat,pionNoir,gameNodeLePlusProfond,false,true);
@@ -649,7 +649,7 @@ begin
 
       {WritelnDansRapport(uneLigne);}
 
-      {if (uneligne[1] <> 'F') | (uneligne[2] <> '5') then
+      {if (uneligne[1] <> 'F') or (uneligne[2] <> '5') then
         begin
           TransformeLigneBibliothequeFormatEtrange(uneLigne);
           exit(AjouterLigneDeBibliotheque);
@@ -681,7 +681,7 @@ begin
   	          for i := 1 to longueurNomOuverture do
   	            commentaireBiblEnTas^^[indexCumuleCommentaires+i] := unCommentaire[i];
   	          indexCumuleCommentaires := indexCumuleCommentaires+longueurNomOuverture;
-  	          if avecinsertionnomsdansmenu & metDansMenu & (OuvertureMenu <> NIL) then
+  	          if avecinsertionnomsdansmenu and metDansMenu and (OuvertureMenu <> NIL) then
   	            begin
   	              MyAppendMenu(OuvertureMenu,unCommentaire);
   	              {MyAppendMenu(OuvertureMenu,Concat(unCommentaire,'  '));}
@@ -697,7 +697,7 @@ begin
   	      DeleteString(uneligne,1,posDeuxPoints);
 
   	      {
-  	      if (longueurNomOuverture > 0) & (EnleveEspacesDeGauche(uneLigne) = '') then
+  	      if (longueurNomOuverture > 0) and (EnleveEspacesDeGauche(uneLigne) = '') then
   	        begin
   	          MergeOldBiblCassioWithCommOuv(dernierePartieLue,unCommentaire);
   	        end;
@@ -740,7 +740,7 @@ begin
 
   	                compteur := 0;
   	                pourcentageCumule := 0;
-  	                while (uneligne <> '') & (LENGTH_OF_STRING(uneligne) > 3) do
+  	                while (uneligne <> '') and (LENGTH_OF_STRING(uneligne) > 3) do
   	                  begin
   	                    EnleveEspacesDeGaucheSurPlace(uneLigne);
   	                    EnleveEspacesDeDroiteSurPlace(uneLigne);
@@ -761,7 +761,7 @@ begin
   	                         ChaineToLongint(pourcentStr,pourcentage);
   	                         DeleteString(uneligne,1,k);
 
-  	                         if (whichSquare >= 11) & (whichSquare <= 88) & (pourcentage >= 0) then
+  	                         if (whichSquare >= 11) and (whichSquare <= 88) and (pourcentage >= 0) then
   	                           begin
   	                             compteur := compteur+1;
   	                             pourcentageCumule := pourcentageCumule+pourcentage;
@@ -769,10 +769,10 @@ begin
   	                             BibliothequeReponses^^[nbreLignesEnBibl,compteur].bornesup := pourcentageCumule-1;
   	                           end;
   	                      end;
-  	                  end; {while (uneligne <> '') & (LENGTH_OF_STRING(uneligne) > 3) do...}
+  	                  end; {while (uneligne <> '') and (LENGTH_OF_STRING(uneligne) > 3) do...}
   	                BibliothequeNbReponse^^[nbreLignesEnBibl] := compteur;
 
-  	                if (pourcentageCumule > 0) & (pourcentageCumule <> 100) then
+  	                if (pourcentageCumule > 0) and (pourcentageCumule <> 100) then
   	                  begin
   	                    ChaineTestCorrection := dernierePartieLue;
   	                    s := ReadStringFromRessource(TextesBibliothequeID,7);
@@ -850,9 +850,9 @@ begin
   	  nbreFautes := 0;
   	  pourcentageLecture := 0.0;
   	  bibliothequeLisible := false;
-  	  if (bibliothequeEnTas <> NIL) &
-  	     (bibliothequeIndex <> NIL) &
-  	     (BibliothequeNbReponse <> NIL) &
+  	  if (bibliothequeEnTas <> NIL) and
+  	     (bibliothequeIndex <> NIL) and
+  	     (BibliothequeNbReponse <> NIL) and
   	     (bibliothequeReponses <> NIL) then
   	    begin
   	      GetPort(oldport);
@@ -873,14 +873,14 @@ begin
     		      begin
     		        doitOuvrirFenetreLectureBibliotheque := doitMettreMessageBibliothequeAbsenteDansFenetre;
 
-    		        if doitMettreMessageBibliothequeAbsenteDansFenetre & (FenetreMessageBibl = NIL) then
+    		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl = NIL) then
     		          OuvrirFenetreLectureBibliotheque(lectureBiblData);
 
 
     		        s := ReadStringFromRessource(TextesBibliothequeID,1);
     		        s := ParamStr(s,nomBibl,'','','');
 
-    		        if doitMettreMessageBibliothequeAbsenteDansFenetre & (FenetreMessageBibl <> NIL)
+    		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl <> NIL)
     		          then
     		            begin
     		              Moveto(10,25);
@@ -891,7 +891,7 @@ begin
 
     		        s := ReadStringFromRessource(TextesBibliothequeID,2);
 
-    		        if doitMettreMessageBibliothequeAbsenteDansFenetre & (FenetreMessageBibl <> NIL)
+    		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl <> NIL)
     		          then
     		            begin
     		              Moveto(10,50);
@@ -902,7 +902,7 @@ begin
 
     		        s := ReadStringFromRessource(TextesBibliothequeID,3);
 
-    		        if doitMettreMessageBibliothequeAbsenteDansFenetre & (FenetreMessageBibl <> NIL)
+    		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl <> NIL)
     		          then
     		            begin
     		              Moveto(10,65);
@@ -911,7 +911,7 @@ begin
     		          else
     		            WritelnDansRapport(s);
 
-    		        if doitMettreMessageBibliothequeAbsenteDansFenetre & (FenetreMessageBibl <> NIL) then
+    		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl <> NIL) then
     		          begin
     		            While not(Button) do ShareTimeWithOtherProcesses(2);
     		          end;
@@ -957,20 +957,20 @@ begin
   	          intervallePourcentage := Max(1,estimationTailleBibl div 50);
 
 
-  	          while (erreurES = NoErr) & not(EOFFichierTexte(FichierBibliotheque,erreurES)) &
-  	                (nbreLignesEnBibl < maxNbreLignesEnBibl) &
+  	          while (erreurES = NoErr) and not(EOFFichierTexte(FichierBibliotheque,erreurES)) and
+  	                (nbreLignesEnBibl < maxNbreLignesEnBibl) and
   	                not(bibliothequeTropGrosse) do
   	            begin
   	              erreurES := ReadlnDansFichierTexte(FichierBibliotheque,uneligne);
   	              if erreurES = 0 then
   	                begin
   	                  EnleveEspacesDeGaucheSurPlace(uneLigne);
-  	                  if (uneLigne <> '') & (uneLigne[1] <> '%') then
+  	                  if (uneLigne <> '') and (uneLigne[1] <> '%') then
   	                    AjouterLigneDeBibliotheque(uneLigne,lectureBiblData);
   	                end;
   	            end; {while...}
 
-  		        if not(EOFFichierTexte(FichierBibliotheque,erreurES)) & not(bibliothequeTropGrosse) then
+  		        if not(EOFFichierTexte(FichierBibliotheque,erreurES)) and not(bibliothequeTropGrosse) then
   		          begin
   		            bibliothequeTropGrosse := true;
   		            s := ReadStringFromRessource(TextesBibliothequeID,8);
@@ -979,7 +979,7 @@ begin
   		        erreurES := FermeFichierTexte(FichierBibliotheque);
   	        end;
 
-  	    if (nbreFautes >= 1) & (FenetreMessageBibl <> NIL)
+  	    if (nbreFautes >= 1) and (FenetreMessageBibl <> NIL)
   	      then AttendFrappeClavier;
 
   	    SetPort(oldport);
@@ -1000,7 +1000,7 @@ var strPartie : String255;
     coupQuatreDiag : boolean;
 begin
   NomOuvertureChange := false;
-  if bibliothequeLisible & (nbreCoup <= LongMaxBibl) then
+  if bibliothequeLisible and (nbreCoup <= LongMaxBibl) then
     begin
       strPartie := PartieNormalisee(coupQuatreDiag,true);
       FormatageBibl(strPartie,chainePartie);
@@ -1014,7 +1014,7 @@ var result : String255;
     octetDebut,octetFin,i,j,whichSquare,n1,n2 : SInt32;
     indexCommentaireDeb,indexCommentairefin : SInt32;
 begin
-  if (index >= 1) & (index <= nbrelignesEnBibl)
+  if (index >= 1) and (index <= nbrelignesEnBibl)
     then
       begin
         result := 'F5';
@@ -1055,7 +1055,7 @@ function GetLigneDeJeuOfBibliotheque(index : SInt32) : String255;
 var result : String255;
     octetDebut,octetFin,j,whichSquare : SInt32;
 begin
-  if (index >= 1) & (index <= nbrelignesEnBibl)
+  if (index >= 1) and (index <= nbrelignesEnBibl)
     then
       begin
         result := 'F5';
@@ -1077,7 +1077,7 @@ function GetCommentaireOfBibliotheque(index : SInt32) : String255;
 var result : String255;
     i,indexCommentaireDeb,indexCommentairefin : SInt32;
 begin
-  if (index >= 1) & (index <= nbrelignesEnBibl)
+  if (index >= 1) and (index <= nbrelignesEnBibl)
     then
       begin
         result := '';

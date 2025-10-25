@@ -242,11 +242,11 @@ end;
 	begin
 		foundvRefNum := -1;
 		foundDirID := 2;
-		if (Gestalt(gestaltFindFolderAttr, gv) <> noErr) |
-		   (not BTST(gv, gestaltFindFolderPresent)) |
+		if (Gestalt(gestaltFindFolderAttr, gv) <> noErr) or
+		   (not BTST(gv, gestaltFindFolderPresent)) or
 		   (FindFolder(vRefNum, folderType, true, foundvRefNum, foundDirID) <> noErr) then
 		   begin
-    			if true {| (SysEnvirons(1, theWorld) = noErr)} then begin
+    			if true {or (SysEnvirons(1, theWorld) = noErr)} then begin
     				foundvRefNum := theWorld.sysvRefNum;
     				foundDirID := 0;
     			end else begin
@@ -292,7 +292,7 @@ end;
 				path := Concat(GetNameOfFSSpec(fs), ':');
 			end else begin
 				path := GetNameOfFSSpec(fs);
-				while (err = noErr) & (fs.parID <> 1) do begin
+				while (err = noErr) and (fs.parID <> 1) do begin
 					err := FSpGetIndCatInfo(fs, -1, pb);
 					path := Concat(GetNameOfFSSpec(fs), ':', path);
 					fs.parID := pb.ioFlParID;
@@ -497,7 +497,7 @@ end;
 		pb.ioPosMode := fsFromStart;
 		pb.ioPosOffset := pos;
 		oe := PBReadSync(@pb);
-		if (oe = noErr) & (pb.ioActCount <> len) then begin
+		if (oe = noErr) and (pb.ioActCount <> len) then begin
 			oe := -1;
 		end;
 		MyFSReadAt := oe;
@@ -516,11 +516,11 @@ end;
 		pb.ioPosMode := fsFromMark + fsNewLine + BSl(ord(ch), 8);
 		pb.ioPosOffset := 0;
 		err := PBReadSync(@pb);
-		if (err = eofErr) & (pb.ioActCount > 0) then begin
+		if (err = eofErr) and (pb.ioActCount > 0) then begin
 			err := noErr;
 		end;
 		if err = noErr then begin
-			if (pb.ioActCount > 0) & (s[pb.ioActCount] = ch) then begin
+			if (pb.ioActCount > 0) and (s[pb.ioActCount] = ch) then begin
 				pb.ioActCount := pb.ioActCount - 1;
 			end;
 			SET_LENGTH_OF_STRING(s, (pb.ioActCount));
@@ -547,7 +547,7 @@ end;
 		pb.ioPosMode := fsFromStart + fsNewLine + BSl(ord(cr), 8);
 		pb.ioPosOffset := pos;
 		err := PBReadSync(@pb);
-		if (err = eofErr) & (pb.ioActCount > 0) then begin
+		if (err = eofErr) and (pb.ioActCount > 0) then begin
 			err := noErr;
 		end;
 		if err = noErr then begin
@@ -568,7 +568,7 @@ end;
 		if len > 0 then begin
 			count := len;
 			err := FSRead(refnum, count, p);
-			if (err = noErr) & (count <> len) then begin
+			if (err = noErr) and (count <> len) then begin
 				err := -1;
 			end;
 		end;
@@ -591,7 +591,7 @@ end;
 		if len > 0 then begin
 			count := len;
 			oe := FSWrite(refnum, count, p);
-			if (oe = noErr) & (count <> len) then begin
+			if (oe = noErr) and (count <> len) then begin
 				oe := -1;
 			end;
 		end;
@@ -632,7 +632,7 @@ end;
 			gv: SInt32;
 			oe : OSErr;
 	begin
-		if (Gestalt(gestaltAliasMgrAttr, gv) = noErr) & (BTST(gv, gestaltAliasMgrPresent)) then begin
+		if (Gestalt(gestaltAliasMgrAttr, gv) = noErr) and (BTST(gv, gestaltAliasMgrPresent)) then begin
 			temp := fs;
 			oe := ResolveAliasFile(fs, true, isFolder, wasalias);
 			if oe <> noErr then begin
@@ -712,7 +712,7 @@ end;
 			gv : SInt32;
 			name255 : Str255;
 	begin
-		if (Gestalt(gestaltFSAttr, gv) = noErr) & (BTST(gv, gestaltHasFSSpecCalls))
+		if (Gestalt(gestaltFSAttr, gv) = noErr) and (BTST(gv, gestaltHasFSSpecCalls))
 		  then
 		    begin
 		      StringIntoStr255(name, name255);
@@ -764,14 +764,14 @@ end;
 			oe : OSErr;
 	begin
 		oe := noErr;
-		while (len > 0) & (oe = noErr) do begin
+		while (len > 0) and (oe = noErr) do begin
 			if len > SizeOf(buffer) then begin
 				l := SizeOf(buffer);
 			end else begin
 				l := len;
 			end;
 			oe := FSRead(src, l, @buffer);
-			if (l = 0) & (oe = noErr) then begin
+			if (l = 0) and (oe = noErr) then begin
 				oe := -1;
 			end;
 			if oe = noErr then begin
@@ -855,7 +855,7 @@ end;
 		pb.ioPosMode := mode;
 		pb.ioPosOffset := pos;
 		oe := PBWriteSync(@pb);
-		if (oe = noErr) & (pb.ioActCount <> len) then begin
+		if (oe = noErr) and (pb.ioActCount <> len) then begin
 			oe := -1;
 		end;
 		MyFSWriteAt := oe;
@@ -877,7 +877,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 	    begin
 	      count := len;
 	      err := FSWrite(refnum, count, p);
-	      if (err = noErr) & (count <> len)
+	      if (err = noErr) and (count <> len)
 	        then err := -1;
 	    end;
 
@@ -895,7 +895,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 	begin
 		blocks := BAnd(BSr(blocks, 1), $00007FFF); { div 2 }
 		blocksize := BAnd(BSr(blocksize, 9), $007FFFFF); { div 512 }
-		if (blocksize > 256) & (blocks > 256) then begin
+		if (blocksize > 256) and (blocks > 256) then begin
 			size := (blocksize div 16) * (blocks div 16);
 			if size > maxk div 256 then begin
 				size := maxk div 256;
@@ -986,8 +986,8 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 
 	function SameFSSpec (const fs1, fs2 : FSSpec) : boolean;
 	begin
-		SameFSSpec := (fs1.vRefNum = fs2.vRefNum) &
-		              (fs1.parID = fs2.parID) &   {(IUEqualString(fs1.name, fs2.name) = 0);}
+		SameFSSpec := (fs1.vRefNum = fs2.vRefNum) and
+		              (fs1.parID = fs2.parID) and   {(IUEqualString(fs1.name, fs2.name) = 0);}
 		              (GetNameOfFSSpec(fs1) = GetNameOfFSSpec(fs2));      {attention, on devrait plutot utiliser IUEqualString !!!!!!!}
 	end;
 
@@ -1016,7 +1016,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 			pb : ParamBlockRec;
 			oe : OSErr;
 	begin
-		if (name <> '') & (name[LENGTH_OF_STRING(name)] <> ':') then begin
+		if (name <> '') and (name[LENGTH_OF_STRING(name)] <> ':') then begin
 			name := Concat(name, ':');
 		end;
 		pb.ioNamePtr := @name;
@@ -1115,7 +1115,7 @@ var
 							    end;
 					  end;
 			  end;
-		until (oe <> noErr) {| EscapeDansQueue;}
+		until (oe <> noErr) {or EscapeDansQueue;}
 	end;
 
 begin
@@ -1761,7 +1761,7 @@ begin
 
 	(* convert the C path to a Pascal String *)
 	i := 0;
-	while (i < 255) & (ord(CPath[i]) > 0) do
+	while (i < 255) and (ord(CPath[i]) > 0) do
 	  begin
 	    c := CPath[i];
 	    if c = '/' then c := ':';

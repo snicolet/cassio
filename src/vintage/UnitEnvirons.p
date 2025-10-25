@@ -100,11 +100,11 @@ begin
    // On gere le cas ou Cassio est une application sous forme de bundle
 
    SplitRightByStr (myPath , ':Contents:' , left , right );
-   if (left <> '') & (right <> '') then
+   if (left <> '') and (right <> '') then
      begin
        myPath := left;
        SplitRightByStr (myPath , ':' , left , right );
-       if (left <> '') & (right <> '') then
+       if (left <> '') and (right <> '') then
          begin
            left := left + ':';
            codeErreur := MyFSMakeFSSpec(0,0,left,myFSSpec);
@@ -132,7 +132,7 @@ begin
 
    SplitRightByStr (myPath , ':Contents:' , left , right );
 
-   CassioEstUnBundleApplicatif := (left <> '') & (right <> '');
+   CassioEstUnBundleApplicatif := (left <> '') and (right <> '');
 end;
 
 
@@ -161,7 +161,7 @@ begin
    // On trouve si Cassio est une application sous forme de bundle
 
    SplitRightByStr (myPath , ':Contents:' , left , right );
-   if (left <> '') & (right <> '')
+   if (left <> '') and (right <> '')
      then
        begin
          myPath := left;
@@ -268,7 +268,7 @@ begin
       else
         iterateurCassioFolderPaths := TryNextCassioFolderPath;
 
-  until (err = NoErr) | (iterateurCassioFolderPaths = '');
+  until (err = NoErr) or (iterateurCassioFolderPaths = '');
 
   if err <> NoErr then  { desespoir !! }
       begin
@@ -312,7 +312,7 @@ begin
       else
         iterateurCassioFolderPaths := TryNextCassioFolderPath;
 
-  until (err = NoErr) | (iterateurCassioFolderPaths = '');
+  until (err = NoErr) or (iterateurCassioFolderPaths = '');
 
 
   if (err <> 0) then
@@ -336,7 +336,7 @@ begin
 
 
 
-    if gVersionJaponaiseDeCassio & gHasJapaneseScript
+    if gVersionJaponaiseDeCassio and gHasJapaneseScript
       then
         begin
           gCassioSmallFontSize   := 9;
@@ -541,7 +541,7 @@ begin
    begin
      nomFichier := GetNameOfFSSpec(fs);
 
-     if (nomFichier = '') | (nomFichier[1] = '.') then
+     if (nomFichier = '') or (nomFichier[1] = '.') then
        exit(LoadPolicePriveeDeCassio);
 
      // WritelnDansRapport('Searching font ' + nomFichier + ' ...');
@@ -618,13 +618,13 @@ begin
 
   policeID := MyGetFontNum(nomPolice);
 
-  if (policeID = 0) & (nomPolice = 'Fontin')                 then policeID := GetCassioFontNum('Fontin Regular');
-  if (policeID = 0) & (nomPolice = 'New Century Schoolbook') then policeID := GetCassioFontNum('New Century Schoolbook Roman');
-  if (policeID = 0) & (nomPolice = 'Gentium')                then policeID := GetCassioFontNum('Gentium Basic');
+  if (policeID = 0) and (nomPolice = 'Fontin')                 then policeID := GetCassioFontNum('Fontin Regular');
+  if (policeID = 0) and (nomPolice = 'New Century Schoolbook') then policeID := GetCassioFontNum('New Century Schoolbook Roman');
+  if (policeID = 0) and (nomPolice = 'Gentium')                then policeID := GetCassioFontNum('Gentium Basic');
 
   // WritelnNumDansRapport(nomPolice + '  =>  policeID = ',policeID);
 
-  if (policeID = 0) & (gNbLecturesDossierPolicesDeCassio <= 0) then
+  if (policeID = 0) and (gNbLecturesDossierPolicesDeCassio <= 0) then
     begin
        ChargerLesPolicesPriveesDeCassio;
        policeID := GetCassioFontNum(nomPolice);
@@ -660,7 +660,7 @@ function HasGestaltAttr(itsAttr : OStype; itsBit : SInt16) : boolean;
 	var
 		response : SInt32;
 begin
-	HasGestaltAttr := (Gestalt(itsAttr, response) = noErr) & (BTST(response, itsBit));
+	HasGestaltAttr := (Gestalt(itsAttr, response) = noErr) and (BTST(response, itsBit));
 end;
 
 
@@ -691,7 +691,7 @@ end;
 
 function EstLaVersionAnglaiseDeCassio : boolean;
 begin
-  EstLaVersionAnglaiseDeCassio := not(EstLaVersionFrancaiseDeCassio | EstLaVersionJaponaiseDeCassio);
+  EstLaVersionAnglaiseDeCassio := not(EstLaVersionFrancaiseDeCassio or EstLaVersionJaponaiseDeCassio);
 end;
 
 
@@ -791,12 +791,12 @@ begin
       nbPathsCassioFolder := 0;
       repeat
         erreurES := ReadlnDansFichierTexte(fic,s);
-        if (s <> '') & (erreurES = NoErr) then
+        if (s <> '') and (erreurES = NoErr) then
           begin
             inc(nbPathsCassioFolder);
             gListeOfValidCassioFolders.paths[nbPathsCassioFolder] := s;
           end;
-      until (nbPathsCassioFolder >= kMaxCassioFolderPaths) | (erreurES <> NoErr) | EOFFichierTexte(fic,erreurES);
+      until (nbPathsCassioFolder >= kMaxCassioFolderPaths) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
 
       erreurES := FermeFichierTexte(fic);
 
@@ -809,7 +809,7 @@ var k : SInt32;
     applicationSupportPath : String255;
     trouve : boolean;
 begin
-  if (whichPath <> '') & (GetPathOfApplicationSupportFolder(applicationSupportPath) = NoErr) then
+  if (whichPath <> '') and (GetPathOfApplicationSupportFolder(applicationSupportPath) = NoErr) then
     begin
 
       (* ne pas ajouter le path du dossier si on a l'impression que Cassio
@@ -860,7 +860,7 @@ begin
 
 
       inc(compteur);
-      if (compteur >= 1) & (compteur <= kMaxCassioFolderPaths)
+      if (compteur >= 1) and (compteur <= kMaxCassioFolderPaths)
         then TryNextCassioFolderPath := gListeOfValidCassioFolders.paths[compteur]
         else TryNextCassioFolderPath := '';
     end;

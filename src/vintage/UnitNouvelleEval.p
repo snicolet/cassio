@@ -231,8 +231,8 @@ begin
 	    if g.Pattern[kAdresseBlocCoinA1,0] = NIL then SysBeep(0);
       if h.Pattern[kAdresseBlocCoinA1,0] = NIL then SysBeep(0);
       if xi.Pattern[kAdresseBlocCoinA1,0] = NIL then SysBeep(0);
-	    memoireAlloueeConjugateGradientChi2 := (g.Pattern[kAdresseBlocCoinA1,0] <> NIL) &
-	                                         (h.Pattern[kAdresseBlocCoinA1,0] <> NIL) &
+	    memoireAlloueeConjugateGradientChi2 := (g.Pattern[kAdresseBlocCoinA1,0] <> NIL) and
+	                                         (h.Pattern[kAdresseBlocCoinA1,0] <> NIL) and
 	                                         (xi.Pattern[kAdresseBlocCoinA1,0] <> NIL);
 	  end;
 
@@ -252,7 +252,7 @@ begin
       begin
         AlloueVecteurEval(rapportOccurence);
         AlloueVecteurEval(rank);
-        if (rapportOccurence.Pattern[kAdresseBlocCoinA1,0] = NIL) |
+        if (rapportOccurence.Pattern[kAdresseBlocCoinA1,0] = NIL) or
            (rank.Pattern[kAdresseBlocCoinA1,0] = NIL)
           then SysBeep(0)
           else memoireAlloueeTriEvaluation := true;
@@ -598,7 +598,7 @@ begin
 			evalFrontiereDiscs := nbfront[pionBlanc]-nbfront[pionNoir];
 			evalPartielle := evalPartielle + whichEval.FrontiereDiscs^[numeroDuCoup]*evalFrontiereDiscs;
 
-      if minimisation & (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide) then
+      if minimisation and (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide) then
 			  begin
 			    diffNbreDiscs := nbBlanc-nbNoir;
 			    evalPartielle := evalPartielle+0.25*diffNbreDiscs;
@@ -782,7 +782,7 @@ begin
 			WritelnStringAndReelDansRapport('FrontiereDiscs = ',aux,5);
       evalPartielle := evalPartielle+aux;
 
-      if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide) then
+      if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide) then
 			  begin
 			    diffNbreDiscs := nbBlanc-nbNoir;
 			    aux := 0.25*diffNbreDiscs;
@@ -1031,7 +1031,7 @@ begin
 					evalPartielle := evalPartielle + evalFrontiere;
 
 		      (*****  la minimisation  *****)
-		      if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide) then
+		      if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide) then
 					  begin
 					    diffNbreDiscs := nbBlanc-nbNoir;
 					    evalMinimisation := 25*diffNbreDiscs;
@@ -1053,7 +1053,7 @@ begin
 
 					      { 95% des corrections de mobilite sont dans l'intervalle [-3.5 pions, 3.5 pions] }
 					      { on peut donc faire des elagages probabilistes }
-					      if (evalPartielle <= (alpha - MOBILITY_WINDOW)) | (evalPartielle >= (beta + MOBILITY_WINDOW))
+					      if (evalPartielle <= (alpha - MOBILITY_WINDOW)) or (evalPartielle >= (beta + MOBILITY_WINDOW))
 					        then goto suite;
 
 					      if (evalPartielle < alpha)
@@ -1062,7 +1062,7 @@ begin
 					            mobiliteNoire   := MobiliteSemiTranquilleAvecCasesC(pionNoir,position,jouable,frontiere,tranquillesNoirs,100000);
 							        evalPartielle   := evalPartielle + coeffMobilite*mobiliteNoire;
 
-								      if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+								      if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
 								        then mobilitePourCoupure := 4 + ((evalPartielle - (alpha - MoitieQuantum)) div coeffMobilite)
 								        else mobilitePourCoupure := 4 + ((evalPartielle - alpha) div coeffMobilite);
 
@@ -1077,7 +1077,7 @@ begin
 								      mobiliteBlanche := MobiliteSemiTranquilleAvecCasesC(pionBlanc,position,jouable,frontiere,tranquillesBlancs,100000);
 								      evalPartielle   := evalPartielle - coeffMobilite*mobiliteBlanche;
 
-								      if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+								      if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
 								        then mobilitePourCoupure := 4 + (((beta + MoitieQuantum) - evalPartielle) div coeffMobilite)
 								        else mobilitePourCoupure := 4 + ((beta - evalPartielle) div coeffMobilite);
 
@@ -1093,7 +1093,7 @@ begin
 
 					      { 95% des corrections de mobilite sont dans l'intervalle [-3.5 pions, 3.5 pions] }
 					      { on peut donc faire des elagages probabilistes }
-					      if ( -evalPartielle <= (alpha - MOBILITY_WINDOW)) | (-evalPartielle >= (beta + MOBILITY_WINDOW))
+					      if ( -evalPartielle <= (alpha - MOBILITY_WINDOW)) or (-evalPartielle >= (beta + MOBILITY_WINDOW))
 					        then goto suite;
 
 
@@ -1103,7 +1103,7 @@ begin
 					            mobiliteBlanche := MobiliteSemiTranquilleAvecCasesC(pionBlanc,position,jouable,frontiere,tranquillesBlancs,100000);
 										  evalPartielle   := evalPartielle - coeffMobilite*mobiliteBlanche;
 
-								      if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+								      if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
 								        then mobilitePourCoupure := 4 + ((-evalPartielle - (alpha - MoitieQuantum)) div coeffMobilite)
 								        else mobilitePourCoupure := 4 + ((-evalPartielle - alpha) div coeffMobilite);
 
@@ -1118,7 +1118,7 @@ begin
 								      mobiliteNoire   := MobiliteSemiTranquilleAvecCasesC(pionNoir,position,jouable,frontiere,tranquillesNoirs,100000);
 								      evalPartielle   := evalPartielle + coeffMobilite*mobiliteNoire;
 
-								      if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+								      if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
 								        then mobilitePourCoupure := 4 + (((beta + MoitieQuantum) + evalPartielle) div coeffMobilite)
 								        else mobilitePourCoupure := 4 + ((beta + evalPartielle) div coeffMobilite);
 
@@ -1149,7 +1149,7 @@ begin
   if evalPartielle >  6400 then evalPartielle :=  6400;
   if evalPartielle < -6400 then evalPartielle := -6400;
 
-  if utilisateurVeutDiscretiserEvaluation & discretisationEvaluationEstOK
+  if utilisateurVeutDiscretiserEvaluation and discretisationEvaluationEstOK
     then
       begin
         if evalPartielle >= 0
@@ -1196,7 +1196,7 @@ var Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32;
 
     procedure WritelnStringAndNoteDansRapport(s : String255; note : SInt32);
     begin
-      if (note >= 1000) | (note <= -1000)
+      if (note >= 1000) or (note <= -1000)
         then WritelnStringAndReelDansRapport(s, (0.01 * note), 4)
         else WritelnStringAndReelDansRapport(s, (0.01 * note), 3);
     end;
@@ -1362,7 +1362,7 @@ begin
 			WritelnStringAndNoteDansRapport('FrontiereDiscs = ',aux);
       evalPartielle := evalPartielle+aux;
 
-      if (position[11] = pionVide) & (position[18] = pionVide) & (position[81] = pionVide) & (position[88] = pionVide) then
+      if (position[11] = pionVide) and (position[18] = pionVide) and (position[81] = pionVide) and (position[88] = pionVide) then
 			  begin
 			    diffNbreDiscs := nbBlanc-nbNoir;
 			    aux := 25*diffNbreDiscs;
@@ -1520,9 +1520,9 @@ begin  {$UNUSED trait}
       for k := kAdresseBlocCoinA1 to kAdresseBlocCoinH8 do
         PatternsRenverses[k] := SymmetricalMapping13SquaresCorner(AdressePattern[k]);
       for k := 1 to kAdresseBlocCoinH8 do
-        if (k <> kAdresseBordOuest) &  {sauf les bords}
-           (k <> kAdresseBordEst  ) &
-           (k <> kAdresseBordNord ) &
+        if (k <> kAdresseBordOuest) and  {sauf les bords}
+           (k <> kAdresseBordEst  ) and
+           (k <> kAdresseBordNord ) and
            (k <> kAdresseBordSud  ) then
         begin
           if PatternsRenverses[k] <> AdressePattern[k] then
@@ -1629,7 +1629,7 @@ function ParticipeAuChi2(numeroDansLaListe,numeroRefPartie : SInt32; var tickGro
 var ok : boolean;
     scoreTheoriquePourNoir : SInt32;
 begin  {$UNUSED numeroDansLaListe,tickGroupe}
-  ok := (numeroRefPartie >= 1) & (numeroRefPartie <= nbPartiesActives) {& (numeroRefPartie <= 50)};
+  ok := (numeroRefPartie >= 1) and (numeroRefPartie <= nbPartiesActives) {and (numeroRefPartie <= 50)};
 
 
   if ok then
@@ -1642,7 +1642,7 @@ begin  {$UNUSED numeroDansLaListe,tickGroupe}
         end; *)
 
       scoreTheoriquePourNoir := GetScoreTheoriqueParNroRefPartie(numeroRefPartie);
-      ok := (scoreTheoriquePourNoir >= 2) & (scoreTheoriquePourNoir <= 62);
+      ok := (scoreTheoriquePourNoir >= 2) and (scoreTheoriquePourNoir <= 62);
     end;
 
   ParticipeAuChi2 := ok;

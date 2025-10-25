@@ -142,14 +142,14 @@ begin
   bloc8 := -pl[88]+coulm3[pl[78]]+coulm9[pl[68]]+coulm27[pl[58]]
          +coulm81[pl[87]]+coulm243[pl[77]]+coulm729[pl[67]]+coulm2187[pl[57]];
 
-  if (bloc1 < -3280) | (bloc1 > 3280) |
-     (bloc2 < -3280) | (bloc2 > 3280) |
-     (bloc3 < -3280) | (bloc3 > 3280) |
-     (bloc4 < -3280) | (bloc4 > 3280) |
-     (bloc5 < -3280) | (bloc5 > 3280) |
-     (bloc6 < -3280) | (bloc6 > 3280) |
-     (bloc7 < -3280) | (bloc7 > 3280) |
-     (bloc8 < -3280) | (bloc8 > 3280)
+  if (bloc1 < -3280) or (bloc1 > 3280) or
+     (bloc2 < -3280) or (bloc2 > 3280) or
+     (bloc3 < -3280) or (bloc3 > 3280) or
+     (bloc4 < -3280) or (bloc4 > 3280) or
+     (bloc5 < -3280) or (bloc5 > 3280) or
+     (bloc6 < -3280) or (bloc6 > 3280) or
+     (bloc7 < -3280) or (bloc7 > 3280) or
+     (bloc8 < -3280) or (bloc8 > 3280)
      then SysBeep(0);
 
   ValeurBlocsDeCoinPourNoir := valeurBlocsDeCoin^[bloc1]+valeurBlocsDeCoin^[bloc2]+
@@ -180,14 +180,14 @@ begin
   bloc8 := pl[88]+coul3[pl[78]]+coul9[pl[68]]+coul27[pl[58]]
          +coul81[pl[87]]+coul243[pl[77]]+coul729[pl[67]]+coul2187[pl[57]];
 
-  if (bloc1 < -3280) | (bloc1 > 3280) |
-     (bloc2 < -3280) | (bloc2 > 3280) |
-     (bloc3 < -3280) | (bloc3 > 3280) |
-     (bloc4 < -3280) | (bloc4 > 3280) |
-     (bloc5 < -3280) | (bloc5 > 3280) |
-     (bloc6 < -3280) | (bloc6 > 3280) |
-     (bloc7 < -3280) | (bloc7 > 3280) |
-     (bloc8 < -3280) | (bloc8 > 3280)
+  if (bloc1 < -3280) or (bloc1 > 3280) or
+     (bloc2 < -3280) or (bloc2 > 3280) or
+     (bloc3 < -3280) or (bloc3 > 3280) or
+     (bloc4 < -3280) or (bloc4 > 3280) or
+     (bloc5 < -3280) or (bloc5 > 3280) or
+     (bloc6 < -3280) or (bloc6 > 3280) or
+     (bloc7 < -3280) or (bloc7 > 3280) or
+     (bloc8 < -3280) or (bloc8 > 3280)
      then SysBeep(0);
 
   ValeurBlocsDeCoinPourBlanc := valeurBlocsDeCoin^[bloc1]+valeurBlocsDeCoin^[bloc2]+

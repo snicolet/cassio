@@ -850,15 +850,15 @@ function EstLaPositionStandardDeDepart(const plat : plateauOthello) : boolean;
 var test : boolean;
     t : SInt32;
 begin
-  test := (plat[44] = pionBlanc) & (plat[55] = pionBlanc) &
-        (plat[45] = pionNoir) & (plat[54] = pionNoir);
+  test := (plat[44] = pionBlanc) and (plat[55] = pionBlanc) and
+        (plat[45] = pionNoir) and (plat[54] = pionNoir);
   if test then
     begin
       t := 0;
       repeat
         t := t+1;
-        test := test & (plat[othellier[t]] = pionVide);
-      until not(test) | (t >= 60);
+        test := test and (plat[othellier[t]] = pionVide);
+      until not(test) or (t >= 60);
     end;
   EstLaPositionStandardDeDepart := test;
 end;
@@ -874,7 +874,7 @@ var x,t : SInt32;
 begin
    MemoryFillChar(@carte,sizeof(carte),char(false));
    mobilite := 0;
-   if (coul <> pionVide) & ((coul = pionBlanc) | (coul = pionNoir)) then
+   if (coul <> pionVide) and ((coul = pionBlanc) or (coul = pionNoir)) then
      for t := 1 to 64 do
        begin
          x := othellier[t];
@@ -918,7 +918,7 @@ begin
          repeat
            inc(compteur);
            coup := listeCoups[1+(Abs(Random) mod mobilite)];
-         until (compteur > 20) | not(coup in casesInterdites);
+         until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoire := coup;
        end;
@@ -979,7 +979,7 @@ begin
          repeat
            inc(compteur);
            coup := listeCoups[1+(Abs(Random) mod mobilite)];
-         until (compteur > 20) | not(coup in casesInterdites);
+         until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoireDonnantPleinDeMobilite := coup;
        end;
@@ -1039,7 +1039,7 @@ begin
          repeat
            inc(compteur);
            coup := listeCoups[1+(Abs(Random) mod mobilite)];
-         until (compteur > 20) | not(coup in casesInterdites);
+         until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoireDonnantPeuDeMobilite := coup;
        end;
@@ -1205,13 +1205,13 @@ begin
           directionTranquille := (frontiere.nbVide[x] = 1);
           repeat
             x := x+dx;
-            if ((plat[x] = pionEnnemi) & (frontiere.nbVide[x] > 0)) then directionTranquille := false;
+            if ((plat[x] = pionEnnemi) and (frontiere.nbVide[x] > 0)) then directionTranquille := false;
           until plat[x] <> pionEnnemi;
           if (plat[x] = couleur) then
             begin
-              coupTranquille := coupTranquille & directionTranquille;
+              coupTranquille := coupTranquille and directionTranquille;
               inc(nbDirectionsRetournement);
-              if (nbDirectionsRetournement > 1) & not(coupTranquille) then
+              if (nbDirectionsRetournement > 1) and not(coupTranquille) then
                 begin
                   PeutJouerIciBonCoup := false;
                   exit(PeutJouerIciBonCoup);
@@ -1221,7 +1221,7 @@ begin
     end;
 
   {
-  if coupTranquille & (nbDirectionsRetournement >= 1) then
+  if coupTranquille and (nbDirectionsRetournement >= 1) then
     begin
       EssaieSetPortWindowPlateau;
       EcritPositionAt(plat,10,10);
@@ -1232,8 +1232,8 @@ begin
     end;
   }
 
-  PeutJouerIciBonCoup := (nbDirectionsRetournement = 1) |
-                       ((nbDirectionsRetournement > 1) & coupTranquille);
+  PeutJouerIciBonCoup := (nbDirectionsRetournement = 1) or
+                       ((nbDirectionsRetournement > 1) and coupTranquille);
 end;
 
 
@@ -1288,7 +1288,7 @@ begin
           repeat
             x := x+dx;
             inc(compteur);
-            if ((plat[x] = pionEnnemi) & (frontiere.nbVide[x] > 0)) then
+            if ((plat[x] = pionEnnemi) and (frontiere.nbVide[x] > 0)) then
               begin
                 directionTranquille := false;
                 frontiereRetourneeDansCetteDirection := frontiereRetourneeDansCetteDirection+frontiere.nbVide[x];
@@ -1316,7 +1316,7 @@ begin
     end;
 
   {
-  if effetspecial2 & (nbDirectionsRetournement = 1) & (nbDirectionsNonTranquilles >= 1)
+  if effetspecial2 and (nbDirectionsRetournement = 1) and (nbDirectionsNonTranquilles >= 1)
    then
     begin
       EssaieSetPortWindowPlateau;
@@ -1352,7 +1352,7 @@ begin
         else ValeurSemiTranquilleDuCoup := kCoupUnidirectionnelNonTranquille;
       exit(ValeurSemiTranquilleDuCoup);
     end;
-  if (nbDirectionsNonTranquilles = 1) & (nbDirectionsTranquilles > 0) then
+  if (nbDirectionsNonTranquilles = 1) and (nbDirectionsTranquilles > 0) then
     begin
       if (nbrePionsRetournesDirectionNonTranquille > 1)
 		    then ValeurSemiTranquilleDuCoup := kCoupPlusieursDir1NonTranquille
@@ -1802,10 +1802,10 @@ end;
 
 function PeutPrendreUnCoin(coul : SInt32; var plat : plateauOthello) : boolean;
 begin
-  if (plat[11] = pionVide) & PeutJouerIci(coul,11,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[18] = pionVide) & PeutJouerIci(coul,18,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[81] = pionVide) & PeutJouerIci(coul,81,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[88] = pionVide) & PeutJouerIci(coul,88,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
+  if (plat[11] = pionVide) and PeutJouerIci(coul,11,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
+  if (plat[18] = pionVide) and PeutJouerIci(coul,18,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
+  if (plat[81] = pionVide) and PeutJouerIci(coul,81,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
+  if (plat[88] = pionVide) and PeutJouerIci(coul,88,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
   PeutPrendreUnCoin := false;
 end;
 
@@ -1905,7 +1905,7 @@ begin
            inc(compteur);
            x := x+dx;
          end;
-       if (plat[x] = couleur) & (compteur <> 0) then
+       if (plat[x] = couleur) and (compteur <> 0) then
           nbrePrise := nbrePrise+compteur;
      end;
  ComptePrise := nbrePrise;
@@ -2029,7 +2029,7 @@ begin
                inc(compteur);
                x := x+dx;
             end;
-         if (jeu[x] = coul) & (compteur <> 0) then
+         if (jeu[x] = coul) and (compteur <> 0) then
          begin
             modifie := true;
             nbprise := nbprise+compteur;
@@ -2052,22 +2052,22 @@ end;
 
 function CaseXSacrifiee(var plat : plateauOthello) : boolean;
 begin
-  if (plat[22] <> 0) & (plat[11] = 0) then
+  if (plat[22] <> 0) and (plat[11] = 0) then
     begin
       CaseXSacrifiee := true;
       exit(CaseXSacrifiee);
     end;
-  if (plat[27] <> 0) & (plat[18] = 0) then
+  if (plat[27] <> 0) and (plat[18] = 0) then
     begin
       CaseXSacrifiee := true;
       exit(CaseXSacrifiee);
     end;
-  if (plat[72] <> 0) & (plat[81] = 0) then
+  if (plat[72] <> 0) and (plat[81] = 0) then
     begin
       CaseXSacrifiee := true;
       exit(CaseXSacrifiee);
     end;
-  if (plat[77] <> 0) & (plat[88] = 0) then
+  if (plat[77] <> 0) and (plat[88] = 0) then
     begin
       CaseXSacrifiee := true;
       exit(CaseXSacrifiee);
@@ -2204,12 +2204,12 @@ begin
     end;
   }
 
-  if (nbBlancs <= 4) & (nbNoirs > 10) then   {grosse masse ?}
+  if (nbBlancs <= 4) and (nbNoirs > 10) then   {grosse masse ?}
     begin
       EstTurbulent := true;
       exit(EstTurbulent);
     end;
-  if (nbNoirs <= 4) & (nbBlancs > 10) then   {grosse masse ?}
+  if (nbNoirs <= 4) and (nbBlancs > 10) then   {grosse masse ?}
     begin
       EstTurbulent := true;
       exit(EstTurbulent);
@@ -2813,7 +2813,7 @@ var i,j,t,x : SInt32;
     EnCoreIsole,relieEncore : boolean;
     pionAutreQueCentre : boolean;
 begin
-  test := (jeu[44] <> pionVide) & (jeu[45] <> pionVide) & (jeu[54] <> pionVide) & (jeu[55] <> pionVide);
+  test := (jeu[44] <> pionVide) and (jeu[45] <> pionVide) and (jeu[54] <> pionVide) and (jeu[55] <> pionVide);
   pionAutreQueCentre := false;
   for i := 64 downto 1 do
     begin
@@ -2826,12 +2826,12 @@ begin
             begin
               x := t+dir[j];
               if not(interdit[x]) then
-                 testLocal := testlocal | (jeu[x] <> pionVide);
+                 testLocal := testlocal or (jeu[x] <> pionVide);
             end;
-          test := test & testLocal;
+          test := test and testLocal;
         end;
     end;
-  if test & pionAutreQueCentre then
+  if test and pionAutreQueCentre then
     begin
       MemoryFillChar(@relieCentre,sizeof(relieCentre),chr(0));
       relieCentre[44] := true;
@@ -2852,7 +2852,7 @@ begin
                   begin
                     x := t+dir[j];
                     if not(interdit[x]) then
-                      if (jeu[x] <> pionVide) & relieCentre[x] then
+                      if (jeu[x] <> pionVide) and relieCentre[x] then
                         begin
                           relieCentre[t] := true;
                           RelieEncore := true;
@@ -2862,8 +2862,8 @@ begin
                 if not(testLocal) then encoreIsole := true;
               end;
            end;
-      until not(EncoreIsole) | not(RelieEncore);
-      test := test & not(EncoreIsole)
+      until not(EncoreIsole) or not(RelieEncore);
+      test := test and not(EncoreIsole)
     end;
   VerificationConnexiteOK := test;
 end;
@@ -2930,7 +2930,7 @@ begin
     if  empl[iCourant] then
      if PeutJouerIci(CouleurChoix,iCourant,jeu) then
      begin
-       QueDesX := QueDesX & ( EstUneCaseX(iCourant) | estUneCaseC[iCourant] );
+       QueDesX := QueDesX and ( EstUneCaseX(iCourant) or estUneCaseC[iCourant] );
        compteur := compteur+1;
        coup[compteur] := iCourant;
      end;
@@ -2938,7 +2938,7 @@ begin
   repeat
     a := (Abs(Random) mod compteur)+1;
     ChoixX := coup[a];
-  until not(EstUneCaseX(ChoixX) | estUneCaseC[ChoixX]) | QueDesX;
+  until not(EstUneCaseX(ChoixX) or estUneCaseC[ChoixX]) or QueDesX;
   valeurAleatoire := Random;
   if (valeurAleatoire >= 0)
     then valeur := valeurAleatoire mod 10000
@@ -3219,23 +3219,23 @@ function TrousBlancsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;
 var aux : SInt32;
 begin
   aux := 0;
-  if (plat[12] = pionBlanc) & (plat[21] = pionBlanc) & (plat[11] = pionVide) & (plat[22] = pionVide) & (plat[23] = pionBlanc) &
-     (plat[32] = pionBlanc) & (plat[33] = pionBlanc) & (plat[13] <> pionVide) & (plat[31] <> pionVide) then
+  if (plat[12] = pionBlanc) and (plat[21] = pionBlanc) and (plat[11] = pionVide) and (plat[22] = pionVide) and (plat[23] = pionBlanc) and
+     (plat[32] = pionBlanc) and (plat[33] = pionBlanc) and (plat[13] <> pionVide) and (plat[31] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[17] = pionBlanc) & (plat[28] = pionBlanc) & (plat[18] = pionVide) & (plat[27] = pionVide) & (plat[26] = pionBlanc) &
-     (plat[37] = pionBlanc) & (plat[36] = pionBlanc) & (plat[16] <> pionVide) & (plat[38] <> pionVide) then
+  if (plat[17] = pionBlanc) and (plat[28] = pionBlanc) and (plat[18] = pionVide) and (plat[27] = pionVide) and (plat[26] = pionBlanc) and
+     (plat[37] = pionBlanc) and (plat[36] = pionBlanc) and (plat[16] <> pionVide) and (plat[38] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[82] = pionBlanc) & (plat[71] = pionBlanc) & (plat[81] = pionVide) & (plat[72] = pionVide) & (plat[73] = pionBlanc) &
-     (plat[62] = pionBlanc) & (plat[63] = pionBlanc) & (plat[61] <> pionVide) & (plat[83] <> pionVide) then
+  if (plat[82] = pionBlanc) and (plat[71] = pionBlanc) and (plat[81] = pionVide) and (plat[72] = pionVide) and (plat[73] = pionBlanc) and
+     (plat[62] = pionBlanc) and (plat[63] = pionBlanc) and (plat[61] <> pionVide) and (plat[83] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[87] = pionBlanc) & (plat[78] = pionBlanc) & (plat[88] = pionVide) & (plat[77] = pionVide) & (plat[76] = pionBlanc) &
-     (plat[67] = pionBlanc) & (plat[66] = pionBlanc) & (plat[68] <> pionVide) & (plat[86] <> pionVide) then
+  if (plat[87] = pionBlanc) and (plat[78] = pionBlanc) and (plat[88] = pionVide) and (plat[77] = pionVide) and (plat[76] = pionBlanc) and
+     (plat[67] = pionBlanc) and (plat[66] = pionBlanc) and (plat[68] <> pionVide) and (plat[86] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
@@ -3247,23 +3247,23 @@ function TrousNoirsDeDeuxPerdantLaParite(var plat : plateauOthello) : SInt32;
 var aux : SInt32;
 begin
   aux := 0;
-  if (plat[12] =  pionNoir) & (plat[21] =  pionNoir) & (plat[11] =  pionVide) & (plat[22] =  pionVide) & (plat[23] = pionNoir) &
-     (plat[32] =  pionNoir) & (plat[33] =  pionNoir) & (plat[13] <> pionVide) & (plat[31] <> pionVide) then
+  if (plat[12] =  pionNoir) and (plat[21] =  pionNoir) and (plat[11] =  pionVide) and (plat[22] =  pionVide) and (plat[23] = pionNoir) and
+     (plat[32] =  pionNoir) and (plat[33] =  pionNoir) and (plat[13] <> pionVide) and (plat[31] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[17] =  pionNoir) & (plat[28] =  pionNoir) & (plat[18] =  pionVide) & (plat[27] =  pionVide) & (plat[26] = pionNoir) &
-     (plat[37] =  pionNoir) & (plat[36] =  pionNoir) & (plat[16] <> pionVide) & (plat[38] <> pionVide) then
+  if (plat[17] =  pionNoir) and (plat[28] =  pionNoir) and (plat[18] =  pionVide) and (plat[27] =  pionVide) and (plat[26] = pionNoir) and
+     (plat[37] =  pionNoir) and (plat[36] =  pionNoir) and (plat[16] <> pionVide) and (plat[38] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[82] =  pionNoir) & (plat[71] =  pionNoir) & (plat[81] =  pionVide) & (plat[72] =  pionVide) & (plat[73] = pionNoir) &
-     (plat[62] =  pionNoir) & (plat[63] =  pionNoir) & (plat[61] <> pionVide) & (plat[83] <> pionVide) then
+  if (plat[82] =  pionNoir) and (plat[71] =  pionNoir) and (plat[81] =  pionVide) and (plat[72] =  pionVide) and (plat[73] = pionNoir) and
+     (plat[62] =  pionNoir) and (plat[63] =  pionNoir) and (plat[61] <> pionVide) and (plat[83] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
-  if (plat[87] =  pionNoir) & (plat[78] =  pionNoir) & (plat[88] =  pionVide) & (plat[77] =  pionVide) & (plat[76] = pionNoir) &
-     (plat[67] =  pionNoir) & (plat[66] =  pionNoir) & (plat[68] <> pionVide) & (plat[86] <> pionVide) then
+  if (plat[87] =  pionNoir) and (plat[78] =  pionNoir) and (plat[88] =  pionVide) and (plat[77] =  pionVide) and (plat[76] = pionNoir) and
+     (plat[67] =  pionNoir) and (plat[66] =  pionNoir) and (plat[68] <> pionVide) and (plat[86] <> pionVide) then
        begin
          aux := aux+valTrouDeDeuxPerdantLaParite;
        end;
@@ -3277,93 +3277,93 @@ begin
   aux := 0;
   with front do
     begin
-	  if (plat[13] = pionNoir)&(plat[23] = pionBlanc)&(plat[12] = pionVide)&(plat[22] = pionVide)&(plat[18] = pionVide) then
+	  if (plat[13] = pionNoir)and(plat[23] = pionBlanc)and(plat[12] = pionVide)and(plat[22] = pionVide)and(plat[18] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordNord] <> bordBaghatNoir1)            &
+	         {(AdressePattern[kAdresseBordNord] <> bordBaghatNoir1)            and
 	         (AdressePattern[kAdresseBordNord] <> bordBaghatisationParBlanc1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[31] = pionNoir)&(plat[32] = pionBlanc)&(plat[21] = pionVide)&(plat[22] = pionVide)&(plat[81] = pionVide) then
+	  if (plat[31] = pionNoir)and(plat[32] = pionBlanc)and(plat[21] = pionVide)and(plat[22] = pionVide)and(plat[81] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatNoir1)            &
+	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatNoir1)            and
 	         (AdressePattern[kAdresseBordOuest] <> bordBaghatisationParBlanc1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[16] = pionNoir)&(plat[26] = pionBlanc)&(plat[17] = pionVide)&(plat[27] = pionVide)&(plat[11] = pionVide) then
+	  if (plat[16] = pionNoir)and(plat[26] = pionBlanc)and(plat[17] = pionVide)and(plat[27] = pionVide)and(plat[11] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordNord] <> bordBaghatNoir2)            &
+	         {(AdressePattern[kAdresseBordNord] <> bordBaghatNoir2)            and
 	         (AdressePattern[kAdresseBordNord] <> bordBaghatisationParBlanc2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[38] = pionNoir)&(plat[37] = pionBlanc)&(plat[28] = pionVide)&(plat[27] = pionVide)&(plat[88] = pionVide) then
+	  if (plat[38] = pionNoir)and(plat[37] = pionBlanc)and(plat[28] = pionVide)and(plat[27] = pionVide)and(plat[88] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordEst] <> bordBaghatNoir1)            &
+	         {(AdressePattern[kAdresseBordEst] <> bordBaghatNoir1)            and
 	         (AdressePattern[kAdresseBordEst] <> bordBaghatisationParBlanc1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[61] = pionNoir)&(plat[62] = pionBlanc)&(plat[71] = pionVide)&(plat[72] = pionVide)&(plat[11] = pionVide) then
+	  if (plat[61] = pionNoir)and(plat[62] = pionBlanc)and(plat[71] = pionVide)and(plat[72] = pionVide)and(plat[11] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatNoir2)            &
+	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatNoir2)            and
 	         (AdressePattern[kAdresseBordOuest] <> bordBaghatisationParBlanc2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[83] = pionNoir)&(plat[73] = pionBlanc)&(plat[82] = pionVide)&(plat[72] = pionVide)&(plat[88] = pionVide) then
+	  if (plat[83] = pionNoir)and(plat[73] = pionBlanc)and(plat[82] = pionVide)and(plat[72] = pionVide)and(plat[88] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordSud] <> bordBaghatNoir1)            &
+	         {(AdressePattern[kAdresseBordSud] <> bordBaghatNoir1)            and
 	         (AdressePattern[kAdresseBordSud] <> bordBaghatisationParBlanc1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[68] = pionNoir)&(plat[67] = pionBlanc)&(plat[78] = pionVide)&(plat[77] = pionVide)&(plat[18] = pionVide) then
+	  if (plat[68] = pionNoir)and(plat[67] = pionBlanc)and(plat[78] = pionVide)and(plat[77] = pionVide)and(plat[18] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordEst] <> bordBaghatNoir2)            &
+	         {(AdressePattern[kAdresseBordEst] <> bordBaghatNoir2)            and
 	         (AdressePattern[kAdresseBordEst] <> bordBaghatisationParBlanc2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[86] = pionNoir)&(plat[76] = pionBlanc)&(plat[87] = pionVide)&(plat[77] = pionVide)&(plat[81] = pionVide) then
+	  if (plat[86] = pionNoir)and(plat[76] = pionBlanc)and(plat[87] = pionVide)and(plat[77] = pionVide)and(plat[81] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc1) &
-	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc2) &
+	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc1) and
+	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc2) and
 	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParBlanc3)
-	         {(AdressePattern[kAdresseBordSud] <> bordBaghatNoir2)            &
+	         {(AdressePattern[kAdresseBordSud] <> bordBaghatNoir2)            and
 	         (AdressePattern[kAdresseBordSud] <> bordBaghatisationParBlanc2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
 
 	  (*
-	  if (aux <> 0) & effetspecial2 { &
-	    ((AdressePattern[kAdresseBordNord] = bordBaghatNoir1)|(AdressePattern[kAdresseBordNord] = bordBaghatNoir2)|(AdressePattern[kAdresseBordNord] = bordBaghatisationParBlanc1)|(AdressePattern[kAdresseBordNord] = bordBaghatisationParBlanc2)|
-	     (AdressePattern[kAdresseBordOuest] = bordBaghatNoir1)|(AdressePattern[kAdresseBordOuest] = bordBaghatNoir2)|(AdressePattern[kAdresseBordOuest] = bordBaghatisationParBlanc1)|(AdressePattern[kAdresseBordOuest] = bordBaghatisationParBlanc2)|
-	     (AdressePattern[kAdresseBordEst] = bordBaghatNoir1)|(AdressePattern[kAdresseBordEst] = bordBaghatNoir2)|(AdressePattern[kAdresseBordEst] = bordBaghatisationParBlanc1)|(AdressePattern[kAdresseBordEst] = bordBaghatisationParBlanc2)|
-	     (AdressePattern[kAdresseBordSud] = bordBaghatNoir1)|(AdressePattern[kAdresseBordSud] = bordBaghatNoir2)|(AdressePattern[kAdresseBordSud] = bordBaghatisationParBlanc1)|(AdressePattern[kAdresseBordSud] = bordBaghatisationParBlanc2))
+	  if (aux <> 0) and effetspecial2 { and
+	    ((AdressePattern[kAdresseBordNord] = bordBaghatNoir1)or(AdressePattern[kAdresseBordNord] = bordBaghatNoir2)or(AdressePattern[kAdresseBordNord] = bordBaghatisationParBlanc1)or(AdressePattern[kAdresseBordNord] = bordBaghatisationParBlanc2)or
+	     (AdressePattern[kAdresseBordOuest] = bordBaghatNoir1)or(AdressePattern[kAdresseBordOuest] = bordBaghatNoir2)or(AdressePattern[kAdresseBordOuest] = bordBaghatisationParBlanc1)or(AdressePattern[kAdresseBordOuest] = bordBaghatisationParBlanc2)or
+	     (AdressePattern[kAdresseBordEst] = bordBaghatNoir1)or(AdressePattern[kAdresseBordEst] = bordBaghatNoir2)or(AdressePattern[kAdresseBordEst] = bordBaghatisationParBlanc1)or(AdressePattern[kAdresseBordEst] = bordBaghatisationParBlanc2)or
+	     (AdressePattern[kAdresseBordSud] = bordBaghatNoir1)or(AdressePattern[kAdresseBordSud] = bordBaghatNoir2)or(AdressePattern[kAdresseBordSud] = bordBaghatisationParBlanc1)or(AdressePattern[kAdresseBordSud] = bordBaghatisationParBlanc2))
 	    } then
 	    begin
 	      EssaieSetPortWindowPlateau;
@@ -3382,92 +3382,92 @@ begin
   aux := 0;
   with front do
     begin
-	  if (plat[13] = pionBlanc)&(plat[23] = pionNoir)&(plat[12] = pionVide)&(plat[22] = pionVide)&(plat[18] = pionVide) then
+	  if (plat[13] = pionBlanc)and(plat[23] = pionNoir)and(plat[12] = pionVide)and(plat[22] = pionVide)and(plat[18] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordNord] <> bordBaghatBlanc1)          &
+	         {(AdressePattern[kAdresseBordNord] <> bordBaghatBlanc1)          and
 	         (AdressePattern[kAdresseBordNord] <> bordBaghatisationParNoir1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[31] = pionBlanc)&(plat[32] = pionNoir)&(plat[21] = pionVide)&(plat[22] = pionVide)&(plat[81] = pionVide) then
+	  if (plat[31] = pionBlanc)and(plat[32] = pionNoir)and(plat[21] = pionVide)and(plat[22] = pionVide)and(plat[81] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatBlanc1)          &
+	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatBlanc1)          and
 	         (AdressePattern[kAdresseBordOuest] <> bordBaghatisationParNoir1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[16] = pionBlanc)&(plat[26] = pionNoir)&(plat[17] = pionVide)&(plat[27] = pionVide)&(plat[11] = pionVide) then
+	  if (plat[16] = pionBlanc)and(plat[26] = pionNoir)and(plat[17] = pionVide)and(plat[27] = pionVide)and(plat[11] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordNord] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordNord] <> bordBaghatBlanc2)          &
+	         {(AdressePattern[kAdresseBordNord] <> bordBaghatBlanc2)          and
 	         (AdressePattern[kAdresseBordNord] <> bordBaghatisationParNoir2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[38] = pionBlanc)&(plat[37] = pionNoir)&(plat[28] = pionVide)&(plat[27] = pionVide)&(plat[88] = pionVide) then
+	  if (plat[38] = pionBlanc)and(plat[37] = pionNoir)and(plat[28] = pionVide)and(plat[27] = pionVide)and(plat[88] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordEst] <> bordBaghatBlanc1)          &
+	         {(AdressePattern[kAdresseBordEst] <> bordBaghatBlanc1)          and
 	         (AdressePattern[kAdresseBordEst] <> bordBaghatisationParNoir1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[61] = pionBlanc)&(plat[62] = pionNoir)&(plat[71] = pionVide)&(plat[72] = pionVide)&(plat[11] = pionVide) then
+	  if (plat[61] = pionBlanc)and(plat[62] = pionNoir)and(plat[71] = pionVide)and(plat[72] = pionVide)and(plat[11] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordOuest] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatBlanc2)          &
+	         {(AdressePattern[kAdresseBordOuest] <> bordBaghatBlanc2)          and
 	         (AdressePattern[kAdresseBordOuest] <> bordBaghatisationParNoir2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[83] = pionBlanc)&(plat[73] = pionNoir)&(plat[82] = pionVide)&(plat[72] = pionVide)&(plat[88] = pionVide) then
+	  if (plat[83] = pionBlanc)and(plat[73] = pionNoir)and(plat[82] = pionVide)and(plat[72] = pionVide)and(plat[88] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordSud] <> bordBaghatBlanc1)          &
+	         {(AdressePattern[kAdresseBordSud] <> bordBaghatBlanc1)          and
 	         (AdressePattern[kAdresseBordSud] <> bordBaghatisationParNoir1)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[68] = pionBlanc)&(plat[67] = pionNoir)&(plat[78] = pionVide)&(plat[77] = pionVide)&(plat[18] = pionVide) then
+	  if (plat[68] = pionBlanc)and(plat[67] = pionNoir)and(plat[78] = pionVide)and(plat[77] = pionVide)and(plat[18] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordEst] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordEst] <> bordBaghatBlanc2)          &
+	         {(AdressePattern[kAdresseBordEst] <> bordBaghatBlanc2)          and
 	         (AdressePattern[kAdresseBordEst] <> bordBaghatisationParNoir2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
-	  if (plat[86] = pionBlanc)&(plat[76] = pionNoir)&(plat[87] = pionVide)&(plat[77] = pionVide)&(plat[81] = pionVide) then
+	  if (plat[86] = pionBlanc)and(plat[76] = pionNoir)and(plat[87] = pionVide)and(plat[77] = pionVide)and(plat[81] = pionVide) then
 	    begin
-	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir1) &
-	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir2) &
+	      if (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir1) and
+	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir2) and
 	         (AdressePattern[kAdresseBordSud] <> bordMarconisationParNoir3)
-	         {(AdressePattern[kAdresseBordSud] <> bordBaghatBlanc2)          &
+	         {(AdressePattern[kAdresseBordSud] <> bordBaghatBlanc2)          and
 	         (AdressePattern[kAdresseBordSud] <> bordBaghatisationParNoir2)}
 	          then aux := aux+valLiberteSurCaseA
 	          else aux := aux+valLiberteSurCaseAApresMarconisation;
 	    end;
 	  (*
-	  if (aux <> 0) & effetspecial2 {&
-	    ((AdressePattern[kAdresseBordNord] = bordBaghatBlanc1)|(AdressePattern[kAdresseBordNord] = bordBaghatBlanc2)|(AdressePattern[kAdresseBordNord] = bordBaghatisationParNoir1)|(AdressePattern[kAdresseBordNord] = bordBaghatisationParNoir2)|
-	     (AdressePattern[kAdresseBordOuest] = bordBaghatBlanc1)|(AdressePattern[kAdresseBordOuest] = bordBaghatBlanc2)|(AdressePattern[kAdresseBordOuest] = bordBaghatisationParNoir1)|(AdressePattern[kAdresseBordOuest] = bordBaghatisationParNoir2)|
-	     (AdressePattern[kAdresseBordEst] = bordBaghatBlanc1)|(AdressePattern[kAdresseBordEst] = bordBaghatBlanc2)|(AdressePattern[kAdresseBordEst] = bordBaghatisationParNoir1)|(AdressePattern[kAdresseBordEst] = bordBaghatisationParNoir2)|
-	     (AdressePattern[kAdresseBordSud] = bordBaghatBlanc1)|(AdressePattern[kAdresseBordSud] = bordBaghatBlanc2)|(AdressePattern[kAdresseBordSud] = bordBaghatisationParNoir1)|(AdressePattern[kAdresseBordSud] = bordBaghatisationParNoir2))
+	  if (aux <> 0) and effetspecial2 {and
+	    ((AdressePattern[kAdresseBordNord] = bordBaghatBlanc1)or(AdressePattern[kAdresseBordNord] = bordBaghatBlanc2)or(AdressePattern[kAdresseBordNord] = bordBaghatisationParNoir1)or(AdressePattern[kAdresseBordNord] = bordBaghatisationParNoir2)or
+	     (AdressePattern[kAdresseBordOuest] = bordBaghatBlanc1)or(AdressePattern[kAdresseBordOuest] = bordBaghatBlanc2)or(AdressePattern[kAdresseBordOuest] = bordBaghatisationParNoir1)or(AdressePattern[kAdresseBordOuest] = bordBaghatisationParNoir2)or
+	     (AdressePattern[kAdresseBordEst] = bordBaghatBlanc1)or(AdressePattern[kAdresseBordEst] = bordBaghatBlanc2)or(AdressePattern[kAdresseBordEst] = bordBaghatisationParNoir1)or(AdressePattern[kAdresseBordEst] = bordBaghatisationParNoir2)or
+	     (AdressePattern[kAdresseBordSud] = bordBaghatBlanc1)or(AdressePattern[kAdresseBordSud] = bordBaghatBlanc2)or(AdressePattern[kAdresseBordSud] = bordBaghatisationParNoir1)or(AdressePattern[kAdresseBordSud] = bordBaghatisationParNoir2))
 	     }then
 	    begin
 	      EssaieSetPortWindowPlateau;
@@ -3484,17 +3484,17 @@ function LibertesNoiresSurCasesB(var plat : plateauOthello) : SInt32;
 var aux : SInt32;
 begin
   aux := 0;
-  if (plat[14] = pionNoir)&(plat[24] = pionBlanc)&(plat[13] = pionVide)&(plat[23] = pionVide)&(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[41] = pionNoir)&(plat[42] = pionBlanc)&(plat[31] = pionVide)&(plat[32] = pionVide)&(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[15] = pionNoir)&(plat[25] = pionBlanc)&(plat[16] = pionVide)&(plat[26] = pionVide)&(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[48] = pionNoir)&(plat[47] = pionBlanc)&(plat[38] = pionVide)&(plat[37] = pionVide)&(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[51] = pionNoir)&(plat[52] = pionBlanc)&(plat[61] = pionVide)&(plat[62] = pionVide)&(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[84] = pionNoir)&(plat[74] = pionBlanc)&(plat[83] = pionVide)&(plat[73] = pionVide)&(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[58] = pionNoir)&(plat[57] = pionBlanc)&(plat[68] = pionVide)&(plat[67] = pionVide)&(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[85] = pionNoir)&(plat[75] = pionBlanc)&(plat[86] = pionVide)&(plat[76] = pionVide)&(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[14] = pionNoir)and(plat[24] = pionBlanc)and(plat[13] = pionVide)and(plat[23] = pionVide)and(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[41] = pionNoir)and(plat[42] = pionBlanc)and(plat[31] = pionVide)and(plat[32] = pionVide)and(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[15] = pionNoir)and(plat[25] = pionBlanc)and(plat[16] = pionVide)and(plat[26] = pionVide)and(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[48] = pionNoir)and(plat[47] = pionBlanc)and(plat[38] = pionVide)and(plat[37] = pionVide)and(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[51] = pionNoir)and(plat[52] = pionBlanc)and(plat[61] = pionVide)and(plat[62] = pionVide)and(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[84] = pionNoir)and(plat[74] = pionBlanc)and(plat[83] = pionVide)and(plat[73] = pionVide)and(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[58] = pionNoir)and(plat[57] = pionBlanc)and(plat[68] = pionVide)and(plat[67] = pionVide)and(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[85] = pionNoir)and(plat[75] = pionBlanc)and(plat[86] = pionVide)and(plat[76] = pionVide)and(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
 
   {
-  if (aux <> 0) & effetspecial2 then
+  if (aux <> 0) and effetspecial2 then
     begin
       EssaieSetPortWindowPlateau;
       EcritPositionAt(plat,10,10);
@@ -3509,17 +3509,17 @@ function LibertesBlanchesSurCasesB(var plat : plateauOthello) : SInt32;
 var aux : SInt32;
 begin
   aux := 0;
-  if (plat[14] = pionBlanc)&(plat[24] = pionNoir)&(plat[13] = pionVide)&(plat[23] = pionVide)&(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[41] = pionBlanc)&(plat[42] = pionNoir)&(plat[31] = pionVide)&(plat[32] = pionVide)&(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[15] = pionBlanc)&(plat[25] = pionNoir)&(plat[16] = pionVide)&(plat[26] = pionVide)&(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[48] = pionBlanc)&(plat[47] = pionNoir)&(plat[38] = pionVide)&(plat[37] = pionVide)&(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[51] = pionBlanc)&(plat[52] = pionNoir)&(plat[61] = pionVide)&(plat[62] = pionVide)&(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[84] = pionBlanc)&(plat[74] = pionNoir)&(plat[83] = pionVide)&(plat[73] = pionVide)&(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[58] = pionBlanc)&(plat[57] = pionNoir)&(plat[68] = pionVide)&(plat[67] = pionVide)&(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
-  if (plat[85] = pionBlanc)&(plat[75] = pionNoir)&(plat[86] = pionVide)&(plat[76] = pionVide)&(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[14] = pionBlanc)and(plat[24] = pionNoir)and(plat[13] = pionVide)and(plat[23] = pionVide)and(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[41] = pionBlanc)and(plat[42] = pionNoir)and(plat[31] = pionVide)and(plat[32] = pionVide)and(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[15] = pionBlanc)and(plat[25] = pionNoir)and(plat[16] = pionVide)and(plat[26] = pionVide)and(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[48] = pionBlanc)and(plat[47] = pionNoir)and(plat[38] = pionVide)and(plat[37] = pionVide)and(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[51] = pionBlanc)and(plat[52] = pionNoir)and(plat[61] = pionVide)and(plat[62] = pionVide)and(plat[11] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[84] = pionBlanc)and(plat[74] = pionNoir)and(plat[83] = pionVide)and(plat[73] = pionVide)and(plat[88] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[58] = pionBlanc)and(plat[57] = pionNoir)and(plat[68] = pionVide)and(plat[67] = pionVide)and(plat[18] = pionVide) then aux := aux+valLiberteSurCaseB;
+  if (plat[85] = pionBlanc)and(plat[75] = pionNoir)and(plat[86] = pionVide)and(plat[76] = pionVide)and(plat[81] = pionVide) then aux := aux+valLiberteSurCaseB;
 
   {
-  if (aux <> 0) & effetspecial2 then
+  if (aux <> 0) and effetspecial2 then
     begin
       EssaieSetPortWindowPlateau;
       EcritPositionAt(plat,10,10);
@@ -3564,7 +3564,7 @@ begin
   with front do
    begin
      if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType1 then
-      if (pl[32] = pionNoir) & (pl[22] = pionNoir) then
+      if (pl[32] = pionNoir) and (pl[22] = pionNoir) then
        case pl[23] of
          pionBlanc: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[24] <> pionBlanc then if pl[25] <> pionBlanc then if pl[26] <> pionBlanc then
@@ -3573,7 +3573,7 @@ begin
        end else
       if (pl[22] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType2 then
-      if (pl[62] = pionNoir) & (pl[72] = pionNoir) then
+      if (pl[62] = pionNoir) and (pl[72] = pionNoir) then
        case pl[73] of
          pionBlanc: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[74] <> pionBlanc then if pl[75] <> pionBlanc then if pl[76] <> pionBlanc then
@@ -3582,7 +3582,7 @@ begin
        end else
       if (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType1 then
-      if (pl[37] = pionNoir) & (pl[27] = pionNoir) then
+      if (pl[37] = pionNoir) and (pl[27] = pionNoir) then
        case pl[26] of
          pionBlanc: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[25] <> pionBlanc then if pl[24] <> pionBlanc then if pl[23] <> pionBlanc then
@@ -3591,7 +3591,7 @@ begin
        end else
       if (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType2 then
-      if (pl[67] = pionNoir) & (pl[77] = pionNoir) then
+      if (pl[67] = pionNoir) and (pl[77] = pionNoir) then
        case pl[76] of
          pionBlanc: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[75] <> pionBlanc then if pl[74] <> pionBlanc then if pl[73] <> pionBlanc then
@@ -3600,7 +3600,7 @@ begin
        end else
       if (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType1 then
-      if (pl[23] = pionNoir) & (pl[22] = pionNoir) then
+      if (pl[23] = pionNoir) and (pl[22] = pionNoir) then
        case pl[32] of
          pionBlanc: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[42] <> pionBlanc then if pl[52] <> pionBlanc then if pl[62] <> pionBlanc then
@@ -3609,7 +3609,7 @@ begin
        end else
       if (pl[22] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType2 then
-      if (pl[26] = pionNoir) & (pl[27] = pionNoir) then
+      if (pl[26] = pionNoir) and (pl[27] = pionNoir) then
        case pl[37] of
          pionBlanc: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[47] <> pionBlanc then if pl[57] <> pionBlanc then if pl[67] <> pionBlanc then
@@ -3618,7 +3618,7 @@ begin
        end else
       if (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType1 then
-      if (pl[73] = pionNoir) & (pl[72] = pionNoir) then
+      if (pl[73] = pionNoir) and (pl[72] = pionNoir) then
        case pl[62] of
          pionBlanc: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[52] <> pionBlanc then if pl[42] <> pionBlanc then if pl[32] <> pionBlanc then
@@ -3627,7 +3627,7 @@ begin
        end else
       if (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType2 then
-      if (pl[76] = pionNoir) & (pl[77] = pionNoir) then
+      if (pl[76] = pionNoir) and (pl[77] = pionNoir) then
        case pl[67] of
          pionBlanc: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
          pionNoir:  if pl[57] <> pionBlanc then if pl[47] <> pionBlanc then if pl[37] <> pionBlanc then
@@ -3647,7 +3647,7 @@ begin
   with front do
    begin
      if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType1 then
-      if (pl[32] = pionBlanc) & (pl[22] = pionBlanc) then
+      if (pl[32] = pionBlanc) and (pl[22] = pionBlanc) then
        case pl[23] of
          pionNoir: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[24] <> pionNoir then if pl[25] <> pionNoir then if pl[26] <> pionNoir then
@@ -3656,7 +3656,7 @@ begin
        end else
       if (pl[22] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType2 then
-      if (pl[62] = pionBlanc) & (pl[72] = pionBlanc) then
+      if (pl[62] = pionBlanc) and (pl[72] = pionBlanc) then
        case pl[73] of
          pionNoir: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[74] <> pionNoir then if pl[75] <> pionNoir then if pl[76] <> pionNoir then
@@ -3665,7 +3665,7 @@ begin
        end else
       if (pl[72] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType1 then
-      if (pl[37] = pionBlanc) & (pl[27] = pionBlanc) then
+      if (pl[37] = pionBlanc) and (pl[27] = pionBlanc) then
        case pl[26] of
          pionNoir: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[25] <> pionNoir then if pl[24] <> pionNoir then if pl[23] <> pionNoir then
@@ -3674,7 +3674,7 @@ begin
        end else
       if (pl[27] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType2 then
-      if (pl[67] = pionBlanc) & (pl[77] = pionBlanc) then
+      if (pl[67] = pionBlanc) and (pl[77] = pionBlanc) then
        case pl[76] of
          pionNoir: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[75] <> pionNoir then if pl[74] <> pionNoir then if pl[73] <> pionNoir then
@@ -3683,7 +3683,7 @@ begin
        end else
       if (pl[77] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType1 then
-      if (pl[23] = pionBlanc) & (pl[22] = pionBlanc) then
+      if (pl[23] = pionBlanc) and (pl[22] = pionBlanc) then
        case pl[32] of
          pionNoir: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[42] <> pionNoir then if pl[52] <> pionNoir then if pl[62] <> pionNoir then
@@ -3692,7 +3692,7 @@ begin
        end else
       if (pl[22] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType2 then
-      if (pl[26] = pionBlanc) & (pl[27] = pionBlanc) then
+      if (pl[26] = pionBlanc) and (pl[27] = pionBlanc) then
        case pl[37] of
          pionNoir: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[47] <> pionNoir then if pl[57] <> pionNoir then if pl[67] <> pionNoir then
@@ -3701,7 +3701,7 @@ begin
        end else
       if (pl[27] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType1 then
-      if (pl[73] = pionBlanc) & (pl[72] = pionBlanc) then
+      if (pl[73] = pionBlanc) and (pl[72] = pionBlanc) then
        case pl[62] of
          pionNoir: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[52] <> pionNoir then if pl[42] <> pionNoir then if pl[32] <> pionNoir then
@@ -3710,7 +3710,7 @@ begin
        end else
       if (pl[72] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType2 then
-      if (pl[76] = pionBlanc) & (pl[77] = pionBlanc) then
+      if (pl[76] = pionBlanc) and (pl[77] = pionBlanc) then
        case pl[67] of
          pionNoir: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
          pionBlanc: if pl[57] <> pionNoir then if pl[47] <> pionNoir then if pl[37] <> pionNoir then
@@ -3728,7 +3728,7 @@ var nbNoirsSurBordSud,nbNoirsSurBordNord,nbNoirsSurBordEst,nbNoirsSurBordOuest :
     aux : SInt32;
 begin
   NotationBordsOpposesPourNoir := 0;
-  if ((pl[11] = pionVide) & (pl[18] = pionVide) & (pl[81] = pionVide) & (pl[88] = pionVide)) then
+  if ((pl[11] = pionVide) and (pl[18] = pionVide) and (pl[81] = pionVide) and (pl[88] = pionVide)) then
     begin
       aux := 0;
       nbNoirsSurBordSud := 0;
@@ -3791,20 +3791,20 @@ begin
       if pl[71] = pionNoir then inc(nbNoirsSurBordOuest) else
       if pl[71] = pionBlanc then inc(nbBlancsSurBordOuest);
 
-      if (nbNoirsSurBordNord > 0) & (nbNoirsSurBordSud > 0) then
+      if (nbNoirsSurBordNord > 0) and (nbNoirsSurBordSud > 0) then
         if nbNoirsSurBordNord < nbNoirsSurBordSud
           then aux := aux-valPairePionBordOpposes*nbNoirsSurBordNord
           else aux := aux-valPairePionBordOpposes*nbNoirsSurBordSud;
-      if (nbBlancsSurBordNord > 0) & (nbBlancsSurBordSud > 0) then
+      if (nbBlancsSurBordNord > 0) and (nbBlancsSurBordSud > 0) then
         if nbBlancsSurBordNord < nbBlancsSurBordSud
           then aux := aux+valPairePionBordOpposes*nbBlancsSurBordNord
           else aux := aux+valPairePionBordOpposes*nbBlancsSurBordSud;
 
-      if (nbNoirsSurBordOuest > 0) & (nbNoirsSurBordEst > 0) then
+      if (nbNoirsSurBordOuest > 0) and (nbNoirsSurBordEst > 0) then
         if nbNoirsSurBordOuest < nbNoirsSurBordEst
           then aux := aux-valPairePionBordOpposes*nbNoirsSurBordOuest
           else aux := aux-valPairePionBordOpposes*nbNoirsSurBordEst;
-      if (nbBlancsSurBordOuest > 0) & (nbBlancsSurBordEst > 0) then
+      if (nbBlancsSurBordOuest > 0) and (nbBlancsSurBordEst > 0) then
         if nbBlancsSurBordOuest < nbBlancsSurBordEst
           then aux := aux+valPairePionBordOpposes*nbBlancsSurBordOuest
           else aux := aux+valPairePionBordOpposes*nbBlancsSurBordEst;
@@ -3820,25 +3820,25 @@ begin
   with front do
    begin
     if AdressePattern[kAdresseBordOuest] = bordDeSixNoir then
-     if (pl[22] = pionNoir)  | (pl[72] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[22] = pionBlanc) | (pl[72] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[32] = pionNoir) & (pl[42] = pionNoir) & (pl[52] = pionNoir) & (pl[62] = pionNoir) then
-       if (pl[22] = pionVide) & (pl[72] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[22] = pionNoir)  or (pl[72] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[22] = pionBlanc) or (pl[72] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[32] = pionNoir) and (pl[42] = pionNoir) and (pl[52] = pionNoir) and (pl[62] = pionNoir) then
+       if (pl[22] = pionVide) and (pl[72] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordNord] = bordDeSixNoir then
-     if (pl[22] = pionNoir)  | (pl[27] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[22] = pionBlanc) | (pl[27] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[23] = pionNoir) & (pl[24] = pionNoir) & (pl[25] = pionNoir) & (pl[26] = pionNoir) then
-       if (pl[22] = pionVide) & (pl[27] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[22] = pionNoir)  or (pl[27] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[22] = pionBlanc) or (pl[27] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[23] = pionNoir) and (pl[24] = pionNoir) and (pl[25] = pionNoir) and (pl[26] = pionNoir) then
+       if (pl[22] = pionVide) and (pl[27] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordEst] = bordDeSixNoir then
-     if (pl[27] = pionNoir)  | (pl[77] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[27] = pionBlanc) | (pl[77] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[37] = pionNoir) & (pl[47] = pionNoir) & (pl[57] = pionNoir) & (pl[67] = pionNoir) then
-       if (pl[27] = pionVide) & (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[27] = pionNoir)  or (pl[77] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[27] = pionBlanc) or (pl[77] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[37] = pionNoir) and (pl[47] = pionNoir) and (pl[57] = pionNoir) and (pl[67] = pionNoir) then
+       if (pl[27] = pionVide) and (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordSud] = bordDeSixNoir then
-     if (pl[72] = pionNoir)  | (pl[77] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[72] = pionBlanc) | (pl[77] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[73] = pionNoir) & (pl[74] = pionNoir) & (pl[75] = pionNoir) & (pl[76] = pionNoir) then
-       if (pl[72] = pionVide) & (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[72] = pionNoir)  or (pl[77] = pionNoir)  then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[72] = pionBlanc) or (pl[77] = pionBlanc) then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[73] = pionNoir) and (pl[74] = pionNoir) and (pl[75] = pionNoir) and (pl[76] = pionNoir) then
+       if (pl[72] = pionVide) and (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
    end;
    BordDeSixNoirAvecPrebordHomogene := aux;
 end;
@@ -3850,25 +3850,25 @@ begin
   with front do
    begin
     if AdressePattern[kAdresseBordOuest] = bordDeSixBlanc then
-     if (pl[22] = pionBlanc) | (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[22] = pionNoir)  | (pl[72] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[32] = pionBlanc) & (pl[42] = pionBlanc) & (pl[52] = pionBlanc) & (pl[62] = pionBlanc) then
-       if (pl[22] = pionVide) & (pl[72] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[22] = pionBlanc) or (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[22] = pionNoir)  or (pl[72] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[32] = pionBlanc) and (pl[42] = pionBlanc) and (pl[52] = pionBlanc) and (pl[62] = pionBlanc) then
+       if (pl[22] = pionVide) and (pl[72] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordNord] = bordDeSixBlanc then
-     if (pl[22] = pionBlanc) | (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[22] = pionNoir)  | (pl[27] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[23] = pionBlanc) & (pl[24] = pionBlanc) & (pl[25] = pionBlanc) & (pl[26] = pionBlanc) then
-       if (pl[22] = pionVide) & (pl[27] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[22] = pionBlanc) or (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[22] = pionNoir)  or (pl[27] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[23] = pionBlanc) and (pl[24] = pionBlanc) and (pl[25] = pionBlanc) and (pl[26] = pionBlanc) then
+       if (pl[22] = pionVide) and (pl[27] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordEst] = bordDeSixBlanc then
-     if (pl[27] = pionBlanc) | (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[27] = pionNoir)  | (pl[77] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[37] = pionBlanc) & (pl[47] = pionBlanc) & (pl[57] = pionBlanc) & (pl[67] = pionBlanc) then
-       if (pl[27] = pionVide) & (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[27] = pionBlanc) or (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[27] = pionNoir)  or (pl[77] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[37] = pionBlanc) and (pl[47] = pionBlanc) and (pl[57] = pionBlanc) and (pl[67] = pionBlanc) then
+       if (pl[27] = pionVide) and (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
     if AdressePattern[kAdresseBordSud] = bordDeSixBlanc then
-     if (pl[72] = pionBlanc) | (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
-     if (pl[72] = pionNoir)  | (pl[77] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
-     if (pl[73] = pionBlanc) & (pl[74] = pionBlanc) & (pl[75] = pionBlanc) & (pl[76] = pionBlanc) then
-       if (pl[72] = pionVide) & (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
+     if (pl[72] = pionBlanc) or (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeSix else
+     if (pl[72] = pionNoir)  or (pl[77] = pionNoir)  then aux := aux+valCaseXConsolidantBordDeSix else
+     if (pl[73] = pionBlanc) and (pl[74] = pionBlanc) and (pl[75] = pionBlanc) and (pl[76] = pionBlanc) then
+       if (pl[72] = pionVide) and (pl[77] = pionVide) then aux := aux+valBordDeSixPlusQuatre;
    end;
    BordDeSixBlancAvecPrebordHomogene := aux;
 end;
@@ -3947,22 +3947,22 @@ function NoteCasesCoinsCarreCentralPourNoir(var pl : plateauOthello) : SInt32;
 var aux : SInt32;
 begin
   aux := 0;
-  if (pl[22] = pionVide) & (pl[11] = pionVide) & (pl[23] <> pionVide) & (pl[32] <> pionVide) then
+  if (pl[22] = pionVide) and (pl[11] = pionVide) and (pl[23] <> pionVide) and (pl[32] <> pionVide) then
     begin
       if pl[33] = pionNoir  then aux := aux-valCasesCoinsCarreCentral else
       if pl[33] = pionBlanc then aux := aux+valCasesCoinsCarreCentral;
     end;
-  if (pl[27] = pionVide) & (pl[18] = pionVide) & (pl[26] <> pionVide) & (pl[37] <> pionVide) then
+  if (pl[27] = pionVide) and (pl[18] = pionVide) and (pl[26] <> pionVide) and (pl[37] <> pionVide) then
     begin
       if pl[36] = pionNoir  then aux := aux-valCasesCoinsCarreCentral else
       if pl[36] = pionBlanc then aux := aux+valCasesCoinsCarreCentral;
     end;
-  if (pl[72] = pionVide) & (pl[81] = pionVide) & (pl[73] <> pionVide) & (pl[62] <> pionVide) then
+  if (pl[72] = pionVide) and (pl[81] = pionVide) and (pl[73] <> pionVide) and (pl[62] <> pionVide) then
     begin
       if pl[63] = pionNoir  then aux := aux-valCasesCoinsCarreCentral else
       if pl[63] = pionBlanc then aux := aux+valCasesCoinsCarreCentral;
     end;
-  if (pl[77] = pionVide) & (pl[88] = pionVide) & (pl[76] <> pionVide) & (pl[67] <> pionVide) then
+  if (pl[77] = pionVide) and (pl[88] = pionVide) and (pl[76] <> pionVide) and (pl[67] <> pionVide) then
     begin
       if pl[66] = pionNoir  then aux := aux-valCasesCoinsCarreCentral else
       if pl[66] = pionBlanc then aux := aux+valCasesCoinsCarreCentral;
@@ -3981,7 +3981,7 @@ begin
     case pl[11] of
       pionVide:
         begin
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
          if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -3989,12 +3989,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[12] =  pionVide) & (pl[13] =  pionBlanc) & (pl[23] =  pionBlanc) then aux := aux+valTrouCaseC;
-			          if (pl[21] =  pionVide) & (pl[31] =  pionBlanc) & (pl[32] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[12] =  pionVide) and (pl[13] =  pionBlanc) and (pl[23] =  pionBlanc) then aux := aux+valTrouCaseC;
+			          if (pl[21] =  pionVide) and (pl[31] =  pionBlanc) and (pl[32] =  pionBlanc) then aux := aux+valTrouCaseC;
 			        end;
           if aux <> 0
             then eval := eval+aux
@@ -4007,7 +4007,7 @@ begin
     case pl[11] of
       pionVide:
         begin
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4015,12 +4015,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[12] =  pionVide) & (pl[13] =  pionNoir) & (pl[23] =  pionNoir) then aux := aux-valTrouCaseC;
-                if (pl[21] =  pionVide) & (pl[31] =  pionNoir) & (pl[32] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[12] =  pionVide) and (pl[13] =  pionNoir) and (pl[23] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[21] =  pionVide) and (pl[31] =  pionNoir) and (pl[32] =  pionNoir) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4033,7 +4033,7 @@ begin
     case pl[18] of
       pionVide:
         begin
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4041,12 +4041,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[17] =  pionVide) & (pl[16] =  pionBlanc) & (pl[26] =  pionBlanc) then aux := aux+valTrouCaseC;
-                if (pl[28] =  pionVide) & (pl[38] =  pionBlanc) & (pl[37] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[17] =  pionVide) and (pl[16] =  pionBlanc) and (pl[26] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[28] =  pionVide) and (pl[38] =  pionBlanc) and (pl[37] =  pionBlanc) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4059,7 +4059,7 @@ begin
     case pl[18] of
       pionVide:
         begin
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4067,12 +4067,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[17] =  pionVide) & (pl[16] =  pionNoir) & (pl[26] =  pionNoir) then aux := aux-valTrouCaseC;
-                if (pl[28] =  pionVide) & (pl[38] =  pionNoir) & (pl[37] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[17] =  pionVide) and (pl[16] =  pionNoir) and (pl[26] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[28] =  pionVide) and (pl[38] =  pionNoir) and (pl[37] =  pionNoir) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4085,7 +4085,7 @@ begin
     case pl[81] of
       pionVide:
         begin
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4093,12 +4093,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[71] =  pionVide) & (pl[61] =  pionBlanc) & (pl[62] =  pionBlanc) then aux := aux+valTrouCaseC;
-                if (pl[82] =  pionVide) & (pl[83] =  pionBlanc) & (pl[73] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[71] =  pionVide) and (pl[61] =  pionBlanc) and (pl[62] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[82] =  pionVide) and (pl[83] =  pionBlanc) and (pl[73] =  pionBlanc) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4111,7 +4111,7 @@ begin
     case pl[81] of
       pionVide:
         begin
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4119,12 +4119,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[71] =  pionVide) & (pl[61] =  pionNoir) & (pl[62] =  pionNoir) then aux := aux-valTrouCaseC;
-                if (pl[82] =  pionVide) & (pl[83] =  pionNoir) & (pl[73] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[71] =  pionVide) and (pl[61] =  pionNoir) and (pl[62] =  pionNoir) then aux := aux-valTrouCaseC;
+                if (pl[82] =  pionVide) and (pl[83] =  pionNoir) and (pl[73] =  pionNoir) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4137,7 +4137,7 @@ begin
     case pl[88] of
       pionVide:
         begin
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4145,12 +4145,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[78] =  pionVide) & (pl[68] =  pionBlanc) & (pl[67] =  pionBlanc) then aux := aux+valTrouCaseC;
-                if (pl[87] =  pionVide) & (pl[86] =  pionBlanc) & (pl[76] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[78] =  pionVide) and (pl[68] =  pionBlanc) and (pl[67] =  pionBlanc) then aux := aux+valTrouCaseC;
+                if (pl[87] =  pionVide) and (pl[86] =  pionBlanc) and (pl[76] =  pionBlanc) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4163,7 +4163,7 @@ begin
     case pl[88] of
       pionVide:
         begin
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4171,12 +4171,12 @@ begin
       pionBlanc,pionNoir:
         begin
           aux := 0;
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
              then aux := valCaseXPlusCoin
              else
                begin
-                 if (pl[78] =  pionVide) & (pl[68] =  pionNoir) & (pl[67] =  pionNoir) then aux := aux-valTrouCaseC;
-                 if (pl[87] =  pionVide) & (pl[86] =  pionNoir) & (pl[76] =  pionNoir) then aux := aux-valTrouCaseC;
+                 if (pl[78] =  pionVide) and (pl[68] =  pionNoir) and (pl[67] =  pionNoir) then aux := aux-valTrouCaseC;
+                 if (pl[87] =  pionVide) and (pl[86] =  pionNoir) and (pl[76] =  pionNoir) then aux := aux-valTrouCaseC;
                end;
           if aux <> 0
             then eval := eval+aux
@@ -4199,7 +4199,7 @@ begin
     case pl[11] of
       pionVide:
         begin
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
          if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4207,12 +4207,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[12] =  pionVide) & (pl[13] =  pionNoir) & (pl[23] =  pionNoir) then aux := aux+valTrouCaseC;
-			          if (pl[21] =  pionVide) & (pl[31] =  pionNoir) & (pl[32] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[12] =  pionVide) and (pl[13] =  pionNoir) and (pl[23] =  pionNoir) then aux := aux+valTrouCaseC;
+			          if (pl[21] =  pionVide) and (pl[31] =  pionNoir) and (pl[32] =  pionNoir) then aux := aux+valTrouCaseC;
 			        end;
           if aux <> 0
             then eval := eval+aux
@@ -4225,7 +4225,7 @@ begin
     case pl[11] of
       pionVide:
         begin
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4233,12 +4233,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[12] <> pionVide) & (pl[21] <> pionVide)
+          if (pl[12] <> pionVide) and (pl[21] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[12] =  pionVide) & (pl[13] =  pionBlanc) & (pl[23] =  pionBlanc) then aux := aux-valTrouCaseC;
-                if (pl[21] =  pionVide) & (pl[31] =  pionBlanc) & (pl[32] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[12] =  pionVide) and (pl[13] =  pionBlanc) and (pl[23] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[21] =  pionVide) and (pl[31] =  pionBlanc) and (pl[32] =  pionBlanc) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4251,7 +4251,7 @@ begin
     case pl[18] of
       pionVide:
         begin
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4259,12 +4259,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[17] =  pionVide) & (pl[16] =  pionNoir) & (pl[26] =  pionNoir) then aux := aux+valTrouCaseC;
-                if (pl[28] =  pionVide) & (pl[38] =  pionNoir) & (pl[37] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[17] =  pionVide) and (pl[16] =  pionNoir) and (pl[26] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[28] =  pionVide) and (pl[38] =  pionNoir) and (pl[37] =  pionNoir) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4277,7 +4277,7 @@ begin
     case pl[18] of
       pionVide:
         begin
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4285,12 +4285,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[17] <> pionVide) & (pl[28] <> pionVide)
+          if (pl[17] <> pionVide) and (pl[28] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[17] =  pionVide) & (pl[16] =  pionBlanc) & (pl[26] =  pionBlanc) then aux := aux-valTrouCaseC;
-                if (pl[28] =  pionVide) & (pl[38] =  pionBlanc) & (pl[37] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[17] =  pionVide) and (pl[16] =  pionBlanc) and (pl[26] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[28] =  pionVide) and (pl[38] =  pionBlanc) and (pl[37] =  pionBlanc) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4303,7 +4303,7 @@ begin
     case pl[81] of
       pionVide:
         begin
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4311,12 +4311,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[71] =  pionVide) & (pl[61] =  pionNoir) & (pl[62] =  pionNoir) then aux := aux+valTrouCaseC;
-                if (pl[82] =  pionVide) & (pl[83] =  pionNoir) & (pl[73] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[71] =  pionVide) and (pl[61] =  pionNoir) and (pl[62] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[82] =  pionVide) and (pl[83] =  pionNoir) and (pl[73] =  pionNoir) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4329,7 +4329,7 @@ begin
     case pl[81] of
       pionVide:
         begin
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4337,12 +4337,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[71] <> pionVide) & (pl[82] <> pionVide)
+          if (pl[71] <> pionVide) and (pl[82] <> pionVide)
             then aux := valCaseXPlusCoin
             else
               begin
-                if (pl[71] =  pionVide) & (pl[61] =  pionBlanc) & (pl[62] =  pionBlanc) then aux := aux-valTrouCaseC;
-                if (pl[82] =  pionVide) & (pl[83] =  pionBlanc) & (pl[73] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[71] =  pionVide) and (pl[61] =  pionBlanc) and (pl[62] =  pionBlanc) then aux := aux-valTrouCaseC;
+                if (pl[82] =  pionVide) and (pl[83] =  pionBlanc) and (pl[73] =  pionBlanc) then aux := aux-valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4355,7 +4355,7 @@ begin
     case pl[88] of
       pionVide:
         begin
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then eval := eval+valCaseXEntreCasesC
             else eval := eval+valCaseX;
           if nbCoupsJoues < 30 then eval := eval+100*(30-nbCoupsJoues);
@@ -4363,12 +4363,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then aux := -valCaseXPlusCoin
             else
               begin
-                if (pl[78] =  pionVide) & (pl[68] =  pionNoir) & (pl[67] =  pionNoir) then aux := aux+valTrouCaseC;
-                if (pl[87] =  pionVide) & (pl[86] =  pionNoir) & (pl[76] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[78] =  pionVide) and (pl[68] =  pionNoir) and (pl[67] =  pionNoir) then aux := aux+valTrouCaseC;
+                if (pl[87] =  pionVide) and (pl[86] =  pionNoir) and (pl[76] =  pionNoir) then aux := aux+valTrouCaseC;
               end;
           if aux <> 0
             then eval := eval+aux
@@ -4381,7 +4381,7 @@ begin
     case pl[88] of
       pionVide:
         begin
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
             then eval := eval-valCaseXEntreCasesC
             else eval := eval-valCaseX;
           if nbCoupsJoues < 30 then eval := eval-100*(30-nbCoupsJoues);
@@ -4389,12 +4389,12 @@ begin
       pionNoir,pionBlanc:
         begin
           aux := 0;
-          if (pl[78] <> pionVide) & (pl[87] <> pionVide)
+          if (pl[78] <> pionVide) and (pl[87] <> pionVide)
              then aux := valCaseXPlusCoin
              else
                begin
-                 if (pl[78] =  pionVide) & (pl[68] =  pionBlanc) & (pl[67] =  pionBlanc) then aux := aux-valTrouCaseC;
-                 if (pl[87] =  pionVide) & (pl[86] =  pionBlanc) & (pl[76] =  pionBlanc) then aux := aux-valTrouCaseC;
+                 if (pl[78] =  pionVide) and (pl[68] =  pionBlanc) and (pl[67] =  pionBlanc) then aux := aux-valTrouCaseC;
+                 if (pl[87] =  pionVide) and (pl[86] =  pionBlanc) and (pl[76] =  pionBlanc) then aux := aux-valTrouCaseC;
                end;
           if aux <> 0
             then eval := eval+aux
@@ -4755,13 +4755,13 @@ begin
       if definitif[12] then if definitif[21] then
         begin
           i := 22;
-          while (plat[i] = couleur) & definitif[i-9] do
+          while (plat[i] = couleur) and definitif[i-9] do
             begin
               definitif[i] := true;
               i := i+1;
             end;
           i := 22;
-          while (plat[i] = couleur) & definitif[i+9] do
+          while (plat[i] = couleur) and definitif[i+9] do
             begin
               definitif[i] := true;
               i := i+10;
@@ -4776,13 +4776,13 @@ begin
       if definitif[17] then if definitif[28] then
          begin
            i := 27;
-           while (plat[i] = couleur) & definitif[i-11] do
+           while (plat[i] = couleur) and definitif[i-11] do
              begin
                definitif[i] := true;
                i := i-1;
              end;
            i := 27;
-           while (plat[i] = couleur) & definitif[i+11] do
+           while (plat[i] = couleur) and definitif[i+11] do
              begin
                definitif[i] := true;
                i := i+10;
@@ -4797,13 +4797,13 @@ begin
       if definitif[71] then if definitif[82] then
         begin
           i := 72;
-          while (plat[i] = couleur) & definitif[i-11] do
+          while (plat[i] = couleur) and definitif[i-11] do
             begin
               definitif[i] := true;
               i := i-10;
             end;
           i := 72;
-          while (plat[i] = couleur) & definitif[i+11] do
+          while (plat[i] = couleur) and definitif[i+11] do
             begin
               definitif[i] := true;
               i := i+1;
@@ -4818,13 +4818,13 @@ begin
       if definitif[87] then if definitif[78] then
          begin
            i := 77;
-           while (plat[i] = couleur) & definitif[i-9] do
+           while (plat[i] = couleur) and definitif[i-9] do
              begin
                definitif[i] := true;
                i := i-10;
              end;
            i := 77;
-           while (plat[i] = couleur) & definitif[i+9] do
+           while (plat[i] = couleur) and definitif[i+9] do
              begin
                definitif[i] := true;
                i := i-1;
@@ -5053,13 +5053,13 @@ begin
       if definitif[12] then if definitif[21] then
         begin
           i := 22;
-          while (p[i] = couleur) & definitif[i-9] do
+          while (p[i] = couleur) and definitif[i-9] do
             begin
               definitif[i] := true;
               i := i+1;
             end;
           i := 22;
-          while (p[i] = couleur) & definitif[i+9] do
+          while (p[i] = couleur) and definitif[i+9] do
             begin
               definitif[i] := true;
               i := i+10;
@@ -5074,13 +5074,13 @@ begin
       if definitif[17] then if definitif[28] then
          begin
            i := 27;
-           while (p[i] = couleur) & definitif[i-11] do
+           while (p[i] = couleur) and definitif[i-11] do
              begin
                definitif[i] := true;
                i := i-1;
              end;
            i := 27;
-           while (p[i] = couleur) & definitif[i+11] do
+           while (p[i] = couleur) and definitif[i+11] do
              begin
                definitif[i] := true;
                i := i+10;
@@ -5095,13 +5095,13 @@ begin
       if definitif[71] then if definitif[82] then
         begin
           i := 72;
-          while (p[i] = couleur) & definitif[i-11] do
+          while (p[i] = couleur) and definitif[i-11] do
             begin
               definitif[i] := true;
               i := i-10;
             end;
           i := 72;
-          while (p[i] = couleur) & definitif[i+11] do
+          while (p[i] = couleur) and definitif[i+11] do
             begin
               definitif[i] := true;
               i := i+1;
@@ -5116,13 +5116,13 @@ begin
       if definitif[87] then if definitif[78] then
          begin
            i := 77;
-           while (p[i] = couleur) & definitif[i-9] do
+           while (p[i] = couleur) and definitif[i-9] do
              begin
                definitif[i] := true;
                i := i-10;
              end;
            i := 77;
-           while (p[i] = couleur) & definitif[i+9] do
+           while (p[i] = couleur) and definitif[i+9] do
              begin
                definitif[i] := true;
                i := i-1;
@@ -5595,13 +5595,13 @@ begin
       if definitif[12] then if definitif[21] then
         begin
           i := 22;
-          while (plat[i] = couleur) & definitif[i-9] do
+          while (plat[i] = couleur) and definitif[i-9] do
             begin
               definitif[i] := true;
               i := i+1;
             end;
           i := 22;
-          while (plat[i] = couleur) & definitif[i+9] do
+          while (plat[i] = couleur) and definitif[i+9] do
             begin
               definitif[i] := true;
               i := i+10;
@@ -5616,13 +5616,13 @@ begin
       if definitif[17] then if definitif[28] then
          begin
            i := 27;
-           while (plat[i] = couleur) & definitif[i-11] do
+           while (plat[i] = couleur) and definitif[i-11] do
              begin
                definitif[i] := true;
                i := i-1;
              end;
            i := 27;
-           while (plat[i] = couleur) & definitif[i+11] do
+           while (plat[i] = couleur) and definitif[i+11] do
              begin
                definitif[i] := true;
                i := i+10;
@@ -5637,13 +5637,13 @@ begin
       if definitif[71] then if definitif[82] then
         begin
           i := 72;
-          while (plat[i] = couleur) & definitif[i-11] do
+          while (plat[i] = couleur) and definitif[i-11] do
             begin
               definitif[i] := true;
               i := i-10;
             end;
           i := 72;
-          while (plat[i] = couleur) & definitif[i+11] do
+          while (plat[i] = couleur) and definitif[i+11] do
             begin
               definitif[i] := true;
               i := i+1;
@@ -5658,13 +5658,13 @@ begin
       if definitif[87] then if definitif[78] then
          begin
            i := 77;
-           while (plat[i] = couleur) & definitif[i-9] do
+           while (plat[i] = couleur) and definitif[i-9] do
              begin
                definitif[i] := true;
                i := i-10;
              end;
            i := 77;
-           while (plat[i] = couleur) & definitif[i+9] do
+           while (plat[i] = couleur) and definitif[i+9] do
              begin
                definitif[i] := true;
                i := i-1;
@@ -5893,13 +5893,13 @@ begin
       if definitif[12] then if definitif[21] then
         begin
           i := 22;
-          while (p[i] = couleur) & definitif[i-9] do
+          while (p[i] = couleur) and definitif[i-9] do
             begin
               definitif[i] := true;
               i := i+1;
             end;
           i := 22;
-          while (p[i] = couleur) & definitif[i+9] do
+          while (p[i] = couleur) and definitif[i+9] do
             begin
               definitif[i] := true;
               i := i+10;
@@ -5914,13 +5914,13 @@ begin
       if definitif[17] then if definitif[28] then
          begin
            i := 27;
-           while (p[i] = couleur) & definitif[i-11] do
+           while (p[i] = couleur) and definitif[i-11] do
              begin
                definitif[i] := true;
                i := i-1;
              end;
            i := 27;
-           while (p[i] = couleur) & definitif[i+11] do
+           while (p[i] = couleur) and definitif[i+11] do
              begin
                definitif[i] := true;
                i := i+10;
@@ -5935,13 +5935,13 @@ begin
       if definitif[71] then if definitif[82] then
         begin
           i := 72;
-          while (p[i] = couleur) & definitif[i-11] do
+          while (p[i] = couleur) and definitif[i-11] do
             begin
               definitif[i] := true;
               i := i-10;
             end;
           i := 72;
-          while (p[i] = couleur) & definitif[i+11] do
+          while (p[i] = couleur) and definitif[i+11] do
             begin
               definitif[i] := true;
               i := i+1;
@@ -5956,13 +5956,13 @@ begin
       if definitif[87] then if definitif[78] then
          begin
            i := 77;
-           while (p[i] = couleur) & definitif[i-9] do
+           while (p[i] = couleur) and definitif[i-9] do
              begin
                definitif[i] := true;
                i := i-10;
              end;
            i := 77;
-           while (p[i] = couleur) & definitif[i+9] do
+           while (p[i] = couleur) and definitif[i+9] do
              begin
                definitif[i] := true;
                i := i-1;
@@ -6126,7 +6126,7 @@ var x,y : SInt32;
 begin
   x := platMod10[a];
   y := platDiv10[a];
-  if (x = y) | (x = 9-y) then  {sur une diagonale ?}
+  if (x = y) or (x = 9-y) then  {sur une diagonale ?}
     begin
       PlusProcheCaseA := 0;
       exit(PlusProcheCaseA);
@@ -6195,13 +6195,13 @@ end;
 
 function estUneCaseX(a : SInt32) : boolean;
 begin
-  estUneCaseX := (a = 22) | (a = 72) | (a = 27) | (a = 77)  { & CoinPlusProcheVide(a,jeu)  };
+  estUneCaseX := (a = 22) or (a = 72) or (a = 27) or (a = 77)  { and CoinPlusProcheVide(a,jeu)  };
 end;
 
 
 function estUneCasePetitCoin(a : SInt32) : boolean;
 begin
-  estUneCasePetitCoin := (a = 33) | (a = 36) | (a = 63) | (a = 66);
+  estUneCasePetitCoin := (a = 33) or (a = 36) or (a = 63) or (a = 66);
 end;
 
 

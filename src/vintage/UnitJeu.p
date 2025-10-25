@@ -154,8 +154,8 @@ begin
           j := 0;
           repeat
             j := j+1;
-          until (tableHeurisNoir[i,j] = coup) | (j >= longueur);
-          if (tableHeurisNoir[i,j] = coup) & (j <= longueur) then
+          until (tableHeurisNoir[i,j] = coup) or (j >= longueur);
+          if (tableHeurisNoir[i,j] = coup) and (j <= longueur) then
             begin
               Moveleft(tableHeurisNoir[i,j+1],tableHeurisNoir[i,j],longueur-j);
              {******** taille de tableHeurisNoir[i,j] = 1 octet *******}
@@ -165,8 +165,8 @@ begin
           j := 0;
           repeat
             j := j+1;
-          until (tableHeurisBlanc[i,j] = coup) | (j >= longueur);
-          if (tableHeurisBlanc[i,j] = coup) & (j <= longueur) then
+          until (tableHeurisBlanc[i,j] = coup) or (j >= longueur);
+          if (tableHeurisBlanc[i,j] = coup) and (j <= longueur) then
             begin
               Moveleft(tableHeurisBlanc[i,j+1],tableHeurisBlanc[i,j],longueur-j);
               tableHeurisBlanc[i,0] := longueur-1;
@@ -214,7 +214,7 @@ begin
 
   { Ajustement du niveau de jeu instantane suivant le nombre de victoires successives }
 
-  if PartieContreMacDeBoutEnBout & not(CassioEstEnModeSolitaire) & not(HumCtreHum) & not(enTournoi) then
+  if PartieContreMacDeBoutEnBout and not(CassioEstEnModeSolitaire) and not(HumCtreHum) and not(enTournoi) then
     begin
       if (nbreDePions[couleurMacintosh] <= nbreDePions[-couleurMacintosh])
         then
@@ -229,7 +229,7 @@ begin
           end;
 
 
-      if jeuInstantane & (humanWinningStreak >= 2) & (NiveauJeuInstantane = NiveauChampions) then
+      if jeuInstantane and (humanWinningStreak >= 2) and (NiveauJeuInstantane = NiveauChampions) then
         begin
 
           {affichage du streak au niveau Champion}
@@ -244,8 +244,8 @@ begin
           BackToNormal;
         end else
 
-      if avecAjustementAutomatiqueDuNiveau & jeuInstantane then
-        if ((humanWinningStreak >= 1) & (NiveauJeuInstantane < NiveauChampions))  then
+      if avecAjustementAutomatiqueDuNiveau and jeuInstantane then
+        if ((humanWinningStreak >= 1) and (NiveauJeuInstantane < NiveauChampions))  then
         begin
           NiveauJeuInstantane := NiveauJeuInstantane + 1;  {ajustement positif}
           humanWinningStreak := 0;
@@ -263,7 +263,7 @@ begin
           BackToNormal;
         end else
 
-      if avecAjustementAutomatiqueDuNiveau & jeuInstantane & (humanScoreLastLevel <= -2) &
+      if avecAjustementAutomatiqueDuNiveau and jeuInstantane and (humanScoreLastLevel <= -2) and
          (NiveauJeuInstantane > NiveauDebutants) then
         begin
           NiveauJeuInstantane := NiveauJeuInstantane - 1;  {ajustement negatif}
@@ -294,7 +294,7 @@ begin
   DetruitMeilleureSuite;
   EngineNewPosition;
   if CassioEstEnModeSolitaire then EcritCommentaireSolitaire;
-  if ((nbreDePions[pionNoir]+nbreDePions[pionBlanc]) = 64) |
+  if ((nbreDePions[pionNoir]+nbreDePions[pionBlanc]) = 64) or
      (nbreDePions[pionNoir] = nbreDePions[pionBlanc])
     then scoreFinalPourNoir := nbreDePions[pionNoir]-nbreDePions[pionBlanc]
     else if nbreDePions[pionNoir] > nbreDePions[pionBlanc]
@@ -302,13 +302,13 @@ begin
            else scoreFinalPourNoir := 2*nbreDePions[pionNoir]-64;
   MetScorePrevuParFinaleDansCourbe(nbreCoup,61,kFinaleParfaite,scoreFinalPourNoir);
   MetTitreFenetrePlateau;
-  if not(Quitter) & CassioEstEnModeSolitaire then EssaieAfficherFelicitation;
+  if not(Quitter) and CassioEstEnModeSolitaire then EssaieAfficherFelicitation;
 
   if (scoreFinalPourNoir >= 0)
 	  then prop := MakeValeurOthelloProperty(NodeValueProp,pionNoir, +1, scoreFinalPourNoir,0)
 	  else prop := MakeValeurOthelloProperty(NodeValueProp,pionBlanc,+1,-scoreFinalPourNoir,0);
   AddScorePropertyToCurrentNodeSansDuplication(prop);
-  if (nbreCoup = 60) & (GetCurrentNode^.father <> NIL) then
+  if (nbreCoup = 60) and (GetCurrentNode^.father <> NIL) then
     begin
       papa := GetCurrentNode^.father;
       AddScorePropertyToGameTreeSansDuplication(prop,papa);
@@ -316,9 +316,9 @@ begin
   DisposePropertyStuff(prop);
   EcritCurrentNodeDansFenetreArbreDeJeu(false,true);
 
-  if not(CurrentNodeHasCommentaire) &
-    (nbPartiesActives = 1) & JoueursEtTournoisEnMemoire &
-    (windowListeOpen | windowStatOpen) then
+  if not(CurrentNodeHasCommentaire) and
+    (nbPartiesActives = 1) and JoueursEtTournoisEnMemoire and
+    (windowListeOpen or windowStatOpen) then
     begin
       s := ConstruireChaineReferencesPartieDapresListe(1,false);
       if (s <> '') then
@@ -344,17 +344,17 @@ var scoreFinalPourNoir : SInt64;
     sonAleatoire : SInt64;
 begin
   if not(CassioEstEnModeSolitaire) then
-    if avecSon & avecSonPourGameOver & not(HumCtreHum) & not(CassioEstEnModeAnalyse) & not(enTournoi) then
+    if avecSon and avecSonPourGameOver and not(HumCtreHum) and not(CassioEstEnModeAnalyse) and not(enTournoi) then
       if PartieContreMacDeBoutEnBout then
       begin
-        if ((nbreDePions[pionNoir]+nbreDePions[pionBlanc]) = 64) |
+        if ((nbreDePions[pionNoir]+nbreDePions[pionBlanc]) = 64) or
            (nbreDePions[pionNoir] = nbreDePions[pionBlanc])
           then scoreFinalPourNoir := nbreDePions[pionNoir]-nbreDePions[pionBlanc]
           else if nbreDePions[pionNoir] > nbreDePions[pionBlanc]
                  then scoreFinalPourNoir := 64-2*nbreDePions[pionBlanc]
                  else scoreFinalPourNoir := 2*nbreDePions[pionNoir]-64;
-        if ((scoreFinalPourNoir >= 0) & (couleurMacintosh = pionBlanc)) |
-           ((scoreFinalPourNoir <= 0) & (couleurMacintosh = pionNoir))
+        if ((scoreFinalPourNoir >= 0) and (couleurMacintosh = pionBlanc)) or
+           ((scoreFinalPourNoir <= 0) and (couleurMacintosh = pionNoir))
           then
             begin  {victoire de l'humain}
               sonAleatoire := RandomEntreBornes(1,4);
@@ -388,14 +388,14 @@ end;
 procedure TachesUsuellesPourUnPasse;
 const SonDePasseID = 131;
 begin
-  if avecSon {& not(CassioEstEnModeSolitaire)} & not(enTournoi & (phaseDeLaPartie >= phaseFinale)) then
+  if avecSon {and not(CassioEstEnModeSolitaire)} and not(enTournoi and (phaseDeLaPartie >= phaseFinale)) then
     PlaySoundSynchrone(SonDePasseID, kVolumeSonDesCoups);
 
-  if (jeuInstantane | enModeIOS | (nbExplicationsPasses >= 10000)) &
-     (PassesDejaExpliques < nbExplicationsPasses) &
-     not(HumCtreHum) & (AQuiDeJouer = couleurMacintosh) & not(enTournoi) then
+  if (jeuInstantane or enModeIOS or (nbExplicationsPasses >= 10000)) and
+     (PassesDejaExpliques < nbExplicationsPasses) and
+     not(HumCtreHum) and (AQuiDeJouer = couleurMacintosh) and not(enTournoi) then
      begin
-       if not(avecSon) & not(enTournoi & (phaseDeLaPartie >= phaseFinale)) then
+       if not(avecSon) and not(enTournoi and (phaseDeLaPartie >= phaseFinale)) then
           PlaySoundSynchrone(SonDePasseID, kVolumeSonDesCoups); {si avecSon on a deja sonné : cf plus haut}
        DialogueVousPassez;
      end;
@@ -450,7 +450,7 @@ begin
      WritelnPositionEtTraitDansRapport(positionEnEntree.position,GetTraitOfPosition(positionEnEntree));
    end;
 
- couplegal := (GetCouleurOfSquareDansJeuCourant(a) = pionVide) & windowPlateauOpen & PeutJouerIci(couleurDeCeCoup,a,JeuCourant);
+ couplegal := (GetCouleurOfSquareDansJeuCourant(a) = pionVide) and windowPlateauOpen and PeutJouerIci(couleurDeCeCoup,a,JeuCourant);
 
  if not(couplegal)
   then
@@ -462,9 +462,9 @@ begin
     begin
       SetPortByWindow(wPlateauPtr);
 
-      if CassioEstEnModeSolitaire & (AQuiDeJouer = couleurMacintosh) then TemporisationSolitaire;
+      if CassioEstEnModeSolitaire and (AQuiDeJouer = couleurMacintosh) then TemporisationSolitaire;
 
-      if avecSon & avecSonPourPosePion & not(EnVieille3D) & not(enTournoi & (phaseDeLaPartie >= phaseFinale))
+      if avecSon and avecSonPourPosePion and not(EnVieille3D) and not(enTournoi and (phaseDeLaPartie >= phaseFinale))
         then PlayPosePionSound;
 
       RetirerZebraBookOption(kAfficherZebraBookBrutDeDecoffrage);
@@ -495,17 +495,17 @@ begin
          end;
 
       erreurES := ChangeCurrentNodeAfterNewMove(a,couleurDeCeCoup,fonctionAppelante + ' JoueEn {1}');
-      if (erreurES <> 0) & (ResynchronisePartieEtCurrentNode(nbreCoup-1) = 0)
+      if (erreurES <> 0) and (ResynchronisePartieEtCurrentNode(nbreCoup-1) = 0)
         then erreurES := ChangeCurrentNodeAfterNewMove(a,couleurDeCeCoup,fonctionAppelante + ' JoueEn {2}');
 
       if not(LiveUndoEnCours) then
         MarquerCurrentNodeCommeReel(fonctionAppelante + ' JoueEn');
 
-      if afficheNumeroCoup & not(EnVieille3D) then DessineNumeroCoup(a,nbreCoup,-couleurDeCeCoup,GetCurrentNode);
+      if afficheNumeroCoup and not(EnVieille3D) then DessineNumeroCoup(a,nbreCoup,-couleurDeCeCoup,GetCurrentNode);
 
       IndexProchainFilsDansGraphe := -1;
       nouvellevariante := false;
-      if (nbreCoup > nroDernierCoupAtteint) | (DerniereCaseJouee <> a) then
+      if (nbreCoup > nroDernierCoupAtteint) or (DerniereCaseJouee <> a) then
         begin
            nouvellevariante := true;
            nroDernierCoupAtteint := nbreCoup;
@@ -543,7 +543,7 @@ begin
                    inc(compteur);
                    x := x+dx;
                 end;
-             if (GetCouleurOfSquareDansJeuCourant(x) = couleurDeCeCoup) & (compteur <> 0) then
+             if (GetCouleurOfSquareDansJeuCourant(x) = couleurDeCeCoup) and (compteur <> 0) then
                 begin
                    nbreDePions[couleurDeCeCoup] := nbreDePions[couleurDeCeCoup]+compteur;
                    nbreDePions[pionEnnemi] := nbreDePions[pionEnnemi]-compteur;
@@ -552,7 +552,7 @@ begin
                      begin
                       compteurPrise := compteurPrise+1;
                       x := x+dx;
-                      if avecSon & avecSonPourRetournePion & not(EnVieille3D) & (compteurPrise = 1) & not(enTournoi & (phaseDeLaPartie >= phaseFinale))
+                      if avecSon and avecSonPourRetournePion and not(EnVieille3D) and (compteurPrise = 1) and not(enTournoi and (phaseDeLaPartie >= phaseFinale))
                         then PlayRetournementDePionSound;
                       TemporisationRetournementDesPions;
                       DessinePion(x,couleurDeCeCoup);
@@ -585,8 +585,8 @@ begin
 
 
       if EnVieille3D then Dessine3D(JeuCourant,avecSon);
-      if afficheNumeroCoup & EnVieille3D then DessineNumeroCoup(a,nbreCoup,-GetCouleurOfSquareDansJeuCourant(a),GetCurrentNode);
-      if avecNomOuverture & not(CassioEstEnModeSolitaire)
+      if afficheNumeroCoup and EnVieille3D then DessineNumeroCoup(a,nbreCoup,-GetCouleurOfSquareDansJeuCourant(a),GetCurrentNode);
+      if avecNomOuverture and not(CassioEstEnModeSolitaire)
         then CoupJoueDansRapport(nbreCoup,a);
 
       if afficheInfosApprentissage then EcritLesInfosDApprentissage;
@@ -633,7 +633,7 @@ begin
 
       SetCassioMustCheckDangerousEvents(false, NIL);
 
-      if nouvellevariante & prendreMainVariationFromArbre
+      if nouvellevariante and prendreMainVariationFromArbre
         then UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteint,JeuCourant,emplJouable,frontiereCourante,
                                                    nbreDePions[pionBlanc],nbreDePions[pionNoir],0,nbreCoup,fonctionAppelante + ' JoueEn');
 
@@ -730,7 +730,7 @@ begin
     end;
 
   nouvellevariante := false;
-  if (nbreCoupFictif > nroDernierCoupAtteint) | (GetNiemeCoupPartieCourante(nbreCoupFictif) <> a) then
+  if (nbreCoupFictif > nroDernierCoupAtteint) or (GetNiemeCoupPartieCourante(nbreCoupFictif) <> a) then
     begin
        nouvellevariante := true;
        nroDernierCoupAtteint := nbreCoupFictif;
@@ -767,7 +767,7 @@ begin
                inc(compteur);
                x := x+dx;
             end;
-         if (JeuCourantFictif[x] = couleur) & (compteur <> 0) then
+         if (JeuCourantFictif[x] = couleur) and (compteur <> 0) then
             begin
                nbreDePionsFictif[couleur] := nbreDePionsFictif[couleur]+compteur;
                nbreDePionsFictif[pionEnnemi] := nbreDePionsFictif[pionEnnemi]-compteur;
@@ -794,7 +794,7 @@ begin
 
       doitEssayerNotesMilieuDePartie := true;
       if doitAvancerDansArbreDeJeu then
-        doitEssayerNotesMilieuDePartie := doitEssayerNotesMilieuDePartie & not(PeutCopierEndgameScoreFromGameTreeDansCourbe(GetCurrentNode,nbreCoupFictif,[kFinaleParfaite,kFinaleWLD]));
+        doitEssayerNotesMilieuDePartie := doitEssayerNotesMilieuDePartie and not(PeutCopierEndgameScoreFromGameTreeDansCourbe(GetCurrentNode,nbreCoupFictif,[kFinaleParfaite,kFinaleWLD]));
 
 
       if doitEssayerNotesMilieuDePartie then
@@ -802,7 +802,7 @@ begin
                                                  nbreDePionsFictif[pionBlanc],nbreDePionsFictif[pionNoir],EmplJouableFictif,FrontiereCouranteFictive);
 	    SetNbrePionsPerduParVariation(nbreCoupFictif+1,0);
 	  end;
-  if nouvellevariante & doitAvancerDansArbreDeJeu & prendreMainVariationFromArbre then
+  if nouvellevariante and doitAvancerDansArbreDeJeu and prendreMainVariationFromArbre then
     UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteint,JeuCourantFictif,EmplJouableFictif,FrontiereCouranteFictive,
                                                nbreDePionsFictif[pionBlanc],nbreDePionsFictif[pionNoir],0,nbreCoupFictif,fonctionAppelante + ' JoueEnFictif');
 
@@ -853,7 +853,7 @@ begin
       begin
         coup := CoupAleatoire(GetTraitOfPosition(platTest),platTest.position,casesInterdites);
 
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           begin
             ADD_MOVE_TO_PACKED_GAME(partieTestee, coup);
             legal := UpdatePositionEtTrait(platTest,coup);
@@ -889,7 +889,7 @@ begin
     SysBeep(0);
     AttendFrappeClavier;}
 
-    if (evalTest >= borneMin) & (evalTest <= borneMax) then
+    if (evalTest >= borneMin) and (evalTest <= borneMax) then
       begin
 
         TraductionThorEnAlphanumerique(partieTestee, meilleure255);
@@ -903,18 +903,18 @@ begin
             AddStringToSet(meilleure255, 0, ouverturesInterdites);
           end;
       end;
-    if (evalTest < borneMin) & (Abs(borneMin-evalTest) < ecart) then
+    if (evalTest < borneMin) and (Abs(borneMin-evalTest) < ecart) then
       begin
         ecart := Abs(borneMin-evalTest);
         meilleurePartie := partieTestee;
       end;
-    if (evalTest > borneMax) & (Abs(borneMax-evalTest) < ecart) then
+    if (evalTest > borneMax) and (Abs(borneMax-evalTest) < ecart) then
       begin
         ecart := Abs(borneMax-evalTest);
         meilleurePartie := partieTestee;
       end;
 
-  until (nbEssai > 4000) | (ecart = 0);
+  until (nbEssai > 4000) or (ecart = 0);
 
   {WritelnNumDansRapport('dans GenereOuvertureAleatoireEquilibree, nbEssai = ',nbEssai);}
 
@@ -963,7 +963,7 @@ begin
       begin
         coup := CoupAleatoire(GetTraitOfPosition(platTest),platTest.position,casesInterdites);
 
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           begin
             ADD_MOVE_TO_PACKED_GAME(partieTestee, coup);
             legal := UpdatePositionEtTrait(platTest,coup);
@@ -979,7 +979,7 @@ begin
           then coup := CoupAleatoireDonnantPeuDeMobilite(trait,platTest.position,casesInterdites)
           else coup := CoupAleatoireDonnantPleinDeMobilite(trait,platTest.position,casesInterdites);
 
-        if (coup >= 11) & (coup <= 88) then
+        if (coup >= 11) and (coup <= 88) then
           begin
             ADD_MOVE_TO_PACKED_GAME(partieTestee, coup);
             legal := UpdatePositionEtTrait(platTest,coup);
@@ -1026,7 +1026,7 @@ begin
         AddStringToSet(meilleure255, 0, ouverturesInterdites);
       end;
 
-  until (nbEssai > 4000) | (ecart = 0);
+  until (nbEssai > 4000) or (ecart = 0);
 
   {WritelnNumDansRapport('dans GenereOuvertureAleatoireEquilibree, nbEssai = ',nbEssai);}
 
@@ -1102,7 +1102,7 @@ begin
   meilleurChoix := 0;
   bestDef := 0;
 
-  if (AQuiDeJouer = couleurMacintosh) & not(HumCtreHum) then
+  if (AQuiDeJouer = couleurMacintosh) and not(HumCtreHum) then
     begin
       EcritJeReflechis(couleurMacintosh);
     end;
@@ -1111,7 +1111,7 @@ begin
   CarteMove(AQuiDeJouer,JeuCourant,coupPossible,mobiliteCourante);
 
 
-  if (nbreCoup = 1) & not(positionFeerique) & (RandomEntreBornes(1,100) <= 66) then
+  if (nbreCoup = 1) and not(positionFeerique) and (RandomEntreBornes(1,100) <= 66) then
     begin
       DeuxiemeCoupMac(iCourant,eval);
       if coupPossible[iCourant] then
@@ -1231,7 +1231,7 @@ begin
 
 
 
-                        if ((64 - (nbNoirInst + nbBlancInst)) < 17) & ListeChaineeDesCasesVidesEstDisponible &
+                        if ((64 - (nbNoirInst + nbBlancInst)) < 17) and ListeChaineeDesCasesVidesEstDisponible and
                             PeutFaireFinaleBitboardCettePosition(platInst,-AQuiDeJouer,-30000,-maxCourant,nbNoirInst,nbBlancInst,noteCourante)
                           then
                             begin
@@ -1284,7 +1284,7 @@ var platInst : plateauOthello;
     eval,maxCourant,noteCourante,maxPourBestDef,infini : SInt16;
     bidonBool : boolean;
 begin
-  if (AQuiDeJouer = couleurMacintosh) & not(HumCtreHum)
+  if (AQuiDeJouer = couleurMacintosh) and not(HumCtreHum)
     then EcritJeReflechis(couleurMacintosh);
   frontiereCourante.occupationTactique := 0;
   CarteMoveTore(AQuiDeJouer,JeuCourant,coupPossible,mob);
@@ -1324,8 +1324,8 @@ begin
                    if ModifPlatTore(icourantEssai,-AQuiDeJouer,platEssai,
                                  nbBlcEssai,nbNrEssai)
                      then begin
-                       if ((AQuiDeJouer = pionBlanc) & (nbBlcEssai < 2)) |
-                          ((AQuiDeJouer = pionNoir) & (nbNrEssai < 2)) then
+                       if ((AQuiDeJouer = pionBlanc) and (nbBlcEssai < 2)) or
+                          ((AQuiDeJouer = pionNoir) and (nbNrEssai < 2)) then
                             noteCourante := infini-1000
                        else
                           noteCourante := -EvaluationTore({platEssai,}AQuiDeJouer,nbBlcEssai,nbNrEssai);
@@ -1339,7 +1339,7 @@ begin
                        nbNrEssai := nbNoirInst;
                      end;
                   end;
-               until (i >= 64) | (maxPourBestDef > -maxCourant);
+               until (i >= 64) or (maxPourBestDef > -maxCourant);
                Eval := -maxPourBestDef;
                if estUneCaseX(iCourant) then eval := eval-200;
 
@@ -1381,10 +1381,10 @@ var prof,typeFinaleDemande : SInt16;
 
 begin
 
-  if not((CoulChoix = pionNoir) | (CoulChoix = pionBlanc)) |
-     ((nbblanc < 0) | (nbblanc > 64)) |
-     ((nbNoir < 0) | (nbNoir > 64)) |
-     ((niveau < -1) | (niveau > 64)) then
+  if not((CoulChoix = pionNoir) or (CoulChoix = pionBlanc)) or
+     ((nbblanc < 0) or (nbblanc > 64)) or
+     ((nbNoir < 0) or (nbNoir > 64)) or
+     ((niveau < -1) or (niveau > 64)) then
     begin
       CheckParameters('ASSERT dans ChoixMac !');
       AlerteSimple('ASSERT dans ChoixMac!! Merci de prévenir Stéphane');
@@ -1405,7 +1405,7 @@ begin
   LanceChrono;
   tempsPrevu := 10;
   tempsAlloue := TempsPourCeCoup(nbreCoup,couleurMacintosh);
-  if not(RefleSurTempsJoueur) & (AQuiDeJouer = couleurMacintosh) & not(HumCtreHum) then
+  if not(RefleSurTempsJoueur) and (AQuiDeJouer = couleurMacintosh) and not(HumCtreHum) then
     begin
       EcritJeReflechis(coulChoix);
     end;
@@ -1448,12 +1448,12 @@ begin
     end
   else
    begin
-    {if (enTournoi & (numberCoup < 7) & not(avecBibl))
+    {if (enTournoi and (numberCoup < 7) and not(avecBibl))
      then CoupAuHazard(CoulChoix,plat,jouable,ChoixX,whichNote)
      else}
      begin
-       {CheckParameters('avant if (numberCoup = 1) & not(positionFeerique)');}
-       if (numberCoup = 1) & not(positionFeerique) & not(CassioEstEnModeAnalyse)
+       {CheckParameters('avant if (numberCoup = 1) and not(positionFeerique)');}
+       if (numberCoup = 1) and not(positionFeerique) and not(CassioEstEnModeAnalyse)
         then
           begin
             if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
@@ -1469,26 +1469,26 @@ begin
              prof := 60-numberCoup;
              typeFinaleDemande := ReflGagnant;
              if prof <= (60-finDePartie) then
-               if CassioEstEnModeAnalyse & not(CassioEstEnModeSolitaire)
+               if CassioEstEnModeAnalyse and not(CassioEstEnModeSolitaire)
                  then typeFinaleDemande := ReflGagnantExhaustif
                  else typeFinaleDemande := ReflGagnant;
              if prof <= (60-finDePartieOptimale) then
-               if CassioEstEnModeAnalyse & not(CassioEstEnModeSolitaire)
+               if CassioEstEnModeAnalyse and not(CassioEstEnModeSolitaire)
                  then typeFinaleDemande := ReflParfaitExhaustif
                  else typeFinaleDemande := ReflParfait;
 
              if afficheMeilleureSuite then DetruitMeilleureSuite;
              if CassioEstEnModeSolitaire then EcritCommentaireSolitaire;
-             if finaleEnModeSolitaire & (typeFinaleDemande = ReflParfait)
+             if finaleEnModeSolitaire and (typeFinaleDemande = ReflParfait)
                then
                  begin
                    scoreaatteindre := 64;
                    if CassioEstEnModeSolitaire then
-                     if positionFeerique & (DerniereCaseJouee = coupInconnu) then
+                     if positionFeerique and (DerniereCaseJouee = coupInconnu) then
                        begin
                          s255 := CommentaireSolitaire^^;
-                         if ((Pos(ReadStringFromRessource(TextesSolitairesID,19),s255) > 0) & (CoulChoix = pionNoir)) |
-                            ((Pos(ReadStringFromRessource(TextesSolitairesID,20),s255) > 0) & (CoulChoix = pionBlanc)) then
+                         if ((Pos(ReadStringFromRessource(TextesSolitairesID,19),s255) > 0) and (CoulChoix = pionNoir)) or
+                            ((Pos(ReadStringFromRessource(TextesSolitairesID,20),s255) > 0) and (CoulChoix = pionBlanc)) then
                               begin
                                 (* reduire la fenetre pour le premier coup du solitaire  *)
                                 if Pos(ReadStringFromRessource(TextesSolitairesID,5),s255) > 0  {'gagne'}
@@ -1555,14 +1555,14 @@ begin
    end;
 
  {CheckParameters('avant ChoixMac(1)');}
-  if (interruptionReflexion <> pasdinterruption) & not(vaDepasserTemps) then   {si interruption brutale...}
+  if (interruptionReflexion <> pasdinterruption) and not(vaDepasserTemps) then   {si interruption brutale...}
     TraiteInterruptionBrutale(choixX,meiDef,'ChoixMac(1)');
  {CheckParameters('avant HasGotEvent');}
   if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
     then TraiteEvenements
     else TraiteNullEvent(theEvent);
  {CheckParameters('avant ChoixMac(2)');}
-  if (interruptionReflexion <> pasdinterruption) & not(vaDepasserTemps) then    {si interruption brutale...}
+  if (interruptionReflexion <> pasdinterruption) and not(vaDepasserTemps) then    {si interruption brutale...}
     TraiteInterruptionBrutale(choixX,meiDef,'ChoixMac(2)');
  {CheckParameters('avant DerniereHeure');}
   DerniereHeure(CoulChoix);
@@ -1580,9 +1580,9 @@ begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
 
   temp := debuggage.calculFinaleOptimaleParOptimalite;
-  {debuggage.calculFinaleOptimaleParOptimalite := (partie^^[50].coupParfait = 27) | (partie^^[51].coupParfait = 27); }
+  {debuggage.calculFinaleOptimaleParOptimalite := (partie^^[50].coupParfait = 27) or (partie^^[51].coupParfait = 27); }
 
-  if debuggage.calculFinaleOptimaleParOptimalite & (nbreCoup > 30) then
+  if debuggage.calculFinaleOptimaleParOptimalite and (nbreCoup > 30) then
    begin
      WritelnDansRapport('');
      WritelnDansRapport('Entrée dans ConnaitSuiteParfaite :');
@@ -1603,33 +1603,33 @@ begin
   ConnaitSuiteParfaite := false;
   ChoixX := 44;
   MeilleurDef := 44;
-  ok := not(gameOver) & (nbreCoup < 60);
-  // ok := ok & (interruptionReflexion = pasdinterruption);
-  ok := ok & (not(CassioEstEnModeSolitaire) | (AQuiDeJouer = -couleurMacintosh));
+  ok := not(gameOver) and (nbreCoup < 60);
+  // ok := ok and (interruptionReflexion = pasdinterruption);
+  ok := ok and (not(CassioEstEnModeSolitaire) or (AQuiDeJouer = -couleurMacintosh));
   if ok then for i := 1 to nbreCoup do
-                 ok := (ok & (GetNiemeCoupPartieCourante(i) = partie^^[i].coupParfait));
-  if ok then ok := (ok & partie^^[nbreCoup+1].optimal);
+                 ok := (ok and (GetNiemeCoupPartieCourante(i) = partie^^[i].coupParfait));
+  if ok then ok := (ok and partie^^[nbreCoup+1].optimal);
   if ok then
     begin
       coup := partie^^[nbreCoup+1].coupParfait;
       aux := partie^^[nbreCoup+2].coupParfait;
-      if (coup < 11) | (coup > 88) then ok := false;
-      if ok & possibleMove[coup]
+      if (coup < 11) or (coup > 88) then ok := false;
+      if ok and possibleMove[coup]
          then
            begin
              ConnaitSuiteParfaite := true;
              ChoixX := coup;
              if partie^^[nbreCoup+2].optimal then
-               if (aux >= 11) & (aux <= 88) then
+               if (aux >= 11) and (aux <= 88) then
                  MeilleurDef := aux;
-             if CassioEstEnModeSolitaire & (AQuiDeJouer = couleurMacintosh) & autorisationTemporisation
+             if CassioEstEnModeSolitaire and (AQuiDeJouer = couleurMacintosh) and autorisationTemporisation
                then TemporisationSolitaire;
            end
          else
            ok := false;
     end;
 
- if ok & ((interruptionReflexion = pasdinterruption) | vaDepasserTemps)
+ if ok and ((interruptionReflexion = pasdinterruption) or vaDepasserTemps)
    then EcritMeilleureSuiteParOptimalite;
 
 
@@ -1650,7 +1650,7 @@ begin
 
   ChoixX := 44;
   MeilleurDef := 44;
-  ok := not(gameOver) & (nbreCoup < 60);
+  ok := not(gameOver) and (nbreCoup < 60);
 
   (*
   if gameOver
@@ -1659,7 +1659,7 @@ begin
   *)
 
 
-  ok := ok & (not(CassioEstEnModeSolitaire) | (AQuiDeJouer = -couleurMacintosh));
+  ok := ok and (not(CassioEstEnModeSolitaire) or (AQuiDeJouer = -couleurMacintosh));
 
   if ok then
     begin
@@ -1672,12 +1672,12 @@ begin
           else WritelnDansRapport('ok = false');
       *)
 
-      if ok & (listeDesCoups <> NIL) & (vMin = vMax) then
+      if ok and (listeDesCoups <> NIL) and (vMin = vMax) then
         begin
 
           coup := GetOthelloSquareOfProperty(listeDesCoups^.head);
 
-          ok := (coup >= 11) & (coup <= 88) & possibleMove[coup];
+          ok := (coup >= 11) and (coup <= 88) and possibleMove[coup];
 
           if ok then
             begin
@@ -1685,10 +1685,10 @@ begin
               ChoixX := coup;
             end;
 
-          if ok & (listeDesCoups^.tail <> NIL) then
+          if ok and (listeDesCoups^.tail <> NIL) then
             begin
               aux := GetOthelloSquareOfProperty(listeDesCoups^.tail^.head);
-              if (aux >= 11) & (aux <= 88) then
+              if (aux >= 11) and (aux <= 88) then
                  MeilleurDef := aux;
             end;
 
@@ -1700,11 +1700,11 @@ begin
             end;
           *)
 
-          if ok & ((interruptionReflexion = pasdinterruption) | vaDepasserTemps)
+          if ok and ((interruptionReflexion = pasdinterruption) or vaDepasserTemps)
             then EcritMeilleureSuiteParArbreDeJeu(listeDesCoups);
 
 
-          if ok & CassioEstEnModeSolitaire & (AQuiDeJouer = couleurMacintosh) & autorisationTemporisation
+          if ok and CassioEstEnModeSolitaire and (AQuiDeJouer = couleurMacintosh) and autorisationTemporisation
             then TemporisationSolitaire;
         end;
 
@@ -1736,11 +1736,11 @@ var nbBlanc,nbNoir : SInt64;
         WriteNumDansRapport('   …dans ValiderLegaliteDuCoupCalcule, coupPropose = '+CoupEnString(coupPropose,true)+'<->',coupPropose);
         WritelnNumDansRapport('   …dans ValiderLegaliteDuCoupCalcule, defenseProposee = '+CoupEnString(defenseProposee,true)+'<->',defenseProposee);
       end;
-    if (coupPropose >= 11) & (coupPropose <= 88) & possibleMove[coupPropose]
+    if (coupPropose >= 11) and (coupPropose <= 88) and possibleMove[coupPropose]
       then
         begin
           choixX := coupPropose;
-          if (defenseProposee >= 11) & (defenseProposee <= 88)
+          if (defenseProposee >= 11) and (defenseProposee <= 88)
             then meilleurDef := defenseProposee
             else meilleurDef := 44;
         end
@@ -1771,8 +1771,8 @@ begin
       WritelnDansRapport('');
     end;
 
-  if doitRechercherEnProf & UtiliseGrapheApprentissage & not(positionFeerique) & (nbreCoup >= 5) &
-     not(CassioEstEnModeAnalyse & not(HumCtreHum)) then
+  if doitRechercherEnProf and UtiliseGrapheApprentissage and not(positionFeerique) and (nbreCoup >= 5) and
+     not(CassioEstEnModeAnalyse and not(HumCtreHum)) then
     begin
       if debuggage.gestionDuTemps then WritelnDansRapport('   …appel de PeutChoisirDansGrapheApprentissage par ChoixMacStandard');
 
@@ -1793,9 +1793,9 @@ begin
       doitChercherDansBibl := true;
 
       {quatre chance sur cinq d'utiliser la bibliotheque plutot que les variations du milieu}
-		  if gEntrainementOuvertures.CassioVarieSesCoups & (gEntrainementOuvertures.modeVariation = kVarierEnUtilisantMilieu) &
-		     avecBibl & (nbreCoup <= LongMaxBibl) & (CoulChoix = couleurMacintosh)
-		    then doitChercherDansBibl := doitChercherDansBibl & PChancesSurN(4,5);
+		  if gEntrainementOuvertures.CassioVarieSesCoups and (gEntrainementOuvertures.modeVariation = kVarierEnUtilisantMilieu) and
+		     avecBibl and (nbreCoup <= LongMaxBibl) and (CoulChoix = couleurMacintosh)
+		    then doitChercherDansBibl := doitChercherDansBibl and PChancesSurN(4,5);
 
 		  if doitChercherDansBibl then
 		    begin
@@ -1811,11 +1811,11 @@ begin
       WritelnNumDansRapport(', interruptionReflexion = ',interruptionReflexion);
     end;
 
-  if doitRechercherEnProf & (phaseDeLaPartie >= phaseFinale) & not(CassioEstEnModeAnalyse) then
+  if doitRechercherEnProf and (phaseDeLaPartie >= phaseFinale) and not(CassioEstEnModeAnalyse) then
     begin
       if debuggage.gestionDuTemps then WritelnDansRapport('   …appel de ConnaitSuiteParfaite par ChoixMacStandard');
 
-      if ((interruptionReflexion = pasdinterruption) | vaDepasserTemps)
+      if ((interruptionReflexion = pasdinterruption) or vaDepasserTemps)
         then doitRechercherEnProf := not(ConnaitSuiteParfaite(the_best_move,the_best_defense,true))
         else doitRechercherEnProf := true;
 
@@ -1829,12 +1829,12 @@ begin
       WritelnNumDansRapport(', interruptionReflexion = ',interruptionReflexion);
     end;
 
-  if doitRechercherEnProf & jeuInstantane & (phaseDeLaPartie <= phaseMilieu) & (AQuiDeJouer = couleurMacintosh) then
+  if doitRechercherEnProf and jeuInstantane and (phaseDeLaPartie <= phaseMilieu) and (AQuiDeJouer = couleurMacintosh) then
     begin
       if debuggage.gestionDuTemps then WritelnDansRapport('   …appel de ReponseInstantanee par ChoixMacStandard');
 
       the_best_move := ReponseInstantanee(the_best_defense,NiveauJeuInstantane);
-      if (the_best_move >= 0) & (the_best_move <= 99) & possibleMove[the_best_move] then
+      if (the_best_move >= 0) and (the_best_move <= 99) and possibleMove[the_best_move] then
           doitRechercherEnProf := false;
       if not(doitRechercherEnProf) then
         ValiderLegaliteDuCoupCalcule(the_best_move,the_best_defense,kReponseInstantaneeDonneCoupIllegalID);
@@ -1864,7 +1864,7 @@ begin
       WritelnNumDansRapport(', interruptionReflexion = ',interruptionReflexion);
     end;
 
-  if (interruptionReflexion <> pasdinterruption) & not(vaDepasserTemps) then   {si interruption brutale...}
+  if (interruptionReflexion <> pasdinterruption) and not(vaDepasserTemps) then   {si interruption brutale...}
     begin
       if debuggage.gestionDuTemps then WritelnDansRapport('   …appel de TraiteInterruptionBrutale(choixX,meilleurDef) à la fin de ChoixMacStandard');
       TraiteInterruptionBrutale(choixX,meilleurDef,'ChoixMacStandard');
@@ -1888,24 +1888,24 @@ begin
 
   with gEntrainementOuvertures do
     begin
-      if positionFeerique | (CassioEstEnModeAnalyse & not(HumCtreHum) {& (CoulChoix = couleurMacintosh)})
+      if positionFeerique or (CassioEstEnModeAnalyse and not(HumCtreHum) {and (CoulChoix = couleurMacintosh)})
         then doitChercherDansBibl := false
         else doitChercherDansBibl := true;
 
 
-			if doitChercherDansBibl & (phaseDeLaPartie <= phaseMilieu) & (nbreCoup <= LongMaxBibl) then
+			if doitChercherDansBibl and (phaseDeLaPartie <= phaseMilieu) and (nbreCoup <= LongMaxBibl) then
 		    begin
 		      if debuggage.gestionDuTemps then WritelnDansRapport('   …appel de PeutChoisirEnBibl par LaBibliothequeEstCapableDeFournirUnCoup');
 
-		      if avecBibl | (jeuInstantane & (NiveauJeuInstantane <= NiveauChampions))
+		      if avecBibl or (jeuInstantane and (NiveauJeuInstantane <= NiveauChampions))
             then
               begin
-                if CassioVarieSesCoups |
-		               (jeuInstantane & (NiveauJeuInstantane <= NiveauForts))  {on sort parfois de la bibl expres}
+                if CassioVarieSesCoups or
+		               (jeuInstantane and (NiveauJeuInstantane <= NiveauForts))  {on sort parfois de la bibl expres}
 		              then resultatBiblOK := PeutChoisirEnBibl(the_best_move,the_best_defense,true,nbReponsesEnBibliotheque)
 		              else resultatBiblOK := PeutChoisirEnBibl(the_best_move,the_best_defense,false,nbReponsesEnBibliotheque);
 
-		            if resultatBiblOK & (nbReponsesEnBibliotheque = 1) & CassioVarieSesCoups & PChancesSurN(1,5)
+		            if resultatBiblOK and (nbReponsesEnBibliotheque = 1) and CassioVarieSesCoups and PChancesSurN(1,5)
                   then resultatBiblOK := false;
 
                 if debuggage.gestionDuTemps then
@@ -1925,10 +1925,10 @@ begin
 
 		      if resultatBiblOK then
 		        begin
-		          if (the_best_move >= 11) & (the_best_move <= 88) & possibleMove[the_best_move]
+		          if (the_best_move >= 11) and (the_best_move <= 88) and possibleMove[the_best_move]
                 then
                   begin
-                    if not((the_best_defense >= 11) & (the_best_defense <= 88))
+                    if not((the_best_defense >= 11) and (the_best_defense <= 88))
                       then the_best_defense := 44;
                   end
                 else
@@ -1968,7 +1968,7 @@ begin
      WritelnPositionEtTraitDansRapport(positionEnEntree.position,GetTraitOfPosition(positionEnEntree));
    end;
  {
- if not(HumCtreHum) & (interruptionReflexion <> pasdinterruption) & not(vaDepasserTemps)
+ if not(HumCtreHum) and (interruptionReflexion <> pasdinterruption) and not(vaDepasserTemps)
   then
     begin
       (** on ne fait rien.                           **)
@@ -1982,10 +1982,10 @@ begin
  {WritelnDansRapport('Dans DealWithEssai, fonctionAppelante = '+fonctionAppelante);}
 
     begin
-      if (whichSquare < 11) | (whichSquare > 88) then
+      if (whichSquare < 11) or (whichSquare > 88) then
         begin
-          AlerteSimple('ASSERT : (whichSquare < 11) | (whichSquare > 88) dans DealWithEssai!! Merci de prévenir Stéphane');
-          WritelnDansRapport('ASSERT : (whichSquare < 11) | (whichSquare > 88) dans DealWithEssai !!');
+          AlerteSimple('ASSERT : (whichSquare < 11) or (whichSquare > 88) dans DealWithEssai!! Merci de prévenir Stéphane');
+          WritelnDansRapport('ASSERT : (whichSquare < 11) or (whichSquare > 88) dans DealWithEssai !!');
           WritelnNumDansRapport('  pour infos : whichSquare = ',whichSquare);
           WritelnDansRapport('  fonction appelante = '+fonctionAppelante);
           SysBeep(0);
@@ -2010,7 +2010,7 @@ begin
         end
       else
         begin
-         if not(HumCtreHum) & (AQuiDeJouer = couleurMacintosh) & CassioEstEnModeSolitaire & UnJoueurVientDePasser
+         if not(HumCtreHum) and (AQuiDeJouer = couleurMacintosh) and CassioEstEnModeSolitaire and UnJoueurVientDePasser
            then TemporisationArnaqueFinale;
 
          {$UNUSED tempoAquiDeJouer}
@@ -2039,7 +2039,7 @@ begin
              CarteMove(AQuiDeJouer,JeuCourant,possibleMove,mobilite);
              EssayeAfficherMeilleureSuiteParArbreDeJeu;
 
-             if UnJoueurVientDePasser & (mobilite > 0)
+             if UnJoueurVientDePasser and (mobilite > 0)
                then TachesUsuellesPourUnPasse;
 
              if (mobilite = 0) then
@@ -2056,15 +2056,15 @@ begin
 
             end;
          AjusteCurseur;
-         if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+         if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
            then LanceCalculsRapidesPourBaseOuNouvelleDemande(nroDernierCoupAtteint > nbreCoup,true);
-         if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+         if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
 	         begin
 	           MyDisableItem(PartieMenu,ForceCmd);
 	           AfficheDemandeCoup;
 	         end;
 
-	       if avecInterversions & (nbreCoup >= 1) & (nbreCoup <= numeroCoupMaxPourRechercheIntervesionDansArbre)
+	       if avecInterversions and (nbreCoup >= 1) and (nbreCoup <= numeroCoupMaxPourRechercheIntervesionDansArbre)
 	         then
 	           begin
 	             current := PositionEtTraitCourant;
@@ -2080,10 +2080,10 @@ var caseCritiqueTurbulence,a : SInt64;
     {Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt64;}
 begin
 
- if (whichSquare < 11) | (whichSquare > 88) then
+ if (whichSquare < 11) or (whichSquare > 88) then
    begin
-     AlerteSimple('ASSERT : (whichSquare < 11) | (whichSquare > 88) dans Jouer !! Merci de prévenir Stéphane');
-     WritelnDansRapport('ASSERT : (whichSquare < 11) | (whichSquare > 88) dans Jeu !');
+     AlerteSimple('ASSERT : (whichSquare < 11) or (whichSquare > 88) dans Jouer !! Merci de prévenir Stéphane');
+     WritelnDansRapport('ASSERT : (whichSquare < 11) or (whichSquare > 88) dans Jeu !');
      WritelnNumDansRapport('  pour infos : whichSquare = ',whichSquare);
      WritelnDansRapport('  fonction appelante = '+fonctionAppelante);
      SysBeep(0);
@@ -2093,7 +2093,7 @@ begin
  {WritelnDansRapport('Dans Jouer, fonction appelante = '+fonctionAppelante);}
 
  { Ces lignes (if...) font des problemes de recurrences non voulues dans TraiteCoupImprevu :-( }
- if (AQuiDeJouer = couleurMacintosh) & not(HumCtreHum) then
+ if (AQuiDeJouer = couleurMacintosh) and not(HumCtreHum) then
    begin
       if HasGotEvent(everyEvent,theEvent,kWNESleep,NIL)
 		    then TraiteEvenements
@@ -2275,7 +2275,7 @@ begin
     then InterruptionReflexionDansJeuMac := false
     else
       begin
-        if vaDepasserTemps & (interruptionReflexion = interruptionDepassementTemps)
+        if vaDepasserTemps and (interruptionReflexion = interruptionDepassementTemps)
           then InterruptionReflexionDansJeuMac := false
           else InterruptionReflexionDansJeuMac := true;
       end;
@@ -2290,12 +2290,12 @@ begin
 
   coupMac := 0;
 
-  if (AQuiDeJouer = couleurMacintosh) & not(Quitter) then
+  if (AQuiDeJouer = couleurMacintosh) and not(Quitter) then
 	  begin
-	    if (meilleureReponsePrete < 11) | (meilleureReponsePrete > 88)
+	    if (meilleureReponsePrete < 11) or (meilleureReponsePrete > 88)
 	      then meilleureReponsePrete := 44;
 
-		  reponsePrete := reponsePrete & (GetCouleurOfSquareDansJeuCourant(meilleureReponsePrete) = pionVide) & possibleMove[meilleureReponsePrete];
+		  reponsePrete := reponsePrete and (GetCouleurOfSquareDansJeuCourant(meilleureReponsePrete) = pionVide) and possibleMove[meilleureReponsePrete];
 		  if not(reponsePrete)
 		    then
 			    begin
@@ -2327,8 +2327,8 @@ begin
               WritelnStringDansRapport('dans ReflexionInitialeDuMacintoshDansJeuMac, j''essaie d''utiliser la reponse prete…');
 			    end;
 
-			if not(CassioEstEnModeSolitaire) & (AQuiDeJouer = couleurMacintosh) & (interruptionReflexion = pasdinterruption) &
-			   CassioEstEnModeAnalyse & not(HumCtreHum)
+			if not(CassioEstEnModeSolitaire) and (AQuiDeJouer = couleurMacintosh) and (interruptionReflexion = pasdinterruption) and
+			   CassioEstEnModeAnalyse and not(HumCtreHum)
 			  then
 			    begin
 			      ActiverSuggestionDeCassio(positionEtTraitDeLAppelReflexionDeMac,coupMac,meilleurCoupHum,'ReflexionInitialeDuMacintoshDansJeuMac');
@@ -2368,8 +2368,8 @@ begin
       WritelnPositionEtTraitDansRapport(current.position,GetTraitOfPosition(current));
     end;
 
-  if debuggage.gestionDuTemps &
-     (interruptionReflexion = pasdinterruption) & (AQuiDeJouer = couleurMacintosh) &
+  if debuggage.gestionDuTemps and
+     (interruptionReflexion = pasdinterruption) and (AQuiDeJouer = couleurMacintosh) and
      not(EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac)) then
     begin
       WritelnDansRapport('AHAH ! positionEtTraitDeLAppelReflexionDeMac <> PositionEtTraitCourant dans AfficheInfosDebugage1DansJeuMac!');
@@ -2409,7 +2409,7 @@ begin
         else tickPourJouerLeCoup := DateOfLastKeyboardOperation + 15;
 
   { si on est dans un niveau de jeu instantané, il y a un petit delai avant d'afficher le coup }
-  if (DoitTemporiserPourRetournerLesPions & (GetDelaiDeRetournementDesPions > 0)) then
+  if (DoitTemporiserPourRetournerLesPions and (GetDelaiDeRetournementDesPions > 0)) then
     begin
       dateDuDernierCoup := GetDateEnTickDuCoupNumero(nbreCoup);
       if (tickPourJouerLeCoup < dateDuDernierCoup + 30) then
@@ -2418,15 +2418,15 @@ begin
 
   { on verifie que tout est toujours bon pour jouer le coup }
   conditionsCorrectesPourJouerLeCoup := true;
-  while conditionsCorrectesPourJouerLeCoup & (TickCount < tickPourJouerLeCoup) do
+  while conditionsCorrectesPourJouerLeCoup and (TickCount < tickPourJouerLeCoup) do
     begin
 
       if HasGotEvent(everyEvent,theEvent,1,NIL) then TraiteEvenements;
 
-      conditionsCorrectesPourJouerLeCoup := conditionsCorrectesPourJouerLeCoup &
-                                            (AQuiDeJouer = couleurMacintosh) &
-                                            not(InterruptionReflexionDansJeuMac) &
-                                            EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac) &
+      conditionsCorrectesPourJouerLeCoup := conditionsCorrectesPourJouerLeCoup and
+                                            (AQuiDeJouer = couleurMacintosh) and
+                                            not(InterruptionReflexionDansJeuMac) and
+                                            EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac) and
                                             not(Quitter);
     end;
 
@@ -2443,7 +2443,7 @@ begin
 
   if (AQuiDeJouer = couleurMacintosh) then
     begin
-      if EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac) &
+      if EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac) and
 	       not(InterruptionReflexionDansJeuMac)
 	      then
 			    begin
@@ -2458,7 +2458,7 @@ begin
 			    end
 			  else
 			    begin
-			      if not(reponsePrete & (phaseDeLaPartie >= phaseFinale)) then
+			      if not(reponsePrete and (phaseDeLaPartie >= phaseFinale)) then
 			        begin
 					      if debuggage.gestionDuTemps then WritelnDansRapport('J''invalide les calculs precedents dans EssaieJouerCoupCalculePourLOrdinateurDansJeuMac');
 					      TraiteInterruptionBrutale(coupMac,meilleurCoupHum,'EssaieJouerCoupCalculePourLOrdinateurDansJeuMac(bis)');
@@ -2480,18 +2480,18 @@ begin
 
   compteurIterationsBoucle := 0;
 
-  WHILE (AQuiDeJouer = couleurMacintosh) & not(gameOver) & not(Quitter) & not(HumCtreHum) &
-        not(InterruptionReflexionDansJeuMac) & (compteurIterationsBoucle <= 500) DO
+  WHILE (AQuiDeJouer = couleurMacintosh) and not(gameOver) and not(Quitter) and not(HumCtreHum) and
+        not(InterruptionReflexionDansJeuMac) and (compteurIterationsBoucle <= 500) DO
       begin
 
         EcritStructureDesCalculsDansJeuMac('début de la boucle WHILE de ContinuerAJouerTantQueLHumainPasseDansJeuMac');
 
         inc(compteurIterationsBoucle);
 
-        if (meilleurCoupHum < 11) | (meilleurCoupHum > 88) then meilleurCoupHum := 44;
+        if (meilleurCoupHum < 11) or (meilleurCoupHum > 88) then meilleurCoupHum := 44;
 
 
-        if (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) = pionVide) & possibleMove[meilleurCoupHum]
+        if (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) = pionVide) and possibleMove[meilleurCoupHum]
           then
             begin
               if debuggage.gestionDuTemps then
@@ -2516,8 +2516,8 @@ begin
           then TraiteEvenements
           else TraiteNullEvent(theEvent);
 
-        if debuggage.gestionDuTemps &
-           not(InterruptionReflexionDansJeuMac) & (AQuiDeJouer = couleurMacintosh) &
+        if debuggage.gestionDuTemps and
+           not(InterruptionReflexionDansJeuMac) and (AQuiDeJouer = couleurMacintosh) and
            not(EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac)) then
 			    begin
 			      WritelnDansRapport('AHAH !  positionEtTraitDeLAppelReflexionDeMac <> PositionEtTraitCourant dans ContinuerAJouerTantQueLHumainPasseDansJeuMac !');
@@ -2556,13 +2556,13 @@ begin
   EnleveCetteInterruption(oldInterruption);
   vaDepasserTemps := false;
 
-  if (nbreCoup >= finDePartieOptimale) & ((interruptionReflexion = pasdinterruption) | vaDepasserTemps) then
+  if (nbreCoup >= finDePartieOptimale) and ((interruptionReflexion = pasdinterruption) or vaDepasserTemps) then
     if ConnaitSuiteParfaite(auxCoupHum,auxColorMac,false) then
         meilleurCoupHum := auxCoupHum;
 
-  if (meilleurCoupHum < 11) | (meilleurCoupHum > 88) then meilleurCoupHum := 44;
+  if (meilleurCoupHum < 11) or (meilleurCoupHum > 88) then meilleurCoupHum := 44;
 
-  if (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) <> pionVide) | not(possibleMove[meilleurCoupHum])
+  if (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) <> pionVide) or not(possibleMove[meilleurCoupHum])
     then
       begin
 
@@ -2572,10 +2572,10 @@ begin
         meilleurCoupHum := 44;
         tempoProfImposee := ProfondeurMilieuEstImposee;
         SetProfImposee(true,'cas 1 dans CalculerBonneReponsePourLeJoueurHumainDansJeuMac');
-        if not(jeuInstantane) | CassioEstEnModeSolitaire
+        if not(jeuInstantane) or CassioEstEnModeSolitaire
           then ChoixMacStandard(meilleurCoupHum,note,uneDefense,AQuiDeJouer,4,'CalculerBonneReponsePourLeJoueurHumainDansJeuMac(1)')
           else
-            if (NiveauJeuInstantane < NiveauChampions) & (phaseDeLaPartie <= phaseMilieu)
+            if (NiveauJeuInstantane < NiveauChampions) and (phaseDeLaPartie <= phaseMilieu)
               then meilleurCoupHum := ReponseInstantanee(uneDefense,NiveauJeuInstantane)
               else ChoixMacStandard(meilleurCoupHum,note,uneDefense,AQuiDeJouer,3,'CalculerBonneReponsePourLeJoueurHumainDansJeuMac(2)');
         SetProfImposee(tempoProfImposee,'cas 1 dans CalculerBonneReponsePourLeJoueurHumainDansJeuMac (tempoProfImposee)');
@@ -2655,7 +2655,7 @@ begin
   auxCoupHum := 44;
 
 
-  if (((nbreCoup+1) >= 60) | DoitPasser(auxColorMac,platsup,jouablesup))
+  if (((nbreCoup+1) >= 60) or DoitPasser(auxColorMac,platsup,jouablesup))
     then
       begin
         reponsePrete := true;
@@ -2664,7 +2664,7 @@ begin
       end
     else
       begin
-        if (nbblancsup > 0) & (nbNoirsup > 0) then
+        if (nbblancsup > 0) and (nbNoirsup > 0) then
           begin
 
             positionEtTraitDeLAppelReflexionDeMac := MakePositionEtTrait(platSup,auxColorMac);
@@ -2673,7 +2673,7 @@ begin
 
             AfficheInfosDebugage2DansJeuMac(coupMac,auxCoupHum);
 
-	          if RefleSurTempsJoueur & (PhasePartieDerniereReflexion >= phaseMilieu)
+	          if RefleSurTempsJoueur and (PhasePartieDerniereReflexion >= phaseMilieu)
 	            then
 		            begin
 		              if not(InterruptionReflexionDansJeuMac) then
@@ -2734,8 +2734,8 @@ begin
 		  { Si c'est vraiement a Cassio de jouer, on boucle ainsi : }
 
 		  compteurIterationsBoucle := 0;
-		  if not(InterruptionReflexionDansJeuMac) & not(Quitter) & not(HumCtreHum) &
-		     not(AttenteAnalyseDeFinaleDansPositionCourante) &
+		  if not(InterruptionReflexionDansJeuMac) and not(Quitter) and not(HumCtreHum) and
+		     not(AttenteAnalyseDeFinaleDansPositionCourante) and
 		     EstLaPositionCourante(positionEtTraitDeLAppelReflexionDeMac)
 		    then
     		  REPEAT
@@ -2751,15 +2751,15 @@ begin
 
     		    { Gestion de la reflexion sur le temps adverse }
     		    if not(CassioEstEnModeAnalyse) then
-    		      if not(InterruptionReflexionDansJeuMac) & not(HumCtreHum) & not(enTournoi) & not(gameOver) then
+    		      if not(InterruptionReflexionDansJeuMac) and not(HumCtreHum) and not(enTournoi) and not(gameOver) then
     		        begin
 
     		          { D'abord on cherche une bonne reponse pour le joueur humain, la "suggestion de Cassio" }
     		          CalculerBonneReponsePourLeJoueurHumainDansJeuMac;
 
-    		          if not(InterruptionReflexionDansJeuMac) & not(HumCtreHum) &
-                     (meilleurCoupHum >= 11) & (meilleurCoupHum <= 88) &
-                     (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) = pionVide) & possibleMove[meilleurCoupHum] then
+    		          if not(InterruptionReflexionDansJeuMac) and not(HumCtreHum) and
+                     (meilleurCoupHum >= 11) and (meilleurCoupHum <= 88) and
+                     (GetCouleurOfSquareDansJeuCourant(meilleurCoupHum) = pionVide) and possibleMove[meilleurCoupHum] then
                     begin
 
     		              { On essaie de l'affiche comme suggestion de Cassio (pion jaune) }
@@ -2774,8 +2774,8 @@ begin
 
     		     EcritStructureDesCalculsDansJeuMac('à la fin de la boucle REPEAT dans JeuMac(1)');
 
-    		  UNTIL Quitter | gameOver | HumCtreHum | InterruptionReflexionDansJeuMac | enTournoi | (compteurIterationsBoucle >= 500) |
-    		        RefleSurTempsJoueur | (AQuiDeJouer <> couleurMacintosh) | AttenteAnalyseDeFinaleDansPositionCourante;
+    		  UNTIL Quitter or gameOver or HumCtreHum or InterruptionReflexionDansJeuMac or enTournoi or (compteurIterationsBoucle >= 500) or
+    		        RefleSurTempsJoueur or (AQuiDeJouer <> couleurMacintosh) or AttenteAnalyseDeFinaleDansPositionCourante;
 
 		  if (compteurIterationsBoucle >= 500) then WritelnDansRapport('ERREUR !!!! boucle infinie dans JeuMac, prévenez Stéphane');
 
@@ -2862,7 +2862,7 @@ begin
           if not(positionFeerique)
             then coup := GetPremierCoupAleatoire
             else coup := ReponseInstantanee(def, NiveauChampions);
-      if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+      if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
         begin
           GetMeilleurCoupConnuMaintenant := coup;
           exit(GetMeilleurCoupConnuMaintenant);
@@ -2872,7 +2872,7 @@ begin
 
   (* on cherche si l'arbre de jeu donne une suite parfaite *)
   if ConnaitSuiteParfaiteParArbreDeJeu(coup,def,false)
-     & (coup >= 11) & (coup <= 88) & (possibleMove[coup])  then
+     and (coup >= 11) and (coup <= 88) and (possibleMove[coup])  then
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ConnaitSuiteParfaiteParArbreDeJeu), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
@@ -2881,8 +2881,8 @@ begin
 
 
   (* on cherche si on connait une suite parfaite *)
-  if (phaseDeLaPartie >= phaseFinale) & ConnaitSuiteParfaite(coup,def,false)
-     & (coup >= 11) & (coup <= 88) & (possibleMove[coup])  then
+  if (phaseDeLaPartie >= phaseFinale) and ConnaitSuiteParfaite(coup,def,false)
+     and (coup >= 11) and (coup <= 88) and (possibleMove[coup])  then
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ConnaitSuiteParfaite), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
@@ -2891,10 +2891,10 @@ begin
 
 
   (* on cherche si on est en attente d'analyse de finale *)
-  if (phaseDeLaPartie >= phaseFinale) & AttenteAnalyseDeFinaleDansPositionCourante then
+  if (phaseDeLaPartie >= phaseFinale) and AttenteAnalyseDeFinaleDansPositionCourante then
     begin
       coup := GetBestMoveAttenteAnalyseDeFinale;
-      if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+      if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (GetBestMoveAttenteAnalyseDeFinale), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
@@ -2909,7 +2909,7 @@ begin
   if EstLaPositionCourante(positionFenetreReflexion) then
     begin
       coup := GetCoupEnTeteDansFenetreReflexion;
-      if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+      if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (GetCoupEnTeteDansFenetreReflexion), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
@@ -2922,7 +2922,7 @@ begin
   if (meilleurCoupHum <> 0) then
     begin
       coup := meilleurCoupHum;
-      if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+      if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (meilleurCoupHum), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
@@ -2941,7 +2941,7 @@ begin
   gEntrainementOuvertures.CassioVarieSesCoups := tempoVarierCoups;
 
   if biblFournitUnCoup then
-    if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+    if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
       begin
         if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (LaBibliothequeEstCapableDeFournirUnCoup), coup = ',coup);
         GetMeilleurCoupConnuMaintenant := coup;
@@ -2953,7 +2953,7 @@ begin
   SetCassioChecksEvents(false);
   coup := ReponseInstantanee(def, NiveauIntersideral);
   SetCassioChecksEvents(true);
-  if (coup >= 11) & (coup <= 88) & (possibleMove[coup]) then
+  if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ReponseInstantanee), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
@@ -2977,12 +2977,12 @@ begin
 
   {
   WritelnDansRapport('DoJouerMeilleurCoupConnuMaintenant');
-  if (coup >= 11) & (coup <= 88)
+  if (coup >= 11) and (coup <= 88)
     then WritelnStringAndCoupDansRapport('coup = ',coup)
     else WritelnNumDansRapport('coup = ',coup);
   }
 
-  if (coup <> 0) & (coup >= 11) & (coup <= 88) then
+  if (coup <> 0) and (coup >= 11) and (coup <= 88) then
     begin
       tempoSon := avecSon;
       avecSon := false;
@@ -3011,10 +3011,10 @@ begin
   if debuggage.gestionDuTemps then
     WritelnDansRapport('entrée dans TraiteCoupImprevu('+CoupEnStringEnMajuscules(caseX)+')');
 
-  if (caseX < 11) | (caseX > 88) then
+  if (caseX < 11) or (caseX > 88) then
     begin
-      WritelnDansRapport('ASSERT((caseX < 11) | (caseX > 88)) dans TraiteCoupImprevu!! Merci de prévenir Stéphane');
-      AlerteSimple('ASSERT((caseX < 11) | (caseX > 88)) dans TraiteCoupImprevu');
+      WritelnDansRapport('ASSERT((caseX < 11) or (caseX > 88)) dans TraiteCoupImprevu!! Merci de prévenir Stéphane');
+      AlerteSimple('ASSERT((caseX < 11) or (caseX > 88)) dans TraiteCoupImprevu');
       exit(TraiteCoupImprevu);
     end;
 
@@ -3032,14 +3032,14 @@ begin
        CassioReflechissaitSurLeTempsHumain := false;
        couplegal := possibleMove[caseX];
        Jouer(caseX,'TraiteCoupImprevu (2)');
-       if couplegal & RefleSurTempsJoueur then
+       if couplegal and RefleSurTempsJoueur then
          begin
            if debuggage.gestionDuTemps then
              begin
-               WritelnDansRapport('dans TraiteCoupImprevu, couplegal & RefleSurTempsJoueur');
+               WritelnDansRapport('dans TraiteCoupImprevu, couplegal and RefleSurTempsJoueur');
                WritelnStringAndCoupDansRapport('dans TraiteCoupImprevu, meilleurCoupHum = ',meilleurCoupHum);
              end;
-           reponsePrete := reponsePrete & (caseX = meilleurCoupHum);
+           reponsePrete := reponsePrete and (caseX = meilleurCoupHum);
            CassioReflechissaitSurLeTempsHumain := true;
            RefleSurTempsJoueur := false;
            if (caseX <> meilleurCoupHum) then
@@ -3051,24 +3051,24 @@ begin
                SetCoupEnTete(0); *)
              end
            else
-             if ((tempsPrevu div 60) > tempsAlloue) & (tempsAlloue < kUnMoisDeTemps) &
-                 (phaseDeLaPartie <= phaseMilieu) & not(CassioEstEnModeAnalyse) then
+             if ((tempsPrevu div 60) > tempsAlloue) and (tempsAlloue < kUnMoisDeTemps) and
+                 (phaseDeLaPartie <= phaseMilieu) and not(CassioEstEnModeAnalyse) then
                DoForcerMacAJouerMaintenant;
            LanceChrono;
            EnableItemPourCassio(PartieMenu,ForceCmd);
          end;
-       if CassioReflechissaitSurLeTempsHumain & not(HumCtreHum) & (caseX = meilleurCoupHum)
+       if CassioReflechissaitSurLeTempsHumain and not(HumCtreHum) and (caseX = meilleurCoupHum)
          then
            begin
              EcritJeReflechis(couleurMacintosh);
            end;
-       if (AQuiDeJouer = couleurMacintosh) & not(CassioEstEnModeAnalyse) then
+       if (AQuiDeJouer = couleurMacintosh) and not(CassioEstEnModeAnalyse) then
          begin
           coupDejaTrouveDansBibl := false;
           if UtiliseGrapheApprentissage then
             if PeutChoisirDansGrapheApprentissage(caseY,MeilleurCoupHumPret) then
               begin
-                if (caseY > 0) & (caseY < 99) then
+                if (caseY > 0) and (caseY < 99) then
                 if possibleMove[caseY] then
                   begin
                     vaDepasserTemps := false;
@@ -3079,9 +3079,9 @@ begin
                     coupDejaTrouveDansBibl := true;
                   end;
               end;
-          if (nbreCoup <= LongMaxBibl) & not(coupDejaTrouveDansBibl) then
+          if (nbreCoup <= LongMaxBibl) and not(coupDejaTrouveDansBibl) then
             begin
-              if avecBibl | (jeuInstantane & (NiveauJeuInstantane <= NiveauChampions))
+              if avecBibl or (jeuInstantane and (NiveauJeuInstantane <= NiveauChampions))
                 then
                   begin
                     laBibliothequeEstCapableDeFournirUnCoup := PeutChoisirEnBibl(caseY,MeilleurCoupHumPret,false,nbReponsesEnBibliotheque);
@@ -3091,7 +3091,7 @@ begin
                     WritelnStringAndCoupDansRapport('MeilleurCoupHumPret = ',MeilleurCoupHumPret);
                     WritelnDansRapport('');}
                     if not(avecBibl) then
-                      laBibliothequeEstCapableDeFournirUnCoup := laBibliothequeEstCapableDeFournirUnCoup &
+                      laBibliothequeEstCapableDeFournirUnCoup := laBibliothequeEstCapableDeFournirUnCoup and
                                                                  (nbReponsesEnBibliotheque > 1);
                   end
                 else
@@ -3102,7 +3102,7 @@ begin
 
 	            if laBibliothequeEstCapableDeFournirUnCoup then
 	              begin
-	                if (caseY > 0) & (caseY < 99) then
+	                if (caseY > 0) and (caseY < 99) then
 	                if possibleMove[caseY] then
 	                  begin
 	                    vaDepasserTemps := false;
@@ -3114,10 +3114,10 @@ begin
 	                  end;
 	              end;
 	          end;
-          if (phaseDeLaPartie >= phaseFinale) & not(coupDejaTrouveDansBibl) then
-           if ((interruptionReflexion = pasdinterruption) | vaDepasserTemps) & ConnaitSuiteParfaite(caseY,MeilleurCoupHumPret,true) then
+          if (phaseDeLaPartie >= phaseFinale) and not(coupDejaTrouveDansBibl) then
+           if ((interruptionReflexion = pasdinterruption) or vaDepasserTemps) and ConnaitSuiteParfaite(caseY,MeilleurCoupHumPret,true) then
              begin
-               if (caseY > 0) & (caseY < 99) then
+               if (caseY > 0) and (caseY < 99) then
                 if possibleMove[caseY] then
                   begin
                     vaDepasserTemps := false;
@@ -3128,12 +3128,12 @@ begin
                     coupDejaTrouveDansBibl := true;
                   end;
              end;
-          if jeuInstantane & (phaseDeLaPartie <= phaseMilieu) & not(coupDejaTrouveDansBibl) then
+          if jeuInstantane and (phaseDeLaPartie <= phaseMilieu) and not(coupDejaTrouveDansBibl) then
             with gEntrainementOuvertures do
 	            begin
-	             if CassioReflechissaitSurLeTempsHumain & not(HumCtreHum) & (caseX = meilleurCoupHum) &
-	                (((NiveauJeuInstantane = NiveauChampions) & profSupUn) |
-	                 (CassioVarieSesCoups & (derniereProfCompleteMilieuDePartie >= profondeurRechercheVariations)))
+	             if CassioReflechissaitSurLeTempsHumain and not(HumCtreHum) and (caseX = meilleurCoupHum) and
+	                (((NiveauJeuInstantane = NiveauChampions) and profSupUn) or
+	                 (CassioVarieSesCoups and (derniereProfCompleteMilieuDePartie >= profondeurRechercheVariations)))
 	              then
 	                DoForcerMacAJouerMaintenant
 	              else
@@ -3143,7 +3143,7 @@ begin
 	                  SetCassioChecksEvents(false);
 	                  caseY := ReponseInstantanee(MeilleurCoupHumPret,NiveauJeuInstantane);
 	                  SetCassioChecksEvents(true);
-	                  if (caseY > 0) & (caseY < 99) then
+	                  if (caseY > 0) and (caseY < 99) then
 	                  if possibleMove[caseY]
 	                    then
 	                      begin
@@ -3212,12 +3212,12 @@ begin
 
   debuguerCetteFonction := false;
 
-  if (nbreCoup < 60) & debuguerCetteFonction then WritelnDansRapport('(nbreCoup < 60) : OK');
-  if windowListeOpen & debuguerCetteFonction then WritelnDansRapport('windowListeOpen : OK');
-  if not(enRetour | enSetUp) & debuguerCetteFonction then WritelnDansRapport('not(enRetour | enSetUp) : OK');
-  if (infosListeParties.ascenseurListe <> NIL) & debuguerCetteFonction then WritelnDansRapport('infosListeParties.ascenseurListe <> NIL : OK');
+  if (nbreCoup < 60) and debuguerCetteFonction then WritelnDansRapport('(nbreCoup < 60) : OK');
+  if windowListeOpen and debuguerCetteFonction then WritelnDansRapport('windowListeOpen : OK');
+  if not(enRetour or enSetUp) and debuguerCetteFonction then WritelnDansRapport('not(enRetour or enSetUp) : OK');
+  if (infosListeParties.ascenseurListe <> NIL) and debuguerCetteFonction then WritelnDansRapport('infosListeParties.ascenseurListe <> NIL : OK');
 
-  if (nbreCoup < 60) & windowListeOpen & not(enRetour | enSetUp) & not(gameOver) then
+  if (nbreCoup < 60) and windowListeOpen and not(enRetour or enSetUp) and not(gameOver) then
     if infosListeParties.ascenseurListe <> NIL then
     begin
 
@@ -3233,9 +3233,9 @@ begin
           WritelnNumDansRapport('dernierNumero = ',dernierNumero);
         end;
 
-      {if (nroHilite >= premierNumero) & (nroHilite <= dernierNumero)
+      {if (nroHilite >= premierNumero) and (nroHilite <= dernierNumero)
         then}
-      if (nroHilite >= 1) & (nroHilite <= nbPartiesActives) then
+      if (nroHilite >= 1) and (nroHilite <= nbPartiesActives) then
           begin
             {nroReference := tableNumeroReference^^[nroHilite];
             if nroReference <> infosListeParties.dernierNroReferenceHilitee then SysBeep(0);}
@@ -3267,7 +3267,7 @@ begin
 		        WritelnNumDansRapport('premierCoup = ',premierCoup);
 
 
-		        TransposePartiePourOrientation(theGame,autreCoupQuatreDansPartie & (nbreCoup >= 4),1,60);
+		        TransposePartiePourOrientation(theGame,autreCoupQuatreDansPartie and (nbreCoup >= 4),1,60);
 
             if debuguerCetteFonction then
             TraductionThorEnAlphanumerique(theGame,partieEnClair);
@@ -3280,7 +3280,7 @@ begin
 			        begin
 			          if debuguerCetteFonction then WritelnDansRapport('WARNING : not(positionsSontEgales(…) dans JoueCoupPartieSelectionnee');
 			          with DemandeCalculsPourBase do
-	              if (EtatDesCalculs <> kCalculsEnCours) | (NumeroDuCoupDeLaDemande <> nbreCoup) | bInfosDejaCalcules then
+	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	              InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
 			          exit(JoueCoupPartieSelectionnee);
@@ -3301,7 +3301,7 @@ begin
 
             temposon := avecSon;
             avecSon := false;
-            if (caseX >= 11) & (caseX <= 88) then
+            if (caseX >= 11) and (caseX <= 88) then
               begin
                 autreCoupQuatreDansPartie := false;
                 if nbreCoup >= 3 then ExtraitPremierCoup(premierCoup,autreCoupQuatreDansPartie);
@@ -3329,9 +3329,9 @@ var caseX : SInt16;
     premierCoup : SInt16;
     temposon : boolean;
 begin
-  if not(gameOver) & (nbreCoup < 60) & not(problemeMemoireBase) then
+  if not(gameOver) and (nbreCoup < 60) and not(problemeMemoireBase) then
     begin
-		  if windowStatOpen & not(enRetour | enSetUp) & (statistiques <> NIL) & StatistiquesCalculsFaitsAuMoinsUneFois
+		  if windowStatOpen and not(enRetour or enSetUp) and (statistiques <> NIL) and StatistiquesCalculsFaitsAuMoinsUneFois
 		    then
 		      begin
 			      if statistiques^^.nbTotalParties > 0 then
@@ -3347,7 +3347,7 @@ begin
 			        end;
 		     end
 		    else  {if windowStatOpen}
-		      if windowListeOpen & (nbPartiesActives = 1) then
+		      if windowListeOpen and (nbPartiesActives = 1) then
 		        JoueCoupPartieSelectionnee(infosListeParties.partieHilitee);
     end;
 end;
@@ -3362,10 +3362,10 @@ var oldPort : grafPtr;
   var coupTraite : boolean;
   begin
     coupTraite := false;
-    if (theMove >= 11) & (theMove <= 88) then
+    if (theMove >= 11) and (theMove <= 88) then
     if possibleMove[theMove] then
       begin
-        if afficheSuggestionDeCassio | gDoitJouerMeilleureReponse
+        if afficheSuggestionDeCassio or gDoitJouerMeilleureReponse
           then
             begin
               coupTraite := true;
@@ -3386,7 +3386,7 @@ var oldPort : grafPtr;
 
 
 begin  {JoueCoupQueMacAttendait}
-  if windowPlateauOpen & not(gameOver) & (interruptionReflexion = pasdinterruption) then
+  if windowPlateauOpen and not(gameOver) and (interruptionReflexion = pasdinterruption) then
     begin
       GetPort(oldPort);
       SetPortByWindow(wPlateauPtr);
@@ -3398,8 +3398,8 @@ begin  {JoueCoupQueMacAttendait}
 		      joueCoupQueMacAttendaitOK := DessineOuJoueCoupQueMacAttendait(meilleurCoupHum);
 
 		      {si le meilleur coup humain n'était pas precalculé, on le calcule et on l'affiche}
-		      if not(joueCoupQueMacAttendaitOK) & not(gameOver) & not(RefleSurTempsJoueur) &
-		         not(HumCtreHum) & (AQuiDeJouer = -couleurMacintosh) & (phaseDeLaPartie >= phaseFinale) &
+		      if not(joueCoupQueMacAttendaitOK) and not(gameOver) and not(RefleSurTempsJoueur) and
+		         not(HumCtreHum) and (AQuiDeJouer = -couleurMacintosh) and (phaseDeLaPartie >= phaseFinale) and
 		         (interruptionReflexion = pasdinterruption) then
 		          begin
 		            reponsePrete := false;
@@ -3501,7 +3501,7 @@ begin
         repeat
           inc(i);
           if GetNiemeCoupPartieCourante(i) <> 0 then coul := GetCouleurNiemeCoupPartieCourante(i);
-        until (coul <> 0) | (i >= 64);
+        until (coul <> 0) or (i >= 64);
         nbreCoupsDejaEffectues := i-1;
         InitialiseDirectionsJouables;
         CarteJouable(jeu,jouable);
@@ -3568,9 +3568,9 @@ begin
 					   end;
 
 
-					 if (x < 11) | (x > 88) then
+					 if (x < 11) or (x > 88) then
 					   begin
-					     WritelnNumDansRapport('ASSERT : (x < 11) | (x > 88) dans MiseAJourDeLaPartie,  x = ',x);
+					     WritelnNumDansRapport('ASSERT : (x < 11) or (x > 88) dans MiseAJourDeLaPartie,  x = ',x);
 					     WritelnDansRapport('fonctionAppelante = '+fonctionAppelante);
 					     WritelnDansRapport('  jeu : ');
                WritelnPositionEtTraitDansRapport(jeu,coul);
@@ -3596,7 +3596,7 @@ begin
 					     AttendFrappeClavier;
 					   end;
 
-		       if (x < 11) | (x > 88) | (jeu[x] <> pionVide)
+		       if (x < 11) or (x > 88) or (jeu[x] <> pionVide)
 		         then
 		           encorePossible := false
 		         else
@@ -3757,7 +3757,7 @@ end;
 procedure TachesUsuellesPourAffichageCourant;
 var square : SInt64;
 begin
-  if afficheNumeroCoup & (nbreCoup > 0) then
+  if afficheNumeroCoup and (nbreCoup > 0) then
     begin
       square := DerniereCaseJouee;
       if InRange(square,11,88) then
@@ -3774,7 +3774,7 @@ begin
   MetTitreFenetrePlateau;
 
   if CassioEstEnModeSolitaire then EcritCommentaireSolitaire;
-  if (HumCtreHum | (nbreCoup <= 0) | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then
+  if (HumCtreHum or (nbreCoup <= 0) or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then
     begin
       MyDisableItem(PartieMenu,ForceCmd);
       AfficheDemandeCoup;
@@ -3786,7 +3786,7 @@ begin
   phaseDeLaPartie := CalculePhasePartie(nbreCoup);
   FixeMarqueSurMenuMode(nbreCoup);
 
-  if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+  if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
     then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 end;
 
@@ -3885,7 +3885,7 @@ begin
    MemoryFillChar(@tableHeurisNoir,sizeof(tableHeurisNoir),chr(0));
    MemoryFillChar(@tableHeurisBlanc,sizeof(tableHeurisBlanc),chr(0));
 
-   doitDetruireAncienArbreDeJeu := peutDetruireArbreDeJeu & (positionFeerique | oldPositionFeerique);
+   doitDetruireAncienArbreDeJeu := peutDetruireArbreDeJeu and (positionFeerique or oldPositionFeerique);
    ReInitialisePartieHdlPourNouvellePartie(doitDetruireAncienArbreDeJeu);
 
    VideMeilleureSuiteInfos;
@@ -3942,7 +3942,7 @@ begin
            begin
              x := othellier[t];
              aux := platImpose[x];
-             if (aux = pionNoir) | (aux = pionBlanc)
+             if (aux = pionNoir) or (aux = pionBlanc)
                then
                  begin
                    DessinePion(x,aux);
@@ -3952,7 +3952,7 @@ begin
          if odd(nbreDePions[pionNoir]+nbreDePions[pionBlanc])
            then trait := pionBlanc
            else trait := pionNoir;
-         if (traitImpose = pionNoir) | (traitImpose = pionBlanc) then trait := traitImpose;
+         if (traitImpose = pionNoir) or (traitImpose = pionBlanc) then trait := traitImpose;
 
          SetJeuCourant(platImpose, trait);
 
@@ -3994,7 +3994,7 @@ begin
      begin
        SetUsingZebraBook(false);
        x := PositionDansStringAlphaEnCoup(s,2*i-1);
-       if (nbreCoup < coupMax) & (x >= 11) & (x <= 88) then
+       if (nbreCoup < coupMax) and (x >= 11) and (x <= 88) then
          begin
            if EstEnTrainDeRejouerUneInterversion then
              begin
@@ -4004,14 +4004,14 @@ begin
                  else Delay(1, tickFinal);
              end;
 
-           if PeutJouerIci(AQuiDeJouer,x,JeuCourant) &
+           if PeutJouerIci(AQuiDeJouer,x,JeuCourant) and
               JoueEn(x,PositionEtTraitCourant,estLegal,avecNomsOuvertureDansArbre,(nbreCoup = nbreCoupsRepris - 1),'RejouePartieOthello' )
               then
                 DoNothing
               else
                if (AQuiDeJouer = pionVide) then TachesUsuellesPourGameOver;
 
-           if avecInterversions & (nbreCoup >= 1) & (nbreCoup <= numeroCoupMaxPourRechercheIntervesionDansArbre)
+           if avecInterversions and (nbreCoup >= 1) and (nbreCoup <= numeroCoupMaxPourRechercheIntervesionDansArbre)
 	            then
 	              begin
 	                current := PositionEtTraitCourant;
@@ -4192,7 +4192,7 @@ begin
      begin
        SetUsingZebraBook(false);
        x := PositionDansStringAlphaEnCoup(s,2*i-1);
-       if (x >= 11) & (x <= 88) then
+       if (x >= 11) and (x <= 88) then
          begin
           if PeutJouerIci(coul,x,jeu)
             then
@@ -4242,7 +4242,7 @@ begin
 
 
    Initialise_table_heuristique(JeuCourant,false);
-   if (HumCtreHum | (AQuiDeJouer <> couleurMacintosh)) & not(enTournoi) then MyDisableItem(PartieMenu,ForceCmd);
+   if (HumCtreHum or (AQuiDeJouer <> couleurMacintosh)) and not(enTournoi) then MyDisableItem(PartieMenu,ForceCmd);
    avecCalculPartiesActives := true;
    gDoitJouerMeilleureReponse := false;
 
@@ -4252,7 +4252,7 @@ begin
    EndFonctionModifiantNbreCoup('RejouePartieOthelloFictive');
 
    if afficheInfosApprentissage then EcritLesInfosDApprentissage;
-   if avecCalculPartiesActives & (windowListeOpen | windowStatOpen)
+   if avecCalculPartiesActives and (windowListeOpen or windowStatOpen)
      then LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 
    LanceInterruptionSimpleConditionnelle('RejouePartieOthelloFictive');
@@ -4283,7 +4283,7 @@ begin
   repeat
     ok := (trait = GetCouleurNiemeCoupPartieCourante(i));
     coup := GetNiemeCoupPartieCourante(i);
-    ok := ok & (position[coup] = pionVide);
+    ok := ok and (position[coup] = pionVide);
     if ok then
       begin
 		    if not(ModifPlatSeulement(coup,position,trait))
@@ -4300,7 +4300,7 @@ begin
 		  end;
 		(* WritelnStringAndboolDansRapport('coup n°'+NumEnString(i)+' : '+CoupEnString(coup,true)+' ==> ',ok); *)
     i := succ(i);
-  until not(ok) | (i > ApresQuelCoup);
+  until not(ok) or (i > ApresQuelCoup);
 
   if not(ok) then
     begin
@@ -4400,7 +4400,7 @@ begin
     LanceInterruptionConditionnelle(interruptionSimple,'SET_VADEPASSERTEMPS',0,'PlaquerPosition');
     vaDepasserTemps := false;
     reponsePrete := false;
-    positionFeerique := not(EstLaPositionStandardDeDepart(JeuCourant) & (AQuiDeJouer = PionNoir));
+    positionFeerique := not(EstLaPositionStandardDeDepart(JeuCourant) and (AQuiDeJouer = PionNoir));
     if positionFeerique then nbPartiesActives := 0;
     PartieContreMacDeBoutEnBout := not(positionFeerique);
     MemoryFillChar(@tempsDesJoueurs,sizeof(tempsDesJoueurs),chr(0));

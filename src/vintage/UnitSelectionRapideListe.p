@@ -148,7 +148,7 @@ var i,tickCourant,t1,t2,tickLastCaractere : SInt32;
 		    frappeRapide := true;
 		    for k := i+1 to cardinal do
 		      begin
-		        frappeRapide := frappeRapide &
+		        frappeRapide := frappeRapide and
 		                        ((liste[k].tick - liste[k-1].tick) <= kIntervalleFrappeRapide);
 		        if frappeRapide then
 			        chaine := Concat(chaine,liste[k].caractere);
@@ -192,18 +192,18 @@ begin  {EstEnAttenteSelectionRapideDeListe}
           c2 := liste[i].caractere;
           t2 := liste[i].tick;
 
-          if (c1 = 'j') & (c2 = 'n') & ((t2-t1) <= 15) &
-             ((tickCourant-t2) <= 600) &
+          if (c1 = 'j') and (c2 = 'n') and ((t2-t1) <= 15) and
+             ((tickCourant-t2) <= 600) and
              ((tickCourant - tickLastCaractere) <= kIntervalleFrappeRapide) then
             EssaieConstruireChaineSelectionRapide(kSelRapideNoir);
 
-          if (c1 = 'j') & (c2 = 'b') & ((t2-t1) <= 15) &
-             ((tickCourant-t2) <= 600) &
+          if (c1 = 'j') and (c2 = 'b') and ((t2-t1) <= 15) and
+             ((tickCourant-t2) <= 600) and
              ((tickCourant - tickLastCaractere) <= kIntervalleFrappeRapide) then
             EssaieConstruireChaineSelectionRapide(kSelRapideBlanc);
 
-          if (c1 = 't') & (c2 = 'n') & ((t2-t1) <= 15) &
-             ((tickCourant-t2) <= 600) &
+          if (c1 = 't') and (c2 = 'n') and ((t2-t1) <= 15) and
+             ((tickCourant-t2) <= 600) and
              ((tickCourant - tickLastCaractere) <= kIntervalleFrappeRapide) then
             EssaieConstruireChaineSelectionRapide(kSelRapideTournoi);
         end;
@@ -245,10 +245,10 @@ var TournoiCompatible : t_TournoiCompatible;
     longueur : SInt16;
     found : boolean;
 begin
-  if (nbPartiesActives > 1) & windowListeOpen then
+  if (nbPartiesActives > 1) and windowListeOpen then
     begin
 		  chaineCherchee := EnleveEspacesDeGauche(chaineCherchee);
-		  if (genre <> kAucuneSelectionRapide) {& (chaineCherchee <> '')} then
+		  if (genre <> kAucuneSelectionRapide) {and (chaineCherchee <> '')} then
 		    begin
 		      partieTrouvee := -1;
 		      case genre of

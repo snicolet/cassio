@@ -82,7 +82,7 @@ begin
 
   result := '';
   err := OuvreFichierTexte(fic);
-  while (err=0) & not(EOFFichierTexte(fic,err)) & (result = '') do
+  while (err=0) and not(EOFFichierTexte(fic,err)) and (result = '') do
     begin
       err := ReadlnDansFichierTexte(fic,s);
 
@@ -127,7 +127,7 @@ begin
   temp := GetParsingProtectionWithQuotes;
   SetParsingProtectionWithQuotes(true);
   count := -1;
-  while (command_line<>'') & (count<10000) do
+  while (command_line<>'') and (count<10000) do
     begin
       Parser(command_line,s,command_line);
       count := count+1;
@@ -184,10 +184,10 @@ begin
   repeat
     Parser(command_line,s,command_line);
     i := i+1;
-  until (i >= param_number) | (command_line='');
+  until (i >= param_number) or (command_line='');
   SetParsingProtectionWithQuotes(temp);
 
-  if (command_line = '') & (i<param_number) then
+  if (command_line = '') and (i<param_number) then
     begin
       DisplayMessageInConsole('ERROR in Get_command_line_parameter : param_number > Command_line_param_count');
       Get_command_line_parameter := '';

@@ -103,7 +103,7 @@ end;
 
 function SortedSetEstVide(S : SortedSet) : boolean;
 begin
-  SortedSetEstVide := (S.cardinal = 0) | PropertyListEstVide(S.theSet);
+  SortedSetEstVide := (S.cardinal = 0) or PropertyListEstVide(S.theSet);
 end;
 
 function CardinalOfSortedSet(S : SortedSet) : SInt32;
@@ -188,7 +188,7 @@ begin
 
       L1 := S1.theSet;
       L2 := S2.theSet;
-      while (L1 <> NIL) & (L2 <> NIL) do
+      while (L1 <> NIL) and (L2 <> NIL) do
         begin
           element1 := GetLongintInfoOfProperty(L1^.head);
           element2 := GetLongintInfoOfProperty(L2^.head);
@@ -208,12 +208,12 @@ begin
               AddToResult(L2^.head);
               L2 := L2^.tail;
             end;
-          if (L1 = NIL) & (L2 <> NIL) then
+          if (L1 = NIL) and (L2 <> NIL) then
             repeat
               AddToResult(L2^.head);
               L2 := L2^.tail;
             until (L2 = NIL);
-          if (L2 = NIL) & (L1 <> NIL) then
+          if (L2 = NIL) and (L1 <> NIL) then
             repeat
               AddToResult(L1^.head);
               L1 := L1^.tail;
@@ -248,7 +248,7 @@ var result : SortedSet;
   end;
 
 begin
-  if SortedSetEstVide(S1) | SortedSetEstVide(S2) then
+  if SortedSetEstVide(S1) or SortedSetEstVide(S2) then
     begin
       IntersectionSortedSet := MakeEmptySortedSet;
       exit(IntersectionSortedSet);
@@ -262,7 +262,7 @@ begin
 
       L1 := S1.theSet;
       L2 := S2.theSet;
-      while (L1 <> NIL) & (L2 <> NIL) do
+      while (L1 <> NIL) and (L2 <> NIL) do
         begin
           element1 := GetLongintInfoOfProperty(L1^.head);
           element2 := GetLongintInfoOfProperty(L2^.head);
@@ -275,8 +275,8 @@ begin
           if element1 < element2 then L1 := L1^.tail;
           if element1 > element2 then L2 := L2^.tail;
 
-          if (L1 = NIL) & (L2 <> NIL) then L2 := NIL;
-          if (L2 = NIL) & (L1 <> NIL) then L1 := NIL;
+          if (L1 = NIL) and (L2 <> NIL) then L2 := NIL;
+          if (L2 = NIL) and (L1 <> NIL) then L1 := NIL;
         end;
     end;
   IntersectionSortedSet := result;

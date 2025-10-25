@@ -231,7 +231,7 @@ begin
         if square in ensemble then
           begin
             f_square := f(square);
-            if (f_square >= 11) & (f_square <= 88) then result := result + [f_square];
+            if (f_square >= 11) and (f_square <= 88) then result := result + [f_square];
           end;
       end;
   MapOnSquareSet := result;
@@ -249,7 +249,7 @@ begin
         if square in ensemble then
           begin
             f_square := f(square,parametre);
-            if (f_square >= 11) & (f_square <= 88) then result := result + [f_square];
+            if (f_square >= 11) and (f_square <= 88) then result := result + [f_square];
           end;
       end;
   MapOnSquareSetAvecParam := result;

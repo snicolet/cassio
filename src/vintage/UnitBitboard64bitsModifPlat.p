@@ -851,7 +851,7 @@ asm void __div2u(void)
        srw		r8,r4,r9		// R8 = dvd.lsw >> R9
        subfic	r7,r9,32
        slw		r7,r3,r7		// R7 = dvd.msw << 32 - R9
-       or		r8,r8,r7		// tmp.lsw = R8 | R7
+       or		r8,r8,r7		// tmp.lsw = R8 or R7
        srw		r7,r3,r9		// tmp.msw = dvd.msw >> R9
  lab4:
        // R3:R4 = R3:R4 << R0
@@ -865,7 +865,7 @@ asm void __div2u(void)
        slw		r3,r3,r0		// R3 = dvd.msw << R0
        subfic	r9,r0,32
        srw		r9,r4,r9		// R9 = dvd.lsw >> 32 - R0
-       or		r3,r3,r9		// dvd.msw = R3 | R9
+       or		r3,r3,r9		// dvd.msw = R3 or R9
        slw		r4,r4,r0		// dvd.lsw = dvd.lsw << R0
  lab6:
        // restoring division shift and subtract loop

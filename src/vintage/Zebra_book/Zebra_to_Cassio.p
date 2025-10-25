@@ -337,12 +337,12 @@ var k : SInt32;
 begin
   current := GetCurrentNode;
 
-  if (current = NIL) | Quitter then exit(ClearUselessVirtualZebraNodes);
+  if (current = NIL) or Quitter then exit(ClearUselessVirtualZebraNodes);
 
   for k := 1 to TAILLE_LISTE_DES_POSITIONS_AVEC_FILS_VIRTUELS do
     begin
       G := gListeDesPositionsAvecDesFilsVirtuels[k];
-      if (G <> NIL) & (G <> current) then
+      if (G <> NIL) and (G <> current) then
         begin
           gListeDesPositionsAvecDesFilsVirtuels[k] := NIL;
           DetruitLesFilsZebraBookInutilesDeCeNoeud(G);
@@ -426,7 +426,7 @@ begin
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
-      if not(ZebraBookEstIntrouvable) & not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
+      if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
       exit(WritelnZebraValuesDansRapport);
     end;
@@ -511,8 +511,8 @@ end;
 
 function EstUneEvaluationDansLeBookDeZebra(genreDeNote : SInt32) : boolean;
 begin
-  EstUneEvaluationDansLeBookDeZebra := (genreDeNote = ReflZebraBookEval) |
-                                       (genreDeNote = ReflZebraBookEvalSansDouteGagnant) |
+  EstUneEvaluationDansLeBookDeZebra := (genreDeNote = ReflZebraBookEval) or
+                                       (genreDeNote = ReflZebraBookEvalSansDouteGagnant) or
                                        (genreDeNote = ReflZebraBookEvalSansDoutePerdant);
 end;
 
@@ -543,10 +543,10 @@ end;
 
 procedure UpdateMaxValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);
 begin
-  if (squareValue >= -6400) & (squareValue <= 6400) then
+  if (squareValue >= -6400) and (squareValue <= 6400) then
     begin
 
-      if EstUneEvaluationDansLeBookDeZebra(genreDeNote) & RessembleAUneNoteDeFinale(squareValue)
+      if EstUneEvaluationDansLeBookDeZebra(genreDeNote) and RessembleAUneNoteDeFinale(squareValue)
         then inc(squareValue);
 
       if squareValue > ZebraInfosRec.maxCourantAffiche
@@ -558,10 +558,10 @@ end;
 
 procedure UpdateMinValuationDeZebraAffichee(squareValue, genreDeNote : SInt32);
 begin
-  if (squareValue >= -6400) & (squareValue <= 6400) then
+  if (squareValue >= -6400) and (squareValue <= 6400) then
     begin
 
-      if EstUneEvaluationDansLeBookDeZebra(genreDeNote) & RessembleAUneNoteDeFinale(squareValue)
+      if EstUneEvaluationDansLeBookDeZebra(genreDeNote) and RessembleAUneNoteDeFinale(squareValue)
         then inc(squareValue);
 
       if squareValue < ZebraInfosRec.minCourantAffiche
@@ -586,8 +586,8 @@ begin
   valMin := GetMinValuationDeZebraAffichee;
   valMax := GetMaxValuationDeZebraAffichee;
 
-  if (valMin >= -6400) & (valMin <= 6400) & (valMax >= -6400) & (valMax <= 6400) then
-    if (valMin < valMax - GetZebraBookContemptWindowWidth) & not(RessembleAUneNoteDeFinale(valMax)) then
+  if (valMin >= -6400) and (valMin <= 6400) and (valMax >= -6400) and (valMax <= 6400) then
+    if (valMin < valMax - GetZebraBookContemptWindowWidth) and not(RessembleAUneNoteDeFinale(valMax)) then
       begin
 
         for k := 1 to 64 do
@@ -595,8 +595,8 @@ begin
             square := othellier[k];
             valeur := GetNoteSurCase(kNotesDeZebra,square);
 
-            if (valeur <> kNoteSurCaseNonDisponible) &
-               (valeur >= valMin - 10) &
+            if (valeur <> kNoteSurCaseNonDisponible) and
+               (valeur >= valMin - 10) and
                (valeur < valMax - GetZebraBookContemptWindowWidth) then
               begin
                 SetNoteSurCase(kNotesDeZebra, square, kNoteSurCaseNonDisponible);
@@ -624,8 +624,8 @@ begin
 
 
   (* validation des scores *)
-  if ((genreDeNote = ReflParfait) | (genreDeNote = ReflGagnant)) then
-    if (scorePourNoir > 64) | (scorePourNoir < -64) then
+  if ((genreDeNote = ReflParfait) or (genreDeNote = ReflGagnant)) then
+    if (scorePourNoir > 64) or (scorePourNoir < -64) then
       begin
         (* WritelnNumDansRapport('WARNING ! note impossible dans la bibliothèque de Zebra :  scorePourNoir = ',scorePourNoir); *)
         exit(AddSonAndZebraValueAtThisNode);
@@ -649,7 +649,7 @@ begin
   if (fils > 0) then
     begin
 
-      if not(EstUneEvaluationDansLeBookDeZebra(genreDeNote)) | ZebraBookACetteOption(kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)
+      if not(EstUneEvaluationDansLeBookDeZebra(genreDeNote)) or ZebraBookACetteOption(kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)
         then err := ChangeCurrentNodeAfterThisMove(fils,GetTraitOfPosition(ZebraInfosRec.thePositionEtTrait),'AddSonAndZebraValueAtThisNode',isANewSon);
 
       if not(UpdatePositionEtTrait(pos2,fils)) then err := -1;
@@ -659,7 +659,7 @@ begin
   {on vérifie encore une fois que la position dans l'arbre de jeu
   où on va ajouter de l'info correspond bien à la position trouvee
   dans la biblio de Zebra}
-  if (err = NoErr) & not(SamePositionEtTrait(pos,pos2)) then
+  if (err = NoErr) and not(SamePositionEtTrait(pos,pos2)) then
     begin
       {Sysbeep(0);
       WritelnDansRapport('Desynchronisation dans AddSonAndZebraValueAtThisNode !!');
@@ -672,7 +672,7 @@ begin
     end;
 
   {Si la case correspondante n'est pas vide, il y a un probleme}
-  if (err = NoErr) & (fils >= 11) & (fils <= 88) & (GetCouleurOfSquareDansJeuCourant(fils) <> pionVide) then
+  if (err = NoErr) and (fils >= 11) and (fils <= 88) and (GetCouleurOfSquareDansJeuCourant(fils) <> pionVide) then
     begin
       Sysbeep(0);
       WritelnDansRapport('La case devrait etre vide dans AddSonAndZebraValueAtThisNode !!');
@@ -694,7 +694,7 @@ begin
       }
 
 
-      if not(EstUneEvaluationDansLeBookDeZebra(genreDeNote)) | ZebraBookACetteOption(kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)
+      if not(EstUneEvaluationDansLeBookDeZebra(genreDeNote)) or ZebraBookACetteOption(kAfficherNotesZebraDansArbre + kAfficherCouleursZebraDansArbre)
         then AjoutePropertyValeurDeCoupDansCurrentNode(genreDeNote,scorePourNoir);
 
 
@@ -710,10 +710,10 @@ begin
 
           UpdateMaxValuationDeZebraAffichee(scoreAffiche, genreDeNote);
 
-          doitAfficherLaNote := (scoreAffiche >= -200) |
-                                (scoreAffiche >= GetMaxValuationDeZebraAffichee - GetZebraBookContemptWindowWidth) |
-                                ZebraBookACetteOption(kAfficherZebraBookBrutDeDecoffrage) |
-                                RessembleAUneNoteDeFinale(GetMaxValuationDeZebraAffichee) |
+          doitAfficherLaNote := (scoreAffiche >= -200) or
+                                (scoreAffiche >= GetMaxValuationDeZebraAffichee - GetZebraBookContemptWindowWidth) or
+                                ZebraBookACetteOption(kAfficherZebraBookBrutDeDecoffrage) or
+                                RessembleAUneNoteDeFinale(GetMaxValuationDeZebraAffichee) or
                                 (nbreCoup >= 31);
 
           if doitAfficherLaNote
@@ -722,7 +722,7 @@ begin
 
                 UpdateMinValuationDeZebraAffichee(scoreAffiche, genreDeNote);
 
-                if (genreDeNote = ReflZebraBookEvalSansDouteGagnant) | (genreDeNote = ReflZebraBookEvalSansDoutePerdant)
+                if (genreDeNote = ReflZebraBookEvalSansDouteGagnant) or (genreDeNote = ReflZebraBookEvalSansDoutePerdant)
                   then AjouterFlagsNoteSurCase(kNotesDeZebra,fils,kFlagPositionEstSansDouteNonNulleSelonBiblZebra)
                   else RetirerFlagsNoteSurCase(kNotesDeZebra,fils,kFlagPositionEstSansDouteNonNulleSelonBiblZebra);
 
@@ -812,15 +812,15 @@ begin
 
 
   if not(ZebraBookACetteOption(kAfficherZebraBookBrutDeDecoffrage)) then
-    if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) | (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) then
+    if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) or (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) then
       begin
 
         genreDeNote := ReflZebraBookEvalSansDouteGagnant;
 
         // calculer une meilleure estimation avec l'eval d'Edmond
 
-        if ((GetTraitOfPosition(whichPos) = pionNoir) & (valeurMilieuDeZebra > 0))
-           | ((GetTraitOfPosition(whichPos) = pionBlanc) & (valeurMilieuDeZebra < 0))
+        if ((GetTraitOfPosition(whichPos) = pionNoir) and (valeurMilieuDeZebra > 0))
+           or ((GetTraitOfPosition(whichPos) = pionBlanc) and (valeurMilieuDeZebra < 0))
 
           then valeurHeuristique := EvaluationHorsContexteACetteProfondeur(whichPos, 3, bestDef, false) - 100
           else valeurHeuristique := EvaluationHorsContexteACetteProfondeur(whichPos, 3, bestDef, false) + 100;
@@ -830,19 +830,19 @@ begin
           then valeurHeuristique := -valeurHeuristique;
 
         // ne pas changer de signe, quand meme !
-        if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) & (valeurHeuristique < 200)
+        if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) and (valeurHeuristique < 200)
           then valeurHeuristique := 200;
 
         // idem !
-        if (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) & (valeurHeuristique > -200)
+        if (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) and (valeurHeuristique > -200)
           then valeurHeuristique := -200;
 
         // ne pas dépasser l'eval de Zebra, quand meme
-        if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) & (valeurHeuristique > valeurMilieuDeZebra)
+        if (valeurMilieuDeZebra >= kScoreOfDrawTreeWindowByJan) and (valeurHeuristique > valeurMilieuDeZebra)
           then valeurHeuristique := valeurMilieuDeZebra;
 
         // idem !
-        if (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) & (valeurHeuristique < valeurMilieuDeZebra)
+        if (valeurMilieuDeZebra <= -kScoreOfDrawTreeWindowByJan) and (valeurHeuristique < valeurMilieuDeZebra)
           then valeurHeuristique := valeurMilieuDeZebra;
 
     end;
@@ -885,7 +885,7 @@ begin
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
-      if not(ZebraBookEstIntrouvable) & not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
+      if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
       exit(AddAllZebraValuesAtThisNode);
     end;
@@ -957,7 +957,7 @@ begin
         if (Flags AND FULL_SOLVED) <> 0
           then
             begin (* Finale parfaite *)
-              if (Score_Noir = 0) | (Score_Noir = UNWANTED_DRAW)
+              if (Score_Noir = 0) or (Score_Noir = UNWANTED_DRAW)
                 then
                   AddSonAndZebraValueAtThisNode(whichNode, fils, pos, 0, ReflParfait)    {nulle}
                 else
@@ -968,7 +968,7 @@ begin
           else
             if (Flags AND WLD_SOLVED) <> 0 then
               begin (* Finale WLD *)
-                if (Score_Noir = 0) | (Score_Noir = UNWANTED_DRAW)
+                if (Score_Noir = 0) or (Score_Noir = UNWANTED_DRAW)
                   then
                     AddSonAndZebraValueAtThisNode(whichNode, fils, pos, 0, ReflParfait)    {nulle}
                   else
@@ -990,7 +990,7 @@ begin
                     AddSonAndZebraValueAtThisNode(whichNode, fils, pos, valeurHeuristique , genreDeNote);
                   end;
 
-              if (niveauRecursion > 0) & (VerifieHomogeneiteDesCouleurs(whichNode, false) = NoErr) then
+              if (niveauRecursion > 0) and (VerifieHomogeneiteDesCouleurs(whichNode, false) = NoErr) then
                 begin
                   if (Alt_Move < 0)
                     then
@@ -1048,8 +1048,8 @@ begin
 
   position := PositionEtTraitCourant;
 
-  if MemberOfPositionEtTraitSet(position,index,gEnsembleDesPositionsDejaVues) & (index >= 0)
-     & not(LiveUndoVaRejouerImmediatementUnAutreCoup)
+  if MemberOfPositionEtTraitSet(position,index,gEnsembleDesPositionsDejaVues) and (index >= 0)
+     and not(LiveUndoVaRejouerImmediatementUnAutreCoup)
     then
       begin
         gDemandeAffichageZebraBook.enAttente := false;
@@ -1092,10 +1092,10 @@ begin
   WritelnStringAndBoolDansRapport('CassioEstEnTrainDeLireLaBibliothequeDeZebra = ',CassioEstEnTrainDeLireLaBibliothequeDeZebra);
   *)
 
-  if ZebraBookACetteOption(kUtiliserZebraBook) &
-     ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) &
-     not(CassioEstEnModeSolitaire) &
-     not(CassioEstEnTrainDeLireLaBibliothequeDeZebra) &
+  if ZebraBookACetteOption(kUtiliserZebraBook) and
+     ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) and
+     not(CassioEstEnModeSolitaire) and
+     not(CassioEstEnTrainDeLireLaBibliothequeDeZebra) and
      (nbreCoup <= 40) then
 
     with ZebraInfosRec do
@@ -1126,14 +1126,14 @@ begin
         // WritelnNumDansRapport('dans LireBibliothequeDeZebraPourCurrentNode, nbreCoup = ',nbreCoup);
         // WriteGameTreeDansRapport(whichNode);
 
-        if (nbreCoup > 0) & GetPositionEtTraitACeNoeud(whichNode, thePositionEtTrait, 'LireBibliothequeDeZebraPourCurrentNode') then
+        if (nbreCoup > 0) and GetPositionEtTraitACeNoeud(whichNode, thePositionEtTrait, 'LireBibliothequeDeZebraPourCurrentNode') then
           begin
 
             gLectureZebraBook.doitVerifierEvenements := true;
 
             AddAllZebraValuesAtThisNode(whichNode,NO_MOVE,thePositionEtTrait,1);
 
-            if EstLaPositionCourante(positionArrivee) & (oldMagicCookie = GetMagicCookieOfZebraBook)
+            if EstLaPositionCourante(positionArrivee) and (oldMagicCookie = GetMagicCookieOfZebraBook)
               then
                 begin
 
@@ -1292,7 +1292,7 @@ begin  {$unused s}
 
 
 
-                  if (number_of_positions_in_zebra_book <= 0) & not(withCheckEvents) then
+                  if (number_of_positions_in_zebra_book <= 0) and not(withCheckEvents) then
                     SetZebraBookEstIntrouvable(true);
 
 
@@ -1493,7 +1493,7 @@ begin  {$unused fonctionAppelante}
         WritelnNumDansRapport('      niveauRecursionUseZebraNodes = ',niveauRecursionUseZebraNodes);
       }
 
-      if (niveauRecursionUseZebraNodes = 1) & not(ficEstInitialise)
+      if (niveauRecursionUseZebraNodes = 1) and not(ficEstInitialise)
         then nbreEnregistrementsDansFic := get_number_of_positions_in_zebra_book_from_disk;
 
     end;
@@ -1510,7 +1510,7 @@ begin  {$unused fonctionAppelante}
          WritelnNumDansRapport('      niveauRecursionUseZebraNodes = ',niveauRecursionUseZebraNodes);
       }
 
-      if (niveauRecursionUseZebraNodes = 1) & FichierTexteEstOuvert(theBook) then
+      if (niveauRecursionUseZebraNodes = 1) and FichierTexteEstOuvert(theBook) then
          begin
            err := FermeFichierTexte(theBook);
            {WritelnNumDansRapport('      apres FermeFichierTexte  ,  err = ', err);}
@@ -1552,7 +1552,7 @@ begin
 
       // open the file, if necessary
 
-      if (niveauRecursionUseZebraNodes >= 1) & not(FichierTexteEstOuvert(theBook)) then
+      if (niveauRecursionUseZebraNodes >= 1) and not(FichierTexteEstOuvert(theBook)) then
         begin
           err := OuvreFichierTexte(theBook);
           {WritelnNumDansRapport('LireBucketOfZebraNodes : apres OuvreFichierTexte,   err = ', err); }
@@ -1582,8 +1582,8 @@ begin
       err := ReadBufferDansFichierTexte(theBook,@nodes[numeroBucket].table^[0],count);
 
 
-      if (err <> NoErr) | (count <> taille) then
-        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (ReadBufferDansFichierTexte) : (err <> NoErr) | (count <> taille)');
+      if (err <> NoErr) or (count <> taille) then
+        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (ReadBufferDansFichierTexte) : (err <> NoErr) or (count <> taille)');
 
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
@@ -1699,7 +1699,7 @@ begin  {$unused node}
           if (n > NB_BUCKETS_ZEBRA_NODES) then n := n - NB_BUCKETS_ZEBRA_NODES else
           if (n < 1) then n := n + NB_BUCKETS_ZEBRA_NODES;
 
-          if (index >= nodes[n].indexMin) & (index <= nodes[n].indexMax) then
+          if (index >= nodes[n].indexMin) and (index <= nodes[n].indexMax) then
             begin
               (* trouvé !! *)
               dernierBucketUtilise := n;
@@ -1732,7 +1732,7 @@ begin  {$unused node}
           if (n > NB_BUCKETS_ZEBRA_NODES) then n := n - NB_BUCKETS_ZEBRA_NODES else
           if (n < 1) then n := n + NB_BUCKETS_ZEBRA_NODES;
 
-          if (index >= nodes[n].indexMin) & (index <= nodes[n].indexMax) then
+          if (index >= nodes[n].indexMin) and (index <= nodes[n].indexMax) then
             begin
               (* trouvé !! *)
               dernierBucketUtilise := n;
@@ -1872,7 +1872,7 @@ begin
               then data := Depiler(spotsVides,ok)
               else data := presents.cardinal + 1;
 
-            if (data <= 0) | (data > NB_NODES_IN_ZEBRA_CACHE) | (keys[data] <> -1) then
+            if (data <= 0) or (data > NB_NODES_IN_ZEBRA_CACHE) or (keys[data] <> -1) then
               begin
                 WritelnNumDansRapport('ERROR : dans ajouter_zebra_node_dans_le_cache_des_presents, ce slot n''est pas vide = ',data);
                 inc(nombreErreurs);
@@ -1922,7 +1922,7 @@ begin
       if MemberOfIntegerSet(theKey, data, presents) then
         begin
 
-          if (data <= 0) & (data > NB_NODES_IN_ZEBRA_CACHE) then
+          if (data <= 0) and (data > NB_NODES_IN_ZEBRA_CACHE) then
             begin
               WritelnNumDansRapport('ERROR !!! Erreur dans enlever_zebra_node_dans_cache_des_presents : data (out of range) = ',data);
               inc(nombreErreurs);
@@ -1930,7 +1930,7 @@ begin
 
           RemoveIntegerFromSet(theKey, presents);
 
-          if (data >= 0) & (data <= NB_NODES_IN_ZEBRA_CACHE) then
+          if (data >= 0) and (data <= NB_NODES_IN_ZEBRA_CACHE) then
             begin
               keys[data] := -1;
               Empiler(spotsVides,data,ok);
@@ -1973,9 +1973,9 @@ var positions : array[0..64] of PositionEtTraitRec;
 label sortie;
 begin
 
-  if ZebraBookACetteOption(kUtiliserZebraBook) &
-     ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) &
-     not(CassioEstEnModeSolitaire) &
+  if ZebraBookACetteOption(kUtiliserZebraBook) and
+     ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) and
+     not(CassioEstEnModeSolitaire) and
      not(CassioEstEnTrainDeLireLaBibliothequeDeZebra) then
 
   with gCacheDesPresents do
@@ -1997,7 +1997,7 @@ begin
       for i := 1 to 64 do
         begin
           coup := PositionDansStringAlphaEnCoup(partieEnAlpha, 2*i-1);
-          if (coup >= 11) & (coup <= 88) & UpdatePositionEtTrait(myPos,coup) then
+          if (coup >= 11) and (coup <= 88) and UpdatePositionEtTrait(myPos,coup) then
             begin
               positions[i] := myPos;
               correcte[i] := true;
@@ -2012,7 +2012,7 @@ begin
           i := nbCoupsCourant + k;   (* un coup en montant... *)
           if i > 64 then i := i - 64;
 
-          if (i >= nbCoupsMin) & (i <= nbCoupsMax) & (correcte[i])
+          if (i >= nbCoupsMin) and (i <= nbCoupsMax) and (correcte[i])
             then PrefetchZebraIndexOfThisPosition(positions[i], 1);
 
           if (GetMagicCookieOfZebraBook <> oldMagicCookie) then goto sortie;
@@ -2020,7 +2020,7 @@ begin
           i := nbCoupsCourant - k - 1;  (* un coup en descendant... *)
           if i < 0 then i := i + 64;
 
-          if (i >= nbCoupsMin) & (i <= nbCoupsMax) & (correcte[i])
+          if (i >= nbCoupsMin) and (i <= nbCoupsMax) and (correcte[i])
             then PrefetchZebraIndexOfThisPosition(positions[i], 1);
 
           if (GetMagicCookieOfZebraBook <> oldMagicCookie) then goto sortie;
@@ -2053,7 +2053,7 @@ begin
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
-      if not(ZebraBookEstIntrouvable) & not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
+      if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
       exit(PrefetchZebraIndexOfThisPosition);
     end;
@@ -2067,7 +2067,7 @@ begin
   indexProbable := -1;
 
 
-  if MemberOfPositionEtTraitSet(pos,indexProbable,gEnsembleDesPositionsDejaVues) &
+  if MemberOfPositionEtTraitSet(pos,indexProbable,gEnsembleDesPositionsDejaVues) and
      (indexProbable = kPositionNotInZebraBook)
     then goto sortie;
 
@@ -2136,8 +2136,8 @@ var index : SInt32;
 label sortie;
 begin
 
-  if (interruptionReflexion = pasdinterruption) &
-     (gZebraBookPrefetchingData.lastMagicCookieSeen <> GetMagicCookieOfZebraBook) &
+  if (interruptionReflexion = pasdinterruption) and
+     (gZebraBookPrefetchingData.lastMagicCookieSeen <> GetMagicCookieOfZebraBook) and
      not(gDemandeAffichageZebraBook.enAttente)
    then
       with gZebraBookPrefetchingData do
@@ -2165,15 +2165,15 @@ begin
           nbreAppelsHasGotEventsArrivee   := gLectureZebraBook.nbreAppelsHasGotEvents;
           magicCookieZebraBookArrivee     := GetMagicCookieOfZebraBook;
 
-          if ZebraBookACetteOption(kUtiliserZebraBook) &
-             ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) &
-             not(CassioEstEnModeSolitaire) &
-             not(CassioEstEnTrainDeLireLaBibliothequeDeZebra) &
+          if ZebraBookACetteOption(kUtiliserZebraBook) and
+             ZebraBookACetteOption(kAllZebraOptions - kUtiliserZebraBook) and
+             not(CassioEstEnModeSolitaire) and
+             not(CassioEstEnTrainDeLireLaBibliothequeDeZebra) and
              (nbreCoup <= 40) then
                begin
                  thePos := PositionEtTraitCourant;
 
-                 if MemberOfPositionEtTraitSet(thePos,index,gEnsembleDesPositionsDejaVues) & (index > 0) then
+                 if MemberOfPositionEtTraitSet(thePos,index,gEnsembleDesPositionsDejaVues) and (index > 0) then
                    begin
                      if (gCacheDesPresents.verbosityLevel >= 1) then
                        WritelnDansRapport('début du prefetch...');

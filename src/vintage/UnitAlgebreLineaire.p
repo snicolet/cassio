@@ -124,8 +124,8 @@ end;
 
 function EstUneMatriceCarree(var A : MatriceReels) : boolean;
 begin
-  EstUneMatriceCarree := (A.nbLignes > 0) &
-                        (A.nbLignes <= dimensionMatrice) &
+  EstUneMatriceCarree := (A.nbLignes > 0) and
+                        (A.nbLignes <= dimensionMatrice) and
                         (A.nbLignes = A.nbColonnes);
 end;
 
@@ -303,7 +303,7 @@ end;
 procedure SommeMatrices(var M1,M2 : MatriceReels; var result : MatriceReels);
 var i,j : SInt32;
 begin
-  if (M1.nbLignes <> M2.nbLignes) | (M1.nbColonnes <> M2.nbColonnes) then
+  if (M1.nbLignes <> M2.nbLignes) or (M1.nbColonnes <> M2.nbColonnes) then
     begin
       WritelnDansRapport('Dimensions incompatibles dans SommeMatrices !');
       exit(SommeMatrices);

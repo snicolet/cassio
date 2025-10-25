@@ -125,7 +125,7 @@ begin
         WritelnStringAndReelDansRapport('    =>  nbre positions par sec. = ',vitesse,6);
       end;
 
-  until EscapeDansQueue | Quitter;
+  until EscapeDansQueue or Quitter;
 
   if Quitter then Quitter := false;
 
@@ -228,7 +228,7 @@ var searchParams : MakeEndgameSearchParamRec;
 begin
   Discard2(jou,fr);
 
-  if EscapeDansQueue | Quitter then exit(TesterNoteDeCettePositionDeMilieu);
+  if EscapeDansQueue or Quitter then exit(TesterNoteDeCettePositionDeMilieu);
 
   with searchParams do
     begin
@@ -413,7 +413,7 @@ begin
 
   s := Trim(ligne.debutLigne);
 
-  if (s <> '') & (s[1] <> '%') then
+  if (s <> '') and (s[1] <> '%') then
     begin
 
       if (Pos('__END_OF_FILE__', s) = 1) then
@@ -422,7 +422,7 @@ begin
           exit(ReadLineInScriptZoo);
         end;
 
-      if (Pos('JOB ', s) = 1) | (Pos('PREFETCH ', s) = 1) then
+      if (Pos('JOB ', s) = 1) or (Pos('PREFETCH ', s) = 1) then
         begin
           TesterUnJobDuZooEnLocal(s);
         end;
@@ -480,7 +480,7 @@ begin
    {exit(TesterUnitZoo);}
 
 
-  if not(CassioDoitRentrerEnContactAvecLeZoo) | Quitter
+  if not(CassioDoitRentrerEnContactAvecLeZoo) or Quitter
     then exit(TesterUnitZoo);
 
 
@@ -511,13 +511,13 @@ begin
 
       // Pour envoyer les petits fils de la position courante
       // positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale
-      //                           | (UpdatePositionEtTrait(position, othellier[t]) & UpdatePositionEtTrait(position, othellier[s]));
+      //                           or (UpdatePositionEtTrait(position, othellier[t]) and UpdatePositionEtTrait(position, othellier[s]));
 
       // Pour envoyer seulement les fils de la position courante
       positionDoitEtreEnvoyee := envoyerSeulementLaPositionActuelleCommeFinale
-                                 | (UpdatePositionEtTrait(position, othellier[t]));
+                                 or (UpdatePositionEtTrait(position, othellier[t]));
 
-      positionDoitEtreEnvoyee := positionDoitEtreEnvoyee & not(MemberOfPositionEtTraitSet(position,foo,positionsDejaEnvoyees));
+      positionDoitEtreEnvoyee := positionDoitEtreEnvoyee and not(MemberOfPositionEtTraitSet(position,foo,positionsDejaEnvoyees));
 
       if positionDoitEtreEnvoyee then
         begin
@@ -528,7 +528,7 @@ begin
           midgameDepth := Min( 30 , endgameDepth - 12 );
 
 
-          if (endgameDepth <= 25) | envoyerSeulementLaPositionActuelleCommeFinale
+          if (endgameDepth <= 25) or envoyerSeulementLaPositionActuelleCommeFinale
             then
               begin
                 depthPourLeTest      := endgameDepth;

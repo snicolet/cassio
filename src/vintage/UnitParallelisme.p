@@ -250,7 +250,7 @@ end;
 function MPLibraryIsLoaded : boolean;
 begin
   MPLibraryIsLoaded := ( ( UInt32(_MPIsFullyInitialized) <> UInt32(kUnresolvedCFragSymbolAddress) )
-                       & ( _MPIsFullyInitialized ) );
+                       and ( _MPIsFullyInitialized ) );
 end;
 
 
@@ -258,7 +258,7 @@ procedure SetNombreDeProcesseursActifs(nombre : SInt32);
 begin
 
   // If the multiprocessing librairy is present then create the tasks
-  if CanInitializeOSAtomicUnit &  MPLibraryIsLoaded & (kNombreMaxAlphaBetaTasks > 0) & (nombre >= 1)
+  if CanInitializeOSAtomicUnit and  MPLibraryIsLoaded and (kNombreMaxAlphaBetaTasks > 0) and (nombre >= 1)
     then
       begin
         numProcessors := Min(MPProcessorsScheduled,nombre);
@@ -401,7 +401,7 @@ begin
 
       until (delta > 100);
 
-      if (delta > 0) & ((nbreTours div delta) > gNbreDeToursPourAttendreUneMicroseconde)
+      if (delta > 0) and ((nbreTours div delta) > gNbreDeToursPourAttendreUneMicroseconde)
         then gNbreDeToursPourAttendreUneMicroseconde := nbreTours div delta;
 
       {WritelnNumDansRapport('gNbreDeToursPourAttendreUneMicroseconde = ', gNbreDeToursPourAttendreUneMicroseconde);}
@@ -449,8 +449,8 @@ begin
             WriteNumDansRapport(' , ',numeroPere);
             WriteNumDansRapport(' , ',profondeur);
 
-            if ((queue < tete) & (queue < k) & (k <= tete)) |
-               ((queue >= tete) & ((k <= tete) | (queue < k)))
+            if ((queue < tete) and (queue < k) and (k <= tete)) or
+               ((queue >= tete) and ((k <= tete) or (queue < k)))
               then WritelnDansRapport(') **')
               else WritelnDansRapport(')');
           end;
@@ -599,7 +599,7 @@ begin
                        if resultats[i].profondeur = profondeurSouhaitee
                          then trouve := true;  { trouve! }
 
-                     until trouve | (i = tete);
+                     until trouve or (i = tete);
 
                      if trouve then
                        begin
@@ -792,7 +792,7 @@ begin
 
 
       while not(ecrit)
-        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} & not(BoucleInfinie(s,tickDepart)) {$ENDC}
+        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} and not(BoucleInfinie(s,tickDepart)) {$ENDC}
         do
           begin
 
@@ -849,7 +849,7 @@ begin
                 inc(compteurDeSpin);
 
                 {$IFC AVEC_DEBUG_PARALLELISME}
-                if (compteurDeSpin = 1) & (cardinal >= kNombreMaxResultasDansUneFile) then
+                if (compteurDeSpin = 1) and (cardinal >= kNombreMaxResultasDansUneFile) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                     WritelnDansRapport('WARNING (thread '+NumEnString(nroThreadDuFils)+') : la file des résultats de la thread '+NumEnString(nroThreadDuPere)+', à qui je dois poster un résultat, est pleine !');
@@ -932,12 +932,12 @@ begin
           end;
         {$ENDC}
 
-        if (nroThreadAInterrompre >= 0) & (nroThreadAInterrompre <= kNombreMaxAlphaBetaTasks) then
+        if (nroThreadAInterrompre >= 0) and (nroThreadAInterrompre <= kNombreMaxAlphaBetaTasks) then
           begin
 
             laThreadAvaitEmisUneProposition := CetteThreadAEmisUnePropositionDeTravail(nroThreadAInterrompre, profProposition);
 
-            if not(laThreadAvaitEmisUneProposition) | (profProposition <= node.nbreVides - 1)
+            if not(laThreadAvaitEmisUneProposition) or (profProposition <= node.nbreVides - 1)
               then
                 begin
 
@@ -1037,7 +1037,7 @@ begin
 
   // Attendre de pouvoir prendre le mutex d'ecriture d'une interruption pour cette thread
   while (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexEcritureInterruptionThread[nroThreadAInterrompre]) = 0 )
-        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} & not(BoucleInfinie(s,tickDepart)) {$ENDC}
+        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} and not(BoucleInfinie(s,tickDepart)) {$ENDC}
      do
        begin
          EcouterLesResultatsDansCetteThread(nroThreadAgissante);
@@ -1135,7 +1135,7 @@ begin
 
   // Attendre de pouvoir prendre le mutex d'ecriture d'une interruption pour cette thread
   while (ATOMIC_COMPARE_AND_SWAP_32(0,1,gMutexEcritureInterruptionThread[nroThreadARelacher]) = 0 )
-        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} & not(BoucleInfinie(s,tickDepart)) {$ENDC}
+        {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} and not(BoucleInfinie(s,tickDepart)) {$ENDC}
      do
        begin
          EcouterLesResultatsDansCetteThread(nroThreadAgissante);
@@ -1205,7 +1205,7 @@ begin
 
       nroThreadDuFils := threadAffecteeACeFils[indexDuFils];
 
-      if (nroThreadDuFils < 0) | (nroThreadDuFils > kNombreMaxAlphaBetaTasks) then
+      if (nroThreadDuFils < 0) or (nroThreadDuFils > kNombreMaxAlphaBetaTasks) then
         begin
 
           // ASSERT : fils inconnu dans LancerUnFils...
@@ -1352,7 +1352,7 @@ begin
         hashStampDuFils                       := hashStampDeCeFils[indexDuFils];
 
 
-        if (nroThreadFils >= 0) & (nroThreadFils <= kNombreMaxAlphaBetaTasks)
+        if (nroThreadFils >= 0) and (nroThreadFils <= kNombreMaxAlphaBetaTasks)
           then etaitEnAttenteDeLancement := filsEnAttenteDeLancement[indexDuFils]
           else etaitEnAttenteDeLancement := false;
 
@@ -1372,11 +1372,11 @@ begin
 
         // Interrompre le fils avant meme de le lancer
 
-        if (nroThreadFils >= 0) & (nroThreadFils <= kNombreMaxAlphaBetaTasks) then
+        if (nroThreadFils >= 0) and (nroThreadFils <= kNombreMaxAlphaBetaTasks) then
           begin
             laThreadAvaitEmisUneProposition := CetteThreadAEmisUnePropositionDeTravail(nroThreadFils, profProposition);
 
-            if not(laThreadAvaitEmisUneProposition) | (profProposition <= node.nbreVides - 1) then
+            if not(laThreadAvaitEmisUneProposition) or (profProposition <= node.nbreVides - 1) then
               begin
                 InterrompreUneThread(nroThreadFils, node.nbreVides - 1, hashStampDuFils, nroThreadDuPere);
               end;
@@ -1386,8 +1386,8 @@ begin
 
         // Puis faire semblant de lancer le fils normalement (il devrait sortir tout de suite)
 
-        if etaitEnAttenteDeLancement &
-           (threadAffecteeACeFils[indexDuFils] >= 0) &
+        if etaitEnAttenteDeLancement and
+           (threadAffecteeACeFils[indexDuFils] >= 0) and
            (threadAffecteeACeFils[indexDuFils] <= kNombreMaxAlphaBetaTasks) then
            begin
              inc(nbreResultatsEnAttente);
@@ -1565,12 +1565,12 @@ begin
 
 
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
-     if ((maximum < -64) | (maximum > 64)) &
-        (maximum <>  kValeurSpecialeInterruptionCalculParallele) &
+     if ((maximum < -64) or (maximum > 64)) and
+        (maximum <>  kValeurSpecialeInterruptionCalculParallele) and
         (maximum <> -kValeurSpecialeInterruptionCalculParallele) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (maximum < -64) | (maximum > 64) à la sortie de CalculerCoupsEnParallele !!   maximum = ',maximum);
+          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (maximum < -64) or (maximum > 64) à la sortie de CalculerCoupsEnParallele !!   maximum = ',maximum);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1578,9 +1578,9 @@ begin
      {$ENDC}
 
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
-     if (maximum <>   kValeurSpecialeInterruptionCalculParallele) &
-        (maximum <>  -kValeurSpecialeInterruptionCalculParallele) &
-        ((outNroDuDernierFilsEvalue < indexPremierFils) | (outNroDuDernierFilsEvalue > indexDernierFils)) then
+     if (maximum <>   kValeurSpecialeInterruptionCalculParallele) and
+        (maximum <>  -kValeurSpecialeInterruptionCalculParallele) and
+        ((outNroDuDernierFilsEvalue < indexPremierFils) or (outNroDuDernierFilsEvalue > indexDernierFils)) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
           WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : outNroDuDernierFilsEvalue out of bounds à la sortie de CalculerCoupsEnParallele !!!');
@@ -1599,12 +1599,12 @@ begin
      {$ENDC}
 
      {$IFC USE_ASSERTIONS_DE_PARALLELISME }
-     if (maximum <>   kValeurSpecialeInterruptionCalculParallele) &
-        (maximum <>  -kValeurSpecialeInterruptionCalculParallele) &
-        ((bestDef < 11) | (bestDef > 88)) then
+     if (maximum <>   kValeurSpecialeInterruptionCalculParallele) and
+        (maximum <>  -kValeurSpecialeInterruptionCalculParallele) and
+        ((bestDef < 11) or (bestDef > 88)) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (bestDef < 11) | (bestDef > 88) à la sortie de CalculerCoupsEnParallele !!');
+          WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (bestDef < 11) or (bestDef > 88) à la sortie de CalculerCoupsEnParallele !!');
           WritelnNumDansRapport('   bestDef = ',bestDef);
           WritelnNumDansRapport('   maximum = ',maximum);
           Sysbeep(0);
@@ -1698,7 +1698,7 @@ begin
 
 
       // s'interrompre recursivement si on était en train d'aider un de ses fils
-      (* if effetspecial & auMoinsUnFilsInterrompu & dansLaBoucleDAttenteDesResultats then   // FIXME : ceci est peut-etre interessant ?
+      (* if effetspecial and auMoinsUnFilsInterrompu and dansLaBoucleDAttenteDesResultats then   // FIXME : ceci est peut-etre interessant ?
         InterrompreUneThread(nroThreadDuPere, node.nbreVides - 1, 0, nroThreadDuPere);
         *)
 
@@ -1728,7 +1728,7 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
             // ASSERT : verification que l'on n'a aucun fils réservé mais non lancé
             {$IFC USE_ASSERTIONS_DE_PARALLELISME }
             for k := filsDebut to filsFin do
-              if filsEnAttenteDeLancement[k] & not(filsEnCoursDAnnulation[k]) then
+              if filsEnAttenteDeLancement[k] and not(filsEnCoursDAnnulation[k]) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                   WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : j''ai un fils réservé au moment d''une InterruptionDansCeNoeudDeParallelisme (peut-etre un probleme de coupure beta ?) !! ');
@@ -1801,10 +1801,10 @@ begin
 
       // ASSERT : verification que le numero de la thread qui prétend etre disponible n'est pas débile
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-      if ( nroThreadFilsAuChomage < 0 ) | ( nroThreadFilsAuChomage > kNombreMaxAlphaBetaTasks ) then
+      if ( nroThreadFilsAuChomage < 0 ) or ( nroThreadFilsAuChomage > kNombreMaxAlphaBetaTasks ) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT : ( nroThreadFilsAuChomage < 0 ) | ( nroThreadFilsAuChomage > kNombreMaxAlphaBetaTasks ) dans PreparerUnTravailPourLaThreadAuChomage !!  nroThreadFilsAuChomage = ',nroThreadFilsAuChomage);
+          WritelnNumDansRapport('ASSERT : ( nroThreadFilsAuChomage < 0 ) or ( nroThreadFilsAuChomage > kNombreMaxAlphaBetaTasks ) dans PreparerUnTravailPourLaThreadAuChomage !!  nroThreadFilsAuChomage = ',nroThreadFilsAuChomage);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1971,8 +1971,8 @@ begin
             // elle peut prendre en charge elle-meme, recursivement, le dernier fils à evaluer, ce qui explique le test
             // (nroDuFilsCourant < filsFin - 1)  ci-dessous : on ne cherche une thread esclave que pour les n-1 premiers fils...
 
-            if (nroDuFilsCourant < filsFin - 1) & not(betaCoupureTrouvee) & not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) &
-               (gNbreProcesseursCalculant < numProcessors) & PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
+            if (nroDuFilsCourant < filsFin - 1) and not(betaCoupureTrouvee) and not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) and
+               (gNbreProcesseursCalculant < numProcessors) and PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
               begin
                 PeutTrouverUneThreadEsclave := true;
                 exit(PeutTrouverUneThreadEsclave);
@@ -1984,8 +1984,8 @@ begin
 
             // Chercher une thread esclave...
 
-            if (nroDuFilsCourant < filsFin) & not(betaCoupureTrouvee) & not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) &
-               (gNbreProcesseursCalculant < numProcessors) & PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
+            if (nroDuFilsCourant < filsFin) and not(betaCoupureTrouvee) and not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) and
+               (gNbreProcesseursCalculant < numProcessors) and PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
               begin
                 PeutTrouverUneThreadEsclave := true;
                 exit(PeutTrouverUneThreadEsclave);
@@ -2026,7 +2026,7 @@ begin
 
     end;
 
-  if not(jeViensDeTravailler) & gSpinLocksYieldTimeToCPU
+  if not(jeViensDeTravailler) and gSpinLocksYieldTimeToCPU
     then MPYield;
 
 end;
@@ -2044,7 +2044,7 @@ begin
     begin
       compteur := 0;
       for i := filsDebut to filsFin do
-        if (threadAffecteeACeFils[i] >= 0) & not(filsEnCoursDAnnulation[i]) &
+        if (threadAffecteeACeFils[i] >= 0) and not(filsEnCoursDAnnulation[i]) and
            (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.threadDuPere = nroThreadDuPere) then
            begin
 
@@ -2269,7 +2269,7 @@ begin
       end;
 
   (*
-  if effetspecial & not(ok) then
+  if effetspecial and not(ok) then
     begin
 
       // tickDepart := TickCount;
@@ -2279,8 +2279,8 @@ begin
       s := 'dans EnleverPropositionDeTravailRecursivePourAiderSesFils (thread '+ NumEnString(nroThread)+')';
       {$ENDC}
 
-      while not(ok | Quitter | (interruptionReflexion <> pasdinterruption))
-            {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} & not(BoucleInfinie(s,tickDepart)) {$ENDC} do
+      while not(ok or Quitter or (interruptionReflexion <> pasdinterruption))
+            {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} and not(BoucleInfinie(s,tickDepart)) {$ENDC} do
         begin
 
           if GetSemaphoreDeJobAndLock(nroThread)
@@ -2469,10 +2469,10 @@ begin
 
       // ASSERT : verification que le numero de la thread qui prétend etre disponible en entree n'est pas débile
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-      if ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) then
+      if ( nroThreadFilsDisponible < 0 ) or ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) | ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible);
+          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) or ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2518,17 +2518,17 @@ begin
 
 
       for i := filsDebut to filsFin do
-        if filsEnAttenteDeLancement[i] & not(filsEnCoursDAnnulation[i]) then
+        if filsEnAttenteDeLancement[i] and not(filsEnCoursDAnnulation[i]) then
           begin
 
 
 
             // ASSERT : verification que le numero de la thread affecte à ce fils n'est pas debile
             {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-            if ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) then
+            if ( threadAffecteeACeFils[i] < 0 ) or ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) | ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
+                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) or ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
                 Sysbeep(0);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
@@ -2554,7 +2554,7 @@ begin
             // le fils, mais au contraire essayer du mieux que l'on peut le fils en attente de lancement
 
 
-            if betaCoupureTrouvee | ThreadEstInterrompue(nroThreadDuPere, nbreVides)
+            if betaCoupureTrouvee or ThreadEstInterrompue(nroThreadDuPere, nbreVides)
               then
                 begin
 
@@ -2583,8 +2583,8 @@ begin
 
 
                   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-                  if (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.hashDuPere <> hashStamp) |
-                     (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.nroPosDuPere <> nroNoeudParallele) |
+                  if (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.hashDuPere <> hashStamp) or
+                     (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.nroPosDuPere <> nroNoeudParallele) or
                      (gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.coupSubTree <> listeDesCoupsLegaux[i]) then
                   if DoitDebugguerParallelismeDansRapport then
                     begin
@@ -2639,7 +2639,7 @@ begin
 
           // ASSERT : verification que l'on renvoie bien le bon nroDuDernierFilsEvalue
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-          if ((nroDuDernierFilsEvalue < filsDebut) | (nroDuDernierFilsEvalue > filsFin)) & (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
+          if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
               WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {1} de GererNoeudDeParallelisme !!');
@@ -2678,9 +2678,9 @@ begin
             EcouterLesResultatsDansCetteThread(nroThreadDuPere);
 
 
-            if not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) & not(betaCoupureTrouvee) then
+            if not(ThreadEstInterrompue(nroThreadDuPere, nbreVides)) and not(betaCoupureTrouvee) then
               begin
-                if (nroDuFilsCourant < filsFin) & not(betaCoupureTrouvee)
+                if (nroDuFilsCourant < filsFin) and not(betaCoupureTrouvee)
                   then
                     begin
                       // PRENDRE MOI-MEME UN FILS A ANALYSER
@@ -2720,7 +2720,7 @@ begin
 
 
 
-                      if (nbreResultatsEnAttente > 0) & not(betaCoupureTrouvee) then
+                      if (nbreResultatsEnAttente > 0) and not(betaCoupureTrouvee) then
                         begin
 
                           // ON RENTRE EN ATTENTE PASSIVE
@@ -2735,8 +2735,8 @@ begin
                           EmettreUnePropositionDeTravailRecursivePourAiderSesFils(node);
 
 
-                          while (nbreResultatsEnAttente > 0) & not(betaCoupureTrouvee)
-                                {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} & not(BoucleInfinie(s,tickDepart)) {$ENDC}
+                          while (nbreResultatsEnAttente > 0) and not(betaCoupureTrouvee)
+                                {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES} and not(BoucleInfinie(s,tickDepart)) {$ENDC}
                             do
                               begin
 
@@ -2744,7 +2744,7 @@ begin
                                 AttendreDesResultatsEnProposantSesServices(node);
 
                                 // Est-on interrompu ?
-                                if InterruptionDansCeNoeudDeParallelisme(node) | Quitter | (interruptionReflexion <> pasdinterruption) then
+                                if InterruptionDansCeNoeudDeParallelisme(node) or Quitter or (interruptionReflexion <> pasdinterruption) then
                                   begin
 
                                     // Il faut enlever la proposition de travail que la thread avait emise en attente passive
@@ -2828,7 +2828,7 @@ begin
           end;
 
 
-      if betaCoupureTrouvee | ThreadEstInterrompue(nroThreadDuPere, nbreVides) then
+      if betaCoupureTrouvee or ThreadEstInterrompue(nroThreadDuPere, nbreVides) then
         goto APRES_L_ANALYSE_D_UN_RESULTAT;
 
 
@@ -2866,9 +2866,9 @@ begin
 
 
       for i := FilsDebut to FilsFin do
-        if (listeDesCoupsLegaux[i] = coupDuFils) &                 // la bonne case ? (pourrait sans doute etre avantageusement remplace par un hash du fils)
-           (resultStamp = hashStamp) &                             // le bon hash du pere ?
-           (resultNumero = nroNoeudParallele) &                    // le bon numero de position ?
+        if (listeDesCoupsLegaux[i] = coupDuFils) and                 // la bonne case ? (pourrait sans doute etre avantageusement remplace par un hash du fils)
+           (resultStamp = hashStamp) and                             // le bon hash du pere ?
+           (resultNumero = nroNoeudParallele) and                    // le bon numero de position ?
            (threadAffecteeACeFils[i] >= 0) then                    // on attendait un resultat de cette thread ?
           begin
             nroThreadDuFils          := threadAffecteeACeFils[i];
@@ -2887,9 +2887,9 @@ begin
           end;
 
 
-      if (nroThreadDuFils <> kNroThreadNotFound) &
-         (nroThreadDuFils >= 0) &
-         (nroThreadDuFils <= kNombreMaxAlphaBetaTasks) &
+      if (nroThreadDuFils <> kNroThreadNotFound) and
+         (nroThreadDuFils >= 0) and
+         (nroThreadDuFils <= kNombreMaxAlphaBetaTasks) and
          not(betaCoupureTrouvee) then
         begin
 
@@ -2937,17 +2937,17 @@ begin
 
           // ASSERT : verification que le numero de la thread qui a gere ce fils n'est pas débile
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-          if ( nroThreadDuFils < 0 ) | ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) then
+          if ( nroThreadDuFils < 0 ) or ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadDuFils < 0 ) | ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  nroThreadDuFils = ',nroThreadDuFils);
+              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadDuFils < 0 ) or ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  nroThreadDuFils = ',nroThreadDuFils);
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
           {$ENDC}
 
-          if (resultatDuFils <> kValeurSpecialeInterruptionCalculParallele) &
+          if (resultatDuFils <> kValeurSpecialeInterruptionCalculParallele) and
              (resultatDuFils <> -kValeurSpecialeInterruptionCalculParallele)
              then
                begin
@@ -2958,10 +2958,10 @@ begin
 
                  // ASSERT : verification que la valeur retournee n'est pas debile
                 {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-                if ( valeur < -64 ) | ( valeur > 64 ) then
+                if ( valeur < -64 ) or ( valeur > 64 ) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( valeur < -64 ) | ( valeur > 64 ) dans GererNoeudDeParallelisme !!  valeur = ',valeur);
+                    WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( valeur < -64 ) or ( valeur > 64 ) dans GererNoeudDeParallelisme !!  valeur = ',valeur);
                     Sysbeep(0);
                     AttendreFrappeClavierParallelisme(true);
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2978,8 +2978,8 @@ begin
 
           // Mettre a jour le meilleur score connu, eventuellement
 
-          if onVientDeRecevoirUnVraiResultat &
-            (valeur > maximum) &
+          if onVientDeRecevoirUnVraiResultat and
+            (valeur > maximum) and
             not(betaCoupureTrouvee) then
             begin
 
@@ -3035,7 +3035,7 @@ begin
 
                       // ASSERT : verification que l'on renvoie bien le bon nroDuDernierFilsEvalue
                       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-                      if ((nroDuDernierFilsEvalue < filsDebut) | (nroDuDernierFilsEvalue > filsFin)) & (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
+                      if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                           WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {beta-coupure} de GererNoeudDeParallelisme !!');
@@ -3067,7 +3067,7 @@ begin
     {$IFC AVEC_MESURE_MICROSECONDES} gProfilerParallelisme[11] := gProfilerParallelisme[11] + (microSecondesFin.lo-microSecondesDepart.lo); {$ENDC}
 
 
-    if (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) & not(onVientDeRecevoirUnVraiResultat) then
+    if (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) and not(onVientDeRecevoirUnVraiResultat) then
       begin
 
         {$IFC AVEC_DEBUG_PARALLELISME}
@@ -3108,7 +3108,7 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
 
         // ASSERT : verification que l'on renvoie bien le bon nroDuDernierFilsEvalue
         {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-        if ((nroDuDernierFilsEvalue < filsDebut) | (nroDuDernierFilsEvalue > filsFin)) & (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
+        if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
             WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {3} de GererNoeudDeParallelisme !!');
@@ -3151,7 +3151,7 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
     // lancer eventuellement les nouveaux fils en attente
 
     for i := filsDebut to filsFin do
-      if filsEnAttenteDeLancement[i] & not(filsEnCoursDAnnulation[i])
+      if filsEnAttenteDeLancement[i] and not(filsEnCoursDAnnulation[i])
         then goto LANCER_LES_NOUVEAUX_FILS;
 
 
@@ -3299,10 +3299,10 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
 
   // ASSERT : verification que la valeur du calcule n'est pas débile
   {$IFC USE_ASSERTIONS_DE_PARALLELISME}
-  if (( valeur < -64 ) | ( valeur > 64 )) & (valeur <> kValeurSpecialeInterruptionCalculParallele) & (valeur <> -kValeurSpecialeInterruptionCalculParallele) then
+  if (( valeur < -64 ) or ( valeur > 64 )) and (valeur <> kValeurSpecialeInterruptionCalculParallele) and (valeur <> -kValeurSpecialeInterruptionCalculParallele) then
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : ( valeur < -64 ) | ( valeur > 64 ) dans MySubTreeValue !!  valeur = ',valeur);
+      WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : ( valeur < -64 ) or ( valeur > 64 ) dans MySubTreeValue !!  valeur = ',valeur);
       Sysbeep(0);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -3372,11 +3372,11 @@ begin
     else
       begin
 
-        if (gAlphaBetaTasksData^[nroThread].propositionDeTravail <> 1) |
-           (gAlphaBetaTasksData^[nroThread].profondeurProposition <> profondeur) |
-           ((gAlphaBetaTasksData^[nroThread].hashStampProposition[0] <> hashStamps[0]) &
-            (gAlphaBetaTasksData^[nroThread].hashStampProposition[1] <> hashStamps[0]) &
-            (gAlphaBetaTasksData^[nroThread].hashStampProposition[2] <> hashStamps[0]) &
+        if (gAlphaBetaTasksData^[nroThread].propositionDeTravail <> 1) or
+           (gAlphaBetaTasksData^[nroThread].profondeurProposition <> profondeur) or
+           ((gAlphaBetaTasksData^[nroThread].hashStampProposition[0] <> hashStamps[0]) and
+            (gAlphaBetaTasksData^[nroThread].hashStampProposition[1] <> hashStamps[0]) and
+            (gAlphaBetaTasksData^[nroThread].hashStampProposition[2] <> hashStamps[0]) and
             (gAlphaBetaTasksData^[nroThread].hashStampProposition[3] <> hashStamps[0])) then
          begin
 
@@ -3482,11 +3482,11 @@ begin
 
                 // la proposition de travail avait assez de cases vides
 
-                if (hashStampProposition[0] = kFairePropositionUniverselleDeTravail) |
-                   (hashStamp = kAccepterNimporteQuellePropositionDeTravail) |
-                   (hashStamp = hashStampProposition[0]) |
-                   (hashStamp = hashStampProposition[1]) |
-                   (hashStamp = hashStampProposition[2]) |
+                if (hashStampProposition[0] = kFairePropositionUniverselleDeTravail) or
+                   (hashStamp = kAccepterNimporteQuellePropositionDeTravail) or
+                   (hashStamp = hashStampProposition[0]) or
+                   (hashStamp = hashStampProposition[1]) or
+                   (hashStamp = hashStampProposition[2]) or
                    (hashStamp = hashStampProposition[3])
                    then
                     begin
@@ -3577,7 +3577,7 @@ begin
       begin
         for k := 0 to kNombreMaxAlphaBetaTasks do
           begin
-            if (k <> nroThreadMaitre) & not(ThreadEstInterrompue(k,nbreCasesVides)) & PrendrePropositionDeTravailDeCetteThread(k, nbreCasesVides, hashStamp) then
+            if (k <> nroThreadMaitre) and not(ThreadEstInterrompue(k,nbreCasesVides)) and PrendrePropositionDeTravailDeCetteThread(k, nbreCasesVides, hashStamp) then
               begin
 
                 // on indique que l'on vient de reserver une thread : elle va tourner sur un processeur
@@ -3613,7 +3613,7 @@ begin
       begin
         for k := kNombreMaxAlphaBetaTasks downto 0 do
           begin
-            if (k <> nroThreadMaitre) & not(ThreadEstInterrompue(k,nbreCasesVides)) & PrendrePropositionDeTravailDeCetteThread(k, nbreCasesVides, hashStamp) then
+            if (k <> nroThreadMaitre) and not(ThreadEstInterrompue(k,nbreCasesVides)) and PrendrePropositionDeTravailDeCetteThread(k, nbreCasesVides, hashStamp) then
               begin
 
                 // on indique que l'on vient de reserver une thread : elle va tourner sur un processeur
@@ -3665,12 +3665,12 @@ begin
       if (ecoute = NoErr)  then
         begin
 
-          if (numeroThreadMorte^ < 0) | (numeroThreadMorte^ > kNombreMaxAlphaBetaTasks) then
+          if (numeroThreadMorte^ < 0) or (numeroThreadMorte^ > kNombreMaxAlphaBetaTasks) then
             begin
 
               // ASSERT : verification que le numero de la thread morte trouvee n'est pas debile !!!
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadMaitre)+') : (numeroThreadMorte < 0) | (numeroThreadMorte > kNombreMaxAlphaBetaTasks) dans PeutTrouverUneThreadDisponible !!!   numeroThreadMorte = ',numeroThreadMorte^);
+              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadMaitre)+') : (numeroThreadMorte < 0) or (numeroThreadMorte > kNombreMaxAlphaBetaTasks) dans PeutTrouverUneThreadDisponible !!!   numeroThreadMorte = ',numeroThreadMorte^);
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -4083,14 +4083,14 @@ begin
               // Si je n'ai pas recu de travail depuis deux secondes,
               // c'est que je suis sans doute inutile !
 
-              if ((TickCount - tickDepart) > 120) & not(jeViensJusteDeTravailler) then
+              if ((TickCount - tickDepart) > 120) and not(jeViensJusteDeTravailler) then
                 begin
 
                   OS_MEMORY_BARRIER;
 
                   propositionDeTravailEmise := CetteThreadAEmisUnePropositionDeTravail(nroThread, bidon);
 
-                  if propositionDeTravailEmise | jamaisTravaille then
+                  if propositionDeTravailEmise or jamaisTravaille then
                     begin
 
                       jeVaisMeRendormir := true;
@@ -4100,7 +4100,7 @@ begin
 
                       tickDepart2 := TickCount;
 
-                      while jeVaisMeRendormir & (Tickcount - tickDepart2 <= 120) & not(Quitter) & not(CetteThreadEstTuee(nroThread)) do
+                      while jeVaisMeRendormir and (Tickcount - tickDepart2 <= 120) and not(Quitter) and not(CetteThreadEstTuee(nroThread)) do
                         begin
 
 
@@ -4161,7 +4161,7 @@ begin
 
 
                 {$IFC USE_ASSERTIONS_DE_PARALLELISME OR TRUE }
-                if jeVaisMeRendormir & not(Quitter) & not(CetteThreadEstTuee(nroThread)) then
+                if jeVaisMeRendormir and not(Quitter) and not(CetteThreadEstTuee(nroThread)) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                     WritelnDansRapport('ASSERT : Dans MyAlphaBetaTask, la thread '+NumEnString(nroThread)+' va se rendormir alors qu''elle n''a pas de proposition de travail emise... Dommage !!');
@@ -4202,8 +4202,8 @@ begin
   gAvecAttenteTouchePourDebuguerParallelisme := false;
 
   // If the multiprocessing librairy is present then create the tasks
-  if CanInitializeOSAtomicUnit &
-     MPLibraryIsLoaded &
+  if CanInitializeOSAtomicUnit and
+     MPLibraryIsLoaded and
      (kNombreMaxAlphaBetaTasks > 0) then
     begin
 
@@ -4474,7 +4474,7 @@ begin
 
 
       // pas de blague d'overflow, hein...
-      if (gDegreDeParallelisme < 0) | (gNbreAppelsMesureDeParallelisme < 0) | (gFraisDeSynchronisation < 0) then
+      if (gDegreDeParallelisme < 0) or (gNbreAppelsMesureDeParallelisme < 0) or (gFraisDeSynchronisation < 0) then
         begin
           gNbreAppelsMesureDeParallelisme := 0;
           gDegreDeParallelisme := 0;
@@ -4659,7 +4659,7 @@ begin   {$unused attenteTouche}
   {$ENDC}
 
   (*
-  if attenteTouche & gAvecAttenteTouchePourDebuguerParallelisme
+  if attenteTouche and gAvecAttenteTouchePourDebuguerParallelisme
     then
       begin
         AttendFrappeClavier;
@@ -4670,7 +4670,7 @@ end;
 
 function DoitDebugguerParallelismeDansRapport : boolean;
 begin
-  if (kVerbosityLevelAlgoParallele >= 3) & (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport)
+  if (kVerbosityLevelAlgoParallele >= 3) and (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport)
     then
       begin
         DoitDebugguerParallelismeDansRapport := true;

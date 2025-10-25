@@ -73,7 +73,7 @@ var debut,fin,k : SInt32;
     from := debut;
     repeat
       trouve := false;
-      if FindStringInRapport(pattern,from,+1,position) &
+      if FindStringInRapport(pattern,from,+1,position) and
          (position <= fin - longueurPattern)
         then
 	        begin
@@ -81,8 +81,8 @@ var debut,fin,k : SInt32;
 	          refus := false;
 
 	          if motsEntiers
-	            then remplacer :=  ((position-1 < debut) | (GetNiemeCaractereDuRapport(position-1) in separateursDeMots)) &
-                                 ((position+longueurPattern >= fin) | (GetNiemeCaractereDuRapport(position+longueurPattern) in separateursDeMots))
+	            then remplacer :=  ((position-1 < debut) or (GetNiemeCaractereDuRapport(position-1) in separateursDeMots)) and
+                                 ((position+longueurPattern >= fin) or (GetNiemeCaractereDuRapport(position+longueurPattern) in separateursDeMots))
               else remplacer := true;
 
 
@@ -166,7 +166,7 @@ begin
 		            c1 := rapportTexteHandle^^[k-1];
 		            c2 := rapportTexteHandle^^[k];
 
-		            if CharInRange(c1,'a','h') & CharInRange(c2,'1','8')
+		            if CharInRange(c1,'a','h') and CharInRange(c2,'1','8')
 		              then {coup en minuscules trouvé}
 			              begin
 			                s := Concat(c1,c2);
@@ -175,7 +175,7 @@ begin
 			                RemplacerTexteDansRapport(k-1,k+1,s,false);
 			              end
 			          else
-		            if CharInRange(c1,'A','H') & CharInRange(c2,'1','8') then
+		            if CharInRange(c1,'A','H') and CharInRange(c2,'1','8') then
 		              begin {coup en majuscules trouvé}
 		                s := Concat(c1,c2);
 		                whichSquare := StringEnCoup(s);
@@ -203,11 +203,11 @@ begin
 
 
 
-				      while (erreurES = NoErr) & not(EOFFichierTexte(fichierDesSymetries,erreurES)) do
+				      while (erreurES = NoErr) and not(EOFFichierTexte(fichierDesSymetries,erreurES)) do
 						    begin
 						      erreurES := ReadlnDansFichierTexte(fichierDesSymetries,ligne);
 						      {WritelnDansRapport(ligne);}
-						      if (erreurES = NoErr) & (ligne <> '') & (ligne[1] <> '%') then
+						      if (erreurES = NoErr) and (ligne <> '') and (ligne[1] <> '%') then
 						        begin
 
 						        if pos('PASS',ligne) = 1

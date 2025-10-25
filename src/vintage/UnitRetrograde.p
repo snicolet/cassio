@@ -71,8 +71,8 @@ var menuAnalyse : array[1..nbMaxDePassesAnalyseRetrograde,1..nbMaxDeStagesAnalys
 procedure CalculeBornesAnalyseRetrograde(nroPasse,nroStage,whichMoveNumber : SInt32);
 var t : SInt32;
 begin
-  if (nroPasse >= 1) & (nroPasse <= nbMaxDePassesAnalyseRetrograde) &
-     (nroStage >= 1) & (nroStage <= nbMaxDeStagesAnalyseRetrograde) then
+  if (nroPasse >= 1) and (nroPasse <= nbMaxDePassesAnalyseRetrograde) and
+     (nroStage >= 1) and (nroStage <= nbMaxDeStagesAnalyseRetrograde) then
     with analyseRetrograde do
       begin
         numeroPasse := nroPasse;
@@ -80,7 +80,7 @@ begin
         if (nroStage = 1) then
           tickDebutCettePasseAnalyse := TickCount;
         tickDebutCeStageAnalyse := TickCount;
-        if (nroStage = 1) & (nroPasse = 1) then
+        if (nroStage = 1) and (nroPasse = 1) then
           tickDebutAnalyse := TickCount;
 
         case menuItems[nroPasse,nroStage,kMenuGenre] of
@@ -430,7 +430,7 @@ begin
 			InstalleMenuFlottant(menuNbNotesMilieu[1,1],GetDialogWindow(dialogueAnalyseRetrograde));
 			for i := 1 to nbMaxDePassesAnalyseRetrograde do
 		    for j := 1 to nbMaxDeStagesAnalyseRetrograde do
-		      if (i <> 1) | (j <> 1) then
+		      if (i <> 1) or (j <> 1) then
 		      begin
 		        menuAnalyse[i,j].theMenu           := menuAnalyse[1,1].theMenu;
 			      menuDuree[i,j].theMenu             := menuDuree[1,1].theMenu;
@@ -501,7 +501,7 @@ begin
         for stage := 1 to nbMaxDeStagesAnalyseRetrograde do
           begin
 
-          	if InMenuCmdSet(menuAnalyse[passe,stage].theItem, [RetrogradeParfaiteCmd,RetrogradeGagnanteCmd]) &
+          	if InMenuCmdSet(menuAnalyse[passe,stage].theItem, [RetrogradeParfaiteCmd,RetrogradeGagnanteCmd]) and
           	   (menuDuree[passe,stage].theItem = FinDesTempsCmd) then
               if stage+1 <= nbMaxDeStagesAnalyseRetrograde then
                 begin
@@ -520,7 +520,7 @@ begin
                   if change then changementsMenusRetrograde[passe,stage+1] := true;
                 end;
 
-            if (menuAnalyse[passe,stage].theItem = RienDuToutCmd) & (stage = 1) then
+            if (menuAnalyse[passe,stage].theItem = RienDuToutCmd) and (stage = 1) then
               begin
                 change := false;
                 SetItemMenuFlottant(menuAnalyse[passe,stage],RienDuToutCmd,change);
@@ -528,9 +528,9 @@ begin
                 if change then changementsMenusRetrograde[passe,stage] := true;
               end;
 
-            if (menuAnalyse[passe,stage].theItem = RienDuToutCmd) &
-               (stage > 1) & (menuAnalyse[passe,stage-1].theItem <> RienDuToutCmd)
-               {& (menuAnalyse[passe,stage-1].theItem <> 0)} then
+            if (menuAnalyse[passe,stage].theItem = RienDuToutCmd) and
+               (stage > 1) and (menuAnalyse[passe,stage-1].theItem <> RienDuToutCmd)
+               {and (menuAnalyse[passe,stage-1].theItem <> 0)} then
               begin
                 change := false;
                 SetItemMenuFlottant(menuAnalyse[passe,stage],RienDuToutCmd,change);
@@ -548,7 +548,7 @@ begin
                 end;
 
           end;
-        changements := changements | changementCeStage;
+        changements := changements or changementCeStage;
       until not(changementCeStage);
     end;
 end;
@@ -576,8 +576,8 @@ begin
           then MyEnableItem(theMenu,j)
           else
             begin
-			        if (j > itemLignePrecedente) &
-			           not(InMenuCmdSet(itemLignePrecedente,[RetrogradeParfaiteCmd,RetrogradeGagnanteCmd]) &
+			        if (j > itemLignePrecedente) and
+			           not(InMenuCmdSet(itemLignePrecedente,[RetrogradeParfaiteCmd,RetrogradeGagnanteCmd]) and
 			           		(dureeLignePrecedente = FinDesTempsCmd))
 			          then MyEnableItem(theMenu,j)
 			          else MyDisableItem(theMenu,j);
@@ -657,8 +657,8 @@ begin
 		      if menuAnalyse[i,j].theItem <> oldItem then
 		        begin
 		          DrawLeftOfLineOfMenusRetrograde(i,j);
-		          if ((oldItem <> RetrogradeParfaiteCmd) | (menuAnalyse[i,j].theItem <> RetrogradeGagnanteCmd)) &
-		             ((oldItem <> RetrogradeGagnanteCmd) | (menuAnalyse[i,j].theItem <> RetrogradeParfaiteCmd))
+		          if ((oldItem <> RetrogradeParfaiteCmd) or (menuAnalyse[i,j].theItem <> RetrogradeGagnanteCmd)) and
+		             ((oldItem <> RetrogradeGagnanteCmd) or (menuAnalyse[i,j].theItem <> RetrogradeParfaiteCmd))
 		            then DrawRightOfLineOfMenusRetrograde(i,j);
 		        end;
 		    end;
@@ -758,7 +758,7 @@ begin
 				      ClicInMenusRetrograde(itemRect);
 				    end;
 				end;
-	    until (itemHit = OK) | (itemHit = annulerBouton);
+	    until (itemHit = OK) or (itemHit = annulerBouton);
 	    HideWindow(GetDialogWindow(dialogueAnalyseRetrograde));
 	    EssaieUpdateEventsWindowPlateau;
 	    DoDialogueRetrograde := (itemHit = OK);
@@ -821,7 +821,7 @@ begin
  s := ReadStringFromRessource(TextesRetrogradeID,2); {'analyse rétrograde de la partie"}
  WritelnDansRapportSync(s+', '+passeStr,false);
 
- if (nbPartiesActives = 1) & JoueursEtTournoisEnMemoire & (windowListeOpen | windowStatOpen) then
+ if (nbPartiesActives = 1) and JoueursEtTournoisEnMemoire and (windowListeOpen or windowStatOpen) then
    begin
      s := ConstruireChaineReferencesPartieDapresListe(1,false);
      if s <> '' then WritelnDansRapportSync(s,false);
@@ -924,7 +924,7 @@ begin
             vaDepasserTemps := false;
           end;
 
-        Amelioration := ( choixX <> coupABattre ) &
+        Amelioration := ( choixX <> coupABattre ) and
                         ( scoreParfait > scoreABattre + 200 );            {200 = un pion, en milieu de partie }
       end
     else
@@ -942,8 +942,8 @@ begin
 			
 			  (* if faitConfiance *)
 
-			  if ((analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) & (scoreABattre = 64)) |
-			     ((analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeGagnant) & (scoreABattre > 0))
+			  if ((analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) and (scoreABattre = 64)) or
+			     ((analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeGagnant) and (scoreABattre > 0))
 			    then
 			      begin
 			        scoreParfait := scoreABattre;
@@ -1205,7 +1205,7 @@ procedure EcritAnalyseEnCoursDansRapport;
 var s : String255;
     oldScript : SInt32;
 begin
-  if analyseRetrograde.enCours & not(analyseRetrograde.dejaAnnoncee) then
+  if analyseRetrograde.enCours and not(analyseRetrograde.dejaAnnoncee) then
     begin
 		  GetCurrentScript(oldScript);
 		  DisableKeyboardScriptSwitch;
@@ -1250,8 +1250,8 @@ procedure AjoutePropertyBadMoveDansCurrentNode(numeroCoupVerifie,scorePourTrait,
 var uneProperty,coupSuivantProp : Property;
     sousArbreOfBadMove : GameTree;
 begin
-  if ((scorePourTrait < 0) & (nouveauscore >= 0)) |
-     ((scorePourTrait = 0) & (nouveauscore > 0))
+  if ((scorePourTrait < 0) and (nouveauscore >= 0)) or
+     ((scorePourTrait = 0) and (nouveauscore > 0))
     then uneProperty := MakeTripleProperty(BadMoveProp,MakeTriple(2))  {??}
     else uneProperty := MakeTripleProperty(BadMoveProp,MakeTriple(1)); {?}
 
@@ -1273,8 +1273,8 @@ begin
   s1 := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,false,0);
   scoreOptimalEnChaine := TPCopy(s1,LENGTH_OF_STRING(s1)-4,5);
 
-  if ((scorePourTrait < 0) & (nouveauscore >= 0)) |
-     ((scorePourTrait = 0) & (nouveauscore > 0))
+  if ((scorePourTrait < 0) and (nouveauscore >= 0)) or
+     ((scorePourTrait = 0) and (nouveauscore > 0))
     then
       begin
         s := ' ' + ReadStringFromRessource(TextesRetrogradeID,9);  {??}
@@ -1292,15 +1292,15 @@ begin
   case analyseRetrograde.genreAnalyseEnCours of
     ReflRetrogradeParfait,ReflRetrogradeGagnant:
       begin
-        if (scorePourTrait = 0) & (nouveauscore > 0) then
+        if (scorePourTrait = 0) and (nouveauscore > 0) then
 			    if AQuiDeJouer = pionNoir
 			      then s1 := ReadStringFromRessource(TextesRetrogradeID,10)       {Noir rate le gain}
 			      else s1 := ReadStringFromRessource(TextesRetrogradeID,15) else  {Blanc rate le gain}
-			  if (scorePourTrait < 0) & (nouveauscore > 0) then
+			  if (scorePourTrait < 0) and (nouveauscore > 0) then
 			    if AQuiDeJouer = pionNoir
 			      then s1 := ReadStringFromRessource(TextesRetrogradeID,11)       {Noir donne le gain}
 			      else s1 := ReadStringFromRessource(TextesRetrogradeID,16) else  {Blanc donne le gain}
-			  if (scorePourTrait < 0) & (nouveauscore = 0) then
+			  if (scorePourTrait < 0) and (nouveauscore = 0) then
 			    if AQuiDeJouer = pionNoir
 			      then s1 := ReadStringFromRessource(TextesRetrogradeID,12)       {Noir rate la nulle}
 			      else s1 := ReadStringFromRessource(TextesRetrogradeID,17)       {Blanc rate la nulle}
@@ -1348,7 +1348,7 @@ begin
   (* if AQuiDeJouer = pionNoir
       then ChangeFontColorRGBDansRapport(GetCouleurAffichageValeurCourbe(pionNoir,40))
       else ChangeFontColorRGBDansRapport(GetCouleurAffichageValeurCourbe(pionBlanc,-40)); *)
-  if ((scorePourTrait < 0) & (nouveauscore >= 0)) | ((scorePourTrait = 0) & (nouveauscore > 0))
+  if ((scorePourTrait < 0) and (nouveauscore >= 0)) or ((scorePourTrait = 0) and (nouveauscore > 0))
     then ChangeFontFaceDansRapport(bold);
   ChangeFontSizeDansRapport(gCassioRapportBoldSize);
   ChangeFontDansRapport(gCassioRapportBoldFont);
@@ -1416,9 +1416,9 @@ begin
 
 
         with analyseRetrograde do
-          if (scorePourNoir = 0) & (nbreCoup + 2 <= 60) & (nbreCoup + 1 >= 0)
-             & (demande[nbreCoup + 2, numeroPasse].genre = ReflRetrogradeParfait)
-             & (demande[nbreCoup + 1, numeroPasse].genre = ReflRetrogradeGagnant) then
+          if (scorePourNoir = 0) and (nbreCoup + 2 <= 60) and (nbreCoup + 1 >= 0)
+             and (demande[nbreCoup + 2, numeroPasse].genre = ReflRetrogradeParfait)
+             and (demande[nbreCoup + 1, numeroPasse].genre = ReflRetrogradeGagnant) then
             begin
               (* cas où on a une nulle en gagnant/perdant au coup n, mais un score perdant au coup n+1 :
                  en fait on connait le nombre exact de pions perdus dans ce cas... *)
@@ -1606,7 +1606,7 @@ begin
   AfficheProprietesOfCurrentNode(true,othellierToutEntier,'NettoieToutApresAnalyseRetrograde');
   DessineAutresInfosSurCasesAideDebutant(othellierToutEntier,'NettoieToutApresAnalyseRetrograde');
   avecCalculPartiesActives := true;
-  if (windowListeOpen | windowStatOpen)
+  if (windowListeOpen or windowStatOpen)
     then LanceCalculsRapidesPourBaseOuNouvelleDemande(true,true);
   LanceInterruption(oldInterruption,'NettoieToutApresAnalyseRetrograde');
 end;
@@ -1630,7 +1630,7 @@ begin
       exit(DoAnalyseRetrograde);
     end;
 
-  if (nbreCoup >= limiteAnalyseRetro) | gameOver then
+  if (nbreCoup >= limiteAnalyseRetro) or gameOver then
     begin
       PrepareAnalyseRetrograde(oldInterruption);
 
@@ -1653,7 +1653,7 @@ begin
 		        meilleureDefense := 0;
 		        coupPrecedentTermine := true;
 		        CreeBanniereAnalyseRetrograde(nroPasseAnalyse,scoreOptimalPourNoir,oldInterruption);
-		        if (interruptionReflexion = pasdinterruption) & not(Quitter) then
+		        if (interruptionReflexion = pasdinterruption) and not(Quitter) then
 		          begin
 		            nroStageAnalyse := 1;
 			          CreeLignesBlanchesDebutAnalyseRetrograde;
@@ -1690,7 +1690,7 @@ begin
 				          WritelnNumDansRapport('analyseRetrograde.genreAnalyseEnCours = ',analyseRetrograde.genreAnalyseEnCours);}
 
 				          {ici le corps de l'analyse}
-				          if PeutReculerUnCoup &
+				          if PeutReculerUnCoup and
 				             (analyseRetrograde.genreAnalyseEnCours <> PasAnalyseRetrograde) then
 			              repeat
 			                analyseRetrograde.peutDemanderConfirmerArret := true;
@@ -1703,7 +1703,7 @@ begin
 
 					            RefletePositionCouranteDansPictureIconisation;
 					            SetPhasePartieRetrograde(analyseRetrograde.demande[nbreCoup,nroPasseAnalyse].genre);
-					            if (analyseRetrograde.demande[nbreCoup,nroPasseAnalyse].genre = ReflRetrogradeMilieu) &
+					            if (analyseRetrograde.demande[nbreCoup,nroPasseAnalyse].genre = ReflRetrogradeMilieu) and
 					               (analyseRetrograde.genreDerniereAmeliorationCherchee <> ReflRetrogradeMilieu)
 					               then scoreOptimalPourNoir := 100*scoreOptimalPourNoir;
 
@@ -1711,7 +1711,7 @@ begin
 					            If AQuiDeJouer = pionNoir
 					              then scorePourTrait := scoreOptimalPourNoir
 					              else scorePourTrait := -scoreOptimalPourNoir;
-					            if (analyseRetrograde.genreAnalyseEnCours <> ReflRetrogradeMilieu) & odd(scorePourTrait) & (scorePourTrait > 0)
+					            if (analyseRetrograde.genreAnalyseEnCours <> ReflRetrogradeMilieu) and odd(scorePourTrait) and (scorePourTrait > 0)
 					              then scorePourTrait := scorePourTrait+1;
 
 					            {WriteNumDansRapport('numeroCoupVerifie = ',numeroCoupVerifie);
@@ -1778,15 +1778,15 @@ begin
 					            MDisposeHandle(UnivHandle(handleRetrograde));
 					            if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
 
-					          until (interruptionReflexion <> pasdinterruption) |
-					                Quitter | quitterCeStage | quitterCettePasse |
-					                {(numeroCoupVerifie <= limiteAnalyseRetro) | }
-					                not(PeutReculerUnCoup) |
-					                (nbreCoup <= 1) | (nroPasseAnalyse > nbMaxDePassesAnalyseRetrograde) |
+					          until (interruptionReflexion <> pasdinterruption) or
+					                Quitter or quitterCeStage or quitterCettePasse or
+					                {(numeroCoupVerifie <= limiteAnalyseRetro) or }
+					                not(PeutReculerUnCoup) or
+					                (nbreCoup <= 1) or (nroPasseAnalyse > nbMaxDePassesAnalyseRetrograde) or
 					                (analyseRetrograde.demande[nbreCoup-1,nroPasseAnalyse].genre <> analyseRetrograde.genreAnalyseEnCours);
 
 				          inc(nroStageAnalyse);
-				        until (nroStageAnalyse > nbMaxDeStagesAnalyseRetrograde) | (interruptionReflexion <> pasdinterruption) | Quitter | quitterCettePasse;
+				        until (nroStageAnalyse > nbMaxDeStagesAnalyseRetrograde) or (interruptionReflexion <> pasdinterruption) or Quitter or quitterCettePasse;
 
 			        end;
 			    end;
@@ -1795,12 +1795,12 @@ begin
 	     }
 	      EffacerAnnonceAnalyseRetrogradeEnCours;
         inc(nroPasseAnalyse);
-      until (nroPasseAnalyse > nbMaxDePassesAnalyseRetrograde) | (interruptionReflexion <> pasdinterruption) | Quitter;
+      until (nroPasseAnalyse > nbMaxDePassesAnalyseRetrograde) or (interruptionReflexion <> pasdinterruption) or Quitter;
 
 
 
-      if (interruptionReflexion = pasdinterruption) & analyseRetrograde.enCours
-         {(not(PeutReculerUnCoup) | (numeroCoupVerifie <= limiteAnalyseRetro))} then
+      if (interruptionReflexion = pasdinterruption) and analyseRetrograde.enCours
+         {(not(PeutReculerUnCoup) or (numeroCoupVerifie <= limiteAnalyseRetro))} then
          begin
            EcritAnalyseTermineeDansRapport;
            if not(HumCtreHum) then LanceInterruption(kHumainVeutChangerHumCtreHum,'DoAnalyseRetrograde');
@@ -1827,12 +1827,12 @@ begin
   s1 := Concat(chr(13),chr(13),s);
   s2 := Concat(s,chr(13));
 
-  if FindStringInRapport(s1, positionClic - 2, -1, pos1) &
+  if FindStringInRapport(s1, positionClic - 2, -1, pos1) and
      FindStringInRapport(s2, positionClic-LENGTH_OF_STRING(s2)+1, +1, pos2)
     then
       begin
         if FindStringInRapport(s1, positionClic, +1, pos3)
-          then EstDansBanniereAnalyseRetrograde := ((pos2 - pos1) <= 400) & (pos2 <> pos3 + 2)
+          then EstDansBanniereAnalyseRetrograde := ((pos2 - pos1) <= 400) and (pos2 <> pos3 + 2)
           else EstDansBanniereAnalyseRetrograde := (pos2 - pos1) <= 400;
       end;
 
@@ -1893,7 +1893,7 @@ var itemHit : SInt16;
 begin
   PeutArreterAnalyseRetrograde := true;
   with analyseRetrograde do
-  if enCours & doitConfirmerArret & peutDemanderConfirmerArret & not(Quitter) then
+  if enCours and doitConfirmerArret and peutDemanderConfirmerArret and not(Quitter) then
     if ((TickCount-tickDebutAnalyse) div 3600) >= nbMinPourConfirmationArret then
         begin
 
