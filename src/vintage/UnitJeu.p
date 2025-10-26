@@ -1183,9 +1183,9 @@ begin
   	              NiveauForts :
   	                  begin
   	                    current := PositionEtTraitCourant;
-  	                    eval := MyTrunc(105.0*EffectueMoveEtCalculePotentielVincenz(current,iCourant,1));
+  	                    eval := Trunc(105.0*EffectueMoveEtCalculePotentielVincenz(current,iCourant,1));
   	                    VincenzChoice := ChoixDeVincenz(MakePositionEtTrait(platInst,-AQuiDeJouer),1,false);
-  	                    eval := eval+MyTrunc(-10*VincenzChoice.sommePotentiels);
+  	                    eval := eval+Trunc(-10*VincenzChoice.sommePotentiels);
   	                    eval := eval-(Evaluation(platInst,-AQuiDeJouer,nbBlancInst,nbNoirInst,JouablInst,frontInst,true,-30000,30000,nbEvalsRecursives) div 3);
   	                    eval := eval+Random16() mod 40;
   	                    if eval >  6400 then eval := 6400;

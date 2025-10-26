@@ -356,7 +356,7 @@ end;
 							left := 1;
 {$PUSH}
 {$R-}
-						randomcolor := Rnd(MyTrunc(left * Mincolor), MyTrunc(left * Maxcolor));
+						randomcolor := Rnd(Trunc(left * Mincolor), Trunc(left * Maxcolor));
 {$POP}
 					end
 				else 		   { We are on the right half of the PixMap}
@@ -366,7 +366,7 @@ end;
 							right := 1;
 {$PUSH}
 {$R-}
-						randomcolor := Rnd(MyTrunc(right * MinColor), MyTrunc(right * Maxcolor));
+						randomcolor := Rnd(Trunc(right * MinColor), Trunc(right * Maxcolor));
 {$POP}
 					end;
 

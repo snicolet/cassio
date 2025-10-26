@@ -408,10 +408,10 @@ var thePMRect : PMRect;
     result : rect;
 begin
   if PMGetAdjustedPageRect(g_PageFormat,thePMRect) = NoErr then DoNothing;
-  result.left   := MyTrunc(thePMRect.left);
-  result.top    := MyTrunc(thePMRect.top);
-  result.right  := MyTrunc(thePMRect.right);
-  result.bottom := MyTrunc(thePMRect.bottom);
+  result.left   := Trunc(thePMRect.left);
+  result.top    := Trunc(thePMRect.top);
+  result.right  := Trunc(thePMRect.right);
+  result.bottom := Trunc(thePMRect.bottom);
   GetPrintingPageRect := result;
 end;
 
@@ -420,10 +420,10 @@ var thePMRect : PMRect;
     result : rect;
 begin
   if PMGetAdjustedPaperRect(g_PageFormat,thePMRect) = NoErr then DoNothing;
-  result.left   := MyTrunc(thePMRect.left);
-  result.top    := MyTrunc(thePMRect.top);
-  result.right  := MyTrunc(thePMRect.right);
-  result.bottom := MyTrunc(thePMRect.bottom);
+  result.left   := Trunc(thePMRect.left);
+  result.top    := Trunc(thePMRect.top);
+  result.right  := Trunc(thePMRect.right);
+  result.bottom := Trunc(thePMRect.bottom);
   GetPrintingPaperRect := result;
 end;
 

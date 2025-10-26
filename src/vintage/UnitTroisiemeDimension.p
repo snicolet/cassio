@@ -359,14 +359,14 @@ var a,b : SInt32;
     dxHaut := (XHautFin-XhautDeb)/8;
     x1Ext := XbasDeb;
     x2Ext := XhautDeb;
-    x3DBas[0] := MyTrunc(x1Ext+0.5);
-    x3DHaut[0] := MyTrunc(x2Ext+0.5);
+    x3DBas[0] := Trunc(x1Ext+0.5);
+    x3DHaut[0] := Trunc(x2Ext+0.5);
     for i := 1 to 8 do
       begin
         x1Ext := x1Ext+dxBas;
         x2Ext := x2Ext+dxHaut;
-        x3DBas[i] := MyTrunc(x1Ext+0.5);
-        x3DHaut[i] := MyTrunc(x2Ext+0.5);
+        x3DBas[i] := Trunc(x1Ext+0.5);
+        x3DHaut[i] := Trunc(x2Ext+0.5);
       end;
     X3Dgauche[0] := XhautDeb;
     X3Dgauche[8] := XbasDeb;

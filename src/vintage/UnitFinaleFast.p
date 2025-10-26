@@ -1175,7 +1175,7 @@ begin
 
                         end;
 
-      							evaluationHeuristique := MyTrunc(dilatationEvalEnFinale*evaluationHeuristique);
+      							evaluationHeuristique := Trunc(dilatationEvalEnFinale*evaluationHeuristique);
 
       		        end;
 
@@ -6123,7 +6123,7 @@ begin
           			  }
 
           			  if gProfondeurCoucheProofNumberSearch > 0
-          			    then LanceurMilieuDePartie := MyTrunc(GetProofNumberOfResult(result))
+          			    then LanceurMilieuDePartie := Trunc(GetProofNumberOfResult(result))
           			    else LanceurMilieuDePartie := SearchResultEnMidgameEval(result);
 
           			end;
@@ -7450,7 +7450,7 @@ begin
     begin
       if d < 5
         then d := 1
-        else d := MyTrunc(0.45454*d);
+        else d := Trunc(0.45454*d);
       for i := up-d downto lo do
         begin
           temp := LectureTriAuTemps(i);

@@ -23,7 +23,7 @@ INTERFACE
 	function RectHeight( const r : Rect ) : SInt32;
 
 
-	function MyTrunc(x : double) : SInt32;
+	function Trunc(x : double) : SInt32;
   function RealToLongint(r : double) : SInt32;
 
   function Signe(n : SInt32) : SInt32;
@@ -238,14 +238,14 @@ end;
 
 
 
-function MyTrunc(x : double) : SInt32;
+function Trunc(x : double) : SInt32;
 begin
   MyTrunc := roundtol(Trunc(x));
 end;
 
 function RealToLongint(r : double) : SInt32;
 begin
-  RealToLongint := MyTrunc(r);
+  RealToLongint := Trunc(r);
 end;
 
 function Random32() : SInt32;

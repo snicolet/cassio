@@ -356,10 +356,10 @@ begin
     	          if (engine.lastSearchSent.utilisationDansCassio = ReflMilieu)
     	            then
     	              begin
-    	                nbreNoeudsGeneresMilieu := nbreNoeudsGeneresMilieu + MyTrunc((1000 * GetSpeedOfEngine * temps));
-    	                nbreFeuillesMilieu      := nbreFeuillesMilieu +  MyTrunc((1000 * GetSpeedOfEngine * temps));
+    	                nbreNoeudsGeneresMilieu := nbreNoeudsGeneresMilieu + Trunc((1000 * GetSpeedOfEngine * temps));
+    	                nbreFeuillesMilieu      := nbreFeuillesMilieu +  Trunc((1000 * GetSpeedOfEngine * temps));
     	              end
-    	            else nbreNoeudsGeneresFinale := nbreNoeudsGeneresFinale + MyTrunc((1000 * GetSpeedOfEngine * temps));
+    	            else nbreNoeudsGeneresFinale := nbreNoeudsGeneresFinale + Trunc((1000 * GetSpeedOfEngine * temps));
     	        end;
 
     	      if (nbreCoup >= 1) and not(enRetour) then
@@ -1019,10 +1019,10 @@ begin
   if nbCasesVidesRestantes < 5 then temporisation := 2;
   hazard := temporisation div 2;
   if hazard > 0 then
-    temporisation := temporisation + (Abs(Random16()) mod MyTrunc(1.4*hazard)) - (hazard div 3);
+    temporisation := temporisation + (Abs(Random16()) mod Trunc(1.4*hazard)) - (hazard div 3);
 
   {convertir cette temporisation "abstraite" en ticks}
-  temporisation := MyTrunc((70.0*temporisation)/indiceVitesseMac);
+  temporisation := Trunc((70.0*temporisation)/indiceVitesseMac);
 
 
   if temporisation > 240  then temporisation := 240;  {4 sec.}
@@ -2209,7 +2209,7 @@ begin
   if (secondes > 0.0) then
     begin
       ticks := TickCount;
-      ticksFin := ticks + MyTrunc(0.5 + secondes * 60);
+      ticksFin := ticks + Trunc(0.5 + secondes * 60);
       while (Tickcount < ticksFin) do
         begin
           if (TickCount - dernierTick) >= delaiAvantDoSystemTask
@@ -2652,8 +2652,8 @@ begin
             if (nsec > 0)
               then
                 begin
-                  aux := MyTrunc(facteur*nbreToursNoeudsGeneresMilieu*(1000000000 div nsec));
-                  aux := aux + MyTrunc(facteur*(nbreNoeudsGeneresMilieu div nsec));
+                  aux := Trunc(facteur*nbreToursNoeudsGeneresMilieu*(1000000000 div nsec));
+                  aux := aux + Trunc(facteur*(nbreNoeudsGeneresMilieu div nsec));
                 end
               else
                 aux := 0;
@@ -2672,7 +2672,7 @@ begin
                     else
                       begin
                         s := ReadStringFromRessource(TextesGestionID,7);  { "nb feuilles par sec : " }
-                        WriteStringAndNumEnSeparantLesMilliersAt(s,MyTrunc(facteur*(nbreToursFeuillesMilieu*(1000000000 div nsec) + (nbreFeuillesMilieu div nsec))),4,52);
+                        WriteStringAndNumEnSeparantLesMilliersAt(s,Trunc(facteur*(nbreToursFeuillesMilieu*(1000000000 div nsec) + (nbreFeuillesMilieu div nsec))),4,52);
                         s := ReadStringFromRessource(TextesGestionID,8);  { "nb nœuds par sec : " }
                         WriteStringAndNumEnSeparantLesMilliersAt(s,aux,4,64);
                       end;

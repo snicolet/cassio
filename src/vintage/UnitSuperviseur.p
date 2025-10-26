@@ -1012,9 +1012,9 @@ begin
         Xsomme := 4.5;
         Ysomme := 4.5;
       end;
-    x1 := MyTrunc(xsomme);
+    x1 := Trunc(xsomme);
     x2 := x1+1;
-    y1 := MyTrunc(ysomme);
+    y1 := Trunc(ysomme);
     y2 := y1+1;
     caseCentre[1] := 10*y1+x1;
     caseCentre[2] := 10*y1+x2;
@@ -1575,7 +1575,7 @@ procedure SetLargeurFenetreProbCut;
 var n : SInt32;
 begin
 
-  largFenetreProbCut := 400+MyTrunc(nbreCoup*((800-400)/40.0)); {400 au coup 0,800 au coup 40}
+  largFenetreProbCut := 400+Trunc(nbreCoup*((800-400)/40.0)); {400 au coup 0,800 au coup 40}
   largGrandeFenetreProbCut := 2*largFenetreProbCut;
   largHyperGrandeFenetreProbCut := largGrandeFenetreProbCut;
 

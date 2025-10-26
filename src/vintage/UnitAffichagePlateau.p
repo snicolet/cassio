@@ -1483,7 +1483,7 @@ begin
 
   if (facteur <> 1.0) then
     begin
-      InsetRect(theRect, MyTrunc(largeur * (1.0 -facteur)) div 2 , MyTrunc(hauteur * (1.0 - facteur)) div 2);
+      InsetRect(theRect, Trunc(largeur * (1.0 -facteur)) div 2 , Trunc(hauteur * (1.0 - facteur)) div 2);
     end;
 
 end;

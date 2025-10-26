@@ -542,11 +542,11 @@ begin
 
           if (coupArrivee = 60) then dec(x2);
 
-          y := MyTrunc(mil - note*echelle);
+          y := Trunc(mil - note*echelle);
           Moveto(x1 + 1, y);
           Lineto(x2, y);
 
-          y := MyTrunc(mil + note*echelle + 1);
+          y := Trunc(mil + note*echelle + 1);
           Moveto(x1 + 1, y);
           Lineto(x2, y);
 
@@ -897,7 +897,7 @@ begin
           		          begin
                 		      echelle := (1.0*(mil-margeZoneGrise)/4000.0)/4.5;
                 		      note := Abs(x1.v - mil) + Abs(x2.v - mil);
-                		      note := MyTrunc(note/echelle) div kCoeffMultiplicateurPourCourbeEnFinale;
+                		      note := Trunc(note/echelle) div kCoeffMultiplicateurPourCourbeEnFinale;
                 		    end;
           		
           		      isGoodForWhite := (x2.v > mil) or ((x2.v = mil) and (x1.v > mil));
@@ -989,7 +989,7 @@ begin
                 then note := (GetEvaluationPourNoirDansCourbe(n-2)+GetEvaluationPourNoirDansCourbe(n-1)) div 2
                 else note := GetEvaluationPourNoirDansCourbe(n-1);
               x := margeZoneGrise + (((n-1)*largeur) div 60);
-              y := MyTrunc(mil-note*echelle);
+              y := Trunc(mil-note*echelle);
               if y < margeZoneGrise + 2      then y := margeZoneGrise + 2;
               if y > margeZoneGrise + haut-3 then y := margeZoneGrise + haut-3;
               SetPt(x1,marge+x,y);
@@ -999,7 +999,7 @@ begin
           then note := (GetEvaluationPourNoirDansCourbe(n-1)+GetEvaluationPourNoirDansCourbe(n)) div 2
           else note := GetEvaluationPourNoirDansCourbe(n);
         x := margeZoneGrise + ((n*largeur) div 60);
-        y := MyTrunc(mil-note*echelle);
+        y := Trunc(mil-note*echelle);
         if y < margeZoneGrise + 2      then y := margeZoneGrise + 2;
         if y > margeZoneGrise + haut-3 then y := margeZoneGrise + haut-3;
         SetPt(x2,marge+x,y);
@@ -1131,7 +1131,7 @@ begin
               else note := GetEvaluationPourNoirDansCourbe(i);
 
             x := margeZoneGrise + ((i*largeur) div 60);
-            y := MyTrunc(mil-note*echelle);
+            y := Trunc(mil-note*echelle);
             if y < margeZoneGrise + 2      then y := margeZoneGrise + 2;
             if y > margeZoneGrise + haut-3 then y := margeZoneGrise + haut-3;
             SetPt(x2,marge+x,y);

@@ -129,8 +129,8 @@ begin
   if delta <> 0.0
     then
       begin
-        x := MyTrunc((dxA*B-dxB*A)*1.0/delta+0.5);
-        y := MyTrunc((dyA*B-dyB*A)*1.0/delta+0.5);
+        x := Trunc((dxA*B-dxB*A)*1.0/delta+0.5);
+        y := Trunc((dyA*B-dyB*A)*1.0/delta+0.5);
       end
     else  {erreur!!! droites paralleles !!! => on renvoie A1}
       begin
@@ -180,10 +180,10 @@ begin
 
   with result do
     begin
-      left    := MyTrunc(xMilRes - 0.5*largRes + 0.49999);
-      right   := MyTrunc(xMilRes + 0.5*largRes + 0.49999);
-      top     := MyTrunc(yMilRes - 0.5*hautRes + 0.49999);
-      bottom  := MyTrunc(yMilRes + 0.5*hautRes + 0.49999);
+      left    := Trunc(xMilRes - 0.5*largRes + 0.49999);
+      right   := Trunc(xMilRes + 0.5*largRes + 0.49999);
+      top     := Trunc(yMilRes - 0.5*hautRes + 0.49999);
+      bottom  := Trunc(yMilRes + 0.5*hautRes + 0.49999);
     end;
 
   InterpolerRectangles := result;

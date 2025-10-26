@@ -1473,7 +1473,7 @@ procedure TrierListeFichiersNouveauFormat;
           begin
             if d < 5
               then d := 1
-              else d := MyTrunc(0.45454*d);
+              else d := Trunc(0.45454*d);
             for i := up-d downto lo do
               begin
                 temp := InfosFichiersNouveauFormat.fichiers[i];

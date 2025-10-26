@@ -946,8 +946,8 @@ begin
 
   s := valueString;
   realValue := StringSimpleEnReel(s);
-  whichIntegerValue := MyTrunc(realValue);
-  centiemes := MyTrunc(100*(realValue-1.0*whichIntegerValue )+0.499);
+  whichIntegerValue := Trunc(realValue);
+  centiemes := Trunc(100*(realValue-1.0*whichIntegerValue )+0.499);
 
 end;
 

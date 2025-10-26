@@ -493,7 +493,7 @@ begin
             fnote := 0.01*notationCentralite(code,longueur,nbVides,nbAmis,nbEnnemis);
           end;
 
-      valeurCentralite8^[i] := MyTrunc(fnote*100);
+      valeurCentralite8^[i] := Trunc(fnote*100);
 
       if fnote > fmax then
         begin
@@ -554,7 +554,7 @@ begin
             CoderBord(i,longueur,code,nbVides,nbAmis,nbEnnemis);
             fnote := 0.01*notationCentralite(code,longueur,nbVides,nbAmis,nbEnnemis);
           end;
-      valeurCentralite7^[i] := MyTrunc(fnote*100);
+      valeurCentralite7^[i] := Trunc(fnote*100);
     end;
 
     longueur := 6;
@@ -567,7 +567,7 @@ begin
             CoderBord(i,longueur,code,nbVides,nbAmis,nbEnnemis);
             fnote := 0.01*notationCentralite(code,longueur,nbVides,nbAmis,nbEnnemis);
           end;
-      valeurCentralite6^[i] := MyTrunc(fnote*100);
+      valeurCentralite6^[i] := Trunc(fnote*100);
     end;
 
     longueur := 5;
@@ -580,7 +580,7 @@ begin
             CoderBord(i,longueur,code,nbVides,nbAmis,nbEnnemis);
             fnote := 0.01*notationCentralite(code,longueur,nbVides,nbAmis,nbEnnemis);
           end;
-      valeurCentralite5^[i] := MyTrunc(fnote*100);
+      valeurCentralite5^[i] := Trunc(fnote*100);
     end;
 
     longueur := 4;
@@ -593,7 +593,7 @@ begin
             CoderBord(i,longueur,code,nbVides,nbAmis,nbEnnemis);
             fnote := 0.01*notationCentralite(code,longueur,nbVides,nbAmis,nbEnnemis);
           end;
-      valeurCentralite4^[i] := MyTrunc(fnote*100);
+      valeurCentralite4^[i] := Trunc(fnote*100);
     end;
 end;
 *)
@@ -678,7 +678,7 @@ begin
             fnote := 0.0;
           end;
 
-      valeurBlocsDeCoin^[i] := MyTrunc(fnote*100);
+      valeurBlocsDeCoin^[i] := Trunc(fnote*100);
 
       if fnote > fmax then
         begin
@@ -1804,7 +1804,7 @@ begin
       }
 
     end;
-    aux := (xminSlider+xmaxSlider) div 2 +MyTrunc((xmaxSlider-xminSlider)*ln(c)/2/ln4);
+    aux := (xminSlider+xmaxSlider) div 2 +Trunc((xmaxSlider-xminSlider)*ln(c)/2/ln4);
 
     haut := (kInterligneEntreDeuxCoeffs div 2) - 2;
     test := (aux- haut <= mouseLoc.h) and (mouseLoc.h <= aux + haut);
@@ -1961,7 +1961,7 @@ var s : String255;
     theSlider : ControlHandle;
 begin
   mil := (xmin+xmax) div 2;
-  aux := mil + MyTrunc((xmax-xmin)*ln(coeff)/2/ln4);
+  aux := mil + Trunc((xmax-xmin)*ln(coeff)/2/ln4);
 
 
   if true

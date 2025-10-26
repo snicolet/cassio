@@ -2055,7 +2055,7 @@ begin
   if (compteurPartiesExaminees-dernierCompteurAffiche) >= intervallePourcentage then
     begin
       dernierCompteurAffiche := compteurPartiesExaminees;
-      pourcentage := MyTrunc((compteurPartiesExaminees)*(100.0/intervalleLecture)+0.5);
+      pourcentage := Trunc((compteurPartiesExaminees)*(100.0/intervalleLecture)+0.5);
       if pourcentage >= 99 then pourcentage := 100;
 
       if DoitDessinerMessagesChargementBase then
@@ -2231,7 +2231,7 @@ begin  {ChargerLaBase}
   dernierCompteurAffiche := 0;
   CalculeNbPartiesPotentiellementLues(anneeRecherche,genreDeTestPourAnnee);
   intervalleLecture := NbPartiesPotentiellementLues;
-  intervallePourcentage := MyTrunc(1.0*intervalleLecture/100 +0.5);
+  intervallePourcentage := Trunc(1.0*intervalleLecture/100 +0.5);
 
   {WritelnNumDansRapport('sizeof(indexOuverture^[0]) = ', sizeof(IndexNouveauFormat.indexOuverture^[0]));
   WritelnNumDansRapport('sizeof(UInt8) = ', sizeof(UInt8));
@@ -2501,7 +2501,7 @@ begin  {ChargerLaBase}
       SetRect(lignerect,0,140,larg+35,155);
       MyEraseRect(lignerect);
       MyEraseRectWithColor(ligneRect,OrangeCmd,blackPattern,'');
-      pourcentage := MyTrunc((compteurPartieDansFichierCourant-numeroPartieMin)*100.0/intervalleLecture+0.5);
+      pourcentage := Trunc((compteurPartieDansFichierCourant-numeroPartieMin)*100.0/intervalleLecture+0.5);
       if pourcentage > 100 then pourcentage := 100;
       WriteNumAt('temps en ticks : ',(TickCount-tickchrono),20,150);
       WriteNumAt('nb parties trouvées : ',nbChargees,20,162);

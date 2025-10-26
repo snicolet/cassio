@@ -1174,7 +1174,7 @@ end;
 procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double);
 var aux : SInt16;
 begin
-  aux := MyTrunc((val-0.5)*10000.0);
+  aux := Trunc((val-0.5)*10000.0);
   if aux < -10000 then aux := -10000;
   if aux > 10000 then aux := 10000;
   cellule.EsperanceDeGainPourNoir := aux;
@@ -1183,7 +1183,7 @@ end;
 procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double);
 var aux : SInt16;
 begin
-  aux := MyTrunc((val-0.5)*10000.0);
+  aux := Trunc((val-0.5)*10000.0);
   if aux < -10000 then aux := -10000;
   if aux > 10000 then aux := 10000;
   cellule.EsperanceDeGainPourBlanc := aux;

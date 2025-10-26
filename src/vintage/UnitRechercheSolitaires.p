@@ -169,7 +169,7 @@ begin
     else
       begin
         tempsTotalEstime := (n * tempsUtilise) / x;
-        tempsRestantEstime := MyTrunc(tempsTotalEstime - tempsUtilise);
+        tempsRestantEstime := Trunc(tempsTotalEstime - tempsUtilise);
       end;
   gTempsRestantEstime := tempsRestantEstime;
 

@@ -407,8 +407,8 @@ begin
 
   {WritelnStringAndReelDansRapport('s = '+s+' =>  realValue = ',realValue,5);}
 
-  integerValue := MyTrunc(realValue);
-  centiemes := MyTrunc(100*(realValue-1.0*integerValue )+0.499);
+  integerValue := Trunc(realValue);
+  centiemes := Trunc(100*(realValue-1.0*integerValue )+0.499);
 
   {cas particulier : les EL[valeur] de Cassio Žtaient auparavant
    stockees comme des entiers, on divise par 100}

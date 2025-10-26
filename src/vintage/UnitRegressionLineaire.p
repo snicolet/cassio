@@ -2865,7 +2865,7 @@ begin {$unused typeLissage}
       s := ScoreEnChaineInformative(quelScoreTheorique);
       aux := 1.0*(basCourbe - courbeRect.top)/kNbCourbesATracer;
       if aux > 25.0 then aux := 25.0;
-      b := basCourbe - MyTrunc((gNbCourbesDistributionTracees - 1.5) * aux);
+      b := basCourbe - Trunc((gNbCourbesDistributionTracees - 1.5) * aux);
       Moveto(2,b);
       MyDrawString(s);
       Moveto(60,b-3);
@@ -2877,7 +2877,7 @@ begin {$unused typeLissage}
       for j := minValMediane to maxValMediane do tableEcran^[j] := 0.0;
       for j := minValMediane to maxValMediane do
         begin
-          a := MyTrunc(((1.0*j*larg) / kMaxValeurDessineeDansNuage));
+          a := Trunc(((1.0*j*larg) / kMaxValeurDessineeDansNuage));
           if a < minValMediane then a := minValMediane;
           if a > maxValMediane then a := maxValMediane;
           tableEcran^[a] := tableEcran^[a] + c^[j];
@@ -2947,7 +2947,7 @@ begin {$unused typeLissage}
 
             a := larg + j;
 
-            b := basCourbe - MyTrunc(0.5 + facteurVertical*tableEcranLissee^[j]);
+            b := basCourbe - Trunc(0.5 + facteurVertical*tableEcranLissee^[j]);
 
             Lineto(a,b);
 
@@ -3046,7 +3046,7 @@ begin
                   valeur := (scoreEdax*100) + (Abs(Random16()) mod 100) - 49;
 
                   // "pitit correction" of the eval
-                  // if (valeur > 0) then valeur := MyTrunc(valeur * 1.2);
+                  // if (valeur > 0) then valeur := Trunc(valeur * 1.2);
 
                   if valeur < -6400 then valeur := -6400;
                   if valeur >  6400 then valeur := 6400;
@@ -3996,8 +3996,8 @@ begin
     inc(nbAjustementsMoyenne);
     {WritelnNumDansRapport('penalitePourLeTrait = ',penalitePourLeTrait);}
     AjusterModeleDeCeScore(32);
-    {penalitePourLeTrait := penalitePourLeTrait+MyTrunc(1.0*moyenneDesValeursPourCeScore[32]);}
-    penalitePourLeTrait := penalitePourLeTrait+MyTrunc(1.0*medianeDesValeursPourCeScore[32]);
+    {penalitePourLeTrait := penalitePourLeTrait+Trunc(1.0*moyenneDesValeursPourCeScore[32]);}
+    penalitePourLeTrait := penalitePourLeTrait+Trunc(1.0*medianeDesValeursPourCeScore[32]);
   until (nbAjustementsMoyenne >= 7) or
         {(Abs(moyenneDesValeursPour32) <= 1)}
         (Abs(medianeDesValeursPourCeScore[32]) <= 1);

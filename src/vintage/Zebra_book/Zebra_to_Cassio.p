@@ -985,7 +985,7 @@ begin
                   {WritelnDansRapport('  Pas de score' )}
                 else
                   begin
-                    valeurMilieuDeZebra := MyTrunc(0.4999 + 100.0*Score_Noir/128.0);
+                    valeurMilieuDeZebra := Trunc(0.4999 + 100.0*Score_Noir/128.0);
                     valeurHeuristique   := EvaluationHeuristiquePourAffichageBiblZebra(pos,valeurMilieuDeZebra,genreDeNote);
                     AddSonAndZebraValueAtThisNode(whichNode, fils, pos, valeurHeuristique , genreDeNote);
                   end;
@@ -1001,7 +1001,7 @@ begin
                         pos2 := pos;
                         if UpdatePositionEtTrait(pos2,Alt_Move) then
                           begin
-                            valeurMilieuDeZebra := MyTrunc(0.4999 + 100.0*Alt_Score/128.0);
+                            valeurMilieuDeZebra := Trunc(0.4999 + 100.0*Alt_Score/128.0);
                             valeurHeuristique   := EvaluationHeuristiquePourAffichageBiblZebra(pos2,valeurMilieuDeZebra,genreDeNote);
                             AddSonAndZebraValueAtThisNode(whichNode, Alt_Move, pos2, valeurHeuristique , genreDeNote);
                           end;

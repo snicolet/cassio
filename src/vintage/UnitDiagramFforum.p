@@ -417,8 +417,8 @@ begin
   scale_x := LargeurDiagrammeFFORUM / largeurPostscript;
   scale_y := HauteurDiagrammeFFORUM / hauteurPostscript;
 
-  // WritelnNumDansRapport('larg diag EPS = ',MyTrunc(largeurPostscript + 0.5));
-  // WritelnNumDansRapport('haut diag EPS = ',MyTrunc(hauteurPostscript + 0.5));
+  // WritelnNumDansRapport('larg diag EPS = ',Trunc(largeurPostscript + 0.5));
+  // WritelnNumDansRapport('haut diag EPS = ',Trunc(hauteurPostscript + 0.5));
   // WritelnNumDansRapport('larg diag FFORUM = ',LargeurDiagrammeFFORUM);
   // WritelnNumDansRapport('haut diag FFORUM = ',HauteurDiagrammeFFORUM);
   // WriteStringAndReelDansRapport('scale_x = ',scale_x, 7);WritelnDansRapport('');
@@ -428,7 +428,7 @@ begin
   if scale_y > scale then scale := scale_y;
   scale := scale * 1.3663 / 1.34;
 
-  scale := (MyTrunc(scale * 500.0 + 5) - (MyTrunc(scale * 500.0 + 5) mod 10)) / 500.0;
+  scale := (Trunc(scale * 500.0 + 5) - (Trunc(scale * 500.0 + 5) mod 10)) / 500.0;
 
 
   // WriteStringAndReelDansRapport('scale = ',scale, 7);
@@ -438,13 +438,13 @@ begin
 
   if ll.h >= 0 then arrondi_h := 0.0 else arrondi_h := -0.999999;
   if ll.v >= 0 then arrondi_v := 0.0 else arrondi_v := -0.999999;
-  ll := MakePoint( MyTrunc(ll.h * scale + arrondi_h) ,
-                   MyTrunc(ll.v * scale + arrondi_v) );
+  ll := MakePoint( Trunc(ll.h * scale + arrondi_h) ,
+                   Trunc(ll.v * scale + arrondi_v) );
 
   if ur.h >= 0 then arrondi_h := 0.999999 else arrondi_h := 0.0;
   if ur.v >= 0 then arrondi_v := 0.999999 else arrondi_v := 0.0;
-  ur := MakePoint( MyTrunc(ur.h * scale + arrondi_h) ,
-                   MyTrunc(ur.v * scale + arrondi_v) );
+  ur := MakePoint( Trunc(ur.h * scale + arrondi_h) ,
+                   Trunc(ur.v * scale + arrondi_v) );
 
 
   EPSBoudingBox := MakeRect(ll.h, ll.v, ur.h, ur.v);

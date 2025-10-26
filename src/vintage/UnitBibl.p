@@ -715,7 +715,7 @@ begin
 
 
   	              if pourcentageLecture <= 1.0
-  	                then SetProgress(MyTrunc(300*pourcentageLecture))
+  	                then SetProgress(Trunc(300*pourcentageLecture))
   	                else SetProgress(300);
 
   	            end;

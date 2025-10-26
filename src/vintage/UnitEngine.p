@@ -1141,14 +1141,14 @@ begin
 
 
       if (Pos('.',c1) > 0)
-        then aux.minorantOfValue := MyTrunc(100.0 * StringSimpleEnReel(c1))
+        then aux.minorantOfValue := Trunc(100.0 * StringSimpleEnReel(c1))
         else
           if (aux.typeResult = ReflMilieu)
             then aux.minorantOfValue := 100 * ChaineEnLongint(c1)
             else aux.minorantOfValue := ChaineEnLongint(c1);
 
       if (Pos('.',c5) > 0)
-        then aux.majorantOfValue := MyTrunc(100.0 * StringSimpleEnReel(c5))
+        then aux.majorantOfValue := Trunc(100.0 * StringSimpleEnReel(c5))
         else
           if (aux.typeResult = ReflMilieu)
             then aux.majorantOfValue := 100 * ChaineEnLongint(c5)

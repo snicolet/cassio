@@ -323,17 +323,17 @@ begin
    else
      begin
        unreel := unreel+0.05;
-       aux := MyTrunc(unreel);
+       aux := Trunc(unreel);
        if aux < 10
          then
            ReelEnStringRapide := Concat(chr((aux mod 10)+48),
                                      '.',
-                                     chr(MyTrunc(10*(unreel-aux))+48))
+                                     chr(Trunc(10*(unreel-aux))+48))
          else
            ReelEnStringRapide := Concat(chr((aux div 10)+48),
                                       chr((aux mod 10)+48),
                                       '.',
-                                      chr(MyTrunc(10*(unreel-aux))+48))
+                                      chr(Trunc(10*(unreel-aux))+48))
      end;
 end;
 
@@ -429,13 +429,13 @@ begin
   if unreel < 0 then s := '-' else s := '';
   unreel := Abs(unreel);
   unreel := unreel+0.00499;
-  s1 := NumEnString(MyTrunc(unreel));
+  s1 := NumEnString(Trunc(unreel));
   s := s + s1+CharToString('.');
-  unreel := 10.0*(unreel-MyTrunc(unreel));
-  s1 := NumEnString(MyTrunc(unreel));
+  unreel := 10.0*(unreel-Trunc(unreel));
+  s1 := NumEnString(Trunc(unreel));
   s := s + s1;
-  unreel := 10.0*(unreel-MyTrunc(unreel));
-  s1 := NumEnString(MyTrunc(unreel));
+  unreel := 10.0*(unreel-Trunc(unreel));
+  s1 := NumEnString(Trunc(unreel));
   s := s + s1;
   ReelEnString := s;
 end;
@@ -454,7 +454,7 @@ begin
 
   dejaEcritDesChiffres := false;
   s1 := '';
-  nbBilliards := MyTrunc(unreel/1000000000000000.0);
+  nbBilliards := Trunc(unreel/1000000000000000.0);
   if (nbBilliards >= 1) then
     begin
       s2 := NumEnString(nbBilliards);
@@ -462,7 +462,7 @@ begin
       dejaEcritDesChiffres := true;
       unreel := unreel- nbBilliards*1000000000000000.0;
     end;
-  nbBillions := MyTrunc(unreel/1000000000000.0);
+  nbBillions := Trunc(unreel/1000000000000.0);
   if (nbBillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbBillions >= 1) then
     begin
@@ -473,7 +473,7 @@ begin
       dejaEcritDesChiffres := true;
       unreel := unreel- nbBillions*1000000000000.0;
     end;
-  nbMilliards := MyTrunc(unreel/1000000000.0);
+  nbMilliards := Trunc(unreel/1000000000.0);
   if (nbMilliards = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliards >= 1) then
     begin
@@ -484,7 +484,7 @@ begin
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMilliards*1000000000.0;
     end;
-  nbMillions := MyTrunc(unreel/1000000.0);
+  nbMillions := Trunc(unreel/1000000.0);
   if (nbMillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMillions >= 1) then
     begin
@@ -495,7 +495,7 @@ begin
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMillions*1000000.0;
     end;
-  nbMilliers := MyTrunc(unreel/1000.0);
+  nbMilliers := Trunc(unreel/1000.0);
   if (nbMilliers = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliers >= 1) then
     begin
@@ -506,7 +506,7 @@ begin
       dejaEcritDesChiffres := true;
       unreel := unreel- nbMilliers*1000.0;
     end;
-  nbUnites := MyTrunc(unreel);
+  nbUnites := Trunc(unreel);
   if (nbUnites = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbUnites >= 0) then   { >= 0 au lieu de >= 1 car on veut ecrire 0.abc et non pas .abc}
     begin
@@ -526,8 +526,8 @@ begin
     else s := s + s1;
   for i := 1 to nbChiffresSignificatifs - longueur do
     begin
-      unreel := 10.0*(unreel-MyTrunc(unreel));
-      s1 := NumEnString(MyTrunc(unreel));
+      unreel := 10.0*(unreel-Trunc(unreel));
+      s1 := NumEnString(Trunc(unreel));
       s := s + s1;
     end;
   ReelEnStringAvecDecimales := s;
@@ -571,7 +571,7 @@ function PourcentageReelEnString(x : double) : String255;
 var aux : SInt32;
     s : String255;
 begin
-  aux := MyTrunc(100*Abs(x));
+  aux := Trunc(100*Abs(x));
   s := NumEnString(aux);
   if x < 0 then s := Concat('-',s);
   PourcentageReelEnString := Concat(s,'%');

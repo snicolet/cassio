@@ -307,13 +307,13 @@ begin
 
         if (tempsDeCetteProf < 100.0)
           then s := ReelEnStringAvecDecimales(tempsDeCetteProf,2) + 's.'
-          else s := ReplaceStringByStringInString(' sec.','s.',SecondesEnJoursHeuresSecondes(MyTrunc(tempsDeCetteProf)));
+          else s := ReplaceStringByStringInString(' sec.','s.',SecondesEnJoursHeuresSecondes(Trunc(tempsDeCetteProf)));
         s2 := ReadStringFromRessource(TextesRapportID,52);   {temps = }
         WriteDansRapport('  ' + s2 + ' ' + s);
 
         if (tempsTotal < 100.0)
           then s := ReelEnStringAvecDecimales(tempsTotal,2) + 's.'
-          else s := ReplaceStringByStringInString(' sec.','s.',SecondesEnJoursHeuresSecondes(MyTrunc(tempsTotal)));
+          else s := ReplaceStringByStringInString(' sec.','s.',SecondesEnJoursHeuresSecondes(Trunc(tempsTotal)));
         s2 := ReadStringFromRessource(TextesRapportID,53);   {cumul = }
         WriteDansRapport('  ' + s2 + ' ' + s);
 
@@ -363,7 +363,7 @@ begin
                nbFeuillesDeuxieme := classement[i].nbfeuilles;
         end;
       if nbFeuillesDeuxieme > 0
-        then rapportDeuxiemeSurTete := MyTrunc((100.0*nbFeuillesDeuxieme) / StatistiquesSurLesCoups[profmax].nbfeuillesTeteDeListe)
+        then rapportDeuxiemeSurTete := Trunc((100.0*nbFeuillesDeuxieme) / StatistiquesSurLesCoups[profmax].nbfeuillesTeteDeListe)
         else rapportDeuxiemeSurTete := 500;
 
       with StatistiquesSurLesCoups[profmax] do
@@ -1161,7 +1161,7 @@ function CalculeVariationAvecMilieu(classement : ListOfMoveRecords; longueurClas
 
          {WriteNumDansRapport('  delta = ',CoupsEnvisageables[i].note);}
 
-         probaDeCeCoup := MyTrunc(1000.0*PuissanceReelle(100.0/(100.0+note),exposant));
+         probaDeCeCoup := Trunc(1000.0*PuissanceReelle(100.0/(100.0+note),exposant));
 
          CoupsEnvisageables[i].note := probaDeCeCoup;
 
@@ -1436,7 +1436,7 @@ begin          {CalculeClassementMilieuDePartie}
 									     coeffMultiplicateur := rapidite + diffDeTemps*1.0/diffprecedent;
 									     if coeffMultiplicateur < 1.6 then coeffMultiplicateur := 1.6;
 									     if coeffMultiplicateur > 10.0 then coeffMultiplicateur := 10.0;
-									     tempsPrevu := MyTrunc(tempseffectif*coeffMultiplicateur);
+									     tempsPrevu := Trunc(tempseffectif*coeffMultiplicateur);
 									     if tempsPrevu < 200 then tempsPrevu := 200;
 									     if tempsPrevu < tempseffectif then tempsPrevu := tempseffectif;
 
@@ -1449,7 +1449,7 @@ begin          {CalculeClassementMilieuDePartie}
 									             else tempsPrevu := tempsPrevu*4;}
 									         if hesitationSurLeBonCoup and (profondeurDemandee >= 6) and (classement[1].note <= 10) and
 									            (tempsAlloue <> minutes10000000) and not(analyseRetrograde.enCours)
-									           then tempsAlloue := Min(MyTrunc(1.35*tempsAlloue),MyTrunc(4.0*tempsAlloueAuDebutDeLaReflexion));
+									           then tempsAlloue := Min(Trunc(1.35*tempsAlloue),Trunc(4.0*tempsAlloueAuDebutDeLaReflexion));
 									       end;
 
 									     LanceChronoCetteProf;

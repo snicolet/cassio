@@ -867,10 +867,10 @@ begin
         begin
           facteurEchelle := 1.0*largeurMax/largeurActuelle;
 
-          { WritelnNumDansRapport('facteurEchelle = ',MyTrunc(facteurEchelle * 1000)); }
+          { WritelnNumDansRapport('facteurEchelle = ',Trunc(facteurEchelle * 1000)); }
 
           InSetRect(theRect, ((right - left) - largeurMax) div 2, 0);
-          InSetRect(theRect, 0, MyTrunc(0.35 * (bottom - top) * (1.0 - facteurEchelle)));
+          InSetRect(theRect, 0, Trunc(0.35 * (bottom - top) * (1.0 - facteurEchelle)));
 
           if (bottom - top) > largeurMax
             then InSetRect(theRect, 0, ((bottom - top) - largeurMax) div 2);

@@ -265,7 +265,7 @@ procedure Trier_liste_assoc_turbulence_bord_AB_local; {on trie par bord ascendan
           begin
             if d < 5
               then d := 1
-              else d := MyTrunc(0.45454*d);
+              else d := Trunc(0.45454*d);
             for i := up-d downto lo do
               begin
                 temp.bord        := liste_assoc_turbulence_bord_AB_local[i].QuelBord;
@@ -3498,8 +3498,8 @@ begin
    compteurFautes := 0;
    compteurTurbulence := 0;
    if TendanceAuBeton > 0
-     then attraitPourLesBords := MyTrunc(100.0*TendanceAuBeton+0.49)
-     else attraitPourLesBords := MyTrunc(100.0*TendanceAuBeton-0.49);
+     then attraitPourLesBords := Trunc(100.0*TendanceAuBeton+0.49)
+     else attraitPourLesBords := Trunc(100.0*TendanceAuBeton-0.49);
    NoteBordDeSixAmi := 300+attraitPourLesBords;
    NoteBordDeSixAdv := -300-attraitPourLesBords;
 
