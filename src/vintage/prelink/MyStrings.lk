@@ -11,5 +11,5 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 function EstLaVersionFrancaiseDeCassio : boolean;     external;

@@ -37,7 +37,7 @@ procedure DessineStatistiques(avecEffacement : boolean; decH,decV : SInt32; with
 procedure ConstruitPositionEtCoupDapresListe(nroPartie : SInt32; var positionEtCoupStr : String255);     external;
 procedure EssayerConstruireTitreDapresListe(nroPartie : SInt32);     external;
 procedure DessineBibliotheque(ligneDebut,ligneFin,decH,decV : SInt32);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
 procedure NewParamDiag(var paramDiag : ParamDiagRec);     external;

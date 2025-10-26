@@ -33,10 +33,10 @@ function CassioIsWaitingAnEngineResult : boolean;
 function EngineIsDead : boolean;
 procedure SetEngineState(state : SInt64);
 function GetEngineState : String255;
-function GetSpeedOfEngine : double_t;
+function GetSpeedOfEngine : double;
 procedure CalculateSpeedOfEngine(const result : EngineResultRec);
 procedure CheckIncreaseOfNodesInAnswerFromEngine(const result : EngineResultRec);
-function DurationOfLastResultReceivedByEngine : double_t;
+function DurationOfLastResultReceivedByEngine : double;
 function DateOfLastActivityByEngine : SInt64;
 function DateOfLastStartOfEngine : SInt64;
 procedure PingEngine;
@@ -172,8 +172,8 @@ var debugEngine : boolean;
     gVitessesInstantaneesEngine : record
                                     compteur : SInt64;  {nbre de vitesses enregistrees }
                                     data : array[1..5] of record
-                                                            kilonodes : double_t;
-                                                            time      : double_t;
+                                                            kilonodes : double;
+                                                            time      : double;
                                                           end;
                                   end;
 
@@ -2311,7 +2311,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
- function GetSpeedOfEngine : double_t;
+ function GetSpeedOfEngine : double;
  begin
    GetSpeedOfEngine := engine.speed;  { en kilonodes par seconde }
  end;
@@ -2327,7 +2327,7 @@ end;
  *)
 procedure CalculateSpeedOfEngine(const result : EngineResultRec);
 var i : SInt64;
-    totalKiloNoeuds, totalTime, v, vitesseMax : double_t;
+    totalKiloNoeuds, totalTime, v, vitesseMax : double;
 begin
 
   if (result.time <> 0.0) and (result.kilonodes <> 0.0) then
@@ -2400,7 +2400,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function DurationOfLastResultReceivedByEngine : double_t;
+function DurationOfLastResultReceivedByEngine : double;
 begin
   DurationOfLastResultReceivedByEngine := engine.durationOfLastResult;
 end;

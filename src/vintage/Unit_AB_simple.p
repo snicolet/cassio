@@ -14,9 +14,9 @@ INTERFACE
 function AB_simple(var pl : plateauOthello; var joua : plBool; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32; var fr : InfoFront; canDoProbCut : boolean) : SInt32;
 function AB_tore(var pl : plateauOthello; var bstBef : SInt32; coul,prof,alpha,beta,nBla,nNoi : SInt32) : SInt32;
 
-function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double_t) : double_t;
-function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides) : double_t;
-function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double_t;
+function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double) : double;
+function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double; var casesVides : listeVides) : double;
+function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double;
 
 
 
@@ -336,10 +336,10 @@ end;   { AB_simple }
 
 
 
-function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides) : double_t;
+function ProofNumber(var plat : plateauOthello; depth,trait,couleurProof,nbCasesVides : SInt32; alpha_PN,beta_PN : double; var casesVides : listeVides) : double;
 var coup,j : SInt32;
     platProof : plateauOthello;
-    aux,somme,minCourant : double_t;
+    aux,somme,minCourant : double;
     aJoue : boolean;
 begin
   if depth <= 0
@@ -432,8 +432,8 @@ begin
 
 {Quantity of work to prove that a node has a true value >= valCible,
  given that its midgame estimation is v}
-function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double_t) : double_t;
-var diffEval : double_t;
+function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double) : double;
+var diffEval : double;
 begin
   diffEval := 0.01*(valeurCible - v);  {car l'evaluation de Cassio est en centiemes de pions}
   ProofNumberMapping := quantumProofNumber + exp(facteurExponentiel*diffEval);
@@ -441,12 +441,12 @@ end;
 
 
 
-function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double_t; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double_t;
+function ProofNumberMilieu(var pl : plateauOthello; depth,trait,couleurProof,valCible,nbCasesVides : SInt32; alpha_PN,beta_PN : double; var casesVides : listeVides; var infosMilieu : InfosMilieuRec) : double;
 var eval,nbEvalRecursives : SInt32;
     coup,j : SInt32;
     platProof : plateauOthello;
     infosProof : InfosMilieuRec;
-    aux,somme,minCourant : double_t;
+    aux,somme,minCourant : double;
     aJoue : boolean;
 begin
   if depth <= 0

@@ -50,6 +50,6 @@ function FermeFichierSolitaireNouveauFormat(nbreCasesVides : SInt16) : OSErr;   
 function CassioEstEnRechercheSolitaire : boolean;     external;
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);     external;
 procedure WritelnInterruptionDansRapport(uneInterruption : SInt16);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure DoChangeHumCtreHum;     external;
 procedure DoChangeCouleur;     external;

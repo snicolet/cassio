@@ -401,7 +401,7 @@ procedure EssaieReconnaitreFormatSimplementDesCoups;
 var compteurLignesNonVides : SInt32;
     compteurPartiesTrouvees : SInt32;
     joueur1,joueur2 : SInt32;
-    confiance : double_t;
+    confiance : double;
     moves,s,s1 : String255;
     partieLegale,joueursTrouves : boolean;
 begin
@@ -467,7 +467,7 @@ var compteurLignesNonVides : SInt32;
     compteurPartiesTrouvees : SInt32;
     joueur1,joueur2 : SInt32;
     nbPionsNoirs,nbPionsBlancs : SInt32;
-    confiance : double_t;
+    confiance : double;
     partieTrouvee : boolean;
     s,moves: String255;
 begin
@@ -1041,7 +1041,7 @@ var s1,s2,s3 : String255;
     nbNoirs,nbBlancs : SInt32;
     n1,n2 : SInt32;
     erreurES : OSErr;
-    confiance : double_t;
+    confiance : double;
 begin
 
   if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire)

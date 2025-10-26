@@ -145,7 +145,7 @@ type { Bug dans dans le compilateur CodeWarrior Pro 1 pour PPC !! On voudrait ec
                       cardinal : SInt32;
                       liste : array [0..TaileMaxListeDeCoups] of record
                                                                  coup : SInt16;
-                                                                 proba : double_t;
+                                                                 proba : double;
                                                                end;
                     end;
 

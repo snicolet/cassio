@@ -35,9 +35,9 @@ function DateDernierEnvoiDeResultatAuZoo : SInt32;
 function DateDerniereDemandeDeJobAuZoo : SInt32;
 function DateDernierPingAuZoo : SInt32;
 function DateDernierKeepAliveAuZoo : SInt32;
-function TempsTotalConsacreAuZoo : double_t;
-function TempsUtileConsacreAuZoo : double_t;
-function TempsDeMidgameConsacreAuZoo : double_t;
+function TempsTotalConsacreAuZoo : double;
+function TempsUtileConsacreAuZoo : double;
+function TempsDeMidgameConsacreAuZoo : double;
 function NombreTotalDeJobsCalculesPourLeZoo : SInt32;
 function NombreDeJobsEndgameTriviauxCalculesPourLeZoo : SInt32;
 function NombreDeJobsMidgameCalculesPourLeZoo : SInt32;
@@ -220,9 +220,9 @@ var gZoo : record
                 nbJobsCommences                                : SInt32;
                 nbJobsMidgame                                  : SInt32;
                 nbJobsEndgameTriviaux                          : SInt32;
-                tempsTotalDesJobsUtilesPourLeZoo               : double_t;
-                tempsTotalDeCalculPourLeZoo                    : double_t;
-                tempsTotalDesJobsDeMilieuPourLeZoo             : double_t;
+                tempsTotalDesJobsUtilesPourLeZoo               : double;
+                tempsTotalDeCalculPourLeZoo                    : double;
+                tempsTotalDesJobsDeMilieuPourLeZoo             : double;
                 tempsDeReponse                                 : SInt32;
                 nbreDePingsSurLeZoo                            : SInt32;
                 host                                           : String255;
@@ -1542,19 +1542,19 @@ begin
 end;
 
 
-function TempsTotalConsacreAuZoo : double_t;
+function TempsTotalConsacreAuZoo : double;
 begin
   TempsTotalConsacreAuZoo := gZoo.tempsTotalDeCalculPourLeZoo;
 end;
 
 
-function TempsUtileConsacreAuZoo : double_t;
+function TempsUtileConsacreAuZoo : double;
 begin
   TempsUtileConsacreAuZoo := gZoo.tempsTotalDesJobsUtilesPourLeZoo;
 end;
 
 
-function TempsDeMidgameConsacreAuZoo : double_t;
+function TempsDeMidgameConsacreAuZoo : double;
 begin
     TempsDeMidgameConsacreAuZoo := gZoo.tempsTotalDesJobsDeMilieuPourLeZoo;
 end;
@@ -3146,7 +3146,7 @@ end;
 procedure LancerCalculDeMilieuCommeClientPourLeZoo(var zooJob : ZooJobRec);
 var affichageDansRapport : boolean;
     score, ticks : SInt32;
-    tempsRequete : double_t;
+    tempsRequete : double;
 begin
 
   with zooJob do
@@ -3220,7 +3220,7 @@ end;
 procedure LancerCalculDeFinaleCommeClientPourLeZoo(var zooJob : ZooJobRec);
 var affichageDansRapport : boolean;
     numeroEngine, score, ticks : SInt32;
-    tempsRequete : double_t;
+    tempsRequete : double;
 begin
 
   with zooJob do

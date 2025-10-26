@@ -19,7 +19,7 @@ const minValMediane = -7500;
       maxValMediane = 7500;
 type TableDistribution = array[minValMediane..maxValMediane] of SInt32;
      TableDistributionPtr = ^TableDistribution;
-     TableDistributionReele = array[minValMediane..maxValMediane] of double_t;
+     TableDistributionReele = array[minValMediane..maxValMediane] of double;
      TableDistributionReelePtr = ^TableDistributionReele;
 
 
@@ -2746,7 +2746,7 @@ end;
 
 procedure LisserTableDistribution(source : TableDistributionReelePtr; result : TableDistributionReelePtr; typeLissage : SInt32);
 var j : SInt32;
-    aux : double_t;
+    aux : double;
 begin
 
   // copier la table
@@ -2840,8 +2840,8 @@ var oldport : grafPtr;
     s : String255;
     tableEcran : TableDistributionReelePtr;
     tableEcranLissee : TableDistributionReelePtr;
-    facteurVertical : double_t;
-    aux : double_t;
+    facteurVertical : double;
+    aux : double;
 begin {$unused typeLissage}
   if (wNuagePtr <> NIL) then
     begin

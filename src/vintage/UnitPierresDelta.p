@@ -591,7 +591,7 @@ var whichSquare,destSquare,genre,genreVoulu,premiereMarqueDansMenu : SInt16;
     thePenState : PenState;
     oldMouseLoc,clicLoc : Point;
     dessinee : boolean;
-    taille_pointe_fleche : double_t;
+    taille_pointe_fleche : double;
     proprietesCourantes : PropertyList;
     proprietesDuFils : PropertyList;
     isNew : boolean;

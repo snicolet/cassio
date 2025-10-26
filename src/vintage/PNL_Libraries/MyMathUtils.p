@@ -23,8 +23,8 @@ INTERFACE
 	function RectHeight( const r : Rect ) : SInt32;
 
 
-	function MyTrunc(x : double_t) : SInt32;
-  function RealToLongint(r : double_t) : SInt32;
+	function MyTrunc(x : double) : SInt32;
+  function RealToLongint(r : double) : SInt32;
 
   function Signe(n : SInt32) : SInt32;
   function InterpolationLineaire(x, x1, y1, x2, y2 : SInt32) : SInt32;
@@ -43,8 +43,8 @@ INTERFACE
   function PChancesSurN(P,N : SInt32) : boolean;
 
 
-  function PuissanceReelle(x,exposant : double_t) : double_t;
-	function Puissance(r : double_t; n : SInt32) : double_t;
+  function PuissanceReelle(x,exposant : double) : double;
+	function Puissance(r : double; n : SInt32) : double;
 
 
 
@@ -95,7 +95,7 @@ begin
 end;
 
 
-function PuissanceReelle(x,exposant : double_t) : double_t;
+function PuissanceReelle(x,exposant : double) : double;
 begin
   if x <= 0.0
     then PuissanceReelle := 0.0
@@ -103,9 +103,9 @@ begin
 end;
 
 
-function Puissance(r : double_t; n : SInt32) : double_t;
+function Puissance(r : double; n : SInt32) : double;
 var i : SInt16;
-    aux : double_t;
+    aux : double;
 begin
   aux := 1.0;
   for i := 1 to n do
@@ -238,12 +238,12 @@ end;
 
 
 
-function MyTrunc(x : double_t) : SInt32;
+function MyTrunc(x : double) : SInt32;
 begin
   MyTrunc := roundtol(Trunc(x));
 end;
 
-function RealToLongint(r : double_t) : SInt32;
+function RealToLongint(r : double) : SInt32;
 begin
   RealToLongint := MyTrunc(r);
 end;

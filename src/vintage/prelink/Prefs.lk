@@ -61,7 +61,7 @@ procedure AjouterZebraBookOption(mask : SInt32);     external;
 function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
 function GetRapportWindow : WindowPtr;     external;
 function GetArbreDeJeuWindow : WindowPtr;     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;     external;
 function GetPremierCoupParDefaut : SInt32;     external;
 function GetPoliceNameNotesSurCases(origine : SInt32) : String255;     external;
@@ -114,7 +114,7 @@ procedure GetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; var itemRect : 
 function CassioIsUsingAnEngine(var numero : SInt32) : boolean;     external;
 function CassioIsWaitingAnEngineResult : boolean;     external;
 procedure KillCurrentEngine;     external;
-procedure Wait(secondes : double_t);     external;
+procedure Wait(secondes : double);     external;
 function CanStartEngine(pathMac, arguments : String255) : boolean;     external;
 function GetEnginePath(numeroEngine : SInt32; nomEngine : String255) : String255;     external;
 procedure RelancerDerniereRechercheEngine;     external;

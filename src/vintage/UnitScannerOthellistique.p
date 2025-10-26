@@ -36,7 +36,7 @@ function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolea
 
 
 { Fonction cherchant simultanement une partie et des joueurs dans une chaine }
-function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;
+function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double) : boolean;
 
 
 
@@ -557,7 +557,7 @@ begin
 end;
 
 
-function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;
+function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double) : boolean;
 var s,lesJoueurs : String255;
     indexDebutDesCoups : SInt32;
     indexFinDesCoups : SInt32;

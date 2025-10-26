@@ -80,11 +80,11 @@ INTERFACE
 
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;
 
-	function ReelEnString(unreel : double_t) : String255;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;
-  function PourcentageReelEnString(x : double_t) : String255;
-  function ReelEnStringRapide(unreel : double_t) : String255;
-  function StringSimpleEnReel(alpha : String255) : double_t;
+	function ReelEnString(unreel : double) : String255;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;
+  function PourcentageReelEnString(x : double) : String255;
+  function ReelEnStringRapide(unreel : double) : String255;
+  function StringSimpleEnReel(alpha : String255) : double;
   function PourcentageEntierEnString(num : SInt32) : String255;
   function ChaineEnInteger(const s : String255) : SInt16;
   function ChaineEnLongint(const s : String255) : SInt32;
@@ -315,7 +315,7 @@ begin
 end;
 
   {ReelEnString pour un reel qui doit etre entre 0.0 et 100.0 (avec une seule decimale) }
-function ReelEnStringRapide(unreel : double_t) : String255;
+function ReelEnStringRapide(unreel : double) : String255;
 var aux : SInt32;
 begin
   if unreel = 100.0
@@ -340,12 +340,12 @@ end;
 
 {marche seulement pour les chaines au format aaaaaaaa.bbbbbbbb (pas aaaaa.bbbbbEEEEcc)
  et ne conserve que les 7 premieres decimales !}
-function StringSimpleEnReel(alpha : String255) : double_t;
+function StringSimpleEnReel(alpha : String255) : double;
 var i : SInt16;
     ChainePartieEntiere,ChainePartieDecimale : String255;
-    partieEntiere,partieDecimale,mult : double_t;
+    partieEntiere,partieDecimale,mult : double;
     aux2 : SInt32;
-    signe : double_t;
+    signe : double;
 begin
   signe := 1.0;
 
@@ -423,7 +423,7 @@ end;
 
 
 
-function ReelEnString(unreel : double_t) : String255;
+function ReelEnString(unreel : double) : String255;
 var s,s1 : String255;
 begin
   if unreel < 0 then s := '-' else s := '';
@@ -442,7 +442,7 @@ end;
 
 
 
-function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;
+function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;
 var s,s1,s2 : String255;
     i,longueur : SInt32;
     nbUnites,nbMilliers,nbMillions,nbMilliards,nbBillions,nbBilliards : SInt32;
@@ -567,7 +567,7 @@ begin
 end;
 
 
-function PourcentageReelEnString(x : double_t) : String255;
+function PourcentageReelEnString(x : double) : String255;
 var aux : SInt32;
     s : String255;
 begin

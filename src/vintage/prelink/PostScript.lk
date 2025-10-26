@@ -7,7 +7,7 @@ procedure DisposeMemoryHdl(var whichHandle : handle);     external;
   procedure MY_SWAP_INTEGER( arg : UInt16Ptr );     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
 function MyGetRegionRect(theRegion : RgnHandle) : rect;     external;
-	function ReelEnString(unreel : double_t) : String255;     external;
+	function ReelEnString(unreel : double) : String255;     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
   procedure MyDebugStr(const s : String255);     external;

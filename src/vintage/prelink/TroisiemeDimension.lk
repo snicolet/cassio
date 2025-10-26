@@ -19,7 +19,7 @@ procedure SetPortByWindow(window : WindowPtr);     external;
 	procedure LocalToGlobalRect(var myrect : rect);     external;
   procedure Intersection(xA1,yA1,xA2,yA2,XB1,yB1,xB2,YB2 : SInt32; var x,y : SInt32);     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure RemettreLeCurseurNormalDeCassio;     external;
 procedure DessinePositionAvecPovRay3D(position : plateauOthello);     external;
 function MakeOthellierVide : plateauOthello;     external;

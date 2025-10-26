@@ -86,7 +86,7 @@ type LectureBibliothequeRec =
     intervallePourcentage : SInt32;
     indexCumuleCommentaires : SInt32;
     dernierePartieLue : String255;
-    pourcentageLecture : double_t;
+    pourcentageLecture : double;
     bibliothequeTropGrosse : boolean;
     doitVerifierCetteBibl : boolean;
     avecinsertionnomsdansmenu : boolean;

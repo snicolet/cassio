@@ -17,7 +17,7 @@ procedure LibereMemoireStatistiquesDeDifficultePourFforum;
 procedure ViderStatistiquesDeDifficultePourFforum;
 procedure EcritureStatistiquesDeDifficultePourFforum(var fic : FichierTEXT);
 procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);
-function DifficulteDuSolitaire : double_t;
+function DifficulteDuSolitaire : double;
 
 IMPLEMENTATION
 
@@ -79,11 +79,11 @@ begin
       scoresDansFforum^[i] := -1;
 end;
 
-function DifficulteDuSolitaire : double_t;
+function DifficulteDuSolitaire : double;
 var nbOccurencesDeCeScore : array[0..64] of SInt32;
     i,n,nbLignesTotal,nbPionsTotal,scoreDuSolitaire : SInt32;
     nbPionsLignesInteressantes,nbLignesIntegrees,nbLignesInteressantes : SInt32;
-    difficulte : double_t;
+    difficulte : double;
 begin
   difficulte := 0.0;
 
@@ -139,7 +139,7 @@ var nbOccurencesDeCeScore : array[0..64] of SInt32;
     i,n,nbLignesTotal,nbPionsTotal,scoreDuSolitaire : SInt32;
     erreurES : OSErr;
     s : String255;
-    difficulte : double_t;
+    difficulte : double;
 begin
   if (scoresDansFforum <> NIL) then
     begin

@@ -401,7 +401,7 @@ var aux : SInt32;
     {node : ZebraBookNodeRecord;}
     my_u64 : UInt64;
     s : String255;
-    my_double : double_t;
+    my_double : double;
 
    procedure VerifierLaTailleDeCeType(nom : String255; tailleReelle,tailleTheorique : SInt32);
     begin
@@ -537,7 +537,7 @@ begin
   VerifierLaTailleDeCeType('ABRRec',Sizeof(ABRRec),20);
   VerifierLaTailleDeCeType('ATRRec',Sizeof(ATRRec),16);
   VerifierLaTailleDeCeType('PositionEtTraitRec',Sizeof(PositionEtTraitRec),108);
-  VerifierLaTailleDeCeType('double_t',Sizeof(double_t),8);
+  VerifierLaTailleDeCeType('double',Sizeof(double),8);
   VerifierLaTailleDeCeType('VincenzMoveRec',Sizeof(VincenzMoveRec),20);
   VerifierLaTailleDeCeType('ProblemePriseDeCoin',Sizeof(ProblemePriseDeCoin),184);
   VerifierLaTailleDeCeType('PropertyLocalisation',Sizeof(PropertyLocalisation),16);
@@ -1798,7 +1798,7 @@ end;
 
 
 procedure TesterConvergenceDesFlottants;
- var u : double_t;
+ var u : double;
      n : SInt32;
  begin
    n := 0;
@@ -1919,7 +1919,7 @@ var i_main, gestalt_aux, i_main2 : SInt32;
     OSStatus_main : OSStatus;
     microTime : UnsignedWide;
     tickDebutInitialisations : SInt32;
-    confiance : double_t;
+    confiance : double;
     s, s1 : String255;
     s_main : String255;
     long_s : LongString;
@@ -2546,7 +2546,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 
   {
   WritelnNumDansRapport('sizeof(double) = ',Sizeof(double));
-  WritelnNumDansRapport('sizeof(double_t) = ',Sizeof(double_t));
+  WritelnNumDansRapport('sizeof(double) = ',Sizeof(double));
   WritelnNumDansRapport('sizeof(float_t) = ',Sizeof(float_t));
   WritelnNumDansRapport('size_of_float_in_c = ',size_of_float_in_c);
   }

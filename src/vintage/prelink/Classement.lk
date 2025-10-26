@@ -21,5 +21,5 @@ procedure SetAnneeDernierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32); 
 procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);     external;
 function bidFiltreGameProc(var partie60 : PackedThorGame; numeroRefPartie : SInt32; var result : SInt32) : boolean;     external;
 function GetNbreAnneesActiviteDeCeJoueur(nroJoueur : SInt32) : SInt32;     external;
-	function ReelEnString(unreel : double_t) : String255;     external;
+	function ReelEnString(unreel : double) : String255;     external;
 procedure SetDonneesClassementDeCeJoueur(nroJoueur : SInt32; data : SInt32);     external;

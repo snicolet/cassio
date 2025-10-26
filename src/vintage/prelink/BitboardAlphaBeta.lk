@@ -41,4 +41,4 @@ procedure CreerListeChaineeDesCasesVides( nbVides : SInt32; var tete : celluleCa
 procedure SetListeChaineeDesCasesVidesEstDisponible(flag : boolean);     external;
 procedure WriteCoupDansRapport(square : SInt16);     external;
 procedure WriteStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;

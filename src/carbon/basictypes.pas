@@ -23,6 +23,9 @@ uses
     // t = UInt16;        // unsigned integer, 16 bits (already in FreePascal)
     // t = UInt8;         // unsigned integer,  8 bits (already in FreePascal)
 
+    short = SInt16;
+    long = SInt32;
+
     charP = ^char;
     bytePtr =  ^UInt8;
     integerP = ^SInt16;
@@ -37,8 +40,6 @@ uses
 
     CRLFTypes = (CL_CRLF, CL_CR, CL_LF);
     CharSet = set of char;
-    short = SInt16;
-    long = SInt32;
 
     Ptr = Pointer;
     Handle = ^Pointer;
@@ -153,6 +154,7 @@ begin
 
     Writeln('sizeof(SInt8) = ', sizeof(SInt8));
     Writeln('sizeof(UInt8) = ', sizeof(UInt8));
+    Writeln('sizeof(double) = ', sizeof(double));
     Writeln('sizeof(TwoBytesArray) = ', sizeof(TwoBytesArray));
     Writeln('sizeof(FourBytesArray) = ', sizeof(FourBytesArray));
     Writeln('sizeof(Pointer) = ', sizeof(Pointer));

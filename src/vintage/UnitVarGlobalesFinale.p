@@ -207,7 +207,7 @@ var
        a partir de combien au dessus de beta on fait du fastest-first *)
 
 
-    dilatationEvalEnFinale : double_t;
+    dilatationEvalEnFinale : double;
     valeur_seuil_super_fastest : SInt32;
     seuil_pour_alpha_fastest : SInt32;
     seuil_pour_beta_fastest : SInt32;
@@ -255,7 +255,7 @@ type liaisonArbreZooRec = record
                               bestDef                 : listeVides;
                               hashRequete             : listeUInt64;
                               hashCassioDesFils       : listeVides;
-                              timeUsed                : array[0..64] of double_t;
+                              timeUsed                : array[0..64] of double;
                               positionPere            : plateauOthello;
                             end;
 
@@ -379,7 +379,7 @@ end;
 
 procedure EcrireCollecteStatsNbreNoeudsEndgameDansRapport;
 var i : SInt32;
-    nAppels, nNoeuds : double_t;
+    nAppels, nNoeuds : double;
 begin
   for i := 0 to 64 do
     begin

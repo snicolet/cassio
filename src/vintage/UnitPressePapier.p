@@ -470,7 +470,7 @@ end;
 
 
 procedure GenereInfosIOSDansPressePapier(numeroDuCoup,couleur,coup : SInt32; tickPourCalculTemps : SInt32);
-var probaDeGain : double_t;
+var probaDeGain : double;
     note : SInt32;
     tempsEnSecondes,aux : SInt32;
 begin

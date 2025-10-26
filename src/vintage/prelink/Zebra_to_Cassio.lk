@@ -26,7 +26,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OS
 	function GetFullPathOfFSSpec(fs : FSSpec) : String255;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);     external;
 function GetNoteSurCase(origine : SInt32; whichSquare : SInt16) : SInt32;     external;
 procedure SetNoteSurCase(origine : SInt32; whichSquare : SInt16; whichNote : SInt32);     external;
@@ -48,7 +48,7 @@ procedure TrierLesFilsDeCeNoeud(G : GameTree; critereDeTri : SInt32; var changed
 function GetListeTrieeDesCoupsACetteProfondeurHorsContexte(var whichPos : PositionEtTraitRec; prof : SInt32;  var liste : ListOfMoveRecords; withCheckEvents : boolean) : SInt32;     external;
 function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;     external;
 procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 function PositionEtTraitCourant : PositionEtTraitRec;     external;
 function LiveUndoVaRejouerImmediatementUnAutreCoup : boolean;     external;
 function CassioEstEnModeSolitaire : boolean;     external;

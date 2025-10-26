@@ -81,8 +81,8 @@ TYPE
 
      SearchResult = record
                        minimax        : SInt32;
-                       proofNumber    : double_t;
-                       disproofNumber : double_t;
+                       proofNumber    : double;
+                       disproofNumber : double;
                     end;
 
      SearchWindow = record

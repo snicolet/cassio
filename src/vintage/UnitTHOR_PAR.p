@@ -168,7 +168,7 @@ var err : OSErr;
     myDate : DateTimeRec;
     nroReferencePartieAjoutee : SInt32;
     partieComplete : boolean;
-    confianceDansLesJoueurs : double_t;
+    confianceDansLesJoueurs : double;
 begin
   err := NoErr;
 

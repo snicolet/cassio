@@ -61,13 +61,13 @@ function MaxProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCell
 function MinProofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
 function MaxDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
 function MinDisproofNumberDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : SInt16;
-function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
-function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
+function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double;
+function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double;
 
 
 function NbFilsDeviants(var fichier : Graphe; numCellule : SInt32; var lesFilsDeviants : ListeDeCellules) : SInt16;
 procedure CopieListeAvecProbasUniformes(var fichier : Graphe; var liste : ListeDeCellules; var result :listeDeProbas);
-function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double_t;
+function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double;
 procedure CalculeProbabilitesOptimalesDeReponse(whichGame : typePartiePourGraphe; var conseils : ListeDeProbas);
 
 
@@ -885,8 +885,8 @@ begin
     else SommeDisproofNumbersDansListe := valeurIndeterminee;
 end;
 
-function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
-var maximum,aux : double_t;
+function MaxEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double;
+var maximum,aux : double;
     t : SInt16;
     cellAux : CelluleRec;
 begin
@@ -901,8 +901,8 @@ begin
   MaxEsperanceDeGainDansListe := maximum;
 end;
 
-function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double_t;
-var minimum,aux : double_t;
+function MinEsperanceDeGainDansListe(var fichier : Graphe; var maListe : ListeDeCellules; couleur : SInt16) : double;
+var minimum,aux : double;
     t : SInt16;
     cellAux : CelluleRec;
 begin
@@ -1006,9 +1006,9 @@ begin
     end;
 end;
 
-function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double_t;
+function PourcentageDeGainParmilesFils(var fichier : Graphe; numCellule : SInt32) : double;
 var lesFils : ListeDeCellules;
-    score : double_t;
+    score : double;
     k,nbreFilsDansT : SInt16;
     cellAux : CelluleRec;
 begin
@@ -1048,7 +1048,7 @@ var cellule : CelluleRec;
     partie60 : PackedThorGame;
     path,LesFils,FilsSelectionnes : ListeDeCellules;
     k,numFils : SInt32;
-    risque : double_t;
+    risque : double;
     typesVoulus : EnsembleDeTypes;
     grapheDejaOuvertALArrivee : boolean;
 begin

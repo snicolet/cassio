@@ -15,7 +15,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
   procedure MyEraseRect(const (*var*) r : Rect);     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 function GetScreenBounds : rect;     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 function QDGetPortBound : rect;     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;

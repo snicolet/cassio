@@ -56,7 +56,7 @@ INTERFACE
 	procedure IdentiteSurN(var N : SInt32);
 	function FonctionTrue : boolean;
 	function FonctionFalse : boolean;
-	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;
+	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double;
 
 
 IMPLEMENTATION
@@ -137,8 +137,8 @@ end;
 
 
 
-function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;
-var result : double_t;
+function MicrosecondesToSecondes(microTicks : UnsignedWide) : double;
+var result : double;
 begin
   result := 0.0;
   MicrosecondesToSecondes := microTicks.lo*0.000001 + microTicks.hi*4294.967296;

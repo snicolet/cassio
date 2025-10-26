@@ -733,7 +733,7 @@ var
  pagerect,PapierRect : rect;
  PageEcran,PapierEcran : rect;
  ZoneGrise : rect;
- rapportH,rapportV,rapportUtil : double_t;
+ rapportH,rapportV,rapportUtil : double;
  margesZoneGrise : Point;
  s : String255;
  positionEtCoupStr : String255;

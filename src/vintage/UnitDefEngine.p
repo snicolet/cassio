@@ -82,8 +82,8 @@ type EngineRec = record
                    readyReceived           : boolean;
                    fileResultats           : FileResultatsEngineRec;
                    mutex_reception_data    : SInt32;
-                   speed                   : double_t;  {en kilonodes par seconde}
-                   durationOfLastResult    : double_t;  {en secondes}
+                   speed                   : double;  {en kilonodes par seconde}
+                   durationOfLastResult    : double;  {en secondes}
                    nbStartsOfEngine        : SInt32;
                    nbQuitCommandsSent      : SInt32;
                  end;
@@ -100,8 +100,8 @@ type EngineResultRec = record
                          minorantOfValue : SInt32;
                          majorantOfValue : SInt32;
                          line            : String255;
-                         kilonodes       : double_t;
-                         time            : double_t;
+                         kilonodes       : double;
+                         time            : double;
                        end;
 
 { une globale contenant l'enregistrement decrivant le moteur }

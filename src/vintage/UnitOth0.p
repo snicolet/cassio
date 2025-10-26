@@ -493,7 +493,7 @@ type
             note : SInt32;
             pourcentageCertitude : SInt32;
             temps : SInt32;
-            nbfeuilles : double_t;
+            nbfeuilles : double;
             notePourLeTri : SInt32;
             noteMilieuDePartie : SInt32;
             delta : SInt32;   {attention : ne jamais acceder a ce champ en lecture, sauf dans EcritReflexion !!}
@@ -689,7 +689,7 @@ type
 
     t_statistique = record
                      nbTotalParties,nbreponsesTrouvees : SInt32;
-                     gainNoirTotalReel,gainNoirTotalTheorique : double_t;
+                     gainNoirTotalReel,gainNoirTotalTheorique : double;
                      scoreNoirtotal,tempsdeCalcul : SInt32;
                      flags : SInt32;
                      table : array[0..nbMaxStatistiques] of record
@@ -730,7 +730,7 @@ type
     ParamDiagRec = record
                      DecalageHorFFORUM,DecalageVertFFORUM : SInt16;
                      tailleCaseFFORUM : SInt32;
-                     epaisseurCadreFFORUM : double_t;
+                     epaisseurCadreFFORUM : double;
                      distanceCadreFFORUM : SInt32;
                      nbPixelDedansFFORUM : SInt32;
                      CoordonneesFFORUM : boolean;
@@ -1266,7 +1266,7 @@ var genreAffichageTextesDansFenetrePlateau : SInt32;
                  alloue : SInt32;
                  prevu : SInt32;
                  effectif : SInt32;
-                 divergence : double_t;
+                 divergence : double;
                  prof,profSuivante : SInt16;
                end;
 
@@ -1412,25 +1412,25 @@ var fond : pattern;
     finaleEnModeSolitaire : boolean;
     ecrireDansRapportLog : boolean;
 
-    CoeffInfluence : double_t;
-    Coefffrontiere : double_t;
-    CoeffEquivalence : double_t;
-    Coeffcentre : double_t;
-    Coeffgrandcentre : double_t;
-    Coeffbetonnage : double_t;
-    Coeffminimisation : double_t;
-    CoeffpriseCoin : double_t;
-    CoeffdefenseCoin : double_t;
-    CoeffValeurCoin : double_t;
-    CoeffValeurCaseX : double_t;
-    CoeffPenalite : double_t;
-    CoeffMobiliteUnidirectionnelle : double_t;
+    CoeffInfluence : double;
+    Coefffrontiere : double;
+    CoeffEquivalence : double;
+    Coeffcentre : double;
+    Coeffgrandcentre : double;
+    Coeffbetonnage : double;
+    Coeffminimisation : double;
+    CoeffpriseCoin : double;
+    CoeffdefenseCoin : double;
+    CoeffValeurCoin : double;
+    CoeffValeurCaseX : double;
+    CoeffPenalite : double;
+    CoeffMobiliteUnidirectionnelle : double;
     EchelleCoeffsRect : rect;
 
-    CoeffPenalitePourNouvelleEval : double_t;
-    CoeffFrontierePourNouvelleEval : double_t;
-    CoeffMinimisationPourNouvelleEval : double_t;
-    CoeffMobiliteUnidirectionnellePourNouvelleEval : double_t;
+    CoeffPenalitePourNouvelleEval : double;
+    CoeffFrontierePourNouvelleEval : double;
+    CoeffMinimisationPourNouvelleEval : double;
+    CoeffMobiliteUnidirectionnellePourNouvelleEval : double;
 
     withUserCoeffDansNouvelleEval : boolean;
 
@@ -1791,8 +1791,8 @@ var   DemandeCalculsPourBase :  record
 
 
     nbEvaluationsPourProofNumber : SInt32;
-    exponentialMappingProofNumber : double_t;
-    quantumProofNumber : double_t;
+    exponentialMappingProofNumber : double;
+    quantumProofNumber : double;
 
 
  type
@@ -1926,13 +1926,13 @@ type VincenzMoveRec =
        record
          bestMove : SInt16;
          bestDefense : SInt16;
-         potentielBestMove : double_t;
-         sommePotentiels : double_t;
+         potentielBestMove : double;
+         sommePotentiels : double;
        end;
 
 const nbDegresMinimisation = 4;
 
-var potentiels : array[0..nbDegresMinimisation,0..99] of double_t;
+var potentiels : array[0..nbDegresMinimisation,0..99] of double;
     hits       : array[0..nbDegresMinimisation,0..99] of SInt32;
 
 

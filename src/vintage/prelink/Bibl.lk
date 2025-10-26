@@ -55,7 +55,7 @@ procedure SetPortByWindow(window : WindowPtr);     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;     external;
 procedure SetProgress(absoluteAmount : SInt32);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function StringEnCoup(const s : String255) : SInt16;     external;
   procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;

@@ -133,9 +133,9 @@ function CetteThreadEstTuee(nroThread : SInt32) : boolean;
 //  Mesure de parallelisme, par exemple ˆ quatre cases vides
 
 procedure PointDeMesureDeParallelisme;
-function TauxDeParallelisme : double_t;
-function FraisDeSynchro : double_t;
-function ParallelismeUtile : double_t;
+function TauxDeParallelisme : double;
+function FraisDeSynchro : double;
+function ParallelismeUtile : double;
 procedure EcrireMesureDeParallelismeDansRapport;
 procedure EcrireFraisDeSynchronisationDansRapport;
 procedure EcrireParallelismeUtileDansRapport;
@@ -4521,7 +4521,7 @@ begin
 end;
 
 
-function TauxDeParallelisme : double_t;
+function TauxDeParallelisme : double;
 begin
   if (gNbreAppelsMesureDeParallelisme <> 0)
     then TauxDeParallelisme := 100.0*(1.0*gDegreDeParallelisme/(1.0*gNbreAppelsMesureDeParallelisme))
@@ -4529,7 +4529,7 @@ begin
 end;
 
 
-function FraisDeSynchro : double_t;
+function FraisDeSynchro : double;
 begin
   if (gNbreAppelsMesureDeParallelisme <> 0)
     then FraisDeSynchro := 100.0*(1.0*gFraisDeSynchronisation/(1.0*gNbreAppelsMesureDeParallelisme))
@@ -4537,7 +4537,7 @@ begin
 end;
 
 
-function ParallelismeUtile : double_t;
+function ParallelismeUtile : double;
 begin
   ParallelismeUtile := TauxDeParallelisme - FraisDeSynchro;
 end;

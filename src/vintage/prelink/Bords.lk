@@ -12,9 +12,9 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;

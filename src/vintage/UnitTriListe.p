@@ -830,7 +830,7 @@ end;
 procedure AjouterJoueurDansClassement(var ligne : String255; var numeroJoueur : SInt32);
 var s : String255;
     numeroNoir, numeroBlanc : SInt32;
-    confianceDansLesJoueurs : double_t;
+    confianceDansLesJoueurs : double;
     rangDeCeJoueur : SInt32;
     oldData : SInt32;
 begin

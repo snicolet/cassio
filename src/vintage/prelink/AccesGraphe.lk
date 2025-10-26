@@ -35,7 +35,7 @@ function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var co
 function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   function NumEnString(num : SInt32) : String255;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure OthellierDeDepart(var plat : plateauOthello);     external;
 function ModifPlatSeulement(a : SInt32; var jeu : plateauOthello; coul : SInt32) : boolean;     external;

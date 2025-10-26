@@ -11,7 +11,7 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 procedure GeneralQuickSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);     external;

@@ -1816,8 +1816,8 @@ end;
 
 
 procedure DessineHaltere(source,dest : rect);
-var x,y,theta : double_t;
-    rayon_source,rayon_dest : double_t;
+var x,y,theta : double;
+    rayon_source,rayon_dest : double;
     x0,y0,x1,y1 : SInt64;
     centre_dest,centre_source : Point;
 begin

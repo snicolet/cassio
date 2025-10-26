@@ -65,7 +65,7 @@ procedure AppendToLongString(var ligne : LongString; const s : String255);     e
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
-	function ReelEnString(unreel : double_t) : String255;     external;
+	function ReelEnString(unreel : double) : String255;     external;
   function ParserBuffer(buffer : Ptr; bufferLength,from : SInt32; var indexDernierCaractereLu : SInt32) : String255;     external;
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);     external;
 procedure ViderSearchParams(var params : MakeEndgameSearchParamRec);     external;
@@ -76,10 +76,10 @@ procedure LongStringToBuffer(var ligne : LongString; buffer : PackedArrayOfCharP
 function MuStringEnPrecisionEngine(mu : String255) : SInt32;     external;
 procedure ViderSearchResults(var results : MakeEndgameSearchResultRec);     external;
 function CheckEndgameSearchParams(var params : MakeEndgameSearchParamRec) : boolean;     external;
-  function StringSimpleEnReel(alpha : String255) : double_t;     external;
+  function StringSimpleEnReel(alpha : String255) : double;     external;
 function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;     external;
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function SameLongString(const ligne1, ligne2 : LongString) : boolean;     external;
 function LanceurAlphaBetaMilieuWithSearchParams(var params : MakeEndgameSearchParamRec) : SInt32;     external;
 procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);     external;

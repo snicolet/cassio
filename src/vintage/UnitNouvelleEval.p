@@ -1189,7 +1189,7 @@ var Edge2XNord,Edge2XSud,Edge2XOuest,Edge2XEst : SInt32;
     evalFrontiereSquares,evalFrontiereDiscs : SInt32;
     diffNbreDiscs : SInt32;
     tranquillesNoirs,tranquillesBlancs : ListeDeCases;
-    rapportEdmondSurCassio : double_t;
+    rapportEdmondSurCassio : double;
     tempoRecursiviteDansEval : boolean;
     nbEvalsRecursives : SInt32;
     evalPartielleRecursive : SInt32;

@@ -824,8 +824,8 @@ label sortie;
 
   procedure DoProbCut(profDepart,profReduite1,fenetre_probcut1,profReduite2,fenetre_probcut2 : SInt32);
   var eval,compteurEvalRecursives : SInt32;
-      centre_fenetre_bas,centre_fenetre_haut : double_t;
-      kCentreFenetre : double_t;
+      centre_fenetre_bas,centre_fenetre_haut : double;
+      kCentreFenetre : double;
 
     procedure TryAlphaProbCut(profReduite,fenetre_probcut : SInt32);
     var

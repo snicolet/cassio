@@ -35,7 +35,7 @@ function GetTrait(var cellule : CelluleRec) : SInt16;     external;
 function GetNiemeCoupDansListe(var fichier : Graphe; var L : ListeDeCellules; n : SInt16) : SInt16;     external;
 function GetProofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;     external;
 function GetDisproofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;     external;
-function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double_t;     external;
+function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double;     external;
 function EstUnePropositionHeuristique(var cellule : CelluleRec) : boolean;     external;
 function GetFrere(var cellule : CelluleRec) : SInt32;     external;
 function RepareListeDesFreres(var fichier : Graphe; numCellule : SInt32; var listeDesFreresReparee : ListeDeCellules; const fonctionAppelante : String255) : OSErr;     external;

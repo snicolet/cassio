@@ -202,7 +202,7 @@ begin
 end;
 
 
-procedure EssayerInterpreterJoueursPGNCommeNomDeFichier(pseudoNoir,pseudoBlanc : String255; var numeroNoir,numeroBlanc : SInt64; var confiance : double_t);
+procedure EssayerInterpreterJoueursPGNCommeNomDeFichier(pseudoNoir,pseudoBlanc : String255; var numeroNoir,numeroBlanc : SInt64; var confiance : double);
 var chaineJoueurs : String255;
     partieJoueursImprobables : String255;
     aux : SInt64;
@@ -727,8 +727,8 @@ var nroReferencePartieAjoutee : SInt64;
     theorique : SInt64;
     derniereLigneLue : String255;
     nombreDeLignesLues : SInt64;
-    confianceDansLesJoueurs : double_t;
-    bidReal : double_t;
+    confianceDansLesJoueurs : double;
+    bidReal : double;
     partieEstDouteuse : boolean;
     myZone : FichierAbstrait;
 
@@ -834,7 +834,7 @@ var nroReferencePartieAjoutee : SInt64;
     utilisateurVeutSortir := utilisateurVeutSortir or Quitter or EscapeDansQueue;
   end;
 
-  procedure LitProchaineLigneAvecJoueursEtPartie(var chaineJoueurs,partieEnAlpha : String255; var confianceDansLesJoueurs : double_t);
+  procedure LitProchaineLigneAvecJoueursEtPartie(var chaineJoueurs,partieEnAlpha : String255; var confianceDansLesJoueurs : double);
   var s,moves : String255;
       partieTrouvee : boolean;
       nbPionsNoirs,nbPionsBlancs : SInt64;
@@ -2222,7 +2222,7 @@ var err : OSErr;
     myDate : DateTimeRec;
     partieLegale,partieComplete : boolean;
     nbNoirs,nbBlancs : SInt64;
-    confianceDansLesJoueurs : double_t;
+    confianceDansLesJoueurs : double;
     nomLongDuFichierDejaEcrit : boolean;
     recognized : boolean;
     temp : boolean;

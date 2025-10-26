@@ -73,7 +73,7 @@ function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32)
 function NoircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;     external;
 function GetCouleurAffichageValeurZebraBook(trait : SInt32; whichNote : SInt32) : RGBColor;     external;
 procedure DoSystemTask(couleur : SInt32);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;     external;
 function CalculePositionEtTraitApres(var partie60 : PackedThorGame; numeroCoup : SInt16; var position : plateauOthello; var trait,nbBlanc,nbNoir : SInt32) : boolean;     external;

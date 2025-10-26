@@ -86,7 +86,7 @@ procedure LigneFinaleToHashTable(couleur, prof, lastMove, vMin, vMax, deltaFinal
 
 
 {statistiques}
-function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double_t;
+function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double;
 procedure VideHashTable(whichHashTable : HashTableHdl);
 procedure EcritStatistiquesCollisionsHashTableDansRapport;
 procedure AfficheHashTable(minimum,maximum : SInt32);
@@ -2009,7 +2009,7 @@ begin
 end;
 
 
-function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double_t;
+function TauxDeRemplissageHashExacte(nroTable : SInt32; ecritStatsDetaillees : boolean) : double;
 var vides,liberees,utilisees,k : SInt32;
     whichTableExacte : HashTableExactePtr;
     whichTableCoupsLegaux : CoupsLegauxHashPtr;

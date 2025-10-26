@@ -280,7 +280,7 @@ var yPosition,compteur : SInt32;
     s : String255;
     nbPartiestotal : SInt32;
     coup : SInt16;
-    pourcentage : double_t;
+    pourcentage : double;
     nbpartiessurcecoup : SInt32;
     premiercoup : SInt16;
     autreCoupQuatreDansPartie : boolean;

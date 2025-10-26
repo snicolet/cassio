@@ -46,16 +46,16 @@ procedure WriteStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num :
 procedure WritelnStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);
 
 {ecriture des reels dans le rapport}
-procedure WriteReelDansRapport(x : double_t; nbDecimales : SInt16);
-procedure WritelnReelDansRapport(x : double_t; nbDecimales : SInt16);
-procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WriteReelDansRapport(x : double; nbDecimales : SInt16);
+procedure WritelnReelDansRapport(x : double; nbDecimales : SInt16);
+procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);
 
 {ecriture des reels dans le rapport, en separant les chiffres par groupe de trois}
-procedure WriteReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
-procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
-procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
-procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WriteReelEnSeparantLesMilliersDansRapport(x : double; nbDecimales : SInt16);
+procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double; nbDecimales : SInt16);
+procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double; nbDecimales : SInt16);
+procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double; nbDecimales : SInt16);
 
 {ecriture des positions dans le rapport}
 procedure WritelnPositionDansRapport(var position : plateauOthello);
@@ -379,35 +379,35 @@ begin
   WritelnDansRapport(s+SeparerLesChiffresParTrois(s1));
 end;
 
-procedure WriteReelDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WriteReelDansRapport(x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
   WriteDansRapport(s1);
 end;
 
-procedure WritelnReelDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WritelnReelDansRapport(x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
   WritelnDansRapport(s1);
 end;
 
-procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
   WriteDansRapport(s+s1);
 end;
 
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
   WritelnDansRapport(s+s1);
 end;
 
-procedure WriteReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WriteReelEnSeparantLesMilliersDansRapport(x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
@@ -416,7 +416,7 @@ begin
     else WriteDansRapport(s1);
 end;
 
-procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double_t; nbDecimales : SInt16);
+procedure WritelnReelEnSeparantLesMilliersDansRapport(x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
@@ -425,7 +425,7 @@ begin
     else WritelnDansRapport(s1);
 end;
 
-procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WriteStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);
@@ -434,7 +434,7 @@ begin
     else WriteDansRapport(s+s1);
 end;
 
-procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double_t; nbDecimales : SInt16);
+procedure WritelnStringAndReelEnSeparantLesMilliersDansRapport(s : String255; x : double; nbDecimales : SInt16);
 var s1 : String255;
 begin
   s1 := ReelEnStringAvecDecimales(x,nbDecimales);

@@ -19,7 +19,7 @@ function EstUneCaseBordEst(a : SInt32) : boolean;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
   procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 function CoinPlusProcheVide(a : SInt32; var jeu : plateauOthello) : boolean;     external;
 function GetCadence : SInt32;     external;
 function PlusProcheCaseX(a : SInt32) : SInt32;     external;
@@ -27,6 +27,6 @@ procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; tra
 function CassioEstEnModeAnalyse : boolean;     external;
 function ModifPlatFin(a,coul : SInt32; var jeu : plateauOthello; var nbbl,nbno : SInt32) : boolean;     external;
 function PeutJouerIci(couleur,a : SInt32; const plat : plateauOthello) : boolean;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
   function InterpolationLineaire(x, x1, y1, x2, y2 : SInt32) : SInt32;     external;
 function MobiliteSemiTranquilleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var ListeDesCoupsTranquilles : ListeDeCases; seuil_coupure : SInt32) : SInt32;     external;

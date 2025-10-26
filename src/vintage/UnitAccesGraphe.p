@@ -78,8 +78,8 @@ procedure SetProofNumberPourNoir(var cellule : CelluleRec; val : SInt16);
 procedure SetProofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);
 procedure SetDisproofNumberPourNoir(var cellule : CelluleRec; val : SInt16);
 procedure SetDisproofNumberPourBlanc(var cellule : CelluleRec; val : SInt16);
-procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double_t);
-procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double_t);
+procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double);
+procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double);
 procedure SetValeurHeuristiquePourNoir(var cellule : CelluleRec; val : SInt16);
 procedure SetProfondeur(prof : SInt16; var cellule : CelluleRec);
 procedure SetVersion(version : SInt16; var cellule : CelluleRec);
@@ -87,7 +87,7 @@ procedure SetVersion(version : SInt16; var cellule : CelluleRec);
 procedure SetProofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
 procedure SetDisproofNumber(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
 procedure SetValeurDeviante(var cellule : CelluleRec; couleur : SInt16; val : SInt16);
-procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double_t);
+procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double);
 
 {Get}
 function GetValeurMinimax(var cellule : CelluleRec) : SInt16;
@@ -97,8 +97,8 @@ function GetProofNumberPourNoir(var cellule : CelluleRec) : SInt16;
 function GetProofNumberPourBlanc(var cellule : CelluleRec) : SInt16;
 function GetDisproofNumberPourNoir(var cellule : CelluleRec) : SInt16;
 function GetDisproofNumberPourBlanc(var cellule : CelluleRec) : SInt16;
-function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double_t;
-function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double_t;
+function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double;
+function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double;
 function GetValeurHeuristiquePourNoir(var cellule : CelluleRec) : SInt16;
 function GetProfondeur(var cellule : CelluleRec) : SInt16;
 function GetVersion(var cellule : CelluleRec) : SInt16;
@@ -106,7 +106,7 @@ function GetVersion(var cellule : CelluleRec) : SInt16;
 function GetProofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;
 function GetDisproofNumber(var cellule : CelluleRec; couleur : SInt16) : SInt16;
 function GetValeurDeviante(var cellule : CelluleRec; couleur : SInt16) : SInt16;
-function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double_t;
+function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double;
 
 
 {Tests divers}
@@ -1053,9 +1053,9 @@ begin
     else GetValeurHeuristiquePourNoir := cellule.ValeurHeuristiquePourNoir;
 end;
 
-function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double_t;
+function GetEsperanceDeGainPourNoir(var cellule : CelluleRec) : double;
 var aux : SInt16;
-    res : double_t;
+    res : double;
 begin
   aux := cellule.EsperanceDeGainPourNoir;
   if aux = valeurIndeterminee
@@ -1071,9 +1071,9 @@ begin
 			end;
 end;
 
-function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double_t;
+function GetEsperanceDeGainPourBlanc(var cellule : CelluleRec) : double;
 var aux : SInt16;
-    res : double_t;
+    res : double;
 begin
   aux := cellule.EsperanceDeGainPourBlanc;
   if aux = valeurIndeterminee
@@ -1117,7 +1117,7 @@ begin
   end; {case}
 end;
 
-function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double_t;
+function GetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16) : double;
 begin
   case couleur of
     Noir      : GetEsperanceDeGain := GetEsperanceDeGainPourNoir(cellule);
@@ -1171,7 +1171,7 @@ begin
   cellule.ValeurDeviantePourBlanc := val;
 end;
 
-procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double_t);
+procedure SetEsperanceDeGainPourNoir(var cellule : CelluleRec; val : double);
 var aux : SInt16;
 begin
   aux := MyTrunc((val-0.5)*10000.0);
@@ -1180,7 +1180,7 @@ begin
   cellule.EsperanceDeGainPourNoir := aux;
 end;
 
-procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double_t);
+procedure SetEsperanceDeGainPourBlanc(var cellule : CelluleRec; val : double);
 var aux : SInt16;
 begin
   aux := MyTrunc((val-0.5)*10000.0);
@@ -1221,7 +1221,7 @@ begin
   end; {case}
 end;
 
-procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double_t);
+procedure SetEsperanceDeGain(var cellule : CelluleRec; couleur : SInt16; val : double);
 begin
   case couleur of
     Noir      : SetEsperanceDeGainPourNoir(cellule,val);

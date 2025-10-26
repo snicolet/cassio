@@ -77,7 +77,7 @@ procedure DiminueLatenceEntreDeuxDoSystemTask;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);
 procedure DoSystemTask(couleur : SInt32);
 procedure PartagerLeTempsMachineAvecLesAutresProcess(WNESleep : SInt32);
-procedure Wait(secondes : double_t);
+procedure Wait(secondes : double);
 
 
 { Temporisations avant de jouer }
@@ -126,7 +126,7 @@ procedure DoCadence;
 
 
 { Fenetre de gestion du temps }
-procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double_t; prof,suivante : SInt16);
+procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double; prof,suivante : SInt16);
 procedure SetValeurTempsAlloueDansGestionTemps(alloue : SInt32);
 procedure EcritGestionTemps;
 procedure LanceChronoCetteProf;
@@ -231,10 +231,10 @@ var gEtatDuReseau : record
                                    nbrePositionsPrefetched : SInt32;
                                    profMin : SInt32;
                                    profMax : SInt32;
-                                   tempsTotal : double_t;
-                                   tempsDeMidgame : double_t;
-                                   tempsUtile : double_t;
-                                   tempsPositionCourante : double_t;
+                                   tempsTotal : double;
+                                   tempsDeMidgame : double;
+                                   tempsUtile : double;
+                                   tempsPositionCourante : double;
                                    nbrePositions : SInt32;
                                    nbrePositionsTriviales : SInt32;
                                    nbrePositionsMilieu : SInt32;
@@ -299,7 +299,7 @@ end;
 procedure DoSystemTask(couleur : SInt32);
 var gotEvent : boolean;
     deltaRes,deltaJob,deltaPing : SInt32;
-    temps : double_t;
+    temps : double;
 begin
 
   GererLiveUndo;
@@ -470,7 +470,7 @@ procedure AjusteSleep;
 var CassioReflechitIntensement : boolean;
     oldkWNESleep : SInt32;
     deltaRes,deltaJob,deltaPing : SInt32;
-    x : double_t;
+    x : double;
 begin
   oldkWNESleep := kWNESleep;
 
@@ -2203,7 +2203,7 @@ begin
 end;
 
 
-procedure Wait(secondes : double_t);
+procedure Wait(secondes : double);
 var ticks, ticksFin : SInt32;
 begin
   if (secondes > 0.0) then
@@ -2356,7 +2356,7 @@ begin
 end;
 
 
-procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double_t; prof,suivante : SInt16);
+procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double; prof,suivante : SInt16);
 begin
   SetValeurTempsAlloueDansGestionTemps(alloue);
   gestionRec.prevu := prevu;
@@ -2373,7 +2373,7 @@ var oldport : grafPtr;
     posH, numeroEngine, mu : SInt32;
     lignerect,gestionRect : rect;
     tailleOmbrageDuBouton,radius : SInt32;
-    divergAffichee : double_t;
+    divergAffichee : double;
     empties : SInt32;
     usingAnEngine : boolean;
     couleurOmbrage : RGBColor;
@@ -2560,7 +2560,7 @@ var oldPort : grafPtr;
     NodeCounter,TickCounter : UInt32;
     unRect, gestionRect : rect;
     s : String255;
-    facteur : double_t;
+    facteur : double;
     numeroEngine : SInt32;
     couleurOmbrage : RGBColor;
 begin
@@ -2705,7 +2705,7 @@ var oldPort: grafPtr;
     ligneRect : Rect;
     left, right : String255;
     nbrePositionsPrefetchedAux,profMinAux,profMaxAux : SInt32;
-    tempsTotalAux, tempsDeMidgameAux, tempsUtileAux, tempsPositionCouranteAux : double_t;
+    tempsTotalAux, tempsDeMidgameAux, tempsUtileAux, tempsPositionCouranteAux : double;
     nbrePositionsAux, nbrePositionsTrivialesAux,nbrePositionsMilieuAux : SInt32;
     nbrePositionsEnAttenteAux : SInt32;
     limiteDroiteFenetre,limiteBasseFenetre : SInt32;

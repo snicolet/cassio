@@ -9,5 +9,5 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;     external;
-procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double;     external;
+procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;

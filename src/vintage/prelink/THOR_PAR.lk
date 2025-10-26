@@ -30,7 +30,7 @@ function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee :
 function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolean; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32) : boolean;     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;
 procedure TextNormalDansRapport;     external;
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double_t) : boolean;     external;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double) : boolean;     external;
 procedure SetAutorisationCalculsLongsSurListe(flag : boolean);     external;
 procedure DoChangeSousSelectionActive;     external;
 function AjouterPartieAlphaDansLaListe(partieEnAlpha : String255; theorique,numeroNoir,numeroBlanc,numeroTournoi,annee : SInt32; var partieRec : t_PartieRecNouveauFormat; var nroReferencePartieAjoutee : SInt32) : boolean;     external;

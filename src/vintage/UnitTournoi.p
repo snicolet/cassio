@@ -34,7 +34,7 @@ procedure RemettreEtatGlobalDeCassioApresLeTournoi;
 
 
 { un match dans un tournoi }
-function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double_t;
+function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double;
 procedure ResetStatistiquesDuMatch(var theMatch : MatchTournoiRec);
 procedure ChoisirUneOuvertureEquilibree(var ouverture : OuvertureRec; var ouverturesInterdites : StringSet);
 
@@ -54,14 +54,14 @@ procedure EcrireAnnonceTournoiDansRapport(var tournoi : ToutesRondesRec; var mat
 procedure EcrireConclusionDuTournoiDansRapport(var tournoi : ToutesRondesRec);
 procedure EcrireAnnonceDeLaRondeDansRapport(var tournoi : ToutesRondesRec; tours : SInt32);
 procedure EcrireAnnonceDuMatchDansRapport(var tournoi : ToutesRondesRec; var match : MatchTournoiRec);
-procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double_t);
+procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double);
 procedure BeginInfosTournoiDansRapport;
 procedure EndInfosTournoisDansRapport;
 
 
 { calcul des variations Elo }
-function CalculateEloErrorBar(numberOfGames : SInt32) : double_t;
-function CalculateEloIncrease(p : double_t) : double_t;
+function CalculateEloErrorBar(numberOfGames : SInt32) : double;
+function CalculateEloIncrease(p : double) : double;
 
 
 { tournoi entre deviations de Cassio }
@@ -359,7 +359,7 @@ end;
  *                                                                              *
  ********************************************************************************
  *)
-function CalculateEloErrorBar(numberOfGames : SInt32) : double_t;
+function CalculateEloErrorBar(numberOfGames : SInt32) : double;
 begin
   if (numberOfGames <= 0)
     then CalculateEloErrorBar := 1200.0
@@ -376,7 +376,7 @@ end;
  *                                                                              *
  ********************************************************************************
  *)
-function CalculateEloIncrease(p : double_t) : double_t;
+function CalculateEloIncrease(p : double) : double;
 begin
   if (p <= 0.01) then CalculateEloIncrease := -1000.0 else
   if (p >= 0.99) then CalculateEloIncrease := +1000.0 else
@@ -680,7 +680,7 @@ end;
  *                                                                              *
  ********************************************************************************
  *)
-function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double_t;
+function FaireUnMatch(var match : MatchTournoiRec; var ouverturesDejaJouees : StringSet) : double;
 var i, oldInterruption, compteurPartie : SInt32;
     quitterMatch : boolean;
     UnContreDeux,premierAppele : boolean;
@@ -1485,7 +1485,7 @@ end;
      nom : String255;
      match : MatchTournoiRec;
      nombreDeRondesJouees : SInt32;
-     p : double_t;
+     p : double;
  begin
    BeginInfosTournoiDansRapport;
 
@@ -1580,7 +1580,7 @@ end;
  *                                                                              *
  ********************************************************************************
  *)
-procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double_t);
+procedure EcrireConclusionDuMatchDansRapport(var tournoi : ToutesRondesRec; scoreDuJoueur2 : double);
 begin
   BeginInfosTournoiDansRapport;
 
@@ -1747,7 +1747,7 @@ end;
  *)
 procedure FaireUnTournoiToutesRondesEntreEngines(var tournoi : ToutesRondesRec);
 var t,r,n1,n2 : SInt32;
-    scoreDuJoueur2 : double_t;
+    scoreDuJoueur2 : double;
     tours : SInt32;
     match : MatchTournoiRec;
     ouvertureDeLaRonde : OuvertureRec;
@@ -2170,7 +2170,7 @@ begin
 end;
 
 
-function PourcentageDeCetteDeviation(index : SInt32) : double_t;
+function PourcentageDeCetteDeviation(index : SInt32) : double;
 var deviation_frontiere : SInt32;
     deviation_minimisation : SInt32;
     deviation_mobilite : SInt32;
@@ -2225,7 +2225,7 @@ begin
     end;
 end;
 
-function NombrePionsMoyenDeCetteDeviation(index : SInt32) : double_t;
+function NombrePionsMoyenDeCetteDeviation(index : SInt32) : double;
 var deviation_frontiere : SInt32;
     deviation_minimisation : SInt32;
     deviation_mobilite : SInt32;
@@ -2256,7 +2256,7 @@ begin
 end;
 
 function OrdrePourcentageGlobalPourTriDeviation(element1,element2 : SInt32) : boolean;
-var v1,v2 : double_t;
+var v1,v2 : double;
 begin
   v1 := PourcentageDeCetteDeviation(element1) - 0.00*NombrePartiesDeCetteDeviation(element1);
   v2 := PourcentageDeCetteDeviation(element2) - 0.00*NombrePartiesDeCetteDeviation(element2);
@@ -2267,7 +2267,7 @@ begin
 end;
 
 function OrdreNombreMoyenDePionsPourTriDeviation(element1,element2 : SInt32) : boolean;
-var v1,v2 : double_t;
+var v1,v2 : double;
 begin
   v1 := NombrePionsMoyenDeCetteDeviation(element1);
   v2 := NombrePionsMoyenDeCetteDeviation(element2);
@@ -2597,34 +2597,34 @@ procedure DoDemo(niveau1,niveau2 : SInt32; avecAttente,avecSauvegardePartieDansL
 var
     quitterDemo : boolean;
 
-    Coeffinfluence1 : double_t;
-    Coefffrontiere1 : double_t;
-    CoeffEquivalence1 : double_t;
-    Coeffcentre1 : double_t;
-    Coeffgrandcentre1 : double_t;
-    Coeffdispersion1 : double_t;
-    Coeffminimisation1 : double_t;
-    CoeffpriseCoin1 : double_t;
-    CoeffdefenseCoin1 : double_t;
-    CoeffValeurCoin1 : double_t;
-    CoeffValeurCaseX1 : double_t;
-    CoeffPenalite1 : double_t;
-    CoeffMobiliteUnidirectionnelle1 : double_t;
+    Coeffinfluence1 : double;
+    Coefffrontiere1 : double;
+    CoeffEquivalence1 : double;
+    Coeffcentre1 : double;
+    Coeffgrandcentre1 : double;
+    Coeffdispersion1 : double;
+    Coeffminimisation1 : double;
+    CoeffpriseCoin1 : double;
+    CoeffdefenseCoin1 : double;
+    CoeffValeurCoin1 : double;
+    CoeffValeurCaseX1 : double;
+    CoeffPenalite1 : double;
+    CoeffMobiliteUnidirectionnelle1 : double;
     avecEvaluationTablesDeCoins1 : boolean;
 
-    Coeffinfluence2 : double_t;
-    Coefffrontiere2 : double_t;
-    CoeffEquivalence2 : double_t;
-    Coeffcentre2 : double_t;
-    Coeffgrandcentre2 : double_t;
-    Coeffdispersion2 : double_t;
-    Coeffminimisation2 : double_t;
-    CoeffpriseCoin2 : double_t;
-    CoeffdefenseCoin2 : double_t;
-    CoeffValeurCoin2 : double_t;
-    CoeffValeurCaseX2 : double_t;
-    CoeffPenalite2 : double_t;
-    CoeffMobiliteUnidirectionnelle2 : double_t;
+    Coeffinfluence2 : double;
+    Coefffrontiere2 : double;
+    CoeffEquivalence2 : double;
+    Coeffcentre2 : double;
+    Coeffgrandcentre2 : double;
+    Coeffdispersion2 : double;
+    Coeffminimisation2 : double;
+    CoeffpriseCoin2 : double;
+    CoeffdefenseCoin2 : double;
+    CoeffValeurCoin2 : double;
+    CoeffValeurCaseX2 : double;
+    CoeffPenalite2 : double;
+    CoeffMobiliteUnidirectionnelle2 : double;
     avecEvaluationTablesDeCoins2 : boolean;
 
     finDePartieVitesseMactemp : SInt32;
@@ -2649,7 +2649,7 @@ var
     deviation_mobilite : SInt32;
     deviation_penalitetrait : SInt32;
     index_deviation_courante : SInt32;
-    scoreDuJoueur2 : double_t;
+    scoreDuJoueur2 : double;
 
 
 
@@ -2657,7 +2657,7 @@ var
 
 
 
- procedure ChangeCoefficientDansDemo(var whichCoeff : double_t; amplitudeDeviation : SInt32);
+ procedure ChangeCoefficientDansDemo(var whichCoeff : double; amplitudeDeviation : SInt32);
  begin
    case amplitudeDeviation of
       -2 : whichCoeff := 0.66 * whichCoeff;
@@ -2779,7 +2779,7 @@ procedure ChoisitCoefficientsDuMatch(indexJoueur1,indexJoueur2 : SInt32);
   end;
 
 (* Renvoie le pourcentage du joueur 2 contre 1 *)
-function FaireUnMatchEntreDeviations(var match : MatchTournoiRec) : double_t;
+function FaireUnMatchEntreDeviations(var match : MatchTournoiRec) : double;
 var ouverturesJouees : StringSet;
 begin
 
@@ -2866,7 +2866,7 @@ end;
 procedure FaireUnTournoiToutesRondesDesMeilleursDeviations;
 var index,t,r,n1,n2 : SInt32;
     indexJoueur1,indexJoueur2 : SInt32;
-    scoreDuJoueur2 : double_t;
+    scoreDuJoueur2 : double;
     tours : SInt32;
     match : MatchTournoiRec;
     ouverturesJoueesDansLeMatch : StringSet;

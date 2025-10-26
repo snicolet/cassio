@@ -1465,7 +1465,7 @@ end;
 
 procedure RetrecirRectOfSquarePourTexturesAlveolees(var theRect : rect);
 var largeur, hauteur : SInt32;
-    facteur : double_t;
+    facteur : double;
 begin
   largeur := theRect.right - theRect.left;
   hauteur := theRect.bottom - theRect.top;

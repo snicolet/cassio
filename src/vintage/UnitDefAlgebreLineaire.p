@@ -9,7 +9,7 @@ USES MyTypes;
 
 const dimensionMatrice = 40;
 
-type  RealType         = double_t;  {double precision (8 bytes) on PPC}
+type  RealType         = double;  {double precision (8 bytes) on PPC}
       MatriceReels     = record
                             nbLignes   : SInt32;
                             nbColonnes : SInt32;

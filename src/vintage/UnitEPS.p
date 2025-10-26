@@ -48,7 +48,7 @@ USES DateTimeUtils
 
 function WritePrologueEPSDansFichier(var fic : FichierAbstrait; nomFichier : String255) : OSErr;
 var err : OSErr;
-    scaleForEPS : double_t;
+    scaleForEPS : double;
     boudingRectEPS : Rect;
     myDate : DateTimeRec;
     initialPosition : PositionEtTraitRec;

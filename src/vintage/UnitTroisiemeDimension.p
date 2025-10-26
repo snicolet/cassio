@@ -345,7 +345,7 @@ end;
 
 procedure DoCalculs3D(xbasDeb,xhautDeb,xBasFin,xHautFin,ybas,yhaut : SInt32);
 var a,b : SInt32;
-    dxHaut,dxBas,x1Ext,x2Ext : double_t;
+    dxHaut,dxBas,x1Ext,x2Ext : double;
     i,j : SInt16;
     x1,x2,y1,y2,x3,x4,y3,y4 : SInt32;
   begin

@@ -149,7 +149,7 @@ begin
 end;
 
 procedure ChercherSolitaires(var partie60 : PackedThorGame; nroPartie : SInt32; var tickDepartRechercheSolitaires : SInt32);
-var tempsUtilise,tempsTotalEstime : double_t;
+var tempsUtilise,tempsTotalEstime : double;
     tempsRestantEstime : SInt32;
     x,n : SInt32;
     oldPort : grafPtr;

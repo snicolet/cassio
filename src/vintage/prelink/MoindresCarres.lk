@@ -17,7 +17,7 @@ procedure CarteJouable(const plat : plateauOthello; var carte : plBool);     ext
 function CreeEvaluationCassioRec(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront) : EvaluationCassioRec;     external;
 function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;     external;
 procedure SetVecteurNul(n : SInt32; var V : VecteurReels);     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure SetMatriceCarreeNulle(n : SInt32; var M : MatriceReels);     external;
 procedure WritelnMatriceReelsDansRapport(var M : MatriceReels; nbChiffres : SInt16);     external;
 function ResoudSystemeEquationsCarre(A : MatriceReels; b : VecteurReels; var Inverse : MatriceReels; var x : VecteurReels) : boolean;     external;

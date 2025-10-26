@@ -95,8 +95,8 @@ var FichierWThorLog : FichierTEXT;
                                      nbPartiesCalculees           : SInt32;
                                      nbPartiesImpossibles         : SInt32;
                                      numeroReferencePartieEnCours : SInt32;
-                                     tempsMoyenParPartie          : double_t;  {en secondes}
-                                     tempsRestantEstime           : double_t;  {en secondes}
+                                     tempsMoyenParPartie          : double;  {en secondes}
+                                     tempsRestantEstime           : double;  {en secondes}
                                      positionsDejaCherchees       : PositionEtTraitSet;
                                      enCours                      : boolean;
                                    end;
@@ -711,7 +711,7 @@ procedure CalculeScoreTheorique(var partie60 : PackedThorGame; numeroReferencePa
 var position : PositionEtTraitRec;
     typeErreur : SInt32;
     nbPartiesRestantes : SInt32;
-    tempsMoyenParPartieCalculee : double_t;
+    tempsMoyenParPartieCalculee : double;
     score, nbNoirs, nbBlancs, nbVides : SInt32;
     solveResults : MakeEndgameSearchResultRec;
     enRechercheDePositionsDifficiles : boolean;

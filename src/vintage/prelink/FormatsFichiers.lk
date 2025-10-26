@@ -19,7 +19,7 @@ function ReadFromFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;     external;
 function EstUnePartieOthelloAvecMiroir(var s : String255) : boolean;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
-function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;     external;
+function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double) : boolean;     external;
 function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolean; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32) : boolean;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
 function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;     external;
@@ -28,7 +28,7 @@ function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;     external;
   function CharInRange(ch : char; min,max : char) : boolean;     external;
 function MetJoueursEtTournoisEnMemoire(nomsAbreges : boolean) : OSErr;     external;
 function EstUnePartieOthello(var s : String255; compacterPartie : boolean) : boolean;     external;
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double_t) : boolean;     external;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double) : boolean;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;     external;

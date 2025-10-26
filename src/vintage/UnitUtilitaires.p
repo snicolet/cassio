@@ -60,7 +60,7 @@ function ClicSurCurseurCoeff(mouseLoc : Point; var hauteurExacte,nroCoeff : SInt
 procedure CalculEtAfficheCoeff(dp : DialogPtr; mouseX,item,hauteurExacte : SInt16);
 procedure DessineEchellesCoeffs(dp : DialogPtr);
 procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);
-procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);
+procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double);
 procedure EcritParametre(dp : DialogPtr; s : String255; parametre : SInt64; y : SInt64);
 procedure EcritParametres(dp : DialogPtr; quelParametre : SInt16);
 procedure EcritEtDessineBords;
@@ -176,7 +176,7 @@ var i,j,n,nroReference : SInt64;
     frontBill : InfoFront;
     traitDansPartie : Tableau60Longint;
     uneMatrice : MatriceCovariance;
-    det,constanteGain,constantePerte : double_t;
+    det,constanteGain,constantePerte : double;
     v1,v2,v3 : VecteurCoefficients;
 
 
@@ -428,7 +428,7 @@ var i,n,nroReference,Nbmin,Nbmax,longueur : SInt64;
     ok : boolean;
     code : t_codage;
     s : String255;
-    fmin,fmax,fnote : double_t;
+    fmin,fmax,fnote : double;
     nbVides,nbAmis,nbEnnemis : SInt64;
     traitDansPartie : Tableau60Longint;
 
@@ -609,7 +609,7 @@ var i,n,nroReference,Nbmin,Nbmax : SInt64;
     ok : boolean;
     code : t_codage;
     s : String255;
-    fmin,fmax,fnote : double_t;
+    fmin,fmax,fnote : double;
     nbVides,nbAmis,nbEnnemis : SInt64;
     traitDansPartie : Tableau60Longint;
 
@@ -1754,7 +1754,7 @@ const yCurseurPremierParametre   = 90;
 
 procedure CalculEtAfficheCoeff(dp : DialogPtr; mouseX,item,hauteurExacte : SInt16);
 const ln4 = 1.386294;
-var c : double_t;
+var c : double;
 begin
   c := exp(ln4*(2*(mouseX-xmaxSlider)/(xmaxSlider-xminSlider)+1));
   if c < 0.25 then c := 0.25;
@@ -1781,7 +1781,7 @@ end;
 function ClicSurCurseurCoeff(mouseLoc : Point; var hauteurExacte,nroCoeff : SInt16) : boolean;
 const ln4 = 1.386294;
 var aux,haut : SInt16;
-    c : double_t;
+    c : double;
     test : boolean;
 begin
    nroCoeff := 1 + (mouseLoc.v - yCurseurPremierParametre + (kInterligneEntreDeuxCoeffs div 2)) div kInterligneEntreDeuxCoeffs;
@@ -1951,7 +1951,7 @@ procedure DessineBord(xdeb,y : SInt64; indexBord : SInt64);
       END;
   end;
 
-procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double_t);
+procedure DessineEchelleEtCurseur(dp : DialogPtr; xmin,xmax,y : SInt64; coeff : double);
 const ln4 = 1.386294;
 var s : String255;
     aux : SInt64;

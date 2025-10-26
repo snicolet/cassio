@@ -452,13 +452,13 @@ begin
 end;
 
 
-var derniereDateDefilementRapport : double_t;
+var derniereDateDefilementRapport : double;
 
 { DŽfilement du texte par l'ascenseur ch }
 procedure TrackScrollingRapport(ch: ControlHandle; part: SInt16);
 var oldValue, newValue: SInt16;
     microTicks : UnsignedWide;
-    dateCourante : double_t;
+    dateCourante : double;
 begin
   with rapport do
     if (theText <> NIL) and (ch <> NIL) then

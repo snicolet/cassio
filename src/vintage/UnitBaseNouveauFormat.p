@@ -3220,8 +3220,8 @@ procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFi
 var s, nomFichier, date, heure, taille, reste : String255;
     doitTelechargerCeFichier : boolean;
     numeroFichier : SInt16;
-    tailleVersionLocale : double_t;
-    tailleSurLeSiteFFO : double_t;
+    tailleVersionLocale : double;
+    tailleSurLeSiteFFO : double;
 begin  {$unused theFic, result}
 
   s := ligne.debutLigne;

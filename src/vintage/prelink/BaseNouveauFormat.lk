@@ -103,7 +103,7 @@ procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPre
   function ChaineEnLongint(const s : String255) : SInt32;     external;
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;     external;
 procedure FlushWindow(theWindow : WindowRef);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : String255);     external;
 procedure Normalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean; interversions : boolean);     external;
 procedure TraductionAlphanumeriqueEnThor(const s : String255; var result : PackedThorGame);     external;
@@ -211,9 +211,9 @@ procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt32;     external;
 function GetNroPremierFichierAvecCeNom(nom : String255) : SInt16;     external;
-function StringSimpleEnReel(alpha : String255) : double_t;     external;
+function StringSimpleEnReel(alpha : String255) : double;     external;
 function GarderSeulementLesChiffresOuLesPoints(var s : String255) : String255;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt32; fromIndex : SInt32) : boolean;     external;
 function TransformePourPerfectMatch(s : String255) : String255;     external;
 

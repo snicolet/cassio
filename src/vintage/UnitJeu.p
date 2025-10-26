@@ -1365,7 +1365,7 @@ var prof,typeFinaleDemande : SInt16;
     resultatCalculMilieu : MoveRecord;
     bidbool : boolean;
     searchParam : MakeEndgameSearchParamRec;
-    timeTaken : double_t;
+    timeTaken : double;
 
     procedure CheckParameters(s : String255);
     begin

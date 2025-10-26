@@ -12,7 +12,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
   function NumEnString(num : SInt32) : String255;     external;
 function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;     external;
 function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure SetAutoVidageDuRapport(flag : boolean);     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 function LitVecteurEvaluationSurLeDisque(nomFichier : String255; var whichEval : VectNewEval) : OSErr;     external;
@@ -32,5 +32,5 @@ procedure VecteurEvalToVecteurEvalInteger(var source : VectNewEval; var dest : V
 function EcritVecteurEvaluationIntegerSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEvalInteger) : OSErr;     external;
 procedure MetCoeffsMobiliteEtFrontiereConstantsDansEvaluation(var whichEval : VectNewEval);     external;
 procedure ConjugateGradientChi2(var whichEval : VectNewEval; ftol : TypeReel; var iter : SInt32; var fret : TypeReel; avecRabotagePatternsRares : boolean);     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure Writeln13SquareCornerAndStringDansRapport(pattern : SInt32; s : String255);     external;

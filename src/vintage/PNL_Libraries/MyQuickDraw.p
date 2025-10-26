@@ -56,8 +56,8 @@ INTERFACE
   procedure WriteStringAndBigNumEnSeparantLesMilliersAt(s : String255; milliards,num : SInt32; h,v : SInt32);
   procedure WriteStringAt(s : String255; h,v : SInt32);
   procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);
-  procedure WriteReelAt(unreel : double_t; h,v : SInt32);
-  procedure WriteStringAndReelAt(s : String255; unreel : double_t; h,v : SInt32);
+  procedure WriteReelAt(unreel : double; h,v : SInt32);
+  procedure WriteStringAndReelAt(s : String255; unreel : double; h,v : SInt32);
   procedure WriteStringAndBoolAt(s : String255; bool : boolean; h,v : SInt32);
 
 
@@ -567,7 +567,7 @@ procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);
   end;
 
 
-procedure WriteReelAt(unreel : double_t; h,v : SInt32);
+procedure WriteReelAt(unreel : double; h,v : SInt32);
 var lignerect : rect;
 begin
   SetRect(ligneRect,h,v-9,h+30,v+2);
@@ -578,7 +578,7 @@ begin
 end;
 
 
-procedure WriteStringAndReelAt(s : String255; unreel : double_t; h,v : SInt32);
+procedure WriteStringAndReelAt(s : String255; unreel : double; h,v : SInt32);
 var lignerect : rect;
 begin
   s := s + ReelEnString(unreel)+'   ';

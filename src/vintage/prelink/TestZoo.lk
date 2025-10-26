@@ -19,7 +19,7 @@ procedure GenereOuvertureAleatoireEquilibree(nbDeCoupsDemandes,borneMin,borneMax
 procedure GenerePartieAleatoireDesquilibree(nbDeCoupsDemandes, goodForWhichColor : SInt16; casesInterdites : SquareSet; var s : PackedThorGame; var ouverturesInterdites : StringSet);     external;
 procedure DisposeStringSet(var S : StringSet);     external;
 procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 	function EscapeDansQueue : boolean;     external;
 procedure WriteTickOperationPourLeZooDansRapport;     external;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);     external;

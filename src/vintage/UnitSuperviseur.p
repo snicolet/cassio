@@ -978,8 +978,8 @@ begin
 end;
 
 procedure Calcul_position_centre(plat : plateauOthello);
-var Ysomme,Xsomme : double_t;
-    SigmaPoids,poids : double_t;
+var Ysomme,Xsomme : double;
+    SigmaPoids,poids : double;
     x1,y1,x2,y2 : SInt16;
     i,x : SInt16;
     caseOccupee : boolean;
@@ -1330,7 +1330,7 @@ end;
 
 
 function Elagage_a_priori(couleur,nbBla,nbNoi : SInt16; jeu : plateauOthello; var class : ListOfMoveRecords; longClass : SInt16) : SInt16;
-var PourcentageElagage : double_t ;
+var PourcentageElagage : double ;
     i,t : SInt16;
     index : SInt16;
     xcourant,defense : SInt16;

@@ -16,7 +16,7 @@ procedure edmond_release_coefficients;     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEvalInteger; var tranquillesNoirs,tranquillesBlancs : ListeDeCases; alpha,beta : SInt32) : SInt32;     external;
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;     external;
 procedure TraiteOneEvenement;     external;

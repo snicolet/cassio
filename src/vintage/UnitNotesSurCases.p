@@ -842,7 +842,7 @@ var theRect : rect;
     retrecissement : SInt32;
     largeurMax : SInt32;
     largeurActuelle : SInt32;
-    facteurEchelle : double_t;
+    facteurEchelle : double;
 begin
   theRect := GetBoundingRectOfSquare(whichSquare);
 

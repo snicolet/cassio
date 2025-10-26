@@ -57,6 +57,6 @@ procedure DisposePositionEtTraitSet(var S : PositionEtTraitSet);     external;
 function SetClefHashageGlobale(whichValue : SInt32) : SInt32;     external;
 function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;     external;
 procedure TesterClefHashage(valeurCorrecte : SInt32; nomFonction : String255);     external;
-procedure WriteStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function PositionEtTraitAfterMoveNumberAlpha(game : String255; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;     external;
 procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt32; var S : PositionEtTraitSet);     external;

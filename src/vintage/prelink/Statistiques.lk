@@ -29,7 +29,7 @@ function QDGetPortBound : rect;     external;
 procedure ExtraitPremierCoup(var premierCoup : SInt16; var autreCoupQuatreDiag : boolean);     external;
 procedure TransposeCoupPourOrientation(var whichSquare : SInt16; autreCoupQuatreDiagonal : boolean);     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
-  function ReelEnStringRapide(unreel : double_t) : String255;     external;
+  function ReelEnStringRapide(unreel : double) : String255;     external;
 function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;     external;
 function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;     external;
 procedure DessineBoiteDeTaille(whichWindow : WindowPtr);     external;

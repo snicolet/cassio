@@ -28,7 +28,7 @@ function ABFinBitboardFastestFirst(nroThread : SInt32; var position : bitboard; 
 function ABFinBitboardFastestFirstAvecETC(nroThread : SInt32; var position : bitboard; ESprof,alpha,beta,diffPions,vecteurParite : SInt32; listeBitboard : UInt32; hash_table : BitboardHashTable) : SInt32;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
 function NumberOfBitHashMutexLocksInUse : SInt32;     external;
 function StringEnCoup(const s : String255) : SInt16;     external;

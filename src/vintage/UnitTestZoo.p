@@ -76,7 +76,7 @@ var lesCasesInterdites : SquareSet;
     partie60 : PackedThorGame;
     ouverturesDejaGenerees : StringSet;
     compteur, nbCoupsDemandes, nbPosEvaluees, ticks, temps : SInt32;
-    vitesse : double_t;
+    vitesse : double;
 begin
 
   if CassioEstEnBenchmarkDeMilieu

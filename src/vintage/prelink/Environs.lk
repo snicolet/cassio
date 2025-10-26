@@ -45,7 +45,7 @@ function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;
 function CassioEstEnModeTournoi : boolean;     external;
 procedure SwitchToEngine(whichChannel : SInt16);     external;
 function CanStartEngine(pathMac, arguments : String255) : boolean;     external;
-procedure Wait(secondes : double_t);     external;
+procedure Wait(secondes : double);     external;
 	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function LoadFont(fontFSSpec : FSSpec) : OSErr;     external;

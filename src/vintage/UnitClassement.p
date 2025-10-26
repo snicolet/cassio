@@ -50,7 +50,7 @@ USES
 type InfosClassementJoueurRec =
        record
          cumulPartie : SInt32;   { nombre de parties jouees par le joueur jusqu'a cette annee-la }
-         classment : double_t;
+         classment : double;
        end;
 
 var InfosClassement : array[0..0] of InfosClassementJoueurRec;  {une entree pour chaque annee active de chaque joueur}

@@ -43,7 +43,7 @@ function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;
   function EndsWith(const s : String255; const sub : String255) : boolean;     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;     external;

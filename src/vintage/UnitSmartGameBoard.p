@@ -284,9 +284,9 @@ begin
   LitArgumentOfPropertyEnTriple := aux;
 end;
 
-function LitArgumentOfPropertyEnReel : double_t;
+function LitArgumentOfPropertyEnReel : double;
 var s : String255;
-    r : double_t;
+    r : double;
 begin
   s := LitArgumentOfPropertyEnChaine(true);
   r := StringSimpleEnReel(s);
@@ -350,7 +350,7 @@ function ReadOthelloValueProperty(genre : SInt16; avecRedressement : boolean) : 
 var s,s1,appName,version : String255;
     couleur,signe : SInt16;
     integerValue,centiemes : SInt32;
-    realValue : double_t;
+    realValue : double;
 begin
   s := LitArgumentOfPropertyEnChaine(true);
   s1 := s;

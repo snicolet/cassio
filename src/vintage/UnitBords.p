@@ -33,7 +33,7 @@ INTERFACE
 
 
 	{ Une table de bords simpliste, codee à la main (obsolete) }
-	procedure Initialise_valeurs_bords(TendanceAuBeton : double_t);
+	procedure Initialise_valeurs_bords(TendanceAuBeton : double);
 	  {  TendanceAuBeton = 0   : neutre  }
 	  {  TendanceAuBeton = 1.0 : Cassio bétonne  }
 	  {  TendanceAuBeton = -1.0 : Cassio refuse les bords  }
@@ -163,7 +163,7 @@ procedure EcritStatistiquesDeBordsABLocal;
 var i,bord,essais,coupures,square : SInt32;
     nbtrous,nbamis,nbennemis : SInt32;
     chaine : t_code_pattern;
-    ratio : double_t;
+    ratio : double;
 begin
   WritelnDansRapport('Statistiques des AB locaux : ');
   for i := 0 to longueur_liste_assoc_turbulence_bord_AB_local-1 do
@@ -1113,7 +1113,7 @@ end;  { Initialise_turbulence_bords }
 
 
 
-procedure Initialise_valeurs_bords(TendanceAuBeton : double_t);
+procedure Initialise_valeurs_bords(TendanceAuBeton : double);
   {  TendanceAuBeton = 0   : neutre  }
   {  TendanceAuBeton = 1.0 : Cassio bétonne  }
   {  TendanceAuBeton = -1.0 : Cassio refuse les bords  }

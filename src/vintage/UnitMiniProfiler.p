@@ -203,7 +203,7 @@ end;
 
 
 procedure AfficheMiniProfilerDansRapport(affichage : SInt32);
-var tempsTotal,tempsLocal : double_t;
+var tempsTotal,tempsLocal : double;
     i,j : SInt32;
     remplie : boolean;
 begin

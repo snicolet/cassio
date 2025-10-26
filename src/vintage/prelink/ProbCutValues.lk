@@ -18,7 +18,7 @@ procedure SetValeurDansPointMultidimensionnel(var p : PointMultidimensionnel; va
 procedure CombinaisonLineairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel; lambda1,lambda2 : TypeReel; var resultat : PointMultidimensionnel);     external;
 procedure DiffPointMultidimensionnel(var p1,p2,resultat : PointMultidimensionnel);     external;
 procedure MomentsOfPointMultidimensionnel(var data : PointMultidimensionnel; nData : SInt32; var moyenne, deviationAbsolueMoyenne, standardDeviation, variance, skewness, kurtosis : TypeReel);     external;
-  function RealToLongint(r : double_t) : SInt32;     external;
+  function RealToLongint(r : double) : SInt32;     external;
 procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);     external;
 procedure HLockAllProfsDansDansTableOfMoveRecordsLists;     external;
 procedure HUnlockAllProfsDansDansTableOfMoveRecordsLists;     external;

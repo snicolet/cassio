@@ -19,5 +19,5 @@ function GetScreenBounds : rect;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 procedure AlerteSimple(texte : String255);     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
-	function MyTrunc(x : double_t) : SInt32;     external;
+	function MyTrunc(x : double) : SInt32;     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;

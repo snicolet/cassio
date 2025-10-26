@@ -741,7 +741,7 @@ var platEssai : plOthEndgame;
     numeroDePasse : SInt32;
     filsEvalue : array[1..64] of boolean;
     IDUniqueDeCeNoeud : SInt32;
-    tempsCalculZoo : double_t;
+    tempsCalculZoo : double;
 
 
 procedure LiberePlacesHashTableExacte(nroPremierFils,nroDernierFils : SInt32);
@@ -1692,7 +1692,7 @@ end;
 
 procedure CalculerLaNoteCouranteDeCeFils;
 var valeurParLeZoo, bestSuiteZoo, k : SInt32;
-    tempsZoo : double_t;
+    tempsZoo : double;
     indexMu, numeroArret: SInt32;
 begin
 
@@ -1977,7 +1977,7 @@ procedure EssayerDeParalliserCesFilsSurLeZoo(numPremierFils,numDernierFils : SIn
 var i, foo : SInt32;
     tempsEstimeDeCeFils : TypeReel;  {en secondes}
     nbFilsEnvoyesAuZoo : SInt32;
-    fooDouble : double_t;
+    fooDouble : double;
     InfosMilieuFils : InfosMilieuRec;
     platFils : plateauOthello;
     nbEvalRecursives : SInt32;
@@ -2150,7 +2150,7 @@ end;
 procedure VerifierLeParallelismeDuZoo;
 var foo : SInt32;
     facteur : TypeReel;
-    fooDouble : double_t;
+    fooDouble : double;
 begin
   with liaisonArbreZoo do
     begin
@@ -5353,7 +5353,7 @@ end;
 procedure MetInfosTechniquesDansRapport;
 var s,s1,s2,s3 : String255;
     nbMinutes,aux : SInt32;
-    fractionSequentielle,maximumSpeedUp : double_t;
+    fractionSequentielle,maximumSpeedUp : double;
 begin
 
   Discard2(fractionSequentielle,maximumSpeedUp);
@@ -8656,7 +8656,7 @@ END;  {MinimaxFinale}
 
 function Algo_Directionnel(quelleValeurCible,coulPourMeilleurFin,nbbl,nbno : SInt32; jeu : plateauOthello; trierAvecLeTemps : boolean; var meilleurX : SInt32) : SInt32;
 var precision, profondeurAffichee : SInt32;
-    divergence, nbNoeudsEnFlottant : double_t;
+    divergence, nbNoeudsEnFlottant : double;
 begin
 
   with variablesMakeEndgameSearch, paramMakeEndgameSearch, paramMakeEndgameSearch.outResult do

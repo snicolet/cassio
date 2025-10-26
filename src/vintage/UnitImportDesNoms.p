@@ -26,7 +26,7 @@ function TrouveSousChaineDeCeNomDeJoueurDansLaBaseThor(const nomJoueur : String2
 function PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos,pseudoPGN : String255) : String255;
 function PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; strict : boolean; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
 function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : String255; var nomDansThor : String255; var numeroDansThor : SInt64) : boolean;
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double) : boolean;
 function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt64; nomDictionnaireDesPseudos : String255) : boolean;
 
 
@@ -682,7 +682,7 @@ begin
 end;
 
 
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double_t) : boolean;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt64; longueurMinimaleUnPseudo : SInt64; var qualiteSolution : double) : boolean;
 const kNbMaxChaines = 30;
       kSegmentNonCherche = -2;
       nomDictionnaireDesPseudos = 'name_mapping_VOG_to_WThor.txt';
@@ -704,7 +704,7 @@ var nbJoueursTrouves : SInt64;
     termine,bidon : boolean;
     memoisation : array[0..kNbMaxChaines,0..kNbMaxChaines] of SInt64;
     theParsingCaracters : SetOfChar;
-    confiance : double_t;
+    confiance : double;
     numeroNoirBestSolution : SInt64;
     numeroBlancBestSolution : SInt64;
 
@@ -931,7 +931,7 @@ var nbJoueursTrouves : SInt64;
   end;
 
 
-  function TrouverNomsAvecCeParsingSet(parsingCaracters : SetOfChar; var confiance : double_t) : boolean;
+  function TrouverNomsAvecCeParsingSet(parsingCaracters : SetOfChar; var confiance : double) : boolean;
   var i,j,k : SInt64;
       aux : String255;
   begin
@@ -1092,7 +1092,7 @@ var nbJoueursTrouves : SInt64;
   end;
 
 
-  procedure ComparerCetteSolutionALaMeilleure(confianceCetteSolution : double_t; nroNoirCetteSolution,nroBlancCetteSolution : SInt64);
+  procedure ComparerCetteSolutionALaMeilleure(confianceCetteSolution : double; nroNoirCetteSolution,nroBlancCetteSolution : SInt64);
   begin
     if (confianceCetteSolution > qualiteSolution) then
       begin
@@ -2636,7 +2636,7 @@ procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT
 var s, s1, s2, s3, s4, s5, reste : String255;
     expected1, expected2 : String255;
     nroNoir, nroBlanc : SInt64;
-    confiance : double_t;
+    confiance : double;
     reussi : boolean;
     foo : boolean;
 begin

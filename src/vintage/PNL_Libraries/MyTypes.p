@@ -202,7 +202,7 @@ INTERFACE
 
 
     {TypeReel = float_t;}  {single precision (4 bytes) on PPC}
-     TypeReel = double_t;  {double precision (8 bytes) on PPC}
+     TypeReel = double;  {double precision (8 bytes) on PPC}
 
 
     TypeReelArray = array[0..40] of TypeReel;

@@ -1021,9 +1021,9 @@ end;
 
 function TrouveCoupDansGrapheApprentissage(const partieStr : String255; var coup : SInt16) : boolean;
 var filsJouables:listeDeProbas;
-    sommeProbas,alea : double_t;
+    sommeProbas,alea : double;
     i : SInt16;
-    SommesPartielles : array[0..64] of double_t;
+    SommesPartielles : array[0..64] of double;
 begin
 
   TrouveCoupDansGrapheApprentissage := false;

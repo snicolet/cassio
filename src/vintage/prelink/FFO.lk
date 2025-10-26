@@ -26,7 +26,7 @@ function PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo : Stri
   procedure Parser3(s : String255; var s1,s2,s3,reste : String255);     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
-function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double_t) : boolean;     external;
+function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double) : boolean;     external;
 function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;     external;
 procedure AddStringToSet(const theString : String255; data : SInt32; var S : StringSet);     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;
@@ -87,10 +87,10 @@ function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr)
 function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;     external;
 function ReadEnregistrementDansFichierAbstraitSGF_ou_GGF(var theFile : FichierAbstrait; whichFormat : formats_connus; var result : PartieFormatGGFRec) : OSErr;     external;
 function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;     external;
-function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double_t) : boolean;     external;
+function TrouverPartieEtJoueursDansChaine(chaine : String255; var partieEnAlpha : String255; var numeroJoueur1,numeroJoueur2 : SInt32; var qualiteSolution : double) : boolean;     external;
 procedure FermerFichierEtFabriquerFichierAbstrait(var fic : FichierTEXT; var theFile : FichierAbstrait);     external;
 function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt32; nomDictionnaireDesPseudos : String255) : boolean;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : FichierTEXT; var theFile : FichierAbstrait);     external;
 procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;

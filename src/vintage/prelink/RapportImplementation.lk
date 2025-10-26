@@ -25,7 +25,7 @@ function GetWindowPortRect(window : WindowPtr) : rect;     external;
 function TEGetViewRect(text : TEHandle) : rect;     external;
 procedure TESetViewRect(text : TEHandle; theRect : rect);     external;
 procedure TESetDestRect(text : TEHandle; theRect : rect);     external;
-	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double_t;     external;
+	function MicrosecondesToSecondes(microTicks : UnsignedWide) : double;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 	function EstUnAscenseurAvecDoubleScroll(theScroller : ControlHandle; var contourAscenseurRect, regionGriseeRect : rect; var estHorizontal : boolean) : boolean;     external;
 	function SmartScrollEstInstalle(theScroller : ControlHandle; var proportion : fixed) : boolean;     external;

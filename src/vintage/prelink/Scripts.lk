@@ -59,7 +59,7 @@ function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSEr
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
 function ParsePositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;     external;
 function DoPlaquerPositionAndMakeEndgameSolve(var positionEtTrait : PositionEtTraitRec; endgameSolveFlags : SInt32; var solveResults : MakeEndgameSearchResultRec) : SInt32;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;
   function SecondesEnJoursHeuresSecondes(secondes : SInt32) : String255;     external;

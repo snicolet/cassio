@@ -14,7 +14,7 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure DessinePionSpecial(rectangle2D,dest : rect; quelleCase,valeurPion : SInt16; texte : String255; use3D : boolean);     external;
 procedure AlerteSimple(texte : String255);     external;
-  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double_t);     external;
+  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double);     external;
 	function CentreDuRectangle(theRect : rect) : Point;     external;
 	procedure DessineLigne(source,dest : Point);     external;
 function GetPackedSquareSetOfProperty(prop : Property) : PackedSquareSet;     external;

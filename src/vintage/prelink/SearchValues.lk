@@ -1,1 +1,1 @@
-function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double_t) : double_t;     external;
+function ProofNumberMapping(v,valeurCible : SInt32; facteurExponentiel : double) : double;     external;

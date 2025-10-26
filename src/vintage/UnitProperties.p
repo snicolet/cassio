@@ -36,7 +36,7 @@ function TypeCastingPourCeStockage(stockage : SInt16) : boolean;
 function MakeEmptyProperty : Property;
 function MakeProperty(QuelGenre : SInt16; QuelleTaille : Size; quellesInfos : Ptr; quelStockage : SInt16) : Property;
 function MakeLongintProperty(whichType : SInt16; whichLong : SInt32) : Property;
-function MakeRealProperty(whichType : SInt16; whichReal : double_t) : Property;
+function MakeRealProperty(whichType : SInt16; whichReal : double) : Property;
 function MakeStringProperty(whichType : SInt16; whichString : String255) : Property;
 function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;
 function MakeOthelloSquareAlphaProperty(whichType : SInt16; whichSquare : SInt16) : Property;
@@ -57,7 +57,7 @@ function MakeQuintupletProperty(whichType : SInt16; whichLong : SInt32; b0,b1,b2
 
 {fonctions d'acces aux infos des proprietes sur les types de base}
 function GetLongintInfoOfProperty(prop : Property) : SInt32;
-function GetRealInfoOfProperty(prop : Property) : double_t;
+function GetRealInfoOfProperty(prop : Property) : double;
 function GetStringInfoOfProperty(prop : Property) : String255;
 function GetOthelloSquareOfProperty(prop : Property) : SInt16;
 function GetOthelloSquareOfPropertyAlpha(prop : Property) : SInt16;
@@ -82,7 +82,7 @@ procedure GetQuintupletOfProperty(prop : Property; var theLong : SInt32; var b0,
 
 {fonctions de changement de l'info d'une propriete}
 procedure SetLongintInfoOfProperty(var prop : Property; n : SInt32);
-procedure SetRealInfoOfProperty(var prop : Property; r : double_t);
+procedure SetRealInfoOfProperty(var prop : Property; r : double);
 procedure SetStringInfoOfProperty(var prop : Property; s : String255);
 procedure SetOthelloSquareOfProperty(var prop : Property; coup : SInt16);
 procedure SetOthelloSquareOfPropertyAlpha(var prop : Property; coup : SInt16);
@@ -502,11 +502,11 @@ begin
     end;
 end;
 
-function MakeRealProperty(whichType : SInt16; whichReal : double_t) : Property;
-var r : double_t;
+function MakeRealProperty(whichType : SInt16; whichReal : double) : Property;
+var r : double;
 begin
   r := whichReal;
-  MakeRealProperty := MakeProperty(whichType,sizeof(double_t),@whichReal,StockageEnReal);
+  MakeRealProperty := MakeProperty(whichType,sizeof(double),@whichReal,StockageEnReal);
 end;
 
 
@@ -813,8 +813,8 @@ begin
   GetLongintInfoOfProperty := prop.taille;  {attention : type casting, cf MakeLongintProperty}
 end;
 
-function GetRealInfoOfProperty(prop : Property) : double_t;
-type ExtendedPtr =  ^double_t;
+function GetRealInfoOfProperty(prop : Property) : double;
+type ExtendedPtr =  ^double;
 var aux : ExtendedPtr;
 begin
  if (prop.info <> NIL)
@@ -928,7 +928,7 @@ end;
 procedure GetOthelloValueOfProperty(prop : Property; var whichColor,whichSign,whichIntegerValue,centiemes : SInt16);
 var theChar,oldStockage : SInt16;
     valueString : String255;
-    realValue : double_t;
+    realValue : double;
     s : String255;
 begin
   oldStockage := prop.stockage;
@@ -1183,12 +1183,12 @@ begin
   prop.taille := n;
 end;
 
-procedure SetRealInfoOfProperty(var prop : Property; r : double_t);
+procedure SetRealInfoOfProperty(var prop : Property; r : double);
 begin
   with prop do
     if (stockage = StockageEnReal) then
 	    begin
-	      taille := sizeof(double_t);
+	      taille := sizeof(double);
 	      if info <> NIL then MoveMemory(@r,info,taille);
 	    end;
 end;

@@ -61,8 +61,8 @@ function GetLegendeSousLeDiagrammeCourant : String255;
 function PeutOuvrirFichierEPSPourPressePapier(var fic : FichierTEXT) : OSErr;
 procedure FermerFichierEPSPourPressePapier;
 
-function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double_t;
-function CalculateScaleFactorForDiscsInEPSDiagram : double_t;
+function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;
+function CalculateScaleFactorForDiscsInEPSDiagram : double;
 
 procedure SetFichierPourDiagrammeEPS(const fichierEPS : FichierTEXT);
 procedure SetNomsFichiersPostscriptPressePapier(EPSfilename, PDFfilename : String255);
@@ -377,11 +377,11 @@ end;
 
 
 
-function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double_t;
+function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;
 var ll, ur : Point;
-    largeurPostscript, hauteurPostscript : double_t;
-    scale_x, scale_y, scale : double_t;
-    arrondi_h, arrondi_v : double_t;
+    largeurPostscript, hauteurPostscript : double;
+    scale_x, scale_y, scale : double;
+    arrondi_h, arrondi_v : double;
 begin
 
 
@@ -453,9 +453,9 @@ begin
 end;
 
 
-function CalculateScaleFactorForDiscsInEPSDiagram : double_t;
-var scale : double_t;
-    rapportDesCases, retrecissementAEchelle : double_t;
+function CalculateScaleFactorForDiscsInEPSDiagram : double;
+var scale : double;
+    rapportDesCases, retrecissementAEchelle : double;
 begin
   scale := 1.0000;
 
@@ -996,13 +996,13 @@ end;
 
 
 
-procedure TranslatePourPostScript(decX,decY : double_t);
+procedure TranslatePourPostScript(decX,decY : double);
 begin
 	SendPostscript(Concat(ReelEnString(decX), ' ', ReelEnString(decY), ' translate'));
 end;
 
 
-procedure UnTranslatePourPostScript(decX,decY : double_t);
+procedure UnTranslatePourPostScript(decX,decY : double);
 begin
 	SendPostscript(Concat(ReelEnString(-decX), ' ', ReelEnString(-decY), ' translate'));
 end;
@@ -1093,7 +1093,7 @@ end;
 function HauteurDiagrammeFFORUM : SInt16;
 	var
 		decalageH, decalageV : SInt16;
-		blancSousLeDiagramme : double_t;
+		blancSousLeDiagramme : double;
 begin
 
 	CalculeDecalagesDiagrammeFFORUM(decalageH, decalageV);
@@ -1203,7 +1203,7 @@ procedure ConstruitOthellierPicture;
 		s : String255;
 		theForeColor : RGBColor;
 		foorect : Rect;
-		scaleForEPS, scaleForDiscs : double_t;
+		scaleForEPS, scaleForDiscs : double;
 		err : OSErr;
 		{sortieStandard : FichierTEXT;}
 begin
@@ -2615,7 +2615,7 @@ function DoDiagrammeFFORUM(ParametreTexte: String255; const chainePositionInitia
 		myFontID : SInt32;
 
 		tailleCaseArrivee : SInt16;
-		epaisseurCadreArrivee : double_t;
+		epaisseurCadreArrivee : double;
 		distanceCadreArrivee : SInt16;
 		CoordonneesArrivee : boolean;
 		TraitsFinsArrivee : boolean;
@@ -2635,7 +2635,7 @@ function DoDiagrammeFFORUM(ParametreTexte: String255; const chainePositionInitia
 		CouleurRGBOthellierArrivee : RGBColor;
 
 		tailleCaseDessinee : SInt16;
-		epaisseurCadreDessinee : double_t;
+		epaisseurCadreDessinee : double;
 		distanceCadreDessinee : SInt16;
 		CoordonneesDessinee : boolean;
 		TraitsFinsDessinee : boolean;

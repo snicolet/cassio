@@ -37,7 +37,7 @@ type ToutesRondesRec = record
                           settings                       : TournoiSettingsRec;
                           indexParticipant               : array[0..kNombreMaxJoueursDansLeTournoi] of SInt32;
                           nroEngineParticipant           : array[0..kNombreMaxJoueursDansLeTournoi] of SInt32;
-                          scoreParticipant               : array[0..kNombreMaxJoueursDansLeTournoi] of double_t;
+                          scoreParticipant               : array[0..kNombreMaxJoueursDansLeTournoi] of double;
                           tableauTouteRonde              : array[0..kNombreMaxJoueursDansLeTournoi] of SInt32;
                           ouverture                      : OuvertureRec;
                           ouverturesDejaJouees           : StringSet;

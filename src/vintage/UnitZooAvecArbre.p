@@ -38,7 +38,7 @@ function FindHashDansListeDesRequetesDuZoo(whichHash : UInt64; var index : SInt3
 function GetScoreOfRequeteDuZoo(whichHash : UInt64) : SInt32;
 function GetStatutOfRequeteDuZoo(whichHash : UInt64) : SInt32;
 function GetProfOfRequeteDuZoo(whichHash : UInt64) : SInt32;
-function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double_t;
+function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double;
 
 
 { date (timestamp unix du serveur free) du dernier resultat calculŽ par le zoo }
@@ -53,8 +53,8 @@ procedure DetruireListeDesCoupsPourLeZoo(prof : SInt32);
 procedure EnvoyerCeFilsAuZoo(prof,whichMove,alpha,beta,deltaFinal : SInt32);
 procedure RetirerCeFilsDuZoo(prof,whichMove : SInt32);
 procedure CassioPrendEnChargeLuiMemeCeFilsDuZoo(prof,whichMove : SInt32);
-procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double_t);
-function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double_t) : SInt32;
+procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double);
+function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double) : SInt32;
 function GetNombreDeFilsParallelisesPourCetteProf(prof : SInt32) : SInt32;
 function FindFilsAvecCeHash(prof : SInt32; hash : UInt64; var numeroFils : SInt32) : boolean;
 function PasseApresCeFilsDuZoo(const paramsDuFils : MakeEndgameSearchParamRec) : boolean;
@@ -397,7 +397,7 @@ begin
 end;
 
 
-function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double_t;
+function GetTimeTakenOfRequeteDuZoo(whichHash : UInt64) : double;
 var index : SInt32;
 begin
   if FindHashDansListeDesRequetesDuZoo(whichHash, index)
@@ -484,7 +484,7 @@ var index,numeroFils, profPere : SInt32;
     myScore, bestMove : SInt32;
     coupDuFils : SInt32;
     pos : plateauOthello;
-    timeTaken : double_t;
+    timeTaken : double;
 begin
   Discard(pos);
 
@@ -602,7 +602,7 @@ procedure MarquerLaRequeteDuZooCommeEtantEnCharge(const searchParam : MakeEndgam
 var index,numeroFils, profPere : SInt32;
     valeurConnue, bestMove : SInt32;
     pos : plateauOthello;
-    timeTaken : double_t;
+    timeTaken : double;
 begin
   Discard(pos);
 
@@ -686,7 +686,7 @@ procedure MarquerLaRequeteDuZooCommeNEtantPlusEnCharge(const searchParam : MakeE
 var index,numeroFils, profPere : SInt32;
     valeurConnue, bestMove : SInt32;
     pos : plateauOthello;
-    timeTaken : double_t;
+    timeTaken : double;
 begin
   Discard(pos);
 
@@ -1106,7 +1106,7 @@ begin
 end;
 
 
-function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double_t) : SInt32;
+function GetValeurZooDeCeFils(prof,whichMove : SInt32; var bestSuite : SInt32; var timeTaken : double) : SInt32;
 var k : SInt32;
 begin
   GetValeurZooDeCeFils := k_ZOO_NOT_INITIALIZED_VALUE;
@@ -1129,7 +1129,7 @@ begin
 end;
 
 
-procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double_t);
+procedure SetValeurZooDeCeFils(prof,whichMove,whichScore,bestSuite : SInt32; timeTaken : double);
 var k : SInt32;
 begin
   if (prof >= 0) and (prof <= 64) then

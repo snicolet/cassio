@@ -23,7 +23,7 @@ procedure AffichePotentiels;
 procedure UpdatePotentiels(whichPlat : plateauOthello; whichColor : SInt16);
 
 function VincenzPenseQueCEstUnTresMauvaisCoup(whichSquare : SInt16; whichPos : PositionEtTraitRec) : boolean;
-function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double_t;
+function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double;
 
 {simulation du program Perl "Vincenz" de Jakub Tesinsky}
 function ChoixDeVincenz(positionEtTrait : PositionEtTraitRec; degreMinimisation : SInt16; doitChercherDefense : boolean) : VincenzMoveRec;
@@ -172,8 +172,8 @@ procedure UpdatePotentiels(whichPlat : plateauOthello; whichColor : SInt16);
 var nbPionsRetournes,nbHits,nbVides : SInt32;
     t,whichSquare,minimisation : SInt32;
     whichPos,posAux : PositionEtTraitRec;
-    evalPos,evalOfSquare,coeffMinimisation : double_t;
-    deltaPotentiel,oldPotentiel : double_t;
+    evalPos,evalOfSquare,coeffMinimisation : double;
+    deltaPotentiel,oldPotentiel : double;
     debug,rapportLog : boolean;
 
 
@@ -340,9 +340,9 @@ end;
 
 
 
-function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double_t;
+function EffectueMoveEtCalculePotentielVincenz(var whichPos : PositionEtTraitRec; whichSquare,degreMinimisation : SInt16) : double;
 var nbPionsRetournes,nbVides : SInt16;
-    value,coeffMinimisation : double_t;
+    value,coeffMinimisation : double;
     mauvaisCoup : boolean;
 begin
 
@@ -374,7 +374,7 @@ end;
 
 function ChoixDeVincenz(positionEtTrait : PositionEtTraitRec; degreMinimisation : SInt16; doitChercherDefense : boolean) : VincenzMoveRec;
 var square,t,nbCoupsMemeNote : SInt16;
-    maxval,value : double_t;
+    maxval,value : double;
     newPos : PositionEtTraitRec;
     result : VincenzMoveRec;
 begin

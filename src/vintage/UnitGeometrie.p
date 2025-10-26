@@ -25,7 +25,7 @@ INTERFACE
   function CenterRectInRect(original,bigRect : rect) : rect;
 	procedure DragLine(whichWindow : WindowPtr; orientation : SInt16; UtiliseHiliteMode : boolean; minimum, maximum, step : SInt32; var positionSouris, index : SInt32; Action : ProcedureTypeWithLongint);
 	procedure DessineLigne(source,dest : Point);
-  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double_t);
+  procedure DessineFleche(source,dest : Point; longueur_max_pointe : double);
 
 	function BoutonAppuye(whichWindow : WindowPtr; Rectangle : rect) : boolean;
 
@@ -107,7 +107,7 @@ end;
 
 { renvoie true si M est a droite de la droite M1,M2}
 function  ADroite(x1,y1,x2,y2,xM,yM : SInt32) : boolean;
-var dx,dy : double_t;
+var dx,dy : double;
 begin
   dx := x1-x2;
   dy := y1-y2;
@@ -117,7 +117,7 @@ end;
 
 {renvoie dans x,y l'Intersection des droites (A1,A2) et (B1,B2)}
 procedure Intersection(xA1,yA1,xA2,yA2,XB1,yB1,xB2,YB2 : SInt32; var x,y : SInt32);
-var dxA,dyA,dxB,dyB,A,B,delta : double_t;
+var dxA,dyA,dxB,dyB,A,B,delta : double;
 begin
   dxA := xA1-xA2;
   dyA := yA1-yA2;
@@ -141,7 +141,7 @@ end;
 
 
 {on renvoye A + u(B-A)}
-function InterpolerExtended(A,B : double_t;u : double_t) : double_t;
+function InterpolerExtended(A,B : double;u : double) : double;
 begin
   InterpolerExtended := A + u*(B-A);
 end;
@@ -150,9 +150,9 @@ end;
   rectA = le 0-ieme rectangle
   rectB = le n-ieme rectangle }
 function InterpolerRectangles(rectA,rectB : rect; n,k : SInt32) : rect;
-var xMilA,yMilA,xMilB,yMilB,xMilRes,yMilRes : double_t;
-    largA,largB,hautA,hautB,hautRes,largRes : double_t;
-    ratio : double_t;
+var xMilA,yMilA,xMilB,yMilB,xMilRes,yMilRes : double;
+    largA,largB,hautA,hautB,hautRes,largRes : double;
+    ratio : double;
     result : rect;
 begin
 
@@ -385,10 +385,10 @@ begin
   Lineto(dest.h,dest.v);
 end;
 
-procedure DessineFleche(source,dest : Point; longueur_max_pointe : double_t);
-var x,y,theta : double_t;
-    angle_pointe_fleche : double_t;
-    longueur_pointe_fleche : double_t;
+procedure DessineFleche(source,dest : Point; longueur_max_pointe : double);
+var x,y,theta : double;
+    angle_pointe_fleche : double;
+    longueur_pointe_fleche : double;
     x0,y0 : SInt32;
 begin
 

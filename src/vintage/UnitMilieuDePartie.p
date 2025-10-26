@@ -120,18 +120,18 @@ var coulPourMeilleurMilieu,coulDefense:-1..1;
     doitSeDepecher : boolean;
     defense : SInt32;
     MFniv : SInt32;
-    rapidite,divergence : double_t;
-    coeffMultiplicateur : double_t;
+    rapidite,divergence : double;
+    coeffMultiplicateur : double;
     hesitationSurLeBonCoup,vraimentTresFacile : boolean;
-    nbFeuillesCetteProf : double_t;
+    nbFeuillesCetteProf : double;
     nbToursFeuillesCetteProf : SInt32;
     sortieBoucleProfIterative : boolean;
     StatistiquesSurLesCoups : array[0..kNbMaxNiveaux] of
                                      record
                                        teteDeListe : SInt32;  {coup en tete ˆ ce niveau}
-                                       nbFeuillesTeteDeListe : double_t;
-                                       nbFeuillesTotalCetteProf : double_t;
-                                       tempsCetteProf : double_t;
+                                       nbFeuillesTeteDeListe : double;
+                                       nbFeuillesTotalCetteProf : double;
+                                       tempsCetteProf : double;
                                      end;
     rechercheDejaAnnoncee : boolean;
     nbCoupRecherche : SInt32;
@@ -253,7 +253,7 @@ begin
 end;
 
 
-procedure CollecteStatistiques(prof : SInt32; var classement : ListOfMoveRecords; nbFeuillesCetteProf,tempsDeCetteProf,tempsTotal : double_t);
+procedure CollecteStatistiques(prof : SInt32; var classement : ListOfMoveRecords; nbFeuillesCetteProf,tempsDeCetteProf,tempsTotal : double);
 var s, s2 : String255;
     precision, empties : SInt32;
     numeroEngine : SInt32;
@@ -333,7 +333,7 @@ function CoupFacile(var classement : ListOfMoveRecords; longClass : SInt32; var 
 var i,nbNiveauxTermines,coupEnTeteDernierNiveau : SInt32;
     memeCoupEnTeteDernierNiveauEtPrec,testCoupFacile : boolean;
     rapportDeuxiemeSurTete : SInt32;
-    nbFeuillesDeuxieme : double_t;
+    nbFeuillesDeuxieme : double;
     profmax : SInt32;
     numEngine : SInt32;
 begin
@@ -415,7 +415,7 @@ var XCourant : SInt32;
     betaAB,bestAB : SInt32;
     DefCoup : SInt32;
     tickChrono,TempsDeXCourant : SInt32;
-    nbreFeuillesDeXCourant : double_t;
+    nbreFeuillesDeXCourant : double;
     nbreToursFeuillesDeXCourant : SInt32;
     sauvegardeValeursTactiquesNoir,sauvegardeValeursTactiquesBlanc : platValeur;
     ValeurDeGauche : SInt32;

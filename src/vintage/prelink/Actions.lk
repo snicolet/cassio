@@ -75,7 +75,7 @@ procedure Heure(couleur : SInt16);     external;
 procedure AfficheScore;     external;
 procedure ReinitilaliseInfosAffichageReflexion;     external;
 procedure EffaceReflexion(effacerAussiLeRuban : boolean);     external;
-procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double_t; prof,suivante : SInt16);     external;
+procedure SetValeursGestionTemps(alloue,effectif,prevu : SInt32; divergence : double; prof,suivante : SInt16);     external;
 procedure AfficheDemandeCoup;     external;
 function CalculePhasePartie(numeroCoup : SInt16) : SInt16;     external;
 procedure Initialise_table_heuristique(jeu : plateauOthello; debug : boolean);     external;

@@ -21,11 +21,11 @@ function InitialiseSearchResult : SearchResult;
 
 
 procedure SetMinimaxValueInResult(value : SInt32; var myResult : SearchResult);
-procedure SetProofNumberInResult(proof : double_t; var myResult : SearchResult);
-procedure SetDisproofNumberInResult(disproof : double_t; var myResult : SearchResult);
+procedure SetProofNumberInResult(proof : double; var myResult : SearchResult);
+procedure SetDisproofNumberInResult(disproof : double; var myResult : SearchResult);
 function GetMinimaxValueOfResult(const myResult : SearchResult) : SInt32;
-function GetProofNumberOfResult(const myResult : SearchResult) : double_t;
-function GetDisproofNumberOfResult(const myResult : SearchResult) : double_t;
+function GetProofNumberOfResult(const myResult : SearchResult) : double;
+function GetDisproofNumberOfResult(const myResult : SearchResult) : double;
 procedure SetProofAndDisproofNumberFromHeuristicValue(midgameValue : SInt32; var result : SearchResult);
 
 
@@ -98,29 +98,29 @@ begin
 end;
 
 
-procedure SetProofNumberInResult(proof : double_t; var myResult : SearchResult);
+procedure SetProofNumberInResult(proof : double; var myResult : SearchResult);
 begin
   myResult.proofNumber := proof;
 end;
 
-procedure SetDisproofNumberInResult(disproof : double_t; var myResult : SearchResult);
+procedure SetDisproofNumberInResult(disproof : double; var myResult : SearchResult);
 begin
   myResult.disproofNumber := disproof;
 end;
 
-function GetProofNumberOfResult(const myResult : SearchResult) : double_t;
+function GetProofNumberOfResult(const myResult : SearchResult) : double;
 begin
   GetProofNumberOfResult := myResult.proofNumber;
 end;
 
-function GetDisproofNumberOfResult(const myResult : SearchResult) : double_t;
+function GetDisproofNumberOfResult(const myResult : SearchResult) : double;
 begin
   GetDisproofNumberOfResult := myResult.disproofNumber;
 end;
 
 
 procedure SetProofAndDisproofNumberFromHeuristicValue(midgameValue : SInt32; var result : SearchResult);
-var PN,DN : double_t;
+var PN,DN : double;
 begin
   quantumProofNumber            := 0.0;
   exponentialMappingProofNumber := 0.07;
@@ -262,7 +262,7 @@ end;
 
 function ReverseResult(const result : SearchResult) : SearchResult;
 var aux : SearchResult;
-    proofNumber,disproofNumber : double_t;
+    proofNumber,disproofNumber : double;
 begin
   SetMinimaxValueInResult(-GetMinimaxValueOfResult(result),aux);
 

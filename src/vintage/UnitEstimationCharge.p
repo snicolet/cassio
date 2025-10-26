@@ -185,8 +185,8 @@ end;
 
 
 function ChiSquareEstimationCharge(coeffs : PointMultidimensionnel) : TypeReel;
-var somme,erreur,estim : double_t;
-    erreurRelative : double_t;
+var somme,erreur,estim : double;
+    erreurRelative : double;
     i : SInt32;
 begin
 

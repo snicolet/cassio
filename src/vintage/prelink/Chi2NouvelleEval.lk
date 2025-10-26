@@ -10,7 +10,7 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
   function NumEnString(num : SInt32) : String255;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);     external;
@@ -19,7 +19,7 @@ procedure CopierPointeursVecteursEval(var source,dest : VectNewEval);     extern
 procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);     external;
 function ParticipeAuChi2(numeroDansLaListe,numeroRefPartie : SInt32; var tickGroupe : SInt32) : boolean;     external;
 function bidFiltreGameProc(var partie60 : PackedThorGame; numeroRefPartie : SInt32; var result : SInt32) : boolean;     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure DoSystemTask(couleur : SInt32);     external;
 function AQuiDeJouer : SInt32;     external;
 procedure IncrementeDeriveesPartiellesCettePosition(deltaEval : TypeReel; var jouable : plBool; var position : plateauOthello; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var whichEval : VectNewEval);     external;

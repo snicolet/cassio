@@ -42,5 +42,5 @@ function VideFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 procedure SetFileTypeFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 procedure WritelnEdge2XAndStringDansRapport(pattern : SInt32; s : String255);     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 function InverseNoirBlancDansAddressePattern(pattern,longueur : SInt32) : SInt32;     external;

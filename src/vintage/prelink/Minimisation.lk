@@ -9,11 +9,11 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-procedure WritelnStringAndReelDansRapport(s : String255; x : double_t; nbDecimales : SInt16);     external;
+procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;     external;
 function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionnel) : boolean;     external;
 procedure AlerteSimple(texte : String255);     external;
 procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);     external;
 procedure CombinaisonLineairePointMultidimensionnel(var p1,p2 : PointMultidimensionnel; lambda1,lambda2 : TypeReel; var resultat : PointMultidimensionnel);     external;
   function NumEnString(num : SInt32) : String255;     external;
-  function ReelEnStringAvecDecimales(unreel : double_t; nbChiffresSignificatifs : SInt16) : String255;     external;
+  function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;

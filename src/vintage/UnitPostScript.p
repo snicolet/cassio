@@ -57,7 +57,7 @@ const
   tFlipVertical     = 2;
 
 (* type
-  double_t = double_t;
+  double = double;
 *)
 
 type
@@ -130,7 +130,7 @@ procedure DoPostScriptLine(s : String255);
 procedure SetLineWidthPostscript(numerateur,denominateur : SInt16);
 procedure MySetNewLineWidth(oldWidth,newWidth: TLineWidth);
 procedure MyDrawXString(s : String255; ctr : Point; just, flip : SInt16; rot: Fixed);
-procedure DrawTranslatedString(s : String255; decX,decY : double_t);
+procedure DrawTranslatedString(s : String255; decX,decY : double);
 
 
 
@@ -378,7 +378,7 @@ end;
 
 
 { Displaying translated text using picture comments }
-procedure DrawTranslatedPostScriptString(s : String255; decX,decY : double_t);
+procedure DrawTranslatedPostScriptString(s : String255; decX,decY : double);
 var
   hT:         TTxtPicHdl;
   hC:         TCenterHdl;
@@ -436,7 +436,7 @@ begin
 end;
 
 
-procedure DrawTranslatedString(s : String255; decX,decY : double_t);
+procedure DrawTranslatedString(s : String255; decX,decY : double);
 begin
   if false and DoitGenererPostScriptCompatibleXPress
     then
@@ -638,7 +638,7 @@ const
 var
   dashHdl :    TDashedLineHdl;
   i :          SInt16;
-  a, rad:     double_t;
+  a, rad:     double;
 begin
   PenSize(2,2);
   {First the PostScript picture comment version. Pattern mode }

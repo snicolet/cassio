@@ -495,7 +495,7 @@ end;
 
 
 procedure DessineLignesDeHauteurDuRepereDansCourbe(coupDepart,coupArrivee : SInt32; const fonctionAppelante : String255);
-var echelle : double_t;
+var echelle : double;
     marge,i,note : SInt32;
     x1,x2,y,largeur,haut,mil : SInt32;
     theColor : RGBColor;
@@ -865,7 +865,7 @@ var x0,x3,pointDichotomie : Point;
     myPoly : PolyHandle;
     myRGBColor : RGBColor;
     note : SInt32;
-    echelle : double_t;
+    echelle : double;
     isGoodForWhite : boolean;
 begin
   {WriteDebugageCourbe(NumEnString(nbreCoup)+' : DessineTrapezeCouleurDansCourbe');}
@@ -957,7 +957,7 @@ var x,y : SInt32;
     largeur,haut,mil : SInt32;
     note : SInt32;
     oldport : grafPtr;
-    echelle : double_t;
+    echelle : double;
     marge : SInt32;
     x1,x2 : Point;
     unRect : rect;
@@ -1096,7 +1096,7 @@ var x,y : SInt32;
     largeur,haut,mil : SInt32;
     i,note : SInt32;
     oldport : grafPtr;
-    echelle : double_t;
+    echelle : double;
     marge : SInt32;
     x1,x2,oldx1 : Point;
 begin
@@ -2025,7 +2025,7 @@ var s,s1,coupEnChaine : String255;
     note : SInt32;
     nbDeChiffres : SInt32;
     origineNote : typeGenreDeReflexion;
-    noteEnReel : double_t;
+    noteEnReel : double;
     x,largeurString,largeurCoup : SInt32;
     oldPort : grafPtr;
 begin
