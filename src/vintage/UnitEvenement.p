@@ -11,7 +11,7 @@ INTERFACE
 
 procedure TraiteOneEvenement;
 procedure TraiteEvenements;
-procedure TraiteNullEvent(var whichEvent : eventRecord); 
+procedure TraiteNullEvent(var whichEvent : eventRecord);
 
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;
 procedure HandleEvent(var whichEvent : eventRecord);
@@ -20,14 +20,14 @@ procedure HandleEvent(var whichEvent : eventRecord);
 
 (*********************** Key down and up utilities *****************)
 
-procedure StoreKeyDownEvent(var whichEvent : eventRecord); 
+procedure StoreKeyDownEvent(var whichEvent : eventRecord);
 procedure SetRepetitionDeToucheEnCours(flag : boolean);
 function RepetitionDeToucheEnCours : boolean;
 function DateOfLastKeyDownEvent : SInt32;
-function DateOfLastKeyboardOperation : SInt32; 
+function DateOfLastKeyboardOperation : SInt32;
 function NoDelayAfterKeyboardOperation : boolean;
-procedure RemoveDelayAfterKeyboardOperation; 
-procedure SimulateNumericKeyPad(var whichChar : char); 
+procedure RemoveDelayAfterKeyboardOperation;
+procedure SimulateNumericKeyPad(var whichChar : char);
 
 
 (******************** Tell Cassio to suspend checking "dangerous" event (which can change the move number) *******************)

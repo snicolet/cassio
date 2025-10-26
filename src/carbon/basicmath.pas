@@ -9,36 +9,22 @@ uses
   cthreads,
   cwstring,
 {$ENDIF}
+  BaseUnix,
   SysUtils,
   basictypes,
   basicstring;
 
 
-// xorshift64star Pseudo-Random Number Generator
+// Pseudo-Random Number Generator (xorshift64star)
 //
-// This code is based on original code written and dedicated
-// to the public domain by Sebastiano Vigna (2014).
-// It has the following characteristics:
-//    -  Outputs 64-bit numbers
-//    -  Passes Dieharder and SmallCrush test batteries
-//    -  Does not require warm-up, no zeroland to escape
-//    -  Internal state is a single 64-bit integer
-//    -  Period is 2^64 - 1
-//    -  Speed: 1.60 ns/call (Core i7 @3.40GHz)
-// For further analysis see
-//       <http://vigna.di.unimi.it/ftp/papers/xorshift.pdf>
-
-
 function Random16() : SInt16;
 function Random32() : SInt32;
 function Random64() : SInt64;
 procedure SetRandomSeed(seed : SInt64);
+procedure RandomizeTimer;
 
 
-
-// Bitwise functions.
-// We provide versions for all integer sizes, signed and unsigned.
-
+// Bitwise functions, with versions for all integer sizes, signed and unsigned.
 // Bitwise NOT
 function BNOT(i : UInt64) : UInt64;
 function BNOT(i : SInt64) : SInt64;
@@ -131,13 +117,38 @@ procedure BCLR(var i : UInt8 ; n : integer);
 procedure BCLR(var i : SInt8 ; n : integer);
 
 
+// NewMagicCookie() : a strictly increasing counter.
+function NewMagicCookie() : SInt64;
+
 
 
 implementation
 
 
-var PRNG : SInt64 = 1000;
+{$IFDEF UNIX}
+  uses unix;
+{$ENDIF}
 
+var PRNG : SInt64 = 1000;
+var magicCookieSeed : SInt64 = 0;
+
+
+
+// Pseudo-Random Number Generator (xorshift64star)
+//
+// This implementation is based on original code written and dedicated
+// to the public domain by Sebastiano Vigna (2014).
+// It has the following characteristics:
+//    -  Outputs 64-bit numbers
+//    -  Passes Dieharder and SmallCrush test batteries
+//    -  Does not require warm-up, no zeroland to escape
+//    -  Internal state is a single 64-bit integer
+//    -  Period is 2^64 - 1
+//    -  Speed: 1.60 ns/call (Core i7 @3.40GHz)
+// For further analysis see
+//       <http://vigna.di.unimi.it/ftp/papers/xorshift.pdf>
+
+// Random64() : 64 bits random integer
 function Random64() : SInt64;
 begin
     PRNG := BXOR(PRNG, BSR(PRNG, 12));
@@ -146,6 +157,7 @@ begin
     Result := PRNG * 2685821657736338717;
 end;
 
+// Random32() : 32 bits random integer
 function Random32() : SInt32;
 var r : SInt32;
 begin
@@ -153,6 +165,7 @@ begin
     Result := BAND(r, $ffffffff );
 end;
 
+// Random16() : 16 bits random integer
 function Random16() : SInt16;
 var r : SInt16;
 begin
@@ -160,12 +173,45 @@ begin
     Result := BAND(r, $ffff );
 end;
 
+// SetRandomSeed() : initialising the seed of the random generator
 procedure SetRandomSeed(seed : SInt64);
 begin
     if seed = 0 then seed := 1;
     PRNG := seed;
 end;
 
+// RandomizeTimer : this procedure sets the seed with a mix of the current 
+// time, the process number, etc. to get more entropy.
+procedure RandomizeTimer;
+var seed : SInt64;
+    {$IFDEF UNIX}
+    t : timeval;
+    {$ENDIF}
+begin
+  seed := FpGetpid();                 // process number
+  seed := seed + Random64();          // a small random component from current 
+  seed := seed + NewMagicCookie();    // increasing counter
+  seed := seed + GetTickCount64();    // milliseconds
+
+  {$IFDEF UNIX}
+  fpgettimeofday(@t,nil);
+  seed := seed + t.tv_usec;           // microseconds
+  {$ENDIF}
+
+  seed := seed * 2685821657736338717;
+
+  SetRandomSeed(seed);
+end;
+
+
+
+// NewMagicCookie() returns a unique and positive value. Period is 2^63.
+function NewMagicCookie() : SInt64;
+begin
+  magicCookieSeed := magicCookieSeed + 1;
+  if magicCookieSeed <= 0 then magicCookieSeed := 1;
+  Result := magicCookieSeed;
+end;
 
 
 // Bitwise functions
@@ -625,11 +671,10 @@ begin
   writeln('note that X := Y always extends the sign bit of Y into X when Y has a signed integer type');
   writeln('');
   
-  writeln('generating some pseudo random numbers, starting with seed 3000');
-  SetRandomSeed(3000);
+  writeln('generating some pseudo random numbers...');
+  RandomizeTimer;
   for k := 1 to 20 do
-      writeln(Hexa(Random64()));
-  
+     writeln(Random64());
 
 end;
 
