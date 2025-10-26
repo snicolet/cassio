@@ -527,7 +527,7 @@ end;
 
 procedure TestBasicMath;
 var c1, c2 : boolean;
-    aux, neg, inv, add : UInt8;
+    aux, neg, inv, add, clr : SInt64;
     ext : UInt64;
     k : integer;
 begin
@@ -548,11 +548,14 @@ begin
      inv := BNOT(aux);
      add := inv + 1;
      ext := neg;
-     writeln('k = ',k, ', after BSET(aux,k)   :  hexa = ' + Hexa(aux) , ' , dec = ', aux);
+     clr := aux;
+     BCLR(clr, k);
+     writeln('k = ',k, ', after BSET(aux , k) :  hexa = ' + Hexa(aux) , ' , dec = ', aux);
      writeln('k = ',k, ', after BNOT(aux)     :  hexa = ' + Hexa(inv) , ' , dec = ', inv);
      writeln('k = ',k, ', after BNOT(aux)+1   :  hexa = ' + Hexa(add) , ' , dec = ', add);
      writeln('k = ',k, ', after negating      :  hexa = ' + Hexa(neg) , ' , dec = ', neg);
      writeln('k = ',k, ', neg ext. to 64 bits :  hexa = ' + Hexa(ext) , ' , dec = ', ext);
+     writeln('k = ',k, ', after BCLR(aux , k) :  hexa = ' + Hexa(clr) , ' , dec = ', clr);
      writeln('');
   end;
 
