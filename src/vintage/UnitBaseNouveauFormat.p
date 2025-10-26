@@ -872,16 +872,16 @@ begin
       case evt.what of
         keyDown,autoKey :
           begin
-            if (BAnd(evt.message,charcodemask) = EntreeKey) then {entrée}
+            if (BAND(evt.message,charcodemask) = EntreeKey) then {entrée}
               begin
                 item := 4;
                 FlashItem(dlog,item);
                 FiltreRechercheDialog := true;
                 exit(FiltreRechercheDialog);
               end;
-            if (BAnd(evt.modifiers,cmdKey) <> 0) then
+            if (BAND(evt.modifiers,cmdKey) <> 0) then
               begin
-                ch := chr(BAnd(evt.message,charCodemask));
+                ch := chr(BAND(evt.message,charCodemask));
                 if (ch = 'Ú') or (ch = 'Ÿ') then  {pomme-option-y}
                   begin
                     GetItemTextInDialog(dlog,JoueurNoirText,s1);
@@ -954,10 +954,10 @@ begin
              SetPort(oldPort);
            end;
         keyDown , autoKey :
-         if (BAnd(evt.modifiers,cmdKey) <> 0)
+         if (BAND(evt.modifiers,cmdKey) <> 0)
            then
              begin
-               ch := chr(BAnd(evt.message,charCodemask));
+               ch := chr(BAND(evt.message,charCodemask));
                if (ch = 'z') or (ch = 'Z') then     { pomme-z }
                  begin
                    item := CoupPrecedentBouton;
@@ -992,7 +992,7 @@ begin
            begin
 
              FiltreLectureDialog := MyFiltreClassique(dlog,evt,item);
-             ch := chr(BAnd(evt.message,charCodemask));
+             ch := chr(BAND(evt.message,charCodemask));
 
 
              if (item = JoueurNoirText)  and (ch <> tab) then mustBeAPerfectMatch[JoueurNoirText]  := false;
@@ -1554,7 +1554,7 @@ begin
           NoirsCompatibleParIndex[i] := false;
         for i := 0 to JoueursNouveauFormat.nbJoueursNouveauFormat-1 do
           if JoueurNoirCompatible^[i] then
-            NoirsCompatibleParIndex[BAnd(i,255)] := true;
+            NoirsCompatibleParIndex[BAND(i,255)] := true;
       end
     else
       for i := 0 to 255 do
@@ -1567,7 +1567,7 @@ begin
           BlancsCompatibleParIndex[i] := false;
         for i := 0 to JoueursNouveauFormat.nbJoueursNouveauFormat-1 do
           if JoueurBlancCompatible^[i] then
-            BlancsCompatibleParIndex[BAnd(i,255)] := true;
+            BlancsCompatibleParIndex[BAND(i,255)] := true;
       end
     else
       for i := 0 to 255 do
@@ -1586,7 +1586,7 @@ begin
 
         for i := 0 to TournoisNouveauFormat.nbTournoisNouveauFormat-1 do
           if TournoiCompatible^[i] then
-              TournoisCompatibleParIndex[BAnd(i,255)] := true;
+              TournoisCompatibleParIndex[BAND(i,255)] := true;
 
       end
     else
@@ -2033,7 +2033,7 @@ begin
   	            SetPort(oldPort);
   	          end;
   	        keyDown,autoKey :
-  	          TesteAnnulationPendantLecture := (BAnd(myEvent.message,charcodemask) = EscapeKey);
+  	          TesteAnnulationPendantLecture := (BAND(myEvent.message,charcodemask) = EscapeKey);
   	      end; {case}
         end;
       dateDernierVerifEvents := TickCount;

@@ -1187,7 +1187,7 @@ begin
 
 					if (kTypeFichierBibliotheque in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierBibliotheque) then
-					  err := LitBibliotheque(nomCompletFichier,BAnd(theEvent.modifiers,optionKey) <> 0);
+					  err := LitBibliotheque(nomCompletFichier,BAND(theEvent.modifiers,optionKey) <> 0);
 
 					if (kTypeFichierPreferences in formats_a_ouvrir) and
 				     (infos.format = kTypeFichierPreferences) then
@@ -1310,7 +1310,7 @@ begin
   if reply.good then
    begin
 
-     if (BAnd(modifiers,optionKey) <> 0)
+     if (BAND(modifiers,optionKey) <> 0)
        then posEtPartie := PositionInitialeEnLignePourPressePapier+PartiePourPressePapier(false,true,nbreCoup)
        else posEtPartie := PositionInitialeEnLignePourPressePapier+PartiePourPressePapier(false,true,60);
 
@@ -1469,7 +1469,7 @@ var reply : SFReply;
 begin
   if GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('BIBL'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),mySpec) then
     begin
-      if LitBibliotheque(GetNameOfSFReply(reply),BAnd(theEvent.modifiers,optionKey) <> 0) = NoErr then DoNothing;
+      if LitBibliotheque(GetNameOfSFReply(reply),BAND(theEvent.modifiers,optionKey) <> 0) = NoErr then DoNothing;
       EnableItemTousMenus;
     end;
 end;
@@ -1803,10 +1803,10 @@ end;
 procedure DoCloseCmd(modifiers : SInt16);
 var shift,command,option,control : boolean;
   begin
-    shift := BAnd(modifiers,shiftKey) <> 0;
-    command := BAnd(modifiers,cmdKey) <> 0;
-    option := BAnd(modifiers,optionKey) <> 0;
-    control := BAnd(modifiers,controlKey) <> 0;
+    shift := BAND(modifiers,shiftKey) <> 0;
+    command := BAND(modifiers,cmdKey) <> 0;
+    option := BAND(modifiers,optionKey) <> 0;
+    control := BAND(modifiers,controlKey) <> 0;
 
 	  if (FrontWindowSaufPalette = NIL)
 	     then
@@ -1831,7 +1831,7 @@ var i : SInt16;
 begin
    tempsAjouteMin := 1;
    tempsAjouteSec := 60;
-   retireDuTemps := BAnd(theEvent.modifiers,optionKey) <> 0;
+   retireDuTemps := BAND(theEvent.modifiers,optionKey) <> 0;
    if retireDuTemps then
      begin
        tempsAjouteMin := -tempsAjouteMin;
@@ -2534,10 +2534,10 @@ begin
 
   if (origine = kNotesDeCassio) then
     begin
-      if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
+      if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
         then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode + kNotesCassioSurLesCases);
 
-      if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+      if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
         then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNotesCassioSurLesCases);
     end;
 
@@ -2695,11 +2695,11 @@ end;
 procedure TesterAffichageNomsDesGagnantsEnGras(modifiers : SInt16);
 var verouillage,shift,option,control,command : boolean;
 begin
-  option      := BAnd(modifiers,optionKey)  <> 0;
-  shift       := BAnd(modifiers,shiftKey)   <> 0;
-  verouillage := BAnd(modifiers,alphaLock)  <> 0;
-  control     := BAnd(modifiers,controlKey) <> 0;
-  command     := BAnd(modifiers,cmdKey)     <> 0;
+  option      := BAND(modifiers,optionKey)  <> 0;
+  shift       := BAND(modifiers,shiftKey)   <> 0;
+  verouillage := BAND(modifiers,alphaLock)  <> 0;
+  control     := BAND(modifiers,controlKey) <> 0;
+  command     := BAND(modifiers,cmdKey)     <> 0;
   if (control and shift) and not(inBackGround)
     then DoChangeAvecGagnantEnGrasDansListe;
 end;
@@ -2707,13 +2707,13 @@ end;
 procedure TesterAffichageNomsJaponaisEnRoman(modifiers : SInt16);
 var verouillage,shift,option : boolean;
 begin
-  option := BAnd(modifiers,optionKey) <> 0;
+  option := BAND(modifiers,optionKey) <> 0;
   {if (option <> avecGagnantEnGrasDansListe) then
     DoChangeAvecGagnantEnGrasDansListe;}
   if gVersionJaponaiseDeCassio then
     begin
-      shift := BAnd(modifiers,shiftKey) <> 0;
-      verouillage := BAnd(modifiers,alphaLock) <> 0;
+      shift := BAND(modifiers,shiftKey) <> 0;
+      verouillage := BAND(modifiers,alphaLock) <> 0;
       if verouillage <> not(gDisplayJapaneseNamesInJapanese) then
         DoChangeDisplayJapaneseNamesInJapanese;
     end;
@@ -3404,7 +3404,7 @@ procedure DoChoisitDemo;
     else
       begin
         enTournoi := true;
-        if BAnd(theEvent.modifiers,optionKey) <> 0
+        if BAND(theEvent.modifiers,optionKey) <> 0
           then DoDemo(-1,-1,false,true)
           else DoDemo(7,7,false,true);
         PrepareNouvellePartie(false);
@@ -3553,7 +3553,7 @@ begin
       LanceInterruptionSimple('DoQuit');
       vaDepasserTemps := false;
       if EnModeEntreeTranscript then DoChangeEnModeEntreeTranscript;
-      doitEcrireInterversions := BAnd(theEvent.modifiers,optionKey) <> 0;
+      doitEcrireInterversions := BAND(theEvent.modifiers,optionKey) <> 0;
     end;
 end;
 
@@ -3824,10 +3824,10 @@ procedure DoFileMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
 var shift,command,option,control : boolean;
   begin
     {$UNUSED peutRepeter}
-    shift := BAnd(theEvent.modifiers,shiftKey) <> 0;
-    command := BAnd(theEvent.modifiers,cmdKey) <> 0;
-    option := BAnd(theEvent.modifiers,optionKey) <> 0;
-    control := BAnd(theEvent.modifiers,controlKey) <> 0;
+    shift := BAND(theEvent.modifiers,shiftKey) <> 0;
+    command := BAND(theEvent.modifiers,cmdKey) <> 0;
+    option := BAND(theEvent.modifiers,optionKey) <> 0;
+    control := BAND(theEvent.modifiers,controlKey) <> 0;
 
     case cmdNumber of
       NouvellePartieCmd         :  if PeutArreterAnalyseRetrograde then
@@ -3891,7 +3891,7 @@ begin
                             SetCommentairesCurrentNodeFromFenetreArbreDeJeu;
                           end
                         else
-                          if BAnd(theEvent.modifiers,optionKey) <> 0
+                          if BAND(theEvent.modifiers,optionKey) <> 0
                             then CopierPartieEnTEXT(true,false)
                             else
                               begin
@@ -4207,7 +4207,7 @@ procedure DoBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
                                         begin
                                           AccelereProchainDoSystemTask(2);
                                           gKeyDownEventsData.tickcountMinimalPourNouvelleRepetitionDeTouche := TickCount+4;
-	                                        if BAnd(theEvent.modifiers,shiftKey) = 0
+	                                        if BAND(theEvent.modifiers,shiftKey) = 0
 	                                          then if theEvent.what = autoKey
 	                                                 then DoDoubleAvanceMovePartieSelectionnee(infosListeParties.partieHilitee)
 	                                                 else JoueCoupPartieSelectionnee(infosListeParties.partieHilitee)
@@ -4260,7 +4260,7 @@ procedure DoProgrammationMenuCommands(cmdNumber : SInt16; var peutRepeter : bool
                                  {ApprendBlocsDeCoinPartiesDeLaListe;}
 
                                  {
-                                 if BAnd(theEvent.modifiers,optionKey) <> 0
+                                 if BAND(theEvent.modifiers,optionKey) <> 0
                                    then
                                      begin
                                        profMinimalePourTriDesCoupsParAlphaBeta := profMinimalePourTriDesCoupsParAlphaBeta-1;
@@ -4668,10 +4668,10 @@ var shift,command,option,control : boolean;
     oldNbreCoups : SInt32;
     plat : plateauOthello;
 begin
-  shift := BAnd(theEvent.modifiers,shiftKey) <> 0;
-  command := BAnd(theEvent.modifiers,cmdKey) <> 0;
-  option := BAnd(theEvent.modifiers,optionKey) <> 0;
-  control := BAnd(theEvent.modifiers,controlKey) <> 0;
+  shift := BAND(theEvent.modifiers,shiftKey) <> 0;
+  command := BAND(theEvent.modifiers,cmdKey) <> 0;
+  option := BAND(theEvent.modifiers,optionKey) <> 0;
+  control := BAND(theEvent.modifiers,controlKey) <> 0;
 
   {if ch = 'Æ' then Debugger;}
 
@@ -5315,10 +5315,10 @@ begin
 
   if not(iconisationDeCassio.enCours) then
     begin
-      shift := BAnd(evt.modifiers,shiftKey) <> 0;
-      command := BAnd(evt.modifiers,cmdKey) <> 0;
-      option := BAnd(evt.modifiers,optionKey) <> 0;
-      control := BAnd(evt.modifiers,controlKey) <> 0;
+      shift := BAND(evt.modifiers,shiftKey) <> 0;
+      command := BAND(evt.modifiers,cmdKey) <> 0;
+      option := BAND(evt.modifiers,optionKey) <> 0;
+      control := BAND(evt.modifiers,controlKey) <> 0;
 
       if command then
         begin
@@ -5581,10 +5581,10 @@ var whichSquare,numeroCoup : SInt16;
     myRect : rect;
 begin
 
- shift := BAnd(modifiers,shiftKey) <> 0;
- command := BAnd(modifiers,cmdKey) <> 0;
- option := BAnd(modifiers,optionKey) <> 0;
- control := BAnd(modifiers,controlKey) <> 0;
+ shift := BAND(modifiers,shiftKey) <> 0;
+ command := BAND(modifiers,cmdKey) <> 0;
+ option := BAND(modifiers,optionKey) <> 0;
+ control := BAND(modifiers,controlKey) <> 0;
 
 
  if (control) and PtInPlateau(mouseLoc,whichSquare) then
@@ -5713,10 +5713,10 @@ var numeroDuCoupTrouve,i,whichSquare : SInt16;
     trouve : boolean;
     shift,command,option,control : boolean;
 begin
-  shift := BAnd(modifiers,shiftKey) <> 0;
-  command := BAnd(modifiers,cmdKey) <> 0;
-  option := BAnd(modifiers,optionKey) <> 0;
-  control := BAnd(modifiers,controlKey) <> 0;
+  shift := BAND(modifiers,shiftKey) <> 0;
+  command := BAND(modifiers,cmdKey) <> 0;
+  option := BAND(modifiers,optionKey) <> 0;
+  control := BAND(modifiers,controlKey) <> 0;
 
   {
   if command then
@@ -5998,7 +5998,7 @@ begin
         PaletteCoupPartieSel  : begin
                                   tick := TickCount;
                                   PresseCase(PaletteCoupPartieSel,limiteRect);
-                                  if BAnd(theEvent.modifiers,shiftKey) <> 0
+                                  if BAND(theEvent.modifiers,shiftKey) <> 0
                                     then
                                       begin
                                         if windowListeOpen and (nbPartiesActives > 0) then
@@ -6224,11 +6224,11 @@ begin  {TraiteSourisCommentaires}
       begin
         enModeEditionArrivee := enModeEdition;
 
-        shift       := BAnd(evt.modifiers,shiftKey) <> 0;
-        verouillage := BAnd(evt.modifiers,alphaLock) <> 0;
-        command     := BAnd(evt.modifiers,cmdKey) <> 0;
-        option      := BAnd(evt.modifiers,optionKey) <> 0;
-        control     := BAnd(evt.modifiers,controlKey) <> 0;
+        shift       := BAND(evt.modifiers,shiftKey) <> 0;
+        verouillage := BAND(evt.modifiers,alphaLock) <> 0;
+        command     := BAND(evt.modifiers,cmdKey) <> 0;
+        option      := BAND(evt.modifiers,optionKey) <> 0;
+        control     := BAND(evt.modifiers,controlKey) <> 0;
 
         GetPort(oldport);
         SetPortByWindow(GetArbreDeJeuWindow);
@@ -6718,7 +6718,7 @@ procedure KeyDownEvents;
 
               if not((lastEvent.what = autoKey) and (TickCount < tickcountMinimalPourNouvelleRepetitionDeTouche)) then
                 begin
-                  if BAnd(lastEvent.modifiers,cmdKey) = 0
+                  if BAND(lastEvent.modifiers,cmdKey) = 0
                     then
                       begin
                         if not(iconisationDeCassio.enCours) then
@@ -6779,12 +6779,12 @@ var codeEvt : SInt16;
 begin
    IncrementeCompteurDeMouseEvents;
    begin
-     shift := BAnd(theEvent.modifiers,shiftKey) <> 0;
-     command := BAnd(theEvent.modifiers,cmdKey) <> 0;
-     option := BAnd(theEvent.modifiers,optionKey) <> 0;
-     control := BAnd(theEvent.modifiers,controlKey) <> 0;
+     shift := BAND(theEvent.modifiers,shiftKey) <> 0;
+     command := BAND(theEvent.modifiers,cmdKey) <> 0;
+     option := BAND(theEvent.modifiers,optionKey) <> 0;
+     control := BAND(theEvent.modifiers,controlKey) <> 0;
 
-     ResumeEventClic := BAnd(theEvent.modifiers,activeflag) <> 0;
+     ResumeEventClic := BAND(theEvent.modifiers,activeflag) <> 0;
      codeEvt := FindWindow(theEvent.where,whichWindow);
 
      if ResumeEventClic or inBackGround then   {reactivation de l'application ?}
@@ -6911,7 +6911,7 @@ begin
                          if (whichWindow <> FrontWindowSaufPalette) and (whichWindow <> wPalettePtr) then
                            begin
                              ActiveeParDrag := true;
-                             if BAnd(theEvent.modifiers,cmdKey) = 0 then
+                             if BAND(theEvent.modifiers,cmdKey) = 0 then
                                begin
                                  DoActivateWindow(FrontWindowSaufPalette,false);
                                  SelectWindowSousPalette(whichWindow);
@@ -7016,7 +7016,7 @@ var theFrontWindow : WindowPtr;
     err : OSErr;
 begin
   theFrontWindow := FrontWindowSaufPalette;
-  if (BAnd(theEvent.message,suspend_resume_bit) = resuming)
+  if (BAND(theEvent.message,suspend_resume_bit) = resuming)
     then      {resumeEvent}
       begin
 
@@ -7073,7 +7073,7 @@ begin
   with theEvent do
   begin
     whichWindow := WindowPtr(message);
-    activate := BAnd(modifiers,activeflag) <> 0;
+    activate := BAND(modifiers,activeflag) <> 0;
     if whichWindow <> NIL then
       if WindowDeCassio(whichWindow) then
         begin
@@ -7100,15 +7100,15 @@ var shift,command,option,control : boolean;
     texteCommande,argument : String255;
 begin
 
-  shift := BAnd(evt.modifiers,shiftKey) <> 0;
-  command := BAnd(evt.modifiers,cmdKey) <> 0;
-  option := BAnd(evt.modifiers,optionKey) <> 0;
-  control := BAnd(evt.modifiers,controlKey) <> 0;
+  shift := BAND(evt.modifiers,shiftKey) <> 0;
+  command := BAND(evt.modifiers,cmdKey) <> 0;
+  option := BAND(evt.modifiers,optionKey) <> 0;
+  control := BAND(evt.modifiers,controlKey) <> 0;
 
   with arbreDeJeu do
    begin
 
-     ch := chr(BAnd(evt.message,charCodemask));
+     ch := chr(BAND(evt.message,charCodemask));
 
      {les evenements de menu, ou ceux qui ne sont pas des evenements claviers,
       ne concerent certainement pas la partie commentaire de la fenetre Arbre de Jeu}
@@ -7207,11 +7207,11 @@ begin
 
       with whichEvent do
       begin
-        shift := BAnd(modifiers,shiftKey) <> 0;
-        command := BAnd(modifiers,cmdKey) <> 0;
-        option := BAnd(modifiers,optionKey) <> 0;
-        control := BAnd(modifiers,controlKey) <> 0;
-        verouillage := BAnd(modifiers,alphaLock) <> 0;
+        shift := BAND(modifiers,shiftKey) <> 0;
+        command := BAND(modifiers,cmdKey) <> 0;
+        option := BAND(modifiers,optionKey) <> 0;
+        control := BAND(modifiers,controlKey) <> 0;
+        verouillage := BAND(modifiers,alphaLock) <> 0;
       end;
 
       if (oldShift <> shift)       or

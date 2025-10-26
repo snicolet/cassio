@@ -770,8 +770,8 @@ procedure TraiteKeyDownSetUp;
   begin
     with theEvent do
       begin
-        ch := chr(BAnd(message,charCodemask));
-        if BAnd(modifiers,cmdKey) <> 0
+        ch := chr(BAND(message,charCodemask));
+        if BAND(modifiers,cmdKey) <> 0
           then
             begin
               TraiteOneEvenement;

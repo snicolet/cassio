@@ -1114,7 +1114,7 @@ begin
       if UpdatePositionEtTrait(platAux,coup)
         then
 	        begin
-			      hashKeyAfterCoup := BXOr(clefHashage, (IndiceHash^^[GetTraitOfPosition(platAux),coup]));
+			      hashKeyAfterCoup := BXOR(clefHashage, (IndiceHash^^[GetTraitOfPosition(platAux),coup]));
 
 			      if GetEndgameValuesInHashTableAtThisHashKey(platAux,hashKeyAfterCoup,kDeltaFinaleInfini,valMinPourNoir,valMaxPourNoir)
 			        then

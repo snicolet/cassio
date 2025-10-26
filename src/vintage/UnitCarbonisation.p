@@ -290,7 +290,7 @@ end;
 
 function HiWord(x : SInt32) : SInt16;
 begin
-	x := BSr(x, 16);
+	x := BSR(x, 16);
 	HiWord := BitAnd(x, $FFFF);
 end;
 

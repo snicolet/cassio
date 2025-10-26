@@ -40,8 +40,8 @@ begin
 	i := keyCode div 8;
 	j := keyCode mod 8;
 	b := theKeys[i];
-	masque := BSl(1, j);
-	ToucheAppuyee := BAnd(b, masque) <> 0;
+	masque := BSL(1, j);
+	ToucheAppuyee := BAND(b, masque) <> 0;
 end;
 
 function MemesTouchesAppuyees(var keyMap1, keyMap2 : myKeyMap) : boolean;

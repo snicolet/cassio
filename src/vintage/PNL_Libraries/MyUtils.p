@@ -36,7 +36,7 @@ INTERFACE
 	procedure MakeRGBColor (red, green, blue: UInt16; var col : RGBColor);
 	function IsExtension (const name, ext: String255) : boolean;
 	function IsPrefix (const name, prefix: String255) : boolean;
-{	function TPbtst(value : SInt32; bit : SInt16) : boolean;}
+{	function TPBTST(value : SInt32; bit : SInt16) : boolean;}
 	procedure SetInvertHiliteMode;
 	procedure HiliteInvertRect (r : Rect);
 	procedure HiliteInvertRgn (r : RgnHandle);
@@ -165,9 +165,9 @@ end;
 		InvertRgn(r);
 	end;
 {
-	function TPbtst(value : SInt32; bit : SInt16) : boolean;
+	function TPBTST(value : SInt32; bit : SInt16) : boolean;
 	begin
-		TPbtst := btst(value, bit);
+		TPbtst := BTST(value, bit);
 	end;
 }
 	procedure GetIndFont( resid: SInt16; index: SInt16; var font, size : SInt16);
@@ -339,7 +339,7 @@ end;
 			s : String255;
 	begin
 		s := chr(48 + (n mod 10 + 10 + (6 * ord(n < 0))) mod 10);
-		n := BAnd(BSr(n, 1), $7FFFFFFF) div 5;
+		n := BAND(BSR(n, 1), $7FFFFFFF) div 5;
 		while n <> 0 do begin
 			s := concat(chr( n mod 10 + 48 ),s);
 			n := n div 10;

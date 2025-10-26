@@ -1600,7 +1600,7 @@ begin
       begin
         nbCasesVides := nbCasesVides+1;
         casesVides[nbCasesVides] := t;
-        gVecteurParite := BXOr(gVecteurParite,constanteDeParite[t]);
+        gVecteurParite := BXOR(gVecteurParite,constanteDeParite[t]);
         inc(nbVidesQuadrant[numeroQuadrant[t]]);
       end;
    end;
@@ -1717,7 +1717,7 @@ begin
                 classement[i].theDefense := defense;
                 fils[iCourant] := defense;
 
-                if (BAnd(gVecteurParite,constanteDeParite[iCourant]) <> 0)
+                if (BAND(gVecteurParite,constanteDeParite[iCourant]) <> 0)
                   then classement[i].note := classement[i].note+300;
                 if (nbVidesQuadrant[numeroQuadrant[iCourant]] = 1) and
                    PeutJouerIci(-couleur,iCourant,jeu)
@@ -2134,7 +2134,7 @@ begin    {EstUnSolitaire}
       kSortiePapierCourte,
       kSortiePapierLongue:
         begin
-         avecEcritureScoreDansSolution := BAnd(theEvent.modifiers,optionKey) <> 0;
+         avecEcritureScoreDansSolution := BAND(theEvent.modifiers,optionKey) <> 0;
          if not(CassioEstEnModeSolitaire)
            then
              begin
@@ -2938,7 +2938,7 @@ begin
 end;
 
 begin
-  if BAnd(theEvent.modifiers,optionKey) = 0
+  if BAND(theEvent.modifiers,optionKey) = 0
     then indexSolitaire := indexSolitaire+1
     else indexSolitaire := indexSolitaire-1;
   if (indexSolitaire >= 1) and (indexSolitaire <= SolitairesEnMemoire)

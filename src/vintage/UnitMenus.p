@@ -1019,10 +1019,10 @@ var k,i : SInt16;
 procedure SetMenusChangeant(modifiers : SInt16);
 var option,command,shift,control : boolean;
   begin
-    shift := BAnd(modifiers,shiftKey) <> 0;
-    command := BAnd(modifiers,cmdKey) <> 0;
-    option := BAnd(modifiers,optionKey) <> 0;
-    control := BAnd(modifiers,controlKey) <> 0;
+    shift := BAND(modifiers,shiftKey) <> 0;
+    command := BAND(modifiers,cmdKey) <> 0;
+    option := BAND(modifiers,optionKey) <> 0;
+    control := BAND(modifiers,controlKey) <> 0;
 
     if option and not(gDernierEtatDesMenusEstAvecOption)
       then

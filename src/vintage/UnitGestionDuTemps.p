@@ -869,7 +869,7 @@ begin
         compteur := 0;
       end;
     (* code typique *)
-    if (compteur > b) or ((BAnd((compteur - 30) , 1023) <> 0))
+    if (compteur > b) or ((BAND((compteur - 30) , 1023) <> 0))
        then a := 2*compteur;
 
     {autre code typique : gestion du temps }
@@ -1200,7 +1200,7 @@ end;
 
 procedure EnleveCetteInterruption(typeInterruption : SInt16);
 begin
-  if BAnd(interruptionReflexion,typeInterruption) <> 0 then
+  if BAND(interruptionReflexion,typeInterruption) <> 0 then
     begin
       if debuggage.gestionDuTemps then
         begin
@@ -1209,8 +1209,8 @@ begin
           EcritTypeInterruptionDansRapport(typeInterruption);
         end;
 
-      interruptionReflexion := BXOr(interruptionReflexion,typeInterruption);
-      if BAnd(typeInterruption,interruptionDepassementTemps) <> 0
+      interruptionReflexion := BXOR(interruptionReflexion,typeInterruption);
+      if BAND(typeInterruption,interruptionDepassementTemps) <> 0
         then vaDepasserTemps := false;
 
     end;
@@ -1220,9 +1220,9 @@ end;
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);
 begin
 
-  interruptionReflexion := BOr(interruptionReflexion,typeInterruption);
+  interruptionReflexion := BOR(interruptionReflexion,typeInterruption);
 
-  if BAnd(typeInterruption,interruptionDepassementTemps) <> 0
+  if BAND(typeInterruption,interruptionDepassementTemps) <> 0
     then vaDepasserTemps := true;
 
 
@@ -1294,7 +1294,7 @@ begin
       end
     else
       begin
-        if BAnd(interruptionReflexion, typeInterruption) = 0 then
+        if BAND(interruptionReflexion, typeInterruption) = 0 then
           begin
             GetConfigurationCouranteDeCassio(config);
 
@@ -1390,16 +1390,16 @@ begin
     begin
       inc(compteur);
 
-      if BAnd(gDemandesChangementsDeConfig.flags, kHumainVeutChangerHumCtreHum) <> 0 then
+      if BAND(gDemandesChangementsDeConfig.flags, kHumainVeutChangerHumCtreHum) <> 0 then
         begin
-          gDemandesChangementsDeConfig.flags := BXOr(gDemandesChangementsDeConfig.flags, kHumainVeutChangerHumCtreHum);
+          gDemandesChangementsDeConfig.flags := BXOR(gDemandesChangementsDeConfig.flags, kHumainVeutChangerHumCtreHum);
           if (HumCtreHum <> gDemandesChangementsDeConfig.humCtreHumVoulu)
             then DoChangeHumCtreHum;
         end;
 
-      if BAnd(gDemandesChangementsDeConfig.flags, kHumainVeutChangerCouleur) <> 0 then
+      if BAND(gDemandesChangementsDeConfig.flags, kHumainVeutChangerCouleur) <> 0 then
         begin
-          gDemandesChangementsDeConfig.flags := BXOr(gDemandesChangementsDeConfig.flags, kHumainVeutChangerCouleur);
+          gDemandesChangementsDeConfig.flags := BXOR(gDemandesChangementsDeConfig.flags, kHumainVeutChangerCouleur);
           if (couleurMacintosh <> gDemandesChangementsDeConfig.couleurMacintoshVoulue)
             then DoChangeCouleur;
         end;
@@ -1650,7 +1650,7 @@ begin
       case evt.what of
         keyDown,autoKey :
          begin
-          if (BAnd(evt.message,charcodemask) = FlecheHautKey) then  {fleche en haut}
+          if (BAND(evt.message,charcodemask) = FlecheHautKey) then  {fleche en haut}
             begin
               case gCadencesRadios.selection of
                  BoutonDebutant    : item := BoutonDebutant;
@@ -1671,7 +1671,7 @@ begin
               FiltreCadenceDialog := true;
             end
             else
-            if (BAnd(evt.message,charcodemask) = FlecheBasKey) then  {fleche en bas}
+            if (BAND(evt.message,charcodemask) = FlecheBasKey) then  {fleche en bas}
               begin
                 case gCadencesRadios.selection of
                    BoutonDebutant    : item := BoutonAmateur;
@@ -1975,73 +1975,73 @@ begin
 
     GererDemandeInterruptionBrutaleEnCours;
 
-    if BAnd(interruptionEnCours,interruptionSimple) <> 0 then
+    if BAND(interruptionEnCours,interruptionSimple) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , interruptionSimple);
+        interruptionEnCours := BXOR(interruptionEnCours , interruptionSimple);
         TraiteInterruptionBrutale(meilleurCoupHum,MeilleurCoupHumPret,'EffectueTacheInterrompante(interruptionSimple)');
       end;
-    if BAnd(interruptionEnCours,kHumainVeutChangerCouleur) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutChangerCouleur) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutChangerCouleur);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutChangerCouleur);
         DoChangeCouleur;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutChargerBase) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutChargerBase) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutChargerBase);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutChargerBase);
         DoTraiteBaseDeDonnee(BaseLectureCriteres);
       end;
-    if BAnd(interruptionEnCours,kHumainVeutAnalyserFinale) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutAnalyserFinale) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutAnalyserFinale);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutAnalyserFinale);
         DoAnalyseRetrograde(0);
         cycle;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutJouerSolitaires) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutJouerSolitaires) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutJouerSolitaires);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutJouerSolitaires);
         {DoJoueAuxSolitaires;}
         DoJoueAuxSolitairesNouveauFormat(2,64);
       end;
-    if BAnd(interruptionEnCours,kHumainVeutChangerHumCtreHum) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutChangerHumCtreHum) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutChangerHumCtreHum);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutChangerHumCtreHum);
         DoChangeHumCtreHum;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutChangerCoulEtHumCtreHum) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutChangerCoulEtHumCtreHum) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutChangerCoulEtHumCtreHum);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutChangerCoulEtHumCtreHum);
         DoChangeHumCtreHum;
         DoChangeCouleur;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutRechercherSolitaires) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutRechercherSolitaires) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutRechercherSolitaires);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutRechercherSolitaires);
         ChercheSolitairesDansListe(1,nbPartiesActives,1,60);
        {ChercheSolitairesDansListe(1,nbPartiesActives,60-nbCasesVidesMaxSolitaire+1,60-nbCasesVidesMinSolitaire+1);}
        {ChercheSolitairesDansListe(1,nbPartiesActives,50,55);}
         cycle;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutCalculerScoresTheoriquesWThor) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutCalculerScoresTheoriquesWThor) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutCalculerScoresTheoriquesWThor);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutCalculerScoresTheoriquesWThor);
         if DernierEvenement.option
           then err := DoActionGestionBaseOfficielle('search difficult WLD')
           else err := DoActionGestionBaseOfficielle('recalculate');
         cycle;
       end;
-    if BAnd(interruptionEnCours,kHumainVeutOuvrirFichierScriptFinale) <> 0 then
+    if BAND(interruptionEnCours,kHumainVeutOuvrirFichierScriptFinale) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , kHumainVeutOuvrirFichierScriptFinale);
+        interruptionEnCours := BXOR(interruptionEnCours , kHumainVeutOuvrirFichierScriptFinale);
         err := OuvrirEndgameScript(GetProchainScriptDeFinaleAOuvrir);
         cycle;
       end;
-    if BAnd(interruptionEnCours,interruptionDepassementTemps) <> 0 then
+    if BAND(interruptionEnCours,interruptionDepassementTemps) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , interruptionDepassementTemps);
+        interruptionEnCours := BXOR(interruptionEnCours , interruptionDepassementTemps);
       end;
-    if BAnd(interruptionEnCours,interruptionPositionADisparuDuZoo) <> 0 then
+    if BAND(interruptionEnCours,interruptionPositionADisparuDuZoo) <> 0 then
       begin
-        interruptionEnCours := BXOr(interruptionEnCours , interruptionPositionADisparuDuZoo);
+        interruptionEnCours := BXOR(interruptionEnCours , interruptionPositionADisparuDuZoo);
       end;
    until (interruptionEnCours = pasdinterruption) or
          (compteurBoucle > 15);
@@ -2084,7 +2084,7 @@ end;
 
 procedure TraiteInterruptionBrutale(var coup,reponse : SInt32; fonctionAppelante : String255);
 begin
-  if not((BAnd(interruptionReflexion,interruptionDepassementTemps) <> 0) and vaDepasserTemps) then
+  if not((BAND(interruptionReflexion,interruptionDepassementTemps) <> 0) and vaDepasserTemps) then
     begin
       if debuggage.gestionDuTemps then
         WritelnDansRapport('dans TraiteInterruptionBrutale, fonctionAppelante = '+fonctionAppelante);

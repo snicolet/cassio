@@ -2099,8 +2099,8 @@ end;
 procedure SetBoolean(var flagBits : SInt32; mask : SInt32; whichBoolean : boolean);
 begin
   if whichBoolean
-    then flagBits := BOr(flagBits,mask)
-    else flagBits := BOr(flagBits,mask) - mask;
+    then flagBits := BOR(flagBits,mask)
+    else flagBits := BOR(flagBits,mask) - mask;
 end;
 
 

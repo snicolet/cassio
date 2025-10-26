@@ -2686,19 +2686,19 @@ begin
     begin
       t := othellier[i];
       case positionEtTrait.position[t] of
-        pionNoir   : clef := BXOr(clef , (IndiceHash^^[pionNoir,t]));
-        pionBlanc  : clef := BXOr(clef , (IndiceHash^^[pionBlanc,t]));
-        pionVide   : clef := BXOr(clef , (IndiceHash^^[pionVide,t]));
+        pionNoir   : clef := BXOR(clef , (IndiceHash^^[pionNoir,t]));
+        pionBlanc  : clef := BXOR(clef , (IndiceHash^^[pionBlanc,t]));
+        pionVide   : clef := BXOR(clef , (IndiceHash^^[pionVide,t]));
       end {case}
     end;
 
   case GetTraitOfPosition(positionEtTrait) of
-    pionNoir   : clef := BXOr(clef,281357080);   {trois nombres differents choisis au hazard}
-    pionBlanc  : clef := BXOr(clef,1620260161);  {ils doivent etre > 0 et < MaxLongint}
-    pionVide   : clef := BXOr(clef,1417447180);
+    pionNoir   : clef := BXOR(clef,281357080);   {trois nombres differents choisis au hazard}
+    pionBlanc  : clef := BXOR(clef,1620260161);  {ils doivent etre > 0 et < MaxLongint}
+    pionVide   : clef := BXOR(clef,1417447180);
   end; {case}
 
-  CalculeIndexHashTableInterversions := BAnd(clef,nbElementsTableHashageInterversions-1);
+  CalculeIndexHashTableInterversions := BAND(clef,nbElementsTableHashageInterversions-1);
 end;
 
 

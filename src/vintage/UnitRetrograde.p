@@ -918,7 +918,7 @@ begin
         scoreParfait   := resultatCalculMilieu.note + penalitePourTraitAff;
         {meiDef         := resultatCalculMilieu.theDefense;}
 
-        if BAnd(interruptionReflexion,interruptionDepassementTemps) <> 0 then
+        if BAND(interruptionReflexion,interruptionDepassementTemps) <> 0 then
           begin
             EnleveCetteInterruption(interruptionDepassementTemps);
             vaDepasserTemps := false;
@@ -1045,7 +1045,7 @@ var oldScript : SInt32;
     nouveauscore,nouveauCoup : SInt32;
     bidbool : boolean;
 begin
-  oldInterruption := BOr(oldInterruption,GetCurrentInterruption);
+  oldInterruption := BOR(oldInterruption,GetCurrentInterruption);
   EnleveCetteInterruption(GetCurrentInterruption);
   GetCurrentScript(oldScript);
   SetDeroulementAutomatiqueDuRapport(true);
@@ -1725,7 +1725,7 @@ begin
 					            if (interruptionReflexion <> pasdinterruption)
 					              then
 					                begin
-					                  if BAnd(interruptionReflexion,interruptionDepassementTemps) = 0
+					                  if BAND(interruptionReflexion,interruptionDepassementTemps) = 0
 					                    then EcritAnalyseInterrompueDansRapport
 					                    else
 					                      begin

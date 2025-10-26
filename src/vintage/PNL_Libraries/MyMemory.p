@@ -254,7 +254,7 @@ IMPLEMENTATION
 	begin
 		Assert( (size >= 0) );
 		if CheckPointer(p) then begin
-			(* Assert( (BAnd(POINTER_VALUE(p), 3) = 0) and (BAnd(size, 3) = 0) ); *)
+			(* Assert( (BAND(POINTER_VALUE(p), 3) = 0) and (BAND(size, 3) = 0) ); *)
 			i := SInt32(p);
 			while size > 3 do begin
 				longPtr(i)^ := val;

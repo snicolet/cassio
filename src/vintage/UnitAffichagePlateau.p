@@ -3568,14 +3568,14 @@ begin
       *)
 
       tempo := GetAffichageProprietesOfCurrentNode;
-      if (BAnd(GetAffichageProprietesOfCurrentNode,kCommentaires) <> 0) then
+      if (BAND(GetAffichageProprietesOfCurrentNode,kCommentaires) <> 0) then
         SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kCommentaires);
-      if (BAnd(GetAffichageProprietesOfCurrentNode,kNoeudDansFenetreArbreDeJeu) <> 0) then
+      if (BAND(GetAffichageProprietesOfCurrentNode,kNoeudDansFenetreArbreDeJeu) <> 0) then
         SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNoeudDansFenetreArbreDeJeu);
 
 
 			if (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse) and
-			   (BAnd(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) then
+			   (BAND(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) then
 		    begin
 		      if AttenteAnalyseDeFinaleDansPositionCourante
 		        then coupSuggere := GetBestMoveAttenteAnalyseDeFinale
@@ -3591,13 +3591,13 @@ begin
 
 		  AfficheProprietesOfCurrentNode(false,surQuellesCases,'DessineAutresInfosSurCasesAideDebutant');
 
-		  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+		  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
 		    then DessineNoteSurCases(kNotesDeCassio,surQuellesCases);
 
-		  if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
+		  if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
 		    then DessineNoteSurCases(kNotesDeZebra,surQuellesCases);
 
-			if afficheInfosApprentissage and (BAnd(GetAffichageProprietesOfCurrentNode,kInfosApprentissage) <> 0)
+			if afficheInfosApprentissage and (BAND(GetAffichageProprietesOfCurrentNode,kInfosApprentissage) <> 0)
 			  then EcritLesInfosDApprentissage;
 
 			if DoitAfficherBibliotheque then EcritCoupsBibliotheque(surQuellesCases);
@@ -3657,7 +3657,7 @@ begin
       if avecDessinAutresInfosSurLesCases and (surQuellesCases <> [])
         then DessineAutresInfosSurCasesAideDebutant(surQuellesCases, 'DessineAideDebutant');
 
-      if (BAnd(GetAffichageProprietesOfCurrentNode,kAnglesCarreCentral) <> 0)
+      if (BAND(GetAffichageProprietesOfCurrentNode,kAnglesCarreCentral) <> 0)
         then DessineAnglesCarreCentral;
 
       aideDebutant := true;
@@ -3806,7 +3806,7 @@ begin
   result := false;
 
   if (GetValeurDessinEnTraceDeRayon(whichSquare) = pionSuggestionDeCassio) or
-     ((BAnd(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) and
+     ((BAND(GetAffichageProprietesOfCurrentNode,kSuggestionDeCassio) <> 0) and
       (afficheSuggestionDeCassio or gDoitJouerMeilleureReponse or SuggestionAnalyseDeFinaleEstDessinee) and
       (GetBestSuggestionDeCassio = whichSquare))
     then result := true;

@@ -432,7 +432,7 @@ end;
 {fairly fast, but I think it takes some more to access data byte-wise in}
 {Pascal.}
 {As a comfort, a 16-bit version wouldn't need any of these workarounds.}
-				averagecolor := BSr(BASE2^[0] + BASE3^[0] + BASE4^[0] + BASE5^[0],2) - 5;
+				averagecolor := BSR(BASE2^[0] + BASE3^[0] + BASE4^[0] + BASE5^[0],2) - 5;
 		{ Make sure the color's don't go below the lowest color}
 				if averagecolor < 3 then
 					averagecolor := 3;

@@ -75,7 +75,7 @@ begin
   if (statistiques <> NIL)
     then
       begin
-        result := (BAnd(statistiques^^.flags, kEcritureDansLaFenetreNormale) <> 0);
+        result := (BAND(statistiques^^.flags, kEcritureDansLaFenetreNormale) <> 0);
         (* WritelnStringAndBoolDansRapport('         StatistiquesSontEcritesDansLaFenetreNormale : cas 1 => ',result); *)
         StatistiquesSontEcritesDansLaFenetreNormale := result;
       end
@@ -109,7 +109,7 @@ begin
   if (statistiques <> NIL)
     then
       begin
-        result := (BAnd(statistiques^^.flags, kCalculsFaitsAuMoinsUneFois) <> 0);
+        result := (BAND(statistiques^^.flags, kCalculsFaitsAuMoinsUneFois) <> 0);
 
         (* WritelnStringAndBoolDansRapport('          StatistiquesCalculsFaitsAuMoinsUneFois : cas 1 => ',result); *)
         StatistiquesCalculsFaitsAuMoinsUneFois := result;

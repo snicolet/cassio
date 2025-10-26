@@ -336,14 +336,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante_4 := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low_4,pos_opp_bits_high_4,pos_my_bits_low_4,pos_my_bits_high_4, BSr(65-alpha_4,1));
+      noteCourante_4 := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low_4,pos_opp_bits_high_4,pos_my_bits_low_4,pos_my_bits_high_4, BSR(65-alpha_4,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante_4 <= alpha_4 then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardQuatreCasesVides :',MakeBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4),4,alpha_4,beta_4,diffPions_4);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low_4,pos_opp_bits_high_4,pos_my_bits_low_4,pos_my_bits_high_4, BSr(65-alpha_4,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low_4,pos_opp_bits_high_4,pos_my_bits_low_4,pos_my_bits_high_4, BSR(65-alpha_4,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardQuatreCasesVides := noteCourante_4;
@@ -355,14 +355,14 @@ begin
     begin
       { Calculons la note minimale que l'on peut obtenir,
         connaissant nos pions definitifs }
-      noteCourante_4 := -64 + 2*CalculePionsStablesBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4, BSr(65+beta_4,1));
+      noteCourante_4 := -64 + 2*CalculePionsStablesBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4, BSR(65+beta_4,1));
       { noteCourante = la note minimale que l'on peut esperer obtenir}
       if noteCourante_4 >= beta_4 then { coupure beta !... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardQuatreCasesVides :',MakeBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4),4,alpha_4,beta_4,diffPions_4);
-          WritelnNumDansRapport('pions stables amis = ',CalculePionsStablesBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4, BSr(65+beta_4,1)));
+          WritelnNumDansRapport('pions stables amis = ',CalculePionsStablesBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4, BSR(65+beta_4,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardQuatreCasesVides := noteCourante_4;
@@ -392,10 +392,10 @@ debut_prof_4:
 		  if (4 >= 3) then
 		    begin
 		      WritelnStringAndBooleanDansRapport('vient de passer = ',not(((neVientPasDePasser AND $00000010) <> 0)));
-				  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite_4,constanteDeParite[11]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite_4,constanteDeParite[18]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite_4,constanteDeParite[81]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite_4,constanteDeParite[88]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite_4,constanteDeParite[11]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite_4,constanteDeParite[18]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite_4,constanteDeParite[81]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite_4,constanteDeParite[88]) = 0);
 				end;
 		  AttendFrappeClavier;
 		end;
@@ -405,7 +405,7 @@ debut_prof_4:
 
 
 
- if (BAnd(vecteurParite_4,15) <> 0)
+ if (BAND(vecteurParite_4,15) <> 0)
    then pairesImpaires_4 := vecteurParite_4        {s'il y a des coups impairs, on teste d'abord les coups impairs}
    else pairesImpaires_4 := not(vecteurParite_4);  {sinon, on commence directement tous les coups pairs}
 
@@ -426,7 +426,7 @@ debut_prof_4:
 			                              MakeBitboard(pos_my_bits_low_4,pos_my_bits_high_4,pos_opp_bits_low_4,pos_opp_bits_high_4),
 			                              4,alpha_4,beta_4,diffPions_4);
 			          WritelnDansRapport('pairesImpaires_4 = '+Hexa(pairesImpaires_4));
-			          if BAnd(pairesImpaires_4,$00008000) = 0
+			          if BAND(pairesImpaires_4,$00008000) = 0
 			            then WritelnStringAndCoupDansRapport('coup impair : ',iCourant_4)
 			            else WritelnStringAndCoupDansRapport('coup pair : ',iCourant_4);
 			          WritelnDansRapport('');
@@ -502,10 +502,10 @@ debut_prof_3:
 		  if (3 >= 3) then
 		    begin
 		      WritelnStringAndBooleanDansRapport('vient de passer = ',not(((neVientPasDePasser AND $00000008) <> 0)));
-				  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite_3,constanteDeParite[11]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite_3,constanteDeParite[18]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite_3,constanteDeParite[81]) = 0);
-				  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite_3,constanteDeParite[88]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite_3,constanteDeParite[11]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite_3,constanteDeParite[18]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite_3,constanteDeParite[81]) = 0);
+				  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite_3,constanteDeParite[88]) = 0);
 				end;
 		  AttendFrappeClavier;
 		end;
@@ -528,7 +528,7 @@ debut_prof_3:
 			                              MakeBitboard(pos_my_bits_low_3,pos_my_bits_high_3,pos_opp_bits_low_3,pos_opp_bits_high_3),
 			                              3,alpha_3,beta_3,diffEssai_3);
 			          WritelnDansRapport('pairesImpaires_3 = '+Hexa(pairesImpaires_3));
-			          if BAnd(pairesImpaires_3,$00008000) = 0
+			          if BAND(pairesImpaires_3,$00008000) = 0
 			            then WritelnStringAndCoupDansRapport('coup impair : ',iCourant_3)
 			            else WritelnStringAndCoupDansRapport('coup pair : ',iCourant_3);
 			          WritelnDansRapport('');
@@ -600,7 +600,7 @@ debut_prof_3:
 	UNTIL_LISTE_CASES_VIDES_EST_VIDE(iterateur_3);
 
 
-  if BAnd(pairesImpaires_3,$00008000) = 0 then
+  if BAND(pairesImpaires_3,$00008000) = 0 then
     begin
       pairesImpaires_3 := not(vecteurParite_3);   {puis les coups pairs}
       goto testerCetteParite_prof_3;
@@ -738,7 +738,7 @@ debut_prof_3:
 	 UNTIL_LISTE_CASES_VIDES_EST_VIDE(iterateur_4);
 
 
- if BAnd(pairesImpaires_4,$00008000) = 0 then
+ if BAND(pairesImpaires_4,$00008000) = 0 then
    begin
      pairesImpaires_4 := not(vecteurParite_4);   {puis les coups pairs}
      goto testerCetteParite_prof_4;
@@ -902,17 +902,17 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
 
 
 
-  if (BAnd(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
+  if (BAND(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
     BEGIN
 
     {impairs:}
@@ -1263,14 +1263,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardParite :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardParite := noteCourante;
@@ -1289,17 +1289,17 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
 
 
 
-  if (BAnd(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
+  if (BAND(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
     BEGIN
 
     {impairs:}
@@ -1660,14 +1660,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardPariteHachage :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardPariteHachage := noteCourante;
@@ -1686,10 +1686,10 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
@@ -1723,7 +1723,7 @@ begin
 
 
 
-  if (BAnd(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
+  if (BAND(vecteurParite,15) <> 0) then  {y a-t-il des coups impairs ?}
     BEGIN
 
     {impairs:}
@@ -2074,14 +2074,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardFastestFirst :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardFastestFirst := noteCourante;
@@ -2100,10 +2100,10 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
@@ -2363,14 +2363,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardFastestFirstKnuth :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardFastestFirstKnuth := noteCourante;
@@ -2389,10 +2389,10 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
@@ -2746,14 +2746,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardFastestFirstAvecETC :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardFastestFirstAvecETC := noteCourante;
@@ -2772,10 +2772,10 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
@@ -3071,14 +3071,14 @@ begin
     begin
       { Calculons la note maximale que l'on peut obtenir,
         connaissant les pions definitifs de l'adversaire }
-      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1));
+      noteCourante := 64 - 2*CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1));
       { noteCourante = la note maximale que l'on peut esperer obtenir}
       if noteCourante <= alpha then { pas d'espoir... }
         begin
           {
           WritelnDansRapport('cut-off de stabilite :');
           EcritBitboardState('Entree dans ABFinBitboardParallele :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),ESprof,alpha,beta,diffPions);
-          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSr(65-alpha,1)));
+          WritelnNumDansRapport('pions stables adversaire = ',CalculePionsStablesBitboard(pos_opp_bits_low,pos_opp_bits_high,pos_my_bits_low,pos_my_bits_high, BSR(65-alpha,1)));
           AttendFrappeClavier;
           }
           ABFinBitboardParallele := noteCourante;
@@ -3098,10 +3098,10 @@ begin
   if (ESProf >= 3) then
     begin
 		  WritelnDansRapport('');
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(vecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(vecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(vecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(vecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(vecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(vecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(vecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(vecteurParite,constanteDeParite[88]) = 0);
 		end;
   AttendFrappeClavier;
   {$ENDC}
@@ -3442,15 +3442,15 @@ begin
 	  for i := 1 to 8 do
 	    begin
 	      square := j*10 + i;
-	      if plat[square] = couleur then myBitsLow := BOr(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
-	      if plat[square] = adversaire then oppBitsLow := BOr(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
+	      if plat[square] = couleur then myBitsLow := BOR(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
+	      if plat[square] = adversaire then oppBitsLow := BOR(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
 	    end;
 	for j := 5 to 8 do
 	  for i := 1 to 8 do
 	    begin
 	      square := j*10 + i;
-	      if plat[square] = couleur then myBitsHigh := BOr(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
-	      if plat[square] = adversaire then oppBitsHigh := BOr(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
+	      if plat[square] = couleur then myBitsHigh := BOR(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
+	      if plat[square] = adversaire then oppBitsHigh := BOR(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
 	    end;
 
 	with position do

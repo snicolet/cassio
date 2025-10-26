@@ -37,8 +37,8 @@
 {$DEFINEC OLD_GET_DEUX_DERNIERES_CASES_VIDES_FROM_LISTE(listeBitboard,square1,square2)  begin  bitCaseVide := listeBitboard and (not(listeBitboard - 1)); if (bitCaseVide and $FFFF8000) <> 0 then leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide shr 15) - 15 else leadingZeros := COUNT_LEADING_ZEROS(bitCaseVide); square1 := gTableBitListeBitboardToSquare[leadingZeros]; if (listeBitboard and $FFFF8000) <> 0 then leadingZeros2 := COUNT_LEADING_ZEROS(listeBitboard shr 15) - 15 else leadingZeros2 := COUNT_LEADING_ZEROS(listeBitboard); square2 := gTableBitListeBitboardToSquare[leadingZeros2];  end }
 
 
-{$DEFINEC COUP_EST_DANS_UNE_ZONE_PAIRE(leadingZeros,vecteurParite)  (BAnd(vecteurParite,gTableBitListeBitboardConstanteDePariteDeSquare[leadingZeros]) = 0) }
-{$DEFINEC COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros,vecteurParite)  (BAnd(vecteurParite,gTableBitListeBitboardConstanteDePariteDeSquare[leadingZeros]) <> 0) }
+{$DEFINEC COUP_EST_DANS_UNE_ZONE_PAIRE(leadingZeros,vecteurParite)  (BAND(vecteurParite,gTableBitListeBitboardConstanteDePariteDeSquare[leadingZeros]) = 0) }
+{$DEFINEC COUP_EST_DANS_UNE_ZONE_IMPAIRE(leadingZeros,vecteurParite)  (BAND(vecteurParite,gTableBitListeBitboardConstanteDePariteDeSquare[leadingZeros]) <> 0) }
 {$DEFINEC REMOVE_BIT_CASE_VIDE_FROM_LISTE(listeArrivee,bitCaseVide) (listeArrivee - bitCaseVide) }
 {$DEFINEC REMOVE_CASE_VIDE_FROM_LISTE(listeArrivee,square) (listeArrivee - gTableSquareToBitCaseVidePourListeBiboard[square]) }
 {$DEFINEC UNTIL_LISTE_CASES_VIDES_EST_VIDE(iterateur)  until (iterateur = 0); end }
@@ -83,7 +83,7 @@
 (* bitboards use the hash table heuristics *)
 {$DEFINEC BITBOARD_USE_HASH_TABLE TRUE}
 
-{$DEFINEC ModifPlatPlausible(square,opp_low,opp_high) (BOr(BAnd(masque_voisinage[square].high,opp_high),BAnd(masque_voisinage[square].low,opp_low)) <> 0) }
+{$DEFINEC ModifPlatPlausible(square,opp_low,opp_high) (BOR(BAND(masque_voisinage[square].high,opp_high),BAND(masque_voisinage[square].low,opp_low)) <> 0) }
 
 {$DEFINEC AVEC_DEBUG_QUATRE_CASES_VIDES   FALSE}
 {$DEFINEC USING_QUATRECASESVIDESBITBOARDFAST   TRUE }

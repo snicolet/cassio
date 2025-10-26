@@ -2191,7 +2191,7 @@ begin
   HashValueDuZooEstCorrecte := (SInt64(hash) > 0);
   {$ELSEC}
   HashValueDuZooEstCorrecte := ((hash.hi <> 0) or (hash.lo <> 0))
-                               and (BAnd(hash.hi,$80000000) = 0);
+                               and (BAND(hash.hi,$80000000) = 0);
   {$ENDC}
 end;
 

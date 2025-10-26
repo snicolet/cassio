@@ -78,14 +78,14 @@ begin
   left_right_hi := left_right_hi and (left_right_hi shr 2);
   left_right_hi := left_right_hi and (left_right_hi shr 1);
   left_right_hi := left_right_hi and constante1;
-  left_right_hi := BSl(left_right_hi,8) - left_right_hi ; {left_right_hi := left_right_hi * 255;}
+  left_right_hi := BSL(left_right_hi,8) - left_right_hi ; {left_right_hi := left_right_hi * 255;}
 
   left_right_lo := remplies_lo;
   left_right_lo := left_right_lo and (left_right_lo shr 4);
   left_right_lo := left_right_lo and (left_right_lo shr 2);
   left_right_lo := left_right_lo and (left_right_lo shr 1);
   left_right_lo := left_right_lo and constante1;
-  left_right_lo := BSl(left_right_lo,8) - left_right_lo ; {left_right_lo := left_right_lo * 255;}
+  left_right_lo := BSL(left_right_lo,8) - left_right_lo ; {left_right_lo := left_right_lo * 255;}
 
   left_right_hi := left_right_hi or constante2;
   left_right_lo := left_right_lo or constante2;
@@ -132,21 +132,21 @@ begin
 
 
   constante1 := $00010204;
-  if BAnd(vides_lo,constante1) = 0 then
+  if BAND(vides_lo,constante1) = 0 then
     begin
       diag_lo := diag_lo or constante1;
     end;
 
   constante2 := $01020408;
-  if BAnd(vides_lo,constante2) = 0 then
+  if BAND(vides_lo,constante2) = 0 then
     begin
       diag_lo := diag_lo or constante2;
     end;
 
   constante3 := $02040810;
   constante4 := $00000001;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
       diag_hi := diag_hi or constante4;
@@ -154,8 +154,8 @@ begin
 
   constante1 := $04081020;
   constante2 := $00000102;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
       diag_hi := diag_hi or constante2;
@@ -163,8 +163,8 @@ begin
 
   constante3 := $08102040;
   constante4 := $00010204;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
       diag_hi := diag_hi or constante4;
@@ -172,8 +172,8 @@ begin
 
   constante1 := $10204080;
   constante2 := $01020408;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
       diag_hi := diag_hi or constante2;
@@ -181,8 +181,8 @@ begin
 
   constante3 := $20408000;
   constante4 := $02040810;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
       diag_hi := diag_hi or constante4;
@@ -190,8 +190,8 @@ begin
 
   constante1 := $40800000;
   constante2 := $04081020;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       diag_lo := diag_lo or constante1;
       diag_hi := diag_hi or constante2;
@@ -199,21 +199,21 @@ begin
 
   constante3 := $80000000;
   constante4 := $08102040;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       diag_lo := diag_lo or constante3;
       diag_hi := diag_hi or constante4;
     end;
 
   constante1 := $10204080;
-  if (BAnd(vides_hi,constante1) = 0) then
+  if (BAND(vides_hi,constante1) = 0) then
     begin
       diag_hi := diag_hi or constante1;
     end;
 
   constante2 := $20408000;
-  if (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_hi,constante2) = 0) then
     begin
       diag_hi := diag_hi or constante2;
     end;
@@ -224,21 +224,21 @@ begin
   anti_hi := $FF818181;
 
   constante3 := $00804020;
-  if (BAnd(vides_lo,constante3) = 0) then
+  if (BAND(vides_lo,constante3) = 0) then
     begin
       anti_lo := anti_lo or constante3;
     end;
 
   constante4 := $80402010;
-  if (BAnd(vides_lo,constante4) = 0) then
+  if (BAND(vides_lo,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante4;
     end;
 
   constante1 := $40201008;
   constante2 := $00000080;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
       anti_hi := anti_hi or constante2;
@@ -246,8 +246,8 @@ begin
 
   constante3 := $20100804;
   constante4 := $00008040;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
       anti_hi := anti_hi or constante4;
@@ -255,8 +255,8 @@ begin
 
   constante1 := $10080402;
   constante2 := $00804020;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
       anti_hi := anti_hi or constante2;
@@ -264,8 +264,8 @@ begin
 
   constante3 := $08040201;
   constante4 := $80402010;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
       anti_hi := anti_hi or constante4;
@@ -273,8 +273,8 @@ begin
 
   constante1 := $04020100;
   constante2 := $40201008;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
       anti_hi := anti_hi or constante2;
@@ -282,8 +282,8 @@ begin
 
   constante3 := $02010000;
   constante4 := $20100804;
-  if (BAnd(vides_lo,constante3) = 0) and
-     (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_lo,constante3) = 0) and
+     (BAND(vides_hi,constante4) = 0) then
     begin
       anti_lo := anti_lo or constante3;
       anti_hi := anti_hi or constante4;
@@ -291,21 +291,21 @@ begin
 
   constante1 := $01000000;
   constante2 := $10080402;
-  if (BAnd(vides_lo,constante1) = 0) and
-     (BAnd(vides_hi,constante2) = 0) then
+  if (BAND(vides_lo,constante1) = 0) and
+     (BAND(vides_hi,constante2) = 0) then
     begin
       anti_lo := anti_lo or constante1;
       anti_hi := anti_hi or constante2;
     end;
 
   constante3 := $08040201;
-  if (BAnd(vides_hi,constante3) = 0) then
+  if (BAND(vides_hi,constante3) = 0) then
     begin
       anti_hi := anti_hi or constante3;
     end;
 
   constante4 := $04020100;
-  if (BAnd(vides_hi,constante4) = 0) then
+  if (BAND(vides_hi,constante4) = 0) then
     begin
       anti_hi := anti_hi or constante4;
     end;

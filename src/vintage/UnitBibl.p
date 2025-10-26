@@ -436,7 +436,7 @@ end;
 function DoitAfficherBibliotheque : boolean;
 begin
   DoitAfficherBibliotheque := afficheBibl and (nbreCoup <= LongMaxBibl) and
-                              (BAnd(GetAffichageProprietesOfCurrentNode,kBibliotheque) <> 0) and
+                              (BAND(GetAffichageProprietesOfCurrentNode,kBibliotheque) <> 0) and
                               not(positionFeerique);
 end;
 

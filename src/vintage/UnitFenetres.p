@@ -1080,7 +1080,7 @@ begin
     then tailleboite := 16
     else tailleboite := 15;
 
-  toucheOption := BAnd(theEvent.modifiers,optionKey) <> 0;
+  toucheOption := BAND(theEvent.modifiers,optionKey) <> 0;
 
   GetPort(oldport);
   SetPortByWindow(thisWindow);
@@ -1194,7 +1194,7 @@ begin
       GetPort(oldport);
       SetPortByWindow(window);
       ZoomWindow(window,partcode,false);
-      if (window = wPlateauPtr) and (BAnd(theEvent.modifiers,optionKey) = 0)
+      if (window = wPlateauPtr) and (BAND(theEvent.modifiers,optionKey) = 0)
         then
           begin
             AjusteTailleFenetrePlateauPourLa3D;
@@ -1811,8 +1811,8 @@ begin
   if sousEmulatorSousPC then EmuleToucheCommandeParControleDansEvent(evt);
   with evt do
    if ((what = keyDown) or (what = autoKey)) and
-      ((BAnd(message,charcodemask) = EscapeKey) or
-      ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0)))
+      ((BAND(message,charcodemask) = EscapeKey) or
+      ((BAND(message,charcodemask) = ord('.')) and (BAND(modifiers,cmdKey) <> 0)))
       then
         begin
           item := 1;

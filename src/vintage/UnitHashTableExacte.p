@@ -248,10 +248,10 @@ begin
           for k := 0 to 1023 do
             begin
               with whichHashTableExacte^[k] do
-              if BAnd(flags,kMaskRecalculerCoupsLegaux) <> 0 then
+              if BAND(flags,kMaskRecalculerCoupsLegaux) <> 0 then
                 begin
                   whichHashTableCoupsLegaux^[k,0] := 0;    {on fait comme si on n'avait pas calcule les coups legaux de cette position}
-                  flags := BAnd(flags,BNot(kMaskRecalculerCoupsLegaux));
+                  flags := BAND(flags,BNOT(kMaskRecalculerCoupsLegaux));
                 end;
             end;
         end;
@@ -423,9 +423,9 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
 
   begin
     SetQDGlobalsRandomSeed(clefHashage+codagePosition.platLigne1+codagePosition.platLigne8+codagePosition.platLigne2+codagePosition.platLigne7);
-    increment1 := BAnd(Random,1023);
-    if BAnd(increment1,1) = 0 then inc(increment1);{pour avoir un nombre premier avec 1024}
-    whichClefExacte := BAnd((whichClefExacte+increment1),1023);
+    increment1 := BAND(Random,1023);
+    if BAND(increment1,1) = 0 then inc(increment1);{pour avoir un nombre premier avec 1024}
+    whichClefExacte := BAND((whichClefExacte+increment1),1023);
     clefHashExacteInitiale := whichClefExacte;
 
     (** on cherche si la position apparait dans la HashTable  dans la suite clefHashExacteInitiale,
@@ -453,18 +453,18 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
             begin
               (** on a trouve la position dans la table **)
               InfoTrouveeDansHashTableExacte := true;
-              flags := BAnd(flags,BNot(kMaskLiberee));  {elle n'est plus liberee}
+              flags := BAND(flags,BNOT(kMaskLiberee));  {elle n'est plus liberee}
               inc(nbPositionsRetrouveesHashTableExactes);
               exit(InfoTrouveeDansHashTableExacte);
             end;
-          whichClefExacte := BAnd((whichClefExacte+increment1),1023);
+          whichClefExacte := BAND((whichClefExacte+increment1),1023);
           inc(longueurCollisionPath);
         end;
      until (longueurCollisionPath > 12);
 
     SetQDGlobalsRandomSeed(clefHashExacteInitiale+codagePosition.platLigne2+codagePosition.platLigne7);
-    increment2 := BAnd(Random,1023);
-    if BAnd(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
+    increment2 := BAND(Random,1023);
+    if BAND(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
 
     (** on cherche si la position apparait dans la HashTable avec le cycle d'increment2 **)
     whichClefExacte := clefHashExacteInitiale;
@@ -491,11 +491,11 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
             begin
               (** on a trouve la position dans la table **)
               InfoTrouveeDansHashTableExacte := true;
-              flags := BAnd(flags,BNot(kMaskLiberee));  {elle n'est plus liberee}
+              flags := BAND(flags,BNOT(kMaskLiberee));  {elle n'est plus liberee}
               inc(nbPositionsRetrouveesHashTableExactes);
               exit(InfoTrouveeDansHashTableExacte);
             end;
-          whichClefExacte := BAnd((whichClefExacte+increment2),1023);
+          whichClefExacte := BAND((whichClefExacte+increment2),1023);
           inc(longueurCollisionPath);
         end;
     until (longueurCollisionPath > 12);
@@ -508,24 +508,24 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
     whichClefExacte := clefHashExacteInitiale;
     longueurCollisionPath := 0;
     repeat
-      if BAnd(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
+      if BAND(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
         begin
           inc(nbNouvellesEntreesHashTableExactes);
           exit(InfoTrouveeDansHashTableExacte);  (** trouvŽ une place liberee **)
         end;
-      whichClefExacte := BAnd((whichClefExacte+increment1),1023);
+      whichClefExacte := BAND((whichClefExacte+increment1),1023);
       inc(longueurCollisionPath);
     until (longueurCollisionPath > 12);
 
     whichClefExacte := clefHashExacteInitiale;
     longueurCollisionPath := 0;
     repeat
-      if BAnd(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
+      if BAND(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
         begin
           inc(nbNouvellesEntreesHashTableExactes);
           exit(InfoTrouveeDansHashTableExacte);  (** trouvŽ une place liberee  **)
         end;
-      whichClefExacte := BAnd((whichClefExacte+increment2),1023);
+      whichClefExacte := BAND((whichClefExacte+increment2),1023);
       inc(longueurCollisionPath);
     until (longueurCollisionPath > 12);
 
@@ -546,7 +546,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               minProf := profondeur;
             end;
         end;
-      whichClefExacte := BAnd((whichClefExacte+increment1),1023);
+      whichClefExacte := BAND((whichClefExacte+increment1),1023);
       inc(longueurCollisionPath);
     until (longueurCollisionPath > 12);
 
@@ -561,7 +561,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               minProf := profondeur;
             end;
         end;
-      whichClefExacte := BAnd((whichClefExacte+increment2),1023);
+      whichClefExacte := BAND((whichClefExacte+increment2),1023);
       inc(longueurCollisionPath);
     until (longueurCollisionPath > 12);
 
@@ -669,7 +669,7 @@ begin
 
       {verification de la parite des bornes}
       for k := 1 to nbreDeltaSuccessifs do
-        if (BAnd(valMin[k],$01) <> 0) and (erreur = 0) then
+        if (BAND(valMin[k],$01) <> 0) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -678,7 +678,7 @@ begin
           end;
 
       for k := 1 to nbreDeltaSuccessifs do
-        if (BAnd(valMax[k],$01) <> 0) and (erreur = 0) then
+        if (BAND(valMax[k],$01) <> 0) and (erreur = 0) then
           begin
             WritelnDansRapport('');
             WritelnDansRapport('dans VerificationAssertionSurLesBornes, fonction appelante ='+fonctionAppelante);
@@ -775,17 +775,17 @@ begin
       for k := 1 to nbreDeltaSuccessifs do
         begin
           aux := bornesMin[k];
-          aux2 := BAnd(aux,$FE);
+          aux2 := BAND(aux,$FE);
           valMin[k]               := aux2;
-          nbArbresCoupesValMin[k] := BAnd(aux,$01);
+          nbArbresCoupesValMin[k] := BAND(aux,$01);
           {
           WritelnNumDansRapport('aux(min) = ',aux);
           WritelnNumDansRapport('aux2(min) = ',aux2);
           }
           aux := bornesMax[k];
-          aux2 := BAnd(aux,$FE);
+          aux2 := BAND(aux,$FE);
           valMax[k]               := aux2;
-          nbArbresCoupesValMax[k] := BAnd(aux,$01);
+          nbArbresCoupesValMax[k] := BAND(aux,$01);
           {
           WritelnNumDansRapport('aux(max) = ',aux);
           WritelnNumDansRapport('aux2(max) = ',aux2);
@@ -814,24 +814,24 @@ begin
         begin
 
           bornesMin[k] := valMin[k];
-          {if BAnd(bornesMin[k],$01) <> 0 then
+          {if BAND(bornesMin[k],$01) <> 0 then
             begin
               SysBeep(0);
               WritelnDansRapport('ASSERT : bornesMin[k] impair dans CompresserBornesDansHashTableExacte');
               AttendFrappeClavier;
             end;}
           if (nbArbresCoupesValMin[k] > 0)
-            then bornesMin[k] := BOr(bornesMin[k],$01);
+            then bornesMin[k] := BOR(bornesMin[k],$01);
 
           bornesMax[k] := valMax[k];
-          {if BAnd(bornesMax[k],$01) <> 0 then
+          {if BAND(bornesMax[k],$01) <> 0 then
             begin
               SysBeep(0);
               WritelnDansRapport('ASSERT : bornesMax[k] impair dans CompresserBornesDansHashTableExacte');
               AttendFrappeClavier;
             end;}
           if (nbArbresCoupesValMax[k] > 0)
-            then bornesMax[k] := BOr(bornesMax[k],$01);
+            then bornesMax[k] := BOR(bornesMax[k],$01);
 
           coupsDesBornesMin[k] := coupDeCetteValMin[k];
         end;
@@ -1135,8 +1135,8 @@ begin
 
 
 
-  nroTableExacte := BAnd(clefHash div 1024,nbTablesHashExactesMoins1);
-  laClefExacte := BAnd(clefHash,1023);
+  nroTableExacte := BAND(clefHash div 1024,nbTablesHashExactesMoins1);
+  laClefExacte := BAND(clefHash,1023);
 
   quelleHashTableExacte := HashTableExacte[nroTableExacte];
   quelleHashTableCoupsLegaux := CoupsLegauxHash[nroTableExacte];
@@ -1204,8 +1204,8 @@ var nbVides : SInt32;
 begin
 
   nbVides := NbCasesVidesDansPosition(plat.position);
-	nroTableExacte := BAnd(hashKey div 1024,nbTablesHashExactesMoins1);
-	laClefExacte := BAnd(hashKey,1023);
+	nroTableExacte := BAND(hashKey div 1024,nbTablesHashExactesMoins1);
+	laClefExacte := BAND(hashKey,1023);
   quelleHashTableExacte := HashTableExacte[nroTableExacte];
   CreeCodagePosition(plat.position,GetTraitOfPosition(plat),nbVides,codagePosition);
 
@@ -1244,8 +1244,8 @@ var nbVides : SInt32;
 begin
 
   nbVides := NbCasesVidesDansPosition(plat.position);
-	nroTableExacte := BAnd((hashKey div 1024),nbTablesHashExactesMoins1);
-	laClefExacte := BAnd(hashKey,1023);
+	nroTableExacte := BAND((hashKey div 1024),nbTablesHashExactesMoins1);
+	laClefExacte := BAND(hashKey,1023);
   quelleHashTableExacte := HashTableExacte[nroTableExacte];
   CreeCodagePosition(plat.position,GetTraitOfPosition(plat),nbVides,codagePosition);
 
@@ -1326,7 +1326,7 @@ begin
   if UpdatePositionEtTrait(platAux,whichSon)
     then
       begin
-	      hashKeyAfterCoup := BXOr(clefHashage, (IndiceHash^^[GetTraitOfPosition(platAux),whichSon]));
+	      hashKeyAfterCoup := BXOR(clefHashage, (IndiceHash^^[GetTraitOfPosition(platAux),whichSon]));
 
 	      if GetEndgameBornesInHashTableAtThisHashKey(platAux,hashKeyAfterCoup,bornes)
 	        then
@@ -1417,7 +1417,7 @@ begin
                       couleur := GetCouleurOfMoveProperty(prop^);
 
                       if (pere >= 11) and (pere <= 88) then
-                        hashValue := BXOr(hashValue , (IndiceHash^^[couleur,pere]));
+                        hashValue := BXOR(hashValue , (IndiceHash^^[couleur,pere]));
 
                     end;
                   L := TailOfPropertyList(L);
@@ -1435,7 +1435,7 @@ begin
         end;
 
       if (GetTraitOfPosition(positionCherchee) <> pionVide) and (dernierCoup >= 11) and (dernierCoup <= 88) then
-        hashValue := BXOr(hashValue , (IndiceHash^^[GetTraitOfPosition(positionCherchee),dernierCoup]));
+        hashValue := BXOR(hashValue , (IndiceHash^^[GetTraitOfPosition(positionCherchee),dernierCoup]));
 
     end;
 
@@ -1500,7 +1500,7 @@ begin {$UNUSED fonctionAppelante}
 		          coup := othellier[t];
 			        if UpdatePositionEtTrait(jeuEssai,coup) then
 			          begin
-			            clefHashEssai := BXOr(clefHash , (IndiceHash^^[GetTraitOfPosition(jeuEssai),coup]));
+			            clefHashEssai := BXOR(clefHash , (IndiceHash^^[GetTraitOfPosition(jeuEssai),coup]));
 
 			            if (GetTraitOfPosition(jeuEssai) = -GetTraitOfPosition(jeu)) then
 			              if (coup = meilleurCoup)
@@ -1651,7 +1651,7 @@ begin
 				          platEssai := plat;
 				          if PlayMoveProperty(moveProperty^,platEssai) then
 				            begin
-				              hashValueEssai := BXOr(hashValue , (IndiceHash^^[GetTraitOfPosition(platEssai),square]) );
+				              hashValueEssai := BXOR(hashValue , (IndiceHash^^[GetTraitOfPosition(platEssai),square]) );
 				              (* appel rŽcursif *)
 				              MetSousArbreRecursivementDansHashTable(filsCourant,platEssai,hashValueEssai,nbVides-1,nbVidesMinimum);
 				            end;
@@ -1755,7 +1755,7 @@ begin
           end;
 
 
-        gClefHashage := BXOr(gClefHashage , (IndiceHash^^[GetTraitOfPosition(position),coup]));
+        gClefHashage := BXOR(gClefHashage , (IndiceHash^^[GetTraitOfPosition(position),coup]));
 
         (*
         if (GetTraitOfPosition(position) = couleur)
@@ -1898,7 +1898,7 @@ begin
           end;
 
 
-        gClefHashage := BXOr(gClefHashage , (IndiceHash^^[GetTraitOfPosition(position),coup]));
+        gClefHashage := BXOR(gClefHashage , (IndiceHash^^[GetTraitOfPosition(position),coup]));
 
         if (GetTraitOfPosition(position) = couleur)
           then
@@ -2049,7 +2049,7 @@ begin
         else
           begin
             inc(utilisees);
-            if BAnd(whichTableExacte^[k].flags,kMaskLiberee) <> 0 then
+            if BAND(whichTableExacte^[k].flags,kMaskLiberee) <> 0 then
               inc(liberees);
           end;
     end;

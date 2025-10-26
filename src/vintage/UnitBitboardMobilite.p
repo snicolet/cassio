@@ -275,15 +275,15 @@ begin
 			  for i := 1 to 8 do
 			    begin
 			      square := j*10 + i;
-			      if position[square] = couleur then myBitsLow := BOr(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
-			      if position[square] = adversaire then oppBitsLow := BOr(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
+			      if position[square] = couleur then myBitsLow := BOR(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
+			      if position[square] = adversaire then oppBitsLow := BOR(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
 			    end;
 			for j := 5 to 8 do
 			  for i := 1 to 8 do
 			    begin
 			      square := j*10 + i;
-			      if position[square] = couleur then myBitsHigh := BOr(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
-			      if position[square] = adversaire then oppBitsHigh := BOr(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
+			      if position[square] = couleur then myBitsHigh := BOR(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
+			      if position[square] = adversaire then oppBitsHigh := BOR(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
 			    end;
 	 end;
 
@@ -328,15 +328,15 @@ begin
 					  for i := 1 to 8 do
 					    begin
 					      square := j*10 + i;
-					      if position[square] = couleur then myBitsLow := BOr(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
-					      if position[square] = adversaire then oppBitsLow := BOr(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
+					      if position[square] = couleur then myBitsLow := BOR(myBitsLow,othellierBitboardDescr[square].constanteHexa)  else
+					      if position[square] = adversaire then oppBitsLow := BOR(oppBitsLow,othellierBitboardDescr[square].constanteHexa)
 					    end;
 					for j := 5 to 8 do
 					  for i := 1 to 8 do
 					    begin
 					      square := j*10 + i;
-					      if position[square] = couleur then myBitsHigh := BOr(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
-					      if position[square] = adversaire then oppBitsHigh := BOr(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
+					      if position[square] = couleur then myBitsHigh := BOR(myBitsHigh,othellierBitboardDescr[square].constanteHexa)  else
+					      if position[square] = adversaire then oppBitsHigh := BOR(oppBitsHigh,othellierBitboardDescr[square].constanteHexa)
 					    end;
 			 end;
 

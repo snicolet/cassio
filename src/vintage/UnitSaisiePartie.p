@@ -600,7 +600,7 @@ begin
 			  keyDown :
 			    { commande-'A'  => on selectionne tout }
 			    if EventHasCommandKey(evt) and
-			       ((BAnd(evt.message,charcodemask) = ord('a')) or (BAnd(evt.message,charcodemask) = ord('A')))
+			       ((BAND(evt.message,charcodemask) = ord('a')) or (BAND(evt.message,charcodemask) = ord('A')))
 			      then
 			        begin
 			          item := VirtualSelectAllItemInDialog;
@@ -609,15 +609,15 @@ begin
 			      else
 			    { commande-'Y' ou commande-option-'Y' => on echange les joueurs noirs et blancs }
 			    if EventHasCommandKey(evt) and
-			       ((BAnd(evt.message,charcodemask) = ord('y')) or (BAnd(evt.message,charcodemask) = ord('Y')) or
-			        (BAnd(evt.message,charcodemask) = ord('ò')) or (BAnd(evt.message,charcodemask) = ord('Ù')))
+			       ((BAND(evt.message,charcodemask) = ord('y')) or (BAND(evt.message,charcodemask) = ord('Y')) or
+			        (BAND(evt.message,charcodemask) = ord('ò')) or (BAND(evt.message,charcodemask) = ord('Ù')))
 			      then
 			        begin
 			          item := VirtualExchangePlayersInDialog;
 						    FiltreDialogueSaisie := true;
 			        end
 			      else
-			    if not(EventHasCommandKey(evt)) and (BAnd(evt.message,charcodemask) = RetourArriereKey)
+			    if not(EventHasCommandKey(evt)) and (BAND(evt.message,charcodemask) = RetourArriereKey)
 			      then
 			        begin
 			          case focus of
@@ -888,7 +888,7 @@ begin
 
 	            {l'utilisateur a-t-il appuye sur delete ?}
 	            if not(EventHasCommandKey(dernierEventSaisie)) and
-	               (BAnd(dernierEventSaisie.message,charcodemask) = RetourArriereKey) and
+	               (BAND(dernierEventSaisie.message,charcodemask) = RetourArriereKey) and
 	               (chaineAvantDeleteDlgSaisie <> '')
 	              then
 	                begin

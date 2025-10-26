@@ -930,20 +930,20 @@ end;
 function GetCoup(var cellule : CelluleRec) : SInt16;
 var aux : SInt16;
 begin
-  aux := BSr(BAnd(cellule.CoupEtCouleurs,$FC),2);
+  aux := BSR(BAND(cellule.CoupEtCouleurs,$FC),2);
   GetCoup := (aux div 8)*10+(aux mod 8) +11;
 end;
 
 procedure SetCoup(coup : SInt16; var cellule : CelluleRec);
 var aux : SInt16;
 begin
-  aux := BSl((((coup div 10)-1)*8 + (coup mod 10) - 1),2);
-  cellule.CoupEtCouleurs := aux + BAnd(cellule.CoupEtCouleurs,$03);
+  aux := BSL((((coup div 10)-1)*8 + (coup mod 10) - 1),2);
+  cellule.CoupEtCouleurs := aux + BAND(cellule.CoupEtCouleurs,$03);
 end;
 
 function GetCouleur(var cellule : CelluleRec) : SInt16;
 begin
-  if BAnd(cellule.CoupEtCouleurs,$02) <> 0
+  if BAND(cellule.CoupEtCouleurs,$02) <> 0
     then GetCouleur := Noir
     else GetCouleur := Blanc;
 end;
@@ -951,13 +951,13 @@ end;
 procedure SetCouleur(couleur : SInt16; var cellule : CelluleRec);
 begin
   if couleur = Noir
-    then cellule.CoupEtCouleurs := $02+BAnd(cellule.CoupEtCouleurs,$FD)
-    else cellule.CoupEtCouleurs :=     BAnd(cellule.CoupEtCouleurs,$FD);
+    then cellule.CoupEtCouleurs := $02+BAND(cellule.CoupEtCouleurs,$FD)
+    else cellule.CoupEtCouleurs :=     BAND(cellule.CoupEtCouleurs,$FD);
 end;
 
 function GetTrait(var cellule : CelluleRec) : SInt16;
 begin
-  if BAnd(cellule.CoupEtCouleurs,$01) <> 0
+  if BAND(cellule.CoupEtCouleurs,$01) <> 0
     then GetTrait := Noir
     else GetTrait := Blanc;
 end;
@@ -965,8 +965,8 @@ end;
 procedure SetTrait(trait : SInt16; var cellule : CelluleRec);
 begin
   if trait = Noir
-    then cellule.CoupEtCouleurs := $01+BAnd(cellule.CoupEtCouleurs,$FE)
-    else cellule.CoupEtCouleurs :=     BAnd(cellule.CoupEtCouleurs,$FE);
+    then cellule.CoupEtCouleurs := $01+BAND(cellule.CoupEtCouleurs,$FE)
+    else cellule.CoupEtCouleurs :=     BAND(cellule.CoupEtCouleurs,$FE);
 end;
 
 function GetNumeroCoup(var cellule : CelluleRec) : SInt16;
@@ -983,7 +983,7 @@ end;
 function GetProfondeur(var cellule : CelluleRec) : SInt16;
 var aux : SInt16;
 begin
-  aux := BSr(BAnd(cellule.VersionEtProfondeur,$F8),3);
+  aux := BSR(BAND(cellule.VersionEtProfondeur,$F8),3);
   GetProfondeur := aux;
 end;
 
@@ -992,22 +992,22 @@ var aux : SInt16;
 begin
   if (prof >= 0) and (prof <= 31) then
     begin
-      aux := BSl(prof,3);
-      cellule.VersionEtProfondeur := aux + BAnd(cellule.VersionEtProfondeur,$07);
+      aux := BSL(prof,3);
+      cellule.VersionEtProfondeur := aux + BAND(cellule.VersionEtProfondeur,$07);
     end;
 end;
 
 function GetVersion(var cellule : CelluleRec) : SInt16;
 var aux : SInt16;
 begin
-  aux := BAnd(cellule.VersionEtProfondeur,$07);
+  aux := BAND(cellule.VersionEtProfondeur,$07);
   GetVersion := aux;
 end;
 
 procedure SetVersion(version : SInt16; var cellule : CelluleRec);
 begin
   if (version >= 0) and (version <= 7) then
-    cellule.VersionEtProfondeur := version + BAnd(cellule.VersionEtProfondeur,$F8);
+    cellule.VersionEtProfondeur := version + BAND(cellule.VersionEtProfondeur,$F8);
 end;
 
 
@@ -1133,7 +1133,7 @@ end;
 
 function HasFlagAttribute(var cellule : CelluleRec; flagMask : SInt16) : boolean;
 begin
-  HasFlagAttribute := BAnd(cellule.flags,flagMask) <> 0;
+  HasFlagAttribute := BAND(cellule.flags,flagMask) <> 0;
 end;
 
 procedure SetValeurMinimax(var cellule : CelluleRec; val : SInt16);
@@ -1237,13 +1237,13 @@ end;
 
 procedure AddFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);
 begin
-  cellule.flags := BOr(cellule.flags,flagMask);
+  cellule.flags := BOR(cellule.flags,flagMask);
 end;
 
 procedure RemoveFlagAttribute(var cellule : CelluleRec; flagMask : SInt16);
 begin
-  if BAnd(cellule.flags,flagMask) <> 0 then
-    cellule.flags := BXOr(cellule.flags,flagMask);
+  if BAND(cellule.flags,flagMask) <> 0 then
+    cellule.flags := BXOR(cellule.flags,flagMask);
 end;
 
 function MemesCellules(const cellule1,cellule2 : CelluleRec) : boolean;

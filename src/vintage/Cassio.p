@@ -623,24 +623,24 @@ begin
 
   WritelnDansRapport('Verification de BTst et de BSet et de BClr');
   aux := 0;
-  BSet(aux, 14);
+  BSET(aux, 14);
   WritelnDansRapport('apres BSET(aux, 14), aux = ' + Hexa(aux));
-  WritelnDansRapport('Hexa(BNot(aux)) = '+Hexa(BNot(aux)));
+  WritelnDansRapport('Hexa(BNOT(aux)) = '+Hexa(BNOT(aux)));
 
   aux := 0;
-  BSet(aux, 13);
+  BSET(aux, 13);
   WritelnDansRapport('apres BSET(aux, 13), aux = ' + Hexa(aux));
-  WritelnDansRapport('Hexa(BNot(aux)) = '+Hexa(BNot(aux)));
+  WritelnDansRapport('Hexa(BNOT(aux)) = '+Hexa(BNOT(aux)));
 
   aux := 0;
-  BSet(aux, 4);
+  BSET(aux, 4);
   WritelnDansRapport('apres BSET(aux, 4), aux = ' + Hexa(aux));
-  WritelnDansRapport('Hexa(BNot(aux)) = '+Hexa(BNot(aux)));
+  WritelnDansRapport('Hexa(BNOT(aux)) = '+Hexa(BNOT(aux)));
 
   aux := 0;
-  BSet(aux, 3);
+  BSET(aux, 3);
   WritelnDansRapport('apres BSET(aux, 3), aux = ' + Hexa(aux));
-  WritelnDansRapport('Hexa(BNot(aux)) = '+Hexa(BNot(aux)));
+  WritelnDansRapport('Hexa(BNOT(aux)) = '+Hexa(BNOT(aux)));
 
   WritelnDansRapport('');
 
@@ -1572,10 +1572,10 @@ begin
 
 
 
-  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
+  if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0)
      then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode + kNotesCassioSurLesCases);
 
-  if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+  if not(GetAvecAffichageNotesSurCases(kNotesDeCassio)) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
     then SetAffichageProprietesOfCurrentNode(GetAffichageProprietesOfCurrentNode - kNotesCassioSurLesCases);
 
 
@@ -2390,7 +2390,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
  {TestUnitATR;}
 
  {WritelnDansRapport('Hexa(nbElementsTableHashageInterversions-1) = '+Hexa(65536-1));}
- {WritelnDansRapport('Hexa(BNot($00000007)) = '+Hexa(BNot($00000007)));}
+ {WritelnDansRapport('Hexa(BNOT($00000007)) = '+Hexa(BNOT($00000007)));}
  {TestStabiliteBitboard;}
  {WritelnNumDansRapport('sizeof( : t_EnTeteNouveauFormat) = ',sizeof( : t_EnTeteNouveauFormat));}
 

@@ -137,12 +137,12 @@ begin
 		  case color of
 		    _MY_BITS_ :
 		      if isLow
-		        then g_my_bits_low   := BOr(SInt32(g_my_bits_low),SInt32(constanteHexa))
-		        else g_my_bits_high  := BOr(SInt32(g_my_bits_high),SInt32(constanteHexa));
+		        then g_my_bits_low   := BOR(SInt32(g_my_bits_low),SInt32(constanteHexa))
+		        else g_my_bits_high  := BOR(SInt32(g_my_bits_high),SInt32(constanteHexa));
 		    _OPP_BITS_ :
 		      if isLow
-		        then g_opp_bits_low  := BOr(SInt32(g_opp_bits_low),SInt32(constanteHexa))
-		        else g_opp_bits_high := BOr(SInt32(g_opp_bits_high),SInt32(constanteHexa));
+		        then g_opp_bits_low  := BOR(SInt32(g_opp_bits_low),SInt32(constanteHexa))
+		        else g_opp_bits_high := BOR(SInt32(g_opp_bits_high),SInt32(constanteHexa));
 		  end; {case}
   end;
 end;
@@ -454,7 +454,7 @@ var s1,s2 : String255;
 begin
   s1 := BitboardName(couleurAdversaire,othellierBitboardDescr[square].isLow);
   s2 := Hexa(othellierBitboardDescr[square].constanteHexa);
-  WriteDansFichierEndgame('if BAnd('+s1+','+s2+') <> 0 then');
+  WriteDansFichierEndgame('if BAND('+s1+','+s2+') <> 0 then');
   case couleurAdversaire of
     _OPP_BITS_ : WritelnCommentaireDansFichierEndgame('if plat['+CoupEnString(square,true)+'] = adversaire then');
     _MY_BITS_ : WritelnCommentaireDansFichierEndgame('if plat['+CoupEnString(square,true)+'] = couleur then');
@@ -466,7 +466,7 @@ var s1,s2 : String255;
 begin
   s1 := BitboardName(couleur,othellierBitboardDescr[square].isLow);
   s2 := Hexa(othellierBitboardDescr[square].constanteHexa);
-  WriteDansFichierEndgame('if BAnd('+s1+','+s2+') <> 0 then');
+  WriteDansFichierEndgame('if BAND('+s1+','+s2+') <> 0 then');
   case couleur of
     _OPP_BITS_ : WritelnCommentaireDansFichierEndgame('if plat['+CoupEnString(square,true)+'] = adversaire then');
     _MY_BITS_ : WritelnCommentaireDansFichierEndgame('if plat['+CoupEnString(square,true)+'] = couleur then');
@@ -480,17 +480,17 @@ begin
     begin
       s1 := Hexa(flippedDiscs.g_opp_bits_low);
       s2 := BitboardName(_MY_BITS_,true);
-      WritelnDansFichierEndgame(s2 + ' := BOr(' + s2 + ',' + s1 + ');');
+      WritelnDansFichierEndgame(s2 + ' := BOR(' + s2 + ',' + s1 + ');');
       s2 := BitboardName(_OPP_BITS_,true);
-      WritelnDansFichierEndgame(s2 + ' := BXOr(' + s2 + ',' + s1 + ');');
+      WritelnDansFichierEndgame(s2 + ' := BXOR(' + s2 + ',' + s1 + ');');
     end;
   if flippedDiscs.g_opp_bits_high <> 0 then
     begin
       s1 := Hexa(flippedDiscs.g_opp_bits_high);
       s2 := BitboardName(_MY_BITS_,false);
-      WritelnDansFichierEndgame(s2 + ' := BOr(' + s2 + ',' + s1 + ');');
+      WritelnDansFichierEndgame(s2 + ' := BOR(' + s2 + ',' + s1 + ');');
       s2 := BitboardName(_OPP_BITS_,false);
-      WritelnDansFichierEndgame(s2 + ' := BXOr(' + s2 + ',' + s1 + ');');
+      WritelnDansFichierEndgame(s2 + ' := BXOR(' + s2 + ',' + s1 + ');');
     end;
 end;
 
@@ -803,7 +803,7 @@ begin
             s2 := BitboardName(couleurAdversaire,true);
             s3 := Hexa(pionsDAppelPossibles.g_my_bits_low);
             s4 := BitboardName(couleur,true);
-            WritelnDansFichierEndgame('if BAnd('+s2+'+'+s1+',BAnd('+s4+','+s3+')) <> 0 then goto LeCoupEstLegal;');
+            WritelnDansFichierEndgame('if BAND('+s2+'+'+s1+',BAND('+s4+','+s3+')) <> 0 then goto LeCoupEstLegal;');
           end
         else
           begin
@@ -811,7 +811,7 @@ begin
             s2 := BitboardName(couleurAdversaire,false);
             s3 := Hexa(pionsDAppelPossibles.g_my_bits_high);
             s4 := BitboardName(couleur,false);
-            WritelnDansFichierEndgame('if BAnd('+s2+'+'+s1+',BAnd('+s4+','+s3+')) <> 0 then goto LeCoupEstLegal;');
+            WritelnDansFichierEndgame('if BAND('+s2+'+'+s1+',BAND('+s4+','+s3+')) <> 0 then goto LeCoupEstLegal;');
           end;
 
     end;
@@ -835,14 +835,14 @@ begin
             s1 := Hexa(premierPionRetourne.g_opp_bits_low);
             s2 := BitboardName(couleurAdversaire,true);
             s4 := BitboardName(couleur,true);
-            WritelnDansFichierEndgame('if BAnd(BSr('+s2+',1)+'+s4+',BAnd('+s2+','+s1+')) <> 0 then goto LeCoupEstLegal;');
+            WritelnDansFichierEndgame('if BAND(BSR('+s2+',1)+'+s4+',BAND('+s2+','+s1+')) <> 0 then goto LeCoupEstLegal;');
           end
         else
           begin
             s1 := Hexa(premierPionRetourne.g_opp_bits_high);
             s2 := BitboardName(couleurAdversaire,false);
             s4 := BitboardName(couleur,false);
-            WritelnDansFichierEndgame('if BAnd(BSr('+s2+',1)+'+s4+',BAnd('+s2+','+s1+')) <> 0 then goto LeCoupEstLegal;');
+            WritelnDansFichierEndgame('if BAND(BSR('+s2+',1)+'+s4+',BAND('+s2+','+s1+')) <> 0 then goto LeCoupEstLegal;');
           end;
 
     end;
@@ -877,11 +877,11 @@ begin
         WritelnDansFichierEndgame('diffPions := succ(diffPions+nbPrise);');
 
         s3 := Hexa(constanteDeParite[square]);
-        WritelnDansFichierEndgame('ModifPlatBitboard := BXOr(vecteurParite,' + s3 + ');');
+        WritelnDansFichierEndgame('ModifPlatBitboard := BXOR(vecteurParite,' + s3 + ');');
 
         s1 := BitboardName(_MY_BITS_,othellierBitboardDescr[square].isLow);
 		    s2 := Hexa(othellierBitboardDescr[square].constanteHexa);
-		    WritelnDansFichierEndgame(s1 + ' := BOr(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
+		    WritelnDansFichierEndgame(s1 + ' := BOR(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
 
         WritelnDansFichierEndgame('g_my_bits_low   := opp_bits_low;  {le trait change : on echange my_bits et opp_bits}');
         WritelnDansFichierEndgame('g_my_bits_high  := opp_bits_high;');
@@ -928,7 +928,7 @@ begin
         WritelnDansFichierEndgame('diffPions := succ(diffPions+nbPrise);');
         s1 := BitboardName(_MY_BITS_,othellierBitboardDescr[square].isLow);
 		    s2 := Hexa(othellierBitboardDescr[square].constanteHexa);
-		    WritelnDansFichierEndgame(s1 + ' := BOr(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
+		    WritelnDansFichierEndgame(s1 + ' := BOR(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
         WritelnDansFichierEndgame('goto iCourant1EstLegal;');
         DecrementeMarge;
       WriteEndSansPointVirgule;
@@ -1016,12 +1016,12 @@ begin
         then
           begin
             mask_low  := mask_low  + othellierBitboardDescr[neighbour].constanteHexa;
-            WritelnDansFichierEndgame('((BAnd(opp_bits_low,'+Hexa(mask_low)+') = 0) and ');
+            WritelnDansFichierEndgame('((BAND(opp_bits_low,'+Hexa(mask_low)+') = 0) and ');
           end
         else
           begin
             mask_high := mask_high + othellierBitboardDescr[neighbour].constanteHexa;
-            WritelnDansFichierEndgame('((BAnd(opp_bits_high,'+Hexa(mask_high)+') = 0) &');
+            WritelnDansFichierEndgame('((BAND(opp_bits_high,'+Hexa(mask_high)+') = 0) &');
           end;
 
       mask_low  := 0;
@@ -1038,11 +1038,11 @@ begin
 
       if (mask_low = 0) and (mask_high = 0) then WritelnDansFichierEndgame('ERREUR !!');
       if (mask_low <> 0) and (mask_high <> 0) then
-        WriteDansFichierEndgame(' ((BAnd(opp_bits_low,'+Hexa(mask_low)+') <> 0) or (BAnd(opp_bits_high,'+Hexa(mask_high)+') <> 0)))');
+        WriteDansFichierEndgame(' ((BAND(opp_bits_low,'+Hexa(mask_low)+') <> 0) or (BAND(opp_bits_high,'+Hexa(mask_high)+') <> 0)))');
       if (mask_low <> 0) and (mask_high = 0) then
-        WriteDansFichierEndgame(' (BAnd(opp_bits_low,'+Hexa(mask_low)+') <> 0))');
+        WriteDansFichierEndgame(' (BAND(opp_bits_low,'+Hexa(mask_low)+') <> 0))');
       if (mask_low = 0) and (mask_high <> 0) then
-        WriteDansFichierEndgame(' (BAnd(opp_bits_high,'+Hexa(mask_high)+') <> 0))');
+        WriteDansFichierEndgame(' (BAND(opp_bits_high,'+Hexa(mask_high)+') <> 0))');
 
       if t <> dirPriseFin[square]
         then WritelnSansMargeDansFichierEndgame(' or')
@@ -1388,11 +1388,11 @@ begin
         WritelnDansFichierEndgame('diffPions := succ(diffPions+nbPrise);');
 
         s3 := Hexa(constanteDeParite[square]);
-        WritelnDansFichierEndgame(nomFonction+' := BXOr(vecteurParite,' + s3 + ');');
+        WritelnDansFichierEndgame(nomFonction+' := BXOR(vecteurParite,' + s3 + ');');
 
         s1 := BitboardName(_MY_BITS_,othellierBitboardDescr[square].isLow);
 		    s2 := Hexa(othellierBitboardDescr[square].constanteHexa);
-		    WritelnDansFichierEndgame(s1 + ' := BOr(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
+		    WritelnDansFichierEndgame(s1 + ' := BOR(' + s1 + ',' + s2 + ');  { place the disc in '+CoupEnString(square,true)+' }');
 
         WritelnDansFichierEndgame('g_my_bits_low   := opp_bits_low;  {le trait change : on echange my_bits et opp_bits}');
         WritelnDansFichierEndgame('g_my_bits_high  := opp_bits_high;');
@@ -1463,8 +1463,8 @@ begin
     if not(interdit[square]) then
       CreateCoupLegalBitboardOfSquare(square,couleur,couleurAdversaire);
 
-  WritelnNumDansRapport('BSl(16,1) = ',BSl(16,1));
-  WritelnNumDansRapport('BSr(16,1) = ',BSr(16,1));
+  WritelnNumDansRapport('BSL(16,1) = ',BSL(16,1));
+  WritelnNumDansRapport('BSR(16,1) = ',BSR(16,1));
 end;
 
 procedure InitUnitCreateBitboardCode;

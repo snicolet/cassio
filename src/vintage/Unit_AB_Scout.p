@@ -632,11 +632,11 @@ label sortie;
   begin
     SetQDGlobalsRandomSeed(gClefHashage+CodePosition.platLigne1+CodePosition.platLigne8+CodePosition.platLigne2+CodePosition.platLigne7);
 
-    increment1 := BAnd(Random,1023);
+    increment1 := BAND(Random,1023);
 
-    if BAnd(increment1,1) = 0 then inc(increment1); {pour avoir un nombre premier avec 1024}
+    if BAND(increment1,1) = 0 then inc(increment1); {pour avoir un nombre premier avec 1024}
 
-    clefHashExacte := BAnd((clefHashExacte+increment1),1023);
+    clefHashExacte := BAND((clefHashExacte+increment1),1023);
 
     {WritelnNumDansRapport('clefHashExacte (3) = ',clefHashExacte);}
 
@@ -671,7 +671,7 @@ label sortie;
                 else bonusPourLeConseilHash := 300;
               exit(InfoTrouveeDansHashTableExacteMilieu);
             end;
-          clefHashExacte := BAnd((clefHashExacte+increment1),1023);
+          clefHashExacte := BAND((clefHashExacte+increment1),1023);
 
           {WritelnNumDansRapport('clefHashExacte (4) = ',clefHashExacte);}
 
@@ -681,9 +681,9 @@ label sortie;
 
     SetQDGlobalsRandomSeed(clefHashExacteInitiale+CodePosition.platLigne2+CodePosition.platLigne7);
 
-    increment2 := BAnd(Random,1023);
+    increment2 := BAND(Random,1023);
 
-    if BAnd(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
+    if BAND(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
 
     (** on cherche si la position apparait dans la HashTable  **)
     clefHashExacte := clefHashExacteInitiale;
@@ -719,7 +719,7 @@ label sortie;
               exit(InfoTrouveeDansHashTableExacteMilieu);
             end;
 
-          clefHashExacte := BAnd((clefHashExacte+increment2),1023);
+          clefHashExacte := BAND((clefHashExacte+increment2),1023);
 
           {WritelnNumDansRapport('clefHashExacte (6) = ',clefHashExacte);}
 
@@ -745,7 +745,7 @@ label sortie;
           clefAEcraser := clefHashExacte;
           minProf := QuelleHashTableExacte^[clefHashExacte].profondeur;
         end;
-      clefHashExacte := BAnd((clefHashExacte+increment1),1023);
+      clefHashExacte := BAND((clefHashExacte+increment1),1023);
 
       {WritelnNumDansRapport('clefHashExacte (8) = ',clefHashExacte);}
 
@@ -763,7 +763,7 @@ label sortie;
           clefAEcraser := clefHashExacte;
           minProf := QuelleHashTableExacte^[clefHashExacte].profondeur;
         end;
-      clefHashExacte := BAnd((clefHashExacte+increment2),1023);
+      clefHashExacte := BAND((clefHashExacte+increment2),1023);
 
       {WritelnNumDansRapport('clefHashExacte (10) = ',clefHashExacte);}
 
@@ -1252,11 +1252,11 @@ begin   {ABScout}
    if utilise_hash_table
      then
        begin
-         gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]) );
+         gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]) );
          if conseil_dans_hash_table
            then
              begin
-               clefHashConseil := BAnd(gClefHashage,32767);
+               clefHashConseil := BAND(gClefHashage,32767);
                conseilHash := HashTable^^[clefHashConseil];
                bonusPourLeConseilHash := 400;
              end
@@ -1265,8 +1265,8 @@ begin   {ABScout}
          if utilise_hash_table_exacte then
            begin
 
-             nroTableExacte := BAnd(gClefHashage div 1024,nbTablesHashExactesMoins1);
-             clefHashExacte := BAnd(gClefHashage,1023);
+             nroTableExacte := BAND(gClefHashage div 1024,nbTablesHashExactesMoins1);
+             clefHashExacte := BAND(gClefHashage,1023);
 
              {WritelnNumDansRapport('clefHashExacte (12) = ',clefHashExacte);}
 
@@ -1286,7 +1286,7 @@ begin   {ABScout}
                      begin
                        ABScout := valeurExacteMin;
                        if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                       gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                       gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                        {EffaceCoupEtProf;}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
@@ -1298,7 +1298,7 @@ begin   {ABScout}
                      begin
                        ABScout := valeurExacteMin;
                        if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                       gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                       gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                        {EffaceCoupEtProf;}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
@@ -1310,7 +1310,7 @@ begin   {ABScout}
                      begin
                        ABScout := valeurExacteMax;
                        if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                       gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                       gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                        {EffaceCoupEtProf;}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
@@ -1466,7 +1466,7 @@ begin   {ABScout}
                         if utilise_hash_table then
                           begin
                             if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                            gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                            gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                           end;
                         ABScout := maxPourBestDef;
                         {EffaceCoupEtProf;}
@@ -1655,7 +1655,7 @@ begin   {ABScout}
                                   if utilise_hash_table then
                                     begin
                                       if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                                      gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                                      gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                                     end;
                                   ABScout := maxPourBestDef;
                                   {EffaceCoupEtProf;}
@@ -1777,7 +1777,7 @@ begin   {ABScout}
                                 if utilise_hash_table then
                                   begin
                                     if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                                    gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                                    gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                                   end;
                                 ABScout := maxPourBestDef;
                                 {EffaceCoupEtProf;}
@@ -1899,7 +1899,7 @@ begin   {ABScout}
                                 if utilise_hash_table then
                                   begin
                                     if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                                    gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                                    gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                                   end;
                                 ABScout := maxPourBestDef;
                                 {EffaceCoupEtProf;}
@@ -2040,7 +2040,7 @@ begin   {ABScout}
                                 if utilise_hash_table then
                                   begin
                                     if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                                    gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                                    gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                                   end;
                                 ABScout := maxPourBestDef;
                                 {EffaceCoupEtProf;}
@@ -2182,7 +2182,7 @@ begin   {ABScout}
                                if utilise_hash_table then
                                  begin
                                    if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
-                                   gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                                   gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
                                  end;
                                ABScout := maxPourBestDef;
                                {EffaceCoupEtProf;}
@@ -2218,7 +2218,7 @@ begin   {ABScout}
   if (interruptionReflexion <> pasdinterruption)
     then
       begin
-        if utilise_hash_table then gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+        if utilise_hash_table then gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
         ABScout := -noteMax;
       end
     else
@@ -2229,7 +2229,7 @@ begin   {ABScout}
             begin
               if utilise_hash_table then
                 begin
-                  gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+                  gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
 
                   if conseil_dans_hash_table then HashTable^^[clefHashConseil] := bstDef;
 
@@ -2245,7 +2245,7 @@ begin   {ABScout}
             end
           else
             begin
-              if utilise_hash_table then gClefHashage := BXOr(gClefHashage, (IndiceHash^^[coul,pere]));
+              if utilise_hash_table then gClefHashage := BXOR(gClefHashage, (IndiceHash^^[coul,pere]));
               if DoitPasser(adversaire,pl,joua) then   { la partie est finie !}
                 begin
                   for k := 1 to prof do meilleureSuiteGlb^[prof,k] := 0;

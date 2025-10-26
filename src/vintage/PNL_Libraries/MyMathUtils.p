@@ -219,7 +219,7 @@ end;
 	begin
 		Assert( n >= 1 );
 		junk := Random;
-		RandBelow := BAnd(GetQDGlobalsRandomSeed, $7FFFFFFF) mod n;
+		RandBelow := BAND(GetQDGlobalsRandomSeed, $7FFFFFFF) mod n;
 	end;
 
 	function RandBetween( a, b: SInt32 ) : SInt32;
@@ -481,7 +481,7 @@ begin
   s := '';
   for i := 1 to 8 do
     begin
-      v := BAnd(BSr(num,(8-i)*4),$F);
+      v := BAND(BSR(num,(8-i)*4),$F);
       s := Concat(s,chiffres[v+1]);
     end;
   HexaWithoutDollar := s;
@@ -496,7 +496,7 @@ begin
   s := '$';
   for i := 1 to 8 do
     begin
-      v := BAnd(BSr(num,(8-i)*4),$F);
+      v := BAND(BSR(num,(8-i)*4),$F);
       s := Concat(s,chiffres[v+1]);
     end;
   Hexa := s;
@@ -507,7 +507,7 @@ end;
 
 	function HexN (n : SInt32) : char;
 	begin
-		n := BAnd(n, $000F);
+		n := BAND(n, $000F);
 		if n >= 10 then begin
 			n := n + 7;
 		end;
@@ -517,7 +517,7 @@ end;
 
 	function HexN2 (n : SInt32) : String255;
 	begin
-		HexN2 := Concat(HexN(BSr(n, 4)), HexN(n));
+		HexN2 := Concat(HexN(BSR(n, 4)), HexN(n));
 	end;
 
 	function HexNN (n : SInt32; len : SInt16) : String255;
@@ -529,7 +529,7 @@ end;
 		end;
 		s := HexN(n);
 		while LENGTH_OF_STRING(s) < len do begin
-			n := BAnd(BSr(n, 4), $0FFFFFFF);
+			n := BAND(BSR(n, 4), $0FFFFFFF);
 			s := Concat(HexN(n), s);
 		end;
 		HexNN := s;
@@ -551,7 +551,7 @@ var n : SInt32;
 				'0'..'9':
 					v := ord(s[i]) - 48;
 			end;
-			n := BSl(n, 4) + v;
+			n := BSL(n, 4) + v;
 			i := i + 1;
 		end;
 		HexToNum := n;
@@ -579,7 +579,7 @@ begin
 		    '0'..'9': v := ord(s[i]) - 48;
 		  end;
 		
-		  if (numDigits <= 15) then result := result + BSl(v, 4 * numDigits);
+		  if (numDigits <= 15) then result := result + BSL(v, 4 * numDigits);
 		
 		  inc(numDigits);
 		  dec(i);
@@ -634,8 +634,8 @@ begin
     					v := ord(s[i]) - 48;
     		  end;
     		
-    		  if (numDigits <= 7)  then lo := lo + BSl(v, 4*numDigits) else
-    		  if (numDigits <= 15) then hi := hi + BSl(v, 4*(numDigits - 8));
+    		  if (numDigits <= 7)  then lo := lo + BSL(v, 4*numDigits) else
+    		  if (numDigits <= 15) then hi := hi + BSL(v, 4*(numDigits - 8));
     		
     		  inc(numDigits);
     		  dec(i);

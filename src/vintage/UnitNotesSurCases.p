@@ -292,7 +292,7 @@ begin
 	      if (origine = kNotesDeCassio) and (old_note = kNoteSurCaseNonDisponible) and
 	         (GetNoteSurCase(kNotesDeZebra,whichSquare) = whichNote) and
 	         (ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) and
-	         (BAnd(GetAffichageProprietesOfCurrentNode, kNotesZebraSurLesCases) <> 0) then
+	         (BAND(GetAffichageProprietesOfCurrentNode, kNotesZebraSurLesCases) <> 0) then
 	        begin
 	          EffaceNoteSurCases(origine,[whichSquare]);
 	        end;
@@ -706,10 +706,10 @@ begin
 
       pasAfficherZebra  := (noteZebra = kNoteSurCaseNonDisponible) or
                            not(ZebraBookACetteOption(kAfficherNotesZebraSurOthellier)) or
-                           (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) = 0);
+                           (BAND(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) = 0);
 
       pasAfficherCassio := {(noteCassio = kNoteSurCaseNonDisponible) or}
-                           (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0);
+                           (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) = 0);
 
 
       {

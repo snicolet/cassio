@@ -672,9 +672,9 @@ begin  {TrierListePartie}
         end;
 
   {
-  if BAnd(theEvent.modifiers,optionKey) <> 0 then algorithmeDeTri := kShellSort;
-  if BAnd(theEvent.modifiers,controlKey) <> 0 then algorithmeDeTri := kRadixSort;
-  if BAnd(theEvent.modifiers,shiftKey) <> 0 then algorithmeDeTri := kEnumerationSort;
+  if BAND(theEvent.modifiers,optionKey) <> 0 then algorithmeDeTri := kShellSort;
+  if BAND(theEvent.modifiers,controlKey) <> 0 then algorithmeDeTri := kRadixSort;
+  if BAND(theEvent.modifiers,shiftKey) <> 0 then algorithmeDeTri := kEnumerationSort;
   }
 
   if debuggage.pendantLectureBase then WritelnDansRapportEtAttendFrappeClavier('Avant le tri des parties proprement dit dans TrierListePartie',true);
@@ -910,7 +910,7 @@ begin
         puis toutes les parties de Blanc, ou si on trie les parties
         strictement, quitte à mixer les couleurs }
 
-      if BAnd(theEvent.modifiers,optionKey) = 0
+      if BAND(theEvent.modifiers,optionKey) = 0
         then
           begin { on sépare les couleurs }
             if (min1 = n1) and (min2 = b2) then OrdreSuivantUnClassement := false else

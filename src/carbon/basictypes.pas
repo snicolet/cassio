@@ -16,6 +16,12 @@ uses
     SInt64 = Int64;    // signed integer, 64 bits
     SInt32 = Longint;  // signed integer, 32 bits
     SInt16 = SmallInt; // signed integer, 16 bits
+    SInt8  = Int8;     // signed integer,  8 bits
+
+    // t = UInt64;        // unsigned integer, 64 bits (already in FreePascal)
+    // t = UInt32;        // unsigned integer, 32 bits (already in FreePascal)
+    // t = UInt16;        // unsigned integer, 16 bits (already in FreePascal)
+    // t = UInt8;         // unsigned integer,  8 bits (already in FreePascal)
 
     charP = ^char;
     bytePtr =  ^UInt8;
@@ -131,7 +137,21 @@ uses
 
 implementation
 
+
+// TestBasicTypes() : performing some tests for the BasicTypes unit
+
+procedure TestBasicTypes;
+type myEnum = (kUnusedFooBar,kUnusedFooBar2);
 begin
+    Writeln('');
+    Writeln('Verifying that enums types start at zero...');
+    Write('SInt32(kUnusedFooBar) = ',SInt32(kUnusedFooBar));
+    if SInt32(kUnusedFooBar) = 0
+      then Writeln('...   OK')
+      else Writeln('...   ERREUR !');
+    Writeln('');
+
+    Writeln('sizeof(SInt8) = ', sizeof(SInt8));
     Writeln('sizeof(UInt8) = ', sizeof(UInt8));
     Writeln('sizeof(TwoBytesArray) = ', sizeof(TwoBytesArray));
     Writeln('sizeof(FourBytesArray) = ', sizeof(FourBytesArray));
@@ -140,6 +160,11 @@ begin
     Writeln('sizeof(Handle) = ', sizeof(Handle));
     Writeln('sizeof(Handle^) = ', sizeof(Handle^));
     Writeln('sizeof(Handle^^) = ', sizeof(Handle^^));
+end;
+
+
+begin
+    TestBasicTypes();
 end.
 
 

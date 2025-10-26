@@ -905,7 +905,7 @@ begin
           coupsFils[i].theVal    := k_ZOO_NOT_INITIALIZED_VALUE;
           bestDef[i]             := 0;
           SetHashValueDuZoo(hashRequete[i] , k_ZOO_NOT_INITIALIZED_VALUE);
-          hashCassioDesFils[i]   := BXOr(hashCassio , (IndiceHash^^[-couleur,liste[i]]));
+          hashCassioDesFils[i]   := BXOR(hashCassio , (IndiceHash^^[-couleur,liste[i]]));
           timeUsed[i]            := -1.0;
         end;
     end;

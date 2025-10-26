@@ -181,7 +181,7 @@ begin
       decalage    :=  hash and $0000001F;                      // decalage :=  hash mod 32;
       myUInt32Ptr := unsignedlongP(hashTable);
       myUInt32Ptr := POINTER_ADD(myUInt32Ptr, 4*index);
-      BSet(myUInt32Ptr^,decalage);
+      BSET(myUInt32Ptr^,decalage);
 
 
       // puis dans la deuxieme (avec une autre fonction de hachage)
@@ -190,7 +190,7 @@ begin
       decalage    :=  hash and $0000001F;                      // decalage :=  hash mod 32;
       myUInt32Ptr := unsignedlongP(hashTable2);
       myUInt32Ptr := POINTER_ADD(myUInt32Ptr, 4*index);
-      BSet(myUInt32Ptr^,decalage);
+      BSET(myUInt32Ptr^,decalage);
 
 
     end;

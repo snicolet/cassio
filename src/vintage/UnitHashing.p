@@ -136,15 +136,15 @@ begin
 
 {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
 
-  result := BXOr( (XORValues[myFourBytes^[0],0]), (XORValues[myFourBytes^[1],1]));
-  result := BXOr(result, (XORValues[myFourBytes^[2],2]));
-  result := BXOr(result, (XORValues[myFourBytes^[3],3]));
+  result := BXOR( (XORValues[myFourBytes^[0],0]), (XORValues[myFourBytes^[1],1]));
+  result := BXOR(result, (XORValues[myFourBytes^[2],2]));
+  result := BXOR(result, (XORValues[myFourBytes^[3],3]));
 
 {$ELSEC }
 
-  result := BXOr( (XORValues[myFourBytes^[0],3]), (XORValues[myFourBytes^[1],2]));
-  result := BXOr(result, (XORValues[myFourBytes^[2],1]));
-  result := BXOr(result, (XORValues[myFourBytes^[3],0]));
+  result := BXOR( (XORValues[myFourBytes^[0],3]), (XORValues[myFourBytes^[1],2]));
+  result := BXOR(result, (XORValues[myFourBytes^[2],1]));
+  result := BXOR(result, (XORValues[myFourBytes^[3],0]));
 
 {$ENDC }
 

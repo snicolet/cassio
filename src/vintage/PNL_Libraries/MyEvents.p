@@ -40,52 +40,52 @@ IMPLEMENTATION
 
 	function EventHasOptionKey( const er : EventRecord ) : Boolean;
 	begin
-		EventHasOptionKey := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), optionKey) <> 0;
+		EventHasOptionKey := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), optionKey) <> 0;
 	end;
 
 	function EventHasCommandKey( const er : EventRecord ) : Boolean;
 	begin
-		EventHasCommandKey := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), cmdKey) <> 0;
+		EventHasCommandKey := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), cmdKey) <> 0;
 	end;
 
 	function EventHasControlKey( const er : EventRecord ) : Boolean;
 	begin
-		EventHasControlKey := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), controlKey) <> 0;
+		EventHasControlKey := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), controlKey) <> 0;
 	end;
 
 	function EventHasShiftKey( const er : EventRecord ) : Boolean;
 	begin
-		EventHasShiftKey := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), shiftKey) <> 0;
+		EventHasShiftKey := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.modifiers)), shiftKey) <> 0;
 	end;
 
 	function EventChar( const er : EventRecord ) : char;
 	begin
-		EventChar := Chr(BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.message)), charCodeMask));
+		EventChar := Chr(BAND(SInt32(ORD4_FOR_MY_EVENTS(er.message)), charCodeMask));
 	end;
 
 	function EventCharCode( const er : EventRecord ) : SInt16;
 	begin
-		EventCharCode := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.message)), charCodeMask);
+		EventCharCode := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.message)), charCodeMask);
 	end;
 
 	function EventKeyCode( const er : EventRecord ) : SInt16;
 	begin
-		EventKeyCode := BSr(BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.message)), keyCodeMask),8);
+		EventKeyCode := BSR(BAND(SInt32(ORD4_FOR_MY_EVENTS(er.message)), keyCodeMask),8);
 	end;
 
 	function EventIsSuspendResume( const er : EventRecord ) : Boolean;
 	begin
-		EventIsSuspendResume := BAnd(BSl(SInt32(ORD4_FOR_MY_EVENTS(er.message)), 8), $00FF) = kSuspendResumeMessage;
+		EventIsSuspendResume := BAND(BSL(SInt32(ORD4_FOR_MY_EVENTS(er.message)), 8), $00FF) = kSuspendResumeMessage;
 	end;
 
 	function EventHasResume( const er : EventRecord ) : Boolean;
 	begin
-		EventHasResume := BAnd(SInt32(ORD4_FOR_MY_EVENTS(er.message)), kResumeMask) <> 0;
+		EventHasResume := BAND(SInt32(ORD4_FOR_MY_EVENTS(er.message)), kResumeMask) <> 0;
 	end;
 
 	function EventIsMouseMoved( const er : EventRecord ) : Boolean;
 	begin
-		EventIsMouseMoved := BAnd(BSl(SInt32(ORD4_FOR_MY_EVENTS(er.message)), 8), $00FF) = kMouseMovedMessage;
+		EventIsMouseMoved := BAND(BSL(SInt32(ORD4_FOR_MY_EVENTS(er.message)), 8), $00FF) = kMouseMovedMessage;
 	end;
 
 	function EventHasActivate( const er : EventRecord ) : Boolean;

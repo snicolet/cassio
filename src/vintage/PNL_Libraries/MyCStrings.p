@@ -65,7 +65,7 @@ IMPLEMENTATION
 		var
 			len : SInt16;
 	begin
-		len := BAnd(p^,$00FF);
+		len := BAND(p^,$00FF);
 		BlockMoveData(Ptr(SInt32(p)+1),p,len);
 		Ptr(SInt32(p)+len)^ := 0;
 	end;

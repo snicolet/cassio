@@ -225,7 +225,7 @@ begin
   // then we only want minimalist event checking, so we filter the eventMask
 
   if not(gCassioChecksEvents)
-    then localEventMask := BAnd(mDownMask + highLevelEventMask + osMask, myEventMask)
+    then localEventMask := BAND(mDownMask + highLevelEventMask + osMask, myEventMask)
     else localEventMask := myEventMask;
 
 
@@ -410,10 +410,10 @@ begin
       whichEvent.what := keyDown;
 
       MyGetKeys(theKeys);
-      theChar := chr(BAnd(whichEvent.message,charCodemask));
-      keyCode := BSr(BAnd(whichEvent.message,keyCodeMask),8);
+      theChar := chr(BAND(whichEvent.message,charCodemask));
+      keyCode := BSR(BAND(whichEvent.message,keyCodeMask),8);
 
-      if (BAnd(whichEvent.modifiers,cmdKey) = 0)
+      if (BAND(whichEvent.modifiers,cmdKey) = 0)
         then SimulateNumericKeyPad(theChar);
 
     end;

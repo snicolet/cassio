@@ -3748,7 +3748,7 @@ begin
 
                     if not(BTST(tableBitboardDesPixelsRemplis^[index],decalage)) then
                       begin
-                        BSet(tableBitboardDesPixelsRemplis^[index],decalage);
+                        BSET(tableBitboardDesPixelsRemplis^[index],decalage);
 
 
                         if y >= y_centre - kDemiIntervalleEntreDeuxLignesDuNuage

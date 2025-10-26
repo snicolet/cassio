@@ -662,10 +662,10 @@ begin
     else
       case evt.what of
         keyDown,autoKey:
-        if (BAnd(evt.modifiers,cmdKey) <> 0)
+        if (BAND(evt.modifiers,cmdKey) <> 0)
            then
              begin
-               ch := chr(BAnd(evt.message,charCodemask));
+               ch := chr(BAND(evt.message,charCodemask));
                if (ch = 'w') or (ch = 'W') then
                  begin
                    item := FermerButton;

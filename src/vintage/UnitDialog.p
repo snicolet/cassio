@@ -922,8 +922,8 @@ begin
         keyDown,autoKey :
           begin
             with evt do
-            if (BAnd(message,charcodemask) = ReturnKey) or
-               (BAnd(message,charcodemask) = EntreeKey)
+            if (BAND(message,charcodemask) = ReturnKey) or
+               (BAND(message,charcodemask) = EntreeKey)
               then
                 begin
                   item := 1;
@@ -931,8 +931,8 @@ begin
                   FiltreClassique := true;
                 end
               else
-                if (BAnd(message,charcodemask) = EscapeKey) or
-                   ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0))
+                if (BAND(message,charcodemask) = EscapeKey) or
+                   ((BAND(message,charcodemask) = ord('.')) and (BAND(modifiers,cmdKey) <> 0))
                   then
                     begin
                       item := 2;
@@ -998,8 +998,8 @@ begin
       case evt.what of
         keyDown,autoKey :
           with evt do
-          if (BAnd(message,charcodemask) = ReturnKey) or
-             (BAnd(message,charcodemask) = EntreeKey)
+          if (BAND(message,charcodemask) = ReturnKey) or
+             (BAND(message,charcodemask) = EntreeKey)
             then
               begin
                 item := 1;
@@ -1007,8 +1007,8 @@ begin
                 FiltreClassiqueAlerte := true;
               end
             else
-              if (BAnd(message,charcodemask) = EscapeKey) or
-                 ((BAnd(message,charcodemask) = ord('.')) and (BAnd(modifiers,cmdKey) <> 0))
+              if (BAND(message,charcodemask) = EscapeKey) or
+                 ((BAND(message,charcodemask) = ord('.')) and (BAND(modifiers,cmdKey) <> 0))
                 then
                   begin
                     item := 2;
@@ -1322,7 +1322,7 @@ begin
                       end;
           activateEvt : begin
                           whichWindow := WindowPtr(evt.message);
-                          activate := BAnd(evt.modifiers,activeflag) <> 0;
+                          activate := BAND(evt.modifiers,activeflag) <> 0;
 
                           { Make us the front process : this brings all the windows to the front }
                           if activate and (GetCurrentProcess(process) = NoErr) then

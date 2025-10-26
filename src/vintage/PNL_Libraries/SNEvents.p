@@ -124,28 +124,28 @@ begin
 	EscapeDansQueue := false;
 	if EventAvail(KeyDownMask+AutoKey, myLocalEvent) then
 		begin
-			if BAnd(myLocalEvent.message, charCodeMask) = EscapeKey then   {27 = escape}
+			if BAND(myLocalEvent.message, charCodeMask) = EscapeKey then   {27 = escape}
 				begin
 					EscapeDansQueue := true;
 					exit(EscapeDansQueue);
 				end;
 
-			if BAnd(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-point}
-				if BAnd(myLocalEvent.message, charCodeMask) = ord('.') then
+			if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-point}
+				if BAND(myLocalEvent.message, charCodeMask) = ord('.') then
 					begin
 						EscapeDansQueue := true;
 						exit(EscapeDansQueue);
 					end;
 
-		  if BAnd(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-q}
-				if BAnd(myLocalEvent.message, charCodeMask) = ord('q') then
+		  if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-q}
+				if BAND(myLocalEvent.message, charCodeMask) = ord('q') then
 					begin
 						EscapeDansQueue := true;
 						exit(EscapeDansQueue);
 					end;
 
-			if BAnd(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-Q}
-				if BAnd(myLocalEvent.message, charCodeMask) = ord('Q') then
+			if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-Q}
+				if BAND(myLocalEvent.message, charCodeMask) = ord('Q') then
 					begin
 						EscapeDansQueue := true;
 						exit(EscapeDansQueue);
@@ -168,7 +168,7 @@ begin
 	until GetNextEvent(KeyDownMask + MDownMask, event);
 
 	isKeyEvent := (event.what = keyDown) or (event.what = autoKey);
-	theChar := chr(BAnd(event.message,charCodemask));
+	theChar := chr(BAND(event.message,charCodemask));
 
 	if (theChar = 'q') or (theChar = 'Q') then
 	  begin
@@ -189,7 +189,7 @@ begin
 	until GetNextEvent(KeyDownMask + MDownMask, event);
 
 	isKeyEvent := (event.what = keyDown) or (event.what = autoKey);
-	theChar := chr(BAnd(event.message,charCodemask));
+	theChar := chr(BAND(event.message,charCodemask));
 
 	if (theChar = 'q') or (theChar = 'Q') then
 	  begin
@@ -334,11 +334,11 @@ procedure EmuleToucheCommandeParControleDansEvent(var myEvent : eventrecord);  {
 		option, shift, verouillage : boolean;
 		ch, aux : char;
 begin
-	if (BAnd(myEvent.modifiers, controlKey) <> 0) and (BAnd(myEvent.modifiers, cmdKey) = 0) then
+	if (BAND(myEvent.modifiers, controlKey) <> 0) and (BAND(myEvent.modifiers, cmdKey) = 0) then
 		begin
-			shift := BAnd(myEvent.modifiers, shiftKey) <> 0;
-			verouillage := BAnd(myEvent.modifiers, alphaLock) <> 0;
-			option := BAnd(myEvent.modifiers, optionKey) <> 0;
+			shift := BAND(myEvent.modifiers, shiftKey) <> 0;
+			verouillage := BAND(myEvent.modifiers, alphaLock) <> 0;
+			option := BAND(myEvent.modifiers, optionKey) <> 0;
 
       {modification de l'evenement}
 			myEvent.modifiers := BitXor(myEvent.modifiers, controlKey);
@@ -346,7 +346,7 @@ begin
 
 			if (myEvent.what = keyDown) or (myEvent.what = autoKey) or (myEvent.what = keyUp) then
 				begin
-					ch := chr(BAnd(myEvent.message, charCodeMask));
+					ch := chr(BAND(myEvent.message, charCodeMask));
 					aux := QuelCaractereDeControle(ch, shift or verouillage);
 					if option and (((aux >= 'a') and (aux <= 'z')) or ((aux >= 'A') and (aux <= 'Z'))) then
 						aux := CreerCaractereAvecOption(aux);

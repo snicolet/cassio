@@ -115,7 +115,7 @@ begin
       begin
         gNbreVides_entreeCoupGagnant := gNbreVides_entreeCoupGagnant+1;
         gCasesVides_entreeCoupGagnant[gNbreVides_entreeCoupGagnant] := iCourant;
-        gVecteurParite := BXOr(gVecteurParite,constanteDeParite[iCourant]);
+        gVecteurParite := BXOR(gVecteurParite,constanteDeParite[iCourant]);
         inc(gNbreVidesCeQuadrantCoupGagnant[numeroQuadrant[iCourant]]);
       end;
    end;

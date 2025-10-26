@@ -513,7 +513,7 @@ end;
 {$R-}
 		pb.ioBuffer := @s[1];
 		pb.ioReqCount := 255;
-		pb.ioPosMode := fsFromMark + fsNewLine + BSl(ord(ch), 8);
+		pb.ioPosMode := fsFromMark + fsNewLine + BSL(ord(ch), 8);
 		pb.ioPosOffset := 0;
 		err := PBReadSync(@pb);
 		if (err = eofErr) and (pb.ioActCount > 0) then begin
@@ -544,7 +544,7 @@ end;
 {$R-}
 		pb.ioBuffer := @s[1];
 		pb.ioReqCount := 255;
-		pb.ioPosMode := fsFromStart + fsNewLine + BSl(ord(cr), 8);
+		pb.ioPosMode := fsFromStart + fsNewLine + BSL(ord(cr), 8);
 		pb.ioPosOffset := pos;
 		err := PBReadSync(@pb);
 		if (err = eofErr) and (pb.ioActCount > 0) then begin
@@ -795,7 +795,7 @@ end;
 		oe := FSpGetFInfo(org, fi);
 		if oe = noErr then begin
 			oe := FSpCreate(new, fi.fdCreator, fi.fdType, 0);
-			fi.fdFlags := BAnd(fi.fdFlags, BNot(fdInited));
+			fi.fdFlags := BAND(fi.fdFlags, BNOT(fdInited));
 			oe := FSpSetFInfo(new, fi);
 		end;
 		if oe = noErr then begin
@@ -893,8 +893,8 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 		var
 			size : SInt32;
 	begin
-		blocks := BAnd(BSr(blocks, 1), $00007FFF); { div 2 }
-		blocksize := BAnd(BSr(blocksize, 9), $007FFFFF); { div 512 }
+		blocks := BAND(BSR(blocks, 1), $00007FFF); { div 2 }
+		blocksize := BAND(BSR(blocksize, 9), $007FFFFF); { div 512 }
 		if (blocksize > 256) and (blocks > 256) then begin
 			size := (blocksize div 16) * (blocks div 16);
 			if size > maxk div 256 then begin
@@ -1096,7 +1096,7 @@ var
 					if oe = noErr then
 					  begin
 							fs.parID := dirID;
-							folder := BAnd(pb.ioFlAttrib, ioDirMask) <> 0;
+							folder := BAND(pb.ioFlAttrib, ioDirMask) <> 0;
 							ret := doit(fs, folder, path, pb);
 							if folder and ret
 							  then
@@ -1127,7 +1127,7 @@ begin
 
 	      if err = noErr then
 	        begin
-		  	    if BAnd(pb.ioFlAttrib, ioDirMask) <> 0
+		  	    if BAND(pb.ioFlAttrib, ioDirMask) <> 0
 	  		      then Scan(pb.ioDirID)
 			        else dummy := doit(fs, false, path, pb);
 			    end;

@@ -316,7 +316,7 @@ begin
                  begin
                    GetCurrentScript(oldScript);
                    DisableKeyboardScriptSwitch;
-                   TEClick(where, BAnd(modifiers, shiftKey) <> 0, rapport.theText);
+                   TEClick(where, BAND(modifiers, shiftKey) <> 0, rapport.theText);
 
                    posMilieuMot := GetMilieuSelectionRapport;
 
@@ -327,7 +327,7 @@ begin
                    if EstUnDoubleClic(evt,false) and
                       FenetreRapportEstOuverte and
 		                  SelectionRapportNonVide and
-		                  (BAnd(theEvent.modifiers,optionKey) <> 0) and
+		                  (BAND(theEvent.modifiers,optionKey) <> 0) and
 		                  SelectionRapportEstUnePartieLegale(partieLegale) and
 		                  PeutArreterAnalyseRetrograde
 		                 then PlaquerPartieLegale(partieLegale,kRejouerLesCoupsEnDirect);
@@ -438,14 +438,14 @@ var ch,ch2 : char;
     keyCode : SInt16;
     s : String255;
 begin
-  shift := BAnd(evt.modifiers,shiftKey) <> 0;
-  verouillage := BAnd(evt.modifiers,alphaLock) <> 0;
-  command := BAnd(evt.modifiers,cmdKey) <> 0;
-  option := BAnd(evt.modifiers,optionKey) <> 0;
-  control := BAnd(evt.modifiers,controlKey) <> 0;
+  shift := BAND(evt.modifiers,shiftKey) <> 0;
+  verouillage := BAND(evt.modifiers,alphaLock) <> 0;
+  command := BAND(evt.modifiers,cmdKey) <> 0;
+  option := BAND(evt.modifiers,optionKey) <> 0;
+  control := BAND(evt.modifiers,controlKey) <> 0;
 
-  ch := chr(BAnd(evt.message,charCodemask));
-  keyCode := BSr(BAnd(theEvent.message,keyCodeMask),8);
+  ch := chr(BAND(evt.message,charCodemask));
+  keyCode := BSR(BAND(theEvent.message,keyCodeMask),8);
 
   s := '';
   if theEvent.what = keyDown then s := s + 'keyDown';

@@ -2935,10 +2935,10 @@ begin
   ResetTranscriptErrors(gAnalyseDuTranscript);
   SetDerniereCaseTapeeDansTranscript(0);
 
-  shift := BAnd(theEvent.modifiers,shiftKey) <> 0;
-  command := BAnd(theEvent.modifiers,cmdKey) <> 0;
-  option := BAnd(theEvent.modifiers,optionKey) <> 0;
-  control := BAnd(theEvent.modifiers,controlKey) <> 0;
+  shift := BAND(theEvent.modifiers,shiftKey) <> 0;
+  command := BAND(theEvent.modifiers,cmdKey) <> 0;
+  option := BAND(theEvent.modifiers,optionKey) <> 0;
+  control := BAND(theEvent.modifiers,controlKey) <> 0;
 
   peutRepeter := true;
   TraiteKeyboardEventDansTranscript := false;

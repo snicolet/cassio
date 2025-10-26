@@ -415,24 +415,24 @@ begin
   {WritelnDansRapport('AfficheProprietes');}
   {WritelnNumDansRapport('gAffichageProprietesOfCurrentNode = ',gAffichageProprietesOfCurrentNode);}
 
-  if affichePierresDelta and (BAnd(gAffichageProprietesOfCurrentNode,kPierresDeltas) <> 0)
+  if affichePierresDelta and (BAND(gAffichageProprietesOfCurrentNode,kPierresDeltas) <> 0)
     then DesssinePierresDelta(G, surQuellesCases);
 
-  if afficheProchainsCoups and (BAnd(gAffichageProprietesOfCurrentNode,kProchainCoup) <> 0)
+  if afficheProchainsCoups and (BAND(gAffichageProprietesOfCurrentNode,kProchainCoup) <> 0)
     then EcritProchainsCoupsSurOthellier(G, 0, afficheSignesDiacritiques, surQuellesCases);
 
-  if (BAnd(gAffichageProprietesOfCurrentNode,kCommentaires) <> 0)
+  if (BAND(gAffichageProprietesOfCurrentNode,kCommentaires) <> 0)
     then
       begin
         {WritelnDansRapport('AfficheProprietes appelle EcritCommentaires');}
         EcritCommentaires(G);
       end;
 
-  if (BAnd(gAffichageProprietesOfCurrentNode,kNoeudDansFenetreArbreDeJeu) <> 0)
+  if (BAND(gAffichageProprietesOfCurrentNode,kNoeudDansFenetreArbreDeJeu) <> 0)
     then EcritNoeudDansFenetreArbreDeJeu(G, true);
 
 
-  if (BAnd(gAffichageProprietesOfCurrentNode,kCommentaires + kNoeudDansFenetreArbreDeJeu) <> 0) then
+  if (BAND(gAffichageProprietesOfCurrentNode,kCommentaires + kNoeudDansFenetreArbreDeJeu) <> 0) then
     FlushWindow(GetArbreDeJeuWindow);
 
 
@@ -570,7 +570,7 @@ begin  {$UNUSED fonctionAppelante, t}
     		  if (dessinerAideDebutantSiNecessaire and aideDebutant)
     		    then
     		      begin
-    		        if (BAnd(gAffichageProprietesOfCurrentNode, kAideDebutant) <> 0)
+    		        if (BAND(gAffichageProprietesOfCurrentNode, kAideDebutant) <> 0)
     		          then DessineAideDebutant(true, surQuellesCases);  {ceci inclut un appel recursif AfficheProprietesOfCurrentNode(false,surQuellesCases)}
     		      end
     		    else

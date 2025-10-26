@@ -86,7 +86,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
 
      Bonne version avec garde (attention a bien paralleliser!)
      { flipping to the right of A1, with guard}
-      if BAnd(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
+      if BAND(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
         begin
           my_right := MY and $000000FC;
           r := (OPP + $00000002) and my_right;
@@ -116,7 +116,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
 
 		 Bonne version avec garde, pour les othelliers peu remplis (attention!) :
     { Flipping to the left of H1, with guard }
-      if BAnd(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
+      if BAND(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
         begin
 		      s := $00000080;
 					r := (OPP + (MY shl 1)) and s;
@@ -203,19 +203,19 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
       }
 
       {retournements a la gauche de H1}
-      if BAnd(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
+      if BAND(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
         begin
-          if BAnd(OPP,$00000020) <> 0 then { if plat[F1] = adversaire then }
+          if BAND(OPP,$00000020) <> 0 then { if plat[F1] = adversaire then }
             begin
-              if BAnd(OPP,$00000010) <> 0 then { if plat[E1] = adversaire then }
+              if BAND(OPP,$00000010) <> 0 then { if plat[E1] = adversaire then }
                 begin
-                  if BAnd(OPP,$00000008) <> 0 then { if plat[D1] = adversaire then }
+                  if BAND(OPP,$00000008) <> 0 then { if plat[D1] = adversaire then }
                     begin
-                      if BAnd(OPP,$00000004) <> 0 then { if plat[C1] = adversaire then }
+                      if BAND(OPP,$00000004) <> 0 then { if plat[C1] = adversaire then }
                         begin
-                          if BAnd(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
+                          if BAND(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
                             begin
-                              if BAnd(MY,$00000001) <> 0 then { if plat[A1] = couleur then }
+                              if BAND(MY,$00000001) <> 0 then { if plat[A1] = couleur then }
                                 begin
                                   flipped := $0000007E;
 													        number_of_flipped := 6;
@@ -225,7 +225,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
                                 end;
                             end
                           else
-                          if BAnd(MY,$00000002) <> 0 then { if plat[B1] = couleur then }
+                          if BAND(MY,$00000002) <> 0 then { if plat[B1] = couleur then }
                             begin
                               flipped := $0000007C;
 													    number_of_flipped := 5;
@@ -235,7 +235,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
                             end;
                         end
                       else
-                      if BAnd(MY,$00000004) <> 0 then { if plat[C1] = couleur then }
+                      if BAND(MY,$00000004) <> 0 then { if plat[C1] = couleur then }
                         begin
                           flipped := $00000078;
 													number_of_flipped := 4;
@@ -245,7 +245,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
                         end;
                     end
                   else
-                  if BAnd(MY,$00000008) <> 0 then { if plat[D1] = couleur then }
+                  if BAND(MY,$00000008) <> 0 then { if plat[D1] = couleur then }
                     begin
                       flipped := $00000070;
 											number_of_flipped := 3;
@@ -255,7 +255,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
                     end;
                 end
               else
-              if BAnd(MY,$00000010) <> 0 then { if plat[E1] = couleur then }
+              if BAND(MY,$00000010) <> 0 then { if plat[E1] = couleur then }
                 begin
                   flipped := $00000060;
 									number_of_flipped := 2;
@@ -265,7 +265,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
                 end;
             end
           else
-          if BAnd(MY,$00000020) <> 0 then { if plat[F1] = couleur then }
+          if BAND(MY,$00000020) <> 0 then { if plat[F1] = couleur then }
             begin
               flipped := $00000040;
 							number_of_flipped := 1;
@@ -330,7 +330,7 @@ begin  {$UNUSED myBool,my_left,my_right,s,t}
       {EcritBitboardDansRapport('position = ',MakeBitboard(MY,$FFFFFFFF,OPP,0));}
 
       { Flipping to the left of H1, with guard }
-      if BAnd(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
+      if BAND(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
         begin
 		      s := $00000080;
 					r := (OPP + (MY shl 1)) and s;
@@ -431,19 +431,19 @@ end;
 
 (*
       {retournements a la droite de A1}
-      if BAnd(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
+      if BAND(OPP,$00000002) <> 0 then { if plat[B1] = adversaire then }
               begin
-                if BAnd(OPP,$00000004) <> 0 then { if plat[C1] = adversaire then }
+                if BAND(OPP,$00000004) <> 0 then { if plat[C1] = adversaire then }
                   begin
-                    if BAnd(OPP,$00000008) <> 0 then { if plat[D1] = adversaire then }
+                    if BAND(OPP,$00000008) <> 0 then { if plat[D1] = adversaire then }
                       begin
-                        if BAnd(OPP,$00000010) <> 0 then { if plat[E1] = adversaire then }
+                        if BAND(OPP,$00000010) <> 0 then { if plat[E1] = adversaire then }
                           begin
-                            if BAnd(OPP,$00000020) <> 0 then { if plat[F1] = adversaire then }
+                            if BAND(OPP,$00000020) <> 0 then { if plat[F1] = adversaire then }
                               begin
-                                if BAnd(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
+                                if BAND(OPP,$00000040) <> 0 then { if plat[G1] = adversaire then }
                                   begin
-                                    if BAnd(MY,$00000080) <> 0 then { if plat[H1] = couleur then }
+                                    if BAND(MY,$00000080) <> 0 then { if plat[H1] = couleur then }
                                       begin
                                         flipped := $0000007E;
 													              number_of_flipped := 6;
@@ -453,7 +453,7 @@ end;
                                       end;
                                   end
                                 else
-                                if BAnd(MY,$00000040) <> 0 then { if plat[G1] = couleur then }
+                                if BAND(MY,$00000040) <> 0 then { if plat[G1] = couleur then }
                                   begin
                                     flipped := $0000003E;
 													          number_of_flipped := 5;
@@ -463,7 +463,7 @@ end;
                                   end;
                               end
                             else
-                            if BAnd(MY,$00000020) <> 0 then { if plat[F1] = couleur then }
+                            if BAND(MY,$00000020) <> 0 then { if plat[F1] = couleur then }
                               begin
                                 flipped := $0000001E;
 													      number_of_flipped := 4;
@@ -473,7 +473,7 @@ end;
                               end;
                           end
                         else
-                        if BAnd(MY,$00000010) <> 0 then { if plat[E1] = couleur then }
+                        if BAND(MY,$00000010) <> 0 then { if plat[E1] = couleur then }
                           begin
                             flipped := $0000000E;
 													  number_of_flipped := 3;
@@ -483,7 +483,7 @@ end;
                           end;
                       end
                     else
-                    if BAnd(MY,$00000008) <> 0 then { if plat[D1] = couleur then }
+                    if BAND(MY,$00000008) <> 0 then { if plat[D1] = couleur then }
                       begin
                         flipped := $00000006;
 											  number_of_flipped := 2;
@@ -493,7 +493,7 @@ end;
                       end;
                   end
                 else
-                if BAnd(MY,$00000004) <> 0 then { if plat[C1] = couleur then }
+                if BAND(MY,$00000004) <> 0 then { if plat[C1] = couleur then }
                   begin
                     flipped := $00000002;
 										number_of_flipped := 1;

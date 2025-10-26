@@ -73,15 +73,15 @@
 {$endc}
 
 
-{$DEFINEC  BAnd(i,j)  ((i) and (j))  }
-{$DEFINEC  BOr(i,j)   ((i) or (j)) }
-{$DEFINEC  BXOr(i,j)  ((i) xor (j)) }
-{$DEFINEC  BSr(i,n)   ((i) shr (n)) }
-{$DEFINEC  BSl(i,n)   ((i) shl (n)) }
+{$DEFINEC  BAND(i,j)  ((i) and (j))  }
+{$DEFINEC  BOR(i,j)   ((i) or (j)) }
+{$DEFINEC  BXOR(i,j)  ((i) xor (j)) }
+{$DEFINEC  BSR(i,n)   ((i) shr (n)) }
+{$DEFINEC  BSL(i,n)   ((i) shl (n)) }
 {$DEFINEC  BTST(i,n)  ((((i) shr (n)) and 1)=1) }
-{$DEFINEC  BSet(i,n)  i:=(i) or (1 shl (n)) }
-{$DEFINEC  BClr(i,n)  i:=(i) and not (1 shl (n)) }
-{$DEFINEC  BNot(i)    (not((i))) }
+{$DEFINEC  BSET(i,n)  i:=(i) or (1 shl (n)) }
+{$DEFINEC  BCLR(i,n)  i:=(i) and not (1 shl (n)) }
+{$DEFINEC  BNOT(i)    (not((i))) }
 
 
 {$DEFINEC COUNT_LEADING_ZEROS(n)  ( CountLeadingZerosForGNUPascal((n))) }

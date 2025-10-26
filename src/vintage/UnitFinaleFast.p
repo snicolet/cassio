@@ -330,8 +330,8 @@ procedure ValiderCetteEntreeCoupsLegauxHash(var whichElement : HashTableExacteEl
   begin
     with whichElement do
       if entreeValide
-        then flags := BAnd(flags,BNot(kMaskRecalculerCoupsLegaux))  { elle est valide, on ne la recalculera pas }
-        else flags := BOr(flags,kMaskRecalculerCoupsLegaux); { il faudra la recalculer }
+        then flags := BAND(flags,BNOT(kMaskRecalculerCoupsLegaux))  { elle est valide, on ne la recalculera pas }
+        else flags := BOR(flags,kMaskRecalculerCoupsLegaux); { il faudra la recalculer }
   end;
 
 
@@ -468,13 +468,13 @@ begin
      if ESprof >= ProfUtilisationHash then
        begin
 
-         gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+         gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
          if ESprof >= ProfPourHashExacte then
            begin
 
-             nroTableExacte := BAnd(gClefHashage div 1024,nbTablesHashExactesMoins1);
-             clefHashExacte := BAnd(gClefHashage,1023);
+             nroTableExacte := BAND(gClefHashage div 1024,nbTablesHashExactesMoins1);
+             clefHashExacte := BAND(gClefHashage,1023);
 
              {WritelnNumDansRapport('clefHashExacte (1) = ',clefHashExacte);}
 
@@ -652,7 +652,7 @@ begin
 
 
          sortie :
-         gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+         gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
        end;  {if ESprof >= ProfUtilisationHash then}
 
@@ -753,8 +753,8 @@ procedure LiberePlacesHashTableExacte(nroPremierFils,nroDernierFils : SInt32);
           t := indiceHashDesFils[i];
           if t >= 0 then
             begin
-              with HashTableExacte[t div 1024]^[BAnd(t,1023)] do
-                flags := BOr(flags,kMaskLiberee);
+              with HashTableExacte[t div 1024]^[BAND(t,1023)] do
+                flags := BOR(flags,kMaskLiberee);
               indiceHashDesFils[i] := -3000;
             end;
         end;
@@ -1225,7 +1225,7 @@ begin
       	          inc(NbNoeudsCoupesParHeuristique);
       	          meilleureSuite[ESprof,ESprof] := meiDef;
       	          meilleureSuite[ESprof,profMoins1] := 0;
-                  gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
                   noteCoupure := estimationPessimiste;
 
@@ -1288,7 +1288,7 @@ begin
       	          inc(NbNoeudsCoupesParHeuristique);
       	          meilleureSuite[ESprof,ESprof] := meiDef;
       	          meilleureSuite[ESprof,profMoins1] := 0;
-                  gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
                   noteCoupure := estimationOptimiste;
 
@@ -1328,13 +1328,13 @@ begin
 	   WritelnPositionEtTraitDansRapport(plat,couleur);}
 
 	  if ESprof >= ProfUtilisationHash then
-          gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+          gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
 	   t := ABFin(contexteMakeEndgameSearch, plat,meiDef,pere,couleur,ESprof,alphaRapide,betaRapide,diffPions,IndiceHashTableExacteRetour,
 	              vientDePasser,InfosMilieuDePartie,NbNoeudsCoupesParHeuristique,false,false);
 
      if ESprof >= ProfUtilisationHash then
-          gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+          gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
        if t >= betaRapide then
          begin
@@ -1348,7 +1348,7 @@ begin
 
                ABFin := t;
                if ESprof >= ProfUtilisationHash then
-                 gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                 gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                exit(ABFin);
 
              end;
@@ -1383,7 +1383,7 @@ begin
 
                ABFin := t;
                if ESprof >= ProfUtilisationHash then
-                 gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                 gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                exit(ABFin);
 
 
@@ -1457,13 +1457,13 @@ begin
 
 
 		            if ESprof >= ProfUtilisationHash then
-	                gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+	                gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
 		            valeur := ABFin(contexteMakeEndgameSearch, plat,meiDefBid,pere,couleur,ESprof,alpha,beta,diffPions,indiceBid,
 		                            vientDePasser,InfosMilieuDePartie,nbNoeudsBid,false,false);
 
 	              if ESprof >= ProfUtilisationHash then
-	                gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+	                gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
 
 		            SetDeltaFinalCourant(tempDeltaFinaleCourant);
@@ -1505,13 +1505,13 @@ begin
 
 
           if ESprof >= ProfUtilisationHash then
-            gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+            gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
           valeur := ABFin(contexteMakeEndgameSearch, plat,meiDefBid,pere,couleur,ESprof,alpha,beta,diffPions,indiceBid,
                           vientDePasser,InfosMilieuDePartie,nbNoeudsBid,false,false);
 
           if ESprof >= ProfUtilisationHash then
-            gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+            gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
 
           SetDeltaFinalCourant(tempDeltaFinaleCourant);
@@ -1572,7 +1572,7 @@ begin
         begin
 
 
-          gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+          gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
           {EnleverDeLaListeChaineeDesCasesVides(iCourant)}
           celluleDansListeChaineeCasesVides := gTableDesPointeurs[iCourant];
           with celluleDansListeChaineeCasesVides^ do
@@ -1586,7 +1586,7 @@ begin
                                       -beta,-alpha,-diffTranspo,indiceHashDummy,false,
                                       InfosMilieuTranspo,NbNoeudsHeuristiquesDansCeFilsTranspo,false,true);
 
-          gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+          gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
           {RemettreDansLaListeChaineeDesCasesVides(iCourant);}
 				  with celluleDansListeChaineeCasesVides^ do
 						begin
@@ -1665,7 +1665,7 @@ begin
 
 					        if ESprof >= profondeurRemplissageHash
                     then HashTable^^[clefHashConseil] := iCourant;
-                  gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                   NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique+NbNoeudsHeuristiquesDansCeFilsTranspo;
 
                   exit(PeutTrouverTranspositionUnCoupPlusLoin);
@@ -2308,7 +2308,7 @@ procedure CleanUpPourQuitterABFin;
 begin
   EffacerTraceExecutionFinale(ESProf);
   if ESprof >= ProfUtilisationHash then
-    gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+    gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 end;
 
 
@@ -2371,7 +2371,7 @@ begin  {ABFin}
 
 
      if ESprof >= ProfUtilisationHash then
-       gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+       gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
 
 
@@ -2445,7 +2445,7 @@ begin  {ABFin}
            if ESprof >= profondeurRemplissageHash
              then
                begin
-                 clefHashConseil := BAnd(gClefHashage,32767);
+                 clefHashConseil := BAND(gClefHashage,32767);
                  conseilHash := HashTable^^[clefHashConseil];
                end
              else conseilHash := 0;
@@ -2453,8 +2453,8 @@ begin  {ABFin}
            if ESprof >= ProfPourHashExacte then
              begin
 
-               nroTableExacte := BAnd(gClefHashage div 1024,nbTablesHashExactesMoins1);
-               clefHashExacte := BAnd(gClefHashage,1023);
+               nroTableExacte := BAND(gClefHashage div 1024,nbTablesHashExactesMoins1);
+               clefHashExacte := BAND(gClefHashage,1023);
 
                {WritelnNumDansRapport('clefHashExacte (1) = ',clefHashExacte);}
 
@@ -2687,7 +2687,7 @@ begin  {ABFin}
                                        begin
                                          // WritelnDansRapport('BINGO cas 3');
                                          ABFin := valMin[k];
-                                         gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                                         gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                                          IndiceHashTableExacteRetour := clefHashExacte+1024*nroTableExacte;
                                          NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k] + nbArbresCoupesValMax[k];
                                          exit(ABFin);
@@ -2702,7 +2702,7 @@ begin  {ABFin}
                                        HashTable^^[clefHashConseil] := meiDef;
                                      meilleureSuite[ESprof,ESprof] := meiDef;
 
-                                     gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                                     gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                                      IndiceHashTableExacteRetour := clefHashExacte+1024*nroTableExacte;
                                      NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k] + nbArbresCoupesValMax[k];
 
@@ -2737,7 +2737,7 @@ begin  {ABFin}
                                      HashTable^^[clefHashConseil] := meiDef;
                                    meilleureSuite[ESprof,ESprof] := meiDef;
 
-                                   gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                                   gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                                    IndiceHashTableExacteRetour := clefHashExacte+1024*nroTableExacte;
                                    NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k];
 
@@ -2769,7 +2769,7 @@ begin  {ABFin}
                                    if ESprof >= profondeurRemplissageHash then
                                      HashTable^^[clefHashConseil] := meiDef;
                                    meilleureSuite[ESprof,ESprof] := meiDef;
-                                   gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                                   gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                                    IndiceHashTableExacteRetour := clefHashExacte+1024*nroTableExacte;
                                    NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMax[k];
 
@@ -2885,7 +2885,7 @@ begin  {ABFin}
                begin
                  if ESprof >= profondeurRemplissageHash
                    then HashTable^^[clefHashConseil] := meiDef;
-                 gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                 gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                end;
              exit(ABFin);
            end;
@@ -2905,7 +2905,7 @@ begin  {ABFin}
                begin
                  if ESprof >= profondeurRemplissageHash
                    then HashTable^^[clefHashConseil] := meiDef;
-                 gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+                 gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                end;
              exit(ABFin);
            end;
@@ -2917,7 +2917,7 @@ begin  {ABFin}
        begin
 
          if ESprof >= ProfUtilisationHash then
-           gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+           gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
 
          {$IFC USE_DEBUG_STEP_BY_STEP}
          if gDebuggageAlgoFinaleStepByStep.actif and
@@ -3117,7 +3117,7 @@ begin  {ABFin}
                     NbNoeudsHeuristiquesDansCeFils := 0;
                     tickPourChronometrerTempsPrisDansCeFils := TickCount;
 
-                    gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+                    gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
                     {EnleverDeLaListeChaineeDesCasesVides(iCourant)}
                     celluleDansListeChaineeCasesVides := gTableDesPointeurs[iCourant];
                     with celluleDansListeChaineeCasesVides^ do
@@ -3192,7 +3192,7 @@ begin  {ABFin}
                       end;
                       {$ENDC}
 
-                    gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+                    gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
                     {RemettreDansLaListeChaineeDesCasesVides(iCourant);}
           					with celluleDansListeChaineeCasesVides^ do
           					  begin
@@ -4147,10 +4147,10 @@ begin
     begin
 		  WritelnDansRapport('');
 		  WritelnPositionEtTraitDansRapport(plat,couleur);
-		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAnd(gVecteurParite,constanteDeParite[11]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAnd(gVecteurParite,constanteDeParite[18]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAnd(gVecteurParite,constanteDeParite[81]) = 0);
-		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAnd(gVecteurParite,constanteDeParite[88]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A1] = ',BAND(gVecteurParite,constanteDeParite[11]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H1] = ',BAND(gVecteurParite,constanteDeParite[18]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[A8] = ',BAND(gVecteurParite,constanteDeParite[81]) = 0);
+		  WritelnStringAndBooleenDansRapport('pair[H8] = ',BAND(gVecteurParite,constanteDeParite[88]) = 0);
 		  AttendFrappeClavier;
 		end;
   *)
@@ -4164,7 +4164,7 @@ begin
         iCourant := square;
         constanteDePariteDeiCourant := constantePariteDeSquare;
 
-        if (ESprof < 3) or (BAnd(gVecteurParite,constanteDePariteDeiCourant) <> 0) then
+        if (ESprof < 3) or (BAND(gVecteurParite,constanteDePariteDeiCourant) <> 0) then
 
 
         if ModifPlatFinDiffFastLongint(iCourant,couleur,adversaire,platEssai,diffEssai)
@@ -4173,7 +4173,7 @@ begin
 		          aJoue := true;
 
 		          if (ESprof >= 3) then
-		            gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+		            gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
 
 		         {EnleverDeLaListeChaineeDesCasesVides(iCourant)}
 		          previous^.next := next;
@@ -4186,7 +4186,7 @@ begin
 						  next^.previous := celluleDansListeChaineeCasesVides;
 
 						 if (ESprof >= 3) then
-		            gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+		            gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
 
 		          if (noteCourante > maxPourBestDefABFinPetite) then
 		             begin
@@ -4220,14 +4220,14 @@ if (ESprof >= 3) then
         iCourant := square;
         constanteDePariteDeiCourant := constantePariteDeSquare;
 
-        if BAnd(gVecteurParite,constanteDePariteDeiCourant) = 0 then
+        if BAND(gVecteurParite,constanteDePariteDeiCourant) = 0 then
 
         if ModifPlatFinDiffFastLongint(iCourant,couleur,adversaire,platEssai,diffEssai)
           then
 	          BEGIN
 		          aJoue := true;
 
-		          gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+		          gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
 		         {EnleverDeLaListeChaineeDesCasesVides(iCourant)}
 		          previous^.next := next;
 		          next^.previous := previous;
@@ -4237,7 +4237,7 @@ if (ESprof >= 3) then
 		         {RemettreDansLaListeChaineeDesCasesVides(iCourant);}
 		          previous^.next := celluleDansListeChaineeCasesVides;
 						  next^.previous := celluleDansListeChaineeCasesVides;
-						  gVecteurParite := BXOr(gVecteurParite,constanteDePariteDeiCourant);
+						  gVecteurParite := BXOR(gVecteurParite,constanteDePariteDeiCourant);
 
 		          if (noteCourante > maxPourBestDefABFinPetite) then
 		             begin
@@ -4843,18 +4843,18 @@ begin  {ABPreordre}
          if (ESprof >= ProfUtilisationHash)
            then
              begin
-               gClefHashage := BXOr(gClefHashage , (IndiceHash^^[couleur,pere]));
+               gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                if ESprof >= profondeurRemplissageHash then
                  begin
-                   clefHashConseil := BAnd(gClefHashage,32767);
+                   clefHashConseil := BAND(gClefHashage,32767);
                    conseilHash := HashTable^^[clefHashConseil];
                  end;
 
                if (ESprof >= ProfPourHashExacte) then
                  begin
 
-                   nroTableExacte := BAnd(gClefHashage div 1024,nbTablesHashExactesMoins1);
-                   clefHashExacte := BAnd(gClefHashage,1023);
+                   nroTableExacte := BAND(gClefHashage div 1024,nbTablesHashExactesMoins1);
+                   clefHashExacte := BAND(gClefHashage,1023);
 
                    {WritelnNumDansRapport('clefHashExacte (2) = ',clefHashExacte);}
 
@@ -4878,7 +4878,7 @@ begin  {ABPreordre}
                              if ESprof >= ProfUtilisationHash then
                                begin
                                  if DoitRemplirTableHashSimple then HashTable^^[clefHashConseil] := meiDef;
-                                 gClefHashage := BXOr(gClefHashage, (IndiceHash^^[couleur,pere]));
+                                 gClefHashage := BXOR(gClefHashage, (IndiceHash^^[couleur,pere]));
                                end;
 
                              ABPreOrdre := MakeSearchResultForSolvedPosition(bornes.valMin[nbreDeltaSuccessifs]);
@@ -4947,7 +4947,7 @@ begin  {ABPreordre}
       	     begin
       	       (*
       	        if (ESprof >= profPourTriSelonDivergence) and suffisamentLoinDesFeuillesDeLArbre and
-      	          (ESprof >= ProfPourHashExacte) and (BAnd(quelleHashTableExacte^[clefHashExacte].flags,kMaskRecalculerCoupsLegaux) <> 0)
+      	          (ESprof >= ProfPourHashExacte) and (BAND(quelleHashTableExacte^[clefHashExacte].flags,kMaskRecalculerCoupsLegaux) <> 0)
       	         then TrierSelonDivergenceAvecMilieu(listeFinale,listeFinale);
       	       *)
 
@@ -5126,7 +5126,7 @@ begin  {ABPreordre}
                                    begin
                                      if DoitRemplirTableHashSimple then
                                        HashTable^^[clefHashConseil] := meiDef;
-                                     gClefHashage := BXOr(gClefHashage, (IndiceHash^^[couleur,pere]));
+                                     gClefHashage := BXOR(gClefHashage, (IndiceHash^^[couleur,pere]));
                                    end;
                                  exit(ABPreOrdre)
                                end;
@@ -5146,7 +5146,7 @@ begin  {ABPreordre}
               if ESprof >= ProfUtilisationHash then
                 begin
                   if DoitRemplirTableHashSimple then HashTable^^[clefHashConseil] := meiDef;
-                  gClefHashage := BXOr(gClefHashage, (IndiceHash^^[couleur,pere]));
+                  gClefHashage := BXOR(gClefHashage, (IndiceHash^^[couleur,pere]));
 
                   if (ESprof >= ProfPourHashExacte) then
                     begin
@@ -5182,7 +5182,7 @@ begin  {ABPreordre}
           else
             begin
               if ESprof >= ProfUtilisationHash then
-                gClefHashage := BXOr(gClefHashage, (IndiceHash^^[couleur,pere]));
+                gClefHashage := BXOR(gClefHashage, (IndiceHash^^[couleur,pere]));
               if DoitPasserFin(adversaire,plat)
                 then
                   if couleur = pionBlanc
@@ -5529,7 +5529,7 @@ begin  {$UNUSED i}
           *)
 
 
-          gClefHashage := BXOr(gClefHashage , (IndiceHash^^[GetTraitOfPosition(positionEtTrait),coup]));
+          gClefHashage := BXOR(gClefHashage , (IndiceHash^^[GetTraitOfPosition(positionEtTrait),coup]));
           inc(nbCoupsDeLaSuite);
 
          // WritelnDansRapport('Dans RemplirMeilleureSuiteAvecHashTable,  profondeurCourante = '+NumEnString(profondeurCourante)+'   < -->  hash = '+NumEnString(gClefHashage));
@@ -5539,8 +5539,8 @@ begin  {$UNUSED i}
           WritelnNumDansRapport('nbCoupsDeLaSuite = ',nbCoupsDeLaSuite);
           WritelnPositionEtTraitDansRapport(positionEtTrait.position,GetTraitOfPosition(positionEtTrait));}
 
-          nroTableExacte := BAnd((gClefHashage div 1024),nbTablesHashExactesMoins1);
-          myClefExacte := BAnd(gClefHashage,1023);
+          nroTableExacte := BAND((gClefHashage div 1024),nbTablesHashExactesMoins1);
+          myClefExacte := BAND(gClefHashage,1023);
           quelleHashTableExacte := HashTableExacte[nroTableExacte];
           CreeCodagePosition(positionEtTrait.position,GetTraitOfPosition(positionEtTrait),profondeurCourante,codagePosition);
           trouve := InfoTrouveeDansHashTableExacte(codagePosition,quelleHashTableExacte,gClefHashage,myClefExacte);
@@ -6327,7 +6327,7 @@ begin
 
 
 
-             if (BAnd(gVecteurParite,constanteDeParite[iCourant]) <> 0) and not(utilisationNouvelleEval)
+             if (BAND(gVecteurParite,constanteDeParite[iCourant]) <> 0) and not(utilisationNouvelleEval)
                then noteclass := noteclass + 400;
 
              if (gNbreVidesCeQuadrantCoupGagnant[numeroQuadrant[iCourant]] = 1) then
@@ -6512,7 +6512,7 @@ begin
       bestMode := false;
       FenetreLargePourRechercheScoreExact := false;
 
-      copieDeClefHashage := SetClefHashageGlobale(BXOr(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
+      copieDeClefHashage := SetClefHashageGlobale(BXOR(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
 
       t := upper;
       repeat
@@ -6539,7 +6539,7 @@ begin
       bestMode := false;
       FenetreLargePourRechercheScoreExact := true;
 
-      copieDeClefHashage := SetClefHashageGlobale(BXOr(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
+      copieDeClefHashage := SetClefHashageGlobale(BXOR(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
 
       t := -LanceurABFin(variablesMakeEndgameSearch,jeu,meilleurCoup,dernierCoupJoue,couleur,ProfRecherche,-upper,-lower,nbBla,nbNoi,InfosMilieuDePartie);
       EssaieSetPortWindowPlateau;
@@ -6563,7 +6563,7 @@ begin
     begin
       bestMode := false;
 
-      copieDeClefHashage := SetClefHashageGlobale(BXOr(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
+      copieDeClefHashage := SetClefHashageGlobale(BXOR(clefHashageCoupGagnant , (IndiceHash^^[couleur,dernierCoupJoue])));
 
       t := NegaCStar(lower,upper,couleur,ProfRecherche,nbBla,nbNoi,dernierCoupJoue,jeu,meilleurCoup,InfosMilieuDePartie);
 
@@ -8226,7 +8226,7 @@ begin
         end;
 
       EnleverDeLaListeChaineeDesCasesVides(XCourant);
-      gVecteurParite := BXOr(gVecteurParite, (constanteDeParite[XCourant]));
+      gVecteurParite := BXOR(gVecteurParite, (constanteDeParite[XCourant]));
       if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) then
         DoMoveEndgameTree(numeroEndgameTreeActif,XCourant,couleur);
 
@@ -8247,7 +8247,7 @@ begin
   with variablesMakeEndgameSearch do
     begin
 
-      gVecteurParite := BXOr(gVecteurParite, (constanteDeParite[XCourant]));
+      gVecteurParite := BXOR(gVecteurParite, (constanteDeParite[XCourant]));
       RemettreDansLaListeChaineeDesCasesVides(XCourant);
       if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) and (interruptionReflexion = pasdinterruption) then
         UndoMoveEndgameTree(numeroEndgameTreeActif);
@@ -9497,7 +9497,7 @@ BEGIN          {MakeEndgameSearch}
           	      EffaceNoeudDansFenetreArbreDeJeu;
           	      EcritCurrentNodeDansFenetreArbreDeJeu(true,false);
 
-          	      if afficheProchainsCoups and (BAnd(GetAffichageProprietesOfCurrentNode,kProchainCoup) <> 0) then
+          	      if afficheProchainsCoups and (BAND(GetAffichageProprietesOfCurrentNode,kProchainCoup) <> 0) then
           	        DessineAutresInfosSurCasesAideDebutant(othellierToutEntier,'MakeEndgameSearch');
           	    end;
           	  if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) then

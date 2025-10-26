@@ -1498,7 +1498,7 @@ begin
 	       begin
 	         v := ValeurSemiTranquilleDuCoup(coul,x,plat,frontiere,coupTranquille,deltaFrontiere);
 
-	         somme := somme - BSr(deltaFrontiere,2);
+	         somme := somme - BSR(deltaFrontiere,2);
 
 	         case v of
 
@@ -1550,7 +1550,7 @@ begin
 	     if jouable[x] then
 	       begin
 	         v := PeutJouerIciUnidirectionnel(coul,x,plat,frontiere,deltaFrontiere);
-	         somme := somme - BSr(deltaFrontiere,2);
+	         somme := somme - BSR(deltaFrontiere,2);
 	         if (v = 1) then somme := somme+4;       {une seule direction}
 	        {if (v = 2) then somme := somme+1;}      {deux directions}
 	         if somme >= seuil_coupure then goto fin;
@@ -1561,7 +1561,7 @@ begin
    if jouable[13] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,13,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1569,7 +1569,7 @@ begin
    if jouable[14] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,14,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1577,7 +1577,7 @@ begin
    if jouable[15] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,15,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1585,7 +1585,7 @@ begin
    if jouable[16] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,16,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1593,7 +1593,7 @@ begin
    if jouable[31] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,31,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1601,7 +1601,7 @@ begin
    if jouable[41] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,41,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1609,7 +1609,7 @@ begin
    if jouable[51] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,51,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1617,7 +1617,7 @@ begin
    if jouable[61] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,61,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1625,7 +1625,7 @@ begin
    if jouable[38] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,38,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1633,7 +1633,7 @@ begin
    if jouable[48] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,48,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1641,7 +1641,7 @@ begin
    if jouable[58] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,58,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1649,7 +1649,7 @@ begin
    if jouable[68] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,68,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1657,7 +1657,7 @@ begin
    if jouable[83] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,83,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1665,7 +1665,7 @@ begin
    if jouable[84] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,84,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1673,7 +1673,7 @@ begin
    if jouable[85] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,85,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1681,7 +1681,7 @@ begin
    if jouable[86] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,86,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme+4;       {une seule direction}
       {if (v = 2) then somme := somme+1;}      {deux directions}
        if somme >= seuil_coupure then goto fin;
@@ -1698,7 +1698,7 @@ begin
 	     if jouable[x] then
 	       begin
 	         v := PeutJouerIciUnidirectionnel(coul,x,plat,frontiere,deltaFrontiere);
-	         somme := somme - BSr(deltaFrontiere,2);
+	         somme := somme - BSR(deltaFrontiere,2);
 	         if (v = 1) then somme := somme+2;      {une seule direction}
 	         if somme >= seuil_coupure then goto fin;
 	       end;
@@ -1710,56 +1710,56 @@ begin
 	 if jouable[12] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,12,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
    if jouable[17] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,17,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
 	 if jouable[21] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,21,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
    if jouable[28] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,28,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
 	 if jouable[71] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,71,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
    if jouable[78] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,78,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
 	 if jouable[82] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,82,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;
    if jouable[87] then
      begin
        v := PeutJouerIciUnidirectionnel(coul,87,plat,frontiere,deltaFrontiere);
-       somme := somme - BSr(deltaFrontiere,2);
+       somme := somme - BSR(deltaFrontiere,2);
        if (v = 1) then somme := somme + equivalentCaseC;      {une seule direction}
        if somme >= seuil_coupure then goto fin;
      end;

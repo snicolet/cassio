@@ -27,7 +27,7 @@ INTERFACE
 {$definec OffsetPtr( p, offset ) Ptr(p) := Ptr(ord4(p) + (offset))}
 {$definec SubPtrPtr( left, right ) (ord4(left) - ord4(right))}
 {$definec GetUnsignedByte( p, offset ) (AddPtrLong(p, offset)^ and $00FF)}
-{$definec SetUnsignedByte( p, offset, value ) (AddPtrLong(p, offset)^ := band(value, $00FF)}
+{$definec SetUnsignedByte( p, offset, value ) (AddPtrLong(p, offset)^ := BAND(value, $00FF)}
 {$definec CompLS( a1, a2 ) (UInt32(a1) <= UInt32(a2))}
 {$definec CompLO( a1, a2 ) (UInt32(a1) < UInt32(a2))}
 {$definec CompHS( a1, a2 ) (UInt32(a1) >= UInt32(a2))}
@@ -68,7 +68,7 @@ IMPLEMENTATION
 			ll: SInt32;
 	begin
 		ll := l;
-		BSet(ll, num);
+		BSET(ll, num);
 		l := ll;
 	end;
 
@@ -77,7 +77,7 @@ IMPLEMENTATION
 			ll: SInt32;
 	begin
 		ll := l;
-		BClr(ll, num);
+		BCLR(ll, num);
 		l := ll;
 	end;
 

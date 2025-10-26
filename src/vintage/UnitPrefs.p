@@ -1932,10 +1932,10 @@ procedure DoDialoguePreferencesAffichage;
         EffaceNoteSurCases(kNotesDeCassio,othellierToutEntier);
         EffaceNoteSurCases(kNotesDeZebra,othellierToutEntier);
 
-        if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
+        if GetAvecAffichageNotesSurCases(kNotesDeCassio) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesCassioSurLesCases) <> 0)
 		      then DessineNoteSurCases(kNotesDeCassio,othellierToutEntier);
 
-		    if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAnd(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
+		    if GetAvecAffichageNotesSurCases(kNotesDeZebra) and (BAND(GetAffichageProprietesOfCurrentNode,kNotesZebraSurLesCases) <> 0)
 		      then DessineNoteSurCases(kNotesDeZebra,othellierToutEntier);
 
 		    AfficheProprietesOfCurrentNode(true,othellierToutEntier,'GetPreferencesAffichageFromDialogue');

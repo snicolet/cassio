@@ -4058,8 +4058,8 @@ end;
 procedure SetPartieActive(nroReferencePartie : SInt32; flag : boolean);
 begin
   if flag
-	  then BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieActiveBit)  {Bit Set}
-	  else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieActiveBit); {Bit Clear}
+	  then BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieActiveBit)  {Bit Set}
+	  else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieActiveBit); {Bit Clear}
 end;
 
 
@@ -4075,22 +4075,22 @@ procedure DesactiverToutesLesParties;
 var k : SInt32;
 begin
   for k := 1 to nbPartiesChargees do
-    BClr(tableBooleensDeLaListe^[k],kPartieActiveBit);  {Bit Clear}
+    BCLR(tableBooleensDeLaListe^[k],kPartieActiveBit);  {Bit Clear}
 end;
 
 
 procedure SetPartieDetruite(nroReferencePartie : SInt32; flag : boolean);
 begin
   if flag
-		then BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit)  {Bit Set}
-		else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit); {Bit Clear}
+		then BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit)  {Bit Set}
+		else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit); {Bit Clear}
 end;
 
 
 procedure DetruirePartieDeLaListe(nroReferencePartie : SInt32);
 begin
   if (nroReferencePartie >= 1) and (nroReferencePartie <= nbPartiesChargees) then
-    BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit); {Bit Set}
+    BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieDetruiteBit); {Bit Set}
 end;
 
 
@@ -4106,7 +4106,7 @@ procedure SetAucunePartieDetruiteDansLaListe;
 var k : SInt32;
 begin
   for k := 1 to nbPartiesChargees do
-    BClr(tableBooleensDeLaListe^[k],kPartieDetruiteBit);  {Bit Clear}
+    BCLR(tableBooleensDeLaListe^[k],kPartieDetruiteBit);  {Bit Clear}
 end;
 
 
@@ -4127,7 +4127,7 @@ begin
     begin
 		  if not(PartieEstDansLaSelection(nroReferencePartie)) then
 		    inc(cardinalSelectionDeLaListe);
-		  BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Set}
+		  BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Set}
 		end;
 end;
 
@@ -4138,7 +4138,7 @@ begin
     begin
       if PartieEstDansLaSelection(nroReferencePartie) then
         dec(cardinalSelectionDeLaListe);
-      BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Clear}
+      BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Clear}
     end;
 end;
 
@@ -4164,7 +4164,7 @@ begin
   if (NbPartiesDansLaSelectionDeLaListe <> 0) then
     begin
 		  for k := 1 to nbPartiesChargees do
-		    BClr(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Clear}
+		    BCLR(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Clear}
 		  cardinalSelectionDeLaListe := 0;
 		end;
 end;
@@ -4174,7 +4174,7 @@ procedure SelectionnerToutesLesPartiesDansLaListe;
 var k : SInt32;
 begin
   for k := 1 to nbPartiesChargees do
-    BSet(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Set}
+    BSET(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Set}
   cardinalSelectionDeLaListe := nbPartiesChargees;
 end;
 
@@ -4195,10 +4195,10 @@ begin
       if whichPredicate(nroDansLaListe,nroReferencePartie,bidlong)
         then
           begin
-            BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit);  {Bit Set}
+            BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit);  {Bit Set}
             inc(compteur);
           end
-        else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Clear}
+        else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieSelectionneeBit); {Bit Clear}
     end;
   cardinalSelectionDeLaListe := compteur;
 end;
@@ -4212,10 +4212,10 @@ begin
     if PartieEstActive(k)
       then
         begin
-          BSet(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Set}
+          BSET(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Set}
           inc(compteur);
         end
-      else BClr(tableBooleensDeLaListe^[k],kPartieSelectionneeBit); {Bit Clear}
+      else BCLR(tableBooleensDeLaListe^[k],kPartieSelectionneeBit); {Bit Clear}
   cardinalSelectionDeLaListe := compteur;
 end;
 
@@ -4262,7 +4262,7 @@ procedure InitSelectionDeLaListe;
 var k : SInt32;
 begin
   for k := 0 to nbrePartiesEnMemoire do
-		BClr(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Clear}
+		BCLR(tableBooleensDeLaListe^[k],kPartieSelectionneeBit);  {Bit Clear}
 	cardinalSelectionDeLaListe := 0;
 end;
 
@@ -4270,8 +4270,8 @@ end;
 procedure SetPartieCompatibleParCriteres(nroReferencePartie : SInt32; flag : boolean);
 begin
   if flag
-	  then BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieCompatibleCritereBit)  {Bit Set}
-	  else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieCompatibleCritereBit); {Bit Clear}
+	  then BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieCompatibleCritereBit)  {Bit Set}
+	  else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieCompatibleCritereBit); {Bit Clear}
 end;
 
 
@@ -4284,8 +4284,8 @@ end;
 procedure SetPartieEstSansOrdinateur(nroReferencePartie : SInt32; flag : boolean);
 begin
   if flag
-	  then BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieEntreDeuxJoueursHumains)  {Bit Set}
-	  else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieEntreDeuxJoueursHumains); {Bit Clear}
+	  then BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieEntreDeuxJoueursHumains)  {Bit Set}
+	  else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieEntreDeuxJoueursHumains); {Bit Clear}
 end;
 
 
@@ -4302,7 +4302,7 @@ begin
 	  begin
 	    InvalidateNombrePartiesActivesDansLeCachePourTouteLaPartie;
 	    for i := 0 to Min(nbrePartiesEnMemoire,nbPartiesChargees) do
-	      BSet(tableBooleensDeLaListe^[i],kPartieCompatibleCritereBit); {Bit Set}
+	      BSET(tableBooleensDeLaListe^[i],kPartieCompatibleCritereBit); {Bit Set}
 	  end;
 end;
 
@@ -4311,8 +4311,8 @@ end;
 procedure SetParticipationPartieAuClassement(nroReferencePartie : SInt32; flag : boolean);
 begin
   if flag
-	  then BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieParticipeAuClassementBit)  {Bit Set}
-	  else BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieParticipeAuClassementBit); {Bit Clear}
+	  then BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieParticipeAuClassementBit)  {Bit Set}
+	  else BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieParticipeAuClassementBit); {Bit Clear}
 end;
 
 
@@ -4327,7 +4327,7 @@ var k : SInt32;
 begin
   if not(problemeMemoireBase) then
 	  for k := 0 to nbrePartiesEnMemoire do
-			BClr(tableBooleensDeLaListe^[k],kPartieParticipeAuClassementBit);  {Bit Clear}
+			BCLR(tableBooleensDeLaListe^[k],kPartieParticipeAuClassementBit);  {Bit Clear}
 end;
 
 
@@ -4340,12 +4340,12 @@ begin
       if flag
     	  then
     	    begin
-    	      BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieDoitEtreSauvegardeeBit);  {Bit Set}
+    	      BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieDoitEtreSauvegardeeBit);  {Bit Set}
     	      inc(cardinalNombrePartiesASauverDansLaListe);
     	    end
     	  else
     	    begin
-    	      BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieDoitEtreSauvegardeeBit); {Bit Clear}
+    	      BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieDoitEtreSauvegardeeBit); {Bit Clear}
     	      dec(cardinalNombrePartiesASauverDansLaListe);
     	    end;
     end;
@@ -4413,7 +4413,7 @@ var k : SInt32;
 begin
   if not(problemeMemoireBase) then
 	  for k := 0 to nbrePartiesEnMemoire do
-			BClr(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit);  {Bit Clear}
+			BCLR(tableBooleensDeLaListe^[k],kPartieDoitEtreSauvegardeeBit);  {Bit Clear}
   cardinalNombrePartiesASauverDansLaListe := 0;
 end;
 
@@ -4427,12 +4427,12 @@ begin
       if flag
     	  then
     	    begin
-    	      BSet(tableBooleensDeLaListe^[nroReferencePartie],kPartieDouteuseLorsDeLImport);  {Bit Set}
+    	      BSET(tableBooleensDeLaListe^[nroReferencePartie],kPartieDouteuseLorsDeLImport);  {Bit Set}
     	      inc(cardinalNombrePartiesDouteuseDansLaListe);
     	    end
     	  else
     	    begin
-    	      BClr(tableBooleensDeLaListe^[nroReferencePartie],kPartieDouteuseLorsDeLImport); {Bit Clear}
+    	      BCLR(tableBooleensDeLaListe^[nroReferencePartie],kPartieDouteuseLorsDeLImport); {Bit Clear}
     	      dec(cardinalNombrePartiesDouteuseDansLaListe);
     	    end;
     end;
@@ -4469,7 +4469,7 @@ var k : SInt32;
 begin
   if not(problemeMemoireBase) then
 	  for k := 0 to nbrePartiesEnMemoire do
-			BClr(tableBooleensDeLaListe^[k],kPartieDouteuseLorsDeLImport);  {Bit Clear}
+			BCLR(tableBooleensDeLaListe^[k],kPartieDouteuseLorsDeLImport);  {Bit Clear}
   cardinalNombrePartiesDouteuseDansLaListe := 0;
 end;
 
@@ -4538,10 +4538,10 @@ var mouseLoc : Point;
     s : String255;
     oldNbreCoups : SInt32;
 begin
-  shift   := BAnd(evt.modifiers,shiftKey) <> 0;
-  command := BAnd(evt.modifiers,cmdKey) <> 0;
-  option  := BAnd(evt.modifiers,optionKey) <> 0;
-  control := BAnd(evt.modifiers,controlKey) <> 0;
+  shift   := BAND(evt.modifiers,shiftKey) <> 0;
+  command := BAND(evt.modifiers,cmdKey) <> 0;
+  option  := BAND(evt.modifiers,optionKey) <> 0;
+  control := BAND(evt.modifiers,controlKey) <> 0;
   if windowListeOpen then
     begin
       GetPort(oldport);
