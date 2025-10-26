@@ -559,7 +559,7 @@ begin
      writeln('');
   end;
 
-  writeln('note that a := b extend the sign bit of b into a when b has signed integer type');
+  writeln('note that X := Y always extends the sign bit of Y into X when Y has a signed integer type');
 
   writeln('');
 
