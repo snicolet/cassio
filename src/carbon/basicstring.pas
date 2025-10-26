@@ -48,7 +48,28 @@ function StripDiacritics(const source : AnsiString) : AnsiString;
 function StripDiacritics(const source : String255) : String255;
 
 
+// Hexa(n) and HexaWithoutDollar(n) returns a string representing the
+// number n in hexadecimal. The second function returns no initial '$'.
+function Hexa(num : UInt64) : String255;
+function Hexa(num : SInt64) : String255;
+function Hexa(num : UInt32) : String255;
+function Hexa(num : SInt32) : String255;
+function Hexa(num : UInt16) : String255;
+function Hexa(num : SInt16) : String255;
+function Hexa(num : UInt8 ) : String255;
+function Hexa(num : SInt8 ) : String255;
+function HexaWithoutDollar(num : UInt64) : String255;
+function HexaWithoutDollar(num : SInt64) : String255;
+function HexaWithoutDollar(num : UInt32) : String255;
+function HexaWithoutDollar(num : SInt32) : String255;
+function HexaWithoutDollar(num : UInt16) : String255;
+function HexaWithoutDollar(num : SInt16) : String255;
+function HexaWithoutDollar(num : UInt8 ) : String255;
+function HexaWithoutDollar(num : SInt8 ) : String255;
+
 implementation
+
+uses basicmath;
 
 
 // Copy string from str255 to String255, and reverse
@@ -136,8 +157,8 @@ begin
 end;
 
 
-// StripDiacritics() : remove accents and diacritics from a string
-
+// StripDiacritics() : remove accents and diacritics from a string.
+//                     this is the version for AnsiString.
 function StripDiacritics(const source : AnsiString) : AnsiString;
 var
   K, L : TBytes;
@@ -172,6 +193,8 @@ begin
 end;
 
 
+// StripDiacritics() : remove accents and diacritics from a string.
+//                     this is the version for String255.
 function StripDiacritics(const source : String255) : String255;
 var s : AnsiString;
 begin
@@ -179,13 +202,186 @@ begin
   Result := StripDiacritics(s);
 end;
 
-// testBasicString() : testing various functions of the BasicString unit
 
+// Hexa(n) returns a string representing the number n in hexadecimal. 
+// The resulting string starts with a dollar character '$'.
+function Hexa(num : UInt64) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : SInt64) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : UInt32) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : SInt32) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : UInt16) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : SInt16) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : UInt8) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+function Hexa(num : SInt8) : String255;
+begin
+  Result := '$' + HexaWithoutDollar(num);
+end;
+
+
+// HexaWithoutDollar(n) returns a string representing the number n in
+// hexadecimal, without the initial dollar character '$'.
+function HexaWithoutDollar(num : UInt64) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : UInt64;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 16 do
+    begin
+      v := BAND(BSR(num,(16-i)*4),UInt64($0F));
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : SInt64) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : SInt64;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 16 do
+    begin
+      v := BAND(BSR(UInt64(num),(16-i)*4),UInt64($0F));
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : UInt32) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : UInt32;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 8 do
+    begin
+      v := BAND(BSR(num,(8-i)*4),$0F);
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : SInt32) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : SInt32;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 8 do
+    begin
+      v := BAND(BSR(UInt32(num),(8-i)*4),UInt32($0F));
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : UInt16) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : UInt16;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 4 do
+    begin
+      v := BAND(BSR(num,(4-i)*4),$0F);
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : SInt16) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : SInt16;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 4 do
+    begin
+      v := BAND(BSR(UInt16(num),(4-i)*4),UInt16($0F));
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : UInt8) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : UInt8;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 2 do
+    begin
+      v := BAND(BSR(num,(2-i)*4),$0F);
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+
+function HexaWithoutDollar(num : SInt8) : String255;
+const digits = '0123456789abcdef';
+var i : integer;
+    v : SInt8;
+    s : String255;
+begin
+  s := '';
+  for i := 1 to 2 do
+    begin
+      v := BAND(BSR(UInt8(num),(2-i)*4),UInt8($0F));
+      s := Concat(s, digits[v+1]);
+    end;
+  Result := s;
+end;
+
+// testBasicString() : testing various functions of the BasicString unit
 
 procedure testBasicString();
 var  s, a, b : string255;
      c : char;
-     i, j, k : SInt64;
+     // i, j : SInt64;
+     k : SInt64;
      theSet : SetOFChar;
 begin
    c := 'z';
@@ -204,11 +400,20 @@ begin
 
    c := 'a';
    s := s + CharToString(c);
-
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
 
+   s := '|';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
+   s := '&';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+      
    s := '≥';
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
@@ -291,7 +496,7 @@ end;
 
 
 begin
-   // testBasicString;
+    // testBasicString;
 end.
 
 
