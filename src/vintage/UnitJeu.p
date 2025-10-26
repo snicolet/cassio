@@ -1170,15 +1170,15 @@ begin
                       begin
   	                    eval := -EvaluationMaximisation(platInst,-AQuiDeJouer,nbBlancInst,nbNoirInst);
   	                    if estUneCaseX(iCourant)
-  	                      then eval := eval+Random mod 300
-  	                      else eval := eval+Random mod 500;
+  	                      then eval := eval+Random16() mod 300
+  	                      else eval := eval+Random16() mod 500;
   	                  end;
                   NiveauAmateurs :
                       begin
   	                    eval := -EvaluationDesBords(platInst,-AQuiDeJouer,frontInst);
   	                    if estUneCaseX(iCourant)
-  	                      then eval := eval - 500 - (Abs(Random) mod 500)
-  	                      else eval := eval+Random mod 100;
+  	                      then eval := eval - 500 - (Abs(Random16()) mod 500)
+  	                      else eval := eval+Random16() mod 100;
   	                  end;
   	              NiveauForts :
   	                  begin
@@ -1187,7 +1187,7 @@ begin
   	                    VincenzChoice := ChoixDeVincenz(MakePositionEtTrait(platInst,-AQuiDeJouer),1,false);
   	                    eval := eval+MyTrunc(-10*VincenzChoice.sommePotentiels);
   	                    eval := eval-(Evaluation(platInst,-AQuiDeJouer,nbBlancInst,nbNoirInst,JouablInst,frontInst,true,-30000,30000,nbEvalsRecursives) div 3);
-  	                    eval := eval+Random mod 40;
+  	                    eval := eval+Random16() mod 40;
   	                    if eval >  6400 then eval := 6400;
   	                    if eval < -6400 then eval := -6400;
   	                    bestSuite := VincenzChoice.bestMove;
@@ -1197,8 +1197,8 @@ begin
   	                    eval := -Evaluation(platInst,-AQuiDeJouer,nbBlancInst,nbNoirInst,
   	                                                JouablInst,frontInst,true,-30000,-maxCourant,nbEvalsRecursives);
   	                    if estUneCaseX(iCourant)
-  	                      then eval := eval - 500 + Random mod 100
-  	                      else eval := eval + Random mod 100;
+  	                      then eval := eval - 500 + Random16() mod 100
+  	                      else eval := eval + Random16() mod 100;
   	                  end;
   	              NiveauGrandMaitres :
                       begin
@@ -1206,7 +1206,7 @@ begin
                         EnleveCetteInterruption(oldInterruption);
                         eval := -AB_simple(platInst,JouablInst,bestSuite,-AQuiDeJouer,0,
                                            -30000,-maxCourant,nbBlancInst,nbNoirInst,frontInst,false);
-                        eval := eval + Random mod 25;
+                        eval := eval + Random16() mod 25;
                         LanceInterruption(oldInterruption,'ReponseInstantanee (1)');
                       end;
                   NiveauChampions :
@@ -2792,7 +2792,7 @@ begin
   a := 0;
   if not(positionFeerique) then
     begin
-      a := (Abs(Random) mod 4) + 3;
+      a := (Abs(Random16()) mod 4) + 3;
         case a of
           3 : b := 4;
           4 : b := 3;

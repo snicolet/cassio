@@ -642,14 +642,14 @@ begin
 
   x := 5;
 
-  if Abs(Random) < -20
+  if Abs(Random16()) < -20
     then y := 10
     else y := 0;
 
   if (x div y) > 10 then WritelnDansRapport('Oula !');
 
   IndexInfoDejaCalculeesCoupNro := IndexInfoDejaCalculeesCoupNroHdl(-23);
-  i := -Abs(RandomLongint);
+  i := -Abs(Random32());
   IndexInfoDejaCalculeesCoupNro^^[i] := 1000;
   MemoryFillChar(IndexInfoDejaCalculeesCoupNro^,sizeof(t_IndexInfoDejaCalculeesCoupNro),chr(0));
 

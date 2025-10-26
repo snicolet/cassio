@@ -34,7 +34,7 @@ INTERFACE
 
 
 	procedure RandomizeTimer;
-  function RandomLongint : SInt32;
+  function Random32() : SInt32;
   function RandomEntreBornes(a, b : SInt16) : SInt16;
   function RandomLongintEntreBornes(a, b : SInt32) : SInt32;
 	function RandBelow( n : SInt32 ) : SInt32;
@@ -131,7 +131,7 @@ var alea : SInt32;
     time : UnsignedWide;
     processNumber : ProcessSerialNumber;
 begin
-  alea := Random;
+  alea := Random16();
   if (alea = 0) then alea := 1;
   alea := alea + NewMagicCookie;
   MicroSeconds(time);
@@ -140,7 +140,7 @@ begin
   if (GetCurrentProcess(processNumber) = NoErr) then
     alea := alea xor processNumber.highLongOfPSN xor processNumber.lowLongOfPSN;
 
-  SetQDGlobalsRandomSeed(alea);
+  SetRandomSeed(alea);
 end;
 
 
@@ -151,7 +151,7 @@ begin
     then
       begin
         RandomizeTimer;
-        PChancesSurN := ((Abs(RandomLongint) mod N) < P);
+        PChancesSurN := ((Abs(Random32()) mod N) < P);
       end
     else
       begin
@@ -198,7 +198,7 @@ begin
 	if len <= 0 then
 		RandomEntreBornes := -1
 	else
-		RandomEntreBornes := a +(Abs(Random) mod len)
+		RandomEntreBornes := a +(Abs(Random16()) mod len)
 end;
 
 function RandomLongintEntreBornes(a, b : SInt32) : SInt32;
@@ -209,7 +209,7 @@ begin
 	if len <= 0 then
 		RandomLongintEntreBornes := -1
 	else
-		RandomLongintEntreBornes := a +(Abs(RandomLongint) mod len)
+		RandomLongintEntreBornes := a +(Abs(Random32()) mod len)
 end;
 
 
@@ -218,7 +218,7 @@ end;
 			junk: SInt16;
 	begin
 		Assert( n >= 1 );
-		junk := Random;
+		junk := Random16();
 		RandBelow := BAND(GetQDGlobalsRandomSeed, $7FFFFFFF) mod n;
 	end;
 
@@ -248,12 +248,12 @@ begin
   RealToLongint := MyTrunc(r);
 end;
 
-function RandomLongint : SInt32;
+function Random32() : SInt32;
 var aux1,aux2 : SInt32;
 begin
-  aux1 := Random;
-  aux2 := Random;
-  RandomLongint := aux1+aux2*65536;
+  aux1 := Random16();
+  aux2 := Random16();
+  Random32() := aux1+aux2*65536;
 end;
 
 

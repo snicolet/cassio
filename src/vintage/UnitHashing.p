@@ -76,19 +76,19 @@ var i,j : SInt16;
     aux : SInt32;
 begin
   {RandomizeTimer;}
-  SetQDGlobalsRandomSeed(1000);
+  SetRandomSeed(1000);
 
   for j := 0 to 3 do
     for i := 0 to 255 do
       begin
-        aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
-        if aux = 0 then aux := RandomLongint;
+        aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
+        if aux = 0 then aux := Random32();
         XORValues[i,j] := aux;
       end;
   initialisation_done := true;

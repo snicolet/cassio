@@ -280,7 +280,7 @@ begin
 
       {fabriquer un nom de fichier nouveau}
       RandomizeTimer;
-      longRand := RandomLongint;
+      longRand := Random32();
       name := 'clipboard_'+NumEnString(Abs(longRand));
 
       {decharger le presse papier sur le disque}

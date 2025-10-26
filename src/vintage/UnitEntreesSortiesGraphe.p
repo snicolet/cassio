@@ -1049,7 +1049,7 @@ begin
             SommesPartielles[filsJouables.cardinal] := 1.0;  {pour les erreurs d'arrondi}
 
             RandomizeTimer;  {rŽinitialiser le gŽnŽrateur}
-            alea := Abs(Random)/32768.0;   {nombre aleatoire entre 0.0 et 1.0}
+            alea := Abs(Random16())/32768.0;   {nombre aleatoire entre 0.0 et 1.0}
             if alea >= 1.0 then alea := 0.9999999;
 
             for i := 1 to filsJouables.cardinal do

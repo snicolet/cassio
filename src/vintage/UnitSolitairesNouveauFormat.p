@@ -533,7 +533,7 @@ begin
 		    repeat
 				  RandomizeTimer;
 
-				  k := 1 + ((Abs(RandomLongint)) mod interv);
+				  k := 1 + ((Abs(Random32())) mod interv);
 				  {k := interv;}
 				  {k := 1;}
 

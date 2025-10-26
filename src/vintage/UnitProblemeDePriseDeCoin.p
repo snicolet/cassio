@@ -1010,7 +1010,7 @@ begin
       compteur := 0;
       repeat
 
-        typeDeProbleme := Abs(Random) mod 5;
+        typeDeProbleme := Abs(Random16()) mod 5;
 
 
         case typeDeProbleme of

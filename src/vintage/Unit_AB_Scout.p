@@ -630,9 +630,9 @@ label sortie;
   var increment1,increment2,longueurCollisionPath : SInt32;
       clefHashExacteInitiale,clefAEcraser,minProf : SInt32;
   begin
-    SetQDGlobalsRandomSeed(gClefHashage+CodePosition.platLigne1+CodePosition.platLigne8+CodePosition.platLigne2+CodePosition.platLigne7);
+    SetRandomSeed(gClefHashage+CodePosition.platLigne1+CodePosition.platLigne8+CodePosition.platLigne2+CodePosition.platLigne7);
 
-    increment1 := BAND(Random,1023);
+    increment1 := BAND(Random16(),1023);
 
     if BAND(increment1,1) = 0 then inc(increment1); {pour avoir un nombre premier avec 1024}
 
@@ -679,9 +679,9 @@ label sortie;
         end;
     until (longueurCollisionPath > 12);
 
-    SetQDGlobalsRandomSeed(clefHashExacteInitiale+CodePosition.platLigne2+CodePosition.platLigne7);
+    SetRandomSeed(clefHashExacteInitiale+CodePosition.platLigne2+CodePosition.platLigne7);
 
-    increment2 := BAND(Random,1023);
+    increment2 := BAND(Random16(),1023);
 
     if BAND(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
 

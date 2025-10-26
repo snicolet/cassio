@@ -422,8 +422,8 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
       clefHashExacteInitiale,clefAEcraser,minProf : SInt32;
 
   begin
-    SetQDGlobalsRandomSeed(clefHashage+codagePosition.platLigne1+codagePosition.platLigne8+codagePosition.platLigne2+codagePosition.platLigne7);
-    increment1 := BAND(Random,1023);
+    SetRandomSeed(clefHashage+codagePosition.platLigne1+codagePosition.platLigne8+codagePosition.platLigne2+codagePosition.platLigne7);
+    increment1 := BAND(Random16(),1023);
     if BAND(increment1,1) = 0 then inc(increment1);{pour avoir un nombre premier avec 1024}
     whichClefExacte := BAND((whichClefExacte+increment1),1023);
     clefHashExacteInitiale := whichClefExacte;
@@ -462,8 +462,8 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
         end;
      until (longueurCollisionPath > 12);
 
-    SetQDGlobalsRandomSeed(clefHashExacteInitiale+codagePosition.platLigne2+codagePosition.platLigne7);
-    increment2 := BAND(Random,1023);
+    SetRandomSeed(clefHashExacteInitiale+codagePosition.platLigne2+codagePosition.platLigne7);
+    increment2 := BAND(Random16(),1023);
     if BAND(increment2,1) = 0 then inc(increment2); {pour avoir un nb premier avec 1024}
 
     (** on cherche si la position apparait dans la HashTable avec le cycle d'increment2 **)

@@ -262,12 +262,12 @@ begin
 
   SetEcritToutDansRapportLog(true);
 
-  aux := Abs(Random) mod 3;
+  aux := Abs(Random16()) mod 3;
 
   case aux of
     0 :  penalitePourKendall := 4;
     1 :  penalitePourKendall := 500;
-    2 :  penalitePourKendall := (Abs(Random) mod 100);
+    2 :  penalitePourKendall := (Abs(Random16()) mod 100);
   end;
 
 
@@ -331,7 +331,7 @@ begin
             end
           else
             begin
-              index := 1 + (Abs(RandomLongint) mod kMaxNombreDataEstimationCharge);
+              index := 1 + (Abs(Random32()) mod kMaxNombreDataEstimationCharge);
 
               if index < 1 then index := 1;
               if index > kMaxNombreDataEstimationCharge then index := kMaxNombreDataEstimationCharge;

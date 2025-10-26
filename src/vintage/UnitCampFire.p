@@ -115,7 +115,7 @@ USES
 			range: SInt32;
 (* assume that min is less than max *)
 	begin
-		qdRdm := (SInt32(Random) and  $0000ffff);		{Avoid negative values while keeping the full range.}
+		qdRdm := (SInt32(Random16()) and  $0000ffff);		{Avoid negative values while keeping the full range.}
 		range := max - min;
 		Rnd := (qdRdm * range) div 65536 + min; 	(* now 0 <= t <= range *)
 	end; {Rnd}
@@ -320,7 +320,7 @@ end;
 
 	procedure CampFireInit;
 { This function draws in the last two rows of the PixMap}
-{ with some Random colors to start the flame.}
+{ with some Random16() colors to start the flame.}
 { The averaging then takes over and "pulls" these colors}
 { upwards creating the fire effect.}
 		var

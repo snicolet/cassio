@@ -562,7 +562,7 @@ begin
 			  if evaluationAleatoire
 				  then
 				    begin
-				      ramdomPerturbation := Random;
+				      ramdomPerturbation := Random16();
 				      if ramdomPerturbation >= 0
 				        then evalPartielle := -penalitePourLeTrait + (ramdomPerturbation mod 200)
 				        else evalPartielle := -penalitePourLeTrait - ((-ramdomPerturbation) mod 200);
@@ -927,7 +927,7 @@ with result do
 
 		    notePenalite := -penalitePourLeTrait;
 
-		    noteAleatoire := Random;
+		    noteAleatoire := Random16();
 		    if (noteAleatoire > 0)
 		      then noteAleatoire := noteAleatoire mod 200
 		      else noteAleatoire := -((-noteAleatoire) mod 200);

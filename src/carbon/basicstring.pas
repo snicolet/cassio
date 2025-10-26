@@ -175,7 +175,7 @@ begin
        K := TEncoding.Unicode.GetBytes(theUnicodeString[i]);
        L := TEncoding.Convert(TEncoding.Unicode, TEncoding.ASCII, K);
        len := length(L);
-       if len = 2
+       if (len = 2) or (len = 3)
          then
            res := res + char(L[1])
          else

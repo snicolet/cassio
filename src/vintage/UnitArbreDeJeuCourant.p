@@ -536,7 +536,7 @@ begin
 
          {erreurForceePourPhaseDeTest := UnChanceSurN(100);}
           erreurForceePourPhaseDeTest := false;
-          if erreurForceePourPhaseDeTest then WritelnDansRapport('Random dans VerifieHomogeneiteDesCouleurs');
+          if erreurForceePourPhaseDeTest then WritelnDansRapport('Random16() dans VerifieHomogeneiteDesCouleurs');
 
           if erreurForceePourPhaseDeTest or
              ((colorOfThisBrother <> firstColor) and

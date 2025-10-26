@@ -432,7 +432,7 @@ end;
 
 procedure ChangeHashRandomization;
 begin
-  gHashRandomization := RandomLongint;
+  gHashRandomization := Random32();
 end;
 
 

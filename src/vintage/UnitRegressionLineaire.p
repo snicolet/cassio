@@ -1100,7 +1100,7 @@ begin
                                    leave;
                                  end;
 
-                              perturbation := Random;
+                              perturbation := Random16();
 
                               if (perturbation >= 0)
                                 then y := y_centre - (theorique - 32)*kIntervalleEntreDeuxLignesDuNuage + (perturbation mod (1 + kDemiIntervalleEntreDeuxLignesDuNuage))
@@ -2641,7 +2641,7 @@ begin
 
       a := larg + ((valeur*larg) div kMaxValeurDessineeDansNuage);
 
-      perturbation := Random;
+      perturbation := Random16();
 
       if (perturbation >= 0)
         then b := y_centre - (scoreTheorique - 32)*kIntervalleEntreDeuxLignesDuNuage + (perturbation mod (1 + kDemiIntervalleEntreDeuxLignesDuNuage))
@@ -3043,7 +3043,7 @@ begin
                   if (gCloud.magicCookie <> magicCookieArrivee) then
                     goto sortie;
 
-                  valeur := (scoreEdax*100) + (Abs(Random) mod 100) - 49;
+                  valeur := (scoreEdax*100) + (Abs(Random16()) mod 100) - 49;
 
                   // "pitit correction" of the eval
                   // if (valeur > 0) then valeur := MyTrunc(valeur * 1.2);
@@ -3182,7 +3182,7 @@ begin {$unused nbEvalsRecursives}
         then
           begin
             note := 100*2*(GetScoreReelParNroRefPartie(nroRefPartie) - 32);
-            perturbation := Random;
+            perturbation := Random16();
 
             if perturbation >= 0
               then note := note + (perturbation mod 99)

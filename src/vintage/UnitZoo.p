@@ -1601,7 +1601,7 @@ begin
               if (numeroLibre >= 0) and (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
                 begin
 
-                  randomURL := MakeLongString('http://foo.random'+NumEnString(abs(RandomLongint))+'.bar' + '?rand=' + NumEnString(abs(RandomLongint)));
+                  randomURL := MakeLongString('http://foo.Random16()'+NumEnString(abs(Random32()))+'.bar' + '?rand=' + NumEnString(abs(Random32())));
 
                   infoNetworkConnection := randomURL;
 
@@ -1748,7 +1748,7 @@ begin
               begin
 
                 if FindStringInLongString('rand=', requete) <= 0 then
-                  AppendToLongString(requete, '&rand=' + NumEnString(abs(RandomLongint)));
+                  AppendToLongString(requete, '&rand=' + NumEnString(abs(Random32())));
 
 
                 infoNetworkConnection := requete;
@@ -2894,7 +2894,7 @@ begin
   indexMaxMilieu  := -1;
   indexMaxEndgame := -1;
 
-  alea := (abs(Random)) mod kTailleCacheDesPrefetch;
+  alea := (abs(Random16())) mod kTailleCacheDesPrefetch;
 
   for t := 1 to kTailleCacheDesPrefetch do
     begin
@@ -3430,7 +3430,7 @@ begin
 
   DIscard(fonctionAppelante);
 
-  // urlParams := urlParams + 'rand=' + NumEnString(Abs(RandomLongint));
+  // urlParams := urlParams + 'rand=' + NumEnString(Abs(Random32()));
 
 
   s := 'pos=';
@@ -3577,7 +3577,7 @@ begin
           if JobIsEmpty(gZoo.jobPrefetched) then
             gZoo.jobPrefetched := GetPrefetchImportantPasEncoreCalcule;
 
-          if ((Abs(random) mod 10000) = 0) then {une chance sur dix mille de passer comme prochaine position evaluee}
+          if ((Abs(Random16()) mod 10000) = 0) then {une chance sur dix mille de passer comme prochaine position evaluee}
             begin
               if JobIsEmpty(gZoo.jobPrefetched) or
                  SameJobs(gZoo.jobPrefetched , gZoo.jobEnCoursDeTraitement)

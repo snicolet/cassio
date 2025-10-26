@@ -932,7 +932,7 @@ begin
             myCFErr := CFReadStreamGetError( theReadStream );
 
             (*
-            if (FindInLongString('foo.random',url255) <= 0) then
+            if (FindInLongString('foo.Random16()',url255) <= 0) then
               begin
 
         		    WritelnDansRapport('kCFStreamEventErrorOccurred');

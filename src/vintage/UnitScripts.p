@@ -98,7 +98,7 @@ begin
 
   for i := 1 to kNbTotalDeQuiz do
     permutationDesNumerosDeQuiz[i] := kCelluleVide;
-  SetQDGlobalsRandomSeed(2);  {initialiser le generateur aleatoire}
+  SetRandomSeed(2);  {initialiser le generateur aleatoire}
 
   a := kValeurSpeciale;
   for i := 1 to kNbTotalDeQuiz do

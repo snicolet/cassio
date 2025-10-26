@@ -189,7 +189,7 @@ begin
       for k := 1 to n do
         begin
 
-          pente := Abs(Random)/32768.0;   {nombre aleatoire entre 0.0 et 1.0}
+          pente := Abs(Random16())/32768.0;   {nombre aleatoire entre 0.0 et 1.0}
 
           valPetiteProf := RandomLongintEntreBornes(-6400,6400);
           valGrandeProf := pente*valPetiteProf + RandomLongintEntreBornes(-500,500);

@@ -747,7 +747,7 @@ begin
               LancerLesMoteursPourCettePartie(joueur1,joueur2);
 
             RandomizeTimer;
-            if odd(Random)
+            if odd(Random16())
               then fanny[1] := fanny[1] + 2
               else fanny[2] := fanny[2] + 2;
 

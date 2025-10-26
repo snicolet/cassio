@@ -250,7 +250,7 @@ begin
       nbEssais := 0;
       repeat
         inc(nbEssais);
-        n := Abs(Random) mod 100;
+        n := Abs(Random16()) mod 100;
         n1 := -1;
         n2 := -1;
         for i := 1 to BibliothequeNbReponse^^[index] do
@@ -270,7 +270,7 @@ begin
       if EnBibliotheque(chaine,index) and (BibliothequeNbReponse^^[index] > 0) then
         begin
           if avecAleatoire then RandomizeTimer;
-          n := Abs(Random) mod 100;
+          n := Abs(Random16()) mod 100;
           n1 := -1;
           n2 := -1;
           for i := 1 to BibliothequeNbReponse^^[index] do

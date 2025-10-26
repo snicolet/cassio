@@ -917,7 +917,7 @@ begin
          compteur := 0;
          repeat
            inc(compteur);
-           coup := listeCoups[1+(Abs(Random) mod mobilite)];
+           coup := listeCoups[1+(Abs(Random16()) mod mobilite)];
          until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoire := coup;
@@ -978,7 +978,7 @@ begin
          compteur := 0;
          repeat
            inc(compteur);
-           coup := listeCoups[1+(Abs(Random) mod mobilite)];
+           coup := listeCoups[1+(Abs(Random16()) mod mobilite)];
          until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoireDonnantPleinDeMobilite := coup;
@@ -1038,7 +1038,7 @@ begin
          compteur := 0;
          repeat
            inc(compteur);
-           coup := listeCoups[1+(Abs(Random) mod mobilite)];
+           coup := listeCoups[1+(Abs(Random16()) mod mobilite)];
          until (compteur > 20) or not(coup in casesInterdites);
 
          CoupAleatoireDonnantPeuDeMobilite := coup;
@@ -2936,10 +2936,10 @@ begin
      end;
   end;
   repeat
-    a := (Abs(Random) mod compteur)+1;
+    a := (Abs(Random16()) mod compteur)+1;
     ChoixX := coup[a];
   until not(EstUneCaseX(ChoixX) or estUneCaseC[ChoixX]) or QueDesX;
-  valeurAleatoire := Random;
+  valeurAleatoire := Random16();
   if (valeurAleatoire >= 0)
     then valeur := valeurAleatoire mod 10000
     else valeur := -((-valeurAleatoire) mod 10000);

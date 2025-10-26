@@ -2276,8 +2276,8 @@ begin
   if afficheMeilleureSuite then afficheMeilleureSuite := not(afficheMeilleureSuite);
   if afficheSuggestionDeCassio then afficheSuggestionDeCassio := not(afficheSuggestionDeCassio);
   RandomizeTimer;
-  if odd(Random) then EffectueSymetrieAxeNW_SE(platSol);
-  if odd(Random) then EffectueSymetrieAxeNE_SW(platSol);
+  if odd(Random16()) then EffectueSymetrieAxeNW_SE(platSol);
+  if odd(Random16()) then EffectueSymetrieAxeNE_SW(platSol);
 
   SetCassioEstEnTrainDePlaquerUnSolitaire(true);
   PlaquerPosition(platSol,couleur,kRedessineEcran);
@@ -2607,7 +2607,7 @@ begin
   {WriteNumDansRapport('longFichierReferencesSolitaires = ',longFichierReferencesSolitaires);}
   nbreLignesFichierReferencesSolitaires := SInt32(longFichierReferencesSolitaires div 14);
   {WriteNumDansRapport('  longFichierReferencesSolitaires = ',longFichierReferencesSolitaires);}
-  nroligne := SInt32(SInt32(Abs(SInt32(Random))) mod nbreLignesFichierReferencesSolitaires) +1;
+  nroligne := SInt32(SInt32(Abs(SInt32(Random16()))) mod nbreLignesFichierReferencesSolitaires) +1;
 
   if nroligne < 0 then SysBeep(0);
 
@@ -2780,8 +2780,8 @@ begin
       if HumCtreHum then HumCtreHum := not(HumCtreHum);
       if afficheMeilleureSuite then afficheMeilleureSuite := not(afficheMeilleureSuite);
       if afficheSuggestionDeCassio then afficheSuggestionDeCassio := not(afficheSuggestionDeCassio);
-      if odd(Random) then EffectueSymetrieAxeNW_SE(platSol);
-      if odd(Random) then EffectueSymetrieAxeNE_SW(platSol);
+      if odd(Random16()) then EffectueSymetrieAxeNW_SE(platSol);
+      if odd(Random16()) then EffectueSymetrieAxeNE_SW(platSol);
       FabriqueCommentaire(nroDeCeSolitaire,s);
       commentaire := commentaire+s;
       if referencesCompletes and not(EnVieille3D) then

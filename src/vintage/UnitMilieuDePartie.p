@@ -1101,7 +1101,7 @@ function CalculeVariationAvecGraphe(classement : ListOfMoveRecords; longueurClas
    RandomizeTimer;
 	 if not(variationJamaisJoueeDansGraphe) then  {tous les coups envisageables sont deja connus}
 	   begin
-	     alea := 1+(Abs(Random) mod nbCoupsEnvisageables);
+	     alea := 1+(Abs(Random16()) mod nbCoupsEnvisageables);
 	     CalculeVariationAvecGraphe := alea;
 	   end;
  end;

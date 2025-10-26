@@ -202,51 +202,51 @@ end;
 procedure InitTablesHashageOthello;
 var j,m : SInt32;
 begin
-  SetQDGlobalsRandomSeed(4000);
+  SetRandomSeed(4000);
   VideHashTable(HashTable);
   HashTable^^[0] := 1;
   for j := 11 to 88 do
     begin
-      m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
+      m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
       IndiceHash^^[pionNoir,j] := m;
       HashTable^^[m mod 32768] := 1;
     end;
   for j := 11 to 88 do
     begin
-      m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
+      m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
       IndiceHash^^[pionBlanc,j] := m;
       HashTable^^[m mod 32768] := 1;
     end;
   for j := 11 to 88 do
     begin
-      m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
-      if HashTable^^[m mod 32768] <> 0 then m := Abs(RandomLongint);
+      m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
+      if HashTable^^[m mod 32768] <> 0 then m := Abs(Random32());
       IndiceHash^^[pionVide,j] := m;
       HashTable^^[m mod 32768] := 1;
     end;
@@ -378,7 +378,7 @@ begin
   Make_GNU_Pascal_crash(1, false);
 
 
-  if Abs(Random) < -20
+  if Abs(Random16()) < -20
     then y := 10
     else y := 0;
 
@@ -1164,7 +1164,7 @@ begin
   SetPotentielsOptimums(PositionEtTraitInitiauxStandard);
   if avecAleatoire
     then RandomizeTimer
-    else SetQDGlobalsRandomSeed(1000);
+    else SetRandomSeed(1000);
   JoueursEtTournoisEnMemoire := false;
   ToujoursIndexerBase := true;
   nbPartiesActives := 0;
@@ -1974,11 +1974,11 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   MicroSeconds(microTime);
   tickDebutInitialisations := TickCount;
   RandomizeTimer;
-  gIdentificateurUniqueDeCetteSessionDeCassio := microTime.hi xor microTime.lo xor RandomLongint;
+  gIdentificateurUniqueDeCetteSessionDeCassio := microTime.hi xor microTime.lo xor Random32();
   if gIdentificateurUniqueDeCetteSessionDeCassio < 0
     then gIdentificateurUniqueDeCetteSessionDeCassio := -gIdentificateurUniqueDeCetteSessionDeCassio;
   if gIdentificateurUniqueDeCetteSessionDeCassio = 0
-    then gIdentificateurUniqueDeCetteSessionDeCassio := abs(RandomLongint);
+    then gIdentificateurUniqueDeCetteSessionDeCassio := abs(Random32());
 
 if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant WaitNextEvent');
 

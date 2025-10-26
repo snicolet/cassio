@@ -1019,7 +1019,7 @@ begin
   if nbCasesVidesRestantes < 5 then temporisation := 2;
   hazard := temporisation div 2;
   if hazard > 0 then
-    temporisation := temporisation + (Abs(Random) mod MyTrunc(1.4*hazard)) - (hazard div 3);
+    temporisation := temporisation + (Abs(Random16()) mod MyTrunc(1.4*hazard)) - (hazard div 3);
 
   {convertir cette temporisation "abstraite" en ticks}
   temporisation := MyTrunc((70.0*temporisation)/indiceVitesseMac);
