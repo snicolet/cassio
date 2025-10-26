@@ -16,15 +16,17 @@ uses
 
 
 // Pseudo-Random Number Generator (xorshift64star)
-//
+
 function Random16() : SInt16;
 function Random32() : SInt32;
 function Random64() : SInt64;
+function RandomFloat() : double;
 procedure SetRandomSeed(seed : SInt64);
 procedure RandomizeTimer;
 
 
-// Bitwise functions, with versions for all integer sizes, signed and unsigned.
+// Bitwise functions (with versions for all integer sizes, signed and unsigned)
+
 // Bitwise NOT
 function BNOT(i : UInt64) : UInt64;
 function BNOT(i : SInt64) : SInt64;
@@ -172,6 +174,18 @@ begin
     r := Random64();
     Result := BAND(r, $ffff );
 end;
+
+
+// RandomFloat() returns a floating point number in double precision
+// in the interval [0..1[
+function RandomFloat() : double;
+var one, r : UInt64;
+begin
+    one := 1;
+    r := Random64();
+    result := double(BSR(r , 11)) / double(BSL(one , 53));
+end;
+
 
 // SetRandomSeed() : initialising the seed of the random generator
 procedure SetRandomSeed(seed : SInt64);
@@ -625,29 +639,46 @@ begin
   i := (i and not(one shl n));
 end;
 
-// A utility function to test booleans shortcuts operators
+
+// id() is a utility function to test booleans shortcuts operators
 
 function id(b : boolean; name : string255) : boolean;
 begin
-   write(name + ' = ');
-   writeln(b);
-   
+   write('  ' + name + ' = ');
+   write(SInt64(b));
    result := b;
 end;
 
+
+// TestBasicMath() : testing various functions of the BasicMemory unit
 
 procedure TestBasicMath;
 var c1, c2 : boolean;
     aux, neg, inv, add, clr : SInt16;  // or any integer type
     ext : UInt64;
-    k : integer;
+    k, r, N, t : SInt64;
+    freq : array[0..9] of SInt64;
 begin
 
-   c1 := true;
-   c2 := false;
-   if (id(c1, 'c1') and id(c2, 'c2')) then
-      writeln('| works : OK');
-      
+  writeln('');
+  writeln('Verifying boolean shortcuts...');
+  for c1 := false to true do
+   for c2 := false to true do
+     begin
+        write(SInt64(c1), ' or ', SInt64(c2), ' ? ');
+        if (id(c1, 'c1') or id(c2, 'c2'))
+           then writeln(' ==> TRUE')
+           else writeln(' ==> FALSE');
+     end;
+  for c1 := false to true do
+   for c2 := false to true do
+     begin
+        write(SInt64(c1), ' and ', SInt64(c2), ' ? ');
+        if (id(c1, 'c1') and id(c2, 'c2'))
+           then writeln(' ==> TRUE')
+           else writeln(' ==> FALSE');
+     end;
+     
   writeln('');
   writeln('Verifying BTST BSET BCLR');
   for k := 0 to (sizeof(aux) * 8 - 1) do
@@ -673,8 +704,23 @@ begin
   
   writeln('generating some pseudo random numbers...');
   RandomizeTimer;
-  for k := 1 to 20 do
-     writeln(Random64());
+  N := 2000000;
+  for k := 0 to 9 do
+     freq[k] := 0;
+  t := GetTickCount64();  // start timer
+  for k := 1 to N do
+    begin
+      // r := Random64();
+      // writeln(Random64());
+      r := trunc(10 * RandomFloat());
+      freq[r] := freq[r] + 1;
+    end;
+  t := GetTickCount64() - t;  // stop timer
+  for k := 0 to 9 do
+     writeln(1.0 * freq[k] / N);
+  
+  writeln('time = ', t , ' milliseconds for ', N, ' random numbers');
+  writeln('time for each randomnumber = ', 1000000.0 * t / N, ' nanoseconds');
 
 end;
 
