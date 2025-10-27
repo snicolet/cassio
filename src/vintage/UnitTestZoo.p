@@ -556,7 +556,7 @@ begin
                inMuMinimumFinale                    := 0;
                inMuMaximumFinale                    := kDeltaFinaleInfini;
                inPrecisionFinale                    := 100;
-               inPrioriteFinale                     := 0;  // RandomEntreBornes(0,10);  0
+               inPrioriteFinale                     := 0;  // RandomBetween(0,10);  0
                inGameTreeNodeFinale                 := NIL;
                inPositionPourFinale                 := position.position;
                inMessageHandleFinale                := NIL;

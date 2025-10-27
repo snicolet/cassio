@@ -357,8 +357,8 @@ begin
            ((scoreFinalPourNoir <= 0) and (couleurMacintosh = pionNoir))
           then
             begin  {victoire de l'humain}
-              sonAleatoire := RandomEntreBornes(1,4);
-              if (sonAleatoire = dernierSonAleatoireVictoireHumaine) then sonAleatoire := RandomEntreBornes(1,4);
+              sonAleatoire := RandomBetween(1,4);
+              if (sonAleatoire = dernierSonAleatoireVictoireHumaine) then sonAleatoire := RandomBetween(1,4);
               case sonAleatoire of
                 1 : PlaySoundSynchrone(AnnonceVictoireHumID, kVolumeSonDesCoups);
                 2 : PlaySoundSynchrone(PouetPouetPouetPouetID, kVolumeSonDesCoups);
@@ -369,8 +369,8 @@ begin
             end
           else  {victoire de l'ordinateur}
             begin
-              sonAleatoire := RandomEntreBornes(1,4);
-              if (sonAleatoire = dernierSonAleatoireVictoireOrdi) then sonAleatoire := RandomEntreBornes(1,4);
+              sonAleatoire := RandomBetween(1,4);
+              if (sonAleatoire = dernierSonAleatoireVictoireOrdi) then sonAleatoire := RandomBetween(1,4);
               case sonAleatoire of
                 1 : PlaySoundSynchrone(AnnonceVictoireMacID, kVolumeSonDesCoups);
                 2 : PlaySoundSynchrone(BugleVictoirMac, kVolumeSonDesCoups);
@@ -1111,7 +1111,7 @@ begin
   CarteMove(AQuiDeJouer,JeuCourant,coupPossible,mobiliteCourante);
 
 
-  if (nbreCoup = 1) and not(positionFeerique) and (RandomEntreBornes(1,100) <= 66) then
+  if (nbreCoup = 1) and not(positionFeerique) and (RandomBetween(1,100) <= 66) then
     begin
       DeuxiemeCoupMac(iCourant,eval);
       if coupPossible[iCourant] then

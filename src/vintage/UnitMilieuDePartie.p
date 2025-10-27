@@ -1176,7 +1176,7 @@ function CalculeVariationAvecMilieu(classement : ListOfMoveRecords; longueurClas
    {on tire au hazard un nombre entre 1 et sommeDesProba}
    {et on regarde a quel coup il correspond}
    RandomizeTimer;
-   alea := RandomLongintEntreBornes(1, sommeDesProba);
+   alea := RandomBetween(1, sommeDesProba);
 
    {WritelnNumDansRapport('alea = ',alea);}
 

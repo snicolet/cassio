@@ -103,7 +103,7 @@ begin
   a := kValeurSpeciale;
   for i := 1 to kNbTotalDeQuiz do
     begin
-      n := RandomEntreBornes(1,kNbTotalDeQuiz-i+1);
+      n := RandomBetween(1,kNbTotalDeQuiz-i+1);
 
       compteur := 0;
       j := 1;
@@ -221,7 +221,7 @@ begin
 
 
 		           {n := k;}
-		            n := RandomLongintEntreBornes(1,nbPartiesActives);
+		            n := RandomBetween(1, nbPartiesActives);
 
 		            theLine := ExtraitPositionEtTraitDeLaListeEnString(n,kApresQuelCoup,explicationRejetPartie);
 

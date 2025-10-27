@@ -533,9 +533,9 @@ var prop : Property;
 begin
   if FALSE then
     begin
-		  genre := RandomEntreBornes(DeltaWhiteProp,PetitCercleProp);
-		  col  := RandomEntreBornes(1,8);
-		  lig  := RandomEntreBornes(1,8);
+		  genre := RandomBetween(DeltaWhiteProp,PetitCercleProp);
+		  col  := RandomBetween(1,8);
+		  lig  := RandomBetween(1,8);
 		  coup := 10*lig+col;
 		  prop := MakeSquareSetProperty(genre,[coup]);
 		  AddPropertyToCurrentNode(prop);

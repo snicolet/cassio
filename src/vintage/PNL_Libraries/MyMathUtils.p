@@ -35,8 +35,6 @@ INTERFACE
 
 	procedure RandomizeTimer;
   function Random32() : SInt32;
-  function RandomEntreBornes(a, b : SInt16) : SInt16;
-  function RandomLongintEntreBornes(a, b : SInt32) : SInt32;
 	function RandBelow( n : SInt32 ) : SInt32;
 	function RandBetween( a, b: SInt32 ) : SInt32;
   function UneChanceSur(N : SInt32) : boolean;
@@ -190,27 +188,6 @@ begin
     else SafeAdd := x+y;
 end;
 
-function RandomEntreBornes(a, b : SInt16) : SInt16;
-	var
-		len : SInt16;
-begin
-	len := (b - a + 1);
-	if len <= 0 then
-		RandomEntreBornes := -1
-	else
-		RandomEntreBornes := a +(Abs(Random16()) mod len)
-end;
-
-function RandomLongintEntreBornes(a, b : SInt32) : SInt32;
-	var
-		len : SInt32;
-begin
-	len := (b - a + 1);
-	if len <= 0 then
-		RandomLongintEntreBornes := -1
-	else
-		RandomLongintEntreBornes := a +(Abs(Random32()) mod len)
-end;
 
 
 	function RandBelow( n : SInt32 ) : SInt32;

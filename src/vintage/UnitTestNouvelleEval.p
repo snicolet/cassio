@@ -248,7 +248,7 @@ begin {$UNUSED i,k,n,longueur,numeroPattern,stage,debutScan,scan,count,chi2,tole
   longueur := DimensionDuPointMultidimensionnel(occurences.Pattern[numeroPattern,stage]);
   for i := 1 to 50 do
     begin
-      debutScan := RandomLongintEntreBornes(1,longueur);
+      debutScan := RandomBetween(1 , longueur);
       count := 0;
       for k := 0 to longueur do
         begin

@@ -1889,7 +1889,7 @@ begin
             (* plus de place : supprimons un element au hasard... *)
 
             repeat
-              data := RandomEntreBornes(1,NB_NODES_IN_ZEBRA_CACHE - 1);
+              data := RandomBetween(1,NB_NODES_IN_ZEBRA_CACHE - 1);
               RemoveIntegerFromSet(keys[data],presents);
               keys[data] := -1;
             until (presents.cardinal < NB_NODES_IN_ZEBRA_CACHE);

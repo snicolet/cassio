@@ -1706,7 +1706,7 @@ var nroRef : SInt32;
 begin
   if (nbPartiesActives >= 1) then
     begin
-      nroRef := RandomLongintEntreBornes(1,nbPartiesActives);
+      nroRef := RandomBetween(1 , nbPartiesActives);
       WritelnNumDansRapport('partie n¡',nroRef);
       EcritsQuelquesPositionsDeCettePartie(nroRef);
     end;

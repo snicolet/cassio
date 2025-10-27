@@ -20,6 +20,7 @@ uses
 function Random16() : SInt16;
 function Random32() : SInt32;
 function Random64() : SInt64;
+function RandomBetween(a, b : SInt64) : SInt64;
 function RandomFloat() : double;
 procedure SetRandomSeed(seed : SInt64);
 procedure RandomizeTimer;
@@ -205,6 +206,19 @@ begin
 end;
 
 
+// RandomBetween(a, b) returns a 64 bits random number between
+// a and b (inclusive). If b < a, then the function always returns -1.
+function RandomBetween(a, b : SInt64) : SInt64;
+var len : SInt32;
+begin
+  len := (b - a + 1);
+  if len <= 0 then
+	 RandomBetween := -1
+  else
+     RandomBetween := a + (Abs(Random64()) mod len);
+end;
+
+
 // RandomFloat() returns a floating point number in double precision
 // in the interval [0..1[
 function RandomFloat() : double;
@@ -222,6 +236,7 @@ begin
     if seed = 0 then seed := 1;
     PRNG := seed;
 end;
+
 
 // RandomizeTimer : this procedure sets the seed with a mix of the current 
 // time, the process number, etc. to get more entropy.

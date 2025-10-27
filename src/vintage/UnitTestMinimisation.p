@@ -191,8 +191,8 @@ begin
 
           pente := Abs(Random16())/32768.0;   {nombre aleatoire entre 0.0 et 1.0}
 
-          valPetiteProf := RandomLongintEntreBornes(-6400,6400);
-          valGrandeProf := pente*valPetiteProf + RandomLongintEntreBornes(-500,500);
+          valPetiteProf := RandomBetween(-6400 , 6400);
+          valGrandeProf := pente*valPetiteProf + RandomBetween(-500 , 500);
 
           x^[k] := valPetiteProf;
           y^[k] := valGrandeProf;
@@ -241,8 +241,8 @@ var i : SInt32;
 begin
   for i := 1 to 7 do
     begin
-      animaux^[i]     := RandomEntreBornes(90,441);
-      animaux^[i + 7] := RandomEntreBornes(215,465);
+      animaux^[i]     := RandomBetween(90,441);
+      animaux^[i + 7] := RandomBetween(215,465);
     end;
 end;
 
@@ -262,16 +262,16 @@ begin
   bestScore := oldScore;
 
   for t := 1 to 3 do
-    changer[t] := RandomEntreBornes(1,7);
+    changer[t] := RandomBetween(1,7);
 
-   temperature_i_x := RandomEntreBornes(1,temperature);
-   temperature_i_y := RandomEntreBornes(1,temperature);
+   temperature_i_x := RandomBetween(1,temperature);
+   temperature_i_y := RandomBetween(1,temperature);
 
-   temperature_j_x := RandomEntreBornes(1,temperature);
-   temperature_j_y := RandomEntreBornes(1,temperature);
+   temperature_j_x := RandomBetween(1,temperature);
+   temperature_j_y := RandomBetween(1,temperature);
 
-   temperature_k_x := RandomEntreBornes(1,temperature);
-   temperature_k_y := RandomEntreBornes(1,temperature);
+   temperature_k_x := RandomBetween(1,temperature);
+   temperature_k_y := RandomBetween(1,temperature);
 
 
   // temperature_i := temperature;
