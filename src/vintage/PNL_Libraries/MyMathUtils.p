@@ -50,14 +50,14 @@ INTERFACE
 
 	function NewMagicCookie : SInt32;
 
-  procedure MY_SWAP_INTEGER( arg : UInt16Ptr );
-  procedure MY_SWAP_LONGINT( arg : UInt32Ptr );
+  procedure SWAP_INTEGER( arg : UInt16Ptr );
+  procedure SWAP_LONGINT( arg : UInt32Ptr );
 
   function MySwapInteger(num : SInt16) : SInt16;
   function MySwapLongint(num : SInt32) : SInt32;
 
-  procedure MySwapIntegerArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
-  procedure MySwapLongintArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
+  procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
+  procedure SWAP_LONGINT_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
 
 
 
@@ -335,35 +335,31 @@ end;
 
 
 
-procedure MY_SWAP_INTEGER( arg : UInt16Ptr );
+procedure SWAP_INTEGER( arg : UInt16Ptr );
 var aux : UInt16;
 begin
   aux := arg^;
-
-	aux := (( aux shl 8) and $0FF00) or (( aux shr 8) and $00FF);
-
-	arg^ := aux;
+  aux := (( aux shl 8) and $0FF00) or (( aux shr 8) and $00FF);
+  arg^ := aux;
 end;
 
-procedure MY_SWAP_LONGINT( arg : UInt32Ptr );
+procedure SWAP_LONGINT( arg : UInt32Ptr );
 var aux : UInt32;
 begin
   aux := arg^;
-
   aux := ((aux and $FF) shl 24) or ((aux and $0FF00) shl 8) or ((aux shr 8) and $0FF00) or ((aux shr 24) and $FF);
-
   arg^ := aux;
 end;
 
 
 
 function MySwapInteger(num : SInt16) : SInt16;
-	type
-		TwoBytesArray = packed array[0..1] of UInt8;
-		TwoBytesArrayPtr = ^TwoBytesArray;
-	var
-		twoBytes : TwoBytesArrayPtr;
-		result,aux : SInt32;
+type
+	TwoBytesArray = packed array[0..1] of UInt8;
+	TwoBytesArrayPtr = ^TwoBytesArray;
+var
+	twoBytes : TwoBytesArrayPtr;
+	result, aux : SInt32;
 begin
 	twoBytes := TwoBytesArrayPtr(@num);
 	result := 0;
@@ -379,11 +375,11 @@ end;
 
 
 function MySwapLongint(num : SInt32) : SInt32;
-  type
+type
     FourBytesArrayPtr = ^FourBytesArray;
-	var
-		FourBytes : FourBytesArrayPtr;
-		result,aux : SInt32;
+var
+	FourBytes : FourBytesArrayPtr;
+	result, aux : SInt32;
 begin
 	FourBytes := FourBytesArrayPtr(@num);
 	result := 0;
@@ -404,68 +400,68 @@ begin
 end;
 
 
-procedure MySwapIntegerArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
+procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
 var i : SInt32;
     myPointer : UInt16Ptr;
 begin
 
-  // WritelnDansRapport('Dans MySwapIntegerArray...');
+  // WritelnDansRapport('Dans SWAP_INTEGER_ARRAY...');
   // WritelnNumDansRapport('   indexMin = ',indexMin);
   // WritelnNumDansRapport('   indexMax = ',indexMax);
 
   if (indexMin > indexMax) then
     begin
-      WritelnDansRapport('ERROR : (indexMin > indexMax) dans MySwapIntegerArray !!! ');
+      WritelnDansRapport('ERROR : (indexMin > indexMax) dans SWAP_INTEGER_ARRAY !!! ');
       WritelnNumDansRapport('indexMin = ',indexMin);
       WritelnNumDansRapport('indexMax = ',indexMax);
     end;
 
   if (theArray = NIL) then
     begin
-      WritelnDansRapport('ERROR : (theArray = NIL) dans MySwapIntegerArray !!! ');
+      WritelnDansRapport('ERROR : (theArray = NIL) dans SWAP_INTEGER_ARRAY !!! ');
     end;
 
   if ((indexMin > indexMax) or (theArray = NIL))
-    then exit(MySwapIntegerArray);
+    then exit(SWAP_INTEGER_ARRAY);
 
   myPointer := UInt16Ptr(theArray);                  { c'est l'adresse de table[0] }
   myPointer := POINTER_ADD( myPointer, 2*indexMin);  { c'est donc l'adresse de table[indexMin] }
 
   for i := indexMin to indexMax do
     begin
-      MY_SWAP_INTEGER( myPointer );                  { swapper les octets de table[i] }
+      SWAP_INTEGER( myPointer );                  { swapper les octets de table[i] }
       myPointer := POINTER_ADD(myPointer, 2);        { car un entier sur 16 bits fait 2 octets }
     end;
 end;
 
 
 
-procedure MySwapLongintArray(theArray : UnivPtr; indexMin, indexMax : SInt32);
+procedure SWAP_LONGINT_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
 var i : SInt32;
     myPointer : UInt32Ptr;
 begin
 
   if (indexMin > indexMax) then
     begin
-      WritelnDansRapport('ERROR : (indexMin > indexMax) dans MySwapLongintArray !!! ');
+      WritelnDansRapport('ERROR : (indexMin > indexMax) dans SWAP_LONGINT_ARRAY !!! ');
       WritelnNumDansRapport('indexMin = ',indexMin);
       WritelnNumDansRapport('indexMax = ',indexMax);
     end;
 
   if (theArray = NIL) then
     begin
-      WritelnDansRapport('ERROR : (theArray = NIL) dans MySwapLongintArray !!! ');
+      WritelnDansRapport('ERROR : (theArray = NIL) dans SWAP_LONGINT_ARRAY !!! ');
     end;
 
   if ((indexMin > indexMax) or (theArray = NIL))
-    then exit(MySwapLongintArray);
+    then exit(SWAP_LONGINT_ARRAY);
 
   myPointer := UInt32Ptr(theArray);                  { c'est l'adresse de table[0] }
   myPointer := POINTER_ADD( myPointer, 4*indexMin);  { c'est donc l'adresse de table[indexMin] }
 
   for i := indexMin to indexMax do
     begin
-      MY_SWAP_LONGINT( myPointer );                  { swapper les octets de table[i] }
+      SWAP_LONGINT( myPointer );                  { swapper les octets de table[i] }
       myPointer := POINTER_ADD(myPointer, 4);        { car un entier sur 32 bits fait 4 octets }
     end;
 end;

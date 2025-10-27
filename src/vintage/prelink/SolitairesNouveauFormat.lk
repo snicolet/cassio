@@ -13,9 +13,9 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 	function MyFSReadAt (refnum : SInt16; pos, len : SInt32; p : Ptr) : OSErr;     external;
-  procedure MY_SWAP_LONGINT( arg : UInt32Ptr );     external;
+  procedure SWAP_LONGINT( arg : UInt32Ptr );     external;
 	function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr) : OSErr;     external;
-  procedure MY_SWAP_INTEGER( arg : UInt16Ptr );     external;
+  procedure SWAP_INTEGER( arg : UInt16Ptr );     external;
 function OuvreFichierNouveauFormat(numFichier : SInt16) : OSErr;     external;
 function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;     external;
 function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;     external;

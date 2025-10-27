@@ -2433,9 +2433,9 @@ begin
   err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(Partiebuff),count);
 
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-  MY_SWAP_INTEGER( @Partiebuff^.numeroTournoi);
-  MY_SWAP_INTEGER( @Partiebuff^.numeroNoir);
-  MY_SWAP_INTEGER( @Partiebuff^.numeroblanc);
+  SWAP_INTEGER( @Partiebuff^.numeroTournoi);
+  SWAP_INTEGER( @Partiebuff^.numeroNoir);
+  SWAP_INTEGER( @Partiebuff^.numeroblanc);
   {$ENDC}
 
 end;

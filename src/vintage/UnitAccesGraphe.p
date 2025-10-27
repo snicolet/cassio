@@ -590,24 +590,24 @@ procedure SwapEndianessOfCellule(var cellule : CelluleRec);
 begin
   with cellule do
     begin
-       MY_SWAP_LONGINT( @pere);                       (* pointeur sur le pere *)
-       MY_SWAP_LONGINT( @fils);                       (* pointeur sur un fils *)
-       MY_SWAP_LONGINT( @frere);                      (* liste chainee circulaire des freres *)
-       MY_SWAP_LONGINT( @memePosition);               (* liste chainee circulaire des positions identiques (pour les interversions) *)
-       MY_SWAP_INTEGER( @CoupEtCouleurs);             (* Stocke le coup,la couleur de ce coup et le trait resultant *)
-       MY_SWAP_INTEGER( @valeurMinimax);              (* appartient ˆ {Gain,Nulle,Perte,PasDansArbre,etc.} *)
-       MY_SWAP_INTEGER( @numeroDuCoup);               (* 1 ˆ 60 *)
-       MY_SWAP_INTEGER( @VersionEtProfondeur);        (* version appartient ˆ {kCassio,kYapp,etc.}, profondeur de la recherche heuristique appartient ˆ [0..30] *)
-       MY_SWAP_INTEGER( @ProofNumberPourNoir);        (* quantite de travail pour prouver le gain noir *)
-       MY_SWAP_INTEGER( @DisproofNumberPourNoir);     (* quantite de travail pour prouver la perte noire ou la nulle *)
-       MY_SWAP_INTEGER( @ProofNumberPourBlanc);       (* quantite de travail pour prouver le gain blanc *)
-       MY_SWAP_INTEGER( @DisProofNumberPourBlanc);    (* quantite de travail pour prouver la perte blanche ou la nulle *)
-       MY_SWAP_INTEGER( @ValeurDeviantePourNoir);     (* appartient ˆ [-6400..+6400] *)
-       MY_SWAP_INTEGER( @ValeurDeviantePourBlanc);    (* appartient ˆ [-6400..+6400] *)
-       MY_SWAP_INTEGER( @EsperanceDeGainPourNoir);    (* proba que Noir gagne *)
-       MY_SWAP_INTEGER( @EsperanceDeGainPourBlanc);   (* proba que Blanc gagne *)
-       MY_SWAP_INTEGER( @ValeurHeuristiquePourNoir);  (* appartient ˆ [-6400..+6400] ; attention : toujours pour les Noirs *)
-       MY_SWAP_INTEGER( @flags);
+       SWAP_LONGINT( @pere);                       (* pointeur sur le pere *)
+       SWAP_LONGINT( @fils);                       (* pointeur sur un fils *)
+       SWAP_LONGINT( @frere);                      (* liste chainee circulaire des freres *)
+       SWAP_LONGINT( @memePosition);               (* liste chainee circulaire des positions identiques (pour les interversions) *)
+       SWAP_INTEGER( @CoupEtCouleurs);             (* Stocke le coup,la couleur de ce coup et le trait resultant *)
+       SWAP_INTEGER( @valeurMinimax);              (* appartient ˆ {Gain,Nulle,Perte,PasDansArbre,etc.} *)
+       SWAP_INTEGER( @numeroDuCoup);               (* 1 ˆ 60 *)
+       SWAP_INTEGER( @VersionEtProfondeur);        (* version appartient ˆ {kCassio,kYapp,etc.}, profondeur de la recherche heuristique appartient ˆ [0..30] *)
+       SWAP_INTEGER( @ProofNumberPourNoir);        (* quantite de travail pour prouver le gain noir *)
+       SWAP_INTEGER( @DisproofNumberPourNoir);     (* quantite de travail pour prouver la perte noire ou la nulle *)
+       SWAP_INTEGER( @ProofNumberPourBlanc);       (* quantite de travail pour prouver le gain blanc *)
+       SWAP_INTEGER( @DisProofNumberPourBlanc);    (* quantite de travail pour prouver la perte blanche ou la nulle *)
+       SWAP_INTEGER( @ValeurDeviantePourNoir);     (* appartient ˆ [-6400..+6400] *)
+       SWAP_INTEGER( @ValeurDeviantePourBlanc);    (* appartient ˆ [-6400..+6400] *)
+       SWAP_INTEGER( @EsperanceDeGainPourNoir);    (* proba que Noir gagne *)
+       SWAP_INTEGER( @EsperanceDeGainPourBlanc);   (* proba que Blanc gagne *)
+       SWAP_INTEGER( @ValeurHeuristiquePourNoir);  (* appartient ˆ [-6400..+6400] ; attention : toujours pour les Noirs *)
+       SWAP_INTEGER( @flags);
     end;
 end;
 

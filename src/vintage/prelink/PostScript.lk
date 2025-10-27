@@ -4,7 +4,7 @@ function AllocateMemoryHdl(whichSize : SInt32) : handle;     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
 	function DoitGenererPostScriptCompatibleXPress : boolean;     external;
-  procedure MY_SWAP_INTEGER( arg : UInt16Ptr );     external;
+  procedure SWAP_INTEGER( arg : UInt16Ptr );     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
 function MyGetRegionRect(theRegion : RgnHandle) : rect;     external;
 	function ReelEnString(unreel : double) : String255;     external;

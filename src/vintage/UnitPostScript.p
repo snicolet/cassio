@@ -264,8 +264,8 @@ begin
     begin  {on multiplie la taille du crayon par l'inverse pour revenir ˆ (1,1) }
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL}
-      MY_SWAP_INTEGER( @gLastNumerateurDansSetLineWidth);
-      MY_SWAP_INTEGER( @gLastDenominateurDansSetLineWidth);
+      SWAP_INTEGER( @gLastNumerateurDansSetLineWidth);
+      SWAP_INTEGER( @gLastDenominateurDansSetLineWidth);
       {$ENDC}
 
       lfh^^.num := gLastDenominateurDansSetLineWidth;
@@ -276,15 +276,15 @@ begin
       PicComment(kind,taille,Handle(lfh));
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL}
-      MY_SWAP_INTEGER( @gLastNumerateurDansSetLineWidth);
-      MY_SWAP_INTEGER( @gLastDenominateurDansSetLineWidth);
+      SWAP_INTEGER( @gLastNumerateurDansSetLineWidth);
+      SWAP_INTEGER( @gLastDenominateurDansSetLineWidth);
       {$ENDC}
 
     end;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL}
-  MY_SWAP_INTEGER( @numerateur);
-  MY_SWAP_INTEGER( @denominateur);
+  SWAP_INTEGER( @numerateur);
+  SWAP_INTEGER( @denominateur);
   {$ENDC}
 
   lfh^^.num := numerateur;
@@ -297,8 +297,8 @@ begin
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL}
-  MY_SWAP_INTEGER( @numerateur);
-  MY_SWAP_INTEGER( @denominateur);
+  SWAP_INTEGER( @numerateur);
+  SWAP_INTEGER( @denominateur);
   {$ENDC}
 
   DisposeMemoryHdl(Handle(lfh));

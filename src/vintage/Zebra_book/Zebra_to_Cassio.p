@@ -1462,7 +1462,7 @@ begin
 
 
                   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-                  MY_SWAP_LONGINT( @nbreEnregistrementsDansFic);
+                  SWAP_LONGINT( @nbreEnregistrementsDansFic);
                   {$ENDC}
 
                 end
@@ -1623,23 +1623,23 @@ begin
   rec := ZebraBookNodeRecordPtr(@node);
   with rec^ do
     begin
-      MY_SWAP_LONGINT( @hash1);
-      MY_SWAP_LONGINT( @hash2);
-      MY_SWAP_INTEGER( @black_minimax_score);
-      MY_SWAP_INTEGER( @white_minimax_score);
-      MY_SWAP_INTEGER( @best_alternative_move);
-      MY_SWAP_INTEGER( @alternative_score);
-      MY_SWAP_INTEGER( @flags);
+      SWAP_LONGINT( @hash1);
+      SWAP_LONGINT( @hash2);
+      SWAP_INTEGER( @black_minimax_score);
+      SWAP_INTEGER( @white_minimax_score);
+      SWAP_INTEGER( @best_alternative_move);
+      SWAP_INTEGER( @alternative_score);
+      SWAP_INTEGER( @flags);
     end;
   *)
 
-  MY_SWAP_LONGINT( @node[0]);    // MY_SWAP_LONGINT( @hash1);
-  MY_SWAP_LONGINT( @node[4]);    // MY_SWAP_LONGINT( @hash2);
-  MY_SWAP_INTEGER( @node[8]);    // MY_SWAP_INTEGER( @black_minimax_score);
-  MY_SWAP_INTEGER( @node[10]);   // MY_SWAP_INTEGER( @white_minimax_score);
-  MY_SWAP_INTEGER( @node[12]);   // MY_SWAP_INTEGER( @best_alternative_move);
-  MY_SWAP_INTEGER( @node[14]);   // MY_SWAP_INTEGER( @alternative_score);
-  MY_SWAP_INTEGER( @node[16]);   // MY_SWAP_INTEGER( @flags);
+  SWAP_LONGINT( @node[0]);    // SWAP_LONGINT( @hash1);
+  SWAP_LONGINT( @node[4]);    // SWAP_LONGINT( @hash2);
+  SWAP_INTEGER( @node[8]);    // SWAP_INTEGER( @black_minimax_score);
+  SWAP_INTEGER( @node[10]);   // SWAP_INTEGER( @white_minimax_score);
+  SWAP_INTEGER( @node[12]);   // SWAP_INTEGER( @best_alternative_move);
+  SWAP_INTEGER( @node[14]);   // SWAP_INTEGER( @alternative_score);
+  SWAP_INTEGER( @node[16]);   // SWAP_INTEGER( @flags);
 
 end;
 {$ELSEC }
@@ -1652,7 +1652,7 @@ end;
 procedure swap_endianess_of_short_for_zebra( n : SInt16Ptr) ;
 begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MY_SWAP_INTEGER( UInt16Ptr(n) );
+  SWAP_INTEGER( UInt16Ptr(n) );
   {$ELSEC }
   Discard(n);
   {$ENDC}
@@ -1662,7 +1662,7 @@ end;
 procedure swap_endianess_of_int_for_zebra( n : SInt32Ptr) ;
 begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MY_SWAP_LONGINT( UInt32Ptr(n) );
+  SWAP_LONGINT( UInt32Ptr(n) );
   {$ELSEC }
   Discard(n);
   {$ENDC}

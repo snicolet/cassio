@@ -49,6 +49,13 @@ function PreviousMultipleOfN(a, N : SInt64) : SInt64;
 function NextMultipleOfN(a, N : SInt64) : SInt64;
 
 
+// Swapping bytes in integers, to deal with big-endian/little-endian data
+
+procedure SWAP_INTEGER( arg : UInt16Ptr );
+procedure SWAP_LONGINT( arg : UInt32Ptr );
+procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
+procedure SWAP_LONGINT_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
+
 
 // Bitwise functions (with versions for all integer sizes, signed and unsigned)
 
@@ -147,10 +154,11 @@ procedure BCLR(var i : SInt8 ; n : integer);
 
 implementation
 
-
+   uses
 {$IFDEF UNIX}
-  uses unix;
+      unix,
 {$ENDIF}
+      BasicMemory;
 
 var PRNG : SInt64 = 1000;          // initial seed, must be non-zero
 var magicCookieSeed : SInt64 = 0;  
@@ -729,6 +737,91 @@ begin
     end;
 end;
 
+// SWAP_INTEGER(@x) swaps the bytes in 16-bits integer x
+procedure SWAP_INTEGER( arg : UInt16Ptr );
+var aux : UInt16;
+begin
+  aux := arg^;
+  aux := (( aux shl 8) and $0FF00) or (( aux shr 8) and $00FF);
+  arg^ := aux;
+end;
+
+// SWAP_LONGINT(@x) swaps the bytes in 32-bits integer x
+procedure SWAP_LONGINT( arg : UInt32Ptr );
+var aux : UInt32;
+begin
+  aux := arg^;
+  aux := ((aux and $FF) shl 24) or ((aux and $0FF00) shl 8) or ((aux shr 8) and $0FF00) or ((aux shr 24) and $FF);
+  arg^ := aux;
+end;
+
+// SWAP_INTEGER_ARRAY() : swap bytes in an array of 16-bits integers
+procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
+var i : SInt32;
+    myPointer : UInt16Ptr;
+begin
+
+  // Writeln('Dans SWAP_INTEGER_ARRAY...');
+  // Writeln('   indexMin = ',indexMin);
+  // Writeln('   indexMax = ',indexMax);
+
+  if (indexMin > indexMax) then
+    begin
+      Writeln('ERROR : (indexMin > indexMax) dans SWAP_INTEGER_ARRAY !!! ');
+      Writeln('indexMin = ',indexMin);
+      Writeln('indexMax = ',indexMax);
+    end;
+
+  if (theArray = NIL) then
+    begin
+      Writeln('ERROR : (theArray = NIL) dans SWAP_INTEGER_ARRAY !!! ');
+    end;
+
+  if ((indexMin > indexMax) or (theArray = NIL))
+    then exit;
+
+  myPointer := UInt16Ptr(theArray);                  { c'est l'adresse de table[0] }
+  myPointer := POINTER_ADD( myPointer, 2*indexMin);  { c'est donc l'adresse de table[indexMin] }
+
+  for i := indexMin to indexMax do
+    begin
+      SWAP_INTEGER( myPointer );                  { swapper les octets de table[i] }
+      myPointer := POINTER_ADD(myPointer, 2);        { car un entier sur 16 bits fait 2 octets }
+    end;
+end;
+
+
+// SWAP_LONGINT_ARRAY() : swap bytes in an array of 32-bits integers
+procedure SWAP_LONGINT_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);
+var i : SInt32;
+    myPointer : UInt32Ptr;
+begin
+
+  if (indexMin > indexMax) then
+    begin
+      Writeln('ERROR : (indexMin > indexMax) dans SWAP_LONGINT_ARRAY !!! ');
+      Writeln('indexMin = ',indexMin);
+      Writeln('indexMax = ',indexMax);
+    end;
+
+  if (theArray = NIL) then
+    begin
+      Writeln('ERROR : (theArray = NIL) dans SWAP_LONGINT_ARRAY !!! ');
+    end;
+
+  if ((indexMin > indexMax) or (theArray = NIL))
+    then exit;
+
+  myPointer := UInt32Ptr(theArray);                  { c'est l'adresse de table[0] }
+  myPointer := POINTER_ADD( myPointer, 4*indexMin);  { c'est donc l'adresse de table[indexMin] }
+
+  for i := indexMin to indexMax do
+    begin
+      SWAP_LONGINT( myPointer );                  { swapper les octets de table[i] }
+      myPointer := POINTER_ADD(myPointer, 4);        { car un entier sur 32 bits fait 4 octets }
+    end;
+end;
+
 
 // id() is a utility function to test booleans shortcuts operators
 function id(b : boolean; name : string255) : boolean;
@@ -742,7 +835,7 @@ end;
 // TestBasicMath() : testing various functions of the BasicMemory unit
 procedure TestBasicMath;
 var c1, c2 : boolean;
-    aux, neg, inv, add, clr : SInt16;  // or any integer type
+    aux, neg, inv, add, clr : SInt8;  // or any integer type
     ext : UInt64;
     k, r, N, t : SInt64;
     freq : array[0..9] of SInt64;
@@ -792,14 +885,14 @@ begin
   
   writeln('generating some pseudo random numbers...');
   RandomizeTimer;
-  N := 200;
+  N := 20000;
   for k := 0 to 9 do
      freq[k] := 0;
   t := GetTickCount64();  // start timer
   for k := 1 to N do
     begin
-      r := Random64();
-      writeln(SInt64(r), ' ', SInt64(HexToInt(Hexa(r))));
+      // r := Random64();
+      // writeln(SInt64(r), ' ', SInt64(HexToInt(Hexa(r))));
       r := trunc(10 * RandomFloat());
       freq[r] := freq[r] + 1;
     end;

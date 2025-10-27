@@ -680,7 +680,7 @@ begin
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MySwapIntegerArray( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
+  SWAP_INTEGER_ARRAY( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
   {$ENDC}
 
 
@@ -705,7 +705,7 @@ begin
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MySwapIntegerArray( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
+  SWAP_INTEGER_ARRAY( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
   {$ENDC}
 
   // Ecrire le tableau dans le fichier
@@ -714,7 +714,7 @@ begin
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MySwapIntegerArray( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
+  SWAP_INTEGER_ARRAY( @tableau^[0], 0, TailleDUnPatternDeTantDeCases(tailleDuPattern) - 1);
   {$ENDC}
 
 

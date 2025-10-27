@@ -435,8 +435,8 @@ begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if (p.data <> NIL) then
     begin
-      MY_SWAP_LONGINT( @p.taille);
-      MySwapIntegerArray( UnivPtr(p.data), 0, p.taille);
+      SWAP_LONGINT( @p.taille);
+      SWAP_INTEGER_ARRAY( UnivPtr(p.data), 0, p.taille);
     end;
   {$ENDC}
 
@@ -452,8 +452,8 @@ begin
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if (p.data <> NIL) then
     begin
-      MY_SWAP_LONGINT( @p.taille);
-      MySwapIntegerArray( UnivPtr(p.data), 0, p.taille);
+      SWAP_LONGINT( @p.taille);
+      SWAP_INTEGER_ARRAY( UnivPtr(p.data), 0, p.taille);
     end;
   {$ENDC}
 
@@ -476,7 +476,7 @@ begin
   err := ReadBufferDansFichierTexte(fic,@p.taille,count);
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  MY_SWAP_LONGINT( @p.taille);
+  SWAP_LONGINT( @p.taille);
   {$ENDC}
 
   count := sizeof(SInt16);
@@ -485,7 +485,7 @@ begin
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if (p.data <> NIL)
-    then MySwapIntegerArray( UnivPtr(p.data), 0, p.taille);
+    then SWAP_INTEGER_ARRAY( UnivPtr(p.data), 0, p.taille);
   {$ENDC}
 
 

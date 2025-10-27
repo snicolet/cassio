@@ -22,7 +22,7 @@ function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; slee
 procedure TraiteOneEvenement;     external;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);     external;
 function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-  procedure MySwapIntegerArray(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
+  procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
 function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;

@@ -621,10 +621,10 @@ begin
         frame  := thePict^^.picFrame;
 
         {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-        MY_SWAP_INTEGER( @frame.left);
-        MY_SWAP_INTEGER( @frame.top);
-        MY_SWAP_INTEGER( @frame.right);
-        MY_SWAP_INTEGER( @frame.bottom);
+        SWAP_INTEGER( @frame.left);
+        SWAP_INTEGER( @frame.top);
+        SWAP_INTEGER( @frame.right);
+        SWAP_INTEGER( @frame.bottom);
         {$ENDC}
       end;
 
@@ -650,11 +650,11 @@ begin
       taille := theHandle^^.picSize;
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-      MY_SWAP_INTEGER( @taille);
-      MY_SWAP_INTEGER( @frame.left);
-      MY_SWAP_INTEGER( @frame.top);
-      MY_SWAP_INTEGER( @frame.right);
-      MY_SWAP_INTEGER( @frame.bottom);
+      SWAP_INTEGER( @taille);
+      SWAP_INTEGER( @frame.left);
+      SWAP_INTEGER( @frame.top);
+      SWAP_INTEGER( @frame.right);
+      SWAP_INTEGER( @frame.bottom);
       {$ENDC}
 
       {

@@ -174,7 +174,7 @@ begin
   if codeErreur = 0 then
     with entete do
       for i := 1 to 64 do
-        MY_SWAP_LONGINT( @nbSolitairesCetteProf[i]);
+        SWAP_LONGINT( @nbSolitairesCetteProf[i]);
   {$ENDC}
 
   LitEnteteSuplementaireFichierSolitaireNouveauFormat := codeErreur;
@@ -189,7 +189,7 @@ begin
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
   with entete do
     for i := 1 to 64 do
-      MY_SWAP_LONGINT( @nbSolitairesCetteProf[i]);
+      SWAP_LONGINT( @nbSolitairesCetteProf[i]);
   {$ENDC}
 
   codeErreur := MyFSWriteAt(refNum,FSFromStart,TailleEnTeteNouveauFormat,TailleEnteteSupplementaireSolitaires,@entete);
@@ -205,10 +205,10 @@ begin
   with theSolitaire do
 		begin
 		  {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-		  MY_SWAP_INTEGER( @annee);
-		  MY_SWAP_INTEGER( @nroTournoi);
-		  MY_SWAP_LONGINT( @nroJoueurNoir);
-		  MY_SWAP_LONGINT( @nroJoueurBlanc);
+		  SWAP_INTEGER( @annee);
+		  SWAP_INTEGER( @nroTournoi);
+		  SWAP_LONGINT( @nroJoueurNoir);
+		  SWAP_LONGINT( @nroJoueurBlanc);
 		  {$ENDC}
 		end;
   offset := TailleEnTeteNouveauFormat + TailleEnteteSupplementaireSolitaires + pred(nroSolitaire)*TailleSolitaireRecNouveauFormat;
@@ -258,10 +258,10 @@ begin
   with theSolitaire do
 		begin
 		  {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-		  MY_SWAP_INTEGER( @annee);
-		  MY_SWAP_INTEGER( @nroTournoi);
-		  MY_SWAP_LONGINT( @nroJoueurNoir);
-		  MY_SWAP_LONGINT( @nroJoueurBlanc);
+		  SWAP_INTEGER( @annee);
+		  SWAP_INTEGER( @nroTournoi);
+		  SWAP_LONGINT( @nroJoueurNoir);
+		  SWAP_LONGINT( @nroJoueurBlanc);
 		  {$ENDC}
 		end;
 	LitSolitaireNouveauFormat := codeErreur;

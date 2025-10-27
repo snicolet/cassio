@@ -30,6 +30,9 @@ uses
     bytePtr =  ^UInt8;
     integerP = ^SInt16;
     integerH = ^integerP;
+    UInt16Ptr = ^UInt16;
+    UInt32Ptr = ^UInt32;
+    UInt64Ptr = ^UInt64;
     unsignedword = UInt16;
     unsignedwordP = ^unsignedword;
     unsignedwordH = ^unsignedwordP;

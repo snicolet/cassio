@@ -708,9 +708,9 @@ begin
     with entete do
       begin
         {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-        MY_SWAP_LONGINT( @NombreEnregistrementsParties);
-        MY_SWAP_INTEGER( @NombreEnregistrementsTournoisEtJoueurs );
-        MY_SWAP_INTEGER( @AnneeParties );
+        SWAP_LONGINT( @NombreEnregistrementsParties);
+        SWAP_INTEGER( @NombreEnregistrementsTournoisEtJoueurs );
+        SWAP_INTEGER( @AnneeParties );
         {$ENDC}
       end;
   LitEnteteNouveauFormat := codeErreur;
@@ -734,9 +734,9 @@ begin
   with entete do
     begin
       {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-      MY_SWAP_LONGINT( @NombreEnregistrementsParties);
-      MY_SWAP_INTEGER( @NombreEnregistrementsTournoisEtJoueurs);
-      MY_SWAP_INTEGER( @AnneeParties);
+      SWAP_LONGINT( @NombreEnregistrementsParties);
+      SWAP_INTEGER( @NombreEnregistrementsTournoisEtJoueurs);
+      SWAP_INTEGER( @AnneeParties);
       {$ENDC}
     end;
   codeErreur := MyFSWriteAt(refnum,FSFromStart,0,TailleEnTeteNouveauFormat,@entete);
@@ -750,9 +750,9 @@ begin
   with theGame do
 		begin
 		  {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-		  MY_SWAP_INTEGER( @nroTournoi);
-		  MY_SWAP_INTEGER( @nroJoueurNoir);
-		  MY_SWAP_INTEGER( @nroJoueurBlanc);
+		  SWAP_INTEGER( @nroTournoi);
+		  SWAP_INTEGER( @nroJoueurNoir);
+		  SWAP_INTEGER( @nroJoueurBlanc);
 		  {$ENDC}
 		end;
   codeErreur := MyFSWriteAt(refnum,FSFromStart,TailleEnTeteNouveauFormat+pred(nroPartie)*TaillePartieRecNouveauFormat,TaillePartieRecNouveauFormat,@theGame);
@@ -1667,9 +1667,9 @@ begin
 		       { Change byte order from Intel to Motorola/IBM, if necessary }
 
 		       {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-		       MY_SWAP_INTEGER( @nroTournoi);
-		       MY_SWAP_INTEGER( @nroJoueurNoir);
-		       MY_SWAP_INTEGER( @nroJoueurBlanc);
+		       SWAP_INTEGER( @nroTournoi);
+		       SWAP_INTEGER( @nroJoueurNoir);
+		       SWAP_INTEGER( @nroJoueurBlanc);
 		       {$ENDC}
 
 		       if (scoreReel < 0) then scoreReel := 0;
@@ -3093,14 +3093,14 @@ begin
 	           codeErreur := EcritEnteteNouveauFormat(fic.refNum,enteteIndex);
 
 	           {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	           MY_SWAP_LONGINT( @tailleIndex);
+	           SWAP_LONGINT( @tailleIndex);
 	           {$ENDC}
 
 	           count := 4;
 	           codeErreur := FSWrite(fic.refNum,count,@tailleIndex);
 
 	           {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	           MY_SWAP_LONGINT( @tailleIndex);
+	           SWAP_LONGINT( @tailleIndex);
 	           {$ENDC}
 
 
@@ -3145,7 +3145,7 @@ begin
 	        if codeErreur <> NoErr then goto cleanUp;
 
 	        {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	        MY_SWAP_LONGINT( @nbrePartiesDansFicIndex);
+	        SWAP_LONGINT( @nbrePartiesDansFicIndex);
 	        {$ENDC}
 
 	        if nbrePartiesDansFicIndex <> entete.NombreEnregistrementsParties then
