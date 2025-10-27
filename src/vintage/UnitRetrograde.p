@@ -996,7 +996,7 @@ begin
 
 			  if (analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait)
 			    then AmeliorationDeFinaleReussie := (scoreParfait > scoreABattre)
-			    else AmeliorationDeFinaleReussie := (Signe(scoreParfait) > Signe(scoreABattre));
+			    else AmeliorationDeFinaleReussie := (Sign(scoreParfait) > Sign(scoreABattre));
 
 			  if debuggage.algoDeFinale then
 			    begin

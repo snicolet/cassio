@@ -93,7 +93,7 @@ function GetDateDerniereRequeteSurReseau : SInt32;     external;
 function GetEngineState : String255;     external;
 function DateOfLastStartOfEngine : SInt32;     external;
   function UInt64ToHexa(num : UInt64) : String255;     external;
-  function HexToUInt64(const s : String255) : UInt64;     external;
+  function HexToInt(const s : String255) : UInt64;     external;
 function HashString63Bits(const s : String255) : UInt64;     external;
   function Same64Bits(a , b : UInt64) : boolean;     external;
 procedure AjusteSleep;     external;

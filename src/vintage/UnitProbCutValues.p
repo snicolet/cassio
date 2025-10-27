@@ -210,7 +210,7 @@ begin
 			              if numeroCoup >= 36
 			                then threshold := 1.4
 			                else threshold := 1.1;
-			              ProbCutWindowWidth := RealToLongint(0.5 + threshold*sigma/b);
+			              ProbCutWindowWidth := Trunc(0.5 + threshold*sigma/b);
 			            end;
 			        end;
         end;

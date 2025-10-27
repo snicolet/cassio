@@ -8371,7 +8371,7 @@ begin
             begin
               if valXY > maxConnuSiToutEstMoinsBonQueValeurCible
                 then maxConnuSiToutEstMoinsBonQueValeurCible := valXY;
-              if (Signe(valXY) = Signe(valeurCible-1))
+              if (Sign(valXY) = Sign(valeurCible-1))
                 then valXY := valeurCible-1;
             end;
       if bestMode and (valXY > valeurCible) and odd(valXY) then inc(valXY);

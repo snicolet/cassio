@@ -25,6 +25,31 @@ procedure SetRandomSeed(seed : SInt64);
 procedure RandomizeTimer;
 
 
+// PChancesInN(P, N) returns true with probability P/N
+// OneChanceIn(P, N) returns true with probability 1/N
+function PChancesInN(P , N : SInt64) : boolean;
+function OneChanceIn(N : SInt64) : boolean;
+
+
+// NewMagicCookie() : a strictly increasing counter
+function NewMagicCookie() : SInt64;
+
+
+// Same64Bits() : equality between 64 bits integers
+function Same64Bits(a , b : UInt64) : boolean;
+
+
+// Choose() : ternary operator (condition ? a : b)
+function Choose(condition : boolean; a, b : SInt64) : SInt64;
+
+
+// PreviousMultipleOfN(a, N) returns the greatest multiple of N which is <= a
+// PreviousMultipleOfN(a, N) returns the smallest multiple of N which is >= a
+function PreviousMultipleOfN(a, N : SInt64) : SInt64;
+function NextMultipleOfN(a, N : SInt64) : SInt64;
+
+
+
 // Bitwise functions (with versions for all integer sizes, signed and unsigned)
 
 // Bitwise NOT
@@ -119,10 +144,6 @@ procedure BCLR(var i : UInt8 ; n : integer);
 procedure BCLR(var i : SInt8 ; n : integer);
 
 
-// NewMagicCookie() : a strictly increasing counter.
-function NewMagicCookie() : SInt64;
-
-
 
 implementation
 
@@ -131,8 +152,8 @@ implementation
   uses unix;
 {$ENDIF}
 
-var PRNG : SInt64 = 1000;
-var magicCookieSeed : SInt64 = 0;
+var PRNG : SInt64 = 1000;          // initial seed, must be non-zero
+var magicCookieSeed : SInt64 = 0;  
 
 
 
@@ -225,6 +246,13 @@ begin
   magicCookieSeed := magicCookieSeed + 1;
   if magicCookieSeed <= 0 then magicCookieSeed := 1;
   Result := magicCookieSeed;
+end;
+
+
+// // Same64Bits() : equality between 64 bits integers
+function Same64Bits(a , b : UInt64) : boolean;
+begin
+  Same64Bits := (a = b);
 end;
 
 
@@ -640,8 +668,69 @@ begin
 end;
 
 
-// id() is a utility function to test booleans shortcuts operators
+// Choose(c, a, b) implements the ternary operator (c ? a : b) of language C.
+function Choose(condition : boolean; a, b: SInt64) : SInt64;
+begin
+   if condition then Choose := a else Choose := b;
+end;
 
+
+// PChancesInN(P, N) returns true with probability P/N
+function PChancesInN(P , N : SInt64) : boolean;
+begin
+  if (0 <= P) and (P <= N) and (0 < N)
+    then
+      begin
+        PChancesInN := ((Abs(Random64()) mod N) < P);
+      end
+    else
+      begin
+        PChancesInN := false;  // something wrong with the arguments
+      end;
+end;
+
+// OneChanceIn(P, N) returns true with probability 1/N
+function OneChanceIn(N : SInt64) : boolean;
+begin
+  OneChanceIn := PChancesInN(1, N);
+end;
+
+
+// PreviousMultipleOfN(a, N) returns the greatest multiple of N which is <= a
+function PreviousMultipleOfN(a, N : SInt64) : SInt64;
+var r : SInt64;
+begin
+  if (N = 0) then PreviousMultipleOfN := 0 else
+  if (N < 0) then PreviousMultipleOfN := PreviousMultipleOfN(a, -N)
+   else
+    begin
+      r := a mod N;
+      if (r = 0) then PreviousMultipleOfN := a else
+      if (a < 0)
+        then PreviousMultipleOfN := -NextMultipleOfN(-a, N)
+        else PreviousMultipleOfN := a - r;
+    end;
+end;
+
+
+// PreviousMultipleOfN(a, N) returns the smallest multiple of N which is >= a
+function NextMultipleOfN(a, N : SInt64) : SInt64;
+var r : SInt64;
+begin
+  if (N = 0) then NextMultipleOfN := 0 else
+  if (N < 0) then NextMultipleOfN := NextMultipleOfN(a, -N)
+   else
+    begin
+      r := a mod N;
+      if (r = 0) then NextMultipleOfN := a else
+      if (a < 0)
+        then NextMultipleOfN := -PreviousMultipleOfN(-a, N)
+        else NextMultipleOfN := a - r + N;
+    end;
+end;
+
+
+// id() is a utility function to test booleans shortcuts operators
 function id(b : boolean; name : string255) : boolean;
 begin
    write('  ' + name + ' = ');
@@ -651,7 +740,6 @@ end;
 
 
 // TestBasicMath() : testing various functions of the BasicMemory unit
-
 procedure TestBasicMath;
 var c1, c2 : boolean;
     aux, neg, inv, add, clr : SInt16;  // or any integer type
@@ -704,14 +792,14 @@ begin
   
   writeln('generating some pseudo random numbers...');
   RandomizeTimer;
-  N := 2000000;
+  N := 200;
   for k := 0 to 9 do
      freq[k] := 0;
   t := GetTickCount64();  // start timer
   for k := 1 to N do
     begin
-      // r := Random64();
-      // writeln(Random64());
+      r := Random64();
+      writeln(SInt64(r), ' ', SInt64(HexToInt(Hexa(r))));
       r := trunc(10 * RandomFloat());
       freq[r] := freq[r] + 1;
     end;

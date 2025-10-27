@@ -633,7 +633,7 @@ begin
       Parser3(ligne.debutLigne, action, hash, presence, reste);
 
       if ((action = 'STOPPED') or (action = 'COULD_NOT_STOP')) and (hash <> '')
-        then hashValue := HexToUInt64(hash);
+        then hashValue := HexToInt(hash);
 
 
       if (action = 'CALCULATED '  ) or
@@ -671,7 +671,7 @@ begin
 
       if (action1 = 'STILL') and (action2 = 'USEFUL') and (valeur = 'false') and (hash <> '') then
         begin
-          hashValue := HexToUInt64(hash);
+          hashValue := HexToInt(hash);
 
           // le serveur vient de nous prevenir que ce prefetch n'est plus utile
           RetirerCeJobDuCacheDesPositionsPrefetchUtiles(hashValue);
@@ -714,7 +714,7 @@ begin
     begin
 
       hash := TPCopy(hash,6,255);
-      hashValue := HexToUInt64(hash);
+      hashValue := HexToInt(hash);
 
       // Si le serveur du zoo pense que nous sommes en train de calculer sur une position qui n'est
       // pas celle en cours, ou dont on ne vient pas d'envoyer le résultat au zoo, il y a un probleme
@@ -2376,7 +2376,7 @@ begin
 
           // le hash
 
-          inHashValue := HexToUInt64(hash);
+          inHashValue := HexToInt(hash);
 
           // le type de calcul
 
@@ -2471,7 +2471,7 @@ begin
 
   if (action = 'DELETED') then
     begin
-      params.inHashValue := HexToUInt64(reste);
+      params.inHashValue := HexToInt(reste);
       PeutParserUnResultatDuZoo := false;
       exit(PeutParserUnResultatDuZoo);
     end;
@@ -2563,7 +2563,7 @@ begin
 
           // le hash
 
-          inHashValue := HexToUInt64(hash);
+          inHashValue := HexToInt(hash);
 
 
           // le score
@@ -3893,7 +3893,7 @@ begin
       // le hash
 
       hash := TPCopy(hash,6,255);
-      hashValue := HexToUInt64(hash);
+      hashValue := HexToInt(hash);
 
       {
       WritelnNumDansRapport('hashValue = ',hashValue);

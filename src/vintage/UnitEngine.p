@@ -2873,8 +2873,8 @@ begin
       begin
         // on va utiliser une recherche de finale par le moteur a la place de notre recherche de milieu
 
-        alpha := (PrecedentMultipleDeN(alpha, 100) div 100);
-        beta  := (ProchainMultipleDeN(beta, 100) div 100);
+        alpha := (PreviousMultipleOfN(alpha, 100) div 100);
+        beta  := (NextMultipleOfN(beta, 100) div 100);
 
         precision := ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties);
 

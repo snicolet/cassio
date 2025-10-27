@@ -67,6 +67,12 @@ function HexaWithoutDollar(num : SInt16) : String255;
 function HexaWithoutDollar(num : UInt8 ) : String255;
 function HexaWithoutDollar(num : SInt8 ) : String255;
 
+
+// HexToInt(s) : conversion hexadecimal to unsigned integer
+function HexToInt(const s : String255) : UInt64;
+
+
+
 implementation
 
 uses basicmath;
@@ -374,6 +380,36 @@ begin
     end;
   Result := s;
 end;
+
+
+
+
+// HexToInt(s) converts the hexadecimal string s to an unsigned 64 bit integer
+function HexToInt(const s : String255) : UInt64;
+var i, numDigits, v : UInt64;
+begin
+  result := 0;
+  numDigits := 0;
+  i := LENGTH_OF_STRING(s);
+  while (i > 0) do
+     begin
+        case s[i] of
+            'A'..'Z': v := ord(s[i]) - 55;
+		    'a'..'z': v := ord(s[i]) - 87;
+		    '0'..'9': v := ord(s[i]) - 48;
+	    end;
+		
+		if (numDigits <= 15) then 
+		  result := result + BSL(v, 4 * numDigits);
+		
+		inc(numDigits);
+		dec(i);
+    end;
+  HexToInt := result;
+end;
+
+
+
 
 // testBasicString() : testing various functions of the BasicString unit
 

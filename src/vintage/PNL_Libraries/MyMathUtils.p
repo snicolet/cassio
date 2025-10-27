@@ -29,8 +29,8 @@ INTERFACE
   function Signe(n : SInt32) : SInt32;
   function InterpolationLineaire(x, x1, y1, x2, y2 : SInt32) : SInt32;
   function SafeAdd(x,y,bornesuperieure : SInt32) : SInt32;
-	function ProchainMultipleDeN(a, N : SInt32) : SInt32;
-  function PrecedentMultipleDeN(a, N : SInt32) : SInt32;
+	function NextMultipleOfN(a, N : SInt32) : SInt32;
+  function PreviousMultipleOfN(a, N : SInt32) : SInt32;
 
 
 	procedure RandomizeTimer;
@@ -70,7 +70,7 @@ INTERFACE
 	
   function UInt64ToHexa(num : UInt64) : String255;
   function UInt64ToHexaWithDollar(num : UInt64) : String255;                                                                                                                         	
-  function HexToUInt64(const s : String255) : UInt64;
+  function HexToInt(const s : String255) : UInt64;
 
 
 
@@ -289,34 +289,34 @@ end;
 	end;
 
 
-function PrecedentMultipleDeN(a, N : SInt32) : SInt32;
+function PreviousMultipleOfN(a, N : SInt32) : SInt32;
 var r : SInt32;
 begin
-  if (N = 0) then PrecedentMultipleDeN := 0 else
-  if (N < 0) then PrecedentMultipleDeN := PrecedentMultipleDeN(a, -N)
+  if (N = 0) then PreviousMultipleOfN := 0 else
+  if (N < 0) then PreviousMultipleOfN := PreviousMultipleOfN(a, -N)
    else
     begin
       r := a mod N;
-      if (r = 0) then PrecedentMultipleDeN := a else
+      if (r = 0) then PreviousMultipleOfN := a else
       if (a < 0)
-        then PrecedentMultipleDeN := -ProchainMultipleDeN(-a, N)
-        else PrecedentMultipleDeN := a - r;
+        then PreviousMultipleOfN := -NextMultipleOfN(-a, N)
+        else PreviousMultipleOfN := a - r;
     end;
 end;
 
 
-function ProchainMultipleDeN(a, N : SInt32) : SInt32;
+function NextMultipleOfN(a, N : SInt32) : SInt32;
 var r : SInt32;
 begin
-  if (N = 0) then ProchainMultipleDeN := 0 else
-  if (N < 0) then ProchainMultipleDeN := ProchainMultipleDeN(a, -N)
+  if (N = 0) then NextMultipleOfN := 0 else
+  if (N < 0) then NextMultipleOfN := NextMultipleOfN(a, -N)
    else
     begin
       r := a mod N;
-      if (r = 0) then ProchainMultipleDeN := a else
+      if (r = 0) then NextMultipleOfN := a else
       if (a < 0)
-        then ProchainMultipleDeN := -PrecedentMultipleDeN(-a, N)
-        else ProchainMultipleDeN := a - r + N;
+        then NextMultipleOfN := -PreviousMultipleOfN(-a, N)
+        else NextMultipleOfN := a - r + N;
     end;
 end;
 
@@ -560,7 +560,7 @@ var n : SInt32;
 
 {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
 
-function HexToUInt64(const s : String255) : UInt64;
+function HexToInt(const s : String255) : UInt64;
 var i, numDigits, v : UInt32;
     result : UInt64;
 begin
@@ -586,7 +586,7 @@ begin
 
     end;
 
-  HexToUInt64 := result;
+  HexToInt := result;
 end;
 
 
@@ -608,7 +608,7 @@ end;
 
 {$ELSEC}
 
-function HexToUInt64(const s : String255) : UInt64;
+function HexToInt(const s : String255) : UInt64;
 var i, numDigits, v : UInt32;
     result : UInt64;
 begin
@@ -642,7 +642,7 @@ begin
 
         end;
     end;
-  HexToUInt64 := result;
+  HexToInt := result;
 end;
 
 

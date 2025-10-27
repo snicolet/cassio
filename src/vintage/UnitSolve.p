@@ -98,7 +98,7 @@ begin
 		          if GetTraitOfPosition(positionFils) = pionVide
 				        then
 				          begin
-				            scoreWLD := Signe(NbPionsDeCetteCouleurDansPosition(GetTraitOfPosition(whichPosition),positionFils.position) - NbPionsDeCetteCouleurDansPosition(-GetTraitOfPosition(whichPosition),positionFils.position));
+				            scoreWLD := Sign(NbPionsDeCetteCouleurDansPosition(GetTraitOfPosition(whichPosition),positionFils.position) - NbPionsDeCetteCouleurDansPosition(-GetTraitOfPosition(whichPosition),positionFils.position));
 				          end
 				        else
 				          begin
@@ -196,7 +196,7 @@ begin
 
   LanceInterruption(oldInterruption,'ScoreWLDPositionEtTrait');
 
-  ScoreWLDPositionEtTrait := Signe(solveResults.outScoreFinale);
+  ScoreWLDPositionEtTrait := Sign(solveResults.outScoreFinale);
 end;
 
 

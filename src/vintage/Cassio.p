@@ -704,70 +704,70 @@ begin
 
   SetHashValueDuZoo(my_u64,0);
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   SetHashValueDuZoo(my_u64,k_ZOO_NOT_INITIALIZED_VALUE);
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   SetHashValueDuZoo(my_u64,-k_ZOO_NOT_INITIALIZED_VALUE);
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   SetHashValueDuZoo(my_u64,-1);
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   SetHashValueDuZoo(my_u64,1);
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   my_u64 := HashString63Bits('toto est grand');
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   my_u64 := HashString63Bits('toto est fort');
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   my_u64 := HashString63Bits('toto est bleu');
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   my_u64 := HashString63Bits('toto est rouge');
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
   WritelnDansRapport('');
 
   my_u64 := HashString63Bits('toto est vert');
   WritelnDansRapport(UInt64ToHexa(my_u64));
-  WritelnDansRapport(UInt64ToHexa(HexToUInt64(UInt64ToHexa(my_u64))));
+  WritelnDansRapport(UInt64ToHexa(HexToInt(UInt64ToHexa(my_u64))));
   WritelnStringAndBoolDansRapport('negatif ? ', HashValueDuZooEstNegative(my_u64));
   WritelnStringAndBoolDansRapport('correcte ? ', HashValueDuZooEstCorrecte(my_u64));
 

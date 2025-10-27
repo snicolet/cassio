@@ -74,8 +74,8 @@ procedure LigneFinaleToHashTable(couleur, prof, lastMove, vMin, vMax, deltaFinal
 function MakePositionEtTrait(var plat : plateauOthello; trait : SInt32) : PositionEtTraitRec;     external;
 function NbPionsDeCetteCouleurDansPosition(couleur : SInt32; var position : plateauOthello) : SInt32;     external;
 function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;     external;
-  function PrecedentMultipleDeN(a, N : SInt32) : SInt32;     external;
-	function ProchainMultipleDeN(a, N : SInt32) : SInt32;     external;
+  function PreviousMultipleOfN(a, N : SInt32) : SInt32;     external;
+	function NextMultipleOfN(a, N : SInt32) : SInt32;     external;
 function GetEcritToutDansRapportLog : boolean;     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;

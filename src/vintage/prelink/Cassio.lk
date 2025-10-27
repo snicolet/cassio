@@ -407,7 +407,7 @@ procedure SwitchToScript(whichScript : SInt32);     external;
 procedure SetHashValueDuZoo(var hash : UInt64; value : SInt32);     external;
 function HashValueDuZooEstNegative(const hash : UInt64) : boolean;     external;
   function UInt64ToHexa(num : UInt64) : String255;     external;
-  function HexToUInt64(const s : String255) : UInt64;     external;
+  function HexToInt(const s : String255) : UInt64;     external;
 function HashString63Bits(const s : String255) : UInt64;     external;
   function Same64Bits(a , b : UInt64) : boolean;     external;
 function HashValueDuZooEstCorrecte(const hash : UInt64) : boolean;     external;
