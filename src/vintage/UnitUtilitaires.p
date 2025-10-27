@@ -1502,14 +1502,14 @@ begin
           with table[cardinal] do
             begin
               theAccent  := String255Ptr(AllocateMemoryPtr(sizeof(String255)));
-					    theRemplacement := String255Ptr(AllocateMemoryPtr(sizeof(String255)));
+              theRemplacement := String255Ptr(AllocateMemoryPtr(sizeof(String255)));
 
-						  if theAccent <> NIL       then theAccent^       := accent;
-						  if theRemplacement <> NIL then theRemplacement^ := remplacement;
+              if theAccent <> NIL       then theAccent^       := accent;
+              if theRemplacement <> NIL then theRemplacement^ := remplacement;
 
-						  if (theAccent = NIL) or (theRemplacement = NIL)
-						    then dec(cardinal);
-						end;
+              if (theAccent = NIL) or (theRemplacement = NIL)
+                 then dec(cardinal);
+            end;
 
         end;
     end;
