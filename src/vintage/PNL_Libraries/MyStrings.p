@@ -114,7 +114,6 @@ INTERFACE
 
   function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;
   function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;
-  function StripDiacritics(const s : String255) : String255;
   procedure StripHTMLAccents(var s : String255);
 
 
@@ -1520,14 +1519,6 @@ begin
   MyLowerString := LowerCaseStr(result);
 end;
 
-
-function StripDiacritics(const s : String255) : String255;
-var result : String255;
-begin
-  result := s;
-  MacOSScriptDiacritics(@result[1],LENGTH_OF_STRING(result),smSystemScript);
-  StripDiacritics := result;
-end;
 
 
 procedure StripHTMLAccents(var s : String255);
