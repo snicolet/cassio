@@ -449,7 +449,12 @@ begin
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
       writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
-      
+
+   s := '•';
+   writeln(s, LENGTH_OF_STRING(s));
+   for k := 1 to LENGTH_OF_STRING(s) do
+      writeln(k, '  =>  ', s[k], ' , ', ord(s[k]));
+
    s := '≥';
    writeln(s, LENGTH_OF_STRING(s));
    for k := 1 to LENGTH_OF_STRING(s) do
@@ -516,7 +521,7 @@ begin
        end;
     }
 
-   a := 'Stéphane NICOLET æœ´„”’[å»ÛÁØ]ë“‘{¶«¡Çø}Âê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈◊ß~∞…÷≠çéèàùÒ∑√∆————–ß';
+   a := 'Stéphane NICOLET æœ´„”’[å»ÛÁØ]°•“‘{¶«¡Çø}ëÂê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈◊ß~∞…÷≠çéèàùÒ∑√∆————–ß';
 
    b := a;
    writeln('original string              : ', b);
@@ -532,7 +537,7 @@ end;
 
 
 begin
-    // testBasicString;
+    testBasicString;
 end.
 
 
