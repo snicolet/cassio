@@ -849,7 +849,7 @@ begin
 
                        if (tempsMoyenParPartieCalculee < 100.0)
                          then s := ReelEnStringAvecDecimales(tempsMoyenParPartieCalculee,2) + ' sec.'
-                         else s := ReplaceStringByStringInString(' sec.',' sec.',SecondesEnJoursHeuresSecondes(Trunc(tempsMoyenParPartieCalculee)));
+                         else s := ReplaceStringOnce(' sec.',' sec.',SecondesEnJoursHeuresSecondes(Trunc(tempsMoyenParPartieCalculee)));
 
                        WritelnDansRapport('temps moyen par partie ('+IntToStr(nbPartiesCalculees)+' parties) : ' + s);
                        WritelnDansRapport('temps restant estimŽ pour les '+IntToStr(nbPartiesRestantes)+' dernires parties : '+SecondesEnJoursHeuresSecondes(Trunc(tempsRestantEstime)));

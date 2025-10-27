@@ -15,7 +15,7 @@ procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; carac
 function SetPositionTeteLectureFichierTexte(var fic : FichierTEXT; position : SInt32) : OSErr;     external;
 function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;
 function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;     external;
 procedure ChercherLesErreursDansCeTranscript(var myTranscript : Transcript; var analyse : AnalyseDeTranscript);     external;

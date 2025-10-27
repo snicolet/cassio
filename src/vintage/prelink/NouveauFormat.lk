@@ -101,7 +101,7 @@ function OpenPrefsFileForSequentialReading : OSErr;     external;
 function EOFInPrefsFile : boolean;     external;
 function GetNextLineInPrefsFile(var s : String255) : OSErr;     external;
   procedure Parser2(s : String255; var s1,s2,reste : String255);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 function ClosePrefsFile : OSErr;     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
 function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;     external;

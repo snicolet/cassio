@@ -137,43 +137,43 @@ begin
   oldTexte  := texte;
 
   // parser le texte grossièrement
-  texte := ReplaceStringByStringInString('Prévenez Stéphane, SVP !','',texte);
-  texte := ReplaceStringByStringInString('Prevenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('Prévenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('Prévénez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('Sauvegardez le rapport et prévenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString(',prévenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString(', prévenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('(prévenez Stéphane)','',texte);
-  texte := ReplaceStringByStringInString('Merci de prévenir Stéphane','',texte);
+  texte := ReplaceStringOnce('Prévenez Stéphane, SVP !','',texte);
+  texte := ReplaceStringOnce('Prevenez Stéphane','',texte);
+  texte := ReplaceStringOnce('Prévenez Stéphane','',texte);
+  texte := ReplaceStringOnce('Prévénez Stéphane','',texte);
+  texte := ReplaceStringOnce('Sauvegardez le rapport et prévenez Stéphane','',texte);
+  texte := ReplaceStringOnce(',prévenez Stéphane','',texte);
+  texte := ReplaceStringOnce(', prévenez Stéphane','',texte);
+  texte := ReplaceStringOnce('(prévenez Stéphane)','',texte);
+  texte := ReplaceStringOnce('Merci de prévenir Stéphane','',texte);
 
-  texte := ReplaceStringByStringInString('Prévenez Stephane, SVP !','',texte);
-  texte := ReplaceStringByStringInString('Prevenez Stephane','',texte);
-  texte := ReplaceStringByStringInString('Prévenez Stephane','',texte);
-  texte := ReplaceStringByStringInString('Prévénez Stephane','',texte);
-  texte := ReplaceStringByStringInString('Sauvegardez le rapport et prévenez Stephane','',texte);
-  texte := ReplaceStringByStringInString(',prévenez Stephane','',texte);
-  texte := ReplaceStringByStringInString(', prévenez Stephane','',texte);
-  texte := ReplaceStringByStringInString('(prévenez Stephane)','',texte);
-  texte := ReplaceStringByStringInString('Merci de prévenir Stephane','',texte);
+  texte := ReplaceStringOnce('Prévenez Stephane, SVP !','',texte);
+  texte := ReplaceStringOnce('Prevenez Stephane','',texte);
+  texte := ReplaceStringOnce('Prévenez Stephane','',texte);
+  texte := ReplaceStringOnce('Prévénez Stephane','',texte);
+  texte := ReplaceStringOnce('Sauvegardez le rapport et prévenez Stephane','',texte);
+  texte := ReplaceStringOnce(',prévenez Stephane','',texte);
+  texte := ReplaceStringOnce(', prévenez Stephane','',texte);
+  texte := ReplaceStringOnce('(prévenez Stephane)','',texte);
+  texte := ReplaceStringOnce('Merci de prévenir Stephane','',texte);
 
-  texte := ReplaceStringByStringInString('Prevenez Stéphane, SVP !','',texte);
-  texte := ReplaceStringByStringInString('Prevenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('Prevénez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('Sauvegardez le rapport et prevenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString(',prevenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString(', prevenez Stéphane','',texte);
-  texte := ReplaceStringByStringInString('(prevenez Stéphane)','',texte);
-  texte := ReplaceStringByStringInString('Merci de prévenir Stéphane','',texte);
+  texte := ReplaceStringOnce('Prevenez Stéphane, SVP !','',texte);
+  texte := ReplaceStringOnce('Prevenez Stéphane','',texte);
+  texte := ReplaceStringOnce('Prevénez Stéphane','',texte);
+  texte := ReplaceStringOnce('Sauvegardez le rapport et prevenez Stéphane','',texte);
+  texte := ReplaceStringOnce(',prevenez Stéphane','',texte);
+  texte := ReplaceStringOnce(', prevenez Stéphane','',texte);
+  texte := ReplaceStringOnce('(prevenez Stéphane)','',texte);
+  texte := ReplaceStringOnce('Merci de prévenir Stéphane','',texte);
 
-  texte := ReplaceStringByStringInString('Prevenez Stephane, SVP !','',texte);
-  texte := ReplaceStringByStringInString('Prevenez Stephane','',texte);
-  texte := ReplaceStringByStringInString('Prévénez Stephane','',texte);
-  texte := ReplaceStringByStringInString('Sauvegardez le rapport et prevenez Stephane','',texte);
-  texte := ReplaceStringByStringInString(',prevenez Stephane','',texte);
-  texte := ReplaceStringByStringInString(', prevenez Stephane','',texte);
-  texte := ReplaceStringByStringInString('(prevenez Stephane)','',texte);
-  texte := ReplaceStringByStringInString('Merci de prévenir Stephane','',texte);
+  texte := ReplaceStringOnce('Prevenez Stephane, SVP !','',texte);
+  texte := ReplaceStringOnce('Prevenez Stephane','',texte);
+  texte := ReplaceStringOnce('Prévénez Stephane','',texte);
+  texte := ReplaceStringOnce('Sauvegardez le rapport et prevenez Stephane','',texte);
+  texte := ReplaceStringOnce(',prevenez Stephane','',texte);
+  texte := ReplaceStringOnce(', prevenez Stephane','',texte);
+  texte := ReplaceStringOnce('(prevenez Stephane)','',texte);
+  texte := ReplaceStringOnce('Merci de prévenir Stephane','',texte);
 
 
   if (oldTexte = texte)

@@ -26,7 +26,7 @@ procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; carac
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
   function ASeulementCeCaractere(c : char; var s : String255) : boolean;     external;
 function CassioIsUsingAnEngine(var numero : SInt32) : boolean;     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt32) : SInt32;     external;
 	function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;
 procedure ValidRect(r : rect);     external;

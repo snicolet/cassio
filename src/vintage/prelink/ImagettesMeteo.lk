@@ -9,7 +9,7 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 procedure WritelnStringDansRapport(s : String255);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);     external;

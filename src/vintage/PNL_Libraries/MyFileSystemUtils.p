@@ -1201,7 +1201,7 @@ begin
   ReplaceCharByCharInString(result, ' ','¥' );
 
   while (Pos('¥', result) > 0) do
-    result := ReplaceStringByStringInString('¥', '\ ', result);
+    result := ReplaceStringOnce('¥', '\ ', result);
 
   EscapeSpacesInUnixPath := result;
 

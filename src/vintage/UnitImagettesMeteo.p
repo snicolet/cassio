@@ -94,7 +94,7 @@ begin
   // qui utilisait les TIFF (moins efficaces ˆ afficher).
   // On cherche donc un .tiff ...
 
-  s := ReplaceStringByStringInString('.png', '.tiff', s);
+  s := ReplaceStringOnce('.png', '.tiff', s);
   with gFichiersPicture do
     begin
       for i := 1 to nbFichiers do

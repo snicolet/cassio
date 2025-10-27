@@ -22,4 +22,4 @@ function FichierTexteExisteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr; 
 	function ExtraitNomDeVolume(nomComplet : String255) : String255;     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
 	procedure SplitBy (s : String255; sub : char; var left, right: String255);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;

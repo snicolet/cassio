@@ -86,7 +86,7 @@ procedure CreeFichierGroupes;     external;
 procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);     external;
 	function IsDigit(ch : char) : boolean;     external;
   procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
   procedure Parser (s : String255; var tete,reste : String255);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;

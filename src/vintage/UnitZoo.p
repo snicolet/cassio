@@ -1710,7 +1710,7 @@ begin
             // meme si on l'envoie, mais la requete reseau est plus petite si on l'enleve !
 
 
-            s := ReplaceStringByStringInString(gZoo.urlDuZoo, '', action.debutLigne);
+            s := ReplaceStringOnce(gZoo.urlDuZoo, '', action.debutLigne);
             action.debutLigne := s;
 
 
@@ -2078,8 +2078,8 @@ begin
       aux1 := CopyLongString(job1);
       aux2 := CopyLongString(job2);
 
-      aux1.debutLigne := ReplaceStringByStringInString('PREFETCH ','JOB ',aux1.debutLigne);
-      aux2.debutLigne := ReplaceStringByStringInString('PREFETCH ','JOB ',aux2.debutLigne);
+      aux1.debutLigne := ReplaceStringOnce('PREFETCH ','JOB ',aux1.debutLigne);
+      aux2.debutLigne := ReplaceStringOnce('PREFETCH ','JOB ',aux2.debutLigne);
 
       NormaliserLongString(aux1);
       NormaliserLongString(aux2);
@@ -2100,7 +2100,7 @@ var selectivite,dist,distMin, i : SInt32;
     mu : String255;
 begin
 
-  cut    := ReplaceStringByStringInString('%','',cut);
+  cut    := ReplaceStringOnce('%','',cut);
   selectivite := ChaineEnLongint(cut);
 
   if (selectivite <= 0) or (selectivite >= 100) then selectivite := 100;

@@ -29,6 +29,8 @@ INTERFACE
 	function Trim (s : String255) : String255;
 	function LowerCase( ch : char ) : char;
 	function UpCase (ch : char) : char;
+
+
 	function IsDigit(ch : char) : boolean;
 	function IsLower(ch : char) : boolean;
 	function IsUpper(ch : char) : boolean;
@@ -59,19 +61,20 @@ INTERFACE
 	function SplitRightAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 
 	function FirstPos(const sub, str : String255) : SInt32;
-  function LastPos (sub, str : String255) : SInt16;
+    function LastPos (sub, str : String255) : SInt16;
 	function TPCopy (source : String255; start, count: SInt32) : String255;
 
 
 	function Match (pattern, name: String255) : boolean;
-  function StringBeginsWith(const s, pattern : String255) : boolean;
-  function EndsWith(const s : String255; const sub : String255) : boolean;
+    function StringBeginsWith(const s, pattern : String255) : boolean;
+    function EndsWith(const s : String255; const sub : String255) : boolean;
 	function EndsWithDeuxPoints(var s : String255) : boolean;
 
 
 	procedure LimitStringLength (var s : String255; len : SInt16; delimiter : char);
 	procedure MySetStringLength (var s : String255; len : SInt16);
-  function MyStr255ToString( const s : Str255 ) : String255;
+    function MyStr255ToString( const s : Str255 ) : String255;
+
 
 	function StringToOSType (const s : String255) : OSType;
 	function OSTypeToString (t : OSType) : String255;
@@ -128,7 +131,7 @@ INTERFACE
 	function EstUnNomDeFichierTronquePourPanther(const nomFichier : String255) : boolean;
 
 	function ChaineMirroir(const s : String255) : String255;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;
   function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
   function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
@@ -1542,105 +1545,105 @@ begin
 
       changed := false;
 
-      if Pos('&nbsp;',   s) > 0 then begin s := ReplaceStringByStringInString( '&nbsp;'   , ' ' , s); changed := true; end;
+      if Pos('&nbsp;',   s) > 0 then begin s := ReplaceStringOnce( '&nbsp;'   , ' ' , s); changed := true; end;
 
-      if Pos('&aelig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&aelig;'  , 'ae', s); changed := true; end;
-      if Pos('&AElig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&AElig;'  , 'AE', s); changed := true; end;
-      if Pos('&oelig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&oelig;'  , 'oe', s); changed := true; end;
-      if Pos('&OElig;',  s) > 0 then begin s := ReplaceStringByStringInString( '&OElig;'  , 'OE', s); changed := true; end;
+      if Pos('&aelig;',  s) > 0 then begin s := ReplaceStringOnce( '&aelig;'  , 'ae', s); changed := true; end;
+      if Pos('&AElig;',  s) > 0 then begin s := ReplaceStringOnce( '&AElig;'  , 'AE', s); changed := true; end;
+      if Pos('&oelig;',  s) > 0 then begin s := ReplaceStringOnce( '&oelig;'  , 'oe', s); changed := true; end;
+      if Pos('&OElig;',  s) > 0 then begin s := ReplaceStringOnce( '&OElig;'  , 'OE', s); changed := true; end;
 
-      if Pos('&Agrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Agrave;' , 'A' , s); changed := true; end;
-      if Pos('&Auml;' ,  s) > 0 then begin s := ReplaceStringByStringInString( '&Auml;'   , 'A' , s); changed := true; end;
-      if Pos('&Acirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Acirc;'  , 'A' , s); changed := true; end;
-      if Pos('&Aacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Aacute;' , 'A' , s); changed := true; end;
+      if Pos('&Agrave;', s) > 0 then begin s := ReplaceStringOnce( '&Agrave;' , 'A' , s); changed := true; end;
+      if Pos('&Auml;' ,  s) > 0 then begin s := ReplaceStringOnce( '&Auml;'   , 'A' , s); changed := true; end;
+      if Pos('&Acirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Acirc;'  , 'A' , s); changed := true; end;
+      if Pos('&Aacute;', s) > 0 then begin s := ReplaceStringOnce( '&Aacute;' , 'A' , s); changed := true; end;
 
-      if Pos('&Egrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Egrave;' , 'E' , s); changed := true; end;
-      if Pos('&Euml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Euml;'   , 'E' , s); changed := true; end;
-      if Pos('&Ecirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ecirc;'  , 'E' , s); changed := true; end;
-      if Pos('&Eacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Eacute;' , 'E' , s); changed := true; end;
+      if Pos('&Egrave;', s) > 0 then begin s := ReplaceStringOnce( '&Egrave;' , 'E' , s); changed := true; end;
+      if Pos('&Euml;',   s) > 0 then begin s := ReplaceStringOnce( '&Euml;'   , 'E' , s); changed := true; end;
+      if Pos('&Ecirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Ecirc;'  , 'E' , s); changed := true; end;
+      if Pos('&Eacute;', s) > 0 then begin s := ReplaceStringOnce( '&Eacute;' , 'E' , s); changed := true; end;
 
-      if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Icirc;'  , 'I' , s); changed := true; end;
-      if Pos('&Igrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Igrave;' , 'I' , s); changed := true; end;
-      if Pos('&Iacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Iacute;' , 'I' , s); changed := true; end;
-      if Pos('&Iulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Iulm;'   , 'I' , s); changed := true; end;
+      if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Icirc;'  , 'I' , s); changed := true; end;
+      if Pos('&Igrave;', s) > 0 then begin s := ReplaceStringOnce( '&Igrave;' , 'I' , s); changed := true; end;
+      if Pos('&Iacute;', s) > 0 then begin s := ReplaceStringOnce( '&Iacute;' , 'I' , s); changed := true; end;
+      if Pos('&Iulm;',   s) > 0 then begin s := ReplaceStringOnce( '&Iulm;'   , 'I' , s); changed := true; end;
 
-      if Pos('&Ocirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ocirc;'  , 'O' , s); changed := true; end;
-      if Pos('&Ograve;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ograve;' , 'O' , s); changed := true; end;
-      if Pos('&Oacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Oacute;' , 'O' , s); changed := true; end;
-      if Pos('&Oulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Oulm;'   , 'O' , s); changed := true; end;
+      if Pos('&Ocirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Ocirc;'  , 'O' , s); changed := true; end;
+      if Pos('&Ograve;', s) > 0 then begin s := ReplaceStringOnce( '&Ograve;' , 'O' , s); changed := true; end;
+      if Pos('&Oacute;', s) > 0 then begin s := ReplaceStringOnce( '&Oacute;' , 'O' , s); changed := true; end;
+      if Pos('&Oulm;',   s) > 0 then begin s := ReplaceStringOnce( '&Oulm;'   , 'O' , s); changed := true; end;
 
-      if Pos('&Ucirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ucirc;'  , 'U' , s); changed := true; end;
-      if Pos('&Ugrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ugrave;' , 'U' , s); changed := true; end;
-      if Pos('&Uacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Uacute;' , 'U' , s); changed := true; end;
-      if Pos('&Uulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Uulm;'   , 'U' , s); changed := true; end;
+      if Pos('&Ucirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Ucirc;'  , 'U' , s); changed := true; end;
+      if Pos('&Ugrave;', s) > 0 then begin s := ReplaceStringOnce( '&Ugrave;' , 'U' , s); changed := true; end;
+      if Pos('&Uacute;', s) > 0 then begin s := ReplaceStringOnce( '&Uacute;' , 'U' , s); changed := true; end;
+      if Pos('&Uulm;',   s) > 0 then begin s := ReplaceStringOnce( '&Uulm;'   , 'U' , s); changed := true; end;
 
-      if Pos('&Ycirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Ycirc;'  , 'Y' , s); changed := true; end;
-      if Pos('&Ygrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ygrave;' , 'Y' , s); changed := true; end;
-      if Pos('&Yacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&Yacute;' , 'Y' , s); changed := true; end;
-      if Pos('&Yulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&Yulm;'   , 'Y' , s); changed := true; end;
+      if Pos('&Ycirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Ycirc;'  , 'Y' , s); changed := true; end;
+      if Pos('&Ygrave;', s) > 0 then begin s := ReplaceStringOnce( '&Ygrave;' , 'Y' , s); changed := true; end;
+      if Pos('&Yacute;', s) > 0 then begin s := ReplaceStringOnce( '&Yacute;' , 'Y' , s); changed := true; end;
+      if Pos('&Yulm;',   s) > 0 then begin s := ReplaceStringOnce( '&Yulm;'   , 'Y' , s); changed := true; end;
 
-      if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&Icirc;'  , 'I' , s); changed := true; end;
+      if Pos('&Icirc;',  s) > 0 then begin s := ReplaceStringOnce( '&Icirc;'  , 'I' , s); changed := true; end;
 
-      if Pos('&Ntilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ntilde;' , 'N' , s); changed := true; end;
-      if Pos('&ntilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&ntilde;' , 'n' , s); changed := true; end;
-      if Pos('&Atilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Atilde;' , 'A' , s); changed := true; end;
-      if Pos('&atilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&atilde;' , 'a' , s); changed := true; end;
-      if Pos('&Etilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Etilde;' , 'E' , s); changed := true; end;
-      if Pos('&etilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&etilde;' , 'e' , s); changed := true; end;
-      if Pos('&Itilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Itilde;' , 'I' , s); changed := true; end;
-      if Pos('&itilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&itilde;' , 'i' , s); changed := true; end;
-      if Pos('&Otilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Otilde;' , 'O' , s); changed := true; end;
-      if Pos('&otilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&otilde;' , 'o' , s); changed := true; end;
-      if Pos('&Utilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Utilde;' , 'U' , s); changed := true; end;
-      if Pos('&utilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&utilde;' , 'u' , s); changed := true; end;
-      if Pos('&Ytilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ytilde;' , 'Y' , s); changed := true; end;
-      if Pos('&ytilde;', s) > 0 then begin s := ReplaceStringByStringInString( '&ytilde;' , 'y' , s); changed := true; end;
+      if Pos('&Ntilde;', s) > 0 then begin s := ReplaceStringOnce( '&Ntilde;' , 'N' , s); changed := true; end;
+      if Pos('&ntilde;', s) > 0 then begin s := ReplaceStringOnce( '&ntilde;' , 'n' , s); changed := true; end;
+      if Pos('&Atilde;', s) > 0 then begin s := ReplaceStringOnce( '&Atilde;' , 'A' , s); changed := true; end;
+      if Pos('&atilde;', s) > 0 then begin s := ReplaceStringOnce( '&atilde;' , 'a' , s); changed := true; end;
+      if Pos('&Etilde;', s) > 0 then begin s := ReplaceStringOnce( '&Etilde;' , 'E' , s); changed := true; end;
+      if Pos('&etilde;', s) > 0 then begin s := ReplaceStringOnce( '&etilde;' , 'e' , s); changed := true; end;
+      if Pos('&Itilde;', s) > 0 then begin s := ReplaceStringOnce( '&Itilde;' , 'I' , s); changed := true; end;
+      if Pos('&itilde;', s) > 0 then begin s := ReplaceStringOnce( '&itilde;' , 'i' , s); changed := true; end;
+      if Pos('&Otilde;', s) > 0 then begin s := ReplaceStringOnce( '&Otilde;' , 'O' , s); changed := true; end;
+      if Pos('&otilde;', s) > 0 then begin s := ReplaceStringOnce( '&otilde;' , 'o' , s); changed := true; end;
+      if Pos('&Utilde;', s) > 0 then begin s := ReplaceStringOnce( '&Utilde;' , 'U' , s); changed := true; end;
+      if Pos('&utilde;', s) > 0 then begin s := ReplaceStringOnce( '&utilde;' , 'u' , s); changed := true; end;
+      if Pos('&Ytilde;', s) > 0 then begin s := ReplaceStringOnce( '&Ytilde;' , 'Y' , s); changed := true; end;
+      if Pos('&ytilde;', s) > 0 then begin s := ReplaceStringOnce( '&ytilde;' , 'y' , s); changed := true; end;
 
-      if Pos('&copy;',   s) > 0 then begin s := ReplaceStringByStringInString( '&copy;'   , ''  , s); changed := true; end;
-      if Pos('&reg;',    s) > 0 then begin s := ReplaceStringByStringInString( '&reg;'    , ''  , s); changed := true; end;
+      if Pos('&copy;',   s) > 0 then begin s := ReplaceStringOnce( '&copy;'   , ''  , s); changed := true; end;
+      if Pos('&reg;',    s) > 0 then begin s := ReplaceStringOnce( '&reg;'    , ''  , s); changed := true; end;
 
-      if Pos('&agrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&agrave;' , 'a' , s); changed := true; end;
-      if Pos('&aacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&aacute;' , 'a' , s); changed := true; end;
-      if Pos('&acirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&acirc;'  , 'a' , s); changed := true; end;
-      if Pos('&auml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&auml;'   , 'a' , s); changed := true; end;
+      if Pos('&agrave;', s) > 0 then begin s := ReplaceStringOnce( '&agrave;' , 'a' , s); changed := true; end;
+      if Pos('&aacute;', s) > 0 then begin s := ReplaceStringOnce( '&aacute;' , 'a' , s); changed := true; end;
+      if Pos('&acirc;',  s) > 0 then begin s := ReplaceStringOnce( '&acirc;'  , 'a' , s); changed := true; end;
+      if Pos('&auml;',   s) > 0 then begin s := ReplaceStringOnce( '&auml;'   , 'a' , s); changed := true; end;
 
-      if Pos('&egrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&egrave;' , 'e' , s); changed := true; end;
-      if Pos('&eacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&eacute;' , 'e' , s); changed := true; end;
-      if Pos('&ecirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ecirc;'  , 'e' , s); changed := true; end;
-      if Pos('&euml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&euml;'   , 'e' , s); changed := true; end;
+      if Pos('&egrave;', s) > 0 then begin s := ReplaceStringOnce( '&egrave;' , 'e' , s); changed := true; end;
+      if Pos('&eacute;', s) > 0 then begin s := ReplaceStringOnce( '&eacute;' , 'e' , s); changed := true; end;
+      if Pos('&ecirc;',  s) > 0 then begin s := ReplaceStringOnce( '&ecirc;'  , 'e' , s); changed := true; end;
+      if Pos('&euml;',   s) > 0 then begin s := ReplaceStringOnce( '&euml;'   , 'e' , s); changed := true; end;
 
-      if Pos('&iuml;',   s) > 0 then begin s := ReplaceStringByStringInString( '&iuml;'   , 'i' , s); changed := true; end;
-      if Pos('&icirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&icirc;'  , 'i' , s); changed := true; end;
-      if Pos('&igrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&igrave;' , 'i' , s); changed := true; end;
-      if Pos('&iacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&iacute;' , 'i' , s); changed := true; end;
+      if Pos('&iuml;',   s) > 0 then begin s := ReplaceStringOnce( '&iuml;'   , 'i' , s); changed := true; end;
+      if Pos('&icirc;',  s) > 0 then begin s := ReplaceStringOnce( '&icirc;'  , 'i' , s); changed := true; end;
+      if Pos('&igrave;', s) > 0 then begin s := ReplaceStringOnce( '&igrave;' , 'i' , s); changed := true; end;
+      if Pos('&iacute;', s) > 0 then begin s := ReplaceStringOnce( '&iacute;' , 'i' , s); changed := true; end;
 
-      if Pos('&ocirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ocirc;'  , 'o' , s); changed := true; end;
-      if Pos('&ograve;', s) > 0 then begin s := ReplaceStringByStringInString( '&ograve;' , 'o' , s); changed := true; end;
-      if Pos('&oacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&oacute;' , 'o' , s); changed := true; end;
-      if Pos('&oulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&oulm;'   , 'o' , s); changed := true; end;
+      if Pos('&ocirc;',  s) > 0 then begin s := ReplaceStringOnce( '&ocirc;'  , 'o' , s); changed := true; end;
+      if Pos('&ograve;', s) > 0 then begin s := ReplaceStringOnce( '&ograve;' , 'o' , s); changed := true; end;
+      if Pos('&oacute;', s) > 0 then begin s := ReplaceStringOnce( '&oacute;' , 'o' , s); changed := true; end;
+      if Pos('&oulm;',   s) > 0 then begin s := ReplaceStringOnce( '&oulm;'   , 'o' , s); changed := true; end;
 
-      if Pos('&ugrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&ugrave;' , 'u' , s); changed := true; end;
-      if Pos('&uacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&uacute;' , 'u' , s); changed := true; end;
-      if Pos('&uuml;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&uuml;'   , 'u' , s); changed := true; end;
-      if Pos('&ucirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ucirc;'  , 'u' , s); changed := true; end;
+      if Pos('&ugrave;', s) > 0 then begin s := ReplaceStringOnce( '&ugrave;' , 'u' , s); changed := true; end;
+      if Pos('&uacute;', s) > 0 then begin s := ReplaceStringOnce( '&uacute;' , 'u' , s); changed := true; end;
+      if Pos('&uuml;'  , s) > 0 then begin s := ReplaceStringOnce( '&uuml;'   , 'u' , s); changed := true; end;
+      if Pos('&ucirc;',  s) > 0 then begin s := ReplaceStringOnce( '&ucirc;'  , 'u' , s); changed := true; end;
 
-      if Pos('&ycirc;',  s) > 0 then begin s := ReplaceStringByStringInString( '&ycirc;'  , 'y' , s); changed := true; end;
-      if Pos('&ygrave;', s) > 0 then begin s := ReplaceStringByStringInString( '&ygrave;' , 'y' , s); changed := true; end;
-      if Pos('&yacute;', s) > 0 then begin s := ReplaceStringByStringInString( '&yacute;' , 'y' , s); changed := true; end;
-      if Pos('&yulm;',   s) > 0 then begin s := ReplaceStringByStringInString( '&yulm;'   , 'y' , s); changed := true; end;
+      if Pos('&ycirc;',  s) > 0 then begin s := ReplaceStringOnce( '&ycirc;'  , 'y' , s); changed := true; end;
+      if Pos('&ygrave;', s) > 0 then begin s := ReplaceStringOnce( '&ygrave;' , 'y' , s); changed := true; end;
+      if Pos('&yacute;', s) > 0 then begin s := ReplaceStringOnce( '&yacute;' , 'y' , s); changed := true; end;
+      if Pos('&yulm;',   s) > 0 then begin s := ReplaceStringOnce( '&yulm;'   , 'y' , s); changed := true; end;
 
-      if Pos('&ccedil;', s) > 0 then begin s := ReplaceStringByStringInString( '&ccedil;' , 'c' , s); changed := true; end;
-      if Pos('&Ccedil;', s) > 0 then begin s := ReplaceStringByStringInString( '&Ccedil;' , 'C' , s); changed := true; end;
-      if Pos('&szlig;' , s) > 0 then begin s := ReplaceStringByStringInString( '&szlig;'  , 'ss', s); changed := true; end;
+      if Pos('&ccedil;', s) > 0 then begin s := ReplaceStringOnce( '&ccedil;' , 'c' , s); changed := true; end;
+      if Pos('&Ccedil;', s) > 0 then begin s := ReplaceStringOnce( '&Ccedil;' , 'C' , s); changed := true; end;
+      if Pos('&szlig;' , s) > 0 then begin s := ReplaceStringOnce( '&szlig;'  , 'ss', s); changed := true; end;
 
-      if Pos('&Oslash;', s) > 0 then begin s := ReplaceStringByStringInString( '&Oslash;' , 'O' , s); changed := true; end;
-      if Pos('&oslash;', s) > 0 then begin s := ReplaceStringByStringInString( '&oslash;' , 'o' , s); changed := true; end;
+      if Pos('&Oslash;', s) > 0 then begin s := ReplaceStringOnce( '&Oslash;' , 'O' , s); changed := true; end;
+      if Pos('&oslash;', s) > 0 then begin s := ReplaceStringOnce( '&oslash;' , 'o' , s); changed := true; end;
 
-      if Pos('&Aring;' , s) > 0 then begin s := ReplaceStringByStringInString( '&Aring;'  , 'A' , s); changed := true; end;
-      if Pos('&aring;' , s) > 0 then begin s := ReplaceStringByStringInString( '&aring;'  , 'a' , s); changed := true; end;
+      if Pos('&Aring;' , s) > 0 then begin s := ReplaceStringOnce( '&Aring;'  , 'A' , s); changed := true; end;
+      if Pos('&aring;' , s) > 0 then begin s := ReplaceStringOnce( '&aring;'  , 'a' , s); changed := true; end;
 
-      if Pos('&#321;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&#321;'   , 'L' , s); changed := true; end;  { pour le polonais }
-      if Pos('&#322;'  , s) > 0 then begin s := ReplaceStringByStringInString( '&#322;'   , 'l' , s); changed := true; end;  { pour le polonais }
+      if Pos('&#321;'  , s) > 0 then begin s := ReplaceStringOnce( '&#321;'   , 'L' , s); changed := true; end;  { pour le polonais }
+      if Pos('&#322;'  , s) > 0 then begin s := ReplaceStringOnce( '&#322;'   , 'l' , s); changed := true; end;  { pour le polonais }
 
       // WritelnDansRapport(s);
 
@@ -1785,7 +1788,7 @@ begin
 end;
 
 
-function ReplaceStringByStringInString(const pattern, replacement, s : String255) : String255;
+function ReplaceStringOnce(const pattern, replacement, s : String255) : String255;
 var positionSubstring : SInt32;
     res : String255;
 begin
@@ -1796,10 +1799,10 @@ begin
          res := s;
          DeleteString(res, positionSubstring, LENGTH_OF_STRING(pattern));
          Insert(replacement, res, positionSubstring);
-         ReplaceStringByStringInString := res;
+         ReplaceStringOnce := res;
        end
      else
-       ReplaceStringByStringInString := s;
+       ReplaceStringOnce := s;
 end;
 
 

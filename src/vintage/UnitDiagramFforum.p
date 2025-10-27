@@ -222,21 +222,21 @@ begin
           ReplaceCharByCharInString(str1,'-',' ');
         end;
 
-      str := ReplaceStringByStringInString('\', '\\', str);
+      str := ReplaceStringOnce('\', '\\', str);
 
-      str := ReplaceStringByStringInString('(',  '¹¹', str);
-    	str := ReplaceStringByStringInString('(',  '\(', str);
-    	str := ReplaceStringByStringInString('¹¹', '\(', str);
-    	str := ReplaceStringByStringInString(')',  '¹¹', str);
-    	str := ReplaceStringByStringInString(')',  '\)', str);
-    	str := ReplaceStringByStringInString('¹¹', '\)', str);
+      str := ReplaceStringOnce('(',  '¹¹', str);
+    	str := ReplaceStringOnce('(',  '\(', str);
+    	str := ReplaceStringOnce('¹¹', '\(', str);
+    	str := ReplaceStringOnce(')',  '¹¹', str);
+    	str := ReplaceStringOnce(')',  '\)', str);
+    	str := ReplaceStringOnce('¹¹', '\)', str);
     	
-    	str1 := ReplaceStringByStringInString('(',  '¹¹', str1);
-    	str1 := ReplaceStringByStringInString('(',  '\(', str1);
-    	str1 := ReplaceStringByStringInString('¹¹', '\(', str1);
-    	str1 := ReplaceStringByStringInString(')',  '¹¹', str1);
-    	str1 := ReplaceStringByStringInString(')',  '\)', str1);
-    	str1 := ReplaceStringByStringInString('¹¹', '\)', str1);
+    	str1 := ReplaceStringOnce('(',  '¹¹', str1);
+    	str1 := ReplaceStringOnce('(',  '\(', str1);
+    	str1 := ReplaceStringOnce('¹¹', '\(', str1);
+    	str1 := ReplaceStringOnce(')',  '¹¹', str1);
+    	str1 := ReplaceStringOnce(')',  '\)', str1);
+    	str1 := ReplaceStringOnce('¹¹', '\)', str1);
     	
     	if (str1 <> '') then str := str + ' ';
     	
@@ -479,10 +479,10 @@ begin
 
   result := oldname;
 
-  result := ReplaceStringByStringInString('\b','',result);
-  result := ReplaceStringByStringInString('  ',' ',result);
-  result := ReplaceStringByStringInString('  ',' ',result);
-  result := ReplaceStringByStringInString('  ',' ',result);
+  result := ReplaceStringOnce('\b','',result);
+  result := ReplaceStringOnce('  ',' ',result);
+  result := ReplaceStringOnce('  ',' ',result);
+  result := ReplaceStringOnce('  ',' ',result);
   ReplaceCharByCharInString(result,'/','-');
   ReplaceCharByCharInString(result,' ','-');
   ReplaceCharByCharInString(result,'Ê','-');
@@ -491,40 +491,40 @@ begin
   ReplaceCharByCharInString(result,'(','-');
   ReplaceCharByCharInString(result,')','-');
   ReplaceCharByCharInString(result,'É','.');
-  result := ReplaceStringByStringInString('V-d-','',result);
-  result := ReplaceStringByStringInString('-!-','-',result);
-  result := ReplaceStringByStringInString('-!','-',result);
-  result := ReplaceStringByStringInString('..','.',result);
-  result := ReplaceStringByStringInString('..','.',result);
-  result := ReplaceStringByStringInString('..','.',result);
-  result := ReplaceStringByStringInString('..','.',result);
-  result := ReplaceStringByStringInString('.-','-',result);
-  result := ReplaceStringByStringInString('.-','-',result);
-  result := ReplaceStringByStringInString('.-','-',result);
-  result := ReplaceStringByStringInString('-.','-',result);
-  result := ReplaceStringByStringInString('-.','-',result);
-  result := ReplaceStringByStringInString('-.','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
-  result := ReplaceStringByStringInString('--','-',result);
+  result := ReplaceStringOnce('V-d-','',result);
+  result := ReplaceStringOnce('-!-','-',result);
+  result := ReplaceStringOnce('-!','-',result);
+  result := ReplaceStringOnce('..','.',result);
+  result := ReplaceStringOnce('..','.',result);
+  result := ReplaceStringOnce('..','.',result);
+  result := ReplaceStringOnce('..','.',result);
+  result := ReplaceStringOnce('.-','-',result);
+  result := ReplaceStringOnce('.-','-',result);
+  result := ReplaceStringOnce('.-','-',result);
+  result := ReplaceStringOnce('-.','-',result);
+  result := ReplaceStringOnce('-.','-',result);
+  result := ReplaceStringOnce('-.','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
+  result := ReplaceStringOnce('--','-',result);
   while (result[1] = '-') do
-     result := ReplaceStringByStringInString('-','',result);
+     result := ReplaceStringOnce('-','',result);
 
   result := LeftOfString(result, 27) + '.';
 
-  result := ReplaceStringByStringInString('..','.',result);
-  result := ReplaceStringByStringInString('-.','.',result);
+  result := ReplaceStringOnce('..','.',result);
+  result := ReplaceStringOnce('-.','.',result);
 
   result := result + 'eps';
 
@@ -560,10 +560,10 @@ begin
       legende := EnleverTousLesChiffres(legende);                                    // pour enlever les scores
       legende := legende + '.¶';
       legende := EnleverLesCaracteresMajusculesEntreCesCaracteres(' ','.',legende);  // pour enlever les initiales de prenoms
-      legende := ReplaceStringByStringInString(' .¶','',legende);
-      legende := ReplaceStringByStringInString('.¶' ,'',legende);
-      legende := ReplaceStringByStringInString(' .',' ',legende);
-      legende := ReplaceStringByStringInString(' .',' ',legende);
+      legende := ReplaceStringOnce(' .¶','',legende);
+      legende := ReplaceStringOnce('.¶' ,'',legende);
+      legende := ReplaceStringOnce(' .',' ',legende);
+      legende := ReplaceStringOnce(' .',' ',legende);
     end;
 
   pathDossierEPS := pathDossierFichiersAuxiliaires + ':eps:';
@@ -582,7 +582,7 @@ begin
 
 
   nomFichierEPS := pathDossierEPS + nomFichierEPS;
-  nomFichierPDF := ReplaceStringByStringInString('.eps', '.pdf', nomFichierEPS);
+  nomFichierPDF := ReplaceStringOnce('.eps', '.pdf', nomFichierEPS);
 
 
   (*
@@ -971,16 +971,16 @@ begin
   while Pos(':',nomFichier) <> 0 do
     nomFichier := TPCopy(nomFichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
 
-  nomFichier := ReplaceStringByStringInString('.sof', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.sgf', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.ggf', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.SOF', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.SGF', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.GGF', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.pdf', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.PDF', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.eps', '', nomFichier);
-  nomFichier := ReplaceStringByStringInString('.EPS', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.sof', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.sgf', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.ggf', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.SOF', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.SGF', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.GGF', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.pdf', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.PDF', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.eps', '', nomFichier);
+  nomFichier := ReplaceStringOnce('.EPS', '', nomFichier);
 
   ParamDiagCourant.titreFFORUM^^ := '';
   ParamDiagCourant.commentPositionFFORUM^^ := '';

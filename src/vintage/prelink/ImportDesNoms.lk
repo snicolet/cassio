@@ -51,7 +51,7 @@ procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;
   function ContientUneLettre(const s : String255) : boolean;     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;
   function StripDiacritics(const s : String255) : String255;     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function MakeEmptyStringSet : StringSet;     external;
 function MakeEmptyATR : ATR;     external;

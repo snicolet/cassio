@@ -1498,7 +1498,7 @@ begin
               trouve := true;
 
               s := BufferToPascalString(buffer, position, len - 1);
-              s := ReplaceStringByStringInString(':',' : ',s);
+              s := ReplaceStringOnce(':',' : ',s);
 
               Parser2(s, commande, aux, argument);
 

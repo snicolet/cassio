@@ -91,7 +91,7 @@ procedure MyDisposeModalFilterUPP(var userUPP : ModalFilterUPP);     external;
 procedure GetCurrentScript(var currentScript : SInt32);     external;
 procedure SwitchToRomanScript;     external;
 procedure EndDialog;     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function MyTrunc(x : double) : SInt32;     external;
 function MakePoint(h,v : SInt32) : Point;     external;

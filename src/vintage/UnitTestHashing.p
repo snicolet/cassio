@@ -366,7 +366,7 @@ end;
 
 function UTF8ToAscii(const s : String255) : String255;     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 
 
 procedure LireEnigmePetitPoucet(nomFichier : String255);
@@ -425,7 +425,7 @@ begin
         ReplaceCharByCharInString(s, '-' , ' ');
 
         for k := 1 to 100 do
-          s := ReplaceStringByStringInString(' ','',s);
+          s := ReplaceStringOnce(' ','',s);
 
 
 

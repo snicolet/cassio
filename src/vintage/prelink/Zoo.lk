@@ -56,7 +56,7 @@ function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;  
 procedure DownloadURLToFichierAbstrait(numeroSlot : SInt32; var url : LongString; var whichFichierAbstrait : FichierAbstrait; terminationProc : FichierAbstraitLongintProc);     external;
 procedure SetDateDernierEnvoiRequeteSurReseau(date : SInt32);     external;
 function FindPermanentConnectionToHost( var host : String255; port : SInt32; var numeroSlot : SInt32) : boolean;     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
 procedure WritelnDansFichierLog(s : String255);     external;
 procedure AppendCharToLongString(var ligne : LongString; c : char);     external;
 function SendStringToPermanentConnection(var s : LongString; numeroSlot : SInt32) : boolean;     external;

@@ -13,7 +13,7 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 procedure MyParamText( const (*var*) param0: String255; const (*var*) param1: String255; const (*var*) param2: String255; const (*var*) param3: String255 );     external;
 procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, buttonID : SInt16);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
 	function RightOfString (const s : String255; len : SInt16) : String255;     external;

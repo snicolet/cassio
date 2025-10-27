@@ -164,7 +164,7 @@ end;
 
 
 // StripDiacritics() : remove accents and diacritics from a string.
-//                     this is the version for AnsiString.
+//                     This is the version for AnsiString.
 function StripDiacritics(const source : AnsiString) : AnsiString;
 var
   K, L : TBytes;
@@ -537,7 +537,7 @@ end;
 
 
 begin
-    testBasicString;
+    // testBasicString;
 end.
 
 

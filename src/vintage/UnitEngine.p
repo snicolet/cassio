@@ -388,12 +388,12 @@ end;
  *)
 procedure SetEngineVersion(numeroEngine : SInt64; version : String255);
 begin
-  version := ReplaceStringByStringInString('[[0]] version : ','',version);
-  version := ReplaceStringByStringInString('[[1]] version : ','',version);
-  version := ReplaceStringByStringInString('version : ','',version);
-  version := ReplaceStringByStringInString('[[0]] version: ','',version);
-  version := ReplaceStringByStringInString('[[1]] version: ','',version);
-  version := ReplaceStringByStringInString('version: ','',version);
+  version := ReplaceStringOnce('[[0]] version : ','',version);
+  version := ReplaceStringOnce('[[1]] version : ','',version);
+  version := ReplaceStringOnce('version : ','',version);
+  version := ReplaceStringOnce('[[0]] version: ','',version);
+  version := ReplaceStringOnce('[[1]] version: ','',version);
+  version := ReplaceStringOnce('version: ','',version);
 
   if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines) then
     begin
@@ -528,7 +528,7 @@ begin
          SplitBy(pathEngine,':',foo,pathUnix);         // enlever le nom du disque dur
          ReplaceCharByCharInString(pathUnix,':','/');  // separateurs a la mode UNIX
 
-         s := ReplaceStringByStringInString(':engine.sh','',pathEngine);
+         s := ReplaceStringOnce(':engine.sh','',pathEngine);
          SplitRightBy(s,':',foo,nomEngine);
          AddEngine(nomEngine,pathEngine);
 
@@ -1189,7 +1189,7 @@ begin
       aux.line := MyUpperString(s6,true);
       repeat
         s6 := aux.line;
-        aux.line := ReplaceStringByStringInString('PA','',aux.line);
+        aux.line := ReplaceStringOnce('PA','',aux.line);
       until (s6 = aux.line);
 
 
@@ -3026,7 +3026,7 @@ begin
   if (Pos('DEBUG : Roxane',s) = 1) and
      (Pos('oxane',GetEngineName(numeroEngineEnCours)) > 0) then
     begin
-      version := ReplaceStringByStringInString('DEBUG : ' , '' , s);
+      version := ReplaceStringOnce('DEBUG : ' , '' , s);
       SetEngineVersion(numeroEngineEnCours, version);
       exit(EnginePrintDebug);
     end;

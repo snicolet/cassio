@@ -2318,7 +2318,7 @@ begin
 
       if (Pos('STILL INCHARGE true', message) > 0) then
         begin
-          message := ReplaceStringByStringInString('STILL INCHARGE true','CALCULATING',message);
+          message := ReplaceStringOnce('STILL INCHARGE true','CALCULATING',message);
           if CassioEstEnTrainDeCalculerPourLeZoo then
             message := message + ' depth = ' + IntToStr(ProfDuCalculCourantDeCassioPourLeZoo);
         end;

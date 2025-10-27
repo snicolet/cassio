@@ -721,16 +721,16 @@ begin
   s := nom;
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringByStringInString('PrŽfŽrences','Preferences',nom);
+  s := ReplaceStringOnce('PrŽfŽrences','Preferences',nom);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringByStringInString('PrŽfŽrences','PreÌfeÌrences',nom);
+  s := ReplaceStringOnce('PrŽfŽrences','PreÌfeÌrences',nom);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringByStringInString('Preferences','PrŽfŽrences',nom);
+  s := ReplaceStringOnce('Preferences','PrŽfŽrences',nom);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringByStringInString('Preferences','PreÌfeÌrences',nom);
+  s := ReplaceStringOnce('Preferences','PreÌfeÌrences',nom);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   FichierPreferencesDeCassioExiste := erreurES;
@@ -1007,7 +1007,7 @@ begin
            (Distribution[k].path <> NIL) and (Distribution[k].name <> NIL) then
           begin
             chainePref := Distribution[k].path^ + Distribution[k].name^;
-            chainePref := ReplaceStringByStringInString(pathCassioFolder,'$CASSIO_FOLDER:',chainePref);
+            chainePref := ReplaceStringOnce(pathCassioFolder,'$CASSIO_FOLDER:',chainePref);
             erreurES := WritelnDansFichierTexte(fichierPref,'%baseActive = '+chainePref);
           end;
         end;
@@ -2367,7 +2367,7 @@ begin
     then nomDeLApplication := nomDuBundle;
 
 
-  nomDeLApplication := ReplaceStringByStringInString('.app','-app',nomDeLApplication);
+  nomDeLApplication := ReplaceStringOnce('.app','-app',nomDeLApplication);
 
   {
   WritelnDansRapport('nomDeLApplication = '+nomDeLApplication);

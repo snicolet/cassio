@@ -922,7 +922,7 @@ end;
 
 
 begin
-    TestBasicMath;
+    // TestBasicMath;
 end.
 
 

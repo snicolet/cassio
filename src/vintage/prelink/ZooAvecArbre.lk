@@ -28,7 +28,7 @@ function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 	function RightOfString (const s : String255; len : SInt16) : String255;     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;
 	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);     external;
-  function ReplaceStringByStringInString(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
 function LongStringIsEmpty(const ligne : LongString) : boolean;     external;
 function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;     external;

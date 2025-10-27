@@ -107,14 +107,14 @@ begin
         else leave;
 
   s := EnleveEspacesDeGauche(s);
-  s := ReplaceStringByStringInString('Ç','é',s);
-  s := ReplaceStringByStringInString('Ç','é',s);
-  s := ReplaceStringByStringInString('Ç','é',s);
-  s := ReplaceStringByStringInString('Ç','é',s);
-  s := ReplaceStringByStringInString('ä','è',s);
-  s := ReplaceStringByStringInString('ä','è',s);
-  s := ReplaceStringByStringInString('ä','è',s);
-  s := ReplaceStringByStringInString('ä','è',s);
+  s := ReplaceStringOnce('Ç','é',s);
+  s := ReplaceStringOnce('Ç','é',s);
+  s := ReplaceStringOnce('Ç','é',s);
+  s := ReplaceStringOnce('Ç','é',s);
+  s := ReplaceStringOnce('ä','è',s);
+  s := ReplaceStringOnce('ä','è',s);
+  s := ReplaceStringOnce('ä','è',s);
+  s := ReplaceStringOnce('ä','è',s);
 
   GetCommentOfThorParRec := s;
 end;

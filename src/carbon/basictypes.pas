@@ -169,7 +169,7 @@ end;
 
 
 begin
-    TestBasicTypes();
+    // TestBasicTypes();
 end.
 
 

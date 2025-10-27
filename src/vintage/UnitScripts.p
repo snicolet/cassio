@@ -622,7 +622,7 @@ begin {CreerQuizEnPHP}
 
   a := permutationDesNumerosDeQuiz[numeroQuiz];
 
-  nomQuizGenerique := ReplaceStringByStringInString('problemes_stepanov','stepanov',nomQuizGenerique);
+  nomQuizGenerique := ReplaceStringOnce('problemes_stepanov','stepanov',nomQuizGenerique);
   nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz),'','','');
 
 
@@ -635,11 +635,11 @@ begin {CreerQuizEnPHP}
 
 
       erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-      s := ReplaceStringByStringInString(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php',s);
+      s := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php',s);
       erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
 
-      nom_solution := ReplaceStringByStringInString('.php','_^0.php',GetNameOfFSSpec(fichierPHP.theFSSpec));
+      nom_solution := ReplaceStringOnce('.php','_^0.php',GetNameOfFSSpec(fichierPHP.theFSSpec));
 
 
 
@@ -716,7 +716,7 @@ begin {CreerQuizEnPHP}
 
 
       erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-      s := ReplaceStringByStringInString(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php',s);
+      s := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php',s);
       erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
       erreurES := FermeFichierTexte(fichierPHP);
@@ -747,11 +747,11 @@ begin {CreerQuizEnPHP}
 
 
                 erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-                s := ReplaceStringByStringInString(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php',s);
+                s := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php',s);
                 erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
 
-                nom_solution := ReplaceStringByStringInString('.php','_^0.php',GetNameOfFSSpec(fichierPHP.theFSSpec));
+                nom_solution := ReplaceStringOnce('.php','_^0.php',GetNameOfFSSpec(fichierPHP.theFSSpec));
 
 
 
@@ -833,7 +833,7 @@ begin {CreerQuizEnPHP}
 
 
                 erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-                s := ReplaceStringByStringInString(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php',s);
+                s := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php',s);
                 erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
                 erreurES := FermeFichierTexte(fichierPHP);
@@ -1004,7 +1004,7 @@ begin
 
                       (* On ecrit le diagramme de la position dans un fichier EPS *)
                       (*
-                      nomFichierEPS := ReplaceStringByStringInString('.script','_',nomScript);
+                      nomFichierEPS := ReplaceStringOnce('.script','_',nomScript);
                       nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
                       erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEPS);
@@ -1019,12 +1019,12 @@ begin
                       *)
 
                       (* On ecrit le diagramme de la position dans un fichier quiz PHP *)
-                      nomFichierPHP := ReplaceStringByStringInString('.script','_^0.php',nomScript);
+                      nomFichierPHP := ReplaceStringOnce('.script','_^0.php',nomScript);
                       CreerQuizEnPHP(nomFichierPHP,nbProblemesTraites,positionEtTrait,coupDeLaSolution,reste);
 
                       (* On cree l'imagette JPEG de la solution *)
                       (*
-                      CreerPositionQuizzEnJPEG(ParamStr(ReplaceStringByStringInString('.script','_^0.jpg',nomScript),IntToStr(nbProblemesTraites),'','',''),positionEtTrait);
+                      CreerPositionQuizzEnJPEG(ParamStr(ReplaceStringOnce('.script','_^0.jpg',nomScript),IntToStr(nbProblemesTraites),'','',''),positionEtTrait);
                       *)
 
 
@@ -1033,7 +1033,7 @@ begin
                       if UpdatePositionEtTrait(positionEtTrait, coupDeLaSolution)
                         then
                           begin
-			                      nomFichierEPS := ReplaceStringByStringInString('.script','_sol_',nomScript);
+			                      nomFichierEPS := ReplaceStringOnce('.script','_sol_',nomScript);
 			                      nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
 			                      erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEsPS);

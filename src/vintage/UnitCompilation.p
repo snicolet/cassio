@@ -623,7 +623,7 @@ function FabriquerNameOfPrelinkFile(const moduleName : String255) : String255;
 var result : String255;
 begin
   result := DeleteSubstringAfterThisChar('.',moduleName,false) + '.lk';
-  result := ReplaceStringByStringInString('Unit','',result);
+  result := ReplaceStringOnce('Unit','',result);
   FabriquerNameOfPrelinkFile := result;
 end;
 
@@ -631,7 +631,7 @@ function FabriquerNameOfExternalDeclarationsFile(const moduleName : String255) :
 var result : String255;
 begin
   result := DeleteSubstringAfterThisChar('.',moduleName,false) + '.ext';
-  result := ReplaceStringByStringInString('Unit','',result);
+  result := ReplaceStringOnce('Unit','',result);
   FabriquerNameOfExternalDeclarationsFile := result;
 end;
 
@@ -1169,11 +1169,11 @@ var lecture : LectureModulePtr;
             WritelnDansRapport('avant réduction, reste = '+reste);
 
             for i := 1 to 30 do
-              reste := ReplaceStringByStringInString(reste,',',' • ');
+              reste := ReplaceStringOnce(reste,',',' • ');
 
             ReplaceCharByCharInString(reste,'•',',');
 
-            reste := ReplaceStringByStringInString(';',' ;',reste);
+            reste := ReplaceStringOnce(';',' ;',reste);
 
             WritelnDansRapport('eprès réduction, reste = '+reste);
 
@@ -1201,10 +1201,10 @@ var lecture : LectureModulePtr;
               end;
 
             for i := 1 to 30 do
-              result := ReplaceStringByStringInString(', ,',',',result);
+              result := ReplaceStringOnce(', ,',',',result);
             for i := 1 to 30 do
-              result := ReplaceStringByStringInString(', ;',';',result);
-            result := ReplaceStringByStringInString(' ;',';',result);
+              result := ReplaceStringOnce(', ;',';',result);
+            result := ReplaceStringOnce(' ;',';',result);
 
             if (Pos('USES', result) <= 0) and (Pos('uses', result) <= 0)
               then ligne.debutLigne := '    '+result
@@ -1534,14 +1534,14 @@ var lecture : LectureModulePtr;
                       *)
 
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString('    ',' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringOnce('    ',' ',definition.debutLigne);
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString('  ',' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringOnce('  ',' ',definition.debutLigne);
 
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString(CharToString(tab),' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringOnce(CharToString(tab),' ',definition.debutLigne);
                       for i := 1 to 100 do
-                          definition.debutLigne := ReplaceStringByStringInString(CharToString(tab),' ',definition.debutLigne);
+                          definition.debutLigne := ReplaceStringOnce(CharToString(tab),' ',definition.debutLigne);
 
                       compteur := 0;
 
@@ -1561,14 +1561,14 @@ var lecture : LectureModulePtr;
                         s := EnleveEspacesDeDroite(s);
 
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString('    ',' ',s);
+                          s := ReplaceStringOnce('    ',' ',s);
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString('  ',' ',s);
+                          s := ReplaceStringOnce('  ',' ',s);
 
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString(CharToString(tab),' ',s);
+                          s := ReplaceStringOnce(CharToString(tab),' ',s);
                         for i := 1 to 100 do
-                          s := ReplaceStringByStringInString(CharToString(tab),' ',s);
+                          s := ReplaceStringOnce(CharToString(tab),' ',s);
 
                         AppendToLongString(definition,' '+s);
                         inc(compteur);
