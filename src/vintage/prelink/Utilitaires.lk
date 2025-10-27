@@ -16,7 +16,6 @@ function FiltreClassique(dlog : DialogPtr; var evt : eventRecord; var item : SIn
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 function GetGainTheoriqueParNroRefPartie(nroReference : SInt32) : String255;     external;
 function GetScoreReelParNroRefPartie(nroReference : SInt32) : SInt16;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure ExtraitPartieTableStockageParties(nroReference : SInt32; var partieStr : PackedThorGame);     external;
 procedure CalculeLesTraitsDeCettePartie(var s : PackedThorGame; var traitDansPartie : Tableau60Longint);     external;
 procedure OthellierEtPionsDeDepart(var plat : plateauOthello; var nBla,nNoi : SInt32);     external;

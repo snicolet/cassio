@@ -132,7 +132,7 @@ begin
 
   if cellule1.numeroDuCoup <> cellule1.numeroDuCoup then
     begin
-      RaiseError('Unification à des coups différents : #'+NumEnString(numCellule1)+' et #'+NumEnString(numCellule2));
+      RaiseError('Unification à des coups différents : #'+IntToStr(numCellule1)+' et #'+IntToStr(numCellule2));
       exit(UnifiePositions);
     end;
 
@@ -362,7 +362,7 @@ var nbInterversions,t : SInt16;
 begin
   nbInterversions := numeroInterversion[33];
 
-  WritelnDansRapport('nb interversions à apprendre = '+NumEnString(nbInterversions));
+  WritelnDansRapport('nb interversions à apprendre = '+IntToStr(nbInterversions));
   for t := 1 to nbInterversions do
     begin
       COPY_STR60_TO_PACKED_GAME(interversionFautive^^[t], faut);
@@ -374,7 +374,7 @@ begin
       ligne1 := ligne1_255;
       ligne2 := ligne2_255;
       AjouteInterversionDansGraphe(fichier,ligne1,ligne2,changed);
-      if (t mod 20) = 0 then WritelnDansRapport(NumEnString(t)+CharToString('…'));
+      if (t mod 20) = 0 then WritelnDansRapport(IntToStr(t)+CharToString('…'));
     end;
 end;
 

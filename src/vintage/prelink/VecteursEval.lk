@@ -14,7 +14,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function GetTailleReserveePourLesSegments : SInt32;     external;
 function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionnel) : boolean;     external;
 procedure AnnulePointMultidimensionnel(var p : PointMultidimensionnel);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WritelnStringDansRapport(s : String255);     external;
 procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);     external;
 procedure SetValeurDansPointMultidimensionnel(var p : PointMultidimensionnel; valeur : TypeReel);     external;

@@ -374,7 +374,7 @@ begin
 
       {le score si on est en references completes}
       if referencesCompletes and (scoreReel <> 0)
-        then commentaire := commentaire + nom + ' ' + NumEnString(scoreReel) + '—'  // note : c'est un tiret long (option — )
+        then commentaire := commentaire + nom + ' ' + IntToStr(scoreReel) + '—'  // note : c'est un tiret long (option — )
         else commentaire := commentaire + nom + ' — ';                              // note : c'est un tiret long (option — )
 
       {le nom du joueur blanc}
@@ -385,7 +385,7 @@ begin
 
       {le score si on est en references completes}
       if referencescompletes and (scoreReel <> 0)
-        then commentaire := commentaire + NumEnString(64-scoreReel) + ' ' + nom
+        then commentaire := commentaire + IntToStr(64-scoreReel) + ' ' + nom
         else commentaire := commentaire + nom;
 
       {des espaces pour faire joli}
@@ -393,12 +393,12 @@ begin
 
       {le tournoi et l'annee}
       s30 := GetNomTournoi(nroTournoi + DecalageTournoisSolitaires);
-      commentaire := commentaire + s30 + CharToString(' ') + NumEnString(annee);
-      ParamDiagPartieFFORUM.TitreFFORUM^^ := ParamDiagPartieFFORUM.TitreFFORUM^^ + ' ' + NumEnString(annee);
+      commentaire := commentaire + s30 + CharToString(' ') + IntToStr(annee);
+      ParamDiagPartieFFORUM.TitreFFORUM^^ := ParamDiagPartieFFORUM.TitreFFORUM^^ + ' ' + IntToStr(annee);
 
       {le numéro du coup}
       if referencescompletes then
-        commentaire := commentaire + ', c.' + NumEnString(60-nbVides+1);
+        commentaire := commentaire + ', c.' + IntToStr(60-nbVides+1);
 
 
 		end;
@@ -509,13 +509,13 @@ begin
 		  (*
 		  for k := 0 to 64 do
 		    begin
-		      WriteNumDansRapport('nb_sol['+NumEnString(k)+'] = ',tableNbSolitaires[k]);
-		      WritelnNumDansRapport('   cumule['+NumEnString(k)+'] = ',tableNbSolitairesCumules[k]);
+		      WriteNumDansRapport('nb_sol['+IntToStr(k)+'] = ',tableNbSolitaires[k]);
+		      WritelnNumDansRapport('   cumule['+IntToStr(k)+'] = ',tableNbSolitairesCumules[k]);
 		    end;
 		  for k := nbCasesMin to nbCasesMax do
 		    begin
-		      WriteNumDansRapport('nb_sol['+NumEnString(k)+'] = ',tableNbSolitaires[k]);
-		      WritelnNumDansRapport('   cumule['+NumEnString(k)+'] = ',tableNbSolitairesCumules[k]);
+		      WriteNumDansRapport('nb_sol['+IntToStr(k)+'] = ',tableNbSolitaires[k]);
+		      WritelnNumDansRapport('   cumule['+IntToStr(k)+'] = ',tableNbSolitairesCumules[k]);
 		    end;
 		  *)
 

@@ -514,7 +514,7 @@ begin
       j := coup div 10;
       SetRect(unRect,x+1+(i-1)*taillecaselecture,y+1+(j-1)*taillecaselecture,
                        x+i*taillecaselecture,y+j*taillecaselecture);
-      s := NumEnString(t);
+      s := IntToStr(t);
       larg := MyStringWidth(s);
       if (t >= 10) and (t <= 19)
         then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
@@ -783,7 +783,7 @@ begin
         AffichePositionLecture(PlatLecture,whichWindow);
         SetRect(unRect,x+1+(a-1)*taillecaselecture,y+1+(b-1)*taillecaselecture,
                x+a*taillecaselecture,y+b*taillecaselecture);
-        s := NumEnString(nbBlanc+nbNoir-4);
+        s := IntToStr(nbBlanc+nbNoir-4);
         larg := MyStringWidth(s);
         if (nbBlanc+nbNoir-4 >= 10) and (nbBlanc+nbNoir-4 <= 19)
           then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
@@ -813,7 +813,7 @@ begin
                 AffichePositionLecture(PlatLecture,whichWindow);
                 SetRect(unRect,x+1+(a-1)*taillecaselecture,y+1+(b-1)*taillecaselecture,
                                x+a*taillecaselecture,y+b*taillecaselecture);
-                s := NumEnString(nbBlanc+nbNoir-4);
+                s := IntToStr(nbBlanc+nbNoir-4);
                 larg := MyStringWidth(s);
                 if (nbBlanc+nbNoir-4 >= 10) and (nbBlanc+nbNoir-4 <= 19)
                   then Moveto((unRect.left+unRect.right-larg) div 2,unRect.bottom-4)
@@ -1059,8 +1059,8 @@ begin
 		      WritelnDansRapport('path = '+DistributionsNouveauFormat.Distribution[k].path^);
 		      WritelnDansRapport('nom = '+DistributionsNouveauFormat.Distribution[k].name^);
 		      WritelnDansRapport('nomUsuel = '+DistributionsNouveauFormat.Distribution[k].nomUsuel^);
-		      WritelnDansRapport('type = '+NumEnString(GetTypeDonneesDistribution(k)));
-		      WritelnDansRapport('    =>    '+NumEnString(NbTotalPartiesDansDistributionSet([k]))+' parties');
+		      WritelnDansRapport('type = '+IntToStr(GetTypeDonneesDistribution(k)));
+		      WritelnDansRapport('    =>    '+IntToStr(NbTotalPartiesDansDistributionSet([k]))+' parties');
 
 		    end;
 		  WritelnDansRapport('');
@@ -1075,7 +1075,7 @@ begin
 		    if filtre(nroDistrib) then
 			    begin
 			      s := DistributionsNouveauFormat.Distribution[nroDistrib].nomUsuel^;
-			      {s := s + ' ('+NumEnString(NbTotalPartiesDansDistributionSet([nroDistrib]))+')';}
+			      {s := s + ' ('+IntToStr(NbTotalPartiesDansDistributionSet([nroDistrib]))+')';}
 			      s := Concat(' ',s);
 			      s := EnleveEspacesDeDroite(s);
 			      MyInsertMenuItem(MenuFlottantBases,s,1000);
@@ -1220,14 +1220,14 @@ begin
       end
     else
       begin
-			  s := NumEnString(NbPartiesPotentiellementLues);
+			  s := IntToStr(NbPartiesPotentiellementLues);
 
 			  case genreDeTestPourAnnee of
-			    testEgalite  :        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,13),s,NumEnString(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testSuperieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,NumEnString(anneeRecherche-1),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testInferieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,NumEnString(anneeRecherche+1),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testSuperieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,NumEnString(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testInferieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,NumEnString(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+			    testEgalite  :        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,13),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testSuperieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche-1),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testInferieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche+1),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testSuperieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testInferieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
 				end;
 		  end;
   SetPort(oldPort);
@@ -1243,7 +1243,7 @@ begin
   GetPort(oldPort);
   SetPortByWindow(whichWindow);
   CalculeNbTotalPartiesDansDistributionsALire;
-  s := NumEnString(ChoixDistributions.NbTotalPartiesDansDistributionsALire);
+  s := IntToStr(ChoixDistributions.NbTotalPartiesDansDistributionsALire);
   EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,1),s,'','',''),20,kYpositionNbPartiesDansBase);
   SetPort(oldPort);
 end;
@@ -1669,7 +1669,7 @@ begin
      DeleteString(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
 
    chaine := chaine + nomjoueur;
-   s := NumEnString(Partiebuff.scoreReel);
+   s := IntToStr(Partiebuff.scoreReel);
    chaine := chaine + CharToString(' ')+s+'  ';
    nomJoueur := GetNomJoueur(Partiebuff.nroJoueurBlanc);
    nomJoueur := DeleteSpacesBefore(nomJoueur,LENGTH_OF_STRING(nomJoueur));
@@ -1677,21 +1677,21 @@ begin
      DeleteString(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
 
    chaine := chaine + nomjoueur;
-   s := NumEnString(64-Partiebuff.scoreReel);
+   s := IntToStr(64-Partiebuff.scoreReel);
    chaine := chaine + CharToString(' ')+s+'   ';
 
    nomTournoi := GetNomTournoi(Partiebuff.nroTournoi);
    TraduitNomTournoiEnMac(nomtournoi,nomtournoi);
    for i := 1 to LENGTH_OF_STRING(nomtournoi) do
      chaine := chaine + nomtournoi[i];
-   chaine := chaine + ' '+NumEnString(anneePartie);
+   chaine := chaine + ' '+IntToStr(anneePartie);
    SetPortByDialog(dp);
    TextSize(gCassioSmallFontSize);
    TextFont(gCassioApplicationFont);
    SetRect(unRect,0,148,500,172);
    MyEraseRect(unRect);
    MyEraseRectWithColor(unRect,OrangeCmd,blackPattern,'');
-   s := NumEnString(numeroPartie);
+   s := IntToStr(numeroPartie);
    chaine := chaine + '        '+ParamStr(ReadStringFromRessource(TextesBaseID,2),s,'','','');  {Partie n¡ ^0}
    WriteStringAt(chaine,10,168);
    TextSize(0);
@@ -2247,9 +2247,9 @@ begin  {ChargerLaBase}
   nroDistributionFichierCourant := InfosFichiersNouveauFormat.fichiers[numeroFichierCourant].nroDistribution;
 
   {
-  EcritMessageLectureBase('annee fichier = '+NumEnString(anneeFichierCourant),20,kYpositionMessageBase);
+  EcritMessageLectureBase('annee fichier = '+IntToStr(anneeFichierCourant),20,kYpositionMessageBase);
   AttendFrappeClavierOuSouris(effetspecial2);
-  EcritMessageLectureBase('annee recherche = '+NumEnString(anneeRecherche),20,kYpositionMessageBase);
+  EcritMessageLectureBase('annee recherche = '+IntToStr(anneeRecherche),20,kYpositionMessageBase);
 	AttendFrappeClavierOuSouris(effetspecial2);
 	}
 
@@ -2323,7 +2323,7 @@ begin  {ChargerLaBase}
 		        (*
 		        if effetspecial2 then
 		           begin
-		             EcritMessageLectureBase('partie #'+NumEnString(compteurPartieDansFichierCourant)+' : lecture OK',20,kYpositionMessageBase);
+		             EcritMessageLectureBase('partie #'+IntToStr(compteurPartieDansFichierCourant)+' : lecture OK',20,kYpositionMessageBase);
 		             AttendFrappeClavierOuSouris(effetspecial2);
 		           end;
 		        *)
@@ -2335,11 +2335,11 @@ begin  {ChargerLaBase}
 		          (*
 		          if effetspecial2 then
 		          begin
-		            EcritMessageLectureBase('nro Noir = '+NumEnString(nroJoueurNoir)+ ', soit '+GetNomJoueur(nroJoueurNoir),20,kYpositionMessageBase);
+		            EcritMessageLectureBase('nro Noir = '+IntToStr(nroJoueurNoir)+ ', soit '+GetNomJoueur(nroJoueurNoir),20,kYpositionMessageBase);
 		            AttendFrappeClavierOuSouris(effetspecial2);
-		            EcritMessageLectureBase('nro Blanc = '+NumEnString(nroJoueurBlanc)+ ', soit '+GetNomJoueur(nroJoueurBlanc),20,kYpositionMessageBase);
+		            EcritMessageLectureBase('nro Blanc = '+IntToStr(nroJoueurBlanc)+ ', soit '+GetNomJoueur(nroJoueurBlanc),20,kYpositionMessageBase);
 		            AttendFrappeClavierOuSouris(effetspecial2);
-		            EcritMessageLectureBase('nro Tournoi = '+NumEnString(nroTournoi)+ ', soit '+GetNomTournoi(nroTournoi),20,kYpositionMessageBase);
+		            EcritMessageLectureBase('nro Tournoi = '+IntToStr(nroTournoi)+ ', soit '+GetNomTournoi(nroTournoi),20,kYpositionMessageBase);
 		            AttendFrappeClavierOuSouris(effetspecial2);
 		          end;
 		          *)
@@ -2356,8 +2356,8 @@ begin  {ChargerLaBase}
 		            if effetspecial2 then
 		              begin
 		                if compatibiliteTournoi
-		                  then EcritMessageLectureBase('partie #'+NumEnString(compteurPartieDansFichierCourant)+' : compatibilite tournoi = true',20,kYpositionMessageBase)
-		                  else EcritMessageLectureBase('partie #'+NumEnString(compteurPartieDansFichierCourant)+' : compatibilite tournoi = false',20,kYpositionMessageBase);
+		                  then EcritMessageLectureBase('partie #'+IntToStr(compteurPartieDansFichierCourant)+' : compatibilite tournoi = true',20,kYpositionMessageBase)
+		                  else EcritMessageLectureBase('partie #'+IntToStr(compteurPartieDansFichierCourant)+' : compatibilite tournoi = false',20,kYpositionMessageBase);
 		                AttendFrappeClavierOuSouris(effetspecial2);
 		              end;
 		            *)
@@ -2375,8 +2375,8 @@ begin  {ChargerLaBase}
 		                 if effetspecial2 then
 		                   begin
 		                     if compatibiliteJoueurs
-		                       then EcritMessageLectureBase('partie #'+NumEnString(compteurPartieDansFichierCourant)+' : compatibilite Joueurs = true',20,kYpositionMessageBase)
-		                       else EcritMessageLectureBase('partie #'+NumEnString(compteurPartieDansFichierCourant)+' : compatibilite Joueurs = false',20,kYpositionMessageBase);
+		                       then EcritMessageLectureBase('partie #'+IntToStr(compteurPartieDansFichierCourant)+' : compatibilite Joueurs = true',20,kYpositionMessageBase)
+		                       else EcritMessageLectureBase('partie #'+IntToStr(compteurPartieDansFichierCourant)+' : compatibilite Joueurs = false',20,kYpositionMessageBase);
 		                     AttendFrappeClavierOuSouris(effetspecial2);
 		                   end;
 		                 *)
@@ -3099,7 +3099,7 @@ begin
 
       if (err = NoErr) and (taille > 0) then
         begin
-          (* WritelnDansRapportThreadSafe('Le fichier '+pathFichierTelecharge+' contient '+NumEnString(taille) + ' octets'); *)
+          (* WritelnDansRapportThreadSafe('Le fichier '+pathFichierTelecharge+' contient '+IntToStr(taille) + ' octets'); *)
 
           if EstUnFichierNouveauFormat(fic.theFSSpec, typeDonnees, entete) then
             begin
@@ -3120,7 +3120,7 @@ begin
                     then
                       begin
                         WritelnDansRapportThreadSafe('');
-                        WritelnDansRapportThreadSafe('I encountered an error or a warning ('+NumEnString(err)+') while trying to update the Database folder for file '+nomFichierWthorOfficiel);
+                        WritelnDansRapportThreadSafe('I encountered an error or a warning ('+IntToStr(err)+') while trying to update the Database folder for file '+nomFichierWthorOfficiel);
                         WritelnDansRapportThreadSafe('NB : the following downloaded file is however maybe usable (it is in a correct WThor format), use wisely:');
                         err := FSSpecToFullPath(fic.theFSSpec,path);
                         WritelnDansRapportThreadSafe('      '+path);

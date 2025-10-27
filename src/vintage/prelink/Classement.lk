@@ -12,7 +12,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function GetNroJoueurNoirParNroRefPartie(nroReference : SInt32) : SInt32;     external;
 function GetNroJoueurBlancParNroRefPartie(nroReference : SInt32) : SInt32;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetAnneePartieParNroRefPartie(nroReference : SInt32) : SInt16;     external;
 function GetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32) : SInt32;     external;
 procedure SetAnneePremierePartieDeCeJoueur(nroJoueur : SInt32; annee : SInt32);     external;

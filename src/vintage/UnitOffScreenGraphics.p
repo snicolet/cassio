@@ -160,7 +160,7 @@ begin
   if (wasPort <> NIL) then
     begin
       {aux := GetHandleSize(Handle(wasPort^.portPixMap^^.pmTable));
-      NumEnString(aux,s);
+      IntToStr(aux,s);
       WritelnDansRapport('taille de la table des couleurs = '+s);}
 
       if killColorTable and (wasPort^.portPixMap^^.pmTable <> NIL) and

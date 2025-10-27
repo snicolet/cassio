@@ -141,7 +141,7 @@ begin
 		      end
 		    else
 		      begin
-		        WritelnDansRapport('ERREUR : depth = '+NumEnString(depth)+' dans SetPathNodeEndgameTree');
+		        WritelnDansRapport('ERREUR : depth = '+IntToStr(depth)+' dans SetPathNodeEndgameTree');
 		      end;
 end;
 
@@ -209,7 +209,7 @@ begin
 				      end
 				    else
 				      begin
-				        WritelnDansRapport('ERREUR : depth = '+NumEnString(depth)+' dans PathNodeEstValideEndgameTree');
+				        WritelnDansRapport('ERREUR : depth = '+IntToStr(depth)+' dans PathNodeEstValideEndgameTree');
 				        PathNodeEstValideEndgameTree := false;
 				      end;
 			end;
@@ -407,7 +407,7 @@ begin
 		              activeDepth   := 0;
 		              initialCookie := NewMagicCookie;
 
-		              (* WritelnDansRapport('trouvŽ ! => AllocateNewEndgameTree('+NumEnString(i)+')'); *)
+		              (* WritelnDansRapport('trouvŽ ! => AllocateNewEndgameTree('+IntToStr(i)+')'); *)
 
 		              AllocateNewEndgameTree := true;
 		              numeroArbre := i;
@@ -419,7 +419,7 @@ end;
 procedure LibereEndgameTree(numeroArbre : SInt32);
 var d : SInt32;
 begin
-  (* WritelnDansRapport('LibereEndgameTree('+NumEnString(numeroArbre)+')'); *)
+  (* WritelnDansRapport('LibereEndgameTree('+IntToStr(numeroArbre)+')'); *)
   with endgameTrees do
     begin
       if (numeroArbre >= 1) and (numeroArbre <= kNbMaxEndgameTrees) then

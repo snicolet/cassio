@@ -33,7 +33,6 @@ function SetEOFFichierTexte(var fic : FichierTEXT; posEOF : SInt32) : OSErr;    
 function SetPositionTeteLectureFichierTexte(var fic : FichierTEXT; position : SInt32) : OSErr;     external;
 function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 	function MyTrunc(x : double) : SInt32;     external;

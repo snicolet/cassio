@@ -207,7 +207,7 @@ var itemType : SInt16;
 begin
   GetDialogItem(dp,itemNumber,itemType,itemHandle,itemrect);
   aux := value;
-  s := NumEnString(aux);
+  s := IntToStr(aux);
   SetDialogItemText(itemHandle,StringToStr255(s));
 end;
 
@@ -236,7 +236,7 @@ var itemType : SInt16;
 begin
   GetDialogItem(dp,itemNumber,itemType,itemHandle,itemrect);
   aux := value;
-  s := NumEnString(aux);
+  s := IntToStr(aux);
   SetDialogItemText(itemHandle,StringToStr255(s));
 end;
 
@@ -411,7 +411,7 @@ begin
   if LENGTH_OF_STRING(s1) > 0 then
     begin
       ChaineToLongint(s1,unlong);
-      s1 := NumEnString(unlong);
+      s1 := IntToStr(unlong);
       if (unlong = 0) and (LENGTH_OF_STRING(s1) = 0) then s1 := '';
     end;
   if s1 <> s then SetDialogItemText(itemhandle,StringToStr255(s1));

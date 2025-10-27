@@ -71,7 +71,6 @@ procedure DoChangeHumCtreHum;     external;
 procedure DoChangeCouleur;     external;
 procedure EssaieSetPortWindowPlateau;     external;
 procedure PrepareTexteStatePourHeure;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function EnModeEntreeTranscript : boolean;     external;
 procedure EraseRectDansWindowPlateau(whichRect : rect);     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;

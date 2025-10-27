@@ -20,7 +20,6 @@ procedure DecompresserBornesHashTableExacte(var whichElement : HashTableExacteEl
 function GetBestDefenseDansHashExacte(var cellule : HashTableExacteElement) : SInt32;     external;
 procedure CompresserBornesDansHashTableExacte(var whichElement : HashTableExacteElement; var bornes : DecompressionHashExacteRec);     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);     external;
 procedure ExpandHashTableExacte(var whichElement : HashTableExacteElement; var whichLegalMoves : CoupsLegauxHashPtr; var codagePosition : codePositionRec; clefHashExacte : SInt32);     external;
 function NbMaxEndgameTrees : SInt32;     external;

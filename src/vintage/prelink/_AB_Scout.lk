@@ -22,7 +22,6 @@ function SquareSetToPlatBool(theSet : SquareSet) : plBool;     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure EcranStandard(clipRegion : RgnHandle; forcedErase : boolean);     external;
 procedure EcritPositionAt(var plat : plateauOthello; hpos,vpos : SInt16);     external;
 	procedure AttendFrappeClavierOuSouris(var isKeyEvent : boolean);     external;

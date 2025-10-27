@@ -10,7 +10,6 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function PositionDansStringAlphaEnCoup(const s : String255; positionDansChaine : SInt16) : SInt16;     external;

@@ -23,7 +23,6 @@ function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; v
 function PositionEtTraitAfterMoveNumber(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;     external;
 function PositionEtTraitInitiauxStandard : PositionEtTraitRec;     external;
 function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 procedure OthellierDeDepart(var plat : plateauOthello);     external;

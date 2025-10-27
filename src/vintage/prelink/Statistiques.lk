@@ -23,7 +23,6 @@ function QDGetPortBound : rect;     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function SeparerLesChiffresParTrois(var s : String255) : String255;     external;
 	function StringWidthPourGNUPascal(const s : String255): SInt16;     external;
 procedure ExtraitPremierCoup(var premierCoup : SInt16; var autreCoupQuatreDiag : boolean);     external;

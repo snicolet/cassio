@@ -669,12 +669,12 @@ begin {AjouterPartiesFichierPGNDansListe}
   if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichierPGN.theFSSpec))
     then
       if (nbPartiesDansFichierPGN > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),NumEnString(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),NumEnString(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
+        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
+        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
     else
       if (nbPartiesDansFichierPGN > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),NumEnString(nbPartiesImportees),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),NumEnString(nbPartiesImportees),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
+        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
+        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
   WritelnDansRapport('');
 
 
@@ -1146,20 +1146,20 @@ begin {AjouterPartiesFichierDestructureDansListe}
   if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichier.theFSSpec))
     then
       if (nbPartiesDansFic > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),NumEnString(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),NumEnString(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
+        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
+        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
     else
       if (nbPartiesDansFic > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),NumEnString(nbPartiesDansFic),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),NumEnString(nbPartiesDansFic),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
+        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
+        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
 
   if (nbPartiesIllegales > 1)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,48),NumEnString(nbPartiesIllegales),'','','')) else  {Il y avait ^0 parties trop courtes ou illégales}
+    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,48),IntToStr(nbPartiesIllegales),'','','')) else  {Il y avait ^0 parties trop courtes ou illégales}
   if (nbPartiesIllegales = 1)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,47),NumEnString(nbPartiesIllegales),'','',''));  {Il y avait ^0 partie trop courte ou illégale}
+    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,47),IntToStr(nbPartiesIllegales),'','',''));  {Il y avait ^0 partie trop courte ou illégale}
 
   if (nbPartiesDansFic < nombreDeLignesLues)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,46),NumEnString(nombreDeLignesLues),'','',''));   {Pour info, ce fichier contenait ^0 lignes}
+    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,46),IntToStr(nombreDeLignesLues),'','',''));   {Pour info, ce fichier contenait ^0 lignes}
   {WritelnNumDansRapport('temps de lecture en ticks = ',TickCount - tickDepart);}
 
   WritelnDansRapport('');
@@ -1369,7 +1369,7 @@ begin
       COPY_PACKED_GAME_TO_STR60(theGame,partie60);
 
       (* un numero (non fixe entre les sessions de Cassio) pour la partie *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_GAME_ID'        ,NumEnString(numeroReference)                                                   ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_GAME_ID'        ,IntToStr(numeroReference)                                                   ,ligne);
 
       (* les coups de la partie *)
       ligne := ReplaceVariableByStringInString(       '$CASSIO_THOR_MOVES'     ,partie60                                                                       ,ligne);
@@ -1381,7 +1381,7 @@ begin
       if EstUnePartieAvecTournoiJaponais(numeroReference)
         then ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,GetNomJaponaisDuTournoiParNroRefPartie(numeroReference)                        ,ligne)
         else ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_NUMBER'   ,NumEnString(GetNroTournoiParNroRefPartie(numeroReference))                     ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_NUMBER'   ,IntToStr(GetNroTournoiParNroRefPartie(numeroReference))                     ,ligne);
 
       { bien penser a mettre toutes les variables qui commencent par $CASSIO_TOURN avant la ligne suivante }
       ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN'          ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
@@ -1396,25 +1396,25 @@ begin
       if EstUnePartieAvecJoueurBlancJaponais(numeroReference)
         then ligne := ReplaceVariableByStringInString('$CASSIO_WHITE_JAPANESE' ,GetNomJaponaisDuJoueurBlancParNroRefPartie(numeroReference)                    ,ligne)
         else ligne := ReplaceVariableByStringInString('$CASSIO_WHITE_JAPANESE' ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference)                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_NUMBER'   ,NumEnString(GetNroJoueurNoirParNroRefPartie(numeroReference))                  ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_NUMBER'   ,NumEnString(GetNroJoueurBlancParNroRefPartie(numeroReference))                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_FFO'      ,NumEnString(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_FFO'      ,NumEnString(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_NUMBER'   ,IntToStr(GetNroJoueurNoirParNroRefPartie(numeroReference))                  ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_NUMBER'   ,IntToStr(GetNroJoueurBlancParNroRefPartie(numeroReference))                 ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
 
       { bien pensser a mettre toutes les variables qui commencent par $CASSIO_BLACK et $CASSIO_WHITE avant les deux lignes suivantes }
       ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK'          ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference)                  ,ligne);
       ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE'          ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference)                 ,ligne);
 
       (* les scores reels et theoriques *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_BLACK'    ,NumEnString(GetScoreReelParNroRefPartie(numeroReference))                      ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_WHITE'    ,NumEnString(64-GetScoreReelParNroRefPartie(numeroReference))                   ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_BLACK'    ,NumEnString(GetScoreTheoriqueParNroRefPartie(numeroReference))                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_WHITE'    ,NumEnString(64-GetScoreTheoriqueParNroRefPartie(numeroReference))              ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_BLACK'    ,IntToStr(GetScoreReelParNroRefPartie(numeroReference))                      ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_WHITE'    ,IntToStr(64-GetScoreReelParNroRefPartie(numeroReference))                   ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_BLACK'    ,IntToStr(GetScoreTheoriqueParNroRefPartie(numeroReference))                 ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_WHITE'    ,IntToStr(64-GetScoreTheoriqueParNroRefPartie(numeroReference))              ,ligne);
       ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_WINNER'   ,GetGainTheoriqueParNroRefPartie(numeroReference)                               ,ligne);
 
       (* le nom de la base et l'annee *)
       ligne := ReplaceVariableByStringInString(       '$CASSIO_BASE'           ,GetNomDistributionParNroRefPartie(numeroReference)                             ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_YEAR'           ,NumEnString(GetAnneePartieParNroRefPartie(numeroReference))                    ,ligne);
+      ligne := ReplaceVariableByStringInString(       '$CASSIO_YEAR'           ,IntToStr(GetAnneePartieParNroRefPartie(numeroReference))                    ,ligne);
 
 
       (* echappement *)
@@ -1427,7 +1427,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));     {'Export : ^0 parties…'}
+        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1444,7 +1444,7 @@ begin
       ligne := '[Event "'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[Date "'+NumEnString(GetAnneePartieParNroRefPartie(numeroReference))+'.01.01"]';
+      ligne := '[Date "'+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+'.01.01"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       ligne := '[Round "-"]';
@@ -1459,12 +1459,12 @@ begin
       ligne := '[White "'+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[Result "'+NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
-                           NumEnString(64-GetScoreReelParNroRefPartie(numeroReference))+'"]';
+      ligne := '[Result "'+IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
+                           IntToStr(64-GetScoreReelParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
-      ligne := '[TheoreticalScore "'+NumEnString(GetScoreTheoriqueParNroRefPartie(numeroReference)) + '-' +
-                                     NumEnString(64-GetScoreTheoriqueParNroRefPartie(numeroReference))+'"]';
+      ligne := '[TheoreticalScore "'+IntToStr(GetScoreTheoriqueParNroRefPartie(numeroReference)) + '-' +
+                                     IntToStr(64-GetScoreTheoriqueParNroRefPartie(numeroReference))+'"]';
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       erreurES := WritelnDansFichierTexte(fic,'');
@@ -1478,12 +1478,12 @@ begin
           if s2 = '' then s2 := '--';
           if odd(k) then
             begin
-              ligne := NumEnString(1 + (k div 2)) + '. '+s1+' '+s2+' ';
+              ligne := IntToStr(1 + (k div 2)) + '. '+s1+' '+s2+' ';
               erreurES := WritelnDansFichierTexte(fic,ligne);
             end;
         end;
 
-      ligne := NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' + NumEnString(64-GetScoreReelParNroRefPartie(numeroReference));
+      ligne := IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' + IntToStr(64-GetScoreReelParNroRefPartie(numeroReference));
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       erreurES := WritelnDansFichierTexte(fic,'');
@@ -1492,7 +1492,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));    {'Export : ^0 parties…'}
+        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1510,7 +1510,7 @@ begin
       erreurES := WritelnDansFichierTexte(fic,ligne);
 
       ligne :=  '   <event'+
-                ' date="'+NumEnString(GetAnneePartieParNroRefPartie(numeroReference))+'"' +
+                ' date="'+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+'"' +
                 ' name="'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"' +
                 ' />';
       erreurES := WritelnDansFichierTexte(fic,ligne);
@@ -1520,8 +1520,8 @@ begin
           ligne :=  '   <result'+
                     ' winner="black"' +
                     ' type="normal">' +
-                     NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
-                     NumEnString(64-GetScoreReelParNroRefPartie(numeroReference)) +
+                     IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
+                     IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
           erreurES := WritelnDansFichierTexte(fic,ligne);
         end;
@@ -1531,8 +1531,8 @@ begin
           ligne :=  '   <result'+
                     ' winner="draw"' +
                     ' type="normal">' +
-                     NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
-                     NumEnString(64-GetScoreReelParNroRefPartie(numeroReference)) +
+                     IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
+                     IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
           erreurES := WritelnDansFichierTexte(fic,ligne);
         end;
@@ -1542,8 +1542,8 @@ begin
           ligne :=  '   <result'+
                     ' winner="white"' +
                     ' type="normal">' +
-                     NumEnString(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
-                     NumEnString(64-GetScoreReelParNroRefPartie(numeroReference)) +
+                     IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
+                     IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
           erreurES := WritelnDansFichierTexte(fic,ligne);
         end;
@@ -1572,7 +1572,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));     {'Export : ^0 parties…'}
+        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1620,7 +1620,7 @@ begin
 
       erreurES := FermeFichierTexte(exportTexte);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));   {'Export : ^0 parties…'}
+      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));   {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;
@@ -1664,7 +1664,7 @@ begin
 
       erreurES := FermeFichierTexte(exportFichier);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));    {'Export : ^0 parties…'}
+      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;
@@ -1752,7 +1752,7 @@ begin
 
       erreurES := FermeFichierTexte(exportFichier);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),NumEnString(compteur),'','',''));    {'Export : ^0 parties…'}
+      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;
@@ -1806,8 +1806,8 @@ begin
                    nomFichierOutput := ExtraitCheminDAcces(fichierModeleHTML.nomFichier) +
                                        gOptionsExportBase.subDirectoryName +
                                        LeftOfString(nom1,kLongueurNomsDansURL) + '-' +
-                                       LeftOfString(nom2,kLongueurNomsDansURL - LENGTH_OF_STRING(NumEnString(numero))) +
-                                       NumEnString(numero) +
+                                       LeftOfString(nom2,kLongueurNomsDansURL - LENGTH_OF_STRING(IntToStr(numero))) +
+                                       IntToStr(numero) +
                                        '.htm';
                  end;
           until not(MemberOfStringSet(nomFichierOutput,data,gOptionsExportBase.nomsFichiersUtilises));
@@ -1961,7 +1961,7 @@ begin
 
           (* Copyright *)
           GetTime(myDate);
-          s := 'CP[Copyleft '+NumEnString(myDate.year)+', French Federation of Othello]';
+          s := 'CP[Copyleft '+IntToStr(myDate.year)+', French Federation of Othello]';
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Black player *)
@@ -1977,14 +1977,14 @@ begin
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Year *)
-          s := 'DT['+NumEnString(GetAnneePartieParNroRefPartie(numeroReference))+']';
+          s := 'DT['+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+']';
           erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
 
           (* Score *)
           if PeutCalculerScoreFinalDeCettePartie(theGame,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) and partieTerminee then
             begin
-              if nbPionsFinalNoirs > nbPionsFinalBlancs then s := 'RE[B+'+NumEnString(nbPionsFinalNoirs - nbPionsFinalBlancs)+']' else
-              if nbPionsFinalNoirs < nbPionsFinalBlancs then s := 'RE[B+'+NumEnString(nbPionsFinalBlancs - nbPionsFinalNoirs)+']' else
+              if nbPionsFinalNoirs > nbPionsFinalBlancs then s := 'RE[B+'+IntToStr(nbPionsFinalNoirs - nbPionsFinalBlancs)+']' else
+              if nbPionsFinalNoirs < nbPionsFinalBlancs then s := 'RE[B+'+IntToStr(nbPionsFinalBlancs - nbPionsFinalNoirs)+']' else
               if nbPionsFinalNoirs = nbPionsFinalBlancs then s := 'RE[0]';
               erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
             end;
@@ -2072,7 +2072,7 @@ begin
         compteur := 0;
         ForEachGameInListDo(FiltrePartieEstActiveEtSelectionnee,bidFiltreGameProc,ExporterPartieDansFichierHTML,compteur);
         WritelnDansRapport('');
-        WriteDansRapport(NumEnString(compteur) + ' HTML files created');
+        WriteDansRapport(IntToStr(compteur) + ' HTML files created');
         if compteur > 0
           then WritelnDansRapport(' : OK')
           else WritelnDansRapport(' : this could be an ERROR ?! ');
@@ -2092,7 +2092,7 @@ begin
         compteur := 0;
         ForEachGameInListDo(FiltrePartieEstActiveEtSelectionnee,bidFiltreGameProc,ExporterPartieDansFichierSOF,compteur);
         WritelnDansRapport('');
-        WriteDansRapport(NumEnString(compteur) + ' Smart Othello Files created');
+        WriteDansRapport(IntToStr(compteur) + ' Smart Othello Files created');
         if compteur > 0
           then WritelnDansRapport(' : OK')
           else WritelnDansRapport(' : this could be an ERROR ?! ');

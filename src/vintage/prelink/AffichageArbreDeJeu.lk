@@ -50,7 +50,6 @@ function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     ex
 function GetStringInfoOfProperty(prop : Property) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function NoteEnString(note : SInt32; avecSignePlus : boolean; nbEspacesDevant,nbDecimales : SInt16) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function MakeTripleProperty(whichType : SInt16; whichTriple : Triple) : Property;     external;
 function MakeTriple(n : SInt32) : Triple;     external;
 procedure DisposePropertyStuff(var p : Property);     external;

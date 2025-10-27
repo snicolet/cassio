@@ -881,11 +881,11 @@ begin
 
   (*
   for k := 0 to kLONGUEUR_MAX_MOT do
-    WritelnNumDansRapport(NumEnString(k) + ' := ' , crypto.nombreDeMotsDeCetteLongueur[k]);
+    WritelnNumDansRapport(IntToStr(k) + ' := ' , crypto.nombreDeMotsDeCetteLongueur[k]);
 
   for k := 0 to kLONGUEUR_MAX_MOT do
     for n := 1 to 10 do
-      WritelnDansRapport(NumEnString(k) + ' := ' + GetNiemeMotDeCetteLongueur(n,k));
+      WritelnDansRapport(IntToStr(k) + ' := ' + GetNiemeMotDeCetteLongueur(n,k));
   *)
 
   (*

@@ -364,14 +364,14 @@ begin
      else s := GetNomTournoiParNroRefPartie(nroReference);}
   s := GetNomTournoiParNroRefPartie(nroReference);
   for i := 1 to longueurTotaleVoulue-LENGTH_OF_STRING(s)-4 do s := s + ' ';
-  GetNomTournoiAvecAnneeParNroRefPartie := s+NumEnString(GetAnneePartieParNroRefPartie(nroReference));
+  GetNomTournoiAvecAnneeParNroRefPartie := s+IntToStr(GetAnneePartieParNroRefPartie(nroReference));
 end;
 
 function GetNomCourtTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTotaleVoulue : SInt16) : String255;
 var s : String255;
 begin  {$UNUSED longueurTotaleVoulue}
   s := GetNomCourtTournoiParNroRefPartie(nroReference);
-  GetNomCourtTournoiAvecAnneeParNroRefPartie := s + '  '+ NumEnString(GetAnneePartieParNroRefPartie(nroReference));
+  GetNomCourtTournoiAvecAnneeParNroRefPartie := s + '  '+ IntToStr(GetAnneePartieParNroRefPartie(nroReference));
 end;
 
 procedure SetScoreReelParNroRefPartie(nroReference : SInt32; scoreReel : SInt16);
@@ -1333,7 +1333,7 @@ var s : String255;
 begin
   s := GetNomJaponaisDuTournoiParNroRefPartie(nroReference);
   for i := 1 to longueurTotaleVoulue-LENGTH_OF_STRING(s)-4 do s := s + ' ';
-  GetNomJaponaisDuTournoiAvecAnneeParNroRefPartie := s+NumEnString(GetAnneePartieParNroRefPartie(nroReference));
+  GetNomJaponaisDuTournoiAvecAnneeParNroRefPartie := s+IntToStr(GetAnneePartieParNroRefPartie(nroReference));
 end;
 
 procedure SetNomJaponaisDuJoueur(nroJoueur : SInt32; nomJaponais : String255);

@@ -30,7 +30,6 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);  
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
 function GetApplicationName(default : String255) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
   function RandomLongintEntreBornes(a, b : SInt32) : SInt32;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;

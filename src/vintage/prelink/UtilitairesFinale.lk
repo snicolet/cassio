@@ -46,4 +46,3 @@ function GetEndgameValuesInHashTableAtThisHashKey(plat : PositionEtTraitRec; has
 procedure SetCoupDansMeilleureSuite(index, coup : SInt32);     external;
 function GetCoupDansMeilleureSuite(index : SInt32) : SInt32;     external;
 procedure AlerteSimple(texte : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;

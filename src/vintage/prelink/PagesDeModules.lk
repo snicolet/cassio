@@ -12,4 +12,3 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure AlerteSimple(texte : String255);     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
-  function NumEnString(num : SInt32) : String255;     external;

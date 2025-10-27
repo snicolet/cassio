@@ -44,7 +44,6 @@ function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);     external;
 function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;

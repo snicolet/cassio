@@ -232,7 +232,7 @@ begin
                      then
                        begin
                          MyFabriqueNomJoueurPourBaseWThorOfficielle(newName,joueur);
-                         message := 'Player "'+GetNomJoueur(numeroJoueur)+'" renamed to "'+newName+'" (#'+NumEnString(numeroJoueur)+')';
+                         message := 'Player "'+GetNomJoueur(numeroJoueur)+'" renamed to "'+newName+'" (#'+IntToStr(numeroJoueur)+')';
                        end
                      else
                        begin
@@ -267,7 +267,7 @@ begin
                    // WritelnDansRapport('dans RenommerJoueurDansFichierWThorOfficiel {10}');
                    // AttendFrappeClavier;
 
-                   message := 'Player "'+newName+'" added (#'+NumEnString(numeroJoueur)+')';
+                   message := 'Player "'+newName+'" added (#'+IntToStr(numeroJoueur)+')';
                  end;
            end;
 
@@ -303,7 +303,7 @@ begin
     else
       begin
         WriteInTraceWThorLog('');
-        WriteInTraceWThorLog('## WARNING ## : Failure in RenommerJoueurDansFichierWThorOfficiel, err = '+NumENString(err));
+        WriteInTraceWThorLog('## WARNING ## : Failure in RenommerJoueurDansFichierWThorOfficiel, err = '+IntToStr(err));
       end;
 
   RenommerJoueurDansFichierWThorOfficiel := err;
@@ -354,7 +354,7 @@ begin
                      then
                        begin
                          MyFabriqueNomTournoiPourBaseWThorOfficielle(newName,tournoi);
-                         message := 'Tourney "'+GetNomTournoi(numeroTournoi)+'" renamed to "'+newName+'" (#'+NumEnString(numeroTournoi)+')';
+                         message := 'Tourney "'+GetNomTournoi(numeroTournoi)+'" renamed to "'+newName+'" (#'+IntToStr(numeroTournoi)+')';
                        end
                      else
                        begin
@@ -371,7 +371,7 @@ begin
                    inc(entete.NombreEnregistrementsTournoisEtJoueurs);
                    MyFabriqueNomTournoiPourBaseWThorOfficielle(newName,tournoi);
 
-                   message := 'Tourney "'+newName+'" added (#'+NumEnString(numeroTournoi)+')';
+                   message := 'Tourney "'+newName+'" added (#'+IntToStr(numeroTournoi)+')';
                  end;
            end;
 
@@ -399,7 +399,7 @@ begin
     else
       begin
         WriteInTraceWThorLog('');
-        WriteInTraceWThorLog('## WARNING ## : Failure in RenommerTournoiDansFichierWThorOfficiel, err = '+NumENString(err));
+        WriteInTraceWThorLog('## WARNING ## : Failure in RenommerTournoiDansFichierWThorOfficiel, err = '+IntToStr(err));
       end;
 
   RenommerTournoiDansFichierWThorOfficiel := err;
@@ -447,7 +447,7 @@ begin
     begin
       oldName := GetNomJoueur(numeroJoueur);
       WriteInTraceWThorLog('');
-      WriteInTraceWThorLog('## WARNING (BEGIN) ## : player "'+ joueur + '" already exists as "' + oldName + '" (#' + NumEnString(numeroJoueur) + ')');
+      WriteInTraceWThorLog('## WARNING (BEGIN) ## : player "'+ joueur + '" already exists as "' + oldName + '" (#' + IntToStr(numeroJoueur) + ')');
       WriteInTraceWThorLog('     note : if you really want to add this player as a duplicate, use the following two commands:');
       WriteInTraceWThorLog('     add player "My name is nobody"');
       WriteInTraceWThorLog('     rename player "My name is nobody" to "' + joueur + '"');
@@ -468,7 +468,7 @@ begin
 sortie :
   if (err <> NoErr) then
     begin
-      WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddPlayerDansBaseOfficielle, err = '+NumENString(err));
+      WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddPlayerDansBaseOfficielle, err = '+IntToStr(err));
       WriteInTraceWThorLog('');
     end;
 
@@ -512,7 +512,7 @@ begin
     begin
       oldName := GetNomTournoi(numeroTournoi);
       WriteInTraceWThorLog('');
-      WriteInTraceWThorLog('## WARNING ## : tourney "'+ tournoi + '" already exists as "' + oldName + '" (#' + NumEnString(numeroTournoi) + ')');
+      WriteInTraceWThorLog('## WARNING ## : tourney "'+ tournoi + '" already exists as "' + oldName + '" (#' + IntToStr(numeroTournoi) + ')');
       WriteInTraceWThorLog('     note : if you really want to duplicate this tourney, use the following two commands ');
       WriteInTraceWThorLog('     add tourney "My tournament is nowhere"');
       WriteInTraceWThorLog('     rename tourney "My tournament is nowhere" to "' + tournoi + '"');
@@ -531,7 +531,7 @@ begin
 sortie :
   if (err <> NoErr) then
     begin
-      WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddTournamentDansBaseOfficielle, err = '+NumENString(err));
+      WriteInTraceWThorLog('## WARNING (END) ## : Failure in AddTournamentDansBaseOfficielle, err = '+IntToStr(err));
       WriteInTraceWThorLog('');
     end;
 
@@ -557,7 +557,7 @@ begin
      then
        begin
          WriteInTraceWThorLog('');
-         WriteInTraceWThorLog('Player found : "'+GetNomJoueur(numeroJoueur)+'" (#'+NumEnString(numeroJoueur)+')');
+         WriteInTraceWThorLog('Player found : "'+GetNomJoueur(numeroJoueur)+'" (#'+IntToStr(numeroJoueur)+')');
          FindPlayerDansBaseOfficielle := NoErr;
        end
      else
@@ -584,7 +584,7 @@ begin
      then
        begin
          WriteInTraceWThorLog('');
-         WriteInTraceWThorLog('Tourney found : "'+GetNomTournoi(numeroTournoi)+'" (#'+NumEnString(numeroTournoi)+')');
+         WriteInTraceWThorLog('Tourney found : "'+GetNomTournoi(numeroTournoi)+'" (#'+IntToStr(numeroTournoi)+')');
          FindTournamentDansBaseOfficielle := NoErr;
        end
      else
@@ -648,7 +648,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeBlackPlayer,numeroJoueur);
       s := 'Black player changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomJoueur(numeroJoueur),NumEnString(numeroJoueur),NumEnString(nbPartiesAChanger),'');
+      s := ParamStr(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -661,7 +661,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeWhitePlayer,numeroJoueur);
       s := 'White player changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomJoueur(numeroJoueur),NumEnString(numeroJoueur),NumEnString(nbPartiesAChanger),'');
+      s := ParamStr(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -674,7 +674,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeTournament,numeroTournoi);
       s := 'Tourney changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomTournoi(numeroTournoi),NumEnString(numeroTournoi),NumEnString(nbPartiesAChanger),'');
+      s := ParamStr(s,GetNomTournoi(numeroTournoi),IntToStr(numeroTournoi),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -697,7 +697,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeYear,annee);
       s := 'Year changed to "^0" in ^1 games';
-      s := ParamStr(s,NumEnString(annee),NumEnString(nbPartiesAChanger),'','');
+      s := ParamStr(s,IntToStr(annee),IntToStr(nbPartiesAChanger),'','');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -851,8 +851,8 @@ begin
                          then s := ReelEnStringAvecDecimales(tempsMoyenParPartieCalculee,2) + ' sec.'
                          else s := ReplaceStringByStringInString(' sec.',' sec.',SecondesEnJoursHeuresSecondes(Trunc(tempsMoyenParPartieCalculee)));
 
-                       WritelnDansRapport('temps moyen par partie ('+NumEnString(nbPartiesCalculees)+' parties) : ' + s);
-                       WritelnDansRapport('temps restant estimé pour les '+NumEnString(nbPartiesRestantes)+' dernières parties : '+SecondesEnJoursHeuresSecondes(Trunc(tempsRestantEstime)));
+                       WritelnDansRapport('temps moyen par partie ('+IntToStr(nbPartiesCalculees)+' parties) : ' + s);
+                       WritelnDansRapport('temps restant estimé pour les '+IntToStr(nbPartiesRestantes)+' dernières parties : '+SecondesEnJoursHeuresSecondes(Trunc(tempsRestantEstime)));
                      end;
                  end
                  else
@@ -958,7 +958,7 @@ begin
 
   WriteInTraceWThorLog('');
   for k := indexMax downto indexMax - nbreJoueurs + 1 do
-    WriteInTraceWThorLog(GetNomJoueur(k)+' (#'+NumEnString(k)+')');
+    WriteInTraceWThorLog(GetNomJoueur(k)+' (#'+IntToStr(k)+')');
 
   ListerDerniersJoueursBaseOfficielleDansRapport := NoErr;
 end;
@@ -971,7 +971,7 @@ begin
 
   WriteInTraceWThorLog('');
   for k := indexMax downto indexMax - nbreTournois + 1 do
-    WriteInTraceWThorLog(GetNomTournoi(k)+' (#'+NumEnString(k)+')');
+    WriteInTraceWThorLog(GetNomTournoi(k)+' (#'+IntToStr(k)+')');
 
   ListerDerniersTournoisBaseOfficielleDansRapport := NoErr;
 end;

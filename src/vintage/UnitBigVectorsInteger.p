@@ -114,7 +114,7 @@ begin
           then
             begin
               WritelnNumDansRapport('DisposePointMultidimensionnelInteger : pointeur non alloue : ',SInt32(p.data));
-              TraceLog('DisposePointMultidimensionnelInteger : pointeur non alloue : '+NumEnString(SInt32(p.data)));
+              TraceLog('DisposePointMultidimensionnelInteger : pointeur non alloue : '+IntToStr(SInt32(p.data)));
             end;
         *)
       end;

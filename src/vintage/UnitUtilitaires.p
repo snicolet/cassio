@@ -208,7 +208,7 @@ begin
       if scoreReel = 32 then GainReel := CaracterePourEgalite else
       if scoreReel < 32 then GainReel := CaracterePourBlanc;
 
-      {WritelnDansRapport('apprentissage de la partie #'+NumEnString(nroReference));}
+      {WritelnDansRapport('apprentissage de la partie #'+IntToStr(nroReference));}
       ExtraitPartieTableStockageParties(nroreference,s60);
       CalculeLesTraitsDeCettePartie(s60,traitDansPartie);
 
@@ -237,7 +237,7 @@ begin
                                                   nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('…'));
+      if (n mod 40) = 0 then WritelnDansRapport(IntToStr(n)+CharToString('…'));
 
       {
       if (n mod 100) = 0 then EcritCoeffsMoyensBillDansRapport(35);
@@ -269,7 +269,7 @@ begin
       if scoreReel < 32 then GainReel := CaracterePourBlanc;
 
 
-      {WritelnDansRapport('apprentissage de la partie #'+NumEnString(nroReference));}
+      {WritelnDansRapport('apprentissage de la partie #'+IntToStr(nroReference));}
       ExtraitPartieTableStockageParties(nroreference,s60);
       CalculeLesTraitsDeCettePartie(s60,traitDansPartie);
 
@@ -298,7 +298,7 @@ begin
                                                       nbBlancBill,nbNoirBill,jouableBill,frontBill);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('…'));
+      if (n mod 40) = 0 then WritelnDansRapport(IntToStr(n)+CharToString('…'));
 
       {
       if (n mod 100) = 0 then
@@ -379,7 +379,7 @@ begin
       if (i mod 10) = 1 then
         begin
           produitMatricesCovariance(SigmaGagnantBill^[i],SigmaPerdantBill^[i],uneMatrice);
-          WritelnDansRapport('matrice unité pour i = '+NumEnString(i)+' : ');
+          WritelnDansRapport('matrice unité pour i = '+IntToStr(i)+' : ');
           EcritMatriceCovariancesBillDansRapport(i,uneMatrice);
         end;
     end;
@@ -458,7 +458,7 @@ begin
       if scoreReel < 32 then GainReel := CaracterePourBlanc;
 
 
-      {WritelnDansRapport('apprentissage de la partie #'+NumEnString(nroReference));}
+      {WritelnDansRapport('apprentissage de la partie #'+IntToStr(nroReference));}
       ExtraitPartieTableStockageParties(nroreference,s60);
       CalculeLesTraitsDeCettePartie(s60,traitDansPartie);
 
@@ -473,7 +473,7 @@ begin
           if ok then apprendLignesPosition(plat,GainTheorique);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('…'));
+      if (n mod 40) = 0 then WritelnDansRapport(IntToStr(n)+CharToString('…'));
       if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
       n := n+1;
     end;
@@ -501,8 +501,8 @@ begin
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
           WriteDansRapport('  fmax = '+ReelEnString(fnote));
-          WriteDansRapport('  occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
+          WriteDansRapport('  occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurCentralite8^[i]));
         end;
       if fnote < fmin then
         begin
@@ -510,8 +510,8 @@ begin
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
           WriteDansRapport('  fmin = '+ReelEnString(fnote));
-          WriteDansRapport('  occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
+          WriteDansRapport('  occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurCentralite8^[i]));
         end;
 
       if nbOccurencesLigne8^[i] > Nbmax then
@@ -519,28 +519,28 @@ begin
           Nbmax := nbOccurencesLigne8^[i];
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
-          WriteDansRapport('  Nbmax = '+NumEnString(Nbmax));
+          WriteDansRapport('  Nbmax = '+IntToStr(Nbmax));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurCentralite8^[i]));
         end;
       if nbOccurencesLigne8^[i] < Nbmin then
         begin
           Nbmin := nbOccurencesLigne8^[i];
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
-          WriteDansRapport('  Nbmin = '+NumEnString(Nbmin));
+          WriteDansRapport('  Nbmin = '+IntToStr(Nbmin));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurCentralite8^[i]));
         end;
 
       if ((i+14) mod 50)  = 0 then
         begin
           CoderBord(i,8,code,nbVides,nbAmis,nbEnnemis);
           WriteDansRapport(code);
-          WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
+          WriteDansRapport('  i = '+IntToStr(i)+CharToString(' '));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WriteDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurCentralite8^[i]));
+          WriteDansRapport('  Occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurCentralite8^[i]));
         end;
     end;
 
@@ -629,7 +629,7 @@ begin
       if scoreReel < 32 then GainReel := CaracterePourBlanc;
 
 
-      {WritelnDansRapport('apprentissage de la partie #'+NumEnString(nroReference));}
+      {WritelnDansRapport('apprentissage de la partie #'+IntToStr(nroReference));}
       ExtraitPartieTableStockageParties(nroreference,s60);
       CalculeLesTraitsDeCettePartie(s60,traitDansPartie);
 
@@ -644,7 +644,7 @@ begin
           if ok then apprendBlocsDeCoinPosition(plat,GainTheorique);
         end;
 
-      if (n mod 40) = 0 then WritelnDansRapport(NumEnString(n)+CharToString('…'));
+      if (n mod 40) = 0 then WritelnDansRapport(IntToStr(n)+CharToString('…'));
       if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
       n := n+1;
     end;
@@ -666,9 +666,9 @@ begin
                 WritelnDansRapport('');
                 WritelnDansRapport(TPCopy(code,1,4));
                 WriteDansRapport(TPCopy(code,5,4));
-                WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
+                WriteDansRapport('  i = '+IntToStr(i)+CharToString(' '));
                 WriteDansRapport('  fnote = '+ReelEnString(fnote));
-                WritelnDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
+                WritelnDansRapport('  Occ = '+IntToStr(nbOccurencesLigne8^[i]));
               end;
             if nbOccurencesLigne8^[i] <= 10 then fnote := 0.5*fnote;
             if nbOccurencesLigne8^[i] <= 6 then fnote := 0.5*fnote;
@@ -688,8 +688,8 @@ begin
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
           WriteDansRapport('  fmax = '+ReelEnString(fnote));
-          WriteDansRapport('  occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
+          WriteDansRapport('  occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurBlocsDeCoin^[i]));
         end;
       if fnote < fmin then
         begin
@@ -699,8 +699,8 @@ begin
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
           WriteDansRapport('  fmin = '+ReelEnString(fnote));
-          WriteDansRapport('  occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
+          WriteDansRapport('  occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurBlocsDeCoin^[i]));
         end;
 
       if nbOccurencesLigne8^[i] > Nbmax then
@@ -710,9 +710,9 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
-          WriteDansRapport('  Nbmax = '+NumEnString(Nbmax));
+          WriteDansRapport('  Nbmax = '+IntToStr(Nbmax));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurBlocsDeCoin^[i]));
         end;
       if nbOccurencesLigne8^[i] < Nbmin then
         begin
@@ -721,9 +721,9 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
-          WriteDansRapport('  Nbmin = '+NumEnString(Nbmin));
+          WriteDansRapport('  Nbmin = '+IntToStr(Nbmin));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurBlocsDeCoin^[i]));
         end;
 
       if (((i+14) mod 50)  = 0) and (fnote <> 0.0) then
@@ -732,10 +732,10 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport(TPCopy(code,1,4));
           WriteDansRapport(TPCopy(code,5,4));
-          WriteDansRapport('  i = '+NumEnString(i)+CharToString(' '));
+          WriteDansRapport('  i = '+IntToStr(i)+CharToString(' '));
           WriteDansRapport('  fnote = '+ReelEnString(fnote));
-          WriteDansRapport('  Occ = '+NumEnString(nbOccurencesLigne8^[i]));
-          WritelnDansRapport('  note pour 1 = '+NumEnString(valeurBlocsDeCoin^[i]));
+          WriteDansRapport('  Occ = '+IntToStr(nbOccurencesLigne8^[i]));
+          WritelnDansRapport('  note pour 1 = '+IntToStr(valeurBlocsDeCoin^[i]));
         end;
     end;
 
@@ -980,7 +980,7 @@ begin {$UNUSED numeroCoup,coup,s,s1,oldScript}
 		      EnleveEspacesDeDroiteSurPlace(nomOuverture);
 		      {
 		      GetCurrentScript(oldScript);
-		      NumEnString(numeroCoup,s1);
+		      IntToStr(numeroCoup,s1);
 		      s := '◊ '+s1+CharToString('.')+CoupEnString(coup,CassioUtiliseDesMajuscules)+' ◊';
 		      s := s + '   «'+nomOuverture+CharToString('»');
 		      DisableKeyboardScriptSwitch;
@@ -1211,8 +1211,8 @@ begin
   if odd(aux) then
     if aux > 0 then inc(aux) else
     if aux < 0 then dec(aux);
-  s1 := NumEnString(32+(aux div 2));
-  s2 := NumEnString(32-(aux div 2));
+  s1 := IntToStr(32+(aux div 2));
+  s2 := IntToStr(32-(aux div 2));
   ScoreFinalEnChaine := s1+CharToString('-')+s2;
 end;
 
@@ -1232,11 +1232,11 @@ begin
 
   s := nom;
 
-  s2 := NumEnString(scoreNoir);
+  s2 := IntToStr(scoreNoir);
   if nom[LENGTH_OF_STRING(nom)] = ' '
     then s := s + s2+CharToString('-')
     else s := s + CharToString(' ')+s2+CharToString('-');
-  s2 := NumEnString(64-scoreNoir);
+  s2 := IntToStr(64-scoreNoir);
   s := s + s2+CharToString(' ');
 
   if enleverLesPrenoms and (nomBlanc[LENGTH_OF_STRING(nomBlanc)] <> '.')
@@ -2027,7 +2027,7 @@ begin
 
   if not(utilisationNouvelleEval) then
     begin
-      s := NumEnString(parametre);
+      s := IntToStr(parametre);
       Moveto(160,y);
       MyDrawString(s);
     end;
@@ -2539,7 +2539,7 @@ begin
   with gEntrainementOuvertures do
     begin
 
-      {WritelnDansRapport('appel de SetNbrePionsPerduParVariation('+NumEnString(numeroDuCoup)+','+NumEnString(deltaScore)+')');}
+      {WritelnDansRapport('appel de SetNbrePionsPerduParVariation('+IntToStr(numeroDuCoup)+','+IntToStr(deltaScore)+')');}
 
       deltaNotePerduCeCoup[numeroDuCoup] := deltaScore;
 
@@ -2581,7 +2581,7 @@ begin
   if (gClefHashage <> valeurCorrecte) then
     begin
       WritelnNumDansRapport('gClefHashage = ',gClefHashage);
-      AlerteSimple('Erreur dans mon algorithme, gClefHashage = '+NumEnString(gClefHashage)+ ' dans '+nomFonction+'!! Prévenez Stéphane');
+      AlerteSimple('Erreur dans mon algorithme, gClefHashage = '+IntToStr(gClefHashage)+ ' dans '+nomFonction+'!! Prévenez Stéphane');
     end;
 end;
 

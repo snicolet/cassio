@@ -81,7 +81,7 @@ var stage,k : SInt32;
 begin
   for stage := 0 to kNbMaxGameStage do
     begin
-      s := NumEnString(stage);
+      s := IntToStr(stage);
       if vecteur.Edges2X[stage].alloue
         then TraceLog('vecteur.Edges2X['+s+'].alloue = true')
         else TraceLog('vecteur.Edges2X['+s+'].alloue = false');
@@ -89,8 +89,8 @@ begin
       for k := 0 to kNbPatternsDansEvalDeCassio do
         begin
 		      if vecteur.Pattern[k,stage].alloue
-		        then s1 := 'vecteur.Pattern['+NumEnString(k)+','+s+'].alloue = true'
-		        else s1 := 'vecteur.Pattern['+NumEnString(k)+','+s+'].alloue = false';
+		        then s1 := 'vecteur.Pattern['+IntToStr(k)+','+s+'].alloue = true'
+		        else s1 := 'vecteur.Pattern['+IntToStr(k)+','+s+'].alloue = false';
 		      TraceLog(s1);
 		    end;
     end;
@@ -191,7 +191,7 @@ begin
 		          taille := puiss3[longueurDiago+1];
 		          if AllocatePointMultidimensionnelInteger(taille,vecteur.Pattern[whichDiago,stage])
 		            then AnnulePointMultidimensionnelInteger(vecteur.Pattern[whichDiago,stage])
-		            else WritelnNumDansRapport('impossible d''allouer la table de diago('+NumEnString(longueurDiago)+') pour stage = ',stage);
+		            else WritelnNumDansRapport('impossible d''allouer la table de diago('+IntToStr(longueurDiago)+') pour stage = ',stage);
 
 		          for otherDiago := kAdresseDiagonaleB1H7 to kAdresseDiagonaleD8H4 do
 		            if taillePattern[otherDiago] = longueurDiago then

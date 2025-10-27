@@ -183,7 +183,7 @@ begin
     if ReserveDeABR[n] <> NIL then
       with ReserveDeABR[n]^ do
         begin
-          WritelnDansRapport('Reserve['+NumEnString(n)+'] est OK');
+          WritelnDansRapport('Reserve['+IntToStr(n)+'] est OK');
           WritelnNumDansRapport('nbEmplacementVides = ',nbEmplacementVides);
           WritelnNumDansRapport('premierEmplacementVide = ',premierEmplacementVide);
           WritelnNumDansRapport('dernierEmplacementVide = ',dernierEmplacementVide);
@@ -314,7 +314,7 @@ begin
   if TrouvePlaceDansPageDeABR(numeroDePage,IndexDansPage)
     then
       begin
-        {WritelnDansRapport('creation de ABR('+NumEnString(numeroDePage)+','+NumEnString(IndexDansPage)+')');
+        {WritelnDansRapport('creation de ABR('+IntToStr(numeroDePage)+','+IntToStr(IndexDansPage)+')');
         WritelnDansRapport('');}
         with ReserveDeABR[numeroDePage]^ do
           begin
@@ -363,7 +363,7 @@ begin
     with ReserveDeABR[nroDePage]^ do
       begin
 
-        {WritelnDansRapport('destruction de ABR('+NumEnString(nroDePage)+','+NumEnString(nroIndex)+')');}
+        {WritelnDansRapport('destruction de ABR('+IntToStr(nroDePage)+','+IntToStr(nroIndex)+')');}
 
         libre[nroIndex] := true;
         if nbEmplacementVides <= 0

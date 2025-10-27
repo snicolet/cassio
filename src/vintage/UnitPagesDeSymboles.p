@@ -182,7 +182,7 @@ begin
     if ReserveDeSymbole[n] <> NIL then
       with ReserveDeSymbole[n]^ do
         begin
-          WritelnDansRapport('Reserve['+NumEnString(n)+'] est OK');
+          WritelnDansRapport('Reserve['+IntToStr(n)+'] est OK');
           WritelnNumDansRapport('nbEmplacementVides = ',nbEmplacementVides);
           WritelnNumDansRapport('premierEmplacementVide = ',premierEmplacementVide);
           WritelnNumDansRapport('dernierEmplacementVide = ',dernierEmplacementVide);
@@ -313,7 +313,7 @@ begin
   if TrouvePlaceDansPageDeSymbole(numeroDePage,IndexDansPage)
     then
       begin
-        {WritelnDansRapport('creation de Symbole('+NumEnString(numeroDePage)+','+NumEnString(IndexDansPage)+')');
+        {WritelnDansRapport('creation de Symbole('+IntToStr(numeroDePage)+','+IntToStr(IndexDansPage)+')');
         WritelnDansRapport('');}
         with ReserveDeSymbole[numeroDePage]^ do
           begin
@@ -362,7 +362,7 @@ begin
     with ReserveDeSymbole[nroDePage]^ do
       begin
 
-        {WritelnDansRapport('destruction de Symbole('+NumEnString(nroDePage)+','+NumEnString(nroIndex)+')');}
+        {WritelnDansRapport('destruction de Symbole('+IntToStr(nroDePage)+','+IntToStr(nroIndex)+')');}
 
         libre[nroIndex] := true;
         if nbEmplacementVides <= 0

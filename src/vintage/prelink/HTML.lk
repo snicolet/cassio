@@ -3,7 +3,6 @@ function WritelnDansFichierAbstrait(var theFile : FichierAbstrait; s : String255
 function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;     external;
 function FichierTexteEstOuvert(var fic : FichierTEXT) : boolean;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;     external;
 function PeutJouerIci(couleur,a : SInt32; const plat : plateauOthello) : boolean;     external;

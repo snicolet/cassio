@@ -24,7 +24,6 @@ procedure SetEvaluationEdmondEstDisponible(flag : boolean);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function Evaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; alpha,beta : SInt32; var nbEvaluationsRecursives : SInt32) : SInt32;     external;
 function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function MobiliteSemiTranquilleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var ListeDesCoupsTranquilles : ListeDeCases; seuil_coupure : SInt32) : SInt32;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;

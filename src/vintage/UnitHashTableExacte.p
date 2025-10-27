@@ -940,11 +940,11 @@ begin
 
 		  index := IndexOfThisDelta(newDeltaMin);
 		  WritelnNumDansRapport('index = ',index);
-		  WritelnNumDansRapport('valMin['+NumEnString(newDeltaMin)+'] = ',bornes.valMin[index]);
-		  WritelnNumDansRapport('valMax['+NumEnString(newDeltaMin)+'] = ',bornes.valMax[index]);
-		  WritelnStringAndCoupDansRapport('coupDeCetteValMin['+NumEnString(newDeltaMin)+'] = ',bornes.coupDeCetteValMin[index]);
-		  WritelnNumDansRapport('en SInt16 : coupDeCetteValMin['+NumEnString(newDeltaMin)+'] = ',bornes.coupDeCetteValMin[index]);
-		  WritelnNumDansRapport('nbArbresCoupesValMin['+NumEnString(newDeltaMin)+'] = ',bornes.nbArbresCoupesValMin[index]);
+		  WritelnNumDansRapport('valMin['+IntToStr(newDeltaMin)+'] = ',bornes.valMin[index]);
+		  WritelnNumDansRapport('valMax['+IntToStr(newDeltaMin)+'] = ',bornes.valMax[index]);
+		  WritelnStringAndCoupDansRapport('coupDeCetteValMin['+IntToStr(newDeltaMin)+'] = ',bornes.coupDeCetteValMin[index]);
+		  WritelnNumDansRapport('en SInt16 : coupDeCetteValMin['+IntToStr(newDeltaMin)+'] = ',bornes.coupDeCetteValMin[index]);
+		  WritelnNumDansRapport('nbArbresCoupesValMin['+IntToStr(newDeltaMin)+'] = ',bornes.nbArbresCoupesValMin[index]);
 		  WritelnDansRapport('');
 		end;
   {$ENDC}
@@ -1772,7 +1772,7 @@ begin
          *)
 
         if debugage then
-          WritelnDansRapport('Dans LineToHash,  profondeurCourante = '+NumEnString(profondeurCourante)+'   < -->  hash = '+NumEnString(gClefHashage));
+          WritelnDansRapport('Dans LineToHash,  profondeurCourante = '+IntToStr(profondeurCourante)+'   < -->  hash = '+IntToStr(gClefHashage));
 
         coup := ScannerStringPourTrouverCoup(next+2,ligne,next);
 
@@ -1913,7 +1913,7 @@ begin
             end;
 
         if debugage then
-          WritelnDansRapport('Dans LineToHash,  profondeurCourante = '+NumEnString(profondeurCourante)+'   < -->  hash = '+NumEnString(gClefHashage));
+          WritelnDansRapport('Dans LineToHash,  profondeurCourante = '+IntToStr(profondeurCourante)+'   < -->  hash = '+IntToStr(gClefHashage));
 
         coup := ScannerStringPourTrouverCoup(next+2,ligne,next);
 
@@ -2056,7 +2056,7 @@ begin
 
   if ecritStatsDetaillees then
     begin
-      WriteDansRapport('HashTableExacte['+NumEnString(nroTable)+']:');
+      WriteDansRapport('HashTableExacte['+IntToStr(nroTable)+']:');
       WriteStringAndReelDansRapport(' remplissage = ', (1.0*utilisees/1024),5);
       WriteStringAndReelDansRapport(' vides = ', (1.0*vides/1024),5);
       WriteStringAndReelDansRapport(' liberees = ', (1.0*liberees/1024),5);

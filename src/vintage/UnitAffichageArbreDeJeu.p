@@ -892,12 +892,12 @@ begin
 			              if (valeurEntiere >= 0)
 			                then
 			                  if signe >= 0
-			                    then s := Concat('  ',s,'+',NumEnString(valeurEntiere),' ')
-			                    else s := Concat('  ',s,'-',NumEnString(valeurEntiere),' ')
+			                    then s := Concat('  ',s,'+',IntToStr(valeurEntiere),' ')
+			                    else s := Concat('  ',s,'-',IntToStr(valeurEntiere),' ')
 			                else
 			                  if signe >= 0
-			                    then s := Concat('  ',s,'-',NumEnString(-valeurEntiere),' ')
-			                    else s := Concat('  ',s,'+',NumEnString(-valeurEntiere),' ');
+			                    then s := Concat('  ',s,'-',IntToStr(-valeurEntiere),' ')
+			                    else s := Concat('  ',s,'+',IntToStr(-valeurEntiere),' ');
 
 			              useIconeForEndgameScores := false;
 
@@ -906,12 +906,12 @@ begin
     			              if (valeurEntiere >= 0)
     			                then
     			                  if signe >= 0
-    			                    then s := Concat(' (', NumEnString(valeurEntiere),') ')
-    			                    else s := Concat(' (-',NumEnString(valeurEntiere),') ')
+    			                    then s := Concat(' (', IntToStr(valeurEntiere),') ')
+    			                    else s := Concat(' (-',IntToStr(valeurEntiere),') ')
     			                else
     			                  if signe >= 0
-    			                    then s := Concat(' (-',NumEnString(-valeurEntiere),') ')
-    			                    else s := Concat(' (', NumEnString(-valeurEntiere),') ');
+    			                    then s := Concat(' (-',IntToStr(-valeurEntiere),') ')
+    			                    else s := Concat(' (', IntToStr(-valeurEntiere),') ');
 
     			              case couleur of
     			                pionNoir  : aux := MakeTripleProperty(GoodForBlackProp,MakeTriple(1));
@@ -966,7 +966,7 @@ begin
     TranspositionRangeProp :
       begin
         GetCoupleLongintOfProperty(prop,n1,n2);
-        s := NumEnString(n1) + '/' + NumEnString(n2);
+        s := IntToStr(n1) + '/' + IntToStr(n2);
         EcritChaineOfProperty(s,largeur);
       end;
     AddBlackStoneProp :
@@ -1530,7 +1530,7 @@ begin
 	          positionHorizontale := positionHorizontale+dimension.h;
 
 	          if (numeroDuCoup > 0) and (numeroDuCoup <= 64)
-	            then s := NumEnString(numeroDuCoup)+'.'
+	            then s := IntToStr(numeroDuCoup)+'.'
 	            else s := '';
 	          s := s + CoupEnString(GetOthelloSquareOfProperty(prop^),CassioUtiliseDesMajuscules);
 
@@ -1682,7 +1682,7 @@ begin
           ChangeFontSizeDansRapport(gCassioRapportBoldSize);
           ChangeFontDansRapport(gCassioRapportBoldFont);
           ChangeFontFaceDansRapport(bold);
-          WriteDansRapport(NumEnString(numeroDuCoup)+'.'+CoupEnString(coup,CassioUtiliseDesMajuscules)+'Ê');
+          WriteDansRapport(IntToStr(numeroDuCoup)+'.'+CoupEnString(coup,CassioUtiliseDesMajuscules)+'Ê');
           TextNormalDansRapport;
           WriteDansRapport(': ');
         end;

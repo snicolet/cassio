@@ -31,7 +31,6 @@ function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr; 
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 procedure SetFileTypeFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function PositionEtTraitInitiauxStandard : PositionEtTraitRec;     external;
 function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;     external;
 function SamePositionEtTrait(var pos1,pos2 : PositionEtTraitRec) : boolean;     external;

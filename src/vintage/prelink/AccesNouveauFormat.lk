@@ -14,7 +14,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 function GET_ADRESS_OF_FIRST_MOVE(var whichGame : PackedThorGame) : Ptr;     external;
 procedure SET_LENGTH_OF_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;     external;
 function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;     external;
 	procedure LeftP (var s : String255; len : SInt16);     external;

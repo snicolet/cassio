@@ -15,5 +15,4 @@ procedure WritelnStringDansRapport(s : String255);     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
 procedure WriteStringDansRapport(s : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);     external;

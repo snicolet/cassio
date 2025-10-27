@@ -20,7 +20,6 @@ procedure SelectWindowSousPalette(whichWindow : WindowPtr);     external;
 function GetRapportWindow : WindowPtr;     external;
 procedure VideGrapheApprentissage(var fichier : Graphe);     external;
 procedure CreeCelluleRacine(var fichier : Graphe);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function NbrePositionsDansGrapheApprentissage(var fichier : Graphe) : SInt32;     external;
 procedure VerifieIntegriteGraphe(var fichier : Graphe);     external;
 procedure LitCellule(var fichier : Graphe; numCellule : SInt32; var cellule : CelluleRec);     external;

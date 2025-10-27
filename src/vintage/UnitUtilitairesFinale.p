@@ -886,9 +886,9 @@ begin  {$UNUSED conseilHash}
 	     //if utiliserMilieu then WritelnNumDansRapport('TrierSelonDivergenceAvecMilieu, coup = ',coupTest);
 	
 	     {exeptionnellement, pour le debugage seulement !}
-       if (coupTest < 11) then AlerteSimple('Debugger : coupTest = '+NumEnString(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
-       if (coupTest > 88) then AlerteSimple('Debugger : coupTest = '+NumEnString(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
-       if (platDiv[coupTest] <> pionVide) then AlerteSimple('Debugger : platDiv['+NumEnString(coupTest)+'] <> 0 dans TrierSelonDivergenceAvecMilieu');
+       if (coupTest < 11) then AlerteSimple('Debugger : coupTest = '+IntToStr(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
+       if (coupTest > 88) then AlerteSimple('Debugger : coupTest = '+IntToStr(coupTest)+' dans TrierSelonDivergenceAvecMilieu') else
+       if (platDiv[coupTest] <> pionVide) then AlerteSimple('Debugger : platDiv['+IntToStr(coupTest)+'] <> 0 dans TrierSelonDivergenceAvecMilieu');
 
 
 	     if utiliserMilieu

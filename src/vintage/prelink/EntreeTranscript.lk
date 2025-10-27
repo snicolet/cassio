@@ -52,7 +52,6 @@ procedure InvalidateAllCasesDessinEnTraceDeRayon;     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
 	function IsDigit(ch : char) : boolean;     external;
 function GetBoundingRectOfSquare(whichSquare : SInt16) : rect;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure PrepareTexteStatePourTranscript;     external;
 procedure DrawJustifiedStringInRectWithRGBColor(whichRect : rect; var s : String255; justification : SInt32; whichSquare : SInt16; color : RGBColor);     external;
 function PositionIsTheInitialPositionOfGameTree(var whichPos : PositionEtTraitRec) : boolean;     external;

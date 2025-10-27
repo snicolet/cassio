@@ -4,7 +4,6 @@ procedure BeginDialog;     external;
 procedure EndDialog;     external;
 	function MakeCFSTR(s : String255) : CFStringRef;     external;
 procedure GetControlTitleInDialog(dp : DialogPtr; itemNumber : SInt16; var title : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure GetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; var s : String255);     external;
 function MyGetNewDialog(dialogID : SInt16) : DialogPtr;     external;
 procedure MyDisposeDialog(var dlog : DialogPtr);     external;

@@ -323,8 +323,8 @@ begin
   with M do
     begin
       WritelnDansRapport('matrice :'+
-                         ' nbLignes = '+NumEnString(nbLignes)+
-                         ' nbColonnes = '+NumEnString(nbColonnes));
+                         ' nbLignes = '+IntToStr(nbLignes)+
+                         ' nbColonnes = '+IntToStr(nbColonnes));
       for i := 1 to nbLignes do
         begin
           for j := 1 to nbColonnes do
@@ -344,7 +344,7 @@ begin
   with v do
     begin
       WritelnDansRapport('vecteur :'+
-                         ' longueur = '+NumEnString(longueur));
+                         ' longueur = '+IntToStr(longueur));
       for i := 1 to longueur do
         begin
           s := ReelEnStringAvecDecimales(v.vec[i],nbChiffres);

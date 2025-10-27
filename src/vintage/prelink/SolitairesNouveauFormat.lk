@@ -24,7 +24,6 @@ function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function GetNomJoueurSansPrenom(nroJoueur : SInt32) : String255;     external;
   function EnleveEspacesDeDroite(const s : String255) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetNomTournoi(nroTournoi : SInt32) : String255;     external;
 procedure CompilerPosition(plat : plateauOthello; var chaineCompilee : String255);     external;
 function PackedOthelloPositionToPlOth(const packedBoard : PackedOthelloPosition) : plateauOthello;     external;

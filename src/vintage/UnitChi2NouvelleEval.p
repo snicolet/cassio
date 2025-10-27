@@ -111,16 +111,16 @@ begin
 
   if afficheSommesPartiellesDanschi2 then
     if (compteurPositionsChi2 <> 0) and ((compteurPositionsChi2 mod 100) = 0) then
-      WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
+      WritelnStringAndReelDansRapport('N = '+IntToStr(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
   if affichePositionsDansChi2 then
     if (nroRefPartie <= 10) and ((nbCoupsJoues mod 7) = 0) and (compteurPositionsChi2 <> 0) then
       begin
         WritelnPositionEtTraitDansRapport(position,trait);
-        WritelnNumDansRapport('nbCoupsJoues = '+NumEnString(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
+        WritelnNumDansRapport('nbCoupsJoues = '+IntToStr(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
         WritelnStringAndReelDansRapport('thisEvaluation = ',thisEvaluation,5);
         WritelnStringAndReelDansRapport('scoreCiblePourNoir = ',scoreCiblePourNoir,5);
         WritelnStringAndReelDansRapport('deltaEval = ',deltaEval,5);
-        WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
+        WritelnStringAndReelDansRapport('N = '+IntToStr(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
         WritelnDansRapport('');
       end;
 end;
@@ -174,7 +174,7 @@ begin
   if not(verboseMinimisationChi2) then
     begin
       WriteDansRapport(prefixeCalculeChi2+' : ');
-      WriteDansRapport('CalculeChi2 ('+NumEnString(compteurPartiesChi2)+' => temps = '+NumEnString(tick)+')');
+      WriteDansRapport('CalculeChi2 ('+IntToStr(compteurPartiesChi2)+' => temps = '+IntToStr(tick)+')');
       WritelnDansRapport(' chi2 = '+ReelEnStringAvecDecimales(chi2,10));
     end;
 
@@ -202,16 +202,16 @@ begin
 
   if afficheSommesPartiellesDanschi2 then
     if (compteurPositionsChi2 <> 0) and ((compteurPositionsChi2 mod 100) = 0) then
-      WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
+      WritelnStringAndReelDansRapport('N = '+IntToStr(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
   if affichePositionsDansChi2 then
     if (nroRefPartie <= 10) and ((nbCoupsJoues mod 7) = 0) and (compteurPositionsChi2 <> 0) then
       begin
         WritelnPositionEtTraitDansRapport(position,trait);
-        WritelnNumDansRapport('nbCoupsJoues = '+NumEnString(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
+        WritelnNumDansRapport('nbCoupsJoues = '+IntToStr(nbCoupsJoues)+' => gameStage = ',gameStage[nbCoupsJoues]);
         WritelnStringAndReelDansRapport('thisEvaluation = ',thisEvaluation,5);
         WritelnStringAndReelDansRapport('scoreCiblePourNoir = ',scoreCiblePourNoir,5);
         WritelnStringAndReelDansRapport('deltaEval = ',deltaEval,5);
-        WritelnStringAndReelDansRapport('N = '+NumEnString(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
+        WritelnStringAndReelDansRapport('N = '+IntToStr(compteurPositionsChi2)+' ',sommePartielleChi2/compteurPositionsChi2,5);
         WritelnDansRapport('');
       end;
 end;
@@ -280,7 +280,7 @@ begin
   if not(verboseMinimisationChi2) then
     begin
       WriteDansRapport(prefixeCalculeChi2EtGradient+' : ');
-      WriteDansRapport('CalculeChi2EtGradient ('+NumEnString(compteurPartiesChi2)+' => temps = '+NumEnString(tick)+')');
+      WriteDansRapport('CalculeChi2EtGradient ('+IntToStr(compteurPartiesChi2)+' => temps = '+IntToStr(tick)+')');
       WritelnDansRapport(' chi2 = '+ReelEnStringAvecDecimales(chi2,10));
     end;
 

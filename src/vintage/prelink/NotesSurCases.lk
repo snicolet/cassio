@@ -23,7 +23,6 @@ function GetOthellierEstSale(square : SInt16) : boolean;     external;
 procedure DessineAideDebutant(avecDessinAutresInfosSurLesCases : boolean; surQuellesCases : SquareSet);     external;
 procedure EffaceAideDebutant(avecDessinAutresInfosSurLesCases,effacageLarge : boolean; surQuellesCases : SquareSet; fonctionAppelante : String255);     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 function CaseContientUnPionDore(whichSquare : SInt32) : boolean;     external;
 function CassioEstEn3D : boolean;     external;

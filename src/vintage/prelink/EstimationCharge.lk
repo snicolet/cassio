@@ -15,7 +15,6 @@ function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionn
 procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);     external;
 function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;     external;
 procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure MinimisationMultidimensionnelleSimple(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; var iter : SInt32; var fret : TypeReel);     external;

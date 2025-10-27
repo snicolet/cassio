@@ -14,7 +14,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure WritelnPositionDansRapport(var position : plateauOthello);     external;
 procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
 function  GetEffetSpecial : boolean;     external;

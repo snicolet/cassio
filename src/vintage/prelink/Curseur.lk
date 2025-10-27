@@ -16,7 +16,6 @@ procedure EssaieSetPortWindowPlateau;     external;
 function CassioEstEnTrainDeCalculerPourLeZoo : boolean;     external;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);     external;
 procedure DiminueLatenceEntreDeuxDoSystemTask;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function DateOfLastKeyboardOperation : SInt32;     external;
 function WindowDeCassio(whichWindow : WindowPtr) : boolean;     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;

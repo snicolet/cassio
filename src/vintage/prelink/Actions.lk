@@ -149,7 +149,6 @@ function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fic
 function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : FichierTEXT) : OSErr;     external;
 function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;     external;
 function LitBibliotheque(nomBibl : String255; verifierLegaliteLignes : boolean) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure AlerteSimple(texte : String255);     external;
 	procedure MyResolveAliasFile (var fs : FSSpec);     external;
 	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;     external;

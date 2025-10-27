@@ -466,9 +466,9 @@ begin  {$unused whichError}
       if whichError.error <> NoErr then
         begin
           (*
-          WritelnDansRapport('NETWORK ERROR (err = ['NumEnString(whichError.domain)+':'+NumEnString(whichError.error)+'])');
+          WritelnDansRapport('NETWORK ERROR (err = ['IntToStr(whichError.domain)+':'+IntToStr(whichError.error)+'])');
           *)
-          AfficheEtatDuReseau('NETWORK ERROR (err = ['+NumEnString(whichError.domain)+':'+NumEnString(whichError.error)+'])');
+          AfficheEtatDuReseau('NETWORK ERROR (err = ['+IntToStr(whichError.domain)+':'+IntToStr(whichError.error)+'])');
         end;
 
     end;
@@ -825,7 +825,7 @@ var k : SInt32;
 begin
   for k := 0 to kNumberOfAsynchroneNetworkConnections do
     begin
-      WritelnNumDansRapport('@'+NumEnString(k)+' : ',SInt32(gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[k].theReadStream));
+      WritelnNumDansRapport('@'+IntToStr(k)+' : ',SInt32(gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[k].theReadStream));
     end;
 end;
 
@@ -1569,7 +1569,7 @@ begin
               begin
 
                 // For debugging
-                {WritelnDansRapport('Connecting to '+host + ' at port '+ NumEnString(port) + '...');}
+                {WritelnDansRapport('Connecting to '+host + ' at port '+ IntToStr(port) + '...');}
 
                 // Create the CoreFoundation string for the host
                 hostStr		 :=  CFStringCreateWithPascalString( NIL, StringToStr255(host), CFStringGetSystemEncoding );
@@ -1597,7 +1597,7 @@ begin
                       InstallSerializatorForNetworkConnections(numeroSlot, serializator);
 
                       // Store host and port as string
-                      infoNetworkConnection := MakeLongString(host + ':' + NumEnString(port));
+                      infoNetworkConnection := MakeLongString(host + ':' + IntToStr(port));
 
                       connectWorked := true;
                     end;
@@ -1717,7 +1717,7 @@ begin
       exit(FindPermanentConnectionToHost);
     end;
 
-  hostAndPort := MakeLongString(host + ':' + NumEnString(port));
+  hostAndPort := MakeLongString(host + ':' + IntToStr(port));
 
   with gListOfFichierAbstraitOfAsynchroneNetworkConnections do
     for k := 0 to ((kNumberOfAsynchroneNetworkConnections div 2) + 1) do

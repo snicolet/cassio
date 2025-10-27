@@ -13,7 +13,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function AllocatePointMultidimensionnel(n : SInt32; var p : PointMultidimensionnel) : boolean;     external;
 procedure MinimisationMultidimensionnelleParConjugateGradient(f : FonctionMultidimensionnelle; var p : PointMultidimensionnel; ftol : TypeReel; var iter : SInt32; var fret : TypeReel);     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure DisposePointMultidimensionnel(var p : PointMultidimensionnel);     external;
 	procedure RandomizeTimer;     external;

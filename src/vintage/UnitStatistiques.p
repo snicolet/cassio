@@ -385,7 +385,7 @@ begin
 		                 if gCassioUseQuartzAntialiasing then EnableQuartzAntiAliasingThisPort(GetWindowPort(wStatPtr),true);
 		               end;
 
-		            s := NumEnString(nbPartiestotal);
+		            s := IntToStr(nbPartiestotal);
 			          s := SeparerLesChiffresParTrois(s);
 			          largeurTotalString := Max(MyStringWidth(s),22);
 
@@ -424,7 +424,7 @@ begin
 
 
 			             nbpartiessurcecoup := statistiques^^.table[compteur].nbpartiessurcecoup;
-			             s := NumEnString(nbpartiessurcecoup);
+			             s := IntToStr(nbpartiessurcecoup);
 			             s := SeparerLesChiffresParTrois(s);
 			             Moveto(xPositionNombreParties + largeurTotalString - MyStringWidth(s),yposition);
 			             MyDrawString(s);
@@ -517,7 +517,7 @@ begin
 			         Moveto(xPositionCoup,yposition);
 			         s := ReadStringFromRessource(TextesStatistiquesID,9);
 			         MyDrawString(s);
-			         s := NumEnString(nbPartiestotal);
+			         s := IntToStr(nbPartiestotal);
 			         s := SeparerLesChiffresParTrois(s);
 			         Moveto(xPositionNombreParties + largeurTotalString - MyStringWidth(s),yposition);
 			         MyDrawString(s);
@@ -589,7 +589,7 @@ begin
 			         {
 			         Moveto(100,yposition+12);
 			         temps := statistiques^^.tempsdeCalcul;
-			         NumEnString(temps,s);
+			         IntToStr(temps,s);
 			         MyDrawString('temps : '+s);
 			         }
 			       end;

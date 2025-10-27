@@ -34,7 +34,6 @@ function GetZooURL : String255;     external;
 procedure EncoderSearchParamsPourURL(var searchParams : MakeEndgameSearchParamRec; var urlParams : String255; fonctionAppelante : String255);     external;
 function AjouterDansLaListeDesRequetesDuZoo(var searchParams : MakeEndgameSearchParamRec) : boolean;     external;
 procedure EnvoyerUneRequeteAuZoo(var requete : LongString);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SetCassioEstEnTrainDeDebugguerLeZooEnLocal(flag : boolean);     external;
 function MakeLongString(const s : String255) : LongString;     external;
 procedure PrefetchJobDuZoo(const s : LongString);     external;

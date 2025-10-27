@@ -180,8 +180,8 @@ begin
         TextFont(gCassioApplicationFont);
         TextFace(normal);
         TextSize(gCassioSmallFontSize);
-        s := NumEnString(nbreDePions[pionNoir]);
-        s1 := NumEnString(nbreDePions[pionBlanc]);
+        s := IntToStr(nbreDePions[pionNoir]);
+        s1 := IntToStr(nbreDePions[pionBlanc]);
         s1 := s+CharToString('-')+s1;
         s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
         Moveto(3,myRect.bottom - 3);
@@ -232,7 +232,7 @@ var j : SInt32;
 begin
   with ReflexData^ do
     begin
-      WriteNumDansRapport('DUMP : ' + NumEnString(IndexCoupEnCours) + '/',longClass);
+      WriteNumDansRapport('DUMP : ' + IntToStr(IndexCoupEnCours) + '/',longClass);
       WritelnDansRapport(' , fonctionAppelante = ' + fonctionAppelante);
       for j := 1 to longClass do
         WritelnNumDansRapport(CoupEnString(class[j].x,true) + ' => ',class[j].note);
@@ -302,9 +302,9 @@ begin
   if delta = kTypeMilieuDePartie then s := 'µ=-°'
    else
      begin
-       s := 'µ=' + NumEnString(delta div 100);
+       s := 'µ=' + IntToStr(delta div 100);
        if (delta mod 100) <> 0
-         then s := s + '.' + NumEnString(delta mod 100);
+         then s := s + '.' + IntToStr(delta mod 100);
      end;
   DeltaFinaleEnChaine := s;
 end;
@@ -401,7 +401,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
         typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
         if note < 0 {perd de ^0} then
           begin
-            infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+            infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
             if (note <> -2) then onASeulementEcritDesPerdants := false;
           end;
         if note = 0 {annule} then
@@ -411,7 +411,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
           end;
         if note > 0 {gagne de +^0} then
           begin
-            infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+            infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
             onASeulementEcritDesPerdants := false;
           end;
         if (certitude = 100) {and (note > ReflexData^.class[1].note + 8) }
@@ -427,14 +427,14 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                 then
                   begin
                     coupStr := coupStr + DefenseEnString(defense) + ' ';
-{gagne de +^0}      infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+{gagne de +^0}      infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
                     typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                     onASeulementEcritDesPerdants := false;
                   end
                 else
                   begin
 {gagnant}           infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,7);
-                    if (note <>  + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')';
+                    if (note <>  + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + IntToStr(note) + ')';
                     onASeulementEcritDesPerdants := false;
                   end;
             end;
@@ -444,7 +444,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                 then
                   begin
 {perd de ^0}        coupStr := coupStr + DefenseEnString(defense) + ' ';
-                    infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+                    infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
                     typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                     if (note <> -2) then onASeulementEcritDesPerdants := false;
                   end
@@ -452,7 +452,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                   begin
                     coupStr := coupStr + DefenseEnString(defense) + ' ';
 {perdant}           infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,9);
-                    if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')';
+                    if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + IntToStr(note) + ')';
                     typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                   end;
              end;
@@ -494,7 +494,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		                  begin
 		                    coupStr := coupStr + DefenseEnString(defense) + '  ';
 		                    infoStr := infoStr + '???';
-		                    //infoStr := infoStr + '???' + '  { 1 : ' + NumEnString(note) + ' , ' + DefenseEnString(defense) + ' }';
+		                    //infoStr := infoStr + '???' + '  { 1 : ' + IntToStr(note) + ' , ' + DefenseEnString(defense) + ' }';
 		                  end;
 		            ReflParfait,ReflParfaitPhaseRechScore,
 		            ReflRetrogradeParfait,ReflRetrogradeParfaitPhaseRechScore :
@@ -510,20 +510,20 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		                  begin
 		                    coupStr := coupStr + DefenseEnString(defense) + '  ';
 		                    infoStr := infoStr + '???';
-		                    // infoStr := infoStr + '???' + '  { 2 : ' + NumEnString(note) + ' , ' + DefenseEnString(defense) + ' }';
+		                    // infoStr := infoStr + '???' + '  { 2 : ' + IntToStr(note) + ' , ' + DefenseEnString(defense) + ' }';
 		                  end;
 		            ReflMilieu :
 		                begin
 		                  coupStr := coupStr + DefenseEnString(defense) + '  ';
 		                  infoStr := infoStr + '???';
-		                  //infoStr := infoStr + '???' + '  { 3 : ' + NumEnString(note) + ' , ' + DefenseEnString(defense) + ' }';
+		                  //infoStr := infoStr + '???' + '  { 3 : ' + IntToStr(note) + ' , ' + DefenseEnString(defense) + ' }';
 		                  afficheeCommeNoteDeMilieu := true;
 		                end;
                 otherwise
                     begin
                       coupStr := coupStr + DefenseEnString(defense) + '  ';
                       infoStr := infoStr + '???';
-                      //infoStr := infoStr + '???' + '  { 4 : ' + NumEnString(note) + ' , ' + DefenseEnString(defense) + ' }';
+                      //infoStr := infoStr + '???' + '  { 4 : ' + IntToStr(note) + ' , ' + DefenseEnString(defense) + ' }';
                     end;
               end; {case}
             end
@@ -537,7 +537,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                       begin
                         coupStr := coupStr + DefenseEnString(defense) + ' ';
                         infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,9);  {perdant}
-                        if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + NumEnString(note) + ')' ;
+                        if (note <> -1) and (Abs(note) < 1000) then infoStr := infoStr + '(' + IntToStr(note) + ')' ;
                         typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                       end
                     else
@@ -548,13 +548,13 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 		                          then
 		                            begin  {gagnant}
 		                              infoStr := infoStr + ReadStringFromRessource(TextesReflexionID,7);
-		                              if (note <>   + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + NumEnString(note) + ')' ;
+		                              if (note <>   + 1) and (Abs(note) < 1000) then infoStr := infoStr + '(+' + IntToStr(note) + ')' ;
 		                              onASeulementEcritDesPerdants := false;
 		                            end
 		                          else
 		                            begin  {gagne de +^0}
 		                              coupStr := coupStr + DefenseEnString(defense) + ' ';
-		                              infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+		                              infoStr := infoStr + ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
 		                              typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
 		                              onASeulementEcritDesPerdants := false;
 		                            end;
@@ -565,11 +565,11 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
                             if note > ReflexData^.class[1].note + 2 then
                               begin
 		                            if note > 0
-		                              then infoStr := infoStr + '(+' + NumEnString(note) + ')';
+		                              then infoStr := infoStr + '(+' + IntToStr(note) + ')';
 		                            if note = 0
-		                              then infoStr := infoStr + '(' + NumEnString(note) + ')';
+		                              then infoStr := infoStr + '(' + IntToStr(note) + ')';
 		                            if (note < 0) and (Abs(note) < 1000)
-		                              then infoStr := infoStr + '(' + NumEnString(note) + ')';
+		                              then infoStr := infoStr + '(' + IntToStr(note) + ')';
 		                          end;
                             typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
                             onASeulementEcritDesPerdants := false;
@@ -619,7 +619,7 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
 				    if (certitude > 0) and (certitude < 100) then
 				      begin
 				        infoStr := infoStr + pointInterrogation;
-				        strAux := strAux + ' [' + NumEnString(certitude) + '%]';
+				        strAux := strAux + ' [' + IntToStr(certitude) + '%]';
 				      end;
         if (delta >= 0) and (delta < kDeltaFinaleInfini) and (Pos('?',infoStr) = 0)
           then infoStr := infoStr + pointInterrogation;
@@ -630,10 +630,10 @@ procedure EcritCoupEnCoursdAnalyse(numligne,xposition,ypositionDebutListe : SInt
         if afficheGestionTemps and peutAfficherLeTemps then
           begin
 		        if (certitude <= 0) or (certitude >= 100)
-		          then strAux := strAux + ' (' + NumEnString((30 + ReflexData^.class[numligne].temps) div 60) + ' s)'
+		          then strAux := strAux + ' (' + IntToStr((30 + ReflexData^.class[numligne].temps) div 60) + ' s)'
 		          else
 		            begin
-		              strAux := strAux + '(' + NumEnString((30 + ReflexData^.class[numligne].temps) div 60) + ' s)' ;
+		              strAux := strAux + '(' + IntToStr((30 + ReflexData^.class[numligne].temps) div 60) + ' s)' ;
 		              typeDeFleche := Min(kFlecheEtroite,typeDeFleche);
 		            end;
 		      end;
@@ -685,7 +685,7 @@ var afficheeCommeNoteDeMilieu : boolean;
   var aux : String255;
   begin
     aux := ReadStringFromRessource(TextesReflexionID,7);        {gagnant}
-		if (note <>  + 1) and (Abs(note) < 1000) then aux := aux + '(+' + NumEnString(note) + ')';
+		if (note <>  + 1) and (Abs(note) < 1000) then aux := aux + '(+' + IntToStr(note) + ')';
 		ChaineGagnantAvecScore := aux;
   end;
 
@@ -693,7 +693,7 @@ var afficheeCommeNoteDeMilieu : boolean;
   var aux : String255;
   begin
     aux := ReadStringFromRessource(TextesReflexionID,9);  {perdant}
-		if (note <> -1) and (Abs(note) < 1000) then aux := aux + '(' + NumEnString(note) + ')';
+		if (note <> -1) and (Abs(note) < 1000) then aux := aux + '(' + IntToStr(note) + ')';
 		ChainePerdantAvecScore := aux;
   end;
 
@@ -791,7 +791,7 @@ begin
     				                 begin
     				   {perd de ^0}    if note < 0 then
     				                     begin
-    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
     				                       if (note <> -2) then onASeulementEcritDesPerdants := false;
     				                     end else
     				   {annule }       if note = 0 then
@@ -801,7 +801,7 @@ begin
     				                     end else
     				   {gagne de +^0}  if note > 0 then
     				                     begin
-    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
     				                       onASeulementEcritDesPerdants := false;
     				                     end;
     				                 end
@@ -860,7 +860,7 @@ begin
     				                     end else
     				   {perd de ^0}    if note < 0 then
     				                     begin
-    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
     				                       if (note <> -2) then onASeulementEcritDesPerdants := false;
     				                     end else
     				   {annule }       if note = 0 then
@@ -870,7 +870,7 @@ begin
     				                     end else
     				   {gagne de +^0}  if note > 0 then
     				                     begin
-    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+    				                       s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
     				                       onASeulementEcritDesPerdants := false;
     				                     end;
     				                 end
@@ -923,7 +923,7 @@ begin
     				           begin
     		{perd de ^0}     if scoreAnalyseRetrograde < 0 then
     		                   begin
-    		                     s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(scoreAnalyseRetrograde),'','','');
+    		                     s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(scoreAnalyseRetrograde),'','','');
     		                     if (scoreAnalyseRetrograde <> -2) then onASeulementEcritDesPerdants := false;
     		                   end else
     		{annule}         if scoreAnalyseRetrograde = 0 then
@@ -933,7 +933,7 @@ begin
     		                   end else
     		{gagne de +^0}   if scoreAnalyseRetrograde > 0 then
     		                   begin
-    		                      s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(scoreAnalyseRetrograde),'','','');
+    		                      s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(scoreAnalyseRetrograde),'','','');
     		                      onASeulementEcritDesPerdants := false;
     		                   end;
     				           end
@@ -964,7 +964,7 @@ begin
     							                 begin
       		{perd de ^0}               if note < 0 then
       		                             begin
-      		                               s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+      		                               s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
       		                               if (note <> -2) then onASeulementEcritDesPerdants := false;
     		                               end else
       		{annule}     					     if note = 0 then
@@ -974,7 +974,7 @@ begin
     		                               end else
       		{gagne de +^0}   					 if note > 0 then
       		                             begin
-      		                                s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+      		                                s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
       		                                onASeulementEcritDesPerdants := false;
     		                               end;
       		                         end;
@@ -1021,7 +1021,7 @@ begin
       		                               end else
       		{perd de ^0}  					     if note < 0 then
       		                               begin
-      		                                  s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+      		                                  s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
       		                                  if (note <> -2) then onASeulementEcritDesPerdants := false;
       		                               end else
       		{annule}      					     if note = 0 then
@@ -1031,7 +1031,7 @@ begin
       		                               end else
       		{gagne de ^0}   					   if note > 0 then
       		                               begin
-      		                                  s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+      		                                  s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
       		                                  onASeulementEcritDesPerdants := false;
       		                               end;
       		                           end;
@@ -1041,7 +1041,7 @@ begin
     				       begin
 		{perd de ^0}     if note < 0 then
 		                   begin
-		                     s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),NumEnString(note),'','','');
+		                     s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,17),IntToStr(note),'','','');
 		                     if (note <> -2) then onASeulementEcritDesPerdants := false;
 		                   end else
 		{annule}         if note = 0 then
@@ -1051,7 +1051,7 @@ begin
 		                   end else
 		{gagne de +^0}   if note > 0 then
 		                   begin
-		                      s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),NumEnString(note),'','','');
+		                      s2 := ParamStr(ReadStringFromRessource(TextesReflexionID,19),IntToStr(note),'','','');
 		                      onASeulementEcritDesPerdants := false;
 		                   end;
     				       end;
@@ -1178,7 +1178,7 @@ begin
            pionBlanc : s1 := ReadStringFromRessource(TextesListeID,8); {'Blanc'}
            otherwise   s1 := '******';
          end;
-         s := ParamStr(s2,s1,NumEnString(numeroDuCoup),'','');
+         s := ParamStr(s2,s1,IntToStr(numeroDuCoup),'','');
          s := ReplaceStringByStringInString('É','',s);
          Moveto(xposition,yposition + 12);
          if redirectionVersRapport
@@ -1207,11 +1207,11 @@ begin
                                                     then
                                                       begin
                                                         s2 := ReplaceStringByStringInString('profondeur = ','prof = ',s2);
-                                                        s3 := NumEnString(empties) + '@' + NumEnString(ProfondeurMilieuEnPrecisionFinaleEngine(prof + 1, empties)) + '%';
+                                                        s3 := IntToStr(empties) + '@' + IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(prof + 1, empties)) + '%';
                                                       end
                                                     else
                                                       begin
-                                                        s3 := NumEnString(prof + 1);
+                                                        s3 := IntToStr(prof + 1);
                                                       end;
                                                   s := ParamStr(s2,s3,'','','');
                                                 end;
@@ -1231,12 +1231,12 @@ begin
            then
 	           begin
 	             s2 := ReadStringFromRessource(TextesReflexionID,4);      {'tri des coups (prof =  ^0)'}
-	             s  := ParamStr(s2,NumEnString(prof + 1),'','','');
+	             s  := ParamStr(s2,IntToStr(prof + 1),'','','');
 	           end
            else
 	           begin
 	             s2 := ReadStringFromRessource(TextesReflexionID,6);       {'coup n¡^0 (sur ^1)'}
-	             s  := ParamStr(s2,NumEnString(Compteur),NumEnString(longClass),'','');
+	             s  := ParamStr(s2,IntToStr(Compteur),IntToStr(longClass),'','');
 	           end;
 	       s := ReplaceStringByStringInString('É','',s);
          ypositionDebutListe := ypositionDebutListe + 12;
@@ -1310,7 +1310,7 @@ begin
                  UpdateNoteDerniereLigneAffichee;
 
                  if afficheGestionTemps and (s2 <> ChainePourLigneVide)
-                   then s3 := ' (' + NumEnString((30+class[j].temps) div 60) + ' s)'
+                   then s3 := ' (' + IntToStr((30+class[j].temps) div 60) + ' s)'
                    else s3 := '';
                  s := CoupEnString(class[j].x,CassioUtiliseDesMajuscules);
                  if (class[j].theDefense >= 11) and (class[j].theDefense <= 88) and (prof + 1 <> 1)
@@ -1370,7 +1370,7 @@ begin
                    if (class[j].note <= -30000) then
                      s2 := '             ';
                  if afficheGestionTemps and (s2 <> '             ')
-                   then s3 := ' (' + NumEnString((30 + class[j].temps) div 60) + ' s)'
+                   then s3 := ' (' + IntToStr((30 + class[j].temps) div 60) + ' s)'
                    else s3 := '';
                  s := CoupEnString(class[j].x,CassioUtiliseDesMajuscules);
                  if (class[j].theDefense >= 11) and (class[j].theDefense <= 88)
@@ -1827,7 +1827,7 @@ begin
                     if doitAfficherSi then
                       begin
                         s := ReadStringFromRessource(TextesPlateauID,10);  {si}
-                        s1 := NumEnString(numeroCoup-1);
+                        s1 := IntToStr(numeroCoup-1);
                         chaineMeilleureSuite := s + CharToString(' ') + s1 + CharToString('.');
                       end;
                   end;
@@ -1840,7 +1840,7 @@ begin
                       then
                         begin
                           s := ReadStringFromRessource(TextesPlateauID,10);  {si}
-                          s1 := NumEnString(numeroCoup-1);
+                          s1 := IntToStr(numeroCoup-1);
                           chaineMeilleureSuite := s + CharToString(' ') + s1 + CharToString('.') + s2 + ', ';
                         end
                       else chaineMeilleureSuite := chaineMeilleureSuite + s2 + espaces;
@@ -1883,7 +1883,7 @@ begin
                     if doitAfficherNumeroCoup and
                        not((Statut = NeSaitPas) and (phaseDeLaPartie >= phaseFinale)) then
                       begin
-                        s1 := NumEnString(numeroCoup);
+                        s1 := IntToStr(numeroCoup);
                         chaineMeilleureSuite := chaineMeilleureSuite + s1 + CharToString('.');
                       end;
 
@@ -1909,16 +1909,16 @@ begin
 		                                if (score.noir + score.blanc < 64)
 		                                   then chaineMeilleureSuite := chaineMeilleureSuite+'etc.';
 		                                if WhichScore > 0
-		                                   then chaineMeilleureSuite := Concat('+',NumEnString(WhichScore),' : ',chaineMeilleureSuite);
+		                                   then chaineMeilleureSuite := Concat('+',IntToStr(WhichScore),' : ',chaineMeilleureSuite);
 		                                if WhichScore = 0
 		                                   then chaineMeilleureSuite := Concat('= : ',chaineMeilleureSuite);
 		                                if WhichScore < 0
-		                                   then chaineMeilleureSuite := Concat(NumEnString(WhichScore),' : ',chaineMeilleureSuite);
+		                                   then chaineMeilleureSuite := Concat(IntToStr(WhichScore),' : ',chaineMeilleureSuite);
 		                              end
 		                            else
 			                            begin
-			                              s := NumEnString(score.noir);
-			                              s1 := NumEnString(score.blanc);
+			                              s := IntToStr(score.noir);
+			                              s1 := IntToStr(score.blanc);
 			                              s := CharToString(' ') + s + CharToString('-') + s1;
 			                              chaineMeilleureSuite := chaineMeilleureSuite + s;
 			                            end;
@@ -1941,7 +1941,7 @@ begin
 		                           chaineMeilleureSuite := chaineMeilleureSuite + s;
 
 
-		                           s := NumEnString(numeroCoup) + CharToString('.') + SuiteDesCoups(0,kNbMaxNiveaux);
+		                           s := IntToStr(numeroCoup) + CharToString('.') + SuiteDesCoups(0,kNbMaxNiveaux);
 		                           if remplacerScoreIncompletParEtc
 		                             then s := ' (' + s + 'etc.)'
 		                             else s := ' (' + s + ')';
@@ -1981,13 +1981,13 @@ begin
     then
       begin
         aux := note div 100;
-        s1 := NumEnString(aux);
+        s1 := IntToStr(aux);
         s := s + s1+'.';
         note := note - (aux*100);
-        s1 := NumEnString(note);
+        s1 := IntToStr(note);
         if note < 10 then s1 := CharToString('0') + s1;
       end
-    else s1 := NumEnString(note);
+    else s1 := IntToStr(note);
   MeilleureSuiteEtNoteEnChaine := s + s1;
 end;
 
@@ -2029,18 +2029,18 @@ begin
               aux := note div 100;
 			        note := note-aux*100;
 			        if note < 10
-			          then NoteEnString := s + NumEnString(aux)+'.0' + NumEnString(note)
-			          else NoteEnString := s + NumEnString(aux)+'.' + NumEnString(note);
+			          then NoteEnString := s + IntToStr(aux)+'.0' + IntToStr(note)
+			          else NoteEnString := s + IntToStr(aux)+'.' + IntToStr(note);
             end
           else
             begin
               aux := note div 100;
 			        note := note-aux*100;
-			        NoteEnString := s + NumEnString(aux)+'.' + NumEnString(note div 10)
+			        NoteEnString := s + IntToStr(aux)+'.' + IntToStr(note div 10)
             end;
       end
     else
-      NoteEnString := s + NumEnString(note);
+      NoteEnString := s + IntToStr(note);
 end;
 
 

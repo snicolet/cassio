@@ -13,7 +13,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function MakeEndgameSearch(var paramMakeEndgameSearch : MakeEndgameSearchParamRec ) : boolean;     external;
 function GetGameNodeMagicCookie(G : GameTree) : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function SelectFirstPropertyOfTypesInGameTree(whichTypes : SetOfPropertyTypes; G : GameTree) : PropertyPtr;     external;
 procedure AlerteSimple(texte : String255);     external;
 function GetEndgameScoreDeCetteCouleurDansGameNode(G : GameTree; couleur : SInt32; var scoreMinPourCouleur,scoreMaxPourCouleur : SInt32) : boolean;     external;

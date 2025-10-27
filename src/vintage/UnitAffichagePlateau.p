@@ -1567,7 +1567,7 @@ begin
     kCaseDevantEtreRedessinee :
        begin
          {if not(gCouleurOthellier.estUneImage) then DessinePion2D(square,pionVide);}
-         {TraceLog(Concat('DessinePion2D : kCaseDevantEtreRedessinee, case = ',NumEnString(square)));}
+         {TraceLog(Concat('DessinePion2D : kCaseDevantEtreRedessinee, case = ',IntToStr(square)));}
 
          SetOthellierEstSale(square,true);
          couleur := GetCouleurOfSquareDansJeuCourant(square);
@@ -2440,7 +2440,7 @@ begin
 		  case couleurDesLettres of
 		    pionBlanc : WritelnDansRapport(' "'+s+'" blanc en'+CoupEnStringEnMajuscules(whichsquare))
 		    pionNoir  : WritelnDansRapport(' "'+s+'" noir en'+CoupEnStringEnMajuscules(whichsquare))
-		    otherwise   WritelnDansRapport(' "'+s+'" (couleur = '+NumEnString(couleurDesLettres)+') en'+CoupEnStringEnMajuscules(whichsquare))
+		    otherwise   WritelnDansRapport(' "'+s+'" (couleur = '+IntToStr(couleurDesLettres)+') en'+CoupEnStringEnMajuscules(whichsquare))
 		  end;
 	    *)
 
@@ -2540,7 +2540,7 @@ begin
    then
      begin
        if EnVieille3D
-         then WritelnDansRapport('pas d''appel a DessinePion3D dans DessinePion('+CoupEnString(square,true)+','+NumEnString(valeurPion)+')')
+         then WritelnDansRapport('pas d''appel a DessinePion3D dans DessinePion('+CoupEnString(square,true)+','+IntToStr(valeurPion)+')')
          else DessinePion3D(square,valeurPion);
      end
    else DessinePion2D(square,valeurPion);
@@ -3071,7 +3071,7 @@ var s : String255;
 begin
   PrepareTextModeAndSizePourDessineDiagramme(couleurDesChiffres,haut,decalageHor,decalageVert);
   GetPositionCorrecteNumeroDuCoup2D(whichSquare,where);
-  s := NumEnString(whichNumber);
+  s := IntToStr(whichNumber);
   Moveto(where.h - MyStringWidth(s) div 2, where.v + haut div 2);
   MyDrawString(s);
 
@@ -3249,7 +3249,7 @@ begin
       SetPortByWindow(wPlateauPtr);
       if InRange(square,11,88) then
        begin
-         s := NumEnString(n);
+         s := IntToStr(n);
 
          if afficheSignesDiacritiques and (whichNode <> NIL) then
            s := s + GetSignesDiacritiques(whichNode);
@@ -3297,7 +3297,7 @@ begin
              end
            else
              begin
-			         s := NumEnString(n);
+			         s := IntToStr(n);
 			         if afficheSignesDiacritiques and (whichNode <> NIL) then
 			           s := s + GetSignesDiacritiques(whichNode);
 			         if (GetTailleCaseCourante <= 20) and not(CassioEstEn3D)
@@ -3446,10 +3446,10 @@ begin
        else
          with theClipRect do
            WritelnDansRapport('clipRegion =  '+
-                              '(left = '+NumEnString(left)+
-                              ', top = '+NumEnString(top)+
-                              ', right = '+NumEnString(right)+
-                              ', bottom = '+NumEnString(bottom)+')');}
+                              '(left = '+IntToStr(left)+
+                              ', top = '+IntToStr(top)+
+                              ', right = '+IntToStr(right)+
+                              ', bottom = '+IntToStr(bottom)+')');}
 
 
      if not(CassioEstEn3D)

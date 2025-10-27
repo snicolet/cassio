@@ -480,7 +480,7 @@ begin
 		  if nbreDePions[pionNoir] < nbreDePions[pionBlanc] then nbPionsNoirs := nbreDePions[pionNoir];
 		  ConstruitTitrePartie(GetNomJoueurSansPrenom(dernierJoueurNoir),GetNomJoueurSansPrenom(dernierJoueurBlanc),true,nbPionsNoirs,s);
 		  ParamDiagCourant.CommentPositionFFORUM^^ := s;
-		  ParamDiagCourant.titreFFORUM^^ := EnleveEspacesDeDroite(GetNomTournoi(dernierTournoi))+' '+NumEnString(derniereAnnee);
+		  ParamDiagCourant.titreFFORUM^^ := EnleveEspacesDeDroite(GetNomTournoi(dernierTournoi))+' '+IntToStr(derniereAnnee);
 		  differencierLesFreres := tempo;
 
 		  {WritelnDansRapport('chainePositionInitiale = '+chainePositionInitiale);
@@ -740,7 +740,7 @@ begin
   		    SetItemTextInDialog(dialogueSaisie,NoirEditableText,GetNomJoueur(dernierJoueurNoir));
   	      SetItemTextInDialog(dialogueSaisie,BlancEditableText,GetNomJoueur(dernierJoueurBlanc));
   	      SetItemTextInDialog(dialogueSaisie,TournoiEditableText,GetNomTournoi(dernierTournoi));
-  	      SetItemTextInDialog(dialogueSaisie,AnneeEditableText,NumEnString(derniereAnnee));
+  	      SetItemTextInDialog(dialogueSaisie,AnneeEditableText,IntToStr(derniereAnnee));
   	
   	      with popUpBasesSaisie do
   	        begin

@@ -835,8 +835,8 @@ begin
               s := RightOfString(timeStamp,2);
               aux := ChaineEnLongint(s) + 1;
               if aux < 10
-                then s := '0'+NumEnString(aux)
-                else s := NumEnString(aux);
+                then s := '0'+IntToStr(aux)
+                else s := IntToStr(aux);
               RightAssignP(timeStamp,2,s);
 
 
@@ -1012,7 +1012,7 @@ begin
 
       inMuMinimumFinale                    := 0;
       inMuMaximumFinale                    := deltaFinal;
-      inPrecisionFinale                    := MuStringEnPrecisionEngine('0,'+NumEnString(deltaFinal));
+      inPrecisionFinale                    := MuStringEnPrecisionEngine('0,'+IntToStr(deltaFinal));
       inPrioriteFinale                     := 0;
       inGameTreeNodeFinale                 := NIL;
       inPositionPourFinale                 := thePos.position;
@@ -1316,7 +1316,7 @@ begin
                     inc(nbFilsToDelete);
                     if (nbFilsToDelete = 1)
                       then s := s + '&hash='                                 + UInt64ToHexa(hashRequete[k])
-                      else s := s + '&h' + NumEnString(nbFilsToDelete) + '=' + UInt64ToHexa(hashRequete[k]);
+                      else s := s + '&h' + IntToStr(nbFilsToDelete) + '=' + UInt64ToHexa(hashRequete[k]);
 
                     if (nbFilsToDelete >= 11) then
                       begin

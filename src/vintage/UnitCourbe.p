@@ -479,7 +479,7 @@ begin
 
 
       // WriteNumDansRapport('EndDrawingCourbe ('+fonctionAppelante+'), niveau = ',niveauxRecursionDrawing);
-      // WritelnStringAndBoolDansRapport('  usingOffScreenBuffer['+NumEnString(niveauxRecursionDrawing)+'] = ',usingOffScreenBuffer[niveauxRecursionDrawing]);
+      // WritelnStringAndBoolDansRapport('  usingOffScreenBuffer['+IntToStr(niveauxRecursionDrawing)+'] = ',usingOffScreenBuffer[niveauxRecursionDrawing]);
 
 
     end;
@@ -645,7 +645,7 @@ begin
       for i := 1 to 5 do
         begin
           n := 10*i;
-          s := NumEnString(n);
+          s := IntToStr(n);
           x := margeZoneGrise + marge + ((n*largeur) div 60);
 
           if (n > nroDernierCoupAtteint)
@@ -669,7 +669,7 @@ begin  {$UNUSED fonctionAppelante}
   if windowCourbeOpen then
     with gCourbeData do
     begin
-      WriteDebugageCourbe(NumEnString(nbreCoup)+' : DessineRepereCourbe, fonction appelante = '+fonctionAppelante);
+      WriteDebugageCourbe(IntToStr(nbreCoup)+' : DessineRepereCourbe, fonction appelante = '+fonctionAppelante);
 
       GetPort(oldport);
 
@@ -759,7 +759,7 @@ begin
   if windowCourbeOpen then
     with gCourbeData do
     begin
-      WriteDebugageCourbe(NumEnString(nbreCoup)+' : EffaceCourbe['+NumEnString(n)+','+NumEnString(nfin)+'], fonction appelante = '+fonctionAppelante);
+      WriteDebugageCourbe(IntToStr(nbreCoup)+' : EffaceCourbe['+IntToStr(n)+','+IntToStr(nfin)+'], fonction appelante = '+fonctionAppelante);
 
       GetPort(oldport);
       BeginDrawingCourbe('EffaceCourbe');
@@ -805,7 +805,7 @@ begin
                  accu := MakeRect(0,0,0,0);
 
                  {for i := n to nroDernierCoupAtteint do
-                   WritelnStringAndBoolDansRapport(NumEnString(nbreCoup)+' (pre) : continue['+NumEnString(i)+'] = ',CourbeEstContinueEnCePoint(i,kGlobalement));}
+                   WritelnStringAndBoolDansRapport(IntToStr(nbreCoup)+' (pre) : continue['+IntToStr(i)+'] = ',CourbeEstContinueEnCePoint(i,kGlobalement));}
 
                  i := n+1;
                  repeat
@@ -819,7 +819,7 @@ begin
                        ((i > nfin + 2) and CourbeEstContinueEnCePoint(i,kGlobalement));
 
                  {for i := n to nroDernierCoupAtteint do
-                   WritelnStringAndBoolDansRapport(NumEnString(nbreCoup)+' (post) : continue['+NumEnString(i)+'] = ',CourbeEstContinueEnCePoint(i,kGlobalement));}
+                   WritelnStringAndBoolDansRapport(IntToStr(nbreCoup)+' (post) : continue['+IntToStr(i)+'] = ',CourbeEstContinueEnCePoint(i,kGlobalement));}
 
                end;
            end; {case}
@@ -843,7 +843,7 @@ end;
 
 procedure EffacerTouteLaCourbe(fonctionAppelante : String255);
 begin
-  WriteDebugageCourbe(NumEnString(nbreCoup)+' : EffacerTouteLaCourbe, fonction appelante = '+fonctionAppelante);
+  WriteDebugageCourbe(IntToStr(nbreCoup)+' : EffacerTouteLaCourbe, fonction appelante = '+fonctionAppelante);
   if windowCourbeOpen then
     EffaceCourbe(kTouteLaCourbe,kTouteLaCourbe,kEffacerCourbe,fonctionAppelante+'->EffacerTouteLaCourbe');
 
@@ -868,7 +868,7 @@ var x0,x3,pointDichotomie : Point;
     echelle : double;
     isGoodForWhite : boolean;
 begin
-  {WriteDebugageCourbe(NumEnString(nbreCoup)+' : DessineTrapezeCouleurDansCourbe');}
+  {WriteDebugageCourbe(IntToStr(nbreCoup)+' : DessineTrapezeCouleurDansCourbe');}
 
   if windowCourbeOpen then
     with gCourbeData do
@@ -965,7 +965,7 @@ begin
   if windowCourbeOpen and (n >= 1) and (n <= 60) and (n <= nroDernierCoupAtteint) then
     with gCourbeData do
       begin
-        WriteDebugageCourbe(NumEnString(nbreCoup)+' : TraceQuelquesSegmentsDeLaCourbe('+NumEnString(n)+')');
+        WriteDebugageCourbe(IntToStr(nbreCoup)+' : TraceQuelquesSegmentsDeLaCourbe('+IntToStr(n)+')');
 
         GetPort(oldport);
         BeginDrawingCourbe('TraceQuelquesSegmentsDeLaCourbe');
@@ -1066,7 +1066,7 @@ end;
 procedure TraceSegmentCourbe(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255);
 var regionEffacee : rect;
 begin
-  WriteDebugageCourbe(NumEnString(nbreCoup)+' : TraceSegmentCourbe('+NumEnString(numeroDuCoup)+'), fonction appelante = '+fonctionAppelante);
+  WriteDebugageCourbe(IntToStr(nbreCoup)+' : TraceSegmentCourbe('+IntToStr(numeroDuCoup)+'), fonction appelante = '+fonctionAppelante);
 
   if windowCourbeOpen and (numeroDuCoup >= 1) and (numeroDuCoup <= 60) and (numeroDuCoup <= nroDernierCoupAtteint) then
     begin
@@ -1082,7 +1082,7 @@ end;
 
 procedure TraceSegmentCourbeSansDessinerLeRepere(numeroDuCoup : SInt32; coloration : typeColorationCourbe; fonctionAppelante : String255; var regionEffacee : rect);
 begin
-  WriteDebugageCourbe(NumEnString(nbreCoup)+' : TraceSegmentCourbeSansDessinerLeRepere('+NumEnString(numeroDuCoup)+'), fonction appelante = '+fonctionAppelante);
+  WriteDebugageCourbe(IntToStr(nbreCoup)+' : TraceSegmentCourbeSansDessinerLeRepere('+IntToStr(numeroDuCoup)+'), fonction appelante = '+fonctionAppelante);
 
   regionEffacee := MakeRect(0,0,0,0);
 
@@ -1103,7 +1103,7 @@ begin
   if windowCourbeOpen then
     with gCourbeData do
       begin
-        WriteDebugageCourbe(NumEnString(nbreCoup)+' : DessineCourbe, fonction appelante = '+fonctionAppelante);
+        WriteDebugageCourbe(IntToStr(nbreCoup)+' : DessineCourbe, fonction appelante = '+fonctionAppelante);
 
         GetPort(oldport);
         BeginDrawingCourbe('DessineCourbe');
@@ -1255,7 +1255,7 @@ begin
             premierCoupSansEvaluation := nroDuCoup;
           end;
 
-        {WritelnNumDansRapport('SetConnue['+NumEnString(nroDuCoup)+','+BoolEnString(flag)+'] : premierCoupSansEvaluation = ',premierCoupSansEvaluation);}
+        {WritelnNumDansRapport('SetConnue['+IntToStr(nroDuCoup)+','+BoolEnString(flag)+'] : premierCoupSansEvaluation = ',premierCoupSansEvaluation);}
       end;
 end;
 
@@ -1269,7 +1269,7 @@ begin
       doitExecuterLaBoucle := true;
       if (premierCoupSansEvaluation <= nroCoupMin) then doitExecuterLaBoucle := false;
 
-      {WritelnStringAndBoolDansRapport('Invalidate['+NumEnString(nroCoupMin)+','+NumEnString(nroCoupMax)+'] : doitExecuterLaBoucle = ',doitExecuterLaBoucle);}
+      {WritelnStringAndBoolDansRapport('Invalidate['+IntToStr(nroCoupMin)+','+IntToStr(nroCoupMax)+'] : doitExecuterLaBoucle = ',doitExecuterLaBoucle);}
 
       if doitExecuterLaBoucle then
         begin
@@ -1345,7 +1345,7 @@ begin
 
             SetCourbeEstContinueEnCePoint(nroDuCoup,kGlobalement,false);
 
-            {WritelnNumDansRapport('Courbe['+NumEnString(nroDuCoup)+'] = ',evaluationPourNoir div kCoeffMultiplicateurPourCourbeEnFinale);}
+            {WritelnNumDansRapport('Courbe['+IntToStr(nroDuCoup)+'] = ',evaluationPourNoir div kCoeffMultiplicateurPourCourbeEnFinale);}
 
             if (evaluationPourNoir >  64*kCoeffMultiplicateurPourCourbeEnFinale) then evaluationPourNoir :=  64*kCoeffMultiplicateurPourCourbeEnFinale else
             if (evaluationPourNoir < -64*kCoeffMultiplicateurPourCourbeEnFinale) then evaluationPourNoir := -64*kCoeffMultiplicateurPourCourbeEnFinale;
@@ -1599,7 +1599,7 @@ begin
       if (kFinaleParfaite in origineCherchees) and (scoreMinPourNoir = scoreMaxPourNoir) and (scoreMinPourNoir >= -64) and (scoreMinPourNoir <= 64) then
         begin
           note := scoreMinPourNoir*kCoeffMultiplicateurPourCourbeEnFinale;
-          {WritelnNumDansRapport('Chouette, un score parfait@'+ NumEnString(nroDuCoup)+' : ',scoreMinPourNoir);}
+          {WritelnNumDansRapport('Chouette, un score parfait@'+ IntToStr(nroDuCoup)+' : ',scoreMinPourNoir);}
 
           SetEvaluationPourNoirDansCourbe(nroDuCoup,note,kFinaleParfaite);
           SetEvaluationPourCourbeProvientDeLaFinale(nroDuCoup,true);
@@ -1615,7 +1615,7 @@ begin
 
           MetScorePrevuParFinaleDansCourbe(nroDuCoup+1,nroDuCoup+1,kFinaleWLD,2);
 
-          {WritelnNumDansRapport('Chouette, un score gagnant WLD@'+ NumEnString(nroDuCoup)+' : ',2);}
+          {WritelnNumDansRapport('Chouette, un score gagnant WLD@'+ IntToStr(nroDuCoup)+' : ',2);}
 
           PeutCopierEndgameScoreFromGameTreeDansCourbe := true;
           exit(PeutCopierEndgameScoreFromGameTreeDansCourbe);
@@ -1627,7 +1627,7 @@ begin
 
           MetScorePrevuParFinaleDansCourbe(nroDuCoup+1,nroDuCoup+1,kFinaleWLD,-2);
 
-          {WritelnNumDansRapport('Chouette, un score perdant WLD@'+ NumEnString(nroDuCoup)+' : ',-2);}
+          {WritelnNumDansRapport('Chouette, un score perdant WLD@'+ IntToStr(nroDuCoup)+' : ',-2);}
 
           PeutCopierEndgameScoreFromGameTreeDansCourbe := true;
           exit(PeutCopierEndgameScoreFromGameTreeDansCourbe);
@@ -1748,7 +1748,7 @@ begin
               if (nbreCoup > 0) and (nbreCoup <= 60) and (DerniereCaseJouee <> coupInconnu)
                 then
                   begin
-                    s := NumEnString(nbreCoup)+'.'+CoupEnString(DerniereCaseJouee,CassioUtiliseDesMajuscules);
+                    s := IntToStr(nbreCoup)+'.'+CoupEnString(DerniereCaseJouee,CassioUtiliseDesMajuscules);
                     if nbreCoup < 10 then s := 'Ê' + s;
                   end
                 else s := '';
@@ -2045,7 +2045,7 @@ begin
         begin
           dernierCommentaireAffiche := nroCoup;
 
-          coupEnChaine := NumEnString(nroCoup)+'.'+CoupEnString(GetNiemeCoupPartieCourante(nroCoup),CassioUtiliseDesMajuscules);
+          coupEnChaine := IntToStr(nroCoup)+'.'+CoupEnString(GetNiemeCoupPartieCourante(nroCoup),CassioUtiliseDesMajuscules);
 
 
           if EvaluationPourCourbeProvientDeLaFinale(nroCoup)
@@ -2062,7 +2062,7 @@ begin
                       kFinaleParfaite :
                         begin
                           s1 := '  ' + ReadStringFromRessource(TextesRetrogradeID,21);  {'  fait ^0}
-                          s1 := ParamStr(s1,NumEnString(32 + note div 2)+'-'+NumEnString(32 - note div 2),'','','');
+                          s1 := ParamStr(s1,IntToStr(32 + note div 2)+'-'+IntToStr(32 - note div 2),'','','');
                           s := s + {' :' +} s1;
                         end;
                       kFinaleWLD :
@@ -2146,9 +2146,9 @@ begin
     NomDuFichierCachePourImageDeFondCourbe :=
                         pathDossierOthelliersCassio
                         + ':cache:courbe'
-                        + NumEnString(offScreenRect.right)
+                        + IntToStr(offScreenRect.right)
                         + 'x'
-                        + NumEnString(offScreenRect.bottom)
+                        + IntToStr(offScreenRect.bottom)
                         + '.jpg';
 end;
 
@@ -2322,10 +2322,10 @@ begin
                then offScreenRect := gOffScreenCourbeRect
                else offScreenRect := courbeWindowRect;
 
-            WriteDebugageCourbe('offScreenRect.left = ' + NumEnString(offScreenRect.left));
-            WriteDebugageCourbe('offScreenRect.right = ' + NumEnString(offScreenRect.right));
-            WriteDebugageCourbe('offScreenRect.top = ' + NumEnString(offScreenRect.top));
-            WriteDebugageCourbe('offScreenRect.bottom = ' + NumEnString(offScreenRect.bottom));
+            WriteDebugageCourbe('offScreenRect.left = ' + IntToStr(offScreenRect.left));
+            WriteDebugageCourbe('offScreenRect.right = ' + IntToStr(offScreenRect.right));
+            WriteDebugageCourbe('offScreenRect.top = ' + IntToStr(offScreenRect.top));
+            WriteDebugageCourbe('offScreenRect.bottom = ' + IntToStr(offScreenRect.bottom));
 
             useImageForBackground := (CreateTempOffScreenWorld(offScreenRect,offScreenWorld) = NoErr);
 

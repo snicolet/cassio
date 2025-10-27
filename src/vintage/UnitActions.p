@@ -787,7 +787,7 @@ begin
   whichPosition                := GetPositionEtTraitInitiauxOfGameTree;
   infosReelles.initialPosition := PositionEtTraitEnString(whichPosition);
   infosReelles.moves           := PartiePourPressePapier(true,false,60);
-  infosReelles.moveNumber      := NumEnString(nbreCoup);
+  infosReelles.moveNumber      := IntToStr(nbreCoup);
   infosReelles.SGFAnnotations  := GetPierresDeltaCourantesEnString;
   infosReelles.diagramComment  := ParamDiagPositionFFORUM.commentPositionFFORUM^^;
   infosReelles.diagramTitle    := ParamDiagPartieFFORUM.titreFFORUM^^;
@@ -1203,7 +1203,7 @@ begin
   OuvrirFichierParNomComplet := err;
 
 {$IFC USE_PROFILER_OUVERTURE_FICHIERS}
-  nomFichierProfileOuvrirFichier := 'ouvrir_fichier_' + NumEnString(Tickcount div 60) + '.profile';
+  nomFichierProfileOuvrirFichier := 'ouvrir_fichier_' + IntToStr(Tickcount div 60) + '.profile';
   WritelnDansRapport('nomFichierProfileOuvrirFichier = '+nomFichierProfileOuvrirFichier);
   if ProfilerDump(nomFichierProfileOuvrirFichier) <> NoErr
     then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfileOuvrirFichier+') a échoué !')
@@ -4035,7 +4035,7 @@ var n : SInt16;
   begin
     {$UNUSED peutRepeter}
     n := cmdNumber+1;
-    MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),NumEnString(n),'','',''));
+    MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(n),'','',''));
     DoMilieuDeJeuNormal(n,true);
   end;
 
@@ -4265,13 +4265,13 @@ procedure DoProgrammationMenuCommands(cmdNumber : SInt16; var peutRepeter : bool
                                      begin
                                        profMinimalePourTriDesCoupsParAlphaBeta := profMinimalePourTriDesCoupsParAlphaBeta-1;
                                        WriteDansRapport('profMinimalePourTriDesCoupsParAlphaBeta = ');
-                                       WritelnDansRapport(NumEnString(profMinimalePourTriDesCoupsParAlphaBeta));
+                                       WritelnDansRapport(IntToStr(profMinimalePourTriDesCoupsParAlphaBeta));
                                      end
                                    else
                                      begin
                                        profMinimalePourTriDesCoupsParAlphaBeta := profMinimalePourTriDesCoupsParAlphaBeta+1;
                                        WriteDansRapport('profMinimalePourTriDesCoupsParAlphaBeta = ');
-                                       WritelnDansRapport(NumEnString(profMinimalePourTriDesCoupsParAlphaBeta));
+                                       WritelnDansRapport(IntToStr(profMinimalePourTriDesCoupsParAlphaBeta));
                                      end;
                                   }
 
@@ -7088,7 +7088,7 @@ var err : OSErr;
 begin
   {TraceLog('DoAppleEvents');}
   err := AEProcessAppleEvent(theEvent);
-  {TraceLog('AEProcessAppleEvent : err = '+NumEnString(err));}
+  {TraceLog('AEProcessAppleEvent : err = '+IntToStr(err));}
 end;
 
 

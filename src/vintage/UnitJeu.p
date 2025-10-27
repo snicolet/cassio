@@ -237,7 +237,7 @@ begin
           EffaceDernierCaractereDuRapport;
           SwitchToRed;
 
-          s := ParamStr(ReadStringFromRessource(TextesRapportID,32),NumEnString(humanWinningStreak),'','','');
+          s := ParamStr(ReadStringFromRessource(TextesRapportID,32),IntToStr(humanWinningStreak),'','','');
           WritelnDansRapport('   '+s);  {Vous avez gagn ^0 parties d'affile au niveau Champion.}
           {WritelnDansRapport('');}
 
@@ -3534,7 +3534,7 @@ begin
 
      if debuggage.arbreDeJeu then
        begin
-		     WriteDansRapport('i = '+NumEnString(i)+'  => ');
+		     WriteDansRapport('i = '+IntToStr(i)+'  => ');
 		     if encorepossible
 		       then WritelnDansRapport('encorepossible = true')
 		       else WritelnDansRapport('encorepossible = false');
@@ -3546,11 +3546,11 @@ begin
        if 2*index > len then encorePossible := false;  {on est arrive a la fin de la chaine}
 
        if debuggage.arbreDeJeu then
-         WritelnNumDansRapport('i = '+NumEnString(i)+'  => index = ',index);
+         WritelnNumDansRapport('i = '+IntToStr(i)+'  => index = ',index);
 
        if debuggage.arbreDeJeu then
        begin
-		     WriteDansRapport('i = '+NumEnString(i)+'  => ');
+		     WriteDansRapport('i = '+IntToStr(i)+'  => ');
 		     if encorepossible
 		       then WritelnDansRapport('encorepossible = true')
 		       else WritelnDansRapport('encorepossible = false (car 2*index > len)');
@@ -3564,7 +3564,7 @@ begin
 
 		       if debuggage.arbreDeJeu then
 			       begin
-					     WritelnNumDansRapport('i = '+NumEnString(i)+'  => coup = '+CoupEnStringEnMajuscules(x)+ ' car x = ',x);
+					     WritelnNumDansRapport('i = '+IntToStr(i)+'  => coup = '+CoupEnStringEnMajuscules(x)+ ' car x = ',x);
 					   end;
 
 
@@ -4298,7 +4298,7 @@ begin
 		        end;
 		    if (i = ApresQuelCoup) then TraitCourant := trait;
 		  end;
-		(* WritelnStringAndboolDansRapport('coup n¡'+NumEnString(i)+' : '+CoupEnString(coup,true)+' ==> ',ok); *)
+		(* WritelnStringAndboolDansRapport('coup n¡'+IntToStr(i)+' : '+CoupEnString(coup,true)+' ==> ',ok); *)
     i := succ(i);
   until not(ok) or (i > ApresQuelCoup);
 
@@ -4319,7 +4319,7 @@ begin
       nbFilsDetruits := DeleteSonsOfThatColorInCurrentNode(-trait);
 
       erreurES := ChangeCurrentNodeAfterNewMove(coup,trait,'ResynchronisePartieEtPositionCourante');
-      (* WritelnNumDansRapport('coup n¡'+NumEnString(i)+' : '+CoupEnString(coup,true)+' ==> ',erreurES);
+      (* WritelnNumDansRapport('coup n¡'+IntToStr(i)+' : '+CoupEnString(coup,true)+' ==> ',erreurES);
       *)
       if erreurES <> 0 then
         begin

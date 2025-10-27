@@ -374,7 +374,7 @@ begin {$unused requete}
 
   AttendFrappeClavier;
 
-  requete := url + '?action=STOP_ALL&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio);
+  requete := url + '?action=STOP_ALL&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio);
   EnvoyerUneRequeteAuZoo(requete);
   WritelnDansRapport(requete);
 
@@ -577,7 +577,7 @@ begin
     end;
 
   if (nbFilsTrouves > 0) then
-    WritelnDansRapport(NumEnString(NombreDeResultatsEnAttenteSurLeZoo) + ' positions currently on the zoo');
+    WritelnDansRapport(IntToStr(NombreDeResultatsEnAttenteSurLeZoo) + ' positions currently on the zoo');
 end;
 
 

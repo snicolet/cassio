@@ -177,7 +177,7 @@ begin
           WritelnNumDansRapport('    temps = ',TickCount-tick);}
         end;
 
-  WritelnDansRapport('temps total lecture des index de toute la base = '+NumEnString(TickCount-ticktotal)+' soixantiemes de seconde');
+  WritelnDansRapport('temps total lecture des index de toute la base = '+IntToStr(TickCount-ticktotal)+' soixantiemes de seconde');
   WritelnDansRapport('');
 
 end;
@@ -288,7 +288,7 @@ begin
 
       somme := somme + fichiers[k].entete.NombreEnregistrementsParties;
 
-      {WritelnNumDansRapport('fichier '+NumEnString(k)+' = ',fichiers[k].entete.NombreEnregistrementsParties);}
+      {WritelnNumDansRapport('fichier '+IntToStr(k)+' = ',fichiers[k].entete.NombreEnregistrementsParties);}
     end;
   WritelnNumDansRapport('sizeof(FichierNouveauFormatRec) = ',sizeof(FichierNouveauFormatRec));
   WritelnNumDansRapport('sizeof(InfosFichiersNouveauFormat) = ',sizeof(InfosFichiersNouveauFormat));
@@ -327,7 +327,7 @@ begin  {$UNUSED err}
       WritelnDansRapport('path = '+DistributionsNouveauFormat.Distribution[k].path^);
       WriteDansRapport('nom = '+DistributionsNouveauFormat.Distribution[k].name^);
       WriteDansRapport('nomUsuel = '+DistributionsNouveauFormat.Distribution[k].nomUsuel^);
-      WritelnDansRapport('    =>    '+NumEnString(NbTotalPartiesDansDistributionSet([k]))+' parties');
+      WritelnDansRapport('    =>    '+IntToStr(NbTotalPartiesDansDistributionSet([k]))+' parties');
     end;}
   WritelnDansRapport('');
 
@@ -370,9 +370,9 @@ begin  {$UNUSED err}
   TrierAlphabetiquementJoueursNouveauFormat;
   for k := 0 to 20 do
     begin
-      WritelnDansRapport('joueur #'+NumEnString(k)+ ' = '+GetNomJoueur(k));
+      WritelnDansRapport('joueur #'+IntToStr(k)+ ' = '+GetNomJoueur(k));
       numeroAlpha := JoueursNouveauFormat.ListeJoueurs^[k].numeroDansOrdreAlphabetique;
-      WritelnDansRapport('  num dans ordre alphabetique = '+NumEnString(numeroAlpha));
+      WritelnDansRapport('  num dans ordre alphabetique = '+IntToStr(numeroAlpha));
       WritelnDansRapport('  nom = '+GetNomJoueur(numeroAlpha));
     end;
 
@@ -391,9 +391,9 @@ begin  {$UNUSED err}
   {
   for k := 0 to 20 do
     begin
-      WritelnDansRapport('tournoi #'+NumEnString(k)+ ' = '+GetNomTournoi(k));
+      WritelnDansRapport('tournoi #'+IntToStr(k)+ ' = '+GetNomTournoi(k));
       numeroAlpha := TournoisNouveauFormat.ListeTournois^[k].numeroDansOrdreAlphabetique;
-      WritelnDansRapport('  num dans ordre alphabetique = '+NumEnString(numeroAlpha));
+      WritelnDansRapport('  num dans ordre alphabetique = '+IntToStr(numeroAlpha));
       WritelnDansRapport('  nom = '+GetNomTournoi(numeroAlpha));
     end;
   }

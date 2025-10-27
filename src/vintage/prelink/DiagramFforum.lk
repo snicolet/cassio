@@ -17,7 +17,6 @@ function GetCouleurNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;     
 function GetNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 function DerniereCaseJouee : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SendPostscript(s : String255);     external;
 	function ReelEnString(unreel : double) : String255;     external;
 procedure SetLineWidthPostscript(numerateur,denominateur : SInt16);     external;

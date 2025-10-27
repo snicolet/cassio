@@ -11,7 +11,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function DeltaPourCettePosition(var position : plateauOthello; var jouable : plBool; var frontiere : InfoFront; nbNoir,nbBlanc,trait : SInt32; var nroRefPartie : SInt32; var ScoreCiblePourNoir,EvalPourNoir : TypeReel; var whichEval : VectNewEval) : TypeReel;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);     external;
 function VecteurEvalEstVide(var vecteur : VectNewEval) : boolean;     external;

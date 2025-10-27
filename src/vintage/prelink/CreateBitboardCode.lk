@@ -12,7 +12,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function StringEnCoup(const s : String255) : SInt16;     external;
 function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
 function WriteDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function Hexa(num : SInt32) : String255;     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
 procedure VideOthellier(var plat : plateauOthello);     external;

@@ -1753,14 +1753,14 @@ begin
       if gameOver
         then
           begin
-            s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
+            s := IntToStr(nbreDePions[pionNoir])+CharToString('-')+IntToStr(nbreDePions[pionBlanc]);
 
             if EnModeEntreeTranscript then
               begin
                 if (nbreDePions[pionNoir] < nbreDePions[pionBlanc])
-                  then s := NumEnString(nbreDePions[pionNoir])+CharToString('-')+NumEnString(64 - nbreDePions[pionNoir]);
+                  then s := IntToStr(nbreDePions[pionNoir])+CharToString('-')+IntToStr(64 - nbreDePions[pionNoir]);
                 if (nbreDePions[pionNoir] > nbreDePions[pionBlanc])
-                  then s := NumEnString(64 - nbreDePions[pionBlanc])+CharToString('-')+NumEnString(nbreDePions[pionBlanc]);
+                  then s := IntToStr(64 - nbreDePions[pionBlanc])+CharToString('-')+IntToStr(nbreDePions[pionBlanc]);
                 if (nbreDePions[pionNoir] = nbreDePions[pionBlanc])
                   then s := '32-32';
               end;

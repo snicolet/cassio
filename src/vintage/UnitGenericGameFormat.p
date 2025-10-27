@@ -232,8 +232,8 @@ begin
 		  if ok then
 		    begin
 
-		      s9  := NumEnString(9) + 'x' + NumEnString(9);   {'9x9'}
-		      s10 := NumEnString(10) + 'x' + NumEnString(10); {'10x10'}
+		      s9  := IntToStr(9) + 'x' + IntToStr(9);   {'9x9'}
+		      s10 := IntToStr(10) + 'x' + IntToStr(10); {'10x10'}
 
 		      if (Pos(s9,GetNameOfSFReply(reply)) <= 0) and
 		         (Pos(s10,GetNameOfSFReply(reply)) <= 0)
@@ -358,7 +358,7 @@ begin
             y := ChaineEnInteger(chaine);
           end;
 
-        { WritelnNumDansRapport('x = '+NumEnString(x) + '  y = ',y); }
+        { WritelnNumDansRapport('x = '+IntToStr(x) + '  y = ',y); }
 
         if (x >= 1) and (x <= 10) and (y >= 1) and (y <= 10) then
           begin
@@ -568,7 +568,7 @@ begin
 			            s := ScanChaineValeurProperty_NxN;
 			            {WritelnDansRapport('s = '+s);
 			            WritelnNumDansRapport('longueur = ',LENGTH_OF_STRING(s));}
-			            s1 := NumEnString(N);   { "10" }
+			            s1 := IntToStr(N);   { "10" }
 			            if (TPCopy(s,1,LENGTH_OF_STRING(s1)) = s1) then
 			              begin
 			                s := TPCopy(s, LENGTH_OF_STRING(s1) + 1 , N*N + 1);
@@ -777,14 +777,14 @@ begin
 			                x := square_x - 1;
 			                y := square_y - 1;
 			                chaineCoupsPourDiagramme := chaineCoupsPourDiagramme + caractereProchaineCouleur + chr(1 + y*10 + x);
-			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + NumEnString(y+1);
+			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + IntToStr(y+1);
 
 			                inc(numeroDuCoupCourant);
 
 			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
-			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
+			                    WritelnDansRapport('WARNING : le coup '+IntToStr(numeroDuCoupCourant)+' semble ill使al !');
 			                    auMoinsUnCoupIllegalAnnonce := true;
 			                  end;
 
@@ -802,14 +802,14 @@ begin
 			                x := square_x - 1;
 			                y := square_y - 1;
 			                chaineCoupsPourDiagramme := chaineCoupsPourDiagramme + caractereProchaineCouleur + chr(1 + y*10 + x);
-			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + NumEnString(y+1);
+			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + IntToStr(y+1);
 
 			                inc(numeroDuCoupCourant);
 
 			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
-			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
+			                    WritelnDansRapport('WARNING : le coup '+IntToStr(numeroDuCoupCourant)+' semble ill使al !');
 			                    auMoinsUnCoupIllegalAnnonce := true;
 			                  end;
 
@@ -869,14 +869,14 @@ begin
 			                x := square_x - 1;
 			                y := square_y - 1;
 			                chaineCoupsPourDiagramme := chaineCoupsPourDiagramme + caractereProchaineCouleur + chr(1 + y*10 + x);
-			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + NumEnString(y+1);
+			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + IntToStr(y+1);
 
 			                inc(numeroDuCoupCourant);
 
 			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
-			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
+			                    WritelnDansRapport('WARNING : le coup '+IntToStr(numeroDuCoupCourant)+' semble ill使al !');
 			                    auMoinsUnCoupIllegalAnnonce := true;
 			                  end;
 
@@ -895,14 +895,14 @@ begin
 			                x := square_x - 1;
 			                y := square_y - 1;
 			                chaineCoupsPourDiagramme := chaineCoupsPourDiagramme + caractereProchaineCouleur + chr(1 + y*10 + x);
-			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + NumEnString(y+1);
+			                chaineCoupsEnAlpha       := chaineCoupsEnAlpha + chr((ord('a')+x)) + IntToStr(y+1);
 
 			                inc(numeroDuCoupCourant);
 
 			                if not(UpdateBigOthello(position_NxN,x+1,y+1)) and not(auMoinsUnCoupIllegalAnnonce) then
 			                  begin
 			                    SysBeep(0);
-			                    WritelnDansRapport('WARNING : le coup '+NumEnString(numeroDuCoupCourant)+' semble ill使al !');
+			                    WritelnDansRapport('WARNING : le coup '+IntToStr(numeroDuCoupCourant)+' semble ill使al !');
 			                    auMoinsUnCoupIllegalAnnonce := true;
 			                  end;
 
@@ -939,8 +939,8 @@ begin
 		      WritelnBigOthelloDansRapport(position_NxN);
 				  if position_NxN.trait = pionVide then
 				    WritelnDansRapport('score final : '+
-				                       NumEnString(NbPionsDeCetteCouleurCeBigOthello(pionNoir,position_NxN)) +'-'+
-				                       NumEnString(NbPionsDeCetteCouleurCeBigOthello(pionBlanc,position_NxN)));
+				                       IntToStr(NbPionsDeCetteCouleurCeBigOthello(pionNoir,position_NxN)) +'-'+
+				                       IntToStr(NbPionsDeCetteCouleurCeBigOthello(pionBlanc,position_NxN)));
 		      WritelnDansRapport('');
 		      WritelnDansRapport('Pour obtenir la position apres le coup N dans le presse-papier, ajouter @N dans le nom du fichier.');
 		      WritelnDansRapport('Exemple : nommez le fichier  Essai-10x10@25.sof  pour obtenir le diagramme apres le coup 25.');

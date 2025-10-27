@@ -24,7 +24,6 @@ function FenetreRapportEstOuverte : boolean;     external;
 procedure OuvreFntrRapport(avecAnimationZoom,forceSelectWindow : boolean);     external;
 procedure SelectWindowSousPalette(whichWindow : WindowPtr);     external;
 function GetRapportWindow : WindowPtr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetNbreEcrituresDansGraphe : SInt32;     external;
 function GetNbreLecturesDansGraphe : SInt32;     external;
 function GetGainTheoriqueParNroRefPartie(nroReference : SInt32) : String255;     external;

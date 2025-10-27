@@ -1669,7 +1669,7 @@ begin
 
   chiffre := CurrentTranscript.chiffres[square,lateralisation];
 
-  if (chiffre >= 0) and (chiffre <= 9) then s := NumEnString(chiffre);
+  if (chiffre >= 0) and (chiffre <= 9) then s := IntToStr(chiffre);
   if (chiffre = kChiffreSpecialChiffreVide) then s := '  ';
 
   PrepareTexteStatePourTranscript;
@@ -2719,9 +2719,9 @@ begin
                 inc(nbCoupsManquantsTrouves);
 
                 if (nbCoupsManquantsTrouves = 1)
-                  then messageCoupsManquants := messageCoupsManquants + NumEnString(numero) else
+                  then messageCoupsManquants := messageCoupsManquants + IntToStr(numero) else
                 if (nbCoupsManquantsTrouves >= 2) and (nbCoupsManquantsTrouves <= nbMaxManquantsAffiches)
-                  then messageCoupsManquants := messageCoupsManquants + ', '+NumEnString(numero) else
+                  then messageCoupsManquants := messageCoupsManquants + ', '+IntToStr(numero) else
                 if (nbCoupsManquantsTrouves = succ(nbMaxManquantsAffiches))
                   then messageCoupsManquants := messageCoupsManquants + ', É';
               end;
@@ -3387,15 +3387,15 @@ begin
         EffacementCase   :
           begin
             s := s + 'effacer la case ';
-            s := s + NumEnString(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
+            s := s + IntToStr(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
           end;
         EchangeCases     :
           begin
             {s := s + 'permuter (';}
             s := s + '(';
-            s := s + NumEnString(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
+            s := s + IntToStr(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
             s := s + ' <-> ';
-            s := s + NumEnString(arg2)+'.'+CoupEnString(square2,CassioUtiliseDesMajuscules);
+            s := s + IntToStr(arg2)+'.'+CoupEnString(square2,CassioUtiliseDesMajuscules);
             s := s + ')';
           end;
         AucuneCorrection :
@@ -3414,7 +3414,7 @@ begin
                   if (decalage = 1) and (n2 = n1 + 1)
                     then
                       begin
-                        s := s + NumEnString(n1) + '.' + CoupEnString(square1,CassioUtiliseDesMajuscules) + '+';
+                        s := s + IntToStr(n1) + '.' + CoupEnString(square1,CassioUtiliseDesMajuscules) + '+';
                       end
                     else
                       begin
@@ -3422,15 +3422,15 @@ begin
                         for i := 1 to decalage do
                           s := s +  '+';
                         s := s + '; ';
-                        s := s + NumEnString(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
+                        s := s + IntToStr(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
                       end;
                 end
               else
-                s := s + NumEnString(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
+                s := s + IntToStr(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
           end;
         Renumeroter :
           begin
-            s := s + NumEnString(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
+            s := s + IntToStr(arg1)+'.'+CoupEnString(square1,CassioUtiliseDesMajuscules);
           end;
     end; {case}
 

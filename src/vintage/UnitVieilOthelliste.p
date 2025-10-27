@@ -786,7 +786,7 @@ var i,b : SInt32;
    TextMode(1);
    b := 16;
    invite := ReadStringFromRessource(HelpStringsID,1);
-   invite := invite + ' ('+NumEnString(1+ord(compteurDePage))+'/'+NumEnString(1+ord(kAideTranscripts))+')';
+   invite := invite + ' ('+IntToStr(1+ord(compteurDePage))+'/'+IntToStr(1+ord(kAideTranscripts))+')';
    err := SetAntiAliasedTextEnabled(false,9);
    CenterString(0,b,512,invite);
    b := 40;

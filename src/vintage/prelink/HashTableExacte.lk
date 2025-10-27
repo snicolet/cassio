@@ -23,7 +23,6 @@ procedure WritelnStringDansRapport(s : String255);     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function MemberOfPositionEtTraitSet(var position : PositionEtTraitRec; var data : SInt32; S : PositionEtTraitSet) : boolean;     external;
 function MakePositionEtTrait(var plat : plateauOthello; trait : SInt32) : PositionEtTraitRec;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;     external;

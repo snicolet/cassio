@@ -12,7 +12,6 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
   procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;

@@ -307,8 +307,8 @@ begin
 	Moveto(10, 30);
 	TextFont(GenevaID);
 	TextSize(18);
-	MyDrawString('  '+NumEnString(color));
-	MyDrawString('  '+NumEnString(seuilAllumage));
+	MyDrawString('  '+IntToStr(color));
+	MyDrawString('  '+IntToStr(seuilAllumage));
 	}
 
 

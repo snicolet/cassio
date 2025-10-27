@@ -6,7 +6,6 @@ procedure GetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; var itemRect : 
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function DernierCoupEnString(enMajuscules : boolean) : String255;     external;
 function FrontWindowSaufPalette : WindowPtr;     external;
 procedure MyDrawDialog(dp : DialogPtr);     external;

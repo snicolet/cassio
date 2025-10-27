@@ -675,12 +675,12 @@ begin
     end;
 
   if (whichIntegerValue >= 0) and (whichIntegerValue <= 999)
-    then s1 := NumEnString(whichIntegerValue)
+    then s1 := IntToStr(whichIntegerValue)
     else s1 := '0';
 
   if (centiemes <= 0) or (centiemes >= 100) then s2 := '.00' else
-  if (centiemes >= 0) and (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
-  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
+  if (centiemes >= 0) and (centiemes <= 9)   then s2 := Concat('.0',IntToStr(centiemes)) else
+  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',IntToStr(centiemes));
 
   {
   WriteNumDansRapport('signe = ',whichSign);
@@ -709,7 +709,7 @@ begin
   if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
      not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
     begin
-      WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans MakeScoringProperty(ReflParfait), prŽvenez StŽphane !');
+      WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans MakeScoringProperty(ReflParfait), prŽvenez StŽphane !');
       Sysbeep(0);
       MakeScoringProperty := MakeEmptyProperty;
       exit(MakeScoringProperty);
@@ -1351,12 +1351,12 @@ begin
     end;
 
   if (whichIntegerValue >= 0) and (whichIntegerValue <= 999)
-    then s1 := NumEnString(whichIntegerValue)
+    then s1 := IntToStr(whichIntegerValue)
     else s1 := '0';
 
   if (centiemes <= 0) or (centiemes >= 100) then s2 := '.00' else
-  if (centiemes  >= 1)  and (centiemes <= 9)   then s2 := Concat('.0',NumEnString(centiemes)) else
-  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',NumEnString(centiemes));
+  if (centiemes  >= 1)  and (centiemes <= 9)   then s2 := Concat('.0',IntToStr(centiemes)) else
+  if (centiemes  >= 10) and (centiemes <= 99)  then s2 := Concat('.',IntToStr(centiemes));
 
   oldStockage := prop.stockage;
   prop.stockage := StockageEnSeptCaracteres;
@@ -1824,10 +1824,10 @@ begin
     begin
       case prop.stockage of
         StockageInconnu            : s := '[stockage inconnu !!]';
-        StockageEnLongint          : s := Concat('[',NumEnString(GetLongintInfoOfProperty(prop)),']');
+        StockageEnLongint          : s := Concat('[',IntToStr(GetLongintInfoOfProperty(prop)),']');
         StockageEnCoupleLongint    : begin
                                        GetCoupleLongintOfProperty(prop,longint1,longint2);
-                                       s := Concat('[(',NumEnString(longint1),',',NumEnString(longint2),')]');
+                                       s := Concat('[(',IntToStr(longint1),',',IntToStr(longint2),')]');
                                      end;
         StockageEnReal             : s := Concat('[',ReelEnStringAvecDecimales(GetRealInfoOfProperty(prop),6),']');
         StockageEnStr255           : s := Concat('[',GetStringInfoOfProperty(prop),']');
@@ -1850,7 +1850,7 @@ begin
                                      end;
         StockageEnTriple           : begin
                                        whichTriple := GetTripleOfProperty(prop);
-                                       s := Concat('[',NumEnString(whichTriple.nbTriples),']');
+                                       s := Concat('[',IntToStr(whichTriple.nbTriples),']');
                                      end;
         StockageEnBooleen          : if GetBooleanOfProperty(prop)
                                        then s := '[true]'
@@ -1874,17 +1874,17 @@ begin
 			                                       if (theIntValue >= 0)
 			                                         then
 			                                           if (theSign >= 0)
-			                                             then s := Concat(s,'+',NumEnString(theIntValue))
-			                                             else s := Concat(s,'-',NumEnString(theIntValue))
+			                                             then s := Concat(s,'+',IntToStr(theIntValue))
+			                                             else s := Concat(s,'-',IntToStr(theIntValue))
 			                                         else
 			                                           if (theSign >= 0)
-			                                             then s := Concat(s,'-',NumEnString(-theIntValue))
-			                                             else s := Concat(s,'+',NumEnString(-theIntValue));
+			                                             then s := Concat(s,'-',IntToStr(-theIntValue))
+			                                             else s := Concat(s,'+',IntToStr(-theIntValue));
 
 			                                       {toujours ecrire la partie decimale}
 			                                       if (theCentiemes > 0) or (prop.genre = ComputerEvaluationProp) or (prop.genre = ZebraBookProp) then
 			                                         begin
-					                                       s1 := NumEnString(theCentiemes);
+					                                       s1 := IntToStr(theCentiemes);
 					                                       if (theCentiemes <= 9)
 					                                         then s := Concat(s,'.0',s1)
 					                                         else s := Concat(s,'.',s1);
@@ -1900,14 +1900,14 @@ begin
                                        s := '[';
                                        if node = NIL
                                          then s := s + 'NIL,'
-                                         else s := s + '@'+NumEnString(SInt32(node))+',';
+                                         else s := s + '@'+IntToStr(SInt32(node))+',';
                                        if adresse = NIL
                                          then s := s + 'NIL,'
-                                         else s := s + '@'+NumEnString(SInt32(adresse))+',';
-                                       s := s + '('+NumEnString(affRect.left)+','+
-                                                NumEnString(affRect.top)+','+
-                                                NumEnString(affRect.right)+','+
-                                                NumEnString(affRect.bottom)+')]';
+                                         else s := s + '@'+IntToStr(SInt32(adresse))+',';
+                                       s := s + '('+IntToStr(affRect.left)+','+
+                                                IntToStr(affRect.top)+','+
+                                                IntToStr(affRect.right)+','+
+                                                IntToStr(affRect.bottom)+')]';
                                      end;
         StockageAutre              : s := '[stockage autre !!]';
         otherwise                    s := '[?????]';

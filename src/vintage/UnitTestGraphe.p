@@ -69,7 +69,7 @@ begin
      }
       {AjouterToutesLesInterversionsConnues(fic);}
 
-      WritelnDansRapport('Le graphe contient '+NumEnString(NbrePositionsDansGrapheApprentissage(fic))+' positions');
+      WritelnDansRapport('Le graphe contient '+IntToStr(NbrePositionsDansGrapheApprentissage(fic))+' positions');
 
       VerifieIntegriteGraphe(fic);
 

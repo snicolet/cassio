@@ -396,7 +396,7 @@ begin
         else s := ReadStringFromRessource(TextesListeID,18);   {  ^0 partie   }
 
 
-      nombre := NumEnString(nbPartiesActives);
+      nombre := IntToStr(nbPartiesActives);
       s := ParamStr(s,SeparerLesChiffresParTrois(nombre),'','','');
 
 
@@ -408,7 +408,7 @@ begin
           aux := NbPartiesActivesDevantEtreSauvegardeesDansLaListe;
           if (aux > 0) then
             begin
-              nombre := NumEnString(aux);
+              nombre := IntToStr(aux);
               s := s + ' ' + ParamStr(s2,SeparerLesChiffresParTrois(nombre),'','','');
             end;
         end;
@@ -1346,7 +1346,7 @@ begin
           DeleteString(tournoiStr,t,1);
           t := t-1;
         end;
-      tournoiStr := Concat(tournoiStr,'  ',NumEnString(GetAnneePartieParNroRefPartie(nroReference)));
+      tournoiStr := Concat(tournoiStr,'  ',IntToStr(GetAnneePartieParNroRefPartie(nroReference)));
       ParamDiagCourant.CommentPositionFFORUM^^ := tournoiStr;
       ParamDiagCourant.GainTheoriqueFFORUM := GetGainTheoriqueParNroRefPartie(nroReference);
     end;
@@ -1366,14 +1366,14 @@ begin
   nomTournoi := GetNomTournoi(nroTournoi);
 
   if avecScores
-    then chaineScore := Concat(' ',NumEnString(scoreNoir),'-',NumEnString(scoreBlanc),' ')
+    then chaineScore := Concat(' ',IntToStr(scoreNoir),'-',IntToStr(scoreBlanc),' ')
     else chaineScore := ' - ';
 
   if (numeroProchainCoup > 0) and (numeroProchainCoup <= 60)
-    then chaineNumeroCoup := ', c.' + NumEnString(numeroProchainCoup)
+    then chaineNumeroCoup := ', c.' + IntToStr(numeroProchainCoup)
     else chaineNumeroCoup := '';
 
-  s := s1+chaineScore+s2+', '+EnleveEspacesDeDroite(nomtournoi)+' '+NumEnString(annee)+chaineNumeroCoup;
+  s := s1+chaineScore+s2+', '+EnleveEspacesDeDroite(nomtournoi)+' '+IntToStr(annee)+chaineNumeroCoup;
 
   ConstruireChaineReferencesPartie := s;
 end;
@@ -1395,14 +1395,14 @@ begin
   annee := GetAnneePartieParNroRefPartie(nroReference);
 
   if avecScores
-    then chaineScore := Concat(' ',NumEnString(scoreNoir),'-',NumEnString(scoreBlanc),' ')
+    then chaineScore := Concat(' ',IntToStr(scoreNoir),'-',IntToStr(scoreBlanc),' ')
     else chaineScore := ' - ';
 
   if (numeroProchainCoup > 0) and (numeroProchainCoup <= 60)
-    then chaineNumeroCoup := ', c.' + NumEnString(numeroProchainCoup)
+    then chaineNumeroCoup := ', c.' + IntToStr(numeroProchainCoup)
     else chaineNumeroCoup := '';
 
-  s := s1+chaineScore+s2+', '+EnleveEspacesDeDroite(nomtournoi)+' '+NumEnString(annee)+chaineNumeroCoup;
+  s := s1+chaineScore+s2+', '+EnleveEspacesDeDroite(nomtournoi)+' '+IntToStr(annee)+chaineNumeroCoup;
 
   ConstruireChaineReferencesPartieParNroRefPartie := s;
 end;
@@ -2210,7 +2210,7 @@ begin
 
             s1 := '';
             for i := 1 to 27-LENGTH_OF_STRING(s)-4 do s1 := s1 + ' ';
-            s1 := s1 + NumEnString(GetAnneePartieParNroRefPartie(nroPartie));
+            s1 := s1 + IntToStr(GetAnneePartieParNroRefPartie(nroPartie));
 
             TextFont(GenevaID);
             TextSize(9);
@@ -2394,8 +2394,8 @@ begin
 
   { ECRITURE DU SCORE REEL }
 
-  s := NumEnString(score);
-  s1 := NumEnString(64-score);
+  s := IntToStr(score);
+  s1 := IntToStr(64-score);
   s := s + CharToString('-')+s1;
   Moveto(positionScoreReel,yposition);MyDrawString(s);
 
@@ -3702,7 +3702,7 @@ finNormale :
   {WritelnNumDansRapport('<-- ConstruitTablePartiesActives : ',oldMagicCookie);}
 
   tick := TickCount-tick;
-  {WritelnNumDansRapport('ConstruitTablePartiesActives('+NumEnString(nbreCoup)+') = ',tick);}
+  {WritelnNumDansRapport('ConstruitTablePartiesActives('+IntToStr(nbreCoup)+') = ',tick);}
 end;
 
 
@@ -3981,7 +3981,7 @@ begin
 
   confirmationSuppression := true;
 
-  MyParamText(NumEnString(nbPartiesSupprimees),'','','');
+  MyParamText(IntToStr(nbPartiesSupprimees),'','','');
   if (nbPartiesSupprimees = 1)
     then itemHit := CautionAlertTwoButtonsFromRessource(SupprimerUnePartieListeID,4,0,OK,Annuler)
     else itemHit := CautionAlertTwoButtonsFromRessource(SupprimerPartiesListeID,4,0,OK,Annuler);
@@ -3991,7 +3991,7 @@ begin
 
   if confirmationSuppression then
     begin
-      {TraceLog('Suppression de '+NumEnString(nbPartiesSupprimees)+' parties !!!!');}
+      {TraceLog('Suppression de '+IntToStr(nbPartiesSupprimees)+' parties !!!!');}
 
       SelectionnerPartieDeLaListe(infosListeParties.dernierNroReferenceHilitee);
 
@@ -4484,7 +4484,7 @@ begin
 
   WritelnDansRapport('');
   if cardinalSelectionDeLaListe >= 2
-    then WritelnDansRapport('Il y a '+NumEnString(cardinalSelectionDeLaListe) + ' parties pour lesquelles le score théorique est égal au score réel')
+    then WritelnDansRapport('Il y a '+IntToStr(cardinalSelectionDeLaListe) + ' parties pour lesquelles le score théorique est égal au score réel')
     else
       if cardinalSelectionDeLaListe = 1
         then WritelnDansRapport('Il y a une partie dans laquelle le score théorique est égal au score réel')

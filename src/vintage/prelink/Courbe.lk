@@ -23,7 +23,6 @@ procedure SetPortByWindow(window : WindowPtr);     external;
 function QDGetPortBound : rect;     external;
 function EnTrainDeRejouerUnePartie : boolean;     external;
 procedure FlushWindow(theWindow : WindowRef);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) : RGBColor;     external;
 	function MyTrunc(x : double) : SInt32;     external;
   procedure DisableQuartzAntiAliasingThisPort(port : CGrafPtr);     external;

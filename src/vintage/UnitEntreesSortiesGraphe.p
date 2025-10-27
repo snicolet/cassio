@@ -265,14 +265,14 @@ begin
 		    begin
 
 		      WritelnDansRapport(Concat('liste infinie dans RepareOrbite, fonctionAppelante = ',fonctionAppelante));
-		      WriteDansRapport('orbite['+NumEnString(numCellule)+'] = ');
+		      WriteDansRapport('orbite['+IntToStr(numCellule)+'] = ');
 		      for i := 1 to Min(kLongueurListeInfinie,20) do
 		        begin
 		          WriteNumDansRapport('->',orbite.liste[i].numeroCellule);
 		          if (i mod 10) = 0 then WritelnDansRapport('');
 		        end;
 
-		      WriteDansRapport('(numCoup,fils)['+NumEnString(numCellule)+'] = ');
+		      WriteDansRapport('(numCoup,fils)['+IntToStr(numCellule)+'] = ');
 		      for i := 1 to Min(kLongueurListeInfinie,20) do
 		        begin
 		          WriteNumDansRapport('->(',orbite.liste[i].numeroCoup);
@@ -317,7 +317,7 @@ begin
 		            if (bonneOrbite.cardinal > 0) then
 		              begin
 				            WritelnDansRapport('orbite des memes positions ayant (numCoup,fils) = ('+
-				                                NumEnString(numeroCoupTraite)+','+NumEnString(filsTraite)+') : ');
+				                                IntToStr(numeroCoupTraite)+','+IntToStr(filsTraite)+') : ');
 				            for k := 1 to bonneOrbite.cardinal do
 				              begin
 				                WriteNumDansRapport('cell #',bonneOrbite.liste[k].numeroCellule);
@@ -419,14 +419,14 @@ begin
 		    begin
 
 		      WritelnDansRapport(Concat('liste infinie dans RepareListeDesFreres, fonctionAppelante = ',fonctionAppelante));
-		      WriteDansRapport('freres['+NumEnString(numCellule)+'] = ');
+		      WriteDansRapport('freres['+IntToStr(numCellule)+'] = ');
 		      for i := 1 to Min(kLongueurListeInfinie,20) do
 		        begin
 		          WriteNumDansRapport('->',freres.liste[i].numeroCellule);
 		          if (i mod 10) = 0 then WritelnDansRapport('');
 		        end;
 
-		      WriteDansRapport('(numCoup,pere)['+NumEnString(numCellule)+'] = ');
+		      WriteDansRapport('(numCoup,pere)['+IntToStr(numCellule)+'] = ');
 		      for i := 1 to Min(kLongueurListeInfinie,20) do
 		        begin
 		          WriteNumDansRapport('->(',freres.liste[i].numeroCoup);
@@ -471,7 +471,7 @@ begin
 		            if (bonFreres.cardinal > 0) then
 		              begin
 				            WritelnDansRapport('orbite des freres ayant (numCoup,pere) = ('+
-				                                NumEnString(numeroCoupTraite)+','+NumEnString(pereTraite)+') : ');
+				                                IntToStr(numeroCoupTraite)+','+IntToStr(pereTraite)+') : ');
 				            for k := 1 to bonFreres.cardinal do
 				              begin
 				                WriteNumDansRapport('cell #',bonFreres.liste[k].numeroCellule);
@@ -700,7 +700,7 @@ begin
        not(HasFrere(cell)) then
         begin
           {AnnonceProblemeDansRapport;}
-          WritelnDansRapport('cellule isolée : '+NumEnString(numeroCellule));
+          WritelnDansRapport('cellule isolée : '+IntToStr(numeroCellule));
           {AfficheCelluleDansRapport(fichier,numeroCellule,cell);}
         end;
 
@@ -891,7 +891,7 @@ begin
                         if not(ok) then
                           begin
                             AnnonceProblemeDansRapport;
-                            WritelnDansRapport(CharToString('#')+NumEnString(numeroCellule)+' : frères mais pas même père…');
+                            WritelnDansRapport(CharToString('#')+IntToStr(numeroCellule)+' : frères mais pas même père…');
                             {AttendFrappeClavier;}
                             for k := 1 to Min(10,Ensemble.cardinal) do
                               begin
@@ -944,13 +944,13 @@ begin
  n := NbrePositionsDansGrapheApprentissage(fichier);
  WritelnDansRapport('');
  WritelnDansRapport('Vérification de l''intégrité du graphe…');
- WritelnDansRapport('il y a '+NumEnString(n)+' cellules dans le graphe');
+ WritelnDansRapport('il y a '+IntToStr(n)+' cellules dans le graphe');
  num := 1;
  while (num <= n) and not(Quitter) do
    begin
-     {WritelnDansRapport(NumEnString(num));}
+     {WritelnDansRapport(IntToStr(num));}
      if (num mod 20) = 0 then
-       WritelnDansRapport('cellules '+NumEnString(num-19)+' à '+NumEnString(num)+' vérifiées');
+       WritelnDansRapport('cellules '+IntToStr(num-19)+' à '+IntToStr(num)+' vérifiées');
 
      LitCellule(fichier,num,cell);
      VerifieIntegriteCellule(fichier,cell,num,'VerifieIntegriteGraphe');
@@ -1160,7 +1160,7 @@ begin
       TransposeCoupPourOrientation(aux,autreCoupQuatreDansPartie);
       coup := aux;
 
-      partie120 := partie120+NumEnString(coupNonNormalise);
+      partie120 := partie120+IntToStr(coupNonNormalise);
       if TrouveCoupDansGrapheApprentissage(partie120,defenseNonNormalisee) then
         begin
           defense := defenseNonNormalisee;
@@ -1256,7 +1256,7 @@ begin
 	      WritelnDansRapport('comptage du nombre de parties dans le graphe d''apprentissage');
 	      for i := 0 to 60 do nbPartiesAChaqueCoup[i] := 0;
 
-	      WriteDansrapport('il y a '+NumEnString(NbrePositionsDansGrapheApprentissage(fichier)));
+	      WriteDansrapport('il y a '+IntToStr(NbrePositionsDansGrapheApprentissage(fichier)));
 	      WritelnDansRapport(' positions dans le graphe d''apprentissage…');
 
 	      i := 1;
@@ -1268,7 +1268,7 @@ begin
 	            if (numeroDuCoup >= 0) and (numeroDuCoup <= 60) then
 	              inc(nbPartiesAChaqueCoup[numeroDuCoup]);
 	          if (i mod 1000) = 0 then
-	            WritelnDansRapport(CharToString('#')+NumEnString(i)+' : '+NumEnString(nbPartiesAChaqueCoup[35])+' parties');
+	            WritelnDansRapport(CharToString('#')+IntToStr(i)+' : '+IntToStr(nbPartiesAChaqueCoup[35])+' parties');
 
 	          if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
 	          i := i+1;
@@ -1276,7 +1276,7 @@ begin
 
 	      for i := 0 to 60 do
 	        begin
-	          WritelnDansRapport('il y a '+NumEnString(nbPartiesAChaqueCoup[i])+ ' positions au coup '+NumEnString(i));
+	          WritelnDansRapport('il y a '+IntToStr(nbPartiesAChaqueCoup[i])+ ' positions au coup '+IntToStr(i));
 	        end;
 	      WritelnDansRapport('');
 	      nbrePartiesDansGrapheApprentissage := nbPartiesAChaqueCoup[AQuelCoup];
@@ -1337,7 +1337,7 @@ begin
             end;
 
           if (i mod 10000) = 0 then
-            WritelnDansRapport('cellules '+NumEnString(i-9999)+' à '+NumEnString(i)+' : nettoyées');
+            WritelnDansRapport('cellules '+IntToStr(i-9999)+' à '+IntToStr(i)+' : nettoyées');
 
           if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
           i := i+1;
@@ -1423,16 +1423,16 @@ begin
                     TransposeCoupPourOrientation(coup,autreCoupQuatreDansPartie);
                     LitCellule(fichier,FilsAffiches.liste[i].NumeroCellule,cellAux);
                     case GetValeurMinimax(cellAux) of
-                      kPerteDansT               : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>perdant ');
-                      kPerteAbsolue             : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>perdant (prouvé)');
-                      kNulleDansT               : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>nulle ');
-                      kNulleAbsolue             : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>nulle (prouvée)');
-                      kGainDansT                : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>gagnant ');
-                      kGainAbsolu               : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>gagnant (prouvé)');
-                      kPropositionHeuristique   : WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>proposition heuristique');
-                      otherwise                   WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>?? ');
+                      kPerteDansT               : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>perdant ');
+                      kPerteAbsolue             : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>perdant (prouvé)');
+                      kNulleDansT               : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>nulle ');
+                      kNulleAbsolue             : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>nulle (prouvée)');
+                      kGainDansT                : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>gagnant ');
+                      kGainAbsolu               : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>gagnant (prouvé)');
+                      kPropositionHeuristique   : WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>proposition heuristique');
+                      otherwise                   WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellAux))+'.'+CoupEnStringEnMajuscules(coup)+'=>?? ');
                     end;
-                    WritelnDansRapport(' (#'+NumEnString(FilsAffiches.liste[i].numeroCellule)+CharToString(')'));
+                    WritelnDansRapport(' (#'+IntToStr(FilsAffiches.liste[i].numeroCellule)+CharToString(')'));
                   end;
              end;
           end
@@ -1533,7 +1533,7 @@ begin
                 LitEnsembleDesFils(fichier,path.liste[path.cardinal].numeroCellule,FilsConnus);
                 {WritelnNumDansRapport('FilsConnus.cardinal = ',FilsConnus.cardinal);
                 for i := 1 to FilsConnus.cardinal do
-                  WritelnNumDansRapport('FilsConnus['+NumEnString(i)+'] = ',FilsConnus.liste[i].numeroCellule);}
+                  WritelnNumDansRapport('FilsConnus['+IntToStr(i)+'] = ',FilsConnus.liste[i].numeroCellule);}
                 SelectionneDansListe(fichier,FilsConnus,[kGainDansT,kGainAbsolu],FilsGagnants);
                 SelectionneDansListe(fichier,FilsConnus,[kNulleDansT,kNulleAbsolue],FilsNuls);
                 SelectionneDansListe(fichier,FilsConnus,[kPerteDansT,kPerteAbsolue],FilsPerdants);

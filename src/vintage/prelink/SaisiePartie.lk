@@ -34,7 +34,6 @@ procedure SetParamDiag(var paramDiag : ParamDiagRec);     external;
 procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt32; var titre : String255);     external;
 function GetNomJoueurSansPrenom(nroJoueur : SInt32) : String255;     external;
   function EnleveEspacesDeDroite(const s : String255) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function QDGetPortBound : rect;     external;
 	function LargeurDiagrammeFFORUM : SInt16;     external;
 	function HauteurDiagrammeFFORUM : SInt16;     external;

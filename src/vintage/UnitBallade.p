@@ -1753,7 +1753,7 @@ begin
       WritelnDansRapport('    fonction appelante = '+fonctionAppelante);
       WritelnNumDansRapport('    gNiveauRecursionFonctionsModifiantNbreCoup = ',gNiveauRecursionFonctionsModifiantNbreCoup);
       for k := 1 to gNiveauRecursionFonctionsModifiantNbreCoup do
-        WritelnDansRapport('    pile['+NumEnString(k)+'] = '+gPileDesFonctionsModifiantNbreCoup[k].name);
+        WritelnDansRapport('    pile['+IntToStr(k)+'] = '+gPileDesFonctionsModifiantNbreCoup[k].name);
       WritelnDansRapport('');
     end;
 end;
@@ -1775,7 +1775,7 @@ begin
             WritelnDansRapport('    fonction appelante = '+fonctionAppelante);
             WritelnNumDansRapport('    gNiveauRecursionFonctionsModifiantNbreCoup = ',gNiveauRecursionFonctionsModifiantNbreCoup);
             for k := 1 to gNiveauRecursionFonctionsModifiantNbreCoup do
-              WritelnDansRapport('    pile['+NumEnString(k)+'] = '+name);
+              WritelnDansRapport('    pile['+IntToStr(k)+'] = '+name);
             WritelnDansRapport('');
           end;
 
@@ -1792,7 +1792,7 @@ begin
       WritelnDansRapport('    fonction appelante = '+fonctionAppelante);
       WritelnNumDansRapport('    gNiveauRecursionFonctionsModifiantNbreCoup = ',gNiveauRecursionFonctionsModifiantNbreCoup);
       for k := 1 to gNiveauRecursionFonctionsModifiantNbreCoup do
-        WritelnDansRapport('    pile['+NumEnString(k)+'] = '+gPileDesFonctionsModifiantNbreCoup[k].name);
+        WritelnDansRapport('    pile['+IntToStr(k)+'] = '+gPileDesFonctionsModifiantNbreCoup[k].name);
       WritelnDansRapport('');
     end;
 

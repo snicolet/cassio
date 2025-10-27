@@ -396,7 +396,7 @@ begin
       pionNoir  : WriteDansRapport('X');
       pionBlanc : WriteDansRapport('0');
       pionVide  : WriteDansRapport('_');
-      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux[i])+ ' ');
+      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux[i])+ ' ');
     end;
   WritelnDansRapport('  '+s);
 end;
@@ -417,7 +417,7 @@ begin
       pionNoir  : WriteDansRapport('X');
       pionBlanc : WriteDansRapport('0');
       pionVide  : WriteDansRapport('_');
-      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux[i])+ ' ');
+      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux[i])+ ' ');
     end;
   WritelnDansRapport('  '+s);
   for i := 5 to 8 do
@@ -425,7 +425,7 @@ begin
       pionNoir  : WriteDansRapport('X');
       pionBlanc : WriteDansRapport('0');
       pionVide  : WriteDansRapport('_');
-      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux[i])+ ' ');
+      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux[i])+ ' ');
     end;
   WritelnDansRapport('');
   for i := 9 to 11 do
@@ -433,7 +433,7 @@ begin
       pionNoir  : WriteDansRapport('X');
       pionBlanc : WriteDansRapport('0');
       pionVide  : WriteDansRapport('_');
-      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux[i])+ ' ');
+      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux[i])+ ' ');
     end;
   WritelnDansRapport('');
   for i := 12 to 13 do
@@ -441,7 +441,7 @@ begin
       pionNoir  : WriteDansRapport('X');
       pionBlanc : WriteDansRapport('0');
       pionVide  : WriteDansRapport('_');
-      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux[i])+ ' ');
+      otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux[i])+ ' ');
     end;
   WritelnDansRapport('');
 end;
@@ -463,14 +463,14 @@ begin
     pionNoir  : WriteDansRapport('X');
     pionBlanc : WriteDansRapport('0');
     pionVide  : WriteDansRapport('_');
-    otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux1)+ ' ');
+    otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux1)+ ' ');
   end;
   WriteDansRapport('        ');
   case aux2 of
     pionNoir  : WriteDansRapport('X');
     pionBlanc : WriteDansRapport('0');
     pionVide  : WriteDansRapport('_');
-    otherwise   WriteDansRapport('qu''est-ce à dire ? ' +NumEnString(aux2)+ ' ');
+    otherwise   WriteDansRapport('qu''est-ce à dire ? ' +IntToStr(aux2)+ ' ');
   end;
   WritelnDansRapport('');
 end;
@@ -1637,7 +1637,7 @@ begin  {$UNUSED numeroDansLaListe,tickGroupe}
    (* if ((numeroRefPartie mod 100) = 0) then
         begin
           tickGroupe := TickCount-tickGroupe;
-          WritelnNumDansRapport(NumEnString(numeroRefPartie)+' => temps = ',tickGroupe);
+          WritelnNumDansRapport(IntToStr(numeroRefPartie)+' => temps = ',tickGroupe);
           tickGroupe := TickCount;
         end; *)
 
@@ -1683,8 +1683,8 @@ begin
   if ((nbCoupsJoues mod 7) = 0) then
       begin
         WritelnPositionEtTraitDansRapport(position,trait);
-        WritelnNumDansRapport('nbCoupsJoues = '+NumEnString(nbCoupsJoues)+' => gameStage = ',GameStage[nbCoupsJoues]);
-        WritelnStringAndReelDansRapport('Mobilite['+NumEnString(nbCoupsJoues+1)+'] = ',vecteurEvaluation.Mobilite^[nbCoupsJoues+1],5);
+        WritelnNumDansRapport('nbCoupsJoues = '+IntToStr(nbCoupsJoues)+' => gameStage = ',GameStage[nbCoupsJoues]);
+        WritelnStringAndReelDansRapport('Mobilite['+IntToStr(nbCoupsJoues+1)+'] = ',vecteurEvaluation.Mobilite^[nbCoupsJoues+1],5);
         WritelnStringAndReelDansRapport('thisEvaluation = ',thisEvaluation,5);
         WritelnStringAndReelDansRapport('scoreCiblePourNoir = ',scoreCiblePourNoir,5);
         WritelnStringAndReelDansRapport('deltaEval = ',deltaEval,5);
@@ -1717,10 +1717,10 @@ var k : SInt32;
 begin
   for k := 1 to 41 do
     begin
-      WriteStringAndReelDansRapport('Mobilite['+NumEnString(k)+'] = ',whichEval.Mobilite^[k],5);
-      WriteStringAndReelDansRapport('   FrontiereDiscs['+NumEnString(k)+'] = ',whichEval.FrontiereDiscs^[k],5);
-      WriteStringAndReelDansRapport('   FrontiereSquares['+NumEnString(k)+'] = ',whichEval.FrontiereSquares^[k],5);
-      WriteStringAndReelDansRapport('   FrontiereNonLineaire['+NumEnString(k)+'] = ',whichEval.FrontiereNonLineaire^[k],5);
+      WriteStringAndReelDansRapport('Mobilite['+IntToStr(k)+'] = ',whichEval.Mobilite^[k],5);
+      WriteStringAndReelDansRapport('   FrontiereDiscs['+IntToStr(k)+'] = ',whichEval.FrontiereDiscs^[k],5);
+      WriteStringAndReelDansRapport('   FrontiereSquares['+IntToStr(k)+'] = ',whichEval.FrontiereSquares^[k],5);
+      WriteStringAndReelDansRapport('   FrontiereNonLineaire['+IntToStr(k)+'] = ',whichEval.FrontiereNonLineaire^[k],5);
       WritelnDansRapport('');
     end;
 end;
@@ -1740,7 +1740,7 @@ begin
     then TrierPointMultidiemnsionnel(whichVecteur.Edges2X[stage],vecteurTriEval.rank.Edges2X[stage])
     else TrierPointMultidiemnsionnel(whichVecteur.Pattern[whichPattern,stage],vecteurTriEval.rank.Pattern[whichPattern,stage]);
   ticks := TickCount-ticks;
-  WritelnDansRapport('sortie de la phase de tri…  temps = '+NumEnString(ticks));
+  WritelnDansRapport('sortie de la phase de tri…  temps = '+IntToStr(ticks));
 
   for n := 1 to 100 do
     begin
@@ -1752,14 +1752,14 @@ begin
             aux := whichVecteur.Edges2X[stage]^[r];
             occ := RoundToL(occurences.Edges2X[stage]^[r]+0.25);
             valeur := vecteurEvaluation.Edges2X[stage]^[r];
-            WritelnEdge2XAndStringDansRapport(r-kDecalagePourEdge2X,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
+            WritelnEdge2XAndStringDansRapport(r-kDecalagePourEdge2X,'stage = '+IntToStr(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+IntToStr(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
 
             patternOppose := InverseNoirBlancDansAddressePattern(r,length);
 
             aux := whichVecteur.Edges2X[stage]^[patternOppose];
             occ := RoundToL(occurences.Edges2X[stage]^[patternOppose]+0.25);
             valeur := vecteurEvaluation.Edges2X[stage]^[patternOppose];
-            WritelnEdge2XAndStringDansRapport(patternOppose-kDecalagePourEdge2X,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
+            WritelnEdge2XAndStringDansRapport(patternOppose-kDecalagePourEdge2X,'stage = '+IntToStr(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+IntToStr(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
 
             WritelnDansRapport('');
           end
@@ -1770,14 +1770,14 @@ begin
             aux := whichVecteur.Pattern[whichPattern,stage]^[r];
             occ := RoundToL(occurences.Pattern[whichPattern,stage]^[r]+0.25);
             valeur := vecteurEvaluation.Pattern[whichPattern,stage]^[r];
-            WritelnLinePatternAndStringDansRapport(r-decalagePourPattern[whichPattern],length,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
+            WritelnLinePatternAndStringDansRapport(r-decalagePourPattern[whichPattern],length,'stage = '+IntToStr(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+IntToStr(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
 
             patternOppose := InverseNoirBlancDansAddressePattern(r,length);
 
             aux := whichVecteur.Pattern[whichPattern,stage]^[patternOppose];
             occ := RoundToL(occurences.Pattern[whichPattern,stage]^[patternOppose]+0.25);
             valeur := vecteurEvaluation.Pattern[whichPattern,stage]^[patternOppose];
-            WritelnLinePatternAndStringDansRapport(patternOppose-decalagePourPattern[whichPattern],length,'stage = '+NumEnString(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+NumEnString(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
+            WritelnLinePatternAndStringDansRapport(patternOppose-decalagePourPattern[whichPattern],length,'stage = '+IntToStr(stage)+'  vect = '+ReelEnStringAvecDecimales(aux,10)+'  occ = '+IntToStr(occ)+'  valeur = '+ReelEnStringAvecDecimales(valeur,10));
 
             WritelnDansRapport('');
           end;

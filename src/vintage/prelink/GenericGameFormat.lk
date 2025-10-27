@@ -15,7 +15,6 @@ function GetNextCharOfFichierAbstrait(var theFile : FichierAbstrait; var c : cha
 procedure BeginDialog;     external;
 function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;     external;
 procedure EndDialog;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
 procedure AlerteSimple(texte : String255);     external;
 	function GetFullPathOfFSSpec(fs : FSSpec) : String255;     external;

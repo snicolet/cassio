@@ -71,10 +71,10 @@ begin
 		                                                    NumEnStringAvecFormat(myDate.second,2,'0'));
 
   with boudingRectEPS do
-    err := WritelnDansFichierAbstrait(fic,'%%BoundingBox: ' + NumEnString(left) + ' '
-                                                         + NumEnString(top) + ' '
-                                                         + NumEnString(right) + ' '
-                                                         + NumEnString(bottom) );
+    err := WritelnDansFichierAbstrait(fic,'%%BoundingBox: ' + IntToStr(left) + ' '
+                                                         + IntToStr(top) + ' '
+                                                         + IntToStr(right) + ' '
+                                                         + IntToStr(bottom) );
 
   (* ecriture des infos d'othello en commentaire dans le fichier EPS *)
   if positionFeerique then
@@ -83,7 +83,7 @@ begin
       err := WritelnDansFichierAbstrait(fic,'%%Othello-initial-position: '+PositionEtTraitEnString(initialPosition));
     end;
   err := WritelnDansFichierAbstrait(fic,'%%Othello-moves: '+PartiePourPressePapier(true,false,60));
-  err := WritelnDansFichierAbstrait(fic,'%%Othello-current-move-number: '+NumEnString(nbreCoup));
+  err := WritelnDansFichierAbstrait(fic,'%%Othello-current-move-number: '+IntToStr(nbreCoup));
   ligne := GetPierresDeltaCourantesEnString;
   if (ligne <> '') then
     err := WritelnDansFichierAbstrait(fic,'%%Othello-SGF-annotations: '+ligne);

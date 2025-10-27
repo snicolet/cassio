@@ -219,7 +219,7 @@ begin
   err := WriteDansFichierAbstrait(theFile,chaineTop);
   for i := 1 to 8 do
     begin
-      ligneStr := NumEnString(i);
+      ligneStr := IntToStr(i);
       err := WriteDansFichierAbstrait(theFile,ParamStr(chaineBordureGauche,ligneStr,ligneStr,ligneStr,ligneStr));
       for j := 1 to 8 do
         begin
@@ -419,7 +419,7 @@ begin
                              v + kLargeurBordure + (i-1)*kTailleCase,
                              h + kLargeurBordure,
                              v + kLargeurBordure + i*kTailleCase);
-          DrawPicture(ParamStr('^0^1.gif',NumEnString(i),NumEnString(i),'',''),bounds);
+          DrawPicture(ParamStr('^0^1.gif',IntToStr(i),IntToStr(i),'',''),bounds);
 
           for j := 1 to 8 do
             begin
@@ -440,7 +440,7 @@ begin
                              v + kLargeurBordure + (i-1)*kTailleCase,
                              h + 2*kLargeurBordure + 8*kTailleCase,
                              v + kLargeurBordure + i*kTailleCase);
-          DrawPicture(ParamStr('^0^1.gif',NumEnString(i),NumEnString(i),'',''),bounds);
+          DrawPicture(ParamStr('^0^1.gif',IntToStr(i),IntToStr(i),'',''),bounds);
 
         end;
 

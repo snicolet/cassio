@@ -56,12 +56,12 @@ procedure WritelnFichierAbstraitDansRapport(theFile : FichierAbstrait);
 begin
   with theFile do
     begin
-      WritelnDansRapport('theFile.infos = '+NumEnString(SInt32(infos)));
-      WritelnDansRapport('theFile.tailleMaximalePossible = '+NumEnString(tailleMaximalePossible));
-      WritelnDansRapport('theFile.nbOctetsOccupes = '+NumEnString(nbOctetsOccupes));
-      WritelnDansRapport('theFile.position = '+NumEnString(position));
-      WritelnDansRapport('theFile.tailleMaximalePossible = '+NumEnString(tailleMaximalePossible));
-      WritelnDansRapport('theFile.genre = '+NumEnString(SInt32(genre)));
+      WritelnDansRapport('theFile.infos = '+IntToStr(SInt32(infos)));
+      WritelnDansRapport('theFile.tailleMaximalePossible = '+IntToStr(tailleMaximalePossible));
+      WritelnDansRapport('theFile.nbOctetsOccupes = '+IntToStr(nbOctetsOccupes));
+      WritelnDansRapport('theFile.position = '+IntToStr(position));
+      WritelnDansRapport('theFile.tailleMaximalePossible = '+IntToStr(tailleMaximalePossible));
+      WritelnDansRapport('theFile.genre = '+IntToStr(SInt32(genre)));
       WritelnDansRapport('');
     end;
 end;
@@ -176,12 +176,12 @@ begin
     begin
       err := GetNextCharOfFichierAbstrait(Z1,c);
       {
-      WritelnDansRapport('err['+NumEnString(i)+'] = '+NumEnString(Err));
-      WritelnDansRapport('ord(c) = '+NumEnString(ord(c))+' et c ='+c);
+      WritelnDansRapport('err['+IntToStr(i)+'] = '+IntToStr(Err));
+      WritelnDansRapport('ord(c) = '+IntToStr(ord(c))+' et c ='+c);
       }
     end;
 
-  WritelnNumDansRapport('temps pour lire '+NumEnString(borne+10)+' octets = ',TickCount-tick);
+  WritelnNumDansRapport('temps pour lire '+IntToStr(borne+10)+' octets = ',TickCount-tick);
 
   err := ReadlnDansFichierAbstrait(Z1,s);
   WritelnDansRapport('');

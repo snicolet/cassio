@@ -80,7 +80,7 @@ begin  {$UNUSED numeroDansLaListe,tickGroupe}
     begin
       WritelnStringAndBoolDansRapport(GetNomJoueur(GetNroJoueurNoirParNroRefPartie(numeroRefPartie)) + ' - ' +
                          GetNomJoueur(GetNroJoueurBlancParNroRefPartie(numeroRefPartie))+ ', '+
-                         NumEnString(GetAnneePartieParNroRefPartie(numeroRefPartie))+'  => OK = ',ok);
+                         IntToStr(GetAnneePartieParNroRefPartie(numeroRefPartie))+'  => OK = ',ok);
     end;}
 
   ClassementCalculablePourCettePartie := ok;
@@ -105,7 +105,7 @@ begin
   {afficheInfos := Pos('Busut',GetNomJoueur(noir)) > 0;}
   if afficheInfos then
     begin
-      WritelnDansRapport(GetNomJoueur(noir) + ' - ' + GetNomJoueur(blanc)+ ', '+NumEnString(anneePartie));
+      WritelnDansRapport(GetNomJoueur(noir) + ' - ' + GetNomJoueur(blanc)+ ', '+IntToStr(anneePartie));
       WritelnNumDansRapport('nro de Noir = ',noir);
       WritelnNumDansRapport('nro de Blanc = ',blanc);
     end;
@@ -186,8 +186,8 @@ begin
 
 	          if (activiteDeCeJoueur > 7) then
 	            begin
-	              WriteDansRapport('Le joueur '+GetNomJoueur(i) + ' a été actif pendant '+NumEnString(activiteDeCeJoueur)+ ' années :');
-	              WritelnDansRapport(Concat('     ', NumEnString(GetAnneePremierePartieDeCeJoueur(i)), ' - ', NumEnString(GetAnneeDernierePartieDeCeJoueur(i))));
+	              WriteDansRapport('Le joueur '+GetNomJoueur(i) + ' a été actif pendant '+IntToStr(activiteDeCeJoueur)+ ' années :');
+	              WritelnDansRapport(Concat('     ', IntToStr(GetAnneePremierePartieDeCeJoueur(i)), ' - ', IntToStr(GetAnneeDernierePartieDeCeJoueur(i))));
 	            end;
 	        end
 		    else
@@ -200,8 +200,8 @@ begin
 		      end;
     end;
 
-  WritelnDansRapport('Il y a '+NumEnString(nbJoueursActifs)+' joueurs actifs dans la base.');
-  WritelnDansRapport('Il y a '+NumEnString(nbJoueurs - nbJoueursActifs)+' joueurs inactifs dans la base.');
+  WritelnDansRapport('Il y a '+IntToStr(nbJoueursActifs)+' joueurs actifs dans la base.');
+  WritelnDansRapport('Il y a '+IntToStr(nbJoueurs - nbJoueursActifs)+' joueurs inactifs dans la base.');
   if nbJoueursActifs > 0 then
     WritelnDansRapport('En moyenne, chaque joueur est actif '+ReelEnString(activite * 1.0 / nbJoueursActifs) + ' années.');
 

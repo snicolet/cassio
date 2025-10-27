@@ -181,7 +181,7 @@ end;
 procedure StoppeEtAfficheAireDeJeuPourDebugage(chaine : String255);
 var s : String255;
 begin
-  s := chaine + ' : aireDeJeu.left = '+NumEnString(aireDeJeu.left);
+  s := chaine + ' : aireDeJeu.left = '+IntToStr(aireDeJeu.left);
   AffichePourDebugage(s);
   TraceLog(s);
   SysBeep(0);
@@ -281,8 +281,8 @@ const MicMacIndexID = 1132;
 var s1,s2 : String255;
 begin
   BeginDialog;
-  s1 := NumEnString(nbrePartiesIndex);
-  s2 := NumEnString(nbrePartiesBase);
+  s1 := IntToStr(nbrePartiesIndex);
+  s2 := IntToStr(nbrePartiesBase);
   MyParamText(s1,s2,'','');
   if MyLegacyAlert(MicMacIndexID,FiltreClassiqueAlerteUPP,[ok]) = ok then DoNothing;
   EndDialog;

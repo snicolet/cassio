@@ -52,7 +52,6 @@ procedure AddPositionEtTraitToSet(var position : PositionEtTraitRec; data : SInt
 function PositionEtTraitCourant : PositionEtTraitRec;     external;
 function LiveUndoVaRejouerImmediatementUnAutreCoup : boolean;     external;
 function CassioEstEnModeSolitaire : boolean;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WriteGameTreeDansRapport(var G : GameTree);     external;
 function GetPositionEtTraitACeNoeud(G : GameTree; var position : PositionEtTraitRec; const fonctionAppelante : String255) : boolean;     external;
 function EstLaPositionCourante(var position : PositionEtTraitRec) : boolean;     external;

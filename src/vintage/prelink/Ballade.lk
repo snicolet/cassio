@@ -125,4 +125,3 @@ procedure EssaieSetPortWindowPlateau;     external;
 function PeutArreterAnalyseRetrograde : boolean;     external;
 procedure BeginLiveUndo(coupsProteges : SquareSet; nbreDeTicksDeDelai : SInt32);     external;
 function GetEnsembleDesCoupsDesFreresReels(G : GameTree) : SquareSet;     external;
-  function NumEnString(num : SInt32) : String255;     external;

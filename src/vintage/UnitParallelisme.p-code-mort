@@ -25,7 +25,7 @@ begin
             if DoitDebugguerParallelismeDansRapport then
               begin
                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' est inetrrompue et vient d''interrompre sa thread fille = ',nroThreadDuFils);
+                WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' est inetrrompue et vient d''interrompre sa thread fille = ',nroThreadDuFils);
                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                 WritelnDansRapport('');
                 AttendreFrappeClavierParallelisme(true);
@@ -49,7 +49,7 @@ begin
             if DoitDebugguerParallelismeDansRapport then
               begin
                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' a lancé tous les fils possibles et vient d''enlever le spin-lock de sa thread fille = ',nroThreadDuFils);
+                WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' a lancé tous les fils possibles et vient d''enlever le spin-lock de sa thread fille = ',nroThreadDuFils);
                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                 WritelnDansRapport('');
                 AttendreFrappeClavierParallelisme(true);
@@ -76,7 +76,7 @@ begin
                         if DoitDebugguerParallelismeDansRapport then
                           begin
                             err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                            WritelnStringDansRapport('La thread '+NumEnString(nroThreadDuPere)+' a encore des fils à lancer,');
+                            WritelnStringDansRapport('La thread '+IntToStr(nroThreadDuPere)+' a encore des fils à lancer,');
                             WritelnNumDansRapport('mais peut recycler sa thread fille qui attend en spin-lock :-)  nroThreadDuFils = ',nroThreadDuFils);
                             WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                             WritelnDansRapport('');
@@ -131,9 +131,9 @@ begin
                             if gUseSpinLocks then
                               begin
                                 err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                                WritelnStringDansRapport('ASSERT !! La thread '+NumEnString(nroThreadDuPere)+' a encore des fils à lancer,');
+                                WritelnStringDansRapport('ASSERT !! La thread '+IntToStr(nroThreadDuPere)+' a encore des fils à lancer,');
                                 WriteDansRapport('mais n''a pas pu reutiliser son ancienne thread fille, qui n''était pas en spin-lock !!!!');
-                                WritelnDansRapport('(nroThreadDuFils,etat) = ('+NumEnString(nroThreadDuFils)+','+NumEnString(etatDuFils)+')');
+                                WritelnDansRapport('(nroThreadDuFils,etat) = ('+IntToStr(nroThreadDuFils)+','+IntToStr(etatDuFils)+')');
                                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                                 WritelnDansRapport('');
                                 AttendreFrappeClavierParallelisme(true);
@@ -182,7 +182,7 @@ begin
                       if DoitDebugguerParallelismeDansRapport then
                         begin
                           err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WritelnStringDansRapport('La thread '+NumEnString(nroThreadDuPere)+' a encore des fils à lancer,');
+                          WritelnStringDansRapport('La thread '+IntToStr(nroThreadDuPere)+' a encore des fils à lancer,');
                           WritelnNumDansRapport('mais n''a pas trouvé de processeur disponible et vient d''interrompre brutalement sa thread fille = ',nroThreadDuFils);
                           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                           WritelnDansRapport('');
@@ -233,7 +233,7 @@ ATTENDRE_SUR_LE_SEMAPHORE :
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnStringDansRapport('La thread '+NumEnString(nroThread)+' se met en attente sur son semaphore de sommeil');
+              WritelnStringDansRapport('La thread '+IntToStr(nroThread)+' se met en attente sur son semaphore de sommeil');
               WritelnDansRapport('');
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -264,7 +264,7 @@ ATTENDRE_LA_PREPARATION_D_UN_JOB :
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnStringDansRapport('La thread '+NumEnString(nroThread)+' se met en attente pendant la preparation d''un job');
+              WritelnStringDansRapport('La thread '+IntToStr(nroThread)+' se met en attente pendant la preparation d''un job');
               WritelnDansRapport('');
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -306,7 +306,7 @@ EXPLORER_UN_SOUS_ARBRE :
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnStringDansRapport('La thread '+NumEnString(nroThread)+' a du boulot et va appeler MySubTreeValue');
+                    WritelnStringDansRapport('La thread '+IntToStr(nroThread)+' a du boulot et va appeler MySubTreeValue');
                     WritelnDansRapport('');
                     AttendreFrappeClavierParallelisme(true);
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -323,7 +323,7 @@ EXPLORER_UN_SOUS_ARBRE :
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('La thread '+NumEnString(nroThread)+' vient de sortir de MySubTreeValue, valeur = ',-valeur);
+                    WritelnNumDansRapport('La thread '+IntToStr(nroThread)+' vient de sortir de MySubTreeValue, valeur = ',-valeur);
                     WritelnDansRapport('');
                     AttendreFrappeClavierParallelisme(true);
                     err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -396,7 +396,7 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('La thread '+NumEnString(nroThread)+' a réussi à poster son résultat (si elle en avait) et va rentrer dans le spin-lock, son etat est : ',etat);
+              WritelnNumDansRapport('La thread '+IntToStr(nroThread)+' a réussi à poster son résultat (si elle en avait) et va rentrer dans le spin-lock, son etat est : ',etat);
               WritelnDansRapport('');
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -429,7 +429,7 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
           if DoitDebugguerParallelismeDansRapport then
             begin
               err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('La thread '+NumEnString(nroThread)+' vient de sortir de son spin-lock, etat = ',etat);
+              WritelnNumDansRapport('La thread '+IntToStr(nroThread)+' vient de sortir de son spin-lock, etat = ',etat);
               WritelnDansRapport('');
               AttendreFrappeClavierParallelisme(true);
               err := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -444,7 +444,7 @@ ATTENTE_ACTIVE_SUR_LE_SPIN_LOCK :
               if DoitDebugguerParallelismeDansRapport then
                 begin
                   err := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                  WritelnStringDansRapport('La thread '+NumEnString(nroThread)+' retrouve immediatement du travail');
+                  WritelnStringDansRapport('La thread '+IntToStr(nroThread)+' retrouve immediatement du travail');
                   WritelnDansRapport('');
                   AttendreFrappeClavierParallelisme(true);
                   err := MPExitCriticalRegion(gRapportCriticalRegionID);

@@ -271,14 +271,14 @@ end;
 			s, t : String255;
 	begin
 		if Abs(n) < 4096 then begin
-			s := NumEnString(n)
+			s := IntToStr(n)
 		end else if Abs(n) < 4194304 then begin
-			s := NumEnString(n div 1024);
+			s := IntToStr(n div 1024);
 			t := ReadStringFromRessource( 935, 2);
 			s := Concat(s, t);
 		end else begin
 			t := ReadStringFromRessource( 935, 3);
-			s := NumEnString(n div 1048576);
+			s := IntToStr(n div 1048576);
 			s := Concat(s, t);
 		end;
 		MyNumToString := s;
@@ -298,7 +298,7 @@ end;
 		end;
 		if (n < K) then begin
 			{ extra is false }
-			s := NumEnString(n);
+			s := IntToStr(n);
 		end else begin
 			{ n >= K }
 			f := ord(extra);
@@ -330,7 +330,7 @@ end;
 		var
 			s : String255;
 	begin
-		s := NumEnString(n);
+		s := IntToStr(n);
 		NumToStr := s;
 	end;
 
@@ -354,7 +354,7 @@ end;
 		if len > 15 then begin
 			len := 15;
 		end;
-		s := NumEnString(n);
+		s := IntToStr(n);
 		while LENGTH_OF_STRING(s) < len do begin
 			s := concat('0', s);
 		end;
@@ -455,7 +455,7 @@ end;
 		var
 			s, t : String255;
 	begin
-		s := NumEnString(n);
+		s := IntToStr(n);
 		t := LookupStrH(id, s);
 		if t = '' then begin
 			t := s;

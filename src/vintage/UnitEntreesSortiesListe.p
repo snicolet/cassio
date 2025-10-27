@@ -86,7 +86,7 @@ begin
   if dp <> NIL then
     begin
       err := SetDialogTracksCursor(dp,true);
-      MyParamText(NumEnString(nbCoupsIdentiques),ConstruireChaineReferencesPartieParNroRefPartie(nroReference,true,-1),chaineRefNouvellePartie,'');
+      MyParamText(IntToStr(nbCoupsIdentiques),ConstruireChaineReferencesPartieParNroRefPartie(nroReference,true,-1),chaineRefNouvellePartie,'');
       repeat
         ModalDialog(FiltreClassiqueUPP,itemHit);
       until (itemHit = remplacerBouton) or (itemHit = nouvellePartieBouton) or (itemHit = annulerBouton);
@@ -144,7 +144,7 @@ begin
   fileName := GetNameOfFSSpec(fichier);
   if (fileName[LENGTH_OF_STRING(fileName)] <> ' ') and (fileName[LENGTH_OF_STRING(fileName)] <> '_')
     then fileName := Concat(fileName,' ');
-  fileName := fileName + NumEnString(anneeDesParties);
+  fileName := fileName + IntToStr(anneeDesParties);
   fileName := fileName+'.wtb';
 
   codeErreur := FichierTexteExisteFSp(MyMakeFSSpec(fichier.vRefNum,fichier.parID,fileName),fic);
@@ -196,7 +196,7 @@ begin
   WritelnDansRapport('');
   WriteDansRapport('Début de l''écriture sur le disque ');
   WriteDansRapport('(dans le fichier « '+fileName+' ») ');
-  WritelnDansRapport('des parties de l''année '+NumEnString(anneeDesParties)+'…');
+  WritelnDansRapport('des parties de l''année '+IntToStr(anneeDesParties)+'…');
   {WritelnNumDansRapport('nroPartieMin = ',nroPartieMin);
   WritelnNumDansRapport('nroPartieMax = ',nroPartieMax);}
 
@@ -615,7 +615,7 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport(partie255);
           WriteDansRapport(s + ', ');
-				  WritelnDansRapport(EnleveEspacesDeDroite(GetNomTournoi(nroDuTournoi))+' '+NumEnString(annee));
+				  WritelnDansRapport(EnleveEspacesDeDroite(GetNomTournoi(nroDuTournoi))+' '+IntToStr(annee));
         end;
 
       with partieRec do
@@ -825,7 +825,7 @@ begin
 
 			      {WritelnDansRapport('Je dois creer un nouveau fichier dans la distribution !');}
 
-			      filename := ReplaceStringByStringInString('XXXX',NumEnString(anneePartie),GetNameOfDistribution(nroDistrib));
+			      filename := ReplaceStringByStringInString('XXXX',IntToStr(anneePartie),GetNameOfDistribution(nroDistrib));
 			      filename := GetPathOfDistribution(nroDistrib)+filename;
 			      {WritelnDansRapport('filename = '+filename);}
 
@@ -919,7 +919,7 @@ begin
             ExportListeAuFormatTexte(descriptionLigne,nbPartiesExportees);
 
             WritelnDansRapport('');
-            WritelnDansRapport(' Export de la base : '+NumEnString(nbPartiesExportees)+' parties écrites dans le fichier');
+            WritelnDansRapport(' Export de la base : '+IntToStr(nbPartiesExportees)+' parties écrites dans le fichier');
           end;
       end
     else

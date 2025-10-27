@@ -78,7 +78,7 @@ begin
             s := ReadStringFromRessource(10020,9);  {'Commentaires de ^0'}
             MyDrawString(s);
             TextFace(bold);
-            MyDrawString(NumEnString(nbreCoup)+'.'+DernierCoupEnString(false));
+            MyDrawString(IntToStr(nbreCoup)+'.'+DernierCoupEnString(false));
           end;
 
 

@@ -13,7 +13,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure BeginDialog;     external;
 function MyGetNewDialog(dialogID : SInt16) : DialogPtr;     external;
 procedure MyParamText( const (*var*) param0: String255; const (*var*) param1: String255; const (*var*) param2: String255; const (*var*) param3: String255 );     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function ConstruireChaineReferencesPartieParNroRefPartie(nroReference : SInt32; avecScores : boolean; numeroProchainCoup : SInt32) : String255;     external;
 procedure MyDisposeDialog(var dlog : DialogPtr);     external;
 procedure EssaieSetPortWindowPlateau;     external;

@@ -281,7 +281,7 @@ begin
       {fabriquer un nom de fichier nouveau}
       RandomizeTimer;
       longRand := Random32();
-      name := 'clipboard_'+NumEnString(Abs(longRand));
+      name := 'clipboard_'+IntToStr(Abs(longRand));
 
       {decharger le presse papier sur le disque}
       if (UnloadScrap = NoErr) then DoNothing;
@@ -526,7 +526,7 @@ begin
 
   chainePourIOS := Concat(CoupEnStringEnMajuscules(coup),' ',
                         ReelEnStringAvecDecimales(probaDeGain,6),' ',
-                        NumEnString(tempsEnSecondes));
+                        IntToStr(tempsEnSecondes));
   aux := MyZeroScrap;
   aux := MyPutScrap(LENGTH_OF_STRING(chainePourIOS),MY_FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]);
   TransfererLePressePapierGlobalDansTextEdit;
@@ -598,7 +598,7 @@ begin
   s := s + chr(13);
   for j := 1 to 8 do
     begin
-      s := s + NumEnString(j)+' ';
+      s := s + IntToStr(j)+' ';
       for i := 1 to 8 do
         begin
 	        x := GetCouleurOfSquareDansJeuCourant(10*j+i);
@@ -606,7 +606,7 @@ begin
 	        if x = pionBlanc then s := s + 'O ' else
 	        if x = pionVide then s := s + '- ';
 	      end;
-	    s := s + NumEnString(j)+' ' + chr(13);
+	    s := s + IntToStr(j)+' ' + chr(13);
     end;
   s := s + '  A B C D E F G H  ';
   s := s + chr(13);
@@ -654,7 +654,7 @@ begin
     then s := s + '   A  B  C  D  E  F  G  H' + chr(13);
   for j := 1 to 8 do
     begin
-      if avecCoordonnees then s := s + NumEnString(j)+' ';
+      if avecCoordonnees then s := s + IntToStr(j)+' ';
       s := s + DelimiteurVertical;
       for i := 1 to 8 do
 	      begin
@@ -670,8 +670,8 @@ begin
 	            begin
 	              x := coups[t];
 	              if x <=  0 then s := s + '00' else
-	              if x <  10 then s := s + ' '+NumEnString(x) else
-	              if x <= 99 then s := s + NumEnString(x)
+	              if x <  10 then s := s + ' '+IntToStr(x) else
+	              if x <= 99 then s := s + IntToStr(x)
 	                else s := s + '00';
 	            end;
 	        if (i <= 7) then s := s + SeparateurDeCoups;
@@ -689,8 +689,8 @@ begin
         end
       else
         begin
-          s1 := NumEnString(nbreDePions[pionNoir]);
-          s2 := NumEnString(nbreDePions[pionBlanc]);
+          s1 := IntToStr(nbreDePions[pionNoir]);
+          s2 := IntToStr(nbreDePions[pionBlanc]);
           s1 := s1 + CharToString('-')+s2;
         end;
   for t := 1 to ((25-LENGTH_OF_STRING(s1)) div 2) do s1 := Concat(' ',s1);  {pour centrer}

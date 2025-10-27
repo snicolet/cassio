@@ -16,7 +16,6 @@ function MakeLongString(const s : String255) : LongString;     external;
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;     external;
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 	function MakeCFSTR(s : String255) : CFStringRef;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure AfficheEtatDuReseau(message : String255);     external;
   function MyStr255ToString( const s : Str255 ) : String255;     external;
 procedure InsereTexteDansRapport(text : Ptr; length : SInt32);     external;

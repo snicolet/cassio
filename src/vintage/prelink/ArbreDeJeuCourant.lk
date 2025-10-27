@@ -16,7 +16,6 @@ procedure SetNbCollisionsInterversions(n : SInt32);     external;
 procedure DisposeGameTree(var G : GameTree);     external;
 procedure DisposeTableHachageInterversions;     external;
 procedure WritelnSoldesCreationsPropertiesDansRapport(prefixe : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure AlerteSimple(texte : String255);     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 function GetOthelloSquareOfProperty(prop : Property) : SInt16;     external;

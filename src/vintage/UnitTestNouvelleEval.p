@@ -48,11 +48,11 @@ begin
     begin
       adresse := SInt32(occurences.Edges2X[stage]);
       if adresse = 0
-        then WritelnDansRapport('occurencesEdges2X['+NumEnString(stage)+'] = NIL')
+        then WritelnDansRapport('occurencesEdges2X['+IntToStr(stage)+'] = NIL')
         else
           begin
             n := DimensionDuPointMultidimensionnel(occurences.Edges2X[stage]);
-            WriteNumDansRapport('occurencesEdges2X['+NumEnString(stage)+'] = ',adresse);
+            WriteNumDansRapport('occurencesEdges2X['+IntToStr(stage)+'] = ',adresse);
             WritelnNumDansRapport('   taille = ',n);
           end;
 
@@ -60,11 +60,11 @@ begin
         begin
           adresse := SInt32(occurences.Pattern[k,stage]);
           if adresse = 0
-            then WritelnDansRapport('occurencesPattern['+NumEnString(k)+','+NumEnString(stage)+'] = NIL')
+            then WritelnDansRapport('occurencesPattern['+IntToStr(k)+','+IntToStr(stage)+'] = NIL')
             else
               begin
                 n := DimensionDuPointMultidimensionnel(occurences.Pattern[k,stage]);
-                WriteNumDansRapport('occurencesPattern['+NumEnString(k)+','+NumEnString(stage)+'] = ',adresse);
+                WriteNumDansRapport('occurencesPattern['+IntToStr(k)+','+IntToStr(stage)+'] = ',adresse);
                 WritelnNumDansRapport('   taille = ',n);
               end;
         end;
@@ -105,7 +105,7 @@ begin {$UNUSED i,k,n,longueur,numeroPattern,stage,debutScan,scan,count,chi2,tole
   SetAutoVidageDuRapport(true);
   SetEcritToutDansRapportLog(true);
   CollecteOccurencesPatternDApresListe;
-  s := 'Occurences('+NumEnString(nbPartiesDansOccurences)+')';
+  s := 'Occurences('+IntToStr(nbPartiesDansOccurences)+')';
   err := EcritVecteurEvaluationSurLeDisque(s,0,occurences);
   WritelnNumDansRapport('EcritVecteurEvaluationSurLeDisque(occurences) = ',err);
   *)
@@ -259,7 +259,7 @@ begin {$UNUSED i,k,n,longueur,numeroPattern,stage,debutScan,scan,count,chi2,tole
           if n = i then
             begin
               inc(count);
-              Writeln13SquareCornerAndStringDansRapport(scan-decalagePourPattern[numeroPattern],NumEnString(n)+' occurences');
+              Writeln13SquareCornerAndStringDansRapport(scan-decalagePourPattern[numeroPattern],IntToStr(n)+' occurences');
               WritelnDansRapport('');
               if count = 3 then leave;
             end;

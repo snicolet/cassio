@@ -152,7 +152,7 @@ begin
 
   for j := 1 to 7 do
     begin
-      WriteStringAndReelDansRapport('coeffEstimationTemps^['+NumEnString(j)+'] := ',coeffEstimationTemps^[j],6);
+      WriteStringAndReelDansRapport('coeffEstimationTemps^['+IntToStr(j)+'] := ',coeffEstimationTemps^[j],6);
       WritelnDansRapport(';');
     end;
 end;

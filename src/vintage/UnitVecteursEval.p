@@ -224,7 +224,7 @@ begin
 		          taille := puiss3[longueurDiago+1];
 		          if AllocatePointMultidimensionnel(taille,vecteur.Pattern[whichDiago,stage])
 		            then AnnulePointMultidimensionnel(vecteur.Pattern[whichDiago,stage])
-		            else WritelnNumDansRapport('impossible d''allouer la table de diago('+NumEnString(longueurDiago)+') pour stage = ',stage);
+		            else WritelnNumDansRapport('impossible d''allouer la table de diago('+IntToStr(longueurDiago)+') pour stage = ',stage);
 		          for otherDiago := kAdresseDiagonaleB1H7 to kAdresseDiagonaleD8H4 do
 		            if taillePattern[otherDiago] = longueurDiago then
 		              vecteur.Pattern[otherDiago,stage] := vecteur.Pattern[whichDiago,stage];
@@ -976,7 +976,7 @@ begin
            begin
             for k := 1 to puiss3[longueurPattern+1] do
               begin
-                {WritelnEdge2XAndStringDansRapport(k,'stage = '+NumEnString(stage)+'  occ = '+ReelEnStringAvecDecimales(whichOccurences.Edges2X[stage]^[k],10));}
+                {WritelnEdge2XAndStringDansRapport(k,'stage = '+IntToStr(stage)+'  occ = '+ReelEnStringAvecDecimales(whichOccurences.Edges2X[stage]^[k],10));}
                 if whichOccurences.Edges2X[stage]^[k] <= 0.05 then
 		               begin
 		                 stageMin := 0;
@@ -999,8 +999,8 @@ begin
 
 
 		                  { begin
-		                     WritelnEdge2XAndStringDansRapport(k,'stageMin = '+NumEnString(stageMin)+'  debut = '+ReelEnStringAvecDecimales(debut,5));
-		                     WritelnEdge2XAndStringDansRapport(k,'stageMax = '+NumEnString(stageMax)+'  fin = '+ReelEnStringAvecDecimales(fin,5));
+		                     WritelnEdge2XAndStringDansRapport(k,'stageMin = '+IntToStr(stageMin)+'  debut = '+ReelEnStringAvecDecimales(debut,5));
+		                     WritelnEdge2XAndStringDansRapport(k,'stageMax = '+IntToStr(stageMax)+'  fin = '+ReelEnStringAvecDecimales(fin,5));
 		                     WritelnNumDansRapport('stage = ',stage);
 		                     WritelnDansRapport('');
 		                   end;}

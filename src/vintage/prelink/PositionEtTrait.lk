@@ -25,4 +25,3 @@ procedure ReplaceCharByCharInString(var s : String255; old, new : char);     ext
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;

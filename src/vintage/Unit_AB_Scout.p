@@ -334,7 +334,7 @@ label sortie;
 
 					         for k := 1 to nbCoupsLegauxTriesRestantAEvaluer do
 					           begin
-					             WriteStringAt(NumEnString(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
+					             WriteStringAt(IntToStr(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
 					             WriteNumAt('note = ',CoupsLegauxTries[k].note,70,170+k*10);
 					             WriteNumAt('clé = ',CoupsLegauxTries[k].clefDeTri,150,170+k*10);
 					           end;
@@ -400,7 +400,7 @@ label sortie;
 
          for k := 1 to nbCoupsLegauxTriesRestantAEvaluer do
            begin
-             WriteStringAt(NumEnString(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
+             WriteStringAt(IntToStr(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
              WriteNumAt('note = ',CoupsLegauxTries[k].note,70,170+k*10);
              WriteNumAt('clŽ = ',CoupsLegauxTries[k].clefDeTri,150,170+k*10);
            end;
@@ -484,7 +484,7 @@ label sortie;
 
 			         for k := 1 to nbCoupsLegauxTriesRestantAEvaluer do
 			           begin
-			             WriteStringAt(NumEnString(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
+			             WriteStringAt(IntToStr(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),10,170+k*10);
 			             WriteNumAt('note = ',CoupsLegauxTries[k].note,70,170+k*10);
 			             WriteNumAt('clŽ = ',CoupsLegauxTries[k].clefDeTri,150,170+k*10);
 			           end;
@@ -790,9 +790,9 @@ label sortie;
 	    begin
 		    EssaieSetPortWindowPlateau;
 		    WriteStringAt(CoupEnStringEnMajuscules(pere)+' ',50*longPath,100);
-		    WriteStringAt(NumEnString(prof)+' ',50*longPath,112);
-		    WriteStringAt(NumEnString(alpha)+'       ',50*longPath,124);
-		    WriteStringAt(NumEnString(beta)+'       ',50*longPath,136);
+		    WriteStringAt(IntToStr(prof)+' ',50*longPath,112);
+		    WriteStringAt(IntToStr(alpha)+'       ',50*longPath,124);
+		    WriteStringAt(IntToStr(beta)+'       ',50*longPath,136);
 		  end;
 		if (alpha >= beta) then
 		  begin
@@ -1121,7 +1121,7 @@ begin   {ABScout}
 
    (*
    magicCookieABSCout := NewMagicCookie;
-   WriteInTraceLog('Entree dans ABSCout, magicCookie = '+NumEnString(magicCookieABSCout));
+   WriteInTraceLog('Entree dans ABSCout, magicCookie = '+IntToStr(magicCookieABSCout));
    *)
 
    if (coul <> pionNoir) and (coul <> pionBlanc) then
@@ -1145,7 +1145,7 @@ begin   {ABScout}
      begin
        debugPosition := MakePositionEtTrait(pl,coul);
        PrintTraceDebugageABScout(PositionEtTraitEnString(debugPosition));
-       PrintTraceDebugageABScout('nbCasesVidesRestantes = '+NumEnString(nbCasesVidesRestantes));
+       PrintTraceDebugageABScout('nbCasesVidesRestantes = '+IntToStr(nbCasesVidesRestantes));
      end;
 
    (* PV extension : est-on prs de la fin, sur la ligne principale ? *)
@@ -1291,7 +1291,7 @@ begin   {ABScout}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
-											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                        exit(ABScout);
                      end;
                    if (valeurExacteMin >= valeurExacteMax) then
@@ -1303,7 +1303,7 @@ begin   {ABScout}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
-											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                        exit(ABScout);
                      end;
                    if (valeurExacteMax <= alpha) then
@@ -1315,7 +1315,7 @@ begin   {ABScout}
                        {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
-											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                        exit(ABScout);
                      end;
 
@@ -1373,7 +1373,7 @@ begin   {ABScout}
    nbNrEssai := nbNoirs;
    frontEssai := fr;
 
-   {PrintTraceDebugageABScout('conseilTurbulence = '+CoupEnString(conseilTurbulence,true)+' '+NumEnString(conseilTurbulence)+' dans ABSCout');}
+   {PrintTraceDebugageABScout('conseilTurbulence = '+CoupEnString(conseilTurbulence,true)+' '+IntToStr(conseilTurbulence)+' dans ABSCout');}
 
    iCourant := conseilTurbulence;
    if maxPourBestDef < valeurExacteMax then
@@ -1473,7 +1473,7 @@ begin   {ABScout}
                         {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											  if useMicroProfiler then EndMiniProfilerMilieu;
 											  {$ENDC}
-                        (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                        (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                        exit(ABScout);
                       end;
                   end;
@@ -1512,7 +1512,7 @@ begin   {ABScout}
            begin
              iCourant := CoupsLegauxTries[ii].coup;
 
-             {PrintTraceDebugageABScout('iCourant = '+CoupEnString(iCourant,true)+' '+NumEnString(iCourant)+' dans ABSCout');}
+             {PrintTraceDebugageABScout('iCourant = '+CoupEnString(iCourant,true)+' '+IntToStr(iCourant)+' dans ABSCout');}
 
              if maxPourBestDef < valeurExacteMax then
              if (iCourant >= 11) and (iCourant <= 88) then
@@ -1547,7 +1547,7 @@ begin   {ABScout}
 
                    for k := 1 to nbCoupsAManger do
                      begin
-                       WriteStringAt(NumEnString(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),410,170+k*10);
+                       WriteStringAt(IntToStr(k)+')  '+CoupEnStringEnMajuscules(CoupsLegauxTries[k].coup),410,170+k*10);
                        WriteNumAt('note = ',CoupsLegauxTries[k].note,470,170+k*10);
                        WriteNumAt('clŽ = ',CoupsLegauxTries[k].clefDeTri,550,170+k*10);
                      end;
@@ -1662,7 +1662,7 @@ begin   {ABScout}
                                   {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 																	if useMicroProfiler then EndMiniProfilerMilieu;
 																	{$ENDC}
-                                  (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                                  (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                                   exit(ABScout);
                                 end;
                             end;
@@ -1784,7 +1784,7 @@ begin   {ABScout}
                                 {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
-                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                                 exit(ABScout);
                               end;
                           end;
@@ -1906,7 +1906,7 @@ begin   {ABScout}
                                 {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
-                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                                 exit(ABScout);
                               end;
                           end;
@@ -1927,9 +1927,9 @@ begin   {ABScout}
 
       if coul = pionNoir then
         begin
-         {PrintTraceDebugageABScout('coul = '+NumEnString(coul));
-         PrintTraceDebugageABScout('Avant tableHeurisBlanc[pere,0] dans ABSCout, avec pere = '+NumEnString(pere));
-         PrintTraceDebugageABScout('tableHeurisBlanc[pere,0] = '+NumEnString(tableHeurisBlanc[pere,0]));}
+         {PrintTraceDebugageABScout('coul = '+IntToStr(coul));
+         PrintTraceDebugageABScout('Avant tableHeurisBlanc[pere,0] dans ABSCout, avec pere = '+IntToStr(pere));
+         PrintTraceDebugageABScout('tableHeurisBlanc[pere,0] = '+IntToStr(tableHeurisBlanc[pere,0]));}
 
          for ii := 1 to tableHeurisBlanc[pere,0] do
           begin
@@ -2047,7 +2047,7 @@ begin   {ABScout}
                                 {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
-                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                                 exit(ABScout);
                               end;
                           end;
@@ -2067,9 +2067,9 @@ begin   {ABScout}
         else
          begin
 
-           {PrintTraceDebugageABScout('coul = '+NumEnString(coul));
-           PrintTraceDebugageABScout('Avant tableHeurisNoir[pere,0] dans ABSCout, avec pere = '+NumEnString(pere));
-           PrintTraceDebugageABScout('tableHeurisNoir[pere,0] = '+NumEnString(tableHeurisNoir[pere,0]));}
+           {PrintTraceDebugageABScout('coul = '+IntToStr(coul));
+           PrintTraceDebugageABScout('Avant tableHeurisNoir[pere,0] dans ABSCout, avec pere = '+IntToStr(pere));
+           PrintTraceDebugageABScout('tableHeurisNoir[pere,0] = '+IntToStr(tableHeurisNoir[pere,0]));}
 
            for ii := 1 to tableHeurisNoir[pere,0] do
            begin
@@ -2189,7 +2189,7 @@ begin   {ABScout}
                                {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 											         if useMicroProfiler then EndMiniProfilerMilieu;
 											         {$ENDC}
-                               (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout)); *)
+                               (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
                                exit(ABScout);
                              end;
                          end;
@@ -2289,7 +2289,7 @@ begin   {ABScout}
    if useMicroProfiler then EndMiniProfilerMilieu;
    {$ENDC}
 
-   {WriteInTraceLog('Sortie ABSCout, magicCookie = '+NumEnString(magicCookieABSCout));}
+   {WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout));}
 
  end;  { if (interruptionReflexion = pasdinterruption) then... }
  {EffaceCoupEtProf;}

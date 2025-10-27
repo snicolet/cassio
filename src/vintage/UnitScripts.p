@@ -204,11 +204,11 @@ begin
 		        GetTime(myDate);
 		        theLine := '% Endgame script created by '+GetApplicationName('Cassio');
 		        err := WritelnDansFichierTexte(script,theLine);
-		        theLine := '% '+NumEnString(myDate.year)+'-'+
-		                      NumEnString(myDate.month)+'-'+
-		                      NumEnString(myDate.day);
+		        theLine := '% '+IntToStr(myDate.year)+'-'+
+		                      IntToStr(myDate.month)+'-'+
+		                      IntToStr(myDate.day);
 		        err := WritelnDansFichierTexte(script,theLine);
-		        theLine := '% All positions in this script are generated after move '+NumEnString(kApresQuelCoup)+', but this is not a requirement of the script format';
+		        theLine := '% All positions in this script are generated after move '+IntToStr(kApresQuelCoup)+', but this is not a requirement of the script format';
 		        err := WritelnDansFichierTexte(script,theLine);
 		        err := WritelnDansFichierTexte(script,'%');
 
@@ -227,15 +227,15 @@ begin
 
 		            if (theLine <> '') and (explicationRejetPartie = kPartieOK)
 		              then
-		                err := WritelnDansFichierTexte(script,theLine+' % '+nomDeLaBase+' after '+NumEnString(kApresQuelCoup)+' #'+NumEnString(n))
+		                err := WritelnDansFichierTexte(script,theLine+' % '+nomDeLaBase+' after '+IntToStr(kApresQuelCoup)+' #'+IntToStr(n))
 		              else
 		                begin
 		                  (*
 		                  case explicationRejetPartie of
 		                    kPartieIllegale :
-		                      err := WritelnDansFichierTexte(script,'% illegal game : '+nomDeLaBase+' #'+NumEnString(n));
+		                      err := WritelnDansFichierTexte(script,'% illegal game : '+nomDeLaBase+' #'+IntToStr(n));
 		                    kPartieTropCourte :
-		                      err := WritelnDansFichierTexte(script,'% game too short : '+nomDeLaBase+' #'+NumEnString(n));
+		                      err := WritelnDansFichierTexte(script,'% game too short : '+nomDeLaBase+' #'+IntToStr(n));
 		                  end;
 		                  *)
 		                end;
@@ -280,9 +280,9 @@ begin
       end
     else
       begin
-			  s1 := NumEnString(32+(scorePourNoir div 2));
+			  s1 := IntToStr(32+(scorePourNoir div 2));
 			  if LENGTH_OF_STRING(s1) = 1 then s1 := Concat(' ',s1);
-			  s2 := NumEnString(32-(scorePourNoir div 2));
+			  s2 := IntToStr(32-(scorePourNoir div 2));
 			  if LENGTH_OF_STRING(s2) = 1 then s2 := Concat(' ',s2);
 			  result := s1+' - '+s2+'      ';
       end;
@@ -537,7 +537,7 @@ begin
 
                         if (nbPositionsResolues <> 0) and ((nbPositionsResolues mod 50) = 0) then
                           begin
-                            WritelnDansRapport('aprs '+NumEnString(nbPositionsResolues)+' positions rŽsolues :');
+                            WritelnDansRapport('aprs '+IntToStr(nbPositionsResolues)+' positions rŽsolues :');
                             WritelnStringAndReelDansRapport('   temps moyen en sec : ',1.0*tempsTotalEnSecondes/nbPositionsResolues,3);
                             WritelnNumDansRapport('   temps maximum en sec : ',tempsMaximumEnSecondes);
                           end;
@@ -562,7 +562,7 @@ begin
 		  ChangeFontColorDansRapport(RougeCmd);
       WritelnDansRapport('');
       WriteDansRapport('Fin de l''exŽcution du script de finales : ');
-      s := 'j''ai rŽsolu '+NumEnString(nbPositionsResolues)+' positions en ' + NumEnString(tempsTotalEnSecondes) + ' secondes';
+      s := 'j''ai rŽsolu '+IntToStr(nbPositionsResolues)+' positions en ' + IntToStr(tempsTotalEnSecondes) + ' secondes';
       if (tempsTotalEnSecondes > 80) then s := s + ' ('+SecondesEnJoursHeuresSecondes(tempsTotalEnSecondes)+')';
       WritelnDansRapport(s + '.');
       WritelnDansRapport('');
@@ -612,7 +612,7 @@ var fichierPHP : FichierTEXT;
   function FabriquerNomAutreQuiz(numero : SInt32) : String255;
   var s : String255;
   begin
-    s := ParamStr('stepanov_^0.php',NumEnString(numero),'','','');
+    s := ParamStr('stepanov_^0.php',IntToStr(numero),'','','');
     FabriquerNomAutreQuiz := s;
   end;
 
@@ -623,7 +623,7 @@ begin {CreerQuizEnPHP}
   a := permutationDesNumerosDeQuiz[numeroQuiz];
 
   nomQuizGenerique := ReplaceStringByStringInString('problemes_stepanov','stepanov',nomQuizGenerique);
-  nomQuiz := ParamStr(nomQuizGenerique,NumEnString(numeroQuiz),'','','');
+  nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz),'','','');
 
 
   erreurES := FichierTexteExiste(nomQuiz,0,fichierPHP);
@@ -659,7 +659,7 @@ begin {CreerQuizEnPHP}
                                            '<img src="top.gif" width="224" height="16"><br />',
                                            '<img src="^0^1.gif" width="16" height="24">',
                                            '<img src="^0^1.gif" width="16" height="24"><br />',
-                                           '<span><br><b > Problandegrave;me '+NumEnString(numeroQuiz)+'</b></span>'
+                                           '<span><br><b > Problandegrave;me '+IntToStr(numeroQuiz)+'</b></span>'
                                           )
          else erreurES := WritePositionEtTraitEnHTMLDansFichierAbstrait(positionQuiz,fichierAbstraitPHP,
                                            '<div class="diagramme">',
@@ -673,7 +673,7 @@ begin {CreerQuizEnPHP}
                                            '<img src="top.gif" width="224" height="16"><br />',
                                            '<img src="^0^1.gif" width="16" height="24">',
                                            '<img src="^0^1.gif" width="16" height="24"><br />',
-                                           '<span><br><b > Problandegrave;me '+NumEnString(numeroQuiz)+'</b></span>'
+                                           '<span><br><b > Problandegrave;me '+IntToStr(numeroQuiz)+'</b></span>'
                                           );
 
       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
@@ -735,7 +735,7 @@ begin {CreerQuizEnPHP}
           begin
 
 
-            nomQuiz := ParamStr(nomQuizGenerique,NumEnString(numeroQuiz)+'_'+CoupEnStringEnMinuscules(square),'','','');
+            nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz)+'_'+CoupEnStringEnMinuscules(square),'','','');
 
 
             erreurES := FichierTexteExiste(nomQuiz,0,fichierPHP);
@@ -1005,7 +1005,7 @@ begin
                       (* On ecrit le diagramme de la position dans un fichier EPS *)
                       (*
                       nomFichierEPS := ReplaceStringByStringInString('.script','_',nomScript);
-                      nomFichierEPS := nomFichierEPS + NumEnString(nbProblemesTraites) + '.eps';
+                      nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
                       erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEPS);
 										  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomFichierEPS,0,fichierEPS);
@@ -1024,7 +1024,7 @@ begin
 
                       (* On cree l'imagette JPEG de la solution *)
                       (*
-                      CreerPositionQuizzEnJPEG(ParamStr(ReplaceStringByStringInString('.script','_^0.jpg',nomScript),NumEnString(nbProblemesTraites),'','',''),positionEtTrait);
+                      CreerPositionQuizzEnJPEG(ParamStr(ReplaceStringByStringInString('.script','_^0.jpg',nomScript),IntToStr(nbProblemesTraites),'','',''),positionEtTrait);
                       *)
 
 
@@ -1034,7 +1034,7 @@ begin
                         then
                           begin
 			                      nomFichierEPS := ReplaceStringByStringInString('.script','_sol_',nomScript);
-			                      nomFichierEPS := nomFichierEPS + NumEnString(nbProblemesTraites) + '.eps';
+			                      nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
 			                      erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEsPS);
 													  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomFichierEPS,0,fichierEPS);
@@ -1055,13 +1055,13 @@ begin
 
                      (* Ecriture du code TeX dans le rapport *)
                      (*
-                     WritelnDansRapport('\includegraphics[scale = 1.75]{problemes_stepanov_'+NumEnString(nbProblemesTraites)+'}');
+                     WritelnDansRapport('\includegraphics[scale = 1.75]{problemes_stepanov_'+IntToStr(nbProblemesTraites)+'}');
                      case traitDeLaSolution of
                        pionNoir  : WritelnDansRapport('\\ Noir');
                        pionBlanc : WritelnDansRapport('\\ Blanc');
                      end;
                      WritelnDansRapport('\newpage');
-                     WritelnDansRapport('\includegraphics[scale = 0.75]{problemes_stepanov_sol_'+NumEnString(nbProblemesTraites)+'}');
+                     WritelnDansRapport('\includegraphics[scale = 0.75]{problemes_stepanov_sol_'+IntToStr(nbProblemesTraites)+'}');
                      WritelnDansRapport('\\ '+reste);
                      WritelnDansRapport('\vspace{0.75in}');
                      WritelnDansRapport('');

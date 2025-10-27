@@ -28,7 +28,6 @@ function GetMemePosition(var cellule : CelluleRec) : SInt32;     external;
 function HasFrere(var cellule : CelluleRec) : boolean;     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 function GetNumeroCoup(var cellule : CelluleRec) : SInt16;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WriteStringDansRapport(s : String255);     external;
 procedure SetMemePosition(theMemePosition : SInt32; var cellule : CelluleRec);     external;
 procedure SetFrere(theFrere : SInt32; var cellule : CelluleRec);     external;

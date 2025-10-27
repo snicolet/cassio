@@ -14,7 +14,6 @@ procedure EssaieSetPortWindowPlateau;     external;
 procedure PrepareTexteStatePourMeilleureSuite;     external;
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
   procedure WriteStringAt(s : String255; h,v : SInt32);     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function SecondesEnJoursHeuresSecondes(secondes : SInt32) : String255;     external;
 function EstUnSolitaire(var meilleurX,bstdef : SInt32; couleur,MFprof,nbBl,nbNo : SInt32; const jeu : plateauOthello; var empl : plBool; var frontiere : InfoFront; var score,nbreMeilleurs : SInt32; pourVraimentJouer : boolean; var causeRejet : SInt32; traitement,scoreaatteindre : SInt32) : boolean;     external;
 function GetAnneePartieParNroRefPartie(nroReference : SInt32) : SInt16;     external;

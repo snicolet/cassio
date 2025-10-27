@@ -24,7 +24,6 @@ procedure AlerteSimple(texte : String255);     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
 	procedure RandomizeTimer;     external;
   function RandomLongint : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;

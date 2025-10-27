@@ -38,7 +38,6 @@ function UTF8ToAscii(const s : String255) : String255;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
 function LongueurPlusLongNomDeJoueurDansBase : SInt32;     external;
 function GetNomTournoi(nroTournoi : SInt32) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function  GetParsingCaracterSet : SetOfChar;     external;
   procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
 function GetNomJoueurEnMajusculesSansEspace(nroJoueur : SInt32) : String255;     external;

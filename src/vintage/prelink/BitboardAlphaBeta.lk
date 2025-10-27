@@ -30,7 +30,6 @@ procedure EcouterLesResultatsDansCetteThread(nroThread : SInt32);     external;
 function ThreadEstInterrompue(nroThread, nbreCasesVides : SInt32) : boolean;     external;
 function PeutTrouverUneThreadDisponible(nroThreadMaitre, nbreCasesVides, hashStamp : SInt32; var nroThreadEsclave : SInt32) : boolean;     external;
 function CalculerCoupsEnParallele(inNroThreadDuPere : SInt32; inNroThreadFilsDisponible : SInt32; inPosition : bitboard; inNbreVides : SInt32; inAlpha,inBeta : SInt32; inDiffPions : SInt32; inVecteurParite : SInt32; inListeBitboard : UInt32; var inListeDesCoupsLegaux : listeVides; indexPremierFils,indexDernierFils : SInt32; var outMeilleureDefense : UInt32; var outNroDuDernierFilsEvalue : SInt32) : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure AttendreFrappeClavierParallelisme(attenteTouche : boolean);     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function ListeChaineeDesCasesVidesEnListeBitboard(theList : celluleCaseVideDansListeChaineePtr; nbCasesVides : SInt32) : UInt32;     external;

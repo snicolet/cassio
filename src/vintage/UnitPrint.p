@@ -167,7 +167,7 @@ begin
         begin
           TextFace(normal);
           TextSize(9);
-          s := NumEnString(pageNum);
+          s := IntToStr(pageNum);
           Moveto(right-35,yPosition);
           MyDrawString(ParamStr(ReadStringFromRessource(TextesImpressionID,5),s,'','',''));
         end;
@@ -786,7 +786,7 @@ var
    GetDialogItemRect(dp,NombrePagesStaticText,myRect);
    MyEraseRect(myRect);
    MyEraseRectWithColor(myRect,OrangeCmd,blackPattern,'');
-   s := NumEnString(CountPages);
+   s := IntToStr(CountPages);
    s := ParamStr(ReadStringFromRessource(TextesImpressionID,4),s,'','','');
    SetItemTextInDialog(dp,NombrePagesStaticText,s);
 

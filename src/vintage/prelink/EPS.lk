@@ -4,7 +4,6 @@ function FichierTexteEstOuvert(var fic : FichierTEXT) : boolean;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;     external;
-  function NumEnString(num : SInt32) : String255;     external;
  function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;     external;
 procedure WritelnDansRapport(s : String255);     external;
 function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;

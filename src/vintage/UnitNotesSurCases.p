@@ -624,7 +624,7 @@ begin
             if valeur = kNoteSpecialeSurCasePourPerte then s := ReadStringFromRessource(TextesPlateauID,27)  {perd}
               else
                 begin
-                  s := NumEnString((Abs(valeur) + 49) div 100);
+                  s := IntToStr((Abs(valeur) + 49) div 100);
                   if (valeur < 0) and (s <> '0') then
                     s := Concat('-',s);
                 end;
@@ -643,7 +643,7 @@ begin
     	            v2 := v mod 100;
 
     	            if (v2 = 0)
-    	              then s := NumEnString(v1)
+    	              then s := IntToStr(v1)
     	              else
     	                begin
     	                  if (v2 = 1) then v2 := 0 else
@@ -653,15 +653,15 @@ begin
     	                      v2 := 0;
     	                    end;
 
-          	            s1 := NumEnString(v1);
+          	            s1 := IntToStr(v1);
           	            if (v2 >= 5)
           	              then
           	                begin
           	                  if (v2 <= 85)
-          	                    then s2 := NumEnString((v2 + 5) div 10)
+          	                    then s2 := IntToStr((v2 + 5) div 10)
           	                    else s2 := '9';
           	                end
-          	              else s2 := '0' {+ NumEnString(v2)};
+          	              else s2 := '0' {+ IntToStr(v2)};
 
           	            s := s1 + '.' + s2;
           	          end;

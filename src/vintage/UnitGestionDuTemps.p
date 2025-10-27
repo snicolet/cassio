@@ -1434,7 +1434,7 @@ begin
 
       EssaieSetPortWindowPlateau;
       PrepareTexteStatePourHeure;
-      WriteStringAt('delai = '+NumEnString(newValue)+' , latence = '+NumEnString(latenceEntreDeuxDoSystemTask)+',   fonctionAppelante = '+fonctionAppelante+'                                   ', 800, yAff);
+      WriteStringAt('delai = '+IntToStr(newValue)+' , latence = '+IntToStr(latenceEntreDeuxDoSystemTask)+',   fonctionAppelante = '+fonctionAppelante+'                                   ', 800, yAff);
     end;
   *)
 
@@ -1478,16 +1478,16 @@ var aux,seco : SInt32;
         begin
           heuresAffichees := true;
           nbheures := nbmin div 60;
-          s2 := NumEnString(nbheures);
+          s2 := IntToStr(nbheures);
           nbmin := nbmin mod 60;
-          chaine := NumEnString(nbmin);
+          chaine := IntToStr(nbmin);
           if nbmin < 10 then chaine := CharToString('0')+chaine;
           chaine := s2+': '+chaine;
         end
       else
         begin
           heuresAffichees := false;
-          chaine := NumEnString(nbmin);
+          chaine := IntToStr(nbmin);
         end;
   end;
 
@@ -1519,7 +1519,7 @@ begin
             if cadenceMin-1-minimum < 0 then
               begin
                 TraduitMinEnFormat_hhmm(minimum-cadenceMin,s1);
-                s2 := NumEnString(sec);
+                s2 := IntToStr(sec);
                 if sec < 10 then s2 := CharToString('0')+s2;
                 s := CharToString('-')+s1+': '+s2;
               end
@@ -1533,7 +1533,7 @@ begin
                 else
                   begin
                     TraduitMinEnFormat_hhmm(cadenceMin-minimum-1,s1);
-                    s2 := NumEnString(60-sec);
+                    s2 := IntToStr(60-sec);
                     if 60-sec < 10 then s2 := CharToString('0')+s2;
                     s := s1+': '+s2;
                   end;
@@ -1541,7 +1541,7 @@ begin
           else  {if decrementetemps then...}
             begin
               TraduitMinEnFormat_hhmm(minimum,s1);
-              s2 := NumEnString(sec);
+              s2 := IntToStr(sec);
               if sec < 10 then s2 := CharToString('0')+s2;
               s := s1+': '+s2;
             end;
@@ -1839,9 +1839,9 @@ procedure DoCadence;
     dp := MyGetNewDialog(CadenceDialogID);
     if dp <> NIL then
     begin
-      s := NumEnString((cadencePersoAffichee+31) div 3600);
+      s := IntToStr((cadencePersoAffichee+31) div 3600);
       SetItemTextInDialog(dp,TextHeures,s);
-      s := NumEnString(((cadencePersoAffichee+31) mod 3600) div 60);
+      s := IntToStr(((cadencePersoAffichee+31) mod 3600) div 60);
       SetItemTextInDialog(dp,TextMinutes,s);
       InitRadios(dp,gCadencesRadios);
       ChangeCadence(gCadencesRadios);
@@ -1876,7 +1876,7 @@ procedure DoCadence;
                     if LENGTH_OF_STRING(s1) > 0 then
                       begin
                         ChaineToLongint(s1,unlong);
-                        s1 := NumEnString(unlong);
+                        s1 := IntToStr(unlong);
                         if (unlong = 0) and (LENGTH_OF_STRING(s1) = 0) then s1 := '';
                       end;
                     if LENGTH_OF_STRING(s1) > 4 then s1 := TPCopy(s1,1,4);
@@ -2320,7 +2320,7 @@ begin
         begin
           message := ReplaceStringByStringInString('STILL INCHARGE true','CALCULATING',message);
           if CassioEstEnTrainDeCalculerPourLeZoo then
-            message := message + ' depth = ' + NumEnString(ProfDuCalculCourantDeCassioPourLeZoo);
+            message := message + ' depth = ' + IntToStr(ProfDuCalculCourantDeCassioPourLeZoo);
         end;
 
 
@@ -2407,8 +2407,8 @@ begin
 
            s2 := ReadStringFromRessource(TextesGestionID,1);
            if alloue = minutes10000000 {temps infini}
-             then s := ParamStr(s2,NumEnString(1000000000),'','','')
-             else s := ParamStr(s2,NumEnString(alloue),'','','');
+             then s := ParamStr(s2,IntToStr(1000000000),'','','')
+             else s := ParamStr(s2,IntToStr(alloue),'','','');
            Moveto(posH,13);
            SetRect(ligneRect,posH,13 - 9,gestionRect.right,13 + 2);
            MyEraseRectWithRGBColor(lignerect,couleurOmbrage);
@@ -2430,19 +2430,19 @@ begin
                        mu := ChaineEnLongint(s2) div 100;
                        if (mu >= 1000)
                          then s2 := 'µ=∞'
-                         else s2 := 'µ=' + NumEnString(mu);
+                         else s2 := 'µ=' + IntToStr(mu);
                      end
-                   else s2 := NumEnString(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties)) + '%';
+                   else s2 := IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties)) + '%';
                  if (effectif >= 600)
-                   then s := ParamStr(s,s2,NumEnString(effectif div 60),'','')
+                   then s := ParamStr(s,s2,IntToStr(effectif div 60),'','')
                    else s := ParamStr(s,s2,ReelEnStringRapide(effectif/60.0),'','');
                end
              else
                begin
                  s := ReadStringFromRessource(TextesGestionID,2);  {utilisé pour la prof. ^0 : ^1 sec.}
-                 s2 := NumEnString(prof);
+                 s2 := IntToStr(prof);
                  if (effectif >= 600) or (prof <= 0)
-                   then s := ParamStr(s,s2,NumEnString(effectif div 60),'','')
+                   then s := ParamStr(s,s2,IntToStr(effectif div 60),'','')
                    else s := ParamStr(s,s2,ReelEnStringRapide(effectif/60.0),'','');
                end;
            Moveto(posH,25);
@@ -2465,17 +2465,17 @@ begin
                      then
                        begin
                          s := ReadStringFromRessource(TextesGestionID,13);  {prevu pour la finale à ^0 : ^1 sec.}
-                         s2 := NumEnString(ProfondeurMilieuEnPrecisionFinaleEngine(profsuivante, empties)) + '%';
+                         s2 := IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(profsuivante, empties)) + '%';
                          if (prevu >= 600)
-                           then s := ParamStr(s,s2,NumEnString(prevu div 60),'','')
+                           then s := ParamStr(s,s2,IntToStr(prevu div 60),'','')
                            else s := ParamStr(s,s2,ReelEnStringRapide(prevu/60.0),'','');
                        end
                      else
                        begin
                          s := ReadStringFromRessource(TextesGestionID,3);   {prevu pour la prof. ^0 : ^1 sec.}
-                         s2 := NumEnString(profsuivante);
+                         s2 := IntToStr(profsuivante);
                          if (prevu >= 600) or (prof <= 0)
-                           then s := ParamStr(s,s2,NumEnString(prevu div 60),'','')
+                           then s := ParamStr(s,s2,IntToStr(prevu div 60),'','')
                            else s := ParamStr(s,s2,ReelEnStringRapide(prevu/60.0),'','');
                        end;
                Moveto(posH,37);
@@ -2507,7 +2507,7 @@ begin
                s := s + ' (KILLED)'
              else
                if (numProcessors > 1)
-                 then s := s + ', ' + ParamStr(ReadStringFromRessource(TextesGestionID,10),NumEnString(numProcessors),'','','')   { " ^0 processeurs" }
+                 then s := s + ', ' + ParamStr(ReadStringFromRessource(TextesGestionID,10),IntToStr(numProcessors),'','','')   { " ^0 processeurs" }
                  else s := s + ', ' + ReadStringFromRessource(TextesGestionID,11);                                                { " 1 processeur " }
 
 
@@ -2770,7 +2770,7 @@ begin
                  then s := 'Etat sur le zoo : NOT CONNECTED'
                  else
                    if (nbreSecondes <= 60)
-                     then s := 'Etat sur le zoo : ' + message +  '  (depuis ' + NumEnString(nbreSecondes) + ' sec.)'
+                     then s := 'Etat sur le zoo : ' + message +  '  (depuis ' + IntToStr(nbreSecondes) + ' sec.)'
                      else s := 'Etat sur le zoo : ' + message +  '  (depuis ' + SecondesEnJoursHeuresSecondes(nbreSecondes) + ')';
 
                if (Pos('NO JOB', message) <= 0) or (nbreSecondes >= 3) then
@@ -2782,7 +2782,7 @@ begin
                posV := 100;
 
                if (nbreRequetesSansReponse > 5)
-                 then s := '  Réseau mort depuis '+NumEnString(idleTime) + ' sec…'
+                 then s := '  Réseau mort depuis '+IntToStr(idleTime) + ' sec…'
                  else
                    if CassioDoitRentrerEnContactAvecLeZoo
                      then s := '  Réseau vivant : OK'
@@ -2791,8 +2791,8 @@ begin
 
                (*
                if nbreRequetesSansReponse >= 2
-                 then s := '  requêtes réseau sans réponse : '+NumEnString(nbreRequetesSansReponse)
-                 else s := '  requêtes réseau sans réponse : '+NumEnString(0);
+                 then s := '  requêtes réseau sans réponse : '+IntToStr(nbreRequetesSansReponse)
+                 else s := '  requêtes réseau sans réponse : '+IntToStr(0);
                AfficheStatReseau(s);
                *)
 
@@ -2844,8 +2844,8 @@ begin
 
 
                        if nbrePositionsEnAttente >= 2
-                         then s := '  Nombre de positions demandées au zoo : '+NumEnString(nbrePositionsEnAttente)
-                         else s := '  Nombre de positions demandées au zoo : '+NumEnString(nbrePositionsEnAttente);
+                         then s := '  Nombre de positions demandées au zoo : '+IntToStr(nbrePositionsEnAttente)
+                         else s := '  Nombre de positions demandées au zoo : '+IntToStr(nbrePositionsEnAttente);
                        AfficheStatReseau(s);
 
                        if CassioEstEnTrainDeCalculerPourLeZoo then
@@ -2856,9 +2856,9 @@ begin
 
                        if nbrePositionsPrefetched <= 0
                          then s := '  Nombre de positions à calculer pour le zoo  : 0'
-                         else s := '  Nombre de positions à calculer pour le zoo  : ' + NumEnString(nbrePositionsPrefetched);
+                         else s := '  Nombre de positions à calculer pour le zoo  : ' + IntToStr(nbrePositionsPrefetched);
                        if (profMax >= 0)
-                         then s := s + ' (de prof. max ' + NumEnString(profMax) + ')';
+                         then s := s + ' (de prof. max ' + IntToStr(profMax) + ')';
                        AfficheStatReseau(s);
 
 
@@ -2867,7 +2867,7 @@ begin
 
                        if (nbrePositions <> 0) then
                          begin
-                           s := '  Pour '+ NumEnString(nbrePositions) + ' positions, soit un temps moyen de ' +  ReelEnString(tempsTotal / nbrePositions) + ' sec.';
+                           s := '  Pour '+ IntToStr(nbrePositions) + ' positions, soit un temps moyen de ' +  ReelEnString(tempsTotal / nbrePositions) + ' sec.';
                            AfficheStatReseau(s);
                          end;
 
@@ -2897,7 +2897,7 @@ begin
 
                        if (nbrePositions <> 0) and (nbrePositionsMilieu <> 0) then
                          begin
-                           s := '  Pourcentage du nombre de positions de milieu : ' +  NumEnString(nbrePositionsMilieu) + ' positions = ' + ReelEnString(100.0 * (nbrePositionsMilieu / nbrePositions)) + ' %';
+                           s := '  Pourcentage du nombre de positions de milieu : ' +  IntToStr(nbrePositionsMilieu) + ' positions = ' + ReelEnString(100.0 * (nbrePositionsMilieu / nbrePositions)) + ' %';
                            AfficheStatReseau(s);
                          end;
 

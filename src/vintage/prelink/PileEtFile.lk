@@ -11,4 +11,3 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function AllocateMemoryHdl(whichSize : SInt32) : handle;     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
-  function NumEnString(num : SInt32) : String255;     external;

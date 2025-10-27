@@ -457,7 +457,7 @@ begin
             if (nombreDeNombresLus = 0) then
               begin
                 scoreEdax := n;
-                // WriteDansRapport(NumEnString(scoreEdax) + '; ');
+                // WriteDansRapport(IntToStr(scoreEdax) + '; ');
               end;
 
             // les autres cellules representent les frequences d'Edax
@@ -470,7 +470,7 @@ begin
 
                     gEdaxCorrelationMatrix^[scoreEdax,nbDePionsDeNoirs] := n;
 
-                    // WriteDansRapport(NumEnString(n) + '; ');
+                    // WriteDansRapport(IntToStr(n) + '; ');
                   end;
               end;
           end;
@@ -857,7 +857,7 @@ begin
   for i := 0 to kGridQuantificationLevel do
     for j := 0 to kGridQuantificationLevel do
       begin
-        WritelnNumDansRapport('count['+NumEnString(i)+','+NumEnString(j)+'] = ',gGrid.indexDansTableTriee[i, j]);
+        WritelnNumDansRapport('count['+IntToStr(i)+','+IntToStr(j)+'] = ',gGrid.indexDansTableTriee[i, j]);
       end;
   *)
 
@@ -880,7 +880,7 @@ begin
   for i := 0 to kGridQuantificationLevel do
     for j := 0 to kGridQuantificationLevel do
       begin
-        WritelnNumDansRapport('somme['+NumEnString(i)+','+NumEnString(j)+'] = ',gGrid.indexDansTableTriee[i, j]);
+        WritelnNumDansRapport('somme['+IntToStr(i)+','+IntToStr(j)+'] = ',gGrid.indexDansTableTriee[i, j]);
       end;
 
 
@@ -890,7 +890,7 @@ begin
 
         if CetteCaseDansLaGrilleContientDesPoints(i,j, indexMin, indexMax) then
           begin
-            WriteDansRapport('Grille['+NumEnString(i)+','+NumEnString(j)+'] = ');
+            WriteDansRapport('Grille['+IntToStr(i)+','+IntToStr(j)+'] = ');
             WriteNumDansRapport('{ m = ',indexMin);
             WriteNumDansRapport(', M = ',indexMax);
             WritelnDansRapport(' }');
@@ -1175,7 +1175,7 @@ begin
 
   if debug then
     begin
-      WritelnDansRapport('(x_,y_) = ('+NumEnString(which_x_grid)+' , '+NumEnString(which_y_grid)+')');
+      WritelnDansRapport('(x_,y_) = ('+IntToStr(which_x_grid)+' , '+IntToStr(which_y_grid)+')');
       ForeColor(blueColor);
       FrameRect(GetBoundingRectOfGridSquare(which_x_grid,which_y_grid));
       AttendFrappeClavier;
@@ -1323,7 +1323,7 @@ begin
           j := grid_y;
 
           if debug then
-              WritelnDansRapport('(i,j) = ('+NumEnString(i)+' , '+NumEnString(j)+')');
+              WritelnDansRapport('(i,j) = ('+IntToStr(i)+' , '+IntToStr(j)+')');
 
           // cherchons d'abord dans la cellule de la grille contenant la souris
           UpdateDistance(i,j, mouse_x, mouse_y, minDistance, best, continuer, debug);
@@ -1480,9 +1480,9 @@ begin
   s := '';
 
   if (score >= 32)
-    then s := s + '+'+NumEnString(2*(score-32))+''
-    else s := s + ''+NumEnString(2*(score-32))+'';
-  s := s + ' ('+NumEnString(score) + '-' + NumEnString(64-score)+')';
+    then s := s + '+'+IntToStr(2*(score-32))+''
+    else s := s + ''+IntToStr(2*(score-32))+'';
+  s := s + ' ('+IntToStr(score) + '-' + IntToStr(64-score)+')';
 
   ScoreEnChaineInformative := s;
 end;
@@ -1817,16 +1817,16 @@ begin
     k_REGRESSION_QUALITE_EDMOND :
       begin
         if (scoreAxeVertical >= 32)
-          then score := '+'+NumEnString(2*(scoreAxeVertical-32))
-          else score := '-'+NumEnString(2*(32-scoreAxeVertical));
+          then score := '+'+IntToStr(2*(scoreAxeVertical-32))
+          else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,1);   {score thŽorique ^0}
         myString := ParamStr(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
-          then score := '+'+NumEnString(scoreAxeHorizontal div 100)+'.'+NumEnString(scoreAxeHorizontal mod 100)
-          else score := '-'+NumEnString((-scoreAxeHorizontal) div 100)+'.'+NumEnString((-scoreAxeHorizontal) mod 100);
+          then score := '+'+IntToStr(scoreAxeHorizontal div 100)+'.'+IntToStr(scoreAxeHorizontal mod 100)
+          else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,2);  {, estimŽ ˆ ^0 par Edmond}
         myString := ParamStr(s0, score, '', '', '');
@@ -1836,16 +1836,16 @@ begin
     k_REGRESSION_QUALITE_CASSIO :
       begin
         if (scoreAxeVertical >= 32)
-          then score := '+'+NumEnString(2*(scoreAxeVertical-32))
-          else score := '-'+NumEnString(2*(32-scoreAxeVertical));
+          then score := '+'+IntToStr(2*(scoreAxeVertical-32))
+          else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
           s0 := ReadStringFromRessource(TexteRegressionID,1);  {score thŽorique ^0}
           myString := ParamStr(s0, score, '', '', '');
           s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
-          then score := '+'+NumEnString(scoreAxeHorizontal div 100)+'.'+NumEnString(scoreAxeHorizontal mod 100)
-          else score := '-'+NumEnString((-scoreAxeHorizontal) div 100)+'.'+NumEnString((-scoreAxeHorizontal) mod 100);
+          then score := '+'+IntToStr(scoreAxeHorizontal div 100)+'.'+IntToStr(scoreAxeHorizontal mod 100)
+          else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
           s0 := ReadStringFromRessource(TexteRegressionID,3);  {, estimŽ ˆ ^0 par Cassio}
           myString := ParamStr(s0, score, '', '', '');
@@ -1855,16 +1855,16 @@ begin
     k_REGRESSION_QUALITE_CASSIO_ANTIQUE :
       begin
         if (scoreAxeVertical >= 32)
-          then score := '+'+NumEnString(2*(scoreAxeVertical-32))
-          else score := '-'+NumEnString(2*(32-scoreAxeVertical));
+          then score := '+'+IntToStr(2*(scoreAxeVertical-32))
+          else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,1);  {score thŽorique ^0}
         myString := ParamStr(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
-          then score := '+'+NumEnString(scoreAxeHorizontal div 100)+'.'+NumEnString(scoreAxeHorizontal mod 100)
-          else score := '-'+NumEnString((-scoreAxeHorizontal) div 100)+'.'+NumEnString((-scoreAxeHorizontal) mod 100);
+          then score := '+'+IntToStr(scoreAxeHorizontal div 100)+'.'+IntToStr(scoreAxeHorizontal mod 100)
+          else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,4);  {, estimŽ ˆ ^0 par le vieux Cassio}
         myString := ParamStr(s0, score, '', '', '');
@@ -1873,7 +1873,7 @@ begin
 
     k_REGRESSION_SCORE_FINAL :
       begin
-        score := NumEnString(scoreAxeVertical) + '-' +NumEnString(64-scoreAxeVertical);
+        score := IntToStr(scoreAxeVertical) + '-' +IntToStr(64-scoreAxeVertical);
 
         if (scoreAxeHorizontal >= -99)
           then scoreFinal :=  2*((scoreAxeHorizontal + 100) div 200)
@@ -1883,7 +1883,7 @@ begin
         myString := ParamStr(s0, score, '', '', '');
         s := s + myString;
 
-        score := NumEnString(32 + (scoreFinal div 2)) + '-' + NumEnString(32 - (scoreFinal div 2));
+        score := IntToStr(32 + (scoreFinal div 2)) + '-' + IntToStr(32 - (scoreFinal div 2));
 
         s0 := ReadStringFromRessource(TexteRegressionID,6);   {, score final = ^0}
         myString := ParamStr(s0, score, '', '', '');
@@ -1895,16 +1895,16 @@ begin
       begin
 
         if (scoreAxeHorizontal >= 0)
-          then score := '+'+NumEnString(scoreAxeHorizontal div 100)+'.'+NumEnString(scoreAxeHorizontal mod 100)
-          else score := '-'+NumEnString((-scoreAxeHorizontal) div 100)+'.'+NumEnString((-scoreAxeHorizontal) mod 100);
+          then score := '+'+IntToStr(scoreAxeHorizontal div 100)+'.'+IntToStr(scoreAxeHorizontal mod 100)
+          else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,7);   {score ouverture = ^0}
         myString := ParamStr(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeVertical >= 32)
-          then score := '+'+NumEnString(2*(scoreAxeVertical-32))
-          else score := '-'+NumEnString(2*(32-scoreAxeVertical));
+          then score := '+'+IntToStr(2*(scoreAxeVertical-32))
+          else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,6);   {, score final = ^0}
         myString := ParamStr(s0, score, '', '', '');
@@ -1974,7 +1974,7 @@ begin
 
               scoreNoir := GetScoreReelParNroRefPartie(nroRef);
               scoreBlanc := 64 - scoreNoir;
-              s := s1 + Concat(' ',NumEnString(scoreNoir),'-',NumEnString(scoreBlanc),' ') + s2;
+              s := s1 + Concat(' ',IntToStr(scoreNoir),'-',IntToStr(scoreBlanc),' ') + s2;
 
               message1 := StringToStr255(s);
 
@@ -2295,7 +2295,7 @@ begin
               SetPort(oldPort);
 
               (*
-              WriteNumDansRapport('['+NumEnString(i)+'] = {x = ',x);
+              WriteNumDansRapport('['+IntToStr(i)+'] = {x = ',x);
               WriteNumDansRapport(',y = ',y);
               WriteNumDansRapport(',h = ',hashStamp);
               WriteNumDansRapport(',r = ',numeroReference);
@@ -2484,7 +2484,7 @@ begin
 
       for i := -7 to 7 do
         begin
-          s := NumEnString(i*10)+'.0';
+          s := IntToStr(i*10)+'.0';
 
           a := larg + (((i*1000)*larg) div kMaxValeurDessineeDansNuage);
           b := y_centre + 32*kIntervalleEntreDeuxLignesDuNuage;
@@ -2601,7 +2601,7 @@ begin
 
       for i := -7 to 7 do
         begin
-          s := NumEnString(i*10)+'.0';
+          s := IntToStr(i*10)+'.0';
 
           a := larg + (((i*1000)*larg) div kMaxValeurDessineeDansNuage);
           b := y_centre + 32*kIntervalleEntreDeuxLignesDuNuage;
@@ -3146,7 +3146,7 @@ begin
   for j := 1 to nbPartiesActives do
     inc(c[GetScoreAxeVerticalParNroRefPartie(tableNumeroReference^^[j])]);
   for i := 0 to 64 do
-     WritelnNumDansRapport('theorique['+NumEnString(i)+'] = ',c[i]);
+     WritelnNumDansRapport('theorique['+IntToStr(i)+'] = ',c[i]);
 end;
 
 
@@ -3407,24 +3407,24 @@ begin
   if nbPartiesOK <> 0 then
     begin
 
-      WritelnDansRapport('th = '          + NumEnString(quelScoreTheorique)+
-                   { '  Foir = '      + NumEnString(nbPartiesFoireuses)+ }
-                     '  N = '         + NumEnString(nbPartiesOK)+
-                   {'  tot = '        + NumEnString(nbPartiesFoireuses+nbPartiesOK)+}
-                     '  moy = '       + NumEnString(moyenne)+
-                     '  med = '       + NumEnString(mediane)+
-                     '  min = '       + NumEnString(valMin)+
-                     '  max = '       + NumEnString(valMax)+
-                     '  ·Ecarts = '   + NumEnString(sommeDesEcarts)+
-                     '  ·Ecarts/N = ' + NumEnString(((100*sommeDesEcarts) div nbPartiesOK) div 100)+'.'+NumEnString((100*sommeDesEcarts div nbPartiesOK) mod 100)+
-                     '  ·Carres = '   + NumEnString(sommeDesCarres) );
+      WritelnDansRapport('th = '          + IntToStr(quelScoreTheorique)+
+                   { '  Foir = '      + IntToStr(nbPartiesFoireuses)+ }
+                     '  N = '         + IntToStr(nbPartiesOK)+
+                   {'  tot = '        + IntToStr(nbPartiesFoireuses+nbPartiesOK)+}
+                     '  moy = '       + IntToStr(moyenne)+
+                     '  med = '       + IntToStr(mediane)+
+                     '  min = '       + IntToStr(valMin)+
+                     '  max = '       + IntToStr(valMax)+
+                     '  ·Ecarts = '   + IntToStr(sommeDesEcarts)+
+                     '  ·Ecarts/N = ' + IntToStr(((100*sommeDesEcarts) div nbPartiesOK) div 100)+'.'+IntToStr((100*sommeDesEcarts div nbPartiesOK) mod 100)+
+                     '  ·Carres = '   + IntToStr(sommeDesCarres) );
 
       if PositionsExtremesDansRapport then
         begin
           WritelnDansRapport('');
           if (quelScoreTheorique <= 32) and (valMax >= 0) then
             begin
-              WritelnNumDansRapport('score = '+NumEnString(quelScoreTheorique)+' mais eval = ',valMax);
+              WritelnNumDansRapport('score = '+IntToStr(quelScoreTheorique)+' mais eval = ',valMax);
               WritelnPositionEtTraitDansRapport(positionMax.position,GetTraitOfPosition(positionMax));
 
               s := GetNomTournoiAvecAnneeParNroRefPartie(nroPartieMaximun,29);
@@ -3436,7 +3436,7 @@ begin
             end;
           if (quelScoreTheorique >= 32) and (valMin <= 0) then
             begin
-              WritelnNumDansRapport('score = '+NumEnString(quelScoreTheorique)+' mais eval = ',valMin);
+              WritelnNumDansRapport('score = '+IntToStr(quelScoreTheorique)+' mais eval = ',valMin);
               WritelnPositionEtTraitDansRapport(positionMin.position,GetTraitOfPosition(positionMin));
               s := GetNomTournoiAvecAnneeParNroRefPartie(nroPartieMinimum,29);
               WriteDansRapport(s+'  ');
@@ -3959,17 +3959,17 @@ var nbAjustementsMoyenne : SInt16;
     moyenneDesValeursPourCeScore[score] := moyenne;
     medianeDesValeursPourCeScore[score] := mediane;
     if nbPartiesOK <> 0 then
-		  WritelnDansRapport('th = '           + NumEnString(score)+
-		                   { '  Foir = '       + NumEnString(nbPartiesFoireuses)+ }
-		                     '  N = '          + NumEnString(nbPartiesOK)+
-		                   {'  tot = '         + NumEnString(nbPartiesFoireuses+nbPartiesOK)+}
-		                     '  moy = '        + NumEnString(moyenne)+
-		                     '  med = '        + NumEnString(mediane)+
-		                     '  min = '        + NumEnString(valMin)+
-		                     '  max = '        + NumEnString(valMax){+
-		                     '  ·Ecarts = '    + NumEnString(sommeDesEcarts)+
-		                     '  ·Ecarts/N = '  + NumEnString(((100*sommeDesEcarts) div nbPartiesOK) div 100)+'.'+NumEnString((100*sommeDesEcarts div nbPartiesOK) mod 100)+
-		                     '  ·Carres = '    + NumEnString(sommeDesCarres)});
+		  WritelnDansRapport('th = '           + IntToStr(score)+
+		                   { '  Foir = '       + IntToStr(nbPartiesFoireuses)+ }
+		                     '  N = '          + IntToStr(nbPartiesOK)+
+		                   {'  tot = '         + IntToStr(nbPartiesFoireuses+nbPartiesOK)+}
+		                     '  moy = '        + IntToStr(moyenne)+
+		                     '  med = '        + IntToStr(mediane)+
+		                     '  min = '        + IntToStr(valMin)+
+		                     '  max = '        + IntToStr(valMax){+
+		                     '  ·Ecarts = '    + IntToStr(sommeDesEcarts)+
+		                     '  ·Ecarts/N = '  + IntToStr(((100*sommeDesEcarts) div nbPartiesOK) div 100)+'.'+IntToStr((100*sommeDesEcarts div nbPartiesOK) mod 100)+
+		                     '  ·Carres = '    + IntToStr(sommeDesCarres)});
 		TotalNbPartiesOK := TotalNbPartiesOK+nbPartiesOK;
     TotalSommeDesEcarts := TotalSommeDesEcarts+sommeDesEcarts;
   end;
@@ -4037,9 +4037,9 @@ begin
    WritelnDansRapport('');
    AjusteModeleLineaireFinaleAvecStat(N,SigmaEcart);
    if N <> 0 then
-      WritelnDansRapport('  Nombre parties prises en compte = '          + NumEnString(N)+
-                         '  ·Ecarts = '    + NumEnString(SigmaEcart)+
-                         '  ·Ecarts/N = '  + NumEnString(((100*SigmaEcart) div N) div 100)+'.'+NumEnString((100*SigmaEcart div N) mod 100));
+      WritelnDansRapport('  Nombre parties prises en compte = '          + IntToStr(N)+
+                         '  ·Ecarts = '    + IntToStr(SigmaEcart)+
+                         '  ·Ecarts/N = '  + IntToStr(((100*SigmaEcart) div N) div 100)+'.'+IntToStr((100*SigmaEcart div N) mod 100));
    WritelnDansRapport('');
 end;
 
@@ -4096,8 +4096,8 @@ begin
       LocalToGlobal(FntrNuageRect.botright);
       SetPort(oldport);
 
-      s := s + '  ('+NumEnString(FntrNuageRect.right - FntrNuageRect.left)+'x'+
-                   NumEnString(FntrNuageRect.bottom - FntrNuageRect.top)+'px)';
+      s := s + '  ('+IntToStr(FntrNuageRect.right - FntrNuageRect.left)+'x'+
+                   IntToStr(FntrNuageRect.bottom - FntrNuageRect.top)+'px)';
 
       if (s <> currentTitle) then SetWTitle(wNuagePtr,StringToStr255(s));
     end;

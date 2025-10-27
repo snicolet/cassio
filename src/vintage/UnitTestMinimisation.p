@@ -162,7 +162,7 @@ begin
       WritelnDansRapport('positions du minimum :');
       for j := 1 to n do
         begin
-          WritelnDansRapport('p['+NumEnString(j)+'] = '+ReelEnStringAvecDecimales(p^[j],10));
+          WritelnDansRapport('p['+IntToStr(j)+'] = '+ReelEnStringAvecDecimales(p^[j],10));
         end;
       WritelnDansRapport('minimum = '+ReelEnStringAvecDecimales(resultat,10));
 
@@ -361,7 +361,7 @@ begin
       temperature := 1 + (i mod 300);
       OptimisationLocaleDeLaFerme(animaux, aux, temperature);
 
-      // WritelnNumDansRapport('Dans RecuitSimule, temp = '+NumEnString(temperature) + ', iter = ',i);
+      // WritelnNumDansRapport('Dans RecuitSimule, temp = '+IntToStr(temperature) + ', iter = ',i);
       // EcrireSolutionDeLaFerme(animaux);
     end;
 
@@ -370,7 +370,7 @@ begin
       temperature := 1 + (i mod 10);
       OptimisationLocaleDeLaFerme(animaux, aux, temperature);
 
-      // WritelnNumDansRapport('Dans RecuitSimule, temp = '+NumEnString(temperature) + ', iter = ',i);
+      // WritelnNumDansRapport('Dans RecuitSimule, temp = '+IntToStr(temperature) + ', iter = ',i);
       // EcrireSolutionDeLaFerme(animaux);
     end;
 

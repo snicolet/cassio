@@ -1937,7 +1937,7 @@ var nroChoixHumain : SInt32;
 
       n := NbrePionsDeCetteCouleur(CouleurHumain,positionFinale);
       if avecEcritureScoreDansSolution then
-        erreurES := WriteDansFichierTexte(fichierSolution,'     '+NumEnString(n));
+        erreurES := WriteDansFichierTexte(fichierSolution,'     '+IntToStr(n));
       AjouterStatistiquesDeDifficultePourFforum(nbrelignesSolution,n);
 
     end;
@@ -2149,7 +2149,7 @@ begin    {EstUnSolitaire}
                 if (nbrelignesSolution < 80) and (traitement <> kSortiePapierLongue)
                  then
                    begin
-                     s1 := NumEnString(nbrelignesSolution);
+                     s1 := IntToStr(nbrelignesSolution);
                      s := ReadStringFromRessource(TextesSolitairesID,15);
 
                      item := AlerteDoubleOuiNon(ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''),'');
@@ -2160,7 +2160,7 @@ begin    {EstUnSolitaire}
                          EcritSolitaireCompletFFORUM(jeu);
                          if (nbrelignesSolution > 0) and not(InterruptionCalculSuites) then
                            begin
-                             s1 := NumEnString(nbrelignesSolution);
+                             s1 := IntToStr(nbrelignesSolution);
                              s := ReadStringFromRessource(TextesSolitairesID,16);
                              BeginDialog;
                              AlerteSimple(ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''));
@@ -2177,7 +2177,7 @@ begin    {EstUnSolitaire}
                          end
                        else
                          begin
-                           s1 := NumEnString(nbrelignesSolution);
+                           s1 := IntToStr(nbrelignesSolution);
                            s := ReadStringFromRessource(TextesSolitairesID,18); {Ce solitaire fait ^0 lignes, avec une difficulté de ^1 %.}
                            s := ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'','');
                          end;
@@ -2701,7 +2701,7 @@ begin
   EnlevePrenom(s19,nom);
   if referencescompletes then
     begin
-      s := NumEnString(Partiebuff^.ScoreEtTheorik[0],s);
+      s := IntToStr(Partiebuff^.ScoreEtTheorik[0],s);
       comment := nom+s+'-';
     end
     else
@@ -2714,7 +2714,7 @@ begin
   EnlevePrenom(s19,nom);
   if referencescompletes then
     begin
-      NumEnString(64-Partiebuff^.ScoreEtTheorik[0],s);
+      IntToStr(64-Partiebuff^.ScoreEtTheorik[0],s);
       comment := Concat(comment,s,CharToString(' '),nom);
     end
     else
@@ -2744,12 +2744,12 @@ begin
 
   {if referencesCompletes then
    begin
-     NumEnString(nroPart,s);
+     IntToStr(nroPart,s);
      comment := Concat(comment,'  (N° ',s,CharToString(')'));
    end;}
 
   {
-  NumEnString(Partiebuff^.scoreEtTheorik[0],s2);
+  IntToStr(Partiebuff^.scoreEtTheorik[0],s2);
   ParametresOuvrirThor^^[5] := s2;
   }
 end;
@@ -2786,12 +2786,12 @@ begin
       commentaire := commentaire+s;
       if referencesCompletes and not(EnVieille3D) then
         begin
-          NumEnString(numerodecoup,s);
+          IntToStr(numerodecoup,s);
           commentaire := commentaire+', c.'+s;
         end;
       CompilerPosition(platSol,s);
       PositionEtCommentaire := s+commentaire;
-      NumEnString(nroDeCeSolitaire,s);
+      IntToStr(nroDeCeSolitaire,s);
       if LENGTH_OF_STRING(s) < 5 then for i := 1 to (5-LENGTH_OF_STRING(s)) do s := Concat(s,CharToString(' '));
       PositionEtCommentaire := s+PositionEtCommentaire;
     end;
@@ -3018,7 +3018,7 @@ var nombreSolitaireCetteProf : array[1..64] of SInt32;
               begin
                 Moveto(myRect.left,myRect.bottom-5);
                 s := ReadStringFromRessource(TextesSolitairesID,32);  {'^0 solitaires'}
-                s := ParamStr(s,NumEnString(nombreSolitaireCetteProf[k]),'','','');
+                s := ParamStr(s,IntToStr(nombreSolitaireCetteProf[k]),'','','');
                 MyDrawString(s);
               end;
           end;

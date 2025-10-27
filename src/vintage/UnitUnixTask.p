@@ -621,7 +621,7 @@ begin
                     mySetCallBackForUnixTaskPtr(NIL);
                     SetUnixTaskState(UNIX_TASK_KILLED);
                     CanStartUnixTask        := false;
-                    UnixTaskPrint('Impossible to start an unix task (#' + NumEnString(unixTask.nbStartsOfUnixTask) + ')');
+                    UnixTaskPrint('Impossible to start an unix task (#' + IntToStr(unixTask.nbStartsOfUnixTask) + ')');
                   end;
             end
           else UnixTaskPrint('(myStartUnixTaskPtr = NIL)');
@@ -721,8 +721,8 @@ begin
 
           UnixTaskPrint('');
           if test
-            then UnixTaskPrint('... OK, test reussi, temps en ticks = ' + NumEnString(TickCount - tick))
-            else UnixTaskPrint('... test raté ! temps en ticks = ' + NumEnString(TickCount - tick));
+            then UnixTaskPrint('... OK, test reussi, temps en ticks = ' + IntToStr(TickCount - tick))
+            else UnixTaskPrint('... test raté ! temps en ticks = ' + IntToStr(TickCount - tick));
         end;
 
 

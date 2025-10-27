@@ -174,15 +174,15 @@ begin
 			*)
 
 		  s := ReadStringFromRessource(TextesSolitairesID,18); {Ce solitaire fait ^0 lignes, avec une difficulté de ^1 %.}
-		  s := ParamStr(s,NumEnString(nbLignesTotal),ReelEnStringAvecDecimales(difficulte,3),'','');
+		  s := ParamStr(s,IntToStr(nbLignesTotal),ReelEnStringAvecDecimales(difficulte,3),'','');
 		  erreurES := WritelnDansFichierTexte(fic,s);
 
 		  {s := 'scoreDuSolitaire = ^0';
-		  s := ParamStr(s,NumEnString(scoreDuSolitaire),'','','');
+		  s := ParamStr(s,IntToStr(scoreDuSolitaire),'','','');
 		  erreurES := WritelnDansFichierTexte(fic,s);
 
 		  s := 'nbPionsTotal = ^0';
-		  s := ParamStr(s,NumEnString(nbPionsTotal),'','','');
+		  s := ParamStr(s,IntToStr(nbPionsTotal),'','','');
 		  erreurES := WritelnDansFichierTexte(fic,s);}
 
 		  for i := 64 downto 0 do
@@ -191,7 +191,7 @@ begin
 		        if nbOccurencesDeCeScore[i] >= 2
 		          then s := ReadStringFromRessource(TextesSolitairesID,30) {Il y a ^0 façons de faire ^1 pions}
 		          else s := ReadStringFromRessource(TextesSolitairesID,29); {Il y a ^0 façon  de faire ^1 pions}
-		        s := ParamStr(s,NumEnString(nbOccurencesDeCeScore[i]),NumEnString(i),'','');
+		        s := ParamStr(s,IntToStr(nbOccurencesDeCeScore[i]),IntToStr(i),'','');
 		        erreurES := WritelnDansFichierTexte(fic,s);
 		      end;
 		end;

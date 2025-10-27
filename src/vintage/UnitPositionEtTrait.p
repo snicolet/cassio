@@ -618,7 +618,7 @@ var i,t, ligne, colonne : SInt32;
     if (x >= 1) and (x <= 8) and
        (y >= 1) and (y <= 8)
       then positionEtTrait.position[y * 10 + x] := valeurCase
-      else ParseError('parse error 0 in ParserFENEnPositionEtTrait : invalid square in line '+NumEnString(ligne) + ' !');
+      else ParseError('parse error 0 in ParserFENEnPositionEtTrait : invalid square in line '+IntToStr(ligne) + ' !');
 
     accu := '';
   end;
@@ -726,7 +726,7 @@ begin {ParserFENEnPositionEtTrait}
         end;
 
       otherwise
-        ParseError('parse error 2 in ParserFENEnPositionEtTrait : invalid character in line ' + NumEnString(ligne) + ' ('+c+') !');
+        ParseError('parse error 2 in ParserFENEnPositionEtTrait : invalid character in line ' + IntToStr(ligne) + ' ('+c+') !');
     end; {case}
 
   until (c = ' ') or (c = 'Ã') or (i >= LENGTH_OF_STRING(positionString)) or (ligne > 8);

@@ -6,7 +6,6 @@ function GetDebutSelectionRapport : SInt32;     external;
 function GetFinSelectionRapport : SInt32;     external;
 procedure SelectionnerTexteDansRapport(posDebut,posFin : SInt32);     external;
 procedure AjouterStringDansListePourRapportThreadSafe(s : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function SeparerLesChiffresParTrois(var s : String255) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 procedure ChangeFontDansRapport(whichFont : SInt16);     external;

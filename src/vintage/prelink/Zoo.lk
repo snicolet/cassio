@@ -16,7 +16,6 @@ function MakeLongString(const s : String255) : LongString;     external;
 	function UpCaseStr (s : String255) : String255;     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure LanceInterruptionSimple(const fonctionAppelante : String255);     external;
 function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;     external;
 function LongStringIsEmpty(const ligne : LongString) : boolean;     external;

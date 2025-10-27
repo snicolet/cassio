@@ -444,7 +444,7 @@ end;
 
 function NameOfTextureCacheFile(nomTexture : String255; tailleCase : SInt16) : String255;
 begin
-  NameOfTextureCacheFile := pathDossierOthelliersCassio + ':cache:' + nomTexture + '-'+NumEnString(tailleCase) + '.pict';
+  NameOfTextureCacheFile := pathDossierOthelliersCassio + ':cache:' + nomTexture + '-'+IntToStr(tailleCase) + '.pict';
 end;
 
 

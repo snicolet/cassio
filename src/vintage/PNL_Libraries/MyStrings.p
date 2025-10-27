@@ -94,7 +94,6 @@ INTERFACE
 
 
   function EstUnReel(alpha : String255) : boolean;
-  function NumEnString(num : SInt32) : String255;
   function BigNumEnString(milliards,num : SInt32) : String255;
 
 
@@ -232,19 +231,6 @@ USES
 
 
 
-
-function NumEnString(num : SInt32) : String255;
-var resultat : String255;
-    s : Str255;
-begin
-	NumToString(num, s);
-
-	resultat := MyStr255ToString(s);
-
-	NumEnString := resultat;
-end;
-
-
 function BigNumEnString(milliards,num : SInt32) : String255;
 var
 		s,s1 : String255;
@@ -252,7 +238,7 @@ begin
   if milliards = 0
   	then
     	begin
-    		s := NumEnString(num);
+    		s := IntToStr(num);
     		BigNumEnString := s;
     	end
     else
@@ -262,8 +248,8 @@ begin
     	      num := -num;
     	      milliards := -milliards;
     	    end;
-    	 	s1 := NumEnString(milliards);
-    	 	s := NumEnString(num);
+    	 	s1 := IntToStr(milliards);
+    	 	s := IntToStr(num);
     	 	if num < 100000000 then begin s := Concat('0',s);
     	 	if num <  10000000 then begin s := Concat('0',s);
     	 	if num <   1000000 then begin s := Concat('0',s);
@@ -411,7 +397,7 @@ end;
 
 
 
-{NumEnString pour un num qui doit etre entre 0 et 100}
+{IntToStr pour un num qui doit etre entre 0 et 100}
 function PourcentageEntierEnString(num : SInt32) : String255;
 begin
   if num = 100
@@ -429,13 +415,13 @@ begin
   if unreel < 0 then s := '-' else s := '';
   unreel := Abs(unreel);
   unreel := unreel+0.00499;
-  s1 := NumEnString(Trunc(unreel));
+  s1 := IntToStr(Trunc(unreel));
   s := s + s1+CharToString('.');
   unreel := 10.0*(unreel-Trunc(unreel));
-  s1 := NumEnString(Trunc(unreel));
+  s1 := IntToStr(Trunc(unreel));
   s := s + s1;
   unreel := 10.0*(unreel-Trunc(unreel));
-  s1 := NumEnString(Trunc(unreel));
+  s1 := IntToStr(Trunc(unreel));
   s := s + s1;
   ReelEnString := s;
 end;
@@ -457,7 +443,7 @@ begin
   nbBilliards := Trunc(unreel/1000000000000000.0);
   if (nbBilliards >= 1) then
     begin
-      s2 := NumEnString(nbBilliards);
+      s2 := IntToStr(nbBilliards);
       s1 := s1 + s2;
       dejaEcritDesChiffres := true;
       unreel := unreel- nbBilliards*1000000000000000.0;
@@ -466,7 +452,7 @@ begin
   if (nbBillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbBillions >= 1) then
     begin
-      s2 := NumEnString(nbBillions);
+      s2 := IntToStr(nbBillions);
       if (nbBillions >= 1)  and (nbBillions <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
       if (nbBillions >= 10) and (nbBillions <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
@@ -477,7 +463,7 @@ begin
   if (nbMilliards = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliards >= 1) then
     begin
-      s2 := NumEnString(nbMilliards);
+      s2 := IntToStr(nbMilliards);
       if (nbMilliards >= 1)  and (nbMilliards <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
       if (nbMilliards >= 10) and (nbMilliards <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
@@ -488,7 +474,7 @@ begin
   if (nbMillions = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMillions >= 1) then
     begin
-      s2 := NumEnString(nbMillions);
+      s2 := IntToStr(nbMillions);
       if (nbMillions >= 1)  and (nbMillions <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
       if (nbMillions >= 10) and (nbMillions <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
@@ -499,7 +485,7 @@ begin
   if (nbMilliers = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbMilliers >= 1) then
     begin
-      s2 := NumEnString(nbMilliers);
+      s2 := IntToStr(nbMilliers);
       if (nbMilliers >= 1)  and (nbMilliers <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
       if (nbMilliers >= 10) and (nbMilliers <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
@@ -510,7 +496,7 @@ begin
   if (nbUnites = 0) and (dejaEcritDesChiffres) then s1 := s1 + '000' else
   if (nbUnites >= 0) then   { >= 0 au lieu de >= 1 car on veut ecrire 0.abc et non pas .abc}
     begin
-      s2 := NumEnString(nbUnites);
+      s2 := IntToStr(nbUnites);
       if (nbUnites >= 1)  and (nbUnites <= 9)  and dejaEcritDesChiffres then s2 := Concat('00',s2);
       if (nbUnites >= 10) and (nbUnites <= 99) and dejaEcritDesChiffres then s2 := Concat('0',s2);
       s1 := s1 + s2;
@@ -527,7 +513,7 @@ begin
   for i := 1 to nbChiffresSignificatifs - longueur do
     begin
       unreel := 10.0*(unreel-Trunc(unreel));
-      s1 := NumEnString(Trunc(unreel));
+      s1 := IntToStr(Trunc(unreel));
       s := s + s1;
     end;
   ReelEnStringAvecDecimales := s;
@@ -572,7 +558,7 @@ var aux : SInt32;
     s : String255;
 begin
   aux := Trunc(100*Abs(x));
-  s := NumEnString(aux);
+  s := IntToStr(aux);
   if x < 0 then s := Concat('-',s);
   PourcentageReelEnString := Concat(s,'%');
 end;
@@ -1298,10 +1284,10 @@ begin
 
   {WritelnNumDansRapport('len = ',len);
   for i := 1 to len do
-    WritelnNumDansRapport('s['+NumEnString(i)+'] = ',ord(s[i]));
+    WritelnNumDansRapport('s['+IntToStr(i)+'] = ',ord(s[i]));
   WritelnNumDansRapport('LENGTH_OF_STRING(result) = ',LENGTH_OF_STRING(result));
   for i := 1 to LENGTH_OF_STRING(result) do
-    WritelnNumDansRapport('result['+NumEnString(i)+'] = ',ord(result[i]));}
+    WritelnNumDansRapport('result['+IntToStr(i)+'] = ',ord(result[i]));}
 end;
 
 procedure EnleveEtCompteEspacesDeGauche(var s : String255; var nbEspacesEnleves : SInt16);
@@ -2062,7 +2048,7 @@ function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : S
 var i : SInt32;
 		s : String255;
 begin
-	s := NumEnString(num);
+	s := IntToStr(num);
 	for i := 1 to (nbDeChiffres - LENGTH_OF_STRING(s)) do
 	  s := formatChar + s;
 	NumEnStringAvecFormat := s;
@@ -2550,12 +2536,12 @@ begin
             if EstLaVersionFrancaiseDeCassio
               then
                 if aux <= 1
-                  then s := s + NumEnString(aux) + ' jour '
-                  else s := s + NumEnString(aux) + ' jours '
+                  then s := s + IntToStr(aux) + ' jour '
+                  else s := s + IntToStr(aux) + ' jours '
               else
                 if aux <= 1
-                  then s := s + NumEnString(aux) + ' day '
-                  else s := s + NumEnString(aux) + ' days ';
+                  then s := s + IntToStr(aux) + ' day '
+                  else s := s + IntToStr(aux) + ' days ';
           end;
         heures := false;
         if (secondes > 3600) or jours then
@@ -2563,19 +2549,19 @@ begin
             heures := true;
             aux := secondes div 3600;
             secondes := secondes - aux*3600;
-            s := s + NumEnString(aux) + ' h. ';
+            s := s + IntToStr(aux) + ' h. ';
           end;
         if (secondes > 60) or heures then
           begin
             aux := secondes div 60;
             secondes := secondes - aux*60;
-            s := s + NumEnString(aux) + ' min. ';
+            s := s + IntToStr(aux) + ' min. ';
           end;
-        s := s + NumEnString(secondes) + ' sec. ';
+        s := s + IntToStr(secondes) + ' sec. ';
       end
     else
       begin
-        s := NumEnString(secondes)+' sec.';
+        s := IntToStr(secondes)+' sec.';
       end;
   SecondesEnJoursHeuresSecondes := s;
 end;

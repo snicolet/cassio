@@ -411,10 +411,10 @@ var aux : SInt32;
           inc(nbreErreursDeTypes);
 
           {$IFC DEFINED __GPC__}
-          (* Writeln('  VerifierLaTailleDeCeType('''+nom+''',Sizeof('+nom+'),'+NumEnString(tailleReelle)+');'); *)
+          (* Writeln('  VerifierLaTailleDeCeType('''+nom+''',Sizeof('+nom+'),'+IntToStr(tailleReelle)+');'); *)
           {$ENDC}
 
-          WritelnDansRapport('  VerifierLaTailleDeCeType('''+nom+''',Sizeof('+nom+'),'+NumEnString(tailleReelle)+');');
+          WritelnDansRapport('  VerifierLaTailleDeCeType('''+nom+''',Sizeof('+nom+'),'+IntToStr(tailleReelle)+');');
         end;
     end;
 
@@ -590,7 +590,7 @@ begin
   if nbreErreursDeTypes <> 0 then
     begin
       WritelnDansRapport('');
-      WritelnDansRapport('Il y a '+NumEnString(nbreErreursDeTypes) +' types qui ont des tailles diffŽrentes dans CodeWarrior et GNU Pascal');
+      WritelnDansRapport('Il y a '+IntToStr(nbreErreursDeTypes) +' types qui ont des tailles diffŽrentes dans CodeWarrior et GNU Pascal');
       WritelnDansRapport('');
     end;
 
@@ -1382,7 +1382,7 @@ begin
 
   DernierCoupPourMenuAff := 56;
   if nbCoupsEnTete > 1
-    then MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),NumEnString(nbCoupsEnTete),'','',''))
+    then MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(nbCoupsEnTete),'','',''))
     else MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ReadStringFromRessource(MenusChangeantsID,18));
   if gVersionJaponaiseDeCassio and gHasJapaneseScript then
     NePasUtiliserLeGrasFenetreOthellier := true;  {on forcer cela}
@@ -1806,28 +1806,28 @@ procedure TesterConvergenceDesFlottants;
    u := 3.0;
    for n := 0 to 100 do
      begin
-       WritelnStringAndReelDansRapport('u'+NumEnString(n)+' = ',u, 14);
+       WritelnStringAndReelDansRapport('u'+IntToStr(n)+' = ',u, 14);
        u := -3.0*u*u/8.0 + 9.0*u/4.0 - 3.0/8.0;
      end;
 
    u := 1.0/3.0;
    for n := 0 to 100 do
      begin
-       WritelnStringAndReelDansRapport('u'+NumEnString(n)+' = ',u, 14);
+       WritelnStringAndReelDansRapport('u'+IntToStr(n)+' = ',u, 14);
        u := -3.0*u*u/8.0 + 9.0*u/4.0 - 3.0/8.0;
      end;
 
   u := 3.0;
    for n := 0 to 100 do
      begin
-       WritelnStringAndReelDansRapport('u'+NumEnString(n)+' = ',u, 14);
+       WritelnStringAndReelDansRapport('u'+IntToStr(n)+' = ',u, 14);
        u := -4.0*u*u/9.0 + 26.0*u/9.0 - 4.0/9.0;
      end;
 
    u := 1.0/3.1;
    for n := 0 to 100 do
      begin
-       WritelnStringAndReelDansRapport('u'+NumEnString(n)+' = ',u, 14);
+       WritelnStringAndReelDansRapport('u'+IntToStr(n)+' = ',u, 14);
        u := -4.0*u*u/9.0 + 26.0*u/9.0 - 4.0/9.0;
      end;
 
@@ -2197,9 +2197,9 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 
 
 
-  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('erreurES_main = '+NumEnString(erreurES_main));
-  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('nbrePartiesEnMemoire = '+NumEnString(nbrePartiesEnMemoire));
-  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('PartiesNouveauFormat.nbPartiesEnMemoire = '+NumEnString(PartiesNouveauFormat.nbPartiesEnMemoire));
+  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('erreurES_main = '+IntToStr(erreurES_main));
+  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('nbrePartiesEnMemoire = '+IntToStr(nbrePartiesEnMemoire));
+  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('PartiesNouveauFormat.nbPartiesEnMemoire = '+IntToStr(PartiesNouveauFormat.nbPartiesEnMemoire));
 
   UnLoadTousSegments;
   if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant verificationNewGeneral');
@@ -2371,7 +2371,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
  for i_main := 1 to 60 do
    begin
      erreurES_main := CreerFichierSolitaireVideNouveauFormat(i_main);
-     WritelnNumDansRapport('erreurES['+NumEnString(i_main)+'] = ',erreurES_main);
+     WritelnNumDansRapport('erreurES['+IntToStr(i_main)+'] = ',erreurES_main);
    end;
  *)
 
@@ -2456,7 +2456,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
     begin
       {WritelnDansRapport('');
       WritelnDansRapport('FIXME : enlever la ligne suivante pour les versions publiques');
-      WritelnDansRapport('Je vais essayer de saturer mes '+NumEnString(numProcessors)+' processeurs.');
+      WritelnDansRapport('Je vais essayer de saturer mes '+IntToStr(numProcessors)+' processeurs.');
       }
     end;
 
@@ -2512,7 +2512,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if (numeroEngineEnCours <> 0) then
     begin
-      if not(CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors)))
+      if not(CanStartEngine(GetEnginePath(numeroEngineEnCours,''), IntToStr(numProcessors)))
         then numeroEngineEnCours := 0;
     end;
   {$ENDC}

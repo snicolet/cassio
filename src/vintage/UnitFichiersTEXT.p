@@ -2084,11 +2084,11 @@ begin
 
         ReplaceCharByCharInString(pathFichier,':','/');
 
-        s := ParamStr(s,nomFichier,NumEnString(erreurES) + chr(13)+'  path = '+pathFichier,'','');
+        s := ParamStr(s,nomFichier,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end
     else
       begin
-        s := ParamStr(s,nomFichier,NumEnString(erreurES),'','');
+        s := ParamStr(s,nomFichier,IntToStr(erreurES),'','');
       end;
 
   SplitBy(s,'!',texte,explication);

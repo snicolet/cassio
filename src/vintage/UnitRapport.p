@@ -335,7 +335,7 @@ end;
 procedure WriteNumDansRapport(s : String255; num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WriteDansRapport(s+s1);
 end;
 
@@ -347,35 +347,35 @@ end;
 procedure WritelnNumDansRapport(s : String255; num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WritelnDansRapport(s+s1);
 end;
 
 procedure WriteNumEnSeparantLesMilliersDansRapport(num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WriteDansRapport(SeparerLesChiffresParTrois(s1));
 end;
 
 procedure WritelnNumEnSeparantLesMilliersDansRapport(num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WritelnDansRapport(SeparerLesChiffresParTrois(s1));
 end;
 
 procedure WriteStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WriteDansRapport(s+SeparerLesChiffresParTrois(s1));
 end;
 
 procedure WritelnStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);
 var s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   WritelnDansRapport(s+SeparerLesChiffresParTrois(s1));
 end;
 
@@ -482,7 +482,7 @@ begin
         case trait of
           pionNoir : s := s + '     trait ˆ X';
           pionBlanc: s := s + '     trait ˆ O';
-          otherwise  s := s + '     trait = ??'+' ('+NumEnString(trait)+')';
+          otherwise  s := s + '     trait = ??'+' ('+IntToStr(trait)+')';
         end; {case}
       WritelnDansRapport(s);
     end;
@@ -527,7 +527,7 @@ begin
       for i := 1 to 8 do
         begin
           x := plateau[10*j+i];
-          s := Concat(s,NumEnString(x),' ');
+          s := Concat(s,IntToStr(x),' ');
         end;
       WritelnDansRapport(s);
     end;
@@ -547,28 +547,28 @@ procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);
 begin
   if (square >= 11) and (square <= 88)
     then WriteDansRapport(s+CoupEnString(square,true))
-    else WriteDansRapport(s+CoupEnString(square,true)+'( = '+NumEnString(square)+')');
+    else WriteDansRapport(s+CoupEnString(square,true)+'( = '+IntToStr(square)+')');
 end;
 
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);
 begin
   if (square >= 11) and (square <= 88)
     then WritelnDansRapport(s+CoupEnString(square,true))
-    else WritelnDansRapport(s+CoupEnString(square,true)+'( = '+NumEnString(square)+')');
+    else WritelnDansRapport(s+CoupEnString(square,true)+'( = '+IntToStr(square)+')');
 end;
 
 procedure WriteCoupAndNumDansRapport(square : SInt32; num : SInt32);
 begin
   if (square >= 11) and (square <= 88)
     then WriteNumDansRapport(CoupEnString(square,true)+' => ',num)
-    else WriteNumDansRapport(CoupEnString(square,true)+'( = '+NumEnString(square)+') => ',num);
+    else WriteNumDansRapport(CoupEnString(square,true)+'( = '+IntToStr(square)+') => ',num);
 end;
 
 procedure WritelnCoupAndNumDansRapport(square : SInt32; num : SInt32);
 begin
   if (square >= 11) and (square <= 88)
     then WritelnNumDansRapport(CoupEnString(square,true)+' => ',num)
-    else WritelnNumDansRapport(CoupEnString(square,true)+'( = '+NumEnString(square)+') => ',num);
+    else WritelnNumDansRapport(CoupEnString(square,true)+'( = '+IntToStr(square)+') => ',num);
 end;
 
 procedure WritelnDansRapportOuvert(s : String255);

@@ -329,7 +329,7 @@ begin
 
 
                 if afficherLesJoueursDuFichierFFO and (nombreJoueursDansFichierFFO <= 100) then
-                  WritelnDansRapport('OK : ' + nomFFO + ' = ' + nomDansWThor + ' = ' + NumEnString(numeroWThor));
+                  WritelnDansRapport('OK : ' + nomFFO + ' = ' + nomDansWThor + ' = ' + IntToStr(numeroWThor));
 
               end
             else

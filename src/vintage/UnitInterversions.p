@@ -259,13 +259,13 @@ begin
   AttendFrappeClavier;
   for i := 0 to 20 do
     begin
-      NumEnString(i,s);
+      IntToStr(i,s);
       WriteNumAt('inter longueur '+s+' : ',numeroInterversion[i],10,10+11*i);
     end;
   AttendFrappeClavier;
   for i := 21 to 33 do
     begin
-      NumEnString(i,s);
+      IntToStr(i,s);
       WriteNumAt('inter longueur '+s+' : ',numeroInterversion[i],10,10+11*(i-21));
     end;
   AttendFrappeClavier;
@@ -510,7 +510,7 @@ begin
 			      {WritelnNumDansRapport('NbElementsDansPile = ',NbElementsDansPile(pileIndexImpasses));}
 
 			      if trace then
-			        WritelnNumDansRapport('Empiler '+NumEnString(posHash)+' / ',goalHash);
+			        WritelnNumDansRapport('Empiler '+IntToStr(posHash)+' / ',goalHash);
 
 			    end;
 		end;
@@ -539,7 +539,7 @@ begin
             SupprimerDansABR(impasses.arbre,elementTrouve);
 
             if trace then
-              WritelnNumDansRapport('Depiler '+NumEnString(posHash)+' / ',goalHash);
+              WritelnNumDansRapport('Depiler '+IntToStr(posHash)+' / ',goalHash);
 
           end;
       until (nbDepilements >= nbImpassesLocales) or PileEstVide(pileIndexImpasses);
@@ -669,7 +669,7 @@ var couleurPionsForces : platValeur;
                 then
                   begin
                     {if trace then
-                      WritelnNumDansRapport('Impasse utilisee : goalHash ='+NumEnString(goalHash)+'  vraieHash = ',GenericHash(@goal,Sizeof(goal)));
+                      WritelnNumDansRapport('Impasse utilisee : goalHash ='+IntToStr(goalHash)+'  vraieHash = ',GenericHash(@goal,Sizeof(goal)));
                     }
                     nbFaconAtteindrePosCherchee := 0;
                     {AddPositionEtTraitToSet(posAux,nbFaconAtteindrePosCherchee,memoisationEnAvant);}
@@ -1032,8 +1032,8 @@ begin
 		  RaccourcirInterversion(sh1,sh2,longueurUtile,interversion);
 		  TraductionThorEnAlphanumerique(sh1,s1);
 		  TraductionThorEnAlphanumerique(sh2,s2);
-		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
-		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
 		  WritelnDansRapport('');
 
 		  s1 := 'F5D6C3D3C4B3';
@@ -1045,8 +1045,8 @@ begin
 		  RaccourcirInterversion(sh1,sh2,longueurUtile,interversion);
 		  TraductionThorEnAlphanumerique(sh1,s1);
 		  TraductionThorEnAlphanumerique(sh2,s2);
-		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
-		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
 		  WritelnDansRapport('');
 
 		  s1 := 'F5D6C3D3C4B3';
@@ -1058,8 +1058,8 @@ begin
 		  RaccourcirInterversion(sh1,sh2,longueurUtile,interversion);
 		  TraductionThorEnAlphanumerique(sh1,s1);
 		  TraductionThorEnAlphanumerique(sh2,s2);
-		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
-		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
 		  WritelnDansRapport('');
 
 		  s1 := 'F5D6C3D3C4F4F6F3G4G5E3';
@@ -1071,8 +1071,8 @@ begin
 		  RaccourcirInterversion(sh1,sh2,longueurUtile,interversion);
 		  TraductionThorEnAlphanumerique(sh1,s1);
 		  TraductionThorEnAlphanumerique(sh2,s2);
-		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
-		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+NumEnString(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result1 = '+s1+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
+		  WritelnStringAndBoolDansRapport('result2 = '+s2+'  longueurUtile = '+IntToStr(longueurUtile)+' inter = ',interversion);
 		  WritelnDansRapport('');
 
     end;  {if FALSE then}

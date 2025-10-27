@@ -1211,14 +1211,14 @@ begin
     begin
 
     {
-      WritelnNumDansRapport('avant DisposePropertyList de G('+NumEnString(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
+      WritelnNumDansRapport('avant DisposePropertyList de G('+IntToStr(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
       }
       DisposePropertyList(G^.properties);
 
       {
-      WritelnNumDansRapport('apres DisposePropertyList de G('+NumEnString(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
+      WritelnNumDansRapport('apres DisposePropertyList de G('+IntToStr(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
 
-      WritelnNumDansRapport('appel de DisposeGameTreeList sur les fils de de G('+NumEnString(SInt32(G))+'), de longueur = ',GameTreeListLength(G^.sons));
+      WritelnNumDansRapport('appel de DisposeGameTreeList sur les fils de de G('+IntToStr(SInt32(G))+'), de longueur = ',GameTreeListLength(G^.sons));
       }
 
       DisposeGameTreeList(G^.sons);
@@ -1226,7 +1226,7 @@ begin
       DetacheDeSonOrbiteDInterversions(G);
 
       {
-      WritelnNumDansRapport('apres DisposeGameTreeList sur les fils de G('+NumEnString(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
+      WritelnNumDansRapport('apres DisposeGameTreeList sur les fils de G('+IntToStr(SInt32(G))+'), SoldeCreationProperties = ',SoldeCreationProperties);
       }
       G^.properties           := NIL;
       G^.sons                 := NIL;
@@ -1856,7 +1856,7 @@ begin
     end;
 
   if debuggage.arbreDeJeu then
-    WritelnDansRapport('appel de SelectSubTreeAfterThisMove('+CoupEnStringEnMajuscules(square)+','+NumEnString(couleur)+')');
+    WritelnDansRapport('appel de SelectSubTreeAfterThisMove('+CoupEnStringEnMajuscules(square)+','+IntToStr(couleur)+')');
 
   case couleur of
     pionNoir    : prop := MakeOthelloSquareProperty(BlackMoveProp,square);
@@ -2554,7 +2554,7 @@ begin
       WriteDansRapport('NIL')
     else
       begin
-        s := NumEnString(myMagicCookie);
+        s := IntToStr(myMagicCookie);
         WritelnDansRapport('begin (Ecriture de GameTree #'+s+')');
         WritelnNumDansRapport('@['+s+'] = ',SInt32(G));
         WritelnStringAndPropertyListDansRapport('properties['+s+'] = ',G^.properties);
@@ -2608,7 +2608,7 @@ begin
       WriteDansRapport('NIL')
     else
       begin
-        s := NumEnString(myMagicCookie);
+        s := IntToStr(myMagicCookie);
         WritelnDansRapport('begin (Ecriture de GameNode #'+s+')');
         WritelnNumDansRapport('@['+s+'] = ',SInt32(G));
         WritelnStringAndPropertyListDansRapport('properties['+s+'] = ',G^.properties);
@@ -2708,7 +2708,7 @@ begin
   if (index < 0) or (index > nbElementsTableHashageInterversions-1)
     then
       begin
-        AlerteSimple('Erreur : index = '+NumEnString(index)+ ' dans GetDansHashTableInversion');
+        AlerteSimple('Erreur : index = '+IntToStr(index)+ ' dans GetDansHashTableInversion');
         GetDansHashTableInversion := NIL;
         stamp := 0;
       end
@@ -2727,7 +2727,7 @@ begin
   if (index < 0) or (index > nbElementsTableHashageInterversions-1)
     then
       begin
-        AlerteSimple('Erreur : index = '+NumEnString(index)+ ' dans SetDansHashTableInterversion');
+        AlerteSimple('Erreur : index = '+IntToStr(index)+ ' dans SetDansHashTableInterversion');
       end
     else
       begin
@@ -3236,7 +3236,7 @@ begin
                       (-scoreMin = scoreMinDuPere) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
-                        WritelnDansRapport('Chouette (2), je peux propager la valeur du noeud au pere, qui fait '+NumEnString(scoreMinDuPere));}
+                        WritelnDansRapport('Chouette (2), je peux propager la valeur du noeud au pere, qui fait '+IntToStr(scoreMinDuPere));}
                         AjoutePropertyScoreExactPourCetteCouleurDansGameTree(ReflParfait,scoreMinDuPere,couleurDuPere,G^.father);
                       end;
 
@@ -3258,7 +3258,7 @@ begin
                       (scoreMin = scoreMaxDuPere) and (scoreMinDuPere <> scoreMaxDuPere) then
                       begin
                         {SysBeep(0);
-                        WritelnDansRapport('Chouette (4), je peux propager la valeur du noeud au pere, qui fait '+NumEnString(scoreMaxDuPere));}
+                        WritelnDansRapport('Chouette (4), je peux propager la valeur du noeud au pere, qui fait '+IntToStr(scoreMaxDuPere));}
                         AjoutePropertyScoreExactPourCetteCouleurDansGameTree(ReflParfait,scoreMaxDuPere,couleurDuPere,G^.father);
                       end;
                  end;
@@ -3342,7 +3342,7 @@ begin
       if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
          not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
         begin
-          WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansGameTree(reflexion de finale), prévenez Stéphane !');
+          WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansGameTree(reflexion de finale), prévenez Stéphane !');
           WritelnNumDansRapport('quelGenreDeReflexion = ',quelGenreDeReflexion);
           Sysbeep(0);
           exit(AjoutePropertyValeurDeCoupDansGameTree);

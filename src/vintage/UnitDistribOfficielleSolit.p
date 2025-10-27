@@ -111,7 +111,7 @@ begin
 
   if (nbreCasesVides > 0) and (nbreCasesVides <= 60) then
     begin
-		  nom := 'Solitaires_'+NumEnString(nbreCasesVides)+'.pzz';
+		  nom := 'Solitaires_'+IntToStr(nbreCasesVides)+'.pzz';
 
 		  {initialisation des entetes}
 		  GetTime(myDate);

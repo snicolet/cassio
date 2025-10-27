@@ -352,7 +352,7 @@ end;
 
 function IntegerReference(num : SInt32) : String255;
 begin
-  IntegerReference := ArrayReference(NumEnString(num));
+  IntegerReference := ArrayReference(IntToStr(num));
 end;
 
 function CreatePlusEgal(variable,increment : String255) : String255;
@@ -854,7 +854,7 @@ var dx,t,nbreDirectionDePrise : SInt32;
     s1,s2,s3 : String255;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;
@@ -905,7 +905,7 @@ var dx,t,nbreDirectionDePrise : SInt32;
     s1,s2 : String255;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;
@@ -977,8 +977,8 @@ begin
 
           end;
 
-         WritelnDansFichierEndgame('masque_voisinage['+NumEnString(square)+'].low  := '+Hexa(mask_low)+';'+ '   { ' + CoupEnString(square,true) + ' }');
-         WritelnDansFichierEndgame('masque_voisinage['+NumEnString(square)+'].high := '+Hexa(mask_high)+';');
+         WritelnDansFichierEndgame('masque_voisinage['+IntToStr(square)+'].low  := '+Hexa(mask_low)+';'+ '   { ' + CoupEnString(square,true) + ' }');
+         WritelnDansFichierEndgame('masque_voisinage['+IntToStr(square)+'].high := '+Hexa(mask_high)+';');
 
        end;
 
@@ -1067,7 +1067,7 @@ procedure CreateDernierCoupBitboardOfSquare(square : SInt16);
 var dx,t,nbreDirectionDePrise : SInt32;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;
@@ -1116,7 +1116,7 @@ procedure CreateTestSecondeCaseDansDeuxCasesVidesBitboardOfSquare(square : SInt1
 var dx,t,nbreDirectionDePrise : SInt32;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;
@@ -1244,7 +1244,7 @@ procedure CreateDernierCoupInverseBitboardOfSquare(square : SInt16);
 var dx,t,nbreDirectionDePrise : SInt32;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;
@@ -1295,7 +1295,7 @@ var dx,t : SInt32;
     directionsDeRetournement,directionsDejaFaites : set of 0..20;
 begin
   SetNiveauMarge(4);
-  WritelnDansFichierEndgame(NumEnString(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
+  WritelnDansFichierEndgame(IntToStr(square)+ ' :    { ' + CoupEnString(square,true) + ' }');
   IncrementeMarge;
   WriteBegin;
   IncrementeMarge;

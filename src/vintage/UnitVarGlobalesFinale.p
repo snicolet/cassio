@@ -387,7 +387,7 @@ begin
         begin
           nAppels := (1000000000.0 * nbAppelsABFinPetite[i].hi) + 1.0*nbAppelsABFinPetite[i].lo;
           nNoeuds := (1000000000.0 * nbNoeudsDansABFinPetite[i].hi) + 1.0*nbNoeudsDansABFinPetite[i].lo;
-          WritelnStringAndNumEnSeparantLesMilliersDansRapport('nb noeuds/appel de ABFinPetite['+NumEnString(i)+'] = ',Trunc(nNoeuds/nAppels + 0.499));
+          WritelnStringAndNumEnSeparantLesMilliersDansRapport('nb noeuds/appel de ABFinPetite['+IntToStr(i)+'] = ',Trunc(nNoeuds/nAppels + 0.499));
         end;
     end;
 end;

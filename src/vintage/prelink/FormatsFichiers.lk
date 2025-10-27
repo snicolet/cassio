@@ -40,7 +40,6 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
 	function RightOfString (const s : String255; len : SInt16) : String255;     external;
 function TailleDuFichierTHOR_PAR : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function EscapeDansQueue : boolean;     external;
 	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;

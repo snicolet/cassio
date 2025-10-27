@@ -264,7 +264,7 @@ var nomDansMenu,path : String255;
              (error <> memFullErr) and
              (error <> cTempMemErr) and
              (error <> cNoMemErr) then
-            WritelnDansRapport('error = '+NumEnString(whichError)+' dans CreatePovOffScreenWorld, fonction appelante = '+fonctionAppelante);
+            WritelnDansRapport('error = '+IntToStr(whichError)+' dans CreatePovOffScreenWorld, fonction appelante = '+fonctionAppelante);
           CreatePovOffScreenWorld := whichError;
           exit(CreatePovOffScreenWorld);
         end;
@@ -568,7 +568,7 @@ begin
         otherwise
           begin
             SysBeep(0);
-            WritelnDansRapport('couleur inconnue ('+NumEnString(couleur)+') dans DumpDiscToGWorld !!!');
+            WritelnDansRapport('couleur inconnue ('+IntToStr(couleur)+') dans DumpDiscToGWorld !!!');
           end;
       end; {case}
     end;

@@ -207,7 +207,7 @@ var fichierBlocsDeCoin:TEXT;
      function nomKiemeprocedure(nom : String255;k : SInt16) : String255;
      var s : String255;
      begin
-       NumEnString(k,s);
+       IntToStr(k,s);
        nomKiemeprocedure := nom+CharToString('_')+s;
      end;
 
@@ -216,7 +216,7 @@ var fichierBlocsDeCoin:TEXT;
      begin
        compteurProc := compteurProc+1;
        Writeln(fichierBlocsDeCoin,'');
-       NumEnString(compteurProc,s);
+       IntToStr(compteurProc,s);
        Writeln(fichierBlocsDeCoin,'{$s '+nomDesSegments+s+CharToString('}'));
        Writeln(fichierBlocsDeCoin,'procedure '+nomKiemeprocedure(nom,compteurProc)+CharToString(';'));
        Writeln(fichierBlocsDeCoin,'begin');
@@ -252,14 +252,14 @@ begin
           begin
             if valeurBlocsDeCoin^[-i] <> -valeurBlocsDeCoin^[i] then
               begin
-                WriteNumAt(NumEnString(valeurBlocsDeCoin^[-i])+' <> ',valeurBlocsDeCoin^[i],10,10);
+                WriteNumAt(IntToStr(valeurBlocsDeCoin^[-i])+' <> ',valeurBlocsDeCoin^[i],10,10);
                 SysBeep(0);
               end;
-            NumEnString(i,s);
+            IntToStr(i,s);
             Write(fichierBlocsDeCoin,'valeurBlocsDeCoin^[');
             Write(fichierBlocsDeCoin,s);
             Write(fichierBlocsDeCoin,'] := ');
-            NumEnString(valeurBlocsDeCoin^[i],s);
+            IntToStr(valeurBlocsDeCoin^[i],s);
             if (i mod 3) = 0
               then Writeln(fichierBlocsDeCoin,s+CharToString(';'))
               else Write(fichierBlocsDeCoin,s+CharToString(';'));
@@ -377,8 +377,8 @@ begin
           for j := 1 to 4 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i*10+j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -393,8 +393,8 @@ begin
           for j := 8 downto 5 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i*10+j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -409,8 +409,8 @@ begin
           for j := 1 to 4 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i*10+j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -425,8 +425,8 @@ begin
           for j := 8 downto 5 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i*10+j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i*10+j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -441,8 +441,8 @@ begin
           for j := 1 to 4 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i+10*j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -457,8 +457,8 @@ begin
           for j := 8 downto 5 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i+10*j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -473,8 +473,8 @@ begin
           for j := 1 to 4 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i+10*j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))
@@ -489,8 +489,8 @@ begin
           for j := 8 downto 5 do
             begin
               k := k+1;
-              NumEnString(puiss3[k],s1);
-              NumEnString(i+10*j,s2);
+              IntToStr(puiss3[k],s1);
+              IntToStr(i+10*j,s2);
               if k > 1 then Write(fichierBlocs,'+');
               if k = 1
                 then Write(fichierBlocs,'pl['+s2+CharToString(']'))

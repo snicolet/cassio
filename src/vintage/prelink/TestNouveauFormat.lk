@@ -23,7 +23,6 @@ procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : 
 function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;     external;
 	function EscapeDansQueue : boolean;     external;
 function LitFichierIndexNouveauFormat(numFichierIndex : SInt16) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;     external;
 function ViderFichierAbstrait(var theFile : FichierAbstrait) : OSErr;     external;

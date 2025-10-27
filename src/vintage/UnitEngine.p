@@ -683,7 +683,7 @@ begin
   Wait(0.25);
 
   // relancer le meme
-  if (numeroEngineEnCours > 0) and CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
+  if (numeroEngineEnCours > 0) and CanStartEngine(GetEnginePath(numeroEngineEnCours,''), IntToStr(numProcessors))
     then Wait(1.0);
 end;
 
@@ -794,13 +794,13 @@ procedure EcrireEngineResultDansRapport(var result : EngineResultRec);
 begin
 
   EnginePrint(PositionEtTraitEnString(result.position));
-  EnginePrint('type = ' + NumEnString(result.typeResult));
-  EnginePrint('candidateMove = ' + NumEnString(result.candidateMove));
-  EnginePrint('depth = ' + NumEnString(result.depth));
-  EnginePrint('precision = ' + NumEnString(result.precision));
-  EnginePrint('colorOfValue = ' + NumEnString(result.colorOfValue));
-  EnginePrint('minorantOfValue = ' + NumEnString(result.minorantOfValue));
-  EnginePrint('majorantOfValue = ' + NumEnString(result.majorantOfValue));
+  EnginePrint('type = ' + IntToStr(result.typeResult));
+  EnginePrint('candidateMove = ' + IntToStr(result.candidateMove));
+  EnginePrint('depth = ' + IntToStr(result.depth));
+  EnginePrint('precision = ' + IntToStr(result.precision));
+  EnginePrint('colorOfValue = ' + IntToStr(result.colorOfValue));
+  EnginePrint('minorantOfValue = ' + IntToStr(result.minorantOfValue));
+  EnginePrint('majorantOfValue = ' + IntToStr(result.majorantOfValue));
   EnginePrint('line = '+result.line);
   EnginePrint('kilonodes = ' + ReelEnStringAvecDecimales(result.kilonodes,0));
   EnginePrint('time = ' + ReelEnStringAvecDecimales(result.time,3));
@@ -825,7 +825,7 @@ begin
 
   if (precision <= 0) or (precision >= 100) then precision := 100;
 
-  mu := '0,'+NumEnString(kDeltaFinaleInfini);
+  mu := '0,'+IntToStr(kDeltaFinaleInfini);
 
   distMin := 1000000;
   for i := 1 to nbreDeltaSuccessifs do
@@ -834,7 +834,7 @@ begin
       if (dist < distMin) then
       begin
         distMin := dist;
-        mu := '0,'+ NumEnString(deltaSuccessifs[i].valeurDeMu);
+        mu := '0,'+ IntToStr(deltaSuccessifs[i].valeurDeMu);
       end;
     end;
 
@@ -872,7 +872,7 @@ begin
       if (dist < distMin) then
       begin
         distMin := dist;
-        cut := NumEnString(deltaSuccessifs[i].selectiviteZebra) ;
+        cut := IntToStr(deltaSuccessifs[i].selectiviteZebra) ;
       end;
     end;
 
@@ -898,7 +898,7 @@ end;
 function IndexDeltaFinaleEnPrecisionEngine(indexDeltaFinale : SInt64) : SInt64;
 begin
 
-  IndexDeltaFinaleEnPrecisionEngine := MuStringEnPrecisionEngine('0,'+NumEnString(deltaSuccessifs[indexDeltaFinale].valeurDeMu));
+  IndexDeltaFinaleEnPrecisionEngine := MuStringEnPrecisionEngine('0,'+IntToStr(deltaSuccessifs[indexDeltaFinale].valeurDeMu));
 
 end;
 
@@ -1819,7 +1819,7 @@ begin
                     mySetCallBackForEnginePtr(NIL);
                     SetEngineState(ENGINE_KILLED);
                     CanStartEngine        := false;
-                    EnginePrint('Impossible to start an engine (#' + NumEnString(engine.nbStartsOfEngine) + ')');
+                    EnginePrint('Impossible to start an engine (#' + IntToStr(engine.nbStartsOfEngine) + ')');
                   end;
             end
           else EnginePrint('(myStartEnginePtr = NIL)');
@@ -1883,12 +1883,12 @@ begin
         then
           begin
             // endgame search
-            s := s + ' endgame-search '+ s2 + ' ' + NumEnString(alpha) + ' ' + NumEnString(beta) + ' '+ NumEnString(precision);
+            s := s + ' endgame-search '+ s2 + ' ' + IntToStr(alpha) + ' ' + IntToStr(beta) + ' '+ IntToStr(precision);
           end
         else
           begin
             // midgame search
-            s := s + ' midgame-search '+ s2 + ' ' + ReelEnString(alpha/100.0) + ' ' + ReelEnString(beta/100.0) + ' ' + NumEnString(depth) + ' '+ NumEnString(precision);
+            s := s + ' midgame-search '+ s2 + ' ' + ReelEnString(alpha/100.0) + ' ' + ReelEnString(beta/100.0) + ' ' + IntToStr(depth) + ' '+ IntToStr(precision);
           end;
     end;
 
@@ -2122,10 +2122,10 @@ begin
       for i := 1 to LENGTH_OF_STRING(s1) do
         if (s1[i] <> ' ') then s := s + s1[i];
 
-      s := s + ' ' + NumEnString(valeurMin) + '.00';
-      s := s + ' ' + NumEnString(valeurMax) + '.00';
-      s := s + ' ' + NumEnString(depth);
-      s := s + ' ' + NumEnString(100);
+      s := s + ' ' + IntToStr(valeurMin) + '.00';
+      s := s + ' ' + IntToStr(valeurMax) + '.00';
+      s := s + ' ' + IntToStr(depth);
+      s := s + ' ' + IntToStr(100);
 
       if (bestMove >= 11) and (bestMove <= 88)
         then s := s + ' ' + CoupEnStringEnMajuscules(bestMove)
@@ -2271,8 +2271,8 @@ begin
            ((minorantOfValue >= search.alpha) and (majorantOfValue <= search.beta) and (minorantOfValue < majorantOfValue)) then
           begin
             EnginePrintError('ERROR : the result window overlaps the [alpha,beta] window !');
-            EnginePrintError('[alpha , beta] = [' + NumEnString(search.alpha) + ' , ' + NumEnString(search.beta) + ']');
-            EnginePrintError('result : [lower , upper] = [' + NumEnString(minorantOfValue) + ' , ' + NumEnString(majorantOfValue) + ']');
+            EnginePrintError('[alpha , beta] = [' + IntToStr(search.alpha) + ' , ' + IntToStr(search.beta) + ']');
+            EnginePrintError('result : [lower , upper] = [' + IntToStr(minorantOfValue) + ' , ' + IntToStr(majorantOfValue) + ']');
           end;
 
         if (resultPartiel.minorantOfValue <= resultPartiel.majorantOfValue)
@@ -2623,7 +2623,7 @@ begin
       begin
 
         if (search.precision >= 100) and (result.precision < 100) then
-          EnginePrintError('ASSERT : précision insuffisante du résultat (' + NumEnString(result.precision) + '%) dans AnalyserLeResultatGlobal !');
+          EnginePrintError('ASSERT : précision insuffisante du résultat (' + IntToStr(result.precision) + '%) dans AnalyserLeResultatGlobal !');
 
         if (minorantOfValue > majorantOfValue) then
           EnginePrintError('ASSERT : Résultats incohérents de l''engine (minorantOfValue > majorantOfValue) dans AnalyserLeResultatGlobal !');
@@ -2700,7 +2700,7 @@ begin
   if (alpha >= beta) then
     begin
       EnginePrintWarning('Cassio ERROR : alpha >= beta in EnginePeutFaireCeCalcul, aborting');
-      EnginePrintWarning('    alpha = '+NumEnString(alpha)+', beta = '+NumEnString(beta));
+      EnginePrintWarning('    alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
       exit(EnginePeutFaireCeCalcul);
     end;
 
@@ -2820,7 +2820,7 @@ begin
   if (alpha >= beta) then
     begin
       EnginePrintError('Cassio ERROR : alpha >= beta dans EnginePeutFaireCalculDeFinale');
-      EnginePrintError('alpha = '+NumEnString(alpha)+', beta = '+NumEnString(beta));
+      EnginePrintError('alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
       EnginePeutFaireCalculDeFinale := false;
       exit(EnginePeutFaireCalculDeFinale);
     end;
@@ -2860,7 +2860,7 @@ begin
   if (alpha >= beta) then
     begin
       EnginePrintError('Cassio ERROR : alpha >= beta dans EnginePeutFaireCalculDeMilieu');
-      EnginePrintError('alpha = '+NumEnString(alpha)+', beta = '+NumEnString(beta));
+      EnginePrintError('alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
       EnginePeutFaireCalculDeMilieu := false;
       exit(EnginePeutFaireCalculDeMilieu);
     end;
@@ -2955,8 +2955,8 @@ begin
 
           EnginePrint('');
           if test
-            then EnginePrint('... OK, test reussi, temps en ticks = ' + NumEnString(TickCount - tick))
-            else EnginePrint('... test raté ! temps en ticks = ' + NumEnString(TickCount - tick));
+            then EnginePrint('... OK, test reussi, temps en ticks = ' + IntToStr(TickCount - tick))
+            else EnginePrint('... test raté ! temps en ticks = ' + IntToStr(TickCount - tick));
         end;
 
 

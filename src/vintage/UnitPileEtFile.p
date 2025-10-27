@@ -388,13 +388,13 @@ begin
   for i := 1 to 15 do
     begin
       Empiler(maPile,i,ok);
-      WritelnStringAndBoolDansRapport('Empiler '+NumEnString(i)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Empiler '+IntToStr(i)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   for i := 1 to 15 do
     begin
       t := Depiler(maPile,ok);
-      WritelnStringAndBoolDansRapport('Depiler = '+NumEnString(t)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Depiler = '+IntToStr(t)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   WritelnDansRapport('test empilement/defilemnt');
@@ -402,13 +402,13 @@ begin
   for i := 1 to 15 do
     begin
       Empiler(maPile,i,ok);
-      WritelnStringAndBoolDansRapport('Empiler '+NumEnString(i)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Empiler '+IntToStr(i)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   for i := 1 to 15 do
     begin
       t := Defiler(maPile,ok);
-      WritelnStringAndBoolDansRapport('Defiler = '+NumEnString(t)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Defiler = '+IntToStr(t)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   WritelnDansRapport('test enfilement/depilemnt');
@@ -416,13 +416,13 @@ begin
   for i := 1 to 15 do
     begin
       Enfiler(maPile,i,ok);
-      WritelnStringAndBoolDansRapport('Enfiler '+NumEnString(i)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Enfiler '+IntToStr(i)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   for i := 1 to 15 do
     begin
       t := Depiler(maPile,ok);
-      WritelnStringAndBoolDansRapport('Depiler = '+NumEnString(t)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Depiler = '+IntToStr(t)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   WritelnDansRapport('test enfilement/defilemnt');
@@ -430,13 +430,13 @@ begin
   for i := 1 to 15 do
     begin
       Enfiler(maPile,i,ok);
-      WritelnStringAndBoolDansRapport('Enfiler '+NumEnString(i)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Enfiler '+IntToStr(i)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
   for i := 1 to 15 do
     begin
       t := Defiler(maPile,ok);
-      WritelnStringAndBoolDansRapport('Defiler = '+NumEnString(t)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Defiler = '+IntToStr(t)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
 
@@ -448,14 +448,14 @@ begin
     begin
       inc(k);
       Empiler(maPile,k,ok);
-      WritelnStringAndBoolDansRapport('Empiler '+NumEnString(k)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Empiler '+IntToStr(k)+' => ',ok);
       WritePileDansRapport(maPile);
       inc(k);
       Empiler(maPile,k,ok);
-      WritelnStringAndBoolDansRapport('Empiler '+NumEnString(k)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Empiler '+IntToStr(k)+' => ',ok);
       WritePileDansRapport(maPile);
       t := Defiler(maPile,ok);
-      WritelnStringAndBoolDansRapport('Defiler = '+NumEnString(t)+' => ',ok);
+      WritelnStringAndBoolDansRapport('Defiler = '+IntToStr(t)+' => ',ok);
       WritePileDansRapport(maPile);
     end;
 

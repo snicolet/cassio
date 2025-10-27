@@ -18,7 +18,6 @@ procedure WritelnDansRapportEtAttendFrappeClavier(s : String255; bip : boolean);
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
   procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function UpCaseStr (s : String255) : String255;     external;
 	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
 	function IsDigit(ch : char) : boolean;     external;

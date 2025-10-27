@@ -41,5 +41,4 @@ function CassioEstUnBundleApplicatif : boolean;     external;
   procedure MyEraseRect(const (*var*) r : Rect);     external;
 function QDGetPortBound : rect;     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
   procedure WriteStringAtWithoutErase(s : String255; h,v : SInt32);     external;

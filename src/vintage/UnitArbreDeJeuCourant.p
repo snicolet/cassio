@@ -254,7 +254,7 @@ begin
   if RacineDeLaPartie.RacineArbre <> NIL then DisposeGameTree(RacineDeLaPartie.RacineArbre);
 
 {$IFC USE_PROFILER_DISPOSE_GAME_TREE_GLOBAL}
-  nomFichierProfileDisposeGameTree := 'dispose_game_tree_' + NumEnString(Tickcount div 60) + '.profile';
+  nomFichierProfileDisposeGameTree := 'dispose_game_tree_' + IntToStr(Tickcount div 60) + '.profile';
   WritelnDansRapport('nomFichierProfileDisposeGameTree = '+nomFichierProfileDisposeGameTree);
   if ProfilerDump(nomFichierProfileDisposeGameTree) <> NoErr
     then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfileDisposeGameTree+') a échoué !')
@@ -599,7 +599,7 @@ begin
 
   if debuggage.arbreDeJeu then
     WritelnDansRapport('appel de ChangeCurrentNodeAfterThisMove('+
-                       CoupEnStringEnMajuscules(square)+','+NumEnString(couleur)+
+                       CoupEnStringEnMajuscules(square)+','+IntToStr(couleur)+
                        ') par '+fonctionAppelante);
 
   err := VerifieHomogeneiteDesCouleurs(GameTreeCourant,true);
@@ -1023,9 +1023,9 @@ begin
   if SelectFirstPropertyOfTypesInGameTree([DateProp],GetRacineDeLaPartie) = NIL then
     begin
       GetTime(myDate);
-      prop := MakeStringProperty(DateProp,NumEnString(myDate.year)+'-'+
-                                        NumEnString(myDate.month)+'-'+
-                                        NumEnString(myDate.day));
+      prop := MakeStringProperty(DateProp,IntToStr(myDate.year)+'-'+
+                                        IntToStr(myDate.month)+'-'+
+                                        IntToStr(myDate.day));
       AddPropertyToRoot(prop);
       DisposePropertyStuff(prop);
     end;
@@ -1034,7 +1034,7 @@ begin
   if SelectFirstPropertyOfTypesInGameTree([CopyrightProp],GetRacineDeLaPartie) = NIL then
     begin
       GetTime(myDate);
-      prop := MakeStringProperty(CopyrightProp,'Copyleft '+NumEnString(myDate.year)+', French Federation of Othello');
+      prop := MakeStringProperty(CopyrightProp,'Copyleft '+IntToStr(myDate.year)+', French Federation of Othello');
       AddPropertyToRoot(prop);
       DisposePropertyStuff(prop);
     end;
@@ -1839,7 +1839,7 @@ begin
           if ((scoreDeNoir < -64) or (scoreDeNoir > 64)) and
              not(GenreDeReflexionInSet(genreReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
             begin
-              WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scoreDeNoir)+' dans AjouteMeilleureSuiteDansGameTree(ReflParfait), prévenez Stéphane !');
+              WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scoreDeNoir)+' dans AjouteMeilleureSuiteDansGameTree(ReflParfait), prévenez Stéphane !');
               WritelnNumDansRapport('quelGenreDeReflexion = ',genreReflexion);
               SysBeep(0);
 
@@ -2005,7 +2005,7 @@ begin
   if ((scorePourNoir < -64) or (scorePourNoir > 64)) and
      not(GenreDeReflexionInSet(quelGenreDeReflexion,[ReflMilieu,ReflRetrogradeMilieu,ReflMilieuExhaustif,ReflZebraBookEval,ReflZebraBookEvalSansDoutePerdant,ReflZebraBookEvalSansDouteGagnant])) then
     begin
-      WritelnDansRapport('ERREUR : scorePourNoir = '+NumEnString(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansCurrentNode(reflexion de finale), prévenez Stéphane !');
+      WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansCurrentNode(reflexion de finale), prévenez Stéphane !');
       WritelnNumDansRapport('quelGenreDeReflexion = ',quelGenreDeReflexion);
       SysBeep(0);
       exit(AjoutePropertyValeurDeCoupDansCurrentNode);

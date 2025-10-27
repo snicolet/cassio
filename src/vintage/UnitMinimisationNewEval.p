@@ -274,7 +274,7 @@ begin
 
   tick := TickCount;
 
-  WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = 0 => temps = '+NumEnString(TickCount-tick)+', chi2 = ',chi2,10);
+  WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = 0 => temps = '+IntToStr(TickCount-tick)+', chi2 = ',chi2,10);
 
 
   for its := 1 to itmax do
@@ -308,7 +308,7 @@ begin
       DoSystemTask(AQuiDeJouer);
       if Quitter then exit(ConjugateGradientChi2);
 
-      WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = '+NumEnString(iter)+' => temps = '+NumEnString(TickCount-tick)+', chi2 = ',fret,10);
+      WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = '+IntToStr(iter)+' => temps = '+IntToStr(TickCount-tick)+', chi2 = ',fret,10);
 
       (*
       if not(verboseMinimisationChi2) then
@@ -378,7 +378,7 @@ begin
             end;
 
           if not(verboseMinimisationChi2) then
-            WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = '+NumEnString(iter)+' => chi2 = ',chi2,10);
+            WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = '+IntToStr(iter)+' => chi2 = ',chi2,10);
 
           gg := ProduitScalaireVecteurEval(g,g);    { gg := g.g }
        (* dgg := ProduitScalaireVecteurEval(xi,xi); { dgg := xi.xi , Fletcher-Reeves }  *)

@@ -102,7 +102,7 @@ begin
       PrepareTexteStatePourMeilleureSuite;
 		  WriteNumAt('nroPartie = ',gNumeroEnCoursDansLaListe,2,380);
 		  WriteNumAt('nbreTotalSolitaires = ',nbreSolitairesTotal,2,395);
-		  WriteStringAt('temps restant estimé pour '+NumEnString(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides = '+SecondesEnJoursHeuresSecondes(gTempsRestantEstime)+'                  ',2,410);
+		  WriteStringAt('temps restant estimé pour '+IntToStr(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides = '+SecondesEnJoursHeuresSecondes(gTempsRestantEstime)+'                  ',2,410);
       SetPort(oldPort);
 
       nouveauSolitaire := EstUnSolitaire(meilleurCoup,meilleurDef,trait,profondeur,nbBlanc,nbNoir,
@@ -138,7 +138,7 @@ begin
                 GetPort(oldPort);
                 EssaieSetPortWindowPlateau;
                 PrepareTexteStatePourMeilleureSuite;
-                WriteNumAt('nb sol['+NumEnString(numeroCoup)+'] = ',nbreSolitaires[numeroCoup],2,42+12*(nbreSolitairesTotal mod 25));
+                WriteNumAt('nb sol['+IntToStr(numeroCoup)+'] = ',nbreSolitaires[numeroCoup],2,42+12*(nbreSolitairesTotal mod 25));
                 SetPort(oldPort);
 
 	            end;
@@ -178,7 +178,7 @@ begin
   PrepareTexteStatePourMeilleureSuite;
   WriteNumAt('nroPartie = ',gNumeroEnCoursDansLaListe,2,380);
   WriteNumAt('nbreSolitairesTotal = ',nbreSolitairesTotal,2,395);
-  WriteStringAt('temps restant estimé pour '+NumEnString(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides = '+SecondesEnJoursHeuresSecondes(tempsRestantEstime),2,410);
+  WriteStringAt('temps restant estimé pour '+IntToStr(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides = '+SecondesEnJoursHeuresSecondes(tempsRestantEstime),2,410);
   SetPort(oldPort);
 end;
 
@@ -247,7 +247,7 @@ begin
 
 		  if SolitairesDemandes[gNbresCasesVidesCouranteRechSolitaires] then
 		    begin
-		      WritelnDansRapport('Calcul des solitaires à '+NumEnString(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides…');
+		      WritelnDansRapport('Calcul des solitaires à '+IntToStr(gNbresCasesVidesCouranteRechSolitaires) + ' cases vides…');
 		      ForEachGameInListDo(DoitChercherCelleLa,bidFiltreGameProc,ChercherSolitaires,tickDepartRechercheSolitaires);
 		    end;
 		
@@ -357,7 +357,7 @@ begin
       if error <> NoErr
         then
           begin
-          	WritelnNumDansRapport('erreur d''ouverture du '+NumEnString(k)+'ieme fic solitaire, error = ',error);
+          	WritelnNumDansRapport('erreur d''ouverture du '+IntToStr(k)+'ieme fic solitaire, error = ',error);
           end
         else
           begin
@@ -365,7 +365,7 @@ begin
 		          with InfosFichiersNouveauFormat.fichiers[numFichier] do
 		          begin
 				        nbSolDansFichier := NbSolitairesDansFichierSolitairesNouveauFormat(numFichier);
-				        {WritelnNumDansRapport('nb sol a prof '+NumEnString(k)+' = ',nbSolDansFichier);}
+				        {WritelnNumDansRapport('nb sol a prof '+IntToStr(k)+' = ',nbSolDansFichier);}
 				        for t := 1 to nbSolDansFichier do
 					        begin
 					          inc(compteur);
@@ -389,11 +389,11 @@ begin
 		                                ExtraitCoupTableStockagePartie(numPartieDansListe,25,myCoup25);
 		                                theSolitaire.coup25 := myCoup25;
 		                                theSolitaire.scoreReel := GetScoreReelParNroRefPartie(numPartieDansListe);
-		                                {WritelnNumDansRapport('trouve['+NumEnString(compteur)+'] : ',numPartieDansListe)}
+		                                {WritelnNumDansRapport('trouve['+IntToStr(compteur)+'] : ',numPartieDansListe)}
 		                              end
 		                            else
 		                              begin
-		                                WritelnNumDansRapport('non trouve['+NumEnString(compteur)+'] : ',numPartieDansListe);
+		                                WritelnNumDansRapport('non trouve['+IntToStr(compteur)+'] : ',numPartieDansListe);
 		                                WritelnDansRapport(FabriqueCommentaireSolitaireNouveauFormat(theSolitaire));
 		                                with theSolitaire do
 					                            begin
@@ -431,14 +431,14 @@ begin
 		                              end;
 		                        end;
 					              if t mod 500 = 0 then
-					                WritelnDansRapport(NumEnString(t)+'…');
+					                WritelnDansRapport(IntToStr(t)+'…');
 					            end;
 					        end;
 					    end;
 					end;
 
       error := FermeFichierSolitaireNouveauFormat(k);
-      WritelnNumDansRapport('après la fermeture du '+NumEnString(k)+'ieme fic solitaire, lastProcessedSolitaire = ',lastProcessedSolitaire);
+      WritelnNumDansRapport('après la fermeture du '+IntToStr(k)+'ieme fic solitaire, lastProcessedSolitaire = ',lastProcessedSolitaire);
     end;
   Quitter := false;
 

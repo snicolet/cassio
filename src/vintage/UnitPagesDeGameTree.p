@@ -184,7 +184,7 @@ begin
     if ReserveDeGameTree[n] <> NIL then
       with ReserveDeGameTree[n]^ do
         begin
-          WritelnDansRapport('Reserve['+NumEnString(n)+'] est OK');
+          WritelnDansRapport('Reserve['+IntToStr(n)+'] est OK');
           WritelnNumDansRapport('nbEmplacementVides = ',nbEmplacementVides);
           WritelnNumDansRapport('premierEmplacementVide = ',premierEmplacementVide);
           WritelnNumDansRapport('dernierEmplacementVide = ',dernierEmplacementVide);
@@ -314,7 +314,7 @@ begin
   if TrouvePlaceDansPageDeGameTree(numeroDePage,IndexDansPage)
     then
       begin
-        {WritelnDansRapport('creation de GameTree('+NumEnString(numeroDePage)+','+NumEnString(IndexDansPage)+')');
+        {WritelnDansRapport('creation de GameTree('+IntToStr(numeroDePage)+','+IntToStr(IndexDansPage)+')');
         WritelnDansRapport('');}
         with ReserveDeGameTree[numeroDePage]^ do
           begin
@@ -361,7 +361,7 @@ begin
     with ReserveDeGameTree[nroDePage]^ do
       begin
 
-        {WritelnDansRapport('destruction de GameTree('+NumEnString(nroDePage)+','+NumEnString(nroIndex)+')');}
+        {WritelnDansRapport('destruction de GameTree('+IntToStr(nroDePage)+','+IntToStr(nroIndex)+')');}
 
         libre[nroIndex] := true;
         if nbEmplacementVides <= 0

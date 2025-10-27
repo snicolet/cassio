@@ -16,7 +16,6 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 function CoupEnStringEnMinuscules(coup : SInt16) : String255;     external;
 function PackSquareSet(whichSet : SquareSet) : PackedSquareSet;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GenreDeReflexionInSet(genre : SInt16; whichSet : ReflexionTypesSet) : boolean;     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
 function StringEnCoup(const s : String255) : SInt16;     external;

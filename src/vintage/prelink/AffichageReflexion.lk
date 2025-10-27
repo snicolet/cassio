@@ -18,7 +18,6 @@ function EclaircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32)
 function QDGetPortBound : rect;     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 procedure DessineBoiteDeTaille(whichWindow : WindowPtr);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
 procedure SetValReflex(var classAux : ListOfMoveRecords; profondeur,compt,longueurclass,genre,numero,IndexEnCours,couleur : SInt16);     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;

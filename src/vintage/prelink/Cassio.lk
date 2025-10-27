@@ -22,7 +22,6 @@ procedure EcritEtatMemoire;     external;
 procedure VideHashTable(whichHashTable : HashTableHdl);     external;
   function RandomLongint : SInt32;     external;
 	procedure RandomizeTimer;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function size_of_int_in_c : SInt32;     external;
 function size_of_float_in_c : SInt32;     external;
   function Hexa(num : SInt32) : String255;     external;

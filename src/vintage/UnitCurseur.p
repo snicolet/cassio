@@ -121,7 +121,7 @@ begin {AjusteCurseur}
   		        then AccelereProchainDoSystemTask(4)
   		        else AccelereProchainDoSystemTask(60);
   		      DiminueLatenceEntreDeuxDoSystemTask;
-  		      {WritelnDansRapport('AjusteCurseur :   delaiAvantDoSystemTask = '+NumEnString(delaiAvantDoSystemTask));}
+  		      {WritelnDansRapport('AjusteCurseur :   delaiAvantDoSystemTask = '+IntToStr(delaiAvantDoSystemTask));}
   		    end {2}
   		  else
   		    begin

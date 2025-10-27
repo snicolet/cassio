@@ -24,7 +24,6 @@ procedure CreeLiaisonFreresVersPere(var fichier : Graphe; numCell,numPere : SInt
 procedure LitEnsembleDesFils(var fichier : Graphe; numCellule : SInt32; var LesFils : ListeDeCellules);     external;
 procedure IsoleCellule(var fichier : Graphe; numCellule : SInt32);     external;
 procedure RaiseError(message : String255);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure CalculeToutesLesValeursDeLOrbite(var fichier : Graphe; numCellule : SInt32; var AuMoinsUnChange : boolean);     external;
 function CelluleEstDansListe(num : SInt32; var liste : ListeDeCellules) : boolean;     external;
 procedure LitEnsembleDesFreres(var fichier : Graphe; numCellule : SInt32; var Freres : ListeDeCellules);     external;

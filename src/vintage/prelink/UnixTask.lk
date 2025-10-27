@@ -32,7 +32,6 @@ function TryNextCassioFolderPath : String255;     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
 	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);     external;
 function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;

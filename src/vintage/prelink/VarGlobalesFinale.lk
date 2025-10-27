@@ -10,7 +10,6 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure WritelnStringAndNumEnSeparantLesMilliersDansRapport(s : String255; num : SInt32);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function ModifPlatBitboard_a1(vecteurParite : SInt32; my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; var resultat : bitboard; var diffPions : SInt32) : SInt32;     external;
 function ModifPlatBitboard_b1(vecteurParite : SInt32; my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; var resultat : bitboard; var diffPions : SInt32) : SInt32;     external;
 function ModifPlatBitboard_c1(vecteurParite : SInt32; my_bits_low,my_bits_high,opp_bits_low,opp_bits_high : UInt32; var resultat : bitboard; var diffPions : SInt32) : SInt32;     external;

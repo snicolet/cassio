@@ -394,9 +394,9 @@ begin
 
         delta := microSecondesFin.lo-microSecondesDepart.lo;
 
-        // WritelnNumDansRapport('temps de '+NumEnString(nbreTours)+' tours, en µsec = ',delta);
+        // WritelnNumDansRapport('temps de '+IntToStr(nbreTours)+' tours, en µsec = ',delta);
 
-        // WritelnNumDansRapport('temps (2) de '+NumEnString(nbreTours)+' tours, en µsec = ',microSecondesFin2.lo-microSecondesDepart2.lo);
+        // WritelnNumDansRapport('temps (2) de '+IntToStr(nbreTours)+' tours, en µsec = ',microSecondesFin2.lo-microSecondesDepart2.lo);
 
 
       until (delta > 100);
@@ -510,7 +510,7 @@ begin
                       if DoitDebugguerParallelismeDansRapport then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WriteDansRapport('La thread '+NumEnString(nroThread)+' a trouvé le résultat suivant dans sa file (GetAnyResultForThisThread) :  ');
+                          WriteDansRapport('La thread '+IntToStr(nroThread)+' a trouvé le résultat suivant dans sa file (GetAnyResultForThisThread) :  ');
                           WriteDansRapport('(val, coup, hashpere, numeroPos, prof) = ');
                           with whichResult do
                             begin
@@ -546,7 +546,7 @@ begin
                     begin
                       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                        WritelnDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : impossible de remettre le mutex de lecture de mon resultat !!!');
+                        WritelnDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : impossible de remettre le mutex de lecture de mon resultat !!!');
                         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                       {$ENDC}
                     end;
@@ -624,7 +624,7 @@ begin
                           if DoitDebugguerParallelismeDansRapport then
                             begin
                               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                              WriteDansRapport('La thread '+NumEnString(nroThread)+' a trouvé le résultat suivant dans sa file (GetAResultAtThisSpecificDepth) :  ');
+                              WriteDansRapport('La thread '+IntToStr(nroThread)+' a trouvé le résultat suivant dans sa file (GetAResultAtThisSpecificDepth) :  ');
                               WriteDansRapport('(val, coup, hashpere, numeroPos, prof) = ');
                               with whichResult do
                                 begin
@@ -714,7 +714,7 @@ begin
                     begin
                       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                      WritelnDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : impossible de remettre le mutex de lecture de mon resultat !!!');
+                      WritelnDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : impossible de remettre le mutex de lecture de mon resultat !!!');
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                       {$ENDC}
                     end;
@@ -763,7 +763,7 @@ begin
         whichResult.numeroPere     := numeroPosDuPere;
         whichResult.profondeur     := nbCasesVidesDuPere;
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WriteDansRapport('La thread '+NumEnString(nroThreadDuFils)+' poste (dans PosterUnResultatAUneThread) le résultat suivant :  ');
+        WriteDansRapport('La thread '+IntToStr(nroThreadDuFils)+' poste (dans PosterUnResultatAUneThread) le résultat suivant :  ');
         WriteDansRapport('(val, coup, hashpere, numeroPos, nroThreadDuPere, prof) = ');
         with whichResult do
           begin
@@ -787,7 +787,7 @@ begin
 
       {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
       tickDepart := TickCount;
-      s := 'dans PosterUnResultatAUneThread (thread '+ NumEnString(nroThreadDuFils)+')';
+      s := 'dans PosterUnResultatAUneThread (thread '+ IntToStr(nroThreadDuFils)+')';
       {$ENDC}
 
 
@@ -831,7 +831,7 @@ begin
                       begin
                         {$IFC USE_ASSERTIONS_DE_PARALLELISME}
                         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                        WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuFils)+') : impossible de remettre le mutex d''ecriture de mon resultat !!!');
+                        WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuFils)+') : impossible de remettre le mutex d''ecriture de mon resultat !!!');
                         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                         {$ENDC}
                       end;
@@ -852,7 +852,7 @@ begin
                 if (compteurDeSpin = 1) and (cardinal >= kNombreMaxResultasDansUneFile) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnDansRapport('WARNING (thread '+NumEnString(nroThreadDuFils)+') : la file des résultats de la thread '+NumEnString(nroThreadDuPere)+', à qui je dois poster un résultat, est pleine !');
+                    WritelnDansRapport('WARNING (thread '+IntToStr(nroThreadDuFils)+') : la file des résultats de la thread '+IntToStr(nroThreadDuPere)+', à qui je dois poster un résultat, est pleine !');
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
                 {$ENDC}
@@ -925,7 +925,7 @@ begin
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
             WritelnDansRapport('');
-            WritelnNumDansRapport('La thread '+NumEnString(node.nroThreadDuPere)+' va interrompre dans InterrompreUnFils sa fille, la thread '+NumEnString(nroThreadAInterrompre)+' à la profondeur ',node.nbreVides - 1);
+            WritelnNumDansRapport('La thread '+IntToStr(node.nroThreadDuPere)+' va interrompre dans InterrompreUnFils sa fille, la thread '+IntToStr(nroThreadAInterrompre)+' à la profondeur ',node.nbreVides - 1);
             WritelnDansRapport('');
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -962,7 +962,7 @@ begin
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                       WritelnDansRapport('');
-                      WritelnDansRapport(' La thread '+NumEnString(node.nroThreadDuPere)+' dit : en fait, je n''ai pas interrompu, dans InterrompreUnFils, la thread '+NumEnString(nroThreadAInterrompre)+' à la profondeur '+NumEnString(node.nbreVides - 1)+' parce qu''elle avait emis une proposition de travail');
+                      WritelnDansRapport(' La thread '+IntToStr(node.nroThreadDuPere)+' dit : en fait, je n''ai pas interrompu, dans InterrompreUnFils, la thread '+IntToStr(nroThreadAInterrompre)+' à la profondeur '+IntToStr(node.nbreVides - 1)+' parce qu''elle avait emis une proposition de travail');
                       WritelnDansRapport('');
                       AttendreFrappeClavierParallelisme(true);
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1021,7 +1021,7 @@ begin
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       WritelnDansRapport('');
-      WritelnNumDansRapport('La thread '+NumEnString(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans InterrompreUneThread pour interrompre la thread ',nroThreadAInterrompre);
+      WritelnNumDansRapport('La thread '+IntToStr(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans InterrompreUneThread pour interrompre la thread ',nroThreadAInterrompre);
       AttendreFrappeClavierParallelisme(true);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -1031,7 +1031,7 @@ begin
 
   {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
   tickDepart := TickCount;
-  s := 'dans InterrompreUneThread (thread '+ NumEnString(nroThreadAgissante)+')';
+  s := 'dans InterrompreUneThread (thread '+ IntToStr(nroThreadAgissante)+')';
   {$ENDC}
 
 
@@ -1050,7 +1050,7 @@ begin
   if DoitDebugguerParallelismeDansRapport then
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('La thread '+NumEnString(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption InterrompreUneThread pour interrompre la thread ',nroThreadAInterrompre);
+      WritelnNumDansRapport('La thread '+IntToStr(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption InterrompreUneThread pour interrompre la thread ',nroThreadAInterrompre);
       AttendreFrappeClavierParallelisme(true);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -1066,7 +1066,7 @@ begin
     if DoitDebugguerParallelismeDansRapport then
       begin
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadAgissante) +') : la prise de mutex etait trop longue dans InterrompreUneThread ( >  0.5s)');
+        WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadAgissante) +') : la prise de mutex etait trop longue dans InterrompreUneThread ( >  0.5s)');
         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
       end;
   {$ENDC}
@@ -1118,8 +1118,8 @@ begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       WritelnDansRapport('');
       if (nroThreadARelacher = nroThreadAgissante)
-        then WritelnDansRapport('La thread '+NumEnString(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread')
-        else WritelnNumDansRapport('La thread '+NumEnString(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread pour enlever l''interruption de la thread ',nroThreadARelacher);
+        then WritelnDansRapport('La thread '+IntToStr(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread')
+        else WritelnNumDansRapport('La thread '+IntToStr(nroThreadAgissante)+' va rentrer dans la boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread pour enlever l''interruption de la thread ',nroThreadARelacher);
       AttendreFrappeClavierParallelisme(true);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -1129,7 +1129,7 @@ begin
 
   {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
   tickDepart := TickCount;
-  s := 'dans EnleverLInterruptionPourCetteThread (thread '+ NumEnString(nroThreadAgissante)+')';
+  s := 'dans EnleverLInterruptionPourCetteThread (thread '+ IntToStr(nroThreadAgissante)+')';
   {$ENDC}
 
 
@@ -1149,8 +1149,8 @@ begin
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       if (nroThreadARelacher = nroThreadAgissante)
-        then WritelnDansRapport('La thread '+NumEnString(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread')
-        else WritelnNumDansRapport('La thread '+NumEnString(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread pour enlever l''interruption de la thread ',nroThreadARelacher);
+        then WritelnDansRapport('La thread '+IntToStr(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread')
+        else WritelnNumDansRapport('La thread '+IntToStr(nroThreadAgissante)+' est sortie de sa boucle du mutex d''interruption dans EnleverLInterruptionPourCetteThread pour enlever l''interruption de la thread ',nroThreadARelacher);
       AttendreFrappeClavierParallelisme(true);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -1166,7 +1166,7 @@ begin
     if DoitDebugguerParallelismeDansRapport then
       begin
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadAgissante) +') : la prise de mutex etait trop longue dans EnleverLInterruptionPourCetteThread ( >  0.5s)');
+        WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadAgissante) +') : la prise de mutex etait trop longue dans EnleverLInterruptionPourCetteThread ( >  0.5s)');
         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
       end;
   {$ENDC}
@@ -1212,7 +1212,7 @@ begin
 
           {$IFC USE_ASSERTIONS_DE_PARALLELISME}
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : impossible de lancer un fils dans LancerUnFils:'+fonctionAppelante+'... mauvais numero de fils !!  nroThreadDuFils = ',nroThreadDuFils);
+          WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : impossible de lancer un fils dans LancerUnFils:'+fonctionAppelante+'... mauvais numero de fils !!  nroThreadDuFils = ',nroThreadDuFils);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1263,7 +1263,7 @@ begin
 
       {$IFC USE_ASSERTIONS_DE_PARALLELISME}
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : impossible de lancer un fils dans LancerUnFils:'+fonctionAppelante+'...  semaphoreDeJob <> 0 !!  nroThreadDuFils = ',nroThreadDuFils);
+      WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : impossible de lancer un fils dans LancerUnFils:'+fonctionAppelante+'...  semaphoreDeJob <> 0 !!  nroThreadDuFils = ',nroThreadDuFils);
       WritelnNumDansRapport('gAlphaBetaTasksData^[nroThreadDuFils].semaphoreDeJobPret = ',gAlphaBetaTasksData^[nroThreadDuFils].semaphoreDeJobPret);
       Sysbeep(0);
       AttendreFrappeClavierParallelisme(true);
@@ -1317,7 +1317,7 @@ begin
         begin
           {$IFC AVEC_DEBUG_PARALLELISME}
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('BIZARRE : la thread '+NumEnString(nroThreadAgissante)+' a soldé un vieux job à traiter dans ReinitialiserInterruptionsParHashStampsDesThreads');
+          WritelnDansRapport('BIZARRE : la thread '+IntToStr(nroThreadAgissante)+' a soldé un vieux job à traiter dans ReinitialiserInterruptionsParHashStampsDesThreads');
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           {$ENDC}
         end;
@@ -1363,7 +1363,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' est interrompue et, avant meme de le lancer, libere son fils, la thread ',nroThreadFils);
+            WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' est interrompue et, avant meme de le lancer, libere son fils, la thread ',nroThreadFils);
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           end;
@@ -1402,7 +1402,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' vient de lancer un fils (la thread '+NumEnString(nroThreadFils)+') en esperant qu''il sera arrete immédiatement ');
+            WritelnDansRapport('La thread '+IntToStr(nroThreadDuPere)+' vient de lancer un fils (la thread '+IntToStr(nroThreadFils)+') en esperant qu''il sera arrete immédiatement ');
             WritelnDansRapport('');
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1511,7 +1511,7 @@ begin
           WritelnDansRapport('');
           WritelnDansRapport('/////////////////////////////////////////////////////////////////////////////////');
           WritelnDansRapport('');
-          EcritBitboardState('Entree dans CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = (thread '+NumEnString(nroThreadDuPere)+',thread '+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
+          EcritBitboardState('Entree dans CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = (thread '+IntToStr(nroThreadDuPere)+',thread '+IntToStr(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
           WritelnNumDansRapport('vecteurParite = ',vecteurParite);
           WriteDansRapport('Liste des fils à étudier : ');
           for i := filsDebut to filsFin do
@@ -1528,7 +1528,7 @@ begin
           WritelnNumDansRapport('numProcessors = ',numProcessors);
           WritelnDansRapport('Etat des interruptions : ');
           for i := 0 to kNombreMaxAlphaBetaTasks do
-             WritelnNumDansRapport('        gAlphaBetaInterrompu['+NumEnString(i)+'].prof = ',gAlphaBetaInterrompu[i].profInterruption);
+             WritelnNumDansRapport('        gAlphaBetaInterrompu['+IntToStr(i)+'].prof = ',gAlphaBetaInterrompu[i].profInterruption);
           WritelnDansRapport('');
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1570,7 +1570,7 @@ begin
         (maximum <> -kValeurSpecialeInterruptionCalculParallele) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (maximum < -64) or (maximum > 64) à la sortie de CalculerCoupsEnParallele !!   maximum = ',maximum);
+          WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : (maximum < -64) or (maximum > 64) à la sortie de CalculerCoupsEnParallele !!   maximum = ',maximum);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1583,7 +1583,7 @@ begin
         ((outNroDuDernierFilsEvalue < indexPremierFils) or (outNroDuDernierFilsEvalue > indexDernierFils)) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : outNroDuDernierFilsEvalue out of bounds à la sortie de CalculerCoupsEnParallele !!!');
+          WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : outNroDuDernierFilsEvalue out of bounds à la sortie de CalculerCoupsEnParallele !!!');
           WritelnNumDansRapport('indexPremierFils = ',indexPremierFils);
           WritelnNumDansRapport('indexDernierFils = ',indexDernierFils);
           WritelnNumDansRapport('outNroDuDernierFilsEvalue = ',outNroDuDernierFilsEvalue);
@@ -1604,7 +1604,7 @@ begin
         ((bestDef < 11) or (bestDef > 88)) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (bestDef < 11) or (bestDef > 88) à la sortie de CalculerCoupsEnParallele !!');
+          WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : (bestDef < 11) or (bestDef > 88) à la sortie de CalculerCoupsEnParallele !!');
           WritelnNumDansRapport('   bestDef = ',bestDef);
           WritelnNumDansRapport('   maximum = ',maximum);
           Sysbeep(0);
@@ -1619,12 +1619,12 @@ begin
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
           WritelnDansRapport('');
-          EcritBitboardState('Sortie de CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = ('+NumEnString(nroThreadDuPere)+','+NumEnString(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
-          WritelnDansRapport('  -> resultat à la prof '+NumEnString(inNbreVides)+' : (bestDef,dernierFilsEvalue,max) = ('+CoupEnString(bestDef,true)+','+NumEnString(nroDuDernierFilsEvalue)+','+NumEnString(maximum)+')');
+          EcritBitboardState('Sortie de CalculerCoupsEnParallele (nroThreadDuPere, nroThreadFilsDispo) = ('+IntToStr(nroThreadDuPere)+','+IntToStr(inNroThreadFilsDisponible)+') :',MakeBitboard(pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high),nbreVides,alpha,beta,diffPions);
+          WritelnDansRapport('  -> resultat à la prof '+IntToStr(inNbreVides)+' : (bestDef,dernierFilsEvalue,max) = ('+CoupEnString(bestDef,true)+','+IntToStr(nroDuDernierFilsEvalue)+','+IntToStr(maximum)+')');
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           WritelnDansRapport('Etat des interruptions : ');
           for i := 0 to kNombreMaxAlphaBetaTasks do
-             WritelnNumDansRapport('        gAlphaBetaInterrompu['+NumEnString(i)+'].prof = ',gAlphaBetaInterrompu[i].profInterruption);
+             WritelnNumDansRapport('        gAlphaBetaInterrompu['+IntToStr(i)+'].prof = ',gAlphaBetaInterrompu[i].profInterruption);
           WritelnDansRapport('');
           WritelnDansRapport('----------------------------------------------------------------------------');
           WritelnDansRapport('');
@@ -1666,7 +1666,7 @@ begin
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' essaye d''interrompre la thread '+NumEnString(threadAffecteeACeFils[k])+ ' avant de sortir elle-meme');
+                    WritelnDansRapport('La thread '+IntToStr(nroThreadDuPere)+' essaye d''interrompre la thread '+IntToStr(threadAffecteeACeFils[k])+ ' avant de sortir elle-meme');
                     WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                     WritelnDansRapport('');
                     AttendreFrappeClavierParallelisme(true);
@@ -1684,7 +1684,7 @@ begin
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' vient d''essayer d''interrompre sa fille, la thread ',nroThreadAInterrompre);
+                    WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(nbreVides)+' vient d''essayer d''interrompre sa fille, la thread ',nroThreadAInterrompre);
                     WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                     WritelnDansRapport('');
                     AttendreFrappeClavierParallelisme(true);
@@ -1731,7 +1731,7 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
               if filsEnAttenteDeLancement[k] and not(filsEnCoursDAnnulation[k]) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                  WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : j''ai un fils réservé au moment d''une InterruptionDansCeNoeudDeParallelisme (peut-etre un probleme de coupure beta ?) !! ');
+                  WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : j''ai un fils réservé au moment d''une InterruptionDansCeNoeudDeParallelisme (peut-etre un probleme de coupure beta ?) !! ');
                   Sysbeep(0);
                   AttendreFrappeClavierParallelisme(true);
                   errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1757,7 +1757,7 @@ function InterruptionDansCeNoeudDeParallelisme(var node : NoeudDeParallelisme) :
             if DoitDebugguerParallelismeDansRapport then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' est interrompue et sort de InterruptionDansCeNoeudDeParallelisme en renvoyant kValeurSpecialeInterruptionCalculParallele : ',kValeurSpecialeInterruptionCalculParallele);
+                WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' est interrompue et sort de InterruptionDansCeNoeudDeParallelisme en renvoyant kValeurSpecialeInterruptionCalculParallele : ',kValeurSpecialeInterruptionCalculParallele);
                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                 WritelnDansRapport('');
                 AttendreFrappeClavierParallelisme(true);
@@ -1825,7 +1825,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WriteStringAndCoupDansRapport('La thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(node.nbreVides)+' vient de preparer un coup legal (',iCourant);
+          WriteStringAndCoupDansRapport('La thread '+IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(node.nbreVides)+' vient de preparer un coup legal (',iCourant);
           WritelnNumDansRapport(') qui sera sans doute affecté à la thread ',nroThreadFilsAuChomage);
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           WritelnDansRapport('');
@@ -1915,7 +1915,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' s''appelle recursivement sur le coup '+CoupEnString(coupDuFils,true)+' pour participer au travail, pouf pouf...  hashStamp = ',hashStamp);
+          WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' s''appelle recursivement sur le coup '+CoupEnString(coupDuFils,true)+' pour participer au travail, pouf pouf...  hashStamp = ',hashStamp);
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -1937,7 +1937,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('Sortie de MeLancerMoiMemeRecursivementSurUnFils pour la thread '+NumEnString(nroThreadDuPere)+' avec la valeur = ',-valeur);
+          WritelnNumDansRapport('Sortie de MeLancerMoiMemeRecursivementSurUnFils pour la thread '+IntToStr(nroThreadDuPere)+' avec la valeur = ',-valeur);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
@@ -2070,7 +2070,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('La thread '+NumEnString(nroThread)+' vient d''enlever sa proposition de travail');
+            WritelnDansRapport('La thread '+IntToStr(nroThread)+' vient d''enlever sa proposition de travail');
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           end;
@@ -2080,7 +2080,7 @@ begin
       begin
         {$IFC AVEC_DEBUG_PARALLELISME}
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WritelnDansRapport('ASSERT : La thread '+NumEnString(nroThread)+' n''arrive pas a reprendre sa proposition de travail');
+        WritelnDansRapport('ASSERT : La thread '+IntToStr(nroThread)+' n''arrive pas a reprendre sa proposition de travail');
         Sysbeep(0);
         AttendreFrappeClavierParallelisme(true);
         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2109,7 +2109,7 @@ begin
         begin
           {$IFC AVEC_DEBUG_PARALLELISME}
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('BIZARRE : la thread '+NumEnString(nroThreadDuPere)+' a soldé un vieux job à traiter dans EmettreUnePropositionDeTravailRecursivePourAiderSesFils');
+          WritelnDansRapport('BIZARRE : la thread '+IntToStr(nroThreadDuPere)+' a soldé un vieux job à traiter dans EmettreUnePropositionDeTravailRecursivePourAiderSesFils');
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           {$ENDC}
         end;
@@ -2129,7 +2129,7 @@ begin
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' vient d''emettre une proposition de travail pour aider ses fils');
+              WritelnDansRapport('La thread '+IntToStr(nroThreadDuPere)+' vient d''emettre une proposition de travail pour aider ses fils');
               WritelnDansRapport('     fonctionAppelante = GererNoeudDeParallelisme:ATTENDRE_LES_RESULTATS');
               WritelnDansRapport('');
               AttendreFrappeClavierParallelisme(true);
@@ -2188,7 +2188,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('La thread '+NumEnString(nroThread)+' vient d''enlever la proposition de travail qu''elle avait emise pour aider ses fils (1)');
+            WritelnDansRapport('La thread '+IntToStr(nroThread)+' vient d''enlever la proposition de travail qu''elle avait emise pour aider ses fils (1)');
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           end;
@@ -2216,7 +2216,7 @@ begin
                   if DoitDebugguerParallelismeDansRapport then
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                      WritelnDansRapport('La thread '+NumEnString(nroThread)+' vient d''enlever la proposition de travail qu''elle avait emise pour aider ses fils (2)');
+                      WritelnDansRapport('La thread '+IntToStr(nroThread)+' vient d''enlever la proposition de travail qu''elle avait emise pour aider ses fils (2)');
                       AttendreFrappeClavierParallelisme(true);
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
@@ -2250,7 +2250,7 @@ begin
 
 
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('ASSERT : La thread '+NumEnString(nroThread)+' n''arrive pas a reprendre la proposition de travail qu''elle avait emise pour aider ses fils');
+            WritelnDansRapport('ASSERT : La thread '+IntToStr(nroThread)+' n''arrive pas a reprendre la proposition de travail qu''elle avait emise pour aider ses fils');
             WritelnNumDansRapport('    proposition en cours = ',propositionEnCours);
             WritelnNumDansRapport('    profondeurProposition = ',profPropEnCours);
             WritelnNumDansRapport('    hashStampProposition[0] = ',h0);
@@ -2276,7 +2276,7 @@ begin
 
       {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
       tickDepart := TickCount;
-      s := 'dans EnleverPropositionDeTravailRecursivePourAiderSesFils (thread '+ NumEnString(nroThread)+')';
+      s := 'dans EnleverPropositionDeTravailRecursivePourAiderSesFils (thread '+ IntToStr(nroThread)+')';
       {$ENDC}
 
       while not(ok or Quitter or (interruptionReflexion <> pasdinterruption))
@@ -2324,7 +2324,7 @@ begin
 
       {
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('BIZARRE : la thread '+NumEnString(nroThread)+' n''avait pas de proposition de travail pour aider ses fils, temps en ticks = ',TickCount - tickDepart);
+      WritelnNumDansRapport('BIZARRE : la thread '+IntToStr(nroThread)+' n''avait pas de proposition de travail pour aider ses fils, temps en ticks = ',TickCount - tickDepart);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
       }
     end;
@@ -2341,7 +2341,7 @@ begin
     begin
       {$IFC AVEC_DEBUG_PARALLELISME}
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnDansRapport('BIZARRE : la thread '+NumEnString(nroThread)+' a soldé un vieux job à traiter dans EnleverPropositionDeTravailRecursivePourAiderSesFils');
+      WritelnDansRapport('BIZARRE : la thread '+IntToStr(nroThread)+' a soldé un vieux job à traiter dans EnleverPropositionDeTravailRecursivePourAiderSesFils');
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
       {$ENDC}
     end;
@@ -2361,7 +2361,7 @@ begin
       kANALYSER_UN_RESULTAT                        :   result := 'kANALYSER_UN_RESULTAT';
       kCONTINUER_NORMALEMENT                       :   result := 'kCONTINUER_NORMALEMENT';
       kLANCER_LES_FILS_EN_ATTENTE                  :   result := 'kLANCER_LES_FILS_EN_ATTENTE';
-      otherwise                                        result := 'ACTION INCONNUE : ' + NumEnString(action) + ' (ASSERT !)';
+      otherwise                                        result := 'ACTION INCONNUE : ' + IntToStr(action) + ' (ASSERT !)';
   end;
 
   NomActionDeParallelisme := result;
@@ -2408,7 +2408,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('Entree dans GererNoeudDeParallelisme pour la thread '+NumEnString(nroThreadDuPere)+' à la profondeur '+NumEnString(nbreVides)+' avec l''action ' + NomActionDeParallelisme(action));
+          WritelnDansRapport('Entree dans GererNoeudDeParallelisme pour la thread '+IntToStr(nroThreadDuPere)+' à la profondeur '+IntToStr(nbreVides)+' avec l''action ' + NomActionDeParallelisme(action));
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2472,7 +2472,7 @@ begin
       if ( nroThreadFilsDisponible < 0 ) or ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) or ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible);
+          WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : ( nroThreadFilsDisponible < 0 ) or ( nroThreadFilsDisponible > kNombreMaxAlphaBetaTasks ) à l''entree de  GererNoeudDeParallelisme !!  nroThreadFilsDisponible = ',nroThreadFilsDisponible);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2509,7 +2509,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuPere)+' va lancer des fils en parallele,   hashStamp = ',hashStamp);
+          WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuPere)+' va lancer des fils en parallele,   hashStamp = ',hashStamp);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
@@ -2528,7 +2528,7 @@ begin
             if ( threadAffecteeACeFils[i] < 0 ) or ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) or ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
+                WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : ( threadAffecteeACeFils[i] < 0 ) or ( threadAffecteeACeFils[i] > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
                 Sysbeep(0);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
@@ -2540,7 +2540,7 @@ begin
             if ( threadAffecteeACeFils[i] = nroThreadDuPere) then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (threadAffecteeACeFils[i] = nroThreadDuPere) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
+                WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : (threadAffecteeACeFils[i] = nroThreadDuPere) dans GererNoeudDeParallelisme !!  threadAffecteeACeFils[i] = ',threadAffecteeACeFils[i]);
                 Sysbeep(0);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
@@ -2570,7 +2570,7 @@ begin
                   if DoitDebugguerParallelismeDansRapport then
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                      WriteDansRapport('La thread '+NumEnString(nroThreadDuPere)+' lance un job : ');
+                      WriteDansRapport('La thread '+IntToStr(nroThreadDuPere)+' lance un job : ');
                       WriteDansRapport('(coupDuFils, threadFils, stampPere, stampFils ) = ('+CoupEnStringEnMajuscules(gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.coupSubTree)));
                       WriteNumDansRapport(',thread ',threadAffecteeACeFils[i]);
                       WriteNumDansRapport(',',gAlphaBetaTasksData^[threadAffecteeACeFils[i]].jobRecu.hashDuPere);
@@ -2589,7 +2589,7 @@ begin
                   if DoitDebugguerParallelismeDansRapport then
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                      WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : LA RESERVATION DE LA THREAD '+NumEnString(threadAffecteeACeFils[i])+' SEMBLE OBSOLETE !!!! ');
+                      WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : LA RESERVATION DE LA THREAD '+IntToStr(threadAffecteeACeFils[i])+' SEMBLE OBSOLETE !!!! ');
                       AttendreFrappeClavierParallelisme(true);
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                     end;
@@ -2629,7 +2629,7 @@ begin
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('Sortie par interruption {1} de la thread '+NumEnString(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+              WritelnDansRapport('Sortie par interruption {1} de la thread '+IntToStr(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
               WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2642,7 +2642,7 @@ begin
           if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {1} de GererNoeudDeParallelisme !!');
+              WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : sortie prematureee {1} de GererNoeudDeParallelisme !!');
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2662,7 +2662,7 @@ begin
             if DoitDebugguerParallelismeDansRapport then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnDansRapport('Sortie car (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) de la thread '+NumEnString(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+                WritelnDansRapport('Sortie car (action <> kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) de la thread '+IntToStr(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
                 WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                 AttendreFrappeClavierParallelisme(true);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2701,7 +2701,7 @@ begin
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                           WritelnDansRapport('');
-                          WritelnDansRapport('ENTREE de la thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' dans la boucle pour attendre les resultats des fils');
+                          WritelnDansRapport('ENTREE de la thread '+IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(nbreVides)+' dans la boucle pour attendre les resultats des fils');
                           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                           WritelnDansRapport('');
                           AttendreFrappeClavierParallelisme(true);
@@ -2715,7 +2715,7 @@ begin
 
                       {$IFC AVEC_VERIFICATIONS_DE_BOUCLES_INFINIES}
                       tickDepart := TickCount;
-                      s := 'dans la boucle d''attente des resultats (thread '+ NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+')';
+                      s := 'dans la boucle d''attente des resultats (thread '+ IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(nbreVides)+')';
                       {$ENDC}
 
 
@@ -2759,7 +2759,7 @@ begin
                                     if DoitDebugguerParallelismeDansRapport then
                                       begin
                                         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                                        WritelnDansRapport('SORTIE par interruption {2} de la thread '+NumEnString(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+                                        WritelnDansRapport('SORTIE par interruption {2} de la thread '+IntToStr(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
                                         WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                                         AttendreFrappeClavierParallelisme(true);
                                         errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2794,7 +2794,7 @@ begin
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
                           WritelnDansRapport('');
-                          WritelnDansRapport('SORTIE de la thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' dans la boucle pour attendre les resultats des fils');
+                          WritelnDansRapport('SORTIE de la thread '+IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(nbreVides)+' dans la boucle pour attendre les resultats des fils');
                           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                           WritelnDansRapport('');
                           AttendreFrappeClavierParallelisme(true);
@@ -2813,7 +2813,7 @@ begin
                         if DoitDebugguerParallelismeDansRapport then
                           begin
                             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                            WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere) +') : la boucle d''attente des resultats des fils etait trop longue ( >  0.5s)');
+                            WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere) +') : la boucle d''attente des resultats des fils etait trop longue ( >  0.5s)');
                             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                           end;
                       {$ENDC}
@@ -2853,7 +2853,7 @@ begin
       if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' vient de recevoir un résultat : (prof, coupDuFils, result, stamp) = ('+NumEnString(nbreVides)+','+CoupEnStringEnMajuscules(coupDuFils)+','+NumEnString(-resultatDuFils)+','+NumEnString(resultStamp)+')');
+          WritelnDansRapport('La thread '+IntToStr(nroThreadDuPere)+' vient de recevoir un résultat : (prof, coupDuFils, result, stamp) = ('+IntToStr(nbreVides)+','+CoupEnStringEnMajuscules(coupDuFils)+','+IntToStr(-resultatDuFils)+','+IntToStr(resultStamp)+')');
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
         end;
@@ -2878,7 +2878,7 @@ begin
             if DoitDebugguerParallelismeDansRapport then
               begin
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('La thread '+NumEnString(nroThreadDuFils)+' (fille) n''est plus affectée, pour le coup '+CoupEnStringEnMajuscules(coupDuFils)+' de la prof '+NumEnString(nbreVides)+', à la thread ',nroThreadDuPere);
+                WritelnNumDansRapport('La thread '+IntToStr(nroThreadDuFils)+' (fille) n''est plus affectée, pour le coup '+CoupEnStringEnMajuscules(coupDuFils)+' de la prof '+IntToStr(nbreVides)+', à la thread ',nroThreadDuPere);
                 AttendreFrappeClavierParallelisme(true);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               end;
@@ -2899,7 +2899,7 @@ begin
           if ( nroThreadDuFils = kNroThreadNotFound ) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : resultat dont on ne connait pas la thread fille dans GererNoeudDeParallelisme !!!!');
+              WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : resultat dont on ne connait pas la thread fille dans GererNoeudDeParallelisme !!!!');
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2913,7 +2913,7 @@ begin
           if ( resultStamp <> hashStamp ) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : (resultStamp <> hashStamp) dans GererNoeudDeParallelisme !!');
+              WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : (resultStamp <> hashStamp) dans GererNoeudDeParallelisme !!');
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2927,7 +2927,7 @@ begin
           if ( resultNumero <> nroNoeudParallele ) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( resultNumero <> nroNoeudParallele ) dans GererNoeudDeParallelisme !!');
+              WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : ( resultNumero <> nroNoeudParallele ) dans GererNoeudDeParallelisme !!');
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2940,7 +2940,7 @@ begin
           if ( nroThreadDuFils < 0 ) or ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( nroThreadDuFils < 0 ) or ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  nroThreadDuFils = ',nroThreadDuFils);
+              WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : ( nroThreadDuFils < 0 ) or ( nroThreadDuFils > kNombreMaxAlphaBetaTasks ) dans GererNoeudDeParallelisme !!  nroThreadDuFils = ',nroThreadDuFils);
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -2961,7 +2961,7 @@ begin
                 if ( valeur < -64 ) or ( valeur > 64 ) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : ( valeur < -64 ) or ( valeur > 64 ) dans GererNoeudDeParallelisme !!  valeur = ',valeur);
+                    WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : ( valeur < -64 ) or ( valeur > 64 ) dans GererNoeudDeParallelisme !!  valeur = ',valeur);
                     Sysbeep(0);
                     AttendreFrappeClavierParallelisme(true);
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3024,7 +3024,7 @@ begin
                       if DoitDebugguerParallelismeDansRapport then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WritelnDansRapport('Sortie par beta-coupure de la thread '+NumEnString(nroThreadDuPere)+' à profondeur '+NumEnString(nbreVides)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+                          WritelnDansRapport('Sortie par beta-coupure de la thread '+IntToStr(nroThreadDuPere)+' à profondeur '+IntToStr(nbreVides)+' : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
                           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
                           AttendreFrappeClavierParallelisme(true);
                           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3038,7 +3038,7 @@ begin
                       if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {beta-coupure} de GererNoeudDeParallelisme !!');
+                          WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : sortie prematureee {beta-coupure} de GererNoeudDeParallelisme !!');
                           Sysbeep(0);
                           AttendreFrappeClavierParallelisme(true);
                           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3074,7 +3074,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('Le resultat reçu à la prof '+NumEnString(nbreVides)+' ne semblant pas correspondre à la position, la thread '+NumEnString(nroThreadDuPere)+' ne voudrait pas déranger... -> sortie de GererNoeudDeParallelisme');
+            WritelnDansRapport('Le resultat reçu à la prof '+IntToStr(nbreVides)+' ne semblant pas correspondre à la position, la thread '+IntToStr(nroThreadDuPere)+' ne voudrait pas déranger... -> sortie de GererNoeudDeParallelisme');
             WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
             WritelnDansRapport('');
             AttendreFrappeClavierParallelisme(true);
@@ -3099,7 +3099,7 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('Sortie par interruption {3} de la thread '+NumEnString(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+              WritelnDansRapport('Sortie par interruption {3} de la thread '+IntToStr(nroThreadDuPere)+' : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
               WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3111,7 +3111,7 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
         if ((nroDuDernierFilsEvalue < filsDebut) or (nroDuDernierFilsEvalue > filsFin)) and (action = kEVALUER_TOUTE_LA_POSITION_EN_PARALLELE) then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('ASSERT (thread '+NumEnString(nroThreadDuPere)+') : sortie prematureee {3} de GererNoeudDeParallelisme !!');
+            WritelnDansRapport('ASSERT (thread '+IntToStr(nroThreadDuPere)+') : sortie prematureee {3} de GererNoeudDeParallelisme !!');
             Sysbeep(0);
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3175,7 +3175,7 @@ SORTIE :
     if DoitDebugguerParallelismeDansRapport then
       begin
         errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-        WritelnDansRapport('La thread '+NumEnString(nroThreadDuPere)+' sort normalement à la profondeur '+NumEnString(nbreVides)+' de GererNoeudDeParallelisme : (nroThreadDuPere,action) = ('+NumEnString(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
+        WritelnDansRapport('La thread '+IntToStr(nroThreadDuPere)+' sort normalement à la profondeur '+IntToStr(nbreVides)+' de GererNoeudDeParallelisme : (nroThreadDuPere,action) = ('+IntToStr(nroThreadDuPere)+','+NomActionDeParallelisme(action)+')');
         WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
         WritelnDansRapport('');
         AttendreFrappeClavierParallelisme(true);
@@ -3209,7 +3209,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       WritelnDansRapport('');
-      WriteDansRapport('Entree dans MySubTreeValue (nroThread, nroThreadPere) = (thread '+NumEnString(nroThread)+', thread '+NumEnString(nroThreadPere)+') : ');
+      WriteDansRapport('Entree dans MySubTreeValue (nroThread, nroThreadPere) = (thread '+IntToStr(nroThread)+', thread '+IntToStr(nroThreadPere)+') : ');
 
       {
       EcritBitboardState('',plat,nbreVides,alpha,beta,diffPions);
@@ -3241,7 +3241,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
      (* if DoitDebugguerParallelismeDansRapport then
         begin
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT : Bizarre ! La thread '+NumEnString(nroThread)+' est interrompue à profondeur '+NumEnString(nbreVides)+' dans MySubTreeValue avant meme d''avoir commencé son calcul...  gAlphaBetaInterrompu[nroThread].prof = ',gAlphaBetaInterrompu[nroThread].profInterruption);
+          WritelnNumDansRapport('ASSERT : Bizarre ! La thread '+IntToStr(nroThread)+' est interrompue à profondeur '+IntToStr(nbreVides)+' dans MySubTreeValue avant meme d''avoir commencé son calcul...  gAlphaBetaInterrompu[nroThread].prof = ',gAlphaBetaInterrompu[nroThread].profInterruption);
           WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
           WritelnDansRapport('');
           AttendreFrappeClavierParallelisme(true);
@@ -3262,7 +3262,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
 
       {$IFC AVEC_DEBUG_PARALLELISME}
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('Cool, interruption par hashStamp dans MySubTreeValue de la thread '+NumEnString(nroThread)+' pour whichHashStamp = ',whichHashStamp);
+      WritelnNumDansRapport('Cool, interruption par hashStamp dans MySubTreeValue de la thread '+IntToStr(nroThread)+' pour whichHashStamp = ',whichHashStamp);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
       {$ENDC}
 
@@ -3302,7 +3302,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
   if (( valeur < -64 ) or ( valeur > 64 )) and (valeur <> kValeurSpecialeInterruptionCalculParallele) and (valeur <> -kValeurSpecialeInterruptionCalculParallele) then
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-      WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : ( valeur < -64 ) or ( valeur > 64 ) dans MySubTreeValue !!  valeur = ',valeur);
+      WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : ( valeur < -64 ) or ( valeur > 64 ) dans MySubTreeValue !!  valeur = ',valeur);
       Sysbeep(0);
       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
     end;
@@ -3327,11 +3327,11 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
     begin
       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
       if ThreadEstInterrompue(nroThread, nbreVides)
-        then WriteDansRapport('INTERRUPTION, dans MySubTreeValue, de la thread '+NumEnString(nroThread))
-        else WriteDansRapport('MySubTreeValue : la thread '+NumEnString(nroThread)+' va bientôt renvoyer à la thread '+NumEnString(nroThreadPere)+' la valeur '+NumEnString(-valeur));
+        then WriteDansRapport('INTERRUPTION, dans MySubTreeValue, de la thread '+IntToStr(nroThread))
+        else WriteDansRapport('MySubTreeValue : la thread '+IntToStr(nroThread)+' va bientôt renvoyer à la thread '+IntToStr(nroThreadPere)+' la valeur '+IntToStr(-valeur));
 
       {$IFC AVEC_MESURE_MICROSECONDES}
-      WriteDansRapport(', après '+NumEnString(microSecondesFin.lo-microSecondesDepart.lo)+' µsec');
+      WriteDansRapport(', après '+IntToStr(microSecondesFin.lo-microSecondesDepart.lo)+' µsec');
       {$ENDC}
 
       WritelnDansRapport('');
@@ -3361,7 +3361,7 @@ begin
         if DoitDebugguerParallelismeDansRapport then
           begin
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnNumDansRapport('La thread '+NumEnString(nroThread)+' vient d''emettre une proposition de travail pour la profondeur ',profondeur);
+            WritelnNumDansRapport('La thread '+IntToStr(nroThread)+' vient d''emettre une proposition de travail pour la profondeur ',profondeur);
             WritelnDansRapport('     fonctionAppelante = EmettreUnePropositionDeTravail:' + fonctionAppelante);
             WritelnDansRapport('');
             AttendreFrappeClavierParallelisme(true);
@@ -3394,7 +3394,7 @@ begin
 
 
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('ASSERT : la thread '+NumEnString(nroThread)+' n''arrive pas a emettre une proposition de travail !!! ');
+            WritelnDansRapport('ASSERT : la thread '+IntToStr(nroThread)+' n''arrive pas a emettre une proposition de travail !!! ');
             WritelnDansRapport('    fonctionAppelante = EmettreUnePropositionDeTravail:' + fonctionAppelante);
             WritelnNumDansRapport('    proposition en cours = ',propositionEnCours);
             WritelnNumDansRapport('    profondeurProposition = ',profPropEnCours);
@@ -3497,7 +3497,7 @@ begin
                         then
                           begin
                             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                            WritelnDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (1) !!! ');
+                            WritelnDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (1) !!! ');
                             Sysbeep(0);
                             AttendreFrappeClavierParallelisme(true);
                             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3516,7 +3516,7 @@ begin
                         then
                           begin
                             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                            WritelnDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (2) !!! ');
+                            WritelnDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (2) !!! ');
                             Sysbeep(0);
                             AttendreFrappeClavierParallelisme(true);
                             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3535,7 +3535,7 @@ begin
                   then
                     begin
                       errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                      WritelnDansRapport('ASSERT (thread '+NumEnString(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (3) !!! ');
+                      WritelnDansRapport('ASSERT (thread '+IntToStr(nroThread)+') : impossible de remettre le mutex dans PrendrePropositionDeTravailDeCetteThread (3) !!! ');
                       Sysbeep(0);
                       AttendreFrappeClavierParallelisme(true);
                       errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3594,7 +3594,7 @@ begin
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('La thread '+NumEnString(nroThreadMaitre)+' vient de reserver la thread '+NumEnString(nroThreadEsclave)+' (esclave), j''incremente gNbreProcesseursCalculant : ',gNbreProcesseursCalculant);
+                    WritelnNumDansRapport('La thread '+IntToStr(nroThreadMaitre)+' vient de reserver la thread '+IntToStr(nroThreadEsclave)+' (esclave), j''incremente gNbreProcesseursCalculant : ',gNbreProcesseursCalculant);
                     AttendreFrappeClavierParallelisme(true);
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
@@ -3630,7 +3630,7 @@ begin
                 if DoitDebugguerParallelismeDansRapport then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnNumDansRapport('La thread '+NumEnString(nroThreadMaitre)+' vient de reserver la thread '+NumEnString(nroThreadEsclave)+' (esclave), j''incremente gNbreProcesseursCalculant : ',gNbreProcesseursCalculant);
+                    WritelnNumDansRapport('La thread '+IntToStr(nroThreadMaitre)+' vient de reserver la thread '+IntToStr(nroThreadEsclave)+' (esclave), j''incremente gNbreProcesseursCalculant : ',gNbreProcesseursCalculant);
                     AttendreFrappeClavierParallelisme(true);
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
@@ -3670,7 +3670,7 @@ begin
 
               // ASSERT : verification que le numero de la thread morte trouvee n'est pas debile !!!
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadMaitre)+') : (numeroThreadMorte < 0) or (numeroThreadMorte > kNombreMaxAlphaBetaTasks) dans PeutTrouverUneThreadDisponible !!!   numeroThreadMorte = ',numeroThreadMorte^);
+              WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadMaitre)+') : (numeroThreadMorte < 0) or (numeroThreadMorte > kNombreMaxAlphaBetaTasks) dans PeutTrouverUneThreadDisponible !!!   numeroThreadMorte = ',numeroThreadMorte^);
               Sysbeep(0);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3689,7 +3689,7 @@ begin
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('GESTION DES THREADS : La thread '+NumEnString(nroThreadMaitre)+' va essayer de réveiller la thread '+NumEnString(numeroThreadMorte^)+', qui semble etre en sommeil...');
+              WritelnDansRapport('GESTION DES THREADS : La thread '+IntToStr(nroThreadMaitre)+' va essayer de réveiller la thread '+IntToStr(numeroThreadMorte^)+', qui semble etre en sommeil...');
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
@@ -3705,7 +3705,7 @@ begin
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('GESTION DES THREADS : Cool, la thread '+NumEnString(nroThreadMaitre)+' a réussi à réveiller la thread '+NumEnString(numeroThreadMorte^)+' et incremente donc gNbreProcesseursCalculant');
+              WritelnDansRapport('GESTION DES THREADS : Cool, la thread '+IntToStr(nroThreadMaitre)+' a réussi à réveiller la thread '+IntToStr(numeroThreadMorte^)+' et incremente donc gNbreProcesseursCalculant');
               WritelnNumDansRapport('gNbreProcesseursCalculant = ',gNbreProcesseursCalculant);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3734,7 +3734,7 @@ begin
                 // changement du nombre de thread reveillees
                 {$IFC AVEC_DEBUG_PARALLELISME}
                 errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                WritelnNumDansRapport('GESTION DES THREADS : Dans PeutTrouverUneThreadDisponible, la thread '+NumEnString(nroThreadMaitre)+' vient d''incrementer gNbreThreadsReveillees = ',gNbreThreadsReveillees);
+                WritelnNumDansRapport('GESTION DES THREADS : Dans PeutTrouverUneThreadDisponible, la thread '+IntToStr(nroThreadMaitre)+' vient d''incrementer gNbreThreadsReveillees = ',gNbreThreadsReveillees);
                 AttendreFrappeClavierParallelisme(true);
                 errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                 {$ENDC}
@@ -3747,7 +3747,7 @@ begin
 
           // ASSERT : impossible de changer le semaphore de reveil dans PeutTrouverUneThreadDisponible !!!
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnNumDansRapport('ASSERT (thread '+NumEnString(nroThreadMaitre)+') : impossible de changer le semaphore de réveil dans PeutTrouverUneThreadDisponible !!!  numeroThreadMorte^ = ',numeroThreadMorte^);
+          WritelnNumDansRapport('ASSERT (thread '+IntToStr(nroThreadMaitre)+') : impossible de changer le semaphore de réveil dans PeutTrouverUneThreadDisponible !!!  numeroThreadMorte^ = ',numeroThreadMorte^);
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3796,7 +3796,7 @@ begin
         begin
           // ASSERT : la thread n'arrive pas a rendre son semaphore de travail !!!
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('ASSERT : la thread '+NumEnString(nroThread)+' n''arrive pas a rendre son semaphore de travail dans UnlockSemaphoreDeJob !!! ');
+          WritelnDansRapport('ASSERT : la thread '+IntToStr(nroThread)+' n''arrive pas a rendre son semaphore de travail dans UnlockSemaphoreDeJob !!! ');
           Sysbeep(0);
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3818,7 +3818,7 @@ begin
           begin
             // ASSERT : la thread n'arrive pas a rendre son semaphore de travail !!!
             errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-            WritelnDansRapport('ASSERT : la thread '+NumEnString(nroThread)+' n''arrive pas a reverrouiller son semaphore de travail dans RelockSemaphoreDeJob !!! ');
+            WritelnDansRapport('ASSERT : la thread '+IntToStr(nroThread)+' n''arrive pas a reverrouiller son semaphore de travail dans RelockSemaphoreDeJob !!! ');
             Sysbeep(0);
             AttendreFrappeClavierParallelisme(true);
             errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
@@ -3972,7 +3972,7 @@ begin
               if DoitDebugguerParallelismeDansRapport then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                  WritelnDansRapport('GESTION DES THREADS : La thread '+NumEnString(nroThread) + ' va se rendormir pour cause d''inactivite pendant 3 secondes');
+                  WritelnDansRapport('GESTION DES THREADS : La thread '+IntToStr(nroThread) + ' va se rendormir pour cause d''inactivite pendant 3 secondes');
                   errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
               {$ENDC}
@@ -3981,7 +3981,7 @@ begin
               // changement du nombre de thread reveillees
               {$IFC AVEC_DEBUG_PARALLELISME}
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnNumDansRapport('GESTION DES THREADS : Dans MyAlphaBetaTask, la thread '+NumEnString(nroThread)+' vient de décrementer gNbreThreadsReveillees = ',gNbreThreadsReveillees);
+              WritelnNumDansRapport('GESTION DES THREADS : Dans MyAlphaBetaTask, la thread '+IntToStr(nroThread)+' vient de décrementer gNbreThreadsReveillees = ',gNbreThreadsReveillees);
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
               {$ENDC}
@@ -3995,7 +3995,7 @@ begin
 
           {$IFC AVEC_DEBUG_PARALLELISME}
           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-          WritelnDansRapport('GESTION DES THREADS : Dans MyAlphaBetaTask, la thread '+NumEnString(nroThread)+' vient de se mettre dans la liste des threads mortes');
+          WritelnDansRapport('GESTION DES THREADS : Dans MyAlphaBetaTask, la thread '+IntToStr(nroThread)+' vient de se mettre dans la liste des threads mortes');
           AttendreFrappeClavierParallelisme(true);
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           {$ENDC}
@@ -4033,7 +4033,7 @@ begin
                      if DoitDebugguerParallelismeDansRapport then
                         begin
                           errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                          WritelnDansRapport('GESTION DES THREADS : La thread '+NumEnString(nroThread) + ' vient de jeter un oeil dans son sommeil et de traiter un vieux job');
+                          WritelnDansRapport('GESTION DES THREADS : La thread '+IntToStr(nroThread) + ' vient de jeter un oeil dans son sommeil et de traiter un vieux job');
                           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                         end;
                      {$ENDC}
@@ -4049,7 +4049,7 @@ begin
           if DoitDebugguerParallelismeDansRapport then
             begin
               errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-              WritelnDansRapport('GESTION DES THREADS : La thread '+NumEnString(nroThread)+' dit : « Coucou, je me reveille, what''s up ? »');
+              WritelnDansRapport('GESTION DES THREADS : La thread '+IntToStr(nroThread)+' dit : « Coucou, je me reveille, what''s up ? »');
               AttendreFrappeClavierParallelisme(true);
               errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
             end;
@@ -4164,7 +4164,7 @@ begin
                 if jeVaisMeRendormir and not(Quitter) and not(CetteThreadEstTuee(nroThread)) then
                   begin
                     errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                    WritelnDansRapport('ASSERT : Dans MyAlphaBetaTask, la thread '+NumEnString(nroThread)+' va se rendormir alors qu''elle n''a pas de proposition de travail emise... Dommage !!');
+                    WritelnDansRapport('ASSERT : Dans MyAlphaBetaTask, la thread '+IntToStr(nroThread)+' va se rendormir alors qu''elle n''a pas de proposition de travail emise... Dommage !!');
                     AttendreFrappeClavierParallelisme(true);
                     errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                   end;
@@ -4583,7 +4583,7 @@ begin
          (*
           for i := 0 to kNombreMaxAlphaBetaTasks do
             begin
-              s := 'etat de la thread '+NumEnString(i)+' = ';
+              s := 'etat de la thread '+IntToStr(i)+' = ';
 
               WriteNumAt('                                                                                                                          ',0,365,300+i*10);
               WriteNumAt(s,gAlphaBetaTasksData^[i].etat,365,300+i*10);
@@ -4599,7 +4599,7 @@ begin
 
           for i := 0 to kNombreDeProfilersDuParallelisme do
             begin
-              s := 'gProfilerParallelisme['+NumEnString(i)+'] = ';
+              s := 'gProfilerParallelisme['+IntToStr(i)+'] = ';
 
               WriteNumAt(s,gProfilerParallelisme[i],15,300+i*10);
             end;
@@ -4607,7 +4607,7 @@ begin
 
           for i := 0 to kNombreMaxAlphaBetaTasks do
             begin
-              s := 'gFileDesResultats['+NumEnString(i)+'] = ';
+              s := 'gFileDesResultats['+IntToStr(i)+'] = ';
 
               WriteNumAt(s,gFileDesResultats[i].cardinal,225,300+i*10);
             end;

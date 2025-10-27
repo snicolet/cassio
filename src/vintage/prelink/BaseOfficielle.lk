@@ -37,7 +37,6 @@ function TrouveNumeroDuJoueur(const nomJoueur : String255; var numeroJoueur, con
 function GetNroJoueurDansSonFichier(nroJoueur : SInt32) : SInt32;     external;
 procedure MyFabriqueNomJoueurPourBaseWThorOfficielle(var nom : String255; var result : t_JoueurRecNouveauFormat);     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function EcritJoueurNouveauFormat(refnum : SInt16; nroJoueur : SInt32; thePlayer : t_JoueurRecNouveauFormat) : OSErr;     external;
 function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;     external;
 procedure AjouterJoueurEnMemoire(joueur : String255; numeroEnMemoire,numeroDansSonFichier : SInt32);     external;

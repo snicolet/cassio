@@ -783,8 +783,8 @@ begin
   for j := 30 to 60 do
     with analyseRetrograde do
       begin
-        s1 := NumEnString(i);
-        s := NumEnString(j);
+        s1 := IntToStr(i);
+        s := IntToStr(j);
         WritelnNumDansRapport('demande['+s+','+s1+'].genre = ',demande[j,i].genre);
         WritelnNumDansRapport('demande['+s+','+s1+'].tempsAlloueParCoup = ',demande[j,i].tempsAlloueParCoup);
         {WritelnNumDansRapport('demande['+s+','+s1+'].profondeur = ',demande[j,i].profondeur);}
@@ -815,7 +815,7 @@ begin
    otherwise
      begin
        passeStr := ReadStringFromRessource(TextesRetrogradeID,32);  {"passe numŽro ^0"}
-       passeStr := ParamStr(passeStr,NumEnString(numeroPasse),'','','');
+       passeStr := ParamStr(passeStr,IntToStr(numeroPasse),'','','');
      end;
  end; {case}
  s := ReadStringFromRessource(TextesRetrogradeID,2); {'analyse rŽtrograde de la partie"}
@@ -1067,7 +1067,7 @@ begin
         bidbool := Amelioration(ReflParfait,NIL,-1000,0,nouveauScore,nouveauCoup);
         analyseRetrograde.enCours := true;
 
-        s1 := NumEnString(nbreCoup+1);
+        s1 := IntToStr(nbreCoup+1);
         s2 := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,false,0);
         if AQuiDeJouer = pionNoir
           then scoreOptimalPourNoir := nouveauScore
@@ -1079,7 +1079,7 @@ begin
         if (interruptionReflexion = pasdinterruption)
           then s2 := s1+CharToString('.')+s2
           else s2 := '?????';
-        s1 := NumEnString(nbreCoup);
+        s1 := IntToStr(nbreCoup);
         s := ReadStringFromRessource(TextesRetrogradeID,3);
         s := ParamStr(s,s1,s2,'','');
         GetCurrentScript(oldScript);
@@ -1096,8 +1096,8 @@ begin
         s := ReadStringFromRessource(TextesRetrogradeID,1);  {###################################}
         WritelnDansRapportSync(s,false);
         AnnonceAnalyseRetrogradeDansRapport(numeroPasse);
-        s1 := NumEnString(nbreDePions[pionNoir]);
-        s2 := NumEnString(nbreDePions[pionBlanc]);
+        s1 := IntToStr(nbreDePions[pionNoir]);
+        s2 := IntToStr(nbreDePions[pionBlanc]);
         s := ReadStringFromRessource(TextesRetrogradeID,4);
         s := ParamStr(s,s1+CharToString('-')+s2,'','','');
         WritelnDansRapportSync(s,false);
@@ -1234,7 +1234,7 @@ begin
   TextNormalDansRapport;
   ChangeFontSizeDansRapport(gCassioRapportNormalSize);
 
-  s := NumEnString(numeroCoupVerifie);
+  s := IntToStr(numeroCoupVerifie);
   s := s + CharToString('.')+CoupEnString(coupVerifie,CassioUtiliseDesMajuscules);
   coupVerifieString := s;
 
@@ -1309,7 +1309,7 @@ begin
 			        if nbPionsPerdus > 1
 			          then
 			            begin
-			              s2 := NumEnString(nbPionsPerdus);
+			              s2 := IntToStr(nbPionsPerdus);
 			              if AQuiDeJouer = pionNoir
 			                then s1 := ReadStringFromRessource(TextesRetrogradeID,14)  {Noir perd ^0 pions}
 			                else s1 := ReadStringFromRessource(TextesRetrogradeID,19); {Blanc perd ^0 pions}
@@ -1356,7 +1356,7 @@ begin
 
   s := Concat(s,chr(0));  {Žnorme astuce pour contourner le bug de TextEdit sous MacOSX : le chr(0) sera invisible, c'est parfais !}
   InsereStringDansRapport(s);
-  s2 := NumEnString(numeroCoupVerifie);
+  s2 := IntToStr(numeroCoupVerifie);
 
   {
   InsereStringDansRapport(' ');
@@ -1388,7 +1388,7 @@ begin
                   if (nbPionsPerdus > 1)
                     then s := ReadStringFromRessource(TextesRetrogradeID,39) {'^0 faisait ^1 pions de plus et ^2'}
                     else s := ReadStringFromRessource(TextesRetrogradeID,38);{'^0 faisait un pion de plus et ^2'}
-              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
+              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),IntToStr(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
               TextNormalDansRapport;
               if AQuiDeJouer = pionNoir
                 then ChangeFontColorDansRapport(MarineCmd)
@@ -1400,7 +1400,7 @@ begin
         positionInsertionLocale := GetPositionPointDinsertion+1;
         chaineMeilleureSuite := MeilleureSuiteInfosEnChaine(1,true,true,CassioUtiliseDesMajuscules,false,0);
         EnleveEspacesDeGaucheSurPlace(chaineMeilleureSuite);
-        s := NumEnString(numeroCoupVerifie);
+        s := IntToStr(numeroCoupVerifie);
         PositionnePointDinsertion(positionInsertionLocale);
         ChangeFontSizeDansRapport(gCassioRapportSmallSize);
         InsereStringlnDansRapport('     '+s+CharToString('.')+chaineMeilleureSuite);
@@ -1426,7 +1426,7 @@ begin
               if (nbPionsPerdus > 1)
                 then s := ReadStringFromRessource(TextesRetrogradeID,37)  {'^0 faisait ^1 pions de plus et annulait'}
                 else s := ReadStringFromRessource(TextesRetrogradeID,36); {'^0 faisait un pion de plus et annulait'}
-              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),NumEnString(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
+              s := ParamStr(s,s2+CharToString('.')+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules),IntToStr(nbPionsPerdus),scoreOptimalEnChaine,'') + ' ';
 
               if AQuiDeJouer = pionNoir
                 then ChangeFontColorDansRapport(MarineCmd)
@@ -1457,7 +1457,7 @@ begin
         positionInsertionLocale := GetPositionPointDinsertion+1;
         chaineMeilleureSuite := MeilleureSuiteEtNoteEnChaine(AQuiDeJouer,nouveauScore,InfosDerniereReflexionMac.prof);
         EnleveEspacesDeGaucheSurPlace(chaineMeilleureSuite);
-        s := NumEnString(numeroCoupVerifie);
+        s := IntToStr(numeroCoupVerifie);
         PositionnePointDinsertion(positionInsertionLocale);
         ChangeFontSizeDansRapport(gCassioRapportSmallSize);
         InsereStringlnDansRapport('     '+chaineMeilleureSuite);
@@ -1514,7 +1514,7 @@ begin
               s := Concat('   ',s,NoteEnString(-scorePourNoir,true,0,2));
             end;
         if nouveauCoup <> coupVerifie then
-          s := s + '  ('+NumEnString(numeroDuCoupVerifie)+'.'+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules)+'!?)';
+          s := s + '  ('+IntToStr(numeroDuCoupVerifie)+'.'+CoupEnString(nouveauCoup,CassioUtiliseDesMajuscules)+'!?)';
 
         GetCurrentScript(oldScript);
         PositionnePointDinsertion(positionInsertionLocale);

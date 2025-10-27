@@ -24,7 +24,6 @@ function NoircirCouleurDeCetteQuantite(theColor : RGBColor; quantite : SInt32) :
   procedure MyEraseRect(const (*var*) r : Rect);     external;
   procedure DisableQuartzAntiAliasingThisPort(port : CGrafPtr);     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function StringWidthPourGNUPascal(const s : String255): SInt16;     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;
   procedure EnableQuartzAntiAliasingThisPort(port : CGrafPtr; useQuartzMetrics : boolean);     external;

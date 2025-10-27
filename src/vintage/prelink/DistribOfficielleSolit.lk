@@ -12,7 +12,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function OuvreFichierNouveauFormat(numFichier : SInt16) : OSErr;     external;
 function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;     external;
 function NbCasesVidesDeCeFichierSolitairesNouveauFormat(numeroFichier : SInt16) : SInt16;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SetNbSolitairesEtNbCasesVidesDansEntete(var entete : t_EnTeteNouveauFormat; nbSolitaires : SInt32; nbCasesVides : SInt16);     external;
 function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;

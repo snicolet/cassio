@@ -38,7 +38,6 @@ function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;     ext
 procedure AbaisseGradientPatternsRares(var whichEval,whichGradient,whichOccurences : VectNewEval; valeurMaxPattern,RapportMaxValeurSurOccurence : TypeReel);     external;
 procedure CopierOpposeVecteurEval(var source,dest : VectNewEval);     external;
 procedure CopierVecteurEval(var source,dest : VectNewEval);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function EcritEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;     external;
 procedure EcritQuelsquesPositionsPartieAleatoireDansListe;     external;
 function ProduitScalaireVecteurEval(var p1,p2 : VectNewEval) : TypeReel;     external;

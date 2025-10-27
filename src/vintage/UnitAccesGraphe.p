@@ -704,7 +704,7 @@ begin
             then
               begin
                 fichier^.nbCellules := numCellule;
-                {WritelnDansRapport('## Ajout d''une cellule dans le graphe (#'+NumEnString(numCellule)+') ##');}
+                {WritelnDansRapport('## Ajout d''une cellule dans le graphe (#'+IntToStr(numCellule)+') ##');}
               end
             else
               begin
@@ -730,8 +730,8 @@ var couleur,trait : SInt16;
 begin
   with cellule do
     begin
-      WritelnDansRapport('-------------- #'+NumEnString(num)+'# -----------------');
-      WriteDansRapport('   '+NumEnString(GetNumeroCoup(cellule))+CharToString('.')+CoupEnStringEnMajuscules(GetCoup(cellule)));
+      WritelnDansRapport('-------------- #'+IntToStr(num)+'# -----------------');
+      WriteDansRapport('   '+IntToStr(GetNumeroCoup(cellule))+CharToString('.')+CoupEnStringEnMajuscules(GetCoup(cellule)));
       couleur := GetCouleur(cellule);
       case couleur of
         Noir :WriteDansRapport('    couleur = Noir');
@@ -746,41 +746,41 @@ begin
       end; {case}
 
       {on affiche le pere}
-      WriteDansRapport('   pere = '+NumEnString(pere));
+      WriteDansRapport('   pere = '+IntToStr(pere));
       if (pere <> 0) and (pere <> PasDePere) then
         begin
           LitCellule(fichier,pere,celluleAux);
-          WriteDansRapport('               ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
+          WriteDansRapport('               ('+IntToStr(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
 
       {on affiche le frere}
-      WriteDansRapport('   frere = '+NumEnString(frere));
+      WriteDansRapport('   frere = '+IntToStr(frere));
       if (frere <> 0) and (frere <> num) then
         begin
           LitCellule(fichier,frere,celluleAux);
-          WriteDansRapport('             ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
+          WriteDansRapport('             ('+IntToStr(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
 
       {on affiche le fils}
-      WriteDansRapport('   fils = '+NumEnString(fils));
+      WriteDansRapport('   fils = '+IntToStr(fils));
       if (fils <> 0) and (fils <> PasDeFils) then
         begin
           LitCellule(fichier,fils,celluleAux);
-          WriteDansRapport('                 ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
+          WriteDansRapport('                 ('+IntToStr(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
 
       {on affiche le memePosition}
-      WriteDansRapport('   memePosition = '+NumEnString(memePosition));
+      WriteDansRapport('   memePosition = '+IntToStr(memePosition));
       if (memePosition <> 0) and (memePosition <> num) then
         begin
           LitCellule(fichier,memePosition,celluleAux);
-          WriteDansRapport('     ('+NumEnString(GetNumeroCoup(celluleAux))+CharToString('.')+
+          WriteDansRapport('     ('+IntToStr(GetNumeroCoup(celluleAux))+CharToString('.')+
                                  CoupEnStringEnMajuscules(GetCoup(celluleAux))+')');
         end;
       WritelnDansRapport('');
@@ -816,8 +816,8 @@ begin
       WritelnNumDansRapport('   valeurHeuristiquePourNoir = ',GetValeurHeuristiquePourNoir(cellule));
 
 
-      WritelnDansRapport('   profondeur = '+NumEnString(GetProfondeur(cellule)));
-      WritelnDansRapport('   version = '+NumEnString(GetVersion(cellule)));
+      WritelnDansRapport('   profondeur = '+IntToStr(GetProfondeur(cellule)));
+      WritelnDansRapport('   version = '+IntToStr(GetVersion(cellule)));
 
     end;
 end;

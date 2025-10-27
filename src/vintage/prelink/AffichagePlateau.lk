@@ -60,7 +60,6 @@ function GetBoundingRect3D(whichSquare : SInt16) : rect;     external;
 function GetOthellier3DVistaBuffer : rect;     external;
 	function MyTrunc(x : double) : SInt32;     external;
 function EclaircirCouleur(theColor : RGBColor) : RGBColor;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetCouleurOfSquareDansJeuCourant(whichSquare : SInt32) : SInt32;     external;
 function GetCurrentNode : GameTree;     external;
 procedure AfficheProprietesOfCurrentNode(dessinerAideDebutantSiNecessaire : boolean; surQuellesCases : SquareSet; const fonctionAppelante : String255);     external;

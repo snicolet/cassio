@@ -14,7 +14,6 @@ function NbCoinsPrenables(coul : SInt32; var plat : plateauOthello) : SInt32;   
 function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 procedure WritelnStringAndCoupDansRapport(s : String255; square : SInt16);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure SetTraitOfPosition(var position : PositionEtTraitRec; trait : SInt32);     external;
 function NbCoins(coul : SInt32; var plat : plateauOthello) : SInt32;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;

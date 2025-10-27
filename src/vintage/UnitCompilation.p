@@ -1302,7 +1302,7 @@ var lecture : LectureModulePtr;
                     if (nombreModulesEcrit > 0) then err := WriteDansFichierTexte(duplication,', ');
                     ChangeFontColorDansRapport(VertCmd);
 
-                    err := WriteDansFichierTexte(duplication,moduleName {+ '['+NumEnString(k)+']'});
+                    err := WriteDansFichierTexte(duplication,moduleName {+ '['+IntToStr(k)+']'});
 
                     if ((nombreModulesEcrit + 1) mod 8) = 0 then
                        err := WriteDansFichierTexte(duplication,chr(10)+'    ');
@@ -2054,7 +2054,7 @@ begin
       if (nombreLignesTropLongues > 0) then
         begin
           ChangeFontFaceDansRapport(bold);
-          WritelnDansRapport('Le fichier '+fileName+' contient '+NumEnString(nombreLignesTropLongues) + ' lignes trop longues');
+          WritelnDansRapport('Le fichier '+fileName+' contient '+IntToStr(nombreLignesTropLongues) + ' lignes trop longues');
           TextNormalDansRapport;
           WritelnDansRapport('');
         end;
@@ -2062,7 +2062,7 @@ begin
       if (nombreDeclarationsIndues > 0) then
         begin
           ChangeFontFaceDansRapport(bold);
-          WritelnDansRapport('Le fichier '+fileName+' contient '+NumEnString(nombreDeclarationsIndues) + ' declarations de types ou de globales');
+          WritelnDansRapport('Le fichier '+fileName+' contient '+IntToStr(nombreDeclarationsIndues) + ' declarations de types ou de globales');
           TextNormalDansRapport;
           WritelnDansRapport('');
         end;

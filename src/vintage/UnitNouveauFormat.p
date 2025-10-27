@@ -571,7 +571,7 @@ begin
                 if posXXXX > 0 then
                   begin
                     DeleteString(s,posXXXX,4);
-                    Insert(NumEnString(annee), s, posXXXX);
+                    Insert(IntToStr(annee), s, posXXXX);
                   end;
                 if typeDonnees = kFicIndexPartiesNouveauFormat then s := NomFichierIndexAssocieNouveauFormat(s);
               end
@@ -884,7 +884,7 @@ begin
 	    end
 	  else
 	    begin
-	      WritelnDansRapportThreadSafe('WARNING  !!  Maximum number of database distributions reached (' + NumEnString(nbMaxDistributions) + ')');
+	      WritelnDansRapportThreadSafe('WARNING  !!  Maximum number of database distributions reached (' + IntToStr(nbMaxDistributions) + ')');
 	    end;
 end;
 
@@ -1126,7 +1126,7 @@ begin
      end
    else
 	   begin
-	     WritelnDansRapportThreadSafe('WARNING  !!  Maximum number of database files reached (' + NumEnString(nbMaxFichiersNouveauFormat) + ')');
+	     WritelnDansRapportThreadSafe('WARNING  !!  Maximum number of database files reached (' + IntToStr(nbMaxFichiersNouveauFormat) + ')');
 	   end;
   AjouterFichierNouveauFormat := ok;
 end;
@@ -1578,7 +1578,7 @@ begin
         begin
           for k := 1977 to 2020 do
             if result <= 0 then
-              result := GetNroPremierFichierAvecCeNom('WTH_'+NumEnString(k)+'.wtb');
+              result := GetNroPremierFichierAvecCeNom('WTH_'+IntToStr(k)+'.wtb');
 
 
           if result <= 0 then
@@ -2111,7 +2111,7 @@ begin
 		            for nroJoueur := decalageDansCeFichierDeJoueurs+nbJoueursDansCeFichier to decalageProchainFichier-1 do
 		              begin
 		                inc(nbJoueursFictifs);
-		                joueurFictif := '¥¥ Fictif n¡'+NumEnString(nbJoueursFictifs);
+		                joueurFictif := '¥¥ Fictif n¡'+IntToStr(nbJoueursFictifs);
 
 		                AjouterJoueurEnMemoire(joueurFictif,nroJoueur,0);
 		              end;
@@ -2253,7 +2253,7 @@ begin
                     nouveauNom := association[t].newName;
                     TraduitNomJoueurEnMac(nouveauNom,nouveauNom);
 
-                    s := 'PLAYER #' + NumEnString(GetNroJoueurDansSonFichier(k)) + ' TRANSLATED : '+GetNomJoueur(k) + ' ==> ' + nouveauNom;
+                    s := 'PLAYER #' + IntToStr(GetNroJoueurDansSonFichier(k)) + ' TRANSLATED : '+GetNomJoueur(k) + ' ==> ' + nouveauNom;
                     if not(MemberOfStringSet(s,position,modificationsAffichees)) then
                       begin
                         WritelnDansRapport(s);
@@ -2372,7 +2372,7 @@ begin
 		            for nroTournoi := decalageDansCeFichierDeTournois+nbTournoisDansCeFichier to decalageProchainFichier-1 do
 		              begin
 		                inc(nbTournoisFictifs);
-		                tournoiFictif := '¥¥ Fictif n¡'+NumEnString(nbTournoisFictifs);
+		                tournoiFictif := '¥¥ Fictif n¡'+IntToStr(nbTournoisFictifs);
 
 		                AjouterTournoiEnMemoire(tournoiFictif,nroTournoi,0);
 		              end;
@@ -2814,7 +2814,7 @@ begin
   if (codeErreur <> NoErr) then
     begin
       s := ReadStringFromRessource(TextesNouveauFormatID,1);
-      AlerteSimple(ParamStr(s,NumEnString(codeErreur),'','',''));
+      AlerteSimple(ParamStr(s,IntToStr(codeErreur),'','',''));
       MetJoueursEtTournoisEnMemoire := codeErreur;
     end;
 
@@ -2825,7 +2825,7 @@ begin
   if (codeErreur <> NoErr) then
     begin
       s := ReadStringFromRessource(TextesNouveauFormatID,2);
-      AlerteSimple(ParamStr(s,NumEnString(codeErreur),'','',''));
+      AlerteSimple(ParamStr(s,IntToStr(codeErreur),'','',''));
       MetJoueursEtTournoisEnMemoire := codeErreur;
     end;
   JoueursEtTournoisEnMemoire := joueursEnMemoire and tournoisEnMemoire;
@@ -2843,7 +2843,7 @@ begin
         begin
           for n := 0 to nbJoueursNouveauFormat-1 do
             begin
-              s30 := 'joueur #'+NumEnString(n);
+              s30 := 'joueur #'+IntToStr(n);
               SetNomJoueur(n,s30);
             end;
         end;
@@ -2863,7 +2863,7 @@ begin
         begin
           for n := 0 to nbTournoisNouveauFormat-1 do
             begin
-              s30 := 'Tournoi #'+NumEnString(n);
+              s30 := 'Tournoi #'+IntToStr(n);
               SetNomTournoi(n,s30);
             end;
         end;
@@ -2998,7 +2998,7 @@ begin
   with DistributionsNouveauFormat do
     if (nroDistrib >= 1) and (nroDistrib <= nbDistributions) then
       Distribution[nroDistrib].decalageNrosJoueurs := decalage;
-  {WritelnNumDansRapport('decalage distrib n¡'+NumEnString(nroDistrib)+' = ',decalage);}
+  {WritelnNumDansRapport('decalage distrib n¡'+IntToStr(nroDistrib)+' = ',decalage);}
 end;
 
 function  GetDecalageNrosJoueursOfDistribution(nroDistrib : SInt16) : SInt64;
@@ -3184,7 +3184,7 @@ begin
 	        if codeErreur <> NoErr
 	          then
 	            begin
-	              s := Concat('WARNING : LitFichierIndexNouveauFormat : erreur ' , NumEnString(codeErreur));
+	              s := Concat('WARNING : LitFichierIndexNouveauFormat : erreur ' , IntToStr(codeErreur));
 	              TraceLog(s);
 	            end;
 

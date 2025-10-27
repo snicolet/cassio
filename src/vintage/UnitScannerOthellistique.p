@@ -294,7 +294,7 @@ begin
 			     if (coup <> 0) then
   			     begin
   			       ok := (UpdatePositionEtTrait(positionEtTrait, coup));
-  			       {WritelnStringAndBoolDansRapport(NumEnString(t)+'.'+CoupEnString(ord(game[t]),true)+' ('+NumEnString(ord(game[t]))+') => ',ok);}
+  			       {WritelnStringAndBoolDansRapport(IntToStr(t)+'.'+CoupEnString(ord(game[t]),true)+' ('+IntToStr(ord(game[t]))+') => ',ok);}
   			       if not(ok) then
   			         begin {partie illegale}
   			           PeutCalculerScoreFinalDeCettePartie := false;

@@ -539,13 +539,13 @@ begin
   nombreDeSecondes := centiemesDeSeconde div 100;
   centiemesDeSeconde := centiemesDeSeconde mod 100;
 
-  s := '[tick = '+NumEnString(nombreDeSecondes mod 1000)+'.';
+  s := '[tick = '+IntToStr(nombreDeSecondes mod 1000)+'.';
 
   if centiemesDeSeconde < 10
-    then s := s + '0' + NumEnString(centiemesDeSeconde) else
+    then s := s + '0' + IntToStr(centiemesDeSeconde) else
   if centiemesDeSeconde < 100
-    then s := s + NumEnString(centiemesDeSeconde)
-    else s := s + NumEnString(centiemesDeSeconde);
+    then s := s + IntToStr(centiemesDeSeconde)
+    else s := s + IntToStr(centiemesDeSeconde);
 
   s := s + 's ] ';
 
@@ -554,7 +554,7 @@ end;
 
 procedure WritelnFenetreAlphaBetaDansRapport(alpha,beta : SInt32);
 begin
-  WritelnDansRapport('[alpha,beta] = ['+NumEnString(alpha)+','+NumEnString(beta)+']');
+  WritelnDansRapport('[alpha,beta] = ['+IntToStr(alpha)+','+IntToStr(beta)+']');
 end;
 
 
@@ -1601,7 +1601,7 @@ begin
               if (numeroLibre >= 0) and (numeroLibre <= kNumberOfAsynchroneNetworkConnections) then
                 begin
 
-                  randomURL := MakeLongString('http://foo.Random16()'+NumEnString(abs(Random32()))+'.bar' + '?rand=' + NumEnString(abs(Random32())));
+                  randomURL := MakeLongString('http://foo.Random16()'+IntToStr(abs(Random32()))+'.bar' + '?rand=' + IntToStr(abs(Random32())));
 
                   infoNetworkConnection := randomURL;
 
@@ -1748,7 +1748,7 @@ begin
               begin
 
                 if FindStringInLongString('rand=', requete) <= 0 then
-                  AppendToLongString(requete, '&rand=' + NumEnString(abs(Random32())));
+                  AppendToLongString(requete, '&rand=' + IntToStr(abs(Random32())));
 
 
                 infoNetworkConnection := requete;
@@ -1880,7 +1880,7 @@ begin
 
 
             // on met les resultats (score, suite, etc) dans l'url de la reponse
-            AppendToLongString(requete, '&score=' + NumEnString(score));
+            AppendToLongString(requete, '&score=' + IntToStr(score));
 
             if (outBestMoveFinale >= 11) and
                (outBestMoveFinale <= 88) and
@@ -1932,7 +1932,7 @@ begin
           end
         else
           begin
-            ZooPrintWarning('ASSERT (score = '+NumEnString(score)+') dans EnvoyerResultatDuCalculAuZoo');
+            ZooPrintWarning('ASSERT (score = '+IntToStr(score)+') dans EnvoyerResultatDuCalculAuZoo');
           end;
 
     end;
@@ -1988,7 +1988,7 @@ begin
   *)
 
   requete := MakeLongString(gZoo.urlDuZoo + '?action=I_CANT_SOLVE'
-                                          + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio)
+                                          + '&asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio)
                                           + '&hash=' + UInt64ToHexa(whichHash)
                                           + '&status=' + reason);
 
@@ -2105,7 +2105,7 @@ begin
 
   if (selectivite <= 0) or (selectivite >= 100) then selectivite := 100;
 
-  mu := '0,'+NumEnString(kDeltaFinaleInfini);
+  mu := '0,'+IntToStr(kDeltaFinaleInfini);
 
   distMin := 1000000;
   for i := 1 to nbreDeltaSuccessifs do
@@ -2114,7 +2114,7 @@ begin
       if (dist < distMin) then
       begin
         distMin := dist;
-        mu := '0,'+ NumEnString(deltaSuccessifs[i].valeurDeMu);
+        mu := '0,'+ IntToStr(deltaSuccessifs[i].valeurDeMu);
       end;
     end;
 
@@ -2144,7 +2144,7 @@ begin
       if (dist < distMin) then
       begin
         distMin := dist;
-        cut := NumEnString(deltaSuccessifs[i].selectiviteZebra) ;
+        cut := IntToStr(deltaSuccessifs[i].selectiviteZebra) ;
       end;
     end;
 
@@ -3430,7 +3430,7 @@ begin
 
   DIscard(fonctionAppelante);
 
-  // urlParams := urlParams + 'rand=' + NumEnString(Abs(Random32()));
+  // urlParams := urlParams + 'rand=' + IntToStr(Abs(Random32()));
 
 
   s := 'pos=';
@@ -3456,14 +3456,14 @@ begin
         otherwise s := s + '-';
       end;
 
-      s := s + '&window=' + NumEnString(inAlphaFinale) + ',' + NumEnString(inBetaFinale);
+      s := s + '&window=' + IntToStr(inAlphaFinale) + ',' + IntToStr(inBetaFinale);
 
-      mu := NumEnString(inMuMinimumFinale) + ',' + NumEnString(inMuMaximumFinale);
+      mu := IntToStr(inMuMinimumFinale) + ',' + IntToStr(inMuMaximumFinale);
       cut := MuStringEnProbCutStringDuZoo(mu);
 
       s := s + '&cut=' + cut;
 
-      s := s + '&depth=' + NumEnString(inProfondeurFinale);
+      s := s + '&depth=' + IntToStr(inProfondeurFinale);
 
 
       calculatedHash := HashString63Bits(s);
@@ -3491,9 +3491,9 @@ begin
 
       s := 'hash=' + UInt64ToHexa(inHashValue) + '&' + s;
 
-      s := s + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio);
+      s := s + '&asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio);
 
-      s := s + '&priority=' + NumEnString(inPrioriteFinale);
+      s := s + '&priority=' + IntToStr(inPrioriteFinale);
 
       urlParams := urlParams + s;
 
@@ -3668,7 +3668,7 @@ begin
 
         hashCalculCourant := HashDuCalculCourantDeCassioPourLeZoo;
 
-        requete := MakeLongString(urlDuZoo + '?action=STILL_PREFETCHED&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+        requete := MakeLongString(urlDuZoo + '?action=STILL_PREFETCHED&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
 
         nbPrefetchedChecked := 0;
 
@@ -3682,7 +3682,7 @@ begin
                   inc(nbPrefetchedChecked);
                   if (nbPrefetchedChecked = 1)
                     then AppendToLongString(requete , '&hash='                                      + UInt64ToHexa(gCacheDesPrefetch[k].hashValue))
-                    else AppendToLongString(requete , '&h' + NumEnString(nbPrefetchedChecked) + '=' + UInt64ToHexa(gCacheDesPrefetch[k].hashValue));
+                    else AppendToLongString(requete , '&h' + IntToStr(nbPrefetchedChecked) + '=' + UInt64ToHexa(gCacheDesPrefetch[k].hashValue));
 
                 end;
 
@@ -3703,7 +3703,7 @@ begin
                 inc(nbPrefetchedChecked);
                 if (nbPrefetchedChecked = 1)
                   then AppendToLongString(requete , '&hash='                                      + hashDuPrefetchActuel)
-                  else AppendToLongString(requete , '&h' + NumEnString(nbPrefetchedChecked) + '=' + hashDuPrefetchActuel);
+                  else AppendToLongString(requete , '&h' + IntToStr(nbPrefetchedChecked) + '=' + hashDuPrefetchActuel);
               end;
 
             if not(HashValueDuZooEstCorrecte(GetHashValueOfPositionPrefetched)) then
@@ -3739,7 +3739,7 @@ begin
 
       (* WritelnDansRapport(fonctionAppelante); *)
 
-      requete := MakeLongString(urlDuZoo + '?action=I_QUIT&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+      requete := MakeLongString(urlDuZoo + '?action=I_QUIT&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
 
       EnvoyerUneRequeteAuZoo(requete);
 
@@ -3757,7 +3757,7 @@ begin
     if (whichHashes <> '') then
       begin
 
-        requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+        requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
         AppendToLongString(requete , whichHashes);
 
 
@@ -3774,14 +3774,14 @@ begin
     if HashValueDuZooEstCorrecte(whichHash) then
       begin
 
-        requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+        requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
         AppendToLongString(requete , '&hash=' + UInt64ToHexa(whichHash));
 
 
         if (NombreDeResultatsEnAttenteSurLeZoo > 0)
           then
             begin
-              requete := MakeLongString(urlDuZoo + '?action=STOP_AND_GET_RESULTS&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+              requete := MakeLongString(urlDuZoo + '?action=STOP_AND_GET_RESULTS&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
               AppendToLongString(requete , '&hash=' + UInt64ToHexa(whichHash));
               AppendToLongString(requete , '&date=' + GetLastTimestampOfResultSurLeZoo);
 
@@ -3789,7 +3789,7 @@ begin
             end
           else
             begin
-              requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+              requete := MakeLongString(urlDuZoo + '?action=STOP&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
               AppendToLongString(requete , '&hash=' + UInt64ToHexa(whichHash));
             end;
 
@@ -3811,7 +3811,7 @@ begin
         if (NombreDeResultatsEnAttenteSurLeZoo > 0)
           then
             begin
-              requete := MakeLongString(urlDuZoo + '?action=ASKER_TAKES_IT_AND_GET_RESULTS&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+              requete := MakeLongString(urlDuZoo + '?action=ASKER_TAKES_IT_AND_GET_RESULTS&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
               AppendToLongString(requete , whichHashes);
               AppendToLongString(requete , '&date=' + GetLastTimestampOfResultSurLeZoo);
 
@@ -3819,7 +3819,7 @@ begin
             end
           else
             begin
-              requete := MakeLongString(urlDuZoo + '?action=ASKER_TAKES_IT&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+              requete := MakeLongString(urlDuZoo + '?action=ASKER_TAKES_IT&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
               AppendToLongString(requete , whichHashes);
             end;
 
@@ -3836,7 +3836,7 @@ begin
   with gZoo do
     begin
 
-      requete := MakeLongString(urlDuZoo + '?action=STOP_ALL&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+      requete := MakeLongString(urlDuZoo + '?action=STOP_ALL&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
 
       derniereRequete := GetDerniereRequeteEnvoyeeAuZoo;
       if (GetZooStatus = 'RETIRED') and
@@ -3864,7 +3864,7 @@ begin
   with gZoo do
     begin
 
-     // requete := MakeLongString(urlDuZoo + '?action=DELETE_ALL&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+     // requete := MakeLongString(urlDuZoo + '?action=DELETE_ALL&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
      // EnvoyerUneRequeteAuZoo(requete);
 
     end;
@@ -3940,7 +3940,7 @@ begin
         begin
           MicroSeconds(timerPourPing);
 
-          requete := MakeLongString(urlDuZoo + '?action=PING&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+          requete := MakeLongString(urlDuZoo + '?action=PING&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
 
           gZoo.dateDernierEnvoiDePingSurLeZoo := TickCount;
 
@@ -3971,7 +3971,7 @@ begin
           status := CalculateZooStatusPourCetEtatDeCassio;
 
           requete := MakeLongString(urlDuZoo + '?action=KEEP_ALIVE'
-                                             + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio)
+                                             + '&asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio)
                                              + '&status=' + status);
 
           gZoo.dateDernierEnvoiDeKeepAliveSurLeZoo := TickCount;
@@ -4013,7 +4013,7 @@ begin
 
             urlParams := '';
             EncoderSearchParamsPourURL(rechercheEnCours.params, urlParams, 'VerifierUtiliteCalculPourLeZoo');
-            shortUrlParams := 'hash=' + UInt64ToHexa(rechercheEnCours.params.inHashValue) + '&asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio);
+            shortUrlParams := 'hash=' + UInt64ToHexa(rechercheEnCours.params.inHashValue) + '&asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio);
 
             (* if (NombreDeResultatsEnAttenteSurLeZoo > 0)
               then
@@ -4059,7 +4059,7 @@ begin
        if ((TickCount - dateDerniereEcouteDeResultatsSurLeZoo) >= intervalleEcouteDeResultatsSurLeZoo) then
          begin
 
-           requete := MakeLongString(urlDuZoo + '?action=GET_RESULTS&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio) + '&date=' + GetLastTimestampOfResultSurLeZoo);
+           requete := MakeLongString(urlDuZoo + '?action=GET_RESULTS&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio) + '&date=' + GetLastTimestampOfResultSurLeZoo);
 
            EnvoyerUneRequeteAuZoo(requete);
 
@@ -4156,13 +4156,13 @@ begin
                 (* if (NombreDeResultatsEnAttenteSurLeZoo > 0)
                   then
                     begin
-                      requete := MakeLongString(urlDuZoo + '?action=GET_WORK_AND_GET_RESULTS&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio) + '&date=' + GetLastTimestampOfResultSurLeZoo);
+                      requete := MakeLongString(urlDuZoo + '?action=GET_WORK_AND_GET_RESULTS&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio) + '&date=' + GetLastTimestampOfResultSurLeZoo);
                       dateDerniereEcouteDeResultatsSurLeZoo := TickCount;
                       dateDernierReleveDeJobSurLeZoo := TickCount;
                     end
                   else *)
                     begin
-                      requete := MakeLongString(urlDuZoo + '?action=GET_WORK&' + 'asker=' + NumEnString(gIdentificateurUniqueDeCetteSessionDeCassio));
+                      requete := MakeLongString(urlDuZoo + '?action=GET_WORK&' + 'asker=' + IntToStr(gIdentificateurUniqueDeCetteSessionDeCassio));
                       dateDernierReleveDeJobSurLeZoo := TickCount;
                     end;
 

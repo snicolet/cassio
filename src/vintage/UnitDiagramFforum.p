@@ -577,7 +577,7 @@ begin
 
   // si le fichier existe, il faut rajouter un numero, tant pis
   if FichierTexteExiste(pathDossierEPS + nomFichierEPS, 0, fic) = NoErr
-    then nomFichierEPS := LaverNomFichierEPSPourPressePapier(legende + '-' + NumEnString(Abs(GetNewCounterDiagramEPS)));
+    then nomFichierEPS := LaverNomFichierEPSPourPressePapier(legende + '-' + IntToStr(Abs(GetNewCounterDiagramEPS)));
 
 
 
@@ -783,7 +783,7 @@ begin
 							    begin
 								    str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
 								    str := ParamStr(str, '', '', '', '');
-								    str := str + NumEnString(nbreCoup) + '.' + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]);
+								    str := str + IntToStr(nbreCoup) + '.' + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]);
 								  end;
 							end
 						else if CommentPositionFForum^^ <> '' then
@@ -947,7 +947,7 @@ begin
 			if (CommentPositionFFORUM^^ = '') and (nbreCoup >= 1) then
 				if DerniereCaseJouee <> coupInconnu then
 					begin
-						str := NumEnString(nbreCoup);
+						str := IntToStr(nbreCoup);
 						str := 'After ' + str + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]) + CharToString('.');
 						CommentPositionFFORUM^^ := str;
 					end;
@@ -1423,7 +1423,7 @@ begin
 						end;
 				  for i := 1 to tailleVersionOthello.v do
 						begin
-						  s := NumEnString(i);
+						  s := IntToStr(i);
 						  a := decalageHorFFORUM + decalageH - haut - distanceCadreFFORUM - RoundToL(epaisseurCadreFFORUM);
 						  if i >= 10 then a := a-2;
 						  if odd(TaillecaseFFORUM)
@@ -1598,7 +1598,7 @@ begin
 								begin
 									str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
 									str := ParamStr(str, '', '', '', '');
-									str1 := NumEnString(nbreCoupConstruction);
+									str1 := IntToStr(nbreCoupConstruction);
 									str1 := str1 + CharToString('.') + CHR(96 + (platMod10[aux-1]+1)) + CHR(48 + (platDiv10[aux-1]+1));
 								end;
 					  end;
@@ -1752,7 +1752,7 @@ begin
 										j := platDiv10[aux-1] + 1;
 										
 										
-										PrintForEPSFile(' (' + NumEnString(t) +') '
+										PrintForEPSFile(' (' + IntToStr(t) +') '
 											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' move_number');
 										
@@ -1765,8 +1765,8 @@ begin
 										b := decalageV + j * TaillecaseFFORUM;
 										if (t >= 10) and (t <= 99) then
 											begin
-												str := NumEnString(platMod10[t]);
-												str1 := NumEnString(platDiv10[t]);
+												str := IntToStr(platMod10[t]);
+												str1 := IntToStr(platDiv10[t]);
 												larg := MyStringWidth(str);
 												larg1 := MyStringWidth(str1);
 												y := b - centragevertical;
@@ -1779,7 +1779,7 @@ begin
 											end
 										else
 											begin
-												str := NumEnString(t);
+												str := IntToStr(t);
 												y := b - centragevertical;
 												x := a -(TaillecaseFFORUM + MyStringWidth(str) - 1) div 2;
 												Moveto(decalageHorFFORUM + x, decalageVertFFORUM + y);
@@ -1817,7 +1817,7 @@ begin
 										if chaineCoups[2*t - 1] = 'N' then  {pions noirs, avec le numero du coup en blanc}
 											begin
 											
-											  PrintForEPSFile(' (' + NumEnString(t) +') '
+											  PrintForEPSFile(' (' + IntToStr(t) +') '
 											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' black_move');
 											
@@ -1834,8 +1834,8 @@ begin
 
 												if (t >= 10) and (t <= 99) and (PoliceFForumID = NewYorkID) then  { New York }
 													begin
-														str := NumEnString(platMod10[t]);
-														str1 := NumEnString(platDiv10[t]);
+														str := IntToStr(platMod10[t]);
+														str1 := IntToStr(platDiv10[t]);
 														larg := MyStringWidth(str);
 														larg1 := MyStringWidth(str1);
 														y := b - centragevertical;
@@ -1856,7 +1856,7 @@ begin
 													end
 												else
 													begin
-														str := NumEnString(t);
+														str := IntToStr(t);
 														y := b - centragevertical;
 														x := a - (TaillecaseFFORUM + MyStringWidth(str) + 1) div 2 + 2;
 
@@ -1864,10 +1864,10 @@ begin
 														PenPat(blackPattern);
 														TextMode(3);
 														
-														if (t >= 10) then MyDrawString(NumEnString(platDiv10[t]));
+														if (t >= 10) then MyDrawString(IntToStr(platDiv10[t]));
 														
 														Move(-1,0);
-														MyDrawString(NumEnString(platMod10[t]));
+														MyDrawString(IntToStr(platMod10[t]));
 
 													end;
 											  EnableQuartzAntiAliasing(true);
@@ -1875,7 +1875,7 @@ begin
 										else if chaineCoups[2*t - 1] = 'B' then   {pions blancs, avec le numero du coup en noir}
 											begin
 											
-											  PrintForEPSFile(' (' + NumEnString(t) +') '
+											  PrintForEPSFile(' (' + IntToStr(t) +') '
 											                  + CoupEnStringEnMajuscules(10 * j + i)
 											                  + ' white_move');
 											
@@ -1889,8 +1889,8 @@ begin
 												  else TextFace(normal);
 												if (t >= 10) and (t <= 99) and (PoliceFForumID = NewYorkID) then
 													begin
-														str := NumEnString(platMod10[t]);
-														str1 := NumEnString(platDiv10[t]);
+														str := IntToStr(platMod10[t]);
+														str1 := IntToStr(platDiv10[t]);
 														larg := MyStringWidth(str);
 														larg1 := MyStringWidth(str1);
 														y := b - centragevertical;
@@ -1903,16 +1903,16 @@ begin
 													end
 												else
 													begin
-														str := NumEnString(t);
+														str := IntToStr(t);
 														y := b - centragevertical;
 														x := a - (TaillecaseFFORUM + MyStringWidth(str) + 1) div 2 + 1;
 														
 														Moveto(x, y);
 														
-														if (t >= 10) then MyDrawString(NumEnString(platDiv10[t]));
+														if (t >= 10) then MyDrawString(IntToStr(platDiv10[t]));
 														
 														Move(-1,0);
-														MyDrawString(NumEnString(platMod10[t]));
+														MyDrawString(IntToStr(platMod10[t]));
 													end;
 											  EnableQuartzAntiAliasing(true);
 											end;
@@ -2388,8 +2388,8 @@ procedure ConstruitPuce(numero : SInt16);
 
 						if (numero >= 10) and (numero <= 99) then
 							begin
-								str := NumEnString(platMod10[numero]);
-								str1 := NumEnString(platDiv10[numero]);
+								str := IntToStr(platMod10[numero]);
+								str1 := IntToStr(platDiv10[numero]);
 								larg := MyStringWidth(str);
 								larg1 := MyStringWidth(str1);
 								y := b - centragevertical;
@@ -2402,7 +2402,7 @@ procedure ConstruitPuce(numero : SInt16);
 							end
 						else
 							begin
-								str := NumEnString(numero);
+								str := IntToStr(numero);
 								y := b - centragevertical;
 								x := a -(TaillecaseFFORUM + MyStringWidth(str) - 1) div 2;
 								Moveto(x, y);
@@ -2422,8 +2422,8 @@ procedure ConstruitPuce(numero : SInt16);
 
 						if (numero >= 10) and (numero <= 99) then
 							begin
-								str := NumEnString(platMod10[numero]);
-								str1 := NumEnString(platDiv10[numero]);
+								str := IntToStr(platMod10[numero]);
+								str1 := IntToStr(platDiv10[numero]);
 								larg := MyStringWidth(str);
 								larg1 := MyStringWidth(str1);
 								y := b - centragevertical;
@@ -2436,7 +2436,7 @@ procedure ConstruitPuce(numero : SInt16);
 							end
 						else
 							begin
-								str := NumEnString(numero);
+								str := IntToStr(numero);
 								y := b - centragevertical;
 								x := a - (TaillecaseFFORUM + MyStringWidth(str) - 1) div 2;
 								Moveto(x, y);
@@ -2745,7 +2745,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 
 
 				if tailleCaseFFORUM > 0 then
-					s := NumEnString(tailleCaseFFORUM)
+					s := IntToStr(tailleCaseFFORUM)
 				else
 					s := '';
 				SetItemTextInDialog(dp, LargeurText, s);
@@ -2758,7 +2758,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 						SetItemTextInDialog(dp, EpaisseurBordureText, s);
 					end;
 				if distanceCadreFFORUM > 0 then
-					s := NumEnString(distanceCadreFFORUM)
+					s := IntToStr(distanceCadreFFORUM)
 				else
 					s := '';
 				SetItemTextInDialog(dp, distanceBordureText, s);
@@ -2770,8 +2770,8 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 							if gameOver and not(scoreFinalDejaAfficheDansDialogue) then
 								begin
 									GetItemTextInDialog(dp, ExempleStaticText, s);
-									s1 := NumEnString(nbreDePions[pionNoir]);
-									s2 := NumEnString(nbreDePions[pionBlanc]);
+									s1 := IntToStr(nbreDePions[pionNoir]);
+									s2 := IntToStr(nbreDePions[pionBlanc]);
 									s1 := s1 + CharToString('-') + s2;
 									s2 := ReadStringFromRessource(TextesRapportID, 7);   {'score final ^0'}
 									s := s + ' ** ' + ParamStr(s2, s1, '', '', '') + ' **';
@@ -2805,7 +2805,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 				end;  {case}
 
 				if(nbPixelDedansFFORUM > 0) and(nbPixelDedansFFORUM < 100) then
-					s := NumEnString(nbPixelDedansFFORUM)
+					s := IntToStr(nbPixelDedansFFORUM)
 				else
 					begin
 						s := '';

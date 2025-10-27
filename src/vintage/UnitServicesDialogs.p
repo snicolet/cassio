@@ -329,7 +329,7 @@ var s : String255;
 begin
 
   // verifions que ce n'est pas une alerte repetee
-  s := NumEnString(alertType) + NumEnString(dialogID) + NumEnString(texteItemID) + NumEnString(explicationItemID) + NumEnString(buttonID);
+  s := IntToStr(alertType) + IntToStr(dialogID) + IntToStr(texteItemID) + IntToStr(explicationItemID) + IntToStr(buttonID);
 
   if IsADuplicateRecentDialog(s) then
     exit(TypedAlertOneButtonFromRessource);
@@ -445,7 +445,7 @@ function MySimpleLegacyAlert(alertID : SInt16; s : String255) : SInt16;
 begin
 
   // si on vient d'afficher deux fois de suite le meme dialogue, basta
-  if IsADuplicateRecentDialog(s + NumEnString(alertID)) then
+  if IsADuplicateRecentDialog(s + IntToStr(alertID)) then
     exit(MySimpleLegacyAlert);
 
 

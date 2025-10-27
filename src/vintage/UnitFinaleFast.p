@@ -512,8 +512,8 @@ begin
                        WritelnDansRapport('Vous avez probablement trouvé un bug : ');
                        WritelnDansRapport('Ne faudrait-il pas changer meiDef parce que l''on connait le meilleur coup ?');
                        WritelnPositionEtTraitDansRapport(plat,couleur);
-                       WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMin[nbreDeltaSuccessifs]);
-                       WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMax[nbreDeltaSuccessifs]);
+                       WritelnNumDansRapport('valMin['+IntToStr(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMin[nbreDeltaSuccessifs]);
+                       WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMax[nbreDeltaSuccessifs]);
                        WritelnStringAndCoupDansRapport('coupDeCetteValMin[nbreDeltaSuccessifs] = ',coupDeCetteValMin[nbreDeltaSuccessifs]);
                        WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
                        WritelnDansRapport('');
@@ -547,8 +547,8 @@ begin
                            SysBeep(0);
                            WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) and ValeurMinEstAcceptable and ValeurMaxEstAcceptable');
                            WritelnNumDansRapport('gClefHashage = ',gClefHashage);
-	                         WritelnNumDansRapport('ValMin['+NumEnString(ThisDeltaFinal(k))+'] = ',ValMin[k]);
-                           WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
+	                         WritelnNumDansRapport('ValMin['+IntToStr(ThisDeltaFinal(k))+'] = ',ValMin[k]);
+                           WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(k))+'] = ',valMax[k]);
                            WritelnNumDansRapport('ESprof = ',ESprof);
                            WritelnPositionEtTraitDansRapport(plat,couleur);
                            WritelnDansRapport('');
@@ -559,8 +559,8 @@ begin
                        if (k = nbreDeltaSuccessifs) and (valMin[k] >= valMax[k]) then
                          begin
                            WritelnPositionEtTraitDansRapport(plat,couleur);
-                           WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(k))+'] = ',bornes.valMin[k]);
-                           WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',bornes.valMax[k]);
+                           WritelnNumDansRapport('valMin['+IntToStr(ThisDeltaFinal(k))+'] = ',bornes.valMin[k]);
+                           WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(k))+'] = ',bornes.valMax[k]);
                            WritelnNumDansRapport('alpha = ',alpha);
                            WritelnNumDansRapport('beta = ',beta);
                            WritelnNumDansRapport('alphaInitial = ',alphaInitial);
@@ -1797,7 +1797,7 @@ begin
                 WritelnDansRapport('position père = ');
                 WritelnPositionEtTraitDansRapport(plat,couleur);
                 WritelnStringAndCoupDansRapport('icourant = ',iCourant);
-                WritelnDansRapport('[alpha,beta] = ['+NumEnString(alpha)+','+NumEnString(beta)+']');
+                WritelnDansRapport('[alpha,beta] = ['+IntToStr(alpha)+','+IntToStr(beta)+']');
                 WritelnDansRapport('position fils = ');
                 WritelnPositionEtTraitDansRapport(platEssai,adversaire);
                 WriteStringAndCoupDansRapport('valeur de ',iCourant);
@@ -1875,11 +1875,11 @@ begin
 
                      if OnVientDeStoperExecutionDeCeFils(ESProf,iCourant,numeroArret) then
                        begin
-                         {WritelnNumDansRapport('p = '+NumEnString(ESProf)+' : TROUVE LE POINT D''ARRET, numeroArret = ',numeroArret);}
+                         {WritelnNumDansRapport('p = '+IntToStr(ESProf)+' : TROUVE LE POINT D''ARRET, numeroArret = ',numeroArret);}
                          RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret(numeroArret);
                        end;
 
-                     {WritelnNumDansRapport('p = '+NumEnString(ESProf)+' : noteCourante = ',noteCourante);}
+                     {WritelnNumDansRapport('p = '+IntToStr(ESProf)+' : noteCourante = ',noteCourante);}
                    end;
 
                  tempsEnSecondesPourEvaluerCeFils := (TickCount - tickPourChronometrerTempsPrisDansCeFils) / 60.0;
@@ -1961,7 +1961,7 @@ begin
        WriteNumDansRapport('  , beta = ',betaInitial);
        WriteNumDansRapport('  , note = ',noteCourante);
        WriteNumDansRapport('  , est = ',evaluationDeLaPosition);
-       WritelnStringAndReelDansRapport('  , i = '+NumEnString(indexDeBoucle)+' ,  t = ',tempsEnSecondesPourEvaluerCeFils,8);
+       WritelnStringAndReelDansRapport('  , i = '+IntToStr(indexDeBoucle)+' ,  t = ',tempsEnSecondesPourEvaluerCeFils,8);
      end;
 
    if (profMoins1 < profFinaleHeuristique)
@@ -2513,8 +2513,8 @@ begin  {ABFin}
                          WritelnDansRapport('Vous avez probablement trouvé un bug : ');
                          WritelnDansRapport('Ne faudrait-il pas changer meiDef parce que l''on connait le meilleur coup ?');
                          WritelnPositionEtTraitDansRapport(plat,couleur);
-                         WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMin[nbreDeltaSuccessifs]);
-                         WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMax[nbreDeltaSuccessifs]);
+                         WritelnNumDansRapport('valMin['+IntToStr(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMin[nbreDeltaSuccessifs]);
+                         WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(nbreDeltaSuccessifs))+'] = ',valMax[nbreDeltaSuccessifs]);
                          WritelnStringAndCoupDansRapport('coupDeCetteValMin[nbreDeltaSuccessifs] = ',coupDeCetteValMin[nbreDeltaSuccessifs]);
                          WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
                          WritelnDansRapport('');
@@ -2529,9 +2529,9 @@ begin  {ABFin}
                              (ESProf >= gDebuggageAlgoFinaleStepByStep.profMin) and
   					                 MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
                             begin
-                              WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(k))+'] = ',valMin[k]);
-                              WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
-                              WritelnStringAndCoupDansRapport('coupDeCetteValMin['+NumEnString(ThisDeltaFinal(k))+'] = ',coupDeCetteValMin[k]);
+                              WritelnNumDansRapport('valMin['+IntToStr(ThisDeltaFinal(k))+'] = ',valMin[k]);
+                              WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(k))+'] = ',valMax[k]);
+                              WritelnStringAndCoupDansRapport('coupDeCetteValMin['+IntToStr(ThisDeltaFinal(k))+'] = ',coupDeCetteValMin[k]);
                               WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
                             end;
                           {$ENDC}
@@ -2551,8 +2551,8 @@ begin  {ABFin}
   		                             WritelnDansRapport('');
   		                             WritelnDansRapport('Ne faudrait-il pas changer meiDef en meme temps que alpha ?');
   		                             WritelnPositionEtTraitDansRapport(plat,couleur);
-  		                             WritelnNumDansRapport('valMin['+NumEnString(ThisDeltaFinal(k))+'] = ',valMin[k]);
-                                   WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
+  		                             WritelnNumDansRapport('valMin['+IntToStr(ThisDeltaFinal(k))+'] = ',valMin[k]);
+                                   WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(k))+'] = ',valMax[k]);
                                    WritelnStringAndCoupDansRapport('coupDeCetteValMin[k] = ',coupDeCetteValMin[k]);
                                    WritelnStringAndCoupDansRapport('meiDef = ',meiDef);
   		                           end;
@@ -2609,8 +2609,8 @@ begin  {ABFin}
                              SysBeep(0);
                              WritelnDansRapport('ERROR dans les tests initiaux : (ValeurMin > ValeurMax) and ValeurMinEstAcceptable and ValeurMaxEstAcceptable');
                              WritelnNumDansRapport('gClefHashage = ',gClefHashage);
-  	                         WritelnNumDansRapport('ValMin['+NumEnString(ThisDeltaFinal(k))+'] = ',ValMin[k]);
-                             WritelnNumDansRapport('valMax['+NumEnString(ThisDeltaFinal(k))+'] = ',valMax[k]);
+  	                         WritelnNumDansRapport('ValMin['+IntToStr(ThisDeltaFinal(k))+'] = ',ValMin[k]);
+                             WritelnNumDansRapport('valMax['+IntToStr(ThisDeltaFinal(k))+'] = ',valMax[k]);
                              WritelnNumDansRapport('ESprof = ',ESprof);
                              WritelnPositionEtTraitDansRapport(plat,couleur);
                              WritelnDansRapport('');
@@ -3089,9 +3089,9 @@ begin  {ABFin}
                   }
 
                 (*** pour debugage seulement ***)
-                {if iCourant < 11 then AlerteSimple('Debugger : iCourant = '+NumEnString(iCourant)+' dans ABFin') else
-                if iCourant > 88 then AlerteSimple('Debugger : iCourant = '+NumEnString(iCourant)+' dans ABFin') else
-                if platEssai[iCourant] <> pionVide then AlerteSimple('Debugger : platEssai['+NumEnString(iCourant)+'] <> 0 dans ABFin');
+                {if iCourant < 11 then AlerteSimple('Debugger : iCourant = '+IntToStr(iCourant)+' dans ABFin') else
+                if iCourant > 88 then AlerteSimple('Debugger : iCourant = '+IntToStr(iCourant)+' dans ABFin') else
+                if platEssai[iCourant] <> pionVide then AlerteSimple('Debugger : platEssai['+IntToStr(iCourant)+'] <> 0 dans ABFin');
                 }
 
 
@@ -3175,7 +3175,7 @@ begin  {ABFin}
           	          MemberOfPositionEtTraitSet(MakePositionEtTrait(plat,couleur),dummyLong,gDebuggageAlgoFinaleStepByStep.positionsCherchees) then
           	          begin
           	            WritelnDansRapport('');
-          			        WritelnNumDansRapport('apres calcul de noteCourante dans ABFin '+NumEnString(indexDeBoucle)+'/',nbCoupsEnvisages);
+          			        WritelnNumDansRapport('apres calcul de noteCourante dans ABFin '+IntToStr(indexDeBoucle)+'/',nbCoupsEnvisages);
                         WritelnNumDansRapport('alpha = ',alpha);
                         WritelnNumDansRapport('beta = ',beta);
                         WritelnNumDansRapport('nbCoupsPourCoul = ',nbCoupsPourCoul);
@@ -4982,9 +4982,9 @@ begin  {ABPreordre}
               iCourant := listeFinale[i];
 
               (*** pour debugage seulement ***)
-              {if iCourant < 11 then AlerteSimple('Debugger : iCourant = '+NumEnString(iCourant)+' dans ABPreordre') else
-              if iCourant > 88 then AlerteSimple('Debugger : iCourant = '+NumEnString(iCourant)+' dans ABPreordre') else
-              if platEssai[iCourant] <> pionVide then AlerteSimple('Debugger : platEssai['+NumEnString(iCourant)+'] <> 0 dans ABPreordre');
+              {if iCourant < 11 then AlerteSimple('Debugger : iCourant = '+IntToStr(iCourant)+' dans ABPreordre') else
+              if iCourant > 88 then AlerteSimple('Debugger : iCourant = '+IntToStr(iCourant)+' dans ABPreordre') else
+              if platEssai[iCourant] <> pionVide then AlerteSimple('Debugger : platEssai['+IntToStr(iCourant)+'] <> 0 dans ABPreordre');
               }
 
               //WritelnNumDansRapport('ABPreordre, coup = ',iCourant);
@@ -5293,7 +5293,7 @@ begin
         if (numeroCoup < (60-kNbCasesVidesPourAnnonceDansRapport)) or
            GenreDeReflexionInSet(inTypeCalculFinale,[ReflParfaitExhaustif,ReflGagnantExhaustif]) then
           begin
-            s1 := NumEnString(numeroCoup);
+            s1 := IntToStr(numeroCoup);
             if inCouleurFinale = pionNoir
               then s2 := ReadStringFromRessource(TextesListeID,7)   {Noir}
               else s2 := ReadStringFromRessource(TextesListeID,8);  {Blanc}
@@ -5377,16 +5377,16 @@ begin
                  then
                    begin
                      s := ReadStringFromRessource(TextesRapportID,13);
-                     s1 := NumEnString(nbMinutes div 60);
-                     s2 := NumEnString(nbMinutes mod 60);
-                     s3 := NumEnString((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
+                     s1 := IntToStr(nbMinutes div 60);
+                     s2 := IntToStr(nbMinutes mod 60);
+                     s3 := IntToStr((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
                      s := ParamStr(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s1,s2,s3);
                    end
                  else
                    begin
                      s := ReadStringFromRessource(TextesRapportID,14);
-                     s2 := NumEnString(nbMinutes);
-                     s3 := NumEnString((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
+                     s2 := IntToStr(nbMinutes);
+                     s3 := IntToStr((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
                      s := ParamStr(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s2,s3,'');
                    end;
            DisableKeyboardScriptSwitch;
@@ -5429,7 +5429,7 @@ begin
 
 
 
-           WritelnDansRapport('Temps parallelisable = '+NumEnString(gFractionParallelisableSecondes)+' sec.');
+           WritelnDansRapport('Temps parallelisable = '+IntToStr(gFractionParallelisableSecondes)+' sec.');
 
            // f est la partie forcement sequentielle de notre implementation
            fractionSequentielle := 1.0 - gFractionParallelisableSecondes / (1.0*tempsGlobalDeLaFonction/60);
@@ -5532,7 +5532,7 @@ begin  {$UNUSED i}
           gClefHashage := BXOR(gClefHashage , (IndiceHash^^[GetTraitOfPosition(positionEtTrait),coup]));
           inc(nbCoupsDeLaSuite);
 
-         // WritelnDansRapport('Dans RemplirMeilleureSuiteAvecHashTable,  profondeurCourante = '+NumEnString(profondeurCourante)+'   < -->  hash = '+NumEnString(gClefHashage));
+         // WritelnDansRapport('Dans RemplirMeilleureSuiteAvecHashTable,  profondeurCourante = '+IntToStr(profondeurCourante)+'   < -->  hash = '+IntToStr(gClefHashage));
 
           {WritelnStringAndCoupDansRapport('coup = ',coup);
           WritelnNumDansRapport('nb vides = ',profondeurCourante);
@@ -5581,7 +5581,7 @@ begin  {$UNUSED i}
                   minProfondeurRemplissage := profondeurCourante;
 
                   (*
-                  WritelnStringAndCoupDansRapport('meilleureSuite['+NumEnString(profondeur)+','+NumEnString(profondeurCourante)+'] = ',coup);
+                  WritelnStringAndCoupDansRapport('meilleureSuite['+IntToStr(profondeur)+','+IntToStr(profondeurCourante)+'] = ',coup);
                   *)
                 end;
 
@@ -5673,10 +5673,10 @@ begin
                 coup := meilleuresuite[minimaxprof,p];
 
                 (*
-                WritelnStringAndCoupDansRapport('meilleureSuite['+NumEnString(minimaxprof)+','+NumEnString(p)+'] = ',coup);
+                WritelnStringAndCoupDansRapport('meilleureSuite['+IntToStr(minimaxprof)+','+IntToStr(p)+'] = ',coup);
                 *)
 
-                {WritelnStringAndCoupDansRapport('Le coup de la matrice meilleuresuite :   p = '+NumEnString(p) + ' :  ', coup);}
+                {WritelnStringAndCoupDansRapport('Le coup de la matrice meilleuresuite :   p = '+IntToStr(p) + ' :  ', coup);}
 
                 coupPossible := false;
                 if (coup >= 11) and (coup <= 88) then
@@ -5687,7 +5687,7 @@ begin
                 if not(coupPossible) and essayerAvecBitboardHash then
                   if GetEndgameValuesInAllBitboardHashTables(platCompl,valMinPourNoir,valMaxPourNoir,coup) then
                     begin
-                      {WritelnDansRapport('Hit dans la table de hachage bitboard !  p = '+NumEnString(p) + ' :  '+CoupEnString(coup,true)+'['+ NumEnString(valMinPourNoir)+','+NumEnString(valMaxPourNoir)+']');}
+                      {WritelnDansRapport('Hit dans la table de hachage bitboard !  p = '+IntToStr(p) + ' :  '+CoupEnString(coup,true)+'['+ IntToStr(valMinPourNoir)+','+IntToStr(valMaxPourNoir)+']');}
 
                       if (whichCoul = pionBlanc)
                         then scorePourVerifVuPourNoir := scorePourVerif
@@ -5704,7 +5704,7 @@ begin
                                 if (p >= profondeurMaxRelaisParBitboardHash) then profondeurMaxRelaisParBitboardHash := p;
                                 if (p <= profondeurMinRelaisParBitboardHash) then profondeurMinRelaisParBitboardHash := p;
 
-                                {WritelnDansRapport('La table de hachage bitboard peut donc prendre le relais... '+CoupEnString(coup,true)+'['+ NumEnString(valMinPourNoir)+','+NumEnString(valMaxPourNoir)+']');}
+                                {WritelnDansRapport('La table de hachage bitboard peut donc prendre le relais... '+CoupEnString(coup,true)+'['+ IntToStr(valMinPourNoir)+','+IntToStr(valMaxPourNoir)+']');}
                               end;
                           end;
                     end;
@@ -5725,16 +5725,16 @@ begin
 
                         WritelnPositionEtTraitDansRapport(whichPlat,whichCoul);
                         for i := minimaxprof downto p do
-                          WritelnStringAndCoupDansRapport('meilleuresuite[minimaxprof,'+NumEnString(i)+'] = ',meilleuresuite[minimaxprof,i]);
+                          WritelnStringAndCoupDansRapport('meilleuresuite[minimaxprof,'+IntToStr(i)+'] = ',meilleuresuite[minimaxprof,i]);
 
 
                         WritelnPositionEtTraitDansRapport(platCompl.position,GetTraitOfPosition(platCompl));
                         s := ReadStringFromRessource(TextesRapportID,21);    {"probleme dans mon algorithme !!"}
-                        s1 := NumEnString(p);
+                        s1 := IntToStr(p);
                         s := ParamStr(s,s1,'','','');
                         if (meilleuresuite[minimaxprof,p] <> 0)
-                          then s := s + ' coup impossible à profondeur '+NumEnString(p)
-                          else s := s + ' coup introuvable à profondeur '+NumEnString(p);
+                          then s := s + ' coup impossible à profondeur '+IntToStr(p)
+                          else s := s + ' coup introuvable à profondeur '+IntToStr(p);
                         WritelnDansRapport(s);
 
                         if CassioEstEnTrainDeCalculerPourLeZoo then
@@ -5789,8 +5789,8 @@ begin
                           end;
 
                         probleme := true;
-                        s1 := NumEnString(scorePourVerif);
-                        s2 := NumEnString(scoreSuite);
+                        s1 := IntToStr(scorePourVerif);
+                        s2 := IntToStr(scoreSuite);
                         s := ReadStringFromRessource(TextesRapportID,22);  {"problème dans mon algorithme !! scoreSuite et scorePourVerif"}
                         s := ParamStr(s,s1,s2,'','');
                         WritelnDansRapport(s);
@@ -5804,19 +5804,19 @@ begin
 
                         if not(enTournoi or CassioEstEnTrainDeCalculerPourLeZoo) then AlerteSimple(s + ' Prévenez Stéphane');
 
-                        s := NumEnString(nBlaCompl);
-                        s1 := NumEnString(nNoiCompl);
+                        s := IntToStr(nBlaCompl);
+                        s1 := IntToStr(nNoiCompl);
                         s := '(nBlaCompl = '+s+'  et nNoiCompl = '+s1+CharToString(')');
                         WritelnDansRapport(s);
                         if (pere >= 11) and (pere <= 88)
                           then s := CoupEnString(pere,true)
-                          else s := NumEnString(pere);
+                          else s := IntToStr(pere);
                         if GetTraitOfPosition(platCompl) = pionNoir  then s1 := 'Noir' else
                         if GetTraitOfPosition(platCompl) = pionBlanc then s1 := 'Blanc' else
-                          s1 := NumEnString(GetTraitOfPosition(platCompl));
+                          s1 := IntToStr(GetTraitOfPosition(platCompl));
                         s := '(pere = '+s+'  et AquiCompl = '+s1+CharToString(')');
                         WritelnDansRapport(s);
-                        s := NumEnString(p);
+                        s := IntToStr(p);
                         s := '(prof = '+s+CharToString(')');
                         WritelnDansRapport(s);
                         WritelnPositionEtTraitDansRapport(platComplEndgame,GetTraitOfPosition(platCompl));
@@ -5855,7 +5855,7 @@ begin
        debugage := false;
 
        if debugage then
-         WritelnStringDansRapportSansRepetition('Entrée dans GestionMeilleureSuite, XCourant = '+CoupEnStringEnMajuscules(XCourant) + ', valXY = '+NumEnString(valXY),chainesDejaEcrites);
+         WritelnStringDansRapportSansRepetition('Entrée dans GestionMeilleureSuite, XCourant = '+CoupEnStringEnMajuscules(XCourant) + ', valXY = '+IntToStr(valXY),chainesDejaEcrites);
 
         if ValeurDeFinaleInexploitable(valXY) then
           exit(GestionMeilleureSuite);
@@ -6450,8 +6450,8 @@ begin
               AnnonceRechercheDansRapport(noCoupRecherche);
               ChangeFontFaceDansRapport(italic);
               // ChangeFontColorDansRapport(MarronCmd);  // VertSapinCmd et MarinePaleCmd sont bien aussi
-              WriteDansRapport('Temps du tri (prof. '+NumEnString(profondeurPreordre+1) + ') par le milieu = ');
-              WriteDansRapport(NumEnString((TickCount-ticks+30) div 60)+' sec.');
+              WriteDansRapport('Temps du tri (prof. '+IntToStr(profondeurPreordre+1) + ') par le milieu = ');
+              WriteDansRapport(IntToStr((TickCount-ticks+30) div 60)+' sec.');
               if utilisationNouvelleEval
                 then WriteDansRapport(' Estimation de la position = '+NoteEnString(classement[1].note,true,0,2))
                 else WriteNumDansRapport(' Estimation de la position = ',estimationPositionDApresMilieu);
@@ -9336,7 +9336,7 @@ BEGIN          {MakeEndgameSearch}
 
 
           			        {$IFC USE_PROFILER_FINALE_FAST}
-          						   nomFichierProfile := PrefixeFichierProfiler + NumEnString((TickCount-tempsGlobalDeLaFonction) div 60) + '.preordre';
+          						   nomFichierProfile := PrefixeFichierProfiler + IntToStr((TickCount-tempsGlobalDeLaFonction) div 60) + '.preordre';
           						   WritelnDansRapport('nomFichierProfile = '+nomFichierProfile);
           						   if ProfilerDump(nomFichierProfile) <> NoErr
           						     then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfile+') a échoué !')
@@ -9520,7 +9520,7 @@ BEGIN          {MakeEndgameSearch}
       {$ENDC}
 
       {$IFC USE_PROFILER_FINALE_FAST}
-       nomFichierProfile := PrefixeFichierProfiler + NumEnString(tempsGlobalDeLaFonction div 60) + '.profile';
+       nomFichierProfile := PrefixeFichierProfiler + IntToStr(tempsGlobalDeLaFonction div 60) + '.profile';
        WritelnDansRapport('nomFichierProfile = '+nomFichierProfile);
        if ProfilerDump(nomFichierProfile) <> NoErr
          then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfile+') a échoué !')

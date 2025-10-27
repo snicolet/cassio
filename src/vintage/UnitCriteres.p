@@ -367,7 +367,6 @@ begin
 end;
 
 
-function NumEnString(num : SInt32) : String255;     external;
 
 
 procedure CalculeTableTournoisCompatibles(nomTournoi : String255; var compatible : t_TournoiCompatible; niveauxRecurence : SInt32);

@@ -155,7 +155,7 @@ var s,s1,s2 : String255;
 begin
   if not(enTournoi) and not(jeuInstantane) and not(analyseRetrograde.enCours) then
     begin
-      s1 := NumEnString((MC_nbBl+MC_nbNo-4)+1);
+      s1 := IntToStr((MC_nbBl+MC_nbNo-4)+1);
       if MC_coul = pionNoir
         then s2 := ReadStringFromRessource(TextesListeID,7)   {Noir}
         else s2 := ReadStringFromRessource(TextesListeID,8);  {Blanc}
@@ -294,7 +294,7 @@ begin
               precision := ProfondeurMilieuEnPrecisionFinaleEngine(prof + 1, empties);
               s2 := ReadStringFromRessource(TextesRapportID,49);   {prof = }
               WriteNumDansRapport(s2 + ' ',empties);
-              WriteDansRapport('@'+NumEnString(precision)+'%');
+              WriteDansRapport('@'+IntToStr(precision)+'%');
             end
           else
             begin
@@ -1583,7 +1583,7 @@ begin          {CalculeClassementMilieuDePartie}
     then
       begin
         if (interruptionReflexion = pasdinterruption) then
-          AlerteSimple('Erreur :  indexDuCoupConseille = '+NumEnString(indexDuCoupConseille)+' dans CalculeClassementMilieuDePartie !!')
+          AlerteSimple('Erreur :  indexDuCoupConseille = '+IntToStr(indexDuCoupConseille)+' dans CalculeClassementMilieuDePartie !!')
       end
     else
       begin
@@ -1616,7 +1616,7 @@ begin          {CalculeClassementMilieuDePartie}
   {$ENDC}
 
   {$IFC USE_PROFILER_MILIEU_DE_PARTIE}
-   nomFichierProfile := PrefixeFichierProfiler + NumEnString((TickCount - tempsGlobalDeLaFonction) div 60) + '.midgame';
+   nomFichierProfile := PrefixeFichierProfiler + IntToStr((TickCount - tempsGlobalDeLaFonction) div 60) + '.midgame';
    WritelnDansRapport('nomFichierProfile = '+nomFichierProfile);
    if ProfilerDump(nomFichierProfile) <> NoErr
      then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfile+') a échoué !')

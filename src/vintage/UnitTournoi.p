@@ -423,10 +423,10 @@ end;
          droite := 115;
 
          s1 := NomDeLEngineDansLeMatch(match,joueur1);
-         if (niveau1 >= 0) then s1 := s1 + ' (prof ' + NumEnString(niveau1) + ')';
+         if (niveau1 >= 0) then s1 := s1 + ' (prof ' + IntToStr(niveau1) + ')';
 
          s2 := NomDeLEngineDansLeMatch(match,joueur2);
-         if (niveau2 >= 0) then s2 := s2 + ' (prof ' + NumEnString(niveau2) + ')';
+         if (niveau2 >= 0) then s2 := s2 + ' (prof ' + IntToStr(niveau2) + ')';
 
          if secondePartieSynchro
            then len := Max(LENGTH_OF_STRING(s1), LENGTH_OF_STRING(s2))
@@ -464,7 +464,7 @@ end;
 
           Moveto(local2,posV);
           s1 := NomDeLEngineDansLeMatch(match,joueur2);
-          if (niveau2 >= 0) then s1 := s1 + ' (prof ' + NumEnString(niveau2) + ')';
+          if (niveau2 >= 0) then s1 := s1 + ' (prof ' + IntToStr(niveau2) + ')';
           if (typeDeMatch <> ENTRE_ENGINES) then s1 := s1+' (n¡2)';
           MyDrawString(s1);
           if (local2 = localMax) and (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
@@ -473,9 +473,9 @@ end;
           if (typeDeMatch <> ENTRE_ENGINES) then
             begin
               Moveto(local2,posV+10);
-              s1 := NumEnString(fanny[2] div 2);
+              s1 := IntToStr(fanny[2] div 2);
               if odd(fanny[2]) then s1 := s1 + '.5';
-              s2 := NumEnString(scorecumule[2]);
+              s2 := IntToStr(scorecumule[2]);
               MyDrawString(s1+'   '+s2);
             end;
 
@@ -488,7 +488,7 @@ end;
 
           Moveto(local1,posV);
           s1 := NomDeLEngineDansLeMatch(match,joueur1);
-          if (niveau1 >= 0) then s1 := s1 + ' (prof ' + NumEnString(niveau1) + ')';
+          if (niveau1 >= 0) then s1 := s1 + ' (prof ' + IntToStr(niveau1) + ')';
           if (typeDeMatch <> ENTRE_ENGINES) then s1 := s1+' (n¡1)';
           MyDrawString(s1);
           if (local1 = localMax) and (LENGTH_OF_STRING(s1) > LENGTH_OF_STRING(plusLongueChaineDroite))
@@ -497,9 +497,9 @@ end;
           if (typeDeMatch <> ENTRE_ENGINES) then
             begin
               Moveto(local1,posV+10);
-              s1 := NumEnString(fanny[1] div 2);
+              s1 := IntToStr(fanny[1] div 2);
               if odd(fanny[1]) then s1 := s1 + '.5';
-              s2 := NumEnString(scorecumule[1]);
+              s2 := IntToStr(scorecumule[1]);
               MyDrawString(s1+'   '+s2);
             end;
 
@@ -524,8 +524,8 @@ end;
               s1 := '';
               if (typeDeMatch = ENTRE_ENGINES) then s1 := s1 + NomDeLEngineDansLeMatch(match,joueur1)+' ';
               if (scorePourNoirPartiePrecedente > 0)
-                then s1 := s1 + '+' + NumEnString(scorePourNoirPartiePrecedente)
-                else s1 := s1 +       NumEnString(scorePourNoirPartiePrecedente);
+                then s1 := s1 + '+' + IntToStr(scorePourNoirPartiePrecedente)
+                else s1 := s1 +       IntToStr(scorePourNoirPartiePrecedente);
               MyDrawString(s1);
 
               Moveto(Max(local1,local2),posV + 40);
@@ -534,8 +534,8 @@ end;
               s2 := '';
               if (typeDeMatch = ENTRE_ENGINES) then s2 := s2 + NomDeLEngineDansLeMatch(match,joueur2)+ ' ';
               if (scorePourNoirPartiePrecedente < 0)
-                then s2 := s2 + '+' + NumEnString(-scorePourNoirPartiePrecedente)
-                else s2 := s2 +       NumEnString(-scorePourNoirPartiePrecedente);
+                then s2 := s2 + '+' + IntToStr(-scorePourNoirPartiePrecedente)
+                else s2 := s2 +       IntToStr(-scorePourNoirPartiePrecedente);
               MyDrawString(s2);
               if (LENGTH_OF_STRING(s2) > LENGTH_OF_STRING(plusLongueChaineDroite))
                 then plusLongueChaineDroite := s2;
@@ -647,7 +647,7 @@ begin
   numeroMoteurDeCeCanal[0] := numeroEngineEnCours;
 
   if (numeroEngineEnCours > 0) then
-    if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
+    if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), IntToStr(numProcessors))
       then doitArreterLeMoteurDeCeCanal[0] := true
       else numeroEngineEnCours := 0;
 
@@ -662,7 +662,7 @@ begin
   numeroMoteurDeCeCanal[1] := numeroEngineEnCours;
 
   if (numeroEngineEnCours > 0) then
-    if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
+    if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), IntToStr(numProcessors))
       then doitArreterLeMoteurDeCeCanal[1] := true
       else numeroEngineEnCours := 0;
 
@@ -1100,12 +1100,12 @@ begin
     			          fanny[1] := fanny[1]+1;
     			        end;
 
-    			      s1 := NumEnString(fanny[2] div 2);
+    			      s1 := IntToStr(fanny[2] div 2);
     			      if odd(fanny[2]) then s1 := s1 + '.5';
-    			      s1 := s1 + '/' + NumEnString(compteurPartie div 2);
+    			      s1 := s1 + '/' + IntToStr(compteurPartie div 2);
     			      if (scoreSurDeuxParties[2] >= scoreSurDeuxParties[1])
-    			        then s1 := s1 + '  (+' + NumEnString((scoreSurDeuxParties[2] - scoreSurDeuxParties[1]) div 2) + ')'
-    			        else s1 := s1 + '  ('  + NumEnString((scoreSurDeuxParties[2] - scoreSurDeuxParties[1]) div 2) + ')';
+    			        then s1 := s1 + '  (+' + IntToStr((scoreSurDeuxParties[2] - scoreSurDeuxParties[1]) div 2) + ')'
+    			        else s1 := s1 + '  ('  + IntToStr((scoreSurDeuxParties[2] - scoreSurDeuxParties[1]) div 2) + ')';
     			      (* WritelnDansRapport('[2] : '+s1); *)
 
     			      nbreDePionsPartiePrecedente[pionNoir]  := 0;
@@ -1261,7 +1261,7 @@ end;
             WriteDansRapport(NomDeLEngineDansLeMatch(match,joueur1) + ' ');
             TextNormalDansRapport;
 
-            WriteNumDansRapport(NumEnString(nbNoirs) + ' - ',nbBlancs);
+            WriteNumDansRapport(IntToStr(nbNoirs) + ' - ',nbBlancs);
             WriteDansRapport(' ');
 
             if (fanny[2] > fanny[1]) then ChangeFontFaceDansRapport(bold);
@@ -1312,7 +1312,7 @@ end;
             WriteDansRapport(NomDeLEngineDansLeMatch(match,joueur2) + ' ');
             TextNormalDansRapport;
 
-            WriteNumDansRapport(NumEnString(nbNoirs) + ' - ',nbBlancs);
+            WriteNumDansRapport(IntToStr(nbNoirs) + ' - ',nbBlancs);
             WriteDansRapport(' ');
 
             if (fanny[1] > fanny[2]) then ChangeFontFaceDansRapport(bold);
@@ -1390,14 +1390,14 @@ begin
       if (nomTournoi <> '') then WritelnDansRapport('Nom du tournoi = "' + nomTournoi+'"');
       if (settings.niveau1 > 0) and (settings.niveau2 > 0)
         then WritelnNumDansRapport('Tournoi ˆ profondeur fixe = ',settings.niveau1)
-        else WritelnDansRapport('Temps par joueur = ' + NumEnString(settings.tempsParPartie div 60) + ' min.');
+        else WritelnDansRapport('Temps par joueur = ' + IntToStr(settings.tempsParPartie div 60) + ' min.');
 
 
       (* Afficher les participants *)
 
       if odd(nbParticipants) then
         begin
-          WritelnDansRapport('Comme il y a '+NumEnString(nbParticipants)+' inscrits au tournoi, j''ajoute un Bip qui perdra toutes ses parties.');
+          WritelnDansRapport('Comme il y a '+IntToStr(nbParticipants)+' inscrits au tournoi, j''ajoute un Bip qui perdra toutes ses parties.');
           inc(nbParticipants);
           for t := (nbParticipants - 1) downto ((nbParticipants div 2) + 1) do
             nroEngineParticipant[t] := nroEngineParticipant[t - 1];
@@ -1462,7 +1462,7 @@ begin
       WritelnDansRapport('');
       WriteNumDansRapport('# RONDE ', (nbParticipants - 1)*(tours - 1) + numeroRonde);
       if (numeroRonde = 1) and (nbParticipants > 2)
-        then WriteDansRapport('  (toutes-rondes '+NumEnString(tours)+')');
+        then WriteDansRapport('  (toutes-rondes '+IntToStr(tours)+')');
       WritelnDansRapport('');
       WritelnDansRapport('');
       TextNormalDansRapport;
@@ -1706,7 +1706,7 @@ begin
       SwitchToEngine(0);
       numeroEngineEnCours := sauvegardeEngineEnCours;
       if (numeroEngineEnCours > 0) then
-        if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), NumEnString(numProcessors))
+        if CanStartEngine(GetEnginePath(numeroEngineEnCours,''), IntToStr(numProcessors))
           then
             begin
               doitArreterLeMoteurDeCeCanal[0] := true;
@@ -2307,7 +2307,7 @@ begin
 
   s1 := ' (->'+ReelEnString(PourcentageDeCetteDeviation(index)) + '%';
   s1 := s1 + '¥'+ReelEnString(NombrePionsMoyenDeCetteDeviation(index));
-  s1 := s1 + '¥'+NumEnString(NombrePartiesDeCetteDeviation(index)) + ')';
+  s1 := s1 + '¥'+IntToStr(NombrePartiesDeCetteDeviation(index)) + ')';
   WriteDansRapport(s1);
 
   WritelnDansRapport('');
@@ -2564,9 +2564,9 @@ begin
               WriteNumDansRapport(',',dev_penalitetrait);
               WriteDansRapport(') => ');
 
-              s1 := NumEnString(gains div 2);
+              s1 := IntToStr(gains div 2);
               if odd(gains) then s1 := s1 + '.5';
-              s2 := NumEnString(pions);
+              s2 := IntToStr(pions);
               WriteDansRapport(s1+'  '+s2+ '  ');
               if (kNombrePartiesParMatchDansDemo) <> 0 then
                 begin
@@ -2576,7 +2576,7 @@ begin
 
               s1 := ' (->'+ReelEnString(PourcentageDeCetteDeviation(index)) + '%';
               s1 := s1 + '¥'+ReelEnString(NombrePionsMoyenDeCetteDeviation(index));
-              s1 := s1 + '¥'+NumEnString(NombrePartiesDeCetteDeviation(index)) + ')';
+              s1 := s1 + '¥'+IntToStr(NombrePartiesDeCetteDeviation(index)) + ')';
               WriteDansRapport(s1);
 
               WritelnDansRapport('');
@@ -2754,14 +2754,14 @@ procedure ChoisitCoefficientsDuMatch(indexJoueur1,indexJoueur2 : SInt32);
         WriteDansRapport(') => ');
 
         (*
-        NumEnString(niveau2,s1);
+        IntToStr(niveau2,s1);
         s1 := 'prof '+s1+' (n¡2)';
         WriteDansRapport(s1+'¥¥¥¥');
         *)
 
-        s1 := NumEnString(fanny[2] div 2);
+        s1 := IntToStr(fanny[2] div 2);
         if odd(fanny[2]) then s1 := s1 + '.5';
-        s2 := NumEnString(scorecumule[2]);
+        s2 := IntToStr(scorecumule[2]);
         WriteDansRapport(s1+'  '+s2+ '  ');
         if (fanny[2]+fanny[1]) <> 0 then
           begin
@@ -2771,7 +2771,7 @@ procedure ChoisitCoefficientsDuMatch(indexJoueur1,indexJoueur2 : SInt32);
 
         s1 := ' (->'+ReelEnString(PourcentageDeCetteDeviation(index_deviation_courante)) + '%';
         s1 := s1 + '¥'+ReelEnString(NombrePionsMoyenDeCetteDeviation(index_deviation_courante));
-        s1 := s1 + '¥'+NumEnString(NombrePartiesDeCetteDeviation(index_deviation_courante)) + ')';
+        s1 := s1 + '¥'+IntToStr(NombrePartiesDeCetteDeviation(index_deviation_courante)) + ')';
         WriteDansRapport(s1);
 
         WritelnDansRapport('');
@@ -2931,7 +2931,7 @@ begin
 
 
                       (* Faire le match *)
-                      WriteDansRapport('match '+NumEnString(indexJoueur1)+'-'+NumEnString(indexJoueur2)+'É ');
+                      WriteDansRapport('match '+IntToStr(indexJoueur1)+'-'+IntToStr(indexJoueur2)+'É ');
 
                       match.typeDeMatch := ENTRE_DEVIATIONS;
                       match.joueur1 := indexJoueur1;
@@ -2967,7 +2967,7 @@ begin
                     WritelnNumDansRapport('Classement aprs la ronde ',numeroRonde);
                     for t := 0 to nbParticipants - 1 do
                       begin
-                        WriteStringAndReelDansRapport(NumEnString(indexParticipant[t])+'   =>   s = ',scoreParticipant[t],3);
+                        WriteStringAndReelDansRapport(IntToStr(indexParticipant[t])+'   =>   s = ',scoreParticipant[t],3);
                         WriteStringAndReelDansRapport(' (',100*scoreParticipant[t]/numeroRonde,4);
                         WritelnDansRapport('%)');
                       end;
@@ -3124,7 +3124,7 @@ var numeroTest,increment : SInt16;
  procedure GetStringDeLigneAff(noLigneAff : SInt16; var s : String255);
  var i,k : SInt16;
  begin {$unused i,k}
-   s := NumEnString(noLigneAff);
+   s := IntToStr(noLigneAff);
 
 
    effetspecial := true;
@@ -3213,7 +3213,7 @@ var numeroTest,increment : SInt16;
 
 
 
-   s := '[s = '+NumEnString(nroEffetspecial)+'] : ';
+   s := '[s = '+IntToStr(nroEffetspecial)+'] : ';
 
    if VerifieAssertionsDeFinale then DoNothing;
 
@@ -3286,7 +3286,7 @@ begin
    numeroTest := numeroTest+increment;
    if (interruptionReflexion = pasdinterruption) and not(Quitter) then
     begin
-      s := NumEnString(numeroTest);
+      s := IntToStr(numeroTest);
       if numeroTest < 10
         then nomFichier := pathCassioFolder+'Tests finale:TestFinale  '+s
         else nomFichier := pathCassioFolder+'Tests finale:TestFinale '+s;
@@ -3441,7 +3441,7 @@ begin
 
          {for i := 0 to nbTablesHashExactes-1 do}
          {for i := 0 to 0 do
-             WritelnStringAndReelDansRapport('taux_remplissage['+NumEnString(i)+'] = ',TauxDeRemplissageHashExacte(i,false),5);
+             WritelnStringAndReelDansRapport('taux_remplissage['+IntToStr(i)+'] = ',TauxDeRemplissageHashExacte(i,false),5);
           EcritStatistiquesCollisionsHashTableDansRapport;
           }
         end;
@@ -3552,7 +3552,7 @@ begin
 
              {for i := 0 to nbTablesHashExactes-1 do}
              {for i := 0 to 0 do
-                WritelnStringAndReelDansRapport('taux_remplissage['+NumEnString(i)+'] = ',TauxDeRemplissageHashExacte(i,false),5);
+                WritelnStringAndReelDansRapport('taux_remplissage['+IntToStr(i)+'] = ',TauxDeRemplissageHashExacte(i,false),5);
               EcritStatistiquesCollisionsHashTableDansRapport;
               }
 

@@ -644,7 +644,7 @@ begin
   GetTime(currentDate);
   for essaiAnnee := 1980 to currentDate.year+2 do
     begin
-      s := NumEnString(essaiAnnee);
+      s := IntToStr(essaiAnnee);
       if Pos(s,path) > 0 then
         annee := essaiAnnee;
     end;
@@ -915,9 +915,9 @@ var nbJoueursTrouves : SInt64;
     memoisation[imin3,imax3] := numero3;
 
     (*
-    WritelnNumDansRapport('Memoisation['+NumEnString(imin1)+','+NumEnString(imax1)+'] = ',memoisation[imin1,imax1]);
-    WritelnNumDansRapport('Memoisation['+NumEnString(imin2)+','+NumEnString(imax2)+'] = ',memoisation[imin2,imax2]);
-    WritelnNumDansRapport('Memoisation['+NumEnString(imin3)+','+NumEnString(imax3)+'] = ',memoisation[imin3,imax3]);
+    WritelnNumDansRapport('Memoisation['+IntToStr(imin1)+','+IntToStr(imax1)+'] = ',memoisation[imin1,imax1]);
+    WritelnNumDansRapport('Memoisation['+IntToStr(imin2)+','+IntToStr(imax2)+'] = ',memoisation[imin2,imax2]);
+    WritelnNumDansRapport('Memoisation['+IntToStr(imin3)+','+IntToStr(imax3)+'] = ',memoisation[imin3,imax3]);
     *)
 
 

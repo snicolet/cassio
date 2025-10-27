@@ -219,7 +219,7 @@ begin
 		  s := '';
 		  longueur := 0;
 		  c := GetNextChar(SauterLesCaracteresDeControle);
-		  {WritelnDansRapport('LitArgumentOfPropertyEnChaine : lecture de '+c+' (code ascii = '+NumEnString(ord(c))+')');
+		  {WritelnDansRapport('LitArgumentOfPropertyEnChaine : lecture de '+c+' (code ascii = '+IntToStr(ord(c))+')');
 		  }
 		  while not((c = ']') and (avantDernierCaractereLu <> '\')) and
 		       (longueur < 255) and not(QuitterLecture) do
@@ -238,7 +238,7 @@ begin
 
 		        end;
 		      c := GetNextChar(SauterLesCaracteresDeControle);
-		      {WritelnDansRapport('LitArgumentOfPropertyEnChaine : lecture de '+c+' (code ascii = '+NumEnString(ord(c))+')');
+		      {WritelnDansRapport('LitArgumentOfPropertyEnChaine : lecture de '+c+' (code ascii = '+IntToStr(ord(c))+')');
 		      }
 		    end;
 		  {WritelnDansRapport('LitArgumentOfPropertyEnChaine ='+s);}
@@ -633,7 +633,7 @@ begin
   compteur := 0;
   repeat
     c := GetNextChar(true);
-    {WritelnDansRapport('LitProperty : lecture de '+c+ ' ( code ascii = '+NumEnString(ord(c))+')');}
+    {WritelnDansRapport('LitProperty : lecture de '+c+ ' ( code ascii = '+IntToStr(ord(c))+')');}
 
     if (c <> '[') then
       begin
@@ -890,7 +890,7 @@ begin
 		        begin
 		         {WriteDansRapport('LectureRecursiveArbre : ');}
 		          WriteDansRapport('analyse de '+c);
-		         {WriteDansRapport(' (code ascii = '+NumEnString(ord(c))+')');}
+		         {WriteDansRapport(' (code ascii = '+IntToStr(ord(c))+')');}
 		          WriteDansRapport(' : ');
 		        end;
 		      case c of
@@ -1093,7 +1093,7 @@ begin
 		                exit(LectureRecursiveArbre);
 		              end;
 		         otherwise
-		               WritelnDansRapport('erreur : caractere non traité = '+c+ ' (code ascii = '+NumEnString(ord(c))+')');
+		               WritelnDansRapport('erreur : caractere non traité = '+c+ ' (code ascii = '+IntToStr(ord(c))+')');
 		      end; {case}
 
 		    until (EmboitementParentheses <= 0) or QuitterLecture;
@@ -1180,7 +1180,7 @@ begin {$UNUSED tickDepart}
       {$ENDC}
 
       {$IFC USE_PROFILER_SMART_GAME_BOARD}
-      nomFichierProfileSmartGameBoard := 'lecture_smart_' + NumEnString(Tickcount div 60) + '.profile';
+      nomFichierProfileSmartGameBoard := 'lecture_smart_' + IntToStr(Tickcount div 60) + '.profile';
       WritelnDansRapport('nomFichierProfileSmartGameBoard = '+nomFichierProfileSmartGameBoard);
       if ProfilerDump(nomFichierProfileSmartGameBoard) <> NoErr
         then AlerteSimple('L''appel à ProfilerDump('+nomFichierProfileSmartGameBoard+') a échoué !')

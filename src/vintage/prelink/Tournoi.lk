@@ -20,7 +20,6 @@ function GetEngineName(numeroEngine : SInt32) : String255;     external;
 procedure SwitchToEngine(whichChannel : SInt16);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 procedure PrepareTexteStatePourHeure;     external;
-  function NumEnString(num : SInt32) : String255;     external;
   procedure MyEraseRect(const (*var*) r : Rect);     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 	procedure DrawStringPourGNUPascal(const s : String255);     external;

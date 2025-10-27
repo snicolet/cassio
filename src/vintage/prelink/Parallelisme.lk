@@ -14,7 +14,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 procedure FlushWindow(theWindow : WindowRef);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure WriteStringAndCoupDansRapport(s : String255; square : SInt16);     external;
 procedure EcritBitboardState(s : String255; position : bitboard; ESprof,alpha,beta,diffPions : SInt32);     external;
 function MakeBitboard(my_low,my_high,opp_low,opp_hi : UInt32) : bitboard;     external;

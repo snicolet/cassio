@@ -161,7 +161,7 @@ begin
       if not(FenetreRapportEstOuverte) then OuvreFntrRapport(false,true);
       if FenetreRapportEstOuverte then SelectWindowSousPalette(GetRapportWindow);
       WritelnDansRapport('');
-      WritelnDansRapport('nb de partie(s) à apprendre = '+NumEnString(nbPartiesActives));
+      WritelnDansRapport('nb de partie(s) à apprendre = '+IntToStr(nbPartiesActives));
 
       n1 := GetNbreEcrituresDansGraphe;
       n2 := GetNbreLecturesDansGraphe;
@@ -181,7 +181,7 @@ begin
             begin
               if debuggage.apprentissage then
                 begin
-                  WritelnDansRapport('apprentissage de la partie #'+NumEnString(nroReference));
+                  WritelnDansRapport('apprentissage de la partie #'+IntToStr(nroReference));
                   AttendFrappeClavier;
                 end;
 
@@ -206,7 +206,7 @@ begin
               ApprendPartie(fichier,s120,GainTheorique,CoupDuCalculOptimalDansThor);
             end;
 
-          if (i mod 40) = 0 then WritelnDansRapport(NumEnString(i)+CharToString('…'));
+          if (i mod 40) = 0 then WritelnDansRapport(IntToStr(i)+CharToString('…'));
 
 
           if HasGotEvent(EveryEvent,theEvent,kWNESleep,NIL) then TraiteEvenements;
@@ -215,8 +215,8 @@ begin
         end;
 
 
-      WritelnDansRapport('nbre Ecritures de cellules = '+NumEnString(GetNbreEcrituresDansGraphe-n1));
-      WritelnDansRapport('nbre lectures de cellules = '+NumEnString(GetNbreLecturesDansGraphe-n2));
+      WritelnDansRapport('nbre Ecritures de cellules = '+IntToStr(GetNbreEcrituresDansGraphe-n1));
+      WritelnDansRapport('nbre lectures de cellules = '+IntToStr(GetNbreLecturesDansGraphe-n2));
 
       WritelnDansRapport('apprentissage terminé.');
       WritelnDansRapport('');

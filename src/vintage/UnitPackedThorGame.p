@@ -342,7 +342,7 @@ begin
   for i := 1 to len do
     begin
       coup := whichGame.theMoves[i];
-      WriteNumDansRapport(NumEnString(i) + ':',i);
+      WriteNumDansRapport(IntToStr(i) + ':',i);
       WriteNumDansRapport(' => ',coup);
       WritelnStringAndCoupDansRapport(' , ',coup);
     end;

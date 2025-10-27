@@ -3214,7 +3214,7 @@ begin
              if (kVerbosityLevelAlgoParallele >= 3) and (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                  WritelnNumDansRapport('avant l''appel ˆ CalculerCoupsEnParallele par la thread '+NumEnString(nroThread)+', nroThreadEsclave = ',nroThreadEsclave);
+                  WritelnNumDansRapport('avant l''appel ˆ CalculerCoupsEnParallele par la thread '+IntToStr(nroThread)+', nroThreadEsclave = ',nroThreadEsclave);
                   AttendreFrappeClavierParallelisme(true);
                   errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
@@ -3254,7 +3254,7 @@ begin
              if (kVerbosityLevelAlgoParallele >= 3) and (nbreNoeudsGeneresFinale >= kNombreDeNoeudMinimalPourSuiviDansRapport) then
                 begin
                   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
-                  WritelnNumDansRapport('apres l''appel ˆ CalculerCoupsEnParallele par la thread '+NumEnString(nroThread)+',  nroThreadEsclave = ',nroThreadEsclave);
+                  WritelnNumDansRapport('apres l''appel ˆ CalculerCoupsEnParallele par la thread '+IntToStr(nroThread)+',  nroThreadEsclave = ',nroThreadEsclave);
                   AttendreFrappeClavierParallelisme(true);
                   errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
                 end;
@@ -3465,7 +3465,7 @@ begin
   WritelnDansRapport('plateau recu en parametre dans LanceurBitboardAlphaBeta: ');
   WritelnPositionEtTraitDansRapport(plat,couleur);
   WritelnNumDansRapport('diffPions = ',diffPions);
-  WritelnDansRapport('(myBitsLow, myBitsHigh, oppBitsLow, oppBitsHigh) = ('+NumEnString(myBitsLow)+', '+NumEnString(myBitsHigh) + ', ' + NumEnString(oppBitsLow)+ ', '+NumEnString(oppBitsHigh) + ')');
+  WritelnDansRapport('(myBitsLow, myBitsHigh, oppBitsLow, oppBitsHigh) = ('+IntToStr(myBitsLow)+', '+IntToStr(myBitsHigh) + ', ' + IntToStr(oppBitsLow)+ ', '+IntToStr(oppBitsHigh) + ')');
   EcritBitboardState('dans LanceurBitboardAlphaBeta : ',position,ESprof,alpha,beta,diffPions);
   AttendFrappeClavier;
   {$ENDC}

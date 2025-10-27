@@ -12,7 +12,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function MakePoint(h,v : SInt32) : Point;     external;
 procedure DumpWorkToScreen(sourceRect,targetRect : rect; offScreenWork,targetWindow : CGrafPtr);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function GetNomDansMenuPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;     external;
 function CreateTempOffScreenWorld(var theRect : rect; var offScreenGWorld : GWorldPtr) : OSErr;     external;
 procedure WritelnStringDansRapport(s : String255);     external;

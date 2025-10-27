@@ -55,7 +55,6 @@ procedure ReinitilaliseInfosAffichageReflexion;     external;
 procedure EffaceReflexion(effacerAussiLeRuban : boolean);     external;
 	function EscapeDansQueue : boolean;     external;
 function WriteDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;

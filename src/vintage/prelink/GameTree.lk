@@ -27,7 +27,6 @@ procedure ForEachPropertyInListDo(L : PropertyList ; DoWhat : PropertyProc);    
 function ExistsInPropertyList(prop : Property; L : PropertyList) : boolean;     external;
 function NewGameTreePaginee : GameTree;     external;
 	function NewMagicCookie : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 procedure DisposeGameTreePaginee(G : GameTree);     external;
 procedure CompacterPropertyList(var L : PropertyList);     external;
 function PropertyListEstVide(L : PropertyList) : boolean;     external;

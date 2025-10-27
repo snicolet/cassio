@@ -21,7 +21,6 @@ function GetWindowPortRect(window : WindowPtr) : rect;     external;
   procedure MyEraseRect(const (*var*) r : Rect);     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
   procedure EnableQuartzAntiAliasingThisPort(port : CGrafPtr; useQuartzMetrics : boolean);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
   function SeparerLesChiffresParTrois(var s : String255) : String255;     external;
 procedure OthellierEtPionsDeDepart(var plat : plateauOthello; var nBla,nNoi : SInt32);     external;

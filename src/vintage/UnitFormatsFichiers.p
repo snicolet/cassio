@@ -1498,7 +1498,7 @@ begin
   repeat
     inc(compteur);
     err := GetNextCharFichier(true,c);
-    WritelnNumDansRapport(NumEnString(compteur-compteur) + ' : '+CharToString(c)+'=',ord(c));
+    WritelnNumDansRapport(IntToStr(compteur-compteur) + ' : '+CharToString(c)+'=',ord(c));
   until EscapeDansQueue or (compteur >= nbDeCaracteres);
 end;
 

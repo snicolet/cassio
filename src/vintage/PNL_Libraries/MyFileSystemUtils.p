@@ -436,7 +436,7 @@ end;
 		oe := HCreate(fs.vRefNum, fs.parID, name , creator, ftype);
 		i := 1;
 		while oe = dupFNErr do begin
-			n := NumEnString(i);
+			n := IntToStr(i);
 
 			SetNameOfFSSpec(fs, Concat(oname, '#', n));
 
@@ -461,7 +461,7 @@ end;
 		oe := FSpDirCreate( fs, 0, dirID );
 		i := 1;
 		while oe = dupFNErr do begin
-			n := NumEnString( i );
+			n := IntToStr( i );
 
 			SetNameOfFSSpec(fs, Concat(oname, '#', n));
 

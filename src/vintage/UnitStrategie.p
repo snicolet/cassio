@@ -700,9 +700,9 @@ begin
      end;
 
    {exeptionnellement, pour le debugage seulement !}
-   if (a < 11) then AlerteSimple('Debugger : a = '+NumEnString(a)+' dans ModifPlatLongint') else
-   if (a > 88) then AlerteSimple('Debugger : a = '+NumEnString(a)+' dans ModifPlatLongint') else
-   if (jeu[a] <> pionVide) then AlerteSimple('Debugger : jeu['+NumEnString(a)+'] <> 0 dans ModifPlatLongint');
+   if (a < 11) then AlerteSimple('Debugger : a = '+IntToStr(a)+' dans ModifPlatLongint') else
+   if (a > 88) then AlerteSimple('Debugger : a = '+IntToStr(a)+' dans ModifPlatLongint') else
+   if (jeu[a] <> pionVide) then AlerteSimple('Debugger : jeu['+IntToStr(a)+'] <> 0 dans ModifPlatLongint');
 
 
    modifie := false; nbprise := 0;

@@ -508,7 +508,7 @@ procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);
 var lignerect : rect;
     s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   s := s + s1+'   ';
   SetRect(lignerect,h,v-9,h+MyStringWidth(s),v+2);
   MyEraseRect(lignerect);
@@ -522,7 +522,7 @@ procedure WriteStringAndNumEnSeparantLesMilliersAt(s : String255; num : SInt32; 
 var lignerect : rect;
     s1 : String255;
 begin
-  s1 := NumEnString(num);
+  s1 := IntToStr(num);
   s := s + SeparerLesChiffresParTrois(s1) + '   ';
   SetRect(lignerect,h,v-9,h+MyStringWidth(s),v+2);
   MyEraseRect(lignerect);

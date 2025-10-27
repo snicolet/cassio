@@ -3546,7 +3546,7 @@ begin
             CoderBord(i,uncode,nbtrous,nbamis,nbennemis);
             compteurFautes := compteurFautes+1;
             Moveto(10,compteurFautes*10);
-            MyDrawString(uncode+CharToString(' => ')+NumEnString(aux));
+            MyDrawString(uncode+CharToString(' => ')+IntToStr(aux));
             CoderBord(-i,uncode,nbtrous,nbamis,nbennemis);
             autreCode := ChaineMirroir(uncode);
             aux := DecoderBord(autrecode);
@@ -3567,7 +3567,7 @@ begin
      then
        begin
          Moveto(50+50+50,50+50);
-         MyDrawString('nb erreurs = '+NumEnString(compteurFautes)+'  tapez une touche');
+         MyDrawString('nb erreurs = '+IntToStr(compteurFautes)+'  tapez une touche');
          AttendFrappeClavier;
       end;
 
@@ -3634,7 +3634,7 @@ begin
 				          begin
 				            CoderBord(-i,autreCode,nbtrous,nbamis,nbennemis);
 				            Write(fichierBordsNonCotes,'EnvoyerBord('''+autreCode+''',');
-				            Write(fichierBordsNonCotes,NumEnString(-aux));
+				            Write(fichierBordsNonCotes,IntToStr(-aux));
                     Writeln(fichierBordsNonCotes,');');
 				          end;
 				    end;

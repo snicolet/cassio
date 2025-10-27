@@ -726,7 +726,7 @@ begin
       (*
       for j := 1 to n do
         begin
-          WritelnDansRapport('p['+NumEnString(j)+'] = '+ReelEnStringAvecDecimales(p^[j],10));
+          WritelnDansRapport('p['+IntToStr(j)+'] = '+ReelEnStringAvecDecimales(p^[j],10));
         end;
       *)
 

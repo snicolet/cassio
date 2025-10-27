@@ -15,7 +15,6 @@ function ReadFromFichierAbstrait(var theFile : FichierAbstrait; fromPos : SInt32
 function SetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait; whichPosition : SInt32) : OSErr;     external;
 function GetNextCharOfFichierAbstrait(var theFile : FichierAbstrait; var c : char) : OSErr;     external;
 function RevientEnArriereDansFichierAbstrait(var theFile : FichierAbstrait; nbOctets : SInt32) : OSErr;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function StringEnCoup(const s : String255) : SInt16;     external;
 function StringSGFEnCoup(const s : String255; var square_x,square_y : SInt16) : boolean;     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;

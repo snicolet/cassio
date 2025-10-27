@@ -353,8 +353,8 @@ begin
   if gameOver and not(HumCtreHum) and not(enTournoi) then
     if not(CassioEstEnModeSolitaire) then
       begin
-        s := NumEnString(nbreDePions[pionNoir]);
-        s1 := NumEnString(nbreDePions[pionBlanc]);
+        s := IntToStr(nbreDePions[pionNoir]);
+        s1 := IntToStr(nbreDePions[pionBlanc]);
         s1 := s+CharToString('-')+s1;
         s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
         if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then
@@ -413,7 +413,7 @@ var s,s1 : String255;
 begin
   if not(CassioEstEnModeSolitaire) and not(jeuInstantane) then
     begin
-      s1 := NumEnString(numeroCoup);
+      s1 := IntToStr(numeroCoup);
       s := ReadStringFromRessource(TextesRapportID,10);   {'conseil'}
       s := '   '+ParamStr(s,s1+CharToString('.')+CoupEnString(conseil,CassioUtiliseDesMajuscules),'','','');
       {FrappeClavierDansRapport(chr(RetourArriereKey));}
@@ -452,8 +452,8 @@ begin
   if theEvent.what = autoKey then s := s + 'autoKey';
 
   s := s + ' caractère="'+ch+'"';
-  s := s + ' ord = '+NumEnString(ord(ch));
-  s := s + '  keycode = '+NumEnString(keycode);
+  s := s + ' ord = '+IntToStr(ord(ch));
+  s := s + '  keycode = '+IntToStr(keycode);
   if shift        then s := s + '  shift = true'        else s := s + '  shift = false';
   if command      then s := s + '  command = true'      else s := s + '  command = false';
   if option       then s := s + '  option = true'       else s := s + '  option = false';

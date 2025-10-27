@@ -19,7 +19,6 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
   procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
   procedure Parser (s : String255; var tete,reste : String255);     external;
   function ChaineEnLongint(const s : String255) : SInt32;     external;
-  function NumEnString(num : SInt32) : String255;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;

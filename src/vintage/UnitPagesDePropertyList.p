@@ -184,7 +184,7 @@ begin
     if ReserveDePropertyList[n] <> NIL then
       with ReserveDePropertyList[n]^ do
         begin
-          WritelnDansRapport('Reserve['+NumEnString(n)+'] est OK');
+          WritelnDansRapport('Reserve['+IntToStr(n)+'] est OK');
           WritelnNumDansRapport('nbEmplacementVides = ',nbEmplacementVides);
           WritelnNumDansRapport('premierEmplacementVide = ',premierEmplacementVide);
           WritelnNumDansRapport('dernierEmplacementVide = ',dernierEmplacementVide);
@@ -317,7 +317,7 @@ begin
   if TrouvePlaceDansPageDePropertyList(numeroDePage,IndexDansPage)
     then
       begin
-        {WritelnDansRapport('creation de ('+NumEnString(numeroDePage)+','+NumEnString(IndexDansPage)+')');
+        {WritelnDansRapport('creation de ('+IntToStr(numeroDePage)+','+IntToStr(IndexDansPage)+')');
         WritelnDansRapport('');}
         with ReserveDePropertyList[numeroDePage]^ do
           begin
@@ -368,7 +368,7 @@ begin
       begin
 
         {
-        WritelnDansRapport('destruction de ('+NumEnString(nroDePage)+','+NumEnString(nroIndex)+')');
+        WritelnDansRapport('destruction de ('+IntToStr(nroDePage)+','+IntToStr(nroIndex)+')');
         }
 
         libre[nroIndex] := true;

@@ -18,7 +18,6 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 	function UpCase (ch : char) : char;     external;
   procedure Assert(b : boolean);     external;
-  function NumEnString(num : SInt32) : String255;     external;
 	function IsDigit(ch : char) : boolean;     external;
 	function IsAlpha(ch : char) : boolean;     external;
 	function StringWidthPourGNUPascal(const s : String255): SInt16;     external;
