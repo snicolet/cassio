@@ -57,7 +57,7 @@ function MakeEmptyStringSet : StringSet;     external;
 function MakeEmptyATR : ATR;     external;
 procedure InsererDansATR(var arbre : ATR; const chaine : String255);     external;
 procedure DisposeATR(var theATR : ATR);     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 	function Match (pattern, name: String255) : boolean;     external;
 	function UpCase (ch : char) : char;     external;
 function NombreJoueursDansBaseOfficielle : SInt32;     external;

@@ -48,7 +48,7 @@ function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;     external;
 function MakeEmptyProperty : Property;     external;
 procedure GetCommentaireDeCeNoeud(G : GameTree; var texte : Ptr; var longueur : SInt32);     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function GetOthelloSquareOfProperty(prop : Property) : SInt16;     external;
 function GetRacineDeLaPartie : GameTree;     external;
 procedure WritelnStringAndPropertyListDansRapport(s : String255; L : PropertyList);     external;

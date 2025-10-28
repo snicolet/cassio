@@ -119,8 +119,8 @@ INTERFACE
   function CompterOccurencesDeSousChaine(const subString, s : String255) : SInt32;
 
 
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;
-  function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;
+  function LowerCase(const s : String255; keepDiacritics : boolean) : String255;
   procedure StripHTMLAccents(var s : String255);
 
 
@@ -187,7 +187,7 @@ INTERFACE
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
 
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);
 
   function DeleteSubstringBeforeThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
   function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
@@ -700,10 +700,10 @@ end;
 	function Trim (s : String255) : String255;
 	begin
 		while (LENGTH_OF_STRING(s) > 0) and CharInSet(s[1],[spc, tab, cr, lf]) do begin
-			DeleteString(s, 1, 1);
+			Delete(s, 1, 1);
 		end;
 		while (LENGTH_OF_STRING(s) > 0) and CharInSet(s[LENGTH_OF_STRING(s)],[spc, tab, cr, lf]) do begin
-			DeleteString(s, LENGTH_OF_STRING(s), 1);
+			Delete(s, LENGTH_OF_STRING(s), 1);
 		end;
 		Trim := s;
 	end;
@@ -893,7 +893,7 @@ var p : SInt16;
 	begin
 		p := Pos(Concat('^', chr(n + 48)), dst);
 		if p > 0 then begin
-			DeleteString(dst, p, 2);
+			Delete(dst, p, 2);
 			Insert(s, dst, p);
 		end;
 	end;
@@ -1125,8 +1125,8 @@ end;
 			M := state = success;
 		end;
 	begin
-		pattern := MyUpperString(pattern, false);
-		name := MyUpperString(name, false);
+		pattern := UpperCase(pattern, false);
+		name := UpperCase(name, false);
 		Match := M(1, 1);
 	end;
 	
@@ -1165,10 +1165,10 @@ end;
 			end;
 			while LENGTH_OF_STRING(s) > len do begin
 				if p > len div 2 + 1 then begin
-					DeleteString(s, p - 1, 1);
+					Delete(s, p - 1, 1);
 					p := p - 1;
 				end else begin
-					DeleteString(s, p + 1, 1);
+					Delete(s, p + 1, 1);
 				end;
 			end;
 		end;
@@ -1472,7 +1472,7 @@ begin
 end;
 
 
-function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;
+function UpperCase(const s : String255; keepDiacritics : boolean) : String255;
 var aux : Str255;
 begin
   aux := StringToStr255(s);
@@ -1480,13 +1480,13 @@ begin
   MyUpperString := MyStr255ToString(aux);
 end;
 
-function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;
-var result : String255;
+function LowerCase(const s : String255; keepDiacritics : boolean) : String255;
+var aux : String255;
 begin
   if not(keepDiacritics)
-    then result := StripDiacritics(s)
-    else result := s;
-  MyLowerString := sysutils.LowerCase(result);
+    then aux := StripDiacritics(s)
+    else aux := s;
+  Result := sysutils.LowerCase(aux);
 end;
 
 
@@ -1758,7 +1758,7 @@ begin
      then
        begin
          res := s;
-         DeleteString(res, positionSubstring, LENGTH_OF_STRING(pattern));
+         Delete(res, positionSubstring, LENGTH_OF_STRING(pattern));
          Insert(replacement, res, positionSubstring);
          ReplaceStringOnce := res;
        end
@@ -1820,7 +1820,7 @@ begin
              end;
 
          resultat := s;
-         DeleteString(resultat,positionSubstring,LENGTH_OF_STRING(pattern)+longueurDuFormat);
+         Delete(resultat,positionSubstring,LENGTH_OF_STRING(pattern)+longueurDuFormat);
          Insert(insertion,resultat,positionSubstring);
          ReplaceVariableByStringInString := resultat;
        end
@@ -2113,7 +2113,7 @@ begin
 	j := Pos('^0', aux);
   if (j > 0) and (j < 255) then
     begin
-      DeleteString(aux, j, 2);
+      Delete(aux, j, 2);
       if (p0 <> '') then Insert(p0, aux, j);
     end;
 
@@ -2121,7 +2121,7 @@ begin
   j := Pos('^1', aux);
   if (j > 0) and (j < 255) then
     begin
-      DeleteString(aux, j, 2);
+      Delete(aux, j, 2);
       if (p1 <> '') then Insert(p1, aux, j);
     end;
 
@@ -2129,7 +2129,7 @@ begin
   j := Pos('^2', aux);
   if (j > 0) and (j < 255) then
     begin
-      DeleteString(aux, j, 2);
+      Delete(aux, j, 2);
       if (p2 <> '') then Insert(p2, aux, j);
     end;
 
@@ -2137,7 +2137,7 @@ begin
   j := Pos('^3', aux);
   if (j > 0) and (j < 255) then
     begin
-      DeleteString(aux, j, 2);
+      Delete(aux, j, 2);
       if (p3 <> '') then Insert(p3, aux, j);
     end;
 
@@ -2275,7 +2275,7 @@ begin
 end;
 
 
-procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
+procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);
 var result : String255;
     longueur,k : SInt32;
     a,b : SInt32;

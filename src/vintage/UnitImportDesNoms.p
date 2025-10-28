@@ -1443,7 +1443,7 @@ begin
     then EstUnNomChinoisDeDeuxLettresOuMoins := false
     else
       begin
-        nomEnMajuscules := MyUpperString(nomJoueur, false);
+        nomEnMajuscules := UpperCase(nomJoueur, false);
         EstUnNomChinoisDeDeuxLettresOuMoins :=
            (nomEnMajuscules = 'AO') or
            (nomEnMajuscules = 'BA') or
@@ -2492,12 +2492,12 @@ begin
   TrouveNumeroDuTournoi := false;
 
   nomCherche := UTF8ToAscii(nomTournoi);
-  nomCherche := MyUpperString(nomCherche,false);
+  nomCherche := UpperCase(nomCherche,false);
 
   for i := fromIndex to TournoisNouveauFormat.nbTournoisNouveauFormat do
     begin
       nomCourant := GetNomTournoi(i);
-      nomCourant := MyUpperString(nomCourant,false);
+      nomCourant := UpperCase(nomCourant,false);
 
       positionSousChaine := Pos(nomCherche,nomCourant);
       if (positionSousChaine > 0) then
@@ -2530,7 +2530,7 @@ var result : String255;
     c : char;
 begin
 
-  s := MyUpperString(s,false);
+  s := UpperCase(s,false);
   result := '';
   for k := 1 to LENGTH_OF_STRING(s) do
     begin
@@ -2548,7 +2548,7 @@ var result : String255;
     c : char;
 begin
 
-  result := MyUpperString(s,false);
+  result := UpperCase(s,false);
 
   for k := 1 to LENGTH_OF_STRING(s) do
     begin

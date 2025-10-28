@@ -338,7 +338,7 @@ begin
     // WritelnDansRapport(s);
 
     if (LENGTH_OF_STRING(s) = 25) then
-       WritelnDansRapport(MyUpperString(s,false));
+       WritelnDansRapport(UpperCase(s,false));
 
     s := EnleveEspacesDeGauche(s);
 
@@ -346,7 +346,7 @@ begin
       begin
         inc(compteurMots);
 
-        AjouterMotFrancais(MyUpperString(s,false));
+        AjouterMotFrancais(UpperCase(s,false));
 
       end;
 
@@ -405,7 +405,7 @@ begin
     // WritelnDansRapport(s);
 
     if (LENGTH_OF_STRING(s) = 25) then
-       WritelnDansRapport(MyUpperString(s,false));
+       WritelnDansRapport(UpperCase(s,false));
 
     s := EnleveEspacesDeGauche(s);
     s := UTF8ToAscii(s);
@@ -414,7 +414,7 @@ begin
       begin
         inc(compteurMots);
 
-        // AjouterMotFrancais(MyUpperString(s,false));
+        // AjouterMotFrancais(UpperCase(s,false));
 
         ReplaceCharByCharInString(s, ',' , ' ');
         ReplaceCharByCharInString(s, '.' , ' ');
@@ -429,7 +429,7 @@ begin
 
 
 
-        s := MyUpperString(s, false);
+        s := UpperCase(s, false);
 
         WritelnDansRapport(s);
 

@@ -322,7 +322,7 @@ begin
 
   { 'plateauEnString' contient désormais une description de l'othellier }
 
-  DeleteString(positionEtpartie,1,64);
+  Delete(positionEtpartie,1,64);
   EnleveEspacesDeGaucheSurPlace(positionEtpartie);
 
   { 'positionEtpartie' contient désormais :

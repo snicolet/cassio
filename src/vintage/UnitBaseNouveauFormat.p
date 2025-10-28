@@ -1666,7 +1666,7 @@ begin
    nomJoueur := GetNomJoueur(Partiebuff.nroJoueurNoir);
    nomJoueur := DeleteSpacesBefore(nomJoueur,LENGTH_OF_STRING(nomJoueur));
    {while nomjoueur[LENGTH_OF_STRING(nomjoueur)] = ' ' do
-     DeleteString(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
+     Delete(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
 
    chaine := chaine + nomjoueur;
    s := IntToStr(Partiebuff.scoreReel);
@@ -1674,7 +1674,7 @@ begin
    nomJoueur := GetNomJoueur(Partiebuff.nroJoueurBlanc);
    nomJoueur := DeleteSpacesBefore(nomJoueur,LENGTH_OF_STRING(nomJoueur));
    {while nomjoueur[LENGTH_OF_STRING(nomjoueur)] = ' ' do
-     DeleteString(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
+     Delete(nomjoueur,LENGTH_OF_STRING(nomjoueur),1);}
 
    chaine := chaine + nomjoueur;
    s := IntToStr(64-Partiebuff.scoreReel);

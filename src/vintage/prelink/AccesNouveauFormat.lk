@@ -25,7 +25,7 @@ function FabriqueMetaphoneDesLexemes(original : String255) : String255;     exte
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
 function AllocateMemoryHdl(whichSize : SInt32) : handle;     external;
 procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
   function EnleveEspacesDeDroite(const s : String255) : String255;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;

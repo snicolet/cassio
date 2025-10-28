@@ -752,9 +752,9 @@ begin
   found := false;
 
   prefixeMajus := prefixe;
-  prefixeMajus := MyUpperString(prefixeMajus,false);
+  prefixeMajus := UpperCase(prefixeMajus,false);
   derniereChaineMajus := derniereChaineComplementation^^;
-  derniereChaineMajus := MyUpperString(derniereChaineMajus,false);
+  derniereChaineMajus := UpperCase(derniereChaineMajus,false);
 
 
   if (prefixe <> '') and (JoueursNouveauFormat.nbJoueursNouveauFormat > 0) then
@@ -770,7 +770,7 @@ begin
                 begin
                   i := GetNiemeJoueurTableSaisiePartie(n);
                   joueurBase := GetNomJoueur(i);
-                  joueurBase := MyUpperString(joueurBase,false);
+                  joueurBase := UpperCase(joueurBase,false);
                   if (Pos(prefixeMajus,joueurBase) = 1) then
                     begin
                       iDepart := i;
@@ -793,7 +793,7 @@ begin
 
         {on essaie de voir si le prefixe est le debut du joueur numero "i" dans la liste des joueurs}
         joueurBase := GetNomJoueur(i);
-        joueurBase := MyUpperString(joueurBase,false);
+        joueurBase := UpperCase(joueurBase,false);
         if (Pos(prefixeMajus,joueurBase) = 1) then
           begin
             joueurBase := GetNomJoueur(i);
@@ -823,7 +823,7 @@ begin
         if gVersionJaponaiseDeCassio and gHasJapaneseScript and not(found) and JoueurAUnNomJaponais(i) then
           begin
             joueurBase := GetNomJaponaisDuJoueur(i);
-            joueurBase := MyUpperString(joueurBase,false);
+            joueurBase := UpperCase(joueurBase,false);
             if (Pos(prefixeMajus,joueurBase) = 1) then
 		          begin
 		            joueurBase := GetNomJaponaisDuJoueur(i);
@@ -873,8 +873,8 @@ begin
 
   prefixeMaj := prefixe;
   derniereChaineMaj := derniereChaineComplementation^^;
-  prefixeMaj := MyUpperString(prefixeMaj,false);
-  derniereChaineMaj := MyUpperString(derniereChaineMaj,false);
+  prefixeMaj := UpperCase(prefixeMaj,false);
+  derniereChaineMaj := UpperCase(derniereChaineMaj,false);
 
   if (prefixeMaj <> derniereChaineMaj) or (TypeDerniereComplementation <> typeVoulu)
     then
@@ -886,7 +886,7 @@ begin
             begin
               i := GetNiemeTournoiTableSaisiePartie(n);
               tournoi := GetNomTournoi(i);
-              tournoi := MyUpperString(tournoi,false);
+              tournoi := UpperCase(tournoi,false);
               if (Pos(prefixeMaj,tournoi) = 1) then
                 begin
                   iDepart := i;
@@ -909,7 +909,7 @@ begin
 
     {on essaie de voir si le prefixe est le debut du tournoi numero "i" dans la liste des tournois}
     tournoi := GetNomTournoi(i);
-    tournoi := MyUpperString(tournoi,false);
+    tournoi := UpperCase(tournoi,false);
     if (Pos(prefixeMaj,tournoi) = 1) then
       begin
         tournoi := GetNomTournoi(i);
@@ -1346,7 +1346,7 @@ procedure EchangeSurnoms(var nom : String255);
 var s : String255;
 begin
   s := nom;
-  s := MyUpperString(s,false);
+  s := UpperCase(s,false);
   if s = 'PROF' then nom := 'tastet marc' else
   if s = 'TATA' then nom := 'tamenori hideshi' else
   if s = 'BDLB' then nom := 'de la boisserie bru' else
@@ -1730,12 +1730,12 @@ begin
       nomTournoi := Concat(nomTournoi,c);
     end;
 
-  nomTournoi := MyLowerString(nomTournoi,false);
+  nomTournoi := LowerCase(nomTournoi,false);
 end;
 
 procedure TournoiEnMinuscules(var nomBrut : String255);
 begin
-  nomBrut := MyLowerString(nomBrut,false);
+  nomBrut := LowerCase(nomBrut,false);
 end;
 
 

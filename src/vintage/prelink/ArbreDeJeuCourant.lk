@@ -93,7 +93,7 @@ function TEGetTextLength(text : TEHandle) : SInt32;     external;
   function BufferToPascalString(buffer : Ptr; indexDepart,indexFin : SInt32) : String255;     external;
   procedure Parser2(s : String255; var s1,s2,reste : String255);     external;
 procedure AlerteDouble(texte,explication : String255);     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 procedure SetLastStringSearchedInGameTree(s : String255);     external;
 procedure SetTexteFenetreArbreDeJeuFromArbreDeJeu(G : GameTree; redessineCommentaires : boolean; var commentaireChange : boolean);     external;
 procedure EffacePremiereLigneFenetreArbreDeJeu;     external;

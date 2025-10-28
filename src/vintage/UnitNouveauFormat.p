@@ -570,7 +570,7 @@ begin
                 posXXXX := Pos('XXXX',s);
                 if posXXXX > 0 then
                   begin
-                    DeleteString(s,posXXXX,4);
+                    Delete(s,posXXXX,4);
                     Insert(IntToStr(annee), s, posXXXX);
                   end;
                 if typeDonnees = kFicIndexPartiesNouveauFormat then s := NomFichierIndexAssocieNouveauFormat(s);
@@ -1933,7 +1933,7 @@ begin
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
 		              EnleveEspacesDeDroiteSurPlace(nomLatin);
-		              nomLatin := MyUpperString(nomLatin,false);
+		              nomLatin := UpperCase(nomLatin,false);
 		              EnleveEspacesDeGaucheSurPlace(nomJaponais);
 		              EnleveEspacesDeDroiteSurPlace(nomJaponais);
 
@@ -1950,7 +1950,7 @@ begin
 		                begin
 			                middle := low + (up - low) div 2;
 			                nomDuMilieuDansListe := GetNomJoueur(permutation^[middle]);
-			                nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+			                nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
 
 			                if Pos(nomLatin,nomDuMilieuDansListe) > 0 then found := true else
 			                if nomLatin < nomDuMilieuDansListe then up := middle-1 else
@@ -1965,7 +1965,7 @@ begin
                       if (k >= 0) and (k <= nbJoueursNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomJoueur(permutation^[k]);
-                          nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+                          nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuJoueur(permutation^[k],nomJaponais);
                           k := k-1;
@@ -1975,7 +1975,7 @@ begin
                       if (k >= 0) and (k <= nbJoueursNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomJoueur(permutation^[k]);
-                          nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+                          nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuJoueur(permutation^[k],nomJaponais);
                           k := k+1;
@@ -2224,7 +2224,7 @@ begin
 
                     {WritelnDansRapport(s1 + ' ==> ' + reste);}
 
-                    s1 := MyUpperString(s1,false);
+                    s1 := UpperCase(s1,false);
                     InsererDansATR(arbreDesPseudos,s1);
 
                   end;
@@ -2244,11 +2244,11 @@ begin
       for k := 0 to JoueursNouveauFormat.nbJoueursNouveauFormat-1 do
         begin
           nomBase := GetNomJoueur(k);
-          nomBase := MyUpperString(nomBase,false);
+          nomBase := UpperCase(nomBase,false);
           if ChaineEstPrefixeDansATR(arbreDesPseudos,nomBase) then
             begin
               for t := 1 to nbPseudos do
-                if (Pos(MyUpperString(association[t].oldName,false),nomBase) > 0) then
+                if (Pos(UpperCase(association[t].oldName,false),nomBase) > 0) then
                   begin
                     nouveauNom := association[t].newName;
                     TraduitNomJoueurEnMac(nouveauNom,nouveauNom);
@@ -2451,7 +2451,7 @@ begin
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
 		              EnleveEspacesDeDroiteSurPlace(nomLatin);
-		              nomLatin := MyUpperString(nomLatin,false);
+		              nomLatin := UpperCase(nomLatin,false);
 		              EnleveEspacesDeGaucheSurPlace(nomJaponais);
 		              EnleveEspacesDeDroiteSurPlace(nomJaponais);
 
@@ -2463,7 +2463,7 @@ begin
 		                begin
 			                middle := low + (up - low) div 2;
 			                nomDuMilieuDansListe := GetNomTournoi(permutation^[middle]);
-			                nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+			                nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
 
 			                if Pos(nomLatin,nomDuMilieuDansListe) > 0 then found := true else
 			                if nomLatin < nomDuMilieuDansListe then up := middle-1 else
@@ -2478,7 +2478,7 @@ begin
                       if (k >= 0) and (k <= nbTournoisNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomTournoi(permutation^[k]);
-                          nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+                          nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuTournoi(permutation^[k],nomJaponais);
                           k := k-1;
@@ -2488,7 +2488,7 @@ begin
                       if (k >= 0) and (k <= nbTournoisNouveauFormat-1) then
                         repeat
                           nomDuMilieuDansListe := GetNomTournoi(permutation^[k]);
-                          nomDuMilieuDansListe := MyUpperString(nomDuMilieuDansListe,false);
+                          nomDuMilieuDansListe := UpperCase(nomDuMilieuDansListe,false);
                           memeNom := (Pos(nomLatin,nomDuMilieuDansListe) > 0);
                           if memeNom then SetNomJaponaisDuTournoi(permutation^[k],nomJaponais);
                           k := k+1;
@@ -3453,8 +3453,8 @@ var s1,s2 : String255;
 begin
   s1 := GetNomJoueur(n1);
   s2 := GetNomJoueur(n2);
-  s1 := MyUpperString(s1,false);
-  s2 := MyUpperString(s2,false);
+  s1 := UpperCase(s1,false);
+  s2 := UpperCase(s2,false);
   OrdreAlphabetiqueSurJoueurs := s1 >= s2 ;
 end;
 
@@ -3501,8 +3501,8 @@ var s1,s2 : String255;
 begin
   s1 := GetNomTournoi(n1);
   s2 := GetNomTournoi(n2);
-  s1 := MyUpperString(s1,false);
-  s2 := MyUpperString(s2,false);
+  s1 := UpperCase(s1,false);
+  s2 := UpperCase(s2,false);
   OrdreAlphabetiqueSurTournois := s1 >= s2 ;
 end;
 

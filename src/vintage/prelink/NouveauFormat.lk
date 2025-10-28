@@ -17,7 +17,7 @@ function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure WritelnDansRapportEtAttendFrappeClavier(s : String255; bip : boolean);     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 	function UpCaseStr (s : String255) : String255;     external;
 	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
 	function IsDigit(ch : char) : boolean;     external;
@@ -49,7 +49,7 @@ function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;     externa
 function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;     external;
 function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;     external;
 	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
 procedure SetNomJaponaisDuJoueur(nroJoueur : SInt32; nomJaponais : String255);     external;
 procedure SetNomJoueur(nroJoueur : SInt32; joueur : String255);     external;

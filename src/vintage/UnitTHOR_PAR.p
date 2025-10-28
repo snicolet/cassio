@@ -266,8 +266,8 @@ begin
 		    begin
 		      joueurNoir := GetNomJoueur(nroJoueurNoir);
 		      joueurBlanc := GetNomJoueur(nroJoueurBlanc);
-		      joueurNoir := MyUpperString(joueurNoir,false);
-		      joueurBlanc := MyUpperString(joueurBlanc,false);
+		      joueurNoir := UpperCase(joueurNoir,false);
+		      joueurBlanc := UpperCase(joueurBlanc,false);
 		      for k := 1 to Min(14,LENGTH_OF_STRING(joueurNoir)) do  s := s + joueurNoir[k];
 		      s := s + ' '+ScoreFinalEnChaine((scoreReel-32)*2)+' ';
 		      for k := 1 to Min(14,LENGTH_OF_STRING(joueurBlanc)) do s := s + joueurBlanc[k];

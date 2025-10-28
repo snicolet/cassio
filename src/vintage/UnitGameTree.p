@@ -2194,7 +2194,7 @@ begin
       	  while (depart >= 0) and ((depart + longueurPattern - 1) <= longueurCommentaire) do
       	    begin
       			  k := 0;
-      			  while (k < longueurPattern) and (MyUpperString(commentaire^[depart + k],false)[1] = s[k+1]) do
+      			  while (k < longueurPattern) and (UpperCase(commentaire^[depart + k],false)[1] = s[k+1]) do
       			    inc(k);
 
       			  if (k = longueurPattern) then

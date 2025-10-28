@@ -1554,7 +1554,7 @@ begin
 
   if (commande <> '') then
     begin
-      commande := MyUpperString(commande,false);
+      commande := UpperCase(commande,false);
 
       if (commande = 'SEARCH' ) or (commande = 'FIND') or (commande = 'GOOGLE') then
         begin
@@ -2069,7 +2069,7 @@ begin
   if (s <> '') then
     begin
       if ignoreCase
-        then chaineCherchee := MyUpperString(s,false)
+        then chaineCherchee := UpperCase(s,false)
         else chaineCherchee := s;
 
       stringAdresse := SInt32(@chaineCherchee);

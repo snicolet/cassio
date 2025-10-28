@@ -13,9 +13,9 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 procedure EpureNomJoueur(var unNomDeJoueur : String255);     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 procedure InsererDansATR(var arbre : ATR; const chaine : String255);     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;

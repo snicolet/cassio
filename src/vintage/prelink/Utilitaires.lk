@@ -29,7 +29,7 @@ function ModifPlatSeulement(a : SInt32; var jeu : plateauOthello; coul : SInt32)
 	function ReelEnString(unreel : double) : String255;     external;
 procedure apprendBlocsDeCoinPosition(var pl : plateauOthello; gain : char);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 procedure DisposeStringSet(var S : StringSet);     external;
 function GetNiemeJoueurTableSaisiePartie(N : SInt32) : SInt32;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
@@ -92,7 +92,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OS
 procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-  function MyLowerString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function LowerCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function EvenementDuDialogue(dlog : DialogPtr; var evt : eventRecord) : boolean;     external;
 procedure IncrementeCompteurDeMouseEvents;     external;
 procedure SetPortByDialog(dialog : DialogPtr);     external;

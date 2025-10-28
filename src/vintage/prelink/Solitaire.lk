@@ -122,7 +122,7 @@ function MyGetNewDialog(dialogID : SInt16) : DialogPtr;     external;
 procedure MyParamText( const (*var*) param0: String255; const (*var*) param1: String255; const (*var*) param2: String255; const (*var*) param3: String255 );     external;
 procedure MyDisposeDialog(var dlog : DialogPtr);     external;
 function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;     external;
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;     external;
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);     external;
 procedure CompilerPosition(plat : plateauOthello; var chaineCompilee : String255);     external;

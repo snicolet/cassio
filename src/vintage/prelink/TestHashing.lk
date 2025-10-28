@@ -16,7 +16,7 @@ function HashString2(const s : String255) : SInt32;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
 function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;     external;
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;

@@ -476,7 +476,7 @@ function CouleurPionsImage3D(path : String255) : SInt16;
 begin
   CouleurPionsImage3D := kAucuneEnParticulier;
 
-  path := MyUpperString(path,false);
+  path := UpperCase(path,false);
   if (Pos('[NOIRS]',path) > 0) then CouleurPionsImage3D := kImagePionsNoirs     else
   if (Pos('[NOIR]',path)  > 0) then CouleurPionsImage3D := kImagePionsNoirs     else
   if (Pos('[BLANCS]',path) > 0) then CouleurPionsImage3D := kImagePionsBlancs    else
@@ -735,8 +735,8 @@ begin
           Parser3(ligne,s0,s1,s2,s);
           if (s1 = '=') and (s2 <> '{') then
             begin
-              s0 := MyUpperString(s0,false);
-              s2 := MyUpperString(s2,false);
+              s0 := UpperCase(s0,false);
+              s2 := UpperCase(s2,false);
 
               {parser les booleens}
               if (Pos('DEBUG_BOUNDING_RECTANGLES',s0) > 0) or
@@ -750,7 +750,7 @@ begin
             end else
           if (s1 = '=') and (s2 = '{') then
             begin
-              s0 := MyUpperString(s0,false);
+              s0 := UpperCase(s0,false);
 
               {parser les rectangles}
               if (Pos('ESCARGOT_RECT',s0) > 0) or

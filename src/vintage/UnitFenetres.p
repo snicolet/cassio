@@ -1323,7 +1323,7 @@ begin
            if (gCompteurDeEmpilementsDeFenetres < nombreFenetresDansEmpilement) and
              (nombreFenetresDansEmpilement > 2) and (theChar = 'O') then
             begin
-              DeleteString(s, LENGTH_OF_STRING(s) , 1);
+              Delete(s, LENGTH_OF_STRING(s) , 1);
               theChar := s[LENGTH_OF_STRING(s)];
             end;
 
@@ -1331,7 +1331,7 @@ begin
           // Exclure la fenetre de la palette du cycle
           if (LENGTH_OF_STRING(s) > 0) and (theChar = 'T') then
             begin
-              DeleteString(s, LENGTH_OF_STRING(s) , 1);
+              Delete(s, LENGTH_OF_STRING(s) , 1);
               theChar := s[LENGTH_OF_STRING(s)];
             end;
 

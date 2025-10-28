@@ -1425,7 +1425,7 @@ begin
 			  EnlevePrenom(nomJoueur,nomSansPrenom);
 
 			  nomSansPrenomEnMajuscule := nomSansPrenom;
-			  nomSansPrenomEnMajuscule := MyUpperString(nomSansPrenomEnMajuscule, false);
+			  nomSansPrenomEnMajuscule := UpperCase(nomSansPrenomEnMajuscule, false);
 
 			  if not(differencierLesFreres) or (Pos('TASTET',nomSansPrenomEnMajuscule) > 0) then
 			    begin
@@ -1540,7 +1540,7 @@ begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
   s2 := StripDiacritics(s2);
-  GetNomJoueurCommeDansPapp := MyUpperString(s1,false) + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
+  GetNomJoueurCommeDansPapp := UpperCase(s1,false) + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 
 
@@ -1550,7 +1550,7 @@ begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
   s2 := StripDiacritics(s2);
-  GetNomJoueurCommeDansFichierFFODesJoueurs := MyUpperString(s1,false) + ',' + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
+  GetNomJoueurCommeDansFichierFFODesJoueurs := UpperCase(s1,false) + ',' + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 
 

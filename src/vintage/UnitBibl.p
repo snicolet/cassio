@@ -671,7 +671,7 @@ begin
   	      if indexCumuleCommentaires+longueurNomOuverture <= TailleMaxCommentairesOuvertures then
   	        begin
   	          unCommentaire := TPCopy(uneligne,pos1point+1,longueurNomOuverture);
-  	          DeleteString(uneligne,pos1point,longueurNomOuverture+1);
+  	          Delete(uneligne,pos1point,longueurNomOuverture+1);
   	          metDansMenu := unCommentaire[1] = '¥';
   	          if metdansmenu then
   	            begin
@@ -694,7 +694,7 @@ begin
   	  if posDeuxPoints > 0 then
   	    begin
   	      dernierePartieLue := TPCopy(uneligne,1,posDeuxPoints-1);
-  	      DeleteString(uneligne,1,posDeuxPoints);
+  	      Delete(uneligne,1,posDeuxPoints);
 
   	      {
   	      if (longueurNomOuverture > 0) and (EnleveEspacesDeGauche(uneLigne) = '') then
@@ -755,11 +755,11 @@ begin
   	                                EcrireFauteLectureBibliotheque(ChaineTestCorrection+' : '+s,lectureBiblData);
   	                              end;
   	                         whichSquare := StringEnCoup(uneLigne);
-  	                         DeleteString(uneligne,1,3);
+  	                         Delete(uneligne,1,3);
   	                         k := Pos(')',uneligne);
   	                         pourcentStr := TPCopy(uneligne,1,k-1);
   	                         ChaineToLongint(pourcentStr,pourcentage);
-  	                         DeleteString(uneligne,1,k);
+  	                         Delete(uneligne,1,k);
 
   	                         if (whichSquare >= 11) and (whichSquare <= 88) and (pourcentage >= 0) then
   	                           begin

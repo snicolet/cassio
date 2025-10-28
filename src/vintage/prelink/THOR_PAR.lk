@@ -39,7 +39,7 @@ procedure TrierListePartie(critereDeTri,algorithmeDeTri : SInt32);     external;
 function AlgoDeTriOptimum(critereDeTri : SInt32) : SInt32;     external;
 procedure CalculsEtAffichagePourBase(infosDejaCalculees : boolean; withCheckEvent : boolean);     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
-  function MyUpperString(const s : String255; keepDiacritics : boolean) : String255;     external;
+  function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function ScoreFinalEnChaine(scorePourNoir : SInt16) : String255;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 function PositionEtTraitInitiauxStandard : PositionEtTraitRec;     external;

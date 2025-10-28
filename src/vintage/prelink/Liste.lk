@@ -58,7 +58,7 @@ function GetNomJoueurBlancSansPrenomParNroRefPartie(nroReference : SInt32) : Str
 function GetScoreReelParNroRefPartie(nroReference : SInt32) : SInt16;     external;
 procedure ConstruitTitrePartie(const nomNoir,nomBlanc : String255; enleverLesPrenoms : boolean; scoreNoir : SInt32; var titre : String255);     external;
 function GetNomTournoiParNroRefPartie(nroReference : SInt32) : String255;     external;
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 function GetAnneePartieParNroRefPartie(nroReference : SInt32) : SInt16;     external;
 function GetGainTheoriqueParNroRefPartie(nroReference : SInt32) : String255;     external;
 function GetNomJoueurSansPrenom(nroJoueur : SInt32) : String255;     external;

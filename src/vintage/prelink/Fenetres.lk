@@ -82,7 +82,7 @@ procedure GetDialogItemRect(dp : DialogPtr; itemNumber : SInt16; var itemRect : 
 procedure RedimensionnerLeNuage(oldWindowRect,newWindowRect : rect);     external;
 procedure AjusteTailleFenetrePlateauPourLa3D;     external;
 function GetRapportWindow : WindowPtr;     external;
-  procedure DeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 function TooltipWindowInCloudOpened : boolean;     external;
 procedure HideTooltipWindowInCloud;     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;

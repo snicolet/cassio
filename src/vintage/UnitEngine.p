@@ -315,9 +315,9 @@ begin
 
   if (nomEngine <> '') then
     begin
-      s := MyUpperString(nomEngine, true);
+      s := UpperCase(nomEngine, true);
       for k := 1 to NumberOfEngines do
-        if (s = MyUpperString(listOfEngines.engines[k].name, true)) then
+        if (s = UpperCase(listOfEngines.engines[k].name, true)) then
           begin
             GetNumeroOfEngine := k;
             exit;
@@ -349,9 +349,9 @@ begin
   // sinon, chercher par nom
   if (nomEngine <> '') then
     begin
-      s := MyUpperString(nomEngine, true);
+      s := UpperCase(nomEngine, true);
       for k := 1 to NumberOfEngines do
-        if (s = MyUpperString(listOfEngines.engines[k].name, true)) then
+        if (s = UpperCase(listOfEngines.engines[k].name, true)) then
           begin
             GetEnginePath := listOfEngines.engines[k].path;
             exit;
@@ -1186,7 +1186,7 @@ begin
 
       // la ligne principale ?
 
-      aux.line := MyUpperString(s6,true);
+      aux.line := UpperCase(s6,true);
       repeat
         s6 := aux.line;
         aux.line := ReplaceStringOnce('PA','',aux.line);

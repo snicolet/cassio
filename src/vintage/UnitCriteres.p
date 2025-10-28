@@ -98,7 +98,7 @@ begin
     begin
       t := Pos('Ã',sousCriteres);
       s := TPCopy(sousCriteres,1,t-1);
-      DeleteString(sousCriteres,1,t);
+      Delete(sousCriteres,1,t);
       case i of
         1 : s1 := s;
         2 : s2 := s;
@@ -118,7 +118,7 @@ begin
     begin
       t := Pos('Ã',sousCriteres);
       s := TPCopy(sousCriteres,1,t-1);
-      DeleteString(sousCriteres,1,t);
+      Delete(sousCriteres,1,t);
       case i of
         1 : s1 := s;
         2 : s2 := s;
@@ -136,7 +136,7 @@ begin
     begin
       t := Pos('Ã',sousCriteres);
       s := TPCopy(sousCriteres,1,t-1);
-      DeleteString(sousCriteres,1,t);
+      Delete(sousCriteres,1,t);
       case i of
         1 : s1 := s;
         2 : s2 := s;
@@ -174,7 +174,7 @@ begin
       begin
         nomCompare := TPCopy(chaine,1,Min(19,LENGTH_OF_STRING(chaine)));
         EpureNomJoueur(nomCompare);
-        nomCompare := MyUpperString(nomCompare,false);
+        nomCompare := UpperCase(nomCompare,false);
         {WritelnDansRapport('NOM = ¥¥'+nomCompare+'¥¥');}
         if positif
           then InsererDansATR(arbrePositif,nomCompare)
@@ -183,7 +183,7 @@ begin
         if gVersionJaponaiseDeCassio and gHasJapaneseScript then
           begin
             nomCompareJaponais := TPCopy(chaine,1,Min(19,LENGTH_OF_STRING(chaine)));
-            nomCompareJaponais := MyUpperString(nomCompareJaponais,false);
+            nomCompareJaponais := UpperCase(nomCompareJaponais,false);
             if positif
               then InsererDansATR(arbrePositif,nomCompareJaponais)
               else InsererDansATR(arbreNegatif,nomCompareJaponais);
@@ -211,7 +211,7 @@ begin
                           EnleveEspacesDeGaucheSurPlace(joueur);
                           EnleveEspacesDeDroiteSurPlace(joueur);
                           FabriquerRecursivementArbreDesJoueurs(arbrePositif,arbreNegatif,joueur,NiveauxRecurence+1,positif);
-                          DeleteString(listeGroupeJoueurs,1,q);
+                          Delete(listeGroupeJoueurs,1,q);
                         end
                       else
                         begin
@@ -257,7 +257,7 @@ begin
         if gVersionJaponaiseDeCassio and gHasJapaneseScript then
           begin
             nomCompareJaponais := TPCopy(chaine,1,Min(29,LENGTH_OF_STRING(chaine)));
-            nomCompareJaponais := MyUpperString(nomCompareJaponais,false);
+            nomCompareJaponais := UpperCase(nomCompareJaponais,false);
             if positif
               then InsererDansATR(arbrePositif,nomCompareJaponais)
               else InsererDansATR(arbreNegatif,nomCompareJaponais);
@@ -284,7 +284,7 @@ begin
                           EnleveEspacesDeGaucheSurPlace(tournoi);
                           EnleveEspacesDeDroiteSurPlace(tournoi);
                           FabriquerRecursivementArbreDesTournois(arbrePositif,arbreNegatif,tournoi,NiveauxRecurence+1,positif);
-                          DeleteString(listeGroupeTournois,1,q);
+                          Delete(listeGroupeTournois,1,q);
                         end
                       else
                         begin
@@ -337,7 +337,7 @@ begin
       for k := 0 to JoueursNouveauFormat.nbJoueursNouveauFormat-1 do
         begin
           nomBase := GetNomJoueur(k);
-          nomBase := MyUpperString(nomBase,false);
+          nomBase := UpperCase(nomBase,false);
 
           if marqueurDebutSyntaxeGrep then nomBase := '^' + nomBase;
           if marqueurFinSyntaxeGrep   then nomBase := nomBase + '$';
@@ -352,7 +352,7 @@ begin
 	        if JoueurAUnNomJaponais(k) then
 	          begin
 	            nomBaseJaponais := GetNomJaponaisDuJoueur(k);
-	            nomBaseJaponais := MyUpperString(nomBaseJaponais,false);
+	            nomBaseJaponais := UpperCase(nomBaseJaponais,false);
 	
 	            if marqueurDebutSyntaxeGrep then nomBaseJaponais := '^' + nomBaseJaponais;
               if marqueurFinSyntaxeGrep   then nomBaseJaponais := nomBaseJaponais + '$';
@@ -434,7 +434,7 @@ begin
 	        if TournoiAUnNomJaponais(k) then
 	          begin
 	            nomBaseJaponais := GetNomJaponaisDuTournoi(k);
-	            nomBaseJaponais := MyUpperString(nomBaseJaponais,false);
+	            nomBaseJaponais := UpperCase(nomBaseJaponais,false);
 	
 	            if marqueurDebutSyntaxeGrep then nomBaseJaponais := '^' + nomBaseJaponais;
               if marqueurFinSyntaxeGrep   then nomBaseJaponais := nomBaseJaponais + '$';
@@ -712,7 +712,7 @@ var TournoiCompatible : t_TournoiCompatible;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               TraiteJoueurEnMinuscules(s,NomNoirCrit[i]);
             end;
 
@@ -721,7 +721,7 @@ var TournoiCompatible : t_TournoiCompatible;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               TraiteJoueurEnMinuscules(s,NomBlancCrit[i]);
             end;
 
@@ -730,7 +730,7 @@ var TournoiCompatible : t_TournoiCompatible;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               NomTournoiCrit[i] := s;
               {TraiteTournoiEnMinuscules(s,NomTournoiCrit[i]);}
             end;
@@ -740,7 +740,7 @@ var TournoiCompatible : t_TournoiCompatible;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               NomDistribCrit[i] := s;
             end;
         end;
@@ -956,7 +956,7 @@ var s : String255;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               SetItemTextInDialog(criteresdp,i,s);
             end;
 
@@ -965,7 +965,7 @@ var s : String255;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               SetItemTextInDialog(criteresdp,i,s);
             end;
 
@@ -974,7 +974,7 @@ var s : String255;
             begin
               t := Pos('Ã',ligneCriteres);
               s := TPCopy(ligneCriteres,1,t-1);
-              DeleteString(ligneCriteres,1,t);
+              Delete(ligneCriteres,1,t);
               SetItemTextInDialog(criteresdp,i,s);
             end;
 

@@ -1343,7 +1343,7 @@ begin
       t := LENGTH_OF_STRING(tournoiStr);
       while (tournoiStr[t] = ' ') and (t >= 1) do
         begin
-          DeleteString(tournoiStr,t,1);
+          Delete(tournoiStr,t,1);
           t := t-1;
         end;
       tournoiStr := Concat(tournoiStr,'  ',IntToStr(GetAnneePartieParNroRefPartie(nroReference)));

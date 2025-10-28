@@ -2658,7 +2658,7 @@ begin
 	           if numeroDeCoup < 10 then
 	             begin
 	               s := uneligne;
-	               DeleteString(s,1,aux+1);
+	               Delete(s,1,aux+1);
 	               aux := Pos(' B.',s);
 	               if aux > 0 then s := Concat(s[aux+3],s[aux+4]);
 	               ChaineToLongint(s,numeroDeCoup);
@@ -2696,7 +2696,7 @@ begin
   comment := '';
   LitJoueurNro(Partiebuff^.numeroNoir,s19);
   s19 := DeleteSpacesBefore(s19,LENGTH_OF_STRING(s19));
-  {while s19[LENGTH_OF_STRING(s19)] = ' ' do DeleteString(s19,LENGTH_OF_STRING(s19),1);}
+  {while s19[LENGTH_OF_STRING(s19)] = ' ' do Delete(s19,LENGTH_OF_STRING(s19),1);}
   {ParametresOuvrirThor^^[3] := s19;}
   EnlevePrenom(s19,nom);
   if referencescompletes then
@@ -2709,7 +2709,7 @@ begin
   ParamDiagPartieFFORUM.TitreFFORUM^^ := nom+'- ';
   LitJoueurNro(Partiebuff^.numeroBlanc,s19);
   s19 := DeleteSpacesBefore(s19,LENGTH_OF_STRING(s19));
-  {while s19[LENGTH_OF_STRING(s19)] = ' ' do DeleteString(s19,LENGTH_OF_STRING(s19),1);}
+  {while s19[LENGTH_OF_STRING(s19)] = ' ' do Delete(s19,LENGTH_OF_STRING(s19),1);}
   {ParametresOuvrirThor^^[2] := s19;}
   EnlevePrenom(s19,nom);
   if referencescompletes then
@@ -2724,7 +2724,7 @@ begin
   LitTournoiNro(Partiebuff^.numeroTournoi,s29);
 
   s2 := TPCopy(s29,1,25);
-  while s2[LENGTH_OF_STRING(s2)] = ' ' do DeleteString(s2,LENGTH_OF_STRING(s2),1);
+  while s2[LENGTH_OF_STRING(s2)] = ' ' do Delete(s2,LENGTH_OF_STRING(s2),1);
   s2 := s2 + ' '+s29[26]+s29[27]+s29[28]+s29[29];
   s29 := s2;
 
@@ -3411,22 +3411,22 @@ begin
   if (Pos(ReadStringFromRessource(TextesSolitairesID,1),s) = 1) then  {Noir joue et gagne…}
     begin
       promptGras := ReadStringFromRessource(TextesSolitairesID,1);
-      DeleteString(s,1,LENGTH_OF_STRING(promptGras));
+      Delete(s,1,LENGTH_OF_STRING(promptGras));
     end
   else if (Pos(ReadStringFromRessource(TextesSolitairesID,2),s) = 1) then {Blanc joue et gagne…}
     begin
       promptGras := ReadStringFromRessource(TextesSolitairesID,2);
-      DeleteString(s,1,LENGTH_OF_STRING(promptGras));
+      Delete(s,1,LENGTH_OF_STRING(promptGras));
     end
   else if (Pos(ReadStringFromRessource(TextesSolitairesID,3),s) = 1) then {Noir joue et annule…}
     begin
       promptGras := ReadStringFromRessource(TextesSolitairesID,3);
-      DeleteString(s,1,LENGTH_OF_STRING(promptGras));
+      Delete(s,1,LENGTH_OF_STRING(promptGras));
     end
   else if (Pos(ReadStringFromRessource(TextesSolitairesID,4),s) = 1) then {Noir joue et annule…}
     begin
       promptGras := ReadStringFromRessource(TextesSolitairesID,4);
-      DeleteString(s,1,LENGTH_OF_STRING(promptGras));
+      Delete(s,1,LENGTH_OF_STRING(promptGras));
     end;
 
   resteDuCommentaire := s;
