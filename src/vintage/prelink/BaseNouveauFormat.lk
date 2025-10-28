@@ -183,7 +183,7 @@ function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;     external;
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
-	function SplitAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
+	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;     external;
 	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;     external;

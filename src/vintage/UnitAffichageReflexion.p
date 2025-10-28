@@ -333,9 +333,9 @@ begin
     else decalageH := 0;
 
   coup := TPCopy(s, 1, 2);
-  SplitByStr(s, '¥', foo, defense);
+  SplitAt(s, '¥', foo, defense);
   defense := TPCopy(defense, 1, 2);
-  SplitByStr(s, '=>', foo, result);
+  SplitAt(s, '=>', foo, result);
   EnleveEspacesDeGaucheSurPlace(result);
 
   Moveto(a , b);
@@ -1997,7 +1997,7 @@ function LongueurMeilleureSuite : SInt32;
 var ligne,foo,s : String255;
 begin
   ligne := MeilleureSuiteInfosEnChaine(0,false,false,false,false,0);
-  SplitRightBy(ligne, ',', foo, s);
+  SplitRightByChar(ligne, ',', foo, s);
   LongueurMeilleureSuite := (LENGTH_OF_STRING(s) div 2);
 end;
 

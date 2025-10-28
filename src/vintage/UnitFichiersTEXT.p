@@ -2091,7 +2091,7 @@ begin
         s := ParamStr(s,nomFichier,IntToStr(erreurES),'','');
       end;
 
-  SplitBy(s,'!',texte,explication);
+  SplitAt(s,'!',texte,explication);
   AlerteDouble(texte+'!',explication);
 end;
 

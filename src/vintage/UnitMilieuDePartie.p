@@ -1161,7 +1161,7 @@ function CalculeVariationAvecMilieu(classement : ListOfMoveRecords; longueurClas
 
          {WriteNumDansRapport('  delta = ',CoupsEnvisageables[i].note);}
 
-         probaDeCeCoup := Trunc(1000.0*PuissanceReelle(100.0/(100.0+note),exposant));
+         probaDeCeCoup := Trunc(1000.0 * Power(100.0/(100.0+note), exposant));
 
          CoupsEnvisageables[i].note := probaDeCeCoup;
 

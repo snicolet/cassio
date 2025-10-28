@@ -46,10 +46,27 @@ function TPCopy(source : String255; start, count : SInt32) : String255;
 // Transforming strings
 function StripDiacritics(const source : AnsiString) : AnsiString;
 function StripDiacritics(const source : String255) : String255;
+function LowerCase(ch : char) : char;
+function UpperCase(ch : char) : char;
+
+// Splitting strings at a subcharacter or a substring
+function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;
+function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;
+function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
+function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+
+// Testing characters
+function IsDigit(ch : char) : boolean;
+function IsLower(ch : char) : boolean;
+function IsUpper(ch : char) : boolean;
+function IsAlpha(ch : char) : boolean;
+function NoCaseEquals(s1, s2 : String255) : boolean;
+function NoCasePos(s1, s2 : String255) : SInt16;
+function PosRight(sub : char; const s : String255) : SInt16;
+function PosRight(const sub, s : String255) : SInt16;
 
 
-// Hexa(n) and HexaWithoutDollar(n) returns a string representing the
-// number n in hexadecimal. The second function returns no initial '$'.
+// Transforming an integer into hexadecimal
 function Hexa(num : UInt64) : String255;
 function Hexa(num : SInt64) : String255;
 function Hexa(num : UInt32) : String255;
@@ -163,8 +180,8 @@ begin
 end;
 
 
-// StripDiacritics() : remove accents and diacritics from a string.
-//                     This is the version for AnsiString.
+// StripDiacritics() : remove accents and diacritics from a string. 
+// This is the version for AnsiString.
 function StripDiacritics(const source : AnsiString) : AnsiString;
 var
   K, L : TBytes;
@@ -200,12 +217,182 @@ end;
 
 
 // StripDiacritics() : remove accents and diacritics from a string.
-//                     This is the version for String255.
+// This is the version for String255.
 function StripDiacritics(const source : String255) : String255;
 var s : AnsiString;
 begin
   s := source;
   Result := StripDiacritics(s);
+end;
+
+
+// LowerCase() returns the lowercase version of a alphabetic character.
+// Note : use  sysutils.LowerCase() to transform strings.
+function LowerCase(ch : char ) : char;
+begin
+   if ('A' <= ch) and (ch <= 'Z') then ch := chr(ord(ch) + $20);
+   result := ch;
+end;
+
+
+// UpperCase() returns the uppercase version of a alphabetic character.
+// Note : use  sysutils.UpperCase() to transform strings.
+function UpperCase(ch : char) : char;
+begin
+   if ('a' <= ch) and (ch <= 'z') then ch := chr(ord(ch) - $20);
+   result := ch;
+end;
+
+
+// SplitAt() splits the string s at the character sub
+function SplitAt (s : String255; sub : char; var left, right : String255) : boolean;
+var p : SInt16;
+begin
+	p := Pos(sub, s);
+	if p > 0 
+	  then 
+	    begin
+		  left := TPCopy(s, 1, p - 1);
+		  right := TPCopy(s, p + 1, 255);
+	    end
+	  else
+	    begin
+	      left := s;
+	      right := '';
+	    end;
+	Result := p > 0;
+end;
+
+
+// SplitAt() splits the string s at substring sub
+function SplitAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+var p : SInt16;
+begin
+	p := Pos(sub, s);
+	if p > 0 then 
+	  begin
+		left := TPCopy(s, 1, p - 1);
+		right := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
+	  end
+	else
+	  begin
+	    left := s;
+	    right := '';
+	  end;
+	Result := p > 0;
+end;
+
+
+// SplitAt() splits the string s at character sub, scanning from the end of the string
+function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
+var p : SInt16;
+begin
+	p := PosRight(sub, s);
+	if p > 0 then 
+	  begin
+		left := TPCopy(s, 1, p - 1);
+		right := TPCopy(s, p + 1, 255);
+	  end
+	else
+	  begin
+	    left := '';
+	    right := s;
+	  end;
+	Result := p > 0;
+end;
+
+
+// SplitAt() splits the string s at substring sub, scanning from the end of the string
+function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+var p : SInt16;
+begin
+	p := PosRight(sub, s);
+	if p > 0 then 
+	  begin
+		left := TPCopy(s, 1, p - 1);
+		right := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
+	  end
+	else
+	  begin
+	    left := '';
+	    right := s;
+	  end;
+	Result := p > 0;
+end;
+
+
+// IsDigit() tests if the given character is a digit
+function IsDigit(ch : char) : boolean;
+begin
+	IsDigit := ('0' <= ch) and (ch <= '9');
+end;
+
+
+// IsLower() tests if the given character is a lowercase letter
+function IsLower(ch : char) : boolean;
+begin
+	IsLower := ('a' <= ch) and (ch <= 'z');
+end;
+
+
+// IsLower() tests if the given character is a uppercase letter
+function IsUpper(ch : char) : boolean;
+begin
+	IsUpper := ('A' <= ch) and (ch <= 'Z');
+end;
+
+
+// IsAlpha() tests if the given character is a letter in the alphabet
+function IsAlpha(ch : char) : boolean;
+begin
+	IsAlpha := (('a' <= ch) and (ch <= 'z')) or (('A' <= ch) and (ch <= 'Z'));
+end;
+
+
+// NoCaseEquals() : equality for strings but without upper/lower sensitivity
+function NoCaseEquals( s1, s2 : String255 ) : boolean;
+begin
+    NoCaseEquals := (sysutils.UpperCase(s1) = sysutils.UpperCase(s2));
+end;
+
+
+// NoCaseEquals() : like Pos() but without upper/lower sensitivity
+function NoCasePos(s1, s2 : String255) : SInt16;
+begin
+    NoCasePos := Pos(sysutils.UpperCase(s1), sysutils.UpperCase(s2))
+end;
+
+
+// PosRight() returns the position of the last occurence of sub in s
+function PosRight(sub : char; const s : String255) : SInt16;
+var p : SInt16;
+begin
+    p := LENGTH_OF_STRING(s);
+	while p > 0 do 
+	  begin
+		if s[p] = sub then break;
+		Dec(p);
+	  end;
+	Result := p;
+end;
+
+
+// PosRight() returns the position of the last occurence of sub in s
+function PosRight(const sub, s : String255) : SInt16;
+var p, q : SInt16;
+begin
+	p := Pos(sub, s);
+	if p > 0 then 
+	  begin
+		q := LENGTH_OF_STRING(s) - LENGTH_OF_STRING(sub) + 1;
+		while q > p do 
+		  begin
+			if TPCopy(s, q, LENGTH_OF_STRING(sub)) = sub 
+			    then p := q
+				else q := q - 1;
+		  end;
+	  end;
+	Result := p;
 end;
 
 
@@ -529,14 +716,33 @@ begin
    writeln('AnsiUpperCase()              : ', b);
    b := StripDiacritics(a);
    writeln('StripDiacritics()            : ', b);
-   b := UpperCase(StripDiacritics(a));
+   b := sysutils.UpperCase(StripDiacritics(a));
    writeln('UpperCase(StripDiacritics()) : ', b);
 
 
 end;
 
 
+function fooBy(s : string255 ; c : char) : boolean;
 begin
+   if c <> 'A' then writeln('fooBy');
+   result := c <> 'A';
+end;
+
+procedure fooAt(s : string255 ; c : char);
+begin
+   if c <> 'A' then writeln('fooAt');
+end;
+
+
+var s : string255;
+    c : char;
+begin
+
+    s := 'toto';
+    c := s[1];
+    fooBy(s, c);
+
     // testBasicString;
 end.
 

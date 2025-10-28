@@ -214,11 +214,8 @@ end;
 
 procedure WritelnDansRapportThreadSafe(s : String255);
 begin
-
   s := s + chr(13);
-
   AjouterStringDansListePourRapportThreadSafe(s);
-
 end;
 
 

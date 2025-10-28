@@ -2426,7 +2426,7 @@ begin
                    then
                      begin
                        s2 := PrecisionEngineEnMuString(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties));
-                       SplitRightBy(s2, ',' ,foo, s2);
+                       SplitRightByChar(s2, ',' ,foo, s2);
                        mu := ChaineEnLongint(s2) div 100;
                        if (mu >= 1000)
                          then s2 := 'µ=°'
@@ -2494,7 +2494,7 @@ begin
                  s2 := GetEngineVersion(numeroEngine);
                  if (s2 = '') then s2 := GetEngineName(numeroEngine);
 
-                 s2[1] := UpCase(s2[1]);
+                 s2[1] := UpperCase(s2[1]);
                  s := s + s2;
                end
              else
@@ -2728,7 +2728,7 @@ begin
   with gEtatDuReseau do
     begin
 
-      SplitByStr(message,'<br>OK',left,right);
+      SplitAt(message,'<br>OK',left,right);
       message := left;
 
       if messageAffiche <> message then dateMessageAffiche := TickCount;

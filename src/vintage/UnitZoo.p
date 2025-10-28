@@ -397,7 +397,7 @@ end;
 
 procedure SetCassioDoitRentrerEnContactAvecLeZoo(s : String255);
 begin
-  s := UpCaseStr(s);
+  s := sysutils.UpperCase(s);
   gZoo.doitRentrerEnContactAvecLeZoo := ((Pos('YES', s) > 0) or (Pos('TRUE', s) > 0));
 end;
 
@@ -2129,7 +2129,7 @@ function MuStringEnProbCutStringDuZoo(mu : String255) : String255;
 var left, right, cut : String255;
     muMax, dist, distMin, i: SInt32;
 begin
-  SplitByStr(mu, ',', left, right);
+  SplitAt(mu, ',', left, right);
 
   muMax := ChaineEnLongint(right);
 
@@ -2352,13 +2352,13 @@ begin
 
           // la fenetre alpha-beta
 
-          SplitBy(window, ',' , left, right);
+          SplitAt(window, ',' , left, right);
           inAlphaFinale := ChaineEnLongint(left);
           inBetaFinale := ChaineEnLongint(right);
 
           // la fenetre des mu
 
-          SplitBy(mu, ',' , left, right);
+          SplitAt(mu, ',' , left, right);
           inMuMinimumFinale := ChaineEnLongint(left);
           inMuMaximumFinale := ChaineEnLongint(right);
 
@@ -2540,14 +2540,14 @@ begin
 
           // la fenetre alpha-beta
 
-          SplitBy(window, ',' , left, right);
+          SplitAt(window, ',' , left, right);
           inAlphaFinale := ChaineEnLongint(left);
           inBetaFinale := ChaineEnLongint(right);
 
 
           // la fenetre des mu
 
-          SplitBy(mu, ',' , left, right);
+          SplitAt(mu, ',' , left, right);
           inMuMinimumFinale := ChaineEnLongint(left);
           inMuMaximumFinale := ChaineEnLongint(right);
 

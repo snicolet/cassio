@@ -460,7 +460,7 @@ begin
       begin
         bundlePathMac := pathDossierFichiersAuxiliaires + ':Frameworks:EngineBundle.bundle';
         ReplaceCharByCharInString(bundlePathMac,'/',':');   // separateurs a la mode Mac
-        SplitBy(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
+        SplitAt(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
         ReplaceCharByCharInString(bundlePathUnix,':','/');  // separateurs a la mode UNIX
         result := bundlePathUnix;
       end;
@@ -562,7 +562,7 @@ begin
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
   if (pathMac[1] = ':')
     then pathUnix := pathMac
-    else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
+    else SplitAt(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
 
   if (debugUnixTask or debuggage.engineInput or debuggage.engineOutput) then

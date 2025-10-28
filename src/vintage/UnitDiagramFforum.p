@@ -2127,7 +2127,8 @@ begin
 		  if prop.genre = LabelOnPointsProp then
 		    begin
 		      texte := GetStringInfoOfProperty(prop);
-		      SplitBy(texte, ':', foo, texte);
+		      if Pos(':', texte) > 0 then
+		         SplitAt(texte, ':', foo, texte);
 		    end;
 		
 			case stockage of

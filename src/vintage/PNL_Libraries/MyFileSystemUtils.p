@@ -1181,7 +1181,7 @@ begin
     then pathUnix := oldMacPath
     else
       begin
-        SplitBy(oldMacPath,':',foo, pathUnix);    // enlever le nom du disque dur
+        SplitAt(oldMacPath,':',foo, pathUnix);    // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
       end;
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX

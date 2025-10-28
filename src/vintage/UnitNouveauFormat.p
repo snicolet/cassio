@@ -591,7 +591,7 @@ var nom,upCaseName : String255;
     c : char;
 begin
   nom := ficName;
-  upCaseName := UpCaseStr(nom);
+  upCaseName := sysutils.UpperCase(nom);
   anneeDansDistrib := 0;
 
   positionPoint := Pos('.INDEX',upCaseName);
@@ -660,7 +660,7 @@ begin
           else
             begin
               nameOfFile := CalculeNomFichierNouveauFormat(nroFichier);
-              SplitBy(nameOfFile,'.',nameOfFile,bidstr);
+              SplitAt(nameOfFile,'.',nameOfFile,bidstr);
               EnleveEspacesDeGaucheSurPlace(nameOfFile);
               EnleveEspacesDeDroiteSurPlace(nameOfFile);
               pathOfFile := CalculePathFichierNouveauFormat(nroFichier);
@@ -691,7 +691,7 @@ function NomFichierIndexAssocieNouveauFormat(ficname : String255) : String255;
 var upCaseName : String255;
     positionPoint : SInt16;
 begin
-  upCaseName := UpCaseStr(ficname);
+  upCaseName := sysutils.UpperCase(ficname);
   positionPoint := Pos('.WTB',upCaseName);
   if positionPoint > 0
     then NomFichierIndexAssocieNouveauFormat := LeftOfString(ficname,positionPoint-1)+'.index'
@@ -782,13 +782,13 @@ begin
   EstUneDistributionConnue := false;
   nroDistrib := 0;
 
-  nomTest  := UpCaseStr(nomTest);
-  pathTest := UpCaseStr(pathTest);
+  nomTest  := sysutils.UpperCase(nomTest);
+  pathTest := sysutils.UpperCase(pathTest);
 
   with DistributionsNouveauFormat do
     for i := 1 to nbDistributions do
-      if (UpCaseStr(Distribution[i].name^) = nomTest) and
-         (UpCaseStr(Distribution[i].path^) = pathTest) then
+      if (sysutils.UpperCase(Distribution[i].name^) = nomTest) and
+         (sysutils.UpperCase(Distribution[i].path^) = pathTest) then
         begin
           EstUneDistributionConnue := true;
           nroDistrib := i;
@@ -830,7 +830,7 @@ begin
     with InfosFichiersNouveauFormat.fichiers[k] do
       begin
         if (typeDonnees = kFicJoueursNouveauFormat) and
-           (nomFichier <> NIL) and (UpCaseStr(nomFichier^) =  'WTHOR.JOU') then
+           (nomFichier <> NIL) and (sysutils.UpperCase(nomFichier^) =  'WTHOR.JOU') then
            begin
              FichierWTHORJOUDejaTrouve := true;
              exit;
@@ -862,7 +862,7 @@ begin
         s := EcourteNomDistributionNouveauFormat(s);
         s := EnleveEspacesDeDroite(s);
         EnleveEtCompteCeCaractereADroite(s,'_',nbUnderscoreEnleves);
-        if UpCaseStr(s) = 'WTH' then
+        if sysutils.UpperCase(s) = 'WTH' then
           begin
             s := 'WThor';
             nroDistributionWThor := nbDistributions;
@@ -1168,7 +1168,7 @@ begin
   codeErreur := FSClose(refnum);
   refnum := 0;
 
-  nomDuFichier := UpCaseStr(GetNameOfFSSpec(fic));
+  nomDuFichier := sysutils.UpperCase(GetNameOfFSSpec(fic));
   with entete do
     begin
       formatReconnu := (siecleCreation >= 19) and (siecleCreation <= 21) and
@@ -1437,17 +1437,17 @@ begin
 
   if f1.typeDonnees <> f2.typeDonnees then OrdreSurFichiers := (f1.typeDonnees > f2.typeDonnees) else
   if (f1.typeDonnees = kFicJoueursNouveauFormat) and
-     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) =  'WTHOR.JOU') and
-     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) <> 'WTHOR.JOU') then OrdreSurFichiers := false else
+     (f1.nomFichier <> NIL) and (sysutils.UpperCase(f1.nomFichier^) =  'WTHOR.JOU') and
+     (f2.nomFichier <> NIL) and (sysutils.UpperCase(f2.nomFichier^) <> 'WTHOR.JOU') then OrdreSurFichiers := false else
   if (f1.typeDonnees = kFicJoueursNouveauFormat) and
-     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) <> 'WTHOR.JOU') and
-     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) =  'WTHOR.JOU') then OrdreSurFichiers := true else
+     (f1.nomFichier <> NIL) and (sysutils.UpperCase(f1.nomFichier^) <> 'WTHOR.JOU') and
+     (f2.nomFichier <> NIL) and (sysutils.UpperCase(f2.nomFichier^) =  'WTHOR.JOU') then OrdreSurFichiers := true else
   if (f1.typeDonnees = kFicTournoisNouveauFormat) and
-     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) =  'WTHOR.TRN') and
-     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) <> 'WTHOR.TRN') then OrdreSurFichiers := false else
+     (f1.nomFichier <> NIL) and (sysutils.UpperCase(f1.nomFichier^) =  'WTHOR.TRN') and
+     (f2.nomFichier <> NIL) and (sysutils.UpperCase(f2.nomFichier^) <> 'WTHOR.TRN') then OrdreSurFichiers := false else
   if (f1.typeDonnees = kFicTournoisNouveauFormat) and
-     (f1.nomFichier <> NIL) and (UpCaseStr(f1.nomFichier^) <> 'WTHOR.TRN') and
-     (f2.nomFichier <> NIL) and (UpCaseStr(f2.nomFichier^) =  'WTHOR.TRN') then OrdreSurFichiers := true else
+     (f1.nomFichier <> NIL) and (sysutils.UpperCase(f1.nomFichier^) <> 'WTHOR.TRN') and
+     (f2.nomFichier <> NIL) and (sysutils.UpperCase(f2.nomFichier^) =  'WTHOR.TRN') then OrdreSurFichiers := true else
   if f1.annee <> f2.annee                                 then OrdreSurFichiers := (f1.annee                  > f2.annee) else
   if f1.entete.siecleCreation <> f2.entete.siecleCreation then OrdreSurFichiers := (f1.entete.siecleCreation  > f2.entete.siecleCreation) else
   if f1.entete.anneeCreation <> f2.entete.anneeCreation   then OrdreSurFichiers := (f1.entete.anneeCreation   > f2.entete.anneeCreation) else
@@ -1528,11 +1528,11 @@ var k : SInt64;
     nomEnMajuscules : String255;
 begin
 
-  nomEnMajuscules := UpCaseStr(nom);
+  nomEnMajuscules := sysutils.UpperCase(nom);
 
   for k := 1 to InfosFichiersNouveauFormat.nbFichiers do
     begin
-      if ( nomEnMajuscules = UpCaseStr(CalculeNomFichierNouveauFormat(k))) then
+      if ( nomEnMajuscules = sysutils.UpperCase(CalculeNomFichierNouveauFormat(k))) then
         begin
           GetNroPremierFichierAvecCeNom := k;
           exit;
@@ -2068,7 +2068,7 @@ begin
 		          decalageDansCeFichierDeJoueurs := decalageProchainFichier;
 		          decalageProchainFichier := decalageProchainFichier+(((nbJoueursDansCeFichier-1) div 256)+1)*256 + 512;
 
-		          if not(FichierWTHOR_JOUDejaTrouve) and (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU')
+		          if not(FichierWTHOR_JOUDejaTrouve) and (sysutils.UpperCase(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU')
 		            then
 			            begin
 			              FichierWTHOR_JOUDejaTrouve := true;
@@ -2116,7 +2116,7 @@ begin
 		                AjouterJoueurEnMemoire(joueurFictif,nroJoueur,0);
 		              end;
 
-		          if (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU') then
+		          if (sysutils.UpperCase(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.JOU') then
 		            begin
 		              SetNombreJoueursDansBaseOfficielle(decalageDansCeFichierDeJoueurs+nbJoueursDansCeFichier);
 		            end;
@@ -2329,7 +2329,7 @@ begin
 		          decalageDansCeFichierDeTournois := decalageProchainFichier;
 		          decalageProchainFichier := decalageProchainFichier+(((nbTournoisDansCeFichier-1) div 256)+1)*256 + 512;
 
-		          if not(FichierWTHOR_TRNDejaTrouve) and (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN')
+		          if not(FichierWTHOR_TRNDejaTrouve) and (sysutils.UpperCase(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN')
 		            then
 			            begin
 			              FichierWTHOR_TRNDejaTrouve := true;
@@ -2377,7 +2377,7 @@ begin
 		                AjouterTournoiEnMemoire(tournoiFictif,nroTournoi,0);
 		              end;
 
-		          if (UpCaseStr(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN') then
+		          if (sysutils.UpperCase(CalculeNomFichierNouveauFormat(numFichier)) = 'WTHOR.TRN') then
 		            begin
 		              SetNombreTournoisDansBaseOfficielle(decalageDansCeFichierDeTournois+nbTournoisDansCeFichier);
 		            end;
@@ -2927,7 +2927,7 @@ begin
           SetFileType(fs,MY_FOUR_CHAR_CODE('PZZL'));
         end;
 
-      if (typeDonnees = kFicJoueursNouveauFormat) and (UpCaseStr(GetNameOfFSSpec(fs)) = 'SOLITAIRES.JOU') and FichierWTHORJOUDejaTrouve
+      if (typeDonnees = kFicJoueursNouveauFormat) and (sysutils.UpperCase(GetNameOfFSSpec(fs)) = 'SOLITAIRES.JOU') and FichierWTHORJOUDejaTrouve
          then DoNothing
          else bidon := AjouterFichierNouveauFormat(fs,GetPathOfScannedDirectory+path,typeDonnees,entete);
 
@@ -2971,7 +2971,7 @@ function EcourteNomDistributionNouveauFormat(nomLong : String255) : String255;
 var s : String255;
     posXXXX : SInt16;
 begin
-  s := UpCaseStr(nomLong);
+  s := sysutils.UpperCase(nomLong);
   posXXXX := Pos('XXXX',s);
   if posXXXX > 0
     then ecourteNomDistributionNouveauFormat := LeftOfString(nomLong,posXXXX-1)

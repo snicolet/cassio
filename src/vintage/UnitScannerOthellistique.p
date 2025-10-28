@@ -245,8 +245,8 @@ begin
   {if (result <> '')
     then }
 		  case modification of
-		    kCompacterEnMajuscules : s := UpCaseStr(result);
-		    kCompacterEnMinuscules : s := LowerCaseStr(result);
+		    kCompacterEnMajuscules : s := sysutils.UpperCase(result);
+		    kCompacterEnMinuscules : s := sysutils.LowerCase(result);
 		    kCompacterTelQuel      : s := result;    {ne rien faire}
 		    otherwise                WritelnDansRapport(' WARNING !! modification inconnue dans CompacterPartieAlphanumerique… ');
 		  end;
@@ -616,7 +616,7 @@ begin  { TrouverPartieEtJoueursDansChaine }
   indexDebutDesCoups := 1;
   indexFinDesCoups   := LENGTH_OF_STRING(s);
 
-  s := UpCaseStr(chaine);
+  s := sysutils.UpperCase(chaine);
 
   longueurBestSolution := 0;
   RechercherCoupsCommencantPar('D3',0);

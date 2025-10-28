@@ -1390,7 +1390,7 @@ procedure DoDialoguePreferences;
           name := GetEngineName(k);
           if (name <> '') then
             begin
-              name[1] := UpCase(name[1]);
+              name[1] := UpperCase(name[1]);
               MyAppendMenu(MenuFlottantChoixEval, name);
             end;
         end;

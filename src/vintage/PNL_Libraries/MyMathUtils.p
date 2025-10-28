@@ -93,7 +93,7 @@ begin
 end;
 
 
-function PuissanceReelle(x,exposant : double) : double;
+function PuissanceReelle(x, exposant : double) : double;
 begin
   if x <= 0.0
     then PuissanceReelle := 0.0

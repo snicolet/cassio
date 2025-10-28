@@ -316,7 +316,7 @@ begin
           if (nroJoueur = kEngineSpecialBip)
             then nom := 'Bip'
             else nom := 'Cassio';
-  nom[1] := UpCase(nom[1]);
+  nom[1] := UpperCase(nom[1]);
   NomDeLEngineDansLeMatch := nom;
 end;
 

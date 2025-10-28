@@ -3106,7 +3106,7 @@ begin
               (* WritelnDansRapportThreadSafe('c''est un fichier WThor correct'); *)
 
 
-              if SplitAtStr(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel) then
+              if SplitAt(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel) then
                 begin
 
                   SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
@@ -3135,7 +3135,7 @@ begin
 
 
   if (nomFichierWthorOfficiel = '')
-    then foo := SplitAtStr(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel);
+    then foo := SplitAt(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel);
 
   if (nomFichierWthorOfficiel <> '')
     then EnleverUnFichierWthorDansListeATelecharger(nomFichierWthorOfficiel);
@@ -3317,8 +3317,8 @@ begin  {$unused theFic, result}
   if (Pos('HREF',s) > 0) or (Pos('href',s) > 0) then
     begin
 
-      if SplitAtStr(s, 'HREF', left, right) then s := right else
-      if SplitAtStr(s, 'href', left, right) then s := right;
+      if SplitAt(s, 'HREF', left, right) then s := right else
+      if SplitAt(s, 'href', left, right) then s := right;
 
       { WritelnDansRapport(s); }
 
@@ -3330,18 +3330,18 @@ begin  {$unused theFic, result}
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAtStr(date, '</A>', left, right) then date := right else
-      if SplitAtStr(date, '</a>', left, right) then date := right;
+      if SplitAt(date, '</A>', left, right) then date := right else
+      if SplitAt(date, '</a>', left, right) then date := right;
       date := EnleveEspacesDeDroite(date);
       date := EnleveEspacesDeGauche(date);
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAtStr(s, '"', left, right) then s := right;
+      if SplitAt(s, '"', left, right) then s := right;
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAtStr(s, '"', left, right) then s := left;
+      if SplitAt(s, '"', left, right) then s := left;
       s := EnleveEspacesDeGauche(s);
       s := EnleveEspacesDeDroite(s);
 

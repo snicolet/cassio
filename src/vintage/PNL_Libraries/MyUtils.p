@@ -209,7 +209,7 @@ end;
 				pn := LENGTH_OF_STRING(name) - LENGTH_OF_STRING(ext) + 1;
 				pe := 1;
 				while pe <= LENGTH_OF_STRING(ext) do begin
-					if UpCase(name[pn]) <> UpCase(ext[pe]) then begin
+					if UpperCase(name[pn]) <> UpperCase(ext[pe]) then begin
 						leave;
 					end;
 					pn := pn + 1;

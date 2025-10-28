@@ -1539,8 +1539,8 @@ begin
    max := 0;
 
   if commandState
-    then SplitBy(gTooltip.string2, chr(13), ligne1, ligne2)
-    else SplitBy(gTooltip.string1, chr(13), ligne1, ligne2);
+    then SplitAt(gTooltip.string2, chr(13), ligne1, ligne2)
+    else SplitAt(gTooltip.string1, chr(13), ligne1, ligne2);
 
   EnableQuartzAntiAliasing(true);
 
@@ -1567,7 +1567,7 @@ end;
 procedure DrawStringInTooltipWindow(const s : String255);
 var ligne1,ligne2 : STring255;
 begin
-  SplitBy(s, chr(13), ligne1, ligne2);
+  SplitAt(s, chr(13), ligne1, ligne2);
 
 
   EnableQuartzAntiAliasing(true);

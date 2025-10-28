@@ -479,7 +479,7 @@ begin
 
       for k := 1 to DistributionsNouveauFormat.nbDistributions do
         begin
-          nomDistributionSurDisque := UpCaseStr(GetNomUsuelDistribution(k));
+          nomDistributionSurDisque := sysutils.UpperCase(GetNomUsuelDistribution(k));
 
           if marqueurDebutSyntaxeGrep then nomDistributionSurDisque := '^' + nomDistributionSurDisque;
           if marqueurFinSyntaxeGrep   then nomDistributionSurDisque := nomDistributionSurDisque + '$';

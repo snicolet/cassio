@@ -159,7 +159,7 @@ begin
   theModule := NIL;
   ModuleEstChargeEnMemoire := false;
 
-  if MemberOfStringSet(LowerCaseStr(nom), numeroModule, gModulesCharges) then
+  if MemberOfStringSet(sysutils.LowerCase(nom), numeroModule, gModulesCharges) then
     begin
       theModule := gTableDesModules.pointeurs[numeroModule];
       ModuleEstChargeEnMemoire := true;
@@ -173,7 +173,7 @@ begin
   theSymbole := NIL;
   SymboleEstChargeEnMemoire := false;
 
-  if MemberOfStringSet(LowerCaseStr(nom), adresseSymbole, gSymbolesCharges) then
+  if MemberOfStringSet(sysutils.LowerCase(nom), adresseSymbole, gSymbolesCharges) then
     begin
       theSymbole := Symbole(adresseSymbole);
       SymboleEstChargeEnMemoire := true;
@@ -272,7 +272,7 @@ begin
 
             nouveauModule := gTableDesModules.pointeurs[gTableDesModules.cardinal];
 
-            AddStringToSet(LowerCaseStr(name),gTableDesModules.cardinal,gModulesCharges);
+            AddStringToSet(sysutils.LowerCase(name),gTableDesModules.cardinal,gModulesCharges);
           end
         else
           begin
@@ -370,7 +370,7 @@ begin
         aux^.definition     := definition;
         aux^.dansQuelModule := whichModule;
 
-        AddStringToSet(LowerCaseStr(name),POINTER_VALUE(aux),gSymbolesCharges);
+        AddStringToSet(sysutils.LowerCase(name),POINTER_VALUE(aux),gSymbolesCharges);
 
         if (whichModule <> NIL)
           then AddStringToSet(name,POINTER_VALUE(aux),whichModule^.symbolesInterface)
@@ -949,44 +949,44 @@ function EstUnModuleDeDefinition(nomModule : String255) : boolean;
 begin
   EstUnModuleDeDefinition := false;
 
-  nomModule := LowerCaseStr(nomModule);
+  nomModule := sysutils.LowerCase(nomModule);
 
-  if (nomModule = LowerCaseStr('UnitVarGlobalesFinale')) or
-     (nomModule = LowerCaseStr('UnitDefPackedThorGame')) or
-     (nomModule = LowerCaseStr('UnitDefCompilation')) or
-     (nomModule = LowerCaseStr('UnitDefCouleurs')) or
-     (nomModule = LowerCaseStr('UnitDefDialog')) or
-     (nomModule = LowerCaseStr('UnitDefEvaluation')) or
-     (nomModule = LowerCaseStr('UnitDefEvents')) or
-     (nomModule = LowerCaseStr('UnitDefFormatsFichiers')) or
-     (nomModule = LowerCaseStr('UnitDefGeneralSort')) or
-     (nomModule = LowerCaseStr('UnitDefGraphe')) or
-     (nomModule = LowerCaseStr('UnitDefHash')) or
-     (nomModule = LowerCaseStr('UnitDefListeCasesVides')) or
-     (nomModule = LowerCaseStr('UnitDefMenus')) or
-     (nomModule = LowerCaseStr('UnitDefNouveauFormat')) or
-     (nomModule = LowerCaseStr('UnitDefParallelisme')) or
-     (nomModule = LowerCaseStr('UnitDefSmartGameBoard')) or
-     (nomModule = LowerCaseStr('UnitDefTranscript')) or
-     (nomModule = LowerCaseStr('Zebra_types')) or
-     (nomModule = LowerCaseStr('EdmondTypes')) or
-     (nomModule = LowerCaseStr('UnitOth0')) or
-     (nomModule = LowerCaseStr('MacTypes')) or
-     (nomModule = LowerCaseStr('StringTypes')) or
-     (nomModule = LowerCaseStr('UnitDefSet')) or
-     (nomModule = LowerCaseStr('UnitBitboardTypes')) or
-     (nomModule = LowerCaseStr('MyTypes')) or
-     (nomModule = LowerCaseStr('UnitDefSet')) or
-     (nomModule = LowerCaseStr('GPCStrings')) or
-     (nomModule = LowerCaseStr('UnitDefABR')) or
-     (nomModule = LowerCaseStr('UnitDefAlgebreLineaire')) or
-     (nomModule = LowerCaseStr('UnitDefABR')) or
-     (nomModule = LowerCaseStr('UnitDefCompilation')) or
-     (nomModule = LowerCaseStr('UnitDefFichiersTEXT')) or
-     (nomModule = LowerCaseStr('UnitDefOthelloGeneralise')) or
-     (nomModule = LowerCaseStr('UnitDefGameTree')) or
-     (nomModule = LowerCaseStr('UnitDefPositionEtTrait')) or
-     (nomModule = LowerCaseStr('UnitDefFichierAbstrait'))
+  if (nomModule = sysutils.LowerCase('UnitVarGlobalesFinale')) or
+     (nomModule = sysutils.LowerCase('UnitDefPackedThorGame')) or
+     (nomModule = sysutils.LowerCase('UnitDefCompilation')) or
+     (nomModule = sysutils.LowerCase('UnitDefCouleurs')) or
+     (nomModule = sysutils.LowerCase('UnitDefDialog')) or
+     (nomModule = sysutils.LowerCase('UnitDefEvaluation')) or
+     (nomModule = sysutils.LowerCase('UnitDefEvents')) or
+     (nomModule = sysutils.LowerCase('UnitDefFormatsFichiers')) or
+     (nomModule = sysutils.LowerCase('UnitDefGeneralSort')) or
+     (nomModule = sysutils.LowerCase('UnitDefGraphe')) or
+     (nomModule = sysutils.LowerCase('UnitDefHash')) or
+     (nomModule = sysutils.LowerCase('UnitDefListeCasesVides')) or
+     (nomModule = sysutils.LowerCase('UnitDefMenus')) or
+     (nomModule = sysutils.LowerCase('UnitDefNouveauFormat')) or
+     (nomModule = sysutils.LowerCase('UnitDefParallelisme')) or
+     (nomModule = sysutils.LowerCase('UnitDefSmartGameBoard')) or
+     (nomModule = sysutils.LowerCase('UnitDefTranscript')) or
+     (nomModule = sysutils.LowerCase('Zebra_types')) or
+     (nomModule = sysutils.LowerCase('EdmondTypes')) or
+     (nomModule = sysutils.LowerCase('UnitOth0')) or
+     (nomModule = sysutils.LowerCase('MacTypes')) or
+     (nomModule = sysutils.LowerCase('StringTypes')) or
+     (nomModule = sysutils.LowerCase('UnitDefSet')) or
+     (nomModule = sysutils.LowerCase('UnitBitboardTypes')) or
+     (nomModule = sysutils.LowerCase('MyTypes')) or
+     (nomModule = sysutils.LowerCase('UnitDefSet')) or
+     (nomModule = sysutils.LowerCase('GPCStrings')) or
+     (nomModule = sysutils.LowerCase('UnitDefABR')) or
+     (nomModule = sysutils.LowerCase('UnitDefAlgebreLineaire')) or
+     (nomModule = sysutils.LowerCase('UnitDefABR')) or
+     (nomModule = sysutils.LowerCase('UnitDefCompilation')) or
+     (nomModule = sysutils.LowerCase('UnitDefFichiersTEXT')) or
+     (nomModule = sysutils.LowerCase('UnitDefOthelloGeneralise')) or
+     (nomModule = sysutils.LowerCase('UnitDefGameTree')) or
+     (nomModule = sysutils.LowerCase('UnitDefPositionEtTrait')) or
+     (nomModule = sysutils.LowerCase('UnitDefFichierAbstrait'))
      then
        EstUnModuleDeDefinition := true;
 

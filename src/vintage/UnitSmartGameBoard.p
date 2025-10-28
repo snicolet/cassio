@@ -656,7 +656,7 @@ begin
   propertyGenre := StringToPropertyGenre(nomProperty);
 
   if (propertyGenre = UnknowProp)
-    then propertyGenre := StringToPropertyGenre(UpCaseStr(nomProperty));
+    then propertyGenre := StringToPropertyGenre(sysutils.UpperCase(nomProperty));
 
   case propertyGenre of
     BlackMoveProp              : prop := ReadSquareProperty(propertyGenre);

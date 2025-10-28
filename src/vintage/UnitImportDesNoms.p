@@ -111,7 +111,7 @@ var inconnu : boolean;
 begin
   if StringSetEstVide(gImportDesNoms.pseudosSansNomReel)
     then inconnu := false
-    else inconnu := MemberOfStringSet(LowerCaseStr(EnleveEspacesDeDroite(pseudo)),numero,gImportDesNoms.pseudosSansNomReel);
+    else inconnu := MemberOfStringSet(sysutils.LowerCase(EnleveEspacesDeDroite(pseudo)),numero,gImportDesNoms.pseudosSansNomReel);
 
 
   // WritelnStringAndBoolDansRapport('StringSetEstVide = ',StringSetEstVide(gImportDesNoms.pseudosSansNomReel));
@@ -217,7 +217,7 @@ begin
         // On cherche dans le cache si le pseudo PGN cherche est bien dans le fichier dictionnaire...
         // Ceci permet d'aller très vite pour eliminer les pseudos PGN qui ne sont PAS dans le dictionnaire !
 
-        if not(MemberOfStringSet(LowerCaseStr(pseudoPGN),numero,gImportDesNoms.pseudosAyantUnNomReel)) then
+        if not(MemberOfStringSet(sysutils.LowerCase(pseudoPGN),numero,gImportDesNoms.pseudosAyantUnNomReel)) then
           begin
             if (pseudoPGNAvecLesChiffresTerminaux <> pseudoPGNSansLesChiffresTerminaux) and
                (pseudoPGN = pseudoPGNAvecLesChiffresTerminaux) and
@@ -292,7 +292,7 @@ begin
                   begin
 
                     if (reste = '') then
-                      AddStringToSet(LowerCaseStr(s1),-1,gImportDesNoms.pseudosSansNomReel);
+                      AddStringToSet(sysutils.LowerCase(s1),-1,gImportDesNoms.pseudosSansNomReel);
 
                     // desormais "s1" est le pseudo avant le "=" dans le fichier dictionnaire
                     // et "reste" est le nom reel du joueur apres le "=" dans le fichier dictionnaire
@@ -306,7 +306,7 @@ begin
 
                             // on ajoute dans le cache des pseudos ayant un nom reel le pseudo du
                             // fichier dictionnaire avec ses chiffres terminaux
-                            AddStringToSet(LowerCaseStr(s1),-1,gImportDesNoms.pseudosAyantUnNomReel);
+                            AddStringToSet(sysutils.LowerCase(s1),-1,gImportDesNoms.pseudosAyantUnNomReel);
 
                             pseudoAvecUnNomReel := s1;
                             t := LENGTH_OF_STRING(pseudoAvecUnNomReel);
@@ -316,7 +316,7 @@ begin
 
                             // et aussi, eventuellement, sa version sans les chiffres terminaux...
                             if (pseudoAvecUnNomReel <> s1) then
-                              AddStringToSet(LowerCaseStr(pseudoAvecUnNomReel),-1,gImportDesNoms.pseudosAyantUnNomReel);
+                              AddStringToSet(sysutils.LowerCase(pseudoAvecUnNomReel),-1,gImportDesNoms.pseudosAyantUnNomReel);
 
                             {WritelnDansRapport(pseudoAvecUnNomReel + ' => ' + reste);}
                           end;
@@ -1701,7 +1701,7 @@ begin
   EnleveEspacesDeGaucheSurPlace(s);
   EnleveEspacesDeDroiteSurPlace(s);
 
-  s[1] := UpCase(s[1]);
+  s[1] := UpperCase(s[1]);
 
   NomCourtDuTournoi := s;
 
@@ -2665,7 +2665,7 @@ begin
             if Pos('VERSUS', s) > 0
               then
                 begin
-                  foo := SplitAtStr(s, 'VERSUS', expected1, expected2);
+                  foo := SplitAt(s, 'VERSUS', expected1, expected2);
                   expected1 := Trim(UTF8ToAscii(expected1));
                   expected2 := Trim(UTF8ToAscii(expected2));
 

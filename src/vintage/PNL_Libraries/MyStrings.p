@@ -12,53 +12,60 @@ INTERFACE
      UnitDefCassio;
 
 	procedure LeftP (var s : String255; len : SInt16);
-	function LeftOfString (var s : String255; len : SInt16) : String255;
 	procedure LeftAssignP (var s : String255; len : SInt16; var rhs : String255);
-	function LeftAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
 	procedure RightP (var s : String255; len : SInt16);
-	function RightOfString (const s : String255; len : SInt16) : String255;
 	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);
+	
+	function LeftOfString (var s : String255; len : SInt16) : String255;
+	function LeftAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
+	function RightOfString (const s : String255; len : SInt16) : String255;
 	function RightAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
+	
 	procedure MidP (var s : String255; p, len : SInt16);
-	function Mid (var s : String255; p, len : SInt16) : String255;
 	procedure MidAssignP (var s : String255; p, len : SInt16; const rhs : String255);
+	
+	function Mid (var s : String255; p, len : SInt16) : String255;
 	function MidAssign (const s : String255; p, len : SInt16; const rhs : String255) : String255;
+	
+	
 	procedure HandleToString (hhhh : UnivHandle; var s : String255);
 	function HandleToStr (hhhh : UnivHandle) : String255;
 	procedure StringToHandle (const s : String255; hhhh : UnivHandle);
+	
+	
 	function Trim (s : String255) : String255;
-	function LowerCase( ch : char ) : char;
-	function UpCase (ch : char) : char;
 
 
-	function IsDigit(ch : char) : boolean;
-	function IsLower(ch : char) : boolean;
-	function IsUpper(ch : char) : boolean;
-	function IsAlpha(ch : char) : boolean;
 
 	procedure UpCaseString (var s : String255);
-	function UpCaseStr (s : String255) : String255;
 	procedure LowerCaseString (var s : String255);
+	
+	function UpCaseStr (s : String255) : String255;
 	function LowerCaseStr (s : String255) : String255;
 
 	function NoCaseEquals( s1, s2 : String255 ) : boolean;
 	function NoCasePos( s1, s2 : String255 ) : SInt16;
 
-	procedure SPrintS5 (var dst: String255; const src, s1, s2, s3, s4, s5 : String255);
-	procedure SPrintS3 (var dst: String255; const src, s1, s2, s3:  String255);
+	procedure SPrintS5(var dst: String255; const src, s1, s2, s3, s4, s5 : String255);
+	procedure SPrintS3(var dst: String255; const src, s1, s2, s3:  String255);
 
 	function PosRight (sub : char; const s : String255) : SInt16;
 	function PosRightStr (const sub, s : String255) : SInt16;
+	
 	function Contains( sub : char; const s : String255 ) : boolean;
 	function ContainsStr( const sub, s : String255 ) : boolean;
-	procedure SplitBy (s : String255; sub : char; var left, right: String255);
-	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);
+	
+	procedure SplitByChar (s : String255; sub : char; var left, right: String255);
+	procedure SplitRightByChar (s : String255; sub : char; var left, right: String255);
+	
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);
 	procedure SplitRightByStr (s : String255; const sub : String255; var left, right: String255);
+	
 	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;
 	function SplitRightAt(s : String255; sub : char; var s1, s2 : String255) : boolean;
-	function SplitAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
-	function SplitRightAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	
+	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitRightAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 
 	function FirstPos(const sub, str : String255) : SInt32;
     function LastPos (sub, str : String255) : SInt16;
@@ -701,41 +708,6 @@ end;
 		Trim := s;
 	end;
 
-	function LowerCase( ch : char ) : char;
-	begin
-		if ('A' <= ch) and (ch <= 'Z') then begin
-			ch := chr(ord(ch) + $20);
-		end;
-		LowerCase := ch;
-	end;
-
-	function UpCase (ch : char) : char;
-	begin
-		if ('a' <= ch) and (ch <= 'z') then begin
-			ch := chr(ord(ch) - $20);
-		end;
-		UpCase := ch;
-	end;
-
-	function IsDigit(ch : char) : boolean;
-	begin
-		IsDigit := ('0' <= ch) and (ch <= '9');
-	end;
-
-	function IsLower(ch : char) : boolean;
-	begin
-		IsLower := ('a' <= ch) and (ch <= 'z');
-	end;
-
-	function IsUpper(ch : char) : boolean;
-	begin
-		IsUpper := ('A' <= ch) and (ch <= 'Z');
-	end;
-
-	function IsAlpha(ch : char) : boolean;
-	begin
-		IsAlpha := (('a' <= ch) and (ch <= 'z')) or (('A' <= ch) and (ch <= 'Z'));
-	end;
 
 	function NoCaseEquals( s1, s2 : String255 ) : boolean;
 	begin
@@ -775,7 +747,7 @@ end;
 			i : SInt16;
 	begin
 		for i := 1 to LENGTH_OF_STRING(s) do begin
-			s[i] := UpCase(s[i]);
+			s[i] := UpperCase(s[i]);
 		end;
 	end;
 
@@ -784,7 +756,7 @@ end;
 			i : SInt16;
 	begin
 		for i := 1 to LENGTH_OF_STRING(s) do begin
-			s[i] := UpCase(s[i]);
+			s[i] := UpperCase(s[i]);
 		end;
 		UpCaseStr := s;
 	end;
@@ -917,8 +889,7 @@ end;
 
 
 procedure DoSub (var dst: String255; n : SInt16; const s : String255);
-		var
-			p : SInt16;
+var p : SInt16;
 	begin
 		p := Pos(Concat('^', chr(n + 48)), dst);
 		if p > 0 then begin
@@ -927,9 +898,8 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 		end;
 	end;
 
-	procedure SPrintS5 (var dst: String255; const src, s1, s2, s3, s4, s5 : String255);
-		var
-			temp : String255;
+procedure SPrintS5 (var dst: String255; const src, s1, s2, s3, s4, s5 : String255);
+var temp : String255;
 	begin
 		temp := src;
 		DoSub(temp, 5, s5);
@@ -940,16 +910,15 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 		dst := temp;
 	end;
 
-	procedure SPrintS3 (var dst: String255; const src, s1, s2, s3 : String255);
-		var
-			temp : String255;
-	begin
+procedure SPrintS3 (var dst: String255; const src, s1, s2, s3 : String255);
+var temp : String255;
+begin
 		temp := src;
 		DoSub(temp, 3, s3);
 		DoSub(temp, 2, s2);
 		DoSub(temp, 1, s1);
 		dst := temp;
-	end;
+end;
 
 	function PosRight (sub : char; const s : String255) : SInt16;
 		var
@@ -993,7 +962,7 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 		ContainsStr := Pos( sub, s ) > 0;
 	end;
 
-	procedure SplitBy (s : String255; sub : char; var left, right: String255);
+	procedure SplitByChar (s : String255; sub : char; var left, right: String255);
 		var
 			p : SInt16;
 	begin
@@ -1007,7 +976,7 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 		end;
 	end;
 
-	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);
+	procedure SplitRightByChar (s : String255; sub : char; var left, right: String255);
 		var
 			p : SInt16;
 	begin
@@ -1073,7 +1042,7 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 		SplitRightAt := p > 0;
 	end;
 
-	function SplitAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1082,10 +1051,10 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
 		end;
-		SplitAtStr := p > 0;
+		SplitAt := p > 0;
 	end;
 
-	function SplitRightAtStr (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitRightAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1094,7 +1063,7 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
 		end;
-		SplitRightAtStr := p > 0;
+		SplitRightAt := p > 0;
 	end;
 
 	function Match (pattern, name: String255) : boolean;
@@ -1517,7 +1486,7 @@ begin
   if not(keepDiacritics)
     then result := StripDiacritics(s)
     else result := s;
-  MyLowerString := LowerCaseStr(result);
+  MyLowerString := sysutils.LowerCase(result);
 end;
 
 

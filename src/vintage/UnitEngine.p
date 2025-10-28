@@ -525,11 +525,11 @@ begin
        begin
          err := FSSpecToFullPath(fs, pathEngine);
 
-         SplitBy(pathEngine,':',foo,pathUnix);         // enlever le nom du disque dur
+         SplitAt(pathEngine,':',foo,pathUnix);         // enlever le nom du disque dur
          ReplaceCharByCharInString(pathUnix,':','/');  // separateurs a la mode UNIX
 
          s := ReplaceStringOnce(':engine.sh','',pathEngine);
-         SplitRightBy(s,':',foo,nomEngine);
+         SplitRightByChar(s,':',foo,nomEngine);
          AddEngine(nomEngine,pathEngine);
 
        end;
@@ -857,7 +857,7 @@ function MuStringEnPrecisionEngine(mu : String255) : SInt64;
 var left, right, cut : String255;
     muMax, dist, distMin, i: SInt64;
 begin
-  SplitByStr(mu, ',', left, right);
+  SplitAt(mu, ',', left, right);
 
   muMax := ChaineEnLongint(right);
 
@@ -1681,7 +1681,7 @@ begin
       begin
         bundlePathMac := pathDossierFichiersAuxiliaires + ':Frameworks:EngineBundle.bundle';
         ReplaceCharByCharInString(bundlePathMac,'/',':');   // separateurs a la mode Mac
-        SplitBy(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
+        SplitAt(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
         ReplaceCharByCharInString(bundlePathUnix,':','/');  // separateurs a la mode UNIX
         result := bundlePathUnix;
       end;
@@ -1745,7 +1745,7 @@ begin
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
   if (pathMac[1] = ':')
     then pathUnix := pathMac
-    else SplitBy(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
+    else SplitAt(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
   ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
 
   if (debugEngine or debuggage.engineInput or debuggage.engineOutput or InfosTechniquesDansRapport) then
