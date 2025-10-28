@@ -226,12 +226,12 @@ begin
                 begin
                   // WritelnDansRapport('appel recursif {1}');
                   PseudoPGNEnNomDansBaseThor := PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos, pseudoPGNSansLesChiffresTerminaux);
-                  exit(PseudoPGNEnNomDansBaseThor);
+                  exit;
                 end
               else
                 begin
                   PseudoPGNEnNomDansBaseThor := '???';
-                  exit(PseudoPGNEnNomDansBaseThor);
+                  exit;
                 end;
           end;
       end;
@@ -247,14 +247,14 @@ begin
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
-          exit(PseudoPGNEnNomDansBaseThor);
+          exit;
         end;
 
       erreurES := OuvreFichierTexte(dictionnairePseudosPGN);
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
-          exit(PseudoPGNEnNomDansBaseThor);
+          exit;
         end;
 
       erreurES := NoErr;
@@ -410,7 +410,7 @@ var nouveauNumero : SInt64;
       AddStringToSet(pseudoArrivee,numeroDansThor,gImportDesNoms.pseudosNomsDejaVus);
       PeutImporterNomJoueurFormatPGN := false;
       // WritelnDansRapport('Sortir sur echec : ' + pseudoArrivee);
-      exit(PeutImporterNomJoueurFormatPGN);
+      exit;
     end;
 
 
@@ -422,7 +422,7 @@ begin
       nomDansThor := GetNomJoueur(kNroJoueurInconnu);
       numeroDansThor := kNroJoueurInconnu;
       confiance := 100;
-      exit(PeutImporterNomJoueurFormatPGN);
+      exit;
     end;
 
 
@@ -663,7 +663,7 @@ begin
 	        numeroTournoi := numero;
 	        TrouverNomDeTournoiDansPath := true;
 	        SetParsingCaracterSet(oldParsingSet);
-	        exit(TrouverNomDeTournoiDansPath);
+	        exit;
 	      end;
 	
 	    EnleveEspacesDeGaucheSurPlace(s);
@@ -674,7 +674,7 @@ begin
 	        numeroTournoi := numero;
 	        TrouverNomDeTournoiDansPath := true;
 	        SetParsingCaracterSet(oldParsingSet);
-	        exit(TrouverNomDeTournoiDansPath);
+	        exit;
 	      end;
 	  end;
 
@@ -813,7 +813,7 @@ var nbJoueursTrouves : SInt64;
         begin
           nom := '';
           TrouvePseudoEtNumeroJoueurDansMorceau := false;
-          exit(TrouvePseudoEtNumeroJoueurDansMorceau);
+          exit;
         end;
 
 
@@ -826,7 +826,7 @@ var nbJoueursTrouves : SInt64;
       begin
         nom := '';
         TrouvePseudoEtNumeroJoueurDansMorceau := false;
-        exit(TrouvePseudoEtNumeroJoueurDansMorceau);
+        exit;
       end;
 
 
@@ -845,7 +845,7 @@ var nbJoueursTrouves : SInt64;
 
               // WritelnDansRapport('permutation trouvee = '+GetNomJoueur(numero));
 
-              exit(TrouvePseudoEtNumeroJoueurDansMorceau);
+              exit;
             end;
 
           if (LENGTH_OF_STRING(permutation) > LongueurPlusLongNomDeJoueurDansBase) then
@@ -855,7 +855,7 @@ var nbJoueursTrouves : SInt64;
                 begin
                   nom := permutation;
                   TrouvePseudoEtNumeroJoueurDansMorceau := true;
-                  exit(TrouvePseudoEtNumeroJoueurDansMorceau);
+                  exit;
                 end;
             end;
 
@@ -868,7 +868,7 @@ var nbJoueursTrouves : SInt64;
         numero := kNroJoueurInconnu;
         nom    := GetNomJoueur(kNroJoueurInconnu);
         TrouvePseudoEtNumeroJoueurDansMorceau := true;
-        exit(TrouvePseudoEtNumeroJoueurDansMorceau);
+        exit;
       end;
 
     nom := '';
@@ -903,7 +903,7 @@ var nbJoueursTrouves : SInt64;
     if (numero2 = kNroJoueurInconnu) then inc(nbMorceauxImpossibles);
     if (numero3 = kNroJoueurInconnu) then inc(nbMorceauxImpossibles);
     if (nbMorceauxImpossibles >= 2) then
-      exit(SplitTableByThree);
+      exit;
 
 
     trouve1 := TrouvePseudoEtNumeroJoueurDansMorceau(imin1,imax1,numero1,nom1);
@@ -1739,7 +1739,7 @@ begin
   if (len > LongueurPlusLongNomDeJoueurDansBase) then
     begin
       TrouveNumeroDuJoueur := false;
-      exit(TrouveNumeroDuJoueur);
+      exit;
     end;
 
   // metaphone (si le drapeau gUsingMetaphone est vrai) du nom du joueur cherche
@@ -2440,7 +2440,7 @@ begin { TrouveLexemesDeCeNomDeJoueurDansLaBaseThor }
       numeroJoueur := kNroJoueurInconnu;
       confiance := 0;
       TrouveLexemesDeCeNomDeJoueurDansLaBaseThor := false;
-      exit(TrouveLexemesDeCeNomDeJoueurDansLaBaseThor);
+      exit;
     end;
 
   nomJoueurEnMajuscules := FabriqueNomEnMajusculesAvecEspaces(UTF8ToAscii(nomJoueur));
@@ -2505,7 +2505,7 @@ begin
 	        if (positionSousChaine = 1) or (numeroTournoi = -1)
 	          then numeroTournoi := i;
 	        TrouveNumeroDuTournoi := true;
-	        if (positionSousChaine = 1) then exit(TrouveNumeroDuTournoi);
+	        if (positionSousChaine = 1) then exit;
 	      end;
     end;
 end;
@@ -2642,7 +2642,7 @@ var s, s1, s2, s3, s4, s5, reste : String255;
 begin
   Discard(theFic);
 
-  if gEOFPourTorture then exit(ReadLineInTortureFile);
+  if gEOFPourTorture then exit;
 
   s := Trim(ligne.debutLigne);
 
@@ -2653,7 +2653,7 @@ begin
       if (Pos('__END_OF_FILE__', s) = 1) then
         begin
           gEOFPourTorture := true;
-          exit(ReadLineInTortureFile);
+          exit;
         end;
 
       if (Pos('EXPECTED :', s) = 1)
@@ -2759,7 +2759,7 @@ begin
   err := -1;
 
   if NoCasePos(kTortureFileName, nomCompletFichier) <= 0 then
-    exit(OuvrirFichierTortureImportDesNoms);
+    exit;
 
   if not(JoueursEtTournoisEnMemoire) then
     begin

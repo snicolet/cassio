@@ -295,7 +295,7 @@ begin
 
           unixTask.lastDateOfActivity := TickCount;
 
-          exit(InterpretUnixTaskCommand);
+          exit;
         end;
     end;
 
@@ -304,7 +304,7 @@ begin
   if ((s[1] = 'D') and (Pos('DEBUG',s) = 1)) then
     begin
       UnixTaskPrintDebug(s);
-      exit(InterpretUnixTaskCommand);
+      exit;
     end;
 
 
@@ -312,7 +312,7 @@ begin
   if ((s[1] = 'W') and (Pos('WARNING',s) = 1)) then
     begin
       UnixTaskPrintWarning(s);
-      exit(InterpretUnixTaskCommand);
+      exit;
     end;
 
   (* check if the UnixTask crashed or has been killed by the Unix kernel *)
@@ -338,7 +338,7 @@ begin
               SetUnixTaskState(UNIX_TASK_KILLED);
           end;
 
-      exit(InterpretUnixTaskCommand);
+      exit;
     end;
 
 end;
@@ -503,7 +503,7 @@ function LaunchUNIXProcess(command, arguments : String255) : OSErr;
 begin
 
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-  exit(LaunchUNIXProcess);
+  exit;
   {$ENDC}
 
   { WritelnDansRapport('command = ' + command);
@@ -552,11 +552,11 @@ begin
 
 
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-  exit(CanStartUnixTask);
+  exit;
   {$ENDC}
 
   if (pathMac = '') then
-    exit(CanStartUnixTask);
+    exit;
 
 
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
@@ -819,7 +819,7 @@ begin
   // donc pas besoin de les ecrire en orange...
   if ((s[1] = 'D') and (Pos('DEBUG',s) = 1))  or
      ((s[1] = 'W') and (Pos('WARNING',s) = 1))
-    then exit(UnixTaskPrintInput);
+    then exit;
   UnixTaskPrintColoredStringInRapport(s, OrangeCmd, normal);
 end;
 

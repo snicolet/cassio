@@ -4371,7 +4371,7 @@ begin
   LeCoupEstIllegal :
     begin
       PeutJouerIciBitboard := false;
-      exit(PeutJouerIciBitboard);
+      exit;
     end;
   LeCoupEstLegal :
       PeutJouerIciBitboard := true;

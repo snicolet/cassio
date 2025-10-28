@@ -485,7 +485,7 @@ begin
             if (x < 0.2)
               then kWNESleep := 1
               else kWNESleep := 2;
-        exit(AjusteSleep);
+        exit;
       end;
 
   if Quitter or humainVeutAnnuler or (interruptionReflexion <> pasdinterruption) or CassioEstEnTrainDeCalculerLaListe or
@@ -1115,7 +1115,7 @@ var temporisation : SInt16;
 begin
 
   if not(DoitTemporiserPourRetournerLesPions)
-    then exit(TemporisationRetournementDesPions);
+    then exit;
 
   SetDelaiDeRetournementDesPions(7);
   temporisation := GetDelaiDeRetournementDesPions;
@@ -1154,28 +1154,28 @@ begin
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car reponsePrete)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
 
       if jeuInstantane and (phaseDeLaPartie <= phaseMilieu) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car jeuInstantane)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
 
       if (nbreCoup >= 45) and (phaseDeLaPartie >= phaseFinale) and (phaseDeLaPartie < phaseFinale) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car nbreCoup >= 50)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
 
       if (nbreCoup >= 50) then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car nbreCoup >= 50)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
 
       if (phaseDeLaPartie >= phaseFinale) and ((interruptionReflexion = pasdinterruption) or vaDepasserTemps) and
@@ -1183,14 +1183,14 @@ begin
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car ConnaitSuiteParfaite)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
 
       if vaDepasserTemps then
         begin
           {WritelnDansRapport('CassioVaJouerInstantanement := true (car vaDepasserTemps)');}
           CassioVaJouerInstantanement := true;
-          exit(CassioVaJouerInstantanement);
+          exit;
         end;
     end;
 
@@ -2103,7 +2103,7 @@ begin
   if CassioEstEnModeSolitaire or
      ScriptDeFinaleEnCours or
      CalculDesScoresTheoriquesDeLaBaseEnCours
-    then exit(TestDepassementTemps);
+    then exit;
 
   if analyseRetrograde.enCours and
      ((((tickCount-analyseRetrograde.tickDebutCeStageAnalyse) div 60) > analyseRetrograde.tempsMaximumCeStage) or
@@ -2112,7 +2112,7 @@ begin
       if debuggage.gestionDuTemps then
         WritelnDansRapport('appel 1 a DoForcerMacAJouerMaintenant dans TestDepassementTemps');
       DoForcerMacAJouerMaintenant;
-      exit(TestDepassementTemps);
+      exit;
     end;
 
   if (interruptionReflexion = pasdinterruption) then
@@ -2131,7 +2131,7 @@ begin
   	              DoForcerMacAJouerMaintenant;
   	              if not(analyseRetrograde.enCours) then
   	                EcritOopsMaPenduleDansRapport;
-  	              exit(TestDepassementTemps);
+  	              exit;
   	            end;
 	        end
 	      else
@@ -2142,7 +2142,7 @@ begin
 	            	if debuggage.gestionDuTemps then
 	                WritelnDansRapport('appel 3 a DoForcerMacAJouerMaintenant dans TestDepassementTemps');
 	              DoForcerMacAJouerMaintenant;
-	              exit(TestDepassementTemps);
+	              exit;
 	            end;
 	        end;
 	  end;
@@ -2299,16 +2299,16 @@ begin
         begin
           if (CalculateZooStatusPourCetEtatDeCassio = 'SEEKING_JOB')
             then message := 'NO JOB !'
-            else exit(SetMessageEtatDuReseau);
+            else exit;
         end;
 
 
       if (Pos('STOP_ALL : OK',message) > 0) or
          (Pos('STILL USEFUL',message) > 0)
-        then exit(SetMessageEtatDuReseau);
+        then exit;
 
       if (Pos('SEND_SCORE : OK', message) > 0) and CassioEstEnTrainDeCalculerPourLeZoo
-        then exit(SetMessageEtatDuReseau);
+        then exit;
 
 
       if (Pos('STOPPED ',message) = 1) or
@@ -2736,7 +2736,7 @@ begin
 
 
       if TickCount <= dateDernierAffichageEtat + 5
-        then exit(AfficheEtatDuReseau);
+        then exit;
 
 
 

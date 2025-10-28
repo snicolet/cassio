@@ -85,7 +85,7 @@ begin
              GetCheminAccesImagette := true; // trouvée :-)
              numeroDuFichierImage   := i;
              CheminAccesImagette    := nomComplet^;
-             exit(GetCheminAccesImagette);
+             exit;
            end;
     end;
 
@@ -106,7 +106,7 @@ begin
              GetCheminAccesImagette := true; // trouvée :-)
              numeroDuFichierImage   := i;
              CheminAccesImagette    := nomComplet^;
-             exit(GetCheminAccesImagette);
+             exit;
            end;
     end;
 

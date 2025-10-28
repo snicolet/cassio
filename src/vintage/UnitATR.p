@@ -175,13 +175,13 @@ begin
 			          if index > longueur then
 			            begin
 			              SuffixeDeChaineEstPrefixeDansATR := true;
-			              exit(SuffixeDeChaineEstPrefixeDansATR);
+			              exit;
 			            end;
 			          p := filsEgal;
 			          if (p = NIL) then
 			            begin
 			              SuffixeDeChaineEstPrefixeDansATR := false;
-			              exit(SuffixeDeChaineEstPrefixeDansATR);
+			              exit;
 			            end;
 			        end;
 			    end;
@@ -216,12 +216,12 @@ begin
 			          if (p = NIL) or (p^.splitChar = kCaractereSentinelle) then
 			            begin
 			              ATREstSousMotDeChaine := true;
-			              exit(ATREstSousMotDeChaine);
+			              exit;
 			            end;
 			          if (index > longueur) then
 			            begin
 			              ATREstSousMotDeChaine := false;
-			              exit(ATREstSousMotDeChaine);
+			              exit;
 			            end;
 			        end;
 			    end;
@@ -257,12 +257,12 @@ begin
 			          if (p = NIL) or (p^.splitChar = kCaractereSentinelle) then
 			            begin
 			              ATREstSousMotDeBuffer := true;
-			              exit(ATREstSousMotDeBuffer);
+			              exit;
 			            end;
 			          if (index >= longueur) then
 			            begin
 			              ATREstSousMotDeBuffer := false;
-			              exit(ATREstSousMotDeBuffer);
+			              exit;
 			            end;
 			        end;
 			    end;
@@ -282,7 +282,7 @@ begin
       begin
         position := i;
         TrouveATRDansChaine := true;
-        exit(TrouveATRDansChaine);
+        exit;
       end;
   TrouveATRDansChaine := false;
   position := -1;
@@ -301,7 +301,7 @@ begin
       begin
         position := i;
         TrouveATRDansBuffer := true;
-        exit(TrouveATRDansBuffer);
+        exit;
       end;
   TrouveATRDansBuffer := false;
   position := -1;
@@ -320,7 +320,7 @@ begin
       begin
         position := i;
         TrouveSuffixeDeChaineCommePrefixeDansATR := true;
-        exit(TrouveSuffixeDeChaineCommePrefixeDansATR);
+        exit;
       end;
   TrouveSuffixeDeChaineCommePrefixeDansATR := false;
   position := -1;
@@ -340,7 +340,7 @@ begin
       begin
         position := i;
         TrouveSuffixeDeChaineDansATR := true;
-        exit(TrouveSuffixeDeChaineDansATR);
+        exit;
       end;
   TrouveSuffixeDeChaineDansATR := false;
   position := -1;

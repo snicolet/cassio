@@ -264,7 +264,7 @@ begin
       SysBeep(0);
       WritelnDansRapport('ASSERT : (prof < 0) or (prof > kNbMaxNiveaux) dans CollecteStatistiques');
       WritelnNumDansRapport('prof = ',prof);
-      exit(CollecteStatistiques);
+      exit;
     end;
 
   StatistiquesSurLesCoups[prof].teteDeListe := classement[1].x;
@@ -720,7 +720,7 @@ begin  {MiniMax}
     else TraiteNullEvent(theEvent);
 
   if (interruptionReflexion <> pasdinterruption)
-    then exit(MiniMax);
+    then exit;
 
 
   Initialise_table_heuristique(JeuCourant,false);
@@ -1754,7 +1754,7 @@ begin
   if (interruptionReflexion <> pasdinterruption) then
     begin
       LanceurAlphaBetaMilieu := -noteMax;
-      exit(LanceurAlphaBetaMilieu);
+      exit;
     end;
 
 
@@ -1814,7 +1814,7 @@ begin
         begin
           WritelnNumDansRapport('ASSERT : dans LanceurAlphaBetaMilieuWithSearchParams, couleur = ',couleur);
           LanceurAlphaBetaMilieuWithSearchParams := -noteMax;
-          exit(LanceurAlphaBetaMilieuWithSearchParams);
+          exit;
         end;
 
       // Quelques initialisations

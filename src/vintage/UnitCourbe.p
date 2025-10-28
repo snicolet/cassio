@@ -1313,7 +1313,7 @@ begin
         if (listeEvaluations[k].origineEval = kMilieuDePartie) then
           begin
             GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup := listeEvaluations[k].evalNoir;
-            exit(GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup);
+            exit;
           end;
 
   GetDerniereEvaluationDeMilieuDePartieDansCourbeAvantCeCoup := 0;
@@ -1553,7 +1553,7 @@ begin
 
             if not(EvaluationEdmondEstDisponible or GetNouvelleEvalDejaChargee) then
               begin
-                exit(EssaieMettreEvaluationDeMilieuDansCourbe);
+                exit;
               end;
 
 
@@ -1606,7 +1606,7 @@ begin
           SetEvaluationPourCourbeDejaConnue(nroDuCoup,true);
 
           PeutCopierEndgameScoreFromGameTreeDansCourbe := true;
-          exit(PeutCopierEndgameScoreFromGameTreeDansCourbe);
+          exit;
         end;
 
       { Est-ce un score WLD gagnant ? }
@@ -1618,7 +1618,7 @@ begin
           {WritelnNumDansRapport('Chouette, un score gagnant WLD@'+ IntToStr(nroDuCoup)+' : ',2);}
 
           PeutCopierEndgameScoreFromGameTreeDansCourbe := true;
-          exit(PeutCopierEndgameScoreFromGameTreeDansCourbe);
+          exit;
         end;
 
       { Est-ce un score WLD perdant ? }
@@ -1630,7 +1630,7 @@ begin
           {WritelnNumDansRapport('Chouette, un score perdant WLD@'+ IntToStr(nroDuCoup)+' : ',-2);}
 
           PeutCopierEndgameScoreFromGameTreeDansCourbe := true;
-          exit(PeutCopierEndgameScoreFromGameTreeDansCourbe);
+          exit;
         end;
 
     end;
@@ -1930,7 +1930,7 @@ begin
                     end;
                 end;
 
-              exit(TraiteCurseurSeBalladantSurLaFenetreDeLaCourbe);
+              exit;
             end;
 
         if PtInRect(mouseLoc,zoneSensibleSlider) and EstUnClicSurSliderCourbe(mouseLoc) and (nroDernierCoupAtteint > 0) and not(enSetUp)
@@ -2229,7 +2229,7 @@ begin
 
         erreurES := FichierTexteExiste(nomFichier,0,fic);
         if erreurES = fnfErr then
-          exit(PeutChargerImageDeFondPourCourbeDepuisLeCache);
+          exit;
 
         if (erreurES = NoErr) then
            erreurES := QTGraph_ShowImageFromFile(offScreenWorld,offScreenRect,fic.theFSSpec);

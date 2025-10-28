@@ -601,7 +601,7 @@ begin
 
                    // On a trouvé la chaine s en position (i + 1) dans le nomMetaphoneSansEspace du joueur
                    FindStringDansMetaphoneSansEspaceDeCeJoueur := i + 1;
-                   exit(FindStringDansMetaphoneSansEspaceDeCeJoueur);
+                   exit;
 
                    // au moins un mismatch : on passe au caractere suivant dans le nomMetaphoneSansEspace du joueur
                    next_char :
@@ -645,7 +645,7 @@ begin
 
                    // On a trouvé la chaine s en position (i + 1) dans le nomEnMajusculesSansEspace du joueur
                    FindStringDansNomEnMajusculesSansEspaceDeCeJoueur := i + 1;
-                   exit(FindStringDansNomEnMajusculesSansEspaceDeCeJoueur);
+                   exit;
 
                    // au moins un mismatch : on passe au caractere suivant dans le nomEnMajusculesSansEspace du joueur
                    next_char :
@@ -722,7 +722,7 @@ begin
                         then GetHashLexemesDeCeJoueur :=  nbLexemes
                         else GetHashLexemesDeCeJoueur := -nbLexemes;
 
-                      exit(GetHashLexemesDeCeJoueur);
+                      exit;
                     end;
              end;
 
@@ -1417,7 +1417,7 @@ begin
         if (nomJoueur <> '') then
           begin
             GetNomJoueurSansPrenom := nomJoueur;
-            exit(GetNomJoueurSansPrenom);
+            exit;
           end;
 
 			  {Sinon, il faut le calculer a partir du nom avec prenom}
@@ -1432,7 +1432,7 @@ begin
 			      nomSansPrenom := EnleveEspacesDeDroite(nomSansPrenom);
 			      JoueurArrow^.nomCourt := nomSansPrenom;
 			      GetNomJoueurSansPrenom := nomSansPrenom;
-			      exit(GetNomJoueurSansPrenom);
+			      exit;
 			    end;
 
 			  longueurMax := LENGTH_OF_STRING(nomJoueur);

@@ -121,7 +121,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de Symbole est trop petit dans PeutCreerNouvellePageSymbole!! Prévenez Stéphane');
       PeutCreerNouvellePageSymbole := false;
-      exit(PeutCreerNouvellePageSymbole);
+      exit;
     end;
 
 
@@ -132,7 +132,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de Symbole dans PeutCreerNouvellePageSymbole!! Prévenez Stéphane');
       PeutCreerNouvellePageSymbole := false;
-      exit(PeutCreerNouvellePageSymbole);
+      exit;
     end;
 
   with ReserveDeSymbole[dernierePageSymboleCree]^ do
@@ -142,7 +142,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de Symbole dans PeutCreerNouvellePageSymbole !! Prévenez Stéphane');
           PeutCreerNouvellePageSymbole := false;
-          exit(PeutCreerNouvellePageSymbole);
+          exit;
         end;
 
 
@@ -173,7 +173,7 @@ begin
       TrouvePlaceDansPageDeSymbole := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeSymbole);
+      exit;
     end;
 
   {
@@ -208,7 +208,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageSymboleRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeSymbole);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -225,7 +225,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageSymboleRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeSymbole);
+                  exit;
                 end;
     end;
 
@@ -257,7 +257,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserSymboleDansSaPage(NIL)');}
-      exit(LocaliserSymboleDansSaPage);
+      exit;
     end;
 
 
@@ -277,7 +277,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(Sym)-baseAddress) div sizeof(SymboleRec);
 	              pageSymboleRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserSymboleDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -295,7 +295,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(Sym)-baseAddress) div sizeof(SymboleRec);
 	              pageSymboleRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserSymboleDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

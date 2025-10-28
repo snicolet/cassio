@@ -52,7 +52,7 @@ begin
 		if keyMap1[i] <> keyMap2[i] then
 			begin
 				MemesTouchesAppuyees := false;
-				exit(MemesTouchesAppuyees);
+				exit;
 			end;
 	MemesTouchesAppuyees := true;
 end;

@@ -141,7 +141,7 @@ begin
           AttendFrappeClavier;
           }
           QuatreCasesVidesBitboardSimple := noteCourante_4;
-          exit(QuatreCasesVidesBitboardSimple);
+          exit;
         end;
     end;
   if (beta_4 <= -50) then
@@ -159,7 +159,7 @@ begin
           AttendFrappeClavier;
           }
           QuatreCasesVidesBitboardSimple := noteCourante_4;
-          exit(QuatreCasesVidesBitboardSimple);
+          exit;
         end;
     end;
 

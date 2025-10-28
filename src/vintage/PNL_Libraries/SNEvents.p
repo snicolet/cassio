@@ -127,28 +127,28 @@ begin
 			if BAND(myLocalEvent.message, charCodeMask) = EscapeKey then   {27 = escape}
 				begin
 					EscapeDansQueue := true;
-					exit(EscapeDansQueue);
+					exit;
 				end;
 
 			if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-point}
 				if BAND(myLocalEvent.message, charCodeMask) = ord('.') then
 					begin
 						EscapeDansQueue := true;
-						exit(EscapeDansQueue);
+						exit;
 					end;
 
 		  if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-q}
 				if BAND(myLocalEvent.message, charCodeMask) = ord('q') then
 					begin
 						EscapeDansQueue := true;
-						exit(EscapeDansQueue);
+						exit;
 					end;
 
 			if BAND(myLocalEvent.modifiers, cmdKey) <> 0 then        {commande-Q}
 				if BAND(myLocalEvent.message, charCodeMask) = ord('Q') then
 					begin
 						EscapeDansQueue := true;
-						exit(EscapeDansQueue);
+						exit;
 					end;
 		end;
 end;

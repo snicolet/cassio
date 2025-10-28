@@ -69,13 +69,13 @@ begin
   if not(ParsePositionEtTrait(s,positionEtTrait)) then
     begin
       SendCassioEngineOutput('ERROR : impossible to parse the position');
-      exit(engine_midgame_search);
+      exit;
     end;
 
   if (GetTraitOfPosition(positionEtTrait) = pionVide) then
     begin
       SendCassioEngineOutput('ERROR : position is finished (no player to move)');
-      exit(engine_midgame_search);
+      exit;
     end;
 
   engine_midgame_search := 4.32;

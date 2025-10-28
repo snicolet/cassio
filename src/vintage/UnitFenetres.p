@@ -961,7 +961,7 @@ begin
   if not(windowPaletteOpen) or (wPalettePtr = NIL) then
     begin
       EmpileFenetres;
-      exit(EmpileFenetresSousPalette);
+      exit;
     end;
 
   if FrontWindow <> wPalettePtr then
@@ -1061,7 +1061,7 @@ var growSize : SInt32;
     effaceFenetre,infosChangent : boolean;
     tailleboite : SInt16;
 begin
-  if thisWindow = NIL then exit(DoGrowWindow);
+  if thisWindow = NIL then exit;
 
   if (thisWindow = wPlateauPtr) and CassioEstEn3D
     then
@@ -1214,7 +1214,7 @@ begin
   if (dp = NIL) or not(windowPaletteOpen) or (wPalettePtr = NIL) then
     begin
       PaletteEstSurCeDialogue := false;
-      exit(PaletteEstSurCeDialogue);
+      exit;
     end;
 
   PaletteEstSurCeDialogue := false;
@@ -1291,7 +1291,7 @@ begin
  // WritelnNumDansRapport('delai = ',delai);
 
   if (delai < 10)
-    then exit(CyclerDansLEmpilementDesFenetres);
+    then exit;
 
 
   gDernierTickPourCycleDansLesFenetres := TickCount;
@@ -1386,7 +1386,7 @@ end;
 procedure DoActivateWindow(whichWindow : WindowPtr; activation : boolean);
 var growRect : rect;
 begin
-  if whichWindow = NIL then exit(DoActivateWindow);
+  if whichWindow = NIL then exit;
 
   if EstLaFenetreDuRapport(whichWindow)
     then
@@ -1551,7 +1551,7 @@ begin
           if (windowAux = whichWindow) then
             begin
               OrdreFenetre := n;
-              exit(OrdreFenetre);
+              exit;
             end;
           if IsWindowVisible(windowAux) then
             inc(n);
@@ -1564,7 +1564,7 @@ end;
 procedure SelectWindowSousPalette(whichWindow : WindowPtr);
 var ancienneFenetreActive : WindowPtr;
 begin
-  if whichWindow = NIL then exit(SelectWindowSousPalette);
+  if whichWindow = NIL then exit;
 
   if not(windowPaletteOpen) or (whichWindow = wPalettePtr)
     then
@@ -1642,7 +1642,7 @@ begin
      ((whichWindow = wPlateauPtr) and CassioEstEn3D) or
      (whichWindow = wNuagePtr) or
      (whichWindow = GetTooltipWindowInCloud)
-     then exit(DessineBoiteDeTaille);
+     then exit;
 
   // on dessine la boite de taille
 

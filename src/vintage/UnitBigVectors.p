@@ -380,7 +380,7 @@ begin
   if (n <= 0) then
     begin
       EcritPointMultidimensionnelDansFichierTexte := -1;
-      exit(EcritPointMultidimensionnelDansFichierTexte);
+      exit;
     end;
   count := (n+1)*sizeof(TypeReel);
   EcritPointMultidimensionnelDansFichierTexte := WriteBufferDansFichierTexte(fic,Ptr(@p^[0]),count);
@@ -394,7 +394,7 @@ begin
   if (n <= 0) then
     begin
       LitPointMultidimensionnelDansFichierTexte := -1;
-      exit(LitPointMultidimensionnelDansFichierTexte);
+      exit;
     end;
   count := (n+1)*sizeof(TypeReel);
   LitPointMultidimensionnelDansFichierTexte := ReadBufferDansFichierTexte(fic,Ptr(@p^[0]),count);
@@ -415,7 +415,7 @@ begin
       begin
         WritelnNumDansRapport('pb dans LitIndexTriPointMultidimensionnel !! index = ',index);
         LitIndexTriPointMultidimensionnel := -1;
-        exit(LitIndexTriPointMultidimensionnel);
+        exit;
       end
     else
       LitIndexTriPointMultidimensionnel := RoundToL(InfosTri.IndexDeTri^[index]+0.25);
@@ -427,7 +427,7 @@ begin
     then
       begin
         WritelnNumDansRapport('pb dans AffecteIndexTriPointMultidimensionnel !! index = ',index);
-        exit(AffecteIndexTriPointMultidimensionnel);
+        exit;
       end
     else
       InfosTri.IndexDeTri^[index] := 1.0*element;
@@ -439,13 +439,13 @@ begin
     begin
       WritelnNumDansRapport('pb dans OrdreTriPointMultidimensionnel !! element1 = ',element1);
       OrdreTriPointMultidimensionnel := false;
-      exit(OrdreTriPointMultidimensionnel);
+      exit;
     end;
   if (element2 < 1) or (element2 > InfosTri.TailleVecteur) then
     begin
       WritelnNumDansRapport('pb dans OrdreTriPointMultidimensionnel !! element2 = ',element2);
       OrdreTriPointMultidimensionnel := false;
-      exit(OrdreTriPointMultidimensionnel);
+      exit;
     end;
   OrdreTriPointMultidimensionnel := (InfosTri.TableauATrier^[element1] <= InfosTri.TableauATrier^[element2]);
 end;

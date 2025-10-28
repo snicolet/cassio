@@ -430,7 +430,7 @@ begin
       // la premiere ligne et la derniere ligne du fichier ne nous interessent pas
       if (Pos('-64; -62; -60; -58; -56; -54; -52; -50; -48; -46; -44; -42;',debutLigne) > 0) or
          (Pos('somme',debutLigne) > 0) or (debutLigne = '') then
-        exit(LireUneLigneDuFichierDeCorrelationEdax);
+        exit;
 
 
       // dans un fichier .csv, les enregisterements sont séparés par des points virgules
@@ -617,7 +617,7 @@ begin
     begin
       WritelnNumDansRapport('ASSERT dans MyLecture, index = ',index);
       AttendFrappeClavier;
-      exit(MyLecture);
+      exit;
     end;
 
   MyLecture := gCloud.data^[index];
@@ -650,7 +650,7 @@ begin
     begin
       WritelnNumDansRapport('ASSERT dans MyAffectation, index = ',index);
       AttendFrappeClavier;
-      exit(MyAffectation);
+      exit;
     end;
 
   gCloud.data^[index] := element;
@@ -778,7 +778,7 @@ begin
      (grid_y < 0) or (grid_y > kGridQuantificationLevel) then
     begin
       CetteCaseDansLaGrilleContientDesPoints := false;
-      exit(CetteCaseDansLaGrilleContientDesPoints);
+      exit;
     end;
 
   if (grid_x = 0) and (grid_y = 0)
@@ -1211,7 +1211,7 @@ begin
               AttendFrappeClavier;
             end;
          continuer := false;
-         exit(UpdateDistance);
+         exit;
        end;
 
      if debug then
@@ -1257,7 +1257,7 @@ begin
                         end;
 
                     continuer := false;
-                    exit(UpdateDistance);
+                    exit;
                   end;
               end;
           end;
@@ -1302,12 +1302,12 @@ begin
            (abs(TickCount - lastTick) <= 1)                             // meme tick
           then
             begin
-              exit(TrouverNouveauPointPlusProcheParAlgoEnSpirale);
+              exit;
             end;
     end;
 
   if not(GetGridSquareOfPoint(mouse_x,mouse_y,grid_x,grid_y)) then    // souris pas sur nuage
-    exit(TrouverNouveauPointPlusProcheParAlgoEnSpirale);
+    exit;
 
 
 
@@ -1407,7 +1407,7 @@ begin
         if (gCloud.cardinal <= 0) or                                     // pas de point
            ((mouse_x = last_mouse_x) and (mouse_y = last_mouse_y)) or      // meme souris
            (abs(TickCount - lastTick) <= 1)                             // meme tick
-          then exit(TrouverNouveauPointProcheDeLaSourisDansCloud);
+          then exit;
     end;
 
 
@@ -1936,7 +1936,7 @@ begin
     begin
 
       if (numeroDuPoint <= 0) or (numeroDuPoint > cardinal) or (data = NIl)
-        then exit(CreateTooltipWindowInCloud);
+        then exit;
 
       GetPort(oldport);
       SetPortByWindow(wNuagePtr);
@@ -2315,7 +2315,7 @@ begin
   with gCloud do
     begin
       if (numeroDuPoint <= 0) or (numeroDuPoint >= cardinal) or (data = NIL) then
-        exit(EcrireReferencesDeCePointDansRapport);
+        exit;
 
       with data^[numeroDuPoint] do
         begin
@@ -2346,7 +2346,7 @@ begin
   with gCloud do
     begin
       if (numeroDuPoint <= 0) or (numeroDuPoint > cardinal) or (cardinal <= 0) or (data = NIL)  then
-        exit(OuvrirPartieDeLaListeCorrespondantACePoint);
+        exit;
 
       with data^[numeroDuPoint] do
         begin
@@ -3596,7 +3596,7 @@ var c : TableDistributionPtr;
 begin
 
   if (gCloud.cardinal <= 0) or not(EstUnScoreTheoriqueDontOnDoitTracerLaCourbe(scoreTheoriqueATracer))
-    then exit(RedrawFastApproximateCurve);
+    then exit;
 
 
   c := TableDistributionPtr(AllocateMemoryPtr(sizeof(TableDistribution)));
@@ -3981,7 +3981,7 @@ begin
   if (nbPartiesActives <= 0) then
     begin
       AlerteSimple('Vous devez charger des parties de la base pour Ajuster le modèle linéaire de Cassio ! (note : si vous ne savez pas ce qu''est la base Wthor, laissez tomber :-) )');
-      exit(AjusteModeleLineaireFinaleAvecStat);
+      exit;
     end;
 
   Superviseur(kNumeroCoupCalculScoreTheoriqueDansWThor);

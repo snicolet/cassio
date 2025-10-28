@@ -174,7 +174,7 @@ begin
           begin
             AlerteSimpleFichierTexte(nomFichier,erreurES);
             erreurES := FermeFichierTexte(fichierInterversions);
-            exit(EcritInterversionsSurDisque);
+            exit;
           end;
         for i := 1 to numeroInterversion[14] do
           begin
@@ -207,7 +207,7 @@ begin
           begin
             AlerteSimpleFichierTexte(nomFichier,erreurES);
             erreurES := FermeFichierTexte(fichierInterversions);
-            exit(EcritInterversionsSurDisque);
+            exit;
           end;
         for i := numeroInterversion[14]+1 to numeroInterversion[33] do
           begin
@@ -327,7 +327,7 @@ begin
                  WritelnDansRapport('## ERREUR : suite ou variante illégale dans RaccourcirInterversions !! Prévenez Stéphane ');
                  longueurUtile := 0;
                  estInterversion := false;
-                 exit(RaccourcirInterversion);
+                 exit;
                end;
         end;
     end;
@@ -364,7 +364,7 @@ begin
       if not(estUneInterversion) or (longueur < 5) then
         begin
           WritelnDansRapport('## BIZARRE : not(estUneInterversion) or (longueur < 5) dans AjouterInterversionAlaVolee');
-          exit(AjouterInterversionAlaVolee);
+          exit;
         end;
 
       TraductionThorEnAlphanumerique(InterVarianteAlaVolee,variante255);
@@ -379,14 +379,14 @@ begin
 		  if (variante120 = canonique120) then
 		    begin
 		      WritelnDansRapport('## BIZARRE : les variantes normalisées sont les mêmes dans AjouterInterversionAlaVolee');
-          exit(AjouterInterversionAlaVolee);
+          exit;
 		    end;
 
       CalculePositionFinale(variante120,platVariante,varianteEstLegale,nbCoupsLegauxVariante);
       CalculePositionFinale(canonique120,platCanon,canoniqueEstLegale,nbCoupsLegauxCanon);
 
       if not(varianteEstLegale) or not(canoniqueEstLegale) or
-        not(PositionsEgales(platVariante,platCanon)) then exit(AjouterInterversionAlaVolee);
+        not(PositionsEgales(platVariante,platCanon)) then exit;
 
       ApprendInterversionAlaVoleeDansGraphe(canonique120,variante120,not(PendantLectureFormatSmartGameBoard));
 
@@ -1145,7 +1145,7 @@ begin
 		      end
 		    else
 		      begin
-  		      if (noeudDansTable = G) then exit(GererInterversionDeCeNoeud);
+  		      if (noeudDansTable = G) then exit;
 
   		      if ToujoursAjouterInterversionDansGrapheInterversions
   		        then
@@ -1196,7 +1196,7 @@ begin
   		  begin
   		    TrouvePartieDansTableParties60 := true;
   		    index := i;
-  		    exit(TrouvePartieDansTableParties60);
+  		    exit;
   		  end;
   end;
 end;
@@ -1229,7 +1229,7 @@ begin
 	      if (compteur >= 500) then
           begin
             AlerteSimple('boucle infinie (1) dans AjouterInterversionsOfGameTreeDansTable !! Prévenez Stéphane');
-            exit(AjouterInterversionsOfGameTreeDansTable);
+            exit;
           end;
 	      aux := aux^.transpositionOrbite;
 	      compteur := compteur + 1;
@@ -1579,7 +1579,7 @@ begin
   NbinterversionsCompatibles := 0;
 
   if (longueur < 3) then
-    exit(PrecompileInterversions);
+    exit;
 
   if longueur > 33 then longueur := 33;
 
@@ -1734,12 +1734,12 @@ begin
   if not(fautiveEstLegale and princEstLegale) then
     begin
       AlerteSimple(' ligne illégale : '+fautive+' ou '+principale);
-      exit(ajouterInterversion);
+      exit;
     end;
   if not(PositionsEgales(platFaut,platPrinc)) then
     begin
       AlerteSimple(fautive+' <> '+principale);
-      exit(ajouterInterversion);
+      exit;
     end;
 
   TraductionAlphanumeriqueEnThor(fautive,fautivePacked);

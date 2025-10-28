@@ -123,7 +123,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de GameTree est trop petit dans PeutCreerNouvellePageGameTree!! Prévenez Stéphane');
       PeutCreerNouvellePageGameTree := false;
-      exit(PeutCreerNouvellePageGameTree);
+      exit;
     end;
 
 
@@ -134,7 +134,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de GameTree dans PeutCreerNouvellePageGameTree!! Prévenez Stéphane');
       PeutCreerNouvellePageGameTree := false;
-      exit(PeutCreerNouvellePageGameTree);
+      exit;
     end;
 
   with ReserveDeGameTree[dernierePageGameTreeCree]^ do
@@ -144,7 +144,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de GameTree dans PeutCreerNouvellePageGameTree !! Prévenez Stéphane');
           PeutCreerNouvellePageGameTree := false;
-          exit(PeutCreerNouvellePageGameTree);
+          exit;
         end;
 
 
@@ -175,7 +175,7 @@ begin
       TrouvePlaceDansPageDeGameTree := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeGameTree);
+      exit;
     end;
 
   {
@@ -210,7 +210,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageGameTreeRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeGameTree);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -227,7 +227,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageGameTreeRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeGameTree);
+                  exit;
                 end;
     end;
 
@@ -259,7 +259,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserGameTreeDansSaPage(NIL)');}
-      exit(LocaliserGameTreeDansSaPage);
+      exit;
     end;
 
   for k := 0 to (dernierePageGameTreeCree div 2) do
@@ -278,7 +278,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(GameTreeRec);
 	              pageGameTreeRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserGameTreeDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -296,7 +296,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(GameTreeRec);
 	              pageGameTreeRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserGameTreeDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

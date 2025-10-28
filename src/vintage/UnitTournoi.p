@@ -334,13 +334,13 @@ begin
   if not(enTournoi) then
     begin
       NumeroDuMoteurParlantDansCeCanal := 0;
-      exit(NumeroDuMoteurParlantDansCeCanal);
+      exit;
     end;
 
   if (nroCanal < 0) or (nroCanal > 1) then
     begin
       NumeroDuMoteurParlantDansCeCanal := 0;
-      exit(NumeroDuMoteurParlantDansCeCanal);
+      exit;
     end;
 
   NumeroDuMoteurParlantDansCeCanal := numeroMoteurDeCeCanal[nroCanal];
@@ -719,7 +719,7 @@ begin
           if (joueur1 = kEngineSpecialBip) and (joueur2 = kEngineSpecialBip) then FaireUnMatch := 50.0 else
           if (joueur1 = kEngineSpecialBip) then FaireUnMatch := 100.0 else
           if (joueur2 = kEngineSpecialBip) then FaireUnMatch := 0.0;
-          exit(FaireUnMatch);
+          exit;
         end;
 
       FaireUnMatch := 0.5;
@@ -1243,7 +1243,7 @@ end;
       begin
 
         if (joueur1 = kEngineSpecialBip) or (joueur2 = kEngineSpecialBip) then
-          exit(EcrireDeuxPartiesDuMatchDansRapport);
+          exit;
 
         coupDivergent := -1;
         for i := 1 to 120 do
@@ -1754,7 +1754,7 @@ var t,r,n1,n2 : SInt32;
 begin
 
   { Pas de tournoi récursif ! }
-  // if CassioEstEnModeTournoi then exit(FaireUnTournoiToutesRondesEntreEngines);
+  // if CassioEstEnModeTournoi then exit;
 
   SauvegarderEtatGlobalDeCassioAvantLeTournoi;
   SetCassioEstEnModeTournoi(true);
@@ -1989,7 +1989,7 @@ begin
 
   { Pas de tournois recursifs ! }
   if CassioEstEnModeTournoi then
-    exit(OuvrirFichierTournoiEntreEngines);
+    exit;
 
   if PeutLireParametresTournoisEntreEnginesDansFichier(nomCompletFichier, tournoi) then
     begin
@@ -2371,7 +2371,7 @@ begin
       deviations_a_tester.cardinal := kNombreMaxDeviationsTesteesParPasse;
       for t := 1 to kNombreMaxDeviationsTesteesParPasse do
         deviations_a_tester.numeros[t] := t-1;
-      exit(TrierMeilleuresDeviations);
+      exit;
     end;
 
 
@@ -2508,9 +2508,9 @@ begin
   PeutParserFichierRapportLogPourTournoiDeviations := false;
   filename := 'Rapport.log';
   erreurES := FichierTexteDeCassioExiste(filename,fichierRapport);
-  if erreurES <> NoErr then exit(PeutParserFichierRapportLogPourTournoiDeviations);
+  if erreurES <> NoErr then exit;
   erreurES := OuvreFichierTexte(fichierRapport);
-  if erreurES <> NoErr then exit(PeutParserFichierRapportLogPourTournoiDeviations);
+  if erreurES <> NoErr then exit;
 
   repeat
     erreurES := ReadlnDansFichierTexte(fichierRapport,s);

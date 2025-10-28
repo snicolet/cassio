@@ -236,7 +236,7 @@ begin
     then
       begin  { pas la meme longueur }
         SAME_PACKED_GAMES := false;
-        exit(SAME_PACKED_GAMES);
+        exit;
       end
     else
       begin
@@ -245,7 +245,7 @@ begin
           if (game1.theMoves[i] <> game2.theMoves[i]) then
             begin
               SAME_PACKED_GAMES := false;
-              exit(SAME_PACKED_GAMES);
+              exit;
             end
       end;
   SAME_PACKED_GAMES := true;
@@ -266,19 +266,19 @@ begin
   if (len1 = 0) and (len2 = 0) then
     begin
       COMPARE_PACKED_GAMES :=  0;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 
   if (len1 = 0) then
     begin
       COMPARE_PACKED_GAMES := -1;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 
   if (len2 = 0) then
     begin
       COMPARE_PACKED_GAMES := +1;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 
   len := Min(len1,len2);
@@ -291,32 +291,32 @@ begin
       if (coup1 < coup2) then
         begin
           COMPARE_PACKED_GAMES := -1;
-          exit(COMPARE_PACKED_GAMES);
+          exit;
         end;
 
       if (coup1 > coup2) then
         begin
           COMPARE_PACKED_GAMES := +1;
-          exit(COMPARE_PACKED_GAMES);
+          exit;
         end;
     end;
 
   if (len1 = len2) then
     begin
       COMPARE_PACKED_GAMES := 0;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 
   if (len1 < len2) then
     begin
       COMPARE_PACKED_GAMES := -1;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 
   if (len1 > len2) then
     begin
       COMPARE_PACKED_GAMES := +1;
-      exit(COMPARE_PACKED_GAMES);
+      exit;
     end;
 end;
 

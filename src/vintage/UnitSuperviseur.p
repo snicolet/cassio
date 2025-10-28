@@ -143,7 +143,7 @@ var i,t : SInt16;
 	    begin
 	      SysBeep(0);
 	      WritelnNumDansRapport('erreur dans le pattern : ',numeroPattern);
-	      exit(ajouterDescriptionLigne);
+	      exit;
 	    end;
 	  x := CaseDebutLigne;
 	  for i := 1 to LongueurLigne do

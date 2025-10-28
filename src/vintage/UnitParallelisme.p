@@ -1218,7 +1218,7 @@ begin
           errDebug := MPExitCriticalRegion(gRapportCriticalRegionID);
           {$ENDC}
 
-          exit(LancerUnFils);
+          exit;
         end;
 
       filsEnAttenteDeLancement[indexDuFils] := false;
@@ -1235,7 +1235,7 @@ begin
 
           OS_MEMORY_BARRIER;
 
-          exit(LancerUnFils);
+          exit;
         end;
 
 
@@ -1250,7 +1250,7 @@ begin
 
               // c'est bon, on vient (finalement !!) de lever le semaphore de job du fils
 
-              exit(LancerUnFils);
+              exit;
             end;
 
           MPYield;
@@ -1288,7 +1288,7 @@ begin
               hashStamps[k] := 0;
 
             ThreadEstInterrompuePourCeHashStamp := true;
-            exit(ThreadEstInterrompuePourCeHashStamp);
+            exit;
           end;
     end;
 
@@ -1975,7 +1975,7 @@ begin
                (gNbreProcesseursCalculant < numProcessors) and PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
               begin
                 PeutTrouverUneThreadEsclave := true;
-                exit(PeutTrouverUneThreadEsclave);
+                exit;
               end;
 
           end
@@ -1988,7 +1988,7 @@ begin
                (gNbreProcesseursCalculant < numProcessors) and PeutTrouverUneThreadDisponible(nroThreadDuPere, nbreVides, hashStamp, nroThreadFilsAuChomage) then
               begin
                 PeutTrouverUneThreadEsclave := true;
-                exit(PeutTrouverUneThreadEsclave);
+                exit;
               end;
 
           end;
@@ -2051,7 +2051,7 @@ begin
              hashStampsFils[compteur] := hashStampDeCeFils[i];
              inc(compteur);
 
-             if (compteur >= 4) then exit(TrouverQuatreHashStampDeFilsEnActivite);
+             if (compteur >= 4) then exit;
            end;
     end;
 end;
@@ -2649,7 +2649,7 @@ begin
             end;
           {$ENDC}
 
-          exit(GererNoeudDeParallelisme);
+          exit;
         end;
 
 
@@ -2669,7 +2669,7 @@ begin
               end;
             {$ENDC}
 
-            exit(GererNoeudDeParallelisme);
+            exit;
           end
         else
           begin
@@ -2769,7 +2769,7 @@ begin
                                     nroDuDernierFilsEvalue := nroDuFilsCourant;
                                     maximum := kValeurSpecialeInterruptionCalculParallele;
 
-                                    exit(GererNoeudDeParallelisme);
+                                    exit;
                                   end;
 
 
@@ -3046,7 +3046,7 @@ begin
                       {$ENDC}
 
 
-                      exit(GererNoeudDeParallelisme);
+                      exit;
                     end;
                 end;
             end;
@@ -3082,7 +3082,7 @@ begin
           end;
         {$ENDC}
 
-        exit(GererNoeudDeParallelisme);
+        exit;
       end;
 
 
@@ -3119,7 +3119,7 @@ APRES_L_ANALYSE_D_UN_RESULTAT :
         {$ENDC}
 
 
-        exit(GererNoeudDeParallelisme);
+        exit;
       end;
 
 
@@ -3253,7 +3253,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
       gStackParallelisme[nroThread].hashStampACetteProf[nbreVides] := -2;
 
       MySubTreeValue := kValeurSpecialeInterruptionCalculParallele;
-      exit(MySubTreeValue);
+      exit;
     end;
 
 
@@ -3269,7 +3269,7 @@ begin {$unused delai, ticks, errDebug, nroThreadPere }
       gStackParallelisme[nroThread].hashStampACetteProf[nbreVides] := -2;
 
       MySubTreeValue := kValeurSpecialeInterruptionCalculParallele;
-      exit(MySubTreeValue);
+      exit;
     end;
 
 
@@ -3605,7 +3605,7 @@ begin
                 {$IFC AVEC_MESURE_MICROSECONDES} MicroSeconds(microSecondesFin); {$ENDC}
                 {$IFC AVEC_MESURE_MICROSECONDES} gProfilerParallelisme[4] := gProfilerParallelisme[4] + (microSecondesFin.lo-microSecondesDepart.lo); {$ENDC}
 
-                exit(PeutTrouverUneThreadDisponible);
+                exit;
               end;
           end
       end
@@ -3641,7 +3641,7 @@ begin
                 {$IFC AVEC_MESURE_MICROSECONDES} MicroSeconds(microSecondesFin); {$ENDC}
                 {$IFC AVEC_MESURE_MICROSECONDES} gProfilerParallelisme[4] := gProfilerParallelisme[4] + (microSecondesFin.lo-microSecondesDepart.lo); {$ENDC}
 
-                exit(PeutTrouverUneThreadDisponible);
+                exit;
               end;
           end;
       end;
@@ -3679,7 +3679,7 @@ begin
               PeutTrouverUneThreadDisponible := false;
               nroThreadEsclave := -1000;
 
-              exit(PeutTrouverUneThreadDisponible);
+              exit;
 
             end;
 
@@ -3740,7 +3740,7 @@ begin
                 {$ENDC}
 
 
-                exit(PeutTrouverUneThreadDisponible);
+                exit;
               end;
 
 
@@ -3885,7 +3885,7 @@ begin
       EnleverLInterruptionPourCetteThread(nroThread, profondeurCopie, nroThread);
 
       JAiTraiteUnJobEnAttente := true;
-      exit(JAiTraiteUnJobEnAttente);
+      exit;
 
     end;
 
@@ -4901,7 +4901,7 @@ begin
   if not(MPLibraryIsLoaded) then
     begin
       WritelnDansRapport('The MP library did not load.');
-      exit(CalculateIntertaskSignalingTime);
+      exit;
     end;
 
     WritelnDansRapport('Librairie multiprocessing chargée...   OK');
@@ -4929,7 +4929,7 @@ begin
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
-        exit(CalculateIntertaskSignalingTime);
+        exit;
       end;
 
     WritelnDansRapport('temps de 100000 synchronisation (queues) : ');
@@ -4971,7 +4971,7 @@ begin
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
-        exit(CalculateIntertaskSignalingTime);
+        exit;
       end;
 
     WritelnDansRapport('temps de 100000 synchronisation (sémaphores) : ');
@@ -5013,7 +5013,7 @@ begin
     if (err <> noErr) then
       begin
         WritelnDansRapport('Task not created.');
-        exit(CalculateIntertaskSignalingTime);
+        exit;
       end;
 
     WritelnDansRapport('temps de 100000 synchronisation (event groups) : ');

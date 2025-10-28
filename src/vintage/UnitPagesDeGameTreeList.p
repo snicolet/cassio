@@ -122,7 +122,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de GameTreeList est trop petit dans PeutCreerNouvellePageGameTreeList!! Prévenez Stéphane');
       PeutCreerNouvellePageGameTreeList := false;
-      exit(PeutCreerNouvellePageGameTreeList);
+      exit;
     end;
 
 
@@ -133,7 +133,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de GameTreeList dans PeutCreerNouvellePageGameTreeList!! Prévenez Stéphane');
       PeutCreerNouvellePageGameTreeList := false;
-      exit(PeutCreerNouvellePageGameTreeList);
+      exit;
     end;
 
   with ReserveDeGameTreeList[dernierePageGameTreeListCree]^ do
@@ -143,7 +143,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de GameTreeList dans PeutCreerNouvellePageGameTreeList !! Prévenez Stéphane');
           PeutCreerNouvellePageGameTreeList := false;
-          exit(PeutCreerNouvellePageGameTreeList);
+          exit;
         end;
 
 
@@ -174,7 +174,7 @@ begin
       TrouvePlaceDansPageDeGameTreeList := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeGameTreeList);
+      exit;
     end;
 
   {
@@ -209,7 +209,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageGameTreeListRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeGameTreeList);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -226,7 +226,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageGameTreeListRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeGameTreeList);
+                  exit;
                 end;
 
     end;
@@ -260,7 +260,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserGameTreeListDansSaPage(NIL)');}
-      exit(LocaliserGameTreeListDansSaPage);
+      exit;
     end;
 
   for k := 0 to (dernierePageGameTreeListCree div 2) do
@@ -279,7 +279,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(L)-baseAddress) div sizeof(GameTreeListRec);
 	              pageGameTreeListRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserGameTreeListDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -297,7 +297,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(L)-baseAddress) div sizeof(GameTreeListRec);
 	              pageGameTreeListRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserGameTreeListDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

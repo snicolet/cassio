@@ -77,7 +77,7 @@ begin
     begin
       Command_line_warning;
       Get_command_line := program_name;
-      exit(Get_command_line);
+      exit;
     end;
 
   result := '';
@@ -108,7 +108,7 @@ begin
     begin
       Command_line_warning;
       Get_command_line := program_name;
-      exit(Get_command_line);
+      exit;
     end;
 
   Get_command_line := result;
@@ -166,14 +166,14 @@ begin
       if param_number=0
         then Get_command_line_parameter := program_name
         else Get_command_line_parameter := '';
-      exit(Get_command_line_parameter);
+      exit;
     end;
 
   if param_number < 0 then
     begin
       DisplayMessageInConsole('ERROR in Get_command_line_parameter : param_number < 0');
       Get_command_line_parameter := '';
-      exit(Get_command_line_parameter);
+      exit;
     end;
 
 
@@ -191,7 +191,7 @@ begin
     begin
       DisplayMessageInConsole('ERROR in Get_command_line_parameter : param_number > Command_line_param_count');
       Get_command_line_parameter := '';
-      exit(Get_command_line_parameter);
+      exit;
     end;
 
   Get_command_line_parameter := s;

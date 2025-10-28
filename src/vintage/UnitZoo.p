@@ -1121,7 +1121,7 @@ var foo : boolean;
 begin
   Discard(foo);
 
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(OuvrirConnectionPermanenteAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -1162,7 +1162,7 @@ var fic : t_LocalFichierAbstraitPtr;
       if (fic^.genre <> FichierAbstraitEstPointeur) then
         begin
           WritelnDansRapport('ASSERT : theFile devrait etre de type FichierAbstraitEstPointeur dans SerialiserMessagesDuZoo');
-          exit(SerialiserMessagesDuZoo);
+          exit;
         end;
 
 
@@ -1341,7 +1341,7 @@ var statusReelSurLeZoo : String255;
 begin
 
   if (interruptionReflexion <> pasdinterruption) and not(Quitter)
-    then exit(VerifierLeStatutDeCassioPourLeZoo);
+    then exit;
 
 
   with gZoo do
@@ -1467,25 +1467,25 @@ begin
 
  // WritelnStringAndBoolDansRapport('CassioEstEnTrainDeReflechir = ',CassioEstEnTrainDeReflechir);
 
-  if Quitter                                     then exit(CassioPeutDonnerDuTempsAuZoo);
-  if (interruptionReflexion <> pasdinterruption) then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnTrainDeCalculerPourLeZoo         then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnTrainDeReflechir                 then exit(CassioPeutDonnerDuTempsAuZoo);
-  if EnModeEntreeTranscript                      then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnModeSolitaire and not(HumCtreHum)  then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnRechercheSolitaire               then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnTrainDePlaquerUnSolitaire        then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioIsWaitingAnEngineResult               then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CassioEstEnModeTournoi                      then exit(CassioPeutDonnerDuTempsAuZoo);
-  if CalculDesScoresTheoriquesDeLaBaseEnCours    then exit(CassioPeutDonnerDuTempsAuZoo);
-  if enRetour                                    then exit(CassioPeutDonnerDuTempsAuZoo);
+  if Quitter                                     then exit;
+  if (interruptionReflexion <> pasdinterruption) then exit;
+  if CassioEstEnTrainDeCalculerPourLeZoo         then exit;
+  if CassioEstEnTrainDeReflechir                 then exit;
+  if EnModeEntreeTranscript                      then exit;
+  if CassioEstEnModeSolitaire and not(HumCtreHum)  then exit;
+  if CassioEstEnRechercheSolitaire               then exit;
+  if CassioEstEnTrainDePlaquerUnSolitaire        then exit;
+  if CassioIsWaitingAnEngineResult               then exit;
+  if CassioEstEnModeTournoi                      then exit;
+  if CalculDesScoresTheoriquesDeLaBaseEnCours    then exit;
+  if enRetour                                    then exit;
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-  if not(CassioIsUsingAnEngine(numero))          then exit(CassioPeutDonnerDuTempsAuZoo);
+  if not(CassioIsUsingAnEngine(numero))          then exit;
   if (GetEngineState = 'ENGINE_KILLED') and
-     (DateOfLastStartOfEngine < TickCount - 200) then exit(CassioPeutDonnerDuTempsAuZoo);
+     (DateOfLastStartOfEngine < TickCount - 200) then exit;
   {$ENDC}
 
-  {if not(CassioIsUsingAnEngine(numero))          then exit(CassioPeutDonnerDuTempsAuZoo);}  { peut-etre bien ? }
+  {if not(CassioIsUsingAnEngine(numero))          then exit;}  { peut-etre bien ? }
 
 
   (********************)
@@ -1494,7 +1494,7 @@ begin
 
   CassioPeutDonnerDuTempsAuZoo := true;
 
-  if HumCtreHum                                  then exit(CassioPeutDonnerDuTempsAuZoo);
+  if HumCtreHum                                  then exit;
 
 
   (********************)
@@ -1643,7 +1643,7 @@ end;
 
 procedure VerifierLePoussageDesRequetesAuZoo;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(VerifierLePoussageDesRequetesAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -1676,7 +1676,7 @@ var numeroSlot : SInt32;
     action : LongString;
     s : String255;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequeteAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -1733,7 +1733,7 @@ var err : OSStatus;
     numeroLibre : SInt32;
     requestSent : boolean;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequeteAuZooParTelechargementHTML);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -1789,7 +1789,7 @@ end;
 
 procedure RetryEnvoyerUneRequeteAuZoo(var requete : LongString);
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(RetryEnvoyerUneRequeteAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if (FindStringInLongString('&retry=1' , requete) <= 0) then
     begin
@@ -1818,7 +1818,7 @@ begin
   FindHashDansCacheDesScoresEnvoyesAuZoo := false;
 
   if not(HashValueDuZooEstCorrecte(whichHash)) then
-    exit(FindHashDansCacheDesScoresEnvoyesAuZoo);
+    exit;
 
   for t := 0 to kTailleCacheDesScoresEnvoyesAuZoo do
     begin
@@ -1830,7 +1830,7 @@ begin
       if Same64Bits(whichHash, gCacheDesScoresEnvoyesAuZoo[k]) then
         begin
           FindHashDansCacheDesScoresEnvoyesAuZoo := true;
-          exit(FindHashDansCacheDesScoresEnvoyesAuZoo);
+          exit;
         end;
     end;
 end;
@@ -1842,7 +1842,7 @@ var urlParams : String255;
     requete : LongString;
     job : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerResultatDuCalculAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo, zooJob.params, zooJob.params.outResult do
     begin
@@ -2044,13 +2044,13 @@ begin
   if (empty1 and empty2) then
     begin
       SameJobs := true;
-      exit(SameJobs);
+      exit;
     end;
 
   if (empty1 <> empty2) then
     begin
       SameJobs := false;
-      exit(SameJobs);
+      exit;
     end;
 
   // Maintenant on est sûr que (empty1 = false) et que (empty2 = false) !
@@ -2060,14 +2060,14 @@ begin
   if LongStringBeginsWith('PREFETCH ', job1) and LongStringBeginsWith('PREFETCH ', job2) then
     begin
       SameJobs := SameLongString(job1, job2);
-      exit(SameJobs);
+      exit;
     end;
 
   // Les deux jobs sont-ils tous les deux un "JOB" ?   ==>  comparer les chaines ...
   if LongStringBeginsWith('JOB ', job1) and LongStringBeginsWith('JOB ', job2) then
     begin
       SameJobs := SameLongString(job1, job2);
-      exit(SameJobs);
+      exit;
     end;
 
 
@@ -2086,7 +2086,7 @@ begin
 
       SameJobs := SameLongString(aux1 , aux2);
 
-      exit(SameJobs);
+      exit;
      end;
 
   // On a tout essayer, mais ça ne semble vraiment pas les memes jobs
@@ -2200,7 +2200,7 @@ function SExcuserAupresDuZooPourLaPositionPrefetched(const reason : String255) :
 var params : MakeEndgameSearchParamRec;
     myJob : ZooJobRec;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(SExcuserAupresDuZooPourLaPositionPrefetched);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if not(JobIsEmpty(gZoo.jobPrefetched))
      and PeutParserDemandeDeJob(gZoo.jobPrefetched, params) then
@@ -2473,7 +2473,7 @@ begin
     begin
       params.inHashValue := HexToInt(reste);
       PeutParserUnResultatDuZoo := false;
-      exit(PeutParserUnResultatDuZoo);
+      exit;
     end;
 
   if (action = 'CALCULATED') or
@@ -2676,7 +2676,7 @@ begin
       begin
         FindZooJobDansCacheDesPositionsCalculees := true;
         index := gLastIndexCacheZooPositionsCalculees;
-        exit(FindZooJobDansCacheDesPositionsCalculees);
+        exit;
       end;
 
   for k := 1 to kTailleCacheDesPositionsCalculees do
@@ -2685,7 +2685,7 @@ begin
         FindZooJobDansCacheDesPositionsCalculees := true;
         index := k;
         gLastIndexCacheZooPositionsCalculees := k;
-        exit(FindZooJobDansCacheDesPositionsCalculees);
+        exit;
       end;
 
   FindZooJobDansCacheDesPositionsCalculees := false;
@@ -2738,7 +2738,7 @@ begin
     begin
       FindZooJobDansCacheDesPrefetch := true;
       index := gLastIndexCacheDesPrefetch;
-      exit(FindZooJobDansCacheDesPrefetch);
+      exit;
     end;
 
   for k := 1 to kTailleCacheDesPrefetch do
@@ -2747,7 +2747,7 @@ begin
         FindZooJobDansCacheDesPrefetch := true;
         index := k;
         gLastIndexCacheDesPrefetch := k;
-        exit(FindZooJobDansCacheDesPrefetch);
+        exit;
       end;
 
   FindZooJobDansCacheDesPrefetch := false;
@@ -2852,14 +2852,14 @@ begin
      begin
        index := indexMinEndgame;
        FindUnJobInutileDansCacheDesPrefetch := true;
-       exit(FindUnJobInutileDansCacheDesPrefetch);
+       exit;
      end;
 
    if (indexMinMilieu <> -1) and (profMinMilieu <= 64) and (profMinMilieu >= 0) then
      begin
        index := indexMinMilieu;
        FindUnJobInutileDansCacheDesPrefetch := true;
-       exit(FindUnJobInutileDansCacheDesPrefetch);
+       exit;
      end;
 
    index := -1;
@@ -2985,26 +2985,26 @@ begin
   if (indexMaxMilieu <> -1) and (profMaxMilieu >= 0) and (profMaxMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxMilieu].s;
-      exit(GetPrefetchImportantPasEncoreCalcule);
+      exit;
     end;
 
   if (indexMinMilieu <> -1) and (profMinMilieu >= 0) and (profMinMilieu <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinMilieu].s;
-      exit(GetPrefetchImportantPasEncoreCalcule);
+      exit;
     end;
 
 
   if (indexMaxEndgame <> -1) and (profMaxEndgame >= 0) and (profMaxEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMaxEndgame].s;
-      exit(GetPrefetchImportantPasEncoreCalcule);
+      exit;
     end;
 
   if (indexMinEndgame <> -1) and (profMinEndgame >= 0) and (profMinEndgame <= 64) then
     begin
       GetPrefetchImportantPasEncoreCalcule := gCacheDesPrefetch[indexMinEndgame].s;
-      exit(GetPrefetchImportantPasEncoreCalcule);
+      exit;
     end;
 
 
@@ -3059,7 +3059,7 @@ begin
         FindEmplacementVideDansCacheDesPrefetch := true;
         index := k;
         gLastIndexCacheDesPrefetch := k;
-        exit(FindEmplacementVideDansCacheDesPrefetch);
+        exit;
       end;
 
   FindEmplacementVideDansCacheDesPrefetch := false;
@@ -3300,7 +3300,7 @@ var score,index,meilleurCoup,meilleureDef : SInt32;
     err : OSStatus;
     oldValue : boolean;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(LancerCalculCommeClientPourLeZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if CassioEstEnTrainDeCalculerPourLeZoo
     then
@@ -3308,7 +3308,7 @@ begin
         ZooPrintWarning('ERROR !! Cassio est deja en train de calculer pour le zoo dans LancerCalculCommeClientPourLeZoo : aborting');
 
         LancerCalculCommeClientPourLeZoo := -1;
-        exit(LancerCalculCommeClientPourLeZoo);
+        exit;
       end
     else
       begin
@@ -3505,7 +3505,7 @@ end;
 procedure MettreAJourLeTempsDeReponseDuZoo;
 var time : UnsignedWide;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(MettreAJourLeTempsDeReponseDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -3561,7 +3561,7 @@ var params : MakeEndgameSearchParamRec;
     theJob : ZooJobRec;
     foo : SInt32;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(PrefetchJobDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if not(JobIsEmpty(s)) and not(SameJobs(s , gZoo.jobPrefetched)) and not(SameJobs(s , gZoo.jobEnCoursDeTraitement)) and
      PeutParserDemandeDeJob(s, params) then
@@ -3594,7 +3594,7 @@ var params : MakeEndgameSearchParamRec;
     myJob : ZooJobRec;
     err : OSStatus;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(TraiterJobDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if CassioPeutDonnerDuTempsAuZoo and not(CassioEstEnTrainDeCalculerPourLeZoo) and
      (JobIsEmpty(gZoo.jobEnCoursDeTraitement) or SameJobs(gZoo.jobEnCoursDeTraitement , s))
@@ -3656,7 +3656,7 @@ var requete : LongString;
     nbPrefetchedChecked, k : SInt32;
     hashCalculCourant : UInt64;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequetePourVerifierLeCacheDesPrefetch);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   // WritelnDansRapport('Entree dans EnvoyerUneRequetePourVerifierLeCacheDesPrefetch');
 
@@ -3732,7 +3732,7 @@ var requete : LongString;
 begin
   Discard(fonctionAppelante);
 
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequetePourPrevenirQueCassioSeRetireDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -3751,7 +3751,7 @@ end;
 procedure EnvoyerUneRequetePourArreterDesCalculsDuZoo(const whichHashes : String255);
 var requete : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequetePourArreterDesCalculsDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     if (whichHashes <> '') then
@@ -3802,7 +3802,7 @@ end;
 procedure EnvoyerUneRequetePourPrendreMoiMemeUnCalculDuZoo(const whichHashes : String255);
 var requete : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUneRequetePourPrendreMoiMemeUnCalculDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     if (whichHashes <> '') then
@@ -3843,7 +3843,7 @@ begin
          (GetLastEtatDuReseauAffiche = 'RETIRED') and
          ((TickCount - GetDateDerniereRequeteSurReseau) <= 200) and
          SameLongString(derniereRequete, requete) then
-        exit(EnvoyerUneRequetePourArreterTousMesCalculsDuZoo);
+        exit;
 
       (*
       WritelnDansRapport('GetZooStatus = ' + GetZooStatus);
@@ -3910,7 +3910,7 @@ begin
           RetirerCeJobDuCacheDesPositionsPrefetchUtiles(hashValue);
           LanceInterruption(interruptionPositionADisparuDuZoo,'InterrompreCalculPourLeZoo');
           DoitInterrompreCalculPourLeZoo := true;
-          exit(DoitInterrompreCalculPourLeZoo);
+          exit;
         end;
 
       if (action1 = 'STILL') and
@@ -3932,7 +3932,7 @@ end;
 procedure EnvoyerUnPingSiNecessaire;
 var requete : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUnPingSiNecessaire);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -3961,7 +3961,7 @@ procedure EnvoyerUnKeepAliveSiNecessaire;
 var requete : LongString;
     status : String255;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EnvoyerUnKeepAliveSiNecessaire);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     begin
@@ -3994,7 +3994,7 @@ var requete : LongString;
     urlParams, shortUrlParams : String255;
    // s : String255;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(VerifierUtiliteCalculPourLeZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   // s := 'Appel de VerifierUtiliteCalculPourLeZoo : done = NO';
 
@@ -4052,7 +4052,7 @@ end;
 procedure EcouterLesResultatsDuZoo;
 var requete : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(EcouterLesResultatsDuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if (NombreDeResultatsEnAttenteSurLeZoo > 0) then
      with gZoo do
@@ -4083,7 +4083,7 @@ end;
 procedure TransfererPositionPrefetchedDuZooDansLaFileLocale;
 var s,s2 : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(TransfererPositionPrefetchedDuZooDansLaFileLocale);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   if JobIsEmpty(gZoo.jobEnCoursDeTraitement) and
      not(JobIsEmpty(gZoo.jobPrefetched))
@@ -4096,7 +4096,7 @@ begin
 
         {WritelnDansRapport('apres transfert : '+gZoo.jobPrefetched);}
 
-        exit(TransfererPositionPrefetchedDuZooDansLaFileLocale);
+        exit;
       end;
 
   if JobIsEmpty(gZoo.jobEnCoursDeTraitement) and
@@ -4124,7 +4124,7 @@ begin
 
             {WritelnDansRapport('apres transfert : '+gZoo.jobPrefetched);}
 
-            exit(TransfererPositionPrefetchedDuZooDansLaFileLocale);
+            exit;
           end;
       end;
 end;
@@ -4135,7 +4135,7 @@ procedure DemanderUnJobAuZoo;
 var requete : LongString;
     job : LongString;
 begin
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(DemanderUnJobAuZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   with gZoo do
     if ((TickCount - dateDernierReleveDeJobSurLeZoo) >= intervalleReleveDeJobSurLeZoo) then
@@ -4180,7 +4180,7 @@ var job : LongString;
     err : OSStatus;
 begin
 
-  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit(BoucleDeLancementsDesCalculsLocauxPourLeZoo);
+  if not(CassioDoitRentrerEnContactAvecLeZoo) then exit;
 
   while not(CassioEstEnTrainDeCalculerPourLeZoo) and
         CassioPeutDonnerDuTempsAuZoo and

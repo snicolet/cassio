@@ -147,7 +147,7 @@ begin
   if enRetour or enSetUp or (longueurDuTexteDansLePressePapier <= 0) then
     begin
       PeutCollerPartie := true;
-      exit(PeutCollerPartie);
+      exit;
     end;
 
   if not(enRetour or enSetUp) then
@@ -165,7 +165,7 @@ begin
         then
           begin
             PeutCollerPartie := false;
-            exit(PeutCollerPartie);
+            exit;
           end
         else
           begin
@@ -335,7 +335,7 @@ begin
   if (filename = '') then
      begin
        DumpFileToPressePapier := -1;
-       exit(DumpFileToPressePapier);
+       exit;
      end;
 
   {WritelnDansRapport('Entree dans DumpFileToPressePapier');

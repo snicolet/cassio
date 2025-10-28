@@ -375,12 +375,12 @@ begin
   if length = 10 then
     begin
       WritelnEdge2XAndStringDansRapport(pattern,s);
-      exit(WritelnLinePatternAndStringDansRapport);
+      exit;
     end;
   if length = 13 then
     begin
       Writeln13SquareCornerAndStringDansRapport(pattern,s);
-      exit(WritelnLinePatternAndStringDansRapport);
+      exit;
     end;
 
   {on ne s'est pas trompe…}
@@ -931,7 +931,7 @@ begin
     begin
       {WritelnDansRapport('ASSERT : eval non chargee dans NewEvalDeCassio !!');}
       NewEvalDeCassio := 0;
-      exit(NewEvalDeCassio);
+      exit;
     end;
 
   numeroDuCoup := nbNoir+nbBlanc-3;

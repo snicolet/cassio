@@ -183,14 +183,14 @@ begin  {0}
 			              fa := fb;
 			              bx := u;
 			              fb := fu;
-			              exit(MinimumBracketting);
+			              exit;
 			            end  {3}
 			          else
 			            if fu > fb then
 			              begin {3}
 			                cx := u;
 			                fc := fu;
-			                exit(MinimumBracketting);
+			                exit;
 			              end; {3}
 			        u := cx+gold*(cx-bx);
 			        fu := f(u);
@@ -278,7 +278,7 @@ begin {0}
         begin {2}
           xmin := x;
           MinimisationParBrent := fx;
-          exit(MinimisationParBrent);
+          exit;
         end;  {2}
       if Abs(e) > tol1
         then
@@ -434,7 +434,7 @@ begin
         begin
           xmin := x;
           MinimisationParBrentAvecDerivee := fx;
-          exit(MinimisationParBrentAvecDerivee);
+          exit;
         end;
       if Abs(e) > tol1
         then
@@ -504,7 +504,7 @@ begin
 	            begin
 	              xmin := x;
 	              MinimisationParBrentAvecDerivee := fx;
-	              exit(MinimisationParBrentAvecDerivee);
+	              exit;
 	            end;
 	        end;
 	    if fu <= fx
@@ -645,7 +645,7 @@ begin
    then
      begin
        AlerteSimple('pas assez de memoire pour allouer les vecteurs dans MinimisationMultidimensionnelleSimple !!!');
-       exit(MinimisationMultidimensionnelleSimple);
+       exit;
      end;
 
   for its := 1 to itmax do
@@ -708,7 +708,7 @@ begin
    then
      begin
        AlerteSimple('pas assez de memoire pour allouer les vecteurs dans MinimisationMultidimensionnelleParConjugateGradient !!!');
-       exit(MinimisationMultidimensionnelleParConjugateGradient);
+       exit;
      end;
 
   CalculeGradientNumerique(f,p,fp,xi);

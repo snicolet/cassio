@@ -139,7 +139,7 @@ begin
   SauvegardeCesPartiesDeLaListe := -2;
 
   if (nroPartieMax < nroPartieMin) then
-    exit(SauvegardeCesPartiesDeLaListe);
+    exit;
 
   fileName := GetNameOfFSSpec(fichier);
   if (fileName[LENGTH_OF_STRING(fileName)] <> ' ') and (fileName[LENGTH_OF_STRING(fileName)] <> '_')
@@ -169,7 +169,7 @@ begin
       if (codeErreur <> -1)
         then WritelnNumDansRapport('Erreur dans SauvegardeCesPartiesDeLaListe : ',codeErreur);
       SauvegardeCesPartiesDeLaListe := codeErreur;
-      exit(SauvegardeCesPartiesDeLaListe);
+      exit;
     end;
 
   SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
@@ -183,14 +183,14 @@ begin
   if (codeErreur <> NoErr) then
     begin
       SauvegardeCesPartiesDeLaListe := codeErreur;
-      exit(SauvegardeCesPartiesDeLaListe);
+      exit;
     end;
 
   codeErreur := VideFichierTexte(fic);
   if (codeErreur <> NoErr) then
     begin
       SauvegardeCesPartiesDeLaListe := codeErreur;
-      exit(SauvegardeCesPartiesDeLaListe);
+      exit;
     end;
 
   WritelnDansRapport('');
@@ -344,7 +344,7 @@ begin
   if not(windowListeOpen) or (nbPartiesActives <= 0) then
     begin
       SauvegardeListeCouranteAuNouveauFormat := NoErr;
-      exit(SauvegardeListeCouranteAuNouveauFormat);
+      exit;
     end;
 
   BeginDialog;
@@ -357,7 +357,7 @@ begin
   if not(reply.good) then  {annulation}
     begin
       SauvegardeListeCouranteAuNouveauFormat := NoErr;
-      exit(SauvegardeListeCouranteAuNouveauFormat);
+      exit;
     end;
 
   SauvegardeListeCouranteAuNouveauFormat := -1;
@@ -462,7 +462,7 @@ begin
     begin
       Sysbeep(0);
       WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieRecDansListe, prévenez Stéphane');
-      exit(ChangerPartieRecDansListe);
+      exit;
     end;
 
   FILL_PACKED_GAME_WITH_ZEROS(partie60);
@@ -477,7 +477,7 @@ begin
   if not(EstUnePartieOthello(partie255,true)) then
     begin
       WritelnDansRapport('partie illégale dans ChangerPartieRecDansListe !! '+partie255);
-      exit(ChangerPartieRecDansListe);
+      exit;
     end;
 
 
@@ -597,7 +597,7 @@ begin
     begin
       Sysbeep(0);
       WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieCouranteDansListe, prévenez Stéphane');
-      exit(ChangerPartieCouranteDansListe);
+      exit;
     end;
 
   if gameOver then
@@ -653,7 +653,7 @@ begin
     begin
       Sysbeep(0);
       WritelnDansRapport('WARNING !!! (nroReferencePartieChangee < 0) or (nroReferencePartieChangee > nbrePartiesEnMemoire) dans ChangerPartieAlphaDansLaListe, prévenez Stéphane');
-      exit(ChangerPartieAlphaDansLaListe);
+      exit;
     end;
 
   if EstUnePartieOthelloAvecMiroir(partieEnAlpha) then

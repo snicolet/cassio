@@ -197,7 +197,7 @@ var k,t : SInt32;
 begin
 
   if (s = '') or (gListeEcritureThreadSafeDansRapport.cardinal >= kTailleListeDesEcrituresThreadSafeDansRapport)
-    then exit(AjouterStringDansListePourRapportThreadSafe);
+    then exit;
 
   with gListeEcritureThreadSafeDansRapport do
     begin
@@ -217,7 +217,7 @@ begin
                   strings[t]^^ := s;
                 end;
 
-              exit(AjouterStringDansListePourRapportThreadSafe);
+              exit;
             end;
        end;
     end;
@@ -229,7 +229,7 @@ procedure EnleverStringDansListePourRapportThreadSafe(s : String255);
 var k,t : SInt32;
 begin
 
-  if (s = '') then exit(EnleverStringDansListePourRapportThreadSafe);
+  if (s = '') then exit;
 
   with gListeEcritureThreadSafeDansRapport do
     begin
@@ -246,7 +246,7 @@ begin
               DisposeMemoryHdl(Handle(strings[t]));
               dec(cardinal);
 
-              exit(EnleverStringDansListePourRapportThreadSafe);
+              exit;
             end;
         end;
     end;
@@ -943,7 +943,7 @@ begin
 
 							      {TESetSelect(depart,depart+len,rapport.theText);
 							      AttendFrappeClavier;}
-							      exit(FindStringInRapport);
+							      exit;
 
 							    end;
 

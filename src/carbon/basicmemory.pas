@@ -132,7 +132,7 @@ begin
 		if p1^[i] <> p2^[i] then
 			begin
 				EgalitePolymorphe := false;
-				exit(EgalitePolymorphe);
+				exit;
 			end;
 	EgalitePolymorphe := true;
 end;

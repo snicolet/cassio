@@ -370,7 +370,7 @@ var itemType : SInt16;
     larg : SInt16;
     itemText : str255;
 begin
-  exit(CenterTextInDialog);
+  exit;
 
 
   GetPort(oldport);
@@ -899,7 +899,7 @@ begin
               EventHandler;
               FiltreClassique := true;
               item := -10;
-              exit(FiltreClassique);
+              exit;
             end;
         if (evt.what = mouseDown) then
           begin
@@ -912,7 +912,7 @@ begin
                 EventHandler;
                 FiltreClassique := true;
                 item := -10;
-                exit(FiltreClassique);
+                exit;
               end;
           end;
         if (evt.what = mouseUp) then EndLiveUndo;
@@ -986,7 +986,7 @@ begin
               EventHandler;
               FiltreClassiqueAlerte := false;
               item := -10;
-              exit(FiltreClassiqueAlerte);
+              exit;
             end;
         if (evt.what = mouseDown) then
           begin

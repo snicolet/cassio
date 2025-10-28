@@ -498,7 +498,7 @@ begin
   if nomUnite = '' then
     begin
       TrouverFichierDansSourcesDeCassio := false;
-      exit(TrouverFichierDansSourcesDeCassio);
+      exit;
     end;
 
   path := kPathSourcesDeCassio + ':' + nomUnite + '.p';
@@ -754,7 +754,7 @@ begin
        ChangeFontColorDansRapport(RougeCmd);
        WritelnDansRapport(ligne.debutLigne);
        TextNormalDansRapport;
-       exit(ParserDefinition);
+       exit;
      end;
 
   position := Pos('{',ligne.debutLigne);
@@ -770,7 +770,7 @@ begin
            WritelnDansRapport(ligne.debutLigne);
            TextNormalDansRapport;
          end;
-       exit(ParserDefinition);
+       exit;
      end;
 
   position := Pos('(*',ligne.debutLigne);
@@ -786,7 +786,7 @@ begin
            WritelnDansRapport(ligne.debutLigne);
            TextNormalDansRapport;
          end;
-       exit(ParserDefinition);
+       exit;
      end;
 
 
@@ -856,21 +856,21 @@ begin
   if (theModule = NIL) then
     begin
       WritelnDansRapport('ERREUR !! theModule = NIL dans AddDeclarationOfThisModuleToATR');
-      exit(AddDeclarationOfThisModuleToATR);
+      exit;
     end;
 
   err := FichierTexteExiste(fileName, 0, fic);
   if err <> NoErr then
     begin
       WritelnNumDansRapport('apres FichierTexteExiste dans AddDeclarationOfThisModuleToATR, err = ',err);
-      exit(AddDeclarationOfThisModuleToATR);
+      exit;
     end;
 
   err := OuvreFichierTexte(fic);
   if err <> NoErr then
     begin
       WritelnNumDansRapport('apres OuvreFichierTexte dans AddDeclarationOfThisModuleToATR, err = ',err);
-      exit(AddDeclarationOfThisModuleToATR);
+      exit;
     end;
 
   while not(EOFFichierTexte(fic,err)) do
@@ -940,7 +940,7 @@ begin
     if ModuleDoitEtrePrelinke(GetNameOfModule(usesClause.pointeurs[k]) + '.p') then
       begin
         UsesClauseADesModulesDevantEtrePrelinke := true;
-        exit(UsesClauseADesModulesDevantEtrePrelinke);
+        exit;
       end;
 end;
 
@@ -1005,7 +1005,7 @@ begin
       if EstUnModuleDeDefinition(nom) then
         begin
           UsesClauseContientDesDefinitionsDeDassio := true;
-          exit(UsesClauseContientDesDefinitionsDeDassio);
+          exit;
         end;
     end;
 end;
@@ -1658,7 +1658,7 @@ var lecture : LectureModulePtr;
        (FindStringInLongString('{$I prelink/',ligne) > 0) or
        (FindStringInLongString('{$ENDC}',ligne) > 0) or
        (FindStringInLongString('END_USE_CLAUSE',ligne) > 0)
-      then exit(TraiteImplementationUses);
+      then exit;
 
 
     TraiterUseClause(lecture^.modulesImplementation);
@@ -1670,7 +1670,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageInterfacePrologue;
   begin
-    if (lecture^.enCoursDeLecture = kInterfacePrologue) then exit(CheckPassageInterfacePrologue);
+    if (lecture^.enCoursDeLecture = kInterfacePrologue) then exit;
 
     if ((FindStringInLongString('INTERFACE ',ligne) > 0) and (FindStringInLongString('INTERFACE ',ligne) < 5)) or
        ((FindStringInLongString('interface ',ligne) > 0) and (FindStringInLongString('interface ',ligne) < 5)) then
@@ -1682,7 +1682,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageInterfaceDeclarations;
   begin
-    if (lecture^.enCoursDeLecture = kInterfaceDeclarations) then exit(CheckPassageInterfaceDeclarations);
+    if (lecture^.enCoursDeLecture = kInterfaceDeclarations) then exit;
 
     if (FindStringInLongString(';',ligne) > 0) or
        (FindStringInLongString('VAR ',ligne) > 0) or
@@ -1704,7 +1704,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageInterfaceUses;
   begin
-    if (lecture^.enCoursDeLecture = kInterfaceUses) then exit(CheckPassageInterfaceUses);
+    if (lecture^.enCoursDeLecture = kInterfaceUses) then exit;
 
     if (FindStringInLongString('USES ',ligne) > 0) or
        (FindStringInLongString('uses ',ligne) > 0) then
@@ -1721,7 +1721,7 @@ var lecture : LectureModulePtr;
   procedure CheckPassageImplementationPrologue;
   var err : OSErr;
   begin
-    if (lecture^.enCoursDeLecture = kImplementationPrologue) then exit(CheckPassageImplementationPrologue);
+    if (lecture^.enCoursDeLecture = kImplementationPrologue) then exit;
 
     if ((FindStringInLongString('IMPLEMENTATION ',ligne) > 0) and (FindStringInLongString('IMPLEMENTATION ',ligne) < 5)) or
        ((FindStringInLongString('implementation ',ligne) > 0) and (FindStringInLongString('implementation ',ligne) < 5)) then
@@ -1739,7 +1739,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageImplementationDeclaration;
   begin
-    if (lecture^.enCoursDeLecture = kImplementationDeclarations) then exit(CheckPassageImplementationDeclaration);
+    if (lecture^.enCoursDeLecture = kImplementationDeclarations) then exit;
 
     if lecture^.got_BEGIN_USE_CLAUSE
       then
@@ -1776,7 +1776,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageImplementationUses;
   begin
-    if (lecture^.enCoursDeLecture = kImplementationUses) then exit(CheckPassageImplementationUses);
+    if (lecture^.enCoursDeLecture = kImplementationUses) then exit;
 
     with lecture^ do
       begin
@@ -1800,7 +1800,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckPassageImplementationCode;
   begin
-    if (lecture^.enCoursDeLecture = kImplementationCode) then exit(CheckPassageImplementationCode);
+    if (lecture^.enCoursDeLecture = kImplementationCode) then exit;
 
     if (FindStringInLongString('VAR ',ligne) > 0) or
        (FindStringInLongString('var ',ligne) > 0) or
@@ -1822,7 +1822,7 @@ var lecture : LectureModulePtr;
 
   procedure CheckEndOfModule;
   begin
-    if (lecture^.enCoursDeLecture = kEpilogue) then exit(CheckEndOfModule);
+    if (lecture^.enCoursDeLecture = kEpilogue) then exit;
 
     if LongStringBeginsWith('END.',ligne) or
        LongStringBeginsWith('end.',ligne) then

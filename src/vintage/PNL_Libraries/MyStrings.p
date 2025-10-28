@@ -273,7 +273,7 @@ begin
 	if alpha = '' then
 		begin
 			EstUnReel := false;
-			exit(EstUnReel);
+			exit;
 		end;
 
 	if Pos('.', alpha) = 0 then
@@ -848,7 +848,7 @@ begin
 				   if j > LENGTH_OF_STRING(sub) then
 				     begin
 					     LastPos := i;
-					     exit(LastPos);
+					     exit;
 				     end;
 			   end;
 			 i := pred(i);
@@ -902,7 +902,7 @@ begin
                               if (sub[k] <> str[i + k - 1]) then goto next_char;
 
                             FirstPos := i;
-                            exit(FirstPos);
+                            exit;
                           end;
 
                         next_char :
@@ -1167,13 +1167,13 @@ procedure DoSub (var dst: String255; n : SInt16; const s : String255);
    if (s = '') or (pattern = '') then
      begin
        StringBeginsWith := false;
-       exit(StringBeginsWith);
+       exit;
      end;
 
    if (s[1] <> pattern[1]) then
      begin
        StringBeginsWith := false;
-       exit(StringBeginsWith);
+       exit;
      end;
 
    // on sait que les deux chaines ont le meme premier caractere
@@ -1446,7 +1446,7 @@ begin
     then
       begin
         ASeulementCeCaractere := false;
-        exit(ASeulementCeCaractere);
+        exit;
       end
     else
       begin
@@ -1454,7 +1454,7 @@ begin
           if s[i] <> c then
             begin
               ASeulementCeCaractere := false;
-              exit(ASeulementCeCaractere);
+              exit;
             end;
         ASeulementCeCaractere := true;
       end;
@@ -1474,7 +1474,7 @@ begin
     then
       begin
         CompterOccurencesDeSousChaine := 0;
-        exit(CompterOccurencesDeSousChaine);
+        exit;
       end
     else
       begin
@@ -1639,7 +1639,7 @@ begin
 
       // WritelnDansRapport(s);
 
-      if not(changed) then exit(StripHTMLAccents);
+      if not(changed) then exit;
     end;
 end;
 
@@ -1735,10 +1735,10 @@ begin
         if not(EstUnChiffreHexa(nomFichier[i])) then
           begin
             EstUnNomDeFichierTronquePourPanther := false;
-            exit(EstUnNomDeFichierTronquePourPanther);
+            exit;
           end;
        EstUnNomDeFichierTronquePourPanther := true;
-       exit(EstUnNomDeFichierTronquePourPanther);
+       exit;
     end;
 
   if (longueur >= 11) and (nomFichier[longueur-4] = '.') then
@@ -1747,10 +1747,10 @@ begin
         if not(EstUnChiffreHexa(nomFichier[i])) then
           begin
             EstUnNomDeFichierTronquePourPanther := false;
-            exit(EstUnNomDeFichierTronquePourPanther);
+            exit;
           end;
        EstUnNomDeFichierTronquePourPanther := true;
-       exit(EstUnNomDeFichierTronquePourPanther);
+       exit;
     end;
 
   if (longueur >= 6) then
@@ -1759,10 +1759,10 @@ begin
         if not(EstUnChiffreHexa(nomFichier[i])) then
           begin
             EstUnNomDeFichierTronquePourPanther := false;
-            exit(EstUnNomDeFichierTronquePourPanther);
+            exit;
           end;
        EstUnNomDeFichierTronquePourPanther := true;
-       exit(EstUnNomDeFichierTronquePourPanther);
+       exit;
     end;
 
   EstUnNomDeFichierTronquePourPanther := false;
@@ -1867,7 +1867,7 @@ begin
   if (p > len) or (p < 1) then
     begin
       DeleteSpacesBefore := s;
-      exit(DeleteSpacesBefore);
+      exit;
     end;
   n := p;
   while (n >= 1) and (s[n] = ' ') do n := n-1;
@@ -1884,7 +1884,7 @@ begin
   if (p > len) or (p < 1) then
     begin
       DeleteSpacesAfter := s;
-      exit(DeleteSpacesAfter);
+      exit;
     end;
   n := p;
   while (n <= len) and (s[n] = ' ') do n := n+1;
@@ -2022,7 +2022,7 @@ begin
           if s[len1-len2+i] <> sub[i] then
             begin
               EndsWith := false;
-              exit(EndsWith);
+              exit;
             end;
         EndsWith := true;
       end;
@@ -2071,7 +2071,7 @@ begin
       if ((c >= 'a') and (c <= 'z')) or ((c >= 'A') and (c <= 'Z')) then
         begin
           ContientUneLettre := true;
-          exit(ContientUneLettre);
+          exit;
         end;
     end;
   ContientUneLettre := false;
@@ -2136,7 +2136,7 @@ begin
   if (s = '') then
     begin
       ParamStr := '';
-      exit(ParamStr);
+      exit;
     end;
 
   aux := s;
@@ -2262,7 +2262,7 @@ begin
 			if ((c < '0') or (c > '9')) then
 			  begin
 			    ChaineNeContientQueDesChiffres := false;
-			    exit(ChaineNeContientQueDesChiffres);
+			    exit;
 			  end;
     end;
 
@@ -2281,7 +2281,7 @@ begin
 			if not(c in whichChars) then
 			  begin
 			    ChaineNeContientQueCesCaracteres := false;
-			    exit(ChaineNeContientQueCesCaracteres);
+			    exit;
 			  end;
     end;
 
@@ -2311,7 +2311,7 @@ var result : String255;
     longueur,k : SInt32;
     a,b : SInt32;
 begin
-  if (nb_chars_to_delete <= 0) then exit(DeleteString);
+  if (nb_chars_to_delete <= 0) then exit;
 
   {$IFC DEFINED __GPC__}
 
@@ -2321,7 +2321,7 @@ begin
 
   longueur := LENGTH_OF_STRING(s);
 
-  if (longueur <= 0) then exit(DeleteString);
+  if (longueur <= 0) then exit;
 
   a := 1;
   b := index - 1;
@@ -2381,7 +2381,7 @@ begin
           if keepDelimitors
             then EnleveChiffresEntreCesCaracteres := TPCopy(s, 1, position1)     + TPCopy(s, position2    , LENGTH_OF_STRING(s) - position2 + 1)
             else EnleveChiffresEntreCesCaracteres := TPCopy(s, 1, position1 - 1) + TPCopy(s, position2 + 1, LENGTH_OF_STRING(s) - position2);
-          exit(EnleveChiffresEntreCesCaracteres);
+          exit;
         end;
     end;
   EnleveChiffresEntreCesCaracteres := s;
@@ -2401,7 +2401,7 @@ begin
           if keepDelimitor
             then EnleveChiffresAvantCeCaractereEnDebutDeLigne := TPCopy(s, position    , LENGTH_OF_STRING(s) - position + 1)
             else EnleveChiffresAvantCeCaractereEnDebutDeLigne := TPCopy(s, position + 1, LENGTH_OF_STRING(s) - position);
-          exit(EnleveChiffresAvantCeCaractereEnDebutDeLigne);
+          exit;
         end;
     end;
   EnleveChiffresAvantCeCaractereEnDebutDeLigne := s;
@@ -2422,7 +2422,7 @@ begin
           if keepDelimitor
             then EnleveChiffresApresCeCaractereEnFinDeLigne := TPCopy(s,1,position)
             else EnleveChiffresApresCeCaractereEnFinDeLigne := TPCopy(s,1,position - 1);
-          exit(EnleveChiffresApresCeCaractereEnFinDeLigne);
+          exit;
         end;
     end;
   EnleveChiffresApresCeCaractereEnFinDeLigne := s;
@@ -2443,7 +2443,7 @@ begin
           if keepDelimitors
             then EnleveCesCaracteresEntreCesCaracteres := TPCopy(s, 1, position1)     + TPCopy(s, position2    , LENGTH_OF_STRING(s) - position2 + 1)
             else EnleveCesCaracteresEntreCesCaracteres := TPCopy(s, 1, position1 - 1) + TPCopy(s, position2 + 1, LENGTH_OF_STRING(s) - position2);
-          exit(EnleveCesCaracteresEntreCesCaracteres);
+          exit;
         end;
     end;
   EnleveCesCaracteresEntreCesCaracteres := s;
@@ -2463,7 +2463,7 @@ begin
           if keepDelimitor
             then EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne := TPCopy(s, position    , LENGTH_OF_STRING(s) - position + 1)
             else EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne := TPCopy(s, position + 1, LENGTH_OF_STRING(s) - position);
-          exit(EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne);
+          exit;
         end;
     end;
   EnleveCesCaracteresAvantCeCaractereEnDebutDeLigne := s;
@@ -2483,7 +2483,7 @@ begin
           if keepDelimitor
             then EnleveCesCaracteresApresCeCaractereEnFinDeLigne := TPCopy(s,1,position)
             else EnleveCesCaracteresApresCeCaractereEnFinDeLigne := TPCopy(s,1,position - 1);
-          exit(EnleveCesCaracteresApresCeCaractereEnFinDeLigne);
+          exit;
         end;
     end;
   EnleveCesCaracteresApresCeCaractereEnFinDeLigne := s;
@@ -2626,7 +2626,7 @@ begin
 						    begin
 						      FindStringInBuffer := true;
 						      positionTrouvee := depart;
-						      exit(FindStringInBuffer);
+						      exit;
 						    end;
 
 						  depart := depart + direction;

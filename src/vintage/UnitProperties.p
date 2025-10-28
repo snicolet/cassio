@@ -271,7 +271,7 @@ begin
           (prop1.stockage = StockageEnQuintuplet)      then
           begin
             SameProperties := (prop1.info = prop2.info) and (prop1.taille = prop2.taille);
-            exit(SameProperties);
+            exit;
           end;
 
        p1 := longintPtr(prop1.info);
@@ -282,14 +282,14 @@ begin
          if ( p1^ <> p2^ ) then
            begin
              SameProperties := false;
-             exit(SameProperties);
+             exit;
            end;
          p1 := longintPtr(SInt32(p1)+4);
          p2 := longintPtr(SInt32(p2)+4);
          inc(compteur);
        until (compteur >= borne);
        SameProperties := true;
-       exit(SameProperties);
+       exit;
      end;
   SameProperties := false;
 end;
@@ -712,7 +712,7 @@ begin
       WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans MakeScoringProperty(ReflParfait), prévenez Stéphane !');
       Sysbeep(0);
       MakeScoringProperty := MakeEmptyProperty;
-      exit(MakeScoringProperty);
+      exit;
     end;
 
   case quelGenreDeReflexion of

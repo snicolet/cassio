@@ -399,7 +399,7 @@ begin
     end;
 
   if ((indexMin > indexMax) or (theArray = NIL))
-    then exit(SWAP_INTEGER_ARRAY);
+    then exit;
 
   myPointer := UInt16Ptr(theArray);                  { c'est l'adresse de table[0] }
   myPointer := POINTER_ADD( myPointer, 2*indexMin);  { c'est donc l'adresse de table[indexMin] }
@@ -431,7 +431,7 @@ begin
     end;
 
   if ((indexMin > indexMax) or (theArray = NIL))
-    then exit(SWAP_LONGINT_ARRAY);
+    then exit;
 
   myPointer := UInt32Ptr(theArray);                  { c'est l'adresse de table[0] }
   myPointer := POINTER_ADD( myPointer, 4*indexMin);  { c'est donc l'adresse de table[indexMin] }

@@ -118,7 +118,7 @@ begin
   if (theAbstractFilePtr = NIL)  then
     begin
       GetFichierAbstraitOfFichierAbstraitPtr := -1;
-      exit(GetFichierAbstraitOfFichierAbstraitPtr);
+      exit;
     end;
   MoveMemory(theAbstractFilePtr,@theFile,sizeof(FichierAbstrait));
   GetFichierAbstraitOfFichierAbstraitPtr := NoErr;
@@ -132,12 +132,12 @@ begin
   if GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr  then
     begin
       GetFichierTEXTOfFichierAbstraitPtr := -1;
-      exit(GetFichierTEXTOfFichierAbstraitPtr);
+      exit;
     end;
   if (theFile.genre <> FichierAbstraitEstFichier) or (theFile.infos = NIL) then
      begin
       GetFichierTEXTOfFichierAbstraitPtr := -2;
-      exit(GetFichierTEXTOfFichierAbstraitPtr);
+      exit;
     end;
   MoveMemory(theFile.infos,@fic,sizeof(FichierTEXT));
   GetFichierTEXTOfFichierAbstraitPtr := NoErr;
@@ -153,7 +153,7 @@ begin
   if Err <> NoErr then
     begin
       EcrireDansFichierAbstraitFichier := Err;
-      Exit(EcrireDansFichierAbstraitFichier);
+      exit;
     end;
   if (fromPos >= 0)
     then Err := SetPositionTeteLectureFichierTexte(fic,fromPos)
@@ -161,7 +161,7 @@ begin
   if Err <> NoErr then
     begin
       EcrireDansFichierAbstraitFichier := Err;
-      Exit(EcrireDansFichierAbstraitFichier);
+      exit;
     end;
   Err := WriteBufferDansFichierTexte(fic,text,nbOctets);
   EcrireDansFichierAbstraitFichier := Err;
@@ -177,13 +177,13 @@ begin
   if GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr  then
     begin
       LireFromFichierAbstraitFichier := -1;
-      exit(LireFromFichierAbstraitFichier);
+      exit;
     end;
   Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       LireFromFichierAbstraitFichier := Err;
-      Exit(LireFromFichierAbstraitFichier);
+      exit;
     end;
   if (fromPos >= 0)
     then Err := SetPositionTeteLectureFichierTexte(fic,fromPos)
@@ -191,7 +191,7 @@ begin
   if Err <> NoErr then
     begin
       LireFromFichierAbstraitFichier := Err;
-      Exit(LireFromFichierAbstraitFichier);
+      exit;
     end;
   Err := ReadBufferDansFichierTexte(fic,text,nbOctets);
   LireFromFichierAbstraitFichier := Err;
@@ -206,7 +206,7 @@ begin
   if Err <> NoErr then
     begin
       SetPositionFichierAbstraitFichier := Err;
-      Exit(SetPositionFichierAbstraitFichier);
+      exit;
     end;
 
   if whichPosition > theFile.nbOctetsOccupes
@@ -216,7 +216,7 @@ begin
   if Err <> NoErr then
     begin
       SetPositionFichierAbstraitFichier := Err;
-      Exit(SetPositionFichierAbstraitFichier);
+      exit;
     end;
   Err := SetPositionTeteLectureFichierTexte(fic,whichPosition);
   SetPositionFichierAbstraitFichier := Err;
@@ -231,7 +231,7 @@ begin
   if Err <> NoErr then
     begin
       FermerFichierFichierAbstrait := Err;
-      Exit(FermerFichierFichierAbstrait);
+      exit;
     end;
   Err := FermeFichierTexte(fic);
   FermerFichierFichierAbstrait := Err;
@@ -245,7 +245,7 @@ begin
   if Err <> NoErr then
     begin
       ViderFichierFichierAbstrait := Err;
-      Exit(ViderFichierFichierAbstrait);
+      exit;
     end;
   Err := VideFichierTexte(fic);
   ViderFichierFichierAbstrait := Err;
@@ -261,7 +261,7 @@ begin
      (theFile.infos = NIL)  then
     begin
       EcrireDansFichierAbstraitPointeur := -1;
-      exit(EcrireDansFichierAbstraitPointeur);
+      exit;
     end;
   if (fromPos >= 0)
     then MoveMemory(buffer,Ptr(SInt32(theFile.infos)+fromPos),nbOctets)
@@ -277,7 +277,7 @@ begin
      (theFile.infos = NIL)  then
     begin
       LireFromFichierAbstraitPointeur := -1;
-      exit(LireFromFichierAbstraitPointeur);
+      exit;
     end;
   if (fromPos >= 0)
     then MoveMemory(Ptr(SInt32(theFile.infos)+fromPos),buffer,nbOctets)
@@ -294,7 +294,7 @@ begin
      (theFile.infos = NIL)  then
     begin
       ClearFichierAbstraitEnMemoire := -1;
-      exit(ClearFichierAbstraitEnMemoire);
+      exit;
     end;
   with theFile do
     begin
@@ -339,7 +339,7 @@ begin
   with aux do
     begin
       infos := AllocateMemoryPtrClear(sizeof(FichierTEXT));
-      if infos = NIL then exit(MakeFichierAbstraitFichier);
+      if infos = NIL then exit;
 
       err := FichierTexteExiste(nomFichier,vRefNum,fic);
       if (err = fnfErr) then {file not found, on crée le fichier}
@@ -380,7 +380,7 @@ begin
       if taille < 256 then taille := 256;
       infos := AllocateMemoryPtrClear(taille);
       if infos = NIL
-        then exit(MakeFichierAbstraitEnMemoire)
+        then exit
         else
           begin
 
@@ -430,7 +430,7 @@ begin
   if not(FichierAbstraitEstCorrect(theFile)) then
     begin
       DisplayMessageInConsole('### ASSERT FAILED ### '+'(theFile.genre = BadFichierAbstrait) in DisposeFichierAbstrait');
-      exit(DisposeFichierAbstrait);
+      exit;
     end;
 
   with theFile do
@@ -466,7 +466,7 @@ begin
 		  if err <> NoErr then
 		    begin
 		      EcrireFichierAbstrait := err;
-		      exit(EcrireFichierAbstrait);
+		      exit;
 		    end;
 		  if fromPos >= 0
 				then position := fromPos+nbOctets
@@ -557,7 +557,7 @@ begin
 		  if err <> NoErr then
 		    begin
 		      ReadFromFichierAbstrait := err;
-		      exit(ReadFromFichierAbstrait);
+		      exit;
 		    end;
 		  if fromPos >= 0
 				then position := fromPos + count
@@ -580,7 +580,7 @@ begin
       if position >= nbOctetsOccupes then
         begin
           GetNextCharOfFichierAbstrait := -1;
-          exit(GetNextCharOfFichierAbstrait);
+          exit;
         end;
       nbOctets := 1;
       err := ReadFromFichierAbstrait(theFile,-1,nbOctets,@s[1]);
@@ -611,13 +611,13 @@ begin
   if (err <> NoErr) then
     begin
       ReadlnDansFichierAbstrait := err;
-      exit(ReadlnDansFichierAbstrait);
+      exit;
     end;
 
   if (n <= 0) then
     begin
       ReadlnDansFichierAbstrait := -1;
-      exit(ReadlnDansFichierAbstrait);
+      exit;
     end;
 
   len := 0;
@@ -673,13 +673,13 @@ begin
   if (err <> NoErr) then
     begin
       ReadlnLongStringDansFichierAbstrait := err;
-      exit(ReadlnLongStringDansFichierAbstrait);
+      exit;
     end;
 
   if (n <= 0) then
     begin
       ReadlnLongStringDansFichierAbstrait := -1;
-      exit(ReadlnLongStringDansFichierAbstrait);
+      exit;
     end;
 
   len := 0;

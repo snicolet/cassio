@@ -80,7 +80,7 @@ var lesCasesInterdites : SquareSet;
 begin
 
   if CassioEstEnBenchmarkDeMilieu
-    then exit(StressTestMilieuPourLeZoo);
+    then exit;
 
   SetCassioEstEnBenchmarkDeMilieu(true);
 
@@ -228,7 +228,7 @@ var searchParams : MakeEndgameSearchParamRec;
 begin
   Discard2(jou,fr);
 
-  if EscapeDansQueue or Quitter then exit(TesterNoteDeCettePositionDeMilieu);
+  if EscapeDansQueue or Quitter then exit;
 
   with searchParams do
     begin
@@ -409,7 +409,7 @@ var s : String255;
 begin
   Discard2(theFic,compteur);
 
-  if gEOFPourZooFile then exit(ReadLineInScriptZoo);
+  if gEOFPourZooFile then exit;
 
   s := Trim(ligne.debutLigne);
 
@@ -419,7 +419,7 @@ begin
       if (Pos('__END_OF_FILE__', s) = 1) then
         begin
           gEOFPourZooFile := true;
-          exit(ReadLineInScriptZoo);
+          exit;
         end;
 
       if (Pos('JOB ', s) = 1) or (Pos('PREFETCH ', s) = 1) then
@@ -477,11 +477,11 @@ begin
      TesterUnJobDuZooEnLocal('JOB pos=-----------XO-------XXOO-OOOOOXX-OOXOXXXOOOOOXXX--OOOOXX-OOOOO-XX window=-64,64 cut=72 depth=24 hash=1782520643');
      TesterUnJobDuZooEnLocal('JOB pos=---------------------------OOO-----XXO------XO------------------X window=-64,64 cut=72 depth=56 hash=10000000');
   *)
-   {exit(TesterUnitZoo);}
+   {exit;}
 
 
   if not(CassioDoitRentrerEnContactAvecLeZoo) or Quitter
-    then exit(TesterUnitZoo);
+    then exit;
 
 
   envoyerSeulementLaPositionActuelleCommeFinale := false;

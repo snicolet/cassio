@@ -108,7 +108,7 @@ begin
      (Abs(TickCount - dateDerniereAlerteSimple) <= 180) then
     begin
       IsADuplicateRecentDialog := true;
-      exit(IsADuplicateRecentDialog);
+      exit;
     end;
 
 
@@ -131,7 +131,7 @@ begin
 
   // si on vient d'afficher deux fois de suite le meme dialogue, basta
   if IsADuplicateRecentDialog(texte) then
-    exit(AlerteSimple);
+    exit;
 
 
   oldTexte  := texte;
@@ -228,7 +228,7 @@ begin
 
   // si on vient d'afficher deux fois de suite le meme dialogue, basta
   if IsADuplicateRecentDialog(texte+explication) then
-    exit(AlerteDouble);
+    exit;
 
 
   BeginDialog;
@@ -332,7 +332,7 @@ begin
   s := IntToStr(alertType) + IntToStr(dialogID) + IntToStr(texteItemID) + IntToStr(explicationItemID) + IntToStr(buttonID);
 
   if IsADuplicateRecentDialog(s) then
-    exit(TypedAlertOneButtonFromRessource);
+    exit;
 
   // non : on affiche l'alerte
   foo := TypedAlertTwoButtonsFromRessource(alertType, dialogID, texteItemID, explicationItemID, buttonID, 0);
@@ -446,7 +446,7 @@ begin
 
   // si on vient d'afficher deux fois de suite le meme dialogue, basta
   if IsADuplicateRecentDialog(s + IntToStr(alertID)) then
-    exit(MySimpleLegacyAlert);
+    exit;
 
 
   BeginDialog;

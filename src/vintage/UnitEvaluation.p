@@ -272,7 +272,7 @@ var platRecur : plateauOthello;
                     begin
                       {AjouteDansStatistiquesDeBordsABLocal(coupure_bord_AB_local,bord,indexDansTable);}
                       AlphaBetaLocalDansEvaluation := MaxApresTousLesCoupsCritiques;
-                      exit(AlphaBetaLocalDansEvaluation);
+                      exit;
                     end;
 
                   if (MaxApresTousLesCoupsCritiques > alpha) then alpha := MaxApresTousLesCoupsCritiques;
@@ -386,7 +386,7 @@ var platRecur : plateauOthello;
     			                AttendFrappeClavier;
     			              end;}
     	                AlphaBetaCoupsTranquillesDansEvaluation := MaxApresTousLesCoupsTranquilles;
-                      exit(AlphaBetaCoupsTranquillesDansEvaluation);
+                      exit;
                     end;
 
                   if (MaxApresTousLesCoupsTranquilles > alpha) then alpha := MaxApresTousLesCoupsTranquilles;
@@ -453,14 +453,14 @@ begin
 		  if coulEvaluation = pionBlanc
 			  then Evaluation := {-100*nbNoirs} -6400
 			  else Evaluation := {100*nbNoirs }  6400;
-		  exit(Evaluation);
+		  exit;
 		end;
   if (nbNoirs = 0) then
     begin
       if coulEvaluation = pionBlanc
 			  then Evaluation := {100*nbBlancs}   6400
 			  else Evaluation := {-100*nbBlancs} -6400;
-	    exit(Evaluation);
+	    exit;
 	  end;
 
   nbEvaluationsRecursives := nbreFeuillesMilieu;  {par definition nbEvaluationsRecursives = delta(nbreFeuillesMilieu)}
@@ -507,7 +507,7 @@ begin
 					            begin
 					              Evaluation := MaxApresPriseCoin;
 					              nbEvaluationsRecursives := nbreFeuillesMilieu-nbEvaluationsRecursives;
-					              exit(Evaluation);
+					              exit;
 					            end;
 
 					          if (MaxApresPriseCoin > alpha) then alpha := MaxApresPriseCoin;
@@ -604,7 +604,7 @@ begin
 				            begin
 				              Evaluation := MaxApresPriseCoin;
 				              nbEvaluationsRecursives := nbreFeuillesMilieu-nbEvaluationsRecursives;
-				              exit(Evaluation);
+				              exit;
 				            end;
 
 				          if (MaxApresPriseCoin > alpha) then alpha := MaxApresPriseCoin;
@@ -815,7 +815,7 @@ begin
     begin
       Evaluation := evalPartielle;
       nbEvaluationsRecursives := nbreFeuillesMilieu-nbEvaluationsRecursives;
-      exit(Evaluation);
+      exit;
     end;
   if (evalPartielle > alpha) then alpha := evalPartielle;
 
@@ -830,7 +830,7 @@ begin
 				    begin
 				      Evaluation := valeurAlphaBetaCoupsTranquilles;
 				      nbEvaluationsRecursives := nbreFeuillesMilieu-nbEvaluationsRecursives;
-				      exit(Evaluation);
+				      exit;
 				    end;
 				  if (valeurAlphaBetaCoupsTranquilles > evalPartielle)
 				    then evalPartielle := valeurAlphaBetaCoupsTranquilles;
@@ -843,7 +843,7 @@ begin
 		    begin
 		      Evaluation := valeurAlphaBetaBordsCritiques;
 		      nbEvaluationsRecursives := nbreFeuillesMilieu-nbEvaluationsRecursives;
-		      exit(Evaluation);
+		      exit;
 		    end;
 		  if valeurAlphaBetaBordsCritiques > evalPartielle
 		    then evalPartielle := valeurAlphaBetaBordsCritiques;
@@ -1396,7 +1396,7 @@ begin
             FindInHistoryOfEvaluationHorsContexte := true;
             note     := whichNote;
             bestMove := whichMove;
-            exit(FindInHistoryOfEvaluationHorsContexte);
+            exit;
           end;
 
       { un coup en descendant... }
@@ -1412,7 +1412,7 @@ begin
             FindInHistoryOfEvaluationHorsContexte := true;
             note     := whichNote;
             bestMove := whichMove;
-            exit(FindInHistoryOfEvaluationHorsContexte);
+            exit;
           end;
 
     end;
@@ -1462,7 +1462,7 @@ begin
       // WritelnPositionEtTraitDansRapport(whichPos.position,GetTraitOfPosition(whichPos));
       // WritelnNumDansRapport('BINGO a prof = ',prof);
       EvaluationHorsContexteACetteProfondeur := note;
-      exit(EvaluationHorsContexteACetteProfondeur);
+      exit;
     end;
 
   with whichPos do

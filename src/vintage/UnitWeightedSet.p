@@ -183,12 +183,12 @@ begin
   if WeightedSetEstVide(S1) then
     begin
       UnionWeightedSet := DuplicateWeightedSet(S2);
-      exit(UnionWeightedSet);
+      exit;
     end;
   if WeightedSetEstVide(S2) then
     begin
       UnionWeightedSet := DuplicateWeightedSet(S1);
-      exit(UnionWeightedSet);
+      exit;
     end;
 
   with result do
@@ -266,7 +266,7 @@ begin
   if WeightedSetEstVide(S1) or WeightedSetEstVide(S2) then
     begin
       IntersectionWeightedSet := MakeEmptyWeightedSet;
-      exit(IntersectionWeightedSet);
+      exit;
     end;
 
   with result do

@@ -348,10 +348,10 @@ begin
     begin
 
       if FenetreListeEstEnModeEntree then
-        exit(SimulateNumericKeyPad);
+        exit;
 
       if EnTraitementDeTexte and FenetreRapportEstOuverte and FenetreRapportEstAuPremierPlan then
-        exit(SimulateNumericKeyPad);
+        exit;
 
       if (whichChar = '@')  or (whichChar = '#') then whichChar := '0' else
       if (whichChar = '&')  or (whichChar = '1') then whichChar := '1' else

@@ -180,7 +180,7 @@ begin
             if data^^[t] = element then
               begin  { trouve! }
                 EstDansPile := true;
-                exit(EstDansPile);
+                exit;
               end;
           until t = tete;
           {on a fait tous les elements sans succes}
@@ -218,7 +218,7 @@ begin
       if data = NIL then
         begin
           ok := false;
-          exit(AjouterEnTete);
+          exit;
         end;
 
       aux := tete+1;
@@ -246,7 +246,7 @@ begin
       if data = NIL then
         begin
           ok := false;
-          exit(AjouterEnQueue);
+          exit;
         end;
 
       aux := queue-1;
@@ -317,7 +317,7 @@ begin
         begin
           ok := false;
           RetirerEnTete := -1;
-          exit(RetirerEnTete);
+          exit;
         end;
 
       ok := true;
@@ -336,7 +336,7 @@ begin
         begin
           ok := false;
           RetirerEnQueue := -1;
-          exit(RetirerEnQueue);
+          exit;
         end;
 
       ok := true;

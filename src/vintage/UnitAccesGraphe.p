@@ -269,7 +269,7 @@ begin
            numeroDansBuffer := k;
            CelluleEstDansBuffer := true;
            {WriteNumDansRapport('dist = ',i);}
-           exit(CelluleEstDansBuffer);
+           exit;
          end;
 
       k := indexDerniereCelluleTrouvee+i;
@@ -281,7 +281,7 @@ begin
            numeroDansBuffer := k;
            CelluleEstDansBuffer := true;
            {WriteNumDansRapport('dist = ',i);}
-           exit(CelluleEstDansBuffer);
+           exit;
          end;
     end;
   {dommage !}
@@ -451,7 +451,7 @@ begin
       GrapheApprentissageExiste := false;
       fichier := NIL;
       grapheEtaitDejaOuvert := false;
-      exit(GrapheApprentissageExiste);
+      exit;
     end;
 
   if TrouveGrapheDansBufferGraphesOuverts(nomDuGraphe,fichier)
@@ -634,7 +634,7 @@ begin
 			      if (erreurES <> NoErr) then
 			        begin
 			          WritelnDansRapport('erreurES <> 0 dans LitCellule (1) !!');
-			          exit(LitCellule);
+			          exit;
 			        end;
 
 			      count := sizeof(CelluleRec);
@@ -649,7 +649,7 @@ begin
 			      if (erreurES <> NoErr) then
 			        begin
 			          WritelnDansRapport('erreurES <> 0 dans LitCellule (2) !!');
-			          exit(LitCellule);
+			          exit;
 			        end;
 
 			      nbreLecturesDansGraphe := nbreLecturesDansGraphe+1;
@@ -679,7 +679,7 @@ begin
           if (erreurES <> NoErr) then
 			      begin
 			        WritelnDansRapport('erreurES <> 0 dans EcritCellule (1) !!');
-			        exit(EcritCellule);
+			        exit;
 			      end;
 
 			    {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
@@ -696,7 +696,7 @@ begin
           if (erreurES <> NoErr) then
 			      begin
 			        WritelnDansRapport('erreurES <> 0 dans EcritCellule (2) !!');
-			        exit(EcritCellule);
+			        exit;
 			      end;
 
           nbreEcrituresDansGraphe := nbreEcrituresDansGraphe+1;
@@ -1354,7 +1354,7 @@ begin
           if ModifPlatSeulement(ord(whichGame[i]),plat,trait) then CouleurDuNiemeCoupDansPartieDuGraphe := trait else
           if ModifPlatSeulement(ord(whichGame[i]),plat,-trait) then CouleurDuNiemeCoupDansPartieDuGraphe := -trait else
             CouleurDuNiemeCoupDansPartieDuGraphe := pionVide;
-          exit(CouleurDuNiemeCoupDansPartieDuGraphe);
+          exit;
         end;
       if ModifPlatSeulement(ord(whichGame[i]),plat,trait)
         then trait := -trait

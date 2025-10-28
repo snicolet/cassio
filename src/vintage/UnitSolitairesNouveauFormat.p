@@ -130,7 +130,7 @@ begin
 	    if distribution[k].typeDonneesDansDistribution = kFicSolitairesNouveauFormat then
 	      begin
 	        NumeroDistributionSolitaires := k;
-	        exit(NumeroDistributionSolitaires);
+	        exit;
 	      end;
 end;
 
@@ -143,7 +143,7 @@ begin
 	    if distribution[k].typeDonneesDansDistribution = kFicSolitairesNouveauFormat then
 	      begin
 	        DecalageJoueursSolitaires := distribution[k].decalageNrosJoueurs;
-	        exit(DecalageJoueursSolitaires);
+	        exit;
 	      end;
 end;
 
@@ -156,7 +156,7 @@ begin
 	    if distribution[k].typeDonneesDansDistribution = kFicSolitairesNouveauFormat then
 	      begin
 	        DecalageTournoisSolitaires := distribution[k].decalageNrosTournois;
-	        exit(DecalageTournoisSolitaires);
+	        exit;
 	      end;
 end;
 

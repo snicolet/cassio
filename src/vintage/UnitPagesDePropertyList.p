@@ -124,7 +124,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de PropertyList est trop petit dans PeutCreerNouvellePagePropertyList !! PrŽvenez StŽphane');
       PeutCreerNouvellePagePropertyList := false;
-      exit(PeutCreerNouvellePagePropertyList);
+      exit;
     end;
 
 
@@ -135,7 +135,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de PropertyList dans PeutCreerNouvellePagePropertyList !! PrŽvenez StŽphane');
       PeutCreerNouvellePagePropertyList := false;
-      exit(PeutCreerNouvellePagePropertyList);
+      exit;
     end;
 
   with ReserveDePropertyList[dernierePagePropertyListCree]^ do
@@ -145,7 +145,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de PropertyList dans PeutCreerNouvellePagePropertyList !! PrŽvenez StŽphane');
           PeutCreerNouvellePagePropertyList := false;
-          exit(PeutCreerNouvellePagePropertyList);
+          exit;
         end;
 
 
@@ -175,7 +175,7 @@ begin
       TrouvePlaceDansPageDePropertyList := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDePropertyList);
+      exit;
     end;
 
   {if dernierePagePropertyListCree >= 2 then
@@ -211,7 +211,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pagePropertyListRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDePropertyList);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -228,7 +228,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pagePropertyListRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDePropertyList);
+                  exit;
                 end;
     end;
 
@@ -260,7 +260,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserPropertyListDansSaPage(NIL)');}
-      exit(LocaliserPropertyListDansSaPage);
+      exit;
     end;
 
 
@@ -280,7 +280,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(L) - baseAddress) div sizeof(PropertyListRec);
 	              pagePropertyListRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserPropertyListDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -298,7 +298,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(L) - baseAddress) div sizeof(PropertyListRec);
 	              pagePropertyListRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserPropertyListDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

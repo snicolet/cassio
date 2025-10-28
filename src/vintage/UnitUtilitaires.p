@@ -1406,7 +1406,7 @@ begin
     if caracterIsUsedForUTF8[ord(s[k])] then
       begin
         StringMayHaveUTF8Accents := true;
-        exit(StringMayHaveUTF8Accents);
+        exit;
       end;
   StringMayHaveUTF8Accents := false;
 end;
@@ -2222,7 +2222,7 @@ begin
       longueur := LongueurSelectionRapport;
 
       if (longueur < 2) or (longueur > 250)
-        then exit(PeutCompleterPartieAvecSelectionRapport);
+        then exit;
 
       s := SelectionRapportEnString(longueur);
       EnleveEspacesDeDroiteSurPlace(s);
@@ -2448,7 +2448,7 @@ begin
   if (index < profondeurMax) or (index > kNbMaxNiveaux) then
     begin
       WritelnNumDansRapport('WARNING, index out of bound dans SetCoupDansSuite :  index = ',index);
-      exit(SetCoupDansSuite);
+      exit;
     end;
 
   suite.coupsDanslLigne[index] := coup;
@@ -2460,7 +2460,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING, index out of bound dans GetCoupDansSuite :  index = ',index);
       GetCoupDansSuite := -1;
-      exit(GetCoupDansSuite);
+      exit;
     end;
 
   GetCoupDansSuite := suite.coupsDanslLigne[index];
@@ -2673,7 +2673,7 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
     x := 0;
     for z := 1 to k_TAILLE_Grille do
       if (Grille[z] = c) then x := z;
-    if (x = 0) then exit(CeMotEstDansLeGrille);
+    if (x = 0) then exit;
 
     repeat
       inc(n);
@@ -2681,7 +2681,7 @@ var planete : array[1..k_NBRE_PLANETES] of String255;
       if (n > LENGTH_OF_STRING(s)) then
         begin
           CeMotEstDansLeGrille := true;
-          exit(CeMotEstDansLeGrille);
+          exit;
         end;
       c := s[n];
 

@@ -151,7 +151,7 @@ begin
 		       gLectureFichier.bufferCaracteres[0] := c;
 
 		       AvanceDansFichier := NoErr;
-		       exit(AvanceDansFichier);
+		       exit;
 		     end;
 
 		  err := GetNextCharOfFichierAbstrait(gLectureFichier.whichFichierAbstrait,c);
@@ -220,7 +220,7 @@ begin
     begin
       for k := longueur downto 1 do
         if not(GetPreviousCharFichier(k-longueur) = s[k])
-          then exit(VientDeLireCetteChaine);
+          then exit;
       VientDeLireCetteChaine := true;
     end;
 end;
@@ -240,7 +240,7 @@ begin
   if (c <> caractereOuvrant) or (err <> NoErr) then
     begin
       ScanChaineValeurProperty := '';
-      exit(ScanChaineValeurProperty);
+      exit;
     end;
 
   s := '';
@@ -382,14 +382,14 @@ begin
       if (Pos('WZebra',s) > 0) or (Pos('Zebra',s) > 0) then promptWZebraTrouve := true;
 
     if (compteurLignesNonVides >= 3) and not(promptWZebraTrouve)
-      then exit(EssaieReconnaitreFormatExportTexteDeZebra);
+      then exit;
 
     if promptWZebraTrouve and EstUnePartieOthelloAvecMiroir(s) then
       begin
         infos.tailleOthellier  := 8;
         infos.positionEtPartie := '...........................ox......xo...........................' + s;
         infos.format           := kTypeFichierExportTexteDeZebra;
-        exit(EssaieReconnaitreFormatExportTexteDeZebra);
+        exit;
       end;
 
   until (compteurLignes > 15) or (compteurLignesNonVides >= 7) or (err <> NoErr);
@@ -781,7 +781,7 @@ begin
           infos.tailleOthellier  := 8;
           infos.positionEtPartie := s;
           {WritelnDansRapport(s);}
-          exit(EssaieReconnaitreFormatCassio);
+          exit;
         end;
 
     end;  {for}
@@ -1378,7 +1378,7 @@ begin
     if (Pos('JOB ',s) = 1) or (Pos('PREFETCH ',s) = 1) then
       begin
         infos.format := kTypeFichierScriptZoo;
-        exit(EssaieReconnaitreFormatScriptZoo);
+        exit;
       end;
 
   until (compteurLignes > 25) or (err <> NoErr);
@@ -1453,21 +1453,21 @@ begin
                       infos.tailleOthellier  := 8;
                       infos.positionEtPartie := s1 + ' ' + s2 + ' ' + reste;
                       infos.format           := kTypeFichierCassio;
-                      exit(EssaieReconnaitreFormatScriptFinalesDansPressePapier);
+                      exit;
                     end else
                   if (LENGTH_OF_STRING(s1) = 65) then
                     begin
                       infos.tailleOthellier  := 8;
                       infos.positionEtPartie := LeftOfString(s1,64) + ' ' + RightOfString(s1,1) + ' ' +s2 + ' ' + reste;
                       infos.format           := kTypeFichierCassio;
-                      exit(EssaieReconnaitreFormatScriptFinalesDansPressePapier);
+                      exit;
                     end;
                 end;
             end
           else
             begin
               // on vient de trouver un caractere illegal en debut de ligne
-              exit(EssaieReconnaitreFormatScriptFinalesDansPressePapier);
+              exit;
             end;
       end;
 

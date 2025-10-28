@@ -167,7 +167,7 @@ var i,tickCourant,t1,t2,tickLastCaractere : SInt32;
 		        if frappeRapide then
 		          begin
 				        EstEnAttenteSelectionRapideDeListe := true;
-				        exit(EstEnAttenteSelectionRapideDeListe);
+				        exit;
 				      end;
 		      end;
 		  end;

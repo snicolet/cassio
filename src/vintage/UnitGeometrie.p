@@ -199,7 +199,7 @@ begin
   if PtInRect(M1,theRect) or PtInRect(M2,theRect) then
     begin
       SegmentIntersecteRect := true;
-      exit(SegmentIntersecteRect);
+      exit;
     end;
 
   {les points M1 et M2 sont en dehors de theRect}
@@ -209,7 +209,7 @@ begin
   if not(SectRect(auxRect,theRect,inter)) then
     begin
       SegmentIntersecteRect := false;
-      exit(SegmentIntersecteRect);
+      exit;
     end;
 
   {les quatre angles du rectangle sont-ils du meme cote ?}

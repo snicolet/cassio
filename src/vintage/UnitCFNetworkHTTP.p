@@ -377,7 +377,7 @@ begin
 
               {WritelnNumDansRapport('trouve : numeroSlotLibre = ',numeroSlotLibre);}
 
-              exit(TrouverSlotLibreDansLaReservePourTelecharger);
+              exit;
             end;
         end;
     end;
@@ -526,7 +526,7 @@ begin
   if (stream = NIL) then
     begin
       WritelnDansRapport('ASSERT  !! stream = NIL dans FindFichierAbstraitOfAsynchroneNetworkConnections ');
-      exit(FindFichierAbstraitOfAsynchroneNetworkConnections);
+      exit;
     end;
 
 
@@ -560,7 +560,7 @@ begin
             numeroSlot         := index;
             FindFichierAbstraitOfAsynchroneNetworkConnections := table[index].theFichierAbstrait;
 
-            exit(FindFichierAbstraitOfAsynchroneNetworkConnections);
+            exit;
           end;
 
 
@@ -590,7 +590,7 @@ begin
             numeroSlot         := index;
             FindFichierAbstraitOfAsynchroneNetworkConnections := table[index].theFichierAbstrait;
 
-            exit(FindFichierAbstraitOfAsynchroneNetworkConnections);
+            exit;
           end;
       end;
 end;
@@ -605,26 +605,26 @@ begin
       if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
         begin
           WritelnNumDansRapport('ASSERT  !! numeroSlot impossibe dans InstallStreamOfAsynchroneNetworkConnections,  numeroSlot = ',numeroSlot);
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
       if (rStream = NIL) then
         begin
           WritelnDansRapport('ASSERT  !! rStream = NIL dans InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
       if (whichFichierAbstrait = NIL) then
         begin
           WritelnDansRapport('ASSERT  !! whichFichierAbstrait = NIL dans InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
 
       if (terminationProc = NIL) then
         begin
           WritelnDansRapport('ASSERT  !! terminationProc = NIL dans InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
 
@@ -632,14 +632,14 @@ begin
          (table[numeroSlot].theReadStream <> rStream) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theReadStream) InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
       if (table[numeroSlot].theWriteStream <> NIL) and
          (table[numeroSlot].theWriteStream <> wStream) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theWriteStream) InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
 
@@ -647,7 +647,7 @@ begin
          (table[numeroSlot].theFichierAbstrait <> whichFichierAbstrait) then
         begin
           WritelnDansRapport('ASSERT  !! slot non libre (theFichierAbstrait) InstallStreamOfAsynchroneNetworkConnections ');
-          exit(InstallStreamOfAsynchroneNetworkConnections);
+          exit;
         end;
 
 
@@ -679,7 +679,7 @@ begin
                   WritelnDansRapport('');
                   *)
 
-                  exit(InstallStreamOfAsynchroneNetworkConnections);
+                  exit;
                 end;
             end;
 
@@ -697,7 +697,7 @@ begin
   if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
     begin
       WritelnNumDansRapport('ASSERT  !! numeroSlot impossibe dans InstallSerializatorForNetworkConnections,  numeroSlot = ',numeroSlot);
-      exit(InstallSerializatorForNetworkConnections);
+      exit;
     end;
 
   gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[numeroSlot].serializator := serializator;
@@ -715,7 +715,7 @@ begin
   if (stream = NIL) then
     begin
       WritelnDansRapport('ASSERT  !! stream = NIL dans RemoveStreamOfSimultaneaousNetworkConnections ');
-      exit(RemoveStreamOfSimultaneaousNetworkConnections);
+      exit;
     end;
 
 
@@ -747,7 +747,7 @@ begin
               err := myTerminaison(myZone, error.error);
             end;
 
-          exit(RemoveStreamOfSimultaneaousNetworkConnections);
+          exit;
         end;
     end;
 
@@ -848,7 +848,7 @@ begin
   if (stream = NIL) then
     begin
       WritelnDansRapport('ASSERT : stream = NIL dans ReadStreamClientCallBack !!');
-      exit(ReadStreamClientCallBack);
+      exit;
     end;
 
 
@@ -879,7 +879,7 @@ begin
 
       AttendFrappeClavier;
 
-      exit(ReadStreamClientCallBack);
+      exit;
     end;
 
   with gListOfFichierAbstraitOfAsynchroneNetworkConnections.table[numeroSlot] do
@@ -984,7 +984,7 @@ begin
   if not(trouve) then
     begin
       WritelnDansRapport('ASSERT : not(trouve) dans TerminateDownload !!');
-      exit(TerminateDownload);
+      exit;
     end;
 
   (*
@@ -1197,7 +1197,7 @@ begin
   if (numeroSlot < 0) or (numeroSlot > kNumberOfAsynchroneNetworkConnections) then
     begin
       WritelnNumDansRapport('ASSERT dans DownloadURL :   numeroSlot = ',numeroSlot);
-      exit(DownloadURL);
+      exit;
     end;
 
 
@@ -1215,7 +1215,7 @@ begin
     	if ( LengthOfLongString(url) <= 0 ) then
     	  begin
     	    WritelnDansRapport('ERROR !! url = '''' dans DownloadURL...');
-    	    exit(DownloadURL);
+    	    exit;
     	  end;
 
 
@@ -1303,7 +1303,7 @@ begin
     	if ( urlRef <> NIL )
     	  then CFRelease( CFTypeRef( urlRef ));
 
-      exit(DownloadURL);
+      exit;
 
 
 
@@ -1372,7 +1372,7 @@ begin
         if (CFWriteStreamCanAcceptBytes(wStream)) then
           begin
             WaitForConnection := true;
-            exit(WaitForConnection);
+            exit;
           end;
 
          WritelnDansRapport('"Waiting for connection, clic to advance...');
@@ -1624,7 +1624,7 @@ begin
     begin
       WritelnDansRapport('WARNING : (bufferLength <= 0) or (buffer = NIL) dans SendStringToPermanentConnection');
       SendBytesToPermanentConnection := true;
-      exit(SendBytesToPermanentConnection);
+      exit;
     end;
 
   SendBytesToPermanentConnection := false;
@@ -1657,7 +1657,7 @@ begin
                 myCFErr.domain := -888;
                 myCFErr.error  := -888;
       			    TerminateDownload( theReadStream , kCFStreamEventErrorOccurred, bytesSent, myCFErr, 'SendBytesToPermanentConnection');
-      			    exit(SendBytesToPermanentConnection);
+      			    exit;
       			  end;
 
             sent := sent + bytesSent;
@@ -1714,7 +1714,7 @@ begin
   if (host = '') then
     begin
       WritelnDansRapport('ASSERT  !! host = '' dans FindPermanentConnectionToHost ');
-      exit(FindPermanentConnectionToHost);
+      exit;
     end;
 
   hostAndPort := MakeLongString(host + ':' + IntToStr(port));
@@ -1749,7 +1749,7 @@ begin
             numeroSlot         := index;
             FindPermanentConnectionToHost := true;
 
-            exit(FindPermanentConnectionToHost);
+            exit;
           end;
 
 
@@ -1779,7 +1779,7 @@ begin
             numeroSlot         := index;
             FindPermanentConnectionToHost := true;
 
-            exit(FindPermanentConnectionToHost);
+            exit;
           end;
       end;
 end;

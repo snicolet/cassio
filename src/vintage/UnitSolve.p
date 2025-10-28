@@ -142,7 +142,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ERREUR : GetTraitOfPosition(whichPosition) = pionVide dans ScoreWLDPositionEtTrait !!');
-      exit(ScoreWLDPositionEtTrait);
+      exit;
     end;
 
   oldInterruption := GetCurrentInterruption;
@@ -250,7 +250,7 @@ begin
             end;
 
           ScoreParfaitFinaleWithSearchParams := score;
-          exit(ScoreParfaitFinaleWithSearchParams);
+          exit;
         end;
     end;
 

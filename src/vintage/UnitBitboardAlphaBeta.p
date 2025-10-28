@@ -196,7 +196,7 @@ begin
           if (noteCourante >= beta) then
             begin
               DeuxCasesVidesBitboard := noteCourante;
-              exit(DeuxCasesVidesBitboard);
+              exit;
             end;
           alpha := noteCourante;
         end;
@@ -217,7 +217,7 @@ begin
 		          if (noteCourante >= beta) then
 		            begin
 		              DeuxCasesVidesBitboard := noteCourante;
-		              exit(DeuxCasesVidesBitboard);
+		              exit;
 		            end;
 		          alpha := noteCourante;
 		        end;
@@ -245,15 +245,15 @@ begin
            if diffPionsDeuxCasesVides > 0 then
              begin
                DeuxCasesVidesBitboard := diffPionsDeuxCasesVides + 2;
-               exit(DeuxCasesVidesBitboard);
+               exit;
              end;
            if diffPionsDeuxCasesVides < 0 then
              begin
                DeuxCasesVidesBitboard := diffPionsDeuxCasesVides - 2;
-               exit(DeuxCasesVidesBitboard);
+               exit;
              end;
            DeuxCasesVidesBitboard := 0;
-           exit(DeuxCasesVidesBitboard);
+           exit;
          end
        else
          begin
@@ -347,7 +347,7 @@ begin
           AttendFrappeClavier;
           }
           ABFinBitboardQuatreCasesVides := noteCourante_4;
-          exit(ABFinBitboardQuatreCasesVides);
+          exit;
         end;
     end;
   if (beta_4 <= -50) or
@@ -366,7 +366,7 @@ begin
           AttendFrappeClavier;
           }
           ABFinBitboardQuatreCasesVides := noteCourante_4;
-          exit(ABFinBitboardQuatreCasesVides);
+          exit;
         end;
     end;
 
@@ -1006,7 +1006,7 @@ begin
     	                     {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
     			                  EndMiniprofilerBitboard(ESProf);
     		                   {$ENDC}
-    		                    exit(ABFinBitboardPariteSansStabilite);
+    		                    exit;
     	                    end;
     			              if (noteCourante > alpha) then alpha := noteCourante;
     			              maxPourBestDefABFinPetite := noteCourante;
@@ -1114,7 +1114,7 @@ begin
 	                     {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 			                  EndMiniprofilerBitboard(ESProf);
 		                   {$ENDC}
-		                    exit(ABFinBitboardPariteSansStabilite);
+		                    exit;
 	                    end;
 			              if (noteCourante > alpha) then alpha := noteCourante;
 			              maxPourBestDefABFinPetite := noteCourante;
@@ -1153,7 +1153,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardPariteSansStabilite);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -1161,13 +1161,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-				      exit(ABFinBitboardPariteSansStabilite);
+				      exit;
              end;
            ABFinBitboardPariteSansStabilite := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardPariteSansStabilite);
+           exit;
          end
        else
          begin
@@ -1277,7 +1277,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardParite);
+          exit;
         end;
       if noteCourante < beta then beta := noteCourante;
     end;
@@ -1395,7 +1395,7 @@ begin
     	                     {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
     			                  EndMiniprofilerBitboard(ESProf);
     		                   {$ENDC}
-    		                    exit(ABFinBitboardParite);
+    		                    exit;
     	                    end;
     			              if (noteCourante > alpha) then alpha := noteCourante;
     			              maxPourBestDefABFinPetite := noteCourante;
@@ -1504,7 +1504,7 @@ begin
 	                     {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 			                  EndMiniprofilerBitboard(ESProf);
 		                   {$ENDC}
-		                    exit(ABFinBitboardParite);
+		                    exit;
 	                    end;
 			              if (noteCourante > alpha) then alpha := noteCourante;
 			              maxPourBestDefABFinPetite := noteCourante;
@@ -1543,7 +1543,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardParite);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -1551,13 +1551,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-				      exit(ABFinBitboardParite);
+				      exit;
              end;
            ABFinBitboardParite := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardParite);
+           exit;
          end
        else
          begin
@@ -1674,7 +1674,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardPariteHachage);
+          exit;
         end;
       if noteCourante < beta then beta := noteCourante;
     end;
@@ -1704,7 +1704,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardPariteHachage := beta;
-			        exit(ABFinBitboardPariteHachage);
+			        exit;
 			      end;
 		    end;
 		  if (alpha < hash_info.lower) then
@@ -1714,7 +1714,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardPariteHachage := alpha;
-			        exit(ABFinBitboardPariteHachage);
+			        exit;
 			      end;
 			  end;
 		  bestmove := hash_info.stored_move;
@@ -1822,7 +1822,7 @@ begin
     					                    EndMiniprofilerBitboard(ESProf);
     				                     {$ENDC}
     				                      BitboardHashUpdate(hash_table,hash_index,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,ESprof,alphaDepart,betaDepart,noteCourante,bestmove);
-    				                      exit(ABFinBitboardPariteHachage);
+    				                      exit;
     			                      end;
     			                   alpha := noteCourante;
     			                 end;
@@ -1934,7 +1934,7 @@ begin
 					                  EndMiniprofilerBitboard(ESProf);
 				                   {$ENDC}
 				                    BitboardHashUpdate(hash_table,hash_index,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,ESprof,alphaDepart,betaDepart,noteCourante,bestmove);
-				                    exit(ABFinBitboardPariteHachage);
+				                    exit;
 			                    end;
 			                  alpha := noteCourante;
 			                end;
@@ -1975,7 +1975,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardPariteHachage);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -1983,13 +1983,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-				      exit(ABFinBitboardPariteHachage);
+				      exit;
              end;
            ABFinBitboardPariteHachage := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardPariteHachage);
+           exit;
          end
        else
          begin
@@ -2088,7 +2088,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardFastestFirst);
+          exit;
         end;
       if noteCourante < beta then beta := succ(noteCourante);
     end;
@@ -2121,7 +2121,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirst := beta;
-			        exit(ABFinBitboardFastestFirst);
+			        exit;
 			      end;
 		    end;
 		  if (alpha < hash_info.lower) then
@@ -2131,7 +2131,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirst := alpha;
-			        exit(ABFinBitboardFastestFirst);
+			        exit;
 			      end;
 			  end;
 		  bestmove := hash_info.stored_move;
@@ -2159,7 +2159,7 @@ begin
           if ThreadEstInterrompue(nroThread, ESProf) then
             begin
               ABFinBitboardFastestFirst := kValeurSpecialeInterruptionCalculParallele;
-              exit(ABFinBitboardFastestFirst);
+              exit;
             end;
         end;
 
@@ -2217,7 +2217,7 @@ begin
 	                       {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					                EndMiniprofilerBitboard(ESProf);
 				                 {$ENDC}
-	                        exit(ABFinBitboardFastestFirst);
+	                        exit;
 	                      end;
 	                 end;
 	             end;
@@ -2234,7 +2234,7 @@ begin
      if ThreadEstInterrompue(nroThread, ESProf) then
        begin
          ABFinBitboardFastestFirst := kValeurSpecialeInterruptionCalculParallele;
-         exit(ABFinBitboardFastestFirst);
+         exit;
        end;
    end;
 
@@ -2262,7 +2262,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirst);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -2270,13 +2270,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirst);
+               exit;
              end;
            ABFinBitboardFastestFirst := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardFastestFirst);
+           exit;
          end
        else
          begin
@@ -2377,7 +2377,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardFastestFirstKnuth);
+          exit;
         end;
       if noteCourante < beta then beta := succ(noteCourante);
     end;
@@ -2410,7 +2410,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirstKnuth := beta;
-			        exit(ABFinBitboardFastestFirstKnuth);
+			        exit;
 			      end;
 		    end;
 		  if (alpha < hash_info.lower) then
@@ -2420,7 +2420,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirstKnuth := alpha;
-			        exit(ABFinBitboardFastestFirstKnuth);
+			        exit;
 			      end;
 			  end;
 		  bestmove := hash_info.stored_move;
@@ -2486,7 +2486,7 @@ begin
           if ThreadEstInterrompue(nroThread, ESProf) then
             begin
               ABFinBitboardFastestFirstKnuth := kValeurSpecialeInterruptionCalculParallele;
-              exit(ABFinBitboardFastestFirstKnuth);
+              exit;
             end;
         end;
 
@@ -2584,7 +2584,7 @@ begin
                               end;
                           {$ENDC}
 
-	                        exit(ABFinBitboardFastestFirstKnuth);
+	                        exit;
 	                      end;
 	                 end;
 	             end;
@@ -2601,7 +2601,7 @@ begin
      if ThreadEstInterrompue(nroThread, ESProf) then
        begin
          ABFinBitboardFastestFirstKnuth := kValeurSpecialeInterruptionCalculParallele;
-         exit(ABFinBitboardFastestFirstKnuth);
+         exit;
        end;
    end;
 
@@ -2639,7 +2639,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirstKnuth);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -2647,13 +2647,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirstKnuth);
+               exit;
              end;
            ABFinBitboardFastestFirstKnuth := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardFastestFirstKnuth);
+           exit;
          end
        else
          begin
@@ -2760,7 +2760,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardFastestFirstAvecETC);
+          exit;
         end;
       if noteCourante < beta then beta := succ(noteCourante);
     end;
@@ -2790,7 +2790,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirstAvecETC := beta;
-			        exit(ABFinBitboardFastestFirstAvecETC);
+			        exit;
 			      end;
 		    end;
 		  if (alpha < hash_info.lower) then
@@ -2800,7 +2800,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardFastestFirstAvecETC := alpha;
-			        exit(ABFinBitboardFastestFirstAvecETC);
+			        exit;
 			      end;
 			  end;
 		  bestmove := hash_info.stored_move;
@@ -2829,7 +2829,7 @@ begin
               	        // RELEASE_BITBOARD_HASH_LOCK_BARRIER(hash_index_fils);
               	        ABFinBitboardFastestFirstAvecETC := noteCourante;
               	        BitboardHashUpdate(hash_table,hash_index,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,ESprof,alphaDepart,betaDepart,noteCourante,iCourant);
-              			    exit(ABFinBitboardFastestFirstAvecETC);
+              			    exit;
               	      end;
               	    // RELEASE_BITBOARD_HASH_LOCK(hash_index_fils);
               	  end;
@@ -2858,7 +2858,7 @@ begin
           if ThreadEstInterrompue(nroThread, ESProf) then
             begin
               ABFinBitboardFastestFirstAvecETC := kValeurSpecialeInterruptionCalculParallele;
-              exit(ABFinBitboardFastestFirstAvecETC);
+              exit;
             end;
         end;
 
@@ -2914,7 +2914,7 @@ begin
 	                       {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					                EndMiniprofilerBitboard(ESProf);
 				                 {$ENDC}
-	                        exit(ABFinBitboardFastestFirstAvecETC);
+	                        exit;
 	                      end;
 	                 end;
 	             end;
@@ -2931,7 +2931,7 @@ begin
      if ThreadEstInterrompue(nroThread, ESProf) then
        begin
          ABFinBitboardFastestFirstAvecETC := kValeurSpecialeInterruptionCalculParallele;
-         exit(ABFinBitboardFastestFirstAvecETC);
+         exit;
        end;
    end;
 
@@ -2959,7 +2959,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirstAvecETC);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -2967,13 +2967,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardFastestFirstAvecETC);
+               exit;
              end;
            ABFinBitboardFastestFirstAvecETC := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardFastestFirstAvecETC);
+           exit;
          end
        else
          begin
@@ -3085,7 +3085,7 @@ begin
          {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					EndMiniprofilerBitboard(ESProf);
 				 {$ENDC}
-          exit(ABFinBitboardParallele);
+          exit;
         end;
       if noteCourante < beta then beta := succ(noteCourante);
     end;
@@ -3118,7 +3118,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardParallele := beta;
-			        exit(ABFinBitboardParallele);
+			        exit;
 			      end;
 		    end;
 		  if (alpha < hash_info.lower) then
@@ -3128,7 +3128,7 @@ begin
 			      begin
 			        // RELEASE_BITBOARD_HASH_LOCK(hash_index);
 			        ABFinBitboardParallele := alpha;
-			        exit(ABFinBitboardParallele);
+			        exit;
 			      end;
 			  end;
 		  bestmove := hash_info.stored_move;
@@ -3158,7 +3158,7 @@ begin
                   	        // RELEASE_BITBOARD_HASH_LOCK_BARRIER(hash_index_fils);
                   	        ABFinBitboardParallele := noteCourante;
                   	        BitboardHashUpdate(hash_table,hash_index,pos_my_bits_low,pos_my_bits_high,pos_opp_bits_low,pos_opp_bits_high,ESprof,alphaDepart,betaDepart,noteCourante,iCourant);
-                  			    exit(ABFinBitboardParallele);
+                  			    exit;
                   	      end;
                   	    // RELEASE_BITBOARD_HASH_LOCK(hash_index_fils);
                   	  end;
@@ -3192,7 +3192,7 @@ begin
       if ThreadEstInterrompue(nroThread, ESProf) then
         begin
           ABFinBitboardParallele := kValeurSpecialeInterruptionCalculParallele;
-          exit(ABFinBitboardParallele);
+          exit;
         end;
 
       utiliserParallelisme := (profMoins1 >= gNbreEmptiesMinimalPourParallelisme) and
@@ -3245,7 +3245,7 @@ begin
                (noteCourante = -kValeurSpecialeInterruptionCalculParallele) then
               begin
                 ABFinBitboardParallele := kValeurSpecialeInterruptionCalculParallele;
-                exit(ABFinBitboardParallele);
+                exit;
               end;
 
 
@@ -3334,7 +3334,7 @@ begin
                    {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
   	                EndMiniprofilerBitboard(ESProf);
                    {$ENDC}
-                    exit(ABFinBitboardParallele);
+                    exit;
                   end;
              end;
          end;
@@ -3351,7 +3351,7 @@ begin
  if ThreadEstInterrompue(nroThread, ESProf) then
    begin
      ABFinBitboardParallele := kValeurSpecialeInterruptionCalculParallele;
-     exit(ABFinBitboardParallele);
+     exit;
    end;
 
 {fin:}
@@ -3378,7 +3378,7 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardParallele);
+               exit;
              end;
            if diffPions < 0 then
              begin
@@ -3386,13 +3386,13 @@ begin
               {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					     EndMiniprofilerBitboard(ESProf);
 				      {$ENDC}
-               exit(ABFinBitboardParallele);
+               exit;
              end;
            ABFinBitboardParallele := 0;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 					 EndMiniprofilerBitboard(ESProf);
 				  {$ENDC}
-           exit(ABFinBitboardParallele);
+           exit;
          end
        else
          begin

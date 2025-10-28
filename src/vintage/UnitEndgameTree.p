@@ -366,7 +366,7 @@ begin
 		                    SetCurrentNode(oldCurrentNode, 'SearchPositionFromThisNode {2}');
 
 		                    (* WritelnDansRapport('CompareNodeAndPosition : position trouvée parmi les fils'); *)
-		                    exit(SearchPositionFromThisNode);
+		                    exit;
 		                  end;
 		                positionFils := positionArbre;
 		              end;
@@ -411,7 +411,7 @@ begin
 
 		              AllocateNewEndgameTree := true;
 		              numeroArbre := i;
-		              exit(AllocateNewEndgameTree);
+		              exit;
 		            end;
 		end;
 end;
@@ -429,7 +429,7 @@ begin
             begin
               SysBeep(0);
               WritelnDansRapport('WARNING : activeNode non valide dans LibereEndgameTree');
-              exit(LibereEndgameTree);
+              exit;
             end;
 
 	        dec(nbEndgameTreeUtilises);
@@ -583,7 +583,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT : listeDesCoups = NIL dans PeutCalculerFinaleParEndgameTree');
-      exit(PeutCalculerFinaleParEndgameTree);
+      exit;
     end;
 
   if (GetTraitOfPosition(position) <> pionVide) and

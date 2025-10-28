@@ -231,7 +231,7 @@ begin
       L := L1;
     end;
 
-  if (L = NIL) then exit(CompacterPropertyList);
+  if (L = NIL) then exit;
 
   L1 := L;
   L2 := L1^.tail;
@@ -314,7 +314,7 @@ begin
     begin
       WritelnDansRapport('WARNING : invalid property in CreateOneElementPropertyList, prévenez Stéphane !');
       CreateOneElementPropertyList := CreateOneElementPropertyList(MakeEmptyProperty);
-      exit(CreateOneElementPropertyList);
+      exit;
     end;
 
   aux := NewPropertyList;
@@ -351,7 +351,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyToList, prévenez Stéphane !');
-      exit(AddPropertyToList);
+      exit;
     end;
 
   CompacterPropertyList(L);
@@ -366,7 +366,7 @@ begin
 		      if aux <> NIL then
 		        begin
 		          UnionPackedSquareSetOfProperty(aux^,GetPackedSquareSetOfProperty(prop));
-		          exit(AddPropertyToList);
+		          exit;
 		        end;
 		    end;
 
@@ -381,7 +381,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyToListSansDuplication, prévenez Stéphane !');
-      exit(AddPropertyToListSansDuplication);
+      exit;
     end;
 
   CompacterPropertyList(L);
@@ -396,7 +396,7 @@ begin
 		      if aux <> NIL then
 		        begin
 		          UnionPackedSquareSetOfProperty(aux^,GetPackedSquareSetOfProperty(prop));
-		          exit(AddPropertyToListSansDuplication);
+		          exit;
 		        end;
 		    end;
 
@@ -425,7 +425,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddScorePropertyToListSansDuplication, prévenez Stéphane !');
-      exit(AddScorePropertyToListSansDuplication);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) then
@@ -470,7 +470,7 @@ begin
                 { de gagnant/perdant, ce n'est pas la peine…}
                 if ((theColor = pionNoir)  and (theValue >= 2)) or
                    ((theColor = pionBlanc) and (theValue <= -2)) then
-                  exit(AddScorePropertyToListSansDuplication);
+                  exit;
 
                 { On prefere marquer le gain Noir avec une propriete GoodForBlackProp}
                 if ((theColor = pionNoir)  and (theValue = +1)) or
@@ -492,7 +492,7 @@ begin
                 { de gagnant/perdant, ce n'est pas la peine…}
                 if ((theColor = pionBlanc) and (theValue >= 2 )) or
                    ((theColor = pionNoir)  and (theValue <= -2)) then
-                  exit(AddScorePropertyToListSansDuplication);
+                  exit;
 
                 { On prefere marquer le gain Noir avec une propriete GoodForWhiteProp}
                 if ((theColor = pionNoir)  and (theValue = -1)) or
@@ -523,7 +523,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyInFrontOfList, prévenez Stéphane !');
-      exit(AddPropertyInFrontOfList);
+      exit;
     end;
 
   CompacterPropertyList(L);
@@ -538,7 +538,7 @@ begin
 		      if aux <> NIL then
 		        begin
 		          UnionPackedSquareSetOfProperty(aux^,GetPackedSquareSetOfProperty(prop));
-		          exit(AddPropertyInFrontOfList);
+		          exit;
 		        end;
 		    end;
 
@@ -563,7 +563,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyInFrontOfListSansDuplication, prévenez Stéphane !');
-      exit(AddPropertyInFrontOfListSansDuplication);
+      exit;
     end;
 
   CompacterPropertyList(L);
@@ -578,7 +578,7 @@ begin
 		      if aux <> NIL then
 		        begin
 		          UnionPackedSquareSetOfProperty(aux^,GetPackedSquareSetOfProperty(prop));
-		          exit(AddPropertyInFrontOfListSansDuplication);
+		          exit;
 		        end;
 		    end;
 
@@ -623,7 +623,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in InsertPropInListAfter, prévenez Stéphane !');
-      exit(InsertPropInListAfter);
+      exit;
     end;
 
   if (afterWhat = NIL)
@@ -642,7 +642,7 @@ begin
 			          if (afterWhat = @L1^.head) then
 			            begin
 			              AddPropertyInFrontOfList(prop,L1^.tail);
-			              exit(InsertPropInListAfter);
+			              exit;
 			            end;
 			          L1 := L1^.tail;
 			        end;
@@ -664,7 +664,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachPropertyOfTheseTypesDoIter !! Prévenez Stéphane !');
-              exit(ForEachPropertyOfTheseTypesDoIter);
+              exit;
             end
           else               {on fait l'appel recursif}
               ForEachPropertyOfTheseTypesDoIter(L^.tail,whichTypes,DoWhat);
@@ -692,7 +692,7 @@ begin
 	          then
 	            begin
 	              AlerteSimple('boucle infinie dans ForEachPropertyOfTheseTypesDoIterAvecResult !! Prévenez Stéphane !');
-	              exit(ForEachPropertyOfTheseTypesDoIterAvecResult);
+	              exit;
 	            end
 	          else               {on fait l'appel recursif}
 	            ForEachPropertyOfTheseTypesDoIterAvecResult(L^.tail,whichTypes,DoWhat,result);
@@ -721,7 +721,7 @@ begin
             then
               begin
                 AlerteSimple('boucle infinie dans ForEachPropertyOfTheseTypesDoIterAvecPropEtResult !! Prévenez Stéphane !');
-                exit(ForEachPropertyOfTheseTypesDoIterAvecPropEtResult);
+                exit;
               end
             else               {on fait l'appel recursif}
               ForEachPropertyOfTheseTypesDoIterAvecPropEtResult(L^.tail,whichTypes,DoWhat,prop,result);
@@ -749,7 +749,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachPropertyInListDoIter !! Prévenez Stéphane !');
-              exit(ForEachPropertyInListDoIter);
+              exit;
             end
           else               {on fait l'appel recursif}
               ForEachPropertyInListDoIter(L^.tail,DoWhat);
@@ -776,7 +776,7 @@ begin
 	          then
 	            begin
 	              AlerteSimple('boucle infinie dans ForEachPropertyInListDoIterAvecResult !! Prévenez Stéphane !');
-	              exit(ForEachPropertyInListDoIterAvecResult);
+	              exit;
 	            end
 	          else               {on fait l'appel recursif}
 	            ForEachPropertyInListDoIterAvecResult(L^.tail,DoWhat,result);
@@ -805,7 +805,7 @@ begin
             then
               begin
                 AlerteSimple('boucle infinie dans ForEachPropertyInListDoIterAvecPropEtResult !! Prévenez Stéphane !');
-                exit(ForEachPropertyInListDoIterAvecPropEtResult);
+                exit;
               end
             else               {on fait l'appel recursif}
               ForEachPropertyInListDoIterAvecPropEtResult(L^.tail,DoWhat,prop,result);
@@ -877,7 +877,7 @@ begin
             if L1^.tail = L1 then
               begin
                 AlerteSimple('boucle infinie dans ReverseOfPropertyList !! Prévenez Stéphane');
-                exit(ReverseOfPropertyList);
+                exit;
               end;
             L1 := L1^.tail;
           end;
@@ -903,7 +903,7 @@ begin
   if (L = NIL) then
     begin
       ExtractPropertiesOfTypes := NIL;
-      exit(ExtractPropertiesOfTypes);
+      exit;
     end;
 
   with infosExtraction do
@@ -947,7 +947,7 @@ begin
   if (L = NIL) then
     begin
       ExistsInPropertyList := false;
-      exit(ExistsInPropertyList);
+      exit;
     end;
 
 
@@ -960,7 +960,7 @@ begin
       if aux = NIL
         then ExistsInPropertyList := false
         else ExistsInPropertyList := (GetPackedSquareSetOfProperty(prop).private <= GetPackedSquareSetOfProperty(aux^).private);
-      exit(ExistsInPropertyList);
+      exit;
     end;
 
   { cas normal }
@@ -978,7 +978,7 @@ begin
   if (L = NIL) then
     begin
       NbOccurencesInPropertyList := 0;
-      exit(NbOccurencesInPropertyList);
+      exit;
     end;
 
   { gestion speciale pour les proprietes dont l'argument est un ensemble de cases :
@@ -990,7 +990,7 @@ begin
       if (aux <> NIL) and (GetPackedSquareSetOfProperty(prop).private <= GetPackedSquareSetOfProperty(aux^).private)
         then NbOccurencesInPropertyList := 1
         else NbOccurencesInPropertyList := 0;
-      exit(NbOccurencesInPropertyList);
+      exit;
     end;
 
   { cas normal }
@@ -1061,7 +1061,7 @@ begin
             begin
               AlerteSimple('Boucle infinie dans GetTypesOfPropertyOnthatSquare !! Prévenez Stéphane');
               GetTypesOfPropertyOnthatSquare := result;
-              exit(GetTypesOfPropertyOnthatSquare);
+              exit;
             end;
           L := L^.tail;
         end;
@@ -1080,7 +1080,7 @@ begin
   if (L = NIL) or (whichSquare < 11) or (whichSquare > 88) then
     begin
       ExtractListOfPropertyOnThatSquare := NIL;
-      exit(ExtractListOfPropertyOnThatSquare);
+      exit;
     end;
 
   result := NewPropertyList;
@@ -1116,7 +1116,7 @@ begin
         begin
           AlerteSimple('Boucle infinie dans ExtractListOfPropertyOnThatSquare !! Prévenez Stéphane');
           ExtractListOfPropertyOnThatSquare := result;
-          exit(ExtractListOfPropertyOnThatSquare);
+          exit;
         end;
       L := L^.tail;
     end;
@@ -1132,7 +1132,7 @@ begin
       if (L^.head.genre in whichTypes) then
         begin
           SelectFirstPropertyOfTypes := @L^.head;
-          exit(SelectFirstPropertyOfTypes);
+          exit;
         end;
       L := L^.tail;
     end;
@@ -1147,12 +1147,12 @@ begin
       if choice(L^.head,result) then
         begin
           SelectInPropertList := @L^.head;
-          exit(SelectInPropertList);
+          exit;
         end;
       if (L^.tail <> NIL) and (L^.tail <> L) then
         begin
           SelectInPropertList := SelectInPropertList(L^.tail,choice,result);
-          exit(SelectInPropertList);
+          exit;
         end;
     end;
    SelectInPropertList := NIL;
@@ -1167,7 +1167,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in OverWritePropertyToList, prévenez Stéphane !');
-      exit(OverWritePropertyToList);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) then
@@ -1214,7 +1214,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans DeletePropertyFromListIter !! Prévenez Stéphane !');
-              exit(DeletePropertyFromListIter);
+              exit;
             end
           else         {appel recursif dans la queue}
             DeletePropertyFromListIter(prop,L^.tail);
@@ -1227,11 +1227,11 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in DeletePropertyFromList, prévenez Stéphane !');
-      exit(DeletePropertyFromList);
+      exit;
     end;
 
   CompacterPropertyList(L);
-  if (L = NIL) then exit(DeletePropertyFromList);
+  if (L = NIL) then exit;
 
   { gestion speciale pour les proprietes dont l'argument est un ensemble de cases :
     s'il existe deja une propriete du meme type dans la liste, on ne detruit pas
@@ -1253,7 +1253,7 @@ begin
                 CompacterPropertyList(L);
               end;
         end;
-      exit(DeletePropertyFromList);
+      exit;
     end;
 
   { cas normal }
@@ -1282,7 +1282,7 @@ var aux : PropertyPtr;
     i : SInt16;
 begin
   if (whichTypes <= []) then  {ensemble vide ?}
-    exit(DeletePropertiesOfTheseTypesInList);
+    exit;
 
   if (L <> NIL) then
      for i := 0 to nbMaxOfPropertyTypes do
@@ -1307,7 +1307,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in ReplaceHeadOfPropertyList, prévenez Stéphane !');
-      exit(ReplaceHeadOfPropertyList);
+      exit;
     end;
 
   CompacterPropertyList(L);
@@ -1332,11 +1332,11 @@ begin
   WritelnDansRapport('');}
 
 
-  if (L2 = NIL) then exit(ConcatPropertyLists);
+  if (L2 = NIL) then exit;
   if (L1 = NIL) then
     begin
       L1 := DuplicatePropertyList(L2);
-      exit(ConcatPropertyLists);
+      exit;
     end;
 
   typesDansL1 := CalculatePropertyTypes(L1);
@@ -1379,7 +1379,7 @@ begin
     if (ListAux2^.tail = ListAux2) then
       begin
         AlerteSimple('boucle infinie sur ListeAux2 dans ConcatPropertyLists !! Prévenez Stéphane');
-        exit(ConcatPropertyLists);
+        exit;
       end;
     ListAux2 := ListAux2^.tail;
   until (ListAux2 = NIL);

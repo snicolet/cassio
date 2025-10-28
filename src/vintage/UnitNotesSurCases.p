@@ -565,8 +565,8 @@ begin
 
 
   case origine of
-    kNotesDeCassio : if ((GetEffacageProprietesOfCurrentNode and kNotesCassioSurLesCases) = 0) then exit(EffaceNoteSurCases);
-    kNotesDeZebra  : if ((GetEffacageProprietesOfCurrentNode and kNotesZebraSurLesCases) = 0)  then exit(EffaceNoteSurCases);
+    kNotesDeCassio : if ((GetEffacageProprietesOfCurrentNode and kNotesCassioSurLesCases) = 0) then exit;
+    kNotesDeZebra  : if ((GetEffacageProprietesOfCurrentNode and kNotesZebraSurLesCases) = 0)  then exit;
   end; {case}
 
 
@@ -689,7 +689,7 @@ var oldPort : grafPtr;
     {err : OSErr;}
 begin
 
-  if (s = '') then exit(EcritNoteSurCase);
+  if (s = '') then exit;
 
   with gNotesSurCases[origine] do
     begin
@@ -914,12 +914,12 @@ begin
   case origine of
     kNotesDeCassio :
       begin
-        if ((GetAffichageProprietesOfCurrentNode and kNotesCassioSurLesCases) = 0) then exit(DessineNoteSurCases);
+        if ((GetAffichageProprietesOfCurrentNode and kNotesCassioSurLesCases) = 0) then exit;
       end;
     kNotesDeZebra  :
       begin
-        if ((GetAffichageProprietesOfCurrentNode and kNotesZebraSurLesCases) = 0)  then exit(DessineNoteSurCases);
-        if not(ZebraBookACetteOption(kAfficherNotesZebraSurOthellier+kAfficherCouleursZebraSurOthellier)) then exit(DessineNoteSurCases);
+        if ((GetAffichageProprietesOfCurrentNode and kNotesZebraSurLesCases) = 0)  then exit;
+        if not(ZebraBookACetteOption(kAfficherNotesZebraSurOthellier+kAfficherCouleursZebraSurOthellier)) then exit;
       end;
   end; {case}
 

@@ -876,7 +876,7 @@ procedure LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe;
 begin
 
   if (nbPartiesActives <= 0) then
-    exit(LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe);
+    exit;
 
   if not(CassioEstEnTrainDeReflechir) or CassioEstEnTrainDeCalculerPourLeZoo
     then LanceInterruption(kHumainVeutCalculerScoresTheoriquesWThor,'LancerInterruptionPourCalculerScoresTheoriquesPartiesDansListe')

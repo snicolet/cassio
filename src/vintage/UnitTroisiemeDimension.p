@@ -1022,7 +1022,7 @@ begin
                 begin
                   caseCliquee := othellier[x];
                   PtInPlateau3D := true;
-                  exit(PtInPlateau3D);
+                  exit;
                 end;
             end;
       end;

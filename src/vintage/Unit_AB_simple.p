@@ -163,7 +163,7 @@ var platEssai : plateauOthello;
           begin
             {AB_simple := t-fenetre_beta;}  {Fail soft ProbCut}
             AB_simple := beta;
-            exit(AB_simple);
+            exit;
           end;
       end;
     if alpha > -20000 then
@@ -174,7 +174,7 @@ var platEssai : plateauOthello;
           begin
             {AB_simple := t+fenetre_alpha;}  {Fail soft ProbCut}
             AB_simple := alpha;
-            exit(AB_simple);
+            exit;
           end;
       end;
   end;
@@ -305,7 +305,7 @@ begin
            if (maxCourant >= beta) then
              begin
                AB_simple := maxCourant;
-               exit(AB_simple)
+               exit
              end;
            platEssai := pl;
            jouablEssai := joua;
@@ -377,7 +377,7 @@ begin
                           then
                             begin
                               ProofNumber := somme;
-                              exit(ProofNumber);
+                              exit;
                             end;
 
                         platProof := plat;
@@ -414,7 +414,7 @@ begin
                         if aux <= alpha_PN then
                           begin
                             ProofNumber := aux;
-                            exit(ProofNumber);
+                            exit;
                           end;
 
                         platProof := plat;
@@ -507,7 +507,7 @@ begin
                           then
                             begin
                               ProofNumberMilieu := somme;
-                              exit(ProofNumberMilieu);
+                              exit;
                             end;
 
                         platProof := pl;
@@ -547,7 +547,7 @@ begin
                         if aux <= alpha_PN then
                           begin
                             ProofNumberMilieu := aux;
-                            exit(ProofNumberMilieu);
+                            exit;
                           end;
 
                         platProof := pl;
@@ -706,7 +706,7 @@ begin
            if (maxCourant >= beta) then
                  begin
                    AB_tore := maxCourant;
-                   exit(AB_tore)
+                   exit
                  end;
            platEssai := pl;
            nbBlcEssai := nBla;

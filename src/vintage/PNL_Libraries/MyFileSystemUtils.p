@@ -1172,7 +1172,7 @@ begin
     begin
       // probably already a UNIX path...
       MacPathToUNIXPath := oldMacPath;
-      exit(MacPathToUNIXPath);
+      exit;
     end;
 
 
@@ -1320,7 +1320,7 @@ begin
   if (theCFString = NIL) then
     begin
       CFStringToString255 := '';
-      exit(CFStringToString255);
+      exit;
     end;
 
   if CFStringGetPascalString(theCFString, @s, 256, kCFStringEncodingMacRoman)
@@ -1339,7 +1339,7 @@ begin
   if (oldEncoding = newEncoding) then
     begin
       ConvertEncodingOfString := s;
-      exit(ConvertEncodingOfString);
+      exit;
     end;
 
   theCFString := CFStringCreateWithPascalString(NIL, StringToStr255(s), oldEncoding);
@@ -1348,7 +1348,7 @@ begin
     begin
       CFRelease(CFTypeRef(theCFString));
       ConvertEncodingOfString := s;
-      exit(ConvertEncodingOfString);
+      exit;
     end;
 
   if CFStringGetPascalString(theCFString, @buffer, 256, newEncoding)
@@ -1591,7 +1591,7 @@ begin
       GetFunctionPointerFromBundle := NIL;
       WritelnNumDansRapport(whichBundle + ' : bundle not found,   err = ',err);
       {Writeln(whichBundle + ' : bundle not found,  err = ',err);}
-      exit(GetFunctionPointerFromBundle);
+      exit;
     end;
 
   (*  get the function pointer in the framework *)
@@ -1605,7 +1605,7 @@ begin
       GetFunctionPointerFromBundle := NIL;
       WritelnDansRapport(functionName + ' : function not found in bundle '+ whichBundle);
       {Writeln(functionName + ' : function not found in bundle '+ whichBundle);}
-      exit(GetFunctionPointerFromBundle);
+      exit;
     end;
 
 	GetFunctionPointerFromBundle := result;
@@ -1629,7 +1629,7 @@ begin
       GetFunctionPointerFromPrivateBundle := NIL;
       WritelnNumDansRapport(whichBundle + ' : bundle not found,   err = ',err);
       {Writeln(whichBundle + ' : bundle not found,  err = ',err);}
-      exit(GetFunctionPointerFromPrivateBundle);
+      exit;
     end;
 
   (*  get the function pointer in the framework *)
@@ -1643,7 +1643,7 @@ begin
       GetFunctionPointerFromPrivateBundle := NIL;
       WritelnDansRapport(functionName + ' : function not found in bundle '+ whichBundle);
       {Writeln(functionName + ' : function not found in bundle '+ whichBundle);}
-      exit(GetFunctionPointerFromPrivateBundle);
+      exit;
     end;
 
 	GetFunctionPointerFromPrivateBundle := result;
@@ -1738,7 +1738,7 @@ begin
     begin
       applicationFolderPath             := gApplicationSupportCached.thePath;
       GetPathOfApplicationSupportFolder := gApplicationSupportCached.theErr;
-      exit(GetPathOfApplicationSupportFolder);
+      exit;
     end;
 
   applicationFolderPath := '';

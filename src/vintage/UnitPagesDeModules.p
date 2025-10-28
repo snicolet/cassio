@@ -121,7 +121,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de Module est trop petit dans PeutCreerNouvellePageModule!! Prévenez Stéphane');
       PeutCreerNouvellePageModule := false;
-      exit(PeutCreerNouvellePageModule);
+      exit;
     end;
 
 
@@ -132,7 +132,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de Module dans PeutCreerNouvellePageModule!! Prévenez Stéphane');
       PeutCreerNouvellePageModule := false;
-      exit(PeutCreerNouvellePageModule);
+      exit;
     end;
 
   with ReserveDeModule[dernierePageModuleCree]^ do
@@ -142,7 +142,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de Module dans PeutCreerNouvellePageModule !! Prévenez Stéphane');
           PeutCreerNouvellePageModule := false;
-          exit(PeutCreerNouvellePageModule);
+          exit;
         end;
 
 
@@ -173,7 +173,7 @@ begin
       TrouvePlaceDansPageDeModule := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeModule);
+      exit;
     end;
 
   {
@@ -208,7 +208,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageModuleRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeModule);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -225,7 +225,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageModuleRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeModule);
+                  exit;
                 end;
     end;
 
@@ -257,7 +257,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserModuleDansSaPage(NIL)');}
-      exit(LocaliserModuleDansSaPage);
+      exit;
     end;
 
 
@@ -277,7 +277,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(theModule)-baseAddress) div sizeof(ModuleRec);
 	              pageModuleRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserModuleDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -295,7 +295,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(theModule)-baseAddress) div sizeof(ModuleRec);
 	              pageModuleRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserModuleDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

@@ -26674,7 +26674,7 @@ begin
           if (noteCourante >= beta) then
             begin
               DeuxCasesVidesBitboardFast := noteCourante;
-              exit(DeuxCasesVidesBitboardFast);
+              exit;
             end;
           alpha := noteCourante;
         end;
@@ -26710,15 +26710,15 @@ fin:
            if (diffPions > 0) then
              begin
                DeuxCasesVidesBitboardFast := diffPions + 2;
-               exit(DeuxCasesVidesBitboardFast);
+               exit;
              end;
            if (diffPions < 0) then
              begin
                DeuxCasesVidesBitboardFast := diffPions - 2;
-               exit(DeuxCasesVidesBitboardFast);
+               exit;
              end;
            DeuxCasesVidesBitboardFast := 0;
-           exit(DeuxCasesVidesBitboardFast);
+           exit;
          end
        else
          begin

@@ -219,7 +219,7 @@ begin
       fic := MakeFichierAbstraitFichier('myUnknowBlackPlayers.jap',0);
 
       if not(FichierAbstraitEstCorrect(fic))
-        then exit(EcritListeJoueursNoirsNonJaponaisPourTraduction);
+        then exit;
 
       err := ViderFichierAbstrait(fic);
 
@@ -254,7 +254,7 @@ begin
       fic := MakeFichierAbstraitFichier('myUnknowWhitePlayers.jap',0);
 
       if not(FichierAbstraitEstCorrect(fic))
-        then exit(EcritListeJoueursBlancsNonJaponaisPourTraduction);
+        then exit;
 
       err := ViderFichierAbstrait(fic);
 

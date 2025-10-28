@@ -238,7 +238,7 @@ begin
   if mfit = 0 then
     begin
       WritelnDansRapport('Pas de parametre à Ajuster dans LinearFit !');
-      exit(linearFit);
+      exit;
     end;
 
   WritelnNumDansRapport('mfit = ',mfit);
@@ -305,7 +305,7 @@ begin
   if not(SystemeOK) then
     begin
       WritelnDansRapport('Impossible de résoudre les equations normales dans LinearFit !!');
-      exit(LinearFit);
+      exit;
     end;
 
   WritelnDansRapport('covar = ');

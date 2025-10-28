@@ -496,7 +496,7 @@ begin
   if not(windowListeOpen) or (nbPartiesActives <= 0) then
     begin
       SauvegardeListeCouranteEnTHOR_PAR := NoErr;
-      exit(SauvegardeListeCouranteEnTHOR_PAR);
+      exit;
     end;
 
   if windowListeOpen and (nbPartiesActives > 500) then
@@ -504,7 +504,7 @@ begin
       prompt := ReadStringFromRessource(TextesNouveauFormatID,7); {'Impossible de sauvegarder plus de 500 parties dans un fichier THOR.PAR !'}
       AlerteSimple(prompt);
       SauvegardeListeCouranteEnTHOR_PAR := NoErr;
-      exit(SauvegardeListeCouranteEnTHOR_PAR);
+      exit;
     end;
 
   BeginDialog;
@@ -517,7 +517,7 @@ begin
   if not(reply.good) then  {annulation}
     begin
       SauvegardeListeCouranteEnTHOR_PAR := NoErr;
-      exit(SauvegardeListeCouranteEnTHOR_PAR);
+      exit;
     end;
 
   codeErreur := FichierTexteExisteFSp(mySpec,fichierTHOR_PAR);
@@ -531,7 +531,7 @@ begin
   if codeErreur <> 0 then
     begin
       SauvegardeListeCouranteEnTHOR_PAR := codeErreur;
-      exit(SauvegardeListeCouranteEnTHOR_PAR);
+      exit;
     end;
 
   SauvegardeListeCouranteEnTHOR_PAR := -1;

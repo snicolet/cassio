@@ -419,7 +419,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       CreateFFSpecAndResolveAlias := NoErr;
-      exit(CreateFFSpecAndResolveAlias);
+      exit;
     end;
 
   with fic do
@@ -470,7 +470,7 @@ begin
     begin
       DisplayMessageInConsole('WARNING ! (nom = '''') dans FichierTexteExiste');
       FichierTexteExiste := -1;
-      exit(FichierTexteExiste);
+      exit;
     end;
 
   {TraceLog('FichierTexteExiste : nom =' + nom);}
@@ -480,7 +480,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       FichierTexteExiste := NoErr;
-      exit(FichierTexteExiste);
+      exit;
     end;
 
   if avecDebuggageUnitFichiersTexte then
@@ -553,7 +553,7 @@ begin
     begin
       DisplayMessageInConsole('WARNING ! (GetNameOfFSSpec(mySpec) = '''') dans FichierTexteExisteFSp');
       FichierTexteExisteFSp := -1;
-      exit(FichierTexteExisteFSp);
+      exit;
     end;
 
 
@@ -562,7 +562,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       FichierTexteExisteFSp := NoErr;
-      exit(FichierTexteExisteFSp);
+      exit;
     end;
 
   if avecDebuggageUnitFichiersTexte then
@@ -636,7 +636,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       CreeFichierTexte := NoErr;
-      exit(CreeFichierTexte);
+      exit;
     end;
 
   if avecDebuggageUnitFichiersTexte then
@@ -681,7 +681,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       CreeFichierTexteFSp := NoErr;
-      exit(CreeFichierTexteFSp);
+      exit;
     end;
 
   if avecDebuggageUnitFichiersTexte then
@@ -727,7 +727,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       OuvreFichierTexte := NoErr;
-      exit(OuvreFichierTexte);
+      exit;
     end;
 
   if fic.dataForkOuvertCorrectement <> -1 then
@@ -740,7 +740,7 @@ begin
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OuvreFichierTexte := -1;
-      exit(OuvreFichierTexte);
+      exit;
     end;
 
   err := -1;
@@ -809,7 +809,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       FermeFichierTexte := NoErr;
-      exit(FermeFichierTexte);
+      exit;
     end;
 
   if fic.dataForkOuvertCorrectement <> 0 then
@@ -825,7 +825,7 @@ begin
 
       (* ForconsLePlantageDeCassio; *)
 
-      exit(FermeFichierTexte);
+      exit;
     end;
 
   err := FSClose(fic.refNum);
@@ -874,7 +874,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       DetruitFichierTexte := NoErr;
-      exit(DetruitFichierTexte);
+      exit;
     end;
 
 
@@ -936,7 +936,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       FichierTexteEstOuvert := true;
-      exit(FichierTexteEstOuvert);
+      exit;
     end;
 
   FichierTexteEstOuvert := (fic.dataForkOuvertCorrectement = 0);
@@ -955,7 +955,7 @@ begin
     begin
       taille := GetTailleRapport;
       GetTailleFichierTexte := NoErr;
-      exit(GetTailleFichierTexte);
+      exit;
     end;
 
   err := GetEOF(fic.refNum,taille);
@@ -982,7 +982,7 @@ begin
       SetDebutSelectionRapport(position);
       SetFinSelectionRapport(position);
       SetPositionTeteLectureFichierTexte := NoErr;
-      exit(SetPositionTeteLectureFichierTexte);
+      exit;
     end;
 
   err := SetFPos(fic.refNum,fsFromStart,position);
@@ -1016,7 +1016,7 @@ begin
     begin
       FinRapport;
       SetPositionTeteLectureFinFichierTexte := NoErr;
-      exit(SetPositionTeteLectureFinFichierTexte);
+      exit;
     end;
 
   err := SetFPos(fic.refNum,fsFromLEOF,0);
@@ -1041,7 +1041,7 @@ begin
     begin
       position := GetDebutSelectionRapport;
       GetPositionTeteLectureFichierTexte := NoErr;
-      exit(GetPositionTeteLectureFichierTexte);
+      exit;
     end;
 
   err := GetFPos(fic.refNum,position);
@@ -1066,7 +1066,7 @@ begin
     begin
       position := GetDebutSelectionRapport;
       EOFFichierTexte := (position >= GetTailleRapport);
-      exit(EOFFichierTexte);
+      exit;
     end;
 
 
@@ -1083,7 +1083,7 @@ begin
       DisplayMessageWithNumInConsole('   ==> Err = ',erreurES);
     end;
 
-  if erreurES <> NoErr then exit(EOFFichierTexte);
+  if erreurES <> NoErr then exit;
   erreurES := GetEOF(fic.refNum,logicalEOF);
 
   if avecDebuggageUnitFichiersTexte then
@@ -1095,7 +1095,7 @@ begin
       DisplayMessageWithNumInConsole('   ==> Err = ',erreurES);
     end;
 
-  if erreurES <> NoErr then exit(EOFFichierTexte);
+  if erreurES <> NoErr then exit;
   EOFFichierTexte := ( position >= logicalEOF);
 end;
 
@@ -1106,7 +1106,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       SetEOFFichierTexte := NoErr;
-      exit(SetEOFFichierTexte);
+      exit;
     end;
 
   err := SetEOF(fic.refNum,posEOF);
@@ -1131,7 +1131,7 @@ begin
     begin
       DetruireTexteDansRapport(0,2000000000,true);  {2000000000 was MawLongint}
       VideFichierTexte := NoErr;
-      exit(VideFichierTexte);
+      exit;
     end;
 
   err := SetEOFFichierTexte(fic,0);
@@ -1157,7 +1157,7 @@ begin
     begin
       InsereTexteDansRapport(buffPtr,count);
       WriteBufferDansFichierTexte := NoErr;
-      exit(WriteBufferDansFichierTexte);
+      exit;
     end;
 
   err := FSWrite(fic.refNum,count,buffPtr);
@@ -1184,7 +1184,7 @@ begin
     begin
       WriteHugeStringDansRapport(s);
       WriteHugeStringDansFichierTexte := NoErr;
-      exit(WriteHugeStringDansFichierTexte);
+      exit;
     end;
 
   err := -1;
@@ -1209,7 +1209,7 @@ begin
     begin
       WritelnHugeStringDansRapport(s);
       WritelnHugeStringDansFichierTexte := NoErr;
-      exit(WritelnHugeStringDansFichierTexte);
+      exit;
     end;
 
   err := WriteHugeStringDansFichierTexte(fic, s);
@@ -1230,7 +1230,7 @@ begin
     begin
       WriteDansRapport(s);
       WriteDansFichierTexte := NoErr;
-      exit(WriteDansFichierTexte);
+      exit;
     end;
 
   err := MyFSWriteString(fic.refNum,s);
@@ -1255,7 +1255,7 @@ begin
     begin
       WritelnDansRapport(s);
       WritelnDansFichierTexte := NoErr;
-      exit(WritelnDansFichierTexte);
+      exit;
     end;
 
   err := MyFSWriteString(fic.refnum,s + chr(13));
@@ -1279,7 +1279,7 @@ begin
   err := -1;
 
   if (count <= 0) then
-    exit(WriteFichierAbstraitDansFichierTexte);
+    exit;
 
   buffer := AllocateMemoryPtr(count + 100);
   if (buffer <> NIL) then
@@ -1312,7 +1312,7 @@ begin
     begin
       InsereTexteDansRapport(@value,4);
       WriteLongintDansFichierTexte := NoErr;
-      exit(WriteLongintDansFichierTexte);
+      exit;
     end;
 
   count := 4;
@@ -1336,7 +1336,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       ReadBufferDansFichierTexte := -1;
-      exit(ReadBufferDansFichierTexte);
+      exit;
     end;
 
   err := FSRead(fic.refNum,count,buffPtr);
@@ -1362,7 +1362,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       ReadDansFichierTexte := -1;
-      exit(ReadDansFichierTexte);
+      exit;
     end;
 
   len := nbOctets;
@@ -1518,7 +1518,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       ReadlnDansFichierTexte := -1;
-      exit(ReadlnDansFichierTexte);
+      exit;
     end;
 
   err := GetPositionTeteLectureFichierTexte(fic,positionTeteDeLecture);
@@ -1597,7 +1597,7 @@ begin
             then
               begin
                 ReadlnLongStringDansFichierTexte := err;
-                exit(ReadlnLongStringDansFichierTexte);
+                exit;
               end
             else
               begin
@@ -1669,7 +1669,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       ReadlnBufferDansFichierTexte := -1;
-      exit(ReadlnBufferDansFichierTexte);
+      exit;
     end;
 
   err := GetPositionTeteLectureFichierTexte(fic,positionTeteDeLecture);
@@ -1722,7 +1722,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       ReadLongintDansFichierTexte := -1;
-      exit(ReadLongintDansFichierTexte);
+      exit;
     end;
 
   count := 4;
@@ -1747,10 +1747,10 @@ var theFic : FichierTEXT;
     ligne : LongString;
 begin
   erreurES := FichierTexteExisteFSp(whichFile,theFic);
-  if (erreurES <> NoErr) then exit(ForEachLineInFileDo);
+  if (erreurES <> NoErr) then exit;
 
   erreurES := OuvreFichierTexte(theFic);
-  if (erreurES <> NoErr) then exit(ForEachLineInFileDo);
+  if (erreurES <> NoErr) then exit;
 
   with ligne do
     begin
@@ -1865,7 +1865,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       OuvreRessourceForkFichierTEXT := -1;
-      exit(OuvreRessourceForkFichierTEXT);
+      exit;
     end;
 
   if fic.rsrcForkOuvertCorrectement <> -1 then
@@ -1878,7 +1878,7 @@ begin
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OuvreRessourceForkFichierTEXT := -1;
-      exit(OuvreRessourceForkFichierTEXT);
+      exit;
     end;
 
   nroRef := FSpOpenResFile(fic.TheFSSpec,4);
@@ -1910,7 +1910,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       UseRessourceForkFichierTEXT := -1;
-      exit(UseRessourceForkFichierTEXT);
+      exit;
     end;
 
   if fic.rsrcForkOuvertCorrectement <> 0 then
@@ -1923,7 +1923,7 @@ begin
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       UseRessourceForkFichierTEXT := -1;
-      exit(UseRessourceForkFichierTEXT);
+      exit;
     end;
 
   UseResFile(fic.ressourceForkRefNum);
@@ -1940,7 +1940,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       FermeRessourceForkFichierTEXT := -1;
-      exit(FermeRessourceForkFichierTEXT);
+      exit;
     end;
 
   if fic.rsrcForkOuvertCorrectement <> 0 then
@@ -1952,7 +1952,7 @@ begin
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       FermeRessourceForkFichierTEXT := -1;
-      exit(FermeRessourceForkFichierTEXT);
+      exit;
     end;
 
   if fic.ressourceForkRefNum <> 0
@@ -2102,7 +2102,7 @@ var InfosFinder : FInfo;
     err : OSErr;
 begin
   if FichierTexteEstLeRapport(fic)
-    then exit(SetFileCreatorFichierTexte);
+    then exit;
 
   err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
   InfosFinder.fdCreator := QuelType;
@@ -2115,7 +2115,7 @@ var InfosFinder : FInfo;
     err : OSErr;
 begin
   if FichierTexteEstLeRapport(fic)
-    then exit(SetFileTypeFichierTexte);
+    then exit;
 
   err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
   InfosFinder.fdType := QuelType;
@@ -2132,7 +2132,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       GetFileCreatorFichierTexte := NoErr;
-      exit(GetFileCreatorFichierTexte);
+      exit;
     end;
 
   err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
@@ -2148,7 +2148,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       GetFileTypeFichierTexte := NoErr;
-      exit(GetFileTypeFichierTexte);
+      exit;
     end;
 
   GetFileTypeFichierTexte := MY_FOUR_CHAR_CODE('????');
@@ -2168,7 +2168,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       GetCreationDateFichierTexte := -1;
-      exit(GetCreationDateFichierTexte);
+      exit;
     end;
 
   err := FSpMakeFSRef(fic.theFSSpec,fileRef);
@@ -2191,7 +2191,7 @@ begin {$UNUSED theDate}
   if FichierTexteEstLeRapport(fic) then
     begin
       SetCreationDateFichierTexte := -1;
-      exit(SetCreationDateFichierTexte);
+      exit;
     end;
 
   err := -1;
@@ -2208,7 +2208,7 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       GetModificationDateFichierTexte := -1;
-      exit(GetModificationDateFichierTexte);
+      exit;
     end;
 
   err := FSpMakeFSRef(fic.theFSSpec,fileRef);
@@ -2229,7 +2229,7 @@ begin {$UNUSED theDate}
   if FichierTexteEstLeRapport(fic) then
     begin
       SetModificationDateFichierTexte := -1;
-      exit(SetModificationDateFichierTexte);
+      exit;
     end;
 
   err := -1;

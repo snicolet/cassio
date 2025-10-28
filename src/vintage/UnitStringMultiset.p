@@ -183,7 +183,7 @@ begin
           inc(occurence^[index]);
           inc(totalOccurences);
           AddStringToMultiset := true;
-          exit(AddStringToMultiset);
+          exit;
         end;
 
       if isMemberOfStheSet and (occurence^[index] = kDeletedFromStringMultiSet) then
@@ -191,7 +191,7 @@ begin
           occurence^[index] := 1;
           inc(totalOccurences);
           AddStringToMultiset := true;
-          exit(AddStringToMultiset);
+          exit;
         end;
 
       if not(isMemberOfStheSet) then
@@ -214,7 +214,7 @@ begin
               AddStringToSet(theString, index, theSet);
 
               AddStringToMultiset := true;
-              exit(AddStringToMultiset);
+              exit;
             end;
         end;
 

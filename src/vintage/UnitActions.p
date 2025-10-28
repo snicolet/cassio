@@ -280,7 +280,7 @@ begin
     begin
       AlerteFormatNonReconnuFichierPartie(nomFichier);
       ComprendPositionEtPartieDuFichier := -1;  {on rapporte l'erreur}
-      exit(ComprendPositionEtPartieDuFichier);
+      exit;
     end;
 
   BeginUseZebraNodes('ComprendPositionEtPartieDuFichier');
@@ -561,12 +561,12 @@ begin
   OuvrirFichierPartieFormatCassio := -1;
 
   if not(PeutArreterAnalyseRetrograde) then
-    exit(OuvrirFichierPartieFormatCassio);
+    exit;
 
   if nomFichier = '' then
     begin
       AlerteSimpleFichierTexte(nomFichier,0);
-      exit(OuvrirFichierPartieFormatCassio);
+      exit;
     end;
 
   {SetDebuggageUnitFichiersTexte(false);}
@@ -576,7 +576,7 @@ begin
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
       OuvrirFichierPartieFormatCassio := erreurES;
-      exit(OuvrirFichierPartieFormatCassio);
+      exit;
     end;
 
 
@@ -598,7 +598,7 @@ begin
       begin
         erreurES := PathCompletToLongName(nomFichier,nomLongDuFichier);
         AlerteFormatNonReconnuFichierPartie(nomLongDuFichier);
-        exit(OuvrirFichierPartieFormatCassio);
+        exit;
       end;
 
   erreurES := OuvreFichierTexte(ficPartie);
@@ -606,7 +606,7 @@ begin
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
       OuvrirFichierPartieFormatCassio := erreurES;
-      exit(OuvrirFichierPartieFormatCassio);
+      exit;
     end;
 
   erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
@@ -637,7 +637,7 @@ begin
     begin
       OuvrirFichierPartieFormatCassio := erreurES;
       erreurES := FermeFichierTexte(ficPartie);
-      exit(OuvrirFichierPartieFormatCassio);
+      exit;
     end
   else
     if not(EOFFichierTexte(ficPartie,erreurES)) then
@@ -716,7 +716,7 @@ begin
   if nomFichier = '' then
     begin
       AlerteSimpleFichierTexte(nomFichier,0);
-      exit(OuvrirFichierFormatEPS);
+      exit;
     end;
 
   erreurES := FichierTexteExiste(nomFichier,0,ficPartie);
@@ -724,7 +724,7 @@ begin
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
-      exit(OuvrirFichierFormatEPS);
+      exit;
     end;
 
   erreurES := OuvreFichierTexte(ficPartie);
@@ -732,7 +732,7 @@ begin
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
-      exit(OuvrirFichierFormatEPS);
+      exit;
     end;
 
 
@@ -780,7 +780,7 @@ begin
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
-      exit(OuvrirFichierFormatEPS);
+      exit;
     end;
 
 
@@ -809,12 +809,12 @@ begin
      begin
        // tout est déjà là, hein
        OuvrirFichierFormatEPS := NoErr;
-       exit(OuvrirFichierFormatEPS);
+       exit;
      end;
 
 
   if not(PeutArreterAnalyseRetrograde) then
-    exit(OuvrirFichierFormatEPS);
+    exit;
 
   (*
   WritelnDansRapport('infos fichier : ');
@@ -865,12 +865,12 @@ begin  {$UNUSED mergeWithCurrentTree}
   OuvrirFichierPartieFormatGGF := -1;
 
   if not(PeutArreterAnalyseRetrograde) then
-    exit(OuvrirFichierPartieFormatGGF);
+    exit;
 
   if nomFichier = '' then
     begin
       AlerteSimpleFichierTexte(nomFichier,0);
-      exit(OuvrirFichierPartieFormatGGF);
+      exit;
     end;
 
   {SetDebuggageUnitFichiersTexte(false);}
@@ -880,7 +880,7 @@ begin  {$UNUSED mergeWithCurrentTree}
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
       OuvrirFichierPartieFormatGGF := erreurES;
-      exit(OuvrirFichierPartieFormatGGF);
+      exit;
     end;
 
   if TypeDeFichierEstConnu(ficPartie,infos,erreurES) and
@@ -895,7 +895,7 @@ begin  {$UNUSED mergeWithCurrentTree}
               SysBeep(0);
               WritelnNumDansRapport('ERREUR !!! Dans OuvrirFichierPartieFormatGGF, erreurES = ',erreurES);
               OuvrirFichierPartieFormatGGF := erreurES;
-              exit(OuvrirFichierPartieFormatGGF);
+              exit;
             end
           else
             begin
@@ -907,7 +907,7 @@ begin  {$UNUSED mergeWithCurrentTree}
     else
       begin
         AlerteFormatNonReconnuFichierPartie(nomFichier);
-        exit(OuvrirFichierPartieFormatGGF);
+        exit;
       end;
 
   SetNomFichierDansTitreDiagrammeFFORUM(nomLongDuFichier);
@@ -936,12 +936,12 @@ begin
   OuvrirFichierPartieFormatSmartGameBoard := -1;
 
   if not(PeutArreterAnalyseRetrograde) then
-    exit(OuvrirFichierPartieFormatSmartGameBoard);
+    exit;
 
   if (nomCompletFichier = '') then
     begin
       AlerteSimpleFichierTexte(nomCompletFichier,0);
-      exit(OuvrirFichierPartieFormatSmartGameBoard);
+      exit;
     end;
 
   erreurES := FichierTexteExiste(nomCompletFichier,0,ficPartie);
@@ -949,7 +949,7 @@ begin
     begin
       OuvrirFichierPartieFormatSmartGameBoard := erreurES;
       AlerteSimpleFichierTexte(nomCompletFichier, erreurES);
-      exit(OuvrirFichierPartieFormatSmartGameBoard);
+      exit;
     end;
 
   nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
@@ -1257,7 +1257,7 @@ begin
   if erreurOuvertureEnFormatTEXT = NoErr then
     begin
       OuvrirPartieDansFichierPressePapier := NoErr;
-      exit(OuvrirPartieDansFichierPressePapier);
+      exit;
     end;
 
   myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('EPS '));
@@ -1326,7 +1326,7 @@ begin
        begin
          AlerteSimpleFichierTexte(GetNameOfSFReply(reply),ErreurES);
          erreurES := FermeFichierTexte(ficPartie);
-         exit(DoEnregistrerSousFormatCassio);
+         exit;
        end;
 
      erreurES := WritelnDansFichierTexte(ficPartie,posEtpartie);
@@ -1718,7 +1718,7 @@ end;
 
 procedure DoClose(whichWindow : WindowPtr; avecAnimationZoom : boolean);
 begin  {$unused avecAnimationZoom}
-  if whichWindow = NIL then exit(DoClose);
+  if whichWindow = NIL then exit;
   if whichWindow = wPlateauPtr
     then CloseProgramWindow
     else
@@ -1883,7 +1883,7 @@ procedure DoDemandeJouerSolitaires;
 procedure DoDemandeChangerHumCtreHum;
 var tempoHumCtreHum : boolean;
   begin
-    if CassioEstEnModeTournoi then exit(DoDemandeChangerHumCtreHum);
+    if CassioEstEnModeTournoi then exit;
 
     if HumCtreHum
       then
@@ -1911,7 +1911,7 @@ var tempoHumCtreHum : boolean;
 
 procedure DoDemandeChangerHumCtreHumEtCouleur;
 begin
-  if CassioEstEnModeTournoi then exit(DoDemandeChangerHumCtreHumEtCouleur);
+  if CassioEstEnModeTournoi then exit;
 
   if (AQuiDeJouer = -couleurMacintosh) and HumCtreHum
     then
@@ -2580,7 +2580,7 @@ begin
      begin
        (* on a déjà un coup doré affiché => on l'efface *)
        DoChangeAfficheSuggestionDeCassio;
-       exit(DoTraiteClicEscargot);
+       exit;
      end;
 
 
@@ -3731,7 +3731,7 @@ begin
 		            Sysbeep(0);
 		            WritelnDansRapport('ERREUR : partie illégale dans la base !');
 		            WritelnDansRapport(s255);
-		            exit(OuvrePartieSelectionnee);
+		            exit;
 		          end;
 
 		        if not(PositionsSontEgales(JeuCourant,CalculePositionApres(nbreCoup,s60))) and
@@ -3742,7 +3742,7 @@ begin
 	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	              InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-			          exit(OuvrePartieSelectionnee);
+			          exit;
 			        end;
 
 
@@ -4313,7 +4313,7 @@ begin
   if (menuID = Picture2DID) then
     begin
       DoPicture2DMenuCommands(menuID,cmdNumber,peutRepeter,false);
-      exit(DoCouleurMenuCommands);
+      exit;
     end;
 
   if (menuID = CouleurID) then
@@ -4352,7 +4352,7 @@ begin
   if (menuID = CouleurID) then
     begin
       DoCouleurMenuCommands(menuID,cmdNumber,peutRepeter);
-      exit(DoPicture2DMenuCommands);
+      exit;
     end;
 
   if (menuID = Picture2DID) then
@@ -4431,7 +4431,7 @@ begin
             WritelnNumDansRapport(' error <> NoErr (1) dans DoPicture3DMenuCommands, error =',error);
             KillPovOffScreenWorld;
             RepasserEn2D(false);
-            exit(DoPicture3DMenuCommands);
+            exit;
           end;
 
         error := CreatePovOffScreenWorld(gCouleurOthellier);
@@ -4443,7 +4443,7 @@ begin
               else WritelnNumDansRapport(' error <> NoErr (2) dans DoPicture3DMenuCommands, error =',error);
             KillPovOffScreenWorld;
             RepasserEn2D(false);
-            exit(DoPicture3DMenuCommands);
+            exit;
           end;
 
         SetEnVieille3D(false);
@@ -4538,7 +4538,7 @@ var nomComplet : String255;
             {EcritMenuReouvrirDansRapport('avant CleanReouvrirMenu : ');}
             CleanReouvrirMenu;
             {EcritMenuReouvrirDansRapport('apres CleanReouvrirMenu : ');}
-            exit(DoReouvrirMenuCommands);
+            exit;
           end;
         AjoutePartieDansMenuReouvrir(nomComplet);
         erreurES := OuvrirFichierParNomComplet(nomComplet, AllKnownFormats, true);
@@ -4574,7 +4574,7 @@ procedure DoMenuCommand(command : SInt32; var peutRepeter : boolean);
     whichItem := LoWord(command);
 
 
-    if (whichMenu = 0) then exit(DoMenuCommand);
+    if (whichMenu = 0) then exit;
     { no real menu command, so we don't want to confirm inline input text }
 
 
@@ -4623,7 +4623,7 @@ procedure DoMenuCommand(command : SInt32; var peutRepeter : boolean);
                                begin
                                  if ChoisirCouleurOthellierAvecPicker(gCouleurSupplementaire)
                                    then InvalidateAllOffScreenPICTs
-                                   else exit(DoMenuCommand);
+                                   else exit;
                                end;
                              RestaurerDerniereDimensionFenetre2D;
                              DoCouleurMenuCommands(CouleurID,whichItem,peutRepeter);
@@ -4705,7 +4705,7 @@ begin
               begin
                 ValiderSousCritereRuban;
                 if AutorisationDeChargerLaBaseSansInterventionUtilisateur then DoChargerLaBaseSansInterventionUtilisateur;
-                exit(DoKeyPress);
+                exit;
               end;
             if (ord(ch) = TabulationKey) or (ord(ch) = EntreeKey) then
               begin
@@ -4766,7 +4766,7 @@ begin
 
                   if BoiteDeSousCritereActive <= 0 then BoiteDeSousCritereActive := DistributionRubanBox;
                   PasseListeEnModeEntree(BoiteDeSousCritereActive);
-                  exit(DoKeyPress);
+                  exit;
               end;
             if (ord(ch) = EscapeKey)
               then AnnulerSousCriteresRuban
@@ -4809,7 +4809,7 @@ begin
             if EnModeEntreeTranscript then
               begin
                 if TraiteKeyboardEventDansTranscript(ch,peutRepeter)
-                  then exit(DoKeyPress);
+                  then exit;
               end;
 
 		        if enRetour
@@ -4866,7 +4866,7 @@ begin
 				                end; {case}
 		                    PasseListeEnModeEntree(BoiteDeSousCritereActive);
 		                    CriteresRubanModifies := false;
-		                    exit(DoKeyPress);
+		                    exit;
 		                  end;
 
 		              if (ord(ch) = TabulationKey) and windowListeOpen then
@@ -5309,7 +5309,7 @@ begin
       if TraiteKeyboardEventDansTranscript(ch,peutRepeter) then
         begin
           ToucheCommandeInterceptee := true;
-          exit(ToucheCommandeInterceptee);
+          exit;
         end;
     end;
 
@@ -5448,7 +5448,7 @@ begin
 	              TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlUpButtonPart);
 	              ToucheCommandeInterceptee := true;
 	              peutRepeter := true;
-		            exit(ToucheCommandeInterceptee);
+		            exit;
 		          end;
 		        if windowListeOpen then
 		          begin
@@ -5459,7 +5459,7 @@ begin
 	              end; {case}
 		            ToucheCommandeInterceptee := true;
 		            peutRepeter := true;
-		            exit(ToucheCommandeInterceptee);
+		            exit;
 		          end;
 	        end;
 	      if (ch = chr(FlecheDroiteKey)) then           {pomme-fleche a droite}
@@ -5469,7 +5469,7 @@ begin
 	              TrackScrollingRapport(GetHorizontalScrollerOfRapport,kControlDownButtonPart);
 	              ToucheCommandeInterceptee := true;
 	              peutRepeter := true;
-		            exit(ToucheCommandeInterceptee);
+		            exit;
 		          end;
 		        if windowListeOpen then
 		          begin
@@ -5479,7 +5479,7 @@ begin
 	                kAvecAffichageSeulementDesJoueurs : ;
 	              end; {case}
 		            ToucheCommandeInterceptee := true;
-		            exit(ToucheCommandeInterceptee);
+		            exit;
 		          end;
 	        end;
 	      if (ch = chr(FlecheHautKey)) then             {pomme-fleche en haut}
@@ -5490,13 +5490,13 @@ begin
 		              TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlUpButtonPart);
 		              ToucheCommandeInterceptee := true;
 		              peutRepeter := true;
-			            exit(ToucheCommandeInterceptee);
+			            exit;
 			          end
 			        else
 			          begin
 	                MontePartieHilitee(command);
 	                ToucheCommandeInterceptee := true;
-	                exit(ToucheCommandeInterceptee);
+	                exit;
 	              end;
 	        end;
 	      if (ch = chr(FlecheBasKey)) then              {pomme-fleche en bas}
@@ -5507,13 +5507,13 @@ begin
 		              TrackScrollingRapport(GetVerticalScrollerOfRapport,kControlDownButtonPart);
 		              ToucheCommandeInterceptee := true;
 		              peutRepeter := true;
-			            exit(ToucheCommandeInterceptee);
+			            exit;
 			          end
 			        else
 		            begin
 	                DescendPartieHilitee(command);
 	                ToucheCommandeInterceptee := true;
-	                exit(ToucheCommandeInterceptee);
+	                exit;
 	              end;
 	        end;
 	      if (ch = chr(RetourArriereKey)) then   {pomme-delete}
@@ -5522,19 +5522,19 @@ begin
               begin
                 DoChangeAfficheSuggestionDeCassio;
                 peutRepeter := false;
-  		          exit(ToucheCommandeInterceptee);
+  		          exit;
               end;
 	          if option and gDoitJouerMeilleureReponse then
               begin
                 DoChangeAfficheSuggestionDeCassio;
                 peutRepeter := false;
-  		          exit(ToucheCommandeInterceptee);
+  		          exit;
               end;
             if option and not(afficheSuggestionDeCassio) and CassioEstEnModeAnalyse then
         		  begin
         		    DoChangeAfficheSuggestionDeCassio;
         		    peutRepeter := false;
-  		          exit(ToucheCommandeInterceptee);
+  		          exit;
         		  end;
 	          if windowListeOpen
 	            and ((OrdreFenetre(wListePtr) < OrdreFenetre(GetRapportWindow)) or (LongueurSelectionRapport <= 0))
@@ -5544,7 +5544,7 @@ begin
   	            begin
   	              DoSupprimerPartiesDansListe;
   	              peutRepeter := false;
-  		            exit(ToucheCommandeInterceptee);
+  		            exit;
   	            end
 	            else
 	              if EffacerDansRapport then DoNothing;
@@ -5591,7 +5591,7 @@ begin
    begin
      ChangePierresDeltaApresCommandClicSurOthellier(mouseLoc,JeuCourant,true);
      AfficheProprietesOfCurrentNode(true,othellierToutEntier,'TraiteSourisStandard {1}');
-     exit(traiteSourisStandard);
+     exit;
    end;
 
 
@@ -5723,7 +5723,7 @@ begin
     begin
       if not(windowPlateauOpen) then DoNouvellePartie;
       IconiserCassio;
-      exit(traiteSourisRetour);
+      exit;
     end;
    }
 
@@ -6268,7 +6268,7 @@ begin  {TraiteSourisCommentaires}
 	              if PeutArreterAnalyseRetrograde then
 	                CyclerDansOrbiteInterversionDuGraphe(gameNodeAvantInterversion,not(shift));
 	              SetPort(oldPort);
-	              exit(TraiteSourisCommentaires);
+	              exit;
 	            end;
 
 	          if PtInRect(mouseLoc,backMoveRect) and (not(enModeEditionArrivee) or doitResterEnModeEdition) then
@@ -6291,7 +6291,7 @@ begin  {TraiteSourisCommentaires}
 										    end;
 					        end;
 	              SetPort(oldPort);
-	              exit(TraiteSourisCommentaires);
+	              exit;
 	            end;
 
 
@@ -6322,7 +6322,7 @@ begin  {TraiteSourisCommentaires}
 		                end;
 
 	              SetPort(oldPort);
-	              exit(TraiteSourisCommentaires);
+	              exit;
 	            end;
 
 	          if (mouseLoc.v > EditionRect.top-12) and (mouseLoc.v < EditionRect.top) then
@@ -6337,7 +6337,7 @@ begin  {TraiteSourisCommentaires}
 	              DrawContents(GetArbreDeJeuWindow);
 
 	              SetPort(oldPort);
-	              exit(TraiteSourisCommentaires);
+	              exit;
 	            end;
 	        end;
 
@@ -7115,7 +7115,7 @@ begin
      if command or not(windowOpen) or not((evt.what = keyDown) or (evt.what = autoKey)) then
 	     begin
 	       EvenementTraiteParFenetreArbreDeJeu := false;
-	       exit(EvenementTraiteParFenetreArbreDeJeu);
+	       exit;
 	     end;
 
 	   { Si c'est un evenement clavier, on regarde si la fenetre est au premier plan}
@@ -7128,7 +7128,7 @@ begin
 	              (IsAnArrowKey(ch) and not(option) and windowListeOpen) then
 	             begin
 	               EvenementTraiteParFenetreArbreDeJeu := false;
-	               exit(EvenementTraiteParFenetreArbreDeJeu);
+	               exit;
 	             end;
 	         end
 	       else
@@ -7136,7 +7136,7 @@ begin
 	           if (GetArbreDeJeuWindow <> FrontWindowSaufPalette) then
 	             begin
 	               EvenementTraiteParFenetreArbreDeJeu := false;
-	               exit(EvenementTraiteParFenetreArbreDeJeu);
+	               exit;
 	             end;
 	         end;
 
@@ -7165,7 +7165,7 @@ begin
 	              AfficheCommentairePartieDansRapport;
 	         end;
 
-		     exit(EvenementTraiteParFenetreArbreDeJeu);
+		     exit;
 	     end;
 
 		 if not(enModeEdition) and (GetArbreDeJeuWindow = FrontWindowSaufPalette) and
@@ -7175,7 +7175,7 @@ begin
 		     ActiverModeEditionFenetreArbreDeJeu;
 		     DecrementeNiveauCurseurTeteDeMort;
 		     EvenementTraiteParFenetreArbreDeJeu := true;
-	       exit(EvenementTraiteParFenetreArbreDeJeu);
+	       exit;
 		   end;
 
 		 if (myText <> NIL) and enModeEdition then
@@ -7185,11 +7185,11 @@ begin
 		     SetCommentairesCurrentNodeFromFenetreArbreDeJeu;
 		     EvenementTraiteParFenetreArbreDeJeu := true;
 		     DecrementeNiveauCurseurTeteDeMort;
-		     exit(EvenementTraiteParFenetreArbreDeJeu);
+		     exit;
 		   end;
 
 		 EvenementTraiteParFenetreArbreDeJeu := false;
-	   exit(EvenementTraiteParFenetreArbreDeJeu);
+	   exit;
 	end;
 end;
 

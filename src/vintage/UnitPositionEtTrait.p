@@ -304,12 +304,12 @@ begin
   SamePositionEtTrait := false;
 
   for i := 0 to 99 do
-    if (pos1.position[i] <> pos2.position[i]) then exit(SamePositionEtTrait);
+    if (pos1.position[i] <> pos2.position[i]) then exit;
 
   ForceLazyCalculationOfTrait(pos1);
   ForceLazyCalculationOfTrait(pos2);
 
-  if (pos1.lazyTrait.leTrait <> pos2.lazyTrait.leTrait) then exit(SamePositionEtTrait);
+  if (pos1.lazyTrait.leTrait <> pos2.lazyTrait.leTrait) then exit;
 
   SamePositionEtTrait := true;
 end;
@@ -410,7 +410,7 @@ begin
   if (whichMove < 11) or (whichMove > 88) or (positionEtTrait.lazyTrait.leTrait = pionVide) then
     begin
       UpdatePositionEtTrait := false;
-      exit(UpdatePositionEtTrait);
+      exit;
     end;
 
   with positionEtTrait do
@@ -419,7 +419,7 @@ begin
       if (position[whichMove] <> pionVide) then
         begin
           UpdatePositionEtTrait := false;
-          exit(UpdatePositionEtTrait);
+          exit;
         end;
 
       if (lazyTrait.leTrait <> kTraitNonEncoreCalcule)
@@ -444,7 +444,7 @@ begin
       if not(coupLegal) then
         begin
           UpdatePositionEtTrait := false;
-          exit(UpdatePositionEtTrait);
+          exit;
         end;
 
       {on met a jour le trait, en suspendant le glacon de l'evaluation lazy }
@@ -466,7 +466,7 @@ begin
   if (whichMove < 11) or (whichMove > 88) then
     begin
       RetournePionsPositionEtTrait := 0;
-      exit(RetournePionsPositionEtTrait);
+      exit;
     end;
 
   ForceLazyCalculationOfTrait(positionEtTrait);
@@ -480,7 +480,7 @@ begin
       if not(coupLegal) then
         begin
           RetournePionsPositionEtTrait := 0;
-          exit(RetournePionsPositionEtTrait);
+          exit;
         end;
 
       with positionEtTrait do
@@ -552,7 +552,7 @@ begin
   if LENGTH_OF_STRING(s1) <> 64 then
     begin
       WritelnDansRapport('parse error 1 in ParsePositionEtTrait !');
-      exit(ParsePositionEtTrait);
+      exit;
     end;
 
   positionEtTrait := PositionEtTraitInitiauxStandard;
@@ -567,7 +567,7 @@ begin
           otherwise
             begin
               WritelnDansRapport('parse error 2 in ParsePositionEtTrait !');
-              exit(ParsePositionEtTrait);
+              exit;
             end;
         end;
         inc(aux);
@@ -576,7 +576,7 @@ begin
   if LENGTH_OF_STRING(s2) <= 0 then
     begin
       WritelnDansRapport('parse error 3 in ParsePositionEtTrait !');
-      exit(ParsePositionEtTrait);
+      exit;
     end;
 
   positionEtTrait.lazyTrait.leTrait := kTraitNonEncoreCalcule;
@@ -587,7 +587,7 @@ begin
     otherwise
       begin
         WritelnDansRapport('parse error 4 in ParsePositionEtTrait !');
-        exit(ParsePositionEtTrait);
+        exit;
       end;
   end;
 
@@ -608,7 +608,7 @@ var i,t, ligne, colonne : SInt32;
   procedure ParseError(message : String255);
   begin
     WritelnDansRapport(message);
-    exit(ParserFENEnPositionEtTrait);
+    exit;
   end;
 
 
@@ -877,19 +877,19 @@ begin
   if (LENGTH_OF_STRING(s255) < numeroCoup*2) then
     begin
       typeErreur := kPartieTropCourte;
-      exit(PositionEtTraitAfterMoveNumber);
+      exit;
     end;
   if not(EstUnePartieOthello(s255,true)) then
     begin
       typeErreur := kPartieIllegale;
-      exit(PositionEtTraitAfterMoveNumber);
+      exit;
     end;
   result := PositionEtTraitInitiauxStandard;
   for i := 1 to numeroCoup do
     if not(UpdatePositionEtTrait(result,GET_NTH_MOVE_OF_PACKED_GAME(game,i,'PositionEtTraitAfterMoveNumber'))) then
       begin
         typeErreur := kPartieIllegale;
-        exit(PositionEtTraitAfterMoveNumber);
+        exit;
       end;
   PositionEtTraitAfterMoveNumber := result;
 end;

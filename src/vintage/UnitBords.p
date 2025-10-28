@@ -133,7 +133,7 @@ begin
         WriteNumDansRapport('  bord = ',bord);
         WritelnDansRapport('');
         {AlerteSimple('too bad : bord non trouve dans AjouteDansStatistiquesDeBordsABLocal !! ');}
-        exit(AjouteDansStatistiquesDeBordsABLocal);
+        exit;
       end;
 
   CoderBord(bord,chaine,nbtrous,nbamis,nbennemis);
@@ -149,7 +149,7 @@ begin
     then
       begin
         inc(liste[i].Frequence);
-        exit(AjouteDansStatistiquesDeBordsABLocal);
+        exit;
       end;
 
     WriteDansRapport('erreur dans AjouteDansStatistiquesDeBordsABLocal !!   code_inverse = '+chaine);
@@ -401,7 +401,7 @@ var ticks : SInt32;
    procedure MetDansTableTurbulente_alpha_beta_local(bord,caseCritiqueDansBord : SInt32);
     begin
       if (caseCritiqueDansBord < 1) or (caseCritiqueDansBord > 8)
-        then exit(MetDansTableTurbulente_alpha_beta_local);
+        then exit;
 
 
 	    if longueur_liste_assoc_turbulence_bord_AB_local >= kTaille_Max_Index_Bords_AB_Local
@@ -493,7 +493,7 @@ begin  {Initialise_turbulence_bords}
    // Si on a déjà initialisé la turbulence, avec les memes parametres, ce n'est pas la peine de la refaire
 
    if TurbulenceBordsEstInitialisee and (priseDeBordsSontTurbulentes = gTurbulenceDesPrisesDansTurbulenceDesBords)
-     then exit(Initialise_turbulence_bords);
+     then exit;
 
 
    // Il faut y aller

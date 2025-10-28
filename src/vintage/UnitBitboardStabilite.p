@@ -336,7 +336,7 @@ begin
       if nbPionsStablesSuffisant <= 1 then
         begin
           CalculePionsStablesBitboard := 1;
-          exit(CalculePionsStablesBitboard);
+          exit;
         end;
 
       constante1 := $55555555;
@@ -371,7 +371,7 @@ begin
 			      if n1 >= nbPionsStablesSuffisant then
 			        begin
 			          CalculePionsStablesBitboard := n1;
-                exit(CalculePionsStablesBitboard);
+                exit;
 			        end;
 
 			      if (stables_hi <> 0) then
@@ -393,7 +393,7 @@ begin
 					      if (n1+n2) >= nbPionsStablesSuffisant then
 					        begin
 					          CalculePionsStablesBitboard := n1 + n2;
-		                exit(CalculePionsStablesBitboard);
+		                exit;
 					        end;
 					    end;
 
@@ -417,7 +417,7 @@ begin
 			      if n2 >= nbPionsStablesSuffisant then
 			        begin
 			          CalculePionsStablesBitboard := n2;
-                exit(CalculePionsStablesBitboard);
+                exit;
 			        end;
 			    end;
 

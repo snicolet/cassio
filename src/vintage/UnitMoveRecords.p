@@ -361,7 +361,7 @@ begin
     if liste1[i].x <> liste2[i].x then
       begin
         LesCoupsSontDansLeMemeOrdre := false;
-        exit(LesCoupsSontDansLeMemeOrdre);
+        exit;
       end;
 
   LesCoupsSontDansLeMemeOrdre := true;

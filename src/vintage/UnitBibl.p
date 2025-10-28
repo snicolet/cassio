@@ -165,7 +165,7 @@ begin
                              nbreCoupOuv := longueurEssayee;
                              for i := indexCommentaireDeb to indexCommentaireFin do
                                nomOuverture := Concat(nomOuverture,commentaireBiblEnTas^^[i]);
-                             exit(PeutTrouverNomEnBibl);
+                             exit;
                            end;
                        end;
                    end;
@@ -218,7 +218,7 @@ begin
                     begin
                       EnBibliotheque := true;
                       index := i;
-                      exit(EnBibliotheque);
+                      exit;
                     end;
                end;
             end;
@@ -295,7 +295,7 @@ begin
   if positionFeerique then
     begin
       PeutChoisirEnBibl := false;
-      exit(PeutChoisirEnBibl);
+      exit;
     end;
 
   test := false;
@@ -652,13 +652,13 @@ begin
       {if (uneligne[1] <> 'F') or (uneligne[2] <> '5') then
         begin
           TransformeLigneBibliothequeFormatEtrange(uneLigne);
-          exit(AjouterLigneDeBibliotheque);
+          exit;
         end;}
 
 
       {if ExisteDejaEnBibliotheque(uneligne) then
         begin
-          exit(AjouterLigneDeBibliotheque);
+          exit;
         end;}
 
 

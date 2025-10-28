@@ -785,7 +785,7 @@ function CaseVideIsolee(CaseVide : SInt32) : boolean;
       if plat[CaseVide+DirVoisine[t]] = pionVide then
         begin
           CaseVideIsolee := false;
-          exit(CaseVideIsolee);
+          exit;
         end;
     CaseVideIsolee := true;
   end;
@@ -858,7 +858,7 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
     with contexteMakeEndgameSearch do
       begin
           if not(doitEcrireReflexFinale) then
-            exit(AfficheResultatsPremiersNiveaux);
+            exit;
 
           if analyseRetrograde.enCours and passeDeRechercheAuMoinsValeurCible and (ReflexData^.class[1].note < valeurCible)
             then noteDeTeteVisible := valeurCible-1
@@ -898,7 +898,7 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
 
           if (nro = 1) and (total > 1) and (indexDuCoupDansFntrReflexion > 1) and
             not(FenetreLargePourRechercheScoreExact) then
-            exit(afficheResultatsPremiersNiveaux);
+            exit;
 
           {
           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
@@ -939,18 +939,18 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
              passeDeRechercheAuMoinsValeurCible and
              (maxPourBestDef = valeurCible) and
              (nro <= 1) and (total > 1) then
-             exit(afficheResultatsPremiersNiveaux);
+             exit;
 
           {
           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
              not(passeDeRechercheAuMoinsValeurCible) and
              (indexDuCoupDansFntrReflexion <= 1) then
-             exit(afficheResultatsPremiersNiveaux);
+             exit;
           }
 
           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
              (couleurAffichee = CoulDefense) then
-             exit(afficheResultatsPremiersNiveaux);
+             exit;
 
 
           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
@@ -958,14 +958,14 @@ procedure AfficheResultatsPremiersNiveaux(couleurAffichee : SInt32; nro,total : 
              (maxPourBestDef > noteDeTeteVisible+2) and
              (indexDuCoupDansFntrReflexion > 1) and
              (nro = 1) and (total > 1)
-            then exit(afficheResultatsPremiersNiveaux);
+            then exit;
 
 
           if (ESprof <= gNbreVides_entreeCoupGagnant-2) and
              (pourcentageDejaVisible > 0) and
              (pourcentageDejaVisible < 100) and
              (pourcentageAffiche < pourcentageDejaVisible) then
-             exit(afficheResultatsPremiersNiveaux);
+             exit;
 
           if not(bestMode) and not(bestmodeArriveeDansCoupGagnant)
             then
@@ -1079,7 +1079,7 @@ begin
         PeutFaireCoupureHeuristique := false;
         noteCoupure := 0;
 
-        if not(utiliseMilieuDePartie) then exit(PeutFaireCoupureHeuristique);
+        if not(utiliseMilieuDePartie) then exit;
 
         {tickArrivee := TickCount;}
         nbEvaluationRecursives := 0;
@@ -1230,7 +1230,7 @@ begin
                   noteCoupure := estimationPessimiste;
 
                   PeutFaireCoupureHeuristique := true;
-                  exit(PeutFaireCoupureHeuristique);
+                  exit;
 
       	          {WritelnNumDansRapport('coup. beta heuristique, delta = ',deltaFinaleCourant);
       				    WritelnPositionEtTraitDansRapport(plat,couleur);
@@ -1293,7 +1293,7 @@ begin
                   noteCoupure := estimationOptimiste;
 
                   PeutFaireCoupureHeuristique := true;
-                  exit(PeutFaireCoupureHeuristique);
+                  exit;
 
       	          {WritelnNumDansRapport('coup. alpha heuristique, delta = ',deltaFinaleCourant);
       				    WritelnPositionEtTraitDansRapport(plat,couleur);
@@ -1343,13 +1343,13 @@ begin
              begin
                {WritelnNumDansRapport('coupure beta ! car beta = ',beta);}
                {PeutFaireCoupureRapide := true;
-               exit(PeutFaireCoupureRapide);}
+               exit;}
 
 
                ABFin := t;
                if ESprof >= ProfUtilisationHash then
                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
-               exit(ABFin);
+               exit;
 
              end;
 
@@ -1359,7 +1359,7 @@ begin
                newAlpha := t-1;
                newBeta := Max(beta,newalpha+1);
                PeutFaireCoupureRapide := true;
-               exit(PeutFaireCoupureRapide);
+               exit;
              end;
 
            if t <= alpha then
@@ -1379,12 +1379,12 @@ begin
              begin
                {WritelnNumDansRapport('coupure alpha ! car alpha = ',alpha);}
                {PeutFaireCoupureRapide := true;
-               exit(PeutFaireCoupureRapide);}
+               exit;}
 
                ABFin := t;
                if ESprof >= ProfUtilisationHash then
                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
-               exit(ABFin);
+               exit;
 
 
              end;
@@ -1395,7 +1395,7 @@ begin
                newBeta := t+1;
                newAlpha := Min(alpha,newBeta-1);
                PeutFaireCoupureRapide := true;
-               exit(PeutFaireCoupureRapide);
+               exit;
              end;
 
            if t >= beta then
@@ -1416,7 +1416,7 @@ begin
                newAlpha := t-1;
                newBeta := t+1;
                PeutFaireCoupureRapide := true;
-               exit(PeutFaireCoupureRapide);
+               exit;
              end;
            WritelnNumDansRapport('should never happen (not((t > alpha) and (t < beta))) ! ',0);
            SysBeep(0);
@@ -1668,7 +1668,7 @@ begin
                   gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                   NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique+NbNoeudsHeuristiquesDansCeFilsTranspo;
 
-                  exit(PeutTrouverTranspositionUnCoupPlusLoin);
+                  exit;
 
 
 
@@ -1988,21 +1988,21 @@ begin
     begin
 
       if (interruptionReflexion <> pasdinterruption) then
-        exit(EssayerDeParalliserCesFilsSurLeZoo);
+        exit;
 
       if not(CassioUtiliseLeZoo) then
-        exit(EssayerDeParalliserCesFilsSurLeZoo);
+        exit;
 
       if (ESProf < profMinUtilisationZoo ) or
          (ESProf > profMaxUtilisationZoo ) then
         begin
           WritelnNumDansRapport('ASSERT : prof out of bounds dans EssayerDeParalliserCesFilsSurLeZoo,  ESprof = ',ESprof);
-          exit(EssayerDeParalliserCesFilsSurLeZoo);
+          exit;
         end;
 
       // pas de parallelisme recursif sur le zoo pour le moment
       if CassioEstEnTrainDeCalculerPourLeZoo then
-        exit(EssayerDeParalliserCesFilsSurLeZoo);
+        exit;
 
 
       with InfosMilieuDePartie do
@@ -2013,7 +2013,7 @@ begin
          then indexMu := IndexOfThisDelta(kDeltaFinaleInfini)
          else indexMu := IndexOfThisDelta(deltaFinaleCourant);
 
-      if indexMu <= 2 then exit(EssayerDeParalliserCesFilsSurLeZoo);
+      if indexMu <= 2 then exit;
 
       (*
       WritelnDansRapport('');
@@ -2100,7 +2100,7 @@ begin
 
       if (ESProf < profMinUtilisationZoo ) or
          (ESProf > profMaxUtilisationZoo ) then
-        exit(InitialiserInfosPourLeZooDeCeNoeud);
+        exit;
 
 
       { on copie les coups de cette prof }
@@ -2159,7 +2159,7 @@ begin
          (ESProf > profMaxUtilisationZoo ) or
          (interruptionReflexion <> pasdinterruption) or
          DoitStopperExecutionDeCeSousArbre(ESProf) then
-        exit(VerifierLeParallelismeDuZoo);
+        exit;
 
       if (noteCourante >= -64) and (noteCourante < beta) then
          begin
@@ -2351,7 +2351,7 @@ begin  {ABFin}
      if (interruptionReflexion <> pasdinterruption) then
        begin
          ABFin := -noteMax;
-         exit(ABFin);
+         exit;
        end;
 
 
@@ -2366,7 +2366,7 @@ begin  {ABFin}
      if DoitStopperExecutionDeCeSousArbre(ESProf) then
        begin
          ABFin := -noteMax;
-         exit(ABFin);
+         exit;
        end;
 
 
@@ -2690,7 +2690,7 @@ begin  {ABFin}
                                          gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                                          IndiceHashTableExacteRetour := clefHashExacte+1024*nroTableExacte;
                                          NbNoeudsCoupesParHeuristique := NbNoeudsCoupesParHeuristique + nbArbresCoupesValMin[k] + nbArbresCoupesValMax[k];
-                                         exit(ABFin);
+                                         exit;
                                        end;
 
 
@@ -2725,7 +2725,7 @@ begin  {ABFin}
   						                          end;
                                      {$ENDC}
 
-                                     exit(ABFin);
+                                     exit;
                                    end;
                              end
                            else
@@ -2760,7 +2760,7 @@ begin  {ABFin}
   						                          end;
   						                      {$ENDC}
 
-                                   exit(ABFin);
+                                   exit;
                                  end;
 
                                if (valMax[k] <= alpha) then
@@ -2792,7 +2792,7 @@ begin  {ABFin}
   						                          end;
   						                     {$ENDC}
 
-                                   exit(ABFin);
+                                   exit;
                                  end;
                              end;
                        end;
@@ -2850,7 +2850,7 @@ begin  {ABFin}
                  if PeutFaireCoupureHeuristique(noteCoupure) then
                    begin
                      ABFin := noteCoupure;
-                     exit(ABFin);
+                     exit;
                    end;
 
 
@@ -2887,7 +2887,7 @@ begin  {ABFin}
                    then HashTable^^[clefHashConseil] := meiDef;
                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                end;
-             exit(ABFin);
+             exit;
            end;
        end;
      if (beta <= -40) and (profMoins1 <= profForceBrute) then
@@ -2907,7 +2907,7 @@ begin  {ABFin}
                    then HashTable^^[clefHashConseil] := meiDef;
                  gClefHashage := BXOR(gClefHashage , (IndiceHash^^[couleur,pere]));
                end;
-             exit(ABFin);
+             exit;
            end;
        end;
 
@@ -2932,7 +2932,7 @@ begin  {ABFin}
            end;
          {$ENDC}
 
-         exit(ABFin);
+         exit;
        end;
 
      if listeFinaleFromScratch
@@ -3008,7 +3008,7 @@ begin  {ABFin}
   			     if PeutTrouverTranspositionUnCoupPlusLoin(alpha,beta,noteCoupure) then
   			       begin  // ETC !
   			         ABFin := noteCoupure;
-  			         exit(ABFin);
+  			         exit;
   			       end;
          end;
 
@@ -3020,7 +3020,7 @@ begin  {ABFin}
        begin
          CleanUpPourQuitterABFin;
          ABFin := -noteMax;
-         exit(ABFin);
+         exit;
        end;
 
 
@@ -3399,7 +3399,7 @@ begin  {ABFin}
       	                            NettoyerInfosDuZooPourCetteProf(ESProf);
       	                            CleanUpPourQuitterABFin;
 
-      	                            exit(ABFin);
+      	                            exit;
       	                          end;
 
       	                     end
@@ -3452,7 +3452,7 @@ begin  {ABFin}
        begin
          CleanUpPourQuitterABFin;
          ABFin := -noteMax;
-         exit(ABFin);
+         exit;
        end;
 
 
@@ -3735,7 +3735,7 @@ begin
           EcritTypeInterruptionDansRapport(interruptionReflexion);
 
           LanceInterruptionSimple('LanceurABFin');
-          exit(LanceurABFin);
+          exit;
         end;
 
       {$IFC USE_DEBUG_STEP_BY_STEP}
@@ -3981,7 +3981,7 @@ begin
                 if (plat[x] = couleur) then
                   begin
                     DoitPasserFin := false;
-                    exit(DoitPasserFin)
+                    exit
                   end;
               end;
           end;
@@ -4045,7 +4045,7 @@ begin
 	     then
 	       begin
 	         DernierCoup := succ(diffPions+nbprise);
-	         exit(DernierCoup);
+	         exit;
 	       end
 	     else
 	       begin
@@ -4096,22 +4096,22 @@ begin
 	        then
 	          begin
 	            DernierCoup := pred(diffPions-nbprise);
-	            exit(DernierCoup);
+	            exit;
 	          end
 	        else
 	          begin
 	            if diffPions > 0 then
 	              begin
 	                DernierCoup := succ(diffPions);  {une case vide au vainqueur}
-	                exit(DernierCoup);
+	                exit;
 	              end;
 	            if diffPions < 0 then
 	              begin
 	                DernierCoup := pred(diffPions);  {une case vide au vainqueur}
-	                exit(DernierCoup);
+	                exit;
 	              end;
 	            DernierCoup := 0;             {nulle}
-	            exit(DernierCoup);
+	            exit;
 	          end;
 	     end
 	  end;
@@ -4197,7 +4197,7 @@ begin
 		                   if (alpha >= beta) then
 		                      begin
 		                        ABFinPetite := maxPourBestDefABFinPetite;
-		                        exit(ABFinPetite);
+		                        exit;
 		                      end;
 		                 end;
 		             end;
@@ -4248,7 +4248,7 @@ if (ESprof >= 3) then
 		                   if (alpha >= beta) then
 		                      begin
 		                        ABFinPetite := maxPourBestDefABFinPetite;
-		                        exit(ABFinPetite);
+		                        exit;
 		                      end;
 		                 end;
 		             end;
@@ -4273,15 +4273,15 @@ if (ESprof >= 3) then
            if diffPions > 0 then
              begin
                ABFinPetite := diffPions + ESprof;
-               exit(ABFinPetite);
+               exit;
              end;
            if diffPions < 0 then
              begin
                ABFinPetite := diffPions - ESprof;
-               exit(ABFinPetite);
+               exit;
              end;
            ABFinPetite := 0;
-           exit(ABFinPetite);
+           exit;
          end
        else
          ABFinPetite := -ABFinPetite(plat,adversaire,ESprof,-beta,-alpha,-diffPions,true);
@@ -4331,7 +4331,7 @@ begin
                   meiDef := iCourant;
                   meilleuresuite[1,1] := meiDef;
                   DernierCoupPourSuite := succ(diffPions+nbprise+nbprise);
-                  exit(DernierCoupPourSuite);
+                  exit;
                 end
               else
                 begin
@@ -4364,7 +4364,7 @@ begin
                         meiDef := iCourant;
                         meilleuresuite[1,1] := meiDef;
                         DernierCoupPourSuite := pred(diffPions-nbprise-nbprise);
-                        exit(DernierCoupPourSuite);
+                        exit;
                       end
                     else
                       begin
@@ -4373,15 +4373,15 @@ begin
                         if diffPions > 0 then
                           begin
                             DernierCoupPourSuite := succ(diffPions);
-                            exit(DernierCoupPourSuite);
+                            exit;
                           end;
                         if diffPions < 0 then
                           begin
                             DernierCoupPourSuite := pred(diffPions);
-                            exit(DernierCoupPourSuite);
+                            exit;
                           end;
                         DernierCoupPourSuite := 0;
-                        exit(DernierCoupPourSuite);
+                        exit;
                       end;
                 end
           end;
@@ -4472,7 +4472,7 @@ begin
     		                    if (alpha >= beta) then
     		                       begin
     		                         ABFinPetitePourSuite := maxPourBestDefABFinPetitePourSuite;
-    		                         exit(ABFinPetitePourSuite);
+    		                         exit;
     		                       end;
     		                  end;
     		              end;
@@ -4496,15 +4496,15 @@ begin
     	            if diffPions > 0 then
     	              begin
     	                ABFinPetitePourSuite := diffPions + ESprof;
-    	                exit(ABFinPetitePourSuite);
+    	                exit;
     	              end;
     	            if diffPions < 0 then
     	              begin
     	                ABFinPetitePourSuite := diffPions - ESprof;
-    	                exit(ABFinPetitePourSuite);
+    	                exit;
     	              end;
     	            ABFinPetitePourSuite := 0;
-    	            exit(ABFinPetitePourSuite);
+    	            exit;
     	          end
     	        else
     	          ABFinPetitePourSuite := -ABFinPetitePourSuite(plat,meiDef,adversaire,ESprof,-beta,-alpha,-diffPions,true);
@@ -4580,7 +4580,7 @@ var platEssai : plateauOthello;
 	      if plat[CaseVide+DirVoisine[t]] = pionVide then
 	        begin
 	          CaseVideIsolee := false;
-	          exit(CaseVideIsolee);
+	          exit;
 	        end;
 	    CaseVideIsolee := true;
 	  end;
@@ -4674,7 +4674,7 @@ var platEssai : plateauOthello;
           begin
             profondeurArretPreordre := tempoProfArret;
             ABPreOrdre := fenetre.alpha;
-            exit(ABPreOrdre);
+            exit;
           end;
 
         profondeurArretPreordre := tempoProfArret;
@@ -4699,7 +4699,7 @@ var platEssai : plateauOthello;
           begin
             profondeurArretPreordre := tempoProfArret;
             ABPreOrdre := fenetre.beta;
-            exit(ABPreOrdre);
+            exit;
           end;
 
         profondeurArretPreordre := tempoProfArret;
@@ -4882,7 +4882,7 @@ begin  {ABPreordre}
                                end;
 
                              ABPreOrdre := MakeSearchResultForSolvedPosition(bornes.valMin[nbreDeltaSuccessifs]);
-                             exit(ABPreOrdre);
+                             exit;
                            end;
                        end
                      else
@@ -5128,7 +5128,7 @@ begin  {ABPreordre}
                                        HashTable^^[clefHashConseil] := meiDef;
                                      gClefHashage := BXOR(gClefHashage, (IndiceHash^^[couleur,pere]));
                                    end;
-                                 exit(ABPreOrdre)
+                                 exit
                                end;
                           end;
                       end;
@@ -5274,7 +5274,7 @@ begin
   if enTournoi then
     begin
       InfosDansRapportSontCensurees := true;
-      exit(InfosDansRapportSontCensurees);
+      exit;
     end;
 
   if (numeroCoup >= (60-kNbCasesVidesPourAnnonceDansRapport)) then
@@ -5479,7 +5479,7 @@ begin  {$UNUSED i}
         suiteComplete := false;
 
         if (premierCoupDeLaSuite < 11) or (premierCoupDeLaSuite > 88) or (profondeur <= 1)
-          then exit(RemplirMeilleureSuiteAvecHashTable);
+          then exit;
 
         {WritelnDansRapport('entrŽe dans RemplirMeilleureSuiteAvecHashTable');
          WritelnDansRapport('tapez une toucheÉ');
@@ -5858,12 +5858,12 @@ begin
          WritelnStringDansRapportSansRepetition('EntrŽe dans GestionMeilleureSuite, XCourant = '+CoupEnStringEnMajuscules(XCourant) + ', valXY = '+IntToStr(valXY),chainesDejaEcrites);
 
         if ValeurDeFinaleInexploitable(valXY) then
-          exit(GestionMeilleureSuite);
+          exit;
 
         if analyseRetrograde.enCours and
            {(analyseRetrograde.genreAnalyseEnCours = ReflRetrogradeParfait) and}
            (XCourant = coupDontLeScoreEstConnu) then
-         exit(GestionMeilleureSuite);
+         exit;
 
         message := pasdemessage;
         if (valXY > 0) and (valeurCible = 0) and (not(bestMode) or passeDeRechercheAuMoinsValeurCible) then message := messageEstGagnant;
@@ -6247,7 +6247,7 @@ begin
                      for k := i downto 2 do myClassement[k] := myClassement[k-1];
                      myClassement[1]      := temp;
                      myClassement[1].note := scoreDuCoupCalculeParOptimalite;
-                     exit(TrierClassementSiMeilleureSuiteAEteCalculeeParOptimalite);
+                     exit;
                    end;
              end;
          end;
@@ -6734,7 +6734,7 @@ begin
   //with variablesMakeEndgameSearch do
     begin
       if variablesMakeEndgameSearch.passeEhancedTranspositionCutOffEstEnCours and EstLaListeDesCoupsDeFenetreReflexion(classement)
-        then exit(SetNoteDansElementClassement);
+        then exit;
 
 
       with classement[index] do
@@ -6965,7 +6965,7 @@ begin
       	                  WritelnNumDansRapport('bestAB = ',bestAB);
       	                  WritelnNumDansRapport('betaAB = ',betaAB);
       	                  WritelnDansRapport('');
-      	                  exit(Dichotomie_first);
+      	                  exit;
       	                end;
 
 
@@ -7036,7 +7036,7 @@ begin
         	                  WritelnNumDansRapport('bestAB = ',bestAB);
         	                  WritelnNumDansRapport('betaAB = ',betaAB);
         	                  WritelnDansRapport('');
-        	                  exit(Dichotomie_first);
+        	                  exit;
         	                end;
 
 
@@ -7085,7 +7085,7 @@ begin
         	                  WritelnNumDansRapport('bestAB = ',bestAB);
         	                  WritelnNumDansRapport('betaAB = ',betaAB);
         	                  WritelnDansRapport('');
-        	                  exit(Dichotomie_first);
+        	                  exit;
         	                end;
 
 
@@ -7135,7 +7135,7 @@ begin
         		                  WritelnNumDansRapport('bestAB = ',bestAB);
         		                  WritelnNumDansRapport('betaAB = ',betaAB);
         		                  WritelnDansRapport('');
-        		                  exit(Dichotomie_first);
+        		                  exit;
         		                end;
 
 
@@ -7381,19 +7381,19 @@ begin
           if infoExactePourCoup1 and infoExactePourCoup2 then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := (bornes1.valMin[nbreDeltaSuccessifs] >= bornes2.valMin[nbreDeltaSuccessifs]);
-              exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
+              exit;
             end;
 
           if infoExactePourCoup1 and not(infoExactePourCoup2) then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := true;
-              exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
+              exit;
             end;
 
           if not(infoExactePourCoup1) and infoExactePourCoup2 then
             begin
               Coup1EstPlusPrecisQueCoup2DansHashTableExacte := false;
-              exit(Coup1EstPlusPrecisQueCoup2DansHashTableExacte);
+              exit;
             end;
 
         end;
@@ -7872,7 +7872,7 @@ begin
     begin
 
       if not(doitEcrireReflexFinale) then
-        exit(GererAffichageClassementDansFenetreReflexion);
+        exit;
 
       if not(passeEhancedTranspositionCutOffEstEnCours) then
         begin
@@ -7921,13 +7921,13 @@ begin
     begin
 
       if not(doitEcrireReflexFinale) then
-        exit(GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche);
+        exit;
 
       if not(RefleSurTempsJoueur) and (GetCouleurOfSquareDansJeuCourant(XCourant) = pionVide) and PionClignotant then
         DessinePionMontreCoupLegal(XCourant);
 
       if passeEhancedTranspositionCutOffEstEnCours
-        then exit(GererAffichageTemporaireDuCoupDansLaFenetreDeReflexionPendantLaRecherche);
+        then exit;
 
       if (indexDuCoupDansFntrReflexion > 1) or (deltaFinaleCourant > deltaSuccessifs[1].valeurDeMu) then
         begin
@@ -8552,7 +8552,7 @@ BEGIN {MinimaxFinale}
     begin
 
       if (interruptionReflexion <> pasdinterruption)
-        then exit(MinimaxFinale);
+        then exit;
 
 
       if debuggage.algoDeFinale then
@@ -8801,7 +8801,7 @@ begin
                           err := CreateAlphaBetaTasks;
                         end;
 
-                     exit(MakeEndgameSearch);
+                     exit;
                    end
                  else
                    begin
@@ -8828,7 +8828,7 @@ begin
     begin
 
       if (interruptionReflexion <> pasdinterruption) then
-        exit(EssaieCalculerFinaleOptimaleParGameTree);
+        exit;
 
       if EndgameTreeEstValide(numeroEndgameTreeActif, variablesMakeEndgameSearch) then
     	  begin
@@ -8864,7 +8864,7 @@ begin
          begin
            SysBeep(0);
            WritelnDansRapport('ERREUR : listeChaineeEstDisponibleArrivee = false dans InitToutPourRechercheDeFinaleEnProfondeur !');
-           exit(InitToutPourRechercheDeFinaleEnProfondeur);
+           exit;
          end;
 
       {if inCommentairesDansRapportFinale and InfosTechniquesDansRapport and (noCoupRecherche < 43) then
@@ -8883,7 +8883,7 @@ begin
          then SetPositionDansFntreReflexion(ReflexData^,MakePositionEtTrait(inPositionPourFinale,inCouleurFinale));
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-       if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+       if (interruptionReflexion <> pasdinterruption) then exit;
 
        CarteJouable(inPositionPourFinale,emplacementsJouablesFinale);
        CarteFrontiere(inPositionPourFinale,frontiereFinale);
@@ -8901,7 +8901,7 @@ begin
        infosPourMuVariant.note := -333;
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-       if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+       if (interruptionReflexion <> pasdinterruption) then exit;
 
        {version de VideToutesLesHashTablesExactes dans laquelle on verifie les interruptions}
        if (MFniv >= 10) and not(analyseRetrograde.enCours and (nbreCoup >= 40)) then
@@ -8909,12 +8909,12 @@ begin
     	     for i := 0 to nbTablesHashExactes-1 do
     			   begin
     			     if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-    			     if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+    			     if (interruptionReflexion <> pasdinterruption) then exit;
 
     			     VideHashTableExacte(HashTableExacte[i]);
 
     			     if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-    			     if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+    			     if (interruptionReflexion <> pasdinterruption) then exit;
 
     			     VideHashTableCoupsLegaux(CoupsLegauxHash[i]);
     			   end;
@@ -8924,12 +8924,12 @@ begin
          end;
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-    	 if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+    	 if (interruptionReflexion <> pasdinterruption) then exit;
 
        VideHashTable(HashTable);
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-    	 if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+    	 if (interruptionReflexion <> pasdinterruption) then exit;
 
     	 AllocateAllBitboardHashTables;
 
@@ -8942,7 +8942,7 @@ begin
        CarteMove(coulPourMeilleurFin,inPositionPourFinale,move,mob);
 
        if (TickCount - dernierTick) >= delaiAvantDoSystemTask then DoSystemTask(AQuiDeJouer);
-       if (interruptionReflexion <> pasdinterruption) then exit(InitToutPourRechercheDeFinaleEnProfondeur);
+       if (interruptionReflexion <> pasdinterruption) then exit;
 
 
 

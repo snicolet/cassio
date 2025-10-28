@@ -67,7 +67,7 @@ begin
   if ((offScreenGWorld = NIL) or (quickDrawErr <> noErr)) then
     begin
       KillTempOffscreenWorld(offScreenGWorld);
-      exit(CreateOffScreenPixMap);
+      exit;
     end;
 
   SetGWorld(offScreenGWorld, NIL);
@@ -77,7 +77,7 @@ begin
     begin
       KillTempOffscreenWorld(offScreenGWorld);
       SetGWorld(oldWindowPortPtr, oldDevice);
-      exit(CreateOffScreenPixMap);
+      exit;
     end;
 
   MyEraseRect(MyGetPortBounds(offScreenGWorld));
@@ -206,7 +206,7 @@ begin
       if (quickDrawErr <>  noErr)
         then CreateTempOffScreenWorld := quickDrawErr
         else CreateTempOffScreenWorld := -1;
-      exit(CreateTempOffScreenWorld);
+      exit;
     end;
 
   SetGWorld(offScreenGWorld, NIL);
@@ -217,7 +217,7 @@ begin
       KillTempOffscreenWorld(offScreenGWorld);
       SetGWorld(oldWindowPortPtr, oldDevice);
       CreateTempOffScreenWorld := -1;
-      exit(CreateTempOffScreenWorld);
+      exit;
     end;
 
   MyEraseRect(MyGetPortBounds(offScreenGWorld));

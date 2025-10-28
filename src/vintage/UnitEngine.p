@@ -320,7 +320,7 @@ begin
         if (s = MyUpperString(listOfEngines.engines[k].name, true)) then
           begin
             GetNumeroOfEngine := k;
-            exit(GetNumeroOfEngine);
+            exit;
           end;
    end;
 end;
@@ -343,7 +343,7 @@ begin
   if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines) then
     begin
       GetEnginePath := listOfEngines.engines[numeroEngine].path;
-      exit(GetEnginePath);
+      exit;
     end;
 
   // sinon, chercher par nom
@@ -354,7 +354,7 @@ begin
         if (s = MyUpperString(listOfEngines.engines[k].name, true)) then
           begin
             GetEnginePath := listOfEngines.engines[k].path;
-            exit(GetEnginePath);
+            exit;
           end;
     end;
 
@@ -1063,7 +1063,7 @@ var oldParsingSet : SetOfChar;
     EnginePrintError('PARSE ERROR : '+message);
     EnginePrintError('reponse = '+line.debutLigne);
     SetParsingCaracterSet(oldParsingSet);
-    exit(ParserResultLine);
+    exit;
   end;
 
 
@@ -1261,7 +1261,7 @@ var oldParsingSet : SetOfChar;
     EnginePrintError('PARSE ERROR : '+message);
     EnginePrintError('reponse = '+line.debutLigne);
     SetParsingCaracterSet(oldParsingSet);
-    exit(ParseSpeedResult);
+    exit;
   end;
 
 
@@ -1467,7 +1467,7 @@ begin
 
           engine.lastDateOfActivity := TickCount;
 
-          exit(InterpretEngineCommand);
+          exit;
         end;
     end;
 
@@ -1479,7 +1479,7 @@ begin
         CheckIncreaseOfNodesInAnswerFromEngine(theResult);
         SetEngineState(ENGINE_RUNNING);
         engine.lastDateOfActivity := TickCount;
-        exit(InterpretEngineCommand);
+        exit;
       end;
 
 
@@ -1487,7 +1487,7 @@ begin
   if ((s[1] = 'D') and (Pos('DEBUG',s) = 1)) then
     begin
       EnginePrintDebug(s);
-      exit(InterpretEngineCommand);
+      exit;
     end;
 
 
@@ -1495,7 +1495,7 @@ begin
   if ((s[1] = 'W') and (Pos('WARNING',s) = 1)) then
     begin
       EnginePrintWarning(s);
-      exit(InterpretEngineCommand);
+      exit;
     end;
 
   (* understand version information sent by the engines *)
@@ -1506,7 +1506,7 @@ begin
       if moteur > 0
         then SetEngineVersion(moteur,s)
         else SetEngineVersion(numeroEngineEnCours,s);
-      exit(InterpretEngineCommand);
+      exit;
     end;
 
 
@@ -1537,7 +1537,7 @@ begin
           end;
 
       EcritGestionTemps;
-      exit(InterpretEngineCommand);
+      exit;
     end;
 
 
@@ -1556,7 +1556,7 @@ begin
            SamePositionEtTrait(theResult.position,engine.lastSearchSent.position)
           then PosterUnResultatVenantDeLEngine(line);
 
-        exit(InterpretEngineCommand);
+        exit;
       end;
 end;
 
@@ -1735,11 +1735,11 @@ begin
 
 
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
-  exit(CanStartEngine);
+  exit;
   {$ENDC}
 
   if (pathMac = '') then
-    exit(CanStartEngine);
+    exit;
 
 
   ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
@@ -2575,7 +2575,7 @@ procedure MettreLeResultatGlobalDansLesVariablesDeCassio(search : EngineSearchRe
 var vMin, vMax, deltaFinale : SInt64;
 begin
   if (result.depth <> search.depth) then
-    exit(MettreLeResultatGlobalDansLesVariablesDeCassio);
+    exit;
 
 
   if (search.utilisationDansCassio = ReflMilieu)
@@ -2693,7 +2693,7 @@ begin
   if (engine.state <> ENGINE_RUNNING) and (engine.state <> ENGINE_STOPPED) then
     begin
       // EnginePrintError('Cassio ERROR : Engine not ready');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
 
@@ -2701,13 +2701,13 @@ begin
     begin
       EnginePrintWarning('Cassio ERROR : alpha >= beta in EnginePeutFaireCeCalcul, aborting');
       EnginePrintWarning('    alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
   if (couleur = pionVide) then
     begin
       EnginePrintError('Cassio ERROR : trait = pionvide');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
   search.position := MakePositionEtTrait(plateau, couleur);
@@ -2726,13 +2726,13 @@ begin
       if (typeCalcul = ReflMilieu) then note := note * 100;
       bestMove := 0;
       EnginePeutFaireCeCalcul := true;
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
   if (precision < 0) or (precision > 100) then
     begin
       EnginePrintError('Cassio ERROR : precision out of bounds in EnginePeutFaireCeCalcul');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
   search.typeDeRecherche       := typeCalcul;
@@ -2758,7 +2758,7 @@ begin
   if (search.depth < 20) and (search.typeDeRecherche = ReflParfait) then
     begin
       EnginePrintError('Cassio ERROR : (depth < 20) dans EnginePeutFaireCeCalcul');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
   *)
 
@@ -2767,14 +2767,14 @@ begin
   if (demande = '') then
     begin
       EnginePrintError('Cassio ERROR : demande = ?');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
 
   if (interruptionReflexion <> pasdinterruption) then
     begin
       EnginePrintError('Cassio ERROR : (interruptionReflexion <> pasdinterruption)');
-      exit(EnginePeutFaireCeCalcul);
+      exit;
     end;
 
 
@@ -2822,7 +2822,7 @@ begin
       EnginePrintError('Cassio ERROR : alpha >= beta dans EnginePeutFaireCalculDeFinale');
       EnginePrintError('alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
       EnginePeutFaireCalculDeFinale := false;
-      exit(EnginePeutFaireCalculDeFinale);
+      exit;
     end;
 
   empties := NbCasesVidesDansPosition(plateau);
@@ -2854,7 +2854,7 @@ begin
   if (alpha >= beta) and ((alpha = 6400) or (beta = -6400)) then
     begin
       EnginePeutFaireCalculDeMilieu := false;
-      exit(EnginePeutFaireCalculDeMilieu);
+      exit;
     end;
 
   if (alpha >= beta) then
@@ -2862,7 +2862,7 @@ begin
       EnginePrintError('Cassio ERROR : alpha >= beta dans EnginePeutFaireCalculDeMilieu');
       EnginePrintError('alpha = '+IntToStr(alpha)+', beta = '+IntToStr(beta));
       EnginePeutFaireCalculDeMilieu := false;
-      exit(EnginePeutFaireCalculDeMilieu);
+      exit;
     end;
 
   empties := NbCasesVidesDansPosition(plateau);
@@ -3028,7 +3028,7 @@ begin
     begin
       version := ReplaceStringOnce('DEBUG : ' , '' , s);
       SetEngineVersion(numeroEngineEnCours, version);
-      exit(EnginePrintDebug);
+      exit;
     end;
 
   EnginePrintColoredStringInRapport(s, VertCmd, normal);
@@ -3062,7 +3062,7 @@ begin
   // donc pas besoin de les ecrire en orange...
   if ((s[1] = 'D') and (Pos('DEBUG',s) = 1))  or
      ((s[1] = 'W') and (Pos('WARNING',s) = 1))
-    then exit(EnginePrintInput);
+    then exit;
   EnginePrintColoredStringInRapport(s, OrangeCmd, normal);
 end;
 

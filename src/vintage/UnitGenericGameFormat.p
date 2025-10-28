@@ -184,7 +184,7 @@ begin
 		       gLecture_NxN.bufferCaracteres[0] := c;
 
 		       AvanceDansFichier_NxN := NoErr;
-		       exit(AvanceDansFichier_NxN);
+		       exit;
 		     end;
 
 		  err := GetNextCharOfFichierAbstrait(gLecture_NxN.fichierAbstraitLecture,c);
@@ -311,9 +311,9 @@ begin
           else c3 := chr(0);
 
         {'tt' = passe' dans SGF}
-        if (c1 = 't') and (c2 = 't') then exit(StringSGFEnCoup);
-        if (c1 = 'p') and (c2 = 'a') then exit(StringSGFEnCoup);
-        if (c1 = 'P') and (c2 = 'A') then exit(StringSGFEnCoup);
+        if (c1 = 't') and (c2 = 't') then exit;
+        if (c1 = 'p') and (c2 = 'a') then exit;
+        if (c1 = 'P') and (c2 = 'A') then exit;
 
         x := 0;
         y := 0;
@@ -366,7 +366,7 @@ begin
             square_x := x;
             square_y := y;
             StringSGFEnCoup := true;
-            exit(StringSGFEnCoup);
+            exit;
           end;
 
       until trouve or (k >= (longueur-1)) ;
@@ -390,7 +390,7 @@ begin
   if (c <> '[') or (err <> NoErr) then
     begin
       ScanChaineValeurProperty_NxN := '';
-      exit(ScanChaineValeurProperty_NxN);
+      exit;
     end;
 
   s := '';
@@ -418,7 +418,7 @@ begin
 
   if (c <> '(') or (err <> NoErr) then
     begin
-      exit(SauterSousArbreNxN);
+      exit;
     end;
 
   repeat
@@ -1078,7 +1078,7 @@ begin
                 WritelnNumDansRapport('taille de l''othellier = ',formatFichier.tailleOthellier);
 
                 AlerteSimple('L''information de taille de l''othellier à l''intérieur du fichier ne correspond pas au nom du fichier !');
-                exit(DoDiagramme10x10);
+                exit;
               end;
 
 

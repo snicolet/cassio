@@ -188,7 +188,7 @@ begin
     then
       begin
         FindStringInLongString := trouve;
-        exit(FindStringInLongString);
+        exit;
       end
     else
       begin
@@ -221,7 +221,7 @@ begin
   if (s = '') or (ligne.debutLigne = '') or (s[1] <> ligne.debutLigne[1]) then
     begin
       LongStringBeginsWith := false;
-      exit(LongStringBeginsWith);
+      exit;
     end;
 
   LongStringBeginsWith := (Pos(s, ligne.debutLigne) = 1);
@@ -264,7 +264,7 @@ begin
         begin
           WritelnDansRapport('ASSERT : LongString mal normalisee dans NormaliserLongString !');
           WritelnLongStringDansRapport(ligne);
-          exit(NormaliserLongString);
+          exit;
         end;
     end;
 end;

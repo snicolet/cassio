@@ -105,7 +105,7 @@ begin
           begin
             EquivalentClavierEstDansCeMenu := true;
             whichItem := i;
-            exit(EquivalentClavierEstDansCeMenu);
+            exit;
           end;
       end;
 end;
@@ -435,7 +435,7 @@ begin
     if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         SousMenuReouvrirEstVide := false;
-        exit(SousMenuReouvrirEstVide);
+        exit;
       end;
   SousMenuReouvrirEstVide := true;
 end;
@@ -818,7 +818,7 @@ begin
       begin
         theLongName := nomLongDuFichierAReouvrir[k]^^;
         NomLongDejaCalculeDansMenuReouvrir := true;
-        exit(NomLongDejaCalculeDansMenuReouvrir);
+        exit;
       end;
 
   NomLongDejaCalculeDansMenuReouvrir := false;
@@ -899,7 +899,7 @@ begin
         if (compteur = numeroItem) then
           begin
             NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir := k;
-            exit(NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir);
+            exit;
           end;
       end;
   NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir := -1;
@@ -961,7 +961,7 @@ var k,i : SInt16;
   begin
 
     if (CheminEtNomFichier = '') or EstUnNomDeFichierTemporaireDePressePapier(CheminEtNomFichier)
-      then exit(AjoutePartieDansMenuReouvrir);
+      then exit;
 
     {si la partie est deja dans le menu, on la met en tete}
     for i := 1 to NbMaxItemsReouvrirMenu do
@@ -977,7 +977,7 @@ var k,i : SInt16;
             end;
           SetReouvrirItem(CheminEtNomFichier,1);
           CleanReouvrirMenu;
-          exit(AjoutePartieDansMenuReouvrir);
+          exit;
         end;
 
     {reste-t-il de la place ?}

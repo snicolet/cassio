@@ -366,7 +366,7 @@ begin {AjouterPartiesFichierPGNDansListe}
     begin
       AlerteSimpleFichierTexte(nomFichierPGN,erreurES);
       AjouterPartiesFichierPGNDansListe := erreurES;
-      exit(AjouterPartiesFichierPGNDansListe);
+      exit;
     end;
 
   erreurES := GetTailleFichierTexte(fichierPGN, tailleFichierPGN);
@@ -953,7 +953,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
     begin
       AlerteSimpleFichierTexte(nomLongDuFichier,erreurES);
       AjouterPartiesFichierDestructureDansListe := erreurES;
-      exit(AjouterPartiesFichierDestructureDansListe);
+      exit;
     end;
   FermerFichierEtFabriquerFichierAbstrait(fichier,myZone);
 
@@ -1205,7 +1205,7 @@ begin
   if nomBaseLogKitty = '' then
     begin
       AlerteSimpleFichierTexte(nomBaseLogKitty,0);
-      exit(BaseLogKittyEnFormatThor);
+      exit;
     end;
   {SetDebuggageUnitFichiersTexte(false);}
 
@@ -1214,14 +1214,14 @@ begin
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomBaseLogKitty,erreurES);
-      exit(BaseLogKittyEnFormatThor);
+      exit;
     end;
 
   erreurES := OuvreFichierTexte(inputBaseLogKitty);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomBaseLogKitty,erreurES);
-      exit(BaseLogKittyEnFormatThor);
+      exit;
     end;
 
   erreurES := FichierTexteDeCassioExiste(NomBaseFormatThor,outputBaseThor);
@@ -1235,13 +1235,13 @@ begin
     begin
       AlerteSimpleFichierTexte(NomBaseFormatThor,erreurES);
       erreurES := FermeFichierTexte(outputBaseThor);
-      exit(BaseLogKittyEnFormatThor);
+      exit;
     end;
 
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(NomBaseFormatThor,erreurES);
-      exit(BaseLogKittyEnFormatThor);
+      exit;
     end;
 
   nbPartiesDansBaseLogKitty := 0;
@@ -1607,7 +1607,7 @@ begin
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
           erreurES := FermeFichierTexte(exportTexte);
-          exit(ExportListeAuFormatTexte);
+          exit;
         end;
 
       gOptionsExportBase.patternLigne    := descriptionLigne;
@@ -1654,7 +1654,7 @@ begin
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
           erreurES := FermeFichierTexte(exportFichier);
-          exit(ExportListeAuFormatPGN);
+          exit;
         end;
 
       gOptionsExportBase.fic             := exportFichier;
@@ -1703,7 +1703,7 @@ begin
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
           erreurES := FermeFichierTexte(exportFichier);
-          exit(ExportListeAuFormatXOF);
+          exit;
         end;
 
       gOptionsExportBase.fic             := exportFichier;

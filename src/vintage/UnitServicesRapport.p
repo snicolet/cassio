@@ -434,7 +434,7 @@ var oldport : grafPtr;
     errDebug : OSStatus;
 begin
 
-  if (length <= 0) then exit(InsereTexteDansRapportSync);
+  if (length <= 0) then exit;
 
   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
 

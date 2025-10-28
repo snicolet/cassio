@@ -118,7 +118,7 @@ begin
         if (SymetrisationLigne <> NIL) and (SymetrisationLigne^[length,n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMappingLongSquaresLine := SymetrisationLigne^[length,n];
-            exit(SymmetricalMappingLongSquaresLine);
+            exit;
           end;
 
         nArrivee := n;
@@ -132,7 +132,7 @@ begin
             if bufferSymmetricalMapping[aux,length].x = n then
               begin
                 SymmetricalMappingLongSquaresLine := bufferSymmetricalMapping[aux,length].result;
-                exit(SymmetricalMappingLongSquaresLine);
+                exit;
               end;
           end;
         {dommage, on n'a pas trouve, il faut calculer}
@@ -233,7 +233,7 @@ begin
         if (SymetrisationEdge2X <> NIL) and (SymetrisationEdge2X^[n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMappingEdge2X := SymetrisationEdge2X^[n];
-            exit(SymmetricalMappingEdge2X);
+            exit;
           end;
 
         nArrivee := n;
@@ -247,7 +247,7 @@ begin
             if bufferSymmetricalMapping[aux,10].x = n then
               begin
                 SymmetricalMappingEdge2X := bufferSymmetricalMapping[aux,10].result;
-                exit(SymmetricalMappingEdge2X);
+                exit;
               end;
           end;
         {dommage, on n'a pas trouve, il faut calculer}
@@ -299,7 +299,7 @@ begin
         if (SymetrisationCorner13 <> NIL) and (SymetrisationCorner13^[n] <> kSymetrisationNonEncoreCalculee) then
           begin
             SymmetricalMapping13SquaresCorner := SymetrisationCorner13^[n];
-            exit(SymmetricalMapping13SquaresCorner);
+            exit;
           end;
 
         nArrivee := n;
@@ -313,7 +313,7 @@ begin
             if bufferSymmetricalMapping[baux,13].x = n then
               begin
                 SymmetricalMapping13SquaresCorner := bufferSymmetricalMapping[baux,13].result;
-                exit(SymmetricalMapping13SquaresCorner);
+                exit;
               end;
           end;
         {dommage, on n'a pas trouve, il faut calculer}

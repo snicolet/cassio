@@ -91,7 +91,7 @@ begin
        if (plat[x] = couleur) and aux then
        begin
          PeutJouerIciTore := true;
-         exit(PeutJouerIciTore)
+         exit
        end;
     end;
   end;
@@ -108,7 +108,7 @@ begin
      if PeutJouerIciTore(coul,x,plat) then
        begin
          DoitPasserTore := false;
-         exit(DoitPasserTore);
+         exit;
        end;
    end;
 end;

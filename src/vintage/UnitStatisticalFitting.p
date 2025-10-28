@@ -63,7 +63,7 @@ begin
 	      if x < 0.0 then
 	        begin
 	          WritelnDansRapport('Pause in gser : x less than 0');
-	          exit(gser);
+	          exit;
 	        end;
 	      gamser := 0.0;
 	    end
@@ -80,7 +80,7 @@ begin
             if Abs(del) < Abs(sum)*eps then goto 99;
           end;
           WritelnDansRapport('Pause in gser - a too large, itmax too small');
-          exit(gser);
+          exit;
  99 :   gamser := sum*exp(-x*a*ln(x)-gln);
       end;
 end;
@@ -117,7 +117,7 @@ begin
         end;
     end;
   WritelnDansRapport('Pause in gcf - a too large, itmax too small');
-  exit(gcf);
+  exit;
 99 : gamcf := exp(-x+a*ln(x)-gln)*g;
 end;
 
@@ -127,7 +127,7 @@ begin
   if (x < 0.0) or (a <=  0.0) then
     begin
       WritelnDansRapport('Pause dans gammp : invalid arguments');
-      exit(gammp);
+      exit;
     end;
 
   if x < (a + 1.0)
@@ -149,7 +149,7 @@ begin
   if (x < 0.0) or (a <=  0.0) then
     begin
       WritelnDansRapport('Pause dans gammp : invalid arguments');
-      exit(gammq);
+      exit;
     end;
 
   if x < (a + 1.0)
@@ -182,12 +182,12 @@ begin
   if n <= 1 then
     begin
       WritelnDansRapport('erreur : n doit etre au moins 2 dans MomentsOfPointMultidimensionnel');
-      exit(MomentsOfPointMultidimensionnel);
+      exit;
     end;
   if nData > n then
     begin
       WritelnDansRapport('erreur : nData > n dans MomentsOfPointMultidimensionnel');
-      exit(MomentsOfPointMultidimensionnel);
+      exit;
     end;
   n := nData;
 
@@ -229,7 +229,7 @@ begin
     else
       begin
         WritelnDansRapport('erreur dans MomentsOfPointMultidimensionnel : pas de skewness ni de kurtosis quand variance = 0 !');
-        exit(MomentsOfPointMultidimensionnel);
+        exit;
       end;
 end;
 
@@ -245,7 +245,7 @@ begin
   if (x = NIL) or (y = NIL) then
     begin
       WritelnDansRapport('erreur dans StraightLineFitting : (x = NIL) ou (y = NIL) !');
-      exit(StraightLineFitting);
+      exit;
     end;
 
   n := DimensionDuPointMultidimensionnel(x);
@@ -254,12 +254,12 @@ begin
      ((sigma <> NIL) and (DimensionDuPointMultidimensionnel(y) <> n)) then
     begin
       WritelnDansRapport('erreur dans StraightLineFitting : vecteurs de longueurs differentes !');
-      exit(StraightLineFitting);
+      exit;
     end;
   if (nData > n) then
     begin
       WritelnDansRapport('erreur dans StraightLineFitting : nData > n !');
-      exit(StraightLineFitting);
+      exit;
     end;
 
   variancesIndividuellesConnues := variancesIndividuellesConnues and (sigma <> NIL);

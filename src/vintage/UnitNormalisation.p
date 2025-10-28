@@ -122,7 +122,7 @@ begin
       begin
         numeroDuCoup := i-1;
         TrouveCoupDansPartieCourante := true;
-        exit(TrouveCoupDansPartieCourante);
+        exit;
       end;
   numeroDuCoup := -1;
   TrouveCoupDansPartieCourante := false;
@@ -1105,7 +1105,7 @@ begin
                 begin
                   estDansTableOuverture := true;
                   nroDansTable := t;
-                  exit(estDansTableOuverture);
+                  exit;
                 end;
             end;
       end;
@@ -1194,7 +1194,7 @@ var aux60 : PackedThorGame;
         axe := whichSymetrie;
         s60 := aux60;
         TrouveSymetrieEgalisante := true;
-        exit(TrouveSymetrieEgalisante);
+        exit;
       end;
   end;
 
@@ -1274,7 +1274,7 @@ begin
     if pos1[i] <> pos2[i] then
       begin
         PositionsSontEgales := false;
-        exit(PositionsSontEgales);
+        exit;
       end;
   PositionsSontEgales := true;
 end;
@@ -1302,7 +1302,7 @@ var i,coup : SInt16;
 begin
   CalculePositionEtTraitApres := false;
   if (GET_LENGTH_OF_PACKED_GAME(partie60) < numeroCoup)
-    then exit(CalculePositionEtTraitApres);      {pas assez de coups}
+    then exit;      {pas assez de coups}
 
   OthellierEtPionsDeDepart(position,nbNoir,nbBlanc);
   trait := pionNoir;
@@ -1310,16 +1310,16 @@ begin
     begin
       coup := GET_NTH_MOVE_OF_PACKED_GAME(partie60,i,'CalculePositionEtTraitApres(1)');
       if (coup < 11) or (coup > 88)
-        then exit(CalculePositionEtTraitApres);  {coup impensable}
+        then exit;  {coup impensable}
       if ModifPlatFin(coup,trait,position,nbBlanc,nbNoir) then trait := -trait else
       if not(ModifPlatFin(coup,-trait,position,nbBlanc,nbNoir))
-        then exit(CalculePositionEtTraitApres);  {coup impossible ou game over}
+        then exit;  {coup impossible ou game over}
     end;
   if DoitPasserPlatSeulement(trait,position) then
     begin
       trait := -trait;
       if DoitPasserPlatSeulement(trait,position)
-        then exit(CalculePositionEtTraitApres);  {game over!}
+        then exit;  {game over!}
      end;
   CalculePositionEtTraitApres := true;
 end;

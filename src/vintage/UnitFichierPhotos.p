@@ -136,7 +136,7 @@ begin
   if pathCompletFichierPhoto = '' then
     begin
       FichierPhotosExisteSurLeDisque := false;
-      exit(FichierPhotosExisteSurLeDisque);
+      exit;
     end;
 
   err := FichierTexteExiste(pathCompletFichierPhoto,0,fic);
@@ -158,7 +158,7 @@ begin
          begin
            FichierPhotosExisteEnMemoire := true;
            numeroFic := i;
-           exit(FichierPhotosExisteEnMemoire);
+           exit;
          end;
 end;
 
@@ -177,7 +177,7 @@ begin
          begin
            FichierPhotosExisteDansMenu := true;
            numeroFic := i;
-           exit(FichierPhotosExisteDansMenu);
+           exit;
          end;
 end;
 
@@ -199,7 +199,7 @@ begin
          begin
            FichierPhotosHappyEndExistePourCesTextureEtCouleur := true;
            numeroFic := i;
-           exit(FichierPhotosHappyEndExistePourCesTextureEtCouleur);
+           exit;
          end;
 end;
 
@@ -219,7 +219,7 @@ begin
 	          (nomComplet^ <> '') then
 	         begin
 	           GetPathCompletFichierPionsPourCetteTexture := nomComplet^;
-	           exit(GetPathCompletFichierPionsPourCetteTexture);
+	           exit;
 	         end;
 end;
 
@@ -239,7 +239,7 @@ begin  {$UNUSED whichTexture}
 	          (nomComplet^ <> '') then
 	         begin
 	           GetPathCompletFichierBordurePourCetteTexture := nomComplet^;
-	           exit(GetPathCompletFichierBordurePourCetteTexture);
+	           exit;
 	         end;
 end;
 
@@ -259,7 +259,7 @@ begin
 	          (nomDansMenu^ <> '') then
 	         begin
 	           GetNomDansMenuPourCetteTexture := nomDansMenu^;
-	           exit(GetNomDansMenuPourCetteTexture);
+	           exit;
 	         end;
 end;
 
@@ -306,7 +306,7 @@ begin
        then
          begin
            PathFichierPicture3DDeCetteFamille := nomComplet^;
-           exit(PathFichierPicture3DDeCetteFamille);
+           exit;
          end;
 end;
 
@@ -325,7 +325,7 @@ begin
        then
          begin
            PathFichierPictureHappyEndDeCetteFamille := nomComplet^;
-           exit(PathFichierPictureHappyEndDeCetteFamille);
+           exit;
          end;
 end;
 
@@ -704,14 +704,14 @@ begin
   if (erreurES <> NoErr) then
     begin
       LitFichierCoordoneesImages3D := erreurES;
-      exit(LitFichierCoordoneesImages3D);
+      exit;
     end;
 
   erreurES := OuvreFichierTexte(fic);
   if (erreurES <> NoErr) then
     begin
       LitFichierCoordoneesImages3D := erreurES;
-      exit(LitFichierCoordoneesImages3D);
+      exit;
     end;
 
   SetRect(unRect,0,0,0,0);

@@ -266,7 +266,7 @@ var nomDansMenu,path : String255;
              (error <> cNoMemErr) then
             WritelnDansRapport('error = '+IntToStr(whichError)+' dans CreatePovOffScreenWorld, fonction appelante = '+fonctionAppelante);
           CreatePovOffScreenWorld := whichError;
-          exit(CreatePovOffScreenWorld);
+          exit;
         end;
     end;
 

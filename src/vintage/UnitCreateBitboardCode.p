@@ -1088,7 +1088,7 @@ begin
       WriteBegin;
         IncrementeMarge;
         WritelnDansFichierEndgame('DernierCoupBitboard := pred(diffPions-nbPrise);');
-        WritelnDansFichierEndgame('exit(DernierCoupBitboard);');
+        WritelnDansFichierEndgame('exit;
         DecrementeMarge;
       WriteEndSansPointVirgule;
     DecrementeMarge;
@@ -1265,7 +1265,7 @@ begin
       WriteBegin;
         IncrementeMarge;
         WritelnDansFichierEndgame('ValeurDeuxDerniersCoupsBitboard := pred(diffPions-nbPrise);');
-        WritelnDansFichierEndgame('exit(ValeurDeuxDerniersCoupsBitboard);');
+        WritelnDansFichierEndgame('exit;
         DecrementeMarge;
       WriteEndSansPointVirgule;
     DecrementeMarge;

@@ -1118,7 +1118,7 @@ begin
         begin
           meilleurChoix := iCourant;
           ReponseInstantanee := iCourant;
-          exit(ReponseInstantanee);
+          exit;
         end;
     end;
 
@@ -1388,7 +1388,7 @@ begin
     begin
       CheckParameters('ASSERT dans ChoixMac !');
       AlerteSimple('ASSERT dans ChoixMac!! Merci de prévenir Stéphane');
-      exit(ChoixMac);
+      exit;
     end;
 
   if debuggage.gestionDuTemps then
@@ -1989,7 +1989,7 @@ begin
           WritelnNumDansRapport('  pour infos : whichSquare = ',whichSquare);
           WritelnDansRapport('  fonction appelante = '+fonctionAppelante);
           SysBeep(0);
-          exit(DealWithEssai);
+          exit;
         end;
 
       if not(possibleMove[whichSquare]) then
@@ -2087,7 +2087,7 @@ begin
      WritelnNumDansRapport('  pour infos : whichSquare = ',whichSquare);
      WritelnDansRapport('  fonction appelante = '+fonctionAppelante);
      SysBeep(0);
-     exit(Jouer);
+     exit;
    end;
 
  {WritelnDansRapport('Dans Jouer, fonction appelante = '+fonctionAppelante);}
@@ -2865,7 +2865,7 @@ begin
       if (coup >= 11) and (coup <= 88) and (possibleMove[coup]) then
         begin
           GetMeilleurCoupConnuMaintenant := coup;
-          exit(GetMeilleurCoupConnuMaintenant);
+          exit;
         end;
     end;
 
@@ -2876,7 +2876,7 @@ begin
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ConnaitSuiteParfaiteParArbreDeJeu), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
-      exit(GetMeilleurCoupConnuMaintenant);
+      exit;
     end;
 
 
@@ -2886,7 +2886,7 @@ begin
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ConnaitSuiteParfaite), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
-      exit(GetMeilleurCoupConnuMaintenant);
+      exit;
     end;
 
 
@@ -2898,7 +2898,7 @@ begin
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (GetBestMoveAttenteAnalyseDeFinale), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
-          exit(GetMeilleurCoupConnuMaintenant);
+          exit;
         end;
     end;
 
@@ -2913,7 +2913,7 @@ begin
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (GetCoupEnTeteDansFenetreReflexion), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
-          exit(GetMeilleurCoupConnuMaintenant);
+          exit;
         end;
     end;
 
@@ -2926,7 +2926,7 @@ begin
         begin
           if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (meilleurCoupHum), coup = ',coup);
           GetMeilleurCoupConnuMaintenant := coup;
-          exit(GetMeilleurCoupConnuMaintenant);
+          exit;
         end;
     end;
 
@@ -2945,7 +2945,7 @@ begin
       begin
         if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (LaBibliothequeEstCapableDeFournirUnCoup), coup = ',coup);
         GetMeilleurCoupConnuMaintenant := coup;
-        exit(GetMeilleurCoupConnuMaintenant);
+        exit;
       end;
 
 
@@ -2957,7 +2957,7 @@ begin
     begin
       if ecritExplications then WritelnStringAndCoupDansRapport('GetMeilleurCoupConnuMaintenant (ReponseInstantanee), coup = ',coup);
       GetMeilleurCoupConnuMaintenant := coup;
-      exit(GetMeilleurCoupConnuMaintenant);
+      exit;
     end;
 
   (* rien n'a l'air de marcher... :-( *)
@@ -2971,7 +2971,7 @@ var coup : SInt64;
     tempoSon : boolean;
 begin
 
-  if gameOver then exit(DoJouerMeilleurCoupConnuMaintenant);
+  if gameOver then exit;
 
   coup := GetMeilleurCoupConnuMaintenant;
 
@@ -3015,7 +3015,7 @@ begin
     begin
       WritelnDansRapport('ASSERT((caseX < 11) or (caseX > 88)) dans TraiteCoupImprevu!! Merci de prévenir Stéphane');
       AlerteSimple('ASSERT((caseX < 11) or (caseX > 88)) dans TraiteCoupImprevu');
-      exit(TraiteCoupImprevu);
+      exit;
     end;
 
  avecCalculPartiesActives := true;
@@ -3283,7 +3283,7 @@ begin
 	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	              InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-			          exit(JoueCoupPartieSelectionnee);
+			          exit;
 			        end;
 
 
@@ -4306,7 +4306,7 @@ begin
     begin
       SetCurrentNode(oldCurrentNode, 'ResynchronisePartieEtCurrentNode {1}');
       ResynchronisePartieEtCurrentNode := -1;
-      exit(ResynchronisePartieEtCurrentNode);
+      exit;
     end;
 
 
@@ -4325,7 +4325,7 @@ begin
         begin
           SetCurrentNode(oldCurrentNode, 'ResynchronisePartieEtCurrentNode {2}');
           ResynchronisePartieEtCurrentNode := erreurES;
-          exit(ResynchronisePartieEtCurrentNode);
+          exit;
         end;
     end;
 

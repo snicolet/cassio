@@ -88,12 +88,12 @@ begin
           if (col >= 'A') and (col  <= 'H') then
             begin
               StringEnCoup := (ord(col)-ord('A')+1) + 10*(ord(lign)-ord('1')+1);
-              exit(StringEnCoup);
+              exit;
             end;
           if (col >= 'a') and (col  <= 'h') then
             begin
               StringEnCoup := (ord(col)-ord('a')+1) + 10*(ord(lign)-ord('1')+1);
-              exit(StringEnCoup);
+              exit;
             end;
         end;
     end;
@@ -121,13 +121,13 @@ begin
             begin
               ScannerStringPourTrouverCoup := (ord(col) - ord('A') + 1) + 10*(ord(lign) - ord('1') + 1);
               positionDuCoupDansChaine := k;
-              exit(ScannerStringPourTrouverCoup);
+              exit;
             end;
           if (col >= 'a') and (col  <= 'h') then
             begin
               ScannerStringPourTrouverCoup := (ord(col) - ord('a') + 1) + 10*(ord(lign) - ord('1') + 1);
               positionDuCoupDansChaine := k;
-              exit(ScannerStringPourTrouverCoup);
+              exit;
             end;
         end;
     end;
@@ -152,12 +152,12 @@ begin
           if (col >= 'A') and (col  <= 'H') then
             begin
               PositionDansStringAlphaEnCoup := (ord(col)-ord('A')+1) + 10*(ord(lign)-ord('1')+1);
-              exit(PositionDansStringAlphaEnCoup);
+              exit;
             end;
           if (col >= 'a') and (col  <= 'h') then
             begin
               PositionDansStringAlphaEnCoup := (ord(col)-ord('a')+1) + 10*(ord(lign)-ord('1')+1);
-              exit(PositionDansStringAlphaEnCoup);
+              exit;
             end;
         end;
     end;

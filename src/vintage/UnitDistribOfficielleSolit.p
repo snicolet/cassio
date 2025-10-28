@@ -93,7 +93,7 @@ begin
 	        begin
 	          GetNumeroFichierSolitaireNouveauFormat := true;
 	          numeroFichier := i;
-	          exit(GetNumeroFichierSolitaireNouveauFormat);
+	          exit;
 	        end;
 end;
 
@@ -170,7 +170,7 @@ begin
             if erreurES <> NoErr then
               begin
                 AjouterSolitaireNouveauFormatSurDisque := erreurES;
-                exit(AjouterSolitaireNouveauFormatSurDisque);
+                exit;
               end;
           end;
 
@@ -182,14 +182,14 @@ begin
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
-            exit(AjouterSolitaireNouveauFormatSurDisque);
+            exit;
           end;
 
         erreurES := LitEnteteSuplementaireFichierSolitaireNouveauFormat(refNum,statsPourCeFichier);
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
-            exit(AjouterSolitaireNouveauFormatSurDisque);
+            exit;
           end;
 
         inc(statsPourCeFichier.nbSolitairesCetteProf[nbCasesVides]);
@@ -198,7 +198,7 @@ begin
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
-            exit(AjouterSolitaireNouveauFormatSurDisque);
+            exit;
           end;
 
         if (nbSolitaires <> statsPourCeFichier.nbSolitairesCetteProf[nbCasesVides]) then
@@ -215,7 +215,7 @@ begin
           begin
             SysBeep(0);
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
-            exit(AjouterSolitaireNouveauFormatSurDisque);
+            exit;
           end;
 
         (*
@@ -224,7 +224,7 @@ begin
           begin
             SysBeep(0);
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
-            exit(AjouterSolitaireNouveauFormatSurDisque);
+            exit;
           end;
 
         with verifSolitaire do

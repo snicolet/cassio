@@ -94,7 +94,7 @@ begin
 		then iErr := PMSessionDefaultPrintSettings(g_PrintSession, printSettings);
 	if (iErr <> 0)
 		then begin
-			Exit(HandlePrintWindow);
+			exit;
 		end;
 	returnValue := true;
 	windowTitleRef := CFStringCreateWithPascalString(NIL, StringToStr255(jobTitle), kCFStringEncodingMacRoman);

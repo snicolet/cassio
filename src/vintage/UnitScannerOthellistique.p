@@ -298,7 +298,7 @@ begin
   			       if not(ok) then
   			         begin {partie illegale}
   			           PeutCalculerScoreFinalDeCettePartie := false;
-  			           exit(PeutCalculerScoreFinalDeCettePartie);
+  			           exit;
   			         end;
 			       end;
 			   end;
@@ -490,7 +490,7 @@ begin
       s := chaineTest;
       EstUnePartieOthelloAvecMiroir := true;
       {WritelnDansRapport('Sortie 1 de EstUnePartieOthelloAvecMiroir, s = '+s);}
-      exit(EstUnePartieOthelloAvecMiroir);
+      exit;
     end;
 
   {on teste la chaine en enlevant le bruit}
@@ -501,7 +501,7 @@ begin
       s := chaineTest;
       EstUnePartieOthelloAvecMiroir := true;
       {WritelnDansRapport('Sortie 2 de EstUnePartieOthelloAvecMiroir, s = '+s);}
-      exit(EstUnePartieOthelloAvecMiroir);
+      exit;
     end;
 
   {on teste pour voir si ca ne serait pas une position initiale miroir}
@@ -511,7 +511,7 @@ begin
       s := chaineTest;
       EstUnePartieOthelloAvecMiroir := true;
       {WritelnDansRapport('Sortie 3 de EstUnePartieOthelloAvecMiroir, s = '+s);}
-      exit(EstUnePartieOthelloAvecMiroir);
+      exit;
     end;
 
   EstUnePartieOthelloAvecMiroir := false;
@@ -533,7 +533,7 @@ begin
         begin
           EstUnePartieOthelloTerminee := true;
           s := partieAlpha;
-          exit(EstUnePartieOthelloTerminee);
+          exit;
         end;
     end;
 
@@ -549,7 +549,7 @@ begin
             begin
               EstUnePartieOthelloTerminee := true;
               s := partieAlpha;
-              exit(EstUnePartieOthelloTerminee);
+              exit;
             end;
         end;
     end;

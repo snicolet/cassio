@@ -183,14 +183,14 @@ begin
   SameHugeString := false;
 
   if not(HugeStringIsUsable(ligne1)) or not(HugeStringIsUsable(ligne2)) then
-    exit(SameHugeString);
+    exit;
 
   if (ligne1.longueur <> ligne2.longueur) then
-    exit(SameHugeString);
+    exit;
 
   for k := 1 to ligne1.longueur do
     if (ligne1.theChars^[k] <> ligne2.theChars^[k]) then
-    exit(SameHugeString);
+    exit;
 
   SameHugeString := true;
 end;
@@ -286,7 +286,7 @@ begin
                   if (j > len) then  // found in position k
                     begin
                       FindStringInHugeString := k;
-                      exit(FindStringInHugeString);
+                      exit;
                     end;
                 end;
             end
@@ -294,7 +294,7 @@ begin
             if (len <= 0) and (LengthOfHugeString(ligne) > 0) then
               begin
                 FindStringInHugeString := 1;  // par convention
-                exit(FindStringInHugeString);
+                exit;
               end;
       end;
 
@@ -319,7 +319,7 @@ begin
      (ligne.theChars^[1] <> s[1]) then
     begin
       HugeStringBeginsWith := false;
-      exit(HugeStringBeginsWith);
+      exit;
     end;
 
   HugeStringBeginsWith := (FindStringInHugeString(s, ligne) = 1);

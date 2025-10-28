@@ -359,12 +359,12 @@ begin
   if (s = 'B+') or ((genre = NodeValueProp) and (s = 'B+1')) then
     begin
       ReadOthelloValueProperty := MakeValeurOthelloProperty(genre, pionNoir, +1, 1, 0);
-      exit(ReadOthelloValueProperty);
+      exit;
     end;
   if (s = 'W+') or ((genre = NodeValueProp) and (s = 'W+1')) then
     begin
       ReadOthelloValueProperty := MakeValeurOthelloProperty(genre, pionBlanc, +1, 1, 0);
-      exit(ReadOthelloValueProperty);
+      exit;
     end;
 
   {WriteDansRapport('s = '+s);}
@@ -650,7 +650,7 @@ begin
       if debuggage.lectureSmartGameBoard then
         AlerteSimple('erreur dans la reconnaissance du nom de la propriété : '+nomProperty);
       LitProperty := MakeEmptyProperty;
-      exit(LitProperty);
+      exit;
     end;
 
   propertyGenre := StringToPropertyGenre(nomProperty);
@@ -1090,7 +1090,7 @@ begin
 
 		                if debuggage.lectureSmartGameBoard then
 		                  WritelnDansRapport('sortie de LectureRecursiveArbre');
-		                exit(LectureRecursiveArbre);
+		                exit;
 		              end;
 		         otherwise
 		               WritelnDansRapport('erreur : caractere non traité = '+c+ ' (code ascii = '+IntToStr(ord(c))+')');
@@ -1204,7 +1204,7 @@ begin
   if not(FichierAbstraitEstCorrect(whichFichierAbstrait)) or LectureSmartGameBoardEnCours then
     begin
       EstUneFichierAbstraitAuFormatSmartGameBoard := false;
-      exit(EstUneFichierAbstraitAuFormatSmartGameBoard);
+      exit;
     end;
 
 
@@ -1296,7 +1296,7 @@ begin
 
             positionCurseurEcriture := theFile.position;
             continuer := (err = NoErr);
-            exit(EcritProperty);
+            exit;
           end;
 
 	      if prop.stockage = StockageEnTexte
@@ -1359,7 +1359,7 @@ begin
     begin
 
       if IsAVirtualNodeUsedForZebraBookDisplay(G)
-        then exit(EcritureRecursiveArbre);
+        then exit;
 
       (* un petit peu de formatage : on rajoute des espaces et
          et sauts de ligne pour faciliter l'edition du fichier *)
@@ -1403,7 +1403,7 @@ begin
     begin
 
       if IsAVirtualNodeUsedForZebraBookDisplay(G)
-        then exit(EcritureRecursiveParenthesesEtArbre);
+        then exit;
 
       CompteurDeCoupsNoirsEcrits := 0;
 
@@ -1475,7 +1475,7 @@ begin
         erreurES := OuvreFichierTexte(fic);
         erreurES := VideFichierTexte(fic);
       end;
-  if erreurES <> 0 then exit(SauvegarderDatabaseOfRecentSGFFiles);
+  if erreurES <> 0 then exit;
 
   for i := 1 to kMaxRecentSGFFiles do
     if (gDatabaseRecentSGFFiles[i].date <> '') and
@@ -1507,7 +1507,7 @@ begin
   erreurES := FichierTexteDeCassioExiste(filename,fic);
   if erreurES = NoErr
     then erreurES := OuvreFichierTexte(fic);
-  if erreurES <> 0 then exit(LireDatabaseOfRecentSGFFiles);
+  if erreurES <> 0 then exit;
 
 
   nbPrefFiles := 0;
@@ -1565,7 +1565,7 @@ begin
           begin
             FichierExisteDansDatabaseOfRecentSGFFiles := true;
             modificationDate := gDatabaseRecentSGFFiles[i].date;
-            exit(FichierExisteDansDatabaseOfRecentSGFFiles);
+            exit;
           end;
     end;
 

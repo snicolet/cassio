@@ -671,7 +671,7 @@ begin
                    item := FermerButton;
                    FlashItem(dlog,item);
                    FiltreApercuAvantImpression := true;
-                   exit(FiltreApercuAvantImpression);
+                   exit;
                  end;
 
                GetItemCmd(EditionMenu,ParamPressePapiercmd,cmdChar); {ne marche pas dans la version GNU :-( }
@@ -683,7 +683,7 @@ begin
                    item := ParametreButton;
                    FlashItem(dlog,item);
                    FiltreApercuAvantImpression := true;
-                   exit(FiltreApercuAvantImpression);
+                   exit;
                  end;
                GetItemCmd(GetFileMenu,FormatImpressionCmd,cmdChar);
                if ord(cmdchar) > 0 then
@@ -692,7 +692,7 @@ begin
                    item := FormatButton;
                    FlashItem(dlog,item);
                    FiltreApercuAvantImpression := true;
-                   exit(FiltreApercuAvantImpression);
+                   exit;
                  end;
                GetItemCmd(GetFileMenu,ImprimerCmd,cmdChar);
                if ord(cmdchar) > 0 then
@@ -701,7 +701,7 @@ begin
                    item := impressionButton;
                    FlashItem(dlog,item);
                    FiltreApercuAvantImpression := true;
-                   exit(FiltreApercuAvantImpression);
+                   exit;
                  end;
                FiltreApercuAvantImpression := MyFiltreClassique(dlog,evt,item);
              end

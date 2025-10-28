@@ -111,7 +111,7 @@ begin
                         WritelnStringAndReelDansRapport('  =>  chi2 = ',tableValeurChi2[k],10);
                       end;
                    FonctionLigneChi2 := tableValeurChi2[k];
-                   exit(FonctionLigneChi2);
+                   exit;
                  end;
 
         if not(verboseMinimisationChi2) then
@@ -135,7 +135,7 @@ var
 begin
 
   DoSystemTask(AQuiDeJouer);
-  if Quitter then exit(LineMinimisationChi2);
+  if Quitter then exit;
 
   if memoireAlloueeFonctionLigneChi2 and not(Quitter) then
     begin
@@ -148,7 +148,7 @@ begin
 		    WritelnDansRapport('entrée dans LineMinimisationChi2');
 
       DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(LineMinimisationChi2);
+      if Quitter then exit;
 
 		  SetPrefixeCalculeChi2('MinimumBracketting');
 		  SetPrefixeCalculeChi2EtGradient('MinimumBracketting');
@@ -158,7 +158,7 @@ begin
 		  MinimumBracketting(FonctionLigneChi2,ax,xx,bx,fa,fx,fb);
 
 		  DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(LineMinimisationChi2);
+      if Quitter then exit;
 
 		  SetPrefixeCalculeChi2('MinimisationParBrent');
 		  SetPrefixeCalculeChi2EtGradient('MinimisationParBrent');
@@ -168,7 +168,7 @@ begin
 		  fret := MinimisationParBrent(FonctionLigneChi2,ax,xx,bx,tol,lambda);
 
 		  DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(LineMinimisationChi2);
+      if Quitter then exit;
 
 		  HomothetieVecteurEval(xi,xi,lambda);  {xi := lambda*xi}
 		  AddVecteurEval(p,xi,p);               {p := p+xi}
@@ -195,7 +195,7 @@ begin
   if (nbPartiesActives <= 0) then
     begin
       AlerteSimple('Aucune partie active pour ConjugateGradientChi2 !!!');
-      exit(ConjugateGradientChi2);
+      exit;
     end;
 
   if VecteurEvalEstVide(whichEval) or
@@ -203,7 +203,7 @@ begin
      not(memoireAlloueeFonctionLigneChi2) then
      begin
        AlerteSimple('Pas assez de memoire pour allouer les vecteurs pour ConjugateGradientChi2 !!!');
-       exit(ConjugateGradientChi2);
+       exit;
      end;
 
   (*
@@ -281,7 +281,7 @@ begin
     begin
 
       DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(ConjugateGradientChi2);
+      if Quitter then exit;
 
       iter := its;
 
@@ -306,7 +306,7 @@ begin
         end;
 
       DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(ConjugateGradientChi2);
+      if Quitter then exit;
 
       WritelnStringAndReelDansRapport('ConjugateGradientChi2 : iter = '+IntToStr(iter)+' => temps = '+IntToStr(TickCount-tick)+', chi2 = ',fret,10);
 
@@ -342,7 +342,7 @@ begin
         WritelnDansRapport(' OK');
 
       DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(ConjugateGradientChi2);
+      if Quitter then exit;
 
       if not(verboseMinimisationChi2) then
         EcritQuelsquesPositionsPartieAleatoireDansListe;
@@ -350,7 +350,7 @@ begin
         EcritVecteurMobiliteDansRapport(whichEval);}
 
       DoSystemTask(AQuiDeJouer);
-      if Quitter then exit(ConjugateGradientChi2);
+      if Quitter then exit;
 
       if (2*Abs(fret-chi2) <= ftol*(Abs(fret)+Abs(chi2)+eps))
         then goto finNormale;

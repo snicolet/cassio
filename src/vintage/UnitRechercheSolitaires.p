@@ -327,7 +327,7 @@ begin
                      begin
                        numPartie := nroRefPartie;
                        TrouveSolitaireDansListe := true;
-                       exit(TrouveSolitaireDansListe);
+                       exit;
                      end;
                end;
 

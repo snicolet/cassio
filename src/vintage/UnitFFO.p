@@ -89,7 +89,7 @@ begin
   if not(trouve) then
     begin
       DoitTelechargerFichierFFODesJoueurs := false;
-      exit(DoitTelechargerFichierFFODesJoueurs);
+      exit;
     end;
 
 
@@ -404,7 +404,7 @@ begin
           if (whichNumeroFFO > 0) then
             begin
               PeutTrouverNumeroFFODuJoueur := true;
-              exit(PeutTrouverNumeroFFODuJoueur);
+              exit;
             end;
         end;
 end;

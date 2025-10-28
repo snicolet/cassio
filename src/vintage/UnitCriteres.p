@@ -159,7 +159,7 @@ begin
   {WritelnDansRapport('FabriquerRecursivementArbreDesJoueurs : '+chaine);}
 
   if (chaine = '')
-    then exit(FabriquerRecursivementArbreDesJoueurs);
+    then exit;
 
   if (chaine[1] = '­')
     then
@@ -238,7 +238,7 @@ var i,p,q,l : SInt32;
 begin
 
   if (chaine = '')
-    then exit(FabriquerRecursivementArbreDesTournois);
+    then exit;
 
   if (chaine[1] = '­')
     then
@@ -757,7 +757,7 @@ var TournoiCompatible : t_TournoiCompatible;
 begin  {CalculTableCriteres}
 
   if problemeMemoireBase or (CriteresSuplementaires = NIL)
-    then exit(CalculTableCriteres);
+    then exit;
 
 
   if not(gPendantLesInitialisationsDeCassio) and (tempsUtiliseDernierCalculDesCriteres > 15) then

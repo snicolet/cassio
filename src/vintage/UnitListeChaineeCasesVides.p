@@ -166,7 +166,7 @@ begin
           previous := @tete;
           constantePariteDeSquare := 0;
         end;
-      exit(CreerListeChaineeDesCasesVides);
+      exit;
     end;
 
   for i := 0 to 65 do
@@ -227,7 +227,7 @@ begin
       WritelnNumDansRapport('ERROR !! dans EnleverDeLaListeChaineeDesCasesVides, whichSquare = ',whichSquare);
       AlerteSimple('Gros problème dans EnleverDeLaListeChaineeDesCasesVides, prévenez Stéphane !');
       LanceInterruptionSimple('EnleverDeLaListeChaineeDesCasesVides (1)');
-      exit(EnleverDeLaListeChaineeDesCasesVides);
+      exit;
     end;
 
   celluleDansListeChaineeCasesVides := gTableDesPointeurs[whichSquare];
@@ -238,7 +238,7 @@ begin
       WritelnDansRapport('ERROR !! celluleDansListeChaineeCasesVides = NIL dans EnleverDeLaListeChaineeDesCasesVides');
       AlerteSimple('Enorme problème dans EnleverDeLaListeChaineeDesCasesVides, prévenez Stéphane !');
       LanceInterruptionSimple('EnleverDeLaListeChaineeDesCasesVides (2)');
-      exit(EnleverDeLaListeChaineeDesCasesVides);
+      exit;
     end;
 
   with celluleDansListeChaineeCasesVides^ do
@@ -257,7 +257,7 @@ begin
       WritelnNumDansRapport('ERROR !! dans RemettreDansLaListeChaineeDesCasesVides, whichSquare = ',whichSquare);
       AlerteSimple('Gros problème dans RemettreDansLaListeChaineeDesCasesVides, prévenez Stéphane !');
       LanceInterruptionSimple('RemettreDansLaListeChaineeDesCasesVides (1)');
-      exit(RemettreDansLaListeChaineeDesCasesVides);
+      exit;
     end;
 
   celluleDansListeChaineeCasesVides := gTableDesPointeurs[whichSquare];
@@ -268,7 +268,7 @@ begin
       WritelnDansRapport('ERROR !! celluleDansListeChaineeCasesVides = NIL dans RemettreDansLaListeChaineeDesCasesVides');
       AlerteSimple('Enorme problème dans RemettreDansLaListeChaineeDesCasesVides, prévenez Stéphane !');
       LanceInterruptionSimple('RemettreDansLaListeChaineeDesCasesVides (2)');
-      exit(RemettreDansLaListeChaineeDesCasesVides);
+      exit;
     end;
 
   with celluleDansListeChaineeCasesVides^ do

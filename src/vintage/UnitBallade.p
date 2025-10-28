@@ -627,7 +627,7 @@ begin
 	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-	            exit(DoBackMovePartieSelectionnee);
+	            exit;
 	          end;
 
 
@@ -914,7 +914,7 @@ begin
 	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-		          exit(DoDoubleBackMovePartieSelectionnee);
+		          exit;
 		        end;
 
 		      test := true;
@@ -1185,7 +1185,7 @@ begin
 	              if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
 	                LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
 	            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-		          exit(DoDoubleAvanceMovePartieSelectionnee);
+		          exit;
 		        end;
 
 	         test := (nroDernierCoupAtteint >= (nbreCoup+2));
@@ -1375,7 +1375,7 @@ var i,j,coup,coulTrait : SInt16;
     oldCurrentNodeInGameTree : GameTree;
 begin
 
-  if CassioEstEnModeTournoi then exit(DoAvanceAuCoupNro);
+  if CassioEstEnModeTournoi then exit;
 
   if (numeroCoup <= 0)
     then WritelnNumDansRapport('ASSERT : (numeroCoup <= 0) in DoAvanceAuCoupNro, value is ', numeroCoup);

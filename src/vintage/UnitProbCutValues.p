@@ -167,7 +167,7 @@ begin
   if prof1 = prof2 then
     begin
       WritelnDansRapport('erreur : prof1 = prof2 dans CalculePaireProbCut');
-      exit(CalculePaireProbCut);
+      exit;
     end;
 
   if (numeroCoup >= 0) and (numeroCoup <= 64) and
@@ -393,7 +393,7 @@ begin
       if err <> 0 then
         begin
           LitVecteursStatProbDansFichierTexte := err;
-          exit(LitVecteursStatProbDansFichierTexte);
+          exit;
         end;
 
       if (tailleVecteur > 0) then
@@ -404,7 +404,7 @@ begin
               if err <> 0 then
 				        begin
 				          LitVecteursStatProbDansFichierTexte := err;
-				          exit(LitVecteursStatProbDansFichierTexte);
+				          exit;
 				        end;
 
               if (numeroCoup >= 0) and (numeroCoup <= 64) and (nbData > 0) then
@@ -445,7 +445,7 @@ begin
                   if err <> 0 then
                     begin
                       EcritVecteursStatProbDansFichierTexte := err;
-                      exit(EcritVecteursStatProbDansFichierTexte);
+                      exit;
                     end;
 
                 end;
@@ -463,28 +463,28 @@ begin
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
-      exit(LitVecteursStatProbCutSurLeDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
-      exit(LitVecteursStatProbCutSurLeDisque);
+      exit;
     end;
 
   err := LitVecteursStatProbDansFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
-      exit(LitVecteursStatProbCutSurLeDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
-      exit(LitVecteursStatProbCutSurLeDisque);
+      exit;
     end;
 
   LitVecteursStatProbCutSurLeDisque := err;
@@ -502,35 +502,35 @@ begin
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
-      exit(EcritVecteursStatProbCutSurDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
-      exit(EcritVecteursStatProbCutSurDisque);
+      exit;
     end;
 
   err := VideFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
-      exit(EcritVecteursStatProbCutSurDisque);
+      exit;
     end;
 
   err := EcritVecteursStatProbDansFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
-      exit(EcritVecteursStatProbCutSurDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
-      exit(EcritVecteursStatProbCutSurDisque);
+      exit;
     end;
 
   SetFileCreatorFichierTexte(fichierProbCut,MY_FOUR_CHAR_CODE('SNX4'));

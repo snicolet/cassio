@@ -119,7 +119,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de ATR est trop petit dans PeutCreerNouvellePageATR!! Prévenez Stéphane');
       PeutCreerNouvellePageATR := false;
-      exit(PeutCreerNouvellePageATR);
+      exit;
     end;
 
 
@@ -130,7 +130,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de ATR dans PeutCreerNouvellePageATR!! Prévenez Stéphane');
       PeutCreerNouvellePageATR := false;
-      exit(PeutCreerNouvellePageATR);
+      exit;
     end;
 
   with ReserveDeATR[dernierePageATRCree]^ do
@@ -140,7 +140,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de ATR dans PeutCreerNouvellePageATR !! Prévenez Stéphane');
           PeutCreerNouvellePageATR := false;
-          exit(PeutCreerNouvellePageATR);
+          exit;
         end;
 
 
@@ -171,7 +171,7 @@ begin
       TrouvePlaceDansPageDeATR := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeATR);
+      exit;
     end;
 
   {
@@ -207,7 +207,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageATRRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeATR);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -224,7 +224,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageATRRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeATR);
+                  exit;
                 end;
     end;
 
@@ -257,7 +257,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserATRDansSaPage(NIL)');}
-      exit(LocaliserATRDansSaPage);
+      exit;
     end;
 
   for k := 0 to (dernierePageATRCree div 2) do
@@ -277,7 +277,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(ATRRec);
 	              pageATRRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserATRDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -296,7 +296,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(ATRRec);
 	              pageATRRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserATRDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

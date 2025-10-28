@@ -1131,7 +1131,7 @@ begin
 
     redirectionVersRapport := DoitRedirigerContenuFntreReflexionDansRapport;
     if redirectionVersRapport and (fonctionAppelante = 'DoSystemTask')
-      then exit(EcritReflexion);
+      then exit;
 
     GetPort(oldport);
     SetPortByWindow(wReflexPtr);

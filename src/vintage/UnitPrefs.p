@@ -773,7 +773,7 @@ begin
       {AlerteSimpleFichierTexte(fileName,erreurES);}
 
       erreurES := FermeFichierTexte(fichierPref);
-      exit(CreeFichierPreferences);
+      exit;
     end;
 
   prefVersion40b11Enregistrees := true;
@@ -1066,20 +1066,20 @@ begin
 
      { desespoir, on n'a trouve aucun vieux fichier de preferences :
        on quitte et on prendra les prefs par défauts}
-     if erreurES = fnfErr then exit(LitFichierPreferences);
+     if erreurES = fnfErr then exit;
    end;
 
  if erreurES <> NoErr then
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
-     exit(LitFichierPreferences);
+     exit;
    end;
 
  erreurES := OuvreFichierTexte(fichierPref);
  if erreurES <> NoErr then
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
-     exit(LitFichierPreferences);
+     exit;
    end;
 
  erreurES := ReadlnDansFichierTexte(fichierPref,chainePref);
@@ -1087,7 +1087,7 @@ begin
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
      erreurES := FermeFichierTexte(fichierPref);
-     exit(LitFichierPreferences);
+     exit;
    end;
 
  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  LitFichierPreferences : avant if (chainePref <> ''%versionOfPrefsFile = 11'')');
@@ -2112,9 +2112,9 @@ var fichierGroupes : FichierTEXT;
 begin
   filename := 'groupes Cassio';
   erreurES := FichierTexteDeCassioExiste(filename,fichierGroupes);
-  if erreurES <> NoErr then exit(litFichierGroupes);
+  if erreurES <> NoErr then exit;
   erreurES := OuvreFichierTexte(fichierGroupes);
-  if erreurES <> NoErr then exit(litFichierGroupes);
+  if erreurES <> NoErr then exit;
 
   nbGroupes := 0;
   repeat
@@ -2150,7 +2150,7 @@ var fichierGroupes : FichierTEXT;
        if groupes^^[i] <> '' then
          begin
            ListeDesGroupesEstVide := false;
-           exit(ListeDesGroupesEstVide);
+           exit;
          end;
    end;
 
@@ -2167,7 +2167,7 @@ begin
 		        erreurES := OuvreFichierTexte(fichierGroupes);
 		        erreurES := VideFichierTexte(fichierGroupes);
 		      end;
-      if erreurES <> 0 then exit(CreeFichierGroupes);
+      if erreurES <> 0 then exit;
 
       for i := 1 to nbMaxGroupes do
         begin
@@ -2274,7 +2274,7 @@ begin
         erreurES := VideFichierTexte(fic);
       end;
 
-  if erreurES <> 0 then exit(SauvegarderListeOfPrefsFiles);
+  if erreurES <> 0 then exit;
 
   for i := 1 to kMaxPrefFiles do
     if (gListeOfPrefFiles[i].date <> '') and
@@ -2306,7 +2306,7 @@ begin
   erreurES := FichierTexteDeCassioExiste(filename,fic);
   if erreurES = NoErr
     then erreurES := OuvreFichierTexte(fic);
-  if erreurES <> 0 then exit(LireListeOfPrefsFiles);
+  if erreurES <> 0 then exit;
 
 
   nbPrefFiles := 0;
@@ -2424,14 +2424,14 @@ begin
   if (erreurES <> NoErr) then
     begin
       OpenPrefsFileForSequentialReading := erreurES;
-      exit(OpenPrefsFileForSequentialReading);
+      exit;
     end;
 
    erreurES := OuvreFichierTexte(gPrefsFileInfos.filePtr);
    if erreurES <> 0 then
      begin
        OpenPrefsFileForSequentialReading := erreurES;
-       exit(OpenPrefsFileForSequentialReading);
+       exit;
      end;
 
   gPrefsFileInfos.nbOfLastLineRead := 0;
@@ -2448,7 +2448,7 @@ begin
   if erreurES <> 0 then
      begin
        GetNextLineInPrefsFile := erreurES;
-       exit(GetNextLineInPrefsFile);
+       exit;
      end;
 
   gPrefsFileInfos.nbOfLastLineRead := gPrefsFileInfos.nbOfLastLineRead+1;

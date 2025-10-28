@@ -422,7 +422,7 @@ begin
       L := L1;
     end;
 
-  if (L = NIL) then exit(CompacterGameTreeList);
+  if (L = NIL) then exit;
 
   L1 := L;
   L2 := L1^.tail;
@@ -571,13 +571,13 @@ begin
             if L1^.head = NIL then
               begin
                 L1^.head := tree;
-                exit(AddGameTreeToListSansDupliquer);
+                exit;
               end;
             if L1^.tail = NIL then
               begin
                 L1^.tail := NewGameTreeList;
                 L1^.tail^.head := tree;
-                exit(AddGameTreeToListSansDupliquer);
+                exit;
               end;
             L1 := L1^.tail;
           end;
@@ -590,7 +590,7 @@ procedure DeleteThisGameTreeInList(var whichTree : GameTree; var L : GameTreeLis
 var aux,temp : GameTreeList;
 begin
   if (whichTree = NIL) or (L = NIL)
-    then exit(DeleteThisGameTreeInList);
+    then exit;
 
   aux := L;
   while (aux <> NIL) do
@@ -598,7 +598,7 @@ begin
       if (aux^.tail = aux) then
         begin
           AlerteSimple('boucle infinie dans DeleteThisGameTreeInList !!! Prévenez Stéphane');
-          exit(DeleteThisGameTreeInList);
+          exit;
         end;
 
       if (aux^.head = whichTree) then  {trouve!}
@@ -624,7 +624,7 @@ begin
           {on detruit whichTree}
           DisposeGameTree(whichTree);
 
-          exit(DeleteThisGameTreeInList);
+          exit;
         end;
       aux := aux^.tail;
     end;
@@ -636,10 +636,10 @@ procedure BringToFrontInGameTreeList(whichTree : GameTree; var L : GameTreeList)
 var aux,temp,myNewList : GameTreeList;
 begin
   if (whichTree = NIL) or (L = NIL)
-    then exit(BringToFrontInGameTreeList);
+    then exit;
 
   if (L^.head = whichTree)   {whichTree est deja en tete}
-    then exit(BringToFrontInGameTreeList);
+    then exit;
 
   aux := L;
   while (aux <> NIL) do
@@ -647,7 +647,7 @@ begin
       if (aux^.tail = aux) then
         begin
           AlerteSimple('boucle infinie dans BringToFrontInGameTreeList !!! Prévenez Stéphane');
-          exit(BringToFrontInGameTreeList);
+          exit;
         end;
 
       if (aux^.head = whichTree) then  {trouve!}
@@ -676,7 +676,7 @@ begin
           myNewList^.head := whichTree;
           L := myNewList;
 
-          exit(BringToFrontInGameTreeList);
+          exit;
         end;
       aux := aux^.tail;
     end;
@@ -691,11 +691,11 @@ begin
   if N <= 1 then
     begin
       BringToFrontInGameTreeList(whichTree,L);
-      exit(BringToPositionNInGameTreeList);
+      exit;
     end;
 
   if (whichTree = NIL) or (L = NIL) then
-    exit(BringToPositionNInGameTreeList);
+    exit;
 
   aux := L;
   compteur := 1;
@@ -705,14 +705,14 @@ begin
       if (aux^.tail = aux) then
         begin
           AlerteSimple('boucle infinie dans BringToPositionNInGameTreeList !!! Prévenez Stéphane');
-          exit(BringToPositionNInGameTreeList);
+          exit;
         end;
       if (aux^.head = whichTree) then  {trouve!}
         begin
           trouve := true;
 
           { whichTree est-il deja a la bonne place ? }
-          if (compteur = N) then exit(BringToPositionNInGameTreeList);
+          if (compteur = N) then exit;
 
           {on enleve whichTree de la liste}
           if aux^.tail = NIL
@@ -737,7 +737,7 @@ begin
       if aux <> NIL then inc(compteur);
     end;
 
-  if not(trouve) then exit(BringToPositionNInGameTreeList);
+  if not(trouve) then exit;
 
   aux := L;
   compteur := 1;
@@ -759,7 +759,7 @@ procedure PromeutParmiSesFreres(G : GameTree);
 var brothers : GameTreeList;
 begin
   if (G = NIL)
-    then exit(PromeutParmiSesFreres);
+    then exit;
   brothers := GetBrothers(G);
   if GameTreeListEstVide(brothers) then
     begin
@@ -767,7 +767,7 @@ begin
         sinon c'est une erreur dans la construction de l'arbre… On devrait sans doute
         tester cela }
       WritelnDansRapport('erreur !!! brothers = NIL dans PromeutParmiSesFreres. Prévenez Stéphane');
-      exit(PromeutParmiSesFreres);
+      exit;
     end;
   BringToFrontInGameTreeList(G,brothers);
   SetBrothers(G,brothers);
@@ -777,13 +777,13 @@ end;
 procedure MakeMainLineInGameTree(var G : GameTree);
 begin
   if (G = NIL)
-    then exit(MakeMainLineInGameTree);
+    then exit;
   if HasBrothers(G) then
     PromeutParmiSesFreres(G);
   if (G^.father = G) then
     begin
       AlerteSimple('boucle infinie dans MakeMainLineInGameTree !!! Prévenez Stéphane');
-      exit(MakeMainLineInGameTree);
+      exit;
     end;
   MakeMainLineInGameTree(G^.father);
 end;
@@ -803,7 +803,7 @@ begin
   changed := false;
 
   if (G = NIL) or not(HasSons(G))
-    then exit(TrierLesFilsDeCeNoeud);
+    then exit;
 
   for k := 1 to 64 do
     begin
@@ -854,7 +854,7 @@ begin
       if (L^.tail = L) then
         begin
           AlerteSimple('boucle infinie dans TrierLesFilsDeCeNoeud !! Prévenez Stéphane !');
-          exit(TrierLesFilsDeCeNoeud);
+          exit;
         end;
 
       L := L^.tail;
@@ -902,7 +902,7 @@ end;
 procedure DeleteThisSon(var G : GameTree; var whichSon : GameTree);
 var theSons : GameTreeList;
 begin
-  if (G = NIL) or not(HasSons(G)) then exit(DeleteThisSon);
+  if (G = NIL) or not(HasSons(G)) then exit;
   theSons := GetSons(G);
   DeleteThisGameTreeInList(whichSon,theSons);
   SetSons(G,theSons);
@@ -968,7 +968,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachGameTreeInListDoIter !! Prévenez Stéphane !');
-              exit(ForEachGameTreeInListDoIter);
+              exit;
             end
           else               {on fait l'appel recursif}
             ForEachGameTreeInListDoIter(L^.tail,DoWhat);
@@ -994,7 +994,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachGameTreeInListDoIterAvecResult !! Prévenez Stéphane !');
-              exit(ForEachGameTreeInListDoIterAvecResult);
+              exit;
             end
           else               {on fait l'appel recursif}
             ForEachGameTreeInListDoIterAvecResult(L^.tail,DoWhat,result);
@@ -1021,7 +1021,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachGameTreeInListDoIterAvecGameTree !! Prévenez Stéphane !');
-              exit(ForEachGameTreeInListDoIterAvecGameTree);
+              exit;
             end
           else               {on fait l'appel recursif}
             ForEachGameTreeInListDoIterAvecGameTree(L^.tail,DoWhat,Tree);
@@ -1046,7 +1046,7 @@ begin
           then
             begin
               AlerteSimple('boucle infinie dans ForEachGameTreeInListDoIterAvecGameTreeEtResult !! Prévenez Stéphane !');
-              exit(ForEachGameTreeInListDoIterAvecGameTreeEtResult);
+              exit;
             end
           else               {on fait l'appel recursif}
             ForEachGameTreeInListDoIterAvecGameTreeEtResult(L^.tail,DoWhat,Tree,result);
@@ -1080,7 +1080,7 @@ begin
           if (L1^.tail = L1) then
             begin
               AlerteSimple('boucle infinie dans ForEachPropertyInGameTreeListDoAvecResult !! Prévenez Stéphane !');
-              exit(ForEachPropertyInGameTreeListDoAvecResult);
+              exit;
             end;
           L1 := L1^.tail;
         end;
@@ -1110,7 +1110,7 @@ begin
           if (L1^.tail = L1) then
             begin
               AlerteSimple('boucle infinie dans ForEachPropertyInGameTreeListDoAvecResult !! Prévenez Stéphane !');
-              exit(ForEachNodeInGameTreeListDoAvecResult);
+              exit;
             end;
           L1 := L1^.tail;
         end;
@@ -1152,12 +1152,12 @@ begin
             if L^.tail = L then
               begin
                 AlerteSimple('boucle infinie dans SelectFirstGameTreeWithThisPropertyInList !! Prévenez Stéphane !');
-                exit(SelectFirstGameTreeWithThisPropertyInList);
+                exit;
               end;
             if ExistsInPropertyList(prop,L^.head^.properties) then
               begin                                {found}
                 SelectFirstGameTreeWithThisPropertyInList := L^.head;
-                exit(SelectFirstGameTreeWithThisPropertyInList)
+                exit
               end;
             L := L^.tail;
           end;
@@ -1369,7 +1369,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyToGameTree, prévenez Stéphane !');
-      exit(AddPropertyToGameTree);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) then
@@ -1385,7 +1385,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddPropertyToGameTreeSansDuplication, prévenez Stéphane !');
-      exit(AddPropertyToGameTreeSansDuplication);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) then
@@ -1413,11 +1413,11 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in DeletePropertyFromGameNode, prévenez Stéphane !');
-      exit(DeletePropertyFromGameNode);
+      exit;
     end;
 
   if PropertyEstVide(prop) or (G = NIL) then
-    exit(DeletePropertyFromGameNode);
+    exit;
 
   if (G <> NIL) then
     DeletePropertyFromList(prop,G^.properties);
@@ -1426,7 +1426,7 @@ end;
 procedure DeletePropertiesOfTheseTypeFromGameNode(whichType : SInt16; var G : GameTree);
 begin
   if (G = NIL) then
-    exit(DeletePropertiesOfTheseTypeFromGameNode);
+    exit;
 
   if (G <> NIL) then
     DeletePropertiesOfThisTypeInList(whichType,G^.properties);
@@ -1436,7 +1436,7 @@ end;
 procedure DeletePropertiesOfTheseTypesFromGameNode(whichTypes : SetOfPropertyTypes; var G : GameTree);
 begin
   if (G = NIL) then
-    exit(DeletePropertiesOfTheseTypesFromGameNode);
+    exit;
 
   if (G <> NIL) then
     DeletePropertiesOfTheseTypesInList(whichTypes,G^.properties);
@@ -1450,7 +1450,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in OverWritePropertyToGameTree, prévenez Stéphane !');
-      exit(OverWritePropertyToGameTree);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) and (G <> NIL) then
@@ -1587,7 +1587,7 @@ begin
     then
       begin
         GetNextBrother := NIL;
-        exit(GetNextBrother);
+        exit;
       end
     else
       begin
@@ -1599,7 +1599,7 @@ begin
                 if L^.tail = NIL
                   then GetNextBrother := NIL
                   else GetNextBrother := L^.tail^.head;
-                exit(GetNextBrother);
+                exit;
               end;
             L := L^.tail;
           end;
@@ -1641,7 +1641,7 @@ end;
 procedure SetBrothers(var G : GameTree; brothers : GameTreeList);
 begin
   if (G = NIL) or (G^.father = NIL)
-    then exit(SetBrothers)
+    then exit
     else G^.father^.sons := brothers;
 end;
 
@@ -1668,7 +1668,7 @@ begin
           if aux^.transpositionOrbite = aux then
             begin
               AlerteSimple('boucle infinie dans GetOrbiteInterversions !! Prévenez Stéphane');
-              exit(GetOrbiteInterversions);
+              exit;
             end;
           aux := aux^.transpositionOrbite;
           AddGameTreeToList(aux,L);
@@ -1689,7 +1689,7 @@ begin
           if aux^.transpositionOrbite = aux then
             begin
               AlerteSimple('boucle infinie dans DetacheDeSonOrbiteDInterversions !! Prévenez Stéphane');
-              exit(DetacheDeSonOrbiteDInterversions);
+              exit;
             end;
           aux := aux^.transpositionOrbite;
         end;
@@ -1727,7 +1727,7 @@ begin
 		      if aux1^.transpositionOrbite = aux1 then
 		        begin
 		          AlerteSimple('boucle infinie (1) dans FusionOrbitesInterversions !! Prévenez Stéphane');
-		          exit(FusionOrbitesInterversions);
+		          exit;
 		        end;
 		      aux1 := aux1^.transpositionOrbite;
 
@@ -1743,7 +1743,7 @@ begin
 		      if aux2^.transpositionOrbite = aux2 then
 		        begin
 		          AlerteSimple('boucle infinie (2) dans FusionOrbitesInterversions !! Prévenez Stéphane');
-		          exit(FusionOrbitesInterversions);
+		          exit;
 		        end;
 		      aux2 := aux2^.transpositionOrbite;
 
@@ -1852,7 +1852,7 @@ begin
      (G = NIL) then
     begin
       SelectTheSonAfterThisMove := NIL;
-      exit(SelectTheSonAfterThisMove);
+      exit;
     end;
 
   if debuggage.arbreDeJeu then
@@ -1884,7 +1884,7 @@ begin
   if (L = NIL) then
     begin
       ExistsInGameTreeList := false;
-      exit(ExistsInGameTreeList);
+      exit;
     end;
 
   result := 0;
@@ -1968,7 +1968,7 @@ begin
   if (G = NIL) then
     begin
       NextNodePourParcoursEnProfondeurArbre := NIL;
-      exit(NextNodePourParcoursEnProfondeurArbre);
+      exit;
     end;
 
   if HasSons(G)
@@ -1982,7 +1982,7 @@ begin
             if (frere <> NIL) then
               begin
                 NextNodePourParcoursEnProfondeurArbre := frere;
-                exit(NextNodePourParcoursEnProfondeurArbre);
+                exit;
               end;
             G := GetFather(G);
           end;
@@ -2036,7 +2036,7 @@ begin
       SearchFromGameTree := NIL;
 
       if (noeudDepart = NIL) or (noeudArret = NIL)
-        then exit(SearchFromGameTree);
+        then exit;
 
       trouve := false;
       noeudCourant := noeudDepart;
@@ -2160,7 +2160,7 @@ begin
       			  if (k = longueurPattern) then
       			    begin
       			      FindStringInNode := true;
-      			      exit(FindStringInNode);
+      			      exit;
       			    end;
 
       			  depart := depart + 1;
@@ -2200,7 +2200,7 @@ begin
       			  if (k = longueurPattern) then
       			    begin
       			      FindUpperStringWithoutDiacriticsInNode := true;
-      			      exit(FindUpperStringWithoutDiacriticsInNode);
+      			      exit;
       			    end;
 
       			  depart := depart + 1;
@@ -2241,7 +2241,7 @@ begin
             if  (fils^.tail = fils) then
               begin
                 AlerteSimple('boucle infinie dans GetEnsembleDesCasesDesFilsAvecCesProprietes !! Prévenez Stéphane !');
-                exit(GetEnsembleDesCasesDesFilsAvecCesProprietes);
+                exit;
               end;
             fils := fils^.tail;
           end;
@@ -2272,7 +2272,7 @@ begin
             if  (fils^.tail = fils) then
               begin
                 AlerteSimple('boucle infinie dans MakeListOfThesePropertiesOfSons !! Prévenez Stéphane !');
-                exit(MakeListOfThesePropertiesOfSons);
+                exit;
               end;
 
             fils := fils^.tail;
@@ -2348,7 +2348,7 @@ begin
       {WritelnDansRapport('Bizarre : G = NIL dans GetSquareOfMoveInNode…');}
       square := 0;
       GetSquareOfMoveInNode := false;
-      exit(GetSquareOfMoveInNode);
+      exit;
     end;
   coupBlanc := SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],G);
   coupNoir := SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],G);
@@ -2357,14 +2357,14 @@ begin
     begin
       square := GetOthelloSquareOfProperty(coupBlanc^);
       GetSquareOfMoveInNode := true;
-      exit(GetSquareOfMoveInNode);
+      exit;
     end;
 
   if (coupBlanc = NIL) and (coupNoir <> NIL) then
     begin
       square := GetOthelloSquareOfProperty(coupNoir^);
       GetSquareOfMoveInNode := true;
-      exit(GetSquareOfMoveInNode);
+      exit;
     end;
 
   if (coupBlanc = NIL) and (coupNoir = NIL) then
@@ -2379,7 +2379,7 @@ begin
 		    end;
       square := 0;
       GetSquareOfMoveInNode := false;
-      exit(GetSquareOfMoveInNode);
+      exit;
     end;
 
   AlerteSimple('Deux couleurs différentes dans un meme noeud dans GetSquareOfMoveInNode!! Prévenez Stéphane');
@@ -2416,7 +2416,7 @@ begin
   if (G = NIL) then
     begin
       GetCouleurOfMoveInNode := pionVide;
-      exit(GetCouleurOfMoveInNode);
+      exit;
     end;
   coupBlanc := SelectFirstPropertyOfTypesInGameTree([WhiteMoveProp],G);
   coupNoir := SelectFirstPropertyOfTypesInGameTree([BlackMoveProp],G);
@@ -2424,13 +2424,13 @@ begin
   if (coupBlanc <> NIL) and (coupNoir = NIL) then
     begin
       GetCouleurOfMoveInNode := pionBlanc;
-      exit(GetCouleurOfMoveInNode);
+      exit;
     end;
 
   if (coupBlanc = NIL) and (coupNoir <> NIL) then
     begin
       GetCouleurOfMoveInNode := pionNoir;
-      exit(GetCouleurOfMoveInNode);
+      exit;
     end;
 
   if (coupBlanc = NIL) and (coupNoir = NIL) then
@@ -2444,7 +2444,7 @@ begin
 		      WritelnDansRapport('');
 		    end;
       GetCouleurOfMoveInNode := pionVide;
-      exit(GetCouleurOfMoveInNode);
+      exit;
     end;
 
   AlerteSimple('Deux couleurs différentes dans un meme noeud dans GetCouleurOfMoveInNode!! Prévenez Stéphane');
@@ -2466,7 +2466,7 @@ begin
   if (G = NIL) or PropertyListEstVide(G^.properties) then
     begin
       CoupOfGameNodeEnString := '';
-      exit(CoupOfGameNodeEnString);
+      exit;
     end;
 
   aux := SelectFirstPropertyOfTypes([BlackMoveProp,WhiteMoveProp],G^.properties);
@@ -2483,7 +2483,7 @@ begin
   if (G = NIL) then
     begin
       CoupsDuCheminAuDessusEnString := '';
-      exit(CoupsDuCheminAuDessusEnString);
+      exit;
     end;
 
   G1 := G;
@@ -2504,7 +2504,7 @@ begin
   if (G = NIL) then
     begin
       CoupsOfMainLineInGameTreeEnString := '';
-      exit(CoupsOfMainLineInGameTreeEnString);
+      exit;
     end;
 
   G1 := G;
@@ -2515,7 +2515,7 @@ begin
         begin
           AlerteSimple('boucle infinie dans CoupsOfMainLineInGameTreeEnString !! Prévenez Stéphane !');
           CoupsOfMainLineInGameTreeEnString := '';
-          exit(CoupsOfMainLineInGameTreeEnString);
+          exit;
         end;
       G1 := G1^.sons^.head;
       result := Concat(result,CoupOfGameNodeEnString(G1));
@@ -2833,7 +2833,7 @@ begin
 	              begin
 	                virtualPropertyFound := true;
 	                IsAVirtualNode := true;
-	                exit(IsAVirtualNode);
+	                exit;
 	              end;
 
 	          L := L^.tail;
@@ -2959,7 +2959,7 @@ begin
       GetEndgameScoreDeCetteCouleurDansGameNode := false;
       scoreMinPourCouleur := -10000;
       scoreMaxPourCouleur := -10000;
-      exit(GetEndgameScoreDeCetteCouleurDansGameNode);
+      exit;
     end;
 
 
@@ -3119,14 +3119,14 @@ begin
   if (G = NIL) then
     begin
       IsAWinningNode := false;
-      exit(IsAWinningNode);
+      exit;
     end;
 
   couleur := GetCouleurOfMoveInNode(G);
   if couleur = pionVide then
     begin
       IsAWinningNode := false;
-      exit(IsAWinningNode);
+      exit;
     end;
 
   if GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax)
@@ -3141,14 +3141,14 @@ begin
   if (G = NIL) then
     begin
       IsALosingNode := false;
-      exit(IsALosingNode);
+      exit;
     end;
 
   couleur := GetCouleurOfMoveInNode(G);
   if couleur = pionVide then
     begin
       IsALosingNode := false;
-      exit(IsALosingNode);
+      exit;
     end;
 
   if GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax)
@@ -3163,14 +3163,14 @@ begin
   if (G = NIL) then
     begin
       IsADrawNode := false;
-      exit(IsADrawNode);
+      exit;
     end;
 
   couleur := GetCouleurOfMoveInNode(G);
   if couleur = pionVide then
     begin
       IsADrawNode := false;
-      exit(IsADrawNode);
+      exit;
     end;
 
   if GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,scoreMin,scoreMax)
@@ -3198,7 +3198,7 @@ begin
   if not(PropertyEstValide(prop)) then
     begin
       WritelnDansRapport('WARNING : invalid property in AddScorePropertyToGameTreeSansDuplication, prévenez Stéphane !');
-      exit(AddScorePropertyToGameTreeSansDuplication);
+      exit;
     end;
 
   if not(PropertyEstVide(prop)) then
@@ -3327,7 +3327,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT(G <> NIL) dans AjoutePropertyValeurDeCoupDansGameTree !!');
-      exit(AjoutePropertyValeurDeCoupDansGameTree);
+      exit;
     end;
 
   if (G <> NIL) then
@@ -3345,7 +3345,7 @@ begin
           WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansGameTree(reflexion de finale), prévenez Stéphane !');
           WritelnNumDansRapport('quelGenreDeReflexion = ',quelGenreDeReflexion);
           Sysbeep(0);
-          exit(AjoutePropertyValeurDeCoupDansGameTree);
+          exit;
         end;
 
 		  scoreProperty := MakeScoringProperty(quelGenreDeReflexion,scorePourNoir);
@@ -3368,14 +3368,14 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT(G <> NIL) dans AjoutePropertyScoreExactPourCetteCouleurDansGameTree !!');
-      exit(AjoutePropertyScoreExactPourCetteCouleurDansGameTree);
+      exit;
     end;
 
   if (couleur <> pionNoir) and (couleur <> pionBlanc) then
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT((couleur <> pionNoir) and (couleur <> pionBlanc)) dans AjoutePropertyScoreExactPourCetteCouleurDansGameTree !!');
-      exit(AjoutePropertyScoreExactPourCetteCouleurDansGameTree);
+      exit;
     end;
 
   if (quelGenreDeReflexion = ReflParfait) and odd(score) then
@@ -3406,7 +3406,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT : not(SamePositionEtTrait(position,PositionEtTraitACeNoeud(G))) dans PeutCompleterSuiteParfaiteParGameTree');
-      exit(PeutCompleterSuiteParfaiteParGameTree);
+      exit;
     end;
 
   if GetTraitOfPosition(position) = -GetCouleurOfMoveInNode(G)
@@ -3424,7 +3424,7 @@ begin
       if (scoreProp = NIL)
         then WritelnDansRapport('ASSERT : (scoreProp = NIL) dans PeutCompleterSuiteParfaiteParGameTree')
         else WritelnDansRapport('ASSERT : (scoreProp^.genre <> NodeValueProp) dans PeutCompleterSuiteParfaiteParGameTree');
-      exit(PeutCompleterSuiteParfaiteParGameTree);
+      exit;
     end;
 
 (*WritelnDansRapport('avant NbCasesVidesDansPosition');
@@ -3531,7 +3531,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT : listeDesCoups = NIL dans PeutCalculerFinaleDansGameTree');
-      exit(PeutCalculerFinaleDansGameTree);
+      exit;
     end;
 
   if (GetTraitOfPosition(position) <> pionVide) and ConnaitValeurDuNoeud(G,kDeltaFinaleInfini,vmin,vmax)
@@ -3555,7 +3555,7 @@ begin {$UNUSED deltaFinale}
 		      GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,valeurMin,valeurMax) then
 		    begin
 		      GetValeurMinimumOfNode := valeurMin;
-		      exit(GetValeurMinimumOfNode);
+		      exit;
 		    end;
 		end;
 
@@ -3575,7 +3575,7 @@ begin {$UNUSED deltaFinale}
 		      GetEndgameScoreDeCetteCouleurDansGameNode(G,couleur,valeurMin,valeurMax) then
 		    begin
 		      GetValeurMaximumOfNode := valeurMax;
-		      exit(GetValeurMaximumOfNode);
+		      exit;
 		    end;
 		end;
 

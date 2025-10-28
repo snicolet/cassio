@@ -179,7 +179,7 @@ begin
      if PeutJouerIci(couleur,x,plat) then
        begin
          DoitPasserSol := false;
-         exit(DoitPasserSol);
+         exit;
        end;
    end;
    DoitPasserSol := true;
@@ -207,7 +207,7 @@ begin
               if adversaire = pionBlanc
                 then DernierCoupSolitaire := nNoi-nBla
                 else DernierCoupSolitaire := nBla-nNoi;
-              exit(DernierCoupSolitaire);
+              exit;
             end
           else
             begin
@@ -220,7 +220,7 @@ begin
                     if adversaire = pionBlanc
                       then DernierCoupSolitaire := nNoi-nBla
                       else DernierCoupSolitaire := nBla-nNoi;
-                    exit(DernierCoupSolitaire);
+                    exit;
                   end
                 else
                   begin
@@ -228,7 +228,7 @@ begin
                     if couleur = pionBlanc
                       then DernierCoupSolitaire := nBla-nNoi
                       else DernierCoupSolitaire := nNoi-nBla;
-                    exit(DernierCoupSolitaire);
+                    exit;
                   end;
             end
       end;
@@ -374,7 +374,7 @@ if interruptionReflexion = pasdinterruption then
                        begin
                          ABSolPetite := maxPourBestDef;
                          fils[pere] := iCourant;
-                         exit(ABSolPetite);
+                         exit;
                        end;
                   end;
               end;
@@ -382,7 +382,7 @@ if interruptionReflexion = pasdinterruption then
            if nbVidesTrouvees >= ESprof then
              begin
                ABSolPetite := maxPourBestDef;
-               exit(ABSolPetite);
+               exit;
              end;
 
            platEssai := plat;
@@ -562,7 +562,7 @@ if (interruptionReflexion = pasdinterruption) then
                     if (alpha > beta) then
                        begin
                          ABSol := maxPourBestDef;
-                         exit(ABSol);
+                         exit;
                        end;
                   end;
               end;
@@ -671,7 +671,7 @@ if (interruptionReflexion = pasdinterruption) then
                        begin
                          ABSol := maxPourBestDef;
                          fils[pere] := iCourant;
-                         exit(ABSol);
+                         exit;
                        end;
                   end;
               end;
@@ -679,7 +679,7 @@ if (interruptionReflexion = pasdinterruption) then
            if nbVidesTrouvees >= ESprof then
              begin
                ABSol := maxPourBestDef;
-               exit(ABSol);
+               exit;
              end;
 
            platEssai := plat;
@@ -792,7 +792,7 @@ if (interruptionReflexion = pasdinterruption) then
 		                         for t := index to nbkiller[ESprof]-1 do killer^[ESprof,t] := killer^[ESprof,t+1];
 		                         killer^[ESprof,nbkiller[ESprof]] := iCourant;
 		                         fils[pere] := iCourant;
-		                         exit(ABSol);
+		                         exit;
 		                       end;
 		                  end;
 		              end;
@@ -801,7 +801,7 @@ if (interruptionReflexion = pasdinterruption) then
 		           if nbVidesTrouvees >= ESprof then
 		             begin
 		               ABSol := maxPourBestDef;
-		               exit(ABSol);
+		               exit;
 		             end;
 
 		           platEssai := plat;
@@ -915,7 +915,7 @@ if (interruptionReflexion = pasdinterruption) then
 
                          ABSol := maxPourBestDef;
                          fils[pere] := iCourant;
-                         exit(ABSol);
+                         exit;
                        end;
                   end;
               end;
@@ -923,7 +923,7 @@ if (interruptionReflexion = pasdinterruption) then
            if nbVidesTrouvees >= ESprof then
              begin
                ABSol := maxPourBestDef;
-               exit(ABSol);
+               exit;
              end;
 
            platEssai := plat;
@@ -1160,7 +1160,7 @@ if (interruptionReflexion = pasdinterruption) then
                     if (alpha > beta) then
                        begin
                          AlphaBetaSolitaireFast := maxPourBestDef;
-                         exit(AlphaBetaSolitaireFast);
+                         exit;
                        end;
                   end;
               end;
@@ -1170,7 +1170,7 @@ if (interruptionReflexion = pasdinterruption) then
               (maxPourBestDef > 0) and not(solitaire) then
               begin
                 AlphaBetaSolitaireFast := maxPourBestDef;
-                exit(AlphaBetaSolitaireFast);
+                exit;
               end;
             *)
 
@@ -1551,7 +1551,7 @@ begin
    if (killing = NIL) or (killer = NIL) or (meilleureSuite = NIL) then
      begin
        InitMaterielSolitaire := -1;
-       exit(InitMaterielSolitaire);
+       exit;
      end;
 
    MemoryFillChar(killing,sizeof(KillingTableSolitaires),chr(0));
@@ -3379,14 +3379,14 @@ begin
               if (Pos(s,commentaire) > 0) and (etatFinal = PartieNulle) then
                 begin
                   DoAfficheFelicitations;
-                  exit(EssaieAfficherFelicitation);
+                  exit;
                 end;
               s := ReadStringFromRessource(TextesSolitairesID,5);     {'et gagneÉ'}
               if ((Pos(s,commentaire) > 0) and (etatFinal = gainNoir) and (coulDuSol = pionNoir)) or
                  ((Pos(s,commentaire) > 0) and (etatFinal = gainBlanc) and (coulDuSol = pionBlanc)) then
                    begin
                      DoAfficheFelicitations;
-                     exit(EssaieAfficherFelicitation);
+                     exit;
                    end;
             end;
       end;

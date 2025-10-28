@@ -219,7 +219,7 @@ begin
       if not(test1) then
         begin
           CeMotEstDansLaTableDeHachage := false;
-          exit(CeMotEstDansLaTableDeHachage);
+          exit;
         end;
 
 
@@ -245,7 +245,7 @@ begin
   with crypto do
     begin
 
-      if (mot = dernierMotAjoute) then exit(AjouterMotFrancais);
+      if (mot = dernierMotAjoute) then exit;
 
       len := LENGTH_OF_STRING(mot);
 
@@ -581,7 +581,7 @@ begin
             begin
               longueurPeriode := T;
               DecalageEstPeriodique := true;
-              exit(DecalageEstPeriodique);
+              exit;
             end;
 
         end;
@@ -637,7 +637,7 @@ begin
       if (s = GetNiemeMotDeCetteLongueur(t,longueur)) then
         begin
           EstUnMotFrancais := true;
-          exit(EstUnMotFrancais);
+          exit;
         end;
     end;
 
@@ -1023,7 +1023,7 @@ var k : SInt32;
   procedure Failure;
   begin
     CheckContraintes := false;
-    exit(CheckContraintes);
+    exit;
   end;
 
 begin
@@ -1199,10 +1199,10 @@ begin
       // WritelnNumDansRapport('solve : ',numeroMotActif);
 
       if (numeroMotActif > kNbMotCroises) then
-        exit(SolveMotsCroises);
+        exit;
 
       if (nbOfSolutions > kNbSolutionsAAfficher) then
-        exit(SolveMotsCroises);
+        exit;
 
       len := longueur[numeroMotActif];
 
@@ -1253,7 +1253,7 @@ begin
 
 
                 if (nbOfSolutions > kNbSolutionsAAfficher) then
-                  exit(SolveMotsCroises);
+                  exit;
 
               end;
 

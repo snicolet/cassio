@@ -120,13 +120,13 @@ begin
   if (prof < k_MIN_PROF_MINIPROFILER) or (prof > k_MAX_PROF_MINIPROFILER) then
     begin
       WritelnNumDansRapport('ERROR : prof out of range dans AjouterTempsDansMiniProfiler!  prof = ',prof);
-      exit(AjouterTempsDansMiniProfiler);
+      exit;
     end;
 
   if (nbVides < 0) or (nbVides > 64) then
     begin
       WritelnNumDansRapport('ERROR : nbVides out of range dans AjouterTempsDansMiniProfiler! nbVides = ',nbVides);
-      exit(AjouterTempsDansMiniProfiler);
+      exit;
     end;
 
   with microProfiler do

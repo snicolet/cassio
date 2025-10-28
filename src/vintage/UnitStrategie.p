@@ -249,7 +249,7 @@ begin
               if (plat[x] = couleur) then
                 begin
                   PeutJouerIci := true;
-                  exit(PeutJouerIci)
+                  exit
                 end;
             end;
         end;
@@ -270,7 +270,7 @@ begin
      if PeutJouerIci(coul,x,plat) then
        begin
          DoitPasser := false;
-         exit(DoitPasser);
+         exit;
        end;
    end;
 end;
@@ -295,7 +295,7 @@ begin
                 if (plat[x] = couleur) then
                   begin
                     DoitPasserPlatSeulement := false;
-                    exit(DoitPasserPlatSeulement)
+                    exit
                   end;
               end;
           end;
@@ -314,7 +314,7 @@ begin
        WritelnDansRapport('ASSERT : (coul = pionVide) dans ModifPlatSeulement !! Prévenez Stéphane');
        WritelnStringAndCoupDansRapport('  pour info, a = ',a);
        ModifPlatSeulement := false;
-       exit(ModifPlatSeulement);
+       exit;
      end;
 
    pionEnnemi := -coul;
@@ -696,7 +696,7 @@ begin
    if (a < 11) or (a > 88) or (jeu[a] <> pionVide) then
      begin
        ModifPlatLongint := false;
-       exit(ModifPlatLongint);
+       exit;
      end;
 
    {exeptionnellement, pour le debugage seulement !}
@@ -894,7 +894,7 @@ begin
    if (coul = pionVide) then
      begin
        CoupAleatoire := 0;
-       exit(CoupAleatoire);
+       exit;
      end;
 
    mobilite := 0;
@@ -936,7 +936,7 @@ begin
    if (coul = pionVide) then
      begin
        CoupAleatoireDonnantPleinDeMobilite := 0;
-       exit(CoupAleatoireDonnantPleinDeMobilite);
+       exit;
      end;
 
    mobilite := 0;
@@ -996,7 +996,7 @@ begin
    if (coul = pionVide) then
      begin
        CoupAleatoireDonnantPeuDeMobilite := 0;
-       exit(CoupAleatoireDonnantPeuDeMobilite);
+       exit;
      end;
 
    mobilite := 0;
@@ -1103,7 +1103,7 @@ begin
 	              then   {on vient de trouver une deuxieme direction de retournement => on renvoie 2 }
 	                begin
 	                  PeutJouerIciUnidirectionnel := 2;
-	                  exit(PeutJouerIciUnidirectionnel);
+	                  exit;
 	                end
 	              else
 	                UneDirectionJouable := true;  {pour l'instant, une seule dir. de retournement}
@@ -1142,7 +1142,7 @@ begin
               then   {on vient de trouver une seconde direction => on renvoie -1 }
                 begin
                   ValeurUnidirectionnelleDuCoup := -1;
-                  exit(ValeurUnidirectionnelleDuCoup);
+                  exit;
                 end
               else
                 begin
@@ -1214,7 +1214,7 @@ begin
               if (nbDirectionsRetournement > 1) and not(coupTranquille) then
                 begin
                   PeutJouerIciBonCoup := false;
-                  exit(PeutJouerIciBonCoup);
+                  exit;
                 end;
             end;
         end;
@@ -1305,7 +1305,7 @@ begin
                     if (nbDirectionsNonTranquilles >= 2) then
                       begin
                         ValeurSemiTranquilleDuCoup := kCoupMultiDirectionnelNonTranquille;
-                        exit(ValeurSemiTranquilleDuCoup);
+                        exit;
                       end;
                     nbrePionsRetournesDirectionNonTranquille := compteur;
                   end;
@@ -1342,7 +1342,7 @@ begin
   if (nbDirectionsRetournement = 0) then
     begin
       ValeurSemiTranquilleDuCoup := kCoupIllegal;
-      exit(ValeurSemiTranquilleDuCoup);
+      exit;
     end;
   coupTranquille := (nbDirectionsNonTranquilles = 0);
   if (nbDirectionsRetournement = 1) then
@@ -1350,19 +1350,19 @@ begin
       if coupTranquille
         then ValeurSemiTranquilleDuCoup := kCoupUnidirectionnelTranquille
         else ValeurSemiTranquilleDuCoup := kCoupUnidirectionnelNonTranquille;
-      exit(ValeurSemiTranquilleDuCoup);
+      exit;
     end;
   if (nbDirectionsNonTranquilles = 1) and (nbDirectionsTranquilles > 0) then
     begin
       if (nbrePionsRetournesDirectionNonTranquille > 1)
 		    then ValeurSemiTranquilleDuCoup := kCoupPlusieursDir1NonTranquille
 		    else ValeurSemiTranquilleDuCoup := kCoupPlusieursDir1NonTranquilleMinimisante;
-      exit(ValeurSemiTranquilleDuCoup);
+      exit;
     end;
   if coupTranquille then {forcement nbDirectionsRetournement > 0}
     begin
       ValeurSemiTranquilleDuCoup := kCoupMultiDirectionnelTranquille;
-      exit(ValeurSemiTranquilleDuCoup);
+      exit;
     end;
   ValeurSemiTranquilleDuCoup := kCoupIllegal;
 end;
@@ -1802,10 +1802,10 @@ end;
 
 function PeutPrendreUnCoin(coul : SInt32; var plat : plateauOthello) : boolean;
 begin
-  if (plat[11] = pionVide) and PeutJouerIci(coul,11,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[18] = pionVide) and PeutJouerIci(coul,18,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[81] = pionVide) and PeutJouerIci(coul,81,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
-  if (plat[88] = pionVide) and PeutJouerIci(coul,88,plat) then begin PeutPrendreUnCoin := true; exit(PeutPrendreUnCoin); end;
+  if (plat[11] = pionVide) and PeutJouerIci(coul,11,plat) then begin PeutPrendreUnCoin := true; exit; end;
+  if (plat[18] = pionVide) and PeutJouerIci(coul,18,plat) then begin PeutPrendreUnCoin := true; exit; end;
+  if (plat[81] = pionVide) and PeutJouerIci(coul,81,plat) then begin PeutPrendreUnCoin := true; exit; end;
+  if (plat[88] = pionVide) and PeutJouerIci(coul,88,plat) then begin PeutPrendreUnCoin := true; exit; end;
   PeutPrendreUnCoin := false;
 end;
 
@@ -1966,7 +1966,7 @@ begin
       if plat[square] <> pionVide then
         begin
           TrouverUneCaseRemplie := square;
-          exit(TrouverUneCaseRemplie);
+          exit;
         end;
     end;
   TrouverUneCaseRemplie := 0;
@@ -2055,22 +2055,22 @@ begin
   if (plat[22] <> 0) and (plat[11] = 0) then
     begin
       CaseXSacrifiee := true;
-      exit(CaseXSacrifiee);
+      exit;
     end;
   if (plat[27] <> 0) and (plat[18] = 0) then
     begin
       CaseXSacrifiee := true;
-      exit(CaseXSacrifiee);
+      exit;
     end;
   if (plat[72] <> 0) and (plat[81] = 0) then
     begin
       CaseXSacrifiee := true;
-      exit(CaseXSacrifiee);
+      exit;
     end;
   if (plat[77] <> 0) and (plat[88] = 0) then
     begin
       CaseXSacrifiee := true;
-      exit(CaseXSacrifiee);
+      exit;
     end;
   CaseXSacrifiee := false;
 end;
@@ -2083,32 +2083,32 @@ begin
     then
       begin
         if plat[22] = pionNoir then
-          if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType1 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordNord]  = bordDeCinqBlancType1 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType1 then exit else
+          if AdressePattern[kAdresseBordNord]  = bordDeCinqBlancType1 then exit;
         if plat[27] = pionNoir then
-          if AdressePattern[kAdresseBordNord]  = bordDeCinqBlancType2 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordEst]   = bordDeCinqBlancType1 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordNord]  = bordDeCinqBlancType2 then exit else
+          if AdressePattern[kAdresseBordEst]   = bordDeCinqBlancType1 then exit;
         if plat[77] = pionNoir then
-          if AdressePattern[kAdresseBordEst]   = bordDeCinqBlancType2 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordSud]   = bordDeCinqBlancType2 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordEst]   = bordDeCinqBlancType2 then exit else
+          if AdressePattern[kAdresseBordSud]   = bordDeCinqBlancType2 then exit;
         if plat[72] = pionNoir then
-          if AdressePattern[kAdresseBordSud]   = bordDeCinqBlancType1 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType2 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordSud]   = bordDeCinqBlancType1 then exit else
+          if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType2 then exit;
       end
     else
       begin
         if plat[22] = pionBlanc then
-          if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType1 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordNord]  = bordDeCinqNoirType1 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType1 then exit else
+          if AdressePattern[kAdresseBordNord]  = bordDeCinqNoirType1 then exit;
         if plat[27] = pionBlanc then
-          if AdressePattern[kAdresseBordNord]  = bordDeCinqNoirType2 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordEst]   = bordDeCinqNoirType1 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordNord]  = bordDeCinqNoirType2 then exit else
+          if AdressePattern[kAdresseBordEst]   = bordDeCinqNoirType1 then exit;
         if plat[77] = pionBlanc then
-          if AdressePattern[kAdresseBordEst]   = bordDeCinqNoirType2 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordSud]   = bordDeCinqNoirType2 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordEst]   = bordDeCinqNoirType2 then exit else
+          if AdressePattern[kAdresseBordSud]   = bordDeCinqNoirType2 then exit;
         if plat[72] = pionBlanc then
-          if AdressePattern[kAdresseBordSud]   = bordDeCinqNoirType1 then exit(PasDeBordDeCinqAttaque) else
-          if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType2 then exit(PasDeBordDeCinqAttaque);
+          if AdressePattern[kAdresseBordSud]   = bordDeCinqNoirType1 then exit else
+          if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType2 then exit;
       end;
   PasDeBordDeCinqAttaque := true;
 end;
@@ -2121,71 +2121,71 @@ begin
       if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType1 then begin
         if plat[32] = pionNoir then
         if plat[22] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType2 then begin
         if plat[62] = pionNoir then
         if plat[72] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType1 then begin
         if plat[32] = pionBlanc then
         if plat[22] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType2 then begin
         if plat[62] = pionBlanc then
         if plat[72] = pionVide then
-        exit(BordDeCinqUrgent); end;
+        exit; end;
 
 
       if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType1 then begin
         if plat[23] = pionNoir then
         if plat[22] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType2 then begin
         if plat[26] = pionNoir then
         if plat[27] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType1 then begin
         if plat[23] = pionBlanc then
         if plat[22] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType2 then begin
         if plat[26] = pionBlanc then
         if plat[27] = pionVide then
-        exit(BordDeCinqUrgent); end ;
+        exit; end ;
 
       if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType1 then begin
         if plat[37] = pionNoir then
         if plat[27] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType2 then begin
         if plat[67] = pionNoir then
         if plat[77] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType1 then begin
         if plat[37] = pionBlanc then
         if plat[27] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType2 then begin
         if plat[67] = pionBlanc then
         if plat[77] = pionVide then
-        exit(BordDeCinqUrgent); end ;
+        exit; end ;
 
       if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType1 then begin
         if plat[73] = pionNoir then
         if plat[72] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType2 then begin
         if plat[76] = pionNoir then
         if plat[77] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType1 then begin
         if plat[73] = pionBlanc then
         if plat[72] = pionVide then
-        exit(BordDeCinqUrgent); end else
+        exit; end else
       if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType2 then begin
         if plat[76] = pionBlanc then
         if plat[77] = pionVide then
-        exit(BordDeCinqUrgent); end ;
+        exit; end ;
     end;
 
   BordDeCinqUrgent := false;
@@ -2200,19 +2200,19 @@ begin
   if TRUE then
     begin
       EstTurbulent := false;
-      exit(EstTurbulent);
+      exit;
     end;
   }
 
   if (nbBlancs <= 4) and (nbNoirs > 10) then   {grosse masse ?}
     begin
       EstTurbulent := true;
-      exit(EstTurbulent);
+      exit;
     end;
   if (nbNoirs <= 4) and (nbBlancs > 10) then   {grosse masse ?}
     begin
       EstTurbulent := true;
-      exit(EstTurbulent);
+      exit;
     end;
   with front do
     begin
@@ -2220,25 +2220,25 @@ begin
         begin
           EstTurbulent := true;
           caseCritiqueTurbulence := caseBordNord[table_Turbulence_mono^[AdressePattern[kAdresseBordNord]]];
-          exit(EstTurbulent);
+          exit;
         end;
       if table_Turbulence_mono^[AdressePattern[kAdresseBordSud]] <> 0 then
         begin
           EstTurbulent := true;
           caseCritiqueTurbulence := caseBordSud[table_Turbulence_mono^[AdressePattern[kAdresseBordSud]]];
-          exit(EstTurbulent);
+          exit;
         end;
       if table_Turbulence_mono^[AdressePattern[kAdresseBordOuest]] <> 0 then
         begin
           EstTurbulent := true;
           caseCritiqueTurbulence := caseBordOuest[table_Turbulence_mono^[AdressePattern[kAdresseBordOuest]]];
-          exit(EstTurbulent);
+          exit;
         end;
       if table_Turbulence_mono^[AdressePattern[kAdresseBordEst]] <> 0 then
         begin
           EstTurbulent := true;
           caseCritiqueTurbulence := caseBordEst[table_Turbulence_mono^[AdressePattern[kAdresseBordEst]]];
-          exit(EstTurbulent);
+          exit;
         end;
 
        if couleur = pionBlanc
@@ -2248,25 +2248,25 @@ begin
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordNord[table_Turbulence_bi^[AdressePattern[kAdresseBordNord]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[AdressePattern[kAdresseBordSud]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordSud[table_Turbulence_bi^[AdressePattern[kAdresseBordSud]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[AdressePattern[kAdresseBordOuest]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordOuest[table_Turbulence_bi^[AdressePattern[kAdresseBordOuest]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[AdressePattern[kAdresseBordEst]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordEst[table_Turbulence_bi^[AdressePattern[kAdresseBordEst]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
            end
          else
@@ -2275,25 +2275,25 @@ begin
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordNord[table_Turbulence_bi^[-AdressePattern[kAdresseBordNord]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[-AdressePattern[kAdresseBordSud]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordSud[table_Turbulence_bi^[-AdressePattern[kAdresseBordSud]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[-AdressePattern[kAdresseBordOuest]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordOuest[table_Turbulence_bi^[-AdressePattern[kAdresseBordOuest]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
              if table_Turbulence_bi^[-AdressePattern[kAdresseBordEst]] <> 0 then
                begin
                  EstTurbulent := true;
                  caseCritiqueTurbulence := caseBordEst[table_Turbulence_bi^[-AdressePattern[kAdresseBordEst]]];
-                 exit(EstTurbulent);
+                 exit;
                end;
            end;
 
@@ -2303,61 +2303,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = bordDeQuatreTroueBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreTroueBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeTroisBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 41;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeTroisBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 14;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeDeuxBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 51;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeDeuxBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 15;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeUnBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeUnBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
        end else
      if pl[22] = pionBlanc then
@@ -2366,61 +2366,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = bordDeQuatreTroueNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreTroueNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeTroisNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 41;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeTroisNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 14;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeDeuxNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 51;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeDeuxNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 15;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeUnNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeUnNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
        end;
      if pl[27] = pionNoir then
@@ -2429,61 +2429,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = bordDeQuatreTroueBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreTroueBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeTroisBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 48;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeTroisBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 15;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeDeuxBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 58;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeDeuxBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 14;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeUnBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeUnBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
        end else
      if pl[27] = pionBlanc then
@@ -2492,61 +2492,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = bordDeQuatreTroueNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = bordDeQuatreTroueNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 16;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeTroisNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 48;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeTroisNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 15;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeDeuxNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 58;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeDeuxNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 14;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeUnNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordNord] = borddeUnNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 13;
-              exit(EstTurbulent);
+              exit;
             end;
        end;
      if pl[72] = pionNoir then
@@ -2555,61 +2555,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = bordDeQuatreTroueBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreTroueBlancType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeTroisBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 84;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeTroisBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 51;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeDeuxBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 85;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeDeuxBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 41;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeUnBlancStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeUnBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
        end else
      if pl[72] = pionBlanc then
@@ -2618,61 +2618,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = bordDeQuatreTroueNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 61;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreTroueNoirType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeTroisNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 84;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeTroisNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 51;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeDeuxNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 85;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeDeuxNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 41;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeUnNoirStonerType1 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordOuest] = borddeUnNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 31;
-              exit(EstTurbulent);
+              exit;
             end;
        end;
      if pl[77] = pionNoir then
@@ -2681,61 +2681,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = bordDeQuatreTroueBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreTroueBlancType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeTroisBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 58;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeTroisBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 85;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeDeuxBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 48;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeDeuxBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 84;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeUnBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeUnBlancStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionNoir then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
        end else
      if pl[77] = pionBlanc then
@@ -2744,61 +2744,61 @@ begin
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = bordDeQuatreTroueNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 68;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = bordDeQuatreTroueNoirType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 86;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeTroisNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 58;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeTroisNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 85;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeDeuxNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 48;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeDeuxNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 84;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordSud] = borddeUnNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 38;
-              exit(EstTurbulent);
+              exit;
             end;
          if AdressePattern[kAdresseBordEst] = borddeUnNoirStonerType2 then
             begin
               EstTurbulent := true;
               if couleur = pionBlanc then caseCritiqueTurbulence := 83;
-              exit(EstTurbulent);
+              exit;
             end;
        end;
 
@@ -2884,7 +2884,7 @@ begin
     if plat1[i] <> plat2[i] then
       begin
         PositionsEgales := false;
-        exit(PositionsEgales);
+        exit;
       end;
   PositionsEgales := true;
 end;
@@ -3535,23 +3535,23 @@ function PasDeCoinEnPrise(var plat : plateauOthello; var jouable : plBool) : boo
 begin
   if jouable[11] then
     begin
-      if PeutJouerIci(pionNoir,11,plat)  then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
-      if PeutJouerIci(pionBlanc,11,plat) then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
+      if PeutJouerIci(pionNoir,11,plat)  then begin PasDeCoinEnPrise := false; exit; end;
+      if PeutJouerIci(pionBlanc,11,plat) then begin PasDeCoinEnPrise := false; exit; end;
     end;
   if jouable[18] then
     begin
-      if PeutJouerIci(pionNoir,18,plat)  then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
-      if PeutJouerIci(pionBlanc,18,plat) then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
+      if PeutJouerIci(pionNoir,18,plat)  then begin PasDeCoinEnPrise := false; exit; end;
+      if PeutJouerIci(pionBlanc,18,plat) then begin PasDeCoinEnPrise := false; exit; end;
     end;
   if jouable[81] then
     begin
-      if PeutJouerIci(pionNoir,81,plat)  then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
-      if PeutJouerIci(pionBlanc,81,plat) then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
+      if PeutJouerIci(pionNoir,81,plat)  then begin PasDeCoinEnPrise := false; exit; end;
+      if PeutJouerIci(pionBlanc,81,plat) then begin PasDeCoinEnPrise := false; exit; end;
     end;
   if jouable[88] then
     begin
-      if PeutJouerIci(pionNoir,88,plat)  then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
-      if PeutJouerIci(pionBlanc,88,plat) then begin PasDeCoinEnPrise := false; exit(PasDeCoinEnPrise); end;
+      if PeutJouerIci(pionNoir,88,plat)  then begin PasDeCoinEnPrise := false; exit; end;
+      if PeutJouerIci(pionBlanc,88,plat) then begin PasDeCoinEnPrise := false; exit; end;
     end;
   PasDeCoinEnPrise := true;
 end;
@@ -3566,73 +3566,73 @@ begin
      if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType1 then
       if (pl[32] = pionNoir) and (pl[22] = pionNoir) then
        case pl[23] of
-         pionBlanc: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[24] <> pionBlanc then if pl[25] <> pionBlanc then if pl[26] <> pionBlanc then
-                    if pl[27] <> pionBlanc then if pl[28] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[24] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[27] <> pionBlanc then if pl[28] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[24] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[22] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordOuest] = bordDeCinqBlancType2 then
       if (pl[62] = pionNoir) and (pl[72] = pionNoir) then
        case pl[73] of
-         pionBlanc: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[74] <> pionBlanc then if pl[75] <> pionBlanc then if pl[76] <> pionBlanc then
-                    if pl[77] <> pionBlanc then if pl[78] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[74] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[77] <> pionBlanc then if pl[78] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[74] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType1 then
       if (pl[37] = pionNoir) and (pl[27] = pionNoir) then
        case pl[26] of
-         pionBlanc: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[25] <> pionBlanc then if pl[24] <> pionBlanc then if pl[23] <> pionBlanc then
-                    if pl[22] <> pionBlanc then if pl[21] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[25] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[22] <> pionBlanc then if pl[21] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[25] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqBlancType2 then
       if (pl[67] = pionNoir) and (pl[77] = pionNoir) then
        case pl[76] of
-         pionBlanc: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[75] <> pionBlanc then if pl[74] <> pionBlanc then if pl[73] <> pionBlanc then
-                    if pl[72] <> pionBlanc then if pl[71] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[75] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[72] <> pionBlanc then if pl[71] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[75] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType1 then
       if (pl[23] = pionNoir) and (pl[22] = pionNoir) then
        case pl[32] of
-         pionBlanc: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[42] <> pionBlanc then if pl[52] <> pionBlanc then if pl[62] <> pionBlanc then
-                    if pl[72] <> pionBlanc then if pl[82] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[42] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[72] <> pionBlanc then if pl[82] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[42] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[22] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqBlancType2 then
       if (pl[26] = pionNoir) and (pl[27] = pionNoir) then
        case pl[37] of
-         pionBlanc: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[47] <> pionBlanc then if pl[57] <> pionBlanc then if pl[67] <> pionBlanc then
-                    if pl[77] <> pionBlanc then if pl[87] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[47] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[77] <> pionBlanc then if pl[87] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[47] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[27] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType1 then
       if (pl[73] = pionNoir) and (pl[72] = pionNoir) then
        case pl[62] of
-         pionBlanc: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[52] <> pionBlanc then if pl[42] <> pionBlanc then if pl[32] <> pionBlanc then
-                    if pl[22] <> pionBlanc then if pl[12] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[52] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[22] <> pionBlanc then if pl[12] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[52] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[72] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqBlancType2 then
       if (pl[76] = pionNoir) and (pl[77] = pionNoir) then
        case pl[67] of
-         pionBlanc: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+         pionBlanc: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
          pionNoir:  if pl[57] <> pionBlanc then if pl[47] <> pionBlanc then if pl[37] <> pionBlanc then
-                    if pl[27] <> pionBlanc then if pl[17] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
-         pionVide:  if pl[57] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqBlanc); end;
+                    if pl[27] <> pionBlanc then if pl[17] <> pionBlanc then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[57] = pionVide then begin ArnaqueSurBordDeCinqBlanc := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[77] = pionBlanc) then aux := aux-valCaseXDonnantBordDeCinq;
    end;
@@ -3649,73 +3649,73 @@ begin
      if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType1 then
       if (pl[32] = pionBlanc) and (pl[22] = pionBlanc) then
        case pl[23] of
-         pionNoir: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[24] = pionVide then if pl[25] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[24] <> pionNoir then if pl[25] <> pionNoir then if pl[26] <> pionNoir then
-                    if pl[27] <> pionNoir then if pl[28] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[24] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[27] <> pionNoir then if pl[28] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[24] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[22] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordOuest] = bordDeCinqNoirType2 then
       if (pl[62] = pionBlanc) and (pl[72] = pionBlanc) then
        case pl[73] of
-         pionNoir: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[74] = pionVide then if pl[75] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[74] <> pionNoir then if pl[75] <> pionNoir then if pl[76] <> pionNoir then
-                    if pl[77] <> pionNoir then if pl[78] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[74] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[77] <> pionNoir then if pl[78] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[74] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[72] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType1 then
       if (pl[37] = pionBlanc) and (pl[27] = pionBlanc) then
        case pl[26] of
-         pionNoir: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[25] = pionVide then if pl[24] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[25] <> pionNoir then if pl[24] <> pionNoir then if pl[23] <> pionNoir then
-                    if pl[22] <> pionNoir then if pl[21] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[25] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[22] <> pionNoir then if pl[21] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[25] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[27] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordEst] = bordDeCinqNoirType2 then
       if (pl[67] = pionBlanc) and (pl[77] = pionBlanc) then
        case pl[76] of
-         pionNoir: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[75] = pionVide then if pl[74] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[75] <> pionNoir then if pl[74] <> pionNoir then if pl[73] <> pionNoir then
-                    if pl[72] <> pionNoir then if pl[71] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[75] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[72] <> pionNoir then if pl[71] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[75] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[77] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType1 then
       if (pl[23] = pionBlanc) and (pl[22] = pionBlanc) then
        case pl[32] of
-         pionNoir: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[42] = pionVide then if pl[52] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[42] <> pionNoir then if pl[52] <> pionNoir then if pl[62] <> pionNoir then
-                    if pl[72] <> pionNoir then if pl[82] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[42] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[72] <> pionNoir then if pl[82] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[42] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[22] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordNord] = bordDeCinqNoirType2 then
       if (pl[26] = pionBlanc) and (pl[27] = pionBlanc) then
        case pl[37] of
-         pionNoir: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[47] = pionVide then if pl[57] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[47] <> pionNoir then if pl[57] <> pionNoir then if pl[67] <> pionNoir then
-                    if pl[77] <> pionNoir then if pl[87] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[47] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[77] <> pionNoir then if pl[87] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[47] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[27] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType1 then
       if (pl[73] = pionBlanc) and (pl[72] = pionBlanc) then
        case pl[62] of
-         pionNoir: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[52] = pionVide then if pl[42] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[52] <> pionNoir then if pl[42] <> pionNoir then if pl[32] <> pionNoir then
-                    if pl[22] <> pionNoir then if pl[12] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[52] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[22] <> pionNoir then if pl[12] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[52] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[72] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
      if AdressePattern[kAdresseBordSud] = bordDeCinqNoirType2 then
       if (pl[76] = pionBlanc) and (pl[77] = pionBlanc) then
        case pl[67] of
-         pionNoir: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+         pionNoir: if pl[57] = pionVide then if pl[47] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
          pionBlanc: if pl[57] <> pionNoir then if pl[47] <> pionNoir then if pl[37] <> pionNoir then
-                    if pl[27] <> pionNoir then if pl[17] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
-         pionVide:  if pl[57] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit(ArnaqueSurBordDeCinqNoir); end;
+                    if pl[27] <> pionNoir then if pl[17] <> pionNoir then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
+         pionVide:  if pl[57] = pionVide then begin ArnaqueSurBordDeCinqNoir := aux+valArnaqueSurBordDeCinq; exit; end;
        end else
       if (pl[77] = pionNoir) then aux := aux-valCaseXDonnantBordDeCinq;
    end;
@@ -4413,22 +4413,22 @@ begin
   if pl[11] = pionVide then if pl[22] = couleur then
     begin
       PasDeControleDeDiagonaleEnCours := false;
-      exit(PasDeControleDeDiagonaleEnCours);
+      exit;
     end;
   if pl[18] = pionVide then if pl[27] = couleur then
     begin
       PasDeControleDeDiagonaleEnCours := false;
-      exit(PasDeControleDeDiagonaleEnCours);
+      exit;
     end;
   if pl[81] = pionVide then if pl[72] = couleur then
     begin
       PasDeControleDeDiagonaleEnCours := false;
-      exit(PasDeControleDeDiagonaleEnCours);
+      exit;
     end;
   if pl[88] = pionVide then if pl[77] = couleur then
     begin
       PasDeControleDeDiagonaleEnCours := false;
-      exit(PasDeControleDeDiagonaleEnCours);
+      exit;
     end;
   PasDeControleDeDiagonaleEnCours := true;
 end;
@@ -6129,7 +6129,7 @@ begin
   if (x = y) or (x = 9-y) then  {sur une diagonale ?}
     begin
       PlusProcheCaseA := 0;
-      exit(PlusProcheCaseA);
+      exit;
     end;
   if x <= 4
     then

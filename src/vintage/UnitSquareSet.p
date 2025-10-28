@@ -163,7 +163,7 @@ begin
         if aux in ensemble then
           begin
             DoWhat(aux,continuer);
-            if not(continuer) then exit(ForEachSquareInSetDo);
+            if not(continuer) then exit;
           end;
       end;
 end;
@@ -180,7 +180,7 @@ begin
           begin
             aux := (i*10+j);
             DoWhat(aux,continuer);
-            if not(continuer) then exit(ForEachSquareInPackedSetDo);
+            if not(continuer) then exit;
           end;
       end;
 end;
@@ -197,7 +197,7 @@ begin
         if aux in ensemble then
           begin
             DoWhat(aux,result,continuer);
-            if not(continuer) then exit(ForEachSquareInSetDoAvecResult);
+            if not(continuer) then exit;
           end;
       end;
 end;
@@ -214,7 +214,7 @@ begin
           begin
             aux := (i*10+j);
             DoWhat(aux,result,continuer);
-            if not(continuer) then exit(ForEachSquareInPackedSetDoAvecResult);
+            if not(continuer) then exit;
           end;
       end;
 end;

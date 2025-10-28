@@ -195,7 +195,7 @@ begin
 		            AlerteSimpleFichierTexte(nomFichier,err);
 		            err := FermeFichierTexte(script);
 		            CreateEndgameScript := err;
-		            exit(CreateEndgameScript);
+		            exit;
 		          end;
 
 
@@ -381,7 +381,7 @@ begin
   if CassioEstEnTrainDeReflechir then
     begin
       AlerteDoitInterompreReflexionPourFaireScript;
-      exit(OuvrirEndgameScript);
+      exit;
     end;
 
 
@@ -403,7 +403,7 @@ begin
 
   if ScriptDeFinaleEnCours or
      not(PeutArreterAnalyseRetrograde) then
-    exit(OuvrirEndgameScript);
+    exit;
 
 
   watch := GetCursor(watchcursor);
@@ -434,7 +434,7 @@ begin
   if (nomScript = '') then
     begin
       AlerteSimpleFichierTexte(nomScript,0);
-      exit(OuvrirEndgameScript);
+      exit;
     end;
   {SetDebuggageUnitFichiersTexte(false);}
 
@@ -444,14 +444,14 @@ begin
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
-      exit(OuvrirEndgameScript);
+      exit;
     end;
 
   erreurES := OuvreFichierTexte(inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
-      exit(OuvrirEndgameScript);
+      exit;
     end;
 
   erreurES := FichierTexteExiste(nomOutpuScript,0,outputScript);
@@ -465,13 +465,13 @@ begin
     begin
       AlerteSimpleFichierTexte(nomOutpuScript,erreurES);
       erreurES := FermeFichierTexte(outputScript);
-      exit(OuvrirEndgameScript);
+      exit;
     end;
 
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomOutpuScript,erreurES);
-      exit(OuvrirEndgameScript);
+      exit;
     end;
 
 
@@ -890,13 +890,13 @@ begin
    ProcessProblemesStepanov := NoErr;  {pas encore de gestion d'erreurs :-( }
 
   if not(PeutArreterAnalyseRetrograde) then
-    exit(ProcessProblemesStepanov);
+    exit;
 
 
   if nomScript = '' then
     begin
       AlerteSimpleFichierTexte(nomScript,0);
-      exit(ProcessProblemesStepanov);
+      exit;
     end;
   {SetDebuggageUnitFichiersTexte(false);}
 
@@ -905,14 +905,14 @@ begin
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
-      exit(ProcessProblemesStepanov);
+      exit;
     end;
 
   erreurES := OuvreFichierTexte(inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
-      exit(ProcessProblemesStepanov);
+      exit;
     end;
 
 

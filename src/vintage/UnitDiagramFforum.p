@@ -214,7 +214,7 @@ begin
       fontID := ParamDiagCourant.PoliceFForumID;
 
       if (str = '') and (str1 = '') and (fontID <> GetCassioFontNum('New Century Schoolbook Roman')) then
-        exit(PrintLegendeDiagrammeForEPSFile);
+        exit;
 
       if (fontID = GetCassioFontNum('Baskerville')) or (fontID = GetCassioFontNum('Fontin Regular')) then
         begin

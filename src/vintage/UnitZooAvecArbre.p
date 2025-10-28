@@ -288,7 +288,7 @@ begin
             index               := k;
             dernierIndexUtilise := k;
             FindSlotLibreDansListeDesRequetesDuZoo := true;
-            exit(FindSlotLibreDansListeDesRequetesDuZoo);
+            exit;
           end;
 
       // puis eventuellement un resultat déjà calculé à écraser
@@ -299,7 +299,7 @@ begin
             index               := k;
             dernierIndexUtilise := k;
             FindSlotLibreDansListeDesRequetesDuZoo := true;
-            exit(FindSlotLibreDansListeDesRequetesDuZoo);
+            exit;
           end;
 
    end;
@@ -324,7 +324,7 @@ begin
         begin
           FindHashDansListeDesRequetesDuZoo := true;
           index := dernierIndexUtilise;
-          exit(FindHashDansListeDesRequetesDuZoo);
+          exit;
         end;
 
 
@@ -344,7 +344,7 @@ begin
               FindHashDansListeDesRequetesDuZoo := true;
               dernierIndexUtilise := k;
               index               := k;
-              exit(FindHashDansListeDesRequetesDuZoo);
+              exit;
             end;
 
 
@@ -359,7 +359,7 @@ begin
               FindHashDansListeDesRequetesDuZoo := true;
               dernierIndexUtilise := k;
               index               := k;
-              exit(FindHashDansListeDesRequetesDuZoo);
+              exit;
             end;
 
         end;
@@ -858,7 +858,7 @@ begin
   // EnleveEspacesDeGaucheSurPlace(ligne);  // FIXEME : TEST THIS !!
 
   if LongStringIsEmpty(ligne) or LongStringBeginsWith('NO NEW RESULT', ligne)
-    then exit(RecevoirUnResultatDuZoo);
+    then exit;
 
   if PeutParserUnResultatDuZoo(ligne,params,action,suite,timestamp)
     then
@@ -948,7 +948,7 @@ begin
             begin
               FindFilsAvecCeHash := true;
               numeroFils := k;
-              exit(FindFilsAvecCeHash);
+              exit;
             end;
       end;
 
@@ -1051,13 +1051,13 @@ begin
   if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans EnvoyerCeFilsAuZoo,  prof = ',prof);
-      exit(EnvoyerCeFilsAuZoo);
+      exit;
     end;
 
   if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans EnvoyerCeFilsAuZoo  , whichMove = ',whichMove);
-      exit(EnvoyerCeFilsAuZoo);
+      exit;
     end;
 
 
@@ -1096,7 +1096,7 @@ begin
                   end;
               end;
 
-            exit(EnvoyerCeFilsAuZoo);
+            exit;
           end;
 
       WritelnDansRapport('ASSERT dans EnvoyerCeFilsAuZoo : should never happen !');
@@ -1123,7 +1123,7 @@ begin
                 GetValeurZooDeCeFils := coupsFils[k].theVal;
                 timeTaken               := timeUsed[k];
 
-                exit(GetValeurZooDeCeFils);
+                exit;
               end;
       end;
 end;
@@ -1144,7 +1144,7 @@ begin
                 bestDef[k]              := bestSuite;
                 timeUsed[k]             := timeTaken;
 
-                exit(SetValeurZooDeCeFils);
+                exit;
               end;
       end;
 end;
@@ -1157,13 +1157,13 @@ begin
   if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans RetirerCeFilsDuZoo,  prof = ',prof);
-      exit(RetirerCeFilsDuZoo);
+      exit;
     end;
 
   if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans RetirerCeFilsDuZoo  , whichMove = ',whichMove);
-      exit(RetirerCeFilsDuZoo);
+      exit;
     end;
 
   (*
@@ -1197,7 +1197,7 @@ begin
 
                     dec(nbCoupsEnvoyesAuZoo);
 
-                    exit(RetirerCeFilsDuZoo);
+                    exit;
                   end;
 
             end
@@ -1213,13 +1213,13 @@ begin
   if (prof < 0) and (prof > 64) then
     begin
       WritelnNumDansRapport('ASSERT : prof out of bounds dans CassioPrendEnChargeLuiMemeCeFilsDuZoo,  prof = ',prof);
-      exit(CassioPrendEnChargeLuiMemeCeFilsDuZoo);
+      exit;
     end;
 
   if (whichMove < 11) and (whichMove > 88) then
     begin
       WritelnNumDansRapport('ASSERT : whichMove impossible dans CassioPrendEnChargeLuiMemeCeFilsDuZoo  , whichMove = ',whichMove);
-      exit(CassioPrendEnChargeLuiMemeCeFilsDuZoo);
+      exit;
     end;
 
   {
@@ -1248,7 +1248,7 @@ begin
                     WritelnStringAndCoupDansRapport(', requete envoyée pour prendre en charge mon fils ',whichMove);
                     }
 
-                    exit(CassioPrendEnChargeLuiMemeCeFilsDuZoo);
+                    exit;
 
                   end;
 
@@ -1442,7 +1442,7 @@ begin
             begin
               whichProf := descr[k].profDuFils;
               HashCassioEstDansLesTracesExecutionAStopper := true;
-              exit(HashCassioEstDansLesTracesExecutionAStopper);
+              exit;
             end;
       end;
 
@@ -1461,7 +1461,7 @@ begin
   if (gTraceExecutionDeFinale.arrets.cardinal <= 0) then
     begin
       DoitStopperExecutionDeCeSousArbre := false;
-      exit(DoitStopperExecutionDeCeSousArbre);
+      exit;
     end;
 
   traceTraversee := false;
@@ -1481,7 +1481,7 @@ begin
                 WritelnNumDansRapport(' : arret demandé à prof ',k);
                 }
                 DoitStopperExecutionDeCeSousArbre := true;
-                exit(DoitStopperExecutionDeCeSousArbre);
+                exit;
               end;
           end
         else
@@ -1490,7 +1490,7 @@ begin
               begin
                 doitAfficher := true;
                 DoitStopperExecutionDeCeSousArbre := false;
-                exit(DoitStopperExecutionDeCeSousArbre);
+                exit;
               end;
           end;
     end;
@@ -1542,7 +1542,7 @@ begin
               begin
                 OnVientDeStoperExecutionDeCeFils := true;
                 numeroArret := k;
-                exit(OnVientDeStoperExecutionDeCeFils);
+                exit;
               end;
           end;
       end;
@@ -1592,7 +1592,7 @@ begin
           if descr[k].hashCassio = hashFils then  {trouvé !}
             begin
               RetirerDeLaListeDesTracesExecutionAStopperParNumeroArret(k);
-              exit(RetirerDeLaListeDesTracesExecutionAStopper);
+              exit;
             end;
       end;
 end;
@@ -1608,7 +1608,7 @@ begin
   {WritelnNumDansRapport('       Je dois arreter les calculs jusqu''a la profondeur (du fils) ',prof);}
 
   if (prof < 0) or (prof > 64) then
-    exit(AjouterDansLaListeDesTracesExecutionAStopper);
+    exit;
 
   with gTraceExecutionDeFinale.arrets do
     begin

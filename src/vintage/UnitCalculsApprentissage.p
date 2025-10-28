@@ -665,7 +665,7 @@ begin
     if liste.liste[t].numeroCellule = num then
       begin
         CelluleEstDansListe := true;
-        exit(CelluleEstDansListe);
+        exit;
       end;
 end;
 
@@ -679,7 +679,7 @@ begin
     begin
       WritelnDansRapport('## ERROR : (coupCherche < 11) or (coupCherche > 88) dans CoupEstDansListe');
       WritelnNumDansRapport('coupCherche = ',coupCherche);
-      exit(CoupEstDansListe);
+      exit;
     end;
 
   for t := 1 to liste.cardinal do
@@ -687,7 +687,7 @@ begin
       begin
         CoupEstDansListe := true;
         numCellule := liste.liste[t].numeroCellule;
-        exit(CoupEstDansListe);
+        exit;
       end;
 end;
 
@@ -700,7 +700,7 @@ begin
   if (coupCherche < 11) or (coupCherche > 88) then
     begin
       WritelnDansRapport('## ERROR : (coupCherche < 11) or (coupCherche > 88) dans CoupEstDansListeDeCellulesEtDeCoups');
-      exit(CoupEstDansListeDeCellulesEtDeCoups);
+      exit;
     end;
 
   for t := 1 to liste.cardinal do
@@ -708,7 +708,7 @@ begin
       begin
         CoupEstDansListeDeCellulesEtDeCoups := true;
         numCellule := liste.liste[t].numeroCellule;
-        exit(CoupEstDansListeDeCellulesEtDeCoups);
+        exit;
       end;
 end;
 
@@ -725,7 +725,7 @@ begin
 	      begin
 	        TrouveValMinimaxDansListe := true;
 	        numCellule := liste.liste[t].numeroCellule;
-	        exit(TrouveValMinimaxDansListe);
+	        exit;
 	      end;
     end;
 end;
@@ -743,7 +743,7 @@ begin
       begin
         TrouveValDevianteDansListe := true;
         numCellule := liste.liste[t].numeroCellule;
-        exit(TrouveValDevianteDansListe);
+        exit;
       end;
     end;
 end;
@@ -948,7 +948,7 @@ begin
             WritelnDansRapport('## ERROR : boucle infinie dans NbFilsDeviants');
             erreur := RepareListeDesFreres(fichier,premierFils,lesFilsDeviants,'NbFilsDeviants:');
             NbFilsDeviants := lesFilsDeviants.cardinal;
-            exit(NbFilsDeviants);
+            exit;
           end;
       until (aux = premierFils);
     end;
@@ -978,7 +978,7 @@ begin  {$UNUSED myLongintPtr}
     begin
       SysBeep(0);
       WritelnDansRapport('## ERROR : uneliste et result ont la meme adresse dans SelectionneDansListe !');
-      exit(SelectionneDansListe);
+      exit;
     end;
 
   result.cardinal := 0;

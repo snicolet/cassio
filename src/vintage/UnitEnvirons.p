@@ -187,14 +187,14 @@ begin
 	GetApplicationName := default;  {nom par défaut si le reste ne marche pas, e.g. sur un PC}
 
 	if not(HasGestaltAttr(gestaltOSAttr, gestaltLaunchControl)) then
-		exit(GetApplicationName);
+		exit;
 
 	CurrentPSN.highLongOfPSN := 0;
 	CurrentPSN.lowLongOfPSN := kCurrentProcess;
 
 	err := GetCurrentProcess(CurrentPSN);
 	if err <> 0 then
-		exit(GetApplicationName);
+		exit;
 
 	ProcessInfo.processInfoLength := sizeof(ProcessInfoRec);
 	ProcessInfo.processName := @myString;
@@ -202,7 +202,7 @@ begin
 
 	err := GetProcessInformation(CurrentPSN, ProcessInfo);
 	if err <> 0 then
-		exit(GetApplicationName)
+		exit
 	else
 		GetApplicationName := MyStr255ToString(ProcessInfo.processname^);
 end;
@@ -542,7 +542,7 @@ begin
      nomFichier := GetNameOfFSSpec(fs);
 
      if (nomFichier = '') or (nomFichier[1] = '.') then
-       exit(LoadPolicePriveeDeCassio);
+       exit;
 
      // WritelnDansRapport('Searching font ' + nomFichier + ' ...');
 
@@ -583,7 +583,7 @@ var fontDirectory : FSSpec;
 begin
 
   if (gNbLecturesDossierPolicesDeCassio > 0)
-    then exit(ChargerLesPolicesPriveesDeCassio);
+    then exit;
 
   // WritelnDansRapport('Entree dans ChargerLesPolicesPriveesDeCassio');
 
@@ -613,7 +613,7 @@ begin
   if (nomPolice = '') then
     begin
       GetCassioFontNum := 0;
-      exit(GetCassioFontNum);
+      exit;
     end;
 
   policeID := MyGetFontNum(nomPolice);
@@ -743,7 +743,7 @@ begin
             erreurES := OuvreFichierTexte(fic);
             erreurES := VideFichierTexte(fic);
           end;
-      if erreurES <> 0 then exit(SauvegarderListeOfCassioFolderPaths);
+      if erreurES <> 0 then exit;
 
       for i := 1 to kMaxCassioFolderPaths do
         if (gListeOfValidCassioFolders.paths[i] <> '') then
@@ -768,7 +768,7 @@ var filename : String255;
 begin
 
   if gListOfValidCassioFoldersInitialised
-    then exit(LireListeOfCassioFolderPaths);
+    then exit;
 
   if (GetPathOfApplicationSupportFolder(applicationSupportPath) = NoErr) then
     begin
@@ -785,7 +785,7 @@ begin
       erreurES := FichierTexteExiste(filename,0,fic);
       if erreurES = NoErr
         then erreurES := OuvreFichierTexte(fic);
-      if erreurES <> 0 then exit(LireListeOfCassioFolderPaths);
+      if erreurES <> 0 then exit;
 
 
       nbPathsCassioFolder := 0;
@@ -818,7 +818,7 @@ begin
       if (ExtraitNomDeVolume(whichPath) <> ExtraitNomDeVolume(applicationSupportPath)) then
         begin
           gCassioSansDouteLanceDepuisUneImageDisque := true;
-          exit(AddValidCassioFolderPath);
+          exit;
         end;
 
       (* Lire la liste si necessaire *)
@@ -827,7 +827,7 @@ begin
       (* si le path donne est dejà dans la liste, il n'y a rien a faire *)
       for k := 1 to kMaxCassioFolderPaths do
         if (whichPath = gListeOfValidCassioFolders.paths[k]) then
-          exit(AddValidCassioFolderPath);
+          exit;
 
       trouve := false;
       for k := 1 to kMaxCassioFolderPaths do

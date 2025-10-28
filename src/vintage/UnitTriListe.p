@@ -578,7 +578,7 @@ var s1,s2 : PackedThorGame;
                 tableTriListe^^[i+1] := temp;
               end;
 
-            if jstack = 0 then exit(QuickSort);
+            if jstack = 0 then exit;
             ir := istack[jstack];
             l := istack[jstack-1];
             jstack := jstack-2;
@@ -637,13 +637,13 @@ var s1,s2 : PackedThorGame;
 begin  {TrierListePartie}
 
   if not(AutorisationCalculsLongsSurListe)
-    then exit(TrierListePartie);
+    then exit;
 
   if problemeMemoireBase
-     then exit(TrierListePartie);
+     then exit;
 
   if ((critereDeTri = TriParJoueurBlanc) or (critereDeTri = TriParJoueurNoir)) and not(JoueursEtTournoisEnMemoire)
-     then exit(TrierListePartie);
+     then exit;
 
   if (critereDeTri = TriParDate) and LectureAntichronologique then critereDeTri := TriParAntiDate;
   if (critereDeTri = TriParAntiDate) and not(LectureAntichronologique) then critereDeTri := TriParDate;
@@ -685,7 +685,7 @@ begin  {TrierListePartie}
     then
       begin
         if not(TrierListeSuivantUnClassement)
-          then exit(TrierListePartie);
+          then exit;
       end
     else
       case algorithmeDeTri of
@@ -1080,7 +1080,7 @@ const kDialogueSyntaxeTriSuivantClassementID = 1135;
         begin
           DialogueSimple(kDialogueSyntaxeTriSuivantClassementID);
           TrierListeSuivantUnClassement := false;
-          exit(TrierListeSuivantUnClassement);
+          exit;
         end;
     end;
 

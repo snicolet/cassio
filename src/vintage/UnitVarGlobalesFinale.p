@@ -545,7 +545,7 @@ begin
     then
       begin
         IndexOfThisDelta := dernierIndexDeltaRenvoye;
-        exit(IndexOfThisDelta);
+        exit;
       end
     else
       begin
@@ -554,7 +554,7 @@ begin
             begin
               IndexOfThisDelta := i;
               dernierIndexDeltaRenvoye := i;
-              exit(IndexOfThisDelta);
+              exit;
             end;
       end;
   SysBeep(0);
@@ -569,7 +569,7 @@ begin
       SysBeep(0);
       WritelnNumDansRapport('ERREUR dans ThisDeltaFinal : index = ',index);
       ThisDeltaFinal := 0;
-      exit(ThisDeltaFinal);
+      exit;
     end;
   ThisDeltaFinal := deltaSuccessifs[index].valeurDeMu;
 end;

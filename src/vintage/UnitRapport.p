@@ -154,7 +154,7 @@ var longueur : SInt32;
     errDebug : OSStatus;
 begin
 
-  if (s = '') then exit(WriteDansRapportSync);
+  if (s = '') then exit;
 
   errDebug := MPEnterCriticalRegion(gRapportCriticalRegionID,kDurationForever);
 

@@ -87,7 +87,7 @@ begin
               affectation(i+1,temp);
             end;
 
-          if jstack = 0 then exit(GeneralQuickSort);
+          if jstack = 0 then exit;
           ir := istack[jstack];
           l := istack[jstack-1];
           jstack := jstack-2;

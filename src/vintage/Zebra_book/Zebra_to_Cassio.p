@@ -321,13 +321,13 @@ var k : SInt32;
 begin
   for k := 1 to TAILLE_LISTE_DES_POSITIONS_AVEC_FILS_VIRTUELS do
     if (G = gListeDesPositionsAvecDesFilsVirtuels[k])
-      then exit(NotifyThatThisGameTreeHasVirtualNodes); // already there !
+      then exit; // already there !
 
   for k := 1 to TAILLE_LISTE_DES_POSITIONS_AVEC_FILS_VIRTUELS do
     if (gListeDesPositionsAvecDesFilsVirtuels[k] = NIL) then
       begin
         gListeDesPositionsAvecDesFilsVirtuels[k] := G;
-        exit(NotifyThatThisGameTreeHasVirtualNodes);
+        exit;
       end;
 end;
 
@@ -337,7 +337,7 @@ var k : SInt32;
 begin
   current := GetCurrentNode;
 
-  if (current = NIL) or Quitter then exit(ClearUselessVirtualZebraNodes);
+  if (current = NIL) or Quitter then exit;
 
   for k := 1 to TAILLE_LISTE_DES_POSITIONS_AVEC_FILS_VIRTUELS do
     begin
@@ -405,7 +405,7 @@ begin
   if (index < 0) then
     begin
       ReadZebraBookValuesFromDisc := index;  (* not found *)
-      exit(ReadZebraBookValuesFromDisc);
+      exit;
     end;
 
   extraire_vals_from_zebra_book(index, node, @Score_Noir, @Score_Blanc, @Alt_Move, @Alt_Score, @Flags);
@@ -422,13 +422,13 @@ var Score_Noir,Score_Blanc,Alt_Move, Alt_Score : SInt16;
     index : SInt32;
 begin
   if CassioEstEnTrainDeLireLaBibliothequeDeZebra then
-    exit(WritelnZebraValuesDansRapport);
+    exit;
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
       if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
-      exit(WritelnZebraValuesDansRapport);
+      exit;
     end;
 
   BeginUseZebraNodes('WritelnZebraValuesDansRapport');
@@ -581,7 +581,7 @@ var valMin,valMax : SInt32;
 begin
 
   if ZebraBookACetteOption(kAfficherZebraBookBrutDeDecoffrage) then
-    exit(EffacerValeursDeZebraMiserablesSiNecessaire);
+    exit;
 
   valMin := GetMinValuationDeZebraAffichee;
   valMax := GetMaxValuationDeZebraAffichee;
@@ -620,7 +620,7 @@ label sortie;
 begin
 
   if CassioEstEnTrainDeLireLaBibliothequeDeZebra then
-    exit(AddSonAndZebraValueAtThisNode);
+    exit;
 
 
   (* validation des scores *)
@@ -628,12 +628,12 @@ begin
     if (scorePourNoir > 64) or (scorePourNoir < -64) then
       begin
         (* WritelnNumDansRapport('WARNING ! note impossible dans la bibliothque de Zebra :  scorePourNoir = ',scorePourNoir); *)
-        exit(AddSonAndZebraValueAtThisNode);
+        exit;
       end;
 
 
   homogeneite_error := VerifieHomogeneiteDesCouleurs(whichNode, false);
-  if (homogeneite_error <> 0) then exit(AddSonAndZebraValueAtThisNode);
+  if (homogeneite_error <> 0) then exit;
 
 
   oldCurrentNode := GetCurrentNode;
@@ -881,13 +881,13 @@ begin
 
 
   if CassioEstEnTrainDeLireLaBibliothequeDeZebra then
-    exit(AddAllZebraValuesAtThisNode);
+    exit;
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
       if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
-      exit(AddAllZebraValuesAtThisNode);
+      exit;
     end;
 
 
@@ -935,7 +935,7 @@ begin
       (*   de Zebra, et qu'on a dŽja prouvŽ qu'elle n'y est pas !                 *)
 
       if (indexProbable = kPositionNotInZebraBook)
-        then exit(AddAllZebraValuesAtThisNode);
+        then exit;
     end;
 
   index := ReadZebraBookValuesFromDisc(pos.position,Score_Noir,Score_Blanc,Alt_Move,Alt_Score,Flags,indexProbable);
@@ -1025,7 +1025,7 @@ begin
       TrierLesFilsSelonLesNotesDeLaBibliothequeDeZebra(whichNode);
     end;
 
-  exit(AddAllZebraValuesAtThisNode);
+  exit;
 
 sortie :
 
@@ -1716,7 +1716,7 @@ begin  {$unused node}
                   WritelnNumDansRapport('  ==> ',index);
                 end;
 
-              exit(get_zebra_node_from_disk);
+              exit;
             end;
 
           if (nodes[n].date < plusVieilleDate) then
@@ -1749,7 +1749,7 @@ begin  {$unused node}
                   WritelnNumDansRapport('  ==> ',index);
                 end;
 
-              exit(get_zebra_node_from_disk);
+              exit;
             end;
 
           if (nodes[n].date < plusVieilleDate) then
@@ -1797,7 +1797,7 @@ begin
   with gCacheDesPresents do
     begin
 
-      if verificationLevel <= 0 then exit(VerifierIntegriteDuCacheDesPresents);
+      if verificationLevel <= 0 then exit;
 
       compteur := 0;
       for k := 1 to NB_NODES_IN_ZEBRA_CACHE do
@@ -1859,7 +1859,7 @@ begin
       if MemberOfIntegerSet(theKey, data, presents) then
         begin
           {WritelnNumDansRapport('DŽja dans cache : ',theKey);}
-          exit(ajouter_zebra_node_dans_le_cache_des_presents);
+          exit;
         end;
 
       if presents.cardinal < NB_NODES_IN_ZEBRA_CACHE
@@ -1949,7 +1949,7 @@ begin
   with gCacheDesPresents do
     begin
 
-      if (nombreErreurs > 0) then exit(zebra_node_est_present_dans_le_cache);
+      if (nombreErreurs > 0) then exit;
 
       if MemberOfIntegerSet(theKey, data, presents) then
         begin
@@ -2049,13 +2049,13 @@ begin
   oldMagicCookie := GetMagicCookieOfZebraBook;
 
   if CassioEstEnTrainDeLireLaBibliothequeDeZebra then
-    exit(PrefetchZebraIndexOfThisPosition);
+    exit;
 
   if (number_of_positions_in_zebra_book <= 0) then
     begin
       if not(ZebraBookEstIntrouvable) and not(CassioEstEnTrainDeLireLaBibliothequeDeZebra)
         then LoadZebraBook(true);
-      exit(PrefetchZebraIndexOfThisPosition);
+      exit;
     end;
 
 

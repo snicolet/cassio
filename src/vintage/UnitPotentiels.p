@@ -193,7 +193,7 @@ begin
   if DoitPasserPlatSeulement(whichColor,whichPlat) then
     begin
       SysBeep(0);
-      exit(UpdatePotentiels);
+      exit;
     end;
 
   whichPos := MakePositionEtTrait(whichPlat,whichColor);
@@ -214,7 +214,7 @@ begin
   nbVides := NbCasesVidesDansPosition(whichPos.position);
 
   if (nbVides <= 1) or (nbVides >= 57) or (GetTraitOfPosition(whichPos) = pionVide)
-    then exit(UpdatePotentiels);
+    then exit;
 
   if debug then WritelnNumDansRapport('nbVides = ',nbVides);
 
@@ -304,7 +304,7 @@ begin
   if estUnCoin[whichSquare] then
     begin
       VincenzPenseQueCEstUnTresMauvaisCoup := false;
-      exit(VincenzPenseQueCEstUnTresMauvaisCoup);
+      exit;
     end;
 
   newPos := whichPos;
@@ -318,7 +318,7 @@ begin
 		     ((whichPos.position[77] <> pionVide) and (newPos.position[77] = -whichPos.position[77])) then
 		    begin
 		      VincenzPenseQueCEstUnTresMauvaisCoup := true;
-		      exit(VincenzPenseQueCEstUnTresMauvaisCoup);
+		      exit;
 		    end;
 
 		  {si c'est une case C et que l'adversaire peut jouer le coin => mauvais coup }
@@ -328,7 +328,7 @@ begin
 		      if (newPos.position[coin] = pionVide) and PeutJouerIci(-GetTraitOfPosition(whichPos),coin,newPos.position) then
 		        begin
 		          VincenzPenseQueCEstUnTresMauvaisCoup := true;
-		          exit(VincenzPenseQueCEstUnTresMauvaisCoup);
+		          exit;
 		        end;
 		    end;
     end;

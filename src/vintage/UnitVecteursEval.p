@@ -280,33 +280,33 @@ begin
         if vecteur.Pattern[k,stage] <> NIL then
            begin
              VecteurEvalEstVide := false;
-             exit(VecteurEvalEstVide);
+             exit;
            end;
       if vecteur.Edges2X[stage] <> NIL then
         begin
           VecteurEvalEstVide := false;
-          exit(VecteurEvalEstVide);
+          exit;
         end;
     end;
   if vecteur.Mobilite <> NIL then
     begin
       VecteurEvalEstVide := false;
-      exit(VecteurEvalEstVide);
+      exit;
     end;
   if vecteur.FrontiereDiscs <> NIL then
     begin
       VecteurEvalEstVide := false;
-      exit(VecteurEvalEstVide);
+      exit;
     end;
   if vecteur.FrontiereSquares <> NIL then
     begin
       VecteurEvalEstVide := false;
-      exit(VecteurEvalEstVide);
+      exit;
     end;
   if vecteur.FrontiereNonLineaire <> NIL then
     begin
       VecteurEvalEstVide := false;
-      exit(VecteurEvalEstVide);
+      exit;
     end;
   VecteurEvalEstVide := true;
 end;
@@ -794,35 +794,35 @@ begin
   if VecteurEvalEstVide(whichEval) then
     begin
       LitVecteurEvaluationSurLeDisque := -1;
-      exit(LitVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := FichierTexteDeCassioExiste(nomFichier,fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
-      exit(LitVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
-      exit(LitVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := LitEvalDansFichierTexte(fichierEval,whichEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
-      exit(LitVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
-      exit(LitVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   LitVecteurEvaluationSurLeDisque := err;
@@ -837,7 +837,7 @@ begin
   if VecteurEvalEstVide(whichEval) then
     begin
       EcritVecteurEvaluationSurLeDisque := -1;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := FichierTexteExiste(nomFichier,vRefNum,fichierEval);
@@ -847,35 +847,35 @@ begin
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := VideFichierTexte(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := EcritEvalDansFichierTexte(fichierEval,whichEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
-      exit(EcritVecteurEvaluationSurLeDisque);
+      exit;
     end;
 
   SetFileCreatorFichierTexte(fichierEval,MY_FOUR_CHAR_CODE('SNX4'));

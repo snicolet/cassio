@@ -80,7 +80,7 @@ var orbite,lesFils : ListeDeCellules;
 begin
   LitCellule(fichier,numCellule,cellule);
 
-  if not(HasPere(cellule)) and not(HasFrere(cellule)) then exit(DetruitSousArbre);
+  if not(HasPere(cellule)) and not(HasFrere(cellule)) then exit;
 
   LitOrbite(fichier,numCellule,orbite);
   if orbite.cardinal > 1
@@ -123,7 +123,7 @@ var fils1,fils2 : ListeDeCellules;
     coup : SInt8;
 begin
 
-  if numCellule1 = numCellule2 then exit(UnifiePositions);
+  if numCellule1 = numCellule2 then exit;
 
   LitCellule(fichier,numCellule1,cellule1);
   LitCellule(fichier,numCellule2,cellule2);
@@ -133,10 +133,10 @@ begin
   if cellule1.numeroDuCoup <> cellule1.numeroDuCoup then
     begin
       RaiseError('Unification ˆ des coups diffŽrents : #'+IntToStr(numCellule1)+' et #'+IntToStr(numCellule2));
-      exit(UnifiePositions);
+      exit;
     end;
 
-  if (fils1.cardinal = 0) and (fils2.cardinal = 0) then exit(UnifiePositions);
+  if (fils1.cardinal = 0) and (fils2.cardinal = 0) then exit;
 
   if (fils1.cardinal = 0) and (fils2.cardinal > 0)
     then
@@ -145,7 +145,7 @@ begin
         CreeLiaisonPeresVersFils(fichier,numCellule1,GetFils(cellule2));
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule1,changement);
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule2,changement);
-        exit(UnifiePositions);
+        exit;
       end;
 
    if (fils1.cardinal > 0) and (fils2.cardinal = 0)
@@ -154,7 +154,7 @@ begin
         CreeLiaisonPeresVersFils(fichier,numCellule2,GetFils(cellule1));
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule1,changement);
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule2,changement);
-        exit(UnifiePositions);
+        exit;
       end;
 
    if (fils1.cardinal > 0) and (fils2.cardinal > 0) then
@@ -164,7 +164,7 @@ begin
         CreeLiaisonFreresVersPere(fichier,GetFils(cellule2),numCellule1);
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule1,changement);
         CalculeToutesLesValeursDeLOrbite(fichier,numCellule2,changement);
-        exit(UnifiePositions);
+        exit;
       end;
 
 
@@ -244,7 +244,7 @@ begin
       CreeLiaisonPeresVersFils(fichier,numcellule2,GetFils(cellule1));
       CalculeToutesLesValeursDeLOrbite(fichier,numCellule1,changement);
       CalculeToutesLesValeursDeLOrbite(fichier,numCellule2,changement);
-      exit(UnifiePositions);
+      exit;
     end;
 
   RaiseError('Should never happen in UnifiePositions');
@@ -276,7 +276,7 @@ begin
           WritelnDansRapport('## WARNING : apparentissage d''une interversion fausse ou trop courte dans le graphe :');
           WritelnDansRapport(ligne1+' = '+ligne2);
           SetAutoVidageDuRapport(autoVidage);
-          exit(AjouteInterversionDansGraphe);
+          exit;
         end;
 
       CreePartieDansGrapheApprentissage(fichier,s1,path1);
@@ -491,7 +491,7 @@ begin
       if not(grapheDejaOuvertALArrivee) then
         if FermeGrapheApprentissage(fichier) then DoNothing;
 
-      exit(InterversionDansLeGrapheApprentissage);
+      exit;
     end;
 
   }
@@ -507,7 +507,7 @@ begin
       if not(grapheDejaOuvertALArrivee) then
         if FermeGrapheApprentissage(fichier) then DoNothing;
 
-      exit(InterversionDansLeGrapheApprentissage);
+      exit;
     end;
 
   {VideBufferGrapheApprentissage;}

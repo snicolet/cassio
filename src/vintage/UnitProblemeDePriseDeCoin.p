@@ -333,7 +333,7 @@ begin  {$UNUSED beta}
             then valeurDuCoup := nbCoupsJouesParAttaquant
             else valeurDuCoup := 1000;
           TerminaisonDansAlgoProblemePriseDeCoin := true;
-          exit(TerminaisonDansAlgoProblemePriseDeCoin);
+          exit;
         end;
     end;
   TerminaisonDansAlgoProblemePriseDeCoin := false;
@@ -352,7 +352,7 @@ begin
       if TerminaisonDansAlgoProblemePriseDeCoin(probleme,alpha,beta,valeurDuCoup) then
         begin
           DefensePriseDeCoin := valeurDuCoup;
-          exit(DefensePriseDeCoin);
+          exit;
         end;
 
       valeurMeilleureDefenseTrouvee := -10000;
@@ -412,7 +412,7 @@ begin
       if TerminaisonDansAlgoProblemePriseDeCoin(probleme,alpha,beta,valeurDuCoup) then
         begin
           AttaquePriseDeCoin := valeurDuCoup;
-          exit(AttaquePriseDeCoin);
+          exit;
         end;
 
 
@@ -436,7 +436,7 @@ begin
                   begin
                     AttaquePriseDeCoin := nbCoupsJouesParAttaquant;
                     UndoMoveProblemePriseDeCoin(probleme);
-                    exit(AttaquePriseDeCoin);
+                    exit;
                   end
                 else
                   begin

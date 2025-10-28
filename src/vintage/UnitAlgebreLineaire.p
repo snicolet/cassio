@@ -145,7 +145,7 @@ begin
     begin
       WritelnDansRapport('La matrice doit etre carree dans LUDecompose !');
       d := 0.0;
-      exit(LUDecompose);
+      exit;
     end;
 
   n := A.nbLignes;
@@ -160,7 +160,7 @@ begin
         begin
           WritelnDansRapport('Matrice singuliere dans LUDecompose !');
           d := 0.0;
-          exit(LUDecompose);
+          exit;
         end;
       vv.vec[i] := 1.0/big;
     end;
@@ -225,13 +225,13 @@ begin
   if not(EstUneMatriceCarree(A)) then
     begin
       WritelnDansRapport('La matrice doit etre carree dans LUBackSubsitute !');
-      exit(LUBackSubsitute);
+      exit;
     end;
   n := A.nbLignes;
   if b.longueur <> n then
     begin
       WritelnDansRapport('mauvaise dimension du vecteur dans LUBackSubsitute !');
-      exit(LUBackSubsitute);
+      exit;
     end;
   ii := 0;
   for i := 1 to n do
@@ -262,7 +262,7 @@ begin
     begin
       WritelnDansRapport('produits scalaire de vecteurs de tailles differentes !');
       ProduitScalaireVecteurs := 0;
-      exit(ProduitScalaireVecteurs);
+      exit;
     end;
   sum := 0.0;
   for i := 1 to v1.longueur do
@@ -277,7 +277,7 @@ begin
   if M.nbColonnes <> x.longueur then
     begin
       WritelnDansRapport('mauvaises dimensions dans AppliqueMatrice !');
-      exit(AppliqueMatrice);
+      exit;
     end;
   SetVecteurNul(M.nbLignes,result);
   for i := 1 to M.nbLignes do
@@ -306,7 +306,7 @@ begin
   if (M1.nbLignes <> M2.nbLignes) or (M1.nbColonnes <> M2.nbColonnes) then
     begin
       WritelnDansRapport('Dimensions incompatibles dans SommeMatrices !');
-      exit(SommeMatrices);
+      exit;
     end;
   result.nbLignes := M1.nbLignes;
   result.nbColonnes := M1.nbColonnes;
@@ -374,14 +374,14 @@ begin
   if not(EstUneMatriceCarree(A)) then
     begin
       WritelnDansRapport('La matrice doit etre carree dans ResoudSystemeEquationsCarre !');
-      exit(ResoudSystemeEquationsCarre);
+      exit;
     end;
   n := A.nbLignes;
 
   if b.longueur <> n then
     begin
       WritelnDansRapport('Mauvaise dimension du vecteur dans ResoudSystemeEquationsCarre !');
-      exit(ResoudSystemeEquationsCarre);
+      exit;
     end;
 
   LUDecompose(A,index,d);
@@ -393,7 +393,7 @@ begin
         SetMatriceIdentite(n,inverse);
         CopierVecteur(b,x);
         ResoudSystemeEquationsCarre := false;
-        exit(ResoudSystemeEquationsCarre);
+        exit;
       end
     else
       begin

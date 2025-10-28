@@ -220,7 +220,7 @@ procedure AjouterUnFichierWThorDansListeATelecharger(nomFichier : String255);
 var k : SInt32;
 begin
 
-  if (nomFichier = '') then exit(AjouterUnFichierWThorDansListeATelecharger);
+  if (nomFichier = '') then exit;
 
   with gListeFichiersWthorATelecharger do
     begin
@@ -246,7 +246,7 @@ procedure EnleverUnFichierWthorDansListeATelecharger(nomFichier : String255);
 var k : SInt32;
 begin
 
-  if (nomFichier = '') then exit(EnleverUnFichierWthorDansListeATelecharger);
+  if (nomFichier = '') then exit;
 
   (* WritelnDansRapport('Terminaison du fichier : ' + nomFichier); *)
 
@@ -877,7 +877,7 @@ begin
                 item := 4;
                 FlashItem(dlog,item);
                 FiltreRechercheDialog := true;
-                exit(FiltreRechercheDialog);
+                exit;
               end;
             if (BAND(evt.modifiers,cmdKey) <> 0) then
               begin
@@ -890,7 +890,7 @@ begin
                     SetItemTextInDialog(dlog,JoueurBlancText,s1);
                     SelectDialogItemText(dlog,JoueurNoirText,0,MAXINT_16BITS);
                     FiltreRechercheDialog := true;
-                    exit(FiltreRechercheDialog);
+                    exit;
                   end;
                 FiltreRechercheDialog := MyFiltreClassique(dlog,evt,item);
               end;
@@ -962,14 +962,14 @@ begin
                  begin
                    item := CoupPrecedentBouton;
                    FiltreLectureDialog := true;
-                   exit(FiltreLectureDialog);
+                   exit;
                  end;
                if (ch = '¨') or (ch = 'Û') or (ch = 'n') or (ch = 'N') then  { pomme-n }
                  begin
                    DejoueNCoupsPlateauLecture(1,GetDialogWindow(dlog));
                    item := 0;
                    FiltreLectureDialog := true;
-                   exit(FiltreLectureDialog);
+                   exit;
                  end;
                if (ch = 'ò') or (ch = 'Ù') then  { pomme-option-y echange les noirs et les blancs }
                  begin
@@ -984,7 +984,7 @@ begin
                    mustBeAPerfectMatch[JoueurBlancText] := temp;
 
                    FiltreLectureDialog := true;
-                   exit(FiltreLectureDialog);
+                   exit;
                  end;
                FiltreLectureDialog := MyFiltreClassique(dlog,evt,item);
              end
@@ -1111,7 +1111,7 @@ begin
 	          if (tableLiaisonEntreMenuBasesEtNumerosDistrib[k] = nroDistribCherchee) then
 	            begin
 	              NroDistribToItemNumber := k;
-	              exit(NroDistribToItemNumber);
+	              exit;
 	            end;
 	  end;
 	NroDistribToItemNumber := 0;
@@ -1205,7 +1205,7 @@ var s : String255;
     oldPort : grafPtr;
 begin
   if not(DoitDessinerMessagesChargementBase) then
-    exit(EcritNbPartiesPotentiellementLues);
+    exit;
 
   GetPort(oldPort);
   SetPortByWindow(whichWindow);
@@ -1238,7 +1238,7 @@ var s : String255;
     oldPort : grafPtr;
 begin
   if not(DoitDessinerMessagesChargementBase) then
-    exit(EcritNbPartiesBase);
+    exit;
 
   GetPort(oldPort);
   SetPortByWindow(whichWindow);
@@ -1868,7 +1868,7 @@ begin
     begin
 
       DoLectureJoueursEtTournoi(false);
-      if TrouveNumeroDuTournoi(s, numeroDuTournoi, 0) then exit(DeplaceAnneeDuTournoi);
+      if TrouveNumeroDuTournoi(s, numeroDuTournoi, 0) then exit;
 
       i := LENGTH_OF_STRING(s);
       if i >= 5 then
@@ -1886,7 +1886,7 @@ begin
                anneeRecherche := StringEnAnneeSansBugAn2000(s1);
                SetItemTextInDialog(dp,GenreTestTextLectureBase,'');
                genreDeTestPourAnnee := testEgalite;
-               exit(DeplaceAnneeDuTournoi);
+               exit;
              end;
       if i >= 3 then
         if IsDigit(s[i]) and
@@ -1904,7 +1904,7 @@ begin
                anneeRecherche := StringEnAnneeSansBugAn2000(s1);
                SetItemTextInDialog(dp,GenreTestTextLectureBase,'');
                genreDeTestPourAnnee := testEgalite;
-               exit(DeplaceAnneeDuTournoi);
+               exit;
              end;
     end;
 end;
@@ -3207,7 +3207,7 @@ begin
       if (ligneDuFichier = ligne) then   {trouve !}
         begin
           LigneEstDansNotreListingWthorLocal := true;
-          exit(LigneEstDansNotreListingWthorLocal);
+          exit;
         end;
     end;
 end;

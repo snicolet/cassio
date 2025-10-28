@@ -122,7 +122,7 @@ begin
     begin
       AlerteSimple('le nombre de pages de ABR est trop petit dans PeutCreerNouvellePageABR!! Prévenez Stéphane');
       PeutCreerNouvellePageABR := false;
-      exit(PeutCreerNouvellePageABR);
+      exit;
     end;
 
 
@@ -133,7 +133,7 @@ begin
     begin
       AlerteSimple('plus de place en memoire pour creer une page de ABR dans PeutCreerNouvellePageABR!! Prévenez Stéphane');
       PeutCreerNouvellePageABR := false;
-      exit(PeutCreerNouvellePageABR);
+      exit;
     end;
 
   with ReserveDeABR[dernierePageABRCree]^ do
@@ -143,7 +143,7 @@ begin
         begin
           AlerteSimple('plus de place en memoire pour creer un buffer de ABR dans PeutCreerNouvellePageABR !! Prévenez Stéphane');
           PeutCreerNouvellePageABR := false;
-          exit(PeutCreerNouvellePageABR);
+          exit;
         end;
 
 
@@ -174,7 +174,7 @@ begin
       TrouvePlaceDansPageDeABR := false;
       nroPage := -1;
       nroIndex := -1;
-      exit(TrouvePlaceDansPageDeABR);
+      exit;
     end;
 
   {
@@ -209,7 +209,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageABRRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeABR);
+                  exit;
                 end;
 
       {un coup en descendant...}
@@ -226,7 +226,7 @@ begin
                   nroPage := n;
                   nroIndex := i;
                   pageABRRenvoyeeParDerniereCreation := n;
-                  exit(TrouvePlaceDansPageDeABR);
+                  exit;
                 end;
     end;
 
@@ -258,7 +258,7 @@ begin
       nroDePage := 0;
       nroIndex := 0;
       {WritelnDansRapport('appel de LocaliserABRDansSaPage(NIL)');}
-      exit(LocaliserABRDansSaPage);
+      exit;
     end;
 
 
@@ -278,7 +278,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(ABRRec);
 	              pageABRRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserABRDansSaPage);
+	              exit;
 	            end;
 	      end;
 
@@ -296,7 +296,7 @@ begin
 	              nroDePage := i;
 	              nroIndex := 1 + (SInt32(G)-baseAddress) div sizeof(ABRRec);
 	              pageABRRenvoyeeParDerniereLocalisation := i;
-	              exit(LocaliserABRDansSaPage);
+	              exit;
 	            end;
 	      end;
 	  end;

@@ -651,7 +651,7 @@ label sortie;
             begin
               (** une place vide : on peut stopper la recherche **)
               InfoTrouveeDansHashTableExacteMilieu := false;
-              exit(InfoTrouveeDansHashTableExacteMilieu);
+              exit;
             end;
           if ligne1 = platLigne1 then
           if ligne2 = platLigne2 then
@@ -669,7 +669,7 @@ label sortie;
               if profondeur > 0
                 then bonusPourLeConseilHash := 300 + 100*profondeur
                 else bonusPourLeConseilHash := 300;
-              exit(InfoTrouveeDansHashTableExacteMilieu);
+              exit;
             end;
           clefHashExacte := BAND((clefHashExacte+increment1),1023);
 
@@ -698,7 +698,7 @@ label sortie;
             begin
               (** une place vide : on peut stopper la recherche **)
               InfoTrouveeDansHashTableExacteMilieu := false;
-              exit(InfoTrouveeDansHashTableExacteMilieu);
+              exit;
             end;
           if ligne1 = platLigne1 then
           if ligne2 = platLigne2 then
@@ -716,7 +716,7 @@ label sortie;
               if profondeur > 0
                 then bonusPourLeConseilHash := 300 + 100*profondeur
                 else bonusPourLeConseilHash := 300;
-              exit(InfoTrouveeDansHashTableExacteMilieu);
+              exit;
             end;
 
           clefHashExacte := BAND((clefHashExacte+increment2),1023);
@@ -843,7 +843,7 @@ label sortie;
 	            {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 	            if useMicroProfiler then EndMiniProfilerMilieu;
 						  {$ENDC}
-	            exit(ABScout);
+	            exit;
 	          end;
 	      end;
     end;
@@ -866,7 +866,7 @@ label sortie;
 	            {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 						  if useMicroProfiler then EndMiniProfilerMilieu;
 						  {$ENDC}
-	            exit(ABScout);
+	            exit;
 	          end;
 	      end;
     end;
@@ -889,7 +889,7 @@ label sortie;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
           if useMicroProfiler then EndMiniProfilerMilieu;
 				  {$ENDC}
-          exit(ABScout);
+          exit;
         end;
 
       if (val >= SeuilProbCutBeta) then
@@ -899,7 +899,7 @@ label sortie;
           {$IFC UTILISE_MINIPROFILER_POUR_MILIEU}
 				  if useMicroProfiler then EndMiniProfilerMilieu;
 				  {$ENDC}
-          exit(ABScout);
+          exit;
         end;
 
 	    if (profReduite >= 3) then conseilTurbulence := bstDef;
@@ -1128,7 +1128,7 @@ begin   {ABScout}
      begin
        WritelnNumDansRapport('ASSERT !! dans ABSCout, couleur = ',coul);
        ABScout := -noteMax;
-       exit(ABScout);
+       exit;
      end;
 
    {if (TickCount - dernierTick) >= delaiAvantDoSystemTask then VerifieJouableEtDoSystemTask;}
@@ -1169,7 +1169,7 @@ begin   {ABScout}
         }
 
         ABScout := noteCourante;
-        exit(ABScout);
+        exit;
       end;
 
    (* La finale en bitboard est-elle plus rapide que le milieu de partie ? *)
@@ -1181,7 +1181,7 @@ begin   {ABScout}
         bstDef := 0;
         conseilTurbulence := 0;
         ABScout := noteCourante;
-        exit(ABScout);
+        exit;
       end;
 
 
@@ -1292,7 +1292,7 @@ begin   {ABScout}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
 											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                       exit(ABScout);
+                       exit;
                      end;
                    if (valeurExacteMin >= valeurExacteMax) then
                      begin
@@ -1304,7 +1304,7 @@ begin   {ABScout}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
 											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                       exit(ABScout);
+                       exit;
                      end;
                    if (valeurExacteMax <= alpha) then
                      begin
@@ -1316,7 +1316,7 @@ begin   {ABScout}
 											 if useMicroProfiler then EndMiniProfilerMilieu;
 											 {$ENDC}
 											 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                       exit(ABScout);
+                       exit;
                      end;
 
                    {
@@ -1474,7 +1474,7 @@ begin   {ABScout}
 											  if useMicroProfiler then EndMiniProfilerMilieu;
 											  {$ENDC}
                         (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                       exit(ABScout);
+                       exit;
                       end;
                   end;
               end;
@@ -1663,7 +1663,7 @@ begin   {ABScout}
 																	if useMicroProfiler then EndMiniProfilerMilieu;
 																	{$ENDC}
                                   (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                                  exit(ABScout);
+                                  exit;
                                 end;
                             end;
                         end;
@@ -1785,7 +1785,7 @@ begin   {ABScout}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
                                 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                                exit(ABScout);
+                                exit;
                               end;
                           end;
                       end;
@@ -1907,7 +1907,7 @@ begin   {ABScout}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
                                 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                                exit(ABScout);
+                                exit;
                               end;
                           end;
                       end;
@@ -2048,7 +2048,7 @@ begin   {ABScout}
 											          if useMicroProfiler then EndMiniProfilerMilieu;
 											          {$ENDC}
                                 (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                                exit(ABScout);
+                                exit;
                               end;
                           end;
                       end;
@@ -2190,7 +2190,7 @@ begin   {ABScout}
 											         if useMicroProfiler then EndMiniProfilerMilieu;
 											         {$ENDC}
                                (* WriteInTraceLog('Sortie ABSCout, magicCookie = '+IntToStr(magicCookieABSCout)); *)
-                               exit(ABScout);
+                               exit;
                              end;
                          end;
                       end;

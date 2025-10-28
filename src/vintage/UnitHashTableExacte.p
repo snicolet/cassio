@@ -439,7 +439,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               (** une place vide : on peut stopper la recherche **)
               InfoTrouveeDansHashTableExacte := false;
               inc(nbNouvellesEntreesHashTableExactes);
-              exit(InfoTrouveeDansHashTableExacte);
+              exit;
             end;
           if ligne1 = platLigne1 then
           if ligne2 = platLigne2 then
@@ -455,7 +455,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               InfoTrouveeDansHashTableExacte := true;
               flags := BAND(flags,BNOT(kMaskLiberee));  {elle n'est plus liberee}
               inc(nbPositionsRetrouveesHashTableExactes);
-              exit(InfoTrouveeDansHashTableExacte);
+              exit;
             end;
           whichClefExacte := BAND((whichClefExacte+increment1),1023);
           inc(longueurCollisionPath);
@@ -477,7 +477,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               (** une place vide : on peut stopper la recherche **)
               InfoTrouveeDansHashTableExacte := false;
               inc(nbNouvellesEntreesHashTableExactes);
-              exit(InfoTrouveeDansHashTableExacte);
+              exit;
             end;
           if ligne1 = platLigne1 then
           if ligne2 = platLigne2 then
@@ -493,7 +493,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
               InfoTrouveeDansHashTableExacte := true;
               flags := BAND(flags,BNOT(kMaskLiberee));  {elle n'est plus liberee}
               inc(nbPositionsRetrouveesHashTableExactes);
-              exit(InfoTrouveeDansHashTableExacte);
+              exit;
             end;
           whichClefExacte := BAND((whichClefExacte+increment2),1023);
           inc(longueurCollisionPath);
@@ -511,7 +511,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
       if BAND(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
         begin
           inc(nbNouvellesEntreesHashTableExactes);
-          exit(InfoTrouveeDansHashTableExacte);  (** trouvé une place liberee **)
+          exit;  (** trouvé une place liberee **)
         end;
       whichClefExacte := BAND((whichClefExacte+increment1),1023);
       inc(longueurCollisionPath);
@@ -523,7 +523,7 @@ function InfoTrouveeDansHashTableExacte(var codagePosition : codePositionRec; va
       if BAND(quelleHashTableExacte^[whichClefExacte].flags,kMaskLiberee) <> 0 then
         begin
           inc(nbNouvellesEntreesHashTableExactes);
-          exit(InfoTrouveeDansHashTableExacte);  (** trouvé une place liberee  **)
+          exit;  (** trouvé une place liberee  **)
         end;
       whichClefExacte := BAND((whichClefExacte+increment2),1023);
       inc(longueurCollisionPath);
@@ -1120,7 +1120,7 @@ begin
       WritelnDansRapport('Erreur : valMin ou valMax est impair dans SetEndgameValuesInHashExacte!! Prévenez Stéphane');
       WritelnNumDansRapport('valMin = ',valMin);
       WritelnNumDansRapport('valMax = ',valMax);
-      exit(SetEndgameValuesInHashExacte);
+      exit;
     end;
 
   if (valMin > valMax) then
@@ -1128,7 +1128,7 @@ begin
       WritelnDansRapport('Erreur : valMin > valMax dans SetEndgameValuesInHashExacte!! Prévenez Stéphane');
       WritelnNumDansRapport('valMin = ',valMin);
       WritelnNumDansRapport('valMax = ',valMax);
-      exit(SetEndgameValuesInHashExacte);
+      exit;
     end;
 
 
@@ -2017,7 +2017,7 @@ begin
   if (nroTable < 0) or (nroTable > nbMaxTablesHashExactes) then
     begin
       TauxDeRemplissageHashExacte := -1.0;
-      exit(TauxDeRemplissageHashExacte);
+      exit;
     end;
 
   if ((HashTableExacte[nroTable] =  NIL) and (CoupsLegauxHash[nroTable] <> NIL)) or
@@ -2026,13 +2026,13 @@ begin
       SysBeep(0);
       WritelnNumDansRapport('ERROR : (HashTableExacte[i] = NIL) XOR (CoupsLegauxHash[i] = NIL) pour i = ',nroTable);
       TauxDeRemplissageHashExacte := -1.0;
-      exit(TauxDeRemplissageHashExacte);
+      exit;
     end;
 
   if (HashTableExacte[nroTable] =  NIL) or (CoupsLegauxHash[nroTable] = NIL) then
     begin
       TauxDeRemplissageHashExacte := -1.0;
-      exit(TauxDeRemplissageHashExacte);
+      exit;
     end;
 
   whichTableExacte := HashTableExacte[nroTable];

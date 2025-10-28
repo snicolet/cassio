@@ -656,7 +656,7 @@ begin
          (t1.chiffres[k,kDroite] <> t2.chiffres[k,kDroite]) then
         begin
           SameTranscript := false;
-          exit(SameTranscript);
+          exit;
         end;
     end;
   SameTranscript := true;
@@ -689,7 +689,7 @@ begin
       if SameTranscript(t1,t2) then
         begin
           DistanceTranscripts := 0;
-          exit(DistanceTranscripts);
+          exit;
         end;
 
       distance := 1;
@@ -1207,7 +1207,7 @@ begin
   with myTranscript do
     begin
       if CurseurEstToutEnHautAGauche(myTranscript)
-        then exit(TraiteDeleteKeyDansTranscript)  {on est arrive tout en haut a gauche}
+        then exit  {on est arrive tout en haut a gauche}
         else
           if CurseurEstToutEnBasADroite(myTranscript) and (GetCurrentChiffreSousLeCurseur <> kChiffreSpecialChiffreVide)
             then
@@ -2259,7 +2259,7 @@ begin
 
   if (partiePlaquee = PartiePourPressePapier(true,false,nbreCoup)) or
      (analyseRetrograde.enCours and not(PeutArreterAnalyseRetrograde)) then
-    exit(PlaquerPositionEtPartieLegaleDansOthellierDeGauche);
+    exit;
 
   SetCassioMustCheckDangerousEvents(false, @oldCheckDangerousEvents);
 
@@ -3573,7 +3573,7 @@ begin {$UNUSED mask}
         { on verifie que le transcript n'a pas dŽjˆ ŽtŽ testŽ }
         if MemberOfTranscriptSet(myTranscript,profondeurStockee,searchHistory) then
           if (profondeurStockee >= profondeurRestante)
-            then exit(RechercheRecursiveDesCorrections)
+            then exit
             else RemoveTranscriptFromSet(myTranscript,searchHistory);
 
         { on met le transcript courant dans l'ensemble decrivant l'histoire de la recherche }

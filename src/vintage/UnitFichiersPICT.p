@@ -65,7 +65,7 @@ begin
 	if (OSError <> noErr) then
 	  begin
 	    error := OSError;
-	    Exit(ReadPictFile);
+	    exit;
 	  end;
 
 	OSError := SetPositionTeteLectureFichierTexte(picFile, 512);
@@ -73,7 +73,7 @@ begin
 	if (OSError <> noErr) then
 	  begin
 	    error := OSError;
-	    Exit(ReadPictFile);
+	    exit;
 	  end;
 
   {compactons la memoire temporaire}
@@ -84,28 +84,28 @@ begin
 	if (thePicture = NIL) then
 		begin
 		  error := OSError;
-			Exit(ReadPictFile);
+			exit;
 		end;
 
   TempHLock(Handle(thePicture),OSError);
   if (OSError <> noErr) then
 	  begin
 	    error := OSError;
-	    Exit(ReadPictFile);
+	    exit;
 	  end;
 
   OSError := ReadBufferDansFichierTexte(picFile,Ptr(thePicture^),numberOfBytes);
   if (OSError <> noErr) then
 	  begin
 	    error := OSError;
-	    Exit(ReadPictFile);
+	    exit;
 	  end;
 
 	TempHUnlock(Handle(thePicture),OSError);
 	if (OSError <> noErr) then
 	  begin
 	    error := OSError;
-	    Exit(ReadPictFile);
+	    exit;
 	  end;
 
 	if ((OSError = noErr) or (OSError = eofErr))
@@ -113,7 +113,7 @@ begin
 			begin
 			  ReadPictFile := thePicture;
 				error := noErr;
-				Exit(ReadPictFile);
+				exit;
 			end
 		else
 			error := OSError;

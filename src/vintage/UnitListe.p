@@ -461,7 +461,7 @@ begin
            WritelnDansRapport('coup impensable dans ForEachPositionInGameDo !!');
            TraductionThorEnAlphanumerique(partie60,partie255);
            WritelnDansRapport('partie ˆ problme = '+partie255);
-           exit(ForEachPositionInGameDo);  {coup impensable}
+           exit;  {coup impensable}
          end;
 
       if ModifPlat(coup,trait,position,jouables,nbBlanc,nbNoir,frontiere)
@@ -471,14 +471,14 @@ begin
                begin
                  {position terminale}
                  DoWhat(position,jouables,frontiere,nbNoir,nbBlanc,pionVide,result);
-                 exit(ForEachPositionInGameDo);
+                 exit;
 	             end;
 
              trait := -trait;
 
              if (i >= longueurMax) then
                begin
-                 exit(ForEachPositionInGameDo);
+                 exit;
                end;
 
              coupSuivant := GET_NTH_MOVE_OF_PACKED_GAME(partie60, (i+1),'ForEachPositionInGameDo(2)');
@@ -486,7 +486,7 @@ begin
              if not(ok) then
                begin
                  {position terminale prŽmaturŽe !}
-                 exit(ForEachPositionInGameDo);
+                 exit;
 	             end;
 
              ok := PeutJouerIci(trait,coupSuivant,position);
@@ -506,7 +506,7 @@ begin
                    begin
                      {position terminale}
                      DoWhat(position,jouables,frontiere,nbNoir,nbBlanc,pionVide,result);
-                     exit(ForEachPositionInGameDo);
+                     exit;
                    end;
                end;
            end
@@ -520,7 +520,7 @@ begin
                  WritelnDansRapport('coup impossible dans ForEachPositionInGameDo !!');
                  TraductionThorEnAlphanumerique(partie60,partie255);
                  WritelnDansRapport('partie ˆ problme = '+partie255);
-                 exit(ForEachPositionInGameDo);  {coup impossible !!}
+                 exit;  {coup impossible !!}
                end;
            end;
     end;
@@ -530,7 +530,7 @@ begin
       trait := -trait;
       if DoitPasserPlatSeulement(trait,position) then
         begin
-          exit(ForEachPositionInGameDo);  {game over!}
+          exit;  {game over!}
           DoWhat(position,jouables,frontiere,nbNoir,nbBlanc,pionVide,result);
         end;
     end;
@@ -1474,7 +1474,7 @@ begin
     		        begin
     		          TraductionThorEnAlphanumerique(partie60,partieEnAlpha);
     		          DernierePartieCompatibleEnMemoire := partieEnAlpha;
-    		          exit(DernierePartieCompatibleEnMemoire);
+    		          exit;
     		        end;
     		    end;
         end;
@@ -1504,7 +1504,7 @@ begin
   if (nombrePartiesCompatibles = NeSaitPasNbrePartiesActives) then
     begin
       ListePartiesEstGardeeDansLeCache := false;
-      exit(ListePartiesEstGardeeDansLeCache);
+      exit;
     end;
   nbreInfoGardable := IndexInfoDejaCalculeesCoupNro^^[quelCoup]-IndexInfoDejaCalculeesCoupNro^^[quelCoup-1];
   if (nombrePartiesCompatibles > nbreInfoGardable) then
@@ -1545,7 +1545,7 @@ begin
            if ListePartiesEstGardeeDansLeCache(n,1) then
            begin
              nroReference := TableInfoDejaCalculee^^[IndexInfoDejaCalculeesCoupNro^^[n-1]+1];
-             exit(NroHilite2NroReference);
+             exit;
            end;
          n := n-1;
        until (n <= 1);
@@ -1678,7 +1678,7 @@ begin
           if PartieEstActive(nroPartie) and (partieHilitee = premierNumero+compteur) then
             begin
               NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre := compteur+1;
-              exit(NumeroDeLaLigneDeLaPartieHiliteeDansLaFenetre);
+              exit;
             end;
         end;
 	 end;
@@ -1845,7 +1845,7 @@ begin
     	            if (EtatDesCalculs <> kCalculsEnCours) or (NumeroDuCoupDeLaDemande <> nbreCoup) or bInfosDejaCalcules then
     	              LanceCalculsRapidesPourBaseOuNouvelleDemande(false,true);
     	          InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
-    		        exit(CoupSuivantPartieSelectionnee);
+    		        exit;
     		      end;
 
             ExtraitCoupTableStockagePartie(nroReference,nbreCoup+1,coupEnByte);
@@ -3059,7 +3059,7 @@ begin
   						            WritelnDansRapport('WARNING : not(positionsSontEgales) dans ConstruitTableNumeroReference');
   						            InvalidateNombrePartiesActivesDansLeCache(nbreCoup);
   						            LanceNouvelleDemandeCalculsPourBase(false,true);
-  						            exit(ConstruitTableNumeroReference);
+  						            exit;
   						          end;
   			            end;
   			      end
@@ -3319,7 +3319,7 @@ label sortie, fin_de_boucle;
 	                if (positionTestee[x] = couleur) then
 	                  begin
 	                    DoitPasserDansPositionTestee := false;
-	                    exit(DoitPasserDansPositionTestee)
+	                    exit
 	                  end;
 	              end;
 	          end;
@@ -3922,14 +3922,14 @@ begin
   	       not(ListePartiesEstGardeeDansLeCache(nbreCoup,etat)) then
   	       begin  {refaire les calculs => long => lance demande}
   	         LanceNouvelleDemandeCalculsPourBase(false,withCheckEvent);
-  	         exit(LanceCalculsRapidesPourBaseOuNouvelleDemande);
+  	         exit;
   	       end;
 
   	    if (etat = PasDePartieActive) then
   	       begin  {pas de parties compatibles => rapide => affiche resultat}
   	         LanceNouvelleDemandeCalculsPourBase(true,false);
   	         CalculsEtAffichagePourBase(true,false);
-  	         exit(LanceCalculsRapidesPourBaseOuNouvelleDemande);
+  	         exit;
   	       end;
 
   	    {verification de l'exactitude de l'ancienne info}
@@ -3945,7 +3945,7 @@ begin
   	      begin  {infos fausses => refaire les calculs => long => lance demande}
   	        WritelnDansRapport('WARNING : not(positionsSontEgales(É) dans LanceCalculsRapidesPourBaseOuNouvelleDemande');
   	        LanceNouvelleDemandeCalculsPourBase(false,withCheckEvent);
-  	        exit(LanceCalculsRapidesPourBaseOuNouvelleDemande);
+  	        exit;
   	      end;
 
   	    if (etat <= 200)
@@ -3972,7 +3972,7 @@ var itemHit : SInt16;
 begin
 
   if (nbPartiesActives <= 0) then
-    exit(DoSupprimerPartiesDansListe);
+    exit;
 
   nroReference := infosListeParties.dernierNroReferenceHilitee;
   if PartieEstDansLaSelection(nroReference)
@@ -4231,7 +4231,7 @@ begin
         begin
           nroReference := k;
           PremierePartieDeLaSelection := i;
-          exit(PremierePartieDeLaSelection);
+          exit;
         end;
       end;
    {not found}
@@ -4375,7 +4375,7 @@ begin
     begin
       {dans ce cas la fonction rapide donne le bon chiffre, on l'utilise donc... }
       NbPartiesActivesDevantEtreSauvegardeesDansLaListe := NbPartiesDevantEtreSaugardeesDansLaListe;
-      exit(NbPartiesActivesDevantEtreSauvegardeesDansLaListe);
+      exit;
     end;
 
   {methode lente :-( }

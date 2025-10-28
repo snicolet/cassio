@@ -197,7 +197,7 @@ begin
          then
            begin
              TousLesPointeursDeLEvalEdmondSontBons := false;
-             exit(TousLesPointeursDeLEvalEdmondSontBons);
+             exit;
            end;
 end;
 
@@ -261,7 +261,7 @@ begin
       WritelnDansRapport('');
 
       AllocatePointersPourEvalEdmondDansCassio := -1;
-      exit(AllocatePointersPourEvalEdmondDansCassio);
+      exit;
     end;
 
   // Tout a l'air bon
@@ -746,7 +746,7 @@ begin
       DeallocatePointersPourEvalEdmondDansCassio;
 
       LireFichierEvalEdmondSurLeDisque := -1;
-      exit(LireFichierEvalEdmondSurLeDisque);
+      exit;
     end;
 
 
@@ -853,7 +853,7 @@ begin
   if not(TousLesPointeursDeLEvalEdmondSontBons) then
     begin
       EcrireFichierEvalEdmondSurLeDisque := -1;
-      exit(EcrireFichierEvalEdmondSurLeDisque);
+      exit;
     end;
 
 

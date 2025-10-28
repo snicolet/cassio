@@ -226,7 +226,7 @@ begin
         then
           begin
             ABRSearch := x;
-            exit(ABRSearch);
+            exit;
           end
         else
           if compar < 0
@@ -256,7 +256,7 @@ begin
   if x = NIL then
     begin
       ABRSuccesseur := NIL;
-      exit(ABRSuccesseur);
+      exit;
     end;
 
   if x^.droit <> NIL
@@ -279,7 +279,7 @@ begin
   if x = NIL then
     begin
       ABRPredecesseur := NIL;
-      exit(ABRPredecesseur);
+      exit;
     end;
 
   if x^.gauche <> NIL
@@ -351,7 +351,7 @@ end;
 function ABRSupprimer(var arbre : ABR; var element : ABR) : ABR;
 var x,y,pereDeY : ABR;
 begin
-  if element = NIL then exit(ABRSupprimer);
+  if element = NIL then exit;
 
   if (element^.gauche = NIL) or (element^.droit = NIL)
     then y := element

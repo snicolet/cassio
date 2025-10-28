@@ -241,7 +241,7 @@ begin
 	  begin
 	    WritelnDansRapport('thePicture = NIL dans LoadColorPICT !');
 	    {AttendFrappeClavier;}
-	    exit(LoadColorPICT);
+	    exit;
 	  end;
 	HLock(Handle(thePicture));					            { If we made it this far, lock handle.}
 	bounds := GetPicFrameOfPicture(thePicture);			{ Get a copy of the picture's bounds.}
@@ -456,7 +456,7 @@ var nomFichier : String255;
 begin
 
   if (GetTypeOfTexture(nomTexture) <> kFichierPictureHappyEnd)
-    then exit(CreerFichierCacheDeLaTexture);
+    then exit;
 
   nomFichier := NameOfTextureCacheFile(nomTexture, tailleCase);
 
@@ -489,13 +489,13 @@ begin
   PeutChargerTextureDepuisLeCache := false;
 
   if (GetTypeOfTexture(nomTexture) <> kFichierPictureHappyEnd)
-    then exit(PeutChargerTextureDepuisLeCache);
+    then exit;
 
   nomFichier := NameOfTextureCacheFile(nomTexture, tailleCase);
 
   erreurES := FichierTexteExiste(nomFichier,0,fic);
   if erreurES = fnfErr then
-    exit(PeutChargerTextureDepuisLeCache);
+    exit;
 
 
   theRect := MakeRect(gOffScreenDiscsRectangles[0].left ,
@@ -758,14 +758,14 @@ begin
   PremierePictDeLaSerieID := (thePictID - (thePictID mod 100));
 
   if (wPlateauPtr = NIL) or not(windowPlateauOpen) then
-    exit(DrawBufferedColorPict);
+    exit;
 
   if (thePictID < PremierePictDeLaSerieID) or (thePictID > PremierePictDeLaSerieID+kNbPictDansUneSerie-1) then
     begin
       SysBeep(0);
       WritelnDansRapport('thePictID n''est pas dans l''intervalle minimumPictID-maximumPictID !');
       LoadColorPICT(thePictID,@inrect,bidRect);
-      exit(DrawBufferedColorPict);
+      exit;
     end;
 
 
@@ -785,7 +785,7 @@ begin
           WritelnDansRapport('gOffScreenDiscs = NIL dans DrawBufferedColorPict !!');
           LoadColorPICT(thePictID,@inrect,bidRect);
           SetPort(oldPort);
-          exit(DrawBufferedColorPict);
+          exit;
         end;
 
       {et, si c'est la premiere fois que l'on dessine un pion apres les initialisations,
@@ -839,7 +839,7 @@ begin
   if (wPlateauPtr = NIL) or not(windowPlateauOpen) then
     begin
       DrawBordureColorPict := -1;
-      exit(DrawBordureColorPict);
+      exit;
     end;
 
   if (gOffScreenBordure = NIL) or (GetCurrentTailleOfBordurePicts <> GetTailleCaseCourante) then
@@ -851,7 +851,7 @@ begin
   if (gOffScreenBordure = NIL) then
     begin
       DrawBordureColorPict := -1;
-      exit(DrawBordureColorPict);
+      exit;
     end;
 
 
@@ -893,7 +893,7 @@ begin
   if (whichWindow = NIL) then
     begin
       DrawBordureRectDansFenetre := -1;
-      exit(DrawBordureRectDansFenetre);
+      exit;
     end;
 
   GetPort(oldPort);

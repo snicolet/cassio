@@ -126,7 +126,7 @@ begin
             erreur := RepareListeDesFreres(fichier,premierFils,LesFils,'LitEnsembleDesFils');
             {WritelnDansRapport('Sortie de LitEnsembleDesFils');
             AttendFrappeClavier;}
-            exit(LitEnsembleDesFils);
+            exit;
           end;
       until (aux = premierFils);
     end;
@@ -155,7 +155,7 @@ begin
             {SysBeep(0);}
             WritelnDansRapport('## ERROR : boucle infinie dans LitEnsembleDesPeres');
             erreur := RepareOrbite(fichier,premierPere,peres,' LitEnsembleDesPeres:');
-            exit(LitEnsembleDesPeres);
+            exit;
           end;
       until (aux = premierPere);
     end;
@@ -183,7 +183,7 @@ begin
             {SysBeep(0);}
             WritelnDansRapport('## ERROR : boucle infinie dans LitEnsembleDesFreres');
             erreur := RepareListeDesFreres(fichier,premierFrere,freres,'LitEnsembleDesFreres:');
-            exit(LitEnsembleDesFreres);
+            exit;
           end;
       until (aux = premierFrere);
     end;
@@ -208,7 +208,7 @@ begin
       begin
         WritelnDansRapport('## ERROR : boucle infinie dans LitOrbite');
         erreur := RepareOrbite(fichier,numCellule,orbite,' LitOrbite:');
-        exit(LitOrbite);
+        exit;
       end;
   until (aux = positionDebut);
 end;
@@ -578,7 +578,7 @@ begin
           if not(UpdatePositionEtTrait(position,coupCourant)) then
             begin
               RaiseError('On me demande d''inclure une partie impossible dans le graphe !');
-              exit(CreePartieDansGrapheApprentissage);  {pas de parties illegales dans le graphe !!}
+              exit;  {pas de parties illegales dans le graphe !!}
             end;
 
 
@@ -1037,7 +1037,7 @@ begin
         sommeProbas := sommeProbas+filsJouables.liste[i].proba;
 
       if sommeProbas = 0.0
-        then exit(TrouveCoupDansGrapheApprentissage)
+        then exit
         else
           begin
             SommesPartielles[0] := 0.0;
@@ -1057,7 +1057,7 @@ begin
                 begin
                   TrouveCoupDansGrapheApprentissage := true;
                   coup := (filsJouables.liste[i].coup);
-                  exit(TrouveCoupDansGrapheApprentissage);
+                  exit;
                 end;
          end;
     end;

@@ -574,7 +574,7 @@ begin
       longueur := LongueurSelectionRapport;
 
       if (longueur < 2) or (longueur > 250)
-        then exit(SelectionRapportEstUnePartieLegale);
+        then exit;
 
       s := SelectionRapportEnString(longueur);
       EnleveEspacesDeDroiteSurPlace(s);

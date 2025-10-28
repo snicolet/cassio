@@ -223,7 +223,7 @@ begin
     	        lock_opp_high         := pos_opp_bits_high XOR infosDansDeepest.toutensemble;
           		loweruppermoveempties := infosDansDeepest;
 
-          		exit(BitboardHashUpdate);
+          		exit;
             end;
         end;
 
@@ -249,7 +249,7 @@ begin
   	          lock_opp_high         := pos_opp_bits_high XOR infosDansNewest.toutensemble;
           		loweruppermoveempties := infosDansNewest;
 
-          		exit(BitboardHashUpdate);
+          		exit;
             end;
         end;
 
@@ -330,7 +330,7 @@ begin
               	 begin
               	   hash_info       := info_dans_hash;
               	   BitboardHashGet := @hash_entry[hash_index].deepest;
-              	   exit(BitboardHashGet);
+              	   exit;
               	 end;
           end;
 
@@ -346,7 +346,7 @@ begin
                 	begin
                 	  hash_info       := info_dans_hash;
                 	  BitboardHashGet := @hash_entry[hash_index].newest;
-                	  exit(BitboardHashGet);
+                	  exit;
                 	end;
            end;
 
@@ -403,7 +403,7 @@ begin
     if GetEndgameValuesInBitboardHashTableForThisPosition(gBitboardHashTable[k],theBitboard,trait,valMinPourNoir,valMaxPourNoir,bestMove) then
       begin
         GetEndgameValuesInAllBitboardHashTables := true;
-        exit(GetEndgameValuesInAllBitboardHashTables);
+        exit;
       end;
 
   GetEndgameValuesInAllBitboardHashTables := false;
@@ -490,7 +490,7 @@ begin
                   	 begin
                   	   hash_info       := info_dans_hash;
                   	   BitboardHashGet := @hash_entry[hash_index].deepest;
-                  	   exit(BitboardHashGet);
+                  	   exit;
                   	 end;
 
               end;
@@ -507,7 +507,7 @@ begin
                     	begin
                     	  hash_info       := info_dans_hash;
                     	  BitboardHashGet := @hash_entry[hash_index].newest;
-                    	  exit(BitboardHashGet);
+                    	  exit;
                     	end;
                end;
 
@@ -564,7 +564,7 @@ begin
               		loweruppermoveempties := infosDansDeepest;
 
               		RELEASE_BITBOARD_HASH_LOCK_BARRIER(hash_index);
-              		exit(BitboardHashUpdate);
+              		exit;
                 end;
             end;
 
@@ -587,7 +587,7 @@ begin
               		loweruppermoveempties := infosDansNewest;
 
               		RELEASE_BITBOARD_HASH_LOCK_BARRIER(hash_index);
-              		exit(BitboardHashUpdate);
+              		exit;
                 end;
             end;
 

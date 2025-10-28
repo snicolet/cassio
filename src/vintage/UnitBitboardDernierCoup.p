@@ -210,7 +210,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -488,7 +488,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -748,7 +748,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -1006,7 +1006,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -1264,7 +1264,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -1522,7 +1522,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -1782,7 +1782,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -2060,7 +2060,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -2338,7 +2338,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -2592,7 +2592,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -2836,7 +2836,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -3078,7 +3078,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -3320,7 +3320,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -3562,7 +3562,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -3806,7 +3806,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -4060,7 +4060,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -4320,7 +4320,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -4570,7 +4570,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -4825,7 +4825,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -5093,7 +5093,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -5361,7 +5361,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -5629,7 +5629,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -5884,7 +5884,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -6134,7 +6134,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -6392,7 +6392,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -6642,7 +6642,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -6897,7 +6897,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -7181,7 +7181,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -7481,7 +7481,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -7765,7 +7765,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -8020,7 +8020,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -8270,7 +8270,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -8528,7 +8528,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -8778,7 +8778,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -9033,7 +9033,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -9317,7 +9317,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -9617,7 +9617,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -9901,7 +9901,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -10156,7 +10156,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -10406,7 +10406,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -10664,7 +10664,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -10914,7 +10914,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -11169,7 +11169,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -11437,7 +11437,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -11705,7 +11705,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -11973,7 +11973,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -12228,7 +12228,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -12478,7 +12478,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -12738,7 +12738,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -12992,7 +12992,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -13236,7 +13236,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -13478,7 +13478,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -13720,7 +13720,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -13962,7 +13962,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -14206,7 +14206,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -14460,7 +14460,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -14738,7 +14738,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -15016,7 +15016,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -15276,7 +15276,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -15534,7 +15534,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -15792,7 +15792,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -16050,7 +16050,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -16310,7 +16310,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -16588,7 +16588,7 @@ begin
               then
                 begin
                   DernierCoupBitboard := pred(diffPions-nbPrise);
-                  exit(DernierCoupBitboard);
+                  exit;
                 end
               else
               begin
@@ -16741,22 +16741,22 @@ begin
     then
       begin
         DernierCoupBitBoard := succ(nbPrise+diffPions);
-        exit(DernierCoupBitBoard);
+        exit;
       end
     else
       begin
         if diffPions < 0 then
           begin
             DernierCoupBitBoard := pred(diffPions);  {une case vide au vainqueur}
-            exit(DernierCoupBitBoard);
+            exit;
           end;
         if diffPions > 0 then
           begin
             DernierCoupBitBoard := succ(diffPions);  {une case vide au vainqueur}
-            exit(DernierCoupBitBoard);
+            exit;
           end;
         DernierCoupBitBoard := 0;             {nulle}
-        exit(DernierCoupBitBoard);
+        exit;
       end;
 
 end; {DernierCoupBitBoard}

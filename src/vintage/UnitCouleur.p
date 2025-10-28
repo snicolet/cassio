@@ -376,7 +376,7 @@ begin
   if (quantite = 0) then
     begin
       NoircirCouleurDeCetteQuantite := theColor;
-      exit(NoircirCouleurDeCetteQuantite);
+      exit;
     end;
 
   redValue   := theColor.red;

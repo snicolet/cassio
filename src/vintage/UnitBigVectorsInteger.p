@@ -429,7 +429,7 @@ begin
   if (n <= 0) then
     begin
       EcritPointMultidimensionnelIntegerDansFichierTexte := -1;
-      exit(EcritPointMultidimensionnelIntegerDansFichierTexte);
+      exit;
     end;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
@@ -468,7 +468,7 @@ begin
   if (n <= 0) then
     begin
       LitPointMultidimensionnelIntegerDansFichierTexte := -1;
-      exit(LitPointMultidimensionnelIntegerDansFichierTexte);
+      exit;
     end;
 
 

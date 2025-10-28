@@ -309,7 +309,7 @@ begin
   if (prop.genre = WhiteMoveProp) then traitProp := pionBlanc else
     begin
       PlayMoveProperty := false;
-      exit(PlayMoveProperty);
+      exit;
     end;
 
   traitPosition := GetTraitOfPosition(positionEtTrait);
@@ -317,14 +317,14 @@ begin
   if (traitProp <> traitPosition) then
     begin
       PlayMoveProperty := false;
-      exit(PlayMoveProperty);
+      exit;
     end;
 
   coup := GetOthelloSquareOfProperty(prop);
   if (coup < 11) or (coup > 88) then
     begin
       PlayMoveProperty := false;
-      exit(PlayMoveProperty);
+      exit;
     end;
 
   ok := (positionEtTrait.position[coup] = pionVide) and
@@ -332,7 +332,7 @@ begin
   if not(ok) then
     begin
       PlayMoveProperty := false;
-      exit(PlayMoveProperty);
+      exit;
     end;
 end;
 
@@ -500,12 +500,12 @@ var brothers,L,L1 : GameTreeList;
     erreurForceePourPhaseDeTest : boolean;
 begin
   VerifieHomogeneiteDesCouleurs := 0;
-  if (G = NIL) then exit(VerifieHomogeneiteDesCouleurs);
+  if (G = NIL) then exit;
 
   brothers := GetBrothers(G);
 
   if (brothers = NIL) and (EstLaRacineDeLaPartie(G)) then
-    exit(VerifieHomogeneiteDesCouleurs);  {c'est normal}
+    exit;  {c'est normal}
 
 
   if (brothers = NIL) then
@@ -519,7 +519,7 @@ begin
 		      WritelnDansRapport('');
 		    end;
       VerifieHomogeneiteDesCouleurs := -2;
-      exit(VerifieHomogeneiteDesCouleurs);
+      exit;
     end;
 
 
@@ -557,7 +557,7 @@ begin
 				        end;
 
 				      VerifieHomogeneiteDesCouleurs := -1;
-              exit(VerifieHomogeneiteDesCouleurs);
+              exit;
 				    end;
         end;
     end;
@@ -580,21 +580,21 @@ begin
     begin
       WritelnDansRapport('erreur : case hors de l''intervalle (11..88) dans ChangeCurrentNodeAfterMove !!!');
       ChangeCurrentNodeAfterThisMove := -1;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
   if (couleur <> pionNoir) and (couleur <> pionBlanc) then
     begin
       WritelnDansRapport('erreur : couleur non legale dans ChangeCurrentNodeAfterMove !!!');
       ChangeCurrentNodeAfterThisMove := -1;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
   if GameTreeCourant = NIL then
     begin
       WritelnDansRapport('erreur : GameTreeCourant = NIL dans ChangeCurrentNodeAfterMove !!!');
       ChangeCurrentNodeAfterThisMove := -1;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
   if debuggage.arbreDeJeu then
@@ -608,7 +608,7 @@ begin
       WritelnDansRapport('on a reporté un probleme dans ChangeCurrentNodeAfterMove avant la creation du nouveau nœud, fonctionAppelante = '+fonctionAppelante);
       problemeDeCouleursDansLArbre := true;
       ChangeCurrentNodeAfterThisMove := err;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
   noeudsDejaGeneres := GetEnsembleDesCoupsDesFils(couleur,GameTreeCourant);
@@ -643,7 +643,7 @@ begin
       problemeDeCouleursDansLArbre := true;
 
       ChangeCurrentNodeAfterThisMove := -1;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
   if debuggage.arbreDeJeu or problemeDeCouleursDansLArbre then
@@ -698,7 +698,7 @@ begin
       WritelnDansRapport('on a reporté un probleme dans ChangeCurrentNodeAfterMove apres la creation du nouveau nœud, fonctionAppelante = '+fonctionAppelante);
       problemeDeCouleursDansLArbre := true;
       ChangeCurrentNodeAfterThisMove := err;
-      exit(ChangeCurrentNodeAfterThisMove);
+      exit;
     end;
 
 end;
@@ -723,12 +723,12 @@ end;
 procedure DoChangeCurrentNodeBackwardUntil(G : GameTree);
 begin
   if (G = NIL) or (GameTreeCourant = G) then
-    exit(DoChangeCurrentNodeBackwardUntil);
+    exit;
 
 	while not(GameTreeEstVide(GameTreeCourant)) and not(GameTreeEstVide(GameTreeCourant^.father)) do
 		begin
 		  GameTreeCourant := GameTreeCourant^.father;
-		  if (GameTreeCourant = G) then exit(DoChangeCurrentNodeBackwardUntil);
+		  if (GameTreeCourant = G) then exit;
     end;
 
    if VerifieHomogeneiteDesCouleurs(GameTreeCourant,true) <> 0 then
@@ -740,7 +740,7 @@ procedure SetCurrentNode(G : GameTree; const fonctionAppelante : String255);
 var error : SInt32;
 begin
   if (G = NIL) or (GameTreeCourant = G) then
-    exit(SetCurrentNode);
+    exit;
 
   GameTreeCourant := G;
 
@@ -1156,7 +1156,7 @@ begin
         begin
           WritelnDansRapport('WARNING : invalid property in AddPropertyAsStringDansCeNoeud, prévenez Stéphane !');
           DisposePropertyStuff(prop);
-          exit(AddPropertyAsStringDansCeNoeud);
+          exit;
         end;
 
 
@@ -1202,7 +1202,7 @@ begin
         begin
           WritelnDansRapport('WARNING : invalid property in DeletePropertyAsStringDansCeNoeud, prévenez Stéphane !');
           DisposePropertyStuff(prop);
-          exit(DeletePropertyAsStringDansCeNoeud);
+          exit;
         end;
 
 
@@ -1605,7 +1605,7 @@ begin
 			      if G1 = G1^.father then
 			        begin
 			          AlerteSimple('Boucle infinie dans CreateListeDesCoupsJusqua !!! Prévenez Stéphane');
-			          exit(CreateListeDesCoupsJusqua);
+			          exit;
 			        end;
 			      G1 := G1^.father;
 			    end;
@@ -1632,7 +1632,7 @@ begin
   if (G = NIL) then
     begin
       positionTerminale := PositionEtTraitInitiauxStandard;
-      exit(CreatePartieEnAlphaJusqua);
+      exit;
     end;
 
   if CalculeNouvellePositionInitialeFromThisList(GetRacineDeLaPartie^.properties,plat,numeroPremierCoup,trait,nbBlancs,nbNoirs)
@@ -1652,7 +1652,7 @@ begin
           AlerteSimple('Boucle infinie dans CreatePartieEnAlphaJusqua !!! Prévenez Stéphane');
           positionTerminale := PositionEtTraitInitiauxStandard;
           CreatePartieEnAlphaJusqua := false;
-          exit(CreatePartieEnAlphaJusqua);
+          exit;
         end;
 
       G1 := G1^.father;
@@ -1693,7 +1693,7 @@ var numeroCoupTerminal : SInt32;
         if whichNode = whichNode^.father then
           begin
             AlerteSimple('Boucle infinie dans ForEachPositionOnPathToCurrentNodeDo !!! Prévenez Stéphane');
-            exit(ItererRecursivement);
+            exit;
           end;
         ItererRecursivement(whichNode^.father,numeroCoup-1);
         continuer := true;
@@ -1731,7 +1731,7 @@ begin
     begin
       position := PositionEtTraitInitiauxStandard;
       GetPositionEtTraitACeNoeud := false;
-      exit(GetPositionEtTraitACeNoeud);
+      exit;
     end;
 
 
@@ -1757,7 +1757,7 @@ begin
           AlerteSimple('Boucle infinie dans GetPositionEtTraitACeNoeud (fonction appelante = ' + fonctionAppelante + ' !!! Prévenez Stéphane');
           position := PositionEtTraitInitiauxStandard;
           GetPositionEtTraitACeNoeud := false;
-          exit(GetPositionEtTraitACeNoeud);
+          exit;
         end;
 
       G1 := G1^.father;
@@ -1797,7 +1797,7 @@ procedure AjouteMeilleureSuiteDansGameTree(genreReflexion : SInt32; meilleureSui
 begin
   debugage := false;
 
-  if enTournoi then exit(AjouteMeilleureSuiteDansGameTree);
+  if enTournoi then exit;
 
   if debugage then
     begin
@@ -1810,7 +1810,7 @@ begin
     begin
       SysBeep(0);
       WritelnDansRapport('ASSERT(G <> NIL) dans AjouteMeilleureSuiteDansGameTree !!');
-      exit(AjouteMeilleureSuiteDansGameTree);
+      exit;
     end;
 
   if (G <> NIL) then
@@ -1844,7 +1844,7 @@ begin
               SysBeep(0);
 
               SetCurrentNode(oldCurrentNode, 'AjouteMeilleureSuiteDansGameTree {2}');
-              exit(AjouteMeilleureSuiteDansGameTree);
+              exit;
             end;
 
 	        scoreProperty := MakeScoringProperty(genreReflexion,scoreDeNoir);
@@ -2008,7 +2008,7 @@ begin
       WritelnDansRapport('ERREUR : scorePourNoir = '+IntToStr(scorePourNoir)+' dans AjoutePropertyValeurDeCoupDansCurrentNode(reflexion de finale), prévenez Stéphane !');
       WritelnNumDansRapport('quelGenreDeReflexion = ',quelGenreDeReflexion);
       SysBeep(0);
-      exit(AjoutePropertyValeurDeCoupDansCurrentNode);
+      exit;
     end;
 
   AjoutePropertyValeurDeCoupDansGameTree(quelGenreDeReflexion,scorePourNoir,GetCurrentNode);

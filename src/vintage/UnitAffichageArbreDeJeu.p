@@ -229,7 +229,7 @@ begin
       begin
         square := k;
         FindSquareWithThisEtiquette := true;
-        exit(FindSquareWithThisEtiquette);
+        exit;
       end;
 
   square := -1;
@@ -279,7 +279,7 @@ begin
               if theSon = NIL then
                 begin
                   AlerteSimple('erreur : fils non trouvé EcritProchainsCoupsSurOthellier !! Prévenez Stéphane');
-                  exit(EcritProchainsCoupsSurOthellier);
+                  exit;
                 end;
 
               imagetteADessiner := kAucuneImagette;
@@ -329,14 +329,14 @@ begin
 	                        if L2^.tail = L2 then
 			                      begin
 			                        AlerteSimple('erreur : boucle infinie sur L1 dans EcritProchainsCoupsSurOthellier !! Prévenez Stéphane');
-			                        exit(EcritProchainsCoupsSurOthellier);
+			                        exit;
 			                      end;
 	                        L2 := L2^.tail;
 	                      end;
 	                    if L1^.tail = L1 then
 	                      begin
 	                        AlerteSimple('erreur : boucle infinie sur L1 dans EcritProchainsCoupsSurOthellier !! Prévenez Stéphane');
-	                        exit(EcritProchainsCoupsSurOthellier);
+	                        exit;
 	                      end;
 	                  end;
 

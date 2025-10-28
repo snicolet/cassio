@@ -1627,7 +1627,7 @@ begin
   if interruptionReflexion <> pasdinterruption then
     begin
       if debuggage.general then EcritTypeInterruptionDansRapport(interruptionReflexion);
-      exit(DoAnalyseRetrograde);
+      exit;
     end;
 
   if (nbreCoup >= limiteAnalyseRetro) or gameOver then
@@ -1870,7 +1870,7 @@ begin
      if (posFin < 100000000) then
        begin
          SelectionnerTexteDansRapport(posDebut,posFin);
-         exit(SelectionneAnalyseRetrograde);
+         exit;
        end;
 
     end;

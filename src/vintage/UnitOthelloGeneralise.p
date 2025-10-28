@@ -162,7 +162,7 @@ function PeutJouerIciBigOthello(var position : BigOthelloRec; squareX,squareY : 
 	      if n > 0 then
 	        begin
 	          PeutJouerIciBigOthello := true;
-	          exit(PeutJouerIciBigOthello);
+	          exit;
 	        end;
 	    end;
   end;
@@ -193,7 +193,7 @@ begin
       if PeutJouerIciBigOthello(position,x,y) then
         begin
           DoitPasserBigOthello := false;
-          exit(DoitPasserBigOthello);
+          exit;
         end;
   DoitPasserBigOthello := true;
 end;
@@ -297,13 +297,13 @@ var i,j : SInt16;
 begin
   SameBigOthelloRec := false;
 
-  if pos1.size.h <> pos2.size.h then exit(SameBigOthelloRec);
-  if pos1.size.v <> pos2.size.v then exit(SameBigOthelloRec);
-  if pos1.trait  <> pos2.trait then exit(SameBigOthelloRec);
+  if pos1.size.h <> pos2.size.h then exit;
+  if pos1.size.v <> pos2.size.v then exit;
+  if pos1.trait  <> pos2.trait then exit;
 
   for i := 0 to kSizeOthellierMax+1 do
     for j := 0 to kSizeOthellierMax+1 do
-      if pos1.plateau[i,j] <> pos2.plateau[i,j] then exit(SameBigOthelloRec);
+      if pos1.plateau[i,j] <> pos2.plateau[i,j] then exit;
 
   SameBigOthelloRec := true;
 end;
@@ -343,12 +343,12 @@ begin
   if (whichMoveX < 1) or (whichMoveX > position.size.h) then
     begin
       UpdateBigOthello := false;
-      exit(UpdateBigOthello);
+      exit;
     end;
   if (whichMoveY < 1) or (whichMoveY > position.size.v) then
     begin
       UpdateBigOthello := false;
-      exit(UpdateBigOthello);
+      exit;
     end;
 
   CoupLegal := (position.plateau[whichMoveX,whichMoveY] = pionVide) and
@@ -356,7 +356,7 @@ begin
   if not(CoupLegal) then
     begin
       UpdateBigOthello := false;
-      exit(UpdateBigOthello);
+      exit;
     end;
 
   with position do
@@ -381,12 +381,12 @@ begin
   if (whichMoveX < 1) or (whichMoveX > position.size.h) then
     begin
       RetournePionsBigOthello := 0;
-      exit(RetournePionsBigOthello);
+      exit;
     end;
   if (whichMoveY < 1) or (whichMoveY > position.size.v) then
     begin
       RetournePionsBigOthello := 0;
-      exit(RetournePionsBigOthello);
+      exit;
     end;
 
   nbPionsRetournes := DoFlips(position,whichMoveX,whichMoveY);
@@ -394,7 +394,7 @@ begin
   if not(CoupLegal) then
     begin
       RetournePionsBigOthello := 0;
-      exit(RetournePionsBigOthello);
+      exit;
     end;
 
   with position do

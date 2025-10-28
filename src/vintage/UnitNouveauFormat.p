@@ -792,7 +792,7 @@ begin
         begin
           EstUneDistributionConnue := true;
           nroDistrib := i;
-          exit(EstUneDistributionConnue);
+          exit;
         end;
 end;
 
@@ -833,7 +833,7 @@ begin
            (nomFichier <> NIL) and (UpCaseStr(nomFichier^) =  'WTHOR.JOU') then
            begin
              FichierWTHORJOUDejaTrouve := true;
-             exit(FichierWTHORJOUDejaTrouve);
+             exit;
            end;
       end;
 end;
@@ -1148,21 +1148,21 @@ begin
   if codeErreur <> 0 then
     begin
       codeErreur := FSClose(refnum);
-      exit(EstUnFichierNouveauFormat);
+      exit;
     end;
 
   codeErreur := LitEnteteNouveauFormat(refnum,entete);
   if codeErreur <> 0 then
     begin
       codeErreur := FSClose(refnum);
-      exit(EstUnFichierNouveauFormat);
+      exit;
     end;
 
   codeErreur := GetEOF(refNum,tailleFichier);
   if codeErreur <> 0 then
     begin
       codeErreur := FSClose(refnum);
-      exit(EstUnFichierNouveauFormat);
+      exit;
     end;
 
   codeErreur := FSClose(refnum);
@@ -1519,7 +1519,7 @@ begin
         if (fichiers[i].typeDonnees = ceTypeDeDonnees) then
           begin
             GetNroPremierFichierAvecCeTypeDeDonnees := i;
-            exit(GetNroPremierFichierAvecCeTypeDeDonnees);
+            exit;
           end;
 end;
 
@@ -1535,7 +1535,7 @@ begin
       if ( nomEnMajuscules = UpCaseStr(CalculeNomFichierNouveauFormat(k))) then
         begin
           GetNroPremierFichierAvecCeNom := k;
-          exit(GetNroPremierFichierAvecCeNom);
+          exit;
         end;
     end;
 
@@ -1555,7 +1555,7 @@ begin
          (DistributionsNouveauFormat.distribution[numDistrib].name^ = distribution) then
         begin
           GetNroPremierFichierAvecCetteDistribution := k;
-          exit(GetNroPremierFichierAvecCetteDistribution);
+          exit;
         end;
     end;
 
@@ -1611,7 +1611,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitPartieNouveauFormat : numFichier = ',numFichier);
       LitPartieNouveauFormat := -1;
-      exit(LitPartieNouveauFormat);
+      exit;
     end;
 
 
@@ -1622,7 +1622,7 @@ begin
 		  if (codeErreur <> NoErr) then
 		    begin
 		      LitPartieNouveauFormat := codeErreur;
-		      exit(LitPartieNouveauFormat);
+		      exit;
 		    end;
 
 		  if (numFichier = nroDernierFichierPartiesLuNF) and
@@ -1692,7 +1692,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitJoueurNouveauFormat : numFichier = ',numFichier);
       LitJoueurNouveauFormat := -1;
-      exit(LitJoueurNouveauFormat);
+      exit;
     end;
 
   codeErreur := NoErr;
@@ -1704,7 +1704,7 @@ begin
 		  if (codeErreur <> NoErr) then
 		    begin
 		      LitJoueurNouveauFormat := codeErreur;
-		      exit(LitJoueurNouveauFormat);
+		      exit;
 		    end;
 
 		  if (numFichier = nroDernierFichierJoueursLuNF) and
@@ -1727,7 +1727,7 @@ begin
 		         if codeErreur <> NoErr then
 		           begin
 		             LitJoueurNouveauFormat := codeErreur;
-		             exit(LitJoueurNouveauFormat);
+		             exit;
 		           end;
 
 		         count := (dernierJoueurDansBufferNF-premierJoueurDansBufferNF+1)*TailleJoueurRecNouveauFormat;
@@ -1758,7 +1758,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans LitTournoiNouveauFormat : numFichier = ',numFichier);
       LitTournoiNouveauFormat := -1;
-      exit(LitTournoiNouveauFormat);
+      exit;
     end;
 
   codeErreur := NoErr;
@@ -1770,7 +1770,7 @@ begin
 		  if (codeErreur <> NoErr) then
 		    begin
 		      LitTournoiNouveauFormat := codeErreur;
-		      exit(LitTournoiNouveauFormat);
+		      exit;
 		    end;
 
 		  if (numFichier = nroDernierFichierTournoisLuNF) and
@@ -1793,7 +1793,7 @@ begin
 		         if codeErreur <> NoErr then
 		           begin
 		             LitTournoiNouveauFormat := codeErreur;
-		             exit(LitTournoiNouveauFormat);
+		             exit;
 		           end;
 
 		         count := (dernierTournoiDansBufferNF-premierTournoiDansBufferNF+1)*TailleTournoiRecNouveauFormat;
@@ -1822,7 +1822,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans OuvreFichierNouveauFormat : numFichier = ',numFichier);
       OuvreFichierNouveauFormat := -1;
-      exit(OuvreFichierNouveauFormat);
+      exit;
     end;
 
   codeErreur := NoErr;
@@ -1864,7 +1864,7 @@ begin
     begin
       WritelnNumDansRapport('WARNING !! Numéro de fichier en dehors de l''intervalle autorisé dans FermeFichierNouveauFormat : numFichier = ',numFichier);
       FermeFichierNouveauFormat := -1;
-      exit(FermeFichierNouveauFormat);
+      exit;
     end;
 
   codeErreur := NoErr;
@@ -1908,7 +1908,7 @@ begin
     begin
       SysBeep(0);
       LitNomsDesJoueursEnJaponais := -1;
-      exit(LitNomsDesJoueursEnJaponais);
+      exit;
     end;
 
   with JoueursNouveauFormat do
@@ -1916,7 +1916,7 @@ begin
       if (nbJoueursNouveauFormat <= 0) or not(dejaTriesAlphabetiquement) then
 		    begin
 		      LitNomsDesJoueursEnJaponais := -1;
-		      exit(LitNomsDesJoueursEnJaponais);
+		      exit;
 		    end;
 
       codeErreur := OuvreFichierDesJoueursJaponais(fic);
@@ -2041,14 +2041,14 @@ begin
   if (codeErreur <> NoErr) then
     begin
       MetJoueursNouveauFormatEnMemoire := codeErreur;
-      exit(MetJoueursNouveauFormatEnMemoire);
+      exit;
     end;
 
   if (JoueursNouveauFormat.nbJoueursNouveauFormat <> placeMemoireDemandee) then
     begin
       codeErreur := -1;
       MetJoueursNouveauFormatEnMemoire := codeErreur;
-      exit(MetJoueursNouveauFormatEnMemoire);
+      exit;
     end;
 
 
@@ -2092,7 +2092,7 @@ begin
 		          if codeErreur <> NoErr then
 		            begin
 		              MetJoueursNouveauFormatEnMemoire := codeErreur;
-		              exit(MetJoueursNouveauFormatEnMemoire);
+		              exit;
 		            end;
 
 		          for nroJoueur := 1 to nbJoueursDansCeFichier do
@@ -2124,14 +2124,14 @@ begin
 		          if codeErreur <> NoErr then
 		            begin
 		              MetJoueursNouveauFormatEnMemoire := codeErreur;
-		              exit(MetJoueursNouveauFormatEnMemoire);
+		              exit;
 		            end;
 
 		          codeErreur := FermeFichierNouveauFormat(numFichier);
 		          if codeErreur <> NoErr then
 		            begin
 		              MetJoueursNouveauFormatEnMemoire := codeErreur;
-		              exit(MetJoueursNouveauFormatEnMemoire);
+		              exit;
 		            end;
 		        end;
         end;
@@ -2168,11 +2168,11 @@ begin
   nom_dictionnaire := nomDictionnaireDesPseudos;
 
   erreurES := FichierTexteDeCassioExiste(nom_dictionnaire,dictionnairePseudosWThor);
-  if (erreurES = fnfErr) then exit(MetPseudosDeLaBaseWThor);
+  if (erreurES = fnfErr) then exit;
   if (erreurES <> NoErr) then
     begin
       AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
-      exit(MetPseudosDeLaBaseWThor);
+      exit;
     end;
 
 
@@ -2180,7 +2180,7 @@ begin
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
-      exit(MetPseudosDeLaBaseWThor);
+      exit;
     end;
 
   erreurES := NoErr;
@@ -2302,14 +2302,14 @@ begin
   if (codeErreur <> NoErr) then
     begin
       MetTournoisNouveauFormatEnMemoire := codeErreur;
-      exit(MetTournoisNouveauFormatEnMemoire);
+      exit;
     end;
 
   if (TournoisNouveauFormat.nbTournoisNouveauFormat <> placeMemoireDemandee) then
     begin
       codeErreur := -1;
       MetTournoisNouveauFormatEnMemoire := codeErreur;
-      exit(MetTournoisNouveauFormatEnMemoire);
+      exit;
     end;
 
 
@@ -2353,7 +2353,7 @@ begin
 		          if codeErreur <> NoErr then
 		            begin
 		              MetTournoisNouveauFormatEnMemoire := codeErreur;
-		              exit(MetTournoisNouveauFormatEnMemoire);
+		              exit;
 		            end;
 
 		          for nroTournoi := 1 to nbTournoisDansCeFichier do
@@ -2385,14 +2385,14 @@ begin
 		          if codeErreur <> NoErr then
 		            begin
 		              MetTournoisNouveauFormatEnMemoire := codeErreur;
-		              exit(MetTournoisNouveauFormatEnMemoire);
+		              exit;
 		            end;
 
 		          codeErreur := FermeFichierNouveauFormat(numFichier);
 		          if codeErreur <> NoErr then
 		            begin
 		              MetTournoisNouveauFormatEnMemoire := codeErreur;
-		              exit(MetTournoisNouveauFormatEnMemoire);
+		              exit;
 		            end;
 		        end;
         end;
@@ -2434,7 +2434,7 @@ begin
       if (nbTournoisNouveauFormat <= 0) or not(dejaTriesAlphabetiquement) then
 		    begin
 		      LitNomsDesTournoisEnJaponais := -1;
-		      exit(LitNomsDesTournoisEnJaponais);
+		      exit;
 		    end;
 
       codeErreur := OuvreFichierDesTournoisJaponais(fic);
@@ -2518,7 +2518,7 @@ begin
   EcritFichierIndexDesJoueursTries := -1;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	exit(EcritFichierIndexDesJoueursTries);
+	exit;
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,JoueursNouveauFormat do
@@ -2585,7 +2585,7 @@ begin
   LitFichierIndexDesJoueursTries := -1;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	exit(LitFichierIndexDesJoueursTries);
+	exit;
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,JoueursNouveauFormat do
@@ -2622,24 +2622,24 @@ begin
                    if not(open) then
                      begin
                        codeErreur := OuvreFichierNouveauFormat(numeroFichierIndex);
-                       if codeErreur <> NoErr then exit(LitFichierIndexDesJoueursTries);
+                       if codeErreur <> NoErr then exit;
                      end;
 
                    codeErreur := LitEnteteNouveauFormat(refnum,enteteIndex);
-	                 if codeErreur <> NoErr then exit(LitFichierIndexDesJoueursTries);
+	                 if codeErreur <> NoErr then exit;
 
                    codeErreur := MyFSRead(refnum,4,@nbNomsDansFichierIndex);
-	                 if codeErreur <> NoErr then exit(LitFichierIndexDesJoueursTries);
+	                 if codeErreur <> NoErr then exit;
 
 
 
                    if (nbJoueursNouveauFormat <> enteteIndex.PlaceMemoireIndex) or
 	                    (nbNomsDansFichierIndex <> nbJoueursNouveauFormat)
-	                    then exit(LitFichierIndexDesJoueursTries);
+	                    then exit;
 
                    count := 4*nbJoueursNouveauFormat;
 						       codeErreur := FSRead(refnum,count,buffer);
-						       if codeErreur <> NoErr then exit(LitFichierIndexDesJoueursTries);
+						       if codeErreur <> NoErr then exit;
 
 						       for k := 0 to nbJoueursNouveauFormat-1 do
                      SetNroOrdreAlphabetiqueJoueur(k,buffer^[k]);
@@ -2667,7 +2667,7 @@ begin
   EcritFichierIndexDesTournoisTries := -1;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	exit(EcritFichierIndexDesTournoisTries);
+	exit;
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,TournoisNouveauFormat do
@@ -2734,7 +2734,7 @@ begin
   LitFichierIndexDesTournoisTries := -1;
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-	exit(LitFichierIndexDesTournoisTries);
+	exit;
 	{$ENDC}
 
   with InfosFichiersNouveauFormat,TournoisNouveauFormat do
@@ -2771,22 +2771,22 @@ begin
                    if not(open) then
                      begin
                        codeErreur := OuvreFichierNouveauFormat(numeroFichierIndex);
-                       if codeErreur <> NoErr then exit(LitFichierIndexDesTournoisTries);
+                       if codeErreur <> NoErr then exit;
                      end;
 
                    codeErreur := LitEnteteNouveauFormat(refnum,enteteIndex);
-	                 if codeErreur <> NoErr then exit(LitFichierIndexDesTournoisTries);
+	                 if codeErreur <> NoErr then exit;
 
                    codeErreur := MyFSRead(refnum,4,@nbNomsDansFichierIndex);
-	                 if codeErreur <> NoErr then exit(LitFichierIndexDesTournoisTries);
+	                 if codeErreur <> NoErr then exit;
 
                    if (nbTournoisNouveauFormat <> enteteIndex.PlaceMemoireIndex) or
 	                    (nbNomsDansFichierIndex <> nbTournoisNouveauFormat)
-	                    then exit(LitFichierIndexDesTournoisTries);
+	                    then exit;
 
                    count := 4*nbTournoisNouveauFormat;
 						       codeErreur := FSRead(refnum,count,buffer);
-						       if codeErreur <> NoErr then exit(LitFichierIndexDesTournoisTries);
+						       if codeErreur <> NoErr then exit;
 
 						       for k := 0 to nbTournoisNouveauFormat-1 do
                      SetNroOrdreAlphabetiqueTournoi(k,buffer^[k]);
@@ -3039,9 +3039,9 @@ begin
          begin
            nbParties := fichiers[numFichierParties].entete.NombreEnregistrementsParties;
            codeErreur := AllocateMemoireIndexNouveauFormat(nbParties);
-           if codeErreur <> NoErr then exit(IndexerFichierPartiesEnMemoireNouveauFormat);
+           if codeErreur <> NoErr then exit;
            codeErreur := OuvreFichierNouveauFormat(numFichierParties);
-           if codeErreur <> NoErr then exit(IndexerFichierPartiesEnMemoireNouveauFormat);
+           if codeErreur <> NoErr then exit;
            for nroPartie := 1 to nbParties do
              begin
                codeErreur := LitPartieNouveauFormat(numFichierParties,nroPartie,true,theGame);
@@ -3587,7 +3587,7 @@ begin
 
   // ne pas reentrer
   if (InfosFichiersNouveauFormat.nbFichiers > 0) or pendantLecturePreparatoireDossierDatabase
-    then exit(LecturePreparatoireDossierDatabase);
+    then exit;
 
   temp := pendantLecturePreparatoireDossierDatabase;
   pendantLecturePreparatoireDossierDatabase := true;

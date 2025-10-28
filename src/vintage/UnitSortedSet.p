@@ -172,12 +172,12 @@ begin
   if SortedSetEstVide(S1) then
     begin
       UnionSortedSet := DuplicateSortedSet(S2);
-      exit(UnionSortedSet);
+      exit;
     end;
   if SortedSetEstVide(S2) then
     begin
       UnionSortedSet := DuplicateSortedSet(S1);
-      exit(UnionSortedSet);
+      exit;
     end;
 
   with result do
@@ -251,7 +251,7 @@ begin
   if SortedSetEstVide(S1) or SortedSetEstVide(S2) then
     begin
       IntersectionSortedSet := MakeEmptySortedSet;
-      exit(IntersectionSortedSet);
+      exit;
     end;
 
   with result do

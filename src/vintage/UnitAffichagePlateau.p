@@ -234,7 +234,7 @@ begin
                          dx + aireDeJeu.right  + epaisseur,
                          dy + aireDeJeu.top);
       CalculateBordureRect := unRect;
-      exit(CalculateBordureRect);
+      exit;
     end;
   {bordure a gauche}
   if (quelleBordure and kBordureDeGauche) <> 0 then
@@ -244,7 +244,7 @@ begin
                          dx + aireDeJeu.left,
                          dy + aireDeJeu.bottom + 2 );
       CalculateBordureRect := unRect;
-      exit(CalculateBordureRect);
+      exit;
     end;
   {bordure en bas}
   if (quelleBordure and kBordureDuBas) <> 0 then
@@ -254,7 +254,7 @@ begin
                          dx + aireDeJeu.right  + epaisseur,
                          dy + aireDeJeu.bottom + epaisseur + 2);
       CalculateBordureRect := unRect;
-      exit(CalculateBordureRect);
+      exit;
     end;
   {bordure a droite}
   if (quelleBordure and kBordureDeDroite) <> 0 then
@@ -264,7 +264,7 @@ begin
                          dx + aireDeJeu.right  + epaisseur ,
                          dy + aireDeJeu.bottom + epaisseur {- 1} + 2);
       CalculateBordureRect := unRect;
-      exit(CalculateBordureRect);
+      exit;
     end;
 
   {default}
@@ -314,7 +314,7 @@ begin
   if CassioEstEn3D then
     begin
       DrawClockBoundingRect(gHorlogeRect,10);
-      exit(EffaceZoneADroiteDeLOthellier);
+      exit;
     end;
 
   if not(CassioEstEn3D) and not(EnModeEntreeTranscript) {or enRetour} then
@@ -728,7 +728,7 @@ var couleurDuBois : RGBColor;
 begin
 
   if not(CassioEstEn3D) and garderPartieNoireADroiteOthellier
-    then exit(DrawClockBoundingRect);
+    then exit;
 
 
   if not(EnModeEntreeTranscript or enRetour or enSetUp) then
@@ -740,7 +740,7 @@ begin
           if (Pos('Table',NomTexture3D) > 0) or
              (Pos('Escargot',NomTexture3D) > 0)
             then SetRGBColor(couleurDuBois,21120,15680,7280)
-            else exit(DrawClockBoundingRect);
+            else exit;
 
       if CassioEstEn3D or (BordureOthellierEstUneTexture and not(garderPartieNoireADroiteOthellier))
         then tailleOmbrageDuBouton := 5
@@ -759,7 +759,7 @@ var couleurDuBois : RGBColor;
 begin
 
   if not(CassioEstEn3D) and garderPartieNoireADroiteOthellier
-    then exit(DrawInvertedClockBoundingRect);
+    then exit;
 
   if not(EnModeEntreeTranscript or enRetour or enSetUp) then
     begin
@@ -769,7 +769,7 @@ begin
           if (Pos('Table',NomTexture3D) > 0) or
              (Pos('Escargot',NomTexture3D) > 0)
             then SetRGBColor(couleurDuBois,21120,15680,7280)
-            else exit(DrawInvertedClockBoundingRect);
+            else exit;
 
       if CassioEstEn3D or BordureOthellierEstUneTexture and not(garderPartieNoireADroiteOthellier)
         then tailleOmbrageDuBouton := 5
@@ -2318,7 +2318,7 @@ var a,b,haut,largeur : SInt32;
     smallRect : rect;
 begin
 
-  if (s = '') then exit(DrawJustifiedStringInRect);
+  if (s = '') then exit;
 
   inc(gNiveauDeRecursionDansDrawJustifiedStringInRect);
 
@@ -2416,7 +2416,7 @@ var haut : SInt32;
 begin
 
 
-  if (s = '') then exit(DessineStringInRect);
+  if (s = '') then exit;
 
   if ((whichRect.bottom - whichRect.top) <= 15)
      then
@@ -2455,7 +2455,7 @@ begin
   {$UNUSED continuer}
 
 
-  if (s = '') then exit(DessineStringOnSquare);
+  if (s = '') then exit;
 
   if windowPlateauOpen then
     begin
@@ -2552,10 +2552,10 @@ var x,y : SInt16;
     oldPort : grafPtr;
 begin
   if CassioEstEn3D then
-    exit(DessineAnglesCarreCentral);
+    exit;
 
   if gCouleurOthellier.estUneImage then
-    exit(DessineAnglesCarreCentral);
+    exit;
 
 
   if windowPlateauOpen then

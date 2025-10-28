@@ -258,33 +258,33 @@ begin
         if vecteur.Pattern[k,stage].data <> NIL then
            begin
              VecteurEvalIntegerEstVide := false;
-             exit(VecteurEvalIntegerEstVide);
+             exit;
            end;
       if vecteur.Edges2X[stage].data <> NIL then
         begin
           VecteurEvalIntegerEstVide := false;
-          exit(VecteurEvalIntegerEstVide);
+          exit;
         end;
     end;
   if vecteur.Mobilite.data <> NIL then
     begin
       VecteurEvalIntegerEstVide := false;
-      exit(VecteurEvalIntegerEstVide);
+      exit;
     end;
   if vecteur.FrontiereDiscs.data <> NIL then
     begin
       VecteurEvalIntegerEstVide := false;
-      exit(VecteurEvalIntegerEstVide);
+      exit;
     end;
   if vecteur.FrontiereSquares.data <> NIL then
     begin
       VecteurEvalIntegerEstVide := false;
-      exit(VecteurEvalIntegerEstVide);
+      exit;
     end;
   if vecteur.FrontiereNonLineaire.data <> NIL then
     begin
       VecteurEvalIntegerEstVide := false;
-      exit(VecteurEvalIntegerEstVide);
+      exit;
     end;
   VecteurEvalIntegerEstVide := true;
 end;
@@ -477,35 +477,35 @@ begin
   if VecteurEvalIntegerEstVide(whichEval) then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := -1;
-      exit(LitVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := FichierTexteDeCassioExiste(nomFichier,fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
-      exit(LitVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
-      exit(LitVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := LitEvalIntegerDansFichierTexte(fichierEval,whichEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
-      exit(LitVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
-      exit(LitVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   LitVecteurEvaluationIntegerSurLeDisque := err;
@@ -521,7 +521,7 @@ begin
     begin
       WritelnDansRapport('VecteurEvalIntegerEstVide(whichEval) dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := -1;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := FichierTexteExiste(nomFichier,vRefNum,fichierEval);
@@ -532,7 +532,7 @@ begin
     begin
       WritelnDansRapport('FichierTexteExiste <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := OuvreFichierTexte(fichierEval);
@@ -540,7 +540,7 @@ begin
     begin
       WritelnDansRapport('OuvreFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := VideFichierTexte(fichierEval);
@@ -548,7 +548,7 @@ begin
     begin
       WritelnDansRapport('VideFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := EcritEvalIntegerDansFichierTexte(fichierEval,whichEval);
@@ -556,7 +556,7 @@ begin
     begin
       WritelnDansRapport('EcritEvalIntegerDansFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   err := FermeFichierTexte(fichierEval);
@@ -564,7 +564,7 @@ begin
     begin
       WritelnDansRapport('FermeFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
-      exit(EcritVecteurEvaluationIntegerSurLeDisque);
+      exit;
     end;
 
   SetFileCreatorFichierTexte(fichierEval,MY_FOUR_CHAR_CODE('SNX4'));
