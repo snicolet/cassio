@@ -200,7 +200,7 @@ end;
 
 
 // StripDiacritics() : remove accents and diacritics from a string.
-//                     this is the version for String255.
+//                     This is the version for String255.
 function StripDiacritics(const source : String255) : String255;
 var s : AnsiString;
 begin

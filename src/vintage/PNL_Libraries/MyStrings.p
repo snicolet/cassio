@@ -131,6 +131,7 @@ INTERFACE
 
 	function ChaineMirroir(const s : String255) : String255;
   function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;
+  function ReplaceStringAll(const pattern,replacement,s : String255) : String255;
   function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
   function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
@@ -1795,6 +1796,13 @@ begin
      else
        ReplaceStringOnce := s;
 end;
+
+
+function ReplaceStringAll(const pattern, replacement, s : String255) : String255;
+begin
+  ReplaceStringAll := StringReplace(s, pattern, replacement, [rfReplaceAll]);
+end;
+
 
 
 function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
