@@ -1,4 +1,4 @@
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function EstLaVersionFrancaiseDeCassio : boolean;     external;
 procedure BeginDialog;     external;
 procedure EndDialog;     external;

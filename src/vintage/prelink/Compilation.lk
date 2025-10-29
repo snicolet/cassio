@@ -24,7 +24,7 @@ function NewSymbolePaginee : Symbole;     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 function WriteDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;

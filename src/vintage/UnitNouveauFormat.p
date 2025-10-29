@@ -3564,7 +3564,7 @@ begin
 	                end;
 	              if motClef = '%baseActive' then
 	                begin
-	                  chainePref := ReplaceStringOnce('$CASSIO_FOLDER:',pathCassioFolder,chainePref);
+	                  chainePref := ReplaceStringOnce(chainePref, '$CASSIO_FOLDER:',pathCassioFolder);
 	                  for k := 1 to nbDistributions do
 	                    if (Distribution[k].path <> NIL) and (Distribution[k].name <> NIL) and
 	                       (chainePref = Distribution[k].path^+Distribution[k].name^) then

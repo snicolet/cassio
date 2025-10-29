@@ -133,6 +133,6 @@ function PeutCalculerFinaleDansGameTree(G : GameTree; position : PositionEtTrait
 function PositionEtTraitCourant : PositionEtTraitRec;     external;
 function NewPropertyList : PropertyList;     external;
 procedure SetSuiteParfaiteEstConnueDansGameTree(flag : boolean);     external;
-function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure SplitBy (s : String255; sub : char; var left, right: String255);     external;
 function TypesPierresDelta : SetOfPropertyTypes;     external;

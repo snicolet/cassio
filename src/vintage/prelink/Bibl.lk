@@ -61,7 +61,7 @@ function StringEnCoup(const s : String255) : SInt16;     external;
   procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure InitProgressIndicator(whichWindow : WindowRef; r : rect; maximum : SInt32; PourKaleidoscope : boolean);     external;
 	function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;
 procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;

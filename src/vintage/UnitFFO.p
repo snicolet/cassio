@@ -287,7 +287,7 @@ begin
           if (positionVirgule <= 0) then positionVirgule := 8; // sans doute un ordinateur
 
 
-          nomFFO    := ReplaceStringOnce(',','',nomFFO);
+          nomFFO    := ReplaceStringOnce(nomFFO, ',' , '');
           numeroFFO := ChaineEnLongint(chaineNumero);
 
 

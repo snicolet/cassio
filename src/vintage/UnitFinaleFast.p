@@ -5303,7 +5303,7 @@ begin
             if GetEffetSpecial then s := s + ' (effet special)';
 
             {
-            s := s + ' (eval = ' + ReplaceStringOnce('EVAL_','',TypeEvalEnChaine(typeEvalEnCours))+' )';
+            s := s + ' (eval = ' + ReplaceStringOnce(TypeEvalEnChaine(typeEvalEnCours))+' , 'EVAL_' , '')';
             }
 
             DisableKeyboardScriptSwitch;

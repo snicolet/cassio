@@ -98,7 +98,7 @@ function CouleurCmdToRGBColor(couleurCmd : SInt16) : RGBColor;     external;
 function CassioEstUnBundleApplicatif : boolean;     external;
 function GetApplicationBundleName : String255;     external;
 function GetApplicationName(default : String255) : String255;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function VersionDeCassioEnString : String255;     external;
 	procedure EmuleToucheCommandeParControleDansEvent(var myEvent : eventRecord);     external;
 procedure FlashItem(dlog : DialogPtr; itemNumber : SInt16);     external;

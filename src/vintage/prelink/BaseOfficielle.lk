@@ -105,7 +105,7 @@ function NbPartiesDansLaSelectionDeLaListe : SInt32;     external;
 function NbPionsDeCetteCouleurDansPosition(couleur : SInt32; var position : plateauOthello) : SInt32;     external;
 function NbCasesVidesDansPosition(var position : plateauOthello) : SInt32;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
   procedure MettreDateDuJourDansEnteteFichierNouveauFormat(var entete : t_EnTeteNouveauFormat);     external;
 
 

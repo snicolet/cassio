@@ -825,7 +825,7 @@ begin
 
 			      {WritelnDansRapport('Je dois creer un nouveau fichier dans la distribution !');}
 
-			      filename := ReplaceStringOnce('XXXX',IntToStr(anneePartie),GetNameOfDistribution(nroDistrib));
+			      filename := ReplaceStringOnce(GetNameOfDistribution(nroDistrib), 'XXXX',IntToStr(anneePartie));
 			      filename := GetPathOfDistribution(nroDistrib)+filename;
 			      {WritelnDansRapport('filename = '+filename);}
 

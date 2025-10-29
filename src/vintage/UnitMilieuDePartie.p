@@ -164,7 +164,7 @@ begin
       if GetEffetSpecial then s := s + ' (effet special)';
 
       {
-      s := s + ' (eval = ' + ReplaceStringOnce('EVAL_','',TypeEvalEnChaine(typeEvalEnCours))+' )';
+      s := s + ' (eval = ' + ReplaceStringOnce(TypeEvalEnChaine(typeEvalEnCours))+' , 'EVAL_' , '')';
       }
 
       DisableKeyboardScriptSwitch;
@@ -307,13 +307,13 @@ begin
 
         if (tempsDeCetteProf < 100.0)
           then s := ReelEnStringAvecDecimales(tempsDeCetteProf,2) + 's.'
-          else s := ReplaceStringOnce(' sec.','s.',SecondesEnJoursHeuresSecondes(Trunc(tempsDeCetteProf)));
+          else s := ReplaceStringOnce(SecondesEnJoursHeuresSecondes(Trunc(tempsDeCetteProf)), ' sec.' , 's.');
         s2 := ReadStringFromRessource(TextesRapportID,52);   {temps = }
         WriteDansRapport('  ' + s2 + ' ' + s);
 
         if (tempsTotal < 100.0)
           then s := ReelEnStringAvecDecimales(tempsTotal,2) + 's.'
-          else s := ReplaceStringOnce(' sec.','s.',SecondesEnJoursHeuresSecondes(Trunc(tempsTotal)));
+          else s := ReplaceStringOnce(SecondesEnJoursHeuresSecondes(Trunc(tempsTotal)), ' sec.' , 's.');
         s2 := ReadStringFromRessource(TextesRapportID,53);   {cumul = }
         WriteDansRapport('  ' + s2 + ' ' + s);
 

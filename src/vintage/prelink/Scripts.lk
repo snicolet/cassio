@@ -65,7 +65,7 @@ procedure ChangeFontColorDansRapport(whichColor : SInt16);     external;
 procedure TextNormalDansRapport;     external;
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;     external;
 	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;
 function InsererFichierDansFichierTexte(var fic : FichierTEXT; pathFichierAInserer : String255) : OSErr;     external;

@@ -1051,7 +1051,7 @@ var nbJoueursTrouves : SInt64;
       	      then dec(i);
       	
       	    aux := chaines[i];
-      	    chaines[i] := ReplaceStringOnce('ZEROZEROSEPT','007',aux);
+      	    chaines[i] := ReplaceStringOnce(aux, 'ZEROZEROSEPT' , '007');
       	
       	  end;
       	nbSousChaines := i;
@@ -1109,8 +1109,8 @@ begin  {TrouverNomsDesJoueursDansNomDeFichier}
   s := UTF8ToAscii(s);
   StripHTMLAccents(s);
 
-  tempo := ReplaceStringOnce('007','ZEROZEROSEPT',s);
-  s     := ReplaceStringOnce('007','ZEROZEROSEPT',tempo);
+  tempo := ReplaceStringOnce(s,     '007' , 'ZEROZEROSEPT');
+  s     := ReplaceStringOnce(tempo, '007' , 'ZEROZEROSEPT');
 
   {WritelnDansRapport('appel de TrouverNomsDesJoueursDansNomDeFichier,   s = ' + s);}
 
@@ -1282,90 +1282,90 @@ begin
   premierCaractere := nouveauNom[1];
 
   if (premierCaractere = 'C') then
-    nouveauNom := ReplaceStringOnce('Cassio (nicolet)','Cassio (coucou !)',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, 'Cassio (nicolet)' , 'Cassio (coucou !)');
 
  (*
   if (premierCaractere = 'D') and (nouveauNom = 'Di Mattei Alessandr') then
-    nouveauNom := ReplaceStringOnce('Di Mattei Alessandr','Di Mattei Alessandro',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, 'Di Mattei Alessandr' , 'Di Mattei Alessandro');
   if (premierCaractere = 'L') and (nouveauNom = 'Lévy-Abégnoli Thier') then
-    nouveauNom := ReplaceStringOnce('Lévy-Abégnoli Thier','Lévy-Abégnoli Thierry',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, 'Lévy-Abégnoli Thier' , 'Lévy-Abégnoli Thierry');
   *)
 
   if (premierCaractere = 'M') then
-    nouveauNom := ReplaceStringOnce('Modot (feinstein)','Modot (joel)',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, 'Modot (feinstein)' , 'Modot (joel)');
   if (premierCaractere = 'T') then
-    nouveauNom := ReplaceStringOnce('Tom Pouce (andrian)','Tom Pouce (bintsa)',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, 'Tom Pouce (andrian)' , 'Tom Pouce (bintsa)');
   if (premierCaractere = '5') then
-    nouveauNom := ReplaceStringOnce('5semaines (lanuit)','Cinq semaines ()',nouveauNom);
+    nouveauNom := ReplaceStringOnce(nouveauNom, '5semaines (lanuit)' , 'Cinq semaines ()');
   if not(gVersionJaponaiseDeCassio and gHasJapaneseScript) then
     begin
 		  if premierCaractere = 'B' then
 		    begin
-		      nouveauNom := ReplaceStringOnce('Bracchi Andre','Bracchi André',nouveauNom);
-		      nouveauNom := ReplaceStringOnce('Bernou Stephan','Bernou Stéphan',nouveauNom);
-		      nouveauNom := ReplaceStringOnce('Betin','Bétin',nouveauNom);
+		      nouveauNom := ReplaceStringOnce(nouveauNom, 'Bracchi Andre' , 'Bracchi André');
+		      nouveauNom := ReplaceStringOnce(nouveauNom, 'Bernou Stephan' , 'Bernou Stéphan');
+		      nouveauNom := ReplaceStringOnce(nouveauNom, 'Betin' , 'Bétin');
 		    end;
 		  if premierCaractere = 'G' then
-		    nouveauNom := ReplaceStringOnce('Grison Remi','Grison Rémi',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Grison Remi' , 'Grison Rémi');
 		  if premierCaractere = 'T' then
-		    nouveauNom := ReplaceStringOnce('Tastet Remi','Tastet Rémi',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Tastet Remi' , 'Tastet Rémi');
 		  if premierCaractere = 'S' then
-		    nouveauNom := ReplaceStringOnce('Seknadje Jose','Seknadjé José',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Seknadje Jose' , 'Seknadjé José');
 		  if premierCaractere = 'T' then
-		    nouveauNom := ReplaceStringOnce('Theole','Théole',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Theole' , 'Théole');
 		  if premierCaractere = 'L' then
-		    nouveauNom := ReplaceStringOnce('Lery Michele','Léry Michèle',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Lery Michele' , 'Léry Michèle');
 		  if premierCaractere = 'P' then
-		    nouveauNom := ReplaceStringOnce('Puree','Purée',nouveauNom);
+		    nouveauNom := ReplaceStringOnce(nouveauNom, 'Puree' , 'Purée');
 
-		  nouveauNom := ReplaceStringOnce('Stephane','Stéphane',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Stephanie','Stéphanie',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Sebastien','Sébastien',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Angeliqu','Angéliqu',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Frederic','Frédéric',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Frédérico','Frederico',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Valerie','Valérie',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Beatrice','Béatrice',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Gerard','Gérard',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Gerald','Gérald',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Jerome','Jérôme',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Herve','Hervé',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Francois','François',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Aurelien','Aurélien',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Aurelie','Aurélie',nouveauNom);
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Stephane' , 'Stéphane');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Stephanie' , 'Stéphanie');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Sebastien' , 'Sébastien');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Angeliqu' , 'Angéliqu');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Frederic' , 'Frédéric');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Frédérico' , 'Frederico');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Valerie' , 'Valérie');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Beatrice' , 'Béatrice');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Gerard' , 'Gérard');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Gerald' , 'Gérald');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Jerome' , 'Jérôme');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Herve' , 'Hervé');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Francois' , 'François');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Aurelien' , 'Aurélien');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Aurelie' , 'Aurélie');
 
-		  nouveauNom := ReplaceStringOnce('Candbek (quin/herve)','Candbek (quin/hervé)',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Pege','Pégé',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Masse','Massé',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Nelis','Nélis',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Muntane','Muntané',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Aubree','Aubrée',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Bandres','Bandrés',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Gael','Gaël',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Cecillon','Cécillon',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Clerice','Clérice',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Dauba Cedric','Dauba Cédric',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Decoeyere','Decoeyère',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Dupre','Dupré',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Gelin','Gélin',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Edo Jose','Edo José',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Benyaich Joel','Benyaich Joël',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Eymard Joel','Eymard Joël',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Freyss Joel','Freyss Joël',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Levy-Abegnoli','Lévy-Abégnoli',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Neron-Bancel','Néron-Bancel',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Regis','Régis',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Ruben','Rubén',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Pelissier','Pélissier',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Piquee Raphael','Piquée Raphaël',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Pradere','Pradère',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Cecile','Cécile',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Celine','Céline',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Olive Oriol','Olivé Oriol',nouveauNom);
-		  nouveauNom := ReplaceStringOnce('Fetet Clement','Fétet Clément',nouveauNom);
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Candbek (quin/herve)' , 'Candbek (quin/hervé)');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Pege' , 'Pégé');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Masse' , 'Massé');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Nelis' , 'Nélis');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Muntane' , 'Muntané');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Aubree' , 'Aubrée');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Bandres' , 'Bandrés');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Gael' , 'Gaël');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Cecillon' , 'Cécillon');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Clerice' , 'Clérice');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Dauba Cedric' , 'Dauba Cédric');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Decoeyere' , 'Decoeyère');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Dupre' , 'Dupré');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Gelin' , 'Gélin');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Edo Jose' , 'Edo José');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Benyaich Joel' , 'Benyaich Joël');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Eymard Joel' , 'Eymard Joël');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Freyss Joel' , 'Freyss Joël');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Levy-Abegnoli' , 'Lévy-Abégnoli');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Neron-Bancel' , 'Néron-Bancel');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Regis' , 'Régis');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Ruben' , 'Rubén');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Pelissier' , 'Pélissier');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Piquee Raphael' , 'Piquée Raphaël');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Pradere' , 'Pradère');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Cecile' , 'Cécile');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Celine' , 'Céline');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Olive Oriol' , 'Olivé Oriol');
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Fetet Clement' , 'Fétet Clément');
 
-		  nouveauNom := ReplaceStringOnce('iere ','ière ',nouveauNom);  {Thuilliere, de la Riviere, Retiere, etc.}
-		  nouveauNom := ReplaceStringOnce('Budino','Budiño',nouveauNom);
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'iere ' , 'ière ');  {Thuilliere, de la Riviere, Retiere, etc.}
+		  nouveauNom := ReplaceStringOnce(nouveauNom, 'Budino' , 'Budiño');
 
 		end;
 
@@ -1378,11 +1378,11 @@ begin
   if (premierCaractere = 'O') or (premierCaractere = '0') or
      (((nouveauNom[2] = 'O') or (nouveauNom[2] = '0')) and (premierCaractere = '<')) then
     begin
-      nouveauNom := ReplaceStringOnce('Oo7','007',nouveauNom);{on met des vrais zéros}
-      nouveauNom := ReplaceStringOnce('OO7','007',nouveauNom);
-      nouveauNom := ReplaceStringOnce('O07','007',nouveauNom);
-      nouveauNom := ReplaceStringOnce('0O7','007',nouveauNom);
-      nouveauNom := ReplaceStringOnce('0o7','007',nouveauNom);
+      nouveauNom := ReplaceStringOnce(nouveauNom, 'Oo7' , '007');{on met des vrais zéros}
+      nouveauNom := ReplaceStringOnce(nouveauNom, 'OO7' , '007');
+      nouveauNom := ReplaceStringOnce(nouveauNom, 'O07' , '007');
+      nouveauNom := ReplaceStringOnce(nouveauNom, '0O7' , '007');
+      nouveauNom := ReplaceStringOnce(nouveauNom, '0o7' , '007');
     end;
 
 end;
@@ -1559,144 +1559,144 @@ begin
   s := nomOrigine;
 
 
-  s := ReplaceStringOnce('Divers avant et pendant','Avant',s);
-  s := ReplaceStringOnce('Aas Open and Othello Cup','Aas',s);
-  s := ReplaceStringOnce('Othello Cup','',s);
+  s := ReplaceStringOnce(s, 'Divers avant et pendant' , 'Avant');
+  s := ReplaceStringOnce(s, 'Aas Open and Othello Cup' , 'Aas');
+  s := ReplaceStringOnce(s, 'Othello Cup' , '');
 
 
-  s := ReplaceStringOnce('Torneo a','',s);
-  s := ReplaceStringOnce('Torneo di','',s);
-  s := ReplaceStringOnce('Torneo','',s);
+  s := ReplaceStringOnce(s, 'Torneo a' , '');
+  s := ReplaceStringOnce(s, 'Torneo di' , '');
+  s := ReplaceStringOnce(s, 'Torneo' , '');
 
-  s := ReplaceStringOnce('Tournois de','',s);
-  s := ReplaceStringOnce('Tournois d''','',s);
-  s := ReplaceStringOnce('Tournois','',s);
-  s := ReplaceStringOnce('Tournoi de','',s);
-  s := ReplaceStringOnce('Tournoi d''','',s);
-  s := ReplaceStringOnce('Tournoi','',s);
+  s := ReplaceStringOnce(s, 'Tournois de' , '');
+  s := ReplaceStringOnce(s, 'Tournois d''' , '');
+  s := ReplaceStringOnce(s, 'Tournois' , '');
+  s := ReplaceStringOnce(s, 'Tournoi de' , '');
+  s := ReplaceStringOnce(s, 'Tournoi d''' , '');
+  s := ReplaceStringOnce(s, 'Tournoi' , '');
 
-  s := ReplaceStringOnce('Opens de','',s);
-  s := ReplaceStringOnce('Opens d''','',s);
-  s := ReplaceStringOnce('Open de','',s);
-  s := ReplaceStringOnce('Open d''','',s);
-  s := ReplaceStringOnce('Opens','',s);
-  s := ReplaceStringOnce('Open 1','',s);
-  s := ReplaceStringOnce('Open 2','',s);
-  s := ReplaceStringOnce('Open 3','',s);
-  s := ReplaceStringOnce('Open 4','',s);
-  s := ReplaceStringOnce('Open 5','',s);
-  s := ReplaceStringOnce('Open 6','',s);
-  s := ReplaceStringOnce('Open 7','',s);
-  s := ReplaceStringOnce('Open 8','',s);
-  s := ReplaceStringOnce('Open 9','',s);
-  s := ReplaceStringOnce('Open','',s);
+  s := ReplaceStringOnce(s, 'Opens de' , '');
+  s := ReplaceStringOnce(s, 'Opens d''' , '');
+  s := ReplaceStringOnce(s, 'Open de' , '');
+  s := ReplaceStringOnce(s, 'Open d''' , '');
+  s := ReplaceStringOnce(s, 'Opens' , '');
+  s := ReplaceStringOnce(s, 'Open 1' , '');
+  s := ReplaceStringOnce(s, 'Open 2' , '');
+  s := ReplaceStringOnce(s, 'Open 3' , '');
+  s := ReplaceStringOnce(s, 'Open 4' , '');
+  s := ReplaceStringOnce(s, 'Open 5' , '');
+  s := ReplaceStringOnce(s, 'Open 6' , '');
+  s := ReplaceStringOnce(s, 'Open 7' , '');
+  s := ReplaceStringOnce(s, 'Open 8' , '');
+  s := ReplaceStringOnce(s, 'Open 9' , '');
+  s := ReplaceStringOnce(s, 'Open' , '');
 
-  s := ReplaceStringOnce('Sélections Champ. France','Selections',s);
-  s := ReplaceStringOnce('Sélection de','',s);
-  s := ReplaceStringOnce('Sélection','',s);
-  s := ReplaceStringOnce('Préqualif Villeneuve d''A','Villeneuve d''Ascq',s);
-  s := ReplaceStringOnce('Préqualif de','',s);
-  s := ReplaceStringOnce('Préqualif','',s);
-
-
-  s := ReplaceStringOnce('Championnat du Monde','Mondial',s);
-  s := ReplaceStringOnce('Championnat des','Ch.',s);
-  s := ReplaceStringOnce('Championnat de','Ch.',s);
-  s := ReplaceStringOnce('Championnat du','Ch.',s);
-  s := ReplaceStringOnce('Championnats du','Ch.',s);
-  s := ReplaceStringOnce('Championnats des','Ch.',s);
-  s := ReplaceStringOnce('Championnats de','Ch.',s);
-  s := ReplaceStringOnce('Championnat d''','Ch. ',s);
-  s := ReplaceStringOnce('Championnats d''','Ch. ',s);
-  s := ReplaceStringOnce('Champ.','Ch.',s);
-  s := ReplaceStringOnce('Championnat','Ch.',s);
-  s := ReplaceStringOnce('Championnat','Ch.',s);
-  s := ReplaceStringOnce('Championship','Ch.',s);
-  s := ReplaceStringOnce('Championships','Ch.',s);
+  s := ReplaceStringOnce(s, 'Sélections Champ. France' , 'Selections');
+  s := ReplaceStringOnce(s, 'Sélection de' , '');
+  s := ReplaceStringOnce(s, 'Sélection' , '');
+  s := ReplaceStringOnce(s, 'Préqualif Villeneuve d''A' , 'Villeneuve d''Ascq');
+  s := ReplaceStringOnce(s, 'Préqualif de' , '');
+  s := ReplaceStringOnce(s, 'Préqualif' , '');
 
 
-  s := ReplaceStringOnce('International de','',s);
-  s := ReplaceStringOnce('International','',s);
-
-  s := ReplaceStringOnce('EGP','',s);
-  s := ReplaceStringOnce('GPE','',s);
-
-  s := ReplaceStringOnce('Nationals','Nat.',s);
-  s := ReplaceStringOnce('National','Nat.',s);
-
-
-  s := ReplaceStringOnce('Grand Prix de','G.P.',s);
-  s := ReplaceStringOnce('Grand-Prix de','G.P.',s);
-  s := ReplaceStringOnce('Grand Prix d''','G.P. ',s);
-  s := ReplaceStringOnce('Grand-Prix d''','G.P. ',s);
-  s := ReplaceStringOnce('Grand Prix','G.P.',s);
-  s := ReplaceStringOnce('Grand-Prix','G.P.',s);
-  s := ReplaceStringOnce('Finale GP','G.P.',s);
-  s := ReplaceStringOnce('Stage de','',s);
-  s := ReplaceStringOnce('Stage d''','',s);
-  s := ReplaceStringOnce('Ladder','',s);
-  s := ReplaceStringOnce('Christmas T.','Noel',s);
-  s := ReplaceStringOnce('Christmas T','Noel',s);
-  s := ReplaceStringOnce('Copenhagen Noel','Copenhagen Noel',s);
-  s := ReplaceStringOnce('Mind Sports Olympiad','MSO',s);
-  s := ReplaceStringOnce('Swedish League Online','Swedish League',s);
-  s := ReplaceStringOnce('Hommes-Machines de Paris','Hommes-Machines',s);
-  s := ReplaceStringOnce('Hommes-Machines','Hommes-Mach.',s);
-  s := ReplaceStringOnce('Seaside','',s);
-  s := ReplaceStringOnce('British Regionals','Brit. Regionals',s);
+  s := ReplaceStringOnce(s, 'Championnat du Monde' , 'Mondial');
+  s := ReplaceStringOnce(s, 'Championnat des' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnat de' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnat du' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnats du' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnats des' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnats de' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnat d''' , 'Ch. ');
+  s := ReplaceStringOnce(s, 'Championnats d''' , 'Ch. ');
+  s := ReplaceStringOnce(s, 'Champ.' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnat' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championnat' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championship' , 'Ch.');
+  s := ReplaceStringOnce(s, 'Championships' , 'Ch.');
 
 
-  s := ReplaceStringOnce('Russie 1','Russie',s);
-  s := ReplaceStringOnce('Russie 2','Russie',s);
-  s := ReplaceStringOnce('Russie 3and4','Russie',s);
-  s := ReplaceStringOnce('Russie 3','Russie',s);
-  s := ReplaceStringOnce('Russie 4','Russie',s);
+  s := ReplaceStringOnce(s, 'International de' , '');
+  s := ReplaceStringOnce(s, 'International' , '');
 
-  s := ReplaceStringOnce('Grande-Bretagne','G.B.',s);
+  s := ReplaceStringOnce(s, 'EGP' , '');
+  s := ReplaceStringOnce(s, 'GPE' , '');
 
-  s := ReplaceStringOnce('Parties Internet (1-6)','Internet',s);
-  s := ReplaceStringOnce('Parties Internet (7-12)','Internet',s);
-  s := ReplaceStringOnce('Parties japonaises','Japon',s);
-  s := ReplaceStringOnce('Parties hollandaises','Hollande',s);
-  s := ReplaceStringOnce('Parties neerlandaises','Pays-Bas',s);
-  s := ReplaceStringOnce('Parties anglaises','Angleterre',s);
-  s := ReplaceStringOnce('Parties italiennes','Italie',s);
-  s := ReplaceStringOnce('Parties tcheques','Tchéquie',s);
-  {s := ReplaceStringOnce('Parties nordiques','Scandinavie',s);}
-  s := ReplaceStringOnce('Parties suedoises','Suede',s);
-  s := ReplaceStringOnce('Parties nordiques','Nordiques',s);
-  s := ReplaceStringOnce('Parties sur minitel','Minitel',s);
-  s := ReplaceStringOnce('Parties argentines','Argentine',s);
-  s := ReplaceStringOnce('Parties belges','Belgique',s);
-  s := ReplaceStringOnce('Parties du','',s);
-  s := ReplaceStringOnce('Parties de','',s);
-  s := ReplaceStringOnce('Parties','',s);
-
-  s := ReplaceStringOnce('Match','',s);
-  s := ReplaceStringOnce('(prg)','',s);
-  s := ReplaceStringOnce('(France)','',s);
-  s := ReplaceStringOnce('Diverses parties','Diverses',s);
-  s := ReplaceStringOnce('Othello','',s);
-  s := ReplaceStringOnce('Cup','',s);
-  s := ReplaceStringOnce('Blitz d''','',s);
-  s := ReplaceStringOnce('Blitz','',s);
-  {s := ReplaceStringOnce('Villeneuve d''A','Villeneuve d''Ascq',s);}
-
-  s := ReplaceStringOnce('Mariage de Brian Rose','Mariage',s);
-  s := ReplaceStringOnce('Thématique semi-rapide','Semi-rapide',s);
-  s := ReplaceStringOnce('Murakami-Logistello','Match',s);
-  s := ReplaceStringOnce('Ch. France Junior','Ch. Juniors',s);
-  s := ReplaceStringOnce('Ch. Tchèque','Ch. Tchéquie',s);
-  s := ReplaceStringOnce('Kansai Senshuken','Kansai',s);
-
-  s := ReplaceStringOnce('Campionati Italiani','Ch. Italie',s);
-  s := ReplaceStringOnce('Deutsche Meisterschaft','Ch. Allemagne',s);
-  s := ReplaceStringOnce('Ellinika Protathlimata','Ch. Grèce',s);
+  s := ReplaceStringOnce(s, 'Nationals' , 'Nat.');
+  s := ReplaceStringOnce(s, 'National' , 'Nat.');
 
 
-  s := ReplaceStringOnce('  ',' ',s);
-  s := ReplaceStringOnce('  ',' ',s);
-  s := ReplaceStringOnce('  ',' ',s);
+  s := ReplaceStringOnce(s, 'Grand Prix de' , 'G.P.');
+  s := ReplaceStringOnce(s, 'Grand-Prix de' , 'G.P.');
+  s := ReplaceStringOnce(s, 'Grand Prix d''' , 'G.P. ');
+  s := ReplaceStringOnce(s, 'Grand-Prix d''' , 'G.P. ');
+  s := ReplaceStringOnce(s, 'Grand Prix' , 'G.P.');
+  s := ReplaceStringOnce(s, 'Grand-Prix' , 'G.P.');
+  s := ReplaceStringOnce(s, 'Finale GP' , 'G.P.');
+  s := ReplaceStringOnce(s, 'Stage de' , '');
+  s := ReplaceStringOnce(s, 'Stage d''' , '');
+  s := ReplaceStringOnce(s, 'Ladder' , '');
+  s := ReplaceStringOnce(s, 'Christmas T.' , 'Noel');
+  s := ReplaceStringOnce(s, 'Christmas T' , 'Noel');
+  s := ReplaceStringOnce(s, 'Copenhagen Noel' , 'Copenhagen Noel');
+  s := ReplaceStringOnce(s, 'Mind Sports Olympiad' , 'MSO');
+  s := ReplaceStringOnce(s, 'Swedish League Online' , 'Swedish League');
+  s := ReplaceStringOnce(s, 'Hommes-Machines de Paris' , 'Hommes-Machines');
+  s := ReplaceStringOnce(s, 'Hommes-Machines' , 'Hommes-Mach.');
+  s := ReplaceStringOnce(s, 'Seaside' , '');
+  s := ReplaceStringOnce(s, 'British Regionals' , 'Brit. Regionals');
+
+
+  s := ReplaceStringOnce(s, 'Russie 1' , 'Russie');
+  s := ReplaceStringOnce(s, 'Russie 2' , 'Russie');
+  s := ReplaceStringOnce(s, 'Russie 3and4' , 'Russie');
+  s := ReplaceStringOnce(s, 'Russie 3' , 'Russie');
+  s := ReplaceStringOnce(s, 'Russie 4' , 'Russie');
+
+  s := ReplaceStringOnce(s, 'Grande-Bretagne' , 'G.B.');
+
+  s := ReplaceStringOnce(s, 'Parties Internet (1-6)' , 'Internet');
+  s := ReplaceStringOnce(s, 'Parties Internet (7-12)' , 'Internet');
+  s := ReplaceStringOnce(s, 'Parties japonaises' , 'Japon');
+  s := ReplaceStringOnce(s, 'Parties hollandaises' , 'Hollande');
+  s := ReplaceStringOnce(s, 'Parties neerlandaises' , 'Pays-Bas');
+  s := ReplaceStringOnce(s, 'Parties anglaises' , 'Angleterre');
+  s := ReplaceStringOnce(s, 'Parties italiennes' , 'Italie');
+  s := ReplaceStringOnce(s, 'Parties tcheques' , 'Tchéquie');
+  {s := ReplaceStringOnce(s, 'Parties nordiques' , 'Scandinavie');}
+  s := ReplaceStringOnce(s, 'Parties suedoises' , 'Suede');
+  s := ReplaceStringOnce(s, 'Parties nordiques' , 'Nordiques');
+  s := ReplaceStringOnce(s, 'Parties sur minitel' , 'Minitel');
+  s := ReplaceStringOnce(s, 'Parties argentines' , 'Argentine');
+  s := ReplaceStringOnce(s, 'Parties belges' , 'Belgique');
+  s := ReplaceStringOnce(s, 'Parties du' , '');
+  s := ReplaceStringOnce(s, 'Parties de' , '');
+  s := ReplaceStringOnce(s, 'Parties' , '');
+
+  s := ReplaceStringOnce(s, 'Match' , '');
+  s := ReplaceStringOnce(s, '(prg)' , '');
+  s := ReplaceStringOnce(s, '(France)' , '');
+  s := ReplaceStringOnce(s, 'Diverses parties' , 'Diverses');
+  s := ReplaceStringOnce(s, 'Othello' , '');
+  s := ReplaceStringOnce(s, 'Cup' , '');
+  s := ReplaceStringOnce(s, 'Blitz d''' , '');
+  s := ReplaceStringOnce(s, 'Blitz' , '');
+  {s := ReplaceStringOnce(s, 'Villeneuve d''A' , 'Villeneuve d''Ascq');}
+
+  s := ReplaceStringOnce(s, 'Mariage de Brian Rose' , 'Mariage');
+  s := ReplaceStringOnce(s, 'Thématique semi-rapide' , 'Semi-rapide');
+  s := ReplaceStringOnce(s, 'Murakami-Logistello' , 'Match');
+  s := ReplaceStringOnce(s, 'Ch. France Junior' , 'Ch. Juniors');
+  s := ReplaceStringOnce(s, 'Ch. Tchèque' , 'Ch. Tchéquie');
+  s := ReplaceStringOnce(s, 'Kansai Senshuken' , 'Kansai');
+
+  s := ReplaceStringOnce(s, 'Campionati Italiani' , 'Ch. Italie');
+  s := ReplaceStringOnce(s, 'Deutsche Meisterschaft' , 'Ch. Allemagne');
+  s := ReplaceStringOnce(s, 'Ellinika Protathlimata' , 'Ch. Grèce');
+
+
+  s := ReplaceStringOnce(s, '  ' , ' ');
+  s := ReplaceStringOnce(s, '  ' , ' ');
+  s := ReplaceStringOnce(s, '  ' , ' ');
 
   EnleveEspacesDeGaucheSurPlace(s);
   EnleveEspacesDeDroiteSurPlace(s);
@@ -1881,7 +1881,7 @@ var formeAlternative : String255;
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
-               formeAlternative := ReplaceStringOnce(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
+               formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouveNumeroDuJoueur(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
@@ -2048,7 +2048,7 @@ var formeAlternative : String255;
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
-               formeAlternative := ReplaceStringOnce(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
+               formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouvePrefixeDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
@@ -2230,7 +2230,7 @@ var formeAlternative : String255;
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
-               formeAlternative := ReplaceStringOnce(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
+               formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
                formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouveSousChaineDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
@@ -2419,7 +2419,7 @@ var formeAlternative : String255;
            if (Pos(patMajuscules, nomJoueurEnMajuscules) > 0) then
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
-               formeAlternative := ReplaceStringOnce(patMajuscules,rempMajuscules,nomJoueurEnMajuscules);
+               formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
                if TrouveLexemesDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
@@ -2659,7 +2659,7 @@ begin
       if (Pos('EXPECTED :', s) = 1)
         then
           begin
-            s := ReplaceStringOnce('EXPECTED :','',s);
+            s := ReplaceStringOnce(s, 'EXPECTED :' , '');
             s := Trim(s);
 
             if Pos('VERSUS', s) > 0

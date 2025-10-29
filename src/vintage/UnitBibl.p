@@ -797,19 +797,19 @@ begin
   if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringOnce('iblioth述ue','ibliotheque',nom);
+  s := ReplaceStringOnce(nom, 'iblioth述ue' , 'ibliotheque');
   if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringOnce('iblioth述ue','ibliotheﾌque',nom);
+  s := ReplaceStringOnce(nom, 'iblioth述ue' , 'ibliotheﾌque');
   if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringOnce('ibliotheque','iblioth述ue',nom);
+  s := ReplaceStringOnce(nom, 'ibliotheque' , 'iblioth述ue');
   if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
-  s := ReplaceStringOnce('ibliotheque','ibliotheﾌque',nom);
+  s := ReplaceStringOnce(nom, 'ibliotheque' , 'ibliotheﾌque');
   if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 

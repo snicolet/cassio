@@ -17,7 +17,7 @@ function MakeEmptyStringSet : StringSet;     external;
 procedure DisposeStringSet(var S : StringSet);     external;
 procedure Wait(secondes : double);     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure EcritGestionTemps;     external;
 function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;     external;
 procedure AddValidCassioFolderPath(whichPath : String255);     external;

@@ -1179,7 +1179,7 @@ begin
            otherwise   s1 := '******';
          end;
          s := ParamStr(s2,s1,IntToStr(numeroDuCoup),'','');
-         s := ReplaceStringOnce('É','',s);
+         s := ReplaceStringOnce(s, 'É' , '');
          Moveto(xposition,yposition + 12);
          if redirectionVersRapport
            then WritelnDansRapport(s + ' ,  fonctionAppelante = ' + fonctionAppelante)
@@ -1206,7 +1206,7 @@ begin
                                                   if (prof + 1 > empties) and CassioIsUsingAnEngine(numeroEngine)
                                                     then
                                                       begin
-                                                        s2 := ReplaceStringOnce('profondeur = ','prof = ',s2);
+                                                        s2 := ReplaceStringOnce(s2, 'profondeur = ' , 'prof = ');
                                                         s3 := IntToStr(empties) + '@' + IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(prof + 1, empties)) + '%';
                                                       end
                                                     else
@@ -1238,7 +1238,7 @@ begin
 	             s2 := ReadStringFromRessource(TextesReflexionID,6);       {'coup n¡^0 (sur ^1)'}
 	             s  := ParamStr(s2,IntToStr(Compteur),IntToStr(longClass),'','');
 	           end;
-	       s := ReplaceStringOnce('É','',s);
+	       s := ReplaceStringOnce(s, 'É' , '');
          ypositionDebutListe := ypositionDebutListe + 12;
 	       a := xposition;
 	       b := ypositionDebutListe;

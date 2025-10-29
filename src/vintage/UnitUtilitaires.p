@@ -1428,7 +1428,7 @@ begin
               compteur := 0;
               repeat
                 len := LENGTH_OF_STRING(aux);
-                aux := ReplaceStringOnce(table[k].theAccent^ , table[k].theRemplacement^, aux);
+                aux := ReplaceStringOnce( aux, table[k].theAccent^ , table[k].theRemplacement^);
                 inc(compteur);
               until ((LENGTH_OF_STRING(aux) = len) or (compteur >= 10));
             end;

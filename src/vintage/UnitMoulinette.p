@@ -1360,9 +1360,9 @@ begin
 
       (* echappement *)
       while (Pos('\\',ligne) > 0) do
-        ligne := ReplaceStringOnce('\\','ä½',ligne);
+        ligne := ReplaceStringOnce(ligne, '\\' , 'ä½');
       while (Pos('\$',ligne) > 0) do
-        ligne := ReplaceStringOnce('\$','×Ã',ligne);
+        ligne := ReplaceStringOnce(ligne, '\$' , '×Ã');
 
       TraductionThorEnAlphanumerique(theGame,partieEnAlpha);
       TraductionThorEnSuedois(theGame,partieEnSuedois);
@@ -1419,9 +1419,9 @@ begin
 
       (* echappement *)
       while (Pos('×Ã',ligne) > 0) do
-        ligne := ReplaceStringOnce('×Ã','$',ligne);
+        ligne := ReplaceStringOnce(ligne, '×Ã' , '$');
       while (Pos('ä½',ligne) > 0) do
-        ligne := ReplaceStringOnce('ä½','\',ligne);
+        ligne := ReplaceStringOnce(ligne, 'ä½' , '\');
 
       erreurES := WritelnDansFichierTexte(fic,ligne);
       inc(compteur);
@@ -1903,8 +1903,8 @@ begin
               nom2 := s;
             end;
             *)
-          {nom1 := ReplaceStringOnce(' ','_',nom1);
-          nom2 := ReplaceStringOnce(' ','_',nom2);}
+          {nom1 := ReplaceStringOnce(nom1, ' ' , '_');
+          nom2 := ReplaceStringOnce(nom2, ' ' , '_');}
           (*
           for i := 1 to kLongueurNomsDansURL do
             begin

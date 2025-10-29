@@ -48,7 +48,7 @@ procedure SetNiemeTournoiTableSaisiePartie(N,nroTournoi : SInt32);     external;
 function GetNiemeJoueurTableSaisiePartie(N : SInt32) : SInt32;     external;
 function GetNiemeTournoiTableSaisiePartie(N : SInt32) : SInt32;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function VideFichierTexte(var fic : FichierTEXT) : OSErr;     external;

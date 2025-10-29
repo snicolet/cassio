@@ -1796,7 +1796,7 @@ begin
             if CassioEstUnBundleApplicatif
               then s := GetApplicationBundleName
               else s := GetApplicationName('Cassio');
-            s := ReplaceStringOnce('.app','',s);
+            s := ReplaceStringOnce(s, '.app' , '');
             if (s = 'Cassio') or (s = 'Cassio.app') or (s = '')
               then s := 'Cassio '+VersionDeCassioEnString;
           end;

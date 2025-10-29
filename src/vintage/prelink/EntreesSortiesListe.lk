@@ -79,7 +79,7 @@ function GetNomTournoi(nroTournoi : SInt32) : String255;     external;
 function EstUnePartieOthelloAvecMiroir(var s : String255) : boolean;     external;
 function EstUneDistributionDeParties(nroDistrib : SInt16) : boolean;     external;
 function AnneePartiesFichierNouveauFormat(numFichier : SInt16) : SInt16;     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function GetNameOfDistribution(nroDistribution : SInt32) : String255;     external;
 function GetPathOfDistribution(nroDistribution : SInt32) : String255;     external;
 function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;

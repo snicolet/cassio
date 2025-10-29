@@ -388,12 +388,12 @@ end;
  *)
 procedure SetEngineVersion(numeroEngine : SInt64; version : String255);
 begin
-  version := ReplaceStringOnce('[[0]] version : ','',version);
-  version := ReplaceStringOnce('[[1]] version : ','',version);
-  version := ReplaceStringOnce('version : ','',version);
-  version := ReplaceStringOnce('[[0]] version: ','',version);
-  version := ReplaceStringOnce('[[1]] version: ','',version);
-  version := ReplaceStringOnce('version: ','',version);
+  version := ReplaceStringOnce(version, '[[0]] version : ' , '');
+  version := ReplaceStringOnce(version, '[[1]] version : ' , '');
+  version := ReplaceStringOnce(version, 'version : '       , '');
+  version := ReplaceStringOnce(version, '[[0]] version: '  , '');
+  version := ReplaceStringOnce(version, '[[1]] version: '  , '');
+  version := ReplaceStringOnce(version, 'version: '        , '');
 
   if (numeroEngine >= 1) and (numeroEngine <= NumberOfEngines) then
     begin
@@ -528,7 +528,7 @@ begin
          SplitAt(pathEngine,':',foo,pathUnix);         // enlever le nom du disque dur
          ReplaceCharByCharInString(pathUnix,':','/');  // separateurs a la mode UNIX
 
-         s := ReplaceStringOnce(':engine.sh','',pathEngine);
+         s := ReplaceStringOnce(pathEngine, ':engine.sh' , '');
          SplitRightByChar(s,':',foo,nomEngine);
          AddEngine(nomEngine,pathEngine);
 
@@ -1189,7 +1189,7 @@ begin
       aux.line := UpperCase(s6,true);
       repeat
         s6 := aux.line;
-        aux.line := ReplaceStringOnce('PA','',aux.line);
+        aux.line := ReplaceStringOnce(aux.line, 'PA' , '');
       until (s6 = aux.line);
 
 
@@ -3026,7 +3026,7 @@ begin
   if (Pos('DEBUG : Roxane',s) = 1) and
      (Pos('oxane',GetEngineName(numeroEngineEnCours)) > 0) then
     begin
-      version := ReplaceStringOnce('DEBUG : ' , '' , s);
+      version := ReplaceStringOnce( s, 'DEBUG : ' , '' );
       SetEngineVersion(numeroEngineEnCours, version);
       exit;
     end;

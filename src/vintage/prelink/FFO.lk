@@ -103,7 +103,7 @@ function EcritPartieNouveauFormat(refnum : SInt16; nroPartie : SInt32; theGame :
 function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 procedure SetFileTypeFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : String255);     external;
 procedure TraductionThorEnSuedois(const s : PackedThorGame; var result : String255);     external;
 procedure COPY_PACKED_GAME_TO_STR60(const game : PackedThorGame; var result60 : String255);     external;

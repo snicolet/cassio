@@ -852,8 +852,8 @@ var suite,timestamp,action : String255;
     params : MakeEndgameSearchParamRec;
 begin
 
-  // ligne := ReplaceStringOnce('<br>OK','',ligne);
-  // ligne := ReplaceStringOnce('NO NEW RESULT','',ligne);
+  // ligne := ReplaceStringOnce(ligne, '<br>OK' , '');
+  // ligne := ReplaceStringOnce(ligne, 'NO NEW RESULT' , '');
 
   // EnleveEspacesDeGaucheSurPlace(ligne);  // FIXEME : TEST THIS !!
 

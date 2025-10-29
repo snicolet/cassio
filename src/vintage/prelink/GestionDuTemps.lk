@@ -126,7 +126,7 @@ procedure SwitchToRomanScript;     external;
 procedure SetZooStatus(const status : String255);     external;
 procedure SetIntervalleVerificationDuStatutDeCassioPourLeZoo(ticks : SInt32; oldValue : SInt32Ptr);     external;
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);     external;
-  function ReplaceStringOnce(const pattern,replacement,s : String255) : String255;     external;
+  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function ProfDuCalculCourantDeCassioPourLeZoo : SInt32;     external;
 procedure SetRGBColor (var theColor: RGBColor; redValue, greenValue, blueValue: SInt32);     external;
   procedure MyEraseRectWithRGBColor(const (*var*) r : Rect; couleur : RGBColor);     external;
