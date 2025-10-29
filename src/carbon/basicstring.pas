@@ -49,7 +49,6 @@ function SplitAt(s : String255; const sub : String255; var left, right : String2
 function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
 function SplitRightAt(s : String255; const sub : String255; var left, right : String255) : boolean; // split right by string
 
-
 // Replace patterns in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
@@ -214,7 +213,7 @@ begin
 end;
 
 
-// ReplaceStringAll() : return a copy of 's' where all occurences of 'pattern' 
+// ReplaceStringAll() : return a copy of 's' where all occurences of 'pattern'
 // are replaced by 'replacement'.
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 begin
@@ -289,7 +288,7 @@ begin
 end;
 
 
-// StripDiacritics() : remove accents and diacritics from a string. 
+// StripDiacritics() : remove accents and diacritics from a string.
 // This is the version for AnsiString.
 function StripDiacritics(const source : AnsiString) : AnsiString;
 var
@@ -511,8 +510,8 @@ function SplitAt (s : String255; sub : char; var left, right : String255) : bool
 var p : SInt16;
 begin
 	p := Pos(sub, s);
-	if p > 0 
-	  then 
+	if p > 0
+	  then
 	    begin
 		  left := TPCopy(s, 1, p - 1);
 		  right := TPCopy(s, p + 1, 255);
@@ -531,7 +530,7 @@ function SplitAt (s : String255; const sub : String255; var left, right : String
 var p : SInt16;
 begin
 	p := Pos(sub, s);
-	if p > 0 then 
+	if p > 0 then
 	  begin
 		left := TPCopy(s, 1, p - 1);
 		right := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
@@ -550,7 +549,7 @@ function SplitRightAt(s : String255; sub : char; var left, right : String255) : 
 var p : SInt16;
 begin
 	p := PosRight(sub, s);
-	if p > 0 then 
+	if p > 0 then
 	  begin
 		left := TPCopy(s, 1, p - 1);
 		right := TPCopy(s, p + 1, 255);
@@ -569,7 +568,7 @@ function SplitRightAt (s : String255; const sub : String255; var left, right : S
 var p : SInt16;
 begin
 	p := PosRight(sub, s);
-	if p > 0 then 
+	if p > 0 then
 	  begin
 		left := TPCopy(s, 1, p - 1);
 		right := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
@@ -630,7 +629,7 @@ function PosRight(sub : char; const s : String255) : SInt16;
 var p : SInt16;
 begin
     p := LENGTH_OF_STRING(s);
-	while p > 0 do 
+	while p > 0 do
 	  begin
 		if s[p] = sub then break;
 		Dec(p);
@@ -644,12 +643,12 @@ function PosRight(const sub, s : String255) : SInt16;
 var p, q : SInt16;
 begin
 	p := Pos(sub, s);
-	if p > 0 then 
+	if p > 0 then
 	  begin
 		q := LENGTH_OF_STRING(s) - LENGTH_OF_STRING(sub) + 1;
-		while q > p do 
+		while q > p do
 		  begin
-			if TPCopy(s, q, LENGTH_OF_STRING(sub)) = sub 
+			if TPCopy(s, q, LENGTH_OF_STRING(sub)) = sub
 			    then p := q
 				else q := q - 1;
 		  end;
@@ -680,7 +679,7 @@ begin
 end;
 
 
-// Hexa(n) returns a string representing the number n in hexadecimal. 
+// Hexa(n) returns a string representing the number n in hexadecimal.
 // The resulting string starts with a dollar character '$'.
 function Hexa(num : UInt64) : String255;
 begin
@@ -870,7 +869,7 @@ begin
 		    '0'..'9': v := ord(s[i]) - 48;
 	    end;
 		
-		if (numDigits <= 15) then 
+		if (numDigits <= 15) then
 		  result := result + BSL(v, 4 * numDigits);
 		
 		inc(numDigits);
@@ -1057,16 +1056,16 @@ begin
     s := ReplaceStringAll(s, '^0^0', 'blah');
     s := ParamStr(s, 'Nicolet', 'Stéphane', '', 'Claude');
     writeln(s);
-    
+
     foo(s, n);
     writeln(n);
-    
+
     n := foo(s);
     writeln(n);
-    
+
     foo(s, n);
     writeln(n);
-    
+
     n := foo(s);
     writeln(n);
 

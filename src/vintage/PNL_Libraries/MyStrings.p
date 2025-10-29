@@ -139,7 +139,7 @@ INTERFACE
 	function ChaineMirroir(const s : String255) : String255;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
   function ReplaceStringAll(const s, pattern,replacement : String255) : String255;
-  
+
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
   function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);

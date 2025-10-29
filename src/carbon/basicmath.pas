@@ -162,7 +162,7 @@ implementation
       BasicMemory;
 
 var PRNG : SInt64 = 1000;          // initial seed, must be non-zero
-var magicCookieSeed : SInt64 = 0;  
+var magicCookieSeed : SInt64 = 0;
 
 
 
@@ -238,7 +238,7 @@ begin
 end;
 
 
-// RandomizeTimer : this procedure sets the seed with a mix of the current 
+// RandomizeTimer : this procedure sets the seed with a mix of the current
 // time, the process number, etc. to get more entropy.
 procedure RandomizeTimer;
 var seed : SInt64;
@@ -247,7 +247,7 @@ var seed : SInt64;
     {$ENDIF}
 begin
   seed := FpGetpid();                 // process number
-  seed := seed + Random64();          // a small random component from current 
+  seed := seed + Random64();          // a small random component from current
   seed := seed + NewMagicCookie();    // increasing counter
   seed := seed + GetTickCount64();    // milliseconds
 
@@ -874,7 +874,7 @@ begin
            then writeln(' ==> TRUE')
            else writeln(' ==> FALSE');
      end;
-     
+
   writeln('');
   writeln('Verifying BTST BSET BCLR');
   for k := 0 to (sizeof(aux) * 8 - 1) do
@@ -897,7 +897,7 @@ begin
   end;
   writeln('note that X := Y always extends the sign bit of Y into X when Y has a signed integer type');
   writeln('');
-  
+
   writeln('generating some pseudo random numbers...');
   RandomizeTimer;
   N := 2000000;
@@ -914,7 +914,7 @@ begin
   t := GetTickCount64() - t;  // stop timer
   for k := 0 to 9 do
      writeln(1.0 * freq[k] / N);
-  
+
   writeln('time = ', t , ' milliseconds for ', N, ' random numbers');
   writeln('time for each randomnumber = ', 1000000.0 * t / N, ' nanoseconds');
 
