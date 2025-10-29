@@ -722,8 +722,8 @@ var nbJoueursTrouves : SInt64;
     pseudoNoir  := FabriqueNomEnMajusculesSansEspaceSansMetaphone(pseudoNoir);
     pseudoBlanc := FabriqueNomEnMajusculesSansEspaceSansMetaphone(pseudoBlanc);
 
-    distanceDeCetteSolution :=   PseudoDistanceDeHamming(pseudoNoir  , nomThorNoir)
-                               + PseudoDistanceDeHamming(pseudoBlanc , nomThorBlanc)
+    distanceDeCetteSolution :=   PseudoHammingDistance(pseudoNoir  , nomThorNoir)
+                               + PseudoHammingDistance(pseudoBlanc , nomThorBlanc)
                                - (LENGTH_OF_STRING(pseudoNoir) - 1) * 2
                                - (LENGTH_OF_STRING(pseudoBlanc) - 1) * 2 ;
 
@@ -1832,7 +1832,7 @@ begin
   	          end
 	          else
 	            // departage par le nombre de caracteres en commun
-	            nouvelleQualite := nouvelleQualite - PseudoDistanceDeHamming(nomChercheEnMajuscules,nomBaseEnMajuscules);
+	            nouvelleQualite := nouvelleQualite - PseudoHammingDistance(nomChercheEnMajuscules,nomBaseEnMajuscules);
 
 
 	        if (nouvelleQualite > qualiteSolutionCourante) then
@@ -2369,7 +2369,7 @@ begin
           nomBase := GetNomJoueur(i);
           nomBaseEnMajusculesAvecEspaces := FabriqueNomEnMajusculesAvecEspaces(nomBase);
 
-          nouvelleQualite := 85 - PseudoDistanceDeHamming(nomChercheEnMajusculesAvecEspaces, nomBaseEnMajusculesAvecEspaces);
+          nouvelleQualite := 85 - PseudoHammingDistance(nomChercheEnMajusculesAvecEspaces, nomBaseEnMajusculesAvecEspaces);
 
           if (nouvelleQualite > qualiteSolutionCourante) then
             begin

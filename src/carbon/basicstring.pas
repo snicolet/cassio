@@ -42,16 +42,14 @@ procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 
 // Extracting substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
-
-// Replace
-function ReplaceStringOnce(const pattern, replacement, s : String255) : String255;
-function ReplaceStringAll( const pattern, replacement, s : String255) : String255;
-
-// Splitting strings at a subcharacter or a substring
 function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;
 function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;
 function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
 function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+
+// Replace pattern in string
+function ReplaceStringOnce(const pattern, replacement, s : String255) : String255;
+function ReplaceStringAll( const pattern, replacement, s : String255) : String255;
 
 // Transforming strings
 function StripDiacritics(const source : AnsiString) : AnsiString;
@@ -71,6 +69,9 @@ function NoCaseEquals(s1, s2 : String255) : boolean;
 function NoCasePos(s1, s2 : String255) : SInt16;
 function PosRight(sub : char; const s : String255) : SInt16;
 function PosRight(const sub, s : String255) : SInt16;
+
+// Hamming distance
+function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 
 // Transforming an integer into hexadecimal
 function Hexa(num : UInt64) : String255;
@@ -565,6 +566,28 @@ begin
 end;
 
 
+// PseudoHammingDistance() returns the Hamming distance between s1 and s2
+function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
+var  count1, count2 : array[0..255] of SInt32;
+     k, dist : SInt32;
+begin
+  for k := 0 to 255 do
+    begin
+      count1[k] := 0;
+      count2[k] := 0;
+    end;
+
+  for k := 1 to LENGTH_OF_STRING(s1) do inc(count1[ord(s1[k])]);
+  for k := 1 to LENGTH_OF_STRING(s2) do inc(count2[ord(s2[k])]);
+
+  dist := 0;
+  for k := 0 to 255 do
+    dist := dist + abs(count1[k] - count2[k]);
+
+  PseudoHammingDistance := dist;
+end;
+
+
 // Hexa(n) returns a string representing the number n in hexadecimal. 
 // The resulting string starts with a dollar character '$'.
 function Hexa(num : UInt64) : String255;
@@ -902,10 +925,11 @@ begin
 end;
 
 
-function fooBy(s : string255 ; c : char) : boolean;
+procedure replaceFooChar(var s : string255 ; c, rep : char);
+var k : integer;
 begin
-   if c <> 'A' then writeln('fooBy');
-   result := c <> 'A';
+   for k := 1 to LENGTH_OF_STRING(s) do
+      if s[k] = c then s[k] := rep;
 end;
 
 procedure fooAt(s : string255 ; c : char);
@@ -914,15 +938,18 @@ begin
 end;
 
 
+//ReplaceCharByCharInString(reste,'•',',');
+
 var s : string255;
     c : char;
 begin
 
     s := 'toto';
-    c := s[1];
-    fooBy(s, c);
+    replaceFooChar(s, 't', 'j');
+    s := ReplaceStringAll( 'o', '•', s);
+    writeln(s);
 
-    testBasicString;
+    //testBasicString;
 end.
 
 

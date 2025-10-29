@@ -187,7 +187,7 @@ INTERFACE
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
 
-  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);
+  procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
 
   function DeleteSubstringBeforeThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
   function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;
@@ -213,7 +213,7 @@ INTERFACE
   function ParserBuffer(buffer : Ptr; bufferLength, from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
 
 
-  function PseudoDistanceDeHamming(const s1, s2 : String255) : SInt32;
+  function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 
 
 
@@ -2275,7 +2275,7 @@ begin
 end;
 
 
-procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);
+procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
 var result : String255;
     longueur,k : SInt32;
     a,b : SInt32;
@@ -2653,7 +2653,7 @@ begin
 	
 end;
 
-function PseudoDistanceDeHamming(const s1, s2 : String255) : SInt32;
+function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 var  count1, count2 : array[0..255] of SInt32;
      k, dist : SInt32;
 begin
@@ -2670,7 +2670,7 @@ begin
   for k := 0 to 255 do
     dist := dist + abs(count1[k] - count2[k]);
 
-  PseudoDistanceDeHamming := dist;
+  PseudoHammingDistance := dist;
 end;
 
 

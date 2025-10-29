@@ -50,7 +50,7 @@ function GetScreenBounds : rect;     external;
 	function MyNewCWindow( wStorage: UnivPtr; const boundsRect: Rect; const  title: String255; visible: Boolean; procID: SInt16; behind: WindowRef; goAwayFlag: Boolean; refCon: SInt32 ): WindowRef;     external;
 function FenetreFictiveAvantPlan : WindowPtr;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
-  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
   procedure MyAppendMenu( menu: MenuRef; const data: String255 );     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;     external;

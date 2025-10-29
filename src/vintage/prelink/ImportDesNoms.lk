@@ -41,7 +41,7 @@ function GetNomTournoi(nroTournoi : SInt32) : String255;     external;
   function  GetParsingCaracterSet : SetOfChar;     external;
   procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
 function GetNomJoueurEnMajusculesSansEspace(nroJoueur : SInt32) : String255;     external;
-  function PseudoDistanceDeHamming(const s1, s2 : String255) : SInt32;     external;
+  function PseudoHammingDistance(const s1, s2 : String255) : SInt32;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;
   function  GetParsingProtectionWithQuotes : boolean;     external;

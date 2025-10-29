@@ -17,7 +17,7 @@ function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure WritelnDansRapportEtAttendFrappeClavier(s : String255; bip : boolean);     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
-  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 	function UpCaseStr (s : String255) : String255;     external;
 	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
 	function IsDigit(ch : char) : boolean;     external;

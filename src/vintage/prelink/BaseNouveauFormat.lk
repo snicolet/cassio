@@ -76,7 +76,7 @@ procedure RemplitTableCompatibleTournoiAvecCeBooleen(var table : t_TournoiCompat
 procedure CalculeTableTournoisCompatibles(nomTournoi : String255; var compatible : t_TournoiCompatible; niveauxRecurence : SInt32);     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;     external;
-  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
 function GetNomTournoi(nroTournoi : SInt32) : String255;     external;
 procedure TraduitNomTournoiEnMac(ancNom : String255; var nouveauNom : String255);     external;
   procedure WriteStringAt(s : String255; h,v : SInt32);     external;

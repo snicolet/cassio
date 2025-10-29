@@ -832,7 +832,7 @@ begin
 
   for i := indexMin to indexMax do
     begin
-      SWAP_LONGINT( myPointer );                  { swapper les octets de table[i] }
+      SWAP_LONGINT( myPointer );                     { swapper les octets de table[i] }
       myPointer := POINTER_ADD(myPointer, 4);        { car un entier sur 32 bits fait 4 octets }
     end;
 end;

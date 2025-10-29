@@ -30,7 +30,7 @@ procedure DessineSliderFenetreCourbe;     external;
 procedure OuvreFntrPlateau(avecAnimationZoom : boolean);     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-  procedure MYYYDeleteYYYYString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
+  procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
 procedure SetJeuCourant(jeu : plateauOthello; trait : SInt32);     external;
 procedure ViderValeursDeLaCourbe;     external;
