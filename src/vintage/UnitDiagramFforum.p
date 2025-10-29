@@ -218,8 +218,8 @@ begin
 
       if (fontID = GetCassioFontNum('Baskerville')) or (fontID = GetCassioFontNum('Fontin Regular')) then
         begin
-          ReplaceCharByCharInString(str,'-',' ');
-          ReplaceCharByCharInString(str1,'-',' ');
+          str := ReplaceStringAll(str,'-',' ');
+          str1 := ReplaceStringAll(str1,'-',' ');
         end;
 
       str := ReplaceStringOnce( str, '\', '\\');
@@ -483,14 +483,14 @@ begin
   result := ReplaceStringOnce(result, '  ' , ' ');
   result := ReplaceStringOnce(result, '  ' , ' ');
   result := ReplaceStringOnce(result, '  ' , ' ');
-  ReplaceCharByCharInString(result,'/','-');
-  ReplaceCharByCharInString(result,' ','-');
-  ReplaceCharByCharInString(result,'Ê','-');
-  ReplaceCharByCharInString(result,':','-');
-  ReplaceCharByCharInString(result,'"','-');
-  ReplaceCharByCharInString(result,'(','-');
-  ReplaceCharByCharInString(result,')','-');
-  ReplaceCharByCharInString(result,'É','.');
+  result := ReplaceStringAll(result,'/','-');
+  result := ReplaceStringAll(result,' ','-');
+  result := ReplaceStringAll(result,'Ê','-');
+  result := ReplaceStringAll(result,':','-');
+  result := ReplaceStringAll(result,'"','-');
+  result := ReplaceStringAll(result,'(','-');
+  result := ReplaceStringAll(result,')','-');
+  result := ReplaceStringAll(result,'É','.');
   result := ReplaceStringOnce(result, 'V-d-' , '');
   result := ReplaceStringOnce(result, '-!-' , '-');
   result := ReplaceStringOnce(result, '-!' , '-');

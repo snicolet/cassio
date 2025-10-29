@@ -2082,7 +2082,7 @@ begin
       begin
         nomFichier := ExtraitNomDirectoryOuFichier(pathFichier);
 
-        ReplaceCharByCharInString(pathFichier,':','/');
+        pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
 
         s := ParamStr(s,nomFichier,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end

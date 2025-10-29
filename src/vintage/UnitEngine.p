@@ -525,8 +525,8 @@ begin
        begin
          err := FSSpecToFullPath(fs, pathEngine);
 
-         SplitAt(pathEngine,':',foo,pathUnix);         // enlever le nom du disque dur
-         ReplaceCharByCharInString(pathUnix,':','/');  // separateurs a la mode UNIX
+         SplitAt(pathEngine,':',foo,pathUnix);            // enlever le nom du disque dur
+         pathUnix := ReplaceStringAll(pathUnix,':','/');  // separateurs a la mode UNIX
 
          s := ReplaceStringOnce(pathEngine, ':engine.sh' , '');
          SplitRightByChar(s,':',foo,nomEngine);
@@ -1680,9 +1680,9 @@ begin
     else
       begin
         bundlePathMac := pathDossierFichiersAuxiliaires + ':Frameworks:EngineBundle.bundle';
-        ReplaceCharByCharInString(bundlePathMac,'/',':');   // separateurs a la mode Mac
-        SplitAt(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
-        ReplaceCharByCharInString(bundlePathUnix,':','/');  // separateurs a la mode UNIX
+        bundlePathMac := ReplaceStringAll(bundlePathMac,'/',':');    // separateurs a la mode Mac
+        SplitAt(bundlePathMac,':',foo,bundlePathUnix);               // enlever le nom du disque dur
+        bundlePathUnix := ReplaceStringAll(bundlePathUnix,':','/');  // separateurs a la mode UNIX
         result := bundlePathUnix;
       end;
   GetEngineBundleName := result;
@@ -1742,11 +1742,11 @@ begin
     exit;
 
 
-  ReplaceCharByCharInString(pathMac,'/',':');      // separateurs a la mode Mac
+  pathMac := ReplaceStringAll(pathMac,'/',':');     // separateurs a la mode Mac
   if (pathMac[1] = ':')
     then pathUnix := pathMac
-    else SplitAt(pathMac,':',foo, pathUnix);       // enlever le nom du disque dur
-  ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
+    else SplitAt(pathMac,':',foo, pathUnix);        // enlever le nom du disque dur
+  pathUnix := ReplaceStringAll(pathUnix,':','/');   // separateurs a la mode UNIX
 
   if (debugEngine or debuggage.engineInput or debuggage.engineOutput or InfosTechniquesDansRapport) then
     begin

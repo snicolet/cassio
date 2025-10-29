@@ -1171,7 +1171,7 @@ var lecture : LectureModulePtr;
             for i := 1 to 30 do
               reste := ReplaceStringOnce(reste, ',', ' ¥ ');
 
-            ReplaceCharByCharInString(reste,'¥',',');
+            reste := ReplaceStringAll(reste,'¥',',');
 
             reste := ReplaceStringOnce(reste, ';' , ' ;');
 

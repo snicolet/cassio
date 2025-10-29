@@ -49,7 +49,7 @@ function SplitRightAt (s : String255; const sub : String255; var left, right : S
 
 // Replace pattern in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
-function ReplaceStringAll( const pattern, replacement, s : String255) : String255;
+function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 
 // Transforming strings
 function StripDiacritics(const source : AnsiString) : AnsiString;
@@ -208,7 +208,7 @@ end;
 
 // ReplaceStringAll() : return a copy of 's' where all occurences of 'pattern' 
 // are replaced by 'replacement'.
-function ReplaceStringAll(const pattern, replacement, s : String255) : String255;
+function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 begin
   ReplaceStringAll := StringReplace(s, pattern, replacement, [rfReplaceAll]);
 end;
@@ -938,15 +938,16 @@ begin
 end;
 
 
-//ReplaceCharByCharInString(reste,'•',',');
+
 
 var s : string255;
     c : char;
 begin
 
-    s := 'toto';
+    s := 'toto^0^0^0';
     replaceFooChar(s, 't', 'j');
-    s := ReplaceStringAll( 'o', '•', s);
+    s := ReplaceStringAll(s, 'o', '•');
+    s := ReplaceStringAll(s, '^0^0', 'blah');
     writeln(s);
 
     //testBasicString;

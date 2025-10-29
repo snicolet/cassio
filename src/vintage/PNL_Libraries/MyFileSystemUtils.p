@@ -1176,7 +1176,7 @@ begin
     end;
 
 
-  ReplaceCharByCharInString(oldMacPath,'/',':');   // separateurs a la mode Mac
+  oldMacPath := ReplaceStringAll(oldMacPath,'/',':');   // separateurs a la mode Mac
   if (oldMacPath[1] = ':')
     then pathUnix := oldMacPath
     else
@@ -1184,7 +1184,7 @@ begin
         SplitAt(oldMacPath,':',foo, pathUnix);    // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
       end;
-  ReplaceCharByCharInString(pathUnix,':','/');     // separateurs a la mode UNIX
+  pathUnix := ReplaceStringAll(pathUnix,':','/');     // separateurs a la mode UNIX
 
   MacPathToUNIXPath := pathUnix;
 end;
@@ -1198,7 +1198,7 @@ begin
 
   result := oldPath;
 
-  ReplaceCharByCharInString(result, ' ','¥' );
+  result := ReplaceStringAll(result, ' ','¥' );
 
   while (Pos('¥', result) > 0) do
     result := ReplaceStringOnce(result, '¥' , '\ ');

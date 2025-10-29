@@ -365,8 +365,7 @@ end;
 
 
 function UTF8ToAscii(const s : String255) : String255;     external;
-  procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
-  function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
+function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 
 
 procedure LireEnigmePetitPoucet(nomFichier : String255);
@@ -416,13 +415,13 @@ begin
 
         // AjouterMotFrancais(UpperCase(s,false));
 
-        ReplaceCharByCharInString(s, ',' , ' ');
-        ReplaceCharByCharInString(s, '.' , ' ');
-        ReplaceCharByCharInString(s, '!' , ' ');
-        ReplaceCharByCharInString(s, ':' , ' ');
-        ReplaceCharByCharInString(s, '?' , ' ');
-        ReplaceCharByCharInString(s, '''' , ' ');
-        ReplaceCharByCharInString(s, '-' , ' ');
+        s := ReplaceStringAll(s, ',' , ' ');
+        s := ReplaceStringAll(s, '.' , ' ');
+        s := ReplaceStringAll(s, '!' , ' ');
+        s := ReplaceStringAll(s, ':' , ' ');
+        s := ReplaceStringAll(s, '?' , ' ');
+        s := ReplaceStringAll(s, '''' , ' ');
+        s := ReplaceStringAll(s, '-' , ' ');
 
         for k := 1 to 100 do
           s := ReplaceStringOnce(s, ' ' , '');

@@ -646,9 +646,9 @@ begin {ParserFENEnPositionEtTrait}
 
   // initialisation des tokens
 
-  ReplaceCharByCharInString(s, '"', ' ');
-  ReplaceCharByCharInString(s, '[', ' ');
-  ReplaceCharByCharInString(s, ']', ' ');
+  s := ReplaceStringAll(s, '"', ' ');
+  s := ReplaceStringAll(s, '[', ' ');
+  s := ReplaceStringAll(s, ']', ' ');
 
   Parser(s,s1,reste);
   if (s1 = 'FEN')
