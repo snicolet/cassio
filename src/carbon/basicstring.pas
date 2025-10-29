@@ -40,19 +40,19 @@ function LENGTH_OF_STRING(s : AnsiString) : SInt64;
 procedure SET_LENGTH_OF_STRING(var s : String255 ; len : SInt64);
 procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 
-// Extracting substrings
+// Extract substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
 function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;
 function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;
 function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
 function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
 
-// Replace pattern in string
+// Replace patterns in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
-// Transforming strings
+// String transformations
 function StripDiacritics(const source : AnsiString) : AnsiString;
 function StripDiacritics(const source : String255) : String255;
 procedure StripHTMLAccents(var s : String255);
@@ -61,7 +61,7 @@ function UpperCase(const s : String255; keepAccents : boolean) : String255;
 function LowerCase(ch : char) : char;
 function UpperCase(ch : char) : char;
 
-// Testing characters
+// Test characters and strings
 function IsDigit(ch : char) : boolean;
 function IsLower(ch : char) : boolean;
 function IsUpper(ch : char) : boolean;
