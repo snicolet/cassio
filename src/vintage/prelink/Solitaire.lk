@@ -88,7 +88,7 @@ function NbCoupsGagnantsOuNuls(whichPosition : PositionEtTraitRec; var valeurOpt
 procedure SetGenreDerniereReflexionDeCassio(typeReflexion,numeroCoup : SInt32);     external;
 procedure GetCurrentScript(var currentScript : SInt32);     external;
 procedure OuvreFntrPlateau(avecAnimationZoom : boolean);     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 procedure DecompilerPosition(chaineCompilee : String255; var plat : plateauOthello);     external;
 procedure LanceInterruptionSimple(const fonctionAppelante : String255);     external;
@@ -165,4 +165,4 @@ function GetWindowPortRect(window : WindowPtr) : rect;     external;
   function EnleveChiffresApresCeCaractereEnFinDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;     external;
   function EnleveChiffresAvantCeCaractereEnDebutDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;     external;
   function EndsWith(const s : String255; const sub : String255) : boolean;     external;
-	procedure LeftP (var s : String255; len : SInt16);     external;
+	procedure KeepPrefix (var s : String255; len : SInt32);     external;

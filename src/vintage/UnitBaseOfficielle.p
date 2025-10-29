@@ -154,7 +154,7 @@ begin
     then
       begin
         JoueurEstDonneParSonNumero := true;
-        ChaineToLongint(RightOfString(joueur,LENGTH_OF_STRING(joueur) - 1),outNumber);
+        StrToInt32(RightStr(joueur,LENGTH_OF_STRING(joueur) - 1),outNumber);
       end
     else
       JoueurEstDonneParSonNumero := false;
@@ -167,7 +167,7 @@ begin
     then
       begin
         TournoiEstDonneParSonNumero := true;
-        ChaineToLongint(RightOfString(tournoi,LENGTH_OF_STRING(tournoi) - 1),outNumber);
+        StrToInt32(RightStr(tournoi,LENGTH_OF_STRING(tournoi) - 1),outNumber);
       end
     else
       TournoiEstDonneParSonNumero := false;
@@ -1046,7 +1046,7 @@ begin
 
   {change year to "NNNN"}
   if (s1 = 'change') and (s2 = 'year') and (s3 = 'to') and (s4 <> '')
-    then err := ChangeAnneeDansListe(ChaineEnLongint(s4),FiltrePartieEstActiveEtSelectionnee);
+    then err := ChangeAnneeDansListe(StrToInt32(s4),FiltrePartieEstActiveEtSelectionnee);
 
 
   {show last players}

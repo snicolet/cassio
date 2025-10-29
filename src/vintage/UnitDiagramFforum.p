@@ -521,7 +521,7 @@ begin
   while (result[1] = '-') do
      result := ReplaceStringOnce(result, '-' , '');
 
-  result := LeftOfString(result, 27) + '.';
+  result := LeftStr(result, 27) + '.';
 
   result := ReplaceStringOnce(result, '..' , '.');
   result := ReplaceStringOnce(result, '-.' , '.');
@@ -3070,7 +3070,7 @@ begin
 									SetItemTextInDialog(dp, LargeurText, s);
 									if LENGTH_OF_STRING(s) > 0 then
 										begin
-											ChaineToLongint(s, tailleCaseFFORUM);
+											StrToInt32(s, tailleCaseFFORUM);
                     {nbPixelDedansFFORUM := TaillecaseFFORUM div 20 +1;}
 										end
 									else
@@ -3095,7 +3095,7 @@ begin
 									s := GarderSeulementLesChiffres(s1);
 									SetItemTextInDialog(dp, DistanceBordureText, s);
 									if LENGTH_OF_STRING(s) > 0 then
-										ChaineToLongint(s, distanceCadreFFORUM)
+										StrToInt32(s, distanceCadreFFORUM)
 									else
 										distanceCadreFFORUM := 0;
 								end;
@@ -3106,11 +3106,11 @@ begin
 									if(LENGTH_OF_STRING(s) >= 2) then
 										s := '';
 									SetItemTextInDialog(dp, itemHit, s);
-									ChaineToLongint(s, nbPixelDedansFFORUM);
+									StrToInt32(s, nbPixelDedansFFORUM);
 									if(LENGTH_OF_STRING(s) > 0) and (nbPixelDedansFFORUM < 10) then
 										begin
 											PionsEnDedansFFORUM := true;
-											ChaineToLongint(s, nbPixelDedansFFORUM)
+											StrToInt32(s, nbPixelDedansFFORUM)
 										end
 									else
 										begin

@@ -833,7 +833,7 @@ begin
       if erreurES = NoErr then
         begin
           if (SGFAnnotations <> '') or (not((moveNumber = '0') and (LENGTH_OF_STRING(moves) = 120)))
-            then DoRetourAuCoupNro(ChaineEnLongint(moveNumber), true, false);
+            then DoRetourAuCoupNro(StrToInt32(moveNumber), true, false);
 
           if (SGFAnnotations <> '') then
              begin

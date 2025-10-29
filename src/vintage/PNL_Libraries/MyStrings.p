@@ -11,14 +11,14 @@ INTERFACE
  USES
      UnitDefCassio;
 
-	procedure LeftP (var s : String255; len : SInt16);
+	procedure KeepPrefix (var s : String255; len : SInt32);
 	procedure LeftAssignP (var s : String255; len : SInt16; var rhs : String255);
-	procedure RightP (var s : String255; len : SInt16);
+	procedure KeepSuffix (var s : String255; len : SInt32);
 	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);
 	
-	function LeftOfString (var s : String255; len : SInt16) : String255;
+	function LeftStr (const s : String255; len : SInt32) : String255;
 	function LeftAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
-	function RightOfString (const s : String255; len : SInt16) : String255;
+	function RightStr (const s : String255; len : SInt16) : String255;
 	function RightAssign (var s : String255; len : SInt16; var rhs : String255) : String255;
 	
 	procedure MidP (var s : String255; p, len : SInt16);
@@ -97,9 +97,9 @@ INTERFACE
   function StringSimpleEnReel(alpha : String255) : double;
   function PourcentageEntierEnString(num : SInt32) : String255;
   function ChaineEnInteger(const s : String255) : SInt16;
-  function ChaineEnLongint(const s : String255) : SInt32;
+  function StrToInt32(const s : String255) : SInt32;
   procedure ChaineToInteger(const s : String255; var theInteger : SInt16);
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);
 
 
 
@@ -139,7 +139,7 @@ INTERFACE
 	function ChaineMirroir(const s : String255) : String255;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
   function ReplaceStringAll(const s, pattern,replacement : String255) : String255;
-  function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
+  
   function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;
   function DeleteSpacesAfter(const s : String255; p : SInt16) : String255;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);
@@ -533,11 +533,11 @@ end;
 procedure ChaineToInteger(const s : String255; var theInteger : SInt16);
 var unlong : SInt32;
 begin
-  ChaineToLongint(EnleveEspacesDeDroite(s),unlong);
+  StrToInt32(EnleveEspacesDeDroite(s),unlong);
   theInteger := unlong;
 end;
 
-procedure ChaineToLongint(const s : String255; var theLongint : SInt32);
+procedure StrToInt32(const s : String255; var theLongint : SInt32);
 var unlong : SInt32;
     aux : str255;
 begin
@@ -550,16 +550,16 @@ end;
 function ChaineEnInteger(const s : String255) : SInt16;
 var unlong : SInt32;
 begin
-  ChaineToLongint(EnleveEspacesDeDroite(s),unlong);
+  StrToInt32(EnleveEspacesDeDroite(s),unlong);
   ChaineEnInteger := unlong;
 end;
 
 
-function ChaineEnLongint(const s : String255) : SInt32;
+function StrToInt32(const s : String255) : SInt32;
 var unlong : SInt32;
 begin
-  ChaineToLongint(EnleveEspacesDeDroite(s),unlong);
-  ChaineEnLongint := unlong;
+  StrToInt32(EnleveEspacesDeDroite(s),unlong);
+  StrToInt32 := unlong;
 end;
 
 
@@ -597,14 +597,14 @@ end;
 	  CharInSet := ch in mySet;
 	end;
 
-	procedure LeftP (var s : String255; len : SInt16);
+	procedure KeepPrefix (var s : String255; len : SInt32);
 	begin
 		s := TPCopy(s, 1, len);
 	end;
 
-	function LeftOfString (var s : String255; len : SInt16) : String255;
+	function LeftStr (const s : String255; len : SInt32) : String255;
 	begin
-		LeftOfString := TPCopy(s, 1, len);
+		LeftStr := TPCopy(s, 1, len);
 	end;
 
 	procedure LeftAssignP (var s : String255; len : SInt16; var rhs : String255);
@@ -617,7 +617,7 @@ end;
 		LeftAssign := Concat(rhs, TPCopy(s, len + 1, 255));
 	end;
 
-	procedure RightP (var s : String255; len : SInt16);
+	procedure KeepSuffix (var s : String255; len : SInt32);
 		var
 			p : SInt16;
 	begin
@@ -628,7 +628,7 @@ end;
 		s := TPCopy(s, p, 255);
 	end;
 
-	function RightOfString (const s : String255; len : SInt16) : String255;
+	function RightStr (const s : String255; len : SInt16) : String255;
 		var
 			p : SInt16;
 	begin
@@ -636,7 +636,7 @@ end;
 		if p < 1 then begin
 			p := 1;
 		end;
-		RightOfString := TPCopy(s, p, 255);
+		RightStr := TPCopy(s, p, 255);
 	end;
 
 	procedure RightAssignP (var s : String255; len : SInt16; var rhs : String255);
@@ -1665,10 +1665,10 @@ function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
 const separateur = ':';
 var lastPosDeuxPoints : SInt16;
 begin
-  if RightOfString(chemin,1) = CharToString(separateur)
-    then LeftP(chemin,LENGTH_OF_STRING(chemin)-1);
+  if RightStr(chemin,1) = CharToString(separateur)
+    then KeepPrefix(chemin,LENGTH_OF_STRING(chemin)-1);
   lastPosDeuxPoints := LastPos(separateur,chemin);
-  ExtraitNomDirectoryOuFichier := RightOfString(chemin,LENGTH_OF_STRING(chemin)-lastPosDeuxPoints);
+  ExtraitNomDirectoryOuFichier := RightStr(chemin,LENGTH_OF_STRING(chemin)-lastPosDeuxPoints);
 end;
 
 
@@ -1676,7 +1676,7 @@ function ExtraitCheminDAcces(nomComplet : String255) : String255;
 var nomFichier : String255;
 begin
   nomFichier := ExtraitNomDirectoryOuFichier(nomComplet);
-  ExtraitCheminDAcces := LeftOfString(nomComplet,LENGTH_OF_STRING(nomComplet)-LENGTH_OF_STRING(nomFichier));
+  ExtraitCheminDAcces := LeftStr(nomComplet,LENGTH_OF_STRING(nomComplet)-LENGTH_OF_STRING(nomFichier));
 end;
 
 
@@ -1774,59 +1774,7 @@ end;
 
 
 
-function ReplaceVariableByStringInString(const pattern,replacement,s : String255) : String255;
-var positionSubstring,posDeuxPoint : SInt32;
-    posCrochetOuvrant,posCrochetFermant : SInt32;
-    longueurDuFormat,depart,fin : SInt32;
-    resultat,reste,insertion : String255;
-begin
 
-  positionSubstring := Pos(pattern,s);
-
-  if (positionSubstring > 0)
-     then
-       begin
-         (*
-            on cherche si le pattern est en fait une
-            variable de la forme $VARIABLE[deb..fin]
-         *)
-         reste := TPCopy(s,positionSubstring,255);
-         posCrochetOuvrant := Pos('[',reste);
-         posCrochetFermant := Pos(']',reste);
-
-         if (reste[1] = '$') and
-            (posCrochetOuvrant > 0) and
-            (posCrochetFermant > posCrochetOuvrant)
-           then
-             begin
-               longueurDuFormat := posCrochetFermant - posCrochetOuvrant + 1;
-               reste  := TPCopy(reste,posCrochetOuvrant+1,longueurDuFormat-2);
-
-               depart := 1;
-               fin    := 255;
-
-               posDeuxPoint := Pos('..',reste);
-               if (posDeuxPoint >= 2)
-                 then depart := ChaineEnLongint(LeftOfString(reste,posDeuxPoint - 1));
-               if (posDeuxPoint <= LENGTH_OF_STRING(reste) - 2)
-                 then fin    := ChaineEnLongint(TPCopy(reste,posDeuxPoint + 2,255));
-
-               insertion := TPCopy(replacement,depart,fin - depart + 1);
-             end
-           else
-             begin
-               longueurDuFormat := 0;
-               insertion := replacement;
-             end;
-
-         resultat := s;
-         Delete(resultat,positionSubstring,LENGTH_OF_STRING(pattern)+longueurDuFormat);
-         Insert(insertion,resultat,positionSubstring);
-         ReplaceVariableByStringInString := resultat;
-       end
-     else
-       ReplaceVariableByStringInString := s;
-end;
 
 
 function DeleteSpacesBefore(const s : String255; p : SInt16) : String255;

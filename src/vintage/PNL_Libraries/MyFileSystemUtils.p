@@ -1151,8 +1151,8 @@ begin
   err := FSSpecToFullPath(folder,path);
 
   nomDirectoryDepartRecursion := path;
-  if RightOfString(nomDirectoryDepartRecursion,1) = ':' then
-    nomDirectoryDepartRecursion := LeftOfString(nomDirectoryDepartRecursion,LENGTH_OF_STRING(nomDirectoryDepartRecursion)-1);
+  if RightStr(nomDirectoryDepartRecursion,1) = ':' then
+    nomDirectoryDepartRecursion := LeftStr(nomDirectoryDepartRecursion,LENGTH_OF_STRING(nomDirectoryDepartRecursion)-1);
 
   SetPathOfScannedDirectory := err;
 end;
@@ -1671,7 +1671,7 @@ var erreurES : OSErr;
     dirID : UInt32;
 begin
 
-  if RightOfString(directoryPath,1) <> CharToString(separateur) then
+  if RightStr(directoryPath,1) <> CharToString(separateur) then
      directoryPath := directoryPath + separateur;
 
   erreurES := MyFSMakeFSSpec(0,0,directoryPath,directoryDepot);
@@ -1698,7 +1698,7 @@ var erreurES : OSErr;
 
 begin
 
-  if RightOfString(directoryName,1) <> CharToString(separateur) then
+  if RightStr(directoryName,1) <> CharToString(separateur) then
     directoryName := directoryName + separateur;
 
   erreurES := FSSpecToFullPath(whichFile,path);

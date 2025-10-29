@@ -575,7 +575,7 @@ var s,lesJoueurs : String255;
         if (deb > 0) then
           begin
 
-            reste := RightOfString(s,LENGTH_OF_STRING(s)-deb+1);
+            reste := RightStr(s,LENGTH_OF_STRING(s)-deb+1);
 
             moves := reste;
             if EstUnePartieOthelloAvecMiroir(moves) then
@@ -630,7 +630,7 @@ begin  { TrouverPartieEtJoueursDansChaine }
 
   partieTrouvee := (longueurBestSolution >= 3);
 
-  lesJoueurs := LeftOfString(chaine,indexDebutDesCoups-1) + RightOfString(chaine,LENGTH_OF_STRING(chaine)-indexFinDesCoups);
+  lesJoueurs := LeftStr(chaine,indexDebutDesCoups-1) + RightStr(chaine,LENGTH_OF_STRING(chaine)-indexFinDesCoups);
 
   joueursTrouves := TrouverNomsDesJoueursDansNomDeFichier(lesJoueurs,numeroJoueur1,numeroJoueur2,0,qualiteSolution);
 

@@ -16,7 +16,7 @@ function GET_ADRESS_OF_FIRST_MOVE(var whichGame : PackedThorGame) : Ptr;     ext
 procedure SET_LENGTH_OF_PACKED_GAME(var whichGame : PackedThorGame; whichLength : UInt8);     external;
 function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;     external;
 function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;     external;
-	procedure LeftP (var s : String255; len : SInt16);     external;
+	procedure KeepPrefix (var s : String255; len : SInt32);     external;
 function CassioIsUsingMetaphone : boolean;     external;
 function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;     external;
 function NomCourtDuTournoi(const nomOrigine : String255) : String255;     external;
@@ -30,4 +30,4 @@ procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String2
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
   function StripDiacritics(const s : String255) : String255;     external;
-	function RightOfString (const s : String255; len : SInt16) : String255;     external;
+	function RightStr (const s : String255; len : SInt16) : String255;     external;

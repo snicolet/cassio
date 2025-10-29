@@ -714,7 +714,7 @@ function GetPositionEtTraitInitiauxOfGameTree : PositionEtTraitRec;     external
 function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;     external;
 function GetPierresDeltaCourantesEnString : String255;     external;
   procedure Parser (s : String255; var tete,reste : String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
 function ParsePositionEtTrait(s : String255; var positionEtTrait : PositionEtTraitRec) : boolean;     external;
 function EstLaPositionInitialeStandard(var position : PositionEtTraitRec) : boolean;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;

@@ -1278,7 +1278,7 @@ begin
 			    begin
 			      trouve := true;
 			      diminish := true;
-			      ChaineToLongint(TPCopy(s,k-3,4),aux);
+			      StrToInt32(TPCopy(s,k-3,4),aux);
 			      annee := aux;
 			      if annee < firstYear then firstYear := annee;
 			      if annee > lastYear then lastYear := annee;
@@ -1295,8 +1295,8 @@ begin
 			      trouve := true;
 			      diminish := true;
 			      if s[k-1] >= '5'     {1950}
-			        then ChaineToLongint('19'+s[k-1]+s[k],aux)
-			        else ChaineToLongint('20'+s[k-1]+s[k],aux);
+			        then StrToInt32('19'+s[k-1]+s[k],aux)
+			        else StrToInt32('20'+s[k-1]+s[k],aux);
 			      annee := aux;
 			      if annee < firstYear then firstYear := annee;
 			      if annee > lastYear then lastYear := annee;
@@ -1313,7 +1313,7 @@ begin
 			    begin
 			      trouve := true;
 			      diminish := true;
-			      ChaineToLongint(s,aux);
+			      StrToInt32(s,aux);
 			      annee := aux;
 			      if annee < firstYear then firstYear := annee;
 			      if annee > lastYear then lastYear := annee;
@@ -1327,8 +1327,8 @@ begin
 			      trouve := true;
 			      diminish := true;
 			      if s[k-1] >= '5'     {1950}
-			        then ChaineToLongint('19'+s[k-1]+s[k],aux)
-			        else ChaineToLongint('20'+s[k-1]+s[k],aux);
+			        then StrToInt32('19'+s[k-1]+s[k],aux)
+			        else StrToInt32('20'+s[k-1]+s[k],aux);
 			      annee := aux;
 			      if annee < firstYear then firstYear := annee;
 			      if annee > lastYear then lastYear := annee;

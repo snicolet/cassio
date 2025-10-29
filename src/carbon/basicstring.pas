@@ -21,7 +21,7 @@ uses
      String255Hdl  =  ^String255Ptr;
      SetOfChar     =  set of char;
 
-// function types for strings
+// Function types for strings
   type
      StringProc                 = procedure(var s : String255; var result : SInt32);
      MessageDisplayerProc       = procedure(msg : String255);
@@ -42,14 +42,18 @@ procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 
 // Extract substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
-function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;
-function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;
-function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
-function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+procedure KeepPrefix (var s : String255; len : SInt32);
+procedure KeepSuffix (var s : String255; len : SInt32);
+function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;                 // split by char
+function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;      // split by string
+function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
+function SplitRightAt(s : String255; const sub : String255; var left, right : String255) : boolean; // split right by string
+
 
 // Replace patterns in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
+function ReplaceVariable(const s, pattern, replacement : String255) : String255;
 function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
 // String transformations
@@ -92,9 +96,12 @@ function HexaWithoutDollar(num : SInt16) : String255;
 function HexaWithoutDollar(num : UInt8 ) : String255;
 function HexaWithoutDollar(num : SInt8 ) : String255;
 
-
-// HexToInt(s) : conversion hexadecimal to unsigned integer
+// Convert from hexadecimal to integer
 function HexToInt(const s : String255) : UInt64;
+
+// Convert from string to integer
+procedure StrToInt32(const s : String255; var value : SInt32);
+function StrToInt32(const s : String255) : SInt32;
 
 
 
@@ -214,6 +221,60 @@ begin
   ReplaceStringAll := StringReplace(s, pattern, replacement, [rfReplaceAll]);
 end;
 
+
+function ReplaceVariable(const s, pattern, replacement : String255) : String255;
+var positionSubstring,posDeuxPoint : SInt32;
+    posCrochetOuvrant,posCrochetFermant : SInt32;
+    longueurDuFormat,depart,fin : SInt32;
+    resultat,reste,insertion : String255;
+begin
+
+  positionSubstring := Pos(pattern,s);
+
+  if (positionSubstring > 0)
+     then
+       begin
+         (*
+            on cherche si le pattern est en fait une
+            variable de la forme $VARIABLE[deb..fin]
+         *)
+         reste := TPCopy(s,positionSubstring,255);
+         posCrochetOuvrant := Pos('[',reste);
+         posCrochetFermant := Pos(']',reste);
+
+         if (reste[1] = '$') and
+            (posCrochetOuvrant > 0) and
+            (posCrochetFermant > posCrochetOuvrant)
+           then
+             begin
+               longueurDuFormat := posCrochetFermant - posCrochetOuvrant + 1;
+               reste  := TPCopy(reste,posCrochetOuvrant+1,longueurDuFormat-2);
+
+               depart := 1;
+               fin    := 255;
+
+               posDeuxPoint := Pos('..',reste);
+               if (posDeuxPoint >= 2)
+                 then depart := StrToInt32(LeftStr(reste,posDeuxPoint - 1));
+               if (posDeuxPoint <= LENGTH_OF_STRING(reste) - 2)
+                 then fin    := StrToInt32(TPCopy(reste,posDeuxPoint + 2,255));
+
+               insertion := TPCopy(replacement,depart,fin - depart + 1);
+             end
+           else
+             begin
+               longueurDuFormat := 0;
+               insertion := replacement;
+             end;
+
+         resultat := s;
+         Delete(resultat,positionSubstring,LENGTH_OF_STRING(pattern)+longueurDuFormat);
+         Insert(insertion,resultat,positionSubstring);
+         ReplaceVariable := resultat;
+       end
+     else
+       ReplaceVariable := s;
+end;
 
 // ParamStr() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
 function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
@@ -425,6 +486,23 @@ function UpperCase(ch : char) : char;
 begin
    if ('a' <= ch) and (ch <= 'z') then ch := chr(ord(ch) - $20);
    result := ch;
+end;
+
+
+// KeepPrefix(s, n) transforms the string s to only keep the first n characters
+procedure KeepPrefix (var s : String255; len : SInt32);
+begin
+	s := TPCopy(s, 1, len);
+end;
+
+
+// KeepSuffix(s, n) transforms the string s to only keep the last n characters
+procedure KeepSuffix (var s : String255; len : SInt32);
+var p : SInt32;
+begin
+	p := LENGTH_OF_STRING(s) - len;
+	if p < 1 then p := 1;
+	s := TPCopy(s, p, 255);
 end;
 
 
@@ -802,10 +880,29 @@ begin
 end;
 
 
+// StrToInt32() : convert from string to 32 bits integer
+procedure StrToInt32(const s : String255; var value : SInt32);
+begin
+  Try
+    value := StrToInt(Trim(s));
+  except
+    On E : EConvertError do
+      value := -1;
+  end;
+end;
+
+
+// StrToInt32() : convert from string to 32 bits integer
+function StrToInt32(const s : String255) : SInt32;
+var n : SInt32;
+begin
+  StrToInt32(s, n);
+  Result := n;
+end;
+
 
 
 // testBasicString() : testing various functions of the BasicString unit
-
 procedure testBasicString();
 var  s, a, b : string255;
      c : char;
@@ -939,12 +1036,20 @@ begin
 end;
 
 
+procedure foo(s:string255; var n : sint32);
+begin
+  n := 5;
+end;
 
 
+function foo(s:string255) : SInt32;
+begin
+   result := 6;
+end;
 
 
 var s : string255;
-    c : char;
+    n : Sint32;
 begin
 
     s := 'toto^0^1^2';
@@ -952,6 +1057,18 @@ begin
     s := ReplaceStringAll(s, '^0^0', 'blah');
     s := ParamStr(s, 'Nicolet', 'Stéphane', '', 'Claude');
     writeln(s);
+    
+    foo(s, n);
+    writeln(n);
+    
+    n := foo(s);
+    writeln(n);
+    
+    foo(s, n);
+    writeln(n);
+    
+    n := foo(s);
+    writeln(n);
 
     //testBasicString;
 end.

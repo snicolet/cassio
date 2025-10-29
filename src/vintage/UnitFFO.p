@@ -288,7 +288,7 @@ begin
 
 
           nomFFO    := ReplaceStringOnce(nomFFO, ',' , '');
-          numeroFFO := ChaineEnLongint(chaineNumero);
+          numeroFFO := StrToInt32(chaineNumero);
 
 
           if afficherLesDoublons then

@@ -16,7 +16,7 @@ procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, 
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
-	function RightOfString (const s : String255; len : SInt16) : String255;     external;
+	function RightStr (const s : String255; len : SInt16) : String255;     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;     external;
 	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;

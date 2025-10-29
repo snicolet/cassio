@@ -17,7 +17,7 @@ function GetNextCharOfFichierAbstrait(var theFile : FichierAbstrait; var c : cha
 function RevientEnArriereDansFichierAbstrait(var theFile : FichierAbstrait; nbOctets : SInt32) : OSErr;     external;
 function StringEnCoup(const s : String255) : SInt16;     external;
 function StringSGFEnCoup(const s : String255; var square_x,square_y : SInt16) : boolean;     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
   function StringSimpleEnReel(alpha : String255) : double;     external;
 function MakeLongintProperty(whichType : SInt16; whichLong : SInt32) : Property;     external;
 function MakeValeurOthelloProperty(whichType : SInt16; whichColor,whichSign : SInt16; whichIntegerValue,centiemes : SInt16) : Property;     external;

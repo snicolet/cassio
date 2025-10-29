@@ -17,7 +17,7 @@ function EstUneCaseBordSud(a : SInt32) : boolean;     external;
 function EstUneCaseBordOuest(a : SInt32) : boolean;     external;
 function EstUneCaseBordEst(a : SInt32) : boolean;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 	function MyTrunc(x : double) : SInt32;     external;
 function CoinPlusProcheVide(a : SInt32; var jeu : plateauOthello) : boolean;     external;

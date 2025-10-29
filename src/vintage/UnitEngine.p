@@ -859,7 +859,7 @@ var left, right, cut : String255;
 begin
   SplitAt(mu, ',', left, right);
 
-  muMax := ChaineEnLongint(right);
+  muMax := StrToInt32(right);
 
   cut := '';
 
@@ -882,7 +882,7 @@ begin
       cut := '100';
     end;
 
-  MuStringEnPrecisionEngine := ChaineEnLongint(cut);
+  MuStringEnPrecisionEngine := StrToInt32(cut);
 
 end;
 
@@ -1107,13 +1107,13 @@ begin
       if (c1 <> 'depth')
         then ParseError('impossible de parser la profondeur dans un resultat de l''engine');
 
-      aux.depth := ChaineEnLongint(c2);
+      aux.depth := StrToInt32(c2);
 
       // la precision ?
 
       Parser(s4,c1,reste);
 
-      aux.precision := ChaineEnLongint(c1);
+      aux.precision := StrToInt32(c1);
 
       // la couleur pour laquelle les resultats sont donnes ?
 
@@ -1144,15 +1144,15 @@ begin
         then aux.minorantOfValue := Trunc(100.0 * StringSimpleEnReel(c1))
         else
           if (aux.typeResult = ReflMilieu)
-            then aux.minorantOfValue := 100 * ChaineEnLongint(c1)
-            else aux.minorantOfValue := ChaineEnLongint(c1);
+            then aux.minorantOfValue := 100 * StrToInt32(c1)
+            else aux.minorantOfValue := StrToInt32(c1);
 
       if (Pos('.',c5) > 0)
         then aux.majorantOfValue := Trunc(100.0 * StringSimpleEnReel(c5))
         else
           if (aux.typeResult = ReflMilieu)
-            then aux.majorantOfValue := 100 * ChaineEnLongint(c5)
-            else aux.majorantOfValue := ChaineEnLongint(c5);
+            then aux.majorantOfValue := 100 * StrToInt32(c5)
+            else aux.majorantOfValue := StrToInt32(c5);
 
 
       if (c2 = '<') then inc(aux.minorantOfValue);
@@ -1203,7 +1203,7 @@ begin
         then
           begin
             Parser2(s7,c1,c2,reste);
-            c3 := LeftOfString(c2, LENGTH_OF_STRING(c2) - 3);
+            c3 := LeftStr(c2, LENGTH_OF_STRING(c2) - 3);
 
             if (c1 <> 'node')
               then ParseError('impossible de parser le nombre de noeuds dans un resultat de l''engine');
@@ -1289,7 +1289,7 @@ begin
         then
           begin
             Parser2(s7,c1,c2,reste);
-            c3 := LeftOfString(c2, LENGTH_OF_STRING(c2) - 3);
+            c3 := LeftStr(c2, LENGTH_OF_STRING(c2) - 3);
 
             if (c1 <> 'node')
               then ParseError('impossible de parser le nombre de noeuds dans un resultat de l''engine');
@@ -1501,7 +1501,7 @@ begin
   (* understand version information sent by the engines *)
   if ((s[1] = '[') and ((Pos('version: ',s) >= 1) or (Pos('version : ',s) >= 1))) then
     begin
-      canal := ChaineEnLongint(CharToString(s[3]));
+      canal := StrToInt32(CharToString(s[3]));
       moteur := NumeroDuMoteurParlantDansCeCanal(canal);
       if moteur > 0
         then SetEngineVersion(moteur,s)

@@ -442,7 +442,7 @@ begin
   HappyEndName := 'Happy End';
 
   a := Pos(HappyEndName,path);
-  if (a > 0) then path := RightOfString(path, LENGTH_OF_STRING(path) - a - LENGTH_OF_STRING(HappyEndName));
+  if (a > 0) then path := RightStr(path, LENGTH_OF_STRING(path) - a - LENGTH_OF_STRING(HappyEndName));
 
   path := ReplaceStringOnce(path, '.jpg'       ,' '  );
   path := ReplaceStringOnce(path, 'Home made'       ,' '  );

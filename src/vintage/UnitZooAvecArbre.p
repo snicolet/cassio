@@ -832,8 +832,8 @@ begin
             begin
 
               // on incremente les secondes du timestamp UNIX
-              s := RightOfString(timeStamp,2);
-              aux := ChaineEnLongint(s) + 1;
+              s := RightStr(timeStamp,2);
+              aux := StrToInt32(s) + 1;
               if aux < 10
                 then s := '0'+IntToStr(aux)
                 else s := IntToStr(aux);

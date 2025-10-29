@@ -11,7 +11,7 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
   function MyStr255ToString( const s : Str255 ) : String255;     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 procedure SetPortByDialog(dialog : DialogPtr);     external;
 function QDGetPortBound : rect;     external;
 	function StringWidthPourGNUPascal(const s : String255): SInt16;     external;

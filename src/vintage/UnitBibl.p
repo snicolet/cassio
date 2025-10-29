@@ -758,7 +758,7 @@ begin
   	                         Delete(uneligne,1,3);
   	                         k := Pos(')',uneligne);
   	                         pourcentStr := TPCopy(uneligne,1,k-1);
-  	                         ChaineToLongint(pourcentStr,pourcentage);
+  	                         StrToInt32(pourcentStr,pourcentage);
   	                         Delete(uneligne,1,k);
 
   	                         if (whichSquare >= 11) and (whichSquare <= 88) and (pourcentage >= 0) then

@@ -418,7 +418,7 @@ begin
       begin
         Parser6(vals[i],s[1],s[2],s[3],s[4],s[5],s[6],s[7]);
         for j := 1 to 7 do
-          attraction[i,j] := ChaineEnLongint(s[j]);
+          attraction[i,j] := StrToInt32(s[j]);
       end;
 
 

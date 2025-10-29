@@ -14,7 +14,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	procedure AttendFrappeClavier;     external;
   function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 	function UpCase (ch : char) : char;     external;
   procedure Assert(b : boolean);     external;

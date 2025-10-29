@@ -11,8 +11,8 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-	function RightOfString (const s : String255; len : SInt16) : String255;     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function RightStr (const s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;

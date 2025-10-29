@@ -215,7 +215,7 @@ begin
 						            begin
 						              SetParsingCaracterSet([' ']);
 						              Parser2(ligne,s1,s2,reste);
-						              ChaineToLongint(s2,numeroPasse);
+						              StrToInt32(s2,numeroPasse);
 
 						              for k := 0 to tailleTablePeutRemplacer do
 		                        peutRemplacer^[k] := true;

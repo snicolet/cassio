@@ -451,7 +451,7 @@ begin
         if (aux <> '') then
           begin
 
-            n := ChaineEnLongint(aux);
+            n := StrToInt32(aux);
 
             // la premiere colonne est le score heuristique d'Edax
             if (nombreDeNombresLus = 0) then
@@ -2364,7 +2364,7 @@ begin
               positionDeLaListe := PositionEtTraitAfterMoveNumberAlpha(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor,erreur);
 
 
-              partieDansLaListe := LeftOfString(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2);
+              partieDansLaListe := LeftStr(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2);
               partieCourante    := PartiePourPressePapier(true,false,nbreCoup);
 
               if not(EstLaPositionCourante(positionDeLaListe)) and
@@ -2375,7 +2375,7 @@ begin
                   SetCassioMustCheckDangerousEvents(false,@oldCheckDangerousEvents);
 
                   // Aller jusqu'au coup 36
-                  PlaquerPartieLegale(LeftOfString(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2),kNePasRejouerLesCoupsEnDirect);
+                  PlaquerPartieLegale(LeftStr(partieEnAlpha,kNumeroCoupCalculScoreTheoriqueDansWThor*2),kNePasRejouerLesCoupsEnDirect);
 
                    if not(EstLaPositionCourante(positionDeLaListe)) then
                      begin
@@ -2545,7 +2545,7 @@ begin
 
           // echelle verticale sur le nuage, au centre
           RGBForeColor(gPurGris);
-          s := LeftOfString(s,3);
+          s := LeftStr(s,3);
           Moveto(x_centre + 2,b + 4 );
           MyDrawString(s);
           RGBForeColor(gPurNoir);

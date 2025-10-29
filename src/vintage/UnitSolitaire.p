@@ -2253,7 +2253,7 @@ begin
   s := '';
   for i := 1 to 5 do
     if PositionEtCommentaire[i] <> ' ' then s := s + PositionEtCommentaire[i];
-  ChaineToLongint(s,aux);
+  StrToInt32(s,aux);
   dernierePartieExtraiteThor := aux;
   s := TPCopy(PositionEtCommentaire,6,16);
   DecompilerPosition(s,platSol);
@@ -2640,7 +2640,7 @@ begin
     begin
       couleur := pionNoir;
       s := Concat(uneligne[aux+3],uneligne[aux+4]);
-      ChaineToLongint(s,numeroDeCoup);
+      StrToInt32(s,numeroDeCoup);
       if uneligne[aux+6] <> '0'
        then commentaire := ReadStringFromRessource(,TextesSolitairesID,1)
        else commentaire := ReadStringFromRessource(,TextesSolitairesID,3);
@@ -2654,14 +2654,14 @@ begin
 	         begin
 	           couleur := pionBlanc;
 	           s := Concat(uneligne[aux+3],uneligne[aux+4]);
-	           ChaineToLongint(s,numeroDeCoup);
+	           StrToInt32(s,numeroDeCoup);
 	           if numeroDeCoup < 10 then
 	             begin
 	               s := uneligne;
 	               Delete(s,1,aux+1);
 	               aux := Pos(' B.',s);
 	               if aux > 0 then s := Concat(s[aux+3],s[aux+4]);
-	               ChaineToLongint(s,numeroDeCoup);
+	               StrToInt32(s,numeroDeCoup);
 	             end;
 	           if uneligne[aux+6] <> '0'
 	             then commentaire := ReadStringFromRessource(,TextesSolitairesID,2)
@@ -2681,7 +2681,7 @@ begin
       if (c >= '0') and (c <= '9') then s := s + c;
     end;
   nroPartie := 0;
-  ChaineToLongint(s,nroPartie);
+  StrToInt32(s,nroPartie);
   NroSolitaireAuHazard := nroPartie;
 end;
 
@@ -3492,8 +3492,8 @@ begin
               EnleveEspacesDeDroiteSurPlace(blanc);
 
               // enlever les points a la fin des noms
-              While EndsWith(noir,'.') do LeftP(noir,LENGTH_OF_STRING(noir) - 1);
-              While EndsWith(blanc,'.') do LeftP(blanc,LENGTH_OF_STRING(blanc) - 1);
+              While EndsWith(noir,'.') do KeepPrefix(noir,LENGTH_OF_STRING(noir) - 1);
+              While EndsWith(blanc,'.') do KeepPrefix(blanc,LENGTH_OF_STRING(blanc) - 1);
 
               EnleveEspacesDeDroiteSurPlace(noir);
               EnleveEspacesDeDroiteSurPlace(blanc);

@@ -13,7 +13,7 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 function GetWindowPortRect(window : WindowPtr) : rect;     external;
 function GetScreenBounds : rect;     external;
@@ -41,7 +41,7 @@ procedure SetCadenceAutreQueAnalyse(cadenceAutreQueAnalyse : SInt32; avecJeuInst
 function GetJeuInstantaneAutreQueAnalyse : boolean;     external;
 procedure SetNombreDeProcesseursActifs(nombre : SInt32);     external;
   procedure Parser2(s : String255; var s1,s2,reste : String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
   procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 procedure SetNiemeJoueurTableSaisiePartie(N,nroJoueur : SInt32);     external;
 procedure SetNiemeTournoiTableSaisiePartie(N,nroTournoi : SInt32);     external;

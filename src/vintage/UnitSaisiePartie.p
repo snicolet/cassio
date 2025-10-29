@@ -1007,7 +1007,7 @@ begin
 	            GetItemTextInDialog(dialogueSaisie,AnneeEditableText,s1);
 	            s := GarderSeulementLesChiffres(s1);
               SetItemTextInDialog(dialogueSaisie,AnneeEditableText,s);
-              gInfosSaisiePartie.derniereAnnee := ChaineEnLongint(s);
+              gInfosSaisiePartie.derniereAnnee := StrToInt32(s);
               DessineDialogueSaisie;
 	            ChangeFocusDialogueSaisie(AnneeEditableText);
 	          end;
@@ -1054,7 +1054,7 @@ begin
 
 												        nomBase := EnleveEspacesDeDroite(GetNameOfSFReply(reply)) + ' XXXX.wtb';
 												        pathBase := GetFullPathOfFSSpec(mySpec);
-												        pathBase := LeftOfString(pathBase,LastPos(':',pathBase));
+												        pathBase := LeftStr(pathBase,LastPos(':',pathBase));
 
 												        if debuggage_saisiePartie then
 												          begin

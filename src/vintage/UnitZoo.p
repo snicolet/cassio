@@ -1888,9 +1888,9 @@ begin
                then
                   begin
 
-                    if (LENGTH_OF_STRING(outLineFinale) >= 4) and (CoupEnStringEnMajuscules(outBestMoveFinale) = LeftOfString(outLineFinale,2))
+                    if (LENGTH_OF_STRING(outLineFinale) >= 4) and (CoupEnStringEnMajuscules(outBestMoveFinale) = LeftStr(outLineFinale,2))
                       then
-                        //AppendToLongString(requete, '&moves=' + LeftOfString(outLineFinale,20))  // on n'envoie que 10 coups de la suite :-(
+                        //AppendToLongString(requete, '&moves=' + LeftStr(outLineFinale,20))  // on n'envoie que 10 coups de la suite :-(
                         //AppendToLongString(requete, '&moves=' + outLineFinale + 'Lessanglotslongsdesviolonsdelautomneblessentmoncoeurdunelangueurmonotone')
                         AppendToLongString(requete, '&moves=' + outLineFinale )
                       else
@@ -2101,7 +2101,7 @@ var selectivite,dist,distMin, i : SInt32;
 begin
 
   cut    := ReplaceStringOnce(cut, '%' , '');
-  selectivite := ChaineEnLongint(cut);
+  selectivite := StrToInt32(cut);
 
   if (selectivite <= 0) or (selectivite >= 100) then selectivite := 100;
 
@@ -2131,7 +2131,7 @@ var left, right, cut : String255;
 begin
   SplitAt(mu, ',', left, right);
 
-  muMax := ChaineEnLongint(right);
+  muMax := StrToInt32(right);
 
   cut := '';
 
@@ -2353,14 +2353,14 @@ begin
           // la fenetre alpha-beta
 
           SplitAt(window, ',' , left, right);
-          inAlphaFinale := ChaineEnLongint(left);
-          inBetaFinale := ChaineEnLongint(right);
+          inAlphaFinale := StrToInt32(left);
+          inBetaFinale := StrToInt32(right);
 
           // la fenetre des mu
 
           SplitAt(mu, ',' , left, right);
-          inMuMinimumFinale := ChaineEnLongint(left);
-          inMuMaximumFinale := ChaineEnLongint(right);
+          inMuMinimumFinale := StrToInt32(left);
+          inMuMaximumFinale := StrToInt32(right);
 
           // la precision
 
@@ -2368,11 +2368,11 @@ begin
 
           // la priorite
 
-          inPrioriteFinale := ChaineEnLongint(priority);
+          inPrioriteFinale := StrToInt32(priority);
 
           // la profondeur
 
-          inProfondeurFinale := Min(nbCasesVides, ChaineEnLongint(depth));
+          inProfondeurFinale := Min(nbCasesVides, StrToInt32(depth));
 
           // le hash
 
@@ -2541,15 +2541,15 @@ begin
           // la fenetre alpha-beta
 
           SplitAt(window, ',' , left, right);
-          inAlphaFinale := ChaineEnLongint(left);
-          inBetaFinale := ChaineEnLongint(right);
+          inAlphaFinale := StrToInt32(left);
+          inBetaFinale := StrToInt32(right);
 
 
           // la fenetre des mu
 
           SplitAt(mu, ',' , left, right);
-          inMuMinimumFinale := ChaineEnLongint(left);
-          inMuMaximumFinale := ChaineEnLongint(right);
+          inMuMinimumFinale := StrToInt32(left);
+          inMuMaximumFinale := StrToInt32(right);
 
           // la precision
 
@@ -2558,7 +2558,7 @@ begin
 
           // la profondeur
 
-          inProfondeurFinale := Min(nbCasesVides, ChaineEnLongint(depth));
+          inProfondeurFinale := Min(nbCasesVides, StrToInt32(depth));
 
 
           // le hash
@@ -2568,7 +2568,7 @@ begin
 
           // le score
 
-          outResult.outScoreFinale := ChaineEnLongint(scoreString);
+          outResult.outScoreFinale := StrToInt32(scoreString);
 
 
           // le temps pris

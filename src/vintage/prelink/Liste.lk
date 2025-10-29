@@ -97,7 +97,7 @@ function GetNomTournoiAvecAnneeParNroRefPartie(nroReference : SInt32; longueurTo
 function EstUnePartieAvecJoueurNoirJaponais(nroReferencePartie : SInt32) : boolean;     external;
 function GetNomJaponaisDuJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;     external;
 function GetNomJoueurNoirParNroRefPartie(nroReference : SInt32) : String255;     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 function EstUnePartieAvecJoueurBlancJaponais(nroReferencePartie : SInt32) : boolean;     external;
 function GetNomJaponaisDuJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;     external;
 function GetNomJoueurBlancParNroRefPartie(nroReference : SInt32) : String255;     external;

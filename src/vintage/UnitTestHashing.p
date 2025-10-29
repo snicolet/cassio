@@ -761,7 +761,7 @@ begin
   for t := 1 to longueurMusique do
     begin
       Parser(musiqueString, s, musiqueString);
-      musique[t] := ChaineEnLongint(s);
+      musique[t] := StrToInt32(s);
       WriteNumDansRapport(' ',musique[t]);
     end;
   WritelnDansRapport('');
@@ -778,7 +778,7 @@ begin
   for t := 1 to 38 do
     begin
       Parser(cryptogrammeString, s, cryptogrammeString);
-      cryptogramme[t] := ord('A') + (ChaineEnLongint(s) mod 26);
+      cryptogramme[t] := ord('A') + (StrToInt32(s) mod 26);
       WriteDansRapport(chr(cryptogramme[t]));
     end;
   WritelnDansRapport('');

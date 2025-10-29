@@ -205,7 +205,7 @@ begin
       err := GetNextCharFichier(false,c);
     end;
 
-  num := ChaineEnLongint(s);
+  num := StrToInt32(s);
   GetNextLongintDansFichier := err;
 end;
 
@@ -1458,7 +1458,7 @@ begin
                   if (LENGTH_OF_STRING(s1) = 65) then
                     begin
                       infos.tailleOthellier  := 8;
-                      infos.positionEtPartie := LeftOfString(s1,64) + ' ' + RightOfString(s1,1) + ' ' +s2 + ' ' + reste;
+                      infos.positionEtPartie := LeftStr(s1,64) + ' ' + RightStr(s1,1) + ' ' +s2 + ' ' + reste;
                       infos.format           := kTypeFichierCassio;
                       exit;
                     end;

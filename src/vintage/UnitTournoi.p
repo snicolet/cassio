@@ -1274,7 +1274,7 @@ end;
               then WritelnDansRapport(partiePrecedente)
               else
                 begin
-                  WriteDansRapport(LeftOfString(partiePrecedente,coupDivergent - 1) + ' ');
+                  WriteDansRapport(LeftStr(partiePrecedente,coupDivergent - 1) + ' ');
 
                   if (fanny[1] <> fanny[2])
                     then
@@ -1300,7 +1300,7 @@ end;
 
                   ChangeFontColorDansRapport(VertSapinCmd);
                   ChangeFontFaceDansRapport(normal);
-                  WritelnDansRapport(RightOfString(partiePrecedente,LENGTH_OF_STRING(partiePrecedente) - coupDivergent - 1));
+                  WritelnDansRapport(RightStr(partiePrecedente,LENGTH_OF_STRING(partiePrecedente) - coupDivergent - 1));
 
                   TextNormalDansRapport;
                 end;
@@ -1325,7 +1325,7 @@ end;
               then WritelnDansRapport(partieActuelle)
               else
                 begin
-                  WriteDansRapport(LeftOfString(partieActuelle,coupDivergent - 1) + ' ');
+                  WriteDansRapport(LeftStr(partieActuelle,coupDivergent - 1) + ' ');
 
                   if (fanny[1] <> fanny[2])
                     then
@@ -1351,7 +1351,7 @@ end;
 
                   ChangeFontColorDansRapport(VertSapinCmd);
                   ChangeFontFaceDansRapport(normal);
-                  WritelnDansRapport(RightOfString(partieActuelle,LENGTH_OF_STRING(partieActuelle) - coupDivergent - 1));
+                  WritelnDansRapport(RightStr(partieActuelle,LENGTH_OF_STRING(partieActuelle) - coupDivergent - 1));
 
                   TextNormalDansRapport;
                 end;
@@ -1913,23 +1913,23 @@ begin
             end;
 
           if NoCaseEquals('NOMBRE-DE-TOURS-COMPLETS',s1) then
-            nbToursDuTournoi := ChaineEnLongint(s3);
+            nbToursDuTournoi := StrToInt32(s3);
 
           if NoCaseEquals('TEMPS-PAR-JOUEUR',s1) then
-            settings.tempsParPartie := 60 * ChaineEnLongint(s3);  // le temps est donné en minutes dans le fichier
+            settings.tempsParPartie := 60 * StrToInt32(s3);  // le temps est donné en minutes dans le fichier
 
           if NoCaseEquals('OUVERTURE',s1) then
             begin
               if NoCaseEquals('aleatoire',s3) then
                 begin
                   ouverture.ouverturesAleatoires := true;
-                  ouverture.longueurOuvertureAleatoire := ChaineEnLongint(s4);
+                  ouverture.longueurOuvertureAleatoire := StrToInt32(s4);
                 end;
             end;
 
           if NoCaseEquals('PROFONDEUR-FIXE',s1) then
             begin
-              num := ChaineEnLongint(s3);
+              num := StrToInt32(s3);
               if not(IsDigit(s3[1]))  or NoCaseEquals('non',s3) or (num <= 0) or (num > 64)
                 then
                   begin
@@ -2527,10 +2527,10 @@ begin
         	SetParsingCaracterSet(['(',',',')']);
         	Parser4(s3,i1,i2,i3,i4,reste);
         	SetParsingCaracterSet(oldParsingSet);
-        	ChaineToLongint(i1,dev_frontiere);
-        	ChaineToLongint(i2,dev_minimisation);
-        	ChaineToLongint(i3,dev_mobilite);
-        	ChaineToLongint(i4,dev_penalitetrait);
+        	StrToInt32(i1,dev_frontiere);
+        	StrToInt32(i2,dev_minimisation);
+        	StrToInt32(i3,dev_mobilite);
+        	StrToInt32(i4,dev_penalitetrait);
         	index := IndexTriTableauDeviation(dev_frontiere,dev_minimisation,dev_mobilite,dev_penalitetrait);
 
           (* calcul du nombre de parties gagnees sur les kNombrePartiesParMatchDansDemo du match *)
@@ -2549,7 +2549,7 @@ begin
           if (s5 = '6')   then gains := 12;
 
           (* calcul du nombre de pions recoltes dans le match *)
-          ChaineToLongint(s6,pions);
+          StrToInt32(s6,pions);
 
           AjouterResultatMatchPourCetteDeviation(index,kNombrePartiesParMatchDansDemo,pions,gains);
 

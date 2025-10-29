@@ -32,7 +32,7 @@ function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;
 function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;     external;
   procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
   procedure Parser2(s : String255; var s1,s2,reste : String255);     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
   procedure Parser3(s : String255; var s1,s2,s3,reste : String255);     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
   function EnleveEspacesDeDroite(const s : String255) : String255;     external;

@@ -277,10 +277,10 @@ begin
                 if (posEgal > 0)
                   then
                     begin
-                      s1 := LeftOfString(ligne,posEgal-1);
+                      s1 := LeftStr(ligne,posEgal-1);
                       EnleveEspacesDeDroiteSurPlace(s1);
                       NormaliserPseudo(s1);
-                      Parser(RightOfString(ligne, 1 + LENGTH_OF_STRING(ligne) - posEgal),s2,reste);
+                      Parser(RightStr(ligne, 1 + LENGTH_OF_STRING(ligne) - posEgal),s2,reste);
                     end
                   else
                     begin
@@ -478,7 +478,7 @@ begin
 
           if (LENGTH_OF_STRING(pseudo) > LongueurPlusLongNomDeJoueurDansBase) and
              (LongueurPlusLongNomDeJoueurDansBase > 10)
-            then pseudo := LeftOfString(pseudo, LongueurPlusLongNomDeJoueurDansBase);
+            then pseudo := LeftStr(pseudo, LongueurPlusLongNomDeJoueurDansBase);
 
           //WritelnDansRapport('après troncature, pseudo = ' + pseudo);
 
@@ -491,7 +491,7 @@ begin
 
           if (numeroDansThor <= kNroJoueurInconnu) or (confiance < 100) then
             begin
-              if TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(LeftOfString(nomDansThor,LongueurPlusLongNomDeJoueurDansBase), nouveauNumero, nouvelleConfiance)
+              if TrouveNumeroDeCeNomDeJoueurDansLaBaseThor(LeftStr(nomDansThor,LongueurPlusLongNomDeJoueurDansBase), nouveauNumero, nouvelleConfiance)
                 then
                   begin
                     if (nouvelleConfiance > confiance) and (nouveauNumero > kNroJoueurInconnu) then
@@ -850,7 +850,7 @@ var nbJoueursTrouves : SInt64;
 
           if (LENGTH_OF_STRING(permutation) > LongueurPlusLongNomDeJoueurDansBase) then
             begin
-              permutation := LeftOfString(permutation,LongueurPlusLongNomDeJoueurDansBase);
+              permutation := LeftStr(permutation,LongueurPlusLongNomDeJoueurDansBase);
               if PeutTrouverNomDeJoueurDansWThor(permutation,numero) then
                 begin
                   nom := permutation;
@@ -1018,7 +1018,7 @@ var nbJoueursTrouves : SInt64;
       	     des scores, on les utilise comme separateurs de chunks }
       	    if (chaines[i] = GarderSeulementLesChiffres(chaines[i]))
       	       or not(ContientUneLettre(chaines[i]))
-      	       or (ChaineEnLongint(GarderSeulementLesChiffres(separateurs)) <> 0)
+      	       or (StrToInt32(GarderSeulementLesChiffres(separateurs)) <> 0)
       	      then inc(chunkNumber);
 
             {la chaine 'vs' est probablement un séparateur de chunk}
@@ -1501,7 +1501,7 @@ begin
   nom := StripDiacritics(nom);
   EnleveEspacesDeDroiteSurPlace(nom);
   EnleveEspacesDeGaucheSurPlace(nom);
-  nom := LeftOfString(nom,TailleJoueurRecNouveauFormat-1);
+  nom := LeftStr(nom,TailleJoueurRecNouveauFormat-1);
   EnleveEspacesDeDroiteSurPlace(nom);
 
   for k := 1 to LENGTH_OF_STRING(nom) do
@@ -1518,7 +1518,7 @@ begin
   nom := StripDiacritics(nom);
   EnleveEspacesDeDroiteSurPlace(nom);
   EnleveEspacesDeGaucheSurPlace(nom);
-  nom := LeftOfString(nom,TailleTournoiRecNouveauFormat-1);
+  nom := LeftStr(nom,TailleTournoiRecNouveauFormat-1);
   EnleveEspacesDeDroiteSurPlace(nom);
 
   for k := 1 to LENGTH_OF_STRING(nom) do
@@ -1882,7 +1882,7 @@ var formeAlternative : String255;
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
-               formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
+               formeAlternative := LeftStr(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouveNumeroDuJoueur(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
@@ -2049,7 +2049,7 @@ var formeAlternative : String255;
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
-               formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
+               formeAlternative := LeftStr(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouvePrefixeDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin
@@ -2135,7 +2135,7 @@ begin
              Min(LongueurPlusLongNomDeJoueurDansBase, LENGTH_OF_STRING(nomChercheEnMajusculesArrivee) - 1) do
     begin
 
-      nomChercheEnMajuscules := LeftOfString(nomChercheEnMajusculesArrivee, len);
+      nomChercheEnMajuscules := LeftStr(nomChercheEnMajusculesArrivee, len);
 
       // WritelnDansRapport('Il reste : ' + nomChercheEnMajuscules);
 
@@ -2231,7 +2231,7 @@ var formeAlternative : String255;
              begin
                rempMajuscules := FabriqueNomEnMajusculesAvecEspaces(remplacement);
                formeAlternative := ReplaceStringOnce(nomJoueurEnMajuscules, patMajuscules,rempMajuscules);
-               formeAlternative := LeftOfString(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
+               formeAlternative := LeftStr(formeAlternative,LongueurPlusLongNomDeJoueurDansBase);
                if TrouveSousChaineDansLaBaseWthor(formeAlternative,newNumero,newConfiance,kChercherSeulementDansBaseOfficielle) and
                  (newConfiance > confiance) then
                  begin

@@ -542,7 +542,7 @@ begin
   if LENGTH_OF_STRING(s1) = 65 then
     begin
       s2 := s1[65];
-      s1 := LeftOfString(s1,64);
+      s1 := LeftStr(s1,64);
     end;
 
   {WritelnDansRapport('s = '+s);
@@ -628,7 +628,7 @@ var i,t, ligne, colonne : SInt32;
   var n,j : SInt32;
   begin
 
-    n := ChaineEnLongint(accu);
+    n := StrToInt32(accu);
     for j := 0 to (n - 1) do
       Affecter(colonne + j , ligne , pionVide);
 

@@ -329,7 +329,7 @@ begin
         if LENGTH_OF_STRING(s) = 4
           then
             begin
-              ChaineToLongint(s,result);
+              StrToInt32(s,result);
               if result < kDebutDuMondeOthellistique then result := -1;
               if result > kFinDuMondeOthellistique then result := -1;
             end
@@ -337,7 +337,7 @@ begin
         if LENGTH_OF_STRING(s) = 2
           then
             begin
-              ChaineToLongint(s,result);
+              StrToInt32(s,result);
               if (result <> 19) and (result <> 20) then
                 begin
                   if (0 <= result) and (result < kChangementDeSiecleOthellistique) then result := 2000+result;
@@ -346,7 +346,7 @@ begin
             end
           else
             begin
-			        ChaineToLongint(s,result);
+			        StrToInt32(s,result);
 			      end;
   end;
 
@@ -1894,7 +1894,7 @@ begin
            (s[i-2] = ' ')  then
              begin
                s1 := TPCopy(s,i-1,2);
-               if ChaineEnLongint(s1) > kChangementDeSiecleOthellistique
+               if StrToInt32(s1) > kChangementDeSiecleOthellistique
                  then s1 := '19'+s1
                  else s1 := '20'+s1;
                s := TPCopy(s,1,i-3);
@@ -2162,7 +2162,7 @@ begin  {ChargerLaBase}
   if s <> '' then
     begin
       RemplitTableCompatibleScoreAvecCeBooleen(ScoreCompatible,false);
-      ChaineToLongint(s,ScoreNoirRecherche);
+      StrToInt32(s,ScoreNoirRecherche);
       ScoreCompatible^[ScoreNoirRecherche] := true;
     end;
   GetItemTextInDialog(dp,AnneeText,s);
@@ -2736,7 +2736,7 @@ begin
             GetItemTextInDialog(dp,itemHit,s1);
             s := GarderSeulementLesChiffres(s1);
             SetItemTextInDialog(dp,itemHit,s);
-            ChaineToLongint(s,aux);
+            StrToInt32(s,aux);
             if (LENGTH_OF_STRING(s) > 2) or (aux > 64) then SysBeep(0);
           end;
         AnneeText:

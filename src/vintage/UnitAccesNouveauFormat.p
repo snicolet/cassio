@@ -674,8 +674,8 @@ begin
 
   if (nomBase[LENGTH_OF_STRING(nomBase)] = '.') then
     begin
-      LeftP(nomBaseEnMajusculesAvecEspaces, LENGTH_OF_STRING(nomBaseEnMajusculesAvecEspaces) - 2);
-      LeftP(metaphoneBaseAvecEspaces,       LENGTH_OF_STRING(metaphoneBaseAvecEspaces) - 1);
+      KeepPrefix(nomBaseEnMajusculesAvecEspaces, LENGTH_OF_STRING(nomBaseEnMajusculesAvecEspaces) - 2);
+      KeepPrefix(metaphoneBaseAvecEspaces,       LENGTH_OF_STRING(metaphoneBaseAvecEspaces) - 1);
     end;
 
   if CassioIsUsingMetaphone
@@ -1540,7 +1540,7 @@ begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
   s2 := StripDiacritics(s2);
-  GetNomJoueurCommeDansPapp := UpperCase(s1,false) + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
+  GetNomJoueurCommeDansPapp := UpperCase(s1,false) + RightStr(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 
 
@@ -1550,7 +1550,7 @@ begin
   s1 := GetNomDeFamilleSansDifferencierLesPrenoms(nroJoueur);
   s2 := GetNomJoueur(nroJoueur);
   s2 := StripDiacritics(s2);
-  GetNomJoueurCommeDansFichierFFODesJoueurs := UpperCase(s1,false) + ',' + RightOfString(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
+  GetNomJoueurCommeDansFichierFFODesJoueurs := UpperCase(s1,false) + ',' + RightStr(s2,LENGTH_OF_STRING(s2)-LENGTH_OF_STRING(s1));
 end;
 
 

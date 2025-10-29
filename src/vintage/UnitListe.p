@@ -2281,7 +2281,7 @@ begin
         if s[LENGTH_OF_STRING(s)] = '.'
           then
             begin
-              MyDrawString(LeftOfString(s,LENGTH_OF_STRING(s)-1));
+              MyDrawString(LeftStr(s,LENGTH_OF_STRING(s)-1));
               if PartieDansListeDoitEtreSauvegardee(nroPartie)
                 then TextFace(italic)
                 else TextFace(normal);
@@ -2344,7 +2344,7 @@ begin
         if s[LENGTH_OF_STRING(s)] = '.'
           then
             begin
-              MyDrawString(LeftOfString(s,LENGTH_OF_STRING(s)-1));
+              MyDrawString(LeftStr(s,LENGTH_OF_STRING(s)-1));
               if PartieDansListeDoitEtreSauvegardee(nroPartie)
                 then TextFace(italic)
                 else TextFace(normal);

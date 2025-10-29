@@ -131,7 +131,7 @@ begin
   for i := index to index + formatage - 1 do s1 := s1 + s[i];
   for i := 1 to LENGTH_OF_STRING(s1) - 1 do
     if s1[1] = '0' then s1 := TPCopy(s1,2,LENGTH_OF_STRING(s1)-1);
-  ChaineToLongint(s1,aux);
+  StrToInt32(s1,aux);
   StringFormateeEnNumFromPos := aux;
 end;
 
@@ -620,7 +620,7 @@ var s1,s2,s3,s4,reste : String255;
     nroPasse,nroStage : SInt16;
 begin
   Parser2(s,s1,s2,reste);  { '\nroPasse'  '->' }
-  nroPasse := ChaineEnLongint(s1);
+  nroPasse := StrToInt32(s1);
   if (nroPasse >= 1) and (nroPasse <= nbMaxDePassesAnalyseRetrograde) then
     begin
       nroStage := 0;
@@ -628,10 +628,10 @@ begin
         begin
           inc(nroStage);
           Parser4(reste,s1,s2,s3,s4,reste);
-          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuGenre] := ChaineEnLongint(s1);
-          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuProf]  := ChaineEnLongint(s2);
-          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuDuree] := ChaineEnLongint(s3);
-          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuNotes] := ChaineEnLongint(s4);
+          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuGenre] := StrToInt32(s1);
+          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuProf]  := StrToInt32(s2);
+          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuDuree] := StrToInt32(s3);
+          analyseRetrograde.menuItems[nroPasse,nroStage,kMenuNotes] := StrToInt32(s4);
         end;
     end;
 end;
@@ -646,7 +646,7 @@ begin
       {WritelnDansRapport('LitPrefDerniersJoueursSaisie : '+ s);}
       if s = ''
         then numero := -1
-        else numero := ChaineEnLongint(s);
+        else numero := StrToInt32(s);
       {WritelnNumDansRapport('numero = ',numero);}
       SetNiemeJoueurTableSaisiePartie( (serie - 1) * 35 + N, numero);
     end;
@@ -662,7 +662,7 @@ begin
       {WritelnDansRapport('LitPrefDerniersTournoisSaisie : '+ s);}
       if s = ''
         then numero := -1
-        else numero := ChaineEnLongint(s);
+        else numero := StrToInt32(s);
       {WritelnNumDansRapport('numero = ',numero);}
       SetNiemeTournoiTableSaisiePartie( (serie - 1) * 35 + N, numero);
     end;
@@ -1143,36 +1143,36 @@ begin
         if motClef = '%volumeRefSolitaires'                 then ChaineToInteger(chainePref,VolumeRefThorDBASolitaire) else
         if motClef = '%nbExplicationsPasses'                then ChaineToInteger(chainePref,nbExplicationsPasses) else
        {if motClef = '%gGenreDeTriListe'                    then ChaineToInteger(chainePref,gGenreDeTriListe) else}
-        if motClef = '%confirmationArretRetro'              then ChaineToLongint(chainePref,analyseRetrograde.nbMinPourConfirmationArret) else
-        if motClef = '%CoeffInfluence'                      then Coeffinfluence := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffFrontiere'                      then Coefffrontiere := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffEquivalence'                    then CoeffEquivalence := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffCentre'                         then Coeffcentre := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffGrandCentre'                    then Coeffgrandcentre := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffBetonnage'                      then Coeffbetonnage := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffMinimisation'                   then Coeffminimisation := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffPriseCoin'                      then CoeffpriseCoin := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffDefenseCoin'                    then CoeffdefenseCoin := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffValeurCoin'                     then CoeffValeurCoin := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffValeurCaseX'                    then CoeffValeurCaseX := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffPenalite'                       then CoeffPenalite := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%CoeffMobiliteUnidirectionnelle'      then CoeffMobiliteUnidirectionnelle := ChaineEnLongint(chainePref)/100.0 else
-        if motClef = '%LigneSeparationCommentaires'         then arbreDeJeu.positionLigneSeparation := ChaineEnLongint(chainePref) else
-        {if motClef = '%gPourcentageTailleDesPions'          then gPourcentageTailleDesPions := ChaineEnLongint(chainePref) else}
-        if motClef = '%gCouleurSupplementaire.red'          then SetRGBColor(gCouleurSupplementaire,ChaineEnLongint(chainePref),gCouleurSupplementaire.green,gCouleurSupplementaire.blue) else
-        if motClef = '%gCouleurSupplementaire.green'        then SetRGBColor(gCouleurSupplementaire,gCouleurSupplementaire.red,ChaineEnLongint(chainePref),gCouleurSupplementaire.blue) else
-        if motClef = '%gCouleurSupplementaire.blue'         then SetRGBColor(gCouleurSupplementaire,gCouleurSupplementaire.red,gCouleurSupplementaire.green,ChaineEnLongint(chainePref)) else
-        if motClef = '%gCouleurOthellier.menuID'            then gCouleurOthellier.menuID := ChaineEnLongint(chainePref) else
+        if motClef = '%confirmationArretRetro'              then StrToInt32(chainePref,analyseRetrograde.nbMinPourConfirmationArret) else
+        if motClef = '%CoeffInfluence'                      then Coeffinfluence := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffFrontiere'                      then Coefffrontiere := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffEquivalence'                    then CoeffEquivalence := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffCentre'                         then Coeffcentre := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffGrandCentre'                    then Coeffgrandcentre := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffBetonnage'                      then Coeffbetonnage := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffMinimisation'                   then Coeffminimisation := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffPriseCoin'                      then CoeffpriseCoin := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffDefenseCoin'                    then CoeffdefenseCoin := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffValeurCoin'                     then CoeffValeurCoin := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffValeurCaseX'                    then CoeffValeurCaseX := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffPenalite'                       then CoeffPenalite := StrToInt32(chainePref)/100.0 else
+        if motClef = '%CoeffMobiliteUnidirectionnelle'      then CoeffMobiliteUnidirectionnelle := StrToInt32(chainePref)/100.0 else
+        if motClef = '%LigneSeparationCommentaires'         then arbreDeJeu.positionLigneSeparation := StrToInt32(chainePref) else
+        {if motClef = '%gPourcentageTailleDesPions'          then gPourcentageTailleDesPions := StrToInt32(chainePref) else}
+        if motClef = '%gCouleurSupplementaire.red'          then SetRGBColor(gCouleurSupplementaire,StrToInt32(chainePref),gCouleurSupplementaire.green,gCouleurSupplementaire.blue) else
+        if motClef = '%gCouleurSupplementaire.green'        then SetRGBColor(gCouleurSupplementaire,gCouleurSupplementaire.red,StrToInt32(chainePref),gCouleurSupplementaire.blue) else
+        if motClef = '%gCouleurSupplementaire.blue'         then SetRGBColor(gCouleurSupplementaire,gCouleurSupplementaire.red,gCouleurSupplementaire.green,StrToInt32(chainePref)) else
+        if motClef = '%gCouleurOthellier.menuID'            then gCouleurOthellier.menuID := StrToInt32(chainePref) else
         if motClef = '%gCouleurOthellier.nomFichierTexture' then gCouleurOthellier.nomFichierTexture := chainePref else
-        if motClef = '%gLastTexture3D.theMenu'              then gLastTexture3D.theMenu := ChaineEnLongint(chainePref) else
-        if motClef = '%gLastTexture3D.theCmd'               then gLastTexture3D.theCmd := ChaineEnLongint(chainePref) else
-        if motClef = '%gLastTexture2D.theMenu'              then gLastTexture2D.theMenu := ChaineEnLongint(chainePref) else
-        if motClef = '%gLastTexture2D.theCmd'               then gLastTexture2D.theCmd := ChaineEnLongint(chainePref) else
+        if motClef = '%gLastTexture3D.theMenu'              then gLastTexture3D.theMenu := StrToInt32(chainePref) else
+        if motClef = '%gLastTexture3D.theCmd'               then gLastTexture3D.theCmd := StrToInt32(chainePref) else
+        if motClef = '%gLastTexture2D.theMenu'              then gLastTexture2D.theMenu := StrToInt32(chainePref) else
+        if motClef = '%gLastTexture2D.theCmd'               then gLastTexture2D.theCmd := StrToInt32(chainePref) else
         if motClef = '%nbMeilleursCoupsAffiches'            then ChaineToInteger(chainePref,nbCoupsEnTete) else
         if motClef = '%PasseAnalyseRetrograde'              then DecodeChainePasseAnalyseRetrograde(chainePref) else
         if motClef = '%PremierCoupParDefaut'                then SetPremierCoupParDefaut(StringEnCoup(chainePref)) else
-        if motClef = '%nbCasesVidesMinSolitaire'            then nbCasesVidesMinSolitaire := ChaineEnLongint(chainePref) else
-        if motClef = '%nbCasesVidesMaxSolitaire'            then nbCasesVidesMaxSolitaire := ChaineEnLongint(chainePref) else
+        if motClef = '%nbCasesVidesMinSolitaire'            then nbCasesVidesMinSolitaire := StrToInt32(chainePref) else
+        if motClef = '%nbCasesVidesMaxSolitaire'            then nbCasesVidesMaxSolitaire := StrToInt32(chainePref) else
         if motClef = '%JoueursSaisie'                       then LitPrefDerniersJoueursSaisie(chainePref, 1) else
         if motClef = '%JoueursSaisie2'                      then LitPrefDerniersJoueursSaisie(chainePref, 2) else
         if motClef = '%JoueursSaisie3'                      then LitPrefDerniersJoueursSaisie(chainePref, 3) else
@@ -1181,57 +1181,57 @@ begin
         if motClef = '%TournoisSaisie2'                     then LitPrefDerniersTournoisSaisie(chainePref, 2) else
         if motClef = '%TournoisSaisie3'                     then LitPrefDerniersTournoisSaisie(chainePref, 3) else
         if motClef = '%TournoisSaisie4'                     then LitPrefDerniersTournoisSaisie(chainePref, 4) else
-        if motClef = '%AnneeSaisie'                         then gInfosSaisiePartie.derniereAnnee := ChaineEnLongint(chainePref) else
-        if motClef = '%JoueurNoirSaisie'                    then gInfosSaisiePartie.dernierJoueurNoir := ChaineEnLongint(chainePref) else
-        if motClef = '%JoueurBlancSaisie'                   then gInfosSaisiePartie.dernierJoueurBlanc := ChaineEnLongint(chainePref) else
-        if motClef = '%TournoiSaisie'                       then gInfosSaisiePartie.dernierTournoi := ChaineEnLongint(chainePref) else
-        if motClef = '%DistributionSaisie'                  then gInfosSaisiePartie.derniereDistribution := Max(1,ChaineEnLongint(chainePref)) else
-        if motClef = '%nbColonnesFenetreListe'              then nbColonnesFenetreListe := ChaineEnLongint(chainePref) else
-        if motClef = '%positionDistribution'                then positionDistribution := ChaineEnLongint(chainePref) else
-        if motClef = '%positionTournoi'                     then positionTournoi := ChaineEnLongint(chainePref) else
-        if motClef = '%positionNoir'                        then positionNoir := ChaineEnLongint(chainePref) else
-        if motClef = '%positionBlanc'                       then positionBlanc := ChaineEnLongint(chainePref) else
-        if motClef = '%positionCoup'                        then positionCoup := ChaineEnLongint(chainePref) else
-        if motClef = '%positionScoreReel'                   then positionScoreReel := ChaineEnLongint(chainePref) else
-        if motClef = '%humanWinningStreak'                  then humanWinningStreak := ChaineEnLongint(chainePref) else
-        if motClef = '%humanScoreLastLevel'                 then humanScoreLastLevel := ChaineEnLongint(chainePref) else
-        if motClef = '%themeCourantDeCassio'                then themeCourantDeCassio := ChaineEnLongint(chainePref) else
-        if motClef = '%gNbreMegaoctetsPourLaBase'           then gNbreMegaoctetsPourLaBase := ChaineEnLongint(chainePref) else
-        if motClef = '%tailleFenetrePlateauAvantPassageEn3D'then tailleFenetrePlateauAvantPassageEn3D := ChaineEnLongint(chainePref) else
-        if motClef = '%tailleCaseAvantPassageEn3D'          then tailleCaseAvantPassageEn3D := ChaineEnLongint(chainePref) else
+        if motClef = '%AnneeSaisie'                         then gInfosSaisiePartie.derniereAnnee := StrToInt32(chainePref) else
+        if motClef = '%JoueurNoirSaisie'                    then gInfosSaisiePartie.dernierJoueurNoir := StrToInt32(chainePref) else
+        if motClef = '%JoueurBlancSaisie'                   then gInfosSaisiePartie.dernierJoueurBlanc := StrToInt32(chainePref) else
+        if motClef = '%TournoiSaisie'                       then gInfosSaisiePartie.dernierTournoi := StrToInt32(chainePref) else
+        if motClef = '%DistributionSaisie'                  then gInfosSaisiePartie.derniereDistribution := Max(1,StrToInt32(chainePref)) else
+        if motClef = '%nbColonnesFenetreListe'              then nbColonnesFenetreListe := StrToInt32(chainePref) else
+        if motClef = '%positionDistribution'                then positionDistribution := StrToInt32(chainePref) else
+        if motClef = '%positionTournoi'                     then positionTournoi := StrToInt32(chainePref) else
+        if motClef = '%positionNoir'                        then positionNoir := StrToInt32(chainePref) else
+        if motClef = '%positionBlanc'                       then positionBlanc := StrToInt32(chainePref) else
+        if motClef = '%positionCoup'                        then positionCoup := StrToInt32(chainePref) else
+        if motClef = '%positionScoreReel'                   then positionScoreReel := StrToInt32(chainePref) else
+        if motClef = '%humanWinningStreak'                  then humanWinningStreak := StrToInt32(chainePref) else
+        if motClef = '%humanScoreLastLevel'                 then humanScoreLastLevel := StrToInt32(chainePref) else
+        if motClef = '%themeCourantDeCassio'                then themeCourantDeCassio := StrToInt32(chainePref) else
+        if motClef = '%gNbreMegaoctetsPourLaBase'           then gNbreMegaoctetsPourLaBase := StrToInt32(chainePref) else
+        if motClef = '%tailleFenetrePlateauAvantPassageEn3D'then tailleFenetrePlateauAvantPassageEn3D := StrToInt32(chainePref) else
+        if motClef = '%tailleCaseAvantPassageEn3D'          then tailleCaseAvantPassageEn3D := StrToInt32(chainePref) else
         if motClef = '%empilementFenetres'                  then VisibiliteInitiale.ordreOuvertureDesFenetres := chainePref else
-        {if motClef = '%ZebraBookContemptValue'              then SetZebraBookContemptWindowWidth(ChaineEnLongint(chainePref)) else}
-        if motClef = '%ZebraBookOptions'                    then SetZebraBookOptions(ChaineEnLongint(chainePref)) else
+        {if motClef = '%ZebraBookContemptValue'              then SetZebraBookContemptWindowWidth(StrToInt32(chainePref)) else}
+        if motClef = '%ZebraBookOptions'                    then SetZebraBookOptions(StrToInt32(chainePref)) else
         if motClef = '%CassioDoitRentrerDansOthelloZoo'     then SetCassioDoitRentrerEnContactAvecLeZoo('YES') else // SetCassioDoitRentrerEnContactAvecLeZoo(chainePref) else
-        if motClef = '%gAideCourante'                       then gAideCourante := PagesAide(ChaineEnLongint(chainePref)) else
+        if motClef = '%gAideCourante'                       then gAideCourante := PagesAide(StrToInt32(chainePref)) else
         if motClef = '%DerniereRechercheArbre'              then SetLastStringSearchedInGameTree(chainePref) else
-        if motClef = '%IntervalleProblemesDeCoinDansListe'  then SetIntervalleDeDifficultePourProblemeDePriseDeCoin(ChaineEnLongint(chainePref) div 10,ChaineEnLongint(chainePref) mod 10) else
-        if motClef = '%DernierTempsDeChargementDeLaBase'    then gDernierTempsDeChargementDeLaBase := ChaineEnLongint(chainePref) else
+        if motClef = '%IntervalleProblemesDeCoinDansListe'  then SetIntervalleDeDifficultePourProblemeDePriseDeCoin(StrToInt32(chainePref) div 10,StrToInt32(chainePref) mod 10) else
+        if motClef = '%DernierTempsDeChargementDeLaBase'    then gDernierTempsDeChargementDeLaBase := StrToInt32(chainePref) else
         if motClef = '%nomEngineEnCours'                    then numeroEngineEnCours := GetNumeroOfEngine(chainePref) else
-        if motClef = '%verbosityZoo'                        then SetVerbosityOfZoo(ChaineEnLongint(chainePref)) else
+        if motClef = '%verbosityZoo'                        then SetVerbosityOfZoo(StrToInt32(chainePref)) else
         if motClef = '%PoliceNotesSurLesCases'              then
            begin
              ParserWithQuoteProtection(chainePref,chainePref,auxStr);
              SetPoliceNameNotesSurCases(kNotesDeCassio,chainePref);
-             SetTailleNotesSurCases(kNotesDeCassio,ChaineEnLongint(auxStr));
+             SetTailleNotesSurCases(kNotesDeCassio,StrToInt32(auxStr));
            end else
         if motClef = '%GrandePoliceNotesSurLesCases' then
            begin
              ParserWithQuoteProtection(chainePref,chainePref,auxStr);
              SetAlternativePoliceNameNotesSurCases(kNotesDeCassio,chainePref);
-             SetAlternativeTailleNotesSurCases(kNotesDeCassio,ChaineEnLongint(auxStr));
+             SetAlternativeTailleNotesSurCases(kNotesDeCassio,StrToInt32(auxStr));
            end else
         if motClef = '%PoliceBiblioZebraSurLesCases'              then
            begin
              ParserWithQuoteProtection(chainePref,chainePref,auxStr);
              SetPoliceNameNotesSurCases(kNotesDeZebra,chainePref);
-             SetTailleNotesSurCases(kNotesDeZebra,ChaineEnLongint(auxStr));
+             SetTailleNotesSurCases(kNotesDeZebra,StrToInt32(auxStr));
            end else
         if motClef = '%GrandePoliceZebraSurLesCases' then
            begin
              ParserWithQuoteProtection(chainePref,chainePref,auxStr);
              SetAlternativePoliceNameNotesSurCases(kNotesDeZebra,chainePref);
-             SetAlternativeTailleNotesSurCases(kNotesDeZebra,ChaineEnLongint(auxStr));
+             SetAlternativeTailleNotesSurCases(kNotesDeZebra,StrToInt32(auxStr));
            end else
         if motClef = '%windowIconisation'                   then
            begin

@@ -31,6 +31,6 @@ function DoitPasserPlatSeulement(couleur : SInt32; var plat : plateauOthello) : 
 	function IsLower(ch : char) : boolean;     external;
   function CharInRange(ch : char; min,max : char) : boolean;     external;
 procedure SymetriserPartieFormatAlphanumerique(var s : String255; axeSymetrie : SInt32; debut,fin : SInt32);     external;
-	function RightOfString (const s : String255; len : SInt16) : String255;     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function RightStr (const s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 function TrouverNomsDesJoueursDansNomDeFichier(s : String255; var numeroJoueur1,numeroJoueur2 : SInt32; longueurMinimaleUnPseudo : SInt32; var qualiteSolution : double) : boolean;     external;

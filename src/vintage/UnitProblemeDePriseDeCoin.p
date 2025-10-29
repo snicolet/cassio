@@ -709,7 +709,7 @@ begin
   s := chaineEnonce;
   s := DeleteSubstringAfterThisChar('.',s,false);
 
-  GetNumeroDuProblemeDePriseDeCoinDansCetEnonce := ChaineEnLongint(s);
+  GetNumeroDuProblemeDePriseDeCoinDansCetEnonce := StrToInt32(s);
 end;
 
 

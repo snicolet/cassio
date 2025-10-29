@@ -83,7 +83,7 @@ function PeutArreterAnalyseRetrograde : boolean;     external;
 procedure DoForcerMacAJouerMaintenant;     external;
 procedure EcritPromptFenetreReflexion;     external;
 procedure GetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; var s : String255);     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 procedure BeginDialog;     external;
 function MyGetNewDialog(dialogID : SInt16) : DialogPtr;     external;
 procedure SetItemTextInDialog(dp : DialogPtr; itemNumber : SInt16; s : String255);     external;
@@ -136,7 +136,7 @@ procedure DessineOmbreRoundRect(theRect : rect; ovalWidth,ovalHeight : SInt16; t
 function PrecisionEngineEnMuString(precision : SInt32) : String255;     external;
 function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt32) : SInt32;     external;
 	procedure SplitRightBy (s : String255; sub : char; var left, right: String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
   function ReelEnStringRapide(unreel : double) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 function GetEngineVersion(numeroEngine : SInt32) : String255;     external;

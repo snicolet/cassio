@@ -58,7 +58,7 @@ procedure SetProgress(absoluteAmount : SInt32);     external;
 	function MyTrunc(x : double) : SInt32;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function StringEnCoup(const s : String255) : SInt16;     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;

@@ -85,7 +85,7 @@ function AlerteDoubleOuiNon(texte,explication : String255) : SInt16;     externa
 procedure CreeFichierGroupes;     external;
 procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String255);     external;
 	function IsDigit(ch : char) : boolean;     external;
-  procedure ChaineToLongint(const s : String255; var theLongint : SInt32);     external;
+  procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
   procedure Parser (s : String255; var tete,reste : String255);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;

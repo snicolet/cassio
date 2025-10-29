@@ -22,7 +22,7 @@ function PartieEstActive(nroReferencePartie : SInt32) : boolean;     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
   function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
 procedure ChangeFontFaceDansRapport(whichStyle : StyleParameter);     external;
 function CoupEnString(coup : SInt16; enMajuscules : boolean) : String255;     external;
 procedure WriteCoupDansRapport(square : SInt16);     external;

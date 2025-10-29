@@ -1779,10 +1779,10 @@ procedure DoCadence;
     var aux : SInt32;
     begin
       GetItemTextInDialog(dp,TextHeures,s);
-      ChaineToLongint(s,aux);
+      StrToInt32(s,aux);
       cadencePersoAffichee := 3600*aux;
       GetItemTextInDialog(dp,TextMinutes,s);
-      ChaineToLongint(s,aux);
+      StrToInt32(s,aux);
       cadencePersoAffichee := cadencePersoAffichee+60*aux;
       case Radios.selection of
          BoutonDebutant    : SetCadence(minutes3);
@@ -1875,14 +1875,14 @@ procedure DoCadence;
                       if (s[i] >= '0') and (s[i] <= '9') then s1 := s1 + s[i];
                     if LENGTH_OF_STRING(s1) > 0 then
                       begin
-                        ChaineToLongint(s1,unlong);
+                        StrToInt32(s1,unlong);
                         s1 := IntToStr(unlong);
                         if (unlong = 0) and (LENGTH_OF_STRING(s1) = 0) then s1 := '';
                       end;
                     if LENGTH_OF_STRING(s1) > 4 then s1 := TPCopy(s1,1,4);
                     if itemHit = TextMinutes then
                       begin
-                        ChaineToLongint(s1,unlong);
+                        StrToInt32(s1,unlong);
                         if unlong > 59 then
                           begin
                             SysBeep(0);
@@ -2427,7 +2427,7 @@ begin
                      begin
                        s2 := PrecisionEngineEnMuString(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties));
                        SplitRightByChar(s2, ',' ,foo, s2);
-                       mu := ChaineEnLongint(s2) div 100;
+                       mu := StrToInt32(s2) div 100;
                        if (mu >= 1000)
                          then s2 := 'µ=°'
                          else s2 := 'µ=' + IntToStr(mu);

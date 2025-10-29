@@ -234,7 +234,7 @@ begin
    for i := 1 to 8 do
    for j := 1 to 8 do
    begin
-      ChaineToLongint(TPCopy(tableau[j],4*i-3,3),valeur);
+      StrToInt32(TPCopy(tableau[j],4*i-3,3),valeur);
       square := j*10+i;
       bonus_parite_zone_impaire[square] := valeur;
       {WritelnCoupAndNumDansRapport(square, bonus_parite_zone_paire[square]);}
@@ -254,7 +254,7 @@ begin
    for i := 1 to 8 do
    for j := 1 to 8 do
    begin
-      ChaineToLongint(TPCopy(tableau[j],4*i-3,3),valeur);
+      StrToInt32(TPCopy(tableau[j],4*i-3,3),valeur);
       square := j*10+i;
       bonus_parite_zone_paire[square] := valeur;
       {WritelnCoupAndNumDansRapport(square, bonus_parite_zone_impaire[square]);}

@@ -178,7 +178,7 @@ end;
 		s := ReadStringFromRessource( resid, index );
 		font := MyGetFontNum( s );
 		s := ReadStringFromRessource( resid, index + 1 );
-		ChaineToLongint( s, n );
+		StrToInt32( s, n );
 		size := n;
 	end;
 
@@ -371,7 +371,7 @@ end;
 		var
 			n : SInt32;
 	begin
-		ChaineToLongint(s, n);
+		StrToInt32(s, n);
 		StrToNum := n;
 	end;
 

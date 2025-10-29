@@ -597,8 +597,8 @@ begin
   positionPoint := Pos('.INDEX',upCaseName);
   if positionPoint > 0 then
     begin
-      upCaseName := LeftOfString(upcaseName,positionPoint-1)+'.WTB';
-      nom := LeftOfString(nom,positionPoint-1)+'.WTB';
+      upCaseName := LeftStr(upcaseName,positionPoint-1)+'.WTB';
+      nom := LeftStr(nom,positionPoint-1)+'.WTB';
     end;
 
   positionPoint := Pos('.PZZ',upCaseName);
@@ -621,7 +621,7 @@ begin
       c := nom[positionPoint-1];
       if IsDigit(c) then positionPoint := positionPoint-1;
 
-      nom := LeftOfString(nom,positionPoint-1)+'.pzz';
+      nom := LeftStr(nom,positionPoint-1)+'.pzz';
     end;
 
   positionPoint := Pos('.WTB',upCaseName);
@@ -631,7 +631,7 @@ begin
      IsDigit(nom[positionPoint-2]) and
      IsDigit(nom[positionPoint-1]) then
        begin
-		     ChaineToLongint(TPCopy(nom,positionPoint-4,4),anneeLong);
+		     StrToInt32(TPCopy(nom,positionPoint-4,4),anneeLong);
 		     anneeDansDistrib := anneelong;
 		     for i := positionPoint-4 to positionPoint-1 do nom[i] := 'X';
 		     if nom[positionPoint+1] = 'W' then nom[positionPoint+1] := 'w';
@@ -694,7 +694,7 @@ begin
   upCaseName := sysutils.UpperCase(ficname);
   positionPoint := Pos('.WTB',upCaseName);
   if positionPoint > 0
-    then NomFichierIndexAssocieNouveauFormat := LeftOfString(ficname,positionPoint-1)+'.index'
+    then NomFichierIndexAssocieNouveauFormat := LeftStr(ficname,positionPoint-1)+'.index'
     else NomFichierIndexAssocieNouveauFormat := ficname+'.index';
 end;
 
@@ -2974,7 +2974,7 @@ begin
   s := sysutils.UpperCase(nomLong);
   posXXXX := Pos('XXXX',s);
   if posXXXX > 0
-    then ecourteNomDistributionNouveauFormat := LeftOfString(nomLong,posXXXX-1)
+    then ecourteNomDistributionNouveauFormat := LeftStr(nomLong,posXXXX-1)
     else ecourteNomDistributionNouveauFormat := nomLong;
 end;
 

@@ -198,7 +198,7 @@ begin
         if (dec2 <= 0) then
           WritelnDansRapport('WARNING : LENGTH_OF_STRING(finLigne) >= LENGTH_OF_STRING(debutLigne) dans FindStringInLongString !');
 
-        aux := RightOfString(ligne.debutLigne, dec2) + ligne.finLigne;
+        aux := RightStr(ligne.debutLigne, dec2) + ligne.finLigne;
 
         trouve := Pos(s, aux);
         if (trouve > 0)
@@ -254,8 +254,8 @@ begin
         begin
           nbOctetsDeplaces := Min(len2, 255 - len1);
 
-          debutLigne := debutLigne + LeftOfString(finLigne, nbOctetsDeplaces);
-          finLigne   := RightOfString(finLigne, len2 - nbOctetsDeplaces);
+          debutLigne := debutLigne + LeftStr(finLigne, nbOctetsDeplaces);
+          finLigne   := RightStr(finLigne, len2 - nbOctetsDeplaces);
         end;
 
 

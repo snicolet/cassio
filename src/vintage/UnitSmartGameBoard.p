@@ -271,7 +271,7 @@ function LitArgumentOfPropertyEnLongint : SInt32;
 var s : String255;
 begin
   s := LitArgumentOfPropertyEnChaine(true);
-  LitArgumentOfPropertyEnLongint := ChaineEnLongint(s);
+  LitArgumentOfPropertyEnLongint := StrToInt32(s);
 end;
 
 
@@ -280,7 +280,7 @@ var s : String255;
     aux : Triple;
 begin
   s := LitArgumentOfPropertyEnChaine(true);
-  aux.nbTriples := ChaineEnLongint(s);
+  aux.nbTriples := StrToInt32(s);
   LitArgumentOfPropertyEnTriple := aux;
 end;
 

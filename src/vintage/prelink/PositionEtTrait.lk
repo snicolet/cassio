@@ -16,12 +16,12 @@ function ModifPlatSeulement(a : SInt32; var jeu : plateauOthello; coul : SInt32)
 function ModifPlatPrise(a : SInt32; var jeu : plateauOthello; coul : SInt32; var nbPionsRetournes : SInt32) : boolean;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
   procedure Parser2(s : String255; var s1,s2,reste : String255);     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 procedure TraductionThorEnAlphanumerique(const s : PackedThorGame; var result : String255);     external;
 function EstUnePartieOthello(var s : String255; compacterPartie : boolean) : boolean;     external;
 procedure TraductionAlphanumeriqueEnThor(const s : String255; var result : PackedThorGame);     external;
 procedure Parser (s : String255; var tete,reste : String255);     external;
 procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;

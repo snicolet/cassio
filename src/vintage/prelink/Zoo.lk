@@ -23,7 +23,7 @@ procedure WritelnLongStringDansRapport(const ligne : LongString);     external;
 procedure RecevoirUnResultatDuZoo(ligne : LongString);     external;
 function ReadlnLongStringDansFichierAbstrait(var theFile : FichierAbstrait; var s : LongString; ignoreLeadingSpaces : boolean) : OSErr;     external;
   procedure Parser3(s : String255; var s1,s2,s3,reste : String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
   procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 function FindStringInLongString(const s : String255; const ligne : LongString) : SInt32;     external;
 procedure InitLongString(var ligne : LongString);     external;
@@ -63,7 +63,7 @@ function SendStringToPermanentConnection(var s : LongString; numeroSlot : SInt32
 procedure AppendToLongString(var ligne : LongString; const s : String255);     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 	function ReelEnString(unreel : double) : String255;     external;
   function ParserBuffer(buffer : Ptr; bufferLength,from : SInt32; var indexDernierCaractereLu : SInt32) : String255;     external;
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);     external;

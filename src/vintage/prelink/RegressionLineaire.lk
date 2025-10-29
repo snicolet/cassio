@@ -18,7 +18,7 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
   function  GetParsingCaracterSet : SetOfChar;     external;
   procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
   procedure Parser (s : String255; var tete,reste : String255);     external;
-  function ChaineEnLongint(const s : String255) : SInt32;     external;
+  function StrToInt32(const s : String255) : SInt32;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
@@ -62,7 +62,7 @@ function PositionEtTraitAfterMoveNumberAlpha(game : String255; numeroCoup : SInt
 function EstLaPositionCourante(var position : PositionEtTraitRec) : boolean;     external;
 procedure SetCassioMustCheckDangerousEvents(newvalue : boolean; oldValue : BooleanPtr);     external;
 procedure PlaquerPartieLegale(partieAlphaCompactee : String255; flags : SInt32);     external;
-	function LeftOfString (var s : String255; len : SInt16) : String255;     external;
+	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 function JeuCourant : plateauOthello;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function AQuiDeJouer : SInt32;     external;

@@ -169,9 +169,9 @@ begin
   SetParsingCaracterSet(['.','-','/']);
 
   Parser3(date,f1,f2,f3,reste);
-  annee := ChaineEnLongint(f1);
-  mois  := ChaineEnLongint(f2);
-  jour  := ChaineEnLongint(f3);
+  annee := StrToInt32(f1);
+  mois  := StrToInt32(f2);
+  jour  := StrToInt32(f3);
 
   SetParsingCaracterSet(oldParsingSet);
 end;
@@ -191,8 +191,8 @@ begin
   scoreNoir  := DeleteSubstringAfterThisChar('-',score,false);
   scoreBlanc := DeleteSubstringBeforeThisChar('-',score,false);
 
-  theoriqueNoir  := ChaineEnLongint(scoreNoir);
-  theoriqueBlanc := ChaineEnLongint(scoreBlanc);
+  theoriqueNoir  := StrToInt32(scoreNoir);
+  theoriqueBlanc := StrToInt32(scoreBlanc);
 
   if ((theoriqueNoir + theoriqueBlanc) >= 60) and
      ((theoriqueNoir + theoriqueBlanc) <= 64)
@@ -562,7 +562,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                    MemberOfStringSet(Concat(partieEnAlpha,' '),aux,tableDoublons) then
                    begin
                      partieDoublon := true;
-                     WritelnDansRapport(ReadStringFromRessource(TextesErreursID,9) + LeftOfString(partieEnAlpha,60));  {'doublon : '}
+                     WritelnDansRapport(ReadStringFromRessource(TextesErreursID,9) + LeftStr(partieEnAlpha,60));  {'doublon : '}
                      compteurDoublons := compteurDoublons + 1;
                    end;
 
@@ -606,7 +606,7 @@ begin {AjouterPartiesFichierPGNDansListe}
 
                               WritelnNumDansRapport('nbCoupsRecus = ',nbCoupsRecus);
                               ChangeFontColorDansRapport(VertCmd);
-                              WritelnDansRapport(ReadStringFromRessource(TextesErreursID,11)+LeftOfString(partieEnAlpha,60));  // 'incomplete : '
+                              WritelnDansRapport(ReadStringFromRessource(TextesErreursID,11)+LeftStr(partieEnAlpha,60));  // 'incomplete : '
                               TextNormalDansRapport;
                             end;
                       end;
@@ -1283,7 +1283,7 @@ begin
                     SysBeep(0);
                   end;
 
-                ChaineToLongint(scoreEnChaine,score);
+                StrToInt32(scoreEnChaine,score);
                 if odd(score) then
                   if score > 0 then inc(score) else dec(score);
                 score := (score+64) div 2;
@@ -1369,52 +1369,52 @@ begin
       COPY_PACKED_GAME_TO_STR60(theGame,partie60);
 
       (* un numero (non fixe entre les sessions de Cassio) pour la partie *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_GAME_ID'        ,IntToStr(numeroReference)                                                   ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_GAME_ID'        ,IntToStr(numeroReference) );
 
       (* les coups de la partie *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THOR_MOVES'     ,partie60                                                                       ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_SWEDISH_MOVES'  ,partieEnSuedois                                                                ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_GAME'           ,partieEnAlpha                                                                  ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_THOR_MOVES'     ,partie60 );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_SWEDISH_MOVES'  ,partieEnSuedois );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_GAME'           ,partieEnAlpha );
 
       (* Les tournois *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_SHORT'    ,StripDiacritics(GetNomCourtTournoiParNroRefPartie(numeroReference))          ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_TOURN_SHORT'    ,StripDiacritics(GetNomCourtTournoiParNroRefPartie(numeroReference)) );
       if EstUnePartieAvecTournoiJaponais(numeroReference)
-        then ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,GetNomJaponaisDuTournoiParNroRefPartie(numeroReference)                        ,ligne)
-        else ligne := ReplaceVariableByStringInString('$CASSIO_TOURN_JAPANESE' ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN_NUMBER'   ,IntToStr(GetNroTournoiParNroRefPartie(numeroReference))                     ,ligne);
+        then ligne := ReplaceVariable(ligne, '$CASSIO_TOURN_JAPANESE' ,GetNomJaponaisDuTournoiParNroRefPartie(numeroReference) )
+        else ligne := ReplaceVariable(ligne, '$CASSIO_TOURN_JAPANESE' ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_TOURN_NUMBER'   ,IntToStr(GetNroTournoiParNroRefPartie(numeroReference)) );
 
       { bien penser a mettre toutes les variables qui commencent par $CASSIO_TOURN avant la ligne suivante }
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_TOURN'          ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))               ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_TOURN'          ,StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference)) );
 
       (* les joueurs *)
 
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_SHORT'    ,StripDiacritics(GetNomJoueurNoirSansPrenomParNroRefPartie(numeroReference))  ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_SHORT'    ,StripDiacritics(GetNomJoueurBlancSansPrenomParNroRefPartie(numeroReference)) ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_BLACK_SHORT'    ,StripDiacritics(GetNomJoueurNoirSansPrenomParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_WHITE_SHORT'    ,StripDiacritics(GetNomJoueurBlancSansPrenomParNroRefPartie(numeroReference)) );
       if EstUnePartieAvecJoueurNoirJaponais(numeroReference)
-        then ligne := ReplaceVariableByStringInString('$CASSIO_BLACK_JAPANESE' ,GetNomJaponaisDuJoueurNoirParNroRefPartie(numeroReference)                     ,ligne)
-        else ligne := ReplaceVariableByStringInString('$CASSIO_BLACK_JAPANESE' ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference)                  ,ligne);
+        then ligne := ReplaceVariable(ligne, '$CASSIO_BLACK_JAPANESE' ,GetNomJaponaisDuJoueurNoirParNroRefPartie(numeroReference) )
+        else ligne := ReplaceVariable(ligne, '$CASSIO_BLACK_JAPANESE' ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference) );
       if EstUnePartieAvecJoueurBlancJaponais(numeroReference)
-        then ligne := ReplaceVariableByStringInString('$CASSIO_WHITE_JAPANESE' ,GetNomJaponaisDuJoueurBlancParNroRefPartie(numeroReference)                    ,ligne)
-        else ligne := ReplaceVariableByStringInString('$CASSIO_WHITE_JAPANESE' ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference)                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_NUMBER'   ,IntToStr(GetNroJoueurNoirParNroRefPartie(numeroReference))                  ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_NUMBER'   ,IntToStr(GetNroJoueurBlancParNroRefPartie(numeroReference))                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference))               ,ligne);
+        then ligne := ReplaceVariable(ligne, '$CASSIO_WHITE_JAPANESE' ,GetNomJaponaisDuJoueurBlancParNroRefPartie(numeroReference) )
+        else ligne := ReplaceVariable(ligne, '$CASSIO_WHITE_JAPANESE' ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_BLACK_NUMBER'   ,IntToStr(GetNroJoueurNoirParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_WHITE_NUMBER'   ,IntToStr(GetNroJoueurBlancParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_BLACK_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_WHITE_FFO'      ,IntToStr(GetNroFFOJoueurNoirParNroRefPartie(numeroReference)) );
 
       { bien pensser a mettre toutes les variables qui commencent par $CASSIO_BLACK et $CASSIO_WHITE avant les deux lignes suivantes }
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BLACK'          ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference)                  ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_WHITE'          ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference)                 ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_BLACK'          ,GetNomJoueurNoirCommeDansPappParNroRefPartie(numeroReference) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_WHITE'          ,GetNomJoueurBlancCommeDansPappParNroRefPartie(numeroReference) );
 
       (* les scores reels et theoriques *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_BLACK'    ,IntToStr(GetScoreReelParNroRefPartie(numeroReference))                      ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_SCORE_WHITE'    ,IntToStr(64-GetScoreReelParNroRefPartie(numeroReference))                   ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_BLACK'    ,IntToStr(GetScoreTheoriqueParNroRefPartie(numeroReference))                 ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_WHITE'    ,IntToStr(64-GetScoreTheoriqueParNroRefPartie(numeroReference))              ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_THEOR_WINNER'   ,GetGainTheoriqueParNroRefPartie(numeroReference)                               ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_SCORE_BLACK'    ,IntToStr(GetScoreReelParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_SCORE_WHITE'    ,IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_THEOR_BLACK'    ,IntToStr(GetScoreTheoriqueParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_THEOR_WHITE'    ,IntToStr(64-GetScoreTheoriqueParNroRefPartie(numeroReference)) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_THEOR_WINNER'   ,GetGainTheoriqueParNroRefPartie(numeroReference) );
 
       (* le nom de la base et l'annee *)
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_BASE'           ,GetNomDistributionParNroRefPartie(numeroReference)                             ,ligne);
-      ligne := ReplaceVariableByStringInString(       '$CASSIO_YEAR'           ,IntToStr(GetAnneePartieParNroRefPartie(numeroReference))                    ,ligne);
+      ligne := ReplaceVariable(ligne,        '$CASSIO_BASE'           ,GetNomDistributionParNroRefPartie(numeroReference) );
+      ligne := ReplaceVariable(ligne,        '$CASSIO_YEAR'           ,IntToStr(GetAnneePartieParNroRefPartie(numeroReference)) );
 
 
       (* echappement *)
@@ -1796,8 +1796,8 @@ begin
                  begin
                    nomFichierOutput := ExtraitCheminDAcces(fichierModeleHTML.nomFichier) +
                                        gOptionsExportBase.subDirectoryName +
-                                       LeftOfString(nom1,kLongueurNomsDansURL) + '-' +
-                                       LeftOfString(nom2,kLongueurNomsDansURL) +
+                                       LeftStr(nom1,kLongueurNomsDansURL) + '-' +
+                                       LeftStr(nom2,kLongueurNomsDansURL) +
                                        '.htm';
 
                  end
@@ -1805,8 +1805,8 @@ begin
                  begin
                    nomFichierOutput := ExtraitCheminDAcces(fichierModeleHTML.nomFichier) +
                                        gOptionsExportBase.subDirectoryName +
-                                       LeftOfString(nom1,kLongueurNomsDansURL) + '-' +
-                                       LeftOfString(nom2,kLongueurNomsDansURL - LENGTH_OF_STRING(IntToStr(numero))) +
+                                       LeftStr(nom1,kLongueurNomsDansURL) + '-' +
+                                       LeftStr(nom2,kLongueurNomsDansURL - LENGTH_OF_STRING(IntToStr(numero))) +
                                        IntToStr(numero) +
                                        '.htm';
                  end;
@@ -1912,8 +1912,8 @@ begin
               nom2 := nom2 + ' ';
             end;*)
 
-          nomPourURL := LeftOfString(nom1,kLongueurNomsDansURL)+'-'+
-                        LeftOfString(nom2,kLongueurNomsDansURL)+'.sof';
+          nomPourURL := LeftStr(nom1,kLongueurNomsDansURL)+'-'+
+                        LeftStr(nom2,kLongueurNomsDansURL)+'.sof';
 
           nomFichierOutput := ExtraitCheminDAcces(fichierModeleHTML.nomFichier) +
                               gOptionsExportBase.subDirectoryName +

@@ -648,7 +648,7 @@ begin
    for i := 1 to 4 do
    for j := 1 to 4 do
    begin
-      ChaineToLongint(TPCopy(tableau[j],5*i-4,4),valeur);
+      StrToInt32(TPCopy(tableau[j],5*i-4,4),valeur);
       deb := valeur div 1000;
       fin := valeur mod 100;
       t := i*2+10*j*2;
@@ -686,7 +686,7 @@ begin
    for i := 1 to 8 do
    for j := 1 to 8 do
    begin
-      ChaineToLongint(TPCopy(tableau[j],5*i-4,4),valeur);
+      StrToInt32(TPCopy(tableau[j],5*i-4,4),valeur);
       deb := valeur div 1000;
       fin := valeur mod 100;
       t := j*10+i;
@@ -964,7 +964,7 @@ begin
    for i := 1 to 4 do
    for j := 1 to 4 do
    begin
-      ChaineToLongint(TPCopy(tableau[i],5*j-4,4),valeur);
+      StrToInt32(TPCopy(tableau[i],5*j-4,4),valeur);
       if estUneCaseDeBord[i+10*j] then
          valeur := valeur-100;
       valeurTactAbsolue[i+10*j] := valeur;
