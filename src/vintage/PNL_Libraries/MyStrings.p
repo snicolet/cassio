@@ -2344,7 +2344,7 @@ begin
   position2 := Pos(delim2,s);
   if (position1 > 0) and (position2 > 0) and (position2 > position1) then
     begin
-      s1 := TPCopy(s,position1 + 1,position2 - position1 - 1);
+      s1 := TPCopy(s,position1 + 1, position2 - position1 - 1);
       if ChaineNeContientQueDesChiffres(s1) then
         begin
           if keepDelimitors

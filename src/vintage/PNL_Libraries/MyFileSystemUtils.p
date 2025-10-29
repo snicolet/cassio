@@ -1176,15 +1176,15 @@ begin
     end;
 
 
-  oldMacPath := ReplaceStringAll(oldMacPath,'/',':');   // separateurs a la mode Mac
+  oldMacPath := ReplaceStringAll(oldMacPath,'/',':');  // separateurs a la mode Mac
   if (oldMacPath[1] = ':')
     then pathUnix := oldMacPath
     else
       begin
-        SplitAt(oldMacPath,':',foo, pathUnix);    // enlever le nom du disque dur
+        SplitAt(oldMacPath, ':', foo, pathUnix);       // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
       end;
-  pathUnix := ReplaceStringAll(pathUnix,':','/');     // separateurs a la mode UNIX
+  pathUnix := ReplaceStringAll(pathUnix,':','/');      // separateurs a la mode UNIX
 
   MacPathToUNIXPath := pathUnix;
 end;

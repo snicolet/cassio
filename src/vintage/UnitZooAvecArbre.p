@@ -855,7 +855,7 @@ begin
   // ligne := ReplaceStringOnce(ligne, '<br>OK' , '');
   // ligne := ReplaceStringOnce(ligne, 'NO NEW RESULT' , '');
 
-  // EnleveEspacesDeGaucheSurPlace(ligne);  // FIXEME : TEST THIS !!
+  // EnleveEspacesDeGaucheSurPlace(ligne);  // FIX ME : TEST THIS !!
 
   if LongStringIsEmpty(ligne) or LongStringBeginsWith('NO NEW RESULT', ligne)
     then exit;

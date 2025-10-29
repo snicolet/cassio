@@ -50,6 +50,7 @@ function SplitRightAt (s : String255; const sub : String255; var left, right : S
 // Replace pattern in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
+function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
 
 // Transforming strings
 function StripDiacritics(const source : AnsiString) : AnsiString;
@@ -211,6 +212,19 @@ end;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 begin
   ReplaceStringAll := StringReplace(s, pattern, replacement, [rfReplaceAll]);
+end;
+
+
+// ParamStr() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
+function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
+var aux : String255;
+	j : SInt32;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  Result := s;
 end;
 
 
@@ -925,17 +939,6 @@ begin
 end;
 
 
-procedure replaceFooChar(var s : string255 ; c, rep : char);
-var k : integer;
-begin
-   for k := 1 to LENGTH_OF_STRING(s) do
-      if s[k] = c then s[k] := rep;
-end;
-
-procedure fooAt(s : string255 ; c : char);
-begin
-   if c <> 'A' then writeln('fooAt');
-end;
 
 
 
@@ -944,10 +947,10 @@ var s : string255;
     c : char;
 begin
 
-    s := 'toto^0^0^0';
-    replaceFooChar(s, 't', 'j');
+    s := 'toto^0^1^2';
     s := ReplaceStringAll(s, 'o', '•');
     s := ReplaceStringAll(s, '^0^0', 'blah');
+    s := ParamStr(s, 'Nicolet', 'Stéphane', '', 'Claude');
     writeln(s);
 
     //testBasicString;
