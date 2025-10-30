@@ -679,8 +679,8 @@ begin
     end;
 
   if CassioIsUsingMetaphone
-    then CalculateHashLexemesDeCeJoueur := HashLexemes( metaphoneBaseAvecEspaces ,       lexemes)
-    else CalculateHashLexemesDeCeJoueur := HashLexemes( nomBaseEnMajusculesAvecEspaces , lexemes);
+    then CalculateHashLexemesDeCeJoueur := CountAndHashLexems( metaphoneBaseAvecEspaces ,       lexemes)
+    else CalculateHashLexemesDeCeJoueur := CountAndHashLexems( nomBaseEnMajusculesAvecEspaces , lexemes);
 
 end;
 

@@ -2319,8 +2319,8 @@ begin
     else metaphoneChercheAvecEspaces := 'blahfdsdfjshhjfsdjfgdkfsghfd3535635678639267';
 
   if CassioIsUsingMetaphone
-    then nbLexemesCherches := HashLexemes( metaphoneChercheAvecEspaces ,       @lexemesCherches)
-    else nbLexemesCherches := HashLexemes( nomChercheEnMajusculesAvecEspaces , @lexemesCherches);
+    then nbLexemesCherches := CountAndHashLexems( metaphoneChercheAvecEspaces ,       @lexemesCherches)
+    else nbLexemesCherches := CountAndHashLexems( nomChercheEnMajusculesAvecEspaces , @lexemesCherches);
 
 
   // WriteDansRapport('nomChercheEnMajusculesAvecEspaces = ' + nomChercheEnMajusculesAvecEspaces);

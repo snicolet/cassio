@@ -66,7 +66,7 @@ function FindStringDansNomEnMajusculesSansEspaceDeCeJoueur(var s : String255; nr
 function GetNomJoueurEnMetaphoneSansEspace(nroJoueur : SInt32) : String255;     external;
 function TrouveATRDansChaine(x : ATR; const chaine : String255; var position : SInt32) : boolean;     external;
 function FabriqueMetaphoneDesLexemes(original : String255) : String255;     external;
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;     external;
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;     external;
 function GetHashLexemesDeCeJoueur(nroJoueur : SInt32; lexemes : LongintArrayPtr) : SInt32;     external;
 procedure MakeDoubleMetaphone(original : String255; var primary,secondary : String255);     external;
 procedure SetNomJoueur(nroJoueur : SInt32; joueur : String255);     external;

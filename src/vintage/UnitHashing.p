@@ -25,12 +25,12 @@ function HashString(const s : String255) : SInt32;
 function HashString2(const s : String255) : SInt32;
 function HashString63Bits(const s : String255) : UInt64;
 
-// La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
+// La fonction CountAndHashLexems() suivante renvoie le nombre de lexemes de la
 // chaine et (facultativement) dans table, les hash des differents lexemes.
 // On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
 // S'il est non nul, le pointeur table doit pointer vers un tableau d'au
 // moins 200 entiers de 32 bits.
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;
 
 
 
@@ -209,13 +209,13 @@ begin
 end;
 {$ENDC}
 
-// La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
+// La fonction CountAndHashLexems() suivante renvoie le nombre de lexemes de la
 // chaine et optionnellement dans table, les hash des differents lexemes.
 // Les lexemes calcules sont renvoyes dans table^[1]...table^[nbLexemes] .
 // On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
 // S'il est non nul, le pointeur table doit pointer vers un tableau d'au
 // moins 200 entiers de 32 bits.
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;
 var nbLexemes, compteurBoucle : SInt32;
     lexeme, reste : String255;
 begin
@@ -239,7 +239,7 @@ begin
     inc(compteurBoucle);
   until (reste = '') or (nbLexemes >= 200) or (compteurBoucle > 255);
 
-  HashLexemes := nbLexemes;
+  CountAndHashLexems := nbLexemes;
 end;
 
 

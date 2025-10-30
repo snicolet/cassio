@@ -18,7 +18,7 @@ function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;     external;
 function FabriqueNomEnMajusculesAvecEspaces(const s : String255) : String255;     external;
 	procedure KeepPrefix (var s : String255; len : SInt32);     external;
 function CassioIsUsingMetaphone : boolean;     external;
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;     external;
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;     external;
 function NomCourtDuTournoi(const nomOrigine : String255) : String255;     external;
 function FabriqueNomEnMajusculesSansEspaceSansMetaphone(s : String255) : String255;     external;
 function FabriqueMetaphoneDesLexemes(original : String255) : String255;     external;

@@ -1,21 +1,11 @@
 UNIT BasicHashing;
 
 
-
-{ Fonction generique de hachage }
-
 INTERFACE
-
-
-
-
-
 
 
 USES basictypes, basicstring;
 
-
-procedure InitUnitHashing;
 
 // Polymorphic hashing function
 function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;
@@ -25,13 +15,11 @@ function HashString(const s : String255) : SInt32;
 function HashString2(const s : String255) : SInt32;
 function HashString63Bits(const s : String255) : UInt64;
 
-// La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
-// chaine et (facultativement) dans table, les hash des differents lexemes.
-// On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
-// S'il est non nul, le pointeur table doit pointer vers un tableau d'au
-// moins 200 entiers de 32 bits.
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
+// Counting and optionally hashing lexems
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;
 
+// InitBasicHashing() : init the BasiHashing unit
+procedure InitBasicHashing;
 
 
 
@@ -43,12 +31,12 @@ USES basicmath;
 
 type PackedMemory = packed array[0..0] of UInt8;
      PackedMemoryPtr = ^PackedMemory;
-
 const initialisation_done : boolean = false;
-
 var XORValues : array[0..255,0..3] of SInt32;
 
-procedure InitUnitHashing;
+
+// InitBasicHashing() : initializations of the BasicHashing unit
+procedure InitBasicHashing;
 var i,j : SInt16;
     aux : SInt32;
 begin
@@ -82,8 +70,8 @@ var aux, i : SInt32;
 begin
   if not(initialisation_done) then
     begin
-      (* Writeln('Calling InitUnitHashing for you : you should do it yourself !'); *)
-      InitUnitHashing;
+      (* Writeln('Calling InitBasicHashing for you : you should do it yourself !'); *)
+      InitBasicHashing;
     end;
 
   memoryBuffer := PackedMemoryPtr(data);
@@ -189,42 +177,47 @@ end;
 
 
 
-// La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
+// La fonction CountAndHashLexems() renvoie le nombre de lexemes de la
 // chaine et optionnellement dans table, les hash des differents lexemes.
 // Les lexemes calcules sont renvoyes dans table^[1]...table^[nbLexemes] .
 // On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
 // S'il est non nul, le pointeur table doit pointer vers un tableau d'au
 // moins 200 entiers de 32 bits.
 
-function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
-var nbLexemes, compteurBoucle : SInt32;
+function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;
+var nbLexemes, counter : SInt32;
     lexeme, reste : String255;
 begin
   reste := s;
   nbLexemes := 0;
-  compteurBoucle := 0;
+  counter := 0;
 
   repeat
     Parse(reste, lexeme, reste);
-    if (lexeme <> '') and (table <> NIL) then
+    if (lexeme <> '') then
       begin
         inc(nbLexemes);
-        table^[nbLexemes] := HashString(lexeme);
+        if (table <> NIL) then table^[nbLexemes] := HashString(lexeme);
       end;
-    inc(compteurBoucle);
-  until (reste = '') or (nbLexemes >= 200) or (compteurBoucle > 255);
+    inc(counter);
+  until (reste = '') or (nbLexemes >= 200) or (counter > 255);
 
-  HashLexemes := nbLexemes;
+  CountAndHashLexems := nbLexemes;
+end;
+
+// Testing the unit
+procedure TestUnitBasicHashing;
+begin
+   writeln;
+   writeln('Testing our implementation of the Jenkins hash function... ');
+   writeln('$ca2e9442 should equal ', hexa(HashString('a')));
+   writeln('$519e91f5 should equal ', hexa(HashString('The quick brown fox jumps over the lazy dog')));
 end;
 
 
-
-
 BEGIN
-   writeln;
-   writeln('Testing our implementation of the Jenkins hash function...');
-   writeln('$ca2e9442 should equal ', hexa(HashString('a')));
-   writeln('$519e91f5 should equal ', hexa(HashString('The quick brown fox jumps over the lazy dog')));
+   InitBasicHashing();
+   TestUnitBasicHashing(); 
 END.
 
 
