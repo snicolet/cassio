@@ -39,8 +39,8 @@ function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT)
 
 {verification des sources}
 procedure VerifierLongueurDeLaLigneDansLesSources(var ligne : LongString; var lectureAddr : SInt64);
-procedure VerifierCeFichierSource(const whichFile : FSSpec);
-function VerifierCeFichierSourceEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+procedure VerifierCeFichierSource(const whichFile : fileInfo);
+function VerifierCeFichierSourceEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 procedure VerifierLesSourcesDeCassio;
 
 
@@ -1955,7 +1955,7 @@ end;
 var gActionDeCompilationDemandee : actions_de_compilation;
 
 
-procedure VerifierCeFichierSource(const whichFile : FSSpec);
+procedure VerifierCeFichierSource(const whichFile : fileInfo);
 var lectureRec : LectureModuleRec;
     lecture : LectureModulePtr;
     lectureAddr : SInt64;
@@ -2094,7 +2094,7 @@ end;
 
 
 
-function VerifierCeFichierSourceEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function VerifierCeFichierSourceEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var nomFichier : String255;
 begin
  {$UNUSED pb,path}
@@ -2134,7 +2134,7 @@ end;
 
 
 procedure VerifierLesSourcesDeCassio;
-var directoryDepart : FSSpec;
+var directoryDepart : fileInfo;
     codeErreur : OSErr;
 begin
 

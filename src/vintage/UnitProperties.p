@@ -1493,7 +1493,7 @@ begin
    WritelnNumDansRapport('prop.genre = ',prop.genre);
    WritelnNumDansRapport('prop.stockage = ',prop.stockage);
    WritelnNumDansRapport('prop.taille = ',prop.taille);
-   WritelnNumDansRapport('prop.infos = ',SInt32(prop.info));
+   WritelnNumDansRapport('prop.data = ',SInt32(prop.info));
    }
 
    if PropertyEstVide(prop)

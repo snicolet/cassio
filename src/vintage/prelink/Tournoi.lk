@@ -110,7 +110,7 @@ procedure DrawContents(whichWindow : WindowPtr);     external;
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);     external;
 procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
-function FSSpecToLongName(whichFile : FSSpec; var theLongName : String255) : OSErr;     external;
+function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
 procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);     external;
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSErr;     external;

@@ -216,7 +216,7 @@ var reply : SFReply;
     nomComplet : String255;
     positionArobase : SInt16;
     s,s10,s9 : String255;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
 begin
 
   UtilisateurChoisitFichier_NxN := -1;

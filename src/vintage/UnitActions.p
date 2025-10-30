@@ -25,7 +25,7 @@ function OuvrirFichierPartieFormatCassio(nomFichier : String255; mergeWithCurren
 function OuvrirFichierPartieFormatGGF(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
 function OuvrirFichierPartieFormatSmartGameBoard(nomCompletFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
 function OuvrirFichierFormatEPS(nomFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
-function OuvrirFichierPartieFSp(fichier : FSSpec; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFSp(fichier : fileInfo; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
 procedure DoOuvrir;
 procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);
 procedure DoEnregistrerSousFormatSmartGameBoard;
@@ -1221,7 +1221,7 @@ begin
 end;
 
 
-function OuvrirFichierPartieFSp(fichier : FSSpec; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
+function OuvrirFichierPartieFSp(fichier : fileInfo; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
 var nomComplet : String255;
 begin
   OuvrirFichierPartieFSp := -1;
@@ -1278,7 +1278,7 @@ procedure DoOuvrir;
       ok : boolean;
       nomComplet : String255;
       err : OSErr;
-      mySpec : FSSpec;
+      mySpec : fileInfo;
 begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
   BeginDialog;
@@ -1295,7 +1295,7 @@ end;
 procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);
   var reply : SFReply;
       posEtPartie,s : String255;
-      mySpec : FSSpec;
+      mySpec : fileInfo;
       ficPartie : FichierTEXT;
       texteRapportHdl : CharArrayHandle;
       i,count,fin : SInt32;
@@ -1376,7 +1376,7 @@ end;
 procedure DoEnregistrerSousFormatSmartGameBoard;
 var theFile : FichierAbstrait;
     nomComplet,s : String255;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
     reply : SFReply;
     err : OSErr;
     texteRapportHdl : CharArrayHandle;
@@ -1465,7 +1465,7 @@ end;
 
 procedure DoOuvrirBibliotheque;
 var reply : SFReply;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
 begin
   if GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('BIBL'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),mySpec) then
     begin

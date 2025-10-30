@@ -12,25 +12,25 @@ INTERFACE
      UnitDefCassio , Files , CFURL , CFString , CFBase , CFBundle;
 
 
-	procedure MyResolveAliasFile (var fs : FSSpec);
+	procedure MyResolveAliasFile (var fs : fileInfo);
 	function MyGetCatInfo (vrn : SInt16; dirID : SInt32; nameAdr : StringPtr; index: SInt16; var pb : CInfoPBRec) : OSErr;
-	function FSpGetCatInfo (const fs : FSSpec; var pb : CInfoPBRec) : OSErr;
-	function FSpGetIndCatInfo (var fs : FSSpec; index: SInt16; var pb : CInfoPBRec) : OSErr;
-	function FSpSetCatInfo (const spec : FSSpec; var pb : CInfoPBRec) : OSErr;
-	function FSpGetParID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
-	function FSpGetDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : FSSpec) : OSErr;
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : FSSpec;
-	procedure MyGetModDate (const spec : FSSpec; var moddate : SInt32);
-	function DuplicateFile ({const} org, new : FSSpec) : OSErr;
+	function FSpGetCatInfo (const fs : fileInfo; var pb : CInfoPBRec) : OSErr;
+	function FSpGetIndCatInfo (var fs : fileInfo; index: SInt16; var pb : CInfoPBRec) : OSErr;
+	function FSpSetCatInfo (const spec : fileInfo; var pb : CInfoPBRec) : OSErr;
+	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
+	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
+	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
+	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
 	function CopyData (src, dst: SInt16; len : SInt32) : OSErr;
-	function TouchDir (fs : FSSpec) : OSErr;
+	function TouchDir (fs : fileInfo) : OSErr;
 	function TouchFolder (vrn : SInt16; dirID : SInt32) : OSErr;
-	function CreateUniqueFile (var fs : FSSpec; creator, ftype : OSType) : OSErr;
-	function CreateUniqueFolder (var fs : FSSpec; var dirID : UInt32 ) : OSErr;
-	function CreateSubDirectoryNearThisFile(const whichFile : FSSpec; var directoryName : String255) : OSErr;
+	function CreateUniqueFile (var fs : fileInfo; creator, ftype : OSType) : OSErr;
+	function CreateUniqueFolder (var fs : fileInfo; var dirID : UInt32 ) : OSErr;
+	function CreateSubDirectoryNearThisFile(const whichFile : fileInfo; var directoryName : String255) : OSErr;
   function CreateDirectoryWithThisPath(directoryPath : String255) : OSErr;
-  function FolderExists (var folder : FSSpec; var err : OSErr) : boolean;
+  function FolderExists (var folder : fileInfo; var err : OSErr) : boolean;
 
 	function MyFSReadLineEOL (refnum : SInt16; ch : char; var s : String255) : OSErr;
 	function MyFSReadLine (refnum : SInt16; var s : String255) : OSErr;
@@ -40,38 +40,38 @@ INTERFACE
 	function MyFSWrite (refnum : SInt16; len : SInt32; p : Ptr) : OSErr;
 	function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr) : OSErr;
 	function MyFSReadAt (refnum : SInt16; pos, len : SInt32; p : Ptr) : OSErr;
-	function MyFSReadFile( {const} spec : FSSpec; var data: Handle ) : OSErr;
+	function MyFSReadFile( {const} spec : fileInfo; var data: Handle ) : OSErr;
 
 
-	procedure SetNameOfFSSpec(var fs : FSSpec; const name : String255);
-	function GetNameOfFSSpec(fs : FSSpec) : String255;
+	procedure SetNameOfFSSpec(var fs : fileInfo; const name : String255);
+	function GetNameOfFSSpec(fs : fileInfo) : String255;
 
 
 	function GetNameOfSFReply(const reply : SFReply) : String255;
   procedure SetNameOfSFReply(var reply : SFReply; const name : String255);
 
 
-	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;
-	function GetFullPathOfFSSpec(fs : FSSpec) : String255;
+	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;
+	function GetFullPathOfFSSpec(fs : fileInfo) : String255;
 	{function DiskFreeSpace (vrn : SInt16) : SInt32;} { result in k }
 	function DiskSize (vrn : SInt16) : SInt32; { result in k }
 	function BlessSystemFolder (vrn : SInt16; dirID : SInt32) : OSErr;
-	function SameFSSpec (const fs1, fs2: FSSpec) : boolean;
+	function SameFSSpec (const fs1, fs2: fileInfo) : boolean;
 	{procedure GetSFLocation (var vrn : SInt16; var dirID : SInt32);}
 	{procedure SetSFLocation (vrn : SInt16; dirID : SInt32);}
 	procedure SafeFindFolder (vRefNum : SInt16; folderType : OSType; var foundvRefNum : SInt16; var foundDirID : UInt32);
-	function CreateTemporaryFile (var fs : FSSpec) : OSErr;
+	function CreateTemporaryFile (var fs : fileInfo) : OSErr;
   function GetPathOfApplicationSupportFolder(var applicationFolderPath : String255) : OSErr;
 
 
 
-	function FSpGetFolderDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function FSpGetFolderDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 (*	function GetVolInfo (var name : Str63; var vrn : SInt16; index: SInt16; var CrDate : SInt32) : OSErr; *)
 (*  function GetVolumeAddrBlock(vrn : SInt16; index: SInt16; var addr : AddrBlock) : OSErr;  *)
-	function ScanDirectory (fs : FSSpec; doit : ScanProc) : OSErr;
-	function SetPathOfScannedDirectory(var folder : FSSpec) : OSErr;
+	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;
+	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;
 	function GetPathOfScannedDirectory : String255;
-	function RemoveResourceFork( {const} spec : FSSpec ) : OSErr;
+	function RemoveResourceFork( {const} spec : fileInfo ) : OSErr;
   function MacPathToUNIXPath( oldMacPath : String255 ) : String255;
   function EscapeSpacesInUnixPath( oldPath : String255 ) : String255;
 
@@ -97,8 +97,8 @@ INTERFACE
   procedure MySFGetFile(where : Point; prompt : String255; fileFilter : FileFilterUPP; numTypes : SInt16; typeList : ConstSFTypeListPtr; dlgHook : DlgHookUPP; var reply : SFReply);
 
 
-	procedure SetFileCreator(fichier : FSSpec; QuelType : OSType);
-	procedure SetFileType(fichier : FSSpec; QuelType : OSType);
+	procedure SetFileCreator(fichier : fileInfo; QuelType : OSType);
+	procedure SetFileType(fichier : fileInfo; QuelType : OSType);
 
 
 	function GetWDName(WDRefNum : SInt16) : String255;
@@ -213,7 +213,7 @@ end;
 
 
 
-procedure SetFileCreator(fichier : FSSpec; QuelType : OSType);
+procedure SetFileCreator(fichier : fileInfo; QuelType : OSType);
 	var
 		InfosFinder : FInfo;
 		err : OSErr;
@@ -223,7 +223,7 @@ begin
 	err := FSpSetFInfo(fichier, InfosFinder);
 end;
 
-procedure SetFileType(fichier : FSSpec; QuelType : OSType);
+procedure SetFileType(fichier : fileInfo; QuelType : OSType);
 	var
 		InfosFinder : FInfo;
 		err : OSErr;
@@ -256,7 +256,7 @@ end;
 		   end;
 	end;
 
-	function CreateTemporaryFile (var fs : FSSpec) : OSErr;
+	function CreateTemporaryFile (var fs : fileInfo) : OSErr;
 	begin
 		SafeFindFolder( kOnSystemDisk, kTemporaryFolderType, fs.vRefNum, fs.parID );
 		CreateTemporaryFile := CreateUniqueFile( fs, MY_FOUR_CHAR_CODE('trsh'), MY_FOUR_CHAR_CODE('trsh') );
@@ -276,7 +276,7 @@ end;
 	end;
 }
 
-	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;
+	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
@@ -305,7 +305,7 @@ end;
 
 	{$ifc defined __GPC__}
 
-	function GetNameOfFSSpec(fs : FSSpec) : String255;
+	function GetNameOfFSSpec(fs : fileInfo) : String255;
 	var aux63 : Str63;
 	    aux255 : Str255;
 	begin
@@ -316,7 +316,7 @@ end;
 
 	{$elsec}
 
-	function GetNameOfFSSpec(fs : FSSpec) : String255;
+	function GetNameOfFSSpec(fs : fileInfo) : String255;
 	begin
 	  GetNameOfFSSpec := fs.name;
 	end;
@@ -325,7 +325,7 @@ end;
 
 
 
-  procedure SetNameOfFSSpec(var fs : FSSpec; const name : String255);
+  procedure SetNameOfFSSpec(var fs : fileInfo; const name : String255);
 	begin
 	  {$ifc defined __GPC__}
 	     StringIntoStr63(name, Str63(fs.name));
@@ -369,7 +369,7 @@ end;
 
 
 
-	function GetFullPathOfFSSpec(fs : FSSpec) : String255;
+	function GetFullPathOfFSSpec(fs : fileInfo) : String255;
 	var result : String255;
 	    error : OSErr;
 	begin
@@ -378,7 +378,7 @@ end;
 	end;
 
 
-	function TouchDir (fs : FSSpec) : OSErr;
+	function TouchDir (fs : fileInfo) : OSErr;
 		var
 			pb : CInfoPBRec;
 			err : OSErr;
@@ -420,7 +420,7 @@ end;
 		TouchFolder := err;
 	end;
 
-	function CreateUniqueFile (var fs : FSSpec; creator, ftype : OSType) : OSErr;
+	function CreateUniqueFile (var fs : fileInfo; creator, ftype : OSType) : OSErr;
 		var
 			oname : String255;
 			name : Str255;
@@ -448,7 +448,7 @@ end;
 		CreateUniqueFile := oe;
 	end;
 
-	function CreateUniqueFolder (var fs : FSSpec; var dirID : UInt32 ) : OSErr;
+	function CreateUniqueFolder (var fs : fileInfo; var dirID : UInt32 ) : OSErr;
 		var
 			oname : String255;
 			n : String255;
@@ -472,7 +472,7 @@ end;
 	end;
 
 
-	function FolderExists (var folder : FSSpec; var err : OSErr) : boolean;
+	function FolderExists (var folder : fileInfo; var err : OSErr) : boolean;
 	  var targetIsFolder : boolean;
 	      wasAliased : boolean;
 	      path : String255;
@@ -599,7 +599,7 @@ end;
 		MyFSWrite := oe;
 	end;
 
-	function MyFSReadFile( {const} spec : FSSpec; var data : Handle ) : OSErr;
+	function MyFSReadFile( {const} spec : fileInfo; var data : Handle ) : OSErr;
 		var
 			err, junk: OSErr;
 			rn : SInt16;
@@ -625,10 +625,10 @@ end;
 		MyFSReadFile := err;
 	end;
 
-	procedure MyResolveAliasFile (var fs : FSSpec);
+	procedure MyResolveAliasFile (var fs : fileInfo);
 		var
 			isFolder, wasalias: boolean;
-			temp : FSSpec;
+			temp : fileInfo;
 			gv: SInt32;
 			oe : OSErr;
 	begin
@@ -651,7 +651,7 @@ end;
 		MyGetCatInfo := PBGetCatInfoSync(@pb);
 	end;
 
-	function FSpGetParID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
@@ -663,7 +663,7 @@ end;
 		FSpGetParID := err;
 	end;
 
-	function FSpGetDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
@@ -679,7 +679,7 @@ end;
 		FSpGetDirID := err;
 	end;
 
-	function FSpGetCatInfo (const fs : FSSpec; var pb : CInfoPBRec) : OSErr;
+	function FSpGetCatInfo (const fs : fileInfo; var pb : CInfoPBRec) : OSErr;
 	begin
 		pb.iovRefNum := fs.vRefNum;
 		pb.ioDirID := fs.parID;
@@ -688,7 +688,7 @@ end;
 		FSpGetCatInfo := PBGetCatInfoSync(@pb);
 	end;
 
-	function FSpGetIndCatInfo (var fs : FSSpec; index: SInt16; var pb : CInfoPBRec) : OSErr;
+	function FSpGetIndCatInfo (var fs : fileInfo; index: SInt16; var pb : CInfoPBRec) : OSErr;
 	begin
 		pb.iovRefNum := fs.vRefNum;
 		pb.ioDirID := fs.parID;
@@ -697,7 +697,7 @@ end;
 		FSpGetIndCatInfo := PBGetCatInfoSync(@pb);
 	end;
 
-	function FSpSetCatInfo (const spec : FSSpec; var pb : CInfoPBRec) : OSErr;
+	function FSpSetCatInfo (const spec : fileInfo; var pb : CInfoPBRec) : OSErr;
 	begin
 		pb.iovRefNum := spec.vRefNum;
 		pb.ioDirID := spec.parID;
@@ -705,7 +705,7 @@ end;
 		FSpSetCatInfo := PBSetCatInfoSync(@pb);
 	end;
 
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : FSSpec) : OSErr;
+	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 		var
 			pb : CInfoPBRec;
 			oe : OSErr;
@@ -733,15 +733,15 @@ end;
 		MyFSMakeFSSpec := oe;
 	end;
 
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : FSSpec;
-	var result : FSSpec;
+	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	var result : fileInfo;
 	    err : OSErr;
 	begin
 	  err := MyFSMakeFSSpec(vrn, dirID, name, result);
 	  MyMakeFSSpec := result;
 	end;
 
-	procedure MyGetModDate (const spec : FSSpec; var moddate : SInt32);
+	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
@@ -782,7 +782,7 @@ end;
 		CopyData := oe;
 	end;
 
-	function DuplicateFile ({const} org, new : FSSpec) : OSErr;
+	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
 		const
 			fdInited = $0100;
 		var
@@ -984,7 +984,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 	end;
 
 
-	function SameFSSpec (const fs1, fs2 : FSSpec) : boolean;
+	function SameFSSpec (const fs1, fs2 : fileInfo) : boolean;
 	begin
 		SameFSSpec := (fs1.vRefNum = fs2.vRefNum) and
 		              (fs1.parID = fs2.parID) and   {(IUEqualString(fs1.name, fs2.name) = 0);}
@@ -993,7 +993,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 
 
 
-	function FSpGetFolderDirID( const spec : FSSpec; var dirID : SInt32 ) : OSErr;
+	function FSpGetFolderDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
@@ -1072,7 +1072,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 
 
 
-function ScanDirectory (fs : FSSpec; doit : ScanProc) : OSErr;
+function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;
 var
 	pb : CInfoPBRec;
 	ret, folder : boolean;
@@ -1141,7 +1141,7 @@ begin
 end;
 
 
-function SetPathOfScannedDirectory(var folder : FSSpec) : OSErr;
+function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;
 var err : OSErr;
     path : String255;
     targetIsFolder,wasAliased : boolean;
@@ -1209,7 +1209,7 @@ end;
 
 
 
-function RemoveResourceFork( {const} spec : FSSpec ) : OSErr;
+function RemoveResourceFork( {const} spec : fileInfo ) : OSErr;
 	var
 		err, err2 : OSErr;
 		refnum : SInt16;
@@ -1653,7 +1653,7 @@ end;
 function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : FichierTEXT) : OSErr;
 var reply : SFReply;
     err : OSErr;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
 begin
   err := -1;
 
@@ -1667,7 +1667,7 @@ end;
 function CreateDirectoryWithThisPath(directoryPath : String255) : OSErr;
 const separateur = ':';
 var erreurES : OSErr;
-    directoryDepot : FSSpec;
+    directoryDepot : fileInfo;
     dirID : UInt32;
 begin
 
@@ -1691,7 +1691,7 @@ begin
 end;
 
 
-function CreateSubDirectoryNearThisFile(const whichFile : FSSpec; var directoryName : String255) : OSErr;
+function CreateSubDirectoryNearThisFile(const whichFile : fileInfo; var directoryName : String255) : OSErr;
 const separateur = ':';
 var erreurES : OSErr;
     path, pathSubDirectory : String255;
@@ -1726,10 +1726,10 @@ var
 	CPath : packed array[0..255] of char;
 	c : char;
 	i : SInt32;
-	fsTemp : FSSpec;
+	fsTemp : fileInfo;
 	pathTemp : String255;
 	volumeName : String255;
-	fsAppSuppFolder : FSSpec;
+	fsAppSuppFolder : fileInfo;
 	err2 : OSErr;
 label cleanup;
 begin

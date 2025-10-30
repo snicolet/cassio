@@ -484,7 +484,7 @@ end;
 function SauvegardeListeCouranteEnTHOR_PAR : OSErr;
 var codeErreur : OSErr;
     reply : SFReply;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
     prompt,s : String255;
     fichierTHOR_PAR : FichierTEXT;
     nroPartieDansListe,nroReference : SInt32;

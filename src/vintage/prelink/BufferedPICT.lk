@@ -13,7 +13,7 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : FSSpec) : OSErr;     external;
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : fileInfo) : OSErr;     external;
 function FichierPhotosHappyEndExistePourCesTextureEtCouleur(nomFichierDansMenu : String255; couleur : SInt16; var numeroFic : SInt16) : boolean;     external;
 function GetPathCompletFichierParNumero(numeroFic : SInt16) : String255;     external;
   function MyGetPicture(picID: SInt16) : PicHandle;     external;

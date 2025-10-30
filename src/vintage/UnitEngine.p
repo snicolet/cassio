@@ -95,7 +95,7 @@ procedure EngineViderFeedHashHistory;
 
 
 { Decouverte des moteurs places par l'utilisateur dans le dossier 'Engines' }
-function TraiteFichierEngineEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function TraiteFichierEngineEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 procedure ChercheEnginesDansDossier(pathDuDossier : String255; var dossierTrouve : boolean);
 procedure LecturePreparatoireDossierEngines(pathDuDossierPere : String255 );
 function GetEngineBundleName : String255;
@@ -479,7 +479,7 @@ end;
  *******************************************************************************
  *)
 procedure ChercheEnginesDansDossier(pathDuDossier : String255; var dossierTrouve : boolean);
-var directoryDepart : FSSpec;
+var directoryDepart : fileInfo;
     codeErreur : OSErr;
     cheminDirectoryDepartRecursion : String255;
 begin
@@ -507,7 +507,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function TraiteFichierEngineEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function TraiteFichierEngineEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var p : SInt64;
     s, foo : String255;
     pathEngine, nomEngine : String255;

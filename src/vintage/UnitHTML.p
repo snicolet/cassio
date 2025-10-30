@@ -22,11 +22,11 @@ function WritePositionEtTraitEnHTMLDansFichierAbstrait(position : PositionEtTrai
 
 
 {quelques fonctions pour generer les images utilisees dans le code HTML}
-procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : FSSpec);
+procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : fileInfo);
 procedure ExportPictureToFile(thePicHandle : PicHandle; nomFichier : String255);
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : FSSpec) : OSErr;
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);
-procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : FSSpec);
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : fileInfo) : OSErr;
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : fileInfo);
+procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : fileInfo);
 
 
 
@@ -275,7 +275,7 @@ end;
 
 
 {refer to QuickTime 4 reference p 573 for more info.}
-procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : FSSpec);
+procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : fileInfo);
 var
     result  : ComponentResult;
     ge : GraphicsExportComponent;
@@ -297,7 +297,7 @@ var
     ge : GraphicsExportComponent;
     myError : OSErr;
     ActualSize : UInt32;
-    fileSpec : FSSpec;
+    fileSpec : fileInfo;
     erreurES : OSErr;
     fic : FichierTEXT;
 begin
@@ -324,7 +324,7 @@ begin
 end;
 
 
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : FSSpec) : OSErr;
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : fileInfo) : OSErr;
 var
   myImporter : GraphicsImportComponent;
   myRect : Rect;
@@ -352,7 +352,7 @@ begin
    QTGraph_ShowImageFromFile := err;
 end;
 
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : fileInfo);
 var
   myImporter : GraphicsImportComponent;
   myRect : Rect;
@@ -379,7 +379,7 @@ begin
      end;
 end;
 
-procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : FSSpec);
+procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : fileInfo);
 const kTailleCase = 12;
       kLargeurBordure = 8;
 var i,j,square : SInt32;

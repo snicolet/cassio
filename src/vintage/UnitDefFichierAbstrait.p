@@ -26,7 +26,7 @@ type FichierAbstraitPtr = Ptr;
 
      FichierAbstrait =
       record
-        infos                  : Ptr;      { pointeur sur un fichier ou un adresse memoire (privé) }
+        data                   : Ptr;      { pointeur sur un fichier ou un adresse memoire (privé) }
         tailleMaximalePossible : SInt32;   { taille maximale possible }
         nbOctetsOccupes        : SInt32;   { taille occupee dans le fichier abstrait }
         position               : SInt32;   { position du pointeur d'ecriture dans le fichier abstrait }

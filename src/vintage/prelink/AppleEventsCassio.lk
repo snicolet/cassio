@@ -9,7 +9,7 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-function OuvrirFichierPartieFSp(fichier : FSSpec; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;     external;
+function OuvrirFichierPartieFSp(fichier : fileInfo; whichFormats : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;     external;
 procedure DoDialogueApercuAvantImpression;     external;
 procedure DoQuit;     external;
 function GetHauteurChaqueLigneDansListe : SInt32;     external;

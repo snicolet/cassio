@@ -1170,7 +1170,7 @@ var fic : t_LocalFichierAbstraitPtr;
       repeat
 
         // trouver le sŽparateur de messages dans le fichier abstrait
-        endOfMessageWasFoundDansFichierAbstrait :=  FindStringInBuffer(separateurDeMessages, fic^.infos, fic^.nbOctetsOccupes, 0 , +1, posSeparateur);
+        endOfMessageWasFoundDansFichierAbstrait :=  FindStringInBuffer(separateurDeMessages, fic^.data, fic^.nbOctetsOccupes, 0 , +1, posSeparateur);
 
         if endOfMessageWasFoundDansFichierAbstrait then
           begin
@@ -1199,10 +1199,10 @@ var fic : t_LocalFichierAbstraitPtr;
                 // apres le premier separateur de messages) vers le debut du fichier abstrait, de sorte
                 // que l'on puisse trouver le message suivant, etc.
 
-                texte2 := PackedArrayOfCharPtr(fic^.infos);
+                texte2 := PackedArrayOfCharPtr(fic^.data);
                 fic^.nbOctetsOccupes := oldZoneSize - posSeparateur - LENGTH_OF_STRING(separateurDeMessages);
                 if (fic^.nbOctetsOccupes > 0)
-                  then MoveMemory(@texte2^[posSeparateur + LENGTH_OF_STRING(separateurDeMessages)], fic^.infos, fic^.nbOctetsOccupes);
+                  then MoveMemory(@texte2^[posSeparateur + LENGTH_OF_STRING(separateurDeMessages)], fic^.data, fic^.nbOctetsOccupes);
                 err := SetPositionMarqueurFichierAbstrait(fic^, fic^.nbOctetsOccupes);
 
                 (*
@@ -1260,7 +1260,7 @@ begin
       (*
       WritelnDansRapport('a la fin de SerialiserMessagesDuZoo, fic contient : ');
       WritelnNumDansRapport('fic^.nbOctetsOccupes = ',fic^.nbOctetsOccupes);
-      InsereTexteDansRapport(fic^.infos, fic^.nbOctetsOccupes);
+      InsereTexteDansRapport(fic^.data, fic^.nbOctetsOccupes);
       WritelnDansRapport('');
       WritelnDansRapport('sortie de SerialiserMessagesDuZoo...');
       WritelnDansRapport('');

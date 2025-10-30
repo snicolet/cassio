@@ -20,7 +20,7 @@ TYPE
             ressourceForkRefNum : SInt32;        {private}
             dataForkOuvertCorrectement : SInt32; {private}
             rsrcForkOuvertCorrectement : SInt32; {private}
-            theFSSpec : FSSpec;                  {private}
+            theFSSpec : fileInfo;                  {private}
             bufferLecture : record               {private}
                               bufferLecture      : PackedArrayOfCharPtr;  {private}
                               debutDuBuffer      : SInt32;    {private}

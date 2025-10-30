@@ -11,8 +11,8 @@ INTERFACE
  uses
      UnitDefCassio , Files;
 
-	function CreateFileID(var spec : FSSpec; var id : SInt32) : OSErr;
-	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : FSSpec) : OSErr;
+	function CreateFileID(var spec : fileInfo; var id : SInt32) : OSErr;
+	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : fileInfo) : OSErr;
 
 IMPLEMENTATION
 
@@ -27,7 +27,7 @@ IMPLEMENTATION
 		MyMemory,
 		MyFileSystemUtils;
 
-	function CreateFileID(var spec : FSSpec; var id : SInt32) : OSErr;
+	function CreateFileID(var spec : fileInfo; var id : SInt32) : OSErr;
 		var
 			err : OSErr;
 			pb : HParamBlockRec;
@@ -44,7 +44,7 @@ IMPLEMENTATION
 		CreateFileID := err;
 	end;
 
-	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : FSSpec) : OSErr;
+	function ResolveFileID(vrn: SInt16; id : SInt32; var spec : fileInfo) : OSErr;
 		var
 			err : OSErr;
 			pb : HParamBlockRec;

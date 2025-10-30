@@ -11,7 +11,7 @@ INTERFACE
 
 function MyGetFontNum(nomPolice : String255) : SInt16;
 procedure GetClassicalFontsID;
-function LoadFont(fontFSSpec : FSSpec) : OSErr;
+function LoadFont(fontFSSpec : fileInfo) : OSErr;
 
 
 IMPLEMENTATION
@@ -74,10 +74,10 @@ procedure GetClassicalFontsID;
 	end;
 
 
-function LoadFont(fontFSSpec : FSSpec) : OSErr;
+function LoadFont(fontFSSpec : fileInfo) : OSErr;
 var err : OSErr;
     fileRef : FSRef;
-    theFSSpec : FSSpec;
+    theFSSpec : fileInfo;
 begin
 
   err := FSpMakeFSRef(fontFSSpec,fileRef);

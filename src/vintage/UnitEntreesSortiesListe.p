@@ -35,7 +35,7 @@ function FiltrePartieEstActiveEtSelectionnee(numeroDansLaListe,numeroReference :
 
 {export au format WTB}
 function ConfirmationEcraserBase : boolean;
-function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : FSSpec; var doitEcraserBase : boolean) : OSErr;
+function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : fileInfo; var doitEcraserBase : boolean) : OSErr;
 function SauvegardeListeCouranteAuNouveauFormat(filtreDesParties : FiltreNumRefProc) : OSErr;
 
 
@@ -120,7 +120,7 @@ begin
 end;
 
 
-function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : FSSpec; var doitEcraserBase : boolean) : OSErr;
+function SauvegardeCesPartiesDeLaListe(filtreDesParties : FiltreNumRefProc; nroPartieMin,nroPartieMax : SInt32; anneeDesParties : SInt16; fichier : fileInfo; var doitEcraserBase : boolean) : OSErr;
 var enteteFichierPartie : t_EnTeteNouveauFormat;
     partieNF : t_PartieRecNouveauFormat;
     n,nroReference,bidon : SInt32;
@@ -330,7 +330,7 @@ end;
 function SauvegardeListeCouranteAuNouveauFormat(filtreDesParties : FiltreNumRefProc) : OSErr;
 var codeErreur : OSErr;
     reply : SFReply;
-    fichier : FSSpec;
+    fichier : fileInfo;
     prompt,s : String255;
     nroPartieDansListe,nroReference : SInt32;
     nroPremierePartieDeLAnnee : SInt32;

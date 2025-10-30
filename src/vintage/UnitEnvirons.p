@@ -88,7 +88,7 @@ var myStringPtr : StringPtr;
     codeErreur : OSErr;
     dirID : UInt32;
     myPath : String255;
-    myFSSpec : FSSpec;
+    myFSSpec : fileInfo;
     left,right : String255;
 begin
    myStringPtr := StringPtr(AllocateMemoryPtr(sizeof(str255)));
@@ -181,7 +181,7 @@ function GetApplicationName(default : String255) : String255;
 		CurrentPSN : ProcessSerialNumber;
 		ProcessInfo : ProcessInfoRec;
 		err : OSErr;
-		myFSSpec : FSSpec;
+		myFSSpec : fileInfo;
 		myString : Str255;
 begin
 	GetApplicationName := default;  {nom par défaut si le reste ne marche pas, e.g. sur un PC}
@@ -228,7 +228,7 @@ begin
 end;
 
 function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;
-var myFSSpec : FSSpec;
+var myFSSpec : fileInfo;
     err : OSErr;
     fullPath : String255;
     iterateurCassioFolderPaths : String255;
@@ -283,7 +283,7 @@ end;
 
 
 function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) : String255;
-var myFSSpec : FSSpec;
+var myFSSpec : fileInfo;
     err : OSErr;
     fullPath : String255;
     iterateurCassioFolderPaths : String255;
@@ -526,7 +526,7 @@ const gNbLecturesDossierPolicesDeCassio : SInt32 = 0;
 
 
 
-function LoadPolicePriveeDeCassio(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function LoadPolicePriveeDeCassio(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var nomFichier : String255;
     fontFile : FichierTEXT;
     err : OSErr;
@@ -576,7 +576,7 @@ end;
 
 
 procedure ChargerLesPolicesPriveesDeCassio;
-var fontDirectory : FSSpec;
+var fontDirectory : fileInfo;
     fic : FichierTEXT;
     path : String255;
     err : OSErr;

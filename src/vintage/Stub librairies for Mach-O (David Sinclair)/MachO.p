@@ -122,7 +122,7 @@ uses
 				theErr												: OSStatus;
 				theFSRef											: FSRef;
 				theBundleURL									: CFURLRef;
-				theFSSpec											: FSSpec;
+				theFSSpec											: fileInfo;
 		begin
 			theBundlePtr										:= nil;
 			theBundleURL										:= nil;

@@ -23,7 +23,7 @@ pascal OSStatus OpenFileDialog(OSType applicationSignature, short numTypes, OSTy
 // To enable multiple document opening through AppleEvents pass NULL as the fileSpec anf fileType.
 
 
-pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, OSType typeList[], FSSpec* fileSpec);
+pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, OSType typeList[], fileInfo* fileSpec);
 // Displays the NavGet dialog and returns (in "fileSpec") the first selected file.
 
 
@@ -32,12 +32,12 @@ pascal short ConfirmSaveDialog(StringPtr documentName, Boolean quitting);
 
 
 
-pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator,  FSSpec* fileSpec, Boolean* stationery, Boolean* replacing, NavReplyRecord* reply);
+pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator,  fileInfo* fileSpec, Boolean* stationery, Boolean* replacing, NavReplyRecord* reply);
 // Displays the NavPut dialog and returns the selected file location and replacing info.
 
 
 
-pascal OSStatus CompleteSave(const FSSpec* fileSpec, NavReplyRecord* reply);
+pascal OSStatus CompleteSave(const fileInfo* fileSpec, NavReplyRecord* reply);
 
 pascal Boolean MyNavServicesAvailable();
 
@@ -184,7 +184,7 @@ pascal OSStatus OpenFileDialog(OSType applicationSignature, short numTypes, OSTy
 
 
 
-pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, OSType typeList[], FSSpec* fileSpec)
+pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, OSType typeList[], fileInfo* fileSpec)
 {
 	NavReplyRecord		theReply;
 	NavDialogOptions	dialogOptions;
@@ -232,9 +232,9 @@ pascal OSStatus OpenOneFileDialog(OSType applicationSignature, short numTypes, O
 		theErr = AEGetNthDesc(&(&theReply)->selection, 1, typeFSS, &keyword, &resultDesc);
 		if (theErr == noErr)
 #if TARGET_API_MAC_CARBON==0
-			BlockMove(*resultDesc.dataHandle, fileSpec, sizeof(FSSpec));
+			BlockMove(*resultDesc.dataHandle, fileSpec, sizeof(fileInfo));
 #else
-			AEGetDescData(&resultDesc, fileSpec, sizeof(FSSpec));
+			AEGetDescData(&resultDesc, fileSpec, sizeof(fileInfo));
 #endif
       }
 	
@@ -299,7 +299,7 @@ pascal short ConfirmSaveDialog(StringPtr documentName, Boolean quitting)
 
 
 pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType filetype, OSType fileCreator,
-						 FSSpec* fileSpec,
+						 fileInfo* fileSpec,
 						Boolean* stationery, Boolean* replacing, NavReplyRecord* reply)
 {
 	NavDialogOptions	dialogOptions;
@@ -327,9 +327,9 @@ pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType file
 		theErr = AEGetNthDesc(&reply->selection, 1, typeFSS, &keyword, &resultDesc);
 		if (theErr == noErr)
 #if TARGET_API_MAC_CARBON==0
-			BlockMove(*resultDesc.dataHandle, fileSpec, sizeof(FSSpec));
+			BlockMove(*resultDesc.dataHandle, fileSpec, sizeof(fileInfo));
 #else
-			AEGetDescData(&resultDesc, fileSpec, sizeof(FSSpec));
+			AEGetDescData(&resultDesc, fileSpec, sizeof(fileInfo));
 #endif
 		if ( replacing != NULL )
 			*replacing = reply->replacing;
@@ -356,7 +356,7 @@ pascal OSStatus SaveFileDialog(StringPtr fileName, StringPtr prompt, OSType file
 
 
 
-pascal OSStatus CompleteSave(const FSSpec* fileSpec, NavReplyRecord* reply)
+pascal OSStatus CompleteSave(const fileInfo* fileSpec, NavReplyRecord* reply)
 {
 	OSStatus theErr;
 	

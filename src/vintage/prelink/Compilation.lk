@@ -51,10 +51,10 @@ function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSEr
 procedure AppendToLongString(var ligne : LongString; const s : String255);     external;
 function SetPositionTeteLectureFinFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function LongStringBeginsWith(const s : String255; const ligne : LongString) : boolean;     external;
-	function GetNameOfFSSpec(fs : FSSpec) : String255;     external;
+	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
 function VideFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 procedure DisposeATR(var theATR : ATR);     external;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : FSSpec) : OSErr;     external;
-	function SetPathOfScannedDirectory(var folder : FSSpec) : OSErr;     external;
-	function ScanDirectory (fs : FSSpec; doit : ScanProc) : OSErr;     external;
+	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
+	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;

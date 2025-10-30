@@ -12,7 +12,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure WritelnStringDansRapport(s : String255);     external;
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : FSSpec);     external;
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : fileInfo);     external;
 function GetBoundingRectOfSquare(whichSquare : SInt16) : rect;     external;
 procedure InvalidateDessinEnTraceDeRayon(square : SInt16);     external;
 procedure SetOthellierEstSale(square : SInt16; flag : boolean);     external;

@@ -693,7 +693,7 @@ var FiltreDialogueSaisieUPP : modalFilterUPP;
     nbCoupsIdentiques : SInt32;
 	  s,s1 : String255;
 	  nomBase,pathBase,prompt : String255;
-	  mySpec : FSSpec;
+	  mySpec : fileInfo;
 	  err : OSErr;
 	  oldPort : grafPtr;
 	  partieRec : t_PartieRecNouveauFormat;

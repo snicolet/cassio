@@ -45,7 +45,7 @@ function PathFichierPictureHappyEndDeCetteFamille(nomFichierDansMenu : String255
 
 procedure AlerteFichierPhotosNonTrouve(nomFichier : String255);
 
-procedure AjouterFichierOthellierPicture(fs : FSSpec; typeFichierGraphique : SInt16);
+procedure AjouterFichierOthellierPicture(fs : fileInfo; typeFichierGraphique : SInt16);
 procedure LecturePreparatoireDossierOthelliers(pathDuDossierPere : String255);
 
 procedure TestUnitFichierPhotos;
@@ -506,7 +506,7 @@ end;
 
 
 
-procedure AjouterFichierOthellierPicture(fs : FSSpec; typeFichierGraphique : SInt16);
+procedure AjouterFichierOthellierPicture(fs : fileInfo; typeFichierGraphique : SInt16);
 var codeErreur : OSErr;
     path : String255;
     textePourMenu : String255;
@@ -605,7 +605,7 @@ begin
 	    end;
 end;
 
-function TraiteFichierPictureEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function TraiteFichierPictureEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 begin
  {$UNUSED pb}
 
@@ -633,7 +633,7 @@ end;
 
 
 procedure CherchePicturesOthelliersDansDossier( pathDuDossier : String255; var dossierTrouve : boolean);
-var directoryDepart : FSSpec;
+var directoryDepart : fileInfo;
     codeErreur : OSErr;
     cheminDirectoryDepartRecursion : String255;
 begin

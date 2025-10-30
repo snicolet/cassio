@@ -168,7 +168,7 @@ var n,k : SInt32;
     err : OSErr;
     reply : SFReply;
     nomfichier,theLine,s : String255;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
     myDate : DateTimeRec;
     explicationRejetPartie : SInt32;
 begin

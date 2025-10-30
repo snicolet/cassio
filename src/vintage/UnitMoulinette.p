@@ -26,7 +26,7 @@ procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : St
 function  AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;
 function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;
 procedure ImportBaseAllDrawLinesDeBougeard;
-function  ImporterFichierPartieDansListe(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function  ImporterFichierPartieDansListe(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 procedure ImporterToutesPartiesRepertoire;
 procedure BaseLogKittyEnFormatThor(nomBaseLogKitty,NomBaseFormatThor : String255);
 
@@ -1582,7 +1582,7 @@ end;
 procedure ExportListeAuFormatTexte(descriptionLigne : String255; var nbPartiesExportees : SInt64);
 var reply : SFReply;
     prompt : String255;
-    whichSpec : FSSpec;
+    whichSpec : fileInfo;
     erreurES : OSErr;
     exportTexte : FichierTEXT;
     compteur : SInt64;
@@ -1629,7 +1629,7 @@ end;
 procedure ExportListeAuFormatPGN;
 var reply : SFReply;
     prompt : String255;
-    whichSpec : FSSpec;
+    whichSpec : fileInfo;
     erreurES : OSErr;
     exportFichier : FichierTEXT;
     compteur,nbPartiesExportees : SInt64;
@@ -1676,7 +1676,7 @@ end;
 procedure ExportListeAuFormatXOF;
 var reply : SFReply;
     prompt,ligne : String255;
-    whichSpec : FSSpec;
+    whichSpec : fileInfo;
     erreurES : OSErr;
     exportFichier : FichierTEXT;
     compteur,nbPartiesExportees : SInt64;
@@ -2208,7 +2208,7 @@ begin
 end;
 
 
-function ImporterFichierPartieDansListe(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function ImporterFichierPartieDansListe(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var err : OSErr;
     fic : FichierTEXT;
     nomComplet : String255;
@@ -2376,7 +2376,7 @@ end;
 
 procedure ImporterToutesPartiesRepertoire;
 var prompt : String255;
-    whichDirectory : FSSpec;
+    whichDirectory : fileInfo;
     erreurES : OSErr;
     tick : SInt64;
 begin

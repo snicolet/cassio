@@ -19,9 +19,9 @@ INTERFACE
 
 
 function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;
-function FichierTexteExisteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
+function FichierTexteExisteFSp(mySpec : fileInfo; var fic : FichierTEXT) : OSErr;
 function CreeFichierTexte(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;
-function CreeFichierTexteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
+function CreeFichierTexteFSp(mySpec : fileInfo; var fic : FichierTEXT) : OSErr;
 
 
 
@@ -62,7 +62,7 @@ function ReadlnBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var 
 function ReadLongintDansFichierTexte(var fic : FichierTEXT; var value : SInt32) : OSErr;
 
 
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
 function InsererFichierDansFichierTexte(var fic : FichierTEXT; pathFichierAInserer : String255) : OSErr;
 function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT) : OSErr;
 
@@ -90,7 +90,7 @@ function  GetDebuggageUnitFichiersTexte : boolean;
 
 
 function CreeSortieStandardEnFichierTexte(var fic : FichierTEXT) : OSErr;
-function FSSpecToLongName(whichFile : FSSpec; var theLongName : String255) : OSErr;
+function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 
 
@@ -200,7 +200,7 @@ end;
 
 function ResolveAliasInFullName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
-    myFSSpec : FSSpec;
+    myFSSpec : fileInfo;
     err : OSErr;
     posDeuxPoints : SInt16;
 begin
@@ -298,7 +298,7 @@ begin
 end;
 
 
-procedure InitialiseFichierTexteFSp(mySpec : FSSpec; var fic : FichierTEXT);
+procedure InitialiseFichierTexteFSp(mySpec : fileInfo; var fic : FichierTEXT);
 begin
 
   fic.nomFichier := GetNameOfFSSpec(mySpec);
@@ -333,7 +333,7 @@ type FSCopyAliasInfoPtr = function(inAlias : AliasHandle;
                                    ) : OSStatus;
 
 
-function FSSpecToLongName(whichFile : FSSpec; var theLongName : String255) : OSErr;
+function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 var err : OSErr;
     MacVersion : SInt32;
     MySFCopyAlias : FSCopyAliasInfoPtr;
@@ -390,7 +390,7 @@ end;
 
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
-    myFSSpec : FSSpec;
+    myFSSpec : fileInfo;
 begin
    err := MyFSMakeFSSpec(0,0,path,myFSSpec);
    if err <> NoErr
@@ -411,9 +411,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
     end;
 
   if FichierTexteEstLeRapport(fic) then
@@ -433,7 +433,7 @@ begin
           err := FSSpecToFullPath(theFSSpec,fullName);
 
         end else
-      if (err = fnfErr) then {-43 : File Not Found, mais le FSSpec est valable}
+      if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
         bidlongint := FSSpecToFullPath(theFSSpec,fullName);
       parID      := theFSSpec.parID;
       nomFichier := fullName;
@@ -452,9 +452,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
   CreateFFSpecAndResolveAlias := err;
@@ -491,9 +491,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -506,9 +506,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -527,9 +527,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -545,7 +545,7 @@ begin
 end;
 
 
-function FichierTexteExisteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
+function FichierTexteExisteFSp(mySpec : fileInfo; var fic : FichierTEXT) : OSErr;
 var err1,err2 : OSErr;
     FinderInfos : FInfo;
 begin
@@ -573,9 +573,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -588,9 +588,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -609,9 +609,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -647,9 +647,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -663,16 +663,16 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
   CreeFichierTexte := err;
 end;
 
-function CreeFichierTexteFSp(mySpec : FSSpec; var fic : FichierTEXT) : OSErr;
+function CreeFichierTexteFSp(mySpec : fileInfo; var fic : FichierTEXT) : OSErr;
 var err : OSErr;
 begin
   InitialiseFichierTexteFSp(mySpec, fic);
@@ -692,9 +692,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -708,9 +708,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -757,14 +757,14 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 *)
 
-  if err <> NoErr then  {on essaie avec les routines du systeme 7 et le FSSpec}
+  if err <> NoErr then  {on essaie avec les routines du systeme 7 et le fileInfo}
     with fic do
       begin
         err := FSpOpenDF(theFSSpec,fsCurPerm,refNum);
@@ -777,9 +777,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('FSSpec.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('FSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('FSSpec.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err = ',err);
 			    end;
       end;
@@ -912,7 +912,7 @@ begin
     end;
   *)
 
-  if err <> NoErr then  {on essaie avec les routines du systeme 7 et le FSSpec}
+  if err <> NoErr then  {on essaie avec les routines du systeme 7 et le fileInfo}
     with fic do
       begin
         err := FSpDelete(theFSSpec);
@@ -1741,7 +1741,7 @@ begin
 end;
 
 
-procedure ForEachLineInFileDo(whichFile : FSSpec; DoWhat : LineOfFileProc; var result : SInt32);
+procedure ForEachLineInFileDo(whichFile : fileInfo; DoWhat : LineOfFileProc; var result : SInt32);
 var theFic : FichierTEXT;
     erreurES : OSErr;
     ligne : LongString;

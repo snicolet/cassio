@@ -59,9 +59,9 @@ procedure DessineBoutonPicture(window : WindowRef; pictureID : SInt32; position 
 function AppuieBoutonPicture(window : WindowRef; boutonNormalPictID,boutonEnfoncePictID : SInt32; boutonRect : rect; mouseLoc : Point) : boolean;
 
 
-function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : FSSpec) : boolean;
-function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;
-function ChooseFolder(prompt : String255; var whichSpec : FSSpec) : boolean;
+function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;
+function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : fileInfo) : boolean;
+function ChooseFolder(prompt : String255; var whichSpec : fileInfo) : boolean;
 
 function NewRadios(PremierBouton,DernierBouton,BoutonSelectione : SInt16) : RadioRec;
 procedure PushRadio(dp : DialogPtr; var Radios : RadioRec; itemHit : SInt16);
@@ -502,7 +502,7 @@ end;
 
 
 
-function MakeFileNameSansNavigationServices(var reply : SFReply; prompt : String255; var whichSpec : FSSpec) : boolean;
+function MakeFileNameSansNavigationServices(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;
 const
   DlogWidth = 304;
   Dlogheight = 184;
@@ -529,9 +529,9 @@ end;
 
 
 
-function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : FSSpec) : boolean;
+function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;
 var s, prompt255 : Str255;
-    fileSpec : FSSpec;
+    fileSpec : fileInfo;
     erreurES : OSStatus;
     ignoredErr : OSStatus;
     navReply : NavReplyRecord;
@@ -624,13 +624,13 @@ end;
 
 
 
-function DoChooseAFolderDialog(prompt : String255; var theFileSpec : FSSpec) : OSErr;
+function DoChooseAFolderDialog(prompt : String255; var theFileSpec : fileInfo) : OSErr;
 var
   dialogOptions : NavDialogOptions;
   navEventFunctionUPP : NavEventUPP;
   osError : OSErr;
   theNavReply : NavReplyRecord;
-  fileSpec : FSSpec;
+  fileSpec : fileInfo;
   resultDesc : AEDesc;
   defaultLocation : AEDesc;
   ignoredErr : OSErr;
@@ -653,7 +653,7 @@ begin
       osError := AECoerceDesc(theNavReply.selection, typeFSS, resultDesc);
       if (osError = noErr) then
         begin
-          BlockMoveData(Ptr(resultDesc.dataHandle^), @fileSpec, sizeof(FSSpec));
+          BlockMoveData(Ptr(resultDesc.dataHandle^), @fileSpec, sizeof(fileInfo));
           ignoredErr := MyFSMakeFSSpec(fileSpec.vRefNum, fileSpec.parID, GetNameOfFSSpec(fileSpec), theFileSpec);
         end;
       ignoredErr := AEDisposeDesc(resultDesc);
@@ -664,7 +664,7 @@ end; { of function DoChooseAFolderDialog }
 
 
 
-function ChooseFolder(prompt : String255; var whichSpec : FSSpec) : boolean;
+function ChooseFolder(prompt : String255; var whichSpec : fileInfo) : boolean;
 var erreurES : OSStatus;
 begin
   if not(MyNavServicesAvailable)
@@ -678,7 +678,7 @@ end;
 
 
 
-function GetFileNameSansNavigationServices(var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;
+function GetFileNameSansNavigationServices(var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : fileInfo) : boolean;
 const
   DlogWidth = 348;
   Dlogheight = 200;
@@ -729,7 +729,7 @@ begin
 end;
 
 
-function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : FSSpec) : boolean;
+function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : fileInfo) : boolean;
 
   var typelist : SFTypeList;
       n : SInt16;

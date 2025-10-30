@@ -182,11 +182,11 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OS
 function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;     external;
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
+function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
 	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure SetFileCreatorFichierTexte(var fic : FichierTEXT; quelType : OSType);     external;
 function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;     external;
-	function FSSpecToFullPath (fs : FSSpec; var path : String255) : OSErr;     external;
+	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
 function TrouverSlotLibreDansLaReservePourTelecharger(var numeroSlotLibre : SInt32) : boolean;     external;
 function MakeLongString(const s : String255) : LongString;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
@@ -202,10 +202,10 @@ function ReadlnDansFichierTexte(var fic : FichierTEXT; var s : String255) : OSEr
 function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : FichierTEXT) : OSErr;     external;
 function VideFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT) : OSErr;     external;
 function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;     external;
-	function GetFullPathOfFSSpec(fs : FSSpec) : String255;     external;
+	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt32;     external;

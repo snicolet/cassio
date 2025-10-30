@@ -134,12 +134,12 @@ begin
       GetFichierTEXTOfFichierAbstraitPtr := -1;
       exit;
     end;
-  if (theFile.genre <> FichierAbstraitEstFichier) or (theFile.infos = NIL) then
+  if (theFile.genre <> FichierAbstraitEstFichier) or (theFile.data = NIL) then
      begin
       GetFichierTEXTOfFichierAbstraitPtr := -2;
       exit;
     end;
-  MoveMemory(theFile.infos,@fic,sizeof(FichierTEXT));
+  MoveMemory(theFile.data,@fic,sizeof(FichierTEXT));
   GetFichierTEXTOfFichierAbstraitPtr := NoErr;
 end;
 
@@ -258,14 +258,14 @@ function EcrireDansFichierAbstraitPointeur(theAbstractFilePtr : FichierAbstraitP
 var theFile : FichierAbstrait;
 begin
   if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
-     (theFile.infos = NIL)  then
+     (theFile.data = NIL)  then
     begin
       EcrireDansFichierAbstraitPointeur := -1;
       exit;
     end;
   if (fromPos >= 0)
-    then MoveMemory(buffer,Ptr(SInt32(theFile.infos)+fromPos),nbOctets)
-    else MoveMemory(buffer,Ptr(SInt32(theFile.infos)+theFile.nbOctetsOccupes),nbOctets);
+    then MoveMemory(buffer,Ptr(SInt32(theFile.data)+fromPos),nbOctets)
+    else MoveMemory(buffer,Ptr(SInt32(theFile.data)+theFile.nbOctetsOccupes),nbOctets);
   EcrireDansFichierAbstraitPointeur := NoErr;
 end;
 
@@ -274,14 +274,14 @@ function LireFromFichierAbstraitPointeur(theAbstractFilePtr : FichierAbstraitPtr
 var theFile : FichierAbstrait;
 begin
   if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
-     (theFile.infos = NIL)  then
+     (theFile.data = NIL)  then
     begin
       LireFromFichierAbstraitPointeur := -1;
       exit;
     end;
   if (fromPos >= 0)
-    then MoveMemory(Ptr(SInt32(theFile.infos)+fromPos),buffer,nbOctets)
-    else MoveMemory(Ptr(SInt32(theFile.infos)+theFile.position),buffer,nbOctets);
+    then MoveMemory(Ptr(SInt32(theFile.data)+fromPos),buffer,nbOctets)
+    else MoveMemory(Ptr(SInt32(theFile.data)+theFile.position),buffer,nbOctets);
   LireFromFichierAbstraitPointeur := NoErr;
 end;
 
@@ -291,7 +291,7 @@ var theFile : FichierAbstrait;
     count : SInt32;
 begin
   if (GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr) or
-     (theFile.infos = NIL)  then
+     (theFile.data = NIL)  then
     begin
       ClearFichierAbstraitEnMemoire := -1;
       exit;
@@ -349,7 +349,7 @@ begin
 
 	    if err = NoErr then
         begin
-          MoveMemory(@fic, aux.infos, sizeof(FichierTEXT));
+          MoveMemory(@fic, aux.data, sizeof(FichierTEXT));
 
           Ecrire      := EcrireDansFichierAbstraitFichier;
           Lire        := LireFromFichierAbstraitFichier;

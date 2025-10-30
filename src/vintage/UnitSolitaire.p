@@ -127,7 +127,7 @@ var CoulAttaque,coulDefense : SInt32;
     nbrelignesSolution,nbreLigneH,nbreLigneV : SInt32;
     avecEcritureScoreDansSolution : boolean;
     s,s1 : String255;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
     nomPrec : String255;
     nroCoupRecherche : SInt32;
     nbreAppelsABSol : SInt32;

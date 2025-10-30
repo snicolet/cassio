@@ -75,5 +75,5 @@ function GetNomJoueurEnMetaphoneAvecEspaces(nroJoueur : SInt32) : String255;    
   procedure Parse5(s : String255; var s1,s2,s3,s4,s5,reste : String255);     external;
 	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure ATRAffichageInfixe(nomATR : String255; x : ATR);     external;
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
   procedure StripHTMLAccents(var s : String255);     external;

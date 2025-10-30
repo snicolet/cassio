@@ -39,7 +39,7 @@ function MakeLongString(const s : String255) : LongString;     external;
 procedure PrefetchJobDuZoo(const s : LongString);     external;
 	function Trim (s : String255) : String255;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-procedure ForEachLineInFileDo(whichFile : FSSpec ; DoWhat : LineOfFileProc; var result : SInt32);     external;
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function CassioDoitRentrerEnContactAvecLeZoo : boolean;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 function UpdatePositionEtTrait(var positionEtTrait : PositionEtTraitRec; whichMove : SInt32) : boolean;     external;

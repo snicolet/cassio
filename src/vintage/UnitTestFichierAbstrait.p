@@ -56,7 +56,7 @@ procedure WritelnFichierAbstraitDansRapport(theFile : FichierAbstrait);
 begin
   with theFile do
     begin
-      WritelnDansRapport('theFile.infos = '+IntToStr(SInt32(infos)));
+      WritelnDansRapport('theFile.data = '+IntToStr(SInt32(infos)));
       WritelnDansRapport('theFile.tailleMaximalePossible = '+IntToStr(tailleMaximalePossible));
       WritelnDansRapport('theFile.nbOctetsOccupes = '+IntToStr(nbOctetsOccupes));
       WritelnDansRapport('theFile.position = '+IntToStr(position));

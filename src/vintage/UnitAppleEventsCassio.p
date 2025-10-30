@@ -110,7 +110,7 @@ var theError : OSErr;
     index : SInt32;
     Keyword : AEKeyword;
     returnedType : DescType;
-    theFileSpec : FSSpec;
+    theFileSpec : fileInfo;
     actualSize : Size;
     bidErr : OSErr;
 begin

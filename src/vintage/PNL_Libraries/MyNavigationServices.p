@@ -14,11 +14,11 @@ function OpenFileDialog(applicationSignature : OSType; numTypes : SInt16; typeLi
 
 
 // Displays the NavGet dialog and returns (in "fileSpec") the first selected file.
-function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : FSSpec) : OSStatus;
+function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : fileInfo) : OSStatus;
 
 
 // Displays the NavPut dialog and returns the selected file location and replacing info.
-function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : FSSpec; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;
+function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : fileInfo; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;
 
 
 // Displays the save confirmation dialog anmd returns {ok, cancel, dontSaveChanges}
@@ -219,7 +219,7 @@ end;
 
 
 
-function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : FSSpec) : OSStatus;
+function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : fileInfo) : OSStatus;
 var
 	theReply : NavReplyRecord		;
 	dialogOptions : NavDialogOptions	;
@@ -296,7 +296,7 @@ begin
               		theErr := AEGetNthDesc(theReply.selection, 1, typeFSS, @keyword, resultDesc);
 
               		if (theErr = noErr) then
-                     theErr := AEGetDescData(resultDesc, @fileSpec, sizeof(FSSpec));
+                     theErr := AEGetDescData(resultDesc, @fileSpec, sizeof(fileInfo));
 
 
                 end;
@@ -400,7 +400,7 @@ end;
 
 
 
-function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : FSSpec;
+function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : fileInfo;
 						var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;
 var
   dialogOptions : NavDialogOptions	;
@@ -446,7 +446,7 @@ begin
       		theErr := AEGetNthDesc(reply.selection, 1, typeFSS, @keyword, resultDesc);
 
       		if (theErr = noErr) then
-      			theErr := AEGetDescData(resultDesc, @fileSpec, sizeof(FSSpec));
+      			theErr := AEGetDescData(resultDesc, @fileSpec, sizeof(fileInfo));
 
       		replacing := reply.replacing;
 

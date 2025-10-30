@@ -417,7 +417,7 @@ procedure InstallerFichierCronjob(nomFichierCronjob : String255);     external;
 function LaunchUNIXProcess(command, arguments : String255) : OSErr;     external;
   procedure SetDiagrammeDoitCreerVersionEPS(flag : boolean);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-function LoadFont(fontFSSpec : FSSpec) : OSErr;     external;
+function LoadFont(fontFSSpec : fileInfo) : OSErr;     external;
 procedure InitUnitUnixTask;     external;
 procedure LibereMemoireUnitUnixTask;     external;
 function GetCassioFontNum(nomPolice : String255) : SInt32;     external;

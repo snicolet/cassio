@@ -150,7 +150,7 @@ end;
 procedure EcritInterversionsSurDisque;
 var fichierInterversions : FichierTEXT;
     reply : SFReply;
-    mySpec : FSSpec;
+    mySpec : fileInfo;
     nomfichier,s : String255;
     faut60,princ60 : PackedThorGame;
     faut255,princ255 : String255;

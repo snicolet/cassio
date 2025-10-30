@@ -72,11 +72,11 @@ function FichierWTHORJOUDejaTrouve : boolean;
 { fonctions d'ajout d'un fichier dans le dossier database }
 function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : FichierTEXT) : OSErr;
 function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;
-function AjouterFichierNouveauFormat(fic : FSSpec; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
+function AjouterFichierNouveauFormat(fic : fileInfo; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
 
 
 {Fonctions de test}
-function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;
+function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;
 function EntetesEgauxNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;
 function EntetePlusRecentNouveauFormat(entete1,entete2 : t_EnTeteNouveauFormat) : boolean;
 
@@ -1082,7 +1082,7 @@ begin
 end;
 
 
-function AjouterFichierNouveauFormat(fic : FSSpec; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
+function AjouterFichierNouveauFormat(fic : fileInfo; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
 var nomDistrib : String255;
     ok : boolean;
 begin
@@ -1132,7 +1132,7 @@ begin
 end;
 
 
-function EstUnFichierNouveauFormat(fic : FSSpec; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;
+function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;
 var refnum : SInt16;
     anneeTitre : SInt16;
     codeErreur : OSErr;
@@ -2871,7 +2871,7 @@ begin
 end;
 
 
-function TraiteNouveauFormatEtRecursion(var fs : FSSpec; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+function TraiteNouveauFormatEtRecursion(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var entete : t_EnTeteNouveauFormat;
     typeDonnees : SInt16;
     nomDistrib : String255;
@@ -2937,7 +2937,7 @@ end;
 
 
 procedure ChercheFichiersNouveauFormatDansDossier(vRefNum : SInt16; NomDossier : String255; var dossierTrouve : boolean);
-var directoryDepart : FSSpec;
+var directoryDepart : fileInfo;
     codeErreur : OSErr;
     cheminDirectoryDepartRecursion : String255;
 begin

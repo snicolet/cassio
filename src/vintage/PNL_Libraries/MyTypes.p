@@ -323,7 +323,7 @@ const
 				);
 				
 	type
-		ScanProc = function(var fs : FSSpec; folder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
+		ScanProc = function(var fs : fileInfo; folder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 { for folders, return true to scan contents }
 { for files return true if you Delete the file - other changes to the file system would be bad... }
 				
