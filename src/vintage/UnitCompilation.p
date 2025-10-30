@@ -28,13 +28,13 @@ function GetNameOfModule(whichModule : Module) : String255;
 {liaison nom d'unite  < -> module}
 function ModuleDoitEtreAccelere(const name : String255) : boolean;
 function ModuleDoitEtrePrelinke(const name : String255) : boolean;
-function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : FichierTEXT) : boolean;
+function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : basicfile) : boolean;
 
 
 
 {ecritures des symboles}
-function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
-function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
+function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : basicfile) : OSErr;
+function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : basicfile) : OSErr;
 
 
 {verification des sources}
@@ -56,7 +56,7 @@ IMPLEMENTATION
 USES
     Sound, UnitDefATR
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, MyStrings, UnitRapportImplementation, UnitFichiersTEXT, MyFileSystemUtils, SNEvents
+    , UnitRapport, MyStrings, UnitRapportImplementation, basicfile, MyFileSystemUtils, SNEvents
     , UnitStringSet, UnitPagesDeModules, UnitPagesDeSymboles, UnitATR, UnitLongString ;
 {$ELSEC}
     ;
@@ -116,9 +116,9 @@ TYPE
       doitEtrePrelinke                   : boolean;
       doitEtreAccelere                   : boolean;
       whichModule                        : Module;
-      fichierExternalDeclarations        : FichierTEXT;
-      fichierPrelink                     : FichierTEXT;
-      duplication                        : FichierTEXT;
+      fichierExternalDeclarations        : basicfile;
+      fichierPrelink                     : basicfile;
+      duplication                        : basicfile;
       modulesInterface                   : ListeDeModules;
       modulesImplementation              : ListeDeModules;
       clauseUsesInterfaceDejaEcrite      : boolean;
@@ -491,7 +491,7 @@ end;
 
 
 
-function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : FichierTEXT) : boolean;
+function TrouverFichierDansSourcesDeCassio(const nomUnite : String255; var fic : basicfile) : boolean;
 var err : OSErr;
     path : String255;
 begin
@@ -502,31 +502,31 @@ begin
     end;
 
   path := kPathSourcesDeCassio + ':' + nomUnite + '.p';
-  err := FichierTexteExiste(path,0,fic);
+  err := FileExists(path,0,fic);
 
   if (err <> NoErr) then
     begin
       path := kPathSourcesDeCassio + ':' + nomUnite + '.pas';
-      err := FichierTexteExiste(path,0,fic);
+      err := FileExists(path,0,fic);
     end;
 
   if (err <> NoErr) then
     begin
       path := kPathSourcesDeCassio + ':PNL_Libraries:' + nomUnite + '.p';
-      err := FichierTexteExiste(path,0,fic);
+      err := FileExists(path,0,fic);
     end;
 
   if (err <> NoErr) then
     begin
       path := kPathSourcesDeCassio + ':PNL_Libraries:' + nomUnite + '.pas';
-      err := FichierTexteExiste(path,0,fic);
+      err := FileExists(path,0,fic);
     end;
 
   TrouverFichierDansSourcesDeCassio := (err = NoErr);
 end;
 
 
-function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
+function EcrireSymboleExternalDansFichier(sym : Symbole; var fic : basicfile) : OSErr;
 var symbolName : String255;
     err : OSErr;
     espaces : String255;
@@ -537,11 +537,11 @@ begin
   if (sym <> NIL) then
     begin
 
-      err := WriteDansFichierTexte(fic, sym^.definition.debutLigne);
+      err := Write(fic, sym^.definition.debutLigne);
 
       if (sym^.definition.finLigne <> '') and
          (err = NoErr) then
-        err := WriteDansFichierTexte(fic, sym^.definition.finLigne);
+        err := Write(fic, sym^.definition.finLigne);
 
       if (err = NoErr) then
         begin
@@ -560,7 +560,7 @@ begin
 
           symbolName := espaces + 'external;  {chr(10) = LF , add a UNIX linefeed !}
 
-          err := WriteDansFichierTexte(fic, symbolName);
+          err := Write(fic, symbolName);
         end;
 
 
@@ -571,7 +571,7 @@ end;
 
 
 
-function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : FichierTEXT) : OSErr;
+function EcrireSymboleAttributeDansFichier(sym : Symbole; var fic : basicfile) : OSErr;
 var symbolName : String255;
     err : OSErr;
     espaces : String255;
@@ -584,11 +584,11 @@ begin
 
     //  EnleveEspacesDeGaucheSurPlace(sym^.definition.debutLigne);
 
-      err := WriteDansFichierTexte(fic, sym^.definition.debutLigne);
+      err := Write(fic, sym^.definition.debutLigne);
 
       if (sym^.definition.finLigne <> '') and
          (err = NoErr) then
-        err := WriteDansFichierTexte(fic, sym^.definition.finLigne);
+        err := Write(fic, sym^.definition.finLigne);
 
 
       if (err = NoErr) then
@@ -607,7 +607,7 @@ begin
 
           symbolName := espaces +'' + chr(10);  {chr(10) = LF , add a UNIX linefeed !}
 
-          err := WriteDansFichierTexte(fic, symbolName);
+          err := Write(fic, symbolName);
         end;
 
     end;
@@ -664,17 +664,17 @@ begin
 end;
 
 
-function CreerPrelinkFile(const moduleName : String255; var fic : FichierTEXT) : OSErr;
+function CreerPrelinkFile(const moduleName : String255; var fic : basicfile) : OSErr;
 var path : String255;
     err : OSErr;
 begin
 
   path := GetPathOfPrelinkFile(moduleName);
 
-  err := FichierTexteExiste(path,0,fic);
+  err := FileExists(path,0,fic);
 
   if (err <> NoErr) then
-    err := CreeFichierTexte(path,0,fic);
+    err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
     SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
@@ -686,17 +686,17 @@ begin
 end;
 
 
-function CreerExternalDeclarationsFile(const moduleName : String255; var fic : FichierTEXT) : OSErr;
+function CreerExternalDeclarationsFile(const moduleName : String255; var fic : basicfile) : OSErr;
 var path : String255;
     err : OSErr;
 begin
 
   path := GetPathOfDeclarationsFile(moduleName);
 
-  err := FichierTexteExiste(path,0,fic);
+  err := FileExists(path,0,fic);
 
   if (err <> NoErr) then
-    err := CreeFichierTexte(path,0,fic);
+    err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
     SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
@@ -708,17 +708,17 @@ begin
 end;
 
 
-function CreerDuplicateFile(const moduleName : String255; var fic : FichierTEXT) : OSErr;
+function CreerDuplicateFile(const moduleName : String255; var fic : basicfile) : OSErr;
 var path : String255;
     err : OSErr;
 begin
 
   path := GetPathOfDuplicateFile(moduleName);
 
-  err := FichierTexteExiste(path,0,fic);
+  err := FileExists(path,0,fic);
 
   if (err <> NoErr) then
-    err := CreeFichierTexte(path,0,fic);
+    err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
     SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
@@ -842,7 +842,7 @@ end;
 
 procedure AddDeclarationOfThisModuleToATR(const moduleName : String255; var myATR : ATR; var myStringSet : StringSet);
 var fileName : String255;
-    fic : FichierTEXT;
+    fic : basicfile;
     err : OSErr;
     ligne : LongString;
     theSymbole : Symbole;
@@ -859,21 +859,21 @@ begin
       exit;
     end;
 
-  err := FichierTexteExiste(fileName, 0, fic);
+  err := FileExists(fileName, 0, fic);
   if err <> NoErr then
     begin
-      WritelnNumDansRapport('apres FichierTexteExiste dans AddDeclarationOfThisModuleToATR, err = ',err);
+      WritelnNumDansRapport('apres FileExists dans AddDeclarationOfThisModuleToATR, err = ',err);
       exit;
     end;
 
-  err := OuvreFichierTexte(fic);
+  err := OpenFile(fic);
   if err <> NoErr then
     begin
-      WritelnNumDansRapport('apres OuvreFichierTexte dans AddDeclarationOfThisModuleToATR, err = ',err);
+      WritelnNumDansRapport('apres OpenFile dans AddDeclarationOfThisModuleToATR, err = ',err);
       exit;
     end;
 
-  while not(EOFFichierTexte(fic,err)) do
+  while not(EndOfFile(fic,err)) do
     begin
 
       err := ReadlnLongStringDansFichierTexte(fic,ligne);
@@ -892,7 +892,7 @@ begin
 
     end;
 
-  err := FermeFichierTexte(fic);
+  err := CloseFile(fic);
 
 end;
 
@@ -1014,7 +1014,7 @@ end;
 
 
 
-procedure VerifierCetteLigneDansLesSources(var ligne : LongString; var theFic : FichierTEXT; var lectureAddr : SInt64);
+procedure VerifierCetteLigneDansLesSources(var ligne : LongString; var theFic : basicfile; var lectureAddr : SInt64);
 var lecture : LectureModulePtr;
     err : OSErr;
     doitDupliquerLigneCourante : boolean;
@@ -1284,13 +1284,13 @@ var lecture : LectureModulePtr;
                 begin
                   if not(unitDefCassioDejaEcrite) then
                     begin
-                      if (nombreModulesEcrit > 0) then err := WriteDansFichierTexte(duplication,', ');
+                      if (nombreModulesEcrit > 0) then err := Write(duplication,', ');
 
-                      err := WriteDansFichierTexte(duplication,'UnitDefCassio');
+                      err := Write(duplication,'UnitDefCassio');
                       unitDefCassioDejaEcrite := true;
 
                       if ((nombreModulesEcrit + 1) mod 8) = 0 then
-                           err := WriteDansFichierTexte(duplication,chr(10)+'    ');
+                           err := Write(duplication,chr(10)+'    ');
                       inc(nombreModulesEcrit);
                     end;
                 end
@@ -1299,13 +1299,13 @@ var lecture : LectureModulePtr;
                 if not(ModuleDoitEtrePrelinke(fileName)) then
                   begin
 
-                    if (nombreModulesEcrit > 0) then err := WriteDansFichierTexte(duplication,', ');
+                    if (nombreModulesEcrit > 0) then err := Write(duplication,', ');
                     ChangeFontColorDansRapport(VertCmd);
 
-                    err := WriteDansFichierTexte(duplication,moduleName {+ '['+IntToStr(k)+']'});
+                    err := Write(duplication,moduleName {+ '['+IntToStr(k)+']'});
 
                     if ((nombreModulesEcrit + 1) mod 8) = 0 then
-                       err := WriteDansFichierTexte(duplication,chr(10)+'    ');
+                       err := Write(duplication,chr(10)+'    ');
                     inc(nombreModulesEcrit);
                   end;
           end;
@@ -1327,11 +1327,11 @@ var lecture : LectureModulePtr;
             if ModuleDoitEtrePrelinke(fileName) then
               begin
                 AddDeclarationOfThisModuleToATR(moduleName, whichModule^.symbolesImplementationATR, whichModule^.symbolesImplementation);
-                if (nombreModulesEcrit > 0) then err := WriteDansFichierTexte(duplication,', ');
+                if (nombreModulesEcrit > 0) then err := Write(duplication,', ');
                 ChangeFontColorDansRapport(RougeCmd);
-                err := WriteDansFichierTexte(duplication,moduleName);
+                err := Write(duplication,moduleName);
                 if ((nombreModulesEcrit + 1) mod 8) = 0 then
-                   err := WriteDansFichierTexte(duplication,chr(10)+'    ');
+                   err := Write(duplication,chr(10)+'    ');
                 inc(nombreModulesEcrit);
               end;
           end;
@@ -1448,31 +1448,31 @@ var lecture : LectureModulePtr;
                 then
                   begin
                     if flag_USE_PRELINK
-                      then err := WriteDansFichierTexte(duplication,'{$DEFINEC USE_PRELINK ' + 'true}' + chr(10)+chr(10))
-                      else err := WriteDansFichierTexte(duplication,'{$DEFINEC USE_PRELINK ' + 'false}' + chr(10)+chr(10));
+                      then err := Write(duplication,'{$DEFINEC USE_PRELINK ' + 'true}' + chr(10)+chr(10))
+                      else err := Write(duplication,'{$DEFINEC USE_PRELINK ' + 'false}' + chr(10)+chr(10));
                     if NombreDeModulesDevantEtrePrelinkeDansClause(modulesImplementation) = modulesImplementation.cardinal
                       then
                         begin  // il n'a a que des modules prelinkes
-                          err := WriteDansFichierTexte(duplication,chr(10)+'{$IFC NOT(USE_PRELINK)}' + chr(10));
-                          err := WriteDansFichierTexte(duplication,'USES' + chr(10)+'    ');
+                          err := Write(duplication,chr(10)+'{$IFC NOT(USE_PRELINK)}' + chr(10));
+                          err := Write(duplication,'USES' + chr(10)+'    ');
                           EcritModulesPrelinkes(modulesImplementation,nombreModulesEcrit);
-                          err := WriteDansFichierTexte(duplication,' ;'+chr(10));
-                          err := WriteDansFichierTexte(duplication,'{$ELSEC}' + chr(10)+'    ');
-                          err := WriteDansFichierTexte(duplication,'{$I prelink/'+FabriquerNameOfPrelinkFile(GetNameOfModule(whichModule))+'}'+chr(10));
-                          err := WriteDansFichierTexte(duplication,'{$ENDC}' + chr(10)+chr(10));
+                          err := Write(duplication,' ;'+chr(10));
+                          err := Write(duplication,'{$ELSEC}' + chr(10)+'    ');
+                          err := Write(duplication,'{$I prelink/'+FabriquerNameOfPrelinkFile(GetNameOfModule(whichModule))+'}'+chr(10));
+                          err := Write(duplication,'{$ENDC}' + chr(10)+chr(10));
                         end
                       else
                         begin  // il y a a la fois des modules normaux et des modules prelinkes
                           ChangeFontFaceDansRapport(bold);
-                          err := WriteDansFichierTexte(duplication,'USES' + chr(10)+'    ');
+                          err := Write(duplication,'USES' + chr(10)+'    ');
                           EcritModulesNormaux(modulesImplementation,nombreModulesEcrit);
                           if nombreModulesEcrit = 0 then WritelnDansRapport('ERREUR !! nombreModulesEcrit = 0');
-                          err := WriteDansFichierTexte(duplication,chr(10)+'{$IFC NOT(USE_PRELINK)}' + chr(10)+'    ');
+                          err := Write(duplication,chr(10)+'{$IFC NOT(USE_PRELINK)}' + chr(10)+'    ');
                           EcritModulesPrelinkes(modulesImplementation,nombreModulesEcrit);
-                          err := WriteDansFichierTexte(duplication,' ;'+chr(10));
-                          err := WriteDansFichierTexte(duplication,'{$ELSEC}' + chr(10)+'    ;'+chr(10)+'    ');
-                          err := WriteDansFichierTexte(duplication,'{$I prelink/'+FabriquerNameOfPrelinkFile(GetNameOfModule(whichModule))+'}'+chr(10));
-                          err := WriteDansFichierTexte(duplication,'{$ENDC}' + chr(10)+chr(10));
+                          err := Write(duplication,' ;'+chr(10));
+                          err := Write(duplication,'{$ELSEC}' + chr(10)+'    ;'+chr(10)+'    ');
+                          err := Write(duplication,'{$I prelink/'+FabriquerNameOfPrelinkFile(GetNameOfModule(whichModule))+'}'+chr(10));
+                          err := Write(duplication,'{$ENDC}' + chr(10)+chr(10));
                           TextNormalDansRapport;
                           WriteNumDansRapport('(',whichModule^.symbolesImplementation.cardinal);
                           WritelnDansRapport(')');
@@ -1487,13 +1487,13 @@ var lecture : LectureModulePtr;
                       else
                         begin // il n'y a que des modules normaux
                           ChangeFontFaceDansRapport(bold);
-                          err := WriteDansFichierTexte(duplication,'USES' + chr(10)+'    ');
+                          err := Write(duplication,'USES' + chr(10)+'    ');
                           EcritModulesNormaux(modulesImplementation,nombreModulesEcrit);
-                          err := WriteDansFichierTexte(duplication,';' + chr(10)+'    ');
+                          err := Write(duplication,';' + chr(10)+'    ');
                         end;
                   end;
 
-              err := WriteDansFichierTexte(duplication,chr(10)+'{END_USE_CLAUSE}'+chr(10)+chr(10));
+              err := Write(duplication,chr(10)+'{END_USE_CLAUSE}'+chr(10)+chr(10));
 
               clauseUsesImplementationDejaEcrite := true;
             end;
@@ -1732,7 +1732,7 @@ var lecture : LectureModulePtr;
 
 
          if lecture^.action = K_COMPILER_INTERFACE then
-           err := SetPositionTeteLectureFinFichierTexte(theFic);
+           err := SetFilePositionAtEnd(theFic);
 
        end;
   end;
@@ -1928,20 +1928,20 @@ begin {VerifierCetteLigneDansLesSources}
              ligne.debutLigne := EnleveEspacesDeDroite(ligne.debutLigne);
 
           {if action = K_COMPILER_INTERFACE
-            then err := WriteDansFichierTexte(duplication, 'K_COMPILER_INTERFACE  =>  ')
-            else err := WriteDansFichierTexte(duplication, 'K_COMPILER_IMPLEMENTATION  =>  ');}
+            then err := Write(duplication, 'K_COMPILER_INTERFACE  =>  ')
+            else err := Write(duplication, 'K_COMPILER_IMPLEMENTATION  =>  ');}
 
-          {err := WriteDansFichierTexte(duplication, PartieDeModuleToString(enCoursDeLecture) + '  =>  ');}
+          {err := Write(duplication, PartieDeModuleToString(enCoursDeLecture) + '  =>  ');}
 
 
-          err := WriteDansFichierTexte(duplication, ligne.debutLigne);
-          err := WriteDansFichierTexte(duplication, ligne.finLigne);
-          err := WriteDansFichierTexte(duplication, chr(10));  // chr(10) = LF, make it UNIX !
+          err := Write(duplication, ligne.debutLigne);
+          err := Write(duplication, ligne.finLigne);
+          err := Write(duplication, chr(10));  // chr(10) = LF, make it UNIX !
 
           if ((ligne.debutLigne = 'IMPLEMENTATION') or (ligne.debutLigne = 'implementation')) and
              doitEtreAccelere then
             begin
-              err := WriteDansFichierTexte(duplication, chr(10)+chr(10)+'{BEGIN_USE_CLAUSE}'+chr(10));
+              err := Write(duplication, chr(10)+chr(10)+'{BEGIN_USE_CLAUSE}'+chr(10));
             end;
 
         end;
@@ -2012,31 +2012,31 @@ begin
       if doitEtreAccelere or doitEtrePrelinke then
         begin
           err := CreerDuplicateFile(fileName, duplication);
-          if err = NoErr then err := OuvreFichierTexte(duplication);
+          if err = NoErr then err := OpenFile(duplication);
 
           if (err = NoErr) and (action  = K_COMPILER_INTERFACE)
-            then err := VideFichierTexte(duplication);
+            then err := EmptyFile(duplication);
 
-          err := SetPositionTeteLectureFinFichierTexte(duplication);
-          // WritelnNumDansRapport('apres VideFichierTexte pour '+duplication.nomFichier + ', err = ',err);
+          err := SetFilePositionAtEnd(duplication);
+          // WritelnNumDansRapport('apres EmptyFile pour '+duplication.nomFichier + ', err = ',err);
         end;
 
       if doitEtreAccelere and (action = K_COMPILER_IMPLEMENTATION) then
         begin
           err := CreerPrelinkFile(fileName, fichierPrelink);
-          if err = NoErr then err := OuvreFichierTexte(fichierPrelink);
-          if err = NoErr then err := VideFichierTexte(fichierPrelink);
+          if err = NoErr then err := OpenFile(fichierPrelink);
+          if err = NoErr then err := EmptyFile(fichierPrelink);
 
-          // WritelnNumDansRapport('apres VideFichierTexte pour '+fichierPrelink.nomFichier + ', err = ',err);
+          // WritelnNumDansRapport('apres EmptyFile pour '+fichierPrelink.nomFichier + ', err = ',err);
         end;
 
       if doitEtrePrelinke and (action = K_COMPILER_INTERFACE) then
         begin
           err := CreerExternalDeclarationsFile(fileName, fichierExternalDeclarations);
-          if err = NoErr then err := OuvreFichierTexte(fichierExternalDeclarations);
-          if err = NoErr then err := VideFichierTexte(fichierExternalDeclarations);
+          if err = NoErr then err := OpenFile(fichierExternalDeclarations);
+          if err = NoErr then err := EmptyFile(fichierExternalDeclarations);
 
-          // WritelnNumDansRapport('apres VideFichierTexte pour '+fichierExternalDeclarations.nomFichier + ', err = ',err);
+          // WritelnNumDansRapport('apres EmptyFile pour '+fichierExternalDeclarations.nomFichier + ', err = ',err);
         end;
 
 
@@ -2077,14 +2077,14 @@ begin
         end;
 
       if doitEtreAccelere or doitEtrePrelinke
-        then err := FermeFichierTexte(duplication);
+        then err := CloseFile(duplication);
 
       if doitEtrePrelinke and (action in [K_COMPILER_INTERFACE])
-        then err := FermeFichierTexte(fichierExternalDeclarations);
+        then err := CloseFile(fichierExternalDeclarations);
 
 
       if doitEtreAccelere and (action in [K_COMPILER_IMPLEMENTATION])
-        then err := FermeFichierTexte(fichierPrelink);
+        then err := CloseFile(fichierPrelink);
 
 
     end;

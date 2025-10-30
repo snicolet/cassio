@@ -65,9 +65,9 @@ procedure GeneralShellSort(lo,up : SInt32; lecture : LectureTableauProc; affecta
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
 function LongueurSelectionRapport : SInt32;     external;
 procedure ForEachLineSelectedInRapportDo(doWhat : StringProc; var result : SInt32);     external;
-function DumpPressePapierToFile(var fic : FichierTEXT; flavorType : ScrapFlavorType) : OSErr;     external;
+function DumpPressePapierToFile(var fic : basicfile; flavorType : ScrapFlavorType) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
-function DetruitFichierTexte(var fic : FichierTEXT) : OSErr;     external;
+function DeleteFile(var fic : basicfile) : OSErr;     external;
 procedure DialogueSimple(dialogueID : SInt16{; s1,s2,s3,s4 : String255});     external;
 function LongueurPressePapier(flavor : ScrapFlavorType) : SInt32;     external;
 procedure CalculsEtAffichagePourBase(infosDejaCalculees : boolean; withCheckEvent : boolean);     external;

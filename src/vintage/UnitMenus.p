@@ -63,7 +63,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , UnitRapport, UnitTroisiemeDimension, UnitNotesSurCases, UnitUtilitaires, MyStrings
     , UnitPositionEtTrait, UnitModes, UnitPressePapier, UnitPrint, UnitCarbonisation, UnitEntreeTranscript, UnitGestionDuTemps, UnitNormalisation
-    , UnitJeu, MyMathUtils, SNMenus, SNEvents, UnitFichiersTEXT, UnitServicesRapport, UnitImportDesNoms ;
+    , UnitJeu, MyMathUtils, SNMenus, SNEvents, basicfile, UnitServicesRapport, UnitImportDesNoms ;
 {$ELSEC}
     ;
     {$I prelink/Menus.lk}

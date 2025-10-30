@@ -75,7 +75,7 @@ USES
     Sound, OSUtils, fp
 {$IFC NOT(USE_PRELINK)}
     , EdmondEvaluation, UnitListe, UnitAccesNouveauFormat, UnitStrategie, UnitNewGeneral
-    , UnitEvaluation, UnitPositionEtTrait, UnitRapport, MyStrings, UnitSymmetricalMapping, MyMathUtils, UnitFichiersTEXT, UnitBigVectors
+    , UnitEvaluation, UnitPositionEtTrait, UnitRapport, MyStrings, UnitSymmetricalMapping, MyMathUtils, basicfile, UnitBigVectors
     , UnitVecteursEval, UnitVecteursEvalInteger ;
 {$ELSEC}
     ;
@@ -315,7 +315,7 @@ end;
 
 
 function FichierEvaluationDeCassioTrouvable(nom : String255) : boolean;
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
 begin
   err := FichierTexteDeCassioExiste(nom,fic);

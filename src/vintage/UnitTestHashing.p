@@ -26,7 +26,7 @@ IMPLEMENTATION
 USES
     UnitDefCassio, OSUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, MyStrings, UnitHashing, UnitServicesMemoire, UnitFichiersTEXT ;
+    , UnitRapport, MyStrings, UnitHashing, UnitServicesMemoire, basicfile ;
 {$ELSEC}
     ;
     {$I prelink/TestHashing.lk}
@@ -310,7 +310,7 @@ end;
 
 
 procedure LireDictionnaireDesMotsFrancais(nomFichier : String255);
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     s : String255;
     compteurMots : SInt32;
@@ -326,7 +326,7 @@ begin
   if (err <> NoErr) then goto sortie;
 
 
-  err := OuvreFichierTexte(fic);
+  err := OpenFile(fic);
   if (err <> NoErr) then goto sortie;
 
 
@@ -350,9 +350,9 @@ begin
 
       end;
 
-  until (err <> NoErr) or EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EndOfFile(fic,err);
 
-  err := FermeFichierTexte(fic);
+  err := CloseFile(fic);
   if (err <> NoErr) then goto sortie;
 
   sortie :
@@ -369,7 +369,7 @@ function ReplaceStringOnce(const s, pattern, replacement : String255) : String25
 
 
 procedure LireEnigmePetitPoucet(nomFichier : String255);
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     s : String255;
     c : char;
@@ -389,7 +389,7 @@ begin
   if (err <> NoErr) then goto sortie;
 
 
-  err := OuvreFichierTexte(fic);
+  err := OpenFile(fic);
   if (err <> NoErr) then goto sortie;
 
 
@@ -468,9 +468,9 @@ begin
 
       end;
 
-  until (err <> NoErr) or EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EndOfFile(fic,err);
 
-  err := FermeFichierTexte(fic);
+  err := CloseFile(fic);
   if (err <> NoErr) then goto sortie;
 
   sortie :

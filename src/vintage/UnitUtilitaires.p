@@ -38,7 +38,7 @@ procedure DoAjouterGroupe;
 function StringMayHaveUTF8Accents(const s : String255) : boolean;
 function UTF8ToAscii(const s : String255) : String255;
 procedure ReadUnicodeAccentsFromDisc;
-procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : basicfile; var compteur : SInt64);
 procedure InspectUnicodeAccent(const accent, remplacement : String255);
 procedure AddUnicodeRemplacement(const accent, remplacement : String255);
 procedure InitUnicodeTable;
@@ -117,7 +117,7 @@ USES
     UnitDebuggage, fp, Fonts, QuickdrawText, Sound, ControlDefinitions
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitListe
-    , UnitSaisiePartie, UnitFichiersTEXT, UnitServicesMemoire, UnitJeu, UnitStrategie, UnitBibl, UnitPrefs, UnitGrapheInterversions
+    , UnitSaisiePartie, basicfile, UnitServicesMemoire, UnitJeu, UnitStrategie, UnitBibl, UnitPrefs, UnitGrapheInterversions
     , UnitPalette, UnitAffichageReflexion, UnitServicesRapport, UnitRapportImplementation, UnitAccesNouveauFormat, UnitArbreDeJeuCourant, UnitServicesDialogs, UnitMilieuDePartie
     , UnitHTML, UnitFichierAbstrait, UnitJaponais, UnitSuperviseur, UnitRapport, MyStrings, UnitDialog, UnitGestionDuTemps
     , UnitScannerUtils, UnitLiveUndo, UnitFenetres, UnitBlocsDeCoin, UnitSolve, UnitNormalisation, UnitPackedThorGame, UnitCarbonisation
@@ -1450,7 +1450,7 @@ end;
 
 
 
-procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure ReadLineWithUnicodeAccents(var ligne : LongString; var theFic : basicfile; var compteur : SInt64);
 var s, remplacement : String255;
 begin
   Discard(theFic);
@@ -1472,7 +1472,7 @@ end;
 
 procedure ReadUnicodeAccentsFromDisc;
 const kUnicodeAccentsFileName = 'accents-utf8.txt';
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     k, compteur : SInt64;
 begin

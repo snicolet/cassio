@@ -38,7 +38,7 @@ USES
     , UnitLiveUndo, UnitProblemeDePriseDeCoin, UnitNormalisation, MyUtils, UnitAlgebreLineaire, UnitClassement, UnitFinaleFast, SNMenus
     , UnitScannerOthellistique, UnitTHOR_PAR, UnitSearchValues, UnitSymmetricalMapping, UnitTriListe, UnitParallelisme, UnitConstrListeBitboard, MyMathUtils
     , MyFonts, MyAntialiasing, MyFileSystemUtils, MyQuickDraw, SNEvents, UnitCouleur, UnitRapportUtils, UnitEvenement, UnitTestZoo
-    , UnitZoo, UnitCurseur, UnitOth2, UnitModes, UnitCompilation, UnitFichiersTEXT, UnitPagesATR, UnitPagesABR, UnitLongString
+    , UnitZoo, UnitCurseur, UnitOth2, UnitModes, UnitCompilation, basicfile, UnitPagesATR, UnitPagesABR, UnitLongString
     , UnitPagesDeModules, UnitZooAvecArbre, UnitPagesDeSymboles, UnitVecteursEvalInteger, UnitProperties, UnitGameTree, UnitPropertyList, UnitPhasesPartie
     , UnitListe, UnitServicesMemoire, UnitSuperviseur, UnitMilieuDePartie, UnitAffichagePlateau, UnitListeChaineeCasesVides, UnitPositionEtTrait, UnitEstimationCharge
     , UnitEngine, UnitMetaphone, UnitUnixTask ;
@@ -494,7 +494,7 @@ begin
   VerifierLaTailleDeCeType('SetOfItemNumber',Sizeof(SetOfItemNumber),32);
   VerifierLaTailleDeCeType('Transcript',Sizeof(Transcript),204);
   VerifierLaTailleDeCeType('FichierPictureRec',Sizeof(FichierPictureRec),16);
-  VerifierLaTailleDeCeType('FichierTEXT',Sizeof(FichierTEXT),352);
+  VerifierLaTailleDeCeType('basicfile',Sizeof(basicfile),352);
   VerifierLaTailleDeCeType('AmeliorationsAlphaRec',Sizeof(AmeliorationsAlphaRec),772);
   VerifierLaTailleDeCeType('FormatFichierRec',Sizeof(FormatFichierRec),518);
   VerifierLaTailleDeCeType('InterversionHashIndexRec',Sizeof(InterversionHashIndexRec),8);
@@ -1934,7 +1934,7 @@ var i_main, gestalt_aux, i_main2 : SInt32;
 
     {packedPosMain : PackedOthelloPosition;
     plMain : plateauOthello;}
-    {fic_main : FichierTEXT;
+    {fic_main : basicfile;
     theAbstractFile_main : FichierAbstrait;
     theAbstractFile_main_2 : FichierAbstrait;
     theAbstractFile_main_3 : FichierAbstrait;}

@@ -84,7 +84,7 @@ USES
     , UnitGestionDuTemps, UnitPalette, UnitActions, UnitBibl, UnitServicesMemoire, UnitSuperviseur, UnitJeu, UnitPotentiels
     , UnitBords, UnitEntreesSortiesGraphe, UnitListe, UnitEntreesSortiesListe, UnitTroisiemeDimension, UnitApprentissagePartie, UnitRapport, UnitCarbonisation
     , UnitUtilitairesFinale, UnitPhasesPartie, UnitFinaleFast, UnitArbreDeJeuCourant, UnitBitboardAlphaBeta, MyStrings, UnitNormalisation, UnitPackedThorGame
-    , UnitBitboardFlips, UnitParallelisme, MyFileSystemUtils, MyMathUtils, SNEvents, UnitEvenement, UnitAffichagePlateau, UnitFichiersTEXT
+    , UnitBitboardFlips, UnitParallelisme, MyFileSystemUtils, MyMathUtils, SNEvents, UnitEvenement, UnitAffichagePlateau, basicfile
     , UnitGeneralSort, UnitServicesRapport, UnitPositionEtTrait, UnitZooAvecArbre, UnitZoo, UnitSolve, UnitCriteres, UnitMiniProfiler
     , UnitEngine, UnitAffichageReflexion, UnitRapportUtils, UnitRapportImplementation, UnitScannerOthellistique, UnitCurseur, UnitStringSet, UnitMenus
     , UnitBufferedPICT, UnitAffichagePlateau, UnitBaseNouveauFormat, UnitCouleur ;
@@ -1855,7 +1855,7 @@ end;
  *)
 function PeutLireParametresTournoisEntreEnginesDansFichier(path : String255; var tournoi : ToutesRondesRec) : boolean;
 var err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s,s1,s2,s3,s4,s5,s6,reste : String255;
     num : SInt32;
     nomLongDuFichier : String255;
@@ -1866,7 +1866,7 @@ begin
 
   CreerTournoiToutesRondes(tournoi);
 
-  err := FichierTexteExiste(path,0,fic);
+  err := FileExists(path,0,fic);
   if (err <> NoErr) then goto sortie;
 
 
@@ -1874,7 +1874,7 @@ begin
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
 
-  err := OuvreFichierTexte(fic);
+  err := OpenFile(fic);
   if (err <> NoErr) then goto sortie;
 
   repeat
@@ -1960,9 +1960,9 @@ begin
 
 
         end;
-  until (err <> NoErr) or EOFFichierTexte(fic,err);
+  until (err <> NoErr) or EndOfFile(fic,err);
 
-  err := FermeFichierTexte(fic);
+  err := CloseFile(fic);
   if (err <> NoErr) then goto sortie;
 
   sortie :
@@ -2492,7 +2492,7 @@ end;
 
 
 function PeutParserFichierRapportLogPourTournoiDeviations : boolean;
-var fichierRapport : FichierTEXT;
+var fichierRapport : basicfile;
     filename : String255;
     s : String255;
     erreurES : SInt16;
@@ -2509,7 +2509,7 @@ begin
   filename := 'Rapport.log';
   erreurES := FichierTexteDeCassioExiste(filename,fichierRapport);
   if erreurES <> NoErr then exit;
-  erreurES := OuvreFichierTexte(fichierRapport);
+  erreurES := OpenFile(fichierRapport);
   if erreurES <> NoErr then exit;
 
   repeat
@@ -2584,8 +2584,8 @@ begin
             end;
 
         end;
-  until (erreurES <> NoErr) or EOFFichierTexte(fichierRapport,erreurES);
-  erreurES := FermeFichierTexte(fichierRapport);
+  until (erreurES <> NoErr) or EndOfFile(fichierRapport,erreurES);
+  erreurES := CloseFile(fichierRapport);
 
   WritelnNumDansRapport('#sortie de PeutParserFichierRapportLogPourTournoiDeviations, erreurES = ',erreurES);
 

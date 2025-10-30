@@ -49,7 +49,7 @@ USES
     , UnitStrategie, UnitPackedOthelloPosition, UnitSolve, UnitEvenement, UnitStatistiqueDeSolitaire, UnitRapportImplementation, UnitCarbonisation, UnitUtilitaires
     , SNEvents, UnitCurseur, UnitRapport, UnitJaponais, UnitServicesDialogs, UnitMoveRecords, UnitAffichageReflexion, UnitSolitairesNouveauFormat
     , MyStrings, UnitDialog, UnitGestionDuTemps, UnitModes, UnitAffichagePlateau, UnitListe, UnitMenus, UnitCourbe, UnitJeu
-    , UnitNormalisation, UnitGeometrie, MyMathUtils, MyFonts, UnitPalette, MyFileSystemUtils, UnitPositionEtTrait, UnitFichiersTEXT
+    , UnitNormalisation, UnitGeometrie, MyMathUtils, MyFonts, UnitPalette, MyFileSystemUtils, UnitPositionEtTrait, basicfile
     , UnitServicesMemoire, UnitSound, UnitModes ;
 {$ELSEC}
     ;
@@ -121,13 +121,13 @@ var CoulAttaque,coulDefense : SInt32;
     posEcriture : SInt32;
     CouleurOrdi : SInt32;
     CouleurHumain : SInt32;
-    fichierSolution : FichierTEXT;
+    fichierSolution : basicfile;
     FenetreMessage : WindowPtr;
     InterruptionCalculSuites : boolean;
     nbrelignesSolution,nbreLigneH,nbreLigneV : SInt32;
     avecEcritureScoreDansSolution : boolean;
     s,s1 : String255;
-    mySpec : fileInfo;
+    info : fileInfo;
     nomPrec : String255;
     nroCoupRecherche : SInt32;
     nbreAppelsABSol : SInt32;
@@ -1937,7 +1937,7 @@ var nroChoixHumain : SInt32;
 
       n := NbrePionsDeCetteCouleur(CouleurHumain,positionFinale);
       if avecEcritureScoreDansSolution then
-        erreurES := WriteDansFichierTexte(fichierSolution,'     '+IntToStr(n));
+        erreurES := Write(fichierSolution,'     '+IntToStr(n));
       AjouterStatistiquesDeDifficultePourFforum(nbrelignesSolution,n);
 
     end;
@@ -1958,15 +1958,15 @@ begin
                 nroChoixHumain := nroChoixHumain+1;
                 if nroChoixHumain >= 2 then
                    for k := 1 to posEcriture do
-                     erreurES := WriteDansFichierTexte(fichierSolution,' ');
-                erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(coupHumain));
+                     erreurES := Write(fichierSolution,' ');
+                erreurES := Write(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(coupHumain));
                 platEssai := plat;
                 JouerUnCoupDuSolitaire(coupHumain,couleurHumain,platEssai);
                 if OrdiPeutJouer(platEssai)
                   then
                     begin
                       CalculerMeilleurReponseOrdi(platEssai,reponseOrdi);
-                      erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
+                      erreurES := Write(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
                       JouerUnCoupDuSolitaire(reponseOrdi,couleurOrdi,platEssai);
                       EcritureRecursive(platEssai);
                     end
@@ -1976,13 +1976,13 @@ begin
                         then
                           begin
                             s := ReadStringFromRessource(TextesSolitairesID,7);
-                            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+s);
+                            erreurES := Write(fichierSolution,CharToString(' ')+s);
                             EcritureRecursive(platEssai);
                           end
                         else
                           begin
                             SautDeLigneFichierSolution(platEssai);
-                            erreurES := WritelnDansFichierTexte(fichierSolution,'');
+                            erreurES := Writeln(fichierSolution,'');
                           end;
                     end;
                end;
@@ -1993,16 +1993,16 @@ begin
          then
           begin
             s := ReadStringFromRessource(TextesSolitairesID,8);
-            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+s);
+            erreurES := Write(fichierSolution,CharToString(' ')+s);
             CalculerMeilleurReponseOrdi(plat,reponseOrdi);
-            erreurES := WriteDansFichierTexte(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
+            erreurES := Write(fichierSolution,CharToString(' ')+CoupEnStringEnMajuscules(reponseOrdi));
             JouerUnCoupDuSolitaire(reponseOrdi,couleurOrdi,plat);
             EcritureRecursive(plat);
           end
          else
           begin
             SautDeLigneFichierSolution(plat);
-            erreurES := WritelnDansFichierTexte(fichierSolution,'');
+            erreurES := Writeln(fichierSolution,'');
           end;
       end;
     posEcriture := posEcriture-6;
@@ -2036,7 +2036,7 @@ begin
         SetNameOfSFReply(reply, nomprec);
         BeginDialog;
         s := ReadStringFromRessource(TextesSolitairesID,9);
-        if MakeFileName(reply,s,mySpec) then DoNothing;
+        if MakeFileName(reply,s,info) then DoNothing;
         EndDialog;
         if reply.good then
           begin
@@ -2084,24 +2084,24 @@ begin
 
 
 
-            erreurES := FichierTexteExisteFSp(mySpec,fichierSolution);
-            if erreurES = fnfErr then erreurES := CreeFichierTexteFSp(mySpec,fichierSolution);
+            erreurES := FileExists(info,fichierSolution);
+            if erreurES = fnfErr then erreurES := CreateFile(info,fichierSolution);
             if erreurES = NoErr then
 					    begin
-					      erreurES := OuvreFichierTexte(fichierSolution);
-					      erreurES := VideFichierTexte(fichierSolution);
+					      erreurES := OpenFile(fichierSolution);
+					      erreurES := EmptyFile(fichierSolution);
 					    end;
 			      if erreurES <> 0
 			        then AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES)
 			        else
 			          begin
-                  erreurES := WritelnDansFichierTexte(fichierSolution,CommentaireSolitaire^^);
-                  erreurES := WritelnDansFichierTexte(fichierSolution,'');
+                  erreurES := Writeln(fichierSolution,CommentaireSolitaire^^);
+                  erreurES := Writeln(fichierSolution,'');
                   ViderStatistiquesDeDifficultePourFforum;
                   EcritureRecursive(position);
                   EcritureStatistiquesDeDifficultePourFforum(fichierSolution);
                 end;
-            erreurES := FermeFichierTexte(fichierSolution);
+            erreurES := CloseFile(fichierSolution);
             SetFileCreatorFichierTexte(fichierSolution,MY_FOUR_CHAR_CODE('R*ch'));
             SetFileTypeFichierTexte(fichierSolution,MY_FOUR_CHAR_CODE('TEXT'));
 
@@ -2331,7 +2331,7 @@ type t_buffer = packed array[1..260] of t_Octet;
      bufferPtr = ^t_buffer;
      packed13 = packed array[1..100] of char;
 
-var BaseSolitairesFic : FichierTEXT;
+var BaseSolitairesFic : basicfile;
     s,filename : String255;
     nbreJoueurs,nbreParties : SInt32;
 
@@ -2346,7 +2346,7 @@ var BaseSolitairesFic : FichierTEXT;
     jouableSol,MoveSol : plBool;
     frontSol : InfoFront;
     profSol : SInt32;
-    FichierReferencesSolitaires : FichierTEXT;
+    FichierReferencesSolitaires : basicfile;
     couleur,numeroDeCoup : SInt32;
     finderInf : FInfo;
     unstringPtr : stringPtr;
@@ -2428,7 +2428,7 @@ end;
 procedure LitPartieNro(n : SInt32);
 var err : OSErr;
 begin
-  err := SetPositionTeteLectureFichierTexte(BaseSolitairesFic,tailleHeader+TailleTournois+TailleJoueurs+(n-1)*TaillePartieRec);
+  err := SetFilePosition(BaseSolitairesFic,tailleHeader+TailleTournois+TailleJoueurs+(n-1)*TaillePartieRec);
   count := TaillePartieRec;
   err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(Partiebuff),count);
 
@@ -2444,7 +2444,7 @@ procedure LitJoueurNro(n : SInt32; var nom : String255);
 var i : SInt32;
     err : OSErr;
 begin
-  err := SetPositionTeteLectureFichierTexte(BaseSolitairesFic,tailleHeader+TailleTournois+n*TailleJoueurRec);
+  err := SetFilePosition(BaseSolitairesFic,tailleHeader+TailleTournois+n*TailleJoueurRec);
   count := TailleJoueurRec;
   err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
   for i := 1 to 19 do
@@ -2460,7 +2460,7 @@ var i : SInt32;
     c : char;
     err : OSErr;
 begin
-  err := SetPositionTeteLectureFichierTexte(BaseSolitairesFic,tailleHeader+n*TailleTournoiRec);
+  err := SetFilePosition(BaseSolitairesFic,tailleHeader+n*TailleTournoiRec);
   count := TailleTournoiRec;
   err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
   nom := '';
@@ -2501,7 +2501,7 @@ begin
   while (fileName[i] <> ':') and (i > 0) do i := i-1;
   fileName := Concat(TPCopy(fileName,1,i),'Solitaires Cassio');
   err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
-  if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
+  if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
   if err <> 0 then
     begin
       fileName := CheminAccesThorDBASolitaire^^;
@@ -2509,28 +2509,28 @@ begin
       while (fileName[i] <> ':') and (i > 0) do i := i-1;
       fileName := Concat(TPCopy(fileName,1,i),'Solitaire Cassio');
       err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
-      if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
+      if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
     end;
   if err <> 0 then
     begin
       err := SetVol(NIL,SolitairesRefVol);
       fileName := 'Solitaires Cassio';
       err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
-      if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
+      if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
     end;
   if err <> 0 then
     begin
       err := SetVol(NIL,SolitairesRefVol);
       fileName := 'Solitaire Cassio';
       err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
-      if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
+      if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
     end;
   if err <> 0 then
     begin
       err := SetVol(NIL,SolitairesRefVol);
       fileName := CheminAccesSolitaireCassio^^;
-      err := FichierTexteExiste(filename,0,FichierReferencesSolitaires);
-      if err = NoErr then err := OuvreFichierTexte(FichierReferencesSolitaires);
+      err := FileExists(filename,0,FichierReferencesSolitaires);
+      if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
     end;
   if err <> 0 then
     begin
@@ -2572,8 +2572,8 @@ begin
                       WriteNumAt('Cassio RefNum :',pathCassioFolder,10,60);
                       AttendFrappeClavier;
                       }
-                      err := FichierTexteExiste(GetNameOfSFReply(reply),0,FichierReferencesSolitaires);
-                      err := OuvreFichierTexte(FichierReferencesSolitaires);
+                      err := FileExists(GetNameOfSFReply(reply),0,FichierReferencesSolitaires);
+                      err := OpenFile(FichierReferencesSolitaires);
                     end
                    else
                       err := -1
@@ -2586,7 +2586,7 @@ end;
 
 function FermeFichierSolitaires : OSErr;
 begin
-  FermeFichierSolitaires := FermeFichierTexte(FichierReferencesSolitaires);
+  FermeFichierSolitaires := CloseFile(FichierReferencesSolitaires);
 end;
 
 function NroSolitaireAuHazard(var numeroDeCoup : SInt32; var couleur : SInt32; var commentaire : String255) : SInt32;
@@ -2602,7 +2602,7 @@ var n,aux,nroligne,PositionDansFichier,count : SInt32;
 begin
   RandomizeTimer;
   longFichierReferencesSolitaires := 0;
-  err := GetTailleFichierTexte(FichierReferencesSolitaires,longFichierReferencesSolitaires);
+  err := GetFileSize(FichierReferencesSolitaires,longFichierReferencesSolitaires);
 
   {WriteNumDansRapport('longFichierReferencesSolitaires = ',longFichierReferencesSolitaires);}
   nbreLignesFichierReferencesSolitaires := SInt32(longFichierReferencesSolitaires div 14);
@@ -2618,7 +2618,7 @@ begin
 
   {WriteNumDansRapport('   PositionDansFichier = ',PositionDansFichier);}
 
-  err := SetPositionTeteLectureFichierTexte(FichierReferencesSolitaires,PositionDansFichier);
+  err := SetFilePosition(FichierReferencesSolitaires,PositionDansFichier);
 
   if err <> 0 then SysBeep(0);
 
@@ -2823,9 +2823,9 @@ begin
        filename := CheminAccesThorDBASolitaire^^;
        refvol := VolumeRefThorDBASolitaire;
        err := SetVol(NIL,VolumeRefThorDBASolitaire);
-       err := FichierTexteExiste(filename,refvol,BaseSolitairesFic);
+       err := FileExists(filename,refvol,BaseSolitairesFic);
        if err <> 0 then err := FichierTexteDeCassioExiste(filename,BaseSolitairesFic);
-       if err = 0 then err := OuvreFichierTexte(BaseSolitairesFic);
+       if err = 0 then err := OpenFile(BaseSolitairesFic);
 
        if err <> 0 then
          begin
@@ -2846,9 +2846,9 @@ begin
            if err = 0
              then
                begin
-                 err := FichierTexteExiste(filename,refvol,BaseSolitairesFic);
+                 err := FileExists(filename,refvol,BaseSolitairesFic);
                  if err <> 0 then err := FichierTexteDeCassioExiste(filename,BaseSolitairesFic);
-                 if err = 0 then err := OuvreFichierTexte(BaseSolitairesFic);
+                 if err = 0 then err := OpenFile(BaseSolitairesFic);
                  pathName := GetWDName(refvol);
                  CheminAccesThorDBASolitaire^^ := pathName+filename;
                  VolumeRefThorDBASolitaire := refvol;
@@ -2857,7 +2857,7 @@ begin
                begin
                  if err <> 0 then err := FichierTexteDeCassioExiste('Solitaires.dba',BaseSolitairesFic);
                  if err <> 0 then err := FichierTexteDeCassioExiste('Solitaire.dba',BaseSolitairesFic);
-                 if err = 0 then err := OuvreFichierTexte(BaseSolitairesFic);
+                 if err = 0 then err := OpenFile(BaseSolitairesFic);
                end;
 
              if err <> 0 then
@@ -2896,8 +2896,8 @@ begin
                                  filename := GetNameOfSFReply(reply);
                                  CheminAccesThorDBASolitaire^^ := pathName+filename;
                                  VolumeRefThorDBASolitaire := reply.vRefNum;
-                                 err := FichierTexteExiste(filename,reply.vRefNum,BaseSolitairesFic);
-                                 err := OuvreFichierTexte(BaseSolitairesFic);
+                                 err := FileExists(filename,reply.vRefNum,BaseSolitairesFic);
+                                 err := OpenFile(BaseSolitairesFic);
                                end
                               else
                                  err := -1
@@ -2929,7 +2929,7 @@ begin
                end
              else
                toutsepasseBien := false;
-           err := FermeFichierTexte(BaseSolitairesFic);
+           err := CloseFile(BaseSolitairesFic);
          end;
        DisposeMemoryPtr(Ptr(buffer));
        DisposeMemoryPtr(Ptr(Partiebuff));

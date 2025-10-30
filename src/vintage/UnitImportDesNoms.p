@@ -63,7 +63,7 @@ procedure RegenererLesNomsMetaphoneDeLaBase;
 
 { Fichier de torture }
 function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSErr;
-procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure ReadLineInTortureFile(var ligne : LongString; var theFic : basicfile; var compteur : SInt64);
 procedure FabriqueFichierDeTorture;
 
 
@@ -79,7 +79,7 @@ IMPLEMENTATION
 USES
     DateTimeUtils, OSUtils
 {$IFC NOT(USE_PRELINK)}
-    , MyStrings, UnitAccesNouveauFormat, UnitRapport, UnitFichiersTEXT, UnitStringSet, UnitUtilitaires
+    , MyStrings, UnitAccesNouveauFormat, UnitRapport, basicfile, UnitStringSet, UnitUtilitaires
     , UnitMetaphone, MyMathUtils, UnitBaseNouveauFormat, UnitHashing, UnitATR ;
 {$ELSEC}
     ;
@@ -124,7 +124,7 @@ end;
 
 function PseudoPGNEnNomDansBaseThor(nomDictionnaireDesPseudos, pseudoPGN : String255) : String255;
 var ligne,s,s1,s2,reste : String255;
-    dictionnairePseudosPGN : FichierTEXT;
+    dictionnairePseudosPGN : basicfile;
     doitMettreAJourLesPseudosAyantUnNomReel : boolean;
     pseudoPGNSeTermineParDesChiffres : boolean;
     eraseDigitsInPseudos : boolean;
@@ -250,7 +250,7 @@ begin
           exit;
         end;
 
-      erreurES := OuvreFichierTexte(dictionnairePseudosPGN);
+      erreurES := OpenFile(dictionnairePseudosPGN);
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
@@ -261,7 +261,7 @@ begin
       ligne := '';
       trouve := false;
 
-      while not(EOFFichierTexte(dictionnairePseudosPGN,erreurES)) and not(trouve) do
+      while not(EndOfFile(dictionnairePseudosPGN,erreurES)) and not(trouve) do
         begin
           erreurES := ReadlnDansFichierTexte(dictionnairePseudosPGN,s);
           ligne := s;
@@ -269,7 +269,7 @@ begin
           if (ligne = '') or (ligne[1] = '%')
             then
               begin
-                {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
+                {erreurES := Writeln(outputBaseThor,s);}
               end
             else
               begin
@@ -335,7 +335,7 @@ begin
                   end;
               end;
         end;
-      erreurES := FermeFichierTexte(dictionnairePseudosPGN);
+      erreurES := CloseFile(dictionnairePseudosPGN);
 
       (* si on a trouve le pseudo, la liste des pseudos ayant un
          nom reel est incomplete car on a shinté la fin du fichier :
@@ -2632,7 +2632,7 @@ const gLigneDeTestForTorture : String255 = 'blah-blah';
 
 
 
-procedure ReadLineInTortureFile(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure ReadLineInTortureFile(var ligne : LongString; var theFic : basicfile; var compteur : SInt64);
 var s, s1, s2, s3, s4, s5, reste : String255;
     expected1, expected2 : String255;
     nroNoir, nroBlanc : SInt64;
@@ -2751,7 +2751,7 @@ end;
 
 function OuvrirFichierTortureImportDesNoms(nomCompletFichier : String255) : OSErr;
 const kTortureFileName = 'import-des-noms.torture.txt';
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     note,nbDeTests,nbDeTestsReussis : SInt64;
     tick : SInt64;

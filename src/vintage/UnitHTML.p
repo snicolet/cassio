@@ -43,7 +43,7 @@ USES
     Menus, MacErrors, Components, MacWindows, ImageCompression, QuickTimeComponents
 {$IFC NOT(USE_PRELINK)}
     , UnitDiagramFforum, UnitStrategie
-    , UnitScannerUtils, MyStrings, UnitGeometrie, UnitFichiersTEXT, UnitFichierAbstrait ;
+    , UnitScannerUtils, MyStrings, UnitGeometrie, basicfile, UnitFichierAbstrait ;
 {$ELSEC}
     ;
     {$I prelink/HTML.lk}
@@ -203,15 +203,15 @@ var fichierEtaitOuvertEnArrivant : boolean;
     err : OSErr;
     i,j : SInt32;
     square : SInt32;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   err := NoErr;
 
   fichierEtaitOuvertEnArrivant := false;
   if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) then
     begin
-      fichierEtaitOuvertEnArrivant := FichierTexteEstOuvert(fic);
-      if not(fichierEtaitOuvertEnArrivant) then err := OuvreFichierTexte(fic);
+      fichierEtaitOuvertEnArrivant := FileIsOpen(fic);
+      if not(fichierEtaitOuvertEnArrivant) then err := OpenFile(fic);
     end;
 
 
@@ -245,7 +245,7 @@ begin
 
 
   if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) and not(fichierEtaitOuvertEnArrivant)
-    then err := FermeFichierTexte(fic);
+    then err := CloseFile(fic);
 
 
   WritePositionEtTraitEnHTMLDansFichierAbstrait := err;
@@ -299,17 +299,17 @@ var
     ActualSize : UInt32;
     fileSpec : fileInfo;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
 
 
-  erreurES := FichierTexteExiste(nomFichier,0,fic);
-  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomFichier,0,fic);
+  erreurES := FileExists(nomFichier,0,fic);
+  if erreurES = fnfErr then erreurES := CreateFile(nomFichier,0,fic);
   if erreurES = 0 then
     begin
-      erreurES := OuvreFichierTexte(fic);
-      erreurES := VideFichierTexte(fic);
-      erreurES := FermeFichierTexte(fic);
+      erreurES := OpenFile(fic);
+      erreurES := EmptyFile(fic);
+      erreurES := CloseFile(fic);
       fileSpec := fic.info;
     end;
 
@@ -384,7 +384,7 @@ const kTailleCase = 12;
       kLargeurBordure = 8;
 var i,j,square : SInt32;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     bounds : rect;
     marge : Point;
     myPicture : PicHandle;

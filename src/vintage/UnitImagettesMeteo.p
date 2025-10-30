@@ -33,7 +33,7 @@ IMPLEMENTATION
 USES
     MacWindows
 {$IFC NOT(USE_PRELINK)}
-    , UnitFichierPhotos, UnitHTML, UnitRapport, UnitBufferedPICT, UnitFichiersTEXT, UnitAffichagePlateau, MyStrings
+    , UnitFichierPhotos, UnitHTML, UnitRapport, UnitBufferedPICT, basicfile, UnitAffichagePlateau, MyStrings
      ;
 {$ELSEC}
     ;
@@ -122,13 +122,13 @@ end;
 procedure DrawImagetteMeteo(quelleImage : typeImagette; whichWindow : WindowPtr; whichBounds : rect; fonctionAppelante : String255);
 var path : String255;
     numeroImage : SInt16;
-    fic : FichierTEXT;
+    fic : basicfile;
     erreurES : OSErr;
 begin {$UNUSED fonctionAppelante}
   if GetCheminAccesImagette(quelleImage,path,numeroImage) then
     begin
       {WritelnStringDansRapport('path = '+ path+', fonctionAppelante = '+fonctionAppelante);}
-      erreurES := FichierTexteExiste(path,0,fic);
+      erreurES := FileExists(path,0,fic);
       if (erreurES = NoErr) and (whichWindow <> NIL) then
         QTGraph_ShowImageWithTransparenceFromFile(GetWindowPort(whichWindow),gPurNoir,whichBounds,fic.info);
     end;

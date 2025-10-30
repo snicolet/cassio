@@ -24,8 +24,8 @@ procedure AnnuleVecteurEvalInteger(var vecteur : VectNewEvalInteger);
 
 
 
-function EcritEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
-function LitEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
+function EcritEvalIntegerDansFichierTexte(var fic : basicfile; var v : VectNewEvalInteger) : OSErr;
+function LitEvalIntegerDansFichierTexte(var fic : basicfile; var v : VectNewEvalInteger) : OSErr;
 function EcritVecteurEvaluationIntegerSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEvalInteger) : OSErr;
 function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;
 
@@ -47,7 +47,7 @@ IMPLEMENTATION
 USES
     MacMemory, MacErrors
 {$IFC NOT(USE_PRELINK)}
-    , UnitTraceLog, UnitRapport, UnitNewGeneral, MyStrings, UnitFichiersTEXT, UnitBigVectorsInteger
+    , UnitTraceLog, UnitRapport, UnitNewGeneral, MyStrings, basicfile, UnitBigVectorsInteger
      ;
 {$ELSEC}
     ;
@@ -363,7 +363,7 @@ end;
 
 
 
-function EcritEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
+function EcritEvalIntegerDansFichierTexte(var fic : basicfile; var v : VectNewEvalInteger) : OSErr;
 var err : OSErr;
     stage : SInt32;
 begin
@@ -416,7 +416,7 @@ begin
   EcritEvalIntegerDansFichierTexte := err;
 end;
 
-function LitEvalIntegerDansFichierTexte(var fic : FichierTEXT; var v : VectNewEvalInteger) : OSErr;
+function LitEvalIntegerDansFichierTexte(var fic : basicfile; var v : VectNewEvalInteger) : OSErr;
 var err : OSErr;
     stage : SInt32;
 begin
@@ -471,7 +471,7 @@ end;
 
 
 function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;
-var fichierEval : FichierTEXT;
+var fichierEval : basicfile;
     err : OSErr;
 begin
   if VecteurEvalIntegerEstVide(whichEval) then
@@ -487,7 +487,7 @@ begin
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
@@ -501,7 +501,7 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierEval);
+  err := CloseFile(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationIntegerSurLeDisque := err;
@@ -514,7 +514,7 @@ end;
 
 
 function EcritVecteurEvaluationIntegerSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEvalInteger) : OSErr;
-var fichierEval : FichierTEXT;
+var fichierEval : basicfile;
     err : OSErr;
 begin
   if VecteurEvalIntegerEstVide(whichEval) then
@@ -524,29 +524,29 @@ begin
       exit;
     end;
 
-  err := FichierTexteExiste(nomFichier,vRefNum,fichierEval);
+  err := FileExists(nomFichier,vRefNum,fichierEval);
   if err <> NoErr then err := FichierTexteDeCassioExiste(nomFichier,fichierEval);
   if err = fnfErr {-43 => fichier non trouvé, on le crée}
-    then err := CreeFichierTexte(nomFichier,vRefNum,fichierEval);
+    then err := CreateFile(nomFichier,vRefNum,fichierEval);
   if err <> 0 then
     begin
-      WritelnDansRapport('FichierTexteExiste <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
+      WritelnDansRapport('FileExists <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if err <> 0 then
     begin
-      WritelnDansRapport('OuvreFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
+      WritelnDansRapport('OpenFile <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
       exit;
     end;
 
-  err := VideFichierTexte(fichierEval);
+  err := EmptyFile(fichierEval);
   if err <> 0 then
     begin
-      WritelnDansRapport('VideFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
+      WritelnDansRapport('EmptyFile <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
       exit;
     end;
@@ -559,10 +559,10 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierEval);
+  err := CloseFile(fichierEval);
   if err <> 0 then
     begin
-      WritelnDansRapport('FermeFichierTexte <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
+      WritelnDansRapport('CloseFile <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
       exit;
     end;

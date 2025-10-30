@@ -64,7 +64,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw
     , UnitHTML, UnitRapport, MyStrings, UnitFichiersPICT, MyFileSystemUtils, MyMathUtils, UnitCouleur, UnitCalculCouleurCassio
-    , UnitTroisiemeDimension, UnitFenetres, UnitFichierPhotos, UnitCarbonisation, UnitGeometrie, SNEvents, UnitFichiersTEXT, UnitCalculCouleurCassio
+    , UnitTroisiemeDimension, UnitFenetres, UnitFichierPhotos, UnitCarbonisation, UnitGeometrie, SNEvents, basicfile, UnitCalculCouleurCassio
     , UnitAffichagePlateau, UnitOffScreenGraphics ;
 {$ELSEC}
     ;
@@ -182,7 +182,7 @@ var nameOfFile : String255;
 
     procedure DrawPictureDansOffScreenDiscs(nom : String255; whichBounds : rect);
     var erreurES : OSErr;
-        fic : FichierTEXT;
+        fic : basicfile;
     begin
       erreurES := FichierTexteDeCassioExiste(nom,fic);
       if (erreurES = NoErr) then
@@ -483,7 +483,7 @@ end;
 function PeutChargerTextureDepuisLeCache(nomTexture : String255; tailleCase : SInt16) : boolean;
 var nomFichier : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     theRect : rect;
 begin
   PeutChargerTextureDepuisLeCache := false;
@@ -493,7 +493,7 @@ begin
 
   nomFichier := NameOfTextureCacheFile(nomTexture, tailleCase);
 
-  erreurES := FichierTexteExiste(nomFichier,0,fic);
+  erreurES := FileExists(nomFichier,0,fic);
   if erreurES = fnfErr then
     exit;
 
@@ -522,7 +522,7 @@ var theRect,boundsRect : rect;
     oldport : grafPtr;
     err : OSErr;
     oldResourceFile : SInt16;
-    fichierDesPhotos : FichierTEXT;
+    fichierDesPhotos : basicfile;
     doitFermerFichierPhotos : boolean;
     ticks : SInt32;
 begin
@@ -621,7 +621,7 @@ var theRect,boundsRect,destRect,myRect : rect;
     oldport : grafPtr;
     err : OSErr;
     oldResourceFile : SInt16;
-    fichierDesPhotos : FichierTEXT;
+    fichierDesPhotos : basicfile;
     doitFermerFichierPhotos : boolean;
     windowRect : rect;
 begin

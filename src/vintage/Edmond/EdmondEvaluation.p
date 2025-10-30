@@ -42,8 +42,8 @@ function PointeurVersLeMilieuDUnPatternDeTantDeCases(nbreCases : SInt32; pattern
 function LireFichierEvalEdmondSurLeDisque : OSErr;
 function EcrireFichierEvalEdmondSurLeDisque : OSErr;
 function LectureEdmondEvalInterrompueParEvenement : boolean;
-function LireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
-function EcrireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
+function LireUnTableauEvalEdmondSurLeDisque(var fic : basicfile; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
+function EcrireUnTableauEvalEdmondSurLeDisque(var fic : basicfile; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
 
 
 
@@ -62,7 +62,7 @@ USES
     OSUtils
 {$IFC NOT(USE_PRELINK)}
     , UnitRapport, UnitServicesMemoire, UnitNouvelleEval, ImportEdmond, UnitEvaluation, UnitEvenement, UnitGestionDuTemps
-    , EdmondPatterns, SNEvents, UnitFichiersTEXT, MyMathUtils ;
+    , EdmondPatterns, SNEvents, basicfile, MyMathUtils ;
 {$ELSEC}
     ;
     {$I prelink/EdmondEvaluation.lk}
@@ -669,7 +669,7 @@ end;
 
 
 
-function LireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
+function LireUnTableauEvalEdmondSurLeDisque(var fic : basicfile; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
 var count : SInt32;
     err : OSErr;
 begin
@@ -698,7 +698,7 @@ end;
 
 
 
-function EcrireUnTableauEvalEdmondSurLeDisque(var fic : FichierTEXT; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
+function EcrireUnTableauEvalEdmondSurLeDisque(var fic : basicfile; tableau : IntegerArrayPtr; tailleDuPattern : SInt32) : OSErr;
 var count : SInt32;
     err : OSErr;
 begin
@@ -710,7 +710,7 @@ begin
 
   // Ecrire le tableau dans le fichier
   count := Sizeof(SInt16) * TailleDUnPatternDeTantDeCases(tailleDuPattern);
-  err := WriteBufferDansFichierTexte(fic, Ptr(tableau) , count);
+  err := Write(fic, Ptr(tableau) , count);
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
@@ -728,7 +728,7 @@ end;
 function LireFichierEvalEdmondSurLeDisque : OSErr;
 const k_TAILLE_FICHIER_EDMOND_EVAL = 70199298;
 var err : OSErr;
-    fichierEval : FichierTEXT;
+    fichierEval : basicfile;
     stage : SInt32;
     count : SInt32;
     ticks : SInt32;
@@ -755,13 +755,13 @@ begin
   err := FichierTexteDeCassioExiste('Edmond-evaluation.data', fichierEval);
   if (err <> NoErr) then goto sortie;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if (err <> NoErr) then goto sortie;
 
 
   // Verification de la taille du fichier
 
-  err := GetTailleFichierTexte(fichierEval, count);
+  err := GetFileSize(fichierEval, count);
   if (err <> Err) then goto sortie;
 
   if (count <> k_TAILLE_FICHIER_EDMOND_EVAL) then
@@ -816,7 +816,7 @@ begin
 sortie :
 
   if (err = 0) or (err = kErrorCassioVeutQuitterEnCatastrophe) then
-    err := FermeFichierTexte(fichierEval);
+    err := CloseFile(fichierEval);
 
   if (err <> NoErr)
     then
@@ -840,7 +840,7 @@ end;
 
 function EcrireFichierEvalEdmondSurLeDisque : OSErr;
 var err : OSErr;
-    fichierEval : FichierTEXT;
+    fichierEval : basicfile;
     stage : SInt32;
 label sortie;
 begin
@@ -862,10 +862,10 @@ begin
   err := FichierTexteDeCassioExiste('vide.data', fichierEval);
   if (err <> NoErr) then goto sortie;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if (err <> NoErr) then goto sortie;
 
-  err := VideFichierTexte(fichierEval);
+  err := EmptyFile(fichierEval);
   if (err <> NoErr) then goto sortie;
 
 
@@ -909,7 +909,7 @@ begin
 
     end;
 
-   err := FermeFichierTexte(fichierEval);
+   err := CloseFile(fichierEval);
 
   // Fin
 

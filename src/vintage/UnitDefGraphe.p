@@ -59,7 +59,7 @@ USES MacTypes, StringTypes,UnitDefFichiersTEXT;
 type GrapheRec =
        record
          nbCellules : SInt32;
-         fic : FichierTEXT;
+         fic : basicfile;
        end;
      Graphe = ^GrapheRec;
 

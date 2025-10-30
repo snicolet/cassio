@@ -1,8 +1,8 @@
-function WritelnDansFichierTexte(var fic : FichierTEXT; s : String255) : OSErr;     external;
+function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
-function FichierTexteEstOuvert(var fic : FichierTEXT) : boolean;     external;
-function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
+function FileIsOpen(var fic : basicfile) : boolean;     external;
+function OpenFile(var fic : basicfile) : OSErr;     external;
+function CloseFile(var fic : basicfile) : OSErr;     external;
 function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;     external;
  function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;     external;
 procedure WritelnDansRapport(s : String255);     external;

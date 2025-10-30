@@ -70,8 +70,8 @@ function FichierWTHORJOUDejaTrouve : boolean;
 
 
 { fonctions d'ajout d'un fichier dans le dossier database }
-function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : FichierTEXT) : OSErr;
-function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;
+function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : basicfile) : OSErr;
+function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : basicfile) : OSErr;
 function AjouterFichierNouveauFormat(fic : fileInfo; path : String255; typeDonneesDuFichier : SInt16; EnteteFichier : t_EnTeteNouveauFormat) : boolean;
 
 
@@ -154,7 +154,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , SNEvents, UnitServicesRapport
     , MyQuickDraw, UnitSolitairesNouveauFormat, UnitImportDesNoms, UnitAccesNouveauFormat, UnitServicesDialogs, UnitATR, UnitSound, MyMathUtils
-    , UnitCurseur, UnitFichiersTEXT, UnitGeneralSort, MyFileSystemUtils, UnitPrefs, UnitTestNouveauFormat, UnitRapport, MyStrings
+    , UnitCurseur, basicfile, UnitGeneralSort, MyFileSystemUtils, UnitPrefs, UnitTestNouveauFormat, UnitRapport, MyStrings
     , UnitNormalisation, SNEvents, UnitStringSet, UnitServicesMemoire, UnitEnvirons ;
 {$ELSEC}
     ;
@@ -888,11 +888,11 @@ begin
 	    end;
 end;
 
-function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : FichierTEXT) : OSErr;
+function AjouterFichierDansLeDossierDatabase(nomAAjouter : String255; var fichierACopier : basicfile) : OSErr;
 var enteteDatabase : t_EnTeteNouveauFormat;
     err : OSErr;
     numFichier : SInt64;
-    fic : FichierTEXT;
+    fic : basicfile;
     path : String255;
     typeDonneesDatabase : SInt16;
 begin
@@ -930,23 +930,23 @@ begin
 
 
             // on cree le nouveau fichier
-            err := FichierTexteExiste(path + nomAAjouter, 0, fic);
+            err := FileExists(path + nomAAjouter, 0, fic);
             if err = -43 then  {-43 = file not found}
-              err := CreeFichierTexte(path + nomAAjouter, 0, fic);
+              err := CreateFile(path + nomAAjouter, 0, fic);
 
             // on essaye d'ouvrir l'ancien fichier dans le dossier database
             if (err = NoErr) then
-              err := OuvreFichierTexte(fic);
+              err := OpenFile(fic);
 
             // on vide le fichier que l'on vient de creer le dossier Database !
             // Sans doute inutile, mais cela permet au passage de verifier que
             // l'on a les droits d'ecriture (vieux motard que jamais)
             if (err = NoErr) then
-              err := VideFichierTexte(fic);
+              err := EmptyFile(fic);
 
            // on le referme
            if (err = NoErr) then
-              err := FermeFichierTexte(fic);
+              err := CloseFile(fic);
 
 
             // copier le nouveau fichier (telecharge) dans le nouveau fichier du dossier database
@@ -983,7 +983,7 @@ end;
 
 
 
-function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : FichierTEXT) : OSErr;
+function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : basicfile) : OSErr;
 var err : OSErr;
     numFichier : SInt64;
     typeDonneesDatabase, typeDonneesNew : SInt16;
@@ -1030,7 +1030,7 @@ begin
 
                 // on vide l'ancien fichier dans le dossier Database !
                 if (err = NoErr) then
-                  err := VideFichierTexte(theFichierTEXT);
+                  err := EmptyFile(theFichierTEXT);
 
                 // on le referme
                 if (err = NoErr) then
@@ -1831,9 +1831,9 @@ begin
       begin
         nomFichierComplet := CalculePathFichierNouveauFormat(numFichier)+CalculeNomFichierNouveauFormat(numFichier);
 
-        codeErreur := FichierTexteExiste(nomFichierComplet,0,theFichierTEXT);
+        codeErreur := FileExists(nomFichierComplet,0,theFichierTEXT);
 
-        if codeErreur = NoErr then codeErreur := OuvreFichierTexte(theFichierTEXT);
+        if codeErreur = NoErr then codeErreur := OpenFile(theFichierTEXT);
 
         open := (codeErreur = NoErr);
 
@@ -1871,7 +1871,7 @@ begin
   with InfosFichiersNouveauFormat.fichiers[numFichier] do
     if open then
       begin
-        codeErreur := FermeFichierTexte(theFichierTEXT);
+        codeErreur := CloseFile(theFichierTEXT);
         refnum := 0;
         open := false;
       end;
@@ -1879,16 +1879,16 @@ begin
 end;
 
 
-function OuvreFichierDesJoueursJaponais(var FichierJoueursJaponais : FichierTEXT) : OSErr;
+function OuvreFichierDesJoueursJaponais(var FichierJoueursJaponais : basicfile) : OSErr;
 var codeErreur : OSErr;
 begin
   codeErreur := -1;
   if codeErreur <> NoErr then codeErreur := FichierTexteDeCassioExiste('players.jap',FichierJoueursJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:players.jap',0,FichierJoueursJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:players.jap ',0,FichierJoueursJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:players.jap (alias)',0,FichierJoueursJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:players.jap',0,FichierJoueursJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:players.jap ',0,FichierJoueursJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:players.jap (alias)',0,FichierJoueursJaponais);
   if codeErreur = NoErr
-    then codeErreur := OuvreFichierTexte(FichierJoueursJaponais)
+    then codeErreur := OpenFile(FichierJoueursJaponais)
     else codeErreur := -43; {file not found}
 
   OuvreFichierDesJoueursJaponais := codeErreur;
@@ -1897,7 +1897,7 @@ end;
 
 function LitNomsDesJoueursEnJaponais : OSErr;
 var codeErreur : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s,nomLatin,nomJaponais,nomDuMilieuDansListe : String255;
     permutation : LongintArrayPtr;
     k,low,up,middle : SInt64;
@@ -1925,7 +1925,7 @@ begin
 		      for k := 0 to nbJoueursNouveauFormat-1 do    {on inverse la permutation}
 		        permutation^[GetNroOrdreAlphabetiqueJoueur(k)] := k;
 
-          while (codeErreur = NoErr) and not(EOFFichierTexte(fic,codeErreur)) do
+          while (codeErreur = NoErr) and not(EndOfFile(fic,codeErreur)) do
             begin
               codeErreur := ReadlnDansFichierTexte(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
@@ -1983,7 +1983,7 @@ begin
                     end;
 	              end;
             end;
-          codeErreur := FermeFichierTexte(fic);
+          codeErreur := CloseFile(fic);
         end;
     end;
   if permutation <> NIL then DisposeMemoryPtr(Ptr(permutation));
@@ -2152,7 +2152,7 @@ function MetPseudosDeLaBaseWThor(nomDictionnaireDesPseudos : String255) : OSErr;
 const kNbMaxNomsWThorConvertis = 30;
 var erreurES : OSErr;
     ligne,s,s1,s2,reste : String255;
-    dictionnairePseudosWThor : FichierTEXT;
+    dictionnairePseudosWThor : basicfile;
     nom_dictionnaire : String255;
     position,nbPseudos,k,t : SInt64;
     association : array[1..kNbMaxNomsWThorConvertis] of
@@ -2176,7 +2176,7 @@ begin
     end;
 
 
-  erreurES := OuvreFichierTexte(dictionnairePseudosWThor);
+  erreurES := OpenFile(dictionnairePseudosWThor);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
@@ -2189,7 +2189,7 @@ begin
   arbreDesPseudos := MakeEmptyATR;
   modificationsAffichees := MakeEmptyStringSet;
 
-  while not(EOFFichierTexte(dictionnairePseudosWThor,erreurES)) do
+  while not(EndOfFile(dictionnairePseudosWThor,erreurES)) do
     begin
       erreurES := ReadlnDansFichierTexte(dictionnairePseudosWThor,s);
       ligne := s;
@@ -2197,7 +2197,7 @@ begin
       if (ligne = '') or (ligne[1] = '%')
         then
           begin
-            {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
+            {erreurES := Writeln(outputBaseThor,s);}
           end
         else
           begin
@@ -2231,7 +2231,7 @@ begin
               end;
           end;
     end;
-  erreurES := FermeFichierTexte(dictionnairePseudosWThor);
+  erreurES := CloseFile(dictionnairePseudosWThor);
 
   if (nbPseudos > 0) and not(ATRIsEmpty(arbreDesPseudos)) then
     begin
@@ -2399,20 +2399,20 @@ begin
   MetTournoisNouveauFormatEnMemoire := codeErreur;
 end;
 
-function OuvreFichierDesTournoisJaponais(var FichierTournoisJaponais : FichierTEXT) : OSErr;
+function OuvreFichierDesTournoisJaponais(var FichierTournoisJaponais : basicfile) : OSErr;
 var codeErreur : OSErr;
 begin
   codeErreur := -1;
   if codeErreur <> NoErr then codeErreur := FichierTexteDeCassioExiste('tournaments.jap',FichierTournoisJaponais);
   if codeErreur <> NoErr then codeErreur := FichierTexteDeCassioExiste('tournements.jap',FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournaments.jap',0,FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournaments.jap ',0,FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournaments.jap (alias)',0,FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournements.jap',0,FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournements.jap ',0,FichierTournoisJaponais);
-  if codeErreur <> NoErr then codeErreur := FichierTexteExiste(pathCassioFolder+'Database:tournements.jap (alias)',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournaments.jap',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournaments.jap ',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournaments.jap (alias)',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournements.jap',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournements.jap ',0,FichierTournoisJaponais);
+  if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournements.jap (alias)',0,FichierTournoisJaponais);
   if codeErreur = NoErr
-    then codeErreur := OuvreFichierTexte(FichierTournoisJaponais)
+    then codeErreur := OpenFile(FichierTournoisJaponais)
     else codeErreur := -43; {file not found}
 
   OuvreFichierDesTournoisJaponais := codeErreur;
@@ -2421,7 +2421,7 @@ end;
 
 function LitNomsDesTournoisEnJaponais : OSErr;
 var codeErreur : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s,nomLatin,nomJaponais,nomDuMilieuDansListe : String255;
     permutation : LongintArrayPtr;
     k,low,up,middle : SInt64;
@@ -2443,7 +2443,7 @@ begin
 		      for k := 0 to nbTournoisNouveauFormat-1 do    {on inverse la permutation}
 		        permutation^[GetNroOrdreAlphabetiqueTournoi(k)] := k;
 
-          while (codeErreur = NoErr) and not(EOFFichierTexte(fic,codeErreur)) do
+          while (codeErreur = NoErr) and not(EndOfFile(fic,codeErreur)) do
             begin
               codeErreur := ReadlnDansFichierTexte(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
@@ -2496,7 +2496,7 @@ begin
                     end;
 	              end;
             end;
-          codeErreur := FermeFichierTexte(fic);
+          codeErreur := CloseFile(fic);
         end;
     end;
   if permutation <> NIL then DisposeMemoryPtr(Ptr(permutation));
@@ -2512,7 +2512,7 @@ var numeroFichierDesJoueurs,typeVoulu : SInt16;
     k,count : SInt64;
     codeErreur : OSErr;
     path,nomCompletDuFichierIndex : String255;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   codeErreur := -1;
   EcritFichierIndexDesJoueursTries := -1;
@@ -2543,14 +2543,14 @@ begin
 	                 path := CalculePathFichierNouveauFormat(numeroFichierDesJoueurs);
 	                 nomCompletDuFichierIndex := path+CalculeNomFichierNouveauFormat(numeroFichierDesJoueurs)+'.index';
 
-	                 if FichierTexteExiste(nomCompletDuFichierIndex,0,fic) = NoErr
-	                   then codeErreur := DetruitFichierTexte(fic);
-	                 codeErreur := CreeFichierTexte(nomCompletDuFichierIndex,0,fic);
+	                 if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
+	                   then codeErreur := DeleteFile(fic);
+	                 codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
 	                 SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
 	                 SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
 
 
-	                 codeErreur := OuvreFichierTexte(fic);
+	                 codeErreur := OpenFile(fic);
 						       if codeErreur = 0 then
 						         begin
 						           codeErreur := EcritEnteteNouveauFormat(fic.refNum,entete);
@@ -2561,7 +2561,7 @@ begin
 						           count := 4*nbJoueursNouveauFormat;
 						           codeErreur := FSWrite(fic.refNum,count,buffer);
 
-						           codeErreur := FermeFichierTexte(fic);
+						           codeErreur := CloseFile(fic);
 						         end;
 
 						     end;
@@ -2661,7 +2661,7 @@ var numeroFichierDesTournois,typeVoulu : SInt16;
     k,count : SInt64;
     codeErreur : OSErr;
     path,nomCompletDuFichierIndex : String255;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   codeErreur := -1;
   EcritFichierIndexDesTournoisTries := -1;
@@ -2692,14 +2692,14 @@ begin
 	                 path := CalculePathFichierNouveauFormat(numeroFichierDesTournois);
 	                 nomCompletDuFichierIndex := path+CalculeNomFichierNouveauFormat(numeroFichierDesTournois)+'.index';
 
-	                 if FichierTexteExiste(nomCompletDuFichierIndex,0,fic) = NoErr
-	                   then codeErreur := DetruitFichierTexte(fic);
-	                 codeErreur := CreeFichierTexte(nomCompletDuFichierIndex,0,fic);
+	                 if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
+	                   then codeErreur := DeleteFile(fic);
+	                 codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
 	                 SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
 	                 SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
 
 
-	                 codeErreur := OuvreFichierTexte(fic);
+	                 codeErreur := OpenFile(fic);
 						       if codeErreur = 0 then
 						         begin
 						           codeErreur := EcritEnteteNouveauFormat(fic.refNum,entete);
@@ -2710,7 +2710,7 @@ begin
 						           count := 4*nbTournoisNouveauFormat;
 						           codeErreur := FSWrite(fic.refNum,count,buffer);
 
-						           codeErreur := FermeFichierTexte(fic);
+						           codeErreur := CloseFile(fic);
 						         end;
 
 						     end;
@@ -3067,7 +3067,7 @@ function EcritFichierIndexNouveauFormat(numFichierParties : SInt16) : OSErr;
 var codeErreur : OSErr;
     nomCompletDuFichierIndex,path : String255;
     enteteIndex : t_EnTeteNouveauFormat;
-    fic : FichierTEXT;
+    fic : basicfile;
     count : SInt64;
 begin
   EcritFichierIndexNouveauFormat := -1;
@@ -3080,13 +3080,13 @@ begin
 	       path := CalculePathFichierNouveauFormat(numFichierParties);
 	       nomCompletDuFichierIndex := path+NomFichierIndexAssocieNouveauFormat(CalculeNomFichierNouveauFormat(numFichierParties));
 
-	       if FichierTexteExiste(nomCompletDuFichierIndex,0,fic) = NoErr
-           then codeErreur := DetruitFichierTexte(fic);
-         codeErreur := CreeFichierTexte(nomCompletDuFichierIndex,0,fic);
+	       if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
+           then codeErreur := DeleteFile(fic);
+         codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
          SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
          SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
 
-	       codeErreur := OuvreFichierTexte(fic);
+	       codeErreur := OpenFile(fic);
 	       if codeErreur = 0 then
 	         begin
 	           enteteIndex := fichiers[numFichierParties].entete;
@@ -3113,7 +3113,7 @@ begin
 	           count := tailleIndex;
 	           codeErreur := FSWrite(fic.refNum,count,@indexOuverture^[1]);
 
-	           codeErreur := FermeFichierTexte(fic);
+	           codeErreur := CloseFile(fic);
 	         end;
 
 	       EcritFichierIndexNouveauFormat := codeErreur;

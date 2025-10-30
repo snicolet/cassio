@@ -15,9 +15,9 @@ INTERFACE
 {fonctions pour ouvrir et afficher des fichiers au format ".pict" }
 
 
-function ReadPictFile(picFile : FichierTEXT; var error : OSErr) : PicHandle;
-function DisplayPictFile(picFile : FichierTEXT; displayWindow : WindowPtr) : OSErr;
-function DrawPictFile(picFile : FichierTEXT; inRect : rect) : OSErr;
+function ReadPictFile(picFile : basicfile; var error : OSErr) : PicHandle;
+function DisplayPictFile(picFile : basicfile; displayWindow : WindowPtr) : OSErr;
+function DrawPictFile(picFile : basicfile; inRect : rect) : OSErr;
 
 
 IMPLEMENTATION
@@ -31,7 +31,7 @@ IMPLEMENTATION
 USES
     MacErrors, MacMemory
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, UnitCarbonisation, UnitFichiersTEXT, MyQuickDraw ;
+    , UnitRapport, UnitCarbonisation, basicfile, MyQuickDraw ;
 {$ELSEC}
     ;
     {$I prelink/FichiersPICT.lk}
@@ -51,7 +51,7 @@ USES
 
 
 
-function ReadPictFile(picFile : FichierTEXT; var error : OSErr) : PicHandle;
+function ReadPictFile(picFile : basicfile; var error : OSErr) : PicHandle;
 var
 	numberOfBytes : SInt32;
 	OSError : OSErr;
@@ -61,14 +61,14 @@ begin
 
   ReadPictFile := NIL;
 
-	OSError := GetTailleFichierTexte(picFile, numberOfBytes);
+	OSError := GetFileSize(picFile, numberOfBytes);
 	if (OSError <> noErr) then
 	  begin
 	    error := OSError;
 	    exit;
 	  end;
 
-	OSError := SetPositionTeteLectureFichierTexte(picFile, 512);
+	OSError := SetFilePosition(picFile, 512);
 	numberOfBytes := numberOfBytes - 512;
 	if (OSError <> noErr) then
 	  begin
@@ -121,7 +121,7 @@ begin
 end; {ReadPictFile}
 
 
-function DisplayPictFile(picFile : FichierTEXT; displayWindow : WindowPtr) : OSErr;
+function DisplayPictFile(picFile : basicfile; displayWindow : WindowPtr) : OSErr;
 var oldPort : grafPtr;
     thePicture : PicHandle;
     bounds : rect;
@@ -149,7 +149,7 @@ end;  {DisplayPictFile}
 
 
 
-function DrawPictFile(picFile : FichierTEXT; inRect : rect) : OSErr;
+function DrawPictFile(picFile : basicfile; inRect : rect) : OSErr;
 var thePicture : PicHandle;
     error : OSErr;
 begin

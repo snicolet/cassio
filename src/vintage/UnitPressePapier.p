@@ -11,7 +11,7 @@ INTERFACE
 function PeutCollerPartie(var positionStandard : boolean; var partieEnAlpha : String255) : boolean;
 
 
-function DumpPressePapierToFile(var fic : FichierTEXT; flavorType : ScrapFlavorType) : OSErr;
+function DumpPressePapierToFile(var fic : basicfile; flavorType : ScrapFlavorType) : OSErr;
 function DumpFileToPressePapier(fileName : String255; flavorType : ScrapFlavorType) : OSErr;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;
 
@@ -49,7 +49,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , UnitScannerUtils, UnitPositionEtTrait, UnitSetUp, UnitNormalisation, UnitRapport, UnitCarbonisation, UnitGestionDuTemps
     , UnitServicesDialogs, MyStrings, UnitServicesMemoire, MyMathUtils, UnitPhasesPartie, UnitModes, UnitFichierAbstrait, UnitRapportImplementation
-    , UnitHTML, UnitCourbe, UnitScannerOthellistique, UnitRetrograde, UnitRapportUtils, UnitJeu, UnitArbreDeJeuCourant, UnitFichiersTEXT
+    , UnitHTML, UnitCourbe, UnitScannerOthellistique, UnitRetrograde, UnitRapportUtils, UnitJeu, UnitArbreDeJeuCourant, basicfile
     , UnitServicesRapport ;
 {$ELSEC}
     ;
@@ -252,7 +252,7 @@ end;
 
 
 
-function DumpPressePapierToFile(var fic : FichierTEXT; flavorType : ScrapFlavorType) : OSErr;
+function DumpPressePapierToFile(var fic : basicfile; flavorType : ScrapFlavorType) : OSErr;
 var longRand,taille,nouvelleTaille : SInt32;
     offset,count : SInt32;
     myError : OSErr;
@@ -308,9 +308,9 @@ begin
             count := nouvelleTaille;
 
             myError := CreeFichierTexteDeCassio(name,fic);
-            if (myError = NoErr) then myError := OuvreFichierTexte(fic);
-            if (myError = NoErr) then myError := WriteBufferDansFichierTexte(fic,dataPtr,count);
-            if (myError = NoErr) then myError := FermeFichierTexte(fic);
+            if (myError = NoErr) then myError := OpenFile(fic);
+            if (myError = NoErr) then myError := Write(fic,dataPtr,count);
+            if (myError = NoErr) then myError := CloseFile(fic);
 
             HSetState(hdest,state);
           end;
@@ -328,7 +328,7 @@ function DumpFileToPressePapier(fileName : String255; flavorType : ScrapFlavorTy
 var taille : SInt32;
     myError : OSErr;
     dataPtr : Ptr;
-    fic : FichierTEXT;
+    fic : basicfile;
     t, boucle : SInt32;
 begin
 
@@ -357,8 +357,8 @@ begin
   { WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , myError = ',myError);
     WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , boucle = ',boucle); }
 
-  if (myError = NoErr) then myError := OuvreFichierTexte(fic);
-  if (myError = NoErr) then myError := GetTailleFichierTexte(fic,taille);
+  if (myError = NoErr) then myError := OpenFile(fic);
+  if (myError = NoErr) then myError := GetFileSize(fic,taille);
   if (myError = NoErr) and (taille > 0) then
     begin
       dataPtr := AllocateMemoryPtr(taille + 100);
@@ -370,7 +370,7 @@ begin
         end;
     end;
 
-  if (myError = NoErr) then myError := FermeFichierTexte(fic);
+  if (myError = NoErr) then myError := CloseFile(fic);
 
   DumpFileToPressePapier := myError;
 end;
@@ -445,7 +445,7 @@ end;
 procedure CopierDiagrammePositionEnHTML;
 var err : OSErr;
     theFile : FichierAbstrait;
-    fic : FichierTEXT;
+    fic : basicfile;
     aux : OSStatus;
 begin
   FinRapport;

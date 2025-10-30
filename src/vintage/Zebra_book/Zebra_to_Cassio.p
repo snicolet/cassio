@@ -123,7 +123,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , UnitRapport, UnitServicesMemoire, UnitArbreDeJeuCourant, UnitAffichageArbreDeJeu
     , UnitEvaluation, UnitGameTree, UnitNotesSurCases, MyStrings, MyFileSystemUtils, UnitEvenement, UnitGestionDuTemps, UnitSet
-    , UnitLiveUndo, UnitModes, UnitPositionEtTraitSet, UnitPileEtFile, UnitScannerUtils, MyMathUtils, SNEvents, UnitFichiersTEXT
+    , UnitLiveUndo, UnitModes, UnitPositionEtTraitSet, UnitPileEtFile, UnitScannerUtils, MyMathUtils, SNEvents, basicfile
     , UnitPositionEtTrait, UnitServicesDialogs, UnitProperties ;
 {$ELSEC}
     ;
@@ -185,7 +185,7 @@ var gZebraBookNodes : record
                                                             date      : SInt32;
                                                             table     : Zebra_nodes_bucket_ptr;
                                                          end;
-                        theBook                      : FichierTEXT;
+                        theBook                      : basicfile;
                         nbreEnregistrementsDansFic   : SInt32;
                         ficEstInitialise             : boolean;
                       end;
@@ -354,7 +354,7 @@ end;
 
 function GetZebraBookName : String255;
 var nom : String255;
-    theFic : FichierTEXT;
+    theFic : basicfile;
 begin
   with gLectureZebraBook do
     begin
@@ -1454,11 +1454,11 @@ begin
                 begin
                   SetZebraBookEstIntrouvable(false);
 
-                  err := OuvreFichierTexte(theBook);
-                  err := SetPositionTeteLectureFichierTexte(theBook, 0);
+                  err := OpenFile(theBook);
+                  err := SetFilePosition(theBook, 0);
                   err := ReadLongintDansFichierTexte(theBook,bidlong);
                   err := ReadLongintDansFichierTexte(theBook,nbreEnregistrementsDansFic);
-                  err := FermeFichierTexte(theBook);
+                  err := CloseFile(theBook);
 
 
                   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
@@ -1510,10 +1510,10 @@ begin  {$unused fonctionAppelante}
          WritelnNumDansRapport('      niveauRecursionUseZebraNodes = ',niveauRecursionUseZebraNodes);
       }
 
-      if (niveauRecursionUseZebraNodes = 1) and FichierTexteEstOuvert(theBook) then
+      if (niveauRecursionUseZebraNodes = 1) and FileIsOpen(theBook) then
          begin
-           err := FermeFichierTexte(theBook);
-           {WritelnNumDansRapport('      apres FermeFichierTexte  ,  err = ', err);}
+           err := CloseFile(theBook);
+           {WritelnNumDansRapport('      apres CloseFile  ,  err = ', err);}
          end;
 
       dec(niveauRecursionUseZebraNodes);
@@ -1552,10 +1552,10 @@ begin
 
       // open the file, if necessary
 
-      if (niveauRecursionUseZebraNodes >= 1) and not(FichierTexteEstOuvert(theBook)) then
+      if (niveauRecursionUseZebraNodes >= 1) and not(FileIsOpen(theBook)) then
         begin
-          err := OuvreFichierTexte(theBook);
-          {WritelnNumDansRapport('LireBucketOfZebraNodes : apres OuvreFichierTexte,   err = ', err); }
+          err := OpenFile(theBook);
+          {WritelnNumDansRapport('LireBucketOfZebraNodes : apres OpenFile,   err = ', err); }
         end;
 
       // set the file pointer
@@ -1571,10 +1571,10 @@ begin
           WritelnNumDansRapport('LireBucketOfZebraNodes : positionTeteLecture = ',positionTeteLecture);
         end;
 
-      err := SetPositionTeteLectureFichierTexte(theBook,positionTeteLecture);
+      err := SetFilePosition(theBook,positionTeteLecture);
 
       if (err <> NoErr) then
-        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (SetPositionTeteLectureFichierTexte) : (err <> NoErr)');
+        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (SetFilePosition) : (err <> NoErr)');
 
       // read file
 

@@ -106,7 +106,7 @@ INTERFACE
 
 
   { Dialogue de sauvegarde dans un fichier texte}
-  function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : FichierTEXT) : OSErr;
+  function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : basicfile) : OSErr;
 
 
 
@@ -127,7 +127,7 @@ USES
     , Aliases, LowMem, Devices, DateTimeUtils, NumberFormatting, CodeFragments
 {$IFC NOT(USE_PRELINK)}
     , MyStrings
-    , MyMemory, UnitDialog, UnitFichiersTEXT, UnitRapport ;
+    , MyMemory, UnitDialog, basicfile, UnitRapport ;
 {$ELSEC}
     ;
     {$I prelink/MyFileSystemUtils.lk}
@@ -1650,15 +1650,15 @@ begin
 end;
 
 
-function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : FichierTEXT) : OSErr;
+function GetFichierTexte(prompt : String255; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var fic : basicfile) : OSErr;
 var reply : SFReply;
     err : OSErr;
-    mySpec : fileInfo;
+    info : fileInfo;
 begin
   err := -1;
 
-  if GetFileName(prompt,reply,fileKind1,fileKind2,fileKind3,fileKind4,mySpec) then
-    err := FichierTexteExisteFSp(mySpec,fic);
+  if GetFileName(prompt,reply,fileKind1,fileKind2,fileKind3,fileKind4,info) then
+    err := FileExists(info,fic);
 
   GetFichierTexte := err;
 end;

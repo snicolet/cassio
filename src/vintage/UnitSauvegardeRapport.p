@@ -11,8 +11,8 @@ INTERFACE
 
  USES UnitDefCassio;
 
-procedure SauverStyleDuRapport(var fichier : FichierTEXT);
-procedure AppliquerStyleDuFichierAuRapport(var fichier : FichierTEXT; debutSelection,finSelection : SInt32);
+procedure SauverStyleDuRapport(var fichier : basicfile);
+procedure AppliquerStyleDuFichierAuRapport(var fichier : basicfile; debutSelection,finSelection : SInt32);
 
 
 IMPLEMENTATION
@@ -27,7 +27,7 @@ USES
     Resources, MacMemory, TextEdit, TextServices
 {$IFC NOT(USE_PRELINK)}
     , UnitRapport, UnitServicesRapport, UnitRapportImplementation, UnitServicesMemoire
-    , UnitFichiersTEXT ;
+    , basicfile ;
 {$ELSEC}
     ;
     {$I prelink/SauvegardeRapport.lk}
@@ -46,7 +46,7 @@ USES
 
 
 
-procedure SauverStyleDuRapport(var fichier : FichierTEXT);
+procedure SauverStyleDuRapport(var fichier : basicfile);
 var styleScrapHdl : StScrpHandle;
     OSError: OSErr;
     oldResourceFile : SInt16;
@@ -90,7 +90,7 @@ end;
 
 
 
-procedure AppliquerStyleDuFichierAuRapport(var fichier : FichierTEXT; debutSelection,finSelection : SInt32);
+procedure AppliquerStyleDuFichierAuRapport(var fichier : basicfile; debutSelection,finSelection : SInt32);
 var styleScrapHdl : StScrpHandle;
     OSError: OSErr;
     oldResourceFile : SInt16;

@@ -61,7 +61,7 @@ USES
     QDOffScreen, MacErrors, Sound, MacWindows
 {$IFC NOT(USE_PRELINK)}
     , UnitCarbonisation, UnitOffScreenGraphics, UnitFichiersPICT, UnitFichierPhotos
-    , UnitPositionEtTrait, UnitBufferedPICT, UnitRapport, UnitTroisiemeDimension, UnitAffichageArbreDeJeu, UnitArbreDeJeuCourant, UnitFichiersTEXT, MyStrings
+    , UnitPositionEtTrait, UnitBufferedPICT, UnitRapport, UnitTroisiemeDimension, UnitAffichageArbreDeJeu, UnitArbreDeJeuCourant, basicfile, MyStrings
     , UnitGeometrie, SNEvents, UnitAffichagePlateau ;
 {$ELSEC}
     ;
@@ -249,7 +249,7 @@ end;
 
 function CreatePovOffScreenWorld(var quelleTexture : CouleurOthellierRec) : OSErr;
 var nomDansMenu,path : String255;
-    fic : FichierTEXT;
+    fic : basicfile;
     error : OSErr;
     unRect,screenRect : rect;
     oldPort : grafPtr;
@@ -309,16 +309,16 @@ begin
 				      if FichierPhotosExisteSurLeDisque(path,fic)
 				        then
 					        begin
-					          error := OuvreFichierTexte(fic);
-					          ExitIfError(error,'OuvreFichierTexte(pionsNoirs)');
+					          error := OpenFile(fic);
+					          ExitIfError(error,'OpenFile(pionsNoirs)');
 
 					          BeginDrawingInPovRayOffScreen;
 					          error := DrawPictFile(fic,unRect);
 					          EndDrawingInPovRayOffScreen;
 					          ExitIfError(error,'DrawPicFile(pionsNoirs)');
 
-					          error := FermeFichierTexte(fic);
-					          ExitIfError(error,'FermeFichierTexte(pionsNoirs)');
+					          error := CloseFile(fic);
+					          ExitIfError(error,'CloseFile(pionsNoirs)');
 					        end
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsNoirs)');
@@ -346,16 +346,16 @@ begin
 				      if FichierPhotosExisteSurLeDisque(path,fic)
 				        then
 					        begin
-					          error := OuvreFichierTexte(fic);
-					          ExitIfError(error,'OuvreFichierTexte(pionsBlancs)');
+					          error := OpenFile(fic);
+					          ExitIfError(error,'OpenFile(pionsBlancs)');
 
 					          BeginDrawingInPovRayOffScreen;
 					          error := DrawPictFile(fic,unRect);
 					          EndDrawingInPovRayOffScreen;
 					          ExitIfError(error,'DrawPicFile(pionsBlancs)');
 
-					          error := FermeFichierTexte(fic);
-					          ExitIfError(error,'FermeFichierTexte(pionsBlancs)');
+					          error := CloseFile(fic);
+					          ExitIfError(error,'CloseFile(pionsBlancs)');
 					        end
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsBlancs)');
@@ -372,16 +372,16 @@ begin
 				      if FichierPhotosExisteSurLeDisque(path,fic)
 				        then
 					        begin
-					          error := OuvreFichierTexte(fic);
-					          ExitIfError(error,'OuvreFichierTexte(pionsVides)');
+					          error := OpenFile(fic);
+					          ExitIfError(error,'OpenFile(pionsVides)');
 
 					          BeginDrawingInPovRayOffScreen;
 					          error := DrawPictFile(fic,unRect);
 					          EndDrawingInPovRayOffScreen;
 					          ExitIfError(error,'DrawPicFile(pionsVides)');
 
-					          error := FermeFichierTexte(fic);
-					          ExitIfError(error,'FermeFichierTexte(pionsVides)');
+					          error := CloseFile(fic);
+					          ExitIfError(error,'CloseFile(pionsVides)');
 					        end
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsVides)');
@@ -397,16 +397,16 @@ begin
 				      if FichierPhotosExisteSurLeDisque(path,fic)
 				        then
 					        begin
-					          error := OuvreFichierTexte(fic);
-					          ExitIfError(error,'OuvreFichierTexte(pionsMontreCoupsLegaux)');
+					          error := OpenFile(fic);
+					          ExitIfError(error,'OpenFile(pionsMontreCoupsLegaux)');
 
 					          BeginDrawingInPovRayOffScreen;
 					          error := DrawPictFile(fic,unRect);
 					          EndDrawingInPovRayOffScreen;
 					          ExitIfError(error,'DrawPicFile(pionsMontreCoupsLegaux)');
 
-					          error := FermeFichierTexte(fic);
-					          ExitIfError(error,'FermeFichierTexte(pionsMontreCoupsLegaux)');
+					          error := CloseFile(fic);
+					          ExitIfError(error,'CloseFile(pionsMontreCoupsLegaux)');
 					        end
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsMontreCoupsLegaux)');
@@ -425,16 +425,16 @@ begin
 				      if FichierPhotosExisteSurLeDisque(path,fic)
 				        then
 					        begin
-					          error := OuvreFichierTexte(fic);
-					          ExitIfError(error,'OuvreFichierTexte(pionsSuggestionDeCassio)');
+					          error := OpenFile(fic);
+					          ExitIfError(error,'OpenFile(pionsSuggestionDeCassio)');
 
 					          BeginDrawingInPovRayOffScreen;
 					          error := DrawPictFile(fic,unRect);
 					          EndDrawingInPovRayOffScreen;
 					          ExitIfError(error,'DrawPicFile(pionsSuggestionDeCassio)');
 
-					          error := FermeFichierTexte(fic);
-					          ExitIfError(error,'FermeFichierTexte(pionsSuggestionDeCassio)');
+					          error := CloseFile(fic);
+					          ExitIfError(error,'CloseFile(pionsSuggestionDeCassio)');
 					        end
 					      else
 					        ExitIfError(fnfErr,'FileNotFound(pionsSuggestionDeCassio)');

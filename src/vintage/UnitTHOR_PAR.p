@@ -15,15 +15,15 @@ INTERFACE
 
 
 {lecture et ecriture sur le disque}
-function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;
-function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32) : OSErr;
-function LitEnregistrementDansFichierThorPar(var fic : FichierTEXT; numero : SInt32; var enregistrement : ThorParRec) : OSErr;
+function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : basicfile; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;
+function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : basicfile; numeroPartieDansFichier : SInt32) : OSErr;
+function LitEnregistrementDansFichierThorPar(var fic : basicfile; numero : SInt32; var enregistrement : ThorParRec) : OSErr;
 
 
 {fonctions de transfert avec la liste de parties}
-function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : FichierTEXT) : OSErr;
+function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : basicfile) : OSErr;
 function SauvegardeListeCouranteEnTHOR_PAR : OSErr;
-function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : FichierTEXT) : OSErr;
+function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : basicfile) : OSErr;
 
 
 {fonction d'acces}
@@ -45,7 +45,7 @@ USES
     MacErrors, DateTimeUtils
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitScannerUtils, UnitAccesNouveauFormat, UnitUtilitaires, UnitCurseur, UnitServicesDialogs
-    , UnitCriteres, UnitFichiersTEXT, UnitDialog, UnitBaseNouveauFormat, UnitTriListe, UnitListe, UnitRapport, MyStrings
+    , UnitCriteres, basicfile, UnitDialog, UnitBaseNouveauFormat, UnitTriListe, UnitListe, UnitRapport, MyStrings
     , UnitEntreeTranscript, UnitImportDesNoms, UnitEntreesSortiesListe, UnitRapportImplementation, UnitPackedThorGame, MyMathUtils, UnitScannerOthellistique, UnitRapportUtils
     , UnitPositionEtTrait, MyFileSystemUtils, UnitServicesMemoire ;
 {$ELSEC}
@@ -83,12 +83,12 @@ begin
 end;
 
 
-function LitEnregistrementDansFichierThorPar(var fic : FichierTEXT; numero : SInt32; var enregistrement : ThorParRec) : OSErr;
+function LitEnregistrementDansFichierThorPar(var fic : basicfile; numero : SInt32; var enregistrement : ThorParRec) : OSErr;
 var count : SInt32;
     err : OSErr;
 begin
   MemoryFillChar(@enregistrement,TailleEnregistrementTHOR_PAR,chr(0));
-  err := SetPositionTeteLectureFichierTexte(fic,(numero-1)*TailleEnregistrementTHOR_PAR);
+  err := SetFilePosition(fic,(numero-1)*TailleEnregistrementTHOR_PAR);
   count := TailleEnregistrementTHOR_PAR;
   err := ReadBufferDansFichierTexte(fic,@enregistrement,count);
   LitEnregistrementDansFichierThorPar := err;
@@ -155,7 +155,7 @@ begin
 end;
 
 
-function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : FichierTEXT) : OSErr;
+function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : basicfile) : OSErr;
 var err : OSErr;
     n : SInt32;
     enregistrement : ThorParRec;
@@ -182,7 +182,7 @@ begin
       DoLectureJoueursEtTournoi(false);
     end;
 
-  err := OuvreFichierTexte(fichierTHOR_PAR);
+  err := OpenFile(fichierTHOR_PAR);
 
   GetTime(myDate);
   anneeTournoi := myDate.year;
@@ -233,7 +233,7 @@ begin
             end;
     end;
 
-  err := FermeFichierTexte(fichierTHOR_PAR);
+  err := CloseFile(fichierTHOR_PAR);
 
   SetAutorisationCalculsLongsSurListe(true);
   TrierListePartie(gGenreDeTriListe,AlgoDeTriOptimum(gGenreDeTriListe));
@@ -243,7 +243,7 @@ begin
 end;
 
 
-function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;
+function EcritPartieFormatTHOR_PAR(var fichierTHOR_PAR : basicfile; numeroPartieDansFichier : SInt32; partieNF : t_PartieRecNouveauFormat) : OSErr;
 var err : OSErr;
     k,i,j,aux : SInt16;
     s,joueurNoir,joueurBlanc : String255;
@@ -341,15 +341,15 @@ begin
 		  {on ecrit dans le fichier THOR.PAR}
 		  position := numeroPartieDansFichier*TailleEnregistrementTHOR_PAR;
 		  count := TailleEnregistrementTHOR_PAR;
-		  err := SetPositionTeteLectureFichierTexte(fichierTHOR_PAR,position);
-		  err := WriteBufferDansFichierTexte(fichierTHOR_PAR,@s[1],count);
+		  err := SetFilePosition(fichierTHOR_PAR,position);
+		  err := Write(fichierTHOR_PAR,@s[1],count);
 		end;
 
   EcritPartieFormatTHOR_PAR := err;
 end;
 
 
-function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : FichierTEXT; numeroPartieDansFichier : SInt32) : OSErr;
+function EcritPartieVideDansFichierTHOR_PAR(var fichierTHOR_PAR : basicfile; numeroPartieDansFichier : SInt32) : OSErr;
 var err : OSErr;
     k,i,j : SInt16;
     s : String255;
@@ -408,8 +408,8 @@ begin
 		  {on ecrit dans le fichier THOR.PAR}
 		  position := numeroPartieDansFichier*TailleEnregistrementTHOR_PAR;
 		  count := TailleEnregistrementTHOR_PAR;
-		  err := SetPositionTeteLectureFichierTexte(fichierTHOR_PAR,position);
-		  err := WriteBufferDansFichierTexte(fichierTHOR_PAR,@s[1],count);
+		  err := SetFilePosition(fichierTHOR_PAR,position);
+		  err := Write(fichierTHOR_PAR,@s[1],count);
 		end;
 
   EcritPartieVideDansFichierTHOR_PAR := err;
@@ -417,7 +417,7 @@ end;
 
 
 
-function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : FichierTEXT) : OSErr;
+function SauvegardeCesPartiesDeLaListeEnTHOR_PAR(nroPartieMin,nroPartieMax : SInt32; var nbPartiesEcrites : SInt32; var fichierTHOR_PAR : basicfile) : OSErr;
 var partieNF : t_PartieRecNouveauFormat;
     n,nroReference,numeroPartieDansFichier : SInt32;
     nbPartiesRefusees : SInt32;
@@ -429,7 +429,7 @@ begin {$UNUSED s60,s255,anneeDesParties}
   SauvegardeCesPartiesDeLaListeEnTHOR_PAR := -1;
 
 
-  codeErreur := OuvreFichierTexte(fichierTHOR_PAR);
+  codeErreur := OpenFile(fichierTHOR_PAR);
 
 
   watch := GetCursor(watchcursor);
@@ -476,7 +476,7 @@ begin {$UNUSED s60,s255,anneeDesParties}
 
   RemettreLeCurseurNormalDeCassio;
 
-  codeErreur := FermeFichierTexte(fichierTHOR_PAR);
+  codeErreur := CloseFile(fichierTHOR_PAR);
   SauvegardeCesPartiesDeLaListeEnTHOR_PAR := codeErreur;
 end;
 
@@ -484,9 +484,9 @@ end;
 function SauvegardeListeCouranteEnTHOR_PAR : OSErr;
 var codeErreur : OSErr;
     reply : SFReply;
-    mySpec : fileInfo;
+    info : fileInfo;
     prompt,s : String255;
-    fichierTHOR_PAR : FichierTEXT;
+    fichierTHOR_PAR : basicfile;
     nroPartieDansListe,nroReference : SInt32;
     nroPremierePartieDeLAnnee : SInt32;
     nroDernierePartieDeLAnnee : SInt32;
@@ -511,7 +511,7 @@ begin
   s := ReadStringFromRessource(TextesNouveauFormatID,6); {'THOR.PAR'}
   SetNameOfSFReply(reply, s);
   prompt := ReadStringFromRessource(TextesNouveauFormatID,5);   {'nom du fichier THOR.PAR à créer ?'}
-  if MakeFileName(reply,prompt,mySpec) then DoNothing;
+  if MakeFileName(reply,prompt,info) then DoNothing;
   EndDialog;
 
   if not(reply.good) then  {annulation}
@@ -520,13 +520,13 @@ begin
       exit;
     end;
 
-  codeErreur := FichierTexteExisteFSp(mySpec,fichierTHOR_PAR);
-  if codeErreur = fnfErr then codeErreur := CreeFichierTexteFSp(mySpec,fichierTHOR_PAR);
+  codeErreur := FileExists(info,fichierTHOR_PAR);
+  if codeErreur = fnfErr then codeErreur := CreateFile(info,fichierTHOR_PAR);
   if codeErreur = 0 then
     begin
-      codeErreur := OuvreFichierTexte(fichierTHOR_PAR);
-      codeErreur := SetEOFFichierTexte(fichierTHOR_PAR,TailleEnregistrementTHOR_PAR*nbPlagesDansTHOR_PAR*nbPartiesParPlageDansTHOR_PAR);
-      codeErreur := FermeFichierTexte(fichierTHOR_PAR);
+      codeErreur := OpenFile(fichierTHOR_PAR);
+      codeErreur := SetEndOfFile(fichierTHOR_PAR,TailleEnregistrementTHOR_PAR*nbPlagesDansTHOR_PAR*nbPartiesParPlageDansTHOR_PAR);
+      codeErreur := CloseFile(fichierTHOR_PAR);
     end;
   if codeErreur <> 0 then
     begin
@@ -568,14 +568,14 @@ begin
 
   watch := GetCursor(watchcursor);
   SafeSetCursor(watch);
-  codeErreur := OuvreFichierTexte(fichierTHOR_PAR);
+  codeErreur := OpenFile(fichierTHOR_PAR);
   for k := nbPartiesEcrites+1 to 500 do
     if codeErreur = NoErr then
       begin
         codeErreur := EcritPartieVideDansFichierTHOR_PAR(fichierTHOR_PAR,k-1);
         if codeErreur = NoErr then inc(nbPartiesEcrites);
       end;
-  codeErreur := FermeFichierTexte(fichierTHOR_PAR);
+  codeErreur := CloseFile(fichierTHOR_PAR);
 
   RemettreLeCurseurNormalDeCassio;
 

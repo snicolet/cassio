@@ -28,7 +28,7 @@ IMPLEMENTATION
 USES
     MacErrors, OSUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitUtilitaires, UnitServicesDialogs, UnitRapport, MyStrings, UnitGestionDuTemps, UnitFichiersTEXT
+    , UnitUtilitaires, UnitServicesDialogs, UnitRapport, MyStrings, UnitGestionDuTemps, basicfile
     , UnitPositionEtTrait, UnitVecteursEval, UnitNouvelleEval, UnitChi2NouvelleEval, UnitMinimisation ;
 {$ELSEC}
     ;
@@ -187,7 +187,7 @@ var
   its : SInt32;
   gg,gam,chi2,dgg : TypeReel;
   erreurES : OSErr;
-  fichierEval : FichierTEXT;
+  fichierEval : basicfile;
   tick : SInt32;
 begin
   verboseMinimisationChi2 := false;
@@ -232,11 +232,11 @@ begin
     then erreurES := CreeFichierTexteDeCassio('BestEvaluation',fichierEval);
   if erreurES = NoErr then
      begin
-       erreurES := OuvreFichierTexte(fichierEval);
+       erreurES := OpenFile(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-       erreurES := VideFichierTexte(fichierEval);
+       erreurES := EmptyFile(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-       erreurES := FermeFichierTexte(fichierEval);
+       erreurES := CloseFile(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
      end;
   WritelnNumDansRapport(' => erreurES = ',erreurES);
@@ -330,13 +330,13 @@ begin
 
       if not(verboseMinimisationChi2) then
         WriteDansRapport('Ecriture de l''évaluation dans le fichier…');
-      erreurES := OuvreFichierTexte(fichierEval);
+      erreurES := OpenFile(fichierEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-      erreurES := VideFichierTexte(fichierEval);
+      erreurES := EmptyFile(fichierEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
       erreurES := EcritEvalDansFichierTexte(fichierEval,whichEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-      erreurES := FermeFichierTexte(fichierEval);
+      erreurES := CloseFile(fichierEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
       if not(verboseMinimisationChi2) then
         WritelnDansRapport(' OK');

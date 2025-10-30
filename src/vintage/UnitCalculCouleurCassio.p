@@ -197,7 +197,7 @@ end;
 
 procedure CheckValidityOfCouleurRecord(var whichColor : CouleurOthellierRec; var colorChanged : boolean);
 var numero,nbCouleursDansMenu : SInt16;
-    fic : FichierTEXT;
+    fic : basicfile;
     probleme : boolean;
 begin
   probleme := false;

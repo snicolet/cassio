@@ -26,7 +26,7 @@ IMPLEMENTATION
 
 
 
-uses SNEvents,UnitDefFichiersTEXT,MyTypes,MyStrings,Sound,UnitFichiersTEXT;
+uses SNEvents,UnitDefFichiersTEXT,MyTypes,MyStrings,Sound,basicfile;
 
 
 
@@ -67,12 +67,12 @@ end;
 function Get_command_line(program_name : String255) : String255;
 var s,s1,s2,s3,result : String255;
     err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     temp : boolean;
     oldParsingSet : SetOfChar;
 begin
 
-  err := FichierTexteExiste(program_name+option_extension,0,fic);
+  err := FileExists(program_name+option_extension,0,fic);
   if err<>NoErr then
     begin
       Command_line_warning;
@@ -81,8 +81,8 @@ begin
     end;
 
   result := '';
-  err := OuvreFichierTexte(fic);
-  while (err=0) and not(EOFFichierTexte(fic,err)) and (result = '') do
+  err := OpenFile(fic);
+  while (err=0) and not(EndOfFile(fic,err)) and (result = '') do
     begin
       err := ReadlnDansFichierTexte(fic,s);
 
@@ -99,7 +99,7 @@ begin
       SetParserProtectionWithQuotes(temp);
       SetParserDelimiters(oldParsingSet);
     end;
-  err := FermeFichierTexte(fic);
+  err := CloseFile(fic);
 
   result := EnleveEspacesDeGauche(result);
   result := EnleveEspacesDeDroite(result);

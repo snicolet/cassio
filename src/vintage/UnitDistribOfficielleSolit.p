@@ -37,7 +37,7 @@ IMPLEMENTATION
 USES
     Sound, DateTimeUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitNouveauFormat, UnitRapport, MyStrings, UnitFichiersTEXT, UnitSolitairesNouveauFormat ;
+    , UnitNouveauFormat, UnitRapport, MyStrings, basicfile, UnitSolitairesNouveauFormat ;
 {$ELSEC}
     ;
     {$I prelink/DistribOfficielleSolit.lk}
@@ -102,7 +102,7 @@ function CreerFichierSolitaireVideNouveauFormat(nbreCasesVides : SInt16) : OSErr
 var nom : String255;
     statsPourCeFichier : t_EnteteSuplementaireSolitaires;
     i : SInt16;
-    fichierSolitaires : FichierTEXT;
+    fichierSolitaires : basicfile;
     entete : t_EnTeteNouveauFormat;
     myDate : DateTimeRec;
     erreurES : OSErr;
@@ -134,12 +134,12 @@ begin
 		    statsPourCeFichier.nbSolitairesCetteProf[i] := 0;
 
 		  {creation des fichiers sur le disque}
-		  erreurES := CreeFichierTexte(nom,0,fichierSolitaires);
-		  if erreurES = NoErr then erreurES := OuvreFichierTexte(fichierSolitaires);
-		  if erreurES = NoErr then erreurES := VideFichierTexte(fichierSolitaires);
+		  erreurES := CreateFile(nom,0,fichierSolitaires);
+		  if erreurES = NoErr then erreurES := OpenFile(fichierSolitaires);
+		  if erreurES = NoErr then erreurES := EmptyFile(fichierSolitaires);
 		  if erreurES = NoErr then erreurES := EcritEnteteNouveauFormat(fichierSolitaires.refNum,entete);
 		  if erreurES = NoErr then erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(fichierSolitaires.refNum,statsPourCeFichier);
-		  if erreurES = NoErr then erreurES := FermeFichierTexte(fichierSolitaires);
+		  if erreurES = NoErr then erreurES := CloseFile(fichierSolitaires);
 		  SetFileCreatorFichierTexte(fichierSolitaires,MY_FOUR_CHAR_CODE('SNX4'));
 		  SetFileTypeFichierTexte(fichierSolitaires,MY_FOUR_CHAR_CODE('PZZL'));
 

@@ -56,9 +56,9 @@ procedure DoDiagramme10x10;
 
 { Des utilitaires qui utilisent le parser des diagrammes GGF 10x10 pour comprendre la ligne principale d'un fichier SGF ou GGF 8x8}
 
-function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;
+function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : basicfile; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;
 function ReadEnregistrementDansFichierAbstraitSGF_ou_GGF(var theFile : FichierAbstrait; whichFormat : formats_connus; var result : PartieFormatGGFRec) : OSErr;
-function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
+function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : basicfile; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 
 
 
@@ -73,7 +73,7 @@ IMPLEMENTATION
 USES
     Sound
 {$IFC NOT(USE_PRELINK)}
-    , MyStrings, UnitDiagramFforum, UnitNewGeneral, UnitOthelloGeneralise, UnitFichiersTEXT, UnitCarbonisation, UnitRapportWindow
+    , MyStrings, UnitDiagramFforum, UnitNewGeneral, UnitOthelloGeneralise, basicfile, UnitCarbonisation, UnitRapportWindow
     , UnitRapportImplementation, UnitRapport, UnitDialog, UnitServicesDialogs, MyFileSystemUtils, UnitFenetres, UnitFormatsFichiers, UnitFichierAbstrait
     , UnitServicesRapport ;
 {$ELSEC}
@@ -210,13 +210,13 @@ begin
 end;
 
 
-function UtilisateurChoisitFichier_NxN(var N : SInt32; var theFic : FichierTEXT) : OSErr;
+function UtilisateurChoisitFichier_NxN(var N : SInt32; var theFic : basicfile) : OSErr;
 var reply : SFReply;
     ok : boolean;
     nomComplet : String255;
     positionArobase : SInt16;
     s,s10,s9 : String255;
-    mySpec : fileInfo;
+    info : fileInfo;
 begin
 
   UtilisateurChoisitFichier_NxN := -1;
@@ -226,7 +226,7 @@ begin
     begin
 
       BeginDialog;
-		  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),mySpec);
+		  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info);
 		  EndDialog;
 
 		  if ok then
@@ -247,7 +247,7 @@ begin
 				        if (Pos(s9,GetNameOfSFReply(reply)) > 0)  then N := 9 else
 				        if (Pos(s10,GetNameOfSFReply(reply)) > 0) then N := 10;
 
-				        nomComplet := GetFullPathOfFSSpec(mySpec);
+				        nomComplet := GetFullPathOfFSSpec(info);
 
                 positionArobase := Pos('@',GetNameOfSFReply(reply));
                 if (positionArobase <= 0)
@@ -263,7 +263,7 @@ begin
 			            then typeDiagramme := DiagrammePosition
 		              else typeDiagramme := DiagrammePartie;
 
-				        UtilisateurChoisitFichier_NxN := FichierTexteExisteFSp(mySpec,theFic);
+				        UtilisateurChoisitFichier_NxN := FileExists(info,theFic);
 				      end;
 		    end;
    end;
@@ -1047,7 +1047,7 @@ var chainePositionInitiale : String255;
     oldTaille : Point;
     err : OSErr;
     posInitiale10x10 : BigOthelloRec;
-    theFic : FichierTEXT;
+    theFic : basicfile;
     N : SInt32;  {taille de l'othellier (9x9, ou 10x10) }
 begin
 
@@ -1207,14 +1207,14 @@ end;
 
 {Le fichier "fic" doit exister, contenir une partie 8x8 au format SGF ou au format GGF;
  il doit etre fermŽ, et est rendu fermŽ }
-function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
+function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : basicfile; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 var myError : OSErr;
     myZone : FichierAbstrait;
     theGame : PartieFormatGGFRec;
 begin
   myError := -1;
 
-  if not(FichierTexteEstOuvert(fic)) then
+  if not(FileIsOpen(fic)) then
 	  if not(gLecture_NxN.lectureEnCours) then
 	    with gLecture_NxN do
 	      begin
@@ -1242,13 +1242,13 @@ end;
 
 {Le fichier "fic" doit exister, contenir une partie 8x8 au format SGF ou au format GGF;
  il doit etre fermŽ, et est rendu fermŽ }
-function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : FichierTEXT; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;
+function ReadEnregistrementDansFichierSGF_ou_GGF_8x8(var fic : basicfile; whichFormat : formats_connus; var infos : PartieFormatGGFRec) : OSErr;
 var myError : OSErr;
     myZone : FichierAbstrait;
 begin
   myError := -1;
 
-  if not(FichierTexteEstOuvert(fic)) then
+  if not(FileIsOpen(fic)) then
 	  if not(gLecture_NxN.lectureEnCours) then
 	    with gLecture_NxN do
 	      begin

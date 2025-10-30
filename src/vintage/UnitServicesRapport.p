@@ -94,7 +94,7 @@ USES
     TextEdit, TSMTE, MacErrors
 {$IFC NOT(USE_PRELINK)}
     , UnitRapportImplementation, UnitServicesDialogs, MyStrings, UnitCarbonisation, MyMathUtils
-    , UnitFichiersTEXT ;
+    , basicfile ;
 {$ELSEC}
     ;
     {$I prelink/ServicesRapport.lk}
@@ -113,7 +113,7 @@ USES
 
 
 
-var FichierRapportLog : FichierTEXT;
+var FichierRapportLog : basicfile;
 
 
 
@@ -525,13 +525,13 @@ begin
       SetFileTypeFichierTexte(FichierRapportLog,MY_FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
-    erreurES := OuvreFichierTexte(FichierRapportLog);
+    erreurES := OpenFile(FichierRapportLog);
 end;
 
 procedure FermeFichierLog;
 var erreurES : OSErr;
 begin
-  erreurES := FermeFichierTexte(FichierRapportLog);
+  erreurES := CloseFile(FichierRapportLog);
 end;
 
 
@@ -542,8 +542,8 @@ begin
   oldEcritureDansLog := GetEcritToutDansRapportLog;
   SetEcritToutDansRapportLog(false);
   OuvreFichierLog;
-  erreurES := SetPositionTeteLectureFinFichierTexte(FichierRapportLog);
-  erreurES := WriteBufferDansFichierTexte(FichierRapportLog,text,length);
+  erreurES := SetFilePositionAtEnd(FichierRapportLog);
+  erreurES := Write(FichierRapportLog,text,length);
   FermeFichierLog;
   SetEcritToutDansRapportLog(oldEcritureDansLog);
 end;

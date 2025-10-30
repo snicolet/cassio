@@ -14,7 +14,7 @@ INTERFACE
  USES UnitDefCassio;
 
 
-function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : FichierTEXT) : OSErr;
+function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : basicfile) : OSErr;
 
 
 function WritePrologueEPSDansFichier(var fic : FichierAbstrait; nomFichier : String255) : OSErr;
@@ -33,7 +33,7 @@ IMPLEMENTATION
 
 USES DateTimeUtils
 {$IFC NOT(USE_PRELINK)}
-     , UnitDiagramFforum, UnitScannerUtils, UnitFichiersTEXT, UnitDiagramFforum, MyStrings, UnitRapport
+     , UnitDiagramFforum, UnitScannerUtils, basicfile, UnitDiagramFforum, MyStrings, UnitRapport
      , UnitArbreDeJeuCourant, UnitPositionEtTrait, UnitPressePapier, UnitPierresDelta, UnitFichierAbstrait
      ;
 {$ELSEC}
@@ -431,45 +431,45 @@ begin
 end;
 
 
-function WriteDescriptionPositionEPSDansFichier(position : PositionEtTraitRec; var fic : FichierTEXT) : OSErr;
+function WriteDescriptionPositionEPSDansFichier(position : PositionEtTraitRec; var fic : basicfile) : OSErr;
 var i,j : SInt32;
     err : OSErr;
 begin
-  err := WritelnDansFichierTexte(fic,'	% draw the discs');
+  err := Writeln(fic,'	% draw the discs');
   for i := 1 to 8 do
     for j := 1 to 8 do
       case position.position[i*10+j] of
-        pionBlanc : err := WritelnDansFichierTexte(fic,'	'+CoupEnStringEnMajuscules(i*10+j)+' white_disc');
-        pionNoir  : err := WritelnDansFichierTexte(fic,'	'+CoupEnStringEnMajuscules(i*10+j)+' black_disc');
+        pionBlanc : err := Writeln(fic,'	'+CoupEnStringEnMajuscules(i*10+j)+' white_disc');
+        pionNoir  : err := Writeln(fic,'	'+CoupEnStringEnMajuscules(i*10+j)+' black_disc');
         pionVide  : ;
       end;
-  err := WritelnDansFichierTexte(fic,'');
+  err := Writeln(fic,'');
   WriteDescriptionPositionEPSDansFichier := err;
 end;
 
 
 
-function WriteCoupsPartieEPSDansFichier(var fic : FichierTEXT) : OSErr;
+function WriteCoupsPartieEPSDansFichier(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
-  err := WritelnDansFichierTexte(fic,'	% draw the moves');
-  err := WritelnDansFichierTexte(fic,'	regularfont findfont 12 scalemovenumber setfont');
-  err := WritelnDansFichierTexte(fic,'	(1) E6 black_move');
-  err := WritelnDansFichierTexte(fic,'	(2) F4 white_move');
-  err := WritelnDansFichierTexte(fic,'	(3) C3 black_move');
-  err := WritelnDansFichierTexte(fic,'	(4) C4 white_move');
-  err := WritelnDansFichierTexte(fic,'	(5) D3 black_move');
-  err := WritelnDansFichierTexte(fic,'	(6) D6 white_move');
-  err := WritelnDansFichierTexte(fic,'	(7) E3 black_move');
-  err := WritelnDansFichierTexte(fic,'	(8) C2 white_move');
-  err := WritelnDansFichierTexte(fic,'	(9) B3 black_move');
-  err := WritelnDansFichierTexte(fic,'');
+  err := Writeln(fic,'	% draw the moves');
+  err := Writeln(fic,'	regularfont findfont 12 scalemovenumber setfont');
+  err := Writeln(fic,'	(1) E6 black_move');
+  err := Writeln(fic,'	(2) F4 white_move');
+  err := Writeln(fic,'	(3) C3 black_move');
+  err := Writeln(fic,'	(4) C4 white_move');
+  err := Writeln(fic,'	(5) D3 black_move');
+  err := Writeln(fic,'	(6) D6 white_move');
+  err := Writeln(fic,'	(7) E3 black_move');
+  err := Writeln(fic,'	(8) C2 white_move');
+  err := Writeln(fic,'	(9) B3 black_move');
+  err := Writeln(fic,'');
 
   WriteCoupsPartieEPSDansFichier := err;
 end;
 
 
-function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : FichierTEXT) : OSErr;
+function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : basicfile) : OSErr;
 begin
   Discard(position);
   Discard(fic);
@@ -480,34 +480,34 @@ begin
 end;
 
 (*
-function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : FichierTEXT) : OSErr;
+function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : basicfile) : OSErr;
 var fichierEtaitOuvertEnArrivant : boolean;
     err : OSErr;
 begin
   err := NoErr;
 
-  fichierEtaitOuvertEnArrivant := FichierTexteEstOuvert(fic);
-  if not(fichierEtaitOuvertEnArrivant) then err := OuvreFichierTexte(fic);
+  fichierEtaitOuvertEnArrivant := FileIsOpen(fic);
+  if not(fichierEtaitOuvertEnArrivant) then err := OpenFile(fic);
 
   err := WritePrologueEPSDansFichier(fic);
 
-  err := WritelnDansFichierTexte(fic,'% do the drawing');
-  err := WritelnDansFichierTexte(fic,'gsave');
-  err := WritelnDansFichierTexte(fic,'');
-  err := WritelnDansFichierTexte(fic,'	% draw an empty board');
-  err := WritelnDansFichierTexte(fic,'	board_coord');
-  err := WritelnDansFichierTexte(fic,'	board_grid');
-  err := WritelnDansFichierTexte(fic,'	board_marks');
-  err := WritelnDansFichierTexte(fic,'');
+  err := Writeln(fic,'% do the drawing');
+  err := Writeln(fic,'gsave');
+  err := Writeln(fic,'');
+  err := Writeln(fic,'	% draw an empty board');
+  err := Writeln(fic,'	board_coord');
+  err := Writeln(fic,'	board_grid');
+  err := Writeln(fic,'	board_marks');
+  err := Writeln(fic,'');
 
 
   err := WriteDescriptionPositionEPSDansFichier(position,fic);
   {err := WriteCoupsPartieEPSDansFichier(fic);}
 
 
-  err := WritelnDansFichierTexte(fic,'grestore');
+  err := Writeln(fic,'grestore');
 
-  if not(fichierEtaitOuvertEnArrivant) then err := FermeFichierTexte(fic);
+  if not(fichierEtaitOuvertEnArrivant) then err := CloseFile(fic);
 
 
   WritePositionEtTraitEnEPSDansFichier := err;

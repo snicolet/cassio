@@ -46,7 +46,7 @@ procedure WriteHugeStringDansRapport(const ligne : HugeString);
 procedure WritelnHugeStringDansRapport(const ligne : HugeString);
 
 
-{ Voir aussi ReadlnHugeStringDansFichierTexte() et WritelnHugeStringDansFichierTexte() dans UnitFichiersTEXT.p }
+{ Voir aussi ReadlnHugeStringDansFichierTexte() et Writeln() dans basicfile.p }
 
 
 

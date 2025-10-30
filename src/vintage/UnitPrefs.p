@@ -73,7 +73,7 @@ USES
     , UnitMenus, UnitEvaluation, UnitServicesDialogs, UnitFichierPhotos, UnitSaisiePartie, MyStrings, UnitEntreeTranscript, UnitDialog
     , UnitNouveauFormat, UnitCarbonisation, UnitVieilOthelliste, UnitNormalisation, UnitCouleur, UnitListe, UnitJeu, UnitProblemeDePriseDeCoin
     , UnitParallelisme, MyMathUtils, SNMenus, MyUtils, SNEvents, UnitEngine, UnitEnvirons, UnitOth2
-    , UnitFichiersTEXT, UnitServicesRapport, UnitAffichagePlateau, UnitActions, UnitEnvirons, UnitImportDesNoms ;
+    , basicfile, UnitServicesRapport, UnitAffichagePlateau, UnitActions, UnitEnvirons, UnitImportDesNoms ;
 {$ELSEC}
     ;
     {$I prelink/Prefs.lk}
@@ -93,7 +93,7 @@ const kMaxPrefFiles = 10;
 const kNomParDefauFichierPreferences = 'Préférences Cassio';
 
 var gPrefsFileInfos : record
-                       filePtr : FichierTEXT;
+                       filePtr : basicfile;
                        nbOfLastLineRead : SInt16;
                        lastLineRead : String255;
                       end;
@@ -711,7 +711,7 @@ begin
 end;
 
 
-function FichierPreferencesDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;
+function FichierPreferencesDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;
 var s : String255;
     erreurES : OSErr;
 begin
@@ -740,7 +740,7 @@ end;
 
 
 procedure CreeFichierPreferences;
-var fichierPref : FichierTEXT;
+var fichierPref : basicfile;
     filename : String255;
     version : String255;
     chainePref : String255;
@@ -759,8 +759,8 @@ begin
   if (erreurES = NoErr)
     then {le fichier préférences existe : on l'ouvre et on le vide}
       begin
-        erreurES := OuvreFichierTexte(fichierPref);
-        erreurES := VideFichierTexte(fichierPref);
+        erreurES := OpenFile(fichierPref);
+        erreurES := EmptyFile(fichierPref);
       end;
 
   if (erreurES <> NoErr) then
@@ -772,7 +772,7 @@ begin
 
       {AlerteSimpleFichierTexte(fileName,erreurES);}
 
-      erreurES := FermeFichierTexte(fichierPref);
+      erreurES := CloseFile(fichierPref);
       exit;
     end;
 
@@ -792,176 +792,176 @@ begin
 
 
   version := '%versionOfPrefsFile = 11';
-  erreurES := WritelnDansFichierTexte(fichierPref,version);
+  erreurES := Writeln(fichierPref,version);
   CodeChainePref(chainePrefBooleens,chainePrefNumeriques);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%booleens = '+chainePrefBooleens);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%numeriques = '+chainePrefNumeriques);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%SolitairesDemandes = '+CodeChaineSolitairesDemandes);
+  erreurES := Writeln(fichierPref,'%booleens = '+chainePrefBooleens);
+  erreurES := Writeln(fichierPref,'%numeriques = '+chainePrefNumeriques);
+  erreurES := Writeln(fichierPref,'%SolitairesDemandes = '+CodeChaineSolitairesDemandes);
 
   ParamDiagRecEnChaine(ParamDiagPositionFFORUM,chainePref);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%paramDiagPositionFFORUM-version-1 = '+chainePref);
+  erreurES := Writeln(fichierPref,'%paramDiagPositionFFORUM-version-1 = '+chainePref);
   ParamDiagRecEnChaine(ParamDiagPartieFFORUM,chainePref);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%paramDiagPartieFFORUM-version-1 = '+chainePref);
+  erreurES := Writeln(fichierPref,'%paramDiagPartieFFORUM-version-1 = '+chainePref);
   ParamDiagRecEnChaine(ParamDiagCourant,chainePref);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%paramDiagCourant-version-1 = '+chainePref);
+  erreurES := Writeln(fichierPref,'%paramDiagCourant-version-1 = '+chainePref);
   ParamDiagRecEnChaine(ParamDiagImpr,chainePref);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%paramDiagImpr-version-1 = '+chainePref);
+  erreurES := Writeln(fichierPref,'%paramDiagImpr-version-1 = '+chainePref);
 
   chainePref := FenetreEnChaine(windowPlateauOpen,wPlateauPtr,FntrPlatRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowPlateau = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowPlateau = '+chainePref);
   chainePref := FenetreEnChaine(windowCourbeOpen,wCourbePtr,FntrCourbeRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowCourbe = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowCourbe = '+chainePref);
   chainePref := FenetreEnChaine(windowAideOpen,wAidePtr,FntrAideRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowAide = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowAide = '+chainePref);
   chainePref := FenetreEnChaine(windowGestionOpen,wGestionPtr,FntrGestionRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowGestion = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowGestion = '+chainePref);
   chainePref := FenetreEnChaine(windowNuageOpen,wNuagePtr,FntrNuageRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowNuage = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowNuage = '+chainePref);
   chainePref := FenetreEnChaine(windowReflexOpen,wReflexPtr,FntrReflexRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowReflexion = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowReflexion = '+chainePref);
   chainePref := FenetreEnChaine(windowListeOpen,wListePtr,FntrListeRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowListe = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowListe = '+chainePref);
   chainePref := FenetreEnChaine(windowStatOpen,wStatPtr,FntrStatRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowStat = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowStat = '+chainePref);
   chainePref := FenetreEnChaine(windowPaletteOpen,wPalettePtr,FntrPaletteRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowPalette = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowPalette = '+chainePref);
   chainePref := FenetreEnChaine(windowRapportOpen,GetRapportWindow,FntrRapportRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowRapport = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowRapport = '+chainePref);
   chainePref := FenetreEnChaine(iconisationDeCassio.encours,iconisationDeCassio.theWindow,iconisationDeCassio.IconisationRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowIconisation = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowIconisation = '+chainePref);
   chainePref := FenetreEnChaine(arbreDeJeu.windowOpen,GetArbreDeJeuWindow,FntrCommentairesRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowCommentaires = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowCommentaires = '+chainePref);
   chainePref := FenetreEnChaine(false,NIL,FntrCadenceRect);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%windowCadence = '+chainePref);
+  erreurES := Writeln(fichierPref,'%windowCadence = '+chainePref);
   chainePref := FenetreEnChaine(false,NIL,aireDeJeu);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%aireDeJeu = '+chainePref);
+  erreurES := Writeln(fichierPref,'%aireDeJeu = '+chainePref);
 
   chainePref := CheminAccesThorDBA^^;
-  erreurES := WritelnDansFichierTexte(fichierPref,'%accesThorDBA = '+chainePref);
+  erreurES := Writeln(fichierPref,'%accesThorDBA = '+chainePref);
   chainePref := CheminAccesThorDBASolitaire^^;
-  erreurES := WritelnDansFichierTexte(fichierPref,'%accesSolitaires = '+chainePref);
+  erreurES := Writeln(fichierPref,'%accesSolitaires = '+chainePref);
   chainePref := IntToStr(VolumeRefThorDBA);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%volumeRefThorDBA = '+chainePref);
+  erreurES := Writeln(fichierPref,'%volumeRefThorDBA = '+chainePref);
   chainePref := IntToStr(VolumeRefThorDBASolitaire);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%volumeRefSolitaires = '+chainePref);
+  erreurES := Writeln(fichierPref,'%volumeRefSolitaires = '+chainePref);
   chainePref := IntToStr(nbExplicationsPasses);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nbExplicationsPasses = '+chainePref);
+  erreurES := Writeln(fichierPref,'%nbExplicationsPasses = '+chainePref);
   {chainePref := IntToStr(gGenreDeTriListe);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gGenreDeTriListe = '+chainePref);}
+  erreurES := Writeln(fichierPref,'%gGenreDeTriListe = '+chainePref);}
   chainePref := IntToStr(analyseRetrograde.nbMinPourConfirmationArret);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%confirmationArretRetro = '+chainePref);
+  erreurES := Writeln(fichierPref,'%confirmationArretRetro = '+chainePref);
   chainePref := IntToStr(arbreDeJeu.positionLigneSeparation);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%LigneSeparationCommentaires = '+chainePref);
+  erreurES := Writeln(fichierPref,'%LigneSeparationCommentaires = '+chainePref);
 
   chainePref := IntToStr(Trunc(Coeffinfluence*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffInfluence = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffInfluence = '+chainePref);
   chainePref := IntToStr(Trunc(Coefffrontiere*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffFrontiere = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffFrontiere = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffEquivalence*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffEquivalence = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffEquivalence = '+chainePref);
   chainePref := IntToStr(Trunc(Coeffcentre*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffCentre = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffCentre = '+chainePref);
   chainePref := IntToStr(Trunc(Coeffgrandcentre*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffGrandCentre = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffGrandCentre = '+chainePref);
   chainePref := IntToStr(Trunc(Coeffbetonnage*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffBetonnage = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffBetonnage = '+chainePref);
   chainePref := IntToStr(Trunc(Coeffminimisation*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffMinimisation = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffMinimisation = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffpriseCoin*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffPriseCoin = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffPriseCoin = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffdefenseCoin*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffDefenseCoin = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffDefenseCoin = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffValeurCoin*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffValeurCoin = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffValeurCoin = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffValeurCaseX*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffValeurCaseX = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffValeurCaseX = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffPenalite*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffPenalite = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffPenalite = '+chainePref);
   chainePref := IntToStr(Trunc(CoeffMobiliteUnidirectionnelle*100+0.5));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CoeffMobiliteUnidirectionnelle = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CoeffMobiliteUnidirectionnelle = '+chainePref);
   chainePref := IntToStr(gPourcentageTailleDesPions);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gPourcentageTailleDesPions = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gPourcentageTailleDesPions = '+chainePref);
   chainePref := IntToStr(gCouleurSupplementaire.red);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gCouleurSupplementaire.red = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gCouleurSupplementaire.red = '+chainePref);
   chainePref := IntToStr(gCouleurSupplementaire.green);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gCouleurSupplementaire.green = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gCouleurSupplementaire.green = '+chainePref);
   chainePref := IntToStr(gCouleurSupplementaire.blue);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gCouleurSupplementaire.blue = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gCouleurSupplementaire.blue = '+chainePref);
   chainePref := IntToStr(gCouleurOthellier.menuID);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gCouleurOthellier.menuID = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gCouleurOthellier.menuID = '+chainePref);
   chainePref := gCouleurOthellier.nomFichierTexture;
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gCouleurOthellier.nomFichierTexture = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gCouleurOthellier.nomFichierTexture = '+chainePref);
   chainePref := IntToStr(gLastTexture3D.theMenu);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gLastTexture3D.theMenu = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gLastTexture3D.theMenu = '+chainePref);
   chainePref := IntToStr(gLastTexture3D.theCmd);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gLastTexture3D.theCmd = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gLastTexture3D.theCmd = '+chainePref);
   chainePref := IntToStr(gLastTexture2D.theMenu);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gLastTexture2D.theMenu = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gLastTexture2D.theMenu = '+chainePref);
   chainePref := IntToStr(gLastTexture2D.theCmd);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gLastTexture2D.theCmd = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gLastTexture2D.theCmd = '+chainePref);
   chainePref := CoupEnStringEnMinuscules(GetPremierCoupParDefaut);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%PremierCoupParDefaut = '+chainePref);
+  erreurES := Writeln(fichierPref,'%PremierCoupParDefaut = '+chainePref);
   chainePref := IntToStr(nbCasesVidesMinSolitaire);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nbCasesVidesMinSolitaire = '+chainePref);
+  erreurES := Writeln(fichierPref,'%nbCasesVidesMinSolitaire = '+chainePref);
   chainePref := IntToStr(nbCasesVidesMaxSolitaire);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nbCasesVidesMaxSolitaire = '+chainePref);
+  erreurES := Writeln(fichierPref,'%nbCasesVidesMaxSolitaire = '+chainePref);
   chainePref := Concat('"',GetPoliceNameNotesSurCases(kNotesDeCassio), '" ', IntToStr(GetTailleNotesSurCases(kNotesDeCassio)));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%PoliceNotesSurLesCases = '+chainePref);
+  erreurES := Writeln(fichierPref,'%PoliceNotesSurLesCases = '+chainePref);
   chainePref := Concat('"',GetPoliceNameNotesSurCases(kNotesDeZebra), '" ', IntToStr(GetTailleNotesSurCases(kNotesDeZebra)));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%PoliceBiblioZebraSurLesCases = '+chainePref);
+  erreurES := Writeln(fichierPref,'%PoliceBiblioZebraSurLesCases = '+chainePref);
   chainePref := IntToStr(GetZebraBookContemptWindowWidth);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%ZebraBookContemptValue = '+chainePref);
+  erreurES := Writeln(fichierPref,'%ZebraBookContemptValue = '+chainePref);
   chainePref := IntToStr(GetZebraBookOptions);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%ZebraBookOptions = '+chainePref);
+  erreurES := Writeln(fichierPref,'%ZebraBookOptions = '+chainePref);
   if CassioDoitRentrerEnContactAvecLeZoo
     then chainePref := 'YES'
     else chainePref := 'NO';
-  erreurES := WritelnDansFichierTexte(fichierPref,'%CassioDoitRentrerDansOthelloZoo = '+chainePref);
+  erreurES := Writeln(fichierPref,'%CassioDoitRentrerDansOthelloZoo = '+chainePref);
   chainePref := IntToStr(ord(gAideCourante));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gAideCourante = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gAideCourante = '+chainePref);
   chainePref := IntToStr(humanWinningStreak);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%humanWinningStreak = '+chainePref);
+  erreurES := Writeln(fichierPref,'%humanWinningStreak = '+chainePref);
   chainePref := IntToStr(humanScoreLastLevel);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%humanScoreLastLevel = '+chainePref);
+  erreurES := Writeln(fichierPref,'%humanScoreLastLevel = '+chainePref);
   chainePref := IntToStr(themeCourantDeCassio);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%themeCourantDeCassio = '+chainePref);
+  erreurES := Writeln(fichierPref,'%themeCourantDeCassio = '+chainePref);
   chainePref := IntToStr(gNbreMegaoctetsPourLaBase);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%gNbreMegaoctetsPourLaBase = '+chainePref);
+  erreurES := Writeln(fichierPref,'%gNbreMegaoctetsPourLaBase = '+chainePref);
 
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueursSaisie = ' +FabriquePrefDerniersJoueursSaisie(1));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueursSaisie2 = '+FabriquePrefDerniersJoueursSaisie(2));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueursSaisie3 = '+FabriquePrefDerniersJoueursSaisie(3));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueursSaisie4 = '+FabriquePrefDerniersJoueursSaisie(4));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%TournoisSaisie = ' +FabriquePrefDerniersTournoisSaisie(1));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%TournoisSaisie2 = '+FabriquePrefDerniersTournoisSaisie(2));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%TournoisSaisie3 = '+FabriquePrefDerniersTournoisSaisie(3));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%TournoisSaisie4 = '+FabriquePrefDerniersTournoisSaisie(4));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%AnneeSaisie = '+IntToStr(gInfosSaisiePartie.derniereAnnee));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueurNoirSaisie = '+IntToStr(gInfosSaisiePartie.dernierJoueurNoir));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%JoueurBlancSaisie = '+IntToStr(gInfosSaisiePartie.dernierJoueurBlanc));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%TournoiSaisie = '+IntToStr(gInfosSaisiePartie.dernierTournoi));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%DistributionSaisie = '+IntToStr(Max(1,gInfosSaisiePartie.derniereDistribution)));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%DerniereRechercheArbre = '+GetLastStringSearchedInGameTree);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%tailleFenetrePlateauAvantPassageEn3D = '+IntToStr(tailleFenetrePlateauAvantPassageEn3D));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%tailleCaseAvantPassageEn3D = '+IntToStr(tailleCaseAvantPassageEn3D));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%empilementFenetres = '+VisibiliteInitiale.ordreOuvertureDesFenetres);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nbColonnesFenetreListe = '+IntToStr(nbColonnesFenetreListe));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionDistribution = '+IntToStr(positionDistribution));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionTournoi = '+IntToStr(positionTournoi));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionNoir = '+IntToStr(positionNoir));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionBlanc = '+IntToStr(positionBlanc));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionCoup = '+IntToStr(positionCoup));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%positionScoreReel = '+IntToStr(positionScoreReel));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%DernierTempsDeChargementDeLaBase = '+IntToStr(gDernierTempsDeChargementDeLaBase));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nomEngineEnCours = '+GetEngineName(numeroEngineEnCours));
-  erreurES := WritelnDansFichierTexte(fichierPref,'%verbosityZoo = '+IntToStr(VerbosityOfZoo));
+  erreurES := Writeln(fichierPref,'%JoueursSaisie = ' +FabriquePrefDerniersJoueursSaisie(1));
+  erreurES := Writeln(fichierPref,'%JoueursSaisie2 = '+FabriquePrefDerniersJoueursSaisie(2));
+  erreurES := Writeln(fichierPref,'%JoueursSaisie3 = '+FabriquePrefDerniersJoueursSaisie(3));
+  erreurES := Writeln(fichierPref,'%JoueursSaisie4 = '+FabriquePrefDerniersJoueursSaisie(4));
+  erreurES := Writeln(fichierPref,'%TournoisSaisie = ' +FabriquePrefDerniersTournoisSaisie(1));
+  erreurES := Writeln(fichierPref,'%TournoisSaisie2 = '+FabriquePrefDerniersTournoisSaisie(2));
+  erreurES := Writeln(fichierPref,'%TournoisSaisie3 = '+FabriquePrefDerniersTournoisSaisie(3));
+  erreurES := Writeln(fichierPref,'%TournoisSaisie4 = '+FabriquePrefDerniersTournoisSaisie(4));
+  erreurES := Writeln(fichierPref,'%AnneeSaisie = '+IntToStr(gInfosSaisiePartie.derniereAnnee));
+  erreurES := Writeln(fichierPref,'%JoueurNoirSaisie = '+IntToStr(gInfosSaisiePartie.dernierJoueurNoir));
+  erreurES := Writeln(fichierPref,'%JoueurBlancSaisie = '+IntToStr(gInfosSaisiePartie.dernierJoueurBlanc));
+  erreurES := Writeln(fichierPref,'%TournoiSaisie = '+IntToStr(gInfosSaisiePartie.dernierTournoi));
+  erreurES := Writeln(fichierPref,'%DistributionSaisie = '+IntToStr(Max(1,gInfosSaisiePartie.derniereDistribution)));
+  erreurES := Writeln(fichierPref,'%DerniereRechercheArbre = '+GetLastStringSearchedInGameTree);
+  erreurES := Writeln(fichierPref,'%tailleFenetrePlateauAvantPassageEn3D = '+IntToStr(tailleFenetrePlateauAvantPassageEn3D));
+  erreurES := Writeln(fichierPref,'%tailleCaseAvantPassageEn3D = '+IntToStr(tailleCaseAvantPassageEn3D));
+  erreurES := Writeln(fichierPref,'%empilementFenetres = '+VisibiliteInitiale.ordreOuvertureDesFenetres);
+  erreurES := Writeln(fichierPref,'%nbColonnesFenetreListe = '+IntToStr(nbColonnesFenetreListe));
+  erreurES := Writeln(fichierPref,'%positionDistribution = '+IntToStr(positionDistribution));
+  erreurES := Writeln(fichierPref,'%positionTournoi = '+IntToStr(positionTournoi));
+  erreurES := Writeln(fichierPref,'%positionNoir = '+IntToStr(positionNoir));
+  erreurES := Writeln(fichierPref,'%positionBlanc = '+IntToStr(positionBlanc));
+  erreurES := Writeln(fichierPref,'%positionCoup = '+IntToStr(positionCoup));
+  erreurES := Writeln(fichierPref,'%positionScoreReel = '+IntToStr(positionScoreReel));
+  erreurES := Writeln(fichierPref,'%DernierTempsDeChargementDeLaBase = '+IntToStr(gDernierTempsDeChargementDeLaBase));
+  erreurES := Writeln(fichierPref,'%nomEngineEnCours = '+GetEngineName(numeroEngineEnCours));
+  erreurES := Writeln(fichierPref,'%verbosityZoo = '+IntToStr(VerbosityOfZoo));
 
 
   GetIntervalleDeDifficultePourProblemeDePriseDeCoin(j,k);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%IntervalleProblemesDeCoinDansListe = '+IntToStr(j*10 + k));
+  erreurES := Writeln(fichierPref,'%IntervalleProblemesDeCoinDansListe = '+IntToStr(j*10 + k));
 
   chainePref := IntToStr(nbCoupsEnTete);
-  erreurES := WritelnDansFichierTexte(fichierPref,'%nbMeilleursCoupsAffiches = '+chainePref);
+  erreurES := Writeln(fichierPref,'%nbMeilleursCoupsAffiches = '+chainePref);
   for k := 1 to nbMaxDePassesAnalyseRetrograde do
     begin
       chainePref := '%PasseAnalyseRetrograde = '+IntToStr(k)+' ->';
@@ -972,14 +972,14 @@ begin
                                    ' '+IntToStr(analyseRetrograde.menuItems[k,j,kMenuDuree])+
                                    ' '+IntToStr(analyseRetrograde.menuItems[k,j,kMenuNotes]);
         end;
-      erreurES := WritelnDansFichierTexte(fichierPref,chainePref);
+      erreurES := Writeln(fichierPref,chainePref);
     end;
 
   for k := NbMaxItemsReouvrirMenu downto 1 do
     if (nomDuFichierAReouvrir[k] <> NIL) and (nomDuFichierAReouvrir[k]^^ <> '') then
       begin
         chainePref := nomDuFichierAReouvrir[k]^^;
-        erreurES := WritelnDansFichierTexte(fichierPref,'%partieAReouvrir = '+chainePref);
+        erreurES := Writeln(fichierPref,'%partieAReouvrir = '+chainePref);
       end;
 
   with DistributionsNouveauFormat do
@@ -989,7 +989,7 @@ begin
         kQuelquesDistributions  : chainePref := '%quellesBasesLire = QuelquesDistributions';
         kAucuneDistribution     : chainePref := '%quellesBasesLire = AucuneDistribution';
       end;
-      erreurES := WritelnDansFichierTexte(fichierPref,chainePref);
+      erreurES := Writeln(fichierPref,chainePref);
       for k := 1 to nbDistributions do
         begin
 
@@ -1008,12 +1008,12 @@ begin
           begin
             chainePref := Distribution[k].path^ + Distribution[k].name^;
             chainePref := ReplaceStringOnce(chainePref, pathCassioFolder,'$CASSIO_FOLDER:');
-            erreurES := WritelnDansFichierTexte(fichierPref,'%baseActive = '+chainePref);
+            erreurES := Writeln(fichierPref,'%baseActive = '+chainePref);
           end;
         end;
     end;
 
-  erreurES := FermeFichierTexte(fichierPref);
+  erreurES := CloseFile(fichierPref);
   SetFileCreatorFichierTexte(fichierPref,MY_FOUR_CHAR_CODE('SNX4'));
   SetFileTypeFichierTexte(fichierPref,MY_FOUR_CHAR_CODE('PREF'));
 
@@ -1025,7 +1025,7 @@ end;
 
 
 procedure LitFichierPreferences;
-var fichierPref : FichierTEXT;
+var fichierPref : basicfile;
     filename : String255;
     LigneFichierPref : String255;
     motClef : String255;
@@ -1075,7 +1075,7 @@ begin
      exit;
    end;
 
- erreurES := OuvreFichierTexte(fichierPref);
+ erreurES := OpenFile(fichierPref);
  if erreurES <> NoErr then
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
@@ -1086,7 +1086,7 @@ begin
  if erreurES <> NoErr then
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
-     erreurES := FermeFichierTexte(fichierPref);
+     erreurES := CloseFile(fichierPref);
      exit;
    end;
 
@@ -1104,7 +1104,7 @@ begin
    end
   else
    begin
-    while (erreurES = NoErr) and not(EOFFichierTexte(fichierPref,erreurES)) do
+    while (erreurES = NoErr) and not(EndOfFile(fichierPref,erreurES)) do
      begin
 
 
@@ -1270,7 +1270,7 @@ begin
     if GetZebraBookOptions <> 0 then SetUsingZebraBook(true);
 
    end;
- erreurES := FermeFichierTexte(fichierPref);
+ erreurES := CloseFile(fichierPref);
 
  if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  LitFichierPreferences : sortie');
 end;
@@ -2104,7 +2104,7 @@ end;
 
 
 procedure LitFichierGroupes;
-var fichierGroupes : FichierTEXT;
+var fichierGroupes : basicfile;
     filename : String255;
     s : String255;
     erreurES : SInt16;
@@ -2113,7 +2113,7 @@ begin
   filename := 'groupes Cassio';
   erreurES := FichierTexteDeCassioExiste(filename,fichierGroupes);
   if erreurES <> NoErr then exit;
-  erreurES := OuvreFichierTexte(fichierGroupes);
+  erreurES := OpenFile(fichierGroupes);
   if erreurES <> NoErr then exit;
 
   nbGroupes := 0;
@@ -2131,13 +2131,13 @@ begin
           if nbGroupes <= nbMaxGroupes then
             groupes^^[nbGroupes] := s;
         end;
-  until (nbGroupes >= nbMaxGroupes) or (erreurES <> NoErr) or EOFFichierTexte(fichiergroupes,erreurES);
-  erreurES := FermeFichierTexte(fichierGroupes);
+  until (nbGroupes >= nbMaxGroupes) or (erreurES <> NoErr) or EndOfFile(fichiergroupes,erreurES);
+  erreurES := CloseFile(fichierGroupes);
 end;
 
 
 procedure CreeFichierGroupes;
-var fichierGroupes : FichierTEXT;
+var fichierGroupes : basicfile;
     filename,s : String255;
     erreurES : SInt16;
     i : SInt16;
@@ -2164,8 +2164,8 @@ begin
       if erreurES = NoErr {le fichier groupes existe : on l'ouvre et on le vide}
 		    then
 		      begin
-		        erreurES := OuvreFichierTexte(fichierGroupes);
-		        erreurES := VideFichierTexte(fichierGroupes);
+		        erreurES := OpenFile(fichierGroupes);
+		        erreurES := EmptyFile(fichierGroupes);
 		      end;
       if erreurES <> 0 then exit;
 
@@ -2173,17 +2173,17 @@ begin
         begin
           s := groupes^^[i];
           if s <> '' then
-            erreurES := WritelnDansFichierTexte(fichierGroupes,s);
+            erreurES := Writeln(fichierGroupes,s);
         end;
 
-      erreurES := FermeFichierTexte(fichierGroupes);
+      erreurES := CloseFile(fichierGroupes);
       SetFileCreatorFichierTexte(fichierGroupes,MY_FOUR_CHAR_CODE('SNX4'));
       SetFileTypeFichierTexte(fichierGroupes,MY_FOUR_CHAR_CODE('sgma'));
     end;
 end;
 
 procedure InstallerFichierCronjob(nomFichierCronjob : String255);
-var source,dest : FichierTEXT;
+var source,dest : basicfile;
     nomSource,nomDest : String255;
     err : OSErr;
 begin
@@ -2200,18 +2200,18 @@ begin
       WritelnDansRapport('nomDest = ' + nomDest);
       *)
 
-      if (FichierTexteExiste(nomSource,0,source) = NoErr) and
-         (FichierTexteExiste(nomDest,0,dest) = NoErr) then
+      if (FileExists(nomSource,0,source) = NoErr) and
+         (FileExists(nomDest,0,dest) = NoErr) then
          begin
-           err := OuvreFichierTexte(source);
+           err := OpenFile(source);
 
            WritelnNumDansRapport('[1]  err = ',err);
 
            if (err = NoErr) then
              begin
-               err := OuvreFichierTexte(dest);
-               err := VideFichierTexte(dest);
-               err := FermeFichierTexte(dest);
+               err := OpenFile(dest);
+               err := EmptyFile(dest);
+               err := CloseFile(dest);
 
                WritelnNumDansRapport('[2]  err = ',err);
 
@@ -2222,7 +2222,7 @@ begin
              end;
 
 
-           err := FermeFichierTexte(source);
+           err := CloseFile(source);
 
            WritelnNumDansRapport('[4]  err = ',err);
          end;
@@ -2259,7 +2259,7 @@ end;
 procedure SauvegarderListeOfPrefsFiles;
 var filename : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i : SInt32;
 begin
@@ -2270,8 +2270,8 @@ begin
   if erreurES = NoErr {le fichier de la liste des fichiers preference existe : on l'ouvre et on le vide}
     then
       begin
-        erreurES := OuvreFichierTexte(fic);
-        erreurES := VideFichierTexte(fic);
+        erreurES := OpenFile(fic);
+        erreurES := EmptyFile(fic);
       end;
 
   if erreurES <> 0 then exit;
@@ -2281,17 +2281,17 @@ begin
        (gListeOfPrefFiles[i].name <> '') then
       begin
         s := gListeOfPrefFiles[i].date + ' ' + gListeOfPrefFiles[i].name;
-        erreurES := WritelnDansFichierTexte(fic,s);
+        erreurES := Writeln(fic,s);
       end;
 
-  erreurES := FermeFichierTexte(fic);
+  erreurES := CloseFile(fic);
 end;
 
 
 procedure LireListeOfPrefsFiles;
 var filename : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i,nbPrefFiles : SInt32;
 begin
@@ -2305,7 +2305,7 @@ begin
   filename := 'PrefCassioFileList.txt';
   erreurES := FichierTexteDeCassioExiste(filename,fic);
   if erreurES = NoErr
-    then erreurES := OuvreFichierTexte(fic);
+    then erreurES := OpenFile(fic);
   if erreurES <> 0 then exit;
 
 
@@ -2317,9 +2317,9 @@ begin
         inc(nbPrefFiles);
         Parse(s,gListeOfPrefFiles[nbPrefFiles].date,gListeOfPrefFiles[nbPrefFiles].name);
       end;
-  until (nbPrefFiles >= kMaxPrefFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
+  until (nbPrefFiles >= kMaxPrefFiles) or (erreurES <> NoErr) or EndOfFile(fic,erreurES);
 
-  erreurES := FermeFichierTexte(fic);
+  erreurES := CloseFile(fic);
 end;
 
 
@@ -2427,7 +2427,7 @@ begin
       exit;
     end;
 
-   erreurES := OuvreFichierTexte(gPrefsFileInfos.filePtr);
+   erreurES := OpenFile(gPrefsFileInfos.filePtr);
    if erreurES <> 0 then
      begin
        OpenPrefsFileForSequentialReading := erreurES;
@@ -2461,14 +2461,14 @@ end;
 function EOFInPrefsFile : boolean;
 var erreurES : OSErr;
 begin
-  EOFInPrefsFile := EOFFichierTexte(gPrefsFileInfos.filePtr,erreurES)
+  EOFInPrefsFile := EndOfFile(gPrefsFileInfos.filePtr,erreurES)
 end;
 
 
 
 function ClosePrefsFile : OSErr;
 begin
-  ClosePrefsFile := FermeFichierTexte(gPrefsFileInfos.filePtr);
+  ClosePrefsFile := CloseFile(gPrefsFileInfos.filePtr);
 end;
 
 

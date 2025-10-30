@@ -51,7 +51,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, SNMenus, UnitNormalisation
     , UnitInterversions, UnitTroisiemeDimension, UnitJeu, UnitProgressBar, UnitEvenement, UnitAffichageArbreDeJeu, UnitEntreeTranscript, MyStrings
-    , UnitOth2, UnitRapport, UnitScannerUtils, UnitFenetres, UnitPackedThorGame, UnitCarbonisation, UnitFichiersTEXT, UnitServicesMemoire
+    , UnitOth2, UnitRapport, UnitScannerUtils, UnitFenetres, UnitPackedThorGame, UnitCarbonisation, basicfile, UnitServicesMemoire
     , MyMathUtils, UnitGeometrie, SNEvents, UnitScannerOthellistique, UnitAffichagePlateau ;
 {$ELSEC}
     ;
@@ -786,7 +786,7 @@ begin
 end;
 
 
-function FichierBibliothequeDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;
+function FichierBibliothequeDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;
 var s : String255;
     erreurES : OSErr;
 begin
@@ -794,23 +794,23 @@ begin
   erreurES := -1;
 
   s := nom;
-  if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
+  if erreurES <> 0 then erreurES := FileExists(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   s := ReplaceStringOnce(nom, 'ibliothèque' , 'ibliotheque');
-  if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
+  if erreurES <> 0 then erreurES := FileExists(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   s := ReplaceStringOnce(nom, 'ibliothèque' , 'ibliotheÃÄque');
-  if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
+  if erreurES <> 0 then erreurES := FileExists(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   s := ReplaceStringOnce(nom, 'ibliotheque' , 'ibliothèque');
-  if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
+  if erreurES <> 0 then erreurES := FileExists(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   s := ReplaceStringOnce(nom, 'ibliotheque' , 'ibliotheÃÄque');
-  if erreurES <> 0 then erreurES := FichierTexteExiste(s,0,fic);
+  if erreurES <> 0 then erreurES := FileExists(s,0,fic);
   if erreurES <> 0 then erreurES := FichierTexteDeCassioExiste(s,fic);
 
   FichierBibliothequeDeCassioExiste := erreurES;
@@ -823,7 +823,7 @@ end;
 
 function LitBibliotheque(nomBibl : String255; verifierLegaliteLignes : boolean) : OSErr;
 const OuvertureID = 3001;
-var FichierBibliotheque : FichierTEXT;
+var FichierBibliotheque : basicfile;
     uneligne : String255;
     erreurES : OSErr;
     s : String255;
@@ -939,7 +939,7 @@ begin
         		      end;
     		      end;
 
-  	      erreurES := OuvreFichierTexte(FichierBibliotheque);
+  	      erreurES := OpenFile(FichierBibliotheque);
   	      bibliothequeLisible := (erreurES = 0);
 
 
@@ -957,7 +957,7 @@ begin
   	          intervallePourcentage := Max(1,estimationTailleBibl div 50);
 
 
-  	          while (erreurES = NoErr) and not(EOFFichierTexte(FichierBibliotheque,erreurES)) and
+  	          while (erreurES = NoErr) and not(EndOfFile(FichierBibliotheque,erreurES)) and
   	                (nbreLignesEnBibl < maxNbreLignesEnBibl) and
   	                not(bibliothequeTropGrosse) do
   	            begin
@@ -970,13 +970,13 @@ begin
   	                end;
   	            end; {while...}
 
-  		        if not(EOFFichierTexte(FichierBibliotheque,erreurES)) and not(bibliothequeTropGrosse) then
+  		        if not(EndOfFile(FichierBibliotheque,erreurES)) and not(bibliothequeTropGrosse) then
   		          begin
   		            bibliothequeTropGrosse := true;
   		            s := ReadStringFromRessource(TextesBibliothequeID,8);
   		            EcrireFauteLectureBibliotheque(dernierePartieLue+' : '+s,lectureBiblData);
   		          end;
-  		        erreurES := FermeFichierTexte(FichierBibliotheque);
+  		        erreurES := CloseFile(FichierBibliotheque);
   	        end;
 
   	    if (nbreFautes >= 1) and (FenetreMessageBibl <> NIL)

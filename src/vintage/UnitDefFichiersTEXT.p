@@ -7,10 +7,14 @@ USES Files, StringTypes, UnitDefLongString;
 
 
 TYPE
+
+     fileInfo = FSSpec;   // FSSpec is Mac OS specific
+     
+
      {FIXME : on risque de perturber InfosFichiersNouveauFormat dans le
               fichier UnitDefNouveauFormat (tableau trop gros)
-              si on rajoute des gros champs ˆ FichierTEXT... }
-     FichierTEXT =
+              si on rajoute des gros champs ˆ basicfile... }
+     basicfile =
           record
             nomFichier : String255;              {private}
             uniqueID : SInt32;                   {private}
@@ -20,7 +24,7 @@ TYPE
             ressourceForkRefNum : SInt32;        {private}
             dataForkOuvertCorrectement : SInt32; {private}
             rsrcForkOuvertCorrectement : SInt32; {private}
-            info : fileInfo;                  {private}
+            info : fileInfo;                     {private}
             bufferLecture : record               {private}
                               bufferLecture      : PackedArrayOfCharPtr;  {private}
                               debutDuBuffer      : SInt32;    {private}
@@ -34,7 +38,7 @@ TYPE
 
 
      {type fonctionnel pour ForEachLineInFileDo}
-     LineOfFileProc = procedure(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+     LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 
 
 IMPLEMENTATION

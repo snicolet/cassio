@@ -19,7 +19,7 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
   procedure SetParserDelimiters(parsingCaracters : SetOfChar);     external;
   procedure Parse(s : String255; var tete,reste : String255);     external;
   function StrToInt32(const s : String255) : SInt32;     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 procedure AlerteSimple(texte : String255);     external;

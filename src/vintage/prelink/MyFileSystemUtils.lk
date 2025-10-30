@@ -17,7 +17,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function RightStr (const s : String255; len : SInt16) : String255;     external;
 	function LeftStr (const s : String255; len : SInt32) : String255;     external;
 function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : fileInfo) : boolean;     external;
-function FichierTexteExisteFSp(mySpec : fileInfo; var fic : FichierTEXT) : OSErr;     external;
+function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
 	function ExtraitCheminDAcces(nomComplet : String255) : String255;     external;
 	function ExtraitNomDeVolume(nomComplet : String255) : String255;     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;

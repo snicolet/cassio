@@ -58,9 +58,9 @@ procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : O
 
 
 {gestion d'acces au fichier disque, si le fichier abstrait est un fichier disque}
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;
-procedure FermerFichierEtFabriquerFichierAbstrait(var fic : FichierTEXT; var theFile : FichierAbstrait);
-procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : FichierTEXT; var theFile : FichierAbstrait);
+function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
+procedure FermerFichierEtFabriquerFichierAbstrait(var fic : basicfile; var theFile : FichierAbstrait);
+procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : basicfile; var theFile : FichierAbstrait);
 
 
 
@@ -75,7 +75,7 @@ IMPLEMENTATION
 USES
     MacErrors
 {$IFC NOT(USE_PRELINK)}
-    , UnitServicesMemoire, MyMathUtils, UnitRapport, MyStrings, UnitFichiersTEXT, UnitLongString ;
+    , UnitServicesMemoire, MyMathUtils, UnitRapport, MyStrings, basicfile, UnitLongString ;
 {$ELSEC}
     ;
     {$I prelink/FichierAbstrait.lk}
@@ -126,7 +126,7 @@ end;
 
 
 
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;
+function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
 var theFile : FichierAbstrait;
 begin
   if GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr  then
@@ -139,7 +139,7 @@ begin
       GetFichierTEXTOfFichierAbstraitPtr := -2;
       exit;
     end;
-  MoveMemory(theFile.data,@fic,sizeof(FichierTEXT));
+  MoveMemory(theFile.data,@fic,sizeof(basicfile));
   GetFichierTEXTOfFichierAbstraitPtr := NoErr;
 end;
 
@@ -147,7 +147,7 @@ end;
 
 function EcrireDansFichierAbstraitFichier(theAbstractFilePtr : FichierAbstraitPtr; text : Ptr; fromPos : SInt32; var nbOctets : SInt32) : OSErr;
 var Err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
@@ -156,14 +156,14 @@ begin
       exit;
     end;
   if (fromPos >= 0)
-    then Err := SetPositionTeteLectureFichierTexte(fic,fromPos)
-    else Err := SetPositionTeteLectureFinFichierTexte(fic);
+    then Err := SetFilePosition(fic,fromPos)
+    else Err := SetFilePositionAtEnd(fic);
   if Err <> NoErr then
     begin
       EcrireDansFichierAbstraitFichier := Err;
       exit;
     end;
-  Err := WriteBufferDansFichierTexte(fic,text,nbOctets);
+  Err := Write(fic,text,nbOctets);
   EcrireDansFichierAbstraitFichier := Err;
 end;
 
@@ -171,7 +171,7 @@ end;
 
 function LireFromFichierAbstraitFichier(theAbstractFilePtr : FichierAbstraitPtr; text : Ptr; fromPos : SInt32; var nbOctets : SInt32) : OSErr;
 var Err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     theFile : FichierAbstrait;
 begin
   if GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr  then
@@ -186,8 +186,8 @@ begin
       exit;
     end;
   if (fromPos >= 0)
-    then Err := SetPositionTeteLectureFichierTexte(fic,fromPos)
-    else Err := SetPositionTeteLectureFichierTexte(fic,theFile.position);
+    then Err := SetFilePosition(fic,fromPos)
+    else Err := SetFilePosition(fic,theFile.position);
   if Err <> NoErr then
     begin
       LireFromFichierAbstraitFichier := Err;
@@ -199,7 +199,7 @@ end;
 
 function SetPositionFichierAbstraitFichier(theAbstractFilePtr : FichierAbstraitPtr; var whichPosition : SInt32) : OSErr;
 var Err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     theFile : FichierAbstrait;
 begin
   Err := GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile);
@@ -218,14 +218,14 @@ begin
       SetPositionFichierAbstraitFichier := Err;
       exit;
     end;
-  Err := SetPositionTeteLectureFichierTexte(fic,whichPosition);
+  Err := SetFilePosition(fic,whichPosition);
   SetPositionFichierAbstraitFichier := Err;
 end;
 
 
 function FermerFichierFichierAbstrait(theAbstractFilePtr : FichierAbstraitPtr) : OSErr;
 var Err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
@@ -233,13 +233,13 @@ begin
       FermerFichierFichierAbstrait := Err;
       exit;
     end;
-  Err := FermeFichierTexte(fic);
+  Err := CloseFile(fic);
   FermerFichierFichierAbstrait := Err;
 end;
 
 function ViderFichierFichierAbstrait(theAbstractFilePtr : FichierAbstraitPtr) : OSErr;
 var Err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
@@ -247,7 +247,7 @@ begin
       ViderFichierFichierAbstrait := Err;
       exit;
     end;
-  Err := VideFichierTexte(fic);
+  Err := EmptyFile(fic);
   ViderFichierFichierAbstrait := Err;
 end;
 
@@ -330,7 +330,7 @@ end;
 
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;
 var aux : FichierAbstrait;
-    fic : FichierTEXT;
+    fic : basicfile;
     err : OSErr;
 begin
   aux := NewEmptyFichierAbstrait;
@@ -338,18 +338,18 @@ begin
 
   with aux do
     begin
-      infos := AllocateMemoryPtrClear(sizeof(FichierTEXT));
+      infos := AllocateMemoryPtrClear(sizeof(basicfile));
       if infos = NIL then exit;
 
-      err := FichierTexteExiste(nomFichier,vRefNum,fic);
+      err := FileExists(nomFichier,vRefNum,fic);
       if (err = fnfErr) then {file not found, on crŽe le fichier}
-        err := CreeFichierTexte(nomFichier,vRefNum,fic);
+        err := CreateFile(nomFichier,vRefNum,fic);
       if (err = NoErr) then
-        err := OuvreFichierTexte(fic);
+        err := OpenFile(fic);
 
 	    if err = NoErr then
         begin
-          MoveMemory(@fic, aux.data, sizeof(FichierTEXT));
+          MoveMemory(@fic, aux.data, sizeof(basicfile));
 
           Ecrire      := EcrireDansFichierAbstraitFichier;
           Lire        := LireFromFichierAbstraitFichier;
@@ -360,7 +360,7 @@ begin
           zoneType    := GetFileTypeFichierTexte(fic);
           zoneCreator := GetFileCreatorFichierTexte(fic);
 
-          err := GetTailleFichierTexte(fic,nbOctetsOccupes);
+          err := GetFileSize(fic,nbOctetsOccupes);
           tailleMaximalePossible := 2000000000;   {was MaxLongint;}
           genre := FichierAbstraitEstFichier;
         end;
@@ -728,12 +728,12 @@ end;
 
 
 function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr) : boolean;
-var fic : FichierTEXT;
+var fic : basicfile;
 begin
   if (theFile.genre = FichierAbstraitEstFichier) and
      (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then
-      EOFFichierAbstrait := EOFFichierTexte(fic,erreurES)
+      EOFFichierAbstrait := EndOfFile(fic,erreurES)
     else
       begin
         EOFFichierAbstrait := (theFile.position >= theFile.nbOctetsOccupes);
@@ -755,7 +755,7 @@ end;
 
 
 procedure SetAbstractFileType(var theFile : FichierAbstrait; whichType : OSType);
-var fic : FichierTEXT;
+var fic : basicfile;
 begin
    theFile.zoneType := whichType;
    if (theFile.genre = FichierAbstraitEstFichier) and
@@ -764,7 +764,7 @@ begin
 end;
 
 procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : OSType);
-var fic : FichierTEXT;
+var fic : basicfile;
 begin
   theFile.zoneCreator := whichCreator;
   if (theFile.genre = FichierAbstraitEstFichier) and
@@ -772,20 +772,20 @@ begin
     then SetFileCreatorFichierTexte(fic,whichCreator);
 end;
 
-procedure FermerFichierEtFabriquerFichierAbstrait(var fic : FichierTEXT; var theFile : FichierAbstrait);
+procedure FermerFichierEtFabriquerFichierAbstrait(var fic : basicfile; var theFile : FichierAbstrait);
 var name : String255;
     erreur : OSErr;
     num : SInt32;
 begin
   name := fic.nomFichier;
   num  := fic.vRefNum;
-  erreur := FermeFichierTexte(fic);
+  erreur := CloseFile(fic);
   theFile := MakeFichierAbstraitFichier(name,num);
 end;
 
-procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : FichierTEXT; var theFile : FichierAbstrait);
+procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : basicfile; var theFile : FichierAbstrait);
 var erreur : OSErr;
-    ficFichierAbstrait : FichierTEXT;
+    ficFichierAbstrait : basicfile;
     name : String255;
     num : SInt32;
     positionMarqueur : SInt32;
@@ -797,16 +797,16 @@ begin
         num              := ficFichierAbstrait.vRefNum;
         positionMarqueur := theFile.position;
         DisposeFichierAbstrait(theFile);
-        erreur := CreeFichierTexte(name,num,fic);
-        erreur := OuvreFichierTexte(fic);
+        erreur := CreateFile(name,num,fic);
+        erreur := OpenFile(fic);
         if (positionMarqueur >= 0)
-          then erreur := SetPositionTeteLectureFichierTexte(fic,positionMarqueur)
-          else erreur := SetPositionTeteLectureFinFichierTexte(fic);
+          then erreur := SetFilePosition(fic,positionMarqueur)
+          else erreur := SetFilePositionAtEnd(fic);
       end
     else
       begin
         DisposeFichierAbstrait(theFile);
-        erreur := OuvreFichierTexte(fic);
+        erreur := OpenFile(fic);
       end;
 end;
 

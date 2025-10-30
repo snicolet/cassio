@@ -54,8 +54,8 @@ procedure CalculeEvalPatternsInexistantParEchangeCouleur(var whichEval : VectNew
 
 { ATTENTION : ces fonctions ne sont pas ENDIAN safe, contrairement a celles de UnitBigVectorsInteger.p }
 
-function EcritEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
-function LitEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
+function EcritEvalDansFichierTexte(var fic : basicfile; var v : VectNewEval) : OSErr;
+function LitEvalDansFichierTexte(var fic : basicfile; var v : VectNewEval) : OSErr;
 function EcritVecteurEvaluationSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEval) : OSErr;
 function LitVecteurEvaluationSurLeDisque(nomFichier : String255; var whichEval : VectNewEval) : OSErr;
 
@@ -75,7 +75,7 @@ IMPLEMENTATION
 USES
     MacErrors, MacMemory, fp
 {$IFC NOT(USE_PRELINK)}
-    , UnitNouvelleEval, UnitRapport, MyStrings, MyMathUtils, UnitFichiersTEXT
+    , UnitNouvelleEval, UnitRapport, MyStrings, MyMathUtils, basicfile
     , UnitBigVectors, UnitNewGeneral ;
 {$ELSEC}
     ;
@@ -677,7 +677,7 @@ begin
 end;
 
 
-function EcritEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
+function EcritEvalDansFichierTexte(var fic : basicfile; var v : VectNewEval) : OSErr;
 var err : OSErr;
     stage : SInt32;
 begin
@@ -733,7 +733,7 @@ end;
 
 
 
-function LitEvalDansFichierTexte(var fic : FichierTEXT; var v : VectNewEval) : OSErr;
+function LitEvalDansFichierTexte(var fic : basicfile; var v : VectNewEval) : OSErr;
 var err : OSErr;
     stage : SInt32;
 begin
@@ -788,7 +788,7 @@ end;
 
 
 function LitVecteurEvaluationSurLeDisque(nomFichier : String255; var whichEval : VectNewEval) : OSErr;
-var fichierEval : FichierTEXT;
+var fichierEval : basicfile;
     err : OSErr;
 begin
   if VecteurEvalEstVide(whichEval) then
@@ -804,7 +804,7 @@ begin
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
@@ -818,7 +818,7 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierEval);
+  err := CloseFile(fichierEval);
   if err <> 0 then
     begin
       LitVecteurEvaluationSurLeDisque := err;
@@ -831,7 +831,7 @@ end;
 
 
 function EcritVecteurEvaluationSurLeDisque(nomFichier : String255 ; vRefNum : SInt16; var whichEval : VectNewEval) : OSErr;
-var fichierEval : FichierTEXT;
+var fichierEval : basicfile;
     err : OSErr;
 begin
   if VecteurEvalEstVide(whichEval) then
@@ -840,7 +840,7 @@ begin
       exit;
     end;
 
-  err := FichierTexteExiste(nomFichier,vRefNum,fichierEval);
+  err := FileExists(nomFichier,vRefNum,fichierEval);
   if err <> NoErr then err := FichierTexteDeCassioExiste(nomFichier,fichierEval);
   if err = fnfErr {-43 => fichier non trouvé, on le crée}
     then err := CreeFichierTexteDeCassio(nomFichier,fichierEval);
@@ -850,14 +850,14 @@ begin
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierEval);
+  err := OpenFile(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
       exit;
     end;
 
-  err := VideFichierTexte(fichierEval);
+  err := EmptyFile(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;
@@ -871,7 +871,7 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierEval);
+  err := CloseFile(fichierEval);
   if err <> 0 then
     begin
       EcritVecteurEvaluationSurLeDisque := err;

@@ -35,7 +35,7 @@ USES
     MacErrors, OSUtils
 {$IFC NOT(USE_PRELINK)}
     , UnitListe, UnitAffichageReflexion, UnitMoveRecords, UnitRapport, UnitGestionDuTemps, MyMathUtils
-    , UnitPositionEtTrait, UnitAffichagePlateau, UnitFichiersTEXT, UnitBigVectors, UnitStatisticalFitting, UnitSetUp, UnitSuperviseur, UnitPhasesPartie
+    , UnitPositionEtTrait, UnitAffichagePlateau, basicfile, UnitBigVectors, UnitStatisticalFitting, UnitSetUp, UnitSuperviseur, UnitPhasesPartie
     , UnitMilieuDePartie, UnitJeu ;
 {$ELSEC}
     ;
@@ -376,14 +376,14 @@ end;
 
 
 
-function LitVecteursStatProbDansFichierTexte(var fic : FichierTEXT) : OSErr;
+function LitVecteursStatProbDansFichierTexte(var fic : basicfile) : OSErr;
 var numeroCoup,nbData,prof,tailleVecteur : SInt32;
     err : OSErr;
     p : PointMultidimensionnel;
 begin
   err := -1;
 
-  while not(EOFFichierTexte(fic,err)) do
+  while not(EndOfFile(fic,err)) do
     begin
       err := ReadLongintDansFichierTexte(fic,numeroCoup);
       err := ReadLongintDansFichierTexte(fic,nbData);
@@ -420,7 +420,7 @@ begin
   LitVecteursStatProbDansFichierTexte := err;
 end;
 
-function EcritVecteursStatProbDansFichierTexte(var fic : FichierTEXT) : OSErr;
+function EcritVecteursStatProbDansFichierTexte(var fic : basicfile) : OSErr;
 var numeroCoup,prof,tailleVecteur : SInt32;
     err : OSErr;
     p : PointMultidimensionnel;
@@ -436,10 +436,10 @@ begin
               tailleVecteur := DimensionDuPointMultidimensionnel(p);
               if tailleVecteur > 0 then
                 begin
-                  err := WriteLongintDansFichierTexte(fic,numeroCoup);
-                  err := WriteLongintDansFichierTexte(fic,ProbCutStat[numeroCoup].nbData);
-                  err := WriteLongintDansFichierTexte(fic,prof);
-                  err := WriteLongintDansFichierTexte(fic,tailleVecteur);
+                  err := Writeln(fic,numeroCoup);
+                  err := Writeln(fic,ProbCutStat[numeroCoup].nbData);
+                  err := Writeln(fic,prof);
+                  err := Writeln(fic,tailleVecteur);
                   err := EcritPointMultidimensionnelDansFichierTexte(fic,p);
 
                   if err <> 0 then
@@ -455,7 +455,7 @@ begin
 end;
 
 function LitVecteursStatProbCutSurLeDisque(nomFichier : String255) : OSErr;
-var fichierProbCut : FichierTEXT;
+var fichierProbCut : basicfile;
     err : OSErr;
 begin
 
@@ -466,7 +466,7 @@ begin
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierProbCut);
+  err := OpenFile(fichierProbCut);
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
@@ -480,7 +480,7 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierProbCut);
+  err := CloseFile(fichierProbCut);
   if err <> 0 then
     begin
       LitVecteursStatProbCutSurLeDisque := err;
@@ -491,11 +491,11 @@ begin
 end;
 
 function EcritVecteursStatProbCutSurDisque(nomFichier : String255 ; vRefNum : SInt16) : OSErr;
-var fichierProbCut : FichierTEXT;
+var fichierProbCut : basicfile;
     err : OSErr;
 begin
 
-  err := FichierTexteExiste(nomFichier,vRefNum,fichierProbCut);
+  err := FileExists(nomFichier,vRefNum,fichierProbCut);
   if err <> NoErr then err := FichierTexteDeCassioExiste(nomFichier,fichierProbCut);
   if err = fnfErr {-43 => fichier non trouvé, on le crée}
     then err := CreeFichierTexteDeCassio(nomFichier,fichierProbCut);
@@ -505,14 +505,14 @@ begin
       exit;
     end;
 
-  err := OuvreFichierTexte(fichierProbCut);
+  err := OpenFile(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
       exit;
     end;
 
-  err := VideFichierTexte(fichierProbCut);
+  err := EmptyFile(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;
@@ -526,7 +526,7 @@ begin
       exit;
     end;
 
-  err := FermeFichierTexte(fichierProbCut);
+  err := CloseFile(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;

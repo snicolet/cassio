@@ -38,7 +38,7 @@ procedure SetCassioEstEnTrainDeDebugguerLeZooEnLocal(flag : boolean);     extern
 function MakeLongString(const s : String255) : LongString;     external;
 procedure PrefetchJobDuZoo(const s : LongString);     external;
 	function Trim (s : String255) : String255;     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function CassioDoitRentrerEnContactAvecLeZoo : boolean;     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;

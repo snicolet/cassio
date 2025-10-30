@@ -211,7 +211,7 @@ USES
     , UnitBufferedPICT, UnitGenericGameFormat, UnitGestionDuTemps, UnitBitboardMobilite, UnitPressePapier, UnitFormatsFichiers, UnitSymetrieDuRapport, UnitMenus
     , UnitStatistiques, UnitBaseOfficielle, UnitSuperviseur, UnitStrategie, UnitTore, UnitDialog, MyStrings, UnitLiveUndo
     , UnitProblemeDePriseDeCoin, UnitCourbe, UnitCFNetworkHTTP, UnitZoo, SNEvents, UnitLongintScroller, UnitNormalisation, UnitPackedThorGame
-    , MyMathUtils, UnitFichiersTEXT, UnitGeometrie, MyKeyMapUtils, UnitScannerOthellistique, UnitRapportUtils, UnitRapportWindow, UnitEvenement
+    , MyMathUtils, basicfile, UnitGeometrie, MyKeyMapUtils, UnitScannerOthellistique, UnitRapportUtils, UnitRapportWindow, UnitEvenement
     , UnitCurseur, UnitBallade, UnitOth2, UnitModes, UnitPalette, UnitCommentaireArbreDeJeu, UnitAccesGraphe, UnitSquareSet
     , UnitVecteursEvalInteger, UnitProperties, UnitPropertyList, UnitFichierAbstrait, UnitNewGeneral, UnitServicesMemoire, UnitAffichagePlateau, UnitListe
     , UnitDiagramFforum, UnitNouveauFormat, UnitSound, UnitEngine ;
@@ -553,7 +553,7 @@ function OuvrirFichierPartieFormatCassio(nomFichier : String255; mergeWithCurren
 var chainePositionEtPartie,s : String255;
     erreurES : SInt16;
     nomLongDuFichier : String255;
-    ficPartie : FichierTEXT;
+    ficPartie : basicfile;
     texteDuFichierMisDansRapport : boolean;
     debutSelection,finSelection : SInt32;
     infos : FormatFichierRec;
@@ -571,7 +571,7 @@ begin
 
   {SetDebuggageUnitFichiersTexte(false);}
 
-  erreurES := FichierTexteExiste(nomFichier,0,ficPartie);
+  erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
@@ -601,7 +601,7 @@ begin
         exit;
       end;
 
-  erreurES := OuvreFichierTexte(ficPartie);
+  erreurES := OpenFile(ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
@@ -636,13 +636,13 @@ begin
   if (erreurES <> NoErr) then
     begin
       OuvrirFichierPartieFormatCassio := erreurES;
-      erreurES := FermeFichierTexte(ficPartie);
+      erreurES := CloseFile(ficPartie);
       exit;
     end
   else
-    if not(EOFFichierTexte(ficPartie,erreurES)) then
+    if not(EndOfFile(ficPartie,erreurES)) then
     begin
-      while not(EOFFichierTexte(ficPartie,erreurES)) do
+      while not(EndOfFile(ficPartie,erreurES)) do
         begin
           erreurES := ReadlnDansFichierTexte(ficPartie,s);
           if Pos('ÂRÂ',s) = 1 then  {rapport}
@@ -676,7 +676,7 @@ begin
   if not(CassioEstEnModeAnalyse) and not(HumCtreHum)
     then DoChangeHumCtreHum;
 
-  erreurES := FermeFichierTexte(ficPartie);
+  erreurES := CloseFile(ficPartie);
 
   if texteDuFichierMisDansRapport then
     begin
@@ -702,7 +702,7 @@ type InfosOthelloDansEPS = record
                              diagramTitle    : String255;
                            end;
 var erreurES : OSErr;
-    ficPartie : FichierTEXT;
+    ficPartie : basicfile;
     ligne, foo : String255;
     infosFichier : InfosOthelloDansEPS;
     infosReelles : InfosOthelloDansEPS;
@@ -719,7 +719,7 @@ begin
       exit;
     end;
 
-  erreurES := FichierTexteExiste(nomFichier,0,ficPartie);
+  erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
@@ -727,7 +727,7 @@ begin
       exit;
     end;
 
-  erreurES := OuvreFichierTexte(ficPartie);
+  erreurES := OpenFile(ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
@@ -772,10 +772,10 @@ begin
           Parse(ligne, foo, infosFichier.diagramTitle);
 
       end;
-  until (compteurLignes > 20) or (erreurES <> NoErr) or EOFFichierTexte(ficPartie,erreurES) or (Pos('%%BeginProlog',ligne) = 1);
+  until (compteurLignes > 20) or (erreurES <> NoErr) or EndOfFile(ficPartie,erreurES) or (Pos('%%BeginProlog',ligne) = 1);
 
 
-  erreurES := FermeFichierTexte(ficPartie);
+  erreurES := CloseFile(ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier, erreurES);
@@ -858,7 +858,7 @@ function OuvrirFichierPartieFormatGGF(nomFichier : String255; mergeWithCurrentTr
 var partieEnAlpha : String255;
     erreurES : SInt16;
     nomLongDuFichier : String255;
-    ficPartie : FichierTEXT;
+    ficPartie : basicfile;
     infos : FormatFichierRec;
     posInitialeDansFichier : PositionEtTraitRec;
 begin  {$UNUSED mergeWithCurrentTree}
@@ -875,7 +875,7 @@ begin  {$UNUSED mergeWithCurrentTree}
 
   {SetDebuggageUnitFichiersTexte(false);}
 
-  erreurES := FichierTexteExiste(nomFichier,0,ficPartie);
+  erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichier,erreurES);
@@ -923,7 +923,7 @@ end;
 
 function OuvrirFichierPartieFormatSmartGameBoard(nomCompletFichier : String255; mergeWithCurrentTree : boolean) : OSErr;
 var theFile : FichierAbstrait;
-    ficPartie : FichierTEXT;
+    ficPartie : basicfile;
     erreurES : SInt16;
     tick : SInt32;
     theDate : DateTimeRec;
@@ -944,7 +944,7 @@ begin
       exit;
     end;
 
-  erreurES := FichierTexteExiste(nomCompletFichier,0,ficPartie);
+  erreurES := FileExists(nomCompletFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
       OuvrirFichierPartieFormatSmartGameBoard := erreurES;
@@ -1033,7 +1033,7 @@ end;
 
 
 function OuvrirFichierParNomComplet(nomCompletFichier : String255; formats_a_ouvrir : SetOfKnownFormats; mergeWithCurrentTree : boolean) : OSErr;
-var fic : FichierTEXT;
+var fic : basicfile;
     infos : FormatFichierRec;
     err : OSErr;
     tempEntreesSorties : boolean;
@@ -1070,7 +1070,7 @@ begin
     end;
 
 
-  err := FichierTexteExiste(nomCompletFichier,0,fic);
+  err := FileExists(nomCompletFichier,0,fic);
 
   if (err = NoErr) then
     if TypeDeFichierEstConnu(fic, infos, err)
@@ -1237,7 +1237,7 @@ end;
 
 
 function OuvrirPartieDansFichierPressePapier(whichFormats : SetOfKnownFormats) : OSErr;
-var fic : FichierTEXT;
+var fic : basicfile;
     myError : OSErr;
     erreurOuvertureEnFormatTEXT : OSErr;
     erreurOuvertureEnFormatEPS : OSErr;
@@ -1251,7 +1251,7 @@ begin
   if (myError = NoErr) then
     begin
       erreurOuvertureEnFormatTEXT := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
-      myError := DetruitFichierTexte(fic);
+      myError := DeleteFile(fic);
     end;
 
   if erreurOuvertureEnFormatTEXT = NoErr then
@@ -1264,7 +1264,7 @@ begin
   if (myError = NoErr) then
     begin
       erreurOuvertureEnFormatEPS := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
-      myError := DetruitFichierTexte(fic);
+      myError := DeleteFile(fic);
       myError := erreurOuvertureEnFormatEPS;
     end;
 
@@ -1278,15 +1278,15 @@ procedure DoOuvrir;
       ok : boolean;
       nomComplet : String255;
       err : OSErr;
-      mySpec : fileInfo;
+      info : fileInfo;
 begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
   BeginDialog;
-  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),mySpec);
+  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info);
   EndDialog;
   if ok then
     begin
-      nomComplet := GetFullPathOfFSSpec(mySpec);
+      nomComplet := GetFullPathOfFSSpec(info);
       AjoutePartieDansMenuReouvrir(nomComplet);
       err := OuvrirFichierParNomComplet(nomComplet, AllKnownFormats, true);
     end;
@@ -1295,8 +1295,8 @@ end;
 procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);
   var reply : SFReply;
       posEtPartie,s : String255;
-      mySpec : fileInfo;
-      ficPartie : FichierTEXT;
+      info : fileInfo;
+      ficPartie : basicfile;
       texteRapportHdl : CharArrayHandle;
       i,count,fin : SInt32;
       c : char;
@@ -1305,7 +1305,7 @@ procedure DoEnregistrerSousFormatCassio(modifiers : SInt16);
 begin
   SetNameOfSFReply(reply,titrePartie^^);
   BeginDialog;
-  bidon := MakeFileName(reply,ReadStringFromRessource(TextesDiversID,1),mySpec);  {'Donnez un nom ˆ la partie'}
+  bidon := MakeFileName(reply,ReadStringFromRessource(TextesDiversID,1),info);  {'Donnez un nom ˆ la partie'}
   EndDialog;
   if reply.good then
    begin
@@ -1314,27 +1314,27 @@ begin
        then posEtPartie := PositionInitialeEnLignePourPressePapier+PartiePourPressePapier(false,true,nbreCoup)
        else posEtPartie := PositionInitialeEnLignePourPressePapier+PartiePourPressePapier(false,true,60);
 
-     erreurES := FichierTexteExisteFSp(mySpec,ficPartie);
+     erreurES := FileExists(info,ficPartie);
      if erreurES = fnfErr {-43 => fichier non trouvŽ, on le crŽe}
-       then erreurES := CreeFichierTexteFSp(mySpec,ficPartie);
+       then erreurES := CreateFile(info,ficPartie);
      if erreurES = NoErr then
        begin
-         erreurES := OuvreFichierTexte(ficPartie);
-         erreurES := VideFichierTexte(ficPartie);
+         erreurES := OpenFile(ficPartie);
+         erreurES := EmptyFile(ficPartie);
        end;
      if ErreurES <> NoErr then
        begin
          AlerteSimpleFichierTexte(GetNameOfSFReply(reply),ErreurES);
-         erreurES := FermeFichierTexte(ficPartie);
+         erreurES := CloseFile(ficPartie);
          exit;
        end;
 
-     erreurES := WritelnDansFichierTexte(ficPartie,posEtpartie);
+     erreurES := Writeln(ficPartie,posEtpartie);
 
      {on ecrit le nom du fichier comme commentaire a l'intŽrieur}
      {les lignes de commentaire commancent par %}
      s := Concat('%filename = ',GetNameOfSFReply(reply));
-     erreurES := WritelnDansFichierTexte(ficPartie,s);
+     erreurES := Writeln(ficPartie,s);
 
      {on ecrit la selection du rapport dans le fichier}
      {chaque ligne coommence par 'ÂRÂ' et finit par '¦'}
@@ -1352,15 +1352,15 @@ begin
            count := count+1;
            if (c = '¦') or (count >= 230) then
              begin
-               erreurES := WritelnDansFichierTexte(ficPartie,'ÂRÂ'+s);
+               erreurES := Writeln(ficPartie,'ÂRÂ'+s);
                s := ''; count := 0;
              end;
          until (i >= fin) or (erreurES <> NoErr);
          if (s <> '') then
-           erreurES := WritelnDansFichierTexte(ficPartie,'ÂRÂ'+s);
+           erreurES := Writeln(ficPartie,'ÂRÂ'+s);
        end;
 
-     erreurES := FermeFichierTexte(ficPartie);
+     erreurES := CloseFile(ficPartie);
      SetFileTypeFichierTexte(ficPartie,MY_FOUR_CHAR_CODE('TSNX'));
      SetFileCreatorFichierTexte(ficPartie,MY_FOUR_CHAR_CODE('SNX4'));
 
@@ -1368,7 +1368,7 @@ begin
        SauverStyleDuRapport(ficPartie);
 
      titrePartie^^ := GetNameOfSFReply(reply);
-     AjoutePartieDansMenuReouvrir(GetFullPathOfFSSpec(mySpec));
+     AjoutePartieDansMenuReouvrir(GetFullPathOfFSSpec(info));
    end;
 end;
 
@@ -1376,14 +1376,14 @@ end;
 procedure DoEnregistrerSousFormatSmartGameBoard;
 var theFile : FichierAbstrait;
     nomComplet,s : String255;
-    mySpec : fileInfo;
+    info : fileInfo;
     reply : SFReply;
     err : OSErr;
     texteRapportHdl : CharArrayHandle;
     debut,count : SInt32;
     state : SInt8;
     prop : Property;
-    fichier : FichierTEXT;
+    fichier : basicfile;
     theDate : DateTimeRec;
     bidon : boolean;
 begin
@@ -1398,13 +1398,13 @@ begin
   SetNameOfSFReply(reply, s);
 
   BeginDialog;
-  bidon := MakeFileName(reply,ReadStringFromRessource(TextesDiversID,4),mySpec);  {'Donnez un nom ˆ l'arbre de jeu'}
+  bidon := MakeFileName(reply,ReadStringFromRessource(TextesDiversID,4),info);  {'Donnez un nom ˆ l'arbre de jeu'}
   EndDialog;
 
   if reply.good then
     begin
       titrePartie^^ := GetNameOfSFReply(reply);
-      nomComplet := GetFullPathOfFSSpec(mySpec);
+      nomComplet := GetFullPathOfFSSpec(info);
 
       theFile := MakeFichierAbstraitFichier(nomComplet,0);
 
@@ -1465,9 +1465,9 @@ end;
 
 procedure DoOuvrirBibliotheque;
 var reply : SFReply;
-    mySpec : fileInfo;
+    info : fileInfo;
 begin
-  if GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('BIBL'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),mySpec) then
+  if GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('BIBL'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info) then
     begin
       if LitBibliotheque(GetNameOfSFReply(reply),BAND(theEvent.modifiers,optionKey) <> 0) = NoErr then DoNothing;
       EnableItemTousMenus;
@@ -4343,7 +4343,7 @@ end;
 
 
 procedure DoPicture2DMenuCommands(menuID,cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);
-var fic : FichierTEXT;
+var fic : basicfile;
     gBlackAndWhiteArrivee : boolean;
     s : String255;
     visibleRgn : RgnHandle;
@@ -4395,7 +4395,7 @@ end;
 
 procedure DoPicture3DMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean; avecAlerte : boolean);
 const AlertePbMemoire3DID = 258;
-var fic : FichierTEXT;
+var fic : basicfile;
     error : OSErr;
     nomDansMenu,path,s : String255;
     visibleRgn : RgnHandle;
@@ -4496,7 +4496,7 @@ procedure DoFormatBaseMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean
 
 procedure DoReouvrirMenuCommands(cmdNumber : SInt16; var peutRepeter : boolean);
 var nomComplet : String255;
-    ficPartie : FichierTEXT;
+    ficPartie : basicfile;
     erreurES : SInt16;
 
 
@@ -4530,7 +4530,7 @@ var nomComplet : String255;
 
     if (nomComplet <> '') then
       begin
-        erreurES := FichierTexteExiste(nomComplet,0,ficPartie);
+        erreurES := FileExists(nomComplet,0,ficPartie);
 		    if (erreurES <> NoErr) then
 		      begin
             AlerteSimpleFichierTexte(nomComplet,erreurES);

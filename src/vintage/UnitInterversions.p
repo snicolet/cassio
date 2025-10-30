@@ -82,7 +82,7 @@ USES
     , MyQuickDraw, UnitRapport, UnitRapportImplementation, UnitJaponais, UnitPositionEtTraitSet
     , UnitEvenement, Zebra_to_Cassio, UnitPileEtFile, UnitGameTree, UnitStrategie, UnitGrapheInterversions, UnitArbreDeJeuCourant, UnitAffichageArbreDeJeu
     , UnitJeu, UnitGeneralSort, UnitDialog, MyFileSystemUtils, UnitServicesDialogs, UnitMiniProfiler, UnitHashing, MyStrings
-    , UnitScannerUtils, UnitNormalisation, UnitEntreeTranscript, UnitPackedThorGame, SNEvents, UnitScannerOthellistique, UnitFichiersTEXT, UnitPositionEtTrait
+    , UnitScannerUtils, UnitNormalisation, UnitEntreeTranscript, UnitPackedThorGame, SNEvents, UnitScannerOthellistique, basicfile, UnitPositionEtTrait
     , UnitABR, UnitProperties, UnitServicesRapport, UnitServicesMemoire ;
 {$ELSEC}
     ;
@@ -148,9 +148,9 @@ end;
 
 
 procedure EcritInterversionsSurDisque;
-var fichierInterversions : FichierTEXT;
+var fichierInterversions : basicfile;
     reply : SFReply;
-    mySpec : fileInfo;
+    info : fileInfo;
     nomfichier,s : String255;
     faut60,princ60 : PackedThorGame;
     faut255,princ255 : String255;
@@ -159,21 +159,21 @@ var fichierInterversions : FichierTEXT;
 begin
   s := ReadStringFromRessource(TextesDiversID,2);   {'sans titre'}
   SetNameOfSFReply(reply, s);
-  if MakeFileName(reply,'Nom du fichier d''interversions ?',mySpec) then
+  if MakeFileName(reply,'Nom du fichier d''interversions ?',info) then
       begin
 
         nomfichier := GetNameOfSFReply(reply)+CharToString('1');
-        erreurES := FichierTexteExisteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
-        if erreurES = fnfErr then erreurES := CreeFichierTexteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
+        erreurES := FileExists(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        if erreurES = fnfErr then erreurES := CreateFile(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
           begin
-            erreurES := OuvreFichierTexte(fichierInterversions);
-            erreurES := VideFichierTexte(fichierInterversions);
+            erreurES := OpenFile(fichierInterversions);
+            erreurES := EmptyFile(fichierInterversions);
           end;
         if erreurES <> 0 then
           begin
             AlerteSimpleFichierTexte(nomFichier,erreurES);
-            erreurES := FermeFichierTexte(fichierInterversions);
+            erreurES := CloseFile(fichierInterversions);
             exit;
           end;
         for i := 1 to numeroInterversion[14] do
@@ -184,29 +184,29 @@ begin
             TraductionThorEnAlphanumerique(faut60,faut255);
             TraductionThorEnAlphanumerique(princ60,princ255);
 
-            erreurES := WriteDansFichierTexte(fichierInterversions,'ajouterInterversion(''');
-            erreurES := WriteDansFichierTexte(fichierInterversions,faut255);
-            erreurES := WriteDansFichierTexte(fichierInterversions,''',''');
-            erreurES := WriteDansFichierTexte(fichierInterversions,princ255);
-            erreurES := WritelnDansFichierTexte(fichierInterversions,''');');
+            erreurES := Write(fichierInterversions,'ajouterInterversion(''');
+            erreurES := Write(fichierInterversions,faut255);
+            erreurES := Write(fichierInterversions,''',''');
+            erreurES := Write(fichierInterversions,princ255);
+            erreurES := Writeln(fichierInterversions,''');');
           end;
-        erreurES := FermeFichierTexte(fichierInterversions);
+        erreurES := CloseFile(fichierInterversions);
         SetFileCreatorFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('CWIE'));
         SetFileTypeFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('TEXT'));
 
 
         nomfichier := GetNameOfSFReply(reply)+CharToString('2');
-        erreurES := FichierTexteExisteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
-        if erreurES = fnfErr then erreurES := CreeFichierTexteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),fichierInterversions);
+        erreurES := FileExists(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        if erreurES = fnfErr then erreurES := CreateFile(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
           begin
-            erreurES := OuvreFichierTexte(fichierInterversions);
-            erreurES := VideFichierTexte(fichierInterversions);
+            erreurES := OpenFile(fichierInterversions);
+            erreurES := EmptyFile(fichierInterversions);
           end;
         if erreurES <> 0 then
           begin
             AlerteSimpleFichierTexte(nomFichier,erreurES);
-            erreurES := FermeFichierTexte(fichierInterversions);
+            erreurES := CloseFile(fichierInterversions);
             exit;
           end;
         for i := numeroInterversion[14]+1 to numeroInterversion[33] do
@@ -220,23 +220,23 @@ begin
             if GET_LENGTH_OF_PACKED_GAME(faut60) < 28
               then
                 begin
-                  erreurES := WriteDansFichierTexte(fichierInterversions,'ajouterInterversion(''');
-                  erreurES := WriteDansFichierTexte(fichierInterversions,faut255);
-                  erreurES := WriteDansFichierTexte(fichierInterversions,''',''');
-                  erreurES := WriteDansFichierTexte(fichierInterversions,princ255);
-                  erreurES := WritelnDansFichierTexte(fichierInterversions,''');');
+                  erreurES := Write(fichierInterversions,'ajouterInterversion(''');
+                  erreurES := Write(fichierInterversions,faut255);
+                  erreurES := Write(fichierInterversions,''',''');
+                  erreurES := Write(fichierInterversions,princ255);
+                  erreurES := Writeln(fichierInterversions,''');');
                 end
               else
                 begin
-                  erreurES := WriteDansFichierTexte(fichierInterversions,'ajouterInterversion(''');
-                  erreurES := WriteDansFichierTexte(fichierInterversions,faut255);
-                  erreurES := WritelnDansFichierTexte(fichierInterversions,''',');
-                  erreurES := WriteDansFichierTexte(fichierInterversions,'        ''');
-                  erreurES := WriteDansFichierTexte(fichierInterversions,princ255);
-                  erreurES := WritelnDansFichierTexte(fichierInterversions,''');');
+                  erreurES := Write(fichierInterversions,'ajouterInterversion(''');
+                  erreurES := Write(fichierInterversions,faut255);
+                  erreurES := Writeln(fichierInterversions,''',');
+                  erreurES := Write(fichierInterversions,'        ''');
+                  erreurES := Write(fichierInterversions,princ255);
+                  erreurES := Writeln(fichierInterversions,''');');
                 end;
           end;
-        erreurES := FermeFichierTexte(fichierInterversions);
+        erreurES := CloseFile(fichierInterversions);
         SetFileCreatorFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('CWIE'));
         SetFileTypeFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('TEXT'));
       end;

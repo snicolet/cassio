@@ -44,12 +44,12 @@ IMPLEMENTATION
 USES
     MacErrors, OSUtils, Sound, DateTimeUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitListe, UnitRapport, SNEvents, UnitFichiersTEXT, UnitActions, UnitSet
+    , UnitListe, UnitRapport, SNEvents, basicfile, UnitActions, UnitSet
     , UnitEvenement, UnitSolve, UnitCriteres, UnitScannerOthellistique, UnitPositionEtTrait, MyMathUtils, UnitScannerUtils, MyFileSystemUtils
     , MyStrings, MyQuickDraw, UnitNouveauFormat, UnitBaseNouveauFormat, UnitAccesNouveauFormat, UnitRapport, UnitTriListe, UnitRapportImplementation
     , UnitCurseur, UnitUtilitaires, UnitEnvirons, UnitJeu, MyStrings, UnitRapportUtils, UnitEntreesSortiesListe, UnitGameTree
     , UnitArbreDeJeuCourant, UnitImportDesNoms, MyFileSystemUtils, UnitMiniProfiler, UnitDialog, UnitPressePapier, UnitTHOR_PAR, MyMathUtils
-    , UnitFichiersTEXT, UnitScannerUtils, UnitGenericGameFormat, UnitFenetres, UnitGestionDuTemps, UnitNormalisation, UnitPackedThorGame, SNEvents
+    , basicfile, UnitScannerUtils, UnitGenericGameFormat, UnitFenetres, UnitGestionDuTemps, UnitNormalisation, UnitPackedThorGame, SNEvents
     , UnitScannerOthellistique, UnitRapportWindow, UnitStringSet, UnitFormatsFichiers, UnitFichierAbstrait, UnitServicesRapport ;
 {$ELSEC}
     ;
@@ -81,7 +81,7 @@ end;
 
 
 function DoitTelechargerFichierFFODesJoueurs : boolean;
-var fic : FichierTEXT;
+var fic : basicfile;
     trouve : boolean;
 begin
   trouve := (FichierTexteDeCassioExiste(kNomDuFichierJoueursFFODansCassio, fic) = NoErr);
@@ -238,7 +238,7 @@ end;
 
 
 
-procedure AjouterNumeroFFOPourCeJoueur(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure AjouterNumeroFFOPourCeJoueur(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 var s, s2, infosFFO, chaineNumero : String255;
     nomFFO, nomDansWThor : String255;
     numeroFFO, numeroWThor : SInt32;
@@ -352,7 +352,7 @@ end;
 
 
 procedure ParserNumerosFFODesJoueurs;
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     result : SInt32;
 begin
@@ -375,9 +375,9 @@ begin
 
       nombreJoueursDansFichierFFO := 0;
 
-      err := OuvreFichierTexte(fic);
+      err := OpenFile(fic);
       ForEachLineInFileDo(fic.info, AjouterNumeroFFOPourCeJoueur,result);
-      err := FermeFichierTexte(fic);
+      err := CloseFile(fic);
 
       WritelnNumDansRapport('nombre de joueurs lus dans le fichier FFO = ',nombreJoueursDansFichierFFO);
 

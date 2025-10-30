@@ -27,7 +27,7 @@ USES
     UnitDefCassio, Sound
 {$IFC NOT(USE_PRELINK)}
     , UnitScannerUtils, UnitStrategie, UnitRapport, UnitBitboardUtils, UnitBitboardModifPlat, MyStrings
-    , UnitFichiersTEXT, MyMathUtils ;
+    , basicfile, MyMathUtils ;
 {$ELSEC}
     ;
     {$I prelink/CreateBitboardCode.lk}
@@ -183,47 +183,47 @@ const
 
 var
   generatingPascal : boolean;
-  fichierCodeGenere : FichierTEXT;
+  fichierCodeGenere : basicfile;
 
 
 procedure WritelnDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
   {WritelnDansRapport(margeBitboardCode+s);}
-  err := WritelnDansFichierTexte(fichierCodeGenere,margeBitboardCode+s);
+  err := Writeln(fichierCodeGenere,margeBitboardCode+s);
 end;
 
 procedure WriteDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
   {WriteDansRapport(margeBitboardCode+s);}
-  err := WriteDansFichierTexte(fichierCodeGenere,margeBitboardCode+s);
+  err := Write(fichierCodeGenere,margeBitboardCode+s);
 end;
 
 procedure WritelnSansMargeDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
-  err := WritelnDansFichierTexte(fichierCodeGenere,s);
+  err := Writeln(fichierCodeGenere,s);
 end;
 
 procedure WriteSansMargeDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
-  err := WriteDansFichierTexte(fichierCodeGenere,s);
+  err := Write(fichierCodeGenere,s);
 end;
 
 procedure WritelnCommentaireDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
   (* WritelnDansRapport(' { '+s+' }'); *)
-  err := WritelnDansFichierTexte(fichierCodeGenere,' { '+s+' }');
+  err := Writeln(fichierCodeGenere,' { '+s+' }');
 end;
 
 procedure WriteCommentaireDansFichierEndgame(s : String255);
 var err : OSErr;
 begin {$UNUSED err}
   (* WriteDansRapport(' { '+s+' }'); *)
-  err := WriteDansFichierTexte(fichierCodeGenere,' { '+s+' }');
+  err := Write(fichierCodeGenere,' { '+s+' }');
 end;
 
 function CreateFunctionLine(whichName : String255; whichType : SInt16) : String255;
@@ -1482,11 +1482,11 @@ begin
   niveauDeLaMarge := 0;
 
 
-  err := FichierTexteExiste('Generated code',0,fichierCodeGenere);
+  err := FileExists('Generated code',0,fichierCodeGenere);
   if err <> NoErr then
-    err := CreeFichierTexte('Generated code',0,fichierCodeGenere);
-  if err = NoErr then err := OuvreFichierTexte(fichierCodeGenere);
-  if err = NoErr then err := VideFichierTexte(fichierCodeGenere);
+    err := CreateFile('Generated code',0,fichierCodeGenere);
+  if err = NoErr then err := OpenFile(fichierCodeGenere);
+  if err = NoErr then err := EmptyFile(fichierCodeGenere);
 
   WritelnNumDansRapport('CreateJansEndgameCode : err =',err);
 
@@ -1530,7 +1530,7 @@ begin
 
     end;
 
-  err := FermeFichierTexte(fichierCodeGenere);
+  err := CloseFile(fichierCodeGenere);
   SetFileCreatorFichierTexte(fichierCodeGenere,MY_FOUR_CHAR_CODE('R*ch'));
   SetFileTypeFichierTexte(fichierCodeGenere,MY_FOUR_CHAR_CODE('TEXT'));
 

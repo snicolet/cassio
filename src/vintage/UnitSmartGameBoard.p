@@ -32,7 +32,7 @@ function EstUnFichierAuFormatSmartGameBoard(nomFichier : String255 ; vRefNum : S
 
 
 {lecture simplifiee : position initiale et ligne principale}
-function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : FichierTEXT; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
+function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : basicfile; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 
 
 {fonctions de bas niveau }
@@ -64,7 +64,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , UnitSetUp, UnitRapportImplementation, UnitGameTree, UnitJeu
     , UnitArbreDeJeuCourant, UnitInterversions, UnitPierresDelta, UnitSauvegardeRapport, MyMathUtils, MyStrings, UnitRapport, UnitServicesDialogs
-    , UnitMiniProfiler, UnitPressePapier, UnitScannerUtils, UnitServicesMemoire, UnitGenericGameFormat, UnitFichiersTEXT, UnitProperties, UnitPositionEtTrait
+    , UnitMiniProfiler, UnitPressePapier, UnitScannerUtils, UnitServicesMemoire, UnitGenericGameFormat, basicfile, UnitProperties, UnitPositionEtTrait
     , UnitPropertyList, UnitFichierAbstrait ;
 {$ELSEC}
     ;
@@ -584,7 +584,7 @@ function ReadRapportProperty(genre : SInt16) : Property;
 var aux : Property;
     textePtr : Ptr;
     longueurTexte,ancienPointDInsertion : SInt32;
-    fichier : FichierTEXT;
+    fichier : basicfile;
 begin
   aux := MakeTexteProperty(RapportProp,NIL,0);
   ReadArgumentOfTexteProperty(aux,32500);
@@ -1452,7 +1452,7 @@ begin
 end;
 
 
-function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : FichierTEXT; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
+function GetPositionInitialeEtPartieDansFichierSmartGameBoard(var fic : basicfile; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;
 begin
   GetPositionInitialeEtPartieDansFichierSmartGameBoard := GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(fic,kTypeFichierSGF,posInitiale,coups);
 end;
@@ -1461,7 +1461,7 @@ end;
 procedure SauvegarderDatabaseOfRecentSGFFiles;
 var filename : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i : SInt32;
 begin
@@ -1472,8 +1472,8 @@ begin
   if erreurES = NoErr {le fichier de la liste des fichiers preference existe : on l'ouvre et on le vide}
     then
       begin
-        erreurES := OuvreFichierTexte(fic);
-        erreurES := VideFichierTexte(fic);
+        erreurES := OpenFile(fic);
+        erreurES := EmptyFile(fic);
       end;
   if erreurES <> 0 then exit;
 
@@ -1482,17 +1482,17 @@ begin
        (gDatabaseRecentSGFFiles[i].name <> '') then
       begin
         s := gDatabaseRecentSGFFiles[i].date + ' ' + gDatabaseRecentSGFFiles[i].name;
-        erreurES := WritelnDansFichierTexte(fic,s);
+        erreurES := Writeln(fic,s);
       end;
 
-  erreurES := FermeFichierTexte(fic);
+  erreurES := CloseFile(fic);
 end;
 
 
 procedure LireDatabaseOfRecentSGFFiles;
 var filename : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i,nbPrefFiles : SInt32;
 begin
@@ -1506,7 +1506,7 @@ begin
   filename := 'RecentSGFFilesList.txt';
   erreurES := FichierTexteDeCassioExiste(filename,fic);
   if erreurES = NoErr
-    then erreurES := OuvreFichierTexte(fic);
+    then erreurES := OpenFile(fic);
   if erreurES <> 0 then exit;
 
 
@@ -1518,9 +1518,9 @@ begin
         inc(nbPrefFiles);
         Parse(s,gDatabaseRecentSGFFiles[nbPrefFiles].date,gDatabaseRecentSGFFiles[nbPrefFiles].name);
       end;
-  until (nbPrefFiles >= kMaxRecentSGFFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
+  until (nbPrefFiles >= kMaxRecentSGFFiles) or (erreurES <> NoErr) or EndOfFile(fic,erreurES);
 
-  erreurES := FermeFichierTexte(fic);
+  erreurES := CloseFile(fic);
 end;
 
 

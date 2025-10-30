@@ -60,7 +60,7 @@ procedure MettreAJourLaBaseParTelechargement;
 
 
 { gestion du double local du listing du directory }
-procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 procedure ComparerListingDuRepertoireDeLaBaseSurInternet(pathFichierTelecharge : String255);
 
 
@@ -70,7 +70,7 @@ function TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase( whileFilePtr :
 procedure GererCompletionTelechargementFichierDeLaBase(pathFichierTelecharge : String255);
 procedure TelechargerFichierDeLaBase(nomFichier : String255);
 function LigneEstDansNotreListingWthorLocal(ligne : String255) : boolean;
-procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 
 
 { petite liste locale des telechargements simultanes de la base }
@@ -94,7 +94,7 @@ USES
 
 {$IFC NOT(USE_PRELINK)}
     , UnitListe, UnitMenus, MyQuickDraw, SNMenus, UnitJaponais, UnitStrategie, UnitEvenement, UnitCriteres
-    , UnitFichiersTEXT, UnitFichierAbstrait, UnitRapportImplementation, UnitCarbonisation, UnitUtilitaires, UnitProgressBar, UnitAccesNouveauFormat, UnitDiagramFforum
+    , basicfile, UnitFichierAbstrait, UnitRapportImplementation, UnitCarbonisation, UnitUtilitaires, UnitProgressBar, UnitAccesNouveauFormat, UnitDiagramFforum
     , UnitTriListe, UnitListe, UnitNouveauFormat, UnitCalculCouleurCassio, UnitScannerOthellistique, UnitInterversions, UnitOth2, UnitRapport
     , SNEvents, UnitCouleur, UnitDialog, UnitScannerUtils, MyStrings, UnitNormalisation, UnitServicesMemoire, UnitFenetres
     , UnitPackedThorGame, MyAntialiasing, MyFonts, MyMathUtils, UnitRetrograde, UnitImportDesNoms, UnitCurseur, MyFileSystemUtils
@@ -3050,8 +3050,8 @@ end;
 
 
 var
-   gFicListingWThorTemp : FichierTEXT;
-   gFicListingWThor     : FichierTEXT;
+   gFicListingWThorTemp : basicfile;
+   gFicListingWThor     : basicfile;
 
    gFichierListingWThorEstVide : boolean;
 
@@ -3067,7 +3067,7 @@ const kNomFichierDirectoryWTHOR     = 'Listing-of-WTHOR.txt';
 
 
 procedure GererCompletionTelechargementFichierDeLaBase(pathFichierTelecharge : String255);
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     taille : SInt32;
     typeDonnees : SInt16;
@@ -3089,11 +3089,11 @@ begin
     begin
 
       // Calcul de la taille du fichier
-      err := OuvreFichierTexte(fic);
+      err := OpenFile(fic);
       if err = NoErr then
-        err := GetTailleFichierTexte(fic, taille);
+        err := GetFileSize(fic, taille);
       if err = NoErr then
-        err := FermeFichierTexte(fic);
+        err := CloseFile(fic);
 
       (* WritelnNumDansRapportThreadSafe('err = ',err); *)
 
@@ -3190,9 +3190,9 @@ begin
   LigneEstDansNotreListingWthorLocal := false;
 
 
-  err := SetPositionTeteLectureFichierTexte(gFicListingWThor, 0);  // au debut
+  err := SetFilePosition(gFicListingWThor, 0);  // au debut
 
-  while (err = NoErr) and not(EOFFichierTexte(gFicListingWThor,err))  do
+  while (err = NoErr) and not(EndOfFile(gFicListingWThor,err))  do
     begin
 
       err := ReadlnDansFichierTexte(gFicListingWThor,ligneDuFichier);
@@ -3216,7 +3216,7 @@ end;
 
 
 
-procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure VerifierPresenceFichierWThorChezNous(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 var s, nomFichier, date, heure, taille, reste : String255;
     doitTelechargerCeFichier : boolean;
     numeroFichier : SInt16;
@@ -3304,7 +3304,7 @@ end;
 
 
 
-procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : FichierTEXT; var result : SInt32);
+procedure ParserLigneOfWTHORDirectoryOnInternet(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 var s, left, right, date : String255;
     descr : String255;
     err : OSErr;
@@ -3359,7 +3359,7 @@ begin  {$unused theFic, result}
           WritelnDansRapport(descr);
           }
 
-          err := WritelnDansFichierTexte(gFicListingWThorTemp, descr);
+          err := Writeln(gFicListingWThorTemp, descr);
 
 
         end;
@@ -3372,7 +3372,7 @@ end;
 
 
 procedure ComparerListingDuRepertoireDeLaBaseSurInternet(pathFichierTelecharge : String255);
-var fic_HTML : FichierTEXT;
+var fic_HTML : basicfile;
     result : SInt32;
     err : OSErr;
     taille : SInt32;
@@ -3407,20 +3407,20 @@ begin
 
       if err = NoErr then
         begin
-          err := OuvreFichierTexte(gFicListingWThorTemp);
-          err := VideFichierTexte(gFicListingWThorTemp);
+          err := OpenFile(gFicListingWThorTemp);
+          err := EmptyFile(gFicListingWThorTemp);
         end;
 
       // ouverture du fichier "Listing-of-WTHOR.txt", pour pouvoir
       // comparer avec ces memes infos
 
       if err = NoErr then
-        err := OuvreFichierTexte(gFicListingWThor);
+        err := OpenFile(gFicListingWThor);
 
 
       if err = NoErr then
         begin
-          err := GetTailleFichierTexte(gFicListingWThor, taille);
+          err := GetFileSize(gFicListingWThor, taille);
           gFichierListingWThorEstVide := (taille = 0);
         end;
 
@@ -3432,7 +3432,7 @@ begin
 
 
       // fermeture du fichier Listing-of-WTHOR.temp.txt
-      if (err = NoErr) and (FermeFichierTexte(gFicListingWThorTemp) = NoErr) then
+      if (err = NoErr) and (CloseFile(gFicListingWThorTemp) = NoErr) then
         begin
 
           // on lit chaque ligne du fichier "Listing-of-WTHOR.temp.txt"
@@ -3447,8 +3447,8 @@ begin
       // vidage et fermeture du fichier "Listing-of-WTHOR.txt"
       if (err = NoErr) then
         begin
-          err := VideFichierTexte(gFicListingWThor);
-          err := FermeFichierTexte(gFicListingWThor);
+          err := EmptyFile(gFicListingWThor);
+          err := CloseFile(gFicListingWThor);
         end;
 
 
@@ -3483,7 +3483,7 @@ function TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase( whileFilePtr :
 type t_LocalFichierAbstraitPtr = ^FichierAbstrait;
 var pathFichier : String255;
     err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     abstractFile : t_LocalFichierAbstraitPtr;
     tailleFichier : SInt32;
 begin

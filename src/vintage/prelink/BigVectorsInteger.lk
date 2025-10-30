@@ -16,5 +16,5 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SInt32;     external;
   procedure SWAP_LONGINT( arg : UInt32Ptr );     external;
   procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
-function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;

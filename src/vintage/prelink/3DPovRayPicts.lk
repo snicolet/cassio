@@ -16,10 +16,10 @@ function GetNomDansMenuPourCetteTexture(var whichTexture : CouleurOthellierRec) 
 function CreateTempOffScreenWorld(var theRect : rect; var offScreenGWorld : GWorldPtr) : OSErr;     external;
 procedure WritelnStringDansRapport(s : String255);     external;
 function PathFichierPicture3DDeCetteFamille(nomFichierDansMenu : String255; coul : SInt16) : String255;     external;
-function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : FichierTEXT) : boolean;     external;
-function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-function DrawPictFile(picFile : FichierTEXT; inRect : rect) : OSErr;     external;
-function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
+function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : basicfile) : boolean;     external;
+function OpenFile(var fic : basicfile) : OSErr;     external;
+function DrawPictFile(picFile : basicfile; inRect : rect) : OSErr;     external;
+function CloseFile(var fic : basicfile) : OSErr;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
 procedure FlushWindow(theWindow : WindowRef);     external;
 procedure KillTempOffscreenWorld(var offScreenGWorld : GWorldPtr);     external;

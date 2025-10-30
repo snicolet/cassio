@@ -38,8 +38,8 @@ function ProduitScalairePointMultidimensionnel(var p1,p2 : PointMultidimensionne
 function CombinaisonScalairePointMultidimensionnel(var p1,p2,p3 : PointMultidimensionnel; lambda1,lambda2 : TypeReel) : TypeReel;
 
 
-function EcritPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
-function LitPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
+function EcritPointMultidimensionnelDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnel) : OSErr;
+function LitPointMultidimensionnelDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnel) : OSErr;
 
 
 procedure TrierPointMultidiemnsionnel(var p : PointMultidimensionnel; var rankingTable : PointMultidimensionnel);
@@ -57,7 +57,7 @@ IMPLEMENTATION
 USES
     fp
 {$IFC NOT(USE_PRELINK)}
-    , UnitServicesMemoire, UnitRapport, UnitFichiersTEXT, UnitGeneralSort ;
+    , UnitServicesMemoire, UnitRapport, basicfile, UnitGeneralSort ;
 {$ELSEC}
     ;
     {$I prelink/BigVectors.lk}
@@ -373,7 +373,7 @@ begin
   CombinaisonScalairePointMultidimensionnel := sum;
 end;
 
-function EcritPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
+function EcritPointMultidimensionnelDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnel) : OSErr;
 var n,count : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);
@@ -383,11 +383,11 @@ begin
       exit;
     end;
   count := (n+1)*sizeof(TypeReel);
-  EcritPointMultidimensionnelDansFichierTexte := WriteBufferDansFichierTexte(fic,Ptr(@p^[0]),count);
+  EcritPointMultidimensionnelDansFichierTexte := Write(fic,Ptr(@p^[0]),count);
 end;
 
 
-function LitPointMultidimensionnelDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnel) : OSErr;
+function LitPointMultidimensionnelDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnel) : OSErr;
 var n,count : SInt32;
 begin
   n := DimensionDuPointMultidimensionnel(p);

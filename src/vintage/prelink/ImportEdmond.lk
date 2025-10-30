@@ -9,7 +9,7 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
 function AllocatePointersPourEvalEdmondDansCassio : OSErr;        { allocation des tables } external;
 function TailleDUnPatternDeTantDeCases(nbreCases : SInt32) : SInt32;     external;

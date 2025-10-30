@@ -40,8 +40,8 @@ procedure HomothetieEtTruncaturePointMultidimensionnel(var p : PointMultidimensi
 procedure HomothetieEtPassageEnFloatPointMultidimensionnel(var p : PointMultidimensionnelInteger; scale : TypeReel; var result : PointMultidimensionnel);
 
 
-function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
-function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
+function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnelInteger) : OSErr;
+function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnelInteger) : OSErr;
 
 
 
@@ -56,7 +56,7 @@ IMPLEMENTATION
 USES
     fp
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, UnitServicesMemoire, UnitFichiersTEXT, UnitBigVectors, MyMathUtils ;
+    , UnitRapport, UnitServicesMemoire, basicfile, UnitBigVectors, MyMathUtils ;
 {$ELSEC}
     ;
     {$I prelink/BigVectorsInteger.lk}
@@ -421,7 +421,7 @@ end;
 
 
 
-function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
+function EcritPointMultidimensionnelIntegerDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnelInteger) : OSErr;
 var n,count : SInt32;
     err : OSErr;
 begin
@@ -441,11 +441,11 @@ begin
   {$ENDC}
 
   count := 4;
-  err := WriteBufferDansFichierTexte(fic,@p.taille,count);
+  err := Write(fic,@p.taille,count);
 
   count := sizeof(SInt16);
   count := (n+1)*count;
-  err := WriteBufferDansFichierTexte(fic,Ptr(p.data),count);
+  err := Write(fic,Ptr(p.data),count);
   EcritPointMultidimensionnelIntegerDansFichierTexte := err;
 
 
@@ -460,7 +460,7 @@ begin
 end;
 
 
-function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : FichierTEXT; var p : PointMultidimensionnelInteger) : OSErr;
+function LitPointMultidimensionnelIntegerDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnelInteger) : OSErr;
 var n,count : SInt32;
     err : OSErr;
 begin

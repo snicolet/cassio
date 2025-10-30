@@ -22,7 +22,7 @@ INTERFACE
 procedure InitUnitFichierPhotos;
 procedure LibereMemoireUnitFichierPhotos;
 
-function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : FichierTEXT) : boolean;
+function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : basicfile) : boolean;
 function FichierPhotosExisteEnMemoire(pathComplet : String255; var numeroFic : SInt16) : boolean;
 function FichierPhotosExisteDansMenu(nomFichierDansMenu : String255; var numeroFic : SInt16) : boolean;
 function FichierPhotosHappyEndExistePourCesTextureEtCouleur(nomFichierDansMenu : String255; couleur : SInt16; var numeroFic : SInt16) : boolean;
@@ -65,7 +65,7 @@ USES
     Aliases
 {$IFC NOT(USE_PRELINK)}
     , MyFileSystemUtils, UnitRapport, UnitTroisiemeDimension, UnitGeometrie, Unit3DPovRayPicts, UnitCarbonisation, MyStrings
-    , UnitMenus, UnitDialog, UnitScannerUtils, UnitFenetres, UnitServicesMemoire, UnitServicesDialogs, SNMenus, UnitFichiersTEXT
+    , UnitMenus, UnitDialog, UnitScannerUtils, UnitFenetres, UnitServicesMemoire, UnitServicesDialogs, SNMenus, basicfile
     , UnitCalculCouleurCassio, UnitEnvirons ;
 {$ELSEC}
     ;
@@ -130,7 +130,7 @@ begin
 end;
 
 
-function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : FichierTEXT) : boolean;
+function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : basicfile) : boolean;
 var err : OSErr;
 begin
   if pathCompletFichierPhoto = '' then
@@ -139,7 +139,7 @@ begin
       exit;
     end;
 
-  err := FichierTexteExiste(pathCompletFichierPhoto,0,fic);
+  err := FileExists(pathCompletFichierPhoto,0,fic);
   FichierPhotosExisteSurLeDisque := (err = NoErr);
 end;
 
@@ -680,7 +680,7 @@ end;
 function LitFichierCoordoneesImages3D(var quelleTexture : CouleurOthellierRec) : OSErr;
 var erreurES : OSErr;
     nomDansMenu,path,ligne : String255;
-    fic : FichierTEXT;
+    fic : basicfile;
     unRect : rect;
     unPoint : Point;
     s0,s1,s2,s3,s4,s : String255;
@@ -700,14 +700,14 @@ begin
 
   path := PathFichierPicture3DDeCetteFamille(nomDansMenu,kFichierCoordonees);
 
-  erreurES := FichierTexteExiste(path,0,fic);
+  erreurES := FileExists(path,0,fic);
   if (erreurES <> NoErr) then
     begin
       LitFichierCoordoneesImages3D := erreurES;
       exit;
     end;
 
-  erreurES := OuvreFichierTexte(fic);
+  erreurES := OpenFile(fic);
   if (erreurES <> NoErr) then
     begin
       LitFichierCoordoneesImages3D := erreurES;
@@ -726,7 +726,7 @@ begin
   SetDebugLegalMovesRects3DPovRay(false);
   SetDebugUpSideFacesRects3DPovRay(false);
 
-  while (erreurES = NoErr) and not(EOFFichierTexte(fic,erreurES)) do
+  while (erreurES = NoErr) and not(EndOfFile(fic,erreurES)) do
     begin
       erreurES := ReadlnDansFichierTexte(fic,ligne);
       //WritelnDansRapport(ligne);  // CREATE NEW
@@ -829,13 +829,13 @@ begin
       end;
 
 
-  erreurES := FermeFichierTexte(fic);
+  erreurES := CloseFile(fic);
   LitFichierCoordoneesImages3D := erreurES;
 end;
 
 
 procedure TestUnitFichierPhotos;
-var fic : FichierTEXT;
+var fic : basicfile;
     temp : boolean;
 begin
   temp := GetDebuggageUnitFichiersTexte;

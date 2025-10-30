@@ -48,7 +48,7 @@ USES
     UnitDebuggage, OSUtils
 {$IFC NOT(USE_PRELINK)}
     , UnitZoo, UnitAffichageReflexion, UnitRapport, UnitRapportImplementation, UnitSolve, UnitZoo
-    , UnitZooAvecArbre, UnitLongString, MyStrings, UnitFichiersTEXT, UnitPositionEtTrait, UnitMilieuDePartie
+    , UnitZooAvecArbre, UnitLongString, MyStrings, basicfile, UnitPositionEtTrait, UnitMilieuDePartie
     , UnitGestionDuTemps, UnitJeu, MyMathUtils, UnitStringSet, SNEvents, UnitListe
     ;
 {$ELSEC}
@@ -404,7 +404,7 @@ begin
 end;
 
 
-procedure ReadLineInScriptZoo(var ligne : LongString; var theFic : FichierTEXT; var compteur : SInt32);
+procedure ReadLineInScriptZoo(var ligne : LongString; var theFic : basicfile; var compteur : SInt32);
 var s : String255;
 begin
   Discard2(theFic,compteur);
@@ -433,7 +433,7 @@ end;
 
 
 function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     foo: SInt32;
 begin

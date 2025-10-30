@@ -28,7 +28,7 @@ IMPLEMENTATION
 {$IFC NOT(USE_PRELINK)}
 USES
     UnitRapportImplementation, UnitServicesRapport, UnitRapport, UnitNormalisation, UnitScannerUtils, MyMathUtils, UnitServicesMemoire, MyStrings
-    , UnitFichiersTEXT ;
+    , basicfile ;
 {$ELSEC}
     {$I prelink/SymetrieDuRapport.lk}
 {$ENDC}
@@ -56,7 +56,7 @@ var debut,fin,k : SInt32;
     s,s1,s2,s3,s4,filename,ligne,pattern,remplacement,reste : String255;
     whichSquare : SInt16;
     rapportTexteHandle : CharArrayHandle;
-    fichierDesSymetries : FichierTEXT;
+    fichierDesSymetries : basicfile;
     erreurES : OSErr;
     peutRemplacer : tableBooleensPtr;
     tailleTablePeutRemplacer : SInt32;
@@ -196,14 +196,14 @@ begin
 
 		      erreurES := FichierTexteDeCassioExiste(filename,fichierDesSymetries);
 		      if erreurES = NoErr then
-		        erreurES := OuvreFichierTexte(fichierDesSymetries);
+		        erreurES := OpenFile(fichierDesSymetries);
 
 		      if erreurES = NoErr then
 		        begin
 
 
 
-				      while (erreurES = NoErr) and not(EOFFichierTexte(fichierDesSymetries,erreurES)) do
+				      while (erreurES = NoErr) and not(EndOfFile(fichierDesSymetries,erreurES)) do
 						    begin
 						      erreurES := ReadlnDansFichierTexte(fichierDesSymetries,ligne);
 						      {WritelnDansRapport(ligne);}
@@ -282,7 +282,7 @@ begin
 				        end;
 				    end;
 
-		      erreurES := FermeFichierTexte(fichierDesSymetries);
+		      erreurES := CloseFile(fichierDesSymetries);
 
 		      SetParserDelimiters([' ',tab]);
 

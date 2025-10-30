@@ -181,7 +181,7 @@ USES
     , UnitHashing, UnitPositionEtTrait, UnitRapport, UnitGestionDuTemps, UnitModes, UnitMilieuDePartie, UnitScannerUtils, UnitCouleur
     , UnitEntreeTranscript, UnitScannerUtils, UnitFichierAbstrait, UnitCFNetworkHTTP, UnitBaseNouveauFormat, MyStrings, UnitHashing, SNEvents
     , MyStrings, MyMathUtils, UnitRapportImplementation, UnitZooAvecArbre, UnitAffichageReflexion, UnitSolve, UnitServicesMemoire, UnitLongString
-    , UnitEngine, UnitServicesRapport, UnitFichiersTEXT, UnitTestZoo, UnitTournoi, UnitHashTableExacte, UnitBaseOfficielle
+    , UnitEngine, UnitServicesRapport, basicfile, UnitTestZoo, UnitTournoi, UnitHashTableExacte, UnitBaseOfficielle
     , UnitSolitaire ;
 {$ELSEC}
     ;

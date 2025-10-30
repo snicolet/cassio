@@ -15,7 +15,7 @@ INTERFACE
 procedure InitStatistiquesDeDifficultePourFforum;
 procedure LibereMemoireStatistiquesDeDifficultePourFforum;
 procedure ViderStatistiquesDeDifficultePourFforum;
-procedure EcritureStatistiquesDeDifficultePourFforum(var fic : FichierTEXT);
+procedure EcritureStatistiquesDeDifficultePourFforum(var fic : basicfile);
 procedure AjouterStatistiquesDeDifficultePourFforum(nroLigne,score : SInt32);
 function DifficulteDuSolitaire : double;
 
@@ -30,7 +30,7 @@ IMPLEMENTATION
 USES
     TextUtils
 {$IFC NOT(USE_PRELINK)}
-    , MyStrings, MyMathUtils, UnitServicesMemoire, UnitFichiersTEXT ;
+    , MyStrings, MyMathUtils, UnitServicesMemoire, basicfile ;
 {$ELSEC}
     ;
     {$I prelink/StatistiqueDeSolitaire.lk}
@@ -134,7 +134,7 @@ begin
   DifficulteDuSolitaire := 100.0*difficulte;
 end;
 
-procedure EcritureStatistiquesDeDifficultePourFforum(var fic : FichierTEXT);
+procedure EcritureStatistiquesDeDifficultePourFforum(var fic : basicfile);
 var nbOccurencesDeCeScore : array[0..64] of SInt32;
     i,n,nbLignesTotal,nbPionsTotal,scoreDuSolitaire : SInt32;
     erreurES : OSErr;
@@ -166,24 +166,24 @@ begin
 		  difficulte := DifficulteDuSolitaire;
 
 
-		  erreurES := WritelnDansFichierTexte(fic,'');
+		  erreurES := Writeln(fic,'');
 		  (*
 		  s := ReadStringFromRessource(TextesSolitairesID,31); {Difficulté du solitaire : ^0 %}
 			s := ParamStr(s,ReelEnStringAvecDecimales(difficulte,3),'','','');
-			erreurES := WritelnDansFichierTexte(fic,s);
+			erreurES := Writeln(fic,s);
 			*)
 
 		  s := ReadStringFromRessource(TextesSolitairesID,18); {Ce solitaire fait ^0 lignes, avec une difficulté de ^1 %.}
 		  s := ParamStr(s,IntToStr(nbLignesTotal),ReelEnStringAvecDecimales(difficulte,3),'','');
-		  erreurES := WritelnDansFichierTexte(fic,s);
+		  erreurES := Writeln(fic,s);
 
 		  {s := 'scoreDuSolitaire = ^0';
 		  s := ParamStr(s,IntToStr(scoreDuSolitaire),'','','');
-		  erreurES := WritelnDansFichierTexte(fic,s);
+		  erreurES := Writeln(fic,s);
 
 		  s := 'nbPionsTotal = ^0';
 		  s := ParamStr(s,IntToStr(nbPionsTotal),'','','');
-		  erreurES := WritelnDansFichierTexte(fic,s);}
+		  erreurES := Writeln(fic,s);}
 
 		  for i := 64 downto 0 do
 		    if nbOccurencesDeCeScore[i] > 0 then
@@ -192,7 +192,7 @@ begin
 		          then s := ReadStringFromRessource(TextesSolitairesID,30) {Il y a ^0 façons de faire ^1 pions}
 		          else s := ReadStringFromRessource(TextesSolitairesID,29); {Il y a ^0 façon  de faire ^1 pions}
 		        s := ParamStr(s,IntToStr(nbOccurencesDeCeScore[i]),IntToStr(i),'','');
-		        erreurES := WritelnDansFichierTexte(fic,s);
+		        erreurES := Writeln(fic,s);
 		      end;
 		end;
 end;

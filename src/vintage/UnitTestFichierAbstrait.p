@@ -30,7 +30,7 @@ IMPLEMENTATION
 USES
     OSUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, MyStrings, UnitFichiersTEXT, UnitFichierAbstrait ;
+    , UnitRapport, MyStrings, basicfile, UnitFichierAbstrait ;
 {$ELSEC}
     ;
     {$I prelink/TestFichierAbstrait.lk}

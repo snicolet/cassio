@@ -693,7 +693,7 @@ var FiltreDialogueSaisieUPP : modalFilterUPP;
     nbCoupsIdentiques : SInt32;
 	  s,s1 : String255;
 	  nomBase,pathBase,prompt : String255;
-	  mySpec : fileInfo;
+	  info : fileInfo;
 	  err : OSErr;
 	  oldPort : grafPtr;
 	  partieRec : t_PartieRecNouveauFormat;
@@ -1046,14 +1046,14 @@ begin
 													  s := ReadStringFromRessource(TextesDiversID,2);      {'sans titre'}
 													  SetNameOfSFReply(reply, s);
 													  prompt := ReadStringFromRessource(TextesNouveauFormatID,3); {'nom de la base à créer ?'}
-													  if MakeFileName(reply,prompt,mySpec) then DoNothing;
+													  if MakeFileName(reply,prompt,info) then DoNothing;
 													  EndDialog;
 
 													  if reply.good then {pas annulation ?}
 												      begin
 
 												        nomBase := EnleveEspacesDeDroite(GetNameOfSFReply(reply)) + ' XXXX.wtb';
-												        pathBase := GetFullPathOfFSSpec(mySpec);
+												        pathBase := GetFullPathOfFSSpec(info);
 												        pathBase := LeftStr(pathBase,LastPos(':',pathBase));
 
 												        if debuggage_saisiePartie then

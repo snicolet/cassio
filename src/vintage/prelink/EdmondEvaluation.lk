@@ -21,11 +21,11 @@ function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; va
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;     external;
 procedure TraiteOneEvenement;     external;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);     external;
-function ReadBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
-function WriteBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
-function OuvreFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-function GetTailleFichierTexte(var fic : FichierTEXT; var taille : SInt32) : OSErr;     external;
-function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
-function VideFichierTexte(var fic : FichierTEXT) : OSErr;     external;
+function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
+function OpenFile(var fic : basicfile) : OSErr;     external;
+function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;     external;
+function CloseFile(var fic : basicfile) : OSErr;     external;
+function EmptyFile(var fic : basicfile) : OSErr;     external;

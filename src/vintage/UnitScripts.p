@@ -56,7 +56,7 @@ USES
     , EdmondEvaluation, MyQuickDraw, UnitAffichageReflexion, UnitAccesNouveauFormat, UnitSetUp, UnitJeu
     , UnitMenus, UnitEnvirons, UnitEPS, UnitHTML, UnitDialog, MyFileSystemUtils, UnitServicesDialogs, MyStrings
     , UnitPositionEtTrait, UnitCurseur, UnitRapport, UnitSolve, UnitScannerUtils, UnitNouvelleEval, UnitGestionDuTemps, UnitEvaluation
-    , UnitFichiersTEXT, UnitRapportImplementation, MyMathUtils, SNEvents, UnitRetrograde, UnitRapportUtils, UnitFichierAbstrait, UnitServicesRapport
+    , basicfile, UnitRapportImplementation, MyMathUtils, SNEvents, UnitRetrograde, UnitRapportUtils, UnitFichierAbstrait, UnitServicesRapport
      ;
 {$ELSEC}
     ;
@@ -164,11 +164,11 @@ end;
 function CreateEndgameScript(nomDeLaBase : String255) : OSErr;
 const kApresQuelCoup = 40;
 var n,k : SInt32;
-    script : FichierTEXT;
+    script : basicfile;
     err : OSErr;
     reply : SFReply;
     nomfichier,theLine,s : String255;
-    mySpec : fileInfo;
+    info : fileInfo;
     myDate : DateTimeRec;
     explicationRejetPartie : SInt32;
 begin
@@ -177,40 +177,40 @@ begin
     begin
 		  s := ReadStringFromRessource(TextesDiversID,2);   {'sans titre'}
 		  SetNameOfSFReply(reply, s);
-		  if MakeFileName(reply,'Nom de la base ˆ scripter ?',mySpec) then
+		  if MakeFileName(reply,'Nom de la base ˆ scripter ?',info) then
 		      begin
 
 		        nomDeLaBase := GetNameOfSFReply(reply);
 
 		        nomfichier := GetNameOfSFReply(reply)+'.script';
-		        err := FichierTexteExisteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),script);
-		        if err = fnfErr then err := CreeFichierTexteFSp(MyMakeFSSpec(mySpec.vRefNum,mySpec.parID,nomfichier),script);
+		        err := FileExists(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),script);
+		        if err = fnfErr then err := CreateFile(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),script);
 		        if err = 0 then
 		          begin
-		            err := OuvreFichierTexte(script);
-		            err := VideFichierTexte(script);
+		            err := OpenFile(script);
+		            err := EmptyFile(script);
 		          end;
 		        if err <> 0 then
 		          begin
 		            AlerteSimpleFichierTexte(nomFichier,err);
-		            err := FermeFichierTexte(script);
+		            err := CloseFile(script);
 		            CreateEndgameScript := err;
 		            exit;
 		          end;
 
 
 		        theLine := '% File '+nomfichier;
-		        err := WritelnDansFichierTexte(script,theLine);
+		        err := Writeln(script,theLine);
 		        GetTime(myDate);
 		        theLine := '% Endgame script created by '+GetApplicationName('Cassio');
-		        err := WritelnDansFichierTexte(script,theLine);
+		        err := Writeln(script,theLine);
 		        theLine := '% '+IntToStr(myDate.year)+'-'+
 		                      IntToStr(myDate.month)+'-'+
 		                      IntToStr(myDate.day);
-		        err := WritelnDansFichierTexte(script,theLine);
+		        err := Writeln(script,theLine);
 		        theLine := '% All positions in this script are generated after move '+IntToStr(kApresQuelCoup)+', but this is not a requirement of the script format';
-		        err := WritelnDansFichierTexte(script,theLine);
-		        err := WritelnDansFichierTexte(script,'%');
+		        err := Writeln(script,theLine);
+		        err := Writeln(script,'%');
 
 
 		        watch := GetCursor(watchcursor);
@@ -227,24 +227,24 @@ begin
 
 		            if (theLine <> '') and (explicationRejetPartie = kPartieOK)
 		              then
-		                err := WritelnDansFichierTexte(script,theLine+' % '+nomDeLaBase+' after '+IntToStr(kApresQuelCoup)+' #'+IntToStr(n))
+		                err := Writeln(script,theLine+' % '+nomDeLaBase+' after '+IntToStr(kApresQuelCoup)+' #'+IntToStr(n))
 		              else
 		                begin
 		                  (*
 		                  case explicationRejetPartie of
 		                    kPartieIllegale :
-		                      err := WritelnDansFichierTexte(script,'% illegal game : '+nomDeLaBase+' #'+IntToStr(n));
+		                      err := Writeln(script,'% illegal game : '+nomDeLaBase+' #'+IntToStr(n));
 		                    kPartieTropCourte :
-		                      err := WritelnDansFichierTexte(script,'% game too short : '+nomDeLaBase+' #'+IntToStr(n));
+		                      err := Writeln(script,'% game too short : '+nomDeLaBase+' #'+IntToStr(n));
 		                  end;
 		                  *)
 		                end;
 		          end;
 
-		        err := WritelnDansFichierTexte(script,'%');
-		        err := WritelnDansFichierTexte(script,'% End of the endgame script');
+		        err := Writeln(script,'%');
+		        err := Writeln(script,'% End of the endgame script');
 
-		        err := FermeFichierTexte(script);
+		        err := CloseFile(script);
 		        SetFileCreatorFichierTexte(script,MY_FOUR_CHAR_CODE('CWIE'));
 		        SetFileTypeFichierTexte(script,MY_FOUR_CHAR_CODE('TEXT'));
 		      end;
@@ -299,7 +299,7 @@ function OuvrirEndgameScript(nomScript : String255) : OSErr;
 const kCassioCommandPrompt = '% TELL CASSIO : ';
 var ligne,nomOutpuScript,comment,s,result : String255;
     erreurES : OSErr;
-    inputScript,outputScript : FichierTEXT;
+    inputScript,outputScript : basicfile;
     score,positionCommentaire : SInt32;
     positionEtTrait : PositionEtTraitRec;
     ticks,tempsPourCettePositionsEnSecondes,tempsTotalEnSecondes : SInt32;
@@ -440,31 +440,31 @@ begin
 
   nomOutpuScript := nomScript+'.output';
 
-  erreurES := FichierTexteExiste(nomScript,0,inputScript);
+  erreurES := FileExists(nomScript,0,inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
       exit;
     end;
 
-  erreurES := OuvreFichierTexte(inputScript);
+  erreurES := OpenFile(inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
       exit;
     end;
 
-  erreurES := FichierTexteExiste(nomOutpuScript,0,outputScript);
-  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomOutpuScript,0,outputScript);
+  erreurES := FileExists(nomOutpuScript,0,outputScript);
+  if erreurES = fnfErr then erreurES := CreateFile(nomOutpuScript,0,outputScript);
   if erreurES = 0 then
     begin
-      erreurES := OuvreFichierTexte(outputScript);
-      erreurES := VideFichierTexte(outputScript);
+      erreurES := OpenFile(outputScript);
+      erreurES := EmptyFile(outputScript);
     end;
   if erreurES <> 0 then
     begin
       AlerteSimpleFichierTexte(nomOutpuScript,erreurES);
-      erreurES := FermeFichierTexte(outputScript);
+      erreurES := CloseFile(outputScript);
       exit;
     end;
 
@@ -489,7 +489,7 @@ begin
   tempsMaximumEnSecondes := 0;
   erreurES := NoErr;
   ligne := '';
-  while not(EOFFichierTexte(inputScript,erreurES)) and
+  while not(EndOfFile(inputScript,erreurES)) and
         (Pos('% End of the endgame script',ligne) = 0) and
         not(EscapeDansQueue) do
     begin
@@ -504,7 +504,7 @@ begin
       if (ligne = '') or (ligne[1] = '%')
         then
           begin
-            erreurES := WritelnDansFichierTexte(outputScript,s);
+            erreurES := Writeln(outputScript,s);
             if (Pos(kCassioCommandPrompt,ligne) > 0) then InterpreterCommandePourCassioDansFichierScript(ligne);
           end
         else
@@ -543,18 +543,18 @@ begin
                           end;
 
                       end;
-                  erreurES := WritelnDansFichierTexte(outputScript,result+comment);
+                  erreurES := Writeln(outputScript,result+comment);
                 end
               else
                 begin
-                  erreurES := WritelnDansFichierTexte(outputScript,'% Parse error for the following line :');
-                  erreurES := WritelnDansFichierTexte(outputScript,'% '+s);
+                  erreurES := Writeln(outputScript,'% Parse error for the following line :');
+                  erreurES := Writeln(outputScript,'% '+s);
                 end;
           end;
     end;
 
-  erreurES := FermeFichierTexte(inputScript);
-  erreurES := FermeFichierTexte(outputScript);
+  erreurES := CloseFile(inputScript);
+  erreurES := CloseFile(outputScript);
 
   if (nbPositionsResolues <> 0) then
     begin
@@ -598,7 +598,7 @@ end;
 
 
 procedure CreerQuizEnPHP(nomQuizGenerique : String255; numeroQuiz : SInt32; positionQuiz : PositionEtTraitRec; coupSolution : SInt32; commentaire : String255);
-var fichierPHP : FichierTEXT;
+var fichierPHP : basicfile;
     fichierAbstraitPHP : FichierAbstrait;
     erreurES : OSErr;
     s,nom_solution : String255;
@@ -626,12 +626,12 @@ begin {CreerQuizEnPHP}
   nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz),'','','');
 
 
-  erreurES := FichierTexteExiste(nomQuiz,0,fichierPHP);
-  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomQuiz,0,fichierPHP);
+  erreurES := FileExists(nomQuiz,0,fichierPHP);
+  if erreurES = fnfErr then erreurES := CreateFile(nomQuiz,0,fichierPHP);
   if erreurES = 0 then
     begin
-      erreurES := OuvreFichierTexte(fichierPHP);
-      erreurES := VideFichierTexte(fichierPHP);
+      erreurES := OpenFile(fichierPHP);
+      erreurES := EmptyFile(fichierPHP);
 
 
       erreurES := FSSpecToFullPath(fichierPHP.info,s);
@@ -678,40 +678,40 @@ begin {CreerQuizEnPHP}
 
       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+      ErreurES := Writeln(fichierPHP,'</td>');
 
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<td width="15">');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+      ErreurES := Writeln(fichierPHP,'<td width="15">');
+      ErreurES := Writeln(fichierPHP,'</td>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<td valign="top">');
+      ErreurES := Writeln(fichierPHP,'<td valign="top">');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
+      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
+      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
+      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p>');
+      ErreurES := Writeln(fichierPHP,'<p>');
       if GetTraitOfPosition(positionQuiz) = pionNoir
-        then ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait andagrave;  < b > Noir </b > .')
-        else ErreurES := WritelnDansFichierTexte(fichierPHP,'Trait andagrave;  < b > Blanc </b > .');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'Cliquez sur le bon coup ! </p>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</tr>');
+        then ErreurES := Writeln(fichierPHP,'Trait andagrave;  < b > Noir </b > .')
+        else ErreurES := Writeln(fichierPHP,'Trait andagrave;  < b > Blanc </b > .');
+      ErreurES := Writeln(fichierPHP,'Cliquez sur le bon coup ! </p>');
+      ErreurES := Writeln(fichierPHP,'</td>');
+      ErreurES := Writeln(fichierPHP,'</tr>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</table>');
+      ErreurES := Writeln(fichierPHP,'</table>');
 
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<hr>');
+      ErreurES := Writeln(fichierPHP,'<hr>');
 
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p class="menu-navigation-rapide">');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</a > ]');
-      ErreurES := WritelnDansFichierTexte(fichierPHP,'</p>');
+      ErreurES := Writeln(fichierPHP,'<p class="menu-navigation-rapide">');
+      ErreurES := Writeln(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
+      ErreurES := Writeln(fichierPHP,'</a > ]');
+      ErreurES := Writeln(fichierPHP,'</p>');
 
 
 
@@ -719,7 +719,7 @@ begin {CreerQuizEnPHP}
       s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
       erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
-      erreurES := FermeFichierTexte(fichierPHP);
+      erreurES := CloseFile(fichierPHP);
     end;
 
 
@@ -738,12 +738,12 @@ begin {CreerQuizEnPHP}
             nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz)+'_'+CoupEnStringEnMinuscules(square),'','','');
 
 
-            erreurES := FichierTexteExiste(nomQuiz,0,fichierPHP);
-            if erreurES = fnfErr then erreurES := CreeFichierTexte(nomQuiz,0,fichierPHP);
+            erreurES := FileExists(nomQuiz,0,fichierPHP);
+            if erreurES = fnfErr then erreurES := CreateFile(nomQuiz,0,fichierPHP);
             if erreurES = 0 then
               begin
-                erreurES := OuvreFichierTexte(fichierPHP);
-                erreurES := VideFichierTexte(fichierPHP);
+                erreurES := OpenFile(fichierPHP);
+                erreurES := EmptyFile(fichierPHP);
 
 
                 erreurES := FSSpecToFullPath(fichierPHP.info,s);
@@ -765,20 +765,20 @@ begin {CreerQuizEnPHP}
                       erreurES := WritePositionEtTraitPageWebFFODansFichierAbstrait(positionEssai,'<span><br><b > Bravo ! </b></span>',fichierAbstraitPHP);
                       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+                      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+                      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+                      ErreurES := Writeln(fichierPHP,'</td>');
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<td width="15">');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+                      ErreurES := Writeln(fichierPHP,'<td width="15">');
+                      ErreurES := Writeln(fichierPHP,'</td>');
 
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<td valign="top">');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p align="center">andnbsp; </p>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<p><b > Bravo </b >  !');
+                      ErreurES := Writeln(fichierPHP,'<td valign="top">');
+                      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
+                      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
+                      ErreurES := Writeln(fichierPHP,'<p align="center">andnbsp; </p>');
+                      ErreurES := Writeln(fichierPHP,'<p><b > Bravo </b >  !');
 
                       FermerFichierEtFabriquerFichierAbstrait(fichierPHP,fichierAbstraitPHP);
                       ErreurES := WritelnEnHTMLDansFichierAbstrait(fichierAbstraitPHP,commentaire);
@@ -786,8 +786,8 @@ begin {CreerQuizEnPHP}
 
 
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</tr>');
+                      ErreurES := Writeln(fichierPHP,'</td>');
+                      ErreurES := Writeln(fichierPHP,'</tr>');
 
 
                     end
@@ -798,37 +798,37 @@ begin {CreerQuizEnPHP}
                       erreurES := WritePositionEtTraitPageWebFFODansFichierAbstrait(positionEssai,'<span><br><b > Ratandeacute; </b></span>',fichierAbstraitPHP);
                       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+                      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+                      ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+                      ErreurES := Writeln(fichierPHP,'</td>');
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'<td width="50%" valign="top">');
+                      ErreurES := Writeln(fichierPHP,'<td width="50%" valign="top">');
 
                       FermerFichierEtFabriquerFichierAbstrait(fichierPHP,fichierAbstraitPHP);
                       erreurES := WritePositionEtTraitPageWebFFODansFichierAbstrait(positionSolution,'<span><br />'+StringEnHTML(commentaire)+'</span>',fichierAbstraitPHP);
                       DisposeFichierAbstraitEtOuvrirFichier(fichierPHP,fichierAbstraitPHP);
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</td>');
+                      ErreurES := Writeln(fichierPHP,'</td>');
 
-                      ErreurES := WritelnDansFichierTexte(fichierPHP,'</tr>');
+                      ErreurES := Writeln(fichierPHP,'</tr>');
 
 
                     end;
 
 
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'</table>');
+                ErreurES := Writeln(fichierPHP,'</table>');
 
 
 
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
+                ErreurES := Writeln(fichierPHP,'<div class="saut-de-paragraphe"><span></span></div>');
 
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'<hr>');
+                ErreurES := Writeln(fichierPHP,'<hr>');
 
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'<p class="menu-navigation-rapide">');
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'</a > ]');
-                ErreurES := WritelnDansFichierTexte(fichierPHP,'</p>');
+                ErreurES := Writeln(fichierPHP,'<p class="menu-navigation-rapide">');
+                ErreurES := Writeln(fichierPHP,'[ < a href="'+FabriquerNomAutreQuiz(permutationDesNumerosDeQuiz[numeroQuiz])+'">Autre quiz </a > ] - [ < a href="../index.php">Retour andagrave; l''accueil');
+                ErreurES := Writeln(fichierPHP,'</a > ]');
+                ErreurES := Writeln(fichierPHP,'</p>');
 
 
 
@@ -836,7 +836,7 @@ begin {CreerQuizEnPHP}
                 s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
                 erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
-                erreurES := FermeFichierTexte(fichierPHP);
+                erreurES := CloseFile(fichierPHP);
               end;
 
           end;
@@ -846,7 +846,7 @@ end;
 
 
 procedure CreerPositionQuizzEnJPEG(nomJPEG : String255; positionQuiz : PositionEtTraitRec);
-var fichierJPEG : FichierTEXT;
+var fichierJPEG : basicfile;
     erreurES : OSErr;
     path : String255;
 begin
@@ -857,9 +857,9 @@ begin
   if erreurES = fnfErr then erreurES := CreeFichierTexteDeCassio(nomJPEG,fichierJPEG);
   if erreurES = 0 then
     begin
-      erreurES := OuvreFichierTexte(fichierJPEG);
-      erreurES := VideFichierTexte(fichierJPEG);
-      erreurES := FermeFichierTexte(fichierJPEG);
+      erreurES := OpenFile(fichierJPEG);
+      erreurES := EmptyFile(fichierJPEG);
+      erreurES := CloseFile(fichierJPEG);
 
       WritelnNumDansRapport('CreerPositionQuizzEnJPEG : avant CreateJPEGImageOfPosition, erreurES = ',erreurES);
       CreateJPEGImageOfPosition(positionQuiz,fichierJPEG.info);
@@ -872,8 +872,8 @@ function ProcessProblemesStepanov(nomScript : String255; quelProbleme : SInt32) 
 var ligne,comment : String255;
     s1,s2,s3,s4,s5,s6,reste : String255;
     erreurES : OSErr;
-    inputScript : FichierTEXT;
-    (* fichierEPS : FichierTEXT;
+    inputScript : basicfile;
+    (* fichierEPS : basicfile;
     nomFichierEPS : String255; *)
     nomFichierPHP : String255;
     positionCommentaire : SInt32;
@@ -901,14 +901,14 @@ begin
   {SetDebuggageUnitFichiersTexte(false);}
 
 
-  erreurES := FichierTexteExiste(nomScript,0,inputScript);
+  erreurES := FileExists(nomScript,0,inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
       exit;
     end;
 
-  erreurES := OuvreFichierTexte(inputScript);
+  erreurES := OpenFile(inputScript);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomScript,erreurES);
@@ -926,7 +926,7 @@ begin
   ligne := '';
   arretPoblemesStepanov := false;
   while not(arretPoblemesStepanov) and
-        not(EOFFichierTexte(inputScript,erreurES)) and
+        not(EndOfFile(inputScript,erreurES)) and
         (Pos('% End of the endgame script',ligne) = 0) do
     begin
 
@@ -1007,14 +1007,14 @@ begin
                       nomFichierEPS := ReplaceStringOnce(nomScript, '.script' , '_');
                       nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
-                      erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEPS);
-										  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomFichierEPS,0,fichierEPS);
+                      erreurES := FileExists(nomFichierEPS,0,fichierEPS);
+										  if erreurES = fnfErr then erreurES := CreateFile(nomFichierEPS,0,fichierEPS);
 										  if erreurES = 0 then
 										    begin
-										      erreurES := OuvreFichierTexte(fichierEPS);
-										      erreurES := VideFichierTexte(fichierEPS);
+										      erreurES := OpenFile(fichierEPS);
+										      erreurES := EmptyFile(fichierEPS);
 										      erreurES := WritePositionEtTraitEnEPSDansFichier(positionEtTrait,fichierEPS);
-										      erreurES := FermeFichierTexte(fichierEPS);
+										      erreurES := CloseFile(fichierEPS);
 										    end;
                       *)
 
@@ -1036,14 +1036,14 @@ begin
 			                      nomFichierEPS := ReplaceStringOnce(nomScript, '.script' , '_sol_');
 			                      nomFichierEPS := nomFichierEPS + IntToStr(nbProblemesTraites) + '.eps';
 
-			                      erreurES := FichierTexteExiste(nomFichierEPS,0,fichierEsPS);
-													  if erreurES = fnfErr then erreurES := CreeFichierTexte(nomFichierEPS,0,fichierEPS);
+			                      erreurES := FileExists(nomFichierEPS,0,fichierEsPS);
+													  if erreurES = fnfErr then erreurES := CreateFile(nomFichierEPS,0,fichierEPS);
 													  if erreurES = 0 then
 													    begin
-													      erreurES := OuvreFichierTexte(fichierEPS);
-													      erreurES := VideFichierTexte(fichierEPS);
+													      erreurES := OpenFile(fichierEPS);
+													      erreurES := EmptyFile(fichierEPS);
 													      erreurES := WritePositionEtTraitEnEPSDansFichier(positionEtTrait,fichierEPS);
-													      erreurES := FermeFichierTexte(fichierEPS);
+													      erreurES := CloseFile(fichierEPS);
 													    end;
 													end
 											  else
@@ -1085,7 +1085,7 @@ begin
           end;
     end;
 
-  erreurES := FermeFichierTexte(inputScript);
+  erreurES := CloseFile(inputScript);
 
   RemettreLeCurseurNormalDeCassio;
 end;

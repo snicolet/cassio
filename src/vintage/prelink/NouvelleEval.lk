@@ -21,7 +21,7 @@ procedure DisposeVecteurEvalInteger(var vecteur : VectNewEvalInteger);     exter
 function EvaluationEdmondEstDisponible : boolean;     external;
 function LireFichierEvalEdmondSurLeDisque : OSErr;     external;
 procedure SetEvaluationEdmondEstDisponible(flag : boolean);     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function Evaluation(var position : plateauOthello; coulEvaluation,nbBlancs,nbNoirs : SInt32; var jouable : plBool; var front : InfoFront; afraidOfWipeOut : boolean; alpha,beta : SInt32; var nbEvaluationsRecursives : SInt32) : SInt32;     external;
 function LitVecteurEvaluationIntegerSurLeDisque(nomFichier : String255; var whichEval : VectNewEvalInteger) : OSErr;     external;
 function MobiliteSemiTranquilleAvecCasesC(coul : SInt32; var plat : plateauOthello; var jouable : plBool; var frontiere : InfoFront; var ListeDesCoupsTranquilles : ListeDeCases; seuil_coupure : SInt32) : SInt32;     external;

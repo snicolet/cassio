@@ -170,7 +170,7 @@ USES
     , UnitActions, UnitPositionEtTrait, UnitEvaluation, UnitAccesNouveauFormat, UnitUtilitaires, UnitNouvelleEval, Unit_AB_simple, SNEvents
     , UnitScannerOthellistique, UnitRapport, UnitPositionEtTrait, UnitServicesMemoire, UnitNouveauFormat, UnitSuperviseur, UnitMoindresCarres, MyMathUtils
     , UnitServicesDialogs, UnitStrategie, MyStrings, UnitCarbonisation, UnitGestionDuTemps, UnitCouleur, UnitHashing, UnitListe
-    , UnitGeometrie, UnitSetUp, UnitCarbonisation, UnitFichiersTEXT, UnitNormalisation, UnitPressePapier ;
+    , UnitGeometrie, UnitSetUp, UnitCarbonisation, basicfile, UnitNormalisation, UnitPressePapier ;
 {$ELSEC}
     ;
     {$I prelink/RegressionLineaire.lk}
@@ -416,7 +416,7 @@ begin
 end;
 
 
-procedure LireUneLigneDuFichierDeCorrelationEdax(var myLongString : LongString; var theFic : FichierTEXT; var totalParties : SInt32);
+procedure LireUneLigneDuFichierDeCorrelationEdax(var myLongString : LongString; var theFic : basicfile; var totalParties : SInt32);
 var s, aux, reste : String255;
     n, nombreDeNombresLus : SInt32;
     scoreEdax,nbDePionsDeNoirs : SInt32;
@@ -498,7 +498,7 @@ end;
 
 
 procedure LireFichierCSVEvalEdaxCorrelations;
-var fic : FichierTEXT;
+var fic : basicfile;
     err : OSErr;
     totalParties : SInt32;
 begin

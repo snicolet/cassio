@@ -58,13 +58,13 @@ function GetLegendeSousLeDiagrammeCourant : String255;
 
 { gestion des fichiers EPS construits pour le presse-papier }
 
-function PeutOuvrirFichierEPSPourPressePapier(var fic : FichierTEXT) : OSErr;
+function PeutOuvrirFichierEPSPourPressePapier(var fic : basicfile) : OSErr;
 procedure FermerFichierEPSPourPressePapier;
 
 function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;
 function CalculateScaleFactorForDiscsInEPSDiagram : double;
 
-procedure SetFichierPourDiagrammeEPS(const fichierEPS : FichierTEXT);
+procedure SetFichierPourDiagrammeEPS(const fichierEPS : basicfile);
 procedure SetNomsFichiersPostscriptPressePapier(EPSfilename, PDFfilename : String255);
 procedure SetDiagrammeDoitCreerVersionEPS(flag : boolean);
 function DiagrammeDoitCreerVersionEPS : boolean;
@@ -92,7 +92,7 @@ USES
   , UnitCouleur, MyQuickDraw, UnitPressePapier, UnitCarbonisation, UnitArbreDeJeuCourant, UnitOth2, UnitPierresDelta, UnitPostScript
   , UnitJaponais, MyStrings, UnitDialog, UnitProblemeDePriseDeCoin, MyAntialiasing, UnitSquareSet, UnitFenetres, UnitJeu
   , MyMathUtils, UnitGeometrie, SNEvents, SNMenus, MyFonts, UnitNormalisation, UnitProperties, UnitPositionEtTrait, UnitRapport
-  , UnitScannerUtils, UnitGeometrie, MyMathUtils, UnitEPS, UnitFichiersTEXT, MyFileSystemUtils, UnitUtilitaires, UnitEnvirons
+  , UnitScannerUtils, UnitGeometrie, MyMathUtils, UnitEPS, basicfile, MyFileSystemUtils, UnitUtilitaires, UnitEnvirons
   , UnitUnixTask, UnitFichierAbstrait
    ;
 {$ELSEC}
@@ -109,7 +109,7 @@ var tailleVersionOthello : Point;
     gInfosDiagrammeFforumEPS : record
                                  compteur      : SInt32;
                                  doitCreerEPS  : boolean;
-                                 ficEPS        : FichierTEXT;
+                                 ficEPS        : basicfile;
                                  buffer        : FichierAbstrait;
                                  nomFichierEPS : String255;
                                  nomFichierPDF : STring255;
@@ -141,7 +141,7 @@ begin
 end;
 
 
-procedure SetFichierPourDiagrammeEPS(const fichierEPS : FichierTEXT);
+procedure SetFichierPourDiagrammeEPS(const fichierEPS : basicfile);
 begin
   gInfosDiagrammeFforumEPS.ficEPS := fichierEPS;
 end;
@@ -533,10 +533,10 @@ end;
 
 
 
-function PeutOuvrirFichierEPSPourPressePapier(var fic : FichierTEXT) : OSErr;
+function PeutOuvrirFichierEPSPourPressePapier(var fic : basicfile) : OSErr;
 var legende, nomFichierEPS, nomFichierPDF : String255;
     pathDossierEPS : String255;
-    ficPDF : FichierTEXT;
+    ficPDF : basicfile;
     err, foo : OSErr;
 label sortie;
 begin
@@ -576,7 +576,7 @@ begin
 
 
   // si le fichier existe, il faut rajouter un numero, tant pis
-  if FichierTexteExiste(pathDossierEPS + nomFichierEPS, 0, fic) = NoErr
+  if FileExists(pathDossierEPS + nomFichierEPS, 0, fic) = NoErr
     then nomFichierEPS := LaverNomFichierEPSPourPressePapier(legende + '-' + IntToStr(Abs(GetNewCounterDiagramEPS)));
 
 
@@ -591,15 +591,15 @@ begin
   *)
 
 
-  err := FichierTexteExiste(nomFichierEPS, 0, fic);
+  err := FileExists(nomFichierEPS, 0, fic);
   if (err = -43) {fnfErr => fichier non trouvé, on le crée}
-    then err := CreeFichierTexte(nomFichierEPS, 0, fic);
+    then err := CreateFile(nomFichierEPS, 0, fic);
   if (err <> NoErr) then goto sortie;
 
-  err := OuvreFichierTexte(fic);
+  err := OpenFile(fic);
   if (err <> NoErr) then goto sortie;
 
-  err := VideFichierTexte(fic);
+  err := EmptyFile(fic);
   if (err <> NoErr) then goto sortie;
 
 
@@ -610,8 +610,8 @@ sortie :
       begin
         SetNomsFichiersPostscriptPressePapier(nomFichierEPS, nomFichierPDF);
 
-        if FichierTexteExiste(nomFichierPDF, 0, ficPDF) = NoErr
-          then foo := DetruitFichierTexte(ficPDF);
+        if FileExists(nomFichierPDF, 0, ficPDF) = NoErr
+          then foo := DeleteFile(ficPDF);
 
       end
     else
@@ -637,10 +637,10 @@ begin
         begin
           // copier le buffer dans le fichier EPS
           taille := GetPositionMarqueurFichierAbstrait(buffer);
-          err := WriteFichierAbstraitDansFichierTexte(ficEPS, buffer, 0, taille);
+          err := Write(ficEPS, buffer, 0, taille);
 
           // fermer le fichier EPS
-          err := FermeFichierTexte(ficEPS);
+          err := CloseFile(ficEPS);
           if (err <> NoErr) then
             begin
               WritelnNumDansRapport('WARNING, dans FermerFichierEPSPourPressePapier, err = ',err);
@@ -1205,7 +1205,7 @@ procedure ConstruitOthellierPicture;
 		foorect : Rect;
 		scaleForEPS, scaleForDiscs : double;
 		err : OSErr;
-		{sortieStandard : FichierTEXT;}
+		{sortieStandard : basicfile;}
 begin
   DisableQuartzAntiAliasingThisPort(qdThePort);
 	with ParamDiagCourant do
@@ -2243,7 +2243,7 @@ var numeroProbleme : SInt32;
 		oldPen : PenState;
 		chainePositionInitiale, chaineCoups : String255;
 		chainePosition : String255;
-		fichierEPS : FichierTEXT;
+		fichierEPS : basicfile;
 begin
 	if not(enSetUp) then
 		begin

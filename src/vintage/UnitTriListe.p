@@ -40,7 +40,7 @@ USES
     , SNEvents, UnitServicesRapport, UnitRapport
     , MyQuickDraw, UnitNouveauFormat, UnitListe, UnitCriteres, UnitServicesMemoire, UnitAccesNouveauFormat, UnitJaponais, UnitServicesDialogs
     , UnitCurseur, UnitOth2, UnitRapport, UnitPackedThorGame, MyMathUtils, UnitImportDesNoms, UnitSet, UnitRapportImplementation
-    , UnitGeneralSort, MyStrings, UnitCarbonisation, UnitPressePapier, UnitGeometrie, UnitFichiersTEXT ;
+    , UnitGeneralSort, MyStrings, UnitCarbonisation, UnitPressePapier, UnitGeometrie, basicfile ;
 {$ELSEC}
     ;
     {$I prelink/TriListe.lk}
@@ -856,7 +856,7 @@ begin
 end;
 
 
-procedure AjouterJoueurDansClassementFromFichier(var myLongString : LongString; var theFic : FichierTEXT; var numeroJoueur : SInt32);
+procedure AjouterJoueurDansClassementFromFichier(var myLongString : LongString; var theFic : basicfile; var numeroJoueur : SInt32);
 begin {$unused theFic }
   AjouterJoueurDansClassement(myLongString.debutLigne,numeroJoueur);
 end;
@@ -1030,7 +1030,7 @@ end;
 procedure ApprendreClassementDuTournoi;
 var bidon : SInt32;
     myError : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   with gTriPartiesParClassement do
     begin
@@ -1049,7 +1049,7 @@ begin
             if (myError = NoErr) then
               begin
                 ForEachLineInFileDo(fic.info, AjouterJoueurDansClassementFromFichier, bidon);
-                myError := DetruitFichierTexte(fic);
+                myError := DeleteFile(fic);
               end;
           end;
 

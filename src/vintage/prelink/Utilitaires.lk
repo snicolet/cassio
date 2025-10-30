@@ -88,7 +88,7 @@ procedure EnlevePrenom(const nomOrigine : String255; var nomSansPrenom : String2
   procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
   procedure Parse(s : String255; var tete,reste : String255);     external;
-function FichierTexteDeCassioExiste(nom : String255; var fic : FichierTEXT) : OSErr;     external;
+function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;

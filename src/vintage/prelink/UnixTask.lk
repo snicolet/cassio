@@ -53,7 +53,7 @@ procedure AppendCharToLongString(var ligne : LongString; c : char);     external
 	function MakeCFSTR(s : String255) : CFStringRef;     external;
   function GetFunctionPointerFromPrivateBundle(const whichBundle,functionName : String255) : Ptr;     external;
 function CassioEstUnBundleApplicatif : boolean;     external;
-function FichierTexteExiste(nom : String255 ; vRefNum : SInt16; var fic : FichierTEXT) : OSErr;     external;
+function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 	function ReelEnString(unreel : double) : String255;     external;
 function NombresCasesOccupeesDifferentes(p1, p2 : PositionEtTraitRec) : SInt32;     external;
 procedure AjusteSleep;     external;

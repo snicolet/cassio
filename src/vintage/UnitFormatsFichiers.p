@@ -20,7 +20,7 @@ procedure LibereMemoireFormatsFichiers;
 
 
 { « fic » doit etre un fichier fermé, il est rendu fermé}
-function TypeDeFichierEstConnu(const fic : FichierTEXT; var infos : FormatFichierRec; var err : OSErr) : boolean;
+function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;
 
 
 
@@ -37,7 +37,7 @@ IMPLEMENTATION
 {$IFC NOT(USE_PRELINK)}
 USES
     UnitRapport, MyStrings, UnitEntreeTranscript, UnitTHOR_PAR, UnitAccesNouveauFormat, SNEvents, UnitFichierAbstrait, UnitImportDesNoms
-    , UnitScannerUtils, UnitServicesMemoire, UnitUtilitaires, UnitSmartGameBoard, UnitGenericGameFormat, UnitScannerOthellistique, MyFileSystemUtils, UnitFichiersTEXT
+    , UnitScannerUtils, UnitServicesMemoire, UnitUtilitaires, UnitSmartGameBoard, UnitGenericGameFormat, UnitScannerOthellistique, MyFileSystemUtils, basicfile
     , UnitNouveauFormat, UnitPositionEtTrait, UnitNormalisation, MyMathUtils ;
 {$ELSEC}
     {$I prelink/FormatsFichiers.lk}
@@ -296,9 +296,9 @@ end;
 
 
 
-function TypeDeFichierEstConnu(const fic : FichierTEXT; var infos : FormatFichierRec; var err : OSErr) : boolean;
+function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;
 const WZEBRA_HEADER = 'WZebra Revision 1.5';
-var myFic : FichierTEXT;
+var myFic : basicfile;
     compteurCaracteres : SInt32;
     compteurLignes : SInt32;
     parenthese_initiale_trouvee : boolean;
@@ -1527,14 +1527,14 @@ begin  { TypeDeFichierEstConnu }
   }
 
 
-  if (FichierTexteExiste(fic.nomFichier,0,myFic) = NoErr) and
+  if (FileExists(fic.nomFichier,0,myFic) = NoErr) and
      (GetNameOfFSSpec(myFic.info)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
      then
     with gLectureFichier do
       begin
 
         {
-        WritelnDansRapport('OK, FichierTexteExiste dans TypeDeFichierEstConnu');
+        WritelnDansRapport('OK, FileExists dans TypeDeFichierEstConnu');
         }
 
         whichFichierAbstrait := MakeFichierAbstraitFichier(myFic.nomFichier,0);

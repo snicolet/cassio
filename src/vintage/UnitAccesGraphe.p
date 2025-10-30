@@ -147,7 +147,7 @@ USES
     fp
 {$IFC NOT(USE_PRELINK)}
     , UnitScannerUtils, UnitRapport, MyMathUtils, UnitStrategie, UnitServicesDialogs, MyStrings, MyFileSystemUtils
-    , UnitFichiersTEXT, UnitStringSet ;
+    , basicfile, UnitStringSet ;
 {$ELSEC}
     ;
     {$I prelink/AccesGraphe.lk}
@@ -244,7 +244,7 @@ begin
   with bufferCellules do
   if (numeroDansBuffer >= 0) and (numeroDansBuffer <= tailleBufferCellules) then
     begin
-      RefFichier[numeroDansBuffer] := GetUniqueIDFichierTexte(fichier^.fic);
+      RefFichier[numeroDansBuffer] := GetUniqueID(fichier^.fic);
       LesNumCellules[numeroDansBuffer] := numeroDansFichier;
       LesCellules[numeroDansBuffer] := cellule;
     end;
@@ -254,7 +254,7 @@ function CelluleEstDansBuffer(var fichier : Graphe; numCellule : SInt64; var num
 var uniqueIDDuFichier : SInt64;
     i,k : SInt16;
 begin
-  uniqueIDDuFichier := GetUniqueIDFichierTexte(fichier^.fic);
+  uniqueIDDuFichier := GetUniqueID(fichier^.fic);
 
   {on recherche la cellule en commencant par les plus recentes trouvees}
   with bufferCellules do
@@ -457,7 +457,7 @@ begin
   if TrouveGrapheDansBufferGraphesOuverts(nomDuGraphe,fichier)
     then
       begin
-        if FichierTexteEstOuvert(fichier^.fic)
+        if FileIsOpen(fichier^.fic)
           then
             begin
               {WritelnDansRapport('deja ouvert : '+nomDuGraphe);}
@@ -484,7 +484,7 @@ begin
 
 						  if (erreurES = NoErr) then
 						    begin
-						      grapheEtaitDejaOuvert := FichierTexteEstOuvert(fichier^.fic);
+						      grapheEtaitDejaOuvert := FileIsOpen(fichier^.fic);
 
 						      if grapheEtaitDejaOuvert
 						        then
@@ -527,7 +527,7 @@ function OuvreGrapheApprentissage(var fichier : Graphe) : boolean;
 var erreurES : OSErr;
 begin
   fichier^.nbCellules := -1;
-  erreurES := OuvreFichierTexte(fichier^.fic);
+  erreurES := OpenFile(fichier^.fic);
 
   if (erreurES = NoErr) then
     begin
@@ -541,7 +541,7 @@ end;
 function FermeGrapheApprentissage(var fichier : Graphe) : boolean;
 var erreurES : OSErr;
 begin
-  erreurES := FermeFichierTexte(fichier^.fic);
+  erreurES := CloseFile(fichier^.fic);
   FermeGrapheApprentissage := (erreurES = NoErr);
 
   EnleverGrapheDuBufferGraphesOuverts(fichier);
@@ -558,7 +558,7 @@ begin
     begin
       if nbCellules <= 0 then {recalculer le nombre de positions du graphe d'apres la taille du fichier}
         begin
-          erreurES := GetTailleFichierTexte(fic,longueur);
+          erreurES := GetFileSize(fic,longueur);
           if longueur <= TailleHeaderGraphe
             then nbCellules := 0
             else nbCellules := (longueur-TailleHeaderGraphe) div sizeof(CelluleRec);
@@ -580,7 +580,7 @@ end;
 procedure VideGrapheApprentissage(var fichier : Graphe);
 var erreurES : SInt64;
 begin
-  erreurES := SetEOFFichierTexte(fichier^.fic,TailleHeaderGraphe);
+  erreurES := SetEndOfFile(fichier^.fic,TailleHeaderGraphe);
   fichier^.nbCellules := 0;
   VideBufferGrapheApprentissage;
 end;
@@ -630,7 +630,7 @@ begin
         else
           begin
 			      position := TailleHeaderGraphe+(numCellule-1)*sizeof(CelluleRec);
-			      erreurES := SetPositionTeteLectureFichierTexte(fichier^.fic,position);
+			      erreurES := SetFilePosition(fichier^.fic,position);
 			      if (erreurES <> NoErr) then
 			        begin
 			          WritelnDansRapport('erreurES <> 0 dans LitCellule (1) !!');
@@ -674,7 +674,7 @@ begin
       if not(dejaDansBuffer) or not(MemesCellules(cellule,GetCelluleDansBuffer(EmplacementDansBuffer))) then
         begin
           position := TailleHeaderGraphe+(numCellule-1)*sizeof(CelluleRec);
-          erreurES := SetPositionTeteLectureFichierTexte(fichier^.fic,position);
+          erreurES := SetFilePosition(fichier^.fic,position);
 
           if (erreurES <> NoErr) then
 			      begin
@@ -687,7 +687,7 @@ begin
 			    {$ENDC}
 
           count := sizeof(CelluleRec);
-          erreurES := WriteBufferDansFichierTexte(fichier^.fic,@cellule,count);
+          erreurES := Write(fichier^.fic,@cellule,count);
 
           {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
 			    SwapEndianessOfCellule(cellule);

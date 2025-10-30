@@ -23,8 +23,8 @@ procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : St
 
 
 { Moulinettes d'import }
-function  AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;
-function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;
+function  AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : basicfile) : OSErr;
+function  AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : basicfile) : OSErr;
 procedure ImportBaseAllDrawLinesDeBougeard;
 function  ImporterFichierPartieDansListe(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 procedure ImporterToutesPartiesRepertoire;
@@ -63,12 +63,12 @@ IMPLEMENTATION
 USES
     MacErrors, OSUtils, Sound, DateTimeUtils
 {$IFC NOT(USE_PRELINK)}
-    , UnitListe, UnitRapport, SNEvents, UnitFichiersTEXT, UnitActions
+    , UnitListe, UnitRapport, SNEvents, basicfile, UnitActions
     , UnitEvenement, UnitSolve, UnitCriteres, UnitScannerOthellistique, UnitPositionEtTrait, MyMathUtils, UnitScannerUtils, MyFileSystemUtils
     , MyStrings, MyQuickDraw, UnitNouveauFormat, UnitBaseNouveauFormat, UnitAccesNouveauFormat, UnitRapport, UnitTriListe, UnitRapportImplementation
     , UnitCurseur, UnitUtilitaires, UnitEnvirons, UnitJeu, MyStrings, UnitRapportUtils, UnitEntreesSortiesListe, UnitGameTree
     , UnitArbreDeJeuCourant, UnitImportDesNoms, MyFileSystemUtils, UnitMiniProfiler, UnitDialog, UnitPressePapier, UnitTHOR_PAR, MyMathUtils
-    , UnitFichiersTEXT, UnitScannerUtils, UnitGenericGameFormat, UnitFenetres, UnitGestionDuTemps, UnitNormalisation, UnitPackedThorGame, SNEvents
+    , basicfile, UnitScannerUtils, UnitGenericGameFormat, UnitFenetres, UnitGestionDuTemps, UnitNormalisation, UnitPackedThorGame, SNEvents
     , UnitScannerOthellistique, UnitRapportWindow, UnitStringSet, UnitFormatsFichiers, UnitFichierAbstrait, UnitServicesRapport ;
 {$ELSEC}
     ;
@@ -90,7 +90,7 @@ const kLongueurNomsDansURL = 13;
 
 var gOptionsExportBase : record
                            patternLigne : String255;
-                           fic : FichierTEXT;
+                           fic : basicfile;
                            subDirectoryName : String255;
                            nomsFichiersUtilises : StringSet;
                          end;
@@ -280,7 +280,7 @@ begin
 end;
 
 
-function AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : FichierTEXT) : OSErr;
+function AjouterPartiesFichierPGNDansListe(nomDictionnaireDesPseudos : String255; fichierPGN : basicfile) : OSErr;
 var ligne,s,coupsPotentiels : String255;
     nroReferencePartieAjoutee : SInt64;
     partieEnAlpha : String255;
@@ -361,7 +361,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   annee := myDate.year;
 
 
-  erreurES := OuvreFichierTexte(fichierPGN);
+  erreurES := OpenFile(fichierPGN);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomFichierPGN,erreurES);
@@ -369,7 +369,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       exit;
     end;
 
-  erreurES := GetTailleFichierTexte(fichierPGN, tailleFichierPGN);
+  erreurES := GetFileSize(fichierPGN, tailleFichierPGN);
   // WritelnNumDansRapport('tailleFichierPGN = ',tailleFichierPGN);
 
 
@@ -401,7 +401,7 @@ begin {AjouterPartiesFichierPGNDansListe}
       DisposeStringSet(pseudosSansNomReel);
     end;
 
-  while not(EOFFichierTexte(fichierPGN,erreurES)) and not(utilisateurVeutSortir) do
+  while not(EndOfFile(fichierPGN,erreurES)) and not(utilisateurVeutSortir) do
     begin
 
 
@@ -534,7 +534,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                       InRange(Pos('1/2-1/2',ligne),1,2) or
                       InRange(Pos('1-0',ligne),1,2) or
                       (Pos('[Event',ligne) > 0) or
-                      EOFFichierTexte(fichierPGN,erreurES) or
+                      EndOfFile(fichierPGN,erreurES) or
                       utilisateurVeutSortir;
 
                 if Pos('[Event',ligne) = 0 then ligne := '';
@@ -657,7 +657,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   DisposeStringSet(tableDoublons);
   DisposeStringSet(gTablePartiesJoueursImprobables);
 
-  erreurES := FermeFichierTexte(fichierPGN);
+  erreurES := CloseFile(fichierPGN);
 
 
   if utilisateurVeutSortir
@@ -699,7 +699,7 @@ end;
 
 
 
-function AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : FichierTEXT) : OSErr;
+function AjouterPartiesFichierDestructureDansListe(format : formats_connus; fichier : basicfile) : OSErr;
 var nroReferencePartieAjoutee : SInt64;
     partieEnAlpha : String255;
     chaineJoueurs : String255;
@@ -948,7 +948,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
     end;
 
 
-  erreurES := OuvreFichierTexte(fichier);
+  erreurES := OpenFile(fichier);
   if (erreurES <> NoErr) then
     begin
       AlerteSimpleFichierTexte(nomLongDuFichier,erreurES);
@@ -1140,7 +1140,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   DisposeStringSet(tableDoublons);
 
   DisposeFichierAbstraitEtOuvrirFichier(fichier,myZone);
-  erreurES := FermeFichierTexte(fichier);
+  erreurES := CloseFile(fichier);
 
   WritelnDansRapport('');
   if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichier.info))
@@ -1190,7 +1190,7 @@ var ligne,s,partieEnAlpha,scoreEnChaine,numeroLigneEnChaine,reste : String255;
     autreCoupQuatreDiag : boolean;
     score,nbPartiesDansBaseLogKitty,i : SInt64;
     erreurES : OSErr;
-    inputBaseLogKitty,outputBaseThor : FichierTEXT;
+    inputBaseLogKitty,outputBaseThor : basicfile;
     enteteFichierPartie : t_EnTeteNouveauFormat;
     partieNF : t_PartieRecNouveauFormat;
     myDate : DateTimeRec;
@@ -1217,7 +1217,7 @@ begin
       exit;
     end;
 
-  erreurES := OuvreFichierTexte(inputBaseLogKitty);
+  erreurES := OpenFile(inputBaseLogKitty);
   if erreurES <> NoErr then
     begin
       AlerteSimpleFichierTexte(nomBaseLogKitty,erreurES);
@@ -1228,13 +1228,13 @@ begin
   if erreurES = fnfErr then erreurES := CreeFichierTexteDeCassio(NomBaseFormatThor,outputBaseThor);
   if erreurES = 0 then
     begin
-      erreurES := OuvreFichierTexte(outputBaseThor);
-      erreurES := VideFichierTexte(outputBaseThor);
+      erreurES := OpenFile(outputBaseThor);
+      erreurES := EmptyFile(outputBaseThor);
     end;
   if erreurES <> 0 then
     begin
       AlerteSimpleFichierTexte(NomBaseFormatThor,erreurES);
-      erreurES := FermeFichierTexte(outputBaseThor);
+      erreurES := CloseFile(outputBaseThor);
       exit;
     end;
 
@@ -1247,7 +1247,7 @@ begin
   nbPartiesDansBaseLogKitty := 0;
   erreurES := NoErr;
   ligne := '';
-  while not(EOFFichierTexte(inputBaseLogKitty,erreurES)) do
+  while not(EndOfFile(inputBaseLogKitty,erreurES)) do
     begin
 
 
@@ -1260,7 +1260,7 @@ begin
       if (ligne = '') or (ligne[1] = '%')
         then
           begin
-            {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
+            {erreurES := Writeln(outputBaseThor,s);}
           end
         else
           begin
@@ -1334,8 +1334,8 @@ begin
     end;
   erreurES := EcritEnteteNouveauFormat(outputBaseThor.refNum,enteteFichierPartie);
 
-  erreurES := FermeFichierTexte(inputBaseLogKitty);
-  erreurES := FermeFichierTexte(outputBaseThor);
+  erreurES := CloseFile(inputBaseLogKitty);
+  erreurES := CloseFile(outputBaseThor);
   SetFileCreatorFichierTexte(outputBaseThor,MY_FOUR_CHAR_CODE('SNX4'));
   SetFileTypeFichierTexte(outputBaseThor,MY_FOUR_CHAR_CODE('QWTB'));
 
@@ -1423,7 +1423,7 @@ begin
       while (Pos('‰Ω',ligne) > 0) do
         ligne := ReplaceStringOnce(ligne, '‰Ω' , '\');
 
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
@@ -1442,32 +1442,32 @@ begin
     begin
 
       ligne := '[Event "'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[Date "'+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+'.01.01"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[Round "-"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[Database "'+StripDiacritics(GetNomDistributionParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[Black "'+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[White "'+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[Result "'+IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
                            IntToStr(64-GetScoreReelParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne := '[TheoreticalScore "'+IntToStr(GetScoreTheoriqueParNroRefPartie(numeroReference)) + '-' +
                                      IntToStr(64-GetScoreTheoriqueParNroRefPartie(numeroReference))+'"]';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
-      erreurES := WritelnDansFichierTexte(fic,'');
+      erreurES := Writeln(fic,'');
 
       TraductionThorEnAlphanumerique(theGame,s);
       for k := 1 to 59 do
@@ -1479,15 +1479,15 @@ begin
           if odd(k) then
             begin
               ligne := IntToStr(1 + (k div 2)) + '. '+s1+' '+s2+' ';
-              erreurES := WritelnDansFichierTexte(fic,ligne);
+              erreurES := Writeln(fic,ligne);
             end;
         end;
 
       ligne := IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' + IntToStr(64-GetScoreReelParNroRefPartie(numeroReference));
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
-      erreurES := WritelnDansFichierTexte(fic,'');
-      erreurES := WritelnDansFichierTexte(fic,'');
+      erreurES := Writeln(fic,'');
+      erreurES := Writeln(fic,'');
 
       inc(compteur);
 
@@ -1507,13 +1507,13 @@ begin
 
 
       ligne :=  '  <game>';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne :=  '   <event'+
                 ' date="'+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+'"' +
                 ' name="'+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+'"' +
                 ' />';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       if GetScoreReelParNroRefPartie(numeroReference) > 32 then
         begin
@@ -1523,7 +1523,7 @@ begin
                      IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
                      IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
-          erreurES := WritelnDansFichierTexte(fic,ligne);
+          erreurES := Writeln(fic,ligne);
         end;
 
       if GetScoreReelParNroRefPartie(numeroReference) = 32 then
@@ -1534,7 +1534,7 @@ begin
                      IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
                      IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
-          erreurES := WritelnDansFichierTexte(fic,ligne);
+          erreurES := Writeln(fic,ligne);
         end;
 
       if GetScoreReelParNroRefPartie(numeroReference) < 32 then
@@ -1545,29 +1545,29 @@ begin
                      IntToStr(GetScoreReelParNroRefPartie(numeroReference)) + '-' +
                      IntToStr(64-GetScoreReelParNroRefPartie(numeroReference)) +
                     '</result>';
-          erreurES := WritelnDansFichierTexte(fic,ligne);
+          erreurES := Writeln(fic,ligne);
         end;
 
       ligne :=  '   <player'+
                 ' color="black"' +
                 ' name="'+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+'"' +
                 ' />';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne :=  '   <player'+
                 ' color="white"' +
                 ' name="'+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+'"' +
                 ' />';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       TraductionThorEnAlphanumerique(theGame,moves);
       ligne :=  '   <moves game="othello-8x8" type="flat">' +
                 moves +
                 '</moves>';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       ligne :=  '   </game>';
-      erreurES := WritelnDansFichierTexte(fic,ligne);
+      erreurES := Writeln(fic,ligne);
 
       inc(compteur);
 
@@ -1584,7 +1584,7 @@ var reply : SFReply;
     prompt : String255;
     whichSpec : fileInfo;
     erreurES : OSErr;
-    exportTexte : FichierTEXT;
+    exportTexte : basicfile;
     compteur : SInt64;
 begin
 
@@ -1595,18 +1595,18 @@ begin
   if MakeFileName(reply,prompt,whichSpec) then
     begin
 
-      erreurES := FichierTexteExisteFSp(whichSpec,exportTexte);
+      erreurES := FileExists(whichSpec,exportTexte);
       if erreurES = fnfErr {-43 => fichier non trouvé, on le crée}
-        then erreurES := CreeFichierTexteFSp(whichSpec,exportTexte);
+        then erreurES := CreateFile(whichSpec,exportTexte);
       if erreurES = NoErr then
         begin
-          erreurES := OuvreFichierTexte(exportTexte);
-          erreurES := VideFichierTexte(exportTexte);
+          erreurES := OpenFile(exportTexte);
+          erreurES := EmptyFile(exportTexte);
         end;
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
-          erreurES := FermeFichierTexte(exportTexte);
+          erreurES := CloseFile(exportTexte);
           exit;
         end;
 
@@ -1618,7 +1618,7 @@ begin
       compteur := 0;
       ForEachGameInListDo(FiltrePartieEstActiveEtSelectionnee,bidFiltreGameProc,ExporterPartieDansFichierTexte,compteur);
 
-      erreurES := FermeFichierTexte(exportTexte);
+      erreurES := CloseFile(exportTexte);
 
       WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));   {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
@@ -1631,7 +1631,7 @@ var reply : SFReply;
     prompt : String255;
     whichSpec : fileInfo;
     erreurES : OSErr;
-    exportFichier : FichierTEXT;
+    exportFichier : basicfile;
     compteur,nbPartiesExportees : SInt64;
 begin
 
@@ -1642,18 +1642,18 @@ begin
   if MakeFileName(reply,prompt,whichSpec) then
     begin
 
-      erreurES := FichierTexteExisteFSp(whichSpec,exportFichier);
+      erreurES := FileExists(whichSpec,exportFichier);
       if erreurES = fnfErr {-43 => fichier non trouvé, on le crée}
-        then erreurES := CreeFichierTexteFSp(whichSpec,exportFichier);
+        then erreurES := CreateFile(whichSpec,exportFichier);
       if erreurES = NoErr then
         begin
-          erreurES := OuvreFichierTexte(exportFichier);
-          erreurES := VideFichierTexte(exportFichier);
+          erreurES := OpenFile(exportFichier);
+          erreurES := EmptyFile(exportFichier);
         end;
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
-          erreurES := FermeFichierTexte(exportFichier);
+          erreurES := CloseFile(exportFichier);
           exit;
         end;
 
@@ -1662,7 +1662,7 @@ begin
       compteur := 0;
       ForEachGameInListDo(FiltrePartieEstActiveEtSelectionnee,bidFiltreGameProc,ExporterPartieDansFichierPGN,compteur);
 
-      erreurES := FermeFichierTexte(exportFichier);
+      erreurES := CloseFile(exportFichier);
 
       WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
@@ -1678,7 +1678,7 @@ var reply : SFReply;
     prompt,ligne : String255;
     whichSpec : fileInfo;
     erreurES : OSErr;
-    exportFichier : FichierTEXT;
+    exportFichier : basicfile;
     compteur,nbPartiesExportees : SInt64;
     myDate : DateTimeRec;
 begin
@@ -1691,18 +1691,18 @@ begin
     begin
       GetTime(myDate);
 
-      erreurES := FichierTexteExisteFSp(whichSpec,exportFichier);
+      erreurES := FileExists(whichSpec,exportFichier);
       if erreurES = fnfErr {-43 => fichier non trouvé, on le crée}
-        then erreurES := CreeFichierTexteFSp(whichSpec,exportFichier);
+        then erreurES := CreateFile(whichSpec,exportFichier);
       if erreurES = NoErr then
         begin
-          erreurES := OuvreFichierTexte(exportFichier);
-          erreurES := VideFichierTexte(exportFichier);
+          erreurES := OpenFile(exportFichier);
+          erreurES := EmptyFile(exportFichier);
         end;
       if erreurES <> NoErr then
         begin
           AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
-          erreurES := FermeFichierTexte(exportFichier);
+          erreurES := CloseFile(exportFichier);
           exit;
         end;
 
@@ -1710,25 +1710,25 @@ begin
 
 
       ligne :=  '<?xml version="1.0" encoding="UTF-8"?>';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
       ligne :=  '<!DOCTYPE database SYSTEM "xof.dtd">';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
       WritelnDansRapport('');
 
       ligne :=  '<database xmlns="http://www.othbase.net/xof">';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
       ligne :=  ' <info version="1.1"'+
                    ' date="'+NumEnStringAvecFormat(myDate.year,4,'0')+'-'+
                              NumEnStringAvecFormat(myDate.month,2,'0')+'-'+
                              NumEnStringAvecFormat(myDate.day,2,'0')+'"'+
                    ' author="'+'Cassio '+VersionDeCassioEnString+'" />';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
       ligne :=  ' <game-collection>';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
 
 
@@ -1741,16 +1741,16 @@ begin
 
 
       ligne :=  '  </game-collection>';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
       ligne :=  '</database>';
-      erreurES := WritelnDansFichierTexte(exportFichier,ligne);
+      erreurES := Writeln(exportFichier,ligne);
 
 
 
 
 
-      erreurES := FermeFichierTexte(exportFichier);
+      erreurES := CloseFile(exportFichier);
 
       WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
@@ -1763,8 +1763,8 @@ var erreurES : OSErr;
     s,ligne,ligneSansEspace : String255;
     nom1,nom2 : String255;
     nomFichierOutput : String255;
-    fichierHTMLOutput : FichierTEXT;
-    fichierModeleHTML : FichierTEXT;
+    fichierHTMLOutput : basicfile;
+    fichierModeleHTML : basicfile;
     compteurLignes,data : SInt64;
     numero: SInt64;
 begin
@@ -1774,7 +1774,7 @@ begin
       ShareTimeWithOtherProcesses(0);
 
       fichierModeleHTML := gOptionsExportBase.fic;
-      erreurES := SetPositionTeteLectureFichierTexte(fichierModeleHTML,0);
+      erreurES := SetFilePosition(fichierModeleHTML,0);
 
       if (erreurES = NoErr) then
         begin
@@ -1814,12 +1814,12 @@ begin
 
           WritelnDansRapport(nomFichierOutput+'...');
 
-          erreurES := FichierTexteExiste(nomFichierOutput,0,fichierHTMLOutput);
+          erreurES := FileExists(nomFichierOutput,0,fichierHTMLOutput);
           if erreurES = fnfErr
             then
               begin
                 {-43 => fichier non trouvé, on le crée}
-                erreurES := CreeFichierTexte(nomFichierOutput,0,fichierHTMLOutput);
+                erreurES := CreateFile(nomFichierOutput,0,fichierHTMLOutput);
                 {WritelnDansRapport('Le fichier '+nomFichierOutput+' n''existe pas, on le crée');}
               end
             else
@@ -1827,20 +1827,20 @@ begin
                 if not(MemberOfStringSet(nomFichierOutput,data,gOptionsExportBase.nomsFichiersUtilises)) then
                   begin
                     //WritelnDansRapport('Le fichier '+nomFichierOutput+' existe deja, on l''efface');
-                    erreurES := OuvreFichierTexte(fichierHTMLOutput);
-                    erreurES := VideFichierTexte(fichierHTMLOutput);
-                    erreurES := FermeFichierTexte(fichierHTMLOutput);
+                    erreurES := OpenFile(fichierHTMLOutput);
+                    erreurES := EmptyFile(fichierHTMLOutput);
+                    erreurES := CloseFile(fichierHTMLOutput);
                   end;
               end;
           AddStringToSet(nomFichierOutput,0,gOptionsExportBase.nomsFichiersUtilises);
 
-          erreurES := OuvreFichierTexte(fichierHTMLOutput);
-          erreurES := SetPositionTeteLectureFinFichierTexte(fichierHTMLOutput);
+          erreurES := OpenFile(fichierHTMLOutput);
+          erreurES := SetFilePositionAtEnd(fichierHTMLOutput);
           gOptionsExportBase.fic := fichierHTMLOutput;
 
           if (erreurES = NoErr) then inc(compteur);
 
-          while (erreurES = NoErr) and not(EOFFichierTexte(fichierModeleHTML,erreurES)) do
+          while (erreurES = NoErr) and not(EndOfFile(fichierModeleHTML,erreurES)) do
             begin
               erreurES := ReadlnDansFichierTexte(fichierModeleHTML,s);
               ligne := s;
@@ -1848,7 +1848,7 @@ begin
               if (ligneSansEspace[1] = '%')
                 then
                   begin
-                    {erreurES := WritelnDansFichierTexte(outputBaseThor,s);}
+                    {erreurES := Writeln(outputBaseThor,s);}
                   end
                 else
                   begin
@@ -1858,7 +1858,7 @@ begin
                   end;
             end;
 
-          erreurES := FermeFichierTexte(fichierHTMLOutput);
+          erreurES := CloseFile(fichierHTMLOutput);
         end;
 
       gOptionsExportBase.fic := fichierModeleHTML;
@@ -1871,8 +1871,8 @@ var erreurES : OSErr;
     s : String255;
     nom1,nom2,nomPourURL : String255;
     nomFichierOutput : String255;
-    fichierSOFOutput : FichierTEXT;
-    fichierModeleHTML : FichierTEXT;
+    fichierSOFOutput : basicfile;
+    fichierModeleHTML : basicfile;
     nbPionsFinalNoirs,nbPionsFinalBlancs : SInt64;
     data, t, trait, coup : SInt64;
     myDate : DateTimeRec;
@@ -1921,12 +1921,12 @@ begin
 
           WritelnDansRapport(nomFichierOutput+'...');
 
-          erreurES := FichierTexteExiste(nomFichierOutput,0,fichierSOFOutput);
+          erreurES := FileExists(nomFichierOutput,0,fichierSOFOutput);
           if erreurES = fnfErr
             then
               begin
                 {-43 => fichier non trouvé, on le crée}
-                erreurES := CreeFichierTexte(nomFichierOutput,0,fichierSOFOutput);
+                erreurES := CreateFile(nomFichierOutput,0,fichierSOFOutput);
                 {WritelnDansRapport('Le fichier '+nomFichierOutput+' n''existe pas, on le crée');}
               end
             else
@@ -1934,51 +1934,51 @@ begin
                 if not(MemberOfStringSet(nomFichierOutput,data,gOptionsExportBase.nomsFichiersUtilises)) then
                   begin
                     {WritelnDansRapport('Le fichier '+nomFichierOutput+' existe deja, on l''efface');}
-                    erreurES := OuvreFichierTexte(fichierSOFOutput);
-                    erreurES := VideFichierTexte(fichierSOFOutput);
-                    erreurES := FermeFichierTexte(fichierSOFOutput);
+                    erreurES := OpenFile(fichierSOFOutput);
+                    erreurES := EmptyFile(fichierSOFOutput);
+                    erreurES := CloseFile(fichierSOFOutput);
                   end;
               end;
           AddStringToSet(nomFichierOutput,0,gOptionsExportBase.nomsFichiersUtilises);
 
-          erreurES := OuvreFichierTexte(fichierSOFOutput);
-          erreurES := SetPositionTeteLectureFinFichierTexte(fichierSOFOutput);
+          erreurES := OpenFile(fichierSOFOutput);
+          erreurES := SetFilePositionAtEnd(fichierSOFOutput);
 
           if (erreurES = NoErr) then inc(compteur);
 
 
           (* Writing the SGF compulsary informations *)
           s := '(;GM[2]FF[4]SZ[8]TM[1500]BL[1500]WL[1500]';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Cassio version *)
           s := 'AP['+'Cassio:'+VersionDeCassioEnString+']';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* User *)
           s := 'US[Stephane Nicolet]';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Copyright *)
           GetTime(myDate);
           s := 'CP[Copyleft '+IntToStr(myDate.year)+', French Federation of Othello]';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Black player *)
           s := 'PB['+StripDiacritics(GetNomJoueurNoirParNroRefPartie(numeroReference))+']';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* White player *)
           s := 'PW['+StripDiacritics(GetNomJoueurBlancParNroRefPartie(numeroReference))+']';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Event *)
           s := 'EV['+StripDiacritics(GetNomTournoiParNroRefPartie(numeroReference))+']';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Year *)
           s := 'DT['+IntToStr(GetAnneePartieParNroRefPartie(numeroReference))+']';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
           (* Score *)
           if PeutCalculerScoreFinalDeCettePartie(theGame,nbPionsFinalNoirs,nbPionsFinalBlancs,partieTerminee) and partieTerminee then
@@ -1986,12 +1986,12 @@ begin
               if nbPionsFinalNoirs > nbPionsFinalBlancs then s := 'RE[B+'+IntToStr(nbPionsFinalNoirs - nbPionsFinalBlancs)+']' else
               if nbPionsFinalNoirs < nbPionsFinalBlancs then s := 'RE[B+'+IntToStr(nbPionsFinalBlancs - nbPionsFinalNoirs)+']' else
               if nbPionsFinalNoirs = nbPionsFinalBlancs then s := 'RE[0]';
-              erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+              erreurES := Write(fichierSOFOutput,s);
             end;
 
           (* Initial position *)
           s := 'AB[e4][d5]AW[d4][e5]PL[B]';
-          erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Write(fichierSOFOutput,s);
 
 
           if GET_LENGTH_OF_PACKED_GAME(theGame) > 0 then
@@ -2012,7 +2012,7 @@ begin
             			           pionNoir  : s := ';B['+CoupEnString(coup, false)+']';
             			           pionBlanc : s := ';W['+CoupEnString(coup, false)+']';
           			           end;  {case}
-          			           if (s <> '') then erreurES := WriteDansFichierTexte(fichierSOFOutput,s);
+          			           if (s <> '') then erreurES := Write(fichierSOFOutput,s);
           			         end;
         			       end;
         			   end;
@@ -2021,9 +2021,9 @@ begin
 
           (* Terminal parenthese *)
           s := ')';
-          erreurES := WritelnDansFichierTexte(fichierSOFOutput,s);
+          erreurES := Writeln(fichierSOFOutput,s);
 
-          erreurES := FermeFichierTexte(fichierSOFOutput);
+          erreurES := CloseFile(fichierSOFOutput);
         end;
 
       gOptionsExportBase.fic := fichierModeleHTML;
@@ -2037,7 +2037,7 @@ end;
 
 procedure ExportListeAuFormatHTML;
 var erreurES : OSErr;
-    modeleHTML : FichierTEXT;
+    modeleHTML : basicfile;
     compteur : SInt64;
     prompt : String255;
 begin
@@ -2053,7 +2053,7 @@ begin
 
         if not(FenetreRapportEstOuverte) then OuvreFntrRapport(false,true);
 
-        erreurES := OuvreFichierTexte(modeleHTML);
+        erreurES := OpenFile(modeleHTML);
 
         patternLigne            := '';
         fic                     := modeleHTML;
@@ -2100,7 +2100,7 @@ begin
 
         DisposeStringSet(nomsFichiersUtilises);
 
-        erreurES := FermeFichierTexte(modeleHTML);
+        erreurES := CloseFile(modeleHTML);
 
       end;
 end;
@@ -2109,7 +2109,7 @@ end;
 
 
 
-procedure ImporterLigneNulleBougeard(var myLongString : LongString; var theFic : FichierTEXT; var compteur : SInt64);
+procedure ImporterLigneNulleBougeard(var myLongString : LongString; var theFic : basicfile; var compteur : SInt64);
 var gameNodeLePlusProfond : GameTree;
     partieRec : t_PartieRecNouveauFormat;
     partieEnThor : PackedThorGame;
@@ -2180,7 +2180,7 @@ end;
 procedure ImportBaseAllDrawLinesDeBougeard;
 var compteurParties : SInt64;
     erreurES : OSErr;
-    fichierBougeard : FichierTEXT;
+    fichierBougeard : basicfile;
 begin
   BeginDialog;
   erreurES := GetFichierTexte('',MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),fichierBougeard);
@@ -2191,7 +2191,7 @@ begin
 end;
 
 
-procedure EcritNomFichierNonReconnuDansRapport(var fic : FichierTEXT);
+procedure EcritNomFichierNonReconnuDansRapport(var fic : basicfile);
 var err : OSErr;
     nomLongDuFichier : String255;
 begin
@@ -2210,7 +2210,7 @@ end;
 
 function ImporterFichierPartieDansListe(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var err : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     nomComplet : String255;
     numeroNoir,numeroBlanc : SInt64;
     numeroTournoi,anneeTournoi : SInt64;
@@ -2237,7 +2237,7 @@ begin
     begin
       err := FSSpecToFullPath(fs,nomComplet);
 
-      err := FichierTexteExiste(nomComplet,0,fic);
+      err := FileExists(nomComplet,0,fic);
 
       recognized := false;
 

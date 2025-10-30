@@ -65,7 +65,7 @@ USES
     MacErrors, OSUtils, fp
 {$IFC NOT(USE_PRELINK)}
     , MyStrings, UnitRapport, UnitRapportImplementation, UnitNouveauFormat, UnitServicesDialogs, UnitGestionDuTemps, UnitZoo
-    , UnitPositionEtTraitSet, UnitImportDesNoms, MyStrings, UnitAccesNouveauFormat, UnitEntreesSortiesListe, UnitSolve, UnitFichiersTEXT, UnitPhasesPartie
+    , UnitPositionEtTraitSet, UnitImportDesNoms, MyStrings, UnitAccesNouveauFormat, UnitEntreesSortiesListe, UnitSolve, basicfile, UnitPhasesPartie
     , MyMathUtils, UnitRapportWindow, UnitPositionEtTrait, UnitListe, UnitServicesRapport ;
 {$ELSEC}
     ;
@@ -86,7 +86,7 @@ USES
 
 
 
-var FichierWThorLog : FichierTEXT;
+var FichierWThorLog : basicfile;
     gInfosCalculScoresTheoriques : record
                                      apresQuelCoup                : SInt32;
                                      endgameSolveFlags            : SInt32;
@@ -105,21 +105,21 @@ var FichierWThorLog : FichierTEXT;
 function OuvreFichierTraceWThor : OSErr;
 var erreurES : OSErr;
 begin
-  erreurES := FichierTexteExiste(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
+  erreurES := FileExists(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
   if erreurES = fnfErr then {-43 => fichier non trouvé, on le crée}
     begin
-      erreurES := CreeFichierTexte(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
+      erreurES := CreateFile(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
       SetFileCreatorFichierTexte(FichierWThorLog,MY_FOUR_CHAR_CODE('R*ch'));  {BBEdit}
       SetFileTypeFichierTexte(FichierWThorLog,MY_FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
-    erreurES := OuvreFichierTexte(FichierWThorLog);
+    erreurES := OpenFile(FichierWThorLog);
   OuvreFichierTraceWThor := erreurES;
 end;
 
 function FermeFichierTraceWThor : OSErr;
 begin
-  FermeFichierTraceWThor := FermeFichierTexte(FichierWThorLog);
+  FermeFichierTraceWThor := CloseFile(FichierWThorLog);
 end;
 
 
@@ -137,8 +137,8 @@ begin
   s := '     ' + s;
 
   erreurES := OuvreFichierTraceWThor;
-  if (erreurES = NoErr) then erreurES := SetPositionTeteLectureFinFichierTexte(FichierWThorLog);
-  if (erreurES = NoErr) then erreurES := WritelnDansFichierTexte(FichierWThorLog,s);
+  if (erreurES = NoErr) then erreurES := SetFilePositionAtEnd(FichierWThorLog);
+  if (erreurES = NoErr) then erreurES := Writeln(FichierWThorLog,s);
   WritelnDansRapport(s);
   if (erreurES = NoErr) then erreurES := FermeFichierTraceWThor;
 
@@ -179,7 +179,7 @@ label sortie;
 var err : OSErr;
     entete : t_EnTeteNouveauFormat;
     joueur : t_JoueurRecNouveauFormat;
-    fic : FichierTEXT;
+    fic : basicfile;
     typeFichier : SInt16;
     pathFichier,message : String255;
     numeroJoueur, confiance : SInt32;
@@ -192,7 +192,7 @@ begin
 
   pathFichier := PathDuDossierDatabase + ':Gestion Base WThor:WTHOR.JOU';
 
-  err := FichierTexteExiste(pathFichier,0,fic);
+  err := FileExists(pathFichier,0,fic);
 
   if (err = NoErr) and
      EstUnFichierNouveauFormat(fic.info,typeFichier,entete) and
@@ -279,10 +279,10 @@ begin
 
 			 (* Ecriture du joueur dans le fichier WTHOR.JOU officiel *)
 
-       err := OuvreFichierTexte(fic);
+       err := OpenFile(fic);
        if (err = NoErr) then err := EcritJoueurNouveauFormat(fic.refNum,numeroJoueur,joueur);
        if (err = NoErr) then err := EcritEnteteNouveauFormat(fic.refNum,entete);
-       err := FermeFichierTexte(fic);
+       err := CloseFile(fic);
 
        // WritelnDansRapport('dans RenommerJoueurDansFichierWThorOfficiel {3}');
        // AttendFrappeClavier;
@@ -316,7 +316,7 @@ label sortie;
 var err : OSErr;
     entete : t_EnTeteNouveauFormat;
     tournoi : t_TournoiRecNouveauFormat;
-    fic : FichierTEXT;
+    fic : basicfile;
     typeFichier : SInt16;
     pathFichier,message : String255;
     numeroTournoi : SInt32;
@@ -327,7 +327,7 @@ begin
 
   pathFichier := PathDuDossierDatabase + ':Gestion Base WThor:WTHOR.TRN';
 
-  err := FichierTexteExiste(pathFichier,0,fic);
+  err := FileExists(pathFichier,0,fic);
 
   if (err = NoErr) and
      EstUnFichierNouveauFormat(fic.info,typeFichier,entete) and
@@ -380,10 +380,10 @@ begin
 
 			 (* Ecriture du tournoi dans le fichier WTHOR.TRN officiel *)
 
-       err := OuvreFichierTexte(fic);
+       err := OpenFile(fic);
        if (err = NoErr) then err := EcritTournoiNouveauFormat(fic.refNum,numeroTournoi,tournoi);
        if (err = NoErr) then err := EcritEnteteNouveauFormat(fic.refNum,entete);
-       err := FermeFichierTexte(fic);
+       err := CloseFile(fic);
 
        (* ... et on essaie aussi de changer le tournoi en mémoire *)
 

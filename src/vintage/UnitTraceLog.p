@@ -39,7 +39,7 @@ IMPLEMENTATION
 USES
     TextEdit, MacErrors
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapportImplementation, UnitServicesDialogs, MyStrings, UnitServicesRapport, UnitCarbonisation, UnitFichiersTEXT
+    , UnitRapportImplementation, UnitServicesDialogs, MyStrings, UnitServicesRapport, UnitCarbonisation, basicfile
      ;
 {$ELSEC}
     ;
@@ -61,7 +61,7 @@ USES
 
 const tracingState : boolean = true;
 
-var FichierTraceLog : FichierTEXT;
+var FichierTraceLog : basicfile;
 
 
 
@@ -78,13 +78,13 @@ begin
       SetFileTypeFichierTexte(FichierTraceLog,MY_FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
-    erreurES := OuvreFichierTexte(FichierTraceLog);
+    erreurES := OpenFile(FichierTraceLog);
 end;
 
 procedure FermeFichierTrace;
 var erreurES : OSErr;
 begin
-  erreurES := FermeFichierTexte(FichierTraceLog);
+  erreurES := CloseFile(FichierTraceLog);
 end;
 
 
@@ -105,8 +105,8 @@ begin
 		  SetTracingLog(false);
 
 		  OuvreFichierTrace;
-		  erreurES := SetPositionTeteLectureFinFichierTexte(FichierTraceLog);
-		  erreurES := WritelnDansFichierTexte(FichierTraceLog,s);
+		  erreurES := SetFilePositionAtEnd(FichierTraceLog);
+		  erreurES := Writeln(FichierTraceLog,s);
 		  FermeFichierTrace;
 
 		  SetDebuggageUnitFichiersTexte(oldDebuggageUnitFichierTexte);

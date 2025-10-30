@@ -66,7 +66,7 @@ USES
     Script, Fonts, MacWindows, GestaltEqu, Processes, CFBase, CFString, OSUtils
     , OSAtomic_glue, Multiprocessing, UnitDebuggage, UnitDefParallelisme
 {$IFC NOT(USE_PRELINK)}
-    , MyStrings, UnitServicesMemoire, MyFileSystemUtils, UnitFichiersTEXT, UnitPositionEtTrait
+    , MyStrings, UnitServicesMemoire, MyFileSystemUtils, basicfile, UnitPositionEtTrait
     , UnitHashTableExacte, MyMathUtils, UnitCarbonisation, UnitRapport, UnitRapportImplementation, UnitGestionDuTemps, UnitStringSet, UnitScannerUtils
     , SNEvents, UnitEnvirons, UnitRetrograde, UnitZoo, UnitLongString, UnitTournoi, UnitServicesRapport ;
 {$ELSEC}
@@ -541,7 +541,7 @@ end;
 function CanStartUnixTask(pathMac, arguments : String255) : boolean;
 var pathUnix, foo : String255;
     CFpath, CFarguments : CFStringRef;
-    fic : FichierTEXT;
+    fic : basicfile;
     ok : SInt32;
     bundleName : String255;
     pathIsAnUnixBinary : boolean;
@@ -572,7 +572,7 @@ begin
     end;
 
 
-  if pathIsAnUnixBinary or (FichierTexteExiste(pathMac,0,fic) = NoErr)
+  if pathIsAnUnixBinary or (FileExists(pathMac,0,fic) = NoErr)
     then
       begin
 

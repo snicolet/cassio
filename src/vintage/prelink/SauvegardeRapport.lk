@@ -10,11 +10,11 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function GetTextEditRecordOfRapport : TEHandle;     external;
-function CreerRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;     external;
-function OuvreRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;     external;
-function UseRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;     external;
+function CreerRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
+function OuvreRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
+function UseRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
 procedure DisposeMemoryHdl(var whichHandle : handle);     external;
-function FermeRessourceForkFichierTEXT(var fic : FichierTEXT) : OSErr;     external;
+function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
 function GetTSMDocOfRapport : TSMDocumentID;     external;
 function GetDebutSelectionRapport : SInt32;     external;
 function GetFinSelectionRapport : SInt32;     external;

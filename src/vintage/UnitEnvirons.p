@@ -62,7 +62,7 @@ USES
     Script, Fonts, MacWindows, GestaltEqu, Processes, CFBase, CFString, OSUtils
 
 {$IFC NOT(USE_PRELINK)}
-    , MyStrings, UnitServicesMemoire, MyFileSystemUtils, MyFonts, MyAntialiasing, UnitFichiersTEXT, MyMathUtils, UnitCarbonisation
+    , MyStrings, UnitServicesMemoire, MyFileSystemUtils, MyFonts, MyAntialiasing, basicfile, MyMathUtils, UnitCarbonisation
     , UnitRapport, UnitEngine, UnitGestionDuTemps, UnitTournoi ;
 {$ELSEC}
     ;
@@ -528,7 +528,7 @@ const gNbLecturesDossierPolicesDeCassio : SInt32 = 0;
 
 function LoadPolicePriveeDeCassio(var fs : fileInfo; isFolder : boolean; path : String255; var pb : CInfoPBRec) : boolean;
 var nomFichier : String255;
-    fontFile : FichierTEXT;
+    fontFile : basicfile;
     err : OSErr;
     source, dest : String255;
     command, arguments : String255;
@@ -577,7 +577,7 @@ end;
 
 procedure ChargerLesPolicesPriveesDeCassio;
 var fontDirectory : fileInfo;
-    fic : FichierTEXT;
+    fic : basicfile;
     path : String255;
     err : OSErr;
 begin
@@ -720,7 +720,7 @@ procedure SauvegarderListeOfCassioFolderPaths;
 var filename : String255;
     appSupportPath : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i : SInt32;
 begin
@@ -734,14 +734,14 @@ begin
 
       erreurES := CreateDirectoryWithThisPath(ExtraitCheminDAcces(filename));
 
-      erreurES := FichierTexteExiste(filename,0,fic);
+      erreurES := FileExists(filename,0,fic);
       if (erreurES = -43)   {fnfErr => File not found }
-        then erreurES := CreeFichierTexte(fileName,0,fic);
+        then erreurES := CreateFile(fileName,0,fic);
       if erreurES = NoErr {le fichier de la liste des dossier Cassio existe : on l'ouvre et on le vide}
         then
           begin
-            erreurES := OuvreFichierTexte(fic);
-            erreurES := VideFichierTexte(fic);
+            erreurES := OpenFile(fic);
+            erreurES := EmptyFile(fic);
           end;
       if erreurES <> 0 then exit;
 
@@ -749,10 +749,10 @@ begin
         if (gListeOfValidCassioFolders.paths[i] <> '') then
           begin
             s := gListeOfValidCassioFolders.paths[i];
-            erreurES := WritelnDansFichierTexte(fic,s);
+            erreurES := Writeln(fic,s);
           end;
 
-      erreurES := FermeFichierTexte(fic);
+      erreurES := CloseFile(fic);
 
     end;
 end;
@@ -762,7 +762,7 @@ procedure LireListeOfCassioFolderPaths;
 var filename : String255;
     applicationSupportPath : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     s : String255;
     i,nbPathsCassioFolder : SInt32;
 begin
@@ -782,9 +782,9 @@ begin
       // WritelnDansRapport('Entree dans LireListeOfCassioFolderPaths');
 
       filename := applicationSupportPath + ':Cassio:CassioFolderPathsList.txt';
-      erreurES := FichierTexteExiste(filename,0,fic);
+      erreurES := FileExists(filename,0,fic);
       if erreurES = NoErr
-        then erreurES := OuvreFichierTexte(fic);
+        then erreurES := OpenFile(fic);
       if erreurES <> 0 then exit;
 
 
@@ -796,9 +796,9 @@ begin
             inc(nbPathsCassioFolder);
             gListeOfValidCassioFolders.paths[nbPathsCassioFolder] := s;
           end;
-      until (nbPathsCassioFolder >= kMaxCassioFolderPaths) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
+      until (nbPathsCassioFolder >= kMaxCassioFolderPaths) or (erreurES <> NoErr) or EndOfFile(fic,erreurES);
 
-      erreurES := FermeFichierTexte(fic);
+      erreurES := CloseFile(fic);
 
     end;
 end;

@@ -124,7 +124,7 @@ USES
     , UnitCarbonisation, MyMathUtils, UnitRapport, MyStrings, UnitCurseur, UnitGameTree, UnitNormalisation, UnitCouleur
     , UnitGeometrie, UnitBallade, UnitScannerUtils, UnitEvaluation, UnitSuperviseur, UnitFenetres, UnitJeu, UnitOffScreenGraphics
     , MyAntialiasing, SNEvents, UnitRetrograde, UnitServicesMemoire, UnitModes, EdmondEvaluation, UnitNouvelleEval
-    , UnitFichiersTEXT, UnitHTML, MyFileSystemUtils ;
+    , basicfile, UnitHTML, MyFileSystemUtils ;
 {$ELSEC}
     ;
     {$I prelink/Courbe.lk}
@@ -2156,7 +2156,7 @@ end;
 function PeutChargerImageDeFondPourCourbeDepuisLeDisque : boolean;
 var nomFichier : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
     oldPort : grafPtr;
 begin
   PeutChargerImageDeFondPourCourbeDepuisLeDisque := false;
@@ -2212,7 +2212,7 @@ end;
 function PeutChargerImageDeFondPourCourbeDepuisLeCache : boolean;
 var nomFichier : String255;
     erreurES : OSErr;
-    fic : FichierTEXT;
+    fic : basicfile;
 begin
   PeutChargerImageDeFondPourCourbeDepuisLeCache := false;
 
@@ -2227,7 +2227,7 @@ begin
         WriteDebugageCourbe('entree dans PeutChargerImageDeFondPourCourbeDepuisLeCache...');
         WriteDebugageCourbe('nomFichier = '+nomFichier);
 
-        erreurES := FichierTexteExiste(nomFichier,0,fic);
+        erreurES := FileExists(nomFichier,0,fic);
         if erreurES = fnfErr then
           exit;
 

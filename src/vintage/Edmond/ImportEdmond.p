@@ -73,7 +73,7 @@ IMPLEMENTATION
 USES
     Sound
 {$IFC NOT(USE_PRELINK)}
-    , UnitRapport, MyFileSystemUtils, MyStrings, EdmondEvaluation, UnitBords, UnitFichiersTEXT ;
+    , UnitRapport, MyFileSystemUtils, MyStrings, EdmondEvaluation, UnitBords, basicfile ;
 {$ELSEC}
     ;
     {$I prelink/ImportEdmond.lk}
@@ -193,7 +193,7 @@ end;
 
 function GetEdmondCoefficientsFileName : String255;
 var nom : String255;
-    theFic : FichierTEXT;
+    theFic : basicfile;
 begin
   if FichierTexteDeCassioExiste('Edmond-coefficients.data',theFic) = NoErr
     then nom := GetFullPathOfFSSpec(theFic.info)

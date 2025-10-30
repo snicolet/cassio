@@ -58,7 +58,7 @@ USES
 {$IFC NOT(USE_PRELINK)}
     , MyQuickDraw, UnitAccesNouveauFormat, UnitRapport, UnitScannerOthellistique, UnitUtilitaires, UnitPalette, UnitActions
     , UnitCurseur, UnitRapportImplementation, MyStrings, SNEvents, UnitServicesDialogs, UnitMoulinette, UnitEvenement, MyFileSystemUtils
-    , UnitCriteres, UnitDialog, UnitScannerUtils, UnitFenetres, UnitNormalisation, UnitPackedThorGame, UnitRapportWindow, UnitFichiersTEXT
+    , UnitCriteres, UnitDialog, UnitScannerUtils, UnitFenetres, UnitNormalisation, UnitPackedThorGame, UnitRapportWindow, basicfile
     , UnitTriListe, UnitNouveauFormat, UnitListe, UnitServicesRapport ;
 {$ELSEC}
     ;
@@ -133,7 +133,7 @@ var enteteFichierPartie : t_EnTeteNouveauFormat;
     nbNoirs,nbBlancs : SInt32;
     longueur : SInt16;
     terminee : boolean;
-    fic : FichierTEXT;
+    fic : basicfile;
     fileName : String255;
 begin
   SauvegardeCesPartiesDeLaListe := -2;
@@ -147,7 +147,7 @@ begin
   fileName := fileName + IntToStr(anneeDesParties);
   fileName := fileName+'.wtb';
 
-  codeErreur := FichierTexteExisteFSp(MyMakeFSSpec(fichier.vRefNum,fichier.parID,fileName),fic);
+  codeErreur := FileExists(MyMakeFSSpec(fichier.vRefNum,fichier.parID,fileName),fic);
   if codeErreur = NoErr
     then
       begin
@@ -162,7 +162,7 @@ begin
       end
     else
       if (codeErreur = fnfErr) {-43 => fichier non trouvé, on le crée}
-        then codeErreur := CreeFichierTexteFSp(MyMakeFSSpec(fichier.vRefNum,fichier.parID,fileName),fic);
+        then codeErreur := CreateFile(MyMakeFSSpec(fichier.vRefNum,fichier.parID,fileName),fic);
 
   if (codeErreur <> NoErr) then
     begin
@@ -179,14 +179,14 @@ begin
   watch := GetCursor(watchcursor);
   SafeSetCursor(watch);
 
-  codeErreur := OuvreFichierTexte(fic);
+  codeErreur := OpenFile(fic);
   if (codeErreur <> NoErr) then
     begin
       SauvegardeCesPartiesDeLaListe := codeErreur;
       exit;
     end;
 
-  codeErreur := VideFichierTexte(fic);
+  codeErreur := EmptyFile(fic);
   if (codeErreur <> NoErr) then
     begin
       SauvegardeCesPartiesDeLaListe := codeErreur;
@@ -314,7 +314,7 @@ begin
   codeErreur := EcritEnteteNouveauFormat(fic.refNum,enteteFichierPartie);
 
 
-  codeErreur := FermeFichierTexte(fic);
+  codeErreur := CloseFile(fic);
   SauvegardeCesPartiesDeLaListe := codeErreur;
 
   RemettreLeCurseurNormalDeCassio;
@@ -775,7 +775,7 @@ end;
 function AjouterPartieDansCetteDistribution(partieRec : t_PartieRecNouveauFormat; nroDistrib : SInt32; anneePartie : SInt32) : OSErr;
 var numFichier,k : SInt32;
     enteteFichierPartie : t_EnTeteNouveauFormat;
-    fic : FichierTEXT;
+    fic : basicfile;
     codeErreur : OSErr;
     filename : String255;
     myDate : DateTimeRec;
@@ -829,11 +829,11 @@ begin
 			      filename := GetPathOfDistribution(nroDistrib)+filename;
 			      {WritelnDansRapport('filename = '+filename);}
 
-			      codeErreur := CreeFichierTexte(filename,0,fic);
-			      {WritelnNumDansRapport('Après CreeFichierTexte(filename,0,fic), codeErreur = ',codeErreur);}
+			      codeErreur := CreateFile(filename,0,fic);
+			      {WritelnNumDansRapport('Après CreateFile(filename,0,fic), codeErreur = ',codeErreur);}
 
-			      if (codeErreur = NoErr) then codeErreur := OuvreFichierTexte(fic);
-			      {WritelnNumDansRapport('Après OuvreFichierTexte, codeErreur = ',codeErreur);}
+			      if (codeErreur = NoErr) then codeErreur := OpenFile(fic);
+			      {WritelnNumDansRapport('Après OpenFile, codeErreur = ',codeErreur);}
 
 			      if (codeErreur = NoErr) then codeErreur := EcritEnteteNouveauFormat(fic.refnum,enteteFichierPartie);
 			      {WritelnNumDansRapport('Après EcritEnteteNouveauFormat, codeErreur = ',codeErreur);}
@@ -842,8 +842,8 @@ begin
 			        then numFichier := InfosFichiersNouveauFormat.nbFichiers;
 			      {WritelnNumDansRapport('Après AjouterFichierNouveauFormat, numFichier = ',numFichier);}
 
-			      if (codeErreur = NoErr) then codeErreur := FermeFichierTexte(fic);
-			      {WritelnNumDansRapport('Après FermeFichierTexte, codeErreur = ',codeErreur);}
+			      if (codeErreur = NoErr) then codeErreur := CloseFile(fic);
+			      {WritelnNumDansRapport('Après CloseFile, codeErreur = ',codeErreur);}
 
 			      SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
 		        SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('QWTB'));

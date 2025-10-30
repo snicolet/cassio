@@ -1,20 +1,49 @@
 UNIT basicfile;
 
 
-
 INTERFACE
 
 
+USES basictypes, basicstring;
 
 
+TYPE 
+     fileInfo = 
+        RECORD
+           vRefNum : Integer;   {unused  ("volume reference number") }
+           parID   : LongInt;   {unused  ("directory ID of parent directory") }
+           name    : String255; {private ("filename or directory name") }
+        END;
+     
+
+     {FIXME : on risque de perturber InfosFichiersNouveauFormat dans le
+              fichier UnitDefNouveauFormat (tableau trop gros)
+              si on rajoute des gros champs √† basicfile... }
+     basicfile =
+          record
+            nomFichier : String255;              {private}
+            uniqueID : SInt32;                   {private}
+            parID : SInt32;                      {private}
+            refNum : SInt16;                     {private}
+            vRefNum : SInt16;                    {private}
+            ressourceForkRefNum : SInt32;        {private}
+            dataForkOuvertCorrectement : SInt32; {private}
+            rsrcForkOuvertCorrectement : SInt32; {private}
+            info : fileInfo;                     {private}
+            bufferLecture : record               {private}
+                              bufferLecture      : PackedArrayOfCharPtr;  {private}
+                              debutDuBuffer      : SInt32;    {private}
+                              positionDansBuffer : SInt32;    {private}
+                              tailleDuFichier    : SInt32;    {private}
+                              tailleDuBuffer     : SInt32;    {private}
+                              positionTeteFichier: SInt32;    {private}
+                              doitUtiliserBuffer : boolean;   {private}
+                            end;
+          end;
 
 
-
- USES UnitDefCassio , Files , DateTimeUtils, UnitDefHugeString;
-
-
-
-
+     {type fonctionnel pour ForEachLineInFileDo}
+     LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 
 
 
@@ -791,7 +820,7 @@ begin
         begin
           SysBeep(0);
           DisplayMessageInConsole('');
-          DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
+          DisplayMessageInConsole('## WARNING : apr√®s une ouverture r√©ussie, dataForkOuvertCorrectement <> 0 !');
           DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
           DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement',fic.dataForkOuvertCorrectement);
           DisplayMessageInConsole('');
@@ -856,7 +885,7 @@ begin
           begin
             SysBeep(0);
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
+            DisplayMessageInConsole('## WARNING : apr√®s une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
             DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
             DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
             DisplayMessageInConsole('');
@@ -1807,7 +1836,7 @@ begin
 
   fichierReceptacleOuvert := FileIsOpen(receptacle);
   if not(fichierReceptacleOuvert) then
-    begin  {ouvrir le fichier et placer le curseur à la fin}
+    begin  {ouvrir le fichier et placer le curseur √† la fin}
       err2 := OpenFile(receptacle);
       err2 := SetFilePositionAtEnd(receptacle);
     end;
@@ -1894,7 +1923,7 @@ begin
           begin
             SysBeep(0);
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
+            DisplayMessageInConsole('## WARNING : apr√®s une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
             DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
             DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
             DisplayMessageInConsole('');
@@ -1971,7 +2000,7 @@ begin
               begin
                 SysBeep(0);
                 DisplayMessageInConsole('');
-                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
+                DisplayMessageInConsole('## WARNING : apr√®s une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
                 DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
                 DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
                 DisplayMessageInConsole('');
@@ -2074,7 +2103,7 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;
 var s,texte,explication,pathFichier : String255;
 begin
-  s := ReadStringFromRessource(TextesErreursID, 5);  {'erreur I/O sur fichier «^0» ! code erreur =  ^1'}
+  s := ReadStringFromRessource(TextesErreursID, 5);  {'erreur I/O sur fichier ¬´^0¬ª ! code erreur =  ^1'}
 
   pathFichier := nomFichier;
   if (Pos(':',pathFichier) > 0)
