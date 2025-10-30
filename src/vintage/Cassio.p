@@ -1635,7 +1635,7 @@ begin
     then
       begin
         WritelnDansRapport('police Virginie trouvee');
-        LoadFont(fontFic.theFSSpec);
+        LoadFont(fontFic.info);
       end;
   *)
 

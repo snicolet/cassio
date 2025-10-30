@@ -24,8 +24,8 @@ function WritePositionEtTraitEnHTMLDansFichierAbstrait(position : PositionEtTrai
 {quelques fonctions pour generer les images utilisees dans le code HTML}
 procedure ConvertPICTtoJPEGandExportToFile(thePicHandle : PicHandle; fileSpec : fileInfo);
 procedure ExportPictureToFile(thePicHandle : PicHandle; nomFichier : String255);
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : fileInfo) : OSErr;
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : fileInfo);
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var info : fileInfo) : OSErr;
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var info : fileInfo);
 procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : fileInfo);
 
 
@@ -310,7 +310,7 @@ begin
       erreurES := OuvreFichierTexte(fic);
       erreurES := VideFichierTexte(fic);
       erreurES := FermeFichierTexte(fic);
-      fileSpec := fic.theFSSpec;
+      fileSpec := fic.info;
     end;
 
 
@@ -324,7 +324,7 @@ begin
 end;
 
 
-function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var theFSSpec : fileInfo) : OSErr;
+function QTGraph_ShowImageFromFile(whichWindow : CGrafPtr; whichBounds : rect; var info : fileInfo) : OSErr;
 var
   myImporter : GraphicsImportComponent;
   myRect : Rect;
@@ -333,7 +333,7 @@ var
 begin
   myImporter := NIL;
 
-  err := GetGraphicsImporterForFile(theFSSpec, myImporter);
+  err := GetGraphicsImporterForFile(info, myImporter);
   if (myImporter <> NIL) then
     begin
       err := GraphicsImportGetNaturalBounds(myImporter, myRect);
@@ -352,7 +352,7 @@ begin
    QTGraph_ShowImageFromFile := err;
 end;
 
-procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var theFSSpec : fileInfo);
+procedure QTGraph_ShowImageWithTransparenceFromFile(whichWindow : CGrafPtr; transparentColor : RGBColor; whichBounds : rect; var info : fileInfo);
 var
   myImporter : GraphicsImportComponent;
   myRect : Rect;
@@ -361,7 +361,7 @@ var
 begin
   myImporter := NIL;
 
-  err := GetGraphicsImporterForFile(theFSSpec, myImporter);
+  err := GetGraphicsImporterForFile(info, myImporter);
   if (myImporter <> NIL) then
     begin
       err := GraphicsImportGetNaturalBounds(myImporter, myRect);
@@ -393,7 +393,7 @@ var i,j,square : SInt32;
     begin
       erreurES := FichierTexteDeCassioExiste(nom,fic);
       if (erreurES = NoErr) and (wPlateauPtr <> NIL) then
-        erreurES := QTGraph_ShowImageFromFile(GetWindowPort(wPlateauPtr),whichBounds,fic.theFSSpec);
+        erreurES := QTGraph_ShowImageFromFile(GetWindowPort(wPlateauPtr),whichBounds,fic.info);
     end;
 
 begin

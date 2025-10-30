@@ -195,7 +195,7 @@ begin
   err := FichierTexteExiste(pathFichier,0,fic);
 
   if (err = NoErr) and
-     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) and
+     EstUnFichierNouveauFormat(fic.info,typeFichier,entete) and
      (typeFichier = kFicJoueursNouveauFormat) then
      begin
 
@@ -330,7 +330,7 @@ begin
   err := FichierTexteExiste(pathFichier,0,fic);
 
   if (err = NoErr) and
-     EstUnFichierNouveauFormat(fic.theFSSpec,typeFichier,entete) and
+     EstUnFichierNouveauFormat(fic.info,typeFichier,entete) and
      (typeFichier = kFicTournoisNouveauFormat) then
      begin
 

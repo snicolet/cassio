@@ -563,7 +563,7 @@ begin
            if CanStartUnixTask(command, arguments) then DoNothing;
 
            // WritelnDansRapport('Loading font ' + nomFichier + ' ...');
-           err := LoadFont(fontFile.theFSSpec);
+           err := LoadFont(fontFile.info);
 
          end;
 

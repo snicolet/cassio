@@ -130,7 +130,7 @@ begin {$UNUSED fonctionAppelante}
       {WritelnStringDansRapport('path = '+ path+', fonctionAppelante = '+fonctionAppelante);}
       erreurES := FichierTexteExiste(path,0,fic);
       if (erreurES = NoErr) and (whichWindow <> NIL) then
-        QTGraph_ShowImageWithTransparenceFromFile(GetWindowPort(whichWindow),gPurNoir,whichBounds,fic.theFSSpec);
+        QTGraph_ShowImageWithTransparenceFromFile(GetWindowPort(whichWindow),gPurNoir,whichBounds,fic.info);
     end;
 end;
 

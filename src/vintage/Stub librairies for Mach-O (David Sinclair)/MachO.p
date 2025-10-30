@@ -122,15 +122,15 @@ uses
 				theErr												: OSStatus;
 				theFSRef											: FSRef;
 				theBundleURL									: CFURLRef;
-				theFSSpec											: fileInfo;
+				info											: fileInfo;
 		begin
 			theBundlePtr										:= nil;
 			theBundleURL										:= nil;
 			theErr													:= FSMakeFSSpec
- 				( theBundleVolumeRef, theBundleDirID, theBundleFileName, theFSSpec);
+ 				( theBundleVolumeRef, theBundleDirID, theBundleFileName, info);
 			if theErr = noErr
 				then theErr										:= FSpMakeFSRef
- 					 (  theFSSpec, theFSRef);
+ 					 (  info, theFSRef);
 			if theErr = noErr
 				then begin
 					theBundleURL								:= CFURLCreateFromFSRef

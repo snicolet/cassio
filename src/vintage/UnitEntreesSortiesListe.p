@@ -838,7 +838,7 @@ begin
 			      if (codeErreur = NoErr) then codeErreur := EcritEnteteNouveauFormat(fic.refnum,enteteFichierPartie);
 			      {WritelnNumDansRapport('Après EcritEnteteNouveauFormat, codeErreur = ',codeErreur);}
 
-			      if (codeErreur = NoErr) and AjouterFichierNouveauFormat(fic.theFSSpec,GetPathOfDistribution(nroDistrib),kFicPartiesNouveauFormat,enteteFichierPartie)
+			      if (codeErreur = NoErr) and AjouterFichierNouveauFormat(fic.info,GetPathOfDistribution(nroDistrib),kFicPartiesNouveauFormat,enteteFichierPartie)
 			        then numFichier := InfosFichiersNouveauFormat.nbFichiers;
 			      {WritelnNumDansRapport('Après AjouterFichierNouveauFormat, numFichier = ',numFichier);}
 

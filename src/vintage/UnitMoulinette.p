@@ -342,8 +342,8 @@ begin {AjouterPartiesFichierPGNDansListe}
   positionArrivee := PositionEtTraitCourant;
 
 
-  nomFichierPGN := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichierPGN.theFSSpec));
-  erreurES      := FSSpecToLongName(fichierPGN.theFSSpec, nomLongDuFichier);
+  nomFichierPGN := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichierPGN.info));
+  erreurES      := FSSpecToLongName(fichierPGN.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFichierPGN := DeleteSubstringAfterThisChar('.',nomFichierPGN,false);
 
@@ -666,7 +666,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   WritelnDansRapport('temps de lecture = ' + SecondesEnJoursHeuresSecondes((TickCount - tickDepart + 30) div 60));
 
   WritelnDansRapport('');
-  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichierPGN.theFSSpec))
+  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichierPGN.info))
     then
       if (nbPartiesDansFichierPGN > 1)
         then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
@@ -933,8 +933,8 @@ begin {AjouterPartiesFichierDestructureDansListe}
   GetTime(myDate);
 
 
-  nomFic := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichier.theFSSpec));
-  erreurES := FSSpecToLongName(fichier.theFSSpec, nomLongDuFichier);
+  nomFic := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichier.info));
+  erreurES := FSSpecToLongName(fichier.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFic := DeleteSubstringAfterThisChar('.',nomFic,false);
   nomsDesJoueursParDefaut := nomLongDuFichier;
@@ -1143,7 +1143,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   erreurES := FermeFichierTexte(fichier);
 
   WritelnDansRapport('');
-  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichier.theFSSpec))
+  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichier.info))
     then
       if (nbPartiesDansFic > 1)
         then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
@@ -2065,7 +2065,7 @@ begin
         subDirectoryName := 'html';
         if subDirectoryName <> '' then
           begin
-            erreurES := CreateSubDirectoryNearThisFile(modeleHTML.theFSSpec,subDirectoryName);
+            erreurES := CreateSubDirectoryNearThisFile(modeleHTML.info,subDirectoryName);
             if erreurES <> NoErr then subDirectoryName := '';
           end;
 
@@ -2085,7 +2085,7 @@ begin
         subDirectoryName := 'sof';
         if subDirectoryName <> '' then
           begin
-            erreurES := CreateSubDirectoryNearThisFile(modeleHTML.theFSSpec,subDirectoryName);
+            erreurES := CreateSubDirectoryNearThisFile(modeleHTML.info,subDirectoryName);
             if erreurES <> NoErr then subDirectoryName := '';
           end;
 
@@ -2187,7 +2187,7 @@ begin
   EndDialog;
 
   compteurParties := 0;
-  ForEachLineInFileDo(fichierBougeard.theFSSpec,ImporterLigneNulleBougeard,compteurParties);
+  ForEachLineInFileDo(fichierBougeard.info,ImporterLigneNulleBougeard,compteurParties);
 end;
 
 
@@ -2195,7 +2195,7 @@ procedure EcritNomFichierNonReconnuDansRapport(var fic : FichierTEXT);
 var err : OSErr;
     nomLongDuFichier : String255;
 begin
-  err := FSSpecToLongName(fic.theFSSpec, nomLongDuFichier);
+  err := FSSpecToLongName(fic.info, nomLongDuFichier);
   if err = NoErr then
     begin
       WritelnDansRapport('');
@@ -2284,7 +2284,7 @@ begin
                       partieEstDouteuse := false;
 
                       partieEnAlpha := infos.positionEtPartie;
-                      err := FSSpecToLongName(fic.theFSSpec, nomLongDuFichier);
+                      err := FSSpecToLongName(fic.info, nomLongDuFichier);
 
                       partieLegale := EstUnePartieOthelloAvecMiroir(partieEnAlpha); {on sait qu'elle est legale, c'est juste pour compacter et reorienter la partie}
 
@@ -2363,7 +2363,7 @@ begin
   			  end;
 
 
-  		if not(recognized) and (GetNameOfFSSpec(fic.theFSSpec)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
+  		if not(recognized) and (GetNameOfFSSpec(fic.info)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
   		  EcritNomFichierNonReconnuDansRapport(fic);
 
    end;

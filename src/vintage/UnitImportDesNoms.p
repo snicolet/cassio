@@ -2781,7 +2781,7 @@ begin
   gEOFPourTorture := false;
   err := FichierTexteDeCassioExiste(kTortureFileName,fic);
   if err = NoErr then
-    ForEachLineInFileDo(fic.theFSSpec, ReadLineInTortureFile, note);
+    ForEachLineInFileDo(fic.info, ReadLineInTortureFile, note);
 
 
   nbDeTests        := note div 1000;

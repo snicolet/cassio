@@ -376,7 +376,7 @@ begin
       nombreJoueursDansFichierFFO := 0;
 
       err := OuvreFichierTexte(fic);
-      ForEachLineInFileDo(fic.theFSSpec, AjouterNumeroFFOPourCeJoueur,result);
+      ForEachLineInFileDo(fic.info, AjouterNumeroFFOPourCeJoueur,result);
       err := FermeFichierTexte(fic);
 
       WritelnNumDansRapport('nombre de joueurs lus dans le fichier FFO = ',nombreJoueursDansFichierFFO);

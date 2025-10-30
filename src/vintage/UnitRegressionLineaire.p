@@ -512,7 +512,7 @@ begin
 
           totalParties := 0;
 
-          ForEachLineInFileDo(fic.theFSSpec, LireUneLigneDuFichierDeCorrelationEdax, totalParties);
+          ForEachLineInFileDo(fic.info, LireUneLigneDuFichierDeCorrelationEdax, totalParties);
 
         end;
 

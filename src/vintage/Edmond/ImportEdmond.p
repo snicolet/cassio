@@ -196,7 +196,7 @@ var nom : String255;
     theFic : FichierTEXT;
 begin
   if FichierTexteDeCassioExiste('Edmond-coefficients.data',theFic) = NoErr
-    then nom := GetFullPathOfFSSpec(theFic.theFSSpec)
+    then nom := GetFullPathOfFSSpec(theFic.info)
     else nom := 'Edmond-coefficients.data';
 
   GetEdmondCoefficientsFileName := nom;

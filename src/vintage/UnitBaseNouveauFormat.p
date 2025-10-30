@@ -3101,7 +3101,7 @@ begin
         begin
           (* WritelnDansRapportThreadSafe('Le fichier '+pathFichierTelecharge+' contient '+IntToStr(taille) + ' octets'); *)
 
-          if EstUnFichierNouveauFormat(fic.theFSSpec, typeDonnees, entete) then
+          if EstUnFichierNouveauFormat(fic.info, typeDonnees, entete) then
             begin
               (* WritelnDansRapportThreadSafe('c''est un fichier WThor correct'); *)
 
@@ -3122,7 +3122,7 @@ begin
                         WritelnDansRapportThreadSafe('');
                         WritelnDansRapportThreadSafe('I encountered an error or a warning ('+IntToStr(err)+') while trying to update the Database folder for file '+nomFichierWthorOfficiel);
                         WritelnDansRapportThreadSafe('NB : the following downloaded file is however maybe usable (it is in a correct WThor format), use wisely:');
-                        err := FSSpecToFullPath(fic.theFSSpec,path);
+                        err := FSSpecToFullPath(fic.info,path);
                         WritelnDansRapportThreadSafe('      '+path);
                       end;
                 end;
@@ -3428,7 +3428,7 @@ begin
       //  dans le fichier "Listing-of-WTHOR.temp.txt"
 
       if err = NoErr then
-        ForEachLineInFileDo(fic_HTML.theFSSpec, ParserLigneOfWTHORDirectoryOnInternet, result);
+        ForEachLineInFileDo(fic_HTML.info, ParserLigneOfWTHORDirectoryOnInternet, result);
 
 
       // fermeture du fichier Listing-of-WTHOR.temp.txt
@@ -3440,7 +3440,7 @@ begin
           //  fichier "Listing-of-WTHOR.txt" : si ce n'est pas le cas, il
           //  faut sans doute telecharger le nouveau fichier WTHOR correspondant
 
-          ForEachLineInFileDo(gFicListingWThorTemp.theFSSpec, VerifierPresenceFichierWThorChezNous, result);
+          ForEachLineInFileDo(gFicListingWThorTemp.info, VerifierPresenceFichierWThorChezNous, result);
 
         end;
 
@@ -3515,7 +3515,7 @@ begin
       }
 
       if (err = NoErr) then
-        pathFichier := GetFullPathOfFSSpec(fic.theFSSpec);
+        pathFichier := GetFullPathOfFSSpec(fic.info);
 
 
       {WritelnDansRapport('pathFichier = '+pathFichier);

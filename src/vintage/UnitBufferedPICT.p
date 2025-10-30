@@ -186,7 +186,7 @@ var nameOfFile : String255;
     begin
       erreurES := FichierTexteDeCassioExiste(nom,fic);
       if (erreurES = NoErr) then
-        erreurES := QTGraph_ShowImageFromFile(gOffScreenDiscs,whichBounds,fic.theFSSpec);
+        erreurES := QTGraph_ShowImageFromFile(gOffScreenDiscs,whichBounds,fic.info);
     end;
 
 
@@ -505,7 +505,7 @@ begin
 
 
   if (erreurES = NoErr) then
-     erreurES := QTGraph_ShowImageFromFile(gOffScreenDiscs,theRect,fic.theFSSpec);
+     erreurES := QTGraph_ShowImageFromFile(gOffScreenDiscs,theRect,fic.info);
 
 
   PeutChargerTextureDepuisLeCache := (erreurES = NoErr);

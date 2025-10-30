@@ -634,12 +634,12 @@ begin {CreerQuizEnPHP}
       erreurES := VideFichierTexte(fichierPHP);
 
 
-      erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php');
+      erreurES := FSSpecToFullPath(fichierPHP.info,s);
+      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
       erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
 
-      nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec), '.php' , '_^0.php');
+      nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
 
 
 
@@ -715,8 +715,8 @@ begin {CreerQuizEnPHP}
 
 
 
-      erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php');
+      erreurES := FSSpecToFullPath(fichierPHP.info,s);
+      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
       erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
       erreurES := FermeFichierTexte(fichierPHP);
@@ -746,12 +746,12 @@ begin {CreerQuizEnPHP}
                 erreurES := VideFichierTexte(fichierPHP);
 
 
-                erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_prologue.php');
+                erreurES := FSSpecToFullPath(fichierPHP.info,s);
+                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
                 erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
 
-                nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.theFSSpec), '.php' , '_^0.php');
+                nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
 
 
 
@@ -832,8 +832,8 @@ begin {CreerQuizEnPHP}
 
 
 
-                erreurES := FSSpecToFullPath(fichierPHP.theFSSpec,s);
-                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.theFSSpec),'quiz_epilogue.php');
+                erreurES := FSSpecToFullPath(fichierPHP.info,s);
+                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
                 erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
 
                 erreurES := FermeFichierTexte(fichierPHP);
@@ -862,7 +862,7 @@ begin
       erreurES := FermeFichierTexte(fichierJPEG);
 
       WritelnNumDansRapport('CreerPositionQuizzEnJPEG : avant CreateJPEGImageOfPosition, erreurES = ',erreurES);
-      CreateJPEGImageOfPosition(positionQuiz,fichierJPEG.theFSSpec);
+      CreateJPEGImageOfPosition(positionQuiz,fichierJPEG.info);
     end;
 end;
 

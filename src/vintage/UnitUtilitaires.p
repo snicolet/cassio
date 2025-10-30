@@ -1482,7 +1482,7 @@ begin
 
   err := FichierTexteDeCassioExiste(kUnicodeAccentsFileName,fic);
   if err = NoErr then
-    ForEachLineInFileDo(fic.theFSSpec, ReadLineWithUnicodeAccents, compteur);
+    ForEachLineInFileDo(fic.info, ReadLineWithUnicodeAccents, compteur);
 
   // WritelnNumDansRapport('nombre de caractères Unicode = ',compteur);
 end;

@@ -446,7 +446,7 @@ begin
   gEOFPourZooFile := false;
   err := FichierTexteDeCassioExiste(nomCompletFichier,fic);
   if err = NoErr then
-    ForEachLineInFileDo(fic.theFSSpec, ReadLineInScriptZoo, foo);
+    ForEachLineInFileDo(fic.info, ReadLineInScriptZoo, foo);
 
   OuvrirFichierScriptZoo := err;
 

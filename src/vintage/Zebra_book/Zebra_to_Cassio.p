@@ -364,7 +364,7 @@ begin
         else
           begin
             if FichierTexteDeCassioExiste('Zebra-book.data',theFic) = NoErr
-              then nom := GetFullPathOfFSSpec(theFic.theFSSpec)
+              then nom := GetFullPathOfFSSpec(theFic.info)
               else nom := 'Zebra-book.data';
 
             bookName            := nom;

@@ -275,8 +275,8 @@ begin
   fic.parID := 0;
   fic.refNum := 0;
   fic.uniqueID := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
-  SetNameOfFSSpec(fic.theFSSpec, '');
-  with fic.theFSSpec do
+  SetNameOfFSSpec(fic.info, '');
+  with fic.info do
     begin
       vRefNum := 0;
       parID := 0;
@@ -306,7 +306,7 @@ begin
   fic.parID      := mySpec.parID;
   fic.refNum     := 0;
   fic.uniqueID   := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
-  fic.theFSSpec  := mySpec;
+  fic.info  := mySpec;
   fic.ressourceForkRefNum        := -1;
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
   fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
@@ -411,9 +411,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
   if FichierTexteEstLeRapport(fic) then
@@ -424,18 +424,18 @@ begin
 
   with fic do
     begin
-      err := MyFSMakeFSSpec(vRefNum,parID,nomFichier,theFSSpec);
+      err := MyFSMakeFSSpec(vRefNum,parID,nomFichier,info);
       fullName := nomFichier;
       if (err = NoErr) then
         begin
-          MyResolveAliasFile(theFSSpec);
+          MyResolveAliasFile(info);
 
-          err := FSSpecToFullPath(theFSSpec,fullName);
+          err := FSSpecToFullPath(info,fullName);
 
         end else
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
-        bidlongint := FSSpecToFullPath(theFSSpec,fullName);
-      parID      := theFSSpec.parID;
+        bidlongint := FSSpecToFullPath(info,fullName);
+      parID      := info.parID;
       nomFichier := fullName;
       uniqueID   := HashString(fullName);
 
@@ -452,9 +452,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
   CreateFFSpecAndResolveAlias := err;
@@ -491,9 +491,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -506,9 +506,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -517,7 +517,7 @@ begin
       FichierTexteExiste := err2
     else
       begin
-			  err1 := FSpGetFInfo(fic.theFSSpec,FinderInfos);
+			  err1 := FSpGetFInfo(fic.info,FinderInfos);
 
 			  if avecDebuggageUnitFichiersTexte then
 			    begin
@@ -527,9 +527,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -573,9 +573,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -588,9 +588,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -599,7 +599,7 @@ begin
       FichierTexteExisteFSp := err2
     else
       begin
-			  err1 := FSpGetFInfo(fic.theFSSpec,FinderInfos);
+			  err1 := FSpGetFInfo(fic.info,FinderInfos);
 
 			  if avecDebuggageUnitFichiersTexte then
 			    begin
@@ -609,9 +609,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -647,13 +647,13 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.TheFSSpec,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
+  err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
 
   if avecDebuggageUnitFichiersTexte then
     begin
@@ -663,9 +663,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -692,13 +692,13 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.TheFSSpec,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
+  err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
 
   if avecDebuggageUnitFichiersTexte then
     begin
@@ -708,9 +708,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -736,7 +736,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.theFSSpec) = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OuvreFichierTexte := -1;
@@ -757,9 +757,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 *)
@@ -767,7 +767,7 @@ begin
   if err <> NoErr then  {on essaie avec les routines du systeme 7 et le fileInfo}
     with fic do
       begin
-        err := FSpOpenDF(theFSSpec,fsCurPerm,refNum);
+        err := FSpOpenDF(info,fsCurPerm,refNum);
 
         if avecDebuggageUnitFichiersTexte then
 			    begin
@@ -777,9 +777,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.theFSSpec));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.theFSSpec.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.theFSSpec.parID);
+			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err = ',err);
 			    end;
       end;
@@ -818,7 +818,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.theFSSpec) = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
       FermeFichierTexte := -1;
@@ -915,7 +915,7 @@ begin
   if err <> NoErr then  {on essaie avec les routines du systeme 7 et le fileInfo}
     with fic do
       begin
-        err := FSpDelete(theFSSpec);
+        err := FSpDelete(info);
 
         if avecDebuggageUnitFichiersTexte then
 			    begin
@@ -1844,7 +1844,7 @@ begin
   creator := GetFileCreatorFichierTexte(fic);
   fileType := GetFileTypeFichierTexte(fic);
 
-  FSpCreateResFile(fic.TheFSSpec,creator,fileType,smSystemScript);
+  FSpCreateResFile(fic.info,creator,fileType,smSystemScript);
   err := ResError;
 
   if avecDebuggageUnitFichiersTexte then
@@ -1874,14 +1874,14 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.theFSSpec) = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OuvreRessourceForkFichierTEXT := -1;
       exit;
     end;
 
-  nroRef := FSpOpenResFile(fic.TheFSSpec,4);
+  nroRef := FSpOpenResFile(fic.info,4);
   if nroRef = -1
     then OuvreRessourceForkFichierTEXT := -1  {Error !}
     else
@@ -1919,7 +1919,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.theFSSpec) = '+GetNameOfFSSpec(fic.theFSSpec));
+      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       UseRessourceForkFichierTEXT := -1;
@@ -2104,9 +2104,9 @@ begin
   if FichierTexteEstLeRapport(fic)
     then exit;
 
-  err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpGetFInfo(fic.info,InfosFinder);
   InfosFinder.fdCreator := QuelType;
-  err := FSpSetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpSetFInfo(fic.info,InfosFinder);
 end;
 
 
@@ -2117,9 +2117,9 @@ begin
   if FichierTexteEstLeRapport(fic)
     then exit;
 
-  err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpGetFInfo(fic.info,InfosFinder);
   InfosFinder.fdType := QuelType;
-  err := FSpSetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpSetFInfo(fic.info,InfosFinder);
 end;
 
 
@@ -2135,7 +2135,7 @@ begin
       exit;
     end;
 
-  err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpGetFInfo(fic.info,InfosFinder);
   GetFileCreatorFichierTexte := InfosFinder.fdCreator;
 end;
 
@@ -2152,7 +2152,7 @@ begin
     end;
 
   GetFileTypeFichierTexte := MY_FOUR_CHAR_CODE('????');
-  err := FSpGetFInfo(fic.theFSSpec,InfosFinder);
+  err := FSpGetFInfo(fic.info,InfosFinder);
   GetFileTypeFichierTexte := InfosFinder.fdType;
 end;
 
@@ -2171,7 +2171,7 @@ begin
       exit;
     end;
 
-  err := FSpMakeFSRef(fic.theFSSpec,fileRef);
+  err := FSpMakeFSRef(fic.info,fileRef);
 
   if err = NoErr then
     begin
@@ -2211,7 +2211,7 @@ begin
       exit;
     end;
 
-  err := FSpMakeFSRef(fic.theFSSpec,fileRef);
+  err := FSpMakeFSRef(fic.info,fileRef);
 
   if err = NoErr then
     begin

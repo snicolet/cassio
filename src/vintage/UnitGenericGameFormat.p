@@ -1074,7 +1074,7 @@ begin
 
             if (formatFichier.tailleOthellier <> N) then
               begin
-                WritelnDansRapport('Nom du fichier = '+GetNameOfFSSpec(theFic.theFSSpec));
+                WritelnDansRapport('Nom du fichier = '+GetNameOfFSSpec(theFic.info));
                 WritelnNumDansRapport('taille de l''othellier = ',formatFichier.tailleOthellier);
 
                 AlerteSimple('L''information de taille de l''othellier à l''intérieur du fichier ne correspond pas au nom du fichier !');

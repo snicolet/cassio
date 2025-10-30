@@ -956,8 +956,8 @@ begin
             if err = NoErr then
               begin
                 // on verifie que tout s'est bien passe
-                if EstUnFichierNouveauFormat(fic.theFSSpec,typeDonneesDatabase, enteteDatabase) and
-                   AjouterFichierNouveauFormat(fic.theFSSpec, path, typeDonneesDatabase, enteteDatabase)
+                if EstUnFichierNouveauFormat(fic.info,typeDonneesDatabase, enteteDatabase) and
+                   AjouterFichierNouveauFormat(fic.info, path, typeDonneesDatabase, enteteDatabase)
                   then
                     begin
                       // tout a l'air bon
@@ -1007,7 +1007,7 @@ begin
           *)
 
 
-          if EstUnFichierNouveauFormat(fichierACopier.theFSSpec,typeDonneesNew, enteteNew) then
+          if EstUnFichierNouveauFormat(fichierACopier.info,typeDonneesNew, enteteNew) then
              begin
                 err := NoErr;
 
@@ -1043,7 +1043,7 @@ begin
                 // on verifie que tout c'est bien passe
                 if (err = NoErr) then
                   begin
-                    if EstUnFichierNouveauFormat(theFichierTEXT.theFSSpec,typeDonneesDatabase, enteteDatabase)
+                    if EstUnFichierNouveauFormat(theFichierTEXT.info,typeDonneesDatabase, enteteDatabase)
                       then
                         begin
                           // tout a l'air bon

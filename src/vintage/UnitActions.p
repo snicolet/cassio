@@ -609,7 +609,7 @@ begin
       exit;
     end;
 
-  erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
+  erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
 
@@ -900,7 +900,7 @@ begin  {$UNUSED mergeWithCurrentTree}
           else
             begin
               PlaquerPositionEtPartie(posInitialeDansFichier,partieEnAlpha,kRejouerLesCoupsEnDirect);
-              erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
+              erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
               AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
             end;
       end
@@ -953,7 +953,7 @@ begin
     end;
 
   nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
-  erreurES := FSSpecToLongName(ficPartie.theFSSpec, nomLongDuFichier);
+  erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
   if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
      (GetModificationDateFichierTexte(ficPartie,theDate) = NoErr) then
     begin
@@ -1045,7 +1045,7 @@ label clean_up;
 
   procedure NotRecognised;
   begin
-    AlerteFormatNonReconnuFichierPartie(GetNameOfFSSpec(fic.theFSSpec));
+    AlerteFormatNonReconnuFichierPartie(GetNameOfFSSpec(fic.info));
     err := -1;
   end;
 
@@ -1250,7 +1250,7 @@ begin
   myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('TEXT'));
   if (myError = NoErr) then
     begin
-      erreurOuvertureEnFormatTEXT := OuvrirFichierPartieFSp(fic.theFSSpec, whichFormats, true);
+      erreurOuvertureEnFormatTEXT := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
       myError := DetruitFichierTexte(fic);
     end;
 
@@ -1263,7 +1263,7 @@ begin
   myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('EPS '));
   if (myError = NoErr) then
     begin
-      erreurOuvertureEnFormatEPS := OuvrirFichierPartieFSp(fic.theFSSpec, whichFormats, true);
+      erreurOuvertureEnFormatEPS := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
       myError := DetruitFichierTexte(fic);
       myError := erreurOuvertureEnFormatEPS;
     end;

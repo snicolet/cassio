@@ -77,17 +77,17 @@ procedure GetClassicalFontsID;
 function LoadFont(fontFSSpec : fileInfo) : OSErr;
 var err : OSErr;
     fileRef : FSRef;
-    theFSSpec : fileInfo;
+    info : fileInfo;
 begin
 
   err := FSpMakeFSRef(fontFSSpec,fileRef);
 
   if err = NoErr then
     begin
-      err := FSGetCatalogInfo(fileRef, kFSCatInfoNone, NIL, NIL, @theFSSpec, NIL);
+      err := FSGetCatalogInfo(fileRef, kFSCatInfoNone, NIL, NIL, @info, NIL);
       if (err = NoErr) then
         begin
-          err := FMActivateFonts(theFSSpec, NIL, NIL, kFMGlobalActivationContext);
+          err := FMActivateFonts(info, NIL, NIL, kFMGlobalActivationContext);
         end;
     end;
 

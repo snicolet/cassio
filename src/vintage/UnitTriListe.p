@@ -1048,7 +1048,7 @@ begin
             myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('TEXT'));
             if (myError = NoErr) then
               begin
-                ForEachLineInFileDo(fic.theFSSpec, AjouterJoueurDansClassementFromFichier, bidon);
+                ForEachLineInFileDo(fic.info, AjouterJoueurDansClassementFromFichier, bidon);
                 myError := DetruitFichierTexte(fic);
               end;
           end;

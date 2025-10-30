@@ -1522,13 +1522,13 @@ begin  { TypeDeFichierEstConnu }
   WritelnDansRapport('entree dans TypeDeFichierEstConnu');
   WritelnDansRapport('   dans TypeDeFichierEstConnu, fic.nomFichier = '+fic.nomFichier);
   WritelnNumDansRapport('   dans TypeDeFichierEstConnu, fic.vRefNum = ',fic.vRefNum);
-  WritelnDansRapport('   dans TypeDeFichierEstConnu, GetNameOfFSSpec(fic.theFSSpec) = '+GetNameOfFSSpec(fic.theFSSpec));
-  WritelnNumDansRapport('   dans TypeDeFichierEstConnu, fic.theFSSpec.vRefNum = ',fic.theFSSpec.vRefNum);
+  WritelnDansRapport('   dans TypeDeFichierEstConnu, GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+  WritelnNumDansRapport('   dans TypeDeFichierEstConnu, fic.info.vRefNum = ',fic.info.vRefNum);
   }
 
 
   if (FichierTexteExiste(fic.nomFichier,0,myFic) = NoErr) and
-     (GetNameOfFSSpec(myFic.theFSSpec)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
+     (GetNameOfFSSpec(myFic.info)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
      then
     with gLectureFichier do
       begin

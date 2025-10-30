@@ -172,7 +172,7 @@ var err : OSErr;
 begin
   err := NoErr;
 
-  err := FSSpecToLongName(fichierTHOR_PAR.theFSSpec, nomLongDuFichier);
+  err := FSSpecToLongName(fichierTHOR_PAR.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
   if not(JoueursEtTournoisEnMemoire) then

@@ -2187,7 +2187,7 @@ begin
               DetermineRectanglesActifsFenetreCourbe(gOffScreenCourbeRect);
 
               if (erreurES = NoErr) then
-                erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.theFSSpec);
+                erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.info);
            end
          else
            begin
@@ -2195,7 +2195,7 @@ begin
               DetermineRectanglesActifsFenetreCourbe(QDGetPortBound);
 
               if (erreurES = NoErr) then
-                erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.theFSSpec);
+                erreurES := QTGraph_ShowImageFromFile(offScreenWorld,gCourbeData.zoneGriseRect,fic.info);
            end;
       SetPort(oldPort);
 
@@ -2232,7 +2232,7 @@ begin
           exit;
 
         if (erreurES = NoErr) then
-           erreurES := QTGraph_ShowImageFromFile(offScreenWorld,offScreenRect,fic.theFSSpec);
+           erreurES := QTGraph_ShowImageFromFile(offScreenWorld,offScreenRect,fic.info);
 
         if (erreurES = NoErr) then
           WriteDebugageCourbe('LOADING PICTURE FROM CACHE : OK');

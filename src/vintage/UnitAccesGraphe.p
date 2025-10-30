@@ -332,7 +332,7 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
     begin
-		  if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) and
+		  if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.info),slot,noms) and
 		     (slot >= 1) and (slot <= tailleBufferGraphesOuverts)
 		    then
 		      begin
@@ -348,9 +348,9 @@ begin
 		            begin
 		              graphes[numeroSlotVide]           := fichier^;
 		              slotEstDisponible[numeroSlotVide] := false;
-		              AddStringToSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),numeroSlotVide,noms);
+		              AddStringToSet(GetNameOfFSSpec(fichier^.fic.info),numeroSlotVide,noms);
 
-		              {WritelnDansRapport('ajout de Ç'+GetNameOfFSSpec(fichier^.fic.theFSSpec)+'È dans noms');}
+		              {WritelnDansRapport('ajout de Ç'+GetNameOfFSSpec(fichier^.fic.info)+'È dans noms');}
 		            end
 		          else
 		            begin
@@ -369,11 +369,11 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
       begin
-        if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),slot,noms) and
+        if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.info),slot,noms) and
 		       (slot >= 1) and (slot <= tailleBufferGraphesOuverts) then
 		      begin
-		        RemoveStringFromSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),noms);
-		        {WritelnDansRapport('retrait de Ç'+GetNameOfFSSpec(fichier^.fic.theFSSpec)+'È de noms');}
+		        RemoveStringFromSet(GetNameOfFSSpec(fichier^.fic.info),noms);
+		        {WritelnDansRapport('retrait de Ç'+GetNameOfFSSpec(fichier^.fic.info)+'È de noms');}
 
 		        slotEstDisponible[slot] := true;
 		      end;
@@ -494,7 +494,7 @@ begin
 						              begin
 								            graphes[numeroSlotVide]           := fichier^;
 							              slotEstDisponible[numeroSlotVide] := false;
-							              AddStringToSet(GetNameOfFSSpec(fichier^.fic.theFSSpec),numeroSlotVide,noms);
+							              AddStringToSet(GetNameOfFSSpec(fichier^.fic.info),numeroSlotVide,noms);
 							            end;
 						          end
 						        else
