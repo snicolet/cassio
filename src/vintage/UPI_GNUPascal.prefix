@@ -47,7 +47,7 @@
 {$DEFINEC ATTRIBUTE_NAME(s)  attribute (name = s); }
 {$DEFINEC MAXINT_16BITS  32767  }
 
-{$definec MY_FOUR_CHAR_CODE(s) ((Ord(Copy(s,1,1)[1]) shl 24) or (Ord(Copy(s,2,1)[1]) shl 16) or (Ord(Copy(s,3,1)[1]) shl 8) or Ord(Copy(s,4,1)[1]))}
+{$definec FOUR_CHAR_CODE(s) ((Ord(Copy(s,1,1)[1]) shl 24) or (Ord(Copy(s,2,1)[1]) shl 16) or (Ord(Copy(s,3,1)[1]) shl 8) or Ord(Copy(s,4,1)[1]))}
 
 
 

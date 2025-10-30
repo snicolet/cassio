@@ -46,7 +46,7 @@ function CassioEstEnModeTournoi : boolean;     external;
 procedure SwitchToEngine(whichChannel : SInt16);     external;
 function CanStartEngine(pathMac, arguments : String255) : boolean;     external;
 procedure Wait(secondes : double);     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function LoadFont(fontFSSpec : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;

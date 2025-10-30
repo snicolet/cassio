@@ -97,7 +97,7 @@ function MyTrunc(x : double) : SInt32;     external;
 function MakePoint(h,v : SInt32) : Point;     external;
 procedure WriteStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;
-function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;     external;
+function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;     external;
 	procedure RandomizeTimer;     external;
   function RandomLongint : SInt32;     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;

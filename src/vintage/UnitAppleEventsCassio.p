@@ -129,14 +129,14 @@ begin
 					       theError := AEGetNthPtr(docList, index, typeFSS, @keyword, @returnedType, @theFileSpec, sizeof(theFileSpec), @actualSize);
 					       if (theError = noErr) then
 					         begin
-						        if (refCon = SInt32(MY_FOUR_CHAR_CODE('odoc')))   {kAEOpenDocuments}
+						        if (refCon = SInt32(FOUR_CHAR_CODE('odoc')))   {kAEOpenDocuments}
 						          then
 							          begin
 							            bidErr := OuvrirFichierPartieFSp(theFileSpec, AllKnownFormats, true);
 							            Leave;  {Cassio est monodocument !}
 							          end
 						          else
-						        if (refCon = SInt32(MY_FOUR_CHAR_CODE('pdoc')))   {kAEPrintDocuments}
+						        if (refCon = SInt32(FOUR_CHAR_CODE('pdoc')))   {kAEPrintDocuments}
 							        then
 							          begin
 							            if OuvrirFichierPartieFSp(theFileSpec, AllKnownFormats, true) = NoErr then
@@ -181,10 +181,10 @@ begin
 
   {TraceLog('InstallRequiredAppleEvents');}
 
-	result := AEInstallEventHandler(MY_FOUR_CHAR_CODE('aevt'),MY_FOUR_CHAR_CODE('oapp'),gHandleOAppUPP, 0, false);
+	result := AEInstallEventHandler(FOUR_CHAR_CODE('aevt'),FOUR_CHAR_CODE('oapp'),gHandleOAppUPP, 0, false);
 	result := AEInstallEventHandler(kCoreEventClass, kAEQuitApplication,gHandleQuitUPP, 0, false);
-	result := AEInstallEventHandler(MY_FOUR_CHAR_CODE('aevt'),MY_FOUR_CHAR_CODE('odoc'),gHandleDocUPP,SInt32(MY_FOUR_CHAR_CODE('odoc')), false);
-	result := AEInstallEventHandler(MY_FOUR_CHAR_CODE('aevt'),MY_FOUR_CHAR_CODE('pdoc'),gHandleDocUPP,SInt32(MY_FOUR_CHAR_CODE('pdoc')), false);
+	result := AEInstallEventHandler(FOUR_CHAR_CODE('aevt'),FOUR_CHAR_CODE('odoc'),gHandleDocUPP,SInt32(FOUR_CHAR_CODE('odoc')), false);
+	result := AEInstallEventHandler(FOUR_CHAR_CODE('aevt'),FOUR_CHAR_CODE('pdoc'),gHandleDocUPP,SInt32(FOUR_CHAR_CODE('pdoc')), false);
 
 
 	{WritelnNumDansRapport('InstallRequiredAppleEvents : result = ',result);}
@@ -371,8 +371,8 @@ begin
 
 	      kEventMouseScroll :
 	        begin
-	          kEventParamMouseWheelSmoothVerticalDelta   := EventParamName(MY_FOUR_CHAR_CODE('saxy'));
-	          kEventParamMouseWheelSmoothHorizontalDelta := EventParamName(MY_FOUR_CHAR_CODE('saxx'));
+	          kEventParamMouseWheelSmoothVerticalDelta   := EventParamName(FOUR_CHAR_CODE('saxy'));
+	          kEventParamMouseWheelSmoothHorizontalDelta := EventParamName(FOUR_CHAR_CODE('saxx'));
 
 
             err := GetEventParameter( whichEvent, kEventParamMouseWheelSmoothHorizontalDelta, typeLongInteger, NIL, sizeof(mightyMouseDeltaX), NIL, @mightyMouseDeltaX );

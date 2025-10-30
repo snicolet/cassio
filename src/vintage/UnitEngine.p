@@ -521,7 +521,7 @@ begin
 
  if not(isFolder) then
    begin
-     if (Pos('engine.sh',GetNameOfFSSpec(fs)) <> 0) then
+     if (Pos('engine.sh',GetName(fs)) <> 0) then
        begin
          err := FSSpecToFullPath(fs, pathEngine);
 

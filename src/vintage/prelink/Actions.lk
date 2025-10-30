@@ -135,7 +135,7 @@ procedure LitFormatSmartGameBoard(G : GameTree; whichFichierAbstrait : FichierAb
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 procedure UpdateGameByMainBranchFromCurrentNode(nroDernierCoupAtteintMAJ : SInt16; jeuMAJ : plateauOthello; jouableMAJ : plBool; frontMAJ : InfoFront; nbBlancsMAJ,nbNoirsMAJ : SInt32; traitMAJ,nbreCoupMAJ : SInt16; fonctionAppelante : String255);     external;
 procedure RemettreLeCurseurNormalDeCassio;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function DoitExpliquerTrierListeSuivantUnClassement : boolean;     external;
 procedure SetDoitExpliquerTrierListeSuivantUnClassement(flag : boolean);     external;
 procedure AjusteSleep;     external;
@@ -184,7 +184,7 @@ procedure DeletePropertiesOfTheseTypesInList(whichTypes : SetOfPropertyTypes; va
 procedure AddPropertyToRoot(prop : Property);     external;
 procedure DisposePropertyStuff(var p : Property);     external;
 procedure EcritFormatSmartGameBoard(G : GameTree; var whichFichierAbstrait : FichierAbstrait);     external;
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
 procedure SetAbstractFileType(var theFile : FichierAbstrait; whichType : OSType);     external;
 procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : OSType);     external;
 procedure EnableItemTousMenus;     external;

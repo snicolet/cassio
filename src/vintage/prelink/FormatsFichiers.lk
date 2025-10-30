@@ -41,7 +41,7 @@ procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 	function RightStr (const s : String255; len : SInt16) : String255;     external;
 function TailleDuFichierTHOR_PAR : SInt32;     external;
 	function EscapeDansQueue : boolean;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;     external;

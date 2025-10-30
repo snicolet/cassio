@@ -561,7 +561,7 @@ begin
 
 		    prompt255 := StringToStr255(prompt);
 
-		    erreurES := SaveFileDialog(@s,@prompt255,MY_FOUR_CHAR_CODE('SNXM'),MY_FOUR_CHAR_CODE('TEXT'), fileSpec, stationery ,replacing, navReply);
+		    erreurES := SaveFileDialog(@s,@prompt255,FOUR_CHAR_CODE('SNXM'),FOUR_CHAR_CODE('TEXT'), fileSpec, stationery ,replacing, navReply);
 
 		    if (erreurES <> NoErr) and debuggage.entreesSortiesUnitFichiersTEXT
 		      then WritelnNumDansRapport('MakeFileName : erreurES = ',erreurES);
@@ -578,11 +578,11 @@ begin
 
   	        reply.good    := navReply.validRecord;
   	        reply.copy    := false;
-  	        reply.fType   := MY_FOUR_CHAR_CODE('TEXT');
+  	        reply.fType   := FOUR_CHAR_CODE('TEXT');
   	        reply.version := 0;
   	        reply.vRefNum := fileSpec.vRefNum;
 
-  	        SetNameOfSFReply(reply, GetNameOfFSSpec(fileSpec));
+  	        SetNameOfSFReply(reply, GetName(fileSpec));
 
   	        {
   	        WritelnNumDansRapport('erreurES = ',erreurES);
@@ -654,7 +654,7 @@ begin
       if (osError = noErr) then
         begin
           BlockMoveData(Ptr(resultDesc.dataHandle^), @fileSpec, sizeof(fileInfo));
-          ignoredErr := MyFSMakeFSSpec(fileSpec.vRefNum, fileSpec.parID, GetNameOfFSSpec(fileSpec), theFileSpec);
+          ignoredErr := MyFSMakeFSSpec(fileSpec.vRefNum, fileSpec.parID, GetName(fileSpec), theFileSpec);
         end;
       ignoredErr := AEDisposeDesc(resultDesc);
       ignoredErr := NavDisposeReply(theNavReply);
@@ -693,28 +693,28 @@ begin
 
   SetPt(where,Hcenter(dlogwidth),Vcenter(dlogheight));
   n := 0;
-  if fileKind1 <> MY_FOUR_CHAR_CODE('????') then
+  if fileKind1 <> FOUR_CHAR_CODE('????') then
     begin
       typelist[n] := filekind1;
       inc(n);
     end;
-  if fileKind2 <> MY_FOUR_CHAR_CODE('????') then
+  if fileKind2 <> FOUR_CHAR_CODE('????') then
     begin
       typelist[n] := filekind2;
       inc(n);
     end;
-  if fileKind3 <> MY_FOUR_CHAR_CODE('????') then
+  if fileKind3 <> FOUR_CHAR_CODE('????') then
     begin
       typelist[n] := filekind3;
       inc(n);
     end;
-  if fileKind4 <> MY_FOUR_CHAR_CODE('????') then
+  if fileKind4 <> FOUR_CHAR_CODE('????') then
     begin
       typelist[n] := filekind4;
       inc(n);
     end;
   str := 'sans nom';
-  if fileKind1 = MY_FOUR_CHAR_CODE('????')
+  if fileKind1 = FOUR_CHAR_CODE('????')
     then MySFGetFile(where,str,NIL,-1,@typelist,NIL,reply)
     else MySFGetFile(where,str,NIL,n,@typelist,NIL,reply);
 
@@ -749,27 +749,27 @@ function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind
       else *)
         begin
 			    n := 0;
-			    if fileKind1 <> MY_FOUR_CHAR_CODE('????') then
+			    if fileKind1 <> FOUR_CHAR_CODE('????') then
 			      begin
 			        typelist[n] := filekind1;
 			        inc(n);
 			      end;
-			    if fileKind2 <> MY_FOUR_CHAR_CODE('????') then
+			    if fileKind2 <> FOUR_CHAR_CODE('????') then
 			      begin
 			        typelist[n] := filekind2;
 			        inc(n);
 			      end;
-			    if fileKind3 <> MY_FOUR_CHAR_CODE('????') then
+			    if fileKind3 <> FOUR_CHAR_CODE('????') then
 			      begin
 			        typelist[n] := filekind3;
 			        inc(n);
 			      end;
-			    if fileKind4 <> MY_FOUR_CHAR_CODE('????') then
+			    if fileKind4 <> FOUR_CHAR_CODE('????') then
 			      begin
 			        typelist[n] := filekind4;
 			        inc(n);
 			      end;
-			    erreurES := OpenOneFileDialog(prompt,MY_FOUR_CHAR_CODE('SNX4'),n,@typelist,whichSpec);
+			    erreurES := OpenOneFileDialog(prompt,FOUR_CHAR_CODE('SNX4'),n,@typelist,whichSpec);
 
 			    if (erreurES <> NoErr) and debuggage.entreesSortiesUnitFichiersTEXT
 			      then WritelnNumDansRapport('GetFileName : erreurES = ',erreurES);
@@ -795,7 +795,7 @@ function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind
       else
         begin
           reply.good := true;
-          SetNameOfSFReply(reply, GetNameOfFSSpec(whichSpec));
+          SetNameOfSFReply(reply, GetName(whichSpec));
           GetFileName := true;
         end;
 

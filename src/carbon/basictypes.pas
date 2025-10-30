@@ -66,10 +66,16 @@ uses
     TwoBytesArray = packed array[0..1] of UInt8;
     FourBytesArray = packed array[0..3] of UInt8;
     buf255 = packed array[0..255] of char;
+    
+    OSType = UInt32;   { storing 'packed array[0..3] of char' signatures on Mac OS }
+    OSErr = SInt16;
+    OSStatus = SInt32;
 
-  // capacity constants
+  // constants
   const
     MAXINT_16BITS = 32767;   // upper bound of SInt16 integers
+    noErr = 0;
+    fnfErr = -43; {file not found error}
 
   // function types
   type
@@ -138,9 +144,19 @@ uses
     spc = chr(spaceChar);
     del = chr(delChar);
 
+// Convert from a four 4 string to an OSType
+// Example : x := FOUR_CHAR_CODE('APPL');
+function FOUR_CHAR_CODE(s : string) : OSType;
+
+
 
 implementation
 
+
+function FOUR_CHAR_CODE(s : string) : OSType;
+begin
+   Result := ((Ord(Copy(s,1,1)[1]) shl 24) or (Ord(Copy(s,2,1)[1]) shl 16) or (Ord(Copy(s,3,1)[1]) shl 8) or Ord(Copy(s,4,1)[1]));
+end;
 
 // TestBasicTypes() : performing some tests for the BasicTypes unit
 
@@ -170,7 +186,7 @@ end;
 
 
 begin
-    TestBasicTypes();
+    // TestBasicTypes();
 end.
 
 

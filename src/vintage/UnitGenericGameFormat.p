@@ -226,7 +226,7 @@ begin
     begin
 
       BeginDialog;
-		  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info);
+		  ok := GetFileName('',reply,FOUR_CHAR_CODE('TEXT'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),info);
 		  EndDialog;
 
 		  if ok then
@@ -1074,7 +1074,7 @@ begin
 
             if (formatFichier.tailleOthellier <> N) then
               begin
-                WritelnDansRapport('Nom du fichier = '+GetNameOfFSSpec(theFic.info));
+                WritelnDansRapport('Nom du fichier = '+GetName(theFic.info));
                 WritelnNumDansRapport('taille de l''othellier = ',formatFichier.tailleOthellier);
 
                 AlerteSimple('L''information de taille de l''othellier à l''intérieur du fichier ne correspond pas au nom du fichier !');

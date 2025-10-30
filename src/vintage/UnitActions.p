@@ -1045,7 +1045,7 @@ label clean_up;
 
   procedure NotRecognised;
   begin
-    AlerteFormatNonReconnuFichierPartie(GetNameOfFSSpec(fic.info));
+    AlerteFormatNonReconnuFichierPartie(GetName(fic.info));
     err := -1;
   end;
 
@@ -1247,7 +1247,7 @@ begin
 
   (* WritelnDansRapport('Entree dans OuvrirPartieDansFichierPressePapier'); *)
 
-  myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('TEXT'));
+  myError := DumpPressePapierToFile(fic, FOUR_CHAR_CODE('TEXT'));
   if (myError = NoErr) then
     begin
       erreurOuvertureEnFormatTEXT := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
@@ -1260,7 +1260,7 @@ begin
       exit;
     end;
 
-  myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('EPS '));
+  myError := DumpPressePapierToFile(fic, FOUR_CHAR_CODE('EPS '));
   if (myError = NoErr) then
     begin
       erreurOuvertureEnFormatEPS := OuvrirFichierPartieFSp(fic.info, whichFormats, true);
@@ -1282,7 +1282,7 @@ procedure DoOuvrir;
 begin
   PartagerLeTempsMachineAvecLesAutresProcess(kCassioGetsAll);
   BeginDialog;
-  ok := GetFileName('',reply,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info);
+  ok := GetFileName('',reply,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),info);
   EndDialog;
   if ok then
     begin
@@ -1361,8 +1361,8 @@ begin
        end;
 
      erreurES := CloseFile(ficPartie);
-     SetFileTypeFichierTexte(ficPartie,MY_FOUR_CHAR_CODE('TSNX'));
-     SetFileCreatorFichierTexte(ficPartie,MY_FOUR_CHAR_CODE('SNX4'));
+     SetFileTypeFichierTexte(ficPartie,FOUR_CHAR_CODE('TSNX'));
+     SetFileCreatorFichierTexte(ficPartie,FOUR_CHAR_CODE('SNX4'));
 
      if SelectionRapportNonVide then
        SauverStyleDuRapport(ficPartie);
@@ -1436,13 +1436,13 @@ begin
           if SelectionRapportNonVide then
             begin
               DeletePropertiesOfTheseTypesInList([GameCommentProp],GetRacineDeLaPartie^.properties);
-              if GetFichierTEXTOfFichierAbstraitPtr(@theFile,fichier) = NoErr then
+              if GetBasicFileOfFichierAbstraitPtr(@theFile,fichier) = NoErr then
                 SauverStyleDuRapport(fichier);
             end;
-          SetAbstractFileType(theFile,MY_FOUR_CHAR_CODE('KSOF'));
-          SetAbstractFileCreator(theFile,MY_FOUR_CHAR_CODE('SNX4'));
+          SetAbstractFileType(theFile,FOUR_CHAR_CODE('KSOF'));
+          SetAbstractFileCreator(theFile,FOUR_CHAR_CODE('SNX4'));
 
-          if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fichier) = NoErr) then
+          if (GetBasicFileOfFichierAbstraitPtr(@theFile,fichier) = NoErr) then
             begin
               err := GetModificationDate(fichier,theDate);
               AjouterNomDansDatabaseOfRecentSGFFiles(DateEnString(theDate),GetNameOfSFReply(reply));
@@ -1467,7 +1467,7 @@ procedure DoOuvrirBibliotheque;
 var reply : SFReply;
     info : fileInfo;
 begin
-  if GetFileName('',reply,MY_FOUR_CHAR_CODE('TEXT'),MY_FOUR_CHAR_CODE('BIBL'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),info) then
+  if GetFileName('',reply,FOUR_CHAR_CODE('TEXT'),FOUR_CHAR_CODE('BIBL'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),info) then
     begin
       if LitBibliotheque(GetNameOfSFReply(reply),BAND(theEvent.modifiers,optionKey) <> 0) = NoErr then DoNothing;
       EnableItemTousMenus;
@@ -7058,7 +7058,7 @@ begin
         EnableKeyboardScriptSwitch;
         SwitchToScript(gLastScriptUsedOutsideCassio);
         inBackGround := true;
-        if enModeIOS and (MyZeroScrap = NoErr) and (MyPutScrap(LENGTH_OF_STRING(chainePourIOS),MY_FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]) = NoErr) then DoNothing;
+        if enModeIOS and (MyZeroScrap = NoErr) and (MyPutScrap(LENGTH_OF_STRING(chainePourIOS),FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]) = NoErr) then DoNothing;
         AnnulerSousCriteresRuban;
         HideTooltipWindowInCloud;
       end;

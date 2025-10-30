@@ -18,7 +18,7 @@ procedure MyDisposeDialog(var dlog : DialogPtr);     external;
 procedure EssaieSetPortWindowPlateau;     external;
 procedure EndDialog;     external;
 function CautionAlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
 	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;

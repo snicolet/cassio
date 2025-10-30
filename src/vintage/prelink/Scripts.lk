@@ -67,7 +67,7 @@ procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante :
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;     external;
 procedure FermerFichierEtFabriquerFichierAbstrait(var fic : basicfile; var theFile : FichierAbstrait);     external;
 function WritePositionEtTraitEnHTMLDansFichierAbstrait(position : PositionEtTraitRec; var theFile : FichierAbstrait; chainePrologue, chaineEpilogue, chainePionsNoirs, chainePionsBlancs, chaineCoupsLegauxBlancs, chaineCoupsLegauxNoirs, chaineAutresCasesVides, chaineTop, chaineBottom, chaineBordureGauche, chaineBordureDroite, chaineLegende : String255 ) : OSErr;     external;

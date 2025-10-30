@@ -245,8 +245,8 @@ begin
 		        err := Writeln(script,'% End of the endgame script');
 
 		        err := CloseFile(script);
-		        SetFileCreatorFichierTexte(script,MY_FOUR_CHAR_CODE('CWIE'));
-		        SetFileTypeFichierTexte(script,MY_FOUR_CHAR_CODE('TEXT'));
+		        SetFileCreatorFichierTexte(script,FOUR_CHAR_CODE('CWIE'));
+		        SetFileTypeFichierTexte(script,FOUR_CHAR_CODE('TEXT'));
 		      end;
 		end;
   RemettreLeCurseurNormalDeCassio;
@@ -635,11 +635,11 @@ begin {CreerQuizEnPHP}
 
 
       erreurES := FSSpecToFullPath(fichierPHP.info,s);
-      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
+      s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_prologue.php');
       erreurES := InsertFileInFile(fichierPHP,s);
 
 
-      nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
+      nom_solution := ReplaceStringOnce(GetName(fichierPHP.info), '.php' , '_^0.php');
 
 
 
@@ -716,7 +716,7 @@ begin {CreerQuizEnPHP}
 
 
       erreurES := FSSpecToFullPath(fichierPHP.info,s);
-      s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
+      s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_epilogue.php');
       erreurES := InsertFileInFile(fichierPHP,s);
 
       erreurES := CloseFile(fichierPHP);
@@ -747,11 +747,11 @@ begin {CreerQuizEnPHP}
 
 
                 erreurES := FSSpecToFullPath(fichierPHP.info,s);
-                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
+                s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_prologue.php');
                 erreurES := InsertFileInFile(fichierPHP,s);
 
 
-                nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
+                nom_solution := ReplaceStringOnce(GetName(fichierPHP.info), '.php' , '_^0.php');
 
 
 
@@ -833,7 +833,7 @@ begin {CreerQuizEnPHP}
 
 
                 erreurES := FSSpecToFullPath(fichierPHP.info,s);
-                s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
+                s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_epilogue.php');
                 erreurES := InsertFileInFile(fichierPHP,s);
 
                 erreurES := CloseFile(fichierPHP);

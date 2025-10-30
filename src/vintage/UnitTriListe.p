@@ -1045,7 +1045,7 @@ begin
         else
           begin
             (* on prend le classement dans le presse-papier *)
-            myError := DumpPressePapierToFile(fic, MY_FOUR_CHAR_CODE('TEXT'));
+            myError := DumpPressePapierToFile(fic, FOUR_CHAR_CODE('TEXT'));
             if (myError = NoErr) then
               begin
                 ForEachLineInFileDo(fic.info, AjouterJoueurDansClassementFromFichier, bidon);
@@ -1090,7 +1090,7 @@ begin {TrierListeSuivantUnClassement}
 
   TrierListeSuivantUnClassement := false;
 
-  if (LongueurSelectionRapport <= 3) and (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) <= 10) then
+  if (LongueurSelectionRapport <= 3) and (LongueurPressePapier(FOUR_CHAR_CODE('TEXT')) <= 10) then
     ExplicationSyntaxeTriListeSuivantClassementTournoi;
 
   ApprendreClassementDuTournoi;

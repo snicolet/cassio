@@ -533,8 +533,8 @@ begin
       exit;
     end;
 
-  SetFileCreatorFichierTexte(fichierProbCut,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(fichierProbCut,MY_FOUR_CHAR_CODE('EVAL'));
+  SetFileCreatorFichierTexte(fichierProbCut,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(fichierProbCut,FOUR_CHAR_CODE('EVAL'));
 
   EcritVecteursStatProbCutSurDisque := err;
 end;

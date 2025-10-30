@@ -141,7 +141,7 @@ begin
   if (nroPartieMax < nroPartieMin) then
     exit;
 
-  fileName := GetNameOfFSSpec(fichier);
+  fileName := GetName(fichier);
   if (fileName[LENGTH_OF_STRING(fileName)] <> ' ') and (fileName[LENGTH_OF_STRING(fileName)] <> '_')
     then fileName := Concat(fileName,' ');
   fileName := fileName + IntToStr(anneeDesParties);
@@ -172,8 +172,8 @@ begin
       exit;
     end;
 
-  SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('QWTB'));
+  SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('QWTB'));
 
 
   watch := GetCursor(watchcursor);
@@ -845,8 +845,8 @@ begin
 			      if (codeErreur = NoErr) then codeErreur := CloseFile(fic);
 			      {WritelnNumDansRapport('Après CloseFile, codeErreur = ',codeErreur);}
 
-			      SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-		        SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('QWTB'));
+			      SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+		        SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('QWTB'));
 
 
 			    end

@@ -19,7 +19,7 @@ procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, 
 	function RightStr (const s : String255; len : SInt16) : String255;     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 function  MyCountMenuItems(theMenu : MenuRef) : UInt16;     external;
   procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );     external;

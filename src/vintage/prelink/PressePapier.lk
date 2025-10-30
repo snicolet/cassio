@@ -34,7 +34,7 @@ function PositionEtTraitCourant : PositionEtTraitRec;     external;
 function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;     external;
 procedure FinRapport;     external;
 function GetTailleRapport : SInt32;     external;
-function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;     external;
+function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;     external;
 function WritePositionEtTraitPageWebFFODansFichierAbstrait(position : PositionEtTraitRec; legende : String255; var theFile : FichierAbstrait) : OSErr;     external;

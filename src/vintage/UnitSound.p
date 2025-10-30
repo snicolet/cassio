@@ -102,7 +102,7 @@ USES
  procedure HUnlockSoundRessource(SoundID : SInt16);
 	var MySoundHandle : handle;
 	begin
-	  MySoundHandle := GetResource(MY_FOUR_CHAR_CODE('snd '), SoundID);
+	  MySoundHandle := GetResource(FOUR_CHAR_CODE('snd '), SoundID);
 	  if MySoundHandle <> NIL then
 	     begin
 	       HUnlock(MySoundHandle);
@@ -118,7 +118,7 @@ var
   sndInPlayState : SInt8;
   theChannel : SndChannelPtr;
 begin
-  sndInPlay := GetResource(MY_FOUR_CHAR_CODE('snd '), soundID);
+  sndInPlay := GetResource(FOUR_CHAR_CODE('snd '), soundID);
   if sndInPlay <> NIL then
     begin
       HLockHi(sndInPlay);
@@ -147,7 +147,7 @@ var
   sndInPlay : Handle;
   sndInPlayState : SInt8;
 begin
-  sndInPlay := GetResource(MY_FOUR_CHAR_CODE('snd '), soundID);
+  sndInPlay := GetResource(FOUR_CHAR_CODE('snd '), soundID);
   if sndInPlay <> NIL then
     begin
       HLockHi(sndInPlay);

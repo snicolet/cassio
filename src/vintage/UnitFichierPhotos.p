@@ -517,17 +517,17 @@ begin
 	    begin
 	      codeErreur := FSSpecToFullPath(fs,path);
 
-	      if (GetNameOfFSSpec(fs)[1] <> '.') and
+	      if (GetName(fs)[1] <> '.') and
 	         (Pos('escr.txt',path) = 0) and (Pos('Borders',path) = 0) then
 	        begin
 
 			      case typeFichierGraphique of
-			        kFichierPicture2D       : textePourMenu := TransformeNomFichierPicture2D(GetNameOfFSSpec(fs));
-			        kFichierPicture3D       : textePourMenu := TransformeNomFichierPicture3D(GetNameOfFSSpec(fs));
+			        kFichierPicture2D       : textePourMenu := TransformeNomFichierPicture2D(GetName(fs));
+			        kFichierPicture3D       : textePourMenu := TransformeNomFichierPicture3D(GetName(fs));
 			        kFichierPictureHappyEnd : textePourMenu := TransformeNomFichierPictureHappyEnd(path);
-			        kFichierBordure         : textePourMenu := GetNameOfFSSpec(fs);
-			        kFichierPictureMeteo    : textePourMenu := GetNameOfFSSpec(fs);
-			        otherwise                 textePourMenu := GetNameOfFSSpec(fs);
+			        kFichierBordure         : textePourMenu := GetName(fs);
+			        kFichierPictureMeteo    : textePourMenu := GetName(fs);
+			        otherwise                 textePourMenu := GetName(fs);
 			      end; {case}
 
 
@@ -614,10 +614,10 @@ begin
      if (Pos('Meteo',path) <> 0)
        then AjouterFichierOthellierPicture(fs,kFichierPictureMeteo) else
 
-     if (Pos('2D',path) <> 0) and ('Bordure' = GetNameOfFSSpec(fs))
+     if (Pos('2D',path) <> 0) and ('Bordure' = GetName(fs))
        then AjouterFichierOthellierPicture(fs,kFichierBordure)      else
 
-     if (Pos('2D',path) <> 0) and (Pos('Bordure',GetNameOfFSSpec(fs)) <= 0)
+     if (Pos('2D',path) <> 0) and (Pos('Bordure',GetName(fs)) <= 0)
        then AjouterFichierOthellierPicture(fs,kFichierPicture2D)    else
 
      if (Pos('3D',path) <> 0)

@@ -2202,7 +2202,7 @@ end;
 function CopierPICTDansPressePapier(myPicture : PicHandle) : OSErr;
 begin
 	HLockHi(Handle(myPicture));
-	CopierPICTDansPressePapier := MyPutScrap(GetHandleSize(Handle(myPicture)), MY_FOUR_CHAR_CODE('PICT'), Ptr(myPicture^));
+	CopierPICTDansPressePapier := MyPutScrap(GetHandleSize(Handle(myPicture)), FOUR_CHAR_CODE('PICT'), Ptr(myPicture^));
 	HUnlock(Handle(myPicture));
 end;
 
@@ -2319,10 +2319,10 @@ begin
 			
 			if DiagrammeDoitCreerVersionEPS then
 			  begin
-			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierEPS , MY_FOUR_CHAR_CODE('EPS '));
+			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierEPS , FOUR_CHAR_CODE('EPS '));
 			
 			    {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierPDF , MY_FOUR_CHAR_CODE('PDF '));
+			    err := DumpFileToPressePapier(gInfosDiagrammeFforumEPS.nomFichierPDF , FOUR_CHAR_CODE('PDF '));
 			    {$ENDC}
 			  end;
 			
@@ -2881,7 +2881,7 @@ procedure InstalleMenuFlottantPolice;
 	begin
 		MenuFlottantPolice := NewMenu(MenuFlottantPoliceID, StringToStr255(''));
 		
-		{AppendResMenu(MenuFlottantPolice, MY_FOUR_CHAR_CODE('FONT'));}
+		{AppendResMenu(MenuFlottantPolice, FOUR_CHAR_CODE('FONT'));}
 		
 		MyInsertMenuItem(MenuFlottantPolice,'Times',1000);
 		MyInsertMenuItem(MenuFlottantPolice,'Times New Roman',1000);

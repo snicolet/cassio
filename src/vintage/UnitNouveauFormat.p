@@ -962,8 +962,8 @@ begin
                     begin
                       // tout a l'air bon
 
-                      SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-                      SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('QWTB'));
+                      SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+                      SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('QWTB'));
 
 
                       WritelnDansRapportThreadSafe('');
@@ -1105,7 +1105,7 @@ begin
              (typeDonneesDuFichier = kFicIndexPartiesNouveauFormat)
             then
               begin
-                nomDistrib     := NomDistributionAssocieeNouveauFormat(GetNameOfFSSpec(fic),annee);
+                nomDistrib     := NomDistributionAssocieeNouveauFormat(GetName(fic),annee);
                 ok             := EstUneDistributionConnue(nomDistrib,path,nroDistribution);
                 nomFichier     := NIL;
                 pathFichier    := NIL;
@@ -1114,7 +1114,7 @@ begin
               begin
                 nomFichier      := String255Ptr(AllocateMemoryPtr(sizeof(String255)));
                 pathFichier     := String255Ptr(AllocateMemoryPtr(sizeof(String255)));
-                nomfichier^     := GetNameOfFSSpec(fic);
+                nomfichier^     := GetName(fic);
                 pathFichier^    := path;
 
 
@@ -1168,7 +1168,7 @@ begin
   codeErreur := FSClose(refnum);
   refnum := 0;
 
-  nomDuFichier := sysutils.UpperCase(GetNameOfFSSpec(fic));
+  nomDuFichier := sysutils.UpperCase(GetName(fic));
   with entete do
     begin
       formatReconnu := (siecleCreation >= 19) and (siecleCreation <= 21) and
@@ -1179,7 +1179,7 @@ begin
 
 
       (*
-      WritelnDansRapport('format interne du fichier Ç'+GetNameOfFSSpec(fic)+'È');
+      WritelnDansRapport('format interne du fichier Ç'+GetName(fic)+'È');
       with entete do
 		    begin
 				  WritelnNumDansRapport('entete.siecleCreation = ',siecleCreation);
@@ -1252,10 +1252,10 @@ begin
 					        then typeDonnees := kFicPartiesNouveauFormat
 					        else
 					          begin
-					            WritelnDansRapport('#### Erreur!! Le nom du fichier Ç'+GetNameOfFSSpec(fic)+'È ne contient pas d''annŽe,');
+					            WritelnDansRapport('#### Erreur!! Le nom du fichier Ç'+GetName(fic)+'È ne contient pas d''annŽe,');
 					            WritelnDansRapport('#### ou l''annŽe ne co•ncide pas avec la date dans le fichier !!');
 					            WritelnDansRapport('');
-					            WritelnDansRapport('#### Erreur!! Le format interne du fichier Ç'+GetNameOfFSSpec(fic)+'È me parait douteux');
+					            WritelnDansRapport('#### Erreur!! Le format interne du fichier Ç'+GetName(fic)+'È me parait douteux');
       		            with entete do
       							    begin
       									  WritelnNumDansRapport('entete.siecleCreation = ',siecleCreation);
@@ -1280,7 +1280,7 @@ begin
 		           ((Pos('.PZZ',nomDuFichier) > 0) and EndsWith(nomDuFichier,'.PZZ')) then
 		          begin
 		            SysBeep(0);
-		            WritelnDansRapport('#### Erreur!! Le format interne du fichier Ç'+GetNameOfFSSpec(fic)+'È me parait douteux');
+		            WritelnDansRapport('#### Erreur!! Le format interne du fichier Ç'+GetName(fic)+'È me parait douteux');
 		            with entete do
 							    begin
 									  WritelnNumDansRapport('entete.siecleCreation = ',siecleCreation);
@@ -1303,7 +1303,7 @@ begin
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsParties * TaillePartieRecNouveauFormat)) then
 		         begin
-		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetNameOfFSSpec(fic)+'È ne fait pas la bonne taille');
+		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetName(fic)+'È ne fait pas la bonne taille');
 		           with entete do
 							    begin
 							      WritelnNumDansRapport('taille du fichier = ',tailleFichier);
@@ -1328,7 +1328,7 @@ begin
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsTournoisEtJoueurs * TailleTournoiRecNouveauFormat)) then
 		         begin
-		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetNameOfFSSpec(fic)+'È ne fait pas la bonne taille');
+		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetName(fic)+'È ne fait pas la bonne taille');
 		           with entete do
 							    begin
 							      WritelnNumDansRapport('taille du fichier = ',tailleFichier);
@@ -1353,7 +1353,7 @@ begin
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + NombreEnregistrementsTournoisEtJoueurs * TailleJoueurRecNouveauFormat)) then
 		         begin
-		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetNameOfFSSpec(fic)+'È ne fait pas la bonne taille');
+		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetName(fic)+'È ne fait pas la bonne taille');
 		           with entete do
 							    begin
 							      WritelnNumDansRapport('taille du fichier = ',tailleFichier);
@@ -1378,7 +1378,7 @@ begin
 		     begin
 		       if (tailleFichier <> (TailleEnTeteNouveauFormat + TailleEnteteSupplementaireSolitaires + NombreEnregistrementsParties*TailleSolitaireRecNouveauFormat)) then
 		         begin
-		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetNameOfFSSpec(fic)+'È ne fait pas la bonne taille');
+		           WritelnDansRapport('#### Erreur!! le fichier  Ç'+GetName(fic)+'È ne fait pas la bonne taille');
 		           with entete do
 							    begin
 							      WritelnNumDansRapport('taille du fichier = ',tailleFichier);
@@ -2546,8 +2546,8 @@ begin
 	                 if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
 	                   then codeErreur := DeleteFile(fic);
 	                 codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
-	                 SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-	                 SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
+	                 SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+	                 SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('INDX'));
 
 
 	                 codeErreur := OpenFile(fic);
@@ -2695,8 +2695,8 @@ begin
 	                 if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
 	                   then codeErreur := DeleteFile(fic);
 	                 codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
-	                 SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-	                 SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
+	                 SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+	                 SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('INDX'));
 
 
 	                 codeErreur := OpenFile(fic);
@@ -2888,25 +2888,25 @@ begin
     end;
 
   if not(isFolder) and (Pos('Gestion Base WThor',path) <= 0) and
-     (GetNameOfFSSpec(fs)[1] <> '.') and EstUnFichierNouveauFormat(fs,typeDonnees,entete) then
+     (GetName(fs)[1] <> '.') and EstUnFichierNouveauFormat(fs,typeDonnees,entete) then
     begin
       if (typeDonnees = kFicPartiesNouveauFormat) then
         begin
-          nomDistrib := NomDistributionAssocieeNouveauFormat(GetNameOfFSSpec(fs),anneeDansDistrib);
+          nomDistrib := NomDistributionAssocieeNouveauFormat(GetName(fs),anneeDansDistrib);
           AjouterDistributionNouveauFormat(nomDistrib,GetPathOfScannedDirectory+path,kFicPartiesNouveauFormat);
-          {SetFileCreator(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),'SNX4');
-          SetFileType(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),'QWTB');}
-          SetFileCreator(fs,MY_FOUR_CHAR_CODE('SNX4'));
-          SetFileType(fs,MY_FOUR_CHAR_CODE('QWTB'));
+          {SetFileCreator(GetPathOfScannedDirectory+path+GetName(fs),'SNX4');
+          SetFileType(GetPathOfScannedDirectory+path+GetName(fs),'QWTB');}
+          SetFileCreator(fs,FOUR_CHAR_CODE('SNX4'));
+          SetFileType(fs,FOUR_CHAR_CODE('QWTB'));
         end;
       if (typeDonnees = kFicIndexPartiesNouveauFormat) then
         begin
-          nomDistrib := NomDistributionAssocieeNouveauFormat(GetNameOfFSSpec(fs),anneeDansDistrib);
+          nomDistrib := NomDistributionAssocieeNouveauFormat(GetName(fs),anneeDansDistrib);
           AjouterDistributionNouveauFormat(nomDistrib,GetPathOfScannedDirectory+path,kFicPartiesNouveauFormat);
         end;
       if (typeDonnees = kFicSolitairesNouveauFormat) then
         begin
-          nomDistrib := NomDistributionAssocieeNouveauFormat(GetNameOfFSSpec(fs),bidint);
+          nomDistrib := NomDistributionAssocieeNouveauFormat(GetName(fs),bidint);
           AjouterDistributionNouveauFormat(nomDistrib,GetPathOfScannedDirectory+path,kFicSolitairesNouveauFormat);
         end;
       if (typeDonnees = kFicJoueursNouveauFormat) or
@@ -2914,20 +2914,20 @@ begin
          (typeDonnees = kFicJoueursCourtsNouveauFormat) or
          (typeDonnees = kFicTournoisCourtsNouveauFormat) then
         begin
-          {SetFileCreator(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),MY_FOUR_CHAR_CODE('SNX4'));
-          SetFileType(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),MY_FOUR_CHAR_CODE('QWTB'));}
-          SetFileCreator(fs,MY_FOUR_CHAR_CODE('SNX4'));
-          SetFileType(fs,MY_FOUR_CHAR_CODE('QWTB'));
+          {SetFileCreator(GetPathOfScannedDirectory+path+GetName(fs),FOUR_CHAR_CODE('SNX4'));
+          SetFileType(GetPathOfScannedDirectory+path+GetName(fs),FOUR_CHAR_CODE('QWTB'));}
+          SetFileCreator(fs,FOUR_CHAR_CODE('SNX4'));
+          SetFileType(fs,FOUR_CHAR_CODE('QWTB'));
         end;
       if (typeDonnees = kFicSolitairesNouveauFormat) then
         begin
-          {SetFileCreator(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),MY_FOUR_CHAR_CODE('SNX4'));
-          SetFileType(GetPathOfScannedDirectory+path+GetNameOfFSSpec(fs),MY_FOUR_CHAR_CODE('PZZL'));}
-          SetFileCreator(fs,MY_FOUR_CHAR_CODE('SNX4'));
-          SetFileType(fs,MY_FOUR_CHAR_CODE('PZZL'));
+          {SetFileCreator(GetPathOfScannedDirectory+path+GetName(fs),FOUR_CHAR_CODE('SNX4'));
+          SetFileType(GetPathOfScannedDirectory+path+GetName(fs),FOUR_CHAR_CODE('PZZL'));}
+          SetFileCreator(fs,FOUR_CHAR_CODE('SNX4'));
+          SetFileType(fs,FOUR_CHAR_CODE('PZZL'));
         end;
 
-      if (typeDonnees = kFicJoueursNouveauFormat) and (sysutils.UpperCase(GetNameOfFSSpec(fs)) = 'SOLITAIRES.JOU') and FichierWTHORJOUDejaTrouve
+      if (typeDonnees = kFicJoueursNouveauFormat) and (sysutils.UpperCase(GetName(fs)) = 'SOLITAIRES.JOU') and FichierWTHORJOUDejaTrouve
          then DoNothing
          else bidon := AjouterFichierNouveauFormat(fs,GetPathOfScannedDirectory+path,typeDonnees,entete);
 
@@ -3083,8 +3083,8 @@ begin
 	       if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
            then codeErreur := DeleteFile(fic);
          codeErreur := CreateFile(nomCompletDuFichierIndex,0,fic);
-         SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-         SetFileTypeFichierTexte(fic,MY_FOUR_CHAR_CODE('INDX'));
+         SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+         SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('INDX'));
 
 	       codeErreur := OpenFile(fic);
 	       if codeErreur = 0 then

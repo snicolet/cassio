@@ -1,10 +1,12 @@
-UNIT basicfile;
+UNIT basicfiles;
 
 
 INTERFACE
 
 
-USES basictypes, basicstring;
+USES basictypes, 
+     basicstring,
+     basictime;
 
 
 TYPE 
@@ -65,6 +67,8 @@ function DeleteFile(var fic : basicfile) : OSErr;
 function FileIsOpen(var fic : basicfile) : boolean;
 function GetUniqueID(var fic : basicfile) : SInt32;
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
+function GetName(var fic : basicfile) : String255;
+function GetName(var info : fileInfo) : String255;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
@@ -75,21 +79,17 @@ function EmptyFile(var fic : basicfile) : OSErr;
 
 function Write(var fic : basicfile; s : String255) : OSErr;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function Write(var fic : basicfile; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;
 function Write(var fic : basicfile; value : SInt32) : OSErr;
-function Write(var fic : basicfile; const s : HugeString) : OSErr;
 function Writeln(var fic : basicfile; s : String255) : OSErr;
-function Writeln(var fic : basicfile; const s : HugeString) : OSErr;
 
 
-
+function Readln(var fic : basicfile; var s : String255) : OSErr;
+function Readln(var fic : basicfile; var s : LongString) : OSErr;
+function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 function Read(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
 function Read(var fic : basicfile; var value : SInt32) : OSErr;
-function Readln(var fic : basicfile; var s : String255) : OSErr;
-function Readln(var fic : basicfile; var s : LongString) : OSErr;
-function Readln(var fic : basicfile; var s : HugeString) : OSErr;
-function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+
 
 
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
@@ -119,7 +119,10 @@ procedure SetDebugFiles(flag : boolean);
 function  GetDebugFiles() : boolean;
 
 
-function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;
+function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
+function FileIsStandardOutput(var fic : basicfile) : boolean;
+
+
 function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 
@@ -148,33 +151,13 @@ procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
 
 IMPLEMENTATION
 
-
-{BEGIN_USE_CLAUSE}
-
-
-{$DEFINEC USE_PRELINK true}
-
-USES
-    Finder, TextCommon, MacErrors, Script, GestaltEqu, Sound, Resources, Aliases
-    , CFBase, CFString
-{$IFC NOT(USE_PRELINK)}
-    , MyQuickDraw, MyStrings, MyFileSystemUtils, UnitHashing, UnitTraceLog, UnitServicesRapport, UnitFichierAbstrait
-    , UnitRapportImplementation, UnitServicesDialogs, MyMathUtils, UnitRapport, UnitServicesMemoire, UnitHugeString ;
-{$ELSEC}
-    ;
-    {$I prelink/FichiersTEXT.lk}
-{$ENDC}
-
-
-{END_USE_CLAUSE}
-
-
-
-
-
-
-
-
+uses
+{$IFDEF UNIX}
+  cmem,
+  cthreads,
+  cwstring,
+{$ENDIF}
+  SysUtils;
 
 
 const unit_initialisee : boolean = false;
@@ -191,17 +174,17 @@ var useStandardConsole : boolean;
 
 procedure StandardConsoleDisplayer(s : String255);
 begin
-  Writeln(s);
+  system.Writeln(s);
 end;
 
 procedure StandardConsoleDisplayerWithNum(s : String255; num : SInt32);
 begin
-  Writeln(s,num);
+  system.Writeln(s,num);
 end;
 
 procedure StandardConsoleAlertWithNum(s : String255; num : SInt32);
 begin
-  Writeln('### WARNING ### '+s+' ',num);
+  system.Writeln('### WARNING ### '+s+' ',num);
 end;
 
 
@@ -270,12 +253,12 @@ begin
 end;
 
 
-function FichierTexteEstLeRapport(var fic : basicfile) : boolean;
+function FileIsStandardOutput(var fic : basicfile) : boolean;
 begin
-  FichierTexteEstLeRapport := (fic.vRefNum = 0) and
-                              (fic.parID = 0) and
-                              (fic.refNum = 0) and
-                              (fic.nomFichier = nomSortieStandardDansRapport);
+  FileIsStandardOutput := (fic.vRefNum = 0) and
+                          (fic.parID = 0) and
+                          (fic.refNum = 0) and
+                          (fic.nomFichier = nomSortieStandardDansRapport);
 end;
 
 
@@ -333,7 +316,7 @@ end;
 procedure InitialiseFichierTexteFSp(info : fileInfo; var fic : basicfile);
 begin
 
-  fic.nomFichier := GetNameOfFSSpec(info);
+  fic.nomFichier := info.name;
   fic.vRefNum    := info.vRefNum;
   fic.parID      := info.parID;
   fic.refNum     := 0;
@@ -377,7 +360,7 @@ var err : OSErr;
 label cleanUp;
 begin
   err := -1;
-  theLongName := GetNameOfFSSpec(whichFile);
+  theLongName := whichFile.name;
 
   if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
      (MacVersion >= $1020)  (* au moins Mac OS X 10.2 *)
@@ -443,12 +426,12 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       CreateFFSpecAndResolveAlias := NoErr;
       exit;
@@ -484,7 +467,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
@@ -509,7 +492,7 @@ begin
 
   InitialiseFichierTexte(nom,vRefNum,fic);
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       FileExists := NoErr;
       exit;
@@ -523,7 +506,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
@@ -538,7 +521,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
@@ -559,7 +542,7 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
@@ -581,9 +564,9 @@ function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
     FinderInfos : FInfo;
 begin
-  if (GetNameOfFSSpec(info) = '') then
+  if (info.name = '') then
     begin
-      DisplayMessageInConsole('WARNING ! (GetNameOfFSSpec(info) = '''') dans FileExists');
+      DisplayMessageInConsole('WARNING ! info.name) = '''' dans FileExists');
       FileExists := -1;
       exit;
     end;
@@ -591,7 +574,7 @@ begin
 
   InitialiseFichierTexteFSp(info, fic);
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       FileExists := NoErr;
       exit;
@@ -605,7 +588,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
@@ -620,7 +603,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
@@ -641,7 +624,7 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
@@ -665,7 +648,7 @@ begin
   InitialiseFichierTexte(nom,vRefNum, fic);
   err := CreateFFSpecAndResolveAlias(fic);
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       CreateFile := NoErr;
       exit;
@@ -679,13 +662,13 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
+  err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
 
   if debugBasicFiles then
     begin
@@ -695,7 +678,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
@@ -710,7 +693,7 @@ begin
   InitialiseFichierTexteFSp(info, fic);
   err := CreateFFSpecAndResolveAlias(fic);
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       CreateFile := NoErr;
       exit;
@@ -724,13 +707,13 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
+  err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
 
   if debugBasicFiles then
     begin
@@ -740,7 +723,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
@@ -756,7 +739,7 @@ function OpenFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       OpenFile := NoErr;
       exit;
@@ -768,7 +751,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fic.info.name) = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OpenFile := -1;
@@ -789,7 +772,7 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
@@ -809,7 +792,7 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetNameOfFSSpec(fic.info));
+			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err = ',err);
@@ -838,7 +821,7 @@ function CloseFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       CloseFile := NoErr;
       exit;
@@ -850,7 +833,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
       CloseFile := -1;
@@ -903,7 +886,7 @@ function DeleteFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       DeleteFile := NoErr;
       exit;
@@ -965,7 +948,7 @@ end;
 function FileIsOpen(var fic : basicfile) : boolean;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       FileIsOpen := true;
       exit;
@@ -983,7 +966,7 @@ function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       taille := GetTailleRapport;
       GetFileSize := NoErr;
@@ -1004,12 +987,21 @@ begin
   GetFileSize := err;
 end;
 
+function GetName(var fic : basicfile) : String255;
+begin
+  GetName := fic.info.name;
+end;
+
+function GetName(var info : fileInfo) : String255;
+begin
+  GetName := info.name;
+end;
 
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       SetDebutSelectionRapport(position);
       SetFinSelectionRapport(position);
@@ -1044,7 +1036,7 @@ function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       FinRapport;
       SetFilePositionAtEnd := NoErr;
@@ -1069,7 +1061,7 @@ function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       position := GetDebutSelectionRapport;
       GetFilePosition := NoErr;
@@ -1094,7 +1086,7 @@ function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;
 var position,logicalEOF : SInt32;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       position := GetDebutSelectionRapport;
       EndOfFile := (position >= GetTailleRapport);
@@ -1135,7 +1127,7 @@ function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       SetEndOfFile := NoErr;
       exit;
@@ -1159,7 +1151,7 @@ function EmptyFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       DetruireTexteDansRapport(0,2000000000,true);  {2000000000 was MawLongint}
       EmptyFile := NoErr;
@@ -1185,7 +1177,7 @@ function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       InsereTexteDansRapport(buffPtr,count);
       Write := NoErr;
@@ -1206,51 +1198,6 @@ begin
 end;
 
 
-function Write(var fic : basicfile; const s : HugeString) : OSErr;
-var err : OSErr;
-    count : SInt32;
-    buffer : CharArrayPtr;
-begin
-
-  if FichierTexteEstLeRapport(fic) then
-    begin
-      WriteHugeStringDansRapport(s);
-      Write := NoErr;
-      exit;
-    end;
-
-  err := -1;
-
-  if HugeStringIsUsable(s) then
-    begin
-      count   := LengthOfHugeString(s);
-      buffer  := GetBufferOfHugeString(s);
-
-      err     := MyFSWrite(fic.refNum, count, @buffer^[1]);
-    end;
-
-  Write := err;
-end;
-
-
-function Writeln(var fic : basicfile; const s : HugeString) : OSErr;
-var err : OSErr;
-begin
-
-  if FichierTexteEstLeRapport(fic) then
-    begin
-      WritelnHugeStringDansRapport(s);
-      Writeln := NoErr;
-      exit;
-    end;
-
-  err := Write(fic, s);
-
-  if (err = NoErr) then
-    err := Writeln(fic, '');
-
-  Writeln := err;
-end;
 
 
 
@@ -1258,7 +1205,7 @@ function Write(var fic : basicfile; s : String255) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       WriteDansRapport(s);
       Write := NoErr;
@@ -1283,7 +1230,7 @@ function Writeln(var fic : basicfile; s : String255) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       WritelnDansRapport(s);
       Writeln := NoErr;
@@ -1304,34 +1251,6 @@ begin
 end;
 
 
-function Write(var fic : basicfile; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;
-var err : OSErr;
-    buffer : Ptr;
-begin
-  err := -1;
-
-  if (count <= 0) then
-    exit;
-
-  buffer := AllocateMemoryPtr(count + 100);
-  if (buffer <> NIL) then
-    begin
-      err := ReadFromFichierAbstrait(ficAbstrait, fromPos , count, buffer);
-      if err = NoErr then
-        err := Write(fic, buffer, count);
-      DisposeMemoryPtr(buffer);
-    end;
-
-  if debugBasicFiles then
-    begin
-      DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSWrite dans Write :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageWithNumInConsole('   ==> Err = ',err);
-    end;
-
-  Write := err;
-end;
 
 
 
@@ -1340,7 +1259,7 @@ var err : OSErr;
     count : SInt32;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       InsereTexteDansRapport(@value,4);
       Writeln := NoErr;
@@ -1365,7 +1284,7 @@ function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       Read := -1;
       exit;
@@ -1386,18 +1305,18 @@ begin
 end;
 
 
-function Read(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
+function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 var len : SInt32;
     err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       Read := -1;
       exit;
     end;
 
-  len := nbOctets;
+  len := count;
   if len > 255 then len := 255;
   if len < 0 then len := 0;
 
@@ -1547,7 +1466,7 @@ var err : OSErr;
 begin
   s := '';
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       Readln := -1;
       exit;
@@ -1644,45 +1563,10 @@ end;
 
 
 
- (*
- *******************************************************************************
- *                                                                             *
- *   Readln()  : lit un fichier jusqu'au premier     *
- *   retour chariot et met le resultat dans une HugeString. Cette fonction     *
- *   n'alloue pas la HugeString, elle doit avoir ete creee auparavant par un   *
- *   appel a NewHugeString() ou MakeHugeString().                              *
- *                                                                             *
- *******************************************************************************
- *)
-function Readln(var fic : basicfile; var s : HugeString) : OSErr;
-var buffer : CharArrayPtr;
-    err : OSErr;
-    count : SInt32;
-begin
-
-  err := -1;
-
-  if HugeStringIsUsable(s) then
-    begin
-      count  := GetMaximumCapacityOfHugeString;
-      buffer := GetBufferOfHugeString(s);
-
-      err    := Readln(fic, @buffer^[1], count);
-
-      if (err = NoErr)
-        then SetLengthOfHugeString(s, count);
-
-    end;
-
-  Readln := err;
-end;
-
-
-
 (*
  *******************************************************************************
  *                                                                             *
- *   Readln()  : lit un fichier jusqu'au premier retour  *
+ *   Readln()  : lit un fichier jusqu'au premier retour                        *
  *   chariot et met le resultat dans buffer. Cette fonction n'alloue pas le    *
  *   buffer, il doit avoir ete cree a la bonne taille auparavant.              *
  *      -> En entree, count est la taille du buffer                            *
@@ -1698,7 +1582,7 @@ var err : OSErr;
     localBuffer : PackedArrayOfCharPtr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       Readln := -1;
       exit;
@@ -1751,7 +1635,7 @@ var err : OSErr;
     count : SInt32;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       Read := -1;
       exit;
@@ -1894,7 +1778,7 @@ function OuvreRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
 var nroRef : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       OuvreRessourceForkFichierTEXT := -1;
       exit;
@@ -1906,7 +1790,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       OuvreRessourceForkFichierTEXT := -1;
@@ -1939,7 +1823,7 @@ function UseRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       UseRessourceForkFichierTEXT := -1;
       exit;
@@ -1951,7 +1835,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageInConsole('GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       UseRessourceForkFichierTEXT := -1;
@@ -1969,7 +1853,7 @@ function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       FermeRessourceForkFichierTEXT := -1;
       exit;
@@ -2133,7 +2017,7 @@ procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);
 var InfosFinder : FInfo;
     err : OSErr;
 begin
-  if FichierTexteEstLeRapport(fic)
+  if FileIsStandardOutput(fic)
     then exit;
 
   err := FSpGetFInfo(fic.info,InfosFinder);
@@ -2146,7 +2030,7 @@ procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);
 var InfosFinder : FInfo;
     err : OSErr;
 begin
-  if FichierTexteEstLeRapport(fic)
+  if FileIsStandardOutput(fic)
     then exit;
 
   err := FSpGetFInfo(fic.info,InfosFinder);
@@ -2159,9 +2043,9 @@ function GetFileCreatorFichierTexte(var fic : basicfile) : OSType;
 var InfosFinder : FInfo;
     err : OSErr;
 begin
-  GetFileCreatorFichierTexte := MY_FOUR_CHAR_CODE('????');
+  GetFileCreatorFichierTexte := FOUR_CHAR_CODE('????');
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       GetFileCreatorFichierTexte := NoErr;
       exit;
@@ -2177,13 +2061,13 @@ var InfosFinder : FInfo;
     err : OSErr;
 begin
 
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       GetFileTypeFichierTexte := NoErr;
       exit;
     end;
 
-  GetFileTypeFichierTexte := MY_FOUR_CHAR_CODE('????');
+  GetFileTypeFichierTexte := FOUR_CHAR_CODE('????');
   err := FSpGetFInfo(fic.info,InfosFinder);
   GetFileTypeFichierTexte := InfosFinder.fdType;
 end;
@@ -2197,7 +2081,7 @@ var err : OSErr;
     fileRef : FSRef;
     catalogInfo : FSCatalogInfo;
 begin
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       GetCreationDate := -1;
       exit;
@@ -2220,7 +2104,7 @@ var err : OSErr;
     {fileRef : FSRef;
     catalogInfo : FSCatalogInfo;}
 begin {$UNUSED theDate}
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       SetCreationDate := -1;
       exit;
@@ -2237,7 +2121,7 @@ var err : OSErr;
     fileRef : FSRef;
     catalogInfo : FSCatalogInfo;
 begin
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       GetModificationDate := -1;
       exit;
@@ -2258,7 +2142,7 @@ end;
 function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 var err : OSErr;
 begin {$UNUSED theDate}
-  if FichierTexteEstLeRapport(fic) then
+  if FileIsStandardOutput(fic) then
     begin
       SetModificationDate := -1;
       exit;
@@ -2307,10 +2191,10 @@ begin
 end;
 
 
-function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;
+function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
 begin
   if not(unit_initialisee) then InitUnitBasicFile;
-  CreeSortieStandardEnFichierTexte := CreateFile(nomSortieStandardDansRapport,0,fic);
+  CreateStandardOutputAsFile := CreateFile(nomSortieStandardDansRapport,0,fic);
 end;
 
 

@@ -74,8 +74,8 @@ begin
   if erreurES = fnfErr then {-43 => fichier non trouvé, on le crée}
     begin
       erreurES := CreeFichierTexteDeCassio('Cassio.trace.log',FichierTraceLog);
-      SetFileCreatorFichierTexte(FichierTraceLog,MY_FOUR_CHAR_CODE('R*ch'));  {BBEdit}
-      SetFileTypeFichierTexte(FichierTraceLog,MY_FOUR_CHAR_CODE('TEXT'));
+      SetFileCreatorFichierTexte(FichierTraceLog,FOUR_CHAR_CODE('R*ch'));  {BBEdit}
+      SetFileTypeFichierTexte(FichierTraceLog,FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
     erreurES := OpenFile(FichierTraceLog);

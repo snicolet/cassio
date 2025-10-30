@@ -208,7 +208,7 @@ begin
   err := NoErr;
 
   fichierEtaitOuvertEnArrivant := false;
-  if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) then
+  if (GetBasicFileOfFichierAbstraitPtr(@theFile,fic) = NoErr) then
     begin
       fichierEtaitOuvertEnArrivant := FileIsOpen(fic);
       if not(fichierEtaitOuvertEnArrivant) then err := OpenFile(fic);
@@ -244,7 +244,7 @@ begin
   err := WritelnDansFichierAbstrait(theFile,chaineEpilogue);
 
 
-  if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr) and not(fichierEtaitOuvertEnArrivant)
+  if (GetBasicFileOfFichierAbstraitPtr(@theFile,fic) = NoErr) and not(fichierEtaitOuvertEnArrivant)
     then err := CloseFile(fic);
 
 
@@ -284,7 +284,7 @@ var
 begin
   myError := OpenADefaultComponent(GraphicsExporterComponentType,kQTFileTypeJPEG, ge);
   result := GraphicsExportSetInputPicture(ge,thePicHandle);
-  result := GraphicsExportSetOutputFileTypeAndCreator(ge,kQTFileTypeJPEG,MY_FOUR_CHAR_CODE('GKON')); {GKON is GraphicConverter}
+  result := GraphicsExportSetOutputFileTypeAndCreator(ge,kQTFileTypeJPEG,FOUR_CHAR_CODE('GKON')); {GKON is GraphicConverter}
   result := GraphicsExportSetOutputFile(ge,fileSpec);
   result := GraphicsExportDoExport(ge,ActualSize);
   myError := CloseComponent(ge);
@@ -317,7 +317,7 @@ begin
 
   myError := OpenADefaultComponent(GraphicsExporterComponentType,kQTFileTypePicture, ge);
   result := GraphicsExportSetInputPicture(ge,thePicHandle);
-  result := GraphicsExportSetOutputFileTypeAndCreator(ge,kQTFileTypePicture,MY_FOUR_CHAR_CODE('GKON')); {GKON is GraphicConverter}
+  result := GraphicsExportSetOutputFileTypeAndCreator(ge,kQTFileTypePicture,FOUR_CHAR_CODE('GKON')); {GKON is GraphicConverter}
   result := GraphicsExportSetOutputFile(ge,fileSpec);
   result := GraphicsExportDoExport(ge,ActualSize);
   myError := CloseComponent(ge);

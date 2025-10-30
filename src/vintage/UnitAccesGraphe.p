@@ -332,7 +332,7 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
     begin
-		  if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.info),slot,noms) and
+		  if MemberOfStringSet(fichier^.fic.info.name,slot,noms) and
 		     (slot >= 1) and (slot <= tailleBufferGraphesOuverts)
 		    then
 		      begin
@@ -348,9 +348,9 @@ begin
 		            begin
 		              graphes[numeroSlotVide]           := fichier^;
 		              slotEstDisponible[numeroSlotVide] := false;
-		              AddStringToSet(GetNameOfFSSpec(fichier^.fic.info),numeroSlotVide,noms);
+		              AddStringToSet(fichier^.fic.info.name,numeroSlotVide,noms);
 
-		              {WritelnDansRapport('ajout de Ç'+GetNameOfFSSpec(fichier^.fic.info)+'È dans noms');}
+		              {WritelnDansRapport('ajout de Ç'+fichier^.fic.info.name+'È dans noms');}
 		            end
 		          else
 		            begin
@@ -369,11 +369,11 @@ begin
   with bufferGraphesOuverts do
     if (fichier <> NIL) then
       begin
-        if MemberOfStringSet(GetNameOfFSSpec(fichier^.fic.info),slot,noms) and
+        if MemberOfStringSet(GetName(fichier^.fic.info),slot,noms) and
 		       (slot >= 1) and (slot <= tailleBufferGraphesOuverts) then
 		      begin
-		        RemoveStringFromSet(GetNameOfFSSpec(fichier^.fic.info),noms);
-		        {WritelnDansRapport('retrait de Ç'+GetNameOfFSSpec(fichier^.fic.info)+'È de noms');}
+		        RemoveStringFromSet(GetName(fichier^.fic.info),noms);
+		        {WritelnDansRapport('retrait de Ç'+GetName(fichier^.fic.info)+'È de noms');}
 
 		        slotEstDisponible[slot] := true;
 		      end;
@@ -494,7 +494,7 @@ begin
 						              begin
 								            graphes[numeroSlotVide]           := fichier^;
 							              slotEstDisponible[numeroSlotVide] := false;
-							              AddStringToSet(GetNameOfFSSpec(fichier^.fic.info),numeroSlotVide,noms);
+							              AddStringToSet(GetName(fichier^.fic.info),numeroSlotVide,noms);
 							            end;
 						          end
 						        else
@@ -546,8 +546,8 @@ begin
 
   EnleverGrapheDuBufferGraphesOuverts(fichier);
 
-  SetFileCreatorFichierTexte(fichier^.fic,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(fichier^.fic,MY_FOUR_CHAR_CODE('GRAP'));
+  SetFileCreatorFichierTexte(fichier^.fic,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(fichier^.fic,FOUR_CHAR_CODE('GRAP'));
   fichier^.nbCellules := -1;
 end;
 

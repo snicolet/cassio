@@ -1,6 +1,6 @@
 function WriteDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;     external;
 function WritelnDansFichierAbstrait(var theFile : FichierAbstrait; s : String255) : OSErr;     external;
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
 function FileIsOpen(var fic : basicfile) : boolean;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;

@@ -1522,13 +1522,13 @@ begin  { TypeDeFichierEstConnu }
   WritelnDansRapport('entree dans TypeDeFichierEstConnu');
   WritelnDansRapport('   dans TypeDeFichierEstConnu, fic.nomFichier = '+fic.nomFichier);
   WritelnNumDansRapport('   dans TypeDeFichierEstConnu, fic.vRefNum = ',fic.vRefNum);
-  WritelnDansRapport('   dans TypeDeFichierEstConnu, GetNameOfFSSpec(fic.info) = '+GetNameOfFSSpec(fic.info));
+  WritelnDansRapport('   dans TypeDeFichierEstConnu, GetName(fic.info) = '+GetName(fic.info));
   WritelnNumDansRapport('   dans TypeDeFichierEstConnu, fic.info.vRefNum = ',fic.info.vRefNum);
   }
 
 
   if (FileExists(fic.nomFichier,0,myFic) = NoErr) and
-     (GetNameOfFSSpec(myFic.info)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
+     (GetName(myFic.info)[1] <> '.') {on ne veut pas les fichiers dont le nom commence par un point}
      then
     with gLectureFichier do
       begin

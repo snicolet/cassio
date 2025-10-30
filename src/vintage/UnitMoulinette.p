@@ -342,7 +342,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   positionArrivee := PositionEtTraitCourant;
 
 
-  nomFichierPGN := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichierPGN.info));
+  nomFichierPGN := ExtraitNomDirectoryOuFichier(GetName(fichierPGN.info));
   erreurES      := FSSpecToLongName(fichierPGN.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFichierPGN := DeleteSubstringAfterThisChar('.',nomFichierPGN,false);
@@ -666,7 +666,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   WritelnDansRapport('temps de lecture = ' + SecondesEnJoursHeuresSecondes((TickCount - tickDepart + 30) div 60));
 
   WritelnDansRapport('');
-  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichierPGN.info))
+  if EstUnNomDeFichierTemporaireDePressePapier(GetName(fichierPGN.info))
     then
       if (nbPartiesDansFichierPGN > 1)
         then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
@@ -933,7 +933,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   GetTime(myDate);
 
 
-  nomFic := ExtraitNomDirectoryOuFichier(GetNameOfFSSpec(fichier.info));
+  nomFic := ExtraitNomDirectoryOuFichier(GetName(fichier.info));
   erreurES := FSSpecToLongName(fichier.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFic := DeleteSubstringAfterThisChar('.',nomFic,false);
@@ -1143,7 +1143,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   erreurES := CloseFile(fichier);
 
   WritelnDansRapport('');
-  if EstUnNomDeFichierTemporaireDePressePapier(GetNameOfFSSpec(fichier.info))
+  if EstUnNomDeFichierTemporaireDePressePapier(GetName(fichier.info))
     then
       if (nbPartiesDansFic > 1)
         then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
@@ -1336,8 +1336,8 @@ begin
 
   erreurES := CloseFile(inputBaseLogKitty);
   erreurES := CloseFile(outputBaseThor);
-  SetFileCreatorFichierTexte(outputBaseThor,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(outputBaseThor,MY_FOUR_CHAR_CODE('QWTB'));
+  SetFileCreatorFichierTexte(outputBaseThor,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(outputBaseThor,FOUR_CHAR_CODE('QWTB'));
 
 
   RemettreLeCurseurNormalDeCassio;
@@ -1721,9 +1721,9 @@ begin
       erreurES := Writeln(exportFichier,ligne);
 
       ligne :=  ' <info version="1.1"'+
-                   ' date="'+NumEnStringAvecFormat(myDate.year,4,'0')+'-'+
-                             NumEnStringAvecFormat(myDate.month,2,'0')+'-'+
-                             NumEnStringAvecFormat(myDate.day,2,'0')+'"'+
+                   ' date="'+IntToStrWithPadding(myDate.year,4,'0')+'-'+
+                             IntToStrWithPadding(myDate.month,2,'0')+'-'+
+                             IntToStrWithPadding(myDate.day,2,'0')+'"'+
                    ' author="'+'Cassio '+VersionDeCassioEnString+'" />';
       erreurES := Writeln(exportFichier,ligne);
 
@@ -2044,7 +2044,7 @@ begin
 
   BeginDialog;
   prompt := ReadStringFromRessource(TextesDiversID,13);  {Trouvez le fichier modèle HTML :}
-  erreurES := GetFichierTexte(prompt,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),modeleHTML);
+  erreurES := GetFichierTexte(prompt,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),modeleHTML);
   EndDialog;
 
   if (erreurES = NoErr) then
@@ -2183,7 +2183,7 @@ var compteurParties : SInt64;
     fichierBougeard : basicfile;
 begin
   BeginDialog;
-  erreurES := GetFichierTexte('',MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('????'),fichierBougeard);
+  erreurES := GetFichierTexte('',FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),fichierBougeard);
   EndDialog;
 
   compteurParties := 0;
@@ -2363,7 +2363,7 @@ begin
   			  end;
 
 
-  		if not(recognized) and (GetNameOfFSSpec(fic.info)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
+  		if not(recognized) and (GetName(fic.info)[1] <> '.') then {on ne veut pas les fichiers dont le nom commence par un point}
   		  EcritNomFichierNonReconnuDansRapport(fic);
 
    end;

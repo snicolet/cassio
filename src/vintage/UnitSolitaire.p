@@ -2102,8 +2102,8 @@ begin
                   EcritureStatistiquesDeDifficultePourFforum(fichierSolution);
                 end;
             erreurES := CloseFile(fichierSolution);
-            SetFileCreatorFichierTexte(fichierSolution,MY_FOUR_CHAR_CODE('R*ch'));
-            SetFileTypeFichierTexte(fichierSolution,MY_FOUR_CHAR_CODE('TEXT'));
+            SetFileCreatorFichierTexte(fichierSolution,FOUR_CHAR_CODE('R*ch'));
+            SetFileTypeFichierTexte(fichierSolution,FOUR_CHAR_CODE('TEXT'));
 
 
             SetPort(oldport);

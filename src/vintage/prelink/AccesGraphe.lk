@@ -16,7 +16,7 @@ procedure DisposeStringSet(var S : StringSet);     external;
 function GetUniqueID(var fic : basicfile) : SInt32;     external;
 procedure AlerteSimple(texte : String255);     external;
 function MemberOfStringSet(const theString : String255; var data : SInt64; S : StringSet) : boolean;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 procedure AddStringToSet(const theString : String255; data : SInt32; var S : StringSet);     external;
 procedure RemoveStringFromSet(const theString : String255; var S : StringSet);     external;
 function FileIsOpen(var fic : basicfile) : boolean;     external;

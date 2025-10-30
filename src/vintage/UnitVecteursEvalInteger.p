@@ -567,8 +567,8 @@ begin
       exit;
     end;
 
-  SetFileCreatorFichierTexte(fichierEval,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(fichierEval,MY_FOUR_CHAR_CODE('EVAL'));
+  SetFileCreatorFichierTexte(fichierEval,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(fichierEval,FOUR_CHAR_CODE('EVAL'));
 
 
   EcritVecteurEvaluationIntegerSurLeDisque := err;

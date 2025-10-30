@@ -204,7 +204,7 @@ function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;
 function EmptyFile(var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
 	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);     external;

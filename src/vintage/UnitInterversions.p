@@ -191,8 +191,8 @@ begin
             erreurES := Writeln(fichierInterversions,''');');
           end;
         erreurES := CloseFile(fichierInterversions);
-        SetFileCreatorFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('CWIE'));
-        SetFileTypeFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('TEXT'));
+        SetFileCreatorFichierTexte(fichierInterversions,FOUR_CHAR_CODE('CWIE'));
+        SetFileTypeFichierTexte(fichierInterversions,FOUR_CHAR_CODE('TEXT'));
 
 
         nomfichier := GetNameOfSFReply(reply)+CharToString('2');
@@ -237,8 +237,8 @@ begin
                 end;
           end;
         erreurES := CloseFile(fichierInterversions);
-        SetFileCreatorFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('CWIE'));
-        SetFileTypeFichierTexte(fichierInterversions,MY_FOUR_CHAR_CODE('TEXT'));
+        SetFileCreatorFichierTexte(fichierInterversions,FOUR_CHAR_CODE('CWIE'));
+        SetFileTypeFichierTexte(fichierInterversions,FOUR_CHAR_CODE('TEXT'));
       end;
 end;
 

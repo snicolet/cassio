@@ -1531,8 +1531,8 @@ begin
     end;
 
   err := CloseFile(fichierCodeGenere);
-  SetFileCreatorFichierTexte(fichierCodeGenere,MY_FOUR_CHAR_CODE('R*ch'));
-  SetFileTypeFichierTexte(fichierCodeGenere,MY_FOUR_CHAR_CODE('TEXT'));
+  SetFileCreatorFichierTexte(fichierCodeGenere,FOUR_CHAR_CODE('R*ch'));
+  SetFileTypeFichierTexte(fichierCodeGenere,FOUR_CHAR_CODE('TEXT'));
 
   WritelnNumDansRapport('CreateJansEndgameCode : terminé!   err = ',err);
 end;

@@ -18,7 +18,7 @@ procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function EndsWithDeuxPoints(var s : String255) : boolean;     external;
 	function GetWDName(WDRefNum : SInt16) : String255;     external;
 	procedure SetNameOfFSSpec(var fs : fileInfo; const name : String255);     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
   function GetFunctionPointerFromBundle(const whichBundle,functionName : String255) : Ptr;     external;
   function MyStr255ToString( const s : Str255 ) : String255;     external;
 function HashString(const s : String255) : SInt32;     external;

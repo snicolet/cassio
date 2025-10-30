@@ -1014,8 +1014,8 @@ begin
     end;
 
   erreurES := CloseFile(fichierPref);
-  SetFileCreatorFichierTexte(fichierPref,MY_FOUR_CHAR_CODE('SNX4'));
-  SetFileTypeFichierTexte(fichierPref,MY_FOUR_CHAR_CODE('PREF'));
+  SetFileCreatorFichierTexte(fichierPref,FOUR_CHAR_CODE('SNX4'));
+  SetFileTypeFichierTexte(fichierPref,FOUR_CHAR_CODE('PREF'));
 
   AjouterNomDansListOfPrefsFiles(filename);
 
@@ -2177,8 +2177,8 @@ begin
         end;
 
       erreurES := CloseFile(fichierGroupes);
-      SetFileCreatorFichierTexte(fichierGroupes,MY_FOUR_CHAR_CODE('SNX4'));
-      SetFileTypeFichierTexte(fichierGroupes,MY_FOUR_CHAR_CODE('sgma'));
+      SetFileCreatorFichierTexte(fichierGroupes,FOUR_CHAR_CODE('SNX4'));
+      SetFileTypeFichierTexte(fichierGroupes,FOUR_CHAR_CODE('sgma'));
     end;
 end;
 

@@ -109,8 +109,8 @@ begin
   if erreurES = fnfErr then {-43 => fichier non trouvé, on le crée}
     begin
       erreurES := CreateFile(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
-      SetFileCreatorFichierTexte(FichierWThorLog,MY_FOUR_CHAR_CODE('R*ch'));  {BBEdit}
-      SetFileTypeFichierTexte(FichierWThorLog,MY_FOUR_CHAR_CODE('TEXT'));
+      SetFileCreatorFichierTexte(FichierWThorLog,FOUR_CHAR_CODE('R*ch'));  {BBEdit}
+      SetFileTypeFichierTexte(FichierWThorLog,FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
     erreurES := OpenFile(FichierWThorLog);

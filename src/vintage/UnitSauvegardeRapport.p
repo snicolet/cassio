@@ -66,9 +66,9 @@ begin
 		  if OSError = NoErr then
 		    begin
 		      {on enleve la vielle ressource 'styl' d'ID 0 dans le fichier}
-		      if Count1Resources(MY_FOUR_CHAR_CODE('styl')) > 0 then
+		      if Count1Resources(FOUR_CHAR_CODE('styl')) > 0 then
 		        begin
-		          h := Get1Resource(MY_FOUR_CHAR_CODE('styl'),0);
+		          h := Get1Resource(FOUR_CHAR_CODE('styl'),0);
 		          if h <> NIL then
 		            begin
 		              {WritelnDansRapport('enlèvement de l''ancienne ressource de style');}
@@ -78,7 +78,7 @@ begin
 		            end;
 		        end;
 
-				  AddResource(Handle(styleScrapHdl), MY_FOUR_CHAR_CODE('styl'), 0, StringToStr255('')); { Write attributes.}
+				  AddResource(Handle(styleScrapHdl), FOUR_CHAR_CODE('styl'), 0, StringToStr255('')); { Write attributes.}
 				  WriteResource(Handle(styleScrapHdl));
 				  ReleaseResource(Handle(styleScrapHdl));
 				  OSError := FermeRessourceForkFichierTEXT(fichier); { close resource fork.}
@@ -113,7 +113,7 @@ begin
 		  OSError := OuvreRessourceForkFichierTEXT(fichier);
 		  if OSError = NoErr then
 		    begin
-				  styleScrapHdl := StScrpHandle(GetResource(MY_FOUR_CHAR_CODE('styl'), 0)); { Get style scrap.}
+				  styleScrapHdl := StScrpHandle(GetResource(FOUR_CHAR_CODE('styl'), 0)); { Get style scrap.}
 		      OSError := ResError;
 		      if OSError = NoErr then
 		        begin

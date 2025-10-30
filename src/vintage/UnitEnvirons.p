@@ -539,7 +539,7 @@ begin
 
  if not(isFolder) then
    begin
-     nomFichier := GetNameOfFSSpec(fs);
+     nomFichier := GetName(fs);
 
      if (nomFichier = '') or (nomFichier[1] = '.') then
        exit;

@@ -3,7 +3,7 @@ UNIT UnitDefLongString;
 
 INTERFACE
 
-USES StringTypes;
+USES basicstring;
 
 
 TYPE

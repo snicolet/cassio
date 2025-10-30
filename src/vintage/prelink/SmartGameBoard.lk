@@ -42,7 +42,7 @@ function MakeTexteProperty(whichType : SInt16; texte : Ptr; longueur : SInt32) :
 procedure GetTexteOfProperty(prop : Property; var texte : Ptr; var longueur : SInt32);     external;
 function GetPositionPointDinsertion : SInt32;     external;
 procedure InsereTexteDansRapport(text : Ptr; length : SInt32);     external;
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
 procedure AppliquerStyleDuFichierAuRapport(var fichier : basicfile; debutSelection,finSelection : SInt32);     external;
 function MakeEmptyProperty : Property;     external;
 procedure DisposePropertyStuff(var p : Property);     external;

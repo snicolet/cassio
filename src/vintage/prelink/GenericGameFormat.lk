@@ -48,7 +48,7 @@ function FenetreRapportEstAuPremierPlan : boolean;     external;
 procedure SelectWindowSousPalette(whichWindow : WindowPtr);     external;
 function GetRapportWindow : WindowPtr;     external;
 function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
 function FichierAbstraitEstCorrect(const theFile : FichierAbstrait) : boolean;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;

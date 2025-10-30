@@ -235,8 +235,8 @@ begin
 
   if MakeFileName(reply,'Nom du fichier ?',nomfichier) then
       begin
-        SetFileCreator(MY_FOUR_CHAR_CODE('CWIE'));
-        SetFileType(MY_FOUR_CHAR_CODE('TEXT'));
+        SetFileCreator(FOUR_CHAR_CODE('CWIE'));
+        SetFileType(FOUR_CHAR_CODE('TEXT'));
 
         compteurLignes := 1;
         compteurProc := 0;
@@ -364,8 +364,8 @@ begin
 
   if MakeFileName(reply,'Nom du fichier ?',nomfichier) then
       begin
-        SetFileCreator(MY_FOUR_CHAR_CODE('CWIE'));
-        SetFileType(MY_FOUR_CHAR_CODE('TEXT'));
+        SetFileCreator(FOUR_CHAR_CODE('CWIE'));
+        SetFileType(FOUR_CHAR_CODE('TEXT'));
 
         nomfichier := GetNameOfSFReply(reply);
         Rewrite(fichierBlocs,nomfichier);

@@ -40,7 +40,7 @@ function EmptyFile(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
-	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
+	
   function EndsWith(const s : String255; const sub : String255) : boolean;     external;
 	function MyTrunc(x : double) : SInt32;     external;
 procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;

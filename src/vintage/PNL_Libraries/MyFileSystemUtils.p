@@ -44,7 +44,7 @@ INTERFACE
 
 
 	procedure SetNameOfFSSpec(var fs : fileInfo; const name : String255);
-	function GetNameOfFSSpec(fs : fileInfo) : String255;
+	function GetName(fs : fileInfo) : String255;
 
 
 	function GetNameOfSFReply(const reply : SFReply) : String255;
@@ -259,7 +259,7 @@ end;
 	function CreateTemporaryFile (var fs : fileInfo) : OSErr;
 	begin
 		SafeFindFolder( kOnSystemDisk, kTemporaryFolderType, fs.vRefNum, fs.parID );
-		CreateTemporaryFile := CreateUniqueFile( fs, MY_FOUR_CHAR_CODE('trsh'), MY_FOUR_CHAR_CODE('trsh') );
+		CreateTemporaryFile := CreateUniqueFile( fs, FOUR_CHAR_CODE('trsh'), FOUR_CHAR_CODE('trsh') );
 	end;
 
 {
@@ -282,19 +282,19 @@ end;
 			pb : CInfoPBRec;
 			s : String255;
 	begin
-	  s := GetNameOfFSSpec(fs);
+	  s := GetName(fs);
 		err := MyFSMakeFSSpec(fs.vRefNum, fs.parID, s, fs);
 		if err = fnfErr then begin
 			err := noErr;
 		end;
 		if err = noErr then begin
 			if fs.parID = 1 then begin
-				path := Concat(GetNameOfFSSpec(fs), ':');
+				path := Concat(GetName(fs), ':');
 			end else begin
-				path := GetNameOfFSSpec(fs);
+				path := GetName(fs);
 				while (err = noErr) and (fs.parID <> 1) do begin
 					err := FSpGetIndCatInfo(fs, -1, pb);
-					path := Concat(GetNameOfFSSpec(fs), ':', path);
+					path := Concat(GetName(fs), ':', path);
 					fs.parID := pb.ioFlParID;
 				end;
 			end;
@@ -305,20 +305,20 @@ end;
 
 	{$ifc defined __GPC__}
 
-	function GetNameOfFSSpec(fs : fileInfo) : String255;
+	function GetName(fs : fileInfo) : String255;
 	var aux63 : Str63;
 	    aux255 : Str255;
 	begin
 	  aux63 := Str63(fs.name);
 	  aux255 := Str63ToStr255(aux63);
-	  GetNameOfFSSpec := MyStr255ToString(aux255);
+	  GetName := MyStr255ToString(aux255);
 	end;
 
 	{$elsec}
 
-	function GetNameOfFSSpec(fs : fileInfo) : String255;
+	function GetName(fs : fileInfo) : String255;
 	begin
-	  GetNameOfFSSpec := fs.name;
+	  GetName := fs.name;
 	end;
 
 	{$endc}
@@ -383,7 +383,7 @@ end;
 			pb : CInfoPBRec;
 			err : OSErr;
 	begin
-		if GetNameOfFSSpec(fs) = '' then begin
+		if GetName(fs) = '' then begin
 			TouchDir := TouchFolder(fs.vRefNum, fs.parID);
 		end else begin
 			pb.iovRefNum := fs.vRefNum;
@@ -428,10 +428,10 @@ end;
 			i : SInt16;
 			oe : OSErr;
 	begin
-		oname := GetNameOfFSSpec(fs);
+		oname := GetName(fs);
 		LimitStringLength(oname, 27, 'É');
 
-		name := StringToStr255(GetNameOfFSSpec(fs));
+		name := StringToStr255(GetName(fs));
 
 		oe := HCreate(fs.vRefNum, fs.parID, name , creator, ftype);
 		i := 1;
@@ -440,7 +440,7 @@ end;
 
 			SetNameOfFSSpec(fs, Concat(oname, '#', n));
 
-			name := StringToStr255(GetNameOfFSSpec(fs));
+			name := StringToStr255(GetName(fs));
 
 			oe := HCreate(fs.vRefNum, fs.parID, name, creator, ftype);
 			i := i + 1;
@@ -455,7 +455,7 @@ end;
 			i : SInt16;
 			oe : OSErr;
 	begin
-		oname := GetNameOfFSSpec(fs);
+		oname := GetName(fs);
 
 		LimitStringLength( oname, 27, 'É' );
 		oe := FSpDirCreate( fs, 0, dirID );
@@ -988,7 +988,7 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 	begin
 		SameFSSpec := (fs1.vRefNum = fs2.vRefNum) and
 		              (fs1.parID = fs2.parID) and   {(IUEqualString(fs1.name, fs2.name) = 0);}
-		              (GetNameOfFSSpec(fs1) = GetNameOfFSSpec(fs2));      {attention, on devrait plutot utiliser IUEqualString !!!!!!!}
+		              (GetName(fs1) = GetName(fs2));      {attention, on devrait plutot utiliser IUEqualString !!!!!!!}
 	end;
 
 
@@ -1102,7 +1102,7 @@ var
 							  then
 							    begin
 										len := LENGTH_OF_STRING(path);
-										path := Concat(path, GetNameOfFSSpec(fs), ':');
+										path := Concat(path, GetName(fs), ':');
 										Scan(pb.ioDirID);
 										SET_LENGTH_OF_STRING(path,len);
 								  end
@@ -1120,7 +1120,7 @@ var
 
 begin
 	path := ':';
-	if GetNameOfFSSpec(fs) <> ''
+	if GetName(fs) <> ''
 	  then
 	    begin
 	      err := MyGetCatInfo(fs.vRefNum, fs.parID, @fs.name, 0, pb);

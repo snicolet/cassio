@@ -11,7 +11,8 @@ INTERFACE
 
 
 
- USES UnitDefCassio;
+ USES UnitDefCassio,
+      basicfiles;
 
 
 
@@ -58,9 +59,13 @@ procedure SetAbstractFileCreator(var theFile : FichierAbstrait; whichCreator : O
 
 
 {gestion d'acces au fichier disque, si le fichier abstrait est un fichier disque}
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
 procedure FermerFichierEtFabriquerFichierAbstrait(var fic : basicfile; var theFile : FichierAbstrait);
 procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : basicfile; var theFile : FichierAbstrait);
+
+{lecture/ecriture dans un basicFile depuis un fichier abstrait}
+function Write(var fic : basicfile; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;
+
 
 
 
@@ -126,21 +131,21 @@ end;
 
 
 
-function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
+function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;
 var theFile : FichierAbstrait;
 begin
   if GetFichierAbstraitOfFichierAbstraitPtr(theAbstractFilePtr,theFile) <> NoErr  then
     begin
-      GetFichierTEXTOfFichierAbstraitPtr := -1;
+      GetBasicFileOfFichierAbstraitPtr := -1;
       exit;
     end;
   if (theFile.genre <> FichierAbstraitEstFichier) or (theFile.data = NIL) then
      begin
-      GetFichierTEXTOfFichierAbstraitPtr := -2;
+      GetBasicFileOfFichierAbstraitPtr := -2;
       exit;
     end;
   MoveMemory(theFile.data,@fic,sizeof(basicfile));
-  GetFichierTEXTOfFichierAbstraitPtr := NoErr;
+  GetBasicFileOfFichierAbstraitPtr := NoErr;
 end;
 
 
@@ -149,7 +154,7 @@ function EcrireDansFichierAbstraitFichier(theAbstractFilePtr : FichierAbstraitPt
 var Err : OSErr;
     fic : basicfile;
 begin
-  Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
+  Err := GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       EcrireDansFichierAbstraitFichier := Err;
@@ -179,7 +184,7 @@ begin
       LireFromFichierAbstraitFichier := -1;
       exit;
     end;
-  Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
+  Err := GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       LireFromFichierAbstraitFichier := Err;
@@ -212,7 +217,7 @@ begin
   if whichPosition > theFile.nbOctetsOccupes
     then whichPosition := theFile.nbOctetsOccupes;
 
-  Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
+  Err := GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       SetPositionFichierAbstraitFichier := Err;
@@ -227,7 +232,7 @@ function FermerFichierFichierAbstrait(theAbstractFilePtr : FichierAbstraitPtr) :
 var Err : OSErr;
     fic : basicfile;
 begin
-  Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
+  Err := GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       FermerFichierFichierAbstrait := Err;
@@ -241,7 +246,7 @@ function ViderFichierFichierAbstrait(theAbstractFilePtr : FichierAbstraitPtr) : 
 var Err : OSErr;
     fic : basicfile;
 begin
-  Err := GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr,fic);
+  Err := GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr,fic);
   if Err <> NoErr then
     begin
       ViderFichierFichierAbstrait := Err;
@@ -317,8 +322,8 @@ begin
       position               := 0;
       genre                  := BadFichierAbstrait;
       refCon                 := -1;
-      zoneType               := MY_FOUR_CHAR_CODE('????');
-      zoneCreator            := MY_FOUR_CHAR_CODE('????');
+      zoneType               := FOUR_CHAR_CODE('????');
+      zoneCreator            := FOUR_CHAR_CODE('????');
       Ecrire                 := FonctionEcritureBidon;
       Lire                   := FonctionEcritureBidon;
       Fermer                 := FonctionFichierAbstraitBidon;
@@ -731,7 +736,7 @@ function EOFFichierAbstrait(var theFile : FichierAbstrait; var erreurES : OSErr)
 var fic : basicfile;
 begin
   if (theFile.genre = FichierAbstraitEstFichier) and
-     (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
+     (GetBasicFileOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then
       EOFFichierAbstrait := EndOfFile(fic,erreurES)
     else
@@ -759,7 +764,7 @@ var fic : basicfile;
 begin
    theFile.zoneType := whichType;
    if (theFile.genre = FichierAbstraitEstFichier) and
-     (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
+     (GetBasicFileOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then SetFileTypeFichierTexte(fic,whichType);
 end;
 
@@ -768,7 +773,7 @@ var fic : basicfile;
 begin
   theFile.zoneCreator := whichCreator;
   if (theFile.genre = FichierAbstraitEstFichier) and
-     (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fic) = NoErr)
+     (GetBasicFileOfFichierAbstraitPtr(@theFile,fic) = NoErr)
     then SetFileCreatorFichierTexte(fic,whichCreator);
 end;
 
@@ -790,7 +795,7 @@ var erreur : OSErr;
     num : SInt32;
     positionMarqueur : SInt32;
 begin
-  if GetFichierTEXTOfFichierAbstraitPtr(@theFile,ficFichierAbstrait) = NoErr
+  if GetBasicFileOfFichierAbstraitPtr(@theFile,ficFichierAbstrait) = NoErr
     then
       begin
         name             := ficFichierAbstrait.nomFichier;
@@ -809,5 +814,37 @@ begin
         erreur := OpenFile(fic);
       end;
 end;
+
+function Write(var fic : basicfile; ficAbstrait : FichierAbstrait; fromPos : SInt32; var count : SInt32) : OSErr;
+var err : OSErr;
+    buffer : Ptr;
+begin
+  err := -1;
+
+  if (count <= 0) then
+    exit;
+
+  buffer := AllocateMemoryPtr(count + 100);
+  if (buffer <> NIL) then
+    begin
+      err := ReadFromFichierAbstrait(ficAbstrait, fromPos , count, buffer);
+      if err = NoErr then
+        err := Write(fic, buffer, count);
+      DisposeMemoryPtr(buffer);
+    end;
+
+  if debugBasicFiles then
+    begin
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole(' apres FSWrite dans Write :');
+      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('   ==> Err = ',err);
+    end;
+
+  Write := err;
+end;
+
+
+
 
 end.

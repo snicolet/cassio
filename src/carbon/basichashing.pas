@@ -208,7 +208,7 @@ end;
 // Testing the unit
 procedure TestUnitBasicHashing;
 begin
-   writeln;
+   writeln();
    writeln('Testing our implementation of the Jenkins hash function... ');
    writeln('$ca2e9442 should equal ', hexa(HashString('a')));
    writeln('$519e91f5 should equal ', hexa(HashString('The quick brown fox jumps over the lazy dog')));
@@ -216,8 +216,10 @@ end;
 
 
 BEGIN
-   InitBasicHashing();
-   TestUnitBasicHashing(); 
+   InitBasicHashing();  // always call this there !
+   
+   
+   // TestUnitBasicHashing(); 
 END.
 
 

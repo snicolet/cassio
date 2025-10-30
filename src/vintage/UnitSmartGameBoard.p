@@ -591,7 +591,7 @@ begin
   GetTexteOfProperty(aux,textePtr,longueurTexte);
   ancienPointDInsertion := GetPositionPointDinsertion;
   InsereTexteDansRapport(textePtr,longueurTexte);
-  if GetFichierTEXTOfFichierAbstraitPtr(@LectureSmartGameBoard.theFile,fichier) = NoErr then
+  if GetBasicFileOfFichierAbstraitPtr(@LectureSmartGameBoard.theFile,fichier) = NoErr then
     begin
       AppliquerStyleDuFichierAuRapport(fichier,ancienPointDInsertion,GetPositionPointDinsertion);
       WritelnDansRapport('');

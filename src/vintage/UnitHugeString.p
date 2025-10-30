@@ -19,7 +19,7 @@ procedure CopyHugeString(var source, dest : HugeString);
 { Acces ˆ une HugeString : recherche, comparaison, extraction d'une sous-chaine, etc... }
 function LengthOfHugeString(const ligne : HugeString) : SInt32;
 function GetBufferOfHugeString(const ligne : HugeString) : CharArrayPtr;
-function GetMaximumCapacityOfHugeString : SInt32;
+function GetMaximumCapacityOfHugeString() : SInt32;
 function HugeStringIsEmpty(const ligne : HugeString) : boolean;
 function SameHugeString(const ligne1, ligne2 : HugeString) : boolean;
 
@@ -44,6 +44,12 @@ procedure BufferToHugeString(buffer : PackedArrayOfCharPtr; nbOctets : SInt32; v
 { Ecriture d'une HugeString dans le rapport }
 procedure WriteHugeStringDansRapport(const ligne : HugeString);
 procedure WritelnHugeStringDansRapport(const ligne : HugeString);
+
+
+{ Lecture/ecriture d'une HugeString dans un fichier }
+function Write(var fic : basicfile; const s : HugeString) : OSErr;
+function Writeln(var fic : basicfile; const s : HugeString) : OSErr;
+function Readln(var fic : basicfile; var s : HugeString) : OSErr;
 
 
 { Voir aussi Readln() et Writeln() dans basicfile.p }
@@ -235,7 +241,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function GetMaximumCapacityOfHugeString : SInt32;
+function GetMaximumCapacityOfHugeString() : SInt32;
 begin
   GetMaximumCapacityOfHugeString := k_HUGE_STRING_BUFFER_SIZE + 1;
 end;
@@ -531,6 +537,85 @@ begin
   WritelnDansRapport('');
 end;
 
+function Write(var fic : basicfile; const s : HugeString) : OSErr;
+var err : OSErr;
+    count : SInt32;
+    buffer : CharArrayPtr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      WriteHugeStringDansRapport(s);
+      Write := NoErr;
+      exit;
+    end;
+
+  err := -1;
+
+  if HugeStringIsUsable(s) then
+    begin
+      count   := LengthOfHugeString(s);
+      buffer  := GetBufferOfHugeString(s);
+
+      err     := MyFSWrite(fic.refNum, count, @buffer^[1]);
+    end;
+
+  Write := err;
+end;
+
+
+function Writeln(var fic : basicfile; const s : HugeString) : OSErr;
+var err : OSErr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      WritelnHugeStringDansRapport(s);
+      Writeln := NoErr;
+      exit;
+    end;
+
+  err := Write(fic, s);
+
+  if (err = NoErr) then
+    err := Writeln(fic, '');
+
+  Writeln := err;
+end;
+
+
+(*
+ *******************************************************************************
+ *                                                                             *
+ *   Readln()  : lit un fichier fic de type basicfile jusqu'au premier         *
+ *   retour chariot et met le resultat dans une HugeString. Cette fonction     *
+ *   n'alloue pas la HugeString, elle doit avoir ete creee auparavant par un   *
+ *   appel a NewHugeString() ou MakeHugeString().                              *
+ *                                                                             *
+ *******************************************************************************
+ *)
+function Readln(var fic : basicfile; var s : HugeString) : OSErr;
+var buffer : CharArrayPtr;
+    err : OSErr;
+    count : SInt32;
+begin
+
+  err := -1;
+
+  if HugeStringIsUsable(s) then
+    begin
+      count  := GetMaximumCapacityOfHugeString();
+      buffer := GetBufferOfHugeString(s);
+
+      err    := Readln(fic, @buffer^[1], count);
+
+      if (err = NoErr)
+        then SetLengthOfHugeString(s, count);
+
+    end;
+
+  Readln := err;
+end;
 
 
 END.

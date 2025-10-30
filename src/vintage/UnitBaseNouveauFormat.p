@@ -3109,8 +3109,8 @@ begin
               if SplitAt(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel) then
                 begin
 
-                  SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('SNX4'));
-                  SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('QWTB'));
+                  SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
+                  SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('QWTB'));
 
                   (* WritelnDansRapport('nomFichierWthorOfficiel = '+nomFichierWthorOfficiel); *)
 
@@ -3500,12 +3500,12 @@ begin
     begin
 
       {
-      WritelnDansRapport('avant GetFichierTEXTOfFichierAbstraitPtr dans TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase');
+      WritelnDansRapport('avant GetBasicFileOfFichierAbstraitPtr dans TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase');
       AttendFrappeClavier;
       }
 
       if (whileFilePtr <> NIL) then
-        err := GetFichierTEXTOfFichierAbstraitPtr( whileFilePtr , fic);
+        err := GetBasicFileOfFichierAbstraitPtr( whileFilePtr , fic);
 
       {
       WritelnNumDansRapport('err = ',err);

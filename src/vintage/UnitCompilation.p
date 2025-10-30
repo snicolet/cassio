@@ -677,7 +677,7 @@ begin
     err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
-    SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
+    SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('CWIE'));
 
   if err <> NoErr then
     WritelnNumDansRapport('dans CreerPrelinkFile, '+moduleName + ' => ',err);
@@ -699,7 +699,7 @@ begin
     err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
-    SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
+    SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('CWIE'));
 
   if err <> NoErr then
     WritelnNumDansRapport('dans CreerExternalDeclarationsFile, '+moduleName + ' => ',err);
@@ -721,7 +721,7 @@ begin
     err := CreateFile(path,0,fic);
 
   if (err = NoErr) then
-    SetFileCreatorFichierTexte(fic,MY_FOUR_CHAR_CODE('CWIE'));
+    SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('CWIE'));
 
   if err <> NoErr then
     WritelnNumDansRapport('dans CreerDuplicateFile, '+moduleName + ' => ',err);
@@ -1965,7 +1965,7 @@ var lectureRec : LectureModuleRec;
     k : SInt64;
 begin
 
-  fileName := GetNameOfFSSpec(whichFile);
+  fileName := GetName(whichFile);
   moduleName := FileNameToModuleName(fileName);
 
   // WritelnDansRapport('moduleName = ' + moduleName);
@@ -2102,7 +2102,7 @@ begin
 
  if not(isFolder) then
    begin
-     nomFichier := GetNameOfFSSpec(fs);
+     nomFichier := GetName(fs);
 
      if (gActionDeCompilationDemandee = K_COMPILER_INTERFACE)
        then

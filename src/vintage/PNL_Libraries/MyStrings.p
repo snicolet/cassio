@@ -164,7 +164,7 @@ INTERFACE
 
 
 	function BoolEnString(myBool : boolean) : String255;
-  function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;
+  function IntToStrWithPadding(num,nbDeChiffres : SInt32; formatChar : char) : String255;
   function RemoveLeadingZeros(const s : String255) : String255;
 
   function CharInRange(ch : char; min,max : char) : boolean;
@@ -1963,14 +1963,14 @@ end;
 
 
 
-function NumEnStringAvecFormat(num,nbDeChiffres : SInt32; formatChar : char) : String255;
+function IntToStrWithPadding(num,nbDeChiffres : SInt32; formatChar : char) : String255;
 var i : SInt32;
 		s : String255;
 begin
 	s := IntToStr(num);
 	for i := 1 to (nbDeChiffres - LENGTH_OF_STRING(s)) do
 	  s := formatChar + s;
-	NumEnStringAvecFormat := s;
+	IntToStrWithPadding := s;
 end;
 
 function CharInRange(ch : char; min,max : char) : boolean;

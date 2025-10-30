@@ -521,8 +521,8 @@ begin
   if erreurES = fnfErr then {-43 => fichier non trouvé, on le crée}
     begin
       erreurES := CreeFichierTexteDeCassio('Rapport.log',FichierRapportLog);
-      SetFileCreatorFichierTexte(FichierRapportLog,MY_FOUR_CHAR_CODE('CWIE'));
-      SetFileTypeFichierTexte(FichierRapportLog,MY_FOUR_CHAR_CODE('TEXT'));
+      SetFileCreatorFichierTexte(FichierRapportLog,FOUR_CHAR_CODE('CWIE'));
+      SetFileTypeFichierTexte(FichierRapportLog,FOUR_CHAR_CODE('TEXT'));
     end;
   if erreurES = NoErr then
     erreurES := OpenFile(FichierRapportLog);

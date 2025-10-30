@@ -63,12 +63,12 @@ begin
   err := WritelnDansFichierAbstrait(fic,'%!PS-Adobe-3.0 EPSF-3.0');
   err := WritelnDansFichierAbstrait(fic,'%%Creator: Cassio ');
   err := WritelnDansFichierAbstrait(fic,'%%Title: '+ExtraitNomDirectoryOuFichier(nomFichier));
-  err := WritelnDansFichierAbstrait(fic,'%%CreationDate: '+NumEnStringAvecFormat(myDate.month,2, '0')+'/'+
-		                                                    NumEnStringAvecFormat(myDate.day,2,'0')+'/'+
-		                                                    NumEnStringAvecFormat(myDate.year,4,'0')+' '+
-		                                                    NumEnStringAvecFormat(myDate.hour,2,'0')+':'+
-		                                                    NumEnStringAvecFormat(myDate.minute,2,'0')+':'+
-		                                                    NumEnStringAvecFormat(myDate.second,2,'0'));
+  err := WritelnDansFichierAbstrait(fic,'%%CreationDate: '+IntToStrWithPadding(myDate.month,2, '0')+'/'+
+		                                                    IntToStrWithPadding(myDate.day,2,'0')+'/'+
+		                                                    IntToStrWithPadding(myDate.year,4,'0')+' '+
+		                                                    IntToStrWithPadding(myDate.hour,2,'0')+':'+
+		                                                    IntToStrWithPadding(myDate.minute,2,'0')+':'+
+		                                                    IntToStrWithPadding(myDate.second,2,'0'));
 
   with boudingRectEPS do
     err := WritelnDansFichierAbstrait(fic,'%%BoundingBox: ' + IntToStr(left) + ' '

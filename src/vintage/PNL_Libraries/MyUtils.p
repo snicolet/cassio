@@ -91,12 +91,12 @@ function DateEnString(const whichDate : DateTimeRec) : String255;
 var s : String255;
 begin
   with whichDate do
-    s := NumEnStringAvecFormat(year,   4, '0') +
-         NumEnStringAvecFormat(month,  2, '0') +
-         NumEnStringAvecFormat(day,    2, '0') +
-         NumEnStringAvecFormat(hour,   2, '0') +
-         NumEnStringAvecFormat(minute, 2, '0') +
-         NumEnStringAvecFormat(second, 2, '0');
+    s := IntToStrWithPadding(year,   4, '0') +
+         IntToStrWithPadding(month,  2, '0') +
+         IntToStrWithPadding(day,    2, '0') +
+         IntToStrWithPadding(hour,   2, '0') +
+         IntToStrWithPadding(minute, 2, '0') +
+         IntToStrWithPadding(second, 2, '0');
   DateEnString := s;
 end;
 
@@ -256,7 +256,7 @@ end;
 			versh: VersRecHndl;
 	begin
 		GetVersionFromResFile := 0;
-		versh := VersRecHndl(Get1Resource(MY_FOUR_CHAR_CODE('vers'), 1));
+		versh := VersRecHndl(Get1Resource(FOUR_CHAR_CODE('vers'), 1));
 		if versh <> NIL then begin
 			GetVersionFromResFile := SInt32(versh^^.numericVersion);
 		end; (* if *)
@@ -480,7 +480,7 @@ end;
 
 	procedure HaveResources;
 	begin
-		if Get1Resource(MY_FOUR_CHAR_CODE('BNDL'), 128) = NIL then begin
+		if Get1Resource(FOUR_CHAR_CODE('BNDL'), 128) = NIL then begin
 			SysBeep(1);
 			ExitToShell;
 		end;

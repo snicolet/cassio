@@ -476,7 +476,7 @@ begin
   collerDansRapport := false;
   with rapport do
   if windowRapportOpen and (theText <> NIL) then
-   if (theWindow = FrontWindowSaufPalette) and (LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT')) > 0)
+   if (theWindow = FrontWindowSaufPalette) and (LongueurPressePapier(FOUR_CHAR_CODE('TEXT')) > 0)
     then
      begin
        // Le presse-Papier contient du TEXT, mais le rapport

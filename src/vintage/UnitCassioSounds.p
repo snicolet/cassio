@@ -79,11 +79,11 @@ begin
   PosePionSound := NIL;
   RetournementPionSound := NIL;
 
-  //PosePionSound := SndListHandle(GetResource(MY_FOUR_CHAR_CODE('snd '), kSonTickID));
-  //RetournementPionSound := SndListHandle(GetResource(MY_FOUR_CHAR_CODE('snd '), kSonTockID));
+  //PosePionSound := SndListHandle(GetResource(FOUR_CHAR_CODE('snd '), kSonTickID));
+  //RetournementPionSound := SndListHandle(GetResource(FOUR_CHAR_CODE('snd '), kSonTockID));
 
-  PosePionSound := SndListHandle(GetResource(MY_FOUR_CHAR_CODE('snd '), kSonBlopID));
-  //RetournementPionSound := SndListHandle(GetResource(MY_FOUR_CHAR_CODE('snd '), kSonBlipID));
+  PosePionSound := SndListHandle(GetResource(FOUR_CHAR_CODE('snd '), kSonBlopID));
+  //RetournementPionSound := SndListHandle(GetResource(FOUR_CHAR_CODE('snd '), kSonBlipID));
 
 
   if (PosePionSound <> NIL) then HLockHi(Handle(PosePionSound));
@@ -114,7 +114,7 @@ begin
 
       OpenChannel(theChannel);
 
-      sndInPlay := GetResource(MY_FOUR_CHAR_CODE('snd '), ZamfirID);
+      sndInPlay := GetResource(FOUR_CHAR_CODE('snd '), ZamfirID);
       if sndInPlay <> NIL then
         begin
           HLockHi(sndInPlay);

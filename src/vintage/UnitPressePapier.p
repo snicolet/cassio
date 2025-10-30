@@ -142,7 +142,7 @@ begin
   CollerPartieOK := false;
   positionStandard := true;
   partieEnAlpha := '';
-  longueurDuTexteDansLePressePapier := LongueurPressePapier(MY_FOUR_CHAR_CODE('TEXT'));
+  longueurDuTexteDansLePressePapier := LongueurPressePapier(FOUR_CHAR_CODE('TEXT'));
 
   if enRetour or enSetUp or (longueurDuTexteDansLePressePapier <= 0) then
     begin
@@ -155,7 +155,7 @@ begin
       hdest := AllocateMemoryHdl(3000);
       if (hdest <> NIL)
         then
-          result := MyGetScrap(hdest,MY_FOUR_CHAR_CODE('TEXT'),offset)
+          result := MyGetScrap(hdest,FOUR_CHAR_CODE('TEXT'),offset)
         else
           begin
             result := -1;
@@ -389,7 +389,7 @@ begin
   s := PartiePourPressePapier(enMajuscule,avecEspacesEntreCoups,nbreCoup);
 
   aux := MyZeroScrap;
-  if LENGTH_OF_STRING(s) > 0 then aux := MyPutScrap(LENGTH_OF_STRING(s),MY_FOUR_CHAR_CODE('TEXT'),@s[1]);
+  if LENGTH_OF_STRING(s) > 0 then aux := MyPutScrap(LENGTH_OF_STRING(s),FOUR_CHAR_CODE('TEXT'),@s[1]);
 
   TransfererLePressePapierGlobalDansTextEdit;
 end;
@@ -402,7 +402,7 @@ begin
   if LENGTH_OF_STRING(s) > 0 then
     begin
       aux := MyZeroScrap;
-      aux := MyPutScrap(LENGTH_OF_STRING(s),MY_FOUR_CHAR_CODE('TEXT'),@s[1]);
+      aux := MyPutScrap(LENGTH_OF_STRING(s),FOUR_CHAR_CODE('TEXT'),@s[1]);
 
       TransfererLePressePapierGlobalDansTextEdit;
     end;
@@ -419,7 +419,7 @@ begin
   if LENGTH_OF_STRING(s) > 0 then
     begin
       aux := MyZeroScrap;
-      aux := MyPutScrap(LENGTH_OF_STRING(s),MY_FOUR_CHAR_CODE('TEXT'),@s[1]);
+      aux := MyPutScrap(LENGTH_OF_STRING(s),FOUR_CHAR_CODE('TEXT'),@s[1]);
 
       TransfererLePressePapierGlobalDansTextEdit;
     end;
@@ -436,7 +436,7 @@ begin
   if LENGTH_OF_STRING(s) > 0 then
     begin
       aux := MyZeroScrap;
-      aux := MyPutScrap(LENGTH_OF_STRING(s),MY_FOUR_CHAR_CODE('TEXT'),@s[1]);
+      aux := MyPutScrap(LENGTH_OF_STRING(s),FOUR_CHAR_CODE('TEXT'),@s[1]);
 
       TransfererLePressePapierGlobalDansTextEdit;
     end;
@@ -452,7 +452,7 @@ begin
   aux := GetTailleRapport;
 
   (* Afficher le code HTML dans le rapport... *)
-  err     := CreeSortieStandardEnFichierTexte(fic);  {en fait, dans le rapport}
+  err     := CreateStandardOutputAsFile(fic);  {en fait, dans le rapport}
   theFile := MakeFichierAbstraitFichier(fic.nomFichier,0);
   if FichierAbstraitEstCorrect(theFile)
     then
@@ -528,7 +528,7 @@ begin
                         ReelEnStringAvecDecimales(probaDeGain,6),' ',
                         IntToStr(tempsEnSecondes));
   aux := MyZeroScrap;
-  aux := MyPutScrap(LENGTH_OF_STRING(chainePourIOS),MY_FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]);
+  aux := MyPutScrap(LENGTH_OF_STRING(chainePourIOS),FOUR_CHAR_CODE('TEXT'),@chainePourIOS[1]);
   TransfererLePressePapierGlobalDansTextEdit;
 end;
 

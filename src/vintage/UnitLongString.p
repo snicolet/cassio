@@ -40,7 +40,7 @@ procedure WriteLongStringDansRapport(const ligne : LongString);
 procedure WritelnLongStringDansRapport(const ligne : LongString);
 
 
-{ Voir aussi Readln() dans basicfile.p }
+{ See also Readln() dans basicfile.p }
 
 
 IMPLEMENTATION

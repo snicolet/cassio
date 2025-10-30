@@ -302,10 +302,10 @@ begin
 
                   (*
 
-                  WriteDansRapport(NumEnStringAvecFormat(gLastFFONumberRead, 10, ' ') + '   ');
+                  WriteDansRapport(IntToStrWithPadding(gLastFFONumberRead, 10, ' ') + '   ');
                   WritelnDansRapport(TPCopy(gLastFFONameRead,1,positionVirgule-1) + ',' + TPCopy(gLastFFONameRead,positionVirgule, 255));
 
-                  WriteDansRapport(NumEnStringAvecFormat(numeroFFO, 10, ' ') + '   ');
+                  WriteDansRapport(IntToStrWithPadding(numeroFFO, 10, ' ') + '   ');
                   WritelnDansRapport(TPCopy(nomFFO,1,positionVirgule-1) + ',' + TPCopy(nomFFO,positionVirgule, 255));
 
                   *)

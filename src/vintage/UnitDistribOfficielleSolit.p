@@ -140,8 +140,8 @@ begin
 		  if erreurES = NoErr then erreurES := EcritEnteteNouveauFormat(fichierSolitaires.refNum,entete);
 		  if erreurES = NoErr then erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(fichierSolitaires.refNum,statsPourCeFichier);
 		  if erreurES = NoErr then erreurES := CloseFile(fichierSolitaires);
-		  SetFileCreatorFichierTexte(fichierSolitaires,MY_FOUR_CHAR_CODE('SNX4'));
-		  SetFileTypeFichierTexte(fichierSolitaires,MY_FOUR_CHAR_CODE('PZZL'));
+		  SetFileCreatorFichierTexte(fichierSolitaires,FOUR_CHAR_CODE('SNX4'));
+		  SetFileTypeFichierTexte(fichierSolitaires,FOUR_CHAR_CODE('PZZL'));
 
 		  CreerFichierSolitaireVideNouveauFormat := erreurES;
 		end;
