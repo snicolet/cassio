@@ -41,7 +41,7 @@ function CalculeMeilleurCoupMilieuDePartie(const jeu : plateauOthello; var emplB
 procedure LanceInterruption(typeInterruption : SInt16; const fonctionAppelante : String255);     external;
 procedure ForEachPositionInGameDo(partie60 : PackedThorGame; DoWhat : MilieuDePartieProc; var result : SInt32);     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadLongintDansFichierTexte(var fic : basicfile; var value : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; var value : SInt32) : OSErr;     external;
 function LitPointMultidimensionnelDansFichierTexte(var fic : basicfile; var p : PointMultidimensionnel) : OSErr;     external;
 procedure CopierPointMultidimensionnel(var source,dest : PointMultidimensionnel);     external;
 function Writeln(var fic : basicfile; value : SInt32) : OSErr;     external;

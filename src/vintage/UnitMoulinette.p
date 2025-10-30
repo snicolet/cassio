@@ -410,7 +410,7 @@ begin {AjouterPartiesFichierPGNDansListe}
 
       if (Pos('[Event',ligne) = 0) then
         begin
-          erreurES := ReadlnDansFichierTexte(fichierPGN , s);
+          erreurES := Readln(fichierPGN , s);
           ligne := s;
         end;
 
@@ -448,7 +448,7 @@ begin {AjouterPartiesFichierPGNDansListe}
                 ParserTournoiDansFichierPNG(nomDictionnaireDesPseudos,ligne,numeroTournoiParDefaut,pseudoTournoi,nomTournoi,numeroTournoi);
 
                 repeat
-                  erreurES := ReadlnDansFichierTexte(fichierPGN,s);
+                  erreurES := Readln(fichierPGN,s);
       			      ligne := s;
       			      EnleveEspacesDeGaucheSurPlace(ligne);
 
@@ -1207,7 +1207,7 @@ begin
       AlerteSimpleFichierTexte(nomBaseLogKitty,0);
       exit;
     end;
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
 
   erreurES := FichierTexteDeCassioExiste(nomBaseLogKitty,inputBaseLogKitty);
@@ -1254,7 +1254,7 @@ begin
       watch := GetCursor(watchcursor);
       SafeSetCursor(watch);
 
-      erreurES := ReadlnDansFichierTexte(inputBaseLogKitty,s);
+      erreurES := Readln(inputBaseLogKitty,s);
       ligne := s;
       EnleveEspacesDeGaucheSurPlace(ligne);
       if (ligne = '') or (ligne[1] = '%')
@@ -1842,7 +1842,7 @@ begin
 
           while (erreurES = NoErr) and not(EndOfFile(fichierModeleHTML,erreurES)) do
             begin
-              erreurES := ReadlnDansFichierTexte(fichierModeleHTML,s);
+              erreurES := Readln(fichierModeleHTML,s);
               ligne := s;
               ligneSansEspace := EnleveEspacesDeGauche(ligne);
               if (ligneSansEspace[1] = '%')

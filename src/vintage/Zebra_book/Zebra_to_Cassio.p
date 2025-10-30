@@ -1456,8 +1456,8 @@ begin
 
                   err := OpenFile(theBook);
                   err := SetFilePosition(theBook, 0);
-                  err := ReadLongintDansFichierTexte(theBook,bidlong);
-                  err := ReadLongintDansFichierTexte(theBook,nbreEnregistrementsDansFic);
+                  err := Read(theBook,bidlong);
+                  err := Read(theBook,nbreEnregistrementsDansFic);
                   err := CloseFile(theBook);
 
 
@@ -1579,11 +1579,11 @@ begin
       // read file
 
       count := taille;
-      err := ReadBufferDansFichierTexte(theBook,@nodes[numeroBucket].table^[0],count);
+      err := Read(theBook,@nodes[numeroBucket].table^[0],count);
 
 
       if (err <> NoErr) or (count <> taille) then
-        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (ReadBufferDansFichierTexte) : (err <> NoErr) or (count <> taille)');
+        WritelnDansRapport('ERROR dans LireBucketOfZebraNodes (Read) : (err <> NoErr) or (count <> taille)');
 
 
       {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }

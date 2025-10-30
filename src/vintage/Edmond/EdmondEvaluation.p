@@ -676,7 +676,7 @@ begin
 
   // Lire le fichier, et mettre le resultat dans le tableau
   count := Sizeof(SInt16) * TailleDUnPatternDeTantDeCases(tailleDuPattern);
-  err := ReadBufferDansFichierTexte(fic, Ptr(tableau) , count);
+  err := Read(fic, Ptr(tableau) , count);
 
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }

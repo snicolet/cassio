@@ -38,7 +38,7 @@ function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : O
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
-function InsererFichierTexteDansFichierTexte(var insere,receptacle : basicfile) : OSErr;     external;
+function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
 	function GetNameOfFSSpec(fs : fileInfo) : String255;     external;
   function EndsWith(const s : String255; const sub : String255) : boolean;     external;
@@ -47,7 +47,7 @@ procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;

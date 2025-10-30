@@ -638,7 +638,7 @@ begin
 			        end;
 
 			      count := sizeof(CelluleRec);
-			      erreurES := ReadBufferDansFichierTexte(fichier^.fic,@cellule,count);
+			      erreurES := Read(fichier^.fic,@cellule,count);
 
 
 			      {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }

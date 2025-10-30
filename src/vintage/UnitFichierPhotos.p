@@ -728,7 +728,7 @@ begin
 
   while (erreurES = NoErr) and not(EndOfFile(fic,erreurES)) do
     begin
-      erreurES := ReadlnDansFichierTexte(fic,ligne);
+      erreurES := Readln(fic,ligne);
       //WritelnDansRapport(ligne);  // CREATE NEW
       if (erreurES = NoErr) and (ligne <> '') and (ligne[1] <> '%') then
         begin
@@ -838,8 +838,8 @@ procedure TestUnitFichierPhotos;
 var fic : basicfile;
     temp : boolean;
 begin
-  temp := GetDebuggageUnitFichiersTexte;
-  SetDebuggageUnitFichiersTexte(true);
+  temp := GetDebugFiles;
+  SetDebugFiles(true);
 
   if FichierPhotosExisteSurLeDisque('Photos Cassio',fic)
     then
@@ -847,7 +847,7 @@ begin
     else
       WritelnDansRapport('Le fichier des photos est introuvable !');
 
-  SetDebuggageUnitFichiersTexte(temp);
+  SetDebugFiles(temp);
  end;
 
 

@@ -1512,7 +1512,7 @@ begin
 
   nbPrefFiles := 0;
   repeat
-    erreurES := ReadlnDansFichierTexte(fic,s);
+    erreurES := Readln(fic,s);
     if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);

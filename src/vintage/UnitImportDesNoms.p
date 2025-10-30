@@ -263,7 +263,7 @@ begin
 
       while not(EndOfFile(dictionnairePseudosPGN,erreurES)) and not(trouve) do
         begin
-          erreurES := ReadlnDansFichierTexte(dictionnairePseudosPGN,s);
+          erreurES := Readln(dictionnairePseudosPGN,s);
           ligne := s;
           EnleveEspacesDeGaucheSurPlace(ligne);
           if (ligne = '') or (ligne[1] = '%')

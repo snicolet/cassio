@@ -9,7 +9,7 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 function NewEmptyFichierAbstrait : FichierAbstrait;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
 function MakeFichierAbstraitEnMemoire(taille : SInt32) : FichierAbstrait;     external;

@@ -41,7 +41,7 @@ procedure SetParamDiag(var paramDiag : ParamDiagRec);     external;
 	procedure ConstruitPositionPicture(chainePosition,chaineCoups : String255);     external;
 function MyZeroScrap : OSStatus;     external;
 	function CopierPICTDansPressePapier(myPicture: PicHandle) : OSErr;     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 function FenetreRapportEstOuverte : boolean;     external;
 procedure OuvreFntrRapport(avecAnimationZoom,forceSelectWindow : boolean);     external;
 function FenetreRapportEstAuPremierPlan : boolean;     external;

@@ -2430,7 +2430,7 @@ var err : OSErr;
 begin
   err := SetFilePosition(BaseSolitairesFic,tailleHeader+TailleTournois+TailleJoueurs+(n-1)*TaillePartieRec);
   count := TaillePartieRec;
-  err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(Partiebuff),count);
+  err := Read(BaseSolitairesFic,MAKE_MEMORY_POINTER(Partiebuff),count);
 
   {$IFC NOT(CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL) }
   SWAP_INTEGER( @Partiebuff^.numeroTournoi);
@@ -2446,7 +2446,7 @@ var i : SInt32;
 begin
   err := SetFilePosition(BaseSolitairesFic,tailleHeader+TailleTournois+n*TailleJoueurRec);
   count := TailleJoueurRec;
-  err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
+  err := Read(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
   for i := 1 to 19 do
     begin
       if buffer^[i] = 0 then buffer^[i] := 32;
@@ -2462,7 +2462,7 @@ var i : SInt32;
 begin
   err := SetFilePosition(BaseSolitairesFic,tailleHeader+n*TailleTournoiRec);
   count := TailleTournoiRec;
-  err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
+  err := Read(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
   nom := '';
   for i := 1 to 29 do
     begin
@@ -2485,7 +2485,7 @@ begin
   TailleJoueurs := 2000*TailleJoueurRec;
   TaillePartieRec := 68;
   count := 4;
-  err := ReadBufferDansFichierTexte(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
+  err := Read(BaseSolitairesFic,MAKE_MEMORY_POINTER(buffer),count);
   nbreParties := buffer^[1]+256*buffer^[2];
   nbreJoueurs := buffer^[3]+256*buffer^[4];
 end;
@@ -2623,7 +2623,7 @@ begin
   if err <> 0 then SysBeep(0);
 
   count := 40;
-  err := ReadBufferDansFichierTexte(FichierReferencesSolitaires,@myPacked13,count);
+  err := Read(FichierReferencesSolitaires,@myPacked13,count);
 
   if err <> 0 then SysBeep(0);
 

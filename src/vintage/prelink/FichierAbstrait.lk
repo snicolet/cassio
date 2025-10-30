@@ -15,7 +15,7 @@ procedure MoveMemory(sourcePtr,destPtr: Ptr; byteCount: SInt32);     external;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;     external;
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;

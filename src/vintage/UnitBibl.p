@@ -864,7 +864,7 @@ begin
   	        then OuvrirFenetreLectureBibliotheque(lectureBiblData);
 
 
-  	      {SetDebuggageUnitFichiersTexte(false);}
+  	      {SetDebugFiles(false);}
     	    erreurES := FichierBibliothequeDeCassioExiste(nomBibl,FichierBibliotheque);
 
 
@@ -961,7 +961,7 @@ begin
   	                (nbreLignesEnBibl < maxNbreLignesEnBibl) and
   	                not(bibliothequeTropGrosse) do
   	            begin
-  	              erreurES := ReadlnDansFichierTexte(FichierBibliotheque,uneligne);
+  	              erreurES := Readln(FichierBibliotheque,uneligne);
   	              if erreurES = 0 then
   	                begin
   	                  EnleveEspacesDeGaucheSurPlace(uneLigne);

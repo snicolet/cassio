@@ -22,7 +22,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
 procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 	function LeftStr (const s : String255; len : SInt32) : String255;     external;

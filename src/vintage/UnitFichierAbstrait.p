@@ -193,7 +193,7 @@ begin
       LireFromFichierAbstraitFichier := Err;
       exit;
     end;
-  Err := ReadBufferDansFichierTexte(fic,text,nbOctets);
+  Err := Read(fic,text,nbOctets);
   LireFromFichierAbstraitFichier := Err;
 end;
 

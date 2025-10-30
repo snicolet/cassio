@@ -94,7 +94,7 @@ begin
 	    exit;
 	  end;
 
-  OSError := ReadBufferDansFichierTexte(picFile,Ptr(thePicture^),numberOfBytes);
+  OSError := Read(picFile,Ptr(thePicture^),numberOfBytes);
   if (OSError <> noErr) then
 	  begin
 	    error := OSError;

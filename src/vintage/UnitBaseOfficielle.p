@@ -128,10 +128,10 @@ var erreurES : OSErr;
     oldEcritureDansLog : boolean;
     oldDebuggageUnitFichierTexte : boolean;
 begin
-  oldDebuggageUnitFichierTexte := GetDebuggageUnitFichiersTexte;
+  oldDebuggageUnitFichierTexte := GetDebugFiles;
   oldEcritureDansLog := GetEcritToutDansRapportLog;
 
-  SetDebuggageUnitFichiersTexte(false);
+  SetDebugFiles(false);
   SetEcritToutDansRapportLog(false);
 
   s := '     ' + s;
@@ -142,7 +142,7 @@ begin
   WritelnDansRapport(s);
   if (erreurES = NoErr) then erreurES := FermeFichierTraceWThor;
 
-  SetDebuggageUnitFichiersTexte(oldDebuggageUnitFichierTexte);
+  SetDebugFiles(oldDebuggageUnitFichierTexte);
   SetEcritToutDansRapportLog(oldEcritureDansLog);
 end;
 

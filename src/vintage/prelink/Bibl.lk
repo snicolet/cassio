@@ -64,7 +64,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 procedure InitProgressIndicator(whichWindow : WindowRef; r : rect; maximum : SInt32; PourKaleidoscope : boolean);     external;
 	function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;
 	procedure CenterString(h, v, w : SInt16; s : String255);     external;
@@ -73,6 +73,6 @@ function OpenFile(var fic : basicfile) : OSErr;     external;
 	procedure TerminateMenu(var theMenu : MenuRef; provientDUneResource : boolean);     external;
   function MyGetMenu(resourceID : SInt16) : MenuRef;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 procedure EssaieSetPortWindowPlateau;     external;

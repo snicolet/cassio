@@ -876,7 +876,7 @@ begin
   while not(EndOfFile(fic,err)) do
     begin
 
-      err := ReadlnLongStringDansFichierTexte(fic,ligne);
+      err := Readln(fic,ligne);
 
       theSymbole := ParserDefinition(ligne,theModule,wasExternal);
 
@@ -1547,7 +1547,7 @@ var lecture : LectureModulePtr;
 
                       repeat
 
-                        err := ReadlnDansFichierTexte(theFic,s);
+                        err := Readln(theFic,s);
 
                         if Pos(' ATT',s) > 0 then s := TPCopy(s,1,Pos(' ATT',s));
                         if Pos(' EXT',s) > 0 then

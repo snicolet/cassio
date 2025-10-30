@@ -385,10 +385,10 @@ begin
 
   while not(EndOfFile(fic,err)) do
     begin
-      err := ReadLongintDansFichierTexte(fic,numeroCoup);
-      err := ReadLongintDansFichierTexte(fic,nbData);
-      err := ReadLongintDansFichierTexte(fic,prof);
-      err := ReadLongintDansFichierTexte(fic,tailleVecteur);
+      err := Read(fic,numeroCoup);
+      err := Read(fic,nbData);
+      err := Read(fic,prof);
+      err := Read(fic,tailleVecteur);
 
       if err <> 0 then
         begin

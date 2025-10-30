@@ -1051,7 +1051,7 @@ var chainePositionInitiale : String255;
     N : SInt32;  {taille de l'othellier (9x9, ou 10x10) }
 begin
 
-  {SetDebuggageUnitFichiersTexte(true);}
+  {SetDebugFiles(true);}
 
   N := -1;
   if (UtilisateurChoisitFichier_NxN(N,theFic) = NoErr) and (N >= 9) then
@@ -1098,7 +1098,7 @@ begin
 	          {
 	          WritelnDansRapport('OK, fichierAbstraitLecture(fic) dans DoDiagrammeNxN');
 	          AttendFrappeClavier;
-	          SetDebuggageUnitFichiersTexte(false);
+	          SetDebugFiles(false);
 	          }
 
 	          if lectureEnCours then
@@ -1143,7 +1143,7 @@ begin
 	  end;
 
 	 {
-	 SetDebuggageUnitFichiersTexte(false);
+	 SetDebugFiles(false);
    }
 
 end;

@@ -397,7 +397,7 @@ begin
       exit;
     end;
   count := (n+1)*sizeof(TypeReel);
-  LitPointMultidimensionnelDansFichierTexte := ReadBufferDansFichierTexte(fic,Ptr(@p^[0]),count);
+  LitPointMultidimensionnelDansFichierTexte := Read(fic,Ptr(@p^[0]),count);
 end;
 
 

@@ -473,7 +473,7 @@ begin
 
 
   count := 4;
-  err := ReadBufferDansFichierTexte(fic,@p.taille,count);
+  err := Read(fic,@p.taille,count);
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   SWAP_LONGINT( @p.taille);
@@ -481,7 +481,7 @@ begin
 
   count := sizeof(SInt16);
   count := (n+1)*count;
-  err := ReadBufferDansFichierTexte(fic,Ptr(p.data),count);
+  err := Read(fic,Ptr(p.data),count);
 
   {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
   if (p.data <> NIL)

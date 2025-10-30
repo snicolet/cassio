@@ -13,6 +13,6 @@ function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 procedure GeneralQuickSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);     external;
 procedure GeneralShellSort(lo,up : SInt32; lecture : LectureTableauProc; affectation : AffectationProc; ordre : OrdreProc);     external;

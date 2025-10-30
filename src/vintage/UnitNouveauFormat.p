@@ -951,7 +951,7 @@ begin
 
             // copier le nouveau fichier (telecharge) dans le nouveau fichier du dossier database
             if err = NoErr then
-              err := InsererFichierTexteDansFichierTexte(fichierACopier,fic);
+              err := InsertFileInFile(fichierACopier,fic);
 
             if err = NoErr then
               begin
@@ -1038,7 +1038,7 @@ begin
 
                 // copier le nouveau fichier (telecharge) dans l'ancien (celui du dossier database)
                 if (err = NoErr) then
-                  err := InsererFichierTexteDansFichierTexte(fichierACopier,theFichierTEXT);
+                  err := InsertFileInFile(fichierACopier,theFichierTEXT);
 
                 // on verifie que tout c'est bien passe
                 if (err = NoErr) then
@@ -1927,7 +1927,7 @@ begin
 
           while (codeErreur = NoErr) and not(EndOfFile(fic,codeErreur)) do
             begin
-              codeErreur := ReadlnDansFichierTexte(fic,s);
+              codeErreur := Readln(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
                  SplitAt(s,'=',nomLatin,nomJaponais) then
 		            begin
@@ -2191,7 +2191,7 @@ begin
 
   while not(EndOfFile(dictionnairePseudosWThor,erreurES)) do
     begin
-      erreurES := ReadlnDansFichierTexte(dictionnairePseudosWThor,s);
+      erreurES := Readln(dictionnairePseudosWThor,s);
       ligne := s;
       EnleveEspacesDeGaucheSurPlace(ligne);
       if (ligne = '') or (ligne[1] = '%')
@@ -2445,7 +2445,7 @@ begin
 
           while (codeErreur = NoErr) and not(EndOfFile(fic,codeErreur)) do
             begin
-              codeErreur := ReadlnDansFichierTexte(fic,s);
+              codeErreur := Readln(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
                  SplitAt(s,'=',nomLatin,nomJaponais) then
 		            begin

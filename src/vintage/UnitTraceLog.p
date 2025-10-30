@@ -96,11 +96,11 @@ var erreurES : OSErr;
 begin
   if tracingState then
     begin
-      oldDebuggageUnitFichierTexte := GetDebuggageUnitFichiersTexte;
+      oldDebuggageUnitFichierTexte := GetDebugFiles;
 		  oldEcritureDansLog := GetEcritToutDansRapportLog;
 		  oldTraceState := GetTraceLogState;
 
-		  SetDebuggageUnitFichiersTexte(false);
+		  SetDebugFiles(false);
 		  SetEcritToutDansRapportLog(false);
 		  SetTracingLog(false);
 
@@ -109,7 +109,7 @@ begin
 		  erreurES := Writeln(FichierTraceLog,s);
 		  FermeFichierTrace;
 
-		  SetDebuggageUnitFichiersTexte(oldDebuggageUnitFichierTexte);
+		  SetDebugFiles(oldDebuggageUnitFichierTexte);
 		  SetEcritToutDansRapportLog(oldEcritureDansLog);
 		  SetTracingLog(oldTraceState);
 		end;

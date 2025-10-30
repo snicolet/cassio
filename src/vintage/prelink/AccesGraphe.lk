@@ -31,7 +31,7 @@ function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;     externa
   procedure SWAP_LONGINT( arg : UInt32Ptr );     external;
   procedure SWAP_INTEGER( arg : UInt16Ptr );     external;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;

@@ -398,9 +398,9 @@ begin  {$UNUSED err}
     end;
   }
 
-  {SetDebuggageUnitFichiersTexte(true);}
+  {SetDebugFiles(true);}
   err := LitNomsDesJoueursEnJaponais;
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
   {DisposeJoueursNouveauFormat;}
 

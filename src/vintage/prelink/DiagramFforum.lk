@@ -134,7 +134,7 @@ procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 function Write(var fic : basicfile; ficAbstrait : FichierAbstrait; fromPos : Sint32; var count : SInt32) : OSErr;     external;
 function GetPositionMarqueurFichierAbstrait(var theFile : FichierAbstrait) : SInt32;     external;
 function DeleteFile(var fic : basicfile) : OSErr;     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 function TypesPierresDelta : SetOfPropertyTypes;     external;
 
 

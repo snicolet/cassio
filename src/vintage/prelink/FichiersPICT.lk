@@ -11,6 +11,6 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;     external;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
   function GetPicFrameOfPicture(thePict : PicHandle) : Rect;     external;

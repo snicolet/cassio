@@ -58,7 +58,7 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);  
 function MakeEmptyStringSet : StringSet;     external;
 procedure DisposeStringSet(var S : StringSet);     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 procedure CompacterPartieAlphanumerique(var s : String255; modification : SInt16);     external;
 function EstUnePartieOthelloTerminee(var s : String255; compacterPartie : boolean; var nbPionsFinalNoirs,nbPionsFinalBlancs : SInt32) : boolean;     external;
 	function EscapeDansQueue : boolean;     external;
@@ -91,7 +91,7 @@ procedure FermerFichierEtFabriquerFichierAbstrait(var fic : basicfile; var theFi
 function TrouverNomDeTournoiDansPath(path : String255; var numeroTournoi,annee : SInt32; nomDictionnaireDesPseudos : String255) : boolean;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : basicfile; var theFile : FichierAbstrait);     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;

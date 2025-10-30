@@ -46,7 +46,7 @@ procedure WriteHugeStringDansRapport(const ligne : HugeString);
 procedure WritelnHugeStringDansRapport(const ligne : HugeString);
 
 
-{ Voir aussi ReadlnHugeStringDansFichierTexte() et Writeln() dans basicfile.p }
+{ Voir aussi Readln() et Writeln() dans basicfile.p }
 
 
 
@@ -80,7 +80,7 @@ CONST k_HUGE_STRING_BUFFER_SIZE = 32000;
 (*
  *******************************************************************************
  *                                                                             *
- *   NewHugeString() permet d'initialiser d'une chaine ˆ la chaine vide.      *
+ *   NewHugeString() permet d'initialiser d'une chaine ˆ la chaine vide.       *
  *                                                                             *
  *******************************************************************************
  *)

@@ -1878,7 +1878,7 @@ begin
   if (err <> NoErr) then goto sortie;
 
   repeat
-    err := ReadlnDansFichierTexte(fic,s);
+    err := Readln(fic,s);
     s := EnleveEspacesDeGauche(s);
 
     if (err = NoErr) and (s <> '') and (s[1] <> '#') and (s[1] <> '%') then
@@ -2513,7 +2513,7 @@ begin
   if erreurES <> NoErr then exit;
 
   repeat
-    erreurES := ReadlnDansFichierTexte(fichierRapport,s);
+    erreurES := Readln(fichierRapport,s);
     if (s <> '') and (erreurES = NoErr) then
       if (s[1] <> '#') and (Pos('(front,min,mob,pen)',s) = 1) then
         begin

@@ -113,7 +113,7 @@ procedure AjusteCurseur;     external;
 procedure FixeMarqueSurMenuMode(n : SInt16);     external;
 procedure OthellierEtPionsDeDepart(var plat : plateauOthello; var nBla,nNoi : SInt32);     external;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   procedure SWAP_INTEGER( arg : UInt16Ptr );     external;
 	procedure MySetStringLength (var s : String255; len : SInt16);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;

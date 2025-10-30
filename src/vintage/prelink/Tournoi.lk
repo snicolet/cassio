@@ -113,7 +113,7 @@ function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : O
 function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
 procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
   procedure Parse6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);     external;
 	function NoCaseEquals( s1, s2 : String255 ) : boolean;     external;

@@ -21,7 +21,7 @@ function NewEvalDeCassio(var position : plateauOthello; var jouable : plBool; va
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;     external;
 procedure TraiteOneEvenement;     external;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;

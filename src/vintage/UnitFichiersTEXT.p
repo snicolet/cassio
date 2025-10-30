@@ -53,18 +53,18 @@ function Writeln(var fic : basicfile; const s : HugeString) : OSErr;
 
 
 
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function ReadDansFichierTexte(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;
-function ReadlnLongStringDansFichierTexte(var fic : basicfile; var s : LongString) : OSErr;
-function ReadlnHugeStringDansFichierTexte(var fic : basicfile; var s : HugeString) : OSErr;
-function ReadlnBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function ReadLongintDansFichierTexte(var fic : basicfile; var value : SInt32) : OSErr;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
+function Readln(var fic : basicfile; var s : String255) : OSErr;
+function Readln(var fic : basicfile; var s : LongString) : OSErr;
+function Readln(var fic : basicfile; var s : HugeString) : OSErr;
+function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; var value : SInt32) : OSErr;
 
 
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
-function InsererFichierDansFichierTexte(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
-function InsererFichierTexteDansFichierTexte(var insere,receptacle : basicfile) : OSErr;
+function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
+function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
 
 
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);
@@ -73,10 +73,10 @@ function GetFileCreatorFichierTexte(var fic : basicfile) : OSType;
 function GetFileTypeFichierTexte(var fic : basicfile) : OSType;
 
 
-function GetCreationDateFichierTexte(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-function SetCreationDateFichierTexte(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
-function GetModificationDateFichierTexte(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-function SetModificationDateFichierTexte(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
+function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+function SetCreationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
+function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 
 
 function CreerRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
@@ -85,8 +85,8 @@ function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
 function UseRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
 
 
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);
-function  GetDebuggageUnitFichiersTexte : boolean;
+procedure SetDebugFiles(flag : boolean);
+function  GetDebugFiles : boolean;
 
 
 function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;
@@ -101,13 +101,13 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
   (* Installation des procedure pour l'affichage de message :     *)
   (* sur la sortie standard par defaut. On peut installer des     *)
   (* routines personalisees d'impression de messages et d'alerte  *)
-  (* juste apres l'appel a InitUnitFichierTexte                   *)
+  (* juste apres l'appel a InitUnitBasicFile                   *)
 
 
-procedure InitUnitFichierTexte;
-procedure InstalleMessageDisplayerFichierTexte(theProc : MessageDisplayerProc);
-procedure InstalleMessageAndNumDisplayerFichierTexte(theProc : MessageAndNumDisplayerProc);
-procedure InstalleAlerteFichierTexte(theProc : MessageAndNumDisplayerProc);
+procedure InitUnitBasicFile;
+procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
+procedure InstallMessageAndDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
+procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);
 
 procedure DisplayMessageInConsole(s : String255);
 procedure DisplayMessageWithNumInConsole(s : String255; num : SInt32);
@@ -148,7 +148,7 @@ USES
 
 
 const unit_initialisee : boolean = false;
-      avecDebuggageUnitFichiersTexte : boolean = false;
+      debugBasicFiles : boolean = false;
 
 var useStandardConsole : boolean;
     CustomDisplayMessage : MessageDisplayerProc;
@@ -403,7 +403,7 @@ function CreateFFSpecAndResolveAlias(var fic : basicfile) : OSErr;
 var err,bidLongint : OSErr;
     fullName : String255;
 begin
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' avant MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
@@ -444,7 +444,7 @@ begin
       DisplayMessageWithNumInConsole('hashing -> uniqueID = ',uniqueID);}
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
@@ -483,7 +483,7 @@ begin
       exit;
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
@@ -498,7 +498,7 @@ begin
 
   err2 := CreateFFSpecAndResolveAlias(fic);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
@@ -519,7 +519,7 @@ begin
       begin
 			  err1 := FSpGetFInfo(fic.info,FinderInfos);
 
-			  if avecDebuggageUnitFichiersTexte then
+			  if debugBasicFiles then
 			    begin
 			      DisplayMessageInConsole('');
 			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
@@ -536,7 +536,7 @@ begin
 			  FileExists := err1;
 			end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
@@ -565,7 +565,7 @@ begin
       exit;
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
@@ -580,7 +580,7 @@ begin
 
   err2 := CreateFFSpecAndResolveAlias(fic);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
@@ -601,7 +601,7 @@ begin
       begin
 			  err1 := FSpGetFInfo(fic.info,FinderInfos);
 
-			  if avecDebuggageUnitFichiersTexte then
+			  if debugBasicFiles then
 			    begin
 			      DisplayMessageInConsole('');
 			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
@@ -618,7 +618,7 @@ begin
 			  FileExists := err1;
 			end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
@@ -639,7 +639,7 @@ begin
       exit;
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
@@ -655,7 +655,7 @@ begin
 
   err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
@@ -684,7 +684,7 @@ begin
       exit;
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
@@ -700,7 +700,7 @@ begin
 
   err := FSpCreate(fic.info,MY_FOUR_CHAR_CODE('????'),MY_FOUR_CHAR_CODE('TEXT'),0);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
@@ -749,7 +749,7 @@ begin
   with fic do  {on essaie l'ouverture avec les anciennes routines}
     err := FSOpen(nomFichier,vRefNum,refNum);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSOpen dans OpenFile :');
@@ -769,7 +769,7 @@ begin
       begin
         err := FSpOpenDF(info,fsCurPerm,refNum);
 
-        if avecDebuggageUnitFichiersTexte then
+        if debugBasicFiles then
 			    begin
 			      DisplayMessageInConsole('');
 			      DisplayMessageInConsole(' apres FSpOpenDF dans OpenFile :');
@@ -830,7 +830,7 @@ begin
 
   err := FSClose(fic.refNum);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSClose dans CloseFile :');
@@ -878,7 +878,7 @@ begin
     end;
 
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' entree dans DeleteFile :');
@@ -890,7 +890,7 @@ begin
 
   err := CloseFile(fic);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres OpenFile/CloseFile dans DeleteFile :');
@@ -903,7 +903,7 @@ begin
   with fic do  {on essaie avec les anciennes routines}
     err := FSDelete(nomFichier,vRefNum);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSDelete dans DeleteFile :');
@@ -917,7 +917,7 @@ begin
       begin
         err := FSpDelete(info);
 
-        if avecDebuggageUnitFichiersTexte then
+        if debugBasicFiles then
 			    begin
 			      DisplayMessageInConsole('');
             DisplayMessageInConsole(' apres FSpDelete dans DeleteFile :');
@@ -960,7 +960,7 @@ begin
 
   err := GetEOF(fic.refNum,taille);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetEOF dans GetFileSize :');
@@ -995,7 +995,7 @@ begin
           then positionDansBuffer := (position - debutDuBuffer);
       end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetFPos dans SetFilePosition :');
@@ -1021,7 +1021,7 @@ begin
 
   err := SetFPos(fic.refNum,fsFromLEOF,0);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetFPos dans SetFilePositionAtEnd :');
@@ -1046,7 +1046,7 @@ begin
 
   err := GetFPos(fic.refNum,position);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans GetFilePosition :');
@@ -1074,7 +1074,7 @@ begin
 
   erreurES := GetFPos(fic.refNum,position);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans EndOfFile :');
@@ -1086,7 +1086,7 @@ begin
   if erreurES <> NoErr then exit;
   erreurES := GetEOF(fic.refNum,logicalEOF);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetEOF dans EndOfFile :');
@@ -1111,7 +1111,7 @@ begin
 
   err := SetEOF(fic.refNum,posEOF);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetEOF dans SetEndOfFile :');
@@ -1136,7 +1136,7 @@ begin
 
   err := SetEndOfFile(fic,0);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetEndOfFile dans EmptyFile :');
@@ -1162,7 +1162,7 @@ begin
 
   err := FSWrite(fic.refNum,count,buffPtr);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSWrite dans Write :');
@@ -1235,7 +1235,7 @@ begin
 
   err := MyFSWriteString(fic.refNum,s);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSWriteString dans Write :');
@@ -1254,13 +1254,13 @@ begin
   if FichierTexteEstLeRapport(fic) then
     begin
       WritelnDansRapport(s);
-      Writeln( := NoErr;
+      Writeln := NoErr;
       exit;
     end;
 
   err := MyFSWriteString(fic.refnum,s + chr(13));
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSWriteString dans Writeln( :');
@@ -1268,7 +1268,7 @@ begin
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  Writeln( := err;
+  Writeln := err;
 end;
 
 
@@ -1290,7 +1290,7 @@ begin
       DisposeMemoryPtr(buffer);
     end;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSWrite dans Write :');
@@ -1318,7 +1318,7 @@ begin
   count := 4;
   err := FSWrite(fic.refNum,count,@value);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSWrite dans Writeln :');
@@ -1329,39 +1329,39 @@ begin
   Writeln := err;
 end;
 
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
 begin
 
   if FichierTexteEstLeRapport(fic) then
     begin
-      ReadBufferDansFichierTexte := -1;
+      Read := -1;
       exit;
     end;
 
   err := FSRead(fic.refNum,count,buffPtr);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans ReadBufferDansFichierTexte :');
+      DisplayMessageInConsole(' apres FSRead dans Read :');
       DisplayMessageWithNumInConsole('count = ',count);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  ReadBufferDansFichierTexte := err;
+  Read := err;
 end;
 
 
-function ReadDansFichierTexte(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
+function Read(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
 var len : SInt32;
     err : OSErr;
 begin
 
   if FichierTexteEstLeRapport(fic) then
     begin
-      ReadDansFichierTexte := -1;
+      Read := -1;
       exit;
     end;
 
@@ -1372,15 +1372,15 @@ begin
   err := FSRead(fic.refnum,len,@s[1]);
   SET_LENGTH_OF_STRING(s,len);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans ReadDansFichierTexte :');
+      DisplayMessageInConsole(' apres FSRead dans Read :');
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  ReadDansFichierTexte := err;
+  Read := err;
 end;
 
 
@@ -1507,7 +1507,7 @@ Bail :
 end;
 
 
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;
+function Readln(var fic : basicfile; var s : String255) : OSErr;
 var err : OSErr;
     i,len,longueurLigne : SInt32;
     positionTeteDeLecture : SInt32;
@@ -1517,7 +1517,7 @@ begin
 
   if FichierTexteEstLeRapport(fic) then
     begin
-      ReadlnDansFichierTexte := -1;
+      Readln := -1;
       exit;
     end;
 
@@ -1564,20 +1564,20 @@ begin
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans ReadlnDansFichierTexte :');
+      DisplayMessageInConsole(' apres FSRead dans Readln :');
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  ReadlnDansFichierTexte := err;
+  Readln := err;
 end;
 
 
 
-function ReadlnLongStringDansFichierTexte(var fic : basicfile; var s : LongString) : OSErr;
+function Readln(var fic : basicfile; var s : LongString) : OSErr;
 var longueur : SInt32;
     err : OSErr;
 begin
@@ -1587,7 +1587,7 @@ begin
       finLigne   := '';
       complete   := true;
 
-      err := ReadlnDansFichierTexte(fic, debutLigne);
+      err := Readln(fic, debutLigne);
 
       if (err = NoErr) then
         begin
@@ -1596,17 +1596,17 @@ begin
              ((longueur = 255) and gRetourCharriotTrouveDansReadlnFichierTEXT)
             then
               begin
-                ReadlnLongStringDansFichierTexte := err;
+                Readln := err;
                 exit;
               end
             else
               begin
-                err := ReadlnDansFichierTexte(fic, finLigne);
+                err := Readln(fic, finLigne);
                 complete := gRetourCharriotTrouveDansReadlnFichierTEXT;
               end;
         end;
 
-      ReadlnLongStringDansFichierTexte := err;
+      Readln := err;
     end;
 end;
 
@@ -1615,14 +1615,14 @@ end;
  (*
  *******************************************************************************
  *                                                                             *
- *   ReadlnHugeStringDansFichierTexte()  : lit un fichier jusqu'au premier     *
+ *   Readln()  : lit un fichier jusqu'au premier     *
  *   retour chariot et met le resultat dans une HugeString. Cette fonction     *
  *   n'alloue pas la HugeString, elle doit avoir ete creee auparavant par un   *
  *   appel a NewHugeString() ou MakeHugeString().                              *
  *                                                                             *
  *******************************************************************************
  *)
-function ReadlnHugeStringDansFichierTexte(var fic : basicfile; var s : HugeString) : OSErr;
+function Readln(var fic : basicfile; var s : HugeString) : OSErr;
 var buffer : CharArrayPtr;
     err : OSErr;
     count : SInt32;
@@ -1635,14 +1635,14 @@ begin
       count  := GetMaximumCapacityOfHugeString;
       buffer := GetBufferOfHugeString(s);
 
-      err    := ReadlnBufferDansFichierTexte(fic, @buffer^[1], count);
+      err    := Readln(fic, @buffer^[1], count);
 
       if (err = NoErr)
         then SetLengthOfHugeString(s, count);
 
     end;
 
-  ReadlnHugeStringDansFichierTexte := err;
+  Readln := err;
 end;
 
 
@@ -1650,7 +1650,7 @@ end;
 (*
  *******************************************************************************
  *                                                                             *
- *   ReadlnBufferDansFichierTexte()  : lit un fichier jusqu'au premier retour  *
+ *   Readln()  : lit un fichier jusqu'au premier retour  *
  *   chariot et met le resultat dans buffer. Cette fonction n'alloue pas le    *
  *   buffer, il doit avoir ete cree a la bonne taille auparavant.              *
  *      -> En entree, count est la taille du buffer                            *
@@ -1659,7 +1659,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function ReadlnBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
     i,len,longueurLigne : SInt32;
     positionTeteDeLecture : SInt32;
@@ -1668,7 +1668,7 @@ begin
 
   if FichierTexteEstLeRapport(fic) then
     begin
-      ReadlnBufferDansFichierTexte := -1;
+      Readln := -1;
       exit;
     end;
 
@@ -1702,42 +1702,42 @@ begin
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans ReadlnBufferDansFichierTexte :');
+      DisplayMessageInConsole(' apres FSRead dans Readln :');
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  ReadlnBufferDansFichierTexte := err;
+  Readln := err;
 end;
 
 
-function ReadLongintDansFichierTexte(var fic : basicfile; var value : SInt32) : OSErr;
+function Read(var fic : basicfile; var value : SInt32) : OSErr;
 var err : OSErr;
     count : SInt32;
 begin
 
   if FichierTexteEstLeRapport(fic) then
     begin
-      ReadLongintDansFichierTexte := -1;
+      Read := -1;
       exit;
     end;
 
   count := 4;
   err := FSRead(fic.refNum,count,@value);
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans ReadLongintDansFichierTexte :');
+      DisplayMessageInConsole(' apres FSRead dans Read :');
       DisplayMessageWithNumInConsole('count = ',count);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  ReadLongintDansFichierTexte := err;
+  Read := err;
 end;
 
 
@@ -1762,7 +1762,7 @@ begin
   while not(EndOfFile(theFic,erreurES)) do
     begin
 
-      erreurES := ReadlnLongStringDansFichierTexte(theFic,ligne);
+      erreurES := Readln(theFic,ligne);
 
       DoWhat(ligne,theFic,result);
     end;
@@ -1772,7 +1772,7 @@ end;
 
 
 
-function InsererFichierDansFichierTexte(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
+function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
 var insertion : basicfile;
     err,err2 : OSErr;
 begin
@@ -1780,15 +1780,15 @@ begin
   if err = NoErr then
     begin
       err := OpenFile(insertion);
-      err := InsererFichierTexteDansFichierTexte(insertion,fic);
+      err := InsertFileInFile(insertion,fic);
       err2 := CloseFile(insertion);
     end;
 
-  InsererFichierDansFichierTexte := err;
+  InsertFileInFile := err;
 end;
 
 
-function InsererFichierTexteDansFichierTexte(var insere,receptacle : basicfile) : OSErr;
+function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
 const kTailleBufferCopie = 10000;
 var err,err2 : OSErr;
     fichierInsereOuvert : boolean;
@@ -1820,7 +1820,7 @@ begin
 
       repeat
         count := Min(kTailleBufferCopie, longueurInsertion-nbOctetsCopies);
-        err  := ReadBufferDansFichierTexte(insere,@buffer[0],count);
+        err  := Read(insere,@buffer[0],count);
         err2 := Write(receptacle,@buffer[0],count);
         nbOctetsCopies := nbOctetsCopies + count;
       until (err <> NoErr) or (err2 <> NoErr) or (nbOctetsCopies >= longueurInsertion);
@@ -1831,8 +1831,8 @@ begin
   if not(fichierReceptacleOuvert) then err2 := CloseFile(receptacle);
 
   if (err <> NoErr)
-    then InsererFichierTexteDansFichierTexte := err
-    else InsererFichierTexteDansFichierTexte := err2;
+    then InsertFileInFile := err
+    else InsertFileInFile := err2;
 
 end;
 
@@ -1847,7 +1847,7 @@ begin
   FSpCreateResFile(fic.info,creator,fileType,smSystemScript);
   err := ResError;
 
-  if avecDebuggageUnitFichiersTexte then
+  if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSpCreateResFile dans CreerRessourceForkFichierTEXT :');
@@ -2160,14 +2160,14 @@ end;
    kFSCatInfoContentMod = 0x00000040
    }
 
-function GetCreationDateFichierTexte(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
     fileRef : FSRef;
     catalogInfo : FSCatalogInfo;
 begin
   if FichierTexteEstLeRapport(fic) then
     begin
-      GetCreationDateFichierTexte := -1;
+      GetCreationDate := -1;
       exit;
     end;
 
@@ -2179,35 +2179,35 @@ begin
       if (err = NoErr) then SecondsToDate(catalogInfo.createDate.lowSeconds,theDate);
     end;
 
-  GetCreationDateFichierTexte := err;
+  GetCreationDate := err;
 end;
 
 
-function SetCreationDateFichierTexte(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
+function SetCreationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 var err : OSErr;
     {fileRef : FSRef;
     catalogInfo : FSCatalogInfo;}
 begin {$UNUSED theDate}
   if FichierTexteEstLeRapport(fic) then
     begin
-      SetCreationDateFichierTexte := -1;
+      SetCreationDate := -1;
       exit;
     end;
 
   err := -1;
 
-  SetCreationDateFichierTexte := err;
+  SetCreationDate := err;
 end;
 
 
-function GetModificationDateFichierTexte(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
     fileRef : FSRef;
     catalogInfo : FSCatalogInfo;
 begin
   if FichierTexteEstLeRapport(fic) then
     begin
-      GetModificationDateFichierTexte := -1;
+      GetModificationDate := -1;
       exit;
     end;
 
@@ -2219,54 +2219,54 @@ begin
       if (err = NoErr) then SecondsToDate(catalogInfo.contentModDate.lowSeconds,theDate);
     end;
 
-  GetModificationDateFichierTexte := err;
+  GetModificationDate := err;
 end;
 
 
-function SetModificationDateFichierTexte(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
+function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 var err : OSErr;
 begin {$UNUSED theDate}
   if FichierTexteEstLeRapport(fic) then
     begin
-      SetModificationDateFichierTexte := -1;
+      SetModificationDate := -1;
       exit;
     end;
 
   err := -1;
 
-  SetModificationDateFichierTexte := err;
+  SetModificationDate := err;
 end;
 
 
-procedure InstalleMessageDisplayerFichierTexte(theProc : MessageDisplayerProc);
+procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
 begin
   CustomDisplayMessage := theProc;
   useStandardConsole := false;
 end;
 
-procedure InstalleMessageAndNumDisplayerFichierTexte(theProc : MessageAndNumDisplayerProc);
+procedure InstallMessageAndDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
 begin
   CustomDisplayMessageWithNum := theProc;
   useStandardConsole := false;
 end;
 
-procedure InstalleAlerteFichierTexte(theProc : MessageAndNumDisplayerProc);
+procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);
 begin
   CustomDisplayAlerteWithNum := theProc;
   useStandardConsole := false;
 end;
 
-procedure InitUnitFichierTexte;
+procedure InitUnitBasicFile;
 begin
-  SetDebuggageUnitFichiersTexte(false);
+  SetDebugFiles(false);
 
   (* installation des procedure pour l'affichage de message :
      sur la sortie standard par defaut. On peut installer des
      routines personalisees d'impression de messages et d'alerte
-     juste apres l'appel a InitUnitFichierTexte *)
-  InstalleMessageDisplayerFichierTexte(StandardConsoleDisplayer);
-  InstalleMessageAndNumDisplayerFichierTexte(StandardConsoleDisplayerWithNum);
-  InstalleAlerteFichierTexte(StandardConsoleAlertWithNum);
+     juste apres l'appel a InitUnitBasicFile *)
+  InstallMessageDisplayerBasicFile(StandardConsoleDisplayer);
+  InstallMessageAndDisplayerBasicFile(StandardConsoleDisplayerWithNum);
+  InstallAlertBasicFile(StandardConsoleAlertWithNum);
   useStandardConsole := true;
 
   nomSortieStandardDansRapport := 'Rapport-stdErr-fake-Cassio';
@@ -2277,19 +2277,19 @@ end;
 
 function CreeSortieStandardEnFichierTexte(var fic : basicfile) : OSErr;
 begin
-  if not(unit_initialisee) then InitUnitFichierTexte;
+  if not(unit_initialisee) then InitUnitBasicFile;
   CreeSortieStandardEnFichierTexte := CreateFile(nomSortieStandardDansRapport,0,fic);
 end;
 
 
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);
+procedure SetDebugFiles(flag : boolean);
 begin
-  avecDebuggageUnitFichiersTexte := flag;
+  debugBasicFiles := flag;
 end;
 
-function GetDebuggageUnitFichiersTexte : boolean;
+function GetDebugFiles : boolean;
 begin
-  GetDebuggageUnitFichiersTexte := avecDebuggageUnitFichiersTexte;
+  GetDebugFiles := debugBasicFiles;
 end;
 
 

@@ -3195,7 +3195,7 @@ begin
   while (err = NoErr) and not(EndOfFile(gFicListingWThor,err))  do
     begin
 
-      err := ReadlnDansFichierTexte(gFicListingWThor,ligneDuFichier);
+      err := Readln(gFicListingWThor,ligneDuFichier);
 
 
       (*
@@ -3454,7 +3454,7 @@ begin
 
       // copier le fichier "Listing-of-WTHOR.temp.txt" dans "Listing-of-WTHOR.txt"
       if (err = NoErr) then
-        err := InsererFichierTexteDansFichierTexte(gFicListingWThorTemp,gFicListingWThor);
+        err := InsertFileInFile(gFicListingWThorTemp,gFicListingWThor);
 
     end;
 

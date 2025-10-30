@@ -569,7 +569,7 @@ begin
       exit;
     end;
 
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
   erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
@@ -644,7 +644,7 @@ begin
     begin
       while not(EndOfFile(ficPartie,erreurES)) do
         begin
-          erreurES := ReadlnDansFichierTexte(ficPartie,s);
+          erreurES := Readln(ficPartie,s);
           if Pos('ÂRÂ',s) = 1 then  {rapport}
             begin
               texteDuFichierMisDansRapport := true;
@@ -748,7 +748,7 @@ begin
 
   repeat
     inc(compteurLignes);
-    erreurES := ReadlnDansFichierTexte(ficPartie,ligne);
+    erreurES := Readln(ficPartie,ligne);
     if (ligne <> '') then
       begin
         (* WritelnDansRapport(ligne); *)
@@ -873,7 +873,7 @@ begin  {$UNUSED mergeWithCurrentTree}
       exit;
     end;
 
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
   erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
@@ -955,7 +955,7 @@ begin
   nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
   erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
   if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
-     (GetModificationDateFichierTexte(ficPartie,theDate) = NoErr) then
+     (GetModificationDate(ficPartie,theDate) = NoErr) then
     begin
       dateModifFichier := DateEnString(theDate);
       if FichierExisteDansDatabaseOfRecentSGFFiles(nomCourt,dateDansDatabase) and (dateDansDatabase = dateModifFichier)
@@ -1444,7 +1444,7 @@ begin
 
           if (GetFichierTEXTOfFichierAbstraitPtr(@theFile,fichier) = NoErr) then
             begin
-              err := GetModificationDateFichierTexte(fichier,theDate);
+              err := GetModificationDate(fichier,theDate);
               AjouterNomDansDatabaseOfRecentSGFFiles(DateEnString(theDate),GetNameOfSFReply(reply));
             end;
           DisposeFichierAbstrait(theFile);

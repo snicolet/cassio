@@ -205,7 +205,7 @@ begin
 
 				      while (erreurES = NoErr) and not(EndOfFile(fichierDesSymetries,erreurES)) do
 						    begin
-						      erreurES := ReadlnDansFichierTexte(fichierDesSymetries,ligne);
+						      erreurES := Readln(fichierDesSymetries,ligne);
 						      {WritelnDansRapport(ligne);}
 						      if (erreurES = NoErr) and (ligne <> '') and (ligne[1] <> '%') then
 						        begin

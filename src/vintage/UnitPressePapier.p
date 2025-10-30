@@ -364,7 +364,7 @@ begin
       dataPtr := AllocateMemoryPtr(taille + 100);
       if (dataPtr <> NIL) then
         begin
-          myError := ReadBufferDansFichierTexte(fic, dataPtr, taille);
+          myError := Read(fic, dataPtr, taille);
           if (myError = NoErr) then myError := MyPutScrap(taille, flavorType, dataPtr);
           DisposeMemoryPtr(dataPtr);
         end;

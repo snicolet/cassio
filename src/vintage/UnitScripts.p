@@ -436,7 +436,7 @@ begin
       AlerteSimpleFichierTexte(nomScript,0);
       exit;
     end;
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
   nomOutpuScript := nomScript+'.output';
 
@@ -498,7 +498,7 @@ begin
       watch := GetCursor(watchcursor);
       SafeSetCursor(watch);
 
-      erreurES := ReadlnDansFichierTexte(inputScript,s);
+      erreurES := Readln(inputScript,s);
       ligne := s;
       ligne := EnleveEspacesDeGauche(ligne);
       if (ligne = '') or (ligne[1] = '%')
@@ -636,7 +636,7 @@ begin {CreerQuizEnPHP}
 
       erreurES := FSSpecToFullPath(fichierPHP.info,s);
       s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
-      erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
+      erreurES := InsertFileInFile(fichierPHP,s);
 
 
       nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
@@ -717,7 +717,7 @@ begin {CreerQuizEnPHP}
 
       erreurES := FSSpecToFullPath(fichierPHP.info,s);
       s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
-      erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
+      erreurES := InsertFileInFile(fichierPHP,s);
 
       erreurES := CloseFile(fichierPHP);
     end;
@@ -748,7 +748,7 @@ begin {CreerQuizEnPHP}
 
                 erreurES := FSSpecToFullPath(fichierPHP.info,s);
                 s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_prologue.php');
-                erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
+                erreurES := InsertFileInFile(fichierPHP,s);
 
 
                 nom_solution := ReplaceStringOnce(GetNameOfFSSpec(fichierPHP.info), '.php' , '_^0.php');
@@ -834,7 +834,7 @@ begin {CreerQuizEnPHP}
 
                 erreurES := FSSpecToFullPath(fichierPHP.info,s);
                 s := ReplaceStringOnce(s, GetNameOfFSSpec(fichierPHP.info),'quiz_epilogue.php');
-                erreurES := InsererFichierDansFichierTexte(fichierPHP,s);
+                erreurES := InsertFileInFile(fichierPHP,s);
 
                 erreurES := CloseFile(fichierPHP);
               end;
@@ -898,7 +898,7 @@ begin
       AlerteSimpleFichierTexte(nomScript,0);
       exit;
     end;
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
 
   erreurES := FileExists(nomScript,0,inputScript);
@@ -936,7 +936,7 @@ begin
 
 
       count := 1024;
-      erreurES := ReadlnBufferDansFichierTexte(inputScript,@buffer[0],count);
+      erreurES := Readln(inputScript,@buffer[0],count);
 
       {on enleve les espaces au debut de la ligne}
       EnleveEtCompteCeCaractereAGaucheDansBuffer(@buffer[0],count,' ',nbEspacesEnleves);

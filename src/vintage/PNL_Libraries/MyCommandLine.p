@@ -84,7 +84,7 @@ begin
   err := OpenFile(fic);
   while (err=0) and not(EndOfFile(fic,err)) and (result = '') do
     begin
-      err := ReadlnDansFichierTexte(fic,s);
+      err := Readln(fic,s);
 
       temp := GetParserProtectionWithQuotes;
       oldParsingSet := GetParserDelimiters;

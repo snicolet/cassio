@@ -13,7 +13,7 @@ procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     exte
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;

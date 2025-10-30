@@ -84,7 +84,7 @@ var Z1,Z2,Z3,Z4,Z5 : FichierAbstrait;
     c : char;
 begin
 
-  SetDebuggageUnitFichiersTexte(false);
+  SetDebugFiles(false);
 
   Z1 := NewEmptyFichierAbstrait;
   Z2 := NewEmptyFichierAbstrait;
@@ -215,7 +215,7 @@ begin
   WritelnStringAndFichierAbstraitDansRapport('Z5 = ',Z5);}
 
 
-  SetDebuggageUnitFichiersTexte(false);
+  SetDebugFiles(false);
 
 end;
 

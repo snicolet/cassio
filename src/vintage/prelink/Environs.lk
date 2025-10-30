@@ -38,7 +38,7 @@ function OpenFile(var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
 	function ExtraitNomDeVolume(nomComplet : String255) : String255;     external;
   function GetFunctionPointerFromPrivateBundle(const whichBundle,functionName : String255) : Ptr;     external;

@@ -333,7 +333,7 @@ begin
   compteurMots := 0;
 
   repeat
-    err := ReadlnDansFichierTexte(fic,s);
+    err := Readln(fic,s);
 
     // WritelnDansRapport(s);
 
@@ -399,7 +399,7 @@ begin
 
 
   repeat
-    err := ReadlnDansFichierTexte(fic,s);
+    err := Readln(fic,s);
 
     // WritelnDansRapport(s);
 

@@ -29,7 +29,7 @@ function CoupEnStringEnMajuscules(coup : SInt16) : String255;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
   procedure SetParserDelimiters(parsingCaracters : SetOfChar);     external;
   procedure Parse2(s : String255; var s1,s2,reste : String255);     external;
   procedure StrToInt32(const s : String255; var theLongint : SInt32);     external;

@@ -395,7 +395,7 @@ begin
       if sousEmulatorSousPC                             then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
       if affichePierresDelta                            then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
       if avecEvaluationTablesDeCoins                    then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
-      if GetDebuggageUnitFichiersTexte                  then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
+      if GetDebugFiles                  then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
       with debuggage do begin
       if entreesSortiesUnitFichiersTEXT                 then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
       if pendantLectureBase                             then s1 := Concat(s1,'Y') else s1 := Concat(s1,'N');
@@ -527,7 +527,7 @@ begin
  {if len >= 53 then sousEmulatorSousPC                              := s1[53] = 'Y';}
   if len >= 54 then affichePierresDelta                             := s1[54] = 'Y';
   if len >= 55 then avecEvaluationTablesDeCoins                     := s1[55] = 'Y';
-  if len >= 56 then SetDebuggageUnitFichiersTexte                     (s1[56] = 'Y');
+  if len >= 56 then SetDebugFiles                     (s1[56] = 'Y');
   with debuggage do begin
   if len >= 57 then entreesSortiesUnitFichiersTEXT                  := s1[57] = 'Y';
   if len >= 58 then pendantLectureBase                              := s1[58] = 'Y';
@@ -750,7 +750,7 @@ var fichierPref : basicfile;
 begin
   filename := NameOfPrefsFile;
 
-  {SetDebuggageUnitFichiersTexte(false);}
+  {SetDebugFiles(false);}
 
   erreurES := FichierPreferencesDeCassioExiste(fileName,fichierPref);
   if (erreurES = fnfErr) {-43 = file not found  ==> on crée le fichier}
@@ -1041,7 +1041,7 @@ begin
 
  filename := NameOfPrefsFile;
 
- {SetDebuggageUnitFichiersTexte(false);}
+ {SetDebugFiles(false);}
 
  erreurES := FichierPreferencesDeCassioExiste(fileName,fichierPref);
 
@@ -1082,7 +1082,7 @@ begin
      exit;
    end;
 
- erreurES := ReadlnDansFichierTexte(fichierPref,chainePref);
+ erreurES := Readln(fichierPref,chainePref);
  if erreurES <> NoErr then
    begin
      AlerteSimpleFichierTexte(fileName,erreurES);
@@ -1108,7 +1108,7 @@ begin
      begin
 
 
-      erreurES := ReadlnDansFichierTexte(fichierPref,LigneFichierPref);
+      erreurES := Readln(fichierPref,LigneFichierPref);
 
       if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  LitFichierPreferences : LigneFichierPref = '+LigneFichierPref);
 
@@ -1997,7 +1997,7 @@ var dp : DialogPtr;
   begin
     SetBoolCheckBox(dp,5,debuggage.general);
     {SetBoolCheckBox(dp,6,debuggage.entreesSortiesUnitFichiersTEXT);}
-    SetBoolCheckBox(dp,6,GetDebuggageUnitFichiersTexte);
+    SetBoolCheckBox(dp,6,GetDebugFiles);
     SetBoolCheckBox(dp,7,debuggage.pendantLectureBase);
     SetBoolCheckBox(dp,8,debuggage.afficheSuiteInitialisations);
     SetBoolCheckBox(dp,9,debuggage.evenementsDansRapport);
@@ -2036,7 +2036,7 @@ var dp : DialogPtr;
   begin
     GetBoolCheckBox(dp,5,debuggage.general);
     GetBoolCheckBox(dp,6,debuggage.entreesSortiesUnitFichiersTEXT);
-    SetDebuggageUnitFichiersTexte(debuggage.entreesSortiesUnitFichiersTEXT);
+    SetDebugFiles(debuggage.entreesSortiesUnitFichiersTEXT);
     GetBoolCheckBox(dp,7,debuggage.pendantLectureBase);
     GetBoolCheckBox(dp,8,debuggage.afficheSuiteInitialisations);
     GetBoolCheckBox(dp,9,debuggage.evenementsDansRapport);
@@ -2118,7 +2118,7 @@ begin
 
   nbGroupes := 0;
   repeat
-    erreurES := ReadlnDansFichierTexte(fichierGroupes,s);
+    erreurES := Readln(fichierGroupes,s);
     if (s <> '') and (erreurES = NoErr) then
       if s[1] = '∑' then
         begin
@@ -2215,7 +2215,7 @@ begin
 
                WritelnNumDansRapport('[2]  err = ',err);
 
-               err := InsererFichierTexteDansFichierTexte(source, dest);
+               err := InsertFileInFile(source, dest);
 
                WritelnNumDansRapport('[3]  err = ',err);
 
@@ -2311,7 +2311,7 @@ begin
 
   nbPrefFiles := 0;
   repeat
-    erreurES := ReadlnDansFichierTexte(fic,s);
+    erreurES := Readln(fic,s);
     if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);
@@ -2444,7 +2444,7 @@ end;
 function GetNextLineInPrefsFile(var s : String255) : OSErr;
 var erreurES : OSErr;
 begin
-  erreurES := ReadlnDansFichierTexte(gPrefsFileInfos.filePtr,s);
+  erreurES := Readln(gPrefsFileInfos.filePtr,s);
   if erreurES <> 0 then
      begin
        GetNextLineInPrefsFile := erreurES;

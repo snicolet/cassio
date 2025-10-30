@@ -17,4 +17,4 @@ function DimensionDuPointMultidimensionnel(var p : PointMultidimensionnel) : SIn
   procedure SWAP_LONGINT( arg : UInt32Ptr );     external;
   procedure SWAP_INTEGER_ARRAY(theArray : UnivPtr; indexMin, indexMax : SInt32);     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
-function ReadBufferDansFichierTexte(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;

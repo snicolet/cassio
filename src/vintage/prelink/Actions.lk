@@ -94,7 +94,7 @@ procedure DessineAutresInfosSurCasesAideDebutant(surQuellesCases : SquareSet; fo
 procedure LanceCalculsRapidesPourBaseOuNouvelleDemande(infosDejaCalculees,withCheckEvent : boolean);     external;
 function PeutArreterAnalyseRetrograde : boolean;     external;
 procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
-procedure SetDebuggageUnitFichiersTexte(flag : boolean);     external;
+procedure SetDebugFiles(flag : boolean);     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;     external;
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;     external;
@@ -107,7 +107,7 @@ procedure TextNormalDansRapport;     external;
 function GetPositionPointDinsertion : SInt32;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
-function ReadlnDansFichierTexte(var fic : basicfile; var s : String255) : OSErr;     external;
+function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 procedure WritelnDansRapportSync(s : String255; scrollerSynchronisation : boolean);     external;
 procedure WriteDansRapportSync(s : String255; scrollerSynchronisation : boolean);     external;
 procedure UpdateScrollersRapport;     external;
@@ -121,7 +121,7 @@ function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : basicfil
 procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt32);     external;
 	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;     external;
-function GetModificationDateFichierTexte(var fic : basicfile; var theDate : DateTimeRec) : OSErr;     external;
+function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;     external;
 	function DateEnString(const whichDate : DateTimeRec) : String255;     external;
 function FichierExisteDansDatabaseOfRecentSGFFiles(whichName : String255; var modificationDate : String255) : boolean;     external;
 procedure SetToujoursAjouterInterversionDansGrapheInterversions(flag : boolean);     external;

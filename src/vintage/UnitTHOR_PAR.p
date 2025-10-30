@@ -90,7 +90,7 @@ begin
   MemoryFillChar(@enregistrement,TailleEnregistrementTHOR_PAR,chr(0));
   err := SetFilePosition(fic,(numero-1)*TailleEnregistrementTHOR_PAR);
   count := TailleEnregistrementTHOR_PAR;
-  err := ReadBufferDansFichierTexte(fic,@enregistrement,count);
+  err := Read(fic,@enregistrement,count);
   LitEnregistrementDansFichierThorPar := err;
 end;
 
