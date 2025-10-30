@@ -165,11 +165,12 @@ begin
     Writeln('sizeof(Handle) = ', sizeof(Handle));
     Writeln('sizeof(Handle^) = ', sizeof(Handle^));
     Writeln('sizeof(Handle^^) = ', sizeof(Handle^^));
+    Writeln('sizeof(CharSet) = ', sizeof(CharSet));
 end;
 
 
 begin
-    // TestBasicTypes();
+    TestBasicTypes();
 end.
 
 

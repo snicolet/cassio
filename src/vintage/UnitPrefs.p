@@ -619,7 +619,7 @@ procedure DecodeChainePasseAnalyseRetrograde(s : String255);
 var s1,s2,s3,s4,reste : String255;
     nroPasse,nroStage : SInt16;
 begin
-  Parser2(s,s1,s2,reste);  { '\nroPasse'  '->' }
+  Parse2(s,s1,s2,reste);  { '\nroPasse'  '->' }
   nroPasse := StrToInt32(s1);
   if (nroPasse >= 1) and (nroPasse <= nbMaxDePassesAnalyseRetrograde) then
     begin
@@ -627,7 +627,7 @@ begin
       while (reste <> '') and (nroStage < nbMaxDeStagesAnalyseRetrograde) do
         begin
           inc(nroStage);
-          Parser4(reste,s1,s2,s3,s4,reste);
+          Parse4(reste,s1,s2,s3,s4,reste);
           analyseRetrograde.menuItems[nroPasse,nroStage,kMenuGenre] := StrToInt32(s1);
           analyseRetrograde.menuItems[nroPasse,nroStage,kMenuProf]  := StrToInt32(s2);
           analyseRetrograde.menuItems[nroPasse,nroStage,kMenuDuree] := StrToInt32(s3);
@@ -1112,7 +1112,7 @@ begin
 
       if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('  LitFichierPreferences : LigneFichierPref = '+LigneFichierPref);
 
-      Parser2(LigneFichierPref,motClef,auxStr,chainePref);
+      Parse2(LigneFichierPref,motClef,auxStr,chainePref);
 
 
       if chainePref <> '' then
@@ -1211,25 +1211,25 @@ begin
         if motClef = '%verbosityZoo'                        then SetVerbosityOfZoo(StrToInt32(chainePref)) else
         if motClef = '%PoliceNotesSurLesCases'              then
            begin
-             ParserWithQuoteProtection(chainePref,chainePref,auxStr);
+             ParseWithQuoteProtection(chainePref,chainePref,auxStr);
              SetPoliceNameNotesSurCases(kNotesDeCassio,chainePref);
              SetTailleNotesSurCases(kNotesDeCassio,StrToInt32(auxStr));
            end else
         if motClef = '%GrandePoliceNotesSurLesCases' then
            begin
-             ParserWithQuoteProtection(chainePref,chainePref,auxStr);
+             ParseWithQuoteProtection(chainePref,chainePref,auxStr);
              SetAlternativePoliceNameNotesSurCases(kNotesDeCassio,chainePref);
              SetAlternativeTailleNotesSurCases(kNotesDeCassio,StrToInt32(auxStr));
            end else
         if motClef = '%PoliceBiblioZebraSurLesCases'              then
            begin
-             ParserWithQuoteProtection(chainePref,chainePref,auxStr);
+             ParseWithQuoteProtection(chainePref,chainePref,auxStr);
              SetPoliceNameNotesSurCases(kNotesDeZebra,chainePref);
              SetTailleNotesSurCases(kNotesDeZebra,StrToInt32(auxStr));
            end else
         if motClef = '%GrandePoliceZebraSurLesCases' then
            begin
-             ParserWithQuoteProtection(chainePref,chainePref,auxStr);
+             ParseWithQuoteProtection(chainePref,chainePref,auxStr);
              SetAlternativePoliceNameNotesSurCases(kNotesDeZebra,chainePref);
              SetAlternativeTailleNotesSurCases(kNotesDeZebra,StrToInt32(auxStr));
            end else
@@ -1287,7 +1287,7 @@ begin
           err := GetNextLineInPrefsFile(s);
           if err = NoErr then
             begin
-              Parser2(s,motClef,bidStr,chainePref);
+              Parse2(s,motClef,bidStr,chainePref);
               if motClef = '%partieAReouvrir'then AjoutePartieDansMenuReouvrir(chainePref);
             end;
         end;
@@ -2315,7 +2315,7 @@ begin
     if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);
-        Parser(s,gListeOfPrefFiles[nbPrefFiles].date,gListeOfPrefFiles[nbPrefFiles].name);
+        Parse(s,gListeOfPrefFiles[nbPrefFiles].date,gListeOfPrefFiles[nbPrefFiles].name);
       end;
   until (nbPrefFiles >= kMaxPrefFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
 

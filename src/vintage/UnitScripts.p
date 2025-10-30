@@ -964,13 +964,13 @@ begin
 
                         comment := TPCopy(comment,positionCommentaire,LENGTH_OF_STRING(comment)-positionCommentaire+1);
 
-                        Parser6(comment,s1,s2,s3,s4,s5,s6,reste);
+                        Parse6(comment,s1,s2,s3,s4,s5,s6,reste);
 
                         coupDeLaSolution := ScannerStringPourTrouverCoup(1,s3,foo);
                         traitDeLaSolution := GetTraitOfPosition(positionEtTrait);
 
                         {WritelnDansRapport(reste);}
-                        Parser5(reste,s1,s2,s3,s4,s5,reste);
+                        Parse5(reste,s1,s2,s3,s4,s5,reste);
                         {WritelnDansRapport(reste);}
 
                       end

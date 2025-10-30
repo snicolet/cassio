@@ -790,12 +790,12 @@ begin
      end;
 
 
-  oldParsingSet := GetParsingCaracterSet;
-  SetParsingCaracterSet([' ',tab,'(',';',':']);
+  oldParsingSet := GetParserDelimiters;
+  SetParserDelimiters([' ',tab,'(',';',':']);
 
-  Parser2(ligne.debutLigne,fun_or_proc,nomSymbole,reste);
+  Parse2(ligne.debutLigne,fun_or_proc,nomSymbole,reste);
 
-  SetParsingCaracterSet(oldParsingSet);
+  SetParserDelimiters(oldParsingSet);
 
 
 
@@ -1034,7 +1034,7 @@ var lecture : LectureModulePtr;
             reste := listeDeFonctions;
             while (reste <> '') do
               begin
-                Parser(reste,s,reste);
+                Parse(reste,s,reste);
 
                 (* gérer les macros *)
                 if (s = 'FIND_IN_BITBOARD_HASH_AND_GET_LOCK') then s := 'BitboardHashGet';
@@ -1085,8 +1085,8 @@ var lecture : LectureModulePtr;
           begin
 
 
-            oldParsingSet := GetParsingCaracterSet;
-            SetParsingCaracterSet([' ',tab,'.',',',';',':','}','{',')','(','-','+','$','@','=','>','<','|','&','[',']','*','/','''','"','^']);
+            oldParsingSet := GetParserDelimiters;
+            SetParserDelimiters([' ',tab,'.',',',';',':','}','{',')','(','-','+','$','@','=','>','<','|','&','[',']','*','/','''','"','^']);
 
 
             if not(fonctionsObligatoiresDejaEcrites) then
@@ -1113,7 +1113,7 @@ var lecture : LectureModulePtr;
             reste := ligne;
             while (reste <> '') do
               begin
-                Parser(reste,s,reste);
+                Parse(reste,s,reste);
 
                 (* gérer les macros *)
                 if (s = 'FIND_IN_BITBOARD_HASH_AND_GET_LOCK') then s := 'BitboardHashGet';
@@ -1146,7 +1146,7 @@ var lecture : LectureModulePtr;
 
               end;
 
-            SetParsingCaracterSet(oldParsingSet);
+            SetParserDelimiters(oldParsingSet);
 
           end;
       end;
@@ -1180,7 +1180,7 @@ var lecture : LectureModulePtr;
 
             while (reste <> '') do
               begin
-                Parser(reste,s,reste);
+                Parse(reste,s,reste);
 
                 if EstUnModuleDeDefinition(s)
                   then
@@ -1226,12 +1226,12 @@ var lecture : LectureModulePtr;
 
           if (FindStringInLongString('BEGIN_USE_CLAUSE',ligne) <= 0) then
             begin
-              oldParsingSet := GetParsingCaracterSet;
-              SetParsingCaracterSet([' ',tab,',',';']);
+              oldParsingSet := GetParserDelimiters;
+              SetParserDelimiters([' ',tab,',',';']);
 
               reste := ligne.debutLigne;
               repeat
-                Parser(reste,s,reste);
+                Parse(reste,s,reste);
 
                 if (s <> 'USES') and (s <> 'uses') and (s <> '') then
                   begin
@@ -1253,7 +1253,7 @@ var lecture : LectureModulePtr;
 
               until (reste = '');
 
-              SetParsingCaracterSet(oldParsingSet);
+              SetParserDelimiters(oldParsingSet);
             end;
         end;
   end;

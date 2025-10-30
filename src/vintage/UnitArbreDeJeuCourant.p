@@ -1500,7 +1500,7 @@ begin
               s := BufferToPascalString(buffer, position, len - 1);
               s := ReplaceStringOnce(s, ':' , ' : ');
 
-              Parser2(s, commande, aux, argument);
+              Parse2(s, commande, aux, argument);
 
               SetCommentaireCurrentNode(buffer, position - 1);
             end;

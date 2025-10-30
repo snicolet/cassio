@@ -86,18 +86,18 @@ begin
     begin
       err := ReadlnDansFichierTexte(fic,s);
 
-      temp := GetParsingProtectionWithQuotes;
-      oldParsingSet := GetParsingCaracterSet;
+      temp := GetParserProtectionWithQuotes;
+      oldParsingSet := GetParserDelimiters;
 
-      SetParsingProtectionWithQuotes(true);
-      SetParsingCaracterSet([' ',tab]);
-      if Pos('command_line = ',s) > 0 then Parser2(s,s1,s2,result) else
-      if Pos('command_line= ',s) > 0 then Parser(s,s1,result)     else
-      if Pos('command-line = ',s) > 0 then Parser2(s,s1,s2,result) else
-      if Pos('command line = ',s) > 0 then Parser3(s,s1,s2,s3,result);
+      SetParserProtectionWithQuotes(true);
+      SetParserDelimiters([' ',tab]);
+      if Pos('command_line = ',s) > 0 then Parse2(s,s1,s2,result) else
+      if Pos('command_line= ',s ) > 0 then Parse(s,s1,result)     else
+      if Pos('command-line = ',s) > 0 then Parse2(s,s1,s2,result) else
+      if Pos('command line = ',s) > 0 then Parse3(s,s1,s2,s3,result);
 
-      SetParsingProtectionWithQuotes(temp);
-      SetParsingCaracterSet(oldParsingSet);
+      SetParserProtectionWithQuotes(temp);
+      SetParserDelimiters(oldParsingSet);
     end;
   err := FermeFichierTexte(fic);
 
@@ -124,15 +124,15 @@ begin
   command_line := Get_command_line(program_name);
 
 
-  temp := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  temp := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
   count := -1;
   while (command_line<>'') and (count<10000) do
     begin
-      Parser(command_line,s,command_line);
+      Parse(command_line,s,command_line);
       count := count+1;
     end;
-  SetParsingProtectionWithQuotes(temp);
+  SetParserProtectionWithQuotes(temp);
 
   (* error, should never happen *)
   if count >= 10000 then
@@ -178,14 +178,14 @@ begin
 
 
   s := '';
-  temp := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  temp := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
   i := -1;
   repeat
-    Parser(command_line,s,command_line);
+    Parse(command_line,s,command_line);
     i := i+1;
   until (i >= param_number) or (command_line='');
-  SetParsingProtectionWithQuotes(temp);
+  SetParserProtectionWithQuotes(temp);
 
   if (command_line = '') and (i<param_number) then
     begin

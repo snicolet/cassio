@@ -280,7 +280,7 @@ begin
                       s1 := LeftStr(ligne,posEgal-1);
                       EnleveEspacesDeDroiteSurPlace(s1);
                       NormaliserPseudo(s1);
-                      Parser(RightStr(ligne, 1 + LENGTH_OF_STRING(ligne) - posEgal),s2,reste);
+                      Parse(RightStr(ligne, 1 + LENGTH_OF_STRING(ligne) - posEgal),s2,reste);
                     end
                   else
                     begin
@@ -469,7 +469,7 @@ begin
 
           if inverserNomEtPrenom then
             begin
-              Parser(pseudo, nom, prenom);
+              Parse(pseudo, nom, prenom);
               pseudo := prenom + ' ' + nom;
               pseudoLong := pseudo;
             end;
@@ -649,20 +649,20 @@ begin
         annee := essaiAnnee;
     end;
 
-  oldParsingSet := GetParsingCaracterSet;
-	SetParsingCaracterSet([':','0','1','2','3','4','5','6','7','8','9']);
+  oldParsingSet := GetParserDelimiters;
+	SetParserDelimiters([':','0','1','2','3','4','5','6','7','8','9']);
 
 	reste := path;
 	if (reste <> '') then
 	  begin
-	    Parser(reste,s,reste);
+	    Parse(reste,s,reste);
 	
 	    { essayer recursivement sur le reste : ceci permet de commencer par la fin }
 	    if TrouverNomDeTournoiDansPath(reste, numero, annee, nomDictionnaireDesPseudos) then
 	      begin
 	        numeroTournoi := numero;
 	        TrouverNomDeTournoiDansPath := true;
-	        SetParsingCaracterSet(oldParsingSet);
+	        SetParserDelimiters(oldParsingSet);
 	        exit;
 	      end;
 	
@@ -673,12 +673,12 @@ begin
 	      begin
 	        numeroTournoi := numero;
 	        TrouverNomDeTournoiDansPath := true;
-	        SetParsingCaracterSet(oldParsingSet);
+	        SetParserDelimiters(oldParsingSet);
 	        exit;
 	      end;
 	  end;
 
-	SetParsingCaracterSet(oldParsingSet);
+	SetParserDelimiters(oldParsingSet);
 end;
 
 
@@ -956,12 +956,12 @@ var nbJoueursTrouves : SInt64;
         numeroNoirBestSolution  := kNroJoueurInconnu;
         numeroBlancBestSolution := kNroJoueurInconnu;
 
-        oldQuoteProtection := GetParsingProtectionWithQuotes;
-        SetParsingProtectionWithQuotes(true);
+        oldQuoteProtection := GetParserProtectionWithQuotes;
+        SetParserProtectionWithQuotes(true);
 
 
-        oldParsingSet := GetParsingCaracterSet;
-        SetParsingCaracterSet(parsingCaracters);
+        oldParsingSet := GetParserDelimiters;
+        SetParserDelimiters(parsingCaracters);
 
 
       	reste := s;
@@ -975,14 +975,14 @@ var nbJoueursTrouves : SInt64;
       	while (reste <> '') and (i < kNbMaxChaines) do
       	  begin
       	    inc(i);
-      	    Parser(reste,chaines[i],reste);
+      	    Parse(reste,chaines[i],reste);
 
       	    if (chaines[i] <> '') then
       	      begin
       	        positionUtile := Pos(chaines[i],partieNonDigeree);
 
       	        {separateurs est la chaine des caracteres sautes lors
-      	         du dernier appel a Parser(reste,chaines[i],reste)  }
+      	         du dernier appel a Parse(reste,chaines[i],reste)  }
       	        separateurs := TPCopy(partieNonDigeree,1,positionUtile - 1);
 
       	        {on garde l'invariant   "partieDigeree + partieNonDigeree = s"  }
@@ -1076,8 +1076,8 @@ var nbJoueursTrouves : SInt64;
       	      if not(termine) then SplitTableByThree(i,j,k);
 
 
-      	SetParsingCaracterSet(oldParsingSet);
-        SetParsingProtectionWithQuotes(oldQuoteProtection);
+      	SetParserDelimiters(oldParsingSet);
+        SetParserProtectionWithQuotes(oldQuoteProtection);
 
         longueurTotale := 0;
         for i := 1 to nbSousChaines do
@@ -2295,9 +2295,9 @@ var i,j,k : SInt64;
     debug, trouve : boolean;
     nbLexemesCherches, nbLexemesBase : SInt64;
     nbLexemesCherchesAux, nbLexemesBaseAux : SInt64;
-    lexemesCherches : array[0..200] of SInt64;
-    lexemesBase : array[0..200] of SInt64;
-    lexemesCherchesAux : array[0..200] of SInt64;
+    lexemesCherches : array[0..200] of SInt32;
+    lexemesBase : array[0..200] of SInt32;
+    lexemesCherchesAux : array[0..200] of SInt32;
 
 label sortie;
 begin
@@ -2648,7 +2648,7 @@ begin
 
   if (s <> '') and (s[1] <> '%') then
     begin
-      Parser5( s, s1, s2, s3, s4, s5, reste);
+      Parse5( s, s1, s2, s3, s4, s5, reste);
 
       if (Pos('__END_OF_FILE__', s) = 1) then
         begin

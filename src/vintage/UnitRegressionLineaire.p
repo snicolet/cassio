@@ -434,8 +434,8 @@ begin
 
 
       // dans un fichier .csv, les enregisterements sont spars par des points virgules
-      oldParsingSet := GetParsingCaracterSet;
-      SetParsingCaracterSet([' ',tab,';']);
+      oldParsingSet := GetParserDelimiters;
+      SetParserDelimiters([' ',tab,';']);
 
       s := debutLigne;
 
@@ -444,7 +444,7 @@ begin
 
       // lire tous les entieres sur la ligne
       repeat
-        Parser(s, aux , reste);
+        Parse(s, aux , reste);
 
         inc(nombreDeNombresLus);
 
@@ -489,7 +489,7 @@ begin
 
       // WritelnDansRapport('');
 
-      SetParsingCaracterSet(oldParsingSet);
+      SetParserDelimiters(oldParsingSet);
     end;
 end;
 

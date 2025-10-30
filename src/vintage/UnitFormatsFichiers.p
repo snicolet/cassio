@@ -573,8 +573,8 @@ begin
       if ParserFENEnPositionEtTrait(FENString, thePosition) then
         begin
 
-          oldParsingSet := GetParsingCaracterSet;
-          SetParsingCaracterSet([' ',tab,cr,lf]);
+          oldParsingSet := GetParserDelimiters;
+          SetParserDelimiters([' ',tab,cr,lf]);
 
 
           indexDansFichier := GetPositionMarqueurFichierAbstrait(gLectureFichier.whichFichierAbstrait);
@@ -596,7 +596,7 @@ begin
             // eclater le buffer en tokens
             indexDansBuffer := 0;
             repeat
-              token := ParserBuffer(Ptr(buffer), bufferSize, indexDansBuffer, lastRead);
+              token := ParseBuffer(Ptr(buffer), bufferSize, indexDansBuffer, lastRead);
 
               (*
               WriteNumDansRapport('i = ',indexDansBuffer);
@@ -637,7 +637,7 @@ begin
 
 
           DisposeMemoryPtr(Ptr(buffer));
-          SetParsingCaracterSet(oldParsingSet);
+          SetParserDelimiters(oldParsingSet);
 
 
           infos.tailleOthellier  := 8;
@@ -1338,9 +1338,9 @@ begin
             if (ligne <> '') then
               begin
                 if (Pos('%%Othello-initial-position: ', ligne) = 1) then
-                  Parser(ligne, foo, posDebut);
+                  Parse(ligne, foo, posDebut);
                 if (Pos('%%Othello-moves: ', ligne) = 1) then
-                  Parser(ligne, foo, moves);
+                  Parse(ligne, foo, moves);
               end;
           until (compteurLignes > 20) or (err <> NoErr) or (Pos('%%BeginProlog',ligne) > 0) or (Pos('%%EndComments',ligne) > 0);
 
@@ -1445,7 +1445,7 @@ begin
         if CharInSet(c,['%','-','X','x','0','O','o'])
           then
             begin
-              Parser2(s,s1,s2,reste);
+              Parse2(s,s1,s2,reste);
               if (s1[1] <> '%') and ChaineNeContientQueCesCaracteres(s1,['-','X','x','0','O','o']) then
                 begin
                   if (LENGTH_OF_STRING(s1) = 64) and (LENGTH_OF_STRING(s2) = 1) then

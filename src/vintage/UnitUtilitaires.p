@@ -1457,7 +1457,7 @@ begin
 
   if (ligne.debutLigne <> '') then
     begin
-      Parser(ligne.debutLigne, s, remplacement);
+      Parse(ligne.debutLigne, s, remplacement);
       InspectUnicodeAccent(s, remplacement);
 
       // WritelnDansRapport('  AddUnicodeRemplacement( ''' + s + ''' , ''' + remplacement + ''' );');

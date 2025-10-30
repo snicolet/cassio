@@ -754,22 +754,22 @@ begin
         (* WritelnDansRapport(ligne); *)
 
         if (Pos('%%Othello-initial-position: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.initialPosition);
+          Parse(ligne, foo, infosFichier.initialPosition);
 
         if (Pos('%%Othello-moves: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.moves);
+          Parse(ligne, foo, infosFichier.moves);
 
         if (Pos('%%Othello-current-move-number: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.moveNumber);
+          Parse(ligne, foo, infosFichier.moveNumber);
 
         if (Pos('%%Othello-SGF-annotations: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.SGFAnnotations);
+          Parse(ligne, foo, infosFichier.SGFAnnotations);
 
         if (Pos('%%Othello-diagram-comment: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.diagramComment);
+          Parse(ligne, foo, infosFichier.diagramComment);
 
         if (Pos('%%Othello-diagram-title: ', ligne) = 1) then
-          Parser(ligne, foo, infosFichier.diagramTitle);
+          Parse(ligne, foo, infosFichier.diagramTitle);
 
       end;
   until (compteurLignes > 20) or (erreurES <> NoErr) or EOFFichierTexte(ficPartie,erreurES) or (Pos('%%BeginProlog',ligne) = 1);

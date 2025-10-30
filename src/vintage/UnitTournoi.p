@@ -1884,10 +1884,10 @@ begin
     if (err = NoErr) and (s <> '') and (s[1] <> '#') and (s[1] <> '%') then
       with tournoi do
         begin
-          Parser6(s,s1,s2,s3,s4,s5,s6,reste);
+          Parse6(s,s1,s2,s3,s4,s5,s6,reste);
 
           if NoCaseEquals('NOM-TOURNOI',s1) then
-            Parser2(s,s1,s2,nomTournoi);
+            Parse2(s,s1,s2,nomTournoi);
 
           if (NoCasePos('ENGINES[',s1) > 0) then
             begin
@@ -2520,13 +2520,13 @@ begin
           longueur := LENGTH_OF_STRING(s);
 
 
-          Parser6(s,s1,s2,s3,s4,s5,s6,reste);
+          Parse6(s,s1,s2,s3,s4,s5,s6,reste);
 
           (* calcul de l'index dans le tableau des deviations *)
-          oldParsingSet := GetParsingCaracterSet;
-        	SetParsingCaracterSet(['(',',',')']);
-        	Parser4(s3,i1,i2,i3,i4,reste);
-        	SetParsingCaracterSet(oldParsingSet);
+          oldParsingSet := GetParserDelimiters;
+        	SetParserDelimiters(['(',',',')']);
+        	Parse4(s3,i1,i2,i3,i4,reste);
+        	SetParserDelimiters(oldParsingSet);
         	StrToInt32(i1,dev_frontiere);
         	StrToInt32(i2,dev_minimisation);
         	StrToInt32(i3,dev_mobilite);

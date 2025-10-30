@@ -990,10 +990,10 @@ begin
   if not(problemeMemoireBase) and not(JoueursEtTournoisEnMemoire) then
     err := MetJoueursEtTournoisEnMemoire(false);
 
-  oldParsingProtectionWithQuote := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  oldParsingProtectionWithQuote := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
 
-  Parser6(commande,s1,s2,s3,s4,s5,s6,reste);
+  Parse6(commande,s1,s2,s3,s4,s5,s6,reste);
 
   err := -10000;
 
@@ -1106,7 +1106,7 @@ begin
         err := NoErr;
       end;
 
-  SetParsingProtectionWithQuotes(oldParsingProtectionWithQuote);
+  SetParserProtectionWithQuotes(oldParsingProtectionWithQuote);
 
   DoActionGestionBaseOfficielle := err;
 end;

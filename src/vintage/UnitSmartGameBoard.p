@@ -489,10 +489,10 @@ var whichSquare1,whichSquare2 : SInt16;
 begin
 	s := LitArgumentOfPropertyEnChaine(true);
 
-	oldParsingSet := GetParsingCaracterSet;
-	SetParsingCaracterSet([':']);
-	Parser(s,s1,s2);
-	SetParsingCaracterSet(oldParsingSet);
+	oldParsingSet := GetParserDelimiters;
+	SetParserDelimiters([':']);
+	Parse(s,s1,s2);
+	SetParserDelimiters(oldParsingSet);
 
 	whichSquare1 := StringEnCoup(s1);
 	whichSquare2 := StringEnCoup(s2);
@@ -1516,7 +1516,7 @@ begin
     if (s <> '') and (erreurES = NoErr) then
       begin
         inc(nbPrefFiles);
-        Parser(s,gDatabaseRecentSGFFiles[nbPrefFiles].date,gDatabaseRecentSGFFiles[nbPrefFiles].name);
+        Parse(s,gDatabaseRecentSGFFiles[nbPrefFiles].date,gDatabaseRecentSGFFiles[nbPrefFiles].name);
       end;
   until (nbPrefFiles >= kMaxRecentSGFFiles) or (erreurES <> NoErr) or EOFFichierTexte(fic,erreurES);
 

@@ -134,7 +134,7 @@ var debut,fin,k : SInt32;
 
 
 begin
-  oldParsingSet := GetParsingCaracterSet;
+  oldParsingSet := GetParserDelimiters;
 
   if SelectionRapportNonVide then
     begin
@@ -213,8 +213,8 @@ begin
 						        if pos('PASS',ligne) = 1
 						          then
 						            begin
-						              SetParsingCaracterSet([' ']);
-						              Parser2(ligne,s1,s2,reste);
+						              SetParserDelimiters([' ']);
+						              Parse2(ligne,s1,s2,reste);
 						              StrToInt32(s2,numeroPasse);
 
 						              for k := 0 to tailleTablePeutRemplacer do
@@ -228,22 +228,22 @@ begin
 						              if numeroPasse = 2
 						                then
 						                  begin
-						                    SetParsingCaracterSet(['>']);
-						                    Parser3(ligne,s1,s2,s3,reste);
+						                    SetParserDelimiters(['>']);
+						                    Parse3(ligne,s1,s2,s3,reste);
 
 
-						                    SetParsingCaracterSet(['"']);
+						                    SetParserDelimiters(['"']);
 
 
 						                    s := s1;
 						                    s := EnleveEspacesDeGauche(s);
 						                    s := EnleveEspacesDeDroite(s);
-						                    Parser(s,pattern,reste);
+						                    Parse(s,pattern,reste);
 
 						                    s := s2;
 						                    s := EnleveEspacesDeGauche(s);
 						                    s := EnleveEspacesDeDroite(s);
-						                    Parser(s,remplacement,reste);
+						                    Parse(s,remplacement,reste);
 
 
 
@@ -252,14 +252,14 @@ begin
 						                  end
 						                else
 						                  begin
-						                    SetParsingCaracterSet([';']);
-						                    Parser4(ligne,s1,s2,s3,s4,reste);
-						                    SetParsingCaracterSet(['"']);
+						                    SetParserDelimiters([';']);
+						                    Parse4(ligne,s1,s2,s3,s4,reste);
+						                    SetParserDelimiters(['"']);
 
 						                    s := s1;
 						                    s := EnleveEspacesDeGauche(s);
 						                    s := EnleveEspacesDeDroite(s);
-						                    Parser(s,pattern,reste);
+						                    Parse(s,pattern,reste);
 
 						                    case axeSymetrie of
 						                      central  : s := s4;
@@ -269,7 +269,7 @@ begin
                                 end;
                                 s := EnleveEspacesDeGauche(s);
 						                    s := EnleveEspacesDeDroite(s);
-						                    Parser(s,remplacement,reste);
+						                    Parse(s,remplacement,reste);
 
 						                    {WritelnDansRapport(pattern + '  ==>  '+remplacement);}
 
@@ -284,7 +284,7 @@ begin
 
 		      erreurES := FermeFichierTexte(fichierDesSymetries);
 
-		      SetParsingCaracterSet([' ',tab]);
+		      SetParserDelimiters([' ',tab]);
 
 		      SelectionnerTexteDansRapport(debut,fin);
 
@@ -293,7 +293,7 @@ begin
       if (peutRemplacer <> NIL) then DisposeMemoryPtr(Ptr(peutRemplacer));
     end;
 
-  SetParsingCaracterSet(oldParsingSet);
+  SetParserDelimiters(oldParsingSet);
 end;
 
 

@@ -21,7 +21,7 @@ procedure StraightLineFitting(var x,y,sigma : PointMultidimensionnel; nData : SI
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;
 	function ReelEnString(unreel : double) : String255;     external;
   function RandomEntreBornes(a, b : SInt16) : SInt16;     external;
-  procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);     external;
+  procedure Parse6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);     external;
   function StrToInt32(const s : String255) : SInt32;     external;
 function GetEcritToutDansRapportLog : boolean;     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;

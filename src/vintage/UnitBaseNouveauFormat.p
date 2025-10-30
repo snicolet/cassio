@@ -3231,7 +3231,7 @@ begin  {$unused theFic, result}
   WritelnStringAndBooleenDansRapport('gFichierListingWThorEstVide = ',gFichierListingWThorEstVide);
   }
 
-  Parser4(s, nomFichier, date, heure, taille, reste);
+  Parse4(s, nomFichier, date, heure, taille, reste);
 
 
   if not(gFichierListingWThorEstVide)  then

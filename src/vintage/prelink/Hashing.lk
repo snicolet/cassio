@@ -2,4 +2,4 @@
 	function Max (a, b: SInt32) : SInt32;     external;
 	procedure RandomizeTimer;     external;
   function RandomLongint : SInt32;     external;
-  procedure Parser (s : String255; var tete,reste : String255);     external;
+  procedure Parse(s : String255; var tete,reste : String255);     external;

@@ -537,7 +537,7 @@ begin
 
   EnleveEspacesDeGaucheSurPlace(s);
   s := StripDiacritics(s);
-  Parser2(s,s1,s2,reste);
+  Parse2(s,s1,s2,reste);
 
   if LENGTH_OF_STRING(s1) = 65 then
     begin
@@ -650,12 +650,12 @@ begin {ParserFENEnPositionEtTrait}
   s := ReplaceStringAll(s, '[', ' ');
   s := ReplaceStringAll(s, ']', ' ');
 
-  Parser(s,s1,reste);
+  Parse(s,s1,reste);
   if (s1 = 'FEN')
     then s := reste
     else s := s1 + reste;
 
-  Parser2(s, positionString, traitString, reste);
+  Parse2(s, positionString, traitString, reste);
 
 
   // pour le debugage...

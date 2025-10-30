@@ -84,9 +84,9 @@ procedure CreateJPEGImageOfPosition(position : PositionEtTraitRec; fileSpec : FS
 function ReadlnBufferDansFichierTexte(var fic : FichierTEXT; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
   procedure EnleveEtCompteCeCaractereAGaucheDansBuffer(buffer : Ptr; var tailleBuffer : SInt32; ch : char; var nbCaracteresEnleves : SInt32);     external;
   function BufferToPascalString(buffer : Ptr; indexDepart,indexFin : SInt32) : String255;     external;
-  procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);     external;
+  procedure Parse6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);     external;
 function ScannerStringPourTrouverCoup(debutScan : SInt16; const s : String255; var positionDuCoupDansChaine : SInt16) : SInt16;     external;
-  procedure Parser5(s : String255; var s1,s2,s3,s4,s5,reste : String255);     external;
+  procedure Parse5(s : String255; var s1,s2,s3,s4,s5,reste : String255);     external;
 procedure PlaquerPosition(plat : plateauOthello; trait : SInt16; flags : SInt32);     external;
 function WritePositionEtTraitEnEPSDansFichier(position : PositionEtTraitRec; fic : FichierTEXT) : OSErr;     external;
 procedure InsereTexteDansRapport(text : Ptr; length : SInt32);     external;

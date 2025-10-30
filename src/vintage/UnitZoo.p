@@ -630,7 +630,7 @@ begin
   while (err = NoErr) and not(LongStringBeginsWith('OK<br>',ligne)) do
     begin
 
-      Parser3(ligne.debutLigne, action, hash, presence, reste);
+      Parse3(ligne.debutLigne, action, hash, presence, reste);
 
       if ((action = 'STOPPED') or (action = 'COULD_NOT_STOP')) and (hash <> '')
         then hashValue := HexToInt(hash);
@@ -667,7 +667,7 @@ begin
   while (err = NoErr) and not(LongStringBeginsWith('OK<br>',ligne)) do
     begin
 
-      Parser4(ligne.debutLigne , action1, action2, valeur, hash, ligne.debutLigne);
+      Parse4(ligne.debutLigne , action1, action2, valeur, hash, ligne.debutLigne);
 
       if (action1 = 'STILL') and (action2 = 'USEFUL') and (valeur = 'false') and (hash <> '') then
         begin
@@ -709,7 +709,7 @@ begin
   *)
 
 
-  Parser4(ligne.debutLigne , action1, action2, valeur, hash, aux);
+  Parse4(ligne.debutLigne , action1, action2, valeur, hash, aux);
   if (action1 = 'STILL') and (action2 = 'INCHARGE') and (valeur = 'true') and (hash <> '') then
     begin
 
@@ -2015,7 +2015,7 @@ begin
 
       start := loc + LENGTH_OF_STRING(s);
 
-      result := ParserBuffer(Ptr(buffer) , bufferSize , start , lastRead );
+      result := ParseBuffer(Ptr(buffer) , bufferSize , start , lastRead );
     end;
 
 
@@ -2286,7 +2286,7 @@ begin
 
   LongStringToBuffer(s, @buffer[0], len);
 
-  Parser(s.debutLigne, action, reste);
+  Parse(s.debutLigne, action, reste);
 
   platString  := GetParameterStringInResultatDuZoo('pos',      @buffer[0], len);
   window      := GetParameterStringInResultatDuZoo('window',   @buffer[0], len);
@@ -2453,7 +2453,7 @@ begin
 
   LongStringToBuffer(s, @buffer[0], len);
 
-  Parser(s.debutLigne, action, reste);
+  Parse(s.debutLigne, action, reste);
 
   platString  := GetParameterStringInResultatDuZoo('pos',    @buffer[0], len);
   window      := GetParameterStringInResultatDuZoo('window', @buffer[0], len);
@@ -3888,7 +3888,7 @@ begin
   if CassioEstEnTrainDeCalculerPourLeZoo then
     begin
 
-      Parser4(s.debutLigne, action1, action2, bool, hash, reste);
+      Parse4(s.debutLigne, action1, action2, bool, hash, reste);
 
       // le hash
 

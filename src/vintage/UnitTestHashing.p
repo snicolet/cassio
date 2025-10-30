@@ -706,9 +706,9 @@ begin
 
         {WritelnDansRapport('');}
 
-        Parser(messageDecode,mots[1],reste);
-        Parser(reste,mots[2],reste);
-        Parser(reste,mots[3],reste);
+        Parse(messageDecode,mots[1],reste);
+        Parse(reste,mots[2],reste);
+        Parse(reste,mots[3],reste);
 
 
 
@@ -760,7 +760,7 @@ begin
     musique[t] := 0;
   for t := 1 to longueurMusique do
     begin
-      Parser(musiqueString, s, musiqueString);
+      Parse(musiqueString, s, musiqueString);
       musique[t] := StrToInt32(s);
       WriteNumDansRapport(' ',musique[t]);
     end;
@@ -777,7 +777,7 @@ begin
     cryptogramme[t] := 0;
   for t := 1 to 38 do
     begin
-      Parser(cryptogrammeString, s, cryptogrammeString);
+      Parse(cryptogrammeString, s, cryptogrammeString);
       cryptogramme[t] := ord('A') + (StrToInt32(s) mod 26);
       WriteDansRapport(chr(cryptogramme[t]));
     end;

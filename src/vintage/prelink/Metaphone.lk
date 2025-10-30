@@ -9,4 +9,4 @@ procedure WriteStringAndBooleenDansRapport(s : String255; b : boolean);     exte
 procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
-  procedure Parser (s : String255; var tete,reste : String255);     external;
+  procedure Parse(s : String255; var tete,reste : String255);     external;

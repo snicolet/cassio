@@ -1062,7 +1062,7 @@ var oldParsingSet : SetOfChar;
     EnginePrintError('commande = '+engine.lastCommandSent);
     EnginePrintError('PARSE ERROR : '+message);
     EnginePrintError('reponse = '+line.debutLigne);
-    SetParsingCaracterSet(oldParsingSet);
+    SetParserDelimiters(oldParsingSet);
     exit;
   end;
 
@@ -1077,14 +1077,14 @@ begin
 
       // les champs des resultats sont séparés par des virgules
 
-      oldParsingSet := GetParsingCaracterSet;
-      SetParsingCaracterSet([',']);
+      oldParsingSet := GetParserDelimiters;
+      SetParserDelimiters([',']);
 
-      Parser5(line.debutLigne,s1,s2,s3,s4,s5,reste);
-      Parser3(reste + line.finLigne,s6,s7,s8,reste);
+      Parse5(line.debutLigne,s1,s2,s3,s4,s5,reste);
+      Parse3(reste + line.finLigne,s6,s7,s8,reste);
 
 
-      SetParsingCaracterSet([' ','@','%',tab]);
+      SetParserDelimiters([' ','@','%',tab]);
 
 
       // la position ?
@@ -1092,7 +1092,7 @@ begin
         then ParseError('impossible de parser la position dans un resultat de l''engine');
 
       // le coup proposé ?
-      Parser2(s2,c1,c2,reste);
+      Parse2(s2,c1,c2,reste);
 
       if (c1 <> 'move')
         then ParseError('impossible de parser le coup dans un resultat de l''engine');
@@ -1102,7 +1102,7 @@ begin
 
       // la profondeur ?
 
-      Parser2(s3,c1,c2,reste);
+      Parse2(s3,c1,c2,reste);
 
       if (c1 <> 'depth')
         then ParseError('impossible de parser la profondeur dans un resultat de l''engine');
@@ -1111,7 +1111,7 @@ begin
 
       // la precision ?
 
-      Parser(s4,c1,reste);
+      Parse(s4,c1,reste);
 
       aux.precision := StrToInt32(c1);
 
@@ -1123,9 +1123,9 @@ begin
 
       // l'encadrement des valeurs ?
 
-      SetParsingCaracterSet([' ','W','B',tab]);
+      SetParserDelimiters([' ','W','B',tab]);
 
-      Parser5(s5,c1,c2,c3,c4,c5,reste);
+      Parse5(s5,c1,c2,c3,c4,c5,reste);
 
       if ((c2 <> '<=') and (c2 <> '<')) or (c3 <> 'v') or ((c4 <> '<=') and (c4 <> '<'))
         then ParseError('impossible de parser l''encadrement des valeurs dans un resultat de l''engine');
@@ -1202,7 +1202,7 @@ begin
       if (s7 <> '')
         then
           begin
-            Parser2(s7,c1,c2,reste);
+            Parse2(s7,c1,c2,reste);
             c3 := LeftStr(c2, LENGTH_OF_STRING(c2) - 3);
 
             if (c1 <> 'node')
@@ -1219,7 +1219,7 @@ begin
       aux.time := 0.0;
       if (s8 <> '') then
         begin
-          Parser2(s8,c1,c2,reste);
+          Parse2(s8,c1,c2,reste);
 
           if (c1 <> 'time')
             then ParseError('impossible de parser le temps dans un resultat de l''engine');
@@ -1231,7 +1231,7 @@ begin
       result := aux;
       ParserResultLine := true;
 
-      SetParsingCaracterSet(oldParsingSet);
+      SetParserDelimiters(oldParsingSet);
 
     end;
 
@@ -1260,7 +1260,7 @@ var oldParsingSet : SetOfChar;
     EnginePrintError('commande = ' + engine.lastCommandSent);
     EnginePrintError('PARSE ERROR : '+message);
     EnginePrintError('reponse = '+line.debutLigne);
-    SetParsingCaracterSet(oldParsingSet);
+    SetParserDelimiters(oldParsingSet);
     exit;
   end;
 
@@ -1275,12 +1275,12 @@ begin
 
       // les champs des resultats sont séparés par des virgules
 
-      oldParsingSet := GetParsingCaracterSet;
-      SetParsingCaracterSet([',']);
+      oldParsingSet := GetParserDelimiters;
+      SetParserDelimiters([',']);
 
-      Parser2(line.debutLigne,s7,s8,reste);
+      Parse2(line.debutLigne,s7,s8,reste);
 
-      SetParsingCaracterSet([' ','@','%',tab]);
+      SetParserDelimiters([' ','@','%',tab]);
 
       // le nombre de noeuds ?
 
@@ -1288,7 +1288,7 @@ begin
       if (s7 <> '')
         then
           begin
-            Parser2(s7,c1,c2,reste);
+            Parse2(s7,c1,c2,reste);
             c3 := LeftStr(c2, LENGTH_OF_STRING(c2) - 3);
 
             if (c1 <> 'node')
@@ -1305,7 +1305,7 @@ begin
       result.time := 0.0;
       if (s8 <> '') then
         begin
-          Parser2(s8,c1,c2,reste);
+          Parse2(s8,c1,c2,reste);
 
           if (c1 <> 'time')
             then ParseError('impossible de parser le temps dans un resultat de l''engine');
@@ -1316,7 +1316,7 @@ begin
       // tout a l'air bon, hein
       ParseSpeedResult := true;
 
-      SetParsingCaracterSet(oldParsingSet);
+      SetParserDelimiters(oldParsingSet);
 
     end;
 

@@ -1903,7 +1903,7 @@ var codeErreur : OSErr;
     k,low,up,middle : SInt64;
     found,memeNom : boolean;
 begin
-  permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxJoueursEnMemoire+2)*sizeof(SInt64)));
+  permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxJoueursEnMemoire+2)*sizeof(SInt32)));
   if permutation = NIL then
     begin
       SysBeep(0);
@@ -2427,7 +2427,7 @@ var codeErreur : OSErr;
     k,low,up,middle : SInt64;
     found,memeNom : boolean;
 begin
-  permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxTournoisEnMemoire+2)*sizeof(SInt64)));
+  permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxTournoisEnMemoire+2)*sizeof(SInt32)));
   if permutation = NIL then SysBeep(0);
   with TournoisNouveauFormat do
     begin
@@ -3474,7 +3474,7 @@ begin
             end
           else
             begin
-              permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxJoueursEnMemoire+2)*sizeof(SInt64)));
+              permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxJoueursEnMemoire+2)*sizeof(SInt32)));
 			        if permutation = NIL
 			          then SysBeep(0)
 			          else
@@ -3521,7 +3521,7 @@ begin
             end
           else
             begin
-              permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxTournoisEnMemoire+2)*sizeof(SInt64)));
+              permutation := LongintArrayPtr(AllocateMemoryPtr((nbMaxTournoisEnMemoire+2)*sizeof(SInt32)));
 			        if permutation = NIL
 			          then SysBeep(0)
 			          else
@@ -3555,7 +3555,7 @@ begin
 	          err := GetNextLineInPrefsFile(s);
 	          if err = NoErr then
 	            begin
-	              Parser2(s,motClef,bidStr,chainePref);
+	              Parse2(s,motClef,bidStr,chainePref);
 	              if motClef = '%quellesBasesLire' then
 	                begin
 	                  if chainePref = 'ToutesLesDistributions' then genre := kToutesLesDistributions else

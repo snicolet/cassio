@@ -148,18 +148,18 @@ INTERFACE
 
 
   {le premier argument n'est pas un const ni un var pour pouvoir passer s dans tete ou dans reste}
-  procedure Parser (s : String255; var tete,reste : String255);
-  procedure Parser2(s : String255; var s1,s2,reste : String255);
-  procedure Parser3(s : String255; var s1,s2,s3,reste : String255);
-  procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);
-  procedure Parser5(s : String255; var s1,s2,s3,s4,s5,reste : String255);
-  procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);
-  procedure ParserWithQuoteProtection(s : String255; var tete,reste : String255);
+  procedure Parse(s : String255; var tete,reste : String255);
+  procedure Parse2(s : String255; var s1,s2,reste : String255);
+  procedure Parse3(s : String255; var s1,s2,s3,reste : String255);
+  procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);
+  procedure Parse5(s : String255; var s1,s2,s3,s4,s5,reste : String255);
+  procedure Parse6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);
+  procedure ParseWithQuoteProtection(s : String255; var tete,reste : String255);
 
-  procedure SetParsingProtectionWithQuotes(flag : boolean);
-  function  GetParsingProtectionWithQuotes : boolean;
-  procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);
-  function  GetParsingCaracterSet : SetOfChar;
+  procedure SetParserProtectionWithQuotes(flag : boolean);
+  function  GetParserProtectionWithQuotes : boolean;
+  procedure SetParserDelimiters(parsingCaracters : SetOfChar);
+  function  GetParserDelimiters : SetOfChar;
 
 
 
@@ -210,7 +210,7 @@ INTERFACE
 
   function BufferToPascalString(buffer : Ptr; indexDepart,indexFin : SInt32) : String255;
   function FindStringInBuffer(const s : String255; buffer : Ptr; bufferLength,from,direction : SInt32; var positionTrouvee : SInt32) : boolean;
-  function ParserBuffer(buffer : Ptr; bufferLength, from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
+  function ParseBuffer(buffer : Ptr; bufferLength, from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
 
 
   function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
@@ -1614,9 +1614,9 @@ end;
 
 
 
-var protect_parsing_with_quotes : boolean;
-    parsing_set : SetOfChar;
-    parsing_set_as_booleans : array[0..255] of boolean;
+var protect_parser_with_quotes : boolean;
+    parser_delimiters : SetOfChar;
+    parser_delimiters_as_booleans : array[0..255] of boolean;
 
 
 {$ifc not string_accessors_are_macros}
@@ -1633,31 +1633,31 @@ end;
 
 procedure InitUnitMyStrings;
 begin
-  SetParsingProtectionWithQuotes(false);
-  SetParsingCaracterSet([' ',tab]);
+  SetParserProtectionWithQuotes(false);
+  SetParserDelimiters([' ',tab]);
 end;
 
-procedure SetParsingProtectionWithQuotes(flag : boolean);
+procedure SetParserProtectionWithQuotes(flag : boolean);
 begin
-  protect_parsing_with_quotes := flag;
+  protect_parser_with_quotes := flag;
 end;
 
-function GetParsingProtectionWithQuotes : boolean;
+function GetParserProtectionWithQuotes : boolean;
 begin
-  GetParsingProtectionWithQuotes := protect_parsing_with_quotes;
+  GetParserProtectionWithQuotes := protect_parser_with_quotes;
 end;
 
-function GetParsingCaracterSet : SetOfChar;
+function GetParserDelimiters : SetOfChar;
 begin
-  GetParsingCaracterSet := parsing_set;
+  GetParserDelimiters := parser_delimiters;
 end;
 
-procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);
+procedure SetParserDelimiters(parsingCaracters : SetOfChar);
 var i : SInt32;
 begin
-  parsing_set := parsingCaracters;
+  parser_delimiters := parsingCaracters;
   for i := 0 to 255 do
-    parsing_set_as_booleans[i] := (chr(i) in parsing_set);
+    parser_delimiters_as_booleans[i] := (chr(i) in parser_delimiters);
 end;
 
 
@@ -1839,7 +1839,7 @@ begin
 end;
 
 
-procedure Parser(s : String255; var tete,reste : String255);
+procedure Parse(s : String255; var tete,reste : String255);
 var n,len : SInt16;
 begin
   tete := '';
@@ -1848,10 +1848,10 @@ begin
   if len > 0 then
     begin
       n := 1;
-      while (n <= len) and (parsing_set_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
+      while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
       if (n <= len) then
         begin
-          if protect_parsing_with_quotes and (s[n] = '"')
+          if protect_parser_with_quotes and (s[n] = '"')
             then
               begin
                 n := n + 1;
@@ -1863,65 +1863,65 @@ begin
                 if (s[n] = '"') and (n <= len) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n <= len) and (not(parsing_set_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
+              while (n <= len) and (not(parser_delimiters_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
                 begin
                   tete := Concat(tete,s[n]);
                   n := n + 1;
                 end;
-          while (n <= len) and (parsing_set_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du reste}
+          while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du reste}
           if (n <= len) then reste := TPCopy(s,n,len - n + 1);
         end;
     end;
 end;
 
-procedure Parser2(s : String255; var s1,s2,reste : String255);
+procedure Parse2(s : String255; var s1,s2,reste : String255);
 begin
-  Parser(s,s1,reste);
-  Parser(reste,s2,reste);
+  Parse(s,s1,reste);
+  Parse(reste,s2,reste);
 end;
 
-procedure Parser3(s : String255; var s1,s2,s3,reste : String255);
+procedure Parse3(s : String255; var s1,s2,s3,reste : String255);
 begin
-  Parser(s,s1,reste);
-  Parser(reste,s2,reste);
-  Parser(reste,s3,reste);
+  Parse(s,s1,reste);
+  Parse(reste,s2,reste);
+  Parse(reste,s3,reste);
 end;
 
-procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);
+procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);
 begin
-  Parser(s,s1,reste);
-  Parser(reste,s2,reste);
-  Parser(reste,s3,reste);
-  Parser(reste,s4,reste);
+  Parse(s,s1,reste);
+  Parse(reste,s2,reste);
+  Parse(reste,s3,reste);
+  Parse(reste,s4,reste);
 end;
 
-procedure Parser5(s : String255; var s1,s2,s3,s4,s5,reste : String255);
+procedure Parse5(s : String255; var s1,s2,s3,s4,s5,reste : String255);
 begin
-  Parser(s,s1,reste);
-  Parser(reste,s2,reste);
-  Parser(reste,s3,reste);
-  Parser(reste,s4,reste);
-  Parser(reste,s5,reste);
+  Parse(s,s1,reste);
+  Parse(reste,s2,reste);
+  Parse(reste,s3,reste);
+  Parse(reste,s4,reste);
+  Parse(reste,s5,reste);
 end;
 
-procedure Parser6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);
+procedure Parse6(s : String255; var s1,s2,s3,s4,s5,s6,reste : String255);
 begin
-  Parser(s,s1,reste);
-  Parser(reste,s2,reste);
-  Parser(reste,s3,reste);
-  Parser(reste,s4,reste);
-  Parser(reste,s5,reste);
-  Parser(reste,s6,reste);
+  Parse(s,s1,reste);
+  Parse(reste,s2,reste);
+  Parse(reste,s3,reste);
+  Parse(reste,s4,reste);
+  Parse(reste,s5,reste);
+  Parse(reste,s6,reste);
 end;
 
 
-procedure ParserWithQuoteProtection(s : String255; var tete,reste : String255);
+procedure ParseWithQuoteProtection(s : String255; var tete,reste : String255);
 var oldParsingProtection : boolean;
 begin
-  oldParsingProtection := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
-  Parser(s, tete, reste);
-  SetParsingProtectionWithQuotes(oldParsingProtection);
+  oldParsingProtection := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
+  Parse(s, tete, reste);
+  SetParserProtectionWithQuotes(oldParsingProtection);
 end;
 
 
@@ -2553,7 +2553,7 @@ begin
 end;
 
 
-function ParserBuffer(buffer : Ptr; bufferLength,from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
+function ParseBuffer(buffer : Ptr; bufferLength,from : SInt32; var indexDernierCaractereLu : SInt32) : String255;
 var n : SInt32;
     texte : PackedArrayOfCharPtr;
     result : String255;
@@ -2571,10 +2571,10 @@ begin
 
 		  n := from;
 		
-      while (n < bufferLength) and (parsing_set_as_booleans[ord(texte^[n])]) do n := n + 1;  {on saute les espaces en tete }
+      while (n < bufferLength) and (parser_delimiters_as_booleans[ord(texte^[n])]) do n := n + 1;  {on saute les espaces en tete }
       if (n < bufferLength) then
         begin
-          if protect_parsing_with_quotes and (texte^[n] = '"')
+          if protect_parser_with_quotes and (texte^[n] = '"')
             then
               begin
                 n := n + 1;
@@ -2586,7 +2586,7 @@ begin
                 if (texte^[n] = '"') and (n < bufferLength) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n < bufferLength) and (not(parsing_set_as_booleans[ord(texte^[n])])) do {on va jusqu'au prochain espace}
+              while (n < bufferLength) and (not(parser_delimiters_as_booleans[ord(texte^[n])])) do {on va jusqu'au prochain espace}
                 begin
                   result := Concat(result,texte^[n]);
                   n := n + 1;
@@ -2596,10 +2596,9 @@ begin
 		  indexDernierCaractereLu := (n - 1);
 	  end;
 	
-	ParserBuffer := result;
-	
-	
+	ParseBuffer := result;
 end;
+
 
 function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 var  count1, count2 : array[0..255] of SInt32;

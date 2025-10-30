@@ -124,7 +124,7 @@ begin
   resultat := '';
 
   repeat
-    Parser(reste, lexeme, reste);
+    Parse(reste, lexeme, reste);
     if (lexeme <> '') then
       begin
         inc(nbLexemes);

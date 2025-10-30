@@ -207,7 +207,7 @@ function InsererFichierTexteDansFichierTexte(var insere,receptacle : FichierTEXT
 function GetFichierTEXTOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : FichierTEXT) : OSErr;     external;
 	function GetFullPathOfFSSpec(fs : FSSpec) : String255;     external;
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
-procedure Parser4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
+procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt32;     external;
 function GetNroPremierFichierAvecCeNom(nom : String255) : SInt16;     external;
 function StringSimpleEnReel(alpha : String255) : double;     external;

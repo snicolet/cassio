@@ -1,4 +1,4 @@
-UNIT UnitHashing;
+UNIT BasicHashing;
 
 
 
@@ -12,15 +12,15 @@ INTERFACE
 
 
 
- USES UnitDefCassio;
+USES basictypes, basicstring;
 
 
 procedure InitUnitHashing;
 
-{La fonction polymorphe de hachage}
+// Polymorphic hashing function
 function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;
 
-{fonctions de hachage specialisees}
+// Hashing function specialized for strings.
 function HashString(const s : String255) : SInt32;
 function HashString2(const s : String255) : SInt32;
 function HashString63Bits(const s : String255) : UInt64;
@@ -37,30 +37,7 @@ function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
 
 IMPLEMENTATION
 
-
-{BEGIN_USE_CLAUSE}
-
-
-{$DEFINEC USE_PRELINK true}
-
-
-{$IFC NOT(USE_PRELINK)}
-USES
-    MyStrings, MyMathUtils, UnitServicesMemoire ;
-{$ELSEC}
-    {$I prelink/Hashing.lk}
-{$ENDC}
-
-
-{END_USE_CLAUSE}
-
-
-
-
-
-
-
-
+USES basicmath;
 
 
 
@@ -75,8 +52,7 @@ procedure InitUnitHashing;
 var i,j : SInt16;
     aux : SInt32;
 begin
-  {RandomizeTimer;}
-  SetRandomSeed(1000);
+  SetRandomSeed(1234);
 
   for j := 0 to 3 do
     for i := 0 to 255 do
@@ -94,10 +70,13 @@ begin
   initialisation_done := true;
 end;
 
+
+// GenericHash() : La fonction polymorphe de hachage
+
 function GenericHash(data : Ptr; tailleData : SInt32) : SInt32;
 type FourBytesRec = packed array[0..3] of UInt8;
      FourBytesPtr = ^FourBytesRec;
-var aux,result,i : SInt32;
+var aux, i : SInt32;
     memoryBuffer : PackedMemoryPtr;
     myFourBytes : FourBytesPtr;
 begin
@@ -132,21 +111,15 @@ begin
   Writeln('aux[3] = ',myFourBytes^[3]);
   *)
 
-  {$R-}
-
-{$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
-
+// This code for little-endian processors (like Intel...)
   result := BXOR( (XORValues[myFourBytes^[0],0]), (XORValues[myFourBytes^[1],1]));
   result := BXOR(result, (XORValues[myFourBytes^[2],2]));
   result := BXOR(result, (XORValues[myFourBytes^[3],3]));
 
-{$ELSEC }
-
-  result := BXOR( (XORValues[myFourBytes^[0],3]), (XORValues[myFourBytes^[1],2]));
-  result := BXOR(result, (XORValues[myFourBytes^[2],1]));
-  result := BXOR(result, (XORValues[myFourBytes^[3],0]));
-
-{$ENDC }
+// This code for big-endian processors (like Motorola...)
+// result := BXOR( (XORValues[myFourBytes^[0],3]), (XORValues[myFourBytes^[1],2]));
+// result := BXOR(result, (XORValues[myFourBytes^[2],1]));
+// result := BXOR(result, (XORValues[myFourBytes^[3],0]));
 
   GenericHash := result;
 end;
@@ -154,10 +127,12 @@ end;
 
 
 
-// Hash function using Jenkins algorithm, see :
-//    https://en.wikipedia.org/wiki/Jenkins_hash_function
-//    http://www.burtleburtle.net/bob/hash/doobs.html
-//
+// HashString() is our hash function for strings using Jenkins algorithm.
+// One advantage of using Jenkins algorithm is that it is easily portable 
+// in other languages. For sources, see :
+//      https://en.wikipedia.org/wiki/Jenkins_hash_function
+//      http://www.burtleburtle.net/bob/hash/doobs.html
+
 function HashString(const s : String255) : SInt32;
 var hash : UInt32;        // unsigned 32 bits integer
     i,taille : SInt32;    // signed 32 bits integer
@@ -180,15 +155,9 @@ end;
 
 
 
-function HashString2(const s : String255) : SInt32;
-begin
-  HashString2 := GenericHash(@s[1],LENGTH_OF_STRING(s));
-end;
+// HashString63Bits() : hash of a string, giving a 63 bit UInt64.
 
-
-// HashString63Bits() : hash of a string, giving a 63 bit UInt64
-
- {$IFC CASSIO_EST_COMPILE_POUR_PROCESSEUR_INTEL }
+// This version of HashString63Bits is for little-indian processors (like Intel...)
 function HashString63Bits(const s : String255) : UInt64;
 var hi,lo : UInt64;
 begin
@@ -196,18 +165,29 @@ begin
   lo := HashString('t' + s);
   HashString63Bits := (hi shl 32) + lo;
 end;
-{$ELSEC}
-function HashString63Bits(const s : String255) : UInt64;
-var result : UInt64;
+
+// This version of HashString63Bits is for big-endian processors (like Motorola...)
+// function HashString63Bits(const s : String255) : UInt64;
+// var result : UInt64;
+// begin
+//   with result do
+//     begin
+//       hi := HashString(s) and $7FFFFFFF;
+//       lo := HashString('t' + s);
+//     end;
+//   HashString63Bits := result;
+// end;
+
+
+
+// HashString2() is a weaker hash function for strings, using GenericHash()
+
+function HashString2(const s : String255) : SInt32;
 begin
-  with result do
-    begin
-      hi := HashString(s) and $7FFFFFFF;
-      lo := HashString('t' + s);
-    end;
-  HashString63Bits := result;
+  HashString2 := GenericHash(@s[1],LENGTH_OF_STRING(s));
 end;
-{$ENDC}
+
+
 
 // La fonction HashLexemes() suivante renvoie le nombre de lexemes de la
 // chaine et optionnellement dans table, les hash des differents lexemes.
@@ -215,16 +195,11 @@ end;
 // On peut passer NIL dans table pour n'avoir que le nombre de lexemes.
 // S'il est non nul, le pointeur table doit pointer vers un tableau d'au
 // moins 200 entiers de 32 bits.
+
 function HashLexemes(const s : String255; table : LongintArrayPtr) : SInt32;
 var nbLexemes, compteurBoucle : SInt32;
     lexeme, reste : String255;
 begin
-
-  (*
-  if (table <> NIL) then
-    for k := 0 to 100 do table^[k] := -55555555;
-  *)
-
   reste := s;
   nbLexemes := 0;
   compteurBoucle := 0;
@@ -243,6 +218,13 @@ begin
 end;
 
 
+
+
+BEGIN
+   writeln;
+   writeln('Testing our implementation of the Jenkins hash function...');
+   writeln('$ca2e9442 should equal ', hexa(HashString('a')));
+   writeln('$519e91f5 should equal ', hexa(HashString('The quick brown fox jumps over the lazy dog')));
 END.
 
 

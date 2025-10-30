@@ -16,7 +16,8 @@ uses
   BasicTypes,
   BasicMemory,
   BasicString,
-  BasicMath;
+  BasicMath,
+  BasicHashing;
 
 type
   Point = record

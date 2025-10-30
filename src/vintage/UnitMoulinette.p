@@ -112,14 +112,14 @@ procedure ParserJoueurDansFichierPNG(const nomDictionnaireDesPseudos,ligne : Str
 var oldParsingProtection : boolean;
     s1,reste : String255;
 begin
-  oldParsingProtection := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  oldParsingProtection := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
 
-  Parser2(ligne,s1,pseudo,reste);
+  Parse2(ligne,s1,pseudo,reste);
   pseudo := DeleteSubstringBeforeThisChar('"',pseudo,false);
   pseudo := DeleteSubstringAfterThisChar('"',pseudo,false);
 
-  SetParsingProtectionWithQuotes(oldParsingProtection);
+  SetParserProtectionWithQuotes(oldParsingProtection);
 
   if not(PeutImporterNomJoueurFormatPGN(nomDictionnaireDesPseudos,pseudo,strict,nomDansThor,numero)) then
     begin
@@ -134,14 +134,14 @@ procedure ParserTournoiDansFichierPNG(const nomDictionnaireDesPseudos,ligne : St
 var oldParsingProtection : boolean;
     s1,reste : String255;
 begin
-  oldParsingProtection := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  oldParsingProtection := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
 
-  Parser2(ligne,s1,pseudo,reste);
+  Parse2(ligne,s1,pseudo,reste);
   pseudo := DeleteSubstringBeforeThisChar('"',pseudo,false);
   pseudo := DeleteSubstringAfterThisChar('"',pseudo,false);
 
-  SetParsingProtectionWithQuotes(oldParsingProtection);
+  SetParserProtectionWithQuotes(oldParsingProtection);
 
   if not(PeutImporterNomTournoiFormatPGN(nomDictionnaireDesPseudos,pseudo,nomDansThor,numero)) then
     begin
@@ -156,24 +156,24 @@ var date,f1,f2,f3,s1,reste : String255;
     oldParsingSet : SetOfChar;
     oldParsingProtection : boolean;
 begin
-  oldParsingProtection := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  oldParsingProtection := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
 
-  Parser2(ligne,s1,date,reste);
+  Parse2(ligne,s1,date,reste);
   date := DeleteSubstringBeforeThisChar('"',date,false);
   date := DeleteSubstringAfterThisChar('"',date,false);
 
-  SetParsingProtectionWithQuotes(oldParsingProtection);
+  SetParserProtectionWithQuotes(oldParsingProtection);
 
-  oldParsingSet := GetParsingCaracterSet;
-  SetParsingCaracterSet(['.','-','/']);
+  oldParsingSet := GetParserDelimiters;
+  SetParserDelimiters(['.','-','/']);
 
-  Parser3(date,f1,f2,f3,reste);
+  Parse3(date,f1,f2,f3,reste);
   annee := StrToInt32(f1);
   mois  := StrToInt32(f2);
   jour  := StrToInt32(f3);
 
-  SetParsingCaracterSet(oldParsingSet);
+  SetParserDelimiters(oldParsingSet);
 end;
 
 
@@ -182,8 +182,8 @@ var score,scoreNoir,scoreBlanc : String255;
     oldParsingProtection : boolean;
     theoriqueNoir,theoriqueBlanc : SInt64;
 begin
-  oldParsingProtection := GetParsingProtectionWithQuotes;
-  SetParsingProtectionWithQuotes(true);
+  oldParsingProtection := GetParserProtectionWithQuotes;
+  SetParserProtectionWithQuotes(true);
 
   score := DeleteSubstringBeforeThisChar('"',ligne,false);
   score := DeleteSubstringAfterThisChar('"',score,false);
@@ -198,7 +198,7 @@ begin
      ((theoriqueNoir + theoriqueBlanc) <= 64)
     then theorique := theoriqueNoir;
 
-  SetParsingProtectionWithQuotes(oldParsingProtection);
+  SetParserProtectionWithQuotes(oldParsingProtection);
 end;
 
 
@@ -1264,7 +1264,7 @@ begin
           end
         else
           begin
-            Parser3(ligne,PartieEnAlpha,scoreEnChaine,numeroLigneEnChaine,reste);
+            Parse3(ligne,PartieEnAlpha,scoreEnChaine,numeroLigneEnChaine,reste);
 
 
             if (PartieEnAlpha <> '') and (scoreEnChaine <> '') then

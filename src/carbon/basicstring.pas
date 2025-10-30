@@ -74,6 +74,23 @@ function NoCasePos(s1, s2 : String255) : SInt16;
 function PosRight(sub : char; const s : String255) : SInt16;
 function PosRight(const sub, s : String255) : SInt16;
 
+// Basic parser
+procedure Parse(s : String255; var lexem, tail : String255);
+procedure Parse3(s : String255; var s1, s2, s3, tail : String255);
+procedure Parse4(s : String255; var s1, s2, s3, s4, tail : String255);
+procedure Parse5(s : String255; var s1, s2, s3, s4, s5, tail : String255);
+procedure Parse6(s : String255; var s1, s2, s3, s4, s5, s6, tail : String255);
+procedure ParseWithQuoteProtection(s : String255; var lexem, tail : String255);
+function  ParseBuffer(buffer : Ptr; bufferLength, from : SInt32; var lastRead : SInt32) : String255;
+
+// Setting the delimiters for our parser
+procedure SetParserDelimiters(parsingCaracters : SetOfChar);
+function  GetParserDelimiters : SetOfChar;
+procedure SetParserProtectionWithQuotes(flag : boolean);
+function  GetParserProtectionWithQuotes() : boolean;
+
+
+
 // Hamming distance
 function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 
@@ -107,6 +124,11 @@ function StrToInt32(const s : String255) : SInt32;
 implementation
 
 uses basicmath;
+
+
+var protect_parser_with_quotes : boolean;
+    parser_delimiters : SetOfChar;
+    parser_delimiters_as_booleans : array[0..255] of boolean;
 
 
 // Copy string from str255 to String255, and reverse
@@ -225,7 +247,7 @@ function ReplaceVariable(const s, pattern, replacement : String255) : String255;
 var positionSubstring,posDeuxPoint : SInt32;
     posCrochetOuvrant,posCrochetFermant : SInt32;
     longueurDuFormat,depart,fin : SInt32;
-    resultat,reste,insertion : String255;
+    resultat,tail,insertion : String255;
 begin
 
   positionSubstring := Pos(pattern,s);
@@ -237,26 +259,26 @@ begin
             on cherche si le pattern est en fait une
             variable de la forme $VARIABLE[deb..fin]
          *)
-         reste := TPCopy(s,positionSubstring,255);
-         posCrochetOuvrant := Pos('[',reste);
-         posCrochetFermant := Pos(']',reste);
+         tail := TPCopy(s,positionSubstring,255);
+         posCrochetOuvrant := Pos('[',tail);
+         posCrochetFermant := Pos(']',tail);
 
-         if (reste[1] = '$') and
+         if (tail[1] = '$') and
             (posCrochetOuvrant > 0) and
             (posCrochetFermant > posCrochetOuvrant)
            then
              begin
                longueurDuFormat := posCrochetFermant - posCrochetOuvrant + 1;
-               reste  := TPCopy(reste,posCrochetOuvrant+1,longueurDuFormat-2);
+               tail  := TPCopy(tail,posCrochetOuvrant+1,longueurDuFormat-2);
 
                depart := 1;
                fin    := 255;
 
-               posDeuxPoint := Pos('..',reste);
+               posDeuxPoint := Pos('..',tail);
                if (posDeuxPoint >= 2)
-                 then depart := StrToInt32(LeftStr(reste,posDeuxPoint - 1));
-               if (posDeuxPoint <= LENGTH_OF_STRING(reste) - 2)
-                 then fin    := StrToInt32(TPCopy(reste,posDeuxPoint + 2,255));
+                 then depart := StrToInt32(LeftStr(tail,posDeuxPoint - 1));
+               if (posDeuxPoint <= LENGTH_OF_STRING(tail) - 2)
+                 then fin    := StrToInt32(TPCopy(tail,posDeuxPoint + 2,255));
 
                insertion := TPCopy(replacement,depart,fin - depart + 1);
              end
@@ -277,8 +299,6 @@ end;
 
 // ParamStr() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
 function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
-var aux : String255;
-	j : SInt32;
 begin
   s := ReplaceStringAll(s, '^0', p0);
   s := ReplaceStringAll(s, '^1', p1);
@@ -657,6 +677,204 @@ begin
 end;
 
 
+// Parse() parses the string s and split s between lexem and tail when it finds
+// the first delimiter in s. The delimiter characters are by default space and
+// tab, but can be changed with the function  SetParserDelimiters() below.
+// 
+// Examples :
+//    Parse('I love Sarah'     , a, b)   ->   a = 'I'          b = 'love Sarah'
+//    Parse('  I    love Sarah', a, b)   ->   a = 'I'          b = 'love Sarah'
+//    Parse('IloveSarah'       , a, b)   ->   a = 'IloveSarah' b = ''
+//    Parse('  IloveSarah'     , a, b)   ->   a = 'IloveSarah' b = ''
+//    Parse('IloveSarah  '     , a, b)   ->   a = 'IloveSarah' b = ''
+
+procedure Parse(s : String255; var lexem, tail : String255);
+var n,len : SInt16;
+begin
+  lexem := '';
+  tail := '';
+  len := LENGTH_OF_STRING(s);
+  if len > 0 then
+    begin
+      n := 1;
+      while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
+      if (n <= len) then
+        begin
+          if protect_parser_with_quotes and (s[n] = '"')
+            then
+              begin
+                n := n + 1;
+                while (n <= len) and (s[n] <> '"') do   {on va jusqu'au prochain quote}
+                  begin
+                    lexem := Concat(lexem,s[n]);
+                    n := n + 1;
+                  end;
+                if (s[n] = '"') and (n <= len) then n := n + 1; {on saute le quote fermant}
+              end
+            else
+              while (n <= len) and (not(parser_delimiters_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
+                begin
+                  lexem := Concat(lexem,s[n]);
+                  n := n + 1;
+                end;
+          while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du tail}
+          if (n <= len) then tail := TPCopy(s,n,len - n + 1);
+        end;
+    end;
+end;
+
+
+// Parse2() is like Parse(), but find two lexems
+procedure Parse2(s : String255; var s1, s2, tail : String255);
+begin
+  Parse(s,s1,tail);
+  Parse(tail,s2,tail);
+end;
+
+
+// Parse3() is like Parse(), but find three lexems
+procedure Parse3(s : String255; var s1, s2, s3, tail : String255);
+begin
+  Parse(s,s1,tail);
+  Parse(tail,s2,tail);
+  Parse(tail,s3,tail);
+end;
+
+
+// Parse4() is like Parse(), but find four lexems
+procedure Parse4(s : String255; var s1, s2, s3, s4, tail : String255);
+begin
+  Parse(s,s1,tail);
+  Parse(tail,s2,tail);
+  Parse(tail,s3,tail);
+  Parse(tail,s4,tail);
+end;
+
+
+// Parse5() is like Parse(), but find five lexems
+procedure Parse5(s : String255; var s1, s2, s3, s4, s5, tail : String255);
+begin
+  Parse(s,s1,tail);
+  Parse(tail,s2,tail);
+  Parse(tail,s3,tail);
+  Parse(tail,s4,tail);
+  Parse(tail,s5,tail);
+end;
+
+
+// Parse6() is like Parse(), but find six lexems
+procedure Parse6(s : String255; var s1, s2, s3, s4, s5, s6, tail : String255);
+begin
+  Parse(s,s1,tail);
+  Parse(tail,s2,tail);
+  Parse(tail,s3,tail);
+  Parse(tail,s4,tail);
+  Parse(tail,s5,tail);
+  Parse(tail,s6,tail);
+end;
+
+
+// ParseWithQuoteProtection() is like Parse(), but does not count the 
+// delimiters characters as delimiters if they are inside a string
+// protected by double quotes (").
+// Examples :
+//    ParseWithQuoteProtection('"I love" Sarah' , a, b)   ->   a = 'I love'  b = 'Sarah'
+//    ParseWithQuoteProtection('"I love"Sarah'  , a, b)   ->   a = 'I love'  b = 'Sarah'
+
+procedure ParseWithQuoteProtection(s : String255; var lexem, tail : String255);
+var old : boolean;
+begin
+  old := GetParserProtectionWithQuotes();
+  SetParserProtectionWithQuotes(true);
+  Parse(s, lexem, tail);
+  SetParserProtectionWithQuotes(old);
+end;
+
+
+// ParseBuffer() is like Parse(), but for a buffer of characters in memory.
+//
+// The function returns the first lexem found (or '' if no lexem was found).
+// The scan starts at index 'from' in the buffer (zero based), and the
+// lastRead parameter is set on output to the index of the last character
+// examined in the buffer during the scan.
+
+function ParseBuffer(buffer : Ptr; bufferLength, from : SInt32; var lastRead : SInt32) : String255;
+var n : SInt32;
+    text : PackedArrayOfCharPtr;
+begin
+
+  result := '';
+  lastRead := from - 1;
+
+  if (buffer <> NIL) and (bufferLength > 0) then
+    begin
+	  text := PackedArrayOfCharPtr(buffer);
+
+	  if (from < 0) then from := 0;
+	  if (from > bufferLength - 1) then from := bufferLength - 1;
+
+	  n := from;
+		
+      while (n < bufferLength) and (parser_delimiters_as_booleans[ord(text^[n])]) do n := n + 1;  {on saute les espaces en lexem }
+      if (n < bufferLength) then
+        begin
+          if protect_parser_with_quotes and (text^[n] = '"')
+            then
+              begin
+                n := n + 1;
+                while (n < bufferLength) and (text^[n] <> '"') do   {on va jusqu'au prochain quote}
+                  begin
+                    result := Concat(result, text^[n]);
+                    n := n + 1;
+                  end;
+                if (text^[n] = '"') and (n < bufferLength) then n := n + 1; {on saute le quote fermant}
+              end
+            else
+              while (n < bufferLength) and (not(parser_delimiters_as_booleans[ord(text^[n])])) do {on va jusqu'au prochain espace}
+                begin
+                  result := Concat(result,text^[n]);
+                  n := n + 1;
+                end;
+        end;
+						
+		  lastRead := (n - 1);
+	  end;
+	
+	ParseBuffer := result;
+end;
+
+
+// SetParserDelimiters() : change the delimiters characters used by the parser
+procedure SetParserDelimiters(parsingCaracters : SetOfChar);
+var i : SInt32;
+begin
+  parser_delimiters := parsingCaracters;
+  for i := 0 to 255 do
+    parser_delimiters_as_booleans[i] := (chr(i) in parser_delimiters);
+end;
+
+
+// GetParserDelimiters() : get the current delimiters characters used by the parser
+function GetParserDelimiters : SetOfChar;
+begin
+  GetParserDelimiters := parser_delimiters;
+end;
+
+
+// SetParserProtectionWithQuotes() : set the flag telling the parser to protect with quotes
+procedure SetParserProtectionWithQuotes(flag : boolean);
+begin
+  protect_parser_with_quotes := flag;
+end;
+
+
+// GetParserProtectionWithQuotes() : get the value of that flag
+function GetParserProtectionWithQuotes : boolean;
+begin
+  GetParserProtectionWithQuotes := protect_parser_with_quotes;
+end;
+
+
 // PseudoHammingDistance() returns the Hamming distance between s1 and s2
 function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 var  count1, count2 : array[0..255] of SInt32;
@@ -901,6 +1119,7 @@ end;
 
 
 
+
 // testBasicString() : testing various functions of the BasicString unit
 procedure testBasicString();
 var  s, a, b : string255;
@@ -1031,45 +1250,24 @@ begin
    b := sysutils.UpperCase(StripDiacritics(a));
    writeln('UpperCase(StripDiacritics()) : ', b);
 
+   Parse('I love Sarah'     , a, b) ; writeln('a=',a,'  b=',b);
+   Parse('  I    love Sarah', a, b) ; writeln('a=',a,'  b=',b);
+   Parse('IloveSarah'       , a, b) ; writeln('a=',a,'  b=',b);
+   Parse('  IloveSarah'     , a, b) ; writeln('a=',a,'  b=',b);
+   Parse('IloveSarah '      , a, b) ; writeln('a=',a,'  b=',b);
+   ParseWithQuoteProtection('"I love" Sarah' , a, b) ; writeln('a=',a,'  b=',b);
+   ParseWithQuoteProtection('"I love"Sarah' , a, b) ; writeln('a=',a,'  b=',b);
 
 end;
 
 
-procedure foo(s:string255; var n : sint32);
+
 begin
-  n := 5;
-end;
+   // Always init the basic string unit
+   SetParserProtectionWithQuotes(false);
+   SetParserDelimiters([' ',tab]);
 
-
-function foo(s:string255) : SInt32;
-begin
-   result := 6;
-end;
-
-
-var s : string255;
-    n : Sint32;
-begin
-
-    s := 'toto^0^1^2';
-    s := ReplaceStringAll(s, 'o', '•');
-    s := ReplaceStringAll(s, '^0^0', 'blah');
-    s := ParamStr(s, 'Nicolet', 'Stéphane', '', 'Claude');
-    writeln(s);
-
-    foo(s, n);
-    writeln(n);
-
-    n := foo(s);
-    writeln(n);
-
-    foo(s, n);
-    writeln(n);
-
-    n := foo(s);
-    writeln(n);
-
-    //testBasicString;
+   testBasicString;
 end.
 
 

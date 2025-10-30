@@ -238,8 +238,8 @@ begin
 end;
 
 
-// RandomizeTimer : this procedure sets the seed with a mix of the current
-// time, the process number, etc. to get more entropy.
+// RandomizeTimer : this procedure automagically chooses the random seed with
+// a mix of the current time, the process number, etc. to get more entropy.
 procedure RandomizeTimer;
 var seed : SInt64;
     {$IFDEF UNIX}
@@ -247,7 +247,7 @@ var seed : SInt64;
     {$ENDIF}
 begin
   seed := FpGetpid();                 // process number
-  seed := seed + Random64();          // a small random component from current
+  seed := seed + Random64();          // a small random component
   seed := seed + NewMagicCookie();    // increasing counter
   seed := seed + GetTickCount64();    // milliseconds
 

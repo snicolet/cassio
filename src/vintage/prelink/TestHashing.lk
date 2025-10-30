@@ -22,6 +22,6 @@ function EOFFichierTexte(var fic : FichierTEXT; var erreurES : OSErr) : boolean;
 function FermeFichierTexte(var fic : FichierTEXT) : OSErr;     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-  procedure Parser (s : String255; var tete,reste : String255);     external;
+  procedure Parse(s : String255; var tete,reste : String255);     external;
   function StrToInt32(const s : String255) : SInt32;     external;
   function CompterOccurencesDeSousChaine(const subString,s : String255) : SInt32;     external;

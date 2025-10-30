@@ -270,7 +270,7 @@ begin
 
       SplitAt(s, '%', infosFFO, s2);
 
-      Parser(infosFFO, chaineNumero, nomFFO);
+      Parse(infosFFO, chaineNumero, nomFFO);
 
       EnleveEspacesDeGaucheSurPlace(nomFFO);
       EnleveEspacesDeDroiteSurPlace(nomFFO);

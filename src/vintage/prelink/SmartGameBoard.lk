@@ -30,9 +30,9 @@ function MakeStringProperty(whichType : SInt16; whichString : String255) : Prope
 function MakeArgumentVideProperty(whichType : SInt16) : Property;     external;
 function MakeOthelloSquareProperty(whichType : SInt16; whichSquare : SInt16) : Property;     external;
 function MakeSquareSetProperty(whichType : SInt16; whichSet : SquareSet) : Property;     external;
-  function  GetParsingCaracterSet : SetOfChar;     external;
-  procedure SetParsingCaracterSet(parsingCaracters : SetOfChar);     external;
-  procedure Parser (s : String255; var tete,reste : String255);     external;
+  function  GetParserDelimiters : SetOfChar;     external;
+  procedure SetParserDelimiters(parsingCaracters : SetOfChar);     external;
+  procedure Parse(s : String255; var tete,reste : String255);     external;
 function MakeSquareCoupleProperty(whichType : SInt16; whichSquare1,whichSquare2 : SInt16) : Property;     external;
 function MakeTripleProperty(whichType : SInt16; whichTriple : Triple) : Property;     external;
 function MakeBooleanProperty(whichType : SInt16; whichBoolean : boolean) : Property;     external;

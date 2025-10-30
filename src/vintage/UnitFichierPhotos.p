@@ -732,7 +732,7 @@ begin
       //WritelnDansRapport(ligne);  // CREATE NEW
       if (erreurES = NoErr) and (ligne <> '') and (ligne[1] <> '%') then
         begin
-          Parser3(ligne,s0,s1,s2,s);
+          Parse3(ligne,s0,s1,s2,s);
           if (s1 = '=') and (s2 <> '{') then
             begin
               s0 := UpperCase(s0,false);
@@ -759,7 +759,7 @@ begin
                  (Pos('DOWN_RECT',s0) > 0)
                   then
                 begin
-		              Parser4(s,s1,s2,s3,s4,s);
+		              Parse4(s,s1,s2,s3,s4,s);
 		              SetRect(unRect,ChaineEnInteger(s1),ChaineEnInteger(s2),ChaineEnInteger(s3),ChaineEnInteger(s4));
 
 		              (*
@@ -788,7 +788,7 @@ begin
 			           (Pos('BEST_LINE_POSITION',s0) > 0) or
 			           (Pos('YOUR_MOVE_PLEASE_POSITION',s0) > 0) then
 			            begin
-			              Parser2(s,s1,s2,s);
+			              Parse2(s,s1,s2,s);
 			              unPoint.h := ChaineEnInteger(s1);
 			              unPoint.v := ChaineEnInteger(s2);
 
