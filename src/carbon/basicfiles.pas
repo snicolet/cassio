@@ -157,7 +157,8 @@ uses
   cthreads,
   cwstring,
 {$ENDIF}
-  SysUtils;
+  SysUtils,
+  basicHashing;
 
 
 const unit_initialized : boolean = false;
@@ -747,7 +748,7 @@ begin
 
   if fic.dataForkOuvertCorrectement <> -1 then
     begin
-      SysBeep(0);
+      Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -804,7 +805,7 @@ begin
       inc(fic.dataForkOuvertCorrectement);
       if fic.dataForkOuvertCorrectement <> 0 then
         begin
-          SysBeep(0);
+          Beep();
           DisplayMessageInConsole('');
           DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
           DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -829,7 +830,7 @@ begin
 
   if fic.dataForkOuvertCorrectement <> 0 then
     begin
-      SysBeep(0);
+      Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -869,7 +870,7 @@ begin
         dec(fic.dataForkOuvertCorrectement);
         if (fic.dataForkOuvertCorrectement <> -1) then
           begin
-            SysBeep(0);
+            Beep();
             DisplayMessageInConsole('');
             DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
             DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -1787,7 +1788,7 @@ begin
 
   if fic.rsrcForkOuvertCorrectement <> -1 then
     begin
-      SysBeep(0);
+      Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -1809,7 +1810,7 @@ begin
         inc(fic.rsrcForkOuvertCorrectement);
         if (fic.rsrcForkOuvertCorrectement <> 0) then
           begin
-            SysBeep(0);
+            Beep();
             DisplayMessageInConsole('');
             DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
             DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -1832,7 +1833,7 @@ begin
 
   if fic.rsrcForkOuvertCorrectement <> 0 then
     begin
-      SysBeep(0);
+      Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -1862,7 +1863,7 @@ begin
 
   if fic.rsrcForkOuvertCorrectement <> 0 then
     begin
-      SysBeep(0);
+      Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -1886,7 +1887,7 @@ begin
             dec(fic.rsrcForkOuvertCorrectement);
             if (fic.rsrcForkOuvertCorrectement <> -1) then
               begin
-                SysBeep(0);
+                Beep();
                 DisplayMessageInConsole('');
                 DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
                 DisplayMessageInConsole('fic.fileName = '+fic.fileName);

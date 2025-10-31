@@ -40,6 +40,9 @@ procedure InterpretAnswer(var line : AnsiString);
 function Milliseconds() : Int64;
 function Tickcount() : Int64;
 
+// Sound
+procedure SysBeep(duration : SInt16);
+
 // Mouse
 procedure InterpretGetMouseAnswer(var line : AnsiString);
 function GetMouse() : Point;
@@ -244,6 +247,13 @@ begin
    result := Milliseconds() * 60 div 1000;
 end;
 
+// Play the system beep, if available
+
+procedure SysBeep(duration : SInt16);
+begin
+   writeln('BEEEEEEEEEEEEEP');
+   Beep();
+end;
 
 // Parsing the mouse position from the get-mouse answer
 
