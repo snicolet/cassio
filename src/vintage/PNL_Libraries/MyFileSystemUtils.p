@@ -19,7 +19,7 @@ INTERFACE
 	function FSpSetCatInfo (const spec : fileInfo; var pb : CInfoPBRec) : OSErr;
 	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
 	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
@@ -705,7 +705,7 @@ end;
 		FSpSetCatInfo := PBSetCatInfoSync(@pb);
 	end;
 
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 		var
 			pb : CInfoPBRec;
 			oe : OSErr;
@@ -730,7 +730,7 @@ end;
 
       			end;
     		end;
-		MyFSMakeFSSpec := oe;
+		MakeFileInfo := oe;
 	end;
 
 	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
@@ -1796,7 +1796,7 @@ begin
 	err := MakeFileInfo(0,0,applicationFolderPath,fsAppSuppFolder);
 	if (err <> NoErr) then
 	begin
-	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : MyFSMakeFSSpec = ',err);
+	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : MakeFileInfo = ',err);
 		goto cleanup ;
 	end;
 

@@ -30,7 +30,7 @@ function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSTy
 	
 function MyNavServicesAvailable : boolean;     external;
 procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage; callBackParms : NavCBRecPtr ; callBackUD: UnivPtr);     external;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
   procedure MySFGetFile(where : Point; prompt : String255; fileFilter : FileFilterUPP; numTypes : SInt16; typeList : ConstSFTypeListPtr; dlgHook : DlgHookUPP; var reply : SFReply);     external;
 function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : fileInfo) : OSStatus;     external;
 procedure EndLiveUndo;     external;

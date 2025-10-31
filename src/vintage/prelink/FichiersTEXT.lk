@@ -12,7 +12,7 @@ procedure WritelnStringAndBooleanDansRapport(s : String255; b : boolean);     ex
 procedure WriteStringAndBooleanDansRapport(s : String255; b : boolean);     external;
 procedure WritelnDansRapportThreadSafe(s : String255);     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	procedure MyResolveAliasFile (var fs : fileInfo);     external;
 	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
 	function EndsWithDeuxPoints(var s : String255) : boolean;     external;

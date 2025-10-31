@@ -22,7 +22,7 @@ procedure EcritGestionTemps;     external;
 function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;     external;
 procedure AddValidCassioFolderPath(whichPath : String255);     external;
 function TryNextCassioFolderPath : String255;     external;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
 	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;
   function CompterOccurencesDeSousChaine(const subString,s : String255) : SInt32;     external;

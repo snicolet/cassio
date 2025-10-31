@@ -421,7 +421,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' avant MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
+      DisplayMessageInConsole(' avant MakeFileInfo dans CreateFFSpecAndResolveAlias :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -462,7 +462,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
+      DisplayMessageInConsole(' apres MakeFileInfo dans CreateFFSpecAndResolveAlias :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);

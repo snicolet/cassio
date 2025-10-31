@@ -23,7 +23,7 @@ procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, 
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 function  MyCountMenuItems(theMenu : MenuRef) : UInt16;     external;
   procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );     external;
-	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
 	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;
 function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;     external;
