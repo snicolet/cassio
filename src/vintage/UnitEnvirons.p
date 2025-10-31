@@ -77,7 +77,7 @@ const gCassioSansDouteLanceDepuisUneImageDisque : boolean = false;
 
 function VersionDeCassioEnString : String255;
 begin
-  VersionDeCassioEnString := '8.4';
+  VersionDeCassioEnString := '9.0b1';
 end;
 
 
