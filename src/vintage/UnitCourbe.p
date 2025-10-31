@@ -2062,7 +2062,7 @@ begin
                       kFinaleParfaite :
                         begin
                           s1 := '  ' + ReadStringFromRessource(TextesRetrogradeID,21);  {'  fait ^0}
-                          s1 := ParamStr(s1,IntToStr(32 + note div 2)+'-'+IntToStr(32 - note div 2),'','','');
+                          s1 := ReplaceParameters(s1,IntToStr(32 + note div 2)+'-'+IntToStr(32 - note div 2),'','','');
                           s := s + {' :' +} s1;
                         end;
                       kFinaleWLD :

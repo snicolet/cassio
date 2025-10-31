@@ -64,7 +64,7 @@ procedure SetAnneePartieParNroRefPartie(nroReference : SInt32; annee : SInt16); 
 function NumberOfGamesWithThisReferenceFilter(FiltreNumRef : FiltreNumRefProc; var result : SInt32) : SInt32;     external;
 procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);     external;
 function bidFiltreGameProc(var partie60 : PackedThorGame; numeroRefPartie : SInt32; var result : SInt32) : boolean;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 procedure CalculsEtAffichagePourBase(infosDejaCalculees : boolean; withCheckEvent : boolean);     external;
 function PositionEtTraitAfterMoveNumber(var game : PackedThorGame; numeroCoup : SInt32; var typeErreur : SInt32) : PositionEtTraitRec;     external;
 function GetScoreTheoriqueParNroRefPartie(nroReference : SInt32) : SInt16;     external;

@@ -654,10 +654,10 @@ begin
   case GetTraitOfPosition(enonce.currentBoard) of
 
     pionNoir  : {'Noir prend un coin en ^0 coups'}
-                s := ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,1),IntToStr(enonce.solution.longueur),'','','');
+                s := ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,1),IntToStr(enonce.solution.longueur),'','','');
 
     pionBlanc : {'Blanc prend un coin en ^0 coups'}
-                s := ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,2),IntToStr(enonce.solution.longueur),'','','');
+                s := ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,2),IntToStr(enonce.solution.longueur),'','','');
 
     otherwise   s := 'BUG ! Pas de couleur dans le problème de prise de coin en '+IntToStr(enonce.solution.longueur)+' coups';
   end;
@@ -672,10 +672,10 @@ begin
   case GetTraitOfPosition(enonce.currentBoard) of
 
     pionNoir  : {'Noir en ^0 coups'}
-                s := ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,10),IntToStr(enonce.solution.longueur),'','','');
+                s := ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,10),IntToStr(enonce.solution.longueur),'','','');
 
     pionBlanc : {'Blanc en ^0 coups'}
-                s := ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,11),IntToStr(enonce.solution.longueur),'','','');
+                s := ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,11),IntToStr(enonce.solution.longueur),'','','');
 
     otherwise   s := 'BUG ! Pas de couleur dans le problème de prise de coin en '+IntToStr(enonce.solution.longueur)+' coups';
   end;
@@ -736,7 +736,7 @@ begin
 
 
   {solution := 'solution = '+CoupEnString(enonce.solution.coup[1],true)}
-  solution := ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,3),CoupEnString(enonce.solution.coup[1],true),'','','');
+  solution := ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,3),CoupEnString(enonce.solution.coup[1],true),'','','');
   WritelnDansRapport('                                                          ' + solution);
 
   {WritelnDansRapport('Il y a '+IntToStr(enonce.solution.nbCoupsSolutions)+' coups solutions');}
@@ -752,32 +752,32 @@ begin
       kRejetPasDeSolutionPbDeCoin :
         if GetTraitOfPosition(enonce.currentBoard) = pionNoir
           then {Pas de puzzle de prise de coin pour Noir entre ^0 et ^1 coups}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,4),IntToStr(difficulteMin),IntToStr(difficulteMax),'',''))
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,4),IntToStr(difficulteMin),IntToStr(difficulteMax),'',''))
           else {Pas de puzzle de prise de coin pour Blanc entre ^0 et ^1 coups}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,5),IntToStr(difficulteMin),IntToStr(difficulteMax),'',''));
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,5),IntToStr(difficulteMin),IntToStr(difficulteMax),'',''));
 
       kRejetADejaUnCoin :
         if GetTraitOfPosition(enonce.currentBoard) = pionNoir
           then {Noir a déja un coin}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,12),'','','',''))
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,12),'','','',''))
           else {Blanc a déja un coin}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,13),'','','',''));
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,13),'','','',''));
 
       kRejetPeutDejaPrendreUnCoin :
         if GetTraitOfPosition(enonce.currentBoard) = pionNoir
           then {Noir peut déja prendre un coin}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,6),'','','',''))
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,6),'','','',''))
           else {Blanc peut déja prendre un coin}
-               WritelnDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,7),'','','',''));
+               WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,7),'','','',''));
 
 
       kRejetSolutionsMultiplesPourPbDeCoin :
         begin
           if GetTraitOfPosition(enonce.currentBoard) = pionNoir
           then {Noir a plusieurs solutions pour prendre un coin en ^0 coups : }
-               WriteDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,8),IntToStr(solution.longueur),'','',''))
+               WriteDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,8),IntToStr(solution.longueur),'','',''))
           else {Blanc a plusieurs solutions pour prendre un coin en ^0 coups : }
-               WriteDansRapport(ParamStr(ReadStringFromRessource(kTextesProblemesDeCoin,9),IntToStr(solution.longueur),'','',''));
+               WriteDansRapport(ReplaceParameters(ReadStringFromRessource(kTextesProblemesDeCoin,9),IntToStr(solution.longueur),'','',''));
 
           for i := 1 to solution.nbCoupsSolutions do
             begin

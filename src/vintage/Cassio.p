@@ -1382,7 +1382,7 @@ begin
 
   DernierCoupPourMenuAff := 56;
   if nbCoupsEnTete > 1
-    then MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(nbCoupsEnTete),'','',''))
+    then MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(nbCoupsEnTete),'','',''))
     else MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupscmd,ReadStringFromRessource(MenusChangeantsID,18));
   if gVersionJaponaiseDeCassio and gHasJapaneseScript then
     NePasUtiliserLeGrasFenetreOthellier := true;  {on forcer cela}

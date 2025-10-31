@@ -2814,7 +2814,7 @@ begin
   if (codeErreur <> NoErr) then
     begin
       s := ReadStringFromRessource(TextesNouveauFormatID,1);
-      AlerteSimple(ParamStr(s,IntToStr(codeErreur),'','',''));
+      AlerteSimple(ReplaceParameters(s,IntToStr(codeErreur),'','',''));
       MetJoueursEtTournoisEnMemoire := codeErreur;
     end;
 
@@ -2825,7 +2825,7 @@ begin
   if (codeErreur <> NoErr) then
     begin
       s := ReadStringFromRessource(TextesNouveauFormatID,2);
-      AlerteSimple(ParamStr(s,IntToStr(codeErreur),'','',''));
+      AlerteSimple(ReplaceParameters(s,IntToStr(codeErreur),'','',''));
       MetJoueursEtTournoisEnMemoire := codeErreur;
     end;
   JoueursEtTournoisEnMemoire := joueursEnMemoire and tournoisEnMemoire;

@@ -81,7 +81,7 @@ procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, 
 procedure SetCassioEstEnTrainDeReflechir(newvalue : boolean; oldValue : BooleanPtr);     external;
 function CassioEstEnModeSolitaire : boolean;     external;
 function AlerteDoubleOuiNon(texte,explication : String255) : SInt16;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 function DifficulteDuSolitaire : double;     external;
 function NbCoupsGagnantsOuNuls(whichPosition : PositionEtTraitRec; var valeurOptimale : SInt32; borneNbCoupsGagnants : SInt32) : SInt32;     external;

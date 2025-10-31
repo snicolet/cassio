@@ -1650,7 +1650,7 @@ procedure DoDialoguePreferences;
       GetItemTextInDialog(dp,NbrePartiesStaticText,nombrePartiesStr);
       s := IntToStr(CalculeNbrePartiesOptimum(gNbreMegaoctetsPourLaBase*1024*1024));
       s := SeparerLesChiffresParTrois(s);
-      s := ParamStr(nombrePartiesStr,s,'','','');
+      s := ReplaceParameters(nombrePartiesStr,s,'','','');
       SetItemTextInDialog(dp,NbrePartiesStaticText,s);
 
 
@@ -1695,7 +1695,7 @@ procedure DoDialoguePreferences;
 
                                             s := IntToStr(CalculeNbrePartiesOptimum(gNbreMegaoctetsPourLaBase*1024*1024));
                                             s := SeparerLesChiffresParTrois(s);
-                                            s := ParamStr(nombrePartiesStr,s,'','','');
+                                            s := ReplaceParameters(nombrePartiesStr,s,'','','');
                                             SetItemTextInDialog(dp,NbrePartiesStaticText,s);
                                           end;
               StaticPremiereFois        : PushRadio(dp,PrefsRadios,BoutonParfois);
@@ -2380,7 +2380,7 @@ begin
     then nomDeLApplication := 'Cassio ' + VersionDeCassioEnString;
 
   if Pos("^0",s) > 0
-    then s1 := ParamStr(s,nomDeLApplication,"","","")
+    then s1 := ReplaceParameters(s,nomDeLApplication,"","","")
     else s1 := s;
 
  if LENGTH_OF_STRING(s1) <= 31

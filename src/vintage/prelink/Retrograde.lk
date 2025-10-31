@@ -40,7 +40,7 @@ procedure GetCurrentScript(var currentScript : SInt32);     external;
 procedure SwitchToRomanScript;     external;
 procedure EndDialog;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 procedure WritelnDansRapportSync(s : String255; scrollerSynchronisation : boolean);     external;
 function ConstruireChaineReferencesPartieDapresListe(nroPartie : SInt32; descriptionComplete : boolean) : String255;     external;
 function GetPartieEnAlphaDapresListe(nroReference,jusquaQuelCoup : SInt32) : String255;     external;

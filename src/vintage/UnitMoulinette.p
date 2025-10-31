@@ -669,12 +669,12 @@ begin {AjouterPartiesFichierPGNDansListe}
   if EstUnNomDeFichierTemporaireDePressePapier(GetName(fichierPGN.info))
     then
       if (nbPartiesDansFichierPGN > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
+        then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
+        else WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesImportees),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
     else
       if (nbPartiesDansFichierPGN > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
+        then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
+        else WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesImportees),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
   WritelnDansRapport('');
 
 
@@ -1146,20 +1146,20 @@ begin {AjouterPartiesFichierDestructureDansListe}
   if EstUnNomDeFichierTemporaireDePressePapier(GetName(fichier.info))
     then
       if (nbPartiesDansFic > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
+        then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,44),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 parties depuis le presse-papier}
+        else WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,45),IntToStr(nbPartiesDansFic),'','',''))  {J'ai réussi à importer ^0 partie depuis le presse-papier}
     else
       if (nbPartiesDansFic > 1)
-        then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
-        else WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
+        then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,42),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''))   {J'ai réussi à importer ^0 parties dans le fichier « ^1 »}
+        else WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,43),IntToStr(nbPartiesDansFic),nomLongDuFichier,'',''));  {J'ai réussi à importer ^0 partie dans le fichier « ^1 »}
 
   if (nbPartiesIllegales > 1)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,48),IntToStr(nbPartiesIllegales),'','','')) else  {Il y avait ^0 parties trop courtes ou illégales}
+    then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,48),IntToStr(nbPartiesIllegales),'','','')) else  {Il y avait ^0 parties trop courtes ou illégales}
   if (nbPartiesIllegales = 1)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,47),IntToStr(nbPartiesIllegales),'','',''));  {Il y avait ^0 partie trop courte ou illégale}
+    then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,47),IntToStr(nbPartiesIllegales),'','',''));  {Il y avait ^0 partie trop courte ou illégale}
 
   if (nbPartiesDansFic < nombreDeLignesLues)
-    then WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesRapportID,46),IntToStr(nombreDeLignesLues),'','',''));   {Pour info, ce fichier contenait ^0 lignes}
+    then WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesRapportID,46),IntToStr(nombreDeLignesLues),'','',''));   {Pour info, ce fichier contenait ^0 lignes}
   {WritelnNumDansRapport('temps de lecture en ticks = ',TickCount - tickDepart);}
 
   WritelnDansRapport('');
@@ -1427,7 +1427,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
+        WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1492,7 +1492,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
+        WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1572,7 +1572,7 @@ begin
       inc(compteur);
 
       if (compteur mod 1000) = 0 then
-        WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
+        WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));     {'Export : ^0 parties…'}
 
     end;
 end;
@@ -1620,7 +1620,7 @@ begin
 
       erreurES := CloseFile(exportTexte);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));   {'Export : ^0 parties…'}
+      WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));   {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;
@@ -1664,7 +1664,7 @@ begin
 
       erreurES := CloseFile(exportFichier);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
+      WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;
@@ -1752,7 +1752,7 @@ begin
 
       erreurES := CloseFile(exportFichier);
 
-      WritelnDansRapport(ParamStr(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
+      WritelnDansRapport(ReplaceParameters(ReadStringFromRessource(TextesErreursID,13),IntToStr(compteur),'','',''));    {'Export : ^0 parties…'}
       nbPartiesExportees := compteur;
     end;
 end;

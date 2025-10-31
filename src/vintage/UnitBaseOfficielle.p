@@ -648,7 +648,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeBlackPlayer,numeroJoueur);
       s := 'Black player changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
+      s := ReplaceParameters(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -661,7 +661,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeWhitePlayer,numeroJoueur);
       s := 'White player changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
+      s := ReplaceParameters(s,GetNomJoueur(numeroJoueur),IntToStr(numeroJoueur),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -674,7 +674,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeTournament,numeroTournoi);
       s := 'Tourney changed to "^0" (#^1) in ^2 games';
-      s := ParamStr(s,GetNomTournoi(numeroTournoi),IntToStr(numeroTournoi),IntToStr(nbPartiesAChanger),'');
+      s := ReplaceParameters(s,GetNomTournoi(numeroTournoi),IntToStr(numeroTournoi),IntToStr(nbPartiesAChanger),'');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;
@@ -697,7 +697,7 @@ begin
     begin
       ForEachGameInListDo(surQuellesParties,bidFiltreGameProc,ChangeYear,annee);
       s := 'Year changed to "^0" in ^1 games';
-      s := ParamStr(s,IntToStr(annee),IntToStr(nbPartiesAChanger),'','');
+      s := ReplaceParameters(s,IntToStr(annee),IntToStr(nbPartiesAChanger),'','');
       WriteInTraceWThorLog('');
       WriteInTraceWThorLog(s);
     end;

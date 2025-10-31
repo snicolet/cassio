@@ -612,7 +612,7 @@ var fichierPHP : basicfile;
   function FabriquerNomAutreQuiz(numero : SInt32) : String255;
   var s : String255;
   begin
-    s := ParamStr('stepanov_^0.php',IntToStr(numero),'','','');
+    s := ReplaceParameters('stepanov_^0.php',IntToStr(numero),'','','');
     FabriquerNomAutreQuiz := s;
   end;
 
@@ -623,7 +623,7 @@ begin {CreerQuizEnPHP}
   a := permutationDesNumerosDeQuiz[numeroQuiz];
 
   nomQuizGenerique := ReplaceStringOnce(nomQuizGenerique, 'problemes_stepanov' , 'stepanov');
-  nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz),'','','');
+  nomQuiz := ReplaceParameters(nomQuizGenerique,IntToStr(numeroQuiz),'','','');
 
 
   erreurES := FileExists(nomQuiz,0,fichierPHP);
@@ -735,7 +735,7 @@ begin {CreerQuizEnPHP}
           begin
 
 
-            nomQuiz := ParamStr(nomQuizGenerique,IntToStr(numeroQuiz)+'_'+CoupEnStringEnMinuscules(square),'','','');
+            nomQuiz := ReplaceParameters(nomQuizGenerique,IntToStr(numeroQuiz)+'_'+CoupEnStringEnMinuscules(square),'','','');
 
 
             erreurES := FileExists(nomQuiz,0,fichierPHP);
@@ -1024,7 +1024,7 @@ begin
 
                       (* On cree l'imagette JPEG de la solution *)
                       (*
-                      CreerPositionQuizzEnJPEG(ParamStr(ReplaceStringOnce(positionEtTrait, '.script','_^0.jpg',nomScript),IntToStr(nbProblemesTraites),'','' , ''));
+                      CreerPositionQuizzEnJPEG(ReplaceParameters(ReplaceStringOnce(positionEtTrait, '.script','_^0.jpg',nomScript),IntToStr(nbProblemesTraites),'','' , ''));
                       *)
 
 

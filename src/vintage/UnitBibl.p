@@ -878,7 +878,7 @@ begin
 
 
     		        s := ReadStringFromRessource(TextesBibliothequeID,1);
-    		        s := ParamStr(s,nomBibl,'','','');
+    		        s := ReplaceParameters(s,nomBibl,'','','');
 
     		        if doitMettreMessageBibliothequeAbsenteDansFenetre and (FenetreMessageBibl <> NIL)
     		          then

@@ -85,7 +85,7 @@ procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);     e
 	function MyFSRead(refnum : SInt16; len : SInt32; p : Ptr) : OSErr;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 procedure AlerteSimple(texte : String255);     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;
 	function GetPathOfScannedDirectory : String255;     external;
 	procedure SetFileCreator(fichier : fileInfo; QuelType : OSType);     external;

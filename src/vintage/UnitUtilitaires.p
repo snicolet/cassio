@@ -1148,7 +1148,7 @@ begin
                                 then
                                   begin
                                     s := ReadStringFromRessource(TextesGroupesID,4);  {"supprimer groupe ?"}
-                                    s := ParamStr(s,nomDuGroupe,'','','');
+                                    s := ReplaceParameters(s,nomDuGroupe,'','','');
 
 
                                     if (AlerteDoubleOuiNon(s,'') = OuiBouton) then // OUI ?

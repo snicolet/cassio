@@ -2152,7 +2152,7 @@ begin    {EstUnSolitaire}
                      s1 := IntToStr(nbrelignesSolution);
                      s := ReadStringFromRessource(TextesSolitairesID,15);
 
-                     item := AlerteDoubleOuiNon(ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''),'');
+                     item := AlerteDoubleOuiNon(ReplaceParameters(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''),'');
 
                      if item = BoutonOui then
                        begin
@@ -2163,7 +2163,7 @@ begin    {EstUnSolitaire}
                              s1 := IntToStr(nbrelignesSolution);
                              s := ReadStringFromRessource(TextesSolitairesID,16);
                              BeginDialog;
-                             AlerteSimple(ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''));
+                             AlerteSimple(ReplaceParameters(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'',''));
                              EndDialog;
                            end;
                        end;
@@ -2179,7 +2179,7 @@ begin    {EstUnSolitaire}
                          begin
                            s1 := IntToStr(nbrelignesSolution);
                            s := ReadStringFromRessource(TextesSolitairesID,18); {Ce solitaire fait ^0 lignes, avec une difficulté de ^1 %.}
-                           s := ParamStr(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'','');
+                           s := ReplaceParameters(s,s1,ReelEnStringAvecDecimales(DifficulteDuSolitaire,3),'','');
                          end;
                      AlerteSimple(s);
                    end;
@@ -3018,7 +3018,7 @@ var nombreSolitaireCetteProf : array[1..64] of SInt32;
               begin
                 Moveto(myRect.left,myRect.bottom-5);
                 s := ReadStringFromRessource(TextesSolitairesID,32);  {'^0 solitaires'}
-                s := ParamStr(s,IntToStr(nombreSolitaireCetteProf[k]),'','','');
+                s := ReplaceParameters(s,IntToStr(nombreSolitaireCetteProf[k]),'','','');
                 MyDrawString(s);
               end;
           end;
@@ -3182,7 +3182,7 @@ begin
                                 pionNoir  : s1 := ReadStringFromRessource(TextesSolitairesID,19);
                                 pionBlanc : s1 := ReadStringFromRessource(TextesSolitairesID,20);
                               end;{case}
-                              s := ParamStr(s,s1,'','','');  // s contient une explication de la raison pour laquelle ce n'est pas un solitaire
+                              s := ReplaceParameters(s,s1,'','','');  // s contient une explication de la raison pour laquelle ce n'est pas un solitaire
 
                               MyParamText('',s,'','');
                               AlertOneButtonFromRessource(PasSolitaireID,2,4,OKButton);
@@ -3206,7 +3206,7 @@ begin
                           pionNoir  : s1 := ReadStringFromRessource(TextesSolitairesID,19);
                           pionBlanc : s1 := ReadStringFromRessource(TextesSolitairesID,20);
                         end;{case}
-                        s := ParamStr(s,s1,'','','');  // s contient une explication de la raison pour laquelle ce n'est pas un solitaire
+                        s := ReplaceParameters(s,s1,'','','');  // s contient une explication de la raison pour laquelle ce n'est pas un solitaire
 
                         MyParamText('',s,'','');
                         AlertOneButtonFromRessource(PasSolitaireID,2,4,OKButton);

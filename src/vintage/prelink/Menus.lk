@@ -28,7 +28,7 @@ function CassioEstEnModeAnalyse : boolean;     external;
 function GetNiemeCoupPartieCourante(numeroDuCoup : SInt32) : SInt32;     external;
 function GetPremierCoupParDefaut : SInt32;     external;
   procedure MySetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; const itemString : String255 );     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function  GetEffetSpecial : boolean;     external;
 function GetEcritToutDansRapportLog : boolean;     external;

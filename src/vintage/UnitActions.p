@@ -4035,7 +4035,7 @@ var n : SInt16;
   begin
     {$UNUSED peutRepeter}
     n := cmdNumber+1;
-    MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd,ParamStr(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(n),'','',''));
+    MySetMenuItemText(ModeMenu,MilieuDeJeuNMeilleursCoupsCmd,ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,17),IntToStr(n),'','',''));
     DoMilieuDeJeuNormal(n,true);
   end;
 

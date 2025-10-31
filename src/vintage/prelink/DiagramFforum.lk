@@ -25,7 +25,7 @@ procedure SetLineWidthPostscript(numerateur,denominateur : SInt16);     external
   procedure DisableQuartzAntiAliasingThisPort(port : CGrafPtr);     external;
 function qdThePort : CGrafPtr;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function StringWidthPourGNUPascal(const s : String255): SInt16;     external;
 procedure BeginPostScript;     external;
 procedure EndPostScript;     external;

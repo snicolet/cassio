@@ -19,7 +19,7 @@ function NbCoins(coul : SInt32; var plat : plateauOthello) : SInt32;     externa
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 procedure PartagerLeTempsMachineAvecLesAutresProcess(WNESleep : SInt32);     external;
 function PartieEstActive(nroReferencePartie : SInt32) : boolean;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
   function DeleteSubstringAfterThisChar(delim : char; const s : String255; keepDelimitor : boolean) : String255;     external;
   function StrToInt32(const s : String255) : SInt32;     external;

@@ -1223,11 +1223,11 @@ begin
 			  s := IntToStr(NbPartiesPotentiellementLues);
 
 			  case genreDeTestPourAnnee of
-			    testEgalite  :        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,13),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testSuperieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche-1),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testInferieur:        EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche+1),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testSuperieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
-				  testInferieurStrict : EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+			    testEgalite  :        EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,13),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testSuperieur:        EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche-1),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testInferieur:        EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche+1),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testSuperieurStrict : EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,14),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
+				  testInferieurStrict : EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,15),s,IntToStr(anneeRecherche),'',''),25,kYpositionNbPartiesPotentiellementLues);
 				end;
 		  end;
   SetPort(oldPort);
@@ -1244,7 +1244,7 @@ begin
   SetPortByWindow(whichWindow);
   CalculeNbTotalPartiesDansDistributionsALire;
   s := IntToStr(ChoixDistributions.NbTotalPartiesDansDistributionsALire);
-  EcritMessageLectureBase(ParamStr(ReadStringFromRessource(TextesBaseID,1),s,'','',''),20,kYpositionNbPartiesDansBase);
+  EcritMessageLectureBase(ReplaceParameters(ReadStringFromRessource(TextesBaseID,1),s,'','',''),20,kYpositionNbPartiesDansBase);
   SetPort(oldPort);
 end;
 
@@ -1692,7 +1692,7 @@ begin
    MyEraseRect(unRect);
    MyEraseRectWithColor(unRect,OrangeCmd,blackPattern,'');
    s := IntToStr(numeroPartie);
-   chaine := chaine + '        '+ParamStr(ReadStringFromRessource(TextesBaseID,2),s,'','','');  {Partie n¡ ^0}
+   chaine := chaine + '        '+ReplaceParameters(ReadStringFromRessource(TextesBaseID,2),s,'','','');  {Partie n¡ ^0}
    WriteStringAt(chaine,10,168);
    TextSize(0);
    TextFont(systemFont);

@@ -2407,8 +2407,8 @@ begin
 
            s2 := ReadStringFromRessource(TextesGestionID,1);
            if alloue = minutes10000000 {temps infini}
-             then s := ParamStr(s2,IntToStr(1000000000),'','','')
-             else s := ParamStr(s2,IntToStr(alloue),'','','');
+             then s := ReplaceParameters(s2,IntToStr(1000000000),'','','')
+             else s := ReplaceParameters(s2,IntToStr(alloue),'','','');
            Moveto(posH,13);
            SetRect(ligneRect,posH,13 - 9,gestionRect.right,13 + 2);
            MyEraseRectWithRGBColor(lignerect,couleurOmbrage);
@@ -2434,16 +2434,16 @@ begin
                      end
                    else s2 := IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(prof, empties)) + '%';
                  if (effectif >= 600)
-                   then s := ParamStr(s,s2,IntToStr(effectif div 60),'','')
-                   else s := ParamStr(s,s2,ReelEnStringRapide(effectif/60.0),'','');
+                   then s := ReplaceParameters(s,s2,IntToStr(effectif div 60),'','')
+                   else s := ReplaceParameters(s,s2,ReelEnStringRapide(effectif/60.0),'','');
                end
              else
                begin
                  s := ReadStringFromRessource(TextesGestionID,2);  {utilisŽ pour la prof. ^0 : ^1 sec.}
                  s2 := IntToStr(prof);
                  if (effectif >= 600) or (prof <= 0)
-                   then s := ParamStr(s,s2,IntToStr(effectif div 60),'','')
-                   else s := ParamStr(s,s2,ReelEnStringRapide(effectif/60.0),'','');
+                   then s := ReplaceParameters(s,s2,IntToStr(effectif div 60),'','')
+                   else s := ReplaceParameters(s,s2,ReelEnStringRapide(effectif/60.0),'','');
                end;
            Moveto(posH,25);
            SetRect(ligneRect,posH,25 - 9,gestionRect.right,25 + 2);
@@ -2467,16 +2467,16 @@ begin
                          s := ReadStringFromRessource(TextesGestionID,13);  {prevu pour la finale ˆ ^0 : ^1 sec.}
                          s2 := IntToStr(ProfondeurMilieuEnPrecisionFinaleEngine(profsuivante, empties)) + '%';
                          if (prevu >= 600)
-                           then s := ParamStr(s,s2,IntToStr(prevu div 60),'','')
-                           else s := ParamStr(s,s2,ReelEnStringRapide(prevu/60.0),'','');
+                           then s := ReplaceParameters(s,s2,IntToStr(prevu div 60),'','')
+                           else s := ReplaceParameters(s,s2,ReelEnStringRapide(prevu/60.0),'','');
                        end
                      else
                        begin
                          s := ReadStringFromRessource(TextesGestionID,3);   {prevu pour la prof. ^0 : ^1 sec.}
                          s2 := IntToStr(profsuivante);
                          if (prevu >= 600) or (prof <= 0)
-                           then s := ParamStr(s,s2,IntToStr(prevu div 60),'','')
-                           else s := ParamStr(s,s2,ReelEnStringRapide(prevu/60.0),'','');
+                           then s := ReplaceParameters(s,s2,IntToStr(prevu div 60),'','')
+                           else s := ReplaceParameters(s,s2,ReelEnStringRapide(prevu/60.0),'','');
                        end;
                Moveto(posH,37);
                SetRect(ligneRect,posH,37 - 9,gestionRect.right,37 + 2);
@@ -2507,7 +2507,7 @@ begin
                s := s + ' (KILLED)'
              else
                if (numProcessors > 1)
-                 then s := s + ', ' + ParamStr(ReadStringFromRessource(TextesGestionID,10),IntToStr(numProcessors),'','','')   { " ^0 processeurs" }
+                 then s := s + ', ' + ReplaceParameters(ReadStringFromRessource(TextesGestionID,10),IntToStr(numProcessors),'','','')   { " ^0 processeurs" }
                  else s := s + ', ' + ReadStringFromRessource(TextesGestionID,11);                                                { " 1 processeur " }
 
 

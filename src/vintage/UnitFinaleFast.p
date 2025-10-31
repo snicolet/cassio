@@ -5298,8 +5298,8 @@ begin
               then s2 := ReadStringFromRessource(TextesListeID,7)   {Noir}
               else s2 := ReadStringFromRessource(TextesListeID,8);  {Blanc}
             if bestmodeArriveeDansCoupGagnant
-              then s := ParamStr(ReadStringFromRessource(TextesRapportID,5),s1,s2,'','')   {'Recherche au coup ^0 : finale parfaite'}
-              else s := ParamStr(ReadStringFromRessource(TextesRapportID,4),s1,s2,'','');  {'Recherche au coup ^0 : finale gagnante'}
+              then s := ReplaceParameters(ReadStringFromRessource(TextesRapportID,5),s1,s2,'','')   {'Recherche au coup ^0 : finale parfaite'}
+              else s := ReplaceParameters(ReadStringFromRessource(TextesRapportID,4),s1,s2,'','');  {'Recherche au coup ^0 : finale gagnante'}
             if GetEffetSpecial then s := s + ' (effet special)';
 
             {
@@ -5370,7 +5370,7 @@ begin
              then
                begin
                  s := ReadStringFromRessource(TextesRapportID,15);
-                 s := ParamStr(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),'','','');
+                 s := ReplaceParameters(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),'','','');
                end
              else
                if nbMinutes >= 60
@@ -5380,14 +5380,14 @@ begin
                      s1 := IntToStr(nbMinutes div 60);
                      s2 := IntToStr(nbMinutes mod 60);
                      s3 := IntToStr((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
-                     s := ParamStr(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s1,s2,s3);
+                     s := ReplaceParameters(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s1,s2,s3);
                    end
                  else
                    begin
                      s := ReadStringFromRessource(TextesRapportID,14);
                      s2 := IntToStr(nbMinutes);
                      s3 := IntToStr((tempsGlobalDeLaFonction-nbMinutes*3600) div 60);
-                     s := ParamStr(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s2,s3,'');
+                     s := ReplaceParameters(s,ReelEnString(1.0*tempsGlobalDeLaFonction/60),s2,s3,'');
                    end;
            DisableKeyboardScriptSwitch;
            FinRapport;
@@ -5731,7 +5731,7 @@ begin
                         WritelnPositionEtTraitDansRapport(platCompl.position,GetTraitOfPosition(platCompl));
                         s := ReadStringFromRessource(TextesRapportID,21);    {"probleme dans mon algorithme !!"}
                         s1 := IntToStr(p);
-                        s := ParamStr(s,s1,'','','');
+                        s := ReplaceParameters(s,s1,'','','');
                         if (meilleuresuite[minimaxprof,p] <> 0)
                           then s := s + ' coup impossible à profondeur '+IntToStr(p)
                           else s := s + ' coup introuvable à profondeur '+IntToStr(p);
@@ -5792,7 +5792,7 @@ begin
                         s1 := IntToStr(scorePourVerif);
                         s2 := IntToStr(scoreSuite);
                         s := ReadStringFromRessource(TextesRapportID,22);  {"problème dans mon algorithme !! scoreSuite et scorePourVerif"}
-                        s := ParamStr(s,s1,s2,'','');
+                        s := ReplaceParameters(s,s1,s2,'','');
                         WritelnDansRapport(s);
 
                         if CassioEstEnTrainDeCalculerPourLeZoo then

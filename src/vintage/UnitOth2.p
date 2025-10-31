@@ -524,7 +524,7 @@ begin
     else
       begin
         s := ReadStringFromRessource(TextesErreursID,4);  {'Le format du fichier ^0 me semble incorrect !!'}
-	      AlerteSimple(ParamStr(s,nomFichier,'','',''));
+	      AlerteSimple(ReplaceParameters(s,nomFichier,'','',''));
       end;
 end;
 
@@ -533,7 +533,7 @@ procedure AlerteDoitInterompreReflexionPourFaireScript;
 var s : String255;
 begin
   s := ReadStringFromRessource(TextesErreursID,6);  {'Pas possible de faire script !!'}
-	AlerteSimple(ParamStr(s,'','','',''));
+	AlerteSimple(ReplaceParameters(s,'','','',''));
 end;
 
 

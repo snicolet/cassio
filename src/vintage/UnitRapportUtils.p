@@ -356,7 +356,7 @@ begin
         s := IntToStr(nbreDePions[pionNoir]);
         s1 := IntToStr(nbreDePions[pionBlanc]);
         s1 := s+CharToString('-')+s1;
-        s := ParamStr(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
+        s := ReplaceParameters(ReadStringFromRessource(TextesRapportID,7),s1,'','','');  {'score final ^0'}
         if not(HumCtreHum) and not(CassioEstEnModeAnalyse) then
           if ((nbreDePions[pionNoir] > 32) and (couleurMacintosh = pionBlanc)) or
              ((nbreDePions[pionBlanc] > 32) and (couleurMacintosh = pionNoir))
@@ -415,7 +415,7 @@ begin
     begin
       s1 := IntToStr(numeroCoup);
       s := ReadStringFromRessource(TextesRapportID,10);   {'conseil'}
-      s := '   '+ParamStr(s,s1+CharToString('.')+CoupEnString(conseil,CassioUtiliseDesMajuscules),'','','');
+      s := '   '+ReplaceParameters(s,s1+CharToString('.')+CoupEnString(conseil,CassioUtiliseDesMajuscules),'','','');
       {FrappeClavierDansRapport(chr(RetourArriereKey));}
       GetCurrentScript(oldScript);
       DisableKeyboardScriptSwitch;

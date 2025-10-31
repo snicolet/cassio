@@ -30,7 +30,7 @@ procedure SetPortByWindow(window : WindowPtr);     external;
    procedure CloseChannel(var theChannel : SndChannelPtr);     external;
    procedure HUnlockSoundRessource(SoundID : SInt16);     external;
 procedure EndDialog;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 function VersionDeCassioEnString : String255;     external;
 function GetWindowPortRect(window : WindowPtr) : rect;     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;

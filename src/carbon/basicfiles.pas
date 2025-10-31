@@ -1920,7 +1920,7 @@ begin
   posLastDeuxPoints := LastPos(':',name);
   name := TPCopy(name, posLastDeuxPoints+1, 255);
 
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  len := LENGTH_OF_STRING(name);
   if len <= tailleMaxNom then
     begin
 		  if err <> NoErr then
@@ -1931,7 +1931,7 @@ begin
 		end;
 
   name := name+' ';
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  len := LENGTH_OF_STRING(name);
   if len <= tailleMaxNom then
     begin
 		  if (err <> NoErr) then
@@ -1942,7 +1942,7 @@ begin
 		end;
 
   name := name+'(alias)';
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  len := LENGTH_OF_STRING(name);
   if len <= tailleMaxNom then
     begin
 		  if (err <> NoErr) then
@@ -2001,11 +2001,11 @@ begin
 
         pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
 
-        s := ParamStr(s,fileName,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
+        s := ReplaceParameters(s,fileName,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end
     else
       begin
-        s := ParamStr(s,fileName,IntToStr(erreurES),'','');
+        s := ReplaceParameters(s,fileName,IntToStr(erreurES),'','');
       end;
 
   SplitAt(s,'!',texte,explication);

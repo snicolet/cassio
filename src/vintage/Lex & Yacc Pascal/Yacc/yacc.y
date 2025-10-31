@@ -746,20 +746,20 @@ begin
   pasfilename := '';
 
   for i := 1 to paramCount do
-    if copy(paramStr(i), 1, 1)='-' then
-      if upper(paramStr(i))='-V' then
+    if copy(AAAparamStr(i), 1, 1)='-' then
+      if upper(AAAparamStr(i))='-V' then
         verbose := true
-      else if upper(paramStr(i))='-D' then
+      else if upper(AAAparamStr(i))='-D' then
         debug := true
       else
         begin
-          writeln(invalid_option, paramStr(i));
+          writeln(invalid_option, AAAparamStr(i));
           halt(1);
         end
     else if yfilename='' then
-      yfilename := addExt(paramStr(i), 'y')
+      yfilename := addExt(AAAparamStr(i), 'y')
     else if pasfilename='' then
-      pasfilename := addExt(paramStr(i), 'pas')
+      pasfilename := addExt(AAAparamStr(i), 'pas')
     else
       begin
         writeln(illegal_no_args);

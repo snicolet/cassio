@@ -237,7 +237,7 @@ begin
           EffaceDernierCaractereDuRapport;
           SwitchToRed;
 
-          s := ParamStr(ReadStringFromRessource(TextesRapportID,32),IntToStr(humanWinningStreak),'','','');
+          s := ReplaceParameters(ReadStringFromRessource(TextesRapportID,32),IntToStr(humanWinningStreak),'','','');
           WritelnDansRapport('   '+s);  {Vous avez gagné ^0 parties d'affilée au niveau Champion.}
           {WritelnDansRapport('');}
 

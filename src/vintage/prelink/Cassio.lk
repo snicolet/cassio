@@ -77,7 +77,7 @@ procedure LitFichierPreferences;     external;
 procedure SelectCassioFonts(theme : SInt32);     external;
 procedure LecturePreparatoireDossierOthelliers(pathDuDossierPere : String255);     external;
   procedure MySetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; const itemString : String255 );     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 procedure AjusteCadenceMin(cadence : SInt32);     external;
 procedure SetCoupEntete(square : SInt16);     external;
 function ZebraBookACetteOption(mask : SInt32) : boolean;     external;

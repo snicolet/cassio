@@ -62,7 +62,7 @@ function SplitRightAt(s : String255; const sub : String255; var left, right : St
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 function ReplaceVariable(const s, pattern, replacement : String255) : String255;
-function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
 
 // String transformations
 function StripDiacritics(const source : AnsiString) : AnsiString;
@@ -340,8 +340,8 @@ begin
        ReplaceVariable := s;
 end;
 
-// ParamStr() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
-function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
+// ReplaceParameters() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
+function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
 begin
   s := ReplaceStringAll(s, '^0', p0);
   s := ReplaceStringAll(s, '^1', p1);

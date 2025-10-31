@@ -221,7 +221,7 @@ begin
 
   ChaineNicolet := ReadStringFromRessource(TextesFederationID,6);
   if (Pos('^0',ChaineNicolet) > 0)
-     then ChaineNicolet := ParamStr(ChaineNicolet,VersionDeCassioEnString(),"","","");
+     then ChaineNicolet := ReplaceParameters(ChaineNicolet,VersionDeCassioEnString(),"","","");
 
   ChaineQuin := ReadStringFromRessource(TextesFederationID,7);
   ChainePenloup := ReadStringFromRessource(TextesFederationID,8);
@@ -484,7 +484,7 @@ begin
   { Cas particulier de la chaine de version : on remplace eventuellment ^0 par
     le numero de version courant }
   if (Pos('^0',messages[3]) > 0)
-    then messages[3] := ParamStr(messages[3],VersionDeCassioEnString,"","","");
+    then messages[3] := ReplaceParameters(messages[3],VersionDeCassioEnString,"","","");
 
   windowRect := GetScreenBounds;
   InsetRect(windowRect,(windowRect.right-windowRect.left-300) div 2,(windowRect.bottom-windowRect.top-180) div 2);
@@ -588,7 +588,7 @@ begin
         { Cas particulier de la chaine de version : on remplace eventuellement ^0 par
           le numero de version courant }
         if (Pos('^0',versionChainePascal) > 0)
-          then versionChainePascal := ParamStr(versionChainePascal,VersionDeCassioEnString,"","","");
+          then versionChainePascal := ReplaceParameters(versionChainePascal,VersionDeCassioEnString,"","","");
 
 
         version        := MakeCFSTR(versionChainePascal);

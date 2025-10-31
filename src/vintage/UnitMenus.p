@@ -725,35 +725,35 @@ var coupUn,i : SInt16;
             case CoupUn of
               56:begin
                    MySetMenuItemText(AffichageMenu,Symetrie_A8_H1Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'F5-->E6','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'F5-->E6','','',''));
                    MySetMenuItemText(AffichageMenu,Symetrie_A1_H8Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'F5-->D3','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'F5-->D3','','',''));
                    MySetMenuItemText(AffichageMenu,DemiTourCmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,8),'F5-->C4','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,8),'F5-->C4','','',''));
                  end;
               65:begin
                    MySetMenuItemText(AffichageMenu,Symetrie_A8_H1Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'E6-->F5','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'E6-->F5','','',''));
                    MySetMenuItemText(AffichageMenu,Symetrie_A1_H8Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'E6-->C4','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'E6-->C4','','',''));
                    MySetMenuItemText(AffichageMenu,DemiTourCmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,8),'E6-->D3','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,8),'E6-->D3','','',''));
                  end;
               43:begin
                    MySetMenuItemText(AffichageMenu,Symetrie_A8_H1Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'C4-->D3','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'C4-->D3','','',''));
                    MySetMenuItemText(AffichageMenu,Symetrie_A1_H8Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'C4-->E6','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'C4-->E6','','',''));
                    MySetMenuItemText(AffichageMenu,DemiTourCmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,8),'C4-->F5','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,8),'C4-->F5','','',''));
                  end;
               34:begin
                    MySetMenuItemText(AffichageMenu,Symetrie_A8_H1Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'D3-->C4','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'D3-->C4','','',''));
                    MySetMenuItemText(AffichageMenu,Symetrie_A1_H8Cmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,7),'D3-->F5','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,7),'D3-->F5','','',''));
                    MySetMenuItemText(AffichageMenu,DemiTourCmd,
-                           ParamStr(ReadStringFromRessource(MenusChangeantsID,8),'D3-->E6','','',''));
+                           ReplaceParameters(ReadStringFromRessource(MenusChangeantsID,8),'D3-->E6','','',''));
                  end;
             end;
             DernierCoupPourMenuAff := coupUn;

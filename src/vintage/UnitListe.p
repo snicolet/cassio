@@ -397,7 +397,7 @@ begin
 
 
       nombre := IntToStr(nbPartiesActives);
-      s := ParamStr(s,SeparerLesChiffresParTrois(nombre),'','','');
+      s := ReplaceParameters(s,SeparerLesChiffresParTrois(nombre),'','','');
 
 
       {ecriture eventuelle du nombre de parties non sauvegardees}
@@ -409,7 +409,7 @@ begin
           if (aux > 0) then
             begin
               nombre := IntToStr(aux);
-              s := s + ' ' + ParamStr(s2,SeparerLesChiffresParTrois(nombre),'','','');
+              s := s + ' ' + ReplaceParameters(s2,SeparerLesChiffresParTrois(nombre),'','','');
             end;
         end;
 

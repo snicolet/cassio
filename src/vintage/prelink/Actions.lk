@@ -481,7 +481,7 @@ procedure CopierDiagrammePositionEnHTML;     external;
 procedure CopierPositionPourEndgameScriptEnTEXT;     external;
 procedure DoDiagramme10x10;     external;
   procedure MySetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; const itemString : String255 );     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 procedure DoMilieuDeJeuNormal(combienDeCoups : SInt16; selectedByMenu : boolean);     external;
 procedure FlashCasePalette(nroaction : SInt16);     external;
 procedure AccelereProchainDoSystemTask(nbTicksMax : SInt32);     external;

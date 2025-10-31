@@ -1821,7 +1821,7 @@ begin
           else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,1);   {score thŽorique ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
@@ -1829,7 +1829,7 @@ begin
           else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,2);  {, estimŽ ˆ ^0 par Edmond}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
       end;
 
@@ -1840,7 +1840,7 @@ begin
           else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
           s0 := ReadStringFromRessource(TexteRegressionID,1);  {score thŽorique ^0}
-          myString := ParamStr(s0, score, '', '', '');
+          myString := ReplaceParameters(s0, score, '', '', '');
           s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
@@ -1848,7 +1848,7 @@ begin
           else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
           s0 := ReadStringFromRessource(TexteRegressionID,3);  {, estimŽ ˆ ^0 par Cassio}
-          myString := ParamStr(s0, score, '', '', '');
+          myString := ReplaceParameters(s0, score, '', '', '');
           s := s + myString;
       end;
 
@@ -1859,7 +1859,7 @@ begin
           else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,1);  {score thŽorique ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeHorizontal >= 0)
@@ -1867,7 +1867,7 @@ begin
           else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,4);  {, estimŽ ˆ ^0 par le vieux Cassio}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
       end;
 
@@ -1880,13 +1880,13 @@ begin
           else scoreFinal := -2*((-scoreAxeHorizontal + 100) div 200);
 
         s0 := ReadStringFromRessource(TexteRegressionID,5);   {score thŽorique = ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
         score := IntToStr(32 + (scoreFinal div 2)) + '-' + IntToStr(32 - (scoreFinal div 2));
 
         s0 := ReadStringFromRessource(TexteRegressionID,6);   {, score final = ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
       end;
@@ -1899,7 +1899,7 @@ begin
           else score := '-'+IntToStr((-scoreAxeHorizontal) div 100)+'.'+IntToStr((-scoreAxeHorizontal) mod 100);
 
         s0 := ReadStringFromRessource(TexteRegressionID,7);   {score ouverture = ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
         if (scoreAxeVertical >= 32)
@@ -1907,7 +1907,7 @@ begin
           else score := '-'+IntToStr(2*(32-scoreAxeVertical));
 
         s0 := ReadStringFromRessource(TexteRegressionID,6);   {, score final = ^0}
-        myString := ParamStr(s0, score, '', '', '');
+        myString := ReplaceParameters(s0, score, '', '', '');
         s := s + myString;
 
       end;

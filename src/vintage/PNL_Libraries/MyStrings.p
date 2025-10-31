@@ -184,7 +184,7 @@ INTERFACE
 
 
 	function EnMinuscule(var s : String255) : String255;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
 
 
   procedure MyDeleteString( var s : String255; index, nb_chars_to_delete : SInt32);
@@ -2045,7 +2045,7 @@ begin
 end;
 
 
-function ParamStr(s, p0, p1, p2, p3 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
 var aux : String255;
 		j : SInt32;
 begin

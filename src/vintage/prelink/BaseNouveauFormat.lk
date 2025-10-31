@@ -57,7 +57,7 @@ procedure MyEnableItem(theMenu : MenuRef; item: MenuItemIndex);     external;
 	procedure TerminateMenu(var theMenu : MenuRef; provientDUneResource : boolean);     external;
 function AnneePartiesFichierNouveauFormat(numFichier : SInt16) : SInt16;     external;
 function NbPartiesFichierNouveauFormat(numFichier : SInt16) : SInt32;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 procedure MyDrawDialog(dp : DialogPtr);     external;
 procedure OutlineOK(dp : DialogPtr);     external;

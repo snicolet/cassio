@@ -214,12 +214,12 @@ begin
       if posDeuxPoints > 0
         then
           begin
-            debut := debut+TPCopy(reste,1,posDeuxPoints);
+            debut := debut + TPCopy(reste,1,posDeuxPoints);
             reste := TPCopy(reste,posDeuxPoints+1,LENGTH_OF_STRING(reste)-posDeuxPoints);
           end
         else
           begin
-            debut := debut+reste;
+            debut := debut + reste;
             reste := '';
           end;
 
@@ -2084,11 +2084,11 @@ begin
 
         pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
 
-        s := ParamStr(s,nomFichier,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
+        s := ReplaceParameters(s,nomFichier,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end
     else
       begin
-        s := ParamStr(s,nomFichier,IntToStr(erreurES),'','');
+        s := ReplaceParameters(s,nomFichier,IntToStr(erreurES),'','');
       end;
 
   SplitAt(s,'!',texte,explication);

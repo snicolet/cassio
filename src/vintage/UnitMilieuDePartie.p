@@ -160,7 +160,7 @@ begin
         then s2 := ReadStringFromRessource(TextesListeID,7)   {Noir}
         else s2 := ReadStringFromRessource(TextesListeID,8);  {Blanc}
       s := ReadStringFromRessource(TextesRapportID,2); {Recherche au coup ^0 pour ^1 : milieu de partie}
-      s := ParamStr(s,s1,s2,'','');
+      s := ReplaceParameters(s,s1,s2,'','');
       if GetEffetSpecial then s := s + ' (effet special)';
 
       {

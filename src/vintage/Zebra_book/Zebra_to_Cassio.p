@@ -1299,7 +1299,7 @@ begin  {$unused s}
                   if ((TickCount - ticks) > 1) then
                     begin
                       (*
-                      s := ParamStr(ReadStringFromRessource(TextesDiversID,12),IntToStr(number_of_positions_in_zebra_book),'','','');  {s := 'Nb de positions dans la bibliothèque de Zebra : ^0'}
+                      s := ReplaceParameters(ReadStringFromRessource(TextesDiversID,12),IntToStr(number_of_positions_in_zebra_book),'','','');  {s := 'Nb de positions dans la bibliothèque de Zebra : ^0'}
                       WritelnDansRapport(s);
                       WritelnNumDansRapport('temps en ticks pour lire la bibl de Zebra = ',TickCount - ticks);
                       WritelnDansRapport('');

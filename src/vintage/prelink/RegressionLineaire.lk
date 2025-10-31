@@ -36,7 +36,7 @@ procedure SetRGBColor (var theColor: RGBColor; redValue, greenValue, blueValue: 
 procedure ValidRect(r : rect);     external;
   function MyStr255ToString( const s : Str255 ) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	procedure LocalToGlobalRect(var myrect : rect);     external;
 function GetNomJoueurNoirSansPrenomParNroRefPartie(nroReference : SInt32) : String255;     external;
 function GetNomJoueurBlancSansPrenomParNroRefPartie(nroReference : SInt32) : String255;     external;

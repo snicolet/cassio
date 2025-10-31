@@ -65,7 +65,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
 procedure InitProgressIndicator(whichWindow : WindowRef; r : rect; maximum : SInt32; PourKaleidoscope : boolean);     external;
 	function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;
 procedure SetDebugFiles(flag : boolean);     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
   procedure ShareTimeWithOtherProcesses(quantity : SInt32);     external;
 	procedure CenterString(h, v, w : SInt16; s : String255);     external;
 function QDGetPortBound : rect;     external;

@@ -131,7 +131,7 @@ function ProfDuCalculCourantDeCassioPourLeZoo : SInt32;     external;
 procedure SetRGBColor (var theColor: RGBColor; redValue, greenValue, blueValue: SInt32);     external;
   procedure MyEraseRectWithRGBColor(const (*var*) r : Rect; couleur : RGBColor);     external;
 procedure DessineOmbreRoundRect(theRect : rect; ovalWidth,ovalHeight : SInt16; targetColor : RGBColor; tailleOmbre,forceDuGradient,ombrageMinimum,typeOmbrage : SInt32);     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
   procedure MyEraseRectWithColor(const (*var*) r : Rect; couleurCmd : SInt32; whichPattern : pattern; fonctionAppelante : String255);     external;
 function PrecisionEngineEnMuString(precision : SInt32) : String255;     external;
 function ProfondeurMilieuEnPrecisionFinaleEngine(profondeur, empties : SInt32) : SInt32;     external;

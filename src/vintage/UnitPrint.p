@@ -169,7 +169,7 @@ begin
           TextSize(9);
           s := IntToStr(pageNum);
           Moveto(right-35,yPosition);
-          MyDrawString(ParamStr(ReadStringFromRessource(TextesImpressionID,5),s,'','',''));
+          MyDrawString(ReplaceParameters(ReadStringFromRessource(TextesImpressionID,5),s,'','',''));
         end;
     end;
 end;
@@ -506,7 +506,7 @@ begin
     otherwise               s := '^0';
   end;
   s1 := PageImpr.TitreImpression^^;
-  TitreDocImpression := ParamStr(s,s1,'','','');
+  TitreDocImpression := ReplaceParameters(s,s1,'','','');
 end;
 
 function DoDialogueImpression : boolean;
@@ -581,7 +581,7 @@ begin {DoProcessPrinting}
 		              TextFont(systemFont);
 		              TextSize(0);
 		              Moveto(15,20);
-		              MyDrawString(ParamStr(ReadStringFromRessource(TextesImpressionID,6),titre,'','',''));{'Impression de «titre»'}
+		              MyDrawString(ReplaceParameters(ReadStringFromRessource(TextesImpressionID,6),titre,'','',''));{'Impression de «titre»'}
 		              Moveto(15,60);
 		              MyDrawString(ReadStringFromRessource(TextesImpressionID,13));  {'Pour annuler, tapez Escape ou -point (.).'}
 		            end;
@@ -787,7 +787,7 @@ var
    MyEraseRect(myRect);
    MyEraseRectWithColor(myRect,OrangeCmd,blackPattern,'');
    s := IntToStr(CountPages);
-   s := ParamStr(ReadStringFromRessource(TextesImpressionID,4),s,'','','');
+   s := ReplaceParameters(ReadStringFromRessource(TextesImpressionID,4),s,'','','');
    SetItemTextInDialog(dp,NombrePagesStaticText,s);
 
 

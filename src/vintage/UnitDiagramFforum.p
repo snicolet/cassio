@@ -782,7 +782,7 @@ begin
 							  if (nbreCoup >= 1) and (DerniereCaseJouee <> coupInconnu) then
 							    begin
 								    str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
-								    str := ParamStr(str, '', '', '', '');
+								    str := ReplaceParameters(str, '', '', '', '');
 								    str := str + IntToStr(nbreCoup) + '.' + CHR(96 + platMod10[DerniereCaseJouee]) + CHR(48 + platDiv10[DerniereCaseJouee]);
 								  end;
 							end
@@ -1133,7 +1133,7 @@ begin
 					  if EcritApres37c7FFORUM then
 							begin
 								str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
-								str := ParamStr(str, '', '', '', '');
+								str := ReplaceParameters(str, '', '', '', '');
 								str := str + '\b37.c7';     {attention : ceci n'est qu'une approximation !}
 							end
 						else if CommentPositionFForum^^ <> '' then
@@ -1597,7 +1597,7 @@ begin
 							if aux <> coupInconnu then
 								begin
 									str := ReadStringFromRessource( TextesImpressionID, 3);   {'Après ^0'}
-									str := ParamStr(str, '', '', '', '');
+									str := ReplaceParameters(str, '', '', '', '');
 									str1 := IntToStr(nbreCoupConstruction);
 									str1 := str1 + CharToString('.') + CHR(96 + (platMod10[aux-1]+1)) + CHR(48 + (platDiv10[aux-1]+1));
 								end;
@@ -2775,7 +2775,7 @@ procedure AjusteDialogue(avecRemplissageEpaisseurBordureText: boolean);
 									s2 := IntToStr(nbreDePions[pionBlanc]);
 									s1 := s1 + CharToString('-') + s2;
 									s2 := ReadStringFromRessource(TextesRapportID, 7);   {'score final ^0'}
-									s := s + ' ** ' + ParamStr(s2, s1, '', '', '') + ' **';
+									s := s + ' ** ' + ReplaceParameters(s2, s1, '', '', '') + ' **';
 									SetItemTextInDialog(dp, ExempleStaticText, s);
 									scoreFinalDejaAfficheDansDialogue := true;
 								end;

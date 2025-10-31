@@ -78,7 +78,7 @@ procedure DoSystemTask(couleur : SInt32);     external;
 function AQuiDeJouer : SInt32;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 procedure RemettreLeCurseurNormalDeCassio;     external;
 procedure ForceDoubleTriApresUnAjoutDeParties(whichGenreDeTri : SInt32);     external;
 function ReadlnDansFichierAbstrait(var theFile : FichierAbstrait; var s : String255) : OSErr;     external;

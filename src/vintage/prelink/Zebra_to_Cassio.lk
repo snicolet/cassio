@@ -59,7 +59,7 @@ function EstVisibleDansFenetreArbreDeJeu(G : GameTree) : boolean;     external;
 procedure EffaceNoeudDansFenetreArbreDeJeu;     external;
 procedure EcritCurrentNodeDansFenetreArbreDeJeu(avecEcritureDesFils, doitEffacerPremiereLigneDeLaFenetre : boolean);     external;
 function JeuCourant : plateauOthello;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 function CassioCanCheckForDangerousEvents : boolean;     external;
 function HasGotEvent(myEventMask : EventMask; var whichEvent : eventRecord; sleep : UInt32; mouseRgn : RgnHandle) : boolean;     external;

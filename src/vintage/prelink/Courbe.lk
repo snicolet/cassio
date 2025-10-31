@@ -53,7 +53,7 @@ procedure DoAvanceAuCoupNro(numeroCoup : SInt16; NeDessinerQueLesNouveauxPions :
 procedure AjusteCurseur;     external;
   function EstUnDoubleClic(myEvent : eventRecord; attendClicSuivant : boolean) : boolean;     external;
 function CassioEstEnModeAnalyse : boolean;     external;
-	function ParamStr(s, p0, p1, p2, p3 : String255) : String255;     external;
+	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
   function ReelEnStringAvecDecimales(unreel : double; nbChiffresSignificatifs : SInt16) : String255;     external;
 function GetCouleurAffichageValeurCourbe(trait : SInt32; whichNote : SInt32) : RGBColor;     external;
 function EvaluationEdmondEstDisponible : boolean;     external;
