@@ -501,24 +501,24 @@ begin
       exit;
     end;
 
-  path := kPathSourcesDeCassio + ':' + nomUnite + '.p';
+  path := kPathSourcesDeCassio + DirectorySeparator + nomUnite + '.p';
   err := FileExists(path,0,fic);
 
   if (err <> NoErr) then
     begin
-      path := kPathSourcesDeCassio + ':' + nomUnite + '.pas';
+      path := kPathSourcesDeCassio + DirectorySeparator + nomUnite + '.pas';
       err := FileExists(path,0,fic);
     end;
 
   if (err <> NoErr) then
     begin
-      path := kPathSourcesDeCassio + ':PNL_Libraries:' + nomUnite + '.p';
+      path := kPathSourcesDeCassio + DirectorySeparator + 'PNL_Libraries' + DirectorySeparator + nomUnite + '.p';
       err := FileExists(path,0,fic);
     end;
 
   if (err <> NoErr) then
     begin
-      path := kPathSourcesDeCassio + ':PNL_Libraries:' + nomUnite + '.pas';
+      path := kPathSourcesDeCassio + DirectorySeparator + 'PNL_Libraries' + DirectorySeparator + nomUnite + '.pas';
       err := FileExists(path,0,fic);
     end;
 
@@ -643,24 +643,24 @@ end;
 
 function GetPathOfTemporaryPrelinkFile(const moduleName : String255) : String255;
 begin
-  GetPathOfTemporaryPrelinkFile := kPathSourcesDeCassio + ':prelink-temp:' + FabriquerNameOfPrelinkFile(moduleName);
+  GetPathOfTemporaryPrelinkFile := kPathSourcesDeCassio + DirectorySeparator + 'prelink-temp' + DirectorySeparator + FabriquerNameOfPrelinkFile(moduleName);
 end;
 
 
 function GetPathOfPrelinkFile(const moduleName : String255) : String255;
 begin
-  GetPathOfPrelinkFile := kPathSourcesDeCassio + ':prelink:' + FabriquerNameOfPrelinkFile(moduleName);
+  GetPathOfPrelinkFile := kPathSourcesDeCassio + DirectorySeparator + 'prelink' + DirectorySeparator + FabriquerNameOfPrelinkFile(moduleName);
 end;
 
 function GetPathOfDeclarationsFile(const moduleName : String255) : String255;
 begin
-  GetPathOfDeclarationsFile := kPathSourcesDeCassio + ':declarations:' + FabriquerNameOfExternalDeclarationsFile(moduleName);
+  GetPathOfDeclarationsFile := kPathSourcesDeCassio + DirectorySeparator + 'declarations' + DirectorySeparator + FabriquerNameOfExternalDeclarationsFile(moduleName);
 end;
 
 
 function GetPathOfDuplicateFile(const moduleName : String255) : String255;
 begin
-  GetPathOfDuplicateFile := kPathDuplicatesDesSourcesDeCassio + ':' +  FabriquerNameOfDuplicateFile(moduleName);
+  GetPathOfDuplicateFile := kPathDuplicatesDesSourcesDeCassio + DirectorySeparator +  FabriquerNameOfDuplicateFile(moduleName);
 end;
 
 
@@ -2150,19 +2150,19 @@ begin
 
   gActionDeCompilationDemandee := K_COMPILER_INTERFACE;
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator ,directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator +'PNL_Libraries',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator +'Edmond',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator +'Zebra_book',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
@@ -2177,19 +2177,19 @@ begin
 
   gActionDeCompilationDemandee := K_COMPILER_IMPLEMENTATION;
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator ,directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator +'PNL_Libraries',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator + 'Edmond',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+ DirectorySeparator +'Zebra_book',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 

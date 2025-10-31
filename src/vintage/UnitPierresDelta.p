@@ -259,7 +259,7 @@ begin
 		    begin
 		      texte := GetStringInfoOfProperty(prop);
 		      if Pos(':', texte) > 0
-		        then SplitAt(texte, ':', foo, texte);
+		        then Split(texte, ':', foo, texte);
 		    end;
 
 

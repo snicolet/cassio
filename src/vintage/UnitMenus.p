@@ -835,8 +835,8 @@ begin
     begin
 
       nomFichier := pathFichier;
-	    while Pos(':',nomFichier) <> 0 do
-	      nomFichier := TPCopy(nomfichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
+	    while Pos(DirectorySeparator,nomFichier) <> 0 do
+	      nomFichier := TPCopy(nomfichier,Pos(DirectorySeparator,nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(DirectorySeparator,nomFichier));
 
 
 	    nomLongDuFichier := nomFichier;

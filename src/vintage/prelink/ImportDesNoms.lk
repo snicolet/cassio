@@ -73,7 +73,7 @@ procedure SetNomJoueur(nroJoueur : SInt32; joueur : String255);     external;
 function GetNomJoueurEnMetaphoneAvecEspaces(nroJoueur : SInt32) : String255;     external;
 	function Trim (s : String255) : String255;     external;
   procedure Parse5(s : String255; var s1,s2,s3,s4,s5,reste : String255);     external;
-	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure ATRAffichageInfixe(nomATR : String255; x : ATR);     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
   procedure StripHTMLAccents(var s : String255);     external;

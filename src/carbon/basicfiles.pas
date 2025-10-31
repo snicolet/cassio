@@ -210,8 +210,6 @@ begin
     else StandardConsoleAlertWithNum(s,num)
 end;
 
-
-
 function ResolveAliasInFullName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
     myFileInfo : fileInfo;
@@ -221,10 +219,12 @@ begin
   debut := '';
   reste := fullName;
   err := 0;
+  
+  DoDirSeparators(reste);
 
   while (reste <> '') and (err = 0) do
     begin
-      posDeuxPoints := Pos(':',reste);
+      posDeuxPoints := Pos( DirectorySeparator ,reste);
       if posDeuxPoints > 0
         then
           begin
@@ -244,7 +244,7 @@ begin
       if err = 0 then
         begin
           if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
-            then debut := resolvedDebut+':'
+            then debut := resolvedDebut + DirectorySeparator 
             else debut := resolvedDebut;
         end;
     end;
@@ -268,15 +268,16 @@ var nomDirectory : String255;
     len : SInt16;
     err : OSErr;
 begin
+  DoDirSeparators(name);
 
-  if (Pos(':',name) > 0) and (vRefNum <> 0)
+  if (Pos( DirectorySeparator ,name) > 0) and (vRefNum <> 0)
     then
       begin
         nomDirectory := GetWDName(vRefNum);
         len := LENGTH_OF_STRING(nomDirectory);
-        if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(name)) <= 220) then
+        if (len > 0) and (nomDirectory <> DirectorySeparator ) and ((len+LENGTH_OF_STRING(name)) <= 220) then
           begin
-            if (name[1] = ':') and EndsWithDeuxPoints(nomDirectory)
+            if (name[1] = DirectorySeparator ) and EndsWithDeuxPoints(nomDirectory)
               then name := TPCopy(nomDirectory,1,len-1)+name
               else name := nomDirectory+name;
             err := ResolveAliasInFullName(name);
@@ -481,7 +482,7 @@ function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : 
 var err1,err2 : OSErr;
     FinderInfos : FInfo;
 begin
-
+  
   if (name = '') then
     begin
       DisplayMessageInConsole('WARNING ! (name = '''') dans FileExists');
@@ -491,6 +492,7 @@ begin
 
   {TraceLog('FileExists : name =' + name);}
 
+  DoDirSeparators(name);
   InitialiseFichierTexte(name,vRefNum,fic);
 
   if FileIsStandardOutput(fic) then
@@ -647,6 +649,7 @@ function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : 
 var err : OSErr;
 begin
   InitialiseFichierTexte(name,vRefNum, fic);
+  
   err := CreateFFSpecAndResolveAlias(fic);
 
   if FileIsStandardOutput(fic) then
@@ -1918,7 +1921,7 @@ begin
       erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
     end;
 
-  posLastDeuxPoints := LastPos(':',name);
+  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
   name := TPCopy(name, posLastDeuxPoints+1, 255);
 
   len := LENGTH_OF_STRING(name);
@@ -1926,7 +1929,7 @@ begin
     begin
 		  if err <> NoErr then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
@@ -1937,7 +1940,7 @@ begin
     begin
 		  if (err <> NoErr) then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
@@ -1948,7 +1951,7 @@ begin
     begin
 		  if (err <> NoErr) then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
@@ -1965,25 +1968,25 @@ var err : OSErr;
     len,posLastDeuxPoints : SInt16;
 begin
   err := -1;
-  posLastDeuxPoints := LastPos(':',name);
+  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
   len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
-      err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+      err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
     end;
   name := name+' (1)';
   len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
       if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
     end;
   name := name+'(2)';
   len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
       if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
+        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
     end;
   CreeFichierTexteDeCassio := err;
 end;
@@ -1995,12 +1998,12 @@ begin
   s := ReadStringFromRessource(TextesErreursID, 5);  {'erreur I/O sur fichier «^0» ! code erreur =  ^1'}
 
   pathFichier := fileName;
-  if (Pos(':',pathFichier) > 0)
+  if (Pos( DirectorySeparator ,pathFichier) > 0)
     then
       begin
         fileName := ExtraitNomDirectoryOuFichier(pathFichier);
 
-        pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
+        pathFichier := ReplaceStringAll(pathFichier, ':' , DirectorySeparator);
 
         s := ReplaceParameters(s,fileName,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end
@@ -2009,7 +2012,7 @@ begin
         s := ReplaceParameters(s,fileName,IntToStr(erreurES),'','');
       end;
 
-  SplitAt(s,'!',texte,explication);
+  Split(s,'!',texte,explication);
   AlerteDouble(texte+'!',explication);
 end;
 

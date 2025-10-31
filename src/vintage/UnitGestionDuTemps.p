@@ -2728,7 +2728,7 @@ begin
   with gEtatDuReseau do
     begin
 
-      SplitAt(message,'<br>OK',left,right);
+      Split(message,'<br>OK',left,right);
       message := left;
 
       if messageAffiche <> message then dateMessageAffiche := TickCount;

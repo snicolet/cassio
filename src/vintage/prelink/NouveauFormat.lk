@@ -48,7 +48,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
 function GetNroOrdreAlphabetiqueJoueur(nroJoueur : SInt32) : SInt32;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
 function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
 function GetNomJoueur(nroJoueur : SInt32) : String255;     external;
 procedure SetNomJaponaisDuJoueur(nroJoueur : SInt32; nomJaponais : String255);     external;

@@ -1263,7 +1263,7 @@ begin
         repeat
           boucle :
 
-          SplitAt(propertyListDescription, ']', left, right);
+          Split(propertyListDescription, ']', left, right);
 
           theProperty := theProperty + left + ']';
           propertyListDescription := right;

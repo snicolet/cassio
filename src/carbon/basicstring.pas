@@ -51,12 +51,12 @@ procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 
 // Extract substrings
 function TPCopy(source : String255; start, count : SInt32) : String255;
-procedure KeepPrefix (var s : String255; len : SInt32);
-procedure KeepSuffix (var s : String255; len : SInt32);
-function SplitAt(s : String255; sub : char; var left, right : String255) : boolean;                 // split by char
-function SplitAt(s : String255; const sub : String255; var left, right : String255) : boolean;      // split by string
-function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
-function SplitRightAt(s : String255; const sub : String255; var left, right : String255) : boolean; // split right by string
+procedure KeepPrefix(var s : String255; len : SInt32);
+procedure KeepSuffix(var s : String255; len : SInt32);
+function Split(s : String255; sub : char; var left, right : String255) : boolean;                 // split by char
+function Split(s : String255; const sub : String255; var left, right : String255) : boolean;      // split by string
+function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
+function SplitRight(s : String255; const sub : String255; var left, right : String255) : boolean; // split right by string
 
 // Replace patterns in string
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
@@ -559,7 +559,7 @@ end;
 
 
 // KeepSuffix(s, n) transforms the string s to only keep the last n characters
-procedure KeepSuffix (var s : String255; len : SInt32);
+procedure KeepSuffix(var s : String255; len : SInt32);
 var p : SInt32;
 begin
 	p := LENGTH_OF_STRING(s) - len;
@@ -568,8 +568,8 @@ begin
 end;
 
 
-// SplitAt() splits the string s at the character sub
-function SplitAt (s : String255; sub : char; var left, right : String255) : boolean;
+// Split() splits the string s at the character sub
+function Split(s : String255; sub : char; var left, right : String255) : boolean;
 var p : SInt16;
 begin
 	p := Pos(sub, s);
@@ -588,8 +588,8 @@ begin
 end;
 
 
-// SplitAt() splits the string s at substring sub
-function SplitAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+// Split() splits the string s at substring sub
+function Split(s : String255; const sub : String255; var left, right : String255) : boolean;
 var p : SInt16;
 begin
 	p := Pos(sub, s);
@@ -607,8 +607,8 @@ begin
 end;
 
 
-// SplitAt() splits the string s at character sub, scanning from the end of the string
-function SplitRightAt(s : String255; sub : char; var left, right : String255) : boolean;
+// Split() splits the string s at character sub, scanning from the end of the string
+function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;
 var p : SInt16;
 begin
 	p := PosRight(sub, s);
@@ -626,8 +626,8 @@ begin
 end;
 
 
-// SplitAt() splits the string s at substring sub, scanning from the end of the string
-function SplitRightAt (s : String255; const sub : String255; var left, right : String255) : boolean;
+// Split() splits the string s at substring sub, scanning from the end of the string
+function SplitRight(s : String255; const sub : String255; var left, right : String255) : boolean;
 var p : SInt16;
 begin
 	p := PosRight(sub, s);
@@ -1770,13 +1770,35 @@ begin
    b := sysutils.UpperCase(StripDiacritics(a));
    writeln('UpperCase(StripDiacritics()) : ', b);
 
-   Parse('I love Sarah'     , a, b) ; writeln('a=',a,'  b=',b);
-   Parse('  I    love Sarah', a, b) ; writeln('a=',a,'  b=',b);
-   Parse('IloveSarah'       , a, b) ; writeln('a=',a,'  b=',b);
-   Parse('  IloveSarah'     , a, b) ; writeln('a=',a,'  b=',b);
-   Parse('IloveSarah '      , a, b) ; writeln('a=',a,'  b=',b);
+   writeln();
+   writeln('Testing Parse()...');
+   Parse('I love Sarah'     , a, b); writeln('a=',a,'  b=',b);
+   Parse('  I    love Sarah', a, b); writeln('a=',a,'  b=',b);
+   Parse('IloveSarah'       , a, b); writeln('a=',a,'  b=',b);
+   Parse('  IloveSarah'     , a, b); writeln('a=',a,'  b=',b);
+   Parse('IloveSarah '      , a, b); writeln('a=',a,'  b=',b);
    ParseWithQuoteProtection('"I love" Sarah' , a, b) ; writeln('a=',a,'  b=',b);
    ParseWithQuoteProtection('"I love"Sarah' , a, b) ; writeln('a=',a,'  b=',b);
+   
+   writeln();
+   writeln('Testing Split()...');
+   Split('Cassio:9.0b401', '', a, b);  writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', ':', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', 'c', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', 'C', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', '0', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', '1', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', 'Cassio', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', '9.0', a, b); writeln('a=',a,'  b=',b);
+   Split('Cassio:9.0b401', '401', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', '', a, b);  writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', ':', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', 's', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', 'S', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', '1', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', 'Cassio', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', '9.0', a, b); writeln('a=',a,'  b=',b);
+   SplitRight('Stéphane:9.0b401', '401', a, b); writeln('a=',a,'  b=',b);
 
 end;
 
@@ -1793,10 +1815,11 @@ begin
    SetParserProtectionWithQuotes(false);
    SetParserDelimiters([' ',tab]);
 
-   // testBasicString;
+   testBasicString;
    
-   foo(5);
-   
+   Writeln('');
+   Writeln('Testing file system functions...');
+   writeln( DirectorySeparator );
    writeln(GetCurrentDir());
 end.
 

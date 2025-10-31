@@ -170,7 +170,7 @@ begin
 
 	if OSError = noErr then
 		begin
-			fileName := Concat(fileName, ':');
+			fileName := Concat(fileName, DirectorySeparator );
 			Insert(fileName, pathName, 1);
 		end;
 
@@ -188,7 +188,7 @@ begin
 
 		if OSError = noErr then
 			begin
-				filename := Concat(filename, ':');
+				filename := Concat(filename, DirectorySeparator );
 				Insert(filename, pathname, 1);
 			end;
 	until OSError <> 0;
@@ -289,12 +289,12 @@ end;
 		end;
 		if err = noErr then begin
 			if fs.parID = 1 then begin
-				path := Concat(GetName(fs), ':');
+				path := Concat(GetName(fs), DirectorySeparator );
 			end else begin
 				path := GetName(fs);
 				while (err = noErr) and (fs.parID <> 1) do begin
 					err := FSpGetIndCatInfo(fs, -1, pb);
-					path := Concat(GetName(fs), ':', path);
+					path := Concat(GetName(fs), DirectorySeparator , path);
 					fs.parID := pb.ioFlParID;
 				end;
 			end;
@@ -712,6 +712,7 @@ end;
 			gv : SInt32;
 			name255 : Str255;
 	begin
+	    DoDirSeparators(name);
 		if (Gestalt(gestaltFSAttr, gv) = noErr) and (BTST(gv, gestaltHasFSSpecCalls))
 		  then
 		    begin
@@ -1016,8 +1017,8 @@ function MyFSWriteAt (refnum : SInt16; mode : SInt16; pos, len : SInt32; p : Ptr
 			pb : ParamBlockRec;
 			oe : OSErr;
 	begin
-		if (name <> '') and (name[LENGTH_OF_STRING(name)] <> ':') then begin
-			name := Concat(name, ':');
+		if (name <> '') and (name[LENGTH_OF_STRING(name)] <> DirectorySeparator ) then begin
+			name := Concat(name, DirectorySeparator );
 		end;
 		pb.ioNamePtr := @name;
 		pb.iovRefNum := vrn;
@@ -1102,7 +1103,7 @@ var
 							  then
 							    begin
 										len := LENGTH_OF_STRING(path);
-										path := Concat(path, GetName(fs), ':');
+										path := Concat(path, GetName(fs), DirectorySeparator );
 										Scan(pb.ioDirID);
 										SET_LENGTH_OF_STRING(path,len);
 								  end
@@ -1119,7 +1120,7 @@ var
 	end;
 
 begin
-	path := ':';
+	path := DirectorySeparator ;
 	if GetName(fs) <> ''
 	  then
 	    begin
@@ -1151,7 +1152,7 @@ begin
   err := FSSpecToFullPath(folder,path);
 
   nomDirectoryDepartRecursion := path;
-  if RightStr(nomDirectoryDepartRecursion,1) = ':' then
+  if RightStr(nomDirectoryDepartRecursion,1) = DirectorySeparator then
     nomDirectoryDepartRecursion := LeftStr(nomDirectoryDepartRecursion,LENGTH_OF_STRING(nomDirectoryDepartRecursion)-1);
 
   SetPathOfScannedDirectory := err;
@@ -1181,11 +1182,11 @@ begin
     then pathUnix := oldMacPath
     else
       begin
-        SplitAt(oldMacPath, ':', foo, pathUnix);       // enlever le nom du disque dur
+        Split(oldMacPath, ':', foo, pathUnix);       // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
       end;
-  pathUnix := ReplaceStringAll(pathUnix,':','/');      // separateurs a la mode UNIX
-
+      
+  pathUnix := ReplaceStringAll(pathUnix,':','/');      // remettre les separateurs a la mode UNIX
   MacPathToUNIXPath := pathUnix;
 end;
 
@@ -1665,7 +1666,7 @@ end;
 
 
 function CreateDirectoryWithThisPath(directoryPath : String255) : OSErr;
-const separateur = ':';
+const separateur = DirectorySeparator ;
 var erreurES : OSErr;
     directoryDepot : fileInfo;
     dirID : UInt32;
@@ -1692,7 +1693,7 @@ end;
 
 
 function CreateSubDirectoryNearThisFile(const whichFile : fileInfo; var directoryName : String255) : OSErr;
-const separateur = ':';
+const separateur = DirectorySeparator ;
 var erreurES : OSErr;
     path, pathSubDirectory : String255;
 
@@ -1764,7 +1765,7 @@ begin
 	while (i < 255) and (ord(CPath[i]) > 0) do
 	  begin
 	    c := CPath[i];
-	    if c = '/' then c := ':';
+	    if c = '/' then c := DirectorySeparator ;
 	    applicationFolderPath := applicationFolderPath + c;
 	    i := i + 1;
 	  end;

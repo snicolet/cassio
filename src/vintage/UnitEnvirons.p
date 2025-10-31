@@ -99,14 +99,14 @@ begin
 
    // On gere le cas ou Cassio est une application sous forme de bundle
 
-   SplitRightByStr (myPath , ':Contents:' , left , right );
+   SplitRight(myPath , DirectorySeparator + 'Contents' + DirectorySeparator , left , right );
    if (left <> '') and (right <> '') then
      begin
        myPath := left;
-       SplitRightByStr (myPath , ':' , left , right );
+       SplitRight(myPath , DirectorySeparator , left , right );
        if (left <> '') and (right <> '') then
          begin
-           left := left + ':';
+           left := left + DirectorySeparator;
            codeErreur := MakeFileInfo(0,0,left,myFileInfo);
            if codeErreur = NoErr then myPath := left;
          end;
@@ -130,7 +130,7 @@ begin
 
    myPath := GetWDName(refvol);
 
-   SplitRightByStr (myPath , ':Contents:' , left , right );
+   SplitRight(myPath , ':Contents:' , left , right );
 
    CassioEstUnBundleApplicatif := (left <> '') and (right <> '');
 end;
@@ -160,12 +160,12 @@ begin
 
    // On trouve si Cassio est une application sous forme de bundle
 
-   SplitRightByStr (myPath , ':Contents:' , left , right );
+   SplitRight(myPath , DirectorySeparator + 'Contents' + DirectorySeparator , left , right );
    if (left <> '') and (right <> '')
      then
        begin
          myPath := left;
-         SplitRightByStr(myPath, ':' , left , right);
+         SplitRightByStr(myPath, DirectorySeparator , left , right);
          GetApplicationBundleName := right;
        end
      else

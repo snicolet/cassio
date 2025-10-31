@@ -105,7 +105,7 @@ var FichierWThorLog : basicfile;
 function OuvreFichierTraceWThor : OSErr;
 var erreurES : OSErr;
 begin
-  erreurES := FileExists(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);
+  erreurES := FileExists(PathDuDossierDatabase + DirectorySeparator + 'Gestion Base WThor' + DirectorySeparator+ 'WThor.log',0,FichierWThorLog);
   if erreurES = fnfErr then {-43 => fichier non trouvé, on le crée}
     begin
       erreurES := CreateFile(PathDuDossierDatabase + ':Gestion Base WThor:WThor.log',0,FichierWThorLog);

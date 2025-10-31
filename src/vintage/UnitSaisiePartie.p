@@ -1054,7 +1054,7 @@ begin
 
 												        nomBase := EnleveEspacesDeDroite(GetNameOfSFReply(reply)) + ' XXXX.wtb';
 												        pathBase := GetFullPathOfFSSpec(info);
-												        pathBase := LeftStr(pathBase,LastPos(':',pathBase));
+												        pathBase := LeftStr(pathBase,LastPos(DirectorySeparator,pathBase));
 
 												        if debuggage_saisiePartie then
 												          begin

@@ -458,10 +458,10 @@ begin
     then result := 'EngineBundle.bundle'
     else
       begin
-        bundlePathMac := pathDossierFichiersAuxiliaires + ':Frameworks:EngineBundle.bundle';
-        bundlePathMac := ReplaceStringAll(bundlePathMac,'/',':');   // separateurs a la mode Mac
-        SplitAt(bundlePathMac,':',foo,bundlePathUnix);      // enlever le nom du disque dur
-        bundlePathUnix := ReplaceStringAll(bundlePathUnix,':','/');  // separateurs a la mode UNIX
+        bundlePathMac := pathDossierFichiersAuxiliaires + DirectorySeparator + 'Frameworks:EngineBundle.bundle';
+        bundlePathMac := ReplaceStringAll(bundlePathMac,DirectorySeparator,':');    // separateurs a la mode Mac
+        Split(bundlePathMac,':',foo,bundlePathUnix);                                // enlever le nom du disque dur
+        bundlePathUnix := ReplaceStringAll(bundlePathUnix,':',DirectorySeparator);  // separateurs a la mode UNIX
         result := bundlePathUnix;
       end;
   GetUnixTaskBundleName := result;
@@ -559,11 +559,11 @@ begin
     exit;
 
 
-  pathMac := ReplaceStringAll(pathMac,'/',':');      // separateurs a la mode Mac
+  pathMac := ReplaceStringAll(pathMac, DirectorySeparator ,':');     // separateurs a la mode Mac
   if (pathMac[1] = ':')
     then pathUnix := pathMac
-    else SplitAt(pathMac,':',foo, pathUnix);         // enlever le nom du disque dur
-  pathUnix := ReplaceStringAll(pathUnix,':','/');    // separateurs a la mode UNIX
+    else Split(pathMac,':',foo, pathUnix);                         // enlever le nom du disque dur
+  pathUnix := ReplaceStringAll(pathUnix,':', DirectorySeparator);    // separateurs a la mode UNIX
 
   if (debugUnixTask or debuggage.engineInput or debuggage.engineOutput) then
     begin

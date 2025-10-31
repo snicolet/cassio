@@ -3106,7 +3106,7 @@ begin
               (* WritelnDansRapportThreadSafe('c''est un fichier WThor correct'); *)
 
 
-              if SplitAt(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel) then
+              if Split(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel) then
                 begin
 
                   SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
@@ -3135,7 +3135,7 @@ begin
 
 
   if (nomFichierWthorOfficiel = '')
-    then foo := SplitAt(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel);
+    then foo := Split(pathFichierTelecharge, 'Temp-Cassio-', s, nomFichierWthorOfficiel);
 
   if (nomFichierWthorOfficiel <> '')
     then EnleverUnFichierWthorDansListeATelecharger(nomFichierWthorOfficiel);
@@ -3166,7 +3166,7 @@ begin
           url := MakeLongString(kURLTelechargementDeLaBase + nomFichier);
 
           // path du fichier telecharge
-          pathFichierTelecharge := pathDossierFichiersAuxiliaires + ':' + 'Temp-Cassio-' + nomFichier;
+          pathFichierTelecharge := pathDossierFichiersAuxiliaires + DirectorySeparator + 'Temp-Cassio-' + nomFichier;
 
           infoNetworkConnection := MakeLongString(pathFichierTelecharge);
 
@@ -3317,12 +3317,12 @@ begin  {$unused theFic, result}
   if (Pos('HREF',s) > 0) or (Pos('href',s) > 0) then
     begin
 
-      if SplitAt(s, 'HREF', left, right) then s := right else
-      if SplitAt(s, 'href', left, right) then s := right;
+      if Split(s, 'HREF', left, right) then s := right else
+      if Split(s, 'href', left, right) then s := right;
 
       { WritelnDansRapport(s); }
 
-      if SplitAt(s, '>', left, right) then
+      if Split(s, '>', left, right) then
         begin
           s := left;
           date := right;
@@ -3330,18 +3330,18 @@ begin  {$unused theFic, result}
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAt(date, '</A>', left, right) then date := right else
-      if SplitAt(date, '</a>', left, right) then date := right;
+      if Split(date, '</A>', left, right) then date := right else
+      if Split(date, '</a>', left, right) then date := right;
       date := EnleveEspacesDeDroite(date);
       date := EnleveEspacesDeGauche(date);
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAt(s, '"', left, right) then s := right;
+      if Split(s, '"', left, right) then s := right;
 
       { WritelnDansRapport(s + date); }
 
-      if SplitAt(s, '"', left, right) then s := left;
+      if Split(s, '"', left, right) then s := left;
       s := EnleveEspacesDeGauche(s);
       s := EnleveEspacesDeDroite(s);
 
@@ -3593,7 +3593,7 @@ begin {$unused err, url }
       with gReserveZonesPourTelecharger.table[numeroLibre] do
         begin
 
-          fic := MakeFichierAbstraitFichier(pathDossierFichiersAuxiliaires + ':' + kNomFichierDirectoryWTHORHtml,0);
+          fic := MakeFichierAbstraitFichier(pathDossierFichiersAuxiliaires + DirectorySeparator + kNomFichierDirectoryWTHORHtml,0);
           infoNetworkConnection := MakeLongString('directory');
 
           // vidons le fichier

@@ -34,7 +34,7 @@ procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; carac
 function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;     external;
 procedure ChercherLesErreursDansCeTranscript(var myTranscript : Transcript; var analyse : AnalyseDeTranscript);     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
   procedure Parse2(s : String255; var s1,s2,reste : String255);     external;
 	function ChaineNeContientQueCesCaracteres(const s : String255; whichChars : SetOfChar) : boolean;     external;
 	function LeftStr (const s : String255; len : SInt32) : String255;     external;

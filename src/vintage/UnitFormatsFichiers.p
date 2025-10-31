@@ -1370,7 +1370,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(ligne);
 
-    if SplitAt(ligne,'%',s1,s2)
+    if Split(ligne,'%',s1,s2)
       then s := s1
       else s := ligne;
     EnleveEspacesDeGaucheSurPlace(s);
@@ -1430,7 +1430,7 @@ begin
     inc(compteurLignes);
     err := GetNextLineDansFichier(ligne);
 
-    if SplitAt(ligne,'%',s1,s2)
+    if Split(ligne,'%',s1,s2)
       then s := s1
       else s := ligne;
 

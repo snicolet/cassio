@@ -557,6 +557,7 @@ var chainePositionEtPartie,s : String255;
     texteDuFichierMisDansRapport : boolean;
     debutSelection,finSelection : SInt32;
     infos : FormatFichierRec;
+    position : SInt32;
 begin
   OuvrirFichierPartieFormatCassio := -1;
 
@@ -619,9 +620,12 @@ begin
   SetMeilleureSuite('');
   finaleEnModeSolitaire := false;
 
-
-  while Pos(':',nomFichier) <> 0 do
-     nomFichier := TPCopy(nomFichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
+  position := Pos(DirectorySeparator , nomFichier);
+  while position <> 0 do
+     begin
+       nomFichier := TPCopy(nomFichier,position+1,LENGTH_OF_STRING(nomFichier)-position);
+       position := Pos(DirectorySeparator , nomFichier);
+     end;
 
 
   erreurES := ComprendPositionEtPartieDuFichier(nomFichier,chainePositionEtPartie,mergeWithCurrentTree);

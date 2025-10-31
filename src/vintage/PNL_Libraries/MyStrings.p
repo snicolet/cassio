@@ -61,11 +61,11 @@ INTERFACE
 	procedure SplitByStr (s : String255; const sub : String255; var left, right: String255);
 	procedure SplitRightByStr (s : String255; const sub : String255; var left, right: String255);
 	
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;
-	function SplitRightAt(s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function SplitRight(s : String255; sub : char; var s1, s2 : String255) : boolean;
 	
-	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
-	function SplitRightAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function Split (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitRight (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 
 	function FirstPos(const sub, str : String255) : SInt32;
     function LastPos (sub, str : String255) : SInt16;
@@ -1018,7 +1018,7 @@ end;
 		end;
 	end;
 
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1027,10 +1027,10 @@ end;
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + 1, 255);
 		end;
-		SplitAt := p > 0;
+		Split := p > 0;
 	end;
 
-	function SplitRightAt(s : String255; sub : char; var s1, s2 : String255) : boolean;
+	function SplitRight(s : String255; sub : char; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1039,10 +1039,10 @@ end;
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + 1, 255);
 		end;
-		SplitRightAt := p > 0;
+		SplitRight := p > 0;
 	end;
 
-	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function Split (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1051,10 +1051,10 @@ end;
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
 		end;
-		SplitAt := p > 0;
+		Split := p > 0;
 	end;
 
-	function SplitRightAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
+	function SplitRight (s : String255; const sub : String255; var s1, s2 : String255) : boolean;
 		var
 			p : SInt16;
 	begin
@@ -1063,7 +1063,7 @@ end;
 			s1 := TPCopy(s, 1, p - 1);
 			s2 := TPCopy(s, p + LENGTH_OF_STRING(sub), 255);
 		end;
-		SplitRightAt := p > 0;
+		SplitRight := p > 0;
 	end;
 
 	function Match (pattern, name: String255) : boolean;
@@ -1662,7 +1662,7 @@ end;
 
 
 function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
-const separateur = ':';
+const separateur = DirectorySeparator ;
 var lastPosDeuxPoints : SInt16;
 begin
   if RightStr(chemin,1) = CharToString(separateur)
@@ -1684,7 +1684,7 @@ function ExtraitNomDeVolume(nomComplet : String255) : String255;
 var volumeName, reste : String255;
 begin
   (* the volume name should be the left part of the path *)
-	if SplitAt(nomComplet,':',volumeName,reste)
+	if Split(nomComplet, DirectorySeparator ,volumeName,reste)
 	  then ExtraitNomDeVolume := volumeName
 	  else ExtraitNomDeVolume := nomComplet;
 end;
@@ -1947,7 +1947,7 @@ end;
 
 function EndsWithDeuxPoints(var s : String255) : boolean;
 begin
-  EndsWithDeuxPoints := (s[LENGTH_OF_STRING(s)] = ':');
+  EndsWithDeuxPoints := (s[LENGTH_OF_STRING(s)] = DirectorySeparator );
 end;
 
 

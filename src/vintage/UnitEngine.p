@@ -483,7 +483,7 @@ var directoryDepart : fileInfo;
     codeErreur : OSErr;
     cheminDirectoryDepartRecursion : String255;
 begin
-  cheminDirectoryDepartRecursion := pathDuDossier + ':';
+  cheminDirectoryDepartRecursion := pathDuDossier + DirectorySeparator ;
   codeErreur := MakeFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then
@@ -516,8 +516,7 @@ var p : SInt64;
 begin
  Discard2(fs,pb);
 
-
- p := CompterOccurencesDeSousChaine(':',path);
+ p := CompterOccurencesDeSousChaine(DirectorySeparator,path);
 
  if not(isFolder) then
    begin
@@ -525,11 +524,13 @@ begin
        begin
          err := FSSpecToFullPath(fs, pathEngine);
 
-         SplitAt(pathEngine,':',foo,pathUnix);            // enlever le nom du disque dur
-         pathUnix := ReplaceStringAll(pathUnix,':','/');  // separateurs a la mode UNIX
+         Split(pathEngine, DirectorySeparator ,foo, pathUnix);       // enlever le nom du disque dur
+         pathUnix := ReplaceStringAll(pathUnix,':','/');             // separateurs a la mode UNIX
+         DoDirSeparators(pathUnix);
 
-         s := ReplaceStringOnce(pathEngine, ':engine.sh' , '');
-         SplitRightByChar(s,':',foo,nomEngine);
+         s := ReplaceStringOnce(pathEngine, DirectorySeparator +'engine.sh' , '');
+         SplitRightByChar(s, DirectorySeparator ,foo,nomEngine);
+         
          AddEngine(nomEngine,pathEngine);
 
        end;
@@ -857,7 +858,7 @@ function MuStringEnPrecisionEngine(mu : String255) : SInt64;
 var left, right, cut : String255;
     muMax, dist, distMin, i: SInt64;
 begin
-  SplitAt(mu, ',', left, right);
+  Split(mu, ',', left, right);
 
   muMax := StrToInt32(right);
 
@@ -1680,9 +1681,9 @@ begin
     else
       begin
         bundlePathMac := pathDossierFichiersAuxiliaires + ':Frameworks:EngineBundle.bundle';
-        bundlePathMac := ReplaceStringAll(bundlePathMac,'/',':');    // separateurs a la mode Mac
-        SplitAt(bundlePathMac,':',foo,bundlePathUnix);               // enlever le nom du disque dur
-        bundlePathUnix := ReplaceStringAll(bundlePathUnix,':','/');  // separateurs a la mode UNIX
+        bundlePathMac := ReplaceStringAll(bundlePathMac,DirectorySeparator,':');    // separateurs a la mode Mac
+        Split(bundlePathMac,':',foo,bundlePathUnix);                                // enlever le nom du disque dur
+        bundlePathUnix := ReplaceStringAll(bundlePathUnix,':',DirectorySeparator);  // separateurs a la mode UNIX
         result := bundlePathUnix;
       end;
   GetEngineBundleName := result;
@@ -1742,11 +1743,11 @@ begin
     exit;
 
 
-  pathMac := ReplaceStringAll(pathMac,'/',':');     // separateurs a la mode Mac
+  pathMac := ReplaceStringAll(pathMac,DirectorySeparator,':');     // separateurs a la mode Mac
   if (pathMac[1] = ':')
     then pathUnix := pathMac
-    else SplitAt(pathMac,':',foo, pathUnix);        // enlever le nom du disque dur
-  pathUnix := ReplaceStringAll(pathUnix,':','/');   // separateurs a la mode UNIX
+    else Split(pathMac,':',foo, pathUnix);                         // enlever le nom du disque dur
+  pathUnix := ReplaceStringAll(pathUnix,':',DirectorySeparator);   // separateurs a la mode UNIX
 
   if (debugEngine or debuggage.engineInput or debuggage.engineOutput or InfosTechniquesDansRapport) then
     begin

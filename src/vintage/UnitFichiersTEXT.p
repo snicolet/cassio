@@ -210,7 +210,7 @@ begin
 
   while (reste <> '') and (err = 0) do
     begin
-      posDeuxPoints := Pos(':',reste);
+      posDeuxPoints := Pos(DirectorySeparator,reste);
       if posDeuxPoints > 0
         then
           begin
@@ -230,7 +230,7 @@ begin
       if err = 0 then
         begin
           if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
-            then debut := resolvedDebut+':'
+            then debut := resolvedDebut + DirectorySeparator 
             else debut := resolvedDebut;
         end;
     end;
@@ -262,7 +262,7 @@ begin
         len := LENGTH_OF_STRING(nomDirectory);
         if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(nom)) <= 220) then
           begin
-            if (nom[1] = ':') and EndsWithDeuxPoints(nomDirectory)
+            if (nom[1] = DirectorySeparator ) and EndsWithDeuxPoints(nomDirectory)
               then nom := TPCopy(nomDirectory,1,len-1)+nom
               else nom := nomDirectory+nom;
             err := ResolveAliasInFullName(nom);
@@ -2091,7 +2091,7 @@ begin
         s := ReplaceParameters(s,nomFichier,IntToStr(erreurES),'','');
       end;
 
-  SplitAt(s,'!',texte,explication);
+  Split(s,'!',texte,explication);
   AlerteDouble(texte+'!',explication);
 end;
 

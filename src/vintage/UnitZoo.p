@@ -2129,7 +2129,7 @@ function MuStringEnProbCutStringDuZoo(mu : String255) : String255;
 var left, right, cut : String255;
     muMax, dist, distMin, i: SInt32;
 begin
-  SplitAt(mu, ',', left, right);
+  Split(mu, ',', left, right);
 
   muMax := StrToInt32(right);
 
@@ -2352,13 +2352,13 @@ begin
 
           // la fenetre alpha-beta
 
-          SplitAt(window, ',' , left, right);
+          Split(window, ',' , left, right);
           inAlphaFinale := StrToInt32(left);
           inBetaFinale := StrToInt32(right);
 
           // la fenetre des mu
 
-          SplitAt(mu, ',' , left, right);
+          Split(mu, ',' , left, right);
           inMuMinimumFinale := StrToInt32(left);
           inMuMaximumFinale := StrToInt32(right);
 
@@ -2540,14 +2540,14 @@ begin
 
           // la fenetre alpha-beta
 
-          SplitAt(window, ',' , left, right);
+          Split(window, ',' , left, right);
           inAlphaFinale := StrToInt32(left);
           inBetaFinale := StrToInt32(right);
 
 
           // la fenetre des mu
 
-          SplitAt(mu, ',' , left, right);
+          Split(mu, ',' , left, right);
           inMuMinimumFinale := StrToInt32(left);
           inMuMaximumFinale := StrToInt32(right);
 

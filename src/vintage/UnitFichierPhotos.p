@@ -637,7 +637,7 @@ var directoryDepart : fileInfo;
     codeErreur : OSErr;
     cheminDirectoryDepartRecursion : String255;
 begin
-  cheminDirectoryDepartRecursion := pathDuDossier + ':';
+  cheminDirectoryDepartRecursion := pathDuDossier + DirectorySeparator;
 
   codeErreur := MakeFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
 

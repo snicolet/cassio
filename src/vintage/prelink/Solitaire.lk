@@ -159,7 +159,7 @@ procedure DoFinaleOptimale(selectedByMenu : boolean);     external;
    procedure CloseChannel(var theChannel : SndChannelPtr);     external;
    procedure HUnlockSoundRessource(SoundID : SInt16);     external;
 function GetWindowPortRect(window : WindowPtr) : rect;     external;
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
   function EnleveChiffresApresCeCaractereEnFinDeLigne(delim : char; const s : String255; keepDelimitor : boolean) : String255;     external;

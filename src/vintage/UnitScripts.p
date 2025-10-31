@@ -850,7 +850,7 @@ var fichierJPEG : basicfile;
     erreurES : OSErr;
     path : String255;
 begin
-  SplitRightByChar(nomJPEG,':',path,nomJPEG);
+  SplitRightByChar(nomJPEG, DirectorySeparator ,path,nomJPEG);
   WritelnDansRapport('nomJPEG = '+nomJPEG);
 
   erreurES := FichierTexteDeCassioExiste(nomJPEG,fichierJPEG);

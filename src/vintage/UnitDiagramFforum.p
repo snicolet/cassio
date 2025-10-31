@@ -968,8 +968,8 @@ end;
 procedure SetNomFichierDansTitreDiagrammeFFORUM(nomFichier : String255);
 begin
 
-  while Pos(':',nomFichier) <> 0 do
-    nomFichier := TPCopy(nomFichier,Pos(':',nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos(':',nomFichier));
+  while Pos( DirectorySeparator ,nomFichier) <> 0 do
+    nomFichier := TPCopy(nomFichier,Pos( DirectorySeparator ,nomFichier)+1,LENGTH_OF_STRING(nomFichier)-Pos( DirectorySeparator ,nomFichier));
 
   nomFichier := ReplaceStringOnce( nomFichier, '.sof', '');
   nomFichier := ReplaceStringOnce( nomFichier, '.sgf', '');
@@ -2128,7 +2128,7 @@ begin
 		    begin
 		      texte := GetStringInfoOfProperty(prop);
 		      if Pos(':', texte) > 0 then
-		         SplitAt(texte, ':', foo, texte);
+		         Split(texte, ':', foo, texte);
 		    end;
 		
 			case stockage of

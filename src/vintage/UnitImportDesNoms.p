@@ -648,9 +648,11 @@ begin
       if Pos(s,path) > 0 then
         annee := essaiAnnee;
     end;
+    
+  DoDirSeparators(path);
 
   oldParsingSet := GetParserDelimiters;
-	SetParserDelimiters([':','0','1','2','3','4','5','6','7','8','9']);
+	SetParserDelimiters([DirectorySeparator,'0','1','2','3','4','5','6','7','8','9']);
 
 	reste := path;
 	if (reste <> '') then
@@ -1106,6 +1108,8 @@ var nbJoueursTrouves : SInt64;
 
 begin  {TrouverNomsDesJoueursDansNomDeFichier}
 
+  DoDirSeparators(s);
+
   s := UTF8ToAscii(s);
   StripHTMLAccents(s);
 
@@ -1118,7 +1122,7 @@ begin  {TrouverNomsDesJoueursDansNomDeFichier}
   qualiteSolution := 0.0;
 
 
-  theParsingCaracters := ['-','Ð','.',',',';',':','+','À','/','\','|','~','­','±','Ö','@','#','¥',' ','Ê','(',')','{','}','[',']','0','1','2','3','4','5','6','7','8','9'];
+  theParsingCaracters := [DirectorySeparator,'-','Ð','.',',',';',':','+','À','/','\','|','~','­','±','Ö','@','#','¥',' ','Ê','(',')','{','}','[',']','0','1','2','3','4','5','6','7','8','9'];
   if TrouverNomsAvecCeParsingSet(theParsingCaracters,confiance) then
     ComparerCetteSolutionALaMeilleure(confiance,numeroNoirBestSolution,numeroBlancBestSolution);
 
@@ -1126,7 +1130,7 @@ begin  {TrouverNomsDesJoueursDansNomDeFichier}
   { Si la chaine contient des underscores, il se peut qu'ils soient utilisŽs comme sŽparateurs }
   if (Pos('_',s) > 0) or (Pos('_',s) > 0) then
     begin
-      theParsingCaracters := ['-','Ð','.',',',';',':','+','À','/','\','|','~','­','±','Ö','@','#','¥',' ','Ê','(',')','{','}','[',']','0','1','2','3','4','5','6','7','8','9','_','_'];
+      theParsingCaracters := [DirectorySeparator,'-','Ð','.',',',';',':','+','À','/','\','|','~','­','±','Ö','@','#','¥',' ','Ê','(',')','{','}','[',']','0','1','2','3','4','5','6','7','8','9','_','_'];
       if TrouverNomsAvecCeParsingSet(theParsingCaracters,confiance) then
         ComparerCetteSolutionALaMeilleure(confiance,numeroNoirBestSolution,numeroBlancBestSolution);
     end;
@@ -2665,7 +2669,7 @@ begin
             if Pos('VERSUS', s) > 0
               then
                 begin
-                  foo := SplitAt(s, 'VERSUS', expected1, expected2);
+                  foo := Split(s, 'VERSUS', expected1, expected2);
                   expected1 := Trim(UTF8ToAscii(expected1));
                   expected2 := Trim(UTF8ToAscii(expected2));
 

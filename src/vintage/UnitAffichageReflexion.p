@@ -333,9 +333,9 @@ begin
     else decalageH := 0;
 
   coup := TPCopy(s, 1, 2);
-  SplitAt(s, '¥', foo, defense);
+  Split(s, '¥', foo, defense);
   defense := TPCopy(defense, 1, 2);
-  SplitAt(s, '=>', foo, result);
+  Split(s, '=>', foo, result);
   EnleveEspacesDeGaucheSurPlace(result);
 
   Moveto(a , b);

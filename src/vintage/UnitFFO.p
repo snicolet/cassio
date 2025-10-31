@@ -268,7 +268,7 @@ begin
   if (s <> '') and (s[1] <> '%') and not(StringBeginsWith(s, 'pays ')) then
     begin
 
-      SplitAt(s, '%', infosFFO, s2);
+      Split(s, '%', infosFFO, s2);
 
       Parse(infosFFO, chaineNumero, nomFFO);
 

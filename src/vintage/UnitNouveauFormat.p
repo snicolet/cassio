@@ -660,7 +660,7 @@ begin
           else
             begin
               nameOfFile := CalculeNomFichierNouveauFormat(nroFichier);
-              SplitAt(nameOfFile,'.',nameOfFile,bidstr);
+              Split(nameOfFile,'.',nameOfFile,bidstr);
               EnleveEspacesDeGaucheSurPlace(nameOfFile);
               EnleveEspacesDeDroiteSurPlace(nameOfFile);
               pathOfFile := CalculePathFichierNouveauFormat(nroFichier);
@@ -1929,7 +1929,7 @@ begin
             begin
               codeErreur := Readln(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
-                 SplitAt(s,'=',nomLatin,nomJaponais) then
+                 Split(s,'=',nomLatin,nomJaponais) then
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
 		              EnleveEspacesDeDroiteSurPlace(nomLatin);
@@ -2447,7 +2447,7 @@ begin
             begin
               codeErreur := Readln(fic,s);
               if (codeErreur = NoErr) and (s[1] <> '%') and (s <> '') and
-                 SplitAt(s,'=',nomLatin,nomJaponais) then
+                 Split(s,'=',nomLatin,nomJaponais) then
 		            begin
 		              EnleveEspacesDeGaucheSurPlace(nomLatin);
 		              EnleveEspacesDeDroiteSurPlace(nomLatin);
@@ -2943,8 +2943,8 @@ var directoryDepart : fileInfo;
 begin
 
   if (vRefNum <> 0)
-    then cheminDirectoryDepartRecursion := GetWDName(vRefNum)+NomDossier+':'
-    else cheminDirectoryDepartRecursion := NomDossier+':';
+    then cheminDirectoryDepartRecursion := GetWDName(vRefNum) + NomDossier + DirectorySeparator
+    else cheminDirectoryDepartRecursion := NomDossier + DirectorySeparator;
 
 
   codeErreur := MakeFileInfo(vRefNum,vRefNum,cheminDirectoryDepartRecursion,directoryDepart);

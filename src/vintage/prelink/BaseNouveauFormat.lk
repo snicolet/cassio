@@ -183,7 +183,7 @@ function OpenFile(var fic : basicfile) : OSErr;     external;
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
-	function SplitAt (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
 function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : basicfile) : OSErr;     external;
 	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
@@ -198,7 +198,7 @@ function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     ext
 function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
   function EnleveEspacesDeGauche(const s : String255) : String255;     external;
 	procedure UpCaseString (var s : String255);     external;
-	function SplitAt (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
+	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;

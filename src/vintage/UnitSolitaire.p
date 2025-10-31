@@ -2498,7 +2498,7 @@ begin
   err := SetVol(NIL,SolitairesRefVol);
   fileName := CheminAccesThorDBASolitaire^^;
   i := LENGTH_OF_STRING(fileName);
-  while (fileName[i] <> ':') and (i > 0) do i := i-1;
+  while (fileName[i] <> DirectorySeparator) and (i > 0) do i := i-1;
   fileName := Concat(TPCopy(fileName,1,i),'Solitaires Cassio');
   err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
   if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
@@ -2506,7 +2506,7 @@ begin
     begin
       fileName := CheminAccesThorDBASolitaire^^;
       i := LENGTH_OF_STRING(fileName);
-      while (fileName[i] <> ':') and (i > 0) do i := i-1;
+      while (fileName[i] <> DirectorySeparator) and (i > 0) do i := i-1;
       fileName := Concat(TPCopy(fileName,1,i),'Solitaire Cassio');
       err := FichierTexteDeCassioExiste(filename,FichierReferencesSolitaires);
       if err = NoErr then err := OpenFile(FichierReferencesSolitaires);
@@ -3452,7 +3452,7 @@ begin
   ParserCommentaireSolitaire(references,prompt,reste);
 
   if Pos('É',reste) > 0 then
-    if SplitAt(reste,'É',prompt,reste) then DoNothing;
+    if Split(reste,'É',prompt,reste) then DoNothing;
 
   EnleveEspacesDeGaucheSurPlace(reste);
   EnleveEspacesDeDroiteSurPlace(reste);
@@ -3465,9 +3465,9 @@ begin
   if (reste <> '') then
     begin
 
-      if SplitAt(reste,'Ñ',s1,s2) then // note : c'est un tiret long (option Ñ )
-        if SplitAt(s2,',',s2,s3) then
-          if (Pos(',',s3) <= 0) or SplitAt(s3,',',s3,s4) then
+      if Split(reste,'Ñ',s1,s2) then // note : c'est un tiret long (option Ñ )
+        if Split(s2,',',s2,s3) then
+          if (Pos(',',s3) <= 0) or Split(s3,',',s3,s4) then
             begin
               noir    := s1;
               blanc   := s2;
