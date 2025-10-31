@@ -1005,7 +1005,7 @@ begin
 		                     WritelnDansRapport('');
 		                   end;}
 
-		                 whichEval.Edges2X[stage]^[k] := debut+(fin-debut)*(stage-stageMin)/(stageMax-stageMin);
+		                 whichEval.Edges2X[stage]^[k] := debut + (fin-debut)*(stage-stageMin)/(stageMax-stageMin);
 		               end;
 		           end;
            end
@@ -1033,7 +1033,7 @@ begin
 		                       fin := whichEval.Pattern[numeroPattern,j]^[k];
 		                     end;
 
-		                 whichEval.Pattern[numeroPattern,stage]^[k] := debut+(fin-debut)*(stage-stageMin)/(stageMax-stageMin);
+		                 whichEval.Pattern[numeroPattern,stage]^[k] := debut + (fin-debut)*(stage-stageMin)/(stageMax-stageMin);
 		               end;
 		           end;
            end;

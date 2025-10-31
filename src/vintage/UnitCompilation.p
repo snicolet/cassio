@@ -2150,19 +2150,19 @@ begin
 
   gActionDeCompilationDemandee := K_COMPILER_INTERFACE;
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
@@ -2177,19 +2177,19 @@ begin
 
   gActionDeCompilationDemandee := K_COMPILER_IMPLEMENTATION;
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':PNL_Libraries',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Edmond',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 
-  codeErreur := MyFSMakeFSSpec(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
+  codeErreur := MakeFileInfo(0,0,kPathSourcesDeCassio+':Zebra_book',directoryDepart);
   if (codeErreur = 0) then codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then codeErreur := ScanDirectory(directoryDepart,VerifierCeFichierSourceEtRecursion);
 

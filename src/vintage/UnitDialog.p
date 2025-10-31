@@ -522,7 +522,7 @@ begin
 
   MySFPutFile(where,@prompt255,s,NIL,reply);
 
-  whichSpec := MyMakeFSSpec(reply.vRefNum, 0, GetNameOfSFReply(reply));
+  whichSpec := FileInfo(reply.vRefNum, 0, GetNameOfSFReply(reply));
 
   MakeFileNameSansNavigationServices := reply.good and (erreurES = NoErr);
 end;
@@ -654,7 +654,7 @@ begin
       if (osError = noErr) then
         begin
           BlockMoveData(Ptr(resultDesc.dataHandle^), @fileSpec, sizeof(fileInfo));
-          ignoredErr := MyFSMakeFSSpec(fileSpec.vRefNum, fileSpec.parID, GetName(fileSpec), theFileSpec);
+          ignoredErr := MakeFileInfo(fileSpec.vRefNum, fileSpec.parID, GetName(fileSpec), theFileSpec);
         end;
       ignoredErr := AEDisposeDesc(resultDesc);
       ignoredErr := NavDisposeReply(theNavReply);
@@ -723,7 +723,7 @@ begin
     erreurES := SetVol(NIL,reply.vRefNum);
   *)
 
-  whichSpec := MyMakeFSSpec(reply.vRefNum, 0, GetNameOfSFReply(reply));
+  whichSpec := FileInfo(reply.vRefNum, 0, GetNameOfSFReply(reply));
 
   GetFileNameSansNavigationServices := reply.good and (erreurES = NoErr);
 end;

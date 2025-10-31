@@ -183,8 +183,8 @@ begin
 		        nomDeLaBase := GetNameOfSFReply(reply);
 
 		        nomfichier := GetNameOfSFReply(reply)+'.script';
-		        err := FileExists(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),script);
-		        if err = fnfErr then err := CreateFile(MyMakeFSSpec(info.vRefNum,info.parID,nomfichier),script);
+		        err := FileExists(FileInfo(info.vRefNum,info.parID,nomfichier),script);
+		        if err = fnfErr then err := CreateFile(FileInfo(info.vRefNum,info.parID,nomfichier),script);
 		        if err = 0 then
 		          begin
 		            err := OpenFile(script);

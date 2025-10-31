@@ -23,7 +23,7 @@ function GetWindowPortRect(window : WindowPtr) : rect;     external;
 function GetScreenBounds : rect;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
   procedure MySFPutFile(where : Point; prompt : ConstStringPtr; origName : String255; dlgHook : DlgHookUPP; VAR reply : SFReply);     external;
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
+	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : fileInfo; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;     external;
 	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
   procedure SetNameOfSFReply(var reply : SFReply; const name : String255);     external;

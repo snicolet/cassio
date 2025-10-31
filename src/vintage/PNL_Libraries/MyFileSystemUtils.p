@@ -20,7 +20,7 @@ INTERFACE
 	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 	function MyFSMakeFSSpec (vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
 	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
 	function CopyData (src, dst: SInt16; len : SInt32) : OSErr;
@@ -283,7 +283,7 @@ end;
 			s : String255;
 	begin
 	  s := GetName(fs);
-		err := MyFSMakeFSSpec(fs.vRefNum, fs.parID, s, fs);
+		err := MakeFileInfo(fs.vRefNum, fs.parID, s, fs);
 		if err = fnfErr then begin
 			err := noErr;
 		end;
@@ -733,11 +733,11 @@ end;
 		MyFSMakeFSSpec := oe;
 	end;
 
-	function MyMakeFSSpec(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	var result : fileInfo;
 	    err : OSErr;
 	begin
-	  err := MyFSMakeFSSpec(vrn, dirID, name, result);
+	  err := MakeFileInfo(vrn, dirID, name, result);
 	  MyMakeFSSpec := result;
 	end;
 
@@ -1674,7 +1674,7 @@ begin
   if RightStr(directoryPath,1) <> CharToString(separateur) then
      directoryPath := directoryPath + separateur;
 
-  erreurES := MyFSMakeFSSpec(0,0,directoryPath,directoryDepot);
+  erreurES := MakeFileInfo(0,0,directoryPath,directoryDepot);
 
   if not(FolderExists(directoryDepot, erreurES))
     then
@@ -1793,7 +1793,7 @@ begin
 	applicationFolderPath := volumeName + applicationFolderPath;
 
 	(* Check the result : is the application support folder path a correct path ? *)
-	err := MyFSMakeFSSpec(0,0,applicationFolderPath,fsAppSuppFolder);
+	err := MakeFileInfo(0,0,applicationFolderPath,fsAppSuppFolder);
 	if (err <> NoErr) then
 	begin
 	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : MyFSMakeFSSpec = ',err);

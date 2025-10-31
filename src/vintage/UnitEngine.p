@@ -484,7 +484,7 @@ var directoryDepart : fileInfo;
     cheminDirectoryDepartRecursion : String255;
 begin
   cheminDirectoryDepartRecursion := pathDuDossier + ':';
-  codeErreur := MyFSMakeFSSpec(0,0,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := MakeFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then
     codeErreur := ScanDirectory(directoryDepart,TraiteFichierEngineEtRecursion);

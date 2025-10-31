@@ -147,16 +147,16 @@ USES
 
 
 
-const unit_initialisee : boolean = false;
+const unit_initialized : boolean = false;
       debugBasicFiles : boolean = false;
 
 var useStandardConsole : boolean;
     CustomDisplayMessage : MessageDisplayerProc;
     CustomDisplayMessageWithNum : MessageAndNumDisplayerProc;
     CustomDisplayAlerteWithNum : MessageAndNumDisplayerProc;
-    nomSortieStandardDansRapport : String255;
+    nameOfStandardOutputForRapport : String255;
 
-    gRetourCharriotTrouveDansReadlnFichierTEXT : boolean;
+    gEndOfLineFoundInReadln : boolean;
 
 
 procedure StandardConsoleDisplayer(s : String255);
@@ -177,21 +177,21 @@ end;
 
 procedure DisplayMessageInConsole(s : String255);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayMessage(s)
     else StandardConsoleDisplayer(s);
 end;
 
 procedure DisplayMessageWithNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayMessageWithNum(s,num)
     else StandardConsoleDisplayerWithNum(s,num);
 end;
 
 procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayAlerteWithNum(s,num)
     else StandardConsoleAlertWithNum(s,num)
 end;
@@ -200,7 +200,7 @@ end;
 
 function ResolveAliasInFullName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
-    myFSSpec : fileInfo;
+    myFileInfo : fileInfo;
     err : OSErr;
     posDeuxPoints : SInt16;
 begin
@@ -223,10 +223,10 @@ begin
             reste := '';
           end;
 
-      err := MyFSMakeFSSpec(0,0,debut,myFSSpec);
-      MyResolveAliasFile(myFSSpec);
+      err := MakeFileInfo(0,0,debut,myFileInfo);
+      MyResolveAliasFile(myFileInfo);
       resolvedDebut := debut;
-      err := FSSpecToFullPath(myFSSpec,resolvedDebut);
+      err := FSSpecToFullPath(myFileInfo,resolvedDebut);
       if err = 0 then
         begin
           if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
@@ -245,7 +245,7 @@ begin
   FileIsStandardOutput := (fic.vRefNum = 0) and
                               (fic.parID = 0) and
                               (fic.refNum = 0) and
-                              (fic.nomFichier = nomSortieStandardDansRapport);
+                              (fic.nomFichier = nameOfStandardOutputForRapport);
 end;
 
 
@@ -390,12 +390,12 @@ end;
 
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
-    myFSSpec : fileInfo;
+    myFileInfo : fileInfo;
 begin
-   err := MyFSMakeFSSpec(0,0,path,myFSSpec);
+   err := MakeFileInfo(0,0,path,myFileInfo);
    if err <> NoErr
      then PathCompletToLongName := err
-     else PathCompletToLongName := FSSpecToLongName(myFSSpec,theLongName);
+     else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
 end;
 
 
@@ -424,7 +424,7 @@ begin
 
   with fic do
     begin
-      err := MyFSMakeFSSpec(vRefNum,parID,nomFichier,info);
+      err := MakeFileInfo(vRefNum,parID,nomFichier,info);
       fullName := nomFichier;
       if (err = NoErr) then
         begin
@@ -1532,12 +1532,12 @@ begin
   {on cherche le premier retour charriot dans le buffer}
   len := Min(256,len);
   longueurLigne := Min(255,len);
-  gRetourCharriotTrouveDansReadlnFichierTEXT := false;
+  gEndOfLineFoundInReadln := false;
   for i := len downto 1 do
     if (buffer[i] = cr) or (buffer[i] = lf) then
       begin
         longueurLigne := i-1;
-        gRetourCharriotTrouveDansReadlnFichierTEXT := true;
+        gEndOfLineFoundInReadln := true;
       end;
 
   {on ajuste en consequence la longueur de s, et on recopie la chaine}
@@ -1546,7 +1546,7 @@ begin
   SET_LENGTH_OF_STRING(s,longueurLigne);
 
   {on gere les retours charriots DOS, UNIX, Mac, etc}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT then
+  if gEndOfLineFoundInReadln then
     begin
       if ((buffer[longueurLigne+1] = cr) and (buffer[longueurLigne+2] = lf)) or
          ((buffer[longueurLigne+1] = lf) and (buffer[longueurLigne+2] = cr))
@@ -1554,13 +1554,13 @@ begin
     end;
 
   {on deplace la tete de lecture}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT
+  if gEndOfLineFoundInReadln
     then positionTeteDeLecture := 1 + positionTeteDeLecture + longueurLigne
     else positionTeteDeLecture :=     positionTeteDeLecture + longueurLigne;
   err := SetFilePosition(fic,positionTeteDeLecture);
 
   {
-  WriteStringAndBoolDansRapport(s+' ',gRetourCharriotTrouveDansReadlnFichierTEXT);
+  WriteStringAndBoolDansRapport(s+' ',gEndOfLineFoundInReadln);
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
@@ -1593,7 +1593,7 @@ begin
         begin
           longueur := LENGTH_OF_STRING(debutLigne);
           if (longueur < 255) or
-             ((longueur = 255) and gRetourCharriotTrouveDansReadlnFichierTEXT)
+             ((longueur = 255) and gEndOfLineFoundInReadln)
             then
               begin
                 Readln := err;
@@ -1602,7 +1602,7 @@ begin
             else
               begin
                 err := Readln(fic, finLigne);
-                complete := gRetourCharriotTrouveDansReadlnFichierTEXT;
+                complete := gEndOfLineFoundInReadln;
               end;
         end;
 
@@ -1681,24 +1681,24 @@ begin
 
   {on cherche le premier retour charriot dans buffPtr}
   longueurLigne := Min(len,count);
-  gRetourCharriotTrouveDansReadlnFichierTEXT := false;
+  gEndOfLineFoundInReadln := false;
   for i := count-1 downto 0 do
     if (localBuffer^[i] = cr) or (localBuffer^[i] = lf) then
       begin
         longueurLigne := i;
         count := i;
-        gRetourCharriotTrouveDansReadlnFichierTEXT := true;
+        gEndOfLineFoundInReadln := true;
       end;
 
 
   {on deplace la tete de lecture}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT
+  if gEndOfLineFoundInReadln
     then positionTeteDeLecture := 1 + positionTeteDeLecture + longueurLigne
     else positionTeteDeLecture :=     positionTeteDeLecture + longueurLigne;
   err := SetFilePosition(fic,positionTeteDeLecture);
 
   {
-  WriteStringAndBoolDansRapport(s+' ',gRetourCharriotTrouveDansReadlnFichierTEXT);
+  WriteStringAndBoolDansRapport(s+' ',gEndOfLineFoundInReadln);
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
@@ -2269,16 +2269,16 @@ begin
   InstallAlertBasicFile(StandardConsoleAlertWithNum);
   useStandardConsole := true;
 
-  nomSortieStandardDansRapport := 'Rapport-stdErr-fake-Cassio';
+  nameOfStandardOutputForRapport := 'Rapport-stdErr-fake-Cassio';
 
-  unit_initialisee := true;
+  unit_initialized := true;
 end;
 
 
 function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
 begin
-  if not(unit_initialisee) then InitUnitBasicFile;
-  CreateStandardOutputAsFile := CreateFile(nomSortieStandardDansRapport,0,fic);
+  if not(unit_initialized) then InitUnitBasicFile;
+  CreateStandardOutputAsFile := CreateFile(nameOfStandardOutputForRapport,0,fic);
 end;
 
 

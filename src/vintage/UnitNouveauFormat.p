@@ -2947,7 +2947,7 @@ begin
     else cheminDirectoryDepartRecursion := NomDossier+':';
 
 
-  codeErreur := MyFSMakeFSSpec(vRefNum,vRefNum,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := MakeFileInfo(vRefNum,vRefNum,cheminDirectoryDepartRecursion,directoryDepart);
 
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
 

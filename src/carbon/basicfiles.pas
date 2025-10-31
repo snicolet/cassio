@@ -23,7 +23,7 @@ TYPE
               si on rajoute des gros champs à basicfile... }
      basicfile =
           record
-            nomFichier : String255;               {private}
+            fileName : String255;                 {private}
             uniqueID : SInt32;                    {private}
             parID : SInt32;                       {private}
             refNum : SInt16;                      {private}
@@ -50,15 +50,15 @@ TYPE
 
 
 
-function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
-function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 
 
 
-function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;
-function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;
+function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
+function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
 
 
 function OpenFile(var fic : basicfile) : OSErr;
@@ -127,7 +127,7 @@ function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : O
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 
 
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
+procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 
 
 
@@ -160,16 +160,16 @@ uses
   SysUtils;
 
 
-const unit_initialisee : boolean = false;
+const unit_initialized : boolean = false;
       debugBasicFiles : boolean = false;
 
 var useStandardConsole : boolean;
     CustomDisplayMessage : MessageDisplayerProc;
     CustomDisplayMessageWithNum : MessageAndNumDisplayerProc;
     CustomDisplayAlerteWithNum : MessageAndNumDisplayerProc;
-    nomSortieStandardDansRapport : String255;
+    nameOfStandardOutputForRapport : String255;
 
-    gRetourCharriotTrouveDansReadlnFichierTEXT : boolean;
+    gEndOfLineFoundInReadln : boolean;
 
 
 procedure StandardConsoleDisplayer(s : String255);
@@ -190,21 +190,21 @@ end;
 
 procedure DisplayMessageInConsole(s : String255);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayMessage(s)
     else StandardConsoleDisplayer(s);
 end;
 
 procedure DisplayMessageWithNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayMessageWithNum(s,num)
     else StandardConsoleDisplayerWithNum(s,num);
 end;
 
 procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialisee
+  if unit_initialized
     then CustomDisplayAlerteWithNum(s,num)
     else StandardConsoleAlertWithNum(s,num)
 end;
@@ -213,7 +213,7 @@ end;
 
 function ResolveAliasInFullName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
-    myFSSpec : fileInfo;
+    myFileInfo : fileInfo;
     err : OSErr;
     posDeuxPoints : SInt16;
 begin
@@ -227,19 +227,19 @@ begin
       if posDeuxPoints > 0
         then
           begin
-            debut := debut+TPCopy(reste,1,posDeuxPoints);
+            debut := debut + TPCopy(reste,1,posDeuxPoints);
             reste := TPCopy(reste,posDeuxPoints+1,LENGTH_OF_STRING(reste)-posDeuxPoints);
           end
         else
           begin
-            debut := debut+reste;
+            debut := debut + reste;
             reste := '';
           end;
 
-      err := MyFSMakeFSSpec(0,0,debut,myFSSpec);
-      MyResolveAliasFile(myFSSpec);
+      err := MakeFileInfo(0,0,debut,myFileInfo);
+      MyResolveAliasFile(myFileInfo);
       resolvedDebut := debut;
-      err := FSSpecToFullPath(myFSSpec,resolvedDebut);
+      err := FSSpecToFullPath(myFileInfo,resolvedDebut);
       if err = 0 then
         begin
           if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
@@ -258,32 +258,32 @@ begin
   FileIsStandardOutput := (fic.vRefNum = 0) and
                           (fic.parID = 0) and
                           (fic.refNum = 0) and
-                          (fic.nomFichier = nomSortieStandardDansRapport);
+                          (fic.fileName = nameOfStandardOutputForRapport);
 end;
 
 
-procedure InitialiseFichierTexte(var nom : String255; var vRefNum : SInt16; var fic : basicfile);
+procedure InitialiseFichierTexte(var name : String255; var vRefNum : SInt16; var fic : basicfile);
 var nomDirectory : String255;
     len : SInt16;
     err : OSErr;
 begin
 
-  if (Pos(':',nom) > 0) and (vRefNum <> 0)
+  if (Pos(':',name) > 0) and (vRefNum <> 0)
     then
       begin
         nomDirectory := GetWDName(vRefNum);
         len := LENGTH_OF_STRING(nomDirectory);
-        if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(nom)) <= 220) then
+        if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(name)) <= 220) then
           begin
-            if (nom[1] = ':') and EndsWithDeuxPoints(nomDirectory)
-              then nom := TPCopy(nomDirectory,1,len-1)+nom
-              else nom := nomDirectory+nom;
-            err := ResolveAliasInFullName(nom);
+            if (name[1] = ':') and EndsWithDeuxPoints(nomDirectory)
+              then name := TPCopy(nomDirectory,1,len-1)+name
+              else name := nomDirectory+name;
+            err := ResolveAliasInFullName(name);
             vRefNum := 0;
           end;
       end;
 
-  fic.nomFichier := nom;
+  fic.fileName := name;
   fic.vRefNum := vRefNum;
   fic.parID := 0;
   fic.refNum := 0;
@@ -291,7 +291,7 @@ begin
 
   with fic.info do
     begin
-      name := nom;      // SetNameOfFSSpec(fic.info, '');
+      name := name;      // SetNameOfFSSpec(fic.info, '');
       vRefNum := 0;
       parID := 0;
     end;
@@ -316,7 +316,7 @@ end;
 procedure InitialiseFichierTexteFSp(info : fileInfo; var fic : basicfile);
 begin
 
-  fic.nomFichier := info.name;
+  fic.fileName   := info.name;
   fic.vRefNum    := info.vRefNum;
   fic.parID      := info.parID;
   fic.refNum     := 0;
@@ -405,12 +405,12 @@ end;
 
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
-    myFSSpec : fileInfo;
+    myFileInfo : fileInfo;
 begin
-   err := MyFSMakeFSSpec(0,0,path,myFSSpec);
+   err := MakeFileInfo(0,0,path,myFileInfo);
    if err <> NoErr
      then PathCompletToLongName := err
-     else PathCompletToLongName := FSSpecToLongName(myFSSpec,theLongName);
+     else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
 end;
 
 
@@ -422,7 +422,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' avant MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -439,8 +439,8 @@ begin
 
   with fic do
     begin
-      err := MyFSMakeFSSpec(vRefNum,parID,nomFichier,info);
-      fullName := nomFichier;
+      err := MakeFileInfo(vRefNum,parID,fileName,info);
+      fullName := fileName;
       if (err = NoErr) then
         begin
           MyResolveAliasFile(info);
@@ -451,10 +451,10 @@ begin
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
         bidlongint := FSSpecToFullPath(info,fullName);
       parID      := info.parID;
-      nomFichier := fullName;
+      fileName := fullName;
       uniqueID   := HashString(fullName);
 
-      {DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      {DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('LENGTH_OF_STRING(fic.fullName) = ',LENGTH_OF_STRING(fullName));
       DisplayMessageWithNumInConsole('hashing -> uniqueID = ',uniqueID);}
     end;
@@ -463,7 +463,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSMakeFSSpec dans CreateFFSpecAndResolveAlias :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -476,21 +476,21 @@ begin
 end;
 
 
-function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
     FinderInfos : FInfo;
 begin
 
-  if (nom = '') then
+  if (name = '') then
     begin
-      DisplayMessageInConsole('WARNING ! (nom = '''') dans FileExists');
+      DisplayMessageInConsole('WARNING ! (name = '''') dans FileExists');
       FileExists := -1;
       exit;
     end;
 
-  {TraceLog('FileExists : nom =' + nom);}
+  {TraceLog('FileExists : name =' + name);}
 
-  InitialiseFichierTexte(nom,vRefNum,fic);
+  InitialiseFichierTexte(name,vRefNum,fic);
 
   if FileIsStandardOutput(fic) then
     begin
@@ -502,7 +502,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -517,7 +517,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -538,7 +538,7 @@ begin
 			    begin
 			      DisplayMessageInConsole('');
 			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
-			      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+			      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -584,7 +584,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -599,7 +599,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -620,7 +620,7 @@ begin
 			    begin
 			      DisplayMessageInConsole('');
 			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
-			      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+			      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -642,10 +642,10 @@ begin
 end;
 
 
-function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
-  InitialiseFichierTexte(nom,vRefNum, fic);
+  InitialiseFichierTexte(name,vRefNum, fic);
   err := CreateFFSpecAndResolveAlias(fic);
 
   if FileIsStandardOutput(fic) then
@@ -658,7 +658,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -674,7 +674,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -703,7 +703,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -719,7 +719,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -750,7 +750,7 @@ begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name) = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
@@ -762,13 +762,13 @@ begin
 
 (*
   with fic do  {on essaie l'ouverture avec les anciennes routines}
-    err := FSOpen(nomFichier,vRefNum,refNum);
+    err := FSOpen(fileName,vRefNum,refNum);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSOpen dans OpenFile :');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -788,7 +788,7 @@ begin
 		  begin
 			DisplayMessageInConsole('');
 			DisplayMessageInConsole(' apres FSpOpenDF dans OpenFile :');
-			DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
@@ -807,7 +807,7 @@ begin
           SysBeep(0);
           DisplayMessageInConsole('');
           DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
-          DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+          DisplayMessageInConsole('fic.fileName = '+fic.fileName);
           DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement',fic.dataForkOuvertCorrectement);
           DisplayMessageInConsole('');
         end;
@@ -832,7 +832,7 @@ begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
       DisplayMessageInConsole('');
@@ -872,7 +872,7 @@ begin
             SysBeep(0);
             DisplayMessageInConsole('');
             DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
-            DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+            DisplayMessageInConsole('fic.fileName = '+fic.fileName);
             DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
             DisplayMessageInConsole('');
           end;
@@ -916,7 +916,7 @@ begin
   err := -1;
   (*
   with fic do  {on essaie avec les anciennes routines}
-    err := FSDelete(nomFichier,vRefNum);
+    err := FSDelete(fileName,vRefNum);
 
   if debugBasicFiles then
     begin
@@ -1346,7 +1346,7 @@ var luDansLeBuffer : boolean;
 label Bail;
 begin
 
- // debug := (Pos('rence',fic.nomFichier) > 0);
+ // debug := (Pos('rence',fic.fileName) > 0);
   debug := false;
 
   luDansLeBuffer := false;
@@ -1484,12 +1484,12 @@ begin
   {on cherche le premier retour charriot dans le buffer}
   len := Min(256,len);
   longueurLigne := Min(255,len);
-  gRetourCharriotTrouveDansReadlnFichierTEXT := false;
+  gEndOfLineFoundInReadln := false;
   for i := len downto 1 do
     if (buffer[i] = cr) or (buffer[i] = lf) then
       begin
         longueurLigne := i-1;
-        gRetourCharriotTrouveDansReadlnFichierTEXT := true;
+        gEndOfLineFoundInReadln := true;
       end;
 
   {on ajuste en consequence la longueur de s, et on recopie la chaine}
@@ -1498,7 +1498,7 @@ begin
   SET_LENGTH_OF_STRING(s,longueurLigne);
 
   {on gere les retours charriots DOS, UNIX, Mac, etc}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT then
+  if gEndOfLineFoundInReadln then
     begin
       if ((buffer[longueurLigne+1] = cr) and (buffer[longueurLigne+2] = lf)) or
          ((buffer[longueurLigne+1] = lf) and (buffer[longueurLigne+2] = cr))
@@ -1506,13 +1506,13 @@ begin
     end;
 
   {on deplace la tete de lecture}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT
+  if gEndOfLineFoundInReadln
     then positionTeteDeLecture := 1 + positionTeteDeLecture + longueurLigne
     else positionTeteDeLecture :=     positionTeteDeLecture + longueurLigne;
   err := SetFilePosition(fic,positionTeteDeLecture);
 
   {
-  WriteStringAndBoolDansRapport(s+' ',gRetourCharriotTrouveDansReadlnFichierTEXT);
+  WriteStringAndBoolDansRapport(s+' ',gEndOfLineFoundInReadln);
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
@@ -1545,7 +1545,7 @@ begin
         begin
           longueur := LENGTH_OF_STRING(debutLigne);
           if (longueur < 255) or
-             ((longueur = 255) and gRetourCharriotTrouveDansReadlnFichierTEXT)
+             ((longueur = 255) and gEndOfLineFoundInReadln)
             then
               begin
                 Readln := err;
@@ -1554,7 +1554,7 @@ begin
             else
               begin
                 err := Readln(fic, finLigne);
-                complete := gRetourCharriotTrouveDansReadlnFichierTEXT;
+                complete := gEndOfLineFoundInReadln;
               end;
         end;
 
@@ -1598,24 +1598,24 @@ begin
 
   {on cherche le premier retour charriot dans buffPtr}
   longueurLigne := Min(len,count);
-  gRetourCharriotTrouveDansReadlnFichierTEXT := false;
+  gEndOfLineFoundInReadln := false;
   for i := count-1 downto 0 do
     if (localBuffer^[i] = cr) or (localBuffer^[i] = lf) then
       begin
         longueurLigne := i;
         count := i;
-        gRetourCharriotTrouveDansReadlnFichierTEXT := true;
+        gEndOfLineFoundInReadln := true;
       end;
 
 
   {on deplace la tete de lecture}
-  if gRetourCharriotTrouveDansReadlnFichierTEXT
+  if gEndOfLineFoundInReadln
     then positionTeteDeLecture := 1 + positionTeteDeLecture + longueurLigne
     else positionTeteDeLecture :=     positionTeteDeLecture + longueurLigne;
   err := SetFilePosition(fic,positionTeteDeLecture);
 
   {
-  WriteStringAndBoolDansRapport(s+' ',gRetourCharriotTrouveDansReadlnFichierTEXT);
+  WriteStringAndBoolDansRapport(s+' ',gEndOfLineFoundInReadln);
   WritelnNumDansRapport(' ==>  err = ',err);
   }
 
@@ -1790,7 +1790,7 @@ begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
@@ -1812,7 +1812,7 @@ begin
             SysBeep(0);
             DisplayMessageInConsole('');
             DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
-            DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+            DisplayMessageInConsole('fic.fileName = '+fic.fileName);
             DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
             DisplayMessageInConsole('');
           end;
@@ -1835,7 +1835,7 @@ begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
@@ -1865,7 +1865,7 @@ begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
-      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
       FermeRessourceForkFichierTEXT := -1;
@@ -1889,7 +1889,7 @@ begin
                 SysBeep(0);
                 DisplayMessageInConsole('');
                 DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
-                DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+                DisplayMessageInConsole('fic.fileName = '+fic.fileName);
                 DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
                 DisplayMessageInConsole('');
               end;
@@ -1900,7 +1900,7 @@ begin
 end;
 
 
-function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;
+function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
 const tailleMaxNom = 31;
 var err : OSErr;
     len,posLastDeuxPoints : SInt16;
@@ -1913,41 +1913,41 @@ begin
 
   if err <> NoErr then
     begin
-      err := FileExists(nom,0,fic);
+      err := FileExists(name,0,fic);
       erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
     end;
 
-  posLastDeuxPoints := LastPos(':',nom);
-  nom := TPCopy(nom, posLastDeuxPoints+1, 255);
+  posLastDeuxPoints := LastPos(':',name);
+  name := TPCopy(name, posLastDeuxPoints+1, 255);
 
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
 		  if err <> NoErr then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
 
-  nom := nom+' ';
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  name := name+' ';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
 		  if (err <> NoErr) then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
 
-  nom := nom+'(alias)';
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  name := name+'(alias)';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
 		  if (err <> NoErr) then
 		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+		      err := FileExists(pathDossierFichiersAuxiliaires+':'+name,0,fic);
 		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
 		    end;
 		end;
@@ -1958,54 +1958,54 @@ begin
 end;
 
 
-function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;
+function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
 const tailleMaxNom = 31;
 var err : OSErr;
     len,posLastDeuxPoints : SInt16;
 begin
   err := -1;
-  posLastDeuxPoints := LastPos(':',nom);
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  posLastDeuxPoints := LastPos(':',name);
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
-      err := CreateFile(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+      err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
     end;
-  nom := nom+' (1)';
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  name := name+' (1)';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
       if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
     end;
-  nom := nom+'(2)';
-  len := LENGTH_OF_STRING(nom)-posLastDeuxPoints;
+  name := name+'(2)';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
   if len <= tailleMaxNom then
     begin
       if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+nom,0,fic);
+        then err := CreateFile(pathDossierFichiersAuxiliaires+':'+name,0,fic);
     end;
   CreeFichierTexteDeCassio := err;
 end;
 
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
+procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;
 var s,texte,explication,pathFichier : String255;
 begin
   s := ReadStringFromRessource(TextesErreursID, 5);  {'erreur I/O sur fichier «^0» ! code erreur =  ^1'}
 
-  pathFichier := nomFichier;
+  pathFichier := fileName;
   if (Pos(':',pathFichier) > 0)
     then
       begin
-        nomFichier := ExtraitNomDirectoryOuFichier(pathFichier);
+        fileName := ExtraitNomDirectoryOuFichier(pathFichier);
 
         pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
 
-        s := ParamStr(s,nomFichier,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
+        s := ParamStr(s,fileName,IntToStr(erreurES) + chr(13)+'  path = '+pathFichier,'','');
       end
     else
       begin
-        s := ParamStr(s,nomFichier,IntToStr(erreurES),'','');
+        s := ParamStr(s,fileName,IntToStr(erreurES),'','');
       end;
 
   SplitAt(s,'!',texte,explication);
@@ -2186,16 +2186,16 @@ begin
   InstallAlertBasicFile(StandardConsoleAlertWithNum);
   useStandardConsole := true;
 
-  nomSortieStandardDansRapport := 'Rapport-stdErr-fake-Cassio';
+  nameOfStandardOutputForRapport := 'Rapport-stdErr-fake-Cassio';
 
-  unit_initialisee := true;
+  unit_initialized := true;
 end;
 
 
 function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
 begin
-  if not(unit_initialisee) then InitUnitBasicFile;
-  CreateStandardOutputAsFile := CreateFile(nomSortieStandardDansRapport,0,fic);
+  if not(unit_initialized) then InitUnitBasicFile;
+  CreateStandardOutputAsFile := CreateFile(nameOfStandardOutputForRapport,0,fic);
 end;
 
 

@@ -88,7 +88,7 @@ var myStringPtr : StringPtr;
     codeErreur : OSErr;
     dirID : UInt32;
     myPath : String255;
-    myFSSpec : fileInfo;
+    myFileInfo : fileInfo;
     left,right : String255;
 begin
    myStringPtr := StringPtr(AllocateMemoryPtr(sizeof(str255)));
@@ -107,7 +107,7 @@ begin
        if (left <> '') and (right <> '') then
          begin
            left := left + ':';
-           codeErreur := MyFSMakeFSSpec(0,0,left,myFSSpec);
+           codeErreur := MakeFileInfo(0,0,left,myFileInfo);
            if codeErreur = NoErr then myPath := left;
          end;
      end;
@@ -181,7 +181,7 @@ function GetApplicationName(default : String255) : String255;
 		CurrentPSN : ProcessSerialNumber;
 		ProcessInfo : ProcessInfoRec;
 		err : OSErr;
-		myFSSpec : fileInfo;
+		myFileInfo : fileInfo;
 		myString : Str255;
 begin
 	GetApplicationName := default;  {nom par défaut si le reste ne marche pas, e.g. sur un PC}
@@ -198,7 +198,7 @@ begin
 
 	ProcessInfo.processInfoLength := sizeof(ProcessInfoRec);
 	ProcessInfo.processName := @myString;
-	ProcessInfo.processAppSpec := @myFSSpec;
+	ProcessInfo.processAppSpec := @myFileInfo;
 
 	err := GetProcessInformation(CurrentPSN, ProcessInfo);
 	if err <> 0 then
@@ -228,7 +228,7 @@ begin
 end;
 
 function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;
-var myFSSpec : fileInfo;
+var myFileInfo : fileInfo;
     err : OSErr;
     fullPath : String255;
     iterateurCassioFolderPaths : String255;
@@ -239,26 +239,26 @@ begin
   repeat
     err := -1;
 
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires Cassio',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires-Cassio',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Auxilary files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Auxilary-files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Auxiliary files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Auxiliary-files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio-files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio auxilary files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio-auxilary-files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio auxiliary files',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Cassio-auxiliary-files',myFSSpec);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires-Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Auxilary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Auxilary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Auxiliary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Auxiliary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio auxilary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-auxilary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio auxiliary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-auxiliary-files',myFileInfo);
 
     if err = NoErr
       then
         begin
-          MyResolveAliasFile(myFSSpec);
-          err := FSSpecToFullPath(myFSSpec,fullPath);
+          MyResolveAliasFile(myFileInfo);
+          err := FSSpecToFullPath(myFileInfo,fullPath);
 
           if err = NoErr then AddValidCassioFolderPath(iterateurCassioFolderPaths);
 
@@ -272,9 +272,9 @@ begin
 
   if err <> NoErr then  { desespoir !! }
       begin
-        err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths,myFSSpec);
-        MyResolveAliasFile(myFSSpec);
-        err := FSSpecToFullPath(myFSSpec,fullPath);
+        err := MakeFileInfo(0,0,iterateurCassioFolderPaths,myFileInfo);
+        MyResolveAliasFile(myFileInfo);
+        err := FSSpecToFullPath(myFileInfo,fullPath);
 
         DeterminePathDossierFichiersAuxiliaires := fullPath;
         {WritelnDansRapport('Branche d''echec dans DeterminePathDossierFichiersAuxiliaires : '+fullPath);}
@@ -283,7 +283,7 @@ end;
 
 
 function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) : String255;
-var myFSSpec : fileInfo;
+var myFileInfo : fileInfo;
     err : OSErr;
     fullPath : String255;
     iterateurCassioFolderPaths : String255;
@@ -292,17 +292,17 @@ begin
 
   repeat
 
-    err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Othelliers Cassio',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Othelliers Cassio (alias)',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Othelliers',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Boards',myFSSpec);
-    if err <> 0 then err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths+'Boards Cassio',myFSSpec);
+    err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers Cassio (alias)',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Boards',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(0,0,iterateurCassioFolderPaths+'Boards Cassio',myFileInfo);
 
     if err = 0
       then
         begin
-          MyResolveAliasFile(myFSSpec);
-          err := FSSpecToFullPath(myFSSpec,fullPath);
+          MyResolveAliasFile(myFileInfo);
+          err := FSSpecToFullPath(myFileInfo,fullPath);
 
           if err = NoErr then AddValidCassioFolderPath(iterateurCassioFolderPaths);
 
@@ -317,9 +317,9 @@ begin
 
   if (err <> 0) then
     begin  { desespoir !! }
-      err := MyFSMakeFSSpec(0,0,iterateurCassioFolderPaths,myFSSpec);
-      MyResolveAliasFile(myFSSpec);
-      err := FSSpecToFullPath(myFSSpec,fullPath);
+      err := MakeFileInfo(0,0,iterateurCassioFolderPaths,myFileInfo);
+      MyResolveAliasFile(myFileInfo);
+      err := FSSpecToFullPath(myFileInfo,fullPath);
       DeterminePathDossierOthelliersCassio := fullPath;
       {WritelnDansRapport('Branche d''echec dans DeterminePathDossierOthelliersCassio : '+fullPath);}
     end
@@ -593,7 +593,7 @@ begin
 
       // WritelnDansRapport('dans ChargerLesPolicesPriveesDeCassio, path = ' + path);
 
-      err := MyFSMakeFSSpec(0,0,path,fontDirectory);
+      err := MakeFileInfo(0,0,path,fontDirectory);
       if (err = 0) then err := SetPathOfScannedDirectory(fontDirectory);
       if (err = 0) then err := ScanDirectory(fontDirectory,LoadPolicePriveeDeCassio);
 
