@@ -785,18 +785,18 @@ begin
         err := FSpOpenDF(info,fsCurPerm,refNum);
 
         if debugBasicFiles then
-			    begin
-			      DisplayMessageInConsole('');
-			      DisplayMessageInConsole(' apres FSpOpenDF dans OpenFile :');
-			      DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
-			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
-			      DisplayMessageWithNumInConsole('   ==> Err = ',err);
-			    end;
+		  begin
+			DisplayMessageInConsole('');
+			DisplayMessageInConsole(' apres FSpOpenDF dans OpenFile :');
+			DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
+			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
+			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
+			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
+			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			DisplayMessageWithNumInConsole('   ==> Err = ',err);
+		  end;
       end;
 
   if err = NoErr then
@@ -933,12 +933,12 @@ begin
         err := FSpDelete(info);
 
         if debugBasicFiles then
-			    begin
-			      DisplayMessageInConsole('');
+		  begin
+			DisplayMessageInConsole('');
             DisplayMessageInConsole(' apres FSpDelete dans DeleteFile :');
             DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
             DisplayMessageWithNumInConsole('   ==> Err = ',err);
-			    end;
+		  end;
       end;
 
   DeleteFile := err;
@@ -1358,7 +1358,7 @@ begin
 
         if (bufferLecture = NIL) then
           begin
-            if debug then WritelnDansRapport('FIXEME : allocation du buffer de lecture');
+            if debug then WritelnDansRapport('FIX ME : allocation du buffer de lecture');
             bufferLecture := PackedArrayOfCharPtr(AllocateMemoryPtr(SIZE_OF_BUFFER));
             if (bufferLecture = NIL) then
               begin
@@ -1373,10 +1373,10 @@ begin
               begin
                 tailleDuFichier := -1;
                 doitUtiliserBuffer := false;
-                if debug then WritelnNumDansRapport('FIXEME : erreur dans le calcul de la taille du fichier : ',tailleDuFichier);
+                if debug then WritelnNumDansRapport('FIX ME : erreur dans le calcul de la taille du fichier : ',tailleDuFichier);
                 goto Bail;
               end;
-            if debug then WritelnNumDansRapport('FIXEME : calcul de la taille du fichier : ',tailleDuFichier);
+            if debug then WritelnNumDansRapport('FIX ME : calcul de la taille du fichier : ',tailleDuFichier);
           end;
 
 
@@ -1392,7 +1392,7 @@ begin
 
             err := GetFilePosition(fic, debutDuBuffer);
 
-            if debug then WritelnNumDansRapport('FIXEME : apres GetFilePosition, err = ',err);
+            if debug then WritelnNumDansRapport('FIX ME : apres GetFilePosition, err = ',err);
 
             if (err = NoErr) then
               err := FSRead(fic.refnum, nbOctetsLusSurLeDisque, bufferLecture);
@@ -1402,12 +1402,12 @@ begin
                 begin
                   tailleDuBuffer     := nbOctetsLusSurLeDisque;
                   positionDansBuffer := 0;
-                  if debug then WritelnNumDansRapport('FIXEME : lecture dans le fichier : ',tailleDuBuffer);
+                  if debug then WritelnNumDansRapport('FIX ME : lecture dans le fichier : ',tailleDuBuffer);
                 end
               else
                 begin
-                  if debug then WritelnNumDansRapport('FIXEME : erreur de lecture dans le fichier, err = ',err);
-                  if debug then WritelnNumDansRapport('FIXEME : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
+                  if debug then WritelnNumDansRapport('FIX ME : erreur de lecture dans le fichier, err = ',err);
+                  if debug then WritelnNumDansRapport('FIX ME : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
 
                   if (err = -39) and (nbOctetsLusSurLeDisque > 0)
                     then
@@ -1436,9 +1436,9 @@ begin
             positionDansBuffer := positionDansBuffer + length;
 
             luDansLeBuffer := true;
-            MyFSBufferedReadPourReadln := NoErr;
+            g := NoErr;
 
-            // if debug then WritelnNumDansRapport('FIXEME : OK, positionDansBuffer = ',positionDansBuffer);
+            // if debug then WritelnNumDansRapport('FIX ME : OK, positionDansBuffer = ',positionDansBuffer);
           end;
 
       end;

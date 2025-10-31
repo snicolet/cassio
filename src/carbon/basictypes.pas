@@ -76,6 +76,7 @@ uses
     MAXINT_16BITS = 32767;   // upper bound of SInt16 integers
     noErr = 0;
     fnfErr = -43; {file not found error}
+    eofErr = -39; {end of file error}
 
   // function types
   type
