@@ -1458,7 +1458,7 @@ begin
                   if debug then WritelnNumDansRapport('FIX ME : erreur de lecture dans le fichier, err = ',err);
                   if debug then WritelnNumDansRapport('FIX ME : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
 
-                  if (err = eofErr) and (nbOctetsLusSurLeDisque > 0)
+                  if (err = eofErr) and (nbOctetsLusSurLeDisque > 0)  {-39 is eofErr, end of file error}
                     then
                       begin
                         tailleDuBuffer     := nbOctetsLusSurLeDisque;
