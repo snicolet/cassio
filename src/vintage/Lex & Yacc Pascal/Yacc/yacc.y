@@ -726,7 +726,7 @@ begin
 {$ifdef linux}
   codfilepath:='/usr/lib/fpc/lexyacc/';
 {$else}
-  codfilepath:=path(paramstr(0));
+  codfilepath:=path(paramStr(0));
 {$endif}
 
   (* sign-on: *)
@@ -746,20 +746,20 @@ begin
   pasfilename := '';
 
   for i := 1 to paramCount do
-    if copy(AAAparamStr(i), 1, 1)='-' then
-      if upper(AAAparamStr(i))='-V' then
+    if copy(paramStr(i), 1, 1)='-' then
+      if upper(paramStr(i))='-V' then
         verbose := true
-      else if upper(AAAparamStr(i))='-D' then
+      else if upper(paramStr(i))='-D' then
         debug := true
       else
         begin
-          writeln(invalid_option, AAAparamStr(i));
+          writeln(invalid_option, paramStr(i));
           halt(1);
         end
     else if yfilename='' then
-      yfilename := addExt(AAAparamStr(i), 'y')
+      yfilename := addExt(paramStr(i), 'y')
     else if pasfilename='' then
-      pasfilename := addExt(AAAparamStr(i), 'pas')
+      pasfilename := addExt(paramStr(i), 'pas')
     else
       begin
         writeln(illegal_no_args);
