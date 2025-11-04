@@ -12,15 +12,15 @@ INTERFACE
      UnitDefCassio , Files , CFURL , CFString , CFBase , CFBundle;
 
 
-	procedure MyResolveAliasFile (var fs : fileInfo);
+	procedure ExpandFileName (var fs : fileInfo);
 	function MyGetCatInfo (vrn : SInt16; dirID : SInt32; nameAdr : StringPtr; index: SInt16; var pb : CInfoPBRec) : OSErr;
 	function FSpGetCatInfo (const fs : fileInfo; var pb : CInfoPBRec) : OSErr;
 	function FSpGetIndCatInfo (var fs : fileInfo; index: SInt16; var pb : CInfoPBRec) : OSErr;
 	function FSpSetCatInfo (const spec : fileInfo; var pb : CInfoPBRec) : OSErr;
 	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
-	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
-	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
 	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
 	function CopyData (src, dst: SInt16; len : SInt32) : OSErr;
@@ -51,8 +51,8 @@ INTERFACE
   procedure SetNameOfSFReply(var reply : SFReply; const name : String255);
 
 
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;
+	function ExpandFileName(fs : fileInfo) : String255;
 	{function DiskFreeSpace (vrn : SInt16) : SInt32;} { result in k }
 	function DiskSize (vrn : SInt16) : SInt32; { result in k }
 	function BlessSystemFolder (vrn : SInt16; dirID : SInt32) : OSErr;
@@ -276,14 +276,14 @@ end;
 	end;
 }
 
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;
 		var
 			err : OSErr;
 			pb : CInfoPBRec;
 			s : String255;
 	begin
 	  s := GetName(fs);
-		err := MakeFileInfo(fs.vRefNum, fs.parID, s, fs);
+		err := CanCreateFileInfo(fs.vRefNum, fs.parID, s, fs);
 		if err = fnfErr then begin
 			err := noErr;
 		end;
@@ -299,7 +299,7 @@ end;
 				end;
 			end;
 		end;
-		FSSpecToFullPath := err;
+		ExpandFileName := err;
 	end;
 
 
@@ -369,12 +369,12 @@ end;
 
 
 
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;
+	function ExpandFileName(fs : fileInfo) : String255;
 	var result : String255;
 	    error : OSErr;
 	begin
-	  error := FSSpecToFullPath(fs,result);
-	  GetFullPathOfFSSpec := result;
+	  error := ExpandFileName(fs,result);
+	  ExpandFileName := result;
 	end;
 
 
@@ -479,7 +479,7 @@ end;
 	begin
 		err := ResolveAliasFile(folder, TRUE, targetIsFolder, wasAliased);
 		
-    if err = NoErr then err := FSSpecToFullPath(folder,path);
+    if err = NoErr then err := ExpandFileName(folder,path);
 
 		FolderExists := (err = NoErr);
 	end;
@@ -625,7 +625,7 @@ end;
 		MyFSReadFile := err;
 	end;
 
-	procedure MyResolveAliasFile (var fs : fileInfo);
+	procedure ExpandFileName (var fs : fileInfo);
 		var
 			isFolder, wasalias: boolean;
 			temp : fileInfo;
@@ -705,7 +705,7 @@ end;
 		FSpSetCatInfo := PBSetCatInfoSync(@pb);
 	end;
 
-	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 		var
 			pb : CInfoPBRec;
 			oe : OSErr;
@@ -734,11 +734,11 @@ end;
 		MakeFileInfo := oe;
 	end;
 
-	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	var result : fileInfo;
 	    err : OSErr;
 	begin
-	  err := MakeFileInfo(vrn, dirID, name, result);
+	  err := CanCreateFileInfo(vrn, dirID, name, result);
 	  MyMakeFSSpec := result;
 	end;
 
@@ -1149,7 +1149,7 @@ var err : OSErr;
 begin
 
   err := ResolveAliasFile(folder,TRUE,targetIsFolder,wasAliased);
-  err := FSSpecToFullPath(folder,path);
+  err := ExpandFileName(folder,path);
 
   nomDirectoryDepartRecursion := path;
   if RightStr(nomDirectoryDepartRecursion,1) = DirectorySeparator then
@@ -1675,7 +1675,7 @@ begin
   if RightStr(directoryPath,1) <> CharToString(separateur) then
      directoryPath := directoryPath + separateur;
 
-  erreurES := MakeFileInfo(0,0,directoryPath,directoryDepot);
+  erreurES := CanCreateFileInfo(0,0,directoryPath,directoryDepot);
 
   if not(FolderExists(directoryDepot, erreurES))
     then
@@ -1702,7 +1702,7 @@ begin
   if RightStr(directoryName,1) <> CharToString(separateur) then
     directoryName := directoryName + separateur;
 
-  erreurES := FSSpecToFullPath(whichFile,path);
+  erreurES := ExpandFileName(whichFile,path);
   pathSubDirectory := ExtraitCheminDAcces(path) + directoryName;
 
   erreurES := CreateDirectoryWithThisPath(pathSubDirectory);
@@ -1780,10 +1780,10 @@ begin
 	end;
 
 	(* get the complete path of that temporary file *)
-	err := FSSpecToFullPath(fsTemp, pathTemp);
+	err := ExpandFileName(fsTemp, pathTemp);
 	if (err <> NoErr) then
 	begin
-	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : FSSpecToFullPath = ',err);
+	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : ExpandFileName = ',err);
 		goto cleanup ;
 	end;
 
@@ -1794,7 +1794,7 @@ begin
 	applicationFolderPath := volumeName + applicationFolderPath;
 
 	(* Check the result : is the application support folder path a correct path ? *)
-	err := MakeFileInfo(0,0,applicationFolderPath,fsAppSuppFolder);
+	err := CanCreateFileInfo(0,0,applicationFolderPath,fsAppSuppFolder);
 	if (err <> NoErr) then
 	begin
 	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : MakeFileInfo = ',err);

@@ -484,7 +484,7 @@ var directoryDepart : fileInfo;
     cheminDirectoryDepartRecursion : String255;
 begin
   cheminDirectoryDepartRecursion := pathDuDossier + DirectorySeparator ;
-  codeErreur := MakeFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := CanCreateFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
   if (codeErreur = 0) then
     codeErreur := ScanDirectory(directoryDepart,TraiteFichierEngineEtRecursion);
@@ -522,7 +522,7 @@ begin
    begin
      if (Pos('engine.sh',GetName(fs)) <> 0) then
        begin
-         err := FSSpecToFullPath(fs, pathEngine);
+         err := ExpandFileName(fs, pathEngine);
 
          Split(pathEngine, DirectorySeparator ,foo, pathUnix);       // enlever le nom du disque dur
          pathUnix := ReplaceStringAll(pathUnix,':','/');             // separateurs a la mode UNIX

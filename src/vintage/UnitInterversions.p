@@ -163,8 +163,8 @@ begin
       begin
 
         nomfichier := GetNameOfSFReply(reply)+CharToString('1');
-        erreurES := FileExists(FileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
-        if erreurES = fnfErr then erreurES := CreateFile(FileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        erreurES := FileExists(MakeFileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        if erreurES = fnfErr then erreurES := CreateFile(MakeFileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
           begin
             erreurES := OpenFile(fichierInterversions);
@@ -196,8 +196,8 @@ begin
 
 
         nomfichier := GetNameOfSFReply(reply)+CharToString('2');
-        erreurES := FileExists(FileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
-        if erreurES = fnfErr then erreurES := CreateFile(FileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        erreurES := FileExists(MakeFileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
+        if erreurES = fnfErr then erreurES := CreateFile(MakeFileInfo(info.vRefNum,info.parID,nomfichier),fichierInterversions);
         if erreurES = 0 then
           begin
             erreurES := OpenFile(fichierInterversions);

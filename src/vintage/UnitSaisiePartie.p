@@ -1053,7 +1053,7 @@ begin
 												      begin
 
 												        nomBase := EnleveEspacesDeDroite(GetNameOfSFReply(reply)) + ' XXXX.wtb';
-												        pathBase := GetFullPathOfFSSpec(info);
+												        pathBase := ExpandFileName(info);
 												        pathBase := LeftStr(pathBase,LastPos(DirectorySeparator,pathBase));
 
 												        if debuggage_saisiePartie then

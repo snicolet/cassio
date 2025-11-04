@@ -166,7 +166,7 @@ function AjouterPartieRecDansListe(var partieRec : t_PartieRecNouveauFormat; ann
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function DoitExpliquerTrierListeSuivantUnClassement : boolean;     external;
 procedure SetDoitExpliquerTrierListeSuivantUnClassement(flag : boolean);     external;
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;
 function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;     external;
 procedure WritelnStringDansRapport(s : String255);     external;
 function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : basicfile) : OSErr;     external;

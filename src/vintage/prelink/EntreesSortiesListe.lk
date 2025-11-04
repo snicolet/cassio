@@ -20,7 +20,7 @@ procedure EndDialog;     external;
 function CautionAlertTwoButtonsFromRessource(dialogID, texteItemID, explicationItemID, buttonOneID, buttonTwoID : SInt16) : SInt16;     external;
 	
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
-	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
 procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);     external;

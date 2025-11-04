@@ -18,7 +18,7 @@ uses
   BasicString,
   BasicTime,
   BasicMath,
-  //BasicFiles,
+  BasicFiles,
   BasicHashing;
 
 type

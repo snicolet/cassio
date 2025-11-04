@@ -82,7 +82,7 @@ function GetNroTournoiDansSonFichier(nroTournoi : SInt32) : SInt32;     external
 function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;     external;
 procedure EndDialog;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
+	function ExpandFileName(fs : fileInfo) : String255;     external;
 	function LeftStr (const s : String255; len : SInt32) : String255;     external;
   function LastPos (sub, str : String255) : SInt16;     external;
 function EstUneDistributionConnue(nomTest,pathTest : String255; var nroDistrib : SInt16) : boolean;     external;

@@ -186,7 +186,7 @@ function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var
 	function Split (s : String255; const sub : String255; var s1, s2 : String255) : boolean;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
 function RemplacerFichierDansLeDossierDatabaseParFichier(nomARemplacer : String255; var fichierACopier : basicfile) : OSErr;     external;
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;
 function TrouverSlotLibreDansLaReservePourTelecharger(var numeroSlotLibre : SInt32) : boolean;     external;
 function MakeLongString(const s : String255) : LongString;     external;
 function MakeFichierAbstraitFichier(nomFichier : String255 ; vRefNum : SInt16) : FichierAbstrait;     external;
@@ -205,7 +205,7 @@ function EmptyFile(var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
 function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
+	function ExpandFileName(fs : fileInfo) : String255;     external;
 procedure DisposeFichierAbstrait(var theFile : FichierAbstrait);     external;
 procedure Parse4(s : String255; var s1,s2,s3,s4,reste : String255);     external;
 function TailleTheoriqueDeCeFichierNouveauFormat(numFichier : SInt16) : SInt32;     external;

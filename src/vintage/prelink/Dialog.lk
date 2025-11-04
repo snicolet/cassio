@@ -23,14 +23,14 @@ function GetWindowPortRect(window : WindowPtr) : rect;     external;
 function GetScreenBounds : rect;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
   procedure MySFPutFile(where : Point; prompt : ConstStringPtr; origName : String255; dlgHook : DlgHookUPP; VAR reply : SFReply);     external;
-	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function SaveFileDialog(fileName,prompt : stringPtr; filetype,fileCreator : OSType; var fileSpec : fileInfo; var stationery : boolean; var replacing : boolean; var reply : NavReplyRecord) : OSStatus;     external;
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;
   procedure SetNameOfSFReply(var reply : SFReply; const name : String255);     external;
 	
 function MyNavServicesAvailable : boolean;     external;
 procedure MyNavEventProc(callBackSelector : NavEventCallbackMessage; callBackParms : NavCBRecPtr ; callBackUD: UnivPtr);     external;
-	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
   procedure MySFGetFile(where : Point; prompt : String255; fileFilter : FileFilterUPP; numTypes : SInt16; typeList : ConstSFTypeListPtr; dlgHook : DlgHookUPP; var reply : SFReply);     external;
 function OpenOneFileDialog(prompt : String255; applicationSignature : OSType; numTypes : SInt16; typeList : ConstSFTypeListPtr; var fileSpec : fileInfo) : OSStatus;     external;
 procedure EndLiveUndo;     external;

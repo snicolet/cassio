@@ -18,12 +18,12 @@ procedure AlertOneButtonFromRessource(dialogID, texteItemID, explicationItemID, 
   procedure EnleveEspacesDeDroiteSurPlace(var s : String255);     external;
 	function RightStr (const s : String255; len : SInt16) : String255;     external;
   function UpperCase(const s : String255; keepDiacritics : boolean) : String255;     external;
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;
 	
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 function  MyCountMenuItems(theMenu : MenuRef) : UInt16;     external;
   procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );     external;
-	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
 	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;
 function BeginIterationOnCassioFolderPaths(firstPathToTry : String255) : String255;     external;

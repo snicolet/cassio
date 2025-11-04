@@ -3122,7 +3122,7 @@ begin
                         WritelnDansRapportThreadSafe('');
                         WritelnDansRapportThreadSafe('I encountered an error or a warning ('+IntToStr(err)+') while trying to update the Database folder for file '+nomFichierWthorOfficiel);
                         WritelnDansRapportThreadSafe('NB : the following downloaded file is however maybe usable (it is in a correct WThor format), use wisely:');
-                        err := FSSpecToFullPath(fic.info,path);
+                        err := ExpandFileName(fic.info,path);
                         WritelnDansRapportThreadSafe('      '+path);
                       end;
                 end;
@@ -3510,12 +3510,12 @@ begin
       {
       WritelnNumDansRapport('err = ',err);
 
-      WritelnDansRapport('avant GetFullPathOfFSSpec dans TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase');
+      WritelnDansRapport('avant ExpandFileName dans TraiterFichierAbstraitAtTheEndOfDownloadOfWthorDatabase');
       AttendFrappeClavier;
       }
 
       if (err = NoErr) then
-        pathFichier := GetFullPathOfFSSpec(fic.info);
+        pathFichier := ExpandFileName(fic.info);
 
 
       {WritelnDansRapport('pathFichier = '+pathFichier);

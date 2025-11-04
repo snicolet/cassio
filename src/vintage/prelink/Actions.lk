@@ -150,15 +150,15 @@ function AjouterPartiesFichierTHOR_PARDansListe(var fichierTHOR_PAR : basicfile)
 function OuvrirFichierScriptZoo(nomCompletFichier : String255) : OSErr;     external;
 function LitBibliotheque(nomBibl : String255; verifierLegaliteLignes : boolean) : OSErr;     external;
 procedure AlerteSimple(texte : String255);     external;
-	procedure MyResolveAliasFile (var fs : fileInfo);     external;
-	function FSSpecToFullPath (fs : fileInfo; var path : String255) : OSErr;     external;
+	procedure ExpandFileName (var fs : fileInfo);     external;
+	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;
 procedure AjoutePartieDansMenuReouvrir(CheminEtNomFichier : String255);     external;
 function DumpPressePapierToFile(var fic : basicfile; flavorType : ScrapFlavorType) : OSErr;     external;
 function DeleteFile(var fic : basicfile) : OSErr;     external;
 procedure BeginDialog;     external;
 function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind2,fileKind3,fileKind4 : OSType; var whichSpec : fileInfo) : boolean;     external;
 procedure EndDialog;     external;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
+	function ExpandFileName(fs : fileInfo) : String255;     external;
   procedure SetNameOfSFReply(var reply : SFReply; const name : String255);     external;
 function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;

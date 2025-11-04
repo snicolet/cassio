@@ -126,6 +126,12 @@ function FileIsStandardOutput(var fic : basicfile) : boolean;
 function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 
+procedure DoDirSeparators(var filename : String255);
+function EndsWithDirectorySeparator(var s : String255) : boolean;
+
+function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+
 
 procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 
@@ -158,6 +164,7 @@ uses
   cwstring,
 {$ENDIF}
   SysUtils,
+  basicMemory,
   basicHashing;
 
 
@@ -210,7 +217,76 @@ begin
     else StandardConsoleAlertWithNum(s,num)
 end;
 
-function ResolveAliasInFullName(var fullName : String255) : OSErr;
+procedure DoDirSeparators(var filename : String255);
+var s : String;
+begin
+   s := filename;
+   sysUtils.DoDirSeparators(s);
+   filename := s;
+end;
+
+function EndsWithDirectorySeparator(var s : String255) : boolean;
+begin
+  EndsWithDirectorySeparator := (s[LENGTH_OF_STRING(s)] = DirectorySeparator );
+end;
+
+
+function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+var err : OSErr;
+begin
+   info.name    := name;
+   info.vRefNum := vrn;
+   info.parID   := dirID;
+   
+   if not(sysUtils.FileExists(name)) and not(sysUtils.DirectoryExists(name))
+      then err := fnfErr   {file not found error}
+      else err := NoErr;
+      
+   result := err;
+end;
+
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+var info : fileInfo;
+begin
+   CanCreateFileInfo(vrn, dirID, name, info); // discard error !
+   
+   MakeFileInfo := info;
+end;
+
+
+function ExpandFileName(fs : fileInfo; var path : String255) : OSErr;
+var err : OSErr;
+    s : String255;
+    info : fileInfo;
+begin
+  s := GetName(fs);
+  err := CanCreateFileInfo(fs.vRefNum, fs.parID, s, info);
+  if err = fnfErr then err := NoErr;
+  if err = NoErr then
+     path := sysUtils.ExpandFileName(s);
+
+  Result := err;
+end;
+
+
+function ExpandFileName(fs : fileInfo) : String255;
+var path : String255;
+begin
+   ExpandFileName(fs, path);
+
+   Result := path;
+end;
+
+
+procedure ExpandFileName(var fs : fileInfo);
+var path : string255;
+begin
+  path := ExpandFileName(fs);
+  fs := MakeFileInfo(0, 0, path);
+end;
+
+
+function ExpandFileName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
     myFileInfo : fileInfo;
     err : OSErr;
@@ -237,20 +313,22 @@ begin
             reste := '';
           end;
 
-      err := MakeFileInfo(0,0,debut,myFileInfo);
-      MyResolveAliasFile(myFileInfo);
+      err := CanCreateFileInfo(0,0,debut,myFileInfo);
+      ExpandFileName(myFileInfo);
+      
       resolvedDebut := debut;
-      err := FSSpecToFullPath(myFileInfo,resolvedDebut);
+      err := ExpandFileName(myFileInfo,resolvedDebut);
+      
       if err = 0 then
         begin
-          if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
+          if EndsWithDirectorySeparator(debut) and not(EndsWithDirectorySeparator(resolvedDebut))
             then debut := resolvedDebut + DirectorySeparator 
             else debut := resolvedDebut;
         end;
     end;
   if err = 0 then fullName := debut;
 
-  ResolveAliasInFullName := err;
+  Result := err;
 end;
 
 
@@ -277,10 +355,10 @@ begin
         len := LENGTH_OF_STRING(nomDirectory);
         if (len > 0) and (nomDirectory <> DirectorySeparator ) and ((len+LENGTH_OF_STRING(name)) <= 220) then
           begin
-            if (name[1] = DirectorySeparator ) and EndsWithDeuxPoints(nomDirectory)
+            if (name[1] = DirectorySeparator ) and EndsWithDirectorySeparator(nomDirectory)
               then name := TPCopy(nomDirectory,1,len-1)+name
               else name := nomDirectory+name;
-            err := ResolveAliasInFullName(name);
+            err := ExpandFileName(name);
             vRefNum := 0;
           end;
       end;
@@ -291,12 +369,7 @@ begin
   fic.refNum := 0;
   fic.uniqueID := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
 
-  with fic.info do
-    begin
-      name := name;      // SetNameOfFSSpec(fic.info, '');
-      vRefNum := 0;
-      parID := 0;
-    end;
+  fic.info := MakeFileInfo(0, 0, name);
 
   fic.ressourceForkRefNum        := -1;
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
@@ -405,11 +478,13 @@ begin
 end;
 
 
+
+
 function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
     myFileInfo : fileInfo;
 begin
-   err := MakeFileInfo(0,0,path,myFileInfo);
+   err := CanCreateFileInfo(0,0,path,myFileInfo);
    if err <> NoErr
      then PathCompletToLongName := err
      else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
@@ -441,19 +516,21 @@ begin
 
   with fic do
     begin
-      err := MakeFileInfo(vRefNum,parID,fileName,info);
+      err := CanCreateFileInfo(vRefNum,parID,fileName,info);
+      
       fullName := fileName;
       if (err = NoErr) then
         begin
-          MyResolveAliasFile(info);
+          ExpandFileName(info);
 
-          err := FSSpecToFullPath(info,fullName);
+          err := ExpandFileName(info,fullName);
 
         end else
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
-        bidlongint := FSSpecToFullPath(info,fullName);
+        bidlongint := ExpandFileName(info,fullName);
+        
       parID      := info.parID;
-      fileName := fullName;
+      fileName   := fullName;
       uniqueID   := HashString(fullName);
 
       {DisplayMessageInConsole('fic.fileName = '+fic.fileName);

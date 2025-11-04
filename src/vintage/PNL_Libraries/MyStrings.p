@@ -75,7 +75,7 @@ INTERFACE
 	function Match (pattern, name: String255) : boolean;
     function StringBeginsWith(const s, pattern : String255) : boolean;
     function EndsWith(const s : String255; const sub : String255) : boolean;
-	function EndsWithDeuxPoints(var s : String255) : boolean;
+	function EndsWithDirectorySeparator(var s : String255) : boolean;
 
 
 	procedure LimitStringLength (var s : String255; len : SInt16; delimiter : char);
@@ -1945,9 +1945,9 @@ begin
       end;
 end;
 
-function EndsWithDeuxPoints(var s : String255) : boolean;
+function EndsWithDirectorySeparator(var s : String255) : boolean;
 begin
-  EndsWithDeuxPoints := (s[LENGTH_OF_STRING(s)] = DirectorySeparator );
+  EndsWithDirectorySeparator := (s[LENGTH_OF_STRING(s)] = DirectorySeparator );
 end;
 
 

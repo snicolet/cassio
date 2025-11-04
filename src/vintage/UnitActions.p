@@ -1229,8 +1229,8 @@ function OuvrirFichierPartieFSp(fichier : fileInfo; whichFormats : SetOfKnownFor
 var nomComplet : String255;
 begin
   OuvrirFichierPartieFSp := -1;
-  MyResolveAliasFile(fichier);
-  if FSSpecToFullPath(fichier,nomComplet) = NoErr then
+  ExpandFileName(fichier);
+  if ExpandFileName(fichier,nomComplet) = NoErr then
     begin
       AjoutePartieDansMenuReouvrir(nomComplet);
       if gPendantLesInitialisationsDeCassio then
@@ -1290,7 +1290,7 @@ begin
   EndDialog;
   if ok then
     begin
-      nomComplet := GetFullPathOfFSSpec(info);
+      nomComplet := ExpandFileName(info);
       AjoutePartieDansMenuReouvrir(nomComplet);
       err := OuvrirFichierParNomComplet(nomComplet, AllKnownFormats, true);
     end;
@@ -1372,7 +1372,7 @@ begin
        SauverStyleDuRapport(ficPartie);
 
      titrePartie^^ := GetNameOfSFReply(reply);
-     AjoutePartieDansMenuReouvrir(GetFullPathOfFSSpec(info));
+     AjoutePartieDansMenuReouvrir(ExpandFileName(info));
    end;
 end;
 
@@ -1408,7 +1408,7 @@ begin
   if reply.good then
     begin
       titrePartie^^ := GetNameOfSFReply(reply);
-      nomComplet := GetFullPathOfFSSpec(info);
+      nomComplet := ExpandFileName(info);
 
       theFile := MakeFichierAbstraitFichier(nomComplet,0);
 

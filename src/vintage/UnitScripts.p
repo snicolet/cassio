@@ -183,8 +183,8 @@ begin
 		        nomDeLaBase := GetNameOfSFReply(reply);
 
 		        nomfichier := GetNameOfSFReply(reply)+'.script';
-		        err := FileExists(FileInfo(info.vRefNum,info.parID,nomfichier),script);
-		        if err = fnfErr then err := CreateFile(FileInfo(info.vRefNum,info.parID,nomfichier),script);
+		        err := FileExists(MakeFileInfo(info.vRefNum,info.parID,nomfichier),script);
+		        if err = fnfErr then err := CreateFile(MakeFileInfo(info.vRefNum,info.parID,nomfichier),script);
 		        if err = 0 then
 		          begin
 		            err := OpenFile(script);
@@ -634,7 +634,7 @@ begin {CreerQuizEnPHP}
       erreurES := EmptyFile(fichierPHP);
 
 
-      erreurES := FSSpecToFullPath(fichierPHP.info,s);
+      erreurES := ExpandFileName(fichierPHP.info,s);
       s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_prologue.php');
       erreurES := InsertFileInFile(fichierPHP,s);
 
@@ -715,7 +715,7 @@ begin {CreerQuizEnPHP}
 
 
 
-      erreurES := FSSpecToFullPath(fichierPHP.info,s);
+      erreurES := ExpandFileName(fichierPHP.info,s);
       s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_epilogue.php');
       erreurES := InsertFileInFile(fichierPHP,s);
 
@@ -746,7 +746,7 @@ begin {CreerQuizEnPHP}
                 erreurES := EmptyFile(fichierPHP);
 
 
-                erreurES := FSSpecToFullPath(fichierPHP.info,s);
+                erreurES := ExpandFileName(fichierPHP.info,s);
                 s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_prologue.php');
                 erreurES := InsertFileInFile(fichierPHP,s);
 
@@ -832,7 +832,7 @@ begin {CreerQuizEnPHP}
 
 
 
-                erreurES := FSSpecToFullPath(fichierPHP.info,s);
+                erreurES := ExpandFileName(fichierPHP.info,s);
                 s := ReplaceStringOnce(s, GetName(fichierPHP.info),'quiz_epilogue.php');
                 erreurES := InsertFileInFile(fichierPHP,s);
 

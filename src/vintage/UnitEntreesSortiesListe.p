@@ -147,7 +147,7 @@ begin
   fileName := fileName + IntToStr(anneeDesParties);
   fileName := fileName+'.wtb';
 
-  codeErreur := FileExists(FileInfo(fichier.vRefNum,fichier.parID,fileName),fic);
+  codeErreur := FileExists(MakeFileInfo(fichier.vRefNum,fichier.parID,fileName),fic);
   if codeErreur = NoErr
     then
       begin
@@ -162,7 +162,7 @@ begin
       end
     else
       if (codeErreur = fnfErr) {-43 => fichier non trouvé, on le crée}
-        then codeErreur := CreateFile(FileInfo(fichier.vRefNum,fichier.parID,fileName),fic);
+        then codeErreur := CreateFile(MakeFileInfo(fichier.vRefNum,fichier.parID,fileName),fic);
 
   if (codeErreur <> NoErr) then
     begin

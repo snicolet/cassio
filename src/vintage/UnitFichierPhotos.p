@@ -515,7 +515,7 @@ var codeErreur : OSErr;
 begin
    with gFichiersPicture do
 	    begin
-	      codeErreur := FSSpecToFullPath(fs,path);
+	      codeErreur := ExpandFileName(fs,path);
 
 	      if (GetName(fs)[1] <> '.') and
 	         (Pos('escr.txt',path) = 0) and (Pos('Borders',path) = 0) then
@@ -639,7 +639,7 @@ var directoryDepart : fileInfo;
 begin
   cheminDirectoryDepartRecursion := pathDuDossier + DirectorySeparator;
 
-  codeErreur := MakeFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := CanCreateFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
 
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
 

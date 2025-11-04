@@ -2235,7 +2235,7 @@ begin
 
   if not(isFolder) then
     begin
-      err := FSSpecToFullPath(fs,nomComplet);
+      err := ExpandFileName(fs,nomComplet);
 
       err := FileExists(nomComplet,0,fic);
 

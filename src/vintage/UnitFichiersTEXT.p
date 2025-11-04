@@ -223,13 +223,13 @@ begin
             reste := '';
           end;
 
-      err := MakeFileInfo(0,0,debut,myFileInfo);
-      MyResolveAliasFile(myFileInfo);
+      err := CanCreateFileInfo(0,0,debut,myFileInfo);
+      ExpandFileName(myFileInfo);
       resolvedDebut := debut;
-      err := FSSpecToFullPath(myFileInfo,resolvedDebut);
+      err := ExpandFileName(myFileInfo,resolvedDebut);
       if err = 0 then
         begin
-          if EndsWithDeuxPoints(debut) and not(EndsWithDeuxPoints(resolvedDebut))
+          if EndsWithDirectorySeparator(debut) and not(EndsWithDirectorySeparator(resolvedDebut))
             then debut := resolvedDebut + DirectorySeparator 
             else debut := resolvedDebut;
         end;
@@ -262,7 +262,7 @@ begin
         len := LENGTH_OF_STRING(nomDirectory);
         if (len > 0) and (nomDirectory <> ':') and ((len+LENGTH_OF_STRING(nom)) <= 220) then
           begin
-            if (nom[1] = DirectorySeparator ) and EndsWithDeuxPoints(nomDirectory)
+            if (nom[1] = DirectorySeparator ) and EndsWithDirectorySeparator(nomDirectory)
               then nom := TPCopy(nomDirectory,1,len-1)+nom
               else nom := nomDirectory+nom;
             err := ResolveAliasInFullName(nom);
@@ -392,7 +392,7 @@ function PathCompletToLongName(path : String255; var theLongName : String255) : 
 var err : OSErr;
     myFileInfo : fileInfo;
 begin
-   err := MakeFileInfo(0,0,path,myFileInfo);
+   err := CanCreateFileInfo(0,0,path,myFileInfo);
    if err <> NoErr
      then PathCompletToLongName := err
      else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
@@ -424,17 +424,17 @@ begin
 
   with fic do
     begin
-      err := MakeFileInfo(vRefNum,parID,nomFichier,info);
+      err := CanCreateFileInfo(vRefNum,parID,nomFichier,info);
       fullName := nomFichier;
       if (err = NoErr) then
         begin
-          MyResolveAliasFile(info);
+          ExpandFileName(info);
 
-          err := FSSpecToFullPath(info,fullName);
+          err := ExpandFileName(info,fullName);
 
         end else
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
-        bidlongint := FSSpecToFullPath(info,fullName);
+        bidlongint := ExpandFileName(info,fullName);
       parID      := info.parID;
       nomFichier := fullName;
       uniqueID   := HashString(fullName);

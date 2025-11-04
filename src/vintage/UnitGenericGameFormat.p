@@ -226,47 +226,47 @@ begin
     begin
 
       BeginDialog;
-		  ok := GetFileName('',reply,FOUR_CHAR_CODE('TEXT'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),info);
-		  EndDialog;
+	  ok := GetFileName('',reply,FOUR_CHAR_CODE('TEXT'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('????'),info);
+      EndDialog;
 
-		  if ok then
-		    begin
+      if ok then
+        begin
 
-		      s9  := IntToStr(9) + 'x' + IntToStr(9);   {'9x9'}
-		      s10 := IntToStr(10) + 'x' + IntToStr(10); {'10x10'}
+		  s9  := IntToStr(9) + 'x' + IntToStr(9);   {'9x9'}
+		  s10 := IntToStr(10) + 'x' + IntToStr(10); {'10x10'}
 
-		      if (Pos(s9,GetNameOfSFReply(reply)) <= 0) and
-		         (Pos(s10,GetNameOfSFReply(reply)) <= 0)
-		        then
-		          begin
-		            AlerteSimple('Le nom du fichier doit contenir Ç '+s9+' È ou Ç '+s10+' È');
-		          end
-		        else
-				      begin
+		  if (Pos(s9,GetNameOfSFReply(reply)) <= 0) and
+		     (Pos(s10,GetNameOfSFReply(reply)) <= 0)
+		    then
+		      begin
+		        AlerteSimple('Le nom du fichier doit contenir Ç '+s9+' È ou Ç '+s10+' È');
+		      end
+		    else
+			  begin
+                 
+                 if (Pos(s9,GetNameOfSFReply(reply)) > 0)  then N := 9 else
+				 if (Pos(s10,GetNameOfSFReply(reply)) > 0) then N := 10;
 
-				        if (Pos(s9,GetNameOfSFReply(reply)) > 0)  then N := 9 else
-				        if (Pos(s10,GetNameOfSFReply(reply)) > 0) then N := 10;
+				 nomComplet := ExpandFileName(info);
 
-				        nomComplet := GetFullPathOfFSSpec(info);
+                 positionArobase := Pos('@',GetNameOfSFReply(reply));
+                 if (positionArobase <= 0)
+                   then numeroDuCoupPourLeDiagramme := 10000
+                   else
+                     begin
+                       s := TPCopy(GetNameOfSFReply(reply),positionArobase+1,10);
+                       numeroDuCoupPourLeDiagramme := ChaineEnInteger(s);
+                       if numeroDuCoupPourLeDiagramme < 0 then numeroDuCoupPourLeDiagramme := 0;
+                     end;
 
-                positionArobase := Pos('@',GetNameOfSFReply(reply));
-                if (positionArobase <= 0)
-                  then numeroDuCoupPourLeDiagramme := 10000
-                  else
-                    begin
-                      s := TPCopy(GetNameOfSFReply(reply),positionArobase+1,10);
-                      numeroDuCoupPourLeDiagramme := ChaineEnInteger(s);
-                      if numeroDuCoupPourLeDiagramme < 0 then numeroDuCoupPourLeDiagramme := 0;
-                    end;
+                 if (positionArobase > 0)
+			       then typeDiagramme := DiagrammePosition
+		           else typeDiagramme := DiagrammePartie;
 
-                if (positionArobase > 0)
-			            then typeDiagramme := DiagrammePosition
-		              else typeDiagramme := DiagrammePartie;
-
-				        UtilisateurChoisitFichier_NxN := FileExists(info,theFic);
-				      end;
-		    end;
-   end;
+				 UtilisateurChoisitFichier_NxN := FileExists(info,theFic);
+			  end;
+		 end;
+    end;
 end;
 
 

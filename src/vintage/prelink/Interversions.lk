@@ -18,7 +18,7 @@ function CardinalOfPositionEtTraitSet(S : PositionEtTraitSet) : SInt32;     exte
 function MakeFileName(var reply : SFReply; prompt : String255; var whichSpec : fileInfo) : boolean;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
-	function FileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;

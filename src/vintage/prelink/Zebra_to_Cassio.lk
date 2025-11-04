@@ -23,7 +23,7 @@ procedure DisposePositionEtTraitSet(var S : PositionEtTraitSet);     external;
 function GetCurrentNode : GameTree;     external;
 procedure DetruitLesFilsZebraBookInutilesDeCeNoeud(var G : GameTree);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
+	function ExpandFileName(fs : fileInfo) : String255;     external;
 procedure WritelnPositionEtTraitDansRapport(const position : plateauOthello; trait : SInt32);     external;
 function GetTraitOfPosition(var position : PositionEtTraitRec) : SInt32;     external;
 procedure WritelnStringAndReelDansRapport(s : String255; x : double; nbDecimales : SInt16);     external;

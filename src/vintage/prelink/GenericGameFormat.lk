@@ -17,7 +17,7 @@ function GetFileName(prompt : String255; var reply : SFReply; fileKind1,fileKind
 procedure EndDialog;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
 procedure AlerteSimple(texte : String255);     external;
-	function GetFullPathOfFSSpec(fs : fileInfo) : String255;     external;
+	function ExpandFileName(fs : fileInfo) : String255;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
   function ChaineEnInteger(const s : String255) : SInt16;     external;
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
