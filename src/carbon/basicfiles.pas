@@ -87,7 +87,7 @@ function Readln(var fic : basicfile; var s : String255) : OSErr;
 function Readln(var fic : basicfile; var s : LongString) : OSErr;
 function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function Read(var fic : basicfile; nbOctets : SInt16; var s : String255) : OSErr;
+function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 function Read(var fic : basicfile; var value : SInt32) : OSErr;
 
 
