@@ -26,7 +26,7 @@ TYPE
             fileName : String255;                 {private}
             uniqueID : SInt32;                    {private}
             parID : SInt32;                       {private}
-            refNum : SInt16;                      {private}
+            handle : THandle;                     {private}
             vRefNum : SInt16;                     {private}
             ressourceForkRefNum : SInt32;         {private}
             dataForkOuvertCorrectement : SInt32;  {private}
@@ -54,11 +54,6 @@ function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : 
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
 function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
-
-
-
-function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
-function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
 
 
 function OpenFile(var fic : basicfile) : OSErr;
@@ -166,6 +161,7 @@ uses
   cwstring,
 {$ENDIF}
   SysUtils,
+  math,
   basicMemory,
   basicHashing;
 
@@ -332,7 +328,7 @@ function FileIsStandardOutput(var fic : basicfile) : boolean;
 begin
   FileIsStandardOutput := (fic.vRefNum = 0) and
                           (fic.parID = 0) and
-                          (fic.refNum = 0) and
+                          (fic.handle = 0) and
                           (fic.fileName = nameOfStandardOutputForRapport);
 end;
 
@@ -365,7 +361,7 @@ begin
   fic.fileName := name;
   fic.vRefNum := vRefNum;
   fic.parID := 0;
-  fic.refNum := 0;
+  fic.handle := 0;
   fic.uniqueID := 0;  {not yet initialised, we'll do it in ExpandFileName}
 
   fic.info := MakeFileInfo(name);
@@ -393,7 +389,7 @@ begin
   fic.fileName   := info.name;
   fic.vRefNum    := info.vRefNum;
   fic.parID      := info.parID;
-  fic.refNum     := 0;
+  fic.handle     := 0;
   fic.uniqueID   := 0;  {not yet initialised, we'll do it in ExpandFileName}
   fic.info  := info;
   fic.ressourceForkRefNum        := -1;
@@ -450,7 +446,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -491,7 +487,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -530,7 +526,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -545,7 +541,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -568,7 +564,7 @@ begin
 			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
 			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -612,7 +608,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -627,7 +623,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -650,7 +646,7 @@ begin
 			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
 			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -689,23 +685,27 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
+  // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
+  fic.handle := FileCreate(fic.info.name);
+  if fic.handle = THandle(-1)
+     then err := -1
+     else err := NoErr;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
+      DisplayMessageInConsole(' apres FileCreate dans CreateFile :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -735,14 +735,18 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
+  // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
+  fic.handle := FileCreate(fic.info.name);
+  if fic.handle = THandle(-1)
+     then err := -1
+     else err := NoErr;
 
   if debugBasicFiles then
     begin
@@ -751,7 +755,7 @@ begin
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
       DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -789,38 +793,23 @@ begin
 
   err := -1;
 
-(*
-  with fic do  {on essaie l'ouverture avec les anciennes routines}
-    err := FSOpen(fileName,vRefNum,refNum);
 
-  if debugBasicFiles then
-    begin
-      DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSOpen dans OpenFile :');
-      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
-      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
-      DisplayMessageWithNumInConsole('   ==> Err = ',err);
-    end;
-*)
-
-  if err <> NoErr then  {on essaie avec les routines du systeme 7 et le fileInfo}
-    with fic do
+  if err <> NoErr then  
       begin
-        err := FSpOpenDF(info,fsCurPerm,refNum);
+        
+        fic.handle := FileOpen(fic.info.name, fmOpenReadWrite);
+        if fic.handle = THandle(-1)
+            then err = -1
+            else err := NoErr;
 
         if debugBasicFiles then
 		  begin
 			DisplayMessageInConsole('');
-			DisplayMessageInConsole(' apres FSpOpenDF dans OpenFile :');
+			DisplayMessageInConsole(' apres FileOpen dans OpenFile :');
 			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
 			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
 			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
 			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
 			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
@@ -872,13 +861,14 @@ begin
       exit;
     end;
 
-  err := FSClose(fic.refNum);
+  FileClose(fic.handle);
+  err := NoErr;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSClose dans CloseFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -951,7 +941,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSDelete dans DeleteFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
   *)
@@ -965,7 +955,7 @@ begin
 		  begin
 			DisplayMessageInConsole('');
             DisplayMessageInConsole(' apres FSpDelete dans DeleteFile :');
-            DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+            DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
             DisplayMessageWithNumInConsole('   ==> Err = ',err);
 		  end;
       end;
@@ -1002,13 +992,13 @@ begin
       exit;
     end;
 
-  err := GetEOF(fic.refNum,taille);
+  err := GetEOF(fic.handle,taille);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetEOF dans GetFileSize :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('taille = ',taille);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
@@ -1038,7 +1028,7 @@ begin
       exit;
     end;
 
-  err := SetFPos(fic.refNum,fsFromStart,position);
+  err := SetFPos(fic.handle,fsFromStart,position);
 
   if fic.bufferLecture.doitUtiliserBuffer then
     with fic.bufferLecture do
@@ -1053,7 +1043,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetFPos dans SetFilePosition :');
       DisplayMessageWithNumInConsole(' pos = ',position);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1072,13 +1062,13 @@ begin
       exit;
     end;
 
-  err := SetFPos(fic.refNum,fsFromLEOF,0);
+  err := SetFPos(fic.handle,fsFromLEOF,0);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetFPos dans SetFilePositionAtEnd :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1097,13 +1087,13 @@ begin
       exit;
     end;
 
-  err := GetFPos(fic.refNum,position);
+  err := GetFPos(fic.handle,position);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans GetFilePosition :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1122,34 +1112,33 @@ begin
       exit;
     end;
 
-
   EndOfFile := true;
 
-  erreurES := GetFPos(fic.refNum,position);
+  erreurES := GetFPos(fic.handle,position);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans EndOfFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('position = ',position);
       DisplayMessageWithNumInConsole('   ==> Err = ',erreurES);
     end;
 
   if erreurES <> NoErr then exit;
-  erreurES := GetEOF(fic.refNum,logicalEOF);
+  erreurES := GetEOF(fic.handle,logicalEOF);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetEOF dans EndOfFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('logicalEOF = ',logicalEOF);
       DisplayMessageWithNumInConsole('   ==> Err = ',erreurES);
     end;
 
   if erreurES <> NoErr then exit;
-  EndOfFile := ( position >= logicalEOF);
+  EndOfFile := (position >= logicalEOF);
 end;
 
 function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
@@ -1162,13 +1151,13 @@ begin
       exit;
     end;
 
-  err := SetEOF(fic.refNum,posEOF);
+  err := SetEOF(fic.handle,posEOF);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetEOF dans SetEndOfFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1193,7 +1182,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres SetEndOfFile dans EmptyFile :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1213,13 +1202,13 @@ begin
       exit;
     end;
 
-  err := FSWrite(fic.refNum,count,buffPtr);
+  err := FSWrite(fic.handle,count,buffPtr);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSWrite dans Write :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1241,13 +1230,13 @@ begin
       exit;
     end;
 
-  err := MyFSWriteString(fic.refNum,s);
+  err := MyFSWriteString(fic.handle,s);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSWriteString dans Write :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1266,13 +1255,13 @@ begin
       exit;
     end;
 
-  err := MyFSWriteString(fic.refnum,s + chr(13));
+  err := MyFSWriteString(fic.handle,s + chr(13));
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres MyFSWriteString dans Writeln( :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1291,18 +1280,18 @@ begin
   if FileIsStandardOutput(fic) then
     begin
       InsereTexteDansRapport(@value,4);
-      Writeln := NoErr;
+      Write := NoErr;
       exit;
     end;
 
   count := 4;
-  err := FSWrite(fic.refNum, count, @value);
+  err := FSWrite(fic.handle, count, @value);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSWrite dans Writeln :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageInConsole(' apres FSWrite dans Write :');
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1311,37 +1300,50 @@ end;
 
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
+    nbBytesRead : SInt32;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      Read := -1;
+      Result := -1;
       exit;
     end;
 
-  err := FSRead(fic.refNum,count,buffPtr);
+  nbBytesRead := FileRead(fic.handle, buffPtr, count);
+  if nbBytesRead > 0
+     then 
+       begin
+         err := NoErr;
+         count := nbBytesRead;
+       end
+     else
+       begin
+         err := -1;
+         count:= 0;
+       end;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans Read :');
+      DisplayMessageInConsole(' apres FileRead dans Read :');
       DisplayMessageWithNumInConsole('count = ',count);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  Read := err;
+  Result := err;
 end;
 
 
 function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
-var len : SInt32;
+var len, nbBytesRead : SInt32;
+    buffPtr : Ptr;
     err : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      Read := -1;
+      Result := -1;
       exit;
     end;
 
@@ -1349,18 +1351,29 @@ begin
   if len > 255 then len := 255;
   if len < 0 then len := 0;
 
-  err := FSRead(fic.refnum,len,@s[1]);
-  SET_LENGTH_OF_STRING(s,len);
+  buffPtr := @s[1];
+  nbBytesRead := FileRead(fic.handle, buffPtr, len);
+  if nbBytesRead >= 0
+     then 
+       begin
+         err := NoErr;
+         SET_LENGTH_OF_STRING(s,len);
+       end
+     else
+       begin
+         err := -1;
+         SET_LENGTH_OF_STRING(s,0);
+       end;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSRead dans Read :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  Read := err;
+  Result := err;
 end;
 
 
@@ -1424,7 +1437,24 @@ begin
             if debug then WritelnNumDansRapport('FIX ME : apres GetFilePosition, err = ',err);
 
             if (err = NoErr) then
-              err := FSRead(fic.refnum, nbOctetsLusSurLeDisque, bufferLecture);
+              begin
+              
+                nbOctetsLusSurLeDisque := FileRead(fic.handle, bufferLecture, nbOctetsLusSurLeDisque);
+                
+                if nbOctetsLusSurLeDisque = 0 then
+                  begin
+                     err := eofErr; {-39 is eofErr, end of file error}
+                  end else
+                if nbOctetsLusSurLeDisque < 0 then
+                  begin
+                     err := -1;
+                     nbOctetsLusSurLeDisque:= 0;
+                  end else
+                if nbOctetsLusSurLeDisque > 0 then
+                  begin
+                     err := NoErr;
+                  end;
+              end;
 
             if (err = NoErr) and (nbOctetsLusSurLeDisque > 0)
               then
@@ -1479,7 +1509,18 @@ Bail :
     begin
       if debug then WritelnNumDansRapport('avant, length = ',length);
 
-      err := FSRead(fic.refnum,length,buffer);
+
+      length := FileRead(fic.handle, buffer, length);
+      if length > 0 then
+          begin
+             err := NoErr;
+          end
+        else
+          begin
+             err := -1;
+             length := 0;
+          end;
+
       MyFSBufferedReadPourReadln := err;
 
       if debug then WritelnNumDansRapport('apres, length = ',length);
@@ -1507,7 +1548,7 @@ begin
   {on essaie de lire 258 caracteres du fichier pour les mettre dans notre buffer}
   len := 258;
   err := MyFSBufferedReadPourReadln(fic, len, @buffer[1]);
-  //err := FSRead(fic.refnum, len, @buffer[1]);
+  //err := FSRead(fic.handle, len, @buffer[1]);
   for i := len + 1 to 258 do buffer[i] := chr(0);
 
   {on cherche le premier retour charriot dans le buffer}
@@ -1549,7 +1590,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FSRead dans Readln :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1622,7 +1663,7 @@ begin
 
   {on essaie de lire count caracteres dans buffPtr}
   len := count;
-  err := FSRead(fic.refnum,count,buffPtr);
+  err := Read(fic, buffPtr, count);
   localBuffer := PackedArrayOfCharPtr(buffPtr);
 
   {on cherche le premier retour charriot dans buffPtr}
@@ -1651,8 +1692,8 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans Readln :');
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageInConsole(' apres Read dans Readln :');
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1672,14 +1713,14 @@ begin
     end;
 
   count := 4;
-  err := FSRead(fic.refNum,count,@value);
+  err := Read(fic, @value, count);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans Read :');
+      DisplayMessageInConsole(' apres Read dans Read :');
       DisplayMessageWithNumInConsole('count = ',count);
-      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+      DisplayMessageWithNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -1929,92 +1970,6 @@ begin
 end;
 
 
-function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
-const tailleMaxNom = 31;
-var err : OSErr;
-    len,posLastDeuxPoints : SInt16;
-    erreurEstFicNonTrouve : boolean;
-begin
-
-  err := -2;
-  erreurEstFicNonTrouve := false;
-
-
-  if err <> NoErr then
-    begin
-      err := FileExists(name,0,fic);
-      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
-    end;
-
-  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
-  name := TPCopy(name, posLastDeuxPoints+1, 255);
-
-  len := LENGTH_OF_STRING(name);
-  if len <= tailleMaxNom then
-    begin
-		  if err <> NoErr then
-		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
-		    end;
-		end;
-
-  name := name+' ';
-  len := LENGTH_OF_STRING(name);
-  if len <= tailleMaxNom then
-    begin
-		  if (err <> NoErr) then
-		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
-		    end;
-		end;
-
-  name := name+'(alias)';
-  len := LENGTH_OF_STRING(name);
-  if len <= tailleMaxNom then
-    begin
-		  if (err <> NoErr) then
-		    begin
-		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
-		    end;
-		end;
-
-  if (err <> 0) and erreurEstFicNonTrouve
-    then FichierTexteDeCassioExiste := fnfErr
-    else FichierTexteDeCassioExiste := err;
-end;
-
-
-function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
-const tailleMaxNom = 31;
-var err : OSErr;
-    len,posLastDeuxPoints : SInt16;
-begin
-  err := -1;
-  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
-  if len <= tailleMaxNom then
-    begin
-      err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-    end;
-  name := name+' (1)';
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
-  if len <= tailleMaxNom then
-    begin
-      if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-    end;
-  name := name+'(2)';
-  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
-  if len <= tailleMaxNom then
-    begin
-      if (err <> NoErr)
-        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
-    end;
-  CreeFichierTexteDeCassio := err;
-end;
 
 procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;

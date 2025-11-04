@@ -18,6 +18,10 @@ function DetermineVolumeApplication : String255;
 function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;
 function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) : String255;
 
+{ Fichiers textes dans les dossiers auxiliaires de Cassio }
+function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
+function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
+
 { Noms de l'utilisateur et de l'executable }
 function GetUserName : String255;
 function GetApplicationName(default : String255) : String255;
@@ -326,6 +330,94 @@ begin
 
 end;
 
+
+
+function FichierTexteDeCassioExiste(name : String255; var fic : basicfile) : OSErr;
+const tailleMaxNom = 31;
+var err : OSErr;
+    len,posLastDeuxPoints : SInt16;
+    erreurEstFicNonTrouve : boolean;
+begin
+
+  err := -2;
+  erreurEstFicNonTrouve := false;
+
+
+  if err <> NoErr then
+    begin
+      err := FileExists(name,0,fic);
+      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
+    end;
+
+  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
+  name := TPCopy(name, posLastDeuxPoints+1, 255);
+
+  len := LENGTH_OF_STRING(name);
+  if len <= tailleMaxNom then
+    begin
+		  if err <> NoErr then
+		    begin
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
+		    end;
+		end;
+
+  name := name+' ';
+  len := LENGTH_OF_STRING(name);
+  if len <= tailleMaxNom then
+    begin
+		  if (err <> NoErr) then
+		    begin
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
+		    end;
+		end;
+
+  name := name+'(alias)';
+  len := LENGTH_OF_STRING(name);
+  if len <= tailleMaxNom then
+    begin
+		  if (err <> NoErr) then
+		    begin
+		      err := FileExists(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+		      erreurEstFicNonTrouve := erreurEstFicNonTrouve or (err = fnfErr);
+		    end;
+		end;
+
+  if (err <> 0) and erreurEstFicNonTrouve
+    then FichierTexteDeCassioExiste := fnfErr
+    else FichierTexteDeCassioExiste := err;
+end;
+
+
+function CreeFichierTexteDeCassio(name : String255; var fic : basicfile) : OSErr;
+const tailleMaxNom = 31;
+var err : OSErr;
+    len,posLastDeuxPoints : SInt16;
+begin
+  err := -1;
+  posLastDeuxPoints := LastPos( DirectorySeparator ,name);
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  if len <= tailleMaxNom then
+    begin
+      err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+    end;
+  name := name+' (1)';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  if len <= tailleMaxNom then
+    begin
+      if (err <> NoErr)
+        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+    end;
+  name := name+'(2)';
+  len := LENGTH_OF_STRING(name)-posLastDeuxPoints;
+  if len <= tailleMaxNom then
+    begin
+      if (err <> NoErr)
+        then err := CreateFile(pathDossierFichiersAuxiliaires+ DirectorySeparator +name,0,fic);
+    end;
+  CreeFichierTexteDeCassio := err;
+end;
 
 
 
