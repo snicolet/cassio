@@ -366,7 +366,7 @@ begin
   fic.vRefNum := vRefNum;
   fic.parID := 0;
   fic.refNum := 0;
-  fic.uniqueID := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
+  fic.uniqueID := 0;  {not yet initialised, we'll do it in ExpandFileName}
 
   fic.info := MakeFileInfo(name);
 
@@ -394,7 +394,7 @@ begin
   fic.vRefNum    := info.vRefNum;
   fic.parID      := info.parID;
   fic.refNum     := 0;
-  fic.uniqueID   := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
+  fic.uniqueID   := 0;  {not yet initialised, we'll do it in ExpandFileName}
   fic.info  := info;
   fic.ressourceForkRefNum        := -1;
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
@@ -439,14 +439,14 @@ begin
 end;
 
 
-function CreateFFSpecAndResolveAlias(var fic : basicfile) : OSErr;
+function ExpandFileName(var fic : basicfile) : OSErr;
 var err : OSErr;
     fullName : String255;
 begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' avant MakeFileInfo dans CreateFFSpecAndResolveAlias :');
+      DisplayMessageInConsole(' avant MakeFileInfo dans ExpandFileName :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -458,7 +458,7 @@ begin
 
   if FileIsStandardOutput(fic) then
     begin
-      CreateFFSpecAndResolveAlias := NoErr;
+      ExpandFileName := NoErr;
       exit;
     end;
 
@@ -487,7 +487,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres MakeFileInfo dans CreateFFSpecAndResolveAlias :');
+      DisplayMessageInConsole(' apres MakeFileInfo dans ExpandFileName :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -497,7 +497,7 @@ begin
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
-  CreateFFSpecAndResolveAlias := err;
+  ExpandFileName := err;
 end;
 
 
@@ -537,12 +537,12 @@ begin
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
-  err2 := CreateFFSpecAndResolveAlias(fic);
+  err2 := ExpandFileName(fic);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
+      DisplayMessageInConsole(' apres ExpandFileName dans FileExists :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -619,12 +619,12 @@ begin
       DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
     end;
 
-  err2 := CreateFFSpecAndResolveAlias(fic);
+  err2 := ExpandFileName(fic);
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans FileExists :');
+      DisplayMessageInConsole(' apres ExpandFileName dans FileExists :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -673,7 +673,7 @@ var err : OSErr;
 begin
   InitializeBasicFile(name,vRefNum, fic);
   
-  err := CreateFFSpecAndResolveAlias(fic);
+  err := ExpandFileName(fic);
 
   if FileIsStandardOutput(fic) then
     begin
@@ -684,7 +684,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
+      DisplayMessageInConsole(' apres ExpandFileName dans CreateFile :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -718,7 +718,8 @@ function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
   InitializeBasicFile(info, fic);
-  err := CreateFFSpecAndResolveAlias(fic);
+  
+  err := ExpandFileName(fic);
 
   if FileIsStandardOutput(fic) then
     begin
@@ -729,7 +730,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres CreateFFSpecAndResolveAlias dans CreateFile :');
+      DisplayMessageInConsole(' apres ExpandFileName dans CreateFile :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
