@@ -35,7 +35,7 @@ function GetEcritToutDansRapportLog : boolean;     external;
 function CassioIsUsingMetaphone : boolean;     external;
 	function TPCopy (source : String255; start, count: SInt32) : String255;     external;
 	function EstUnNomDeFichierTronquePourPanther(const nomFichier : String255) : boolean;     external;
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;     external;
+function ExtractFileName(path : String255; var theLongName : String255) : OSErr;     external;
   procedure MyInsertMenuItem( theMenu: MenuRef; const itemString: String255; afterItem: MenuItemIndex );     external;
 	procedure MyGetMenuItemText( theMenu : MenuRef; item : MenuItemIndex; var itemString : String255 );     external;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;     external;

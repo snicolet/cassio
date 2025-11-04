@@ -49,7 +49,7 @@ procedure SetAutoVidageDuRapport(flag : boolean);     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
 	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
 	
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
 procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);     external;
 procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;
 function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt32; fromIndex : SInt32) : boolean;     external;

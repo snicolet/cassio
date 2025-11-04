@@ -343,7 +343,7 @@ begin {AjouterPartiesFichierPGNDansListe}
 
 
   nomFichierPGN := ExtraitNomDirectoryOuFichier(GetName(fichierPGN.info));
-  erreurES      := FSSpecToLongName(fichierPGN.info, nomLongDuFichier);
+  erreurES      := ExtractFileName(fichierPGN.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFichierPGN := DeleteSubstringAfterThisChar('.',nomFichierPGN,false);
 
@@ -934,7 +934,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
 
 
   nomFic := ExtraitNomDirectoryOuFichier(GetName(fichier.info));
-  erreurES := FSSpecToLongName(fichier.info, nomLongDuFichier);
+  erreurES := ExtractFileName(fichier.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFic := DeleteSubstringAfterThisChar('.',nomFic,false);
   nomsDesJoueursParDefaut := nomLongDuFichier;
@@ -2195,7 +2195,7 @@ procedure EcritNomFichierNonReconnuDansRapport(var fic : basicfile);
 var err : OSErr;
     nomLongDuFichier : String255;
 begin
-  err := FSSpecToLongName(fic.info, nomLongDuFichier);
+  err := ExtractFileName(fic.info, nomLongDuFichier);
   if err = NoErr then
     begin
       WritelnDansRapport('');
@@ -2284,7 +2284,7 @@ begin
                       partieEstDouteuse := false;
 
                       partieEnAlpha := infos.positionEtPartie;
-                      err := FSSpecToLongName(fic.info, nomLongDuFichier);
+                      err := ExtractFileName(fic.info, nomLongDuFichier);
 
                       partieLegale := EstUnePartieOthelloAvecMiroir(partieEnAlpha); {on sait qu'elle est legale, c'est juste pour compacter et reorienter la partie}
 

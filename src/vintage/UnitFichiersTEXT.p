@@ -90,8 +90,8 @@ function  GetDebugFiles : boolean;
 
 
 function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
+function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 
 
 procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
@@ -333,7 +333,7 @@ type FSCopyAliasInfoPtr = function(inAlias : AliasHandle;
                                    ) : OSStatus;
 
 
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 var err : OSErr;
     MacVersion : SInt32;
     MySFCopyAlias : FSCopyAliasInfoPtr;
@@ -384,18 +384,18 @@ begin
       end;
 
   cleanUp :
-  FSSpecToLongName := err;
+  ExtractFileName := err;
 end;
 
 
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
+function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
     myFileInfo : fileInfo;
 begin
    err := CanCreateFileInfo(0,0,path,myFileInfo);
    if err <> NoErr
-     then PathCompletToLongName := err
-     else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
+     then ExtractFileName := err
+     else ExtractFileName := ExtractFileName(myFileInfo,theLongName);
 end;
 
 

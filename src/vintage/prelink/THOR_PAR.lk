@@ -21,7 +21,7 @@ function MakeTranscriptFromPlateauOthello(coups : platValeur) : Transcript;     
 procedure ChercherLesErreursDansCeTranscript(var myTranscript : Transcript; var analyse : AnalyseDeTranscript);     external;
 function EstUnePartieOthelloAvecMiroir(var s : String255) : boolean;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
 procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
 procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;

@@ -123,8 +123,8 @@ function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
 function FileIsStandardOutput(var fic : basicfile) : boolean;
 
 
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
+function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 
 procedure DoDirSeparators(var filename : String255);
 function EndsWithDirectorySeparator(var s : String255) : boolean;
@@ -278,6 +278,8 @@ begin
    Result := path;
 end;
 
+
+
 function ExpandFileName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
     myFileInfo : fileInfo;
@@ -406,80 +408,29 @@ begin
 end;
 
 
-type FSCopyAliasInfoPtr = function(inAlias : AliasHandle;
-                                   targetName :  HFSUniStr255Ptr;
-                                   volumeName :  HFSUniStr255Ptr;
-                                   pathString : CFStringRefPtr;
-                                   whichInfo  : Ptr; {should be FSAliasInfoBitmap^ }
-                                   info       : Ptr  {should be FSAliasInfo^ }
-                                   ) : OSStatus;
-
-
-function FSSpecToLongName(whichFile : fileInfo; var theLongName : String255) : OSErr;
+function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 var err : OSErr;
-    MacVersion : SInt32;
-    MySFCopyAlias : FSCopyAliasInfoPtr;
-    targetName : HFSUniStr255;
-    fileRef : FSRef;
-    theAlias : aliasHandle;
-    str : CFStringRef;
-    pascalName : Str255;
-label cleanUp;
+    aux : fileInfo;
 begin
-  err := -1;
-  theLongName := whichFile.name;
-
-  if (Gestalt(gestaltSystemVersion, MacVersion) = noErr) and
-     (MacVersion >= $1020)  (* au moins Mac OS X 10.2 *)
-    then
-      begin
-
-  			MySFCopyAlias := FSCopyAliasInfoPtr(GetFunctionPointerFromBundle('CoreServices.framework','FSCopyAliasInfo'));
-
-  			if (MySFCopyAlias <> NIL) then
-  			  begin
-  			    err := FSpMakeFSRef(whichFile,fileRef);
-
-            if (err <> NoErr) then
-              goto cleanUp;
-
-            err := FSNewAlias(NIL,fileRef,theAlias);
-
-            if (err <> NoErr) then
-              goto cleanUp;
-
-            if (theAlias <> NIL) then
-              err := MySFCopyAlias(theAlias,@targetName, NIL, NIL, NIL, NIL);
-
-            if (err <> NoErr) then
-              goto cleanUp;
-
-            str := CFStringCreateWithCharacters( NIL {kCFAllocatorDefault}, @targetName.unicode[0], targetName.length );
-
-            if CFStringGetPascalString(str, @pascalName, 256, kTextEncodingMacRoman)
-              then theLongName := MyStr255ToString(pascalName)
-              else err := -1;
-
-            CFRelease(CFTypeRef(str));
-
-  			  end;
-      end;
-
-  cleanUp :
-  FSSpecToLongName := err;
+  err := CanCreateFileInfo(0, 0, whichFile.name, aux);
+  if err = NoErr
+    then theLongName := sysUtils.ExtractFileName(aux.name)
+    else theLongName := whichFile.name;
+  Result := err;
 end;
 
 
 
 
-function PathCompletToLongName(path : String255; var theLongName : String255) : OSErr;
+function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
-    myFileInfo : fileInfo;
+    aux : fileInfo;
 begin
-   err := CanCreateFileInfo(0,0,path,myFileInfo);
-   if err <> NoErr
-     then PathCompletToLongName := err
-     else PathCompletToLongName := FSSpecToLongName(myFileInfo,theLongName);
+   theLongName := path;
+   err := CanCreateFileInfo(0,0,path,aux);
+   if err = NoErr
+      then err := ExtractFileName(aux,theLongName);
+   Result := err;
 end;
 
 

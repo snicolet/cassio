@@ -844,7 +844,7 @@ begin
 
 	    if EstUnNomDeFichierTronquePourPanther(nomFichier)
 	       and not(NomLongDejaCalculeDansMenuReouvrir(pathFichier,nomLongDuFichier))
-	       and (PathCompletToLongName(pathFichier,aux) = NoErr)
+	       and (ExtractFileName(pathFichier,aux) = NoErr)
 	      then nomLongDuFichier := aux;
 
 

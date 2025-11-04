@@ -1870,7 +1870,7 @@ begin
   if (err <> NoErr) then goto sortie;
 
 
-  err := FSSpecToLongName(fic.info,nomLongDuFichier);
+  err := ExtractFileName(fic.info,nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
 

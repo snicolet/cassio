@@ -597,7 +597,7 @@ begin
       end
     else
       begin
-        erreurES := PathCompletToLongName(nomFichier,nomLongDuFichier);
+        erreurES := ExtractFileName(nomFichier,nomLongDuFichier);
         AlerteFormatNonReconnuFichierPartie(nomLongDuFichier);
         exit;
       end;
@@ -610,7 +610,7 @@ begin
       exit;
     end;
 
-  erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
+  erreurES := ExtractFileName(ficPartie.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
 
 
@@ -904,7 +904,7 @@ begin  {$UNUSED mergeWithCurrentTree}
           else
             begin
               PlaquerPositionEtPartie(posInitialeDansFichier,partieEnAlpha,kRejouerLesCoupsEnDirect);
-              erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
+              erreurES := ExtractFileName(ficPartie.info, nomLongDuFichier);
               AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
             end;
       end
@@ -957,7 +957,7 @@ begin
     end;
 
   nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
-  erreurES := FSSpecToLongName(ficPartie.info, nomLongDuFichier);
+  erreurES := ExtractFileName(ficPartie.info, nomLongDuFichier);
   if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
      (GetModificationDate(ficPartie,theDate) = NoErr) then
     begin
