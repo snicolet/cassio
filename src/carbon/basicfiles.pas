@@ -269,22 +269,14 @@ begin
 end;
 
 
-function ExpandFileName(fs : fileInfo) : String255;
+function ExpandFileName(var fs : fileInfo) : String255;
 var path : String255;
 begin
    ExpandFileName(fs, path);
+   fs := MakeFileInfo(0, 0, path);
 
    Result := path;
 end;
-
-
-procedure ExpandFileName(var fs : fileInfo);
-var path : string255;
-begin
-  path := ExpandFileName(fs);
-  fs := MakeFileInfo(0, 0, path);
-end;
-
 
 function ExpandFileName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
