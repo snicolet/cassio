@@ -503,7 +503,6 @@ end;
 
 function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
-    FinderInfos : FInfo;
 begin
   
   if (name = '') then
@@ -558,24 +557,26 @@ begin
       FileExists := err2
     else
       begin
-			  err1 := FSpGetFInfo(fic.info,FinderInfos);
+        if sysUtils.FileExists(fic.info.name)
+          then err1 := NoErr
+          else err1 := fnfErr;   {file not found error}
 
-			  if debugBasicFiles then
-			    begin
-			      DisplayMessageInConsole('');
-			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
-			      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
-			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
-			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
-			    end;
+		if debugBasicFiles then
+		  begin
+			DisplayMessageInConsole('');
+			DisplayMessageInConsole(' apres sysUtils.FileExists dans FileExists :');
+			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
+			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
+			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
+			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
+		  end;
 
-			  FileExists := err1;
-			end;
+		FileExists := err1;
+	  end;
 
   if debugBasicFiles then
     begin
@@ -588,7 +589,6 @@ end;
 
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
-    FinderInfos : FInfo;
 begin
   if (info.name = '') then
     begin
@@ -596,7 +596,6 @@ begin
       FileExists := -1;
       exit;
     end;
-
 
   InitializeBasicFile(info, fic);
 
@@ -640,24 +639,26 @@ begin
       FileExists := err2
     else
       begin
-			  err1 := FSpGetFInfo(fic.info,FinderInfos);
+		if sysUtils.FileExists(fic.info.name)
+          then err1 := NoErr
+          else err1 := fnfErr;   {file not found error}
 
-			  if debugBasicFiles then
-			    begin
-			      DisplayMessageInConsole('');
-			      DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
-			      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
-			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
-			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
-			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
-			    end;
+		if debugBasicFiles then
+		  begin
+			DisplayMessageInConsole('');
+			DisplayMessageInConsole(' apres FSpGetFInfo dans FileExists :');
+			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+			DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
+			DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
+			DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
+			DisplayMessageInConsole('fileInfo.name = '+fic.info.name);
+			DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
+			DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
+		  end;
 
-			  FileExists := err1;
-			end;
+		FileExists := err1;
+	  end;
 
   if debugBasicFiles then
     begin
@@ -1465,7 +1466,7 @@ begin
             positionDansBuffer := positionDansBuffer + length;
 
             luDansLeBuffer := true;
-            g := NoErr;
+            MyFSBufferedReadPourReadln := NoErr;
 
             // if debug then WritelnNumDansRapport('FIX ME : OK, positionDansBuffer = ',positionDansBuffer);
           end;
