@@ -337,24 +337,27 @@ begin
 end;
 
 
-procedure InitialiseFichierTexte(var name : String255; var vRefNum : SInt16; var fic : basicfile);
+procedure InitializeBasicFile(var name : String255; var vRefNum : SInt16; var fic : basicfile);
 var nomDirectory : String255;
     len : SInt16;
-    err : OSErr;
 begin
   DoDirSeparators(name);
 
   if (Pos( DirectorySeparator ,name) > 0) and (vRefNum <> 0)
     then
       begin
-        nomDirectory := GetWDName(vRefNum);
+        nomDirectory := GetCurrentDir();
         len := LENGTH_OF_STRING(nomDirectory);
-        if (len > 0) and (nomDirectory <> DirectorySeparator ) and ((len+LENGTH_OF_STRING(name)) <= 220) then
+        
+        if (len > 0) and
+           (nomDirectory <> DirectorySeparator ) and 
+           ((LENGTH_OF_STRING(nomDirectory)+LENGTH_OF_STRING(name)) <= 255) then
           begin
             if (name[1] = DirectorySeparator ) and EndsWithDirectorySeparator(nomDirectory)
-              then name := TPCopy(nomDirectory,1,len-1)+name
-              else name := nomDirectory+name;
-            err := ExpandFileName(name);
+              then name := TPCopy(nomDirectory,1,len-1) + name
+              else name := nomDirectory + name;
+              
+            name := sysUtils.ExpandFileName(name);
             vRefNum := 0;
           end;
       end;
@@ -384,7 +387,7 @@ begin
 end;
 
 
-procedure InitialiseFichierTexteFSp(info : fileInfo; var fic : basicfile);
+procedure InitializeBasicFile(info : fileInfo; var fic : basicfile);
 begin
 
   fic.fileName   := info.name;
@@ -437,7 +440,7 @@ end;
 
 
 function CreateFFSpecAndResolveAlias(var fic : basicfile) : OSErr;
-var err,bidLongint : OSErr;
+var err : OSErr;
     fullName : String255;
 begin
   if debugBasicFiles then
@@ -467,12 +470,10 @@ begin
       if (err = NoErr) then
         begin
           ExpandFileName(info);
-
           err := ExpandFileName(info,fullName);
-
         end else
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
-        bidlongint := ExpandFileName(info,fullName);
+        ExpandFileName(info, fullName);
         
       parID      := info.parID;
       fileName   := fullName;
@@ -515,7 +516,7 @@ begin
   {TraceLog('FileExists : name =' + name);}
 
   DoDirSeparators(name);
-  InitialiseFichierTexte(name,vRefNum,fic);
+  InitializeBasicFile(name,vRefNum,fic);
 
   if FileIsStandardOutput(fic) then
     begin
@@ -526,7 +527,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
+      DisplayMessageInConsole(' apres InitializeBasicFile dans FileExists :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -597,7 +598,7 @@ begin
     end;
 
 
-  InitialiseFichierTexteFSp(info, fic);
+  InitializeBasicFile(info, fic);
 
   if FileIsStandardOutput(fic) then
     begin
@@ -608,7 +609,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres InitialiseFichierTexte dans FileExists :');
+      DisplayMessageInConsole(' apres InitializeBasicFile dans FileExists :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
@@ -670,7 +671,7 @@ end;
 function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
-  InitialiseFichierTexte(name,vRefNum, fic);
+  InitializeBasicFile(name,vRefNum, fic);
   
   err := CreateFFSpecAndResolveAlias(fic);
 
@@ -716,7 +717,7 @@ end;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
-  InitialiseFichierTexteFSp(info, fic);
+  InitializeBasicFile(info, fic);
   err := CreateFFSpecAndResolveAlias(fic);
 
   if FileIsStandardOutput(fic) then
@@ -1293,7 +1294,7 @@ begin
     end;
 
   count := 4;
-  err := FSWrite(fic.refNum,count,@value);
+  err := FSWrite(fic.refNum, count, @value);
 
   if debugBasicFiles then
     begin
