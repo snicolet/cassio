@@ -107,7 +107,7 @@ begin
        if (left <> '') and (right <> '') then
          begin
            left := left + DirectorySeparator;
-           codeErreur := CanCreateFileInfo(0,0,left,myFileInfo);
+           codeErreur := MakeFileInfo(left,myFileInfo);
            if codeErreur = NoErr then myPath := left;
          end;
      end;
@@ -239,20 +239,20 @@ begin
   repeat
     err := -1;
 
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers auxiliaires Cassio',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Fichiers-auxiliaires-Cassio',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Auxilary files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Auxilary-files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Auxiliary files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Auxiliary-files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio auxilary files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-auxilary-files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio auxiliary files',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Cassio-auxiliary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Fichiers auxiliaires',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Fichiers-auxiliaires',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Fichiers auxiliaires Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Fichiers-auxiliaires-Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Auxilary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Auxilary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Auxiliary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Auxiliary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio auxilary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio-auxilary-files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio auxiliary files',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Cassio-auxiliary-files',myFileInfo);
 
     if err = NoErr
       then
@@ -272,7 +272,7 @@ begin
 
   if err <> NoErr then  { desespoir !! }
       begin
-        err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths,myFileInfo);
+        err := MakeFileInfo(iterateurCassioFolderPaths,myFileInfo);
         ExpandFileName(myFileInfo);
         err := ExpandFileName(myFileInfo,fullPath);
 
@@ -292,11 +292,11 @@ begin
 
   repeat
 
-    err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers Cassio',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers Cassio (alias)',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Othelliers',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Boards',myFileInfo);
-    if err <> 0 then err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths+'Boards Cassio',myFileInfo);
+    err := MakeFileInfo(iterateurCassioFolderPaths+'Othelliers Cassio',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Othelliers Cassio (alias)',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Othelliers',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Boards',myFileInfo);
+    if err <> 0 then err := MakeFileInfo(iterateurCassioFolderPaths+'Boards Cassio',myFileInfo);
 
     if err = 0
       then
@@ -317,7 +317,7 @@ begin
 
   if (err <> 0) then
     begin  { desespoir !! }
-      err := CanCreateFileInfo(0,0,iterateurCassioFolderPaths,myFileInfo);
+      err := MakeFileInfo(iterateurCassioFolderPaths,myFileInfo);
       ExpandFileName(myFileInfo);
       err := ExpandFileName(myFileInfo,fullPath);
       DeterminePathDossierOthelliersCassio := fullPath;
@@ -593,7 +593,7 @@ begin
 
       // WritelnDansRapport('dans ChargerLesPolicesPriveesDeCassio, path = ' + path);
 
-      err := CanCreateFileInfo(0,0,path,fontDirectory);
+      err := MakeFileInfo(path,fontDirectory);
       if (err = 0) then err := SetPathOfScannedDirectory(fontDirectory);
       if (err = 0) then err := ScanDirectory(fontDirectory,LoadPolicePriveeDeCassio);
 

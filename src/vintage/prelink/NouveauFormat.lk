@@ -91,7 +91,7 @@ procedure AlerteSimple(texte : String255);     external;
 	procedure SetFileCreator(fichier : fileInfo; QuelType : OSType);     external;
 	procedure SetFileType(fichier : fileInfo; QuelType : OSType);     external;
 	function GetWDName(WDRefNum : SInt16) : String255;     external;
-	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
 	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;
 function NroOuverture(var s : packed7) : SInt32;     external;

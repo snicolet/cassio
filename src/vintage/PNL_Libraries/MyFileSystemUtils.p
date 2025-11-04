@@ -19,7 +19,7 @@ INTERFACE
 	function FSpSetCatInfo (const spec : fileInfo; var pb : CInfoPBRec) : OSErr;
 	function FSpGetParID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
 	function FSpGetDirID( const spec : fileInfo; var dirID : SInt32 ) : OSErr;
-	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 	procedure MyGetModDate (const spec : fileInfo; var moddate : SInt32);
 	function DuplicateFile ({const} org, new : fileInfo) : OSErr;
@@ -283,7 +283,7 @@ end;
 			s : String255;
 	begin
 	  s := GetName(fs);
-		err := CanCreateFileInfo(fs.vRefNum, fs.parID, s, fs);
+		err := MakeFileInfo(fs.vRefNum, fs.parID, s, fs);
 		if err = fnfErr then begin
 			err := noErr;
 		end;
@@ -705,7 +705,7 @@ end;
 		FSpSetCatInfo := PBSetCatInfoSync(@pb);
 	end;
 
-	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;
 		var
 			pb : CInfoPBRec;
 			oe : OSErr;
@@ -738,7 +738,7 @@ end;
 	var result : fileInfo;
 	    err : OSErr;
 	begin
-	  err := CanCreateFileInfo(vrn, dirID, name, result);
+	  err := MakeFileInfo(vrn, dirID, name, result);
 	  MyMakeFSSpec := result;
 	end;
 
@@ -1675,7 +1675,7 @@ begin
   if RightStr(directoryPath,1) <> CharToString(separateur) then
      directoryPath := directoryPath + separateur;
 
-  erreurES := CanCreateFileInfo(0,0,directoryPath,directoryDepot);
+  erreurES := MakeFileInfo(directoryPath,directoryDepot);
 
   if not(FolderExists(directoryDepot, erreurES))
     then
@@ -1794,7 +1794,7 @@ begin
 	applicationFolderPath := volumeName + applicationFolderPath;
 
 	(* Check the result : is the application support folder path a correct path ? *)
-	err := CanCreateFileInfo(0,0,applicationFolderPath,fsAppSuppFolder);
+	err := MakeFileInfo(applicationFolderPath,fsAppSuppFolder);
 	if (err <> NoErr) then
 	begin
 	  WritelnNumDansRapport('GetPathOfApplicationSupportFolder : MakeFileInfo = ',err);

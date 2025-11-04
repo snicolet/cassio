@@ -654,7 +654,7 @@ begin
       if (osError = noErr) then
         begin
           BlockMoveData(Ptr(resultDesc.dataHandle^), @fileSpec, sizeof(fileInfo));
-          ignoredErr := CanCreateFileInfo(fileSpec.vRefNum, fileSpec.parID, GetName(fileSpec), theFileSpec);
+          ignoredErr := MakeFileInfo(fileSpec.vRefNum, fileSpec.parID, GetName(fileSpec), theFileSpec);
         end;
       ignoredErr := AEDisposeDesc(resultDesc);
       ignoredErr := NavDisposeReply(theNavReply);

@@ -15,7 +15,7 @@ function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
 procedure DisposeMemoryPtr(var whichPtr : Ptr);     external;
 	function GetWDName(WDRefNum : SInt16) : String255;     external;
 	procedure SplitRight(s : String255; const sub : String255; var left, right: String255);     external;
-	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
   function MyStr255ToString( const s : Str255 ) : String255;     external;
 	procedure ExpandFileName (var fs : fileInfo);     external;
 	function ExpandFileName (fs : fileInfo; var path : String255) : OSErr;     external;

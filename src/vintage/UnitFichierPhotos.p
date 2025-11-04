@@ -639,7 +639,7 @@ var directoryDepart : fileInfo;
 begin
   cheminDirectoryDepartRecursion := pathDuDossier + DirectorySeparator;
 
-  codeErreur := CanCreateFileInfo(0,0,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := MakeFileInfo(cheminDirectoryDepartRecursion,directoryDepart);
 
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
 

@@ -129,7 +129,9 @@ function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 procedure DoDirSeparators(var filename : String255);
 function EndsWithDirectorySeparator(var s : String255) : boolean;
 
-function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(name : String255) : fileInfo;
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
 function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 
 
@@ -231,7 +233,7 @@ begin
 end;
 
 
-function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
 var err : OSErr;
 begin
    info.name    := name;
@@ -248,7 +250,7 @@ end;
 function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 var info : fileInfo;
 begin
-   CanCreateFileInfo(vrn, dirID, name, info); // discard error !
+   MakeFileInfo(vrn, dirID, name, info); // discard error !
    
    MakeFileInfo := info;
 end;
@@ -260,7 +262,7 @@ var err : OSErr;
     info : fileInfo;
 begin
   s := GetName(fs);
-  err := CanCreateFileInfo(fs.vRefNum, fs.parID, s, info);
+  err := MakeFileInfo(fs.vRefNum, fs.parID, s, info);
   if err = fnfErr then err := NoErr;
   if err = NoErr then
      path := sysUtils.ExpandFileName(s);
@@ -273,7 +275,7 @@ function ExpandFileName(var fs : fileInfo) : String255;
 var path : String255;
 begin
    ExpandFileName(fs, path);
-   fs := MakeFileInfo(0, 0, path);
+   fs := MakeFileInfo(path);
 
    Result := path;
 end;
@@ -307,7 +309,7 @@ begin
             reste := '';
           end;
 
-      err := CanCreateFileInfo(0,0,debut,myFileInfo);
+      err := MakeFileInfo(debut,myFileInfo);
       ExpandFileName(myFileInfo);
       
       resolvedDebut := debut;
@@ -363,7 +365,7 @@ begin
   fic.refNum := 0;
   fic.uniqueID := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
 
-  fic.info := MakeFileInfo(0, 0, name);
+  fic.info := MakeFileInfo(name);
 
   fic.ressourceForkRefNum        := -1;
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
@@ -412,7 +414,7 @@ function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OS
 var err : OSErr;
     aux : fileInfo;
 begin
-  err := CanCreateFileInfo(0, 0, whichFile.name, aux);
+  err := MakeFileInfo(whichFile.name, aux);
   if err = NoErr
     then theLongName := sysUtils.ExtractFileName(aux.name)
     else theLongName := whichFile.name;
@@ -427,7 +429,7 @@ var err : OSErr;
     aux : fileInfo;
 begin
    theLongName := path;
-   err := CanCreateFileInfo(0,0,path,aux);
+   err := MakeFileInfo(path,aux);
    if err = NoErr
       then err := ExtractFileName(aux,theLongName);
    Result := err;
@@ -459,7 +461,7 @@ begin
 
   with fic do
     begin
-      err := CanCreateFileInfo(vRefNum,parID,fileName,info);
+      err := MakeFileInfo(vRefNum,parID,fileName,info);
       
       fullName := fileName;
       if (err = NoErr) then

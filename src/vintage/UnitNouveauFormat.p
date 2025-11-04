@@ -2947,7 +2947,7 @@ begin
     else cheminDirectoryDepartRecursion := NomDossier + DirectorySeparator;
 
 
-  codeErreur := CanCreateFileInfo(vRefNum,vRefNum,cheminDirectoryDepartRecursion,directoryDepart);
+  codeErreur := MakeFileInfo(vRefNum,vRefNum,cheminDirectoryDepartRecursion,directoryDepart);
 
   codeErreur := SetPathOfScannedDirectory(directoryDepart);
 

@@ -55,6 +55,6 @@ function LongStringBeginsWith(const s : String255; const ligne : LongString) : b
 function EmptyFile(var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 procedure DisposeATR(var theATR : ATR);     external;
-	function CanCreateFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
+	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var fs : fileInfo) : OSErr;     external;
 	function SetPathOfScannedDirectory(var folder : fileInfo) : OSErr;     external;
 	function ScanDirectory (fs : fileInfo; doit : ScanProc) : OSErr;     external;

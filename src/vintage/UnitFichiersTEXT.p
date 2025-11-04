@@ -223,7 +223,7 @@ begin
             reste := '';
           end;
 
-      err := CanCreateFileInfo(0,0,debut,myFileInfo);
+      err := MakeFileInfo(debut,myFileInfo);
       ExpandFileName(myFileInfo);
       resolvedDebut := debut;
       err := ExpandFileName(myFileInfo,resolvedDebut);
@@ -392,7 +392,7 @@ function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
     myFileInfo : fileInfo;
 begin
-   err := CanCreateFileInfo(0,0,path,myFileInfo);
+   err := MakeFileInfo(path,myFileInfo);
    if err <> NoErr
      then ExtractFileName := err
      else ExtractFileName := ExtractFileName(myFileInfo,theLongName);
@@ -424,7 +424,7 @@ begin
 
   with fic do
     begin
-      err := CanCreateFileInfo(vRefNum,parID,nomFichier,info);
+      err := MakeFileInfo(vRefNum,parID,nomFichier,info);
       fullName := nomFichier;
       if (err = NoErr) then
         begin
