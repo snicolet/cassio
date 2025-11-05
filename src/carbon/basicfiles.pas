@@ -780,31 +780,24 @@ begin
       exit;
     end;
 
-  err := -1;
+  fic.handle := FileOpen(fic.info.name, fmOpenReadWrite);
+  if fic.handle = THandle(-1)
+     then err := -1
+     else err := NoErr;
 
-
-  if err <> NoErr then  
-      begin
-        
-        fic.handle := FileOpen(fic.info.name, fmOpenReadWrite);
-        if fic.handle = THandle(-1)
-            then err := -1
-            else err := NoErr;
-
-        if debugBasicFiles then
-		  begin
-			DisplayMessageInConsole('');
-			DisplayMessageInConsole(' apres FileOpen dans OpenFile :');
-			DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-			DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
-			DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
-			DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-			DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-			DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
-			DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
-			DisplayMessageAndNumInConsole('   ==> Err = ',err);
-		  end;
-      end;
+  if debugBasicFiles then
+	begin
+	    DisplayMessageInConsole('');
+		DisplayMessageInConsole(' apres FileOpen dans OpenFile :');
+		DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+		DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
+		DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
+		DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
+		DisplayMessageInConsole('fic.info.name = '+fic.info.name);
+		DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+		DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
+		DisplayMessageAndNumInConsole('   ==> Err = ',err);
+    end;
 
   if err = NoErr then
     begin
