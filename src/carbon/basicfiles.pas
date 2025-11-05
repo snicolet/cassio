@@ -984,6 +984,7 @@ end;
 
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
 var err : OSErr;
+    Info : TSearchRec;
 begin
 
   if FileIsStandardOutput(fic) then
@@ -992,8 +993,19 @@ begin
       GetFileSize := NoErr;
       exit;
     end;
+  
+  if FindFirst(aFileName,0,Info) = 0 then
+    begin
+      err := NoErr;
+      taille := Info.Size;
+    end
+  else
+    begin
+      err := -1;
+      taille := -1;
+    end;
+  FindClose(Info);
 
-  err := GetEOF(fic.handle,taille);
 
   if debugBasicFiles then
     begin
