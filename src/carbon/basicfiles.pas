@@ -67,7 +67,7 @@ function GetName(var info : fileInfo) : String255;
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
-function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;
+function EndOfFile(var fic : basicfile; var err : OSErr) : boolean;
 function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
 function EmptyFile(var fic : basicfile) : OSErr;
 
@@ -1072,12 +1072,15 @@ begin
       exit;
     end;
 
-  err := GetFPos(fic.handle,position);
+  position := FileSeek(fic.handle, 0, fsFromCurrent);
+  if position >= 0
+     then err := NoErr
+     else err := -1;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres GetFPos dans GetFilePosition :');
+      DisplayMessageInConsole(' apres FileSeek dans GetFilePosition :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
@@ -1086,8 +1089,8 @@ begin
 end;
 
 
-function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;
-var position,logicalEOF : SInt32;
+function EndOfFile(var fic : basicfile; var err : OSErr) : boolean;
+var position, logicalEOF : SInt32;
 begin
 
   if FileIsStandardOutput(fic) then
@@ -1099,20 +1102,23 @@ begin
 
   EndOfFile := true;
 
-  erreurES := GetFPos(fic.handle,position);
+  position := FileSeek(fic.handle, 0, fsFromCurrent);
+  if position >= 0
+     then err := NoErr
+     else err := -1;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans EndOfFile :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-      DisplayMessageAndNumInConsole('position = ',position);
-      DisplayMessageAndNumInConsole('   ==> Err = ',erreurES);
+      DisplayMessageAndNumInConsole('fileCursor = ',fileCursor);
+      DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
-  if erreurES <> NoErr then exit;
+  if err <> NoErr then exit;
   
-  erreurES := GetFileSize(fic, logicalEOF);
+  err := GetFileSize(fic, logicalEOF);
 
   if debugBasicFiles then
     begin
@@ -1120,10 +1126,10 @@ begin
       DisplayMessageInConsole(' apres GetFileSize dans EndOfFile :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('logicalEOF = ',logicalEOF);
-      DisplayMessageAndNumInConsole('   ==> Err = ',erreurES);
+      DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
-  if erreurES <> NoErr then exit;
+  if err <> NoErr then exit;
   
   EndOfFile := (position >= logicalEOF);
 end;
