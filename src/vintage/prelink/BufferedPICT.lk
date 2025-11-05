@@ -36,8 +36,8 @@ procedure CreateOffScreenPixMap(var theRect : rect; var offScreenGWorld : CGrafP
   procedure SafeSetCursor(myCursor : CursHandle);     external;
 function FichierPhotosExisteSurLeDisque(pathCompletFichierPhoto : String255; var fic : basicfile) : boolean;     external;
 function GetPathCompletFichierPionsPourCetteTexture(var whichTexture : CouleurOthellierRec) : String255;     external;
-function OuvreRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
-function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;     external;
+function OuvreRessourceFork(var fic : basicfile) : OSErr;     external;
+function FermeRessourceFork(var fic : basicfile) : OSErr;     external;
 procedure SetPositionPlateau2D(nbrecases,tailleCase : SInt16; HG_h,HG_v : SInt16; fonctionAppelante : String255);     external;
 function  CalculateBordureRect(quelleBordure : SInt32; quelleTexture : CouleurOthellierRec) : rect;     external;
 function QDGetPortBound : rect;     external;

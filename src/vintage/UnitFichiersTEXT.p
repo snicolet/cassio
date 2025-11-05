@@ -79,10 +79,10 @@ function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : O
 function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 
 
-function CreerRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
-function OuvreRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
-function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
-function UseRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
+function CreerRessourceFork(var fic : basicfile) : OSErr;
+function OuvreRessourceFork(var fic : basicfile) : OSErr;
+function FermeRessourceFork(var fic : basicfile) : OSErr;
+function UseRessourceFork(var fic : basicfile) : OSErr;
 
 
 procedure SetDebugFiles(flag : boolean);
@@ -106,7 +106,7 @@ procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
 
 procedure InitUnitBasicFile;
 procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
-procedure InstallMessageAndDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
+procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
 procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);
 
 procedure DisplayMessageInConsole(s : String255);
@@ -411,9 +411,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
     end;
 
   if FileIsStandardOutput(fic) then
@@ -452,9 +452,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
   CreateFFSpecAndResolveAlias := err;
@@ -491,9 +491,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -506,9 +506,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -527,9 +527,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+			      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -573,9 +573,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
     end;
 
   err2 := CreateFFSpecAndResolveAlias(fic);
@@ -588,9 +588,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err2 = ',err2);
     end;
 
@@ -609,9 +609,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+			      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err1 = ',err1);
 			    end;
 
@@ -647,9 +647,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -663,9 +663,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -692,9 +692,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -708,9 +708,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
@@ -757,9 +757,9 @@ begin
       DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 *)
@@ -777,9 +777,9 @@ begin
 			      DisplayMessageWithNumInConsole('fic.vRefNum = ',fic.vRefNum);
 			      DisplayMessageWithNumInConsole('fic.parID = ',fic.parID);
 			      DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
-			      DisplayMessageInConsole('fileInfo.name = '+GetName(fic.info));
-			      DisplayMessageWithNumInConsole('fileInfo.vRefNum = ',fic.info.vRefNum);
-			      DisplayMessageWithNumInConsole('fileInfo.parID = ',fic.info.parID);
+			      DisplayMessageInConsole('fic.info.name = '+GetName(fic.info));
+			      DisplayMessageWithNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+			      DisplayMessageWithNumInConsole('fic.info.parID = ',fic.info.parID);
 			      DisplayMessageWithNumInConsole('   ==> Err = ',err);
 			    end;
       end;
@@ -1836,7 +1836,7 @@ begin
 
 end;
 
-function CreerRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
+function CreerRessourceFork(var fic : basicfile) : OSErr;
 var err : OSErr;
     creator,fileType: OSType;
 begin
@@ -1850,21 +1850,21 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSpCreateResFile dans CreerRessourceForkFichierTEXT :');
+      DisplayMessageInConsole(' apres FSpCreateResFile dans CreerRessourceFork :');
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  CreerRessourceForkFichierTEXT := err;
+  CreerRessourceFork := err;
 end;
 
 
-function OuvreRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
+function OuvreRessourceFork(var fic : basicfile) : OSErr;
 var nroRef : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      OuvreRessourceForkFichierTEXT := -1;
+      OuvreRessourceFork := -1;
       exit;
     end;
 
@@ -1877,17 +1877,17 @@ begin
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
-      OuvreRessourceForkFichierTEXT := -1;
+      OuvreRessourceFork := -1;
       exit;
     end;
 
   nroRef := FSpOpenResFile(fic.info,4);
   if nroRef = -1
-    then OuvreRessourceForkFichierTEXT := -1  {Error !}
+    then OuvreRessourceFork := -1  {Error !}
     else
       begin
         fic.ressourceForkRefNum := nroRef;
-        OuvreRessourceForkFichierTEXT := NoErr;
+        OuvreRessourceFork := NoErr;
 
         inc(fic.rsrcForkOuvertCorrectement);
         if (fic.rsrcForkOuvertCorrectement <> 0) then
@@ -1903,13 +1903,13 @@ begin
 end;
 
 
-function UseRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
+function UseRessourceFork(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      UseRessourceForkFichierTEXT := -1;
+      UseRessourceFork := -1;
       exit;
     end;
 
@@ -1922,7 +1922,7 @@ begin
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
-      UseRessourceForkFichierTEXT := -1;
+      UseRessourceFork := -1;
       exit;
     end;
 
@@ -1930,16 +1930,16 @@ begin
   err := ResError;
   {DisplayMessageWithNumInConsole('err = ',err);}
 
-  UseRessourceForkFichierTEXT := err;
+  UseRessourceFork := err;
 end;
 
-function FermeRessourceForkFichierTEXT(var fic : basicfile) : OSErr;
+function FermeRessourceFork(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      FermeRessourceForkFichierTEXT := -1;
+      FermeRessourceFork := -1;
       exit;
     end;
 
@@ -1951,7 +1951,7 @@ begin
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
       DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
       DisplayMessageInConsole('');
-      FermeRessourceForkFichierTEXT := -1;
+      FermeRessourceFork := -1;
       exit;
     end;
 
@@ -1962,7 +1962,7 @@ begin
         err := ResError;
         {DisplayMessageWithNumInConsole('err = ',err);}
 
-        FermeRessourceForkFichierTEXT := err;
+        FermeRessourceFork := err;
 
         if err = NoErr then
           begin
@@ -1979,7 +1979,7 @@ begin
           end;
       end
     else
-      FermeRessourceForkFichierTEXT := -1;  {erreur, on a failli fermer le fichier systeme !}
+      FermeRessourceFork := -1;  {erreur, on a failli fermer le fichier systeme !}
 end;
 
 
@@ -2244,7 +2244,7 @@ begin
   useStandardConsole := false;
 end;
 
-procedure InstallMessageAndDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
+procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
 begin
   CustomDisplayMessageWithNum := theProc;
   useStandardConsole := false;
@@ -2265,7 +2265,7 @@ begin
      routines personalisees d'impression de messages et d'alerte
      juste apres l'appel a InitUnitBasicFile *)
   InstallMessageDisplayerBasicFile(StandardConsoleDisplayer);
-  InstallMessageAndDisplayerBasicFile(StandardConsoleDisplayerWithNum);
+  InstallMessageAndNumDisplayerBasicFile(StandardConsoleDisplayerWithNum);
   InstallAlertBasicFile(StandardConsoleAlertWithNum);
   useStandardConsole := true;
 

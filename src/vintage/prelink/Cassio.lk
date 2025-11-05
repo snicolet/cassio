@@ -200,7 +200,7 @@ function DeterminePathDossierOthelliersCassio(whichVolumeRefCassio : String255) 
 procedure InitUnitBasicFile;     external;
 procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);     external;
 procedure WritelnDansRapportOuvert(s : String255);     external;
-procedure InstallMessageAndDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);     external;
+procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);     external;
 procedure WritelnNumDansRapportOuvert(s : String255; num : SInt32);     external;
 procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);     external;
 procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;

@@ -2049,7 +2049,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
 (* initialisation de l'unite UnitDefFichiersTEXT et des handlers associes *)
   InitUnitBasicFile;
   InstallMessageDisplayerBasicFile(WritelnDansRapportOuvert);
-  InstallMessageAndDisplayerBasicFile(WritelnNumDansRapportOuvert);
+  InstallMessageAndNumDisplayerBasicFile(WritelnNumDansRapportOuvert);
   InstallAlertBasicFile(AlerteSimpleFichierTexte);
 
   {TraceLog('*****************************');}

@@ -561,7 +561,7 @@ begin
             (FichierPhotosExisteSurLeDisque(GetPathCompletFichierPionsPourCetteTexture(whichTexture),fichierDesPhotos)) then
     	        begin
     	          oldResourceFile := CurResFile;
-    	          err := OuvreRessourceForkFichierTEXT(fichierDesPhotos);
+    	          err := OuvreRessourceFork(fichierDesPhotos);
     	          {doitFermerFichierPhotos := (err = NoErr);}
     	          doitFermerFichierPhotos := true;
     	        end;
@@ -593,7 +593,7 @@ begin
           {faut-il refermer le fichier "Photos Cassio" ?}
           if doitFermerFichierPhotos then
             begin
-              err := FermeRessourceForkFichierTEXT(fichierDesPhotos);
+              err := FermeRessourceFork(fichierDesPhotos);
               UseResFile(oldResourceFile);
             end;
 
@@ -674,7 +674,7 @@ begin
 	          SetFichierBordureEstIntrouvable(false);
 
 	          oldResourceFile := CurResFile;
-	          err := OuvreRessourceForkFichierTEXT(fichierDesPhotos);
+	          err := OuvreRessourceFork(fichierDesPhotos);
 	          doitFermerFichierPhotos := true;
 
 	          {PenMode(srcCopy+ditherCopy);}
@@ -697,7 +697,7 @@ begin
 			      {faut-il refermer le fichier "Bordures" ?}
 			      if doitFermerFichierPhotos then
 			        begin
-			          err := FermeRessourceForkFichierTEXT(fichierDesPhotos);
+			          err := FermeRessourceFork(fichierDesPhotos);
 			          UseResFile(oldResourceFile);
 			        end;
 

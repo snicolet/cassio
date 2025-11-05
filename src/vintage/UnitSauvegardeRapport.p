@@ -58,10 +58,10 @@ begin
 
 		  oldResourceFile := CurResFile;
 
-		  OSError := CreerRessourceForkFichierTEXT(fichier);  {Create ressource fork if not already exists}
-		  OSError := OuvreRessourceForkFichierTEXT(fichier);
+		  OSError := CreerRessourceFork(fichier);  {Create ressource fork if not already exists}
+		  OSError := OuvreRessourceFork(fichier);
 		  if OSError = NoErr
-		    then OSError := UseRessourceForkFichierTEXT(fichier);
+		    then OSError := UseRessourceFork(fichier);
 
 		  if OSError = NoErr then
 		    begin
@@ -81,7 +81,7 @@ begin
 				  AddResource(Handle(styleScrapHdl), FOUR_CHAR_CODE('styl'), 0, StringToStr255('')); { Write attributes.}
 				  WriteResource(Handle(styleScrapHdl));
 				  ReleaseResource(Handle(styleScrapHdl));
-				  OSError := FermeRessourceForkFichierTEXT(fichier); { close resource fork.}
+				  OSError := FermeRessourceFork(fichier); { close resource fork.}
 			  end;
 
 		  UseResFile(oldResourceFile);
@@ -110,7 +110,7 @@ begin
 		  SetDebutSelectionRapport(debutSelection);			{ Select the adequate text. }
 		  SetFinSelectionRapport(finSelection);					{ (Do not use TESetSelect.) }
 
-		  OSError := OuvreRessourceForkFichierTEXT(fichier);
+		  OSError := OuvreRessourceFork(fichier);
 		  if OSError = NoErr then
 		    begin
 				  styleScrapHdl := StScrpHandle(GetResource(FOUR_CHAR_CODE('styl'), 0)); { Get style scrap.}
@@ -123,7 +123,7 @@ begin
 		        end;
 				  WriteResource(Handle(styleScrapHdl));
 				  ReleaseResource(Handle(styleScrapHdl));
-				  OSError := FermeRessourceForkFichierTEXT(fichier);
+				  OSError := FermeRessourceFork(fichier);
 			  end;
 
 		  SetDebutSelectionRapport(savedStart);

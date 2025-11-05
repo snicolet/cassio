@@ -27,6 +27,18 @@ function GetUserName : String255;
 function GetApplicationName(default : String255) : String255;
 function GetApplicationBundleName : String255;
 
+{ Createur et type de fichier (MacOS seulement) }
+procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);
+procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);
+function GetFileCreatorFichierTexte(var fic : basicfile) : OSType;
+function GetFileTypeFichierTexte(var fic : basicfile) : OSType;
+
+{ Creation et utilisation des ressources fork (MacOS seulement) }
+function CreerRessourceFork(var fic : basicfile) : OSErr;
+function OuvreRessourceFork(var fic : basicfile) : OSErr;
+function FermeRessourceFork(var fic : basicfile) : OSErr;
+function UseRessourceFork(var fic : basicfile) : OSErr;
+
 { Polices de caracteres }
 procedure SelectCassioFonts(theme : SInt32);
 function GetCassioFontNum(nomPolice : String255) : SInt32;
@@ -230,6 +242,214 @@ begin
 
   GetUserName := MyStr255ToString(result);
 end;
+
+
+procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);
+var InfosFinder : FInfo;
+    err : OSErr;
+begin
+  if FileIsStandardOutput(fic)
+    then exit;
+
+  err := FSpGetFInfo(fic.info,InfosFinder);
+  InfosFinder.fdCreator := QuelType;
+  err := FSpSetFInfo(fic.info,InfosFinder);
+end;
+
+
+procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);
+var InfosFinder : FInfo;
+    err : OSErr;
+begin
+  if FileIsStandardOutput(fic)
+    then exit;
+
+  err := FSpGetFInfo(fic.info,InfosFinder);
+  InfosFinder.fdType := QuelType;
+  err := FSpSetFInfo(fic.info,InfosFinder);
+end;
+
+
+function GetFileCreatorFichierTexte(var fic : basicfile) : OSType;
+var InfosFinder : FInfo;
+    err : OSErr;
+begin
+  GetFileCreatorFichierTexte := FOUR_CHAR_CODE('????');
+
+  if FileIsStandardOutput(fic) then
+    begin
+      GetFileCreatorFichierTexte := NoErr;
+      exit;
+    end;
+
+  err := FSpGetFInfo(fic.info,InfosFinder);
+  GetFileCreatorFichierTexte := InfosFinder.fdCreator;
+end;
+
+
+function GetFileTypeFichierTexte(var fic : basicfile) : OSType;
+var InfosFinder : FInfo;
+    err : OSErr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      GetFileTypeFichierTexte := NoErr;
+      exit;
+    end;
+
+  GetFileTypeFichierTexte := FOUR_CHAR_CODE('????');
+  err := FSpGetFInfo(fic.info,InfosFinder);
+  GetFileTypeFichierTexte := InfosFinder.fdType;
+end;
+
+
+function CreerRessourceFork(var fic : basicfile) : OSErr;
+var err : OSErr;
+    creator,fileType: OSType;
+begin
+
+  creator := GetFileCreatorFichierTexte(fic);
+  fileType := GetFileTypeFichierTexte(fic);
+
+  FSpCreateResFile(fic.info,creator,fileType,smSystemScript);
+  err := ResError;
+
+  if debugBasicFiles then
+    begin
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole(' apres FSpCreateResFile dans CreerRessourceFork :');
+      DisplayMessageInConsole('   ==> Err = ',err);
+    end;
+
+  CreerRessourceFork := err;
+end;
+
+
+function OuvreRessourceFork(var fic : basicfile) : OSErr;
+var nroRef : OSErr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      OuvreRessourceFork := -1;
+      exit;
+    end;
+
+  if fic.rsrcForkOuvertCorrectement <> -1 then
+    begin
+      Beep();
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
+      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('');
+      OuvreRessourceFork := -1;
+      exit;
+    end;
+
+  nroRef := FSpOpenResFile(fic.info,4);
+  if nroRef = -1
+    then OuvreRessourceFork := -1  {Error !}
+    else
+      begin
+        fic.ressourceForkRefNum := nroRef;
+        OuvreRessourceFork := NoErr;
+
+        inc(fic.rsrcForkOuvertCorrectement);
+        if (fic.rsrcForkOuvertCorrectement <> 0) then
+          begin
+            Beep();
+            DisplayMessageInConsole('');
+            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
+            DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+            DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+            DisplayMessageInConsole('');
+          end;
+      end;
+end;
+
+
+function UseRessourceFork(var fic : basicfile) : OSErr;
+var err : OSErr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      UseRessourceFork := -1;
+      exit;
+    end;
+
+  if fic.rsrcForkOuvertCorrectement <> 0 then
+    begin
+      Beep();
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
+      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('');
+      UseRessourceFork := -1;
+      exit;
+    end;
+
+  UseResFile(fic.ressourceForkRefNum);
+  err := ResError;
+  {DisplayMessageInConsole('err = ',err);}
+
+  UseRessourceFork := err;
+end;
+
+function FermeRessourceFork(var fic : basicfile) : OSErr;
+var err : OSErr;
+begin
+
+  if FileIsStandardOutput(fic) then
+    begin
+      FermeRessourceFork := -1;
+      exit;
+    end;
+
+  if fic.rsrcForkOuvertCorrectement <> 0 then
+    begin
+      Beep();
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole('## WARNING : on veut fermer le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('');
+      FermeRessourceFork := -1;
+      exit;
+    end;
+
+  if fic.ressourceForkRefNum <> 0
+    then
+      begin
+        CloseResFile(fic.ressourceForkRefNum);
+        err := ResError;
+        {DisplayMessageInConsole('err = ',err);}
+
+        FermeRessourceFork := err;
+
+        if err = NoErr then
+          begin
+            dec(fic.rsrcForkOuvertCorrectement);
+            if (fic.rsrcForkOuvertCorrectement <> -1) then
+              begin
+                Beep();
+                DisplayMessageInConsole('');
+                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
+                DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+                DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+                DisplayMessageInConsole('');
+              end;
+          end;
+      end
+    else
+      FermeRessourceFork := -1;  {erreur, on a failli fermer le fichier systeme !}
+end;
+
 
 function DeterminePathDossierFichiersAuxiliaires(whichVolumeRefCassio : String255) : String255;
 var myFileInfo : fileInfo;

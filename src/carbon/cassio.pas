@@ -62,6 +62,7 @@ begin
        // with sleep(0)  : Cassio uses about 100% of one processor
        // with sleep(1)  : Cassio uses about 2.4% of one processor
        // with sleep(10) : Cassio uses about 0.1% of one precessor
+       // See also the FpNanoSleep() function
        sleep(1);
 
 
