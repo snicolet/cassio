@@ -15,7 +15,11 @@ uses
 
 procedure WriteDansRapport(s : String255);
 procedure WritelnDansRapport(s : String255);
-procedure WritelnStringAndNumDansRapport(s : String255; value : SInt32);
+
+{ecriture des numeriques dans le rapport}
+procedure WriteNumDansRapport(s : String255; num : SInt32);
+procedure WritelnNumDansRapport(s : String255; num : SInt32);
+
 
 
 implementation
@@ -31,9 +35,14 @@ begin
     writeln(s); 
 end;
 
-procedure WritelnStringAndNumDansRapport(s : String255; value : SInt32);
+procedure WriteNumDansRapport(s : String255; num : SInt32);
 begin
-    writeln(s, value);
+   write(s, num);
+end;
+
+procedure WritelnNumDansRapport(s : String255; num : SInt32);
+begin
+    writeln(s, num);
 end;
 
 

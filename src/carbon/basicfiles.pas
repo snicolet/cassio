@@ -163,7 +163,8 @@ uses
   SysUtils,
   math,
   basicMemory,
-  basicHashing;
+  basicHashing,
+  rapport;
 
 
 const unit_initialized : boolean = false;
@@ -1295,7 +1296,7 @@ begin
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  Writeln := err;
+  Write := err;
 end;
 
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;

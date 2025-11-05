@@ -1806,7 +1806,7 @@ end;
 procedure foo(n : SInt32);
 begin
    WritelnDansRapport('');
-   WritelnStringAndNumDansRapport('foo called with value ', n);
+   WritelnNumDansRapport('foo called with value ', n);
 end;
 
 
