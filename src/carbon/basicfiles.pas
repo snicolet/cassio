@@ -122,7 +122,7 @@ procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 
 
 
-  (* Installation des procedure pour l'affichage de message :     *)
+  (* Installation des procedures pour l'affichage de message :    *)
   (* sur la sortie standard par defaut. On peut installer des     *)
   (* routines personalisees d'impression de messages et d'alerte  *)
   (* juste apres l'appel a InitUnitBasicFile                      *)
@@ -1112,7 +1112,7 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres GetFPos dans EndOfFile :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-      DisplayMessageAndNumInConsole('fileCursor = ',fileCursor);
+      DisplayMessageAndNumInConsole('position = ',position);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
