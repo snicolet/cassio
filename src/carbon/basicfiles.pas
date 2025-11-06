@@ -108,6 +108,8 @@ function FileIsStandardOutput(var fic : basicfile) : boolean;
 
 function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
+function ExtractFileOrDirectoryName(chemin : String255) : String255;
+
 
 procedure DoDirSeparators(var filename : String255);
 function EndsWithDirectorySeparator(var s : String255) : boolean;
@@ -421,6 +423,16 @@ begin
    if err = NoErr
       then err := ExtractFileName(aux,theLongName);
    Result := err;
+end;
+
+
+function ExtractFileOrDirectoryName(chemin : String255) : String255;
+const separator = DirectorySeparator;
+begin
+  if RightStr(chemin,1) = separator
+    then KeepPrefix(chemin,LENGTH_OF_STRING(chemin)-1);
+
+  ExtractFileOrDirectoryName := RightStr(chemin,LENGTH_OF_STRING(chemin)-PosRight(separator,chemin));
 end;
 
 
@@ -1847,7 +1859,7 @@ begin
   if (Pos( DirectorySeparator ,pathFichier) > 0)
     then
       begin
-        fileName := ExtraitNomDirectoryOuFichier(pathFichier);
+        fileName := ExtractFileOrDirectoryName(pathFichier);
 
         pathFichier := ReplaceStringAll(pathFichier, ':' , DirectorySeparator);
 

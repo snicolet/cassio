@@ -119,7 +119,7 @@ procedure DoChangeHumCtreHum;     external;
 procedure AppliquerStyleDuFichierAuRapport(var fichier : basicfile; debutSelection,finSelection : SInt32);     external;
 function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : basicfile; whichFormat : formats_connus; var posInitiale : PositionEtTraitRec; var coups : String255) : OSErr;     external;
 procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaCompactee : String255; flags : SInt32);     external;
-	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
+	function ExtractFileOrDirectoryName(chemin : String255) : String255;     external;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;     external;
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;     external;
 	function DateEnString(const whichDate : DateTimeRec) : String255;     external;

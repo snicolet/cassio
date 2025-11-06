@@ -20,5 +20,5 @@ procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; carac
   procedure WriteNumAt(s : String255; num : SInt32; h,v : SInt32);     external;
 procedure EssaieSetPortWindowPlateau;     external;
 procedure SetPortByWindow(window : WindowPtr);     external;
-	function ChaineMirroir(const s : String255) : String255;     external;
+	function MirrorString(const s : String255) : String255;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;

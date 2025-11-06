@@ -342,7 +342,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   positionArrivee := PositionEtTraitCourant;
 
 
-  nomFichierPGN := ExtraitNomDirectoryOuFichier(GetName(fichierPGN.info));
+  nomFichierPGN := ExtractFileOrDirectoryName(GetName(fichierPGN.info));
   erreurES      := ExtractFileName(fichierPGN.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFichierPGN := DeleteSubstringAfterThisChar('.',nomFichierPGN,false);
@@ -933,7 +933,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   GetTime(myDate);
 
 
-  nomFic := ExtraitNomDirectoryOuFichier(GetName(fichier.info));
+  nomFic := ExtractFileOrDirectoryName(GetName(fichier.info));
   erreurES := ExtractFileName(fichier.info, nomLongDuFichier);
   AnnonceOuvertureFichierEnRougeDansRapport(nomLongDuFichier);
   nomFic := DeleteSubstringAfterThisChar('.',nomFic,false);

@@ -131,12 +131,12 @@ INTERFACE
 
   procedure InitUnitMyStrings;
 
-	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
+	function ExtractFileOrDirectoryName(chemin : String255) : String255;
 	function ExtraitCheminDAcces(nomComplet : String255) : String255;
 	function ExtraitNomDeVolume(nomComplet : String255) : String255;
 	function EstUnNomDeFichierTronquePourPanther(const nomFichier : String255) : boolean;
 
-	function ChaineMirroir(const s : String255) : String255;
+	function MirrorString(const s : String255) : String255;
   function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
   function ReplaceStringAll(const s, pattern,replacement : String255) : String255;
 
@@ -1661,21 +1661,11 @@ begin
 end;
 
 
-function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;
-const separateur = DirectorySeparator ;
-var lastPosDeuxPoints : SInt16;
-begin
-  if RightStr(chemin,1) = CharToString(separateur)
-    then KeepPrefix(chemin,LENGTH_OF_STRING(chemin)-1);
-  lastPosDeuxPoints := LastPos(separateur,chemin);
-  ExtraitNomDirectoryOuFichier := RightStr(chemin,LENGTH_OF_STRING(chemin)-lastPosDeuxPoints);
-end;
-
 
 function ExtraitCheminDAcces(nomComplet : String255) : String255;
 var nomFichier : String255;
 begin
-  nomFichier := ExtraitNomDirectoryOuFichier(nomComplet);
+  nomFichier := ExtractFileOrDirectoryName(nomComplet);
   ExtraitCheminDAcces := LeftStr(nomComplet,LENGTH_OF_STRING(nomComplet)-LENGTH_OF_STRING(nomFichier));
 end;
 
@@ -1738,14 +1728,14 @@ begin
 end;
 
 
-function ChaineMirroir(const s : String255) : String255;
+function MirrorString(const s : String255) : String255;
 var i,longueur : SInt32;
     s1 : String255;
 begin
   s1 := '';
   longueur := LENGTH_OF_STRING(s);
   for i := longueur downto 1 do s1 := s1 + s[i];
-  ChaineMirroir := s1;
+  MirrorString := s1;
 end;
 
 

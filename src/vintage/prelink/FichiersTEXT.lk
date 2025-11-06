@@ -35,7 +35,7 @@ procedure InsereTexteDansRapport(text : Ptr; length : SInt32);     external;
 function AllocateMemoryPtr(whichSize : SInt32) : Ptr;     external;
   function LastPos (sub, str : String255) : SInt16;     external;
 	function ReadStringFromRessource(stringListID, index : SInt16) : String255;     external;
-	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
+	function ExtractFileOrDirectoryName(chemin : String255) : String255;     external;
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
 	function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;     external;
 	procedure SplitBy (s : String255; sub : char; var left, right: String255);     external;

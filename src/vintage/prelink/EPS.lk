@@ -6,7 +6,7 @@ function CloseFile(var fic : basicfile) : OSErr;     external;
 function CalculateScaleFactorForEPSDiagram(var EPSBoudingBox : Rect) : double;     external;
  function IntToStrWithPadding(num,nbDeChiffres : SInt32; formatChar : char) : String255;     external;
 procedure WritelnDansRapport(s : String255);     external;
-function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
+function ExtractFileOrDirectoryName(chemin : String255) : String255;     external;
 function PartiePourPressePapier(enMajuscules,avecEspaceEntreCoups : boolean; nbreCoupsAExporter : SInt16) : String255;     external;
 function GetPositionEtTraitInitiauxOfGameTree : PositionEtTraitRec;     external;
 function PositionEtTraitEnString(var positionEtTrait : PositionEtTraitRec) : String255;     external;

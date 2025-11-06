@@ -72,6 +72,7 @@ function LowerCase(const s : String255; keepAccents : boolean) : String255;
 function UpperCase(const s : String255; keepAccents : boolean) : String255;
 function LowerCase(ch : char) : char;
 function UpperCase(ch : char) : char;
+function MirrorString(const s : String255) : String255;
 
 // Test characters and strings
 function IsDigit(ch : char) : boolean;
@@ -551,6 +552,18 @@ begin
 end;
 
 
+// MirrorString(s) calculate the reversed string of s
+function MirrorString(const s : String255) : String255;
+var i,longueur : SInt32;
+    s1 : String255;
+begin
+  s1 := '';
+  longueur := LENGTH_OF_STRING(s);
+  for i := longueur downto 1 do s1 := s1 + s[i];
+  MirrorString := s1;
+end;
+
+
 // KeepPrefix(s, n) transforms the string s to only keep the first n characters
 procedure KeepPrefix (var s : String255; len : SInt32);
 begin
@@ -718,6 +731,8 @@ begin
 	  end;
 	Result := p;
 end;
+
+
 
 
 // Parse() parses the string s and split s between lexem and tail when it finds

@@ -2080,7 +2080,7 @@ begin
   if (Pos(':',pathFichier) > 0)
     then
       begin
-        nomFichier := ExtraitNomDirectoryOuFichier(pathFichier);
+        nomFichier := ExtractFileOrDirectoryName(pathFichier);
 
         pathFichier := ReplaceStringAll(pathFichier, ':' , '/');
 

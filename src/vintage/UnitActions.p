@@ -956,7 +956,7 @@ begin
       exit;
     end;
 
-  nomCourt := ExtraitNomDirectoryOuFichier(nomCompletFichier);
+  nomCourt := ExtractFileOrDirectoryName(nomCompletFichier);
   erreurES := ExtractFileName(ficPartie.info, nomLongDuFichier);
   if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
      (GetModificationDate(ficPartie,theDate) = NoErr) then

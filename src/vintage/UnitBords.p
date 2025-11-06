@@ -3548,7 +3548,7 @@ begin
             Moveto(10,compteurFautes*10);
             MyDrawString(uncode+CharToString(' => ')+IntToStr(aux));
             CoderBord(-i,uncode,nbtrous,nbamis,nbennemis);
-            autreCode := ChaineMirroir(uncode);
+            autreCode := MirrorString(uncode);
             aux := DecoderBord(autrecode);
             if valeurBord^[aux] = 0 then
               begin

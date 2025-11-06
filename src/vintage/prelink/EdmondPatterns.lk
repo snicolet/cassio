@@ -13,5 +13,5 @@ function TailleDUnPatternDeTantDeCases(nbreCases : SInt32) : SInt32;     externa
 function TransformePatternCassioVersBruno(adresseCassio : SInt32; nbreCasesDansPattern : SInt32) : SInt32;     external;
 	procedure CoderPattern(adresse : SInt32; var chaine : t_code_pattern; tailleDuPattern : SInt32; var nbretrous,nbpionsamis,nbpionsennemis : SInt32);     external;
 	function DecoderPattern(const chaine : t_code_pattern; tailleDuPattern : SInt32) : SInt32;     external;
-	function ChaineMirroir(const s : String255) : String255;     external;
+	function MirrorString(const s : String255) : String255;     external;
 procedure WritelnStringDansRapport(s : String255);     external;

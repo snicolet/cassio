@@ -62,7 +62,7 @@ begin
   (* debut des commenatires ADOBE *)
   err := WritelnDansFichierAbstrait(fic,'%!PS-Adobe-3.0 EPSF-3.0');
   err := WritelnDansFichierAbstrait(fic,'%%Creator: Cassio ');
-  err := WritelnDansFichierAbstrait(fic,'%%Title: '+ExtraitNomDirectoryOuFichier(nomFichier));
+  err := WritelnDansFichierAbstrait(fic,'%%Title: '+ExtractFileOrDirectoryName(nomFichier));
   err := WritelnDansFichierAbstrait(fic,'%%CreationDate: '+IntToStrWithPadding(myDate.month,2, '0')+'/'+
 		                                                    IntToStrWithPadding(myDate.day,2,'0')+'/'+
 		                                                    IntToStrWithPadding(myDate.year,4,'0')+' '+

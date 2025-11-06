@@ -47,7 +47,7 @@ function GetEcritToutDansRapportLog : boolean;     external;
 procedure SetEcritToutDansRapportLog(flag : boolean);     external;
 procedure SetAutoVidageDuRapport(flag : boolean);     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
-	function ExtraitNomDirectoryOuFichier(chemin : String255) : String255;     external;
+	function ExtractFileOrDirectoryName(chemin : String255) : String255;     external;
 	
 function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;     external;
 procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);     external;

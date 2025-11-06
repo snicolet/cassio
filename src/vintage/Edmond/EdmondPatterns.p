@@ -131,7 +131,7 @@ begin
         // choisi des conventions d'orientation inverses (puissances de 3 et montant
         // ou en decendant : on essaye l'index du pattern miroir
         CoderPattern(indexCassio, pattern, nbreCasesDuPattern, nbreTrous, nbPionsAmis, nbPionsEnnemis);
-        indexCassioDuMirroir := DecoderPattern(ChaineMirroir(pattern), nbreCasesDuPattern);
+        indexCassioDuMirroir := DecoderPattern(MirrorString(pattern), nbreCasesDuPattern);
 
         indexTransformeParMonAlgo := TransformePatternCassioVersBruno(indexCassioDuMirroir, nbreCasesDuPattern);
       end;
