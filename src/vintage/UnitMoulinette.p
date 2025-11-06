@@ -1925,7 +1925,7 @@ begin
           if erreurES = fnfErr
             then
               begin
-                {-43 => fichier non trouvé, on le crée}
+                {fnfErr = -43  =>  fichier non trouvé, on le crée}
                 erreurES := CreateFile(nomFichierOutput,0,fichierSOFOutput);
                 {WritelnDansRapport('Le fichier '+nomFichierOutput+' n''existe pas, on le crée');}
               end

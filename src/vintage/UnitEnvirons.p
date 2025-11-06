@@ -1047,7 +1047,7 @@ begin
       erreurES := CreateDirectoryWithThisPath(ExtraitCheminDAcces(filename));
 
       erreurES := FileExists(filename,0,fic);
-      if (erreurES = -43)   {fnfErr => File not found }
+      if (erreurES = fnfErr)   {fnfErr => File not found }
         then erreurES := CreateFile(fileName,0,fic);
       if erreurES = NoErr {le fichier de la liste des dossier Cassio existe : on l'ouvre et on le vide}
         then

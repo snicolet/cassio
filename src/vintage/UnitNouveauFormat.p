@@ -931,7 +931,7 @@ begin
 
             // on cree le nouveau fichier
             err := FileExists(path + nomAAjouter, 0, fic);
-            if err = -43 then  {-43 = file not found}
+            if err = fnfErr then  {-43 = file not found}
               err := CreateFile(path + nomAAjouter, 0, fic);
 
             // on essaye d'ouvrir l'ancien fichier dans le dossier database
@@ -1889,7 +1889,7 @@ begin
   if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:players.jap (alias)',0,FichierJoueursJaponais);
   if codeErreur = NoErr
     then codeErreur := OpenFile(FichierJoueursJaponais)
-    else codeErreur := -43; {file not found}
+    else codeErreur := fnfErr; {file not found}
 
   OuvreFichierDesJoueursJaponais := codeErreur;
 end;
@@ -2413,7 +2413,7 @@ begin
   if codeErreur <> NoErr then codeErreur := FileExists(pathCassioFolder+'Database:tournements.jap (alias)',0,FichierTournoisJaponais);
   if codeErreur = NoErr
     then codeErreur := OpenFile(FichierTournoisJaponais)
-    else codeErreur := -43; {file not found}
+    else codeErreur := fnfErr; {file not found}
 
   OuvreFichierDesTournoisJaponais := codeErreur;
 end;

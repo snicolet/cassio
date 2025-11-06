@@ -592,7 +592,7 @@ begin
 
 
   err := FileExists(nomFichierEPS, 0, fic);
-  if (err = -43) {fnfErr => fichier non trouvé, on le crée}
+  if (err = fnfErr) {-43 => fichier non trouvé, on le crée}
     then err := CreateFile(nomFichierEPS, 0, fic);
   if (err <> NoErr) then goto sortie;
 

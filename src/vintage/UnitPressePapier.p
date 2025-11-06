@@ -344,14 +344,14 @@ begin
   myError := FichierTexteDeCassioExiste(fileName, fic);
 
   boucle := 0;
-  if (myError = -43) then {fnfErr => file not found}
+  if (myError = fnfErr) then {fnfErr = -43   =>   file not found}
     begin   // on essaye d'attendre 2 secondes que le fichier arrive :-)
       t := TickCount;
       repeat
         Wait(0.1);
         myError := FichierTexteDeCassioExiste(fileName, fic);
         inc(boucle);
-      until (myError <> -43) or ((TickCount - t) > 120);
+      until (myError <> fnfErr) or ((TickCount - t) > 120);
     end;
 
   { WritelnNumDansRapport('dans DumpFileToPressePapier, apres FichierTexteDeCassioExiste , myError = ',myError);

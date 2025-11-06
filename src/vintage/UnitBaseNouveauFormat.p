@@ -3392,13 +3392,13 @@ begin
       // creation du fichier "Listing-of-WTHOR.temp.txt"
 
       err := FichierTexteDeCassioExiste(kNomFichierDirectoryWTHORTemp,gFicListingWThorTemp);
-      if err = -43 {fnfErr => fichier non trouvé, on le crée}
+      if err = fnfErr {-43 => fichier non trouvé, on le crée}
         then err := CreeFichierTexteDeCassio(kNomFichierDirectoryWTHORTemp,gFicListingWThorTemp);
 
       // creation du fichier "Listing-of-WTHOR.txt"
 
       err := FichierTexteDeCassioExiste(kNomFichierDirectoryWTHOR,gFicListingWThor);
-      if err = -43 {fnfErr => fichier non trouvé, on le crée}
+      if err = fnfErr {-43 => fichier non trouvé, on le crée}
         then err := CreeFichierTexteDeCassio(kNomFichierDirectoryWTHOR,gFicListingWThor);
 
 
