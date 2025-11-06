@@ -1856,7 +1856,7 @@ begin
   s := ReadStringFromRessource(TextesErreursID, 5);  {'erreur I/O sur fichier «^0» ! code erreur =  ^1'}
 
   pathFichier := fileName;
-  if (Pos( DirectorySeparator ,pathFichier) > 0)
+  if (Pos(DirectorySeparator, pathFichier) > 0)
     then
       begin
         fileName := ExtractFileOrDirectoryName(pathFichier);
