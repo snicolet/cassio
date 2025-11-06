@@ -25,15 +25,15 @@ function OuvreFichierNouveauFormat(numFichier : SInt16) : OSErr;
 function LitPartieNouveauFormat(numFichier : SInt16; nroPartie : SInt64; enAvancant : boolean; var theGame : t_PartieRecNouveauFormat) : OSErr;
 function LitJoueurNouveauFormat(numFichier : SInt16; nroJoueur : SInt64; var joueur : String255) : OSErr;
 function LitTournoiNouveauFormat(numFichier : SInt16; nroTournoi : SInt64; var tournoi : String255) : OSErr;
-function LitEnteteNouveauFormat(refnum : SInt16; var entete : t_EnTeteNouveauFormat) : OSErr;
+function LitEnteteNouveauFormat(var fic : basicFile; var entete : t_EnTeteNouveauFormat) : OSErr;
 function FermeFichierNouveauFormat(numFichier : SInt16) : OSErr;
 
 {Ecriture des donnees sur disque}
 procedure MettreDateDuJourDansEnteteFichierNouveauFormat(var entete : t_EnTeteNouveauFormat);
-function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;
-function EcritPartieNouveauFormat(refnum : SInt16; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;
-function EcritJoueurNouveauFormat(refnum : SInt16; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;
-function EcritTournoiNouveauFormat(refnum : SInt16; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;
+function EcritEnteteNouveauFormat(var fic : basicFile; entete : t_EnTeteNouveauFormat) : OSErr;
+function EcritPartieNouveauFormat(var fic : basicFile; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;
+function EcritJoueurNouveauFormat(var fic : basicFile; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;
+function EcritTournoiNouveauFormat(var fic : basicFile; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;
 
 {Gestion de la memoire}
 function AllocateMemoireIndexNouveauFormat(var nbParties : SInt64) : OSErr;
@@ -699,11 +699,13 @@ begin
 end;
 
 
-function LitEnteteNouveauFormat(refnum : SInt16; var entete : t_EnTeteNouveauFormat) : OSErr;
+function LitEnteteNouveauFormat(var fic : basicFile; var entete : t_EnTeteNouveauFormat) : OSErr;
 var codeErreur : OSErr;
+    count : SInt32;
 begin
   MemoryFillChar(@entete,TailleEnTeteNouveauFormat,char(0));
-  codeErreur := MyFSReadAt(refnum,0,TailleEnTeteNouveauFormat, @entete);
+  codeErreur := SetFilePosition(fic, 0)
+  codeErreur := Read(fic, @entete, count);
   if codeErreur = 0 then
     with entete do
       begin
@@ -728,7 +730,7 @@ begin
 end;
 
 
-function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;
+function EcritEnteteNouveauFormat(var fic : basicFile; entete : t_EnTeteNouveauFormat) : OSErr;
 var codeErreur : OSErr;
 begin
   with entete do
@@ -744,7 +746,7 @@ begin
 end;
 
 
-function EcritPartieNouveauFormat(refnum : SInt16; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;
+function EcritPartieNouveauFormat(var fic : basicFile; nroPartie : SInt64; theGame : t_PartieRecNouveauFormat) : OSErr;
 var codeErreur : OSErr;
 begin
   with theGame do
@@ -760,7 +762,7 @@ begin
 end;
 
 
-function EcritJoueurNouveauFormat(refnum : SInt16; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;
+function EcritJoueurNouveauFormat(var fic : basicFile; nroJoueur : SInt64; thePlayer : t_JoueurRecNouveauFormat) : OSErr;
 var codeErreur : OSErr;
 begin
   codeErreur := MyFSWriteAt(refnum,FSFromStart,TailleEnTeteNouveauFormat+nroJoueur*TailleJoueurRecNouveauFormat,TailleJoueurRecNouveauFormat,@thePlayer);
@@ -768,7 +770,7 @@ begin
 end;
 
 
-function EcritTournoiNouveauFormat(refnum : SInt16; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;
+function EcritTournoiNouveauFormat(var fic : basicFile; nroTournoi : SInt64; theTourney : t_TournoiRecNouveauFormat) : OSErr;
 var codeErreur : OSErr;
 begin
   codeErreur := MyFSWriteAt(refnum,FSFromStart,TailleEnTeteNouveauFormat+nroTournoi*TailleTournoiRecNouveauFormat,TailleTournoiRecNouveauFormat,@theTourney);
@@ -1151,7 +1153,7 @@ begin
       exit;
     end;
 
-  codeErreur := LitEnteteNouveauFormat(refnum,entete);
+  codeErreur := LitEnteteNouveauFormat(fic, entete);
   if codeErreur <> 0 then
     begin
       codeErreur := FSClose(refnum);
@@ -1651,7 +1653,7 @@ begin
 		         if premierePartieDansBufferNF < 1 then premierePartieDansBufferNF := 1;
 		         if dernierePartieDansBufferNF > entete.NombreEnregistrementsParties then dernierePartieDansBufferNF := entete.NombreEnregistrementsParties;
 
-		         codeErreur := SetFPos(refnum,1,TailleEnTeteNouveauFormat+pred(premierePartieDansBufferNF)*TaillePartieRecNouveauFormat);
+                 codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat+pred(premierePartieDansBufferNF)*TaillePartieRecNouveauFormat);
 		         count := (dernierePartieDansBufferNF-premierePartieDansBufferNF+1)*TaillePartieRecNouveauFormat;
 		         codeErreur := FSread(refnum,count,@bufferLecturePartiesNF);
 		         MoveMemory(@bufferLecturePartiesNF[nroPartie-premierePartieDansBufferNF],@theGame,TaillePartieRecNouveauFormat);
@@ -1723,7 +1725,7 @@ begin
 		         if dernierJoueurDansBufferNF > entete.NombreEnregistrementsTournoisEtJoueurs then
 		            dernierJoueurDansBufferNF := entete.NombreEnregistrementsTournoisEtJoueurs;
 
-		         codeErreur := SetFPos(refnum,1,TailleEnTeteNouveauFormat+pred(premierJoueurDansBufferNF)*TailleJoueurRecNouveauFormat);
+		         codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat+pred(premierJoueurDansBufferNF)*TailleJoueurRecNouveauFormat);
 		         if codeErreur <> NoErr then
 		           begin
 		             LitJoueurNouveauFormat := codeErreur;
@@ -1789,7 +1791,7 @@ begin
 		         if dernierTournoiDansBufferNF > entete.NombreEnregistrementsTournoisEtJoueurs then
 		            dernierTournoiDansBufferNF := entete.NombreEnregistrementsTournoisEtJoueurs;
 
-		         codeErreur := SetFPos(refnum,1,TailleEnTeteNouveauFormat+pred(premierTournoiDansBufferNF)*TailleTournoiRecNouveauFormat);
+		         codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat+pred(premierTournoiDansBufferNF)*TailleTournoiRecNouveauFormat);
 		         if codeErreur <> NoErr then
 		           begin
 		             LitTournoiNouveauFormat := codeErreur;
@@ -2625,7 +2627,7 @@ begin
                        if codeErreur <> NoErr then exit;
                      end;
 
-                   codeErreur := LitEnteteNouveauFormat(refnum,enteteIndex);
+                   codeErreur := LitEnteteNouveauFormat(fic, enteteIndex);
 	                 if codeErreur <> NoErr then exit;
 
                    codeErreur := MyFSRead(refnum,4,@nbNomsDansFichierIndex);
@@ -2774,7 +2776,7 @@ begin
                        if codeErreur <> NoErr then exit;
                      end;
 
-                   codeErreur := LitEnteteNouveauFormat(refnum,enteteIndex);
+                   codeErreur := LitEnteteNouveauFormat(fic, enteteIndex);
 	                 if codeErreur <> NoErr then exit;
 
                    codeErreur := MyFSRead(refnum,4,@nbNomsDansFichierIndex);
@@ -3138,7 +3140,7 @@ begin
 	        if not(open) then codeErreur := OuvreFichierNouveauFormat(numFichierIndex);
 	        if codeErreur <> NoErr then goto cleanUp;
 
-	        codeErreur := LitEnteteNouveauFormat(refnum,entete);
+	        codeErreur := LitEnteteNouveauFormat(fic,entete);
 	        if codeErreur <> NoErr then goto cleanUp;
 
 	        codeErreur := MyFSRead(refnum,4,@nbrePartiesDansFicIndex);

@@ -26,10 +26,10 @@ function DecalageTournoisSolitaires : SInt32;
 procedure GetNbSolitairesEtNbCasesVidesFromEntete(entete : t_EnTeteNouveauFormat; var nbSolitaires : SInt32; var nbCasesVides : SInt16);
 procedure SetNbSolitairesEtNbCasesVidesDansEntete(var entete : t_EnTeteNouveauFormat; nbSolitaires : SInt32; nbCasesVides : SInt16);
 
-function LitEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; var entete : t_EnteteSuplementaireSolitaires) : OSErr;
-function LitSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
-function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; entete : t_EnteteSuplementaireSolitaires) : OSErr;
-function EcritSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+function LitEnteteSuplementaireFichierSolitaireNouveauFormat(var fic : basicFile; var entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function LitSolitaireNouveauFormat(var fic : basicFile; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(var fic : basicFile; entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function EcritSolitaireNouveauFormat(var fic : basicFile; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
 procedure ReparerFichiersSolitaires;
 
 function MakeSolitaireRecNouveauFormat(annee : SInt16; nroTournoi : SInt16; nroJoueurNoir : SInt32; nroJoueurBlanc : SInt32; plat : plateauOthello; trait : SInt16; {pionNoir,pionBlanc} score : SInt16; coupSolution : SInt16; scoreReelDeLaPartie : SInt16; coup25dansLaBase : SInt16) : t_SolitaireRecNouveauFormat;
@@ -161,7 +161,7 @@ begin
 end;
 
 
-function LitEnteteSuplementaireFichierSolitaireNouveauFormat(refNum : SInt16; var entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function LitEnteteSuplementaireFichierSolitaireNouveauFormat(var fic : basicFile; var entete : t_EnteteSuplementaireSolitaires) : OSErr;
 var codeErreur : OSErr;
     i : SInt16;
 begin
@@ -180,7 +180,7 @@ begin
   LitEnteteSuplementaireFichierSolitaireNouveauFormat := codeErreur;
 end;
 
-function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refNum : SInt16; entete : t_EnteteSuplementaireSolitaires) : OSErr;
+function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(var fic : basicFile; entete : t_EnteteSuplementaireSolitaires) : OSErr;
 var codeErreur : OSErr;
     i : SInt16;
 begin
@@ -198,7 +198,7 @@ begin
 end;
 
 
-function EcritSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+function EcritSolitaireNouveauFormat(var fic : basicFile; nroSolitaire : SInt32; theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
 var codeErreur : OSErr;
     offset : SInt32;
 begin
@@ -249,7 +249,7 @@ begin
 end;
 
 
-function LitSolitaireNouveauFormat(refnum : SInt16; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
+function LitSolitaireNouveauFormat(var fic : basicFile; nroSolitaire : SInt32; var theSolitaire : t_SolitaireRecNouveauFormat) : OSErr;
 var codeErreur : OSErr;
     offset : SInt32;
 begin
