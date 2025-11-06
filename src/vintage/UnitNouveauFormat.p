@@ -703,7 +703,7 @@ function LitEnteteNouveauFormat(refnum : SInt16; var entete : t_EnTeteNouveauFor
 var codeErreur : OSErr;
 begin
   MemoryFillChar(@entete,TailleEnTeteNouveauFormat,char(0));
-  codeErreur := MyFSReadAt(refnum,0,TailleEnTeteNouveauFormat,@entete);
+  codeErreur := MyFSReadAt(refnum,0,TailleEnTeteNouveauFormat, @entete);
   if codeErreur = 0 then
     with entete do
       begin
@@ -1030,7 +1030,7 @@ begin
 
                 // on vide l'ancien fichier dans le dossier Database !
                 if (err = NoErr) then
-                  err := EmptyFile(theFichierTEXT);
+                  err := EmptyFile(fic);
 
                 // on le referme
                 if (err = NoErr) then
@@ -1038,12 +1038,12 @@ begin
 
                 // copier le nouveau fichier (telecharge) dans l'ancien (celui du dossier database)
                 if (err = NoErr) then
-                  err := InsertFileInFile(fichierACopier,theFichierTEXT);
+                  err := InsertFileInFile(fichierACopier,fic);
 
                 // on verifie que tout c'est bien passe
                 if (err = NoErr) then
                   begin
-                    if EstUnFichierNouveauFormat(theFichierTEXT.info,typeDonneesDatabase, enteteDatabase)
+                    if EstUnFichierNouveauFormat(fic.info,typeDonneesDatabase, enteteDatabase)
                       then
                         begin
                           // tout a l'air bon
@@ -1831,9 +1831,9 @@ begin
       begin
         nomFichierComplet := CalculePathFichierNouveauFormat(numFichier)+CalculeNomFichierNouveauFormat(numFichier);
 
-        codeErreur := FileExists(nomFichierComplet,0,theFichierTEXT);
+        codeErreur := FileExists(nomFichierComplet,0,fic);
 
-        if codeErreur = NoErr then codeErreur := OpenFile(theFichierTEXT);
+        if codeErreur = NoErr then codeErreur := OpenFile(fic);
 
         open := (codeErreur = NoErr);
 
@@ -1841,7 +1841,7 @@ begin
           then
             begin
               nroDernierFichierOuvertNF := numFichier;
-              refnum := theFichierTEXT.refNum;
+              refnum := fic.refNum;
             end
           else
             begin
@@ -1871,7 +1871,7 @@ begin
   with InfosFichiersNouveauFormat.fichiers[numFichier] do
     if open then
       begin
-        codeErreur := CloseFile(theFichierTEXT);
+        codeErreur := CloseFile(fic);
         refnum := 0;
         open := false;
       end;

@@ -557,7 +557,7 @@ begin
       count   := LengthOfHugeString(s);
       buffer  := GetBufferOfHugeString(s);
 
-      err     := MyFSWrite(fic.refNum, count, @buffer^[1]);
+      err     := Write(fic.refNum, @buffer^[1], count);
     end;
 
   Write := err;

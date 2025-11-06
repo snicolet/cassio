@@ -123,8 +123,8 @@ type  t_EnTeteNouveauFormat =
            typeDonnees : SInt16;
            nroDistribution : SInt16;   { pour les fichiers de parties ou de solitaires ou un index}
            annee : SInt16;             { pour les fichiers de parties ou de solitaires ou un index}
-           NroFichierDual : SInt16;    {index associé si c'est un fichier de parties, et reciproquement}
-           theFichierTEXT : basicfile;
+           NroFichierDual : SInt16;    { index associe si c'est un fichier de parties, et reciproquement}
+           fic : basicfile;
          end;
 
 
