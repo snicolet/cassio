@@ -137,7 +137,7 @@ begin
 		  erreurES := CreateFile(nom,0,fichierSolitaires);
 		  if erreurES = NoErr then erreurES := OpenFile(fichierSolitaires);
 		  if erreurES = NoErr then erreurES := EmptyFile(fichierSolitaires);
-		  if erreurES = NoErr then erreurES := EcritEnteteNouveauFormat(fichierSolitaires.refNum,entete);
+		  if erreurES = NoErr then erreurES := EcritEnteteNouveauFormat(fichierSolitaires,entete);
 		  if erreurES = NoErr then erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(fichierSolitaires.refNum,statsPourCeFichier);
 		  if erreurES = NoErr then erreurES := CloseFile(fichierSolitaires);
 		  SetFileCreatorFichierTexte(fichierSolitaires,FOUR_CHAR_CODE('SNX4'));
@@ -178,14 +178,14 @@ begin
         inc(nbSolitaires);
         SetNbSolitairesEtNbCasesVidesDansEntete(entete,nbSolitaires,nbCasesVides);
 
-        erreurES := EcritEnteteNouveauFormat(refNum,entete);
+        erreurES := EcritEnteteNouveauFormat(fic,entete);
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
             exit;
           end;
 
-        erreurES := LitEnteteSuplementaireFichierSolitaireNouveauFormat(refNum,statsPourCeFichier);
+        erreurES := LitEnteteSuplementaireFichierSolitaireNouveauFormat(fic,statsPourCeFichier);
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
@@ -194,7 +194,7 @@ begin
 
         inc(statsPourCeFichier.nbSolitairesCetteProf[nbCasesVides]);
 
-        erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refNum,statsPourCeFichier);
+        erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(fic,statsPourCeFichier);
         if erreurES <> NoErr then
           begin
             AjouterSolitaireNouveauFormatSurDisque := erreurES;
@@ -210,7 +210,7 @@ begin
             WritelnDansRapport('');
           end;
 
-        erreurES := EcritSolitaireNouveauFormat(refNum,nbSolitaires,theSolitaire);
+        erreurES := EcritSolitaireNouveauFormat(fic,nbSolitaires,theSolitaire);
         if erreurES <> NoErr then
           begin
             SysBeep(0);
@@ -219,7 +219,7 @@ begin
           end;
 
         (*
-        erreurES := LitSolitaireNouveauFormat(refNum,nbSolitaires,verifSolitaire);
+        erreurES := LitSolitaireNouveauFormat(fic,nbSolitaires,verifSolitaire);
         if erreurES <> NoErr then
           begin
             SysBeep(0);

@@ -28,7 +28,7 @@ function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 	function RightStr (const s : String255; len : SInt16) : String255;     external;
 function GetNiemeCaractereDuRapport(n : SInt32) : char;     external;
 function GetTailleRapport : SInt32;     external;
-function EstUnFichierNouveauFormat(fic : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
+function EstUnFichierNouveauFormat(info : fileInfo; var typeDonnees : SInt16; var entete : t_EnTeteNouveauFormat) : boolean;     external;
 procedure AlerteSimple(texte : String255);     external;
   procedure EnleveEspacesDeGaucheSurPlace(var s : String255);     external;
 function CassioIsUsingMetaphone : boolean;     external;

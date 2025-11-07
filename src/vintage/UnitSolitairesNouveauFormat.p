@@ -183,6 +183,7 @@ end;
 function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(var fic : basicFile; entete : t_EnteteSuplementaireSolitaires) : OSErr;
 var codeErreur : OSErr;
     i : SInt16;
+    count : Sint32;
 begin
   EcritEnteteSuplementaireFichierSolitaireNouveauFormat := -1;
 
@@ -192,7 +193,9 @@ begin
       SWAP_LONGINT( @nbSolitairesCetteProf[i]);
   {$ENDC}
 
-  codeErreur := MyFSWriteAt(refNum,FSFromStart,TailleEnTeteNouveauFormat,TailleEnteteSupplementaireSolitaires,@entete);
+  codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat);
+  count      := TailleEnteteSupplementaireSolitaires;
+  codeErreur := Write(fic, @entete, count);
 
   EcritEnteteSuplementaireFichierSolitaireNouveauFormat := codeErreur;
 end;
@@ -212,7 +215,11 @@ begin
 		  {$ENDC}
 		end;
   offset := TailleEnTeteNouveauFormat + TailleEnteteSupplementaireSolitaires + pred(nroSolitaire)*TailleSolitaireRecNouveauFormat;
-  codeErreur := MyFSWriteAt(refnum,FSFromStart,offset,TailleSolitaireRecNouveauFormat,@theSolitaire);
+  
+  codeErreur := SetFilePosition(fic, offset);
+  count      := TailleSolitaireRecNouveauFormat;
+  codeErreur := Write(fic, @theSolitaire, count);
+  
   EcritSolitaireNouveauFormat := codeErreur;
 end;
 

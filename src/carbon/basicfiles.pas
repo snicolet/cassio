@@ -315,6 +315,67 @@ begin
 end;
 
 
+function ExpandFileName(var fic : basicfile) : OSErr;
+var err : OSErr;
+    fullName : String255;
+begin
+  if debugBasicFiles then
+    begin
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole(' avant MakeFileInfo dans ExpandFileName :');
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
+      DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
+      DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
+      DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
+    end;
+
+  if FileIsStandardOutput(fic) then
+    begin
+      ExpandFileName := NoErr;
+      exit;
+    end;
+
+  with fic do
+    begin
+      err := MakeFileInfo(vRefNum,parID,fileName,info);
+      
+      fullName := fileName;
+      if (err = NoErr) then
+        begin
+          ExpandFileName(info);
+          err := ExpandFileName(info,fullName);
+        end else
+      if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
+        ExpandFileName(info, fullName);
+        
+      parID      := info.parID;
+      fileName   := fullName;
+      uniqueID   := HashString(fullName);
+
+      {DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageAndNumInConsole('LENGTH_OF_STRING(fic.fullName) = ',LENGTH_OF_STRING(fullName));
+      DisplayMessageAndNumInConsole('hashing -> uniqueID = ',uniqueID);}
+    end;
+
+  if debugBasicFiles then
+    begin
+      DisplayMessageInConsole('');
+      DisplayMessageInConsole(' apres MakeFileInfo dans ExpandFileName :');
+      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
+      DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
+      DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
+      DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
+      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
+      DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
+      DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
+      DisplayMessageAndNumInConsole('   ==> Err = ',err);
+    end;
+  ExpandFileName := err;
+end;
+
 function FileIsStandardOutput(var fic : basicfile) : boolean;
 begin
   FileIsStandardOutput := (fic.vRefNum = 0) and
@@ -433,68 +494,6 @@ begin
     then KeepPrefix(chemin,LENGTH_OF_STRING(chemin)-1);
 
   ExtractFileOrDirectoryName := RightStr(chemin,LENGTH_OF_STRING(chemin)-PosRight(separator,chemin));
-end;
-
-
-function ExpandFileName(var fic : basicfile) : OSErr;
-var err : OSErr;
-    fullName : String255;
-begin
-  if debugBasicFiles then
-    begin
-      DisplayMessageInConsole('');
-      DisplayMessageInConsole(' avant MakeFileInfo dans ExpandFileName :');
-      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-      DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
-      DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-      DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
-    end;
-
-  if FileIsStandardOutput(fic) then
-    begin
-      ExpandFileName := NoErr;
-      exit;
-    end;
-
-  with fic do
-    begin
-      err := MakeFileInfo(vRefNum,parID,fileName,info);
-      
-      fullName := fileName;
-      if (err = NoErr) then
-        begin
-          ExpandFileName(info);
-          err := ExpandFileName(info,fullName);
-        end else
-      if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
-        ExpandFileName(info, fullName);
-        
-      parID      := info.parID;
-      fileName   := fullName;
-      uniqueID   := HashString(fullName);
-
-      {DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-      DisplayMessageAndNumInConsole('LENGTH_OF_STRING(fic.fullName) = ',LENGTH_OF_STRING(fullName));
-      DisplayMessageAndNumInConsole('hashing -> uniqueID = ',uniqueID);}
-    end;
-
-  if debugBasicFiles then
-    begin
-      DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres MakeFileInfo dans ExpandFileName :');
-      DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-      DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
-      DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
-      DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-      DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-      DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
-      DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
-      DisplayMessageAndNumInConsole('   ==> Err = ',err);
-    end;
-  ExpandFileName := err;
 end;
 
 
@@ -1391,7 +1390,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSRead dans Read :');
+      DisplayMessageInConsole(' apres FileRead dans Read :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
@@ -1756,7 +1755,7 @@ var theFic : basicfile;
     erreurES : OSErr;
     ligne : LongString;
 begin
-  erreurES := FileExists(whichFile,theFic);
+  erreurES := FileExists(whichFile, theFic);
   if (erreurES <> NoErr) then exit;
 
   erreurES := OpenFile(theFic);
