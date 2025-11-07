@@ -166,8 +166,8 @@ procedure WritelnLongStringDansRapport(const ligne : LongString);
 implementation
 
 uses math,
-     basicmath,
-     rapport;
+     BasicMath,
+     BasicTerminal;
 
 
 var protect_parser_with_quotes : boolean;

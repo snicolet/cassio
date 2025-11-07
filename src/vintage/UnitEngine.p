@@ -545,7 +545,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   Lorsqu'un moteur est en train de calculer pour nous, il est utile de      *
- *   lui envoyer chaque seconde un message message : soit un get-search-infos, *
+ *   lui envoyer chaque seconde un petit message : soit un get-search-infos,   *
  *   auquel cas il doit reppondre par le nombre de noeuds et le temps de re-   *
  *   cherche; soit un simple retour charriot, auquel cas il doit repondre par  *
  *   "ok." ou "ready." suivant qu'il est en train de calculer ou d'attendre    *
@@ -771,7 +771,7 @@ end;
  *******************************************************************************
  *                                                                             *
  *   RelancerDerniereRechercheDeEngine : relancer la derniere requete du       *
- *   moteur.
+ *   moteur.                                                                   *
  *                                                                             *
  *******************************************************************************
  *)

@@ -246,10 +246,10 @@ var seed : SInt64;
     t : timeval;
     {$ENDIF}
 begin
-  seed := FpGetpid();                 // process number
-  seed := seed + Random64();          // a small random component
-  seed := seed + NewMagicCookie();    // increasing counter
-  seed := seed + GetTickCount64();    // milliseconds
+  seed := Random64();                               // a small random component
+  seed := seed + FpGetpid()       * 2428095424619;  // process number
+  seed := seed + NewMagicCookie() * 88362852307;    // an increasing counter
+  seed := seed + GetTickCount64() * 4952019383323;  // milliseconds
 
   {$IFDEF UNIX}
   fpgettimeofday(@t,nil);

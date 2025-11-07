@@ -152,7 +152,7 @@ uses
   math,
   basicMemory,
   basicHashing,
-  rapport;
+  basicTerminal;
 
 
 const unit_initialized : boolean = false;
@@ -957,7 +957,7 @@ end;
 
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
 var err : OSErr;
-    Info : TSearchRec;
+    searchData : TSearchRec;
 begin
 
   if FileIsStandardOutput(fic) then
@@ -967,17 +967,17 @@ begin
       exit;
     end;
   
-  if FindFirst(fic.info.name, 0, Info) = 0 then
+  if FindFirst(fic.info.name, 0, searchData) = 0 then
     begin
       err := NoErr;
-      taille := Info.Size;
+      taille := searchData.Size;
     end
   else
     begin
       err := -1;
       taille := -1;
     end;
-  FindClose(Info);
+  FindClose(searchData);
 
 
   if debugBasicFiles then
@@ -1873,16 +1873,8 @@ end;
 
 
 
-
-
-{kFSCatInfoCreateDate = 0x00000020,
-   kFSCatInfoContentMod = 0x00000040
-   }
-
 function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
-    fileRef : FSRef;
-    catalogInfo : FSCatalogInfo;
 begin
   if FileIsStandardOutput(fic) then
     begin
@@ -1890,22 +1882,13 @@ begin
       exit;
     end;
 
-  err := FSpMakeFSRef(fic.info,fileRef);
-
-  if err = NoErr then
-    begin
-      err := FSGetCatalogInfo(fileRef,kFSCatInfoCreateDate,@catalogInfo,NIL,NIL,NIL);
-      if (err = NoErr) then SecondsToDate(catalogInfo.createDate.lowSeconds,theDate);
-    end;
-
-  GetCreationDate := err;
+  GetCreationDate := -1;
 end;
 
 
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
-    fileRef : FSRef;
-    catalogInfo : FSCatalogInfo;
+    age : SInt32;
 begin
   if FileIsStandardOutput(fic) then
     begin
@@ -1913,12 +1896,16 @@ begin
       exit;
     end;
 
-  err := FSpMakeFSRef(fic.info,fileRef);
+  age := FileAge(fic.info.name);
 
-  if err = NoErr then
+  if age < 0 then
     begin
-      err := FSGetCatalogInfo(fileRef,kFSCatInfoContentMod,@catalogInfo,NIL,NIL,NIL);
-      if (err = NoErr) then SecondsToDate(catalogInfo.contentModDate.lowSeconds,theDate);
+      err := -1;
+    end
+  else
+    begin
+      theDate := DecodeDateTime(FileDateToDateTime(age));
+      err := NoErr;
     end;
 
   GetModificationDate := err;

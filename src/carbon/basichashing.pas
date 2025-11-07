@@ -18,7 +18,7 @@ function HashString63Bits(const s : String255) : UInt64;
 // Counting and optionally hashing lexems
 function CountAndHashLexems(const s : String255; table : LongintArrayPtr) : SInt32;
 
-// InitBasicHashing() : init the BasiHashing unit
+// InitBasicHashing() : init the BasicHashing library
 procedure InitBasicHashing;
 
 
@@ -35,7 +35,7 @@ const initialisation_done : boolean = false;
 var XORValues : array[0..255,0..3] of SInt32;
 
 
-// InitBasicHashing() : initializations of the BasicHashing unit
+// InitBasicHashing() : initializations of the BasicHashing library
 procedure InitBasicHashing;
 var i,j : SInt16;
     aux : SInt32;

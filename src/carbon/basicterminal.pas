@@ -1,4 +1,4 @@
-unit rapport;
+unit basicterminal;
 
 interface
 
@@ -13,6 +13,8 @@ uses
   basictypes,
   basicstring;
 
+
+{insertion de texte dans le rapport}
 procedure WriteDansRapport(s : String255);
 procedure WritelnDansRapport(s : String255);
 

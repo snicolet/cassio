@@ -10,6 +10,7 @@ uses
 {$ENDIF}
   BaseUnix,
   SysUtils,
+  DateUtils,
   basictypes,
   basicstring;
   
@@ -27,7 +28,8 @@ type
      end;
 
 
-// Conversion to string
+// Conversion
+function DecodeDateTime(const whichDate : TDateTime) : DateTimeRec;
 function CompactTime(const whichDate : DateTimeRec) : String255;
 
 
@@ -40,6 +42,15 @@ function CurrentTime() : String255;
 
 
 implementation
+
+
+
+// DecodeDateTime() returns the DateTimeRec from the FreePascal whichDate
+function DecodeDateTime(const whichDate : TDateTime) : DateTimeRec;
+begin
+   with result do
+     dateUtils.DecodeDateTime(whichDate,year,month,day,hour,minute,second,millisecond);
+end;
 
 
 // CompactTime convert a DateTimeRec record to a compact string

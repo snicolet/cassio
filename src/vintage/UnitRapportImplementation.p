@@ -139,9 +139,9 @@ const kTailleListeDesEcrituresThreadSafeDansRapport = 100;
 
 var gListeEcritureThreadSafeDansRapport :
       record
-        index                     : SInt32;
-        cardinal                  : SInt32;
-        strings                   : array[0..kTailleListeDesEcrituresThreadSafeDansRapport] of String255Hdl;
+        index     : SInt32;
+        cardinal  : SInt32;
+        strings   : array[0..kTailleListeDesEcrituresThreadSafeDansRapport] of String255Hdl;
       end;
 
 
