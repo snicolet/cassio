@@ -150,6 +150,7 @@ uses
 {$ENDIF}
   SysUtils,
   math,
+  quickdraw,
   basicMemory,
   basicHashing,
   basicTerminal;
@@ -238,6 +239,18 @@ begin
    MakeFileInfo(vrn, dirID, name, info); // discard error !
    
    MakeFileInfo := info;
+end;
+
+
+function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
+begin
+   result := MakeFileInfo(0, 0, name, info);
+end;
+
+
+function MakeFileInfo(name : String255) : fileInfo;
+begin
+  result := MakeFileInfo(0, 0, name);
 end;
 
 
@@ -1781,14 +1794,14 @@ end;
 
 function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
 var insertion : basicfile;
-    err,err2 : OSErr;
+    err : OSErr;
 begin
   err := FileExists(pathFichierAInserer,0,insertion);
   if err = NoErr then
     begin
       err := OpenFile(insertion);
       err := InsertFileInFile(insertion,fic);
-      err2 := CloseFile(insertion);
+      CloseFile(insertion);
     end;
 
   InsertFileInFile := err;
@@ -1868,13 +1881,13 @@ begin
       end;
 
   Split(s,'!',texte,explication);
+  
   AlerteDouble(texte+'!',explication);
 end;
 
 
 
 function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-var err : OSErr;
 begin
   if FileIsStandardOutput(fic) then
     begin
@@ -1966,5 +1979,22 @@ begin
   GetDebugFiles := debugBasicFiles;
 end;
 
+procedure TestBasicFiles;
+begin
+   system.Writeln('');
+   system.Writeln('Testing file system functions...');
+   system.Writeln( DirectorySeparator );
+   system.Writeln(GetCurrentDir());
+end;
 
+begin
+  TestBasicFiles;
 end.
+
+
+
+
+
+
+
+

@@ -50,6 +50,11 @@ function GetMouse() : Point;
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 
+// Ressources
+function ReadStringFromRessource(stringListID, index : SInt16) : String255;
+
+// Alerts
+procedure AlerteDouble(texte,explication : String255);
 
 
 IMPLEMENTATION
@@ -168,7 +173,7 @@ begin
     if (e < 100) then stamp := stamp + '0';
     stamp := stamp + IntToStr(e);
 
-    writeln(stamp + 's | ' + info);
+    system.writeln(stamp + 's | ' + info);
 end;
 
 
@@ -251,7 +256,7 @@ end;
 
 procedure SysBeep(duration : SInt16);
 begin
-   writeln('BEEEEEEEEEEEEEP');
+   system.writeln('BEEEEEEEEEEEEEP');
    Beep();
 end;
 
@@ -320,6 +325,22 @@ begin
    result := MyUrlDecode(getOpenFileDialogData.filePath);
 end;
 
+procedure AlerteDouble(texte,explication : String255);
+begin
+    TODO({$I %CURRENTROUTINE%});
+end;
+
+
+function ReadStringFromRessource(stringListID, index : SInt16) : String255;
+//var s : Str255;
+begin
+  	// s := StringToStr255('');
+  	// GetIndString(s, stringListID, index);
+  	// ReadStringFromRessource := MyStr255ToString(s);
+  	
+  	TODO({$I %CURRENTROUTINE%});
+  	Result := '';
+end;
 
 
 // Constructor for the TAnswers object

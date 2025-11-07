@@ -163,6 +163,12 @@ procedure WriteLongStringDansRapport(const ligne : LongString);
 procedure WritelnLongStringDansRapport(const ligne : LongString);
 
 
+// A function similar to a macro to be used to warn that a feature is not implemented yet
+procedure TODO(s : String255);
+
+
+
+
 implementation
 
 uses math,
@@ -1655,6 +1661,13 @@ end;
 
 
 
+// A function similar to a macro to be used to warn that a feature is not implemented yet
+procedure TODO(s : String255);
+begin
+   writeln('Warning: ' + s + ' is not implemented');
+end;
+
+
 // testBasicString() : testing various functions of the BasicString unit
 procedure testBasicString();
 var  s, a, b : string255;
@@ -1830,12 +1843,7 @@ begin
    SetParserProtectionWithQuotes(false);
    SetParserDelimiters([' ',tab]);
 
-   testBasicString;
-   
-   Writeln('');
-   Writeln('Testing file system functions...');
-   writeln( DirectorySeparator );
-   writeln(GetCurrentDir());
+   // testBasicString;
 end.
 
 

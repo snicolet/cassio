@@ -151,16 +151,21 @@ function FOUR_CHAR_CODE(s : string) : OSType;
 
 
 
+
 implementation
 
 
+
+
+// Convert from a four 4 string to an OSType
 function FOUR_CHAR_CODE(s : string) : OSType;
 begin
    Result := ((Ord(Copy(s,1,1)[1]) shl 24) or (Ord(Copy(s,2,1)[1]) shl 16) or (Ord(Copy(s,3,1)[1]) shl 8) or Ord(Copy(s,4,1)[1]));
 end;
 
-// TestBasicTypes() : performing some tests for the BasicTypes unit
 
+
+// TestBasicTypes() : performing some tests for the BasicTypes unit
 procedure TestBasicTypes;
 type myEnum = (kUnusedFooBar,kUnusedFooBar2);
 begin

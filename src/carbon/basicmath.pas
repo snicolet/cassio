@@ -906,10 +906,11 @@ begin
   t := GetTickCount64();  // start timer
   for k := 1 to N do
     begin
-       r := Random64();
+      r := Random64();
       // writeln(SInt64(r), ' ', SInt64(HexToInt(Hexa(r))));
       // r := trunc(10 * RandomFloat());
-      // freq[r] := freq[r] + 1;
+      r := abs(r) mod 10;
+      freq[r] := freq[r] + 1;
     end;
   t := GetTickCount64() - t;  // stop timer
   for k := 0 to 9 do
