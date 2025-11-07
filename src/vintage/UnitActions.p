@@ -961,7 +961,7 @@ begin
   if not(EstUnNomDeFichierTemporaireDePressePapier(nomCompletFichier)) and
      (GetModificationDate(ficPartie,theDate) = NoErr) then
     begin
-      dateModifFichier := DateEnString(theDate);
+      dateModifFichier := CompactTime(theDate);
       if FichierExisteDansDatabaseOfRecentSGFFiles(nomCourt,dateDansDatabase) and (dateDansDatabase = dateModifFichier)
         then SetToujoursAjouterInterversionDansGrapheInterversions(false)
         else SetToujoursAjouterInterversionDansGrapheInterversions(true);
@@ -1449,7 +1449,7 @@ begin
           if (GetBasicFileOfFichierAbstraitPtr(@theFile,fichier) = NoErr) then
             begin
               err := GetModificationDate(fichier,theDate);
-              AjouterNomDansDatabaseOfRecentSGFFiles(DateEnString(theDate),GetNameOfSFReply(reply));
+              AjouterNomDansDatabaseOfRecentSGFFiles(CompactTime(theDate),GetNameOfSFReply(reply));
             end;
           DisposeFichierAbstrait(theFile);
         end;

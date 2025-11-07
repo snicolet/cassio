@@ -26,25 +26,25 @@ type
         millisecond : UInt16;
      end;
 
+
+// Conversion to string
+function CompactTime(const whichDate : DateTimeRec) : String255;
+
+
+// Get current time and date
 procedure GetTime(var r : DateTimeRec);
-function DateCouranteEnString : String255;
-function DateEnString(const whichDate : DateTimeRec) : String255;
+function CurrentTime() : String255;
+
+
 
 
 
 implementation
 
 
-procedure GetTime(var r : DateTimeRec);
-begin
-   with r do
-     begin
-        DeCodeDate(Date(),year,month,day);
-        DecodeTime(Time(),hour,minute,second,millisecond);
-     end;
-end;
-
-function DateEnString(const whichDate : DateTimeRec) : String255;
+// CompactTime convert a DateTimeRec record to a compact string
+// Example of output : 20250131083701 for 31 jan 2025 at 08:37:01
+function CompactTime(const whichDate : DateTimeRec) : String255;
 var s : String255;
 begin
   with whichDate do
@@ -54,15 +54,26 @@ begin
          IntToStrWithPadding(hour,   2, '0') +
          IntToStrWithPadding(minute, 2, '0') +
          IntToStrWithPadding(second, 2, '0');
-  DateEnString := s;
+  CompactTime := s;
 end;
 
 
-function DateCouranteEnString : String255;
+// GetTime() returns the current date and time with milliseconds accuracy
+procedure GetTime(var r : DateTimeRec);
+begin
+   with r do
+     begin
+        DeCodeDate(Date(),year,month,day);
+        DecodeTime(Time(),hour,minute,second,millisecond);
+     end;
+end;
+
+// CurrentTime() returns the current date and time in compact form with seconds accuracy
+function CurrentTime() : String255;
 var myDate : DateTimeRec;
 begin
   GetTime(myDate);
-  DateCouranteEnString := DateEnString(myDate);
+  CurrentTime := CompactTime(myDate);
 end;
 
 

@@ -2344,7 +2344,7 @@ begin
           gListeOfPrefFiles[i].date := gListeOfPrefFiles[i-1].date;
           gListeOfPrefFiles[i].name := gListeOfPrefFiles[i-1].name;
         end;
-      gListeOfPrefFiles[1].date := DateCouranteEnString;
+      gListeOfPrefFiles[1].date := CurrentTime();
       gListeOfPrefFiles[1].name := whichName;
 
       SauvegarderListeOfPrefsFiles;

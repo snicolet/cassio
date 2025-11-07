@@ -48,8 +48,8 @@ INTERFACE
 	procedure AddOSStatus( var err : OSStatus; err2 : OSStatus );
 
 
-	function DateCouranteEnString : String255;
-	function DateEnString(const whichDate : DateTimeRec) : String255;
+	function CurrentTime() : String255;
+	function CompactTime(const whichDate : DateTimeRec) : String255;
 
   function BooleanXor(b1, b2 : boolean) : boolean;
 
@@ -87,7 +87,7 @@ USES
 
 
 
-function DateEnString(const whichDate : DateTimeRec) : String255;
+function CompactTime(const whichDate : DateTimeRec) : String255;
 var s : String255;
 begin
   with whichDate do
@@ -97,15 +97,15 @@ begin
          IntToStrWithPadding(hour,   2, '0') +
          IntToStrWithPadding(minute, 2, '0') +
          IntToStrWithPadding(second, 2, '0');
-  DateEnString := s;
+  CompactTime := s;
 end;
 
 
-function DateCouranteEnString : String255;
+function CurrentTime() : String255;
 var myDate : DateTimeRec;
 begin
   GetTime(myDate);
-  DateCouranteEnString := DateEnString(myDate);
+  CurrentTime := CompactTime(myDate);
 end;
 
 

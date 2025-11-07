@@ -173,7 +173,7 @@ procedure AjusteCurseur;     external;
 procedure EffaceTousLesNomsCourtsDesJoueurs;     external;
 procedure RegenererLesNomsMetaphoneDeLaBase;     external;
   procedure Parse(s : String255; var tete,reste : String255);     external;
-	function DateCouranteEnString : String255;     external;
+	function CurrentTime() : String255;     external;
 function GetApplicationName(default : String255) : String255;     external;
 function GetApplicationBundleName : String255;     external;
 function VersionDeCassioEnString : String255;     external;

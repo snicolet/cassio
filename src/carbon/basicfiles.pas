@@ -93,9 +93,7 @@ function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
 
 
 function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-function SetCreationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
 
 
 procedure SetDebugFiles(flag : boolean);
@@ -1904,23 +1902,6 @@ begin
 end;
 
 
-function SetCreationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
-var err : OSErr;
-    {fileRef : FSRef;
-    catalogInfo : FSCatalogInfo;}
-begin 
-  if FileIsStandardOutput(fic) then
-    begin
-      SetCreationDate := -1;
-      exit;
-    end;
-
-  err := -1;
-
-  SetCreationDate := err;
-end;
-
-
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
     fileRef : FSRef;
@@ -1941,21 +1922,6 @@ begin
     end;
 
   GetModificationDate := err;
-end;
-
-
-function SetModificationDate(var fic : basicfile; const theDate : DateTimeRec) : OSErr;
-var err : OSErr;
-begin 
-  if FileIsStandardOutput(fic) then
-    begin
-      SetModificationDate := -1;
-      exit;
-    end;
-
-  err := -1;
-
-  SetModificationDate := err;
 end;
 
 

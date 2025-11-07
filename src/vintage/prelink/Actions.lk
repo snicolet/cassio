@@ -122,7 +122,7 @@ procedure PlaquerPositionEtPartie(position : PositionEtTraitRec; partieAlphaComp
 	function ExtractFileOrDirectoryName(chemin : String255) : String255;     external;
 function EstUnNomDeFichierTemporaireDePressePapier(const nom : String255) : boolean;     external;
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;     external;
-	function DateEnString(const whichDate : DateTimeRec) : String255;     external;
+	function CompactTime(const whichDate : DateTimeRec) : String255;     external;
 function FichierExisteDansDatabaseOfRecentSGFFiles(whichName : String255; var modificationDate : String255) : boolean;     external;
 procedure SetToujoursAjouterInterversionDansGrapheInterversions(flag : boolean);     external;
 procedure AjouterNomDansDatabaseOfRecentSGFFiles(const whichDate,whichName : String255);     external;
