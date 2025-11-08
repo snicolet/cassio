@@ -1,0 +1,17 @@
+"10020,0" = "Nom de la partie :";
+"10020,1" = "sans titre";
+"10020,2" = "Pr f rences ^0";
+"10020,3" = "Nom de l'arbre de jeu :";
+"10020,4" = "Couleur de l'othellier :";
+"10020,5" = "note to Cassio translators : do *not* change the following string, leave it in french";
+"10020,6" = "version normale";
+"10020,7" = "Commentaires";
+"10020,8" = "Commentaires de ";
+"10020,9" = "Choisissez un r pertoire avec des parties";
+"10020,10" = "Nom du fichier d'export ?";
+"10020,11" = "Nombre de positions dans la biblioth que de Zebra : ^0";
+"10020,12" = "Trouvez le fichier mod le HTML :";
+"10020,13" = "Erreur de syntaxe : attribut illisible ?!?";
+"10020,14" = "ERREUR, attribut non trouv  dans l'arbre de jeu :";
+"10020,15" = "Attribut d truit dans l'arbre de jeu :";
+"10020,16" = "Attribut ajout    l'arbre de jeu :";

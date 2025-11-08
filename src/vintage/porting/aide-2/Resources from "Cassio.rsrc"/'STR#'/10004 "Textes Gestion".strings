@@ -1,0 +1,13 @@
+"10004,0" = "allou  pour ce coup : ^0 sec.";
+"10004,1" = "utilis  pour la prof. ^0 : ^1 sec.";
+"10004,2" = "pr vu pour la prof. ^0 : ^1 sec.";
+"10004,3" = "divergence :  ";
+"10004,4" = "nbre tours du compteur :  ";
+"10004,5" = "nbre n uds :  ";
+"10004,6" = "nb feuilles par sec :  ";
+"10004,7" = "nb n uds par sec :  ";
+"10004,8" = "moteur : ";
+"10004,9" = "^0 proc.";
+"10004,10" = "1 proc.";
+"10004,11" = "utilis  pour la finale   ^0 : ^1 sec.";
+"10004,12" = "pr vu pour la finale   ^0 : ^1 sec.";
