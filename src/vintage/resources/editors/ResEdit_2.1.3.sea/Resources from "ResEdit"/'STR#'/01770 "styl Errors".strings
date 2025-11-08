@@ -1,0 +1,11 @@
+"1770,0" = "You must run on 512Ke or later";
+"1770,1" = "Application Memory Size is too small";
+"1770,2" = "Not enough memory to run TEStyleSample";
+"1770,3" = "Not enough memory to do Cut";
+"1770,4" = "Cannot do Cut";
+"1770,5" = "Cannot do Copy";
+"1770,6" = "Cannot exceed 32,000 characters with Paste";
+"1770,7" = "Not enough memory to do Paste";
+"1770,8" = "Cannot create window";
+"1770,9" = "Cannot exceed 32,000 characters";
+"1770,10" = "Cannot do Paste";

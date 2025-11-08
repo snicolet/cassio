@@ -1,0 +1,3 @@
+"2004,0" = "Sorry, in order to view the  KCHR  resource as a different keyboard,this editor needs the  Key Layout  file. Please drag this file into your System Folder.";
+"2004,1" = "Sorry, the  KCHR  editor depends on routines in the System that are not available in the version you are using. Please update to System 5.0 or later.";
+"2004,2" = "Note: The keyboard layout that you are viewing should support uncoupled modifier keys. Please set the keyboard layout using the  View as   menu command.\nUncouple the modifier keys?";

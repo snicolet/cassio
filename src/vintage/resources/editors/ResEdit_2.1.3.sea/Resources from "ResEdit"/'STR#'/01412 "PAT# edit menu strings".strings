@@ -1,0 +1,15 @@
+"1412,0" = "Copy";
+"1412,1" = "Copy 'PAT '";
+"1412,2" = "Copy 'PAT 's";
+"1412,3" = "Cut";
+"1412,4" = "Cut 'PAT '";
+"1412,5" = "Cut 'PAT 's";
+"1412,6" = "Paste";
+"1412,7" = "Paste 'PAT '";
+"1412,8" = "Paste 'PAT 's";
+"1412,9" = "Paste 'PAT#'";
+"1412,10" = "Clear";
+"1412,11" = "Clear pattern";
+"1412,12" = "Clear patterns";
+"1412,13" = "Duplicate";
+"1412,14" = "Duplicate pattern";

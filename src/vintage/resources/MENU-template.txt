@@ -1,0 +1,16 @@
+This is the template found in Resedt for MENU resources:
+
+MenuID      DWRD   2 octets
+Width       FWRD   2 octets
+Height      FWRD   2 octets
+ProcID      DWRD   2 octets
+Filler      FWRD   2 octets
+EnableFlgs  HLNG   4 octets
+Title       PSTR   pascal string (length byte followed by the characters)
+*****       LSTZ   
+MenuItem    PSTR   pascal string
+Icon#       DBYT   1 octet
+Key equiv   CHAR   1 octet
+Mark Char   CHAR   1 octet
+Style       HBYT   1 octet
+*****       LSTE   

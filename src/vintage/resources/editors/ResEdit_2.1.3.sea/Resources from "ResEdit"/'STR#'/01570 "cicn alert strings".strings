@@ -1,0 +1,5 @@
+"1570,0" = "The '^0' resource is damaged and will be repaired.";
+"1570,1" = "The '^0' resource is too badly damaged to be edited.";
+"1570,2" = "You cannot change the width or height of a 'cicn' resource to more than 64 pixels nor less than 8 pixels.";
+"1570,3" = "Resource ID ^1 cannot be displayed by this version of the '^0' editor.";
+"1570,4" = "A Black & White component could not be added to this 'cicn' resource.\n\n(^0)";

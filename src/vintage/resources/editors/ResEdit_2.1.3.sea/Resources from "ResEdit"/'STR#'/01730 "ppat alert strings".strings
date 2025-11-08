@@ -1,0 +1,6 @@
+"1730,0" = "This '^0' resource is corrupted and cannot be edited.";
+"1730,1" = "This '^0' resource cannot be edited because it contains direct (not indexed) color.";
+"1730,2" = "This '^0' resource cannot be edited because it is not a full-color pixel pattern.";
+"1730,3" = "This '^0' resource cannot be edited because it has a height or width that is not 8, 16, 32, or 64 pixels.";
+"1730,4" = "This '^0' resource cannot be edited because it is a relative pattern with no color information.\n\nYou may open this resource using the '^0' template.";
+"1730,5" = "The pattern on the scrap cannot be used as a desktop pattern.";

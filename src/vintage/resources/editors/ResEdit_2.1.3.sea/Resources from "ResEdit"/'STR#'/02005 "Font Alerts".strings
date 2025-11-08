@@ -1,0 +1,6 @@
+"2005,0" = "There are too many Font families.  No more can be added.";
+"2005,1" = "That Font already exists.";
+"2005,2" = "Both the Family Name field and the Point Size field must be filled in.";
+"2005,3" = "Adding a font requires that a corresponding entry be made in the FOND resource.  Update the FOND and save the file before editing the new FONT.";
+"2005,4" = "Deleting a font requires that the corresponding entry in the FOND resource also be deleted.  Update the FOND and save the file as soon after deleting the FONT as possible.";
+"2005,5" = "One or more of the resource being cut, copied, or duplicated is compressed. The copy will not be compressed. Do you want to proceed anyway?";

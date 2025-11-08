@@ -1,0 +1,14 @@
+"3102,0" = "Unable to paste PICT.\n\n(^0)";
+"3102,1" = "Unable to Undo last operation.\n\n(^0)";
+"3102,2" = "Unable to Redo last operation.\n\n(^0)";
+"3102,3" = "Unable to create selection.\n\n(^0)";
+"3102,4" = "Unable to draw.\n\n(^0)";
+"3102,5" = "If you Redo the last operation, you will not be able to Undo it later.\n\nDo you want to Redo it?";
+"3102,6" = "If you Undo the last operation, you will not be able to Redo it later.\n\nDo you want to Undo it?";
+"3102,7" = "Unable to Undo due to internal error.";
+"3102,8" = "You cannot use another color. \n\n(You may hold down the Command key to replace foreground colored pixels with another color.)";
+"3102,9" = "One or more colors in the pattern cannot be used.  If you draw with the pattern, these colors will be replaced with their best match from Recent Colors.";
+"3102,10" = "Some colors in the PICT could not be added.\n\nErasing before you paste will maximize the number of colors that can be included.";
+"3102,11" = "There are more colors in the resource than can be shown on this screen.  You may still edit the resource but you won't see the correct colors.";
+"3102,12" = "There are more colors in the color palette than can be shown on this screen.  You may still edit the resource but some colors in the palette will not appear correctly.";
+"3102,13" = "This screen cannot display all colors in the palette.  You may still edit the resource but you won't see the correct colors.";

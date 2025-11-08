@@ -1,0 +1,15 @@
+"160,0" = "The file appears to be OK.";
+"160,1" = "Warning: ^0 of ^1 resources couldn t be recovered. You should restore a backup copy, if possible. The damaged file has been renamed to  ^3 (damaged) . Please note, that individual resources may still be damaged.";
+"160,2" = "Warning: ^0  ^2  resources out of ^1 resources couldn t be recovered. You should restore a backup copy, if possible. The damaged file has been renamed to  ^3 (damaged) . Please note, that individual resources may still be damaged.";
+"160,3" = "Warning: The  ^2  resource ID=^1 couldn t be recovered. You should restore a backup copy, if possible. The damaged file has been renamed to  ^3 (damaged) . Please note, that individual resources may still be damaged.";
+"160,4" = "All resources have been recovered. The damaged file has been renamed to  ^3 (damaged) . Please note, that individual resources may still be damaged.";
+"160,5" = "Sorry, this file is damaged beyond repair. You should restore a backup copy, if possible.";
+"160,6" = "ResEdit could not verify this file, because there was not enough memory. If you are running MultiFinder, try increasing ResEdit s memory size in the  Get Info  dialog.";
+"160,7" = "ResEdit cannot verify this file, because it doesn t have a resource fork.";
+"160,8" = "Sorry, the attempt to repair this file failed. This file is damaged beyond repair. You should restore a backup copy, if possible.";
+"160,9" = "This file needed minor repairs and is now OK.";
+"160,10" = "This file couldn t be repaired, because there is not enough free disk space.";
+"160,11" = "This file couldn t be repaired, because the disk or the file is locked.";
+"160,12" = "This file can t be verified, because it is in use by ResEdit or another application.";
+"160,13" = "The operation was cancelled at your request.";
+"160,14" = "The file is already open in ResEdit. Please close it before trying to verify.";

@@ -1,0 +1,13 @@
+"1520,0" = "Undo change";
+"1520,1" = "Redo change";
+"1520,2" = "Undo cut";
+"1520,3" = "Redo cut";
+"1520,4" = "Undo copy";
+"1520,5" = "Redo copy";
+"1520,6" = "Undo clear";
+"1520,7" = "Redo clear";
+"1520,8" = "Undo typing";
+"1520,9" = "Redo typing";
+"1520,10" = "Undo paste";
+"1520,11" = "Redo paste";
+"1520,12" = "Undo";

@@ -1,0 +1,15 @@
+"1492,0" = "Copy";
+"1492,1" = "Copy SICN";
+"1492,2" = "Copy SICNs";
+"1492,3" = "Cut";
+"1492,4" = "Cut SICN";
+"1492,5" = "Cut SICNs";
+"1492,6" = "Paste";
+"1492,7" = "Paste SICN";
+"1492,8" = "Paste SICNs";
+"1492,9" = "Paste SICNx";
+"1492,10" = "Clear";
+"1492,11" = "Clear SICN";
+"1492,12" = "Clear SICNs";
+"1492,13" = "Duplicate";
+"1492,14" = "Duplicate SICN";

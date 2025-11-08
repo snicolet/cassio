@@ -1,0 +1,4 @@
+"1330,0" = "The ascent cannot be the same as the descent.";
+"1330,1" = "When you edit a FONT on a monitor displaying more than 2 colors or shades, your changes will not be reflected in the sample text.\nDo you want to edit the font anyway?";
+"1330,2" = "The font family resource contains no data and cannot be edited.  Use the Get Resource Info command to make changes.";
+"1330,3" = "You can change the look of individual characters but don t change the ascent or descent of the font or the width of characters or you will damage the 'NFNT'. Do you want to edit the 'NFNT'?";

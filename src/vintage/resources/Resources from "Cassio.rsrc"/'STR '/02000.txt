@@ -1,0 +1,1 @@
+Cassio est un programme qui permet de jouer et de progresser  à Othello.Il vous est gracieusement offert par l'auteur et la Fédération Française d'Othello.Bon amusement et prenez-vous bien la tête : il est battable!

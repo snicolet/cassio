@@ -1,0 +1,3 @@
+"128,0" = "Memory is full, please quit immediately and try again.(^3)";
+"128,1" = "Unknown error.(^3)";
+"128,2" = "Missing editor or picker.(^3)";

@@ -1,0 +1,4 @@
+"1800,0" = "Adding color to a '^0' will create a '^1' resource to store the color information. The '^1' resource will have the same id as this '^0'. Remember to delete this resource if you delete the '^0'";
+"1800,1" = "Adding color to an '^0' will create an '^1' resource to store the color information. The '^1' resource will have the same id as this '^0'. Remember to delete this resource if you delete the '^0'";
+"1800,2" = "The size specified is invalid. The default size was used instead. The miniscreen size can t be larger than 5000 x 5000 or smaller than 100 x 100.";
+"1800,3" = "The window wouldn t be visible on this screen.";

@@ -1,0 +1,5 @@
+"2006,0" = "The template requires more data than the resource contains.  To open the template, zeros will have to be added to the end of the resource.\nOpen the resource anyway?";
+"2006,1" = "The resource contains more data than will fit in the template.  To open the template, the resource will have to be truncated to the proper size.\nOpen the resource anyway?";
+"2006,2" = "The resource contains items which are too big to be displayed in the template.";
+"2006,3" = "The resource contains a count for a ZCNT or OCNT field which is too big.  The resource probably does not match the template.";
+"2006,4" = "The list contains too many items.  The resource may be too big to be displayed in a template or the resource may not match the template.";

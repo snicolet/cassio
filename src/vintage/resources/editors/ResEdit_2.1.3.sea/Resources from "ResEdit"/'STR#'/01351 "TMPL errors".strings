@@ -1,0 +1,13 @@
+"1351,0" = "Pascal strings too long.";
+"1351,1" = "Invalid hex byte.";
+"1351,2" = "Invalid hex word.";
+"1351,3" = "Invalid hex string.";
+"1351,4" = "Invalid hex long.";
+"1351,5" = "Invalid decimal byte.";
+"1351,6" = "Invalid decimal word.";
+"1351,7" = "Single character expected.";
+"1351,8" = "Invalid decimal long.";
+"1351,9" = "4 characters expected for Type name.";
+"1351,10" = "The field contains too many characters.  It should have no more than ^1 characters but actually has ^0 characters.";
+"1351,11" = "Invalid rectangle.  Top is greater than bottom or left is greater than right. Do you want to save it anyway?";
+"1351,12" = "Unknown field type found.";

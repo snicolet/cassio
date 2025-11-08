@@ -1,0 +1,8 @@
+"1540,0" = "Sound Manager Error: No hardware available.  [^3]";
+"1540,1" = "Sound Manager Error: Not enough hardware available.  [^3]";
+"1540,2" = "";
+"1540,3" = "Sound Manager Error: Sound channel queue is full.  [^3]";
+"1540,4" = "Sound Manager Error: Problem with resource.  [^3]";
+"1540,5" = "Sound Manager Error: Bad sound channel.  [^3]";
+"1540,6" = "Sound Manager Error: Bad sound format.  [^3]";
+"1540,7" = "You need system 6.0.2 or later to play sounds.";

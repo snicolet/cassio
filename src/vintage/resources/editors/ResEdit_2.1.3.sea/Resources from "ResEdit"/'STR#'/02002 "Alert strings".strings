@@ -1,0 +1,4 @@
+"2002,0" = "Do you really want to discard changes to this resource?";
+"2002,1" = "The specified template was not found.";
+"2002,2" = "Playing sounds requires system version 6.0 or later.";
+"2002,3" = "That sound is of an unknown type and can t be played.";

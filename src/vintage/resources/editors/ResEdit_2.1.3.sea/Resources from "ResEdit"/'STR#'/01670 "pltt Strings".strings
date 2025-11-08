@@ -1,0 +1,12 @@
+"1670,0" = "Select a Color for #";
+"1670,1" = ":";
+"1670,2" = "Insert New Color";
+"1670,3" = "Open Color Picker ";
+"1670,4" = "ROM";
+"1670,5" = "by ";
+"1670,6" = "The '^0' resource in the scrap contains more colors than can be added. Do you want to add as many colors as will fit?";
+"1670,7" = "There are already 256 colors in this resource. You can t add any more.";
+"1670,8" = "There s no room in this 'pltt' to add black and white.";
+"1670,9" = "'pltt' resources should always have black and white in the first two entries. Do you want to add/move black and white to the first two entries?";
+"1670,10" = "You can't change the first two entries in a pltt. They must be black and white";
+"1670,11" = "There are more colors in this 'pltt' or 'clut' than can be shown on this screen. You can still edit the resource but you won t see the correct colors.";

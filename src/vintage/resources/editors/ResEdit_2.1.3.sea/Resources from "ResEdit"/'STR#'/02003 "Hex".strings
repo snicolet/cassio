@@ -1,0 +1,4 @@
+"2003,0" = "Change All can only be undone by Revert.";
+"2003,1" = "Pasted characters must be hex";
+"2003,2" = "Can t cut or copy more than 32000 characters at one time.  Please redo the cut or copy in two operations.";
+"2003,3" = "Page ";

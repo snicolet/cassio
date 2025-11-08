@@ -1,0 +1,15 @@
+"1430,0" = "That is not a valid number.";
+"1430,1" = "The Grid Settings can not be set to zero.";
+"1430,2" = "You can not select Balloon Help items.";
+"1430,3" = "^0 resource ^1 doesn t exist. Do you want to create it?";
+"1430,4" = "Invalid DITL.\n\nThe item count is too high.";
+"1430,5" = "Invalid DITL at item number ^0.\n\nThe rectangle is invalid.  Either the top is greater than the bottom or the left is greater than the right.";
+"1430,6" = "Invalid DITL at item number ^0.\n\nThe placeholder should be 0.";
+"1430,7" = "Invalid DITL at item number ^0.\n\nThe length byte is invalid.";
+"1430,8" = "Invalid DITL at item number ^0.\n\nThe item type is invalid.";
+"1430,9" = "Invalid DITL.\n\nThe DITL resource is ^0 byte(s) too large.";
+"1430,10" = "Invalid DITL.\n\nThe DITL resource is ^0 byte(s) too small.";
+"1430,11" = "This resource cannot be edited with the custom DITL editor because one or more help items are not at the end of the list.  You may open this resource using the DITL template.";
+"1430,12" = "Invalid DITL at item number ^0.\n\nText items cannot contain more than 240 characters. ";
+"1430,13" = "The menu ^0 referenced through a Popup control in the DITL is missing. The Popup CDEF can crash ResEdit if the DITL is opened.\n\nPlease add the menu before opening the DITL.";
+"1430,14" = "Help item(s) starting at item number ^0 has been deleted. Following item numbers may be out of sync with respect to help item resources.";

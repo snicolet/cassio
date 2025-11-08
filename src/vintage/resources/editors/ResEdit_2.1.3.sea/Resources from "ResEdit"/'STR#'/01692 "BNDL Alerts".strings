@@ -1,0 +1,6 @@
+"1692,0" = "Warning: You have changed the resource ID of the signature resource in the extended view to a non-zero value. This will cause all versions of the Finder before System 7.0 to ignore this BNDL resource.";
+"1692,1" = "The value you have entered into this field is not unique. Please enter a value that is not being used in any other row in the list.";
+"1692,2" = "The character you have just typed is not a numeral. Please enter only numeric characters into this field.";
+"1692,3" = "File types and  Signatures  are 4 character codes. The character you have just typed would make this field longer than 4 characters. Sorry, but you can't enter any more characters into this field.";
+"1692,4" = "A resource with the type you have entered in the  Signature  field ( ^0  ID=^1) does already exist. Do you want to replace it?";
+"1692,5" = "A resource with the ID you have entered below the  Signature  field ( ^0  ID=^1) does already exist. Do you want to replace it?The application signature could not be changed because ResEdit is running low on memory.";

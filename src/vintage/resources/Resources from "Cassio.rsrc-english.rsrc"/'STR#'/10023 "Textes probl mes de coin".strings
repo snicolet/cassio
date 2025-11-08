@@ -1,0 +1,13 @@
+"10023,0" = "Black to take a corner in ^0 moves";
+"10023,1" = "White to take a corner in ^0 moves";
+"10023,2" = "Solution = ^0";
+"10023,3" = "No corner puzzle for Black in ^0 to ^1 moves";
+"10023,4" = "No corner puzzle for White in ^0 to ^1 moves";
+"10023,5" = "Black can already take a corner!";
+"10023,6" = "White can already take a corner!";
+"10023,7" = "Black has several possibilities to take a corner in ^0 moves: ";
+"10023,8" = "White has several possibilities to take a corner in ^0 moves: ";
+"10023,9" = "Black in ^0 moves";
+"10023,10" = "White in ^0 moves";
+"10023,11" = "Black has already taken a corner!";
+"10023,12" = "White has already taken a corner!";

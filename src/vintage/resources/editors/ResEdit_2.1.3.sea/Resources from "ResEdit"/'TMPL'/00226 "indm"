@@ -1,0 +1,4 @@
+Format VersionHWRDFlags (unused)HWRDNumber of MachinesOCNT*****LSTCMachine TypeDWRD*****LSTENumber of ProcessorsOCNT***** LSTCProcessor TypeDWRD***** LSTENumber of MMUsOCNT*****  LSTCMMU TypeDWRD*****  LSTENumber of KeyboardsOCNT*****   LSTCKeyboard TypeDWRD*****   LSTERequires FPUDBYTRequires Color QDDBYTMinimal Memory (MB)DWRD# of System ResourcesOCNT	*****    LSTCResource TypeTNAMResource IDDWRD	*****    LSTESystem RevisionHLNGCountry CodeDWRDAppleTalk Driver VersionDWRDMin. Target Size (in K)DLNGMax. Target Size (in K)DLNGUser Function IDDWRDUser DescriptionESTRNumber of PackagesOCNT
+*****     LSTC
+Package IDDWRD
+*****     LSTE

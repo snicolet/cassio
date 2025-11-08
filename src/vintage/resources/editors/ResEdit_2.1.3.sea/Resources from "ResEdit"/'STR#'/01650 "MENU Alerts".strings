@@ -1,0 +1,13 @@
+"1650,0" = "The characters ';', '^', '!', '<', '/', and '(' are used as Meta-characters by the Menu Manager and may not be used in the item text or menu title fields.";
+"1650,1" = "Only numeric characters (0..9) are allowed in this field.";
+"1650,2" = "The characters in the range of $1D to $1F are reserved for use by Apple Computer and may not be used as Command-key equivalents.";
+"1650,3" = "For a menu only icons with IDs in the range of 257 to 511 may be used.  All other icons cannot be used and are therefore displayed in gray.";
+"1650,4" = "The structure of this MENU is invalid.  A minimum menu will be opened.  The resource may be restored by closing the editor window and selecting Revert from the Resource menu.";
+"1650,5" = "The structure of the MENU on the clipboard is invalid.  This MENU can not be pasted.";
+"1650,6" = "The submenu ID you entered is out of range.  Please enter a value in the range of 0 to 255.";
+"1650,7" = "The color picker could not be found in your System file.  In order to change colors you will need the color picker.  Please install System Software 5.0 or later.";
+"1650,8" = "Adding color to a menu will create an 'mctb' resource to store the color information. The 'mctb' resource will have the same id as this 'MENU'. Remember to delete this resource if you delete the menu.";
+"1650,9" = "Entering a  -  here would change this item to a separation line which is not possible, because the item has a submenu attached.";
+"1650,10" = "The color picker you have in your System file does not work without ColorQuickDraw. In order to change colors you will need a newer version of the color picker. Please install System Software 6.0.6 or later.";
+"1650,11" = "This will remove the 'mctb' resource associated with this 'MENU', thereby resetting all the colors to their defaults.";
+"1650,12" = "Cannot handle more than 128 menu items.";

@@ -1,0 +1,4 @@
+"1750,0" = "Insert New Pattern";
+"1750,1" = "Insert Relative Pattern";
+"1750,2" = "^0 pattern(s) in the list are invalid and have been replaced by default patterns.";
+"1750,3" = "Is this resource a list of desktop patterns for your System file?\n\nNOTE: These patterns cannot be used as desktop patterns if you choose No and save changes.";

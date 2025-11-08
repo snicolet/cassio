@@ -53,6 +53,7 @@ procedure SET_LENGTH_OF_STRING(var s : AnsiString ; len : SInt64);
 function TPCopy(source : String255; start, count : SInt32) : String255;
 procedure KeepPrefix(var s : String255; len : SInt32);
 procedure KeepSuffix(var s : String255; len : SInt32);
+function Split(s : string; position : SInt32 ; var left, right : string) : boolean;               // split at a given position
 function Split(s : String255; sub : char; var left, right : String255) : boolean;                 // split by char
 function Split(s : String255; const sub : String255; var left, right : String255) : boolean;      // split by string
 function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
@@ -124,6 +125,7 @@ function HexaWithoutDollar(num : SInt8 ) : String255;
 
 // Convert from hexadecimal to integer
 function HexToInt(const s : String255) : UInt64;
+function HexToInt(const s : AnsiString) : UInt64;
 
 // Convert string <--> integer
 procedure StrToInt32(const s : String255; var value : SInt32);
@@ -586,6 +588,25 @@ begin
 	s := TPCopy(s, p, 255);
 end;
 
+// Split() splits the string at a given position
+function Split(s : string; position : SInt32 ; var left, right : string) : boolean; 
+var p : SInt16;
+begin
+   p := position;
+   if (p > 0) and (p <= LENGTH_OF_STRING(s))
+	  then
+	    begin
+		  left := Copy(s, 1, p);
+		  right := Copy(s, p+1 , LENGTH_OF_STRING(s) - p + 1);
+		  result := true;
+	    end
+	  else
+	    begin
+	      left := s;
+	      right := '';
+	      result := false;
+	    end;
+end;               
 
 // Split() splits the string s at the character sub
 function Split(s : String255; sub : char; var left, right : String255) : boolean;
@@ -1160,6 +1181,30 @@ begin
   HexToInt := result;
 end;
 
+// HexToInt(s) converts the hexadecimal string s to an unsigned 64 bit integer
+function HexToInt(const s : ansistring) : UInt64;
+var i, numDigits, v : UInt64;
+begin
+  result := 0;
+  numDigits := 0;
+  i := LENGTH_OF_STRING(s);
+  while (i > 0) do
+     begin
+        case s[i] of
+            'A'..'Z': v := ord(s[i]) - 55;
+		    'a'..'z': v := ord(s[i]) - 87;
+		    '0'..'9': v := ord(s[i]) - 48;
+	    end;
+		
+		if (numDigits <= 15) then
+		  result := result + BSL(v, 4 * numDigits);
+		
+		inc(numDigits);
+		dec(i);
+    end;
+  HexToInt := result;
+end;
+
 
 // StrToInt32() : convert from string to 32 bits integer
 procedure StrToInt32(const s : String255; var value : SInt32);
@@ -1668,13 +1713,72 @@ begin
 end;
 
 
+procedure decodeDITL(s : ansistring);
+var hex : ansistring;
+    top, left, bottom, right : SInt16;
+    k, i, n, longueur : SInt16;
+    flags : SInt16;
+    info : ansistring;
+begin
+
+   writeln('decodage du data DITL pour la chaine suivante : ');
+   writeln(s);
+   
+   // la longueur de la liste : 2 octets
+   split(s, 4, hex, s);    
+   n := HexToInt(hex);
+   
+   for k := 0 to n do
+     begin
+       writeln('');
+     
+       // padding : 4 octets
+       split(s, 8, hex, s);                      
+                        
+       // le rectangle  : 8 octets
+       split(s, 4, hex, s);   top    := HexToInt(hex);  writeln('top=',top);
+       split(s, 4, hex, s);   left   := HexToInt(hex);  writeln('left=',left);
+       split(s, 4, hex, s);   bottom := HexToInt(hex);  writeln('bottom=',bottom);
+       split(s, 4, hex, s);   right  := HexToInt(hex);  writeln('right=',right);
+       
+       // les flags : 1 octet
+       split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
+       
+       // la longueur de la chaine Pascal : 1 octet
+       split(s, 2, hex, s);   longueur := HexToInt(hex);  writeln('longueur=',longueur);
+       
+       // la chaine Pascal : longueur variable
+       info := '';
+       for i := 1 to longueur do
+         begin
+           split(s, 2, hex, s);
+           info := info + char(HexToInt(hex));
+         end;
+       writeln('info=',info);
+       
+       // un octet de padding si la chaine est de longueur impaire
+       if (longueur mod 2) = 1 then split(s, 2, hex, s);
+       
+    end;
+   
+   writeln('');
+   
+end;
+
+
+
+
 // testBasicString() : testing various functions of the BasicString unit
 procedure testBasicString();
 var  s, a, b : string255;
      c : char;
-     // i, j : SInt64;
-     k : SInt64;
+     i, j : SInt64;
+     k, n : SInt64;
+     longueur : SInt64;
      theSet : SetOFChar;
+     exemple : ansistring;
+     ditl, hex : ansistring;
+     top, left, bottom, right : SInt16;
 begin
    c := 'z';
    theSet := ['a', 'b'];
@@ -1827,6 +1931,13 @@ begin
    SplitRight('Stéphane:9.0b401', 'Cassio', a, b); writeln('a=',a,'  b=',b);
    SplitRight('Stéphane:9.0b401', '9.0', a, b); writeln('a=',a,'  b=',b);
    SplitRight('Stéphane:9.0b401', '401', a, b); writeln('a=',a,'  b=',b);
+   
+
+   ditl := '000200000000005000F00064012C0407416E6E756C657200000000000014003C0040012A083954726F702064652074657874652064616E73206C65207072657373652D70617069657220706F757220706F75766F6972206C65206C6972652E00000000000014000D0034002DA0020000';
+   decodeDITL(ditl);
+   
+   ditl := '00110000000001A601B701BA020304024F4B0000000001A6015501BA01A00407416E6E756C65720000000000001400B4002401778820506172746965208820616A6F757465722064616E73206C61206C69737465203A00000000000C001E002C003EA002000100000000000C01E7002C0207A0020001000000000108003D011801311000000000000122003D01320131100000000000013C003D014C01311000000000000158003D0168006E100000000000010800050118003988054E6F697273000000000001230005013300398806426C616E637300000000013D0005014D00398807546F75726E6F69000000000001580005016800398805416E6E8E65000000000001060137011B020E000000000000012001370135020E000000000000013A0137014F020E00000000000001780031018A01470526416A6F75746572206175746F6D6174697175656D656E742064616E73206C612062617365203A0000000001760149018B020D0000';
+   decodeDITL(ditl);
 
 end;
 
@@ -1843,7 +1954,7 @@ begin
    SetParserProtectionWithQuotes(false);
    SetParserDelimiters([' ',tab]);
 
-   // testBasicString;
+   testBasicString;
 end.
 
 

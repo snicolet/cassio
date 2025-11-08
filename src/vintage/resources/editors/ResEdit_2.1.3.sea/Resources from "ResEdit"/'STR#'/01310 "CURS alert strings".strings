@@ -1,0 +1,3 @@
+"1310,0" = "The '^0' resource is damaged and will be repaired.";
+"1310,1" = "The '^0' resource is too badly damaged to be edited.";
+"1310,2" = "Resource ID ^1 cannot be displayed by this version of the '^0' editor.";

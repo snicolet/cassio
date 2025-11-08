@@ -1,0 +1,12 @@
+"150,0" = "UnNamed";
+"150,1" = "The template used for displaying resources of type";
+"150,2" = "Template";
+"150,3" = "It contains a hex dump ('HEXD') field that is not the last field in the template";
+"150,4" = "It contains an incorrect number of binary bit ('BBIT') fields.  'BBIT' fields must always occur in sets of eight";
+"150,5" = "It contains a 'ZCNT' or 'OCNT' field that is not followed by an 'LSTC' field";
+"150,6" = "It contains an 'LSTC' field that is not  preceeded by a 'ZCNT' or 'OCNT' field";
+"150,7" = "It contains a list end ('LSTE') that has no corresponding list begin ('LSTB', 'LSTC' or 'LSTZ')";
+"150,8" = "It contains a list begin ('LSTB', 'LSTC' or 'LSTZ') that has no corresponding list end ('LSTE')";
+"150,9" = "It contains an unknown field type.  The unknown type is ";
+"150,10" = "It contains an LSTB list inside of another LSTB list";
+"150,11" = "^0  ^1  is invalid.  ^2^3.";

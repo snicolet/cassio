@@ -1,0 +1,16 @@
+"1411,0" = "Undo Resize";
+"1411,1" = "Redo Resize";
+"1411,2" = "Undo Insert";
+"1411,3" = "Redo Insert";
+"1411,4" = "Undo Cut";
+"1411,5" = "Redo Cut";
+"1411,6" = "Undo Paste";
+"1411,7" = "Redo Paste";
+"1411,8" = "Undo Clear";
+"1411,9" = "Redo Clear";
+"1411,10" = "Undo Duplicate";
+"1411,11" = "Redo Duplicate";
+"1411,12" = "Undo Select All";
+"1411,13" = "Redo Select All";
+"1411,14" = "Undo Move";
+"1411,15" = "Redo Move";

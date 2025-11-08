@@ -1,0 +1,6 @@
+"1715,0" = "Do you really want to discard changes to all resources in the family?";
+"1715,1" = "The Id, name, or attributes of the '^0' resource have changed.\n\nDo you want to apply the changes to all other resources in the family?";
+"1715,2" = "One or more icons could not be reassigned to the new family because an icon resource with the new family Id already exists.";
+"1715,3" = "One or more resources in other icon families are already named  ^0 .\n\nDo you want to introduce non-unique resource names?";
+"1715,4" = "This '^0' resource may be in use by ResEdit or the System.  Deleting it may cause a system crash.\n\nAre you sure you want to delete this resource?";
+"1715,5" = "Cannot create this '^1' resource.\n\n(^0)";

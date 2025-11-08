@@ -1,0 +1,13 @@
+"162,0" = "  opening resource fork";
+"162,1" = "  closing resource fork";
+"162,2" = "  reading header";
+"162,3" = "  reading map";
+"162,4" = "  reading data";
+"162,5" = "  verifying header";
+"162,6" = "  verifying map";
+"162,7" = "  verifying data";
+"162,8" = "  updating file";
+"162,9" = "  repairing file";
+"162,10" = "  renaming damaged file";
+"162,11" = "  creating target file";
+"162,12" = "  extracting resource";
