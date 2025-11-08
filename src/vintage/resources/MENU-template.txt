@@ -1,4 +1,5 @@
-This is the template found in Resedt for MENU resources:
+
+This is the template found in Resedit for MENU resources:
 
 MenuID      DWRD   2 octets
 Width       FWRD   2 octets
@@ -8,7 +9,7 @@ Filler      FWRD   2 octets
 EnableFlgs  HLNG   4 octets
 Title       PSTR   pascal string (length byte followed by the characters)
 *****       LSTZ   
-MenuItem    PSTR   pascal string
+MenuItem    PSTR   pascal string (length byte followed by the characters)
 Icon#       DBYT   1 octet
 Key equiv   CHAR   1 octet
 Mark Char   CHAR   1 octet

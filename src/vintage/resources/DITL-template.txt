@@ -1,0 +1,71 @@
+
+This is the template found in Resedit for DITL resources:
+
+Number of items   ZCNT    2 octets   		 
+*****             LSTC  	 	                      
+Place holder	  FLNG    4 octets	          
+Display rect	  RECT    8 octets			
+Item flags	      HBYT    1 octet 		
+Item info	      OSTR    chaine Pascal (length byte followed by the characters)
+                          with 1 byte padding if length of string is odd
+*****             LSTE     
+
+
+===============================================================================
+
+Voici une procedure en Pascal que je vient d'écrire pour décoder l'hexadecimal 
+des ressources DITL à l'aide de ce format. On doit pouvoir coder ça en Python facilement.
+
+
+
+procedure decodeDITL(s : ansistring);
+var hex : ansistring;
+    top, left, bottom, right : SInt16;
+    k, i, n, longueur : SInt16;
+    flags : SInt16;
+    info : ansistring;
+begin
+
+   writeln('decodage du data DITL pour la chaine suivante : ');
+   writeln(s);
+   
+   // la longueur de la liste : 2 octets
+   split(s, 4, hex, s);    
+   n := HexToInt(hex);
+   
+   for k := 0 to n do
+     begin
+       writeln('');
+     
+       // padding : 4 octets
+       split(s, 8, hex, s);                      
+                        
+       // le rectangle  : 8 octets
+       split(s, 4, hex, s);   top    := HexToInt(hex);  writeln('top=',top);
+       split(s, 4, hex, s);   left   := HexToInt(hex);  writeln('left=',left);
+       split(s, 4, hex, s);   bottom := HexToInt(hex);  writeln('bottom=',bottom);
+       split(s, 4, hex, s);   right  := HexToInt(hex);  writeln('right=',right);
+       
+       // les flags : 1 octet
+       split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
+       
+       // la longueur de la chaine Pascal : 1 octet
+       split(s, 2, hex, s);   longueur := HexToInt(hex);  writeln('longueur=',longueur);
+       
+       // la chaine Pascal : longueur variable
+       info := '';
+       for i := 1 to longueur do
+         begin
+           split(s, 2, hex, s);
+           info := info + char(HexToInt(hex));
+         end;
+       writeln('info=',info);
+       
+       // un octet de padding si la chaine est de longueur impaire
+       if (longueur mod 2) = 1 then split(s, 2, hex, s);
+       
+    end;
+   
+   writeln('');
+   
+end;
