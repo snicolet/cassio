@@ -169,6 +169,9 @@ procedure WritelnLongStringDansRapport(const ligne : LongString);
 procedure TODO(s : String255);
 
 
+// Decoding MENU and DITL ressources
+procedure decodeMENU(s : ansistring);
+procedure decodeDITL(s : ansistring);
 
 
 implementation
