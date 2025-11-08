@@ -1707,11 +1707,14 @@ end;
 
 
 // A function similar to a macro to be used to warn that a feature is not implemented yet
+
 procedure TODO(s : String255);
 begin
    writeln('Warning: ' + s + ' is not implemented');
 end;
 
+
+// decodeDITL() : decode the hexa data in a DITL (dialog item list)
 
 procedure decodeDITL(s : ansistring);
 var hex : ansistring;
@@ -1765,6 +1768,8 @@ begin
    
 end;
 
+
+// decodeMENU() : decode the hexa data in a MENU (menu title and item list)
 
 procedure decodeMENU(s : ansistring);
 var hex, enableFlgs, keyEquiv, markChar : ansistring;
