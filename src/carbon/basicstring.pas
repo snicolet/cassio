@@ -1721,7 +1721,7 @@ var hex : ansistring;
     info : ansistring;
 begin
 
-   writeln('decodage du data DITL pour la chaine suivante : ');
+   writeln('decoding hexadecimal version of DITL resource... ');
    writeln(s);
    
    // la longueur de la liste : 2 octets
@@ -1745,7 +1745,7 @@ begin
        split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
        
        // la longueur de la chaine Pascal : 1 octet
-       split(s, 2, hex, s);   longueur := HexToInt(hex);  writeln('longueur=',longueur);
+       split(s, 2, hex, s);   longueur := HexToInt(hex);  // writeln('longueur=',longueur);
        
        // la chaine Pascal : longueur variable
        info := '';
@@ -1766,19 +1766,93 @@ begin
 end;
 
 
+procedure decodeMENU(s : ansistring);
+var hex, enableFlgs, keyEquiv, markChar : ansistring;
+    k, n, menuID, itemID : SInt64;
+    width, height, procID, filler : SInt64;
+    icon, style : SInt64;
+    title, item : ansistring;
+begin
+
+   writeln('decoding hexadecimal version of MENU resource... ');
+   writeln(s);
+   writeln('');
+   
+   split(s, 4, hex, s);
+   menuID := HexToInt(hex);
+   itemID := 0;
+   
+   split(s, 4, hex, s);  width  := HexToInt(hex); // writeln('width=' , width);
+   split(s, 4, hex, s);  height := HexToInt(hex); // writeln('height=', height);
+   split(s, 4, hex, s);  procID := HexToInt(hex); // writeln('procID=', procID);
+   split(s, 4, hex, s);  filler := HexToInt(hex); // writeln('filler=', filler);
+   split(s, 8, hex, s);  enableFlgs := hex;
+   
+   title := '';
+   
+   // read Pascal string
+   split(s, 2, hex, s);
+   n := HexToInt(hex);
+   for k := 1 to n do
+     begin
+       split(s, 2, hex, s);
+       title := title + char(HexToInt(hex));
+     end;
+     
+   writeln('menuID=',  menuID);
+   writeln('itemID=',  itemID);
+   writeln('string=', title);
+   writeln('enableFlgs=', enableFlgs);
+   
+   writeln('');
+   
+   repeat
+      item := '';
+      
+      // read Pascal string
+      split(s, 2, hex, s);
+      n := HexToInt(hex);
+      
+      if (n > 0) then
+        begin
+          for k := 1 to n do
+            begin
+              split(s, 2, hex, s);
+              item := item + char(HexToInt(hex));
+            end;
+    
+          split(s, 2, hex, s);  icon     := HexToInt(hex);
+          split(s, 2, hex, s);  keyEquiv := hex; 
+          split(s, 2, hex, s);  markChar := hex;
+          split(s, 2, hex, s);  style    := HexToInt(hex);
+          
+          itemID := itemID + 1;
+          writeln('menuID=',  menuID);
+          writeln('itemID=',  itemID);
+          writeln('string=', item);
+          writeln('keyEquiv=' , keyEquiv);
+          
+          // writeln('markChar=' , markChar);
+          // writeln('icon='     ,  icon);
+          // writeln('style='    ,  style);
+          
+          writeln('');
+          
+        end;
+   until (s = '') or (n = 0);
+   
+end;
+
 
 
 // testBasicString() : testing various functions of the BasicString unit
 procedure testBasicString();
 var  s, a, b : string255;
      c : char;
-     i, j : SInt64;
-     k, n : SInt64;
-     longueur : SInt64;
+     //i, j : SInt64;
+     k : SInt64;
      theSet : SetOFChar;
-     exemple : ansistring;
-     ditl, hex : ansistring;
-     top, left, bottom, right : SInt16;
+     ditl, menu : ansistring;
 begin
    c := 'z';
    theSet := ['a', 'b'];
@@ -1938,6 +2012,12 @@ begin
    
    ditl := '00110000000001A601B701BA020304024F4B0000000001A6015501BA01A00407416E6E756C65720000000000001400B4002401778820506172746965208820616A6F757465722064616E73206C61206C69737465203A00000000000C001E002C003EA002000100000000000C01E7002C0207A0020001000000000108003D011801311000000000000122003D01320131100000000000013C003D014C01311000000000000158003D0168006E100000000000010800050118003988054E6F697273000000000001230005013300398806426C616E637300000000013D0005014D00398807546F75726E6F69000000000001580005016800398805416E6E8E65000000000001060137011B020E000000000000012001370135020E000000000000013A0137014F020E00000000000001780031018A01470526416A6F75746572206175746F6D6174697175656D656E742064616E73206C612062617365203A0000000001760149018B020D0000';
    decodeDITL(ditl);
+   
+   menu := '00010000000000000000FFFFFFF7011415CB2070726F706F732064652043617373696F2E2E2E00000000012D0000000000';
+   decodeMENU(menu);
+   
+   menu := '00040000000000000000FFFE76F70447616D6512476F204261636B20746F204D6F76652023C90000000010476F204261636B20746F20537461727400A80000012D000000000B31204D6F7665204261636B005A00000E31204D6F766520466F7277617264004500000C32204D6F766573204261636B000000000F32204D6F76657320466F727761726400000000012D00000000084469616772616DC900440000135479706520696E205472616E736372697074C9002B0000012D000000001E4D616B65204D61696E204272616E636820696E2047616D652054726565C9000000000C44656C657465204D6F7665C9002D0000124D6F6469667920506F736974696F6E2E2E2E00000000012D0000000018466F7263652043617373696F20746F204D6F7665204E6F770055000000';
+   decodeMENU(menu);
 
 end;
 

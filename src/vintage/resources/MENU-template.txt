@@ -15,3 +15,86 @@ Key equiv   CHAR   1 octet
 Mark Char   CHAR   1 octet
 Style       HBYT   1 octet
 *****       LSTE   
+
+
+=================================================================================
+
+Voici une procedure Pascal pour decoder les ressources MENU :
+
+
+procedure decodeMENU(s : ansistring);
+var hex, enableFlgs, keyEquiv, markChar : ansistring;
+    k, n, menuID, itemID : SInt64;
+    width, height, procID, filler : SInt64;
+    icon, style : SInt64;
+    title, item : ansistring;
+begin
+
+   writeln('decoding hexadecimal version of MENU resource... ');
+   writeln(s);
+   writeln('');
+   
+   split(s, 4, hex, s);
+   menuID := HexToInt(hex);
+   itemID := 0;
+   
+   split(s, 4, hex, s);  width  := HexToInt(hex); // writeln('width=' , width);
+   split(s, 4, hex, s);  height := HexToInt(hex); // writeln('height=', height);
+   split(s, 4, hex, s);  procID := HexToInt(hex); // writeln('procID=', procID);
+   split(s, 4, hex, s);  filler := HexToInt(hex); // writeln('filler=', filler);
+   split(s, 8, hex, s);  enableFlgs := hex;
+   
+   title := '';
+   
+   // read Pascal string
+   split(s, 2, hex, s);
+   n := HexToInt(hex);
+   for k := 1 to n do
+     begin
+       split(s, 2, hex, s);
+       title := title + char(HexToInt(hex));
+     end;
+     
+   writeln('menuID=',  menuID);
+   writeln('itemID=',  itemID);
+   writeln('string=', title);
+   writeln('enableFlgs=', enableFlgs);
+   
+   writeln('');
+   
+   repeat
+      item := '';
+      
+      // read Pascal string
+      split(s, 2, hex, s);
+      n := HexToInt(hex);
+      
+      if (n > 0) then
+        begin
+          for k := 1 to n do
+            begin
+              split(s, 2, hex, s);
+              item := item + char(HexToInt(hex));
+            end;
+    
+          split(s, 2, hex, s);  icon     := HexToInt(hex);
+          split(s, 2, hex, s);  keyEquiv := hex; 
+          split(s, 2, hex, s);  markChar := hex;
+          split(s, 2, hex, s);  style    := HexToInt(hex);
+          
+          itemID := itemID + 1;
+          writeln('menuID=',  menuID);
+          writeln('itemID=',  itemID);
+          writeln('string=', item);
+          writeln('keyEquiv=' , keyEquiv);
+          
+          // writeln('markChar=' , markChar);
+          // writeln('icon='     ,  icon);
+          // writeln('style='    ,  style);
+          
+          writeln('');
+          
+        end;
+   until (s = '') or (n = 0);
+   
+end;

@@ -14,7 +14,8 @@ Item info	      OSTR    chaine Pascal (length byte followed by the characters)
 ===============================================================================
 
 Voici une procedure en Pascal que je vient d'écrire pour décoder l'hexadecimal 
-des ressources DITL à l'aide de ce format. On doit pouvoir coder ça en Python facilement.
+des ressources DITL à l'aide de ce format. 
+On doit pouvoir coder ça en Python facilement.
 
 
 
@@ -26,7 +27,7 @@ var hex : ansistring;
     info : ansistring;
 begin
 
-   writeln('decodage du data DITL pour la chaine suivante : ');
+   writeln('decoding hexadecimal version of DITL resource... ');
    writeln(s);
    
    // la longueur de la liste : 2 octets
@@ -50,7 +51,7 @@ begin
        split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
        
        // la longueur de la chaine Pascal : 1 octet
-       split(s, 2, hex, s);   longueur := HexToInt(hex);  writeln('longueur=',longueur);
+       split(s, 2, hex, s);   longueur := HexToInt(hex);
        
        // la chaine Pascal : longueur variable
        info := '';
@@ -69,3 +70,6 @@ begin
    writeln('');
    
 end;
+
+
+
