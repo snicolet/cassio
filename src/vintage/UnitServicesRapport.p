@@ -21,7 +21,7 @@ INTERFACE
 function FenetreRapportEstOuverte : boolean;
 
 
-{Diverses fonctions d'acces les caracteres du texte du rapport}
+{Diverses fonctions d'acces aux caracteres du texte du rapport}
 function GetRapportTextHandle : CharArrayHandle;
 function GetTailleRapport : SInt32;
 function GetNiemeCaractereDuRapport(n : SInt32) : char;
