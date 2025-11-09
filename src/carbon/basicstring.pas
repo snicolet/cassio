@@ -1720,7 +1720,7 @@ end;
 // decodeDITL() : decode the hexa data in a DITL (dialog item list)
 
 procedure decodeDITL(s : ansistring);
-var hex : ansistring;
+var hex, data : ansistring;
     top, left, bottom, right : SInt16;
     k, i, n, longueur : SInt16;
     flags : SInt16;
@@ -1736,22 +1736,13 @@ begin
    
    for k := 0 to n do
      begin
-       writeln('');
-     
-       // padding : 4 octets
-       split(s, 8, hex, s);                      
-                        
-       // le rectangle  : 8 octets
-       split(s, 4, hex, s);   top    := HexToInt(hex);  writeln('top=',top);
-       split(s, 4, hex, s);   left   := HexToInt(hex);  writeln('left=',left);
-       split(s, 4, hex, s);   bottom := HexToInt(hex);  writeln('bottom=',bottom);
-       split(s, 4, hex, s);   right  := HexToInt(hex);  writeln('right=',right);
-       
-       // les flags : 1 octet
-       split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
-       
-       // la longueur de la chaine Pascal : 1 octet
-       split(s, 2, hex, s);   longueur := HexToInt(hex);  // writeln('longueur=',longueur);
+       split(s, 8, hex, s);                               // padding   : 4 octets     
+       split(s, 4, hex, s);   top      := HexToInt(hex);  // top       : 2 octets
+       split(s, 4, hex, s);   left     := HexToInt(hex);  // left      : 2 octets
+       split(s, 4, hex, s);   bottom   := HexToInt(hex);  // bottom    : 2 octets
+       split(s, 4, hex, s);   right    := HexToInt(hex);  // right     : 8 octets
+       split(s, 2, hex, s);   flags    := HexToInt(hex);  // flags     : 1 octet
+       split(s, 2, hex, s);   longueur := HexToInt(hex);  // la longueur de la chaine Pascal : 1 octet
        
        // la chaine Pascal : longueur variable
        info := '';
@@ -1760,10 +1751,16 @@ begin
            split(s, 2, hex, s);
            info := info + char(HexToInt(hex));
          end;
-       writeln('info=',info);
        
        // un octet de padding si la chaine est de longueur impaire
        if (longueur mod 2) = 1 then split(s, 2, hex, s);
+       
+       data := IntToStr(top) + ' ' + IntToStr(left) + ' ' + IntToStr(right) + ' ' + IntToStr(right) + ' '  + IntToStr(flags);
+       
+       writeln('');
+       writeln('itemID=',k+1);
+       writeln('string=',info);
+       writeln('posAndFlags=',data);
        
     end;
    
@@ -1775,7 +1772,7 @@ end;
 // decodeMENU() : decode the hexa data in a MENU (menu title and item list)
 
 procedure decodeMENU(s : ansistring);
-var hex, enableFlgs, keyEquiv, markChar : ansistring;
+var hex, enableFlags, keyEquiv, markChar : ansistring;
     k, n, menuID, itemID : SInt64;
     width, height, procID, filler : SInt64;
     icon, style : SInt64;
@@ -1794,7 +1791,7 @@ begin
    split(s, 4, hex, s);  height := HexToInt(hex); // writeln('height=', height);
    split(s, 4, hex, s);  procID := HexToInt(hex); // writeln('procID=', procID);
    split(s, 4, hex, s);  filler := HexToInt(hex); // writeln('filler=', filler);
-   split(s, 8, hex, s);  enableFlgs := hex;
+   split(s, 8, hex, s);  enableFlags := hex;
    
    title := '';
    
@@ -1810,7 +1807,7 @@ begin
    writeln('menuID=',  menuID);
    writeln('itemID=',  itemID);
    writeln('string=', title);
-   writeln('enableFlgs=', enableFlgs);
+   writeln('enableFlags=', enableFlags);
    
    writeln('');
    
@@ -1835,17 +1832,17 @@ begin
           split(s, 2, hex, s);  style    := HexToInt(hex);
           
           itemID := itemID + 1;
+          
           writeln('menuID=',  menuID);
           writeln('itemID=',  itemID);
           writeln('string=', item);
-          writeln('keyEquiv=' , keyEquiv);
+          if keyEquiv <> '00'
+             then writeln('keyEquiv=' , char(HexToInt(keyEquiv)));
+          writeln('');
           
           // writeln('markChar=' , markChar);
           // writeln('icon='     ,  icon);
           // writeln('style='    ,  style);
-          
-          writeln('');
-          
         end;
    until (s = '') or (n = 0);
    
