@@ -40,7 +40,7 @@ function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;
 function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
-function EmptyFile(var fic : basicfile) : OSErr;
+function ClearFileContent(var fic : basicfile) : OSErr;
 
 
 function Write(var fic : basicfile; s : String255) : OSErr;
@@ -1123,14 +1123,14 @@ begin
 end;
 
 
-function EmptyFile(var fic : basicfile) : OSErr;
+function ClearFileContent(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
       DetruireTexteDansRapport(0,2000000000,true);  {2000000000 was MawLongint}
-      EmptyFile := NoErr;
+      ClearFileContent := NoErr;
       exit;
     end;
 
@@ -1139,12 +1139,12 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres SetEndOfFile dans EmptyFile :');
+      DisplayMessageInConsole(' apres SetEndOfFile dans ClearFileContent :');
       DisplayMessageWithNumInConsole('fic.refNum = ',fic.refNum);
       DisplayMessageWithNumInConsole('   ==> Err = ',err);
     end;
 
-  EmptyFile := err;
+  ClearFileContent := err;
 end;
 
 

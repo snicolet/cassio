@@ -1486,7 +1486,7 @@ begin
   if err <> NoErr then
     err := CreateFile('Generated code',0,fichierCodeGenere);
   if err = NoErr then err := OpenFile(fichierCodeGenere);
-  if err = NoErr then err := EmptyFile(fichierCodeGenere);
+  if err = NoErr then err := ClearFileContent(fichierCodeGenere);
 
   WritelnNumDansRapport('CreateJansEndgameCode : err =',err);
 

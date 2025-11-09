@@ -186,7 +186,7 @@ begin
       exit;
     end;
 
-  codeErreur := EmptyFile(fic);
+  codeErreur := ClearFileContent(fic);
   if (codeErreur <> NoErr) then
     begin
       SauvegardeCesPartiesDeLaListe := codeErreur;

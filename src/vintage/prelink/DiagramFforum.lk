@@ -106,7 +106,7 @@ function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : O
   procedure ReplaceCharByCharInString(var s : String255; old, new : char);     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
   function ConvertEncodingOfString(s : String255; oldEncoding, newEncoding : CFStringEncoding) : String255;     external;
 	function LeftStr (const s : String255; len : SInt32) : String255;     external;

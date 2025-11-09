@@ -760,7 +760,7 @@ begin
     then {le fichier préférences existe : on l'ouvre et on le vide}
       begin
         erreurES := OpenFile(fichierPref);
-        erreurES := EmptyFile(fichierPref);
+        erreurES := ClearFileContent(fichierPref);
       end;
 
   if (erreurES <> NoErr) then
@@ -2165,7 +2165,7 @@ begin
 		    then
 		      begin
 		        erreurES := OpenFile(fichierGroupes);
-		        erreurES := EmptyFile(fichierGroupes);
+		        erreurES := ClearFileContent(fichierGroupes);
 		      end;
       if erreurES <> 0 then exit;
 
@@ -2210,7 +2210,7 @@ begin
            if (err = NoErr) then
              begin
                err := OpenFile(dest);
-               err := EmptyFile(dest);
+               err := ClearFileContent(dest);
                err := CloseFile(dest);
 
                WritelnNumDansRapport('[2]  err = ',err);
@@ -2271,7 +2271,7 @@ begin
     then
       begin
         erreurES := OpenFile(fic);
-        erreurES := EmptyFile(fic);
+        erreurES := ClearFileContent(fic);
       end;
 
   if erreurES <> 0 then exit;

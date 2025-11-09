@@ -69,7 +69,7 @@ function FenetreFictiveAvantPlan : WindowPtr;     external;
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
 procedure ViderStatistiquesDeDifficultePourFforum;     external;

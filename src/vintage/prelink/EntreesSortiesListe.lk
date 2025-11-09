@@ -26,7 +26,7 @@ procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);   
 procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);     external;
   procedure SafeSetCursor(myCursor : CursHandle);     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function GetPartieRecordParNroRefPartie(nroReference : SInt32) : t_PartieRecNouveauFormat;     external;
 function GetNroJoueurDansSonFichier(nroJoueur : SInt32) : SInt32;     external;
 function GetNroTournoiDansSonFichier(nroTournoi : SInt32) : SInt32;     external;

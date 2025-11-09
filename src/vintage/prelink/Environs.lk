@@ -35,7 +35,7 @@ procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; carac
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function Readln(var fic : basicfile; var s : String255) : OSErr;     external;

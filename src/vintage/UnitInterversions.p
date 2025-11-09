@@ -168,7 +168,7 @@ begin
         if erreurES = 0 then
           begin
             erreurES := OpenFile(fichierInterversions);
-            erreurES := EmptyFile(fichierInterversions);
+            erreurES := ClearFileContent(fichierInterversions);
           end;
         if erreurES <> 0 then
           begin
@@ -201,7 +201,7 @@ begin
         if erreurES = 0 then
           begin
             erreurES := OpenFile(fichierInterversions);
-            erreurES := EmptyFile(fichierInterversions);
+            erreurES := ClearFileContent(fichierInterversions);
           end;
         if erreurES <> 0 then
           begin

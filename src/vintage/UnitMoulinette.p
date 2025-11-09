@@ -1229,7 +1229,7 @@ begin
   if erreurES = 0 then
     begin
       erreurES := OpenFile(outputBaseThor);
-      erreurES := EmptyFile(outputBaseThor);
+      erreurES := ClearFileContent(outputBaseThor);
     end;
   if erreurES <> 0 then
     begin
@@ -1601,7 +1601,7 @@ begin
       if erreurES = NoErr then
         begin
           erreurES := OpenFile(exportTexte);
-          erreurES := EmptyFile(exportTexte);
+          erreurES := ClearFileContent(exportTexte);
         end;
       if erreurES <> NoErr then
         begin
@@ -1648,7 +1648,7 @@ begin
       if erreurES = NoErr then
         begin
           erreurES := OpenFile(exportFichier);
-          erreurES := EmptyFile(exportFichier);
+          erreurES := ClearFileContent(exportFichier);
         end;
       if erreurES <> NoErr then
         begin
@@ -1697,7 +1697,7 @@ begin
       if erreurES = NoErr then
         begin
           erreurES := OpenFile(exportFichier);
-          erreurES := EmptyFile(exportFichier);
+          erreurES := ClearFileContent(exportFichier);
         end;
       if erreurES <> NoErr then
         begin
@@ -1828,7 +1828,7 @@ begin
                   begin
                     //WritelnDansRapport('Le fichier '+nomFichierOutput+' existe deja, on l''efface');
                     erreurES := OpenFile(fichierHTMLOutput);
-                    erreurES := EmptyFile(fichierHTMLOutput);
+                    erreurES := ClearFileContent(fichierHTMLOutput);
                     erreurES := CloseFile(fichierHTMLOutput);
                   end;
               end;
@@ -1935,7 +1935,7 @@ begin
                   begin
                     {WritelnDansRapport('Le fichier '+nomFichierOutput+' existe deja, on l''efface');}
                     erreurES := OpenFile(fichierSOFOutput);
-                    erreurES := EmptyFile(fichierSOFOutput);
+                    erreurES := ClearFileContent(fichierSOFOutput);
                     erreurES := CloseFile(fichierSOFOutput);
                   end;
               end;

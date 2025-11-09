@@ -51,7 +51,7 @@ function OpenFile(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;
 procedure SetFileTypeFichierTexte(var fic : basicfile; quelType : OSType);     external;
 procedure ForEachGameInListDo(FiltreNumRef : FiltreNumRefProc; FiltreGame : FiltreGameProc; DoWhat : GameInListProc; var result : SInt32);     external;

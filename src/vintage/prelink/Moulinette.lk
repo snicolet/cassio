@@ -94,7 +94,7 @@ procedure DisposeFichierAbstraitEtOuvrirFichier(var fic : basicfile; var theFile
 procedure SetDebugFiles(flag : boolean);     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 procedure Normalisation(var partie120 : String255; var autreCoupQuatreDiag : boolean; interversions : boolean);     external;
 procedure TraductionAlphanumeriqueEnThor(const s : String255; var result : PackedThorGame);     external;

@@ -31,7 +31,7 @@ procedure AbaisseEvalPatternsRares(var whichEval : VectNewEval; var whichOccuren
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 procedure SetBornePourCalculGradientChi2(borne : TypeReel);     external;
 function CalculeChi2EtGradient(var v,gradient : VectNewEval) : TypeReel;     external;

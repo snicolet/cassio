@@ -15,7 +15,7 @@ function NbCasesVidesDeCeFichierSolitairesNouveauFormat(numeroFichier : SInt16) 
 procedure SetNbSolitairesEtNbCasesVidesDansEntete(var entete : t_EnTeteNouveauFormat; nbSolitaires : SInt32; nbCasesVides : SInt16);     external;
 function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function EcritEnteteNouveauFormat(refnum : SInt16; entete : t_EnTeteNouveauFormat) : OSErr;     external;
 function EcritEnteteSuplementaireFichierSolitaireNouveauFormat(refnum : SInt16; entete : t_EnteteSuplementaireSolitaires) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;

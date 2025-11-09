@@ -252,7 +252,7 @@ begin
       ViderFichierFichierAbstrait := Err;
       exit;
     end;
-  Err := EmptyFile(fic);
+  Err := ClearFileContent(fic);
   ViderFichierFichierAbstrait := Err;
 end;
 

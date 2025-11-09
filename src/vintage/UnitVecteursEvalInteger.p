@@ -543,10 +543,10 @@ begin
       exit;
     end;
 
-  err := EmptyFile(fichierEval);
+  err := ClearFileContent(fichierEval);
   if err <> 0 then
     begin
-      WritelnDansRapport('EmptyFile <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
+      WritelnDansRapport('ClearFileContent <> 0 dans EcritVecteurEvaluationIntegerSurLeDisque!!');
       EcritVecteurEvaluationIntegerSurLeDisque := err;
       exit;
     end;

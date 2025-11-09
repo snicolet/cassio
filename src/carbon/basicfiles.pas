@@ -49,7 +49,7 @@ TYPE
 
 TYPE  
    {functional type for ForEachLineInFileDo}
-   LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var result : SInt32);
+   LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var value : SInt32);
 
 
 
@@ -79,13 +79,13 @@ function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
 function EndOfFile(var fic : basicfile; var err : OSErr) : boolean;
-function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
-function EmptyFile(var fic : basicfile) : OSErr;
+function SetEndOfFile(var fic : basicfile; whichSize : SInt32) : OSErr;
+function ClearFileContent(var fic : basicfile) : OSErr;
 
 // Accessing properties of files
 function GetName(var fic : basicfile) : String255;
 function GetName(var info : fileInfo) : String255;
-function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
+function GetFileSize(var fic : basicfile; var whichSize : SInt32) : OSErr;
 function GetUniqueID(var fic : basicfile) : SInt32;
 function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
@@ -95,8 +95,8 @@ function Write(var fic : basicfile; s : String255) : OSErr;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 function Writeln(var fic : basicfile; s : String255) : OSErr;
-function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
-function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
+function InsertFileInFile(var fic : basicfile; pathOfFileToInsert : String255) : OSErr;
+function InsertFileInFile(var inserted, receptacle : basicfile) : OSErr;
 
 // Read data
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
@@ -107,14 +107,14 @@ function Readln(var fic : basicfile; var s : LongString) : OSErr;
 function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 
 // Iterate on each line of a text file
-procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var value : SInt32);
 
 // Manipulating paths of files and directories
-procedure DoDirSeparators(var filename : String255);
+procedure DoDirSeparators(var path : String255);
 function EndsWithDirectorySeparator(var s : String255) : boolean;
 function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
-function ExtractFileOrDirectoryName(chemin : String255) : String255;
+function ExtractFileOrDirectoryName(path : String255) : String255;
 
 // Manipulating the standard output as a file
 function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
@@ -127,17 +127,13 @@ function  GetDebugFiles() : boolean;
 // Display simple alert for file errors
 procedure SimpleAlertForFile(fileName : String255; erreurES : SInt32);
 
-(* Installation des procedures pour l'affichage de message :    *)
-(* sur la sortie standard par defaut. On peut installer des     *)
-(* routines personalisees d'impression de messages et d'alerte  *)
-(* juste apres l'appel a InitUnitBasicFile                      *)
+// Display messages in the console
 procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
 procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
 procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);
-
 procedure DisplayMessageInConsole(s : String255);
 procedure DisplayMessageAndNumInConsole(s : String255; num : SInt32);
-procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
+procedure DisplayAlertWithNumInConsole(s : String255; num : SInt32);
 
 
 
@@ -170,22 +166,28 @@ var useStandardConsole : boolean;
     gEndOfLineFoundInReadln : boolean;
 
 
+// StandardConsoleDisplayer(s) : write s to the standard output
 procedure StandardConsoleDisplayer(s : String255);
 begin
   system.Writeln(s);
 end;
 
+
+// StandardConsoleDisplayerWithNum(s,n) : write s and n to the standard output
 procedure StandardConsoleDisplayerWithNum(s : String255; num : SInt32);
 begin
   system.Writeln(s,num);
 end;
 
+
+// StandardConsoleAlertWithNum(s,n) : write a warning to the standard output
 procedure StandardConsoleAlertWithNum(s : String255; num : SInt32);
 begin
   system.Writeln('### WARNING ### '+s+' ',num);
 end;
 
 
+// DisplayMessageInConsole(s) : write s to the custom terminal
 procedure DisplayMessageInConsole(s : String255);
 begin
   if unit_initialized
@@ -193,6 +195,8 @@ begin
     else StandardConsoleDisplayer(s);
 end;
 
+
+// DisplayMessageAndNumInConsole(s,n) : write s to the custom terminal
 procedure DisplayMessageAndNumInConsole(s : String255; num : SInt32);
 begin
   if unit_initialized
@@ -200,27 +204,35 @@ begin
     else StandardConsoleDisplayerWithNum(s,num);
 end;
 
-procedure DisplayAlerteWithNumInConsole(s : String255; num : SInt32);
+
+// DisplayAlertWithNumInConsole(s,n) : write a warning to the custom terminal
+procedure DisplayAlertWithNumInConsole(s : String255; num : SInt32);
 begin
   if unit_initialized
     then CustomDisplayAlerteWithNum(s,num)
     else StandardConsoleAlertWithNum(s,num)
 end;
 
-procedure DoDirSeparators(var filename : String255);
+
+// DoDirSeparators() : replace the directory separators for the current OS
+procedure DoDirSeparators(var path : String255);
 var s : String;
 begin
-   s := filename;
+   s := path;
    sysUtils.DoDirSeparators(s);
-   filename := s;
+   path := s;
 end;
 
+
+// EndsWithDirectorySeparator() : true iff s ends with a directory separator
 function EndsWithDirectorySeparator(var s : String255) : boolean;
 begin
   EndsWithDirectorySeparator := (s[LENGTH_OF_STRING(s)] = DirectorySeparator );
 end;
 
 
+// MakeFileInfo(volume, dir, name, info) : should not be used anymore outside
+// the basicFile library, because it uses Macintosh specific concepts.
 function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
 var err : OSErr;
 begin
@@ -235,6 +247,9 @@ begin
    result := err;
 end;
 
+
+// MakeFileInfo(volume, dir, name) : should not be used anymore outside
+// the basicFile library, because it uses Macintosh specific concepts.
 function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 var info : fileInfo;
 begin
@@ -244,18 +259,25 @@ begin
 end;
 
 
+// MakeFileInfo(name, info) : create a file info record, if a directory or a
+// file with the given name exists. The returned fileInfo record is valid for 
+// both directories and files.
 function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
 begin
    result := MakeFileInfo(0, 0, name, info);
 end;
 
 
+// MakeFileInfo(name) : create a file info record, if a directory or a file
+// with the given name exists. The returned fileInfo record is valid for 
+// both directories and files.
 function MakeFileInfo(name : String255) : fileInfo;
 begin
   result := MakeFileInfo(0, 0, name);
 end;
 
 
+// ExpandFileName(info, path) : returns the full path of the file
 function ExpandFileName(fs : fileInfo; var path : String255) : OSErr;
 var err : OSErr;
     s : String255;
@@ -271,6 +293,7 @@ begin
 end;
 
 
+// ExpandFileName(info) : returns the full path of the file
 function ExpandFileName(var fs : fileInfo) : String255;
 var path : String255;
 begin
@@ -281,7 +304,8 @@ begin
 end;
 
 
-
+// ExpandFileName(name) : expand the given file name to a full path+name. 
+// This functions tries hard to follow links, resolve aliases, etc.
 function ExpandFileName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
     myFileInfo : fileInfo;
@@ -328,6 +352,7 @@ begin
 end;
 
 
+// ExpandFileName(fic) : expand the name of the given file
 function ExpandFileName(var fic : basicfile) : OSErr;
 var err : OSErr;
     fullName : String255;
@@ -389,6 +414,8 @@ begin
   ExpandFileName := err;
 end;
 
+
+// FileIsStandardOutput() : true if the given file is in fact the standard output
 function FileIsStandardOutput(var fic : basicfile) : boolean;
 begin
   FileIsStandardOutput := (fic.vRefNum = 0) and
@@ -398,6 +425,8 @@ begin
 end;
 
 
+// InitializeBasicFile() : Initialise a basicfile record. This function is
+// for internal use only inside the basicFile library. 
 procedure InitializeBasicFile(var name : String255; var vRefNum : SInt16; var fic : basicfile);
 var nomDirectory : String255;
     len : SInt16;
@@ -448,6 +477,8 @@ begin
 end;
 
 
+// InitializeBasicFile() : Initialise a basicfile record. This function is
+// for internal use only inside the basicFile library. 
 procedure InitializeBasicFile(info : fileInfo; var fic : basicfile);
 begin
 
@@ -474,6 +505,7 @@ begin
 end;
 
 
+// ExtractFileName() : extract the file name of a given fileInfo
 function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 var err : OSErr;
     aux : fileInfo;
@@ -486,8 +518,7 @@ begin
 end;
 
 
-
-
+// ExtractFileName() : extract the file name of a given path
 function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 var err : OSErr;
     aux : fileInfo;
@@ -500,16 +531,20 @@ begin
 end;
 
 
-function ExtractFileOrDirectoryName(chemin : String255) : String255;
+// ExtractFileName() : extract the file name or the directory name of a path.
+// This function works both for directories and files.
+function ExtractFileOrDirectoryName(path : String255) : String255;
 const separator = DirectorySeparator;
 begin
-  if RightStr(chemin,1) = separator
-    then KeepPrefix(chemin,LENGTH_OF_STRING(chemin)-1);
+  if RightStr(path,1) = separator
+    then KeepPrefix(path, LENGTH_OF_STRING(path)-1);
 
-  ExtractFileOrDirectoryName := RightStr(chemin,LENGTH_OF_STRING(chemin)-PosRight(separator,chemin));
+  ExtractFileOrDirectoryName := RightStr(path,LENGTH_OF_STRING(path)-PosRight(separator,path));
 end;
 
 
+// FileExists() : checks that a file with the given name exists, and 
+// constructs a valid basicfile record to open and manipulate that file.
 function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
 begin
@@ -596,6 +631,8 @@ begin
 end;
 
 
+// FileExists() : checks that a file with the given fileInfo exists, and 
+// constructs a valid basicfile record to open and manipulate that file.
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
 begin
@@ -678,6 +715,7 @@ begin
 end;
 
 
+// CreatFile() : create file on the disc
 function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -728,6 +766,8 @@ begin
   CreateFile := err;
 end;
 
+
+// CreateFile() : create file on the disc
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -780,7 +820,7 @@ end;
 
 
 
-
+// OpenFile() : open the file
 function OpenFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -841,6 +881,7 @@ begin
 end;
 
 
+// CloseFile() : close the file
 function CloseFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -907,6 +948,7 @@ begin
 end;
 
 
+// DeleteFile() : delete the file on the disc
 function DeleteFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -953,6 +995,7 @@ begin
 end;
 
 
+// FileIsOpen() : check is a file is open
 function FileIsOpen(var fic : basicfile) : boolean;
 begin
 
@@ -965,19 +1008,25 @@ begin
   FileIsOpen := (fic.dataForkOuvertCorrectement = 0);
 end;
 
+
+// GetUniqueID() : return a 32 bit identificator for the given file. 
+// This identificator is calculated via hashing of the full path of the file, 
+// so should be quite unique.
 function GetUniqueID(var fic : basicfile) : SInt32;
 begin
   GetUniqueID := fic.uniqueID;
 end;
 
-function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
+
+// GetFileSize() : returns the size of the file on the disc
+function GetFileSize(var fic : basicfile; var whichSize : SInt32) : OSErr;
 var err : OSErr;
     searchData : TSearchRec;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
-      taille := GetTailleRapport;
+      whichSize := GetTailleRapport;
       GetFileSize := NoErr;
       exit;
     end;
@@ -985,12 +1034,12 @@ begin
   if FindFirst(fic.info.name, 0, searchData) = 0 then
     begin
       err := NoErr;
-      taille := searchData.Size;
+      whichSize := searchData.Size;
     end
   else
     begin
       err := -1;
-      taille := -1;
+      whichSize := -1;
     end;
   FindClose(searchData);
 
@@ -1000,23 +1049,29 @@ begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' apres FindFirst dans GetFileSize :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
-      DisplayMessageAndNumInConsole('taille = ',taille);
+      DisplayMessageAndNumInConsole('whichSize = ',whichSize);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
   GetFileSize := err;
 end;
 
+
+// GetName() : name of the file
 function GetName(var fic : basicfile) : String255;
 begin
   GetName := fic.info.name;
 end;
 
+
+// GetName() : name of the file
 function GetName(var info : fileInfo) : String255;
 begin
   GetName := info.name;
 end;
 
+
+// SetFilePosition() : set the file cursor position for reading and writing
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 var err : OSErr;
     newPosition : SInt32;
@@ -1056,6 +1111,8 @@ begin
   SetFilePosition := err;
 end;
 
+
+// SetFilePositionAtEnd() : set the file cursor position at the end of the file
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 var err : OSErr;
     newPosition : SInt32;
@@ -1085,6 +1142,7 @@ begin
 end;
 
 
+// GetFilePosition() : get the file cursor position
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
 var err : OSErr;
 begin
@@ -1113,6 +1171,7 @@ begin
 end;
 
 
+// EndOfFile() : true if the file position is at the end of the file
 function EndOfFile(var fic : basicfile; var err : OSErr) : boolean;
 var position, logicalEOF : SInt32;
 begin
@@ -1158,7 +1217,9 @@ begin
   EndOfFile := (position >= logicalEOF);
 end;
 
-function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
+
+// SetEndOfFile() : truncate the file size on disc at the given size
+function SetEndOfFile(var fic : basicfile; whichSize : SInt32) : OSErr;
 var err : OSErr;
 begin
 
@@ -1168,7 +1229,7 @@ begin
       exit;
     end;
 
-  if FileTruncate(fic.handle, posEOF)
+  if FileTruncate(fic.handle, whichSize)
     then err := NoErr
     else err := -1;
 
@@ -1184,14 +1245,15 @@ begin
 end;
 
 
-function EmptyFile(var fic : basicfile) : OSErr;
+// ClearFileContent() : empty the file content by setting its size to zero
+function ClearFileContent(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
 
   if FileIsStandardOutput(fic) then
     begin
       DetruireTexteDansRapport(0,2000000000,true);  {2000000000 was MawLongint}
-      EmptyFile := NoErr;
+      ClearFileContent := NoErr;
       exit;
     end;
 
@@ -1200,16 +1262,16 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres SetEndOfFile dans EmptyFile :');
+      DisplayMessageInConsole(' apres SetEndOfFile dans ClearFileContent :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
-  EmptyFile := err;
+  ClearFileContent := err;
 end;
 
 
-
+// Write(fic, buffer, count) : write 'count' bytes from buffer to the file
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
 begin
@@ -1245,9 +1307,7 @@ begin
 end;
 
 
-
-
-
+// Write(fic, s) : write string s to the file
 function Write(var fic : basicfile; s : String255) : OSErr;
 var err : OSErr;
     count : SInt32;
@@ -1275,6 +1335,7 @@ begin
 end;
 
 
+// Writeln(fic, s) : write string s to the file, followed by a carriage return (#13)
 function Writeln(var fic : basicfile; s : String255) : OSErr;
 var err : OSErr;
 begin
@@ -1300,9 +1361,8 @@ begin
 end;
 
 
-
-
-
+// Write(fic, n) : write the (4 bytes) integer n to the file, as raw bytes.
+// Beware of endianness when reading the bytes back afterwards. 
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 var err : OSErr;
     count : SInt32;
@@ -1333,6 +1393,9 @@ begin
   Write := err;
 end;
 
+
+// Read(fic, buffer, count) : read 'count' bytes from the file, and put them
+// in the given buffer. On exit, count is set to number of bytes actually read.
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
     nbBytesRead : SInt32;
@@ -1370,6 +1433,8 @@ begin
 end;
 
 
+// Read(fic, count, s) : read count bytes from the file, and put them as
+// characters in the string s. 
 function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 var len, nbBytesRead : SInt32;
     buffPtr : Ptr;
@@ -1412,8 +1477,10 @@ begin
 end;
 
 
+// MyFSBufferedReadPourReadln() : internal function to speed up the Readln()
+// function. Use a buffer instead of reading the file character by character.
 
-function MyFSBufferedReadPourReadln(var fic : basicfile; var length : SInt32; buffer : Ptr) : OSErr;
+function MyFSBufferedReadPourReadln(var fic : basicfile; var length : SInt32; outBuffer : Ptr) : OSErr;
 const SIZE_OF_BUFFER = 1024 * 34;
 var luDansLeBuffer : boolean;
     resultBuffer : PackedArrayOfCharPtr;
@@ -1523,7 +1590,7 @@ begin
 
         if ((positionDansBuffer + length) <= tailleDuBuffer) then
           begin
-            resultBuffer := PackedArrayOfCharPtr(buffer);
+            resultBuffer := PackedArrayOfCharPtr(outBuffer);
 
             for k := 0 to length - 1 do
               resultBuffer^[k] := bufferLecture^[positionDansBuffer + k];
@@ -1545,7 +1612,7 @@ Bail :
       if debug then WritelnNumDansRapport('avant, length = ',length);
 
 
-      length := FileRead(fic.handle, buffer, length);
+      length := FileRead(fic.handle, outBuffer, length);
       if length > 0 then
           begin
              err := NoErr;
@@ -1563,6 +1630,11 @@ Bail :
     end;
 end;
 
+
+
+// Readln(fic, s) : read the next line in the file.
+// Separators for lines in the file are the CR and/or LF characters.
+// This version outputs a short string (255 characters max).
 
 function Readln(var fic : basicfile; var s : String255) : OSErr;
 var err : OSErr;
@@ -1583,7 +1655,6 @@ begin
   {on essaie de lire 258 caracteres du fichier pour les mettre dans notre buffer}
   len := 258;
   err := MyFSBufferedReadPourReadln(fic, len, @buffer[1]);
-  //err := FSRead(fic.handle, len, @buffer[1]);
   for i := len + 1 to 258 do buffer[i] := chr(0);
 
   {on cherche le premier retour charriot dans le buffer}
@@ -1633,6 +1704,9 @@ begin
 end;
 
 
+// Readln(fic, s) : read the next line in the file.
+// Separators for lines in the file are the CR and/or LF characters.
+// This version outputs a long string (510 characters max).
 
 function Readln(var fic : basicfile; var s : LongString) : OSErr;
 var longueur : SInt32;
@@ -1677,7 +1751,7 @@ end;
  *   buffer, il doit avoir ete cree a la bonne taille auparavant.              *
  *      -> En entree, count est la taille du buffer                            *
  *      -> En sortie, count contient le nombre de caracteres jusqu'au premier  *
- *                    retour chariot, si on en a trouve un...                  *
+ *                    retour chariot, si on en a trouve un.                    *
  *                                                                             *
  *******************************************************************************
  *)
@@ -1736,6 +1810,12 @@ begin
 end;
 
 
+
+// Read(fic, n) : read 4 binary bytes in the file, and interpret them 
+// as the 4 bytes of a 32-bits integer n.
+// Beware of endianness issues if the file has been created on a machine
+// with a different endianness to the endianness of the current machine.
+
 function Read(var fic : basicfile; var value : SInt32) : OSErr;
 var err : OSErr;
     count : SInt32;
@@ -1763,7 +1843,12 @@ begin
 end;
 
 
-procedure ForEachLineInFileDo(whichFile : fileInfo; DoWhat : LineOfFileProc; var result : SInt32);
+// ForEachLineInFileDo(fic, what, value) : call the function 'what' on each
+// line of the text file 'fic'. The value 'value' can be used and modified
+// by the function 'what' during the iteration to calculate a number which 
+// depends of each line of the file.
+
+procedure ForEachLineInFileDo(whichFile : fileInfo; DoWhat : LineOfFileProc; var value : SInt32);
 var theFic : basicfile;
     erreurES : OSErr;
     ligne : LongString;
@@ -1781,76 +1866,82 @@ begin
       complete   := true;
     end;
 
+  // call the DoWhat function on each line of the file
   while not(EndOfFile(theFic,erreurES)) do
     begin
-
       erreurES := Readln(theFic,ligne);
-
-      DoWhat(ligne,theFic,result);
+      DoWhat(ligne, theFic, value);
     end;
 
   erreurES := CloseFile(theFic);
 end;
 
 
+// InsertFileInFile(fic, name) : copy the content of file named 'name'
+// at the current position of the file 'fic'.
 
-function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
-var insertion : basicfile;
+function InsertFileInFile(var fic : basicfile; pathOfFileToInsert : String255) : OSErr;
+var inserted : basicfile;
     err : OSErr;
 begin
-  err := FileExists(pathFichierAInserer,0,insertion);
+  err := FileExists(pathOfFileToInsert, 0, inserted);
   if err = NoErr then
     begin
-      err := OpenFile(insertion);
-      err := InsertFileInFile(insertion,fic);
-      CloseFile(insertion);
+      err := OpenFile(inserted);
+      err := InsertFileInFile(inserted, fic);
+      CloseFile(inserted);
     end;
 
   InsertFileInFile := err;
 end;
 
 
-function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
-const kTailleBufferCopie = 10000;
+// InsertFileInFile(inserted, receptacle) : copy the content of file 'inserted'
+// at the current position of the file 'receptacle'.
+
+function InsertFileInFile(var inserted, receptacle : basicfile) : OSErr;
+const BUFFSIZE = 10000;
 var err,err2 : OSErr;
-    fichierInsereOuvert : boolean;
-    fichierReceptacleOuvert : boolean;
-    buffer : packed array[0.. (kTailleBufferCopie-1) ] of char;
-    longueurInsertion : SInt32;
-    count,nbOctetsCopies : SInt32;
+    fileInsertedIsOpen : boolean;
+    fileReceptacleIsOpen : boolean;
+    buffer : packed array[0..(BUFFSIZE-1)] of char;
+    insertedLength : SInt32;
+    count, copied : SInt32;
 begin
 
   err := NoErr;
   err2 := NoErr;
 
-  fichierInsereOuvert := FileIsOpen(insere);
-  if not(fichierInsereOuvert) then err := OpenFile(insere);
-  err := SetFilePosition(insere,0);
+  fileInsertedIsOpen := FileIsOpen(inserted);
+  if not(fileInsertedIsOpen) then err := OpenFile(inserted);
+  err := SetFilePosition(inserted,0);
 
-  fichierReceptacleOuvert := FileIsOpen(receptacle);
-  if not(fichierReceptacleOuvert) then
-    begin  {ouvrir le fichier et placer le curseur à la fin}
+  fileReceptacleIsOpen := FileIsOpen(receptacle);
+  if not(fileReceptacleIsOpen) then
+    begin  
       err2 := OpenFile(receptacle);
       err2 := SetFilePositionAtEnd(receptacle);
     end;
 
   if (err = NoErr) and (err2 = NoErr) then
     begin
-      err := GetFileSize(insere,longueurInsertion);
+      err := GetFileSize(inserted, insertedLength);
 
-      nbOctetsCopies := 0;
+      copied := 0;
 
       repeat
-        count := Min(kTailleBufferCopie, longueurInsertion-nbOctetsCopies);
-        err  := Read(insere,@buffer[0],count);
+      
+        count := Min(BUFFSIZE, insertedLength - copied);
+        err  := Read(inserted,@buffer[0],count);
         err2 := Write(receptacle,@buffer[0],count);
-        nbOctetsCopies := nbOctetsCopies + count;
-      until (err <> NoErr) or (err2 <> NoErr) or (nbOctetsCopies >= longueurInsertion);
+        copied := copied + count;
+        
+      until (err <> NoErr) or (err2 <> NoErr) or (copied >= insertedLength);
 
     end;
 
-  if not(fichierInsereOuvert)     then err  := CloseFile(insere);
-  if not(fichierReceptacleOuvert) then err2 := CloseFile(receptacle);
+  if not(fileInsertedIsOpen)   then err  := CloseFile(inserted);
+  if not(fileReceptacleIsOpen) then err2 := CloseFile(receptacle);
 
   if (err <> NoErr)
     then InsertFileInFile := err
@@ -1860,7 +1951,7 @@ end;
 
 
 
-
+// SimpleAlertForFile() : show simple alert for file errors
 procedure SimpleAlertForFile(fileName : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;
 var s,texte,explication,pathFichier : String255;
@@ -1888,7 +1979,8 @@ begin
 end;
 
 
-
+// GetCreationDate() : get creation date of a file
+// Warning : not implemented !
 function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 begin
   if FileIsStandardOutput(fic) then
@@ -1901,6 +1993,7 @@ begin
 end;
 
 
+// GetCreationDate() : get modification date of a file
 function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 var err : OSErr;
     age : SInt32;
@@ -1927,6 +2020,10 @@ begin
 end;
 
 
+(* Installation des procedures pour l'affichage de message :    *)
+(* sur la sortie standard par defaut. On peut installer des     *)
+(* routines personalisees d'impression de messages et d'alerte  *)
+(* juste apres l'appel a InitUnitBasicFile                      *)
 procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
 begin
   CustomDisplayMessage := theProc;
@@ -1971,11 +2068,13 @@ begin
 end;
 
 
+// Useful flag to debug the library
 procedure SetDebugFiles(flag : boolean);
 begin
   debugBasicFiles := flag;
 end;
 
+// Useful flag to debug the library
 function GetDebugFiles() : boolean;
 begin
   GetDebugFiles := debugBasicFiles;

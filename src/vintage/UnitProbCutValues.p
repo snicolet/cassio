@@ -512,7 +512,7 @@ begin
       exit;
     end;
 
-  err := EmptyFile(fichierProbCut);
+  err := ClearFileContent(fichierProbCut);
   if err <> 0 then
     begin
       EcritVecteursStatProbCutSurDisque := err;

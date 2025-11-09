@@ -2015,28 +2015,28 @@ begin
           if err = NoErr then err := OpenFile(duplication);
 
           if (err = NoErr) and (action  = K_COMPILER_INTERFACE)
-            then err := EmptyFile(duplication);
+            then err := ClearFileContent(duplication);
 
           err := SetFilePositionAtEnd(duplication);
-          // WritelnNumDansRapport('apres EmptyFile pour '+duplication.nomFichier + ', err = ',err);
+          // WritelnNumDansRapport('apres ClearFileContent pour '+duplication.nomFichier + ', err = ',err);
         end;
 
       if doitEtreAccelere and (action = K_COMPILER_IMPLEMENTATION) then
         begin
           err := CreerPrelinkFile(fileName, fichierPrelink);
           if err = NoErr then err := OpenFile(fichierPrelink);
-          if err = NoErr then err := EmptyFile(fichierPrelink);
+          if err = NoErr then err := ClearFileContent(fichierPrelink);
 
-          // WritelnNumDansRapport('apres EmptyFile pour '+fichierPrelink.nomFichier + ', err = ',err);
+          // WritelnNumDansRapport('apres ClearFileContent pour '+fichierPrelink.nomFichier + ', err = ',err);
         end;
 
       if doitEtrePrelinke and (action = K_COMPILER_INTERFACE) then
         begin
           err := CreerExternalDeclarationsFile(fileName, fichierExternalDeclarations);
           if err = NoErr then err := OpenFile(fichierExternalDeclarations);
-          if err = NoErr then err := EmptyFile(fichierExternalDeclarations);
+          if err = NoErr then err := ClearFileContent(fichierExternalDeclarations);
 
-          // WritelnNumDansRapport('apres EmptyFile pour '+fichierExternalDeclarations.nomFichier + ', err = ',err);
+          // WritelnNumDansRapport('apres ClearFileContent pour '+fichierExternalDeclarations.nomFichier + ', err = ',err);
         end;
 
 

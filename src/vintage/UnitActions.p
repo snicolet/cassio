@@ -1324,7 +1324,7 @@ begin
      if erreurES = NoErr then
        begin
          erreurES := OpenFile(ficPartie);
-         erreurES := EmptyFile(ficPartie);
+         erreurES := ClearFileContent(ficPartie);
        end;
      if ErreurES <> NoErr then
        begin

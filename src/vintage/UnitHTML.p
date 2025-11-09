@@ -308,7 +308,7 @@ begin
   if erreurES = 0 then
     begin
       erreurES := OpenFile(fic);
-      erreurES := EmptyFile(fic);
+      erreurES := ClearFileContent(fic);
       erreurES := CloseFile(fic);
       fileSpec := fic.info;
     end;

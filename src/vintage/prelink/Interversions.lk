@@ -21,7 +21,7 @@ function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
 	function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 procedure COPY_STR60_TO_PACKED_GAME(const s60 : String255; var result : PackedThorGame);     external;

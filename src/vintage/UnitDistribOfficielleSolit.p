@@ -136,7 +136,7 @@ begin
 		  {creation des fichiers sur le disque}
 		  erreurES := CreateFile(nom,0,fichierSolitaires);
 		  if erreurES = NoErr then erreurES := OpenFile(fichierSolitaires);
-		  if erreurES = NoErr then erreurES := EmptyFile(fichierSolitaires);
+		  if erreurES = NoErr then erreurES := ClearFileContent(fichierSolitaires);
 		  if erreurES = NoErr then erreurES := EcritEnteteNouveauFormat(fichierSolitaires,entete);
 		  if erreurES = NoErr then erreurES := EcritEnteteSuplementaireFichierSolitaireNouveauFormat(fichierSolitaires.refNum,statsPourCeFichier);
 		  if erreurES = NoErr then erreurES := CloseFile(fichierSolitaires);

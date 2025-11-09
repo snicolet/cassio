@@ -9,6 +9,6 @@ function PeutJouerIci(couleur,a : SInt32; const plat : plateauOthello) : boolean
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 	function MakeRect(left, top, right, bottom : SInt32) : Rect;     external;

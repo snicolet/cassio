@@ -234,7 +234,7 @@ begin
      begin
        erreurES := OpenFile(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-       erreurES := EmptyFile(fichierEval);
+       erreurES := ClearFileContent(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
        erreurES := CloseFile(fichierEval);
        if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
@@ -332,7 +332,7 @@ begin
         WriteDansRapport('Ecriture de l''évaluation dans le fichier…');
       erreurES := OpenFile(fichierEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
-      erreurES := EmptyFile(fichierEval);
+      erreurES := ClearFileContent(fichierEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);
       erreurES := EcritEvalDansFichierTexte(fichierEval,whichEval);
       if erreurES <> NoErr then WritelnNumDansRapport(' => erreurES = ',erreurES);

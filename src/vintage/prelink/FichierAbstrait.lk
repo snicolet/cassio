@@ -17,7 +17,7 @@ function SetFilePositionAtEnd(var fic : basicfile) : OSErr;     external;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 procedure MemoryFillChar(bufferPtr : universal UnivPtr; byteCount: SInt32; caractere : char);     external;
 function AllocateMemoryPtrClear(whichSize : SInt32) : Ptr;     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;

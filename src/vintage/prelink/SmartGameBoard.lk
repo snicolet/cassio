@@ -112,7 +112,7 @@ function GetPositionInitialeEtPartieDansFichierSGF_ou_GGF_8x8(var fic : basicfil
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function Readln(var fic : basicfile; var s : String255) : OSErr;     external;

@@ -3408,7 +3408,7 @@ begin
       if err = NoErr then
         begin
           err := OpenFile(gFicListingWThorTemp);
-          err := EmptyFile(gFicListingWThorTemp);
+          err := ClearFileContent(gFicListingWThorTemp);
         end;
 
       // ouverture du fichier "Listing-of-WTHOR.txt", pour pouvoir
@@ -3447,7 +3447,7 @@ begin
       // vidage et fermeture du fichier "Listing-of-WTHOR.txt"
       if (err = NoErr) then
         begin
-          err := EmptyFile(gFicListingWThor);
+          err := ClearFileContent(gFicListingWThor);
           err := CloseFile(gFicListingWThor);
         end;
 

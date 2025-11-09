@@ -36,7 +36,7 @@ procedure DisposeMemoryHdl(var whichHandle : handle);     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function CreateFile(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
 procedure SetFileCreatorFichierTexte(var fic : basicfile; quelType : OSType);     external;

@@ -28,4 +28,4 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;

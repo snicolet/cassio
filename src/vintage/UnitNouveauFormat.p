@@ -961,7 +961,7 @@ begin
             // Sans doute inutile, mais cela permet au passage de verifier que
             // l'on a les droits d'ecriture (vieux motard que jamais)
             if (err = NoErr) then
-              err := EmptyFile(fic);
+              err := ClearFileContent(fic);
 
            // on le referme
            if (err = NoErr) then
@@ -1049,7 +1049,7 @@ begin
 
                 // on vide l'ancien fichier dans le dossier Database !
                 if (err = NoErr) then
-                  err := EmptyFile(fic);
+                  err := ClearFileContent(fic);
 
                 // on le referme
                 if (err = NoErr) then

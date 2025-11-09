@@ -2089,7 +2089,7 @@ begin
             if erreurES = NoErr then
 					    begin
 					      erreurES := OpenFile(fichierSolution);
-					      erreurES := EmptyFile(fichierSolution);
+					      erreurES := ClearFileContent(fichierSolution);
 					    end;
 			      if erreurES <> 0
 			        then SimpleAlertForFile(GetNameOfSFReply(reply),erreurES)

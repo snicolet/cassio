@@ -201,7 +201,7 @@ function Readln(var fic : basicfile; var s : String255) : OSErr;     external;
 	function Split (s : String255; sub : char; var s1, s2 : String255) : boolean;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);     external;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;     external;
 function GetBasicFileOfFichierAbstraitPtr(theAbstractFilePtr : FichierAbstraitPtr; var fic : basicfile) : OSErr;     external;

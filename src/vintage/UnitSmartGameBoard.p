@@ -1473,7 +1473,7 @@ begin
     then
       begin
         erreurES := OpenFile(fic);
-        erreurES := EmptyFile(fic);
+        erreurES := ClearFileContent(fic);
       end;
   if erreurES <> 0 then exit;
 

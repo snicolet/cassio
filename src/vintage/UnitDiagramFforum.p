@@ -599,7 +599,7 @@ begin
   err := OpenFile(fic);
   if (err <> NoErr) then goto sortie;
 
-  err := EmptyFile(fic);
+  err := ClearFileContent(fic);
   if (err <> NoErr) then goto sortie;
 
 

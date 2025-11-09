@@ -166,7 +166,7 @@ function PositionInitialeEnLignePourPressePapier : String255;     external;
 function PartiePourPressePapier(enMajuscules,avecEspaceEntreCoups : boolean; nbreCoupsAExporter : SInt16) : String255;     external;
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;     external;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;     external;
-function EmptyFile(var fic : basicfile) : OSErr;     external;
+function ClearFileContent(var fic : basicfile) : OSErr;     external;
 	function GetNameOfSFReply(const reply : SFReply) : String255;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;
 function SelectionRapportNonVide : boolean;     external;

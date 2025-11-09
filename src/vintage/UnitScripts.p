@@ -188,7 +188,7 @@ begin
 		        if err = 0 then
 		          begin
 		            err := OpenFile(script);
-		            err := EmptyFile(script);
+		            err := ClearFileContent(script);
 		          end;
 		        if err <> 0 then
 		          begin
@@ -459,7 +459,7 @@ begin
   if erreurES = 0 then
     begin
       erreurES := OpenFile(outputScript);
-      erreurES := EmptyFile(outputScript);
+      erreurES := ClearFileContent(outputScript);
     end;
   if erreurES <> 0 then
     begin
@@ -631,7 +631,7 @@ begin {CreerQuizEnPHP}
   if erreurES = 0 then
     begin
       erreurES := OpenFile(fichierPHP);
-      erreurES := EmptyFile(fichierPHP);
+      erreurES := ClearFileContent(fichierPHP);
 
 
       erreurES := ExpandFileName(fichierPHP.info,s);
@@ -743,7 +743,7 @@ begin {CreerQuizEnPHP}
             if erreurES = 0 then
               begin
                 erreurES := OpenFile(fichierPHP);
-                erreurES := EmptyFile(fichierPHP);
+                erreurES := ClearFileContent(fichierPHP);
 
 
                 erreurES := ExpandFileName(fichierPHP.info,s);
@@ -858,7 +858,7 @@ begin
   if erreurES = 0 then
     begin
       erreurES := OpenFile(fichierJPEG);
-      erreurES := EmptyFile(fichierJPEG);
+      erreurES := ClearFileContent(fichierJPEG);
       erreurES := CloseFile(fichierJPEG);
 
       WritelnNumDansRapport('CreerPositionQuizzEnJPEG : avant CreateJPEGImageOfPosition, erreurES = ',erreurES);
@@ -1012,7 +1012,7 @@ begin
 										  if erreurES = 0 then
 										    begin
 										      erreurES := OpenFile(fichierEPS);
-										      erreurES := EmptyFile(fichierEPS);
+										      erreurES := ClearFileContent(fichierEPS);
 										      erreurES := WritePositionEtTraitEnEPSDansFichier(positionEtTrait,fichierEPS);
 										      erreurES := CloseFile(fichierEPS);
 										    end;
@@ -1041,7 +1041,7 @@ begin
 													  if erreurES = 0 then
 													    begin
 													      erreurES := OpenFile(fichierEPS);
-													      erreurES := EmptyFile(fichierEPS);
+													      erreurES := ClearFileContent(fichierEPS);
 													      erreurES := WritePositionEtTraitEnEPSDansFichier(positionEtTrait,fichierEPS);
 													      erreurES := CloseFile(fichierEPS);
 													    end;

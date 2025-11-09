@@ -865,7 +865,7 @@ begin
   err := OpenFile(fichierEval);
   if (err <> NoErr) then goto sortie;
 
-  err := EmptyFile(fichierEval);
+  err := ClearFileContent(fichierEval);
   if (err <> NoErr) then goto sortie;
 
 
