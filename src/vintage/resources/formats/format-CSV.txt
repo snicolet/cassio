@@ -1,0 +1,39 @@
+
+
+Dernière version des fonctions pour décoder les ressources DITL et MENU :
+
+  https://github.com/snicolet/cassio/blob/93175e46c21dccddf0a1010f225193f0e5bc0a83/src/carbon/basicstring.pas#L1720
+
+
+Voici le format que l'on pourrait utiliser dans le fichier CSV pour traiter ces listes :
+
+
+type  ;  ID     ;  ID2  ; data                           ;  FR                               ;  EN
+STR#  ;  10006  ;  1    ;                                ;  NOIRS:                           ;  BLACK:
+STR#  ;  10006  ;  2    ;                                ;  BLANCS:                          ;  WHITE:
+STR#  ;  10006  ;  3    ;                                ;  Votre coup, Noir…                ;  Your turn, Black…
+STR#  ;  10006  ;  4    ;                                ;  Votre coup, Blanc…               ;  Your turn, White…
+MENU  ;  1      ;  0    ; enableFlags=FFFFFFF7           ;  Pomme                            ;  Apple
+MENU  ;  1      ;  1    ;                                ;  A promos de Cassio…              ;  About Cassio…
+MENU  ;  1      ;  2    ;                                ;  -                                ;  -
+MENU  ;  4      ;  0    ; enableFlags=FFFE76F7           ;  Partie                           ;  Game
+MENU  ;  4      ;  1    ;                                ;  Revenir au coup n°…              ;  Go Back to Move #…
+MENU  ;  4      ;  2    ; keyEquiv=®                     ;  Revenir au début                 ;  Go Back to Start
+MENU  ;  4      ;  3    ;                                ;  -                                ;  -
+MENU  ;  4      ;  4    ; keyEquiv=Z                     ;  1 coup en arrière                ;  1 Move Back
+MENU  ;  4      ;  5    ; keyEquiv=E                     ;  1 coup en avant                  ;  1 Move Forward
+MENU  ;  4      ;  6    ;                                ;  2 coups en arrière               ;  2 Moves Back
+MENU  ;  4      ;  7    ;                                ;  2 coups en avant                 ;  2 Moves Forward
+MENU  ;  4      ;  8    ;                                ;  -                                ;  -
+MENU  ;  4      ;  9    ; keyEquiv=D                     ;  Diagramme…                       ;  Diagram…
+MENU  ;  4      ;  10   ; keyEquiv=+                     ;  Taper un diagramme…              ;  Type in Transcript…
+MENU  ;  4      ;  11   ;                                ;  -                                ;  -
+MENU  ;  4      ;  12   ;                                ;  Nouvelle branche principale…     ;  Make Main Branch in Game Tree…
+MENU  ;  4      ;  13   ; keyEquiv=-                     ;  Détruire un coup…                ;  Delete Move…
+MENU  ;  4      ;  14   ;                                ;  Modifier la position…            ;  Modify Position…
+MENU  ;  4      ;  15   ;                                ;  -                                ;  -
+MENU  ;  4      ;  16   ; keyEquiv=U                     ;  Revenir au début                 ;  Force Cassio to Move Now
+DITL  ; 132     ;  1    ; posAndFlags=422 439 515 515 4  ;  OK                               ;  OK
+DITL  ; 132     ;  2    ; posAndFlags=422 341 416 416 4  ;  Annuler                          ;  Cancel
+DITL  ; 132     ;  3    ; posAndFlags=20 180 375 375 136 ;  Partie à ajouter dans la liste : ;  Add this game to the list:
+DITL  ; 132     ;  4    ; posAndFlags=12 30 62 62 160    ;                                   ;    
