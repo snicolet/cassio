@@ -93,7 +93,7 @@ procedure LireBibliothequeDeZebraPourCurrentNode(const fonctionAppelante : Strin
 procedure DessineAutresInfosSurCasesAideDebutant(surQuellesCases : SquareSet; fonctionAppelante : String255);     external;
 procedure LanceCalculsRapidesPourBaseOuNouvelleDemande(infosDejaCalculees,withCheckEvent : boolean);     external;
 function PeutArreterAnalyseRetrograde : boolean;     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 procedure SetDebugFiles(flag : boolean);     external;
 function FileExists(nom : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;     external;
 function TypeDeFichierEstConnu(const fic : basicfile; var infos : FormatFichierRec; var err : OSErr) : boolean;     external;

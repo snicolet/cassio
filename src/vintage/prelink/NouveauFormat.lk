@@ -63,7 +63,7 @@ procedure SetNroOrdreAlphabetiqueTournoi(nroTournoi : SInt32; nroDansOrdreAlphab
 procedure SetNroDansFichierTournoi(nroTournoi : SInt32; nroDansSonFichier : SInt32);     external;
 procedure TraduitNomJoueurEnMac(ancNom : String255; var nouveauNom : String255);     external;
 procedure SetNombreJoueursDansBaseOfficielle(combien : SInt32);     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 function MakeEmptyATR : ATR;     external;
 function MakeEmptyStringSet : StringSet;     external;
 function Writeln(var fic : basicfile; s : String255) : OSErr;     external;

@@ -54,7 +54,7 @@ procedure AnnonceOuvertureFichierEnRougeDansRapport(nomFichier : String255);    
 procedure DoLectureJoueursEtTournoi(nomsCourts : boolean);     external;
 function TrouveNumeroDuTournoi(const nomTournoi : String255; var numeroTournoi : SInt32; fromIndex : SInt32) : boolean;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 function MakeEmptyStringSet : StringSet;     external;
 procedure DisposeStringSet(var S : StringSet);     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;

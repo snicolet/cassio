@@ -192,7 +192,7 @@ begin
 		          end;
 		        if err <> 0 then
 		          begin
-		            AlerteSimpleFichierTexte(nomFichier,err);
+		            SimpleAlertForFile(nomFichier,err);
 		            err := CloseFile(script);
 		            CreateEndgameScript := err;
 		            exit;
@@ -433,7 +433,7 @@ begin
 
   if (nomScript = '') then
     begin
-      AlerteSimpleFichierTexte(nomScript,0);
+      SimpleAlertForFile(nomScript,0);
       exit;
     end;
   {SetDebugFiles(false);}
@@ -443,14 +443,14 @@ begin
   erreurES := FileExists(nomScript,0,inputScript);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomScript,erreurES);
+      SimpleAlertForFile(nomScript,erreurES);
       exit;
     end;
 
   erreurES := OpenFile(inputScript);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomScript,erreurES);
+      SimpleAlertForFile(nomScript,erreurES);
       exit;
     end;
 
@@ -463,14 +463,14 @@ begin
     end;
   if erreurES <> 0 then
     begin
-      AlerteSimpleFichierTexte(nomOutpuScript,erreurES);
+      SimpleAlertForFile(nomOutpuScript,erreurES);
       erreurES := CloseFile(outputScript);
       exit;
     end;
 
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomOutpuScript,erreurES);
+      SimpleAlertForFile(nomOutpuScript,erreurES);
       exit;
     end;
 
@@ -895,7 +895,7 @@ begin
 
   if nomScript = '' then
     begin
-      AlerteSimpleFichierTexte(nomScript,0);
+      SimpleAlertForFile(nomScript,0);
       exit;
     end;
   {SetDebugFiles(false);}
@@ -904,14 +904,14 @@ begin
   erreurES := FileExists(nomScript,0,inputScript);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomScript,erreurES);
+      SimpleAlertForFile(nomScript,erreurES);
       exit;
     end;
 
   erreurES := OpenFile(inputScript);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomScript,erreurES);
+      SimpleAlertForFile(nomScript,erreurES);
       exit;
     end;
 

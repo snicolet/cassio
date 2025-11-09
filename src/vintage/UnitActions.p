@@ -566,7 +566,7 @@ begin
 
   if nomFichier = '' then
     begin
-      AlerteSimpleFichierTexte(nomFichier,0);
+      SimpleAlertForFile(nomFichier,0);
       exit;
     end;
 
@@ -575,7 +575,7 @@ begin
   erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier,erreurES);
+      SimpleAlertForFile(nomFichier,erreurES);
       OuvrirFichierPartieFormatCassio := erreurES;
       exit;
     end;
@@ -605,7 +605,7 @@ begin
   erreurES := OpenFile(ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier,erreurES);
+      SimpleAlertForFile(nomFichier,erreurES);
       OuvrirFichierPartieFormatCassio := erreurES;
       exit;
     end;
@@ -719,14 +719,14 @@ begin
 
   if nomFichier = '' then
     begin
-      AlerteSimpleFichierTexte(nomFichier,0);
+      SimpleAlertForFile(nomFichier,0);
       exit;
     end;
 
   erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier, erreurES);
+      SimpleAlertForFile(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
       exit;
     end;
@@ -734,7 +734,7 @@ begin
   erreurES := OpenFile(ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier, erreurES);
+      SimpleAlertForFile(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
       exit;
     end;
@@ -782,7 +782,7 @@ begin
   erreurES := CloseFile(ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier, erreurES);
+      SimpleAlertForFile(nomFichier, erreurES);
       OuvrirFichierFormatEPS := erreurES;
       exit;
     end;
@@ -873,7 +873,7 @@ begin  {$UNUSED mergeWithCurrentTree}
 
   if nomFichier = '' then
     begin
-      AlerteSimpleFichierTexte(nomFichier,0);
+      SimpleAlertForFile(nomFichier,0);
       exit;
     end;
 
@@ -882,7 +882,7 @@ begin  {$UNUSED mergeWithCurrentTree}
   erreurES := FileExists(nomFichier,0,ficPartie);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichier,erreurES);
+      SimpleAlertForFile(nomFichier,erreurES);
       OuvrirFichierPartieFormatGGF := erreurES;
       exit;
     end;
@@ -944,7 +944,7 @@ begin
 
   if (nomCompletFichier = '') then
     begin
-      AlerteSimpleFichierTexte(nomCompletFichier,0);
+      SimpleAlertForFile(nomCompletFichier,0);
       exit;
     end;
 
@@ -952,7 +952,7 @@ begin
   if erreurES <> NoErr then
     begin
       OuvrirFichierPartieFormatSmartGameBoard := erreurES;
-      AlerteSimpleFichierTexte(nomCompletFichier, erreurES);
+      SimpleAlertForFile(nomCompletFichier, erreurES);
       exit;
     end;
 
@@ -1328,7 +1328,7 @@ begin
        end;
      if ErreurES <> NoErr then
        begin
-         AlerteSimpleFichierTexte(GetNameOfSFReply(reply),ErreurES);
+         SimpleAlertForFile(GetNameOfSFReply(reply),ErreurES);
          erreurES := CloseFile(ficPartie);
          exit;
        end;
@@ -4537,7 +4537,7 @@ var nomComplet : String255;
         erreurES := FileExists(nomComplet,0,ficPartie);
 		    if (erreurES <> NoErr) then
 		      begin
-            AlerteSimpleFichierTexte(nomComplet,erreurES);
+            SimpleAlertForFile(nomComplet,erreurES);
             SetReouvrirItem('',NumeroItemMenuReouvrirToIndexTablesFichiersAReouvrir(cmdNumber));
             {EcritMenuReouvrirDansRapport('avant CleanReouvrirMenu : ');}
             CleanReouvrirMenu;

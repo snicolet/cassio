@@ -364,7 +364,7 @@ begin {AjouterPartiesFichierPGNDansListe}
   erreurES := OpenFile(fichierPGN);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomFichierPGN,erreurES);
+      SimpleAlertForFile(nomFichierPGN,erreurES);
       AjouterPartiesFichierPGNDansListe := erreurES;
       exit;
     end;
@@ -951,7 +951,7 @@ begin {AjouterPartiesFichierDestructureDansListe}
   erreurES := OpenFile(fichier);
   if (erreurES <> NoErr) then
     begin
-      AlerteSimpleFichierTexte(nomLongDuFichier,erreurES);
+      SimpleAlertForFile(nomLongDuFichier,erreurES);
       AjouterPartiesFichierDestructureDansListe := erreurES;
       exit;
     end;
@@ -1204,7 +1204,7 @@ begin
 
   if nomBaseLogKitty = '' then
     begin
-      AlerteSimpleFichierTexte(nomBaseLogKitty,0);
+      SimpleAlertForFile(nomBaseLogKitty,0);
       exit;
     end;
   {SetDebugFiles(false);}
@@ -1213,14 +1213,14 @@ begin
   erreurES := FichierTexteDeCassioExiste(nomBaseLogKitty,inputBaseLogKitty);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomBaseLogKitty,erreurES);
+      SimpleAlertForFile(nomBaseLogKitty,erreurES);
       exit;
     end;
 
   erreurES := OpenFile(inputBaseLogKitty);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nomBaseLogKitty,erreurES);
+      SimpleAlertForFile(nomBaseLogKitty,erreurES);
       exit;
     end;
 
@@ -1233,14 +1233,14 @@ begin
     end;
   if erreurES <> 0 then
     begin
-      AlerteSimpleFichierTexte(NomBaseFormatThor,erreurES);
+      SimpleAlertForFile(NomBaseFormatThor,erreurES);
       erreurES := CloseFile(outputBaseThor);
       exit;
     end;
 
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(NomBaseFormatThor,erreurES);
+      SimpleAlertForFile(NomBaseFormatThor,erreurES);
       exit;
     end;
 
@@ -1605,7 +1605,7 @@ begin
         end;
       if erreurES <> NoErr then
         begin
-          AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
+          SimpleAlertForFile(GetNameOfSFReply(reply),erreurES);
           erreurES := CloseFile(exportTexte);
           exit;
         end;
@@ -1652,7 +1652,7 @@ begin
         end;
       if erreurES <> NoErr then
         begin
-          AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
+          SimpleAlertForFile(GetNameOfSFReply(reply),erreurES);
           erreurES := CloseFile(exportFichier);
           exit;
         end;
@@ -1701,7 +1701,7 @@ begin
         end;
       if erreurES <> NoErr then
         begin
-          AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES);
+          SimpleAlertForFile(GetNameOfSFReply(reply),erreurES);
           erreurES := CloseFile(exportFichier);
           exit;
         end;

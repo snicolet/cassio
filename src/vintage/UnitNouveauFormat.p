@@ -2192,7 +2192,7 @@ begin
   if (erreurES = fnfErr) then exit;
   if (erreurES <> NoErr) then
     begin
-      AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
+      SimpleAlertForFile(nom_dictionnaire,erreurES);
       exit;
     end;
 
@@ -2200,7 +2200,7 @@ begin
   erreurES := OpenFile(dictionnairePseudosWThor);
   if erreurES <> NoErr then
     begin
-      AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
+      SimpleAlertForFile(nom_dictionnaire,erreurES);
       exit;
     end;
 

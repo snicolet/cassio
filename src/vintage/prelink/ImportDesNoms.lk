@@ -19,7 +19,7 @@ function MemberOfStringSet(const theString : String255; var data : SInt64; S : S
 	function IsDigit(ch : char) : boolean;     external;
 	function LowerCase( ch : char ) : char;     external;
 function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSErr;     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EndOfFile(var fic : basicfile; var erreurES : OSErr) : boolean;     external;
 function Readln(var fic : basicfile; var s : String255) : OSErr;     external;

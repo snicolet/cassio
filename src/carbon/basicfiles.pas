@@ -124,9 +124,8 @@ function FileIsStandardOutput(var fic : basicfile) : boolean;
 procedure SetDebugFiles(flag : boolean);
 function  GetDebugFiles() : boolean;
 
-// Simple alert for file errors
-procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
-
+// Display simple alert for file errors
+procedure SimpleAlertForFile(fileName : String255; erreurES : SInt32);
 
 (* Installation des procedures pour l'affichage de message :    *)
 (* sur la sortie standard par defaut. On peut installer des     *)
@@ -1862,7 +1861,7 @@ end;
 
 
 
-procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
+procedure SimpleAlertForFile(fileName : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;
 var s,texte,explication,pathFichier : String255;
 begin

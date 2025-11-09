@@ -770,7 +770,7 @@ begin
         L'utilisateur ne peut sans doute rien faire, et ça ne sert à rien
         de l'embeter avec une alerte }
 
-      {AlerteSimpleFichierTexte(fileName,erreurES);}
+      {SimpleAlertForFile(fileName,erreurES);}
 
       erreurES := CloseFile(fichierPref);
       exit;
@@ -1071,21 +1071,21 @@ begin
 
  if erreurES <> NoErr then
    begin
-     AlerteSimpleFichierTexte(fileName,erreurES);
+     SimpleAlertForFile(fileName,erreurES);
      exit;
    end;
 
  erreurES := OpenFile(fichierPref);
  if erreurES <> NoErr then
    begin
-     AlerteSimpleFichierTexte(fileName,erreurES);
+     SimpleAlertForFile(fileName,erreurES);
      exit;
    end;
 
  erreurES := Readln(fichierPref,chainePref);
  if erreurES <> NoErr then
    begin
-     AlerteSimpleFichierTexte(fileName,erreurES);
+     SimpleAlertForFile(fileName,erreurES);
      erreurES := CloseFile(fichierPref);
      exit;
    end;

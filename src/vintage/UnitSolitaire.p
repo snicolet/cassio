@@ -2092,7 +2092,7 @@ begin
 					      erreurES := EmptyFile(fichierSolution);
 					    end;
 			      if erreurES <> 0
-			        then AlerteSimpleFichierTexte(GetNameOfSFReply(reply),erreurES)
+			        then SimpleAlertForFile(GetNameOfSFReply(reply),erreurES)
 			        else
 			          begin
                   erreurES := Writeln(fichierSolution,CommentaireSolitaire^^);

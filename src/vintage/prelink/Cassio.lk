@@ -203,7 +203,7 @@ procedure WritelnDansRapportOuvert(s : String255);     external;
 procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);     external;
 procedure WritelnNumDansRapportOuvert(s : String255; num : SInt32);     external;
 procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 procedure InitUnitProperties;     external;
 procedure InitUnitPropertyList;     external;
 procedure InitUnitGameTree;     external;

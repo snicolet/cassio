@@ -94,7 +94,7 @@ function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OS
 function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 
 
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);
 
 
 
@@ -2070,7 +2070,7 @@ begin
   CreeFichierTexteDeCassio := err;
 end;
 
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);
 CONST TextesErreursID       = 10016;
 var s,texte,explication,pathFichier : String255;
 begin

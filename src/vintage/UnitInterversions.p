@@ -172,7 +172,7 @@ begin
           end;
         if erreurES <> 0 then
           begin
-            AlerteSimpleFichierTexte(nomFichier,erreurES);
+            SimpleAlertForFile(nomFichier,erreurES);
             erreurES := CloseFile(fichierInterversions);
             exit;
           end;
@@ -205,7 +205,7 @@ begin
           end;
         if erreurES <> 0 then
           begin
-            AlerteSimpleFichierTexte(nomFichier,erreurES);
+            SimpleAlertForFile(nomFichier,erreurES);
             erreurES := CloseFile(fichierInterversions);
             exit;
           end;

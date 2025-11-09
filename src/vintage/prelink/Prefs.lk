@@ -52,7 +52,7 @@ function FichierTexteDeCassioExiste(nom : String255; var fic : basicfile) : OSEr
 function CreeFichierTexteDeCassio(nom : String255; var fic : basicfile) : OSErr;     external;
 function OpenFile(var fic : basicfile) : OSErr;     external;
 function EmptyFile(var fic : basicfile) : OSErr;     external;
-procedure AlerteSimpleFichierTexte(nomFichier : String255; erreurES : SInt32);     external;
+procedure SimpleAlertForFile(nomFichier : String255; erreurES : SInt32);     external;
 function CloseFile(var fic : basicfile) : OSErr;     external;
 procedure RetirerZebraBookOption(mask : SInt32);     external;
 function ZebraBookACetteOption(mask : SInt32) : boolean;     external;

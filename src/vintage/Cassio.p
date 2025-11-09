@@ -2050,7 +2050,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
   InitUnitBasicFile;
   InstallMessageDisplayerBasicFile(WritelnDansRapportOuvert);
   InstallMessageAndNumDisplayerBasicFile(WritelnNumDansRapportOuvert);
-  InstallAlertBasicFile(AlerteSimpleFichierTexte);
+  InstallAlertBasicFile(SimpleAlertForFile);
 
   {TraceLog('*****************************');}
 
@@ -2295,7 +2295,7 @@ if debuggage.afficheSuiteInitialisations then StoppeEtAffichePourDebugage('Avant
     DoCampFire;
   *)
 
-  {AlerteSimpleFichierTexte('Toto.txt',-49);}
+  {SimpleAlertForFile('Toto.txt',-49);}
 
   {TestMyEndGame;}
   {DessinePaletteDeCouleurs;

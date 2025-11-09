@@ -246,14 +246,14 @@ begin
       erreurES := FichierTexteDeCassioExiste(nom_dictionnaire,dictionnairePseudosPGN);
       if erreurES <> NoErr then
         begin
-          AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
+          SimpleAlertForFile(nom_dictionnaire,erreurES);
           exit;
         end;
 
       erreurES := OpenFile(dictionnairePseudosPGN);
       if erreurES <> NoErr then
         begin
-          AlerteSimpleFichierTexte(nom_dictionnaire,erreurES);
+          SimpleAlertForFile(nom_dictionnaire,erreurES);
           exit;
         end;
 
