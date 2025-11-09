@@ -1755,7 +1755,7 @@ begin
        // un octet de padding si la chaine est de longueur impaire
        if (longueur mod 2) = 1 then split(s, 2, hex, s);
        
-       data := IntToStr(top) + ' ' + IntToStr(left) + ' ' + IntToStr(right) + ' ' + IntToStr(right) + ' '  + IntToStr(flags);
+       data := IntToStr(top) + ' ' + IntToStr(left) + ' ' + IntToStr(bottom) + ' ' + IntToStr(right) + ' '  + IntToStr(flags);
        
        writeln('');
        writeln('itemID=',k+1);
@@ -1970,16 +1970,13 @@ begin
        end;
     }
 
+   writeln();
+   writeln('Testing AnsiUpperCase() and StripDiacritics()...');
    a := 'Stéphane NICOLET æœ´„”’[å»ÛÁØ]°•“‘{¶«¡Çø}ëÂê®©†Úºîπô€‡Ò∂ƒﬁÌÏÈ¬µÙ‹≈◊ß~∞…÷≠çéèàùÒ∑√∆————–ß';
-
-   b := a;
-   writeln('original string              : ', b);
-   b := AnsiUpperCase(a);
-   writeln('AnsiUpperCase()              : ', b);
-   b := StripDiacritics(a);
-   writeln('StripDiacritics()            : ', b);
-   b := sysutils.UpperCase(StripDiacritics(a));
-   writeln('UpperCase(StripDiacritics()) : ', b);
+   b := a;                                       writeln('original string              : ', b);
+   b := AnsiUpperCase(a);                        writeln('AnsiUpperCase()              : ', b);
+   b := StripDiacritics(a);                      writeln('StripDiacritics()            : ', b);
+   b := sysutils.UpperCase(StripDiacritics(a));  writeln('UpperCase(StripDiacritics()) : ', b);
 
    writeln();
    writeln('Testing Parse()...');
@@ -2039,7 +2036,8 @@ begin
    SetParserProtectionWithQuotes(false);
    SetParserDelimiters([' ',tab]);
 
-   testBasicString;
+   // Run some tests for the BasicString library
+   // testBasicString;
 end.
 
 
