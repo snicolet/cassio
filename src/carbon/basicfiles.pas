@@ -59,14 +59,14 @@ procedure InitUnitBasicFile;
 // Creating a fileInfo structure
 function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
 function MakeFileInfo(name : String255) : fileInfo;
-function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
-function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+// function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+// function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
 
 // Existence and creation of files
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
-function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
-function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+// function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+// function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 
 // Open and close
 function OpenFile(var fic : basicfile) : OSErr;
