@@ -11,16 +11,23 @@ USES basictypes,
 
 TYPE 
      fileInfo = 
-        RECORD
-           vRefNum : Integer;   {unused  ("volume reference number") }
-           parID   : LongInt;   {unused  ("directory ID of parent directory") }
-           name    : String255; {private ("filename or directory name") }
-        END;
-     
+        record
+           vRefNum : Integer;   {private and unused  ("volume reference number") }
+           parID   : LongInt;   {private and unused  ("directory ID of parent directory") }
+           name    : String255; {private             ("filename or directory name") }
+        end;
 
-     {FIXME : on risque de perturber InfosFichiersNouveauFormat dans le
-              fichier UnitDefNouveauFormat (tableau trop gros)
-              si on rajoute des gros champs à basicfile... }
+     TReadBuffer =
+        record
+           bufferLecture      : PackedArrayOfCharPtr;  {private}
+           debutDuBuffer      : SInt32;                {private}
+           positionDansBuffer : SInt32;                {private}
+           tailleDuFichier    : SInt32;                {private}
+           tailleDuBuffer     : SInt32;                {private}
+           positionTeteFichier: SInt32;                {private}
+           doitUtiliserBuffer : boolean;               {private}
+        end;
+
      basicfile =
           record
             fileName : String255;                 {private}
@@ -32,38 +39,42 @@ TYPE
             dataForkOuvertCorrectement : SInt32;  {private}
             rsrcForkOuvertCorrectement : SInt32;  {private}
             info : fileInfo;                      {private}
-            bufferLecture :                       {private}
-               record               
-                  bufferLecture      : PackedArrayOfCharPtr;  {private}
-                  debutDuBuffer      : SInt32;    {private}
-                  positionDansBuffer : SInt32;    {private}
-                  tailleDuFichier    : SInt32;    {private}
-                  tailleDuBuffer     : SInt32;    {private}
-                  positionTeteFichier: SInt32;    {private}
-                  doitUtiliserBuffer : boolean;   {private}
-               end;
+            readBuffer : TReadBuffer              {private}
           end;
 
+{WARNING :    on risque de perturber InfosFichiersNouveauFormat dans le
+              fichier UnitDefNouveauFormat (tableau trop gros)
+              si on rajoute des gros champs à basicfile... }
+              
 
-     {type fonctionnel pour ForEachLineInFileDo}
-     LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var result : SInt32);
+TYPE  
+   {functional type for ForEachLineInFileDo}
+   LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var result : SInt32);
 
 
 
-function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+// Initiliazing the library
+procedure InitUnitBasicFile;
+
+// Creating a fileInfo structure
+function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(name : String255) : fileInfo;
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
+function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
+
+// Existence and creation of files
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
-function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
+function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
+function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 
-
+// Open and close
 function OpenFile(var fic : basicfile) : OSErr;
 function CloseFile(var fic : basicfile) : OSErr;
 function DeleteFile(var fic : basicfile) : OSErr;
 function FileIsOpen(var fic : basicfile) : boolean;
-function GetUniqueID(var fic : basicfile) : SInt32;
-function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
-function GetName(var fic : basicfile) : String255;
-function GetName(var info : fileInfo) : String255;
+
+// Manipulating the file cursor
 function SetFilePosition(var fic : basicfile; position : SInt32) : OSErr;
 function SetFilePositionAtEnd(var fic : basicfile) : OSErr;
 function GetFilePosition(var fic : basicfile; var position : SInt32) : OSErr;
@@ -71,64 +82,56 @@ function EndOfFile(var fic : basicfile; var err : OSErr) : boolean;
 function SetEndOfFile(var fic : basicfile; posEOF : SInt32) : OSErr;
 function EmptyFile(var fic : basicfile) : OSErr;
 
+// Accessing properties of files
+function GetName(var fic : basicfile) : String255;
+function GetName(var info : fileInfo) : String255;
+function GetFileSize(var fic : basicfile; var taille : SInt32) : OSErr;
+function GetUniqueID(var fic : basicfile) : SInt32;
+function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
 
+// Write data
 function Write(var fic : basicfile; s : String255) : OSErr;
 function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 function Writeln(var fic : basicfile; s : String255) : OSErr;
-
-
-function Readln(var fic : basicfile; var s : String255) : OSErr;
-function Readln(var fic : basicfile; var s : LongString) : OSErr;
-function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
-function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
-function Read(var fic : basicfile; var value : SInt32) : OSErr;
-
-
-
-procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
 function InsertFileInFile(var fic : basicfile; pathFichierAInserer : String255) : OSErr;
 function InsertFileInFile(var insere,receptacle : basicfile) : OSErr;
 
+// Read data
+function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
+function Read(var fic : basicfile; var value : SInt32) : OSErr;
+function Readln(var fic : basicfile; var s : String255) : OSErr;
+function Readln(var fic : basicfile; var s : LongString) : OSErr;
+function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
 
-function GetCreationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
-function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : OSErr;
+// Iterate on each line of a text file
+procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var result : SInt32);
 
-
-procedure SetDebugFiles(flag : boolean);
-function  GetDebugFiles() : boolean;
-
-
-function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
-function FileIsStandardOutput(var fic : basicfile) : boolean;
-
-
+// Manipulating paths of files and directories
+procedure DoDirSeparators(var filename : String255);
+function EndsWithDirectorySeparator(var s : String255) : boolean;
 function ExtractFileName(whichFile : fileInfo; var theLongName : String255) : OSErr;
 function ExtractFileName(path : String255; var theLongName : String255) : OSErr;
 function ExtractFileOrDirectoryName(chemin : String255) : String255;
 
+// Manipulating the standard output as a file
+function CreateStandardOutputAsFile(var fic : basicfile) : OSErr;
+function FileIsStandardOutput(var fic : basicfile) : boolean;
 
-procedure DoDirSeparators(var filename : String255);
-function EndsWithDirectorySeparator(var s : String255) : boolean;
+// Useful flag to debug the library
+procedure SetDebugFiles(flag : boolean);
+function  GetDebugFiles() : boolean;
 
-function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
-function MakeFileInfo(name : String255) : fileInfo;
-function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255; var info : fileInfo) : OSErr;
-function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo;
-
-
+// Simple alert for file errors
 procedure AlerteSimpleFichierTexte(fileName : String255; erreurES : SInt32);
 
 
-
-  (* Installation des procedures pour l'affichage de message :    *)
-  (* sur la sortie standard par defaut. On peut installer des     *)
-  (* routines personalisees d'impression de messages et d'alerte  *)
-  (* juste apres l'appel a InitUnitBasicFile                      *)
-
-
-procedure InitUnitBasicFile;
+(* Installation des procedures pour l'affichage de message :    *)
+(* sur la sortie standard par defaut. On peut installer des     *)
+(* routines personalisees d'impression de messages et d'alerte  *)
+(* juste apres l'appel a InitUnitBasicFile                      *)
 procedure InstallMessageDisplayerBasicFile(theProc : MessageDisplayerProc);
 procedure InstallMessageAndNumDisplayerBasicFile(theProc : MessageAndNumDisplayerProc);
 procedure InstallAlertBasicFile(theProc : MessageAndNumDisplayerProc);
@@ -433,7 +436,7 @@ begin
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
   fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
 
-  with fic.bufferLecture do
+  with fic.readBuffer do
     begin
       bufferLecture       := NIL;
       debutDuBuffer       := 0;
@@ -459,7 +462,7 @@ begin
   fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
   fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
 
-  with fic.bufferLecture do
+  with fic.readBuffer do
     begin
       bufferLecture       := NIL;
       debutDuBuffer       := 0;
@@ -876,7 +879,7 @@ begin
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
 
-  with fic.bufferLecture do
+  with fic.readBuffer do
     begin
       if (bufferLecture <> NIL) then DisposeMemoryPtr(Ptr(bufferLecture));
       debutDuBuffer       := 0;
@@ -1033,8 +1036,8 @@ begin
      then err := NoErr
      else err := -1;
 
-  if fic.bufferLecture.doitUtiliserBuffer then
-    with fic.bufferLecture do
+  if fic.readBuffer.doitUtiliserBuffer then
+    with fic.readBuffer do
       begin
         if (position >= debutDuBuffer) and
            (position < debutDuBuffer + tailleDuBuffer)
@@ -1427,7 +1430,7 @@ begin
   luDansLeBuffer := false;
 
 
-  with fic.bufferLecture do
+  with fic.readBuffer do
     if doitUtiliserBuffer then
       begin
 
