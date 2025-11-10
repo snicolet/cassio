@@ -29,7 +29,7 @@ var
 
 begin
 
-    sleep(200000);
+    Halt();
 
     LogDebugInfo('Bienvenue dans Cassio !');
 	

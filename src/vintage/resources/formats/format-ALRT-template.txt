@@ -1,0 +1,22 @@
+
+BoundsRect		RECT
+ItemsID			DWRD
+Stg 4 Bold #	BBIT
+Drawn			BBIT
+Snd High		BBIT
+Snd Low			BBIT
+Stg 3 Bold #	BBIT
+Drawn			BBIT
+Snd High		BBIT
+Snd Low			BBIT
+Stg 2 Bold #	BBIT
+Drawn			BBIT
+Snd High		BBIT
+Snd Low			BBIT
+Stg 1 Bold #	BBIT
+Drawn			BBIT
+Snd High		BBIT
+Snd Low			BBIT
+Auto Position	HWRD
+
+
