@@ -175,6 +175,10 @@ procedure decodeMENU(s : ansistring);
 procedure decodeDITL(s : ansistring);
 
 
+// Show the Unicode table
+procedure ShowUnicodeTable;
+
+
 implementation
 
 uses math,
