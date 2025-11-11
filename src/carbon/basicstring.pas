@@ -2043,7 +2043,7 @@ var i: integer;
     utf8, tmp : string;
     s : string= '';
 begin
-  for i := 1 to $30000 do
+  for i := 1 to $80000 do
     begin
       utf8 := UTF8Encode(UnicodeChar(i));
       tmp :=  IntToStr(i)+' / '+'U+'+intToHex(i,4)+' / ' +  utf8;
