@@ -1794,19 +1794,19 @@ begin
    writeln('decoding hexadecimal version of MENU resource... ');
    writeln(s);
    writeln('');
-   
+
    split(s, 4, hex, s);
    menuID := HexToInt(hex);
    itemID := 0;
-   
+
    split(s, 4, hex, s);  width  := HexToInt(hex); // writeln('width=' , width);
    split(s, 4, hex, s);  height := HexToInt(hex); // writeln('height=', height);
    split(s, 4, hex, s);  procID := HexToInt(hex); // writeln('procID=', procID);
    split(s, 4, hex, s);  filler := HexToInt(hex); // writeln('filler=', filler);
    split(s, 8, hex, s);  enableFlags := hex;
-   
+
    title := '';
-   
+
    // read Pascal string
    split(s, 2, hex, s);
    n := HexToInt(hex);
@@ -1815,21 +1815,21 @@ begin
        split(s, 2, hex, s);
        title := title + char(HexToInt(hex));
      end;
-     
+
    writeln('menuID=',  menuID);
    writeln('itemID=',  itemID);
    writeln('string=', title);
    writeln('enableFlags=', enableFlags);
-   
+
    writeln('');
-   
+
    repeat
       item := '';
-      
+
       // read Pascal string
       split(s, 2, hex, s);
       n := HexToInt(hex);
-      
+
       if (n > 0) then
         begin
           for k := 1 to n do
@@ -1837,12 +1837,12 @@ begin
               split(s, 2, hex, s);
               item := item + char(HexToInt(hex));
             end;
-    
+
           split(s, 2, hex, s);  icon     := HexToInt(hex);
           split(s, 2, hex, s);  keyEquiv := hex; 
           split(s, 2, hex, s);  markChar := hex;
           split(s, 2, hex, s);  style    := HexToInt(hex);
-          
+
           itemID := itemID + 1;
           
           writeln('menuID=',  menuID);
@@ -1851,13 +1851,13 @@ begin
           if keyEquiv <> '00'
              then writeln('keyEquiv=' , char(HexToInt(keyEquiv)));
           writeln('');
-          
+
           // writeln('markChar=' , markChar);
           // writeln('icon='     ,  icon);
           // writeln('style='    ,  style);
         end;
    until (s = '') or (n = 0);
-   
+
 end;
 
 

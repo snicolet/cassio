@@ -2079,7 +2079,7 @@ begin
       if (p3 <> '') then Insert(p3, aux, j);
     end;
 
-	ParamStr := aux;
+	ReplaceParameters := aux;
 end;
 
 

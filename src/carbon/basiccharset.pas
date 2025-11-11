@@ -42,11 +42,11 @@ uses
 // CreateSetOfChar(s) returns a set with the chars of the string s.
 // The string s must be encoded as utf-8.
 function CreateSetOfChar(s : string) : SetOfChar;
-var 
+var
   len : Integer;
   utf8 : String;
   theUnicodeString : UnicodeString;
-  K, L : Tbytes;
+  K, L : TBytes;
   i : SInt64;
   A : SetOfChar;
 begin

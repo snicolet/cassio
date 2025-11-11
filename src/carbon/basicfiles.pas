@@ -190,7 +190,7 @@ end;
 // DisplayMessageInConsole(s) : write s to the custom terminal
 procedure DisplayMessageInConsole(s : String255);
 begin
-  if unit_initialized
+  if unit_initialized and false
     then CustomDisplayMessage(s)
     else StandardConsoleDisplayer(s);
 end;
@@ -199,7 +199,7 @@ end;
 // DisplayMessageAndNumInConsole(s,n) : write s to the custom terminal
 procedure DisplayMessageAndNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialized
+  if unit_initialized and false
     then CustomDisplayMessageWithNum(s,num)
     else StandardConsoleDisplayerWithNum(s,num);
 end;
@@ -208,7 +208,7 @@ end;
 // DisplayAlertWithNumInConsole(s,n) : write a warning to the custom terminal
 procedure DisplayAlertWithNumInConsole(s : String255; num : SInt32);
 begin
-  if unit_initialized
+  if unit_initialized and false
     then CustomDisplayAlerteWithNum(s,num)
     else StandardConsoleAlertWithNum(s,num)
 end;
@@ -391,7 +391,7 @@ begin
         
       parID      := info.parID;
       fileName   := fullName;
-      uniqueID   := HashString(fullName);
+      uniqueID   := abs(HashString(fullName));
 
       {DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageAndNumInConsole('LENGTH_OF_STRING(fic.fullName) = ',LENGTH_OF_STRING(fullName));
@@ -406,6 +406,7 @@ begin
       DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
+      DisplayMessageAndNumInConsole('fic.uniqueID = ',fic.uniqueID);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
       DisplayMessageAndNumInConsole('fic.info.vRefNum = ',fic.info.vRefNum);
       DisplayMessageAndNumInConsole('fic.info.parID = ',fic.info.parID);
@@ -995,7 +996,7 @@ begin
 end;
 
 
-// FileIsOpen() : check is a file is open
+// FileIsOpen() : check if a file is open
 function FileIsOpen(var fic : basicfile) : boolean;
 begin
 
@@ -2083,15 +2084,39 @@ end;
 
 // Testing the unit
 procedure TestBasicFiles;
+var i : SInt32;
+    name : String255;
+    err : OSErr;
+    info : fileInfo;
+    fic : basicFile;
 begin
    system.Writeln('');
    system.Writeln('Testing file system functions...');
-   system.Writeln( DirectorySeparator );
-   system.Writeln(GetCurrentDir());
+   system.Writeln('DirectorySeparator = ', DirectorySeparator);
+   system.Writeln('GetCurrentDir()' = GetCurrentDir());
+   system.Writeln(paramstr(0),' : Got ',ParamCount(),' command-line parameters: ');
+   For i := 1 to ParamCount() do
+      system.Writeln(ParamStr(i));
+   system.Writeln('');
+
+   system.Writeln('Testing the BasicFiles library...');
+   
+   
+   SetDebugFiles(true);
+   
+   name := paramstr(0);
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( CloseFile(fic) );
+   
 end;
 
 begin
-  // TestBasicFiles;
+  // Always init the library
+  InitUnitBasicFile;
+  
+  TestBasicFiles;
 end.
 
 
