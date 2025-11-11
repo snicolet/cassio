@@ -2046,7 +2046,7 @@ procedure InitUnitBasicFile;
 begin
   SetDebugFiles(false);
 
-  (* installation des procedure pour l'affichage de message :
+  (* installation des procedures pour l'affichage de message :
      sur la sortie standard par defaut. On peut installer des
      routines personalisees d'impression de messages et d'alerte
      juste apres l'appel a InitUnitBasicFile *)

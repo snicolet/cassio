@@ -23,7 +23,7 @@ Voici une procedure Pascal pour decoder les ressources MENU :
 
 
 procedure decodeMENU(s : ansistring);
-var hex, enableFlgs, keyEquiv, markChar : ansistring;
+var hex, enableFlags, keyEquiv, markChar : ansistring;
     k, n, menuID, itemID : SInt64;
     width, height, procID, filler : SInt64;
     icon, style : SInt64;
@@ -42,7 +42,7 @@ begin
    split(s, 4, hex, s);  height := HexToInt(hex); // writeln('height=', height);
    split(s, 4, hex, s);  procID := HexToInt(hex); // writeln('procID=', procID);
    split(s, 4, hex, s);  filler := HexToInt(hex); // writeln('filler=', filler);
-   split(s, 8, hex, s);  enableFlgs := hex;
+   split(s, 8, hex, s);  enableFlags := hex;
    
    title := '';
    
@@ -58,7 +58,7 @@ begin
    writeln('menuID=',  menuID);
    writeln('itemID=',  itemID);
    writeln('string=', title);
-   writeln('enableFlgs=', enableFlgs);
+   writeln('enableFlags=', enableFlags);
    
    writeln('');
    
@@ -83,18 +83,36 @@ begin
           split(s, 2, hex, s);  style    := HexToInt(hex);
           
           itemID := itemID + 1;
+          
           writeln('menuID=',  menuID);
           writeln('itemID=',  itemID);
           writeln('string=', item);
-          writeln('keyEquiv=' , keyEquiv);
+          if keyEquiv <> '00'
+             then writeln('keyEquiv=' , char(HexToInt(keyEquiv)));
+          writeln('');
           
           // writeln('markChar=' , markChar);
           // writeln('icon='     ,  icon);
           // writeln('style='    ,  style);
-          
-          writeln('');
-          
         end;
    until (s = '') or (n = 0);
    
 end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

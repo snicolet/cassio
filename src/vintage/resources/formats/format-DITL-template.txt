@@ -13,16 +13,14 @@ Item info	      OSTR    chaine Pascal (length byte followed by the characters)
 
 ===============================================================================
 
-Voici une procedure en Pascal que je vient d'écrire pour décoder l'hexadecimal 
+Voici une procedure en Pascal pour décoder l'hexadecimal 
 des ressources DITL à l'aide de ce format. 
-On doit pouvoir coder ça en Python facilement.
-
 
 
 procedure decodeDITL(s : ansistring);
-var hex : ansistring;
+var hex, data : ansistring;
     top, left, bottom, right : SInt16;
-    k, i, n, longueur : SInt16;
+    k, i, n, len : SInt16;
     flags : SInt16;
     info : ansistring;
 begin
@@ -30,46 +28,66 @@ begin
    writeln('decoding hexadecimal version of DITL resource... ');
    writeln(s);
    
-   // la longueur de la liste : 2 octets
+   // length of list : 2 bytes
    split(s, 4, hex, s);    
    n := HexToInt(hex);
    
    for k := 0 to n do
      begin
-       writeln('');
-     
-       // padding : 4 octets
-       split(s, 8, hex, s);                      
-                        
-       // le rectangle  : 8 octets
-       split(s, 4, hex, s);   top    := HexToInt(hex);  writeln('top=',top);
-       split(s, 4, hex, s);   left   := HexToInt(hex);  writeln('left=',left);
-       split(s, 4, hex, s);   bottom := HexToInt(hex);  writeln('bottom=',bottom);
-       split(s, 4, hex, s);   right  := HexToInt(hex);  writeln('right=',right);
-       
-       // les flags : 1 octet
-       split(s, 2, hex, s);   flags    := HexToInt(hex);  writeln('flags=',flags);
-       
-       // la longueur de la chaine Pascal : 1 octet
-       split(s, 2, hex, s);   longueur := HexToInt(hex);
-       
-       // la chaine Pascal : longueur variable
+       split(s, 8, hex, s);                              // padding   : 4 bytes     
+       split(s, 4, hex, s);   top     := HexToInt(hex);  // top       : 2 bytes
+       split(s, 4, hex, s);   left    := HexToInt(hex);  // left      : 2 bytes
+       split(s, 4, hex, s);   bottom  := HexToInt(hex);  // bottom    : 2 bytes
+       split(s, 4, hex, s);   right   := HexToInt(hex);  // right     : 8 bytes
+       split(s, 2, hex, s);   flags   := HexToInt(hex);  // flags     : 1 byte
+       split(s, 2, hex, s);   len     := HexToInt(hex);  // length of the Pascal string : 1 byte
+
+       // Pascal string : variable length
        info := '';
-       for i := 1 to longueur do
+       for i := 1 to len do
          begin
            split(s, 2, hex, s);
            info := info + char(HexToInt(hex));
          end;
-       writeln('info=',info);
-       
-       // un octet de padding si la chaine est de longueur impaire
-       if (longueur mod 2) = 1 then split(s, 2, hex, s);
+
+       // one byte of padding if the length of the string is odd
+       if (len mod 2) = 1 then split(s, 2, hex, s);
+
+       data := IntToStr(top) + ' ' + IntToStr(left) + ' ' + IntToStr(bottom) + ' ' + IntToStr(right) + ' '  + IntToStr(flags);
+
+       writeln('');
+       writeln('itemID=',k+1);
+       writeln('string=',info);
+       writeln('posAndFlags=',data);
        
     end;
    
    writeln('');
    
 end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

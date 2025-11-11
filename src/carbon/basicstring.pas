@@ -1734,7 +1734,7 @@ end;
 procedure decodeDITL(s : ansistring);
 var hex, data : ansistring;
     top, left, bottom, right : SInt16;
-    k, i, n, longueur : SInt16;
+    k, i, n, len : SInt16;
     flags : SInt16;
     info : ansistring;
 begin
@@ -1742,33 +1742,33 @@ begin
    writeln('decoding hexadecimal version of DITL resource... ');
    writeln(s);
    
-   // la longueur de la liste : 2 octets
+   // length of list : 2 bytes
    split(s, 4, hex, s);    
    n := HexToInt(hex);
    
    for k := 0 to n do
      begin
-       split(s, 8, hex, s);                               // padding   : 4 octets     
-       split(s, 4, hex, s);   top      := HexToInt(hex);  // top       : 2 octets
-       split(s, 4, hex, s);   left     := HexToInt(hex);  // left      : 2 octets
-       split(s, 4, hex, s);   bottom   := HexToInt(hex);  // bottom    : 2 octets
-       split(s, 4, hex, s);   right    := HexToInt(hex);  // right     : 8 octets
-       split(s, 2, hex, s);   flags    := HexToInt(hex);  // flags     : 1 octet
-       split(s, 2, hex, s);   longueur := HexToInt(hex);  // la longueur de la chaine Pascal : 1 octet
-       
-       // la chaine Pascal : longueur variable
+       split(s, 8, hex, s);                              // padding   : 4 bytes     
+       split(s, 4, hex, s);   top     := HexToInt(hex);  // top       : 2 bytes
+       split(s, 4, hex, s);   left    := HexToInt(hex);  // left      : 2 bytes
+       split(s, 4, hex, s);   bottom  := HexToInt(hex);  // bottom    : 2 bytes
+       split(s, 4, hex, s);   right   := HexToInt(hex);  // right     : 8 bytes
+       split(s, 2, hex, s);   flags   := HexToInt(hex);  // flags     : 1 byte
+       split(s, 2, hex, s);   len     := HexToInt(hex);  // length of the Pascal string : 1 byte
+
+       // Pascal string : variable length
        info := '';
-       for i := 1 to longueur do
+       for i := 1 to len do
          begin
            split(s, 2, hex, s);
            info := info + char(HexToInt(hex));
          end;
-       
-       // un octet de padding si la chaine est de longueur impaire
-       if (longueur mod 2) = 1 then split(s, 2, hex, s);
-       
+
+       // one byte of padding if the length of the string is odd
+       if (len mod 2) = 1 then split(s, 2, hex, s);
+
        data := IntToStr(top) + ' ' + IntToStr(left) + ' ' + IntToStr(bottom) + ' ' + IntToStr(right) + ' '  + IntToStr(flags);
-       
+
        writeln('');
        writeln('itemID=',k+1);
        writeln('string=',info);
