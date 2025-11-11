@@ -42,7 +42,6 @@ uses
     unsignedlongH = ^unsignedlongP;
 
     CRLFTypes = (CL_CRLF, CL_CR, CL_LF);
-    CharSet = set of char;
 
     Ptr = Pointer;
     Handle = ^Pointer;
@@ -187,7 +186,6 @@ begin
     Writeln('sizeof(Handle) = ', sizeof(Handle));
     Writeln('sizeof(Handle^) = ', sizeof(Handle^));
     Writeln('sizeof(Handle^^) = ', sizeof(Handle^^));
-    Writeln('sizeof(CharSet) = ', sizeof(CharSet));
 end;
 
 

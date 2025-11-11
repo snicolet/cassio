@@ -12,9 +12,6 @@ USES MacTypes, MyTypes
 
 
   type
-    SetOfChar = SET OF CHAR;
-
-  type
      String255Ptr =  ^String255;
      String255Hdl =  ^String255Ptr;
 

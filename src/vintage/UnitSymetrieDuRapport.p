@@ -51,7 +51,7 @@ type tableBooleens = {packed} array[0..100000] of boolean;
      tableBooleensPtr = ^tableBooleens;
 var debut,fin,k : SInt32;
     nbRemplacements,numeroPasse : SInt32;
-    separateursDeMots : set of char;
+    separateursDeMots : SetOfChar;
     c1,c2 : char;
     s,s1,s2,s3,s4,filename,ligne,pattern,remplacement,reste : String255;
     whichSquare : SInt16;

@@ -19,7 +19,8 @@ uses
   BasicTime,
   BasicMath,
   BasicFiles,
-  BasicHashing;
+  BasicHashing,
+  BasicCharSet;
 
 type
   Point = record

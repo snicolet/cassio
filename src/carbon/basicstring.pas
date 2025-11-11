@@ -10,7 +10,8 @@ uses
 {$ENDIF}
   SysUtils,
   basictypes,
-  basicmemory;
+  basicmemory,
+  basiccharset;
 
 
 // Basic string types
@@ -19,7 +20,6 @@ uses
      Str255        =  ShortString;
      String255Ptr  =  ^String255;
      String255Hdl  =  ^String255Ptr;
-     SetOfChar     =  set of char;
 
      LongString =
        record
@@ -96,6 +96,7 @@ function  ParseBuffer(buffer : Ptr; bufferLength, from : SInt32; var lastRead : 
 
 // Setting the delimiters for our parser
 procedure SetParserDelimiters(parsingCaracters : SetOfChar);
+procedure SetParserDelimiters(parsingCaracters : setOfAsciiChar);
 function  GetParserDelimiters : SetOfChar;
 procedure SetParserProtectionWithQuotes(flag : boolean);
 function  GetParserProtectionWithQuotes() : boolean;
@@ -183,7 +184,6 @@ uses math,
 
 var protect_parser_with_quotes : boolean;
     parser_delimiters : SetOfChar;
-    parser_delimiters_as_booleans : array[0..255] of boolean;
 
 
 // Copy string from str255 to String255, and reverse
@@ -785,7 +785,7 @@ begin
   if len > 0 then
     begin
       n := 1;
-      while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1;  {on saute les espaces en tete de s}
+      while (n <= len) and (FindInCharSet(parser_delimiters, s, n) <> '') do n := n + 1;  {on saute les espaces en tete de s}
       if (n <= len) then
         begin
           if protect_parser_with_quotes and (s[n] = '"')
@@ -800,12 +800,12 @@ begin
                 if (s[n] = '"') and (n <= len) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n <= len) and (not(parser_delimiters_as_booleans[ord(s[n])])) do {on va jusqu'au prochain espace}
+              while (n <= len) and (FindInCharSet(parser_delimiters, s, n) = '') do {on va jusqu'au prochain espace}
                 begin
                   lexem := Concat(lexem,s[n]);
                   n := n + 1;
                 end;
-          while (n <= len) and (parser_delimiters_as_booleans[ord(s[n])]) do n := n + 1; {on saute les espaces en tete du tail}
+          while (n <= len) and (FindInCharSet(parser_delimiters, s, n) <> '') do n := n + 1; {on saute les espaces en tete du tail}
           if (n <= len) then tail := TPCopy(s,n,len - n + 1);
         end;
     end;
@@ -903,7 +903,7 @@ begin
 
 	  n := from;
 		
-      while (n < bufferLength) and (parser_delimiters_as_booleans[ord(text^[n])]) do n := n + 1;  {on saute les espaces en lexem }
+      while (n < bufferLength) and (FindInCharSet(parser_delimiters, text, bufferLength, n) <> '') do n := n + 1;  {on saute les espaces en tete}
       if (n < bufferLength) then
         begin
           if protect_parser_with_quotes and (text^[n] = '"')
@@ -918,7 +918,7 @@ begin
                 if (text^[n] = '"') and (n < bufferLength) then n := n + 1; {on saute le quote fermant}
               end
             else
-              while (n < bufferLength) and (not(parser_delimiters_as_booleans[ord(text^[n])])) do {on va jusqu'au prochain espace}
+              while (n < bufferLength) and (FindInCharSet(parser_delimiters, text, bufferLength, n) = '') do {on va jusqu'au prochain espace}
                 begin
                   result := Concat(result,text^[n]);
                   n := n + 1;
@@ -934,11 +934,19 @@ end;
 
 // SetParserDelimiters() : change the delimiters characters used by the parser
 procedure SetParserDelimiters(parsingCaracters : SetOfChar);
-var i : SInt32;
 begin
   parser_delimiters := parsingCaracters;
-  for i := 0 to 255 do
-    parser_delimiters_as_booleans[i] := (chr(i) in parser_delimiters);
+end;
+
+// SetParserDelimiters() : change the delimiters characters used by the parser
+procedure SetParserDelimiters(parsingCaracters : setOfAsciiChar);
+var s : ansiString;
+    c : char;
+begin
+  for c in parsingCaracters do
+    s := s + c;
+  writeln(s);
+  SetParserDelimiters(CreateSetOfChar(s))
 end;
 
 
@@ -1860,9 +1868,10 @@ var  s, a, b : string255;
      ditl, menu : ansistring;
 begin
    c := 'z';
-   theSet := ['a', 'b'];
+   theSet := CreateSetOfChar('ab');
 
-   writeln( c in theSet);
+   s := c;
+   writeln(FindInCharSet(theSet, s, 1));
 
    s := 'hello';
 
@@ -2054,11 +2063,12 @@ end;
 begin
    // Always init the basic string unit
    SetParserProtectionWithQuotes(false);
-   SetParserDelimiters([' ',tab]);
+   SetParserDelimiters(CreateSetOfChar(Concat(' ',tab)));
 
    // Run some tests for the BasicString library
    // testBasicString;
    // ShowUnicodeTable;
+
 end.
 
 
