@@ -1,0 +1,11 @@
+"10010,0" = "You can click";
+"10010,1" = "on a move number";
+"10010,2" = "to back there ";
+"10010,3" = "Click on a move to go back there";
+"10010,4" = "Cancel";
+"10010,5" = "Validate";
+"10010,6" = "Clear All";
+"10010,7" = "Invert All";
+"10010,8" = "Evaluation";
+"10010,9" = "Evaluation for Black :";
+"10010,10" = "Evaluation for White :";

@@ -1,0 +1,8 @@
+"10012,0" = "Unable to open the file \"^0\" !";
+"10012,1" = "Verify it is in the same folder than Cassio";
+"10012,2" = "or in the folder \"Auxiliary files\" on your hard disc.";
+"10012,3" = "Reading opening library ";
+"10012,4" = "Opening library is too big !";
+"10012,5" = "Illegal line";
+"10012,6" = "Total of answers is not 100 %";
+"10012,7" = "too many lines";

@@ -441,13 +441,22 @@ end;
 
 
 // Initialization of the QuickDraw.pas unit
-
+procedure InitQuickDraw;
 begin
   start := GetTickCount64();
 
   getMouseData.mouseLoc.h := 0;
   getMouseData.mouseLoc.v := 0;
   getMouseData.when       := -1000;
+end;
+
+
+
+begin
+  // Always init the library !
+  InitQuickDraw;
+  
+  
 end.
 
 

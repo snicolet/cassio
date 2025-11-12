@@ -1,0 +1,13 @@
+"10004,0" = "allocated for this move : ^0 sec.";
+"10004,1" = "used for depth ^0 : ^1 sec.";
+"10004,2" = "anticipated. ^0 : ^1 sec.";
+"10004,3" = "branching factor :  ";
+"10004,4" = "number of speedometer revolutions :  ";
+"10004,5" = "number of nodes :  ";
+"10004,6" = "number of leaves/sec :  ";
+"10004,7" = "number of nodes/sec :  ";
+"10004,8" = "engine : ";
+"10004,9" = "^0 proc.";
+"10004,10" = "1 proc.";
+"10004,11" = "used for engdame (^0) : ^1 sec.";
+"10004,12" = "anticipated for endgame (^0) : ^1 sec.";

@@ -1,0 +1,1566 @@
+﻿type; ID; name; ID2; data; FR;GB
+ALRT;200;;; 0028002800D3021700C85555300A;Rapport trop long;Rapport trop long
+ALRT;201;;; 0028002800D8021A00C95555300A;Rapport ras-bord;Rapport ras-bord
+ALRT;257;;; 0032008000A401CA01015555300A;Trop de texte;Trop de texte
+ALRT;258;;; 0032008000AB01EF01025555300A;Problème mémoire 3D;Problème mémoire 3D
+ALRT;1129;;; 0044003000C701CD04695555280A;Oui-Non;Oui-Non
+ALRT;1130;;; 0068002C00F501E2046A5555300A;OK;OK
+ALRT;1132;;; 003C001200C701E4046C5555300A;Mic-mac index;Mic-mac index
+DITL;128;;1;posAndFlags= 66 237 86 309  0x04;Quitter;Quit
+DITL;128;;2;posAndFlags= 66 145 86 221  0x04;Annuler;Cancel
+DITL;128;;3;posAndFlags= 21 71 56 338  0x88;Voulez-vous vraiment quitter Cassio ?;Do you really want to quit Cassio ?
+DITL;128;;4;posAndFlags= 13 19 45 51  0xA0;;
+DITL;129;;1;posAndFlags= 375 212 395 292  0x04;OK;OK
+DITL;129;;2;posAndFlags= 375 85 395 165  0x04;Annuler;Cancel
+DITL;129;;3;posAndFlags= 19 82 38 305  0x88;Choisissez le niveau de la partie:;Choose the level of the game:
+DITL;129;;4;posAndFlags= 57 78 73 309  0x06;Débutant;Beginner
+DITL;129;;5;posAndFlags= 74 78 90 309  0x06;Amateur;Medium
+DITL;129;;6;posAndFlags= 91 78 107 309  0x06;Joueur de club;Club player
+DITL;129;;7;posAndFlags= 108 78 124 309  0x06;Fort;Strong
+DITL;129;;8;posAndFlags= 125 78 141 309  0x06;Expert;Expert
+DITL;129;;9;posAndFlags= 142 78 158 309  0x06;Grand-Maître;Grand-Master
+DITL;129;;10;posAndFlags= 159 78 175 309  0x06;Champion;Champion
+DITL;129;;11;posAndFlags= 176 78 192 309  0x06;Champion : 3 minutes;Champion : 3 minutes
+DITL;129;;12;posAndFlags= 193 78 209 309  0x06;Champion : 5 minutes;Champion : 5 minutes
+DITL;129;;13;posAndFlags= 210 78 226 309  0x06;Champion : 10 minutes;Champion : 10 minutes
+DITL;129;;14;posAndFlags= 227 78 243 309  0x06;Champion : 25 minutes;Champion : 25 minutes
+DITL;129;;15;posAndFlags= 244 78 260 309  0x06;Champion : un mois;Champion : one month
+DITL;129;;16;posAndFlags= 261 78 277 309  0x06;Temps infini (analyse);Infinite Time (analysis)
+DITL;129;;17;posAndFlags= 287 78 305 143  0x06;Autre :;Other :
+DITL;129;;18;posAndFlags= 288 147 304 182  0x10;0;0
+DITL;129;;19;posAndFlags= 288 187 305 218  0x08;h. et;h. and
+DITL;129;;20;posAndFlags= 288 224 304 243  0x10;15;15
+DITL;129;;21;posAndFlags= 288 247 304 322  0x08;minutes;minutes
+DITL;129;;22;posAndFlags= 319 74 336 337  0x05;L'horloge est un compte à rebours;Clocks count backwards
+DITL;129;;23;posAndFlags= 337 74 353 327  0x05;Cassio ne tombe jamais au temps;Cassio never loses on time
+DITL;129;;24;posAndFlags= 11 30 43 62  0xA0;;
+DITL;130;;1;posAndFlags= 348 284 368 362  0x04;OK;OK
+DITL;130;;2;posAndFlags= 348 115 368 193  0x04;Annuler;Cancel
+DITL;130;;3;posAndFlags= 15 46 47 78  0xA0;;
+DITL;130;;4;posAndFlags= 23 119 40 349  0x88;Réglez les préférences de Cassio : ;Please set the preferences for Cassio: 
+DITL;130;;5;posAndFlags= 15 384 47 416  0xA0;;
+DITL;130;;6;posAndFlags= 174 41 190 262  0x08;Expliquer la règle des «passes» :;"Explain ""pass"" rule:"
+DITL;130;;7;posAndFlags= 173 261 191 433  0x06;toujours;always
+DITL;130;;8;posAndFlags= 193 261 211 298  0x06;les;the
+DITL;130;;9;posAndFlags= 213 261 231 417  0x06;jamais;never
+DITL;130;;10;posAndFlags= 194 306 210 324  0x10;;
+DITL;130;;11;posAndFlags= 194 330 210 435  0x08;premières fois;first times
+DITL;130;;12;posAndFlags= 73 24 91 385  0x05;Enregistrer la configuration en quittant;Save the windows positions when quitting
+DITL;130;;13;posAndFlags= 93 24 111 385  0x05;Dialogue de confirmation pour quitter;Ask confirmation before quitting
+DITL;130;;14;posAndFlags= 113 24 131 332  0x05;Confirmer l'arrêt d'une analyse rétrograde de;Confirm when stopping endgame analysis of
+DITL;130;;15;posAndFlags= 114 336 130 357  0x10;;
+DITL;130;;16;posAndFlags= 114 364 132 439  0x08;min. et plus;min. or more
+DITL;130;;17;posAndFlags= 152 94 168 121  0x10;;
+DITL;130;;18;posAndFlags= 152 41 168 91  0x88;Utiliser;Use
+DITL;130;;19;posAndFlags= 152 128 168 437  0x88;megaoctets pour la base (^0 parties);Megabytes for the Wthor database (^0 games)
+DITL;130;;20;posAndFlags= 250 24 268 141  0x88;Police du rapport :;Rapport font:
+DITL;130;;21;posAndFlags= 248 168 268 372  0x00;;
+DITL;130;;22;posAndFlags= 275 24 293 171  0x08;Moteur d'évaluation : ;Evaluation engine : 
+DITL;130;;23;posAndFlags= 273 168 293 326  0x00;;
+DITL;130;;24;posAndFlags= 300 24 318 171  0x08;Processeurs :;Processors : 
+DITL;131;;1;posAndFlags= 63 194 83 328  0x04;Dura lex, sed lex;Dura lex, sed lex
+DITL;131;;2;posAndFlags= 14 16 46 48  0xA0;;
+DITL;131;;3;posAndFlags= 14 64 50 369  0x88;Vous n'avez aucun coup légal : vous passez donc votre tour, et je rejoue…;You have no legal move : you have to pass, and I play again…
+DITL;132;;1;posAndFlags= 422 439 442 515  0x04;OK;OK
+DITL;132;;2;posAndFlags= 422 341 442 416  0x04;Annuler;Cancel
+DITL;132;;3;posAndFlags= 20 180 36 375  0x88;Partie à ajouter dans la liste :;Game to add to the List :
+DITL;132;;4;posAndFlags= 12 30 44 62  0xA0;;
+DITL;132;;5;posAndFlags= 12 487 44 519  0xA0;;
+DITL;132;;6;posAndFlags= 264 61 280 305  0x10;;
+DITL;132;;7;posAndFlags= 290 61 306 305  0x10;;
+DITL;132;;8;posAndFlags= 316 61 332 305  0x10;;
+DITL;132;;9;posAndFlags= 344 61 360 110  0x10;;
+DITL;132;;10;posAndFlags= 264 5 280 57  0x88;Noirs;Black
+DITL;132;;11;posAndFlags= 291 5 307 57  0x88;Blancs;White
+DITL;132;;12;posAndFlags= 317 5 333 57  0x88;Tournoi;Tourn.
+DITL;132;;13;posAndFlags= 344 5 360 57  0x88;Année;Year
+DITL;132;;14;posAndFlags= 262 311 283 526  0x00;;
+DITL;132;;15;posAndFlags= 288 311 309 526  0x00;;
+DITL;132;;16;posAndFlags= 314 311 335 526  0x00;;
+DITL;132;;17;posAndFlags= 376 49 394 327  0x05;Ajouter automatiquement dans la base :;Save automaticaly in this database :
+DITL;133;;1;posAndFlags= 312 364 332 432  0x04;OK;OK
+DITL;133;;2;posAndFlags= 312 247 332 320  0x04;Annuler;Cancel
+DITL;133;;3;posAndFlags= 312 46 332 199  0x04;Valeurs standard;Standard Values
+DITL;133;;4;posAndFlags= 276 7 294 197  0x05;avec tables positionnelles;Uses Positional Tables
+DITL;133;;5;posAndFlags= 13 26 45 58  0xA0;;
+DITL;134;Désolé…;1;posAndFlags= 99 241 119 311  0x04;OK;OK
+DITL;134;Désolé…;2;posAndFlags= 12 60 94 328  0x88;Désolé, cette position n'est pas un solitaire…\n^0;Sorry, this position is not a solitaire…\n^0
+DITL;134;Désolé…;3;posAndFlags= 12 15 44 47  0xA0;È;Ä
+DITL;135;;1;posAndFlags= 130 269 150 348  0x04;Valider;Accept
+DITL;135;;2;posAndFlags= 130 121 150 198  0x04;Annuler;Cancel
+DITL;135;;3;posAndFlags= 10 60 79 387  0x88;Cette position est un solitaire !;This position is a solitaire!
+DITL;135;;4;posAndFlags= 86 60 120 390  0x88;N.B. : vous pouvez valider la position courante comme position de départ pour jouer le solitaire.;N.B. : you can accept the current position as starting position to play the solitaire.
+DITL;136;;1;posAndFlags= 186 16 206 115  0x04;Rechercher >>;Rechercher >>
+DITL;136;;2;posAndFlags= 186 297 206 355  0x04;Annuler;Annuler
+DITL;136;;3;posAndFlags= 187 127 206 231  0x04;<< Rechercher;<< Rechercher
+DITL;136;;4;posAndFlags= 186 372 206 442  0x04;Ouvrir;Ouvrir
+DITL;136;;5;posAndFlags= 46 400 62 423  0x10;;
+DITL;136;;6;posAndFlags= 46 109 62 265  0x10;;
+DITL;136;;7;posAndFlags= 72 109 88 265  0x10;;
+DITL;136;;8;posAndFlags= 98 109 114 396  0x10;;
+DITL;136;;9;posAndFlags= 126 109 142 165  0x10;;
+DITL;136;;10;posAndFlags= 126 398 142 446  0x10;;
+DITL;136;;11;posAndFlags= 3 41 36 428  0x88;Entrez ce que vous savez de la partie à rechercher dans la base de Thor :;Entrez ce que vous savez de la partie à rechercher dans la base de Thor :
+DITL;136;;12;posAndFlags= 46 9 61 105  0x88;Joueur noir :;Joueur noir :
+DITL;136;;13;posAndFlags= 73 9 89 106  0x88;Joueur blanc :;Joueur blanc :
+DITL;136;;14;posAndFlags= 99 9 115 84  0x88;Tournoi :;Tournoi :
+DITL;136;;15;posAndFlags= 126 9 142 62  0x88;Année :;Année :
+DITL;136;;16;posAndFlags= 45 286 62 396  0x88;Score des noirs :;Score des noirs :
+DITL;136;;17;posAndFlags= 126 287 143 395  0x88;n° de la partie :;n° de la partie :
+DITL;137;;1;posAndFlags= 69 306 89 382  0x04;Suite…;Yes, sure…
+DITL;137;;2;posAndFlags= 12 66 60 414  0x88;Pouvez-vous m'aider à localiser le fichier \n«^0» et l'ouvrir pour moi, SVP.\n;Could you help me to find the file «^0» and open it for me, please ?\n
+DITL;138;;1;posAndFlags= 101 152 121 277  0x04;Autre solitaire;Other Solitaire
+DITL;138;;2;posAndFlags= 101 68 121 137  0x04;Annuler;Cancel
+DITL;138;;3;posAndFlags= 13 65 85 290  0x88;Bravo! Vous avez trouvé la seule suite gagnante.\n\nVoulez-vous en faire un autre ?;Congratulations! You found the only winning line.\n\nWould you like to try another one?
+DITL;138;;4;posAndFlags= 13 15 45 47  0xA0;;
+DITL;139;;1;posAndFlags= 101 152 121 277  0x04;Autre solitaire;Other Solitaire
+DITL;139;;2;posAndFlags= 101 68 121 137  0x04;Annuler;Cancel
+DITL;139;;3;posAndFlags= 13 65 85 290  0x88;Bravo! Vous avez trouvé la seule suite pour faire nulle.\n\nVoulez-vous en faire un autre ?;Congratulations! You found the only drawing line.\n\nWould you like to try another one?
+DITL;139;;4;posAndFlags= 13 15 45 47  0xA0;;
+DITL;140;;1;posAndFlags= 287 19 307 121  0x04;Lecture;Load
+DITL;140;;2;posAndFlags= 318 19 338 121  0x04;Annuler;Cancel
+DITL;140;;3;posAndFlags= 247 12 267 207  0x05;Lecture antichronologique;Recent Games First
+DITL;140;;4;posAndFlags= 224 12 240 49  0x88;Dans:;In :
+DITL;140;;5;posAndFlags= 72 414 88 437  0x10;;
+DITL;140;;6;posAndFlags= 72 111 88 281  0x10;;
+DITL;140;;7;posAndFlags= 99 111 115 281  0x10;;
+DITL;140;;8;posAndFlags= 127 111 143 398  0x10;;
+DITL;140;;9;posAndFlags= 154 111 170 166  0x10;;
+DITL;140;;10;posAndFlags= 319 354 338 390  0x04;<<;<<
+DITL;140;;11;posAndFlags= 21 80 40 447  0x88;Entrez les critères de la lecture des parties de la base :;Enter the criterias of the games you want to load from the base
+DITL;140;;12;posAndFlags= 72 11 88 107  0x08;Joueur noir :;Black Player :
+DITL;140;;13;posAndFlags= 99 11 115 108  0x88;Joueur blanc :;White Player :
+DITL;140;;14;posAndFlags= 128 11 144 86  0x88;Tournoi :;Tournament :
+DITL;140;;15;posAndFlags= 154 11 170 71  0x88;Année :;Year :
+DITL;140;;16;posAndFlags= 72 300 88 410  0x88;Score des noirs :;Black Final Score :
+DITL;140;;17;posAndFlags= 156 239 172 315  0x88;Ouverture :;Opening :
+DITL;140;;18;posAndFlags= 154 80 170 102  0x10;;
+DITL;140;;19;posAndFlags= 155 316 172 478  0x00;;
+DITL;140;;20;posAndFlags= 223 50 240 210  0x00;;
+DITL;140;;21;posAndFlags= 14 30 46 62  0xA0;;
+DITL;141;;1;posAndFlags= 215 314 235 391  0x04;OK;OK
+DITL;141;;2;posAndFlags= 129 9 197 428  0x88;•Si vous voulez, cependant, pouvoir utiliser ses fonctions de base de données, il faut lui allouer au moins 500K de plus. Mais il est recommandé de lui donner davantage, pour qu'il aille plus vite et puisse charger plus de parties…\n;•But if you want to be able to use its database features, you have to give it at least 2000K. It is, however, highly recommended to give it more, for it goes faster then and can load more games…\n
+DITL;141;;3;posAndFlags= 54 9 120 428  0x88;•Si vous envisager de n'utiliser Cassio que comme adversaire pour jouer à Othello, vous pouvez régler sa partition mémoire à sa valeur minimum (en faisant 'Lire les informations' dans le menu Fichier du Finder).;•If you plan to use Cassio only as an Othello opponent, you can give him minimum memory (by selecting 'Get Info' in the File Menu of the Finder).
+DITL;141;;4;posAndFlags= 17 125 32 308  0x88;Le problème de la mémoire;The problem of memory
+DITL;141;;5;posAndFlags= 9 16 41 48  0xA0;;
+DITL;142;;1;posAndFlags= 79 283 99 360  0x04;OK;OK
+DITL;142;;2;posAndFlags= 15 59 70 397  0x88;La partie en cours ne commence pas à la position initiale !;The current game didn't start from the initial position ! You won't be able to use it to load games from the database.
+DITL;143;;1;posAndFlags= 78 328 97 403  0x04;Annuler;Cancel
+DITL;143;;2;posAndFlags= 16 71 74 431  0x88;Etes-vous sûr de vouloir fermer la fenêtre principale de Cassio ? La position va disparaître, et sera perdue si vous ne l'avez sauvegardée.;Are you sure you want to close the board window ? The position will disappear, and will be lost if you haven't saved it.
+DITL;143;;3;posAndFlags= 78 203 97 278  0x04;Fermer;Close
+DITL;144;;1;posAndFlags= 245 11 265 123  0x04;Imprimer…;Print…
+DITL;144;;2;posAndFlags= 275 9 295 84  0x04;Fermer;Close
+DITL;144;;3;posAndFlags= 187 9 207 123  0x04;Diagrammes…;Diagrams…
+DITL;144;;4;posAndFlags= 41 11 58 101  0x88;Imprimer :;Print :
+DITL;144;;5;posAndFlags= 60 3 77 148  0x06;la position actuelle;Current Position
+DITL;144;;6;posAndFlags= 79 3 96 140  0x06;le diagramme;Current Diagram
+DITL;144;;7;posAndFlags= 98 3 115 123  0x06;les statistiques;Statistics
+DITL;144;;8;posAndFlags= 117 3 134 142  0x06;la liste de parties;List of Games
+DITL;144;;9;posAndFlags= 136 3 153 142  0x06;la bibliothèque;Opening Library
+DITL;144;;10;posAndFlags= 155 3 172 143  0x06;feuille de notation;Tournament Sheet
+DITL;144;;11;posAndFlags= 9 200 25 470  0x10;Titre de la page;Page Title
+DITL;144;;12;posAndFlags= 3 49 35 81  0xA0;;
+DITL;144;;13;posAndFlags= 216 9 236 123  0x04;Mise en page…;Print Setup…
+DITL;144;;14;posAndFlags= 308 4 325 148  0x05;Numeros de pages;Page numbers
+DITL;144;;15;posAndFlags= 9 149 25 193  0x88;Titre :;Title :
+DITL;145;;1;posAndFlags= 258 361 280 431  0x04;OK;OK
+DITL;145;;2;posAndFlags= 258 212 280 282  0x04;Annuler;Cancel
+DITL;145;;3;posAndFlags= 41 98 57 251  0x10;;
+DITL;145;;4;posAndFlags= 41 282 57 435  0x10;;
+DITL;145;;5;posAndFlags= 64 98 80 251  0x10;;
+DITL;145;;6;posAndFlags= 64 282 80 435  0x10;;
+DITL;145;;7;posAndFlags= 87 98 103 251  0x10;;
+DITL;145;;8;posAndFlags= 87 282 103 435  0x10;;
+DITL;145;;9;posAndFlags= 119 98 135 251  0x10;;
+DITL;145;;10;posAndFlags= 119 282 135 435  0x10;;
+DITL;145;;11;posAndFlags= 142 98 158 251  0x10;;
+DITL;145;;12;posAndFlags= 142 282 158 435  0x10;;
+DITL;145;;13;posAndFlags= 165 98 181 251  0x10;;
+DITL;145;;14;posAndFlags= 165 282 181 435  0x10;;
+DITL;145;;15;posAndFlags= 200 98 216 270  0x10;;
+DITL;145;;16;posAndFlags= 200 301 216 473  0x10;;
+DITL;145;;17;posAndFlags= 223 98 239 270  0x10;;
+DITL;145;;18;posAndFlags= 223 301 239 473  0x10;;
+DITL;145;;19;posAndFlags= 62 2 94 70  0x04;Tout\neffacer;Clear\nAll
+DITL;145;;20;posAndFlags= 139 2 171 70  0x04;Tout\neffacer;Clear\nAll
+DITL;145;;21;posAndFlags= 217 2 249 70  0x04;Tout\neffacer;Clear\nAll
+DITL;145;;22;posAndFlags= 40 3 56 89  0x88;Joueur noir :;Black Player:
+DITL;145;;23;posAndFlags= 118 3 134 93  0x88;Joueur blanc:;White Player:
+DITL;145;;24;posAndFlags= 198 9 215 74  0x88;Tournoi :;Tournament :
+DITL;145;;25;posAndFlags= 9 85 26 419  0x88;Critères de sous-sélection des parties de la liste :;Sub-Selection Criterias for the List of Games :
+DITL;145;;26;posAndFlags= 40 258 56 278  0x88;ou;or
+DITL;145;;27;posAndFlags= 63 258 79 278  0x88;ou;or
+DITL;145;;28;posAndFlags= 87 258 103 278  0x88;ou;or
+DITL;145;;29;posAndFlags= 118 258 134 278  0x88;ou;or
+DITL;145;;30;posAndFlags= 141 258 157 278  0x88;ou;or
+DITL;145;;31;posAndFlags= 165 258 181 278  0x88;ou;or
+DITL;145;;32;posAndFlags= 200 276 216 296  0x88;ou;or
+DITL;145;;33;posAndFlags= 224 276 240 296  0x88;ou;or
+DITL;145;;34;posAndFlags= 63 77 79 93  0x88;ou;or
+DITL;145;;35;posAndFlags= 87 77 103 93  0x88;ou;or
+DITL;145;;36;posAndFlags= 142 77 158 93  0x88;ou;or
+DITL;145;;37;posAndFlags= 166 77 182 93  0x88;ou;or
+DITL;145;;38;posAndFlags= 221 77 237 93  0x88;ou;or
+DITL;145;;39;posAndFlags= 2 33 34 65  0xA0;;
+DITL;146;;1;posAndFlags= 390 133 410 237  0x04;OK;OK
+DITL;146;;2;posAndFlags= 390 12 410 101  0x04;Annuler;Cancel
+DITL;146;;3;posAndFlags= 358 132 378 238  0x04;Style Anglais;English Style
+DITL;146;;4;posAndFlags= 358 4 378 124  0x04;Valeurs Fforum;Fforum Values
+DITL;146;;5;posAndFlags= 232 5 248 139  0x88;Largeur des cases : ;Square Size:
+DITL;146;;6;posAndFlags= 232 146 248 172  0x10;;
+DITL;146;;7;posAndFlags= 252 5 268 74  0x88;Bordure : ;Frame: 
+DITL;146;;8;posAndFlags= 252 79 268 117  0x10;;
+DITL;146;;9;posAndFlags= 67 5 84 50  0x88;Police:;Font:
+DITL;146;;10;posAndFlags= 65 64 82 401  0x00;;
+DITL;146;;11;posAndFlags= 312 8 328 62  0x06;Titre:;Title:
+DITL;146;;12;posAndFlags= 312 66 328 233  0x10;;
+DITL;146;;13;posAndFlags= 19 50 37 514  0x88;   ;   
+DITL;146;;14;posAndFlags= 90 432 106 568  0x88;;
+DITL;146;;15;posAndFlags= 124 5 140 61  0x88;Options:;Options:
+DITL;146;;16;posAndFlags= 123 61 141 233  0x05;Coordonnées des cases;Squares Coordinates
+DITL;146;;17;posAndFlags= 143 61 161 226  0x05;Coins du carré central;Hoshi Points
+DITL;146;;18;posAndFlags= 163 61 181 114  0x05;Pions;Discs
+DITL;146;;19;posAndFlags= 164 119 179 130  0x10;1;1
+DITL;146;;20;posAndFlags= 163 134 181 238  0x08;pixel en dedans;pixel(s) smaller
+DITL;146;;21;posAndFlags= 183 61 201 227  0x05;Traits super fins;Very thin lines
+DITL;146;;22;posAndFlags= 290 8 308 193  0x06;Écriture de 'Après 37.c7';Write 'After 37.c7'
+DITL;146;;23;posAndFlags= 231 184 242 200  0x80;;
+DITL;146;;24;posAndFlags= 93 5 110 42  0x88;Fond:;Back:
+DITL;146;;25;posAndFlags= 91 64 108 185  0x00;;
+DITL;146;;26;posAndFlags= 252 132 268 207  0x88;Distance :;Distance:
+DITL;146;;27;posAndFlags= 252 207 268 230  0x10;;
+DITL;146;;28;posAndFlags= 93 209 110 220  0x88;à;at
+DITL;146;;29;posAndFlags= 91 221 108 301  0x00;;
+DITL;146;;30;posAndFlags= 203 61 221 226  0x05;Marques spéciales;Show Special Stones
+DITL;146;;31;posAndFlags= 12 31 44 63  0xA0;;
+DITL;147;;1;posAndFlags= 393 133 413 237  0x04;OK;OK
+DITL;147;;2;posAndFlags= 393 12 413 101  0x04;Annuler;Cancel
+DITL;147;;3;posAndFlags= 363 132 383 238  0x04;Style Anglais;English Style
+DITL;147;;4;posAndFlags= 363 4 383 124  0x04;Valeurs Fforum;Fforum Values
+DITL;147;;5;posAndFlags= 256 5 272 139  0x88;Largeur des cases : ;Square Size:
+DITL;147;;6;posAndFlags= 256 142 272 167  0x10;;
+DITL;147;;7;posAndFlags= 279 5 295 70  0x88;Bordure :;Frame:
+DITL;147;;8;posAndFlags= 279 76 295 114  0x10;;
+DITL;147;;9;posAndFlags= 67 5 84 50  0x88;Police:;Font:
+DITL;147;;10;posAndFlags= 65 63 82 351  0x00;;
+DITL;147;;11;posAndFlags= 324 5 340 42  0x88;Titre:;Title:
+DITL;147;;12;posAndFlags= 324 49 340 234  0x10;;
+DITL;147;;13;posAndFlags= 19 50 37 514  0x88; ; 
+DITL;147;;14;posAndFlags= 104 335 120 523  0x88;;
+DITL;147;;15;posAndFlags= 124 5 140 61  0x88;Options:;Options:
+DITL;147;;16;posAndFlags= 123 61 140 233  0x05;Coordonnées des cases;Squares Coordinates
+DITL;147;;17;posAndFlags= 143 61 160 226  0x05;Coins du carré central;Hoshi Points
+DITL;147;;18;posAndFlags= 163 61 180 114  0x05;Pions;Discs
+DITL;147;;19;posAndFlags= 164 117 179 128  0x10;1;1
+DITL;147;;20;posAndFlags= 163 132 180 237  0x08;pixel en dedans;pixel(s) smaller
+DITL;147;;21;posAndFlags= 183 61 200 227  0x05;Traits super fins;Very thin lines
+DITL;147;;22;posAndFlags= 203 61 220 226  0x05;Numeros seulement;Flat Numbers only
+DITL;147;;23;posAndFlags= 252 222 268 247  0x80;;
+DITL;147;;24;posAndFlags= 93 5 110 43  0x88;Fond:;Back:
+DITL;147;;25;posAndFlags= 91 63 108 191  0x00;;
+DITL;147;;26;posAndFlags= 279 133 295 208  0x88;Distance :;Distance:
+DITL;147;;27;posAndFlags= 279 206 295 229  0x10;;
+DITL;147;;28;posAndFlags= 93 221 110 232  0x88;à;at
+DITL;147;;29;posAndFlags= 91 233 108 313  0x00;;
+DITL;147;;30;posAndFlags= 223 61 240 226  0x05;Marques spéciales;Show Special Stones
+DITL;147;;31;posAndFlags= 12 31 44 63  0xA0;;
+DITL;148;;1;posAndFlags= 408 133 428 237  0x04;OK;OK
+DITL;148;;2;posAndFlags= 408 12 428 101  0x04;Annuler;Cancel
+DITL;148;;3;posAndFlags= 377 132 397 238  0x04;Style Anglais;English Style
+DITL;148;;4;posAndFlags= 377 4 397 124  0x04;Valeurs Fforum;Fforum Values
+DITL;148;;5;posAndFlags= 258 4 274 138  0x88;Largeur des cases : ;Square Size:
+DITL;148;;6;posAndFlags= 258 142 274 168  0x10;;
+DITL;148;;7;posAndFlags= 283 4 299 73  0x88;Bordure :;Frame:
+DITL;148;;8;posAndFlags= 283 74 299 112  0x10;;
+DITL;148;;9;posAndFlags= 67 5 84 50  0x88;Police:;Font:
+DITL;148;;10;posAndFlags= 65 63 82 348  0x00;;
+DITL;148;;11;posAndFlags= 337 61 353 198  0x05;Nom des joueurs;Players Names
+DITL;148;;12;posAndFlags= 318 61 334 186  0x05;Nom du tournoi;Tounament Name
+DITL;148;;13;posAndFlags= 19 50 37 514  0x88;;
+DITL;148;;14;posAndFlags= 90 392 106 567  0x88;;
+DITL;148;;15;posAndFlags= 124 4 140 60  0x88;Options:;Options:
+DITL;148;;16;posAndFlags= 123 61 140 233  0x05;Coordonnées des cases;Squares coordinates
+DITL;148;;17;posAndFlags= 143 61 160 226  0x05;Coins du carré central;Hoshi Points
+DITL;148;;18;posAndFlags= 163 61 180 114  0x05;Pions;Discs
+DITL;148;;19;posAndFlags= 164 118 179 128  0x10;1;1
+DITL;148;;20;posAndFlags= 163 132 180 237  0x08;pixel en dedans;pixel(s) smaller
+DITL;148;;21;posAndFlags= 183 61 200 227  0x05;Traits super fins;Thin Lines (Postscript)
+DITL;148;;22;posAndFlags= 203 61 220 228  0x05;Numeros seulement;Flat Numbers only
+DITL;148;;23;posAndFlags= 318 4 334 55  0x88;Infos :;Infos :
+DITL;148;;24;posAndFlags= 92 5 109 42  0x88;Fond:;Back:
+DITL;148;;25;posAndFlags= 90 63 107 203  0x00;;
+DITL;148;;26;posAndFlags= 283 131 299 200  0x88;Distance :;Distance:
+DITL;148;;27;posAndFlags= 283 204 299 227  0x10;;
+DITL;148;;28;posAndFlags= 91 229 108 240  0x88;à;at
+DITL;148;;29;posAndFlags= 89 241 106 311  0x00;;
+DITL;148;;30;posAndFlags= 223 61 240 229  0x05;Marques spéciales;Show Special Stones
+DITL;148;;31;posAndFlags= 12 30 44 62  0xA0;;
+DITL;149;;1;posAndFlags= 150 241 172 388  0x04;Apprendre la partie;Apprendre la partie
+DITL;149;;2;posAndFlags= 151 135 173 198  0x04;Annuler;Annuler
+DITL;149;;3;posAndFlags= 13 56 31 414  0x08;Voici une position au coup ^0. Qui est gagnant ?;Voici une position au coup ^0. Qui est gagnant ?
+DITL;149;;4;posAndFlags= 56 169 74 338  0x06;Noir est gagnant;Noir est gagnant
+DITL;149;;5;posAndFlags= 76 169 94 331  0x06;Nulle;Nulle
+DITL;149;;6;posAndFlags= 96 169 114 319  0x06;Blanc est gagnant;Blanc est gagnant
+DITL;150;;1;posAndFlags= 70 290 90 384  0x04;Interrompre;Interrupt
+DITL;150;;2;posAndFlags= 70 125 90 263  0x04;Continuer l'analyse;Continue with Analysis
+DITL;150;;3;posAndFlags= 15 71 49 387  0x88;Ceci interrompra l'analyse rétrograde en cours. Êtes vous d'accord ?;This would interrupt the retrograd analysis in progress. Do you agree ?
+DITL;151;;1;posAndFlags= 98 176 118 269  0x04;Remplacer;Replace
+DITL;151;;2;posAndFlags= 98 300 118 372  0x04;Annuler;Cancel
+DITL;151;;3;posAndFlags= 19 24 51 56  0xA0;È;È
+DITL;151;;4;posAndFlags= 15 70 82 373  0x88;Il existe déjà sur le disque une base plus ancienne portant le même nom. Voulez-vous la remplacer ?;There is already an older database on disk with the same name. Do you want to replace it with the one you're saving?
+DITL;152;Désolé…;1;posAndFlags= 99 241 119 311  0x04;OK;OK
+DITL;152;Désolé…;2;posAndFlags= 12 60 94 328  0x88;Personne ne peut jouer dans cette position ! Revenez en arriere de quelques coups avant de créer le fichier de la solution.;Nobody can play in this position ! You should go back some moves before creating the solution of the solitaire.
+DITL;153;;1;posAndFlags= 280 440 300 538  0x04;OK;OK
+DITL;153;;2;posAndFlags= 280 279 300 377  0x04;Annuler;Cancel
+DITL;153;;3;posAndFlags= 16 515 48 547  0xA0;;
+DITL;153;;4;posAndFlags= 24 125 40 482  0x88;Entrez les préférences spéciales de Cassio :;Please set the special preference of Cassio :
+DITL;153;;5;posAndFlags= 61 13 79 183  0x05;débuggage général;general debugging
+DITL;153;;6;posAndFlags= 78 13 96 183  0x05;débuggage fichiers;file I/O debugging
+DITL;153;;7;posAndFlags= 95 13 113 205  0x05;débuggage lecture base;database debugging
+DITL;153;;8;posAndFlags= 112 13 130 211  0x05;débug. suite initialisations;initialisation debugging
+DITL;153;;9;posAndFlags= 129 13 147 199  0x05;débuggage évenements;events debugging
+DITL;153;;10;posAndFlags= 146 13 164 183  0x05;débuggage stratégie;strategy debugging
+DITL;153;;11;posAndFlags= 163 13 181 203  0x05;débug. gestion du temps;time debugging
+DITL;153;;12;posAndFlags= 180 13 198 183  0x05;débuggage optimalité;optimality debugging
+DITL;153;;13;posAndFlags= 197 13 215 198  0x05;débuggage arbre de jeu;game tree debugging
+DITL;153;;14;posAndFlags= 214 13 232 206  0x05;débug. Smart Game Board;Smart Game Board debug.
+DITL;153;;15;posAndFlags= 231 13 249 183  0x05;débug. apprentissage;book learning debugging
+DITL;153;;16;posAndFlags= 248 13 266 183  0x05;débug. algo de finale;endgame algorithm
+DITL;153;;17;posAndFlags= 61 214 79 384  0x05;débuggage Mac OS X;Mac OS X debugging
+DITL;153;;18;posAndFlags= 78 214 96 384  0x05;debug. engine results;engine input debug.
+DITL;153;;19;posAndFlags= 95 214 113 384  0x05;debug. engine requests;engine output debug.
+DITL;153;;20;posAndFlags= 112 214 130 384  0x05;debug. zoo;zoo debug.
+DITL;153;;21;posAndFlags= 129 214 147 384  0x05;Inutilisée;Unused
+DITL;153;;22;posAndFlags= 146 214 164 384  0x05;Inutilisée;Unused
+DITL;153;;23;posAndFlags= 163 214 181 384  0x05;Inutilisée;Unused
+DITL;153;;24;posAndFlags= 180 214 198 384  0x05;Inutilisée;Unused
+DITL;153;;25;posAndFlags= 197 214 215 384  0x05;Inutilisée;Unused
+DITL;153;;26;posAndFlags= 214 214 232 384  0x05;Inutilisée;Unused
+DITL;153;;27;posAndFlags= 231 214 249 384  0x05;Noms: algo Métaphone;Names : Metaphone
+DITL;153;;28;posAndFlags= 248 214 266 384  0x05;Noms courts dans liste;Short Names in List
+DITL;153;;29;posAndFlags= 61 389 79 586  0x05;Infos techn. dans rapport;technical infos in report
+DITL;153;;30;posAndFlags= 78 389 96 559  0x05;Noms des ouvertures;openings names
+DITL;153;;31;posAndFlags= 95 389 113 559  0x05;En mode IOS;IOS mode
+DITL;153;;32;posAndFlags= 112 389 130 559  0x05;La démo apprend;automatch learns openings
+DITL;153;;33;posAndFlags= 129 389 147 589  0x05;Déconnecter du réseau;disconnect from the Net
+DITL;153;;34;posAndFlags= 146 389 164 559  0x05;Afficher le graphe;show opening graph
+DITL;153;;35;posAndFlags= 163 389 181 581  0x05;Réfutations dans rapport;refutations in report
+DITL;153;;36;posAndFlags= 180 389 198 591  0x05;Ne pas utiliser trop de gras;Don't use bold
+DITL;153;;37;posAndFlags= 197 389 215 559  0x05;Pas de mise en veille;Forbid Sleep Mode of Mac
+DITL;153;;38;posAndFlags= 214 389 232 599  0x05;Montrer toutes les itérations;Show all iterations
+DITL;153;;39;posAndFlags= 231 389 249 593  0x05;Coord. en majuscules;Uppercase for Coordonates
+DITL;153;;40;posAndFlags= 248 389 266 600  0x05;Initiale des homonymes;Differentiate Homonyms
+DITL;154;;1;posAndFlags= 173 355 193 426  0x04;OK;OK
+DITL;154;;2;posAndFlags= 17 24 49 56  0xA0;Í;Í
+DITL;154;;3;posAndFlags= 15 78 64 430  0x88;Cette texture n'est pas disponible car je ne trouve plus, dans le dossier « Othelliers Cassio », le fichier « ^1 » contenant les images des cases.\n;This texture is not longer available because I can't find, in the folder «Othellier Cassio», the file «^1», which contains the necessary pictures.\n
+DITL;154;;4;posAndFlags= 71 79 135 441  0x88;Le plus probable est que vous avez déplacé l'exécutable Cassio sur votre disque dur par rapport à la distribution initiale. Essayez de placer l'exécutable à côté du dossier «Othelliers Cassio», et relancez Cassio.\n\nNB : voyez ^0 pour plus d'infos.;What probably happened is that you moved the Cassio executable on your hard disc, but not to the initial distribution. Try moving back the executable near the «Othelliers Cassio» folder, and relaunch Cassio.\n\nNB : see ^0 for more infos.
+DITL;155;;1;posAndFlags= 119 237 139 310  0x04;OK;OK
+DITL;155;;2;posAndFlags= 119 133 139 199  0x04;Annuler;Cancel
+DITL;155;;3;posAndFlags= 60 81 78 327  0x06;Ce nœud et tous ses sous-arbres;This node and all its subtrees
+DITL;155;;4;posAndFlags= 80 81 98 355  0x06;Tous les sous-arbres, garder ce nœud;All the subtrees, keeping this node
+DITL;155;;5;posAndFlags= 61 15 77 83  0x88;Détruire…;Delete…
+DITL;155;;6;posAndFlags= 15 16 47 48  0xA0;;
+DITL;155;;7;posAndFlags= 15 361 47 393  0xA0;;
+DITL;156;;1;posAndFlags= 329 373 349 529  0x04;Analyser maintenant;Begin Analysis
+DITL;156;;2;posAndFlags= 330 194 350 287  0x04;Annuler;Cancel
+DITL;156;;3;posAndFlags= 24 163 40 454  0x88;Analyse rétrograde de la partie en cours :;Retrograde analysis parameters of the current game :
+DITL;156;;4;posAndFlags= 16 44 48 76  0xA0;;
+DITL;156;;5;posAndFlags= 16 492 48 524  0xA0;;
+DITL;156;;6;posAndFlags= 74 13 90 125  0x88;Première passe :;First pass :
+DITL;156;;7;posAndFlags= 154 13 170 130  0x88;Deuxième passe :;Second pass :
+DITL;156;;8;posAndFlags= 234 13 250 129  0x88;Troisième passe :;Third pass :
+DITL;156;;9;posAndFlags= 74 134 91 324  0x00;;
+DITL;156;;10;posAndFlags= 74 344 91 544  0x00;;
+DITL;156;;11;posAndFlags= 99 134 116 324  0x00;;
+DITL;156;;12;posAndFlags= 99 344 116 544  0x00;;
+DITL;156;;13;posAndFlags= 124 134 141 324  0x00;;
+DITL;156;;14;posAndFlags= 124 344 141 544  0x00;;
+DITL;156;;15;posAndFlags= 154 134 171 324  0x00;;
+DITL;156;;16;posAndFlags= 154 344 171 544  0x00;;
+DITL;156;;17;posAndFlags= 179 134 196 324  0x00;;
+DITL;156;;18;posAndFlags= 179 344 196 544  0x00;;
+DITL;156;;19;posAndFlags= 204 134 221 324  0x00;;
+DITL;156;;20;posAndFlags= 204 344 221 544  0x00;;
+DITL;156;;21;posAndFlags= 234 134 251 324  0x00;;
+DITL;156;;22;posAndFlags= 234 344 251 544  0x00;;
+DITL;156;;23;posAndFlags= 259 134 276 324  0x00;;
+DITL;156;;24;posAndFlags= 259 344 276 544  0x00;;
+DITL;156;;25;posAndFlags= 284 134 301 324  0x00;;
+DITL;157;;1;posAndFlags= 68 259 88 323  0x04;OK;OK
+DITL;157;;2;posAndFlags= 68 148 88 224  0x04;Annuler;Annuler
+DITL;157;;3;posAndFlags= 13 71 48 338  0x88;Promouvoir la séquence menant à la position courante comme branche principale de l'arbre de jeu ?;Make the current game become the main branch of the game tree ?
+DITL;158;;1;posAndFlags= 80 279 100 364  0x04;Supprimer;Suppress
+DITL;158;;2;posAndFlags= 80 178 100 251  0x04;Annuler;Cancel
+DITL;158;;3;posAndFlags= 19 24 51 56  0xA0;È;È
+DITL;159;;1;posAndFlags= 80 279 100 364  0x04;Supprimer;Suppress
+DITL;159;;2;posAndFlags= 80 178 100 251  0x04;Annuler;Cancel
+DITL;159;;3;posAndFlags= 19 24 51 56  0xA0;È;È
+DITL;160;;1;posAndFlags= 382 250 402 348  0x04;OK;OK
+DITL;160;;2;posAndFlags= 382 89 402 187  0x04;Annuler;Annuler
+DITL;160;;3;posAndFlags= 26 110 42 371  0x88;Difficulté des solitaires proposés :;Select the solitaires difficulty :
+DITL;160;;4;posAndFlags= 15 387 47 419  0xA0;;
+DITL;160;;5;posAndFlags= 17 23 49 55  0xA0;;
+DITL;160;;6;posAndFlags= 106 21 124 191  0x05;6 cases vides;6 empties
+DITL;160;;7;posAndFlags= 106 245 124 415  0x05;7 cases vides;7 empties
+DITL;160;;8;posAndFlags= 126 21 144 191  0x05;8 cases vides;8 empties
+DITL;160;;9;posAndFlags= 126 245 144 415  0x05;9 cases vides;9 empties
+DITL;160;;10;posAndFlags= 146 21 164 191  0x05;10 cases vides;10 empties
+DITL;160;;11;posAndFlags= 146 245 164 415  0x05;11 cases vides;11 empties
+DITL;160;;12;posAndFlags= 166 21 184 191  0x05;12 cases vides;12 empties
+DITL;160;;13;posAndFlags= 166 245 184 415  0x05;13 cases vides;13 empties
+DITL;160;;14;posAndFlags= 186 21 204 191  0x05;14 cases vides;14 empties
+DITL;160;;15;posAndFlags= 186 245 204 415  0x05;15 cases vides;15 empties
+DITL;160;;16;posAndFlags= 206 21 224 191  0x05;16 cases vides;16 empties
+DITL;160;;17;posAndFlags= 206 245 224 415  0x05;17 cases vides;17 empties
+DITL;160;;18;posAndFlags= 226 21 244 191  0x05;18 cases vides;18 empties
+DITL;160;;19;posAndFlags= 226 245 244 415  0x05;19 cases vides;19 empties
+DITL;160;;20;posAndFlags= 246 21 264 191  0x05;20 cases vides;20 empties
+DITL;160;;21;posAndFlags= 246 245 264 415  0x05;21 cases vides;21 empties
+DITL;160;;22;posAndFlags= 266 21 284 191  0x05;22 cases vides;22 empties
+DITL;160;;23;posAndFlags= 266 245 284 415  0x05;23 cases vides;23 empties
+DITL;160;;24;posAndFlags= 286 21 304 191  0x05;24 cases vides;24 empties
+DITL;160;;25;posAndFlags= 286 245 304 415  0x05;25 cases vides;25 empties
+DITL;160;;26;posAndFlags= 324 71 342 404  0x05;Ne pas proposer de solitaire entre ordinateurs;Never propose a solitaire between computers
+DITL;161;;1;posAndFlags= 394 250 414 348  0x04;OK;OK
+DITL;161;;2;posAndFlags= 394 89 414 187  0x04;Annuler;Cancel
+DITL;161;;3;posAndFlags= 26 90 42 380  0x88;Choisissez les préférences de l'othellier :;Please configure the display of information
+DITL;161;;4;posAndFlags= 15 387 47 419  0xA0;;
+DITL;161;;5;posAndFlags= 17 23 49 55  0xA0;;
+DITL;161;;6;posAndFlags= 79 21 95 86  0x88;Général :;General
+DITL;161;;7;posAndFlags= 174 21 190 127  0x88;Commentaires :;Move comments :
+DITL;161;;8;posAndFlags= 248 21 264 134  0x88;Notes des coups :;Move values
+DITL;161;;9;posAndFlags= 302 21 318 170  0x88;Bibliothèque de Zebra :;Use Zebra book to:
+DITL;161;;10;posAndFlags= 78 136 96 429  0x05;Afficher le fond en bois de la fenêtre 2D;Use wood background
+DITL;161;;11;posAndFlags= 98 136 116 432  0x05;Meilleure suite sous l'othellier;Show best line under the board
+DITL;161;;12;posAndFlags= 118 136 136 429  0x05;Numéro du dernier coup sur le pion;Show last move number
+DITL;161;;13;posAndFlags= 138 136 156 431  0x05;Afficher les prochains coups (a, b, c, etc.);Show next moves on board (a, b, c, etc.)
+DITL;161;;14;posAndFlags= 173 136 191 400  0x05;Montrer le coup attendu par Cassio;Cassio's expected move
+DITL;161;;15;posAndFlags= 193 136 211 447  0x05;Commentaires des coups (!, ?, ??);Moves annotations (!, ?, ??)
+DITL;161;;16;posAndFlags= 213 136 231 445  0x05;Marques spéciales (delta, carré, etc);Special marks (delta, square, etc)
+DITL;161;;17;posAndFlags= 247 136 265 440  0x05;Pourcentages de la bibliothèque de Cassio;Pourcentages from Cassio's book
+DITL;161;;18;posAndFlags= 267 136 285 440  0x05;Évaluations de Cassio sur l'othellier;Show Cassio's evaluation on board
+DITL;161;;19;posAndFlags= 301 173 319 447  0x05;Afficher ses notes sur l'othellier;Show Zebra's evaluations on the board
+DITL;161;;20;posAndFlags= 321 173 339 446  0x05;Colorier les coups sur l'othellier;Colorize moves on the board
+DITL;162;;1;posAndFlags= 207 380 227 482  0x04;Remplacer;Replace
+DITL;162;;2;posAndFlags= 207 191 227 364  0x04;Créer nouvelle partie;Create new game
+DITL;162;;3;posAndFlags= 19 24 51 56  0xA0;È;È
+DITL;162;;4;posAndFlags= 15 70 67 484  0x88;Il existe déjà dans la liste une partie plus ancienne avec ^0 coups identiques. Souhaitez-vous la remplacer par celle que vous êtes en train d'enregister ?;We already have in the list an older game with ^0  identical moves.  Do you want to replace it with the one you're saving?\n\nOld game:\n^1\n\nNew game:\n^2\n
+DITL;162;;5;posAndFlags= 206 56 226 140  0x04;Annuler;
+DITL;162;;6;posAndFlags= 79 68 95 187  0x88;Ancienne partie :;
+DITL;162;;7;posAndFlags= 133 68 149 187  0x88;Nouvelle partie :;
+DITL;162;;8;posAndFlags= 99 86 129 501  0x88;^1;
+DITL;200;;1;posAndFlags= 140 388 160 477  0x04;Continuer;Continue
+DITL;200;;2;posAndFlags= 140 89 160 333  0x04;Effacer le rapport maintenant;Clear all text in report now
+DITL;200;;3;posAndFlags= 14 88 67 480  0x88;Le Rapport devient un peu long, vous devriez pensez à effacer du texte pour faire de la place.. Vous pouvez choisir de le vider complètement dès maintenant.;Report is getting quite long now. You should consider clearing some text to shorten it.. You can choose to clear it completely now if you wish.
+DITL;200;;4;posAndFlags= 17 23 49 55  0xA0;;
+DITL;201;;1;posAndFlags= 144 388 164 477  0x04;Continuer;Continue
+DITL;201;;2;posAndFlags= 144 85 164 329  0x04;Effacer le rapport maintenant;Clear all text in report now
+DITL;201;;3;posAndFlags= 14 88 67 480  0x88;Le rapport est vraiment trop long maintenant. Veuillez effacer du texte pour le raccourcir. Vous pouvez choisir de le vider dès maintenant.;Report is getting very very long now. Please clear some text to shorten it, please. You can choose to clear it completely now if you wish.
+DITL;201;;4;posAndFlags= 17 23 49 55  0xA0;;
+DITL;257;;1;posAndFlags= 80 240 100 300  0x04;Annuler;Cancel
+DITL;257;;2;posAndFlags= 20 60 64 298  0x08;Trop de texte dans le presse-papier pour pouvoir le lire.;Too much text in the clipboard to load it !
+DITL;258;;1;posAndFlags= 89 273 109 343  0x04;OK;OK
+DITL;258;;2;posAndFlags= 12 66 79 359  0x08;Il n'y a pas assez de mémoire temporaire dans le sytème pour passer en 3D. Essayez de quitter d'autres applications pour libérer de la mémoire.;Il n'y a pas assez de mémoire temporaire dans le sytème pour passer en 3D. Essayez de quitter d'autres applications pour libérer de la mémoire.
+DITL;1128;;1;posAndFlags= 103 389 123 467  0x04;OK;OK
+DITL;1128;;2;posAndFlags= 15 73 31 439  0x88;Les deux lignes suivantes donnent la même position;The two following lines are perfect transpositions :
+DITL;1128;;3;posAndFlags= 7 16 39 48  0xA0;;
+DITL;1128;;4;posAndFlags= 56 2 72 505  0x88;^0;^0
+DITL;1128;;5;posAndFlags= 71 2 87 506  0x88;^1;^1
+DITL;1129;;1;posAndFlags= 98 329 118 392  0x04;Oui;Yes
+DITL;1129;;2;posAndFlags= 98 221 118 279  0x04;Non;No
+DITL;1129;;3;posAndFlags= 17 19 49 51  0xA0;;
+DITL;1130;;1;posAndFlags= 109 328 129 391  0x04;OK;OK
+DITL;1130;;2;posAndFlags= 17 19 49 51  0xA0;;
+DITL;1132;;1;posAndFlags= 101 333 121 396  0x04;OK;OK
+DITL;1132;;2;posAndFlags= 18 74 88 420  0x88;Qu'avez-vous encore fait ?! La taille de l'index en mémoire (^0 parties) ne correspond pas à la taille de la base (^1 parties). Je suis donc obligé de le détruire.;What have you done ?! The size of the index in memory (^0 games) doesn't match the number of games (^1 games). So I'm forced to destroy it.
+DITL;1133;;1;posAndFlags= 80 299 100 372  0x04;Annuler;Cancel
+DITL;1133;;2;posAndFlags= 80 174 100 268  0x04;Remplacer;Replace
+DITL;1133;;3;posAndFlags= 19 24 51 56  0xA0;È;È
+DITL;1134;;1;posAndFlags= 253 357 273 415  0x04;OK;OK
+DITL;1134;;2;posAndFlags= 23 17 55 49  0xA0;;
+DITL;1134;;3;posAndFlags= 25 61 88 407  0x88;Pour définir ou modifier un groupe, il faut :\n• taper sa définition dans la fenêtre du rapport (au besoin en passant en mode «traitement de texte» avec pomme-option-t);"To define or modify a group, you have to:\n• type in its definition in the report window (switch to the ""word processing mode"" with command-option-t)"
+DITL;1134;;4;posAndFlags= 139 59 172 438  0x88;Exemple :\n∑phares={Rubens,de Vinci,Rembrandt,Michel-Ange,Puget,;Example :\n∑beacons={Rubens,de Vinci,Rembrandt,Michel-Ange,
+DITL;1134;;5;posAndFlags= 171 123 187 310  0x88;Watteau,Goya,Delacroix};Puget,Watteau,Goya,Delacroix}
+DITL;1134;;6;posAndFlags= 208 61 243 438  0x88;N.B. : Pour supprimer un groupe, définissez-le comme le groupe vide {}.;N.B. : To delete a group, define it as the empty group {}.
+DITL;1135;;1;posAndFlags= 309 346 329 413  0x04;OK;OK
+DITL;1135;;2;posAndFlags= 23 17 55 49  0xA0;;
+DITL;1135;;3;posAndFlags= 25 61 88 413  0x88;Pour trier des parties de la liste selon l'ordre final d'un tournoi, il faut :\n\n• sélectionner dans la liste les parties à trier;To sort games in the list according to rankings of a tournament, you have to :\n\n• select in the list the games to sort
+DITL;1135;;4;posAndFlags= 89 61 204 411  0x88;\n• avoir dans le presse-papier ou dans la sélection du rapport le classement du tournoi (rappel : mode «traitement de texte» avec pomme-option-t)\n\n• utiliser «suivant un classement de tournoi…» dans le sous-menu «Base-> trier la liste»;
+DITL;2000;;1;posAndFlags= 96 3 105 125  0x80;;
+DLOG;128;Quitter;; ;;
+DLOG;129;Choix cadence;; ;Niveau;Level
+DLOG;130;Préférences;; ;Préférences;Preferences
+DLOG;131;Vous passez;; ;Désolé…;Sorry…
+DLOG;132;Saisie Partie;; ;;
+DLOG;133;Coefficients;; ;Coefficients;Coefficients
+DLOG;134;Pas solitaire;; ;Désolé…;Sorry…
+DLOG;135;Solitaire !;; ;Solitaire !;Solitaire !
+DLOG;136;Recherche Thor;; ;Recherche d'une partie;Looking for one game
+DLOG;137;Fichier introuvable;; ;;
+DLOG;138;Félicitations sol. gagnant;; ;Félicitations;Congratulations
+DLOG;139;Félicitations sol. annulant;; ;Félicitations;Congratulations
+DLOG;140;Lecture base;; ;Lecture de la base;Database Loading
+DLOG;141;Problème mémoire;; ;Pas assez de mémoire !;Not enough memory !
+DLOG;142;Position féerique;; ;;
+DLOG;143;Fermeture fenêtre;; ;??!?!;??!?!
+DLOG;144;Aperçu impression;; ;Aperçu avant impression;Print Preview
+DLOG;145;Criteres;; ;Sous-critères;Sub-criterias
+DLOG;146;Presse Papier Pos;; ;Paramétrage des diagrammes;Diagram Parameters
+DLOG;147;Presse Papier Diag;; ;Paramétrage des diagrammes;Diagram Parameters
+DLOG;148;Presse Papier Liste;; ;Paramétrage des diagrammes;Diagram Parameters
+DLOG;149;Apprentissage partie;; ;;
+DLOG;150;Confirmation arrêt rétro;; ;Confirmation;Confirmation
+DLOG;151;Remplacer database ?;; ;;
+DLOG;152;Ecriture solitaire impossible;; ;Désolé…;Sorry…
+DLOG;153;Préférences spéciales;; ;;
+DLOG;154;Fichier photos non trouvé !;; ;;
+DLOG;155;Détruire sous-arbre;; ;;
+DLOG;156;Analyse rétrograde;; ;Analyse rétrograde;Retrograde Analysis
+DLOG;157;Branche principale;; ;Branche principale;Branche principale
+DLOG;158;Supprimer parties ?;; ;;
+DLOG;159;Supprimer partie ?;; ;;
+DLOG;160;Difficulté des solitaires;; ;;
+DLOG;161;Préférences d'affichage;; ;;
+DLOG;162;Remplacer partie ?;; ;;
+DLOG;1128;Nouvelle interversion;; ;Nouvelle interversion;New Perfect Transposition
+DLOG;1129;Oui-Non;; ;Oui-Non;Oui-Non
+DLOG;1133;Remplacer groupe ?;; ;;
+DLOG;1134;Syntaxe groupes;; ;Syntaxe des groupes;Group Syntax
+DLOG;1135;Trier les joueurs;; ;Trier les joueurs;Trier les joueurs
+DLOG;2000;Commentaires Smart Game Board;; ;Arbre de jeu;Game Tree
+MENU;1;;0;flags=FFFFFFF7;;
+MENU;1;;1;;À propos de Cassio...;About Cassio…
+MENU;1;;2;;-;-
+MENU;2;;0;flags=FFFEDDA7;Fichier;File
+MENU;2;Fichier;1;keyEquiv=N;Nouvelle partie;New Game
+MENU;2;Fichier;2;keyEquiv=O;Ouvrir…;Open…
+MENU;2;Fichier;3;keyEquiv=;Document récent;Reopen
+MENU;2;Fichier;4;keyEquiv=W;Fermer la fenêtre;Close Window
+MENU;2;Fichier;5;;Importer tout un répertoire…;Import games from directory…
+MENU;2;Fichier;6;;-;-
+MENU;2;Fichier;7;keyEquiv=S;Enregistrer la partie…;Save Current Game as…
+MENU;2;Fichier;8;keyEquiv=∑;Enregistrer l'arbre de jeu…;Save Game Tree as…
+MENU;2;Fichier;9;;-;-
+MENU;2;Fichier;10;;Aperçu avant impression…;Print Preview…
+MENU;2;Fichier;11;;Format d'impression…;Print Setup…
+MENU;2;Fichier;12;;Imprimer…;Print…
+MENU;2;Fichier;13;;-;-
+MENU;2;Fichier;14;keyEquiv=:;Iconiser;Iconize
+MENU;2;Fichier;15;keyEquiv=,;Préférences…;Preferences…
+MENU;2;Fichier;16;;-;-
+MENU;2;Fichier;17;keyEquiv=Q;Quitter;Quit
+MENU;3;;0;flags=00005501;Édition;Edit
+MENU;3;Édition;1;keyEquiv=Z;Annuler;Cancel
+MENU;3;Édition;2;;-;-
+MENU;3;Édition;3;keyEquiv=X;Couper;Cut
+MENU;3;Édition;4;keyEquiv=C;Copier;Copy
+MENU;3;Édition;5;keyEquiv=;Copier spécial;Copy (special)
+MENU;3;Édition;6;keyEquiv=V;Coller;Paste
+MENU;3;Édition;7;;Effacer;Clear
+MENU;3;Édition;8;keyEquiv=A;Tout sélectionner;Select All
+MENU;3;Édition;9;;-;-
+MENU;3;Édition;10;keyEquiv=@;Configurer le presse-papier…;Diagram Parameters…
+MENU;3;Édition;11;;-;-
+MENU;3;Édition;12;keyEquiv=?;Raccourcis de Cassio;Cassio Short Cuts
+MENU;4;;0;flags=FFFE76F7;Partie;Game
+MENU;4;Partie;1;;Revenir au coup n°…;Go Back to Move #…
+MENU;4;Partie;2;keyEquiv=®;Revenir au début;Go Back to Start
+MENU;4;Partie;3;;-;-
+MENU;4;Partie;4;keyEquiv=Z;1 coup en arrière;1 Move Back
+MENU;4;Partie;5;keyEquiv=E;1 coup en avant;1 Move Forward
+MENU;4;Partie;6;;2 coups en arrière;2 Moves Back
+MENU;4;Partie;7;;2 coups en avant;2 Moves Forward
+MENU;4;Partie;8;;-;-
+MENU;4;Partie;9;keyEquiv=D;Diagramme…;Diagram…
+MENU;4;Partie;10;keyEquiv=+;Taper un diagramme…;Type in Transcript…
+MENU;4;Partie;11;;-;-
+MENU;4;Partie;12;;Nouvelle branche principale…;Make Main Branch in Game Tree…
+MENU;4;Partie;13;keyEquiv=-;Détruire un coup…;Delete Move…
+MENU;4;Partie;14;;Modifier la position...;Modify Position...
+MENU;4;Partie;15;;-;-
+MENU;4;Partie;16;keyEquiv=U;Forcer Cassio à jouer;Force Cassio to Move Now
+MENU;5;;0;flags=FFFFAFB7;Mode;Mode
+MENU;5;Mode;1;keyEquiv=T;Choix du niveau de jeu…;Choose Playing Level…
+MENU;5;Mode;2;;Réflexion sur le temps adverse;Think on Opponent's Time
+MENU;5;Mode;3;;-;-
+MENU;5;Mode;4;;Bibliothèque d'ouvertures active;Use Opening Library
+MENU;5;Mode;5;;Varier les ouvertures;Opening practice session
+MENU;5;Mode;6;;-;-
+MENU;5;Mode;7;;Milieu de partie (note principale);Midgame (principal value)
+MENU;5;Mode;8;keyEquiv=;Milieu de partie (n meilleures notes);Midgame (n best values)
+MENU;5;Mode;9;;Milieu de partie (toutes les notes);Midgame (all values)
+MENU;5;Mode;10;;Finale (coup gagnant);Endgame (winning move)
+MENU;5;Mode;11;;Finale (meilleur coup);Endgame (best move)
+MENU;5;Mode;12;;-;-
+MENU;5;Mode;13;;Coefficients d'évaluation…;Evaluation Coefficients…
+MENU;5;Mode;14;;-;-
+MENU;5;Mode;15;keyEquiv=I;Configurer l'analyse rétrograde…;Configure Retrograde Analysis…
+MENU;5;Mode;16;;Analyser la partie;Analyse game
+MENU;6;;0;flags=FFFFFFDB;Joueurs;Players
+MENU;6;Joueurs;1;keyEquiv=F;Humain contre Humain;Human vs Human
+MENU;6;Joueurs;2;;-;-
+MENU;6;Joueurs;3;;Cassio joue les Noirs;Cassio Plays Black
+MENU;6;Joueurs;4;;Cassio joue les Blancs;Cassio Plays White
+MENU;6;Joueurs;5;;Cassio analyse (pour les deux couleurs);Cassio analyses (for both colors)
+MENU;6;Joueurs;6;;-;-
+MENU;6;Joueurs;7;;Ajouter une minute à Noir;Add a Minute, Black
+MENU;6;Joueurs;8;;Ajouter une minute à Blanc;Add a Minute, White
+MENU;7;;0;flags=FFFEFD77;Affichage;Display
+MENU;7;Affichage;1;;Voir l'othellier en 3D;Switch to 3D Board View
+MENU;7;Affichage;2;keyEquiv=;Couleur;Color
+MENU;7;Affichage;3;;-;-
+MENU;7;Affichage;4;;Symétrie  F5-->E6;Symmetry F5-->E6
+MENU;7;Affichage;5;;Symétrie  F5-->D3;Symmetry  F5-->D3
+MENU;7;Affichage;6;;Rotation   F5-->C4;Rotation   F5-->C4
+MENU;7;Affichage;7;;-;-
+MENU;7;Affichage;8;keyEquiv=à;Configurer l'affichage…;Configure board informations…
+MENU;7;Affichage;9;;-;-
+MENU;7;Affichage;10;keyEquiv==;Palette flottante;Palette
+MENU;7;Affichage;11;keyEquiv=R;Fenêtre du Rapport;Show Game Report
+MENU;7;Affichage;12;keyEquiv=P;Fenêtre de Réflexion de Cassio;Show Calculations Window
+MENU;7;Affichage;13;keyEquiv=G;Fenêtre de Gestion du temps;Show Time Management Window
+MENU;7;Affichage;14;keyEquiv=$;Fenêtre de l'Arbre de jeu;Show Game Tree Window
+MENU;7;Affichage;15;;Fenêtre de la Courbe d'évaluation;Show Evaluation Graph Window
+MENU;7;Affichage;16;keyEquiv=<;Faire défiler les fenêtres;Cycle through windows
+MENU;7;Affichage;17;;-;-
+MENU;7;Affichage;18;;Son;
+MENU;8;;0;flags=FFED5B07;Base;Database
+MENU;8;Base;1;keyEquiv=B;Charger des parties de la base…;Load Games from Database…
+MENU;8;Base;2;keyEquiv=;Enregistrer les parties de la liste;Save List of Games…
+MENU;8;Base;3;;-;-
+MENU;8;Base;4;;Ouvrir la partie sélectionnée;Load Selected Game
+MENU;8;Base;5;;Jouer le coup de la partie sélectionnée;Play Next Move of Selected Game
+MENU;8;Base;6;;Jouer le coup majoritaire;Play Most Common Move
+MENU;8;Base;7;;-;-
+MENU;8;Base;8;;Statistiques;Statistics
+MENU;8;Base;9;;Liste des parties;List of Games
+MENU;8;Base;10;;Nuage de régression;Regression cloud
+MENU;8;Base;11;;-;-
+MENU;8;Base;12;keyEquiv=Y;Sous-sélection active;Show Sub-Selection
+MENU;8;Base;13;;-;-
+MENU;8;Base;14;keyEquiv=ß;Ajouter la partie à la liste…;Add Current Game to List…
+MENU;8;Base;15;keyEquiv=>;Renverser l'ordre de la liste;Reverse List Order
+MENU;8;Base;16;keyEquiv=;Trier la liste;Sort the List
+MENU;8;Base;17;;-;-
+MENU;8;Base;18;;Définir un groupe;Define a New Group
+MENU;8;Base;19;;Lister les groupes;List Groups
+MENU;8;Base;20;;-;-
+MENU;8;Base;21;;Interversions autorisées;Check Transpositions
+MENU;9;;0;flags=FFFFFFFF;π;π
+MENU;9;π;1;;Ajuster modèle linéaire de finale;Ajuster modèle linéaire de finale
+MENU;9;π;2;keyEquiv=£;Rechercher les solitaires de la liste;Rechercher les solitaires de la liste
+MENU;9;π;3;;Préférences spéciales…;Préférences spéciales…
+MENU;9;π;4;;Ouvrir une bibliothèque…;Ouvrir une bibliothèque…
+MENU;9;π;5;keyEquiv=;Gestion de la base WTHOR;Gestion de la base WTHOR
+MENU;9;π;6;;Nettoyer le graphe d'apprentissage;Nettoyer le graphe d'apprentissage
+MENU;9;π;7;;Benchmark de milieu;Run midgame benchmark
+MENU;9;π;8;;Effet spécial 1;Effet spécial 1
+MENU;9;π;9;;Effet spécial 2;Effet spécial 2
+MENU;9;π;10;;Inutilisé;Inutilisé
+MENU;9;π;11;;Inutilisé;Inutilisé
+MENU;9;π;12;keyEquiv=%;Inutilisé;Inutilisé
+MENU;9;π;13;;Précompiler les sources de Cassio;Précompiler les sources de Cassio
+MENU;9;π;14;;Cellule d'apprentissage->rapport;Cellule d'apprentissage->rapport
+MENU;9;π;15;;Tout écrire dans « Rapport.log »;Tout écrire dans « Rapport.log »
+MENU;9;π;16;;Algo Métaphone pour deviner les noms;Algo Métaphone pour deviner les noms
+MENU;9;π;17;keyEquiv=†;Traitement de texte;Traitement de texte
+MENU;9;π;18;;Match…;Match…
+MENU;9;π;19;;Arrondir les évaluations;Arrondir les évaluations
+MENU;9;π;20;;Faire confiance aux scores de l'arbre;Faire confiance aux scores de l'arbre
+MENU;10;;0;flags=FFFFFFDF;Solitaire;Solitaire
+MENU;10;Solitaire;1;keyEquiv=J;Jouer un nouveau solitaire;New Solitaire
+MENU;10;Solitaire;2;;Configurer les solitaires…;Configure Solitaires…
+MENU;10;Solitaire;3;;Enregistrer la solution du solitaire…;Save Solution of this Solitaire…
+MENU;10;Solitaire;4;;Est un solitaire… ?;Is Position a Solitaire… ?
+MENU;10;Solitaire;5;;-;-
+MENU;10;Solitaire;6;keyEquiv=K;Nouveau problème de prise de coin;New Corner Puzzle
+MENU;10;Solitaire;7;keyEquiv=Ë;Est un problème de prise de coin ?;Is Position a Corner Puzzle ?
+MENU;10;Solitaire;8;;Chercher un problème de coin dans la liste;Find Corner Puzzle in List
+MENU;100;;0;flags=FFBFFFF7;Couleur;Color
+MENU;100;Couleur;1;keyEquiv=;Picture 2D;Picture 2D
+MENU;100;Couleur;2;keyEquiv=;Picture 3D;Picture 3D
+MENU;100;Couleur;3;;-;-
+MENU;100;Couleur;4;;Vert;Green
+MENU;100;Couleur;5;;Vert pâle;Light Green
+MENU;100;Couleur;6;;Vert sapin;Wood Green
+MENU;100;Couleur;7;;Vert pomme;Apple Green
+MENU;100;Couleur;8;;Vert turquoise;Lagoon Green
+MENU;100;Couleur;9;;Vert kaki;Kaki Green
+MENU;100;Couleur;10;;Bleu;Blue
+MENU;100;Couleur;11;;Bleu pâle;Light Blue
+MENU;100;Couleur;12;;Marron;Brown
+MENU;100;Couleur;13;;Rose;Rose
+MENU;100;Couleur;14;;Orange;Orange
+MENU;100;Couleur;15;;Jaune;Yellow
+MENU;100;Couleur;16;;Jaune pâle;Light Yellow
+MENU;100;Couleur;17;;Marine;Marine
+MENU;100;Couleur;18;;Marine pâle;Light Marine
+MENU;100;Couleur;19;;Violet;Violet
+MENU;100;Couleur;20;;Magenta;Magenta
+MENU;100;Couleur;21;;Magenta pâle;Light Magenta
+MENU;100;Couleur;22;;-;-
+MENU;100;Couleur;23;;Choisir une couleur…;Choose other color…
+MENU;101;;0;flags=FFFFFEFF;Tri;Sort
+MENU;101;Tri;1;;Par base;by Database
+MENU;101;Tri;2;;Par date;by Date
+MENU;101;Tri;3;;Par joueur noir;by Black Player
+MENU;101;Tri;4;;Par joueur blanc;by White Player
+MENU;101;Tri;5;;Par ouverture;by Opening
+MENU;101;Tri;6;;Par résultat théorique;by Theorical Score
+MENU;101;Tri;7;;Par score réel;by Real Score
+MENU;101;Tri;8;;-;-
+MENU;101;Tri;9;;Trier suivant un classement de tournoi…;matching players order…
+MENU;102;;0;flags=FFFFFFBF;Copier spécial;Copy (special)
+MENU;102;Copier spécial;1;keyEquiv=©;Copier la suite des coups en TEXT;Copy the sequence of moves as TEXT
+MENU;102;Copier spécial;2;;Copier le diagramme de la partie en TEXT;Copy game diagram as TEXT
+MENU;102;Copier spécial;3;;Copier la position courante en TEXT;Copy current position as TEXT
+MENU;102;Copier spécial;4;;Copier la position courante en HTML;Copy current position as HTML
+MENU;102;Copier spécial;5;;Copier la position pour script de finales;Copy position for endgame script
+MENU;102;Copier spécial;6;;-;-
+MENU;102;Copier spécial;7;keyEquiv=0;Copier un diagramme 10x10…;Copy 10x10 diagram…
+MENU;103;;0;flags=FFFFFFFF;Réouvrir;Reopen
+MENU;104;;0;flags=FFFFFFFF;Milieu de partie (n meilleures notes);N best values
+MENU;104;Milieu de partie (n meilleures notes);1;;2 meilleures notes;2 best values
+MENU;104;Milieu de partie (n meilleures notes);2;;3 meilleures notes;3 best values
+MENU;104;Milieu de partie (n meilleures notes);3;;4 meilleures notes;4 best values
+MENU;104;Milieu de partie (n meilleures notes);4;;5 meilleures notes;5 best values
+MENU;104;Milieu de partie (n meilleures notes);5;;6 meilleures notes;6 best values
+MENU;104;Milieu de partie (n meilleures notes);6;;7 meilleures notes;7 best values
+MENU;104;Milieu de partie (n meilleures notes);7;;8 meilleures notes;8 best values
+MENU;104;Milieu de partie (n meilleures notes);8;;9 meilleures notes;9 best values
+MENU;104;Milieu de partie (n meilleures notes);9;;10 meilleures notes;10 best values
+MENU;104;Milieu de partie (n meilleures notes);10;;11 meilleures notes;11 best values
+MENU;104;Milieu de partie (n meilleures notes);11;;12 meilleures notes;12 best values
+MENU;105;;0;flags=FFFFFDFF;Nb de meilleures notes;Nb of best values
+MENU;105;Nb de meilleures notes;1;;Meilleure note;Principale value
+MENU;105;Nb de meilleures notes;2;;2 meilleures notes  ;2 best values
+MENU;105;Nb de meilleures notes;3;;3 meilleures notes;3 best values
+MENU;105;Nb de meilleures notes;4;;4 meilleures notes;4 best values
+MENU;105;Nb de meilleures notes;5;;5 meilleures notes;5 best values
+MENU;105;Nb de meilleures notes;6;;6 meilleures notes;6 best values
+MENU;105;Nb de meilleures notes;7;;7 meilleures notes;7 best values
+MENU;105;Nb de meilleures notes;8;;8 meilleures notes;8 best values
+MENU;105;Nb de meilleures notes;9;;-;All values
+MENU;105;Nb de meilleures notes;10;;Toutes les notes;
+MENU;106;;0;flags=FFFFEFFF;Profondeur;Depth
+MENU;106;Profondeur;1;;Profondeur 3;Depth 3
+MENU;106;Profondeur;2;;Profondeur 5;Depth 5
+MENU;106;Profondeur;3;;Profondeur 7;Depth 7
+MENU;106;Profondeur;4;;Profondeur 9;Depth 9
+MENU;106;Profondeur;5;;Profondeur 11;Depth 11
+MENU;106;Profondeur;6;;Profondeur 13;Depth 13
+MENU;106;Profondeur;7;;Profondeur 15;Depth 15
+MENU;106;Profondeur;8;;Profondeur 17;Depth 17
+MENU;106;Profondeur;9;;Profondeur 19;Depth 19
+MENU;106;Profondeur;10;;Profondeur 21;Depth 21
+MENU;106;Profondeur;11;;Profondeur 23;Depth 23
+MENU;106;Profondeur;12;;-;-
+MENU;106;Profondeur;13;;10 sec. par coup;10 sec. per move
+MENU;106;Profondeur;14;;20 sec. par coup;20 sec. per move
+MENU;106;Profondeur;15;;30 sec. par coup;30 sec. per move
+MENU;106;Profondeur;16;;1 min. par coup;1 min. per move
+MENU;106;Profondeur;17;;2 min. par coup;2 min. per move
+MENU;106;Profondeur;18;;5 min. par coup;5 min. per move
+MENU;106;Profondeur;19;;15 min. par coup   ;15 min. per move
+MENU;106;Profondeur;20;;1 h. par coup;1 h. per move
+MENU;107;;0;flags=FFFBFBFF;Durée analyse;Duration
+MENU;107;Durée analyse;1;;Pendant 1 minute;During 1 minute
+MENU;107;Durée analyse;2;;Pendant 2 minutes;During 2 minutes
+MENU;107;Durée analyse;3;;Pendant 5 minutes;During 5 minutes
+MENU;107;Durée analyse;4;;Pendant 10 minutes;During 10 minutes
+MENU;107;Durée analyse;5;;Pendant 30 minutes;During 30 minutes
+MENU;107;Durée analyse;6;;Pendant 1 heure;During 1 heure
+MENU;107;Durée analyse;7;;Pendant 2 heures;During 2 heures
+MENU;107;Durée analyse;8;;Pendant 6 heures;During 6 heures
+MENU;107;Durée analyse;9;;Pendant 12 heures;During 12 heures
+MENU;107;Durée analyse;10;;-;-
+MENU;107;Durée analyse;11;;Jusqu'au coup 45;Up to move #45
+MENU;107;Durée analyse;12;;Jusqu'au coup 40;Up to move #40
+MENU;107;Durée analyse;13;;Jusqu'au coup 35;Up to move #35
+MENU;107;Durée analyse;14;;Jusqu'au coup 30;Up to move #30
+MENU;107;Durée analyse;15;;Jusqu'au coup 25;Up to move #25
+MENU;107;Durée analyse;16;;Jusqu'au coup 20;Up to move #20
+MENU;107;Durée analyse;17;;Jusqu'au coup 15;Up to move #15
+MENU;107;Durée analyse;18;;-;-
+MENU;107;Durée analyse;19;;Jusqu'à la fin des temps     ;Indefinitely
+MENU;108;;0;flags=FFFFFFFF;Format;Format
+MENU;108;Format;1;;format PGN (Portable Game Notation);format PGN (Portable Game Notation)
+MENU;108;Format;2;;format WTB (WThor database);format WTB (WThor database)
+MENU;108;Format;3;;format texte…;format texte…
+MENU;108;Format;4;;format HTML…;format HTML…
+MENU;108;Format;5;;format XOF (OthBase);format XOF (OthBase)
+MENU;108;Format;6;;format PAR (Thor.par);format PAR (Thor.par)
+MENU;109;;0;flags=FFFFFFFF;Pictures 2D;Pictures 2D
+MENU;110;;0;flags=FFFFFFFF;Pictures 3D;Pictures 3D
+MENU;111;;0;flags=FFFFFF6F;Gestion de la base;Gestion de la base
+MENU;111;Gestion de la base;1;;Changer le tournoi des parties sélectionnées;Changer le tournoi des parties sélectionnées
+MENU;111;Gestion de la base;2;;Changer le joueur noir des parties sélectionnées;Changer le joueur noir des parties sélectionnées
+MENU;111;Gestion de la base;3;;Changer le joueur blanc des parties sélectionnées;Changer le joueur blanc des parties sélectionnées
+MENU;111;Gestion de la base;4;;-;-
+MENU;111;Gestion de la base;5;;Sélectionner les parties où score théorique = réel;Sélectionner les parties où score théorique = réel
+MENU;111;Gestion de la base;6;;Calculer le score théorique des parties sélectionnées;Calculer le score théorique des parties sélectionnées
+MENU;111;Gestion de la base;7;;-;-
+MENU;111;Gestion de la base;8;;Créer un tournoi…;Créer un tournoi…
+MENU;111;Gestion de la base;9;;Créer un joueur…;Créer un joueur…
+MENU;112;;0;flags=FFFFFFDF;Gestion de la base;Gestion de la base
+MENU;112;Gestion de la base;1;;Evaluation d'Edmond / score théorique;Edmond evaluations / theoretical scores
+MENU;112;Gestion de la base;2;;Evaluation de Cassio / score théorique;Cassio  evaluations / theoretical scores
+MENU;112;Gestion de la base;3;;Evaluation du vieux Cassio / score théorique;Old Cassio evaluations / theoretical scores
+MENU;112;Gestion de la base;4;;Evaluation d'Edax / score théorique;Edax evaluations / theoretical scores
+MENU;112;Gestion de la base;5;;-;-
+MENU;112;Gestion de la base;6;;Score final / score théorique;Final score / theoretical score
+MENU;112;Gestion de la base;7;;Evalluation d'ouverture / score final;Opening evaluation / final score
+MENU;3001;;0;flags=FFFFFFFB;Ouverture;Opening
+MENU;3001;Ouverture;1;;à la souris…;On Mouse…
+MENU;3001;Ouverture;2;;-;-
+MENU;3002;;0;flags=FFFFFFFB;Fond;Fond
+MENU;3002;Fond;1;;Transparent;Translucid
+MENU;3002;Fond;2;;-;-
+MENU;3002;Fond;3;;Blanc;White
+MENU;3002;Fond;4;;Vert;Green
+MENU;3002;Fond;5;;Bleu;Blue
+MENU;3002;Fond;6;;Cyan;Cyan
+MENU;3002;Fond;7;;Magenta;Magenta
+MENU;3002;Fond;8;;Rouge;Red
+MENU;3002;Fond;9;;Jaune;Yellow
+MENU;3002;Fond;10;;Noir;Black
+MENU;3003;;0;flags=FFFFFFFF;Intensité;Intensity
+MENU;3003;Intensité;1;;25%;25%
+MENU;3003;Intensité;2;;50%;50%
+MENU;3003;Intensité;3;;75%;75%
+MENU;3003;Intensité;4;;100%;100%
+MENU;3004;;0;flags=FFFFFFEF;Bases;Bases
+MENU;3004;Bases;1;;Toutes les bases  ;All databases
+MENU;3004;Bases;2;;Certaines bases  ;Some databases
+MENU;3004;Bases;3;;Aucune base  ;No database
+MENU;3004;Bases;4;;-;-
+MENU;3005;;0;flags=FF6EEEEF;Marques spéciales;Special stones
+MENU;3005;Marques spéciales;1;;Coup intéressant;Interesting move
+MENU;3005;Marques spéciales;2;;Coup douteux;Dubious move
+MENU;3005;Marques spéciales;3;;Coup exotique;Exotic move
+MENU;3005;Marques spéciales;4;;-;-
+MENU;3005;Marques spéciales;5;;Delta noir;Delta (black)
+MENU;3005;Marques spéciales;6;;Delta blanc;Delta (white)
+MENU;3005;Marques spéciales;7;;Delta (transparent);Delta (transparent)
+MENU;3005;Marques spéciales;8;;-;-
+MENU;3005;Marques spéciales;9;;Losange noir;Rhomb (black)
+MENU;3005;Marques spéciales;10;;Losange blanc;Rhomb (white)
+MENU;3005;Marques spéciales;11;;Losange (transparent);Rhomb (transparent)
+MENU;3005;Marques spéciales;12;;-;-
+MENU;3005;Marques spéciales;13;;Carré noir;Square (black)
+MENU;3005;Marques spéciales;14;;Carré blanc;Square (white)
+MENU;3005;Marques spéciales;15;;Carré (transparent);Square (transparent)
+MENU;3005;Marques spéciales;16;;-;-
+MENU;3005;Marques spéciales;17;;Petit rond noir;Circle (black)
+MENU;3005;Marques spéciales;18;;Petit rond blanc;Circle (white)
+MENU;3005;Marques spéciales;19;;Petit rond (transparent);Circle (transparent)
+MENU;3005;Marques spéciales;20;;-;-
+MENU;3005;Marques spéciales;21;;Croix;Cross
+MENU;3005;Marques spéciales;22;;Étoile;Star
+MENU;3005;Marques spéciales;23;;-;-
+MENU;3005;Marques spéciales;24;;Flèche…;Arrow…
+MENU;3005;Marques spéciales;25;;Ligne…;Line…
+MENU;3006;;0;flags=FFFFFFEF;Type analyse;Analysis
+MENU;3006;Type analyse;1;;Finale parfaite;Endgame (perfect)
+MENU;3006;Type analyse;2;;Finale gagnant/perdant;Endgame (WLD)
+MENU;3006;Type analyse;3;;Milieu de partie;Midgame analysis
+MENU;3006;Type analyse;4;;-;-
+MENU;3006;Type analyse;5;;Rien du tout;Nothing
+MENU;3007;;0;flags=FFFFFFFB;Joueurs noirs récents;Recent Black Players
+MENU;3007;Joueurs noirs récents;1;;Joueurs noirs récents;Recent Black Players
+MENU;3007;Joueurs noirs récents;2;;-;-
+MENU;3008;;0;flags=FFFFFFFB;Tournois récents;Recent Tournaments
+MENU;3008;Tournois récents;1;;Tournois récents;Recent Tournaments
+MENU;3008;Tournois récents;2;;-;-
+MENU;3009;;0;flags=FFFFFFFB;Joueurs blancs récents;Recent White Players
+MENU;3009;Joueurs blancs récents;1;;Joueurs blancs récents;Recent White Players
+MENU;3009;Joueurs blancs récents;2;;-;-
+MENU;3010;;0;flags=FFFFFFFB;Bases (saisie);Bases (saisie)
+MENU;3010;Bases (saisie);1;;Créer une nouvelle base…;Create a new database…
+MENU;3010;Bases (saisie);2;;-;-
+MENU;3011;;0;flags=FFFFFFFF;Police Rapport;Police Rapport
+MENU;3011;Police Rapport;1;;Baskerville;Baskerville
+MENU;3011;Police Rapport;2;;Times New Roman;Times New Roman
+MENU;3011;Police Rapport;3;;Moderne;Moderne
+MENU;3011;Police Rapport;4;;Gill Sans;Gill Sans
+MENU;3011;Police Rapport;5;;Simple (Mac OS 9);Simple (Mac OS 9)
+MENU;3012;;0;flags=FFFFFFFF;Choix Evaluation;Choix Evaluation
+MENU;3012;Choix Evaluation;1;;Cassio;Cassio
+MENU;3012;Choix Evaluation;2;;Edmond;Edmond
+MENU;3013;;0;flags=FFFFFFFF;Parallelisme;Parallelisme
+MENU;3013;Parallelisme;1;;1;1
+MENU;3013;Parallelisme;2;;2;2
+MENU;3013;Parallelisme;3;;3;3
+MENU;3013;Parallelisme;4;;4;4
+MENU;3013;Parallelisme;5;;5;5
+MENU;3013;Parallelisme;6;;6;6
+MENU;3013;Parallelisme;7;;7;7
+MENU;3013;Parallelisme;8;;8;8
+MENU;3013;Parallelisme;9;;9;9
+MENU;3013;Parallelisme;10;;10;10
+MENU;3013;Parallelisme;11;;11;11
+MENU;3013;Parallelisme;12;;12;12
+MENU;3013;Parallelisme;13;;13;13
+MENU;3013;Parallelisme;14;;14;14
+MENU;3013;Parallelisme;15;;15;15
+MENU;3013;Parallelisme;16;;16;16
+MENU;3014;;0;flags=FFFFFFFF;Pop-up Liste;Pop-up Liste
+MENU;3014;Pop-up Liste;1;;Enregistrer au format PGN…;Save as format PGN…
+MENU;3014;Pop-up Liste;2;;Enregistrer au format WTB…;Save as format WTB…
+MENU;3014;Pop-up Liste;3;;Enregistrer au format texte…;Save as format text…
+MENU;3014;Pop-up Liste;4;;Enregistrer au format HTML…;Save as format HTML…
+MENU;3014;Pop-up Liste;5;;Enregistrer au format XOF…;Save as format XOF…
+MENU;3014;Pop-up Liste;6;;Enregistrer au format PAR…;Save as format PAR…
+STR#;1000;;0;;Raccourcis;Raccourcis
+STR#;1000;Raccourcis;1;;Liste des raccourcis de Cassio :;List of Cassio's shortcuts :
+STR#;1000;Raccourcis;2;;;
+STR#;1000;Raccourcis;3;;;
+STR#;1000;Raccourcis;4;;Jeu contre Cassio :;Play against Cassio :
+STR#;1000;Raccourcis;5;;;
+STR#;1000;Raccourcis;6;;;
+STR#;1000;Raccourcis;7;;;
+STR#;1000;Raccourcis;8;;clic hors de l'othellier;click beside the board
+STR#;1000;Raccourcis;9;;montre les coups légaux;show legal moves
+STR#;1000;Raccourcis;10;;C;C
+STR#;1000;Raccourcis;11;;change la couleur de Cassio;change Cassio's color
+STR#;1000;Raccourcis;12;;option-X;option-X
+STR#;1000;Raccourcis;13;;lance la réflexion de Cassio;make Cassio think
+STR#;1000;Raccourcis;14;;option-F (option-G);option-F (option-G)
+STR#;1000;Raccourcis;15;;lance la finale en mode meilleur coup (coup gagnant);make Cassio find best endgame move (best WLD move)
+STR#;1000;Raccourcis;16;;effacement;delete
+STR#;1000;Raccourcis;17;;montre puis joue la suggestion de Cassio;show/play Cassio's suggestion
+STR#;1000;Raccourcis;18;;double-clic sur la courbe;double-click for the curve
+STR#;1000;Raccourcis;19;;revient au coup correspondant;go back to indicated move
+STR#;1000;Raccourcis;20;;;
+STR#;1000;Raccourcis;21;;;
+STR#;1000;Raccourcis;22;;;
+STR#;1000;Raccourcis;23;;;
+STR#;1000;Raccourcis;24;;Navigation dans la partie :;Game navigation :
+STR#;1000;Raccourcis;25;;;
+STR#;1000;Raccourcis;26;;;
+STR#;1000;Raccourcis;27;;;
+STR#;1000;Raccourcis;28;;R, flèche gauche;R, left arrow
+STR#;1000;Raccourcis;29;;recule d'un coup;go back one move
+STR#;1000;Raccourcis;30;;E, flèche droite;E, right arrow
+STR#;1000;Raccourcis;31;;avance d'un coup;go forward one move
+STR#;1000;Raccourcis;32;;O;O
+STR#;1000;Raccourcis;33;;recule de deux coups;go back two moves
+STR#;1000;Raccourcis;34;;P;P
+STR#;1000;Raccourcis;35;;avance de deux coups;go forward two moves
+STR#;1000;Raccourcis;36;;option-R, option-Z;option-R, option-Z
+STR#;1000;Raccourcis;37;;retourne au début de la partie;go back to game beginning
+STR#;1000;Raccourcis;38;;option-E;option-E
+STR#;1000;Raccourcis;39;;va à la fin de la partie;go to last/final position
+STR#;1000;Raccourcis;40;;option-clic sur une case;option-click on a square
+STR#;1000;Raccourcis;41;;recule ou avance jusqu'au coup pointé;go to double-clicked move
+STR#;1000;Raccourcis;42;;clic sur le dernier coup;click on last move
+STR#;1000;Raccourcis;43;;déplacer/annuler le dernier coup;move/cancel the last move
+STR#;1000;Raccourcis;44;;\newpage;\newpage
+STR#;1000;Raccourcis;45;;\newpage;\newpage
+STR#;1000;Raccourcis;46;;;
+STR#;1000;Raccourcis;47;;;
+STR#;1000;Raccourcis;48;;Fenêtre de la liste de parties :;Game list window :
+STR#;1000;Raccourcis;49;;;
+STR#;1000;Raccourcis;50;;;
+STR#;1000;Raccourcis;51;;;
+STR#;1000;Raccourcis;52;;L;L
+STR#;1000;Raccourcis;53;;ouvre/ferme la fenêtre de liste;open/close the list window
+STR#;1000;Raccourcis;54;;tabulation;tabulation key
+STR#;1000;Raccourcis;55;;montre/cache les tournois dans la liste;show/hide the tournaments in the list
+STR#;1000;Raccourcis;56;;majuscule-fl. haute/basse;shift-up/down arrow
+STR#;1000;Raccourcis;57;;sélectionne la première/dernière partie de la liste;select the first/last game in the list
+STR#;1000;Raccourcis;58;;pomme-clic dans les parties;command-click in the games
+STR#;1000;Raccourcis;59;;sélection multiple de parties;select multiple games
+STR#;1000;Raccourcis;60;;pomme-delete;command-delete key
+STR#;1000;Raccourcis;61;;détruit les parties sélectionnées;remove the selected games from the list
+STR#;1000;Raccourcis;62;;flêche droite/flêche gauche;right arrow/left arrow
+STR#;1000;Raccourcis;63;;joue/déjoue un coup dans la partie sélectionnée;play/undo a move of in selected game
+STR#;1000;Raccourcis;64;;retour chariot;return key
+STR#;1000;Raccourcis;65;;joue la partie sélectionnée jusqu'à la fin;play selected game to the end
+STR#;1000;Raccourcis;66;;entrée;enter key
+STR#;1000;Raccourcis;67;;sélectionne les cases de sous-critères dans le ruban de la liste;select the sub-criteria field in the list window
+STR#;1000;Raccourcis;68;;#NOM?;#NOM?
+STR#;1000;Raccourcis;69;;complémentation du nom d'un joueur ou d'un tournoi (peut être répété);completion of a player's or tournament's name (can be repeated)
+STR#;1000;Raccourcis;70;;pomme-option-Y;command-option-Y
+STR#;1000;Raccourcis;71;;échange les Noirs et les Blancs dans les sous-critères;swap Black and White sub-criterias
+STR#;1000;Raccourcis;72;;clic dans le ruban;click in the binding
+STR#;1000;Raccourcis;73;;trie la liste selon le critère cliqué;sort list with respect to the column title
+STR#;1000;Raccourcis;74;;clic sur le losange du ruban;click on the black diamond
+STR#;1000;Raccourcis;75;;active/désactive les sous-critères;activate/deactivate sub-criterias
+STR#;1000;Raccourcis;76;;option-clic sur le losange;option-click on the diamond
+STR#;1000;Raccourcis;77;;échange les Noirs et les Blancs dans les sous-critères;swap Black and White in the sub-criterias
+STR#;1000;Raccourcis;78;;;
+STR#;1000;Raccourcis;79;;;
+STR#;1000;Raccourcis;80;;;
+STR#;1000;Raccourcis;81;;;
+STR#;1000;Raccourcis;82;;Fenêtre des statistiques :;Statistics window :
+STR#;1000;Raccourcis;83;;;
+STR#;1000;Raccourcis;84;;S;S
+STR#;1000;Raccourcis;85;;ouvre/ferme la fenêtre des statistiques;open/close the statistics window
+STR#;1000;Raccourcis;86;;espace;space key
+STR#;1000;Raccourcis;87;;joue le coup majoritaire des statistiques;play most common move of statistics
+STR#;1000;Raccourcis;88;;clic sur une ligne;click on a line
+STR#;1000;Raccourcis;89;;joue le coup correspondant sur l'othellier;play the move of the clicked line
+STR#;1000;Raccourcis;90;;clic dans le ruban;click in the binding
+STR#;1000;Raccourcis;91;;recule d'un coup;go back one move
+STR#;1000;Raccourcis;92;;\newpage;\newpage
+STR#;1000;Raccourcis;93;;\newpage;\newpage
+STR#;1000;Raccourcis;94;;;
+STR#;1000;Raccourcis;95;;;
+STR#;1000;Raccourcis;96;;Dialogue de chargement de la base :;Base loading dialog :
+STR#;1000;Raccourcis;97;;;
+STR#;1000;Raccourcis;98;;;
+STR#;1000;Raccourcis;99;;;
+STR#;1000;Raccourcis;100;;clic sur les othelliers;click on mini-boards
+STR#;1000;Raccourcis;101;;permet de jouer un coup ou de revenir en arriere;play a move or go back
+STR#;1000;Raccourcis;102;;pomme-Z;command-Z
+STR#;1000;Raccourcis;103;;recule d'un coup;go back one move
+STR#;1000;Raccourcis;104;;pomme-N;command-N
+STR#;1000;Raccourcis;105;;position de départ;standard initial position
+STR#;1000;Raccourcis;106;;=;=
+STR#;1000;Raccourcis;107;;complémentation du nom d'un joueur ou d'un tournoi (peut être répété);completion of a player's or tournament's name (can be repeated)
+STR#;1000;Raccourcis;108;;tabulation;tabulation key
+STR#;1000;Raccourcis;109;;navigation dans les champs de texte;select next text field
+STR#;1000;Raccourcis;110;;;
+STR#;1000;Raccourcis;111;;;
+STR#;1000;Raccourcis;112;;;
+STR#;1000;Raccourcis;113;;;
+STR#;1000;Raccourcis;114;;Divers :;Miscellaneous :
+STR#;1000;Raccourcis;115;;;
+STR#;1000;Raccourcis;116;;;
+STR#;1000;Raccourcis;117;;;
+STR#;1000;Raccourcis;118;;3;3
+STR#;1000;Raccourcis;119;;change la vue en 2D/3D;switch between 2D/3D view
+STR#;1000;Raccourcis;120;;=;=
+STR#;1000;Raccourcis;121;;ouvre/ferme la palette flottante;open/close the floatting palette
+STR#;1000;Raccourcis;122;;pomme-option-W;command-option-W
+STR#;1000;Raccourcis;123;;ferme toutes les fenêtres d'analyse (i.e. autre que l'othellier);close all windows, but the main one
+STR#;1000;Raccourcis;124;;pomme-clic sur l'othellier;command-click on the board
+STR#;1000;Raccourcis;125;;iconise Cassio;iconize Cassio
+STR#;1000;Raccourcis;126;;option-case de dimension;option-size box
+STR#;1000;Raccourcis;127;;permet de redimensionner la fenêtre de l'othellier sans changer;"resize the ""Board"" window without changing"
+STR#;1000;Raccourcis;128;;;
+STR#;1000;Raccourcis;129;;la taille de celui-ci;the size of the board squares
+STR#;1000;Raccourcis;130;;option-P;option-P
+STR#;1000;Raccourcis;131;;menu magique;magical menu
+STR#;1000;Raccourcis;132;;option-ctrl-H-delete;option-ctrl-H-delete
+STR#;1000;Raccourcis;133;;permet d'accéder à cet écran d'aide;show up this help dialog
+STR#;1000;Raccourcis;134;;majuscule-F-F-O;shift-F-F-O
+STR#;1000;Raccourcis;135;;fait le café;makes coffee
+STR#;1000;Raccourcis;136;;\newpage;\newpage
+STR#;1000;Raccourcis;137;;\newpage;\newpage
+STR#;1000;Raccourcis;138;;;
+STR#;1000;Raccourcis;139;;;
+STR#;1000;Raccourcis;140;;Entrée de transcripts :;While typing transcripts:
+STR#;1000;Raccourcis;141;;;
+STR#;1000;Raccourcis;142;;;
+STR#;1000;Raccourcis;143;;;
+STR#;1000;Raccourcis;144;;pomme-N;command-N
+STR#;1000;Raccourcis;145;;vide le transcript;empty the current transcript
+STR#;1000;Raccourcis;146;;0-9;0-9
+STR#;1000;Raccourcis;147;;chiffres;digits
+STR#;1000;Raccourcis;148;;espace, entrée;space, enter
+STR#;1000;Raccourcis;149;;espace;space
+STR#;1000;Raccourcis;150;;=;=
+STR#;1000;Raccourcis;151;;completion de la plus longue partie légale;try to complete the longest legal game
+STR#;1000;Raccourcis;152;;return;return
+STR#;1000;Raccourcis;153;;si le transcript est complet, on l'enregistre dans la base;if the game is complete, save it in the database
+STR#;1000;Raccourcis;154;;;
+STR#;1000;Raccourcis;155;;sinon, met l'othellier de gauche dans le transcript;otherwise transfer the left board moves to the transcript
+STR#;1000;Raccourcis;156;;pomme-Z;command-Z
+STR#;1000;Raccourcis;157;;annule la frappe;cancel last typing
+STR#;1000;Raccourcis;158;;pomme-maj-Z;command-shift-Z
+STR#;1000;Raccourcis;159;;redo (ie annule l'annulation);redo (ie cancel last cancel)
+STR#;1000;Raccourcis;160;;/, espace dur;/, hard space
+STR#;1000;Raccourcis;161;;insére un espace + décalage à droite;insert a space + shift to the right
+STR#;1000;Raccourcis;162;;\, virgule;\, comma
+STR#;1000;Raccourcis;163;;efface le caractere + décalage à gauche;delete the digit + shift to the left
+STR#;1000;Raccourcis;164;;tabulation;tabulation
+STR#;1000;Raccourcis;165;;cycle sur les doublons et les cases vides;cycle through duplicate moves and empty squares
+STR#;1000;Raccourcis;166;;maj-tabulation;shift-tabulation
+STR#;1000;Raccourcis;167;;idem, mais dans l'autre sens;same, but in opposite order
+STR#;1000;Raccourcis;168;;+,-;+,-
+STR#;1000;Raccourcis;169;;incrémente (décrémente) la case, et tous ses successeurs;increment (decrement) the square, and all its successors
+STR#;1000;Raccourcis;170;;i, >;i, >
+STR#;1000;Raccourcis;171;;incrémente la case sous le curseur;increment the square of the cursor position
+STR#;1000;Raccourcis;172;;d, <;d, <
+STR#;1000;Raccourcis;173;;décrémente la case sous le curseur;decrement the square of the cursor position
+STR#;1000;Raccourcis;174;;flèches;arrows
+STR#;1000;Raccourcis;175;;déplace le curseur à petits pas;move the cursor, small steps
+STR#;1000;Raccourcis;176;;maj-flèches;shift-arrows
+STR#;1000;Raccourcis;177;;déplace le curseur à grands pas;move the cursor, big steps
+STR#;1000;Raccourcis;178;;pomme-flèche gauche;command-left arrow
+STR#;1000;Raccourcis;179;;déplace le curseur au début de la ligne;move the cursor the beginning of line
+STR#;1000;Raccourcis;180;;pomme-flèche droite;command-right arrow
+STR#;1000;Raccourcis;181;;déplace le curseur à la fin de la ligne;move the cursor to the end of line
+STR#;1000;Raccourcis;182;;pomme-flèche-en-haut;command-up arrow
+STR#;1000;Raccourcis;183;;déplace le curseur en A1;move the cursor to A1
+STR#;1000;Raccourcis;184;;pomme-flèche-en-bas;command-down arrow
+STR#;1000;Raccourcis;185;;déplace le curseur en H8;move the cursor to H8
+STR#;1000;Raccourcis;186;;escape;escape
+STR#;1000;Raccourcis;187;;quitte le mode entrée de transcript;quit the transcript mode
+STR#;2000;;0;;Menus changeants;Menus changeants
+STR#;2000;Menus changeants;1;;Fermer la fenêtre;Close Window
+STR#;2000;Menus changeants;2;;Tout fermer;Close All Windows
+STR#;2000;Menus changeants;3;;Ajouter une minute à Noir;Add a Minute to Black
+STR#;2000;Menus changeants;4;;Enlever une minute à Noir;Take a Minute from Black
+STR#;2000;Menus changeants;5;;Ajouter une minute à Blanc;Add a Minute to White
+STR#;2000;Menus changeants;6;;Enlever une minute à Blanc;Take a Minute from White
+STR#;2000;Menus changeants;7;;Symétrie  ^0;Symetry  ^0
+STR#;2000;Menus changeants;8;;Rotation   ^0;Rotation   ^0
+STR#;2000;Menus changeants;9;;Jouer un nouveau solitaire;Play a New Solitaire
+STR#;2000;Menus changeants;10;;Solitaire précédent;Previous Solitaire
+STR#;2000;Menus changeants;11;;Sous-sélection active;Show Sub-Selection
+STR#;2000;Menus changeants;12;;Intervertir les sous-critères des joueurs;Swap Sub-Selection Criteria
+STR#;2000;Menus changeants;13;;Réouvrir;Reopen
+STR#;2000;Menus changeants;14;;Réouvrir «^0»;"Reopen ""^0"""
+STR#;2000;Menus changeants;15;;Iconiser;Iconize
+STR#;2000;Menus changeants;16;;Déiconiser;Deiconize
+STR#;2000;Menus changeants;17;;Milieu de partie (^0 meilleures notes);Midgame (^0 best values)
+STR#;2000;Menus changeants;18;;Milieu de partie (n meilleures notes);Midgame (n best values)
+STR#;2000;Menus changeants;19;;Enregistrer la solution du solitaire…;Save Solution of this Solitaire…
+STR#;2000;Menus changeants;20;;Enregistrer la solution du solitaire (avec scores)…;Save Solution of this Solitaire (with scores)…
+STR#;2000;Menus changeants;21;;reserved;reserved
+STR#;2000;Menus changeants;22;;reserved;reserved
+STR#;2000;Menus changeants;23;;reserved;reserved
+STR#;2000;Menus changeants;24;;reserved;reserved
+STR#;2000;Menus changeants;25;;reserved;reserved
+STR#;2000;Menus changeants;26;;reserved;reserved
+STR#;2000;Menus changeants;27;;reserved;reserved
+STR#;2000;Menus changeants;28;;reserved;reserved
+STR#;2000;Menus changeants;29;;"L'intitulé suivant est la ligne à rajouter au menu ""Couleur"" (de l'othellier si le fichier ""Photos Cassio"" est disponible.";"L'intitulé suivant est la ligne à rajouter au menu ""Couleur"" (de l'othellier si le fichier ""Photos Cassio"" est disponible."
+STR#;2000;Menus changeants;30;;Photographique;Photography
+STR#;2000;Menus changeants;31;;Voir l'othellier en 3D;Switch to 3D Board View
+STR#;2000;Menus changeants;32;;Voir l'othellier en 2D;Switch to 2D Board View
+STR#;2000;Menus changeants;33;;Enregistrer la partie…;Save Current Game as…
+STR#;2000;Menus changeants;34;;Enregistrer la partie jusqu'à cette position…;Save Game up to this Position as…
+STR#;2000;Menus changeants;35;;format texte…;format texte…
+STR#;2000;Menus changeants;36;;format texte (respecter le tri)…;format texte (respect order)…
+STR#;2000;Menus changeants;37;;format HTML…;format HTML…
+STR#;2000;Menus changeants;38;;format HTML (respecter le tri)…;format HTML (respect order)…
+STR#;2000;Menus changeants;39;;format PGN (Portable Game Notation);format PGN (Portable Game Notation)
+STR#;2000;Menus changeants;40;;format PGN (Portable Game Notation) (respecter le tri);format PGN (Portable Game Notation) (respect order)
+STR#;2000;Menus changeants;41;;format XOF (OthBase);format XOF (OthBase)
+STR#;2000;Menus changeants;42;;format XOF (Othbase) (respecter le tri);format XOF (OthBase) (respect order)
+STR#;10000;;0;;Titres des fenêtres;Titres des fenêtres
+STR#;10000;Titres des fenêtres;1;;Othellier;Board
+STR#;10000;Titres des fenêtres;2;;Palette;Palette
+STR#;10000;Titres des fenêtres;3;;Liste des parties;List of Games
+STR#;10000;Titres des fenêtres;4;;Statistiques;Statistics
+STR#;10000;Titres des fenêtres;5;;Rapport;Game Report
+STR#;10000;Titres des fenêtres;6;;Courbe;Evaluation Curve
+STR#;10000;Titres des fenêtres;7;;Réflexion;Calculation
+STR#;10000;Titres des fenêtres;8;;Gestion du temps;Time Management
+STR#;10000;Titres des fenêtres;9;;^0;^0
+STR#;10000;Titres des fenêtres;10;;Aide;Help
+STR#;10000;Titres des fenêtres;11;;Nuage;Cloud
+STR#;10001;;0;;Textes Courbe;Textes Courbe
+STR#;10001;Textes Courbe;1;;bon pour Noir;good for Black
+STR#;10001;Textes Courbe;2;;bon pour Blanc;good for White
+STR#;10001;Textes Courbe;3;;coup;move
+STR#;10002;;0;;Textes Statistiques;Textes Statistiques
+STR#;10002;Textes Statistiques;1;;Statistiques;Statistics
+STR#;10002;Textes Statistiques;2;;réelles;final/real
+STR#;10002;Textes Statistiques;3;;théoriques;theoretical
+STR#;10002;Textes Statistiques;4;;Coup;Move
+STR#;10002;Textes Statistiques;5;;Parties;Games
+STR#;10002;Textes Statistiques;6;;% noir;% black
+STR#;10002;Textes Statistiques;7;;% blanc;% white
+STR#;10002;Textes Statistiques;8;;Aucune partie chargée !;No matching loaded games !
+STR#;10002;Textes Statistiques;9;;total;total
+STR#;10002;Textes Statistiques;10;;Pas de partie compatible !;No compatible games !
+STR#;10002;Textes Statistiques;11;;(critères de sous-sélection actifs);(Sub-selection criterias are on)
+STR#;10002;Textes Statistiques;12;;Dernier coup !;Last move !
+STR#;10002;Textes Statistiques;13;;Dernier coup de la base !;Last move in the base !
+STR#;10002;Textes Statistiques;14;;Position de départ non standard…;Non-Standard initial position…
+STR#;10003;;0;;Textes Liste;Textes Liste
+STR#;10003;Textes Liste;1;;Aucune partie chargée !;No matching loaded game !
+STR#;10003;Textes Liste;2;;Pas de partie compatible !;No compatible game !
+STR#;10003;Textes Liste;3;;Position de départ non standard…;Non-Standard initial position…
+STR#;10003;Textes Liste;4;;(critères de sous-sélection actifs);(Sub-selection criterias are on)
+STR#;10003;Textes Liste;5;;Pas encore pu charger les noms des joueurs…;Couldn't load players names yet…
+STR#;10003;Textes Liste;6;;Tournoi;Tournament
+STR#;10003;Textes Liste;7;;Noir;Black
+STR#;10003;Textes Liste;8;;Blanc;White
+STR#;10003;Textes Liste;9;;th.;th.
+STR#;10003;Textes Liste;10;;score;score
+STR#;10003;Textes Liste;11;;•• note to Cassio's translators : next three strings should be initials of Black, White and Draw, IN THAT ORDER ••;•• note to Cassio's translators : next three strings should be initials of Black, White and Draw, IN THAT ORDER ••
+STR#;10003;Textes Liste;12;;N;B
+STR#;10003;Textes Liste;13;;B;W
+STR#;10003;Textes Liste;14;;E;D
+STR#;10003;Textes Liste;15;;Base;Base
+STR#;10003;Textes Liste;16;;Inclure les ordinateurs;Include computers
+STR#;10003;Textes Liste;17;;^0 parties;^0 games
+STR#;10003;Textes Liste;18;;^0 partie;^0 game
+STR#;10003;Textes Liste;19;;(^0 nouvelles);(^0 unsaved)
+STR#;10004;;0;;Textes Gestion;Textes Gestion
+STR#;10004;Textes Gestion;1;;alloué pour ce coup : ^0 sec.;allocated for this move : ^0 sec.
+STR#;10004;Textes Gestion;2;;utilisé pour la prof. ^0 : ^1 sec.;used for depth ^0 : ^1 sec.
+STR#;10004;Textes Gestion;3;;prévu pour la prof. ^0 : ^1 sec.;anticipated. ^0 : ^1 sec.
+STR#;10004;Textes Gestion;4;;divergence :  ;branching factor :  
+STR#;10004;Textes Gestion;5;;nbre tours du compteur :  ;number of speedometer revolutions :  
+STR#;10004;Textes Gestion;6;;nbre nœuds :  ;number of nodes :  
+STR#;10004;Textes Gestion;7;;nb feuilles par sec :  ;number of leaves/sec :  
+STR#;10004;Textes Gestion;8;;nb nœuds par sec :  ;number of nodes/sec :  
+STR#;10004;Textes Gestion;9;;moteur : ;engine : 
+STR#;10004;Textes Gestion;10;;^0 proc.;^0 proc.
+STR#;10004;Textes Gestion;11;;1 proc.;1 proc.
+STR#;10004;Textes Gestion;12;;utilisé pour la finale à ^0 : ^1 sec.;used for engdame (^0) : ^1 sec.
+STR#;10004;Textes Gestion;13;;prévu pour la finale à ^0 : ^1 sec.;anticipated for endgame (^0) : ^1 sec.
+STR#;10005;;0;;Textes Reflexion;Textes Reflexion
+STR#;10005;Textes Reflexion;1;;rech. meilleur coup (finale);searching best move (endgame)
+STR#;10005;Textes Reflexion;2;;rech. coup gagnant (finale);searching winning move (endgame)
+STR#;10005;Textes Reflexion;3;;rech. pseudo-finale;pseudo-endgame search
+STR#;10005;Textes Reflexion;4;;tri des coups (prof=^0)…;sorting moves (depth=^0)…
+STR#;10005;Textes Reflexion;5;;milieu de partie, profondeur=^0;midgame, depth=^0
+STR#;10005;Textes Reflexion;6;;coup n°^0 (sur ^1);move n°^0 (of ^1)
+STR#;10005;Textes Reflexion;7;;gagnant;winning
+STR#;10005;Textes Reflexion;8;;larg. gagn.;convincing win
+STR#;10005;Textes Reflexion;9;;perdant;losing
+STR#;10005;Textes Reflexion;10;;larg. perd.;big loss
+STR#;10005;Textes Reflexion;11;;nulle;draw
+STR#;10005;Textes Reflexion;12;;est gagnant;is winning
+STR#;10005;Textes Reflexion;13;;larg. gagn.;convincing win
+STR#;10005;Textes Reflexion;14;;est meilleur;is better
+STR#;10005;Textes Reflexion;15;;larg. meill.;is much better
+STR#;10005;Textes Reflexion;16;;pas mieux;no better
+STR#;10005;Textes Reflexion;17;;perd de ^0;loss by ^0
+STR#;10005;Textes Reflexion;18;;annule;draw
+STR#;10005;Textes Reflexion;19;;gagne de +^0;win by +^0
+STR#;10005;Textes Reflexion;20;;Nulle;Draw
+STR#;10005;Textes Reflexion;21;;pas exploré;unexplored
+STR#;10005;Textes Reflexion;22;;réflexion au coup ^1 pour ^0…;thinking at move #^1 for ^0…
+STR#;10006;;0;;Textes Othellier;Textes Othellier
+STR#;10006;Textes Othellier;1;;NOIRS: ;BLACK: 
+STR#;10006;Textes Othellier;2;;BLANCS: ;WHITE: 
+STR#;10006;Textes Othellier;3;;Votre coup, Noir…;Your turn, Black…
+STR#;10006;Textes Othellier;4;;Votre coup, Blanc…;Your turn, White…
+STR#;10006;Textes Othellier;5;;Je réfléchis au choix des Noirs;Thinking for Black…
+STR#;10006;Textes Othellier;6;;Je réfléchis au choix des Blancs;Thinking for White…
+STR#;10006;Textes Othellier;7;;rech. coup gagnant (finale);Looking for a winning move (endgame)
+STR#;10006;Textes Othellier;8;;rech. meilleur coup (finale);Looking for the best move (endgame)
+STR#;10006;Textes Othellier;9;;rech. pseudo-finale;Pseudo-endgame search
+STR#;10006;Textes Othellier;10;;si;if
+STR#;10006;Textes Othellier;11;;tous les coups ^0 sont perdants;all moves ^0 seem losing
+STR#;10006;Textes Othellier;12;;tous les coups ^0 sont probablement perdants;all moves ^0 are probably losing
+STR#;10006;Textes Othellier;13;;annule;draws
+STR#;10006;Textes Othellier;14;;est gagnant;is winning
+STR#;10006;Textes Othellier;15;;est perdant;loses
+STR#;10006;Textes Othellier;16;;annule probablement;is probably a draw
+STR#;10006;Textes Othellier;17;;est probablement gagnant;is probably a win
+STR#;10006;Textes Othellier;18;;est probablement perdant;is probably a loss
+STR#;10006;Textes Othellier;19;;Analyse pour Noir;Analysing for Black
+STR#;10006;Textes Othellier;20;;Analyse pour Blanc;Analysing for White
+STR#;10006;Textes Othellier;21;;Partie nulle !;Draw !
+STR#;10006;Textes Othellier;22;;Noir Gagne ^0 !;Black wins ^0 !
+STR#;10006;Textes Othellier;23;;Blanc Gagne ^0 !;White wins ^0 !
+STR#;10006;Textes Othellier;24;;Je gagne ^0 !;I win ^0 !
+STR#;10006;Textes Othellier;25;;Vous gagnez ^0 !;You win ^0 !
+STR#;10006;Textes Othellier;26;;gagne;Win
+STR#;10006;Textes Othellier;27;;perd;Loss
+STR#;10006;Textes Othellier;28;;nulle;Draw
+STR#;10006;Textes Othellier;29;;Trait à Noir;Black to move
+STR#;10006;Textes Othellier;30;;Trait à Blanc;White to move
+STR#;10007;;0;;Textes groupes;Textes groupes
+STR#;10007;Textes groupes;1;;Liste des groupes :;List of groups :
+STR#;10007;Textes groupes;2;;La définition d'un groupe ne peut faire plus de 255 caractères;A group definition is limited to 255 caracters
+STR#;10007;Textes groupes;3;;Syntaxe incorrecte;Syntax error
+STR#;10007;Textes groupes;4;;Souhaitez-vous effacer le groupe « ^0 » ?;"Do you want do delete the group "" ^0 "" ?"
+STR#;10007;Textes groupes;5;;reserved;reserved
+STR#;10007;Textes groupes;6;;Vous ne pouvez pas définir plus de 25 groupes.;You can't define more than 25 groups in Cassio.
+STR#;10008;;0;;Textes solitaires;Textes solitaires
+STR#;10008;Textes solitaires;1;;Noir joue et gagne…;Black to win…
+STR#;10008;Textes solitaires;2;;Blanc joue et gagne…;White to win…
+STR#;10008;Textes solitaires;3;;Noir joue et annule…;Black to draw…
+STR#;10008;Textes solitaires;4;;Blanc joue et annule…;White to draw…
+STR#;10008;Textes solitaires;5;;gagne;win
+STR#;10008;Textes solitaires;6;;annule;draw
+STR#;10008;Textes solitaires;7;;JP;JP
+STR#;10008;Textes solitaires;8;;VP;VP
+STR#;10008;Textes solitaires;9;;Nom du fichier solution ?;Name of the solution file ?
+STR#;10008;Textes solitaires;10;;Je calcule toutes les suites…;Calculating all the lines…
+STR#;10008;Textes solitaires;11;;Un peu de patience, s'il vous plait… (tapez escape pour interrompre);Please be patient… (type escape to interrupt)
+STR#;10008;Textes solitaires;12;;nbre de lignes;Number of lines
+STR#;10008;Textes solitaires;13;;Veuillez valider la position comme solitaire avant de m'en demander la solution !;Please validate that position as a solitaire before asking the solution !
+STR#;10008;Textes solitaires;14;;sans titre;untitled
+STR#;10008;Textes solitaires;15;;Un solitaire de ^0 lignes (difficulté ^1 %) est peut-être un peu court pour Fforum. Voulez-vous essayer la version longue ?;A solitaire with ^0 lines (difficulty : ^1 %) is maybe a little too short for Fforum. Do you want to try the long version ?
+STR#;10008;Textes solitaires;16;;La version longue fait ^0 lignes et a une difficulté de ^1 %.;The long version has ^0 lines, with a difficulty of ^1 %.
+STR#;10008;Textes solitaires;17;;Le solitaire devenait trop gros. Le calcul a été interrompu car Cassio risquait de planter.;That solitaire was getting too big. Calculations were stopped because Cassio could have crashed.
+STR#;10008;Textes solitaires;18;;Ce solitaire fait ^0 lignes et a une difficulté de ^1 %.;That solitaire has ^0 lines, with a difficulty of ^1 %.
+STR#;10008;Textes solitaires;19;;Noir;Black
+STR#;10008;Textes solitaires;20;;Blanc;White
+STR#;10008;Textes solitaires;21;;^0 a un seul coup légal.;^0 has only one legal move.
+STR#;10008;Textes solitaires;22;;^0 est perdant.;^0 has lost.
+STR#;10008;Textes solitaires;23;;^0 a au moins deux coups gagnants.;^0 has (at least) two winning moves.
+STR#;10008;Textes solitaires;24;;^0 peut faire nulle de deux façons.;^0 has two distinct ways to draw.
+STR#;10008;Textes solitaires;25;;^0 a un seul coup gagnant, mais aura le choix plus tard.;^0 has only one winning move, but will have a choice later.
+STR#;10008;Textes solitaires;26;;^0 a un seul coup pour faire nulle, mais aura le choix plus tard.;^0 has only one drawing move, but will have a choice later.
+STR#;10008;Textes solitaires;27;;^0 a un coup gagnant qui lui assure deux lignes gagnantes plus tard.;^0 has a winning move that ensures he will have two winning moves later.
+STR#;10008;Textes solitaires;28;;^0 a un coup qui fait nulle et qui lui assure deux lignes optimales plus tard.;^0 has a drawing move that ensures he will have two optimal lines later.
+STR#;10008;Textes solitaires;29;;Il y a ^0 façon  de faire ^1 pions;There is ^0 line giving ^1 discs
+STR#;10008;Textes solitaires;30;;Il y a ^0 façons de faire ^1 pions;There are ^0 lines giving ^1 discs
+STR#;10008;Textes solitaires;31;;Difficulté du solitaire : ^0 %;Difficulty : ^0 %
+STR#;10008;Textes solitaires;32;;^0 solitaires;^0 solitaires
+STR#;10008;Textes solitaires;33;;Plus un solitaire a de cases vides, plus il est difficile.;The more empties, the more difficult the solitaire.
+STR#;10008;Textes solitaires;34;;Astuce: pendant un solitaire, tapez sur Delete pour de l'aide.;Hint: while playing a solitaire, hit the delete key to get help.
+STR#;10009;;0;;Textes rétrograde;Textes rétrograde
+STR#;10009;Textes rétrograde;1;;################################################################;################################################################
+STR#;10009;Textes rétrograde;2;;Analyse rétrograde de la finale;Retrograde analysis of the endgame
+STR#;10009;Textes rétrograde;3;;suite optimale après ^0 : ^1;optimal line after ^0 : ^1
+STR#;10009;Textes rétrograde;4;;score réel de la partie : ^0;real score of the game : ^0
+STR#;10009;Textes rétrograde;5;;Analyse rétrograde en cours…;Analysing the endgame…
+STR#;10009;Textes rétrograde;6;;Analyse rétrograde interrompue…;Retrograde analysis interrupted…
+STR#;10009;Textes rétrograde;7;;Analyse rétrograde terminée…;Retrograde analysis finished…
+STR#;10009;Textes rétrograde;8;;?;?
+STR#;10009;Textes rétrograde;9;;??;??
+STR#;10009;Textes rétrograde;10;;Noir rate le gain;Black misses the win
+STR#;10009;Textes rétrograde;11;;Noir donne le gain;Black gives the win
+STR#;10009;Textes rétrograde;12;;Noir rate la nulle;Black misses a draw
+STR#;10009;Textes rétrograde;13;;Noir perd 1 pion;Black loses 1 disc
+STR#;10009;Textes rétrograde;14;;Noir perd ^0 pions;Black loses ^0 discs
+STR#;10009;Textes rétrograde;15;;Blanc rate le gain;White misses the win
+STR#;10009;Textes rétrograde;16;;Blanc donne le gain;White gives the win
+STR#;10009;Textes rétrograde;17;;Blanc rate la nulle;White misses a draw
+STR#;10009;Textes rétrograde;18;;Blanc perd 1 pion;White loses 1 disc
+STR#;10009;Textes rétrograde;19;;Blanc perd ^0 pions;White loses ^0 discs
+STR#;10009;Textes rétrograde;20;;fait nulle;draws
+STR#;10009;Textes rétrograde;21;;fait ^0;leads to ^0
+STR#;10009;Textes rétrograde;22;;^0 faisait nulle;^0 would have drawed
+STR#;10009;Textes rétrograde;23;;^0 faisait ^1;^0 was ^1
+STR#;10009;Textes rétrograde;24;;^0 était gagnant;^0 was winning
+STR#;10009;Textes rétrograde;25;;Noir est gagnant;Black is winning
+STR#;10009;Textes rétrograde;26;;Blanc est gagnant;White is winning
+STR#;10009;Textes rétrograde;27;;première passe;first pass
+STR#;10009;Textes rétrograde;28;;deuxième passe;second pass
+STR#;10009;Textes rétrograde;29;;troisième passe;third pass
+STR#;10009;Textes rétrograde;30;;quatrième passe;fourth pass
+STR#;10009;Textes rétrograde;31;;cinquième passe;fifth pass
+STR#;10009;Textes rétrograde;32;;passe numéro ^0;pass #^0
+STR#;10009;Textes rétrograde;33;;Noir perd environ ^0 pions;Black loses about ^0 discs
+STR#;10009;Textes rétrograde;34;;Blanc perd environ ^0 pions;White loses about ^0 discs
+STR#;10009;Textes rétrograde;35;;^0 était meilleur;^0 was better
+STR#;10009;Textes rétrograde;36;;^0 faisait 1 pion de plus et annulait;^0 was 1 disc better and drew
+STR#;10009;Textes rétrograde;37;;^0 faisait ^1 pions de plus et annulait;^0 was ^1 discs better and drew
+STR#;10009;Textes rétrograde;38;;^0 faisait 1 pion de plus et gagnait ^2;^0 was one disc better and won ^2
+STR#;10009;Textes rétrograde;39;;^0 faisait ^1 pions de plus et gagnait ^2;^0 was ^1 discs better and won ^2
+STR#;10010;;0;;Textes SetUp;Textes SetUp
+STR#;10010;Textes SetUp;1;;Vous pouvez cliquer sur;You can click
+STR#;10010;Textes SetUp;2;;le numéro d'un coup;on a move number
+STR#;10010;Textes SetUp;3;;pour y revenir…;to back there…
+STR#;10010;Textes SetUp;4;;Cliquez sur un coup pour y revenir…;Click on a move to go back there
+STR#;10010;Textes SetUp;5;;Annuler;Cancel
+STR#;10010;Textes SetUp;6;;Valider;Validate
+STR#;10010;Textes SetUp;7;;Tout effacer;Clear All
+STR#;10010;Textes SetUp;8;;Tout inverser;Invert All
+STR#;10010;Textes SetUp;9;;Évaluer;Evaluation
+STR#;10010;Textes SetUp;10;;évaluation pour Noir :;Evaluation for Black :
+STR#;10010;Textes SetUp;11;;évaluation pour Blanc :;Evaluation for White :
+STR#;10011;;0;;Textes coeffs;Textes coeffs
+STR#;10011;Textes coeffs;1;;Réglez les coefficients de la fonction d'évaluation :;Change the coefficients of the evaluation function :
+STR#;10011;Textes coeffs;2;;valeur frontière :;global frontier :
+STR#;10011;Textes coeffs;3;;pour chaque pion en frontière :;for each frontier disc :
+STR#;10011;Textes coeffs;4;;valeur centre :;centre value :
+STR#;10011;Textes coeffs;5;;valeur grand centre :;large center value :
+STR#;10011;Textes coeffs;6;;valeur bétonnage :;edge-grabbing value :
+STR#;10011;Textes coeffs;7;;valeur minimisation :;minimization value :
+STR#;10011;Textes coeffs;8;;valeur prise coin :;corner attack value :
+STR#;10011;Textes coeffs;9;;valeur défense coin :;corner defense value :
+STR#;10011;Textes coeffs;10;;valeur coin :;corner value :
+STR#;10011;Textes coeffs;11;;valeur case X :;X square value :
+STR#;10011;Textes coeffs;12;;pénalité pour le trait :;penalty for playing :
+STR#;10011;Textes coeffs;13;;valeur du bord Nord;value of North edge
+STR#;10011;Textes coeffs;14;;valeur du bord Ouest;value of West edge
+STR#;10011;Textes coeffs;15;;valeur du bord Est;value of East edge
+STR#;10011;Textes coeffs;16;;valeur du bord Sud;value of South edge
+STR#;10011;Textes coeffs;17;;pour noir;for Black
+STR#;10011;Textes coeffs;18;;pour blanc;for White
+STR#;10011;Textes coeffs;19;;valeur mobilité :;mobility value :
+STR#;10011;Textes coeffs;20;;valeur pour noir;value for Black
+STR#;10012;;0;;Textes bibliothèque;Textes bibliothèque
+STR#;10012;Textes bibliothèque;1;;Ouverture du fichier ^0 impossible !;"Unable to open the file ""^0"" !"
+STR#;10012;Textes bibliothèque;2;;Vérifiez qu'il est bien à côté du programme Cassio ou;Verify it is in the same folder than Cassio
+STR#;10012;Textes bibliothèque;3;;dans le dossier « Fichiers auxiliaires » sur le disque dur.;"or in the folder ""Auxiliary files"" on your hard disc."
+STR#;10012;Textes bibliothèque;4;;Lecture de la bibliothèque d'ouverture…;Reading opening library…
+STR#;10012;Textes bibliothèque;5;;bibliothèque trop grosse;Opening library is too big !
+STR#;10012;Textes bibliothèque;6;;ligne impossible;Illegal line
+STR#;10012;Textes bibliothèque;7;;le total des réponses ne fait pas 100 %;Total of answers is not 100 %
+STR#;10012;Textes bibliothèque;8;;trop de lignes;too many lines
+STR#;10013;;0;;Textes rapport;Textes rapport
+STR#;10013;Textes rapport;1;;Bienvenue dans Cassio…;Welcome to Cassio…
+STR#;10013;Textes rapport;2;;Recherche au coup ^0 pour ^1 : milieu de partie;midgame search at move # ^0 for ^1:
+STR#;10013;Textes rapport;3;;Recherche au coup ^0 pour ^1 : pseudo-finale;pseudo-endgame search at move # ^0 for ^1:
+STR#;10013;Textes rapport;4;;Recherche au coup ^0 pour ^1 : finale gagnant/perdant;endgame search at move # ^0 for ^1:
+STR#;10013;Textes rapport;5;;Recherche au coup ^0 pour ^1 : finale parfaite;perfect endgame search at move # ^0 for ^1:
+STR#;10013;Textes rapport;6;;Oooups ! Ma pendule !;Oooups ! My clock !
+STR#;10013;Textes rapport;7;;Score final ^0;Final score ^0
+STR#;10013;Textes rapport;8;;Félicitations !;Congratulations !
+STR#;10013;Textes rapport;9;;Voulez-vous en faire une autre ?;Do you want to make another one ?
+STR#;10013;Textes rapport;10;;conseil : ^0;advice : ^0
+STR#;10013;Textes rapport;11;;nb feuilles générées = ;# leaves generated = 
+STR#;10013;Textes rapport;12;;nb nœuds générés = ;# nodes generated = 
+STR#;10013;Textes rapport;13;;temps = ^0 sec. = ^1 h. ^2 min. ^3 sec.;time = ^0 sec. = ^1 h. ^2 min. ^3 sec.
+STR#;10013;Textes rapport;14;;temps = ^0 sec. = ^1 min. ^2 sec.;time = ^0 sec. = ^1 min. ^2 sec.
+STR#;10013;Textes rapport;15;;temps = ^0 sec.;time = ^0 sec.
+STR#;10013;Textes rapport;16;;Attention !!! Je n'ai pas pu lire toute la base.;Attention !!! I couldn't read the whole database.
+STR#;10013;Textes rapport;17;;Pour pouvoir charger plus de parties, essayez;If you want to be able to load more games, try
+STR#;10013;Textes rapport;18;;de m'allouer plus de mémoire dans la fenêtre;to give me more memory in the
+STR#;10013;Textes rapport;19;;«Informations sur Cassio» du Finder.;Cassio Infos window in the Finder.
+STR#;10013;Textes rapport;20;;(1 Mo = 12000 parties supplémentaires environ).;(1 Mb = about 12000 extras games).
+STR#;10013;Textes rapport;21;;Problème dans mon algorithme (p=^0) !;Problems in my algorithm (p=^0) !
+STR#;10013;Textes rapport;22;;Problème dans mon algorithme (ScorePourVerif=^0 et ScoreSuite=^1) !;Problems in my algorithm  (ScorePourVerif=^0 et ScoreSuite=^1) !
+STR#;10013;Textes rapport;23;;LE GRAPHE D'APPRENTISSAGE PROPOSE UN COUP ILLEGAL !!!;THE GRAPH PROPOSES AN ILLEGAL MOVE !!!
+STR#;10013;Textes rapport;24;;Le rapport devient un peu long. Vous devriez en effacer une partie pour faire de la place.;Report is getting quite long. You should clear some text to shorten it.
+STR#;10013;Textes rapport;25;;Le rapport est rempli à ras-bord. Veuillez en effacer une partie pour faire de la place.;The report window is almost full. Please delete some text to make new room.
+STR#;10013;Textes rapport;26;;Le rapport a été vidé.;The report window was cleared.
+STR#;10013;Textes rapport;27;;Il y a trop de texte dans le presse-papier pour pouvoir l'ajouter au rapport…;There is too much text in the clipboard to paste it the the report window…
+STR#;10013;Textes rapport;28;;LA BIBLIOTHEQUE PROPOSE UN COUP ILLEGAL !!!;THE OPENING BOOK PROPOSES AN ILLEGAL MOVE !!!
+STR#;10013;Textes rapport;29;;CONNAITSUITEPARFAITE PROPOSE UN COUP ILLEGAL !!!;CONNAITSUITEPARFAITE PROPOSES AN ILLEGAL MOVE !!!
+STR#;10013;Textes rapport;30;;REPONSEINSTANTANEE PROPOSE UN COUP ILLEGAL !!!;REPONSEINSTANTANEE PROPOSES AN ILLEGAL MOVE !!!
+STR#;10013;Textes rapport;31;;CHOIXMAC PROPOSE UN COUP ILLEGAL !!!;CHOIXMAC PROPOSES AN ILLEGAL MOVE !!!
+STR#;10013;Textes rapport;32;;Vous avez gagné ^0 parties d'affilée au niveau Champion !;Winning streak at Champion strength: ^0 games in a row!
+STR#;10013;Textes rapport;33;;OK, voyons si vous serez aussi fort au niveau suivant :-);OK, let's see if you are as strong at next level :-)
+STR#;10013;Textes rapport;34;;Je passe au niveau Débutant.;Switching to Beginner level.
+STR#;10013;Textes rapport;35;;Je passe au niveau Amateur.;Switching to Medium level.
+STR#;10013;Textes rapport;36;;Je passe au niveau Joueur de club.;Switching to Club Player level.
+STR#;10013;Textes rapport;37;;Je passe au niveau Fort.;Switching to Strong level.
+STR#;10013;Textes rapport;38;;Je passe au niveau Expert.;Switching to Expert level.
+STR#;10013;Textes rapport;39;;Je passe au niveau Grand-Maître;Switching to Grand-Master level.
+STR#;10013;Textes rapport;40;;Je passe au niveau Champion.;Switching to Champion level.
+STR#;10013;Textes rapport;41;;des Préférences de Cassio.;Préférences dialog.
+STR#;10013;Textes rapport;42;;J'ai réussi à importer ^0 parties dans le fichier « ^1 ».;I have managed to import ^0 games from the file « ^1 ».
+STR#;10013;Textes rapport;43;;J'ai réussi à importer ^0 partie dans le fichier « ^1 ».;I have managed to import ^0 game from the file « ^1 ».
+STR#;10013;Textes rapport;44;;J'ai réussi à importer ^0 parties depuis le presse-papier.;I have managed to import ^0 games from the clipboard.
+STR#;10013;Textes rapport;45;;J'ai réussi à importer ^0 partie depuis le presse-papier.;I have managed to import ^0 game from the clipborad.
+STR#;10013;Textes rapport;46;;Pour info, le fichier contenait ^0 lignes.;Please note that that file had ^0 lines.
+STR#;10013;Textes rapport;47;;Il y avait ^0 partie trop courte ou illégale.;There was ^0 illegal game (or too short).
+STR#;10013;Textes rapport;48;;Il y avait par ailleurs ^0 parties trop courtes ou illégales.;There were ^0 illegal games (or too short).
+STR#;10013;Textes rapport;49;;prof =;depth =
+STR#;10013;Textes rapport;50;;feuilles =;leaves =
+STR#;10013;Textes rapport;51;;nœuds =;nodes =
+STR#;10013;Textes rapport;52;;temps =;time =
+STR#;10013;Textes rapport;53;;cumul =;total =
+STR#;10014;;0;;A propos de Cassio...;A propos de Cassio...
+STR#;10014;A propos de Cassio...;1;;Cassio;Cassio
+STR#;10014;A propos de Cassio...;2;;merci à Bruno Causse et Richard Delorme;special thanks to Bruno Causse and Richard Delorme
+STR#;10014;A propos de Cassio...;3;;version ^0    shareware à 15 Euros.;version ^0   15 Euros shareware
+STR#;10014;A propos de Cassio...;4;;© 1992-2018 Stéphane Nicolet;©1992-2014 Stéphane Nicolet
+STR#;10014;A propos de Cassio...;5;;24, rue Titon 75011 PARIS;24, rue Titon 75011 PARIS
+STR#;10014;A propos de Cassio...;6;;(+33) 01 43 72 53 55;(+33) 01 43 72 53 55
+STR#;10014;A propos de Cassio...;7;;(reserved);(reserved)
+STR#;10015;;0;;A propos de la FFO…;A propos de la FFO…
+STR#;10015;A propos de la FFO…;1;;Rejoignez la FFO !!!;Join the FFO !!!
+STR#;10015;A propos de la FFO…;2;;Fédération Française d'Othello;Fédération Française d'Othello
+STR#;10015;A propos de la FFO…;3;;http://ffothello.org;http://www.ffothello.org
+STR#;10015;A propos de la FFO…;4;;email : cassio@free.fr;email: cassio@free.fr
+STR#;10015;A propos de la FFO…;5;;(reserved);(reserved)
+STR#;10015;A propos de la FFO…;6;;Cassio ^0 par Stéphane Nicolet;Cassio ^0 by Stéphane Nicolet
+STR#;10015;A propos de la FFO…;7;;remerciements : Bruno Causse, Sylvain Quin, Marc Tastet,;many thanks to: Bruno Causse, Sylvain Quin, Marc Tastet,
+STR#;10015;A propos de la FFO…;8;;Richard Delorme, Emmanuel Lazard et Dominique Penloup;Richard Delorme, Emmanuel Lazard and Dominique Penloup
+STR#;10015;A propos de la FFO…;9;;(reserved);(reserved)
+STR#;10016;;0;;Textes d'erreurs;Textes d'erreurs
+STR#;10016;Textes d'erreurs;1;;Votre fichier «Préférences Cassio» n'est pas compatible avec cette version de Cassio. Je vais en créer un mieux.\n;"Your file ""Préférences Cassio"" is incompatible with that version of Cassio. I will have to create a better one.\n"
+STR#;10016;Textes d'erreurs;2;;Impossible d'ouvrir le rapport…;Unable to open the report window…
+STR#;10016;Textes d'erreurs;3;;Le presse-papier ne contient pas une partie d'Othello légale au format texte (par ex. F5D6C3D3C4…), ni dans un autre format que je connaisse :-(;The clipboard does not contain a legal Othello game (e.g. F5D6C3D3C4…), nor is in another know format :-(
+STR#;10016;Textes d'erreurs;4;;Le fichier «^0» ne semble pas être dans un des formats que je connais. Je suis désolé de ne pas pouvoir l'ouvrir.;The file «^0» does not seem to match one of the formats known by Cassio, so I can not open it!
+STR#;10016;Textes d'erreurs;5;;Le fichier «^0» est introuvable ! Il est peut-être ouvert par une autre application… \n  code erreur = ^1;"The file ""^0"" is probably absent! It may also be used by another application…\n  error code  = ^1"
+STR#;10016;Textes d'erreurs;6;;Il n'est pas possible d'ouvrir un script de finale alors que je réfléchis sur une position. Veuillez interrompre ma réflexion, puis réouvrir le fichier.;I'm not able to open an endgame script when I'm already thinking on a position. Please interrupt my reflexion, then reopen the file.
+STR#;10016;Textes d'erreurs;7;;pseudo inconnu : ;unknown pseudo : 
+STR#;10016;Textes d'erreurs;8;;tournoi inconnu : ;unknown tournament : 
+STR#;10016;Textes d'erreurs;9;;doublon : ;duplicate : 
+STR#;10016;Textes d'erreurs;10;;partie complétée :-);game completed :-)
+STR#;10016;Textes d'erreurs;11;;incomplète : ;incomplete : 
+STR#;10016;Textes d'erreurs;12;;problème sur la longueur de la partie : ;problem for the length of the game : 
+STR#;10016;Textes d'erreurs;13;;Export : ^0 parties…;Export : ^0 games…
+STR#;10016;Textes d'erreurs;14;;### ligne impossible : ;### impossible line : 
+STR#;10016;Textes d'erreurs;15;;Fichier non reconnu : ;Unknown format : 
+STR#;10016;Textes d'erreurs;16;;joueurs dans le fichier =  ;players in the file =  
+STR#;10016;Textes d'erreurs;17;;La séquence en cours ne part pas de la position initiale.;The current sequence does not start from the initial position.
+STR#;10016;Textes d'erreurs;18;;Vous ne pourrez donc pas l'utiliser pour trouver une partie dans la base WThor (je suis désolé).;You won't be able to use it to load games from the WThor database (sorry).
+STR#;10016;Textes d'erreurs;19;;Je n'arrive pas à coller le contenu du presse-papier.;I cannot paste the content of the clipboard.
+STR#;10016;Textes d'erreurs;20;;Vous avez modifié à la main l'arbre de jeu !;You've just edited the game tree!
+STR#;10016;Textes d'erreurs;21;;IN NO EVENT SHALL CASSIO OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE EDITION OF THE GAME TREE OR ITS SUBSEQUENT USE :-);IN NO EVENT SHALL CASSIO OR ANY OTHER CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE EDITION OF THE GAME TREE OR ITS SUBSEQUENT USE :-)
+STR#;10016;Textes d'erreurs;22;;Souhaitez-vous redresser la position initiale ?;Do you want to rectify the initial position ?
+STR#;10016;Textes d'erreurs;23;;La position initiale de cette partie est inversée par rapport à la position standard d'othello. Cliquez sur 'Oui' pour faire une symétrie qui ramène à de l'othello normal.;The initial position of this game is a mirror of the standard Othello initial position. Click 'Yes' to execute a symetry which leads back to standard Othello.
+STR#;10017;;0;;Textes base;Textes base
+STR#;10017;Textes base;1;;nb parties dans la base : ^0;nb of games in the database : ^0
+STR#;10017;Textes base;2;;Partie n° ^0;game # ^0
+STR#;10017;Textes base;3;;chargement des joueurs et des tournois…;loading tournaments and players…
+STR#;10017;Textes base;4;;analyse des joueurs…;analysing players…
+STR#;10017;Textes base;5;;analyse des tournois…;analysing tournaments…
+STR#;10017;Textes base;6;;tri des parties…;sorting games…
+STR#;10017;Textes base;7;;lecture de l'index des Noirs…;reading Black index…
+STR#;10017;Textes base;8;;lecture de l'index des Blancs…;reading White index…
+STR#;10017;Textes base;9;;lecture de l'index des ouvertures…;reading opening index…
+STR#;10017;Textes base;10;;lecture :;loading :
+STR#;10017;Textes base;11;;Stop !;Stop !
+STR#;10017;Textes base;12;;Abandon;Give up
+STR#;10017;Textes base;13;;…dont ^0 en ^1;including ^0 in ^1
+STR#;10017;Textes base;14;;…dont ^0 après ^1;including ^0 after ^1
+STR#;10017;Textes base;15;;…dont ^0 avant ^1;including ^0 before ^1
+STR#;10019;;0;;Textes impression;Textes impression
+STR#;10019;Textes impression;1;;Réglez les paramètres des diagrammes pour le presse-papier :;Choose the parameters for the clipboard diagrams :
+STR#;10019;Textes impression;2;;Réglez les paramètres des diagrammes pour l'impression :;Choose the parameters for the printed diagrams :
+STR#;10019;Textes impression;3;;Après ^0;After ^0
+STR#;10019;Textes impression;4;;nb de pages : ^0;# of pages : ^0
+STR#;10019;Textes impression;5;;page ^0;page ^0
+STR#;10019;Textes impression;6;;Impression de «^0»;printing «^0»
+STR#;10019;Textes impression;7;;Position : ^0;Position : ^0
+STR#;10019;Textes impression;8;;Diagramme : ^0;Diagram : ^0
+STR#;10019;Textes impression;9;;Statistiques : ^0;Statistics : ^0
+STR#;10019;Textes impression;10;;Liste : ^0;List : ^0
+STR#;10019;Textes impression;11;;Bibliothèque : ^0;Library: ^0
+STR#;10019;Textes impression;12;;Feuille de notation : ^0;Tournament Sheet : ^0
+STR#;10019;Textes impression;13;;Pour annuler, tapez Escape ou -point (.).;To cancel, type Escape ou -point (.).
+STR#;10020;;0;;Textes divers;Textes divers
+STR#;10020;Textes divers;1;;Nom de la partie :;Name of the game :
+STR#;10020;Textes divers;2;;sans titre;untitled
+STR#;10020;Textes divers;3;;Préférences ^0;Preferences ^0
+STR#;10020;Textes divers;4;;Nom de l'arbre de jeu :;Name of the game tree :
+STR#;10020;Textes divers;5;;Couleur de l'othellier :;Choose the board color :
+STR#;10020;Textes divers;6;;note to Cassio translators : do *not* change the following string, leave it in french;note to Cassio translators : do *not* change the following string, leave it in french
+STR#;10020;Textes divers;7;;version normale;version normale
+STR#;10020;Textes divers;8;;Commentaires;Commentary
+STR#;10020;Textes divers;9;;Commentaires de ;Commentary for 
+STR#;10020;Textes divers;10;;Choisissez un répertoire avec des parties;Choose a folder with games files
+STR#;10020;Textes divers;11;;Nom du fichier d'export ?;Name of the export file ?
+STR#;10020;Textes divers;12;;Nombre de positions dans la bibliothèque de Zebra : ^0;Zebra's opening book contains ^0 positions
+STR#;10020;Textes divers;13;;Trouvez le fichier modèle HTML :;Find the HTML template:
+STR#;10020;Textes divers;14;;Erreur de syntaxe : attribut illisible ?!?;Syntax error : unrecognizable property ?!?
+STR#;10020;Textes divers;15;;ERREUR, attribut non trouvé dans l'arbre de jeu :;ERROR, property not found in the game tree :
+STR#;10020;Textes divers;16;;Attribut détruit dans l'arbre de jeu :;Property deleted from the game tree :
+STR#;10020;Textes divers;17;;Attribut ajouté à l'arbre de jeu :;Property added to the game tree :
+STR#;10021;;0;;Textes nouveau format;Textes nouveau form
+STR#;10021;Textes nouveau format;1;;Erreur durant la lecture du fichier des joueurs ! (codeErreur=^0);An error occured while reading the players file ! (codeErreur=^0)
+STR#;10021;Textes nouveau format;2;;Erreur durant la lecture du fichier des tournois ! (codeErreur=^0);An error occured while reading the tournament file ! (codeErreur=^0)
+STR#;10021;Textes nouveau format;3;;Nom de la base à créer ?;Name of the database to create ?
+STR#;10021;Textes nouveau format;4;;Une base de ce nom existe déjà !;There is already a database with that name !
+STR#;10021;Textes nouveau format;5;;Nom du fichier à créer ?;Name of the file to create ?
+STR#;10021;Textes nouveau format;6;;THOR.PAR;THOR.PAR
+STR#;10021;Textes nouveau format;7;;Impossible de sauvegarder plus de 500 parties dans un fichier THOR.PAR !;Impossible to save more than 500 games in a THOR.PAR file !
+STR#;10022;;0;;Textes transcript;Textes transcript
+STR#;10022;Textes transcript;1;;Coup manquant : ;Missing move : 
+STR#;10022;Textes transcript;2;;Coups manquants : ;Missing moves : 
+STR#;10022;Textes transcript;3;;Suggestion:;Suggestion:
+STR#;10022;Textes transcript;4;;fait ;is 
+STR#;10023;;0;;Textes problèmes de coin;Textes problèmes de coin
+STR#;10023;Textes problèmes de coin;1;;Noir prend un coin en ^0 coups;Black to take a corner in ^0 moves
+STR#;10023;Textes problèmes de coin;2;;Blanc prend un coin en ^0 coups;White to take a corner in ^0 moves
+STR#;10023;Textes problèmes de coin;3;;Solution = ^0;Solution = ^0
+STR#;10023;Textes problèmes de coin;4;;Pas de puzzle de prise de coin pour Noir entre ^0 et ^1 coups;No corner puzzle for Black in ^0 to ^1 moves
+STR#;10023;Textes problèmes de coin;5;;Pas de puzzle de prise de coin pour Blanc entre ^0 et ^1 coups;No corner puzzle for White in ^0 to ^1 moves
+STR#;10023;Textes problèmes de coin;6;;Noir peut déjà prendre un coin !;Black can already take a corner!
+STR#;10023;Textes problèmes de coin;7;;Blanc peut déjà prendre un coin !;White can already take a corner!
+STR#;10023;Textes problèmes de coin;8;;Noir a plusieurs solutions pour prendre un coin en ^0 coups : ;Black has several possibilities to take a corner in ^0 moves: 
+STR#;10023;Textes problèmes de coin;9;;Blanc a plusieurs solutions pour prendre un coin en ^0 coups : ;White has several possibilities to take a corner in ^0 moves: 
+STR#;10023;Textes problèmes de coin;10;;Noir en ^0 coups;Black in ^0 moves
+STR#;10023;Textes problèmes de coin;11;;Blanc en ^0 coups;White in ^0 moves
+STR#;10023;Textes problèmes de coin;12;;Noir a déjà un coin !;Black has already taken a corner!
+STR#;10023;Textes problèmes de coin;13;;Blanc a déjà un coin !;White has already taken a corner!
+STR#;10024;;0;;Textes regression;Textes regression
+STR#;10024;Textes regression;1;;score théorique ^0;theoretical score ^0
+STR#;10024;Textes regression;2;;, estimé à ^0 par Edmond;, estimated at ^0 by Edmond
+STR#;10024;Textes regression;3;;, estimé à ^0 par Cassio;, estimated at ^0 by Cassio
+STR#;10024;Textes regression;4;;, estimé à ^0 par le vieux Cassio;, estimated at ^0 by the old Cassio
+STR#;10024;Textes regression;5;;score théorique = ^0;theoretical score = ^0
+STR#;10024;Textes regression;6;;, score final = ^0;, final score = ^0
+STR#;10024;Textes regression;7;;score ouverture = ^0;opening score = ^0
