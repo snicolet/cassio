@@ -92,19 +92,19 @@ function GetModificationDate(var fic : basicfile; var theDate : DateTimeRec) : O
 
 // Write data
 function Write(var fic : basicfile; s : String255) : OSErr;
-function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Write(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 function Writeln(var fic : basicfile; s : String255) : OSErr;
 function InsertFileInFile(var fic : basicfile; pathOfFileToInsert : String255) : OSErr;
 function InsertFileInFile(var inserted, receptacle : basicfile) : OSErr;
 
 // Read data
-function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 function Read(var fic : basicfile; var value : SInt32) : OSErr;
 function Readln(var fic : basicfile; var s : String255) : OSErr;
 function Readln(var fic : basicfile; var s : LongString) : OSErr;
-function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Readln(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 
 // Iterate on each line of a text file
 procedure ForEachLineInFileDo(whichFile : fileInfo ; DoWhat : LineOfFileProc; var value : SInt32);
@@ -1276,7 +1276,7 @@ end;
 
 
 // Write(fic, buffer, count) : write 'count' bytes from buffer to the file
-function Write(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Write(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
 begin
 
@@ -1288,12 +1288,12 @@ begin
 
   if FileIsStandardOutput(fic) then
     begin
-      InsereTexteDansRapport(buffPtr,count);
+      InsereTexteDansRapport(buffer, count);
       Write := NoErr;
       exit;
     end;
 
-  count := FileWrite(fic.handle, buffPtr, count);
+  count := FileWrite(fic.handle, buffer, count);
   if count > 0
     then err := NoErr
     else err := -1;
@@ -1370,7 +1370,7 @@ end;
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 var err : OSErr;
     count : SInt32;
-    buffPtr : Ptr;
+    buffer : Ptr;
 begin
 
   if FileIsStandardOutput(fic) then
@@ -1380,8 +1380,8 @@ begin
       exit;
     end;
 
-  buffPtr :=  @value;
-  count := FileWrite(fic.handle, buffPtr, 4);
+  buffer :=  @value;
+  count := FileWrite(fic.handle, buffer, 4);
   if count > 0
     then err := NoErr
     else err := -1;
@@ -1400,7 +1400,7 @@ end;
 
 // Read(fic, buffer, count) : read 'count' bytes from the file, and put them
 // in the given buffer. On exit, count is set to number of bytes actually read.
-function Read(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Read(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
     nbBytesRead : SInt32;
 begin
@@ -1411,7 +1411,7 @@ begin
       exit;
     end;
 
-  nbBytesRead := FileRead(fic.handle, buffPtr, count);
+  nbBytesRead := FileRead(fic.handle, buffer^, count);
   if nbBytesRead > 0
      then 
        begin
@@ -1441,7 +1441,7 @@ end;
 // characters in the string s. 
 function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 var len, nbBytesRead : SInt32;
-    buffPtr : Ptr;
+    buffer : Ptr;
     err : OSErr;
 begin
 
@@ -1455,8 +1455,8 @@ begin
   if len > 255 then len := 255;
   if len < 0 then len := 0;
 
-  buffPtr := @s[1];
-  nbBytesRead := FileRead(fic.handle, buffPtr, len);
+  buffer := @s[1];
+  nbBytesRead := FileRead(fic.handle, buffer^, len);
   if nbBytesRead >= 0
      then 
        begin
@@ -1481,10 +1481,10 @@ begin
 end;
 
 
-// MyFSBufferedReadPourReadln() : internal function to speed up the Readln()
+// BufferedReadPourReadln() : internal function to speed up the Readln()
 // function. Use a buffer instead of reading the file character by character.
 
-function MyFSBufferedReadPourReadln(var fic : basicfile; var length : SInt32; outBuffer : Ptr) : OSErr;
+function BufferedReadPourReadln(var fic : basicfile; var length : SInt32; outBuffer : Ptr) : OSErr;
 const SIZE_OF_BUFFER = 1024 * 34;
 var luDansLeBuffer : boolean;
     resultBuffer : PackedArrayOfCharPtr;
@@ -1495,7 +1495,7 @@ label Bail;
 begin
 
  // debug := (Pos('rence',fic.fileName) > 0);
-  debug := true;
+  debug := false;
 
   luDansLeBuffer := false;
 
@@ -1545,7 +1545,12 @@ begin
             if (err = NoErr) then
               begin
               
-                nbOctetsLusSurLeDisque := FileRead(fic.handle, bufferLecture, nbOctetsLusSurLeDisque);
+                if debug then WritelnNumDansRapport('DEBUG : avant FileRead(1), nbOctetsLusSurLeDisque = ', nbOctetsLusSurLeDisque);
+                if debug then WritelnNumDansRapport('DEBUG : avant FileRead(1), fic.handle = ', fic.handle);
+                
+                nbOctetsLusSurLeDisque := FileRead(fic.handle, bufferLecture^, nbOctetsLusSurLeDisque);
+                
+                if debug then WritelnNumDansRapport('DEBUG : apres FileRead(1), nbOctetsLusSurLeDisque = ', nbOctetsLusSurLeDisque);
                 
                 if nbOctetsLusSurLeDisque = 0 then
                   begin
@@ -1602,9 +1607,9 @@ begin
             positionDansBuffer := positionDansBuffer + length;
 
             luDansLeBuffer := true;
-            MyFSBufferedReadPourReadln := NoErr;
+            BufferedReadPourReadln := NoErr;
 
-            // if debug then WritelnNumDansRapport('FIX ME : OK, positionDansBuffer = ',positionDansBuffer);
+            // if debug then WritelnNumDansRapport('DEBUG : OK, positionDansBuffer = ',positionDansBuffer);
           end;
 
       end;
@@ -1613,10 +1618,9 @@ Bail :
 
   if not(luDansLeBuffer) then
     begin
-      if debug then WritelnNumDansRapport('avant, length = ',length);
-
-
-      length := FileRead(fic.handle, outBuffer, length);
+      if debug then WritelnNumDansRapport('avant desesperate FileRead, length = ',length);
+      
+      length := FileRead(fic.handle, outBuffer^, length);
       if length > 0 then
           begin
              err := NoErr;
@@ -1627,10 +1631,10 @@ Bail :
              length := 0;
           end;
 
-      MyFSBufferedReadPourReadln := err;
+      BufferedReadPourReadln := err;
 
-      if debug then WritelnNumDansRapport('apres, length = ',length);
-      if debug then WritelnNumDansRapport('apres, err = ',err);
+      if debug then WritelnNumDansRapport('apres desesperate FileRead, length = ',length);
+      if debug then WritelnNumDansRapport('apres desesperate FileRead, err = ',err);
     end;
 end;
 
@@ -1658,7 +1662,7 @@ begin
 
   {on essaie de lire 258 caracteres du fichier pour les mettre dans notre buffer}
   len := 258;
-  err := MyFSBufferedReadPourReadln(fic, len, @buffer[1]);
+  err := BufferedReadPourReadln(fic, len, @buffer[1]);
   for i := len + 1 to 258 do buffer[i] := chr(0);
 
   {on cherche le premier retour charriot dans le buffer}
@@ -1759,7 +1763,7 @@ end;
  *                                                                             *
  *******************************************************************************
  *)
-function Readln(var fic : basicfile; buffPtr : Ptr; var count : SInt32) : OSErr;
+function Readln(var fic : basicfile; buffer : Ptr; var count : SInt32) : OSErr;
 var err : OSErr;
     i,len,longueurLigne : SInt32;
     positionTeteDeLecture : SInt32;
@@ -1774,12 +1778,12 @@ begin
 
   err := GetFilePosition(fic,positionTeteDeLecture);
 
-  {on essaie de lire count caracteres dans buffPtr}
+  {on essaie de lire count caracteres dans buffer}
   len := count;
-  err := Read(fic, buffPtr, count);
-  localBuffer := PackedArrayOfCharPtr(buffPtr);
+  err := Read(fic, buffer, count);
+  localBuffer := PackedArrayOfCharPtr(buffer);
 
-  {on cherche le premier retour charriot dans buffPtr}
+  {on cherche le premier retour charriot dans buffer}
   longueurLigne := Min(len,count);
   gEndOfLineFoundInReadln := false;
   for i := count-1 downto 0 do
