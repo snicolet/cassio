@@ -824,7 +824,7 @@ end;
 
 
 
-// OpenFile() : open the file
+// OpenFile() : open the file, and set the file cursor at start
 function OpenFile(var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -837,7 +837,7 @@ begin
 
   if fic.dataForkOuvertCorrectement <> -1 then
     begin
-      Beep();
+      // Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -872,7 +872,7 @@ begin
       inc(fic.dataForkOuvertCorrectement);
       if fic.dataForkOuvertCorrectement <> 0 then
         begin
-          Beep();
+          // Beep();
           DisplayMessageInConsole('');
           DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
           DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -898,7 +898,7 @@ begin
 
   if fic.dataForkOuvertCorrectement <> 0 then
     begin
-      Beep();
+      // Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -939,7 +939,7 @@ begin
         dec(fic.dataForkOuvertCorrectement);
         if (fic.dataForkOuvertCorrectement <> -1) then
           begin
-            Beep();
+            // Beep();
             DisplayMessageInConsole('');
             DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
             DisplayMessageInConsole('fic.fileName = '+fic.fileName);
@@ -2097,6 +2097,7 @@ var i : SInt32;
     info : fileInfo;
     fic : basicFile;
     ligne : longString;
+    s : String255;
 begin
    system.Writeln('');
    system.Writeln('Testing file system functions...');
@@ -2149,10 +2150,28 @@ begin
    while not(EndOfFile(fic,err)) do
       begin
         err := Readln(fic,ligne);
-        WritelnLongStringDansRapport(ligne);
+        //WritelnLongStringDansRapport(ligne);
       end;
-   
    system.writeln( CloseFile(fic) );
+   
+   name := 'temp.foo.txt';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   with ligne do
+      begin
+        debutLigne := '';
+        finLigne   := '';
+        complete   := true;
+      end;
+   while not(EndOfFile(fic,err)) do
+      begin
+        err := Readln(fic,s);
+        //WritelnDansRapport(s);
+      end;
+   system.writeln( CloseFile(fic) );
+   
    
    
    
