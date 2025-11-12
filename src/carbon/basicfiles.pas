@@ -1495,7 +1495,7 @@ label Bail;
 begin
 
  // debug := (Pos('rence',fic.fileName) > 0);
-  debug := false;
+  debug := true;
 
   luDansLeBuffer := false;
 
@@ -1506,7 +1506,7 @@ begin
 
         if (bufferLecture = NIL) then
           begin
-            if debug then WritelnDansRapport('FIX ME : allocation du buffer de lecture');
+            if debug then WritelnDansRapport('DEBUG : allocation du buffer de lecture');
             bufferLecture := PackedArrayOfCharPtr(AllocateMemoryPtr(SIZE_OF_BUFFER));
             if (bufferLecture = NIL) then
               begin
@@ -1521,10 +1521,10 @@ begin
               begin
                 tailleDuFichier := -1;
                 doitUtiliserBuffer := false;
-                if debug then WritelnNumDansRapport('FIX ME : erreur dans le calcul de la taille du fichier : ',tailleDuFichier);
+                if debug then WritelnNumDansRapport('DEBUG : erreur dans le calcul de la taille du fichier : ',tailleDuFichier);
                 goto Bail;
               end;
-            if debug then WritelnNumDansRapport('FIX ME : calcul de la taille du fichier : ',tailleDuFichier);
+            if debug then WritelnNumDansRapport('DEBUG : calcul de la taille du fichier : ',tailleDuFichier);
           end;
 
 
@@ -1540,7 +1540,7 @@ begin
 
             err := GetFilePosition(fic, debutDuBuffer);
 
-            if debug then WritelnNumDansRapport('FIX ME : apres GetFilePosition, err = ',err);
+            if debug then WritelnNumDansRapport('DEBUG : apres GetFilePosition, err = ',err);
 
             if (err = NoErr) then
               begin
@@ -1567,12 +1567,12 @@ begin
                 begin
                   tailleDuBuffer     := nbOctetsLusSurLeDisque;
                   positionDansBuffer := 0;
-                  if debug then WritelnNumDansRapport('FIX ME : lecture dans le fichier : ',tailleDuBuffer);
+                  if debug then WritelnNumDansRapport('DEBUG : lecture dans le fichier : ',tailleDuBuffer);
                 end
               else
                 begin
-                  if debug then WritelnNumDansRapport('FIX ME : erreur de lecture dans le fichier, err = ',err);
-                  if debug then WritelnNumDansRapport('FIX ME : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
+                  if debug then WritelnNumDansRapport('DEBUG : erreur de lecture dans le fichier, err = ',err);
+                  if debug then WritelnNumDansRapport('DEBUG : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
 
                   
                   if (err = eofErr) and (nbOctetsLusSurLeDisque > 0)   {-39 is eofErr, end of file error}
@@ -2092,6 +2092,7 @@ var i : SInt32;
     err : OSErr;
     info : fileInfo;
     fic : basicFile;
+    ligne : longString;
 begin
    system.Writeln('');
    system.Writeln('Testing file system functions...');
@@ -2105,7 +2106,7 @@ begin
    system.Writeln('Testing the BasicFiles library...');
    
    
-   SetDebugFiles(true);
+   SetDebugFiles(false);
    
    name := paramstr(0);            // the name of the current executable
    system.writeln( '################ ' + name + ' ################');
@@ -2121,13 +2122,6 @@ begin
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    
-   name := 'carbon.py';
-   system.writeln( '################ ' + name + ' ################');
-   system.writeln( MakeFileInfo(name, info) );
-   system.writeln( FileExists(info, fic) );
-   system.writeln( OpenFile(fic) );
-   system.writeln( CloseFile(fic) );
-   
    name := './images/';
    system.writeln( '################ ' + name + ' ################');
    system.writeln(sysUtils.DirectoryExists(name));
@@ -2136,6 +2130,27 @@ begin
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    system.writeln(sysUtils.DirectoryExists(fic.filename));
+   
+   name := 'temp.foo.txt';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   with ligne do
+      begin
+        debutLigne := '';
+        finLigne   := '';
+        complete   := true;
+      end;
+   while not(EndOfFile(fic,err)) do
+      begin
+        err := Readln(fic,ligne);
+        WritelnLongStringDansRapport(ligne);
+      end;
+   
+   system.writeln( CloseFile(fic) );
+   
+   
    
 end;
 
