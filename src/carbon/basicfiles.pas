@@ -278,7 +278,7 @@ end;
 
 
 // ExpandFileName(info, path) : returns the full path of the file
-function ExpandFileName(fs : fileInfo; var path : String255) : OSErr;
+function ExpandFileName(var fs : fileInfo; var path : String255) : OSErr;
 var err : OSErr;
     s : String255;
     info : fileInfo;
@@ -287,7 +287,10 @@ begin
   err := MakeFileInfo(fs.vRefNum, fs.parID, s, info);
   if err = fnfErr then err := NoErr;
   if err = NoErr then
-     path := sysUtils.ExpandFileName(s);
+     begin
+        path := sysUtils.ExpandFileName(s);
+        fs := MakeFileInfo(path);
+     end;
 
   Result := err;
 end;
@@ -2104,11 +2107,35 @@ begin
    
    SetDebugFiles(true);
    
-   name := paramstr(0);
+   name := paramstr(0);            // the name of the current executable
+   system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
+   
+   name := 'toto.txt';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( CloseFile(fic) );
+   
+   name := 'carbon.py';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( CloseFile(fic) );
+   
+   name := './images/';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln(sysUtils.DirectoryExists(name));
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( CloseFile(fic) );
+   system.writeln(sysUtils.DirectoryExists(fic.filename));
    
 end;
 

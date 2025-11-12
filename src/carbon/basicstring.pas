@@ -2073,7 +2073,7 @@ begin
    SetParserDelimiters(CreateSetOfChar(Concat(' ',tab)));
 
    // Run some tests for the BasicString library
-   testBasicString;
+   // testBasicString;
    // ShowUnicodeTable;
 
 end.
