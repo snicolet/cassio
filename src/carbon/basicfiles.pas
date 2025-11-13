@@ -691,7 +691,7 @@ begin
       begin
 		if sysUtils.FileExists(fic.info.name)
           then err1 := NoErr
-          else err1 := fnfErr;   {file not found error}
+          else err1 := fnfErr;   { file not found error = -43}
 
 		if debugBasicFiles then
 		  begin
@@ -719,7 +719,9 @@ begin
 end;
 
 
-// CreatFile() : create file on the disc
+// CreatFile() : create file on the disc.
+// Note : after its creation, the file is closed and you have to
+// open it with OpenFile(fic) to read/write in it.
 function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -749,9 +751,17 @@ begin
 
   // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
   fic.handle := FileCreate(fic.info.name);
-  if fic.handle = THandle(-1)
-     then err := -1
-     else err := NoErr;
+  if fic.handle <> THandle(-1)
+     then 
+       begin
+         FileClose(fic.handle);
+         err := NoErr;
+       end
+     else
+       begin
+         err := -1;
+       end;
+       
 
   if debugBasicFiles then
     begin
@@ -771,7 +781,9 @@ begin
 end;
 
 
-// CreateFile() : create file on the disc
+// CreateFile() : create file on the disc.
+// Note : after its creation, the file is closed and you have to
+// open it with OpenFile(fic) to read/write in it.
 function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
@@ -801,14 +813,21 @@ begin
 
   // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
   fic.handle := FileCreate(fic.info.name);
-  if fic.handle = THandle(-1)
-     then err := -1
-     else err := NoErr;
+  if fic.handle <> THandle(-1)
+     then 
+       begin
+         FileClose(fic.handle);
+         err := NoErr;
+       end
+     else
+       begin
+         err := -1;
+       end;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FSpCreate dans CreateFile :');
+      DisplayMessageInConsole(' apres FileCreate dans CreateFile :');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageAndNumInConsole('fic.vRefNum = ',fic.vRefNum);
       DisplayMessageAndNumInConsole('fic.parID = ',fic.parID);
@@ -926,6 +945,7 @@ begin
   with fic.readBuffer do
     begin
       if (bufferLecture <> NIL) then DisposeMemoryPtr(Ptr(bufferLecture));
+      bufferLecture       := NIL;
       debutDuBuffer       := 0;
       positionDansBuffer  := 0;
       tailleDuFichier     := -1;
@@ -1293,11 +1313,17 @@ begin
       exit;
     end;
 
-  count := FileWrite(fic.handle, buffer^, count);
-  if count > 0
-    then err := NoErr
-    else err := -1;
-    
+  err := NoErr;
+  
+  if count > 0 then
+    begin
+      count := FileWrite(fic.handle, buffer^, count);
+      if count < 0 then 
+        begin
+          err := -1;
+          count := 0;
+        end;
+    end;
 
   if debugBasicFiles then
     begin
@@ -1325,14 +1351,20 @@ begin
       exit;
     end;
 
+  err := NoErr;
+  
   count := LENGTH_OF_STRING(s);
-  buffer :=  @s[1];
-  err := FileWrite(fic.handle, buffer^, count);
+  if count > 0 then
+    begin
+      buffer :=  @s[1];
+      count := FileWrite(fic.handle, buffer^, count);
+      if count < 0 then err := -1;
+    end;
 
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres MyFSWriteString dans Write :');
+      DisplayMessageInConsole(' apres FileWrite dans Write(fic, s) :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
@@ -1358,7 +1390,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres MyFSWriteString dans Writeln( :');
+      DisplayMessageInConsole(' apres Write dans Writeln(fic, s) :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
@@ -1391,7 +1423,7 @@ begin
   if debugBasicFiles then
     begin
       DisplayMessageInConsole('');
-      DisplayMessageInConsole(' apres FileWrite dans Write :');
+      DisplayMessageInConsole(' apres FileWrite dans Write(fic, value) :');
       DisplayMessageAndNumInConsole('fic.handle = ',fic.handle);
       DisplayMessageAndNumInConsole('   ==> Err = ',err);
     end;
@@ -2102,6 +2134,7 @@ var i : SInt32;
     s : String255;
     n, p, count : SInt32;
     buffer : packed array[0..99] of UInt8;
+    t : SInt64;
 begin
    system.Writeln('');
    system.Writeln('Testing file system functions...');
@@ -2117,6 +2150,21 @@ begin
    
    SetDebugFiles(false);
    
+   
+   name := 'taratata.txt';
+   system.writeln( '################ ' + name + ' ################');
+   system.writeln( MakeFileInfo(name, info) );
+   system.writeln( FileExists(info, fic) );
+   system.writeln( CreateFile(info, fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( Write(fic, '') );
+   system.writeln( Writeln(fic, 'taratata') );
+   system.writeln( Writeln(fic, '') );
+   system.writeln( Write(fic, '') );
+   system.writeln( CloseFile(fic) );
+   
+   SetDebugFiles(false);
+   
    name := 'toto.txt';
    n    := HexToInt('00008000');
    system.writeln( '################ ' + name + ' ################');
@@ -2124,7 +2172,7 @@ begin
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
    system.writeln( CreateFile(info, fic) );
-   
+   system.writeln( OpenFile(fic) );
    
    system.writeln( 'n = ' , n );
    system.writeln( Write(fic, n) );
@@ -2154,6 +2202,7 @@ begin
       system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
    
    system.writeln( ClearFileContent(fic) );
+   system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
@@ -2234,7 +2283,7 @@ begin
    while not(EndOfFile(fic,err)) do
       begin
         err := Readln(fic,ligne);
-        //WritelnLongStringDansRapport(ligne);
+        // WritelnLongStringDansRapport(ligne);
       end;
    system.writeln( CloseFile(fic) );
    
@@ -2249,11 +2298,14 @@ begin
         finLigne   := '';
         complete   := true;
       end;
-   while not(EndOfFile(fic,err)) do
+   t := GetTickCount64();  // start timer
+   while not(EndOfFile(fic, err)) do
       begin
         err := Readln(fic,s);
         //WritelnDansRapport(s);
       end;
+   t := GetTickCount64() - t;  // stop timer
+   system.writeln( 'time to read = ', t);
    system.writeln( CloseFile(fic) );
    
    
@@ -2264,7 +2316,7 @@ begin
   // Always init the library
   InitUnitBasicFile;
   
-  // TestBasicFiles;
+  TestBasicFiles;
 end.
 
 
