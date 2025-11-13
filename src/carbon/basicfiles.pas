@@ -2264,7 +2264,7 @@ begin
   // Always init the library
   InitUnitBasicFile;
   
-  TestBasicFiles;
+  // TestBasicFiles;
 end.
 
 
