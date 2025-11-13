@@ -336,14 +336,14 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> -1 then
+  if fic.rsrcForkCorrectlyOpen <> -1 then
     begin
       Beep();
       DisplayMessageInConsole('');
-      DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
+      DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkCorrectlyOpen <> -1 !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       OuvreRessourceFork := -1;
       exit;
@@ -357,14 +357,14 @@ begin
         fic.ressourceForkRefNum := nroRef;
         OuvreRessourceFork := NoErr;
 
-        inc(fic.rsrcForkOuvertCorrectement);
-        if (fic.rsrcForkOuvertCorrectement <> 0) then
+        inc(fic.rsrcForkCorrectlyOpen);
+        if (fic.rsrcForkCorrectlyOpen <> 0) then
           begin
             Beep();
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
+            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkCorrectlyOpen <> 0 !');
             DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-            DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+            DisplayMessageInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
             DisplayMessageInConsole('');
           end;
       end;
@@ -381,14 +381,14 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> 0 then
+  if fic.rsrcForkCorrectlyOpen <> 0 then
     begin
       Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       UseRessourceFork := -1;
       exit;
@@ -411,13 +411,13 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> 0 then
+  if fic.rsrcForkCorrectlyOpen <> 0 then
     begin
       Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-      DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       FermeRessourceFork := -1;
       exit;
@@ -434,14 +434,14 @@ begin
 
         if err = NoErr then
           begin
-            dec(fic.rsrcForkOuvertCorrectement);
-            if (fic.rsrcForkOuvertCorrectement <> -1) then
+            dec(fic.rsrcForkCorrectlyOpen);
+            if (fic.rsrcForkCorrectlyOpen <> -1) then
               begin
                 Beep();
                 DisplayMessageInConsole('');
-                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
+                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkCorrectlyOpen <> -1 !');
                 DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-                DisplayMessageInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+                DisplayMessageInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
                 DisplayMessageInConsole('');
               end;
           end;

@@ -36,8 +36,8 @@ TYPE
             handle : THandle;                     {private}
             vRefNum : SInt16;                     {private}
             ressourceForkRefNum : SInt32;         {private}
-            dataForkOuvertCorrectement : SInt32;  {private}
-            rsrcForkOuvertCorrectement : SInt32;  {private}
+            dataForkCorrectlyOpen : SInt32;       {private}
+            rsrcForkCorrectlyOpen : SInt32;       {private}
             info : fileInfo;                      {private}
             readBuffer : TReadBuffer              {private}
           end;
@@ -465,8 +465,8 @@ begin
   fic.info := MakeFileInfo(name);
 
   fic.ressourceForkRefNum        := -1;
-  fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
-  fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.dataForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.rsrcForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
 
   with fic.readBuffer do
     begin
@@ -491,10 +491,10 @@ begin
   fic.parID      := info.parID;
   fic.handle     := 0;
   fic.uniqueID   := 0;  {not yet initialised, we'll do it in ExpandFileName}
-  fic.info  := info;
+  fic.info       := info;
   fic.ressourceForkRefNum        := -1;
-  fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
-  fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.dataForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.rsrcForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
 
   with fic.readBuffer do
     begin
@@ -630,7 +630,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
-      DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
     end;
 end;
 
@@ -714,7 +714,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
-      DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
     end;
 end;
 
@@ -835,14 +835,14 @@ begin
       exit;
     end;
 
-  if fic.dataForkOuvertCorrectement <> -1 then
+  if fic.dataForkCorrectlyOpen <> -1 then
     begin
       // Beep();
       DisplayMessageInConsole('');
-      DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
+      DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkCorrectlyOpen <> -1 !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name) = '+fic.info.name);
-      DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
       DisplayMessageInConsole('');
       OpenFile := -1;
       exit;
@@ -869,14 +869,14 @@ begin
 
   if err = NoErr then
     begin
-      inc(fic.dataForkOuvertCorrectement);
-      if fic.dataForkOuvertCorrectement <> 0 then
+      inc(fic.dataForkCorrectlyOpen);
+      if fic.dataForkCorrectlyOpen <> 0 then
         begin
           // Beep();
           DisplayMessageInConsole('');
-          DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
+          DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkCorrectlyOpen <> 0 !');
           DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-          DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement',fic.dataForkOuvertCorrectement);
+          DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen',fic.dataForkCorrectlyOpen);
           DisplayMessageInConsole('');
         end;
     end;
@@ -896,14 +896,14 @@ begin
       exit;
     end;
 
-  if fic.dataForkOuvertCorrectement <> 0 then
+  if fic.dataForkCorrectlyOpen <> 0 then
     begin
       // Beep();
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.fileName = '+fic.fileName);
       DisplayMessageInConsole('fic.info.name = '+fic.info.name);
-      DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
       DisplayMessageInConsole('');
       CloseFile := -1;
 
@@ -936,14 +936,14 @@ begin
 
   if err = NoErr then
       begin
-        dec(fic.dataForkOuvertCorrectement);
-        if (fic.dataForkOuvertCorrectement <> -1) then
+        dec(fic.dataForkCorrectlyOpen);
+        if (fic.dataForkCorrectlyOpen <> -1) then
           begin
             // Beep();
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
+            DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkCorrectlyOpen <> -1 !');
             DisplayMessageInConsole('fic.fileName = '+fic.fileName);
-            DisplayMessageAndNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+            DisplayMessageAndNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
             DisplayMessageInConsole('');
           end;
       end;
@@ -1009,7 +1009,7 @@ begin
       exit;
     end;
 
-  FileIsOpen := (fic.dataForkOuvertCorrectement = 0);
+  FileIsOpen := (fic.dataForkCorrectlyOpen = 0);
 end;
 
 
@@ -1293,7 +1293,7 @@ begin
       exit;
     end;
 
-  count := FileWrite(fic.handle, buffer, count);
+  count := FileWrite(fic.handle, buffer^, count);
   if count > 0
     then err := NoErr
     else err := -1;
@@ -1315,6 +1315,7 @@ end;
 function Write(var fic : basicfile; s : String255) : OSErr;
 var err : OSErr;
     count : SInt32;
+    buffer : Ptr;
 begin
 
   if FileIsStandardOutput(fic) then
@@ -1325,7 +1326,8 @@ begin
     end;
 
   count := LENGTH_OF_STRING(s);
-  err := Write(fic, @s[1], count);
+  buffer :=  @s[1];
+  err := FileWrite(fic.handle, buffer^, count);
 
   if debugBasicFiles then
     begin
@@ -1381,7 +1383,7 @@ begin
     end;
 
   buffer :=  @value;
-  count := FileWrite(fic.handle, buffer, 4);
+  count := FileWrite(fic.handle, buffer^, 4);
   if count > 0
     then err := NoErr
     else err := -1;
@@ -1640,7 +1642,7 @@ end;
 
 
 
-// Readln(fic, s) : read the next line in the file.
+// Readln(fic, s) : read the next line in the file (String255 version).
 // Separators for lines in the file are the CR and/or LF characters.
 // This version outputs a short string (255 characters max).
 
@@ -1712,7 +1714,7 @@ begin
 end;
 
 
-// Readln(fic, s) : read the next line in the file.
+// Readln(fic, s) : read the next line in the file (LongString version).
 // Separators for lines in the file are the CR and/or LF characters.
 // This version outputs a long string (510 characters max).
 
@@ -1758,7 +1760,7 @@ end;
  *   chariot et met le resultat dans buffer. Cette fonction n'alloue pas le    *
  *   buffer, il doit avoir ete cree a la bonne taille auparavant.              *
  *      -> En entree, count est la taille du buffer                            *
- *      -> En sortie, count contient le nombre de caracteres jusqu'au premier  *
+ *      -> En sortie, count devient le nombre de caracteres jusqu'au premier   *
  *                    retour chariot, si on en a trouve un.                    *
  *                                                                             *
  *******************************************************************************
@@ -1776,7 +1778,7 @@ begin
       exit;
     end;
 
-  err := GetFilePosition(fic,positionTeteDeLecture);
+  err := GetFilePosition(fic, positionTeteDeLecture);
 
   {on essaie de lire count caracteres dans buffer}
   len := count;
@@ -1786,7 +1788,7 @@ begin
   {on cherche le premier retour charriot dans buffer}
   longueurLigne := Min(len,count);
   gEndOfLineFoundInReadln := false;
-  for i := count-1 downto 0 do
+  for i := count - 1 downto 0 do
     if (localBuffer^[i] = cr) or (localBuffer^[i] = lf) then
       begin
         longueurLigne := i;
@@ -1799,7 +1801,7 @@ begin
   if gEndOfLineFoundInReadln
     then positionTeteDeLecture := 1 + positionTeteDeLecture + longueurLigne
     else positionTeteDeLecture :=     positionTeteDeLecture + longueurLigne;
-  err := SetFilePosition(fic,positionTeteDeLecture);
+  err := SetFilePosition(fic, positionTeteDeLecture);
 
   {
   WriteStringAndBoolDansRapport(s+' ',gEndOfLineFoundInReadln);
@@ -2098,6 +2100,8 @@ var i : SInt32;
     fic : basicFile;
     ligne : longString;
     s : String255;
+    n, p, count : SInt32;
+    buffer : packed array[0..99] of UInt8;
 begin
    system.Writeln('');
    system.Writeln('Testing file system functions...');
@@ -2113,14 +2117,94 @@ begin
    
    SetDebugFiles(false);
    
-   name := paramstr(0);            // the name of the current executable
+   name := 'toto.txt';
+   n    := HexToInt('00008000');
    system.writeln( '################ ' + name + ' ################');
+   
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
+   system.writeln( CreateFile(info, fic) );
+   
+   
+   system.writeln( 'n = ' , n );
+   system.writeln( Write(fic, n) );
+   system.writeln( Write(fic, n+1) );
+   system.writeln( Writeln(fic, 'toto') );
+   system.writeln( Writeln(fic, 'est') );
+   system.writeln( Writeln(fic, 'grand') );
+
+   system.writeln( SetFilePosition(fic, 0) );
+   system.writeln( Read(fic, p) );
+   system.writeln( 'p = ' , p );
+   system.writeln( Read(fic, p) );
+   system.writeln( 'p = ' , p );
+   system.writeln( SetFilePosition(fic, 0) );
+   count := 8;
+   system.writeln( Read(fic, Ptr(@buffer), count) );
+   system.writeln( 'count = ' , count );
+   for n := 0 to 7 do
+      system.writeln(n, '  -->  ', buffer[n]);
+
+   
+      
+   system.writeln( SetFilePosition(fic, 0) );
+   count := 100;
+   system.writeln( Read(fic, Ptr(@buffer), count) );
+   for n := 0 to 25 do
+      system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
+   
+   system.writeln( ClearFileContent(fic) );
+   system.writeln( OpenFile(fic) );
+   system.writeln( CloseFile(fic) );
+   system.writeln( OpenFile(fic) );
+   
+   
+   s := 'il est 4 heures';
+   count := length(s);
+   system.writeln( 'length(s) = ', count);
+   MemoryFillChar( @buffer, sizeof(buffer), chr(0));
+   for n := 1 to count do
+     buffer[n - 1] := ord(s[n]);
+   for n := 0 to 20 do
+     system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
+    
+   system.writeln( Write(fic, Ptr(@buffer), count) );
+   system.writeln( Writeln(fic, 'toto') );
+   system.writeln( Writeln(fic, 'est') );
+   system.writeln( Writeln(fic, 'grand') );
+
+   system.writeln( SetFilePosition(fic, 0) );
+   system.writeln( 'sizeof(buffer) = ', sizeof(buffer));
+   MemoryFillChar( @buffer, sizeof(buffer), chr(0));
+   for n := 0 to 20 do
+     system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
+   count := 100;
+   system.writeln( Readln(fic, Ptr(@buffer), count) );
+   GetFilePosition(fic, p);
+   system.writeln( 'count = ' , count );
+   system.writeln( 'GetFilePosition(fic) = ' , p );
+   for n := 0 to count-1 do
+      system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
+   count := 100;
+   system.writeln( Readln(fic, Ptr(@buffer), count) );
+   GetFilePosition(fic, p);
+   system.writeln( 'count = ' , count );
+   system.writeln( 'GetFilePosition(fic) = ' , p );
+   for n := 0 to count-1 do
+      system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
+
+   system.writeln( Read(fic, 2, s) );
+   system.writeln( 's = ' + s);
+   system.writeln( Readln(fic, s) );
+   system.writeln( 's = ' + s);
+      
+   system.writeln( ClearFileContent(fic) );
+      
+   system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    
-   name := 'toto.txt';
+   name := paramstr(0);            // the name of the current executable
    system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
@@ -2171,7 +2255,6 @@ begin
         //WritelnDansRapport(s);
       end;
    system.writeln( CloseFile(fic) );
-   
    
    
    

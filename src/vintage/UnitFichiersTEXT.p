@@ -282,8 +282,8 @@ begin
       parID := 0;
     end;
   fic.ressourceForkRefNum        := -1;
-  fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
-  fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.dataForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.rsrcForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
 
   with fic.bufferLecture do
     begin
@@ -308,8 +308,8 @@ begin
   fic.uniqueID   := 0;  {not yet initialised, we'll do it in CreateFFSpecAndResolveAlias}
   fic.info  := info;
   fic.ressourceForkRefNum        := -1;
-  fic.dataForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
-  fic.rsrcForkOuvertCorrectement := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.dataForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
+  fic.rsrcForkCorrectlyOpen := -1; {niveau d'ouverture = 0 veut dire correct}
 
   with fic.bufferLecture do
     begin
@@ -540,7 +540,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
-      DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
     end;
 end;
 
@@ -622,7 +622,7 @@ begin
     begin
       DisplayMessageInConsole('');
       DisplayMessageInConsole(' a la fin de FileExists :');
-      DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
     end;
 end;
 
@@ -730,14 +730,14 @@ begin
       exit;
     end;
 
-  if fic.dataForkOuvertCorrectement <> -1 then
+  if fic.dataForkCorrectlyOpen <> -1 then
     begin
       SysBeep(0);
       DisplayMessageInConsole('');
-      DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkOuvertCorrectement <> -1 !');
+      DisplayMessageInConsole('## WARNING : on veut ouvrir le data Fork d''un fichier dont fic.dataForkCorrectlyOpen <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
       DisplayMessageInConsole('');
       OpenFile := -1;
       exit;
@@ -786,14 +786,14 @@ begin
 
   if err = NoErr then
     begin
-      inc(fic.dataForkOuvertCorrectement);
-      if fic.dataForkOuvertCorrectement <> 0 then
+      inc(fic.dataForkCorrectlyOpen);
+      if fic.dataForkCorrectlyOpen <> 0 then
         begin
           SysBeep(0);
           DisplayMessageInConsole('');
-          DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkOuvertCorrectement <> 0 !');
+          DisplayMessageInConsole('## WARNING : après une ouverture réussie, dataForkCorrectlyOpen <> 0 !');
           DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-          DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement',fic.dataForkOuvertCorrectement);
+          DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen',fic.dataForkCorrectlyOpen);
           DisplayMessageInConsole('');
         end;
     end;
@@ -812,14 +812,14 @@ begin
       exit;
     end;
 
-  if fic.dataForkOuvertCorrectement <> 0 then
+  if fic.dataForkCorrectlyOpen <> 0 then
     begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le data Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
       DisplayMessageInConsole('');
       CloseFile := -1;
 
@@ -851,14 +851,14 @@ begin
 
   if err = NoErr then
       begin
-        dec(fic.dataForkOuvertCorrectement);
-        if (fic.dataForkOuvertCorrectement <> -1) then
+        dec(fic.dataForkCorrectlyOpen);
+        if (fic.dataForkCorrectlyOpen <> -1) then
           begin
             SysBeep(0);
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkOuvertCorrectement <> -1 !');
+            DisplayMessageInConsole('## WARNING : après une fermeture correcte du data fork d''un fichier, dataForkCorrectlyOpen <> -1 !');
             DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-            DisplayMessageWithNumInConsole('fic.dataForkOuvertCorrectement = ',fic.dataForkOuvertCorrectement);
+            DisplayMessageWithNumInConsole('fic.dataForkCorrectlyOpen = ',fic.dataForkCorrectlyOpen);
             DisplayMessageInConsole('');
           end;
       end;
@@ -939,7 +939,7 @@ begin
       exit;
     end;
 
-  FileIsOpen := (fic.dataForkOuvertCorrectement = 0);
+  FileIsOpen := (fic.dataForkCorrectlyOpen = 0);
 end;
 
 function GetUniqueID(var fic : basicfile) : SInt32;
@@ -1868,14 +1868,14 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> -1 then
+  if fic.rsrcForkCorrectlyOpen <> -1 then
     begin
       SysBeep(0);
       DisplayMessageInConsole('');
-      DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkOuvertCorrectement <> -1 !');
+      DisplayMessageInConsole('## WARNING : on veut ouvrir le ressource Fork d''un fichier dont fic.rsrcForkCorrectlyOpen <> -1 !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       OuvreRessourceFork := -1;
       exit;
@@ -1889,14 +1889,14 @@ begin
         fic.ressourceForkRefNum := nroRef;
         OuvreRessourceFork := NoErr;
 
-        inc(fic.rsrcForkOuvertCorrectement);
-        if (fic.rsrcForkOuvertCorrectement <> 0) then
+        inc(fic.rsrcForkCorrectlyOpen);
+        if (fic.rsrcForkCorrectlyOpen <> 0) then
           begin
             SysBeep(0);
             DisplayMessageInConsole('');
-            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> 0 !');
+            DisplayMessageInConsole('## WARNING : après une ouverture correcte du ressource fork d''un fichier, rsrcForkCorrectlyOpen <> 0 !');
             DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-            DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+            DisplayMessageWithNumInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
             DisplayMessageInConsole('');
           end;
       end;
@@ -1913,14 +1913,14 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> 0 then
+  if fic.rsrcForkCorrectlyOpen <> 0 then
     begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut utiliser le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
       DisplayMessageInConsole('GetName(fic.info) = '+GetName(fic.info));
-      DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       UseRessourceFork := -1;
       exit;
@@ -1943,13 +1943,13 @@ begin
       exit;
     end;
 
-  if fic.rsrcForkOuvertCorrectement <> 0 then
+  if fic.rsrcForkCorrectlyOpen <> 0 then
     begin
       SysBeep(0);
       DisplayMessageInConsole('');
       DisplayMessageInConsole('## WARNING : on veut fermer le ressource Fork d''un fichier qui n''a pas ete correctement ouvert !');
       DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-      DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+      DisplayMessageWithNumInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
       DisplayMessageInConsole('');
       FermeRessourceFork := -1;
       exit;
@@ -1966,14 +1966,14 @@ begin
 
         if err = NoErr then
           begin
-            dec(fic.rsrcForkOuvertCorrectement);
-            if (fic.rsrcForkOuvertCorrectement <> -1) then
+            dec(fic.rsrcForkCorrectlyOpen);
+            if (fic.rsrcForkCorrectlyOpen <> -1) then
               begin
                 SysBeep(0);
                 DisplayMessageInConsole('');
-                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkOuvertCorrectement <> -1 !');
+                DisplayMessageInConsole('## WARNING : après une fermeture correcte du ressource fork d''un fichier, rsrcForkCorrectlyOpen <> -1 !');
                 DisplayMessageInConsole('fic.nomFichier = '+fic.nomFichier);
-                DisplayMessageWithNumInConsole('fic.rsrcForkOuvertCorrectement = ',fic.rsrcForkOuvertCorrectement);
+                DisplayMessageWithNumInConsole('fic.rsrcForkCorrectlyOpen = ',fic.rsrcForkCorrectlyOpen);
                 DisplayMessageInConsole('');
               end;
           end;

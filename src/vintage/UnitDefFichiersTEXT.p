@@ -22,8 +22,8 @@ TYPE
             refNum : SInt16;                     {private}
             vRefNum : SInt16;                    {private}
             ressourceForkRefNum : SInt32;        {private}
-            dataForkOuvertCorrectement : SInt32; {private}
-            rsrcForkOuvertCorrectement : SInt32; {private}
+            dataForkCorrectlyOpen : SInt32; {private}
+            rsrcForkCorrectlyOpen : SInt32; {private}
             info : fileInfo;                     {private}
             bufferLecture : record               {private}
                               bufferLecture      : PackedArrayOfCharPtr;  {private}
