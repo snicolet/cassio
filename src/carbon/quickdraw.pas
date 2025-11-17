@@ -383,7 +383,7 @@ var parts : TStringArray;
     n : SInt64;
     p : QDValuePtr;
 begin
-    parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt64(parts[3]);
 
     // store type information and the value of n in data
@@ -402,7 +402,7 @@ end;
 // unmodified.
 
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
-var v : QDValue;
+var val : QDValue;
     start : SInt64;
 begin
     val := CreateQDValue(result);  // This sets val.status to NONE
