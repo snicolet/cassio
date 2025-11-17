@@ -68,7 +68,8 @@ begin
        sleep(1);
 
 
-       if false and (Tickcount() - tick >= 5) then
+       
+       if false and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
        begin
           tick := Tickcount();
           loc := GetMouse();
@@ -76,7 +77,7 @@ begin
              writeln(loc.h, ' ' , loc.v);
        end;
        
-       if (Tickcount() - tick >= 5) then
+       if (Tickcount() > 300) and (Tickcount() - tick >= 5) then
        begin
           r := QDRandom();
           writeln(r);

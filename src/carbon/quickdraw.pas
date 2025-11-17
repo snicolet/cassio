@@ -66,7 +66,7 @@ IMPLEMENTATION
 
 var start          : Int64;              // milliseconds at the start of the program
     quickDrawTask  : Task;               // communication task to connect to the GUI server
-    commandCounter : Int64 = 1000;       // a strictly increasing counter
+    commandCounter : Int64 = 100000;     // a strictly increasing counter
 
     getMouseData :
         record
@@ -368,12 +368,15 @@ end;
 
 function QDRandom() : SInt64;
 const NONE : SInt64 = -6976080126603506969;
-var r : SInt64;
+var a, r : SInt64;
     command : AnsiString;
 begin
     r := NONE;
+    a := Random64();
+    if a = NONE then inc(a);
     
-    command := 'echo ' + IntToStr(Random64());
+    
+    command := 'echo ' + IntToStr(a);
     SendCommand(command, @__SINT64, @r);
     
     while (r = NONE) do
