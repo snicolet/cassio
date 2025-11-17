@@ -68,7 +68,13 @@ begin
        // See also the FpNanoSleep() function
        sleep(1);
 
-
+       if true and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
+       begin
+          tick := Tickcount();
+          loc := GetMouse2();
+          //if (abs(loc.h) < 0) then
+             writeln(loc.h, ' ' , loc.v);
+       end;
        
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
        begin
@@ -78,7 +84,7 @@ begin
              writeln(loc.h, ' ' , loc.v);
        end;
        
-       if (Tickcount() > 300) and (Tickcount() - tick >= 300) then
+       if false and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
           start := Milliseconds;

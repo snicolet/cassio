@@ -46,8 +46,8 @@ function Tickcount() : SInt64;
 procedure SysBeep(duration : SInt16);
 
 // Mouse
-procedure InterpretGetMouseAnswer(var line : AnsiString; value : Pointer);
 function GetMouse() : Point;
+function GetMouse2() : Point;
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -448,10 +448,18 @@ end;
 function QDRandom() : SInt64;
 var command : AnsiString;
 begin
-    Result := -1;
+    result := -1;
     
     command := 'echo ' + IntToStr(Random64());
     WaitFunctionReturn(command, @SINT64__ , @result);
+end;
+
+
+function GetMouse2() : Point;
+begin
+    result.h := -1;
+    result.v := -1;
+    WaitFunctionReturn('get-mouse', @POINT__, @result);
 end;
 
 
