@@ -368,7 +368,7 @@ end;
 
 function QDRandom() : SInt64;
 const NONE : SInt64 = -6976080126603506969;
-var a, r : SInt64;
+var a, r, counter : SInt64;
     command : AnsiString;
 begin
     r := NONE;
@@ -378,12 +378,16 @@ begin
     
     command := 'echo ' + IntToStr(a);
     SendCommand(command, @__SINT64, @r);
-    
+
+    counter := 0;
     while (r = NONE) do
       begin
          ReadTaskOutput(quickDrawTask);
+         inc(counter);
+         //if (counter < 100) then sleep(1);
       end;
     
+    system.writeln(counter);
     result := r;
 end;
 
