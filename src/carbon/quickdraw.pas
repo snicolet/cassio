@@ -144,6 +144,7 @@ end;
 
 procedure InitQuickDraw(var carbon : Task);
 begin
+    RandomizeTimer;
     quickDrawAnswers.Init();
 
     carbon.process            := TProcess.Create(nil);
@@ -202,7 +203,6 @@ procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
     m, e : SInt64;
 begin
-    exit();
     m := Milliseconds();
     e := m mod 1000;
 
@@ -374,45 +374,48 @@ begin
 end;
 
 
+
 // __SINT64() : interpret a line from the server as an SInt64 integer.
-//              The parameter data must be a pointer to a SInt64.
+//              The parameter data must be a pointer to a QDValue.
+
 procedure __SINT64(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
     n : SInt64;
     p : QDValuePtr;
-    res : SInt64Ptr;
 begin
     parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
     n := strToInt64(parts[3]);
-    
-    p   := QDValuePtr(data);
-    res := SInt64Ptr(p^.data);
-    
-    p^.status := kSINT64;
-    res^      := n;
+
+    // store type information and the value of n in data
+    p := QDValuePtr(data);
+    SInt64Ptr(p^.data)^ := n;
+    p^.status           := kSINT64;
 end;
 
 
+// QDRandom() : a stupid function which sends a random64 value to the server
+// with the 'echo' command, and return that random value using using the usual
+// integer interpretation of the server answer... This is only useful to test
+// the speed of the server communications.
+// Note : use Random64() instead.
 
 function QDRandom() : SInt64;
-const NONE_INT : SInt64 = -6976080126603506969;
 var counter : SInt64;
     command : AnsiString;
     theValue : QDValue;
 begin
+    Result := -1;
     theValue := CreateQDValue(@result);
     
     command := 'echo ' + IntToStr(Random64());
     SendCommand(command, @__SINT64, @theValue);
 
     counter := 0;
-    while (theValue.status = NONE) do
+    while (theValue.status = NONE) and (counter < 1000000) do
       begin
          ReadTaskOutput(quickDrawTask);
          inc(counter);
       end;
-    
-    system.writeln(counter);
 end;
 
 

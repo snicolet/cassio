@@ -28,6 +28,7 @@ var
    loc        : Point;
    k          : integer;
    r          : SInt64;
+   start      : SInt64;
 
 begin
 
@@ -80,8 +81,10 @@ begin
        if (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
-          r := QDRandom();
-          writeln(r);
+          start := Milliseconds;
+          for k := 1 to 1 do
+             r := QDRandom();
+          writeln('time = ', Milliseconds() - start, '  r = ', r);
        end;
 
 
