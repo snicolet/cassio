@@ -1,1 +1,0 @@
-Cassio est un programme qui permet de jouer et de progresser  à Othello.Il vous est offert par l'auteur et la Fédération Française d'Othello. Shareware à 15 Euros.

@@ -1,7 +1,0 @@
-"10021,0" = "Erreur durant la lecture du fichier des joueurs ! (codeErreur=^0)";
-"10021,1" = "Erreur durant la lecture du fichier des tournois ! (codeErreur=^0)";
-"10021,2" = "Nom de la base   cr er ?";
-"10021,3" = "Une base de ce nom existe d j  !";
-"10021,4" = "Nom du fichier   cr er ?";
-"10021,5" = "THOR.PAR";
-"10021,6" = "Impossible de sauvegarder plus de 500 parties dans un fichier THOR.PAR !";

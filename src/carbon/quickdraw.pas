@@ -441,7 +441,7 @@ end;
 
 
 // Initialization of the QuickDraw.pas unit
-procedure InitQuickDraw;
+procedure SetUpQuickDrawUnit;
 begin
   start := GetTickCount64();
 
@@ -454,8 +454,7 @@ end;
 
 begin
   // Always init the library !
-  InitQuickDraw;
-  
+  SetUpQuickDrawUnit;
   
 end.
 

@@ -1,7 +1,0 @@
-"10021,0" = "An error occured while reading the players file ! (codeErreur=^0)";
-"10021,1" = "An error occured while reading the tournament file ! (codeErreur=^0)";
-"10021,2" = "Name of the database to create ?";
-"10021,3" = "There is already a database with that name !";
-"10021,4" = "Name of the file to create ?";
-"10021,5" = "THOR.PAR";
-"10021,6" = "Impossible to save more than 500 games in a THOR.PAR file !";

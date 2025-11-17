@@ -1,6 +1,0 @@
-"10007,0" = "Liste des groupes :";
-"10007,1" = "La d finition d'un groupe ne peut faire plus de 255 caract res";
-"10007,2" = "Syntaxe incorrecte";
-"10007,3" = "Souhaitez-vous effacer le groupe   ^0   ?";
-"10007,4" = "reserved";
-"10007,5" = "Vous ne pouvez pas d finir plus de 25 groupes.";
