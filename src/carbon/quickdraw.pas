@@ -347,6 +347,21 @@ begin
 end;
 
 
+// __SINT64() : interpret a line from the server as an SInt64 integer.
+//              The parameter data must be a pointer to a SInt64.
+procedure __SINT64(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    value : SInt64;
+    res : SInt64Ptr;
+begin
+    parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
+    value := strToInt64(parts[3]);
+    
+    res := SInt64Ptr(data);
+    res^ := value;
+end;
+
+
 
 
 

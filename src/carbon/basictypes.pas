@@ -33,6 +33,7 @@ uses
     UInt16Ptr = ^UInt16;
     UInt32Ptr = ^UInt32;
     UInt64Ptr = ^UInt64;
+    SInt64Ptr = ^SInt64;
     unsignedword = UInt16;
     unsignedwordP = ^unsignedword;
     unsignedwordH = ^unsignedwordP;
