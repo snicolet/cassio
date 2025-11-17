@@ -89,6 +89,19 @@ type
       data : Pointer;
     end;
 
+type
+  QDValue =
+    record
+      status : SInt64;
+      data : Pointer;
+    end;
+  QDValuePtr = ^QDValue;
+  
+const
+  NONE    = 0;
+  kSINT64 = 1;
+  kPOINT  = 2;
+
 
 // TAnswers is an object to handle the textual answers from the GUI server
 type
@@ -115,6 +128,16 @@ type
 var quickDrawAnswers : TAnswers;
 
 
+
+// CreateQDValue() : create a polymorphic quickdraw value, which is basically
+// a wrapper around a pointer to a normal type along with a type information.
+// The returned value is initialized to NONE by default, but we can change
+// it afterwards by changing the status field.
+function CreateQDValue(data : Pointer = nil) : QDValue;
+begin
+    result.status := NONE;
+    result.data   := data;
+end;
 
 
 // InitQuickDraw() : Initialisation of the Quickdraw unit
@@ -179,6 +202,7 @@ procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
     m, e : SInt64;
 begin
+    exit();
     m := Milliseconds();
     e := m mod 1000;
 
@@ -354,41 +378,41 @@ end;
 //              The parameter data must be a pointer to a SInt64.
 procedure __SINT64(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
-    value : SInt64;
+    n : SInt64;
+    p : QDValuePtr;
     res : SInt64Ptr;
 begin
     parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
-    value := strToInt64(parts[3]);
+    n := strToInt64(parts[3]);
     
-    res := SInt64Ptr(data);
-    res^ := value;
+    p   := QDValuePtr(data);
+    res := SInt64Ptr(p^.data);
+    
+    p^.status := kSINT64;
+    res^      := n;
 end;
 
 
 
 function QDRandom() : SInt64;
-const NONE : SInt64 = -6976080126603506969;
-var a, r, counter : SInt64;
+const NONE_INT : SInt64 = -6976080126603506969;
+var counter : SInt64;
     command : AnsiString;
+    theValue : QDValue;
 begin
-    r := NONE;
-    a := Random64();
-    if a = NONE then inc(a);
+    theValue := CreateQDValue(@result);
     
-    
-    command := 'echo ' + IntToStr(a);
-    SendCommand(command, @__SINT64, @r);
+    command := 'echo ' + IntToStr(Random64());
+    SendCommand(command, @__SINT64, @theValue);
 
     counter := 0;
-    while (r = NONE) do
+    while (theValue.status = NONE) do
       begin
          ReadTaskOutput(quickDrawTask);
          inc(counter);
-         //if (counter < 100) then sleep(1);
       end;
     
     system.writeln(counter);
-    result := r;
 end;
 
 
