@@ -346,12 +346,21 @@ begin
    result := MyUrlDecode(getOpenFileDialogData.filePath);
 end;
 
-procedure AlerteDouble(texte,explication : String255);
+
+
+
+
+
+// AlerteDouble() : display a simple alert with a main text and
+// a secondary text explaining the main text.
+procedure AlerteDouble(texte, explication : String255);
 begin
     TODO({$I %CURRENTROUTINE%});
 end;
 
 
+
+// ReadStringFromRessource() : returns ressource of type "STR#"
 function ReadStringFromRessource(stringListID, index : SInt16) : String255;
 //var s : Str255;
 begin

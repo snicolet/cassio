@@ -748,6 +748,14 @@ def draw_text_at(args):
    return
 
 
+def get_mouse(args):
+   """
+   Returns the current mouse position as a string
+   """
+   where = QCursor.pos()
+   return str(where.x()) + " " + str(where.y())
+
+
 def init(args):
    """
    Init the carbon.py process
@@ -755,12 +763,12 @@ def init(args):
    return
 
 
-def get_mouse(args):
+def echo(args):
    """
-   Returns the current mouse position as a string
+   Returns the received message verbatim
    """
-   where = QCursor.pos()
-   return str(where.x()) + " " + str(where.y())
+   message = find_named_parameter("message",  args, 0, STRING)
+   return message
 
 
 def quit(args):
@@ -1089,6 +1097,7 @@ def call(id, command, args):
     elif command == "set-window-visible"    :  result = set_window_visible(args)
     elif command == "init"                  :  result = init(args)
     elif command == "dump"                  :  result = dump(args)
+    elif command == "echo"                  :  result = echo(args)
     elif command == "quit"                  :  result = quit(args)
     else :
        implemented = False
