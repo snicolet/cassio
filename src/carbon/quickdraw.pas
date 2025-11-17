@@ -91,12 +91,12 @@ type
     end;
 
 type
-  QDValue =
+  QDValueRec =
     record
       status : SInt64;
       data : Pointer;
     end;
-  QDValuePtr = ^QDValue;
+  QDValue = ^QDValueRec;
   
 const
   NONE     = 0;
@@ -135,7 +135,7 @@ var quickDrawAnswers : TAnswers;
 // a wrapper around a pointer to a normal type along with a type information.
 // The returned value is initialized to NONE by default, but we can change
 // it afterwards by changing the status field.
-function CreateQDValue(data : Pointer = nil) : QDValue;
+function CreateQDValue(data : Pointer = nil) : QDValueRec;
 begin
     result.status := NONE;
     result.data   := data;
@@ -378,18 +378,18 @@ end;
 
 
 // SINT64__() : interpret a line from the server as a SInt64 integer.
-//              The parameter data must be a pointer to a QDValue.
+//              The parameter data must be a QDValue.
 
 procedure SINT64__(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
     n : SInt64;
-    p : QDValuePtr;
+    p : QDValue;
 begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt64(parts[3]);
 
     // store type information and the value of n in data
-    p := QDValuePtr(data);
+    p := QDValue(data);
 
     SInt64Ptr(p^.data)^ := n;
     p^.status           := kSINT64;
@@ -397,19 +397,19 @@ end;
 
 
 // POINT__() : interpret a line from the server as Point.
-//             The parameter data must be a pointer to a QDValue.
+//             The parameter data must be a QDValue.
 
 procedure POINT__(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
     where : Point;
-    p : QDValuePtr;
+    p : QDValue;
 begin
     parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
     where.h := strToInt64(parts[3]);
     where.v := strToInt64(parts[4]);
 
     // store type information and the value of where in data
-    p := QDValuePtr(data);
+    p := QDValue(data);
 
     PointPtr(p^.data)^ := where;
     p^.status          := kPOINT;
@@ -424,7 +424,7 @@ end;
 // unmodified.
 
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
-var val : QDValue;
+var val : QDValueRec;
     start : SInt64;
 begin
     val := CreateQDValue(result);  // This sets val.status to NONE
