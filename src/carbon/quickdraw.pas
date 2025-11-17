@@ -375,10 +375,10 @@ end;
 
 
 
-// __SINT64() : interpret a line from the server as an SInt64 integer.
+// SINT64__() : interpret a line from the server as an SInt64 integer.
 //              The parameter data must be a pointer to a QDValue.
 
-procedure __SINT64(var line : AnsiString; data : Pointer);
+procedure SINT64__(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
     n : SInt64;
     p : QDValuePtr;
@@ -388,8 +388,32 @@ begin
 
     // store type information and the value of n in data
     p := QDValuePtr(data);
+
     SInt64Ptr(p^.data)^ := n;
     p^.status           := kSINT64;
+end;
+
+
+// WaitFunctionReturn() : sends a command to the server and waits for the 
+// answer for a period of 50ms (using a buzy loop). If an answer has been
+// received and interpreted by the callback calculator "calc" during these
+// 50ms, the procedure returns immediately, and the returned value is set
+// in "result" pointer. If no answer has been received, then "result" is
+// unmodified.
+
+procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
+var v : QDValue;
+    start : SInt64;
+begin
+    val := CreateQDValue(result);  // This sets val.status to NONE
+
+    SendCommand(command, calc, @val);
+
+    start := Milliseconds();
+
+    while (val.status = NONE) and 
+          (Milliseconds() - start < 50) do
+        ReadTaskOutput(quickDrawTask);
 end;
 
 
@@ -400,22 +424,12 @@ end;
 // Note : use Random64() instead.
 
 function QDRandom() : SInt64;
-var counter : SInt64;
-    command : AnsiString;
-    theValue : QDValue;
+var command : AnsiString;
 begin
     Result := -1;
-    theValue := CreateQDValue(@result);
     
     command := 'echo ' + IntToStr(Random64());
-    SendCommand(command, @__SINT64, @theValue);
-
-    counter := 0;
-    while (theValue.status = NONE) and (counter < 1000000) do
-      begin
-         ReadTaskOutput(quickDrawTask);
-         inc(counter);
-      end;
+    WaitFunctionReturn(command, @SINT64__ , @result);
 end;
 
 
