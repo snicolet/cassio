@@ -49,13 +49,13 @@ begin
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
 	      for k := 1 to 9 do
-	         QuickDraw.SendCommand('hello ' + IntToStr(k) , nil);
+	         QuickDraw.SendCommand('hello ' + IntToStr(k) , NIL, NIL);
 	
 	   // test 2 : send a bunch of dummy "hola" commands, at 1ms intervals
 	   if (counter >= 0) and (counter < 10) then
 	   begin
 	      s := 'hola ' + IntToStr(counter) ;
-          QuickDraw.SendCommand(s, nil);
+          QuickDraw.SendCommand(s, NIL, NIL);
        end;
 
        // sleep(n) yields time to the operating system, where n is in milliseconds

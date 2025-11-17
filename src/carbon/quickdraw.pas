@@ -34,7 +34,7 @@ procedure ReleaseQuickDraw;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure SendCommand(command : AnsiString ; handler : Interpretor);
+procedure SendCommand(command : AnsiString ; handler : Interpretor ; data : Ptr);
 procedure InterpretAnswer(var line : AnsiString);
 
 // Time functions
@@ -123,7 +123,7 @@ end;
 
 procedure ReleaseQuickDraw;
 begin
-    SendCommand('quit', NIL);
+    SendCommand('quit', NIL, NIL);
     sleep(1000);
     FreeConnectedTask(quickDrawTask);
     quickDrawAnswers.Done();
@@ -180,7 +180,7 @@ end;
 
 // SendCommand() : send a message to the GUI task
 
-procedure SendCommand(command : AnsiString ; handler : Interpretor);
+procedure SendCommand(command : AnsiString ; handler : Interpretor ; data : Ptr);
 var s : AnsiString;
 begin
     commandCounter := commandCounter + 1;
@@ -281,7 +281,7 @@ begin
     if (Milliseconds() - getMouseData.when >= 30) then
     begin
         getMouseData.when := Milliseconds();
-        SendCommand('get-mouse', @InterpretGetMouseAnswer);
+        SendCommand('get-mouse', @InterpretGetMouseAnswer, NIL);
     end;
 
    result := getMouseData.mouseLoc;
@@ -315,7 +315,7 @@ begin
    command := command + ' dir="'    + MyUrlEncode(directory) + '"';
    command := command + ' filter="' + MyUrlEncode(filter) + '"';
 
-   SendCommand(command, @InterpretOpenFileDialog);
+   SendCommand(command, @InterpretOpenFileDialog, NIL);
 
    while (getOpenFileDialogData.filePath = NONE) do
    begin
