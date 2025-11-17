@@ -4,13 +4,13 @@ UNIT basicfiles;
 INTERFACE
 
 
-USES basictypes, 
+USES basictypes,
      basicstring,
      basictime;
 
 
-TYPE 
-     fileInfo = 
+TYPE
+     fileInfo =
         record
            vRefNum : Integer;   {private and unused  ("volume reference number") }
            parID   : LongInt;   {private and unused  ("directory ID of parent directory") }
@@ -45,9 +45,9 @@ TYPE
 {WARNING :    on risque de perturber InfosFichiersNouveauFormat dans le
               fichier UnitDefNouveauFormat (tableau trop gros)
               si on rajoute des gros champs à basicfile... }
-              
 
-TYPE  
+
+TYPE
    {functional type for ForEachLineInFileDo}
    LineOfFileProc = procedure(var ligne : LongString; var theFic : basicfile; var value : SInt32);
 
@@ -239,11 +239,11 @@ begin
    info.name    := name;
    info.vRefNum := vrn;
    info.parID   := dirID;
-   
+
    if not(sysUtils.FileExists(name)) and not(sysUtils.DirectoryExists(name))
       then err := fnfErr   {file not found error}
       else err := NoErr;
-      
+
    result := err;
 end;
 
@@ -254,13 +254,13 @@ function MakeFileInfo(vrn : SInt16; dirID : SInt32; name : String255) : fileInfo
 var info : fileInfo;
 begin
    MakeFileInfo(vrn, dirID, name, info); // discard error !
-   
+
    MakeFileInfo := info;
 end;
 
 
 // MakeFileInfo(name, info) : create a file info record, if a directory or a
-// file with the given name exists. The returned fileInfo record is valid for 
+// file with the given name exists. The returned fileInfo record is valid for
 // both directories and files.
 function MakeFileInfo(name : String255; var info : fileInfo) : OSErr;
 begin
@@ -269,7 +269,7 @@ end;
 
 
 // MakeFileInfo(name) : create a file info record, if a directory or a file
-// with the given name exists. The returned fileInfo record is valid for 
+// with the given name exists. The returned fileInfo record is valid for
 // both directories and files.
 function MakeFileInfo(name : String255) : fileInfo;
 begin
@@ -307,7 +307,7 @@ begin
 end;
 
 
-// ExpandFileName(name) : expand the given file name to a full path+name. 
+// ExpandFileName(name) : expand the given file name to a full path+name.
 // This functions tries hard to follow links, resolve aliases, etc.
 function ExpandFileName(var fullName : String255) : OSErr;
 var debut,reste,resolvedDebut : String255;
@@ -318,7 +318,7 @@ begin
   debut := '';
   reste := fullName;
   err := 0;
-  
+
   DoDirSeparators(reste);
 
   while (reste <> '') and (err = 0) do
@@ -338,14 +338,14 @@ begin
 
       err := MakeFileInfo(debut,myFileInfo);
       ExpandFileName(myFileInfo);
-      
+
       resolvedDebut := debut;
       err := ExpandFileName(myFileInfo,resolvedDebut);
-      
+
       if err = 0 then
         begin
           if EndsWithDirectorySeparator(debut) and not(EndsWithDirectorySeparator(resolvedDebut))
-            then debut := resolvedDebut + DirectorySeparator 
+            then debut := resolvedDebut + DirectorySeparator
             else debut := resolvedDebut;
         end;
     end;
@@ -382,7 +382,7 @@ begin
   with fic do
     begin
       err := MakeFileInfo(vRefNum,parID,fileName,info);
-      
+
       fullName := fileName;
       if (err = NoErr) then
         begin
@@ -391,7 +391,7 @@ begin
         end else
       if (err = fnfErr) then {-43 : File Not Found, mais le fileInfo est valable}
         ExpandFileName(info, fullName);
-        
+
       parID      := info.parID;
       fileName   := fullName;
       uniqueID   := abs(HashString(fullName));
@@ -430,7 +430,7 @@ end;
 
 
 // InitializeBasicFile() : Initialise a basicfile record. This function is
-// for internal use only inside the basicFile library. 
+// for internal use only inside the basicFile library.
 procedure InitializeBasicFile(var name : String255; var vRefNum : SInt16; var fic : basicfile);
 var nomDirectory : String255;
     len : SInt16;
@@ -442,15 +442,15 @@ begin
       begin
         nomDirectory := GetCurrentDir();
         len := LENGTH_OF_STRING(nomDirectory);
-        
+
         if (len > 0) and
-           (nomDirectory <> DirectorySeparator ) and 
+           (nomDirectory <> DirectorySeparator ) and
            ((LENGTH_OF_STRING(nomDirectory)+LENGTH_OF_STRING(name)) <= 255) then
           begin
             if (name[1] = DirectorySeparator ) and EndsWithDirectorySeparator(nomDirectory)
               then name := TPCopy(nomDirectory,1,len-1) + name
               else name := nomDirectory + name;
-              
+
             name := sysUtils.ExpandFileName(name);
             vRefNum := 0;
           end;
@@ -482,7 +482,7 @@ end;
 
 
 // InitializeBasicFile() : Initialise a basicfile record. This function is
-// for internal use only inside the basicFile library. 
+// for internal use only inside the basicFile library.
 procedure InitializeBasicFile(info : fileInfo; var fic : basicfile);
 begin
 
@@ -547,12 +547,12 @@ begin
 end;
 
 
-// FileExists() : checks that a file with the given name exists, and 
+// FileExists() : checks that a file with the given name exists, and
 // constructs a valid basicfile record to open and manipulate that file.
 function FileExists(name : String255 ; vRefNum : SInt16; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
 begin
-  
+
   if (name = '') then
     begin
       DisplayMessageInConsole('WARNING ! (name = '''') dans FileExists');
@@ -635,7 +635,7 @@ begin
 end;
 
 
-// FileExists() : checks that a file with the given fileInfo exists, and 
+// FileExists() : checks that a file with the given fileInfo exists, and
 // constructs a valid basicfile record to open and manipulate that file.
 function FileExists(info : fileInfo; var fic : basicfile) : OSErr;
 var err1,err2 : OSErr;
@@ -726,7 +726,7 @@ function CreateFile(name : String255 ; vRefNum : SInt16; var fic : basicfile) : 
 var err : OSErr;
 begin
   InitializeBasicFile(name,vRefNum, fic);
-  
+
   err := ExpandFileName(fic);
 
   if FileIsStandardOutput(fic) then
@@ -752,7 +752,7 @@ begin
   // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
   fic.handle := FileCreate(fic.info.name);
   if fic.handle <> THandle(-1)
-     then 
+     then
        begin
          FileClose(fic.handle);
          err := NoErr;
@@ -761,7 +761,7 @@ begin
        begin
          err := -1;
        end;
-       
+
 
   if debugBasicFiles then
     begin
@@ -788,7 +788,7 @@ function CreateFile(info : fileInfo; var fic : basicfile) : OSErr;
 var err : OSErr;
 begin
   InitializeBasicFile(info, fic);
-  
+
   err := ExpandFileName(fic);
 
   if FileIsStandardOutput(fic) then
@@ -814,7 +814,7 @@ begin
   // err := FSpCreate(fic.info,FOUR_CHAR_CODE('????'),FOUR_CHAR_CODE('TEXT'),0);
   fic.handle := FileCreate(fic.info.name);
   if fic.handle <> THandle(-1)
-     then 
+     then
        begin
          FileClose(fic.handle);
          err := NoErr;
@@ -1033,8 +1033,8 @@ begin
 end;
 
 
-// GetUniqueID() : return a 32 bit identificator for the given file. 
-// This identificator is calculated via hashing of the full path of the file, 
+// GetUniqueID() : return a 32 bit identificator for the given file.
+// This identificator is calculated via hashing of the full path of the file,
 // so should be quite unique.
 function GetUniqueID(var fic : basicfile) : SInt32;
 begin
@@ -1054,7 +1054,7 @@ begin
       GetFileSize := NoErr;
       exit;
     end;
-  
+
   if FindFirst(fic.info.name, 0, searchData) = 0 then
     begin
       err := NoErr;
@@ -1108,7 +1108,7 @@ begin
       SetFilePosition := NoErr;
       exit;
     end;
-  
+
   newPosition := FileSeek(fic.handle, position, fsFromBeginning);
   if newPosition >= 0
      then err := NoErr
@@ -1224,7 +1224,7 @@ begin
     end;
 
   if err <> NoErr then exit;
-  
+
   err := GetFileSize(fic, logicalEOF);
 
   if debugBasicFiles then
@@ -1237,7 +1237,7 @@ begin
     end;
 
   if err <> NoErr then exit;
-  
+
   EndOfFile := (position >= logicalEOF);
 end;
 
@@ -1314,11 +1314,11 @@ begin
     end;
 
   err := NoErr;
-  
+
   if count > 0 then
     begin
       count := FileWrite(fic.handle, buffer^, count);
-      if count < 0 then 
+      if count < 0 then
         begin
           err := -1;
           count := 0;
@@ -1352,7 +1352,7 @@ begin
     end;
 
   err := NoErr;
-  
+
   count := LENGTH_OF_STRING(s);
   if count > 0 then
     begin
@@ -1400,7 +1400,7 @@ end;
 
 
 // Write(fic, n) : write the (4 bytes) integer n to the file, as raw bytes.
-// Beware of endianness when reading the bytes back afterwards. 
+// Beware of endianness when reading the bytes back afterwards.
 function Write(var fic : basicfile; value : SInt32) : OSErr;
 var err : OSErr;
     count : SInt32;
@@ -1447,7 +1447,7 @@ begin
 
   nbBytesRead := FileRead(fic.handle, buffer^, count);
   if nbBytesRead > 0
-     then 
+     then
        begin
          err := NoErr;
          count := nbBytesRead;
@@ -1472,7 +1472,7 @@ end;
 
 
 // Read(fic, count, s) : read count bytes from the file, and put them as
-// characters in the string s. 
+// characters in the string s.
 function Read(var fic : basicfile; count : SInt16; var s : String255) : OSErr;
 var len, nbBytesRead : SInt32;
     buffer : Ptr;
@@ -1492,7 +1492,7 @@ begin
   buffer := @s[1];
   nbBytesRead := FileRead(fic.handle, buffer^, len);
   if nbBytesRead >= 0
-     then 
+     then
        begin
          err := NoErr;
          SET_LENGTH_OF_STRING(s,len);
@@ -1578,14 +1578,14 @@ begin
 
             if (err = NoErr) then
               begin
-              
+
                 if debug then WritelnNumDansRapport('DEBUG : avant FileRead(1), nbOctetsLusSurLeDisque = ', nbOctetsLusSurLeDisque);
                 if debug then WritelnNumDansRapport('DEBUG : avant FileRead(1), fic.handle = ', fic.handle);
-                
+
                 nbOctetsLusSurLeDisque := FileRead(fic.handle, bufferLecture^, nbOctetsLusSurLeDisque);
-                
+
                 if debug then WritelnNumDansRapport('DEBUG : apres FileRead(1), nbOctetsLusSurLeDisque = ', nbOctetsLusSurLeDisque);
-                
+
                 if nbOctetsLusSurLeDisque = 0 then
                   begin
                      err := eofErr; {-39 is eofErr, end of file error}
@@ -1613,7 +1613,7 @@ begin
                   if debug then WritelnNumDansRapport('DEBUG : erreur de lecture dans le fichier, err = ',err);
                   if debug then WritelnNumDansRapport('DEBUG : nbOctetsLusSurLeDisque = ',nbOctetsLusSurLeDisque);
 
-                  
+
                   if (err = eofErr) and (nbOctetsLusSurLeDisque > 0)   {-39 is eofErr, end of file error}
                     then
                       begin
@@ -1653,7 +1653,7 @@ Bail :
   if not(luDansLeBuffer) then
     begin
       if debug then WritelnNumDansRapport('avant desesperate FileRead, length = ',length);
-      
+
       length := FileRead(fic.handle, outBuffer^, length);
       if length > 0 then
           begin
@@ -1853,7 +1853,7 @@ end;
 
 
 
-// Read(fic, n) : read 4 binary bytes in the file, and interpret them 
+// Read(fic, n) : read 4 binary bytes in the file, and interpret them
 // as the 4 bytes of a 32-bits integer n.
 // Beware of endianness issues if the file has been created on a machine
 // with a different endianness to the endianness of the current machine.
@@ -1887,7 +1887,7 @@ end;
 
 // ForEachLineInFileDo(fic, what, value) : call the function 'what' on each
 // line of the text file 'fic'. The value 'value' can be used and modified
-// by the function 'what' during the iteration to calculate a number which 
+// by the function 'what' during the iteration to calculate a number which
 // depends of each line of the file.
 
 procedure ForEachLineInFileDo(whichFile : fileInfo; DoWhat : LineOfFileProc; var value : SInt32);
@@ -1960,7 +1960,7 @@ begin
 
   fileReceptacleIsOpen := FileIsOpen(receptacle);
   if not(fileReceptacleIsOpen) then
-    begin  
+    begin
       err2 := OpenFile(receptacle);
       err2 := SetFilePositionAtEnd(receptacle);
     end;
@@ -1972,12 +1972,12 @@ begin
       copied := 0;
 
       repeat
-      
+
         count := Min(BUFFSIZE, insertedLength - copied);
         err  := Read(inserted,@buffer[0],count);
         err2 := Write(receptacle,@buffer[0],count);
         copied := copied + count;
-        
+
       until (err <> NoErr) or (err2 <> NoErr) or (copied >= insertedLength);
 
     end;
@@ -2016,7 +2016,7 @@ begin
       end;
 
   Split(s,'!',texte,explication);
-  
+
   AlerteDouble(texte+'!',explication);
 end;
 
@@ -2146,11 +2146,11 @@ begin
    system.Writeln('');
 
    system.Writeln('Testing the BasicFiles library...');
-   
-   
+
+
    SetDebugFiles(false);
-   
-   
+
+
    name := 'taratata.txt';
    system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
@@ -2162,18 +2162,18 @@ begin
    system.writeln( Writeln(fic, '') );
    system.writeln( Write(fic, '') );
    system.writeln( CloseFile(fic) );
-   
+
    SetDebugFiles(false);
-   
+
    name := 'toto.txt';
    n    := HexToInt('00008000');
    system.writeln( '################ ' + name + ' ################');
-   
+
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
    system.writeln( CreateFile(info, fic) );
    system.writeln( OpenFile(fic) );
-   
+
    system.writeln( 'n = ' , n );
    system.writeln( Write(fic, n) );
    system.writeln( Write(fic, n+1) );
@@ -2193,21 +2193,21 @@ begin
    for n := 0 to 7 do
       system.writeln(n, '  -->  ', buffer[n]);
 
-   
-      
+
+
    system.writeln( SetFilePosition(fic, 0) );
    count := 100;
    system.writeln( Read(fic, Ptr(@buffer), count) );
    for n := 0 to 25 do
       system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
-   
+
    system.writeln( ClearFileContent(fic) );
    system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
-   
-   
+
+
    s := 'il est 4 heures';
    count := length(s);
    system.writeln( 'length(s) = ', count);
@@ -2216,7 +2216,7 @@ begin
      buffer[n - 1] := ord(s[n]);
    for n := 0 to 20 do
      system.writeln(n, '  -->  ', buffer[n] , ' = ', char(buffer[n]) );
-    
+
    system.writeln( Write(fic, Ptr(@buffer), count) );
    system.writeln( Writeln(fic, 'toto') );
    system.writeln( Writeln(fic, 'est') );
@@ -2246,20 +2246,20 @@ begin
    system.writeln( 's = ' + s);
    system.writeln( Readln(fic, s) );
    system.writeln( 's = ' + s);
-      
+
    system.writeln( ClearFileContent(fic) );
-      
+
    system.writeln( CloseFile(fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
-   
+
    name := paramstr(0);            // the name of the current executable
    system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
    system.writeln( FileExists(info, fic) );
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
-   
+
    name := './images/';
    system.writeln( '################ ' + name + ' ################');
    system.writeln(sysUtils.DirectoryExists(name));
@@ -2268,7 +2268,7 @@ begin
    system.writeln( OpenFile(fic) );
    system.writeln( CloseFile(fic) );
    system.writeln(sysUtils.DirectoryExists(fic.filename));
-   
+
    name := 'temp.foo.txt';
    system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
@@ -2286,7 +2286,7 @@ begin
         // WritelnLongStringDansRapport(ligne);
       end;
    system.writeln( CloseFile(fic) );
-   
+
    name := 'temp.foo.txt';
    system.writeln( '################ ' + name + ' ################');
    system.writeln( MakeFileInfo(name, info) );
@@ -2307,15 +2307,15 @@ begin
    t := GetTickCount64() - t;  // stop timer
    system.writeln( 'time to read = ', t);
    system.writeln( CloseFile(fic) );
-   
-   
-   
+
+
+
 end;
 
 begin
   // Always init the library
   InitUnitBasicFile;
-  
+
   // TestBasicFiles;
 end.
 

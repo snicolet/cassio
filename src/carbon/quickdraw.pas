@@ -34,7 +34,7 @@ procedure ReleaseQuickDraw;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure SendCommand(command : AnsiString ; handler : Interpretor ; data : Ptr);
+procedure SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer);
 procedure InterpretAnswer(var line : AnsiString);
 
 // Time functions
@@ -45,7 +45,7 @@ function Tickcount() : Int64;
 procedure SysBeep(duration : SInt16);
 
 // Mouse
-procedure InterpretGetMouseAnswer(var line : AnsiString);
+procedure InterpretGetMouseAnswer(var line : AnsiString; value : Pointer);
 function GetMouse() : Point;
 
 // File dialogs
@@ -76,8 +76,18 @@ var start          : Int64;              // milliseconds at the start of the pro
            filePath : AnsiString;
         end;
 
-// TAnswers is an object to handle the textual answers from the GUI server
 
+// QuickdrawCalculator is a record with an interpretor for the textual answer
+// from the server and a pointer which can store the Pascal constructed data.
+type
+  QuickdrawCalculator =
+    record
+      calc : Calculator;
+      data : Pointer;
+    end;
+
+
+// TAnswers is an object to handle the textual answers from the GUI server
 type
   TAnswers =
     object
@@ -85,8 +95,8 @@ type
          constructor Init();
          destructor  Done();
          procedure Clear(index : Int64);
-         procedure AddHandler(messageID : Int64; handler : Interpretor);
-         function GetHandler(index : Int64) : Interpretor;
+         procedure AddHandler(messageID : Int64; handler : QuickdrawCalculator);
+         function GetHandler(index : Int64) : QuickdrawCalculator;
          function FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
 
        private
@@ -95,7 +105,7 @@ type
              cells : array[0 .. SIZE-1] of
                        record
                           messageID : Int64;
-                          handler   : Interpretor;
+                          handler   : QuickdrawCalculator;
                        end;
     end;
 
@@ -180,14 +190,19 @@ end;
 
 // SendCommand() : send a message to the GUI task
 
-procedure SendCommand(command : AnsiString ; handler : Interpretor ; data : Ptr);
+procedure SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer);
 var s : AnsiString;
+    theHandler : QuickdrawCalculator;
 begin
     commandCounter := commandCounter + 1;
     s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
 
     LogDebugInfo('[Cassio] >> ' + s);
-    quickDrawAnswers.AddHandler(commandCounter, handler);
+
+    theHandler.calc := calc;
+    theHandler.data := data;
+    quickDrawAnswers.AddHandler(commandCounter, theHandler);
+
     WriteTaskInput(quickDrawTask, s);
 end;
 
@@ -198,7 +213,9 @@ procedure InterpretAnswer(var line : AnsiString);
 var parts: TStringArray;
     index : int64;
     messageID : AnsiString;
-    handler : interpretor;
+    handler : QuickdrawCalculator;
+    myFunction : Calculator;
+    myData : Pointer;
 begin
     if (line <> '') then
     begin
@@ -228,8 +245,11 @@ begin
 	              begin
 	                  handler := quickDrawAnswers.GetHandler(index);
 	                  quickDrawAnswers.Clear(index);
-	                  if (handler <> nil) then
-	                      handler(line);
+	
+	                  myFunction := handler.calc;
+	                  myData     := handler.data;
+	                  if (myFunction <> nil) then
+	                      myFunction(line, myData);
 	              end;
 	           end;
 	    end;
@@ -253,7 +273,8 @@ begin
    result := Milliseconds() * 60 div 1000;
 end;
 
-// Play the system beep, if available
+
+// SysBeep() : play the system beep, if available
 
 procedure SysBeep(duration : SInt16);
 begin
@@ -261,9 +282,10 @@ begin
    Beep();
 end;
 
-// Parsing the mouse position from the get-mouse answer
 
-procedure InterpretGetMouseAnswer(var line : AnsiString);
+// InterpretGetMouseAnswer() : parsing the mouse position from the get-mouse answer
+
+procedure InterpretGetMouseAnswer(var line : AnsiString; value : Pointer);
 var parts: TStringArray;
 begin
     parts                   := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
@@ -276,8 +298,6 @@ end;
 
 function GetMouse() : Point;
 begin
-
-
     if (Milliseconds() - getMouseData.when >= 30) then
     begin
         getMouseData.when := Milliseconds();
@@ -291,7 +311,7 @@ end;
 
 // Parsing the file path from the open-file-dialog answer
 
-procedure InterpretOpenFileDialog(var line : AnsiString);
+procedure InterpretOpenFileDialog(var line : AnsiString; data : Pointer);
 var parts: TStringArray;
 begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
@@ -364,7 +384,7 @@ end;
 
 // TAnswers.AddHandler() : find an empty cell in the answering machine,
 // and install the couple (messageID, messageHandler) in that cell.
-procedure TAnswers.AddHandler(messageID : Int64; handler : Interpretor);
+procedure TAnswers.AddHandler(messageID : Int64; handler : QuickdrawCalculator);
 var k , t : Int64;
 begin
     for k := 1 to SIZE do
@@ -373,7 +393,9 @@ begin
         if (t < 0)     then t := t + SIZE;
         if (t >= SIZE) then t := t - SIZE;
 
-        if (cells[t].messageID < 0) and (cells[t].handler = nil) then
+        if (cells[t].messageID < 0) and
+           (cells[t].handler.calc = nil) and
+           (cells[t].handler.data = nil) then
         begin
            cells[t].messageID  :=  messageID;
            cells[t].handler    :=  handler;
@@ -386,9 +408,11 @@ end;
 
 // TAnswers.GetHandler() : return the handler at the specified cell in
 // the answering machine.
-function TAnswers.GetHandler(index : Int64) : Interpretor;
+function TAnswers.GetHandler(index : Int64) : QuickdrawCalculator;
 begin
-    result := nil;
+    result.calc  := nil;
+    result.data  := nil;
+
     if (index >= 0) and (index < SIZE) then
        result := cells[index].handler;
 end;
@@ -397,8 +421,9 @@ end;
 // TAnswers.Clear() : empty the cell at index in the answering machine
 procedure TAnswers.Clear(index : Int64);
 begin
-    cells[index].messageID  :=  -1;
-    cells[index].handler    :=  nil;
+    cells[index].messageID     :=  -1;
+    cells[index].handler.calc  :=  nil;
+    cells[index].handler.data  :=  nil;
 end;
 
 
@@ -455,7 +480,7 @@ end;
 begin
   // Always init the library !
   SetUpQuickDrawUnit;
-  
+
 end.
 
 

@@ -116,7 +116,7 @@ end;
 
 
 // HashString() is our hash function for strings using Jenkins algorithm.
-// One advantage of using Jenkins algorithm is that it is easily portable 
+// One advantage of using Jenkins algorithm is that it is easily portable
 // in other languages. For sources, see :
 //      https://en.wikipedia.org/wiki/Jenkins_hash_function
 //      http://www.burtleburtle.net/bob/hash/doobs.html
@@ -217,9 +217,9 @@ end;
 
 BEGIN
    InitBasicHashing();  // always call this there !
-   
-   
-   // TestUnitBasicHashing(); 
+
+
+   // TestUnitBasicHashing();
 END.
 
 

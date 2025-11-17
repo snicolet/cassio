@@ -6,9 +6,9 @@ INTERFACE
 uses basictypes;
 
 
-TYPE 
+TYPE
    // Our fancy type for set of chars, useful for utf-8
-   SetOfChar = 
+   SetOfChar =
       record
          touched : set of char;
          elements : string;
@@ -37,8 +37,8 @@ uses
 {$ENDIF}
   SysUtils,
   StrUtils;
-  
-  
+
+
 // CreateSetOfChar(s) returns a set with the chars of the string s.
 // The string s must be encoded as utf-8.
 function CreateSetOfChar(s : string) : SetOfChar;
@@ -52,29 +52,29 @@ var
 begin
   A.elements := s;
   A.touched  := [];
-      
+
   // Decompose s as utf-8 characters, and put the first byte
   // of each character in A.touched for fast access later.
-  
+
   theUnicodeString := UTF8Decode(s);
   for i := 1 to length(theUnicodeString) do
     begin
       K := TEncoding.Unicode.GetBytes(theUnicodeString[i]);
       L := TEncoding.Convert(TEncoding.Unicode, TEncoding.UTF8, K);
       len := length(L);
-           
+
       SetLength(utf8, len);
       Move(L[0], utf8[1], len);
       if len > 0 then
         Include(A.touched, char(utf8[1]));
     end;
 
-  CreateSetOfChar := A;  
+  CreateSetOfChar := A;
 end;
 
 
-// FindInCharSet(A, s, k) tests if the utf8 character at position k 
-// in the ansistring s is found in the set A. This function is fast 
+// FindInCharSet(A, s, k) tests if the utf8 character at position k
+// in the ansistring s is found in the set A. This function is fast
 // if s[k] is an ascii character, and reasonably fast otherwise.
 //
 // Successful search : returns the character found, encoded in utf-8;
@@ -85,10 +85,10 @@ var c : char;
     n : UInt8;
 begin
   Result := '';
-  
+
   if (k < 1) or (k > length(s))
     then exit;
-  
+
   c := s[k];
   if not(c in theSet.touched)
     then exit;
@@ -103,11 +103,11 @@ begin
   with theSet do
     begin
       if ((n and $E0) = $C0) and (Pos(Copy(s, k, 2), elements) > 0)  // encoded in 2 bytes
-        then Result := Copy(s, k, 2);  
+        then Result := Copy(s, k, 2);
       if ((n and $F0) = $E0) and (Pos(Copy(s, k, 3), elements) > 0)  // encoded in 3 bytes
-        then Result := Copy(s, k, 3);  
+        then Result := Copy(s, k, 3);
       if ((n and $F8) = $F0) and (Pos(Copy(s, k, 4), elements) > 0)  // encoded in 4 bytes
-        then Result := Copy(s, k, 4); 
+        then Result := Copy(s, k, 4);
       if ((n and $FC) = $F8) and (Pos(Copy(s, k, 5), elements) > 0)  // encoded in 5 bytes
         then Result := Copy(s, k, 5);
       if ((n and $FE) = $FC) and (Pos(Copy(s, k, 6), elements) > 0)  // encoded in 6 bytes
@@ -131,8 +131,8 @@ var ansi : string;
     run : integer;
 begin
   if (k < 0) or (k >= bufferLength)
-    then 
-      Result := ''  
+    then
+      Result := ''
     else
       begin
         ansi := '';
@@ -156,10 +156,10 @@ begin
   Writeln('sizeof(theSet) = ', sizeof(theSet));
   Writeln('');
   Writeln('Testing CharSet...');
-  
+
   theSet := CreateSetOfChar('不Stéphane');
   s := '復不Stéphânes';
-  
+
   Writeln('version for string :');
   for k := 1 to length(s) do
      writeln(k, ' -> ', FindInCharSet(theSet, s, k));
@@ -169,7 +169,7 @@ begin
   len := length(s);
   for k := 0 to len-1 do
      writeln(k, ' -> ', FindInCharSet(theSet, buffer, len, k));
-  
+
 end;
 
 

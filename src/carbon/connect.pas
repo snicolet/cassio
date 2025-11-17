@@ -7,8 +7,9 @@ uses Process;
 
 type
 
-   // Type for callback function
+   // Type for callback functions
    Interpretor = procedure(var line : AnsiString);
+   Calculator  = procedure(var line : AnsiString; data : Pointer);
 
    // A task is a TProcess with some extra fields
    Task = record
