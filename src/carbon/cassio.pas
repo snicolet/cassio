@@ -16,6 +16,7 @@ uses
   SysUtils,
   Process,
   Connect,
+  BasicTypes,
   QuickDraw;
 
 
@@ -26,6 +27,7 @@ var
    tick       : qword;
    loc        : Point;
    k          : integer;
+   r          : SInt64;
 
 begin
 
@@ -66,13 +68,20 @@ begin
        sleep(1);
 
 
-       if (Tickcount() - tick >= 5) then
+       if false and (Tickcount() - tick >= 5) then
        begin
           tick := Tickcount();
           loc := GetMouse();
           if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
        end;
+       
+       if (Tickcount() - tick >= 5) then
+       begin
+          r := QDRandom();
+          writeln(r);
+       end;
+
 
        if (Tickcount() = 630) then
        begin

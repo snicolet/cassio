@@ -57,6 +57,9 @@ function ReadStringFromRessource(stringListID, index : SInt16) : String255;
 // Alerts
 procedure AlerteDouble(texte,explication : String255);
 
+// Misc
+function QDRandom() : SInt64;
+
 
 IMPLEMENTATION
 
@@ -363,6 +366,23 @@ end;
 
 
 
+function QDRandom() : SInt64;
+const NONE : SInt64 = -6976080126603506969;
+var r : SInt64;
+    command : AnsiString;
+begin
+    r := NONE;
+    
+    command := 'echo ' + IntToStr(Random64());
+    SendCommand(command, @__SINT64, @r);
+    
+    while (r = NONE) do
+      begin
+         ReadTaskOutput(quickDrawTask);
+      end;
+    
+    result := r;
+end;
 
 
 
