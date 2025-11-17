@@ -38,8 +38,8 @@ procedure SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer)
 procedure InterpretAnswer(var line : AnsiString);
 
 // Time functions
-function Milliseconds() : Int64;
-function Tickcount() : Int64;
+function Milliseconds() : SInt64;
+function Tickcount() : SInt64;
 
 // Sound
 procedure SysBeep(duration : SInt16);
@@ -64,14 +64,14 @@ function QDRandom() : SInt64;
 IMPLEMENTATION
 
 
-var start          : Int64;              // milliseconds at the start of the program
+var start          : SInt64;              // milliseconds at the start of the program
     quickDrawTask  : Task;               // communication task to connect to the GUI server
-    commandCounter : Int64 = 100000;     // a strictly increasing counter
+    commandCounter : SInt64 = 100000;     // a strictly increasing counter
 
     getMouseData :
         record
            mouseLoc : Point ;            // mouse position
-           when     : Int64 ;            // date in milliseconds
+           when     : SInt64 ;            // date in milliseconds
         end;
 
     getOpenFileDialogData :
@@ -97,17 +97,17 @@ type
        public
          constructor Init();
          destructor  Done();
-         procedure Clear(index : Int64);
-         procedure AddHandler(messageID : Int64; handler : QuickdrawCalculator);
-         function GetHandler(index : Int64) : QuickdrawCalculator;
-         function FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
+         procedure Clear(index : SInt64);
+         procedure AddHandler(messageID : SInt64; handler : QuickdrawCalculator);
+         function GetHandler(index : SInt64) : QuickdrawCalculator;
+         function FindQuestion(messageID : SInt64; var indexFound : SInt64) : boolean;
 
        private
          const SIZE = 2048;
-         var lastIndexFound : Int64;
+         var lastIndexFound : SInt64;
              cells : array[0 .. SIZE-1] of
                        record
-                          messageID : Int64;
+                          messageID : SInt64;
                           handler   : QuickdrawCalculator;
                        end;
     end;
@@ -177,7 +177,7 @@ end;
 
 procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
-    m, e : Int64;
+    m, e : SInt64;
 begin
     m := Milliseconds();
     e := m mod 1000;
@@ -214,7 +214,7 @@ end;
 
 procedure InterpretAnswer(var line : AnsiString);
 var parts: TStringArray;
-    index : int64;
+    index : SInt64;
     messageID : AnsiString;
     handler : QuickdrawCalculator;
     myFunction : Calculator;
@@ -262,7 +262,7 @@ end;
 
 // Milliseconds() : get the number of milliseconds since the start of the program
 
-function Milliseconds() : Int64;
+function Milliseconds() : SInt64;
 begin
    result := GetTickCount64() - start;
 end;
@@ -271,7 +271,7 @@ end;
 
 // Tickcount() : get the number of ticks (1/60 of second) since the start of the program
 
-function Tickcount() : Int64;
+function Tickcount() : SInt64;
 begin
    result := Milliseconds() * 60 div 1000;
 end;
@@ -435,8 +435,8 @@ end;
 
 // TAnswers.AddHandler() : find an empty cell in the answering machine,
 // and install the couple (messageID, messageHandler) in that cell.
-procedure TAnswers.AddHandler(messageID : Int64; handler : QuickdrawCalculator);
-var k , t : Int64;
+procedure TAnswers.AddHandler(messageID : SInt64; handler : QuickdrawCalculator);
+var k , t : SInt64;
 begin
     for k := 1 to SIZE do
     begin
@@ -459,7 +459,7 @@ end;
 
 // TAnswers.GetHandler() : return the handler at the specified cell in
 // the answering machine.
-function TAnswers.GetHandler(index : Int64) : QuickdrawCalculator;
+function TAnswers.GetHandler(index : SInt64) : QuickdrawCalculator;
 begin
     result.calc  := nil;
     result.data  := nil;
@@ -470,7 +470,7 @@ end;
 
 
 // TAnswers.Clear() : empty the cell at index in the answering machine
-procedure TAnswers.Clear(index : Int64);
+procedure TAnswers.Clear(index : SInt64);
 begin
     cells[index].messageID     :=  -1;
     cells[index].handler.calc  :=  nil;
@@ -480,8 +480,8 @@ end;
 
 // TAnswers.FindQuestion() : return true if we can find the cell with
 // the specified messageID in the answering machine (and its index).
-function TAnswers.FindQuestion(messageID : Int64; var indexFound : Int64) : boolean;
-var k , t : Int64;
+function TAnswers.FindQuestion(messageID : SInt64; var indexFound : SInt64) : boolean;
+var k , t : SInt64;
     found : boolean;
 begin
     found := false;
