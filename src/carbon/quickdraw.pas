@@ -27,6 +27,7 @@ type
             h : Integer;
             v : Integer;
           end;
+  PointPtr = ^Point;
 
 // Initialisation and termination
 procedure InitQuickDraw(var carbon : Task);
@@ -98,9 +99,10 @@ type
   QDValuePtr = ^QDValue;
   
 const
-  NONE    = 0;
-  kSINT64 = 1;
-  kPOINT  = 2;
+  NONE     = 0;
+  kSINT64  = 1;
+  kBOOLEAN = 2;
+  kPOINT   = 3;
 
 
 // TAnswers is an object to handle the textual answers from the GUI server
@@ -375,7 +377,7 @@ end;
 
 
 
-// SINT64__() : interpret a line from the server as an SInt64 integer.
+// SINT64__() : interpret a line from the server as a SInt64 integer.
 //              The parameter data must be a pointer to a QDValue.
 
 procedure SINT64__(var line : AnsiString; data : Pointer);
@@ -391,6 +393,26 @@ begin
 
     SInt64Ptr(p^.data)^ := n;
     p^.status           := kSINT64;
+end;
+
+
+// POINT__() : interpret a line from the server as Point.
+//             The parameter data must be a pointer to a QDValue.
+
+procedure POINT__(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    where : Point;
+    p : QDValuePtr;
+begin
+    parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
+    where.h := strToInt64(parts[3]);
+    where.v := strToInt64(parts[4]);
+
+    // store type information and the value of where in data
+    p := QDValuePtr(data);
+
+    PointPtr(p^.data)^ := where;
+    p^.status          := kPOINT;
 end;
 
 
