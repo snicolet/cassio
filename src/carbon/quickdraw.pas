@@ -220,9 +220,9 @@ end;
 
 
 // QDRandom() : a stupid function which sends a random64 value to the server
-// with the 'echo' command, and return that random value using using the usual
-// integer interpretation of the server answer... This is only useful to test
-// the speed of the server communications.
+// with the 'echo' command, wait for the echoed answer and interprets that 
+// answer as an integer! This is only useful to test the speed of the server 
+// communications.
 // Note : use Random64() instead.
 
 function QDRandom() : SInt64;
