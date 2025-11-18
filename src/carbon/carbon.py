@@ -1374,8 +1374,8 @@ def server_callback(line):
         input_thread.jobsReady.emit(1)
 
         if line == "quit" or line == "quit()":
-            print("...quitting the Carbon-GUI server, bye...", flush=True)
             print(stat_box(), flush=True)
+            print("...quitting the Carbon-GUI server, bye...", flush=True)
             app.exit(0)
             os._exit(0)
             return "quit"

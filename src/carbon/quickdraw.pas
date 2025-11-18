@@ -27,7 +27,6 @@ type
             h : Integer;
             v : Integer;
           end;
-  PointPtr = ^Point;
 
 // Initialisation and termination
 procedure InitQuickDraw(var carbon : Task);
@@ -205,6 +204,8 @@ procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
     m, e : SInt64;
 begin
+    // exit();
+    
     m := Milliseconds();
     e := m mod 1000;
 
@@ -388,11 +389,9 @@ begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt64(parts[3]);
 
-    // store type information and the value of n in data
     p := QDValue(data);
-
-    SInt64Ptr(p^.data)^ := n;
-    p^.status           := kSINT64;
+    p^.status := kSINT64;
+    MoveMemory(@n, p^.data, sizeof(SInt64));
 end;
 
 
@@ -402,17 +401,15 @@ end;
 procedure POINT__(var line : AnsiString; data : Pointer);
 var parts : TStringArray;
     where : Point;
-    p : QDValue;
+    p     : QDValue;
 begin
     parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
     where.h := strToInt64(parts[3]);
     where.v := strToInt64(parts[4]);
 
-    // store type information and the value of where in data
     p := QDValue(data);
-
-    PointPtr(p^.data)^ := where;
-    p^.status          := kPOINT;
+    p^.status := kPOINT;
+    MoveMemory(@where, p^.data, sizeof(Point));
 end;
 
 
@@ -427,14 +424,15 @@ procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : 
 var val : QDValueRec;
     start : SInt64;
 begin
-    val := CreateQDValue(result);  // This sets val.status to NONE
-
+    // This sets val.status to NONE
+    val := CreateQDValue(result);
+    
+    // Send the command to the server  
     SendCommand(command, calc, @val);
-
     start := Milliseconds();
 
-    while (val.status = NONE) and 
-          (Milliseconds() - start < 50) do
+    // Buzy waiting loop
+    while (val.status = NONE) and (Milliseconds() - start < 50) do
         ReadTaskOutput(quickDrawTask);
 end;
 
@@ -454,6 +452,10 @@ begin
     WaitFunctionReturn(command, @SINT64__ , @result);
 end;
 
+
+
+// GetMouse2() : return the position of the mouse. This is a buzy waiting
+// function which takes about 0.13 millisecond to answer.
 
 function GetMouse2() : Point;
 begin

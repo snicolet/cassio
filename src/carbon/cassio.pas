@@ -68,10 +68,13 @@ begin
        // See also the FpNanoSleep() function
        sleep(1);
 
-       if true and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
+       if false and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
        begin
           tick := Tickcount();
-          loc := GetMouse2();
+          start := Milliseconds;
+          for k := 1 to 1 do
+             loc := GetMouse2();
+          writeln('time = ', Milliseconds() - start);
           //if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
        end;
