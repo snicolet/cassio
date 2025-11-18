@@ -26,7 +26,7 @@ uses
 
 
 // Communication task to connect to the GUI server
-var quickDrawTask  : Task;                
+var gCarbonTask  : Task;                
 
 
 // Starting/stopping the GUI server
@@ -159,7 +159,7 @@ begin
     theHandler.data := data;
     quickDrawAnswers.AddHandler(commandCounter, theHandler);
 
-    WriteTaskInput(quickDrawTask, s);
+    WriteTaskInput(gCarbonTask, s);
 end;
 
 
@@ -268,7 +268,7 @@ begin
 
     // Buzy waiting loop
     while (val.status = NONE) and (Milliseconds() - start < 50) do
-        ReadTaskOutput(quickDrawTask);
+        ReadTaskOutput(gCarbonTask);
 end;
 
 
@@ -389,7 +389,7 @@ begin
 	carbon.process.executable := './carbon.sh';
 	CreateConnectedTask(carbon, @InterpretAnswer, nil);
 	
-	quickDrawTask             := carbon;
+	gCarbonTask               := carbon;
 end;
 
 
@@ -400,7 +400,7 @@ procedure StopQuickDrawServer;
 begin
     SendCommand('quit', NIL, NIL);
     sleep(1000);
-    FreeConnectedTask(quickDrawTask);
+    FreeConnectedTask(gCarbonTask);
     quickDrawAnswers.Done();
 end;
 
