@@ -35,12 +35,12 @@ var
 begin
 
     //Halt();
-    
+
     tick := Tickcount();
 
     LogDebugInfo('Bienvenue dans Cassio !');
 	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
-	
+
 	InitQuickdraw(carbon);
 
 	sleep(200);
@@ -50,12 +50,12 @@ begin
 	   counter := counter + 1;
 
 	   ReadTaskOutput(carbon);
-	
+
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
 	      for k := 1 to 9 do
 	         SendCommand('hello ' + IntToStr(k) , NIL, NIL);
-	
+
 	   // test 2 : send a bunch of dummy "hola" commands, at 1ms intervals
 	   if (counter >= 0) and (counter < 10) then
 	   begin
@@ -69,7 +69,7 @@ begin
        // with sleep(10) : Cassio uses about 0.1% of one precessor
        // See also the FpNanoSleep() function
        sleep(1);
-       
+
        //writeln('blah : ', Tickcount(), ' ', Tickcount() - tick);
 
        if true and (Tickcount() > 300) and (Tickcount() - tick >= 5) then

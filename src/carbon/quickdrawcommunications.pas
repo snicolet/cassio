@@ -82,6 +82,7 @@ type
       data : Pointer;
     end;
 
+
 // TAnswers is an object to handle the textual answers from the GUI server.
 // It contains an internal list of pairs (currently 2048), where each pair
 // of the list has an ID and a callback to process the future textual answer
