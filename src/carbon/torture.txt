@@ -179,6 +179,8 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 =>   Now using the @ shortcut in the torture.txt file...
 ==========================================================
 
+@-set-counter-@           5000
+
 @  init
 @  get-mouse
 @  get-port

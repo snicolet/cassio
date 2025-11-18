@@ -208,7 +208,7 @@ begin
 
    while (getOpenFileDialogData.filePath = NONE) do
    begin
-      ReadTaskOutput(quickDrawTask);
+      ReadTaskOutput(gCarbonTask);
       sleep(1);
    end;
 

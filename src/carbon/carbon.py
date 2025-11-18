@@ -1344,6 +1344,7 @@ class StandardInputThread(QThread):
 
 
 line_counter = 0   # global counter for the lines received by the server
+at_counter   = 0   # global counter for the lines beginning with the @ symbol
 highest_id   = 0   # global with the highest message ID received by the server
 
 
@@ -1353,6 +1354,8 @@ def server_callback(line):
     should return "ready" on normal lines, while returning anything else (for
     instance "quit") will stop the line listening of the server.
     """
+
+    global at_counter
 
     global line_counter
     line_counter += 1
@@ -1366,7 +1369,12 @@ def server_callback(line):
     if line :
 
         if line[0] == '@' :
-           line = PROTOCOL_PREFIX + "{" + str(highest_id + 1) + "} " + line[1:]
+           if line.find('@-set-counter-@') == 0 :
+               at_counter = int(line[1 + len('@-set-counter-@'):])
+               return READY
+           else :
+               line = PROTOCOL_PREFIX + "{" + str(at_counter) + "} " + line[1:]
+               at_counter += 1
 
         job = '[stdi]   << {}'.format(line)
 
