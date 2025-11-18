@@ -272,7 +272,8 @@ begin
 end;
 
 
-// Constructor for the TAnswers object
+// TAnswers.Init() : constructor for the TAnswers object
+
 constructor TAnswers.Init();
 var k : integer;
 begin
@@ -282,7 +283,8 @@ begin
 end;
 
 
-// Destructor for the TAnswers object
+// TAnswers.Done() : destructor for the TAnswers object
+
 destructor TAnswers.Done();
 begin
 end;
@@ -292,6 +294,7 @@ end;
 
 // TAnswers.AddHandler() : find an empty cell in the answering machine,
 // and install the couple (messageID, messageHandler) in that cell.
+
 procedure TAnswers.AddHandler(messageID : SInt64; handler : QuickdrawCalculator);
 var k , t : SInt64;
 begin
@@ -316,6 +319,7 @@ end;
 
 // TAnswers.GetHandler() : return the handler at the specified cell in
 // the answering machine.
+
 function TAnswers.GetHandler(index : SInt64) : QuickdrawCalculator;
 begin
     result.calc  := nil;
@@ -327,6 +331,7 @@ end;
 
 
 // TAnswers.Clear() : empty the cell at index in the answering machine
+
 procedure TAnswers.Clear(index : SInt64);
 begin
     cells[index].messageID     :=  -1;
@@ -337,6 +342,7 @@ end;
 
 // TAnswers.FindQuestion() : return true if we can find the cell with
 // the specified messageID in the answering machine (and its index).
+
 function TAnswers.FindQuestion(messageID : SInt64; var indexFound : SInt64) : boolean;
 var k , t : SInt64;
     found : boolean;

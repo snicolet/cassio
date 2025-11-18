@@ -98,9 +98,6 @@ end;
 
 
 
-////// Communications with the GUI task   /////
-
-
 // MyUrlEncode() : encode space, quotes and newline caracters in the given string
 // into their url-encoding equivalents. Sometimes useful when exchanging strings
 // with our server since the protocol is a textual, line by line protocol.
@@ -125,7 +122,6 @@ begin
     s := StringReplace( s , '%20' , ' '  , [rfReplaceAll] );
     result := s;
 end;
-
 
 
 
