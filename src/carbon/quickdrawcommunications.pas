@@ -399,8 +399,9 @@ end;
 procedure StopQuickDrawServer;
 begin
     SendCommand('quit', NIL, NIL);
-    sleep(1000);
+    sleep(1000);  // one second
     FreeConnectedTask(gCarbonTask);
+    
     quickDrawAnswers.Done();
 end;
 
