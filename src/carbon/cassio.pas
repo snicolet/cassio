@@ -32,20 +32,11 @@ var
    r          : SInt64;
    start      : SInt64;
 
+
+// MainLoop is our main loop for Cassio
+procedure MainLoop();
 begin
-
-    //Halt();
-
-    tick := Tickcount();
-
-    LogDebugInfo('Bienvenue dans Cassio !');
-	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
-
-	InitQuickdraw(carbon);
-
-	sleep(200);
-
-	counter := -1;
+    counter := -1;
 	repeat
 	   counter := counter + 1;
 
@@ -108,6 +99,25 @@ begin
        end;
 
     until false or (Milliseconds() > 300000);
+end;
+
+
+
+// Main()
+begin
+
+    //Halt();
+
+    tick := Tickcount();
+
+    LogDebugInfo('Bienvenue dans Cassio !');
+	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
+
+	InitQuickdraw(carbon);
+
+	sleep(200);
+
+	MainLoop();
 
 	ReleaseQuickDraw;
 
