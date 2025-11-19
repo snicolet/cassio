@@ -117,7 +117,12 @@ begin
 
 	sleep(200);
 
-	MainLoop();
+    try
+        MainLoop();
+    except
+      on E: Exception do
+         Writeln('An exception was raised: ' + E.Message);
+    end;
 
 	ReleaseQuickDraw;
 
