@@ -67,7 +67,7 @@ begin
        begin
           tick := Tickcount();
           start := Milliseconds;
-          for k := 1 to 1 do
+          for k := 1 to 100 do
              loc := GetMouse2();
           writeln('time = ', Milliseconds() - start);
           //if (abs(loc.h) < 0) then

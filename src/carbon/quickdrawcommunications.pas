@@ -291,33 +291,43 @@ begin
 end;
 
 
-// WaitFunctionReturn() : sends a command to the server and waits for the 
-// answer for a period of WAITING_TIME milliseconds (using a buzy loop). 
-// If an answer has been received and interpreted by the callback calculator 
-// "calc" during this waiting time, the procedure returns immediately, and 
+// WaitFunctionReturn() : sends a command to the server and waits for the
+// answer for a period of MAX_WAITING milliseconds (using a buzy loop).
+// If an answer has been received and interpreted by the callback calculator
+// "calc" during this waiting time, the procedure returns immediately, and
 // the returned value is set in the "result" pointer. If no answer has been
 // received, then "result" is unmodified.
 
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
-const WAITING_TIME = 50 ; // in milliseconds
+const MAX_WAITING = 50 ; // in milliseconds
 var val : QDValueRec;
-    start : SInt64;
+    start, waiting : SInt64;
     messageID, index : SInt64;
 begin
     // This sets val.status to NONE
     val := CreateQDValue(result);
-    
+
     // Send the command to the server  
     messageID := SendCommand(command, calc, @val);
     start := Milliseconds();
+    waiting := 0;
 
     // Buzy waiting loop
-    while (val.status = NONE) and (Milliseconds() - start < WAITING_TIME) do
+    while (val.status = NONE) and (waiting < MAX_WAITING) do
+    begin
         ReadTaskOutput(gCarbonTask);
-    
+
+        waiting := Milliseconds() - start;
+
+        // If the GUI server is either not ready or has crashed, 
+        // we better yield some time to the OS.
+        if (waiting > 5) then sleep(1);
+    end;
+
     // Clear the answering machine slot if we have run out of time
     if (val.status = NONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
        quickDrawAnswers.Clear(index);
+
 end;
 
 
