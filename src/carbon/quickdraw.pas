@@ -61,7 +61,7 @@ uses quickdrawcommunications;
 
 
 var start          : SInt64;              // milliseconds at the start of the program
-    getMouseData :
+    gMouseData :
         record
            mouseLoc : Point ;            // mouse position
            when     : SInt64 ;           // date in milliseconds
@@ -80,9 +80,9 @@ procedure InitQuickDraw(var carbon : Task);
 begin
     StartQuickdrawServer(carbon);
 
-    getMouseData.mouseLoc.h := 0;
-    getMouseData.mouseLoc.v := 0;
-    getMouseData.when       := -1000;
+    gMouseData.mouseLoc.h := 0;
+    gMouseData.mouseLoc.v := 0;
+    gMouseData.when       := -1000;
     
     RandomizeTimer;
 end;
@@ -158,8 +158,8 @@ procedure InterpretGetMouseAnswer(var line : AnsiString; value : Pointer);
 var parts: TStringArray;
 begin
     parts                   := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
-    getMouseData.mouseLoc.h := strToInt64(parts[3]);
-    getMouseData.mouseLoc.v := strToInt64(parts[4]);
+    gMouseData.mouseLoc.h := strToInt64(parts[3]);
+    gMouseData.mouseLoc.v := strToInt64(parts[4]);
 end;
 
 
@@ -167,13 +167,25 @@ end;
 
 function GetMouse() : Point;
 begin
-    if (Milliseconds() - getMouseData.when >= 30) then
+    if (Milliseconds() - gMouseData.when >= 30) then
     begin
-        getMouseData.when := Milliseconds();
+        gMouseData.when := Milliseconds();
         SendCommand('get-mouse', @InterpretGetMouseAnswer, NIL);
     end;
 
-   result := getMouseData.mouseLoc;
+   result := gMouseData.mouseLoc;
+end;
+
+
+
+// GetMouse2() : return the position of the mouse. This is a buzy waiting
+// function which takes about 0.13 millisecond to answer.
+
+function GetMouse2() : Point;
+begin
+    result.h := -1;
+    result.v := -1;
+    WaitFunctionReturn('get-mouse', @POINT__, @result);
 end;
 
 
@@ -232,18 +244,6 @@ begin
     
     command := 'echo ' + IntToStr(Random64());
     WaitFunctionReturn(command, @SINT64__ , @result);
-end;
-
-
-
-// GetMouse2() : return the position of the mouse. This is a buzy waiting
-// function which takes about 0.13 millisecond to answer.
-
-function GetMouse2() : Point;
-begin
-    result.h := -1;
-    result.v := -1;
-    WaitFunctionReturn('get-mouse', @POINT__, @result);
 end;
 
 

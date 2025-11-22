@@ -63,7 +63,7 @@ begin
 
        //writeln('blah : ', Tickcount(), ' ', Tickcount() - tick);
 
-       if true and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
+       if true and (Tickcount() > 300) and (Tickcount() - tick >= 6) then
        begin
           tick := Tickcount();
           start := Milliseconds;

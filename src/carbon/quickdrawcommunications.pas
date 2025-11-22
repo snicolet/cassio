@@ -36,13 +36,15 @@ procedure StopQuickdrawServer;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer);
+function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
 
 
 // Interpret answers from the GUI server
 procedure InterpretAnswer(var line : AnsiString);
 procedure SINT64__(var line : AnsiString; data : Pointer);
+procedure SINT32__(var line : AnsiString; data : Pointer);
+procedure SINT16__(var line : AnsiString; data : Pointer);
 procedure POINT__(var line : AnsiString; data : Pointer);
 
   
@@ -69,8 +71,10 @@ type
 const
   NONE     = 0;
   kSINT64  = 1;
-  kBOOLEAN = 2;
-  kPOINT   = 3;
+  kSINT32  = 2;
+  kSINT16  = 3;
+  kBOOLEAN = 4;
+  kPOINT   = 5;
   
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
@@ -144,20 +148,23 @@ begin
 end;
 
 
-// SendCommand() : send a message to the GUI task
-
-procedure SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer);
+// SendCommand() : send a message to the GUI task, and returns the messageID
+// of that message in the quickDrawAnswers array.
+                   
+function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 var s : AnsiString;
     theHandler : QuickdrawCalculator;
 begin
     commandCounter := commandCounter + 1;
-    s := 'CARBON-PROTOCOL ' + '{' + IntToStr(commandCounter) + '} ' + command;
+    
+    Result := commandCounter;
+    s := 'CARBON-PROTOCOL ' + '{' + IntToStr(Result) + '} ' + command;
 
     LogDebugInfo('[Cassio] >> ' + s);
 
     theHandler.calc := calc;
     theHandler.data := data;
-    quickDrawAnswers.AddHandler(commandCounter, theHandler);
+    quickDrawAnswers.AddHandler(Result, theHandler);
 
     WriteTaskInput(gCarbonTask, s);
 end;
@@ -230,6 +237,42 @@ begin
 end;
 
 
+
+// SINT32__() : interpret a line from the server as a SInt32 integer.
+//              The parameter data must be a QDValue.
+
+procedure SINT32__(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    n : SInt32;
+    p : QDValue;
+begin
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
+    n := strToInt32(parts[3]);
+
+    p := QDValue(data);
+    p^.status := kSINT32;
+    MoveMemory(@n, p^.data, sizeof(SInt32));
+end;
+
+
+// SINT16__() : interpret a line from the server as a SInt16 integer.
+//              The parameter data must be a QDValue.
+
+procedure SINT16__(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    n : SInt16;
+    p : QDValue;
+begin
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
+    n := strToInt32(parts[3]);
+
+    p := QDValue(data);
+    p^.status := kSINT16;
+    MoveMemory(@n, p^.data, sizeof(SInt16));
+end;
+
+
+
 // POINT__() : interpret a line from the server as Point.
 //             The parameter data must be a QDValue.
 
@@ -249,26 +292,32 @@ end;
 
 
 // WaitFunctionReturn() : sends a command to the server and waits for the 
-// answer for a period of 50ms (using a buzy loop). If an answer has been
-// received and interpreted by the callback calculator "calc" during these
-// 50ms, the procedure returns immediately, and the returned value is set
-// in "result" pointer. If no answer has been received, then "result" is
-// unmodified.
+// answer for a period of WAITING_TIME milliseconds (using a buzy loop). 
+// If an answer has been received and interpreted by the callback calculator 
+// "calc" during this waiting time, the procedure returns immediately, and 
+// the returned value is set in the "result" pointer. If no answer has been
+// received, then "result" is unmodified.
 
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
+const WAITING_TIME = 50 ; // in milliseconds
 var val : QDValueRec;
     start : SInt64;
+    messageID, index : SInt64;
 begin
     // This sets val.status to NONE
     val := CreateQDValue(result);
     
     // Send the command to the server  
-    SendCommand(command, calc, @val);
+    messageID := SendCommand(command, calc, @val);
     start := Milliseconds();
 
     // Buzy waiting loop
-    while (val.status = NONE) and (Milliseconds() - start < 50) do
+    while (val.status = NONE) and (Milliseconds() - start < WAITING_TIME) do
         ReadTaskOutput(gCarbonTask);
+    
+    // Clear the answering machine slot if we have run out of time
+    if (val.status = NONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
+       quickDrawAnswers.Clear(index);
 end;
 
 
