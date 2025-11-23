@@ -22,6 +22,13 @@ type
             v : SInt32;
           end;
 
+  Rect = record
+            top    : SInt32;
+            left   : SInt32;
+            bottom : SInt32;
+            right  : SInt32;
+         end;
+
 implementation
 
 begin

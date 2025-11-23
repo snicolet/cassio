@@ -77,7 +77,8 @@ const
   kSINT16  = 3;
   kBOOLEAN = 4;
   kPOINT   = 5;
-  kSTRING  = 6;
+  kRECT    = 6;
+  kSTRING  = 7;
   
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
@@ -138,7 +139,7 @@ var stamp  : AnsiString;
     m, e : SInt64;
 begin
     // exit();   // uncomment this line to disable logging
-    
+
     m := Milliseconds();
     e := m mod 1000;
 
@@ -159,7 +160,7 @@ var s : AnsiString;
     theHandler : QuickdrawCalculator;
 begin
     commandCounter := commandCounter + 1;
-    
+
     Result := commandCounter;
     s := 'CARBON-PROTOCOL ' + '{' + IntToStr(Result) + '} ' + command;
 
@@ -195,23 +196,23 @@ begin
 	    // Format of an answer is:
 	    //      {ID} command => value1 [value2] [value3]...
 	    parts := line.Split(' ', '"', '"', 3, TStringSplitOptions.ExcludeEmpty);
-	
+
 	    if (length(parts) >= 3) and (parts[2] = '=>') then
 	    begin
 	        messageID := parts[0];
-	
+
 	        if (length(messageID) >= 3) and
 	           (messageID[1] = '{') and
 	           (messageID[length(messageID)] = '}') then
 	           begin
-	
+
 	              messageID := copy(messageID, 2, length(messageID) - 2);
-	
+
 	              if (quickDrawAnswers.FindQuestion(strToInt64(messageID), index)) then
 	              begin
 	                  handler := quickDrawAnswers.GetHandler(index);
 	                  quickDrawAnswers.Clear(index);
-	
+
 	                  myFunction := handler.calc;
 	                  myData     := handler.data;
 	                  if (myFunction <> nil) then
@@ -276,7 +277,7 @@ end;
 
 
 
-// BOOL__() : interpret a line from the server as a Boolean integer.
+// BOOL__() : interpret a line from the server as a Boolean.
 //              The parameter value must be a QDValue.
 
 procedure BOOL__(var line : AnsiString; value : Pointer);
@@ -286,8 +287,8 @@ var parts : TStringArray;
     p : QDValue;
 begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
-    s := sysutils.LowerCase(parts[3]);
-    
+    s := sysutils.LowerCase(Trim(parts[3]));
+
     if (s = '0') or (s = 'false') or (s = 'no')
        then b := false
        else b := true;
@@ -308,12 +309,35 @@ var parts : TStringArray;
     p     : QDValue;
 begin
     parts := line.Split(' ', '"', '"', 5, TStringSplitOptions.ExcludeEmpty);
+
     where.h := strToInt64(parts[3]);
     where.v := strToInt64(parts[4]);
 
     p := QDValue(value);
     p^.status := kPOINT;
     MoveMemory(@where, p^.value, sizeof(Point));
+end;
+
+
+
+// RECT__() : interpret a line from the server as Rect.
+//            The parameter value must be a QDValue.
+
+procedure RECT__(var line : AnsiString; value : Pointer);
+var parts : TStringArray;
+    r     : Rect;
+    p     : QDValue;
+begin
+    parts := line.Split(' ', '"', '"', 7, TStringSplitOptions.ExcludeEmpty);
+
+    r.top    := strToInt64(parts[3]);
+    r.left   := strToInt64(parts[4]);
+    r.bottom := strToInt64(parts[5]);
+    r.right  := strToInt64(parts[6]);
+
+    p := QDValue(value);
+    p^.status := kRECT;
+    MoveMemory(@r, p^.value, sizeof(Rect));
 end;
 
 
