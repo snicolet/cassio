@@ -137,7 +137,7 @@ procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
     m, e : SInt64;
 begin
-    // exit();
+    // exit();   // uncomment this line to disable logging
     
     m := Milliseconds();
     e := m mod 1000;

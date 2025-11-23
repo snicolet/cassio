@@ -18,8 +18,8 @@ uses
 
 type
   Point = record
-            h : Integer;
-            v : Integer;
+            h : SInt32;
+            v : SInt32;
           end;
 
 implementation

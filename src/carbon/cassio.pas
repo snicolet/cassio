@@ -22,20 +22,33 @@ uses
   QuickdrawCommunications; 
 
 
-var
-   carbon     : Task;
-   s          : ansistring;
-   counter    : integer;
-   tick       : qword;
-   loc        : Point;
-   k          : integer;
-   r          : SInt64;
-   start      : SInt64;
+// global variables
+var carbon     : Task;
 
+
+
+// FormatTimer(N, duration) returns a string with timing information.
+// parameters : N = number of function calls
+//              duration = time in milliseconds
+function FormatTimer(N, duration : SInt64) : AnsiString;
+begin
+    if duration <= 0 
+        then result := format('time = %dms  :  ', [duration])
+        else result := format('%d calls/sec  :  ', [1000 * N div duration]);
+end;
 
 // MainLoop is our main loop for Cassio
 procedure MainLoop();
+var
+   s           : AnsiString;
+   counter     : SInt64;
+   tick, start : SInt64;
+   loc         : Point;
+   k, r, N     : SInt64;
+   fmt         : AnsiString;
 begin
+    tick := Tickcount();
+    
     counter := -1;
 	repeat
 	   counter := counter + 1;
@@ -62,20 +75,21 @@ begin
        sleep(1);
 
        //writeln('blah : ', Tickcount(), ' ', Tickcount() - tick);
-       
-       
+
+
 
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 6) then
        begin
           tick := Tickcount();
           start := Milliseconds;
-          for k := 1 to 100 do
+          N := 100;
+          for k := 1 to N do
              loc := GetMouse2();
-          writeln('time = ', Milliseconds() - start);
+          writeln( FormatTimer(N, Milliseconds() - start) );
           //if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
        end;
-       
+
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 5) then
        begin
           tick := Tickcount();
@@ -83,26 +97,28 @@ begin
           if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
        end;
-       
+
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
           start := Milliseconds;
-          for k := 1 to 1 do
+          N := 100;
+          for k := 1 to N do
              r := QDRandom();
-          writeln('time = ', Milliseconds() - start, '  r = ', r);
+
+          writeln(FormatTimer(N, Milliseconds() - start), '  r = ', r);
        end;
        
        if true and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
           start := Milliseconds;
-          for k := 1 to 1 do
-             s := QDEcho('Il est 4 heures et la cloche sonnne');
-          writeln('time = ', Milliseconds() - start, '  s = ', s);
+          N := 100;
+          for k := 1 to N do
+             s := QDEcho('''Il est 4 heures et la cloche sonne''');
+
+          writeln(FormatTimer(N, Milliseconds() - start), '  s = ', s);
        end;
-
-
 
        if false and (Tickcount() = 630) then
        begin
@@ -117,10 +133,7 @@ end;
 
 // Main()
 begin
-
     //Halt();
-
-    tick := Tickcount();
 
     LogDebugInfo('Bienvenue dans Cassio !');
 	LogDebugInfo('Milliseconds is ' + IntToStr(Milliseconds()));
