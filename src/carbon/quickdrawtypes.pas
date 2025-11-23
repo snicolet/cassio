@@ -29,6 +29,19 @@ type
             right  : SInt32;
          end;
 
+  WindowPtr = record
+                name : AnsiString;
+              end;
+
+  DialogPtr = WindowPtr;
+
+  GrafPtr = WindowPtr;
+  
+  PixMap = record
+             name : AnsiString;
+           end;
+  
+
 implementation
 
 begin

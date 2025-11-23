@@ -45,7 +45,6 @@ var
    tick, start : SInt64;
    loc         : Point;
    k, r, N     : SInt64;
-   fmt         : AnsiString;
 begin
     tick := Tickcount();
     
