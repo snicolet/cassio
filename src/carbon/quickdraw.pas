@@ -51,6 +51,8 @@ procedure AlerteDouble(texte,explication : String255);
 
 // Misc
 function QDRandom() : SInt64;
+function QDEcho(s : AnsiString) : AnsiString;
+
 
 
 IMPLEMENTATION
@@ -244,6 +246,21 @@ begin
     
     command := 'echo ' + IntToStr(Random64());
     WaitFunctionReturn(command, @SINT64__ , @result);
+end;
+
+
+
+// QDEcho() : function which sends a string to the server with the 'echo' 
+// command, wait for the echoed answer and interprets that answer as a string!
+// This is only useful to test the speed of the server communications.
+
+function QDEcho(s : AnsiString) : AnsiString;
+var command : AnsiString;
+begin
+    result := '';
+    
+    command := 'echo ' + s;
+    WaitFunctionReturn(command, @STRING__ , @result);
 end;
 
 
