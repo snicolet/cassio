@@ -46,6 +46,7 @@ procedure SINT64__(var line : AnsiString; data : Pointer);
 procedure SINT32__(var line : AnsiString; data : Pointer);
 procedure SINT16__(var line : AnsiString; data : Pointer);
 procedure POINT__(var line : AnsiString; data : Pointer);
+procedure STRING__(var line : AnsiString; data : Pointer);
 
   
 
@@ -75,6 +76,7 @@ const
   kSINT16  = 3;
   kBOOLEAN = 4;
   kPOINT   = 5;
+  kSTRING  = 6;
   
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
@@ -289,6 +291,27 @@ begin
     p^.status := kPOINT;
     MoveMemory(@where, p^.data, sizeof(Point));
 end;
+
+
+
+// STRING__() : interpret a line from the server as AnsiString.
+//              The parameter data must be a QDValue.
+
+procedure STRING__(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    s : AnsiString;
+    p : QDValue;
+    p1 : PString;  // Pointer to an AnsiString
+begin
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
+    s := parts[3];
+
+    p := QDValue(data);
+    p^.status := kSTRING;
+    p1 := PString(p^.data);
+    p1^ := s;
+end;
+
 
 
 // WaitFunctionReturn() : sends a command to the server and waits for the
