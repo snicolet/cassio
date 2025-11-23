@@ -62,8 +62,10 @@ begin
        sleep(1);
 
        //writeln('blah : ', Tickcount(), ' ', Tickcount() - tick);
+       
+       
 
-       if true and (Tickcount() > 300) and (Tickcount() - tick >= 6) then
+       if false and (Tickcount() > 300) and (Tickcount() - tick >= 6) then
        begin
           tick := Tickcount();
           start := Milliseconds;
@@ -90,6 +92,16 @@ begin
              r := QDRandom();
           writeln('time = ', Milliseconds() - start, '  r = ', r);
        end;
+       
+       if true and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
+       begin
+          tick := Tickcount();
+          start := Milliseconds;
+          for k := 1 to 100 do
+             s := QDEcho('Il est 4 heures et la cloche sonnne');
+          writeln('time = ', Milliseconds() - start, '  s = ', s);
+       end;
+
 
 
        if false and (Tickcount() = 630) then

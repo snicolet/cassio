@@ -56,6 +56,7 @@ procedure KeepSuffix(var s : String255; len : SInt32);
 function Split(s : string; position : SInt32 ; var left, right : string) : boolean;               // split at a given position
 function Split(s : String255; sub : char; var left, right : String255) : boolean;                 // split by char
 function Split(s : String255; const sub : String255; var left, right : String255) : boolean;      // split by string
+function Split(s : AnsiString; const sub : AnsiString; var left, right : AnsiString) : boolean;   // split by string
 function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;            // split right by char
 function SplitRight(s : String255; const sub : String255; var left, right : String255) : boolean; // split right by string
 
@@ -653,8 +654,27 @@ begin
 	Result := p > 0;
 end;
 
+// Split() splits the string s at substring sub
+function Split(s : AnsiString; const sub : AnsiString; var left, right : AnsiString) : boolean;
+var p : SInt16;
+begin
+	p := Pos(sub, s);
+	if p > 0 then
+	  begin
+		left := Copy(s, 1, p - 1);
+		right := Copy(s, p + LENGTH_OF_STRING(sub), 255);
+	  end
+	else
+	  begin
+	    left := s;
+	    right := '';
+	  end;
+	Result := p > 0;
+end;
 
-// Split() splits the string s at character sub, scanning from the end of the string
+
+// SplitRight() splits the string s at character sub, 
+// scanning from the end of the string
 function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;
 var p : SInt16;
 begin
@@ -673,7 +693,8 @@ begin
 end;
 
 
-// Split() splits the string s at substring sub, scanning from the end of the string
+// SplitRight() splits the string s at substring sub,
+// scanning from the end of the string
 function SplitRight(s : String255; const sub : String255; var left, right : String255) : boolean;
 var p : SInt16;
 begin
@@ -947,6 +968,7 @@ procedure SetParserDelimiters(parsingCaracters : setOfAsciiChar);
 var s : ansiString;
     c : char;
 begin
+  s := '';
   for c in parsingCaracters do
     s := s + c;
   writeln(s);

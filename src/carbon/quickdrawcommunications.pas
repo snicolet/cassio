@@ -322,13 +322,12 @@ end;
 //              The parameter data must be a QDValue.
 
 procedure STRING__(var line : AnsiString; data : Pointer);
-var parts : TStringArray;
-    s : AnsiString;
+var left, right, s : AnsiString;
     p : QDValue;
     p1 : PString;  // Pointer to an AnsiString
 begin
-    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
-    s := parts[3];
+    Split(line, ' => ', left, right);
+    s := right;
 
     p := QDValue(data);
     p^.status := kSTRING;

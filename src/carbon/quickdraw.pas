@@ -259,7 +259,7 @@ var command : AnsiString;
 begin
     result := '';
     
-    command := 'echo ' + s;
+    command := 'echo "' + s + '"';
     WaitFunctionReturn(command, @STRING__ , @result);
 end;
 
