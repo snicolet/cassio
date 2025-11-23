@@ -479,7 +479,7 @@ def new_window(args):
 
    else :
        # 1. create a new window
-       # 2. add the window to the 'windows' directory
+       # 2. add the window to the 'windows' dictionary
        # 3. set the current port to the window
 
        global windows, current_port
