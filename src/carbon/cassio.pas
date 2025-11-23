@@ -97,7 +97,7 @@ begin
        begin
           tick := Tickcount();
           start := Milliseconds;
-          for k := 1 to 100 do
+          for k := 1 to 1 do
              s := QDEcho('Il est 4 heures et la cloche sonnne');
           writeln('time = ', Milliseconds() - start, '  s = ', s);
        end;

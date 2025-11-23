@@ -42,12 +42,12 @@ procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : 
 
 // Interpret answers from the GUI server
 procedure InterpretAnswer(var line : AnsiString);
-procedure SINT64__(var line : AnsiString; data : Pointer);
-procedure SINT32__(var line : AnsiString; data : Pointer);
-procedure SINT16__(var line : AnsiString; data : Pointer);
-procedure BOOL__(var line : AnsiString; data : Pointer);
-procedure POINT__(var line : AnsiString; data : Pointer);
-procedure STRING__(var line : AnsiString; data : Pointer);
+procedure SINT64__(var line : AnsiString; value : Pointer);
+procedure SINT32__(var line : AnsiString; value : Pointer);
+procedure SINT16__(var line : AnsiString; value : Pointer);
+procedure BOOL__(var line : AnsiString; value : Pointer);
+procedure POINT__(var line : AnsiString; value : Pointer);
+procedure STRING__(var line : AnsiString; value : Pointer);
 
   
 
@@ -64,7 +64,7 @@ type
   QDValueRec =
     record
       status : SInt64;
-      data : Pointer;
+      value : Pointer;
     end;
   QDValue = ^QDValueRec;
 
@@ -81,7 +81,7 @@ const
   
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
-// from the server and a pointer which can store the Pascal constructed data.
+// from the server and a pointer which can store the Pascal constructed value.
 type
   QuickdrawCalculator =
     record
@@ -124,10 +124,10 @@ var commandCounter : SInt64 = 100000;     // a strictly increasing counter
 // CreateQDValue() : create a polymorphic quickdraw value. The returned value 
 // is initialized to NONE by default, but we can change it afterwards by 
 // changing the status field.
-function CreateQDValue(data : Pointer = nil) : QDValueRec;
+function CreateQDValue(value : Pointer = nil) : QDValueRec;
 begin
     result.status := NONE;
-    result.data   := data;
+    result.value  := value;
 end;
 
 
@@ -224,9 +224,9 @@ end;
 
 
 // SINT64__() : interpret a line from the server as a SInt64 integer.
-//              The parameter data must be a QDValue.
+//              The parameter value must be a QDValue.
 
-procedure SINT64__(var line : AnsiString; data : Pointer);
+procedure SINT64__(var line : AnsiString; value : Pointer);
 var parts : TStringArray;
     n : SInt64;
     p : QDValue;
@@ -234,17 +234,17 @@ begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt64(parts[3]);
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kSINT64;
-    MoveMemory(@n, p^.data, sizeof(SInt64));
+    MoveMemory(@n, p^.value, sizeof(SInt64));
 end;
 
 
 
 // SINT32__() : interpret a line from the server as a SInt32 integer.
-//              The parameter data must be a QDValue.
+//              The parameter value must be a QDValue.
 
-procedure SINT32__(var line : AnsiString; data : Pointer);
+procedure SINT32__(var line : AnsiString; value : Pointer);
 var parts : TStringArray;
     n : SInt32;
     p : QDValue;
@@ -252,16 +252,16 @@ begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt32(parts[3]);
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kSINT32;
-    MoveMemory(@n, p^.data, sizeof(SInt32));
+    MoveMemory(@n, p^.value, sizeof(SInt32));
 end;
 
 
 // SINT16__() : interpret a line from the server as a SInt16 integer.
-//              The parameter data must be a QDValue.
+//              The parameter value must be a QDValue.
 
-procedure SINT16__(var line : AnsiString; data : Pointer);
+procedure SINT16__(var line : AnsiString; value : Pointer);
 var parts : TStringArray;
     n : SInt16;
     p : QDValue;
@@ -269,17 +269,17 @@ begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
     n := strToInt32(parts[3]);
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kSINT16;
-    MoveMemory(@n, p^.data, sizeof(SInt16));
+    MoveMemory(@n, p^.value, sizeof(SInt16));
 end;
 
 
 
 // BOOL__() : interpret a line from the server as a Boolean integer.
-//              The parameter data must be a QDValue.
+//              The parameter value must be a QDValue.
 
-procedure BOOL__(var line : AnsiString; data : Pointer);
+procedure BOOL__(var line : AnsiString; value : Pointer);
 var parts : TStringArray;
     s : AnsiString;
     b : boolean;
@@ -292,17 +292,17 @@ begin
        then b := false
        else b := true;
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kBOOLEAN;
-    MoveMemory(@b, p^.data, sizeof(boolean));
+    MoveMemory(@b, p^.value, sizeof(boolean));
 end;
 
         
 
 // POINT__() : interpret a line from the server as Point.
-//             The parameter data must be a QDValue.
+//             The parameter value must be a QDValue.
 
-procedure POINT__(var line : AnsiString; data : Pointer);
+procedure POINT__(var line : AnsiString; value : Pointer);
 var parts : TStringArray;
     where : Point;
     p     : QDValue;
@@ -311,17 +311,17 @@ begin
     where.h := strToInt64(parts[3]);
     where.v := strToInt64(parts[4]);
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kPOINT;
-    MoveMemory(@where, p^.data, sizeof(Point));
+    MoveMemory(@where, p^.value, sizeof(Point));
 end;
 
 
 
 // STRING__() : interpret a line from the server as AnsiString.
-//              The parameter data must be a QDValue.
+//              The parameter value must be a QDValue.
 
-procedure STRING__(var line : AnsiString; data : Pointer);
+procedure STRING__(var line : AnsiString; value : Pointer);
 var left, right, s : AnsiString;
     p : QDValue;
     p1 : PString;  // Pointer to an AnsiString
@@ -329,9 +329,9 @@ begin
     Split(line, ' => ', left, right);
     s := right;
 
-    p := QDValue(data);
+    p := QDValue(value);
     p^.status := kSTRING;
-    p1 := PString(p^.data);
+    p1 := PString(p^.value);
     p1^ := s;
 end;
 
