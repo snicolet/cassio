@@ -45,6 +45,7 @@ procedure InterpretAnswer(var line : AnsiString);
 procedure SINT64__(var line : AnsiString; data : Pointer);
 procedure SINT32__(var line : AnsiString; data : Pointer);
 procedure SINT16__(var line : AnsiString; data : Pointer);
+procedure BOOL__(var line : AnsiString; data : Pointer);
 procedure POINT__(var line : AnsiString; data : Pointer);
 procedure STRING__(var line : AnsiString; data : Pointer);
 
@@ -274,6 +275,29 @@ begin
 end;
 
 
+
+// BOOL__() : interpret a line from the server as a Boolean integer.
+//              The parameter data must be a QDValue.
+
+procedure BOOL__(var line : AnsiString; data : Pointer);
+var parts : TStringArray;
+    s : AnsiString;
+    b : boolean;
+    p : QDValue;
+begin
+    parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
+    s := sysutils.LowerCase(parts[3]);
+    
+    if (s = '0') or (s = 'false') or (s = 'no')
+       then b := false
+       else b := true;
+
+    p := QDValue(data);
+    p^.status := kBOOLEAN;
+    MoveMemory(@b, p^.data, sizeof(boolean));
+end;
+
+        
 
 // POINT__() : interpret a line from the server as Point.
 //             The parameter data must be a QDValue.
