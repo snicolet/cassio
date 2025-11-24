@@ -75,8 +75,6 @@ begin
 
        //writeln('blah : ', Tickcount(), ' ', Tickcount() - tick);
 
-
-
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 6) then
        begin
           tick := Tickcount();
@@ -112,7 +110,7 @@ begin
        begin
           tick := Tickcount();
           start := Milliseconds;
-          N := 100;
+          N := 10000;
           for k := 1 to N do
              s := QDEcho('''Il est 4 heures et la cloche sonne''');
 
