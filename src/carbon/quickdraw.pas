@@ -220,7 +220,10 @@ begin
    
       command := 'set-window-geometry';
       command := command + ' name=' + name;
-      command := command + ' ' + RectToStr(bounds);
+      command := command + ' left=' + IntToStr(bounds.left);
+      command := command + ' top=' + IntToStr(bounds.top);
+      command := command + ' width=' + IntToStr(bounds.right - bounds.left);
+      command := command + ' height=' + IntToStr(bounds.bottom - bounds.top);
       SendCommand(command, NIL, NIL);
       
       command := 'set-window-visible';

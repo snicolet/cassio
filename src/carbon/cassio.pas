@@ -46,6 +46,7 @@ var
    loc         : Point;
    k, r, N     : SInt64;
    rapport     : WindowPtr;
+   behind      : WindowPtr;
 begin
     tick := Tickcount();
     
@@ -124,8 +125,10 @@ begin
           writeln(s);
        end;
        
-       if Tickcount() = 60 then
-       
+       if (Tickcount() = 60) then
+       begin
+          rapport := NewWindow(MakeRect(200,300,400,700), 'Rapport', true, behind, true);
+       end;
 
     until QuickdrawServerHasQuit() or (Milliseconds() > 300000);
 end;
