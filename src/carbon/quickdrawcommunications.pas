@@ -179,7 +179,7 @@ end;
 
 
 // SendCommand() : send a message to the GUI task, and returns the messageID
-// of that message in the quickDrawAnswers array. This versions does not use
+// of that message in the quickDrawAnswers array. This version does not use
 // the callback.
 function SendCommand(command : AnsiString) : SInt64;
 begin
