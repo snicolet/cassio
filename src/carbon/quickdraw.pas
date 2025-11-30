@@ -40,6 +40,9 @@ procedure SysBeep(duration : SInt16);
 function GetMouse() : Point;
 function GetMouse2() : Point;
 
+// Windows
+function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 
@@ -52,7 +55,8 @@ procedure AlerteDouble(texte,explication : String255);
 // Misc
 function QDRandom() : SInt64;
 function QDEcho(s : AnsiString) : AnsiString;
-
+function PointToStr(loc : Point) : AnsiString;
+function RectToStr(r : Rect) : AnsiString;
 
 
 IMPLEMENTATION
@@ -191,6 +195,45 @@ begin
 end;
 
 
+// NewWindow() : create a new window.
+
+function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+var command : AnsiString;
+    name : AnsiString;
+    returnedName : AnsiString;
+begin
+   name := 'window-' + IntToStr(NewMagicCookie());
+   WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
+   
+   system.writeln('window created : ' + result.name);
+   
+   if (result.name = name) then
+   begin
+      command := 'set-window-title';
+      command := command + ' name=' + name;
+      command := command + ' title=' + title;
+      SendCommand(command, NIL, NIL);
+   
+      command := 'set-window-geometry';
+      command := command + ' name=' + name;
+      command := command + ' ' + RectToStr(bounds);
+      SendCommand(command, NIL, NIL);
+      
+      command := 'set-window-visible';
+      command := command + ' name=' + name;
+      command := command + ' visible=' + BoolToStr(visible);
+      SendCommand(command, NIL, NIL);
+      
+      if visible then 
+      begin
+         command := 'show-window';
+         command := command + ' name=' + name;
+         SendCommand(command, NIL, NIL);
+      end;
+   end;
+   
+end;
+
 
 // Parsing the file path from the open-file-dialog answer
 
@@ -263,6 +306,17 @@ begin
     WaitFunctionReturn(command, @STRING__ , @result);
 end;
 
+// Convert from a Point to a string
+function PointToStr(loc : Point) : AnsiString;
+begin
+   Result := IntToStr(loc.h) + ' ' + IntToStr(loc.v);
+end;
+
+// Convert from a Rect to a string
+function RectToStr(r : Rect) : AnsiString;
+begin
+   Result := IntToStr(r.top) + ' ' + IntToStr(r.left) + ' ' + IntToStr(r.bottom) + ' ' + IntToStr(r.right);
+end;
 
 
 // AlerteDouble() : display a simple alert with a main text and

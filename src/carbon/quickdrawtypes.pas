@@ -29,6 +29,7 @@ type
             right  : SInt32;
          end;
 
+  WindowPtrPtr = ^WindowPtr;
   WindowPtr = record
                 name : AnsiString;
               end;
@@ -40,6 +41,7 @@ type
   PixMap = record
              name : AnsiString;
            end;
+  
   
 
 implementation

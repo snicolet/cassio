@@ -26,12 +26,13 @@ uses
 
 
 // Communication task to connect to the GUI server
-var gCarbonTask  : Task;                
+var gCarbonTask  : Task;
 
 
 // Starting/stopping the GUI server
 procedure StartQuickdrawServer(var carbon : Task);
 procedure StopQuickdrawServer;
+function  QuickdrawServerHasQuit() : boolean;
 
 
 // Communications with the GUI server
@@ -48,6 +49,7 @@ procedure SINT16__(var line : AnsiString; value : Pointer);
 procedure BOOL__(var line : AnsiString; value : Pointer);
 procedure POINT__(var line : AnsiString; value : Pointer);
 procedure STRING__(var line : AnsiString; value : Pointer);
+procedure WINDOW__(var line : AnsiString; value : Pointer);
 
   
 
@@ -79,6 +81,7 @@ const
   kPOINT   = 5;
   kRECT    = 6;
   kSTRING  = 7;
+  kWINDOW  = 8;
   
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
@@ -119,7 +122,7 @@ type
 
 var commandCounter : SInt64 = 100000;     // a strictly increasing counter
     quickDrawAnswers : TAnswers;          // our global TAnswers object
-    
+    gCarbonTaskCleanQuit : boolean;       // a flag raised by the Carbon task only
 
 
 // CreateQDValue() : create a polymorphic quickdraw value. The returned value 
@@ -138,7 +141,7 @@ procedure LogDebugInfo(info : AnsiString);
 var stamp  : AnsiString;
     m, e : SInt64;
 begin
-    exit();   // uncomment this line to disable logging
+    // exit();   // uncomment this line to disable logging
 
     m := Milliseconds();
     e := m mod 1000;
@@ -196,7 +199,6 @@ begin
 	    // Format of an answer is:
 	    //      {ID} command => value1 [value2] [value3]...
 	    parts := line.Split(' ', '"', '"', 3, TStringSplitOptions.ExcludeEmpty);
-
 	    if (length(parts) >= 3) and (parts[2] = '=>') then
 	    begin
 	        messageID := parts[0];
@@ -220,6 +222,12 @@ begin
 	              end;
 	           end;
 	    end;
+	    
+	    // Parse the line to see if the GUI server has made a clean quit
+	    if pos('...quitting the Carbon-GUI server, bye...' , line) > 0 then
+	    begin
+	       gCarbonTaskCleanQuit := true;
+	    end
   end;
 end;
 
@@ -348,7 +356,7 @@ end;
 procedure STRING__(var line : AnsiString; value : Pointer);
 var left, right, s : AnsiString;
     p : QDValue;
-    p1 : PString;  // Pointer to an AnsiString
+    p1 : PString;  // PString = Pointer to an AnsiString
 begin
     Split(line, ' => ', left, right);
     s := right;
@@ -359,6 +367,23 @@ begin
     p1^ := s;
 end;
 
+
+// WINDOW__() : interpret a line from the server as a WindowPtr.
+//              The parameter value must be a QDValue.
+
+procedure WINDOW__(var line : AnsiString; value : Pointer);
+var left, right, s : AnsiString;
+    p : QDValue;
+    p1 : WindowPtrPtr;  // WindowPtrPtr = Pointer to an WindowPtr
+begin
+    Split(line, ' => ', left, right);
+    s := right;
+
+    p := QDValue(value);
+    p^.status := kWINDOW;
+    p1 := WindowPtrPtr(p^.value);
+    p1^.name := s;
+end;
 
 
 // WaitFunctionReturn() : sends a command to the server and waits for the
@@ -534,7 +559,17 @@ begin
     quickDrawAnswers.Done();
 end;
 
+
+// QuickdrawServerHasQuit() : true if the user has quit the GUI interface
+
+function QuickdrawServerHasQuit() : boolean;
 begin
+    result := gCarbonTaskCleanQuit;
+end;
+
+
+begin
+    gCarbonTaskCleanQuit := false;
 end.
 
 

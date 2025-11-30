@@ -102,8 +102,6 @@ function  GetParserDelimiters : SetOfChar;
 procedure SetParserProtectionWithQuotes(flag : boolean);
 function  GetParserProtectionWithQuotes() : boolean;
 
-
-
 // Hamming distance
 function PseudoHammingDistance(const s1, s2 : String255) : SInt32;
 
@@ -133,7 +131,7 @@ function HexToInt(const s : AnsiString) : UInt64;
 procedure StrToInt32(const s : String255; var value : SInt32);
 function StrToInt32(const s : String255) : SInt32;
 function IntToStrWithPadding(n, digits : SInt32; formatChar : char) : String255;
-
+function BoolToStr(b : boolean) : String255;
 
 { Creation et/ou initialisation d'une LongString }
 procedure InitLongString(var ligne : LongString);
@@ -1276,6 +1274,14 @@ begin
 	IntToStrWithPadding := s;
 end;
 
+
+// BoolToStr() convert a boolean to a string
+function BoolToStr(b : boolean) : String255;
+begin
+   if b
+     then Result := 'True'
+     else Result := 'False';
+end;
 
 (*
  *******************************************************************************

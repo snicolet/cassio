@@ -106,7 +106,7 @@ begin
           writeln(FormatTimer(N, Milliseconds() - start), '  r = ', r);
        end;
        
-       if true and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
+       if false and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
           start := Milliseconds;
@@ -123,7 +123,7 @@ begin
           writeln(s);
        end;
 
-    until false or (Milliseconds() > 300000);
+    until QuickdrawServerHasQuit() or (Milliseconds() > 300000);
 end;
 
 
