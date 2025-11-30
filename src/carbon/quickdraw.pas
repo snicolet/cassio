@@ -41,6 +41,7 @@ function GetMouse() : Point;
 function GetMouse2() : Point;
 
 // Windows
+function MakeWindow() : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 
 // File dialogs
@@ -199,15 +200,24 @@ begin
 end;
 
 
-// NewWindow() : create a new window.
+// MakeWindow() : reserve memory for a new window, initializing it to None
+
+function MakeWindow() : WindowPtr;
+begin
+    result.name := 'None';
+end;
+
+
+// NewWindow() : create a new window
 
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 var command : AnsiString;
     name : AnsiString;
     returnedName : AnsiString;
 begin
+   result := MakeWindow();
+   
    // creating the window
-   result.name := 'None';
    name := 'window-' + IntToStr(NewMagicCookie());
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
    

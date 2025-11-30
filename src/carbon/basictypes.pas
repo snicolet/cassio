@@ -71,6 +71,9 @@ uses
     OSErr = SInt16;
     OSStatus = SInt32;
 
+  // a type with a single value : None
+    NoneType = (None);
+
   // constants
   const
     MAXINT_16BITS = 32767;   // upper bound of SInt16 integers
@@ -168,6 +171,7 @@ end;
 // TestBasicTypes() : performing some tests for the BasicTypes unit
 procedure TestBasicTypes;
 type myEnum = (kUnusedFooBar,kUnusedFooBar2);
+var s : NoneType;
 begin
     Writeln('');
     Writeln('Verifying that enums types start at zero...');
@@ -187,6 +191,8 @@ begin
     Writeln('sizeof(Handle) = ', sizeof(Handle));
     Writeln('sizeof(Handle^) = ', sizeof(Handle^));
     Writeln('sizeof(Handle^^) = ', sizeof(Handle^^));
+
+    s := None;
 end;
 
 
