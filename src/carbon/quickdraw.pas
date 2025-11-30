@@ -206,17 +206,19 @@ var command : AnsiString;
     name : AnsiString;
     returnedName : AnsiString;
 begin
+   // creating the window
    result.name := 'None';
    name := 'window-' + IntToStr(NewMagicCookie());
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
    
    if (result.name = name) then
    begin
+      // setting the title
       command := 'set-window-title name=^0 title=^1';
       command := ReplaceParameters(command, name, title);
       SendCommand(command);
    
-      
+      // setting the geometry
       command := 'set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4';
       command := ReplaceParameters(command, name, 
                                             IntToStr(bounds.left), 
@@ -225,6 +227,7 @@ begin
                                             IntToStr(bounds.bottom - bounds.top));
       SendCommand(command);
       
+      // setting the visibility
       command := 'set-window-visible name=^0 visible=^1';
       command := ReplaceParameters(command, name, BoolToStr(visible));
       SendCommand(command);
