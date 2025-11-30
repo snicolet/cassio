@@ -58,8 +58,11 @@ begin
 
 	   // test 1 : send a bunch of dummy "hello" commands, all at the same time
 	   if (counter = 0) then
+	   begin
+	      SendCommand('init', NIL, NIL);
 	      for k := 1 to 9 do
 	         SendCommand('hello ' + IntToStr(k) , NIL, NIL);
+	   end;
 
 	   // test 2 : send a bunch of dummy "hola" commands, at 1ms intervals
 	   if (counter >= 0) and (counter < 10) then
@@ -124,8 +127,8 @@ begin
           s := OpenFileDialog('Choisissez un fichier', '', 'Images (*.png *.jpg *.jpeg)');
           writeln(s);
        end;
-       
-       if (Tickcount() = 60) then
+
+       if  (Tickcount() = 300) then
        begin
           rapport := NewWindow(MakeRect(200,300,400,700), 'Rapport', true, behind, true);
        end;

@@ -1501,16 +1501,17 @@ if __name__ == "__main__":
     gui = GUI(server=input_thread)
 
     # open the Hello World window (programmed in pure Qt)
-    window = HelloWorldWindow()
+    # window = HelloWorldWindow()
 
     # read the (optional) input file
     if (input_file_name != "") :
         read_input_file(input_file_name)
 
-    # clean exit for the Qt app
+    # run the Qt app main event loop
     res = app.exec_()
+    
+    # this is a clean exit for the Qt app
     print("clean exit from Qt app with value :", res);
-
     simulate_server_line("quit")
 
     sys.exit(res)

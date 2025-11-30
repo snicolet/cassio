@@ -16,5 +16,7 @@ cd "$SCRIPTPATH"
 
 ./carbon.py -file torture.txt -echo -colored
 
+#./carbon.py -echo -colored
 
+#./carbon.py
 
