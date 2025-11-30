@@ -48,6 +48,7 @@ var
    rapport     : WindowPtr;
    behind      : WindowPtr;
 begin
+    rapport := MakeWindow();
     tick := Tickcount();
     
     counter := -1;
@@ -128,7 +129,7 @@ begin
           writeln(s);
        end;
 
-       if  (Tickcount() = 300) then
+       if  (Tickcount() = 300) and (rapport = None) then
        begin
           rapport := NewWindow(MakeRect(200,300,400,700), 'Rapport', true, behind, true);
        end;

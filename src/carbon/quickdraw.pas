@@ -43,6 +43,7 @@ function GetMouse2() : Point;
 // Windows
 function MakeWindow() : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+operator = (x : WindowPtr; n : NoneType) b : boolean;
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -208,19 +209,26 @@ begin
 end;
 
 
+// Operator = to compare a WindowPtr to None
+
+operator = (x : WindowPtr; n : NoneType) b : boolean;
+begin
+    b := (x.name = 'None');
+end;
+
+
 // NewWindow() : create a new window
 
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 var command : AnsiString;
     name : AnsiString;
-    returnedName : AnsiString;
 begin
    result := MakeWindow();
-   
+
    // creating the window
-   name := 'window-' + IntToStr(NewMagicCookie());
+   name := 'Window-' + IntToStr(NewMagicCookie());
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
-   
+
    if (result.name = name) then
    begin
       // setting the title
@@ -249,7 +257,6 @@ begin
          SendCommand(command);
       end;
    end;
-   
 end;
 
 
