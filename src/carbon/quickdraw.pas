@@ -55,6 +55,10 @@ procedure AlerteDouble(texte,explication : String255);
 // Misc
 function QDRandom() : SInt64;
 function QDEcho(s : AnsiString) : AnsiString;
+
+// Point and Rect
+function MakePoint(h,v : SInt32) : Point;
+function MakeRect(top, left, bottom, right : SInt32) : Rect;
 function PointToStr(loc : Point) : AnsiString;
 function RectToStr(r : Rect) : AnsiString;
 
@@ -306,13 +310,31 @@ begin
     WaitFunctionReturn(command, @STRING__ , @result);
 end;
 
-// Convert from a Point to a string
+
+// MakePoint() : create a Point
+function MakePoint(h,v : SInt32) : Point;
+begin
+  result.h := h;
+  result.v := v;
+end;
+
+
+// MakeRect() : create a Rect
+function MakeRect(top, left, bottom, right : SInt32) : Rect;
+begin
+  result.top    := top;
+  result.left   := left;
+  result.bottom := bottom;
+  result.right  := right;
+end;
+
+// PointToStr() : convert from a Point to a string
 function PointToStr(loc : Point) : AnsiString;
 begin
    Result := IntToStr(loc.h) + ' ' + IntToStr(loc.v);
 end;
 
-// Convert from a Rect to a string
+// RectToStr() : convert from a Rect to a string
 function RectToStr(r : Rect) : AnsiString;
 begin
    Result := IntToStr(r.top) + ' ' + IntToStr(r.left) + ' ' + IntToStr(r.bottom) + ' ' + IntToStr(r.right);
