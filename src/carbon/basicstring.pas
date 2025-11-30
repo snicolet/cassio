@@ -64,7 +64,26 @@ function SplitRight(s : String255; const sub : String255; var left, right : Stri
 function ReplaceStringOnce(const s, pattern, replacement : String255) : String255;
 function ReplaceStringAll(const s, pattern, replacement : String255) : String255;
 function ReplaceVariable(const s, pattern, replacement : String255) : String255;
+function ReplaceParameters(s, p0 : String255) : String255;
+function ReplaceParameters(s, p0, p1 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2 : String255) : String255;
 function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8 : String255) : String255;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : String255) : String255;
+function ReplaceParameters(s, p0 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : AnsiString;
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : AnsiString;
 
 // String transformations
 function StripDiacritics(const source : AnsiString) : AnsiString;
@@ -355,13 +374,220 @@ begin
        ReplaceVariable := s;
 end;
 
-// ReplaceParameters() replace the occurrences of ^0, ^1, ^2, ^3 in s by p0, p1, p2, p3.
+// ReplaceParameters() replace the occurrences of ^0, ^1, ^2, ^3.. in s by p0, p1, p2, p3...
+// These are the versions for String255.
+
+function ReplaceParameters(s, p0 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  Result := s;
+end;
+
 function ReplaceParameters(s, p0, p1, p2, p3 : String255) : String255;
 begin
   s := ReplaceStringAll(s, '^0', p0);
   s := ReplaceStringAll(s, '^1', p1);
   s := ReplaceStringAll(s, '^2', p2);
   s := ReplaceStringAll(s, '^3', p3);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  s := ReplaceStringAll(s, '^8', p8);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : String255) : String255;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  s := ReplaceStringAll(s, '^8', p8);
+  s := ReplaceStringAll(s, '^9', p9);
+  Result := s;
+end;
+
+
+// ReplaceParameters() replace the occurrences of ^0, ^1, ^2, ^3.. in s by p0, p1, p2, p3...
+// These are the versions for AnsiString.
+
+function ReplaceParameters(s, p0 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  s := ReplaceStringAll(s, '^8', p8);
+  Result := s;
+end;
+
+function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : AnsiString;
+begin
+  s := ReplaceStringAll(s, '^0', p0);
+  s := ReplaceStringAll(s, '^1', p1);
+  s := ReplaceStringAll(s, '^2', p2);
+  s := ReplaceStringAll(s, '^3', p3);
+  s := ReplaceStringAll(s, '^4', p4);
+  s := ReplaceStringAll(s, '^5', p5);
+  s := ReplaceStringAll(s, '^6', p6);
+  s := ReplaceStringAll(s, '^7', p7);
+  s := ReplaceStringAll(s, '^8', p8);
+  s := ReplaceStringAll(s, '^9', p9);
   Result := s;
 end;
 

@@ -206,36 +206,34 @@ var command : AnsiString;
     name : AnsiString;
     returnedName : AnsiString;
 begin
+   result.name := 'None';
    name := 'window-' + IntToStr(NewMagicCookie());
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
    
-   system.writeln('window created : ' + result.name);
-   
    if (result.name = name) then
    begin
-      command := 'set-window-title';
-      command := command + ' name=' + name;
-      command := command + ' title=' + title;
-      SendCommand(command, NIL, NIL);
+      command := 'set-window-title name=^0 title=^1';
+      command := ReplaceParameters(command, name, title);
+      SendCommand(command);
    
-      command := 'set-window-geometry';
-      command := command + ' name=' + name;
-      command := command + ' left=' + IntToStr(bounds.left);
-      command := command + ' top=' + IntToStr(bounds.top);
-      command := command + ' width=' + IntToStr(bounds.right - bounds.left);
-      command := command + ' height=' + IntToStr(bounds.bottom - bounds.top);
-      SendCommand(command, NIL, NIL);
       
-      command := 'set-window-visible';
-      command := command + ' name=' + name;
-      command := command + ' visible=' + BoolToStr(visible);
-      SendCommand(command, NIL, NIL);
+      command := 'set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4';
+      command := ReplaceParameters(command, name, 
+                                            IntToStr(bounds.left), 
+                                            IntToStr(bounds.top), 
+                                            IntToStr(bounds.right - bounds.left),
+                                            IntToStr(bounds.bottom - bounds.top));
+      SendCommand(command);
+      
+      command := 'set-window-visible name=^0 visible=^1';
+      command := ReplaceParameters(command, name, BoolToStr(visible));
+      SendCommand(command);
       
       if visible then 
       begin
-         command := 'show-window';
-         command := command + ' name=' + name;
-         SendCommand(command, NIL, NIL);
+         command := 'show-window name=^0';
+         command := ReplaceParameters(command, name);
+         SendCommand(command);
       end;
    end;
    

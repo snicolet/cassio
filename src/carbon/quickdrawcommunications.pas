@@ -37,6 +37,7 @@ function  QuickdrawServerHasQuit() : boolean;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
+function SendCommand(command : AnsiString) : SInt64;
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
 
@@ -174,6 +175,15 @@ begin
     quickDrawAnswers.AddHandler(Result, theHandler);
 
     WriteTaskInput(gCarbonTask, s);
+end;
+
+
+// SendCommand() : send a message to the GUI task, and returns the messageID
+// of that message in the quickDrawAnswers array. This versions does not use
+// the callback.
+function SendCommand(command : AnsiString) : SInt64;
+begin
+    Result := SendCommand(command, NIL, NIL);
 end;
 
 
@@ -552,7 +562,7 @@ end;
 
 procedure StopQuickDrawServer;
 begin
-    SendCommand('quit', NIL, NIL);
+    SendCommand('quit');
     sleep(1000);  // one second
     FreeConnectedTask(gCarbonTask);
     
