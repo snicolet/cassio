@@ -45,6 +45,7 @@ var
    tick, start : SInt64;
    loc         : Point;
    k, r, N     : SInt64;
+   rapport     : WindowPtr;
 begin
     tick := Tickcount();
     
@@ -122,6 +123,9 @@ begin
           s := OpenFileDialog('Choisissez un fichier', '', 'Images (*.png *.jpg *.jpeg)');
           writeln(s);
        end;
+       
+       if Tickcount() = 60 then
+       
 
     until QuickdrawServerHasQuit() or (Milliseconds() > 300000);
 end;
