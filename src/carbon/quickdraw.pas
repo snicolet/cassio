@@ -212,6 +212,7 @@ end;
 
 
 // Operator = to compare a WindowPtr to None
+
 operator = (w : WindowPtr; n : NoneType) b : boolean;
 begin
     b := (w.name = 'None');
@@ -219,6 +220,7 @@ end;
 
 
 // Operator = to compare two WindowPtr
+
 operator = (w1, w2 : WindowPtr) b : boolean;
 begin
     b := (w1.name = w2.name);
@@ -341,6 +343,7 @@ end;
 
 
 // MakePoint() : create a Point
+
 function MakePoint(h,v : SInt32) : Point;
 begin
   result.h := h;
@@ -349,6 +352,7 @@ end;
 
 
 // MakeRect() : create a Rect
+
 function MakeRect(top, left, bottom, right : SInt32) : Rect;
 begin
   result.top    := top;
@@ -357,13 +361,17 @@ begin
   result.right  := right;
 end;
 
+
 // PointToStr() : convert from a Point to a string
+
 function PointToStr(loc : Point) : AnsiString;
 begin
    Result := IntToStr(loc.h) + ' ' + IntToStr(loc.v);
 end;
 
+
 // RectToStr() : convert from a Rect to a string
+
 function RectToStr(r : Rect) : AnsiString;
 begin
    Result := IntToStr(r.top) + ' ' + IntToStr(r.left) + ' ' + IntToStr(r.bottom) + ' ' + IntToStr(r.right);
