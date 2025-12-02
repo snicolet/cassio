@@ -219,7 +219,7 @@ end;
 
 operator = (w : WindowPtr; n : NoneType) b : boolean;
 begin
-    b := (w.name = 'None');
+    b := (w.name = '') or (sysutils.UpperCase(w.name) = 'NONE');
 end;
 
 
