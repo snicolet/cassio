@@ -43,7 +43,11 @@ function GetMouse2() : Point;
 // Windows
 function MakeWindow() : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+procedure SetWindowTitle(window : WindowPtr; title : String255);
+procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
+procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
 
+// Window comparisons
 operator = (w : WindowPtr; n : NoneType) b : boolean;
 operator = (w1, w2 : WindowPtr) b : boolean;
 
@@ -230,8 +234,7 @@ end;
 // NewWindow() : create a new window
 
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
-var command : AnsiString;
-    name : AnsiString;
+var name : AnsiString;
 begin
    result := MakeWindow();
 
@@ -239,33 +242,64 @@ begin
    name := 'window-' + IntToStr(NewMagicCookie());
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
 
-   if (result.name = name) then
+   if (result <> None) and (result.name = name) then
    begin
-      // setting the title
+      with bounds do
+         SetWindowGeometry(result, MakePoint(left, top), right - left, bottom - top);
+      SetWindowTitle(result, title);
+      SetWindowVisibility(result, visible);
+   end;
+end;
+
+
+// SetWindowTitle() : set the title of a window
+
+procedure SetWindowTitle(window : WindowPtr; title : String255);
+var command : AnsiString;
+begin
+   if window <> None then 
+   begin
       command := 'set-window-title name=^0 title=^1';
-      command := ReplaceParameters(command, name, title);
+      command := ReplaceParameters(command, window.name, title);
       SendCommand(command);
-   
-      // setting the geometry
-      command := 'set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4';
-      command := ReplaceParameters(command, name, 
-                                            IntToStr(bounds.left), 
-                                            IntToStr(bounds.top), 
-                                            IntToStr(bounds.right - bounds.left),
-                                            IntToStr(bounds.bottom - bounds.top));
-      SendCommand(command);
-      
-      // setting the visibility
+   end;
+end;
+
+
+// SetWindowVisibility() : show/hide a window, depending on the visible flag
+
+procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
+var command : AnsiString;
+begin
+   if window <> None then 
+   begin
       command := 'set-window-visible name=^0 visible=^1';
-      command := ReplaceParameters(command, name, BoolToStr(visible));
+      command := ReplaceParameters(command, window.name, BoolToStr(visible));
       SendCommand(command);
       
       if visible then 
       begin
          command := 'show-window name=^0';
-         command := ReplaceParameters(command, name);
+         command := ReplaceParameters(command, window.name);
          SendCommand(command);
       end;
+   end;
+end;
+
+// SetWindowGeometry() : set the geometry of a window
+
+procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
+var command : AnsiString;
+begin
+   if window <> None then 
+   begin
+      command := 'set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4';
+      command := ReplaceParameters(command, window.name, 
+                                            IntToStr(where.h), 
+                                            IntToStr(where.v), 
+                                            IntToStr(width),
+                                            IntToStr(height));
+      SendCommand(command);
    end;
 end;
 
