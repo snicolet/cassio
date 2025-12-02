@@ -994,7 +994,7 @@ begin  {DoDialogueApercuAvantImpression}
                                            EndUpdate(GetDialogWindow(dp));
                                          end;
               impressionButton:begin
-                                 SetWTitle(GetDialogWindow(dp),StringToStr255(TitreDocImpression));
+                                 SetWindowTitle(GetDialogWindow(dp),StringToStr255(TitreDocImpression));
                                  if DoDialogueImpression then
                                    begin
                                      RedessinePourUpdateEvent;

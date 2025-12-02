@@ -4099,7 +4099,7 @@ begin
       s := s + '  ('+IntToStr(FntrNuageRect.right - FntrNuageRect.left)+'x'+
                    IntToStr(FntrNuageRect.bottom - FntrNuageRect.top)+'px)';
 
-      if (s <> currentTitle) then SetWTitle(wNuagePtr,StringToStr255(s));
+      if (s <> currentTitle) then SetWindowTitle(wNuagePtr,StringToStr255(s));
     end;
 end;
 

@@ -1800,7 +1800,7 @@ begin
             if (s = 'Cassio') or (s = 'Cassio.app') or (s = '')
               then s := 'Cassio '+VersionDeCassioEnString;
           end;
-      if (s <> currentTitle) then SetWTitle(wPlateauPtr,StringToStr255(s));
+      if (s <> currentTitle) then SetWindowTitle(wPlateauPtr,StringToStr255(s));
     end;
 end;
 
