@@ -25,120 +25,121 @@ CARBON-PROTOCOL {2}  get-port
 CARBON-PROTOCOL {3}  new-window             name=WindowID
 CARBON-PROTOCOL {4}  new-window             name=WindowID
 CARBON-PROTOCOL {5}  set-window-title       name=WindowID title="About box (in CARBON-PROTOCOL)"
-CARBON-PROTOCOL {6}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
-CARBON-PROTOCOL {7}  set-window-visible     name=WindowID visible=True
-CARBON-PROTOCOL {8}  set-window-visible     name=WindowID visible=False
-CARBON-PROTOCOL {9}  show-window            name=WindowID
-CARBON-PROTOCOL {10} get-port
-CARBON-PROTOCOL {11} set-port               name=WindowID
-CARBON-PROTOCOL {12} clear-window           name=WindowID
-CARBON-PROTOCOL {12} clear-window           name=WindowID filter="content:"
-CARBON-PROTOCOL {12} close-window           name=WindowID
-CARBON-PROTOCOL {13} global-to-local        x=20 y=13 window=windowID
-CARBON-PROTOCOL {14} local-to-global        x=20 y=13 window=windowID
+CARBON-PROTOCOL {6}  get-window-title       name=WindowID
+CARBON-PROTOCOL {7}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
+CARBON-PROTOCOL {8}  set-window-visible     name=WindowID visible=True
+CARBON-PROTOCOL {9}  set-window-visible     name=WindowID visible=False
+CARBON-PROTOCOL {10} show-window            name=WindowID
+CARBON-PROTOCOL {11} get-port
+CARBON-PROTOCOL {12} set-port               name=WindowID
+CARBON-PROTOCOL {13} clear-window           name=WindowID
+CARBON-PROTOCOL {14} clear-window           name=WindowID filter="content:"
+CARBON-PROTOCOL {15} close-window           name=WindowID
+CARBON-PROTOCOL {16} global-to-local        x=20 y=13 window=windowID
+CARBON-PROTOCOL {17} local-to-global        x=20 y=13 window=windowID
 
 ==========================================================
 =>    Section: text
 ==========================================================
 
-CARBON-PROTOCOL {20} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
-CARBON-PROTOCOL {21} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
-CARBON-PROTOCOL {22} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
-CARBON-PROTOCOL {23} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {24} string-width           text="This is a string"
+CARBON-PROTOCOL {50} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
+CARBON-PROTOCOL {51} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
+CARBON-PROTOCOL {52} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
+CARBON-PROTOCOL {53} draw-text-at           "Hello world (1)" 15 15
+CARBON-PROTOCOL {54} string-width           text="This is a string"
 
 ==========================================================
 =>    Section: pixmap and image
 ==========================================================
 
-CARBON-PROTOCOL {30} new-pixmap             name=pixmap-1 imagefile="images/world.png"
-CARBON-PROTOCOL {31} new-pixmap             pixmap-1 "images/world.png"
-CARBON-PROTOCOL {32} new-pixmap             pixmap-2 "images/world.png" width=100
-CARBON-PROTOCOL {33} new-pixmap             pixmap-3 "images/world.png" height=100
-CARBON-PROTOCOL {34} new-image-from-pixmap  name=ImageID pixmap=PixmaxID
-CARBON-PROTOCOL {35} set-image-pixmap       name=ImageID pixmap=PixmaxID
-CARBON-PROTOCOL {36} set-image-position     name=ImageID h=25 v=40
-CARBON-PROTOCOL {37} draw-image             name=ImageID
+CARBON-PROTOCOL {100} new-pixmap             name=pixmap-1 imagefile="images/world.png"
+CARBON-PROTOCOL {101} new-pixmap             pixmap-1 "images/world.png"
+CARBON-PROTOCOL {102} new-pixmap             pixmap-2 "images/world.png" width=100
+CARBON-PROTOCOL {103} new-pixmap             pixmap-3 "images/world.png" height=100
+CARBON-PROTOCOL {104} new-image-from-pixmap  name=ImageID pixmap=PixmaxID
+CARBON-PROTOCOL {105} set-image-pixmap       name=ImageID pixmap=PixmaxID
+CARBON-PROTOCOL {106} set-image-position     name=ImageID h=25 v=40
+CARBON-PROTOCOL {107} draw-image             name=ImageID
 
 ==========================================================
 =>    Section: mouse
 ==========================================================
 
-CARBON-PROTOCOL {40}  get-mouse
+CARBON-PROTOCOL {150}  get-mouse
 
 ==========================================================
 =>    Section: files
 ==========================================================
 
-# CARBON-PROTOCOL {50} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-# CARBON-PROTOCOL {51} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {180} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {181} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
 
 ==========================================================
 =>    Section: dialogs
 ==========================================================
 
-CARBON-PROTOCOL {100} new-alert               name=DialogID message=text
-CARBON-PROTOCOL {101} new-dialog              name=DialogID
-CARBON-PROTOCOL {102} set-dialog-item         name=DialogID item=itemName
-CARBON-PROTOCOL {103} find-dialog-item        name=DialogID h=50 v=70
-CARBON-PROTOCOL {104} get-dialog-item-text    name=DialogID item=itemName
-CARBON-PROTOCOL {105} set-dialog-item-text    name=DialogID item=itemName text="blah blah"
-CARBON-PROTOCOL {106} select-dialog-item-text name=DialogID item=itemName start=4 end=13
-CARBON-PROTOCOL {107} dialog-cut              name=DialogID
-CARBON-PROTOCOL {108} dialog-copy             name=DialogID
-CARBON-PROTOCOL {109} dialog-paste            name=DialogID
-CARBON-PROTOCOL {110} dialog-delete           name=DialogID
+CARBON-PROTOCOL {200} new-alert               name=DialogID message=text
+CARBON-PROTOCOL {201} new-dialog              name=DialogID
+CARBON-PROTOCOL {202} set-dialog-item         name=DialogID item=itemName
+CARBON-PROTOCOL {203} find-dialog-item        name=DialogID h=50 v=70
+CARBON-PROTOCOL {204} get-dialog-item-text    name=DialogID item=itemName
+CARBON-PROTOCOL {205} set-dialog-item-text    name=DialogID item=itemName text="blah blah"
+CARBON-PROTOCOL {206} select-dialog-item-text name=DialogID item=itemName start=4 end=13
+CARBON-PROTOCOL {207} dialog-cut              name=DialogID
+CARBON-PROTOCOL {208} dialog-copy             name=DialogID
+CARBON-PROTOCOL {209} dialog-paste            name=DialogID
+CARBON-PROTOCOL {210} dialog-delete           name=DialogID
 
 ==========================================================
 =>    Section: pen
 ==========================================================
 
-CARBON-PROTOCOL {200} set-pen-width         width=1.2
-CARBON-PROTOCOL {201} set-pen-color         color=#000000
+CARBON-PROTOCOL {300} set-pen-width         width=1.2
+CARBON-PROTOCOL {301} set-pen-color         color=#000000
 
 ==========================================================
 =>    Section: drawing
 ==========================================================
 
-CARBON-PROTOCOL {300} scroll-window         dx=10 dy=20
-CARBON-PROTOCOL {301} scroll-rect           left=20 top=50 width=200 height=100 dx=0 dy=-20
-CARBON-PROTOCOL {302} set-foreground-color  color=#FFFFFF
-CARBON-PROTOCOL {303} set-background-color  color=#000000
+CARBON-PROTOCOL {400} scroll-window         dx=10 dy=20
+CARBON-PROTOCOL {401} scroll-rect           left=20 top=50 width=200 height=100 dx=0 dy=-20
+CARBON-PROTOCOL {402} set-foreground-color  color=#FFFFFF
+CARBON-PROTOCOL {403} set-background-color  color=#000000
 
 ==========================================================
 =>    Section: menus
 ==========================================================
 
-CARBON-PROTOCOL {400} new-menu             name=menuID title="Édition"
-CARBON-PROTOCOL {401} insert-menu-item     name=menuID text="Configurer le presse-papier…" after=2
-CARBON-PROTOCOL {402} enable-menu-item     name=menuID item=3
-CARBON-PROTOCOL {403} disable-menu-item    name=menuID item=3
-CARBON-PROTOCOL {404} set-menu-item-text   name=menuID item=3 text="Blah blah"
-CARBON-PROTOCOL {405} get-menu-item-text   name=menuID item=3
-CARBON-PROTOCOL {405} set-menu-item-mark   name=menuID item=3 mark="√"
-CARBON-PROTOCOL {406} get-menu-item-mark   name=menuID item=3
-CARBON-PROTOCOL {407} check-menu-item      name=menuID item=3 checked=True
-CARBON-PROTOCOL {408} count-menu-items     name=menuID
+CARBON-PROTOCOL {500} new-menu             name=menuID title="Édition"
+CARBON-PROTOCOL {501} insert-menu-item     name=menuID text="Configurer le presse-papier…" after=2
+CARBON-PROTOCOL {502} enable-menu-item     name=menuID item=3
+CARBON-PROTOCOL {503} disable-menu-item    name=menuID item=3
+CARBON-PROTOCOL {504} set-menu-item-text   name=menuID item=3 text="Blah blah"
+CARBON-PROTOCOL {505} get-menu-item-text   name=menuID item=3
+CARBON-PROTOCOL {505} set-menu-item-mark   name=menuID item=3 mark="√"
+CARBON-PROTOCOL {506} get-menu-item-mark   name=menuID item=3
+CARBON-PROTOCOL {507} check-menu-item      name=menuID item=3 checked=True
+CARBON-PROTOCOL {508} count-menu-items     name=menuID
 
-CARBON-PROTOCOL {410} new-menu-bar         name=barID
-CARBON-PROTOCOL {411} insert-menu          name=barID menu=menuID before=menuID-2
-CARBON-PROTOCOL {412} delete-menu          name=barID menu=menuID
-CARBON-PROTOCOL {413} clear-menu-bar       name=barID
+CARBON-PROTOCOL {510} new-menu-bar         name=barID
+CARBON-PROTOCOL {511} insert-menu          name=barID menu=menuID before=menuID-2
+CARBON-PROTOCOL {512} delete-menu          name=barID menu=menuID
+CARBON-PROTOCOL {513} clear-menu-bar       name=barID
 
-CARBON-PROTOCOL {414} popup-menu-select    name=menuID h=100 v=100
+CARBON-PROTOCOL {514} popup-menu-select    name=menuID h=100 v=100
 
 ==========================================================
 =>    Section: textEdit
 ==========================================================
 
-CARBON-PROTOCOL {500} new-text-edit       name=editID
-CARBON-PROTOCOL {501} close-text-edit     name=editID
-CARBON-PROTOCOL {502} text-edit-insert    name=editID text="Blah blah"
-CARBON-PROTOCOL {503} text-edit-key       name=editID key="Z"
-CARBON-PROTOCOL {504} text-edit-cut       name=editID
-CARBON-PROTOCOL {505} text-edit-copy      name=editID
-CARBON-PROTOCOL {506} text-edit-paste     name=editID
-CARBON-PROTOCOL {507} text-edit-select    name=editID start=62 end=500
+CARBON-PROTOCOL {600} new-text-edit       name=editID
+CARBON-PROTOCOL {601} close-text-edit     name=editID
+CARBON-PROTOCOL {602} text-edit-insert    name=editID text="Blah blah"
+CARBON-PROTOCOL {603} text-edit-key       name=editID key="Z"
+CARBON-PROTOCOL {604} text-edit-cut       name=editID
+CARBON-PROTOCOL {605} text-edit-copy      name=editID
+CARBON-PROTOCOL {606} text-edit-paste     name=editID
+CARBON-PROTOCOL {607} text-edit-select    name=editID start=62 end=500
 
 
 ==========================================================

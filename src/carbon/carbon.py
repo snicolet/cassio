@@ -506,6 +506,20 @@ def set_window_title(args):
    return
 
 
+def get_window_title(args):
+   """
+   Get the title of a window
+   """
+
+   name  = find_named_parameter("name" , args, 0, STRING)
+
+   window = find_window(name)
+   if window :
+       return window.windowTitle()
+
+   return None
+
+
 def set_window_geometry(args):
    """
    Set the geometry of a window
