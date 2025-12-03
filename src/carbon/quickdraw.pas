@@ -46,6 +46,7 @@ function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: 
 procedure SetWindowTitle(window : WindowPtr; title : String255);
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
+function GetWindowTitle(window : WindowPtr) : String255;
 
 // Window comparisons
 operator = (w : WindowPtr; n : NoneType) b : boolean;
@@ -263,6 +264,20 @@ begin
       command := ReplaceParameters(command, window.name, title);
       SendCommand(command);
    end;
+end;
+
+
+// GetWindowTitle() : get the title of a window
+
+function GetWindowTitle(window : WindowPtr) : String255;
+var command, res : AnsiString;
+begin
+   res := '';
+   
+   command := 'get-window-title name=' + window.name;
+   WaitFunctionReturn(command, @STRING__, @res);
+
+   result := res;
 end;
 
 

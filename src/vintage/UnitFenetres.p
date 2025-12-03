@@ -1748,7 +1748,7 @@ var currentTitle255 : str255;
 begin
   if windowPlateauOpen and not(Quitter) then
     begin
-      GetWTitle(wPlateauPtr,currentTitle255);
+      currentTitle255 := GetWindowTitle(wPlateauPtr);
       currentTitle := MyStr255ToString(currentTitle255);
       if gameOver
         then

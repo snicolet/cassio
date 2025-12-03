@@ -4084,7 +4084,7 @@ var currentTitle255 : str255;
 begin
   if (wNuagePtr <> NIL) then
     begin
-      GetWTitle(wNuagePtr,currentTitle255);
+      currentTitle255 := GetWindowTitle(wNuagePtr);
       currentTitle := MyStr255ToString(currentTitle255);
 
       s := ReadStringFromRessource(TitresFenetresTextID,11); {Cloud}
