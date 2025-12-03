@@ -1104,6 +1104,7 @@ def call(id, command, args):
     elif command == "save-file-dialog"      :  result = save_file_dialog(args)
     elif command == "new-window"            :  result = new_window(args)
     elif command == "set-window-title"      :  result = set_window_title(args)
+    elif command == "get-window-title"      :  result = get_window_title(args)
     elif command == "set-window-geometry"   :  result = set_window_geometry(args)
     elif command == "show-window"           :  result = show_window(args)
     elif command == "close-window"          :  result = close_window(args)
