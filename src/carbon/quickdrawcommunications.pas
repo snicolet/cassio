@@ -37,9 +37,20 @@ function  QuickdrawServerHasQuit() : boolean;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-function SendCommand(command : AnsiString) : SInt64;
-function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
+function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
+function SendCommand(command : AnsiString) : SInt64;
+function SendCommand(command, p0 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4, p5 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : SInt64;
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : SInt64;
+
 
 
 // Interpret answers from the GUI server
@@ -155,35 +166,98 @@ begin
     system.writeln(stamp + 's | ' + info);
 end;
 
-
-// SendCommand() : send a message to the GUI task, and returns the messageID
-// of that message in the quickDrawAnswers array.
+// SendCommand() : send a message to the GUI task, and return the messageID of
+// that message in the quickDrawAnswers array.
                    
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 var s : AnsiString;
+    n : SInt64;
     theHandler : QuickdrawCalculator;
 begin
     commandCounter := commandCounter + 1;
 
-    Result := commandCounter;
-    s := 'CARBON-PROTOCOL ' + '{' + IntToStr(Result) + '} ' + command;
+    n := commandCounter;
+    s := 'CARBON-PROTOCOL ' + '{' + IntToStr(n) + '} ' + command;
 
     LogDebugInfo('[Cassio] >> ' + s);
 
     theHandler.calc := calc;
     theHandler.data := data;
-    quickDrawAnswers.AddHandler(Result, theHandler);
+    quickDrawAnswers.AddHandler(n, theHandler);
 
     WriteTaskInput(gCarbonTask, s);
+    
+    Result := n;
 end;
 
 
-// SendCommand() : send a message to the GUI task, and returns the messageID
-// of that message in the quickDrawAnswers array. This version does not use
-// the callback.
+// SendCommand() : send a message to the GUI task, and return the messageID of
+// that message in the quickDrawAnswers array. The following versions do not 
+// use the callback, but allow the command to have parameters as ^0, ^1, etc.
+
 function SendCommand(command : AnsiString) : SInt64;
 begin
     Result := SendCommand(command, NIL, NIL);
+end;
+
+function SendCommand(command, p0 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4, p5 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4, p5);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4, p5, p6);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4, p5, p6, p7);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4, p5, p6, p7, p8);
+  Result := SendCommand(command);
+end;
+
+function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : SInt64;
+begin
+  command := ReplaceParameters(command, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+  Result := SendCommand(command);
 end;
 
 
