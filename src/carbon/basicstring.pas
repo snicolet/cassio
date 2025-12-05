@@ -20,6 +20,7 @@ uses
      Str255        =  ShortString;
      String255Ptr  =  ^String255;
      String255Hdl  =  ^String255Ptr;
+     AnsiStringPtr =  ^AnsiString;
 
      LongString =
        record

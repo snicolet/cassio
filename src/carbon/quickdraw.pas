@@ -207,8 +207,6 @@ end;
 
 function GetMouse2() : Point;
 begin
-    result.h := -1;
-    result.v := -1;
     WaitFunctionReturn('get-mouse', @POINT__, @result);
 end;
 
@@ -242,7 +240,6 @@ end;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 var name : AnsiString;
 begin
-   result := MakeWindow(None);
 
    // creating the window
    name := 'window-' + IntToStr(NewMagicCookie());
@@ -274,14 +271,10 @@ end;
 // GetWindowTitle() : get the title of a window
 
 function GetWindowTitle(window : WindowPtr) : String255;
-var command, res : AnsiString;
+var ansi : AnsiString;
 begin
-   res := '';
-   
-   command := 'get-window-title name=' + window.name;
-   WaitFunctionReturn(command, @STRING__, @res);
-
-   result := res;
+   WaitFunctionReturn('get-window-title name=' + window.name, @STRING__, @ansi);
+   result := ansi;
 end;
 
 
@@ -326,7 +319,6 @@ end;
 
 procedure GetPort(var whichPort : GrafPtr);
 begin
-   whichPort.name := 'None';
    WaitFunctionReturn('get-port', @WINDOW__, @whichPort);
 end;
 
@@ -379,12 +371,8 @@ end;
 // Note : use Random64() instead.
 
 function QDRandom() : SInt64;
-var command : AnsiString;
 begin
-    result := -1;
-    
-    command := 'echo ' + IntToStr(Random64());
-    WaitFunctionReturn(command, @SINT64__ , @result);
+    WaitFunctionReturn('echo ' + IntToStr(Random64()), @SINT64__ , @result);
 end;
 
 
@@ -394,12 +382,8 @@ end;
 // This is only useful to test the speed of the server communications.
 
 function QDEcho(s : AnsiString) : AnsiString;
-var command : AnsiString;
 begin
-    result := '';
-    
-    command := 'echo "' + s + '"';
-    WaitFunctionReturn(command, @STRING__ , @result);
+    WaitFunctionReturn('echo "' + s + '"', @STRING__ , @result);
 end;
 
 

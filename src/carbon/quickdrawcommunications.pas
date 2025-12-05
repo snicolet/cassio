@@ -441,14 +441,14 @@ end;
 procedure STRING__(var line : AnsiString; value : Pointer);
 var left, right, s : AnsiString;
     p : QDValue;
-    p1 : PString;  // PString = Pointer to an AnsiString
+    p1 : AnsiStringPtr;
 begin
     Split(line, ' => ', left, right);
     s := right;
 
     p := QDValue(value);
     p^.status := kSTRING;
-    p1 := PString(p^.value);
+    p1 := AnsiStringPtr(p^.value);
     p1^ := s;
 end;
 
@@ -477,14 +477,14 @@ end;
 procedure SetDefaultValue(result : Pointer ; whichType : SInt64);
 begin
    case whichType of
-       kSINT64  : SInt64Ptr(result)^    := -1;
-       kSINT32  : SInt32Ptr(result)^    := -1;
-       kSINT16  : SInt16Ptr(result)^    := -1;
-       kBOOLEAN : BoolPtr(result)^      := False;
-       kPOINT   : PointPtr(result)^     := MakePoint(-1, -1);
-       kRECT    : RectPtr(result)^      := MakeRect(-1, -1, -1, -1);
-       kSTRING  : PString(result)^      := '';
-       kWINDOW  : WindowPtrPtr(result)^ := MakeWindow(None);
+       kSINT64  : SInt64Ptr(result)^     := -1;
+       kSINT32  : SInt32Ptr(result)^     := -1;
+       kSINT16  : SInt16Ptr(result)^     := -1;
+       kBOOLEAN : BoolPtr(result)^       := False;
+       kPOINT   : PointPtr(result)^      := MakePoint(-1, -1);
+       kRECT    : RectPtr(result)^       := MakeRect(-1, -1, -1, -1);
+       kSTRING  : AnsiStringPtr(result)^ := '';
+       kWINDOW  : WindowPtrPtr(result)^  := MakeWindow(None);
    end; {case}
 end;
 
