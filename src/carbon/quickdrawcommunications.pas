@@ -35,12 +35,13 @@ procedure StopQuickdrawServer;
 function  QuickdrawServerHasQuit() : boolean;
 
 
-// Communications with the GUI server
+// Logging
 procedure LogDebugInfo(info : AnsiString);
 
+
+// Communications with the GUI server
 function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer; useDefaultValue : boolean) : QuickDrawType;
 function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
-
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 function SendCommand(command : AnsiString) : SInt64;
 function SendCommand(command, p0 : AnsiString) : SInt64;
@@ -53,7 +54,6 @@ function SendCommand(command, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : SInt64;
-
 
 
 // Interpret answers from the GUI server
