@@ -30,17 +30,12 @@ type
          end;
 
   WindowPtrPtr = ^WindowPtr;
-  WindowPtr = record
-                name : AnsiString;
-              end;
-
-  DialogPtr = WindowPtr;
-
-  GrafPtr = WindowPtr;
+  WindowPtr    = record name : AnsiString; end;   // private
+  DialogPtr    = WindowPtr;
+  GrafPtr      = WindowPtr;
+  CGrafPtr     = WindowPtr;
   
-  PixMap = record
-             name : AnsiString;
-           end;
+  PixMap       = record name : AnsiString; end;   // private
   
   
 
