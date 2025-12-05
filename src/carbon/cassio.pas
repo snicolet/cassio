@@ -47,6 +47,7 @@ var
    k, r, N     : SInt64;
    rapport     : WindowPtr;
    behind      : WindowPtr;
+   oldPort     : grafPtr;
 begin
     rapport := MakeWindow();
     tick := Tickcount();
@@ -131,7 +132,14 @@ begin
 
        if  (Tickcount() = 300) and (rapport = None) then
        begin
-          rapport := NewWindow(MakeRect(200,300,400,700), 'Rapport', true, behind, true);
+          rapport := NewWindow(MakeRect(200,300,400,700), 'Liste de parties', true, behind, true);
+       end;
+       
+       if  (Tickcount() = 600) and (rapport <> None) then
+       begin
+          GetPort(oldPort);
+          SetPort(rapport);
+          SetPort(oldPort);
        end;
 
     until QuickdrawServerHasQuit() or (Milliseconds() > 300000);

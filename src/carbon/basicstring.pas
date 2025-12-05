@@ -89,8 +89,8 @@ function ReplaceParameters(s, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiStrin
 function StripDiacritics(const source : AnsiString) : AnsiString;
 function StripDiacritics(const source : String255) : String255;
 procedure StripHTMLAccents(var s : String255);
-function LowerCase(const s : String255; keepAccents : boolean) : String255;
-function UpperCase(const s : String255; keepAccents : boolean) : String255;
+function LowerCase(const s : String255; keepDiacritics : boolean) : String255;
+function UpperCase(const s : String255; keepDiacritics : boolean) : String255;
 function LowerCase(ch : char) : char;
 function UpperCase(ch : char) : char;
 function MirrorString(const s : String255) : String255;
@@ -757,18 +757,18 @@ end;
 
 
 // LowerCase() : lower case version of s, with flag to keep accents or not
-function LowerCase(const s : String255; keepAccents : boolean) : String255;
+function LowerCase(const s : String255; keepDiacritics : boolean) : String255;
 begin
-  if keepAccents
+  if keepDiacritics
     then Result := sysutils.LowerCase(s)
     else Result := sysutils.LowerCase(StripDiacritics(s));
 end;
 
 
 // UpperCase() : lower case version of s, with flag to keep accents or not
-function UpperCase(const s : String255; keepAccents : boolean) : String255;
+function UpperCase(const s : String255; keepDiacritics : boolean) : String255;
 begin
-  if keepAccents
+  if keepDiacritics
     then Result := sysutils.UpperCase(s)
     else Result := sysutils.UpperCase(StripDiacritics(s));
 end;

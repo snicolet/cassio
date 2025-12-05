@@ -246,6 +246,10 @@ begin
 
    // creating the window
    name := 'window-' + IntToStr(NewMagicCookie());
+   name := name + '-' + title;
+   name := StripDiacritics(name);
+   name := ReplaceStringAll(name, ' ', '-');
+   name := LowerCase(name, true);
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
 
    if (result <> None) and (result.name = name) then
@@ -265,7 +269,7 @@ var command : AnsiString;
 begin
    if window <> None then 
    begin
-      command := 'set-window-title name=^0 title=^1';
+      command := 'set-window-title name=^0 title="^1"';
       command := ReplaceParameters(command, window.name, title);
       SendCommand(command);
    end;
