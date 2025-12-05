@@ -241,12 +241,13 @@ function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: 
 var name : AnsiString;
 begin
 
-   // creating the window
+   // creating the window name
    name := 'window-' + IntToStr(NewMagicCookie());
    name := name + '-' + title;
    name := StripDiacritics(name);
    name := ReplaceStringAll(name, ' ', '-');
    name := LowerCase(name, true);
+
    WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
 
    if (result <> None) and (result.name = name) then

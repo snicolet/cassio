@@ -37,7 +37,10 @@ function  QuickdrawServerHasQuit() : boolean;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer; useDefaultValue : boolean = True);
+
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer; useDefaultValue : boolean) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
+
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 function SendCommand(command : AnsiString) : SInt64;
 function SendCommand(command, p0 : AnsiString) : SInt64;
@@ -78,24 +81,11 @@ uses QuickDraw;
 type
   QDValueRec =
     record
-      status : SInt64;
-      value : Pointer;
+      status : QuickDrawType;
+      value  : Pointer;
     end;
   QDValue = ^QDValueRec;
 
-
-// Some constants to type the QDValues
-const
-  kNONE    = 0;
-  kSINT64  = 1;
-  kSINT32  = 2;
-  kSINT16  = 3;
-  kBOOLEAN = 4;
-  kPOINT   = 5;
-  kRECT    = 6;
-  kSTRING  = 7;
-  kWINDOW  = 8;
-  
 
 // QuickdrawCalculator is a record with an interpretor for the textual answer
 // from the server and a pointer which can store the Pascal constructed value.
@@ -474,7 +464,7 @@ begin
 end;
 
 
-procedure SetDefaultValue(result : Pointer ; whichType : SInt64);
+procedure SetDefaultValue(result : Pointer ; whichType : QuickDrawType);
 begin
    case whichType of
        kSINT64  : SInt64Ptr(result)^     := -1;
@@ -488,33 +478,41 @@ begin
    end; {case}
 end;
 
+
+
 // WaitFunctionReturn() : sends a command to the server and waits for the
 // answer for a period of MAX_WAITING milliseconds (using a buzy loop).
+// 
+// If the flag useDefaultValue is true, then the answer is filled with
+// default values for the right type.
+//
 // If an answer has been received and interpreted by the callback calculator
 // "calc" during this waiting time, the procedure returns immediately, and
-// the returned value is set in the "result" pointer. If no answer has been
-// received, then "result" is unmodified.
+// the returned value is set in the "answer" pointer. If no answer has been
+// received (and useDefaultValue is false), then "answer" is unmodified.
+//
+// The function returns the type of the answer, or kNONE if no answer received.
 
-procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer; useDefaultValue : boolean = True);
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer; useDefaultValue : boolean) : QuickDrawType;
 const MAX_WAITING = 50 ; // in milliseconds
 var val : QDValueRec;
     start, waiting : SInt64;
     messageID, index : SInt64;
 begin
     // This sets val.status to kNONE
-    val := CreateQDValue(result);
+    val := CreateQDValue(answer);
     
-    // if asked, set the default value for the right type in result
+    // if asked, set the default value for the right type in answer
     if useDefaultValue then
     begin
-       if calc = @SINT64__  then SetDefaultValue(result, kSINT64);
-       if calc = @SINT32__  then SetDefaultValue(result, kSINT32);
-       if calc = @SINT16__  then SetDefaultValue(result, kSINT16);
-       if calc = @BOOL__    then SetDefaultValue(result, kBOOLEAN);
-       if calc = @POINT__   then SetDefaultValue(result, kPOINT);
-       if calc = @RECT__    then SetDefaultValue(result, kRECT);
-       if calc = @STRING__  then SetDefaultValue(result, kSTRING);
-       if calc = @WINDOW__  then SetDefaultValue(result, kWINDOW);
+       if calc = @SINT64__  then SetDefaultValue(answer, kSINT64);
+       if calc = @SINT32__  then SetDefaultValue(answer, kSINT32);
+       if calc = @SINT16__  then SetDefaultValue(answer, kSINT16);
+       if calc = @BOOL__    then SetDefaultValue(answer, kBOOLEAN);
+       if calc = @POINT__   then SetDefaultValue(answer, kPOINT);
+       if calc = @RECT__    then SetDefaultValue(answer, kRECT);
+       if calc = @STRING__  then SetDefaultValue(answer, kSTRING);
+       if calc = @WINDOW__  then SetDefaultValue(answer, kWINDOW);
     end;
 
     // Send the command to the server  
@@ -537,8 +535,16 @@ begin
     // Clear the answering machine slot if we have run out of time
     if (val.status = kNONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
        quickDrawAnswers.Clear(index);
+    
+    // Return the type of the answer, or kNONE if no answer received
+    result := val.status;
 end;
 
+
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
+begin
+    result := WaitFunctionReturn(command, calc, answer, true);
+end;
 
 
 // TAnswers.Init() : constructor for the TAnswers object

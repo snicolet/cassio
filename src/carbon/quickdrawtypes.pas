@@ -18,9 +18,20 @@ uses
 
 type
 
+  QuickDrawType = (
+                   kNONE      ,
+                   kSINT64    ,
+                   kSINT32    ,
+                   kSINT16    ,
+                   kBOOLEAN   ,
+                   kPOINT     ,
+                   kRECT      ,
+                   kSTRING    ,  // represents AnsiString
+                   kWINDOW
+                   );
+
   // special type for private names of quickdraw objects
   privateRef = AnsiString;
-
 
   // Point
   Point = record
