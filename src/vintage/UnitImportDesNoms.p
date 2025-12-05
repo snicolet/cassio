@@ -648,7 +648,7 @@ begin
       if Pos(s,path) > 0 then
         annee := essaiAnnee;
     end;
-    
+
   DoDirSeparators(path);
 
   oldParsingSet := GetParserDelimiters;

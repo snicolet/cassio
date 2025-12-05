@@ -9,7 +9,7 @@ USES Files, StringTypes, UnitDefLongString;
 TYPE
 
      fileInfo = FSSpec;   // FSSpec is Mac OS specific
-     
+
 
      {FIXME : on risque de perturber InfosFichiersNouveauFormat dans le
               fichier UnitDefNouveauFormat (tableau trop gros)

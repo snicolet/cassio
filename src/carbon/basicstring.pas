@@ -822,7 +822,7 @@ begin
 end;
 
 // Split() splits the string at a given position
-function Split(s : string; position : SInt32 ; var left, right : string) : boolean; 
+function Split(s : string; position : SInt32 ; var left, right : string) : boolean;
 var p : SInt16;
 begin
    p := position;
@@ -839,7 +839,7 @@ begin
 	      right := '';
 	      result := false;
 	    end;
-end;               
+end;
 
 // Split() splits the string s at the character sub
 function Split(s : String255; sub : char; var left, right : String255) : boolean;
@@ -898,7 +898,7 @@ begin
 end;
 
 
-// SplitRight() splits the string s at character sub, 
+// SplitRight() splits the string s at character sub,
 // scanning from the end of the string
 function SplitRight(s : String255; sub : char; var left, right : String255) : boolean;
 var p : SInt16;
@@ -1018,7 +1018,7 @@ end;
 // Parse() parses the string s and split s between lexem and tail when it finds
 // the first delimiter in s. The delimiter characters are by default space and
 // tab, but can be changed with the function  SetParserDelimiters() below.
-// 
+//
 // Examples :
 //    Parse('I love Sarah'     , a, b)   ->   a = 'I'          b = 'love Sarah'
 //    Parse('  I    love Sarah', a, b)   ->   a = 'I'          b = 'love Sarah'
@@ -1112,7 +1112,7 @@ begin
 end;
 
 
-// ParseWithQuoteProtection() is like Parse(), but does not count the 
+// ParseWithQuoteProtection() is like Parse(), but does not count the
 // delimiters characters as delimiters if they are inside a string
 // protected by double quotes (").
 // Examples :
@@ -1996,14 +1996,14 @@ begin
 
    writeln('decoding hexadecimal version of DITL resource... ');
    writeln(s);
-   
+
    // length of list : 2 bytes
-   split(s, 4, hex, s);    
+   split(s, 4, hex, s);
    n := HexToInt(hex);
-   
+
    for k := 0 to n do
      begin
-       split(s, 8, hex, s);                              // padding   : 4 bytes     
+       split(s, 8, hex, s);                              // padding   : 4 bytes
        split(s, 4, hex, s);   top     := HexToInt(hex);  // top       : 2 bytes
        split(s, 4, hex, s);   left    := HexToInt(hex);  // left      : 2 bytes
        split(s, 4, hex, s);   bottom  := HexToInt(hex);  // bottom    : 2 bytes
@@ -2028,11 +2028,11 @@ begin
        writeln('itemID=',k+1);
        writeln('string=',info);
        writeln('posAndFlags=',data);
-       
+
     end;
-   
+
    writeln('');
-   
+
 end;
 
 
@@ -2094,12 +2094,12 @@ begin
             end;
 
           split(s, 2, hex, s);  icon     := HexToInt(hex);
-          split(s, 2, hex, s);  keyEquiv := hex; 
+          split(s, 2, hex, s);  keyEquiv := hex;
           split(s, 2, hex, s);  markChar := hex;
           split(s, 2, hex, s);  style    := HexToInt(hex);
 
           itemID := itemID + 1;
-          
+
           writeln('menuID=',  menuID);
           writeln('itemID=',  itemID);
           writeln('string=', item);
@@ -2255,7 +2255,7 @@ begin
    Parse('IloveSarah '      , a, b); writeln('a=',a,'  b=',b);
    ParseWithQuoteProtection('"I love" Sarah' , a, b) ; writeln('a=',a,'  b=',b);
    ParseWithQuoteProtection('"I love"Sarah' , a, b) ; writeln('a=',a,'  b=',b);
-   
+
    writeln();
    writeln('Testing Split()...');
    Split('Cassio:9.0b401', '', a, b);  writeln('a=',a,'  b=',b);
@@ -2275,20 +2275,20 @@ begin
    SplitRight('Stéphane:9.0b401', 'Cassio', a, b); writeln('a=',a,'  b=',b);
    SplitRight('Stéphane:9.0b401', '9.0', a, b); writeln('a=',a,'  b=',b);
    SplitRight('Stéphane:9.0b401', '401', a, b); writeln('a=',a,'  b=',b);
-   
+
 
    ditl := '000200000000005000F00064012C0407416E6E756C657200000000000014003C0040012A083954726F702064652074657874652064616E73206C65207072657373652D70617069657220706F757220706F75766F6972206C65206C6972652E00000000000014000D0034002DA0020000';
    decodeDITL(ditl);
-   
+
    ditl := '00110000000001A601B701BA020304024F4B0000000001A6015501BA01A00407416E6E756C65720000000000001400B4002401778820506172746965208820616A6F757465722064616E73206C61206C69737465203A00000000000C001E002C003EA002000100000000000C01E7002C0207A0020001000000000108003D011801311000000000000122003D01320131100000000000013C003D014C01311000000000000158003D0168006E100000000000010800050118003988054E6F697273000000000001230005013300398806426C616E637300000000013D0005014D00398807546F75726E6F69000000000001580005016800398805416E6E8E65000000000001060137011B020E000000000000012001370135020E000000000000013A0137014F020E00000000000001780031018A01470526416A6F75746572206175746F6D6174697175656D656E742064616E73206C612062617365203A0000000001760149018B020D0000';
    decodeDITL(ditl);
-   
+
    ditl := '000300000000003F00C200530148041144757261206C65782C20736564206C65780000000000000E0010002E0030A002000100000000000E0040003201718849566F7573206E276176657A20617563756E20636F7570206C8E67616CCA3A20766F75732070617373657A20646F6E6320766F74726520746F75722C206574206A652072656A6F7565C9000000000013880000139C00000836436F6E7365696C203A206D616E67657A206D6F696E732064652070696F6E7320656E20648E62757420646520706172746965203A2D29';
    decodeDITL(ditl);
-   
+
    menu := '00010000000000000000FFFFFFF7011415CB2070726F706F732064652043617373696F2E2E2E00000000012D0000000000';
    decodeMENU(menu);
-   
+
    menu := '00040000000000000000FFFE76F70447616D6512476F204261636B20746F204D6F76652023C90000000010476F204261636B20746F20537461727400A80000012D000000000B31204D6F7665204261636B005A00000E31204D6F766520466F7277617264004500000C32204D6F766573204261636B000000000F32204D6F76657320466F727761726400000000012D00000000084469616772616DC900440000135479706520696E205472616E736372697074C9002B0000012D000000001E4D616B65204D61696E204272616E636820696E2047616D652054726565C9000000000C44656C657465204D6F7665C9002D0000124D6F6469667920506F736974696F6E2E2E2E00000000012D0000000018466F7263652043617373696F20746F204D6F7665204E6F770055000000';
    decodeMENU(menu);
 

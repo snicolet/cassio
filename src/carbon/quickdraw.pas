@@ -107,7 +107,7 @@ begin
     gMouseData.mouseLoc.h := 0;
     gMouseData.mouseLoc.v := 0;
     gMouseData.when       := -1000;
-    
+
     RandomizeTimer;
 end;
 
@@ -264,7 +264,7 @@ end;
 
 procedure SetWindowTitle(window : WindowPtr; title : String255);
 begin
-   if window <> None then 
+   if window <> None then
       SendCommand('set-window-title name=^0 title="^1"', window.name, title);
 end;
 
@@ -283,11 +283,11 @@ end;
 
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 begin
-   if window <> None then 
+   if window <> None then
    begin
       SendCommand('set-window-visible name=^0 visible=^1', window.name, BoolToStr(visible));
-      
-      if visible then 
+
+      if visible then
          SendCommand('show-window name=^0', window.name);
    end;
 end;
@@ -297,11 +297,11 @@ end;
 
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
 begin
-   if window <> None then 
-      SendCommand('set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4', 
-                   window.name, 
-                   IntToStr(where.h), 
-                   IntToStr(where.v), 
+   if window <> None then
+      SendCommand('set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4',
+                   window.name,
+                   IntToStr(where.h),
+                   IntToStr(where.v),
                    IntToStr(width),
                    IntToStr(height));
 end;
@@ -366,8 +366,8 @@ end;
 
 
 // QDRandom() : a stupid function which sends a random64 value to the server
-// with the 'echo' command, wait for the echoed answer and interprets that 
-// answer as an integer! This is only useful to test the speed of the server 
+// with the 'echo' command, wait for the echoed answer and interprets that
+// answer as an integer! This is only useful to test the speed of the server
 // communications.
 // Note : use Random64() instead.
 
@@ -378,7 +378,7 @@ end;
 
 
 
-// QDEcho() : function which sends a string to the server with the 'echo' 
+// QDEcho() : function which sends a string to the server with the 'echo'
 // command, wait for the echoed answer and interprets that answer as a string!
 // This is only useful to test the speed of the server communications.
 

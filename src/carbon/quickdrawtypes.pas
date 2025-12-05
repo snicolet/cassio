@@ -63,7 +63,7 @@ type
   // Pixmap
   PixMap       = record name : privateRef; end; // private
 
-  
+
 
 implementation
 

@@ -746,7 +746,7 @@ begin
   codeErreur := SetFilePosition(fic, 0);
   count      := TailleEnTeteNouveauFormat;
   codeErreur := Write(fic, @entete, count);
-  
+
   EcritEnteteNouveauFormat := codeErreur;
 end;
 
@@ -763,7 +763,7 @@ begin
 		  SWAP_INTEGER( @nroJoueurBlanc);
 		  {$ENDC}
 		end;
-  
+
   codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat+pred(nroPartie)*TaillePartieRecNouveauFormat);
   count      := TaillePartieRecNouveauFormat;
   codeErreur := Write(fic, @theGame, count);
@@ -790,7 +790,7 @@ begin
   codeErreur := SetFilePosition(fic, TailleEnTeteNouveauFormat+nroTournoi*TailleTournoiRecNouveauFormat);
   count      := TailleTournoiRecNouveauFormat;
   codeErreur := Write(fic, @theTourney, count);
-  
+
   EcritTournoiNouveauFormat := codeErreur;
 end;
 
@@ -1162,7 +1162,7 @@ var fic : basicFile;
 begin
   EstUnFichierNouveauFormat := false;
   typeDonnees := kUnknownDataNouveauFormat;
-  
+
   codeErreur := FileExists(info, fic);
   if (erreurES <> NoErr) then exit;
 
@@ -2566,7 +2566,7 @@ begin
 
 	                 if FileExists(nomCompletDuFichierIndex,0,fic) = NoErr
 	                   then codeErreur := DeleteFile(fic);
-	                   
+	
 	                 codeErreur := CreateFile(nomCompletDuFichierIndex, 0, fic);
 	                 SetFileCreatorFichierTexte(fic,FOUR_CHAR_CODE('SNX4'));
 	                 SetFileTypeFichierTexte(fic,FOUR_CHAR_CODE('INDX'));
@@ -2586,7 +2586,7 @@ begin
 						  codeErreur := CloseFile(fic);
 						end;
 				 end;
-				 
+				
                if buffer <> NIL then DisposeMemoryPtr(Ptr(buffer));
              end;
          end;

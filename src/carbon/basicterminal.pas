@@ -51,12 +51,12 @@ implementation
 
 procedure WriteDansRapport(s : String255);
 begin
-    write(s); 
+    write(s);
 end;
 
 procedure WritelnDansRapport(s : String255);
 begin
-    writeln(s); 
+    writeln(s);
 end;
 
 procedure WriteNumDansRapport(s : String255; num : SInt32);

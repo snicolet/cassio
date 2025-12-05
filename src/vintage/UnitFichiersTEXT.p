@@ -230,7 +230,7 @@ begin
       if err = 0 then
         begin
           if EndsWithDirectorySeparator(debut) and not(EndsWithDirectorySeparator(resolvedDebut))
-            then debut := resolvedDebut + DirectorySeparator 
+            then debut := resolvedDebut + DirectorySeparator
             else debut := resolvedDebut;
         end;
     end;

@@ -67,7 +67,7 @@ procedure RECT__(var line : AnsiString; value : Pointer);
 procedure STRING__(var line : AnsiString; value : Pointer);
 procedure WINDOW__(var line : AnsiString; value : Pointer);
 
-  
+
 
 implementation
 
@@ -76,7 +76,7 @@ uses QuickDraw;
 
 
 // QDValueRec is a record to store a polymorphic quickdraw value.
-// It is basically a wrapper around a pointer to a normal type along with 
+// It is basically a wrapper around a pointer to a normal type along with
 // a type information.
 type
   QDValueRec =
@@ -128,8 +128,8 @@ var commandCounter : SInt64 = 100000;     // a strictly increasing counter
     gCarbonTaskCleanQuit : boolean;       // a flag raised by the Carbon task only
 
 
-// CreateQDValue() : create a polymorphic quickdraw value. The returned value 
-// is initialized to kNONE by default, but we can change it afterwards by 
+// CreateQDValue() : create a polymorphic quickdraw value. The returned value
+// is initialized to kNONE by default, but we can change it afterwards by
 // changing the status field.
 function CreateQDValue(value : Pointer = nil) : QDValueRec;
 begin
@@ -159,7 +159,7 @@ end;
 
 // SendCommand() : send a message to the GUI task, and return the messageID of
 // that message in the quickDrawAnswers array.
-                   
+
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 var s : AnsiString;
     n : SInt64;
@@ -177,13 +177,13 @@ begin
     quickDrawAnswers.AddHandler(n, theHandler);
 
     WriteTaskInput(gCarbonTask, s);
-    
+
     Result := n;
 end;
 
 
 // SendCommand() : send a message to the GUI task, and return the messageID of
-// that message in the quickDrawAnswers array. The following versions do not 
+// that message in the quickDrawAnswers array. The following versions do not
 // use the callback, but allow the command to have parameters as ^0, ^1, etc.
 
 function SendCommand(command : AnsiString) : SInt64;
@@ -297,7 +297,7 @@ begin
 	              end;
 	           end;
 	    end;
-	    
+	
 	    // Parse the line to see if the GUI server has made a clean quit
 	    if pos('...quitting the Carbon-GUI server, bye...' , line) > 0 then
 	    begin
@@ -381,7 +381,7 @@ begin
     MoveMemory(@b, p^.value, sizeof(boolean));
 end;
 
-        
+
 
 // POINT__() : interpret a line from the server as Point.
 //             The parameter value must be a QDValue.
@@ -457,7 +457,7 @@ begin
     p := QDValue(value);
     p^.status := kWINDOW;
     p1 := WindowPtrPtr(p^.value);
-    
+
     if Pos('ERROR (', s) = 1
       then p1^.name := 'None'
       else p1^.name := s;
@@ -482,7 +482,7 @@ end;
 
 // WaitFunctionReturn() : sends a command to the server and waits for the
 // answer for a period of MAX_WAITING milliseconds (using a buzy loop).
-// 
+//
 // If the flag useDefaultValue is true, then the answer is filled with
 // default values for the right type.
 //
@@ -501,7 +501,7 @@ var val : QDValueRec;
 begin
     // This sets val.status to kNONE
     val := CreateQDValue(answer);
-    
+
     // if asked, set the default value for the right type in answer
     if useDefaultValue then
     begin
@@ -515,7 +515,7 @@ begin
        if calc = @WINDOW__  then SetDefaultValue(answer, kWINDOW);
     end;
 
-    // Send the command to the server  
+    // Send the command to the server
     messageID := SendCommand(command, calc, @val);
     start := Milliseconds();
     waiting := 0;
@@ -527,7 +527,7 @@ begin
 
         waiting := Milliseconds() - start;
 
-        // If the GUI server is either not ready or has crashed, 
+        // If the GUI server is either not ready or has crashed,
         // we better yield some time to the OS.
         if (waiting > 5) then sleep(1);
     end;
@@ -535,7 +535,7 @@ begin
     // Clear the answering machine slot if we have run out of time
     if (val.status = kNONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
        quickDrawAnswers.Clear(index);
-    
+
     // Return the type of the answer, or kNONE if no answer received
     result := val.status;
 end;
@@ -676,7 +676,7 @@ begin
     SendCommand('quit');
     sleep(1000);  // one second
     FreeConnectedTask(gCarbonTask);
-    
+
     quickDrawAnswers.Done();
 end;
 

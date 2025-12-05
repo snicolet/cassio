@@ -215,11 +215,11 @@ begin
 		  {$ENDC}
 		end;
   offset := TailleEnTeteNouveauFormat + TailleEnteteSupplementaireSolitaires + pred(nroSolitaire)*TailleSolitaireRecNouveauFormat;
-  
+
   codeErreur := SetFilePosition(fic, offset);
   count      := TailleSolitaireRecNouveauFormat;
   codeErreur := Write(fic, @theSolitaire, count);
-  
+
   EcritSolitaireNouveauFormat := codeErreur;
 end;
 

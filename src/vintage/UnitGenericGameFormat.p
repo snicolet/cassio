@@ -243,7 +243,7 @@ begin
 		      end
 		    else
 			  begin
-                 
+
                  if (Pos(s9,GetNameOfSFReply(reply)) > 0)  then N := 9 else
 				 if (Pos(s10,GetNameOfSFReply(reply)) > 0) then N := 10;
 

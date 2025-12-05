@@ -1185,7 +1185,7 @@ begin
         Split(oldMacPath, ':', foo, pathUnix);       // enlever le nom du disque dur
         pathUnix := '/' + pathUnix;
       end;
-      
+
   pathUnix := ReplaceStringAll(pathUnix,':','/');      // remettre les separateurs a la mode UNIX
   MacPathToUNIXPath := pathUnix;
 end;

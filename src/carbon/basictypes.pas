@@ -69,7 +69,7 @@ uses
     TwoBytesArray = packed array[0..1] of UInt8;
     FourBytesArray = packed array[0..3] of UInt8;
     buf255 = packed array[0..255] of char;
-    
+
     OSType = UInt32;   { storing 'packed array[0..3] of char' signatures on Mac OS }
     OSErr = SInt16;
     OSStatus = SInt32;

@@ -530,7 +530,7 @@ begin
 
          s := ReplaceStringOnce(pathEngine, DirectorySeparator +'engine.sh' , '');
          SplitRightByChar(s, DirectorySeparator ,foo,nomEngine);
-         
+
          AddEngine(nomEngine,pathEngine);
 
        end;

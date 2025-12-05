@@ -13,13 +13,13 @@ uses
   DateUtils,
   basictypes,
   basicstring;
-  
+
 
 type
-   DateTimeRec = 
+   DateTimeRec =
      record
         year        : UInt16;
-        month       : UInt16;  
+        month       : UInt16;
         day         : UInt16;
         hour        : UInt16;
         minute      : UInt16;

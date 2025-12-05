@@ -19,7 +19,7 @@ uses
   BasicTypes,
   QuickdrawTypes,
   QuickDraw,
-  QuickdrawCommunications; 
+  QuickdrawCommunications;
 
 
 // global variables
@@ -32,7 +32,7 @@ var carbon     : Task;
 //              duration = time in milliseconds
 function FormatTimer(N, duration : SInt64) : AnsiString;
 begin
-    if duration <= 0 
+    if duration <= 0
         then result := format('time = %dms  :  ', [duration])
         else result := format('%d calls/sec  :  ', [1000 * N div duration]);
 end;
@@ -51,7 +51,7 @@ var
 begin
     rapport := MakeWindow(None);
     tick := Tickcount();
-    
+
     counter := -1;
 	repeat
 	   counter := counter + 1;
@@ -112,7 +112,7 @@ begin
 
           writeln(FormatTimer(N, Milliseconds() - start), '  r = ', r);
        end;
-       
+
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
        begin
           tick := Tickcount();
@@ -134,7 +134,7 @@ begin
        begin
           rapport := NewWindow(MakeRect(200,300,400,700), 'Liste de parties', true, behind, true);
        end;
-       
+
        if  (Tickcount() = 600) and (rapport <> None) then
        begin
           GetPort(oldPort);
