@@ -27,6 +27,7 @@ type
             h : SInt32;
             v : SInt32;
           end;
+  PointPtr = ^Point;
 
   // Rect
   Rect = record
@@ -35,6 +36,7 @@ type
             bottom : SInt32;
             right  : SInt32;
          end;
+  RectPtr = ^Rect;
 
 
   // Windows, dialogs, grafport, etc

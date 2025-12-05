@@ -37,7 +37,7 @@ function  QuickdrawServerHasQuit() : boolean;
 
 // Communications with the GUI server
 procedure LogDebugInfo(info : AnsiString);
-procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
+procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer; useDefaultValue : boolean = True);
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 function SendCommand(command : AnsiString) : SInt64;
 function SendCommand(command, p0 : AnsiString) : SInt64;
@@ -60,6 +60,7 @@ procedure SINT32__(var line : AnsiString; value : Pointer);
 procedure SINT16__(var line : AnsiString; value : Pointer);
 procedure BOOL__(var line : AnsiString; value : Pointer);
 procedure POINT__(var line : AnsiString; value : Pointer);
+procedure RECT__(var line : AnsiString; value : Pointer);
 procedure STRING__(var line : AnsiString; value : Pointer);
 procedure WINDOW__(var line : AnsiString; value : Pointer);
 
@@ -85,7 +86,7 @@ type
 
 // Some constants to type the QDValues
 const
-  NONE     = 0;
+  kNONE    = 0;
   kSINT64  = 1;
   kSINT32  = 2;
   kSINT16  = 3;
@@ -138,11 +139,11 @@ var commandCounter : SInt64 = 100000;     // a strictly increasing counter
 
 
 // CreateQDValue() : create a polymorphic quickdraw value. The returned value 
-// is initialized to NONE by default, but we can change it afterwards by 
+// is initialized to kNONE by default, but we can change it afterwards by 
 // changing the status field.
 function CreateQDValue(value : Pointer = nil) : QDValueRec;
 begin
-    result.status := NONE;
+    result.status := kNONE;
     result.value  := value;
 end;
 
@@ -473,6 +474,20 @@ begin
 end;
 
 
+procedure SetDefaultValue(result : Pointer ; whichType : SInt64);
+begin
+   case whichType of
+       kSINT64  : SInt64Ptr(result)^    := -1;
+       kSINT32  : SInt32Ptr(result)^    := -1;
+       kSINT16  : SInt16Ptr(result)^    := -1;
+       kBOOLEAN : BoolPtr(result)^      := False;
+       kPOINT   : PointPtr(result)^     := MakePoint(-1, -1);
+       kRECT    : RectPtr(result)^      := MakeRect(-1, -1, -1, -1);
+       kSTRING  : PString(result)^      := '';
+       kWINDOW  : WindowPtrPtr(result)^ := MakeWindow(None);
+   end; {case}
+end;
+
 // WaitFunctionReturn() : sends a command to the server and waits for the
 // answer for a period of MAX_WAITING milliseconds (using a buzy loop).
 // If an answer has been received and interpreted by the callback calculator
@@ -480,14 +495,27 @@ end;
 // the returned value is set in the "result" pointer. If no answer has been
 // received, then "result" is unmodified.
 
-procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer);
+procedure WaitFunctionReturn(command : AnsiString; calc : Calculator ; result : Pointer; useDefaultValue : boolean = True);
 const MAX_WAITING = 50 ; // in milliseconds
 var val : QDValueRec;
     start, waiting : SInt64;
     messageID, index : SInt64;
 begin
-    // This sets val.status to NONE
+    // This sets val.status to kNONE
     val := CreateQDValue(result);
+    
+    // if asked, set the default value for the right type in result
+    if useDefaultValue then
+    begin
+       if calc = @SINT64__  then SetDefaultValue(result, kSINT64);
+       if calc = @SINT32__  then SetDefaultValue(result, kSINT32);
+       if calc = @SINT16__  then SetDefaultValue(result, kSINT16);
+       if calc = @BOOL__    then SetDefaultValue(result, kBOOLEAN);
+       if calc = @POINT__   then SetDefaultValue(result, kPOINT);
+       if calc = @RECT__    then SetDefaultValue(result, kRECT);
+       if calc = @STRING__  then SetDefaultValue(result, kSTRING);
+       if calc = @WINDOW__  then SetDefaultValue(result, kWINDOW);
+    end;
 
     // Send the command to the server  
     messageID := SendCommand(command, calc, @val);
@@ -495,7 +523,7 @@ begin
     waiting := 0;
 
     // Buzy waiting loop
-    while (val.status = NONE) and (waiting < MAX_WAITING) do
+    while (val.status = kNONE) and (waiting < MAX_WAITING) do
     begin
         ReadTaskOutput(gCarbonTask);
 
@@ -507,10 +535,10 @@ begin
     end;
 
     // Clear the answering machine slot if we have run out of time
-    if (val.status = NONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
+    if (val.status = kNONE) and (quickDrawAnswers.FindQuestion(messageID, index)) then
        quickDrawAnswers.Clear(index);
-
 end;
+
 
 
 // TAnswers.Init() : constructor for the TAnswers object

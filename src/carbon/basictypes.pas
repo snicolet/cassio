@@ -34,6 +34,9 @@ uses
     UInt32Ptr = ^UInt32;
     UInt64Ptr = ^UInt64;
     SInt64Ptr = ^SInt64;
+    SInt32Ptr = ^SInt32;
+    SInt16Ptr = ^SInt16;
+    BoolPtr   = ^boolean;
     unsignedword = UInt16;
     unsignedwordP = ^unsignedword;
     unsignedwordH = ^unsignedwordP;
