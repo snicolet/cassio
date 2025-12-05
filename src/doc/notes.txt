@@ -1,5 +1,5 @@
 // This files contains snippets of code and notes written
-// during my discovery of FreePascal for Cassio
+// during my discovery of FreePascal and PyQt for Cassio
 
 
 // 1. operator overloading
@@ -22,3 +22,13 @@ var a, b : typeA;
        else LogDebugInfo('a and b are different');
 
     sleep(20000);
+    
+    
+// 2. stacking windows
+
+
+QWidget.raise_()         ?
+QWidget.lower()          ?
+QWidget.stackUnder()     ?
+
+

@@ -50,7 +50,7 @@ procedure GetPort(var whichPort : GrafPtr);
 
 // Windows
 function MakeWindow(n : NoneType) : WindowPtr;
-function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+function NewWindow(bounds : Rect; title : String255; visible : boolean; goAwayFlag : boolean) : WindowPtr;
 
 function  GetWindowTitle(window : WindowPtr) : String255;
 procedure SetWindowTitle(window : WindowPtr; title : String255);
@@ -237,9 +237,10 @@ end;
 
 // NewWindow() : create a new window
 
-function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+function NewWindow(bounds : Rect; title : String255; visible : boolean; goAwayFlag : boolean) : WindowPtr;
 var name : AnsiString;
 begin
+   result := MakeWindow(None);
 
    // creating the window name
    name := 'window-' + IntToStr(NewMagicCookie());
@@ -248,8 +249,7 @@ begin
    name := ReplaceStringAll(name, ' ', '-');
    name := LowerCase(name, true);
 
-   result := MakeWindow(None);
-   WaitFunctionReturn('new-window name=' + name, result);
+   WaitFunctionReturn('new-window name=' + name , result);
 
    if (result <> None) and (result.name = name) then
    begin

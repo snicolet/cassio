@@ -186,6 +186,7 @@ def stat_box():
 ################################################################################
 
 PROTOCOL_PREFIX = "CARBON-PROTOCOL "  # prefix for the protocol commands
+OPTIONAL        = -1                  # to indicate optional parameters
 
 current_port = None                   # the current active window for drawing
 windows = {}                          # dictionary of existent windows
@@ -468,7 +469,7 @@ def new_window(args):
    Create a new window, make it the current port, and return its name.
    """
 
-   name = find_named_parameter("name", args, 0, STRING)
+   name = find_named_parameter("name", args, 0 , STRING)
 
    if find_window(name) :
        error = "ERROR (new-window) : window with name '{}' already exists".format(name)
@@ -489,6 +490,20 @@ def new_window(args):
        current_port = window
 
        return name
+
+
+def activate_window(args):
+   """
+   Activate a window
+   """
+
+   name  = find_named_parameter("name" , args, 0, STRING)
+
+   window = find_window(name)
+   if window:
+       window.activateWindow()
+
+   return
 
 
 def set_window_title(args):
@@ -573,7 +588,7 @@ def set_window_visible(args):
    Show/Hide a window, obeying the visible flag
    """
 
-   name = find_named_parameter("name", args, 0, STRING)
+   name    = find_named_parameter("name"   , args, 0, STRING)
    visible = find_named_parameter("visible", args, 1, BOOLEAN)
 
    window = find_window(name)
@@ -619,8 +634,8 @@ def clear_window(args):
    """
 
    global current_port
-   name   = find_named_parameter("name",   args,  0, STRING)
-   filter = find_named_parameter("filter", args, -1, STRING)
+   name   = find_named_parameter("name",   args, 0       , STRING)
+   filter = find_named_parameter("filter", args, OPTIONAL, STRING)
 
    window = find_window(name)
    if window :
@@ -728,14 +743,14 @@ def draw_text_at(args):
    Draw text at the given position
    """
 
-   text   = find_named_parameter("text",  args,  0, STRING)
-   h      = find_named_parameter("h",     args,  1, INTEGER)
-   v      = find_named_parameter("v",     args,  2, INTEGER)
-   name   = find_named_parameter("name",  args, -1, STRING)
-   width  = find_named_parameter("width", args, -1, INTEGER)
-   height = find_named_parameter("height",args, -1, INTEGER)
-   zindex = find_named_parameter("zindex",args, -1, INTEGER)
-   align  = find_named_parameter("align", args, -1, STRING)
+   text   = find_named_parameter("text",  args, 0        , STRING )
+   h      = find_named_parameter("h",     args, 1        , INTEGER)
+   v      = find_named_parameter("v",     args, 2        , INTEGER)
+   name   = find_named_parameter("name",  args, OPTIONAL , STRING )
+   width  = find_named_parameter("width", args, OPTIONAL , INTEGER)
+   height = find_named_parameter("height",args, OPTIONAL , INTEGER)
+   zindex = find_named_parameter("zindex",args, OPTIONAL , INTEGER)
+   align  = find_named_parameter("align", args, OPTIONAL , STRING )
    window = current_port
 
    if window and text and (h is not None) and (v is not None) :
@@ -798,10 +813,10 @@ def new_pixmap(args):
     Create a new pixmap in memory, stores it in the global pixmaps dictonary
     """
 
-    name         = find_named_parameter("name"      , args,  0, STRING)
-    imagefile    = find_named_parameter("imagefile" , args,  1, STRING)
-    width        = find_named_parameter("width"     , args, -1, INTEGER)
-    height       = find_named_parameter("height"    , args, -1, INTEGER)
+    name         = find_named_parameter("name"      , args, 0        , STRING)
+    imagefile    = find_named_parameter("imagefile" , args, 1        , STRING)
+    width        = find_named_parameter("width"     , args, OPTIONAL , INTEGER)
+    height       = find_named_parameter("height"    , args, OPTIONAL , INTEGER)
 
     if not(name) or not(imagefile) :
         return None
@@ -829,9 +844,9 @@ def new_image_from_pixmap(args) :
     Create a new image from a given pixmap (in the current window)
     """
 
-    name       = find_named_parameter("name"    , args,  0, STRING)
-    pixmapname = find_named_parameter("pixmap"  , args,  1, STRING)
-    zindex     = find_named_parameter("zindex"  , args, -1, INTEGER)
+    name       = find_named_parameter("name"    , args, 0        , STRING)
+    pixmapname = find_named_parameter("pixmap"  , args, 1        , STRING)
+    zindex     = find_named_parameter("zindex"  , args, OPTIONAL , INTEGER)
     pixmap     = find_pixmap(pixmapname)
     window     = current_port
 
@@ -911,8 +926,8 @@ def draw_image(args) :
     Draw the given image (in the current window)
     """
 
-    name   = find_named_parameter("name"  , args,  0, STRING)
-    zindex = find_named_parameter("zindex", args, -1, INTEGER)
+    name   = find_named_parameter("name"  , args, 0        , STRING)
+    zindex = find_named_parameter("zindex", args, OPTIONAL , INTEGER)
     window = current_port
 
     if window and name :
@@ -935,9 +950,9 @@ def open_file_dialog(args):
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
 
-    caption   = find_named_parameter("prompt", args, -1, STRING)
-    directory = find_named_parameter("dir"   , args, -1, STRING)
-    filter    = find_named_parameter("filter", args, -1, STRING)
+    caption   = find_named_parameter("prompt", args, OPTIONAL , STRING)
+    directory = find_named_parameter("dir"   , args, OPTIONAL , STRING)
+    filter    = find_named_parameter("filter", args, OPTIONAL , STRING)
 
     if caption   is None : caption   = args[0]
     if directory is None : directory = args[1]
@@ -974,9 +989,9 @@ def save_file_dialog(args):
     options = QFileDialog.Options()
     #options |= QFileDialog.DontUseNativeDialog
 
-    caption   = find_named_parameter("prompt", args, -1, STRING)
-    directory = find_named_parameter("dir"   , args, -1, STRING)
-    filter    = find_named_parameter("filter", args, -1, STRING)
+    caption   = find_named_parameter("prompt", args, OPTIONAL , STRING)
+    directory = find_named_parameter("dir"   , args, OPTIONAL , STRING)
+    filter    = find_named_parameter("filter", args, OPTIONAL , STRING)
 
     if caption   is None : caption   = args[0]
     if directory is None : directory = args[1]
@@ -1103,6 +1118,7 @@ def call(id, command, args):
     elif command == "open-file-dialog"      :  result = open_file_dialog(args)
     elif command == "save-file-dialog"      :  result = save_file_dialog(args)
     elif command == "new-window"            :  result = new_window(args)
+    elif command == "activate-window"       :  result = activate_window(args)
     elif command == "set-window-title"      :  result = set_window_title(args)
     elif command == "get-window-title"      :  result = get_window_title(args)
     elif command == "set-window-geometry"   :  result = set_window_geometry(args)

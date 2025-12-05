@@ -132,7 +132,7 @@ begin
 
        if  (Tickcount() = 300) and (rapport = None) then
        begin
-          rapport := NewWindow(MakeRect(200,300,400,700), 'Liste de parties', true, behind, true);
+          rapport := NewWindow(MakeRect(200,300,400,700), 'Liste de parties', true, true);
        end;
 
        if  (Tickcount() = 600) and (rapport <> None) then
