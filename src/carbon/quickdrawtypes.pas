@@ -31,7 +31,9 @@ type
 
   WindowPtrPtr = ^WindowPtr;
   WindowPtr    = record name : AnsiString; end;   // private
+  WindowRef    = WindowPtr;
   DialogPtr    = WindowPtr;
+  DialogRef    = DialogPtr;
   GrafPtr      = WindowPtr;
   CGrafPtr     = WindowPtr;
   
