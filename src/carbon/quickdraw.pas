@@ -40,21 +40,22 @@ procedure SysBeep(duration : SInt16);
 function GetMouse() : Point;
 function GetMouse2() : Point;
 
+// Window comparisons
+operator = (w : WindowPtr; n : NoneType) b : boolean;
+operator = (w1, w2 : WindowPtr) b : boolean;
+
+// Grafport
+procedure SetPort(whichPort : GrafPtr);
+procedure GetPort(var whichPort : GrafPtr);
+
 // Windows
 function MakeWindow(n : NoneType) : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 
+function  GetWindowTitle(window : WindowPtr) : String255;
 procedure SetWindowTitle(window : WindowPtr; title : String255);
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
-function GetWindowTitle(window : WindowPtr) : String255;
-
-procedure SetPort(whichPort : GrafPtr);
-procedure GetPort(var whichPort : GrafPtr);
-
-// Window comparisons
-operator = (w : WindowPtr; n : NoneType) b : boolean;
-operator = (w1, w2 : WindowPtr) b : boolean;
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -206,7 +207,7 @@ end;
 
 function GetMouse2() : Point;
 begin
-    WaitFunctionReturn('get-mouse', @POINT__, @result);
+    WaitFunctionReturn('get-mouse', result);
 end;
 
 
@@ -247,7 +248,8 @@ begin
    name := ReplaceStringAll(name, ' ', '-');
    name := LowerCase(name, true);
 
-   WaitFunctionReturn('new-window name=' + name, @WINDOW__, @result);
+   result := MakeWindow(None);
+   WaitFunctionReturn('new-window name=' + name, result);
 
    if (result <> None) and (result.name = name) then
    begin
@@ -273,7 +275,7 @@ end;
 function GetWindowTitle(window : WindowPtr) : String255;
 var ansi : AnsiString;
 begin
-   WaitFunctionReturn('get-window-title name=' + window.name, @STRING__, @ansi);
+   WaitFunctionReturn('get-window-title name=' + window.name, ansi);
    result := ansi;
 end;
 
@@ -319,7 +321,7 @@ end;
 
 procedure GetPort(var whichPort : GrafPtr);
 begin
-   WaitFunctionReturn('get-port', @WINDOW__, @whichPort);
+   WaitFunctionReturn('get-port', whichPort);
 end;
 
 
@@ -372,7 +374,7 @@ end;
 
 function QDRandom() : SInt64;
 begin
-    WaitFunctionReturn('echo ' + IntToStr(Random64()), @SINT64__ , @result);
+    WaitFunctionReturn('echo ' + IntToStr(Random64()), result);
 end;
 
 
@@ -383,7 +385,8 @@ end;
 
 function QDEcho(s : AnsiString) : AnsiString;
 begin
-    WaitFunctionReturn('echo "' + s + '"', @STRING__ , @result);
+    result := '';
+    WaitFunctionReturn('echo "' + s + '"', result);
 end;
 
 

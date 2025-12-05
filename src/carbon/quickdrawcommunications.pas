@@ -40,8 +40,6 @@ procedure LogDebugInfo(info : AnsiString);
 
 
 // Communications with the GUI server
-function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer; useDefaultValue : boolean) : QuickDrawType;
-function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
 function SendCommand(command : AnsiString ; calc : Calculator ; data : Pointer) : SInt64;
 function SendCommand(command : AnsiString) : SInt64;
 function SendCommand(command, p0 : AnsiString) : SInt64;
@@ -54,6 +52,17 @@ function SendCommand(command, p0, p1, p2, p3, p4, p5, p6 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8 : AnsiString) : SInt64;
 function SendCommand(command, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 : AnsiString) : SInt64;
+
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer; useDefaultValue : boolean) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : SInt64     ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : SInt32     ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : SInt16     ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : boolean    ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : Rect       ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : Point      ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : WindowPtr  ) : QuickDrawType;
+function WaitFunctionReturn(command : AnsiString; var answer : AnsiString ) : QuickDrawType;
 
 
 // Interpret answers from the GUI server
@@ -540,12 +549,59 @@ begin
     result := val.status;
 end;
 
-
+// WaitFunctionReturn() using default value
 function WaitFunctionReturn(command : AnsiString; calc : Calculator ; answer : Pointer) : QuickDrawType;
 begin
-    result := WaitFunctionReturn(command, calc, answer, true);
+  result := WaitFunctionReturn(command, calc, answer, true);
 end;
 
+// WaitFunctionReturn() for SInt64
+function WaitFunctionReturn(command : AnsiString; var answer : SInt64     ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @SINT64__, @answer);
+end;
+
+// WaitFunctionReturn() for SInt32
+function WaitFunctionReturn(command : AnsiString; var answer : SInt32     ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @SINT32__, @answer);
+end;
+
+// WaitFunctionReturn() for SInt16
+function WaitFunctionReturn(command : AnsiString; var answer : SInt16     ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @SINT16__, @answer);
+end;
+
+// WaitFunctionReturn() for boolean
+function WaitFunctionReturn(command : AnsiString; var answer : boolean    ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @BOOL__, @answer);
+end;
+
+// WaitFunctionReturn() for Rect
+function WaitFunctionReturn(command : AnsiString; var answer : Rect       ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @RECT__, @answer);
+end;
+
+// WaitFunctionReturn() for Point
+function WaitFunctionReturn(command : AnsiString; var answer : Point      ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @POINT__, @answer);
+end;
+
+// WaitFunctionReturn() for WindowPtr
+function WaitFunctionReturn(command : AnsiString; var answer : WindowPtr  ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @WINDOW__, @answer);
+end;
+
+// WaitFunctionReturn() for AnsiString
+function WaitFunctionReturn(command : AnsiString; var answer : AnsiString ) : QuickDrawType;
+begin
+  result := WaitFunctionReturn(command, @STRING__, @answer);
+end;
 
 // TAnswers.Init() : constructor for the TAnswers object
 
