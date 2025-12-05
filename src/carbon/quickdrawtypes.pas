@@ -17,11 +17,18 @@ uses
 
 
 type
+
+  // special type for private names of quickdraw objects
+  privateRef = AnsiString;
+
+
+  // Point
   Point = record
             h : SInt32;
             v : SInt32;
           end;
 
+  // Rect
   Rect = record
             top    : SInt32;
             left   : SInt32;
@@ -29,16 +36,20 @@ type
             right  : SInt32;
          end;
 
+
+  // Windows, dialogs, grafport, etc
+  WindowPtr    = record name : privateRef; end;  // private
   WindowPtrPtr = ^WindowPtr;
-  WindowPtr    = record name : AnsiString; end;   // private
   WindowRef    = WindowPtr;
   DialogPtr    = WindowPtr;
   DialogRef    = DialogPtr;
   GrafPtr      = WindowPtr;
   CGrafPtr     = WindowPtr;
-  
-  PixMap       = record name : AnsiString; end;   // private
-  
+
+
+  // Pixmap
+  PixMap       = record name : privateRef; end; // private
+
   
 
 implementation

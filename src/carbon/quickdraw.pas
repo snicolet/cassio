@@ -43,10 +43,15 @@ function GetMouse2() : Point;
 // Windows
 function MakeWindow() : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
+
 procedure SetWindowTitle(window : WindowPtr; title : String255);
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
 function GetWindowTitle(window : WindowPtr) : String255;
+
+procedure SetPort(whichPort : GrafPtr);
+procedure GetPort(var whichPort : GrafPtr);
+
 
 // Window comparisons
 operator = (w : WindowPtr; n : NoneType) b : boolean;
@@ -301,6 +306,7 @@ begin
    end;
 end;
 
+
 // SetWindowGeometry() : set the geometry of a window
 
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
@@ -316,6 +322,29 @@ begin
                                             IntToStr(height));
       SendCommand(command);
    end;
+end;
+
+
+// SetPort() : set the current port to the given GrafPtr
+
+procedure SetPort(whichPort : GrafPtr);
+var command : AnsiString;
+begin
+   if whichPort <> None then
+   begin
+      command := 'set-port name=^0';
+      command := ReplaceParameters(command, whichPort.name);
+      SendCommand(command);
+   end;
+end;
+
+
+// GetPort() : get the current port inside the given GrafPtr
+
+procedure GetPort(var whichPort : GrafPtr);
+begin
+   whichPort.name := 'None';
+   WaitFunctionReturn('get-port', @WINDOW__, @whichPort);
 end;
 
 
