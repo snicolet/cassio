@@ -265,14 +265,9 @@ end;
 // SetWindowTitle() : set the title of a window
 
 procedure SetWindowTitle(window : WindowPtr; title : String255);
-var command : AnsiString;
 begin
    if window <> None then 
-   begin
-      command := 'set-window-title name=^0 title="^1"';
-      command := ReplaceParameters(command, window.name, title);
-      SendCommand(command);
-   end;
+      SendCommand('set-window-title name=^0 title="^1"', window.name, title);
 end;
 
 
@@ -293,20 +288,13 @@ end;
 // SetWindowVisibility() : show/hide a window, depending on the visible flag
 
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
-var command : AnsiString;
 begin
    if window <> None then 
    begin
-      command := 'set-window-visible name=^0 visible=^1';
-      command := ReplaceParameters(command, window.name, BoolToStr(visible));
-      SendCommand(command);
+      SendCommand('set-window-visible name=^0 visible=^1', window.name, BoolToStr(visible));
       
       if visible then 
-      begin
-         command := 'show-window name=^0';
-         command := ReplaceParameters(command, window.name);
-         SendCommand(command);
-      end;
+         SendCommand('show-window name=^0', window.name);
    end;
 end;
 
@@ -314,32 +302,23 @@ end;
 // SetWindowGeometry() : set the geometry of a window
 
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
-var command : AnsiString;
 begin
    if window <> None then 
-   begin
-      command := 'set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4';
-      command := ReplaceParameters(command, window.name, 
-                                            IntToStr(where.h), 
-                                            IntToStr(where.v), 
-                                            IntToStr(width),
-                                            IntToStr(height));
-      SendCommand(command);
-   end;
+      SendCommand('set-window-geometry name=^0 left=^1 top=^2 width=^3 height=^4', 
+                   window.name, 
+                   IntToStr(where.h), 
+                   IntToStr(where.v), 
+                   IntToStr(width),
+                   IntToStr(height));
 end;
 
 
 // SetPort() : set the current port to the given GrafPtr
 
 procedure SetPort(whichPort : GrafPtr);
-var command : AnsiString;
 begin
    if whichPort <> None then
-   begin
-      command := 'set-port name=^0';
-      command := ReplaceParameters(command, whichPort.name);
-      SendCommand(command);
-   end;
+      SendCommand('set-port name=^0', whichPort.name);
 end;
 
 
