@@ -52,7 +52,6 @@ function GetWindowTitle(window : WindowPtr) : String255;
 procedure SetPort(whichPort : GrafPtr);
 procedure GetPort(var whichPort : GrafPtr);
 
-
 // Window comparisons
 operator = (w : WindowPtr; n : NoneType) b : boolean;
 operator = (w1, w2 : WindowPtr) b : boolean;
