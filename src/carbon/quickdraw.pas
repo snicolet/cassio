@@ -41,7 +41,7 @@ function GetMouse() : Point;
 function GetMouse2() : Point;
 
 // Windows
-function MakeWindow() : WindowPtr;
+function MakeWindow(n : NoneType) : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 
 procedure SetWindowTitle(window : WindowPtr; title : String255);
@@ -215,7 +215,7 @@ end;
 
 // MakeWindow() : reserve memory for a new window, initializing it to None
 
-function MakeWindow() : WindowPtr;
+function MakeWindow(n : NoneType) : WindowPtr;
 begin
     result.name := 'None';
 end;
@@ -242,7 +242,7 @@ end;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; behind: WindowPtr; goAwayFlag : boolean) : WindowPtr;
 var name : AnsiString;
 begin
-   result := MakeWindow();
+   result := MakeWindow(None);
 
    // creating the window
    name := 'window-' + IntToStr(NewMagicCookie());

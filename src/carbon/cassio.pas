@@ -49,7 +49,7 @@ var
    behind      : WindowPtr;
    oldPort     : grafPtr;
 begin
-    rapport := MakeWindow();
+    rapport := MakeWindow(None);
     tick := Tickcount();
     
     counter := -1;
