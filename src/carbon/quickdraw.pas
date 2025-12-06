@@ -311,7 +311,7 @@ procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 begin
    if window <> None then
    begin
-      SendCommand('set-window-visible name=^0 visible=^1', window.name, BoolToStr(visible));
+      SendCommand('set-window-visibility name=^0 visible=^1', window.name, BoolToStr(visible));
 
       if visible then
          SendCommand('show-window name=^0', window.name);

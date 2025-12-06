@@ -609,7 +609,7 @@ def show_window(args):
    return
 
 
-def set_window_visible(args):
+def set_window_visibility(args):
    """
    Show/Hide a window, obeying the visible flag
    """
@@ -1160,7 +1160,7 @@ def call(id, command, args):
     elif command == "show-window"           :  result = show_window(args)
     elif command == "close-window"          :  result = close_window(args)
     elif command == "clear-window"          :  result = clear_window(args)
-    elif command == "set-window-visible"    :  result = set_window_visible(args)
+    elif command == "set-window-visibility" :  result = set_window_visibility(args)
     elif command == "front-window"          :  result = front_window(args)
     elif command == "init"                  :  result = init(args)
     elif command == "dump"                  :  result = dump(args)

@@ -27,8 +27,8 @@ CARBON-PROTOCOL {4}  new-window             name=WindowID
 CARBON-PROTOCOL {5}  set-window-title       name=WindowID title="About box (in CARBON-PROTOCOL)"
 CARBON-PROTOCOL {6}  get-window-title       name=WindowID
 CARBON-PROTOCOL {7}  set-window-geometry    name=WindowID left=100 top=100 width=350 height=250
-CARBON-PROTOCOL {8}  set-window-visible     name=WindowID visible=True
-CARBON-PROTOCOL {9}  set-window-visible     name=WindowID visible=False
+CARBON-PROTOCOL {8}  set-window-visibility  name=WindowID visible=True
+CARBON-PROTOCOL {9}  set-window-visibility  name=WindowID visible=False
 CARBON-PROTOCOL {10} show-window            name=WindowID
 CARBON-PROTOCOL {11} get-port
 CARBON-PROTOCOL {12} set-port               name=WindowID
