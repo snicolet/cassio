@@ -91,7 +91,7 @@ uses quickdrawcommunications;
 
 
 
-var start          : SInt64;              // milliseconds at the start of the program
+var start          : SInt64;             // milliseconds at the start of the program
     gMouseData :
         record
            mouseLoc : Point ;            // mouse position
@@ -355,7 +355,7 @@ end;
 procedure ClearWindow(window : WindowPtr; filter : String255 = '');
 begin
    if window = None then exit;
-   
+
    if filter <> ''
       then SendCommand('clear-window name=^0 filter=^1', window.name, filter)
       else SendCommand('clear-window name=^0', window.name);
