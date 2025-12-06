@@ -52,6 +52,9 @@ procedure GetPort(var whichPort : GrafPtr);
 function MakeWindow(n : NoneType) : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; goAwayFlag : boolean) : WindowPtr;
 function FrontWindow() : WindowPtr;
+procedure ShowWindow(window : WindowPtr);
+procedure HideWindow(window : WindowPtr);
+procedure ActivateWindow(window : WindowPtr);
 procedure CloseWindow(window : WindowPtr);
 
 function  GetWindowTitle(window : WindowPtr) : String255;
@@ -277,6 +280,15 @@ begin
 end;
 
 
+// ActivateWindow() : activate a window (bringing it to front)
+
+procedure ActivateWindow(window : WindowPtr);
+begin
+   if window <> None then
+      SendCommand('activate-window name=^0', window.name);
+end
+
+
 // CloseWindow() : close a window
 
 procedure CloseWindow(window : WindowPtr);
@@ -314,8 +326,25 @@ begin
       SendCommand('set-window-visibility name=^0 visible=^1', window.name, BoolToStr(visible));
 
       if visible then
-         SendCommand('show-window name=^0', window.name);
+         ShowWindow(window);
    end;
+end;
+
+
+// ShowWindow() : show a window
+
+procedure ShowWindow(window : WindowPtr);
+begin
+   if window <> None then
+      SendCommand('show-window name=^0', window.name);
+end;
+
+
+// HideWindow() : hide a window
+
+procedure HideWindow(window : WindowPtr);
+begin
+   SetWindowVisibility(window, false);
 end;
 
 
