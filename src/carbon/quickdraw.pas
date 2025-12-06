@@ -58,6 +58,8 @@ procedure SetWindowTitle(window : WindowPtr; title : String255);
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
 
+procedure ScrollWindow(window: WindowPtr; dx, dy : SInt32);
+
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -317,6 +319,15 @@ begin
                    IntToStr(height));
 end;
 
+
+// ScrollWindow() : scroll the content of a window
+
+procedure ScrollWindow(window: WindowPtr; dx, dy : SInt32);
+begin
+   if window <> None then
+      SendCommand('scroll-window name=^0 dx=^1 dy=^2',
+                   window.name, IntToStr(dx), IntToStr(dy));
+end;
 
 // SetPort() : set the current port to the given GrafPtr
 

@@ -324,12 +324,31 @@ class CarbonWindow(QWidget):
                 text   = item["text"]
                 h      = item["h"]
                 v      = item["v"]
+                width  = item["a"]
+                height = item["b"]
+                align  = item["align"]
                 pen    = item["pen"]
                 font   = item["font"]
 
                 painter.setFont(font)
                 painter.setPen(pen)
-                painter.drawText(h, v, text)
+
+                if width <= 0 : 
+                   width = 10000
+                if height <= 0 :
+                   height = max(font.pointSize(), font.pixelSize())
+                rect = QRect(h, v - height, width, height)
+
+                flags = Qt.AlignLeft | Qt.AlignVCenter            # default
+                if align == "left"    : flags = Qt.AlignLeft    | Qt.AlignVCenter
+                if align == "right"   : flags = Qt.AlignRight   | Qt.AlignVCenter
+                if align == "top"     : flags = Qt.AlignTop     | Qt.AlignLeft
+                if align == "bottom"  : flags = Qt.AlignBottom  | Qt.AlignLeft
+                if align == "center"  : flags = Qt.AlignCenter
+                if align == "vcenter" : flags = Qt.AlignVCenter | Qt.AlignLeft
+                if align == "hcenter" : flags = Qt.AlignHCenter | Qt.AlignVCenter
+
+                painter.drawText(rect, flags, text)
 
         painter.end()
 

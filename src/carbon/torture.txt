@@ -34,9 +34,9 @@ CARBON-PROTOCOL {11} get-port
 CARBON-PROTOCOL {12} set-port               name=WindowID
 CARBON-PROTOCOL {13} activate-window        name=WindowID
 CARBON-PROTOCOL {14} front-window
-CARBON-PROTOCOL {15} clear-window           name=WindowID
-CARBON-PROTOCOL {16} clear-window           name=WindowID filter="content:"
-CARBON-PROTOCOL {17} close-window           name=WindowID
+#CARBON-PROTOCOL {15} clear-window           name=WindowID
+#CARBON-PROTOCOL {16} clear-window           name=WindowID filter="content:"
+#CARBON-PROTOCOL {17} close-window           name=WindowID
 CARBON-PROTOCOL {18} global-to-local        x=20 y=13 window=windowID
 CARBON-PROTOCOL {19} local-to-global        x=20 y=13 window=windowID
 
@@ -44,11 +44,17 @@ CARBON-PROTOCOL {19} local-to-global        x=20 y=13 window=windowID
 =>    Section: text
 ==========================================================
 
-CARBON-PROTOCOL {50} draw-text-at           text="Hello world"   h=15 v=15 name=label-1
-CARBON-PROTOCOL {51} draw-text-at           text="Centered text" h=15 v=35 name=label-2 width=200 height=15 align=center
-CARBON-PROTOCOL {52} draw-text-at           text="Using z-index" h=15 v=15 name=label-3 zindex=-4
-CARBON-PROTOCOL {53} draw-text-at           "Hello world (1)" 15 15
-CARBON-PROTOCOL {54} string-width           text="This is a string"
+CARBON-PROTOCOL {50} draw-text-at           text="-"             h=2 v=20 name=t-1
+CARBON-PROTOCOL {51} draw-text-at           text="-"             h=2 v=40 name=t-2
+CARBON-PROTOCOL {52} draw-text-at           text="-"             h=2 v=60 name=t-3
+CARBON-PROTOCOL {53} draw-text-at           text="-"             h=2 v=80 name=t-4
+CARBON-PROTOCOL {54} draw-text-at           text="Hello world"   h=15 v=20 name=label-1
+CARBON-PROTOCOL {55} draw-text-at           text="Centered text" h=15 v=40 name=label-2 width=200 height=15 align=center
+CARBON-PROTOCOL {55} draw-text-at           text="Aligned left"  h=15 v=60 name=label-3
+CARBON-PROTOCOL {56} draw-text-at           text="Aligned left"  h=15 v=60 name=label-4 width=200 height=15 align=left
+CARBON-PROTOCOL {57} draw-text-at           text="Using z-index" h=15 v=80 name=label-5 zindex=-4
+CARBON-PROTOCOL {58} draw-text-at           "Hello world (bis)"  15 20
+CARBON-PROTOCOL {59} string-width           text="This is a string"
 
 ==========================================================
 =>    Section: pixmap and image
