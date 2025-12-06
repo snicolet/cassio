@@ -326,7 +326,7 @@ begin
       SendCommand('set-window-visibility name=^0 visible=^1', window.name, BoolToStr(visible));
 
       if visible then
-         ShowWindow(window);
+         SendCommand('show-window name=^0', window.name);
    end;
 end;
 
@@ -335,8 +335,7 @@ end;
 
 procedure ShowWindow(window : WindowPtr);
 begin
-   if window <> None then
-      SendCommand('show-window name=^0', window.name);
+   SetWindowVisibility(window, true);
 end;
 
 
