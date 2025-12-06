@@ -52,6 +52,7 @@ procedure GetPort(var whichPort : GrafPtr);
 function MakeWindow(n : NoneType) : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; goAwayFlag : boolean) : WindowPtr;
 function FrontWindow() : WindowPtr;
+procedure CloseWindow(window : WindowPtr);
 
 function  GetWindowTitle(window : WindowPtr) : String255;
 procedure SetWindowTitle(window : WindowPtr; title : String255);
@@ -59,6 +60,8 @@ procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
 
 procedure ScrollWindow(window: WindowPtr; dx, dy : SInt32);
+procedure ClearWindow(window : WindowPtr; filter : String255 = '');
+procedure EraseItems(window : WindowPtr; filter : String255);
 
 
 // File dialogs
@@ -273,6 +276,16 @@ begin
    WaitFunctionReturn('front-window' , result);
 end;
 
+
+// CloseWindow() : close a window
+
+procedure CloseWindow(window : WindowPtr);
+begin
+   if window <> None then
+      SendCommand('close-window name=^0', window.name);
+end;
+
+
 // SetWindowTitle() : set the title of a window
 
 procedure SetWindowTitle(window : WindowPtr; title : String255);
@@ -328,6 +341,35 @@ begin
       SendCommand('scroll-window name=^0 dx=^1 dy=^2',
                    window.name, IntToStr(dx), IntToStr(dy));
 end;
+
+
+// ClearWindow() : clear the content of a window.
+// If the filter parameter (a string) is given, only the graphic items
+// whose key contains filter will be removed.
+// Examples :
+//       ClearWindow(w)                        (clear window)
+//       ClearWindow(w, 'IMG:')                (clear images)
+//       ClearWindow(w, 'TEXT:name=foo ')      (clear text named "foo")
+//       ClearWindow(w, 'TEXT:pos=20;30 ')     (clear text at position (20,30))
+
+procedure ClearWindow(window : WindowPtr; filter : String255 = '');
+begin
+   if window = None then exit;
+   
+   if filter <> ''
+      then SendCommand('clear-window name=^0 filter=^1', window.name, filter)
+      else SendCommand('clear-window name=^0', window.name);
+end;
+
+
+// EraseObjects() : erase graphical items in a window, as specified by filter.
+// See the description of ClearWindow() for examples of the filter parameter.
+
+procedure EraseItems(window : WindowPtr; filter : String255);
+begin
+   ClearWindow(window, filter);
+end;
+
 
 // SetPort() : set the current port to the given GrafPtr
 

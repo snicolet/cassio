@@ -665,7 +665,7 @@ def clear_window(args):
        clear-window WindowID                              (clear window)
        clear-window WindowID filter="IMG:"                (clear images)
        clear-window WindowID filter="TEXT:name=foo "      (clear text named "foo")
-       clear-window WindowID filter="TEXT:pos=20;30 "     (clear text at pos (20,30))
+       clear-window WindowID filter="TEXT:pos=20;30 "     (clear text at position (20,30))
    """
 
    global current_port
