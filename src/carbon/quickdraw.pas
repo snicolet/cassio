@@ -69,6 +69,7 @@ procedure EraseItems(window : WindowPtr; filter : String255);
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
+function SaveFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 
 // Ressources
 function ReadStringFromRessource(stringListID, index : SInt16) : String255;
@@ -100,7 +101,7 @@ var start          : SInt64;             // milliseconds at the start of the pro
            mouseLoc : Point ;            // mouse position
            when     : SInt64 ;           // date in milliseconds
         end;
-    getOpenFileDialogData :
+    gFileDialogData :
         record
            filePath : AnsiString;        // file path
         end;
@@ -286,7 +287,7 @@ procedure ActivateWindow(window : WindowPtr);
 begin
    if window <> None then
       SendCommand('activate-window name=^0', window.name);
-end
+end;
 
 
 // CloseWindow() : close a window
@@ -418,11 +419,35 @@ end;
 
 // Parsing the file path from the open-file-dialog answer
 
-procedure InterpretOpenFileDialog(var line : AnsiString; data : Pointer);
+procedure InterpretFileDialog(var line : AnsiString; data : Pointer);
 var parts: TStringArray;
 begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
-    getOpenFileDialogData.filePath := parts[3];
+    gFileDialogData.filePath := parts[3];
+end;
+
+
+// DoFileDialog() : helper to implement OpenFileDialog()/ SaveFileDialog()
+// The variable command must be either 'open-file-dialog' or 'save-file-dialog'
+
+function DoFileDialog(command, prompt, directory, filter : AnsiString) : AnsiString;
+const NONE = 'None Filename $•&%';
+begin
+   gFileDialogData.filePath := NONE;
+
+   command := command + ' prompt="' + MyUrlEncode(prompt) + '"';
+   command := command + ' dir="'    + MyUrlEncode(directory) + '"';
+   command := command + ' filter="' + MyUrlEncode(filter) + '"';
+
+   SendCommand(command, @InterpretFileDialog, NIL);
+
+   while (gFileDialogData.filePath = NONE) do
+   begin
+      ReadTaskOutput(gCarbonTask);
+      sleep(1);
+   end;
+
+   result := MyUrlDecode(gFileDialogData.filePath);
 end;
 
 
@@ -432,28 +457,20 @@ end;
 // has canceled the dialog.
 
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
-const NONE = 'None Filename $•&%';
-var command : AnsiString;
 begin
-   getOpenFileDialogData.filePath := NONE;
-
-   command := 'open-file-dialog';
-   command := command + ' prompt="' + MyUrlEncode(prompt) + '"';
-   command := command + ' dir="'    + MyUrlEncode(directory) + '"';
-   command := command + ' filter="' + MyUrlEncode(filter) + '"';
-
-   SendCommand(command, @InterpretOpenFileDialog, NIL);
-
-   while (getOpenFileDialogData.filePath = NONE) do
-   begin
-      ReadTaskOutput(gCarbonTask);
-      sleep(1);
-   end;
-
-   result := MyUrlDecode(getOpenFileDialogData.filePath);
+   result := DoFileDialog('open-file-dialog', prompt, directory, filter);
 end;
 
 
+// SaveFileDialog() : opens the system "Save file" dialog, and wait for the
+// user to choose a file name (so this is a blocking call). The function returns
+// the path of the file choosen by the user, or the empty string if the user
+// has canceled the dialog.
+
+function SaveFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
+begin
+   result := DoFileDialog('save-file-dialog', prompt, directory, filter);
+end;
 
 
 
