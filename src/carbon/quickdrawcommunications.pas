@@ -467,7 +467,7 @@ begin
     p^.status := kWINDOW;
     p1 := WindowPtrPtr(p^.value);
 
-    if Pos('ERROR (', s) = 1
+    if (Pos('ERROR (', s) = 1)
       then p1^.name := 'None'
       else p1^.name := s;
 end;

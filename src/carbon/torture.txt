@@ -32,11 +32,13 @@ CARBON-PROTOCOL {9}  set-window-visible     name=WindowID visible=False
 CARBON-PROTOCOL {10} show-window            name=WindowID
 CARBON-PROTOCOL {11} get-port
 CARBON-PROTOCOL {12} set-port               name=WindowID
-CARBON-PROTOCOL {13} clear-window           name=WindowID
-CARBON-PROTOCOL {14} clear-window           name=WindowID filter="content:"
-CARBON-PROTOCOL {15} close-window           name=WindowID
-CARBON-PROTOCOL {16} global-to-local        x=20 y=13 window=windowID
-CARBON-PROTOCOL {17} local-to-global        x=20 y=13 window=windowID
+CARBON-PROTOCOL {13} activate-window        name=WindowID
+CARBON-PROTOCOL {14} front-window
+CARBON-PROTOCOL {15} clear-window           name=WindowID
+CARBON-PROTOCOL {16} clear-window           name=WindowID filter="content:"
+CARBON-PROTOCOL {17} close-window           name=WindowID
+CARBON-PROTOCOL {18} global-to-local        x=20 y=13 window=windowID
+CARBON-PROTOCOL {19} local-to-global        x=20 y=13 window=windowID
 
 ==========================================================
 =>    Section: text
@@ -258,10 +260,15 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 @  set-image-position     image1 100 131
 @  draw-image             image1  zindex=-1000
 @  draw-image             blah-blah-blah
-@  new-window             Window-4 behind=Window-2
+@  new-window             Window-4
 @  set-window-title       Window-4 "Fenêtre-4"
 @  set-window-geometry    Window-4 250 250 1000 180
 @  activate-window        Window-2
+@  front-window
+@  activate-window        Window-4
+@  front-window
+@  activate-window        Window-2
+@  front-window
 @  keep-alive
 #@ open-file-dialog       prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog       prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'

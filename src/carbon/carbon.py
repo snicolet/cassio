@@ -500,8 +500,15 @@ def activate_window(args):
    name  = find_named_parameter("name" , args, 0, STRING)
 
    window = find_window(name)
-   if window:
+   if window :
+       state = window.windowState()
+       state = (state & ~Qt.WindowMinimized ) | Qt.WindowActive
+       window.setWindowState(state)
        window.activateWindow()
+       window.raise_()
+       window.setFocus()
+       window.show()
+       window.update()
 
    return
 
@@ -597,6 +604,15 @@ def set_window_visible(args):
 
    return
 
+
+def front_window(args):
+
+   for name in windows :
+       window = find_window(name)
+       if window and window.isActiveWindow() :
+             return name
+
+   return "None"
 
 
 def close_window(args):
@@ -1126,6 +1142,7 @@ def call(id, command, args):
     elif command == "close-window"          :  result = close_window(args)
     elif command == "clear-window"          :  result = clear_window(args)
     elif command == "set-window-visible"    :  result = set_window_visible(args)
+    elif command == "front-window"          :  result = front_window(args)
     elif command == "init"                  :  result = init(args)
     elif command == "dump"                  :  result = dump(args)
     elif command == "echo"                  :  result = echo(args)

@@ -51,11 +51,13 @@ procedure GetPort(var whichPort : GrafPtr);
 // Windows
 function MakeWindow(n : NoneType) : WindowPtr;
 function NewWindow(bounds : Rect; title : String255; visible : boolean; goAwayFlag : boolean) : WindowPtr;
+function FrontWindow() : WindowPtr;
 
 function  GetWindowTitle(window : WindowPtr) : String255;
 procedure SetWindowTitle(window : WindowPtr; title : String255);
 procedure SetWindowVisibility(window : WindowPtr; visible : boolean);
 procedure SetWindowGeometry(window : WindowPtr; where : Point; width, height : SInt32);
+
 
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -260,6 +262,14 @@ begin
    end;
 end;
 
+
+// FrontWindow() : get the front window
+
+function FrontWindow() : WindowPtr;
+begin
+   result := MakeWindow(None);
+   WaitFunctionReturn('front-window' , result);
+end;
 
 // SetWindowTitle() : set the title of a window
 

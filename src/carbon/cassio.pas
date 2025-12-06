@@ -46,7 +46,7 @@ var
    loc         : Point;
    k, r, N     : SInt64;
    rapport     : WindowPtr;
-   behind      : WindowPtr;
+   front       : WindowPtr;
    oldPort     : grafPtr;
 begin
     rapport := MakeWindow(None);
@@ -100,6 +100,12 @@ begin
           loc := GetMouse();
           if (abs(loc.h) < 0) then
              writeln(loc.h, ' ' , loc.v);
+       end;
+
+       if false and (Tickcount() > 300) then
+       begin
+          front := FrontWindow();
+          writeln(front.name);
        end;
 
        if false and (Tickcount() > 300) and (Tickcount() - tick >= 300) then
