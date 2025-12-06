@@ -70,6 +70,7 @@ procedure EraseItems(window : WindowPtr; filter : String255);
 // File dialogs
 function OpenFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
 function SaveFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
+function ChooseDirectoryDialog(prompt, directory : AnsiString) : AnsiString;
 
 // Ressources
 function ReadStringFromRessource(stringListID, index : SInt16) : String255;
@@ -103,7 +104,7 @@ var start          : SInt64;             // milliseconds at the start of the pro
         end;
     gFileDialogData :
         record
-           filePath : AnsiString;        // file path
+           thePath : AnsiString;        // file or directory path
         end;
 
 
@@ -423,31 +424,33 @@ procedure InterpretFileDialog(var line : AnsiString; data : Pointer);
 var parts: TStringArray;
 begin
     parts := line.Split(' ', '"', '"', 4, TStringSplitOptions.ExcludeEmpty);
-    gFileDialogData.filePath := parts[3];
+    gFileDialogData.thePath := parts[3];
 end;
 
 
-// DoFileDialog() : helper to implement OpenFileDialog()/ SaveFileDialog()
-// The variable command must be either 'open-file-dialog' or 'save-file-dialog'
+// DoFileDialog() : helper to implement the three functions OpenFileDialog(),
+// SaveFileDialog() and ChooseDirectoryDialog(). The variable command must be 
+// either 'open-file-dialog' or 'save-file-dialog' or 'get-directory-dialog'.
 
 function DoFileDialog(command, prompt, directory, filter : AnsiString) : AnsiString;
 const NONE = 'None Filename $•&%';
 begin
-   gFileDialogData.filePath := NONE;
+   gFileDialogData.thePath := NONE;
 
    command := command + ' prompt="' + MyUrlEncode(prompt) + '"';
    command := command + ' dir="'    + MyUrlEncode(directory) + '"';
-   command := command + ' filter="' + MyUrlEncode(filter) + '"';
+   if command <> 'get-directory-dialog' then
+       command := command + ' filter="' + MyUrlEncode(filter) + '"';
 
    SendCommand(command, @InterpretFileDialog, NIL);
 
-   while (gFileDialogData.filePath = NONE) do
+   while (gFileDialogData.thePath = NONE) do
    begin
       ReadTaskOutput(gCarbonTask);
       sleep(1);
    end;
 
-   result := MyUrlDecode(gFileDialogData.filePath);
+   result := MyUrlDecode(gFileDialogData.thePath);
 end;
 
 
@@ -464,7 +467,7 @@ end;
 
 // SaveFileDialog() : opens the system "Save file" dialog, and wait for the
 // user to choose a file name (so this is a blocking call). The function returns
-// the path of the file choosen by the user, or the empty string if the user
+// the path of the file chosen by the user, or the empty string if the user
 // has canceled the dialog.
 
 function SaveFileDialog(prompt, directory, filter : AnsiString) : AnsiString;
@@ -472,6 +475,16 @@ begin
    result := DoFileDialog('save-file-dialog', prompt, directory, filter);
 end;
 
+
+// ChooseDirectoryDialog() : opens the system "Choose directory" dialog, and
+// wait for the user to choose a directory (so this is a blocking call). The
+// function returns the path of directory chosen by the user, or the empty 
+// string if the user has canceled the dialog.
+
+function ChooseDirectoryDialog(prompt, directory : AnsiString) : AnsiString;
+begin
+   result := DoFileDialog('get-directory-dialog', prompt, directory, '');
+end;
 
 
 // QDRandom() : a stupid function which sends a random64 value to the server
