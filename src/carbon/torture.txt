@@ -79,8 +79,9 @@ CARBON-PROTOCOL {150}  get-mouse
 =>    Section: files
 ==========================================================
 
-# CARBON-PROTOCOL {180} save-file-dialog    prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
-# CARBON-PROTOCOL {181} open-file-dialog    prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {180} save-file-dialog     prompt="myText" dir="images/example.jpg" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {181} open-file-dialog     prompt="myText" dir="images/" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+# CARBON-PROTOCOL {182} get-directory-dialog prompt="myText" dir="images/"
 
 ==========================================================
 =>    Section: dialogs
@@ -219,10 +220,10 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 @  draw-text-at           "Bienvenue dans Cassio" 80 70
 @  draw-text-at           "Bienvenue dans Cassio" 60 85
 @  set-pen-color          #FF0000
-@  draw-text-at           "Les longs sanglots de l'automne" 60 85
+@  draw-text-at           "Les sanglots longs des violons de l'automne" 60 85
 @  draw-text-at           "Bienvenue dans Cassio" 40 100 name="content:poeme"
 @  set-pen-color          #00FF00
-@  draw-text-at           "Bercent mon cœur d'une langueur monotone" 40 100 name="content:poeme"
+@  draw-text-at           "Blessent mon cœur d'une langueur monotone" 40 100 name="content:poeme"
 @  set-pen-color          #000000
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
 @  draw-text-at           "Bienvenue dans Cassio" 20 115
@@ -279,7 +280,9 @@ CARBON-PROTOCOL {705} set-font-size         size=15
 #@ open-file-dialog       prompt="Select a File" dir="" filter="Images (*.png *.jpg *.jpeg)"
 #@ open-file-dialog       prompt='Select a File' dir='' filter='Images (*.png *.jpg *.jpeg)'
 #@ open-file-dialog       "Select a File"   ""    "Images (*.png *.jpg *.jpeg)"
-#@ open-file-dialog       prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+#@ open-file-dialog        prompt="Choisissez%20un%20fichier" dir="" filter="Images%20(*.png%20*.jpg%20*.jpeg)"
+#@ save-file-dialog        prompt="Save your file" dir="" filter="Text files%20(*.txt)"
+@  get-directory-dialog    prompt="Choose a directory" dir=""
 @ dump
 
 =================================================================

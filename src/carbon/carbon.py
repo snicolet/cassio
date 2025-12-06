@@ -983,7 +983,7 @@ def open_file_dialog(args):
     """
 
     options = QFileDialog.Options()
-    #options |= QFileDialog.DontUseNativeDialog
+    # options |= QFileDialog.DontUseNativeDialog
 
     caption   = find_named_parameter("prompt", args, OPTIONAL , STRING)
     directory = find_named_parameter("dir"   , args, OPTIONAL , STRING)
@@ -1022,7 +1022,7 @@ def save_file_dialog(args):
     """
 
     options = QFileDialog.Options()
-    #options |= QFileDialog.DontUseNativeDialog
+    # options |= QFileDialog.DontUseNativeDialog
 
     caption   = find_named_parameter("prompt", args, OPTIONAL , STRING)
     directory = find_named_parameter("dir"   , args, OPTIONAL , STRING)
@@ -1049,6 +1049,41 @@ def save_file_dialog(args):
     result = ""
     if filename :
         result = my_url_encode(str(Path(filename)))
+
+    return ("\"{}\"".format(result))
+
+
+def get_directory_dialog(args):
+    """
+    Blocking call, showing the usual system dialog for choosing a directory.
+    The eturned value is the complete path of the directory name chosen by
+    the user, or the empty string if the user has canceled the dialog.
+    """
+
+    options = QFileDialog.Options()
+    # options |= QFileDialog.DontUseNativeDialog
+
+    caption   = find_named_parameter("prompt", args, OPTIONAL , STRING)
+    directory = find_named_parameter("dir"   , args, OPTIONAL , STRING)
+
+    if caption   is None : caption   = args[0]
+    if directory is None : directory = args[1]
+
+    caption   = my_url_decode(caption)
+    directory = my_url_decode(directory)
+
+    dirName = QFileDialog.getExistingDirectory(
+            parent    = None,
+            caption   = caption,
+            directory = directory,
+            options   = options )
+
+    if (type(dirName) is tuple) :   # pyqt5 returns a couple, pyqt4 not
+        dirName = dirName[0]
+
+    result = ""
+    if dirName :
+        result = my_url_encode(str(Path(dirName)))
 
     return ("\"{}\"".format(result))
 
@@ -1152,6 +1187,7 @@ def call(id, command, args):
     elif command == "set-image-pixmap"      :  result = set_image_pixmap(args)
     elif command == "open-file-dialog"      :  result = open_file_dialog(args)
     elif command == "save-file-dialog"      :  result = save_file_dialog(args)
+    elif command == "get-directory-dialog"  :  result = get_directory_dialog(args)
     elif command == "new-window"            :  result = new_window(args)
     elif command == "activate-window"       :  result = activate_window(args)
     elif command == "set-window-title"      :  result = set_window_title(args)
@@ -1568,7 +1604,7 @@ if __name__ == "__main__":
     gui = GUI(server=input_thread)
 
     # open the Hello World window (programmed in pure Qt)
-    # window = HelloWorldWindow()
+    window = HelloWorldWindow()
 
     # read the (optional) input file
     if (input_file_name != "") :
