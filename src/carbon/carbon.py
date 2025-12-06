@@ -1056,7 +1056,7 @@ def save_file_dialog(args):
 def get_directory_dialog(args):
     """
     Blocking call, showing the usual system dialog for choosing a directory.
-    The eturned value is the complete path of the directory name chosen by
+    The returned value is the complete path of the directory name chosen by
     the user, or the empty string if the user has canceled the dialog.
     """
 
