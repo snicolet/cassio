@@ -644,6 +644,9 @@ def close_window(args):
 
    window = find_window(name)
    if window :
+       # remove graphic items from the window
+       window.graphics.clear()
+
        # close window
        window.close()
 
